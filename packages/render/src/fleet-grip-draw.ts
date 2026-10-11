@@ -125,6 +125,7 @@ export function drawFleetGrip(
       held: grip.held,
       time,
       way: PULL_DOWN,
+      key: "fleet:wreck",
     });
   } else drawGripRing(ctx, ring.x, ring.y, ring.r, grip.held, time);
   // The word goes as soon as the thumb lands, the way THE MAZE's heart's does.

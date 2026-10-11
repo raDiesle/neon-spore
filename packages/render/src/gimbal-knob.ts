@@ -123,10 +123,10 @@ export function drawGimbalKnob(
   const knob = gimbalKnobAt(l, at, s, ring);
   const through = gimbalKnobThrough(l, s, ring);
   const track = knobTrack(l, at, ring, r * PULL_TRACK_W);
-  drawPullTrack(ctx, track, { ...LOOK, held, origin: 0, at: through, time });
+  drawPullTrack(ctx, track, { ...LOOK, held, origin: 0, at: through, time, key: "gimbal" });
   const way = pullWay(track, through, through < 0 ? 0 : 1);
   drawMazeLever(ctx, { cx: at.x, cy: at.y, r: gimbalRingR(l, ring) }, knob, r, held);
-  drawPullKnob(ctx, knob, r, { ...LOOK, held, time, way, either: through === 0 });
+  drawPullKnob(ctx, knob, r, { ...LOOK, held, time, way, either: through === 0, key: "gimbal" });
   // The word goes as soon as a hand lands, as THE MAZE's does.
   if (held) return;
   drawHandleHint(ctx, l, l.role, knob.x, knob.y + l.tile * 0.75, HINT_LOUD, wordsOf(ring));

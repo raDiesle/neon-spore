@@ -18,6 +18,7 @@ import { handedView } from "./handover.js";
 import { frame, skinSampler, surfaceSampler } from "./hull-frame.js";
 import { computeStage, frameLayout } from "./layout.js";
 import { watchMarks } from "./mark-spots.js";
+import { watchPulls } from "./pull-memory.js";
 import type { Renderer, Viewport, ViewState } from "./renderer.js";
 import { seenView } from "./unseen.js";
 
@@ -102,11 +103,14 @@ export class Canvas2DRenderer extends HeldHost implements Renderer {
     // none of last run's state meaning anything, and this frame is already
     // the new run's first. `restarted` forgets as it answers.
     this.held.restarted(world);
+    // And, after it, what each pull handle has been through, for its fizz (`pull-memory.ts`).
+    watchPulls(ctx, this.held.effects.pulls, view.time);
 
     // The two frames that are not the field — the guide's rehearsal and a boss
     // round — each take the whole stage and end the frame here
     // (`canvas2d-takeover.ts`). The clocks they run go forward either way.
     if (drawTakeover(ctx, l, view, this.held, stage)) {
+      this.held.effects.pulls.endFrame(ctx);
       this.held.thumbs.frame(ctx, l, view);
       ctx.restore();
       return;
@@ -199,6 +203,7 @@ export class Canvas2DRenderer extends HeldHost implements Renderer {
     });
     // Over the finished band, what is about the band or the whole screen (`canvas2d-over.ts`).
     drawOverBand(ctx, l, world, view, this.held, cue);
+    this.held.effects.pulls.endFrame(ctx);
     this.held.thumbs.frame(ctx, l, view);
     ctx.restore();
 

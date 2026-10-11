@@ -42,9 +42,15 @@ export function drawBlisterTurn(
   const a = REST + sign * share * Math.PI * 2;
   const knob = { x: at.x + Math.cos(a) * ring, y: at.y + Math.sin(a) * ring };
   const track = channel(at, ring, sign, knobR * PULL_TRACK_W);
-  drawPullTrack(ctx, track, { ...LOOK, held, origin: 0, at: share, time });
+  drawPullTrack(ctx, track, { ...LOOK, held, origin: 0, at: share, time, key: `blister:${c.id}` });
   drawMazeLever(ctx, { cx: at.x, cy: at.y, r: at.r }, knob, knobR, held);
-  drawPullKnob(ctx, knob, knobR, { ...LOOK, held, time, way: pullWay(track, share, 1) });
+  drawPullKnob(ctx, knob, knobR, {
+    ...LOOK,
+    held,
+    time,
+    way: pullWay(track, share, 1),
+    key: `blister:${c.id}`,
+  });
 }
 
 /** Where the knob rests: straight up, where a clock's turn starts. */

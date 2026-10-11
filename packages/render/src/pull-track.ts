@@ -1,7 +1,7 @@
 import type { Point } from "@neon-spore/content";
 import { paintGooTrack } from "./goo-track.js";
-import { PALETTE, STROKE } from "./palette.js";
 import type { PullWay } from "./pull-line.js";
+import { pullMemoryOf } from "./pull-memory.js";
 
 /**
  * **A pull is drawn as the way the hand goes, and a big circle where it
@@ -53,9 +53,14 @@ export interface PullTrackDraw {
   /** What the last lift came to and how many seconds ago, while it is shown,
    * and how far off the path the hand has the knob, in field pixels. FIZZ
    * (`goo-track.ts`) plays its count, its refusal and a fresh drop coming in
-   * from these; only the PULL LAB fills them today, so in the game a knob
-   * waits and is held and nothing more. */
+   * from these: the PULL LAB fills them itself, and in the game `key` has
+   * `PullMemory` fill them. */
   readonly after?: PullAfter;
+  /** Which handle this is, the same string every frame, for `PullMemory` to fill `after`
+   * when the caller does not (`pull-memory.ts`); with none, nothing is remembered. */
+  readonly key?: string;
+  /** The caller's own word that this pull has counted, read off its boss's state. */
+  readonly counted?: boolean;
 }
 
 export interface PullAfter {
@@ -88,7 +93,7 @@ export interface PullAfter {
 export const PULL_TRACK_W = 0.28;
 
 /** The spine's running length at each point. */
-function lengths(pts: readonly Point[]): number[] {
+export function pullTrackLengths(pts: readonly Point[]): number[] {
   const out = [0];
   for (let i = 1; i < pts.length; i++) {
     const a = pts[i - 1] as Point;
@@ -103,7 +108,7 @@ export function pullTrackPoint(
   t: PullTrack,
   k: number,
 ): { x: number; y: number; dx: number; dy: number } {
-  const run = lengths(t.pts);
+  const run = pullTrackLengths(t.pts);
   const total = run[run.length - 1] ?? 0;
   const lap = t.closed ? k - Math.floor(k) : Math.max(0, Math.min(1, k));
   const want = lap * total;
@@ -133,112 +138,30 @@ export function pullWay(t: PullTrack, at: number, toward: 0 | 1): PullWay {
   return { dx: q.dx * sign, dy: q.dy * sign };
 }
 
-/** The piece of the spine between two fractions, as one open path. */
-function slice(t: PullTrack, from: number, to: number): Path2D {
-  const p = new Path2D();
-  const steps = Math.max(1, Math.ceil((to - from) * (t.pts.length - 1)));
-  for (let i = 0; i <= steps; i++) {
-    // Short of a seam by a hair, so a closed loop's last point is not wrapped to its first.
-    const k = from + ((to - from) * i) / steps;
-    const q = pullTrackPoint(t, i === steps && t.closed && to - from >= 1 ? k - 1e-6 : k);
-    if (i === 0) p.moveTo(q.x, q.y);
-    else p.lineTo(q.x, q.y);
-  }
-  return p;
-}
-
-/** One stroke of the spine, round-ended, at a width and a colour. */
-function stroke(
-  ctx: CanvasRenderingContext2D,
-  p: Path2D,
-  color: string,
-  width: number,
-  alpha: number,
-): void {
-  ctx.strokeStyle = color;
-  ctx.lineWidth = width;
-  ctx.globalAlpha = alpha;
-  ctx.stroke(p);
-}
-
-/** How far apart the chevrons run, in half-widths. */
-const CHEVRON_EVERY = 7;
-
-/** How far round a closed track the chevrons reach from the hand, as a share of the loop. */
-const CLOSED_REACH = 0.14;
-
-/** Chevrons from `from` towards `to`, drifting the way the hand should go. */
-function chevrons(
-  ctx: CanvasRenderingContext2D,
-  t: PullTrack,
-  from: number,
-  to: number,
-  time: number,
-): void {
-  const total = lengths(t.pts).at(-1) ?? 0;
-  const span = Math.abs(to - from) * total;
-  // Closer together on a short run, so a half-channel still says which way;
-  // none once there is not room for one.
-  const gap = Math.min(t.w * CHEVRON_EVERY, span / 1.5);
-  if (span < t.w * 3) return;
-  const way = to > from ? 1 : -1;
-  const drift = ((time * 1.2) % 1) * gap;
-  ctx.strokeStyle = PALETTE.text;
-  ctx.lineWidth = STROKE.inner;
-  for (let d = drift; d < span - gap * 0.3; d += gap) {
-    if (d < gap * 0.3) continue;
-    const q = pullTrackPoint(t, from + (way * d) / total);
-    const fx = q.dx * way;
-    const fy = q.dy * way;
-    const s = t.w * 0.9;
-    ctx.globalAlpha = 0.6 * Math.min(1, (span - d) / gap, d / gap);
-    const v = new Path2D();
-    v.moveTo(q.x - fx * s - fy * s, q.y - fy * s + fx * s);
-    v.lineTo(q.x, q.y);
-    v.lineTo(q.x - fx * s + fy * s, q.y - fy * s - fx * s);
-    ctx.stroke(v);
-  }
-}
-
 /** The channel, the green behind the hand, and the chevrons ahead of it —
  * through `PULL_TRACK`, the way `drawPullKnob` reaches its knob. */
 export function drawPullTrack(ctx: CanvasRenderingContext2D, t: PullTrack, o: PullTrackDraw): void {
-  PULL_TRACK.paint(ctx, t, o);
-}
-
-/** **The thin channel**: every pull's until FIZZ (11 October 2026), and still a
- * turn's — FIZZ's channel draws this one where the track is `closed`. */
-export function paintPullTrack(
-  ctx: CanvasRenderingContext2D,
-  t: PullTrack,
-  o: PullTrackDraw,
-): void {
-  const whole = slice(t, 0, 1);
-  ctx.save();
-  ctx.lineCap = "round";
-  ctx.lineJoin = "round";
-  stroke(ctx, whole, o.held ? o.rim : o.hex, t.w * 2 + STROKE.inner * 2, o.held ? 0.7 : 0.45);
-  stroke(ctx, whole, PALETTE.background, t.w * 2, 1);
-  stroke(ctx, whole, o.hex, t.w * 2, o.held ? 0.25 : 0.12);
-  const lo = Math.min(o.origin, o.at);
-  const hi = t.closed ? Math.min(lo + 1, Math.max(o.origin, o.at)) : Math.max(o.origin, o.at);
-  if (hi - lo > 0.001) stroke(ctx, slice(t, lo, hi), PALETTE.good, t.w * 1.6, 0.95);
-  const ahead = (to: number) => chevrons(ctx, t, o.at, to, o.time);
-  if (t.closed) {
-    // A loop has no end to point at: a stretch ahead of the hand, or both
-    // ways from it while it has not gone either way yet.
-    if (o.at >= o.origin) ahead(o.at + CLOSED_REACH);
-    if (o.at <= o.origin) ahead(o.at - CLOSED_REACH);
-  } else if (o.at > o.origin || o.origin <= 0) ahead(1);
-  else if (o.at < o.origin || o.origin >= 1) ahead(0);
-  else {
-    ahead(1);
-    ahead(0);
+  const memory = o.key === undefined || o.after ? undefined : pullMemoryOf(ctx);
+  if (memory === undefined || o.key === undefined) {
+    PULL_TRACK.paint(ctx, t, o);
+    return;
   }
-  ctx.restore();
+  // A closed channel is still the thin ring and plays no ending, so it is given none.
+  const open = t.closed !== true;
+  const after = memory.observe({
+    key: o.key,
+    held: o.held,
+    origin: o.origin,
+    at: open ? o.at : undefined,
+    counted: open && o.counted,
+  });
+  memory.keepTrack(o.key, t, o, ctx.getTransform());
+  PULL_TRACK.paint(ctx, t, { ...o, after });
 }
 
 /** What `drawPullTrack` draws with: the PULL LAB's FIZZ channel (`goo-track.ts`) — the
- * one above on a closed track, a turn — unless something holds another in its place
+ * thin one (`pull-track-thin.ts`) on a closed track, a turn — unless something holds another in its place
  * for a frame. */
-export const PULL_TRACK: { paint: typeof paintPullTrack } = { paint: paintGooTrack };
+export const PULL_TRACK: {
+  paint: (ctx: CanvasRenderingContext2D, t: PullTrack, o: PullTrackDraw) => void;
+} = { paint: paintGooTrack };

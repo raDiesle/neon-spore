@@ -66,11 +66,33 @@ export function drawLampreyHandles(
         len,
         follow: false,
       });
-      if (mine) drawPullTrack(ctx, track, { ...look(mine), held, origin: 0, at: pull, time });
+      if (mine)
+        drawPullTrack(ctx, track, {
+          ...look(mine),
+          held,
+          origin: 0,
+          at: pull,
+          time,
+          key: "lamprey:tail",
+        });
       const way = mine ? pullWay(track, pull, 1) : null;
-      drawPullKnob(ctx, at, rest.r, { ...look(mine), held, time, way, theirs: !mine });
+      drawPullKnob(ctx, at, rest.r, {
+        ...look(mine),
+        held,
+        time,
+        way,
+        theirs: !mine,
+        key: "lamprey:tail",
+      });
     } else {
-      drawPullKnob(ctx, rest, rest.r, { ...look(mine), held, time, way: null, theirs: !mine });
+      drawPullKnob(ctx, rest, rest.r, {
+        ...look(mine),
+        held,
+        time,
+        way: null,
+        theirs: !mine,
+        key: "lamprey:tail",
+      });
     }
   }
   if (worker !== null && ask === "tow") {
@@ -79,9 +101,24 @@ export function drawLampreyHandles(
     const pull = Math.min(1, s.towMilli / Math.max(1, cfg.lampreyTowMilli));
     const held = s.towFrom >= 0;
     const track = lampreyTowTrack(l, cfg, s);
-    if (mine) drawPullTrack(ctx, track, { ...look(mine), held, origin: 0, at: pull, time });
+    if (mine)
+      drawPullTrack(ctx, track, {
+        ...look(mine),
+        held,
+        origin: 0,
+        at: pull,
+        time,
+        key: "lamprey:tow",
+      });
     const way = mine ? pullWay(track, pull, 1) : null;
-    drawPullKnob(ctx, at, at.r, { ...look(mine), held, time, way, theirs: !mine });
+    drawPullKnob(ctx, at, at.r, {
+      ...look(mine),
+      held,
+      time,
+      way,
+      theirs: !mine,
+      key: "lamprey:tow",
+    });
   }
   if (worker !== null && (ask === "pull" || ask === "apart")) {
     const mine = seatIsMine(l.role, worker);
@@ -100,9 +137,24 @@ export function drawLampreyHandles(
       len,
       follow: false,
     });
-    if (mine) drawPullTrack(ctx, track, { ...look(mine), held, origin: 0, at: pull, time });
+    if (mine)
+      drawPullTrack(ctx, track, {
+        ...look(mine),
+        held,
+        origin: 0,
+        at: pull,
+        time,
+        key: "lamprey:head",
+      });
     const way = mine ? PULL_UP : null;
-    drawPullKnob(ctx, at, rest.r, { ...look(mine), held, time, way, theirs: !mine });
+    drawPullKnob(ctx, at, rest.r, {
+      ...look(mine),
+      held,
+      time,
+      way,
+      theirs: !mine,
+      key: "lamprey:head",
+    });
   }
 }
 

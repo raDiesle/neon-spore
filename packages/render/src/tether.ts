@@ -117,11 +117,11 @@ export function drawTether(
   // channel; then the circle to start, at the rope's end, where the thumb has
   // it (`pull-knob.ts`).
   const track = wardenRopeTrack(l, cfg, b, head, rest);
-  drawPullTrack(ctx, track, { hex, rim, held, origin: 0, at: pull, time });
+  drawPullTrack(ctx, track, { hex, rim, held, origin: 0, at: pull, time, key: "warden" });
   TETHER_LOOK.rope(d);
   TETHER_LOOK.root(d);
   // The arrow in it points the way the rope comes, on the seat that pulls it.
   const way = handleIsMine(l.role) ? pullWay(track, pull, 1) : null;
-  drawPullKnob(ctx, head, rest.r, { hex, rim, held, time, way });
+  drawPullKnob(ctx, head, rest.r, { hex, rim, held, time, way, key: "warden" });
   if (!held) drawHandleHint(ctx, l, l.role, head.x, head.y + l.tile * 0.75, HINT_LOUD);
 }

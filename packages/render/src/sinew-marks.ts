@@ -58,6 +58,8 @@ export function drawSinewChannel(
   pull: number,
   held: boolean,
   time: number,
+  /** Which handle, for what it has just been through (`PullTrackDraw.key`). */
+  key?: string,
 ): void {
   const track = straightPullTrack({
     from: rest,
@@ -75,6 +77,7 @@ export function drawSinewChannel(
     origin: 0,
     at: pull,
     time,
+    key,
   });
 }
 

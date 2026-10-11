@@ -38152,3 +38152,17 @@ Bottleneck: the first lane built a checkbox where the owner had asked for a drag
 Bottleneck: friction — the tests read the knob's colours, not the knob.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-11 — FIZZ plays in the game what it plays in the lab
+
+- reading: 15 min. Which of the twenty-odd handles counts how, and which
+  are gone the tick they count (a helper's survey of the sim, read here).
+- writing: 30 min. `PullMemory`, `pull-counts.ts`, a key at every call
+  site, the thin channel split out of `pull-track.ts`, the memory's tests.
+- looking: 10 min. THE BASTION's tear as a strip of real frames.
+- friction: 10 min. A refusal first guessed from the let-go alone, which
+  would have sent a kept winch home; the frame test's timeout rule.
+- landing: 5 min. `check:fast`, catalogue, index, `land`.
+
+Bottleneck: reading — a count is each boss's own fact, and half of them
+vanish on the tick it happens.

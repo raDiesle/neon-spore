@@ -134,6 +134,6 @@ export function drawPilotRing(
   way: PullWay,
 ): void {
   const rim = PALETTE.hullRim;
-  drawPullKnob(ctx, at, at.r, { hex: PALETTE.hull, rim, held, time, way });
+  drawPullKnob(ctx, at, at.r, { hex: PALETTE.hull, rim, held, time, way, key: "ledger" });
   drawHandleDial(ctx, at.x, at.y, at.r, rim, pull);
 }

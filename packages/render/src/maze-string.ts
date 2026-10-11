@@ -177,7 +177,7 @@ export function drawMazeString(
     const drum = mazeDrum(l, cfg);
     ctx.clip(mazeOutsideGaps(cfg, wheel, drum, m.angleMilli, ring.r * 1.6), "evenodd");
   }
-  drawPullTrack(ctx, track, { ...LOOK, held, origin, at, time });
+  drawPullTrack(ctx, track, { ...LOOK, held, origin, at, time, key: "maze" });
   ctx.restore();
   // The arrow in the knob: round the rim, either way until the hand picks
   // one, and only on the seat that turns it.
@@ -185,7 +185,7 @@ export function drawMazeString(
   const way: PullWay | null = mine ? pullWay(track, at, at < origin ? 0 : 1) : null;
   const either = mine && at === origin;
   drawMazeLever(ctx, mazeDrum(l, cfg), knob, rest.r, held);
-  drawPullKnob(ctx, knob, rest.r, { ...LOOK, held, time, way, either });
+  drawPullKnob(ctx, knob, rest.r, { ...LOOK, held, time, way, either, key: "maze" });
 
   // The word goes as soon as a hand lands, the way the tether's does: from
   // then on the knob's own place on the ring says it.

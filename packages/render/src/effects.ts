@@ -21,6 +21,7 @@ import { HuskDeflates } from "./husk-deflate.js";
 import type { LayEcho } from "./lay-echo.js";
 import type { Layout } from "./layout.js";
 import { OpeningFx } from "./opening-fx.js";
+import { PullMemory } from "./pull-memory.js";
 import { RecoilLeapFx } from "./recoil-leap.js";
 import { RicochetFx } from "./ricochet.js";
 import { RockImpactFx } from "./rock-impact.js";
@@ -71,6 +72,8 @@ export class Effects {
   readonly arrivals = new Arrivals();
   /** The transients that belong to one body — `effects-body.ts`. */
   readonly bodies = new BodyTransients();
+  /** What each pull handle has just been through, for FIZZ to play it (`pull-memory.ts`). */
+  readonly pulls = new PullMemory();
   /** And the ones that belong to one boss, read above the loop by the boss
    * pass: `effects.boss.mirror`, `.fleet`, `.afterImage` (`effects-boss.ts`). */
   readonly boss = new BossTransients();

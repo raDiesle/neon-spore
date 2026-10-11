@@ -9,13 +9,8 @@ import { sceneOf } from "./goo-scene.js";
 import { paintTail, specks, tailPath } from "./goo-strand.js";
 import { GOO, type GooStyle } from "./goo-style.js";
 import { PALETTE } from "./palette.js";
-import {
-  PULL_TRACK_W,
-  type PullTrack,
-  type PullTrackDraw,
-  paintPullTrack,
-  pullTrackPoint,
-} from "./pull-track.js";
+import { PULL_TRACK_W, type PullTrack, type PullTrackDraw, pullTrackPoint } from "./pull-track.js";
+import { paintPullTrack } from "./pull-track-thin.js";
 
 /**
  * **The channel of a GOO look**: everything round the drop. Waiting or held,

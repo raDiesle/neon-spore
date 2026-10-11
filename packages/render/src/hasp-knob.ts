@@ -106,10 +106,10 @@ export function drawHaspKnob(
   const track = knobTrack(l, at, r * PULL_TRACK_W);
   const wound = haspWindShare(s, cfg);
   const lit = held && free;
-  drawPullTrack(ctx, track, { ...LOOK, held: lit, origin: 0, at: wound, time });
+  drawPullTrack(ctx, track, { ...LOOK, held: lit, origin: 0, at: wound, time, key: "hasp" });
   drawMazeLever(ctx, { cx: at.x, cy: at.y, r: haspHubRadius(l) }, knob, r, lit);
   const way = pullWay(track, wound, 1);
-  drawPullKnob(ctx, knob, r, { ...LOOK, held: lit, time, way, either: true });
+  drawPullKnob(ctx, knob, r, { ...LOOK, held: lit, time, way, either: true, key: "hasp" });
   // The word goes as soon as a hand lands, as THE MAZE's does.
   if (held) return;
   drawHandleHint(ctx, l, l.role, knob.x, knob.y + l.tile * 0.75, HINT_LOUD, WORDS);

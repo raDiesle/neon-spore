@@ -2484,8 +2484,11 @@ by hand never moves.
 | `packages/render/src/pulse-wash.ts` | **The whole ship lit, by the one body that got past.** A body answered too late is not answered |
 | `packages/render/src/pulse-grip.ts` | **THE PULSE's hand on the bar**: the rectangle the meter is drawn in, the box a thumb is answered in |
 | `packages/render/src/pull-track.ts` | **A pull is drawn as the way the hand goes, and a big circle where it starts** — every pull handle's thin channel, filling green behind the hand, closed round for a turn |
+| `packages/render/src/pull-track-thin.ts` | The piece of the spine between two fractions, as one open path |
 | `packages/render/src/pull-knob.ts` | **Where a pull starts**: the big circle a thumb goes on (`drawPullKnob`), and `PULL_GRAB`, how far outside it a press is still taken |
 | `packages/render/src/pull-line.ts` | **A pull measured as a distance, as a straight channel** — the track builder THE WARDEN's rope |
+| `packages/render/src/pull-counts.ts` | **Which pull handles a boss's event says have counted** |
+| `packages/render/src/pull-memory.ts` | **What a pull handle has just been through**, kept across frames so FIZZ (`goo-knob.ts` |
 | `packages/render/src/pinball-blast.ts` | PINBALL's two loud moments: a ball that hit the ship, and a target taken |
 | `packages/render/src/pinball-button.ts` | PINBALL's two presses, as faces on the band's own lobes |
 | `packages/render/src/pinball-grip.ts` | **PINBALL's hand on the table itself** |

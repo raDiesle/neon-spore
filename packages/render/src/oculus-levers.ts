@@ -117,6 +117,7 @@ function lever(
     time,
     way: mine ? way : null,
     theirs: !mine,
+    key: `oculus:${side}`,
   });
 }
 

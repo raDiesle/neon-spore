@@ -66,7 +66,14 @@ export function drawBastionHandles(
         follow: false,
       });
       const along = Math.min(1, s.pullMilli[side] / Math.max(1, cfg.bastionPullMilli));
-      drawPullTrack(ctx, track, { ...look(mine), held, origin: 0, at: along, time });
+      drawPullTrack(ctx, track, {
+        ...look(mine),
+        held,
+        origin: 0,
+        at: along,
+        time,
+        key: `bastion:${side}`,
+      });
     }
     drawPullKnob(ctx, at, rest.r, {
       ...look(mine),
@@ -74,6 +81,7 @@ export function drawBastionHandles(
       time,
       way: mine ? way : null,
       theirs: !mine,
+      key: `bastion:${side}`,
     });
   }
   if (!bastionMarkTakes(s, 2)) return;
@@ -90,7 +98,7 @@ export function drawBastionHandles(
     drawPullTrack(
       ctx,
       { pts, w: knob.r * PULL_TRACK_W, closed: true },
-      { ...look(mine), held: s.spinning, origin: 0, at: turned, time },
+      { ...look(mine), held: s.spinning, origin: 0, at: turned, time, key: "bastion:rim" },
     );
   }
   const hub = { cx: rim.x, cy: rim.y, r: BASTION_SHELL_TILES.lattice * l.tile };
@@ -103,6 +111,7 @@ export function drawBastionHandles(
     way: mine ? { dx: -Math.sin(a), dy: Math.cos(a) } : null,
     either: true,
     theirs: !mine,
+    key: "bastion:rim",
   });
 }
 

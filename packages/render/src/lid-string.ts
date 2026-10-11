@@ -146,9 +146,9 @@ function drawOne(
   // where the thumb has it (`pull-knob.ts`) — the owner's rule for every
   // handle you pull.
   const track = lidCordTrack(l, cfg, c, rest, head, held);
-  drawPullTrack(ctx, track, { hex, rim, held, origin: 0, at: pull, time });
+  drawPullTrack(ctx, track, { hex, rim, held, origin: 0, at: pull, time, key: "lid" });
   strokeGlow(ctx, cord, held ? rim : hex, STROKE.outline * (1 - pull * 0.35), 0.4 + pull * 1.4);
   const way = handleIsMine(l.role) ? pullWay(track, pull, 1) : null;
-  drawPullKnob(ctx, head, rest.r, { hex, rim, held, time, way });
+  drawPullKnob(ctx, head, rest.r, { hex, rim, held, time, way, key: "lid" });
   if (!held) drawHandleHint(ctx, l, l.role, head.x, head.y + l.tile * 0.62, HINT_SOFT);
 }

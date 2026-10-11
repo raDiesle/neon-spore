@@ -199,10 +199,17 @@ export function drawCurtainHem(
     len,
     follow: false,
   });
-  drawPullTrack(ctx, track, { ...LOOK, held, origin: 0, at: curtainHemPull(cfg, c), time });
+  drawPullTrack(ctx, track, {
+    ...LOOK,
+    held,
+    origin: 0,
+    at: curtainHemPull(cfg, c),
+    time,
+    key: "curtain",
+  });
   // The hem is always his (`curtainHemSeat`): on her screen it carries no arrow.
   const way = handleIsMine(l.role) ? PULL_UP : null;
-  drawPullKnob(ctx, head, rest.r, { ...LOOK, held, time, way });
+  drawPullKnob(ctx, head, rest.r, { ...LOOK, held, time, way, key: "curtain" });
 }
 
 /** The handle's colours: the sheet's hull violet, and its lit rim. */

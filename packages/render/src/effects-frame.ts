@@ -11,6 +11,7 @@ import { ingestOne } from "./effects-ingest.js";
 import { burstFor } from "./effects-spark.js";
 import type { SurfaceY } from "./hull-frame.js";
 import type { Layout } from "./layout.js";
+import { pullCountsOf } from "./pull-counts.js";
 import { wellFromFlat } from "./well.js";
 
 /**
@@ -79,6 +80,7 @@ export function ingestAll(
   fx.shotOut.ingest(events, cfg, well);
   fx.ricochet.ingest(events, l, cfg, well);
   fx.shieldPush.ingest(events, l, burst);
+  for (const e of events) for (const key of pullCountsOf(e)) fx.pulls.count(key);
   for (const e of events) {
     const spark = burstFor(e, l, cfg, skinY);
     if (spark) burst(spark.x, spark.y, breakSparks(e, spark.n), spark.hex);
@@ -191,6 +193,7 @@ export function resetAll(e: Effects): void {
   e.ship.clear();
   e.boss.clear();
   e.bodies.clear();
+  e.pulls.clear();
   e.recoilLeap.clear();
   e.coilFlight.clear();
   e.harpoonLine.reset();

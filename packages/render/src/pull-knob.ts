@@ -3,6 +3,7 @@ import { paintGooKnob } from "./goo-knob.js";
 import { noteMark } from "./mark-spots.js";
 import { PALETTE, STROKE } from "./palette.js";
 import type { PullWay } from "./pull-line.js";
+import { pullMemoryOf } from "./pull-memory.js";
 import type { PullAfter } from "./pull-track.js";
 import { drawWayArrow } from "./way-arrow.js";
 
@@ -40,6 +41,10 @@ export interface PullKnobDraw {
   theirs?: boolean;
   /** The lift's verdict and the knob's offset off the path (`PullAfter`). */
   after?: PullAfter;
+  /** Which handle this is, as its channel names it (`PullTrackDraw.key`). */
+  key?: string;
+  /** The caller's own word that this pull has counted (`PullTrackDraw.counted`). */
+  counted?: boolean;
 }
 
 /**
@@ -61,7 +66,13 @@ export function drawPullKnob(
   r: number,
   o: PullKnobDraw,
 ): void {
-  PULL_KNOB.paint(ctx, at, r, o);
+  const memory = o.key === undefined || o.after ? undefined : pullMemoryOf(ctx);
+  const key = o.key;
+  const after =
+    memory && key !== undefined
+      ? memory.observe({ key, held: o.held, counted: o.counted })
+      : o.after;
+  PULL_KNOB.paint(ctx, at, r, after === o.after ? o : { ...o, after });
 }
 
 /**

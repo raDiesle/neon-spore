@@ -169,6 +169,7 @@ function drawOne(
     time,
     way: mine ? { dx: side, dy: 0 } : null,
     theirs: !mine,
+    key: `balloon:${c.id}:${side}`,
   });
   drawHandleDial(ctx, head.x, head.y, head.r, rim, pull);
   if (!held) hint(ctx, l, head, side);

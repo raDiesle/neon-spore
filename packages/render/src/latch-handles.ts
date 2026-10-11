@@ -50,10 +50,24 @@ export function drawLatchHandles(
         follow: false,
       });
       const along = Math.min(1, s.depthMilli[grip] / reach);
-      drawPullTrack(ctx, track, { ...look(mine), held, origin: 0, at: along, time });
+      drawPullTrack(ctx, track, {
+        ...look(mine),
+        held,
+        origin: 0,
+        at: along,
+        time,
+        key: `latch:${grip}`,
+      });
     }
     const way = pulls && mine ? PULL_DOWN : null;
-    drawPullKnob(ctx, at, rest.r, { ...look(mine), held, time, way, theirs: !mine });
+    drawPullKnob(ctx, at, rest.r, {
+      ...look(mine),
+      held,
+      time,
+      way,
+      theirs: !mine,
+      key: `latch:${grip}`,
+    });
   }
 }
 

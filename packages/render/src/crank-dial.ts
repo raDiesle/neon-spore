@@ -126,9 +126,15 @@ export function drawCrankDial(
   const track = crankTrack(x, y, r * HANDLE_AT, kr * PULL_TRACK_W);
   const boss = { cx: x, cy: y, r: r * BOSS_R };
   if (live) {
-    drawPullTrack(ctx, track, { ...LOOK, held, origin: 0, at, time: time + breath });
+    drawPullTrack(ctx, track, { ...LOOK, held, origin: 0, at, time: time + breath, key: "crank" });
     drawMazeLever(ctx, boss, knob, kr, held);
-    drawPullKnob(ctx, knob, kr, { ...LOOK, held, time, ...crankWay(world, track, at) });
+    drawPullKnob(ctx, knob, kr, {
+      ...LOOK,
+      held,
+      time,
+      ...crankWay(world, track, at),
+      key: "crank",
+    });
   } else {
     // **Dark while it bites nothing**: a lit control that answers nothing is
     // the one thing a panel must not do, so the same knob and lever stand in
