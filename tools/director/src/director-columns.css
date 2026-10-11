@@ -6,7 +6,10 @@
 
 main {
   display: grid;
-  grid-template-columns: 270px minmax(220px, 1.1fr) 140px minmax(320px, 460px) minmax(600px, 1.6fr);
+  grid-template-columns: 270px minmax(220px, 1.1fr) min-content minmax(320px, 460px) minmax(
+      740px,
+      1.6fr
+    );
   min-height: 0;
   overflow-x: auto;
 }

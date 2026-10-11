@@ -110,6 +110,20 @@
   width: 100%;
   text-align: center;
 }
+/* The buttons whose words became icons so RUN could be as narrow as its
+   widest control (the owner, 11 October 2026): set large enough to read,
+   with the words on hover. */
+.transport button.icon {
+  font-size: 1.25rem;
+  line-height: 1.1;
+  padding-top: 2px;
+  padding-bottom: 2px;
+}
+/* DIFFICULTY's picker sets RUN's width: as wide as its longest level and no
+   narrower, or a min-content column would cut MEDIUM to MED. */
+.transport select {
+  min-width: max-content;
+}
 /* The one thing in the strip that is not a button: DIFFICULTY, its picker and
    the tempo under it. The picker is dressed by `director-shell.css` beside the
    other `<select>` in the tool; what is here is only the air around it, which

@@ -38002,3 +38002,19 @@ Bottleneck: none — the one trap was the map's own ⏸, which a pause on
 every press would have turned into ▶.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-11 — RUN is as narrow as its widest control
+
+- reading: 5 min. RUN's markup, `.transport`'s rules, the track table in
+  `columns.ts` and the SHEET button's two words.
+- writing: 5 min. Icons with the words as titles, the track `min-content`,
+  the picker kept whole, the map's track widened for eleven tiles.
+- looking: 10 min. The browser pane: MEDIUM clipped to MED, two glyphs too
+  small to read, the map spilling 100px past its column — each fixed and
+  measured again.
+- friction: 5 min. Biome wrapped the longer track list and the test that
+  reads it saw a different list; the test now ignores the wrapping.
+- landing: 5 min. `check:fast`, `land`.
+
+Bottleneck: the picture — every one of the three faults was invisible in the
+diff and obvious in the first screenshot.

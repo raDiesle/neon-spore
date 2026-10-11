@@ -169,8 +169,15 @@ describe("a dragged column width", () => {
  * has to be the number in it.
  */
 describe("main's open tracks", () => {
-  /** A track list split where the spaces are, but never inside `minmax(…)`. */
-  const tracks = (list: string): string[] => list.trim().split(/\s+(?![^(]*\))/);
+  /** A track list split where the spaces are, but never inside `minmax(…)` —
+   * with the wrapping Biome puts inside one on a long line taken out first. */
+  const tracks = (list: string): string[] =>
+    list
+      .replace(/\(\s+/g, "(")
+      .replace(/\s+\)/g, ")")
+      .replace(/,\s+/g, ", ")
+      .trim()
+      .split(/\s+(?![^(]*\))/);
 
   it("are the same list in columns.ts and in director-columns.css, in DOM order", async () => {
     const css = await Bun.file(

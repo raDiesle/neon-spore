@@ -117,7 +117,7 @@ describe("the stage answers its own after-run screen", () => {
     expect(s.world().over).toBe(true);
     expect(s.running()).toBe(false);
     expect(s.paintPlays()).toBe(1);
-    expect(s.endRunBtn.el.textContent).toBe("▣ FIELD");
+    expect(s.endRunBtn.el.textContent).toBe("◩");
   });
 
   it("a second ▣ SHEET press un-ends the run in place instead of re-ending it", () => {
@@ -127,13 +127,13 @@ describe("the stage answers its own after-run screen", () => {
     expect(s.world().over).toBe(false);
     expect(s.running()).toBe(true);
     expect(s.rebuilds()).toBe(0); // un-ending, not rebuilding
-    expect(s.endRunBtn.el.textContent).toBe("▣ SHEET");
+    expect(s.endRunBtn.el.textContent).toBe("▣");
   });
 
   it("the handle repaints the label to match whatever `over` is now", () => {
     const s = armed();
     s.world().over = true;
     s.handle.paint();
-    expect(s.endRunBtn.el.textContent).toBe("▣ FIELD");
+    expect(s.endRunBtn.el.textContent).toBe("◩");
   });
 });

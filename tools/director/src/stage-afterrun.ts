@@ -43,7 +43,10 @@ export function bindStageAfterRun({
 }: StageAfterRun): StageAfterRunHandle {
   const endRunBtn = document.getElementById("endRun");
   const paint = (): void => {
-    if (endRunBtn) endRunBtn.textContent = world().over ? "▣ FIELD" : "▣ SHEET";
+    if (!endRunBtn) return;
+    // Icons, for RUN's width (the owner, 11 October 2026); the words are the title.
+    endRunBtn.textContent = world().over ? "◩" : "▣";
+    endRunBtn.title = world().over ? "Back to the field" : "End the run and show its sheet";
   };
 
   // `balance.ts` says "tap to restart"; this is the ear for it. Same as `#restart`.

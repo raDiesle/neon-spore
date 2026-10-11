@@ -191,8 +191,8 @@
            run is doing, then what it is being run at, then who is watching. -->
       <section data-view="game" data-column="run" data-column-title="RUN">
         <div class="transport">
-          <button type="button" id="play" class="stage-play">⏸</button>
-          <button type="button" id="restart">↺ WAVE</button>
+          <button type="button" id="play" class="stage-play icon" title="Pause or play the wave">⏸</button>
+          <button type="button" id="restart" class="icon" title="Run this wave again">↺</button>
           <!-- Which step of its script a choreographed boss is on, hidden on
                every other wave (stage-step-readout.ts). -->
           <p class="note step-readout" id="stepReadout" hidden></p>
@@ -204,7 +204,7 @@
             <button type="button" id="stepNext" title="the step after">▶</button>
           </div>
           <p class="note" id="stepJumpNote"></p>
-          <button type="button" id="endRun">▣ SHEET</button>
+          <button type="button" id="endRun" class="icon" title="End the run and show its sheet">▣</button>
           <!-- **The three tempi a pair can actually choose**, not the slider.
                `bpm` has been movable since the tool existed, on TUNING's first
                slider, two points at a time between 40 and 200 — which is the
@@ -213,8 +213,8 @@
                (`sim/difficulty.ts`) and this is those three; the slider is
                still there and the picker says CUSTOM when it has been moved
                somewhere that is none of them. -->
-          <label class="field" for="fDifficulty">DIFFICULTY</label>
-          <select id="fDifficulty"></select>
+          <label class="field" for="fDifficulty" title="Difficulty">♩</label>
+          <select id="fDifficulty" title="Difficulty"></select>
           <p class="note" id="fDifficultyWhy"></p>
           <!-- Whether a wave opens on a card at all, one click from the
                stage it changes; the stage itself now steps and dismisses
@@ -224,8 +224,8 @@
                rows into TUNING → PAIR. A button, not a checkbox: pressed
                once it stays on until pressed again, same as the role
                buttons below, and the `on` class is how both say so. -->
-          <button type="button" id="briefToggle" title="Whether a wave opens on a briefing card at all">
-            BRIEFINGS
+          <button type="button" id="briefToggle" class="icon" title="Briefings: whether a wave opens on a briefing card at all">
+            ℹ
           </button>
           <button type="button" data-role="test" class="role on">TEST</button>
           <button type="button" data-role="p1" class="role">P1</button>
@@ -239,8 +239,8 @@
           <button type="button" data-auto="p1" class="auto">P1</button>
           <button type="button" data-auto="p2" class="auto">P2</button>
           <span id="autoNote" class="auto-note"></span>
-          <button type="button" id="keyHelpOpen" title="What the keyboard does, and whose hand it is">
-            ⌨ KEYS
+          <button type="button" id="keyHelpOpen" class="icon" title="Keys: what the keyboard does, and whose hand it is">
+            ?
           </button>
         </div>
       </section>

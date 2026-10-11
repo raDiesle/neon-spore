@@ -103,15 +103,16 @@ export const OPEN_TRACKS: Readonly<Record<string, string>> = {
   // which is where the owner asked for it to come from. WAVE is the column
   // with a `1.1fr` on it, so on a wide screen it gives nothing up at all.
   editor: "minmax(220px, 1.1fr)",
-  // The strip of buttons that used to wrap under the field. Fixed, because
-  // every control in it is one line of words and a column that grew would
-  // only put air between them.
-  run: "140px",
+  // The strip of buttons that used to wrap under the field: as wide as its
+  // widest control and no wider. Its long words are icons now, with the words
+  // as titles (the owner, 11 October 2026), and a note in it wraps rather
+  // than widening it.
+  run: "min-content",
   game: "minmax(320px, 460px)",
-  // 600, not 560: the palette is 250 wide and the map is `--map-w` (302)
-  // plus the gap and the column's own padding, and at 560 the strip of row
-  // buttons on the map's right was the part that fell off.
-  map: "minmax(600px, 1.6fr)",
+  // 740: the palette is 250 wide and the map is `--map-w` (438, eleven
+  // tiles since 11 October 2026), the 12 gap, the scrollbar and the column's edge.
+  // At 600 — the seven-column figure — the map ran off the column's right.
+  map: "minmax(740px, 1.6fr)",
 };
 
 /**
