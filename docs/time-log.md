@@ -37915,3 +37915,5 @@ own — the fence's chips and the boss's field each held a seven.
 - landing: 5 min. `check:fast`, `land`.
 
 Bottleneck: none worth the name — the verb already existed one file over.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
