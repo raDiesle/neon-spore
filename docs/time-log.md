@@ -38101,3 +38101,5 @@ opens over one.
 
 Bottleneck: measuring on a phone that is not here — the profile is a
 throttled desk Chrome, and a real phone's GPU is unverified.
+
+*Measured: 17 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*

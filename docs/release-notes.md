@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-11 · 022d714ff — THE PULL LAB and TRY IT hide the director under them, and the lab draws at two pixels
+
+While a live overlay is open, everything else on the page is put out of the way and comes back scrolled where it was. The GAME column's stage used to keep playing and painting its HUD under the lab, and the cards of CONTROLS stayed composited under it. On a phone the lab's canvas is drawn at two device pixels per CSS pixel rather than three — 0.61 million pixels a frame where it was 1.38. Profiled at phone size with the CPU slowed four times, the idle time per second went from 42% to 60%, and on a desk from 37% to 63%.
+
 ## 2026-10-11 · 6d19be9f4 — THE PULL LAB has a door in the topbar, and stays open on a reload
 
 ⇣ PULL LAB sits beside DOCUMENTATION, and in the phone's menu. The lab keeps itself in the URL as `pulllab=<path>` (and `pullsheet=1` on EVERY LOOK, EVERY STATE) beside whatever sheet is under it, so a reload reopens it on the same path; ✕ or Escape shuts only the lab and drops it from the address. Escape used to close the DOCUMENTATION sheet under the lab as well.
