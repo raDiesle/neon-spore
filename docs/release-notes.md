@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-11 · 8b158a3bf — PULL LAB: the arrow grows in with the drop, shrinks away with it, and parts in two for UP OR DOWN
+
+A GOO drop's arrow is now sized a little ahead of the drop. A speck of a drop coming in already carries an arrow that can be seen. At a count the arrow stays in FIZZ's boiling drop and shrinks to nothing with it. In a failure it stays in the drop all the way home. A pull that may go either way shows two short, separate arrows, breathing out towards their own ends with a gap between them. As the drop is pulled one way, that arrow grows into the regular single arrow and the other shrinks away, and they part again when it is back at its start.
+
 ## 2026-10-11 · 59070730c — The wave editor keeps unsaved edits across a reload, counts them on SAVE, and RESET drops them
 
 Every edit in the director's wave editor is now stored in localStorage until it is saved, and a reload lays it back over the act files. The save button reads "SAVE waves.ts · N", where N is how many waves differ from disk, and a new RESET beside it (asked to confirm) goes back to the files as loaded. If the act files moved between the two loads, only the waves the draft edited are laid over the fresh files.
