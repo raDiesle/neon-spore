@@ -1,4 +1,4 @@
-import { AUTHORED_COL_MAX, CREATURES } from "@neon-spore/content";
+import { CREATURES, waveCols } from "@neon-spore/content";
 import { DEFAULT_CONFIG } from "@neon-spore/sim";
 import { renderAntiphonEditor } from "./antiphon-editor.js";
 import { numberField, placementNote, renderVane, renderWarden } from "./boss-cycles.js";
@@ -193,7 +193,7 @@ export function bindBossPanel(
     const fields = document.createElement("div");
     fields.className = "boss-fields";
     fields.append(
-      numberField("starting column", 0, AUTHORED_COL_MAX, boss.col, (v) => {
+      numberField("starting column", 0, waveCols(wave) - 1, boss.col, (v) => {
         boss.col = v;
         store.dirty = true;
         onEdit();

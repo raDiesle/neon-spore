@@ -89,6 +89,7 @@ export function bindCellPanel({ store, selection, cfg, onEdit }: CellPanelOption
     const config =
       wave && at
         ? cellConfig({
+            wave,
             entry: () => entryAt(wave, at.beat, at.col),
             onEdit: () => {
               store.dirty = true;

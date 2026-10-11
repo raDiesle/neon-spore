@@ -90,6 +90,8 @@ function serializeWave(wave: Wave): string {
   // to be told before it starts.
   if (wave.guide) lines.push(...serializeGuide(wave.guide));
 
+  // Above the entries, because every column in them is counted on it.
+  if (wave.cols !== undefined) lines.push(`    cols: ${wave.cols},`);
   if (wave.entries.length === 0) {
     lines.push("    entries: [],");
   } else if (wave.entries.length === 1) {

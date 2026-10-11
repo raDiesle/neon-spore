@@ -127,9 +127,17 @@ export interface Wave {
   guide?: WaveGuide;
   entries: WaveEntry[];
   /**
+   * How many columns every column in this wave is counted on — its entries,
+   * its gaps and cracks, its pods and its boss. Absent is `AUTHORED_COLS`,
+   * seven, which reach only seven of the field's eleven tiles; a wave the
+   * director has put on every tile says `cols: 11` and is remapped from
+   * eleven instead (`waveCols`, `wave-tiles.ts`).
+   */
+  cols?: number;
+  /**
    * Pods left hanging in the field. Their own list, because a pod is not an
    * enemy: it is never cleared and it never blocks the end of the wave. Columns
-   * are authored against the same 7-column field as `entries`; the row is
+   * are authored against the same columns as `entries` (`cols`); the row is
    * absolute, and a pod never hangs on the hull row.
    */
   pods?: PodEntry[];

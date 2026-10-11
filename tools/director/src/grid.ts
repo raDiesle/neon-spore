@@ -1,10 +1,10 @@
-import { AUTHORED_COLS, mapCol, type Wave } from "@neon-spore/content";
+import { mapCol, type Wave, waveCols } from "@neon-spore/content";
 import type { SimConfig } from "@neon-spore/sim";
 import type { Brush } from "./brushes.js";
 import { fillCell } from "./grid-cell-art.js";
 import { bindFollow } from "./grid-follow.js";
 import { bindCellGestures, watchStrokeEnd } from "./grid-gestures.js";
-import { CELL_PX, GAP_PX, gridTemplateColumns } from "./grid-metrics.js";
+import { CELL_PX, GAP_PX, gridTemplateColumns, mapWidthPx } from "./grid-metrics.js";
 import { bindGridNote } from "./grid-note.js";
 import { repriseBand, repriseEchoes } from "./grid-reprise.js";
 import { bindRowActs } from "./grid-row-acts.js";
@@ -24,12 +24,13 @@ import {
 import { isTyping } from "./typing.js";
 
 /**
- * The beat grid: beats down, the seven authored columns across.
+ * The beat grid: beats down, the wave's own columns across.
  *
- * Seven, not `cfg.cols` — a wave is authored against seven and `mapCol`
- * remaps it onto whatever field it is played on. Editing against the real
- * eleven would let you place a creature in a column that no authored wave can
- * express, and the remap would silently move it.
+ * The wave's, not `cfg.cols` — a wave is authored against seven columns, or
+ * against every tile once it has been put on them (`onEveryTile`), and
+ * `mapCol` remaps it onto whatever field it is played on. Seven columns
+ * reach tiles 0, 2, 3, 5, 7, 8 and 10 of eleven; the button under the map
+ * moves a wave onto all eleven (`grid-note.ts`).
  *
  * What a cell *draws* is `grid-cell-art.ts`, what a hand *does* to one is
  * `grid-gestures.ts`, what a beat's label does is `grid-rows.ts`, what a row
@@ -53,7 +54,7 @@ export function bindGrid(
   const grid = document.getElementById("grid");
   // The wave's own arithmetic — under the map, about the wave rather than
   // about a cell. See `grid-note.ts`.
-  const note = bindGridNote(store, cfg);
+  const note = bindGridNote(store, cfg, selection, onEdit);
   let markedBeat = 0;
 
   /**
@@ -127,16 +128,22 @@ export function bindGrid(
     // places rather than points and a drag paints a stroke — and the cursor is
     // the only place that can be said without a label (`director-map.css`).
     grid.classList.toggle("armed", held.brush() !== null);
-    grid.style.gridTemplateColumns = gridTemplateColumns();
+    const cols = waveCols(wave);
+    grid.style.gridTemplateColumns = gridTemplateColumns(cols);
+    // What is stacked above and below the map is capped at the wave's width.
+    grid
+      .closest<HTMLElement>("section.brush-col")
+      ?.style.setProperty("--map-w", `${mapWidthPx(cols)}px`);
     grid.appendChild(label("head", ""));
-    for (let c = 0; c < AUTHORED_COLS; c++) {
-      const mapped = mapCol(c, cfg().cols);
+    for (let c = 0; c < cols; c++) {
+      const mapped = mapCol(c, cfg().cols, cols);
       const head = document.createElement("div");
       head.className = "head";
       head.textContent = String(c);
       const maps = document.createElement("span");
       maps.className = "maps";
-      maps.textContent = `↓${mapped}`;
+      // The tile it lands on, unless that is its own number (every tile).
+      maps.textContent = mapped === c ? "" : `↓${mapped}`;
       head.appendChild(maps);
       grid.appendChild(head);
     }
@@ -150,7 +157,7 @@ export function bindGrid(
     const faults = faultMarks(wave, beats);
     for (let b = 0; b < beats; b++) {
       grid.appendChild(beatLabel(b, onSeek, faults[b]));
-      for (let c = 0; c < AUTHORED_COLS; c++) grid.appendChild(cell(wave, b, c));
+      for (let c = 0; c < cols; c++) grid.appendChild(cell(wave, b, c));
       if (acts) grid.appendChild(acts.end(b, faults[b]));
     }
     // Last, so a rail is drawn over the row it belongs to rather than under

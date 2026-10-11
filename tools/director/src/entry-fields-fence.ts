@@ -1,4 +1,4 @@
-import { AUTHORED_COL_MAX, type WaveEntry } from "@neon-spore/content";
+import { type Wave, type WaveEntry, waveCols } from "@neon-spore/content";
 import type { Color } from "@neon-spore/sim";
 
 /**
@@ -18,18 +18,18 @@ import type { Color } from "@neon-spore/sim";
  * how many cracks in which colour there are, for any kind of fence, and for a
  * fence without gaps let me place the number of cracks and where, up to the
  * maximum available.* The maximum available is one per column, which is what
- * `GAP_COLS` already is.
+ * `gapCols` already is.
  *
  * Nothing here knows a panel exists. `cell-config-gaps.ts` draws both rows.
  */
 
-/** The columns a fence may be opened in: the seven every wave is authored
- * against, read off `AUTHORED_COL_MAX` rather than typed out, so a field that
- * ever widens does not leave a panel offering six of seven. */
-export const GAP_COLS: readonly number[] = Array.from(
-  { length: AUTHORED_COL_MAX + 1 },
-  (_, i) => i,
-);
+/** The columns a fence may be opened in: every column its wave is authored
+ * on — seven, or every tile of a wave that has been put on all of them —
+ * read off `waveCols` rather than typed out, so a wave on eleven is not
+ * offered seven. */
+export function gapCols(wave: Pick<Wave, "cols">): number[] {
+  return Array.from({ length: waveCols(wave) }, (_, i) => i);
+}
 
 /** Whether this entry is a fence, and therefore has gaps to set. The one kind
  * that does: `gaps` means nothing on anything else, and a row offered on a
@@ -90,8 +90,9 @@ export function fenceCrackAtCol(entry: WaveEntry, col: number): Color | null {
 /** Every crack this wall carries, in column order — what the row draws and
  * what a solid wall has to have at least one of to be answerable at all. */
 export function fenceCracksOf(entry: WaveEntry): { col: number; color: Color }[] {
+  const cols = new Set([...(entry.cracksRed ?? []), ...(entry.cracksCyan ?? [])]);
   const out: { col: number; color: Color }[] = [];
-  for (const col of GAP_COLS) {
+  for (const col of [...cols].sort((a, b) => a - b)) {
     const color = fenceCrackAtCol(entry, col);
     if (color) out.push({ col, color });
   }

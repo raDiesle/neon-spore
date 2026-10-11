@@ -1,5 +1,5 @@
 import type { BossEntry } from "@neon-spore/sim";
-import { mapCol, mapColMilli } from "./queue.js";
+import { mapCol, mapColMilli, waveCols } from "./queue.js";
 import type { Wave } from "./waves.js";
 
 /**
@@ -24,8 +24,9 @@ import type { Wave } from "./waves.js";
  * wherever the ship is, and THE WARDEN is a fixture dead centre, so neither
  * entry names a place at all and both pass through untouched.
  */
-export function bossFromWave(wave: Pick<Wave, "boss">, cols: number): BossEntry | null {
+export function bossFromWave(wave: Pick<Wave, "boss" | "cols">, cols: number): BossEntry | null {
   const boss = wave.boss;
+  const from = waveCols(wave);
   if (!boss) return null;
   if (boss.kind === "mirror") return { ...boss, rounds: boss.rounds.map((r) => [...r]) };
   if (boss.kind === "warden") return { ...boss };
@@ -158,7 +159,7 @@ export function bossFromWave(wave: Pick<Wave, "boss">, cols: number): BossEntry 
   if (boss.kind === "filament")
     return {
       ...boss,
-      filaments: boss.filaments.map((f) => ({ ...f, col: mapCol(f.col, cols) })),
+      filaments: boss.filaments.map((f) => ({ ...f, col: mapCol(f.col, cols, from) })),
     };
   // THE GIMBAL hangs its drum over `midCol` of whatever field is played and
   // everything authored about it is a bearing, which is a fraction of a turn
@@ -224,16 +225,16 @@ export function bossFromWave(wave: Pick<Wave, "boss">, cols: number): BossEntry 
       ...boss,
       arenas: boss.arenas.map((a) => ({
         ...a,
-        motes: a.motes.map((m) => ({ ...m, colMilli: mapColMilli(m.colMilli, cols) })),
+        motes: a.motes.map((m) => ({ ...m, colMilli: mapColMilli(m.colMilli, cols, from) })),
         hazards: a.hazards.map((h) => ({
           ...h,
-          colMilli: mapColMilli(h.colMilli, cols),
+          colMilli: mapColMilli(h.colMilli, cols, from),
           // The travel is scaled with the place, or a hazard authored to cross
           // a seven-column arena in four beats would take six on an eleven.
-          vColMilli: mapColMilli(h.vColMilli, cols),
+          vColMilli: mapColMilli(h.vColMilli, cols, from),
         })),
       })),
     };
   }
-  return { ...boss, col: mapCol(boss.col, cols) };
+  return { ...boss, col: mapCol(boss.col, cols, from) };
 }

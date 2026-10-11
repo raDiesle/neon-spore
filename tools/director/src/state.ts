@@ -1,4 +1,5 @@
 import { freshWaveId, type Wave } from "@neon-spore/content";
+import { DEFAULT_CONFIG } from "@neon-spore/sim";
 
 export type { BrushGroup } from "./brush-groups.js";
 export { BRUSH_GROUPS } from "./brush-groups.js";
@@ -77,7 +78,9 @@ function copyBoss(boss: Wave["boss"]): Wave["boss"] {
  * written.
  */
 export function emptyWave(taken: Iterable<string> = []): Wave {
-  return { id: freshWaveId(taken), name: "", entries: [] };
+  // On every tile of the field from the start: there is nothing to translate
+  // yet, and seven columns would leave four tiles out of reach (`onEveryTile`).
+  return { id: freshWaveId(taken), name: "", cols: DEFAULT_CONFIG.cols, entries: [] };
 }
 
 export function copyWave(wave: Wave, taken: Iterable<string> = []): Wave {
@@ -87,6 +90,7 @@ export function copyWave(wave: Wave, taken: Iterable<string> = []): Wave {
     id: freshWaveId(taken),
     name: `${wave.name} COPY`,
     guide: wave.guide ? { ...wave.guide } : undefined,
+    cols: wave.cols,
     entries: wave.entries.map((e) => ({ ...e })),
     pods: wave.pods?.map((p) => ({ ...p })),
     boss: copyBoss(wave.boss),

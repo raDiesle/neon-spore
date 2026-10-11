@@ -142,6 +142,7 @@ export {
   mapCol,
   podsFromWave,
   queueFromWave,
+  waveCols,
 } from "./queue.js";
 export { actCol, sceneCommands, sceneScript } from "./scene-script.js";
 export {
@@ -181,6 +182,7 @@ export { SNAKE_ROUNDS } from "./snake-rounds.js";
 export { STARE_LEVELS } from "./stare-levels.js";
 export { placedFaults, type WaveFault } from "./wave-faults.js";
 export { WAVE_MARK_IDS, type WaveMarkId, waveMarksOn } from "./wave-marks.js";
+export { canTakeEveryTile, onEveryTile } from "./wave-tiles.js";
 export { freshWaveId } from "./wave-types.js";
 export {
   type BossType,

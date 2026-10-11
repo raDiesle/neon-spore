@@ -223,7 +223,7 @@ export {
   fenceCrackAtCol,
   fenceCracksOf,
   fenceGapsOf,
-  GAP_COLS,
+  gapCols,
   hasFenceGaps,
   toggleFenceGap,
 } from "./entry-fields-fence.js";

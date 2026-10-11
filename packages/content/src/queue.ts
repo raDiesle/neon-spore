@@ -19,10 +19,24 @@ export const AUTHORED_COLS = 7;
  */
 export const AUTHORED_COL_MAX = AUTHORED_COLS - 1;
 
-/** Waves are authored for 7 columns. Remap, never re-author. */
-export function mapCol(col: number, cols: number): number {
-  const mapped = Math.round((col * (cols - 1)) / AUTHORED_COL_MAX);
+/**
+ * Waves are authored for 7 columns, or for as many as a wave says it was
+ * authored on (`Wave.cols`, read through `waveCols`). Remap, never re-author.
+ */
+export function mapCol(col: number, cols: number, from: number = AUTHORED_COLS): number {
+  const mapped = from > 1 ? Math.round((col * (cols - 1)) / (from - 1)) : 0;
   return Math.max(0, Math.min(cols - 1, mapped));
+}
+
+/**
+ * How many columns a wave was authored on. Seven unless it says otherwise:
+ * seven reach only seven of the field's eleven tiles, and the owner asked on
+ * 11 October 2026 to be able to place on every one of them, so a wave the
+ * director has put on the whole field carries `cols` and is remapped from
+ * that instead (`wave-tiles.ts`).
+ */
+export function waveCols(wave: Pick<Wave, "cols">): number {
+  return wave.cols ?? AUTHORED_COLS;
 }
 
 /**
@@ -47,8 +61,8 @@ export function mapCol(col: number, cols: number): number {
  * holds it to. The clamp was already written against that reading — a thing at
  * the right-hand edge is at `cols * 1000` and not at `(cols - 1) * 1000`.
  */
-export function mapColMilli(colMilli: number, cols: number): number {
-  const mapped = Math.round((colMilli * cols) / AUTHORED_COLS);
+export function mapColMilli(colMilli: number, cols: number, from: number = AUTHORED_COLS): number {
+  const mapped = Math.round((colMilli * cols) / from);
   return Math.max(-cols * 1000, Math.min(cols * 1000, mapped));
 }
 
@@ -79,8 +93,9 @@ export function buildQueue(waveIndex: number, cols: number): SpawnEntry[] {
  * of arrivals authored in the same 7 columns, and remapping them by hand there
  * would be the second copy of `mapCol` this file exists to prevent.
  */
-export function queueFromWave(wave: Pick<Wave, "entries">, cols: number): SpawnEntry[] {
+export function queueFromWave(wave: Pick<Wave, "entries" | "cols">, cols: number): SpawnEntry[] {
   const queue: SpawnEntry[] = [];
+  const from = waveCols(wave);
   for (const e of wave.entries) {
     const color = e.color;
     // A named kind wins, and the colour decides the silhouette only when the
@@ -104,7 +119,8 @@ export function queueFromWave(wave: Pick<Wave, "entries">, cols: number): SpawnE
     // brush read the way it looks on the map. Remapped through `mapCol` like
     // any other column, so a gap authored for seven columns lands where the
     // arrival authored beside it does.
-    const gaps = kind === "fence" ? (e.gaps ?? [e.col]).map((gap) => mapCol(gap, cols)) : undefined;
+    const gaps =
+      kind === "fence" ? (e.gaps ?? [e.col]).map((gap) => mapCol(gap, cols, from)) : undefined;
     // And where it is cracked — the columns a bolt opens, remapped the same
     // way. A wall with **no gaps at all** and no crack authored on it gets one
     // red crack in the cell it was painted in: that is `gaps`' own default
@@ -113,12 +129,14 @@ export function queueFromWave(wave: Pick<Wave, "entries">, cols: number): SpawnE
     const cracked = kind === "fence" && gaps !== undefined;
     const bare = cracked && gaps.length === 0 && !e.cracksRed?.length && !e.cracksCyan?.length;
     const cracksRed = cracked
-      ? (bare ? [e.col] : (e.cracksRed ?? [])).map((col) => mapCol(col, cols))
+      ? (bare ? [e.col] : (e.cracksRed ?? [])).map((col) => mapCol(col, cols, from))
       : undefined;
-    const cracksCyan = cracked ? (e.cracksCyan ?? []).map((col) => mapCol(col, cols)) : undefined;
+    const cracksCyan = cracked
+      ? (e.cracksCyan ?? []).map((col) => mapCol(col, cols, from))
+      : undefined;
     queue.push({
       beat: e.beat,
-      col: gaps ? 0 : mapCol(e.col, cols),
+      col: gaps ? 0 : mapCol(e.col, cols, from),
       kind,
       color,
       wears,
@@ -202,8 +220,9 @@ export function buildPods(waveIndex: number, cols: number): PodEntry[] {
  * hand over there would be the second copy of `mapCol` this file exists to
  * prevent.
  */
-export function podsFromWave(wave: Pick<Wave, "pods">, cols: number): PodEntry[] {
-  return (wave.pods ?? []).map((p) => ({ ...p, col: mapCol(p.col, cols) }));
+export function podsFromWave(wave: Pick<Wave, "pods" | "cols">, cols: number): PodEntry[] {
+  const from = waveCols(wave);
+  return (wave.pods ?? []).map((p) => ({ ...p, col: mapCol(p.col, cols, from) }));
 }
 
 /** The boss of an authored wave, remapped onto the real field, or null. */

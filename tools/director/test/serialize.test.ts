@@ -208,3 +208,18 @@ test("droppedComments ignores a comment outside the array's own marker", () => {
   const after = `export const WAVES_ACT_1: Wave[] = [\n  {\n    id: "a",\n  },\n];\n`;
   expect(droppedComments(before, after, "WAVES_ACT_1")).toEqual([]);
 });
+
+test("a wave on every tile saves the columns it is counted on, above its entries", async () => {
+  const file = new URL("../../../packages/content/src/waves/act-1.ts", import.meta.url);
+  const source = await Bun.file(file).text();
+  const wave = {
+    id: "test6",
+    name: "TILES",
+    cols: 11,
+    entries: [{ beat: 0, col: 9, color: "red" as const }],
+  };
+  const result = serializeWaveArray(source, [wave], "WAVES_ACT_1");
+  expect(result).toContain('    cols: 11,\n    entries: [{ beat: 0, col: 9, color: "red" }],');
+  const seven = serializeWaveArray(source, [{ ...wave, cols: undefined }], "WAVES_ACT_1");
+  expect(seven).not.toContain("cols:");
+});

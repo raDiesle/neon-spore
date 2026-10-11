@@ -37887,3 +37887,18 @@ Bottleneck: friction — a third throwaway to photograph a drop up close, added 
 the queued entry for a `shot` flag that would make it one command.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-11 — The map editor places on every tile
+
+- reading: 5 min. `mapCol` and every caller, the map's tracks and the
+  `--map-w` cap, the fence's chips, the boss's column, the save.
+- writing: 5 min. `Wave.cols` through the remap, `onEveryTile` with a test
+  that every shipped wave plays the same after it, the map sized from the
+  wave, the button under it, new waves on eleven, the save line.
+- looking: 0 min. The browser pane: a wave moved 1→2, 3→5, 5→8 and a slick
+  placed on tile 9.
+- friction: 0 min.
+- landing: 5 min. `format`, `imports:sort`, `check:fast`, `land`.
+
+Bottleneck: finding which of the director's panels count columns on their
+own — the fence's chips and the boss's field each held a seven.

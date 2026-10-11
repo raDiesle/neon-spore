@@ -1,4 +1,4 @@
-import type { WaveEntry } from "@neon-spore/content";
+import type { Wave, WaveEntry } from "@neon-spore/content";
 import {
   CRAWLER_SIDES,
   type CrawlerSide,
@@ -91,13 +91,15 @@ import { hasMoultFields } from "./entry-fields-moult.js";
  * and a greyed-out speed row on one would read as a speed it happens to be at.
  */
 export interface CellConfigOptions {
+  /** The wave the cell is on: how many columns a row of chips offers. */
+  wave: Pick<Wave, "cols">;
   /** The entry in the selected cell, or nothing. */
   entry(): WaveEntry | undefined;
   /** The entry changed: mark the wave dirty and redraw everything. */
   onEdit(): void;
 }
 
-export function cellConfig({ entry, onEdit }: CellConfigOptions): HTMLElement | null {
+export function cellConfig({ wave, entry, onEdit }: CellConfigOptions): HTMLElement | null {
   const e = entry();
   if (!e) return null;
 
@@ -227,12 +229,12 @@ export function cellConfig({ entry, onEdit }: CellConfigOptions): HTMLElement | 
     // first that is a *set*. Which columns the wall is open in is the whole of
     // what this creature asks the pair to say out loud, so it is the one thing
     // about a wall an author composes anything else against (`WaveEntry.gaps`).
-    rows.push(fenceGapsRow(e, onEdit, labelled));
+    rows.push(fenceGapsRow(wave, e, onEdit, labelled));
     // And where it is cracked, which is the other half of the same question:
     // the gaps are what the *shield* answers and the cracks are what the
     // *cannon* does, and a wall is authored by deciding how much of each
     // answer it leaves the pair (`entry-fields-fence.ts`).
-    rows.push(fenceCracksRow(e, onEdit, labelled));
+    rows.push(fenceCracksRow(wave, e, onEdit, labelled));
   }
   if (!rows.length) return null;
 

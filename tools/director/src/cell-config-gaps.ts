@@ -1,10 +1,10 @@
-import type { WaveEntry } from "@neon-spore/content";
+import type { Wave, WaveEntry } from "@neon-spore/content";
 import {
   cycleFenceCrack,
   fenceCrackAtCol,
   fenceCracksOf,
   fenceGapsOf,
-  GAP_COLS,
+  gapCols,
   toggleFenceGap,
 } from "./entry-fields-fence.js";
 
@@ -19,7 +19,7 @@ import {
  * and folding it into `choiceRow` would have meant a "choice" that quietly
  * means something else in one caller.
  *
- * The chips are the seven columns a wave is authored in, in order, which is
+ * The chips are the columns the wave is authored in, in order, which is
  * also the order they appear on the map above — so a wall's opening is set by
  * pointing at the same place on the row as the cell it will be in.
  *
@@ -39,13 +39,14 @@ import {
  * author is really setting.
  */
 export function fenceGapsRow(
+  wave: Pick<Wave, "cols">,
   entry: WaveEntry,
   onEdit: () => void,
   labelled: (label: string) => HTMLElement,
 ): HTMLElement {
   const open = new Set(fenceGapsOf(entry));
   const row = labelled("GAPS");
-  for (const col of GAP_COLS) {
+  for (const col of gapCols(wave)) {
     const button = document.createElement("button");
     button.type = "button";
     button.className = open.has(col) ? "chip on" : "chip";
@@ -63,11 +64,12 @@ export function fenceGapsRow(
  * The cracks, one chip per column, cycling dark → red → cyan → dark.
  *
  * The label carries the count, so an author setting how *many* a wall has does
- * not have to read seven chips to find out. A solid wall with none at all is
+ * not have to read every chip to find out. A solid wall with none at all is
  * given one by `queueFromWave`, in the cell it was painted in, and the label
  * says so rather than leaving the row looking like a wall nobody can pass.
  */
 export function fenceCracksRow(
+  wave: Pick<Wave, "cols">,
   entry: WaveEntry,
   onEdit: () => void,
   labelled: (label: string) => HTMLElement,
@@ -76,7 +78,7 @@ export function fenceCracksRow(
   const solid = fenceGapsOf(entry).length === 0;
   const label = cracks.length ? `CRACKS ${cracks.length}` : solid ? "CRACKS 1*" : "CRACKS";
   const row = labelled(label);
-  for (const col of GAP_COLS) {
+  for (const col of gapCols(wave)) {
     const color = fenceCrackAtCol(entry, col);
     const button = document.createElement("button");
     button.type = "button";

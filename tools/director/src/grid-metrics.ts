@@ -36,13 +36,16 @@ export const BEAT_LABEL_PX = 40;
  */
 export const ROW_ACT_PX = 22;
 
-/** The nine tracks: the numbers, the seven authored columns, the buttons. */
-export function gridTemplateColumns(): string {
-  return `${BEAT_LABEL_PX}px repeat(${AUTHORED_COLS}, ${CELL_PX}px) ${ROW_ACT_PX}px`;
+/** The tracks: the numbers, the wave's columns, the buttons. Nine on a wave
+ * authored on seven columns, thirteen on one put on all eleven tiles. */
+export function gridTemplateColumns(cols: number = AUTHORED_COLS): string {
+  return `${BEAT_LABEL_PX}px repeat(${cols}, ${CELL_PX}px) ${ROW_ACT_PX}px`;
 }
 
-/** What the whole map comes to, the gaps between the nine tracks included. */
-export function mapWidthPx(): number {
-  const tracks = AUTHORED_COLS + 2;
-  return BEAT_LABEL_PX + AUTHORED_COLS * CELL_PX + ROW_ACT_PX + (tracks - 1) * GAP_PX;
+/** What the whole map comes to, the gaps between the tracks included. The
+ * stylesheet holds the seven-column figure; `grid.ts` writes the wave's own
+ * over it on every render. */
+export function mapWidthPx(cols: number = AUTHORED_COLS): number {
+  const tracks = cols + 2;
+  return BEAT_LABEL_PX + cols * CELL_PX + ROW_ACT_PX + (tracks - 1) * GAP_PX;
 }
