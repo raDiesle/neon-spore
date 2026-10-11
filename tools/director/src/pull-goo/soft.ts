@@ -1,5 +1,7 @@
 import { type Facet, KEY, type Point } from "@neon-spore/content";
+import { smoothstep } from "@neon-spore/render";
 import { bodyPath, centre, DROP_SPIN, type GooBody, glow, rimAt } from "./body.js";
+import type { GooMoment } from "./moment.js";
 import {
   type Dent,
   dentOf,
@@ -40,14 +42,61 @@ export interface SoftDrop {
   readonly give: Give;
   /** Its arrow is moulded into its own lumps (`soft-arrow.ts`) rather than THE INSTAR's. */
   readonly moulded?: boolean;
+  /** It stops turning while it is pulled (`stillSpin`). */
+  readonly still?: boolean;
   /** The body and what is on it, clipped to the drop, under the dent. */
   body(s: SoftScene): void;
+  /** In place of the dent and the bow, still clipped: its own hollow (`soft-crater.ts`). */
+  hollow?(s: SoftScene): void;
   /** Over the dent, still clipped: what a hollow does not hide. */
   top?(s: SoftScene): void;
   /** Its edge, unclipped. */
   rim(s: SoftScene): void;
 }
 
+/** What a still drop's turning is worked out from: whether it is held, and how long
+ * since it was taken and let go (`GooMoment`). */
+export type Turn = Pick<GooMoment, "held" | "grabbed" | "lifted">;
+
+/** Seconds a still drop takes to stop turning once taken, and to catch its turning up
+ * again once let go. */
+const STOP = 0.2;
+const CATCH = 0.6;
+/** A hold longer than this is the lab's *never taken*. */
+const NEVER_HELD = 20;
+
+/** How far round a still drop has turned, `time` seconds in, taken `held` seconds ago:
+ * slowing to a stop rather than snapping, from where the turning had it. The owner,
+ * 11 October 2026: *a variant, where the rotation stops when pulling*. */
+export function stoppedSpin(time: number, held: number): number {
+  return (time - held + STOP * (1 - Math.exp(-held / STOP))) * DROP_SPIN;
+}
+
+/** A still drop's turn: stopping while held; let go, on from where it stopped and
+ * quickly catching up with the turning it would have had, so neither a grab nor a let
+ * go jumps. */
+export function stillSpin(time: number, t: Turn): number {
+  if (t.held) return stoppedSpin(time, t.grabbed);
+  const held = t.grabbed - t.lifted;
+  if (held <= 0 || held > NEVER_HELD || t.lifted >= CATCH) return time * DROP_SPIN;
+  const behind = held - STOP * (1 - Math.exp(-held / STOP));
+  return (time - behind * (1 - smoothstep(t.lifted / CATCH))) * DROP_SPIN;
+}
+
+/** The drop as it is drawn: pressed and turned. An arrow laid on it is laid on this, so
+ * the two give and stop together. */
+export function drawnBody(
+  drop: SoftDrop,
+  b: GooBody,
+  press: Press,
+  time: number,
+  turn: Turn,
+): GooBody {
+  const p = pressed(b, press, drop.give);
+  return drop.still ? { ...p, spin: stillSpin(time, turn) } : p;
+}
+
+/** Paint `drop`, and give back the body it drew. */
 export function paintSoft(
   ctx: CanvasRenderingContext2D,
   drop: SoftDrop,
@@ -56,8 +105,9 @@ export function paintSoft(
   time: number,
   tint: { red: number; green?: number; alpha?: number },
   press: Press,
-): void {
-  const b = pressed(b0, press, drop.give);
+  turn: Turn,
+): GooBody {
+  const b = drawnBody(drop, b0, press, time, turn);
   const path = bodyPath(b, style, time);
   const t = tonesOf(style, tint);
   const dent = dentOf(b, press, drop.give);
@@ -68,13 +118,17 @@ export function paintSoft(
   ctx.globalAlpha = t.alpha;
   ctx.clip(path);
   drop.body(s);
-  paintBow(ctx, b, press, style, t, drop.give.gloss);
-  paintDent(ctx, dent, style, t, drop.give.gloss);
+  if (drop.hollow) drop.hollow(s);
+  else {
+    paintBow(ctx, b, press, style, t, drop.give.gloss);
+    paintDent(ctx, dent, style, t, drop.give.gloss);
+  }
   drop.top?.(s);
   ctx.restore();
   ctx.save();
   drop.rim(s);
   ctx.restore();
+  return b;
 }
 
 /** Fill the drop with light from the top left: `stops` from the lit cap to the limb. */

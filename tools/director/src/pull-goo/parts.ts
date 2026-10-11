@@ -1,7 +1,7 @@
 import type { Point } from "@neon-spore/content";
 import { type PullTrack, pullTrackPoint } from "@neon-spore/render";
 import { blob, dot, FULL, goals, share } from "../../../versus/candidates/pull-handle/ooze/goo.js";
-import { blinkAt, dotCount, dotsEnd, flash, ghostPhase } from "./beat.js";
+import { blinkAt, dotCount, dotsEnd, ghostFront, passed, placeBeat } from "./beat.js";
 import { bodyPath } from "./body.js";
 import { dotIn, entering, placeIn } from "./enter.js";
 import type { GooStyle } from "./style.js";
@@ -60,7 +60,7 @@ export function runway(
 ): void {
   const dots = dotCount(t, r);
   const end = dotsEnd(t, r);
-  const ghostAt = ghostPhase(o.time).at;
+  const front = ghostFront(o.time);
   let next = true;
   ctx.save();
   for (let i = 1; i <= dots; i++) {
@@ -70,8 +70,7 @@ export function runway(
     if (!come) continue;
     const q = pullTrackPoint(t, o.origin + (o.goal - o.origin) * along);
     let lit = come.blink;
-    if (!o.held && along <= ghostAt && !entering(o.enter))
-      lit = Math.max(lit, 1 - (ghostAt - along) * 3.2);
+    if (!o.held && !entering(o.enter)) lit = Math.max(lit, passed(front, along));
     if (o.held && next) lit = Math.max(lit, blinkAt(o.time));
     next = false;
     ctx.fillStyle = style.neon;
@@ -102,6 +101,7 @@ export function paintPath(
   const waiting = !o.held && p < 0.01;
   const dots = dotCount(t, r);
   const end = dotsEnd(t, r);
+  const beat = placeBeat(t, r);
   for (const g of ends) {
     const came = share(o.origin, o.at, g);
     runway(ctx, t, r, style, {
@@ -120,6 +120,7 @@ export function paintPath(
       enter: o.enter,
       dots,
       end,
+      beat,
     });
     if (waiting && !entering(o.enter))
       ghost(ctx, t, r, style, { origin: o.origin, goal: g, time: o.time });
@@ -134,10 +135,10 @@ export function ghost(
   style: GooStyle,
   o: { origin: number; goal: 0 | 1; time: number },
 ): void {
-  const g = ghostPhase(o.time);
-  if (g.landed > 0) return;
-  const q = pullTrackPoint(t, o.origin + (o.goal - o.origin) * g.at);
-  const a = 0.55 * Math.sin(Math.sqrt(g.at) * Math.PI);
+  const at = ghostFront(o.time);
+  if (at > 1) return;
+  const q = pullTrackPoint(t, o.origin + (o.goal - o.origin) * at);
+  const a = 0.55 * Math.sin(Math.sqrt(at) * Math.PI);
   const p = bodyPath({ at: q, r: r * 0.92, seed: 13 }, style, o.time);
   ctx.save();
   ctx.globalAlpha = 0.3 * a;
@@ -159,7 +160,8 @@ export function ghost(
  * nothing is held, the same: the ghost lights the dots one after another and,
  * after the last, the place's dashed rim flashes as the ghost lands in it —
  * *the placeholder lined path is blinking after last path blinking to follow
- * the flow*, the same day.
+ * the flow*, the same day — one dot's beat after the last, at the dots' own
+ * pace (`placeBeat`): *no longer break to blink after dot*.
  */
 export function socket(
   ctx: CanvasRenderingContext2D,
@@ -174,14 +176,16 @@ export function socket(
     enter: number;
     dots: number;
     end: number;
+    /** Where the place lights in the dots' beat (`placeBeat`). */
+    beat: number;
   },
 ): void {
   if (o.came >= FULL) return;
   const come = placeIn(o.dots, o.enter);
   if (!come) return;
-  const landed = o.waiting && !entering(o.enter) ? ghostPhase(o.time).landed : 0;
+  const front = o.waiting && !entering(o.enter) ? ghostFront(o.time) : 0;
   const next = o.held && o.came > o.end - 1e-6;
-  const blink = next ? blinkAt(o.time) : landed > 0 ? flash(landed) : 0;
+  const blink = next ? blinkAt(o.time) : passed(front, o.beat);
   const lit = next ? blink : Math.max(o.came, blink, come.blink);
   const rr = r * Math.max(0.01, come.size) * (1 + 0.12 * blink);
   ctx.save();

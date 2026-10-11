@@ -72,8 +72,7 @@ export function paintArrow(
   },
 ): void {
   if (r <= 0.05) return;
-  const look = GOO_DROP.look;
-  const soft = typeof look === "object" && look.moulded === true;
+  const soft = GOO_DROP.look.moulded === true;
   const reach = soft
     ? r * (a.held ? SOFT_HELD : SOFT_REACH)
     : r * (a.held ? 1.05 : 1.15 + 0.07 * Math.sin(a.time * 6));

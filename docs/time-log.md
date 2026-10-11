@@ -37871,3 +37871,17 @@ Bottleneck: writing — the first outline smoothed into a stubby house shape and
 needed a longer shaft and a stronger take of the lumps to read as soft.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-11 — PULL LAB: the place on the dots' beat, DROP down to SOFT PLASTIC, a still drop and three craters
+
+- reading: 5 min. `beat.ts`, `parts.ts`, `enter.ts`, the soft drops, `press.ts`,
+  `knob.ts`; the delay was the ghost easing out between the last dot and the place.
+- writing: 15 min. A steady front with the place as the next beat; four drops and
+  the ball out; `soft-crater.ts`; the still drop's turn through the moment's clocks.
+- looking: 5 min. A scratch sheet of every DROP at six held moments, and a strip.
+- friction: 5 min. The dev server would not hand out modules and `file://` refused
+  the bundle beside the page; inlined it.
+- landing: 5 min. `check:fast`, the index, `land`.
+
+Bottleneck: friction — a third throwaway to photograph a drop up close, added to
+the queued entry for a `shot` flag that would make it one command.

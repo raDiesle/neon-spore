@@ -45,8 +45,10 @@ export interface GooMoment {
   readonly off: Point;
   readonly reach: number | null;
   readonly near: number;
-  /** Seconds since the drop was taken; long ago when the lab does not say. */
+  /** Seconds since the drop was taken, and since it was let go; long ago when the lab
+   * does not say. */
   readonly grabbed: number;
+  readonly lifted: number;
   /** Seconds since a drop came in at the start — a fresh one after a count, or the
    * first one on the field — and the path with it (`enter.ts`); long ago otherwise. */
   readonly enter: number;
@@ -82,6 +84,7 @@ export function momentOf(
     reach,
     near: held ? clamp01(1 - gap / (r * 0.5)) : 0,
     grabbed: after?.grabbed ?? 9,
+    lifted: after?.lifted ?? 9,
     enter: fresh !== null ? Math.max(0, fresh) : last === null ? (after?.born ?? 9) : 9,
   };
 }

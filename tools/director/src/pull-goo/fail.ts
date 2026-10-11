@@ -1,7 +1,7 @@
 import type { Point } from "@neon-spore/content";
 import { PALETTE, pullTrackPoint, smoothstep } from "@neon-spore/render";
 import { paintArrow, splitOf } from "./arrow.js";
-import { drop } from "./body.js";
+import { drop, type GooBody } from "./body.js";
 import { edge } from "./border.js";
 import { paintGoo } from "./drop-look.js";
 import { FAIL_BACK, FAIL_HOLD, FAIL_SETTLE } from "./moment.js";
@@ -27,10 +27,9 @@ export function paintFailure(s: Scene): void {
     const e = f / FAIL_HOLD;
     paintTail(ctx, tailPath(whole, r, time, 0.6), PALETTE.red, 0, 1);
     spit(ctx, s.from, r, f);
-    paintGoo(ctx, drop(s.from, r, { squash: 1.15, shake: 0.35 * (1 - e) }), style, time, {
-      red: smoothstep(clamp01(f / 0.08)) * 0.9,
-    });
-    arrowIn(s, s.from, m.from.at, r);
+    const b = drop(s.from, r, { squash: 1.15, shake: 0.35 * (1 - e) });
+    const red = smoothstep(clamp01(f / 0.08)) * 0.9;
+    arrowIn(s, s.from, m.from.at, r, paintGoo(ctx, b, style, time, { red }, m));
     return;
   }
   const g = f - FAIL_HOLD;
@@ -49,34 +48,20 @@ export function paintFailure(s: Scene): void {
     paintTail(ctx, tailPath(run, rr, time, 0.4), PALETTE.red, 0, 1 - 0.5 * u);
     spit(ctx, s.from, r, f);
     const lean = { x: (behind.x - at.x) / w, y: (behind.y - at.y) / w };
-    paintGoo(
-      ctx,
-      drop(at, rr, { lean, stretch: 0.75 * Math.sin(Math.PI * u), point: 5 }),
-      style,
-      time,
-      { red: 0.9 },
-      lean,
-    );
-    arrowIn(s, at, run.at, rr);
+    const b = drop(at, rr, { lean, stretch: 0.75 * Math.sin(Math.PI * u), point: 5 });
+    arrowIn(s, at, run.at, rr, paintGoo(ctx, b, style, time, { red: 0.9 }, m));
     return;
   }
   const h = g - FAIL_BACK;
   trail(ctx, whole, r, 1, g);
-  paintGoo(
-    ctx,
-    drop(s.home, r, { squash: 1 + 0.45 * style.jiggle * settle(h, 6, 18) }),
-    style,
-    time,
-    {
-      red: 0.9 * (1 - clamp01(h / FAIL_SETTLE)),
-    },
-  );
-  arrowIn(s, s.home, s.origin, r);
+  const b = drop(s.home, r, { squash: 1 + 0.45 * style.jiggle * settle(h, 6, 18) });
+  const red = 0.9 * (1 - clamp01(h / FAIL_SETTLE));
+  arrowIn(s, s.home, s.origin, r, paintGoo(ctx, b, style, time, { red }, m));
 }
 
-/** The arrow stays in the drop all the way home (`arrow.ts`): the way the pull went at
- * `k` along the track, split again for a two-way pull as it nears its start. */
-function arrowIn(s: Scene, at: Point, k: number, rr: number): void {
+/** The arrow stays in the drop all the way home (`arrow.ts`), laid on `body`: the way the
+ * pull went at `k` along the track, split again for a two-way pull as it nears its start. */
+function arrowIn(s: Scene, at: Point, k: number, rr: number, body: GooBody): void {
   const q = pullTrackPoint(s.t, k);
   const sign = s.goal > s.origin ? 1 : -1;
   const twoWay = s.origin > 0 && s.origin < 1;
@@ -87,6 +72,7 @@ function arrowIn(s: Scene, at: Point, k: number, rr: number): void {
     split: splitOf(twoWay, apart),
     held: false,
     time: s.time,
+    body,
   });
 }
 

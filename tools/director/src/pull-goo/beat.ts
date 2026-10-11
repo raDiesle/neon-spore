@@ -1,5 +1,5 @@
 import type { Point } from "@neon-spore/content";
-import { type PullTrack, smoothstep } from "@neon-spore/render";
+import type { PullTrack } from "@neon-spore/render";
 import { GHOST_RUN } from "../../../versus/candidates/pull-handle/ooze/goo.js";
 
 /**
@@ -23,23 +23,30 @@ export function dotsEnd(t: PullTrack, r: number): number {
   return Math.max(0.5, 1 - (CLEAR * r) / Math.max(1, lengthOf(t)));
 }
 
-/** The share of `GHOST_RUN` the ghost spends running the path; for the rest it has
- * landed and the place blinks, the next thing after the last dot. */
+/** The share of `GHOST_RUN` the ghost takes to run the whole way; the front it lights
+ * runs on past the end at the same pace, through the place's beat and a rest. */
 const GHOST_TRAVEL = 0.72;
 
-/** How far along the waiting ghost is, 0..1, and how far into the place's blink, 0..1
- * (0 while it is still running). */
-export function ghostPhase(time: number): { at: number; landed: number } {
-  const run = (time / GHOST_RUN) % 1;
-  return {
-    at: smoothstep(Math.min(1, run / GHOST_TRAVEL)),
-    landed: Math.max(0, (run - GHOST_TRAVEL) / (1 - GHOST_TRAVEL)),
-  };
+/** How far the waiting ghost's front has run, as a share of the way, at one steady pace
+ * — the owner, 11 October 2026: *I expect it follows same speed as the dots*. So every
+ * dot lights one beat after the one before, and so does the place after the last (past
+ * 1 once the ghost is in it, for the place's flash to fade and the rest before the next
+ * run). */
+export function ghostFront(time: number): number {
+  return ((time / GHOST_RUN) % 1) / GHOST_TRAVEL;
 }
 
-/** One flash, 0..1 over `k` 0..1: quickly up, slowly down, as a dot the ghost passes. */
-export function flash(k: number): number {
-  return k < 0.2 ? k / 0.2 : 1 - (k - 0.2) / 0.8;
+/** How lit a mark at `along` is once the front has passed it: at once, then fading over
+ * a third of the way. */
+export function passed(front: number, along: number): number {
+  return front < along ? 0 : Math.max(0, 1 - (front - along) * 3.2);
+}
+
+/** Where the place sits in the dots' beat: one dot's spacing after the last, so it is
+ * the next thing to light, with no pause before it. */
+export function placeBeat(t: PullTrack, r: number): number {
+  const n = dotCount(t, r);
+  return Math.min(1, (dotsEnd(t, r) * (n + 1)) / n);
 }
 
 /** The blink of whatever is next ahead of a held drop: a dot, then the place. */

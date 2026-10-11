@@ -59,9 +59,10 @@ export function dotIn(i: number, n: number, e: number): { size: number; blink: n
   };
 }
 
-/** The place at the end of a path of `n` dots, `e` seconds in, after the last dot. */
+/** The place at the end of a path of `n` dots, `e` seconds in: one dot's gap after the
+ * last, as if it were the next. */
 export function placeIn(n: number, e: number): { size: number; blink: number } | null {
-  const t = e - dotAt(n, n) - 0.02;
+  const t = e - dotAt(n + 1, n);
   if (t < 0) return null;
   const k = clamp01(t / POP);
   return { size: smoothstep(k) + 0.25 * Math.sin(Math.PI * k), blink: 1 - k };
@@ -69,5 +70,5 @@ export function placeIn(n: number, e: number): { size: number; blink: number } |
 
 /** Whether the path is still coming in, so the ghost waits for it. */
 export function entering(e: number): boolean {
-  return e < FIRST_DOT + DOTS_SPAN + 0.02 + POP;
+  return e < FIRST_DOT + DOTS_SPAN + DOT_GAP + POP;
 }

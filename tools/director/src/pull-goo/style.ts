@@ -11,15 +11,9 @@ export interface GooStyle {
   readonly deep: string;
   readonly core: string;
   readonly neon: string;
-  /** How much of the field shows through the body, 0..1. */
-  readonly clear: number;
   /** How lumpy the rim is, and how fast its lumps creep. */
   readonly lumpy: number;
   readonly creep: number;
-  /** Bubbles hung inside the body. */
-  readonly bubbles: number;
-  /** A wet oily sheen sliding over the top. */
-  readonly sheen: boolean;
   /** How strongly the drop jiggles when it is let go or lands. */
   readonly jiggle: number;
 }
@@ -30,10 +24,7 @@ export const GOO: GooStyle = {
   deep: "#05030A",
   core: "#7A5A9E",
   neon: "#FF4FE6",
-  clear: 0,
   lumpy: 0.14,
   creep: 1.4,
-  bubbles: 0,
-  sheen: true,
   jiggle: 1.3,
 };

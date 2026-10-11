@@ -1,6 +1,6 @@
 import { KEY, type Point } from "@neon-spore/content";
 import { PALETTE } from "@neon-spore/render";
-import { centre, type GooBody, rimAt } from "./body.js";
+import { centre, type GooBody, rimAt, smoothPath } from "./body.js";
 import { mix } from "./noise.js";
 import type { GooStyle } from "./style.js";
 
@@ -82,22 +82,7 @@ function moulded(w: ArrowAt, body: GooBody, style: GooStyle, time: number): Path
       pts.push({ x: body.at.x + ox + even.x * out, y: body.at.y + oy + even.y * out });
     }
   }
-  const p = new Path2D();
-  const n = pts.length;
-  const mid = (i: number): Point => {
-    const a = pts[i % n] as Point;
-    const b = pts[(i + 1) % n] as Point;
-    return { x: (a.x + b.x) / 2, y: (a.y + b.y) / 2 };
-  };
-  const m0 = mid(0);
-  p.moveTo(m0.x, m0.y);
-  for (let i = 1; i <= n; i++) {
-    const q = pts[i % n] as Point;
-    const m = mid(i);
-    p.quadraticCurveTo(q.x, q.y, m.x, m.y);
-  }
-  p.closePath();
-  return p;
+  return smoothPath(pts);
 }
 
 /** The arrows of a pull, moulded into `body`: a dark bed under them, a soft neon round

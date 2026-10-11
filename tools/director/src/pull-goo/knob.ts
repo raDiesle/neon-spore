@@ -37,12 +37,19 @@ export function gooKnob(style: GooStyle) {
       ? heldBody(hold)
       : drop(at, rr, { squash: 1 + 0.07 * Math.sin(o.time * 3.4) });
     const tint = { red: 0.7 * m.near, alpha: o.theirs ? 0.4 : 1 };
-    paintGoo(ctx, body, style, o.time, tint, way, o.held ? pressOf(hold) : undefined);
+    const press = o.held ? pressOf(hold) : undefined;
+    const drawn = paintGoo(ctx, body, style, o.time, tint, m, press);
     if (o.held) overHeld(ctx, hold, style);
     if (o.way) {
       const split = o.after?.split ?? (o.either ? 1 : 0);
       const time = o.time;
-      paintArrow(ctx, at, arrowSize(r, g), style, { ...o.way, split, held: o.held, time, body });
+      paintArrow(ctx, at, arrowSize(r, g), style, {
+        ...o.way,
+        split,
+        held: o.held,
+        time,
+        body: drawn,
+      });
     }
     ctx.restore();
   };

@@ -1,6 +1,7 @@
+import type { Point } from "@neon-spore/content";
 import { PALETTE } from "@neon-spore/render";
 import { paintArrow } from "./arrow.js";
-import { drop } from "./body.js";
+import { drop, type GooBody } from "./body.js";
 import { type Ending, greenAt, halo, intoPlace, onward, paintDrop } from "./ending.js";
 import { ENDING } from "./moment.js";
 import { clamp01, hash, mix } from "./noise.js";
@@ -34,9 +35,10 @@ export const FIZZ: Ending = {
     const left = (1 - u) ** 1.3;
     halo(s, s.place, s.r * 1.8, 0.25 * left);
     const at = intoPlace(s, e);
-    if (left > 0.04)
-      paintDrop(s, drop(at, s.r * left, { shake: 0.25 * u }), greenAt(e), 0.4 + 0.6 * left);
-    melt(s, at, e, left);
+    if (left > 0.04) {
+      const b = drop(at, s.r * left, { shake: 0.25 * u });
+      melt(s, at, e, left, paintDrop(s, b, greenAt(e), 0.4 + 0.6 * left));
+    }
     const { ctx } = s;
     ctx.save();
     ctx.strokeStyle = mix(PALETTE.good, "#FFFFFF", 0.35);
@@ -76,8 +78,8 @@ export const FIZZ: Ending = {
 const MELT_FROM = 0.12;
 const MELT_TO = 0.32;
 
-/** The arrow in the boiling drop: green with it, its size, then melting into it. */
-function melt(s: Scene, at: { x: number; y: number }, e: number, left: number): void {
+/** The arrow in the boiling drop `body`: green with it, its size, then melting into it. */
+function melt(s: Scene, at: Point, e: number, left: number, body: GooBody): void {
   const k = clamp01((e - MELT_FROM) / (MELT_TO - MELT_FROM));
   if (k >= 1) return;
   const way = onward(s);
@@ -89,5 +91,6 @@ function melt(s: Scene, at: { x: number; y: number }, e: number, left: number): 
     time: s.time,
     alpha: (1 - k) ** 1.5,
     green: greenAt(e),
+    body,
   });
 }

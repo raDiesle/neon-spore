@@ -49,15 +49,15 @@ export function intoPlace(s: Scene, e: number): Point {
   return { x: s.from.x + (s.place.x - s.from.x) * k, y: s.from.y + (s.place.y - s.from.y) * k };
 }
 
-/** The way the pull went, at the place: the way a ball in it rolls. */
+/** The way the pull went, at the place: the way the arrow in it points. */
 export function onward(s: Scene): Point {
   const q = homeward(s, 0);
   return { x: -q.dx, y: -q.dy };
 }
 
-/** The drop, green by `green`, as the bar has it (flat or a ball). */
-export function paintDrop(s: Scene, b: GooBody, green: number, alpha = 1): void {
-  paintGoo(s.ctx, b, s.style, s.time, { red: 0, green, alpha }, onward(s));
+/** The drop, green by `green`, as the bar has it; gives back the body drawn. */
+export function paintDrop(s: Scene, b: GooBody, green: number, alpha = 1): GooBody {
+  return paintGoo(s.ctx, b, s.style, s.time, { red: 0, green, alpha }, s.m);
 }
 
 /** A fresh drop coming in at the start, `f` seconds in, and the path with it
@@ -75,7 +75,8 @@ function comingIn(s: Scene, f: number): void {
   if (g < 0.02) return;
   const breathe = f >= SPAWN ? 0.07 * Math.sin(s.time * 3.4) : 0;
   const rr = s.r * g;
-  paintGoo(s.ctx, drop(s.home, rr, { squash: 1 + breathe }), s.style, s.time, { red: 0 });
+  const b = drop(s.home, rr, { squash: 1 + breathe });
+  const body = paintGoo(s.ctx, b, s.style, s.time, { red: 0 }, s.m);
   const q = homeward(s, 1);
   paintArrow(s.ctx, s.home, arrowSize(s.r, g), s.style, {
     dx: -q.dx,
@@ -83,6 +84,7 @@ function comingIn(s: Scene, f: number): void {
     split: splitOf(s.origin > 0 && s.origin < 1, 0),
     held: false,
     time: s.time,
+    body,
   });
 }
 

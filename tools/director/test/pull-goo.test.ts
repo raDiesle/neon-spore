@@ -2,11 +2,16 @@ import { beforeAll, describe, expect, test } from "bun:test";
 import { installCanvasGlobals, stubCanvas } from "../../../packages/render/test/canvas-stub.js";
 import { VARIANTS } from "../../versus/candidates/index.js";
 import { arrowSize, splitOf } from "../src/pull-goo/arrow.js";
-import { type DropLook, GOO_DROP, SOFT_DROPS } from "../src/pull-goo/drop-look.js";
+import { dotCount, dotsEnd, ghostFront, passed, placeBeat } from "../src/pull-goo/beat.js";
+import { centre, DROP_SPIN, drop, rimAt } from "../src/pull-goo/body.js";
+import { GOO_DROP, SOFT_DROPS } from "../src/pull-goo/drop-look.js";
 import { DOTS_SPAN, dotIn, entering, grown, POP, placeIn } from "../src/pull-goo/enter.js";
 import { GOO_LOOKS } from "../src/pull-goo/index.js";
 import { SPAWN } from "../src/pull-goo/moment.js";
+import { stillSpin, stoppedSpin } from "../src/pull-goo/soft.js";
+import { CLEAR, craterOf } from "../src/pull-goo/soft-crater.js";
 import { specks } from "../src/pull-goo/strand.js";
+import { GOO } from "../src/pull-goo/style.js";
 import { autoThumb } from "../src/pull-lab-auto.js";
 import { labLooks, paintLab } from "../src/pull-lab-paint.js";
 import { freshPull, lift, move, press, tick } from "../src/pull-lab-rule.js";
@@ -55,8 +60,7 @@ describe("the GOO looks", () => {
     const step = 1 / 30;
     const look = GOO_LOOKS[0] ?? null;
     try {
-      const looks: DropLook[] = ["flat", "ball", ...SOFT_DROPS];
-      for (const drop of looks) {
+      for (const drop of SOFT_DROPS) {
         GOO_DROP.look = drop;
         for (const shape of LAB_SHAPES) {
           const pull = freshPull(shape);
@@ -126,5 +130,66 @@ describe("the GOO looks", () => {
     expect(splitOf(true, -0.08)).toBeLessThan(1);
     expect(splitOf(true, 0.3)).toBe(0);
     expect(splitOf(false, 0)).toBe(0);
+  });
+
+  test("light the place one dot's beat after the last dot, at the dots' own pace", () => {
+    for (const shape of LAB_SHAPES) {
+      const t = shape.track;
+      const n = dotCount(t, 14);
+      const marks = [...Array.from({ length: n }, (_, i) => (dotsEnd(t, 14) * (i + 1)) / n)];
+      marks.push(placeBeat(t, 14));
+      // The second each mark first lights, the ghost's front run frame by frame.
+      const lit = marks.map((along) => {
+        for (let f = 0; f < 960; f++) if (passed(ghostFront(f / 600), along) > 0) return f / 600;
+        return Number.NaN;
+      });
+      const gaps = lit.slice(1).map((s, i) => s - (lit[i] as number));
+      const first = gaps[0] as number;
+      for (const g of gaps)
+        expect([shape.key, Math.abs(g - first) < 0.004]).toEqual([shape.key, true]);
+    }
+  });
+
+  test("keep the crater in the middle of the drop and clear of its rim, however pressed", () => {
+    for (const time of [0, 0.7, 2.3, 5.1])
+      for (const depth of [0.1, 0.6, 1])
+        for (const b of [
+          drop({ x: 0, y: 0 }, 40, { lean: { x: 0, y: 1 }, stretch: 0.3, squash: 1.1, shake: 0.1 }),
+          drop({ x: 0, y: 0 }, 40, { lean: { x: 0, y: -1 }, stretch: 0.2 }),
+        ]) {
+          const cr = craterOf(b, GOO, time, depth);
+          const c = centre(b);
+          const sq = b.squash ?? 1;
+          for (const p of cr.pts) {
+            const x = p.x - c.x;
+            const y = p.y - c.y;
+            const rim = rimAt(b, GOO, time, Math.atan2(y * sq, x / sq));
+            expect(Math.hypot(x, y)).toBeLessThanOrEqual(
+              Math.hypot(rim.x, rim.y) - CLEAR * 40 + 1e-6,
+            );
+          }
+          expect(cr.r).toBeGreaterThan(40 * 0.4);
+          expect(Math.hypot(cr.mid.x - c.x, cr.mid.y - c.y)).toBeLessThan(40 * 0.15);
+        }
+  });
+
+  test("stop a still drop's turning once taken, from where the turning had it", () => {
+    expect(stoppedSpin(3, 0)).toBeCloseTo(3 * DROP_SPIN, 9);
+    expect(stoppedSpin(3.01, 0.01) - stoppedSpin(3, 0)).toBeGreaterThan(0);
+    expect(stoppedSpin(5, 2) - stoppedSpin(4, 1)).toBeCloseTo(0, 2);
+    // Held 1.5 s from 3 s on, let go at 4.5 s: no jump at the grab, at the let go, or
+    // once it has caught up.
+    const at = (time: number) =>
+      time < 3
+        ? stillSpin(time, { held: false, grabbed: 61, lifted: 1 })
+        : time < 4.5
+          ? stillSpin(time, { held: true, grabbed: time - 3, lifted: 9 })
+          : stillSpin(time, { held: false, grabbed: time - 3, lifted: time - 4.5 });
+    for (let f = 0; f < 300; f++) {
+      const t = 2.5 + f / 100;
+      expect(Math.abs(at(t + 0.01) - at(t))).toBeLessThan(0.05);
+    }
+    expect(at(6)).toBeCloseTo(6 * DROP_SPIN, 9);
+    expect(stillSpin(1, { held: false, grabbed: 61, lifted: 1 })).toBeCloseTo(DROP_SPIN, 9);
   });
 });
