@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-11 · 3c5af855d — The director's TRY and PULL LAB bars group their variants under a name
+
+Each set of variants on the PULL LAB's bar now sits in a frame with its name over it: PATH, LOOK, DROP, GRAB, SPEED, PLAY and SHOW. A button no longer repeats the name ("FLAT", not "DROP · FLAT"), so feedback can say "DROP: FLAT" and match what is on screen. ✕ sits by the title and the readout has the last line to itself. The TRY bar over a field control is grouped the same way: CLOCK, SPEED, MOUSE IS, SHOWN, SCREEN, SOUND, OUTLINE. `choice` takes the name; `grouped` frames plain buttons.
+
 ## 2026-10-11 · 5383ebe2e — PULL LAB: the drop comes in first, from a speck; the path and the place come quicker
 
 A fresh pull in the PULL LAB now enters in three beats, each quicker than the one before. The drop and its arrow appear alone as a small speck and grow fast, a little past full size, then settle (about 0.35 s). Once the drop is nearly full size the path's dots blink in one after another, all in 0.15 s. The place at the end pops in last, in 0.13 s. The EVERY LOOK sheet's COMING IN column is now three: THE DROP, THE PATH, THE PLACE.
