@@ -39,7 +39,27 @@ main > section.brush-col > .column-body {
 #mapCol {
   width: 100%;
   min-width: 0;
+}
+/* The sideways scroll is the body's, not #mapCol's: a box that scrolls
+   either way is the box a sticky child sticks inside, and #mapCol is as
+   tall as the map, so `.map-transport` would have scrolled away with it. */
+#mapCol > .subcol-body {
   overflow-x: auto;
+}
+/* ⏸ and ↺ over the map, stuck to the top of the scrolling column. */
+.map-transport {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  display: flex;
+  gap: 6px;
+  padding: 4px 0 6px;
+  margin-bottom: 6px;
+  background: var(--bg);
+}
+.map-transport #playMap {
+  min-width: 44px;
+  font-size: 1rem;
 }
 /* #gridNote must not force #mapCol wider than the grid — a block child
    with no width cap contributes its own unwrapped line length to the

@@ -37917,3 +37917,17 @@ own — the fence's chips and the boss's field each held a seven.
 Bottleneck: none worth the name — the verb already existed one file over.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-11 — ⏸ and ↺ over the map, always in view
+
+- reading: 5 min. How the MAP column scrolls: the section does, and
+  `#mapCol`'s own sideways scroll would have trapped a sticky child.
+- writing: 5 min. `.map-transport` in the markup, both ⏸ bound and painted
+  by class, the third ↺, the sideways scroll moved to the body.
+- looking: 5 min. The browser pane: paused and restarted from the map, and
+  the bar still at the top with the map scrolled 250px.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, `land`.
+
+Bottleneck: finding which ancestor scrolls — `#mapCol`'s `overflow-x`
+quietly made it the box a sticky bar would have stuck inside.

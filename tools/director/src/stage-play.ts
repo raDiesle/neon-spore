@@ -28,9 +28,10 @@ export interface StagePlay {
 }
 
 export function bindStagePlay(deps: StagePlayDeps): StagePlay {
-  const playBtn = document.getElementById("play");
+  // RUN's and the one over the map (`.map-transport`), which say the same.
+  const playBtns = document.querySelectorAll<HTMLElement>("button.stage-play");
   const paintPlay = (): void => {
-    if (playBtn) playBtn.textContent = deps.running() ? "⏸" : "▶";
+    for (const b of playBtns) b.textContent = deps.running() ? "⏸" : "▶";
   };
   const afterRun = bindStageAfterRun({
     canvas: deps.canvas,

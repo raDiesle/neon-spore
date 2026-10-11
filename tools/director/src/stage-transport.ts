@@ -19,10 +19,13 @@ export interface StageTransportDeps {
 }
 
 export function bindStageTransport(deps: StageTransportDeps): void {
-  document.getElementById("play")?.addEventListener("click", deps.onPlayToggle);
+  for (const button of document.querySelectorAll("button.stage-play")) {
+    button.addEventListener("click", deps.onPlayToggle);
+  }
   // `restartField` is the phone's smaller copy over the field, beside the
-  // role buttons — RUN is behind the menu there.
-  for (const id of ["restart", "restartField"]) {
+  // role buttons — RUN is behind the menu there; `restartMap` sits over the
+  // map with the second `⏸` (`.map-transport`).
+  for (const id of ["restart", "restartField", "restartMap"]) {
     document.getElementById(id)?.addEventListener("click", deps.restart);
   }
   // `✓ CARD` used to live here: the whole stage is the card's button on a
