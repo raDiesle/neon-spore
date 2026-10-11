@@ -223,3 +223,12 @@ test("a wave on every tile saves the columns it is counted on, above its entries
   const seven = serializeWaveArray(source, [{ ...wave, cols: undefined }], "WAVES_ACT_1");
   expect(seven).not.toContain("cols:");
 });
+
+test("a variant is written under its name, and a save reads it back", async () => {
+  const file = new URL("../../../packages/content/src/waves/act-1.ts", import.meta.url);
+  const source = await Bun.file(file).text();
+  const waves = WAVES_ACT_1.map((w, i) => (i === 1 ? { ...w, variant: true as const } : w));
+  const out = serializeWaveArray(source, waves, "WAVES_ACT_1");
+  expect(out).toContain(`    name: "${WAVES_ACT_1[1]?.name}",\n    variant: true,\n`);
+  expect(out.match(/variant: true/g)?.length).toBe(1);
+});

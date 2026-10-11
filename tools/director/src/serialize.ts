@@ -86,6 +86,9 @@ function serializeWave(wave: Wave): string {
   // and a save must carry it forward untouched — see `Wave.id`.
   lines.push(...textField("id", wave.id));
   lines.push(...textField("name", wave.name));
+  // Under the name, where a reader of the act file sees it first: this wave
+  // folds under the one above it in the director's list (`Wave.variant`).
+  if (wave.variant) lines.push("    variant: true,");
   // Directly under `name`: a wave's prose is its name and what the pair has
   // to be told before it starts.
   if (wave.guide) lines.push(...serializeGuide(wave.guide));

@@ -115,6 +115,15 @@ export interface Wave {
   /** What a person reads, on the HUD and in the wave list. Renameable. */
   name: string;
   /**
+   * **Grouped under the wave above it** in the director's wave list; the game
+   * never reads it. The owner, 11 October 2026: the waves that vary one which
+   * introduces something fold under it, so that one stays visible. A variant
+   * belongs to the nearest wave above it that is not one; play order is list
+   * order. A boss and the first wave are never variants
+   * (`tools/director/src/rail-groups.ts`).
+   */
+  variant?: true;
+  /**
    * The help this wave opens on, after its introduction, or nothing.
    *
    * A wave that introduces nothing new writes no guide at all, and padding

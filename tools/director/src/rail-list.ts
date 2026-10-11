@@ -1,4 +1,5 @@
 import type { RowDrag } from "./rail-drag.js";
+import { type BossStretch, bossStretches, waveGroups } from "./rail-groups.js";
 import { waveMarks } from "./rail-marks.js";
 import { openButtons } from "./rail-open.js";
 import type { Store } from "./state.js";
@@ -9,8 +10,16 @@ import type { Store } from "./state.js";
  * Split out of `rail.ts` on that file's length limit, which the two ways out
  * of a row pushed it past (`rail-open.ts`). What is here is the drawing alone:
  * which waves a filter left standing is `rail-filter.ts` and `rail-symbols.ts`
- * between them, and the caller hands the answer in.
+ * between them, and the caller hands the answer in; so is which groups are
+ * folded (`rail-folds.ts`), and only the fold's own button is drawn here.
  */
+
+/** The groups as the list draws them: which heads are folded, and the press
+ * that opens or folds one. Absent, every group is drawn open. */
+export interface RowFolds {
+  folded(head: number): boolean;
+  toggle(head: number): void;
+}
 
 /** Draws every row the filter left standing, and answers how many *matched* —
  * which is not how many rows were drawn, for the reason written below. */
@@ -20,12 +29,19 @@ export function renderRows(
   passes: (waves: Store["waves"], i: number) => boolean,
   select: (i: number) => void,
   drag?: RowDrag,
+  folds?: RowFolds,
 ): number {
   list.replaceChildren();
   let matched = 0;
+  const groups = waveGroups(store.waves);
+  const stretches = bossStretches(store.waves);
   for (const [i, wave] of store.waves.entries()) {
     const hit = passes(store.waves, i);
     if (hit) matched++;
+    // A variant under a folded head is not drawn — unless it is the wave being
+    // edited, for the reason given just below about the filter.
+    const head = groups.head[i] ?? -1;
+    if (head !== -1 && folds?.folded(head) && i !== store.index) continue;
     // The wave being edited stays in the list whatever the filter says: the
     // whole column beside it is that wave's own fields, and a list that hid
     // the row they belong to would leave the editor pointing at nothing a
@@ -48,11 +64,45 @@ export function renderRows(
     // the row's own marks so that everything which reads the list still finds
     // them on the child of `#waveList` rather than one level further in.
     const row = document.createElement("div");
-    row.className = ["wave-row", ...marks].join(" ");
-    row.append(button, ...openButtons(i, select));
+    row.className = ["wave-row", ...marks, head === -1 ? "" : "variant"].filter(Boolean).join(" ");
+    row.append(button);
+    const size = groups.size[i] ?? 0;
+    if (size > 0) row.append(foldButton(i, size, folds));
+    row.append(...openButtons(i, select));
+    const stretch = stretches.get(i);
+    if (stretch) markStretch(row, stretch, Boolean(wave.boss));
     // Carried to a new place by dragging it (`rail-drag.ts`).
     drag?.bind(row, i);
     list.appendChild(row);
   }
   return matched;
+}
+
+/** The press on a head that folds its group away or opens it, with how many
+ * waves are under it — so a folded group still says how big it is. */
+function foldButton(i: number, size: number, folds: RowFolds | undefined): HTMLButtonElement {
+  const button = document.createElement("button");
+  button.type = "button";
+  button.className = "fold";
+  const folded = folds?.folded(i) ?? false;
+  button.textContent = `${folded ? "▸" : "▾"} ${size}`;
+  button.setAttribute("aria-label", `${folded ? "Open" : "Fold"} the ${size} waves under this one`);
+  button.addEventListener("click", (e) => {
+    e.stopPropagation?.();
+    folds?.toggle(i);
+  });
+  return button;
+}
+
+/**
+ * The stretch of regular waves a boss closes, written as a line over the boss's
+ * row; and on the last row, when it is not a boss, the stretch the next boss
+ * would close, written under it (`bossStretches`). On the row as data and drawn
+ * by the stylesheet, so the list keeps one child per wave.
+ */
+function markStretch(row: HTMLElement, stretch: BossStretch, boss: boolean): void {
+  const waves = `${stretch.waves} ${stretch.waves === 1 ? "wave" : "waves"}`;
+  const concepts = stretch.groups === stretch.waves ? "" : ` · ${stretch.groups} new`;
+  if (boss) row.dataset.stretch = `${waves}${concepts}`;
+  else row.dataset.tail = `${waves}${concepts} since the last boss`;
 }

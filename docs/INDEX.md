@@ -3489,12 +3489,15 @@ by hand never moves.
 | `tools/director/src/cell-config-rows.ts` | **How a row under the selected cell is drawn, and what each of its values is called** |
 | `tools/director/src/grid-cell-art.ts` | What one cell of the map draws: the creature that arrives on that beat, and the pod that hangs in that column |
 | `tools/director/src/rail-filter.ts` | The filter over the wave list: one field above it, matching a wave's prose and everything it sends |
+| `tools/director/src/rail-folds.ts` | which groups in the wave list are open — folded until opened, kept by wave id across a reload |
 | `tools/director/src/rail-steps.ts` | **The two arrows over the WAVE column**, and the two keys that are the same step without the mouse |
 | `tools/director/src/rail-symbols.ts` | **THE ROW OF SYMBOLS OVER THE FILTER**: the rail's own four marks, made pressable |
 | `tools/director/src/rail-list.ts` | ONE ROW OF THE WAVE LIST, AND WHAT IS ON IT |
 | `tools/director/src/rail-open.ts` | THE THREE WAYS OUT OF A ROW IN THE WAVE LIST |
 | `tools/director/src/rail-drag.ts` | A WAVE DRAGGED TO A NEW PLACE IN THE LIST |
 | `tools/director/src/rail-arrive.ts` | THE WAVE THIS DEVICE LAST OPENED, AND THE LIST OPENING ON IT |
+| `tools/director/src/rail-groups.ts` | you touch wave groups in the director's list: who a variant belongs to, how a dragged group lands, and the count of waves before each boss |
+| `tools/director/src/rail-variant.ts` | the checkbox under NAME that folds the open wave under the one above it (`Wave.variant`) |
 | `tools/director/src/reprise-editor.ts` | THE REPRISE's panel, which is one number |
 | `tools/director/src/remembered.ts` | The wave filter, its pressed marks and the sounds status, kept in localStorage across a reload |
 | `tools/director/src/cell-config-pod.ts` | The rows under the selected cell that configure the **pod** in it: the row it hangs at |

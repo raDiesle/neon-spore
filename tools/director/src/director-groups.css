@@ -1,0 +1,78 @@
+/* **WAVES GROUPED UNDER THE WAVE ABOVE THEM, AND THE STRETCH BEFORE A BOSS**
+   (`rail-groups.ts`). Its own file because `director-columns.css` is past its
+   length already. */
+
+/* A variant: stepped in under its head, with a rule down its left edge so a
+   run of them reads as one block hanging off the wave that introduced it. */
+#waveList .wave-row.variant {
+  margin-left: 12px;
+  padding-left: 4px;
+  border-left: 1px solid var(--line);
+}
+#waveList .wave-row.variant > button:first-child {
+  opacity: 0.8;
+}
+
+/* The press on a head that folds its group or opens it, and says how many are
+   under it. On the right, so the names down the left stay in one column. */
+#waveList .fold {
+  flex: none;
+  color: var(--faint);
+  font-variant-numeric: tabular-nums;
+  padding-left: 6px;
+  padding-right: 6px;
+}
+#waveList .fold:hover {
+  color: var(--ink);
+  border-color: var(--line);
+}
+
+/* The stretch a boss closes, as a line over its row, and the stretch since the
+   last boss, as a line under the last row. Drawn from the row's own data so the
+   list keeps one child per wave; `flex-wrap` puts the line on a row of its own. */
+#waveList .wave-row[data-stretch],
+#waveList .wave-row[data-tail] {
+  flex-wrap: wrap;
+}
+#waveList .wave-row[data-stretch]::before,
+#waveList .wave-row[data-tail]::after {
+  flex-basis: 100%;
+  font-size: 0.75rem;
+  color: var(--gold);
+  opacity: 0.75;
+  letter-spacing: 0.04em;
+  text-align: right;
+  padding: 4px 6px 1px;
+}
+#waveList .wave-row[data-stretch]::before {
+  content: attr(data-stretch);
+  border-top: 1px solid rgba(255, 194, 75, 0.35);
+  margin-top: 4px;
+}
+#waveList .wave-row[data-tail]::after {
+  content: attr(data-tail);
+  border-bottom: 1px dashed rgba(255, 194, 75, 0.35);
+  margin-bottom: 4px;
+}
+
+/* The switch under NAME that folds the open wave under the one above it
+   (`rail-variant.ts`): a box and a line saying which wave that is. */
+.variant-field {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 6px 0 4px;
+  font-size: 0.875rem;
+  color: var(--faint);
+  cursor: pointer;
+}
+.variant-field input {
+  width: auto;
+  margin: 0;
+}
+.variant-field input:checked + span {
+  color: var(--ink);
+}
+.variant-field input:disabled + span {
+  opacity: 0.7;
+}

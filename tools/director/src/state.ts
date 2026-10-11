@@ -91,6 +91,10 @@ export function copyWave(wave: Wave, taken: Iterable<string> = []): Wave {
     entries: wave.entries.map((e) => ({ ...e })),
     pods: wave.pods?.map((p) => ({ ...p })),
     boss: copyBoss(wave.boss),
+    // A copy is made to vary a wave, so the panel and the faults it is played
+    // under come with it; a copy that dropped them was a different wave.
+    controls: wave.controls,
+    faults: wave.faults?.map((f) => ({ ...f })),
   };
 }
 

@@ -9,9 +9,12 @@ import { renderControlSetNote } from "./control-set-note.js";
 import { bindRailArrival } from "./rail-arrive.js";
 import { moveWave, rowDrag } from "./rail-drag.js";
 import { bindRailFilter } from "./rail-filter.js";
+import { bindRailFolds } from "./rail-folds.js";
+import { moveWithGroup } from "./rail-groups.js";
 import { renderRows } from "./rail-list.js";
 import { bindWaveSteps } from "./rail-steps.js";
 import { bindRailSymbols } from "./rail-symbols.js";
+import { bindVariantField } from "./rail-variant.js";
 import { copyWave, currentWave, emptyWave, type Store } from "./state.js";
 
 /**
@@ -53,6 +56,16 @@ export function bindRail(store: Store, onSelect: () => void, onEdit: () => void)
   const symbols = bindRailSymbols(document.getElementById("waveMarksFilter"), () => renderList());
   // The open row brought into view whenever the list is (`rail-arrive.ts`).
   const arrival = bindRailArrival(list);
+  // Waves folded under the wave above them, and which groups are open
+  // (`rail-groups.ts`, `rail-folds.ts`). A filter opens every group: a match
+  // folded out of sight would be a match the list did not show.
+  const folds = bindRailFolds(() => renderList());
+  const folded = (head: number): boolean =>
+    !filter.active() && !symbols.active() && !folds.open(store.waves[head]?.id ?? "");
+  const variant = bindVariantField(store, () => {
+    renderList();
+    onEdit();
+  });
 
   // Over the control set, for the reason it is over it in the markup: which
   // kind of boss this is, on the waves that have one (`boss-type-field.ts`).
@@ -74,10 +87,11 @@ export function bindRail(store: Store, onSelect: () => void, onEdit: () => void)
     onSelect();
   };
 
-  // A row let go on another carries its wave there, and the stage is rebuilt
-  // for the same reason it is after ↑ and ↓ (`rail-drag.ts`).
+  // A row let go on another carries its wave there — a head carries its group
+  // — and the stage is rebuilt for the same reason it is after ↑ and ↓
+  // (`rail-drag.ts`, `moveWithGroup`).
   const drag = rowDrag((from, to) => {
-    moveWave(store, from, to);
+    moveWithGroup(store, from, to, folded);
     store.dirty = true;
     onSelect();
   });
@@ -86,7 +100,10 @@ export function bindRail(store: Store, onSelect: () => void, onEdit: () => void)
     if (!list) return;
     const passes = (waves: Store["waves"], i: number): boolean =>
       filter.passes(waves, i) && symbols.passes(waves, i);
-    const matched = renderRows(list, store, passes, select, drag);
+    const matched = renderRows(list, store, passes, select, drag, {
+      folded,
+      toggle: (head) => folds.toggle(store.waves[head]?.id ?? ""),
+    });
     arrival.mark();
     filter.report(matched, store.waves.length, symbols.active());
   };
@@ -94,6 +111,7 @@ export function bindRail(store: Store, onSelect: () => void, onEdit: () => void)
   const renderFields = (): void => {
     const wave = currentWave(store);
     if (name) name.value = wave?.name ?? "";
+    variant.render();
     const active = controlSet(wave?.controls);
     if (controlsField) controlsField.value = active.id;
     if (controlsWhy) controlsWhy.textContent = active.why;
@@ -151,7 +169,7 @@ export function bindRail(store: Store, onSelect: () => void, onEdit: () => void)
   });
 
   bindAction("waveAdd", () => {
-    store.waves.push(emptyWave());
+    store.waves.push(emptyWave(store.waves.map((w) => w.id)));
     store.index = store.waves.length - 1;
   });
   bindAction("waveCopy", () => {
@@ -161,7 +179,15 @@ export function bindRail(store: Store, onSelect: () => void, onEdit: () => void)
     // rather than quietly stripping the boss from the copy — the owner's
     // sentence was "duplicates of boss cannot exist", not "copies lose it".
     if (!wave || wave.boss) return;
-    store.waves.splice(store.index + 1, 0, copyWave(wave));
+    // A copy is folded under the wave it was copied from: copying a wave to
+    // vary it is how a group is made (`rail-groups.ts`), and a copy that stood
+    // on its own would take the original's variants as its own.
+    const copy = copyWave(
+      wave,
+      store.waves.map((w) => w.id),
+    );
+    copy.variant = true;
+    store.waves.splice(store.index + 1, 0, copy);
     store.index += 1;
   });
   bindAction("waveUp", () => move(store, -1));

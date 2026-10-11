@@ -38034,3 +38034,17 @@ diff and obvious in the first screenshot.
 Bottleneck: none — the seam was the one the entry named.
 
 *Measured: 5 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-11 — Waves fold under the wave that introduces them, and each boss counts its stretch
+
+- reading: 5 min. The rail, its rows, its drag, the save's serializer and
+  `Wave`.
+- writing: 5 min. `Wave.variant`, `rail-groups.ts`, the folds, the switch under
+  NAME, a copy made a variant, the stretch line over each boss, two tests.
+- looking: 5 min. Three waves folded under THE GYRE, open and shut, and the
+  stretch line before THE SCOUT.
+- friction: 0 min.
+- landing: 5 min. `docs/INDEX.md` rows; `check:fast`, `land`.
+
+Bottleneck: deciding where a dragged group may land so it never takes another
+group's variants.
