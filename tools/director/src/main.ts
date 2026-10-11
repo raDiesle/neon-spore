@@ -12,6 +12,7 @@ import { bindGrid, type GridPanel } from "./grid.js";
 import { makeHeld } from "./held.js";
 import { bindRefresh } from "./main-refresh.js";
 import { bindTempoControls } from "./main-tempo.js";
+import { bindMapPause } from "./map-pause.js";
 import { initMobileMenu } from "./mobile-menu.js";
 import { bindNotes } from "./notes-page.js";
 import { bindPairPanel } from "./pair-panel.js";
@@ -110,6 +111,9 @@ const palette = bindPalette({
   canJump: (brush) => jumpWaveIndex(store.waves, brush) !== undefined,
   onJump: jumpToBrushWave,
 });
+// Any press in BRUSH & MAP holds the field still, so a wave is never edited
+// under a run that goes on without the author (`map-pause.ts`).
+bindMapPause(stage);
 grid = bindGrid(
   store,
   () => cfg,

@@ -3331,6 +3331,7 @@ by hand never moves.
 | `tools/frames/page-storage.ts` | The seat and the level written into a capture's page storage before it boots |
 | `tools/maze/carve.ts` | The walls of THE MAZE's grid: which of them are opened |
 | `tools/director/src/maze-editor.ts` | THE MAZE's five stages, walked through one at a time |
+| `tools/director/src/map-pause.ts` | **Touching the map editor pauses the wave** |
 | `tools/land/refusal.ts` | Why a push was refused, said in full — git's own words and where the trunk stands |
 | `tools/land/replay.ts` | the rebase, and the generated and record files whose conflicts it settles on its own |
 | `tools/land/replay-guarded.ts` | **The replay with its guards over the queue, and the race that repeats it** |

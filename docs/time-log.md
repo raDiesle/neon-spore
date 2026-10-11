@@ -37987,3 +37987,16 @@ script was already on eleven tiles and was being stretched as seven — from
 a mistake in the rewrite.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-11 — Touching the map editor pauses the wave
+
+- reading: 0 min. The stage's verbs and where `main.ts` binds the grid.
+- writing: 5 min. `stage.pause`, `map-pause.ts` on the section's capture
+  phase with the map's own transport left out, and its test.
+- looking: 0 min. The browser pane: a cell and a brush pause, the map's
+  ⏸ and ▶ still toggle.
+- friction: 0 min.
+- landing: 5 min. `index`, `check:fast`, `land`.
+
+Bottleneck: none — the one trap was the map's own ⏸, which a pause on
+every press would have turned into ▶.

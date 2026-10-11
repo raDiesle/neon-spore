@@ -160,6 +160,10 @@ export function bindStage(
     running = true;
     paintPlay();
   };
+  const pause = (): void => {
+    running = false;
+    paintPlay();
+  };
 
   // Written down first and stood up second, so the caller needs no ordering of
   // its own — `rebuild` is what puts the fight on it, here and everywhere else.
@@ -195,6 +199,7 @@ export function bindStage(
     rebuild,
     seek,
     play,
+    pause,
     openRound,
     closeRound,
     round: () => wantedRound,

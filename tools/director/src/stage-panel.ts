@@ -28,6 +28,8 @@ export interface StagePanel {
   /** Let the field run from where it is — what a wave opened to be *watched*
    * needs, since the transport keeps whatever it was last left at. */
   play(): void;
+  /** Hold the field where it is — what touching the map does (`map-pause.ts`). */
+  pause(): void;
   /**
    * Stand the boss on a numbered round and **hold it there**.
    *
