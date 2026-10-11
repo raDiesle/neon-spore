@@ -37904,3 +37904,14 @@ Bottleneck: finding which of the director's panels count columns on their
 own — the fence's chips and the boss's field each held a seven.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-11 — ↺ WAVE plays the wave again even from a pause
+
+- reading: 5 min. `stage-transport.ts`, `stage-play.ts` and REPEAT WAVE?'s
+  answer, which already rebuilt and ran.
+- writing: 0 min. The two ↺ buttons call that answer instead of `rebuild`.
+- looking: 0 min. The browser pane: ▶ before, ⏸ after, both copies.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, `land`.
+
+Bottleneck: none worth the name — the verb already existed one file over.

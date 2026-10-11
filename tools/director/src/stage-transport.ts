@@ -9,7 +9,10 @@ import type { ViewRole } from "@neon-spore/render";
  * a small set of callbacks rather than a reference.
  */
 export interface StageTransportDeps {
-  rebuild: () => void;
+  /** The wave again from the top, **and running** — a retry pressed while the
+   * stage was paused plays it, which is what pressing it is for (the owner,
+   * 11 October 2026). */
+  restart: () => void;
   /** Flip `running` and repaint the play button — both live in `stage.ts`. */
   onPlayToggle: () => void;
   setRole: (role: ViewRole) => void;
@@ -20,7 +23,7 @@ export function bindStageTransport(deps: StageTransportDeps): void {
   // `restartField` is the phone's smaller copy over the field, beside the
   // role buttons — RUN is behind the menu there.
   for (const id of ["restart", "restartField"]) {
-    document.getElementById(id)?.addEventListener("click", deps.rebuild);
+    document.getElementById(id)?.addEventListener("click", deps.restart);
   }
   // `✓ CARD` used to live here: the whole stage is the card's button on a
   // phone (`apps/game/src/briefing.ts`), and it stood in for that because

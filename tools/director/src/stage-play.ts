@@ -49,7 +49,9 @@ export function bindStagePlay(deps: StagePlayDeps): StagePlay {
     paintPlay,
   });
   bindStageTransport({
-    rebuild: deps.rebuild,
+    // REPEAT WAVE?'s own yes: down comes the veil if it is up, the wave is
+    // rebuilt, and it runs whether or not it was paused.
+    restart: repeat.answer,
     onPlayToggle: () => {
       if (repeat.asking()) return repeat.answer(); // P is yes, while it asks
       deps.setRunning(!deps.running());
