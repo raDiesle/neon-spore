@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-11 · 7552dc8ed — PULL LAB: RIPPLES · STILL is the drop, standing up as a button until pressed, its edge always joined to its inside
+
+The DROP bar opens on RIPPLES · STILL — CRATER · RIPPLES on a drop that slows to an eighth of its turning while pulled rather than stopping, and catches its turning up again once let go. Untouched, every soft drop stands up as a cap inside its neon edge: its face is the rim drawn smaller and lifted, with the wall below it and its shadow on the drop, and a thumb pushes it level by half way in, where the crater takes over; the arrow rides on the face. The satin under the neon is now shaded in bands along the rim itself instead of round a circle, so as the lumps turn no black gap opens between the edge and the inside. The arrow slides and breathes at under half its pace, and the waiting dots run the path to the place in about half the time.
+
 ## 2026-10-11 · e5869cff9 — ⏸ and ↺ WAVE stand over the map, in view however far it scrolls
 
 The MAP column carries its own pause and retry at its top, stuck there while the map scrolls under them and left standing when MAP is folded, so a wave can be stopped and run again without crossing to RUN. Both ⏸ say the same thing; the sideways scroll moved from the column to the map's body so the bar can stick.
