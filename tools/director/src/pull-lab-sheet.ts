@@ -18,7 +18,9 @@ import type { Stray } from "./pull-lab-stray.js";
 /** The moments, in seconds of AUTO's loop (`pull-lab-auto.ts`), and what each shows —
  * with the sheet's OFF PATH rule on, so its second pull strays (`SHEET_STRAY`). */
 export const MOMENTS: readonly { at: number; label: string }[] = [
-  { at: 0.3, label: "COMING IN" },
+  { at: 0.04, label: "COMING IN · THE DROP" },
+  { at: 0.27, label: "COMING IN · THE PATH" },
+  { at: 0.42, label: "COMING IN · THE PLACE" },
   { at: 0.75, label: "WAITING" },
   { at: 1.6, label: "HELD · OFF THE MIDDLE" },
   { at: 2.2, label: "COUNTED · FIZZING" },

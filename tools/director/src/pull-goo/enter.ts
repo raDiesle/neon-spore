@@ -14,22 +14,33 @@ import { clamp01, settle } from "./noise.js";
  * dots come in one after another towards the end, each with a blink; and
  * after the last of them the place at the end pops in. The PULL LAB's RETRY
  * plays it from the beginning.
+ *
+ * And the owner, 11 October 2026: *the first appearance of ball control is
+ * most important. maybe appear small and then grow to its original size
+ * quick. path and final position animation must be faster than the appearing
+ * of the starting.* So the drop comes first, from a speck, alone; the dots
+ * set off once it is nearly its size and run out like lightning, all of them
+ * in less time than the drop took; the place pops quicker still.
  */
 
-/** Seconds after the drop starts to grow that the first dot comes in. */
-const FIRST_DOT = 0.05;
+/** Seconds after the drop starts to grow that the first dot comes in: once it is nearly its size. */
+const FIRST_DOT = SPAWN * 0.55;
 /** Seconds between one dot and the next, at most; a long path is quicker per dot. */
-const DOT_GAP = 0.06;
-/** Seconds all the dots together may take, however many there are. */
-const DOTS_SPAN = 0.55;
-/** Seconds a dot's blink lasts, and the place's pop. */
-const BLINK = 0.22;
-const POP = 0.28;
+const DOT_GAP = 0.025;
+/** Seconds all the dots together may take, however many there are — well under `SPAWN`. */
+export const DOTS_SPAN = 0.15;
+/** Seconds a dot's blink lasts, and the place's pop — the pop shorter than the dots' run. */
+const BLINK = 0.16;
+export const POP = 0.13;
+/** The size the drop is born at, as a share of its own: small, but there from the first frame. */
+const SPECK = 0.18;
 
-/** How big the drop and its arrow are, 0..1 with an overshoot that settles. */
+/** How big the drop and its arrow are, 0..1: a speck that grows fast, past full, and settles. */
 export function grown(e: number): number {
-  const u = clamp01(e / SPAWN);
-  return smoothstep(u) + 0.12 * settle(Math.max(0, e - SPAWN * 0.7), 8, 20) * u;
+  if (e <= 0) return 0;
+  const u = clamp01(e / (SPAWN * 0.6));
+  const out = 1 - (1 - u) ** 3;
+  return SPECK + (1 - SPECK) * out + 0.14 * settle(Math.max(0, e - SPAWN * 0.45), 7, 18) * u;
 }
 
 /** When dot `i` (1-based) of `n` comes in. */
@@ -43,14 +54,14 @@ export function dotIn(i: number, n: number, e: number): { size: number; blink: n
   if (t < 0) return null;
   const k = clamp01(t / BLINK);
   return {
-    size: smoothstep(clamp01(t / 0.1)) + 0.5 * Math.sin(Math.PI * k) * (1 - k),
+    size: smoothstep(clamp01(t / 0.05)) + 0.5 * Math.sin(Math.PI * k) * (1 - k),
     blink: 1 - k,
   };
 }
 
 /** The place at the end of a path of `n` dots, `e` seconds in, after the last dot. */
 export function placeIn(n: number, e: number): { size: number; blink: number } | null {
-  const t = e - dotAt(n, n) - 0.06;
+  const t = e - dotAt(n, n) - 0.02;
   if (t < 0) return null;
   const k = clamp01(t / POP);
   return { size: smoothstep(k) + 0.25 * Math.sin(Math.PI * k), blink: 1 - k };
@@ -58,5 +69,5 @@ export function placeIn(n: number, e: number): { size: number; blink: number } |
 
 /** Whether the path is still coming in, so the ghost waits for it. */
 export function entering(e: number): boolean {
-  return e < FIRST_DOT + DOTS_SPAN + 0.06 + POP;
+  return e < FIRST_DOT + DOTS_SPAN + 0.02 + POP;
 }

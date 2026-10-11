@@ -204,7 +204,9 @@ describe("AUTO's thumb", () => {
 describe("the EVERY LOOK sheet", () => {
   test("each moment shows the state it is labelled with, on every shape", () => {
     const want: Record<string, [string, string | null]> = {
-      "COMING IN": ["idle", null],
+      "COMING IN · THE DROP": ["idle", null],
+      "COMING IN · THE PATH": ["idle", null],
+      "COMING IN · THE PLACE": ["idle", null],
       WAITING: ["idle", null],
       "HELD · OFF THE MIDDLE": ["held", null],
       "COUNTED · FIZZING": ["full", "counted"],

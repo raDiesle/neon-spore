@@ -37734,3 +37734,17 @@ Bottleneck: looking — every timing (the entrance, the splash's stay) was judge
 from stepped frames, which is slow but was the only way to see them.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-11 — THE PULL LAB's drop comes in first, the path and place quicker
+
+- reading: 5 min. The lab, then — after the first landing would not
+  replay — main's rewritten GOO engine and its `enter.ts`.
+- writing: 5 min. A whole entrance on the old engine, thrown away; then
+  `enter.ts`'s timing, three COMING IN columns, one test.
+- looking: 0 min. Three sheet shots, one too short for the last row.
+- friction: 0 min. The lane was cut from `origin/main`, two landings behind
+  the local `main`, so it rebuilt what had landed the evening before.
+- landing: 0 min. `check:fast`, `land`.
+
+Bottleneck: a worktree brought up to `origin/main` instead of the local
+`main` built on a stale engine and lost its first half.

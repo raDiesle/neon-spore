@@ -2,8 +2,10 @@ import { beforeAll, describe, expect, test } from "bun:test";
 import { installCanvasGlobals, stubCanvas } from "../../../packages/render/test/canvas-stub.js";
 import { VARIANTS } from "../../versus/candidates/index.js";
 import { GOO_DROP } from "../src/pull-goo/drop-look.js";
+import { DOTS_SPAN, dotIn, entering, grown, POP, placeIn } from "../src/pull-goo/enter.js";
 import { GOO_GRAB, type Grab } from "../src/pull-goo/grab.js";
 import { GOO_LOOKS } from "../src/pull-goo/index.js";
+import { SPAWN } from "../src/pull-goo/moment.js";
 import { specks } from "../src/pull-goo/strand.js";
 import { autoThumb } from "../src/pull-lab-auto.js";
 import { labLooks, paintLab } from "../src/pull-lab-paint.js";
@@ -104,5 +106,16 @@ describe("the GOO looks", () => {
       expect([shape.key, swung]).toEqual([shape.key, still]);
       expect([shape.key, on.slice(0, still.length)]).toEqual([shape.key, still]);
     }
+  });
+
+  test("come in drop first, then the path, then the place, each quicker than the one before", () => {
+    expect(grown(0.01)).toBeGreaterThan(0.1);
+    expect(grown(0.01)).toBeLessThan(0.4);
+    expect(dotIn(1, 12, SPAWN * 0.4)).toBeNull();
+    expect(dotIn(1, 12, SPAWN * 0.6)).not.toBeNull();
+    expect(DOTS_SPAN).toBeLessThan(SPAWN);
+    expect(POP).toBeLessThan(DOTS_SPAN);
+    expect(placeIn(12, SPAWN * 0.55 + DOTS_SPAN)).toBeNull();
+    expect(entering(SPAWN + DOTS_SPAN + POP)).toBe(false);
   });
 });
