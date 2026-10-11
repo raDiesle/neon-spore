@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-11 · 722bf9750 — Director: waves fold under the wave that introduces them, and each boss counts its stretch
+
+A wave can be marked VARIANT under NAME, and it then folds under the nearest wave above it that is not one, in the wave list. A folded head shows how many waves it hides (▸ 3); groups start folded and remember being opened. A copy is made a variant of the wave it was copied from, and keeps its panel and faults. Over each boss row a line counts the regular waves since the last boss and how many of them are new; under the last row, the waves since the last boss so far.
+
 ## 2026-10-11 · 559aef0e5 — THE PULL LAB's bar is a file of its own
 
 The shape, look, speed, AUTO, RETRY and sheet buttons are built in `pull-lab-bar.ts` from one `LabState`, and `openPullLab` keeps the canvas, the pointer, the clock and the frame — 181 lines, room for the lab's URL and door next. Nothing on the screen moved.

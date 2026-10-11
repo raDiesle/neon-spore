@@ -38048,3 +38048,5 @@ Bottleneck: none — the seam was the one the entry named.
 
 Bottleneck: deciding where a dragged group may land so it never takes another
 group's variants.
+
+*Measured: 6 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
