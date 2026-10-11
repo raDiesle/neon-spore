@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-11 · 4f1f596c3 — FIZZ is every pull handle in the game: the PULL LAB's drop and path
+
+Every knob and channel a thumb pulls — THE WARDEN's cord, THE LID, THE LAMPREY, THE LATCH, THE SINEW, THE BALLOON, THE LEDGER, THE FLEET, THE MAZE, THE GIMBAL, THE HASP, THE OCULUS and the crank — now draws the PULL LAB's FIZZ: the soft slime drop with its ripples and moulded arrow, the dots to a place at the end, the ghost running the pull and the green tail behind the hand. It wears GOO's colours, never the handle's own, so a knob no hand may take (THE SINEW's swinging after a snap, the crank's dead one) is faded as the partner's is. A turn's closed ring keeps its thin channel. The lab opens on AS SHIPPED, which is FIZZ; VERSUS's pull:handle slot and its OOZE are gone. In the game a knob only waits and is held so far: the fizz on a count, the slurp home on a refusal and the drop coming in need the game to say when a pull was counted, the next lane.
+
 ## 2026-10-11 · 76de00fa9 — Director: drag a wave onto another and it becomes that wave's child
 
 Let go on the middle of a row, a dragged wave goes into it: to the end of that wave's group, as a child, folded away with the rest. Let go on a row's upper or lower edge, it goes between two rows — a child there when it lands between two children, on its own when it lands between two groups, which is how a child is taken out. A parent dragged carries its children; dragged into another, they all become children of the new parent. A boss is never a child. Groups still start folded.
