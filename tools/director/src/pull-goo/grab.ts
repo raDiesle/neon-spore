@@ -215,14 +215,15 @@ export function fieldSplash(
 export function grabChoice(): HTMLElement {
   return choice(
     [
-      ["GRAB · LEAN", "lean"],
-      ["GRAB · SQUISH", "squish"],
-      ["GRAB · LIFT", "lift"],
-      ["GRAB · CHARGE", "charge"],
+      ["LEAN", "lean"],
+      ["SQUISH", "squish"],
+      ["LIFT", "lift"],
+      ["CHARGE", "charge"],
     ] as [string, Grab][],
     GOO_GRAB.kind,
     (kind) => {
       GOO_GRAB.kind = kind;
     },
+    "GRAB",
   );
 }

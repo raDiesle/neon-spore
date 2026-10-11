@@ -1,6 +1,6 @@
 import type { Point } from "@neon-spore/content";
 import type { Variant } from "../../versus/variant.js";
-import { choice } from "./field-try-bar.js";
+import { choice, grouped } from "./field-try-bar.js";
 import { text } from "./gestures-page.js";
 import { dropChoices } from "./pull-goo/drop-look.js";
 import { GOO_LOOKS } from "./pull-goo/index.js";
@@ -105,6 +105,7 @@ export function openPullLab(first = "down", opts: { sheet?: boolean } = {}): voi
   close.addEventListener("click", () => shut());
   bar.append(
     text("b", "PULL LAB · THE ONE GENERIC PULL, ON AN EMPTY FIELD"),
+    close,
     choice(
       LAB_SHAPES.map((s) => [s.label, s.key] as [string, string]),
       shape.key,
@@ -112,6 +113,7 @@ export function openPullLab(first = "down", opts: { sheet?: boolean } = {}): voi
         shape = labShape(k);
         reset();
       },
+      "PATH",
     ),
     choice(
       [
@@ -122,6 +124,7 @@ export function openPullLab(first = "down", opts: { sheet?: boolean } = {}): voi
       (v) => {
         look = v;
       },
+      "LOOK",
     ),
     ...dropChoices(() => sheet && show()),
     choice(
@@ -134,12 +137,11 @@ export function openPullLab(first = "down", opts: { sheet?: boolean } = {}): voi
       (v) => {
         speed = v;
       },
+      "SPEED",
     ),
-    autoButton,
-    retry,
-    sheetButton,
+    grouped("PLAY", autoButton, retry),
+    grouped("SHOW", sheetButton),
     readout,
-    close,
   );
   setAuto(true);
 

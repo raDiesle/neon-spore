@@ -35,11 +35,30 @@ export interface TryActions {
   close(): void;
 }
 
-/** A row of buttons of which one is lit; `pick` hears the one pressed. */
+/**
+ * **Controls under one name**, in a frame with the name over them — the
+ * owner, 11 October 2026: *restructure inputs like "pull lab" so i can see
+ * better grouping of the variants by given name of it, so it is easier to
+ * identify and give feedback*. So feedback can say `DROP · FLAT` and be
+ * read the same on the bar, a button's own word need not repeat the name.
+ */
+export function grouped(name: string, ...controls: HTMLElement[]): HTMLElement {
+  const box = document.createElement("span");
+  box.className = "try-group";
+  const row = document.createElement("span");
+  row.className = "try-choice";
+  row.append(...controls);
+  box.append(text("small", name), row);
+  return box;
+}
+
+/** A row of buttons of which one is lit; `pick` hears the one pressed. With a `name`
+ * it is framed under it (`grouped`). */
 export function choice<T>(
   options: readonly [string, T][],
   first: T,
   pick: (value: T) => void,
+  name?: string,
 ): HTMLElement {
   const group = document.createElement("span");
   group.className = "try-choice";
@@ -52,6 +71,7 @@ export function choice<T>(
     });
     return b;
   });
+  if (name !== undefined) return grouped(name, ...buttons);
   group.append(...buttons);
   return group;
 }
@@ -77,11 +97,14 @@ export function tryBar(title: string, first: ViewRole, act: TryActions): TryBar 
   });
   const readout = text("span", "", "try-readout");
   bar.append(
-    button("↺ RESTART", act.restart),
-    play,
-    button("+1 TICK", () => {
-      if (!running) act.stepOnce();
-    }),
+    grouped(
+      "CLOCK",
+      button("↺ RESTART", act.restart),
+      play,
+      button("+1 TICK", () => {
+        if (!running) act.stepOnce();
+      }),
+    ),
     choice(
       [
         ["1×", 1],
@@ -93,6 +116,7 @@ export function tryBar(title: string, first: ViewRole, act: TryActions): TryBar 
       (v) => {
         speed = v;
       },
+      "SPEED",
     ),
     choice<1 | 2 | undefined>(
       [
@@ -104,6 +128,7 @@ export function tryBar(title: string, first: ViewRole, act: TryActions): TryBar 
       (v) => {
         seat = v;
       },
+      "MOUSE IS",
     ),
     choice(
       [
@@ -115,6 +140,7 @@ export function tryBar(title: string, first: ViewRole, act: TryActions): TryBar 
         whole = v;
         act.fit();
       },
+      "SHOWN",
     ),
     choice<ViewRole>(
       [
@@ -127,6 +153,7 @@ export function tryBar(title: string, first: ViewRole, act: TryActions): TryBar 
         screen = v;
         act.fit();
       },
+      "SCREEN",
     ),
     choice(
       [
@@ -135,6 +162,7 @@ export function tryBar(title: string, first: ViewRole, act: TryActions): TryBar 
       ],
       true,
       act.sound,
+      "SOUND",
     ),
     choice(
       [
@@ -145,6 +173,7 @@ export function tryBar(title: string, first: ViewRole, act: TryActions): TryBar 
       (v) => {
         touch = v;
       },
+      "OUTLINE",
     ),
     readout,
     button("✕", act.close),
