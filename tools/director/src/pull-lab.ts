@@ -1,10 +1,9 @@
 import type { Point } from "@neon-spore/content";
-import type { Variant } from "../../versus/variant.js";
-import { choice, grouped } from "./field-try-bar.js";
 import { text } from "./gestures-page.js";
 import { GOO_LOOKS } from "./pull-goo/index.js";
 import { autoThumb } from "./pull-lab-auto.js";
-import { labLooks, paintLab, readoutOf } from "./pull-lab-paint.js";
+import { type LabState, labBar } from "./pull-lab-bar.js";
+import { paintLab, readoutOf } from "./pull-lab-paint.js";
 import {
   freshPull,
   type LabPull,
@@ -14,7 +13,7 @@ import {
   type ShortPull,
   tick,
 } from "./pull-lab-rule.js";
-import { LAB_H, LAB_SHAPES, LAB_W, type LabShape, labShape } from "./pull-lab-shapes.js";
+import { LAB_H, LAB_W, labShape } from "./pull-lab-shapes.js";
 import { labSheet } from "./pull-lab-sheet.js";
 import type { Stray } from "./pull-lab-stray.js";
 
@@ -49,99 +48,43 @@ import type { Stray } from "./pull-lab-stray.js";
 const MAX_DPR = 4;
 
 export function openPullLab(first = "down", opts: { sheet?: boolean } = {}): void {
-  let shape: LabShape = labShape(first);
-  let pull: LabPull = freshPull(shape);
-  let look: Variant | null = GOO_LOOKS[0] ?? null;
+  const state: LabState = {
+    shape: labShape(first),
+    look: GOO_LOOKS[0] ?? null,
+    speed: 1,
+    auto: true,
+    sheet: opts.sheet === true,
+  };
+  let pull: LabPull = freshPull(state.shape);
   const short: ShortPull = "refuse";
   const stray: Stray = "half";
-  let auto = true;
-  let speed = 1;
   let time = 0;
   let autoTime = 0;
   let thumb: { at: Point; down: boolean } | null = null;
 
   const shade = document.createElement("div");
   shade.className = "pic-zoom try pull-lab";
-  const bar = document.createElement("div");
-  bar.className = "pic-zoom-bar";
   const room = document.createElement("div");
   room.className = "pic-zoom-stage";
   const canvas = document.createElement("canvas");
   canvas.className = "pull-lab-canvas";
   room.appendChild(canvas);
   const like = text("p", "", "pull-lab-like");
-  const readout = text("span", "", "try-readout");
   const life = new AbortController();
 
-  let sheet = opts.sheet === true;
-  const sheetButton = text("button", "▤ EVERY LOOK, EVERY STATE");
   /** The room shows the live canvas, or the sheet of every look for this shape. */
   const show = (): void => {
-    sheetButton.classList.toggle("on", sheet);
-    room.classList.toggle("pull-lab-room-sheet", sheet);
-    room.replaceChildren(sheet ? labSheet(shape) : canvas);
+    bar.paintSheet();
+    room.classList.toggle("pull-lab-room-sheet", state.sheet);
+    room.replaceChildren(state.sheet ? labSheet(state.shape) : canvas);
   };
-  sheetButton.addEventListener("click", () => {
-    sheet = !sheet;
-    show();
-  });
   const reset = (): void => {
-    pull = freshPull(shape);
+    pull = freshPull(state.shape);
     autoTime = 0;
-    if (sheet) show();
+    if (state.sheet) show();
   };
-  const autoButton = text("button", "", "");
-  const setAuto = (on: boolean): void => {
-    auto = on;
-    autoButton.textContent = on ? "◉ AUTO" : "○ AUTO";
-    autoButton.classList.toggle("on", on);
-    reset();
-  };
-  autoButton.addEventListener("click", () => setAuto(!auto));
-  const retry = text("button", "↻ RETRY");
-  retry.addEventListener("click", reset);
-  const close = text("button", "✕");
-  close.addEventListener("click", () => shut());
-  bar.append(
-    text("b", "PULL LAB · THE ONE GENERIC PULL, ON AN EMPTY FIELD"),
-    close,
-    choice(
-      LAB_SHAPES.map((s) => [s.label, s.key] as [string, string]),
-      shape.key,
-      (k) => {
-        shape = labShape(k);
-        reset();
-      },
-      "PATH",
-    ),
-    choice(
-      [
-        ["AS SHIPPED", null] as [string, Variant | null],
-        ...labLooks().map((v) => [v.name.toUpperCase(), v] as [string, Variant]),
-      ],
-      look,
-      (v) => {
-        look = v;
-      },
-      "LOOK",
-    ),
-    choice(
-      [
-        ["1×", 1],
-        ["½×", 0.5],
-        ["¼×", 0.25],
-      ],
-      speed,
-      (v) => {
-        speed = v;
-      },
-      "SPEED",
-    ),
-    grouped("PLAY", autoButton, retry),
-    grouped("SHOW", sheetButton),
-    readout,
-  );
-  setAuto(true);
+  const bar = labBar(state, { reset, show, close: () => shut() });
+  bar.setAuto(true);
 
   const toLab = (e: PointerEvent): Point => {
     const box = canvas.getBoundingClientRect();
@@ -153,19 +96,19 @@ export function openPullLab(first = "down", opts: { sheet?: boolean } = {}): voi
   const on = (type: string, f: (e: PointerEvent) => void): void =>
     canvas.addEventListener(type, f as EventListener, { signal: life.signal });
   on("pointerdown", (e) => {
-    if (auto) setAuto(false);
+    if (state.auto) bar.setAuto(false);
     canvas.setPointerCapture(e.pointerId);
-    press(shape, pull, toLab(e));
+    press(state.shape, pull, toLab(e));
     thumb = { at: toLab(e), down: true };
   });
   on("pointermove", (e) => {
-    if (auto) return;
-    move(shape, pull, toLab(e), stray);
+    if (state.auto) return;
+    move(state.shape, pull, toLab(e), stray);
     thumb = { at: toLab(e), down: e.buttons > 0 };
   });
   on("pointerup", (e) => {
-    if (auto) return;
-    lift(shape, pull, short);
+    if (state.auto) return;
+    lift(state.shape, pull, short);
     thumb = { at: toLab(e), down: false };
   });
 
@@ -184,23 +127,23 @@ export function openPullLab(first = "down", opts: { sheet?: boolean } = {}): voi
     const was = thumb?.down ?? false;
     autoTime += dt;
     // Its second pull strays: the half tile catches it.
-    thumb = autoThumb(shape, autoTime, true);
-    if (thumb.down && !was) press(shape, pull, thumb.at);
-    if (thumb.down) move(shape, pull, thumb.at, stray);
-    if (!thumb.down && was) lift(shape, pull, short);
+    thumb = autoThumb(state.shape, autoTime, true);
+    if (thumb.down && !was) press(state.shape, pull, thumb.at);
+    if (thumb.down) move(state.shape, pull, thumb.at, stray);
+    if (!thumb.down && was) lift(state.shape, pull, short);
   };
 
   let last = performance.now();
   const frame = (now: number): void => {
     if (life.signal.aborted) return;
-    const dt = Math.min(0.1, (now - last) / 1000) * speed;
+    const dt = Math.min(0.1, (now - last) / 1000) * state.speed;
     last = now;
     time += dt;
-    if (auto) drive(dt);
-    tick(shape, pull, dt);
+    if (state.auto) drive(dt);
+    tick(state.shape, pull, dt);
     draw();
-    like.textContent = `${shape.label} — stands for ${shape.like}.`;
-    readout.textContent = readoutOf(shape, pull);
+    like.textContent = `${state.shape.label} — stands for ${state.shape.like}.`;
+    bar.readout.textContent = readoutOf(state.shape, pull);
     requestAnimationFrame(frame);
   };
 
@@ -208,7 +151,7 @@ export function openPullLab(first = "down", opts: { sheet?: boolean } = {}): voi
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
     ctx.setTransform(canvas.width / LAB_W, 0, 0, canvas.height / LAB_H, 0, 0);
-    paintLab(ctx, { shape, pull, look, time, stray });
+    paintLab(ctx, { shape: state.shape, pull, look: state.look, time, stray });
   };
 
   const onKey = (e: KeyboardEvent): void => {
@@ -222,7 +165,7 @@ export function openPullLab(first = "down", opts: { sheet?: boolean } = {}): voi
   };
   window.addEventListener("keydown", onKey);
   window.addEventListener("resize", fit);
-  shade.append(bar, like, room);
+  shade.append(bar.el, like, room);
   document.body.appendChild(shade);
   fit();
   show();

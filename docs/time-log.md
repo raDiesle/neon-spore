@@ -38020,3 +38020,15 @@ Bottleneck: the picture — every one of the three faults was invisible in the
 diff and obvious in the first screenshot.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-11 — THE PULL LAB's bar out of `pull-lab.ts`
+
+- reading: 5 min. The queue entry, `openPullLab`, `field-try-bar.ts`'s
+  `choice` and `grouped`.
+- writing: 5 min. `pull-lab-bar.ts` from one `LabState` and three callbacks;
+  the lab reads the state each frame.
+- looking: 0 min. The lab opened at `?pulllab=curve`, its bar read back.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, `land`.
+
+Bottleneck: none — the seam was the one the entry named.
