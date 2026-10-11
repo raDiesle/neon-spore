@@ -3834,6 +3834,7 @@ by hand never moves.
 | `tools/director/src/pull-goo/soft-plastic.ts` | **SOFT PLASTIC** — a squeezy toy: satin all over and calm in the middle, where the arrow is |
 | `tools/director/src/pull-goo/soft-arrow.ts` | **The way to pull, moulded into a soft drop** — the owner, 11 October 2026, on SOFT PLASTIC |
 | `tools/director/src/pull-goo/soft-crater.ts` | **A crater where the thumb is**, in SOFT PLASTIC — the owner, 11 October 2026: *a crater when pulling |
+| `tools/director/src/pull-goo/soft-cap.ts` | **A button standing up to be pressed**: a cap inside the drop's neon edge, untouched, that a thumb pushes level |
 | `tools/director/src/pull-goo/soft.ts` | **A soft drop**: the GOO drop made of something a thumb sinks into, in GOO's own colours — the frame each soft material is painted through |
 | `tools/director/src/pull-goo/track.ts` | **The channel of a GOO look**: everything round the drop |
 | `tools/director/src/pull-goo/ending.ts` | **How a count ends** — what tells one GOO look from another |

@@ -13,6 +13,7 @@ import {
   type Tones,
   tonesOf,
 } from "./press.js";
+import { liftOf, paintCap } from "./soft-cap.js";
 import type { GooStyle } from "./style.js";
 
 /**
@@ -42,8 +43,10 @@ export interface SoftDrop {
   readonly give: Give;
   /** Its arrow is moulded into its own lumps (`soft-arrow.ts`) rather than THE INSTAR's. */
   readonly moulded?: boolean;
-  /** It stops turning while it is pulled (`stillSpin`). */
-  readonly still?: boolean;
+  /** It stands up as a cap to be pressed while it is untouched (`soft-cap.ts`). */
+  readonly cap?: boolean;
+  /** It slows while it is pulled (`stillSpin`), to this share of its turning: 0 stops it. */
+  readonly still?: number;
   /** The body and what is on it, clipped to the drop, under the dent. */
   body(s: SoftScene): void;
   /** In place of the dent and the bow, still clipped: its own hollow (`soft-crater.ts`). */
@@ -66,21 +69,26 @@ const CATCH = 0.6;
 const NEVER_HELD = 20;
 
 /** How far round a still drop has turned, `time` seconds in, taken `held` seconds ago:
- * slowing to a stop rather than snapping, from where the turning had it. The owner,
- * 11 October 2026: *a variant, where the rotation stops when pulling*. */
-export function stoppedSpin(time: number, held: number): number {
-  return (time - held + STOP * (1 - Math.exp(-held / STOP))) * DROP_SPIN;
+ * slowing to `keep` of its turning rather than snapping, from where the turning had it.
+ * The owner, 11 October 2026: *a variant, where the rotation stops when pulling*; and
+ * later the same day, of RIPPLES, *rotation is much slower when touched*. */
+export function stoppedSpin(time: number, held: number, keep = 0): number {
+  return (time - behindBy(held, keep)) * DROP_SPIN;
+}
+
+/** Seconds of turning a drop held `held` seconds, keeping `keep` of it, has fallen behind. */
+function behindBy(held: number, keep: number): number {
+  return (1 - keep) * (held - STOP * (1 - Math.exp(-held / STOP)));
 }
 
 /** A still drop's turn: stopping while held; let go, on from where it stopped and
  * quickly catching up with the turning it would have had, so neither a grab nor a let
  * go jumps. */
-export function stillSpin(time: number, t: Turn): number {
-  if (t.held) return stoppedSpin(time, t.grabbed);
+export function stillSpin(time: number, t: Turn, keep = 0): number {
+  if (t.held) return stoppedSpin(time, t.grabbed, keep);
   const held = t.grabbed - t.lifted;
   if (held <= 0 || held > NEVER_HELD || t.lifted >= CATCH) return time * DROP_SPIN;
-  const behind = held - STOP * (1 - Math.exp(-held / STOP));
-  return (time - behind * (1 - smoothstep(t.lifted / CATCH))) * DROP_SPIN;
+  return (time - behindBy(held, keep) * (1 - smoothstep(t.lifted / CATCH))) * DROP_SPIN;
 }
 
 /** The drop as it is drawn: pressed and turned. An arrow laid on it is laid on this, so
@@ -93,10 +101,11 @@ export function drawnBody(
   turn: Turn,
 ): GooBody {
   const p = pressed(b, press, drop.give);
-  return drop.still ? { ...p, spin: stillSpin(time, turn) } : p;
+  return drop.still === undefined ? p : { ...p, spin: stillSpin(time, turn, drop.still) };
 }
 
-/** Paint `drop`, and give back the body it drew. */
+/** Paint `drop`, and give back the body it drew — with how far its cap stands up, for an
+ * arrow to ride on. */
 export function paintSoft(
   ctx: CanvasRenderingContext2D,
   drop: SoftDrop,
@@ -118,6 +127,7 @@ export function paintSoft(
   ctx.globalAlpha = t.alpha;
   ctx.clip(path);
   drop.body(s);
+  if (drop.cap) paintCap(s);
   if (drop.hollow) drop.hollow(s);
   else {
     paintBow(ctx, b, press, style, t, drop.give.gloss);
@@ -128,7 +138,7 @@ export function paintSoft(
   ctx.save();
   drop.rim(s);
   ctx.restore();
-  return b;
+  return drop.cap ? { ...b, lift: liftOf(b, press.depth) } : b;
 }
 
 /** Fill the drop with light from the top left: `stops` from the lit cap to the limb. */

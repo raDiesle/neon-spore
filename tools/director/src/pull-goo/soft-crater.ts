@@ -167,20 +167,27 @@ function ripple(
   ctx.restore();
 }
 
-/** SOFT PLASTIC with the crater in place of its dent and folds. */
-function crater(name: string, o: { still: boolean; rings: number }): SoftDrop {
-  return {
+/** SOFT PLASTIC with the crater in place of its dent and folds; `still` as `SoftDrop` has it. */
+function crater(name: string, o: { still?: number; rings: number }): SoftDrop {
+  const d: SoftDrop = {
     ...PLASTIC,
     name,
     give: { ...PLASTIC.give, flatten: 0.05 },
-    still: o.still,
     hollow: (s) => paintCrater(s, o.rings),
     top: plasticSheen,
   };
+  return o.still === undefined ? d : { ...d, still: o.still };
 }
 
-/** The crater turning with the drop; the same with the drop stopped while pulled; and the
- * crater with ripples drifting out across it, the most like a fluid. */
-export const CRATER = crater("CRATER", { still: false, rings: 0 });
-export const CRATER_STILL = crater("CRATER · STILL", { still: true, rings: 0 });
-export const CRATER_RIPPLES = crater("CRATER · RIPPLES", { still: false, rings: 2 });
+/** The share of its turning RIPPLES · STILL keeps while it is pulled. */
+const CRAWL = 0.12;
+
+/** The crater turning with the drop; the same with the drop stopped while pulled; the
+ * crater with ripples drifting out across it, the most like a fluid; and the owner's pick
+ * of them, 11 October 2026 — *of "drop" variants, i like "ripples" the most … combine it
+ * with the "still" that rotation is much slower when touched* — the ripples on a drop that
+ * all but stops turning while it is pulled. */
+export const CRATER = crater("CRATER", { rings: 0 });
+export const CRATER_STILL = crater("CRATER · STILL", { still: 0, rings: 0 });
+export const CRATER_RIPPLES = crater("CRATER · RIPPLES", { rings: 2 });
+export const RIPPLES_STILL = crater("RIPPLES · STILL", { still: CRAWL, rings: 2 });

@@ -1,6 +1,5 @@
 import type { Point } from "@neon-spore/content";
 import type { PullTrack } from "@neon-spore/render";
-import { GHOST_RUN } from "../../../versus/candidates/pull-handle/ooze/goo.js";
 
 /**
  * **Where a path's dots sit and when they light** — how many, how far short
@@ -23,9 +22,13 @@ export function dotsEnd(t: PullTrack, r: number): number {
   return Math.max(0.5, 1 - (CLEAR * r) / Math.max(1, lengthOf(t)));
 }
 
-/** The share of `GHOST_RUN` the ghost takes to run the whole way; the front it lights
- * runs on past the end at the same pace, through the place's beat and a rest. */
-const GHOST_TRAVEL = 0.72;
+/** Seconds from one waiting run of the dots to the next, and the share of it the ghost
+ * takes to run the whole way; the front it lights runs on past the end at the same pace,
+ * through the place's beat and a rest. Quicker than OOZE's (`GHOST_RUN`, 1.6 s, 0.72 of
+ * it) — the owner, 11 October 2026: *increase animation movement timing speed of
+ * lightning dots so its faster to go the path to the placeholder*. */
+const RUN = 1.1;
+const GHOST_TRAVEL = 0.5;
 
 /** How far the waiting ghost's front has run, as a share of the way, at one steady pace
  * — the owner, 11 October 2026: *I expect it follows same speed as the dots*. So every
@@ -33,7 +36,7 @@ const GHOST_TRAVEL = 0.72;
  * 1 once the ghost is in it, for the place's flash to fade and the rest before the next
  * run). */
 export function ghostFront(time: number): number {
-  return ((time / GHOST_RUN) % 1) / GHOST_TRAVEL;
+  return ((time / RUN) % 1) / GHOST_TRAVEL;
 }
 
 /** How lit a mark at `along` is once the front has passed it: at once, then fading over

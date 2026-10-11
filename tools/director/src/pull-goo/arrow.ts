@@ -34,6 +34,10 @@ import type { GooStyle } from "./style.js";
 const SHORT = 0.4;
 const OUT = 0.44;
 
+/** Radians a second the arrow slides along itself, and two arrows breathe apart — the
+ * owner, 11 October 2026: *arrow movement should be slowed down*; it was 5. */
+const PACE = 2.2;
+
 /** The arrow's radius for a drop grown to `g` of its size: ahead of it while small. */
 export function arrowSize(r: number, g: number): number {
   return r * clamp01(g) ** 0.6;
@@ -80,7 +84,7 @@ export function paintArrow(
   const arrows: ArrowAt[] = [];
   const main = reach * (1 - (1 - SHORT) * s);
   // Apart, they breathe out towards their ends and back, so the gap between them opens.
-  const shift = reach * s * (OUT + 0.07 * Math.sin(a.time * 5));
+  const shift = reach * s * (OUT + 0.07 * Math.sin(a.time * PACE));
   arrows.push({ x: at.x + a.dx * shift, y: at.y + a.dy * shift, r: main, dx: a.dx, dy: a.dy });
   if (s > 0.02)
     arrows.push({
@@ -93,9 +97,16 @@ export function paintArrow(
   const alpha = a.alpha ?? 1;
   const neon = mix(style.neon, PALETTE.good, a.green ?? 0);
   if (soft) {
-    const slide = reach * SOFT_SLIDE * Math.sin(a.time * 5) * (1 - s);
-    const slid = arrows.map((w) => ({ ...w, x: w.x + w.dx * slide, y: w.y + w.dy * slide }));
-    const body = a.body ?? drop(at, r);
+    const slide = reach * SOFT_SLIDE * Math.sin(a.time * PACE) * (1 - s);
+    // On a cap standing up (`soft-cap.ts`) it rides on the face, up with it.
+    const laid = a.body ?? drop(at, r);
+    const up = laid.lift ?? 0;
+    const body = up > 0 ? { ...laid, at: { x: laid.at.x, y: laid.at.y - up } } : laid;
+    const slid = arrows.map((w) => ({
+      ...w,
+      x: w.x + w.dx * slide,
+      y: w.y + w.dy * slide - up,
+    }));
     paintSoftArrows(ctx, slid, { body, style, time: a.time, neon, alpha });
     return;
   }

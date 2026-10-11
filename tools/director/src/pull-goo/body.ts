@@ -25,6 +25,9 @@ export interface GooBody {
   readonly point?: number;
   /** How far round its lumps have turned, in radians; `DROP_SPIN` a second when not given. */
   readonly spin?: number;
+  /** How far a soft drop's cap stands up towards the player, in pixels (`soft-cap.ts`):
+   * an arrow laid on it rides up with it. */
+  readonly lift?: number;
   /** Lobes standing out of the rim, `depth` of the radius: a drop in bloom. */
   readonly petals?: { readonly n: number; readonly depth: number };
 }

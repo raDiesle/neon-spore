@@ -19,17 +19,11 @@ export const PLASTIC: SoftDrop = {
   name: "SOFT PLASTIC",
   give: { spread: 1.2, deep: 1, flatten: 0.1, sag: 0, gloss: 0.85 },
   moulded: true,
+  cap: true,
   body(s) {
     const { ctx, b, style } = s;
     const c = centre(b);
-    // Even satin in the middle, darkening only near the edge.
-    const g = ctx.createRadialGradient(c.x, c.y, 0, c.x, c.y, b.r * 1.1);
-    g.addColorStop(0, s.t.tone(mix(style.body, style.core, 0.35)));
-    g.addColorStop(0.55, s.t.tone(style.body));
-    g.addColorStop(0.85, s.t.tone(style.deep));
-    g.addColorStop(1, s.t.tone(mix(style.deep, style.neon, 0.25)));
-    ctx.fillStyle = g;
-    ctx.fill(s.path);
+    satin(s);
     // The bevel: a wide band inside the rim, lit towards the light, shaded away from it.
     const bevel = ctx.createLinearGradient(
       c.x + KEY.x * b.r,
@@ -64,6 +58,37 @@ export const PLASTIC: SoftDrop = {
     ctx.stroke(path);
   },
 };
+
+/** Bands the satin darkens in towards the edge, and how far in the widest reaches, in radii. */
+const BANDS = 7;
+const DARKENS = 0.5;
+
+/** Even satin in the middle, darkening towards the edge and taking the neon just inside
+ * it — in bands drawn along the rim itself, not round a circle, so however its lumps turn
+ * the edge just inside the neon is the same tone all the way round and never the field's
+ * black. The owner, 11 October 2026: *the rotating border should always be connected with
+ * what is inside — right now sometimes it is disconnected … and I can see black*. */
+function satin(s: SoftScene): void {
+  const { ctx, b, style, t } = s;
+  ctx.fillStyle = t.tone(mix(style.body, style.core, 0.35));
+  ctx.fill(s.path);
+  ctx.strokeStyle = t.tone(mix(style.body, style.deep, 0.45));
+  for (let i = BANDS; i >= 1; i--) {
+    ctx.globalAlpha = 0.13 * t.alpha;
+    ctx.lineWidth = 2 * b.r * DARKENS * (i / BANDS);
+    ctx.stroke(s.path);
+  }
+  ctx.strokeStyle = t.tone(mix(style.body, style.neon, 0.4));
+  for (const [w, a] of [
+    [0.3, 0.35],
+    [0.16, 0.6],
+  ] as const) {
+    ctx.globalAlpha = a * t.alpha;
+    ctx.lineWidth = b.r * w;
+    ctx.stroke(s.path);
+  }
+  ctx.globalAlpha = t.alpha;
+}
 
 /** Folds out of the dent: a dark crease with its lit side towards the light, longer the
  * harder it is pressed. */
@@ -140,4 +165,4 @@ export function plasticSheen(s: SoftScene): void {
 }
 
 /** SOFT PLASTIC that stops turning while it is pulled, and turns on once let go. */
-export const PLASTIC_STILL: SoftDrop = { ...PLASTIC, name: "PLASTIC · STILL", still: true };
+export const PLASTIC_STILL: SoftDrop = { ...PLASTIC, name: "PLASTIC · STILL", still: 0 };

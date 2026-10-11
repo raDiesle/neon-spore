@@ -37933,3 +37933,18 @@ Bottleneck: finding which ancestor scrolls — `#mapCol`'s `overflow-x`
 quietly made it the box a sticky bar would have stuck inside.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-11 — PULL LAB: RIPPLES · STILL first, a cap that stands up untouched, satin along the rim, a slower arrow and quicker dots
+
+- reading: 5 min. The soft drops, `press.ts`, `beat.ts`, `arrow.ts` and the four
+  places that paint an arrow; the drop variants were on a local `main` ahead of `origin`.
+- writing: 10 min. `soft-cap.ts`; the satin's circle swapped for bands along the
+  rim; `still` as a share of the turning kept; the arrow's pace; the dots' own run.
+- looking: 5 min. A Skia grid through `gooKnob`, from a scratch file in
+  `packages/render`, before and after, and the lab in the browser for errors.
+- friction: 5 min. The worktree started on `origin/main`, which had none of the
+  drops the owner named; a fast-forward onto the local `main` found them.
+- landing: 5 min. `check:fast`, the index, `land`.
+
+Bottleneck: friction — finding the drops the owner named, which were only on the
+local `main`.

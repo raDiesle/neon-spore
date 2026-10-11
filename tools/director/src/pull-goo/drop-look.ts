@@ -2,7 +2,7 @@ import { choice } from "../field-try-bar.js";
 import type { GooBody } from "./body.js";
 import { type Press, UNPRESSED } from "./press.js";
 import { paintSoft, type SoftDrop, type Turn } from "./soft.js";
-import { CRATER, CRATER_RIPPLES, CRATER_STILL } from "./soft-crater.js";
+import { CRATER, CRATER_RIPPLES, CRATER_STILL, RIPPLES_STILL } from "./soft-crater.js";
 import { PLASTIC, PLASTIC_STILL } from "./soft-plastic.js";
 import type { GooStyle } from "./style.js";
 
@@ -13,7 +13,9 @@ import type { GooStyle } from "./style.js";
  * or a sponge or … soft plastic*. SOFT PLASTIC was picked the same day, the
  * rest went (*remove other variants of "drop", but keep "soft plastic"*), and
  * what is offered beside it are its own variants: one that stops turning
- * while it is pulled, and craters (`soft-crater.ts`). The PULL LAB's bar
+ * while it is pulled, and craters (`soft-crater.ts`). Of those the owner liked
+ * CRATER · RIPPLES most and asked for it with STILL's slowing (RIPPLES · STILL),
+ * so that is first and the one the lab opens on. The PULL LAB's bar
  * picks it (DROP) for every GOO look at once, so an ending is judged with any
  * drop rather than multiplying the picker. A director setting, not the
  * game's: nothing here is stored.
@@ -21,6 +23,7 @@ import type { GooStyle } from "./style.js";
 export type DropLook = SoftDrop;
 
 export const SOFT_DROPS: readonly SoftDrop[] = [
+  RIPPLES_STILL,
   PLASTIC,
   PLASTIC_STILL,
   CRATER,
@@ -28,7 +31,7 @@ export const SOFT_DROPS: readonly SoftDrop[] = [
   CRATER_RIPPLES,
 ];
 
-export const GOO_DROP: { look: DropLook } = { look: PLASTIC };
+export const GOO_DROP: { look: DropLook } = { look: RIPPLES_STILL };
 
 /** The drop, as the bar has it, `turn` the moment it turns by and `press` how deep a
  * thumb is in it; gives back the body drawn, pressed and turned as it is, for an arrow

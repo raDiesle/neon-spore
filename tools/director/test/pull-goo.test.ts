@@ -9,7 +9,8 @@ import { DOTS_SPAN, dotIn, entering, grown, POP, placeIn } from "../src/pull-goo
 import { GOO_LOOKS } from "../src/pull-goo/index.js";
 import { SPAWN } from "../src/pull-goo/moment.js";
 import { stillSpin, stoppedSpin } from "../src/pull-goo/soft.js";
-import { CLEAR, craterOf } from "../src/pull-goo/soft-crater.js";
+import { liftOf } from "../src/pull-goo/soft-cap.js";
+import { CLEAR, craterOf, RIPPLES_STILL } from "../src/pull-goo/soft-crater.js";
 import { specks } from "../src/pull-goo/strand.js";
 import { GOO } from "../src/pull-goo/style.js";
 import { autoThumb } from "../src/pull-lab-auto.js";
@@ -191,5 +192,34 @@ describe("the GOO looks", () => {
     }
     expect(at(6)).toBeCloseTo(6 * DROP_SPIN, 9);
     expect(stillSpin(1, { held: false, grabbed: 61, lifted: 1 })).toBeCloseTo(DROP_SPIN, 9);
+  });
+
+  test("slow RIPPLES · STILL to a crawl while pulled, not a stop, and catch it up after", () => {
+    const keep = RIPPLES_STILL.still ?? 1;
+    expect(keep).toBeGreaterThan(0);
+    expect(keep).toBeLessThan(0.25);
+    expect(stoppedSpin(5, 2, keep) - stoppedSpin(4, 1, keep)).toBeCloseTo(keep * DROP_SPIN, 2);
+    const at = (time: number) =>
+      time < 4.5
+        ? stillSpin(time, { held: true, grabbed: time - 3, lifted: 9 }, keep)
+        : stillSpin(time, { held: false, grabbed: time - 3, lifted: time - 4.5 }, keep);
+    for (let f = 0; f < 300; f++) {
+      const t = 3 + f / 100;
+      expect(Math.abs(at(t + 0.01) - at(t))).toBeLessThan(0.05);
+    }
+    expect(at(6)).toBeCloseTo(6 * DROP_SPIN, 9);
+  });
+
+  test("open on RIPPLES · STILL, the owner's pick, first on the bar", () => {
+    expect(SOFT_DROPS[0]).toBe(RIPPLES_STILL);
+    expect(GOO_DROP.look).toBe(RIPPLES_STILL);
+  });
+
+  test("stand the cap up untouched and push it level by half way in", () => {
+    const b = drop({ x: 0, y: 0 }, 40);
+    expect(liftOf(b, 0)).toBeGreaterThan(40 * 0.15);
+    expect(liftOf(b, 0.25)).toBeLessThan(liftOf(b, 0));
+    expect(liftOf(b, 0.5)).toBe(0);
+    expect(liftOf(b, 1)).toBe(0);
   });
 });
