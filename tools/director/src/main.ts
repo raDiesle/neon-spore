@@ -10,6 +10,7 @@ import { initColumns } from "./columns.js";
 import { bindDocumentationRooms } from "./documentation-rooms.js";
 import { bindGrid, type GridPanel } from "./grid.js";
 import { makeHeld } from "./held.js";
+import { bindLabs } from "./labs.js";
 import { bindRefresh } from "./main-refresh.js";
 import { bindTempoControls } from "./main-tempo.js";
 import { bindMapPause } from "./map-pause.js";
@@ -18,7 +19,6 @@ import { bindNotes } from "./notes-page.js";
 import { bindPairPanel } from "./pair-panel.js";
 import { bindPalette } from "./palette.js";
 import { onPhone } from "./phone-view.js";
-import { bindPullLab } from "./pull-lab.js";
 import { bindRail } from "./rail.js";
 import { rememberedWave } from "./rail-arrive.js";
 import { followHash } from "./section-follow.js";
@@ -223,6 +223,6 @@ bindExpanders();
 bindContents();
 // After every sheet has restored itself from the query string.
 followHash();
-bindPullLab();
+bindLabs();
 
 void io.load();

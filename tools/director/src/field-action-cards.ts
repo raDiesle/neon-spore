@@ -8,6 +8,7 @@ import { compareStills, type StillsUse } from "./field-stills-compare.js";
 import { useShot } from "./field-use-shot.js";
 import { GESTURES } from "./gesture-catalogue.js";
 import { card, text } from "./gestures-page.js";
+import { openHoldLab } from "./hold-lab.js";
 import { openZoom } from "./picture-zoom.js";
 import { poseNamed } from "./poses.js";
 import { openPullLab } from "./pull-lab.js";
@@ -99,11 +100,12 @@ export function concepts(names: readonly string[] | undefined): HTMLElement | nu
   return box;
 }
 
-/** The button that opens the PULL LAB on `shape`, under a generic picture. */
-function labButton(shape: string | undefined, label: string): HTMLElement | null {
+/** The button that opens the PULL LAB on `shape` — or with `hold` the HOLD LAB on that
+ * many beats — under a generic picture. */
+function labButton(shape: string | undefined, label: string, hold = false): HTMLElement | null {
   if (!shape) return null;
   const b = text("button", label, "field-try field-lab");
-  b.addEventListener("click", () => openPullLab(shape));
+  b.addEventListener("click", () => (hold ? openHoldLab(shape) : openPullLab(shape)));
   return b;
 }
 
@@ -152,6 +154,8 @@ function typeBlock(
   if (own) box.appendChild(own);
   const lab = labButton(t.lab, "▶ TRY THE GENERIC PULL — EMPTY FIELD, EVERY SHAPE, EVERY LOOK");
   if (lab) box.appendChild(lab);
+  const hold = labButton(t.holdLab, "▶ TRY THE GENERIC HOLD — EMPTY FIELD, EVERY LOOK", true);
+  if (hold) box.appendChild(hold);
   const compare = text("button", "▤ COMPARE ALL USES", "field-try");
   compare.addEventListener("click", () =>
     openZoom(`${t.title} · EVERY USE`, [

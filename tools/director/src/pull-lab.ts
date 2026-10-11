@@ -1,6 +1,7 @@
 import type { Point } from "@neon-spore/content";
 import { coverPage } from "./cover.js";
 import { text } from "./gestures-page.js";
+import { HOLD_LAB } from "./place.js";
 import { autoThumb } from "./pull-lab-auto.js";
 import { type LabState, labBar } from "./pull-lab-bar.js";
 import { paintLab, readoutOf } from "./pull-lab-paint.js";
@@ -209,5 +210,5 @@ export function openPullLab(first = "down", opts: { sheet?: boolean } = {}): voi
 export function bindPullLab(): void {
   document.getElementById("pullLabOpen")?.addEventListener("click", () => openPullLab());
   const asked = initialLab();
-  if (asked) openPullLab(asked.shape, { sheet: asked.sheet });
+  if (asked && !asked.shape.startsWith(HOLD_LAB)) openPullLab(asked.shape, { sheet: asked.sheet });
 }

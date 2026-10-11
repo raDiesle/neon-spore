@@ -38168,3 +38168,18 @@ Bottleneck: reading — a count is each boss's own fact, and half of them
 vanish on the tick it happens.
 
 *Measured: 18 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
+
+## 2026-10-11 — THE HOLD LAB, six looks for the one generic hold
+
+- reading: 15 min. THE PULL LAB's rule, thumb, sheet and GOO parts (FIZZ,
+  SQUISH, the drop), and the game's hold mark and dial.
+- writing: 30 min. The rule, AUTO's loop, the shipped thumbprint look and
+  five GOO holds on FIZZ's drop, the sheet, the door and the URL, tests.
+- looking: 5 min. The sheet through `bun run shot`, twice.
+- friction: 15 min. Main moved the whole GOO pull into `packages/render` and
+  gave the PULL LAB a door, a cover and a URL place while this lane ran;
+  the rebase was abandoned and the lab re-applied on top.
+- landing: 5 min. `check:fast`, `land`.
+
+Bottleneck: a parallel lane on the same files — the PULL LAB moved under
+this one while it was being copied.

@@ -36,6 +36,7 @@ export const OTHER_ACTIONS: readonly FieldAction[] = [
           "Make it one generic PIN: GRIP's own gesture and picture on a boss's " +
           "part. Pick one answer for the lift — a pause, or a pin — per type, " +
           "not per boss, and draw it.",
+        holdLab: "2",
         rows: [
           "THE SURGE'S BULB",
           "THE ANTIPHON'S ORGAN",

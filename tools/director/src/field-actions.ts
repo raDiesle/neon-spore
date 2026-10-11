@@ -31,6 +31,8 @@ export interface ControlType {
   /** The PULL LAB shape this type opens on (`pull-lab-shapes.ts`): the one
    * generic control, tried on an empty field before any of its uses. */
   lab?: string;
+  /** The HOLD LAB's beats this type opens on (`hold-lab-rule.ts`), as `lab` is the pull's. */
+  holdLab?: string;
   rows: readonly string[];
   /** For a row whose one mark asks a different gesture step by step (THE
    * INSTAR's, THE MIRROR's, THE QUEEN's, THE GALL's): which of its steps is

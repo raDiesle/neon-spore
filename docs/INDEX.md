@@ -3834,6 +3834,7 @@ by hand never moves.
 | `tools/director/src/library/rind-stage.ts` | The game's own rind, losing its layers on a card, each one drawn coming off by a shed of the caller's choosing |
 | `tools/director/src/library/countdown-assets.ts` | THE COUNT's four counts — how a body says how many beats are left, on the one screen that is shown it |
 | `tools/director/src/library/countdown-stage.ts` | The game's own count, drawn on a card wearing a look of the caller's choosing |
+| `tools/director/src/labs.ts` | **The director's two labs, PULL and HOLD**: each one's door in the topbar |
 | `tools/director/src/autopilot-ghost.ts` | **The autopilot's finger, drawn where a thumb would be**, found by the game's own hit test run backwards |
 | `tools/director/src/antiphon-editor.ts` | THE ANTIPHON's levels, a tab each and one for the ship, with who explains and who chooses |
 | `tools/imports/classify.ts` | Which of a file's characters are code rather than a comment or a string |
@@ -3856,5 +3857,14 @@ by hand never moves.
 | `tools/compaction/report.ts` | The compaction trial's figures for one period, and the two periods side by side |
 | `tools/compaction/run.ts` | `bun run compaction` — is the compaction trial of 29 September 2026 working? bun run compaction… |
 | `tools/compaction/transcript.ts` | One Claude Code transcript read as the events the compaction trial is judged on |
+| `tools/director/src/hold-goo/goo.ts` | **The GOO hold**: the PULL LAB's shipped look — the RIPPLES · STILL drop (`goo-drop-look.ts`) |
+| `tools/director/src/hold-goo/looks.ts` | **Three ways a GOO hold shows the beats being held** (`goo.ts` has what they share) |
+| `tools/director/src/hold-goo/print.ts` | **Two GOO holds about the thumb itself**: PRINT |
+| `tools/director/src/hold-goo/view.ts` | **What a HOLD LAB look is told**, read once a frame from the rule's state (`hold-lab-rule.ts`) |
+| `tools/director/src/hold-lab-auto.ts` | **AUTO's thumb in the HOLD LAB**, as `pull-lab-auto.ts` is the PULL LAB's: one whole hold, one let go early |
+| `tools/director/src/hold-lab-paint.ts` | One frame of the HOLD LAB (`hold-lab.ts`): the PULL LAB's empty field, the look's mark in its middle, and |
+| `tools/director/src/hold-lab-rule.ts` | **The one generic HOLD, as the HOLD LAB plays it** |
+| `tools/director/src/hold-lab-sheet.ts` | **EVERY LOOK, EVERY STATE** — the HOLD LAB's comparison sheet, as the PULL LAB's (`pull-lab-sheet.ts`) |
+| `tools/director/src/hold-lab.ts` | **THE HOLD LAB** — the one generic HOLD on an empty field, to be held by hand |
 
 <!-- index:code:end -->

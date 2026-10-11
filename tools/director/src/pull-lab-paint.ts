@@ -164,8 +164,8 @@ function paintBand(ctx: CanvasRenderingContext2D, { shape, pull, stray, touch }:
   ctx.restore();
 }
 
-/** The empty field: the game's own ground and grid, nothing on it. */
-function paintField(ctx: CanvasRenderingContext2D): void {
+/** The empty field: the game's own ground and grid, nothing on it — the HOLD LAB's too. */
+export function paintField(ctx: CanvasRenderingContext2D): void {
   ctx.fillStyle = PALETTE.background;
   ctx.fillRect(0, 0, LAB_W, LAB_H);
   ctx.strokeStyle = PALETTE.grid;

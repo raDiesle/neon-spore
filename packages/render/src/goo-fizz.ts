@@ -39,40 +39,51 @@ export const FIZZ: Ending = {
       const b = drop(at, s.r * left, { shake: 0.25 * u });
       melt(s, at, e, left, paintDrop(s, b, greenAt(e), 0.4 + 0.6 * left));
     }
-    const { ctx } = s;
-    ctx.save();
-    ctx.strokeStyle = mix(PALETTE.good, "#FFFFFF", 0.35);
-    ctx.fillStyle = PALETTE.good;
-    for (let i = 0; i < BUBBLES; i++) {
-      const born = hash(i * 2.7) ** 1.5 * 0.55;
-      const life = 0.3 + 0.15 * hash(i * 5.1);
-      const k = (u - born) / life;
-      if (k <= 0 || k >= 1) continue;
-      const a = hash(i * 3.9) * Math.PI * 2;
-      const d = s.r * left * 0.9;
-      const x = s.place.x + Math.cos(a) * d + Math.sin(k * 6 + i) * s.r * 0.15;
-      const y = s.place.y + Math.sin(a) * d * 0.6 - k * s.r * 2.4;
-      const size = s.r * (0.1 + 0.16 * hash(i * 6.6)) * (0.6 + 0.6 * k);
-      ctx.lineWidth = Math.max(0.4, size * 0.25);
-      if (k < 0.82) {
-        ctx.globalAlpha = 0.35;
-        ctx.beginPath();
-        ctx.arc(x, y, size, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.globalAlpha = 0.95;
-        ctx.stroke();
-      } else {
-        // The pop: a small ring, a little wider, and gone.
-        const p = (k - 0.82) / 0.18;
-        ctx.globalAlpha = 0.8 * (1 - p) ** 2;
-        ctx.beginPath();
-        ctx.arc(x, y, size * (1 + 0.5 * p), 0, Math.PI * 2);
-        ctx.stroke();
-      }
-    }
-    ctx.restore();
+    boil(s.ctx, s.place, s.r, u, left);
   },
 };
+
+/** FIZZ's bubbles, `u` of the way through the ending, rising off a drop of radius `r`
+ * at `place` with `left` of its size left — every pull's, and the director's HOLD LAB's. */
+export function boil(
+  ctx: CanvasRenderingContext2D,
+  place: Point,
+  r: number,
+  u: number,
+  left: number,
+): void {
+  ctx.save();
+  ctx.strokeStyle = mix(PALETTE.good, "#FFFFFF", 0.35);
+  ctx.fillStyle = PALETTE.good;
+  for (let i = 0; i < BUBBLES; i++) {
+    const born = hash(i * 2.7) ** 1.5 * 0.55;
+    const life = 0.3 + 0.15 * hash(i * 5.1);
+    const k = (u - born) / life;
+    if (k <= 0 || k >= 1) continue;
+    const a = hash(i * 3.9) * Math.PI * 2;
+    const d = r * left * 0.9;
+    const x = place.x + Math.cos(a) * d + Math.sin(k * 6 + i) * r * 0.15;
+    const y = place.y + Math.sin(a) * d * 0.6 - k * r * 2.4;
+    const size = r * (0.1 + 0.16 * hash(i * 6.6)) * (0.6 + 0.6 * k);
+    ctx.lineWidth = Math.max(0.4, size * 0.25);
+    if (k < 0.82) {
+      ctx.globalAlpha = 0.35;
+      ctx.beginPath();
+      ctx.arc(x, y, size, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.globalAlpha = 0.95;
+      ctx.stroke();
+    } else {
+      // The pop: a small ring, a little wider, and gone.
+      const p = (k - 0.82) / 0.18;
+      ctx.globalAlpha = 0.8 * (1 - p) ** 2;
+      ctx.beginPath();
+      ctx.arc(x, y, size * (1 + 0.5 * p), 0, Math.PI * 2);
+      ctx.stroke();
+    }
+  }
+  ctx.restore();
+}
 
 /** Seconds into the count the arrow starts to melt into the drop, and is gone. */
 const MELT_FROM = 0.12;
