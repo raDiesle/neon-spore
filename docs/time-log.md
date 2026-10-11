@@ -37750,3 +37750,17 @@ Bottleneck: a worktree brought up to `origin/main` instead of the local
 `main` built on a stale engine and lost its first half.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-11 — The lab's bar grouped by name; GRAB is SQUISH alone
+
+- reading: 5 min. `choice` and its four callers, `grab.ts` and the two
+  files that call its hooks.
+- writing: 5 min. `grouped`, the names on both bars, the CSS; three grabs
+  and their hooks out, the test down to the drop.
+- looking: 0 min. Two shots of the bar.
+- friction: 0 min.
+- landing: 5 min. Two `check:fast`, two `land`s — the grouping landed
+  before its time-log row, which is here.
+
+Bottleneck: none to speak of — reading the hooks the three grabs had laid
+through `track.ts` and `knob.ts`.

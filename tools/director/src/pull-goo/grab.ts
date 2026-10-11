@@ -1,31 +1,17 @@
 import type { Point } from "@neon-spore/content";
-import { PALETTE, smoothstep } from "@neon-spore/render";
-import { choice } from "../field-try-bar.js";
+import { smoothstep } from "@neon-spore/render";
 import { drop, type GooBody } from "./body.js";
 import { clamp01, hash, mix, settle } from "./noise.js";
-import { type Run, runPoint } from "./strand.js";
 import type { GooStyle } from "./style.js";
 
 /**
- * **How a GOO drop is taken, and how it goes while it is pulled** — the
- * owner, 10 October 2026: *we can also improve the visual when i start
- * pulling and while pulling (variants)*. Four, on the PULL LAB's bar for
- * every GOO look at once, as the drop is (`drop-look.ts`):
- *
- * - **LEAN**: as it was — taken, it leans into the pull;
- * - **SQUISH**, the owner's pick: pressed flat under the thumb, it springs
- *   up wobbling and a few drops of goo splash off it onto the field, where
- *   they lie a while; pulled, it stretches and quivers;
- * - **LIFT**: taken, it rises off the floor towards the eye, a shadow
- *   opening under it and under its tail, and is set down when let go;
- * - **CHARGE**: taken, it lights from inside; pulled, light runs up its
- *   tail into it and it glows brighter and greener the nearer the end.
- *
- * A director setting, not the game's: nothing here is stored.
+ * **How a GOO drop is taken, and how it goes while it is pulled**: SQUISH —
+ * pressed flat under the thumb, it springs up wobbling and a few drops of goo
+ * splash off it onto the field, where they lie a while; pulled, it stretches
+ * and quivers. The owner, 10 October 2026, asked for variants of the grab and
+ * picked SQUISH of LEAN, SQUISH, LIFT and CHARGE; on 11 October: *remove other
+ * "Grab" and keep "grab * squish" to be used in "fizz"*.
  */
-export type Grab = "lean" | "squish" | "lift" | "charge";
-
-export const GOO_GRAB: { kind: Grab } = { kind: "squish" };
 
 /** The drop under the hand: where, how big, the way it is pulled, how near the edge of
  * the path its rim is, and how long ago it was taken. */
@@ -38,120 +24,21 @@ export interface Hold {
   readonly time: number;
 }
 
-/** Seconds a LIFT takes to rise off the floor. */
-const RISE = 0.18;
-/** How far the drop rises, and the shadow falls away from it, in drop radii. */
-const UP = 0.2;
-const SHADOW = { x: 0.3, y: 0.5 };
-
-const risen = (grabbed: number): number => smoothstep(clamp01(grabbed / RISE));
-
-/** The held drop's body, as the bar's grab has it. */
+/** The held drop's body: pressed flat as it is taken, springing up, then stretched. */
 export function heldBody(h: Hold): GooBody {
   const stretch = 0.22 + 0.15 * h.near;
-  const base = { lean: h.way, stretch, shake: 0.12 * h.near };
-  if (GOO_GRAB.kind === "squish") {
-    const into = smoothstep(clamp01(h.grabbed / 0.3));
-    return drop(h.at, h.r, {
-      ...base,
-      stretch: stretch * into + 0.07 * Math.sin(h.time * 9) * into,
-      shake: base.shake + 0.05 * into,
-      squash: 1 + 0.4 * settle(h.grabbed, 7, 19),
-    });
-  }
-  if (GOO_GRAB.kind === "lift") {
-    const up = risen(h.grabbed);
-    return drop({ x: h.at.x, y: h.at.y - h.r * UP * up }, h.r * (1 + 0.16 * up), base);
-  }
-  return drop(h.at, h.r, base);
+  const into = smoothstep(clamp01(h.grabbed / 0.3));
+  return drop(h.at, h.r, {
+    lean: h.way,
+    stretch: stretch * into + 0.07 * Math.sin(h.time * 9) * into,
+    shake: 0.12 * h.near + 0.05 * into,
+    squash: 1 + 0.4 * settle(h.grabbed, 7, 19),
+  });
 }
 
-/** Under the held drop: LIFT's shadow on the floor. */
-export function underHeld(ctx: CanvasRenderingContext2D, h: Hold, style: GooStyle): void {
-  if (GOO_GRAB.kind !== "lift") return;
-  const up = risen(h.grabbed);
-  const at = { x: h.at.x + h.r * SHADOW.x * up, y: h.at.y + h.r * SHADOW.y * up };
-  shadow(ctx, at, h.r, style.neon, up);
-}
-
-/** Over the held drop: the light from inside SQUISH and CHARGE as it is taken. */
+/** Over the held drop: the light from inside it as it is taken. */
 export function overHeld(ctx: CanvasRenderingContext2D, h: Hold, style: GooStyle): void {
-  if (GOO_GRAB.kind === "squish")
-    inner(ctx, h.at, h.r, style.neon, 0.35 * (1 - clamp01(h.grabbed / 0.25)));
-  if (GOO_GRAB.kind === "charge")
-    inner(ctx, h.at, h.r, style.neon, 0.6 * (1 - clamp01(h.grabbed / 0.35)));
-}
-
-/** Under the tail: LIFT's shadow of it, `tail` the path it is drawn in. */
-export function underTail(ctx: CanvasRenderingContext2D, tail: Path2D, h: Hold): void {
-  if (GOO_GRAB.kind !== "lift") return;
-  const up = risen(h.grabbed);
-  ctx.save();
-  ctx.translate(h.r * SHADOW.x * up * 0.6, h.r * SHADOW.y * up * 0.6);
-  ctx.fillStyle = "#000000";
-  ctx.globalAlpha = 0.35 * up;
-  ctx.fill(tail);
-  ctx.restore();
-}
-
-/** Over the tail: CHARGE's light running up it into the drop, and the drop's glow,
- * `p` 0..1 of the way to the end. */
-export function overTail(
-  ctx: CanvasRenderingContext2D,
-  run: Run,
-  h: Hold,
-  style: GooStyle,
-  p: number,
-): void {
-  if (GOO_GRAB.kind !== "charge") return;
-  const color = mix(style.neon, PALETTE.good, p);
-  ctx.save();
-  ctx.globalCompositeOperation = "lighter";
-  const tip = runPoint(run, 1);
-  const pulse = 0.5 + 0.5 * Math.sin(h.time * (5 + 9 * p));
-  const rr = h.r * (1.6 + 0.6 * p);
-  const g = ctx.createRadialGradient(tip.x, tip.y, h.r * 0.5, tip.x, tip.y, rr);
-  g.addColorStop(0, color);
-  g.addColorStop(1, "rgba(0,0,0,0)");
-  ctx.fillStyle = g;
-  ctx.globalAlpha = (0.15 + 0.6 * p) * (0.7 + 0.3 * pulse);
-  ctx.beginPath();
-  ctx.arc(tip.x, tip.y, rr, 0, Math.PI * 2);
-  ctx.fill();
-  ctx.fillStyle = mix(color, "#FFFFFF", 0.5);
-  for (let j = 0; j < 4; j++) {
-    const u = (h.time * 1.3 + j / 4) % 1;
-    const q = runPoint(run, u);
-    ctx.globalAlpha = Math.sin(Math.PI * u) * (0.35 + 0.5 * p);
-    ctx.beginPath();
-    ctx.arc(q.x, q.y, h.r * (0.06 + 0.1 * u * u), 0, Math.PI * 2);
-    ctx.fill();
-  }
-  ctx.restore();
-}
-
-/** Where a lifted drop's shadow falls, `k` 0..1 of the lift: on a field this dark a
- * shadow alone is not seen, so the drop's own neon is spilled on the floor round it. */
-function shadow(
-  ctx: CanvasRenderingContext2D,
-  at: Point,
-  r: number,
-  neon: string,
-  k: number,
-): void {
-  if (k <= 0.01) return;
-  ctx.save();
-  const g = ctx.createRadialGradient(at.x, at.y, 0, at.x, at.y, r * 1.6);
-  g.addColorStop(0, "rgba(0,0,0,0.9)");
-  g.addColorStop(0.5, "rgba(0,0,0,0.7)");
-  g.addColorStop(0.68, mix(neon, "#000000", 0.35));
-  g.addColorStop(1, "rgba(0,0,0,0)");
-  ctx.fillStyle = g;
-  ctx.globalAlpha = 0.75 * k;
-  ctx.beginPath();
-  ctx.ellipse(at.x, at.y, r * 1.6, r * 1.6, 0, 0, Math.PI * 2);
-  ctx.fill();
-  ctx.restore();
+  inner(ctx, h.at, h.r, style.neon, 0.35 * (1 - clamp01(h.grabbed / 0.25)));
 }
 
 /** Light inside the drop, `alpha` strong. */
@@ -190,7 +77,7 @@ export function fieldSplash(
   style: GooStyle,
   grabbed: number,
 ): void {
-  if (GOO_GRAB.kind !== "squish" || grabbed >= FLY + LIE + FADE) return;
+  if (grabbed >= FLY + LIE + FADE) return;
   const fly = clamp01(grabbed / FLY);
   const fade = 1 - clamp01((grabbed - FLY - LIE) / FADE);
   ctx.save();
@@ -209,21 +96,4 @@ export function fieldSplash(
     ctx.fill();
   }
   ctx.restore();
-}
-
-/** The bar's choice of grab. */
-export function grabChoice(): HTMLElement {
-  return choice(
-    [
-      ["LEAN", "lean"],
-      ["SQUISH", "squish"],
-      ["LIFT", "lift"],
-      ["CHARGE", "charge"],
-    ] as [string, Grab][],
-    GOO_GRAB.kind,
-    (kind) => {
-      GOO_GRAB.kind = kind;
-    },
-    "GRAB",
-  );
 }

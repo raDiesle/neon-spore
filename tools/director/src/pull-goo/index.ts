@@ -18,8 +18,8 @@ import { gooTrack } from "./track.js";
  * turning — and endings that are a short green and a quick removal where
  * the drop was counted, never a trip home. Of the five endings offered —
  * SINK, STRAINER, VORTEX, WELL and FIZZ — the owner kept FIZZ (`fizz.ts`).
- * The drop itself is flat or a 3D ball, and how it is grabbed one of four,
- * on the lab's bar (`drop-look.ts`, `grab.ts`).
+ * The drop itself is flat or a 3D ball, on the lab's bar (`drop-look.ts`), and it is
+ * grabbed with a SQUISH (`grab.ts`).
  *
  * They live with the lab and nowhere else — the owner: *not on "versus" page
  * but this page* — so the VERSUS registry never lists them. Each is still a

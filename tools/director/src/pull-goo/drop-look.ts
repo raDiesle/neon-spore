@@ -2,7 +2,6 @@ import type { Point } from "@neon-spore/content";
 import { choice } from "../field-try-bar.js";
 import { paintBall } from "./ball.js";
 import { type GooBody, paintBody } from "./body.js";
-import { grabChoice } from "./grab.js";
 import type { GooStyle } from "./style.js";
 
 /**
@@ -27,8 +26,8 @@ export function paintGoo(
   else paintBody(ctx, b, style, time, tint);
 }
 
-/** The bar's choices for every GOO drop: flat or a ball, and how it is taken (`grab.ts`);
- * `changed` redraws whatever is not redrawn every frame. */
+/** The bar's choice for every GOO drop: flat or a ball; `changed` redraws whatever is
+ * not redrawn every frame. */
 export function dropChoices(changed: () => void): HTMLElement[] {
   const look = choice(
     [
@@ -42,5 +41,5 @@ export function dropChoices(changed: () => void): HTMLElement[] {
     },
     "DROP",
   );
-  return [look, grabChoice()];
+  return [look];
 }

@@ -6,11 +6,10 @@ import {
   pullTrackPoint,
 } from "@neon-spore/render";
 import { paintPullTrack } from "../../../../packages/render/src/pull-track.js";
-import { goals, share } from "../../../versus/candidates/pull-handle/ooze/goo.js";
 import { edge } from "./border.js";
 import { type Ending, paintEnding } from "./ending.js";
 import { paintFailure } from "./fail.js";
-import { fieldSplash, overTail, underTail } from "./grab.js";
+import { fieldSplash } from "./grab.js";
 import { type GooMoment, momentOf } from "./moment.js";
 import { paintPath } from "./parts.js";
 import { sceneOf } from "./scene.js";
@@ -51,27 +50,13 @@ function guides(
   style: GooStyle,
   m: GooMoment,
 ): void {
-  const ends = goals(o.origin, o.at);
-  let p = 0;
-  for (const g of ends) p = Math.max(p, share(o.origin, o.at, g));
   const run = { t, origin: o.origin, at: o.at, off: m.off };
   const moved = Math.abs(o.at - o.origin) > 0.005 || Math.hypot(m.off.x, m.off.y) > 1;
   if (o.held && moved) {
-    const tip = pullTrackPoint(t, o.at);
-    const hold = {
-      at: { x: tip.x + m.off.x, y: tip.y + m.off.y },
-      r,
-      way: { x: 0, y: 0 },
-      near: m.near,
-      grabbed: m.grabbed,
-      time: o.time,
-    };
     const tail = tailPath(run, r, o.time, 0.4 * m.near);
-    underTail(ctx, tail, hold);
     specks(ctx, run, r, 1);
     const blend = { run, color: style.neon, rim: r, span: r * 3 };
     paintTail(ctx, tail, PALETTE.good, 0.6 * m.near, 1, blend);
-    overTail(ctx, run, hold, style, p);
   }
   paintPath(ctx, t, r, style, {
     origin: o.origin,

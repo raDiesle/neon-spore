@@ -3,7 +3,6 @@ import { installCanvasGlobals, stubCanvas } from "../../../packages/render/test/
 import { VARIANTS } from "../../versus/candidates/index.js";
 import { GOO_DROP } from "../src/pull-goo/drop-look.js";
 import { DOTS_SPAN, dotIn, entering, grown, POP, placeIn } from "../src/pull-goo/enter.js";
-import { GOO_GRAB, type Grab } from "../src/pull-goo/grab.js";
 import { GOO_LOOKS } from "../src/pull-goo/index.js";
 import { SPAWN } from "../src/pull-goo/moment.js";
 import { specks } from "../src/pull-goo/strand.js";
@@ -48,35 +47,32 @@ describe("the GOO looks", () => {
       }
   });
 
-  test("draw every grab with either drop without a bad call", () => {
+  test("draw the grab with either drop without a bad call", () => {
     const { ctx } = stubCanvas();
     const c = ctx as unknown as CanvasRenderingContext2D;
-    const was = { ...GOO_GRAB, ball: GOO_DROP.ball };
+    const was = GOO_DROP.ball;
     const step = 1 / 30;
     const look = GOO_LOOKS[0] ?? null;
     try {
-      for (const kind of ["lean", "squish", "lift", "charge"] as Grab[])
-        for (const ball of [false, true]) {
-          GOO_GRAB.kind = kind;
-          GOO_DROP.ball = ball;
-          for (const shape of LAB_SHAPES) {
-            const pull = freshPull(shape);
-            let down = false;
-            for (let i = 0; i * step < 3.4; i++) {
-              const t = i * step;
-              const th = autoThumb(shape, t, true);
-              if (th.down && !down) press(shape, pull, th.at);
-              if (th.down) move(shape, pull, th.at, "half");
-              if (!th.down && down) lift(shape, pull, "refuse");
-              down = th.down;
-              tick(shape, pull, step);
-              paintLab(c, { shape, pull, look, time: t, stray: "half" });
-            }
+      for (const ball of [false, true]) {
+        GOO_DROP.ball = ball;
+        for (const shape of LAB_SHAPES) {
+          const pull = freshPull(shape);
+          let down = false;
+          for (let i = 0; i * step < 3.4; i++) {
+            const t = i * step;
+            const th = autoThumb(shape, t, true);
+            if (th.down && !down) press(shape, pull, th.at);
+            if (th.down) move(shape, pull, th.at, "half");
+            if (!th.down && down) lift(shape, pull, "refuse");
+            down = th.down;
+            tick(shape, pull, step);
+            paintLab(c, { shape, pull, look, time: t, stray: "half" });
           }
         }
+      }
     } finally {
-      GOO_GRAB.kind = was.kind;
-      GOO_DROP.ball = was.ball;
+      GOO_DROP.ball = was;
     }
   });
 
