@@ -66,11 +66,13 @@ function inner(ctx: CanvasRenderingContext2D, at: Point, r: number, color: strin
 }
 
 /** SQUISH's splash: seconds its drops fly before they land, how long they lie on the
- * field after, and how long they take to fade — the owner, 10 October 2026: *keeping
- * the spashing on the field just a little bit longer*. */
+ * field after, and how long they take to fade. Lying 0.9 and fading 0.5 (the owner,
+ * 10 October 2026: *keeping the spashing on the field just a little bit longer*) read
+ * as too much; on 11 October: *make splash around button when pressed … disappear
+ * earlier so it looks more subtle*. */
 const FLY = 0.22;
-const LIE = 0.9;
-const FADE = 0.5;
+const LIE = 0.35;
+const FADE = 0.3;
 
 /**
  * A few drops of goo thrown off the rim as the thumb presses, landing on the

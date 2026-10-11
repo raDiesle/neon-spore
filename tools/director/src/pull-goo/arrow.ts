@@ -31,10 +31,13 @@ import type { GooStyle } from "./style.js";
  * and shape — move it more down … so it should look centered of tall area*.
  */
 
-/** How long one of the two short arrows is, as a share of the single one, and how far
- * out from the middle it sits. */
-const SHORT = 0.4;
-const OUT = 0.44;
+/** How long one of the two short arrows is, as a share of the single one, how far out
+ * from the middle it sits, and how far it breathes out and back. Bigger and stiller than
+ * they were (0.4, 0.44, 0.07) — the owner, 11 October 2026: *if showing two arrows, try
+ * to make the arrows bigger, maybe with less movement inside for more space*. */
+const SHORT = 0.62;
+const OUT = 0.54;
+const BREATHE = 0.02;
 
 /** Radians a second the arrow slides along itself, and two arrows breathe apart — the
  * owner, 11 October 2026: *arrow movement should be slowed down*; it was 5. */
@@ -99,7 +102,7 @@ export function paintArrow(
   const arrows: ArrowAt[] = [];
   const main = reach * (1 - (1 - SHORT) * s);
   // Apart, they breathe out towards their ends and back, so the gap between them opens.
-  const shift = reach * s * (OUT + 0.07 * Math.sin(a.time * PACE));
+  const shift = reach * s * (OUT + BREATHE * Math.sin(a.time * PACE));
   arrows.push({ x: at.x + a.dx * shift, y: at.y + a.dy * shift, r: main, dx: a.dx, dy: a.dy });
   if (s > 0.02)
     arrows.push({

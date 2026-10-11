@@ -14,7 +14,7 @@ import { splitOf } from "./pull-goo/arrow.js";
 import { GOO_LOOKS } from "./pull-goo/index.js";
 import { knobAt, type LabPull, progress } from "./pull-lab-rule.js";
 import { LAB_H, LAB_KNOB, LAB_TILE, LAB_W, type LabShape } from "./pull-lab-shapes.js";
-import { STRAY_TILES, type Stray } from "./pull-lab-stray.js";
+import { type Stray, strayReach } from "./pull-lab-stray.js";
 
 /**
  * One frame of the PULL LAB (`pull-lab.ts`): the empty field, the pull drawn
@@ -48,15 +48,16 @@ export const VERDICT_WORDS: Readonly<Record<string, string>> = {
   strayed: "OFF THE PATH",
 };
 
-/** The bar's readout: the state, how far, and what the lifts have come to. */
-export function readoutOf(shape: LabShape, pull: LabPull): string {
+/** The bar's readout: the state, how far, what the lifts have come to, and
+ * whether a finger has the wider band. */
+export function readoutOf(shape: LabShape, pull: LabPull, touch = false): string {
   const state = pull.verdict
     ? VERDICT_WORDS[pull.verdict]
     : pull.phase === "held"
       ? "HELD"
       : "WAITING";
   const far = Math.round(progress(shape, pull) * 100);
-  return `${state} · ${far}% · COUNTED ${pull.counted} · REFUSED ${pull.refused} · OFF PATH ${pull.strayed}`;
+  return `${state} · ${far}% · COUNTED ${pull.counted} · REFUSED ${pull.refused} · OFF PATH ${pull.strayed}${touch ? " · TOUCH: BAND ×2" : ""}`;
 }
 
 export interface LabFrame {
@@ -66,6 +67,8 @@ export interface LabFrame {
   time: number;
   /** The bar's OFF PATH rule; its band is drawn under the pull when it has one. */
   stray?: Stray;
+  /** A finger: the band is `TOUCH_SLACK` times as wide. */
+  touch?: boolean;
 }
 
 export function paintLab(ctx: CanvasRenderingContext2D, f: LabFrame): void {
@@ -86,11 +89,11 @@ function toneOf(pull: LabPull): { hex: string; rim: string } {
   return { hex: PALETTE.cyan, rim: PALETTE.cyanRim };
 }
 
-function paintPull(ctx: CanvasRenderingContext2D, { shape, pull, time, stray }: LabFrame): void {
+function paintPull(ctx: CanvasRenderingContext2D, f: LabFrame): void {
+  const { shape, pull, time } = f;
   const held = pull.phase === "held" || pull.phase === "full";
   const tone = toneOf(pull);
-  const limit = STRAY_TILES[stray ?? "free"];
-  const after = afterOf(pull, limit === null ? null : limit * LAB_TILE);
+  const after = afterOf(pull, strayReach(f.stray ?? "free", f.touch));
   drawPullTrack(ctx, shape.track, {
     ...tone,
     held,
@@ -142,14 +145,14 @@ function wayNow(shape: LabShape, pull: LabPull): PullWay {
 
 /** The tolerance either side of the path: a faint band the thumb must stay
  * in, red while a pull that left it is shown. */
-function paintBand(ctx: CanvasRenderingContext2D, { shape, pull, stray }: LabFrame): void {
-  const limit = STRAY_TILES[stray ?? "free"];
+function paintBand(ctx: CanvasRenderingContext2D, { shape, pull, stray, touch }: LabFrame): void {
+  const limit = strayReach(stray ?? "free", touch);
   if (limit === null) return;
   const pts = shape.track.pts;
   ctx.save();
   ctx.strokeStyle = pull.verdict === "strayed" ? PALETTE.red : PALETTE.dim;
   ctx.globalAlpha = pull.verdict === "strayed" ? 0.22 : 0.14;
-  ctx.lineWidth = limit * LAB_TILE * 2;
+  ctx.lineWidth = limit * 2;
   ctx.lineCap = "round";
   ctx.lineJoin = "round";
   ctx.beginPath();

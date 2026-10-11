@@ -35,8 +35,9 @@ import type { Stray } from "./pull-lab-stray.js";
  * A short pull is refused, red, and a thumb half a tile off the path fails:
  * the owner's picks of the rule's answers (10 October 2026: *for the
  * tolerance variants i prefer "short * red" so remove the others*, and
- * before it *i prefer "off path * fails past 1/2 tile"*). The rule still
- * knows the others (`pull-lab-rule.ts`, `pull-lab-stray.ts`).
+ * before it *i prefer "off path * fails past 1/2 tile"*) — a whole tile for
+ * a finger (`TOUCH_SLACK`). The rule still knows the others
+ * (`pull-lab-rule.ts`, `pull-lab-stray.ts`).
  *
  * AUTO's thumb (`pull-lab-auto.ts`) plays a whole pull and a straying one on
  * a loop. RETRY puts a fresh pull on the field, so the drop and its path are
@@ -61,6 +62,9 @@ export function openPullLab(first = "down", opts: { sheet?: boolean } = {}): voi
   let time = 0;
   let autoTime = 0;
   let thumb: { at: Point; down: boolean } | null = null;
+  /** The last press was a finger (`TOUCH_SLACK`); AUTO's thumb is never one. */
+  let finger = matchMedia("(pointer: coarse)").matches;
+  const touch = (): boolean => finger && !state.auto;
 
   const shade = document.createElement("div");
   shade.className = "pic-zoom try pull-lab";
@@ -97,13 +101,14 @@ export function openPullLab(first = "down", opts: { sheet?: boolean } = {}): voi
     canvas.addEventListener(type, f as EventListener, { signal: life.signal });
   on("pointerdown", (e) => {
     if (state.auto) bar.setAuto(false);
+    finger = e.pointerType === "touch";
     canvas.setPointerCapture(e.pointerId);
     press(state.shape, pull, toLab(e));
     thumb = { at: toLab(e), down: true };
   });
   on("pointermove", (e) => {
     if (state.auto) return;
-    move(state.shape, pull, toLab(e), stray);
+    move(state.shape, pull, toLab(e), stray, touch());
     thumb = { at: toLab(e), down: e.buttons > 0 };
   });
   on("pointerup", (e) => {
@@ -143,7 +148,7 @@ export function openPullLab(first = "down", opts: { sheet?: boolean } = {}): voi
     tick(state.shape, pull, dt);
     draw();
     like.textContent = `${state.shape.label} — stands for ${state.shape.like}.`;
-    bar.readout.textContent = readoutOf(state.shape, pull);
+    bar.readout.textContent = readoutOf(state.shape, pull, touch());
     requestAnimationFrame(frame);
   };
 
@@ -151,7 +156,7 @@ export function openPullLab(first = "down", opts: { sheet?: boolean } = {}): voi
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
     ctx.setTransform(canvas.width / LAB_W, 0, 0, canvas.height / LAB_H, 0, 0);
-    paintLab(ctx, { shape: state.shape, pull, look: state.look, time, stray });
+    paintLab(ctx, { shape: state.shape, pull, look: state.look, time, stray, touch: touch() });
   };
 
   const onKey = (e: KeyboardEvent): void => {

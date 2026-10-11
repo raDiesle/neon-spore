@@ -22,10 +22,17 @@ export const STRAY_TILES: Readonly<Record<Stray, number | null>> = {
   half: 0.5,
 };
 
-/** The tolerance either side of the path in field pixels, or `null` where there is none. */
-export function strayReach(stray: Stray): number | null {
+/** A thumb on glass is let wander this many times as far as a mouse: a
+ * fingertip covers the path it follows — the owner, 11 October 2026, *on
+ * touch devices, the tolerance area for mistake must be increased — around
+ * double the size*. */
+export const TOUCH_SLACK = 2;
+
+/** The tolerance either side of the path in field pixels, or `null` where
+ * there is none; `touch` for a finger. */
+export function strayReach(stray: Stray, touch = false): number | null {
   const limit = STRAY_TILES[stray];
-  return limit === null ? null : limit * LAB_TILE;
+  return limit === null ? null : limit * LAB_TILE * (touch ? TOUCH_SLACK : 1);
 }
 
 /** The nearest point of the track to `at`, searched near where the knob is

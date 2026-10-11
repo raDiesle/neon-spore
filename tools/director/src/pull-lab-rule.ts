@@ -131,12 +131,18 @@ export function press(shape: LabShape, p: LabPull, at: Point): boolean {
   return true;
 }
 
-export function move(shape: LabShape, p: LabPull, at: Point, stray: Stray = "free"): void {
+export function move(
+  shape: LabShape,
+  p: LabPull,
+  at: Point,
+  stray: Stray = "free",
+  touch = false,
+): void {
   if (p.phase !== "held") return;
   const n = nearest(shape.track, p.at, at);
   const q = pullTrackPoint(shape.track, n.k);
   p.off = { x: at.x - q.x, y: at.y - q.y };
-  const reach = strayReach(stray);
+  const reach = strayReach(stray, touch);
   if (reach !== null && n.off > reach) {
     // Off the path is a failure, wherever along it the knob had got to.
     p.phase = "home";

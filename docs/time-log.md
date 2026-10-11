@@ -38050,3 +38050,19 @@ Bottleneck: deciding where a dragged group may land so it never takes another
 group's variants.
 
 *Measured: 6 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-11 — THE PULL LAB: bigger two-way arrows, a finger's wider band, a shorter splash
+
+- reading: 0 min. The arrow, SQUISH's splash and the stray rule — a couple
+  of minutes once on the right tree.
+- writing: 5 min. `SHORT`, `OUT` and `BREATHE`; `TOUCH_SLACK` through the
+  rule, the band and the readout; the splash's `LIE` and `FADE`; a test.
+- looking: 0 min. Three `shot`s of UP OR DOWN at rest and two crops of the
+  drop, the arrows enlarged once more after the first.
+- friction: 5 min. The worktree started on a `main` hours behind the local
+  one — the work was done on an older GOO look, refused at the rebase, and
+  done again on today's.
+- landing: 0 min. `check:fast`, the commit, `land`.
+
+Bottleneck: a worktree cut from a stale base; the trunk step fetched
+`origin/main`, but the PULL LAB had moved on the local `main`.

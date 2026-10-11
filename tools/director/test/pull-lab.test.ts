@@ -22,7 +22,7 @@ import {
   labShape,
 } from "../src/pull-lab-shapes.js";
 import { MOMENTS, pullAt } from "../src/pull-lab-sheet.js";
-import { STRAY_TILES, type Stray } from "../src/pull-lab-stray.js";
+import { STRAY_TILES, type Stray, TOUCH_SLACK } from "../src/pull-lab-stray.js";
 
 /**
  * The PULL LAB's rule and its thumb, without a canvas (`pull-lab.ts` draws;
@@ -64,10 +64,12 @@ function drift(
   k: number,
   tiles: number,
   stray: Stray = "free",
+  touch = false,
 ) {
   for (let i = 1; i <= 60; i++) {
     const u = i / 60;
-    move(shape, pull, offPath(shape, shape.origin + (k - shape.origin) * u, tiles * u), stray);
+    const at = offPath(shape, shape.origin + (k - shape.origin) * u, tiles * u);
+    move(shape, pull, at, stray, touch);
   }
 }
 
@@ -162,6 +164,24 @@ describe("a thumb off the path", () => {
         expect([s.key, out.phase, out.verdict, out.strayed]).toEqual([s.key, "home", "strayed", 1]);
         lift(s, out, "refuse");
         expect(out.refused).toBe(0);
+      }
+    });
+  }
+
+  // On the straight shapes: two tiles off the S is nearer its next bend than its own.
+  for (const stray of ["tile", "half"] as Stray[]) {
+    const limit = (STRAY_TILES[stray] as number) * TOUCH_SLACK;
+    test(`a finger is let wander ${TOUCH_SLACK}× as far: past ${limit} of a tile, not inside it`, () => {
+      for (const s of pathed.filter((p) => p.track.pts.length === 2)) {
+        const k = s.origin > 0 ? 0.2 : 0.5;
+        const inside = freshPull(s);
+        press(s, inside, knobAt(s, inside));
+        drift(s, inside, k, limit * 0.8, stray, true);
+        expect([s.key, inside.phase, inside.strayed]).toEqual([s.key, "held", 0]);
+        const out = freshPull(s);
+        press(s, out, knobAt(s, out));
+        drift(s, out, k, limit * 1.3, stray, true);
+        expect([s.key, out.phase, out.verdict]).toEqual([s.key, "home", "strayed"]);
       }
     });
   }
