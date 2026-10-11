@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-11 · 2730f722d — THE PULL LAB: bigger two-way arrows, a finger's wider band, a shorter splash
+
+On a pull that may go either way, the drop's two short arrows are half as big again and no longer breathe apart, so there is room for them on the cap. A finger on glass may wander a whole tile off the path before the pull fails, twice a mouse's half tile, and the band is drawn that wide; the readout says TOUCH: BAND ×2, and AUTO keeps the mouse's band. The drops SQUISH throws onto the field when the drop is pressed now lie there 0.35 s and fade over 0.3 s, where they lay 0.9 s and faded over 0.5 s.
+
 ## 2026-10-11 · 722bf9750 — Director: waves fold under the wave that introduces them, and each boss counts its stretch
 
 A wave can be marked VARIANT under NAME, and it then folds under the nearest wave above it that is not one, in the wave list. A folded head shows how many waves it hides (▸ 3); groups start folded and remember being opened. A copy is made a variant of the wave it was copied from, and keeps its panel and faults. Over each boss row a line counts the regular waves since the last boss and how many of them are new; under the last row, the waves since the last boss so far.
