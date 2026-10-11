@@ -37820,3 +37820,5 @@ Bottleneck: none — a correction to the lane before, in the file it had open.
 
 Bottleneck: looking — no tool holds a PULL LAB drop at a given share, so the
 frame was found by dragging in steps and reading the readout.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

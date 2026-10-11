@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-11 · 168edb332 — PULL LAB: past the last dot, the place blinks next
+
+While a drop is held, the dot just ahead of it blinks; once the drop has passed the last dot, the place it goes to takes the blink over, at the same beat, swelling a little with a glow round it, so the blinking runs from the dots on into the place.
+
 ## 2026-10-11 · c2e1f2630 — PULL LAB: at a count FIZZ's arrow turns green and melts into the drop
 
 When a pull is counted, the arrow no longer sits over the bubbles. It turns green with the drop and shrinks with it a moment, so it does not vanish at once. Then it melts into the drop and is gone before the drop has finished boiling away.
