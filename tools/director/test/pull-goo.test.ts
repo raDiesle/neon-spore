@@ -1,17 +1,17 @@
 import { beforeAll, describe, expect, test } from "bun:test";
 import { installCanvasGlobals, stubCanvas } from "../../../packages/render/test/canvas-stub.js";
 import { VARIANTS } from "../../versus/candidates/index.js";
-import { arrowSize, splitOf } from "../src/pull-goo/arrow.js";
+import { arrowSize, capSeat, splitOf } from "../src/pull-goo/arrow.js";
 import { dotCount, dotsEnd, ghostFront, passed, placeBeat } from "../src/pull-goo/beat.js";
 import { centre, DROP_SPIN, drop, rimAt } from "../src/pull-goo/body.js";
-import { GOO_DROP, SOFT_DROPS } from "../src/pull-goo/drop-look.js";
+import { GOO_DROP } from "../src/pull-goo/drop-look.js";
 import { DOTS_SPAN, dotIn, entering, grown, POP, placeIn } from "../src/pull-goo/enter.js";
 import { GOO_LOOKS } from "../src/pull-goo/index.js";
 import { SPAWN } from "../src/pull-goo/moment.js";
 import { stillSpin, stoppedSpin } from "../src/pull-goo/soft.js";
 import { liftOf } from "../src/pull-goo/soft-cap.js";
 import { CLEAR, craterOf, RIPPLES_STILL } from "../src/pull-goo/soft-crater.js";
-import { specks } from "../src/pull-goo/strand.js";
+import { specks, splashAt } from "../src/pull-goo/strand.js";
 import { GOO } from "../src/pull-goo/style.js";
 import { autoThumb } from "../src/pull-lab-auto.js";
 import { labLooks, paintLab } from "../src/pull-lab-paint.js";
@@ -54,32 +54,24 @@ describe("the GOO looks", () => {
       }
   });
 
-  test("draw the grab with every drop without a bad call", () => {
+  test("draw the grab without a bad call", () => {
     const { ctx } = stubCanvas();
     const c = ctx as unknown as CanvasRenderingContext2D;
-    const was = GOO_DROP.look;
     const step = 1 / 30;
     const look = GOO_LOOKS[0] ?? null;
-    try {
-      for (const drop of SOFT_DROPS) {
-        GOO_DROP.look = drop;
-        for (const shape of LAB_SHAPES) {
-          const pull = freshPull(shape);
-          let down = false;
-          for (let i = 0; i * step < 3.4; i++) {
-            const t = i * step;
-            const th = autoThumb(shape, t, true);
-            if (th.down && !down) press(shape, pull, th.at);
-            if (th.down) move(shape, pull, th.at, "half");
-            if (!th.down && down) lift(shape, pull, "refuse");
-            down = th.down;
-            tick(shape, pull, step);
-            paintLab(c, { shape, pull, look, time: t, stray: "half" });
-          }
-        }
+    for (const shape of LAB_SHAPES) {
+      const pull = freshPull(shape);
+      let down = false;
+      for (let i = 0; i * step < 3.4; i++) {
+        const t = i * step;
+        const th = autoThumb(shape, t, true);
+        if (th.down && !down) press(shape, pull, th.at);
+        if (th.down) move(shape, pull, th.at, "half");
+        if (!th.down && down) lift(shape, pull, "refuse");
+        down = th.down;
+        tick(shape, pull, step);
+        paintLab(c, { shape, pull, look, time: t, stray: "half" });
       }
-    } finally {
-      GOO_DROP.look = was;
     }
   });
 
@@ -210,9 +202,8 @@ describe("the GOO looks", () => {
     expect(at(6)).toBeCloseTo(6 * DROP_SPIN, 9);
   });
 
-  test("open on RIPPLES · STILL, the owner's pick, first on the bar", () => {
-    expect(SOFT_DROPS[0]).toBe(RIPPLES_STILL);
-    expect(GOO_DROP.look).toBe(RIPPLES_STILL);
+  test("draw every drop as RIPPLES · STILL, the owner's pick and the only one", () => {
+    expect(GOO_DROP).toBe(RIPPLES_STILL);
   });
 
   test("stand the cap up untouched and push it level by half way in", () => {
@@ -221,5 +212,23 @@ describe("the GOO looks", () => {
     expect(liftOf(b, 0.25)).toBeLessThan(liftOf(b, 0));
     expect(liftOf(b, 0.5)).toBe(0);
     expect(liftOf(b, 1)).toBe(0);
+  });
+
+  test("sit the arrow smaller and half way up a standing cap, full size once it is pressed", () => {
+    const b = drop({ x: 0, y: 0 }, 40);
+    const up = liftOf(b, 0);
+    const standing = capSeat({ ...b, lift: up });
+    expect(standing.size).toBeLessThan(0.9);
+    expect(standing.up).toBeCloseTo(up / 2, 9);
+    expect(capSeat({ ...b, lift: liftOf(b, 1) })).toEqual({ size: 1, up: 0 });
+  });
+
+  test("leave a splash at the start, widest there and drawn out to nothing along the pull", () => {
+    const r = 20;
+    expect(splashAt(0, r, 200)).toBeGreaterThan(r * 0.2);
+    expect(splashAt(r * 0.5, r, 200)).toBeLessThan(splashAt(0, r, 200));
+    expect(splashAt(r * 2, r, 200)).toBe(0);
+    // A short pull draws it out no further than part of the way the drop has come.
+    expect(splashAt(6, r, 10)).toBe(0);
   });
 });

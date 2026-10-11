@@ -1,15 +1,14 @@
 import type { Point } from "@neon-spore/content";
 import { PALETTE } from "@neon-spore/render";
-import { drawWayArrow } from "../../../../packages/render/src/way-arrow.js";
 import { drop, type GooBody } from "./body.js";
-import { GOO_DROP } from "./drop-look.js";
 import { clamp01, mix } from "./noise.js";
 import { type ArrowAt, paintSoftArrows, SOFT_HELD, SOFT_REACH, SOFT_SLIDE } from "./soft-arrow.js";
+import { CAP_HEIGHT } from "./soft-cap.js";
 import type { GooStyle } from "./style.js";
 
 /**
  * **The way to pull, inside a GOO drop** — the loudest thing on it: dark
- * under, neon round, near-white on top, THE INSTAR's arrow (`way-arrow.ts`).
+ * under, neon round, near-white on top.
  *
  * The owner, 11 October 2026: *the arrow must be visible from the very
  * beginning growing and also when disappearing it must be visible to the end
@@ -24,9 +23,12 @@ import type { GooStyle } from "./style.js";
  * between them (`split` 1); pulled, the one it goes towards grows into the
  * single arrow and the other shrinks away (`split` towards 0).
  *
- * A soft drop that asks for it (`SoftDrop.moulded`) carries a smaller arrow
- * moulded into its own lumps instead (`soft-arrow.ts`), laid on `body` — the
- * drop it is in, when the caller has it.
+ * The arrow is moulded into the drop's own lumps (`soft-arrow.ts`), laid on
+ * `body` — the drop it is in, when the caller has it. While the drop's cap
+ * stands up untouched (`soft-cap.ts`) it is smaller and sits half way up,
+ * in the middle of the whole tall cap rather than on its face — the owner,
+ * 11 October 2026: *reduce arrow size so it does not overlap with top border
+ * and shape — move it more down … so it should look centered of tall area*.
  */
 
 /** How long one of the two short arrows is, as a share of the single one, and how far
@@ -37,6 +39,20 @@ const OUT = 0.44;
 /** Radians a second the arrow slides along itself, and two arrows breathe apart — the
  * owner, 11 October 2026: *arrow movement should be slowed down*; it was 5. */
 const PACE = 2.2;
+
+/** On a cap standing all the way up: how big the arrow is, as a share of its size on the
+ * drop, and how far up it rides, as a share of the cap's height — half, the middle of
+ * the face and the wall under it together. */
+const ON_CAP = 0.8;
+const MIDWAY = 0.5;
+
+/** Where the arrow sits on `laid`, as tall as its cap stands: how big, as a share of
+ * its size on a level drop, and how many pixels up. */
+export function capSeat(laid: GooBody): { size: number; up: number } {
+  const lift = laid.lift ?? 0;
+  const stood = clamp01(lift / (laid.r * CAP_HEIGHT));
+  return { size: 1 - (1 - ON_CAP) * stood, up: lift * MIDWAY };
+}
 
 /** The arrow's radius for a drop grown to `g` of its size: ahead of it while small. */
 export function arrowSize(r: number, g: number): number {
@@ -71,15 +87,14 @@ export function paintArrow(
     alpha?: number;
     /** How far its neon has turned the green of a count, 0..1. */
     green?: number;
-    /** The drop it is in, for an arrow moulded into it; a round drop of `r` when not given. */
+    /** The drop it is in, its cap's lift with it; a round drop of `r` when not given. */
     body?: GooBody;
   },
 ): void {
   if (r <= 0.05) return;
-  const soft = GOO_DROP.look.moulded === true;
-  const reach = soft
-    ? r * (a.held ? SOFT_HELD : SOFT_REACH)
-    : r * (a.held ? 1.05 : 1.15 + 0.07 * Math.sin(a.time * 6));
+  const laid = a.body ?? drop(at, r);
+  const seat = capSeat(laid);
+  const reach = r * (a.held ? SOFT_HELD : SOFT_REACH) * seat.size;
   const s = clamp01(a.split);
   const arrows: ArrowAt[] = [];
   const main = reach * (1 - (1 - SHORT) * s);
@@ -96,39 +111,13 @@ export function paintArrow(
     });
   const alpha = a.alpha ?? 1;
   const neon = mix(style.neon, PALETTE.good, a.green ?? 0);
-  if (soft) {
-    const slide = reach * SOFT_SLIDE * Math.sin(a.time * PACE) * (1 - s);
-    // On a cap standing up (`soft-cap.ts`) it rides on the face, up with it.
-    const laid = a.body ?? drop(at, r);
-    const up = laid.lift ?? 0;
-    const body = up > 0 ? { ...laid, at: { x: laid.at.x, y: laid.at.y - up } } : laid;
-    const slid = arrows.map((w) => ({
-      ...w,
-      x: w.x + w.dx * slide,
-      y: w.y + w.dy * slide - up,
-    }));
-    paintSoftArrows(ctx, slid, { body, style, time: a.time, neon, alpha });
-    return;
-  }
-  const path = (): void => {
-    for (const w of arrows) drawWayArrow(ctx, w.x, w.y, w.r, w.dx, w.dy, a.time, 1);
-  };
-  ctx.save();
-  ctx.lineCap = "round";
-  ctx.lineJoin = "round";
-  ctx.strokeStyle = PALETTE.background;
-  ctx.globalAlpha = 0.85 * alpha;
-  ctx.lineWidth = r * 0.36 * (1 - 0.35 * s);
-  path();
-  ctx.globalCompositeOperation = "lighter";
-  ctx.strokeStyle = neon;
-  ctx.globalAlpha = 0.5 * alpha;
-  ctx.lineWidth = r * 0.5 * (1 - 0.5 * s);
-  path();
-  ctx.globalCompositeOperation = "source-over";
-  ctx.strokeStyle = mix(neon, "#FFFFFF", 0.7);
-  ctx.globalAlpha = alpha;
-  ctx.lineWidth = r * 0.17 * (1 - 0.2 * s);
-  path();
-  ctx.restore();
+  const slide = reach * SOFT_SLIDE * Math.sin(a.time * PACE) * (1 - s);
+  const { up } = seat;
+  const body = up > 0 ? { ...laid, at: { x: laid.at.x, y: laid.at.y - up } } : laid;
+  const slid = arrows.map((w) => ({
+    ...w,
+    x: w.x + w.dx * slide,
+    y: w.y + w.dy * slide - up,
+  }));
+  paintSoftArrows(ctx, slid, { body, style, time: a.time, neon, alpha });
 }

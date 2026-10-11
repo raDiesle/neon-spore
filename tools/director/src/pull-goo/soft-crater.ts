@@ -182,12 +182,8 @@ function crater(name: string, o: { still?: number; rings: number }): SoftDrop {
 /** The share of its turning RIPPLES · STILL keeps while it is pulled. */
 const CRAWL = 0.12;
 
-/** The crater turning with the drop; the same with the drop stopped while pulled; the
- * crater with ripples drifting out across it, the most like a fluid; and the owner's pick
- * of them, 11 October 2026 — *of "drop" variants, i like "ripples" the most … combine it
- * with the "still" that rotation is much slower when touched* — the ripples on a drop that
- * all but stops turning while it is pulled. */
-export const CRATER = crater("CRATER", { rings: 0 });
-export const CRATER_STILL = crater("CRATER · STILL", { still: 0, rings: 0 });
-export const CRATER_RIPPLES = crater("CRATER · RIPPLES", { rings: 2 });
+/** The owner's pick of the craters, 11 October 2026 — *of "drop" variants, i like
+ * "ripples" the most … combine it with the "still" that rotation is much slower when
+ * touched* — ripples drifting out across the crater, the most like a fluid, on a drop
+ * that all but stops turning while it is pulled. */
 export const RIPPLES_STILL = crater("RIPPLES · STILL", { still: CRAWL, rings: 2 });

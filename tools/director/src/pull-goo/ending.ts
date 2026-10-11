@@ -8,7 +8,7 @@ import { ENDING, SPAWN } from "./moment.js";
 import { clamp01 } from "./noise.js";
 import { paintPath } from "./parts.js";
 import { homeward, type Scene } from "./scene.js";
-import { paintTail, specks, tailPath } from "./strand.js";
+import { paintTail, specks, splashPath, tailPath } from "./strand.js";
 
 /**
  * **How a count ends** — what tells one GOO look from another. The owner, 10
@@ -28,13 +28,17 @@ export interface Ending {
 export function paintEnding(s: Scene, ending: Ending): void {
   const { m } = s;
   const e = m.age;
-  // The tail is drawn up into the drop, the specks fade where they fell.
+  // The tail is drawn up into the drop, the specks fade where they fell, and the splash
+  // it was pulled out of stays at the start a little longer (`strand.ts`).
   const run = { t: s.t, origin: s.origin, at: m.from.at, off: m.from.off };
   specks(s.ctx, run, s.r, 1 - clamp01(e / 0.6));
   const pull = smoothstep(clamp01(e / 0.22));
+  if (pull > 0)
+    paintTail(s.ctx, splashPath(run, s.r), PALETTE.good, 0, 1 - clamp01((e - 0.3) / 0.45));
   if (pull < 1) {
     const short = { ...run, origin: s.origin + (m.from.at - s.origin) * pull };
-    paintTail(s.ctx, tailPath(short, s.r, s.time, 0.3 * pull), PALETTE.good, 0, 1 - 0.5 * pull);
+    const tail = tailPath(short, s.r, s.time, 0.3 * pull, pull === 0);
+    paintTail(s.ctx, tail, PALETTE.good, 0, 1 - 0.5 * pull);
   }
   if (e < ENDING) ending.play(s, e);
   if (m.fresh !== null) comingIn(s, m.fresh);

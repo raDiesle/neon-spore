@@ -2,7 +2,6 @@ import type { Point } from "@neon-spore/content";
 import type { Variant } from "../../versus/variant.js";
 import { choice, grouped } from "./field-try-bar.js";
 import { text } from "./gestures-page.js";
-import { dropChoices } from "./pull-goo/drop-look.js";
 import { GOO_LOOKS } from "./pull-goo/index.js";
 import { autoThumb } from "./pull-lab-auto.js";
 import { labLooks, paintLab, readoutOf } from "./pull-lab-paint.js";
@@ -126,7 +125,6 @@ export function openPullLab(first = "down", opts: { sheet?: boolean } = {}): voi
       },
       "LOOK",
     ),
-    ...dropChoices(() => sheet && show()),
     choice(
       [
         ["1×", 1],

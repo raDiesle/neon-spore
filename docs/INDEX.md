@@ -3843,7 +3843,7 @@ by hand never moves.
 | `tools/director/src/pull-goo/fizz.ts` | **FIZZ**, the drop boiling away into green bubbles that rise and pop |
 | `tools/director/src/pull-goo/parts.ts` | **What GOO keeps of OOZE**, the owner's base (10 October 2026) |
 | `tools/director/src/pull-goo/press.ts` | **A thumb pressed into a soft drop** — the press, the dent and the bow every soft drop shares |
-| `tools/director/src/pull-goo/drop-look.ts` | **How every GOO drop is drawn**: as one of the soft drops a thumb sinks into (`soft.ts`) — the owner |
+| `tools/director/src/pull-goo/drop-look.ts` | **How every GOO drop is drawn**: as a soft drop a thumb sinks into (`soft.ts`) — the owner, 11 October 2026 |
 | `tools/director/src/pull-goo/grab.ts` | **How a GOO drop is taken, and how it goes while it is pulled** — the owner, 10 October 2026 |
 | `tools/director/src/pull-goo/arrow.ts` | **The way to pull, inside a GOO drop**: sized ahead of the drop as it grows and shrinks, and two short arrows apart for a two-way pull until it is pulled a way |
 

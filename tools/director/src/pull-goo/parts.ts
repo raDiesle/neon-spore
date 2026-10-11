@@ -17,7 +17,9 @@ import type { GooStyle } from "./style.js";
  * green circle indicator around the pull is not required*.
  */
 
-/** Put a thumb here: a breathing halo and ripples out of the drop, two at a time. */
+/** Put a thumb here: a breathing halo and ripples out of the drop, two at a time — a
+ * little thinner and not so far out since the owner, 11 October 2026: *reduce a little
+ * bit the border and range of wave animation around outside of button*. */
 export function call(
   ctx: CanvasRenderingContext2D,
   at: Point,
@@ -41,9 +43,9 @@ export function call(
   ctx.strokeStyle = style.neon;
   for (const lag of [0, 0.5]) {
     const u = (time * 0.85 + lag) % 1;
-    ctx.globalAlpha = 0.8 * (1 - u);
-    ctx.lineWidth = r * 0.12 * (1 - u) + 0.3;
-    ctx.stroke(bodyPath({ at, r: r * (1.15 + 1.25 * u), seed: 29 }, style, time));
+    ctx.globalAlpha = 0.7 * (1 - u);
+    ctx.lineWidth = r * 0.08 * (1 - u) + 0.3;
+    ctx.stroke(bodyPath({ at, r: r * (1.12 + 0.9 * u), seed: 29 }, style, time));
   }
   ctx.restore();
 }

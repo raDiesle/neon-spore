@@ -18,7 +18,6 @@ import type { SoftDrop, SoftScene } from "./soft.js";
 export const PLASTIC: SoftDrop = {
   name: "SOFT PLASTIC",
   give: { spread: 1.2, deep: 1, flatten: 0.1, sag: 0, gloss: 0.85 },
-  moulded: true,
   cap: true,
   body(s) {
     const { ctx, b, style } = s;
@@ -163,6 +162,3 @@ export function plasticSheen(s: SoftScene): void {
   ctx.stroke(s.path);
   ctx.restore();
 }
-
-/** SOFT PLASTIC that stops turning while it is pulled, and turns on once let go. */
-export const PLASTIC_STILL: SoftDrop = { ...PLASTIC, name: "PLASTIC · STILL", still: 0 };

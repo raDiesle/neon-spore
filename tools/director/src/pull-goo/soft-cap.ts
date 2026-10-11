@@ -19,14 +19,14 @@ import type { SoftScene } from "./soft.js";
 
 /** How far the face stands up, untouched, in radii; how much of the drop it is; and how
  * many slices its wall is drawn in. */
-const HEIGHT = 0.22;
+export const CAP_HEIGHT = 0.22;
 const FACE = 0.76;
 const SLICES = 8;
 
 /** How far up the cap's face stands in `b`, in pixels, `depth` of a thumb in it: all of
  * it untouched, none once the thumb is half way in. */
 export function liftOf(b: GooBody, depth: number): number {
-  return b.r * HEIGHT * (1 - smoothstep(depth * 2));
+  return b.r * CAP_HEIGHT * (1 - smoothstep(depth * 2));
 }
 
 /** The cap's outline `up` pixels off the drop. */
@@ -43,7 +43,7 @@ export function paintCap(s: SoftScene): void {
   const { ctx, b, style, t } = s;
   const h = liftOf(b, s.press.depth);
   if (h < 0.3) return;
-  const k = (h / (b.r * HEIGHT)) * t.alpha;
+  const k = (h / (b.r * CAP_HEIGHT)) * t.alpha;
   ctx.save();
   // The shadow it throws on the drop, away from the light.
   ctx.save();

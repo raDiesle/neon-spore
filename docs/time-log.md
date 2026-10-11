@@ -37950,3 +37950,21 @@ Bottleneck: friction — finding the drops the owner named, which were only on t
 local `main`.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-11 — PULL LAB: a smaller arrow in the middle of the standing cap, calmer rings, one drop, a splash where the tail starts
+
+- reading: 10 min. The soft drops, the cap, the arrow, the call's rings, the tail's
+  outline and the ending; this worktree was 56 commits behind the local `main`.
+- writing: 15 min. `capSeat` for the arrow; the drop variants and the DROP picker out
+  with the arrow's dead INSTAR path; the tail's outline rounded at its back with a
+  splash bulb drawn out like rubber, and the splash left at the start after a count.
+- looking: 10 min. A Skia strip through `paintLab` from a scratch file in
+  `packages/render`, knob and start of the path, before and after, three rounds on
+  the splash's size and lumps.
+- friction: 5 min. The scratch renderer written again — the queue's entry on
+  photographing the PULL LAB has it.
+- landing: 5 min. `check:fast`, the index, `land`.
+
+Bottleneck: looking — the splash took three renders to read as slime and not as an
+onion, each one needing the scratch renderer the queue already asks for.
+

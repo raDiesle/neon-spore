@@ -24,18 +24,31 @@ export function runPoint(run: Run, u: number) {
   return { x: q.x + run.off.x * u * u, y: q.y + run.off.y * u * u, dx: q.dx, dy: q.dy };
 }
 
-/** The outline either side of a run, `half(u, s)` wide at `u`, `s` pixels along it. */
-function outline(run: Run, from: number, to: number, half: (u: number, s: number) => number) {
+/** The outline either side of a run, `half(u, s)` wide at `u`, `s` pixels along it,
+ * closed round the back of its start by a lumpy half-round as wide as it is there —
+ * never cut straight across. Sampled closer within `dense` pixels of the start, where a
+ * splash bulges. */
+function outline(
+  run: Run,
+  from: number,
+  to: number,
+  half: (u: number, s: number) => number,
+  dense = 0,
+) {
   const n = 32;
   const a = pullTrackPoint(run.t, run.origin);
   const b = pullTrackPoint(run.t, run.at);
   const len = Math.hypot(b.x - a.x, b.y - a.y);
+  const us: number[] = [];
+  for (let i = 0; i <= n; i++) us.push(from + ((to - from) * i) / n);
+  const near = len > 0 ? Math.min(to - from, dense / len) : 0;
+  for (let i = 1; i < 16 && near > 0; i++) us.push(from + (near * i) / 16);
+  us.sort((x, y) => x - y);
   const left: Point[] = [];
   const right: Point[] = [];
-  for (let i = 0; i <= n; i++) {
-    const u = from + ((to - from) * i) / n;
+  for (const u of us) {
     const q = runPoint(run, u);
-    const h = half(u, u * len);
+    const h = half(u, (u - from) * len);
     left.push({ x: q.x - q.dy * h, y: q.y + q.dx * h });
     right.push({ x: q.x + q.dy * h, y: q.y - q.dx * h });
   }
@@ -48,19 +61,65 @@ function outline(run: Run, from: number, to: number, half: (u: number, s: number
     const q = right[i] as Point;
     p.lineTo(q.x, q.y);
   }
+  // Round the back, away from the drop: right side to left through the point behind.
+  const q0 = runPoint(run, from);
+  const h0 = half(from, 0);
+  const back = run.at >= run.origin ? -1 : 1;
+  for (let i = 1; i < 16; i++) {
+    const th = (i / 16) * Math.PI;
+    const k = h0 * (1 + 0.35 * Math.sin(th) * fbm(th * 0.9 + run.origin * 9, 5));
+    const across = Math.cos(th) * k;
+    const behind = Math.sin(th) * k * back * FLAT;
+    p.lineTo(q0.x + q0.dy * across + q0.dx * behind, q0.y - q0.dx * across + q0.dy * behind);
+  }
   p.closePath();
   return p;
 }
 
-/** The tail: a stub at the start, a thin uneven waist, a neck swelling into the drop.
- * `taut` thins it, as a pull at full stretch or a sling about to let go does. */
-export function tailPath(run: Run, r: number, time: number, taut = 0): Path2D {
-  return outline(run, 0, 1, (u, s) => {
-    const neck = 0.62 * u ** 4;
-    const stub = 0.2 * (1 - u) ** 6;
-    const lumpy = 1 + 0.45 * fbm(s / (r * 1.4) + time * 0.35, 3);
-    return r * (0.08 + neck + stub) * lumpy * (1 - 0.45 * taut);
-  });
+/** The splash left where the drop was taken, in radii: how wide the puddle is either side
+ * of the start, and how far it is drawn out after the drop, like rubber, before it is
+ * only tail. The owner, 11 October 2026: *leave a small slime area … in the middle of
+ * starting of button … like a small splash … pulled a little bit like a rubber to the
+ * direction of button pull location* — in place of the tail's flat foot. */
+const SPLASH = 0.3;
+const STRETCH = 0.9;
+/** How far the back of a start reaches behind it, as a share of its width: a puddle,
+ * wider than it is deep. */
+const FLAT = 0.7;
+
+/** How much the splash adds to a tail's half-width `s` pixels from the start: all of it
+ * at the start, narrowing like a pulled neck, none past `STRETCH`. */
+export function splashAt(s: number, r: number, len: number): number {
+  const reach = Math.min(r * STRETCH, len * 0.6);
+  if (reach <= 0 || s >= reach) return 0;
+  return r * SPLASH * 0.5 * (1 + Math.cos((Math.PI * s) / reach));
+}
+
+/** The tail: the splash at the start, a thin uneven waist, a neck swelling into the drop.
+ * `taut` thins it, as a pull at full stretch or a sling about to let go does; a tail
+ * whose start is not where the drop was taken (`splash` false) ends in a round tip. */
+export function tailPath(run: Run, r: number, time: number, taut = 0, splash = true): Path2D {
+  const len = runLength(run);
+  return outline(
+    run,
+    0,
+    1,
+    (u, s) => {
+      const neck = 0.62 * u ** 4;
+      const lumpy = 1 + 0.45 * fbm(s / (r * 1.4) + time * 0.35, 3);
+      const tail = r * (0.08 + neck) * lumpy * (1 - 0.45 * taut);
+      return tail + (splash ? splashAt(s, r, len) : 0);
+    },
+    r * STRETCH,
+  );
+}
+
+/** The splash alone, left at the start once the tail has gone: the puddle, drawn out to a
+ * point the way the drop went. */
+export function splashPath(run: Run, r: number): Path2D {
+  const len = runLength(run);
+  const reach = Math.min(r * STRETCH, len * 0.6);
+  return outline(run, 0, len > 0 ? reach / len : 0, (_u, s) => splashAt(s, r, len), reach);
 }
 
 /** Where the tail turns from the drop's colour to green: the drop's own colour out to

@@ -41,8 +41,6 @@ export interface SoftScene {
 export interface SoftDrop {
   readonly name: string;
   readonly give: Give;
-  /** Its arrow is moulded into its own lumps (`soft-arrow.ts`) rather than THE INSTAR's. */
-  readonly moulded?: boolean;
   /** It stands up as a cap to be pressed while it is untouched (`soft-cap.ts`). */
   readonly cap?: boolean;
   /** It slows while it is pulled (`stillSpin`), to this share of its turning: 0 stops it. */
