@@ -37836,3 +37836,5 @@ frame was found by dragging in steps and reading the readout.
 
 Bottleneck: looking — the lab has no way to show one drop large, so a
 picture meant overriding `devicePixelRatio` and copying sheet cells.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
