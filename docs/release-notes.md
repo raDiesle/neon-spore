@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-11 · c2e1f2630 — PULL LAB: at a count FIZZ's arrow turns green and melts into the drop
+
+When a pull is counted, the arrow no longer sits over the bubbles. It turns green with the drop and shrinks with it a moment, so it does not vanish at once. Then it melts into the drop and is gone before the drop has finished boiling away.
+
 ## 2026-10-11 · 8b158a3bf — PULL LAB: the arrow grows in with the drop, shrinks away with it, and parts in two for UP OR DOWN
 
 A GOO drop's arrow is now sized a little ahead of the drop. A speck of a drop coming in already carries an arrow that can be seen. At a count the arrow stays in FIZZ's boiling drop and shrinks to nothing with it. In a failure it stays in the drop all the way home. A pull that may go either way shows two short, separate arrows, breathing out towards their own ends with a gap between them. As the drop is pulled one way, that arrow grows into the regular single arrow and the other shrinks away, and they part again when it is back at its start.

@@ -37806,3 +37806,5 @@ once the glow was thinned, which a picture had to show.
 - landing: 5 min. An import sort lint caught; `check:fast`, `land`.
 
 Bottleneck: none — a correction to the lane before, in the file it had open.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
