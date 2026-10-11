@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-11 · 76de00fa9 — Director: drag a wave onto another and it becomes that wave's child
+
+Let go on the middle of a row, a dragged wave goes into it: to the end of that wave's group, as a child, folded away with the rest. Let go on a row's upper or lower edge, it goes between two rows — a child there when it lands between two children, on its own when it lands between two groups, which is how a child is taken out. A parent dragged carries its children; dragged into another, they all become children of the new parent. A boss is never a child. Groups still start folded.
+
 ## 2026-10-11 · 676fda902 — CONTROLS opens in a few seconds: each picture is drawn as it comes near the screen
 
 Every card under CONTROLS — a panel, a use card on ON THE FIELD, a helper — is a world posed and drawn, and the room drew all of them before it showed anything: 27 seconds at phone size with the CPU slowed four times, to draw about a hundred and twenty canvases. Each picture is now drawn when it comes within a screen of being seen, and a dashed box its size holds its place until then. The same load is now 3.5 to 4 seconds, and a room that is not open draws nothing. STATES' groups use the same observer, which now fills a screen ahead.
