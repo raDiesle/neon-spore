@@ -38185,3 +38185,15 @@ Bottleneck: a parallel lane on the same files — the PULL LAB moved under
 this one while it was being copied.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-11 — Longer and curved pulls, put to the owner
+
+- reading: 10 min. Every straight pull's length and the comment that sets it.
+- writing: 5 min. Two queue entries, each asking.
+- looking: 15 min. Four lengths tried at half again under the tests; THE
+  CURTAIN and THE FLEET by AUTO in real frames; the PULL LAB's S.
+- friction: 10 min. THE CURTAIN's number turned out not to move its knob.
+- landing: 5 min. `check:fast`, `land`.
+
+Bottleneck: looking — each length is held by its boss's geometry, found
+one at a time.

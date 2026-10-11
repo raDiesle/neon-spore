@@ -861,3 +861,37 @@ Under `#waveList` the director says *a wave without a sentence is padding and do
 - **Files:** `tools/director/src/palette.ts`, `tools/director/src/brush-art.ts`, `tools/director/src/when-seen.ts`
 
 A profile of the director loaded at phone size with the CPU slowed four times spends about 1.5 s of a 3.5 s load in `bindPalette` → `render` → `brushArtImage` → `brushSpecimen`: every brush's picture is a world posed and drawn to a data URL before the first paint, even when the URL opens DOCUMENTATION or THE PULL LAB over it and the WAVE column is not on a phone's screen at all. Hold each brush button's picture behind `whenSeen` (`when-seen.ts`, as CONTROLS' cards are) so a palette that is not on screen draws nothing. A scratch Playwright profile (`Profiler.start` around `page.goto`, `Emulation.setCPUThrottlingRate` 4) shows `brushArtImage` gone from a load of `?sheet=states&inner=controlsets`; `bun test tools/director` stays green.
+
+## Longer pulls: every straight one is held to its length by something else
+
+- **Found:** 2026-10-11, claude/pull-longer
+- **Files:** `packages/sim/src/config-lamprey.ts`, `packages/sim/src/config-bastion.ts`, `packages/sim/src/config-curtain.ts`, `packages/sim/src/config-fleet.ts`
+- **Asks:** Make THE LAMPREY's lifts longer at the cost of rows it may land on, push THE CURTAIN's rail higher, or leave every pull its length?
+
+The owner asked for longer pulls where reasonable (11 October 2026). Each short
+one was tried at half again and each is held by something that is not its
+number: THE LAMPREY's head (1.5 tiles) and tail (1.2) must lie whole on the
+field wherever it lands, and twelve tests went red on the landings it lost;
+THE BASTION's side plates (1.8) pull outward to the screen's edge; THE
+CURTAIN's hem (2.5) is drawn from the hem to the rail (`curtainHemReach`), so
+a longer number only makes the thumb go further than the knob; THE FLEET's
+wreck (1.5) is dragged on a chart whose bottom rows have no room under them.
+THE WARDEN's and THE LID's cords (7 tiles), THE SINEW (3) and THE LATCH (2.5)
+are already long. Options: (a) THE LAMPREY at 2.2 and 1.8 tiles, landing a
+row further from top and bottom; (b) THE CURTAIN's rail a tile higher, the
+hem's reach 3.5; (c) leave them.
+
+## Curved pulls: the sim knows only straight ones
+
+- **Found:** 2026-10-11, claude/pull-longer
+- **Files:** `tools/director/src/pull-lab-shapes.ts`, `tools/director/src/pull-lab-rule.ts`, `packages/render/src/pull-track.ts`
+- **Asks:** Which pulls bend — THE WARDEN's and THE LID's long cords only, every straight pull with room (those two, THE SINEW, THE LATCH), or only bosses still to be built?
+
+The owner, 11 October 2026: *curves (custom paths) increase difficulty and are
+more exciting than straight lines*. The PULL LAB plays a curve and an S
+(`pull-lab-shapes.ts`) and FIZZ draws any polyline (`PullTrack.pts`), but
+every pull in `packages/sim` is a distance along one direction. A bend is a
+sim lane first: a path in thousandths of a tile the hand's progress is
+measured along, and the lab's rule that a thumb half a tile off the path fails
+the pull (`pull-lab-rule.ts`, `TOUCH_SLACK` for a finger) — then each chosen
+boss's path, drawn from the same numbers.
