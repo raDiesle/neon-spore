@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-11 · 4791c7099 — HOLD LAB: SOAK, SINK with FILL's water spreading from the centre to the rim
+
+The owner asked for a version of SINK that takes FILL's water, coming from the centre and reaching the very edge at the end. SOAK keeps SINK's thumb, which sinks deeper each beat, and its ripple on every beat. Green water wells up under the thumb and spreads outward, its front rocking. The front follows the drop's own rim, `fill` of the way out at every angle, so it keeps the drop's lumps as it grows. It touches the rim all round at the moment the hold is counted and never covers the drop early. It is the seventh look on the lab's picker and sheet. It is in the director only.
+
 ## 2026-10-11 · 63138d730 — Longer and curved pulls are put to the owner, with what holds each length
 
 Every straight pull was tried at half again its length: each is held by its boss's own geometry (THE LAMPREY's landings, THE BASTION's screen edge, THE CURTAIN's rail, THE FLEET's chart), so nothing is lengthened unasked. Curves need the sim to measure a pull along a path; which pulls bend is asked. Two queue entries carry the questions and the options.
