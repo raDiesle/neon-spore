@@ -38119,3 +38119,16 @@ throttled desk Chrome, and a real phone's GPU is unverified.
 Bottleneck: none past the first profile — it named the function.
 
 *Measured: 23 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-11 — A wave dragged onto another becomes its child
+
+- reading: 5 min. The morning's grouping commit: `rail-groups.ts`,
+  `rail-drag.ts`, the VARIANT box and the boss count.
+- writing: 15 min. `dropWave` with three zones on a row; the box and the
+  boss-stretch count taken out; the tests rewritten for the new drop.
+- looking: 5 min. A drag dispatched in the director, the child stepped in
+  under its parent and folded, the frame drawn on the row before the drop.
+- friction: 5 min. A test-file rewrite that sliced a section twice.
+- landing: 5 min. `bun run index`, `check:fast`, `land`.
+
+Bottleneck: the first lane built a checkbox where the owner had asked for a drag.

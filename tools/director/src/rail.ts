@@ -10,11 +10,10 @@ import { bindRailArrival } from "./rail-arrive.js";
 import { moveWave, rowDrag } from "./rail-drag.js";
 import { bindRailFilter } from "./rail-filter.js";
 import { bindRailFolds } from "./rail-folds.js";
-import { moveWithGroup } from "./rail-groups.js";
+import { dropWave } from "./rail-groups.js";
 import { renderRows } from "./rail-list.js";
 import { bindWaveSteps } from "./rail-steps.js";
 import { bindRailSymbols } from "./rail-symbols.js";
-import { bindVariantField } from "./rail-variant.js";
 import { copyWave, currentWave, emptyWave, type Store } from "./state.js";
 
 /**
@@ -56,16 +55,12 @@ export function bindRail(store: Store, onSelect: () => void, onEdit: () => void)
   const symbols = bindRailSymbols(document.getElementById("waveMarksFilter"), () => renderList());
   // The open row brought into view whenever the list is (`rail-arrive.ts`).
   const arrival = bindRailArrival(list);
-  // Waves folded under the wave above them, and which groups are open
+  // Waves folded under the wave a drag put them in, and which groups are open
   // (`rail-groups.ts`, `rail-folds.ts`). A filter opens every group: a match
   // folded out of sight would be a match the list did not show.
   const folds = bindRailFolds(() => renderList());
   const folded = (head: number): boolean =>
     !filter.active() && !symbols.active() && !folds.open(store.waves[head]?.id ?? "");
-  const variant = bindVariantField(store, () => {
-    renderList();
-    onEdit();
-  });
 
   // Over the control set, for the reason it is over it in the markup: which
   // kind of boss this is, on the waves that have one (`boss-type-field.ts`).
@@ -88,10 +83,11 @@ export function bindRail(store: Store, onSelect: () => void, onEdit: () => void)
   };
 
   // A row let go on another carries its wave there — a head carries its group
-  // — and the stage is rebuilt for the same reason it is after ↑ and ↓
-  // (`rail-drag.ts`, `moveWithGroup`).
-  const drag = rowDrag((from, to) => {
-    moveWithGroup(store, from, to, folded);
+  // — or, let go on the row's middle, into that row's group as a child; and
+  // the stage is rebuilt for the same reason it is after ↑ and ↓
+  // (`rail-drag.ts`, `dropWave`).
+  const drag = rowDrag((from, to, zone) => {
+    dropWave(store, from, to, zone, folded);
     store.dirty = true;
     onSelect();
   });
@@ -111,7 +107,6 @@ export function bindRail(store: Store, onSelect: () => void, onEdit: () => void)
   const renderFields = (): void => {
     const wave = currentWave(store);
     if (name) name.value = wave?.name ?? "";
-    variant.render();
     const active = controlSet(wave?.controls);
     if (controlsField) controlsField.value = active.id;
     if (controlsWhy) controlsWhy.textContent = active.why;

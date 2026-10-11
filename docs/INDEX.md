@@ -3498,8 +3498,7 @@ by hand never moves.
 | `tools/director/src/rail-open.ts` | THE THREE WAYS OUT OF A ROW IN THE WAVE LIST |
 | `tools/director/src/rail-drag.ts` | A WAVE DRAGGED TO A NEW PLACE IN THE LIST |
 | `tools/director/src/rail-arrive.ts` | THE WAVE THIS DEVICE LAST OPENED, AND THE LIST OPENING ON IT |
-| `tools/director/src/rail-groups.ts` | you touch wave groups in the director's list: who a variant belongs to, how a dragged group lands, and the count of waves before each boss |
-| `tools/director/src/rail-variant.ts` | the checkbox under NAME that folds the open wave under the one above it (`Wave.variant`) |
+| `tools/director/src/rail-groups.ts` | you touch wave groups in the director's list: who a variant belongs to, and where a wave dragged onto or between rows lands, as a child or on its own |
 | `tools/director/src/reprise-editor.ts` | THE REPRISE's panel, which is one number |
 | `tools/director/src/remembered.ts` | The wave filter, its pressed marks and the sounds status, kept in localStorage across a reload |
 | `tools/director/src/cell-config-pod.ts` | The rows under the selected cell that configure the **pod** in it: the row it hangs at |

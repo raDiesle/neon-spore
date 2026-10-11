@@ -1,15 +1,15 @@
 import { describe, expect, test } from "bun:test";
 import type { Wave } from "@neon-spore/content";
 import { WAVES } from "@neon-spore/content";
-import { bossStretches, moveWithGroup, waveGroups } from "../src/rail-groups.js";
+import { dropWave, waveGroups } from "../src/rail-groups.js";
 import { renderRows } from "../src/rail-list.js";
 import type { Store } from "../src/state.js";
 import { FakeEl, installDom } from "./fake-dom.js";
 
 /**
- * Waves folded under the wave above them, and the stretch before each boss
- * (`rail-groups.ts`): who a variant belongs to, where a dragged group lands,
- * what a folded group hides, and what each boss's line counts.
+ * Waves folded under the wave a drag put them in (`rail-groups.ts`): who a
+ * variant belongs to, where a dragged wave or group lands and whether it is a
+ * child there, and what a folded group hides.
  */
 
 const BOSS = WAVES.find((w) => w.boss)?.boss;
@@ -54,57 +54,81 @@ describe("waveGroups", () => {
   });
 });
 
-describe("moveWithGroup", () => {
+describe("dropWave", () => {
   const open = (): boolean => false;
   const shut = (): boolean => true;
+  const pattern = (s: Store): string =>
+    waveGroups(s.waves)
+      .head.map((h) => (h === -1 ? "H" : "v"))
+      .join("");
 
-  test("a head carries its group, and lands after the group it was dropped on", () => {
+  test("dropped into a wave, a wave becomes its child at the end of its group", () => {
+    const s = store("HvHH");
+    dropWave(s, 3, 0, "into", shut);
+    expect(order(s)).toBe("0,1,3,2");
+    expect(pattern(s)).toBe("HvvH");
+  });
+
+  test("dropped into a child, a wave joins that child's group", () => {
+    const s = store("HHvv");
+    dropWave(s, 0, 2, "into", open);
+    expect(order(s)).toBe("1,2,3,0");
+    expect(pattern(s)).toBe("Hvvv");
+  });
+
+  test("a head dropped into another brings its children, all children there", () => {
+    const s = store("HHvH");
+    dropWave(s, 1, 3, "into", shut);
+    expect(order(s)).toBe("0,3,1,2");
+    expect(pattern(s)).toBe("HHvv");
+  });
+
+  test("a boss is never a child, and a wave is never put into itself", () => {
+    const s = store("HBHv");
+    dropWave(s, 1, 0, "into", shut);
+    dropWave(s, 2, 3, "into", open);
+    expect(order(s)).toBe("0,1,2,3");
+    expect(pattern(s)).toBe("HHHv");
+  });
+
+  test("dropped on an edge between two groups, a child stands on its own", () => {
+    const s = store("HvvH");
+    dropWave(s, 1, 3, "before", open);
+    expect(order(s)).toBe("0,2,1,3");
+    expect(pattern(s)).toBe("HvHH");
+  });
+
+  test("dropped on an edge between two children, a wave is a child there", () => {
+    const s = store("HHvv");
+    dropWave(s, 0, 2, "after", open);
+    expect(order(s)).toBe("1,2,0,3");
+    expect(pattern(s)).toBe("Hvvv");
+  });
+
+  test("a head carries its group, and below a folded head lands after its group", () => {
     const s = store("HvHvvH");
-    moveWithGroup(s, 0, 3, open);
+    dropWave(s, 0, 2, "after", shut);
     expect(order(s)).toBe("2,3,4,0,1,5");
+    expect(pattern(s)).toBe("HvvHvH");
   });
 
-  test("dragged up into a group, a head lands before that group", () => {
-    const s = store("HvvHv");
-    moveWithGroup(s, 3, 2, open);
-    expect(order(s)).toBe("3,4,0,1,2");
+  test("a boss dropped on an edge inside a group lands after the group", () => {
+    const s = store("BHvv");
+    dropWave(s, 0, 2, "after", open);
+    expect(order(s)).toBe("1,2,3,0");
+    expect(pattern(s)).toBe("HvvH");
   });
 
-  test("a variant travels alone and joins the group it lands in", () => {
-    const s = store("HvHv");
-    moveWithGroup(s, 1, 3, open);
-    expect(order(s)).toBe("0,2,3,1");
-    expect(waveGroups(s.waves).head[3]).toBe(1);
-  });
-
-  test("dropped below a folded head, a variant goes after the group it hides", () => {
-    const s = store("HvHvvH");
-    moveWithGroup(s, 1, 2, shut);
-    expect(order(s)).toBe("0,2,3,4,1,5");
-    const shown = store("HvHvvH");
-    moveWithGroup(shown, 1, 2, open);
-    expect(order(shown)).toBe("0,2,1,3,4,5");
-  });
-
-  test("carried to the top, a variant stops being one", () => {
+  test("carried to the top, a child stops being one", () => {
     const s = store("HHv");
-    moveWithGroup(s, 2, 0, open);
+    dropWave(s, 2, 0, "before", open);
     expect(s.waves[0]?.variant).toBeUndefined();
   });
 
   test("the open wave stays open", () => {
     const s = store("HvH", 2);
-    moveWithGroup(s, 0, 2, open);
+    dropWave(s, 0, 2, "after", open);
     expect(s.waves[s.index]?.id).toBe("w2");
-  });
-});
-
-describe("bossStretches", () => {
-  test("each boss counts the waves since the last, and the groups among them", () => {
-    const stretches = bossStretches(waves("HvvHBBHv"));
-    expect(stretches.get(4)).toEqual({ waves: 4, groups: 2 });
-    expect(stretches.has(5)).toBe(false);
-    expect(stretches.get(7)).toEqual({ waves: 2, groups: 1 });
   });
 });
 
@@ -143,6 +167,6 @@ describe("the list", () => {
   test("an open group draws every variant stepped in", () => {
     const list = draw(store("HvvHB"), false);
     expect(list.children.length).toBe(5);
-    expect(list.children[4]!.dataset.stretch).toBe("4 waves · 2 new");
+    expect(list.children[2]!.classList.contains("variant")).toBe(true);
   });
 });

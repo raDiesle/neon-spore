@@ -1,3 +1,4 @@
+import type { DropZone } from "./rail-groups.js";
 import type { Store } from "./state.js";
 
 /**
@@ -8,12 +9,12 @@ import type { Store } from "./state.js";
  * wave one place a press, which is forty presses to carry a wave across an
  * act; a drag is one.
  *
- * **A row dropped on takes the dragged wave's place in the direction it came
- * from**: dragged down, the wave lands after the row it was let go on; dragged
- * up, before it. That is the arrangement a list with no gaps between its rows
- * needs, because it asks nothing of where in the row the pointer was — and the
- * line the stylesheet draws on the row's lower or upper edge says which it
- * will be before the drop.
+ * **Where on the row it is let go says what happens** (`dropWave` in
+ * `rail-groups.ts`): on its upper or lower quarter the wave goes between two
+ * rows, and on its middle it goes *into* the row, as a child of it — the
+ * owner's grouping, 11 October 2026. The stylesheet draws a line on the edge,
+ * or a frame round the whole row, before the drop. Where a browser hands no
+ * pointer height, the edge is the one the wave came from.
  *
  * Which act file a wave ends up in is decided by the save, as it always was:
  * `writeWaves` cuts the flat list at each act's old length, so a wave carried
@@ -46,11 +47,18 @@ export interface RowDrag {
  * what `dragstart` wrote into the transfer, so which wave is travelling is
  * kept here rather than in it.
  */
-export function rowDrag(drop: (from: number, to: number) => void): RowDrag {
+export function rowDrag(drop: (from: number, to: number, zone: DropZone) => void): RowDrag {
   let from: number | null = null;
   const clear = (row: HTMLElement): void => {
     row.classList.remove("drop-before");
     row.classList.remove("drop-after");
+    row.classList.remove("drop-into");
+  };
+  const zoneOf = (row: HTMLElement, i: number, e: DragEvent): DropZone => {
+    const box = row.getBoundingClientRect?.();
+    if (!box?.height || typeof e.clientY !== "number") return (from ?? i) > i ? "before" : "after";
+    const at = (e.clientY - box.top) / box.height;
+    return at < 0.25 ? "before" : at > 0.75 ? "after" : "into";
   };
   return {
     bind(row, i) {
@@ -71,8 +79,10 @@ export function rowDrag(drop: (from: number, to: number) => void): RowDrag {
         if (from === null) return;
         e.preventDefault();
         if (e.dataTransfer) e.dataTransfer.dropEffect = "move";
-        row.classList.toggle("drop-before", from > i);
-        row.classList.toggle("drop-after", from < i);
+        const zone = from === i ? null : zoneOf(row, i, e);
+        row.classList.toggle("drop-before", zone === "before");
+        row.classList.toggle("drop-after", zone === "after");
+        row.classList.toggle("drop-into", zone === "into");
       });
       row.addEventListener("dragleave", () => clear(row));
       row.addEventListener("drop", (e) => {
@@ -80,8 +90,9 @@ export function rowDrag(drop: (from: number, to: number) => void): RowDrag {
         if (from === null) return;
         e.preventDefault();
         const moved = from;
+        const zone = zoneOf(row, i, e);
         from = null;
-        if (moved !== i) drop(moved, i);
+        if (moved !== i) drop(moved, i, zone);
       });
     },
   };

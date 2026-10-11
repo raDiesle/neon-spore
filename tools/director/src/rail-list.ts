@@ -1,5 +1,5 @@
 import type { RowDrag } from "./rail-drag.js";
-import { type BossStretch, bossStretches, waveGroups } from "./rail-groups.js";
+import { waveGroups } from "./rail-groups.js";
 import { waveMarks } from "./rail-marks.js";
 import { openButtons } from "./rail-open.js";
 import type { Store } from "./state.js";
@@ -34,7 +34,6 @@ export function renderRows(
   list.replaceChildren();
   let matched = 0;
   const groups = waveGroups(store.waves);
-  const stretches = bossStretches(store.waves);
   for (const [i, wave] of store.waves.entries()) {
     const hit = passes(store.waves, i);
     if (hit) matched++;
@@ -69,8 +68,6 @@ export function renderRows(
     const size = groups.size[i] ?? 0;
     if (size > 0) row.append(foldButton(i, size, folds));
     row.append(...openButtons(i, select));
-    const stretch = stretches.get(i);
-    if (stretch) markStretch(row, stretch, Boolean(wave.boss));
     // Carried to a new place by dragging it (`rail-drag.ts`).
     drag?.bind(row, i);
     list.appendChild(row);
@@ -92,17 +89,4 @@ function foldButton(i: number, size: number, folds: RowFolds | undefined): HTMLB
     folds?.toggle(i);
   });
   return button;
-}
-
-/**
- * The stretch of regular waves a boss closes, written as a line over the boss's
- * row; and on the last row, when it is not a boss, the stretch the next boss
- * would close, written under it (`bossStretches`). On the row as data and drawn
- * by the stylesheet, so the list keeps one child per wave.
- */
-function markStretch(row: HTMLElement, stretch: BossStretch, boss: boolean): void {
-  const waves = `${stretch.waves} ${stretch.waves === 1 ? "wave" : "waves"}`;
-  const concepts = stretch.groups === stretch.waves ? "" : ` · ${stretch.groups} new`;
-  if (boss) row.dataset.stretch = `${waves}${concepts}`;
-  else row.dataset.tail = `${waves}${concepts} since the last boss`;
 }
