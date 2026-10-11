@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-11 · efc9d614b — PULL LAB: the last dot stops outside the place, and while waiting the place flashes after it
+
+The dots now run from the drop to just short of the place's dashed rim, the last of them 1.8 radii from its centre, so none sits inside it. While nothing is held, the ghost runs the path in less of its loop, lighting the dots one after another, and once it lands the place's dashed rim flashes, swelling with a glow — the blink goes from the last dot on into the place, as it already did while a drop is held.
+
 ## 2026-10-11 · 6b9dfb0dd — PULL LAB: four soft drops a thumb sinks into — SLIME, SPONGE, SOFT PLASTIC, DOUGH
 
 The PULL LAB's DROP bar offers four more drops beside FLAT and 3D BALL, in GOO's own colours: only the 3D look changes. Each is soft. Held, the thumb presses a dent into the middle of the drop: a hollow with a raised lip round it, the drop flattens and widens a little, and the pull shoves the mass ahead into a lit bulge. SLIME is wet and see-through, with bubbles that get pushed aside and rings that wobble out of the dent. SPONGE is matte, with pores that turn with it and squeeze shut under the thumb, and a tufted edge. SOFT PLASTIC is a satin squeezy toy: a window of light slides out as it is pressed and folds crease out of the dent. DOUGH is a powdery mochi that sags, takes a wide shallow dent and pushes its dust out of it.
