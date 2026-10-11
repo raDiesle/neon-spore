@@ -77,6 +77,9 @@ export interface PullAfter {
   readonly grabbed?: number;
   /** Seconds since the knob was first put on the field. */
   readonly born?: number;
+  /** How much a two-way pull's arrow is still two arrows, 1 at its start and 0 once
+   * pulled a way — for a look that parts them rather than drawing two heads. */
+  readonly split?: number;
 }
 
 /** The channel's half-width, as a share of the knob's radius: thin, so the knob is the control. */

@@ -1,5 +1,6 @@
 import type { Point } from "@neon-spore/content";
-import { PALETTE, smoothstep } from "@neon-spore/render";
+import { PALETTE, pullTrackPoint, smoothstep } from "@neon-spore/render";
+import { paintArrow, splitOf } from "./arrow.js";
 import { drop } from "./body.js";
 import { edge } from "./border.js";
 import { paintGoo } from "./drop-look.js";
@@ -29,6 +30,7 @@ export function paintFailure(s: Scene): void {
     paintGoo(ctx, drop(s.from, r, { squash: 1.15, shake: 0.35 * (1 - e) }), style, time, {
       red: smoothstep(clamp01(f / 0.08)) * 0.9,
     });
+    arrowIn(s, s.from, m.from.at, r);
     return;
   }
   const g = f - FAIL_HOLD;
@@ -55,6 +57,7 @@ export function paintFailure(s: Scene): void {
       { red: 0.9 },
       lean,
     );
+    arrowIn(s, at, run.at, rr);
     return;
   }
   const h = g - FAIL_BACK;
@@ -68,6 +71,23 @@ export function paintFailure(s: Scene): void {
       red: 0.9 * (1 - clamp01(h / FAIL_SETTLE)),
     },
   );
+  arrowIn(s, s.home, s.origin, r);
+}
+
+/** The arrow stays in the drop all the way home (`arrow.ts`): the way the pull went at
+ * `k` along the track, split again for a two-way pull as it nears its start. */
+function arrowIn(s: Scene, at: Point, k: number, rr: number): void {
+  const q = pullTrackPoint(s.t, k);
+  const sign = s.goal > s.origin ? 1 : -1;
+  const twoWay = s.origin > 0 && s.origin < 1;
+  const apart = (k - s.origin) / (Math.abs(s.goal - s.origin) || 1);
+  paintArrow(s.ctx, at, rr, s.style, {
+    dx: q.dx * sign,
+    dy: q.dy * sign,
+    split: splitOf(twoWay, apart),
+    held: false,
+    time: s.time,
+  });
 }
 
 const scale = (p: Point, k: number): Point => ({ x: p.x * k, y: p.y * k });

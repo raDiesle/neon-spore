@@ -3838,5 +3838,6 @@ by hand never moves.
 | `tools/director/src/pull-goo/parts.ts` | **What GOO keeps of OOZE**, the owner's base (10 October 2026) |
 | `tools/director/src/pull-goo/drop-look.ts` | **How every GOO drop is drawn**: as the flat slime SINK was picked in |
 | `tools/director/src/pull-goo/grab.ts` | **How a GOO drop is taken, and how it goes while it is pulled** — the owner, 10 October 2026 |
+| `tools/director/src/pull-goo/arrow.ts` | **The way to pull, inside a GOO drop**: sized ahead of the drop as it grows and shrinks, and two short arrows apart for a two-way pull until it is pulled a way |
 
 <!-- index:code:end -->

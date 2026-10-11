@@ -37780,3 +37780,17 @@ Bottleneck: none worth the name; the draft against moved files was the one
 thing to decide.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-11 — The GOO arrow grows in, shrinks away, and parts in two
+
+- reading: 5 min. `paintArrow`, `drawWayArrow`, FIZZ's ending, the failure
+  and the coming-in drop — the three places the drop is drawn without it.
+- writing: 5 min. `arrow.ts`, the arrow in FIZZ and the failure,
+  `PullAfter.split` from the lab, one test.
+- looking: 5 min. Two shots of the UP OR DOWN sheet; the first two arrows
+  ran together under their own glow, so the gap was widened.
+- friction: 0 min.
+- landing: 0 min. `check:fast`, `land`.
+
+Bottleneck: looking — two short arrows at a drop's size only read as two
+once the glow was thinned, which a picture had to show.

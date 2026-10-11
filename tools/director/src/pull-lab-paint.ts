@@ -10,6 +10,7 @@ import {
 } from "@neon-spore/render";
 import { VARIANTS } from "../../versus/candidates/index.js";
 import { apply, restore, type Variant } from "../../versus/variant.js";
+import { splitOf } from "./pull-goo/arrow.js";
 import { GOO_LOOKS } from "./pull-goo/index.js";
 import { knobAt, type LabPull, progress } from "./pull-lab-rule.js";
 import { LAB_H, LAB_KNOB, LAB_TILE, LAB_W, type LabShape } from "./pull-lab-shapes.js";
@@ -104,7 +105,10 @@ function paintPull(ctx: CanvasRenderingContext2D, { shape, pull, time, stray }: 
     time,
     way: wayNow(shape, pull),
     either: shape.origin > 0 && pull.sign === 0,
-    after,
+    after: {
+      ...after,
+      split: splitOf(shape.origin > 0, (pull.at - shape.origin) / (shape.origin || 1)),
+    },
   });
 }
 
@@ -131,7 +135,8 @@ function afterOf(pull: LabPull, reach: number | null): PullAfter {
  * for a two-way pull the way it has gone (both heads until it has). */
 function wayNow(shape: LabShape, pull: LabPull): PullWay {
   const q = pullTrackPoint(shape.track, pull.at);
-  const s = pull.sign === -1 ? -1 : 1;
+  // Not gone a way yet: the side the drop is on, so the arrow growing is that one.
+  const s = pull.sign !== 0 ? pull.sign : pull.at < shape.origin ? -1 : 1;
   return { dx: q.dx * s, dy: q.dy * s };
 }
 

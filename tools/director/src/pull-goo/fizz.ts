@@ -1,6 +1,7 @@
 import { PALETTE } from "@neon-spore/render";
+import { arrowSize, paintArrow } from "./arrow.js";
 import { drop } from "./body.js";
-import { type Ending, greenAt, halo, intoPlace, paintDrop } from "./ending.js";
+import { type Ending, greenAt, halo, intoPlace, onward, paintDrop } from "./ending.js";
 import { ENDING } from "./moment.js";
 import { clamp01, hash, mix } from "./noise.js";
 
@@ -26,13 +27,14 @@ export const FIZZ: Ending = {
     const u = clamp01(e / ENDING);
     const left = (1 - u) ** 1.3;
     halo(s, s.place, s.r * 1.8, 0.25 * left);
+    const at = intoPlace(s, e);
     if (left > 0.04)
-      paintDrop(
-        s,
-        drop(intoPlace(s, e), s.r * left, { shake: 0.25 * u }),
-        greenAt(e),
-        0.4 + 0.6 * left,
-      );
+      paintDrop(s, drop(at, s.r * left, { shake: 0.25 * u }), greenAt(e), 0.4 + 0.6 * left);
+    // The arrow goes with it, shrinking to its last frame (`arrow.ts`).
+    const way = onward(s);
+    const time = s.time;
+    const a = { dx: way.x, dy: way.y, split: 0, held: true, time };
+    paintArrow(s.ctx, at, arrowSize(s.r, left), s.style, a);
     const { ctx } = s;
     ctx.save();
     ctx.strokeStyle = mix(PALETTE.good, "#FFFFFF", 0.35);

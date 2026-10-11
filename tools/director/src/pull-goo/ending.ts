@@ -1,9 +1,9 @@
 import type { Point } from "@neon-spore/content";
 import { PALETTE, smoothstep } from "@neon-spore/render";
+import { arrowSize, paintArrow, splitOf } from "./arrow.js";
 import { drop, type GooBody } from "./body.js";
 import { paintGoo } from "./drop-look.js";
 import { grown } from "./enter.js";
-import { paintArrow } from "./knob.js";
 import { ENDING, SPAWN } from "./moment.js";
 import { clamp01 } from "./noise.js";
 import { paintPath } from "./parts.js";
@@ -77,11 +77,10 @@ function comingIn(s: Scene, f: number): void {
   const rr = s.r * g;
   paintGoo(s.ctx, drop(s.home, rr, { squash: 1 + breathe }), s.style, s.time, { red: 0 });
   const q = homeward(s, 1);
-  const heads = s.origin > 0 && s.origin < 1 ? 2 : 1;
-  paintArrow(s.ctx, s.home, rr, s.style, {
+  paintArrow(s.ctx, s.home, arrowSize(s.r, g), s.style, {
     dx: -q.dx,
     dy: -q.dy,
-    heads,
+    split: splitOf(s.origin > 0 && s.origin < 1, 0),
     held: false,
     time: s.time,
   });

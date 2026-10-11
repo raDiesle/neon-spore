@@ -1,6 +1,7 @@
 import { beforeAll, describe, expect, test } from "bun:test";
 import { installCanvasGlobals, stubCanvas } from "../../../packages/render/test/canvas-stub.js";
 import { VARIANTS } from "../../versus/candidates/index.js";
+import { arrowSize, splitOf } from "../src/pull-goo/arrow.js";
 import { GOO_DROP } from "../src/pull-goo/drop-look.js";
 import { DOTS_SPAN, dotIn, entering, grown, POP, placeIn } from "../src/pull-goo/enter.js";
 import { GOO_LOOKS } from "../src/pull-goo/index.js";
@@ -113,5 +114,16 @@ describe("the GOO looks", () => {
     expect(POP).toBeLessThan(DOTS_SPAN);
     expect(placeIn(12, SPAWN * 0.55 + DOTS_SPAN)).toBeNull();
     expect(entering(SPAWN + DOTS_SPAN + POP)).toBe(false);
+  });
+
+  test("carry an arrow ahead of the drop's size, two apart for a two-way pull until pulled", () => {
+    expect(arrowSize(10, 0.2)).toBeGreaterThan(10 * 0.2);
+    expect(arrowSize(10, 1)).toBe(10);
+    expect(arrowSize(10, 0)).toBe(0);
+    expect(splitOf(true, 0)).toBe(1);
+    expect(splitOf(true, 0.08)).toBeGreaterThan(0);
+    expect(splitOf(true, -0.08)).toBeLessThan(1);
+    expect(splitOf(true, 0.3)).toBe(0);
+    expect(splitOf(false, 0)).toBe(0);
   });
 });

@@ -1,13 +1,12 @@
 import type { Point } from "@neon-spore/content";
-import { PALETTE, type PullKnobDraw } from "@neon-spore/render";
+import type { PullKnobDraw } from "@neon-spore/render";
 import { noteMark } from "../../../../packages/render/src/mark-spots.js";
-import { drawWayArrow } from "../../../../packages/render/src/way-arrow.js";
+import { arrowSize, paintArrow } from "./arrow.js";
 import { drop } from "./body.js";
 import { paintGoo } from "./drop-look.js";
 import { grown } from "./enter.js";
 import { type Hold, heldBody, overHeld } from "./grab.js";
 import { momentOf, SPAWN } from "./moment.js";
-import { mix } from "./noise.js";
 import { call } from "./parts.js";
 import type { GooStyle } from "./style.js";
 
@@ -26,7 +25,7 @@ export function gooKnob(style: GooStyle) {
     noteMark(ctx, at.x, at.y, r);
     if (m.owner !== "knob") return;
     const way = o.way ? { x: o.way.dx, y: o.way.dy } : { x: 0, y: 0 };
-    // Coming in, the drop and its arrow grow together (`enter.ts`).
+    // Coming in, the drop and its arrow grow together (`enter.ts`), the arrow ahead (`arrow.ts`).
     const g = grown(m.enter);
     if (g < 0.02) return;
     const rr = r * g;
@@ -40,40 +39,10 @@ export function gooKnob(style: GooStyle) {
     paintGoo(ctx, body, style, o.time, { red: 0.7 * m.near, alpha: o.theirs ? 0.4 : 1 }, way);
     if (o.held) overHeld(ctx, hold, style);
     if (o.way) {
-      const heads = o.either ? 2 : 1;
-      paintArrow(ctx, at, rr, style, { ...o.way, heads, held: o.held, time: o.time });
+      const split = o.after?.split ?? (o.either ? 1 : 0);
+      const time = o.time;
+      paintArrow(ctx, at, arrowSize(r, g), style, { ...o.way, split, held: o.held, time });
     }
     ctx.restore();
   };
-}
-
-/** The way to pull, inside the drop and the loudest thing on it: dark under, neon
- * round, near-white on top. `r` is the drop's radius as drawn, so it grows with it. */
-export function paintArrow(
-  ctx: CanvasRenderingContext2D,
-  at: Point,
-  r: number,
-  style: GooStyle,
-  a: { dx: number; dy: number; heads: 1 | 2; held: boolean; time: number },
-): void {
-  const reach = r * (a.held ? 1.05 : 1.15 + 0.07 * Math.sin(a.time * 6));
-  const path = (): void => drawWayArrow(ctx, at.x, at.y, reach, a.dx, a.dy, a.time, a.heads);
-  ctx.save();
-  ctx.lineCap = "round";
-  ctx.lineJoin = "round";
-  ctx.strokeStyle = PALETTE.background;
-  ctx.globalAlpha = 0.85;
-  ctx.lineWidth = r * 0.36;
-  path();
-  ctx.globalCompositeOperation = "lighter";
-  ctx.strokeStyle = style.neon;
-  ctx.globalAlpha = 0.5;
-  ctx.lineWidth = r * 0.5;
-  path();
-  ctx.globalCompositeOperation = "source-over";
-  ctx.strokeStyle = mix(style.neon, "#FFFFFF", 0.7);
-  ctx.globalAlpha = 1;
-  ctx.lineWidth = r * 0.17;
-  path();
-  ctx.restore();
 }
