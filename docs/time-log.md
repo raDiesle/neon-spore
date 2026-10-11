@@ -37885,3 +37885,5 @@ needed a longer shaft and a stronger take of the lumps to read as soft.
 
 Bottleneck: friction — a third throwaway to photograph a drop up close, added to
 the queued entry for a `shot` flag that would make it one command.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

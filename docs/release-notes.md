@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-11 · 041f988d3 — PULL LAB: the place blinks on the dots' beat, DROP is SOFT PLASTIC and its variants — a still drop and three craters
+
+Waiting, the ghost now lights the dots at one steady pace and the place lights one dot's beat after the last, with no pause before it; coming in, the place pops one dot's gap after the last dot too. The DROP choice keeps SOFT PLASTIC and drops FLAT, 3D BALL, SLIME, SPONGE and DOUGH. Beside it: PLASTIC · STILL, which slows to a stop while pulled and catches its turning up again once let go; CRATER, a hollow that is the drop's own rim drawn smaller — turning with it, its lumps and lean kept at half so it moves less — set in the middle of the drop where the arrow is, as big as leaves a fifth of the drop clear of the rim, its lip inside that; CRATER · STILL, the two together; and CRATER · RIPPLES, rings drifting slowly out across its floor.
+
 ## 2026-10-11 · f31676241 — PULL LAB: SOFT PLASTIC gets a smaller arrow moulded into its lumps, its light on the inner edge and a bigger hollow
 
 On the PULL LAB's SOFT PLASTIC drop the arrow is now one soft filled shape: a shaft thickening into a fat round head, laid onto the drop's own turning, uneven rim so it bulges and gives with it. It is smaller, so it stays clear of the neon edge, slides along itself much less, and sinks a little when held. The white window of light under the arrow is gone; the light sits on the inner edge instead, as a bevel lit top left and shaded bottom right with a thin catchlight just inside the rim, so the middle behind the arrow is calm. Pressed, the hollow is wider and deeper. The other drops keep THE INSTAR's arrow.
