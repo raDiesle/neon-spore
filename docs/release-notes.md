@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-11 · ddebdd01a — PULL LAB: a smaller arrow in the middle of the standing cap, calmer rings, RIPPLES · STILL alone, a slime splash where the tail starts
+
+While the drop's cap stands up untouched, its arrow is a fifth smaller and sits half way up the cap, in the middle of the face and the wall together, so it no longer reaches the cap's top edge; pressed level, it is its full size again. The rings that call the thumb are thinner and spread less far out. The drop variants are gone but RIPPLES · STILL, and the DROP picker with them. The tail no longer starts with a flat cut across: where the drop was taken it leaves a small lumpy puddle, centred on the button's start and drawn out towards the pull like rubber into the tail, and after a count that splash stays at the start a moment longer than the tail and fades.
+
 ## 2026-10-11 · 7552dc8ed — PULL LAB: RIPPLES · STILL is the drop, standing up as a button until pressed, its edge always joined to its inside
 
 The DROP bar opens on RIPPLES · STILL — CRATER · RIPPLES on a drop that slows to an eighth of its turning while pulled rather than stopping, and catches its turning up again once let go. Untouched, every soft drop stands up as a cap inside its neon edge: its face is the rim drawn smaller and lifted, with the wall below it and its shadow on the drop, and a thumb pushes it level by half way in, where the crater takes over; the arrow rides on the face. The satin under the neon is now shaded in bands along the rim itself instead of round a circle, so as the lumps turn no black gap opens between the edge and the inside. The arrow slides and breathes at under half its pace, and the waiting dots run the path to the place in about half the time.
