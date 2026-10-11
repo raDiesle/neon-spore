@@ -801,6 +801,7 @@ After the first entry lands: THE LAMPREY's head (a curve), THE ANTIPHON's rail (
 ## THE PULL LAB's bar out of `pull-lab.ts`
 
 - **Found:** 2026-10-10, claude/trace-line-visual-alignment-cab018
+- **Taken:** 2026-10-11, claude/pull-lab-perf-routing-b551b5 (claim: claude/queue-the-pull-labs-bar-out-of-pull-lab-ts)
 - **Files:** `tools/director/src/pull-lab.ts`
 
 `pull-lab.ts` is 238 lines after the OFF PATH switch, and every switch on the lab's bar grows it by a dozen. Cut on the seam the file already has: the bar — the shape, look, short, off-path and speed choices, AUTO and the sheet button — built in a file of its own, pull-lab-bar.ts, from one state object (`{ shape, look, short, stray, speed, auto }`) and a `reset` callback, so `openPullLab` keeps the canvas, the pointer, the clock and the frame. `test/pull-lab.test.ts` and the lab opened by hand from CONTROLS › ON THE FIELD › PULL PAST A DISTANCE say nothing moved.
