@@ -37808,3 +37808,15 @@ once the glow was thinned, which a picture had to show.
 Bottleneck: none — a correction to the lane before, in the file it had open.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-11 — The place blinks after the last dot
+
+- reading: 0 min. `parts.ts`'s runway and socket; GRAB found already landed.
+- writing: 0 min. `blinkAt`, the place's blink and halo while it is next.
+- looking: 5 min. Synthetic pointer events in the browser pane to hold the
+  drop past the last dot; the canvas moved under a re-laid page once.
+- friction: 0 min.
+- landing: 0 min. `check:fast`, `land`.
+
+Bottleneck: looking — no tool holds a PULL LAB drop at a given share, so the
+frame was found by dragging in steps and reading the readout.

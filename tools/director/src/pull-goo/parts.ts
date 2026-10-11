@@ -81,8 +81,7 @@ export function runway(
     let lit = come.blink;
     if (!o.held && along <= ghostAt && !entering(o.enter))
       lit = Math.max(lit, 1 - (ghostAt - along) * 3.2);
-    if (o.held && along - o.came < 1 / (dots + 1) + 1e-6)
-      lit = Math.max(lit, 0.5 + 0.5 * Math.sin(o.time * 12));
+    if (o.held && along - o.came < 1 / (dots + 1) + 1e-6) lit = Math.max(lit, blinkAt(o.time));
     ctx.fillStyle = style.neon;
     if (lit > 0.3) {
       ctx.globalAlpha = 0.22 * lit;
@@ -94,6 +93,11 @@ export function runway(
     ctx.fill();
   }
   ctx.restore();
+}
+
+/** The blink of whatever is next ahead of a held drop: a dot, then the place. */
+function blinkAt(time: number): number {
+  return 0.5 + 0.5 * Math.sin(time * 12);
 }
 
 /** The path ahead of a drop at `at` along the track: the dots, the place at each end it
@@ -122,6 +126,7 @@ export function paintPath(
     });
     socket(ctx, pullTrackPoint(t, g), r, style, {
       came,
+      held: o.held,
       waiting,
       time: o.time,
       enter: o.enter,
@@ -158,23 +163,33 @@ export function ghost(
 /**
  * The place the drop goes: OOZE's turning dashed drop, filling as the drop
  * nears and for a moment each time the ghost arrives, popping in with a blink
- * after the last dot while the path comes in (`enter.ts`).
+ * after the last dot while the path comes in (`enter.ts`). Held past the last
+ * dot, it blinks as the dots did, the next thing ahead — the owner, 11 October
+ * 2026: *when the path dots are blinking and reach the last one, also the
+ * placeholder should blink next*.
  */
 export function socket(
   ctx: CanvasRenderingContext2D,
   q: Point,
   r: number,
   style: GooStyle,
-  o: { came: number; waiting: boolean; time: number; enter: number; dots: number },
+  o: { came: number; held: boolean; waiting: boolean; time: number; enter: number; dots: number },
 ): void {
   if (o.came >= FULL) return;
   const come = placeIn(o.dots, o.enter);
   if (!come) return;
   const run = (o.time / GHOST_RUN) % 1;
   const arrive = o.waiting && !entering(o.enter) ? Math.max(0, (run - 0.8) / 0.2) : 0;
-  const lit = Math.max(o.came, arrive, come.blink);
-  const rr = r * Math.max(0.01, come.size);
+  const next = o.held && 1 - o.came < 1 / (o.dots + 1) + 1e-6;
+  const blink = next ? blinkAt(o.time) : 0;
+  const lit = next ? blink : Math.max(o.came, arrive, come.blink);
+  const rr = r * Math.max(0.01, come.size) * (1 + 0.12 * blink);
   ctx.save();
+  if (blink > 0.3) {
+    ctx.fillStyle = style.neon;
+    ctx.globalAlpha = 0.22 * blink;
+    dot(ctx, q, rr * 1.25);
+  }
   ctx.fillStyle = style.body;
   ctx.globalAlpha = 0.35 + 0.4 * lit;
   blob(ctx, q, rr, o.time * 0.6);
