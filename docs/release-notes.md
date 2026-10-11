@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-11 · 676fda902 — CONTROLS opens in a few seconds: each picture is drawn as it comes near the screen
+
+Every card under CONTROLS — a panel, a use card on ON THE FIELD, a helper — is a world posed and drawn, and the room drew all of them before it showed anything: 27 seconds at phone size with the CPU slowed four times, to draw about a hundred and twenty canvases. Each picture is now drawn when it comes within a screen of being seen, and a dashed box its size holds its place until then. The same load is now 3.5 to 4 seconds, and a room that is not open draws nothing. STATES' groups use the same observer, which now fills a screen ahead.
+
 ## 2026-10-11 · 022d714ff — THE PULL LAB and TRY IT hide the director under them, and the lab draws at two pixels
 
 While a live overlay is open, everything else on the page is put out of the way and comes back scrolled where it was. The GAME column's stage used to keep playing and painting its HUD under the lab, and the cards of CONTROLS stayed composited under it. On a phone the lab's canvas is drawn at two device pixels per CSS pixel rather than three — 0.61 million pixels a frame where it was 1.38. Profiled at phone size with the CPU slowed four times, the idle time per second went from 42% to 60%, and on a desk from 37% to 63%.

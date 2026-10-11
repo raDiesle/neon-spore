@@ -38117,3 +38117,5 @@ throttled desk Chrome, and a real phone's GPU is unverified.
 - landing: 5 min. `bun run index`, `check:fast`, `land`.
 
 Bottleneck: none past the first profile — it named the function.
+
+*Measured: 23 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
