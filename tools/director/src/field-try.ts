@@ -9,6 +9,7 @@ import {
   type ViewRole,
 } from "@neon-spore/render";
 import { type Command, framePhase, type SimEvent, step, type World } from "@neon-spore/sim";
+import { coverPage } from "./cover.js";
 import type { FieldControlDef } from "./field-control-def.js";
 import { controlRect, type Rect, touchArea } from "./field-focus.js";
 import { paintTouchArea } from "./field-touch-paint.js";
@@ -202,6 +203,7 @@ export function openTry(title: string, pose: Pose, rows: readonly FieldControlDe
     renderer.dispose();
     log.dispose();
     shade.remove();
+    uncover();
     window.removeEventListener("keydown", onKey);
     window.removeEventListener("resize", fit);
   };
@@ -211,6 +213,7 @@ export function openTry(title: string, pose: Pose, rows: readonly FieldControlDe
   canvas.addEventListener("pointerdown", () => log.unlock(), { signal: life.signal });
   shade.append(bar.element, room, log.element);
   document.body.appendChild(shade);
+  const uncover = coverPage(shade);
   fit();
   requestAnimationFrame(frame);
 }

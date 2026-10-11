@@ -38085,3 +38085,19 @@ Bottleneck: deciding the lab is a field beside `sheet`, not a sheet — it
 opens over one.
 
 *Measured: 13 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-11 — THE PULL LAB hides the director under it, and draws at two pixels
+
+- reading: 10 min. Where a phone's frame went: a headless Chrome at phone
+  size, the CPU slowed four times, a profile of the lab over the editor and
+  over CONTROLS.
+- writing: 5 min. `cover.ts`, the screen's pixel ratio capped at two, both
+  live overlays covered.
+- looking: 5 min. Profiled again; the sheet under the lab scrolled, the lab
+  opened and shut, the scroll read back.
+- friction: 5 min. The browser pane hid, so frame timing had to move to a
+  scratch Playwright script; `!important` refused by lint, the cover inline.
+- landing: 5 min. `check:fast`, `land`.
+
+Bottleneck: measuring on a phone that is not here — the profile is a
+throttled desk Chrome, and a real phone's GPU is unverified.

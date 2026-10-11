@@ -1,4 +1,5 @@
 import type { Point } from "@neon-spore/content";
+import { coverPage } from "./cover.js";
 import { text } from "./gestures-page.js";
 import { GOO_LOOKS } from "./pull-goo/index.js";
 import { autoThumb } from "./pull-lab-auto.js";
@@ -48,6 +49,9 @@ import { initialLab, placeLab } from "./session.js";
 
 /** Device pixels per lab pixel, at most: the knob's rim is a line of 1.6. */
 const MAX_DPR = 4;
+/** Device pixels per CSS pixel, at most: a phone's three filled a canvas of
+ * 1.4 million pixels sixty times a second, and two is as sharp to the eye. */
+const MAX_SCREEN_DPR = 2;
 
 /** The lab on screen, shut by a second opening — there is only ever one. */
 let shutOpen: (() => void) | null = null;
@@ -130,7 +134,7 @@ export function openPullLab(first = "down", opts: { sheet?: boolean } = {}): voi
     const s = Math.min((box.width - 28) / LAB_W, (box.height - 14) / LAB_H);
     canvas.style.width = `${LAB_W * s}px`;
     canvas.style.height = `${LAB_H * s}px`;
-    const dpr = Math.min(MAX_DPR, s * (window.devicePixelRatio || 1));
+    const dpr = Math.min(MAX_DPR, s * Math.min(MAX_SCREEN_DPR, window.devicePixelRatio || 1));
     canvas.width = Math.round(LAB_W * dpr);
     canvas.height = Math.round(LAB_H * dpr);
   };
@@ -180,6 +184,7 @@ export function openPullLab(first = "down", opts: { sheet?: boolean } = {}): voi
     placeLab(null);
     life.abort();
     shade.remove();
+    uncover();
     document.removeEventListener("keydown", onKey, { capture: true });
     window.removeEventListener("resize", fit);
   };
@@ -188,6 +193,7 @@ export function openPullLab(first = "down", opts: { sheet?: boolean } = {}): voi
   window.addEventListener("resize", fit);
   shade.append(bar.el, like, room);
   document.body.appendChild(shade);
+  const uncover = coverPage(shade);
   fit();
   show();
   requestAnimationFrame(frame);
