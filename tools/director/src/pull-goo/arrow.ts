@@ -51,7 +51,16 @@ export function paintArrow(
   at: Point,
   r: number,
   style: GooStyle,
-  a: { dx: number; dy: number; split: number; held: boolean; time: number; alpha?: number },
+  a: {
+    dx: number;
+    dy: number;
+    split: number;
+    held: boolean;
+    time: number;
+    alpha?: number;
+    /** How far its neon has turned the green of a count, 0..1. */
+    green?: number;
+  },
 ): void {
   if (r <= 0.05) return;
   const reach = r * (a.held ? 1.05 : 1.15 + 0.07 * Math.sin(a.time * 6));
@@ -73,6 +82,7 @@ export function paintArrow(
     for (const w of arrows) drawWayArrow(ctx, w.x, w.y, w.r, w.dx, w.dy, a.time, 1);
   };
   const alpha = a.alpha ?? 1;
+  const neon = mix(style.neon, PALETTE.good, a.green ?? 0);
   ctx.save();
   ctx.lineCap = "round";
   ctx.lineJoin = "round";
@@ -81,12 +91,12 @@ export function paintArrow(
   ctx.lineWidth = r * 0.36 * (1 - 0.35 * s);
   path();
   ctx.globalCompositeOperation = "lighter";
-  ctx.strokeStyle = style.neon;
+  ctx.strokeStyle = neon;
   ctx.globalAlpha = 0.5 * alpha;
   ctx.lineWidth = r * 0.5 * (1 - 0.5 * s);
   path();
   ctx.globalCompositeOperation = "source-over";
-  ctx.strokeStyle = mix(style.neon, "#FFFFFF", 0.7);
+  ctx.strokeStyle = mix(neon, "#FFFFFF", 0.7);
   ctx.globalAlpha = alpha;
   ctx.lineWidth = r * 0.17 * (1 - 0.2 * s);
   path();

@@ -1,9 +1,10 @@
 import { PALETTE } from "@neon-spore/render";
-import { arrowSize, paintArrow } from "./arrow.js";
+import { paintArrow } from "./arrow.js";
 import { drop } from "./body.js";
 import { type Ending, greenAt, halo, intoPlace, onward, paintDrop } from "./ending.js";
 import { ENDING } from "./moment.js";
 import { clamp01, hash, mix } from "./noise.js";
+import type { Scene } from "./scene.js";
 
 /**
  * **FIZZ**, the drop boiling away into green bubbles that rise and pop — the
@@ -14,6 +15,11 @@ import { clamp01, hash, mix } from "./noise.js";
  * *to switch to disappear with fizz should be instant when on right position*
  * — no green moment held first: it turns green as it starts to boil, the
  * moment it is counted.
+ *
+ * The arrow does not vanish with the count (the owner, 11 October 2026: *i
+ * just do not want the arrow to instant disappear*), nor stay over the
+ * bubbles: it turns green with the drop, shrinks with it a while, then melts
+ * into it and is gone before the drop has boiled away (`melt`).
  */
 
 /** How many bubbles a drop boils away into. */
@@ -30,11 +36,7 @@ export const FIZZ: Ending = {
     const at = intoPlace(s, e);
     if (left > 0.04)
       paintDrop(s, drop(at, s.r * left, { shake: 0.25 * u }), greenAt(e), 0.4 + 0.6 * left);
-    // The arrow goes with it, shrinking to its last frame (`arrow.ts`).
-    const way = onward(s);
-    const time = s.time;
-    const a = { dx: way.x, dy: way.y, split: 0, held: true, time };
-    paintArrow(s.ctx, at, arrowSize(s.r, left), s.style, a);
+    melt(s, at, e, left);
     const { ctx } = s;
     ctx.save();
     ctx.strokeStyle = mix(PALETTE.good, "#FFFFFF", 0.35);
@@ -69,3 +71,23 @@ export const FIZZ: Ending = {
     ctx.restore();
   },
 };
+
+/** Seconds into the count the arrow starts to melt into the drop, and is gone. */
+const MELT_FROM = 0.12;
+const MELT_TO = 0.32;
+
+/** The arrow in the boiling drop: green with it, its size, then melting into it. */
+function melt(s: Scene, at: { x: number; y: number }, e: number, left: number): void {
+  const k = clamp01((e - MELT_FROM) / (MELT_TO - MELT_FROM));
+  if (k >= 1) return;
+  const way = onward(s);
+  paintArrow(s.ctx, at, s.r * left * (1 - 0.45 * k), s.style, {
+    dx: way.x,
+    dy: way.y,
+    split: 0,
+    held: true,
+    time: s.time,
+    alpha: (1 - k) ** 1.5,
+    green: greenAt(e),
+  });
+}

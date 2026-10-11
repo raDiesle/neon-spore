@@ -37796,3 +37796,13 @@ Bottleneck: looking — two short arrows at a drop's size only read as two
 once the glow was thinned, which a picture had to show.
 
 *Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-11 — FIZZ's arrow goes green and melts into the drop
+
+- reading: 0 min. FIZZ's `play`, read the lane before.
+- writing: 5 min. `melt`, the arrow's green.
+- looking: 0 min. One sheet shot and a crop.
+- friction: 0 min.
+- landing: 5 min. An import sort lint caught; `check:fast`, `land`.
+
+Bottleneck: none — a correction to the lane before, in the file it had open.
