@@ -38000,3 +38000,5 @@ a mistake in the rewrite.
 
 Bottleneck: none — the one trap was the map's own ⏸, which a pause on
 every press would have turned into ▶.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-11 · 75ef2f501 — Any press in the director's map editor pauses the wave
+
+Picking a cell, starting a brush stroke, choosing a brush, opening or taking out a row, or touching the cell's panel now stops the field where it is, so a wave is never edited under a run that carries on. The ⏸/▶ and ↺ over the map still do what they say.
+
 ## 2026-10-11 · b3041e117 — Every wave is authored on the field's eleven tiles, with no button
 
 All 120 waves were rewritten once, each arrival, gap, crack, pod and boss column moved to the tile it was already played on, and a wave is counted on eleven columns from now on. The map shows 0–10 for every wave and ON EVERY TILE is gone. Guide films and THE SCOUT's arenas stay on their own seven. Every wave sends the same queue it did, except THE FILAMENT: its lines were already written on eleven tiles and were being stretched as if on seven, pushing three against the right-hand wall; they now hang where the script says.
