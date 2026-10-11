@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-11 · 6bb465f8b — PULL LAB: GRAB is SQUISH alone — LEAN, LIFT and CHARGE are gone
+
+The PULL LAB's GRAB choice is gone from the bar. Every GOO drop, FIZZ's included, is taken with SQUISH: pressed flat under the thumb, it springs up wobbling and splashes drops of goo onto the field, then stretches and quivers as it is pulled. LEAN, LIFT's shadow and CHARGE's light are removed along with the hooks they had in the channel and the drop.
+
 ## 2026-10-11 · 3c5af855d — The director's TRY and PULL LAB bars group their variants under a name
 
 Each set of variants on the PULL LAB's bar now sits in a frame with its name over it: PATH, LOOK, DROP, GRAB, SPEED, PLAY and SHOW. A button no longer repeats the name ("FLAT", not "DROP · FLAT"), so feedback can say "DROP: FLAT" and match what is on screen. ✕ sits by the title and the readout has the last line to itself. The TRY bar over a field control is grouped the same way: CLOCK, SPEED, MOUSE IS, SHOWN, SCREEN, SOUND, OUTLINE. `choice` takes the name; `grouped` frames plain buttons.
