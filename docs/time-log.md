@@ -38018,3 +38018,5 @@ every press would have turned into ▶.
 
 Bottleneck: the picture — every one of the three faults was invisible in the
 diff and obvious in the first screenshot.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

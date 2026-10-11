@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-11 · b172c2ddf — RUN in the director is as narrow as its widest control
+
+Pause, retry, sheet, briefings and keys are icons now, with their words on hover, and the column is sized to its widest control instead of a fixed 140px — 116px, set by the difficulty picker. The BRUSH & MAP column's minimum is 740px, so the eleven-tile map no longer runs off its right edge.
+
 ## 2026-10-11 · 75ef2f501 — Any press in the director's map editor pauses the wave
 
 Picking a cell, starting a brush stroke, choosing a brush, opening or taking out a row, or touching the cell's panel now stops the field where it is, so a wave is never edited under a run that carries on. The ⏸/▶ and ↺ over the map still do what they say.
