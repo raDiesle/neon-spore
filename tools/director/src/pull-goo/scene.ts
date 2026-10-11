@@ -1,8 +1,8 @@
 import type { Point } from "@neon-spore/content";
 import { type PullTrack, pullTrackPoint } from "@neon-spore/render";
 import { goals } from "../../../versus/candidates/pull-handle/ooze/goo.js";
+import { lengthOf } from "./beat.js";
 import type { GooMoment } from "./moment.js";
-import { lengthOf } from "./parts.js";
 import type { GooStyle } from "./style.js";
 
 /**

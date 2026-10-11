@@ -3824,6 +3824,7 @@ by hand never moves.
 | `tools/director/src/pull-goo/body.ts` | **A body of GOO**: a closed contour with lumps that creep |
 | `tools/director/src/pull-goo/border.ts` | **The edge of the tolerance, only where the drop touches it** |
 | `tools/director/src/pull-goo/ball.ts` | **The GOO drop as a ball** — the owner, 10 October 2026: *more cool, more detailed, maybe 3d* |
+| `tools/director/src/pull-goo/beat.ts` | **Where a path's dots sit and when they light** — how many, how far short of the place they stop |
 | `tools/director/src/pull-goo/knob.ts` | **The drop under the hand**: OOZE's drop made TAR's slime, wherever the hand has it |
 | `tools/director/src/pull-goo/moment.ts` | **Where a GOO pull is in its story**, read the same way by the channel and the drop from what the PULL LAB… |
 | `tools/director/src/pull-goo/noise.ts` | The irregular in GOO: noise that is the same every frame for the same input |

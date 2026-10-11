@@ -1,13 +1,7 @@
 import type { Point } from "@neon-spore/content";
-import { type PullTrack, pullTrackPoint, smoothstep } from "@neon-spore/render";
-import {
-  blob,
-  dot,
-  FULL,
-  GHOST_RUN,
-  goals,
-  share,
-} from "../../../versus/candidates/pull-handle/ooze/goo.js";
+import { type PullTrack, pullTrackPoint } from "@neon-spore/render";
+import { blob, dot, FULL, goals, share } from "../../../versus/candidates/pull-handle/ooze/goo.js";
+import { blinkAt, dotCount, dotsEnd, flash, ghostPhase } from "./beat.js";
 import { bodyPath } from "./body.js";
 import { dotIn, entering, placeIn } from "./enter.js";
 import type { GooStyle } from "./style.js";
@@ -54,11 +48,6 @@ export function call(
   ctx.restore();
 }
 
-/** How many dots a path has between its start and its end. */
-export function dotCount(t: PullTrack, r: number): number {
-  return Math.max(4, Math.round(lengthOf(t) / r)) - 1;
-}
-
 /** The dots from the drop to the end, the next one blinking while it is held, lit one
  * after another by the ghost while it waits, and coming in one after another with a
  * blink while the path comes in (`enter`, `enter.ts`). `came` is how far the drop has come. */
@@ -70,10 +59,12 @@ export function runway(
   o: { origin: number; goal: 0 | 1; came: number; held: boolean; time: number; enter: number },
 ): void {
   const dots = dotCount(t, r);
-  const ghostAt = smoothstep((o.time / GHOST_RUN) % 1);
+  const end = dotsEnd(t, r);
+  const ghostAt = ghostPhase(o.time).at;
+  let next = true;
   ctx.save();
   for (let i = 1; i <= dots; i++) {
-    const along = i / (dots + 1);
+    const along = (end * i) / dots;
     if (along <= o.came + 1e-6 && o.came > 0.01) continue;
     const come = dotIn(i, dots, o.enter);
     if (!come) continue;
@@ -81,7 +72,8 @@ export function runway(
     let lit = come.blink;
     if (!o.held && along <= ghostAt && !entering(o.enter))
       lit = Math.max(lit, 1 - (ghostAt - along) * 3.2);
-    if (o.held && along - o.came < 1 / (dots + 1) + 1e-6) lit = Math.max(lit, blinkAt(o.time));
+    if (o.held && next) lit = Math.max(lit, blinkAt(o.time));
+    next = false;
     ctx.fillStyle = style.neon;
     if (lit > 0.3) {
       ctx.globalAlpha = 0.22 * lit;
@@ -93,11 +85,6 @@ export function runway(
     ctx.fill();
   }
   ctx.restore();
-}
-
-/** The blink of whatever is next ahead of a held drop: a dot, then the place. */
-function blinkAt(time: number): number {
-  return 0.5 + 0.5 * Math.sin(time * 12);
 }
 
 /** The path ahead of a drop at `at` along the track: the dots, the place at each end it
@@ -114,6 +101,7 @@ export function paintPath(
   for (const g of ends) p = Math.max(p, share(o.origin, o.at, g));
   const waiting = !o.held && p < 0.01;
   const dots = dotCount(t, r);
+  const end = dotsEnd(t, r);
   for (const g of ends) {
     const came = share(o.origin, o.at, g);
     runway(ctx, t, r, style, {
@@ -131,6 +119,7 @@ export function paintPath(
       time: o.time,
       enter: o.enter,
       dots,
+      end,
     });
     if (waiting && !entering(o.enter))
       ghost(ctx, t, r, style, { origin: o.origin, goal: g, time: o.time });
@@ -145,9 +134,10 @@ export function ghost(
   style: GooStyle,
   o: { origin: number; goal: 0 | 1; time: number },
 ): void {
-  const run = (o.time / GHOST_RUN) % 1;
-  const q = pullTrackPoint(t, o.origin + (o.goal - o.origin) * smoothstep(run));
-  const a = 0.55 * Math.sin(run * Math.PI);
+  const g = ghostPhase(o.time);
+  if (g.landed > 0) return;
+  const q = pullTrackPoint(t, o.origin + (o.goal - o.origin) * g.at);
+  const a = 0.55 * Math.sin(Math.sqrt(g.at) * Math.PI);
   const p = bodyPath({ at: q, r: r * 0.92, seed: 13 }, style, o.time);
   ctx.save();
   ctx.globalAlpha = 0.3 * a;
@@ -162,27 +152,37 @@ export function ghost(
 
 /**
  * The place the drop goes: OOZE's turning dashed drop, filling as the drop
- * nears and for a moment each time the ghost arrives, popping in with a blink
- * after the last dot while the path comes in (`enter.ts`). Held past the last
- * dot, it blinks as the dots did, the next thing ahead — the owner, 11 October
- * 2026: *when the path dots are blinking and reach the last one, also the
- * placeholder should blink next*.
+ * nears, popping in with a blink after the last dot while the path comes in
+ * (`enter.ts`). Held past the last dot, it blinks as the dots did, the next
+ * thing ahead — the owner, 11 October 2026: *when the path dots are blinking
+ * and reach the last one, also the placeholder should blink next*. And while
+ * nothing is held, the same: the ghost lights the dots one after another and,
+ * after the last, the place's dashed rim flashes as the ghost lands in it —
+ * *the placeholder lined path is blinking after last path blinking to follow
+ * the flow*, the same day.
  */
 export function socket(
   ctx: CanvasRenderingContext2D,
   q: Point,
   r: number,
   style: GooStyle,
-  o: { came: number; held: boolean; waiting: boolean; time: number; enter: number; dots: number },
+  o: {
+    came: number;
+    held: boolean;
+    waiting: boolean;
+    time: number;
+    enter: number;
+    dots: number;
+    end: number;
+  },
 ): void {
   if (o.came >= FULL) return;
   const come = placeIn(o.dots, o.enter);
   if (!come) return;
-  const run = (o.time / GHOST_RUN) % 1;
-  const arrive = o.waiting && !entering(o.enter) ? Math.max(0, (run - 0.8) / 0.2) : 0;
-  const next = o.held && 1 - o.came < 1 / (o.dots + 1) + 1e-6;
-  const blink = next ? blinkAt(o.time) : 0;
-  const lit = next ? blink : Math.max(o.came, arrive, come.blink);
+  const landed = o.waiting && !entering(o.enter) ? ghostPhase(o.time).landed : 0;
+  const next = o.held && o.came > o.end - 1e-6;
+  const blink = next ? blinkAt(o.time) : landed > 0 ? flash(landed) : 0;
+  const lit = next ? blink : Math.max(o.came, blink, come.blink);
   const rr = r * Math.max(0.01, come.size) * (1 + 0.12 * blink);
   ctx.save();
   if (blink > 0.3) {
@@ -197,18 +197,8 @@ export function socket(
   ctx.setLineDash([rr * 0.32, rr * 0.24]);
   ctx.lineDashOffset = -o.time * rr * 1.2;
   ctx.strokeStyle = style.neon;
-  ctx.lineWidth = rr * 0.1;
+  ctx.lineWidth = rr * (0.1 + 0.06 * blink);
   ctx.globalAlpha = 0.55 + 0.45 * lit;
   ctx.stroke();
   ctx.restore();
-}
-
-export function lengthOf(t: PullTrack): number {
-  let len = 0;
-  for (let i = 1; i < t.pts.length; i++) {
-    const a = t.pts[i - 1] as Point;
-    const b = t.pts[i] as Point;
-    len += Math.hypot(b.x - a.x, b.y - a.y);
-  }
-  return len;
 }

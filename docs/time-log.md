@@ -37838,3 +37838,18 @@ Bottleneck: looking — the lab has no way to show one drop large, so a
 picture meant overriding `devicePixelRatio` and copying sheet cells.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-11 — The last dot stops outside the place, and the place blinks after it while waiting
+
+- reading: 5 min. `parts.ts`'s runway, socket and ghost; the dots sat at
+  `i / (dots + 1)`, so the last one was a radius from the place's centre.
+- writing: 10 min. Dots spread up to 1.8 radii short of the place, the ghost's
+  run cut to 72 % of its loop with the place flashing in the rest; the timing
+  and spacing moved out to `beat.ts` when `parts.ts` passed 250 lines.
+- looking: 15 min. The pane's screenshots all caught the same phase; a strip
+  of canvas crops drawn in the page, then a scratch Playwright script for a PNG.
+- friction: 5 min. The AUTO button's glyph read the same on and off.
+- landing: 5 min. `check:fast`, `land`.
+
+Bottleneck: looking — the third lane running to write a throwaway that
+photographs the PULL LAB over time (queued already; this lane added to it).
