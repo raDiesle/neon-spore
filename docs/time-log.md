@@ -38083,3 +38083,5 @@ Bottleneck: a worktree cut from a stale base; the trunk step fetched
 
 Bottleneck: deciding the lab is a field beside `sheet`, not a sheet — it
 opens over one.
+
+*Measured: 13 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*

@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-11 · 6d19be9f4 — THE PULL LAB has a door in the topbar, and stays open on a reload
+
+⇣ PULL LAB sits beside DOCUMENTATION, and in the phone's menu. The lab keeps itself in the URL as `pulllab=<path>` (and `pullsheet=1` on EVERY LOOK, EVERY STATE) beside whatever sheet is under it, so a reload reopens it on the same path; ✕ or Escape shuts only the lab and drops it from the address. Escape used to close the DOCUMENTATION sheet under the lab as well.
+
 ## 2026-10-11 · 2730f722d — THE PULL LAB: bigger two-way arrows, a finger's wider band, a shorter splash
 
 On a pull that may go either way, the drop's two short arrows are half as big again and no longer breathe apart, so there is room for them on the cap. A finger on glass may wander a whole tile off the path before the pull fails, twice a mouse's half tile, and the band is drawn that wide; the readout says TOUCH: BAND ×2, and AUTO keeps the mouse's band. The drops SQUISH throws onto the field when the drop is pressed now lie there 0.35 s and fade over 0.3 s, where they lay 0.9 s and faded over 0.5 s.
