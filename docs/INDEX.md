@@ -3830,12 +3830,18 @@ by hand never moves.
 | `tools/director/src/pull-goo/strand.ts` | **What is left behind the drop**: the tail it is pulled out of — JELLY's, the owner's pick |
 | `tools/director/src/pull-goo/style.ts` | **What a GOO drop is made of** |
 | `tools/director/src/pull-goo/scene.ts` | What an ending and a failure are drawn from: the track, the drop's size |
+| `tools/director/src/pull-goo/soft-dough.ts` | **DOUGH** — a mochi: powdery, sagging under its own weight |
+| `tools/director/src/pull-goo/soft-plastic.ts` | **SOFT PLASTIC** — a squeezy toy: satin all over |
+| `tools/director/src/pull-goo/soft-slime.ts` | **SLIME** — wet and see-through: the key light comes out of its far side as a glow low on the right |
+| `tools/director/src/pull-goo/soft-sponge.ts` | **SPONGE** — matte and full of holes, with a tufted edge and no shine at all |
+| `tools/director/src/pull-goo/soft.ts` | **A soft drop**: the GOO drop made of something a thumb sinks into, in GOO's own colours — the frame each soft material is painted through |
 | `tools/director/src/pull-goo/track.ts` | **The channel of a GOO look**: everything round the drop |
 | `tools/director/src/pull-goo/ending.ts` | **How a count ends** — what tells one GOO look from another |
 | `tools/director/src/pull-goo/enter.ts` | **How a drop and its path come onto the field** — the owner, 10 October 2026 |
 | `tools/director/src/pull-goo/fail.ts` | **A failure, short or off the path**: the owner, 10 October 2026, on SHORT · RED |
 | `tools/director/src/pull-goo/fizz.ts` | **FIZZ**, the drop boiling away into green bubbles that rise and pop |
 | `tools/director/src/pull-goo/parts.ts` | **What GOO keeps of OOZE**, the owner's base (10 October 2026) |
+| `tools/director/src/pull-goo/press.ts` | **A thumb pressed into a soft drop** — the press, the dent and the bow every soft drop shares |
 | `tools/director/src/pull-goo/drop-look.ts` | **How every GOO drop is drawn**: as the flat slime SINK was picked in |
 | `tools/director/src/pull-goo/grab.ts` | **How a GOO drop is taken, and how it goes while it is pulled** — the owner, 10 October 2026 |
 | `tools/director/src/pull-goo/arrow.ts` | **The way to pull, inside a GOO drop**: sized ahead of the drop as it grows and shrinks, and two short arrows apart for a two-way pull until it is pulled a way |

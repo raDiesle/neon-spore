@@ -2,6 +2,7 @@ import type { Point } from "@neon-spore/content";
 import { smoothstep } from "@neon-spore/render";
 import { drop, type GooBody } from "./body.js";
 import { clamp01, hash, mix, settle } from "./noise.js";
+import type { Press } from "./press.js";
 import type { GooStyle } from "./style.js";
 
 /**
@@ -34,6 +35,13 @@ export function heldBody(h: Hold): GooBody {
     shake: 0.12 * h.near + 0.05 * into,
     squash: 1 + 0.4 * settle(h.grabbed, 7, 19),
   });
+}
+
+/** How deep the thumb is in the held drop, for a soft one (`press.ts`): in at once,
+ * sinking a little past and springing back, and the way it is pulled. */
+export function pressOf(h: Hold): Press {
+  const into = smoothstep(clamp01(h.grabbed / 0.15));
+  return { depth: clamp01(into * (1 - 0.25 * settle(h.grabbed, 6, 16))), way: h.way };
 }
 
 /** Over the held drop: the light from inside it as it is taken. */

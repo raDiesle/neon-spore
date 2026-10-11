@@ -5,7 +5,7 @@ import { arrowSize, paintArrow } from "./arrow.js";
 import { drop } from "./body.js";
 import { paintGoo } from "./drop-look.js";
 import { grown } from "./enter.js";
-import { type Hold, heldBody, overHeld } from "./grab.js";
+import { type Hold, heldBody, overHeld, pressOf } from "./grab.js";
 import { momentOf, SPAWN } from "./moment.js";
 import { call } from "./parts.js";
 import type { GooStyle } from "./style.js";
@@ -36,7 +36,8 @@ export function gooKnob(style: GooStyle) {
     const body = o.held
       ? heldBody(hold)
       : drop(at, rr, { squash: 1 + 0.07 * Math.sin(o.time * 3.4) });
-    paintGoo(ctx, body, style, o.time, { red: 0.7 * m.near, alpha: o.theirs ? 0.4 : 1 }, way);
+    const tint = { red: 0.7 * m.near, alpha: o.theirs ? 0.4 : 1 };
+    paintGoo(ctx, body, style, o.time, tint, way, o.held ? pressOf(hold) : undefined);
     if (o.held) overHeld(ctx, hold, style);
     if (o.way) {
       const split = o.after?.split ?? (o.either ? 1 : 0);

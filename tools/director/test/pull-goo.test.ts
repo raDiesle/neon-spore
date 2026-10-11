@@ -2,7 +2,7 @@ import { beforeAll, describe, expect, test } from "bun:test";
 import { installCanvasGlobals, stubCanvas } from "../../../packages/render/test/canvas-stub.js";
 import { VARIANTS } from "../../versus/candidates/index.js";
 import { arrowSize, splitOf } from "../src/pull-goo/arrow.js";
-import { GOO_DROP } from "../src/pull-goo/drop-look.js";
+import { type DropLook, GOO_DROP, SOFT_DROPS } from "../src/pull-goo/drop-look.js";
 import { DOTS_SPAN, dotIn, entering, grown, POP, placeIn } from "../src/pull-goo/enter.js";
 import { GOO_LOOKS } from "../src/pull-goo/index.js";
 import { SPAWN } from "../src/pull-goo/moment.js";
@@ -48,15 +48,16 @@ describe("the GOO looks", () => {
       }
   });
 
-  test("draw the grab with either drop without a bad call", () => {
+  test("draw the grab with every drop without a bad call", () => {
     const { ctx } = stubCanvas();
     const c = ctx as unknown as CanvasRenderingContext2D;
-    const was = GOO_DROP.ball;
+    const was = GOO_DROP.look;
     const step = 1 / 30;
     const look = GOO_LOOKS[0] ?? null;
     try {
-      for (const ball of [false, true]) {
-        GOO_DROP.ball = ball;
+      const looks: DropLook[] = ["flat", "ball", ...SOFT_DROPS];
+      for (const drop of looks) {
+        GOO_DROP.look = drop;
         for (const shape of LAB_SHAPES) {
           const pull = freshPull(shape);
           let down = false;
@@ -73,7 +74,7 @@ describe("the GOO looks", () => {
         }
       }
     } finally {
-      GOO_DROP.ball = was;
+      GOO_DROP.look = was;
     }
   });
 

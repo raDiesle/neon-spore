@@ -37822,3 +37822,17 @@ Bottleneck: looking — no tool holds a PULL LAB drop at a given share, so the
 frame was found by dragging in steps and reading the readout.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-11 — Four soft drops a thumb sinks into
+
+- reading: 5 min. `drop-look.ts`, `ball.ts`, `grab.ts`, the depth skill's
+  projection table.
+- writing: 5 min. `press.ts`, `soft.ts` and the four materials.
+- looking: 10 min. The lab's drop is ~30 px under the arrow; the frames were
+  read off the EVERY LOOK, EVERY STATE sheet's cells at double density, and
+  the dent and the flattening tuned twice from them.
+- friction: 0 min.
+- landing: 5 min. `imports:sort`, `check:fast`, `land`.
+
+Bottleneck: looking — the lab has no way to show one drop large, so a
+picture meant overriding `devicePixelRatio` and copying sheet cells.
