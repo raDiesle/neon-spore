@@ -42,7 +42,7 @@ export function gooKnob(style: GooStyle) {
     if (o.way) {
       const split = o.after?.split ?? (o.either ? 1 : 0);
       const time = o.time;
-      paintArrow(ctx, at, arrowSize(r, g), style, { ...o.way, split, held: o.held, time });
+      paintArrow(ctx, at, arrowSize(r, g), style, { ...o.way, split, held: o.held, time, body });
     }
     ctx.restore();
   };

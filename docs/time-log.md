@@ -37855,3 +37855,17 @@ Bottleneck: looking — the third lane running to write a throwaway that
 photographs the PULL LAB over time (queued already; this lane added to it).
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-11 — SOFT PLASTIC: a smaller arrow moulded into its lumps, light on the inner edge, a bigger hollow
+
+- reading: 10 min. `soft-plastic.ts`, `soft.ts`, `press.ts`, `arrow.ts` and the
+  four places that paint an arrow; `rimAt` was already the way onto the lumps.
+- writing: 15 min. `soft-arrow.ts`, one outline laid on the rim with its lumps
+  taken 1.9 times over; the plastic's window of light out, a bevel and a
+  catchlight inside the rim in, the dent's spread and depth up.
+- looking: 10 min. A scratch Playwright sheet of six moments, shot three times.
+- friction: 5 min. A scratch import through a package name that is not exported.
+- landing: 5 min. `check:fast`, `land`.
+
+Bottleneck: writing — the first outline smoothed into a stubby house shape and
+needed a longer shaft and a stronger take of the lumps to read as soft.

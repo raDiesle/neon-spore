@@ -38,6 +38,8 @@ export interface SoftScene {
 export interface SoftDrop {
   readonly name: string;
   readonly give: Give;
+  /** Its arrow is moulded into its own lumps (`soft-arrow.ts`) rather than THE INSTAR's. */
+  readonly moulded?: boolean;
   /** The body and what is on it, clipped to the drop, under the dent. */
   body(s: SoftScene): void;
   /** Over the dent, still clipped: what a hollow does not hide. */

@@ -1,36 +1,56 @@
 import { KEY } from "@neon-spore/content";
-import { centre } from "./body.js";
+import { rgba } from "@neon-spore/render";
+import { bodyPath, centre } from "./body.js";
 import { hash, mix } from "./noise.js";
 import { SHADE } from "./press.js";
-import { litFill, type SoftDrop } from "./soft.js";
+import type { SoftDrop } from "./soft.js";
 
 /**
- * **SOFT PLASTIC** — a squeezy toy: satin all over, one crisp window of light
- * on the top left and a fresnel glow inside the rim. It gives the most: a
- * thumb flattens and widens it, the window slides out towards the edge as
- * the top tilts, and folds crease out of the dent the harder it is pressed.
+ * **SOFT PLASTIC** — a squeezy toy: satin all over and calm in the middle,
+ * where the arrow is, its light gathered on the inner edge instead — a bevel
+ * lit along the top left and shaded along the bottom right, a crisp catchlight
+ * just inside the rim and a fresnel glow on it. It gives the most: a thumb
+ * flattens and widens it into a deep wide hollow, and folds crease out of the
+ * dent the harder it is pressed. The owner, 11 October 2026, on picking it:
+ * *remove* the window of light under the arrow, and *use more effect on the
+ * inner borders area rather than below the arrows*.
  */
 export const PLASTIC: SoftDrop = {
   name: "SOFT PLASTIC",
-  give: { spread: 0.95, deep: 0.85, flatten: 0.1, sag: 0, gloss: 0.85 },
+  give: { spread: 1.2, deep: 1, flatten: 0.1, sag: 0, gloss: 0.85 },
+  moulded: true,
   body(s) {
     const { ctx, b, style } = s;
-    litFill(s, [
-      [0, mix(style.core, "#FFFFFF", 0.45)],
-      [0.2, style.core],
-      [0.5, style.body],
-      [0.78, style.deep],
-      [0.9, mix(style.deep, style.neon, 0.3)],
-      [1, style.deep],
-    ]);
-    // Satin: a broad soft sheen under the window.
     const c = centre(b);
-    const q = { x: c.x + KEY.x * b.r * 0.35, y: c.y + KEY.y * b.r * 0.35 };
-    const g = ctx.createRadialGradient(q.x, q.y, 0, q.x, q.y, b.r * 0.8);
-    g.addColorStop(0, "rgba(255,255,255,0.2)");
-    g.addColorStop(1, "rgba(255,255,255,0)");
+    // Even satin in the middle, darkening only near the edge.
+    const g = ctx.createRadialGradient(c.x, c.y, 0, c.x, c.y, b.r * 1.1);
+    g.addColorStop(0, s.t.tone(mix(style.body, style.core, 0.35)));
+    g.addColorStop(0.55, s.t.tone(style.body));
+    g.addColorStop(0.85, s.t.tone(style.deep));
+    g.addColorStop(1, s.t.tone(mix(style.deep, style.neon, 0.25)));
     ctx.fillStyle = g;
     ctx.fill(s.path);
+    // The bevel: a wide band inside the rim, lit towards the light, shaded away from it.
+    const bevel = ctx.createLinearGradient(
+      c.x + KEY.x * b.r,
+      c.y + KEY.y * b.r,
+      c.x - KEY.x * b.r,
+      c.y - KEY.y * b.r,
+    );
+    bevel.addColorStop(0, s.t.tone(mix(style.core, "#FFFFFF", 0.35)));
+    bevel.addColorStop(0.45, rgba(style.core, 0));
+    bevel.addColorStop(0.6, rgba(SHADE, 0));
+    bevel.addColorStop(1, SHADE);
+    ctx.strokeStyle = bevel;
+    for (const [w, a] of [
+      [0.62, 0.35],
+      [0.36, 0.55],
+    ] as const) {
+      ctx.globalAlpha = a * s.t.alpha;
+      ctx.lineWidth = b.r * w;
+      ctx.stroke(s.path);
+    }
+    ctx.globalAlpha = s.t.alpha;
   },
   top(s) {
     const { ctx, b, dent, press } = s;
@@ -68,34 +88,28 @@ export const PLASTIC: SoftDrop = {
         }
       }
     }
-    // The window of light, sliding out to the edge as the press tilts the top.
-    const slide = 0.45 + 0.15 * press.depth;
-    const w = { x: c.x + KEY.x * b.r * slide, y: c.y + KEY.y * b.r * slide };
-    ctx.fillStyle = "#FFFFFF";
-    ctx.globalAlpha = s.t.alpha * 0.8;
-    ctx.beginPath();
-    ctx.ellipse(
-      w.x,
-      w.y,
-      b.r * 0.3,
-      b.r * 0.11 * (1 - 0.3 * press.depth),
-      -Math.PI / 4,
-      0,
-      Math.PI * 2,
+    // The catchlight: a crisp line just inside the rim, on the arc that faces the light.
+    const inner = bodyPath(
+      {
+        ...b,
+        r: b.r * 0.86,
+        at: { x: b.at.x, y: b.at.y - b.r * 0.14 * (1 - 1 / (b.squash ?? 1)) },
+      },
+      s.style,
+      s.time,
     );
-    ctx.fill();
-    ctx.globalAlpha = s.t.alpha * 0.5;
-    ctx.beginPath();
-    ctx.ellipse(
-      w.x + b.r * 0.22,
-      w.y + b.r * 0.08,
-      b.r * 0.08,
-      b.r * 0.05,
-      -Math.PI / 4,
-      0,
-      Math.PI * 2,
+    const lit = ctx.createLinearGradient(
+      c.x + KEY.x * b.r,
+      c.y + KEY.y * b.r,
+      c.x - KEY.x * b.r * 0.2,
+      c.y - KEY.y * b.r * 0.2,
     );
-    ctx.fill();
+    lit.addColorStop(0, "rgba(255,255,255,0.75)");
+    lit.addColorStop(1, "rgba(255,255,255,0)");
+    ctx.strokeStyle = lit;
+    ctx.globalAlpha = s.t.alpha * (1 - 0.4 * press.depth);
+    ctx.lineWidth = b.r * 0.035;
+    ctx.stroke(inner);
     // The fresnel: the edge seen at a glance takes the neon.
     ctx.globalCompositeOperation = "lighter";
     ctx.strokeStyle = s.t.neon;

@@ -1,7 +1,10 @@
 import type { Point } from "@neon-spore/content";
 import { PALETTE } from "@neon-spore/render";
 import { drawWayArrow } from "../../../../packages/render/src/way-arrow.js";
+import { drop, type GooBody } from "./body.js";
+import { GOO_DROP } from "./drop-look.js";
 import { clamp01, mix } from "./noise.js";
+import { type ArrowAt, paintSoftArrows, SOFT_HELD, SOFT_REACH, SOFT_SLIDE } from "./soft-arrow.js";
 import type { GooStyle } from "./style.js";
 
 /**
@@ -20,6 +23,10 @@ import type { GooStyle } from "./style.js";
  * way shows two short arrows, each sliding out towards its own end with a gap
  * between them (`split` 1); pulled, the one it goes towards grows into the
  * single arrow and the other shrinks away (`split` towards 0).
+ *
+ * A soft drop that asks for it (`SoftDrop.moulded`) carries a smaller arrow
+ * moulded into its own lumps instead (`soft-arrow.ts`), laid on `body` — the
+ * drop it is in, when the caller has it.
  */
 
 /** How long one of the two short arrows is, as a share of the single one, and how far
@@ -60,12 +67,18 @@ export function paintArrow(
     alpha?: number;
     /** How far its neon has turned the green of a count, 0..1. */
     green?: number;
+    /** The drop it is in, for an arrow moulded into it; a round drop of `r` when not given. */
+    body?: GooBody;
   },
 ): void {
   if (r <= 0.05) return;
-  const reach = r * (a.held ? 1.05 : 1.15 + 0.07 * Math.sin(a.time * 6));
+  const look = GOO_DROP.look;
+  const soft = typeof look === "object" && look.moulded === true;
+  const reach = soft
+    ? r * (a.held ? SOFT_HELD : SOFT_REACH)
+    : r * (a.held ? 1.05 : 1.15 + 0.07 * Math.sin(a.time * 6));
   const s = clamp01(a.split);
-  const arrows: { x: number; y: number; r: number; dx: number; dy: number }[] = [];
+  const arrows: ArrowAt[] = [];
   const main = reach * (1 - (1 - SHORT) * s);
   // Apart, they breathe out towards their ends and back, so the gap between them opens.
   const shift = reach * s * (OUT + 0.07 * Math.sin(a.time * 5));
@@ -78,11 +91,18 @@ export function paintArrow(
       dx: -a.dx,
       dy: -a.dy,
     });
+  const alpha = a.alpha ?? 1;
+  const neon = mix(style.neon, PALETTE.good, a.green ?? 0);
+  if (soft) {
+    const slide = reach * SOFT_SLIDE * Math.sin(a.time * 5) * (1 - s);
+    const slid = arrows.map((w) => ({ ...w, x: w.x + w.dx * slide, y: w.y + w.dy * slide }));
+    const body = a.body ?? drop(at, r);
+    paintSoftArrows(ctx, slid, { body, style, time: a.time, neon, alpha });
+    return;
+  }
   const path = (): void => {
     for (const w of arrows) drawWayArrow(ctx, w.x, w.y, w.r, w.dx, w.dy, a.time, 1);
   };
-  const alpha = a.alpha ?? 1;
-  const neon = mix(style.neon, PALETTE.good, a.green ?? 0);
   ctx.save();
   ctx.lineCap = "round";
   ctx.lineJoin = "round";

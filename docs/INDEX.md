@@ -3832,9 +3832,10 @@ by hand never moves.
 | `tools/director/src/pull-goo/style.ts` | **What a GOO drop is made of** |
 | `tools/director/src/pull-goo/scene.ts` | What an ending and a failure are drawn from: the track, the drop's size |
 | `tools/director/src/pull-goo/soft-dough.ts` | **DOUGH** — a mochi: powdery, sagging under its own weight |
-| `tools/director/src/pull-goo/soft-plastic.ts` | **SOFT PLASTIC** — a squeezy toy: satin all over |
+| `tools/director/src/pull-goo/soft-plastic.ts` | **SOFT PLASTIC** — a squeezy toy: satin all over and calm in the middle, where the arrow is |
 | `tools/director/src/pull-goo/soft-slime.ts` | **SLIME** — wet and see-through: the key light comes out of its far side as a glow low on the right |
 | `tools/director/src/pull-goo/soft-sponge.ts` | **SPONGE** — matte and full of holes, with a tufted edge and no shine at all |
+| `tools/director/src/pull-goo/soft-arrow.ts` | **The way to pull, moulded into a soft drop** — the owner, 11 October 2026, on SOFT PLASTIC |
 | `tools/director/src/pull-goo/soft.ts` | **A soft drop**: the GOO drop made of something a thumb sinks into, in GOO's own colours — the frame each soft material is painted through |
 | `tools/director/src/pull-goo/track.ts` | **The channel of a GOO look**: everything round the drop |
 | `tools/director/src/pull-goo/ending.ts` | **How a count ends** — what tells one GOO look from another |
