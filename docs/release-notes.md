@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-11 · f31676241 — PULL LAB: SOFT PLASTIC gets a smaller arrow moulded into its lumps, its light on the inner edge and a bigger hollow
+
+On the PULL LAB's SOFT PLASTIC drop the arrow is now one soft filled shape: a shaft thickening into a fat round head, laid onto the drop's own turning, uneven rim so it bulges and gives with it. It is smaller, so it stays clear of the neon edge, slides along itself much less, and sinks a little when held. The white window of light under the arrow is gone; the light sits on the inner edge instead, as a bevel lit top left and shaded bottom right with a thin catchlight just inside the rim, so the middle behind the arrow is calm. Pressed, the hollow is wider and deeper. The other drops keep THE INSTAR's arrow.
+
 ## 2026-10-11 · efc9d614b — PULL LAB: the last dot stops outside the place, and while waiting the place flashes after it
 
 The dots now run from the drop to just short of the place's dashed rim, the last of them 1.8 radii from its centre, so none sits inside it. While nothing is held, the ghost runs the path in less of its loop, lighting the dots one after another, and once it lands the place's dashed rim flashes, swelling with a glow — the blink goes from the last dot on into the place, as it already did while a drop is held.

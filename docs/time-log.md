@@ -37869,3 +37869,5 @@ photographs the PULL LAB over time (queued already; this lane added to it).
 
 Bottleneck: writing — the first outline smoothed into a stubby house shape and
 needed a longer shaft and a stronger take of the lumps to read as soft.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
