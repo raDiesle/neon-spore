@@ -38183,3 +38183,5 @@ vanish on the tick it happens.
 
 Bottleneck: a parallel lane on the same files — the PULL LAB moved under
 this one while it was being copied.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

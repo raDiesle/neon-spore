@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-11 · b3bd4a76b — THE HOLD LAB: the one generic hold on an empty field, in six looks
+
+The owner asked for a HOLD LAB like the PULL LAB, with looks that match FIZZ. It has a door in the topbar beside the PULL LAB's, a button on CONTROLS › ON THE FIELD › HOLD, and `holdlab=` in the URL (`&holdsheet=1` opens its sheet). HOLD FOR picks 1, 2 or 4 beats. The rule takes the pull's picks and applies them to a hold: let go early is refused, in red; half a tile off the mark fails; a tap counts for nothing. AUTO plays a whole hold, an early one and one that slips. The looks: AS SHIPPED, the game's red circle with a thumbprint and its dial; and five GOO holds that use FIZZ's drop, SQUISH grab and FIZZ ending. FILL: green rises inside.
+
 ## 2026-10-11 · 077b27da5 — FIZZ plays in the game what it plays in the lab: in, squish, home, fizz
 
 Every pull handle in the game now has a memory across frames. Its drop comes in when it appears, squishes when taken, is slurped home when let go short and the boss sends it back, and fizzes away where it counted. A count comes from the boss's own event (bastion, blister, gimbal, hasp, lamprey, latch stroke, sinew); a cord the hand must keep holding taut (the warden, the lid, the curtain) never fizzes under the hand, and a let-go from the end of the way is no short pull. Closed channels (crank, bastion rim) and knob-only handles get the coming-in and the squish, nothing more.
