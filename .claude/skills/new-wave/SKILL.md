@@ -22,8 +22,8 @@ enough* — and no screen carries one. Put it in the commit message.
 ## 2. Author it
 
 Waves are data in `packages/content/src/waves/act-*.ts` (`waves.ts` is only the
-barrel that concatenates them). Columns are authored against a **7-column**
-field and remapped at runtime; `beat` is the offset from the start of the wave.
+barrel that concatenates them). Columns are the field's own **eleven tiles**
+(`WAVE_COLS`, 0–10), remapped at runtime onto a field of any other width; `beat` is the offset from the start of the wave.
 
 ```ts
 {

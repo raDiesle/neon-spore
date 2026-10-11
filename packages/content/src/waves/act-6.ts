@@ -115,10 +115,10 @@ export const WAVES_ACT_6: Wave[] = [
       scene: "theVeer",
     },
     entries: [
-      { beat: 0, col: 3, kind: "veer", color: null },
-      { beat: 18, col: 5, kind: "veer", color: null },
-      { beat: 34, col: 2, kind: "veer", color: null },
-      { beat: 38, col: 6, kind: "veer", color: null },
+      { beat: 0, col: 5, kind: "veer", color: null },
+      { beat: 18, col: 8, kind: "veer", color: null },
+      { beat: 34, col: 3, kind: "veer", color: null },
+      { beat: 38, col: 10, kind: "veer", color: null },
     ],
   },
   {
@@ -128,9 +128,9 @@ export const WAVES_ACT_6: Wave[] = [
       scene: "theStrand",
     },
     entries: [
-      { beat: 0, col: 3, kind: "strand", color: "red", beads: 2 },
-      { beat: 18, col: 1, kind: "strand", color: "cyan", beads: 3 },
-      { beat: 36, col: 1, kind: "strand", color: "red", beads: 5 },
+      { beat: 0, col: 5, kind: "strand", color: "red", beads: 2 },
+      { beat: 18, col: 2, kind: "strand", color: "cyan", beads: 3 },
+      { beat: 36, col: 2, kind: "strand", color: "red", beads: 5 },
     ],
   },
   {
@@ -141,7 +141,7 @@ export const WAVES_ACT_6: Wave[] = [
     },
     entries: [
       { beat: 0, col: 0, kind: "crawler", color: null, segments: 3, side: "left" },
-      { beat: 24, col: 6, kind: "crawler", color: null, segments: 5, side: "right" },
+      { beat: 24, col: 10, kind: "crawler", color: null, segments: 5, side: "right" },
       { beat: 48, col: 0, kind: "crawler", color: null, segments: 7, side: "left" },
     ],
   },
@@ -152,9 +152,9 @@ export const WAVES_ACT_6: Wave[] = [
       scene: "theFence",
     },
     entries: [
-      { beat: 0, col: 3, kind: "fence", color: null },
-      { beat: 12, col: 3, kind: "fence", color: null },
-      { beat: 24, col: 3, kind: "fence", color: null },
+      { beat: 0, col: 5, kind: "fence", color: null },
+      { beat: 12, col: 5, kind: "fence", color: null },
+      { beat: 24, col: 5, kind: "fence", color: null },
     ],
   },
   {
@@ -164,11 +164,11 @@ export const WAVES_ACT_6: Wave[] = [
       scene: "theGap",
     },
     entries: [
-      { beat: 0, col: 5, kind: "fence", color: null },
-      { beat: 12, col: 1, kind: "fence", color: null },
-      { beat: 26, col: 6, kind: "fence", color: null },
+      { beat: 0, col: 8, kind: "fence", color: null },
+      { beat: 12, col: 2, kind: "fence", color: null },
+      { beat: 26, col: 10, kind: "fence", color: null },
       { beat: 40, col: 0, kind: "fence", color: null },
-      { beat: 56, col: 3, kind: "fence", color: null },
+      { beat: 56, col: 5, kind: "fence", color: null },
     ],
   },
   {
@@ -178,10 +178,10 @@ export const WAVES_ACT_6: Wave[] = [
       scene: "theCut",
     },
     entries: [
-      { beat: 0, col: 3, kind: "fence", color: null, gaps: [], cracksRed: [3] },
-      { beat: 16, col: 3, kind: "fence", color: null, gaps: [], cracksCyan: [5] },
-      { beat: 32, col: 3, kind: "fence", color: null, gaps: [], cracksRed: [1] },
-      { beat: 48, col: 3, kind: "fence", color: null, gaps: [], cracksCyan: [4] },
+      { beat: 0, col: 5, kind: "fence", color: null, gaps: [], cracksRed: [5] },
+      { beat: 16, col: 5, kind: "fence", color: null, gaps: [], cracksCyan: [8] },
+      { beat: 32, col: 5, kind: "fence", color: null, gaps: [], cracksRed: [2] },
+      { beat: 48, col: 5, kind: "fence", color: null, gaps: [], cracksCyan: [7] },
     ],
   },
 ];

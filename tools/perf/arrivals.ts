@@ -24,7 +24,9 @@ import { AUTHORED_COLS, queueFromWave, WAVES } from "@neon-spore/content";
  * becomes would be the second copy of a rule `CLAUDE.md` forbids. It is not a
  * cryptographic claim; only "are these the same arrivals".
  *
- * The columns are the authored seven (`AUTHORED_COLS`) rather than a device's,
+ * The columns are a fixed seven (`AUTHORED_COLS`) rather than a device's —
+ * what waves were authored on until 11 October 2026, kept so that moving
+ * every wave onto the field's tiles left every row's digest where it was —
  * so the digest says nothing about the screen the run happened to be taken on.
  */
 export function arrivalsOf(index: number): string {

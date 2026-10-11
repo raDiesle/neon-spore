@@ -1,4 +1,4 @@
-import type { BossEntry, PodEntry, SpawnEntry } from "@neon-spore/sim";
+import { type BossEntry, DEFAULT_CONFIG, type PodEntry, type SpawnEntry } from "@neon-spore/sim";
 import { kindForColor } from "./creatures.js";
 import { WAVES, type Wave } from "./waves.js";
 
@@ -9,8 +9,18 @@ export { bossFromWave } from "./queue-boss.js";
 
 import { bossFromWave } from "./queue-boss.js";
 
-/** The field waves are authored against. The real `cols` is remapped from it. */
+/**
+ * The seven-column grid a guide's film and THE SCOUT's arenas are authored
+ * on. Waves were too, until 11 October 2026 (`WAVE_COLS`).
+ */
 export const AUTHORED_COLS = 7;
+/**
+ * The columns a wave is authored on: every tile of the field. Seven reached
+ * only tiles 0, 2, 3, 5, 7, 8 and 10 of eleven, and the owner asked on 11
+ * October 2026 for every one of them, so every wave was moved once onto the
+ * tile it was already played on and is authored there from now on.
+ */
+export const WAVE_COLS = DEFAULT_CONFIG.cols;
 /**
  * The last authored column index — authoring uses 0..AUTHORED_COL_MAX. Its own
  * export so that a bound check elsewhere calls it instead of writing
@@ -20,23 +30,17 @@ export const AUTHORED_COLS = 7;
 export const AUTHORED_COL_MAX = AUTHORED_COLS - 1;
 
 /**
- * Waves are authored for 7 columns, or for as many as a wave says it was
- * authored on (`Wave.cols`, read through `waveCols`). Remap, never re-author.
+ * A column authored on `from` columns, on a field `cols` wide — seven for a
+ * film, a wave's own count for a wave (`waveCols`). Remap, never re-author.
  */
 export function mapCol(col: number, cols: number, from: number = AUTHORED_COLS): number {
   const mapped = from > 1 ? Math.round((col * (cols - 1)) / (from - 1)) : 0;
   return Math.max(0, Math.min(cols - 1, mapped));
 }
 
-/**
- * How many columns a wave was authored on. Seven unless it says otherwise:
- * seven reach only seven of the field's eleven tiles, and the owner asked on
- * 11 October 2026 to be able to place on every one of them, so a wave the
- * director has put on the whole field carries `cols` and is remapped from
- * that instead (`wave-tiles.ts`).
- */
+/** How many columns a wave is authored on: `WAVE_COLS`, unless it says. */
 export function waveCols(wave: Pick<Wave, "cols">): number {
-  return wave.cols ?? AUTHORED_COLS;
+  return wave.cols ?? WAVE_COLS;
 }
 
 /**
@@ -117,7 +121,7 @@ export function queueFromWave(wave: Pick<Wave, "entries" | "cols">, cols: number
     // author painted is the way *through*: a wall whose entry names no gaps
     // has exactly one, in the cell it was placed in, which is what makes the
     // brush read the way it looks on the map. Remapped through `mapCol` like
-    // any other column, so a gap authored for seven columns lands where the
+    // any other column, so a gap authored on the wave's tiles lands where the
     // arrival authored beside it does.
     const gaps =
       kind === "fence" ? (e.gaps ?? [e.col]).map((gap) => mapCol(gap, cols, from)) : undefined;

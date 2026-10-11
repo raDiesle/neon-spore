@@ -118,8 +118,7 @@ export function bossFromWave(wave: Pick<Wave, "boss" | "cols">, cols: number): B
   if (boss.kind === "curtain") return { ...boss };
   // THE TASTER has nothing to remap for THE GORGE's reason exactly: the crest
   // is centred on `midCol` of whatever field is played and is as wide as
-  // `tasterBlades` lets it be, so a fan authored on seven columns opens over
-  // eleven with the same blade in the middle (`sim/taster-step.ts`).
+  // `tasterBlades` lets it be, so a fan opens over a field of any width with the same blade in the middle (`sim/taster-step.ts`).
   if (boss.kind === "taster") return { ...boss };
   // THE SINEW hangs its mass over `midCol` of whatever field is played and
   // the mass walks from there, so there is nothing authored to remap
@@ -219,19 +218,21 @@ export function bossFromWave(wave: Pick<Wave, "boss" | "cols">, cols: number): B
   // only boss whose places are remapped as *fractions* rather than as columns.
   // `mapCol` rounds to a whole column, and a mote rounded to a column would
   // sit a third of a tile from where the author put it; `mapColMilli` is the
-  // same arithmetic with the rounding left until the end.
+  // same arithmetic with the rounding left until the end. Its arenas are on
+  // seven tiles whatever the wave is, the grid its own editor draws
+  // (`scout-editor-grid.ts`), so `from` is not asked.
   if (boss.kind === "scout") {
     return {
       ...boss,
       arenas: boss.arenas.map((a) => ({
         ...a,
-        motes: a.motes.map((m) => ({ ...m, colMilli: mapColMilli(m.colMilli, cols, from) })),
+        motes: a.motes.map((m) => ({ ...m, colMilli: mapColMilli(m.colMilli, cols) })),
         hazards: a.hazards.map((h) => ({
           ...h,
-          colMilli: mapColMilli(h.colMilli, cols, from),
+          colMilli: mapColMilli(h.colMilli, cols),
           // The travel is scaled with the place, or a hazard authored to cross
           // a seven-column arena in four beats would take six on an eleven.
-          vColMilli: mapColMilli(h.vColMilli, cols, from),
+          vColMilli: mapColMilli(h.vColMilli, cols),
         })),
       })),
     };

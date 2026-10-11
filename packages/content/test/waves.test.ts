@@ -13,6 +13,7 @@ import {
   setHas,
   setLance,
   WAVES,
+  waveCols,
 } from "../src/index.js";
 import { DEMONSTRATIONS } from "../src/waves-demo.js";
 
@@ -358,20 +359,20 @@ describe("wave content", () => {
     }
   });
 
-  it("authors every column against the 7-column field", () => {
+  it("authors every column on a tile of the field", () => {
     for (const wave of WAVES) {
       for (const e of wave.entries) {
         expect(e.col, `${wave.name} column out of range`).toBeGreaterThanOrEqual(0);
-        expect(e.col, `${wave.name} column out of range`).toBeLessThanOrEqual(6);
+        expect(e.col, `${wave.name} column out of range`).toBeLessThan(waveCols(wave));
       }
     }
   });
 
-  it("authors every pod against the 7-column field, above the hull", () => {
+  it("authors every pod on a tile of the field, above the hull", () => {
     for (const wave of WAVES) {
       for (const p of wave.pods ?? []) {
         expect(p.col, `${wave.name} pod column out of range`).toBeGreaterThanOrEqual(0);
-        expect(p.col, `${wave.name} pod column out of range`).toBeLessThanOrEqual(6);
+        expect(p.col, `${wave.name} pod column out of range`).toBeLessThan(waveCols(wave));
         // A pod on the hull row would be swallowed or lost on the beat it
         // appeared, before anyone could shoot it loose.
         expect(p.row, `${wave.name} pod row out of range`).toBeGreaterThanOrEqual(0);

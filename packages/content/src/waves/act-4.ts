@@ -123,9 +123,9 @@ export const WAVES_ACT_4: Wave[] = [
       scene: "theWisp",
     },
     entries: [
-      { beat: 0, col: 3, kind: "wisp", color: null },
-      { beat: 14, col: 1, kind: "wisp", color: null },
-      { beat: 28, col: 4, kind: "wisp", color: null },
+      { beat: 0, col: 5, kind: "wisp", color: null },
+      { beat: 14, col: 2, kind: "wisp", color: null },
+      { beat: 28, col: 7, kind: "wisp", color: null },
     ],
   },
   {
@@ -135,9 +135,9 @@ export const WAVES_ACT_4: Wave[] = [
       scene: "theGhost",
     },
     entries: [
-      { beat: 0, col: 2, kind: "ghost", color: "cyan" },
-      { beat: 10, col: 1, kind: "ghost", color: "red" },
-      { beat: 18, col: 1, kind: "ghost", color: "cyan", path: "across" },
+      { beat: 0, col: 3, kind: "ghost", color: "cyan" },
+      { beat: 10, col: 2, kind: "ghost", color: "red" },
+      { beat: 18, col: 2, kind: "ghost", color: "cyan", path: "across" },
     ],
   },
   {
@@ -158,12 +158,12 @@ export const WAVES_ACT_4: Wave[] = [
       scene: "theEcho",
     },
     entries: [
-      { beat: 0, col: 3, kind: "echo", color: "cyan" },
-      { beat: 12, col: 3, kind: "echo", color: "red" },
-      { beat: 13, col: 6, color: "red" },
+      { beat: 0, col: 5, kind: "echo", color: "cyan" },
+      { beat: 12, col: 5, kind: "echo", color: "red" },
+      { beat: 13, col: 10, color: "red" },
       { beat: 14, col: 0, color: "cyan" },
-      { beat: 20, col: 2, kind: "echo", color: "cyan" },
-      { beat: 24, col: 4, kind: "echo", color: "red" },
+      { beat: 20, col: 3, kind: "echo", color: "cyan" },
+      { beat: 24, col: 7, kind: "echo", color: "red" },
     ],
   },
   {

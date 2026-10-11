@@ -851,7 +851,6 @@ by hand never moves.
 | `packages/content/src/ship-silhouettes.ts` | the ship's own shapes: the hull it is drawn as, the two lobes that stand on it, and the maw one turns into |
 | `packages/content/src/warden-shape.ts` | THE WARDEN's body, and the only silhouette in the game with a hole in it |
 | `packages/content/src/wave-types.ts` | what a wave is made of |
-| `packages/content/src/wave-tiles.ts` | A wave moved off the seven authored columns onto every tile of a field `cols` wide, playing exactly as it did |
 | `packages/content/src/waves-demo.ts` | which wave to open to see each mechanic, and what the run has to be switched to before it shows |
 | `packages/content/src/waves-demo-bosses.ts` | where each boss from THE STARE on is watched, spread into `waves-demo.ts` |
 | `packages/content/src/waves/act-1.ts` | act one: the tutorial arc |

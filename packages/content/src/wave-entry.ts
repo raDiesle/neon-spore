@@ -21,7 +21,7 @@ import type { FenceEntry } from "./wave-entry-fence.js";
  * creature added since THE LURE, and each of them arrives with a paragraph
  * arguing why it is a field rather than another kind in the bestiary.
  *
- * Columns are authored against a 7-column field and remapped by `buildQueue`;
+ * Columns are the field's own eleven tiles (`WAVE_COLS`), remapped by `buildQueue`;
  * `beat` is the offset from the start of the wave. `wave-types.ts` re-exports
  * this, so nothing that already reached for a `WaveEntry` had to move.
  *

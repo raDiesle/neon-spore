@@ -26,11 +26,9 @@ import { isTyping } from "./typing.js";
 /**
  * The beat grid: beats down, the wave's own columns across.
  *
- * The wave's, not `cfg.cols` — a wave is authored against seven columns, or
- * against every tile once it has been put on them (`onEveryTile`), and
- * `mapCol` remaps it onto whatever field it is played on. Seven columns
- * reach tiles 0, 2, 3, 5, 7, 8 and 10 of eleven; the button under the map
- * moves a wave onto all eleven (`grid-note.ts`).
+ * The wave's, not `cfg.cols` — a wave is authored on every tile of the
+ * field (`WAVE_COLS`), and `mapCol` remaps it onto whatever field it is
+ * played on, so a TUNING field narrower than eleven still draws eleven here.
  *
  * What a cell *draws* is `grid-cell-art.ts`, what a hand *does* to one is
  * `grid-gestures.ts`, what a beat's label does is `grid-rows.ts`, what a row
@@ -54,7 +52,7 @@ export function bindGrid(
   const grid = document.getElementById("grid");
   // The wave's own arithmetic — under the map, about the wave rather than
   // about a cell. See `grid-note.ts`.
-  const note = bindGridNote(store, cfg, selection, onEdit);
+  const note = bindGridNote(store, cfg);
   let markedBeat = 0;
 
   /**

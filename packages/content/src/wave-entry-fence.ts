@@ -17,8 +17,8 @@
  */
 export interface FenceEntry {
   /**
-   * Which columns THE FENCE is open in, authored in the same seven columns
-   * every wave is written in and remapped by `queueFromWave`. Absent on every
+   * Which columns THE FENCE is open in, authored on the same tiles of
+   * the field every wave is written on and remapped by `queueFromWave`. Absent on every
    * other kind, and absent on a wall with **one** gap — which is the cell the
    * author painted it in, so a wall placed in column three has its way through
    * at column three and the map reads the way it looks.

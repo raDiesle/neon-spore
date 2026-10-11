@@ -204,7 +204,7 @@ const TWO_COLOURS: GuideScene = {
   ticks: 1200,          // one turn of the loop
   bpm: 120,             // must divide tickHz — the test checks it
   seed: 1,
-  entries: [ /* WaveEntry, the same seven columns every wave is written in */ ],
+  entries: [ /* WaveEntry, on seven columns (AUTHORED_COLS) — a wave is on eleven */ ],
   acts:    [ /* { tick, control, col? } — a thumb on a control */ ],
   steps:   [ /* { tick, seat, text, anchor } — one page each */ ],
 };

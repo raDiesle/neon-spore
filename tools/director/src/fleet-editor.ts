@@ -26,8 +26,8 @@ import { button, el } from "./dom.js";
  *
  * The map is the real chart: `cfg.cols` across by `fleetRows` down, the same
  * squares the game draws, with the same letters and numbers on them. It is
- * deliberately **not** the seven authored columns the beat grid next door uses
- * — a fleet is authored against the real field, because a run of squares
+ * the real field too, as the beat grid next door now is — and a fleet was
+ * authored against it first, because a run of squares
  * cannot survive `mapCol` (`FleetShip`).
  *
  * Two gestures and no modes: press a square with a hull on it to take that

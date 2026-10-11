@@ -3,14 +3,14 @@
  * selected cell and the pod list under it.
  */
 
-/* What the map comes to across: the beat numbers, the seven authored columns,
-   the strip of row buttons, and the eight gaps between the nine tracks —
-   40 + 7*32 + 22 + 8*2. `grid-metrics.ts` builds exactly those tracks and
+/* What the map comes to across: the beat numbers, the eleven tiles a wave is
+   authored on, the strip of row buttons, and the twelve gaps between the
+   thirteen tracks — 40 + 11*32 + 22 + 12*2. `grid-metrics.ts` builds exactly those tracks and
    `test/map-width.test.ts` checks this number against it, because everything
    stacked above and below the map is capped at it and a stale cap is a column
    that is quietly wider than its own grid. */
 :root {
-  --map-w: 302px;
+  --map-w: 438px;
 }
 
 #grid {

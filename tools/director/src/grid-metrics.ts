@@ -1,4 +1,4 @@
-import { AUTHORED_COLS } from "@neon-spore/content";
+import { WAVE_COLS } from "@neon-spore/content";
 
 /**
  * The map's own arithmetic: how wide a cell is, how wide the column of beat
@@ -36,16 +36,16 @@ export const BEAT_LABEL_PX = 40;
  */
 export const ROW_ACT_PX = 22;
 
-/** The tracks: the numbers, the wave's columns, the buttons. Nine on a wave
- * authored on seven columns, thirteen on one put on all eleven tiles. */
-export function gridTemplateColumns(cols: number = AUTHORED_COLS): string {
+/** The tracks: the numbers, the wave's columns, the buttons — thirteen, on
+ * the eleven tiles every wave is authored on. */
+export function gridTemplateColumns(cols: number = WAVE_COLS): string {
   return `${BEAT_LABEL_PX}px repeat(${cols}, ${CELL_PX}px) ${ROW_ACT_PX}px`;
 }
 
 /** What the whole map comes to, the gaps between the tracks included. The
- * stylesheet holds the seven-column figure; `grid.ts` writes the wave's own
+ * stylesheet holds the eleven-tile figure; `grid.ts` writes the wave's own
  * over it on every render. */
-export function mapWidthPx(cols: number = AUTHORED_COLS): number {
+export function mapWidthPx(cols: number = WAVE_COLS): number {
   const tracks = cols + 2;
   return BEAT_LABEL_PX + cols * CELL_PX + ROW_ACT_PX + (tracks - 1) * GAP_PX;
 }

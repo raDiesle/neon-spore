@@ -37969,3 +37969,19 @@ Bottleneck: looking — the splash took three renders to read as slime and not a
 onion, each one needing the scratch renderer the queue already asks for.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-11 — Every wave is authored on the field's eleven tiles
+
+- reading: 5 min. Every caller of the remap, the films and THE SCOUT that
+  stay on seven, and the director's own save.
+- writing: 15 min. All 120 waves rewritten once through the director's
+  save, the default flipped, films and THE SCOUT pinned to seven, the
+  button and its conversion taken out, the seven-column notes rewritten.
+- looking: 0 min. The browser pane: wave 1 on eleven tiles, no button.
+- friction: 5 min. A full `bun test` in one process ran past ten minutes
+  and was stopped; a digest change blanked twenty perf rows and was undone.
+- landing: 5 min. `check:fast`, `land`.
+
+Bottleneck: telling the one queue that moved — THE FILAMENT's, whose
+script was already on eleven tiles and was being stretched as seven — from
+a mistake in the rewrite.

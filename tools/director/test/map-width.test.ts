@@ -1,6 +1,6 @@
 import { describe, expect, test } from "bun:test";
 import { join } from "node:path";
-import { AUTHORED_COLS } from "@neon-spore/content";
+import { WAVE_COLS } from "@neon-spore/content";
 import {
   BEAT_LABEL_PX,
   CELL_PX,
@@ -27,11 +27,11 @@ const SRC = join(import.meta.dir, "..", "src");
 describe("the map's width", () => {
   test("adds up the tracks the grid is actually built from", () => {
     expect(gridTemplateColumns()).toBe(
-      `${BEAT_LABEL_PX}px repeat(${AUTHORED_COLS}, ${CELL_PX}px) ${ROW_ACT_PX}px`,
+      `${BEAT_LABEL_PX}px repeat(${WAVE_COLS}, ${CELL_PX}px) ${ROW_ACT_PX}px`,
     );
-    // Nine tracks, eight gaps.
+    // Thirteen tracks, twelve gaps.
     expect(mapWidthPx()).toBe(
-      BEAT_LABEL_PX + AUTHORED_COLS * CELL_PX + ROW_ACT_PX + (AUTHORED_COLS + 1) * GAP_PX,
+      BEAT_LABEL_PX + WAVE_COLS * CELL_PX + ROW_ACT_PX + (WAVE_COLS + 1) * GAP_PX,
     );
   });
 

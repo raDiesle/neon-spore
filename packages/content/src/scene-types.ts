@@ -9,8 +9,9 @@ import type { WaveEntry } from "./wave-types.js";
  * under `scenes/`, and `scenes.ts` is the list of them.
  *
  * **Everything here is authored in the game's own vocabulary.** Arrivals are
- * `WaveEntry`s in the same seven columns every wave is written in, put through
- * the same `queueFromWave`; a press names a `ControlId` and nothing else, and
+ * `WaveEntry`s on seven columns (`AUTHORED_COLS`) — what every wave was
+ * written in until waves moved onto the field's eleven tiles on 11 October
+ * 2026; a film stayed — put through the same `queueFromWave`; a press names a `ControlId` and nothing else, and
  * which seat sends it, what `Command` it becomes and where the ghost thumb has
  * to be are all read off that one name. Two copies of "player 2 fires red"
  * would be two copies that could disagree, and the one that disagreed would be

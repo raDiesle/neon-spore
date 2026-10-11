@@ -2,7 +2,7 @@ import type { Command, SceneCommand, SceneScript, SimConfig } from "@neon-spore/
 import { controlHold, controlPress, controlTurns } from "./control-command.js";
 import { controlSetForWave, setLance } from "./control-sets.js";
 import { type ControlId, control } from "./controls.js";
-import { bossFromWave, mapCol, podsFromWave, queueFromWave } from "./queue.js";
+import { AUTHORED_COLS, bossFromWave, mapCol, podsFromWave, queueFromWave } from "./queue.js";
 import type { SceneAct } from "./scene-act-types.js";
 import { dragCommands } from "./scene-drag.js";
 import { crankCommands } from "./scene-turn.js";
@@ -185,12 +185,13 @@ export function sceneScript(id: SceneId, wave: number, cfg: SimConfig): SceneScr
     cfg: sceneCfg,
     seed: scene.seed,
     wave,
-    queue: queueFromWave(scene, sceneCfg.cols),
+    // A film is authored on seven columns, not on a wave's eleven tiles
+    // (`AUTHORED_COLS`), so it says so to the remap a wave goes through.
+    queue: queueFromWave({ ...scene, cols: AUTHORED_COLS }, sceneCfg.cols),
     // The same remapping the arrivals get, and from the same two functions a
-    // wave's own pods and boss go through: a film is authored in the seven
-    // columns every wave is authored in (`queue.ts`).
-    pods: podsFromWave(scene, sceneCfg.cols),
-    boss: bossFromWave(scene, sceneCfg.cols),
+    // wave's own pods and boss go through.
+    pods: podsFromWave({ ...scene, cols: AUTHORED_COLS }, sceneCfg.cols),
+    boss: bossFromWave({ ...scene, cols: AUTHORED_COLS }, sceneCfg.cols),
     faults: placedFaults(scene.faults),
     // And the panel's own fact, read off the wave being rehearsed rather than
     // authored on the film: a rehearsal of a wave played on a panel whose hold

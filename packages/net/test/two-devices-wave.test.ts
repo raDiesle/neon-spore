@@ -50,17 +50,17 @@ import { Relay } from "./relay.js";
  */
 
 /**
- * The two waves, in the seven authored columns `mapCol` spreads over the real
- * field: authored 3 lands in column 5, 2 in 3 and 4 in 7, at eleven columns.
+ * The two waves, on the field's own tiles, which is what a wave is authored
+ * on: columns 5, 3 and 7, where the commands below aim.
  * The first is one red body; the second, two cyan bodies three beats apart.
  */
 type Small = Pick<Wave, "entries" | "pods" | "boss">;
 const SMALL: Small[] = [
-  { entries: [{ beat: 0, col: 3, color: "red" }] },
+  { entries: [{ beat: 0, col: 5, color: "red" }] },
   {
     entries: [
-      { beat: 0, col: 2, color: "cyan" },
-      { beat: 3, col: 4, color: "cyan" },
+      { beat: 0, col: 3, color: "cyan" },
+      { beat: 3, col: 7, color: "cyan" },
     ],
   },
 ];

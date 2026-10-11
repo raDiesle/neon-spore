@@ -7,7 +7,7 @@ import {
   type SceneScript,
   type SimEvent,
 } from "@neon-spore/sim";
-import { queueFromWave } from "../src/queue.js";
+import { AUTHORED_COLS, queueFromWave } from "../src/queue.js";
 import { sceneCommands } from "../src/scene-script.js";
 import type { SceneAct } from "../src/scene-types.js";
 import type { WaveEntry } from "../src/wave-types.js";
@@ -46,7 +46,7 @@ function play(act: SceneAct): { held: boolean[]; open: boolean[] } {
     cfg: CFG,
     seed: SCENE.seed,
     wave: 0,
-    queue: queueFromWave(SCENE, CFG.cols),
+    queue: queueFromWave({ ...SCENE, cols: AUTHORED_COLS }, CFG.cols),
     pods: [],
     hasLance: true,
     faults: [],

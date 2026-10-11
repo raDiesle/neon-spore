@@ -15,8 +15,8 @@ import type { WaveFault } from "./wave-faults.js";
  * array and keeps everything above it byte for byte (`serialize.ts`), so what
  * stands above the array is free to be short.
  *
- * Waves are data, never code. Columns are authored against a 7-column field
- * and remapped by `buildQueue`; `beat` is the offset from the start of the wave.
+ * Waves are data, never code. Columns are the field's own eleven tiles
+ * (`WAVE_COLS`), remapped by `buildQueue` onto a field of any other width; `beat` is the offset from the start of the wave.
  *
  * Every wave must pass the one-sentence test (docs/spec/wave-design.md):
  * if the sentence cannot be said, the wave is padding and gets cut. It is
@@ -128,10 +128,9 @@ export interface Wave {
   entries: WaveEntry[];
   /**
    * How many columns every column in this wave is counted on — its entries,
-   * its gaps and cracks, its pods and its boss. Absent is `AUTHORED_COLS`,
-   * seven, which reach only seven of the field's eleven tiles; a wave the
-   * director has put on every tile says `cols: 11` and is remapped from
-   * eleven instead (`waveCols`, `wave-tiles.ts`).
+   * its gaps and cracks, its pods and its boss. Absent is `WAVE_COLS`, every
+   * tile of the field, which is what every wave is authored on; a guide's
+   * film says seven (`scene-script.ts`).
    */
   cols?: number;
   /**

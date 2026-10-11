@@ -48,10 +48,10 @@ export const WAVES_ACT_4B: Wave[] = [
       scene: "theRind",
     },
     entries: [
-      { beat: 0, col: 3, kind: "rind", color: "red" },
-      { beat: 8, col: 1, kind: "rind", color: "cyan" },
-      { beat: 18, col: 2, kind: "rind", color: "cyan" },
-      { beat: 21, col: 5, kind: "rind", color: "red" },
+      { beat: 0, col: 5, kind: "rind", color: "red" },
+      { beat: 8, col: 2, kind: "rind", color: "cyan" },
+      { beat: 18, col: 3, kind: "rind", color: "cyan" },
+      { beat: 21, col: 8, kind: "rind", color: "red" },
     ],
   },
 ];
