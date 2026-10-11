@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-11 · b3041e117 — Every wave is authored on the field's eleven tiles, with no button
+
+All 120 waves were rewritten once, each arrival, gap, crack, pod and boss column moved to the tile it was already played on, and a wave is counted on eleven columns from now on. The map shows 0–10 for every wave and ON EVERY TILE is gone. Guide films and THE SCOUT's arenas stay on their own seven. Every wave sends the same queue it did, except THE FILAMENT: its lines were already written on eleven tiles and were being stretched as if on seven, pushing three against the right-hand wall; they now hang where the script says.
+
 ## 2026-10-11 · ddebdd01a — PULL LAB: a smaller arrow in the middle of the standing cap, calmer rings, RIPPLES · STILL alone, a slime splash where the tail starts
 
 While the drop's cap stands up untouched, its arrow is a fifth smaller and sits half way up the cap, in the middle of the face and the wall together, so it no longer reaches the cap's top edge; pressed level, it is its full size again. The rings that call the thumb are thinner and spread less far out. The drop variants are gone but RIPPLES · STILL, and the DROP picker with them. The tail no longer starts with a flat cut across: where the drop was taken it leaves a small lumpy puddle, centred on the button's start and drawn out towards the pull like rubber into the tail, and after a count that splash stays at the start a moment longer than the tail and fades.

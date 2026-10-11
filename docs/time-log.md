@@ -37985,3 +37985,5 @@ onion, each one needing the scratch renderer the queue already asks for.
 Bottleneck: telling the one queue that moved — THE FILAMENT's, whose
 script was already on eleven tiles and was being stretched as seven — from
 a mistake in the rewrite.
+
+*Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
