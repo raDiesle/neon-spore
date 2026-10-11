@@ -3861,6 +3861,7 @@ by hand never moves.
 | `tools/director/src/hold-goo/looks.ts` | **Three ways a GOO hold shows the beats being held** (`goo.ts` has what they share) |
 | `tools/director/src/hold-goo/print.ts` | **Two GOO holds about the thumb itself**: PRINT |
 | `tools/director/src/hold-goo/view.ts` | **What a HOLD LAB look is told**, read once a frame from the rule's state (`hold-lab-rule.ts`) |
+| `tools/director/src/hold-goo/soak.ts` | **SOAK** — SINK with FILL's water |
 | `tools/director/src/hold-lab-auto.ts` | **AUTO's thumb in the HOLD LAB**, as `pull-lab-auto.ts` is the PULL LAB's: one whole hold, one let go early |
 | `tools/director/src/hold-lab-paint.ts` | One frame of the HOLD LAB (`hold-lab.ts`): the PULL LAB's empty field, the look's mark in its middle, and |
 | `tools/director/src/hold-lab-rule.ts` | **The one generic HOLD, as the HOLD LAB plays it** |

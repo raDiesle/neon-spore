@@ -3,6 +3,7 @@ import { drawHoldMark } from "../../../../packages/render/src/hold-mark.js";
 import { gooHold } from "./goo.js";
 import { BLOOM, DOTS, FILL } from "./looks.js";
 import { PRINT, SINK } from "./print.js";
+import { SOAK } from "./soak.js";
 import type { HoldLook } from "./view.js";
 
 /**
@@ -30,7 +31,7 @@ export const AS_SHIPPED: HoldLook = {
 /** THE BLISTER's dial radius over its mark's (`blister-help.ts`: 0.92 over 0.7). */
 const DIAL = 0.92 / 0.7;
 
-export const GOO_HOLDS: readonly HoldLook[] = [FILL, DOTS, BLOOM, PRINT, SINK].map(gooHold);
+export const GOO_HOLDS: readonly HoldLook[] = [FILL, DOTS, BLOOM, PRINT, SINK, SOAK].map(gooHold);
 
 /** Every look on the LOOK picker and the sheet, the shipped one first. */
 export const HOLD_LOOKS: readonly HoldLook[] = [AS_SHIPPED, ...GOO_HOLDS];

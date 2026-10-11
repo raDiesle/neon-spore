@@ -38199,3 +38199,14 @@ Bottleneck: looking — each length is held by its boss's geometry, found
 one at a time.
 
 *Measured: 8 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
+
+## 2026-10-11 — HOLD LAB: SOAK, SINK with FILL's water
+
+- reading: 0 min. The lane had just written SINK and FILL.
+- writing: 10 min. SOAK: SINK's depth and ripple, water whose front is laid
+  on the drop's own rim so it arrives there exactly at the count.
+- looking: 5 min. The sheet through `bun run shot`, the two rows cropped.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, `land`.
+
+Bottleneck: none worth the name — a look built on two that already existed.
