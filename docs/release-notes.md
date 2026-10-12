@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-12 · 1c5a845ea — Every pull handle twice the size, called with white rings and a white flash
+
+The PULL LAB's two picks went into the game: every pull handle's knob and the channel it runs in are drawn twice the size their wave asks for, and a drop nobody has taken yet calls the thumb with WHITE RINGS · FLASH — a yellow glow, white-hot rings out of it, and the drop lit white as the path's dots start to run, so the light runs from the drop down the path to the place. The lab's SIZE choice and its other three CALL looks are gone; it now draws the pull exactly as the game does. The circle a press is taken in did not grow with the knob; that question is in the queue. The HOLD LAB's drop keeps the quiet call it had, since a hold has no dots to flash with.
+
 ## 2026-10-12 · fec101f38 — PULL LAB: four CALL looks for the waiting drop, and the place at the end of the path quieter
 
 The PULL LAB's LOOK picker has four looks beside AS SHIPPED, each FIZZ with another way of calling the thumb to a drop nobody has taken yet: GLOW · FLASH, a wider and stronger glow in the drop's own acid yellow with bolder rings, and a white flash round the drop as the dots' run sets off, so the drop lights first and the dots then follow it one by one; GLOW, the same with no flash; WHITE RINGS · FLASH, white-hot rings in a yellow glow; and SPARK RING · FLASH, a ring of yellow sparks with a white light running round it. They are in the EVERY LOOK sheet too. In the game, the place at the end of every pull's path is quieter than the drop: its flash swells and spreads less, and its dashed rim is thinner and fainter.

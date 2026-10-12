@@ -38404,3 +38404,5 @@ ahead, so the first build was against code that no longer existed.
 
 Bottleneck: none to speak of; the one decision was whether the grab grows
 with the knob, and it went to the queue as a question.
+
+*Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
