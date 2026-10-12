@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-12 · 618e2fb9d — FIZZ in ACID YELLOW, its path dots, ghost and place louder and a little slower
+
+The pull's neon is ACID YELLOW in the game now, the owner's pick from the PULL LAB, and the lab's colour row is gone. The dots are bigger and in the neon even unlit, with a wider glow when they light. The ghost running to the place glows, and its rim is thicker. The place's flash is louder, wider and held a while after the ghost lands. The run is 1.35 s instead of 1.1 s, and the place's dashes turn a little slower.
+
 ## 2026-10-12 · e07815cb8 — THE COMBO LAB: four more two-gesture actions, each its own on the CONTROLS page
 
 CONTROLS › ON THE FIELD gains three actions that ask two gestures as one, each tried in THE COMBO LAB: HOLD WHILE THE PARTNER WORKS (THE LAMPREY's tail held while the head is pulled, or the teeth tapped), PULL ONCE THE PARTNER HAS PRESSED (the tail in a plug), and HOLD, THEN SWIPE (THE SLING's cords, moved from GRAB AND DRAG). The lab plays every combo through one `ComboRule`, and all three labs now refit their field when the readout takes a second line, so it never covers the sentence. Director-only, where the game draws nothing.

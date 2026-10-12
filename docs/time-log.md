@@ -38299,3 +38299,5 @@ Bottleneck: watching — at two frames a second each loop took a minute.
 - landing: 5 min. `format`, `check:fast`, `land`.
 
 Bottleneck: the compaction — the edits were planned before it and applied after.
+
+*Measured: 10 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
