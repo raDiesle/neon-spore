@@ -3,6 +3,7 @@ import { createWorld } from "@neon-spore/sim";
 import { rgba } from "../src/hex.js";
 import { computeLayout, type Layout } from "../src/layout.js";
 import { PALETTE } from "../src/palette.js";
+import { sirenBottom } from "../src/siren.js";
 import { drawFuse } from "../src/slow-fuse.js";
 import {
   type Box,
@@ -10,6 +11,7 @@ import {
   type FusePlace,
   fuseBox,
   fusePlace,
+  fuseTop,
   roomUnder,
   underAim,
   underBox,
@@ -201,6 +203,18 @@ describe("where the fuse stands", () => {
     expect(box.right).toBeLessThan(LAYOUT.width);
     expect(box.top).toBeGreaterThanOrEqual(body.bottom);
     expect(box.bottom).toBeLessThanOrEqual(LAYOUT.hullY);
+  });
+
+  it("stands along the top of the field for THE LAMPREY, and steps down off a mark there", () => {
+    const top = fuseTop(LAYOUT, []);
+    // Just under the siren's row, over the whole field.
+    expect(fuseBox(LAYOUT, top).top).toBeGreaterThan(sirenBottom(LAYOUT));
+    expect(fuseBox(LAYOUT, top).top).toBeLessThan(sirenBottom(LAYOUT) + T * 0.5);
+    expect(top.half).toBeCloseTo(fusePlace(LAYOUT, underBox(body), []).half, 5);
+    const mark: Box = { left: mid - T, right: mid + T, top: 0, bottom: sirenBottom(LAYOUT) + T };
+    const off = fuseBox(LAYOUT, fuseTop(LAYOUT, [mark]));
+    expect(crosses(off, mark)).toBe(false);
+    expect(off.top).toBeLessThan(mark.bottom + T);
   });
 
   it("is the same length under a narrow body and a wide one", () => {

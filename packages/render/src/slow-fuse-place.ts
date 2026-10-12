@@ -6,6 +6,7 @@ import { instarThreat } from "./instar-shape.js";
 import { instarBody } from "./instar-sway.js";
 import { instarTrack } from "./instar-track.js";
 import type { Layout } from "./layout.js";
+import { sirenBottom } from "./siren.js";
 import type { Aim } from "./slow-intake-aim.js";
 
 /**
@@ -198,6 +199,28 @@ export function fusePlace(l: Layout, body: Under, marks: readonly Box[]): FusePl
 /** The fuse for this frame, by `body`, clear of this frame's marks. */
 export function fuseAt(l: Layout, world: World, beatPhase: number, body: Under): FusePlace {
   return fusePlace(l, body, liveMarks(l, world, beatPhase));
+}
+
+/**
+ * **The fuse along the top of the field**, whatever the body — THE LAMPREY's,
+ * the owner, 12 October 2026: *move the loading indicator to the top of
+ * screen, not between boss and ship*. An eel that leaps the whole field has no
+ * one place to stand a line by, and the gap under it is where its knobs are.
+ * At the top of the screen, just under the row the siren's cluster claims
+ * whether or not it is lit (`sirenBottom`) — which also keeps it under the
+ * menu button — and walked down from there only off a live mark.
+ */
+export function fuseTop(l: Layout, marks: readonly Box[]): FusePlace {
+  const x = l.width / 2;
+  const h = fuseHalfHeight(l);
+  const half = Math.max(0, x - l.tile * SIDE);
+  const roof = sirenBottom(l) + FUSE_OVER_HULL + h;
+  const floor = l.hullY - FUSE_OVER_HULL - h;
+  for (let y = roof; y <= floor; y += STEP) {
+    const box = fuseBox(l, { x, y, half });
+    if (!marks.some((m) => crosses(box, m))) return { x, y, half };
+  }
+  return { x, y: roof, half };
 }
 
 /**

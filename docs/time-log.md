@@ -38353,3 +38353,16 @@ Bottleneck: landing — the word was pinned by six bosses' tests, each a
 separate sentence to rewrite.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-12 — THE LAMPREY's fuse at the top of the screen
+
+- reading: 5 min. `slow-fuse-place.ts`, `slow-intake.ts`, and what claims
+  the top of a screen (`siren.ts`, the radar strip).
+- writing: 5 min. `fuseTop`, the lamprey's branch, a test.
+- looking: 5 min. Two frames: the first stood it at the grid's top, still
+  mid-screen on a tall phone; the second under the siren's row.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, `land`.
+
+Bottleneck: looking — the grid's top is not the screen's top on a tall
+phone, and only the frame said so.

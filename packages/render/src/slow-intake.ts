@@ -1,8 +1,8 @@
-import { instarBoss, MILLI, type World } from "@neon-spore/sim";
+import { instarBoss, lampreyBoss, MILLI, type World } from "@neon-spore/sim";
 import { instarMarksUp } from "./instar-marks.js";
 import { drawCrawl } from "./slow-crawl.js";
 import { drawFuse } from "./slow-fuse.js";
-import { fuseAt, underAim } from "./slow-fuse-place.js";
+import { fuseAt, fuseTop, liveMarks, underAim } from "./slow-fuse-place.js";
 import { aim, ramp } from "./slow-intake-aim.js";
 import type { SlowLook } from "./slow-look.js";
 import { drawPrism } from "./slow-prism.js";
@@ -57,7 +57,13 @@ export const intakeWindow: SlowLook["paint"] = (ctx, l, world, view, win) => {
     drawPrism(ctx, l, at, up, win);
     drawCrawl(ctx, l, at, up, win);
   }
-  if (acting(world)) drawFuse(ctx, l, win, fuseAt(l, world, view.beatPhase, underAim(at)));
+  if (!acting(world)) return;
+  // THE LAMPREY's stands along the top of the field (`fuseTop`).
+  const place =
+    lampreyBoss(world) !== null
+      ? fuseTop(l, liveMarks(l, world, view.beatPhase))
+      : fuseAt(l, world, view.beatPhase, underAim(at));
+  drawFuse(ctx, l, win, place);
 };
 
 /**
