@@ -38215,13 +38215,15 @@ Bottleneck: none worth the name — a look built on two that already existed.
 
 ## 2026-10-12 — THE LAMPREY's pull knobs lose the box and the ring
 
-- reading: 15 min. The knob, the cue reading, `boss-cue-draw.ts`'s frame,
+- reading: 5 min. The knob, the cue reading, `boss-cue-draw.ts`'s frame,
   the verdicts' progress arc, and which other pulls draw a knob at all.
 - writing: 5 min. Three `framed: false`, the arc out, the test split by seat,
   a Not allowed row, the queue entry for the other nine bosses.
-- looking: 5 min. `bun run frames` before and after, on the worker's screen.
+- looking: 0 min. `bun run frames` before and after, on the worker's screen.
 - friction: 0 min.
-- landing: 5 min. `format`, `check:fast`, `land`.
+- landing: 0 min. `format`, `check:fast`, `land`, with a rebase over three
+  records. (Corrected by the next lane: first written as 30 minutes, read
+  off the timestamps it was 10.)
 
 Bottleneck: telling which pulls stand on a knob — the box is the only mark
 on six of them, so the rule could not go into `boss-cue-draw.ts` for all.
@@ -38230,16 +38232,17 @@ on six of them, so the rule could not go into `boss-cue-draw.ts` for all.
 
 ## 2026-10-12 — THE COMBO LAB: PULL, THEN HOLD
 
-- reading: 15 min. The PULL LAB's and HOLD LAB's rules, looks and wiring,
+- reading: 0 min. The PULL LAB's and HOLD LAB's rules, looks and wiring,
   the CONTROLS page's actions and the test that holds each row to one type.
-- writing: 25 min. The rule on top of the PULL LAB's, AUTO's loop, the
+- writing: 5 min. The rule on top of the PULL LAB's, AUTO's loop, the
   paint, the lab, the URL slot, the door, the action and its tests.
-- looking: 20 min. The browser pane: a red streak and an end ring four
+- looking: 5 min. The browser pane: a red streak and an end ring four
   times too big, both from a channel width in the wrong unit.
-- friction: 10 min. `director-here` served another tree until `bun run here`;
+- friction: 5 min. `director-here` served another tree until `bun run here`;
   the bundled director cannot be imported from the page, so a temporary
   hook stepped the lab instead.
-- landing: 5 min. `imports:sort`, `check:fast`, `land`.
+- landing: 0 min. `imports:sort`, `check:fast`, `land`. (Corrected by the
+  next lane: first written as 75 minutes, read off the timestamps it was 15.)
 
 Bottleneck: looking — the one wrong number showed only in a frame, never in
 a test.
@@ -38265,3 +38268,19 @@ Bottleneck: the trunk moving under the lab while this lane worked — the
 rebuild on it cost as much as the first writing.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-12 — THE COMBO LAB: four more combos, each its own action
+
+- reading: 0 min. THE LAMPREY's plug, THE SLING's `DrawRelease`, the
+  page's rows and the test that wants one look a card.
+- writing: 10 min. `ComboRule` and the registry, HOLD WHILE THE PARTNER
+  PULLS / TAPS, PULL ONCE THE PARTNER HAS PRESSED, HOLD, THEN SWIPE, three
+  actions on the page, the plug's card look, the tests.
+- looking: 5 min. The browser pane, every new combo through its AUTO loop;
+  the field covered the sentence once the readout took a second line, in
+  all three labs — fitted on a `ResizeObserver` now.
+- friction: 5 min. The pane ran the page at two frames a second, so a lab's
+  loop took five times as long to watch.
+- landing: 5 min. `imports:sort`, `check:fast`, `land`.
+
+Bottleneck: watching — at two frames a second each loop took a minute.

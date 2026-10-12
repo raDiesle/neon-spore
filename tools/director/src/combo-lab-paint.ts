@@ -9,7 +9,7 @@ import {
 } from "./combo-lab-rule.js";
 import type { HoldLook, HoldView } from "./hold-goo/view.js";
 import { BEAT_SECONDS, type HoldAsk } from "./hold-lab-rule.js";
-import { afterOf, paintField, toneOf } from "./pull-lab-paint.js";
+import { afterOf, toneOf } from "./pull-lab-paint.js";
 import { knobAt } from "./pull-lab-rule.js";
 import { LAB_KNOB } from "./pull-lab-shapes.js";
 import { strayReach } from "./pull-lab-stray.js";
@@ -36,7 +36,6 @@ const HOLD_SIZE = 1.3;
 const NEVER = 60;
 
 export function paintComboLab(ctx: CanvasRenderingContext2D, f: ComboFrame): void {
-  paintField(ctx);
   const { combo, state, time } = f;
   const pull = state.pull;
   if (combo.partner) paintPartner(ctx, f);
@@ -119,8 +118,8 @@ const VERDICT_WORDS: Readonly<Record<string, string>> = {
   strayed: "OFF THE PATH",
 };
 
-/** The bar's readout: the state, how much of the hold is done, and what the tries have come to. */
-export function comboReadout(combo: Combo, s: LabCombo): string {
+/** The state for the bar, and how much of the hold is done; the tallies follow it (`comboReadout`). */
+export function comboState(combo: Combo, s: LabCombo): string {
   const waitingFor = combo.partner ? "HOLDING · THE PARTNER PULLS" : "HOLDING";
   const state = s.verdict
     ? VERDICT_WORDS[s.verdict]
@@ -129,6 +128,5 @@ export function comboReadout(combo: Combo, s: LabCombo): string {
       : s.pull.phase === "held"
         ? "PULLING"
         : "WAITING";
-  const done = Math.round(s.fill * 100);
-  return `${state} · HOLD ${done}% · COUNTED ${s.counted} · REFUSED ${s.refused} · OFF PATH ${s.strayed}`;
+  return `${state} · HOLD ${Math.round(s.fill * 100)}%`;
 }

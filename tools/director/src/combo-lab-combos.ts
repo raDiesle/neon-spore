@@ -1,0 +1,63 @@
+import { HOLD_PULL, HOLD_TAP } from "./combo-hold-partner.js";
+import type { ComboRule } from "./combo-kinds.js";
+import { comboLoop, comboThumb } from "./combo-lab-auto.js";
+import { comboState, paintComboLab } from "./combo-lab-paint.js";
+import {
+  COMBOS,
+  type Combo,
+  freshCombo,
+  type LabCombo,
+  liftCombo,
+  moveCombo,
+  pressCombo,
+  tickCombo,
+} from "./combo-lab-rule.js";
+import { PLUG } from "./combo-plug.js";
+import { HOLD_SWIPE } from "./combo-swipe.js";
+
+/**
+ * **Every combo THE COMBO LAB plays**, in the order of its COMBO choice — one
+ * for each action of the CONTROLS page's ON THE FIELD sheet that asks two
+ * gestures as one (`field-actions-combo.ts`, its `comboLab` keys):
+ *
+ * - **PULL, THEN HOLD** — the pull held at its end, for the partner or beats;
+ * - **HOLD WHILE THE PARTNER PULLS / TAPS** — the hold first, the partner's
+ *   part done only while it is down;
+ * - **PULL ONCE THE PARTNER HAS PRESSED** — the pull waits on the partner;
+ * - **HOLD, THEN SWIPE** — the hold's lift is a swipe the asked way.
+ */
+
+/** A pull-then-hold combo (`combo-lab-rule.ts`) as the lab's rule. */
+function pullThenHold(c: Combo): ComboRule<LabCombo> {
+  return {
+    key: c.key,
+    label: c.label,
+    says: c.says,
+    like: c.like,
+    fresh: () => freshCombo(c),
+    press: (s, at) => {
+      pressCombo(c, s, at);
+    },
+    move: (s, at) => moveCombo(c, s, at),
+    lift: (s) => liftCombo(c, s),
+    tick: (s, dt) => tickCombo(c, s, dt),
+    paint: (ctx, state, look, time) => paintComboLab(ctx, { combo: c, state, look, time }),
+    state: (s) => comboState(c, s),
+    tally: (s) => s,
+    thumb: (t) => comboThumb(c, t),
+    loop: comboLoop(c).end,
+  };
+}
+
+/** Each rule's state is its own; the lab only hands back what `fresh` gave it (methods, so bivariant). */
+export const COMBO_RULES: readonly ComboRule<unknown>[] = [
+  ...COMBOS.map(pullThenHold),
+  HOLD_PULL,
+  HOLD_TAP,
+  PLUG,
+  HOLD_SWIPE,
+];
+
+/** The combo for `key`, or the first when the key names none. */
+export const comboRuleOf = (key: string): ComboRule<unknown> =>
+  COMBO_RULES.find((r) => r.key === key) ?? (COMBO_RULES[0] as ComboRule<unknown>);

@@ -30,7 +30,6 @@ export const DRAG_TYPES: readonly ControlType[] = [
       "THE CURTAIN'S HEM",
       "THE LAMPREY'S HEAD",
       "THE LAMPREY'S HEAD, TOWED",
-      "THE LAMPREY'S TAIL, IN A PLUG",
       "THE HIVE'S HAUL",
       "THE VANE'S HOUSING",
       "PINBALL'S PLUNGER",
@@ -116,18 +115,6 @@ export const DRAG_TYPES: readonly ControlType[] = [
       "rather than reversals — move it to a rub, or say why not.",
     gestures: ["RUB"],
     rows: ["THE CAPSTAN'S RUB", "THE MAZE'S HEART", "THE THROAT'S PUMP", "THE BLISTER'S RUB"],
-  },
-  {
-    key: "loose",
-    title: "DRAW, THEN SWIPE",
-    says:
-      "A finger held for a count of beats, and the lift's direction is the " +
-      "answer (`DrawRelease`).",
-    suggest:
-      "Already one gesture in two bosses. Make it generic under one name — " +
-      "THE SLING's — and one drawn cord.",
-    gestures: ["HOLD, THEN SWIPE"],
-    rows: ["THE SLING'S LEFT CORD", "THE SLING'S RIGHT CORD"],
   },
   {
     key: "bearing",

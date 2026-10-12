@@ -1,23 +1,13 @@
 import type { Point } from "@neon-spore/content";
-import { comboThumb } from "./combo-lab-auto.js";
-import { comboReadout, paintComboLab } from "./combo-lab-paint.js";
-import {
-  COMBOS,
-  type Combo,
-  comboOf,
-  freshCombo,
-  type LabCombo,
-  liftCombo,
-  moveCombo,
-  pressCombo,
-  tickCombo,
-} from "./combo-lab-rule.js";
+import { type ComboRule, comboReadout } from "./combo-kinds.js";
+import { COMBO_RULES, comboRuleOf } from "./combo-lab-combos.js";
 import { coverPage } from "./cover.js";
 import { choice, grouped } from "./field-try-bar.js";
 import { text } from "./gestures-page.js";
 import { GOO_HOLDS, HOLD_LOOKS } from "./hold-goo/index.js";
 import type { HoldLook } from "./hold-goo/view.js";
 import { COMBO_LAB } from "./place.js";
+import { paintField } from "./pull-lab-paint.js";
 import { LAB_H, LAB_W } from "./pull-lab-shapes.js";
 import { initialLab, placeLab } from "./session.js";
 
@@ -30,13 +20,14 @@ import { initialLab, placeLab } from "./session.js";
  *
  * The choices on the bar:
  *
- * - **COMBO** — what the action is (`COMBOS`): a pull held at its end for
- *   the partner, or for beats;
- * - **the hold's look** — the HOLD LAB's looks, the one the hold at the end
- *   of the pull wears; the pull is the game's own knob, FIZZ.
+ * - **COMBO** — what the action is (`COMBO_RULES`, `combo-lab-combos.ts`):
+ *   a pull held at its end, a hold while the partner works, a pull that
+ *   waits on the partner's press, a hold loosed by a swipe;
+ * - **the hold's look** — the HOLD LAB's looks, the one every hold in a
+ *   combo wears; the pull is the game's own knob, FIZZ.
  *
- * The rule is `combo-lab-rule.ts`; AUTO's thumb (`combo-lab-auto.ts`) plays a
- * whole one, one let go at the end too soon, and one let go short.
+ * Each combo is a `ComboRule` (`combo-kinds.ts`): its rule, its frame, and
+ * AUTO's thumb, which plays one counted and at least one refused a loop.
  */
 
 /** Device pixels per lab pixel and per CSS pixel, at most, as the HOLD LAB's. */
@@ -48,8 +39,8 @@ let shutOpen: (() => void) | null = null;
 
 export function openComboLab(first = "partner"): void {
   shutOpen?.();
-  let combo: Combo = comboOf(first);
-  let state: LabCombo = freshCombo(combo);
+  let combo: ComboRule<unknown> = comboRuleOf(first);
+  let state: unknown = combo.fresh();
   let look: HoldLook = GOO_HOLDS[0] ?? (HOLD_LOOKS[0] as HoldLook);
   let auto = true;
   let speed = 1;
@@ -71,7 +62,7 @@ export function openComboLab(first = "partner"): void {
   const life = new AbortController();
 
   const reset = (): void => {
-    state = freshCombo(combo);
+    state = combo.fresh();
     autoTime = 0;
     down = false;
     placeLab({ shape: COMBO_LAB + combo.key, sheet: false });
@@ -92,11 +83,12 @@ export function openComboLab(first = "partner"): void {
     text("b", "COMBO LAB · TWO GESTURES IN ONE ACTION, ON AN EMPTY FIELD"),
     close,
     choice(
-      COMBOS.map((c) => [c.label, c.key] as [string, string]),
+      COMBO_RULES.map((c) => [c.label, c.key] as [string, string]),
       combo.key,
       (k) => {
-        combo = comboOf(k);
+        combo = comboRuleOf(k);
         reset();
+        say();
       },
       "COMBO",
     ),
@@ -137,15 +129,18 @@ export function openComboLab(first = "partner"): void {
   on("pointerdown", (e) => {
     if (auto) setAuto(false);
     canvas.setPointerCapture(e.pointerId);
-    pressCombo(combo, state, toLab(e));
+    combo.press(state, toLab(e));
   });
   on("pointermove", (e) => {
-    if (!auto) moveCombo(combo, state, toLab(e));
+    if (!auto) combo.move(state, toLab(e));
   });
   on("pointerup", () => {
-    if (!auto) liftCombo(combo, state);
+    if (!auto) combo.lift(state);
   });
 
+  const say = (): void => {
+    like.textContent = `${combo.label} — ${combo.says}. Stands for ${combo.like}.`;
+  };
   const fit = (): void => {
     const box = room.getBoundingClientRect();
     const s = Math.min((box.width - 28) / LAB_W, (box.height - 14) / LAB_H);
@@ -159,10 +154,10 @@ export function openComboLab(first = "partner"): void {
   /** AUTO's thumb drives the rule exactly as a mouse would. */
   const drive = (dt: number): void => {
     autoTime += dt;
-    const th = comboThumb(combo, autoTime);
-    if (th.down && !down) pressCombo(combo, state, th.at);
-    if (th.down) moveCombo(combo, state, th.at);
-    if (!th.down && down) liftCombo(combo, state);
+    const th = combo.thumb(autoTime);
+    if (th.down && !down) combo.press(state, th.at);
+    if (th.down) combo.move(state, th.at);
+    if (!th.down && down) combo.lift(state);
     down = th.down;
   };
 
@@ -173,13 +168,13 @@ export function openComboLab(first = "partner"): void {
     last = now;
     time += dt;
     if (auto) drive(dt);
-    tickCombo(combo, state, dt);
+    combo.tick(state, dt);
     const ctx = canvas.getContext("2d");
     if (ctx) {
       ctx.setTransform(canvas.width / LAB_W, 0, 0, canvas.height / LAB_H, 0, 0);
-      paintComboLab(ctx, { combo, state, look, time });
+      paintField(ctx);
+      combo.paint(ctx, state, look, time);
     }
-    like.textContent = `${combo.label} — ${combo.says}. Stands for ${combo.like}.`;
     readout.textContent = comboReadout(combo, state);
     requestAnimationFrame(frame);
   };
@@ -198,21 +193,24 @@ export function openComboLab(first = "partner"): void {
     shade.remove();
     uncover();
     document.removeEventListener("keydown", onKey, { capture: true });
-    window.removeEventListener("resize", fit);
+    resized.disconnect();
   };
   shutOpen = shut;
   document.addEventListener("keydown", onKey, { capture: true });
-  window.addEventListener("resize", fit);
+  // The sentence and the readout take a line more or less as they change: the field fits what is left.
+  const resized = new ResizeObserver(fit);
   shade.append(bar, like, room);
   document.body.appendChild(shade);
   const uncover = coverPage(shade);
+  say();
   fit();
+  resized.observe(room);
   requestAnimationFrame(frame);
 }
 
 /**
  * The lab's door in the topbar, and the lab reopened where the URL left it
- * (`place.ts`'s `lab`, as `COMBO_LAB` and the combo): `?combolab=partner`.
+ * (`place.ts`'s `lab`, as `COMBO_LAB` and the combo): `?combolab=partner`, `?combolab=plug`.
  */
 export function bindComboLab(): void {
   document.getElementById("comboLabOpen")?.addEventListener("click", () => openComboLab());

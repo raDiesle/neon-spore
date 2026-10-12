@@ -52,7 +52,8 @@ const LEN = LAB_TILE * 5;
 /** The channel's width, the PULL LAB's (`pull-lab-shapes.ts`). */
 const W = LAB_KNOB * PULL_TRACK_W;
 
-function down(x: number): LabShape {
+/** A straight pull down the field at `x`, the PULL LAB's DOWN moved sideways. */
+export function downShape(x: number): LabShape {
   const track: PullTrack = {
     pts: [
       { x, y: LAB_TILE * 3 },
@@ -64,7 +65,7 @@ function down(x: number): LabShape {
 }
 
 /** The partner's knob: up the right of the field, THE LAMPREY's head off its tile. */
-const PARTNER_TRACK: PullTrack = {
+export const PARTNER_TRACK: PullTrack = {
   pts: [
     { x: LAB_W * 0.72, y: LAB_TILE * 9.5 },
     { x: LAB_W * 0.72, y: LAB_TILE * 9.5 - LEN * 0.8 },
@@ -80,7 +81,7 @@ export const COMBOS: readonly Combo[] = [
     like: "THE LAMPREY's tail in an apart or a tow, held out while the head is pulled",
     beats: 0,
     partner: PARTNER_TRACK,
-    shape: down(LAB_W * 0.3),
+    shape: downShape(LAB_W * 0.3),
   },
   {
     key: "beats",
@@ -89,7 +90,7 @@ export const COMBOS: readonly Combo[] = [
     like: "no row yet — the same action with a clock in the partner's place",
     beats: 2,
     partner: null,
-    shape: down(LAB_W / 2),
+    shape: downShape(LAB_W / 2),
   },
 ];
 

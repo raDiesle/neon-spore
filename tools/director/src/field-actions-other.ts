@@ -46,14 +46,11 @@ export const OTHER_ACTIONS: readonly FieldAction[] = [
           "THE VANE'S ARM",
           "THE LEDGER'S PLUG",
           "THE FLEET'S PLUME",
-          "THE LAMPREY'S TAIL",
           "THE SCOUT'S PRIME",
           "THE QUEEN'S MARKS",
         ],
         steps: {
           "THE QUEEN'S MARKS": "SCREAM — the real mark held open, up to its beats.",
-          "THE LAMPREY'S TAIL":
-            "A PULL OR A TEETH — held while the partner pulls the head or taps the teeth.",
         },
       },
       {

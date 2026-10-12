@@ -3356,7 +3356,12 @@ by hand never moves.
 | `tools/director/src/combo-lab-auto.ts` | **AUTO's thumb in THE COMBO LAB**, as `hold-lab-auto.ts` is the HOLD LAB's |
 | `tools/director/src/combo-lab-paint.ts` | One frame of THE COMBO LAB (`combo-lab.ts`): the PULL LAB's empty field and its pull |
 | `tools/director/src/combo-lab-rule.ts` | **Two gestures in one action, as THE COMBO LAB plays them** — the owner, 12 October 2026, on THE LAMPREY |
+| `tools/director/src/combo-lab-combos.ts` | **Every combo THE COMBO LAB plays**, in the order of its COMBO choice |
 | `tools/director/src/combo-lab.ts` | **THE COMBO LAB** — two gestures in one action, on an empty field |
+| `tools/director/src/combo-hold-partner.ts` | **HOLD WHILE THE PARTNER WORKS**, in THE COMBO LAB: this thumb holds a mark |
+| `tools/director/src/combo-kinds.ts` | **What every combo in THE COMBO LAB is**, whatever its two gestures are: a rule the lab's pointer drives |
+| `tools/director/src/combo-plug.ts` | **PULL ONCE THE PARTNER HAS PRESSED**, in THE COMBO LAB |
+| `tools/director/src/combo-swipe.ts` | **HOLD, THEN SWIPE**, in THE COMBO LAB — THE SLING's cord (`DrawRelease`): a mark held for its beats |
 | `tools/director/src/rail-marks.ts` | The small glyphs in front of a wave's name in the rail: a boss, a panel, a guide |
 | `tools/land/say.ts` | What a landing says about itself before and after it happens |
 | `tools/maze/draw.ts` | Draw a sheet for THE MAZE: the walls of one circular maze |

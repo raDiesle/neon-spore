@@ -218,15 +218,17 @@ export function openHoldLab(first = "2", opts: { sheet?: boolean; look?: string 
     shade.remove();
     uncover();
     document.removeEventListener("keydown", onKey, { capture: true });
-    window.removeEventListener("resize", fit);
+    resized.disconnect();
   };
   shutOpen = shut;
   document.addEventListener("keydown", onKey, { capture: true });
-  window.addEventListener("resize", fit);
+  // The readout takes a line more or less as it changes: the field fits what is left.
+  const resized = new ResizeObserver(fit);
   shade.append(bar, like, room);
   document.body.appendChild(shade);
   const uncover = coverPage(shade);
   fit();
+  resized.observe(room);
   show();
   requestAnimationFrame(frame);
 }
