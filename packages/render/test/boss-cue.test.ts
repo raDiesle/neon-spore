@@ -298,6 +298,11 @@ describe("a kind line that is the verb said twice", () => {
   });
 
   it("never says CARRY, whose verb is always the motion (the owner, 24 September 2026)", () => {
-    expect(lines("CARRY", "PULL")).toEqual(["PULL"]);
+    expect(lines("CARRY", "SWAY")).toEqual(["SWAY"]);
+  });
+
+  it("never says PULL, which the knob's arrow says (the owner, 12 October 2026)", () => {
+    expect(lines("CARRY", "PULL")).toEqual([]);
+    expect(lines("CARRY", "PULL UP")).toEqual([]);
   });
 });

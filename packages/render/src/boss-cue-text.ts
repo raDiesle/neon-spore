@@ -1,5 +1,6 @@
 import type { BossCue } from "./boss-cue.js";
 import { saysKind } from "./boss-cue-shape.js";
+import { saysPull } from "./handle-word.js";
 import { PALETTE } from "./palette.js";
 
 /**
@@ -76,6 +77,8 @@ export function drawCueText(
   /** The canvas's width, so a `why` line near a wall stays on it. */
   width = Number.POSITIVE_INFINITY,
 ): void {
+  // A pull says itself with its knob's arrow, as in the PULL LAB (`saysPull`).
+  if (saysPull(cue.word)) return;
   ctx.save();
   ctx.textAlign = "center";
   ctx.fillStyle = PALETTE.rock;

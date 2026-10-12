@@ -38337,3 +38337,17 @@ Bottleneck: not bringing the trunk up before starting — the first version
 was written against a lab that no longer existed by the time it landed.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-12 — No pull wears the word PULL
+
+- reading: 5 min. The cue text, the word under a handle, THE CRANK's own
+  label, and which draw paths stand on a PULL LAB knob.
+- writing: 5 min. `saysPull`, asked in `drawCueText` and `drawHandleHint`;
+  THE CRANK's word out.
+- looking: 5 min. `bun run frames` on THE LAMPREY's first bite, before and
+  after.
+- friction: 0 min.
+- landing: 10 min. Six test files that pinned the word, `check:fast`, `land`.
+
+Bottleneck: landing — the word was pinned by six bosses' tests, each a
+separate sentence to rewrite.

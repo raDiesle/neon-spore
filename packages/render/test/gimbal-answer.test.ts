@@ -79,12 +79,10 @@ describe("THE GIMBAL's cradle answering", () => {
     // And the test screen, which is nobody's seat and holds both rings, still
     // carries one cue: the drawer takes the first cue a screen may see and
     // stops, so no screen ever says two things to do at once (`boss-cue.ts`).
-    // What it adds is the second knob's own PULL, the word every pull handle
-    // wears (`gimbal-knob.ts`) — more than one seat's screen, and less than
-    // two seats' cues and words together.
+    // Its second knob adds no word: no pull handle wears PULL since the owner,
+    // 12 October 2026 (`saysPull`) — so the rig says as much as one seat.
     const rig = words(frame("test", up));
-    expect(rig).toBeGreaterThan(words(frame("p1", up)));
-    expect(rig).toBeLessThan(words(frame("p1", up)) + words(frame("p2", up)));
+    expect(rig).toBe(words(frame("p1", up)));
     // And the leak is the one word with no seat on it: both screens get it.
     expect(words(frame("p1", leaking))).toBeGreaterThan(quiet);
     expect(words(frame("p2", leaking))).toBe(words(frame("p1", leaking)));

@@ -57,6 +57,19 @@ export interface HandleWords {
  * say it. Named so a fourth one of the same kind does not spell it out again. */
 export const PILOT_HANDLE: HandleWords = { seat: 1, mine: "PULL", theirs: "P1'S" };
 
+/**
+ * **Whether a word says PULL** — `PULL`, `PULL UP`, `◀ PULL`. Such a word is
+ * never drawn: the owner, 12 October 2026, on THE LAMPREY, *remove the "pull"
+ * text from screen - it is not part of the "pull lab" template result*, and
+ * for every pull drawn as the PULL LAB's (`pull-knob.ts`, `pull-track.ts`) —
+ * its channel and the arrow on its knob say the pull and which way. The
+ * readings still return the word (`boss-cue.ts`); only its drawing goes, so
+ * the fuse still steps round the knob it stood on (`slow-fuse-place.ts`).
+ */
+export function saysPull(word: string): boolean {
+  return word.split(" ").includes("PULL");
+}
+
 /** Whether this screen's thumb is the one the handle is for: the rig's always is. */
 export function handleIsMine(role: ViewRole, words: HandleWords = PILOT_HANDLE): boolean {
   return seatIsMine(role, words.seat);
@@ -81,13 +94,14 @@ export function drawHandleHint(
   words: HandleWords = PILOT_HANDLE,
 ): void {
   const mine = handleIsMine(role, words);
+  const word = mine ? words.mine : words.theirs;
+  if (saysPull(word)) return;
   ctx.save();
   ctx.font = `600 ${Math.round(l.tile * style.fontTiles)}px system-ui, sans-serif`;
   ctx.textAlign = "center";
   ctx.textBaseline = "middle";
   ctx.fillStyle = mine ? PALETTE.text : PALETTE.dim;
   ctx.globalAlpha = mine ? style.mine : style.theirs;
-  const word = mine ? words.mine : words.theirs;
   // Kept on the glass: a handle resting against the screen's edge (THE
   // BALLOON's, in a wall column) would otherwise centre its word half off it.
   const half = ctx.measureText(word).width / 2;

@@ -235,7 +235,8 @@ describe("the wound", () => {
     expect(words("p1", holed("flood"), world)).toEqual(["RAKE"]);
     expect(words("p2", holed("flood"), world)).toEqual(["HOLD"]);
     expect(words("p1", holed("wreck"), world)).toEqual(["HOLD"]);
-    expect(words("p2", holed("wreck"), world)).toEqual(["PULL"]);
+    // Her knob says the pull with its arrow, and no word (`saysPull`).
+    expect(words("p2", holed("wreck"), world)).toEqual([]);
   });
 
   it("drops the word as soon as that seat's thumb is on it, and nobody else's", () => {

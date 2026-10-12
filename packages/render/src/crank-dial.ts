@@ -9,7 +9,6 @@ import {
   type World,
 } from "@neon-spore/sim";
 import { halo } from "./glow.js";
-import { HINT_LOUD } from "./handle-word.js";
 import type { Circle } from "./layout.js";
 import { paintLobe } from "./lobe-shell.js";
 import { drawMazeLever } from "./maze-lever.js";
@@ -163,17 +162,7 @@ export function drawCrankDial(
   ctx.lineWidth = 1.5;
   paintLobe(ctx, x, y, r * BOSS_R, "both");
 
-  // The word, under the button as the salvo's label is (`controls-fleet.ts`),
-  // and gone as soon as a hand lands, as THE MAZE's is.
-  if (!live || held || r <= 16) return;
-  ctx.save();
-  ctx.font = `600 ${Math.round(r * 0.36)}px system-ui, sans-serif`;
-  ctx.textAlign = "center";
-  ctx.textBaseline = "middle";
-  ctx.fillStyle = PALETTE.text;
-  ctx.globalAlpha = HINT_LOUD.mine;
-  ctx.fillText("PULL", x, y + r * 1.22);
-  ctx.restore();
+  // No word under it: the knob's arrow says the pull (`handle-word.ts` `saysPull`).
 }
 
 /** The handle's colours: THE MAZE's — the hull's rim, lit to the text colour while held. */

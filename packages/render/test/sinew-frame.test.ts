@@ -316,15 +316,19 @@ describe("THE SINEW's word", () => {
    * rig, which is the screen that is nobody's hands. */
   const ASKED: Record<ViewRole, number> = { p1: 1, p2: 1, test: 2 };
 
-  it.each(ROLES)("stands on this seat's handle and not on the other's, on %s", (role) => {
+  // The pull is said by the knob's arrow, as in the PULL LAB (`saysPull`, the
+  // owner, 12 October 2026).
+  it.each(ROLES)("says no PULL on either handle, on %s", (role) => {
     const { words } = drawn(hung(), role, 3);
-    expect(words.filter((w) => w === "PULL").length).toBe(ASKED[role]);
+    expect(words).not.toContain("PULL");
   });
 
   // No `CARRY` over it: the verb is the motion already (`saysKind`, the owner,
   // 24 September 2026).
   it.each(ROLES)("says the verb alone, in the cue's grey, on %s", (role) => {
-    const { words, text } = drawn(hung(), role, 3);
+    const world = hung();
+    falling(world);
+    const { words, text } = drawn(world, role, 3);
     expect(words).not.toContain("CARRY");
     expect(text, "the cue is drawn in rock grey, never an ammunition colour").toContain(
       PALETTE.rock,

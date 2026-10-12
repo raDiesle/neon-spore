@@ -170,7 +170,7 @@ describe("THE CAIRN", () => {
     expect(word(world, "p2")).toBeNull();
   });
 
-  it("draws the word on both screens, and on neither once the pile is gone", () => {
+  it("draws no PULL on either screen, standing or nearly shed: its arrow says it", () => {
     const drawn = (role: ViewRole, set: (world: World, s: CairnState) => void): string[] => {
       const world = opened();
       set(world, installed(world));
@@ -184,21 +184,14 @@ describe("THE CAIRN", () => {
       return texts.map((t) => t.text);
     };
     const standing = (): void => {};
-    for (const role of ["p1", "p2"] as const) {
-      expect(drawn(role, standing)).toContain("PULL");
-      expect(drawn(role, standing)).not.toContain("CARRY");
-    }
-    // The clock is on his screen and not on hers, and the word is the same on
-    // both regardless: the frames are where that stops being an argument.
+    // The owner, 12 October 2026: the PULL LAB's pull wears no word (`saysPull`).
     const nearly = (world: World, s: CairnState): void => {
       s.leftBeat = world.waveBeat - (CFG.cairnShedBeats - 1);
     };
-    expect(drawn("p2", nearly)).toContain("PULL");
-    expect(drawn("p1", nearly)).toContain("PULL");
-    const emptied = (_world: World, s: CairnState): void => {
-      s.units = 0;
-    };
-    expect(drawn("p1", emptied)).not.toContain("PULL");
-    expect(drawn("p2", emptied)).not.toContain("PULL");
+    for (const role of ["p1", "p2"] as const) {
+      expect(drawn(role, standing)).not.toContain("PULL");
+      expect(drawn(role, standing)).not.toContain("CARRY");
+      expect(drawn(role, nearly)).not.toContain("PULL");
+    }
   });
 });

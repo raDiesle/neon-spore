@@ -209,13 +209,9 @@ describe("THE SINEW's word", () => {
       return texts.map((t) => t.text);
     };
     const bothFree = (): void => {};
-    expect(drawn("p1", bothFree)).toContain("PULL");
-    expect(drawn("p2", bothFree)).toContain("PULL");
-    // His hand on and the sum short of the zone: his ring says nothing now, and
-    // hers is still being offered the pull.
-    const his = (_w: World, s: SinewState): void => hand(s, 1);
-    expect(drawn("p1", his)).not.toContain("PULL");
-    expect(drawn("p2", his)).toContain("PULL");
+    // The pull is said by each knob's arrow and never in a word (`saysPull`).
+    expect(drawn("p1", bothFree)).not.toContain("PULL");
+    expect(drawn("p2", bothFree)).not.toContain("PULL");
     // And the two words no canvas in this suite had been handed before, both of
     // them over a ring with a thumb already on it.
     expect(
