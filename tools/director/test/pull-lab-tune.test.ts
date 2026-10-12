@@ -1,9 +1,7 @@
 import { beforeAll, describe, expect, test } from "bun:test";
-import { GOO } from "../../../packages/render/src/goo-style.js";
 import { installCanvasGlobals, stubCanvas } from "../../../packages/render/test/canvas-stub.js";
 import { autoDrive } from "../src/pull-lab-auto.js";
-import { GOO_COLOURS } from "../src/pull-lab-colours.js";
-import { holdLooks, paintLab } from "../src/pull-lab-paint.js";
+import { paintLab } from "../src/pull-lab-paint.js";
 import { freshPull, press, tick } from "../src/pull-lab-rule.js";
 import {
   knobOf,
@@ -17,51 +15,19 @@ import {
 import { strayReach } from "../src/pull-lab-stray.js";
 
 /**
- * The PULL LAB's colour, size and THE SLOW's loudness (`pull-lab-tune.ts`):
- * the owner, 12 October 2026, after seeing FIZZ on THE LAMPREY. A colour is
- * held in the game's own `GOO` for a frame and put back; a size moves the
- * whole control and the reach a press is taken at, never the length the rule
- * asks for.
+ * The PULL LAB's size (`pull-lab-tune.ts`): the owner, 12 October 2026,
+ * after seeing FIZZ on THE LAMPREY. A size moves the whole control and the
+ * reach a press is taken at, never the length the rule asks for.
  */
 beforeAll(installCanvasGlobals);
 
 const down = labShape("down");
 
-describe("a FIZZ colour", () => {
-  test("is GOO's own neon while held, and GOO is as it was after", () => {
-    const before = { ...GOO };
-    for (const colour of GOO_COLOURS) {
-      const put = holdLooks({ shape: down, pull: freshPull(down), look: null, time: 0, colour });
-      const neon = GOO.neon;
-      put();
-      expect(GOO).toEqual(before);
-      expect(neon === before.neon).toBe(colour.look === null);
-    }
-  });
-
-  test("each neon is a colour of its own", () => {
-    const neons = GOO_COLOURS.map((c) => {
-      const put = holdLooks({ shape: down, pull: freshPull(down), look: null, time: 0, colour: c });
-      const neon = GOO.neon;
-      put();
-      return neon;
-    });
-    expect(new Set(neons).size).toBe(neons.length);
-  });
-
-  test("draws every shape, every colour, twice the size, without a bad value", () => {
-    const { ctx } = stubCanvas();
-    const c = ctx as unknown as CanvasRenderingContext2D;
-    for (const shape of LAB_SHAPES)
-      for (const colour of GOO_COLOURS)
-        paintLab(c, {
-          shape: sized(shape, 2),
-          pull: freshPull(shape),
-          look: null,
-          time: 1,
-          colour,
-        });
-  });
+test("draws every shape twice the size without a bad value", () => {
+  const { ctx } = stubCanvas();
+  const c = ctx as unknown as CanvasRenderingContext2D;
+  for (const shape of LAB_SHAPES)
+    paintLab(c, { shape: sized(shape, 2), pull: freshPull(shape), look: null, time: 1 });
 });
 
 describe("a size", () => {

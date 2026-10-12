@@ -1,5 +1,5 @@
 import type { Point } from "@neon-spore/content";
-import { blinkAt, dotCount, dotsEnd, ghostFront, passed, placeBeat } from "./goo-beat.js";
+import { blinkAt, dotCount, dotsEnd, ghostFront, lingers, passed, placeBeat } from "./goo-beat.js";
 import { bodyPath } from "./goo-body.js";
 import { dotIn, entering, placeIn } from "./goo-enter.js";
 import { blob, dot, FULL, goals, share } from "./goo-ooze.js";
@@ -75,14 +75,15 @@ export function runway(
     if (!o.held && !entering(o.enter)) lit = Math.max(lit, passed(front, along));
     if (o.held && next) lit = Math.max(lit, blinkAt(o.time));
     next = false;
+    // Bigger and in the neon even unlit, with a wider glow lit — the owner, 12 October
+    // 2026: *increase the visual of the path dots in non blinking and blinking state*.
     ctx.fillStyle = style.neon;
-    if (lit > 0.3) {
-      ctx.globalAlpha = 0.22 * lit;
-      dot(ctx, q, r * 0.5 * come.size);
+    if (lit > 0.15) {
+      ctx.globalAlpha = 0.4 * lit;
+      dot(ctx, q, r * 0.72 * come.size);
     }
-    ctx.fillStyle = lit > 0.05 ? style.neon : style.core;
-    ctx.globalAlpha = 0.35 + 0.65 * lit;
-    blob(ctx, q, r * (0.14 + 0.1 * lit) * come.size, o.time + along * 7);
+    ctx.globalAlpha = 0.6 + 0.4 * lit;
+    blob(ctx, q, r * (0.19 + 0.13 * lit) * come.size, o.time + along * 7);
     ctx.fill();
   }
   ctx.restore();
@@ -129,7 +130,9 @@ export function paintPath(
   }
 }
 
-/** A see-through drop running the whole pull, from the start to the place it goes. */
+/** A see-through drop running the whole pull, from the start to the place it goes — in a
+ * glow, its rim thick and nearly whole: the owner, 12 October 2026, *the moving
+ * placeholder the path to final placeholder to increase visual (e.g. stronger colour)*. */
 export function ghost(
   ctx: CanvasRenderingContext2D,
   t: PullTrack,
@@ -140,15 +143,18 @@ export function ghost(
   const at = ghostFront(o.time);
   if (at > 1) return;
   const q = pullTrackPoint(t, o.origin + (o.goal - o.origin) * at);
-  const a = 0.55 * Math.sin(Math.sqrt(at) * Math.PI);
+  const a = 0.9 * Math.sin(Math.sqrt(at) * Math.PI);
   const p = bodyPath({ at: q, r: r * 0.92, seed: 13 }, style, o.time);
   ctx.save();
+  ctx.fillStyle = style.neon;
   ctx.globalAlpha = 0.3 * a;
+  dot(ctx, q, r * 1.5);
+  ctx.globalAlpha = 0.5 * a;
   ctx.fillStyle = style.body;
   ctx.fill(p);
   ctx.globalAlpha = a;
   ctx.strokeStyle = style.neon;
-  ctx.lineWidth = r * 0.08;
+  ctx.lineWidth = r * 0.13;
   ctx.stroke(p);
   ctx.restore();
 }
@@ -187,23 +193,25 @@ export function socket(
   if (!come) return;
   const front = o.waiting && !entering(o.enter) ? ghostFront(o.time) : 0;
   const next = o.held && o.came > o.end - 1e-6;
-  const blink = next ? blinkAt(o.time) : passed(front, o.beat);
+  // The flash held a while after the ghost lands, louder and wider, and the
+  // dashes turning a little slower (`lingers`, the owner, 12 October 2026).
+  const blink = next ? blinkAt(o.time) : lingers(front, o.beat);
   const lit = next ? blink : Math.max(o.came, blink, come.blink);
-  const rr = r * Math.max(0.01, come.size) * (1 + 0.12 * blink);
+  const rr = r * Math.max(0.01, come.size) * (1 + 0.2 * blink);
   ctx.save();
-  if (blink > 0.3) {
+  if (blink > 0.15) {
     ctx.fillStyle = style.neon;
-    ctx.globalAlpha = 0.22 * blink;
-    dot(ctx, q, rr * 1.25);
+    ctx.globalAlpha = 0.45 * blink;
+    dot(ctx, q, rr * 1.7);
   }
   ctx.fillStyle = style.body;
   ctx.globalAlpha = 0.35 + 0.4 * lit;
-  blob(ctx, q, rr, o.time * 0.6);
+  blob(ctx, q, rr, o.time * 0.45);
   ctx.fill();
   ctx.setLineDash([rr * 0.32, rr * 0.24]);
-  ctx.lineDashOffset = -o.time * rr * 1.2;
+  ctx.lineDashOffset = -o.time * rr * 0.9;
   ctx.strokeStyle = style.neon;
-  ctx.lineWidth = rr * (0.1 + 0.06 * blink);
+  ctx.lineWidth = rr * (0.12 + 0.1 * blink);
   ctx.globalAlpha = 0.55 + 0.45 * lit;
   ctx.stroke();
   ctx.restore();

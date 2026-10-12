@@ -38286,3 +38286,16 @@ rebuild on it cost as much as the first writing.
 Bottleneck: watching — at two frames a second each loop took a minute.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-12 — ACID YELLOW into the game; louder dots, ghost and place, a little slower
+
+- reading: 5 min. `goo-beat.ts` and `goo-parts.ts`, and the test that pins
+  when the place first lights.
+- writing: 10 min. The colour row out of the lab, the yellow into `GOO`;
+  `lingers` for the place's flash, the dots, the ghost and the place made
+  louder, `RUN` 1.1 → 1.35 s.
+- looking: 5 min. Two frames of the tow, one sent.
+- friction: 5 min. A compaction mid-lane.
+- landing: 5 min. `format`, `check:fast`, `land`.
+
+Bottleneck: the compaction — the edits were planned before it and applied after.

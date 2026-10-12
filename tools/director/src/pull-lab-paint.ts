@@ -14,7 +14,6 @@ import {
 import { splitOf } from "../../../packages/render/src/goo-arrow.js";
 import { VARIANTS } from "../../versus/candidates/index.js";
 import { apply, restore, type Variant } from "../../versus/variant.js";
-import type { GooColour } from "./pull-lab-colours.js";
 import { knobAt, type LabPull, progress } from "./pull-lab-rule.js";
 import { knobOf, LAB_H, LAB_TILE, LAB_W, type LabShape, tileOf } from "./pull-lab-shapes.js";
 import { type Stray, strayReach } from "./pull-lab-stray.js";
@@ -72,15 +71,13 @@ export interface LabFrame {
   stray?: Stray;
   /** A finger: the band is `TOUCH_SLACK` times as wide. */
   touch?: boolean;
-  /** The neon FIZZ glows in (`pull-lab-colours.ts`); GOO's own when not said. */
-  colour?: GooColour;
 }
 
-/** The look and the colour held in their records until the returned call puts them back. */
+/** The look held in its records until the returned call puts it back. */
 export function holdLooks(f: LabFrame): () => void {
-  const held = [f.look, f.colour?.look ?? null].flatMap((v) => (v ? [apply(v)] : []));
+  const held = f.look ? apply(f.look) : null;
   return () => {
-    for (const a of held.reverse()) restore(a);
+    if (held) restore(held);
   };
 }
 

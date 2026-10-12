@@ -51,7 +51,7 @@ import { initialLab, placeLab } from "./session.js";
  * … so i can clearly see the appearing animation*.
  *
  * It opens on THE LAMPREY's tow (`pull-lab-scene.ts`), the drop over a real
- * wave, with FIZZ's colour, its size and THE SLOW's loudness on the bar
+ * wave, with its size and THE SLOW's loudness on the bar
  * (`pull-lab-tune.ts`); EMPTY FIELD is the field it was built on.
  */
 
@@ -162,7 +162,7 @@ export function openPullLab(first = "down", opts: { sheet?: boolean } = {}): voi
     }
     const { tune } = state;
     const lab = { shape: s ?? state.shape, pull, look: state.look, time, stray, touch: touch() };
-    const f = { lab: { ...lab, colour: tune.colour }, size: tune.size, slow: tune.slow, dt };
+    const f = { lab, size: tune.size, slow: tune.slow, dt };
     drawLab(canvas, scene, f);
     requestAnimationFrame(frame);
   };

@@ -26,8 +26,10 @@ export function dotsEnd(t: PullTrack, r: number): number {
  * takes to run the whole way; the front it lights runs on past the end at the same pace,
  * through the place's beat and a rest. Quicker than OOZE's (`GHOST_RUN`, 1.6 s, 0.72 of
  * it) — the owner, 11 October 2026: *increase animation movement timing speed of
- * lightning dots so its faster to go the path to the placeholder*. */
-const RUN = 1.1;
+ * lightning dots so its faster to go the path to the placeholder* — and eased back a
+ * little from 1.1 the next day: *reduce the speed of animation of placeholder and
+ * lighting dots a little bit*. */
+const RUN = 1.35;
 const GHOST_TRAVEL = 0.5;
 
 /** How far the waiting ghost's front has run, as a share of the way, at one steady pace
@@ -43,6 +45,20 @@ export function ghostFront(time: number): number {
  * a third of the way. */
 export function passed(front: number, along: number): number {
   return front < along ? 0 : Math.max(0, 1 - (front - along) * 3.2);
+}
+
+/** How long the place stays whole once the front reaches it, and how fast it fades after,
+ * as shares of the way — longer than a dot's flash, and gone before the next run: the
+ * owner, 12 October 2026, *the lightning of placeholder should be more visible and a
+ * little bit longer on the latest position*. */
+const PLACE_HOLD = 0.3;
+const PLACE_FADE = 1.6;
+
+/** How lit the place is once the front has reached it: whole a while, then fading. */
+export function lingers(front: number, along: number): number {
+  if (front < along) return 0;
+  const past = front - along;
+  return past < PLACE_HOLD ? 1 : Math.max(0, 1 - (past - PLACE_HOLD) * PLACE_FADE);
 }
 
 /** Where the place sits in the dots' beat: one dot's spacing after the last, so it is
