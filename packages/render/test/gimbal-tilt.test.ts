@@ -83,7 +83,9 @@ const MEASURE = false;
 // the seat's colour, a glow and one path of rails and ticks (`cannon-column.ts`).
 // `turn` rose by sixty-two on 11 October 2026: the rings' knobs are FIZZ's drop
 // (`goo-knob.ts`), a soft body with a cap and an arrow, where a disc was.
-const CALLS = { still: 369, turn: 501, shear: 377, open: 383 } as const;
+// `turn` up five on 12 October 2026: a waiting knob's call is WHITE RINGS · FLASH
+// (`goo-call.ts`), each ring a white core inside a neon glow, two strokes where one was.
+const CALLS = { still: 369, turn: 506, shear: 377, open: 383 } as const;
 
 /** The canvas calls one frame of `world` costs on `role`'s screen. */
 function cost(world: World, role: (typeof ROLES)[number]): number {

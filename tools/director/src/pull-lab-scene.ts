@@ -10,11 +10,12 @@ import {
   type ViewRole,
 } from "@neon-spore/render";
 import { framePhase, lampreyAsks, lampreyBoss, slowing, step, type World } from "@neon-spore/sim";
+import { PULL_SIZE } from "../../../packages/render/src/pull-knob.js";
 import { SLOW_LIGHT } from "../../../packages/render/src/slow-intake.js";
 import { PHONE } from "./pose-frame.js";
 import { fresh, POSE_TPB, until } from "./pose-kit.js";
 import { holdLooks, type LabFrame, pullDraws } from "./pull-lab-paint.js";
-import { type LabShape, sized } from "./pull-lab-shapes.js";
+import type { LabShape } from "./pull-lab-shapes.js";
 import type { LabScene } from "./pull-lab-tune.js";
 import { runStageLoop, type StageLoopHandle, stageTickHz } from "./stage-loop.js";
 
@@ -62,11 +63,10 @@ function towWorld(): World {
   return w;
 }
 
-/** What one frame of the scene is asked: the lab's pull, how big, how loud THE SLOW is. */
+/** What one frame of the scene is asked: the lab's pull, how loud THE SLOW is. */
 export interface SceneFrame {
   /** The lab's frame; its `shape` is replaced by the one the game laid this frame. */
   lab: LabFrame;
-  size: number;
   slow: number;
   dt: number;
 }
@@ -109,9 +109,9 @@ export class LampreyScene {
     if (over || w.slowToBeat - w.beat <= BEFORE_END) this.live = structuredClone(this.start);
   }
 
-  /** The pull's shape this frame, `size` times the game's, or `null` before the first is drawn. */
-  shape(size: number): LabShape | null {
-    return this.laid ? this.shapeOf(this.laid.track, size) : null;
+  /** The pull's shape this frame, as the game laid it, or `null` before the first is drawn. */
+  shape(): LabShape | null {
+    return this.laid ? this.shapeOf(this.laid.track) : null;
   }
 
   /** A point on the lab's canvas, as fractions of it, in the track's own pixels. */
@@ -133,13 +133,14 @@ export class LampreyScene {
     PULL_TRACK.paint = (c, t, o) => {
       if (mine) return inner.track(c, t, o);
       this.laid = { track: t, m: c.getTransform() };
-      mine = { ...f.lab, shape: this.shapeOf(t, f.size) };
-      inner.track(c, mine.shape.track, pullDraws(mine).track);
+      mine = { ...f.lab, shape: this.shapeOf(t) };
+      inner.track(c, t, pullDraws(mine).track);
     };
     PULL_KNOB.paint = (c, at, r, o) => {
-      if (o.theirs || !mine) return inner.knob(c, at, r * f.size, o);
+      if (o.theirs || !mine) return inner.knob(c, at, r, o);
       const d = pullDraws(mine);
-      inner.knob(c, d.at, d.r, d.knob);
+      // The records are handed the knob and channel as drawn, `PULL_SIZE` times the rule's.
+      inner.knob(c, d.at, d.r * PULL_SIZE, d.knob);
     };
     try {
       const w = this.live;
@@ -168,8 +169,10 @@ export class LampreyScene {
     this.renderer.dispose();
   }
 
-  private shapeOf(track: PullTrack, size: number): LabShape {
-    const base: LabShape = {
+  /** The rule's shape from the channel as drawn: the game's own track, at the size its code asks. */
+  private shapeOf(drawn: PullTrack): LabShape {
+    const track = { ...drawn, w: drawn.w / PULL_SIZE };
+    return {
       key: `lamprey-${this.seat}`,
       label: this.seat === "p2" ? "THE LAMPREY · THE HEAD" : "THE LAMPREY · THE TAIL",
       direction: this.seat === "p2" ? "path" : "down",
@@ -179,7 +182,6 @@ export class LampreyScene {
       knob: track.w / PULL_TRACK_W,
       tile: this.tile,
     };
-    return sized(base, size);
   }
 }
 

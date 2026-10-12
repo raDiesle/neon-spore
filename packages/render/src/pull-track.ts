@@ -1,5 +1,6 @@
 import type { Point } from "@neon-spore/content";
 import { paintGooTrack } from "./goo-track.js";
+import { PULL_SIZE } from "./pull-knob.js";
 import type { PullWay } from "./pull-line.js";
 import { pullMemoryOf } from "./pull-memory.js";
 
@@ -138,9 +139,15 @@ export function pullWay(t: PullTrack, at: number, toward: 0 | 1): PullWay {
   return { dx: q.dx * sign, dy: q.dy * sign };
 }
 
-/** The channel, the green behind the hand, and the chevrons ahead of it —
- * through `PULL_TRACK`, the way `drawPullKnob` reaches its knob. */
-export function drawPullTrack(ctx: CanvasRenderingContext2D, t: PullTrack, o: PullTrackDraw): void {
+/** The channel, the green behind the hand, and the chevrons ahead of it, at
+ * `PULL_SIZE` times the width it is asked for — through `PULL_TRACK`, the way `drawPullKnob` reaches its knob. */
+export function drawPullTrack(
+  ctx: CanvasRenderingContext2D,
+  asked: PullTrack,
+  o: PullTrackDraw,
+): void {
+  // As wide as the knob is drawn big (`PULL_SIZE`).
+  const t = { ...asked, w: asked.w * PULL_SIZE };
   const memory = o.key === undefined || o.after ? undefined : pullMemoryOf(ctx);
   if (memory === undefined || o.key === undefined) {
     PULL_TRACK.paint(ctx, t, o);

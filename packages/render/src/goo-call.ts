@@ -1,73 +1,107 @@
 import type { Point } from "@neon-spore/content";
+import { ghostFront, passed } from "./goo-beat.js";
 import { bodyPath, type GooBody } from "./goo-body.js";
+import { entering } from "./goo-enter.js";
 import type { GooStyle } from "./goo-style.js";
 
 /**
- * **What calls the thumb to a drop no hand has yet**: under it, a breathing
- * halo and rings (`call`); over it, nothing. `enter` is the
- * seconds since the drop came in (`goo-enter.ts`).
+ * **What calls the thumb to a drop no hand has yet**: WHITE RINGS · FLASH,
+ * the owner's pick of the PULL LAB's four CALL looks, 12 October 2026 —
+ * asked for as *more yellow colour surrounding maybe coupled with white
+ * flashing combined like the path dots*. Under the drop, a breathing halo in
+ * its own yellow and white-hot rings out of it (`call`); over it, its rim lit
+ * white as the dots' run sets off (`callOver`), so the drop is the first
+ * light of the run, then the dots one after another, then the place. `enter`
+ * is the seconds since the drop came in (`goo-enter.ts`).
  */
 
-/** Put a thumb here: a breathing halo and ripples out of the drop, two at a time — a
- * little thinner and not so far out since the owner, 11 October 2026: *reduce a little
- * bit the border and range of wave animation around outside of button*. */
+const WHITE = "#FFFFFF";
+const CLEAR = "rgba(0,0,0,0)";
+/** The halo's reach in drop radii, and how strong it is at the bottom and top of a breath. */
+const REACH = 2.5;
+const LOW = 0.26;
+const HIGH = 0.5;
+/** How thick a ring is as it leaves the drop, in drop radii. */
+const RING = 0.08;
+
+/** How bright the white flash is: at once as the ghost sets off, as a dot is lit when
+ * the ghost passes it — never while the path is still coming in. */
+export function flashOf(time: number, enter: number): number {
+  return entering(enter) ? 0 : passed(ghostFront(time), 0);
+}
+
+/** Put a thumb here: the yellow halo, a white one on the flash, and two rings at a time. */
 export function call(
   ctx: CanvasRenderingContext2D,
   at: Point,
   r: number,
   style: GooStyle,
   time: number,
+  enter: number,
 ): void {
   const breathe = 0.5 + 0.5 * Math.sin(time * 4);
+  const flash = flashOf(time, enter);
   ctx.save();
   ctx.globalCompositeOperation = "lighter";
-  const halo = ctx.createRadialGradient(at.x, at.y, r * 0.7, at.x, at.y, r * 2.5);
-  halo.addColorStop(0, style.neon);
-  halo.addColorStop(1, "rgba(0,0,0,0)");
-  ctx.fillStyle = halo;
-  ctx.globalAlpha = 0.16 + 0.18 * breathe;
-  ctx.beginPath();
-  ctx.arc(at.x, at.y, r * 2.5, 0, Math.PI * 2);
-  ctx.fill();
+  disc(ctx, at, r * 0.7, r * REACH, style.neon, LOW + (HIGH - LOW) * breathe);
+  if (flash > 0.01) disc(ctx, at, r * 0.8, r * 2, WHITE, 0.6 * flash);
   ctx.restore();
   ctx.save();
-  ctx.strokeStyle = style.neon;
   for (const lag of [0, 0.5]) {
     const u = (time * 0.85 + lag) % 1;
-    ctx.globalAlpha = 0.7 * (1 - u);
-    ctx.lineWidth = r * 0.08 * (1 - u) + 0.3;
-    ctx.stroke(bodyPath({ at, r: r * (1.12 + 0.9 * u), seed: 29 }, style, time));
+    const p = bodyPath({ at, r: r * (1.12 + 0.9 * u), seed: 29 }, style, time);
+    const w = r * RING * (1 - u) + 0.4;
+    // A white core inside a neon glow.
+    ctx.strokeStyle = style.neon;
+    ctx.globalAlpha = 0.5 * (1 - u);
+    ctx.lineWidth = w * 2.6;
+    ctx.stroke(p);
+    ctx.strokeStyle = WHITE;
+    ctx.globalAlpha = 1 - u;
+    ctx.lineWidth = w;
+    ctx.stroke(p);
   }
   ctx.restore();
 }
 
-/** A call under the drop, at `at` with the drop's radius `r`. */
-export type CallPaint = (
-  ctx: CanvasRenderingContext2D,
-  at: Point,
-  r: number,
-  style: GooStyle,
-  time: number,
-  enter: number,
-) => void;
-
-/** A call over the drop once it is drawn, on the body as drawn; the shipped one puts
- * nothing there. */
-export type CallOver = (
+/** Over the drop: its rim lit white by the flash, as a dot is lit when the ghost passes. */
+export function callOver(
   ctx: CanvasRenderingContext2D,
   body: GooBody,
   style: GooStyle,
   time: number,
   enter: number,
-) => void;
+): void {
+  const flash = flashOf(time, enter);
+  if (flash < 0.01) return;
+  const rim = bodyPath(body, style, time);
+  ctx.save();
+  ctx.globalCompositeOperation = "lighter";
+  ctx.strokeStyle = WHITE;
+  ctx.globalAlpha = 0.45 * flash;
+  ctx.lineWidth = body.r * 0.36;
+  ctx.stroke(rim);
+  ctx.globalCompositeOperation = "source-over";
+  ctx.globalAlpha = 0.9 * flash;
+  ctx.lineWidth = body.r * 0.1;
+  ctx.stroke(rim);
+  ctx.restore();
+}
 
-/**
- * `GOO_CALL` is one record rather than two functions so the PULL LAB's CALL
- * looks (`tools/director/src/pull-calls/`) can hold another call in its place
- * for the length of a frame, as `PULL_KNOB` is held. Nothing in the game
- * patches it.
- */
-export const GOO_CALL: { paint: CallPaint; over: CallOver } = {
-  paint: call,
-  over: () => {},
-};
+function disc(
+  ctx: CanvasRenderingContext2D,
+  at: Point,
+  inner: number,
+  outer: number,
+  colour: string,
+  alpha: number,
+): void {
+  const g = ctx.createRadialGradient(at.x, at.y, inner, at.x, at.y, outer);
+  g.addColorStop(0, colour);
+  g.addColorStop(1, CLEAR);
+  ctx.fillStyle = g;
+  ctx.globalAlpha = alpha;
+  ctx.beginPath();
+  ctx.arc(at.x, at.y, outer, 0, Math.PI * 2);
+  ctx.fill();
+}

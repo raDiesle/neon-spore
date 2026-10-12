@@ -1,7 +1,7 @@
 import type { Point } from "@neon-spore/content";
 import { arrowSize, paintArrow } from "./goo-arrow.js";
 import { drop } from "./goo-body.js";
-import { GOO_CALL } from "./goo-call.js";
+import { call, callOver } from "./goo-call.js";
 import { paintGoo } from "./goo-drop-look.js";
 import { grown } from "./goo-enter.js";
 import { type Hold, heldBody, overHeld, pressOf } from "./goo-grab.js";
@@ -37,7 +37,7 @@ export function paintGooKnob(
   ctx.save();
   if (o.theirs) ctx.globalAlpha = 0.4;
   const calling = !o.held && !o.theirs && m.enter >= SPAWN;
-  if (calling) GOO_CALL.paint(ctx, at, r, style, o.time, m.enter);
+  if (calling) call(ctx, at, r, style, o.time, m.enter);
   const hold: Hold = { at, r: rr, way, near: m.near, grabbed: m.grabbed, time: o.time };
   const body = o.held
     ? heldBody(hold)
@@ -46,7 +46,7 @@ export function paintGooKnob(
   const press = o.held ? pressOf(hold) : undefined;
   const drawn = paintGoo(ctx, body, style, o.time, tint, m, press);
   if (o.held) overHeld(ctx, hold, style);
-  if (calling) GOO_CALL.over(ctx, drawn, style, o.time, m.enter);
+  if (calling) callOver(ctx, drawn, style, o.time, m.enter);
   if (o.way) {
     const split = o.after?.split ?? (o.either ? 1 : 0);
     const time = o.time;

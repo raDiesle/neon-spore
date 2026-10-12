@@ -5,22 +5,22 @@ import { choice } from "./field-try-bar.js";
  * asked for on 12 October 2026, after seeing the drop in a real wave — *not
  * enough attraction … the slow effect has same colour … increase the size of
  * the full pull control altogether, maybe double*. THE LAMPREY's first pull
- * to try it on (`pull-lab-scene.ts`), the whole control bigger, and THE
- * SLOW's light at what ships and at shares either side of it. The colour was
- * a choice here too, of six, until the owner took ACID YELLOW the same day
- * and it went into the game (`goo-style.ts`).
+ * to try it on (`pull-lab-scene.ts`) and THE SLOW's light at what ships and
+ * at shares either side of it. The colour was a choice here too, of six,
+ * until the owner took ACID YELLOW the same day and it went into the game
+ * (`goo-style.ts`); and the size, of four, until the owner took 2× that
+ * evening (`PULL_SIZE`, `packages/render/src/pull-knob.ts`).
  */
 
 export type LabScene = "lamprey-p2" | "lamprey-p1" | "empty";
 
 export interface LabTune {
   scene: LabScene;
-  size: number;
   slow: number;
 }
 
 export function freshTune(scene: LabScene = "lamprey-p2"): LabTune {
-  return { scene, size: 2, slow: 0.8 };
+  return { scene, slow: 0.8 };
 }
 
 export const LAB_SCENES: readonly [string, LabScene][] = [
@@ -29,7 +29,7 @@ export const LAB_SCENES: readonly [string, LabScene][] = [
   ["EMPTY FIELD", "empty"],
 ];
 
-/** The bar's three choices; `scene` hears a change of scene, which the lab rebuilds for. */
+/** The bar's two choices; `scene` hears a change of scene, which the lab rebuilds for. */
 export function tuneChoices(t: LabTune, scene: () => void): HTMLElement[] {
   return [
     choice(
@@ -40,19 +40,6 @@ export function tuneChoices(t: LabTune, scene: () => void): HTMLElement[] {
         scene();
       },
       "ON",
-    ),
-    choice(
-      [
-        ["1×", 1],
-        ["1½×", 1.5],
-        ["2×", 2],
-        ["2½×", 2.5],
-      ],
-      t.size,
-      (v) => {
-        t.size = v;
-      },
-      "SIZE",
     ),
     choice(
       [

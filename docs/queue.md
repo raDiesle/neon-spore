@@ -938,3 +938,23 @@ The options: (a) each door opens ON THE FIELD and scrolls to its lab's card
 (the URL keys kept for shots only); (b) leave the doors and the window as a
 full-screen way in, as the owner asked on 11 October; (c) take the doors, the
 window and the URL keys out, and photograph the card instead.
+
+## A pull's grab circle did not grow with its 2× knob
+
+- **Found:** 2026-10-12, claude/pull-lab-game-apply-dba692
+- **Files:** `packages/render/src/pull-knob.ts`, `packages/render/src/tether.ts`, `packages/render/src/handles-cords.ts`, `packages/render/src/maze-string.ts`, `packages/render/src/hasp-grip.ts`, `packages/render/src/bastion-grip.ts`, `packages/render/src/gimbal-grip.ts`, `packages/render/src/lamprey-tow-grip.ts`
+- **Asks:** Now every pull is drawn twice the size, should the circle a press is taken in grow twice too, as it did in the PULL LAB, or stay where it is?
+
+Every pull handle is drawn `PULL_SIZE` (2) times the radius its code asks
+since 12 October 2026 — the owner's 2× in the PULL LAB. The press is still
+answered at `PULL_GRAB` (2.2) times the radius *asked*, so about 1.1 times
+the knob as drawn before `hitReach`'s own half again: the whole drawn knob
+takes a press, but no longer "much bigger than the visual" (the owner, 25
+September). In the lab the 2× doubled the grab too. The options: (a) the
+grab follows the drawn knob — every grip multiplies by `PULL_SIZE`, about
+6.6 asked radii after `hitReach`, which can reach a neighbouring handle or
+the cannon's band (the nearest centre wins between rings, `hit.ts`, but not
+against a drag on the field); (b) leave it — the drawn knob is the target,
+with a margin; (c) half-way, `PULL_GRAB` at 1.5 of the drawn knob. A grip
+test per wave with two handles side by side (`hasp-grip.test.ts`) proves
+either.

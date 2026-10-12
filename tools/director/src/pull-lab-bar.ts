@@ -21,7 +21,7 @@ export interface LabState {
   auto: boolean;
   /** The room shows the sheet of every look rather than the live canvas. */
   sheet: boolean;
-  /** The wave it is tried on, the control's size, THE SLOW's loudness. */
+  /** The wave it is tried on and THE SLOW's loudness. */
   tune: LabTune;
 }
 

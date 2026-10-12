@@ -23,6 +23,15 @@ import { drawWayArrow } from "./way-arrow.js";
  */
 export const PULL_GRAB = 2.2;
 
+/**
+ * How much bigger every pull handle is drawn than the handle's own code sizes
+ * it — the knob and its channel both, never the length of the pull or the
+ * circle a press is answered in (`PULL_GRAB`). The owner, 12 October 2026, in
+ * the PULL LAB on THE LAMPREY: *increase the size of the full pull control
+ * altogether, maybe double*, and of the lab's four sizes he took 2×.
+ */
+export const PULL_SIZE = 2;
+
 /** The arrow's reach inside the knob, in knob radii: THE INSTAR's glyph fills
  * its ring at 1.1 of the mark's radius, and the knob is the ring. */
 const ARROW = 1.1;
@@ -48,8 +57,8 @@ export interface PullKnobDraw {
 }
 
 /**
- * **The circle to start**: where the thumb goes, drawn at the handle's full
- * radius over the thin channel so there is no doubt where a pull begins. It
+ * **The circle to start**: where the thumb goes, drawn at `PULL_SIZE` times
+ * the handle's radius over the thin channel so there is no doubt where a pull begins. It
  * breathes a ring round itself until it is taken, and is lit while held.
  *
  * **It carries the way the pull goes**, THE INSTAR's arrow (`way-arrow.ts`):
@@ -72,7 +81,7 @@ export function drawPullKnob(
     memory && key !== undefined
       ? memory.observe({ key, held: o.held, counted: o.counted })
       : o.after;
-  PULL_KNOB.paint(ctx, at, r, after === o.after ? o : { ...o, after });
+  PULL_KNOB.paint(ctx, at, r * PULL_SIZE, after === o.after ? o : { ...o, after });
 }
 
 /**

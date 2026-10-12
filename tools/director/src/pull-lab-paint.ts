@@ -14,7 +14,6 @@ import {
 import { splitOf } from "../../../packages/render/src/goo-arrow.js";
 import { VARIANTS } from "../../versus/candidates/index.js";
 import { apply, restore, type Variant } from "../../versus/variant.js";
-import { CALL_LOOKS } from "./pull-calls/index.js";
 import { knobAt, type LabPull, progress } from "./pull-lab-rule.js";
 import { knobOf, LAB_H, LAB_TILE, LAB_W, type LabShape, tileOf } from "./pull-lab-shapes.js";
 import { type Stray, strayReach } from "./pull-lab-stray.js";
@@ -39,10 +38,11 @@ export function pullLooks(all: readonly Variant[] = VARIANTS): Variant[] {
 }
 
 /** The LOOK picker past AS SHIPPED — the PULL LAB's FIZZ, in the game since 11
- * October 2026 (`packages/render/src/goo-*.ts`): the VERSUS candidates for the pull,
- * then the lab's own CALL looks, FIZZ with another call to the thumb (`pull-calls/`). */
+ * October 2026 (`packages/render/src/goo-*.ts`): the VERSUS candidates for the pull.
+ * The lab's own CALL looks were here until the owner took WHITE RINGS · FLASH into the
+ * game, 12 October 2026 (`goo-call.ts`). */
 export function labLooks(): Variant[] {
-  return [...pullLooks(), ...CALL_LOOKS];
+  return pullLooks();
 }
 
 export const VERDICT_WORDS: Readonly<Record<string, string>> = {

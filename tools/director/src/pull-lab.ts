@@ -16,7 +16,7 @@ import {
   tick,
 } from "./pull-lab-rule.js";
 import { type LampreyScene, sceneFor } from "./pull-lab-scene.js";
-import { type LabShape, labShape, sized } from "./pull-lab-shapes.js";
+import { type LabShape, labShape } from "./pull-lab-shapes.js";
 import { labSheet } from "./pull-lab-sheet.js";
 import type { Stray } from "./pull-lab-stray.js";
 import { freshTune } from "./pull-lab-tune.js";
@@ -51,8 +51,10 @@ import { initialLab } from "./session.js";
  * … so i can clearly see the appearing animation*.
  *
  * It opens on THE LAMPREY's tow (`pull-lab-scene.ts`), the drop over a real
- * wave, with its size and THE SLOW's loudness on the bar
- * (`pull-lab-tune.ts`); EMPTY FIELD is the field it was built on.
+ * wave, with THE SLOW's loudness on the bar (`pull-lab-tune.ts`); EMPTY FIELD
+ * is the field it was built on. The control is drawn at the game's own size,
+ * twice what its code asks (`PULL_SIZE`), since the owner took 2× of the
+ * bar's four sizes on 12 October 2026.
  *
  * With a `host` it stands on that page, beside its gesture's card; without
  * one, over everything (`lab-shell.ts`).
@@ -71,9 +73,8 @@ export function openPullLab(
     tune: freshTune(),
   };
   let scene: LampreyScene | null = sceneFor(state.tune.scene, () => state.speed);
-  /** The shape the rule runs on this frame: the wave's, or the empty field's, at the bar's size. */
-  const active = (): LabShape | null =>
-    scene ? scene.shape(state.tune.size) : sized(state.shape, state.tune.size);
+  /** The shape the rule runs on this frame: the wave's, or the empty field's. */
+  const active = (): LabShape | null => (scene ? scene.shape() : state.shape);
   /** The rule's three calls, on this frame's shape — none before a wave has laid one. */
   const on3 = (f: (s: LabShape) => void): void => {
     const s = active();
@@ -160,7 +161,7 @@ export function openPullLab(
     }
     const { tune } = state;
     const lab = { shape: s ?? state.shape, pull, look: state.look, time, stray, touch: touch() };
-    const f = { lab, size: tune.size, slow: tune.slow, dt };
+    const f = { lab, slow: tune.slow, dt };
     drawLab(canvas, scene, f);
   };
 

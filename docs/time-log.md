@@ -38388,3 +38388,19 @@ origin/main` said up to date while the local `main` was twenty landings
 ahead, so the first build was against code that no longer existed.
 
 *Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-12 — Every pull handle twice the size, called with white rings and a white flash
+
+- reading: 5 min. The lab's SIZE and CALL choices, how `sized` and the
+  LAMPREY scene apply a size, and every grip that reads `PULL_GRAB`.
+- writing: 5 min. WHITE RINGS · FLASH into `goo-call.ts`, `PULL_SIZE` in
+  `drawPullKnob` and `drawPullTrack`, the lab's choices out, the HOLD
+  LAB's old call kept beside it, a test.
+- looking: 5 min. `bun run frames` of THE LAMPREY's tow, before and after.
+- friction: 0 min. The worktree was behind the local `main` again, caught
+  in the first minute by a grep that found none of the lab's new files.
+- landing: 5 min. Three red checks on the first `check:fast` — THE
+  GIMBAL's call budget, the timeout rule, the catalogue — then `land`.
+
+Bottleneck: none to speak of; the one decision was whether the grab grows
+with the knob, and it went to the queue as a question.

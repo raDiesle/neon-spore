@@ -127,12 +127,6 @@ export function labShape(key: string): LabShape {
 export const knobOf = (s: LabShape): number => s.knob ?? LAB_KNOB;
 export const tileOf = (s: LabShape): number => s.tile ?? LAB_TILE;
 
-/** The whole control `k` times the size — knob and channel; its length is the rule's. */
-export function sized(s: LabShape, k: number): LabShape {
-  if (k === 1) return s;
-  return { ...s, knob: knobOf(s) * k, track: { ...s.track, w: s.track.w * k } };
-}
-
 /** The arrow's way, read off a straight track's two ends: from `origin` to `to`. */
 export function wayAlong(t: PullTrack, to: 0 | 1): PullWay {
   const a = t.pts[0];

@@ -2229,7 +2229,7 @@ by hand never moves.
 | `packages/render/src/goo-strand.ts` | **What is left behind the drop**: the tail it is pulled out of — JELLY's, the owner's pick |
 | `packages/render/src/goo-style.ts` | **What a GOO drop is made of** |
 | `packages/render/src/goo-track.ts` | **The channel of a GOO look**: everything round the drop |
-| `packages/render/src/goo-call.ts` | **What calls the thumb to a drop no hand has yet**: under it, a breathing halo and rings (`call`); over it |
+| `packages/render/src/goo-call.ts` | **What calls the thumb to a drop no hand has yet**: WHITE RINGS · FLASH |
 | `packages/render/src/gimbal-draw.ts` | **THE GIMBAL**: a sealed drum hung in a yoke over the middle of the field inside two rings set at right… |
 | `packages/render/src/gimbal-drum.ts` | **The sealed drum the two rings hang round, and the clock the whole scene is posed off** (§18, *Animation*) |
 | `packages/render/src/gimbal-ring.ts` | **The half of THE GIMBAL a hand is on**: one ring, drawn on the screen of the seat that grips it |
@@ -3877,11 +3877,11 @@ by hand never moves.
 | `tools/director/src/hold-goo/print.ts` | **Two GOO holds about the thumb itself**: PRINT |
 | `tools/director/src/hold-goo/view.ts` | **What a HOLD LAB look is told**, read once a frame from the rule's state (`hold-lab-rule.ts`) |
 | `tools/director/src/hold-goo/soak.ts` | **SOAK** — SINK with FILL's water |
+| `tools/director/src/hold-goo/call.ts` | **What calls the thumb to a hold no hand has yet**: a breathing halo and ripples out of the drop |
 | `tools/director/src/hold-lab-auto.ts` | **AUTO's thumb in the HOLD LAB**, as `pull-lab-auto.ts` is the PULL LAB's: one whole hold, one let go early |
 | `tools/director/src/hold-lab-paint.ts` | One frame of the HOLD LAB (`hold-lab.ts`): the PULL LAB's empty field, the look's mark in its middle, and |
 | `tools/director/src/hold-lab-rule.ts` | **The one generic HOLD, as the HOLD LAB plays it** |
 | `tools/director/src/hold-lab-sheet.ts` | **EVERY LOOK, EVERY STATE** — the HOLD LAB's comparison sheet, as the PULL LAB's (`pull-lab-sheet.ts`) |
 | `tools/director/src/hold-lab.ts` | **THE HOLD LAB** — the one generic HOLD on an empty field, to be held by hand |
-| `tools/director/src/pull-calls/paint.ts` | **How a CALL look draws** (`index.ts` names them): a halo in the drop's own yellow, rings or sparks round it |
 
 <!-- index:code:end -->
