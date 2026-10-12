@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-12 · 211fc6902 — THE LAMPREY's fuse stands at the top of the screen, not between eel and hull
+
+THE SLOW's fuse on THE LAMPREY now runs across the top of the screen, just under the siren's row and the menu button, and steps down only off a live mark (`fuseTop`). Every other boss keeps it under or over its body. A look the owner asked for by name.
+
 ## 2026-10-12 · 4c62b2b51 — No pull wears the word PULL: the knob's arrow says it, as in the PULL LAB
 
 PULL, PULL UP, PULL APART and ◀ PULL are no longer drawn on any pull drawn as the PULL LAB's — THE LAMPREY's, THE SINEW's, THE CAIRN's, THE FLEET's wreck, THE GIMBAL's, every handle with a word under it, and THE CRANK's label. The other seat still reads P1'S / P2'S, and the readings still return the word, so the fuse still steps round the knob. A look the owner asked for by name.
