@@ -1,7 +1,16 @@
 import { describe, expect, setDefaultTimeout, test } from "bun:test";
 import { controlSet } from "@neon-spore/content";
 import { computeLayout, type Field } from "@neon-spore/render";
-import { bossScript, step, type World } from "@neon-spore/sim";
+import {
+  type BossKind,
+  bossScript,
+  bossScriptNames,
+  lampreyAsks,
+  lampreyBoss,
+  slowing,
+  step,
+  type World,
+} from "@neon-spore/sim";
 import { bossWorld } from "../src/poses-bosses-kit.js";
 import { stageAutopilot } from "../src/stage-autopilot.js";
 import { stageField } from "../src/stage-field.js";
@@ -11,12 +20,13 @@ import { stageJump } from "../src/stage-jump.js";
  * THE JUMP TO A STEP (`stage-jump.ts`), on THE INSTAR's real script with the
  * real AUTO: it lands on the step asked for, a remembered step is replayed to
  * its tick and no further, and ◀ at the first and ▶ at the last do nothing.
+ * On THE LAMPREY it lands past the leap, on the tick the pull is asked for.
  */
 
 setDefaultTimeout(60_000);
 
-function rig() {
-  let world: World = bossWorld("instar");
+function rig(kind: BossKind = "instar") {
+  let world: World = bossWorld(kind);
   const l = computeLayout({ width: 900, height: 1600, dpr: 2 }, world.cfg, "test");
   const field = (seat: 1 | 2): Field =>
     stageField(world, "test", controlSet("default"), world.cfg, seat, null);
@@ -25,7 +35,7 @@ function rig() {
   const jump = stageJump({
     world: () => world,
     restage: () => {
-      world = bossWorld("instar");
+      world = bossWorld(kind);
       auto.reset();
     },
     stepOnce: () => step(world, auto.commands(world)),
@@ -34,7 +44,8 @@ function rig() {
       running = r;
     },
   });
-  return { jump, auto, world: () => world, running: () => running };
+  const stepOnce = (): void => step(world, auto.commands(world));
+  return { jump, auto, step: stepOnce, world: () => world, running: () => running };
 }
 
 const cursor = (w: World): number => bossScript(w)?.at ?? -1;
@@ -78,6 +89,27 @@ describe("the jump to a step", () => {
     expect(r.jump.forward()).toBeNull();
     expect(r.world().tick).toBe(tick);
     expect(r.jump.back()?.reached).toBe(of - 2);
+  });
+
+  test("lands on THE LAMPREY's pull the tick it is asked for, not at the leap before it", () => {
+    const r = rig("lamprey");
+    const pull = bossScriptNames(r.world())?.indexOf("pull") ?? -1;
+    expect(pull).toBeGreaterThan(0);
+    expect(r.jump.to(pull)?.reached).toBe(pull);
+    const w = r.world();
+    expect(cursor(w)).toBe(pull);
+    expect(slowing(w) && w.slowAsks).toBe(true);
+    const s = lampreyBoss(w);
+    expect(s === null ? null : lampreyAsks(s)).toBe("pull");
+    // The step was reached earlier, with nothing asked: the leap is what was skipped.
+    const at = w.tick;
+    r.jump.forget();
+    r.jump.to(pull - 1);
+    const done = r.auto.playBoth();
+    while (cursor(r.world()) < pull) r.step();
+    done();
+    expect(r.world().tick).toBeLessThan(at);
+    expect(slowing(r.world()) && r.world().slowAsks).toBe(false);
   });
 
   test("forgets every step on a restart", () => {

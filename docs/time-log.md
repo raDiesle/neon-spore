@@ -38301,3 +38301,16 @@ Bottleneck: watching — at two frames a second each loop took a minute.
 Bottleneck: the compaction — the edits were planned before it and applied after.
 
 *Measured: 10 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
+
+## 2026-10-12 — The director's step jump lands on the ask, past the leap
+
+- reading: 10 min. `stage-jump.ts`, THE LAMPREY's phases, and THE SLOW's
+  `slowAsks` as the one generic sign that the pair is being asked.
+- writing: 10 min. The jump's second map (first ask per step), the quiet
+  steps that never ask, and a LAMPREY test.
+- looking: 5 min. The browser pane on THE LAMPREY's step 6, PULL.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, `land`.
+
+Bottleneck: reading — finding that THE SLOW already says *asking* for every
+boss, so no boss needed its own rule.
