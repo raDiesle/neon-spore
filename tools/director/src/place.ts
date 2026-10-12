@@ -45,7 +45,8 @@ export interface Place {
    * page under it where it was (the owner, 11 October 2026: a reload stays
    * on the lab). `pulllab=` in the URL, the name its first link had. THE
    * HOLD LAB is here too, as `HOLD_LAB` and its beats (`hold:2`), and
-   * `holdlab=2` in the URL: only one lab is ever open.
+   * `holdlab=2` in the URL, and THE COMBO LAB as `COMBO_LAB` and its combo
+   * (`combo:partner`), `combolab=partner`: only one lab is ever open.
    */
   lab: string | null;
   /** The lab shows EVERY LOOK, EVERY STATE rather than the live pull — `pullsheet=1`. Always false when `lab` is null. */
@@ -54,6 +55,8 @@ export interface Place {
 
 /** What a `Place`'s `lab` starts with when the lab open is THE HOLD LAB (`hold-lab.ts`). */
 export const HOLD_LAB = "hold:";
+/** What a `Place`'s `lab` starts with when the lab open is THE COMBO LAB (`combo-lab.ts`). */
+export const COMBO_LAB = "combo:";
 
 /**
  * Parses a `location.search`-shaped string into a `Place`. Pure, so the
@@ -76,8 +79,16 @@ export function parsePlace(search: string): Place {
   const inner = sheet ? params.get("inner") || null : null;
   const sub = inner ? params.get("sub") || null : null;
   const hold = params.get("holdlab") || null;
-  const lab = hold !== null ? HOLD_LAB + hold : params.get("pulllab") || null;
-  const labSheet = lab !== null && params.get(hold !== null ? "holdsheet" : "pullsheet") === "1";
+  const combo = params.get("combolab") || null;
+  const lab =
+    hold !== null
+      ? HOLD_LAB + hold
+      : combo !== null
+        ? COMBO_LAB + combo
+        : params.get("pulllab") || null;
+  // THE COMBO LAB has no sheet.
+  const labSheet =
+    lab !== null && combo === null && params.get(hold !== null ? "holdsheet" : "pullsheet") === "1";
 
   return { wave, sheet, inner, sub, lab, labSheet };
 }
@@ -96,6 +107,8 @@ export function placeToSearch(place: Place): string {
   if (place.lab?.startsWith(HOLD_LAB)) {
     params.set("holdlab", place.lab.slice(HOLD_LAB.length));
     if (place.labSheet) params.set("holdsheet", "1");
+  } else if (place.lab?.startsWith(COMBO_LAB)) {
+    params.set("combolab", place.lab.slice(COMBO_LAB.length));
   } else if (place.lab !== null) {
     params.set("pulllab", place.lab);
     if (place.labSheet) params.set("pullsheet", "1");

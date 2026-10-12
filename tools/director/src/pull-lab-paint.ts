@@ -82,7 +82,7 @@ export function paintLab(ctx: CanvasRenderingContext2D, f: LabFrame): void {
   }
 }
 
-function toneOf(pull: LabPull): { hex: string; rim: string } {
+export function toneOf(pull: LabPull): { hex: string; rim: string } {
   if (pull.verdict === "counted") return { hex: PALETTE.good, rim: PALETTE.goodRim };
   if (pull.verdict === "refused" || pull.verdict === "strayed")
     return { hex: PALETTE.red, rim: PALETTE.redRim };
@@ -116,7 +116,7 @@ function paintPull(ctx: CanvasRenderingContext2D, f: LabFrame): void {
 }
 
 /** What a look is told of the last lift: a stray is a refusal to the eye. */
-function afterOf(pull: LabPull, reach: number | null): PullAfter {
+export function afterOf(pull: LabPull, reach: number | null): PullAfter {
   const v = pull.verdict;
   const verdict = v === "counted" ? v : v === "refused" || v === "strayed" ? "refused" : null;
   return {

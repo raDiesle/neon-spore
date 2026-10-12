@@ -38227,3 +38227,19 @@ Bottleneck: telling which pulls stand on a knob — the box is the only mark
 on six of them, so the rule could not go into `boss-cue-draw.ts` for all.
 
 *Measured: 4 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-12 — THE COMBO LAB: PULL, THEN HOLD
+
+- reading: 15 min. The PULL LAB's and HOLD LAB's rules, looks and wiring,
+  the CONTROLS page's actions and the test that holds each row to one type.
+- writing: 25 min. The rule on top of the PULL LAB's, AUTO's loop, the
+  paint, the lab, the URL slot, the door, the action and its tests.
+- looking: 20 min. The browser pane: a red streak and an end ring four
+  times too big, both from a channel width in the wrong unit.
+- friction: 10 min. `director-here` served another tree until `bun run here`;
+  the bundled director cannot be imported from the page, so a temporary
+  hook stepped the lab instead.
+- landing: 5 min. `imports:sort`, `check:fast`, `land`.
+
+Bottleneck: looking — the one wrong number showed only in a frame, never in
+a test.

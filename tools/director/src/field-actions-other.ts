@@ -52,6 +52,8 @@ export const OTHER_ACTIONS: readonly FieldAction[] = [
         ],
         steps: {
           "THE QUEEN'S MARKS": "SCREAM — the real mark held open, up to its beats.",
+          "THE LAMPREY'S TAIL":
+            "A PULL OR A TEETH — held while the partner pulls the head or taps the teeth.",
         },
       },
       {

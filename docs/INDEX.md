@@ -3353,6 +3353,10 @@ by hand never moves.
 | `tools/director/src/control-set-note.ts` | The roster under the wave editor's control-set picker: every button on the panel, seat by seat |
 | `tools/director/src/contents-here.ts` | Where you are on a long sheet page, kept in sight while you read it |
 | `tools/director/src/cover.ts` | **A live overlay hides the director under it** — THE PULL LAB (`pull-lab.ts`) and TRY IT (`field-try.ts`) |
+| `tools/director/src/combo-lab-auto.ts` | **AUTO's thumb in THE COMBO LAB**, as `hold-lab-auto.ts` is the HOLD LAB's |
+| `tools/director/src/combo-lab-paint.ts` | One frame of THE COMBO LAB (`combo-lab.ts`): the PULL LAB's empty field and its pull |
+| `tools/director/src/combo-lab-rule.ts` | **Two gestures in one action, as THE COMBO LAB plays them** — the owner, 12 October 2026, on THE LAMPREY |
+| `tools/director/src/combo-lab.ts` | **THE COMBO LAB** — two gestures in one action, on an empty field |
 | `tools/director/src/rail-marks.ts` | The small glyphs in front of a wave's name in the rail: a boss, a panel, a guide |
 | `tools/land/say.ts` | What a landing says about itself before and after it happens |
 | `tools/maze/draw.ts` | Draw a sheet for THE MAZE: the walls of one circular maze |
@@ -3663,6 +3667,7 @@ by hand never moves.
 | `tools/director/src/field-action-cards.ts` | How CONTROLS › ON THE FIELD draws one action (`field-page.ts` lays them out) |
 | `tools/director/src/field-actions-drag.ts` | GRAB AND DRAG's control types — a finger put on a thing and moved |
 | `tools/director/src/field-actions-other.ts` | Every action on CONTROLS › ON THE FIELD but GRAB AND DRAG (`field-actions-drag.ts`) |
+| `tools/director/src/field-actions-combo.ts` | **Two gestures in one action** on CONTROLS › ON THE FIELD — the owner, 12 October 2026, on THE LAMPREY |
 | `tools/director/src/field-actions.ts` | Where every row of `FIELD_CONTROLS` stands on the CONTROLS sheet — the owner's order of 6 October 2026 |
 | `tools/director/src/field-looks-drag.ts` | FIND IT and WHILE YOU MOVE for every GRAB AND DRAG card, keyed by one row of the card |
 | `tools/director/src/field-looks-other.ts` | FIND IT and WHILE YOU MOVE for every card but GRAB AND DRAG's (`field-looks-drag.ts`) |
@@ -3834,7 +3839,7 @@ by hand never moves.
 | `tools/director/src/library/rind-stage.ts` | The game's own rind, losing its layers on a card, each one drawn coming off by a shed of the caller's choosing |
 | `tools/director/src/library/countdown-assets.ts` | THE COUNT's four counts — how a body says how many beats are left, on the one screen that is shown it |
 | `tools/director/src/library/countdown-stage.ts` | The game's own count, drawn on a card wearing a look of the caller's choosing |
-| `tools/director/src/labs.ts` | **The director's two labs, PULL and HOLD**: each one's door in the topbar |
+| `tools/director/src/labs.ts` | **The director's three labs, PULL, HOLD and COMBO**: each one's door in the topbar |
 | `tools/director/src/autopilot-ghost.ts` | **The autopilot's finger, drawn where a thumb would be**, found by the game's own hit test run backwards |
 | `tools/director/src/antiphon-editor.ts` | THE ANTIPHON's levels, a tab each and one for the ship, with who explains and who chooses |
 | `tools/imports/classify.ts` | Which of a file's characters are code rather than a comment or a string |

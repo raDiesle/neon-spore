@@ -1,3 +1,4 @@
+import { openComboLab } from "./combo-lab.js";
 import { type ControlType, type FieldAction, typeUses, userOf, usersOf } from "./field-actions.js";
 import type { FieldControlDef } from "./field-control-def.js";
 import { lookOf } from "./field-looks.js";
@@ -100,12 +101,18 @@ export function concepts(names: readonly string[] | undefined): HTMLElement | nu
   return box;
 }
 
-/** The button that opens the PULL LAB on `shape` — or with `hold` the HOLD LAB on that
- * many beats — under a generic picture. */
-function labButton(shape: string | undefined, label: string, hold = false): HTMLElement | null {
-  if (!shape) return null;
+/** Each lab, opened on its own key: the PULL LAB's shape, the HOLD LAB's beats, THE COMBO LAB's combo. */
+const LABS = { pull: openPullLab, hold: openHoldLab, combo: openComboLab } as const;
+
+/** The button that opens a lab on `key`, under a generic picture. */
+function labButton(
+  key: string | undefined,
+  label: string,
+  lab: keyof typeof LABS = "pull",
+): HTMLElement | null {
+  if (!key) return null;
   const b = text("button", label, "field-try field-lab");
-  b.addEventListener("click", () => (hold ? openHoldLab(shape) : openPullLab(shape)));
+  b.addEventListener("click", () => LABS[lab](key));
   return b;
 }
 
@@ -154,8 +161,10 @@ function typeBlock(
   if (own) box.appendChild(own);
   const lab = labButton(t.lab, "▶ TRY THE GENERIC PULL — EMPTY FIELD, EVERY SHAPE, EVERY LOOK");
   if (lab) box.appendChild(lab);
-  const hold = labButton(t.holdLab, "▶ TRY THE GENERIC HOLD — EMPTY FIELD, EVERY LOOK", true);
+  const hold = labButton(t.holdLab, "▶ TRY THE GENERIC HOLD — EMPTY FIELD, EVERY LOOK", "hold");
   if (hold) box.appendChild(hold);
+  const combo = labButton(t.comboLab, "▶ TRY THE TWO GESTURES AS ONE — EMPTY FIELD", "combo");
+  if (combo) box.appendChild(combo);
   const compare = text("button", "▤ COMPARE ALL USES", "field-try");
   compare.addEventListener("click", () =>
     openZoom(`${t.title} · EVERY USE`, [

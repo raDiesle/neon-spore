@@ -1,3 +1,4 @@
+import { COMBO_ACTIONS } from "./field-actions-combo.js";
 import { DRAG_TYPES } from "./field-actions-drag.js";
 import { OTHER_ACTIONS } from "./field-actions-other.js";
 
@@ -33,6 +34,8 @@ export interface ControlType {
   lab?: string;
   /** The HOLD LAB's beats this type opens on (`hold-lab-rule.ts`), as `lab` is the pull's. */
   holdLab?: string;
+  /** THE COMBO LAB's combo this type opens on (`combo-lab-rule.ts`). */
+  comboLab?: string;
   rows: readonly string[];
   /** For a row whose one mark asks a different gesture step by step (THE
    * INSTAR's, THE MIRROR's, THE QUEEN's, THE GALL's): which of its steps is
@@ -84,6 +87,7 @@ export const FIELD_ACTIONS: readonly FieldAction[] = [
     types: DRAG_TYPES,
   },
   ...OTHER_ACTIONS,
+  ...COMBO_ACTIONS,
 ];
 
 /**
