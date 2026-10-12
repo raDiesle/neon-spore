@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-12 · 460aa58cd — THE LAMPREY's plug: the tail's pull appears once the button is pressed in
+
+In THE LAMPREY's fourth level, the seat on the tail no longer has a knob before the partner has pressed the bitten button back in. Once the button is in, the teeth have lost it: it stops creeping out, and the tail's knob comes in to be pulled the whole way, bringing the eel out of the ship. The old rule is gone: a pull that could be taken at once and was yanked back, with the thumb thrown off, if it got there before the press. The yank's event, its sound and its number go with it. THE COMBO LAB plays the new rule as PRESS, THEN PULL, in place of PULL ONCE THE PARTNER HAS PRESSED. The specs and the CONTROLS rows say it. A change the owner asked for by name.
+
 ## 2026-10-12 · c083d09ba — THE COMBO LAB: every hold wears SOAK, a clock in the place, HOLD, THEN PULL
 
 THE COMBO LAB loses its HOLD LOOK choice: every hold in every combo now wears SOAK. SOAK's water wells up wide and fast, then spreads slower, and reaches the rim exactly as the hold counts. This applies in the HOLD LAB too. In PULL, HOLD FOR THE PARTNER and PULL, HOLD FOR 2 BEATS, the dashed place at the end of the channel shows the waiting clock from the moment the knob is taken. Once the hold is on, the clock slides up to the drop's shoulder and leaves the water uncovered. HOLD, THEN SWIPE is replaced by HOLD, THEN PULL: a hold that counts on its own, then a pull knob in its place, taken the whole way. Whether THE SLING in the game follows is asked in the queue. A look the owner asked for by name, in the director only.
