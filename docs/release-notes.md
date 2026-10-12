@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-12 · 4c62b2b51 — No pull wears the word PULL: the knob's arrow says it, as in the PULL LAB
+
+PULL, PULL UP, PULL APART and ◀ PULL are no longer drawn on any pull drawn as the PULL LAB's — THE LAMPREY's, THE SINEW's, THE CAIRN's, THE FLEET's wreck, THE GIMBAL's, every handle with a word under it, and THE CRANK's label. The other seat still reads P1'S / P2'S, and the readings still return the word, so the fuse still steps round the knob. A look the owner asked for by name.
+
 ## 2026-10-12 · 10fe1e40c — Every lab plays on ON THE FIELD, beside the gesture it tries
 
 THE PULL LAB, THE HOLD LAB and THE COMBO LAB are no longer a page of their own behind a ▶ TRY button: each is a card in CONTROLS › ON THE FIELD's gesture grid, next to the generic gesture card it tries, with its whole bar — path or beats or combo, look, speed, AUTO, RETRY, the sheet — and it plays only while it is on the screen. A type with no gesture of its own puts its lab beside its action's card, so the HOLD LAB stands next to HOLD, AS A LEVEL. The topbar doors and the `?pulllab=` URLs still open the full-screen window; what to do with them is asked in the queue.
