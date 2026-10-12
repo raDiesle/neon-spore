@@ -34,6 +34,10 @@ export interface LabShape {
   track: PullTrack;
   /** 0 or ½: where the knob rests. */
   origin: number;
+  /** The knob's radius and a tile, in the track's pixels: `LAB_KNOB` and
+   * `LAB_TILE` on the empty field, the phone's own on a wave's (`pull-lab-scene.ts`). */
+  knob?: number;
+  tile?: number;
 }
 
 const W = LAB_KNOB * PULL_TRACK_W;
@@ -117,6 +121,16 @@ export const LAB_SHAPES: readonly LabShape[] = [
 
 export function labShape(key: string): LabShape {
   return LAB_SHAPES.find((s) => s.key === key) ?? (LAB_SHAPES[0] as LabShape);
+}
+
+/** The knob's radius, the field's tile. */
+export const knobOf = (s: LabShape): number => s.knob ?? LAB_KNOB;
+export const tileOf = (s: LabShape): number => s.tile ?? LAB_TILE;
+
+/** The whole control `k` times the size — knob and channel; its length is the rule's. */
+export function sized(s: LabShape, k: number): LabShape {
+  if (k === 1) return s;
+  return { ...s, knob: knobOf(s) * k, track: { ...s.track, w: s.track.w * k } };
 }
 
 /** The arrow's way, read off a straight track's two ends: from `origin` to `to`. */

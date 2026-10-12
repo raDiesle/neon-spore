@@ -38245,3 +38245,21 @@ Bottleneck: looking — the one wrong number showed only in a frame, never in
 a test.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-12 — The PULL LAB on THE LAMPREY's tow, in six colours and four sizes
+
+- reading: 5 min. The lab's paint, rule and shapes, THE LAMPREY's handles
+  and its wave, the pose kit and `drawPhone`, THE SLOW's light.
+- writing: 15 min. The scene (the real wave, the renderer's own track taken
+  over for the lab's pull), the colours, the size through the rule, the
+  slow's strength, the test — and all of it again on the new trunk.
+- looking: 10 min. The browser pane on both seats and the empty field, a
+  hand-pull taken on the eel's own track, two PNGs.
+- friction: 0 min.
+- landing: 10 min. `check:fast` red three ways — `pull-lab.ts` past 250
+  lines, a second fixed-timestep carry, INDEX rows — then `land` refused:
+  28 commits had moved FIZZ into the game, the GOO files into render and
+  the bar into a file of its own, so the change was rebuilt on `main`.
+
+Bottleneck: the trunk moving under the lab while this lane worked — the
+rebuild on it cost as much as the first writing.

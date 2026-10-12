@@ -1,3 +1,4 @@
+import type { Point } from "@neon-spore/content";
 import {
   drawPullKnob,
   drawPullTrack,
@@ -5,14 +6,17 @@ import {
   PULL_KNOB,
   PULL_TRACK,
   type PullAfter,
+  type PullKnobDraw,
+  type PullTrackDraw,
   type PullWay,
   pullTrackPoint,
 } from "@neon-spore/render";
 import { splitOf } from "../../../packages/render/src/goo-arrow.js";
 import { VARIANTS } from "../../versus/candidates/index.js";
 import { apply, restore, type Variant } from "../../versus/variant.js";
+import type { GooColour } from "./pull-lab-colours.js";
 import { knobAt, type LabPull, progress } from "./pull-lab-rule.js";
-import { LAB_H, LAB_KNOB, LAB_TILE, LAB_W, type LabShape } from "./pull-lab-shapes.js";
+import { knobOf, LAB_H, LAB_TILE, LAB_W, type LabShape, tileOf } from "./pull-lab-shapes.js";
 import { type Stray, strayReach } from "./pull-lab-stray.js";
 
 /**
@@ -68,17 +72,29 @@ export interface LabFrame {
   stray?: Stray;
   /** A finger: the band is `TOUCH_SLACK` times as wide. */
   touch?: boolean;
+  /** The neon FIZZ glows in (`pull-lab-colours.ts`); GOO's own when not said. */
+  colour?: GooColour;
+}
+
+/** The look and the colour held in their records until the returned call puts them back. */
+export function holdLooks(f: LabFrame): () => void {
+  const held = [f.look, f.colour?.look ?? null].flatMap((v) => (v ? [apply(v)] : []));
+  return () => {
+    for (const a of held.reverse()) restore(a);
+  };
 }
 
 export function paintLab(ctx: CanvasRenderingContext2D, f: LabFrame): void {
   paintField(ctx);
   // FIZZ draws its own edge where the drop nears the limit; a candidate is given the band.
   if (f.look) paintBand(ctx, f);
-  const applied = f.look ? apply(f.look) : null;
+  const put = holdLooks(f);
   try {
-    paintPull(ctx, f);
+    const d = pullDraws(f);
+    drawPullTrack(ctx, f.shape.track, d.track);
+    drawPullKnob(ctx, d.at, d.r, d.knob);
   } finally {
-    if (applied) restore(applied);
+    put();
   }
 }
 
@@ -89,30 +105,33 @@ export function toneOf(pull: LabPull): { hex: string; rim: string } {
   return { hex: PALETTE.cyan, rim: PALETTE.cyanRim };
 }
 
-function paintPull(ctx: CanvasRenderingContext2D, f: LabFrame): void {
+/** How the pull is asked to be drawn this frame: its channel, and its knob where and how big. */
+export function pullDraws(f: LabFrame): {
+  track: PullTrackDraw;
+  at: Point;
+  r: number;
+  knob: PullKnobDraw;
+} {
   const { shape, pull, time } = f;
   const held = pull.phase === "held" || pull.phase === "full";
   const tone = toneOf(pull);
-  const after = afterOf(pull, strayReach(f.stray ?? "free", f.touch));
-  drawPullTrack(ctx, shape.track, {
-    ...tone,
-    held,
-    origin: shape.origin,
-    at: pull.at,
-    time,
-    after,
-  });
-  drawPullKnob(ctx, knobAt(shape, pull), LAB_KNOB, {
-    ...tone,
-    held,
-    time,
-    way: wayNow(shape, pull),
-    either: shape.origin > 0 && pull.sign === 0,
-    after: {
-      ...after,
-      split: splitOf(shape.origin > 0, (pull.at - shape.origin) / (shape.origin || 1)),
+  const after = afterOf(pull, strayReach(f.stray ?? "free", f.touch, tileOf(shape)));
+  return {
+    track: { ...tone, held, origin: shape.origin, at: pull.at, time, after },
+    at: knobAt(shape, pull),
+    r: knobOf(shape),
+    knob: {
+      ...tone,
+      held,
+      time,
+      way: wayNow(shape, pull),
+      either: shape.origin > 0 && pull.sign === 0,
+      after: {
+        ...after,
+        split: splitOf(shape.origin > 0, (pull.at - shape.origin) / (shape.origin || 1)),
+      },
     },
-  });
+  };
 }
 
 /** What a look is told of the last lift: a stray is a refusal to the eye. */
@@ -146,7 +165,7 @@ function wayNow(shape: LabShape, pull: LabPull): PullWay {
 /** The tolerance either side of the path: a faint band the thumb must stay
  * in, red while a pull that left it is shown. */
 function paintBand(ctx: CanvasRenderingContext2D, { shape, pull, stray, touch }: LabFrame): void {
-  const limit = strayReach(stray ?? "free", touch);
+  const limit = strayReach(stray ?? "free", touch, tileOf(shape));
   if (limit === null) return;
   const pts = shape.track.pts;
   ctx.save();

@@ -1,6 +1,8 @@
 import type { Point } from "@neon-spore/content";
 import { pullTrackPoint, smoothstep } from "@neon-spore/render";
+import { type LabPull, lift, move, press, type ShortPull } from "./pull-lab-rule.js";
 import type { LabShape } from "./pull-lab-shapes.js";
+import type { Stray } from "./pull-lab-stray.js";
 
 /**
  * **AUTO's thumb in the PULL LAB**: one whole pull and one short one, over
@@ -78,6 +80,23 @@ export function autoThumb(shape: LabShape, t: number, strays = false): AutoThumb
     return { at: strayAt(shape, reach), down: true };
   }
   return { at: thumbAt(shape, share, second), down: beat.down };
+}
+
+/** AUTO's thumb `t` seconds in, driving the rule exactly as a mouse would;
+ * `was` is whether it was down the frame before. Its second pull strays, and
+ * the half tile catches it. */
+export function autoDrive(
+  shape: LabShape,
+  pull: LabPull,
+  t: number,
+  was: boolean,
+  rule: { stray: Stray; short: ShortPull },
+): AutoThumb {
+  const thumb = autoThumb(shape, t, true);
+  if (thumb.down && !was) press(shape, pull, thumb.at);
+  if (thumb.down) move(shape, pull, thumb.at, rule.stray);
+  if (!thumb.down && was) lift(shape, pull, rule.short);
+  return thumb;
 }
 
 /** A pull that wanders: `reach` of the way through it, along the path and

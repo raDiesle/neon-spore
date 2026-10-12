@@ -3598,7 +3598,11 @@ by hand never moves.
 | `tools/director/src/pull-lab-shapes.ts` | **The shapes the one generic PULL can take**, for the PULL LAB (`pull-lab.ts`) |
 | `tools/director/src/pull-lab-sheet.ts` | **EVERY LOOK, EVERY STATE** — the PULL LAB's comparison sheet: one row per look (what ships |
 | `tools/director/src/pull-lab-stray.ts` | **A thumb off the path, in the PULL LAB** — ignored, as every pull in the game ignores it today |
-| `tools/director/src/pull-lab-bar.ts` | The PULL LAB's bar (`pull-lab.ts`): the shape, the look, the speed, AUTO and RETRY |
+| `tools/director/src/pull-lab-scene.ts` | **The PULL LAB on a wave**: THE LAMPREY's first pull, the tow |
+| `tools/director/src/pull-lab-bar.ts` | The PULL LAB's bar (`pull-lab.ts`): the shape, the look, the speed |
+| `tools/director/src/pull-lab-canvas.ts` | **The PULL LAB's canvas** (`pull-lab.ts`): cut to its room, a pointer read into the pixels the pull runs in |
+| `tools/director/src/pull-lab-colours.ts` | **The neon FIZZ's drop may glow in**, on the PULL LAB's bar |
+| `tools/director/src/pull-lab-tune.ts` | **What the PULL LAB is tried on, and how loud**: the four choices the owner asked for on 12 October 2026 |
 | `tools/director/src/pull-lab.ts` | **THE PULL LAB** — the one generic PULL on an empty field, to be pulled by hand (the owner, 10 October 2026) |
 | `tools/director/src/versus-crop.ts` | One side of a VERSUS pair: a whole phone, drawn, shown through the window its pose's own `crop` cuts in it |
 | `tools/director/src/versus-diff.ts` | How two pictures of the same frame are compared — the pixel arithmetic behind `versus-seat.ts` |

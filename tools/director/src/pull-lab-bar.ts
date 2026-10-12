@@ -3,10 +3,12 @@ import { choice, grouped } from "./field-try-bar.js";
 import { text } from "./gestures-page.js";
 import { labLooks } from "./pull-lab-paint.js";
 import { LAB_SHAPES, type LabShape, labShape } from "./pull-lab-shapes.js";
+import { type LabTune, tuneChoices } from "./pull-lab-tune.js";
 
 /**
- * The PULL LAB's bar (`pull-lab.ts`): the shape, the look, the speed, AUTO
- * and RETRY, and the sheet of every look. It writes its choices into one
+ * The PULL LAB's bar (`pull-lab.ts`): the shape, the look, the speed, what
+ * it is tried on and how (`pull-lab-tune.ts`), AUTO and RETRY, and the sheet
+ * of every look. It writes its choices into one
  * `LabState` and calls back; `openPullLab` keeps the canvas, the pointer, the
  * clock and the frame, and reads the state each frame.
  */
@@ -19,6 +21,8 @@ export interface LabState {
   auto: boolean;
   /** The room shows the sheet of every look rather than the live canvas. */
   sheet: boolean;
+  /** The wave it is tried on, FIZZ's colour, the control's size, THE SLOW's loudness. */
+  tune: LabTune;
 }
 
 /** What the lab does when the bar is pressed. */
@@ -27,6 +31,8 @@ export interface LabActions {
   reset(): void;
   /** The room drawn again: the live canvas, or the sheet. */
   show(): void;
+  /** Another wave, or the empty field, to try the pull on. */
+  scene(): void;
   close(): void;
 }
 
@@ -63,7 +69,7 @@ export function labBar(state: LabState, act: LabActions): LabBar {
   close.addEventListener("click", act.close);
 
   el.append(
-    text("b", "PULL LAB · THE ONE GENERIC PULL, ON AN EMPTY FIELD"),
+    text("b", "PULL LAB · THE ONE GENERIC PULL"),
     close,
     choice(
       LAB_SHAPES.map((s) => [s.label, s.key] as [string, string]),
@@ -97,6 +103,7 @@ export function labBar(state: LabState, act: LabActions): LabBar {
       },
       "SPEED",
     ),
+    ...tuneChoices(state.tune, act.scene),
     grouped("PLAY", autoButton, retry),
     grouped("SHOW", sheetButton),
     readout,

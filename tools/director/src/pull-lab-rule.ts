@@ -1,6 +1,6 @@
 import type { Point } from "@neon-spore/content";
 import { PULL_GRAB, pullTrackPoint } from "@neon-spore/render";
-import { LAB_KNOB, type LabShape } from "./pull-lab-shapes.js";
+import { knobOf, type LabShape, tileOf } from "./pull-lab-shapes.js";
 import { nearest, type Stray, strayReach } from "./pull-lab-stray.js";
 
 /**
@@ -121,7 +121,7 @@ export function progress(shape: LabShape, p: LabPull): number {
 export function press(shape: LabShape, p: LabPull, at: Point): boolean {
   if (p.phase === "held" || p.phase === "full") return false;
   const k = knobAt(shape, p);
-  if (Math.hypot(at.x - k.x, at.y - k.y) > LAB_KNOB * PULL_GRAB) return false;
+  if (Math.hypot(at.x - k.x, at.y - k.y) > knobOf(shape) * PULL_GRAB) return false;
   p.phase = "held";
   p.grabbed = 0;
   p.verdict = null;
@@ -142,7 +142,7 @@ export function move(
   const n = nearest(shape.track, p.at, at);
   const q = pullTrackPoint(shape.track, n.k);
   p.off = { x: at.x - q.x, y: at.y - q.y };
-  const reach = strayReach(stray, touch);
+  const reach = strayReach(stray, touch, tileOf(shape));
   if (reach !== null && n.off > reach) {
     // Off the path is a failure, wherever along it the knob had got to.
     p.phase = "home";

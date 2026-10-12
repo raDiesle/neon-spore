@@ -52,13 +52,22 @@ import { drawPrism } from "./slow-prism.js";
  */
 export const intakeWindow: SlowLook["paint"] = (ctx, l, world, view, win) => {
   const at = aim(world, l, world.beat, view.beatPhase);
-  const up = world.slowPaceMilli < MILLI ? ramp(win, world) : 0;
+  const up = world.slowPaceMilli < MILLI ? ramp(win, world) * SLOW_LIGHT.strength : 0;
   if (up > 0) {
     drawPrism(ctx, l, at, up, win);
     drawCrawl(ctx, l, at, up, win);
   }
   if (acting(world)) drawFuse(ctx, l, win, fuseAt(l, world, view.beatPhase, underAim(at)));
 };
+
+/**
+ * **How loud the prism and the light are**, as a share of what they were
+ * built at. The owner, 12 October 2026, on THE LAMPREY's tow with the PULL
+ * LAB's drop over it: *make the slow colours some more subtle — just a little
+ * bit*. One record so the PULL LAB can hold another share for a frame and
+ * the pair be seen side by side; nothing in the game patches it.
+ */
+export const SLOW_LIGHT: { strength: number } = { strength: 0.8 };
 
 /**
  * **Whether the pair has something to do this frame** — the owner, 30

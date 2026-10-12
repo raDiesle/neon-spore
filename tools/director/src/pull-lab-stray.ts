@@ -30,9 +30,9 @@ export const TOUCH_SLACK = 2;
 
 /** The tolerance either side of the path in field pixels, or `null` where
  * there is none; `touch` for a finger. */
-export function strayReach(stray: Stray, touch = false): number | null {
+export function strayReach(stray: Stray, touch = false, tile = LAB_TILE): number | null {
   const limit = STRAY_TILES[stray];
-  return limit === null ? null : limit * LAB_TILE * (touch ? TOUCH_SLACK : 1);
+  return limit === null ? null : limit * tile * (touch ? TOUCH_SLACK : 1);
 }
 
 /** The nearest point of the track to `at`, searched near where the knob is
