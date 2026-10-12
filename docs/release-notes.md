@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-12 · b7690dc9f — THE COMBO LAB: PULL, THEN HOLD, a new action on the CONTROLS page
+
+CONTROLS › ON THE FIELD has a new action, PULL, THEN HOLD: a pull carried the whole way and then held at its end, counted only when what the hold waits for is done. THE LAMPREY's tail in an apart or a tow is filed there, with a step line, as well as under HOLD for a pull or a teeth. Its button opens THE COMBO LAB, which also has a door in the topbar and `combolab=` in the URL. COMBO picks PULL, HOLD FOR THE PARTNER (a second knob, dim and without a channel, as the game draws a partner's, is pulled by the lab while you hold) or PULL, HOLD FOR 2 BEATS. HOLD LOOK picks which HOLD LAB look the hold at the end of the pull wears. A short pull is refused, red. So is a lift at the end too soon, and the knob goes home. AUTO plays a whole one, an early one and a short one. It is in the director only, so nothing the game draws changes.
+
 ## 2026-10-12 · bd6d65bd6 — THE LAMPREY's pull knobs wear no scanner box and no green ring
 
 The tail's PULL, the head's PULL UP and the tow's PULL now stand on their knobs with no scanner box round them, and the head no longer wears a green progress arc while it comes up: the knob riding its channel already says which way and how far. The owner asked for it by name (12 October 2026), which is the exemption used. The other nine bosses whose pull word stands on a knob are queued.

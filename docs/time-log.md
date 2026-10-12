@@ -38243,3 +38243,5 @@ on six of them, so the rule could not go into `boss-cue-draw.ts` for all.
 
 Bottleneck: looking — the one wrong number showed only in a frame, never in
 a test.
+
+*Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
