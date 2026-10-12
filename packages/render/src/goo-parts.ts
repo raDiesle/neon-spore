@@ -17,39 +17,6 @@ import { type PullTrack, pullTrackPoint } from "./pull-track.js";
  * green circle indicator around the pull is not required*.
  */
 
-/** Put a thumb here: a breathing halo and ripples out of the drop, two at a time — a
- * little thinner and not so far out since the owner, 11 October 2026: *reduce a little
- * bit the border and range of wave animation around outside of button*. */
-export function call(
-  ctx: CanvasRenderingContext2D,
-  at: Point,
-  r: number,
-  style: GooStyle,
-  time: number,
-): void {
-  const breathe = 0.5 + 0.5 * Math.sin(time * 4);
-  ctx.save();
-  ctx.globalCompositeOperation = "lighter";
-  const halo = ctx.createRadialGradient(at.x, at.y, r * 0.7, at.x, at.y, r * 2.5);
-  halo.addColorStop(0, style.neon);
-  halo.addColorStop(1, "rgba(0,0,0,0)");
-  ctx.fillStyle = halo;
-  ctx.globalAlpha = 0.16 + 0.18 * breathe;
-  ctx.beginPath();
-  ctx.arc(at.x, at.y, r * 2.5, 0, Math.PI * 2);
-  ctx.fill();
-  ctx.restore();
-  ctx.save();
-  ctx.strokeStyle = style.neon;
-  for (const lag of [0, 0.5]) {
-    const u = (time * 0.85 + lag) % 1;
-    ctx.globalAlpha = 0.7 * (1 - u);
-    ctx.lineWidth = r * 0.08 * (1 - u) + 0.3;
-    ctx.stroke(bodyPath({ at, r: r * (1.12 + 0.9 * u), seed: 29 }, style, time));
-  }
-  ctx.restore();
-}
-
 /** The dots from the drop to the end, the next one blinking while it is held, lit one
  * after another by the ghost while it waits, and coming in one after another with a
  * blink while the path comes in (`enter`, `goo-enter.ts`). `came` is how far the drop has come. */
@@ -193,26 +160,30 @@ export function socket(
   if (!come) return;
   const front = o.waiting && !entering(o.enter) ? ghostFront(o.time) : 0;
   const next = o.held && o.came > o.end - 1e-6;
-  // The flash held a while after the ghost lands, louder and wider, and the
-  // dashes turning a little slower (`lingers`, the owner, 12 October 2026).
+  // The flash held a while after the ghost lands, and the dashes turning a little
+  // slower (`lingers`, the owner, 12 October 2026). Then, the same day, quieter than
+  // the drop it waits for: *reduce attention of placeholder … (e.g. reduce range or
+  // border stroke size around border), because starting pull button must keep more
+  // attention than the placeholder visual* — a flash that swells and spreads less,
+  // and a thinner, fainter dashed rim.
   const blink = next ? blinkAt(o.time) : lingers(front, o.beat);
   const lit = next ? blink : Math.max(o.came, blink, come.blink);
-  const rr = r * Math.max(0.01, come.size) * (1 + 0.2 * blink);
+  const rr = r * Math.max(0.01, come.size) * (1 + 0.1 * blink);
   ctx.save();
   if (blink > 0.15) {
     ctx.fillStyle = style.neon;
-    ctx.globalAlpha = 0.45 * blink;
-    dot(ctx, q, rr * 1.7);
+    ctx.globalAlpha = 0.3 * blink;
+    dot(ctx, q, rr * 1.35);
   }
   ctx.fillStyle = style.body;
-  ctx.globalAlpha = 0.35 + 0.4 * lit;
+  ctx.globalAlpha = 0.3 + 0.35 * lit;
   blob(ctx, q, rr, o.time * 0.45);
   ctx.fill();
   ctx.setLineDash([rr * 0.32, rr * 0.24]);
   ctx.lineDashOffset = -o.time * rr * 0.9;
   ctx.strokeStyle = style.neon;
-  ctx.lineWidth = rr * (0.12 + 0.1 * blink);
-  ctx.globalAlpha = 0.55 + 0.45 * lit;
+  ctx.lineWidth = rr * (0.08 + 0.06 * blink);
+  ctx.globalAlpha = 0.45 + 0.4 * lit;
   ctx.stroke();
   ctx.restore();
 }

@@ -161,7 +161,9 @@ export function drawPullTrack(ctx: CanvasRenderingContext2D, t: PullTrack, o: Pu
 
 /** What `drawPullTrack` draws with: the PULL LAB's FIZZ channel (`goo-track.ts`) — the
  * thin one (`pull-track-thin.ts`) on a closed track, a turn — unless something holds another in its place
- * for a frame. */
+ * for a frame. Called through rather than named: `goo-track.ts` imports this file, and
+ * where it is loaded first, Bun's dev bundle has no `paintGooTrack` yet when this record
+ * is made — the director failed to open on exactly that, 12 October 2026. */
 export const PULL_TRACK: {
   paint: (ctx: CanvasRenderingContext2D, t: PullTrack, o: PullTrackDraw) => void;
-} = { paint: paintGooTrack };
+} = { paint: (ctx, t, o) => paintGooTrack(ctx, t, o) };

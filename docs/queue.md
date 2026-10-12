@@ -834,6 +834,13 @@ Since this lane the lit gullet stops a bolt and takes the hit where it is drawn.
 
 A `git rm` of two files under `tools/director/src/pull-goo/` while `director-here` ran: the hot reload failed to resolve the removed imports, the supervisor's tree-move restart fired ("the tree moved — restarting"), and the fresh `bun --hot tools/director/server.ts` child panicked at start (*index out of bounds: the len is 0 but the index is 0*, exit 134, Bun 1.4.2). The loop at the bottom of `supervise.ts` treats a child that exits while `restarting` is false as the human's own stop and exits with its code, so the whole server went down and `bun run shot --port 3000` then failed with ERR_CONNECTION_REFUSED; it was worked around with `--serve`. A child that dies with 134 (a Bun crash, not an idle exit or Ctrl-C) within a few seconds of a restart should be spawned once more after a short wait, and said so in one line; a second crash in a row exits as today. A test that runs the loop against a stub child exiting 134 once proves it.
 
+## A fresh worktree can start a day behind the local `main`
+
+- **Found:** 2026-10-12, claude/pull-lab-visual-redesign-05e743
+- **Files:** `tools/hooks/session-start.ts`, `tools/land/lane-start.ts`, `CLAUDE.md`
+
+This lane's worktree was cut at 11 October 11:06 while the local `main` was twenty-odd landings ahead, none of them pushed. The rule's own step, `git fetch origin main && git merge --ff-only origin/main`, said *Already up to date*, so the lane built against files `main` had already moved (`pull-goo/` into `packages/render/src/goo-*.ts`) and only learned it when `bun run land` refused to replay. A check that compares `HEAD` with the local `main` too — `git merge-base --is-ancestor main HEAD`, and `git merge --ff-only main` when it is not — at the start of a lane, by a hook or by the rule's own command, would have caught it in the first minute. `bun run check` proves nothing here; a test of the hook against a branch behind a local `main` does.
+
 ## THE PULL LAB has no way to photograph a moment of a pull up close
 
 - **Found:** 2026-10-10, claude/pull-lab-animation-refinements-075bc8
@@ -848,6 +855,8 @@ A fourth, the same day (claude/pull-lab-placeholder-crater-fe6e88), went round t
 A fifth (claude/pull-lab-button-refinements-87bed1, 11 October 2026) found the cheapest way yet: no browser at all. `@napi-rs/canvas` is already a dependency of `packages/render` for `test/pixel-harness.ts`, so a scratch file under `packages/render/` that sets `globalThis.Path2D` to Skia's, imports the GOO knob (`packages/render/src/goo-knob.ts` since) by relative path, sets `GOO_DROP.look` and calls `gooKnob(GOO)` into a grid wrote a PNG in under a second. It cannot live under `tools/director/`, which does not depend on the canvas package. So `--drop-sheet` is best a `bun run drop-sheet "<DROP>" out.png` in `packages/render` or `tools/frames`, with `--r` and `--moments`, and needs neither a server nor `shot`.
 
 A sixth (claude/pull-lab-visual-refinements-253cc3, 11 October 2026) wrote the Skia scratch again, this time driving `paintLab` itself — `freshPull`, `autoThumb`, `press`/`move`/`lift`/`tick` at 1/60 s, as `pullAt` in `pull-lab-sheet.ts` does (that file imports `gestures-page.ts`, so the scratch copies the loop rather than importing it) — and cropping round the knob or round the start of the path. With one drop left (`GOO_DROP`), `--drop-sheet` is now best a `--crop knob|start|wide` and `--at` on that loop.
+
+A seventh (claude/pull-lab-visual-redesign-05e743, 12 October 2026) wrote that `paintLab` loop again, with no thumb at all (only `tick`) to see a waiting drop through the dots' run, one column per entry of `labLooks()` and one row per moment, at the flash (`RUN` in `goo-beat.ts`, 1.35 s) and the place's. So `--at` wants a `--wait` beside it, and a row per LOOK.
 ## The wave list's footnote still asks for a sentence no wave has
 
 - **Found:** 2026-10-11, claude/wave-grouping-organization-14abd6

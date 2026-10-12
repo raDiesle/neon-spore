@@ -8,6 +8,7 @@ import {
   placeBeat,
 } from "../../../packages/render/src/goo-beat.js";
 import { centre, DROP_SPIN, drop, rimAt } from "../../../packages/render/src/goo-body.js";
+import { GOO_CALL } from "../../../packages/render/src/goo-call.js";
 import { GOO_DROP } from "../../../packages/render/src/goo-drop-look.js";
 import {
   DOTS_SPAN,
@@ -24,8 +25,10 @@ import { CLEAR, craterOf, RIPPLES_STILL } from "../../../packages/render/src/goo
 import { specks, splashAt } from "../../../packages/render/src/goo-strand.js";
 import { GOO } from "../../../packages/render/src/goo-style.js";
 import { installCanvasGlobals, stubCanvas } from "../../../packages/render/test/canvas-stub.js";
+import { CALL_LOOKS } from "../src/pull-calls/index.js";
+import { flashOf } from "../src/pull-calls/paint.js";
 import { autoThumb } from "../src/pull-lab-auto.js";
-import { paintLab } from "../src/pull-lab-paint.js";
+import { labLooks, paintLab } from "../src/pull-lab-paint.js";
 import { freshPull, lift, move, press, tick } from "../src/pull-lab-rule.js";
 import { LAB_SHAPES } from "../src/pull-lab-shapes.js";
 
@@ -57,6 +60,26 @@ describe("the GOO look, as it ships", () => {
           if (i % 6 === 0) paintLab(c, { shape, pull, look: null, time: t, stray });
         }
       }
+  });
+
+  test("draw every CALL round a waiting drop, flashing first in the dots' run", () => {
+    const { ctx } = stubCanvas();
+    const c = ctx as unknown as CanvasRenderingContext2D;
+    const shipped = GOO_CALL.paint;
+    expect(labLooks()).toEqual(expect.arrayContaining([...CALL_LOOKS]));
+    for (const look of CALL_LOOKS)
+      for (const shape of LAB_SHAPES) {
+        const pull = freshPull(shape);
+        for (let t = 0; t < 3; t += 1 / 20) {
+          tick(shape, pull, 1 / 20);
+          paintLab(c, { shape, pull, look, time: t, stray: "half" });
+          // Held for the frame only: the game's call is back after it.
+          expect(GOO_CALL.paint).toBe(shipped);
+        }
+      }
+    // The drop lights as the ghost sets off, before the first dot; never while the path comes in.
+    expect(flashOf(0, 9)).toBe(1);
+    expect(flashOf(0, 0)).toBe(0);
   });
 
   test("draw the grab without a bad call", () => {

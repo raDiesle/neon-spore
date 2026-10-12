@@ -1,18 +1,18 @@
 import type { Point } from "@neon-spore/content";
 import { arrowSize, paintArrow } from "./goo-arrow.js";
 import { drop } from "./goo-body.js";
+import { GOO_CALL } from "./goo-call.js";
 import { paintGoo } from "./goo-drop-look.js";
 import { grown } from "./goo-enter.js";
 import { type Hold, heldBody, overHeld, pressOf } from "./goo-grab.js";
 import { momentOf, SPAWN } from "./goo-moment.js";
-import { call } from "./goo-parts.js";
 import { GOO } from "./goo-style.js";
 import { noteMark } from "./mark-spots.js";
 import type { PullKnobDraw } from "./pull-knob.js";
 
 /**
  * **The drop under the hand**: OOZE's drop made TAR's slime, wherever the
- * hand has it. Waiting, it breathes and ripples call the thumb; taken, it
+ * hand has it. Waiting, it breathes and ripples call the thumb (`goo-call.ts`); taken, it
  * goes as a SQUISH has it (`goo-grab.ts`) and red as its rim nears the
  * edge of the path.
  * Once counted or refused it is not drawn here — the channel plays the same
@@ -36,7 +36,8 @@ export function paintGooKnob(
   const rr = r * g;
   ctx.save();
   if (o.theirs) ctx.globalAlpha = 0.4;
-  if (!o.held && !o.theirs && m.enter >= SPAWN) call(ctx, at, r, style, o.time);
+  const calling = !o.held && !o.theirs && m.enter >= SPAWN;
+  if (calling) GOO_CALL.paint(ctx, at, r, style, o.time, m.enter);
   const hold: Hold = { at, r: rr, way, near: m.near, grabbed: m.grabbed, time: o.time };
   const body = o.held
     ? heldBody(hold)
@@ -45,6 +46,7 @@ export function paintGooKnob(
   const press = o.held ? pressOf(hold) : undefined;
   const drawn = paintGoo(ctx, body, style, o.time, tint, m, press);
   if (o.held) overHeld(ctx, hold, style);
+  if (calling) GOO_CALL.over(ctx, drawn, style, o.time, m.enter);
   if (o.way) {
     const split = o.after?.split ?? (o.either ? 1 : 0);
     const time = o.time;

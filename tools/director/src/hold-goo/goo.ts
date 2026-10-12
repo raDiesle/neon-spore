@@ -1,6 +1,7 @@
 import type { Point } from "@neon-spore/content";
 import { PALETTE, smoothstep } from "@neon-spore/render";
 import { bodyPath, drop, type GooBody } from "../../../../packages/render/src/goo-body.js";
+import { call } from "../../../../packages/render/src/goo-call.js";
 import { paintGoo } from "../../../../packages/render/src/goo-drop-look.js";
 import { greenAt } from "../../../../packages/render/src/goo-ending.js";
 import { grown } from "../../../../packages/render/src/goo-enter.js";
@@ -13,7 +14,6 @@ import {
 } from "../../../../packages/render/src/goo-grab.js";
 import { ENDING, SPAWN } from "../../../../packages/render/src/goo-moment.js";
 import { clamp01, settle } from "../../../../packages/render/src/goo-noise.js";
-import { call } from "../../../../packages/render/src/goo-parts.js";
 import type { Press } from "../../../../packages/render/src/goo-press.js";
 import { GOO } from "../../../../packages/render/src/goo-style.js";
 import type { HoldLook, HoldView } from "./view.js";

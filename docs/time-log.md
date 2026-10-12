@@ -38368,3 +38368,21 @@ Bottleneck: looking — the grid's top is not the screen's top on a tall
 phone, and only the frame said so.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-12 — PULL LAB: four CALL looks for the waiting drop, the place quieter
+
+- reading: 5 min. FIZZ's call, dots and place, first on a worktree cut
+  from 11 October, then again on `main`, which had moved them into
+  `packages/render` and made them ACID YELLOW meanwhile.
+- writing: 5 min. The CALL looks twice — the first copy thrown away on
+  the stale base — `GOO_CALL` in render, the place's flash and rim thinner.
+- looking: 5 min. Skia scratches of every look at the flash, the lab on
+  THE LAMPREY in the browser pane.
+- friction: 5 min. The director would not open: `goo-knob` no longer
+  importing `goo-parts` let `goo-track` load before `pull-track`, whose
+  record read `paintGooTrack` before it existed; bisected by hand.
+- landing: 5 min. `check:fast`, `land`.
+
+Bottleneck: a worktree cut from a base a day old — `git merge --ff-only
+origin/main` said up to date while the local `main` was twenty landings
+ahead, so the first build was against code that no longer existed.
