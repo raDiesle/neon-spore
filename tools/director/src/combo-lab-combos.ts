@@ -13,7 +13,7 @@ import {
   pressCombo,
   tickCombo,
 } from "./combo-lab-rule.js";
-import { PLUG } from "./combo-plug.js";
+import { PRESS_PULL } from "./combo-press-pull.js";
 
 /**
  * **Every combo THE COMBO LAB plays**, in the order of its COMBO choice — one
@@ -23,7 +23,7 @@ import { PLUG } from "./combo-plug.js";
  * - **PULL, THEN HOLD** — the pull held at its end, for the partner or beats;
  * - **HOLD WHILE THE PARTNER PULLS / TAPS** — the hold first, the partner's
  *   part done only while it is down;
- * - **PULL ONCE THE PARTNER HAS PRESSED** — the pull waits on the partner;
+ * - **PRESS, THEN PULL** — the partner's press brings the pull;
  * - **HOLD, THEN PULL** — a hold counted, then a pull in its place.
  */
 
@@ -54,7 +54,7 @@ export const COMBO_RULES: readonly ComboRule<unknown>[] = [
   ...COMBOS.map(pullThenHold),
   HOLD_PULL,
   HOLD_TAP,
-  PLUG,
+  PRESS_PULL,
   HOLD_THEN_PULL,
 ];
 

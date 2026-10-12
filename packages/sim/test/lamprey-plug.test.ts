@@ -24,9 +24,8 @@ import { slowing } from "../src/slow.js";
 /**
  * THE LAMPREY's plug (`sim/lamprey-plug.ts`, the owner, 10 October 2026): the
  * eel comes down the middle into the hull and its teeth pull a button out of
- * the worker's panel. The worker presses it back in; the holder pulls the
- * tail, and only with the button in does the eel come out — pulled with it
- * out, the button is yanked further and the thumb thrown off.
+ * the worker's panel. The worker presses it back in, and only then is the
+ * tail there for the holder to pull the eel out by.
  */
 
 const CFG: SimConfig = { ...DEFAULT_CONFIG };
@@ -112,21 +111,32 @@ describe("THE LAMPREY's plug", () => {
     expect(eel(world).plugMilli).toBe(start - CFG.lampreyPlugPushMilli);
   });
 
-  it("yanks the button out and throws the thumb off when the tail is pulled with it out", () => {
+  it("has no tail to pull until the button is in, and a thumb down before then must lift", () => {
     const world = install();
     toBite(world);
     const start = eel(world).plugMilli;
     const said = tail(world, 2);
-    expect(said).toContain("lampreyYank");
     expect(said).not.toContain("lampreyLoose");
-    expect(eel(world).plugMilli).toBe(start + CFG.lampreyPlugYankMilli);
-    // Still down, the thumb is not heard; the button pushed in, it must lift and take hold again.
+    expect(said).not.toContain("lampreyGrip");
+    expect(eel(world).plugMilli).toBe(start);
+    expect(eel(world).tailMilli[1]).toBe(0);
     send(world, 1, { kind: "intake" });
     send(world, 1, { kind: "intake" });
-    send(world, 1, { kind: "intake" });
+    // Still down from before the tail was there, the thumb is not heard.
     expect(tail(world, 2)).not.toContain("lampreyLoose");
     tail(world, 2, false);
     expect(tail(world, 2)).toContain("lampreyLoose");
+  });
+
+  it("pulls the button out no further once it is in", () => {
+    const world = install();
+    toBite(world);
+    send(world, 1, { kind: "intake" });
+    send(world, 1, { kind: "intake" });
+    const inAt = eel(world).plugMilli;
+    expect(inAt).toBeLessThanOrEqual(CFG.lampreyPlugFlushMilli);
+    for (let t = 0; t < ticksPerBeat(CFG) * 2; t++) step(world, []);
+    expect(eel(world).plugMilli).toBe(inAt);
   });
 
   it("comes out with the button in and the tail pulled, leaving no tooth, and takes the next button", () => {

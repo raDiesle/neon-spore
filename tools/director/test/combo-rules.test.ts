@@ -6,7 +6,7 @@ import { HOLD_THEN_PULL } from "../src/combo-hold-then-pull.js";
 import type { ComboRule } from "../src/combo-kinds.js";
 import { COMBO_RULES, comboRuleOf } from "../src/combo-lab-combos.js";
 import { downShape } from "../src/combo-lab-rule.js";
-import { PLUG } from "../src/combo-plug.js";
+import { PRESS_PULL } from "../src/combo-press-pull.js";
 import { FIELD_ACTIONS } from "../src/field-actions.js";
 import { soakReach } from "../src/hold-goo/soak.js";
 import { HOLD_AT } from "../src/hold-lab-rule.js";
@@ -86,31 +86,39 @@ describe.each([
   });
 });
 
-describe("PULL ONCE THE PARTNER HAS PRESSED", () => {
+describe("PRESS, THEN PULL", () => {
+  const r = PRESS_PULL;
   const track = downShape(LAB_W * 0.3).track;
   const at = (k: number): Point => {
     const q = pullTrackPoint(track, k);
     return { x: q.x, y: q.y };
   };
-  const pull = (s: ReturnType<typeof PLUG.fresh>, from: number, to: number): void => {
-    for (let k = from; k <= to + 0.0001; k += 0.05) PLUG.move(s, at(Math.min(1, k)));
+  const pull = (s: ReturnType<typeof r.fresh>, to: number): void => {
+    r.press(s, at(0));
+    for (let k = 0; k <= to + 0.0001; k += 0.05) r.move(s, at(Math.min(1, k)));
+    r.lift(s);
   };
 
-  test("the whole way before the press is thrown back, refused", () => {
-    const s = PLUG.fresh();
-    PLUG.press(s, at(0));
-    pull(s, 0, 1);
-    expect(PLUG.tally(s)).toEqual({ counted: 0, refused: 1, strayed: 0 });
+  test("before the partner's press there is no knob to take", () => {
+    const s = r.fresh();
+    pull(s, 1);
+    expect(r.tally(s)).toEqual({ counted: 0, refused: 0, strayed: 0 });
+    expect(r.state(s)).toContain("NO PULL YET");
   });
 
-  test("waited halfway for the press, then the whole way: counted", () => {
-    const s = PLUG.fresh();
-    PLUG.press(s, at(0));
-    pull(s, 0, 0.5);
-    run(PLUG, s, 1.4);
-    pull(s, 0.5, 1);
-    expect(PLUG.tally(s).counted).toBe(1);
-    expect(PLUG.tally(s).refused).toBe(0);
+  test("pressed, the knob comes in, and the whole way counts", () => {
+    const s = r.fresh();
+    run(r, s, 1.1);
+    pull(s, 1);
+    expect(r.tally(s)).toEqual({ counted: 1, refused: 0, strayed: 0 });
+  });
+
+  test("counted and let go, the next round waits on the press again", () => {
+    const s = r.fresh();
+    run(r, s, 1.1);
+    pull(s, 1);
+    run(r, s, 1);
+    expect(r.state(s)).toContain("NO PULL YET");
   });
 });
 

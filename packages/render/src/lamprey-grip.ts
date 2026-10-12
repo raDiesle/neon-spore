@@ -5,6 +5,7 @@ import {
   lampreyBiting,
   lampreyHeadPull,
   lampreyHolder,
+  lampreyTailOffered,
   lampreyTailPull,
   lampreyTailWay,
   lampreyWorker,
@@ -192,7 +193,8 @@ export function lampreyGripUnder(l: Layout, x: number, y: number, field: Field):
     const head = lampreyHeadCircle(l, cfg, s);
     if (head !== null && onHandle(head, x, y)) return pull(seat, "lampreyHead", x, y);
   }
-  if (lampreyHolder(s) === seat && onHandle(lampreyTailRest(l, cfg, s), x, y)) {
+  const tail = lampreyHolder(s) === seat && lampreyTailOffered(cfg, s);
+  if (tail && onHandle(lampreyTailRest(l, cfg, s), x, y)) {
     return pull(seat, "lampreyTail", x, y);
   }
   return null;

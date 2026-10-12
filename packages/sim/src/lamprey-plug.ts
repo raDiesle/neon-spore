@@ -30,13 +30,14 @@ import type { World } from "./world.js";
  *
  * **The worker pushes it back in**: each press of that button on their panel
  * is `lampreyPlugPushMilli` back toward the socket, and still does whatever
- * the button does. **The holder pulls the eel out by its tail**, which lies
- * straight up the field from the hull, an `apart`'s pull. Pulled all the way
- * with the button in (`lampreyPlugFlushMilli` or less), the eel comes out of
- * the ship; pulled all the way with the button still out, the teeth yank it
- * `lampreyPlugYankMilli` further and the holder's thumb is thrown off — lift
- * and take the tail again. So the one with the button says when it is in, and
- * the other pulls then.
+ * the button does. **In** (`lampreyPlugFlushMilli` or less), the teeth have
+ * lost it: it creeps out no further, and **only then is the tail there** for
+ * the holder (`lampreyTailOffered`) — straight up the field from the hull, an
+ * `apart`'s pull. Pulled all the way, the eel comes out of the ship. So the
+ * press is what brings the pull: the owner, 12 October 2026, of the pull that
+ * used to wait on it and be thrown back if early — *this logic should just not
+ * exist in game as its too difficult to understand. instead the player
+ * presses, than the visual of pull appears - easy like that.*
  *
  * Every button bitten is kept (`plugs`), for the panel to leave it loose.
  */
@@ -88,9 +89,14 @@ export function lampreyPlugLand(
   s.nextRow = next?.row ?? -1;
 }
 
-/** A beat of the plug: the button pulled further out. True once it is torn out. */
+/** Whether the holder's tail is there to be taken: always, but in a plug only once the button is in. */
+export function lampreyTailOffered(cfg: SimConfig, s: LampreyState): boolean {
+  return lampreyAsks(s) !== "plug" || lampreyPlugIn(cfg, s);
+}
+
+/** A beat of the plug: the button pulled further out, unless it is in. True once it is torn out. */
 export function lampreyPlugCreep(world: World, s: LampreyState): boolean {
-  if (lampreyAsks(s) !== "plug") return false;
+  if (lampreyAsks(s) !== "plug" || lampreyPlugIn(world.cfg, s)) return false;
   s.plugMilli = Math.min(1000, s.plugMilli + world.cfg.lampreyPlugCreepMilli);
   return s.plugMilli >= 1000;
 }
@@ -121,23 +127,11 @@ export function lampreyPlugPressed(
   world.events.push({ type: "lampreyPush", side, out: s.plugMilli, col: s.col });
 }
 
-/**
- * The tail pulled all the way in a plug: `"out"` with the button in, the eel
- * to come out of the hull; a yank with it still out, the holder's thumb
- * thrown off, said once a press; or null.
- */
-export function lampreyPlugPulled(world: World, s: LampreyState): "out" | null {
-  const holder = lampreyHolder(s);
+/** The tail pulled all the way in a plug, the button in: the eel to come out of the hull. */
+export function lampreyPlugPulled(world: World, s: LampreyState): boolean {
   const cfg = world.cfg;
-  if (holder === null || lampreyTailPull(s) < cfg.lampreyTailPullMilli) return null;
-  if (lampreyPlugIn(cfg, s)) {
-    s.row = cfg.lampreyTowRow;
-    return "out";
-  }
-  const side: 0 | 1 = holder === 1 ? 0 : 1;
-  s.slipped[side] = true;
-  s.tailMilli[side] = 0;
-  s.plugMilli = Math.min(1000, s.plugMilli + cfg.lampreyPlugYankMilli);
-  world.events.push({ type: "lampreyYank", side, out: s.plugMilli, col: s.col });
-  return null;
+  if (lampreyHolder(s) === null || !lampreyPlugIn(cfg, s)) return false;
+  if (lampreyTailPull(s) < cfg.lampreyTailPullMilli) return false;
+  s.row = cfg.lampreyTowRow;
+  return true;
 }

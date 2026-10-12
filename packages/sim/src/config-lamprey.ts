@@ -54,10 +54,8 @@ export interface LampreyConfig {
   lampreyPlugCreepMilli: number;
   /** How far one press of the bitten button pushes it back in. */
   lampreyPlugPushMilli: number;
-  /** How far out the button may be and still count as in: the tail pulled full then frees the eel. */
+  /** How far out the button may be and still count as in: it creeps no further, and the tail is there to pull. */
   lampreyPlugFlushMilli: number;
-  /** How far the button jerks out when the tail is pulled full while it is not in. */
-  lampreyPlugYankMilli: number;
 }
 
 export const LAMPREY_DEFAULTS: LampreyConfig = {
@@ -86,5 +84,4 @@ export const LAMPREY_DEFAULTS: LampreyConfig = {
   lampreyPlugCreepMilli: 150,
   lampreyPlugPushMilli: 300,
   lampreyPlugFlushMilli: 200,
-  lampreyPlugYankMilli: 350,
 };

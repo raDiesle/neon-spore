@@ -10,7 +10,7 @@ import {
   lampreyWorker,
 } from "./lamprey.js";
 import { lampreyTailWay } from "./lamprey-leap.js";
-import { lampreyPlugPressed, lampreyPlugPulled } from "./lamprey-plug.js";
+import { lampreyPlugPressed, lampreyPlugPulled, lampreyTailOffered } from "./lamprey-plug.js";
 import { lampreyFreed, lampreySnapped, lampreyTapped } from "./lamprey-step.js";
 import { lampreyTowEnd, lampreyTowHeard } from "./lamprey-tow.js";
 import type { Command } from "./types.js";
@@ -36,8 +36,8 @@ import type { World } from "./world.js";
  *
  * **A plug is a panel button as well** (`lamprey-plug.ts`): the worker's
  * press of the button the teeth have pushes it back in, heard here like any
- * other command; the tail is the holder's pull, and pulled full with the
- * button out it is thrown off and has to be taken again.
+ * other command; the tail is the holder's pull, and only there once the
+ * button is in. A thumb down before it is not heard until it lifts.
  *
  * **A bite comes off the tile the instant both hands are where they need to
  * be**, whichever arrived last: so a head held all the way up comes off the
@@ -72,14 +72,16 @@ function tail(
   fromMilli: number,
   fromYMilli: number,
 ): void {
-  const was = s.tailDown[side];
-  s.tailDown[side] = on;
-  // A plug's yank throws the thumb off the tail: lifted, it may take hold again.
-  if (lampreyAsks(s) === "plug" && s.slipped[side]) {
-    if (!on) s.slipped[side] = false;
+  // A plug's tail is not there until the button is in: a thumb down before
+  // then is not heard, and is not until it lifts and takes hold again.
+  if (lampreyAsks(s) === "plug" && (s.slipped[side] || !lampreyTailOffered(world.cfg, s))) {
+    s.slipped[side] = on;
+    s.tailDown[side] = false;
     s.tailMilli[side] = 0;
     return;
   }
+  const was = s.tailDown[side];
+  s.tailDown[side] = on;
   const way = lampreyTailWay(s);
   const along = Math.trunc((fromMilli * way.x + fromYMilli * way.y) / 1000);
   const full = world.cfg.lampreyTailPullMilli;
@@ -118,7 +120,7 @@ function settle(world: World, s: LampreyState): void {
     return;
   }
   if (worker !== null && ask === "plug") {
-    if (lampreyPlugPulled(world, s) === "out") lampreyFreed(world, s);
+    if (lampreyPlugPulled(world, s)) lampreyFreed(world, s);
     return;
   }
   if (worker === null || (ask !== "pull" && ask !== "apart")) return;

@@ -19,7 +19,7 @@ export function isLampreyEvent(e: SimEvent): e is LampreySimEvent {
  * **A crack rises as the teeth come out**, and so does a hit.
  *
  * **A plug has no new sound either** (10 October 2026): a button pushed
- * back in is the snap of a tooth going back, high; a yank is the slip, low.
+ * back in is the snap of a tooth going back, high.
  *
  * **The worm on the field has no new sound** (6 October 2026): a body eaten
  * is the bite's chomp, high; a tap that has not cracked the tooth yet is the
@@ -55,8 +55,6 @@ export function lampreyCue(e: LampreySimEvent, cols: number): Cue | null {
       return { id: "boss.lampreyBite", pan, pitch: 0.7 };
     case "lampreyPush":
       return { id: "boss.lampreySnap", pan, pitch: 1.2 };
-    case "lampreyYank":
-      return { id: "boss.lampreySlip", pan, pitch: 0.8 };
     case "lampreyFull":
       return { id: "boss.lampreyFull", pan };
     case "lampreyLoose":

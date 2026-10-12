@@ -33,7 +33,7 @@ import {
  *
  * **A `plug` is the button first** (`sim/lamprey-plug.ts`): the worker
  * presses the bitten button until it is all the way in, and only then does
- * the holder pull the tail — so the hand never yanks it. RED and CYAN are
+ * the holder pull the tail, which is not there before. RED and CYAN are
  * pressed as a shot, so a press never starts a lance.
  *
  * **Each thumb is sent once**, and again only when the simulation has

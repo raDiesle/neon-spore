@@ -31,7 +31,7 @@ function rig(world: World, mode: "both" | "p1") {
   return auto;
 }
 
-const WRONG = ["lampreySnap", "lampreySlip", "lampreyYank", "lampreyFull"];
+const WRONG = ["lampreySnap", "lampreySlip", "lampreyFull"];
 
 describe.each(CHARGES)("AUTO on THE LAMPREY, %s", (_charge, cfg) => {
   test("BOTH answers every stay, pulls the teeth and shoots the gullet out", () => {

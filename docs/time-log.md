@@ -38423,3 +38423,19 @@ Bottleneck: what the owner's "placeholder" meant, settled by seeing the
 dashed place at the end of the channel at ¼×.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-12 — THE LAMPREY's tail in a plug is there only once the button is pressed in
+
+- reading: 10 min. The plug's rule, the hand, the handles, the grip, the
+  autopilot, and every list the yank was a name in.
+- writing: 15 min. The tail offered only with the button in, the creep
+  stopped there, the yank out of the sim, audio, effects and verdicts, the
+  words in the spec, the CONTROLS rows and THE COMBO LAB's PRESS, THEN PULL.
+- looking: 15 min. `bun run frames` of the bite and the press, one tick
+  apart; the director's CONTROLS sheet in a pane too narrow to show it.
+- friction: 5 min. The browser pane hid the CONTROLS sheet until it was
+  resized, and the autopilot pulls the tick after the press, so only a
+  frame on the press itself shows the knob.
+- landing: 5 min. `bun run index`, `check:fast`, `land`.
+
+Bottleneck: finding the one tick where the knob is drawn and not yet pulled.

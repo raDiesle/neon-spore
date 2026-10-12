@@ -36,8 +36,8 @@ export const DRAG_LOOKS: Readonly<Record<string, UseLook>> = {
     move: "Dragged up, the mouth comes off the tile — only while the tail is held, or it slips. In a tow the head rides the curve; two thirds of the way the eel lunges and the knob drops back to a third.",
   },
   "THE LAMPREY'S TAIL, IN A PLUG": {
-    find: "The knob at the tip of the tail, straight up the field from the hull, while the head is inside the ship biting a button of the worker's panel.",
-    move: "Dragged up, the eel comes out of the ship — if the worker has pushed the button back in. Still out, the teeth yank it further and the thumb is thrown off: lift and take the tail again.",
+    find: "The knob at the tip of the tail, straight up the field from the hull, while the head is inside the ship biting a button of the worker's panel — there only once the worker has pushed the button back in.",
+    move: "Dragged up, the eel comes out of the ship. Before the press there is no knob to take.",
   },
   "THE HIVE'S HAUL": {
     find: "A wide ring in the middle of the clenched underside, on the pilot's screen, with the halo under it.",

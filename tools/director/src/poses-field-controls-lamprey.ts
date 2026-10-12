@@ -166,8 +166,8 @@ const LAMPREY_TOW: Pose = {
 
 const LAMPREY_PLUG: Pose = {
   name: "LAMPREY · THE PLUG",
-  note: "The fourth level: the eel down the middle into the ship, its teeth on player 1's SUCK and pulling it out of the panel; player 1 has pressed it part way back in. Player 2's screen, the seat on the tail: the mouth clamped on a socket it cannot read, so how far out SUCK is stays player 1's to say.",
-  lookAt: "whether the tail reads as *wait for the word, then pull*",
+  note: "The fourth level: the eel down the middle into the ship, its teeth on player 1's SUCK and pulling it out of the panel; player 1 has pressed it back in, so the tail's knob has come in. Player 2's screen, the seat on the tail: the mouth clamped on a socket it cannot read, and the knob that says the press is done.",
+  lookAt: "whether the tail's knob, come in with the press, reads as *pull now*",
   crop: "full",
   role: "p2",
   build: plugging,

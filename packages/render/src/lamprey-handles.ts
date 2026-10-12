@@ -5,6 +5,7 @@ import {
   lampreyHeadPull,
   lampreyHolder,
   lampreyTailHeld,
+  lampreyTailOffered,
   lampreyTailPull,
   lampreyTailPulls,
   lampreyWorker,
@@ -25,9 +26,11 @@ import { drawPullTrack, pullWay } from "./pull-track.js";
  * default visuals for on screen controls we have*.
  *
  * **The tail's knob** stands where the tail rests, every bite, for the
- * holder: a knob with no arrow while it is only held, and in an `apart` a
- * channel along the body away from the head, `lampreyTailPullMilli` long,
- * filling as the thumb drags it. **The head's knob** stands on the tile in a
+ * holder — in a `plug` only once the worker has pressed the button back in,
+ * so the press is what brings the pull (`sim/lamprey-plug.ts`): a knob with
+ * no arrow while it is only held, and in an `apart` a channel along the
+ * body away from the head, `lampreyTailPullMilli` long, filling as the
+ * thumb drags it. **The head's knob** stands on the tile in a
  * `pull` or an `apart`, for the other seat, with a channel straight up,
  * `lampreyHeadPullMilli` long; it rides up with the head as it comes off.
  * **In a `tow`** the tail is an `apart`'s, and the head's channel is the
@@ -48,7 +51,7 @@ export function drawLampreyHandles(
   const ask = lampreyAsks(s);
   const holder = lampreyHolder(s);
   const worker = lampreyWorker(s);
-  if (holder !== null) {
+  if (holder !== null && lampreyTailOffered(cfg, s)) {
     const mine = seatIsMine(l.role, holder);
     const rest = lampreyTailRest(l, cfg, s);
     const held = lampreyTailHeld(s);

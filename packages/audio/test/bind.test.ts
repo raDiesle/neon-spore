@@ -621,7 +621,6 @@ const SAMPLES: Record<string, SimEvent> = {
   lampreySlip: { type: "lampreySlip", col: 3, side: 1 },
   lampreyAnger: { type: "lampreyAnger", col: 5, side: 1 },
   lampreyPush: { type: "lampreyPush", col: 5, side: 0, out: 300 },
-  lampreyYank: { type: "lampreyYank", col: 5, side: 1, out: 750 },
   lampreyFull: { type: "lampreyFull", col: 3 },
   lampreyLoose: { type: "lampreyLoose", col: 4, tooth: 2 },
   lampreyRear: { type: "lampreyRear", col: 5, color: "red" },

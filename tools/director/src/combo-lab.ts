@@ -20,7 +20,7 @@ import { initialLab } from "./session.js";
  *
  * Its one choice on the bar is **COMBO** — what the action is (`COMBO_RULES`,
  * `combo-lab-combos.ts`): a pull held at its end, a hold while the partner
- * works, a pull that waits on the partner's press, a hold and then a pull in
+ * works, a pull the partner's press brings, a hold and then a pull in
  * its place. Every hold in a combo wears the HOLD LAB's SOAK and nothing else (the owner,
  * 12 October 2026: *all should follow "hold look" of "soak" to be consistent -
  * remove alternatives*); the pull is the game's own knob, FIZZ.

@@ -10676,13 +10676,16 @@ for food.
   `lampreyPlugStartMilli` by `lampreyPlugCreepMilli` a beat (`plugMilli`);
   all the way out is the bite through, the hull. **The worker presses it
   back in**: each press of that button is `lampreyPlugPushMilli` toward the
-  socket (`lampreyPush`) and still does what the button does. **The holder
-  pulls the tail**, an `apart`'s pull up the field: all the way with the
-  button in (`lampreyPlugFlushMilli` or less) and the eel comes out of the
-  hull to `lampreyTowRow` and leaps on, leaving no tooth; all the way with
-  it out and the teeth yank it `lampreyPlugYankMilli` further
-  (`lampreyYank`) and the thumb is thrown off, to lift and take again. So the
-  seat with the button says when it is in, and the other pulls then. Every
+  socket (`lampreyPush`) and still does what the button does. **In**
+  (`lampreyPlugFlushMilli` or less), the teeth have lost it: it creeps no
+  further, and **only then is the tail there** (`lampreyTailOffered`) — its
+  knob and channel drawn, its press heard; a thumb down on it before then is
+  not heard until it lifts. **The holder pulls the tail**, an `apart`'s pull
+  up the field, and all the way the eel comes out of the hull to
+  `lampreyTowRow` and leaps on, leaving no tooth. So the press brings the
+  pull: the owner, 12 October 2026, replacing a pull that could be taken at
+  once and was thrown back if it got there before the press — *too difficult
+  to understand … the player presses, than the visual of pull appears*. Every
   button bitten is kept (`plugs`) for the panel to leave loose. The shipped
   wave's fourth level is two: the pilot's SUCK, then the navigator's RED, a
   gullet after. `sim/test/lamprey-plug.test.ts` proves it;

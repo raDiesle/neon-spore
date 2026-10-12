@@ -43,7 +43,7 @@ import type { World } from "./world.js";
  *   once, and the knob is thrown back to a third (`lamprey-tow.ts`).
  * - `plug` — it comes down into the hull and pulls a button out of the
  *   worker's panel; the worker presses it back in and the holder pulls the
- *   tail out, only once it is in (`lamprey-plug.ts`).
+ *   tail out, which is only there once it is in (`lamprey-plug.ts`).
  *
  * **Every stay is THE SLOW**, opened as it lands for the step's `beats` and
  * shut the tick it is answered (the owner, the same message: *every staying

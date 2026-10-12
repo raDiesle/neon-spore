@@ -153,6 +153,7 @@ export {
   lampreyButtonPressed,
   lampreyPlugButton,
   lampreyPlugIn,
+  lampreyTailOffered,
 } from "./lamprey-plug.js";
 export { lampreyTowAt, lampreyTowPoints } from "./lamprey-tow.js";
 export {

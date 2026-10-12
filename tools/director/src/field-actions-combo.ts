@@ -9,7 +9,7 @@ import type { FieldAction } from "./field-actions.js";
  * tried in THE COMBO LAB (`combo-lab.ts`) on the combo its `comboLab` names.
  *
  * There are four: a pull held at its end; a hold kept while the partner
- * does their part; a pull that waits on the partner's press; a hold loosed
+ * does their part; a pull the partner's press brings; a hold loosed
  * by a swipe (moved here from GRAB AND DRAG, where it was DRAW, THEN SWIPE),
  * which the lab plays as a hold and then a pull in its place.
  *
@@ -86,24 +86,22 @@ export const COMBO_ACTIONS: readonly FieldAction[] = [
     ],
   },
   {
-    key: "pullpressed",
-    title: "PULL ONCE THE PARTNER HAS PRESSED",
+    key: "presspull",
+    title: "PRESS, THEN PULL",
     says:
-      "A pull whose whole way only counts after the partner has pressed their " +
-      "button; there before them, it is thrown back.",
+      "The partner presses their button, and only then does the pull appear: " +
+      "there is nothing to take before the press.",
     types: [
       {
-        key: "plug",
-        title: "PULL ONCE THE PARTNER HAS PRESSED",
+        key: "presspull",
+        title: "PRESS, THEN PULL",
         says:
-          "The thumb may take the knob at once but must wait part of the way, " +
-          "holding, for the press — the pull and the hold in the other order. " +
-          "Reached early, the pull is refused, red, and goes home.",
-        suggest:
-          "Draw the partner's button on this screen too, waiting then green, " +
-          "so the puller sees when the way is open rather than learning it " +
-          "from a refusal.",
-        comboLab: "plug",
+          "The knob is not on the field until the partner has pressed; then " +
+          "it comes in and is taken the whole way, the PULL LAB's own pull. " +
+          "It replaced a pull that could be taken at once and was thrown back " +
+          "if it got to the end before the press — the owner, 12 October " +
+          "2026: too difficult to understand.",
+        comboLab: "presspull",
         rows: ["THE LAMPREY'S TAIL, IN A PLUG"],
       },
     ],

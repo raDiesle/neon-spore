@@ -74,12 +74,11 @@ export const LAMPREY_CONTROLS: readonly FieldControlDef[] = [
     seat: "the stay's holder — player 2 in the first plug, player 1 in the second",
     gesture: "grab and drag",
     does:
-      "A **pull** up the field, `lampreyTailPullMilli`, that only brings the " +
-      "eel out of the ship once the partner has pressed the button its teeth " +
-      "have back into its socket. Pulled all the way with the button still " +
-      "out, the teeth yank it further and the thumb is thrown off: lift and " +
-      "take the tail again (sim/lamprey-plug.ts). The button is the partner's " +
-      "own panel button, pressed as ever.",
+      "A **pull** up the field, `lampreyTailPullMilli`, that is not there " +
+      "until the partner has pressed the button its teeth have back into its " +
+      "socket: then its knob appears, and pulled all the way it brings the " +
+      "eel out of the ship (sim/lamprey-plug.ts). The button is the " +
+      "partner's own panel button, pressed as ever.",
     source: SOURCE,
     holdKind: "drag",
     dragTarget: "lampreyTail",

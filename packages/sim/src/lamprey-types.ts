@@ -39,7 +39,7 @@ export type LampreyPhase = (typeof LAMPREY_PHASES)[number];
  * What a stay asks: the teeth tapped, the head pulled, the two pulled apart,
  * the gullet shot, the eel towed back off the hull along a curve
  * (`lamprey-tow.ts`), or a button its teeth pull out of the ship pushed back
- * in while the tail is pulled (`lamprey-plug.ts`).
+ * in, and then the tail pulled (`lamprey-plug.ts`).
  */
 export const LAMPREY_ASKS = ["teeth", "pull", "apart", "gullet", "tow", "plug"] as const;
 export type LampreyAsk = (typeof LAMPREY_ASKS)[number];
