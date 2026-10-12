@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-12 · 2ce718f7b — The director's step jump lands where the pair is asked, past the boss's leap
+
+◀, ▶ and the step list in RUN now replay past whatever a boss plays before a step wants anything — THE LAMPREY's leap and crawl, a morph — to the tick THE SLOW opens as an ask, so a jump to THE LAMPREY's PULL opens on the bite with the knobs up. A step that never asks is landed where it was reached, as before.
+
 ## 2026-10-12 · 618e2fb9d — FIZZ in ACID YELLOW, its path dots, ghost and place louder and a little slower
 
 The pull's neon is ACID YELLOW in the game now, the owner's pick from the PULL LAB, and the lab's colour row is gone. The dots are bigger and in the neon even unlit, with a wider glow when they light. The ghost running to the place glows, and its rim is thicker. The place's flash is louder, wider and held a while after the ghost lands. The run is 1.35 s instead of 1.1 s, and the place's dashes turn a little slower.
