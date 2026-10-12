@@ -77,6 +77,7 @@ export function lampreyCues(
         y: tail.y,
         ...frame,
         seed: 229,
+        framed: false,
       });
     } else if (!lampreyTailPulls(s) || lampreyTailRight(cfg, s)) {
       // Pulled all the way out, the tail is no longer at its rest.
@@ -104,11 +105,20 @@ export function lampreyCues(
         y: head.y,
         ...frame,
         seed: 232,
+        framed: false,
       });
     }
   } else if (worker !== null && head !== null && lampreyHeadPull(s) === 0) {
     const at = { x: head.x, y: head.y };
-    out.push({ seat: worker, kind: "CARRY", word: "PULL UP", ...at, ...frame, seed: 231 });
+    out.push({
+      seat: worker,
+      kind: "CARRY",
+      word: "PULL UP",
+      ...at,
+      ...frame,
+      seed: 231,
+      framed: false,
+    });
   }
   const tooth = lampreyToothCircle(l, cfg, s, world.beat, beatPhase);
   if (worker !== null && tooth !== null) {

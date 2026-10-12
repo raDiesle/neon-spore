@@ -7,12 +7,15 @@ import { APART, BITE, count, frame, PULL, posed, stood } from "./lamprey-harness
 setDefaultTimeout(FRAME_TIMEOUT_MS);
 
 /**
- * **THE LAMPREY's tail says it is right, and the head says how far** — the
- * owner, 7 October 2026, THE CAPSTAN's rule for every boss
- * (`lamprey-verdicts.ts`, `mark-progress.ts`): a tail held in a `teeth` or a
- * `pull`, or pulled all the way out in an `apart`, is green on both screens,
- * and one let go or part way is not; and the head's pull rides it on both
- * screens as a green arc of how far up it has come.
+ * **THE LAMPREY's tail says it is right** — the owner, 7 October 2026, THE
+ * CAPSTAN's rule for every boss (`lamprey-verdicts.ts`, `mark-progress.ts`):
+ * a tail held in a `teeth` or a `pull`, or pulled all the way out in an
+ * `apart`, is green on both screens, and one let go or part way is not.
+ *
+ * **The head's pull wears no green ring of its own** — the owner, 12 October
+ * 2026: the knob riding up its channel is how far it has come. Its channel
+ * fills green on the worker's screen, and the holder's screen gains no green
+ * for it.
  */
 
 beforeAll(installCanvasGlobals);
@@ -50,18 +53,27 @@ describe("THE LAMPREY's tail held", () => {
 });
 
 describe("THE LAMPREY's head pull", () => {
-  it.each(["p1", "p2"] as const)("rides the head on %s as it comes up", (role) => {
-    const still = frame(role, (w) => {
+  const pair = (role: "p1" | "p2") => ({
+    still: frame(role, (w) => {
       posed(w, "bite", PULL, (s) => {
         s.tailDown = [true, false];
       });
-    });
-    const coming = frame(role, (w) => {
+    }),
+    coming: frame(role, (w) => {
       posed(w, "bite", PULL, (s) => {
         s.tailDown = [true, false];
         s.headMilli = [0, CFG.lampreyHeadPullMilli / 2];
       });
-    });
+    }),
+  });
+
+  it("fills the worker's channel green as the head comes up", () => {
+    const { still, coming } = pair("p2");
     expect(count(coming, PALETTE.good)).toBeGreaterThan(count(still, PALETTE.good));
+  });
+
+  it("rings nothing green round the head on the holder's screen", () => {
+    const { still, coming } = pair("p1");
+    expect(count(coming, PALETTE.good)).toBe(count(still, PALETTE.good));
   });
 });

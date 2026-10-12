@@ -38212,3 +38212,16 @@ one at a time.
 Bottleneck: none worth the name — a look built on two that already existed.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-12 — THE LAMPREY's pull knobs lose the box and the ring
+
+- reading: 15 min. The knob, the cue reading, `boss-cue-draw.ts`'s frame,
+  the verdicts' progress arc, and which other pulls draw a knob at all.
+- writing: 5 min. Three `framed: false`, the arc out, the test split by seat,
+  a Not allowed row, the queue entry for the other nine bosses.
+- looking: 5 min. `bun run frames` before and after, on the worker's screen.
+- friction: 0 min.
+- landing: 5 min. `format`, `check:fast`, `land`.
+
+Bottleneck: telling which pulls stand on a knob — the box is the only mark
+on six of them, so the rule could not go into `boss-cue-draw.ts` for all.

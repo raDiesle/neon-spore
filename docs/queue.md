@@ -895,3 +895,22 @@ sim lane first: a path in thousandths of a tile the hand's progress is
 measured along, and the lab's rule that a thumb half a tile off the path fails
 the pull (`pull-lab-rule.ts`, `TOUCH_SLACK` for a finger) — then each chosen
 boss's path, drawn from the same numbers.
+
+
+## A pull's word still wears the scanner box on its knob, outside THE LAMPREY
+
+- **Found:** 2026-10-12, claude/lamprey-pull-mechanics-9b1e2a
+- **Files:** `packages/render/src/boss-cue-read-zu.ts`, `packages/render/src/boss-cue-read-zv.ts`, `packages/render/src/boss-cue-read-d.ts`, `packages/render/src/boss-cue-read-o.ts`, `packages/render/src/boss-cue-read-zc.ts`, `packages/render/src/boss-cue-read-q.ts`, `packages/render/src/boss-cue-read-zl.ts`, `packages/render/src/boss-cue-read-k.ts`, `packages/render/src/plumb-marks.ts`
+
+The owner, 12 October 2026, on THE LAMPREY: a scanner box round a `PULL`
+word standing on a knob *is not required as players understand now common
+concept when they see button to pull it*. THE LAMPREY's three pull cues carry
+`framed: false` now (`boss-cue-read-zs.ts`), and `docs/controls-catalogue.md`
+has the row under Not allowed. The other bosses whose `PULL` word stands on a
+knob or a pull arrow of their own still get `drawTargetLock` from
+`boss-cue-draw.ts`: THE LATCH, THE BASTION, THE STARE, THE LEDGER, THE MANTLE,
+THE CAIRN, THE CAPSTAN, THE THROAT, THE PLUMB. Check in each reading that the
+cue stands on the knob (not beside it, not on a chart), add `framed: false`,
+and leave the pulls that draw no knob — THE TASTER, THE GAUGE's tooth, THE
+VANE, THE VISE, THE GALL, THE FLEET's chart — framed, since the box is their
+only mark.

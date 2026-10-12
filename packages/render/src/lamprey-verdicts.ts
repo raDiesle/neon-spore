@@ -2,7 +2,6 @@ import {
   type LampreyState,
   lampreyAsks,
   lampreyFiring,
-  lampreyHeadPull,
   lampreyHeadPulls,
   lampreyHolder,
   lampreyTailHeld,
@@ -18,7 +17,7 @@ import { LAMPREY_TOOTH_RING } from "./lamprey-marks.js";
 import { type LampreyPose, lampreyToothAt } from "./lamprey-shape.js";
 import { type Circle, type Layout, seatOf } from "./layout.js";
 import { drawMarkHalo, drawMarkTheirs, drawMarkWait } from "./mark-feedback.js";
-import { drawMarkHeld, drawMarkProgress, MARK_PROGRESS_R } from "./mark-progress.js";
+import { drawMarkHeld } from "./mark-progress.js";
 
 /**
  * **THE LAMPREY's marks answering a touch the way every mark does**
@@ -41,11 +40,12 @@ import { drawMarkHeld, drawMarkProgress, MARK_PROGRESS_R } from "./mark-progress
  * 2026, THE CAPSTAN's rule for every boss: `capstan-verdicts.ts`). A tail
  * held in a `teeth` or a `pull`, or pulled all the way out in an `apart`,
  * wears the steady green ring of a part held where it is wanted on both
- * screens, and the halo goes (`lampreyTailRight`). **The head's pull rides
- * it on both screens** as a green arc of how far up it has come
- * (`mark-progress.ts`), so the seat on the tail sees its partner still at
- * it, and how far; the lit tooth's taps are its own ring's arc already
- * (`lamprey-marks.ts`).
+ * screens, and the halo goes (`lampreyTailRight`). **The head's pull wears
+ * no arc of its own**: its knob rides up its channel on both screens, which
+ * is how far it has come already — the owner, 12 October 2026, on the green
+ * ring that stood round it, *this is not required as players understand now
+ * common concept when they see button to pull it*. The lit tooth's taps are
+ * its own ring's arc (`lamprey-marks.ts`).
  */
 export const LAMPREY_TAIL = 0;
 export const LAMPREY_HEAD = 1;
@@ -136,8 +136,7 @@ export function drawLampreyHalos(
 }
 
 /**
- * Over everything: the tail's green ring once it is right, the head's pull,
- * the partner's ring and clock on each mark that asks only them, and the
+ * Over everything: the tail's green ring once it is right, the partner's ring and clock on each mark that asks only them, and the
  * verdicts.
  */
 export function drawLampreyVerdicts(
@@ -154,12 +153,6 @@ export function drawLampreyVerdicts(
     const c = lampreyTailPulls(s) ? lampreyTailAt(l, cfg, s) : markAt(l, cfg, p, s, 0);
     drawMarkHeld(ctx, c.x, c.y, c.r, time);
     ctx.globalAlpha = fade;
-  }
-  if (lampreyHeadPulls(s)) {
-    const c = markAt(l, cfg, p, s, LAMPREY_HEAD);
-    const full = lampreyAsks(s) === "tow" ? cfg.lampreyTowMilli : cfg.lampreyHeadPullMilli;
-    const share = lampreyHeadPull(s) / full;
-    drawMarkProgress(ctx, c.x, c.y, c.r * MARK_PROGRESS_R, share);
   }
   for (const mark of MARKS) {
     const c = markAt(l, cfg, p, s, mark);

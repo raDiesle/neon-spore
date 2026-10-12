@@ -20,7 +20,8 @@ import { drawTargetLock } from "./target-lock.js";
  * puts a box round the place, and a second box round one place is exactly the
  * four-pictures-for-one-idea mistake `target-lock.ts` records the owner ending.
  * THE SCUTTLE borrows the navigator's own lock; THE SINEW, THE SURGE and THE
- * ANTIPHON stand their words on a handle ring, which is a mark already.
+ * ANTIPHON stand their words on a handle ring, which is a mark already, and
+ * THE LAMPREY its pulls on their knobs.
  *
  * Returns the cue as drawn, for the fire button's mark (`fire-button-mark.ts`).
  */
