@@ -38225,3 +38225,5 @@ Bottleneck: none worth the name — a look built on two that already existed.
 
 Bottleneck: telling which pulls stand on a knob — the box is the only mark
 on six of them, so the rule could not go into `boss-cue-draw.ts` for all.
+
+*Measured: 4 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
