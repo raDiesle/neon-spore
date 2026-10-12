@@ -1,5 +1,4 @@
 import type { Point } from "@neon-spore/content";
-import { coverPage } from "./cover.js";
 import { choice, grouped } from "./field-try-bar.js";
 import { text } from "./gestures-page.js";
 import { GOO_HOLDS, HOLD_LOOKS } from "./hold-goo/index.js";
@@ -18,9 +17,11 @@ import {
   tick,
 } from "./hold-lab-rule.js";
 import { holdSheet } from "./hold-lab-sheet.js";
+import { labShell } from "./lab-shell.js";
 import { HOLD_LAB } from "./place.js";
+import { fitCanvas } from "./pull-lab-canvas.js";
 import { LAB_H, LAB_W } from "./pull-lab-shapes.js";
-import { initialLab, placeLab } from "./session.js";
+import { initialLab } from "./session.js";
 
 /**
  * **THE HOLD LAB** — the one generic HOLD on an empty field, to be held by
@@ -43,15 +44,11 @@ import { initialLab, placeLab } from "./session.js";
  * on a loop; RETRY puts a fresh mark on the field, so it is seen coming in.
  */
 
-/** Device pixels per lab pixel and per CSS pixel, at most, as the PULL LAB's. */
-const MAX_DPR = 4;
-const MAX_SCREEN_DPR = 2;
-
-/** The lab on screen, shut by a second opening — there is only ever one. */
-let shutOpen: (() => void) | null = null;
-
-export function openHoldLab(first = "2", opts: { sheet?: boolean; look?: string } = {}): void {
-  shutOpen?.();
+export function openHoldLab(
+  first = "2",
+  opts: { sheet?: boolean; look?: string; host?: HTMLElement } = {},
+): void {
+  const shell = labShell(opts.host);
   let ask: HoldAsk = holdAsk(first);
   let hold: LabHold = freshHold();
   let look: HoldLook =
@@ -62,8 +59,6 @@ export function openHoldLab(first = "2", opts: { sheet?: boolean; look?: string 
   let autoTime = 0;
   let down = false;
 
-  const shade = document.createElement("div");
-  shade.className = "pic-zoom try pull-lab";
   const bar = document.createElement("div");
   bar.className = "pic-zoom-bar";
   const room = document.createElement("div");
@@ -73,11 +68,10 @@ export function openHoldLab(first = "2", opts: { sheet?: boolean; look?: string 
   room.appendChild(canvas);
   const like = text("p", "", "pull-lab-like");
   const readout = text("span", "", "try-readout");
-  const life = new AbortController();
 
   let sheet = opts.sheet === true;
   const sheetButton = text("button", "▤ EVERY LOOK, EVERY STATE");
-  const place = (): void => placeLab({ shape: HOLD_LAB + ask.key, sheet });
+  const place = (): void => shell.place({ shape: HOLD_LAB + ask.key, sheet });
   const show = (): void => {
     place();
     sheetButton.classList.toggle("on", sheet);
@@ -105,8 +99,8 @@ export function openHoldLab(first = "2", opts: { sheet?: boolean; look?: string 
   autoButton.addEventListener("click", () => setAuto(!auto));
   const retry = text("button", "↻ RETRY");
   retry.addEventListener("click", reset);
-  const close = text("button", "✕");
-  close.addEventListener("click", () => shut());
+  const close = text("button", "✕", "lab-close");
+  close.addEventListener("click", shell.shut);
   bar.append(
     text("b", "HOLD LAB · THE ONE GENERIC HOLD, ON AN EMPTY FIELD"),
     close,
@@ -153,7 +147,7 @@ export function openHoldLab(first = "2", opts: { sheet?: boolean; look?: string 
     };
   };
   const on = (type: string, f: (e: PointerEvent) => void): void =>
-    canvas.addEventListener(type, f as EventListener, { signal: life.signal });
+    canvas.addEventListener(type, f as EventListener, { signal: shell.signal });
   on("pointerdown", (e) => {
     if (auto) setAuto(false);
     canvas.setPointerCapture(e.pointerId);
@@ -166,15 +160,7 @@ export function openHoldLab(first = "2", opts: { sheet?: boolean; look?: string 
     if (!auto) lift(hold);
   });
 
-  const fit = (): void => {
-    const box = room.getBoundingClientRect();
-    const s = Math.min((box.width - 28) / LAB_W, (box.height - 14) / LAB_H);
-    canvas.style.width = `${LAB_W * s}px`;
-    canvas.style.height = `${LAB_H * s}px`;
-    const dpr = Math.min(MAX_DPR, s * Math.min(MAX_SCREEN_DPR, window.devicePixelRatio || 1));
-    canvas.width = Math.round(LAB_W * dpr);
-    canvas.height = Math.round(LAB_H * dpr);
-  };
+  const fit = (): void => fitCanvas(canvas, room, null);
 
   /** AUTO's thumb drives the rule exactly as a mouse would. */
   const drive = (dt: number): void => {
@@ -188,7 +174,6 @@ export function openHoldLab(first = "2", opts: { sheet?: boolean; look?: string 
 
   let last = performance.now();
   const frame = (now: number): void => {
-    if (life.signal.aborted) return;
     const dt = Math.min(0.1, (now - last) / 1000) * speed;
     last = now;
     time += dt;
@@ -201,36 +186,10 @@ export function openHoldLab(first = "2", opts: { sheet?: boolean; look?: string 
     }
     like.textContent = `${look.name.toUpperCase()} — ${look.sentence}.`;
     readout.textContent = holdReadout(hold);
-    requestAnimationFrame(frame);
   };
 
-  // Caught on the way down and stopped, as the PULL LAB's: one press shuts only the lab.
-  const onKey = (e: KeyboardEvent): void => {
-    if (e.key !== "Escape") return;
-    e.stopPropagation();
-    shut();
-  };
-  const shut = (): void => {
-    if (life.signal.aborted) return;
-    shutOpen = null;
-    placeLab(null);
-    life.abort();
-    shade.remove();
-    uncover();
-    document.removeEventListener("keydown", onKey, { capture: true });
-    resized.disconnect();
-  };
-  shutOpen = shut;
-  document.addEventListener("keydown", onKey, { capture: true });
-  // The readout takes a line more or less as it changes: the field fits what is left.
-  const resized = new ResizeObserver(fit);
-  shade.append(bar, like, room);
-  document.body.appendChild(shade);
-  const uncover = coverPage(shade);
-  fit();
-  resized.observe(room);
+  shell.mount({ bar, like, room, fit, frame });
   show();
-  requestAnimationFrame(frame);
 }
 
 /**

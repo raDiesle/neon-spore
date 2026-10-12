@@ -13,6 +13,7 @@ import { openHoldLab } from "./hold-lab.js";
 import { openZoom } from "./picture-zoom.js";
 import { poseNamed } from "./poses.js";
 import { openPullLab } from "./pull-lab.js";
+import { whenSeen } from "./when-seen.js";
 
 /**
  * How CONTROLS › ON THE FIELD draws one action (`field-page.ts` lays them
@@ -85,11 +86,14 @@ function useCard(user: string, rows: readonly FieldControlDef[], t: ControlType)
  * of each categories above related."* What is left of that list, used by no
  * action, is drawn under its old heading (`field-page.ts`).
  */
-export function concepts(names: readonly string[] | undefined): HTMLElement | null {
-  if (!names?.length) return null;
+export function concepts(
+  names: readonly string[] | undefined,
+  labs: readonly HTMLElement[] = [],
+): HTMLElement | null {
+  if (!names?.length && !labs.length) return null;
   const box = document.createElement("div");
   box.className = "field-concepts gesture-grid";
-  for (const name of names) {
+  for (const name of names ?? []) {
     const g = GESTURES.find((x) => x.name === name);
     if (!g) continue;
     const c = card(g);
@@ -98,22 +102,37 @@ export function concepts(names: readonly string[] | undefined): HTMLElement | nu
     if (note) c.appendChild(suggested(note));
     box.appendChild(c);
   }
+  box.append(...labs);
   return box;
 }
 
-/** Each lab, opened on its own key: the PULL LAB's shape, the HOLD LAB's beats, THE COMBO LAB's combo. */
-const LABS = { pull: openPullLab, hold: openHoldLab, combo: openComboLab } as const;
+/** Each lab, put up on its own key inside a card: the PULL LAB's shape, the
+ * HOLD LAB's beats, THE COMBO LAB's combo (`lab-shell.ts`). */
+const LABS = {
+  pull: (key: string, host: HTMLElement) => openPullLab(key, { host }),
+  hold: (key: string, host: HTMLElement) => openHoldLab(key, { host }),
+  combo: (key: string, host: HTMLElement) => openComboLab(key, { host }),
+} as const;
 
-/** The button that opens a lab on `key`, under a generic picture. */
-function labButton(
-  key: string | undefined,
-  label: string,
-  lab: keyof typeof LABS = "pull",
-): HTMLElement | null {
-  if (!key) return null;
-  const b = text("button", label, "field-try field-lab");
-  b.addEventListener("click", () => LABS[lab](key));
-  return b;
+/**
+ * The labs a type or an action names, each a card for the gesture grid,
+ * beside the generic gesture it tries — the owner, 12 October 2026: *show all
+ * labs not on a separate page, but directly on the "on the field" related
+ * page*. Each is put up as it comes near the screen (`when-seen.ts`).
+ */
+function labCards(at: { lab?: string; holdLab?: string; comboLab?: string }): HTMLElement[] {
+  const asked = [
+    ["pull", at.lab],
+    ["hold", at.holdLab],
+    ["combo", at.comboLab],
+  ] as const;
+  return asked.flatMap(([kind, key]) => {
+    if (!key) return [];
+    const host = document.createElement("div");
+    host.className = "field-lab";
+    whenSeen(host, () => LABS[kind](key, host));
+    return [host];
+  });
 }
 
 /** Every gesture an action or one of its types draws first. */
@@ -143,6 +162,7 @@ function typeBlock(
   t: ControlType,
   showTitle: boolean,
   byName: ReadonlyMap<string, FieldControlDef>,
+  labsAbove: boolean,
 ): HTMLElement {
   const box = document.createElement("div");
   box.className = `field-type field-type-${t.key}`;
@@ -157,14 +177,8 @@ function typeBlock(
   box.appendChild(text("p", t.says, "says"));
   box.appendChild(text("p", `USED BY · ${usersOf(t.rows).join(" · ")}`, "users"));
   if (t.suggest) box.appendChild(suggested(t.suggest));
-  const own = concepts(t.gestures);
+  const own = concepts(t.gestures, labsAbove ? [] : labCards(t));
   if (own) box.appendChild(own);
-  const lab = labButton(t.lab, "▶ TRY THE GENERIC PULL — EMPTY FIELD, EVERY SHAPE, EVERY LOOK");
-  if (lab) box.appendChild(lab);
-  const hold = labButton(t.holdLab, "▶ TRY THE GENERIC HOLD — EMPTY FIELD, EVERY LOOK", "hold");
-  if (hold) box.appendChild(hold);
-  const combo = labButton(t.comboLab, "▶ TRY THE TWO GESTURES AS ONE — EMPTY FIELD", "combo");
-  if (combo) box.appendChild(combo);
   const compare = text("button", "▤ COMPARE ALL USES", "field-try");
   compare.addEventListener("click", () =>
     openZoom(`${t.title} · EVERY USE`, [
@@ -206,13 +220,14 @@ export function actionSection(
   sub.prepend(countOf(uses));
   head.appendChild(sub);
   box.appendChild(head);
-  const own = concepts(a.gestures);
+  // A type with no gesture of its own tries the action's: its lab stands
+  // beside that card, up here, rather than alone under the type's title.
+  const above = (t: ControlType): boolean => !!a.gestures?.length && !t.gestures?.length;
+  const own = concepts(a.gestures, [...labCards(a), ...types.filter(above).flatMap(labCards)]);
   if (own) box.appendChild(own);
-  const lab = labButton(a.lab, "▶ TRY A BARE GRAB AND DRAG — EMPTY FIELD");
-  if (lab) box.appendChild(lab);
   // An action with one type is that type: its title would only repeat the
   // action's own.
   const showTitles = types.length > 1;
-  for (const t of types) box.appendChild(typeBlock(t, showTitles, byName));
+  for (const t of types) box.appendChild(typeBlock(t, showTitles, byName, above(t)));
   return box;
 }

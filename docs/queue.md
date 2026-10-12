@@ -914,3 +914,18 @@ cue stands on the knob (not beside it, not on a chart), add `framed: false`,
 and leave the pulls that draw no knob — THE TASTER, THE GAUGE's tooth, THE
 VANE, THE VISE, THE GALL, THE FLEET's chart — framed, since the box is their
 only mark.
+
+## The three lab doors in the topbar still open a page of their own
+
+- **Found:** 2026-10-12, claude/labs-on-field-page-acf3e3
+- **Files:** `tools/director/index.html`, `tools/director/src/labs.ts`, `tools/director/src/lab-shell.ts`, `tools/director/src/pull-lab.ts`, `tools/director/src/hold-lab.ts`, `tools/director/src/combo-lab.ts`
+- **Asks:** Should ⇣ PULL LAB, ◉ HOLD LAB and ⊕ COMBO LAB in the topbar take you to the lab's card on CONTROLS › ON THE FIELD, stay as they are, or go?
+
+Every lab is now a card on ON THE FIELD beside its gesture (`lab-shell.ts`,
+with a `host`). The topbar doors and the `?pulllab=` / `?holdlab=` /
+`?combolab=` URLs still open the old window over everything — the window is
+what `bun run shot` photographs with no clicks, and what a reload restores.
+The options: (a) each door opens ON THE FIELD and scrolls to its lab's card
+(the URL keys kept for shots only); (b) leave the doors and the window as a
+full-screen way in, as the owner asked on 11 October; (c) take the doors, the
+window and the URL keys out, and photograph the card instead.

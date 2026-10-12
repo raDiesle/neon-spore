@@ -38316,3 +38316,22 @@ Bottleneck: reading — finding that THE SLOW already says *asking* for every
 boss, so no boss needed its own rule.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-12 — Every lab stands on ON THE FIELD, beside its gesture
+
+- reading: 10 min. `pull-lab.ts` twice — once as it was, once after `main`
+  had moved under the lane with the HOLD and COMBO labs, their doors and
+  `cover.ts` — then `hold-lab.ts`, `combo-lab.ts`, `when-seen.ts`.
+- writing: 20 min. A first version on the old tree, thrown away; then
+  `lab-shell.ts` (a lab inside a host or over everything), the three labs
+  onto it, the cards in the gesture grid, a type's lab lifted beside its
+  action's card, `director-labs.css`.
+- looking: 10 min. `bun run shot` of the PULL, HOLD and COMBO grids, and of
+  `?holdlab=2` for the window.
+- friction: 10 min. `land` refused — `main` was thirty landings ahead in the
+  same files; the browser pane was hidden, so no frame ran in it; the
+  director exited idle mid-check and was started again.
+- landing: 5 min. `imports:sort`, `index`, `check:fast`, `land`.
+
+Bottleneck: not bringing the trunk up before starting — the first version
+was written against a lab that no longer existed by the time it landed.

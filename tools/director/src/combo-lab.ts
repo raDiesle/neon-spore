@@ -1,15 +1,16 @@
 import type { Point } from "@neon-spore/content";
 import { type ComboRule, comboReadout } from "./combo-kinds.js";
 import { COMBO_RULES, comboRuleOf } from "./combo-lab-combos.js";
-import { coverPage } from "./cover.js";
 import { choice, grouped } from "./field-try-bar.js";
 import { text } from "./gestures-page.js";
 import { GOO_HOLDS, HOLD_LOOKS } from "./hold-goo/index.js";
 import type { HoldLook } from "./hold-goo/view.js";
+import { labShell } from "./lab-shell.js";
 import { COMBO_LAB } from "./place.js";
+import { fitCanvas } from "./pull-lab-canvas.js";
 import { paintField } from "./pull-lab-paint.js";
 import { LAB_H, LAB_W } from "./pull-lab-shapes.js";
-import { initialLab, placeLab } from "./session.js";
+import { initialLab } from "./session.js";
 
 /**
  * **THE COMBO LAB** — two gestures in one action, on an empty field, as THE
@@ -30,15 +31,8 @@ import { initialLab, placeLab } from "./session.js";
  * AUTO's thumb, which plays one counted and at least one refused a loop.
  */
 
-/** Device pixels per lab pixel and per CSS pixel, at most, as the HOLD LAB's. */
-const MAX_DPR = 4;
-const MAX_SCREEN_DPR = 2;
-
-/** The lab on screen, shut by a second opening — there is only ever one. */
-let shutOpen: (() => void) | null = null;
-
-export function openComboLab(first = "partner"): void {
-  shutOpen?.();
+export function openComboLab(first = "partner", opts: { host?: HTMLElement } = {}): void {
+  const shell = labShell(opts.host);
   let combo: ComboRule<unknown> = comboRuleOf(first);
   let state: unknown = combo.fresh();
   let look: HoldLook = GOO_HOLDS[0] ?? (HOLD_LOOKS[0] as HoldLook);
@@ -48,8 +42,6 @@ export function openComboLab(first = "partner"): void {
   let autoTime = 0;
   let down = false;
 
-  const shade = document.createElement("div");
-  shade.className = "pic-zoom try pull-lab";
   const bar = document.createElement("div");
   bar.className = "pic-zoom-bar";
   const room = document.createElement("div");
@@ -59,13 +51,12 @@ export function openComboLab(first = "partner"): void {
   room.appendChild(canvas);
   const like = text("p", "", "pull-lab-like");
   const readout = text("span", "", "try-readout");
-  const life = new AbortController();
 
   const reset = (): void => {
     state = combo.fresh();
     autoTime = 0;
     down = false;
-    placeLab({ shape: COMBO_LAB + combo.key, sheet: false });
+    shell.place({ shape: COMBO_LAB + combo.key, sheet: false });
   };
   const autoButton = text("button", "", "");
   const setAuto = (on: boolean): void => {
@@ -77,8 +68,8 @@ export function openComboLab(first = "partner"): void {
   autoButton.addEventListener("click", () => setAuto(!auto));
   const retry = text("button", "↻ RETRY");
   retry.addEventListener("click", reset);
-  const close = text("button", "✕");
-  close.addEventListener("click", () => shut());
+  const close = text("button", "✕", "lab-close");
+  close.addEventListener("click", shell.shut);
   bar.append(
     text("b", "COMBO LAB · TWO GESTURES IN ONE ACTION, ON AN EMPTY FIELD"),
     close,
@@ -125,7 +116,7 @@ export function openComboLab(first = "partner"): void {
     };
   };
   const on = (type: string, f: (e: PointerEvent) => void): void =>
-    canvas.addEventListener(type, f as EventListener, { signal: life.signal });
+    canvas.addEventListener(type, f as EventListener, { signal: shell.signal });
   on("pointerdown", (e) => {
     if (auto) setAuto(false);
     canvas.setPointerCapture(e.pointerId);
@@ -141,15 +132,7 @@ export function openComboLab(first = "partner"): void {
   const say = (): void => {
     like.textContent = `${combo.label} — ${combo.says}. Stands for ${combo.like}.`;
   };
-  const fit = (): void => {
-    const box = room.getBoundingClientRect();
-    const s = Math.min((box.width - 28) / LAB_W, (box.height - 14) / LAB_H);
-    canvas.style.width = `${LAB_W * s}px`;
-    canvas.style.height = `${LAB_H * s}px`;
-    const dpr = Math.min(MAX_DPR, s * Math.min(MAX_SCREEN_DPR, window.devicePixelRatio || 1));
-    canvas.width = Math.round(LAB_W * dpr);
-    canvas.height = Math.round(LAB_H * dpr);
-  };
+  const fit = (): void => fitCanvas(canvas, room, null);
 
   /** AUTO's thumb drives the rule exactly as a mouse would. */
   const drive = (dt: number): void => {
@@ -163,7 +146,6 @@ export function openComboLab(first = "partner"): void {
 
   let last = performance.now();
   const frame = (now: number): void => {
-    if (life.signal.aborted) return;
     const dt = Math.min(0.1, (now - last) / 1000) * speed;
     last = now;
     time += dt;
@@ -176,36 +158,10 @@ export function openComboLab(first = "partner"): void {
       combo.paint(ctx, state, look, time);
     }
     readout.textContent = comboReadout(combo, state);
-    requestAnimationFrame(frame);
   };
 
-  // Caught on the way down and stopped, as the other labs': one press shuts only the lab.
-  const onKey = (e: KeyboardEvent): void => {
-    if (e.key !== "Escape") return;
-    e.stopPropagation();
-    shut();
-  };
-  const shut = (): void => {
-    if (life.signal.aborted) return;
-    shutOpen = null;
-    placeLab(null);
-    life.abort();
-    shade.remove();
-    uncover();
-    document.removeEventListener("keydown", onKey, { capture: true });
-    resized.disconnect();
-  };
-  shutOpen = shut;
-  document.addEventListener("keydown", onKey, { capture: true });
-  // The sentence and the readout take a line more or less as they change: the field fits what is left.
-  const resized = new ResizeObserver(fit);
-  shade.append(bar, like, room);
-  document.body.appendChild(shade);
-  const uncover = coverPage(shade);
+  shell.mount({ bar, like, room, fit, frame });
   say();
-  fit();
-  resized.observe(room);
-  requestAnimationFrame(frame);
 }
 
 /**

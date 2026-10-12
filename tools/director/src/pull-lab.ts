@@ -1,6 +1,6 @@
 import type { Point } from "@neon-spore/content";
-import { coverPage } from "./cover.js";
 import { text } from "./gestures-page.js";
+import { labShell } from "./lab-shell.js";
 import { COMBO_LAB, HOLD_LAB } from "./place.js";
 import { autoDrive } from "./pull-lab-auto.js";
 import { type LabState, labBar } from "./pull-lab-bar.js";
@@ -20,7 +20,7 @@ import { type LabShape, labShape, sized } from "./pull-lab-shapes.js";
 import { labSheet } from "./pull-lab-sheet.js";
 import type { Stray } from "./pull-lab-stray.js";
 import { freshTune } from "./pull-lab-tune.js";
-import { initialLab, placeLab } from "./session.js";
+import { initialLab } from "./session.js";
 
 /**
  * **THE PULL LAB** — the one generic PULL on an empty field, to be pulled by
@@ -53,13 +53,15 @@ import { initialLab, placeLab } from "./session.js";
  * It opens on THE LAMPREY's tow (`pull-lab-scene.ts`), the drop over a real
  * wave, with its size and THE SLOW's loudness on the bar
  * (`pull-lab-tune.ts`); EMPTY FIELD is the field it was built on.
+ *
+ * With a `host` it stands on that page, beside its gesture's card; without
+ * one, over everything (`lab-shell.ts`).
  */
-
-/** The lab on screen, shut by a second opening — there is only ever one. */
-let shutOpen: (() => void) | null = null;
-
-export function openPullLab(first = "down", opts: { sheet?: boolean } = {}): void {
-  shutOpen?.();
+export function openPullLab(
+  first = "down",
+  opts: { sheet?: boolean; host?: HTMLElement } = {},
+): void {
+  const shell = labShell(opts.host);
   const state: LabState = {
     shape: labShape(first),
     look: null,
@@ -87,19 +89,16 @@ export function openPullLab(first = "down", opts: { sheet?: boolean } = {}): voi
   let finger = matchMedia("(pointer: coarse)").matches;
   const touch = (): boolean => finger && !state.auto;
 
-  const shade = document.createElement("div");
-  shade.className = "pic-zoom try pull-lab";
   const room = document.createElement("div");
   room.className = "pic-zoom-stage";
   const canvas = document.createElement("canvas");
   canvas.className = "pull-lab-canvas";
   room.appendChild(canvas);
   const like = text("p", "", "pull-lab-like");
-  const life = new AbortController();
 
   /** The room shows the live canvas, or the sheet of every look for this shape. */
   const show = (): void => {
-    placeLab({ shape: state.shape.key, sheet: state.sheet });
+    shell.place({ shape: state.shape.key, sheet: state.sheet });
     bar.paintSheet();
     room.classList.toggle("pull-lab-room-sheet", state.sheet);
     room.replaceChildren(state.sheet ? labSheet(state.shape) : canvas);
@@ -109,7 +108,7 @@ export function openPullLab(first = "down", opts: { sheet?: boolean } = {}): voi
     autoTime = 0;
     // `show` writes the place too, so a new path is in the URL either way.
     if (state.sheet) show();
-    else placeLab({ shape: state.shape.key, sheet: false });
+    else shell.place({ shape: state.shape.key, sheet: false });
   };
   const swap = (): void => {
     scene?.dispose();
@@ -117,12 +116,12 @@ export function openPullLab(first = "down", opts: { sheet?: boolean } = {}): voi
     fit();
     reset();
   };
-  const bar = labBar(state, { reset, show, scene: swap, close: () => shut() });
+  const bar = labBar(state, { reset, show, scene: swap, close: shell.shut });
   bar.setAuto(true);
 
   const toLab = (e: PointerEvent): Point => pointOn(canvas, e, scene);
   const on = (type: string, f: (e: PointerEvent) => void): void =>
-    canvas.addEventListener(type, f as EventListener, { signal: life.signal });
+    canvas.addEventListener(type, f as EventListener, { signal: shell.signal });
   on("pointerdown", (e) => {
     if (state.auto) bar.setAuto(false);
     finger = e.pointerType === "touch";
@@ -145,7 +144,6 @@ export function openPullLab(first = "down", opts: { sheet?: boolean } = {}): voi
 
   let last = performance.now();
   const frame = (now: number): void => {
-    if (life.signal.aborted) return;
     const dt = Math.min(0.1, (now - last) / 1000) * state.speed;
     last = now;
     time += dt;
@@ -164,38 +162,10 @@ export function openPullLab(first = "down", opts: { sheet?: boolean } = {}): voi
     const lab = { shape: s ?? state.shape, pull, look: state.look, time, stray, touch: touch() };
     const f = { lab, size: tune.size, slow: tune.slow, dt };
     drawLab(canvas, scene, f);
-    requestAnimationFrame(frame);
   };
 
-  // Caught on the way down and stopped: a sheet under the lab closes on
-  // Escape too (`session.ts`), and one press should shut only the lab.
-  const onKey = (e: KeyboardEvent): void => {
-    if (e.key !== "Escape") return;
-    e.stopPropagation();
-    shut();
-  };
-  const shut = (): void => {
-    if (life.signal.aborted) return;
-    shutOpen = null;
-    placeLab(null);
-    life.abort();
-    scene?.dispose();
-    shade.remove();
-    uncover();
-    document.removeEventListener("keydown", onKey, { capture: true });
-    resized.disconnect();
-  };
-  shutOpen = shut;
-  document.addEventListener("keydown", onKey, { capture: true });
-  // The readout takes a line more or less as it changes: the field fits what is left.
-  const resized = new ResizeObserver(fit);
-  shade.append(bar.el, like, room);
-  document.body.appendChild(shade);
-  const uncover = coverPage(shade);
-  fit();
-  resized.observe(room);
+  shell.mount({ bar: bar.el, like, room, fit, frame, dispose: () => scene?.dispose() });
   show();
-  requestAnimationFrame(frame);
 }
 
 /**

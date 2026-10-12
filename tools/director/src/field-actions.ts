@@ -29,12 +29,12 @@ export interface ControlType {
   /** The gestures in `GESTURES` this type is built from, drawn first under
    * its title — the generic picture before its uses. */
   gestures?: readonly string[];
-  /** The PULL LAB shape this type opens on (`pull-lab-shapes.ts`): the one
+  /** The PULL LAB shape this type starts on (`pull-lab-shapes.ts`): the one
    * generic control, tried on an empty field before any of its uses. */
   lab?: string;
-  /** The HOLD LAB's beats this type opens on (`hold-lab-rule.ts`), as `lab` is the pull's. */
+  /** The HOLD LAB's beats this type starts on (`hold-lab-rule.ts`), as `lab` is the pull's. */
   holdLab?: string;
-  /** THE COMBO LAB's combo this type opens on (`combo-lab-combos.ts`). */
+  /** THE COMBO LAB's combo this type starts on (`combo-lab-combos.ts`). */
   comboLab?: string;
   rows: readonly string[];
   /** For a row whose one mark asks a different gesture step by step (THE

@@ -1,0 +1,38 @@
+/* A lab on CONTROLS › ON THE FIELD (`lab-shell.ts`): a card in the gesture
+   grid beside the generic gesture it tries (`field-action-cards.ts`). Its bar
+   wraps to the card, its title is the card's, it has no ✕ — the page is its
+   place — and its field is cut to a room of a fixed height. */
+.field-lab {
+  min-height: 560px;
+}
+.lab-inline {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 6px 10px 10px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--gold);
+  border-radius: 6px;
+}
+.lab-inline .pic-zoom-bar {
+  padding: 4px 0 6px;
+  gap: 6px;
+}
+.lab-inline .lab-close {
+  display: none;
+}
+.lab-inline .pic-zoom-bar > b {
+  flex-basis: 100%;
+}
+.lab-inline .pull-lab-like {
+  margin: 0 0 6px;
+}
+.lab-inline .pic-zoom-stage {
+  flex: none;
+  height: 480px;
+  padding: 0;
+}
+.lab-inline .pic-zoom-stage.pull-lab-room-sheet {
+  overflow: auto;
+}

@@ -3848,6 +3848,7 @@ by hand never moves.
 | `tools/director/src/library/countdown-assets.ts` | THE COUNT's four counts — how a body says how many beats are left, on the one screen that is shown it |
 | `tools/director/src/library/countdown-stage.ts` | The game's own count, drawn on a card wearing a look of the caller's choosing |
 | `tools/director/src/labs.ts` | **The director's three labs, PULL, HOLD and COMBO**: each one's door in the topbar |
+| `tools/director/src/lab-shell.ts` | **Where a lab stands** — THE PULL LAB, THE HOLD LAB and THE COMBO LAB (`pull-lab.ts`, `hold-lab.ts` |
 | `tools/director/src/autopilot-ghost.ts` | **The autopilot's finger, drawn where a thumb would be**, found by the game's own hit test run backwards |
 | `tools/director/src/antiphon-editor.ts` | THE ANTIPHON's levels, a tab each and one for the ship, with who explains and who chooses |
 | `tools/imports/classify.ts` | Which of a file's characters are code rather than a comment or a string |

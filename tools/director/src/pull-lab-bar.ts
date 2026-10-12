@@ -65,7 +65,7 @@ export function labBar(state: LabState, act: LabActions): LabBar {
   autoButton.addEventListener("click", () => setAuto(!state.auto));
   const retry = text("button", "↻ RETRY");
   retry.addEventListener("click", act.reset);
-  const close = text("button", "✕");
+  const close = text("button", "✕", "lab-close");
   close.addEventListener("click", act.close);
 
   el.append(
