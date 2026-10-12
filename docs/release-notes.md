@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-12 · 10fe1e40c — Every lab plays on ON THE FIELD, beside the gesture it tries
+
+THE PULL LAB, THE HOLD LAB and THE COMBO LAB are no longer a page of their own behind a ▶ TRY button: each is a card in CONTROLS › ON THE FIELD's gesture grid, next to the generic gesture card it tries, with its whole bar — path or beats or combo, look, speed, AUTO, RETRY, the sheet — and it plays only while it is on the screen. A type with no gesture of its own puts its lab beside its action's card, so the HOLD LAB stands next to HOLD, AS A LEVEL. The topbar doors and the `?pulllab=` URLs still open the full-screen window; what to do with them is asked in the queue.
+
 ## 2026-10-12 · 2ce718f7b — The director's step jump lands where the pair is asked, past the boss's leap
 
 ◀, ▶ and the step list in RUN now replay past whatever a boss plays before a step wants anything — THE LAMPREY's leap and crawl, a morph — to the tick THE SLOW opens as an ask, so a jump to THE LAMPREY's PULL opens on the bite with the knobs up. A step that never asks is landed where it was reached, as before.
