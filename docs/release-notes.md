@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-12 · e58e37513 — PULL LAB opens on THE LAMPREY's tow, with six colours, four sizes and THE SLOW a little quieter
+
+The lab now stands FIZZ on the real wave: THE LAMPREY run by the simulation to its first pull, the tow, under THE SLOW, drawn by the shipping renderer from either seat — the head's curve (P2) or the tail (P1) — with the lab's pull drawn where the game draws that seat's handle, along the game's own track. EMPTY FIELD is still on the bar. Beside it: COLOUR (magenta, acid yellow, hot orange, lime, ice, white hot — held in the game's own GOO for a frame), SIZE (1× to 2½×, the whole control and its grab, opening at 2×) and SLOW (100% to 50%).
+
 ## 2026-10-12 · b7690dc9f — THE COMBO LAB: PULL, THEN HOLD, a new action on the CONTROLS page
 
 CONTROLS › ON THE FIELD has a new action, PULL, THEN HOLD: a pull carried the whole way and then held at its end, counted only when what the hold waits for is done. THE LAMPREY's tail in an apart or a tow is filed there, with a step line, as well as under HOLD for a pull or a teeth. Its button opens THE COMBO LAB, which also has a door in the topbar and `combolab=` in the URL. COMBO picks PULL, HOLD FOR THE PARTNER (a second knob, dim and without a channel, as the game draws a partner's, is pulled by the lab while you hold) or PULL, HOLD FOR 2 BEATS. HOLD LOOK picks which HOLD LAB look the hold at the end of the pull wears. A short pull is refused, red. So is a lift at the end too soon, and the knob goes home. AUTO plays a whole one, an early one and a short one. It is in the director only, so nothing the game draws changes.
