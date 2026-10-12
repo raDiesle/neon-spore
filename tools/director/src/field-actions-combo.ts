@@ -10,7 +10,8 @@ import type { FieldAction } from "./field-actions.js";
  *
  * There are four: a pull held at its end; a hold kept while the partner
  * does their part; a pull that waits on the partner's press; a hold loosed
- * by a swipe (moved here from GRAB AND DRAG, where it was DRAW, THEN SWIPE).
+ * by a swipe (moved here from GRAB AND DRAG, where it was DRAW, THEN SWIPE),
+ * which the lab plays as a hold and then a pull in its place.
  *
  * A row filed here is one whose gesture changes with the step, so it is on
  * every type a step of it uses with its `steps` line, as THE INSTAR's are —
@@ -119,10 +120,11 @@ export const COMBO_ACTIONS: readonly FieldAction[] = [
           "A finger held for a count of beats, and the lift's direction is the " +
           "answer (`DrawRelease`).",
         suggest:
-          "Already one gesture in two bosses. Make it generic under one name — " +
-          "THE SLING's — and one drawn cord.",
+          "Make it two gestures, each whole: a hold counted on its own, then a " +
+          "pull that comes in where the hold was, taken the asked way — THE " +
+          "COMBO LAB's HOLD, THEN PULL.",
         gestures: ["HOLD, THEN SWIPE"],
-        comboLab: "swipe",
+        comboLab: "thenpull",
         rows: ["THE SLING'S LEFT CORD", "THE SLING'S RIGHT CORD"],
       },
     ],

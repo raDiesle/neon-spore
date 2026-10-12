@@ -2,12 +2,13 @@ import { describe, expect, test } from "bun:test";
 import type { Point } from "@neon-spore/content";
 import { pullTrackPoint } from "@neon-spore/render";
 import { HOLD_PULL, HOLD_TAP } from "../src/combo-hold-partner.js";
+import { HOLD_THEN_PULL } from "../src/combo-hold-then-pull.js";
 import type { ComboRule } from "../src/combo-kinds.js";
 import { COMBO_RULES, comboRuleOf } from "../src/combo-lab-combos.js";
 import { downShape } from "../src/combo-lab-rule.js";
 import { PLUG } from "../src/combo-plug.js";
-import { HOLD_SWIPE } from "../src/combo-swipe.js";
 import { FIELD_ACTIONS } from "../src/field-actions.js";
+import { soakReach } from "../src/hold-goo/soak.js";
 import { HOLD_AT } from "../src/hold-lab-rule.js";
 import { LAB_TILE, LAB_W } from "../src/pull-lab-shapes.js";
 
@@ -113,30 +114,72 @@ describe("PULL ONCE THE PARTNER HAS PRESSED", () => {
   });
 });
 
-describe("HOLD, THEN SWIPE", () => {
-  const right = { x: HOLD_AT.x + LAB_TILE * 1.5, y: HOLD_AT.y };
-  const left = { x: HOLD_AT.x - LAB_TILE * 1.5, y: HOLD_AT.y };
+describe("HOLD, THEN PULL", () => {
+  const r = HOLD_THEN_PULL;
+  const at = (k: number): Point => ({ x: HOLD_AT.x + LAB_TILE * 3.5 * k, y: HOLD_AT.y });
+  const pull = (s: ReturnType<typeof r.fresh>, to: number): void => {
+    r.press(s, at(0));
+    for (let k = 0; k <= to + 0.0001; k += 0.05) r.move(s, at(Math.min(1, k)));
+    r.lift(s);
+  };
+  /** The beats held, the thumb off, and the knob given time to come in. */
+  const held = (): ReturnType<typeof r.fresh> => {
+    const s = r.fresh();
+    r.press(s, HOLD_AT);
+    run(r, s, 1.4);
+    r.lift(s);
+    run(r, s, 0.6);
+    return s;
+  };
 
-  test("the beats held are not a count: the swipe the asked way is", () => {
-    const s = HOLD_SWIPE.fresh();
-    HOLD_SWIPE.press(s, HOLD_AT);
-    run(HOLD_SWIPE, s, 2);
-    expect(HOLD_SWIPE.tally(s).counted).toBe(0);
-    HOLD_SWIPE.move(s, right);
-    HOLD_SWIPE.lift(s);
-    expect(HOLD_SWIPE.tally(s)).toEqual({ counted: 1, refused: 0, strayed: 0 });
+  test("the beats held are not a count: the pull in their place, the whole way, is", () => {
+    const s = held();
+    expect(r.tally(s).counted).toBe(0);
+    pull(s, 1);
+    expect(r.tally(s)).toEqual({ counted: 1, refused: 0, strayed: 0 });
   });
 
-  test("swiped the other way, or let go before the beats: refused", () => {
-    const s = HOLD_SWIPE.fresh();
-    HOLD_SWIPE.press(s, HOLD_AT);
-    run(HOLD_SWIPE, s, 2);
-    HOLD_SWIPE.move(s, left);
-    HOLD_SWIPE.lift(s);
-    run(HOLD_SWIPE, s, 1);
-    HOLD_SWIPE.press(s, HOLD_AT);
-    run(HOLD_SWIPE, s, 0.3);
-    HOLD_SWIPE.lift(s);
-    expect(HOLD_SWIPE.tally(s)).toEqual({ counted: 0, refused: 2, strayed: 0 });
+  test("no knob to take until the hold's count has played", () => {
+    const s = r.fresh();
+    r.press(s, HOLD_AT);
+    run(r, s, 1.3);
+    r.lift(s);
+    pull(s, 1);
+    expect(r.tally(s).counted).toBe(0);
+  });
+
+  test("let go before the beats, or pulled short: refused, and the knob waits", () => {
+    const s = r.fresh();
+    r.press(s, HOLD_AT);
+    run(r, s, 0.4);
+    r.lift(s);
+    expect(r.tally(s).refused).toBe(1);
+    run(r, s, 1);
+    r.press(s, HOLD_AT);
+    run(r, s, 1.4);
+    r.lift(s);
+    run(r, s, 0.6);
+    pull(s, 0.45);
+    expect(r.tally(s)).toEqual({ counted: 0, refused: 2, strayed: 0 });
+    run(r, s, 2);
+    pull(s, 1);
+    expect(r.tally(s).counted).toBe(1);
+  });
+
+  test("after a count, a fresh hold is asked", () => {
+    const s = held();
+    pull(s, 1);
+    run(r, s, 1);
+    expect(r.state(s)).toBe("WAITING");
+  });
+});
+
+describe("SOAK's water", () => {
+  test("wells up wide at once, slows, and reaches the rim exactly at the count", () => {
+    expect(soakReach(0)).toBe(0);
+    expect(soakReach(0.01)).toBeGreaterThan(0.3);
+    expect(soakReach(1)).toBeCloseTo(1, 6);
+    // Faster at the start than at the end.
+    expect(soakReach(0.2) - soakReach(0.1)).toBeGreaterThan(soakReach(0.9) - soakReach(0.8));
   });
 });

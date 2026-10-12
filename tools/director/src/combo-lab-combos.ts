@@ -1,4 +1,5 @@
 import { HOLD_PULL, HOLD_TAP } from "./combo-hold-partner.js";
+import { HOLD_THEN_PULL } from "./combo-hold-then-pull.js";
 import type { ComboRule } from "./combo-kinds.js";
 import { comboLoop, comboThumb } from "./combo-lab-auto.js";
 import { comboState, paintComboLab } from "./combo-lab-paint.js";
@@ -13,7 +14,6 @@ import {
   tickCombo,
 } from "./combo-lab-rule.js";
 import { PLUG } from "./combo-plug.js";
-import { HOLD_SWIPE } from "./combo-swipe.js";
 
 /**
  * **Every combo THE COMBO LAB plays**, in the order of its COMBO choice — one
@@ -24,7 +24,7 @@ import { HOLD_SWIPE } from "./combo-swipe.js";
  * - **HOLD WHILE THE PARTNER PULLS / TAPS** — the hold first, the partner's
  *   part done only while it is down;
  * - **PULL ONCE THE PARTNER HAS PRESSED** — the pull waits on the partner;
- * - **HOLD, THEN SWIPE** — the hold's lift is a swipe the asked way.
+ * - **HOLD, THEN PULL** — a hold counted, then a pull in its place.
  */
 
 /** A pull-then-hold combo (`combo-lab-rule.ts`) as the lab's rule. */
@@ -55,7 +55,7 @@ export const COMBO_RULES: readonly ComboRule<unknown>[] = [
   HOLD_PULL,
   HOLD_TAP,
   PLUG,
-  HOLD_SWIPE,
+  HOLD_THEN_PULL,
 ];
 
 /** The combo for `key`, or the first when the key names none. */

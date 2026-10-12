@@ -958,3 +958,11 @@ against a drag on the field); (b) leave it — the drawn knob is the target,
 with a margin; (c) half-way, `PULL_GRAB` at 1.5 of the drawn knob. A grip
 test per wave with two handles side by side (`hasp-grip.test.ts`) proves
 either.
+
+## THE SLING's cords: a hold, then a pull in its place, in the game too?
+
+- **Found:** 2026-10-12, claude/combo-lab-interactions-d44a22
+- **Files:** `packages/sim/src/sling.ts`, `packages/sim/src/sling-hand.ts`, `packages/sim/src/drag-targets-e.ts`, `packages/render/src/sling-grip.ts`, `tools/director/src/field-actions-combo.ts`
+- **Asks:** Should THE SLING's cords in the game become THE COMBO LAB's HOLD, THEN PULL — the hold counted on its own, then a pull knob in its place — or keep the swipe on the lift (`DrawRelease`)?
+
+The owner, 12 October 2026, of the lab's HOLD, THEN SWIPE: *should be a separate "hold", then another "pull" appears after it on same place.* The lab now plays it that way (`combo-hold-then-pull.ts`); the game's two cords still loose on a swipe. The options: carry it into the game — `DrawRelease` becomes a hold stage then a pull stage on the cord's own track, the autopilot and THE SLING's tests with it; or leave the game and the lab apart until the generic pull is in the game. `bun test packages/sim/test/sling*` proves the first.

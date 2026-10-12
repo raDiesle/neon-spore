@@ -33,5 +33,9 @@ const DIAL = 0.92 / 0.7;
 
 export const GOO_HOLDS: readonly HoldLook[] = [FILL, DOTS, BLOOM, PRINT, SINK, SOAK].map(gooHold);
 
+/** The one look every hold in THE COMBO LAB wears — the owner, 12 October 2026:
+ * *all should follow "hold look" of "soak" to be consistent - remove alternatives*. */
+export const SOAK_HOLD: HoldLook = gooHold(SOAK);
+
 /** Every look on the LOOK picker and the sheet, the shipped one first. */
 export const HOLD_LOOKS: readonly HoldLook[] = [AS_SHIPPED, ...GOO_HOLDS];

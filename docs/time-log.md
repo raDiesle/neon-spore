@@ -38406,3 +38406,18 @@ Bottleneck: none to speak of; the one decision was whether the grab grows
 with the knob, and it went to the queue as a question.
 
 *Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-12 — THE COMBO LAB wears SOAK, the clock in the place, HOLD, THEN PULL
+
+- reading: 10 min. Where THE COMBO LAB is — the name is nowhere in the
+  tree the worktree was cut at — then its rules, SOAK and the clock.
+- writing: 15 min. SOAK's eased reach, the clock in the dashed place
+  sliding to the shoulder, HOLD, THEN PULL in place of the swipe, tests.
+- looking: 10 min. The lab in the browser pane at ¼× until the clock
+  stopped covering the water.
+- friction: 5 min. The worktree was behind the local `main` again
+  (already in the queue twice).
+- landing: 5 min. `bun run index`, `check:fast`, `land`.
+
+Bottleneck: what the owner's "placeholder" meant, settled by seeing the
+dashed place at the end of the channel at ¼×.

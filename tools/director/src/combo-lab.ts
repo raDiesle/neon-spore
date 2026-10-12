@@ -3,8 +3,7 @@ import { type ComboRule, comboReadout } from "./combo-kinds.js";
 import { COMBO_RULES, comboRuleOf } from "./combo-lab-combos.js";
 import { choice, grouped } from "./field-try-bar.js";
 import { text } from "./gestures-page.js";
-import { GOO_HOLDS, HOLD_LOOKS } from "./hold-goo/index.js";
-import type { HoldLook } from "./hold-goo/view.js";
+import { SOAK_HOLD } from "./hold-goo/index.js";
 import { labShell } from "./lab-shell.js";
 import { COMBO_LAB } from "./place.js";
 import { fitCanvas } from "./pull-lab-canvas.js";
@@ -19,13 +18,12 @@ import { initialLab } from "./session.js";
  * wait for other player or just for some time … create another pull lab for
  * this category*).
  *
- * The choices on the bar:
- *
- * - **COMBO** — what the action is (`COMBO_RULES`, `combo-lab-combos.ts`):
- *   a pull held at its end, a hold while the partner works, a pull that
- *   waits on the partner's press, a hold loosed by a swipe;
- * - **the hold's look** — the HOLD LAB's looks, the one every hold in a
- *   combo wears; the pull is the game's own knob, FIZZ.
+ * Its one choice on the bar is **COMBO** — what the action is (`COMBO_RULES`,
+ * `combo-lab-combos.ts`): a pull held at its end, a hold while the partner
+ * works, a pull that waits on the partner's press, a hold and then a pull in
+ * its place. Every hold in a combo wears the HOLD LAB's SOAK and nothing else (the owner,
+ * 12 October 2026: *all should follow "hold look" of "soak" to be consistent -
+ * remove alternatives*); the pull is the game's own knob, FIZZ.
  *
  * Each combo is a `ComboRule` (`combo-kinds.ts`): its rule, its frame, and
  * AUTO's thumb, which plays one counted and at least one refused a loop.
@@ -35,7 +33,6 @@ export function openComboLab(first = "partner", opts: { host?: HTMLElement } = {
   const shell = labShell(opts.host);
   let combo: ComboRule<unknown> = comboRuleOf(first);
   let state: unknown = combo.fresh();
-  let look: HoldLook = GOO_HOLDS[0] ?? (HOLD_LOOKS[0] as HoldLook);
   let auto = true;
   let speed = 1;
   let time = 0;
@@ -82,14 +79,6 @@ export function openComboLab(first = "partner", opts: { host?: HTMLElement } = {
         say();
       },
       "COMBO",
-    ),
-    choice(
-      HOLD_LOOKS.map((l) => [l.name.toUpperCase(), l] as [string, HoldLook]),
-      look,
-      (l) => {
-        look = l;
-      },
-      "HOLD LOOK",
     ),
     choice(
       [
@@ -155,7 +144,7 @@ export function openComboLab(first = "partner", opts: { host?: HTMLElement } = {
     if (ctx) {
       ctx.setTransform(canvas.width / LAB_W, 0, 0, canvas.height / LAB_H, 0, 0);
       paintField(ctx);
-      combo.paint(ctx, state, look, time);
+      combo.paint(ctx, state, SOAK_HOLD, time);
     }
     readout.textContent = comboReadout(combo, state);
   };
