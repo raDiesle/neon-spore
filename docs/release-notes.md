@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-12 · e07815cb8 — THE COMBO LAB: four more two-gesture actions, each its own on the CONTROLS page
+
+CONTROLS › ON THE FIELD gains three actions that ask two gestures as one, each tried in THE COMBO LAB: HOLD WHILE THE PARTNER WORKS (THE LAMPREY's tail held while the head is pulled, or the teeth tapped), PULL ONCE THE PARTNER HAS PRESSED (the tail in a plug), and HOLD, THEN SWIPE (THE SLING's cords, moved from GRAB AND DRAG). The lab plays every combo through one `ComboRule`, and all three labs now refit their field when the readout takes a second line, so it never covers the sentence. Director-only, where the game draws nothing.
+
 ## 2026-10-12 · e58e37513 — PULL LAB opens on THE LAMPREY's tow, with six colours, four sizes and THE SLOW a little quieter
 
 The lab now stands FIZZ on the real wave: THE LAMPREY run by the simulation to its first pull, the tow, under THE SLOW, drawn by the shipping renderer from either seat — the head's curve (P2) or the tail (P1) — with the lab's pull drawn where the game draws that seat's handle, along the game's own track. EMPTY FIELD is still on the bar. Beside it: COLOUR (magenta, acid yellow, hot orange, lime, ice, white hot — held in the game's own GOO for a frame), SIZE (1× to 2½×, the whole control and its grab, opening at 2×) and SLOW (100% to 50%).
