@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-12 · c083d09ba — THE COMBO LAB: every hold wears SOAK, a clock in the place, HOLD, THEN PULL
+
+THE COMBO LAB loses its HOLD LOOK choice: every hold in every combo now wears SOAK. SOAK's water wells up wide and fast, then spreads slower, and reaches the rim exactly as the hold counts. This applies in the HOLD LAB too. In PULL, HOLD FOR THE PARTNER and PULL, HOLD FOR 2 BEATS, the dashed place at the end of the channel shows the waiting clock from the moment the knob is taken. Once the hold is on, the clock slides up to the drop's shoulder and leaves the water uncovered. HOLD, THEN SWIPE is replaced by HOLD, THEN PULL: a hold that counts on its own, then a pull knob in its place, taken the whole way. Whether THE SLING in the game follows is asked in the queue. A look the owner asked for by name, in the director only.
+
 ## 2026-10-12 · 1c5a845ea — Every pull handle twice the size, called with white rings and a white flash
 
 The PULL LAB's two picks went into the game: every pull handle's knob and the channel it runs in are drawn twice the size their wave asks for, and a drop nobody has taken yet calls the thumb with WHITE RINGS · FLASH — a yellow glow, white-hot rings out of it, and the drop lit white as the path's dots start to run, so the light runs from the drop down the path to the place. The lab's SIZE choice and its other three CALL looks are gone; it now draws the pull exactly as the game does. The circle a press is taken in did not grow with the knob; that question is in the queue. The HOLD LAB's drop keeps the quiet call it had, since a hold has no dots to flash with.
