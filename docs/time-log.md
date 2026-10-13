@@ -38952,3 +38952,5 @@ Bottleneck: the far side's dark has to follow the body's contour, and a circle d
 
 Bottleneck: the new halo was caught by the marks-window row for THE GAUGE,
 which only knew the band's window.
+
+*Measured: 9 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

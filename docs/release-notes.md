@@ -9,6 +9,12 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-13 · 0b61f95f5 — Time log for THE GAUGE's tongue two-way pull
+
+## 2026-10-13 · 3e587efd8 — THE GAUGE's tongue is the PULL LAB's knob on a two-way channel
+
+Each seat's hand on the tongue wears the standard pull in place of a bare ring: the FIZZ knob on its own place — his at the tip, hers along it — in the middle of a level channel `gaugeTongueTwistMilli` out each side, with an arrow of two heads until the thumb picks a side, riding the carry the sim keeps with the channel filling green behind it. THE WARDEN's swipe and the tongue now draw it through one `drawTwoWayPull`. Exemption: a look the owner asked for by name, 13 October 2026.
+
 ## 2026-10-13 · d541de2af — VERSUS offers THE PULSE's falling bodies glancing
 
 The slick, the bulb and the pod turn as they fall, each about its centre so it still meets its socket, the far side darkening over the lane's own contour. The meteor and a veiled arrival do not. Ships still; VERSUS `pulse:glance` offers SWAY, LOOK and COCK, judged on THE PULSE · PLAY. Exemption: none — a look, offered on VERSUS.
