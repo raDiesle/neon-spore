@@ -1,4 +1,5 @@
 import {
+  type Color,
   type KeelState,
   keelFlipping,
   keelLit,
@@ -33,7 +34,11 @@ import type { Layout } from "./layout.js";
  * **`FIRE` at the hull under the middle column while the socket is open**,
  * to either seat. The socket wants its own colour, and the word never names
  * one: the socket flashes it on both screens, and which cannon is that colour
- * is the conversation.
+ * is the conversation. Both screens wear it, so the `FIRE` carries it as
+ * `shows` and the fire button of that colour is ringed with the mark
+ * (`fire-button-mark.ts`) — the marrow's too, once one half is sealed and the
+ * lens wants only the other; while both are open either colour is taken, and
+ * the mark goes on jumping between the two buttons.
  *
  * **And `FIRE` at the hull under the rock, ahead of both**, because a rock
  * left unshot is the blow this boss lands on the hull (`keelRockBeats`).
@@ -62,13 +67,23 @@ export function keelCues(
   const cfg = world.cfg;
   const frame = cueFrame(l, CUE_FRAME_WIDE);
   const segs = keelSegs(l, cfg, s, world.beat, beatPhase, world);
-  const fire = (col: number, on: { x: number; y: number } | null, seed: number): void => {
+  const fire = (col: number, on: Point | null, seed: number, shows?: Color): void => {
     const aim = on === null ? undefined : cueAimAt(l, on);
     const x = fieldX(l, col);
-    out.push({ seat: null, kind: "PRESS", word: "FIRE", x, y: l.hullY, ...frame, aim, seed });
+    out.push({
+      seat: null,
+      kind: "PRESS",
+      word: "FIRE",
+      x,
+      y: l.hullY,
+      ...frame,
+      aim,
+      seed,
+      shows,
+    });
   };
   if (keelThrown(s)) fire(s.rockCol, keelRockNow(l, cfg, s, segs, world.beat, beatPhase), 119);
-  if (s.phase === "socket") fire(midCol(cfg), keelSocketAt(l, s, segs), 120);
+  if (s.phase === "socket") fire(midCol(cfg), keelSocketAt(l, s, segs), 120, s.socket);
   if (keelFlipping(s)) {
     for (const seat of [1, 2] as const) {
       const end = s.held[seat - 1] ? null : keelEndCircle(segs, l, s, seat);
@@ -77,11 +92,20 @@ export function keelCues(
       out.push({ seat, kind: "HOLD", word: "HOLD", x: end.x, y: end.y, ...frame, seed });
     }
   }
-  if (keelMarrowLit(s)) fire(midCol(cfg), keelMarrowAt(l, s, segs), 139);
+  if (keelMarrowLit(s)) fire(midCol(cfg), keelMarrowAt(l, s, segs), 139, marrowWants(s));
   const ring = keelLit(s) ? keelJointCircle(l, cfg, s, world.beat, beatPhase, world) : null;
   if (ring !== null) {
     const seat = keelSeat(s, cfg.cols);
     out.push({ seat, kind: "PRESS", word: "TAP", x: ring.x, y: ring.y, ...frame, seed: 121 });
   }
   return out;
+}
+
+type Point = { x: number; y: number };
+
+/** The one colour the marrow's lens still wants, or none while both halves do. */
+function marrowWants(s: KeelState): Color | undefined {
+  const [red, cyan] = s.marrow;
+  if (red === cyan) return undefined;
+  return red ? "cyan" : "red";
 }

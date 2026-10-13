@@ -33,8 +33,9 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
  * (`render/src/boss-cue-read-zd.ts`): `TAP` on the lit joint for the seat
  * whose half it sits over, `FIRE` under the open socket and `FIRE` under the
  * falling rock. What is *not* said is the half that matters: nothing on the
- * other seat's screen while a joint is lit on one side, and never the colour
- * the socket wants.
+ * other seat's screen while a joint is lit on one side, and never in a word
+ * the colour the socket wants — it rings that colour's fire button, since the
+ * socket flashes it on both screens (`fire-button-mark.ts`).
  */
 
 beforeAll(installCanvasGlobals);
@@ -120,6 +121,7 @@ describe("THE KEEL", () => {
       expect(c?.aim?.x).toBeCloseTo(socket?.x ?? Number.NaN, 5);
       expect(c?.aim?.y).toBeCloseTo(socket?.y ?? Number.NaN, 5);
       expect(c?.aim?.y).toBeLessThan(LAYOUT[role].hullY);
+      expect(c?.shows).toBe(s.socket);
     }
   });
 

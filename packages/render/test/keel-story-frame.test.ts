@@ -187,6 +187,17 @@ describe("THE KEEL's marrow", () => {
     const cues = keelCues(layout("p1"), world, at(world, "marrow"), 0);
     expect(cues.map((c) => [c.seat, c.word])).toEqual([[null, "FIRE"]]);
   });
+
+  it("names the colour of the half still open, and none while both are", () => {
+    const world = hung();
+    const s = at(world, "marrow");
+    const shows = () => keelCues(layout("p1"), world, s, 0).map((c) => c.shows);
+    expect(shows()).toEqual([undefined]);
+    s.marrow = [true, false];
+    expect(shows()).toEqual(["cyan"]);
+    s.marrow = [false, true];
+    expect(shows()).toEqual(["red"]);
+  });
 });
 
 describe("THE KEEL's cooldown", () => {

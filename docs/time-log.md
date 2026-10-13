@@ -38526,3 +38526,16 @@ Bottleneck: none; the seam was named in the entry.
 Bottleneck: finding that the combos drew the hold at two sizes, which only a read of all three frames showed.
 
 *Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-13 — THE VANE's and THE KEEL's fire buttons ringed in the colour shown
+
+- reading: 15 min. The six readings, each boss's draw for whether both
+  screens wear the colour, and the sim's verdict for which colour a shot
+  wants.
+- writing: 5 min. `shows` on three `FIRE`s, three tests.
+- looking: 5 min. `bun run frames` of THE VANE.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, `land`.
+
+Bottleneck: reading — four of the six bosses needed nothing, and only their
+sim verdicts said so.

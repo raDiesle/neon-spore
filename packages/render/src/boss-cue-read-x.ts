@@ -1,8 +1,10 @@
 import {
   type VaneState,
   vaneArmAsks,
+  vaneColor,
   vaneHousingAsks,
   vaneOpen,
+  vaneOpeningNow,
   vanePivotAt,
   vaneSplitCol,
   type World,
@@ -51,7 +53,10 @@ import { vaneArmCircle, vaneBearingY, vaneHousingCircle } from "./vane-grip.js";
  *   for it would hand her the one thing he has to say out loud.
  *
  * Nothing says the colour — the housing has worn it since the arm stopped, on
- * both screens — and nothing says the column is blocked. A shot stops at the
+ * both screens — and nothing says the column is blocked. Because both screens
+ * wear it, the `FIRE` carries it as `shows`, and the fire button of that
+ * colour is ringed with the mark (`fire-button-mark.ts`): read off the call
+ * `vane-draw.ts` paints the housing with, so the two never disagree. A shot stops at the
  * first body in its way, which is the boss defending itself with what it
  * threw, and it is the film's remaining page about her half that says so.
  *
@@ -82,7 +87,9 @@ export function vaneCues(l: Layout, world: World): readonly BossCue[] {
   // owner, 30 September 2026 — *make the area to damage with cannon more
   // visible with the crosshair indicator*.
   const mouth = { x: tileCX(l, weak), y: vaneBearingY(l, world.cfg) };
-  out.push({ ...markAt(2, "PRESS", "FIRE", mouth.x, mouth.y, l, 74), aim: vaneMouthAim(l, mouth) });
+  const aim = vaneMouthAim(l, mouth);
+  const shows = vaneColor(world.cfg, vaneOpeningNow(world.waveBeat));
+  out.push({ ...markAt(2, "PRESS", "FIRE", mouth.x, mouth.y, l, 74), aim, shows });
   return out;
 }
 

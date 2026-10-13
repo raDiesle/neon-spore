@@ -7,8 +7,10 @@ import {
   step,
   VANE_CYCLE_BEATS,
   type VaneState,
+  vaneColor,
   vaneOpen,
   vaneOpening,
+  vaneOpeningNow,
   vaneWeakCol,
   type World,
 } from "@neon-spore/sim";
@@ -99,6 +101,9 @@ describe("THE VANE", () => {
     // On the mouth of the split, which is drawn on both screens.
     expect(hers?.x).toBeCloseTo(tileCX(LAYOUT.p2, weak), 6);
     expect(hers?.y).toBeCloseTo(vaneBearingY(LAYOUT.p2, DEFAULT_CONFIG), 6);
+    // In the colour the housing wears on both screens, so her fire button of
+    // that colour is ringed too (`fire-button-mark.ts`).
+    expect(hers?.shows).toBe(vaneColor(CFG, vaneOpeningNow(world.waveBeat)));
   });
 
   it("rings the split with a crosshair wider than a word's own", () => {
