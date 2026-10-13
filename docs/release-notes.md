@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-13 · dee86ab72 — A frames run that writes nothing renames the last run's frames .stale.png
+
+A refused run, or a pair found identical, left the previous run's frame.png in --out, and a lane that piped the refusal away read the old picture as the new one. Now those frames become frame.stale.png and the run says so: kept for a crop, never mistaken; the next run that writes clears them.
+
 ## 2026-10-13 · 0d14af149 — ON THE FIELD's combos are one COMBO category, with one COMBO LAB
 
 CONTROLS › ON THE FIELD drew four combo categories — PULL, THEN HOLD; HOLD WHILE THE PARTNER WORKS; PRESS, THEN PULL; HOLD, THEN SWIPE — and a COMBO LAB under each type, five copies of the same lab. They are now one COMBO category with the five combos as its types, and THE COMBO LAB stands once at its head; each type says which COMBO choice in the lab plays it.

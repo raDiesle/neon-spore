@@ -38483,3 +38483,5 @@ Bottleneck: the preview answering from the wrong tree before `bun run here`.
 - landing: 5 min. `check:fast`, `land`.
 
 Bottleneck: reconciling two lanes' opposite fixes — renaming serves both.
+
+*Measured: 5 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
