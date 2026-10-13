@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-13 · 305e676bc — THE FLEET's wreck says PULL on no screen, and a whole-frame test keeps it so
+
+The navigator once saw PULL twice under the wreck's knob. Since no pull wears the word, no screen says it at all; `fleet-wreck-frame.test.ts` draws the whole frame in the wreck on every screen and counts none, so a word put back by any pass is caught.
+
 ## 2026-10-13 · 839241b8c — ▶ TRY IT keeps a take, and ▤ STILLS draws it on the cards AUTO cannot play
 
 Eighteen cards on CONTROLS › ON THE FIELD said "play it with ▶ TRY IT" and showed no stills. TRY IT now keeps what the mouse sent since the pose was stood up, and three beats after the lift says TAKE KEPT; ▤ STILLS and ▤ COMPARE ALL USES then replay those commands on the pose and draw the same six moments AUTO's strip draws — the simulation is deterministic, so the commands are the take and no frames are held. Kept for the page's session. Director only.
