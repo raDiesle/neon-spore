@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-13 · dfcbc0d05 — versus adopt takes every record a candidate patches in one file
+
+Each patch's rewrite was read from disk and every entry written whole, so a candidate patching two records in one file kept only the second. A file's later patch now starts from the text its earlier one produced.
+
 ## 2026-10-13 · dee86ab72 — A frames run that writes nothing renames the last run's frames .stale.png
 
 A refused run, or a pair found identical, left the previous run's frame.png in --out, and a lane that piped the refusal away read the old picture as the new one. Now those frames become frame.stale.png and the run says so: kept for a crop, never mistaken; the next run that writes clears them.
