@@ -38791,3 +38791,5 @@ Bottleneck: the trial flights' cost — the first version was right and five tim
 - landing: 5 min. `check:fast` per piece, the commits, `land`.
 
 Bottleneck: the FIZZ knob paints with gradients of its own, so each halo-counting test had to be rewritten to diff against a baseline or spy on the knob.
+
+*Measured: 47 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

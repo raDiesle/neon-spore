@@ -9,6 +9,40 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-13 · 9d90f4a3a — time-log: seven field controls drawn as the PULL LAB's knob
+
+## 2026-10-13 · ca8cd45ed — THE WARDEN's hatch swipe is the PULL LAB's knob on a two-way channel
+
+Under GLARE the eye wears the standard pull in place of its own red bar with chevrons: a thin channel `wardenThrowMilli` out each side, the FIZZ knob in the middle with an arrow of two heads until the thumb picks a side, riding the carry the sim keeps, with the channel filling green behind it. The navigator's screen shows the partner's knob with no arrow, a dashed ring and the clock. Exemption: a look the owner asked for by name, 13 October 2026.
+
+## 2026-10-13 · 98f180347 — THE INSTAR's pulls and swipe are the PULL LAB's knob on a channel
+
+A PULL DOWN, PULL UP or SWIPE DOWN mark on THE INSTAR, and on THE NETTLE, which draws its marks the same way, is now the standard pull: the FIZZ knob with its arrow on a thin channel as long as the carry the simulation counts, filling green as the part gives (`instar-pull.ts`). The old swipe bar, `instar-track.ts`, is gone. A TAP, TURN or HOLD keeps its ring, and the window still closes round the mark as a ring. Exemption: a look the owner asked for by name, 13 October 2026.
+
+## 2026-10-13 · 88e163668 — marks-window's rows are timed against the load, not bun's flat five seconds
+
+THE ANTIPHON's row draws the PULL LAB's knob on every candidate every tick now, and went from 0.8 s to 4.5 s; it timed out twice under check:fast. The file is given fileCosts(5000). The knob's own cost, 0.41 ms a call on the stub against a microsecond for a ring, is queued.
+
+## 2026-10-13 · 8862d5399 — THE HIVE's haul is the PULL LAB's knob down a channel
+
+The clenched underside wore a wide grip ring of its own. It now wears the knob every pull wears, its arrow down, on a channel hiveHaulMilli long straight down, filling green to the deepest the carry has reached; the clench's dial still runs round it and the grab is still a palm wide. The wring is a hold and keeps its rings. A test helper, `pull-spy.ts`, records what the knob and channel were asked to draw. A look the owner asked for by name, 13 October 2026, on THE HIVE'S HAUL: *it should also use same standard visuals*.
+
+## 2026-10-13 · 3400fa84d — THE GALL's taps and pull are the PULL LAB's knob, and say no TAP
+
+The alien's TAP still stood in its scanner box with its word while a leap was lit. It is a grab now, as its PULL already was, so neither wears a box or a word. The alien wears the knob every pull wears, on a channel gallPullMilli long straight up the field: the taps are presses on it, the arrow comes up in it once they are in, and it follows the finger up and fills green. The sim keeps how far up each seat's finger has carried it (`upMilli`, hashed); the lift is still judged on the lift's own reach. A look the owner asked for by name, 13 October 2026, on THE GALL'S TAPS AND PULL, and his answer (a) to the knobless pulls, for THE GALL's share.
+
+## 2026-10-13 · 0d5535e5c — THE BLISTER's swipe is the PULL LAB's pull, no bar of its own
+
+A SWIPE blister wore THE INSTAR's swipe bar across it, chevrons and all. It now wears the knob every pull wears, on the body with the way in it, riding the furthest open stroke along a channel a stroke long out that way, filling green behind it — the TURN's colours and size. The sim gains one read, `blisterSwipeHeld`, so the knob lights while a stroke is open. A look the owner asked for by name, 13 October 2026, on THE BLISTER'S
+
+## 2026-10-13 · 647d67714 — THE ANTIPHON's rail: the PULL LAB's knob on every candidate
+
+Each candidate on the rail wore a grip ring of its own with an arrow in it. It now wears the knob every pull wears (`drawPullKnob`), in the organ's colour, drawn over the candidate, with the way down its vein inside it. The knob and the channel in its vein share one name, so a carry let go short plays the refusal every pull plays. A look the owner asked for by name, 13 October 2026, on THE ANTIPHON'S RAIL: *it should have regular pull button on top of the visuals, not individual*.
+
+## 2026-10-13 · 3e4604222 — THE CURTAIN's hem no longer writes P1 PULLS under itself
+
+While a hit has jammed the rail, the hem is the pull, drawn as the PULL LAB's, and a pull says no word. The ring of the hand on the sheet kept writing its own word under the hem's knob: P1 PULLS. It is no longer written while the rail is pinned; in the other states it stands where it did. A look the owner asked for by name, 13 October 2026, on THE CURTAIN'S
+
 ## 2026-10-13 · 21bce5575 — AUTO's PINBALL flies the ball before it shoots, and plays the fight through
 
 AUTO's PINBALL hand latched on its first tick and launched on its next, so every shot went straight up at four thousandths of the bar, fell back onto the cannon and was fired again the same way until the round's clock ran out. Nothing bounced at the bottom of the table: the cannon caught each ball and the hand relaunched it. The hand now flies a copy of the ball through the sim's own stepBall before it latches or launches, slides the cannon to a column that reaches a target, and slides it under where the ball will come down. AUTO now passes all three boards with no ball dropped, and its hard shots leave the spring slack, so the plunger's mark is reached in marks-window.
