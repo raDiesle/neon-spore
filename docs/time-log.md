@@ -38553,3 +38553,5 @@ sim verdicts said so.
 - landing: 5 min. `check:fast` red once on the catalogue, `land`.
 
 Bottleneck: reading the sim's verdict per boss to know which take either colour.
+
+*Measured: 8 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*

@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-13 · 0b9563555 — THE OCULUS's, THE VISE's, THE CAPSTAN's and THE GALL's fire buttons are ringed in the lit step's colour
+
+While EMBER stands on a step boss's lit core, kernel or alien, only the fire button of the colour it is lit in wears the mark, since both screens are drawn it; a step either colour takes keeps the mark jumping between both. THE TRAPEZE's and THE VALVE's shots take any colour, so they stay as they were. A look the owner asked for by name, 9 October 2026.
+
 ## 2026-10-13 · 4e55184f8 — THE VANE's and THE KEEL's fire buttons are ringed in the colour both screens show
 
 While EMBER stands on THE VANE's split, only the fire button of the colour the housing wears is ringed, not the two in turn; the same for THE KEEL's socket, and for its marrow once one half is sealed. THE GIMBAL's leak, THE HASP's and THE RATCHET's bolts and THE MANTLE's spark take either colour, so their marks go on jumping between both buttons. A look the owner asked for by name, 9 October 2026.
