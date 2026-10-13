@@ -674,6 +674,7 @@ The owner, 9 and 10 October 2026, after THE INSTAR's head glances: *body parts o
 ## The director's shell and columns sheets are past 250 lines
 
 - **Found:** 2026-10-10, claude/director-text-readability-7bbd5d
+- **Taken:** 2026-10-13, claude/queue-tasks-968943 (claim: claude/queue-the-directors-shell-and-columns-sheets-are-past)
 - **Files:** `tools/director/src/director-shell.css`, `tools/director/src/director-columns.css`, `tools/director/src/director.css`
 
 `director-shell.css` is 270 lines and `director-columns.css` 299; both were already over before the readability pass added the type scale's tokens. Cut each on a seam its comments already name — the shell's palette and type tokens from its four shared controls, the columns' grid and drag handle from the wave rail — add the new sheet to `director.css`'s `@import` list beside its parent (never after `director-phone.css`; `test/stylesheet-order.test.ts`), and check that `test/columns.test.ts` still finds `main`'s `grid-template-columns`.
