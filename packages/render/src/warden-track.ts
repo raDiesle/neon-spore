@@ -8,7 +8,7 @@ import { lightWithin } from "./part-light.js";
 
 /**
  * **THE WARDEN's hatch under GLARE is a swipe, so it is drawn as a track**
- * (`instar-track.ts`'s rule, the owner's of 24 September 2026: *a swipe is a
+ * (THE INSTAR's rule, the owner's of 24 September 2026: *a swipe is a
  * track the length of the swipe, never a ring*).
  *
  * The throw counts either way across (`sim/warden-hand.ts`), so the track is
@@ -25,7 +25,7 @@ import { lightWithin } from "./part-light.js";
  * too, because the carry is the pilot's hand arriving.
  */
 
-/** The bar's half-width, in eye-ring radii — `instar-track.ts`' own. */
+/** The bar's half-width, in eye-ring radii. */
 const HALF = 0.42;
 
 /** A horizontal bar with round ends through `c`, `reach` out each side, `grow` wider all round. */

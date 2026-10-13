@@ -10,7 +10,7 @@ import { pullMemoryOf } from "./pull-memory.js";
  * written for every boss and every wave in `.claude/skills/new-boss/generic.md`
  * and `.claude/skills/new-creature/SKILL.md`.
  *
- * THE INSTAR's swipe learnt it first (`instar-track.ts`): *instead of a circle
+ * THE INSTAR's swipe learnt it first (a bar, until 13 October 2026): *instead of a circle
  * for swiping in a direction it should be visual like … a slider*. On 25
  * September 2026 the owner asked the same of the handles you pull, and then
  * refined it the same morning, generic:

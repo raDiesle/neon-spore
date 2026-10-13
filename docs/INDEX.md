@@ -1931,6 +1931,7 @@ by hand never moves.
 | `packages/render/src/instar-profile-life.ts` | **THE INSTAR side-on, alive**: what the long body does on its own clock while the script holds it in a pose |
 | `packages/render/src/instar-profile-surface.ts` | **What sits on THE INSTAR's long body, placed round it** — the owner, 26 September 2026 |
 | `packages/render/src/instar-profile-draw.ts` | **THE INSTAR side-on, drawn** (`instar-profile.ts` lays its lines) — and, with `k` under 1 |
+| `packages/render/src/instar-pull.ts` | **THE INSTAR's pulls, drawn as every pull is**: a PULL DOWN |
 | `packages/render/src/instar-shape.ts` | **Where THE INSTAR is**, as one figure of numbers: the head and its two jaws, the eyes |
 | `packages/render/src/instar-shove.ts` | **THE INSTAR's lips trembling under a shove** |
 | `packages/render/src/instar-sway.ts` | **THE INSTAR weaves**, and everything of it weaves together |
@@ -1948,7 +1949,6 @@ by hand never moves.
 | `packages/render/src/instar-wing-rig.ts` | **THE INSTAR's wing as a rig**: the flat wing in head radii |
 | `packages/render/src/instar-weak.ts` | **The part to shoot glows red** — eyes, eggs, tail or heart stroked red along its own outline while a shoot mark on it is open |
 | `packages/render/src/instar-together.ts` | **The two clocks a mark lives under**, and the one of them the picture kept to itself |
-| `packages/render/src/instar-track.ts` | **A swipe is drawn as the way the thumb goes, not as a place to press.** The owner, 24 September 2026 |
 | `packages/render/src/instar-tail.ts` | **THE INSTAR's tail**: plated, spined, and forked at the end into two blades |
 | `packages/render/src/instar-tail-blade.ts` | **THE INSTAR's tail ends in a fork of two of these** (`instar-tail.ts`) |
 | `packages/render/src/instar-tail-lens.ts` | Two measures of THE INSTAR's tail, cut off `instar-tail.ts` when the body's record (`instar-body-look.ts`)… |

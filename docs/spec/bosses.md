@@ -743,7 +743,7 @@ rope keeps the shared pull track it already had (`tether.ts`).
 owner's rule of the 24th: a swipe is drawn the length of the swipe). Under
 GLARE the eye wears a bar through it, `wardenThrowMilli` out each side
 because the throw counts either way across, with the chevrons pointing out
-along both halves (`warden-track.ts`, THE INSTAR's `instar-track.ts` in its
+along both halves (`warden-track.ts`, THE INSTAR's `instar-pull.ts` in its
 own shape). Every move of the pilot's thumb is heard, not only the lift:
 `hatchCarryMilli` keeps the furthest carry, signed, capped at the throw and
 forgotten on the lift, and the lift is judged on it — so a thumb that went

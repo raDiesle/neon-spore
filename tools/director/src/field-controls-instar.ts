@@ -16,10 +16,13 @@ export const INSTAR_CONTROLS: readonly FieldControlDef[] = [
   {
     name: "THE INSTAR'S MARKS",
     where:
-      "a red ring on the part of the body the script wants moved — the jaw, " +
-      "the eggs, the tail, the head, an eye, the fire — with the gesture drawn " +
-      "inside it and its word in a scanner box over it, on both screens, while " +
-      "the step's window is open; a second ring closing in on it is the window",
+      "a red mark on the part of the body the script wants moved — the jaw, " +
+      "the eggs, the tail, the head, an eye, the fire — on both screens, while " +
+      "the step's window is open: a PULL DOWN, PULL UP or SWIPE DOWN is the " +
+      "PULL LAB's knob with its arrow on a channel the length of the carry, " +
+      "filling green; a TAP, TURN or HOLD is a ring with the gesture drawn " +
+      "inside it and its word in a scanner box over it; a second ring closing " +
+      "in on the mark is the window",
     seat:
       "the seat the mark names — bright with the gesture's word on that seat's " +
       "screen, dim with P1'S or P2'S on the other; a middle mark wants " +

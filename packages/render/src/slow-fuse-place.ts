@@ -2,9 +2,9 @@ import { instarBoss, instarStep, type World } from "@neon-spore/sim";
 import { bossCues } from "./boss-cue.js";
 import { instarMarksUp } from "./instar-marks.js";
 import { instarMarkPoint, instarMarkRadius } from "./instar-place.js";
+import { instarPullSpan } from "./instar-pull.js";
 import { instarThreat } from "./instar-shape.js";
 import { instarBody } from "./instar-sway.js";
-import { instarTrack } from "./instar-track.js";
 import type { Layout } from "./layout.js";
 import { sirenBottom } from "./siren.js";
 import type { Aim } from "./slow-intake-aim.js";
@@ -145,11 +145,13 @@ export function liveMarks(l: Layout, world: World, beatPhase: number): Box[] {
     const ring = r * WINDOW_RING;
     return step.marks.map((m) => {
       const at = instarMarkPoint(l, m, sway, along);
-      const bottom =
-        m.gesture === "swipeDown"
-          ? instarTrack(at.x, at.y, r, (l.tile * world.cfg.instarSwipeMilli) / 1000).bottom
-          : at.y;
-      return { left: at.x - ring, right: at.x + ring, top: at.y - ring, bottom: bottom + ring };
+      const span = instarPullSpan(l, world.cfg, m, at);
+      return {
+        left: span.left - ring,
+        right: span.right + ring,
+        top: span.top - ring,
+        bottom: span.bottom + ring,
+      };
     });
   }
   return bossCues(l, world, beatPhase, () => l.hullY).map((c) => ({

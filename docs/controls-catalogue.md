@@ -81,7 +81,7 @@ Each is a rule of the owner's; the date is when he gave it.
 | Not allowed | Instead | Since |
 |---|---|---|
 | A pull drawn as a circle alone — it reads as a slider's knob | the knob with its arrow, on a track (`drawPullKnob`, `drawPullTrack`) | 25 and 29 September 2026 |
-| A swipe drawn as a ring to press | a track: the bar path with chevrons (`drawInstarTrack`) | 24 September 2026 |
+| A swipe drawn as a ring to press | the PULL LAB's knob on a channel the length of the swipe (`drawPullKnob`, `drawPullTrack`) | 24 September, 13 October 2026 |
 | A shot asked for with no target | the crosshair on the part the bolt must reach (`BossCue.aim`, `drawCueHelper`) | 27 and 29 September 2026 |
 | The partner's mark showing the gesture | the waiting clock (`drawMarkWait`) and the turning ring (`drawMarkTheirs`) | 24 September 2026 |
 | A touch answered anywhere but on the mark it touched, or not at once | `GripVerdicts` and `drawVerdictRing` | 24 September 2026 |
@@ -156,7 +156,7 @@ Taught once, by the guide; **no helper on the field** (above).
 | `drawWayArrow` | `way-arrow.ts` | **a direction**: THE INSTAR's arrow turned any way; `heads: 2` for a pull that may go either way | THE INSTAR's rings, every knob |
 | `drawShakeArrows` | `maze-shake-arrows.ts` | a shake: eight chevrons, any way, green once this seat's thumb is on | THE MAZE's heart |
 | `drawInstarGlyph` | `instar-glyphs.ts` | the gesture inside a ring: an arrow for a pull, flaring dots for a tap, chevrons for a swipe, a hooked arc for a turn either way, two thumbs for a hold, the button face for a shield or a suck | THE INSTAR, THE WARDEN's swipe |
-| `drawInstarTrack`, `instarTrack`, `drawInstarSwipe`, `drawInstarTrackWindow`, `drawInstarTrackHalo`, `drawInstarTrackTheirs` | `instar-track.ts` | **a swipe**: a bar from where the thumb goes down to the length the lift counts at, filling as the carry goes, with the ring's window, halo and partner's ring in the bar's own shape | THE INSTAR |
+| `drawInstarPull`, `instarPullTrack`, `instarPullSpan`, `instarMarkPulls` | `instar-pull.ts` | **a mark that is a carry** — PULL DOWN, PULL UP, SWIPE DOWN: the PULL LAB's knob on a channel as long as the carry the simulation counts | THE INSTAR |
 | `drawCrankDial` | `crank-dial.ts` | a turn of the crank | the band |
 
 ### Where the shot goes, and the button to press

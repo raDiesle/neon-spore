@@ -14,6 +14,7 @@ import type { CueKind } from "./boss-cue.js";
 import { asksGrab } from "./boss-cue-shape.js";
 import { drawVerdictRing, type GripVerdict } from "./grip-verdict.js";
 import { instarMarkPoint, instarMarkRadius } from "./instar-place.js";
+import { drawInstarPull, instarMarkPulls, instarPullSpan } from "./instar-pull.js";
 import { drawInstarRing } from "./instar-ring.js";
 import { instarThreat } from "./instar-shape.js";
 import type { Sway } from "./instar-sway.js";
@@ -23,10 +24,9 @@ import {
   instarAwaited,
   instarTogetherLeft,
 } from "./instar-together.js";
-import { drawInstarSwipe, instarTrack } from "./instar-track.js";
 import { drawInstarWord, type MarkRoom } from "./instar-word.js";
 import type { Layout, ViewRole } from "./layout.js";
-import { drawMarkHalo, drawMarkTheirs } from "./mark-feedback.js";
+import { drawMarkHalo, drawMarkTheirs, drawMarkWait } from "./mark-feedback.js";
 import { instarMarkIsMine } from "./view-role-clocks-b.js";
 
 /**
@@ -142,7 +142,7 @@ export function drawInstarMarks(
   const left = 1 - along;
   // Beside the ring, clear of the window ring at its widest.
   const off = r * MARK_WORD_OFF;
-  const rooms = step.marks.map((m) => markRoom(l, cfg, m, sway, along, r, off));
+  const rooms = step.marks.map((m) => markRoom(l, cfg, m, sway, along, off));
   step.marks.forEach((mark, i) => {
     const at = instarMarkPoint(l, mark, sway, along);
     const mine = instarMarkIsMine(role, mark.seat);
@@ -173,12 +173,15 @@ export function drawInstarMarks(
       // A pull, a swipe or a turn of its own seat says nothing (`asksGrab`);
       // the partner's mark still names whose it is.
       const says = kind === undefined || !asksGrab({ kind });
-      if (swipe) {
-        // A track and not a ring: the way the thumb goes (`instar-track.ts`).
-        const t = instarTrack(at.x, at.y, r, (l.tile * cfg.instarSwipeMilli) / 1000);
-        drawInstarSwipe(ctx, t, r, mine, held, along, time, awaited, left);
-        const mid = (t.top + t.bottom) / 2;
-        if (says) drawInstarWord(ctx, l, word, at.x + side * off, mid, side, mine, kind, room);
+      if (instarMarkPulls(mark.gesture)) {
+        // The PULL LAB's knob and channel, and the window round where it is grabbed (`instar-pull.ts`).
+        if (mine) drawMarkHalo(ctx, at.x, at.y, r, time);
+        const key = `instar:${s.cursor}:${i}`;
+        drawInstarPull(ctx, l, cfg, mark, at, { mine, held, share: along, time, key });
+        if (!mine) drawMarkTheirs(ctx, at.x, at.y, r, time);
+        if (!mine) drawMarkWait(ctx, at.x, at.y, r, time);
+        drawInstarWindow(ctx, at.x, at.y, r, left, mine);
+        if (says) drawInstarWord(ctx, l, word, at.x + side * off, at.y, side, mine, kind, room);
         drawVerdict(ctx, verdicts, i, at.x, at.y, r);
         return;
       }
@@ -193,7 +196,7 @@ export function drawInstarMarks(
   });
 }
 
-/** The room a mark takes this frame: its ring, or a swipe's whole track, and
+/** The room a mark takes this frame: its ring, or a pull's whole channel, and
  * `off` round it — what a word beside another mark may not cover. */
 function markRoom(
   l: Layout,
@@ -201,15 +204,20 @@ function markRoom(
   mark: SceneMark,
   sway: { xMilli: number; yMilli: number },
   along: number,
-  r: number,
   off: number,
 ): MarkRoom {
   const at = instarMarkPoint(l, mark, sway, along);
-  const bottom =
-    mark.gesture === "swipeDown"
-      ? instarTrack(at.x, at.y, r, (l.tile * cfg.instarSwipeMilli) / 1000).bottom
-      : at.y;
-  return { left: at.x - off, right: at.x + off, top: at.y - off, bottom: bottom + off };
+  return padded(instarPullSpan(l, cfg, mark, at), off);
+}
+
+/** A box `pad` out round `span` on every side. */
+function padded(span: MarkRoom, pad: number): MarkRoom {
+  return {
+    left: span.left - pad,
+    right: span.right + pad,
+    top: span.top - pad,
+    bottom: span.bottom + pad,
+  };
 }
 
 /** The verdict goes over the ring, the track's top or the dot, whichever this

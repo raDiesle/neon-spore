@@ -21,7 +21,7 @@ export interface InstarConfig {
   instarTogetherBeats: number;
   /** Thousandths of a tile a thumb must carry a mark before the lift counts a
    * swipe — and the length of the track the swipe is drawn as, so the end of
-   * the bar is where the lift counts (`render/src/instar-track.ts`). One and a
+   * the bar is where the lift counts (`render/src/instar-pull.ts`). One and a
    * half tiles since 24 September 2026: at 0.6 the track was a stub under
    * the eggs, shorter than the ring it replaced. */
   instarSwipeMilli: number;

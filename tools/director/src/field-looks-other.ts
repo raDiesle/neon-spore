@@ -136,7 +136,7 @@ export const OTHER_LOOKS: Readonly<Record<string, UseLook>> = {
     move: "Taps on the knob wind it up; the knob follows a pull up its channel, filling green, and throws it to the other half.",
   },
   "THE INSTAR'S MARKS": {
-    find: "A red ring on the part of the body the script wants, with the gesture drawn inside it and its word in a box over it; a second ring closing in is the window.",
+    find: "A red mark on the part of the body the script wants: a pull or a swipe is the PULL LAB's knob on its channel; a tap, a turn or a hold is a ring with the gesture inside it and its word in a box over it. A second ring closing in is the window.",
     move: "The part moves the way the word says; every mark of the step done together lands it.",
   },
   "THE MIRROR'S LOBES": {

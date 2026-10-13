@@ -11,6 +11,8 @@ import {
   ticksPerBeat,
   type World,
 } from "@neon-spore/sim";
+import { asksGrab } from "../src/boss-cue-shape.js";
+import { INSTAR_WORDS } from "../src/instar-marks.js";
 import type { ViewRole } from "../src/layout.js";
 import { PALETTE } from "../src/palette.js";
 import {
@@ -21,6 +23,7 @@ import {
   runFrames,
   waveWith,
 } from "./frame-harness.js";
+import { spyPulls } from "./pull-spy.js";
 
 setDefaultTimeout(FRAME_TIMEOUT_MS);
 
@@ -177,27 +180,42 @@ describe("THE NETTLE's body", () => {
     for (const cursor of STEPS) {
       const at = (role: ViewRole) => frame(role, (w) => acting(w, cursor));
       const marks = NETTLE_SCRIPT[cursor]?.marks ?? [];
-      const ask = (seat: string) => marks.filter((m) => m.seat === seat).length;
+      // A pull, a swipe or a turn says no word on its own seat (`asksGrab`).
+      const ask = (seat: string) =>
+        marks.filter((m) => m.seat === seat && !asksGrab(INSTAR_WORDS[m.gesture])).length;
       const bright = (role: ViewRole) => count(at(role).text, PALETTE.text);
       expect(count(at("p1").text, ROCK)).toBe(count(at("p2").text, ROCK));
       expect(Math.sign(bright("p1") - bright("p2"))).toBe(Math.sign(ask("p1") - ask("p2")));
       if (marks.some((m) => m.seat === "both")) continue;
-      // The test screen holds both seats, so both words are the gesture's, bright.
+      // The test screen holds both seats, so the navigator's words are the
+      // gesture's there too, bright — where she has one: a pull of hers says
+      // none on any screen of her own seat.
+      if (ask("p2") === 0) continue;
       expect(count(at("test").text, PALETTE.text)).toBeGreaterThan(
         count(at("p1").text, PALETTE.text),
       );
     }
   });
 
-  it.each(ROLES)("fills a mark's arc under a thumb and dots it when done, on %s", (role) => {
-    const bare = frame(role, (w) => acting(w, 0));
-    const half = frame(role, pulled);
-    const done = frame(role, halfDone);
-    expect(half.text).not.toBe(bare.text);
-    expect(count(half.text, PALETTE.redRim)).toBeGreaterThan(count(bare.text, PALETTE.redRim));
-    expect(done.text).not.toBe(bare.text);
-    expect(done.text).not.toBe(half.text);
-  });
+  it.each(ROLES)(
+    "carries a pull mark's knob under a thumb and dots it when done, on %s",
+    (role) => {
+      const bare = frame(role, (w) => acting(w, 0));
+      const half = frame(role, pulled);
+      const done = frame(role, halfDone);
+      expect(half.text).not.toBe(bare.text);
+      // The mark is a pull, so its knob rides the channel as far as the arm
+      // has given (`instar-pull.ts`), and held.
+      const along = (arrange: (world: World) => void) =>
+        spyPulls(() => frame(role, arrange)).tracks.filter((t) => t.o.key === "instar:0:0");
+      expect(along((w) => acting(w, 0)).every((t) => t.o.at === 0 && !t.o.held)).toBe(true);
+      const carried = along(pulled);
+      expect(carried.length).toBeGreaterThan(0);
+      expect(carried.every((t) => t.o.at > 0 && t.o.held)).toBe(true);
+      expect(done.text).not.toBe(bare.text);
+      expect(done.text).not.toBe(half.text);
+    },
+  );
 
   it.each(ROLES)("sags the body and fades it once the last step lands, on %s", (role) => {
     // The bell's fillStyle is a plain hex, not one THE INSTAR bakes an

@@ -183,7 +183,7 @@ things, and a boss's look lane is read against all five:
 5. **The mark says which gesture**: a breathing ring, a glyph inside it, the
    window closing as a ring, and the cue's word beside it (`boss-cue.ts`) —
    and a swipe is a track the length of the swipe, never a ring
-   (`instar-track.ts`, the owner's generic rule in `generic.md`). **A pull's
+   (`instar-pull.ts`, the owner's generic rule in `generic.md`). **A pull's
    knob carries its arrow** (`drawPullKnob`'s required `way`, `way-arrow.ts`);
    **a shot cue sets `BossCue.aim`** on what the bolt must reach when its
    word stands at the hull; SHIELD and SUCK get the panel's face in their box

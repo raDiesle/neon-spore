@@ -88,7 +88,8 @@ item naming the rule, never a fix made in passing.
      **A swipe is drawn as a track, not a ring** (the same message): the bar
      path of a slider without its knob, from where the thumb goes to the
      length the lift counts at, so the end of the bar is the end of the swipe
-     (`render/src/instar-track.ts`).
+     (`render/src/instar-pull.ts`; since 13 October 2026 the PULL LAB's
+     knob rides it, as on every pull).
      **A handle you pull is drawn as the path it can be pulled**, generic,
      25 September 2026 — *change the circle to look like the path it can be
      pulled*, THE MAZE's and THE WARDEN's alike, and green: a channel the

@@ -17,6 +17,7 @@ import {
   VIEWPORT,
 } from "./frame-harness.js";
 import { acting, asking, hung } from "./instar-kit.js";
+import { spyPulls } from "./pull-spy.js";
 
 setDefaultTimeout(FRAME_TIMEOUT_MS);
 
@@ -164,7 +165,10 @@ describe("THE INSTAR's body", () => {
       expect(count(at("p1").text, PLATE)).toBe(count(at("p2").text, PLATE));
       expect(Math.sign(bright("p1") - bright("p2"))).toBe(Math.sign(ask("p1") - ask("p2")));
       if (INSTAR_SCRIPT[cursor]?.marks.some((m) => m.seat === "both")) continue;
-      // The test screen holds both seats, so both words are the gesture's, bright.
+      // The test screen holds both seats, so the navigator's words are the
+      // gesture's there too, bright — where she has one: a pull of hers says
+      // none on any screen of her own seat.
+      if (ask("p2") === 0) continue;
       expect(count(at("test").text, PALETTE.text)).toBeGreaterThan(
         count(at("p1").text, PALETTE.text),
       );
@@ -193,15 +197,25 @@ describe("THE INSTAR's body", () => {
     },
   );
 
-  it.each(ROLES)("fills a mark's arc under a thumb and dots it when done, on %s", (role) => {
-    const bare = frame(role, (w) => asking(w, 0));
-    const half = frame(role, pulled);
-    const done = frame(role, halfDone);
-    expect(half.text).not.toBe(bare.text);
-    expect(count(half.text, PALETTE.redRim)).toBeGreaterThan(count(bare.text, PALETTE.redRim));
-    expect(done.text).not.toBe(bare.text);
-    expect(done.text).not.toBe(half.text);
-  });
+  it.each(ROLES)(
+    "carries a pull mark's knob under a thumb and dots it when done, on %s",
+    (role) => {
+      const bare = frame(role, (w) => asking(w, 0));
+      const half = frame(role, pulled);
+      const done = frame(role, halfDone);
+      expect(half.text).not.toBe(bare.text);
+      // The mark is a pull, so its knob rides the channel as far as the part
+      // has given (`instar-pull.ts`), and held.
+      const along = (arrange: (world: World) => void) =>
+        spyPulls(() => frame(role, arrange)).tracks.filter((t) => t.o.key === "instar:0:0");
+      expect(along((w) => asking(w, 0)).every((t) => t.o.at === 0 && !t.o.held)).toBe(true);
+      const carried = along(pulled);
+      expect(carried.length).toBeGreaterThan(0);
+      expect(carried.every((t) => t.o.at > 0 && t.o.held)).toBe(true);
+      expect(done.text).not.toBe(bare.text);
+      expect(done.text).not.toBe(half.text);
+    },
+  );
 
   it.each(ROLES)("sags the body and fades it once the last step lands, on %s", (role) => {
     const going = frame(role, down);
