@@ -38906,3 +38906,5 @@ Bottleneck: none — a hull's own frame already ran along it, so the turn needed
 - landing: 5 min. `check:fast`, the commit, `land`.
 
 Bottleneck: PINBALL has no boss body, so choosing the part took longer than building it.
+
+*Measured: 5 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
