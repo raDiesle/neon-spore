@@ -1990,6 +1990,8 @@ by hand never moves.
 | `packages/render/src/index-touch.ts` | **The touch half of the barrel** — a finger on the field, and whose it is |
 | `packages/render/src/index-solid.ts` | **The solid half of the barrel**: a boss drawn from any side |
 | `packages/render/src/index-sprite.ts` | Sprites baked at load (`sprite-bake.ts`), THE GOVERNOR's face |
+| `packages/render/src/index-looks.ts` | The bosses' and creatures' look records, and the parts kept beside each |
+| `packages/render/src/index-pull.ts` | The pull handle: its knob, its track and the way it pulls |
 | `packages/render/src/idle-drift-parts.ts` | THE PART DRIFT: every named part of a boss turns, tilts and rotates a little about its own joint |
 | `packages/render/src/idle-drift.ts` | the idle drift: a boss's body yaw, pitch, roll and head yaw as seeded noise of `look.time`, plus `hush`, `settle` and `letGo` |
 | `packages/render/src/creature-body.ts` | Which body draw a kind gets, as a lookup a stray statement cannot sever |

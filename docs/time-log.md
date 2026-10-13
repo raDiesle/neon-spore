@@ -38499,3 +38499,14 @@ Bottleneck: reconciling two lanes' opposite fixes — renaming serves both.
 Bottleneck: none; the entry named the line.
 
 *Measured: 2 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-13 — The render barrel's pull handle and look records, each a barrel of its own
+
+- reading: 5 min. The barrel, and the three sub-barrels already beside it.
+- writing: 5 min. A script dealt the statements by source file into
+  `index-pull.ts` and `index-looks.ts`; 235 lines to 178.
+- looking: 0 min. Nothing drawn.
+- friction: 0 min.
+- landing: 5 min. `bun run index`, `check:fast`, `land`.
+
+Bottleneck: none; the seam was named in the entry.

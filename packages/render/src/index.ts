@@ -75,6 +75,10 @@ export {
   type HullBreakLook,
   type HullBreakPaint,
 } from "./hull-break-look.js";
+// The look records the SHAPES page draws on the real body (`index-looks.ts`).
+export * from "./index-looks.js";
+// The pull handle, knob, track and way (`index-pull.ts`).
+export * from "./index-pull.js";
 // A boss from any side, on a page of its own (`index-solid.ts`).
 export * from "./index-solid.js";
 // Sprites baked at load, and the examples offered on THE INSTAR (`index-sprite.ts`).
@@ -106,19 +110,11 @@ export {
   type ViewRole,
   worldLayout,
 } from "./layout.js";
-export { drawLid } from "./lid.js";
-export { bevel } from "./lid-bevel.js";
-export { iris } from "./lid-iris.js";
-export { LID_LOOK, type LidLook, type LidPlates } from "./lid-look.js";
-export { drawPlates } from "./lid-plates.js";
 export { drawLiving } from "./living-draw.js";
 export { LOST_LOOK, type LostLook, type LostPaint } from "./lost-look.js";
 export { drawLostScreen, lostButtons, lostHit } from "./lost-screen.js";
 export { drawMazeWalls, mazeCanvasAngle, mazeRimHalfGapMilli } from "./maze-walls.js";
 export { bodyLife, motionLife, setMotionLife } from "./motion-life.js";
-export { MOUNT_LOOK, type MountLook } from "./mount-look.js";
-export { rasp } from "./mount-rasp.js";
-export { taproot } from "./mount-taproot.js";
 export { neonHue } from "./neon-hue.js";
 export { LAUNCH_LIFE, SETTLED_AGE } from "./opening-fx.js";
 export {
@@ -132,38 +128,12 @@ export { drawPinBlast, drawPinTake } from "./pinball-blast.js";
 export { drawPinPieces } from "./pinball-piece.js";
 export { drawPinballRound, showsPinPieces } from "./pinball-round.js";
 export { drawPinBall, drawPinWalls, pinAt, pinTable, type Table } from "./pinball-table.js";
-export { drawPullKnob, PULL_GRAB, PULL_KNOB, type PullKnobDraw } from "./pull-knob.js";
-export { PULL_DOWN, PULL_UP, type PullWay } from "./pull-line.js";
-export {
-  drawPullTrack,
-  PULL_TRACK,
-  PULL_TRACK_W,
-  type PullAfter,
-  type PullTrack,
-  type PullTrackDraw,
-  pullTrackPoint,
-} from "./pull-track.js";
-export { carapace } from "./queen-carapace.js";
-export { facet as facetShell } from "./queen-facet.js";
-export { armour, QUEEN_LOOK, type QueenLook, type ShellDraw } from "./queen-look.js";
-export { scutes } from "./queen-scutes.js";
 export { detectRasterCaps, type RasterCaps } from "./raster-caps.js";
 export { loadAtlas } from "./raster-load.js";
 export { drawReachArm } from "./reach-arm.js";
 export { readyCircles } from "./ready-page.js";
-export { drawRecoilCage } from "./recoil.js";
-export { calyx } from "./recoil-calyx.js";
-export { foam as foamCage } from "./recoil-foam.js";
-export { globe } from "./recoil-globe.js";
-export { type CageDraw, RECOIL_LOOK, type RecoilLook, springs } from "./recoil-look.js";
-export { moons } from "./recoil-moons.js";
 export type { Insets, Renderer, Viewport, ViewState } from "./renderer.js";
 export { NO_INSET } from "./renderer.js";
-export { flakes } from "./rind-flakes.js";
-export { RIND_LOOK, type RindLook, type RindShed, rindWears } from "./rind-look.js";
-export { pod } from "./rind-pod.js";
-export { drawShed } from "./rind-skin.js";
-export { slough } from "./rind-slough.js";
 // The torch's own rock, so a tool drafting something round one can draw the
 // real thing rather than a stand-in — the director's holder drafts did, until
 // THE CRANE (`queen-crane.ts`) went into the game. Drawing only — it takes a
@@ -190,24 +160,6 @@ export {
 } from "./tether-looks.js";
 export { drawTorchRock } from "./torch.js";
 export { drawVane } from "./vane-draw.js";
-export { drawVeilCloud } from "./veil.js";
-export { foam } from "./veil-foam.js";
-export { VEIL_LOOK, type VeilLook, type VeilMassDraw } from "./veil-look.js";
-export { anvil } from "./veil-mass.js";
-export { strata } from "./veil-strata.js";
-export { vortex } from "./veil-vortex.js";
-export { drawVolleyShell, showsVolleyCore } from "./volley.js";
-export { drawVolleyCore } from "./volley-core.js";
-export { emberSeams } from "./volley-ember.js";
-export { VOLLEY_LOOK, type VolleyLook, type VolleyShell } from "./volley-look.js";
-export { pittedStone } from "./volley-pitted.js";
-export { shippedSeams, shippedStone } from "./volley-stone.js";
-export { drawWarden } from "./warden.js";
-export { WARDEN_LOOK, type WardenLook } from "./warden-look.js";
-export { mantle } from "./warden-mantle.js";
-export { roll } from "./warden-roll.js";
-export { drawWardenSurface, type WardenSurfaceDraw } from "./warden-surface.js";
-export { whorl } from "./warden-whorl.js";
 export { INTRO_SECONDS, introSeconds, RETRY_INTRO_SECONDS } from "./wave-intro.js";
 // THE WELL's projection, for the two hosts that have to answer a finger the way
 // it is drawn: the game and the director's stage both ask `showsWell` to fill
@@ -224,12 +176,3 @@ export {
   wellSectors,
   wellShown,
 } from "./well.js";
-// THE WISP whole, and its fringe record, so the SHAPES page's LIBRARY can
-// draw the real jellyfish wearing each fringe the owner kept
-// (`tools/director/src/library`). Drawing only — the jump is read off a beat
-// the card supplies, and no world is touched.
-export { type WispJump, wispJump } from "./wisp.js";
-export { arms } from "./wisp-arms.js";
-export { drawWispBody } from "./wisp-body.js";
-export { WISP_LOOK, type WispFringe, type WispLook } from "./wisp-look.js";
-export { drawTentacles, strandWave } from "./wisp-tentacles.js";
