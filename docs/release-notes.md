@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-13 · e0dc286bc — VERSUS offers THE CAIRN's pile glancing
+
+The whole stack turns with its outer stones held over their columns; the middle swings toward one side and the far side's stones close into the dark. The hand, lane mark and verdict do not turn. Ships still; VERSUS `cairn:glance` offers SWAY, LOOK and COCK, judged on THE CAIRN · STACKED.
+
 ## 2026-10-13 · e133862fc — VERSUS offers THE MAZE's heart glancing
 
 The heart's muscle, chamber and clock turn about the centre a shot arrives at; the near side swells, the far side narrows into the dark, and each vein stays rooted on the turned edge. Ships still; VERSUS `maze:glance` offers SWAY, LOOK and COCK, judged on THE MAZE · READ. Exemption: none — a look, offered on VERSUS.
