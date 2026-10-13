@@ -13,6 +13,7 @@ import { CUE_FRAME_WIDE, cueFrame } from "./boss-cue-frame.js";
 import { capstanCoreStanding, capstanRubStanding, capstanSteerStanding } from "./capstan-grip.js";
 import { fieldX } from "./field-flip.js";
 import type { Layout } from "./layout.js";
+import { stepShows } from "./step-colour.js";
 
 /**
  * **What THE CAPSTAN is asking for** — page thirty-eight of the readings.
@@ -37,7 +38,8 @@ import type { Layout } from "./layout.js";
  *
  * **`FIRE` at the hull under the middle column** on a shot with the core
  * bared, to either seat. The step's colour is never named — the core is lit
- * in it, on both screens. Nothing is said between steps. **It rings the
+ * in it, on both screens, so its fire button wears the mark (`stepShows`).
+ * Nothing is said between steps. **It rings the
  * core** at the drum's middle (`capstanCoreStanding`).
  */
 
@@ -54,7 +56,10 @@ export function capstanCues(
     if (!s.bared) return [];
     const x = fieldX(l, midCol(world.cfg));
     const aim = capstanCoreStanding(l, world.cfg, s, world.beat, beatPhase);
-    return [{ seat: null, kind: "PRESS", word: "FIRE", x, y: l.hullY, ...frame, aim, seed: 159 }];
+    const shows = stepShows(step.color);
+    return [
+      { seat: null, kind: "PRESS", word: "FIRE", x, y: l.hullY, ...frame, aim, shows, seed: 159 },
+    ];
   }
   const cfg = world.cfg;
   const face = capstanFace(world, s);

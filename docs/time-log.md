@@ -38541,3 +38541,15 @@ Bottleneck: reading — four of the six bosses needed nothing, and only their
 sim verdicts said so.
 
 *Measured: 6 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-13 — Four step bosses' fire buttons ringed in the lit step's colour
+
+- reading: 10 min. The six readings, each draw's *both screens the same*,
+  and the verdicts: THE TRAPEZE's and THE VALVE's shots take either colour.
+- writing: 10 min. `stepShows` beside `stepColour`, `shows` on four `FIRE`s,
+  four tests, the catalogue's row.
+- looking: 0 min. THE VANE's frame showed the mechanism last lane.
+- friction: 0 min.
+- landing: 5 min. `check:fast` red once on the catalogue, `land`.
+
+Bottleneck: reading the sim's verdict per boss to know which take either colour.

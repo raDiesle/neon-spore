@@ -3,6 +3,7 @@ import type { BossCue } from "./boss-cue.js";
 import { CUE_FRAME_WIDE, cueFrame } from "./boss-cue-frame.js";
 import { gallPointCircle } from "./gall-grip.js";
 import type { Layout } from "./layout.js";
+import { stepShows } from "./step-colour.js";
 
 /**
  * **What THE GALL is asking for** — page thirty-nine of the readings, THE
@@ -17,7 +18,7 @@ import type { Layout } from "./layout.js";
  *
  * **`FIRE` at the hull under the alien's column**, to either seat, ringing
  * the alien where it sits. The step's colour is never named — the alien is
- * lit in it, on both screens.
+ * lit in it, on both screens, so its fire button wears the mark (`stepShows`).
  */
 export function gallCues(l: Layout, world: World, s: GallState): readonly BossCue[] {
   const frame = cueFrame(l, CUE_FRAME_WIDE);
@@ -34,6 +35,7 @@ export function gallCues(l: Layout, world: World, s: GallState): readonly BossCu
         y: l.hullY,
         ...frame,
         aim: at,
+        shows: stepShows(step.color),
         seed: 162,
       },
     ];

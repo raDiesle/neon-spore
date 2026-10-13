@@ -158,6 +158,9 @@ describe("THE CAPSTAN", () => {
       expect(said?.aim?.y).toBeCloseTo(want.y, 5);
       expect(said?.aim?.r).toBeCloseTo(want.r, 5);
       expect(said?.aim?.y).toBeLessThan(LAYOUT[role].hullY);
+      // Not in a word: the core is lit red on both screens, so the red fire
+      // button wears the mark (`fire-button-mark.ts`).
+      expect(said?.shows).toBe("red");
     }
   });
 

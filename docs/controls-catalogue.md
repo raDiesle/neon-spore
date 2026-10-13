@@ -197,6 +197,7 @@ Taught once, by the guide; **no helper on the field** (above).
 |---|---|---|---|
 | `strikeLook`, `lash`, `StrikeLook`, `StrikeFrame` | `boss-strike-look.ts` | a missed window: the boss's own blow on the hull, or the default lash | every boss that strikes |
 | `stepColour` | `step-colour.ts` | a step's cannon colour, or the hull's rim for either | THE SEAM, THE OCULUS, THE VISE, THE SLING and more |
+| `stepShows` | `step-colour.ts` | the cannon a lit step names, for a `FIRE`'s fire-button mark; none for either | THE OCULUS, THE VISE, THE CAPSTAN, THE GALL |
 | `coreHurt` | `core-hurt.ts` | a core a little smaller and brighter for every hit | THE VISE, THE PLUMB |
 
 ## Still to be made one

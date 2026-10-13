@@ -328,14 +328,6 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/skipped.test.ts` holds the listing's count of the entries
 `next` stepped past and why.
 
-## Fire button lit for the colour shown: THE OCULUS to THE TRAPEZE
-
-- **Found:** 2026-10-09, claude/aim-cannon-visual-polish-39fb48
-- **Taken:** 2026-10-13, claude/session-f1471e (claim: claude/queue-fire-button-lit-for-the-colour-shown-the-oculus)
-- **Files:** `packages/render/src/boss-cue-read-ze.ts`, `packages/render/src/boss-cue-read-zf.ts`, `packages/render/src/boss-cue-read-zl.ts`, `packages/render/src/boss-cue-read-zm.ts`, `packages/render/src/boss-cue-read-zn.ts`, `packages/render/src/boss-cue-read-zp.ts`
-
-The same as THE VANE's entry above, for THE OCULUS, THE VISE, THE CAPSTAN, THE GALL, THE TRAPEZE and THE VALVE: `BossCue.shows` on each `FIRE` whose shooter's screen draws the colour wanted.
-
 ## Fire button lit for the colour shown: THE GOVERNOR to THE BASTION
 
 - **Found:** 2026-10-09, claude/aim-cannon-visual-polish-39fb48

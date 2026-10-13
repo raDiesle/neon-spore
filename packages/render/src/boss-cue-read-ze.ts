@@ -14,6 +14,7 @@ import { fieldX } from "./field-flip.js";
 import type { Layout } from "./layout.js";
 import { oculusHalfStanding } from "./oculus-grip.js";
 import { OCULUS_CORE_MARK, OCULUS_HULL_MARK, oculusMarkStanding } from "./oculus-verdicts.js";
+import { stepShows } from "./step-colour.js";
 
 /**
  * **What THE OCULUS is asking for** — page thirty-one of the readings. Both
@@ -36,7 +37,8 @@ import { OCULUS_CORE_MARK, OCULUS_HULL_MARK, oculusMarkStanding } from "./oculus
  * **`FIRE` at the hull under the middle column while the core is lit**, to
  * either seat. The core wants its own colour, and the word never names one:
  * the core is lit in it on both screens, and which cannon is that colour is
- * the conversation — THE KEEL's socket, again (`boss-cue-read-zd.ts`).
+ * the conversation — THE KEEL's socket, again (`boss-cue-read-zd.ts`). So the
+ * fire button of that colour wears the mark (`stepShows`), a look's too.
  *
  * **The story steps** (`oculus-story.ts`): a look is `FIRE` at the hull
  * under the column the eye looks down, where its notch is; a glare is
@@ -67,7 +69,18 @@ export function oculusCues(
     const x = fieldX(l, oculusLookCol(midCol(world.cfg), step));
     const mark = step.ask === "fire" ? OCULUS_CORE_MARK : OCULUS_HULL_MARK;
     const aim = oculusMarkStanding(l, world, s, beatPhase, mark);
-    out.push({ seat: null, kind: "PRESS", word: "FIRE", x, y: l.hullY, ...frame, aim, seed: 130 });
+    const shows = stepShows(step.color);
+    out.push({
+      seat: null,
+      kind: "PRESS",
+      word: "FIRE",
+      x,
+      y: l.hullY,
+      ...frame,
+      aim,
+      shows,
+      seed: 130,
+    });
   }
   if (step?.ask === "glare") {
     const x = fieldX(l, midCol(world.cfg));

@@ -66,6 +66,9 @@ describe("THE GALL", () => {
     for (const role of ["p1", "p2"] as const) {
       const said = cue(world, role);
       expect(said?.word).toBe("FIRE");
+      // Not in a word: the alien is lit cyan on both screens, so the cyan fire
+      // button wears the mark (`fire-button-mark.ts`).
+      expect(said?.shows).toBe("cyan");
       expect(said?.x).toBeCloseTo(fieldX(LAYOUT[role], gallPointCol(CFG, 2)));
       expect(said?.y).toBe(LAYOUT[role].hullY);
       // The owner, 29 September 2026, every boss: a shot cue carries a clear

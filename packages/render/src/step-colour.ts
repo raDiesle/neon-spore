@@ -14,3 +14,12 @@ export function stepColour(color: Color | "either"): { body: string; rim: string
   if (color === "either") return { body: PALETTE.hullRim, rim: PALETTE.hullRim };
   return { body: PALETTE[color], rim: color === "red" ? PALETTE.redRim : PALETTE.cyanRim };
 }
+
+/**
+ * **The cannon a lit step names, for a `FIRE`'s `shows`** — none for a step
+ * either cannon answers. A step is lit in its colour on both screens, so the
+ * fire button of that colour wears the mark too (`fire-button-mark.ts`).
+ */
+export function stepShows(color: Color | "either"): Color | undefined {
+  return color === "either" ? undefined : color;
+}

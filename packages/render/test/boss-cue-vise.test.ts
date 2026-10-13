@@ -145,6 +145,18 @@ describe("THE VISE", () => {
     }
   });
 
+  it("rings the fire button of the kernel's colour, and both for a step either takes", () => {
+    const { world, s } = stood();
+    light(s, world, "fire");
+    s.bared = true;
+    const step = s.steps[s.cursor];
+    if (step === undefined) throw new Error("no fire step");
+    s.steps[s.cursor] = { ...step, color: "cyan" };
+    expect(cue(world, "p1")?.shows).toBe("cyan");
+    s.steps[s.cursor] = { ...step, color: "either" };
+    expect(cue(world, "p1")?.shows).toBeUndefined();
+  });
+
   it("puts FIRE under the column the seed hangs over on a spit", () => {
     const { world, s } = stood();
     light(s, world, "spit");
