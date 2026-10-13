@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-13 · 8aba88cef — VERSUS offers THE VANE's bearing glancing on its hub
+
+A new VERSUS slot, `vane:glance`, for the owner's ask that a part of every boss turn so it is seen from a new side. THE VANE is a machine, so its whole bearing turns — the mount, the bolt circle and the hub — about its centre, because the hub is what a shot reaches: the near end of the mount grows, the far end shortens into the dark, the pins bunch on the far side. The split stays on the column a shot goes up, and the arm and its tip do not turn. SWAY, LOOK and COCK. Nothing on the field changes: `VANE_GLANCE` ships still.
+
 ## 2026-10-13 · 6a6570359 — VERSUS offers THE WARDEN's body glancing about its eye
 
 A new VERSUS slot, `warden:glance`, for the owner's ask that a part of every boss turn so it is seen from a new side. The horseshoe turns about its eye: the side it turns toward bunches and goes dark, the other opens, and the eye, its hatch and the rope stay exactly where a thumb and a shot find them. SWAY, LOOK and COCK. Nothing on the field changes: `WARDEN_GLANCE` ships still.
