@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-13 · 839241b8c — ▶ TRY IT keeps a take, and ▤ STILLS draws it on the cards AUTO cannot play
+
+Eighteen cards on CONTROLS › ON THE FIELD said "play it with ▶ TRY IT" and showed no stills. TRY IT now keeps what the mouse sent since the pose was stood up, and three beats after the lift says TAKE KEPT; ▤ STILLS and ▤ COMPARE ALL USES then replay those commands on the pose and draw the same six moments AUTO's strip draws — the simulation is deterministic, so the commands are the take and no frames are held. Kept for the page's session. Director only.
+
 ## 2026-10-13 · 7aafd211d — Five ON THE FIELD cards are cut to their control, posed on the tick it asks
 
 PINBALL'S PLUNGER, THE GAUGE'S BAND, THE BATON'S STRIP and THE QUEEN'S MARKS pointed at state poses that caught the moment after the control — a spring never slack, a wound regrowing, no socket swelling, a mark already pried — so no press reached them and their cards kept half the phone. Four poses now run each boss's own hand to the tick the ring first asks, and THE LEAD'S STALK points at its STILL rather than its HELD. Every use card is now found by the sweep; PINBALL's plunger is played by AUTO for its stills too. Director only, nothing in the game changes.
