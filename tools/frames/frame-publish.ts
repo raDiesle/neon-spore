@@ -1,6 +1,6 @@
 import { copyFile, mkdir, rm } from "node:fs/promises";
 import { dirname, join, relative } from "node:path";
-import { clearFrames } from "./frame-files.js";
+import { clearFrames, setAside } from "./frame-files.js";
 import { scratchDir } from "./scratch.js";
 
 /**
@@ -18,7 +18,8 @@ import { scratchDir } from "./scratch.js";
  * (`clearFrames`, so a ten-frame run's `-08` and `-09` do not stand under an
  * eight-frame one), then the new ones copied over. A capture that throws or
  * answers `null` — the pair's `identical:` — leaves `out` as it found it, and
- * the scratch folder goes either way.
+ * the scratch folder goes either way. `run.ts` then renames what it found
+ * `.stale.png` (`setAsideNote`), so it is kept and not read as this run's.
  */
 export async function throughScratch<T extends { paths: readonly string[] }>(
   out: string,
@@ -42,4 +43,18 @@ export async function throughScratch<T extends { paths: readonly string[] }>(
   } finally {
     await rm(scratch, { recursive: true, force: true }).catch(() => {});
   }
+}
+
+/**
+ * The last run's frames under each prefix, renamed `.stale.png` by a run that
+ * wrote none — refused or `identical:` (`setAside`) — and the line that says
+ * so, or `null` when there were none.
+ */
+export async function setAsideNote(
+  out: string,
+  prefixes: readonly string[],
+): Promise<string | null> {
+  const names = (await Promise.all(prefixes.map((p) => setAside(join(out, p))))).flat();
+  if (names.length === 0) return null;
+  return `nothing in ${out} is this run's: the last run's frames are ${names.join(", ")} now`;
 }

@@ -38469,3 +38469,17 @@ Bottleneck: none to speak of; the idiom was one test over.
 Bottleneck: the preview answering from the wrong tree before `bun run here`.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-13 — A run that writes nothing sets the last frame aside
+
+- reading: 5 min. The entry, and the 8 October fix that kept the frame on
+  purpose: the two wanted opposite things.
+- writing: 10 min. `setAside`, `clearFrames` taking the `.stale.png` copies,
+  `run.ts` split so every refusal and `identical:` goes through one catch,
+  two tests.
+- looking: 0 min. Nothing drawn.
+- friction: 0 min. The guard hook refused a heredoc with a doubled
+  backslash; the regex went in through Edit.
+- landing: 5 min. `check:fast`, `land`.
+
+Bottleneck: reconciling two lanes' opposite fixes — renaming serves both.

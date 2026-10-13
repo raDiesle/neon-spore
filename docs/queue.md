@@ -362,14 +362,6 @@ The same as THE VANE's entry above, for THE OCULUS, THE VISE, THE CAPSTAN, THE G
 
 The same as THE VANE's entry above, for THE GOVERNOR, THE SEAM, THE LAMPREY, THE MIMIC and THE BASTION: `BossCue.shows` on each `FIRE` whose shooter's screen draws the colour wanted.
 
-## A refused frames run leaves the last PNG in --out, read as new
-
-- **Found:** 2026-10-09, claude/aim-cannon-visual-polish-39fb48
-- **Taken:** 2026-10-13, claude/session-f1471e (claim: claude/queue-a-refused-frames-run-leaves-the-last-png-in-out)
-- **Files:** `tools/frames/until-flags.ts`, `tools/frames/run.ts`, `tools/frames/frame-files.ts`
-
-`bun run frames … --until hiveOpen --ticks 40` and `--until-back -40` are refused with a clear sentence and exit 1, but the `frame.png` an earlier run wrote to the same `--out` stays where it was. A lane that pipes the output away reads the old picture as the new one — this one did, twice, while placing THE HIVE's spores. Delete `--out`'s `frame.png` before the flags are checked, or write nothing there until the run succeeds and refuse loudly on a stale file; a test in `tools/frames/test/` that a refused run leaves no PNG behind.
-
 ## --auto both never swells a second hive site to frame an underside breach
 
 - **Found:** 2026-10-09, claude/aim-cannon-visual-polish-39fb48

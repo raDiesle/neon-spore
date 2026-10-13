@@ -64,7 +64,7 @@ import { DEFAULT_CONFIG } from "@neon-spore/sim";
 import { absentNote, NoSuchField, unlessAbsent } from "./boss-check.js";
 import { sameFrames } from "./crop.js";
 import { parseFrameSpec } from "./flags.js";
-import { throughScratch } from "./frame-publish.js";
+import { setAsideNote, throughScratch } from "./frame-publish.js";
 import { heldPageNote } from "./guide-film.js";
 import { columnNotes } from "./press-column.js";
 import { standingNotes } from "./press-standing.js";
@@ -104,6 +104,20 @@ async function main(): Promise<void> {
     outFlag === -1 ? join(root, "docs/frames", here ? "working" : sha) : (argv[outFlag + 1] ?? "");
   if (!out) throw new Error("--out needs a directory");
 
+  // A run that writes nothing — a flag refused, a page refusal, `identical:` —
+  // renames the last run's frames `.stale.png` and says so: kept for a crop,
+  // never read as this run's by a lane that piped the refusal away.
+  const prefixes = here ? ["frame"] : ["before", "after"];
+  const wrote = await shoot(argv, sha, here, out).catch(async (err: unknown) => {
+    const note = await setAsideNote(out, prefixes).catch(() => null);
+    if (note) console.error(note);
+    throw err;
+  });
+  if (!wrote) say(await setAsideNote(out, prefixes));
+}
+
+/** The run itself, into `out`; answers whether it wrote any frames there. */
+async function shoot(argv: string[], sha: string, here: boolean, out: string): Promise<boolean> {
   const parent = here ? "" : await git(["rev-parse", `${sha}^`]);
   const full = here ? "" : await git(["rev-parse", sha]);
 
@@ -138,7 +152,7 @@ async function main(): Promise<void> {
     // a refusal in the page leaves the last run's frame where it was
     // (`frame-publish.ts`).
     const done = await throughScratch(out, ["frame"], (s) => captureHere(spec, join(s, "frame")));
-    if (done === null) return;
+    if (done === null) return false;
     const { atTick, heldPage, fired, sent } = done.got;
     const seconds = Math.round((Date.now() - start) / 1000);
     console.log(`wrote ${done.written.length} frame(s) to ${out} in ${seconds}s`);
@@ -148,7 +162,7 @@ async function main(): Promise<void> {
     if (wantsEvents) console.log(`  ${firedNote(fired)}`);
     say(heldPageNote(spec, heldPage));
     say(pressNote(sent, fired));
-    return;
+    return true;
   }
 
   const done = await throughScratch(out, ["before", "after"], async (scratchOut) => {
@@ -169,7 +183,7 @@ async function main(): Promise<void> {
     }
     return { pair, after, paths: [...(pair?.paths ?? []), ...after.paths] };
   });
-  if (done === null) return;
+  if (done === null) return false;
   const { pair, after } = done.got;
   const seconds = Math.round((Date.now() - start) / 1000);
   console.log(`wrote ${done.written.length} frame(s) to ${out} in ${seconds}s`);
@@ -182,6 +196,7 @@ async function main(): Promise<void> {
   if (wantsEvents) console.log(`  after ${firedNote(after.fired)}`);
   say(heldPageNote(spec, after.heldPage));
   say(pressNote(after.sent, after.fired));
+  return true;
 }
 
 if (import.meta.main)

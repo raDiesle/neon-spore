@@ -2,7 +2,7 @@ import { afterAll, beforeAll, describe, expect, it } from "bun:test";
 import { mkdtemp, readdir, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
-import { clearFrames, framePathFor, isFrameOf } from "../frame-files.js";
+import { clearFrames, framePathFor, isFrameOf, setAside } from "../frame-files.js";
 
 /**
  * A capture clears the frames an earlier run left under its prefix before it
@@ -35,6 +35,27 @@ describe("clearFrames", () => {
 
   it("is quiet about a directory that is not there yet", async () => {
     expect(await clearFrames(join(dir, "not-yet", "frame"))).toEqual([]);
+  });
+});
+
+describe("setAside", () => {
+  it("renames the prefix's frames .stale.png, and the next clear takes them", async () => {
+    const at = await mkdtemp(join(tmpdir(), "ns-frame-aside-"));
+    try {
+      for (const n of ["frame.png", "frame-03.png", "after.png", "notes.md"]) {
+        await writeFile(join(at, n), "x");
+      }
+      expect((await setAside(join(at, "frame"))).sort()).toEqual([
+        "frame-03.stale.png",
+        "frame.stale.png",
+      ]);
+      const aside = ["after.png", "frame-03.stale.png", "frame.stale.png", "notes.md"];
+      expect((await readdir(at)).sort()).toEqual(aside);
+      expect(await clearFrames(join(at, "frame"))).toEqual([]);
+      expect((await readdir(at)).sort()).toEqual(["after.png", "notes.md"]);
+    } finally {
+      await rm(at, { recursive: true, force: true });
+    }
   });
 });
 

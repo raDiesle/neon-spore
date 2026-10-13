@@ -1,4 +1,4 @@
-import { mkdir, readdir, rm } from "node:fs/promises";
+import { mkdir, readdir, rename, rm } from "node:fs/promises";
 import { basename, dirname, join } from "node:path";
 import type { Page } from "playwright-core";
 import { type Crop, clipFor } from "./crop.js";
@@ -28,17 +28,40 @@ export function framePathFor(outPrefix: string, i: number, frames: number): stri
  * than in the sheet: it closes it for every reader of the directory, a person
  * looking at it in Finder included.
  *
- * Only this prefix's own frames go — `<prefix>.png` and `<prefix>-NN.png` —
- * and nothing else in the directory, so a sheet or a note a session put beside
- * them survives.
+ * Only this prefix's own frames go — `<prefix>.png` and `<prefix>-NN.png`,
+ * and the `.stale.png` copies `setAside` made of them — and nothing else in
+ * the directory, so a sheet or a note a session put beside them survives.
  */
 export async function clearFrames(outPrefix: string): Promise<string[]> {
   const dir = dirname(outPrefix);
   const base = basename(outPrefix);
   const names = await readdir(dir).catch(() => [] as string[]);
-  const ours = names.filter((n) => isFrameOf(base, n));
+  const ours = names.filter((n) => isFrameOf(base, n) || isFrameOf(base, freshName(n)));
   await Promise.all(ours.map((n) => rm(join(dir, n), { force: true })));
-  return ours;
+  return ours.filter((n) => isFrameOf(base, n));
+}
+
+/** `frame.png` as a run that did not replace it keeps it: `frame.stale.png`. */
+export const staleName = (name: string): string => name.replace(/\.png$/, ".stale.png");
+const freshName = (name: string): string => name.replace(/\.stale\.png$/, ".png");
+
+/**
+ * **A prefix's frames, renamed `.stale.png` by a run that writes none.**
+ *
+ * A refused run left the last run's `frame.png` where it was, so a lane that
+ * piped the refusal away read the old picture as the new one — twice, placing
+ * THE HIVE's spores (9 October 2026). Deleting it is the 8 October bug again:
+ * the crop of the last run's frame fails (`frame-publish.ts`). Renamed, it is
+ * neither lost nor mistaken, and the next run that writes clears it. Answers
+ * the new names.
+ */
+export async function setAside(outPrefix: string): Promise<string[]> {
+  const dir = dirname(outPrefix);
+  const base = basename(outPrefix);
+  const names = await readdir(dir).catch(() => [] as string[]);
+  const ours = names.filter((n) => isFrameOf(base, n));
+  await Promise.all(ours.map((n) => rename(join(dir, n), join(dir, staleName(n)))));
+  return ours.map(staleName);
 }
 
 /** Whether a file name is one of the frames a capture to `base` writes. */
