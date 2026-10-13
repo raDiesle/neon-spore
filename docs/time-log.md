@@ -38758,3 +38758,19 @@ script of its own (queued).
 Bottleneck: none — the entry was stale and needed only its guard.
 
 *Measured: 4 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-13 — AUTO's PINBALL flies the ball before it shoots, and plays the fight through
+
+- reading: 10 min. The round's catch and floor, the funnels, the launch, the
+  hand; a probe showed the ball never bounced: the cannon caught it and the
+  hand fired it straight up again at four thousandths of the bar.
+- writing: 15 min. `boss-hand-pinball.ts` (trial flights through the sim's own
+  `stepBall`, the cannon slid to a column that reaches, the catch), its test,
+  the director's hard-launch hand, the plunger mark reached.
+- looking: 0 min. A hand and its tests; nothing the game draws changed.
+- friction: 10 min. The first lookahead made `marks-window`'s PINBALL row
+  time out; trials now stop under the board, the row walks 12,000 ticks, and
+  the file's timeout is `cpuTimeout`'s — the row sat on five seconds before.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: the trial flights' cost — the first version was right and five times too slow.

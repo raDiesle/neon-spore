@@ -1,4 +1,4 @@
-import { afterAll, describe, expect, test } from "bun:test";
+import { afterAll, describe, expect, setDefaultTimeout, test } from "bun:test";
 import { controlSet } from "@neon-spore/content";
 import { computeLayout, type Viewport, type ViewRole } from "@neon-spore/render";
 import { type BossKind, beatPhase, roundSpent, step, type World } from "@neon-spore/sim";
@@ -6,6 +6,7 @@ import { drawBoss } from "../../../packages/render/src/boss-draw.js";
 import { Effects } from "../../../packages/render/src/effects.js";
 import { drawRound } from "../../../packages/render/src/round-draw.js";
 import { installCanvasGlobals, stubCanvas } from "../../../packages/render/test/canvas-stub.js";
+import { cpuTimeout } from "../../test/cpu-time.js";
 import { bossWorld } from "../src/poses-bosses-kit.js";
 import { type AutoMode, stageAutopilot } from "../src/stage-autopilot.js";
 import { stageField } from "../src/stage-field.js";
@@ -49,6 +50,11 @@ import { ROWS_F } from "./marks-window-rows-f.js";
  * strikes its line.
  */
 
+// Every tick of a fight drawn on a stub canvas, with AUTO on both seats; the
+// slowest row idle is PINBALL's, about four and a half seconds, which sat on
+// the runner's five-second default and failed it whenever a shard was busy.
+setDefaultTimeout(cpuTimeout(4_500));
+
 const VIEWPORT: Viewport = { width: 900, height: 1600, dpr: 2 };
 const EVERY = 1;
 const TICKS = 40_000;
@@ -66,6 +72,7 @@ function walk(
   wave: string | undefined,
   roles: readonly ViewRole[],
   mode: AutoMode,
+  ticks: number,
 ): { wrong: string[]; seen: Map<string, number> } {
   installCanvasGlobals();
   const world = bossWorld(kind, {}, wave);
@@ -87,7 +94,7 @@ function walk(
   const seen = new Map(marks.map((m) => [m.name, 0]));
   // A round that has run its course stays installed, spent, until the next
   // wave replaces it (`wave-end.ts`), and nothing in it asks again.
-  for (let i = 0; i < TICKS && world.boss?.kind === kind && !roundSpent(world); i++) {
+  for (let i = 0; i < ticks && world.boss?.kind === kind && !roundSpent(world); i++) {
     step(world, auto.commands(world));
     if (i % EVERY !== 0) continue;
     const before = marks.map((m) => m.calls().length);
@@ -131,6 +138,7 @@ describe("no boss puts a mark up before its window opens", () => {
       row.wave,
       row.roles ?? ["test"],
       row.auto ?? "both",
+      row.ticks ?? TICKS,
     );
     expect(wrong.slice(0, 5)).toEqual([]);
     for (const m of marks) {

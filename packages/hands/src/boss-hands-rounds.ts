@@ -12,8 +12,8 @@ import {
 import type { Hand } from "./hand.js";
 
 /**
- * **The pair's hands on the rounds a hand has to play** — THE MAZE, THE
- * MIRROR's pin, PINBALL's three thumbs — each a
+ * **The pair's hands on the rounds a hand has to play** — THE MAZE and THE
+ * MIRROR's pin — each a
  * `Hand` (`hand.ts`). A round's other phases arrive with nobody
  * pressing (`poses-bosses-rounds.ts`); these are the ones whose played states
  * do not, and each hand plays the round's own test rig straight: the string
@@ -131,34 +131,3 @@ function lobe(player: 1 | 2, id: 0 | 1, on: boolean, fromMilli: number): Press {
     command: { kind: "drag", target: "mirrorLobe", on, fromMilli, fromYMilli: 0, id },
   };
 }
-
-/**
- * PINBALL: latch the needle wherever it has swept to, wind the plunger if the
- * last shot left the spring slack, and launch on the bar.
- *
- * It aims at nothing. A pose runs until the state it wants arrives, and the
- * three states here are `aim`, `power` and `flight` — each of which is a
- * different thumb rather than a different place on the board
- * (`sim/pinball-controls.ts`, `sim/pinball-hand.ts`).
- */
-export const pinballHand: Hand = (w) => {
-  const b = w.boss;
-  if (b === null || b.kind !== "pinball" || b.phase !== "play") return [];
-  if (b.shot === "aim") return [{ player: 1, command: { kind: "latch" } }];
-  if (b.shot !== "power") return [];
-  if (b.slack) {
-    return [
-      {
-        player: 1,
-        command: {
-          kind: "drag",
-          target: "pinPlunger",
-          on: false,
-          fromMilli: 0,
-          fromYMilli: w.cfg.pinballWindMilli,
-        },
-      },
-    ];
-  }
-  return [{ player: 2, command: { kind: "launch" } }];
-};

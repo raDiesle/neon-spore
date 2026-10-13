@@ -2784,6 +2784,7 @@ by hand never moves.
 | `packages/hands/src/boss-hands-latch.ts` | **THE LATCH played right**, for the autopilot: hand over hand |
 | `packages/hands/src/boss-hand-fleet.ts` | **The pair's hands on THE FLEET**, a `Hand` (`hand.ts`) |
 | `packages/hands/src/boss-hand-hive.ts` | **The pair's hands on THE HIVE**, a `Hand` (`hand.ts`) |
+| `packages/hands/src/boss-hand-pinball.ts` | **PINBALL played by AUTO**: latch the needle on an angle that reaches a target, launch on a bar that does |
 | `packages/hands/src/autopilot-hands.ts` | **The hand AUTO plays each boss with**: the one the poses reach the boss's defeat with |
 | `packages/hands/src/autopilot-harpoon.ts` | **THE LIMPET and THE LEECH, on AUTO**: a harpooned control is kept moving |
 | `packages/hands/src/autopilot-field-hand.ts` | **The pair's hands on an ordinary wave**: the cannon and the shield together |

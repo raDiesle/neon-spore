@@ -26,6 +26,7 @@ export {
   pinballRound,
   pinCannonMilli,
   pinCaught,
+  pinFieldCol,
   pinFunnels,
   pinHeightMilli,
   pinLaneFloorMilli,

@@ -35,19 +35,17 @@ function asking(kind: BossKind, hand: Hand, asks: (w: World) => boolean, budgetB
 }
 
 /**
- * PINBALL's hand, launching only once the bar is past `pinballHardMilli`: a
- * hard shot is what leaves the spring slack, and the plunger is only asked
- * on the shot after one (`sim/pinball-hand.ts`).
+ * PINBALL's hand, launching the moment the bar is past `pinballHardMilli` and
+ * never before: a hard shot is what leaves the spring slack, and the plunger
+ * is only asked on the shot after one (`sim/pinball-hand.ts`). AUTO's own
+ * hand launches when its trial flight takes a target, at whatever power that
+ * is, so the bar is this hand's and the needle is AUTO's.
  */
 const hardLaunchHand: Hand = (w) => {
   const b = w.boss;
-  const soft =
-    b?.kind === "pinball" &&
-    b.phase === "play" &&
-    b.shot === "power" &&
-    !b.slack &&
-    b.powerMilli < w.cfg.pinballHardMilli;
-  return soft ? [] : pinballHand(w);
+  if (b?.kind !== "pinball" || b.phase !== "play" || b.shot !== "power" || b.slack)
+    return pinballHand(w);
+  return b.powerMilli < w.cfg.pinballHardMilli ? [] : [{ player: 2, command: { kind: "launch" } }];
 };
 
 const GAUGE_BAND_ASKS: Pose = {

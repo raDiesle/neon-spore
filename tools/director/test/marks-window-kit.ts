@@ -42,6 +42,12 @@ export interface Row {
    * AUTO on both seats never misses.
    */
   auto?: AutoMode;
+  /**
+   * How many ticks to walk, where the whole fight is longer than its marks
+   * need: AUTO plays PINBALL's three boards to the verdict, thirty thousand
+   * ticks drawn one by one, and the plunger has asked by the first board's end.
+   */
+  ticks?: number;
 }
 
 /** Every spy a row has put up, for the test to take down after it. */

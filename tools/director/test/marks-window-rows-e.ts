@@ -16,7 +16,7 @@ import {
   type World,
 } from "@neon-spore/sim";
 import * as markFeedback from "../../../packages/render/src/mark-feedback.js";
-import { mark, type Row, unreached } from "./marks-window-kit.js";
+import { mark, type Row } from "./marks-window-kit.js";
 
 /**
  * **THE MIRROR, THE VANE, THE MAZE and THE GAUGE**, four of the rows owed
@@ -78,14 +78,10 @@ export const ROWS_E: readonly Row[] = [
   },
   {
     kind: "pinball",
-    // The plunger alone since the shove went to the band (10 October 2026),
-    // and AUTO never fires hard enough to leave the spring slack.
-    marks: [
-      unreached(
-        mark(markFeedback, "drawMarkHalo", (w) => pinPlungerAsks(pinball(w))),
-        "queue: AUTO's PINBALL shot hops on the cannon for a whole flight",
-      ),
-    ],
+    // The plunger alone since the shove went to the band (10 October 2026).
+    // AUTO fires hard when a target wants it, which leaves the spring slack.
+    marks: [mark(markFeedback, "drawMarkHalo", (w) => pinPlungerAsks(pinball(w)))],
+    ticks: 12_000,
   },
   {
     kind: "pulse",
