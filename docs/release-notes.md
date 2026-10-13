@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-13 · a100d3526 — VERSUS offers THE BULB QUEEN's shell glancing from wing to wing
+
+A new VERSUS slot, `queen:glance`, from the owner's ask of 9 and 10 October 2026 that a part of every boss turn so it is seen from a new side — for a machine, the whole shape. The queen has no head, so her whole shell turns: its middle swings toward one wing, that half squeezes and goes dark, the other opens. Her crane arms stay on her shoulders, her torches do not move, and her marks hang under the shell where they always were. SWAY turns her slowly, LOOK holds a look each way, COCK turns and tips her. Nothing on the field changes: `QUEEN_GLANCE` ships still.
+
 ## 2026-10-13 · 443845e26 — The director's shell and columns sheets are cut under 250 lines
 
 director-shell.css was 270 lines and director-columns.css 302. The reset, palette and type scale every sheet reads moved to director-tokens.css. The wave rail (filter, symbols, list, rows, drag, arrival pulse) moved to director-rail.css. Each new sheet is imported beside its parent. The live director computes the same palette, type scale, grid tracks and rail as before.
