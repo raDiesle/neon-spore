@@ -199,9 +199,9 @@ export type CreatureKind =
   /**
    * Two grey balls standing apart in one lane, and the first body **no shot
    * can reach at all** until a gesture that is not a button has been made
-   * twice. Player 1 shakes the phone — or, where no phone can
-   * report a shake, carries the two arrows at the edges of the field outward
-   * one after the other inside `choirWindowBeats` — and the two draw together
+   * twice. Player 1 shakes the phone twice — or, where no phone can
+   * report a shake, both seats rub the mark in the middle of the field
+   * together for `choirRubTurns` turns — and the two draw together
    * over `choirFuseBeats`, becoming an ordinary slick or bulb in the same
    * column. The colour arrives with the body and not before: until the closing
    * finishes there is still nothing any trigger answers. From there it is answered by the
@@ -211,7 +211,7 @@ export type CreatureKind =
    * no `merged` flag, because a body with two truths about it is a fingerprint
    * that agrees with itself while the two devices disagree. What is on the
    * world rather than on the body is the half-made gesture — `choirArm` and
-   * `choirArmTick` — because a hand is the pilot's and not any one membrane's.
+   * `choirArmTick` — because a hand is a seat's and not any one membrane's.
    * `choir.ts` is the whole of it.
    */
   | "choir"

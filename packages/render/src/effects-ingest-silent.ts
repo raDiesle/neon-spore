@@ -54,6 +54,8 @@ export const INGEST_SILENT = [
   "lureVanished",
   "claspBreak",
   "choirSing",
+  // THE CHOIR's rub turning: drawn off the world's own ticks (`choir-rub.ts`).
+  "choirRubTurn",
   // And the film finishing. The burst is thrown by `burstFor` above and the
   // body underneath is an ordinary slick or bulb from that tick on, drawn by
   // `drawLiving` like any other. Nothing about the moment outlives its frame:

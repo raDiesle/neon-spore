@@ -1,9 +1,9 @@
 import { describe, expect, it } from "bun:test";
 import { choirIsDots, choirIsFusing } from "../src/choir.js";
-import { CHOIR_SHAKEN, choirArmed } from "../src/choir-gesture.js";
+import { CHOIR_RUBBED, CHOIR_SHAKEN, choirArmed } from "../src/choir-gesture.js";
 import { DEFAULT_CONFIG, ticksPerBeat } from "../src/config.js";
 import { hashWorld } from "../src/hash.js";
-import type { Color, Creature, DragTarget, TimedCommand } from "../src/types.js";
+import type { Color, Creature, TimedCommand } from "../src/types.js";
 import { failHolds } from "../src/wave-fail.js";
 import { createWorld, type SimEvent, type SpawnEntry, step, type World } from "../src/world.js";
 
@@ -14,24 +14,19 @@ import { createWorld, type SimEvent, type SpawnEntry, step, type World } from ".
  * one is covered next door and the shape is the same here, so what is tested
  * below is the half that is *not* the same — the gesture. It is the first
  * answer in this game made of two commands that have to arrive in the right
- * order inside a window, from one seat, on a body standing in a lane that
- * neither arrow is anywhere near.
+ * order inside a window, on a body standing in a lane no hand is near.
  *
- * The gesture is **two moves either way**: a shake and then a shake, or one
- * arrow and then the other, inside `choirWindowBeats`. The owner reversed an
- * earlier answer of his own to get there, and the tests below are what say the
- * two paths cost the same.
+ * The gesture is **a shake and then a shake**, the pilot's, or **a rub both
+ * seats make together** on the mark in the middle (`choir-rub.ts`): a turn
+ * counts only while the other seat is rubbing too.
  *
- * The second is what a **wrong** move costs. Every other creature answers a
- * mistake by simply not dying; this one takes the hull, on the owner's own
- * instruction, and both ways of being wrong have to do it: the window running
- * out with one arrow open, and an arrow carried the way it does not go.
+ * The second is what a **half-made** gesture costs. Every other creature
+ * answers a mistake by simply not dying; this one takes the hull, on the
+ * owner's own instruction: the window running out with the gesture begun.
  */
 
 const CFG = DEFAULT_CONFIG;
 const TPB = ticksPerBeat(CFG);
-/** Comfortably past `choirPullMilli`, in the sign the argument names. */
-const FAR = CFG.choirPullMilli + 500;
 /**
  * The first tick a hand can reach a membrane authored at beat 0.
  *
@@ -46,12 +41,32 @@ const ON_FIELD = TPB + 2;
 
 const choir = (col: number, color: Color): SpawnEntry => ({ beat: 0, col, kind: "choir", color });
 
-/** A hand on one arrow, carried `milli` from where it grabbed. The grab at
- * zero goes first, the way a real finger sends one (`render/touch.ts`). */
-const pull = (tick: number, target: DragTarget, milli: number): TimedCommand[] => [
-  { tick, player: 1, command: { kind: "drag", target, on: true, fromMilli: 0 } },
-  { tick: tick + 1, player: 1, command: { kind: "drag", target, on: true, fromMilli: milli } },
+/** Ticks between one seat's turns: a quick scrub. */
+const TURN = 20;
+
+/** One seat's thumb on the rub from `tick`, turning back `turns` times, then lifted.
+ * The press says nought first, the way a real thumb's does (`render/rub-turns.ts`). */
+const rubBy = (player: 1 | 2, tick: number, turns: number): TimedCommand[] => {
+  const say = (at: number, on: boolean, id: number): TimedCommand => ({
+    tick: at,
+    player,
+    command: { kind: "drag", target: "choirRub", on, fromMilli: 0, id },
+  });
+  const out = [say(tick, true, 0)];
+  for (let i = 1; i <= turns; i++) out.push(say(tick + i * TURN, true, i));
+  out.push(say(tick + (turns + 1) * TURN, false, turns));
+  return out;
+};
+
+/** Both seats rubbing at once. */
+const rub = (tick: number, turns: number): TimedCommand[] => [
+  ...rubBy(1, tick, turns),
+  ...rubBy(2, tick, turns),
 ];
+/** Enough turns each that the pair has made `choirRubTurns` together. */
+const ENOUGH = CFG.choirRubTurns;
+/** The tick the last of those lands by. */
+const RUBBED = ON_FIELD + ENOUGH * TURN;
 
 const shake = (tick: number): TimedCommand => ({ tick, player: 1, command: { kind: "shake" } });
 const aim = (tick: number, col: number): TimedCommand => ({
@@ -88,39 +103,46 @@ const only = (world: World): Creature => {
 };
 
 describe("the gesture", () => {
-  it("does nothing at all on one arrow, and the window stands open", () => {
-    const { world, events } = run([choir(2, "red")], TPB * 2, pull(ON_FIELD, "choirLeft", -FAR));
+  it("opens the window on the first turn made together, and merges nothing", () => {
+    const { world, events } = run([choir(2, "red")], ON_FIELD + 2 * TURN, rub(ON_FIELD, 1));
     expect(choirIsDots(only(world))).toBe(true);
-    expect(choirArmed(world)).toBe(-1);
+    expect(choirArmed(world)).toBe(CHOIR_RUBBED);
     expect(events.filter((e) => e.type === "choirArm")).toHaveLength(1);
     expect(events.some((e) => e.type === "choirSing")).toBe(false);
   });
 
-  it("starts the closing on the other arrow, inside the window", () => {
-    const inputs = [...pull(ON_FIELD, "choirLeft", -FAR), ...pull(TPB * 2, "choirRight", FAR)];
-    // Stopped one tick after the gesture: the film is closing and the body is
-    // still a membrane, which is the whole of what `choirFuseBeats` bought.
-    const { world, events } = run([choir(2, "red")], TPB * 2 + 3, inputs);
+  it("starts the closing on the last turn made together", () => {
+    const { world, events } = run([choir(2, "red")], RUBBED, rub(ON_FIELD, ENOUGH));
     expect(choirIsFusing(only(world))).toBe(true);
     expect(events.filter((e) => e.type === "choirMerge")).toHaveLength(1);
     expect(events.some((e) => e.type === "choirOpen")).toBe(false);
-    // Nothing is paid until it opens: a run that ended halfway through a
-    // closing has not opened anything.
   });
 
   it("becomes the body a beat later, in the lane it arrived in", () => {
-    const inputs = [...pull(ON_FIELD, "choirLeft", -FAR), ...pull(TPB * 2, "choirRight", FAR)];
-    const { world, events } = run([choir(2, "red")], TPB * 4, inputs);
+    const { world, events } = run([choir(2, "red")], RUBBED + TPB * 2, rub(ON_FIELD, ENOUGH));
     const body = only(world);
     // A red choir becomes a slick, because `livingKindForColor` is the one
     // copy of the colour-to-silhouette pairing and nothing authors the target.
     expect(body.kind).toBe("slick");
     expect(events.filter((e) => e.type === "choirOpen")).toHaveLength(1);
-    // And it stays in the lane it arrived in. The body is one tile wide the
-    // whole time, so the column player 2 was given is the one that answers —
-    // a merge that moved the lane would expire a number already said aloud.
     expect(body.col).toBe(2);
     // The gesture is spent: nothing is left armed to be finished twice.
+    expect(choirArmed(world)).toBeNull();
+  });
+
+  it("counts nothing that one seat rubs alone, however long", () => {
+    const { world, events } = run([choir(2, "red")], TPB * 6, rubBy(1, ON_FIELD, 20));
+    expect(choirIsDots(only(world))).toBe(true);
+    expect(choirArmed(world)).toBeNull();
+    const turns = events.filter((e) => e.type === "choirRubTurn");
+    expect(turns.length).toBeGreaterThan(0);
+    expect(turns.every((e) => e.type === "choirRubTurn" && !e.together)).toBe(true);
+  });
+
+  it("counts nothing of a rub one seat makes after the other has stopped", () => {
+    const late = ON_FIELD + 4 * TURN + TPB * (CFG.choirTogetherBeats + 1);
+    const inputs = [...rubBy(1, ON_FIELD, 3), ...rubBy(2, late, 3)];
+    const { world } = run([choir(2, "red")], late + TPB, inputs);
     expect(choirArmed(world)).toBeNull();
   });
 
@@ -142,17 +164,10 @@ describe("the gesture", () => {
     expect(events.filter((e) => e.type === "choirOpen")).toHaveLength(1);
   });
 
-  it("takes a shake and then an arrow, because the two ways in are one gesture", () => {
-    const inputs = [shake(ON_FIELD), ...pull(ON_FIELD + 8, "choirRight", FAR)];
-    const { world } = run([choir(2, "red")], TPB * 3, inputs);
+  it("takes a rub begun and then a shake, because the two ways in are one gesture", () => {
+    const inputs = [...rub(ON_FIELD, 1), shake(ON_FIELD + 2 * TURN + 4)];
+    const { world } = run([choir(2, "red")], TPB * 4, inputs);
     expect(only(world).kind).toBe("slick");
-  });
-
-  it("counts two pulls on the same side as one gesture done twice", () => {
-    const inputs = [...pull(ON_FIELD, "choirLeft", -FAR), ...pull(TPB * 2, "choirLeft", -FAR)];
-    const { world } = run([choir(2, "red")], TPB * 3, inputs);
-    expect(choirIsDots(only(world))).toBe(true);
-    expect(choirArmed(world)).toBe(-1);
   });
 
   it("reaches every membrane on the field at once, having no column to be in", () => {
@@ -165,10 +180,10 @@ describe("the gesture", () => {
   });
 });
 
-describe("what a wrong move costs", () => {
-  it("sings when the window runs out with one arrow open", () => {
-    const ticks = TPB * (CFG.choirWindowBeats + 3);
-    const { world, events } = run([choir(2, "red")], ticks, pull(ON_FIELD, "choirLeft", -FAR));
+describe("what a half-made gesture costs", () => {
+  it("sings when the pair stops rubbing together before the end", () => {
+    const ticks = ON_FIELD + TPB * (CFG.choirWindowBeats + 3);
+    const { world, events } = run([choir(2, "red")], ticks, rub(ON_FIELD, 2));
     expect(events.filter((e) => e.type === "choirSing")).toHaveLength(1);
     expect(failHolds(world)).toBe(true);
     // Still a membrane: a lapse costs the hull and never opens anything.
@@ -176,22 +191,17 @@ describe("what a wrong move costs", () => {
     expect(choirArmed(world)).toBeNull();
   });
 
-  it("sings when an arrow is carried the way it does not go", () => {
-    const { world, events } = run([choir(2, "red")], TPB * 2, pull(ON_FIELD, "choirLeft", FAR));
-    expect(events.filter((e) => e.type === "choirSing")).toHaveLength(1);
-    expect(choirIsDots(only(world))).toBe(true);
-  });
-
   it("leaves no scar, because nothing struck the ship", () => {
-    const { world } = run([choir(2, "red")], TPB * 2, pull(ON_FIELD, "choirLeft", FAR));
+    const ticks = ON_FIELD + TPB * (CFG.choirWindowBeats + 3);
+    const { world } = run([choir(2, "red")], ticks, rub(ON_FIELD, 2));
     expect(world.scars).toEqual([]);
   });
 
   it("costs nothing at all with no membrane on the field", () => {
-    const { world, events } = run([], TPB * 2, [
+    const { world, events } = run([], TPB * 4, [
       shake(ON_FIELD),
       shake(ON_FIELD + 8),
-      ...pull(ON_FIELD + 12, "choirLeft", FAR),
+      ...rub(ON_FIELD + 12, 3),
     ]);
     expect(events.some((e) => e.type === "choirSing")).toBe(false);
     expect(world.retries).toBe(0);
@@ -211,13 +221,8 @@ describe("the body it becomes", () => {
   });
 
   it("dies to the matching cannon once it has drawn together", () => {
-    const inputs = [
-      aim(2, 2),
-      ...pull(ON_FIELD, "choirLeft", -FAR),
-      ...pull(TPB * 2, "choirRight", FAR),
-      fire(TPB * 3 + 4, "red"),
-    ];
-    const { world, events } = run([choir(2, "red")], TPB * 9, inputs);
+    const inputs = [aim(2, 2), ...rub(ON_FIELD, ENOUGH), fire(RUBBED + TPB + 4, "red")];
+    const { world, events } = run([choir(2, "red")], RUBBED + TPB * 8, inputs);
     expect(world.creatures).toHaveLength(0);
     expect(events.some((e) => e.type === "destroy")).toBe(true);
   });
@@ -231,20 +236,26 @@ describe("the fingerprint", () => {
    * (`docs/decisions.md` #19).
    */
   it("is the same twice over the whole gesture", () => {
-    const inputs = [...pull(ON_FIELD, "choirLeft", -FAR), ...pull(TPB * 2, "choirRight", FAR)];
-    const a = run([choir(2, "red")], TPB * 4, inputs);
-    const b = run([choir(2, "red")], TPB * 4, inputs);
+    const inputs = rub(ON_FIELD, ENOUGH);
+    const a = run([choir(2, "red")], RUBBED + TPB, inputs);
+    const b = run([choir(2, "red")], RUBBED + TPB, inputs);
     expect(hashWorld(a.world)).toBe(hashWorld(b.world));
   });
 
   /**
    * And it notices the half-made gesture, which is the field this creature
-   * added to `World`. Two devices that disagree about which arrow is standing
-   * out disagree about whether the next pull merges a body or makes it sing.
+   * added to `World`. Two devices that disagree about what is under way
+   * disagree about whether the next move merges a body or makes it sing.
    */
   it("tells an armed field from an untouched one", () => {
-    const armed = run([choir(2, "red")], TPB * 2, pull(ON_FIELD, "choirLeft", -FAR));
-    const idle = run([choir(2, "red")], TPB);
+    const armed = run([choir(2, "red")], ON_FIELD + 2 * TURN, rub(ON_FIELD, 1));
+    const idle = run([choir(2, "red")], ON_FIELD + 2 * TURN);
     expect(hashWorld(armed.world)).not.toBe(hashWorld(idle.world));
+  });
+
+  it("tells a seat that has just turned alone from one that has not", () => {
+    const alone = run([choir(2, "red")], ON_FIELD + 2 * TURN, rubBy(1, ON_FIELD, 1));
+    const idle = run([choir(2, "red")], ON_FIELD + 2 * TURN);
+    expect(hashWorld(alone.world)).not.toBe(hashWorld(idle.world));
   });
 });

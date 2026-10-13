@@ -2,18 +2,18 @@ import type { SpawnEntry } from "@neon-spore/sim";
 import { fresh, type Pose, run, POSE_TPB as TPB } from "./pose-kit.js";
 
 /**
- * THE CHOIR's SHAKE as the pilot is offered it: a membrane on the field and
- * the two arrows against its walls, each marked SWIPE (`render/choir-arrows.ts`).
+ * THE CHOIR's SHAKE as the pair is offered it: a membrane on the field and
+ * the rub in the middle of it, which both seats make together
+ * (`render/choir-rub.ts`). It took the place of the two arrows against the
+ * walls on 13 October 2026 — the owner: *we will reuse the "rub" control,
+ * which is somewhere in the center of the screen*.
  *
- * `CHOIR · TWO VOICES` is the body, cropped to its tile, and shows neither
- * arrow; this is the control. The owner, 6 October 2026: the picture for the
- * shake is the arrows with SWIPE on the left and the right. Player 1's screen,
- * because the arrows are drawn on no other.
+ * `CHOIR · TWO VOICES` is the body, cropped to its tile; this is the control.
  */
 export const CHOIR_SWIPE: Pose = {
-  name: "CHOIR · SWIPE OR SHAKE",
-  note: "A membrane falling on player 1's screen, and against each wall of the field an arrow pointing out over it, marked SWIPE. Shaking the phone does the same; the arrows are drawn always, for the phone or the computer that cannot tell.",
-  lookAt: "the two arrows at the walls — whether each reads as a swipe outward",
+  name: "CHOIR · RUB OR SHAKE",
+  note: "A membrane falling on player 1's screen, and in the middle of the field the rub mark both seats scrub together, a light for each seat and a pip for each turn. Shaking the phone does the same; the rub is drawn always, for the phone or the computer that cannot tell.",
+  lookAt: "the rub in the middle — whether it reads as something both seats scrub at once",
   crop: "field",
   role: "p1",
   build: () => {

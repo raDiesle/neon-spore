@@ -46,17 +46,24 @@ export type ChoirEvent =
       color?: Color;
     }
   /**
-   * The first half of the gesture landed — an arrow carried outward, or the
-   * phone shaken once — and the window is open. The field starts to shake, the
-   * two bodies start to glow, and both go further when the second lands.
-   * `side` is `2` for the shake (`CHOIR_SHAKEN`). It is
+   * The first half of the gesture landed — the phone shaken once, or the
+   * first turn of a rub both seats are making — and the window is open. The
+   * field starts to shake, the two bodies start to glow, and both go further
+   * when the gesture is finished. `arm` is which (`CHOIR_SHAKEN`,
+   * `CHOIR_RUBBED`). It is
    * an event rather than a state read off the world because it is a *moment*:
    * what render/ keeps is a decaying quake, and a clock started by a flag
    * would restart on every frame the flag was still true.
    */
-  | { type: "choirArm"; side: -1 | 1 | 2 }
+  | { type: "choirArm"; arm: 2 | 3 }
   /**
-   * The window lapsed, or an arrow went the wrong way, and the thing sang. The
+   * A seat's thumb turned back on THE CHOIR's rub (`choir-rub.ts`): `together`
+   * when the other seat was rubbing too, and `rubbed` the turns made together
+   * so far. A turn made alone counts nothing, and is told so a screen can say so.
+   */
+  | { type: "choirRubTurn"; player: 1 | 2; rubbed: number; together: boolean }
+  /**
+   * The window lapsed with the gesture half made, and the thing sang. The
    * hull damage rides on the `breach` beside it (`singChoirs`); this is the
    * chord itself, so the ear can tell a body that beat the pair from a gesture
    * they fumbled.

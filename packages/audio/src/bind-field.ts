@@ -30,6 +30,7 @@ const FIELD_EVENTS = [
   "choirMerge",
   "choirOpen",
   "choirSing",
+  "choirRubTurn",
   "balloonSplit",
   "balloonPop",
   "balloonTopped",
@@ -71,6 +72,7 @@ export function fieldCue(e: FieldEvent, cols: number, rows: number): Cue | null 
     case "coilJump":
       return coilCue(e, cols, rows);
     case "choirArm":
+    case "choirRubTurn":
     case "choirMerge":
     case "choirOpen":
     case "choirSing":

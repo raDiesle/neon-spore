@@ -14,7 +14,8 @@ import type { HoldSpec } from "./spec.js";
  *   --hold wardenTether=0,y=7000    THE WARDEN's rope, pulled down taut
  *   --hold mazeString=1400          THE MAZE's wheel, most of a turn
  *   --hold lidString=800,id=3       THE LID: which cord, and how far
- *   --hold choirLeft=-2000          THE CHOIR: the left arrow carried outward
+ *   --hold choirRub=0,id=4          THE CHOIR: the pilot's thumb four turns into the rub
+ *   --hold choirRub2=0,id=4         and the navigator's, the other half of it
  *   --hold balloonLeft=-1600,id=1   THE BALLOON: the pilot's hand on body 1
  *   --hold balloonRight=1600,id=1   and the navigator's on the same one
  *   --hold sinewLeft=0,y=900        THE SINEW: the pilot's hand, pulled 0.9 down
@@ -37,11 +38,6 @@ import type { HoldSpec } from "./spec.js";
  *   --hold throatAim=0,y=-3000      THE THROAT: the navigator carrying the mouth three rows up
  *   --hold throatPump=0,y=1500      and the pilot's thumb one stroke down the pump
  *   --hold scuttlePart=1000,id=10   THE SCUTTLE: the pilot carrying part 10 a column right
- *
- * THE CHOIR's two are the only handles here whose **sign** is the whole of the
- * gesture rather than a direction the picture happens to take: the left arrow
- * counts only when it is carried left, so a negative distance is the correct
- * one and a positive one makes the thing sing (`sim/choir-gesture.ts`).
  *
  * The distance is in **thousandths of a tile**, which is what a `drag` carries
  * on the wire — two phones of different widths share no pixel and do share a

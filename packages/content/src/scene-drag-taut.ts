@@ -20,15 +20,7 @@ export function tautMilli(target: DragTarget, cfg: SimConfig): number {
   // A held body has no taut at all — it is carried a tile at a time and may be
   // carried again — so what a film that does not say means is one column.
   if (target === "gripBody") return cfg.gripPushMilli;
-  // An arrow has no taut either: it does not travel, it is a switch a hand
-  // throws, and the distance is the one that counts as thrown
-  // (`choirArrowHeard`). The side is read off the target rather than authored —
-  // carrying one the wrong way is a thing the *pair* can do and not a thing a
-  // film would be written to do.
-  if (target === "choirLeft") return -cfg.choirPullMilli;
-  if (target === "choirRight") return cfg.choirPullMilli;
-  // A balloon's two handles are the arrows' arrangement again, with a body
-  // between them: each is carried **outward**, away from the skin, and taut is
+  // A balloon's two handles, with a body between them: each is carried **outward**, away from the skin, and taut is
   // the stretch at which it gives (`sim/balloon-pull.ts`). The sign is the
   // side, so a film says which handle and never how far.
   if (target === "balloonLeft") return -cfg.balloonTautMilli;

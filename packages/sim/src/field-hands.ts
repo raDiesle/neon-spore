@@ -6,7 +6,8 @@ import { blisterSwipeHeard } from "./blister-swipe.js";
 import { blisterTurnHeard } from "./blister-turn.js";
 import { bossHandsHeard } from "./boss-hands.js";
 import { stepChoirFuse } from "./choir.js";
-import { choirArrowHeard, stepChoirWindow } from "./choir-gesture.js";
+import { stepChoirWindow } from "./choir-gesture.js";
+import { choirRubHeard } from "./choir-rub.js";
 import { crankHeard } from "./crank.js";
 import { fleetHeard } from "./fleet.js";
 import { gripPushHeard } from "./grip-push.js";
@@ -64,10 +65,10 @@ export function fieldHandsHeard(world: World, commands: readonly TimedCommand[])
   // the one `drag` in the game that is a hand on a *control* rather than on
   // something the field is carrying.
   for (const c of commands) crankHeard(world, c.player, c.command);
-  // THE CHOIR's two arrows, read on the tick with the other four hands for
-  // their reason: how far the pilot has carried one is never stale, and the
-  // window between the two of them is counted in ticks (`choir-gesture.ts`).
-  for (const c of commands) choirArrowHeard(world, c.player, c.command);
+  // THE CHOIR's rub, read on the tick with the other four hands: whether the
+  // other seat is rubbing too is a count of ticks, and so is the window the
+  // turns keep open (`choir-rub.ts`).
+  for (const c of commands) choirRubHeard(world, c.player, c.command);
   stepChoirWindow(world);
   // And a membrane that has finished drawing together, which is where the
   // colour arrives and the body becomes something a shot can reach. On the

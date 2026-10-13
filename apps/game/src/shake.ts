@@ -12,21 +12,21 @@ import type { InputBuffer } from "./input-buffer.js";
  * gesture and can be refused; a refusal, a missing sensor and a page served
  * over plain `http` are the same silence. Some browsers deliver the event with
  * every field `null`. A feature check that answered "yes" to all of those
- * would be worse than no check at all — it would hide the arrows from a pilot
+ * would be worse than no check at all — it would hide the rub from a pair
  * whose phone was never going to answer.
  *
- * So the game **offers both, always**: this listener, and the two arrows drawn
- * against the walls of the field (`render/choir-arrows.ts`). Whichever the
- * pilot's hands and their phone can manage is the one they use, and neither is
- * hidden on the strength of a guess. That is the owner's own decision, taken
+ * So the game **offers both, always**: this listener, and the rub in the
+ * middle of the field that both seats make together (`render/choir-rub.ts`).
+ * Whichever the pair's hands and their phone can manage is the one they use,
+ * and neither is hidden on the strength of a guess. That is the owner's own decision, taken
  * when the question was put to him.
  *
  * **What it sends is one flat command with nothing on it.** How hard a phone
  * was moved is decided here, because this is the only side of the wire that
  * has the numbers; a threshold crossed on one device is a fact the other must
  * simply be told (`sim/command-types.ts`). And it is always player 1's: the
- * pilot is the seat that owns the gesture, and `choirArrowHeard` refuses seat
- * 2 outright for the same reason (`sim/choir-gesture.ts`).
+ * pilot is the seat that owns the shake — the rub is both seats', and counts
+ * nothing made alone (`sim/choir-gesture.ts`, `sim/choir-rub.ts`).
  */
 
 /**

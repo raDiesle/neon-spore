@@ -149,17 +149,18 @@ export const OTHER_ACTIONS: readonly FieldAction[] = [
     title: "SHAKE",
     says:
       "Shake the phone — or, on a phone that cannot tell or on a computer, " +
-      "swipe outward on one side and then the other.",
+      "both seats rub the middle of the field together.",
     gestures: ["SHAKE"],
     types: [
       {
         key: "shake",
         title: "SHAKE",
         says:
-          "Both ways are offered always: the shake itself, and an arrow against " +
-          "each wall of the field marked SWIPE (`apps/game/src/shake.ts`, " +
-          "`render/choir-arrows.ts`).",
-        rows: ["THE CHOIR'S LEFT ARROW", "THE CHOIR'S RIGHT ARROW"],
+          "Both ways are offered always: the shake itself, and the RUB in the " +
+          "middle of the field that both seats make at once — the owner, 13 " +
+          "October 2026 (`apps/game/src/shake.ts`, `render/choir-rub.ts`).",
+        rubLab: "8-both-zigzag",
+        rows: ["THE CHOIR'S RUB"],
       },
     ],
   },

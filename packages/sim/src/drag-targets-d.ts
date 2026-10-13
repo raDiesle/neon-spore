@@ -81,8 +81,8 @@ export type DragTargetD =
  * clockwise is the wheel's counter-clockwise, and nothing on either screen
  * says so (`gimbal.ts`, `MirroredBearing`).
  *
- * Two names rather than one target and a side, for `choirLeft`'s reason and
- * one more: **geometry says which ring is whose** — the outer is always the
+ * Two names rather than one target and a side, because there is exactly one
+ * of each, and one more: **geometry says which ring is whose** — the outer is always the
  * pilot's, the inner always the navigator's — so the seat is checked against
  * the name here rather than carried beside it (`gimbal-hand.ts`). No `id`:
  * there is one gimbal.

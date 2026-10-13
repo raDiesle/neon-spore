@@ -27,8 +27,7 @@ const ACCEPTED: Command[] = [
   // THE CHOIR's two arrows, and the sign is the whole of the gesture: the left
   // one counts only carried left. A codec that dropped these would leave the
   // pilot opening a membrane on their own phone and nowhere else.
-  { kind: "drag", target: "choirLeft", on: true, fromMilli: -2000 },
-  { kind: "drag", target: "choirRight", on: true, fromMilli: 2000 },
+  { kind: "drag", target: "choirRub", on: true, fromMilli: 0, id: 3 },
   // THE BALLOON's two handles, and the first pair on this wire that is one
   // gesture in two *seats*: the left is the pilot's and the right the
   // navigator's, both carrying the body's id. A codec that dropped either
@@ -381,8 +380,7 @@ const EVERY_TARGET: Record<DragTarget, true> = {
   wardenTether: true,
   lidString: true,
   gripBody: true,
-  choirLeft: true,
-  choirRight: true,
+  choirRub: true,
   balloonLeft: true,
   balloonRight: true,
   sinewLeft: true,

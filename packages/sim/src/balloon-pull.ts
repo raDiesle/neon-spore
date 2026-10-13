@@ -90,7 +90,7 @@ export function balloonIsRubbed(cfg: SimConfig, c: Creature): boolean {
  * One seat's hand on one of the two handles, off the wire.
  *
  * Which target belongs to which seat is checked here rather than at the hit
- * test, for `choirPulled`'s reason: a device that decided for itself whose
+ * test, for the reason THE CHOIR's rub is checked in the simulation: a device that decided for itself whose
  * gesture a message was would be a device the other one cannot check.
  *
  * `fromMilli` is how far the hand has come from where it grabbed, in

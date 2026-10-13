@@ -136,8 +136,6 @@ export const DRAGS = [
   "mazeString",
   "wardenTether",
   "lidString",
-  "choirLeft",
-  "choirRight",
   "balloonLeft",
   "balloonRight",
   "sinewLeft",

@@ -8,7 +8,7 @@ import {
   wardenHandleMilli,
 } from "@neon-spore/sim";
 import { balloonHandleCircle, balloonHandleSeat } from "./balloon-handles.js";
-import { choirArrowCircle, showsChoirArrows } from "./choir-arrows.js";
+import { choirRubCircle, showsChoirRub } from "./choir-rub.js";
 import { fieldPoint, handleRadius } from "./handle-draw.js";
 import { bossHandleCircle } from "./handle-place-boss.js";
 import type { Circle, Layout } from "./layout.js";
@@ -58,14 +58,13 @@ export function handleCircle(
   col?: number,
 ): Circle | null {
   const cfg = world.cfg;
-  if (target === "choirLeft" || target === "choirRight") {
-    // The two arrows are the one handle that is *placed* rather than found: a
-    // membrane is on the field or it is not, and the arrows stand against the
-    // walls either way they are drawn. `showsChoirArrows` is the same gate the
-    // drawing and the hit test ask, so a ring can never be put round an arrow
-    // nobody was shown — including on the navigator's screen, which has none.
-    if (!showsChoirArrows(l, world.creatures)) return null;
-    return choirArrowCircle(l, target === "choirLeft" ? -1 : 1);
+  if (target === "choirRub") {
+    // THE CHOIR's rub is the one handle that is *placed* rather than found: a
+    // membrane is on the field or it is not, and the mark stands in the middle
+    // either way. `showsChoirRub` is the same gate the drawing and the hit
+    // test ask, so a ring can never be put round a mark nobody was shown.
+    if (!showsChoirRub(world.creatures)) return null;
+    return choirRubCircle(l);
   }
   if (target === "balloonLeft" || target === "balloonRight") {
     // THE BALLOON's two, and they are the reason this branch had to exist: a

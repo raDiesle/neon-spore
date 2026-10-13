@@ -1,6 +1,7 @@
 /**
- * THE CHOIR's numbers: how far a hand has to carry an arrow, how long the pair has between the two of them, what the
- * song costs the hull and what the merge is worth (`choir.ts`).
+ * THE CHOIR's numbers: how many turns the pair rubs together, how close
+ * together the two seats' turns have to be, how long the pair has, and how
+ * long the merge takes (`choir.ts`, `choir-rub.ts`).
  *
  * `SimConfig` extends this rather than nesting it, for the reason
  * `config-recoil.ts` and `config-ghost.ts` already give: every call site still
@@ -9,25 +10,32 @@
  *
  * **Its own file rather than four more rows in `config-creatures.ts`.** THE
  * RECOIL's file next door makes the argument these five make more strongly:
- * the four are decided **together**. How far the hand travels, how long it has to
- * make the second trip and what failing costs are one decision about how hard
- * the gesture is, and a reader who moves one has to move the other two.
+ * these are decided **together**. How many turns, how close the two seats'
+ * turns, and how long a pause lapses are one decision about how hard the
+ * gesture is, and a reader who moves one has to move the others.
  */
 export interface ChoirConfig {
   /**
-   * Thousandths of a tile a hand has to carry an arrow, **outward**, before
-   * that arrow counts as moved. A tile and a half: far enough that a thumb
-   * resting against the edge of the glass never sends one by accident, short
-   * enough that both trips fit inside the window below on a phone held in one
-   * hand.
+   * Turns of the rub made together — by either seat, while the other is
+   * rubbing too — that draw the membranes together. Eight: two seats scrubbing
+   * at an easy four turns a second make it in a second, which is a gesture
+   * made together rather than a race (THE RUB LAB's 8 TURNS).
    */
-  choirPullMilli: number;
+  choirRubTurns: number;
   /**
-   * Beats between the first arrow moving and the second having to. Two, and
+   * Beats since the other seat's last turn inside which a turn still counts
+   * as made together. One — THE RUB LAB's BOTH AT ONCE: long enough that two
+   * thumbs scrubbing at their own pace overlap, short enough that one seat
+   * cannot rub now and the other later.
+   */
+  choirTogetherBeats: number;
+  /**
+   * Beats between the first shake and the second having to land, and the
+   * longest a rub may stop being made together before it lapses. Two, and
    * the owner named the number while the creature was being designed. It is
    * the shortest interval that is still a *thing said out loud* rather than a
    * reflex — at one beat the pilot is racing their own hand, and at four the
-   * two gestures stop being one gesture and the field goes quiet between them.
+   * two moves stop being one gesture and the field goes quiet between them.
    */
   choirWindowBeats: number;
   /**
@@ -45,7 +53,8 @@ export interface ChoirConfig {
 
 /** The defaults, spread into `DEFAULT_CONFIG`. */
 export const CHOIR_DEFAULTS: ChoirConfig = {
-  choirPullMilli: 1500,
+  choirRubTurns: 8,
+  choirTogetherBeats: 1,
   choirWindowBeats: 2,
   choirFuseBeats: 1,
 };

@@ -66,12 +66,17 @@ export function shipHashParts(world: World): number[] {
   // finger last was disagree about how far the arm came down for the sample
   // after it (`crank.ts`).
   out.push(world.crankAtMilli);
-  // THE CHOIR's half-made gesture. Two devices that disagree about which
-  // arrow is out, or about the tick its window shuts on, disagree about
-  // whether the next pull merges a body or makes it sing — and therefore about
-  // what the hull is worth a beat later (`choir-gesture.ts`).
+  // THE CHOIR's half-made gesture. Two devices that disagree about what is
+  // under way, or about the tick its window shuts on, disagree about whether
+  // the next move merges a body or makes it sing — and therefore about what
+  // the hull is worth a beat later (`choir-gesture.ts`). And its rub: when
+  // each seat last turned decides whether the other's next turn counts
+  // (`choir-rub.ts`).
   out.push(world.choirArm);
   out.push(world.choirArmTick);
+  out.push(world.choirRubAt1, world.choirRubAt2);
+  out.push(world.choirTurnTick1, world.choirTurnTick2);
+  out.push(world.choirRubbed);
   out.push(world.wardUntilTick);
   out.push(world.lastFireTick);
   return out;

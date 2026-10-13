@@ -126,9 +126,9 @@ export const OTHER_LOOKS: Readonly<Record<string, UseLook>> = {
     move: "A tap draws a red sight round it and locks the cannon on it, green; the navigator's next shot hits it from the side.",
   },
   // SHAKE
-  "THE CHOIR'S LEFT ARROW": {
-    find: "Two big arrows against the walls of the field, each marked SWIPE, on the pilot's screen while a membrane is up.",
-    move: "One outward swipe opens a window and the whole screen starts shaking; the second, at the other wall, draws the two voices together.",
+  "THE CHOIR'S RUB": {
+    find: "The red rub mark in the middle of the field, on both screens while a membrane is up, a light for each seat at its sides and a pip for each turn under it.",
+    move: "A seat's light goes green while its thumb is turning; with both lit, each turn lights a pip, and the last draws the two voices together.",
   },
   // ONE MARK WHOSE GESTURE CHANGES STEP BY STEP, filed under every type a step uses
   "THE GALL'S TAPS AND PULL": {

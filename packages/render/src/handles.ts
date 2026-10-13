@@ -13,7 +13,7 @@ import { gimbalRingUnder } from "./gimbal-grip.js";
 import { gorgeGripUnder } from "./gorge-grip.js";
 import { governorGripUnder } from "./governor-grip.js";
 import { lidCordUnder, mazeStringUnder, wardenRopeUnder } from "./handles-cords.js";
-import { balloonHandleUnder, choirArrowUnder } from "./handles-pairs.js";
+import { balloonHandleUnder, choirRubUnder } from "./handles-pairs.js";
 import { haspHandleUnder, haspRimUnder } from "./hasp-grip.js";
 import { hiveLobeUnder } from "./hive-grip.js";
 import { hiveLockUnder } from "./hive-lock.js";
@@ -93,7 +93,7 @@ export function handleUnder(l: Layout, x: number, y: number, field: Field): Touc
     wardenGripUnder(l, x, y, field) ?? // THE WARDEN's eye under NARROW and GLARE (`warden-grip.ts`).
     lidCordUnder(l, x, y, field) ??
     balloonHandleUnder(l, x, y, field) ??
-    choirArrowUnder(l, x, y, field) ??
+    choirRubUnder(l, x, y, field) ??
     sinewHandleUnder(l, x, y, field) ??
     surgeBulbUnder(l, x, y, field) ??
     antiphonOrganUnder(l, x, y, field) ??

@@ -2149,7 +2149,7 @@ the layered ring work are a fair reference for what a boss frame should feel
 like, and `docs/style-guide.md` would not disagree with most of it. Three things
 on it may not come across: the **HP bar** on every card (correction 2), the
 **instruction text** under every card — which the brief's own cinematic rule
-forbids, and which the game answers with `target-lock.ts`, `choir-arrows.ts`,
+forbids, and which the game answers with `target-lock.ts`, `choir-rub.ts`,
 `grip-arrows.ts` and the radar instead — and **both players' hulls in one
 frame**, which is the game the brief was imagining rather than this one.
 

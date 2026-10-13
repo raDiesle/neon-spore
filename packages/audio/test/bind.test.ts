@@ -718,7 +718,8 @@ const SAMPLES: Record<string, SimEvent> = {
   coilJump: { type: "coilJump", id: 9, col: 4, row: 6 },
   choirMerge: { type: "choirMerge", id: 10, col: 3, row: 5, kind: "slick" },
   choirOpen: { type: "choirOpen", id: 10, col: 3, row: 5, kind: "slick", color: "red" },
-  choirArm: { type: "choirArm", side: -1 },
+  choirArm: { type: "choirArm", arm: 3 },
+  choirRubTurn: { type: "choirRubTurn", player: 1, rubbed: 2, together: true },
   choirSing: { type: "choirSing", col: 3, row: 5 },
   balloonSplit: { type: "balloonSplit", col: 3, row: 5 },
   balloonPop: { type: "balloonPop", col: 3, row: 5 },
@@ -789,7 +790,10 @@ describe("bindings", () => {
   // 2026, when its levels stopped starting over.) THE LAMPREY's food
   // falling and its crawl across the field are
   // silent: the crawl is seen, and the bodies falling have their own sounds.
+  // THE CHOIR's `choirRubTurn` is a turn of a thumb on the rub, many a
+  // second: the window opening is heard, as `choirArm`, and the merge.
   const SILENT_BY_DESIGN = new Set([
+    "choirRubTurn",
     "lampreyFeed",
     "lampreyRoam",
     "needWave",

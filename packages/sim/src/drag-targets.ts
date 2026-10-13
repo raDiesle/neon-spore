@@ -22,8 +22,7 @@ export type DragTarget =
   | "wardenTether"
   | "lidString"
   | "gripBody"
-  | "choirLeft"
-  | "choirRight"
+  | "choirRub"
   | "balloonLeft"
   | "balloonRight"
   | "crank"
@@ -46,13 +45,11 @@ export type DragTarget =
   | DragTargetB;
 
 /**
- * `choirLeft` and `choirRight` are the fifth and sixth, and the first pair
- * that is one gesture in two places: the two arrows standing against the walls
- * of the field while a membrane is up (`choir-gesture.ts`). Two names rather
- * than one target and a side, for the reason `id` is absent on `mazeString` —
- * there is exactly one of each, so each has exactly one name, and a side
- * carried beside a shared name would be a second, weaker way of saying which
- * arrow the hand is on.
+ * `choirRub` is the fifth: THE CHOIR's one mark in the middle of the field,
+ * rubbed by both seats at once, a `RubCount` (`choir-rub.ts`). It took the
+ * place of the two arrows against the walls, `choirLeft` and `choirRight`, on
+ * 13 October 2026. One mark, whatever is on the field: `id` is the count of
+ * turns, as every rub's is (`render/rub.ts`).
  */
 
 /**

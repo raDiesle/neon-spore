@@ -2,8 +2,8 @@ import type { World } from "@neon-spore/sim";
 import { drawBeatboxMarks } from "./beatbox-marks.js";
 import { drawBoss } from "./boss-draw.js";
 import { drawBullets } from "./bullets.js";
-import { drawChoirArrows } from "./choir-arrows.js";
 import { drawChoirPrompt } from "./choir-prompt.js";
+import { drawChoirRub } from "./choir-rub-draw.js";
 import { drawCodexShimmer } from "./codex.js";
 import { drawCrawlers } from "./crawler.js";
 import { drawCreatures } from "./creatures.js";
@@ -219,12 +219,11 @@ export function drawBodies(
   // told something the other is not — with the difference that what it names
   // is a *gesture* rather than a fact (`choir-prompt.ts`).
   drawChoirPrompt(ctx, l, world, view.beatPhase, view.time);
-  // And the two arrows the same gesture can be made with on a device that
-  // cannot report a shake. Against the walls of the field rather than over any
-  // body, so they go down with the field pass and not with the panel: they are
-  // handles, and every handle in this game hangs over the field
-  // (`choir-arrows.ts`, `handles.ts`).
-  drawChoirArrows(ctx, l, world, view.time);
+  // And the rub both seats can make the same gesture with, on a device that
+  // cannot report a shake. In the middle of the field and on both screens, so
+  // it goes down with the field pass and not with the panel: it is a handle,
+  // and every handle in this game hangs over the field (`choir-rub.ts`).
+  drawChoirRub(ctx, l, world, view.time);
   // Over the creatures, under everything the ship does: a hand on something
   // is not an effect this file owns — it is world state, read fresh.
   drawGrips(ctx, l, world, view.beatPhase, view.time, view.names);

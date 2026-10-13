@@ -85,9 +85,9 @@ export const ROW_NOTES: Readonly<Record<string, string>> = {
   "THE LID'S CORD":
     "THE WARDEN's tether made generic already — a creature's cord pulled " +
     "as a level. The model for the LEVER.",
-  "THE CHOIR'S LEFT ARROW":
-    "The fallback for a phone with no motion, one at each wall. Keep, and " +
-    "keep it for every sensor the game ever reads.",
+  "THE CHOIR'S RUB":
+    "The fallback for a phone with no motion: the one generic RUB, both seats " +
+    "at once. Keep, and keep it for every sensor the game ever reads.",
   "THE LIGHT": "Keep. The only generic press that is on both screens at once.",
   "THE GAUGE'S TONGUE":
     "A PULL whose direction is the seat's own choice — the owner's reading, " +

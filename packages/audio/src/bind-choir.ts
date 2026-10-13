@@ -15,7 +15,10 @@ import { type Cue, panForCol, pitchForRow } from "./bind.js";
  * and that is a different sentence from *what just happened to that thing*.
  */
 export function choirCue(
-  e: Extract<SimEvent, { type: "choirMerge" | "choirOpen" | "choirArm" | "choirSing" }>,
+  e: Extract<
+    SimEvent,
+    { type: "choirMerge" | "choirOpen" | "choirArm" | "choirSing" | "choirRubTurn" }
+  >,
   cols: number,
   rows: number,
 ): Cue | null {
@@ -26,23 +29,18 @@ export function choirCue(
       // exactly what this moment is: the pilot has started something the
       // navigator cannot see the beginning of and has two beats to finish.
       //
-      // **Panned to the side the hand is on** and nothing else. There is no
-      // row to pitch off — an arrow stands against a wall of the field, not on
-      // a tile — and the side *is* the information: which one is left to
-      // carry. `-1` is the left wall, so the pan is the side itself read as a
-      // column at either end of the field.
-      // Panned to the wall the hand is on, and dead centre for a shake, which
-      // has no side at all: the phone is the whole device and pointing that at
-      // one edge of the field would be inventing a place for it.
-      return {
-        id: "signal.announce",
-        pan: e.side === 2 ? 0 : panForCol(e.side === -1 ? 0 : cols - 1, cols),
-      };
+      // Dead centre: a shake has no side at all, and the rub is in the
+      // middle of the field.
+      return { id: "signal.announce", pan: 0 };
+    case "choirRubTurn":
+      // Silent: the turn's answer is the stroke it lights on the mark
+      // (`render/choir-rub.ts`), at four a second from each seat.
+      return null;
     case "choirMerge":
       // The gesture landing, which is not yet the body opening: the two are
       // drawing together and there is still nothing to shoot. It is
       // deliberately **silent** — the screen is shaking on this beat and the
-      // arrow that started it already announced itself, so a third sound here
+      // move that started it already announced itself, so a third sound here
       // would be the game saying the same thing three ways.
       return null;
     case "choirOpen":

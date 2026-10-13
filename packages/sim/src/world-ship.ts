@@ -65,16 +65,25 @@ export interface ShipState {
    * winding moves is `reachMilli` above (`crank.ts`). */
   crankAtMilli: number;
   /**
-   * THE CHOIR's half-made gesture: which of the two arrows the pilot has
-   * carried outward, `2` for a phone shaken once, `0` while nothing has been
-   * done (`NO_CHOIR_ARM`, `CHOIR_SHAKEN`). It is ship state beside `guardTick`
+   * THE CHOIR's half-made gesture: `2` for a phone shaken once, `3` for a rub
+   * under way, `0` while nothing has been done (`NO_CHOIR_ARM`,
+   * `CHOIR_SHAKEN`, `CHOIR_RUBBED`). It is ship state beside `guardTick`
    * rather than a field of any one body, because a hand belongs to a seat and
    * a wave may put two membranes on the field at once (`choir-gesture.ts`).
    */
-  choirArm: -1 | 0 | 1 | 2;
-  /** The tick that arm's window shuts on. Past it with only one arrow out,
+  choirArm: 0 | 2 | 3;
+  /** The tick that arm's window shuts on. Past it with the gesture half made,
    * the thing sings and the hull pays (`stepChoirWindow`). */
   choirArmTick: number;
+  /** THE CHOIR's rub: the turns each seat's thumb last reported since it went
+   * down, so only fresh ones count, and the tick of each seat's last turn, so a
+   * turn knows whether the other seat is rubbing too (`choir-rub.ts`). */
+  choirRubAt1: number;
+  choirRubAt2: number;
+  choirTurnTick1: number;
+  choirTurnTick2: number;
+  /** Turns made together in the window open now, towards `choirRubTurns`. */
+  choirRubbed: number;
   /** Last tick the shield still counts as armed without a trigger, set by a `ward` pod. */
   wardUntilTick: number;
   lastFireTick: number;
@@ -144,6 +153,11 @@ export function newShipState(cfg: SimConfig): ShipState {
     crankAtMilli: NO_BEARING,
     choirArm: 0,
     choirArmTick: 0,
+    choirRubAt1: 0,
+    choirRubAt2: 0,
+    choirTurnTick1: -1_000_000,
+    choirTurnTick2: -1_000_000,
+    choirRubbed: 0,
     wardUntilTick: -1_000_000,
     lastFireTick: -1_000_000,
     gripP1: NO_GRIP,

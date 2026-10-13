@@ -21,9 +21,9 @@ export type TouchCommand =
    * and a threshold crossed on one device is a fact the other must simply be
    * told rather than re-derive from a reading it never saw.
    *
-   * The two arrows that stand in for it where no device reports a shake are
-   * **not** this command: they are `drag`s at `choirLeft` and `choirRight`,
-   * because they are a hand carrying something and not a press.
+   * The rub that stands in for it where no device reports a shake is **not**
+   * this command: it is a `drag` at `choirRub` from each seat, carrying its
+   * count of turns, because it is a thumb on something and not a press.
    */
   | { kind: "shake" }
   /**

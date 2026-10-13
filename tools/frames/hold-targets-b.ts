@@ -163,6 +163,10 @@ export const ROWS: Record<string, Row> = {
   // the navigator's, the default `by`, and the pilot's for `by` 1.
   blisterTurn: { seat: 2, id: true },
   blisterTurn1: { as: "blisterTurn", id: true },
+  // `choir-rub.ts`: either seat's thumb on the middle, `id` the reversal
+  // count; a turn counts only while the other seat's is turning too.
+  choirRub: { id: true },
+  choirRub2: { seat: 2, as: "choirRub", id: true },
   // `blister-rub.ts`: a reversal count in `id`, the body riding `fromMilli`.
   blisterRub: { seat: 2, id: true },
   blisterRub1: { as: "blisterRub", id: true },

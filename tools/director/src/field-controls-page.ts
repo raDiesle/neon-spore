@@ -81,38 +81,24 @@ export const FIELD_CONTROLS: readonly FieldControlDef[] = [
     pose: "LID · THE EYE OPEN",
   },
   {
-    name: "THE CHOIR'S LEFT ARROW",
-    where: "against the left wall of the field, while a membrane is up",
-    seat: "player 1 — the pilot makes the gesture, player 2 finishes the body",
+    name: "THE CHOIR'S RUB",
+    where: "in the middle of the field, on both screens, while a membrane is up",
+    seat: "both at once — a turn counts only while the other seat is rubbing too",
     gesture: "grab and drag",
     does:
-      "Carried outward — leftward, over the wall it stands against — it opens " +
-      "a two-beat window and the whole screen starts shaking. Carried inward " +
-      "it is wrong, and the thing sings: the hull pays for the chord. It is " +
-      "the alternative to shaking the phone, drawn always rather than behind " +
-      "a check, because no browser can be asked reliably whether a shake is " +
-      "available (sim/choir-gesture.ts, render/choir-arrows.ts).",
-    source: "touch.ts — choirArrowUnder() under handleUnder()",
+      "Scrubbed back and forth by both seats together, it opens the window on " +
+      "the first turn made together and keeps it open while the turns go on; " +
+      "eight made together draw the two into a single slick or bulb. A turn " +
+      "made alone counts nothing, and a rub that stops short lets the window " +
+      "shut, and the thing sings. It is the alternative to shaking the phone, " +
+      "drawn always because no browser can be asked reliably whether a shake " +
+      "is available (sim/choir-rub.ts, render/choir-rub.ts).",
+    source:
+      "handles-pairs.ts — choirRubUnder() under handleUnder(); the reversals counted in packages/render/src/rub.ts",
     holdKind: "drag",
-    dragTarget: "choirLeft",
+    dragTarget: "choirRub",
     sends: ["drag"],
-    pose: "CHOIR · SWIPE OR SHAKE",
-  },
-  {
-    name: "THE CHOIR'S RIGHT ARROW",
-    where: "against the right wall of the field, while a membrane is up",
-    seat: "player 1 — the pilot makes the gesture, player 2 finishes the body",
-    gesture: "grab and drag",
-    does:
-      "The same control at the other wall, and the second half of one " +
-      "gesture: carried outward inside the window the first one opened, the " +
-      "two draw together into a single slick or bulb. Two pulls on one side " +
-      "is one gesture done twice and opens nothing (sim/choir-gesture.ts).",
-    source: "touch.ts — choirArrowUnder() under handleUnder()",
-    holdKind: "drag",
-    dragTarget: "choirRight",
-    sends: ["drag"],
-    pose: "CHOIR · SWIPE OR SHAKE",
+    pose: "CHOIR · RUB OR SHAKE",
   },
   // Every boss's own rows, in the order they were built, next door:
   // `field-controls-bosses.ts`.

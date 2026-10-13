@@ -829,10 +829,12 @@ climbs each beat until its canopy opens at the top of the field — four, becaus
 the picture has to say *thrown*. `chuteFallBeats` is the beats between one row
 and the next on the way back down, two, THE ECHO's rate.
 
-**THE CHOIR** (`packages/sim/src/config-choir.ts`). `choirPullMilli` is the
-thousandths of a tile a hand has to carry an arrow outward before it counts as
-moved, a tile and a half. `choirWindowBeats` is the beats between the first
-arrow moving and the second having to, two. `choirFuseBeats` is the beats the
+**THE CHOIR** (`packages/sim/src/config-choir.ts`). `choirRubTurns` is the
+turns both seats have to make together on the rub in the middle of the field,
+eight. `choirTogetherBeats` is how recently the other seat must have turned for
+a turn to count, one beat. `choirWindowBeats` is the beats between the first
+shake and the second having to land, two — and the beats a rub may pause
+between two turns made together before the window shuts. `choirFuseBeats` is the beats the
 two bodies take to draw together once the gesture has landed — one, and it is
 the length of the picture, not a penalty.
 

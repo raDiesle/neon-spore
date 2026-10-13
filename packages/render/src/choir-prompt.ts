@@ -1,4 +1,11 @@
-import { choirArmed, choirIsDots, choirIsFusing, type World } from "@neon-spore/sim";
+import {
+  CHOIR_RUBBED,
+  CHOIR_SHAKEN,
+  choirArmed,
+  choirIsDots,
+  choirIsFusing,
+  type World,
+} from "@neon-spore/sim";
 import { creatureCenter } from "./creature-place.js";
 import type { Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
@@ -29,10 +36,10 @@ import { showsCannon } from "./view-role.js";
  * (`choir.ts`), and a prompt in red or cyan would be the one part of the
  * picture promising player 2 a shot.
  *
- * **Player 1's screen only.** The pilot is the seat that can shake the phone
- * and the seat the arrows are drawn on (`choir-arrows.ts`); an instruction on
- * the navigator's screen would be telling the wrong person to do something
- * their device will refuse (`choirArrowHeard` refuses seat 2 outright).
+ * **Player 1's screen only.** The pilot is the seat that can shake the phone;
+ * an instruction to shake on the navigator's screen would be telling the
+ * wrong person to do something their device will refuse. The rub both seats
+ * make says its own word, on both screens (`choir-rub-draw.ts`).
  */
 
 /**
@@ -59,7 +66,7 @@ export function drawChoirPrompt(
   for (const c of world.creatures) {
     // A membrane already closing is one nobody has to do anything about: the
     // gesture worked, and an instruction still standing over it would be
-    // telling the pilot to shake a thing that is halfway shut. The arrows go
+    // telling the pilot to shake a thing that is halfway shut. The rub goes
     // for the same reason and by the same test (`choirOnField`).
     if (!choirIsDots(c) || choirIsFusing(c)) continue;
     const { x, y } = creatureCenter(l, world, c, beatPhase);
@@ -83,7 +90,14 @@ export function drawChoirPrompt(
     // being asked for changes: a pilot who has shaken once needs to know the
     // gesture took and that a second one finishes it, and "SHAKE SCREEN" over
     // a pair that is already glowing reads as the first one having failed.
-    const word = choirArmed(world) === null ? "SHAKE SCREEN" : "SHAKE AGAIN";
+    // A rub under way is not a shake half made: it says to keep on.
+    const armed = choirArmed(world);
+    const word =
+      armed === CHOIR_SHAKEN
+        ? "SHAKE AGAIN"
+        : armed === CHOIR_RUBBED
+          ? "KEEP RUBBING"
+          : "SHAKE SCREEN";
     ctx.fillText(word, dot.x, dot.y + halfH + 18);
     ctx.restore();
     ctx.textAlign = "left";

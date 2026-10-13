@@ -18,15 +18,13 @@ import type { WaveEntry } from "../src/wave-types.js";
  * Neither of them is a thumb on a button, and neither could be written into a
  * film at all — which is why the one wave in the game that can least afford a
  * prose guide had one. A **shake** is a hand nowhere on the screen: no control,
- * no column, no seat and nothing to let go of. The **two arrows** are a hand on
- * the field, but unlike the three cords they do not travel: an arrow is a
- * switch, and what counts is how far the hand came and which way
- * (`sim/choir-gesture.ts`).
+ * no column, no seat and nothing to let go of. The **rub** is both seats'
+ * thumbs on the mark in the middle, turning back and forth, counted only
+ * together (`sim/choir-rub.ts`).
  *
  * So the acts are proved here on a real world rather than on the shape of the
- * commands, `scene-drag.test.ts`'s bargain: the failures that matter are a
- * carry that goes the wrong way, one that stops short of `choirPullMilli`, and
- * two trips that fall outside the window — all three silent in the picture,
+ * commands, `scene-drag.test.ts`'s bargain: the failures that matter are a rub
+ * one seat makes alone, and one stopped too soon — both silent in the picture,
  * where what a pair sees is a tutorial teaching a gesture that does not work.
  */
 
@@ -44,7 +42,7 @@ const CFG = { ...DEFAULT_CONFIG, bpm: SCENE.bpm, briefings: false };
 interface Played {
   /** Whether a membrane was still unopened, per tick. */
   dots: boolean[];
-  /** Which arrow was standing out, per tick. */
+  /** What was under way, per tick. */
   armed: (number | null)[];
   events: SimEvent[];
 }
@@ -113,55 +111,45 @@ describe("a rehearsal that shakes the device", () => {
   });
 });
 
-describe("a rehearsal that carries the two arrows", () => {
-  const BOTH: SceneAct[] = [
-    { tick: 90, drag: "choirLeft", until: 120 },
-    { tick: 180, drag: "choirRight", until: 210 },
-  ];
+describe("a rehearsal that rubs the mark", () => {
+  const rub = (tick: number, until: number, hand: 1 | 2): SceneAct => ({
+    tick,
+    drag: "choirRub",
+    hand,
+    until,
+  });
+  const BOTH: SceneAct[] = [rub(90, 270, 1), rub(90, 270, 2)];
 
-  it("arms on the first and merges on the second", () => {
+  it("both seats at once, for long enough, merges", () => {
     const played = play(BOTH);
     expect(
-      played.armed.some((a) => a === -1),
-      "the left arrow never went out",
+      played.armed.some((a) => a !== null),
+      "the rub never got under way",
     ).toBe(true);
-    expect(merged(played), "the second arrow did not finish the gesture").toBe(true);
+    expect(merged(played), "the rub did not finish the gesture").toBe(true);
   });
 
-  it("carries each arrow outward, off its own edge", () => {
-    // The rule the film must not have to know: left goes left and right goes
-    // right, read off the target. A carry the other way makes the thing sing,
-    // which is the pair being plainly wrong rather than merely late.
-    const left = sceneCommands({ tick: 10, drag: "choirLeft", until: 40 }, CFG);
-    const right = sceneCommands({ tick: 10, drag: "choirRight", until: 40 }, CFG);
-    const far = (cs: typeof left) =>
-      cs.map((c) => (c.command.kind === "drag" ? c.command.fromMilli : 0));
-    expect(Math.min(...far(left))).toBe(-CFG.choirPullMilli);
-    expect(Math.max(...far(right))).toBe(CFG.choirPullMilli);
-    // And across rather than down: `choirArrowHeard` reads the x and nothing
-    // else, so a carry spelled on the other axis would say nothing at all.
-    for (const c of [...left, ...right]) {
-      expect(c.command.kind === "drag" && c.command.fromYMilli).toBe(0);
-    }
+  it("sends a turn count, one more each turn, from the seat the act names", () => {
+    const cs = sceneCommands(rub(10, 100, 2), CFG);
+    expect(cs.every((c) => c.player === 2)).toBe(true);
+    const ids = cs.map((c) => (c.command.kind === "drag" ? c.command.id : -1));
+    expect(ids.slice(0, 3)).toEqual([0, 1, 2]);
+    const last = cs.at(-1)?.command;
+    expect(last?.kind === "drag" && last.on).toBe(false);
   });
 
-  it("sings when only one of the two is carried", () => {
+  it("one seat alone counts nothing, however long it rubs", () => {
+    const alone = play([rub(90, 450, 1)]);
+    expect(merged(alone)).toBe(false);
+    expect(alone.armed.every((a) => a === null)).toBe(true);
+  });
+
+  it("sings when the pair stops too soon", () => {
     // The wave's own sentence: the half-made gesture is worse than none at
-    // all. The window shuts `choirWindowBeats` after the first arrow.
-    const half = play([{ tick: 90, drag: "choirLeft", until: 120 }]);
-    expect(merged(half), "one arrow merged the membrane").toBe(false);
+    // all. The window shuts `choirWindowBeats` after the last turn made together.
+    const half = play([rub(90, 150, 1), rub(90, 150, 2)]);
+    expect(merged(half), "two turns merged the membrane").toBe(false);
     expect(sang(half), "the window shut and nothing happened").toBe(true);
     expect(half.events.some((e) => e.type === "waveFailed")).toBe(true);
-  });
-
-  it("does nothing at all when the second trip is late", () => {
-    // Two beats is the window, so a second arrow four beats out is a lapse
-    // followed by a fresh first arrow — never a merge.
-    const late = play([
-      { tick: 90, drag: "choirLeft", until: 120 },
-      { tick: 450, drag: "choirRight", until: 480 },
-    ]);
-    expect(merged(late)).toBe(false);
-    expect(sang(late)).toBe(true);
   });
 });

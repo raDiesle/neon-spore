@@ -609,9 +609,10 @@ by hand never moves.
 | `packages/sim/src/ratchet-story.ts` | **THE RATCHET's story between the teeth** (`docs/spec/bosses-choreographed.md` §22) |
 | `packages/sim/src/ratchet.ts` | THE RATCHET: a toothed rack down the middle of the field, in full view of both seats |
 | `packages/sim/src/choir-gesture.ts` | **The hand on THE CHOIR**, which is the half of that creature nothing else in this game has |
+| `packages/sim/src/choir-rub.ts` | **THE CHOIR's rub**: both seats scrubbing the one mark in the middle of the field, at the same time |
 | `packages/sim/src/choir.ts` | THE CHOIR: three dots in one membrane, and the first body in this game that **no button can reach** |
 | `packages/sim/src/choke.ts` | THE CHOKE: the cannon strip dead and the cannon walking wall to wall by itself, a column every few beats, for the whole wave |
-| `packages/sim/src/config-choir.ts` | THE CHOIR's numbers: how far a hand has to carry an arrow, how long the pair has between the two of them |
+| `packages/sim/src/config-choir.ts` | THE CHOIR's numbers: how many turns the pair rubs together |
 | `packages/sim/src/config-choke.ts` | THE CHOKE's one number: how many beats the steer fault takes per column of the cannon's walk |
 | `packages/sim/src/config-curtain.ts` | THE CURTAIN's numbers — the row the fabric hangs at, how much of it must stay on the field |
 | `packages/sim/src/events-choir.ts` | **THE CHOIR's three**: an arrow out, both in, and the window gone |
@@ -1043,6 +1044,7 @@ by hand never moves.
 | `packages/content/src/scene-drag-taut.ts` | **How far each handle is carried** when a film does not say |
 | `packages/content/src/scene-act-types.ts` | one moment of a rehearsal — a thumb on a control or a hand on the field, and a field for every gesture the film can show |
 | `packages/content/src/scene-pump.ts` | **A hand working a pump**: THE THROAT's handle |
+| `packages/content/src/scene-rub.ts` | **A thumb rubbing a mark**: THE CHOIR's rub |
 | `packages/content/src/scout-arenas.ts` | THE SCOUT's arenas: four levels, one mote more on each, and the arena is the fight |
 | `packages/content/src/scout-haul-arenas.ts` | THE HAUL's arenas: THE SCOUT again, with a hold that takes every mote on the level at once |
 | `packages/content/src/screen-words.ts` | The sentences a player reads outside a wave: the card a bad line puts up |
@@ -1312,7 +1314,7 @@ by hand never moves.
 | `packages/render/src/gland-tube.ts` | A TUBE AND A CURVE — the two pieces of vector arithmetic every grown thing on VERSUS is drawn out of |
 | `packages/render/src/gland-wet.ts` | WET SKIN — the ship as a clear, light-reflecting surface, with **no grain** |
 | `packages/render/src/handles.ts` | The handles: the things drawn **on the field** that a hand takes hold of and carries, as opposed to the |
-| `packages/render/src/handles-pairs.ts` | **The two handles that come in pairs** — THE CHOIR's arrows against the two walls |
+| `packages/render/src/handles-pairs.ts` | **The two handles that come in pairs** — THE BALLOON's two sides |
 | `packages/render/src/handles-cords.ts` | **The three cords**: THE MAZE's string, THE WARDEN's rope and THE LID's cord |
 | `packages/render/src/hex.ts` | Two `#rrggbb` colours mixed, as a `#rrggbb` colour |
 | `packages/render/src/headroom.ts` | **How far a body standing `tiles` above the grid has to come down to be whole on the canvas**, in pixels |
@@ -2256,7 +2258,6 @@ by hand never moves.
 | `packages/render/src/strip-band.ts` | HOW FAR OFF A STRIP A THUMB MAY LAND AND STILL MEAN IT |
 | `packages/render/src/step-colour.ts` | **A boss step's colour on the canvas**: its cannon's fill and rim |
 | `packages/render/src/maze-timer.ts` | THE MAZE's clock, drawn on the outside of the heart |
-| `packages/render/src/choir-arrows.ts` | **THE CHOIR's two arrows**: the way to open a membrane on a device that cannot tell you it has been shaken |
 | `packages/render/src/choir-prompt.ts` | **The instruction over a membrane**: a scan frame around the middle dot with the gesture written under it |
 | `packages/render/src/choir-quake.ts` | the whole screen shaking, and the only thing in this renderer that moves the picture rather than something in it |
 | `packages/render/src/choir.ts` | THE CHOIR as it stands before the pilot's gesture |
@@ -2369,6 +2370,8 @@ by hand never moves.
 | `packages/render/src/choir-shape.ts` | where THE CHOIR's two bodies stand and the skin traced over them — the shape half, with no light or colour in it |
 | `packages/render/src/choir-skin.ts` | **The light THE CHOIR throws and the film it wears** — the surface half of this creature |
 | `packages/render/src/choir-look.ts` | THE ONE RECORD A CANDIDATE CHOIR SURFACE PATCHES |
+| `packages/render/src/choir-rub-draw.ts` | **THE CHOIR's rub, drawn** — the mark in the middle of the field (`choir-rub.ts`), on both screens |
+| `packages/render/src/choir-rub.ts` | **THE CHOIR's rub**: one mark in the middle of the field, on both screens |
 | `packages/render/src/choke-coil.ts` | **The coil, which is THE CHOKE's one word said in two places.** On the field the choke is wound round the… |
 | `packages/render/src/choke-strip.ts` | **Player 1's cannon strip while THE CHOKE has the cannon.** Drawn over the strip the band has just drawn |
 | `packages/render/src/choke-hull.ts` | THE CHOKE's grip on the cannon over the finished hull — the loops round the swelling while the steer fault has it, and the pilot's light toward the next column |
@@ -3094,7 +3097,7 @@ by hand never moves.
 | `tools/director/src/poses-field-controls-vise.ts` | THE VISE's two hands: a pinch on each lobe, both seats holding the case shut together |
 | `tools/director/src/poses-field-controls-valve.ts` | THE VALVE's two hands, **each photographed from the seat whose half it is** |
 | `tools/director/src/poses-field-controls-capstan.ts` | THE CAPSTAN's rub: the left band asked for, the pilot's thumb pulled over so its face is round |
-| `tools/director/src/poses-field-controls-choir.ts` | THE CHOIR's SHAKE as the pilot is offered it: a membrane on the field and the two arrows against its walls |
+| `tools/director/src/poses-field-controls-choir.ts` | THE CHOIR's SHAKE as the pair is offered it: a membrane on the field and the rub in the middle of it |
 | `tools/director/src/poses-field-controls-trapeze.ts` | THE TRAPEZE's controls, **each photographed from the seat whose control it is** |
 | `tools/director/src/poses-field-controls-bosses.ts` | Every boss's grips on the ON THE FIELD tab, in the tab's order: one file a boss |
 | `tools/director/src/poses-field-controls-bastion.ts` | THE BASTION's thumbs: the armour lit with the pilot's thumb carrying his next slab most of a pull out |

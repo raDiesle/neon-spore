@@ -51,9 +51,8 @@ export const OTHER_NUMBERS: Readonly<Record<string, readonly (keyof SimConfig)[]
   "THE GORGE'S TAP": ["gorgeOpenTaps", "gorgeTurnBeats"],
   "THE LIGHT": ["darkLitBeats", "darkLitRadiusMilli"],
   "THE TRAPEZE'S ALIEN": ["trapezeLockBeats"],
-  // Shaken.
-  "THE CHOIR'S LEFT ARROW": ["choirPullMilli", "choirWindowBeats"],
-  "THE CHOIR'S RIGHT ARROW": ["choirPullMilli", "choirWindowBeats"],
+  // Rubbed together, or shaken.
+  "THE CHOIR'S RUB": ["choirRubTurns", "choirTogetherBeats", "choirWindowBeats"],
   // One mark, many gestures.
   "THE INSTAR'S MARKS": ["instarSwipeMilli", "instarTogetherBeats"],
   "THE MIRROR'S LOBES": ["mirrorCarryMilli", "mirrorHoldBeats", "mirrorHoldWindowBeats"],

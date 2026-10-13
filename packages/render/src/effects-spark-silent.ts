@@ -54,7 +54,10 @@ export const SILENT = [
   // top would be a second answer to the one tap. The last blow's `destroy`
   // on the same tick throws the kill's.
   "blisterBlow",
-  // THE CHOIR's first arrow going out, and the gesture landing. The whole
+  // THE CHOIR's rub turning: its answer is the stroke it lights on the mark,
+  // read off the world (`choir-rub.ts`).
+  "choirRubTurn",
+  // THE CHOIR's gesture begun, and landing. The whole
   // screen is shaking on both (`choir-quake.ts`), and particles thrown on top
   // of an earthquake are particles nobody can see. What does throw one is
   // `choirOpen`, a beat later, when the colour arrives.

@@ -11,27 +11,21 @@ import type { GuideScene } from "../scene-types.js";
  * controls that cannot touch them.
  *
  * **Two gestures, in that order, and they are not alternatives to a reader.**
- * Both are **two moves inside a window** — shake and shake again, or one arrow
- * and then the other — so the film is teaching one shape twice rather than two
- * different things (`sim/choir-gesture.ts`). It shows the shake first, because
- * it is what the pair should reach for, and the arrows after it as the thing
- * that is there when a phone will not answer.
+ * The shake is two moves inside a window; the rub is both seats scrubbing the
+ * mark in the middle of the field at once (`sim/choir-gesture.ts`,
+ * `sim/choir-rub.ts`). It shows the shake first, because it is what the pair
+ * should reach for, and the rub after it as the thing that is there when a
+ * phone will not answer — and the one a desk has.
  *
  * **Nothing draws a ghost hand for either.** A shake is not a hand anywhere on
- * the screen, and an arrow is a switch a hand throws rather than a handle that
- * travels — its resting circle *is* its grab circle, so a thumb drawn on one
- * would be a thumb that never moves. The arrows say it themselves: with nothing
- * armed both pulse, and once one is out it goes dark while its partner keeps
- * pulsing on its own (`render/choir-arrows.ts`). That is already the film's
- * "next thing to do", and a hand over it would only cover it.
+ * the screen, and the rub's mark answers each turn itself — the stroke it
+ * lights, and the seat that turned (`render/choir-rub.ts`). A hand over it
+ * would only cover it.
  *
- * **Every page points at the membrane, the arrows included**, and that is not
- * the caption drifting off its subject. An arrow is drawn only while a membrane
- * is on the field, so a page anchored at one loses its words the instant the
- * gesture works — half the page, on the page whose whole subject is the
- * gesture. The body is the thing that is there for all of it, and it is also
- * what the words are *about*: the arrows are how it opens, and what a pair has
- * to watch is the opening.
+ * **Every page points at the membrane, the rub included.** The mark is drawn
+ * only while a membrane is on the field, so a page anchored at it loses its
+ * words the instant the gesture works. The body is the thing that is there
+ * for all of it, and it is also what the words are *about*.
  *
  * **The cannon goes under it on the pilot's page, before the merge is shot.**
  * THE LID's film makes the same move for the same reason: firing is the
@@ -66,20 +60,21 @@ export const THE_CHOIR: GuideScene = {
     // Under the membrane's own lane, which is where the merge stays.
     { tick: 240, control: "cannon", col: 2, atBody: true },
     { tick: 540, control: "fireRed" },
-    // The two trips. Armed on the last message of the first carry and finished
-    // on the last of the second, ninety ticks later — inside `choirWindowBeats`
-    // with a beat to spare, which is what the pair has to say out loud.
-    { tick: 780, drag: "choirLeft", until: 810 },
-    { tick: 870, drag: "choirRight", until: 900 },
+    // The rub, both seats at once on the mark in the middle: a turn every
+    // quarter second from each, and the eighth made together, on tick 930,
+    // draws them in (`sim/choir-rub.ts`).
+    { tick: 780, drag: "choirRub", hand: 1, until: 960 },
+    { tick: 780, drag: "choirRub", hand: 2, until: 960 },
     // And the pair finishing what the gesture opened, on the pilot's own page.
     // It is the point of the gesture rather than a second lesson: a membrane
-    // is a thing nothing can shoot, and what the two arrows make is a bulb the
+    // is a thing nothing can shoot, and what the rub makes is a bulb the
     // navigator can. It also leaves the field clear for the page below.
     { tick: 960, control: "cannon", col: 2, atBody: true },
     { tick: 1020, control: "fireCyan" },
-    // And the one that is not finished. The window shuts two beats later with
-    // nothing to answer it, and the membrane sings.
-    { tick: 1230, drag: "choirLeft", until: 1260 },
+    // And the one that is not finished: one turn made together, then both
+    // thumbs off. The window shuts two beats after it, and the membrane sings.
+    { tick: 1230, drag: "choirRub", hand: 1, until: 1290 },
+    { tick: 1230, drag: "choirRub", hand: 2, until: 1290 },
   ],
   steps: [
     // The membrane is answered on its top rows, so what this page holds on
@@ -100,7 +95,7 @@ export const THE_CHOIR: GuideScene = {
     {
       tick: 660,
       seat: 1,
-      text: "PLAYER 1 CARRIES BOTH ARROWS",
+      text: "BOTH PLAYERS RUB THE MIDDLE",
       anchor: { at: "body" },
     },
     // Opens a beat before the third membrane arrives, so the page before
@@ -109,7 +104,7 @@ export const THE_CHOIR: GuideScene = {
     {
       tick: 1080,
       seat: 1,
-      text: "HALF A PULL LOSES THE WAVE",
+      text: "HALF A RUB LOSES THE WAVE",
       anchor: { at: "hit" },
     },
   ],

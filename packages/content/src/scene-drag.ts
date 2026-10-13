@@ -2,6 +2,7 @@ import type { DragTarget, SceneCommand, SimConfig } from "@neon-spore/sim";
 import type { SceneAct } from "./scene-act-types.js";
 import { tautMilli } from "./scene-drag-taut.js";
 import { pumpCommands } from "./scene-pump.js";
+import { rubCommands } from "./scene-rub.js";
 import { actCol } from "./scene-script.js";
 import { ringCommands } from "./scene-turn.js";
 
@@ -32,15 +33,12 @@ import { ringCommands } from "./scene-turn.js";
  *
  * **Across**, for the ones that are not pulled at all: a wheel is turned by the
  * x of the hand and nothing else (`sim/maze-controls.ts`), a held body is
- * carried into a *column* (`sim/grip-push.ts`), and an arrow is carried
- * **outward** off its own edge — the sign of `fromMilli` and nothing else.
+ * carried into a *column* (`sim/grip-push.ts`).
  */
 function pullsDown(target: DragTarget): boolean {
   return (
     target !== "mazeString" &&
     target !== "gripBody" &&
-    target !== "choirLeft" &&
-    target !== "choirRight" &&
     target !== "balloonLeft" &&
     target !== "balloonRight" &&
     target !== "trapezePushLeft" &&
@@ -91,7 +89,14 @@ export function dragSeat(target: DragTarget, hand?: 1 | 2): 1 | 2 {
   // say and the act does (`SceneAct.hand`); the pilot's when it does not.
   // THE HIVE's lobe is the other: the pilot's haul on a clenched mass, or the
   // navigator's pinch on a swelling site (`sim/hive-hand.ts`); THE UNDERTOW's tap is either's.
-  if (target === "surgeBulb" || target === "hiveLobe" || target === "undertowTap") return hand ?? 1;
+  // THE CHOIR's rub is both seats' at once, one act a seat (`scene-rub.ts`).
+  if (
+    target === "surgeBulb" ||
+    target === "hiveLobe" ||
+    target === "undertowTap" ||
+    target === "choirRub"
+  )
+    return hand ?? 1;
   // THE SCOUT's two are each one seat's, but the seats swap every arena
   // (`scoutPilot`), so a film about its second level writes the hand: the
   // line is the navigator's and the prime the pilot's when it does not.
@@ -145,6 +150,8 @@ export function dragCommands(act: SceneAct, cfg: SimConfig): SceneCommand[] {
   }
   // A pump is stroked back and forth, not carried (`scene-pump.ts`).
   if (target === "throatPump") return pumpCommands(act, player, cfg);
+  // And a rub is scrubbed, turn by turn (`scene-rub.ts`).
+  if (target === "choirRub") return rubCommands(act, player);
   const to = act.toMilli ?? tautMilli(target, cfg) * (act.dir ?? 1);
   const until = act.until ?? act.tick;
   // The carry and the letting go are two clocks, not one. A film about a lid

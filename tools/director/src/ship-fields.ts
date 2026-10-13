@@ -147,11 +147,12 @@ export const FIELD_GROUP: Record<keyof SimConfig, GroupName> = {
   volleyPlates: "THE VOLLEY — a rock you have to hit back three times",
   volleyRiseRows: "THE VOLLEY — a rock you have to hit back three times",
   volleyRiseBeats: "THE VOLLEY — a rock you have to hit back three times",
-  // THE CHOIR's four. How many bodies are in a membrane is deliberately not
+  // THE CHOIR's five. How many bodies are in a membrane is deliberately not
   // among them and is not a `SimConfig` field at all: it is two, it is a fact
   // about the *picture* (`render/choir.ts`), and the simulation never asks —
   // what the pair does about this creature is the same whatever is inside it.
-  choirPullMilli: "THE CHOIR — two bodies opened by shaking the phone",
+  choirRubTurns: "THE CHOIR — two bodies opened by shaking the phone",
+  choirTogetherBeats: "THE CHOIR — two bodies opened by shaking the phone",
   choirWindowBeats: "THE CHOIR — two bodies opened by shaking the phone",
   choirFuseBeats: "THE CHOIR — two bodies opened by shaking the phone",
   // THE BEATBOX's three dials and its score. The count a box gets when a wave

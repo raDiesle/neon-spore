@@ -1,11 +1,11 @@
 import { balloonHandleCircle, balloonHandleSeat } from "./balloon-handles.js";
-import { choirArrowCircle, showsChoirArrows } from "./choir-arrows.js";
+import { choirRubUnder } from "./choir-rub.js";
 import { hitCircle, type Layout } from "./layout.js";
 import type { Field, Touch } from "./touch.js";
 
 /**
- * **The two handles that come in pairs** — THE CHOIR's arrows against the two
- * walls, and THE BALLOON's two sides — split off `handles.ts` when THE BATON's
+ * **The two handles that come in pairs** — THE BALLOON's two sides, and THE
+ * CHOIR's rub that both seats make together — split off `handles.ts` when THE BATON's
  * socket took that file over its limit, along the seam its own header drew:
  * everything left there is one handle in one place, and these are the two that
  * are a left and a right.
@@ -51,34 +51,8 @@ export function balloonHandleUnder(l: Layout, x: number, y: number, field: Field
   };
 }
 
-/**
- * THE CHOIR's two arrows, and only the pilot's for the fourth time and the
- * same reason: player 2 is the seat that fires and carries both colours, so a
- * membrane either of them could open would be a creature one phone could play.
- *
- * The **last** handle asked, and the ordering is deliberate. These two sit
- * against the walls of the field, where nothing else in the game is drawn and
- * where a body could still be falling behind one — so a thumb that finds an
- * arrow was reaching for an arrow, and a thumb that misses one falls through
- * to whatever is behind it exactly as it would if no membrane were up.
- *
- * Their resting circle *is* their grab circle: an arrow does not travel, it is
- * a switch a hand throws, and the whole gesture is how far the hand has come
- * from where it took hold (`choirArrowHeard`).
- *
- * `showsChoirArrows` is the one gate, shared with the drawing, so an arrow
- * can never be answered where none was drawn.
- */
-export function choirArrowUnder(l: Layout, x: number, y: number, field: Field): Touch | null {
-  if (field.seat !== 1 || !showsChoirArrows(l, field.creatures)) return null;
-  for (const side of [-1, 1] as const) {
-    if (!hitCircle(choirArrowCircle(l, side), x, y)) continue;
-    const target = side === -1 ? "choirLeft" : "choirRight";
-    return {
-      player: 1,
-      command: { kind: "drag", target, on: true, fromMilli: 0, fromYMilli: 0 },
-      hold: { kind: "drag", target, player: 1, originX: x, originY: y },
-    };
-  }
-  return null;
-}
+/** THE CHOIR's rub, in the middle of the field and both seats' — asked in the
+ * slot its two arrows had, so a thumb that misses it falls through to
+ * whatever is behind it (`choir-rub.ts`). Re-exported here so `handles.ts`
+ * reads the pairs from one place. */
+export { choirRubUnder };

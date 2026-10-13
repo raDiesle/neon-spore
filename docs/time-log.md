@@ -38664,3 +38664,18 @@ Bottleneck: the first `bun run shot` came back under a runtime error from
 the contents bar, which was a defect of its own to fix first.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-13 — THE CHOIR's two arrows become one rub, both seats at once
+
+- reading: 5 min. The arrows' twelve call sites from sim to the director's
+  tables, and how THE CAPSTAN's rub is counted and sent.
+- writing: 15 min. `choir-rub.ts` in sim and render, the rehearsal's rub
+  acts, the director's rows and the spec's, every arrow test rewritten.
+- looking: 5 min. One `bun run frames` of THE CHOIR mid-rub on player 1's
+  screen, both seat lights lit and three pips of eight.
+- friction: 0 min.
+- landing: 5 min. Two tests that list every World field and every silent
+  event, `check:fast`, `land`.
+
+Bottleneck: the arrows were named in twelve places across seven packages,
+found one typecheck error at a time.
