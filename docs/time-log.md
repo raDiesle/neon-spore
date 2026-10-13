@@ -38937,3 +38937,18 @@ Bottleneck: none — THE HOLD LAB had already been settled the same way, so the 
 Bottleneck: the far side's dark has to follow the body's contour, and a circle does not.
 
 *Measured: 10 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-13 — THE GAUGE's tongue is the PULL LAB's knob on a two-way channel
+
+- reading: 10 min. The ON THE FIELD row and its pose, THE WARDEN's two-way
+  track landed earlier the same day, the tongue's grip and the roll-out test.
+- writing: 10 min. `pull-two-way.ts` out of `warden-track.ts`, the tongue's
+  grip onto it, the roll-out's regex, the spec row and the director row.
+- looking: 5 min. The tongue's rest on the pilot's screen, cropped.
+- friction: 5 min. A heredoc with a doubled backslash blocked by the guard,
+  and `frames --until` needing four times its default ticks to reach the rest.
+- landing: 5 min. The formatter, the INDEX row, the marks-window halo
+  predicate, `check:fast`, `land`.
+
+Bottleneck: the new halo was caught by the marks-window row for THE GAUGE,
+which only knew the band's window.
