@@ -38648,3 +38648,17 @@ Bottleneck: scrolling to a card that lazy cards above keep pushing down —
 only a jump, run in the click itself, lands on it.
 
 *Measured: 12 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-13 — Every lab takes the page's whole width, and its readout holds still
+
+- reading: 5 min. The press lab, `lab-shell.ts`, the labs' CSS and the
+  gesture grid they stand in.
+- writing: 5 min. A lab spans the grid's row; the readout keeps two lines'
+  room, three on a phone; `onScroll` ignores the page itself.
+- looking: 10 min. Heights sampled through every state at 1400 and 375; a
+  hidden pane mounts no lab until a screenshot wakes it.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, two commits, `land`.
+
+Bottleneck: the first `bun run shot` came back under a runtime error from
+the contents bar, which was a defect of its own to fix first.

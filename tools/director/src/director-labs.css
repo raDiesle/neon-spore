@@ -1,8 +1,11 @@
 /* A lab on CONTROLS › ON THE FIELD (`lab-shell.ts`): a card in the gesture
    grid beside the generic gesture it tries (`field-action-cards.ts`). Its bar
    wraps to the card, its title is the card's, it has no ✕ — the page is its
-   place — and its field is cut to a room of a fixed height. */
+   place — and its field is cut to a room of a fixed height.
+   Each takes a whole row of the grid: the owner, 13 October 2026, *use full
+   width available on the page for all "lab" examples*. */
 .field-lab {
+  grid-column: 1 / -1;
   min-height: 560px;
 }
 .lab-inline {
@@ -24,6 +27,17 @@
 }
 .lab-inline .pic-zoom-bar > b {
   flex-basis: 100%;
+}
+/* The readout's words change every beat (WAITING, COUNTED, RESTING · LIFT AND
+   PRESS AGAIN): it keeps the room of its longest, two lines and three on a
+   phone, so the field and the page under it stand still while it does. */
+.lab-inline .pic-zoom-bar > .try-readout {
+  min-height: 2lh;
+}
+@media (max-width: 700px) {
+  .lab-inline .pic-zoom-bar > .try-readout {
+    min-height: 3lh;
+  }
 }
 .lab-inline .pull-lab-like {
   margin: 0 0 6px;
