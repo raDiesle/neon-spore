@@ -38613,3 +38613,5 @@ Bottleneck: none; one constant every grip already read.
 
 Bottleneck: AUTO's second pass on BOTH AT ONCE at four turns ended before
 the other seat came in, so it never lapsed — only the loop test showed it.
+
+*Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

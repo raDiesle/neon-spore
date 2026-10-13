@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-13 · b66f49b4e — THE RUB LAB, and RUB an action of its own on CONTROLS › ON THE FIELD
+
+The owner asked for RUB to be a category of control of its own, with its own look and a lab. RUB was a type under GRAB AND DRAG; it is now an action beside HOLD and PRESS, with THE RUB LAB on its card, a door in the topbar beside THE PRESS LAB's, and `rublab=8-one-zigzag` in the URL (`&rubsheet=1` opens its sheet). TURNS picks 4, 8 or 16 turns back; SEATS picks ONE SEAT or BOTH AT ONCE, where a turn counts only while the other seat is rubbing too, and the two seats' lights stand over the drop. A lift keeps the count; two beats with no turn lose it, red. The drop is THE HOLD LAB's, but it neither sinks nor pops: it smears after the thumb, throws a swish on every turn, wags side to side to call a rub before it is touched, and on a computer the pointer over it is the left-right arrow. The looks: ZIGZAG, the gesture drawn on the drop, a stroke a turn; WIPE, a smudge a turn wiped off; HEAT, a notch a turn and the drop warming; COUNT, the number left between two chevrons. Director only, an addition where the game draws nothing.
+
 ## 2026-10-13 · bf9c81bfd — Every pull's grab circle grows with its 2× knob
 
 A pull handle's knob is drawn twice its asked radius since 12 October, but a press was still answered at 2.2 times the asked radius, about 1.1 times the knob as drawn. PULL_GRAB is now 2.2 times PULL_SIZE, so the grab is 2.2 times the knob as drawn again, in the game and the PULL LAB alike. The owner chose it, 13 October 2026.
