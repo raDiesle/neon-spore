@@ -39020,3 +39020,5 @@ Bottleneck: THE WELL has no body, and its bodies are every kind, so the dark is 
 - landing: 5 min. `check:fast`, the commit, `land`.
 
 Bottleneck: the eater is drawn on beats, so its head needed a seconds clock threaded to it.
+
+*Measured: 6 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
