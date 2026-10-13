@@ -38745,3 +38745,14 @@ Bottleneck: no tool presses and holds a canvas, so seeing a take needed a
 script of its own (queued).
 
 *Measured: 8 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-13 — THE FLEET's wreck says PULL nowhere, and a whole-frame test keeps it so
+
+- reading: 5 min. The wreck's grip, the commit that took the word off
+  every knob, the frame harness.
+- writing: 5 min. `fleet-wreck-frame.test.ts`, every screen, every word.
+- looking: 0 min. A test of words, nothing drawn changed.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: none — the entry was stale and needed only its guard.
