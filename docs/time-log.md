@@ -38821,3 +38821,5 @@ Bottleneck: the 404 did not reproduce on Bun 1.4.3, so only the sign could be bu
 - landing: 5 min. `check:fast`, the commit, `land`.
 
 Bottleneck: none — the seams were already named in the sheets' own comments.
+
+*Measured: 4 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
