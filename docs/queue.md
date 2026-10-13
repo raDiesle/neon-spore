@@ -856,3 +856,19 @@ THE GALL is done (2026-10-13, claude/field-controls-standardization-44b3b7,
 - **Files:** `tools/frames/shot.ts`, `tools/frames/shot-flags.ts`
 
 Proving that ▶ TRY IT keeps a take (`field-takes.ts`) meant pressing THE LEAD's ring for a second, waiting three beats, closing the window and opening ▤ STILLS. `--click` presses a selector and nothing else, so it took a throwaway Playwright script — and the browser pane could not stand in, because a hidden pane runs no animation frame and TRY IT steps nothing. Give `shot` a press-and-hold on a point of an element (fractions of its box, a duration, a wait after) and a second `--click` after it, with a test of the flags, so a lane photographs a take in one command.
+
+## The PULL LAB's FIZZ knob costs 400 rings a call
+
+- **Found:** 2026-10-13, claude/field-controls-standardization-44b3b7
+- **Files:** `packages/render/src/goo-knob.ts`, `packages/render/src/goo-soft.ts`, `packages/render/src/goo-parts.ts`, `tools/director/test/marks-window.test.ts`
+
+`drawPullKnob` paints FIZZ (`goo-knob.ts`), and one knob costs 0.41 ms on the
+stub canvas, against 0.001 ms for the `drawGripRing` it replaced — measured
+3000 calls each in a scratch test, 13 October 2026, load average twenty. THE
+ANTIPHON's rail now draws one on every candidate, and its row of
+`marks-window.test.ts` went from 0.8 s to 4.5 s and timed out twice under
+`check:fast`, so that file was given `fileCosts(5000)` rather than a fix.
+Find what each call rebuilds — a drop's outline, a noise field, a path per
+frame — and cache what does not change between frames (`.claude/skills/render-perf`),
+proving it with the op-count budgets and a figure; then take
+`marks-window.test.ts` back to bun's default if the row falls under a second.
