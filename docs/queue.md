@@ -869,6 +869,7 @@ The owner, 12 October 2026, of the lab's HOLD, THEN SWIPE: *should be a separate
 - **Found:** 2026-10-13, claude/director-pull-control-visuals-2a801c
 - **Files:** `packages/render/src/gauge-tooth-grip.ts`, `packages/render/src/gauge-grip.ts`, `packages/render/src/taster-grip.ts`, `packages/render/src/vane-grip.ts`, `packages/render/src/gall-grip.ts`
 - **Asks:** Should THE GAUGE's tooth and tongue, THE TASTER's wipe and pry, THE VANE's housing and THE GALL's pull be drawn with the PULL LAB's knob, arrow and channel — or keep the plain rings they have?
+- **Answered:** 2026-10-13 — (a), the owner: each one's rings become `drawPullKnob` on a `drawPullTrack` the length of its pull, the arrow its sim's direction, over (b) rings with an arrow only and (c) leaving them.
 
 Since 13 October 2026 no grab on the field wears a scan box or a word
 (`asksGrab`, `boss-cue-shape.ts`). For the pulls that already draw the PULL
