@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-13 · 112415dac — VERSUS offers THE WELL's bodies glancing
+
+THE WELL has no body, so each body the wave stands on it turns on its hour, about the centre a grip, a lock and a caption find it by, its far side going dark over a disc inside it. Ships still; VERSUS `well:glance` offers SWAY, LOOK and COCK, judged on THE WELL · STILL. Exemption: none — a look, offered on VERSUS.
+
 ## 2026-10-13 · e0dc286bc — VERSUS offers THE CAIRN's pile glancing
 
 The whole stack turns with its outer stones held over their columns; the middle swings toward one side and the far side's stones close into the dark. The hand, lane mark and verdict do not turn. Ships still; VERSUS `cairn:glance` offers SWAY, LOOK and COCK, judged on THE CAIRN · STACKED.
