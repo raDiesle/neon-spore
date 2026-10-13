@@ -38582,3 +38582,5 @@ Bottleneck: reading — THE MIMIC's word is a TAP, which only its reading said.
 
 Bottleneck: the first shot opened THE PULL LAB — it took any lab key it did
 not know as its own — which only a picture showed.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
