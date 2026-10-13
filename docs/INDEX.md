@@ -3073,6 +3073,7 @@ by hand never moves.
 | `tools/director/src/music-page.ts` | MUSIC: six pieces nobody has decided to use |
 | `tools/director/src/music-plot.ts` | A theme drawn: the whole piece on one axis, time across, frequency up |
 | `tools/director/src/notes-api.ts` | `GET /api/notes` — the release notes, and the two facts VERSUS votes against |
+| `tools/director/src/not-found.ts` | **What the director's server answers for a path it has no route for** |
 | `tools/director/src/paint.ts` | The edits: what a click does to a wave, and what takes it back |
 | `tools/director/src/paint-fault.ts` | **A fault, laid across a beat row.** The column is ignored on purpose: a malfunction has none |
 | `tools/director/src/pair-panel.ts` | The one switch that exists because the game has two people in front of it |

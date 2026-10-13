@@ -3,6 +3,7 @@ import { claimPort, treeKey } from "../ports.js";
 import { SERVERS } from "../servers.js";
 import indexHtml from "./index.html";
 import { backlogState } from "./src/backlog-api.js";
+import { notFound } from "./src/not-found.js";
 import { notesState } from "./src/notes-api.js";
 import { saveWaves, wavesState } from "./src/waves-api.js";
 import versusHtml from "./versus.html";
@@ -206,8 +207,9 @@ const server = Bun.serve({
     // nothing else ever fetched the route, so it went with the page rather
     // than staying as a reader with no reader.
   },
-  fetch() {
-    return new Response("not found", { status: 404, headers: noCache });
+  fetch(req) {
+    const { status, body } = notFound(new URL(req.url).pathname);
+    return new Response(body, { status, headers: noCache });
   },
 });
 

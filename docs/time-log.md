@@ -38793,3 +38793,15 @@ Bottleneck: the trial flights' cost — the first version was right and five tim
 Bottleneck: the FIZZ knob paints with gradients of its own, so each halo-counting test had to be rewritten to diff against a baseline or spy on the knob.
 
 *Measured: 47 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-13 — The director says *restart me* for a source asked for by path
+
+- reading: 5 min. The server's routes and fallback, the entry.
+- writing: 5 min. `src/not-found.ts`, its test, the server's last route.
+- looking: 5 min. Reproducing on `director-here`: two sheets added to
+  `director.css`'s `@import` list with the page open — Bun 1.4.3 rebuilt both on
+  reload, answered 200, and never asked for the source path.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: the 404 did not reproduce on Bun 1.4.3, so only the sign could be built.

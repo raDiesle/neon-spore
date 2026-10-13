@@ -671,14 +671,6 @@ The owner, 9 and 10 October 2026, after THE INSTAR's head glances: *body parts o
 
 The owner, 9 and 10 October 2026, after THE INSTAR's head glances: *body parts of living things turn, especially the head, but also feet and hands, or if mechanical the full boss shape*, and one entry per boss. Read §11.62, pick the part — a head, claws, a turret, or the whole shape of a machine — and follow `.claude/skills/depth`, "A part that glances": a record for its turn that ships still, the far side darkening as it swings, the points a thumb is on held (or the hit test reading the same turn), big enough to see in a still. Offer SWAY, LOOK and COCK on VERSUS as THE INSTAR's were, each cycle six seconds; the owner decides there.
 
-## The director's dev route 404s director.css after a sheet is added under it
-
-- **Found:** 2026-10-10, claude/docs-section-navigation-8a2e5c
-- **Taken:** 2026-10-13, claude/queue-tasks-968943 (claim: claude/queue-the-directors-dev-route-404s-director-css-after)
-- **Files:** `tools/director/server.ts`, `tools/director/src/director.css`
-
-With `director-here` running, adding `@import "./director-contents.css";` to `director.css` answered the next page load with a 500, and every reload after it asked for `/tools/director/src/director.css` and got a 404 — the bundled stylesheet under _bun/asset still loaded, so the page looked right and the error was only in the console. Stopping and starting the server cleared it; the lane did that and went on. Find whether the HTML route's asset graph is rebuilt when a CSS `@import` list grows, and either make it rebuild or have the route say "restart me" instead of 404ing, with a test if the route is reachable from one.
-
 ## The director's shell and columns sheets are past 250 lines
 
 - **Found:** 2026-10-10, claude/director-text-readability-7bbd5d
