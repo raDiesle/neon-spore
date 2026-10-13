@@ -328,14 +328,6 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/skipped.test.ts` holds the listing's count of the entries
 `next` stepped past and why.
 
-## --auto both never swells a second hive site to frame an underside breach
-
-- **Found:** 2026-10-09, claude/aim-cannon-visual-polish-39fb48
-- **Taken:** 2026-10-13, claude/queue-tasks-968943 (claim: claude/queue-auto-both-never-swells-a-second-hive-site-to-fra)
-- **Files:** `tools/frames/auto.ts`, `packages/sim/src/hive*.ts`
-
-`bun run frames . --wave "THE HIVE" --auto both --until hiveSeal --until-on 4000` fires `hiveSwell`, `hiveOpen` and `hiveSeal` once each, on the wall site at col 10, and then nothing for four thousand ticks: the bots never do what makes the next site swell, so no frame shows a breach on the underside. Find what the next swell waits on and teach `--auto` to do it, with a test that a THE HIVE run fires a second `hiveOpen`.
-
 ## Seven ON THE FIELD cards keep half the phone: no press reaches the control
 
 - **Found:** 2026-10-09, claude/controls-documentation-redesign-0e3a85
@@ -881,4 +873,3 @@ FIELD: it *shows "tap" … but this is category of PULL PAST A DISTANCE*. The
 options: (a) each one's rings become `drawPullKnob` on a `drawPullTrack` the
 length of its `…PullMilli`, the arrow its sim's direction; (b) keep the rings
 and add only the knob's arrow; (c) keep them as they are.
-

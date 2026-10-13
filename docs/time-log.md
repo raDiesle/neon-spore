@@ -38681,3 +38681,15 @@ Bottleneck: the arrows were named in twelve places across seven packages,
 found one typecheck error at a time.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-13 — THE HIVE under AUTO opens every site, and a test keeps it so
+
+- reading: 10 min. THE HIVE's clock, its hand, and the frames run the
+  entry quoted.
+- writing: 5 min. `hive-hand.test.ts`, three seeds to the fall.
+- looking: 5 min. The quoted `frames` run again: nine openings now, the
+  underside's among them — the entry was stale.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: proving a stale entry stale took a browser run and a probe.
