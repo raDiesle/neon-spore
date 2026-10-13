@@ -331,6 +331,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## Fire button lit for the colour shown: THE GOVERNOR to THE BASTION
 
 - **Found:** 2026-10-09, claude/aim-cannon-visual-polish-39fb48
+- **Taken:** 2026-10-13, claude/session-f1471e (claim: claude/queue-fire-button-lit-for-the-colour-shown-the-governo)
 - **Files:** `packages/render/src/boss-cue-read-zq.ts`, `packages/render/src/boss-cue-read-zr.ts`, `packages/render/src/boss-cue-read-zs.ts`, `packages/render/src/boss-cue-read-zt.ts`, `packages/render/src/boss-cue-read-zv.ts`
 
 The same as THE VANE's entry above, for THE GOVERNOR, THE SEAM, THE LAMPREY, THE MIMIC and THE BASTION: `BossCue.shows` on each `FIRE` whose shooter's screen draws the colour wanted.
