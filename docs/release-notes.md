@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-13 · 78d13ae6b — A glancing part is laid down as one picture, so no hairline runs down its middle
+
+A boss part offered glancing in VERSUS was drawn twice, once under each half's clip. Where the clips met, its layers composited at partial cover and left a line down the middle. Now `drawGlancedLayer` draws the part once into an offscreen layer and lays that picture down twice, clipped and squeezed. Every boss's glance callback now draws on the context it is handed.
+
 ## 2026-10-13 · d38a08c28 — The glance's hairline is the part's layers, not a gap — what was tried
 
 A one-pixel or half-pixel overlap of the two halves' clips leaves the line down a glancing part's middle; the cause is a part drawn in layers compositing at the seam's partial cover. The queue entry now names that and the real fix, an offscreen layer laid down twice, and is given back.
