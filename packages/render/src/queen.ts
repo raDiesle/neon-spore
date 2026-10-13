@@ -204,9 +204,9 @@ function drawShell(
   ctx.save();
   ctx.translate(x, y);
   // The whole shell glances, where a look takes one (`queen-glance.ts`).
-  drawQueenGlanced(ctx, rx, time, () => {
-    QUEEN_LOOK.shell({ ctx, path, rx, ry, t, time, healthShare, turn });
-    drawHurt(ctx, path, hurt);
+  drawQueenGlanced(ctx, rx, time, (g) => {
+    QUEEN_LOOK.shell({ ctx: g, path, rx, ry, t, time, healthShare, turn });
+    drawHurt(g, path, hurt);
     return path;
   });
   ctx.restore();

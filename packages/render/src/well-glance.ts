@@ -1,4 +1,5 @@
-import { drawGlanced, type Glance, glanceFrame, glanceStill, STILL_GLANCE } from "./glance.js";
+import { type Glance, glanceFrame, glanceStill, STILL_GLANCE } from "./glance.js";
+import { drawGlancedLayer } from "./glance-layer.js";
 import type { GlanceSize } from "./glance-styles.js";
 
 /**
@@ -45,15 +46,15 @@ export function drawWellGlanced(
   at: { x: number; y: number; r: number },
   id: number,
   time: number,
-  draw: () => void,
+  draw: (g: CanvasRenderingContext2D) => void,
 ): void {
   const f = glanceFrame(WELL_GLANCE, time + (id % 11) * STAGGER, { ...at, hold: 0 });
   if (glanceStill(f)) {
-    draw();
+    draw(ctx);
     return;
   }
-  drawGlanced(ctx, f, { dark: FAR_DARK, full: WELL_GLANCE_SIZE.reach, reach: 2.4 }, () => {
-    draw();
+  drawGlancedLayer(ctx, f, { dark: FAR_DARK, full: WELL_GLANCE_SIZE.reach, reach: 2.4 }, (g) => {
+    draw(g);
     const disc = new Path2D();
     disc.arc(at.x, at.y, at.r * DISC, 0, Math.PI * 2);
     return [disc];

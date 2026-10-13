@@ -795,31 +795,31 @@ leaves the picture, naming the picture's size, or clip it and say so in the
 line `crop` prints; a test in `tools/frames/test/` with a window one pixel
 over each edge.
 
-## A glancing part shows a hairline down its middle
+## THE INSTAR's turned head may show the glance's hairline
 
 - **Found:** 2026-10-13, claude/queue-tasks-159048
-- **Taken:** 2026-10-13, claude/queue-tasks-159048 (claim: claude/queue-a-glancing-part-shows-a-hairline-down-its-middle)
-- **Files:** `packages/render/src/glance.ts`
+- **Files:** `packages/render/src/instar-turn.ts`, `packages/render/src/glance-layer.ts`
 
-`drawGlanced` draws a part twice, each half under its own clip, and the two
-clips meet at the middle with soft edges. On THE CAIRN's VERSUS shot
-(`cairn:glance`, SWAY) a pale vertical hairline runs down the top stone where
-the halves meet. Running each clip a pixel past the middle made it brighter,
-not gone — the pile has light added under it, which the overlap doubles — so
-that was reverted. Try snapping the middle to a whole device pixel (the two
-clips then meet hard), or drawing the far half first unclipped on the near
-side and the near half over it only where the part is drawn source-over.
-Prove it with a magnified crop of `bun run versus:shot cairn:glance sway
---freeze 1.5` and the `boss-glance` test still green.
+Every boss's VERSUS glance now lays its part down as one offscreen layer
+(`drawGlancedLayer`), which took away the hairline two clipped halves left
+down a part drawn in layers. THE INSTAR's head ships turning, through
+`drawTurnedHead`, and still draws it twice through `drawGlanced` — left
+alone because moving it changes a frame of the running game. Shoot the
+instar's head mid-turn, magnify the middle (`bun run crop … --zoom 4`), and
+if the line is there, it is a fix to something wrong: move it onto
+`drawGlancedLayer` with its draw taking the context `g`, as `queen.ts` does.
 
-Tried the same day and not enough: running only the first half's clip one
-pixel, or half a pixel, past the middle leaves the line where it was — on
-THE SPLICE's head it only turned from dark to pale. The cause is not a gap
-but a part drawn in **layers** (an opaque under-fill, a translucent flesh
-over it, a stroke): at the seam's soft pixel each half composites its layers
-at partial cover, so the under-fill shows through. Snapping the middle to a
-device pixel only helps while the roll is 0 (SWAY), since a rolled seam is
-slanted. What would fix it is drawing the part once into an offscreen layer
-and laying that down twice, clipped and squeezed — which needs every
-`draw<Boss>Glanced` callback (twelve so far) to take the context it draws on
-rather than closing over the screen's.
+## A glanced part's translucent rim shows a pale tick at the middle
+
+- **Found:** 2026-10-13, claude/queue-tasks-159048
+- **Files:** `packages/render/src/glance-layer.ts`
+
+`drawGlancedLayer` lays the one picture down twice, the first half's clip a
+pixel past the middle, so where the picture is itself translucent — THE
+SPLICE head's pale rim — that pixel is the rim over itself and reads as a
+short pale tick top and bottom (`versus:shot splice:glance sway --freeze
+1.5`, crop `--at 1298,200,240,200 --zoom 3`). The line through the body is
+gone; this is what is left. Try clearing the second half's clip
+(`destination-out`) before laying it down, or snapping the middle to a whole
+pixel so the clips need no overlap; prove it on the same crop, and THE
+MAZE's additive heart still adding light.

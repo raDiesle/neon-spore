@@ -1,11 +1,5 @@
-import {
-  drawGlanced,
-  type Glance,
-  glancedPoint,
-  glanceFrame,
-  glanceStill,
-  STILL_GLANCE,
-} from "./glance.js";
+import { type Glance, glancedPoint, glanceFrame, glanceStill, STILL_GLANCE } from "./glance.js";
+import { drawGlancedLayer } from "./glance-layer.js";
 import type { GlanceSize } from "./glance-styles.js";
 
 /**
@@ -44,16 +38,16 @@ export function drawSpliceHeadGlanced(
   h: { x: number; y: number },
   wide: number,
   time: number,
-  draw: () => { x: number; y: number; parts: readonly Path2D[] },
+  draw: (g: CanvasRenderingContext2D) => { x: number; y: number; parts: readonly Path2D[] },
 ): { x: number; y: number } {
   const f = glanceFrame(SPLICE_GLANCE, time, { ...h, r: wide / 2, hold: 0 });
   if (glanceStill(f)) {
-    const m = draw();
+    const m = draw(ctx);
     return { x: m.x, y: m.y };
   }
   let mouth = { x: h.x, y: h.y };
-  drawGlanced(ctx, f, { dark: FAR_DARK, full: SPLICE_GLANCE_SIZE.reach, reach: 1.6 }, () => {
-    const m = draw();
+  drawGlancedLayer(ctx, f, { dark: FAR_DARK, full: SPLICE_GLANCE_SIZE.reach, reach: 1.6 }, (g) => {
+    const m = draw(g);
     mouth = { x: m.x, y: m.y };
     return m.parts;
   });

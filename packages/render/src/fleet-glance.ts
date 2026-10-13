@@ -1,5 +1,6 @@
 import { hullOutline } from "./fleet-hull-body.js";
-import { drawGlanced, type Glance, glanceFrame, glanceStill, STILL_GLANCE } from "./glance.js";
+import { type Glance, glanceFrame, glanceStill, STILL_GLANCE } from "./glance.js";
+import { drawGlancedLayer } from "./glance-layer.js";
 import type { GlanceSize } from "./glance-styles.js";
 
 /**
@@ -44,16 +45,16 @@ export function drawFleetGlanced(
   hull: { long: number; across: number; nose: number },
   at: number,
   time: number,
-  draw: () => void,
+  draw: (g: CanvasRenderingContext2D) => void,
 ): void {
   const { long, across, nose } = hull;
   const f = glanceFrame(FLEET_GLANCE, time + at * STAGGER, { x: 0, y: 0, r: long, hold: 1 });
   if (glanceStill(f)) {
-    draw();
+    draw(ctx);
     return;
   }
-  drawGlanced(ctx, f, { dark: FAR_DARK, full: FLEET_GLANCE_SIZE.reach, reach: 1.3 }, () => {
-    draw();
+  drawGlancedLayer(ctx, f, { dark: FAR_DARK, full: FLEET_GLANCE_SIZE.reach, reach: 1.3 }, (g) => {
+    draw(g);
     const shape = new Path2D();
     hullOutline(shape, long, across, nose);
     return [shape];

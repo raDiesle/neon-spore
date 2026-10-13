@@ -133,6 +133,6 @@ export function drawMirror(
   if (hurt > 0) drawHurt(ctx, hullOutline(lm, f).filled, hurt);
   // Over the hull's belly and inside the same flip: the inside of the copy.
   // It glances, where a look takes one (`mirror-glance.ts`); the hull never does.
-  drawMirrorGlanced(ctx, lm, time, () => drawMirrorChamber(ctx, lm, time));
+  drawMirrorGlanced(ctx, lm, time, (g) => drawMirrorChamber(g, lm, time));
   ctx.restore();
 }

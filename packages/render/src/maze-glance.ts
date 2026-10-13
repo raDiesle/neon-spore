@@ -1,11 +1,5 @@
-import {
-  drawGlanced,
-  type Glance,
-  glancedPoint,
-  glanceFrame,
-  glanceStill,
-  STILL_GLANCE,
-} from "./glance.js";
+import { type Glance, glancedPoint, glanceFrame, glanceStill, STILL_GLANCE } from "./glance.js";
+import { drawGlancedLayer } from "./glance-layer.js";
 import type { GlanceSize } from "./glance-styles.js";
 
 /**
@@ -45,18 +39,15 @@ export function drawMazeGlanced(
   ctx: CanvasRenderingContext2D,
   at: { x: number; y: number; r: number },
   time: number,
-  draw: () => Path2D,
+  draw: (g: CanvasRenderingContext2D) => Path2D,
 ): void {
   const f = glanceFrame(MAZE_GLANCE, time, { ...at, hold: 0 });
   if (glanceStill(f)) {
-    draw();
+    draw(ctx);
     return;
   }
-  drawGlanced(ctx, f, { dark: FAR_DARK, full: MAZE_GLANCE_SIZE.reach, reach: 1.6 }, () => {
-    const skin = draw();
-    // The heart is drawn adding light; the dark is laid on as paint.
-    ctx.globalCompositeOperation = "source-over";
-    return [skin];
+  drawGlancedLayer(ctx, f, { dark: FAR_DARK, full: MAZE_GLANCE_SIZE.reach, reach: 1.6 }, (g) => {
+    return [draw(g)];
   });
 }
 

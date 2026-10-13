@@ -1,4 +1,5 @@
-import { drawGlanced, type Glance, glanceFrame, glanceStill, STILL_GLANCE } from "./glance.js";
+import { type Glance, glanceFrame, glanceStill, STILL_GLANCE } from "./glance.js";
+import { drawGlancedLayer } from "./glance-layer.js";
 import type { GlanceSize } from "./glance-styles.js";
 import { QUEEN_FIGURE } from "./queen-figure.js";
 
@@ -43,13 +44,13 @@ export function drawQueenGlanced(
   ctx: CanvasRenderingContext2D,
   rx: number,
   time: number,
-  draw: () => Path2D,
+  draw: (g: CanvasRenderingContext2D) => Path2D,
 ): void {
   const f = glanceFrame(QUEEN_GLANCE, time, { x: 0, y: 0, r: rx, hold: QUEEN_GLANCE_HOLD });
   if (glanceStill(f)) {
-    draw();
+    draw(ctx);
     return;
   }
   const shade = { dark: FAR_DARK, full: QUEEN_GLANCE_SIZE.reach, reach: 2 };
-  drawGlanced(ctx, f, shade, () => [draw()]);
+  drawGlancedLayer(ctx, f, shade, (g) => [draw(g)]);
 }

@@ -170,13 +170,13 @@ export function drawWarden(
   }
 
   // The body glances about the eye, where a look takes one (`warden-glance.ts`).
-  drawWardenGlanced(ctx, { x: cx + dx, y: cy }, r, pupilR, time, () => {
+  drawWardenGlanced(ctx, { x: cx + dx, y: cy }, r, pupilR, time, (g) => {
     // Even-odd still, for the fallback's sake: it cuts that hole whichever way
     // either loop happens to wind, and on one contour it decides nothing.
-    ctx.save();
-    ctx.fillStyle = PALETTE.rockDark;
-    ctx.fill(body2d, "evenodd");
-    ctx.restore();
+    g.save();
+    g.fillStyle = PALETTE.rockDark;
+    g.fill(body2d, "evenodd");
+    g.restore();
 
     // The surface: everything on this body between its material and its door —
     // what is under the skin, what is set into it, the fringe off its edge, the
@@ -185,7 +185,7 @@ export function drawWarden(
     // of the hole carries the cycle's colour, and it is the only part of the
     // body that does.
     WARDEN_LOOK.surface({
-      ctx,
+      ctx: g,
       cx,
       cy,
       r,
@@ -201,7 +201,7 @@ export function drawWarden(
       openness,
       lip: openness > 0 ? rim : hex,
     });
-    drawHurt(ctx, body2d, hurt);
+    drawHurt(g, body2d, hurt);
     return body2d;
   });
   drawHatch(ctx, cx + dx, cy, pupilR * HATCH, openness);

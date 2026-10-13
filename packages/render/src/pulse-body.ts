@@ -96,8 +96,8 @@ export function drawPulseArrival(ctx: CanvasRenderingContext2D, a: BodyLook): vo
     ctx.lineWidth = 1 / a.r;
     ctx.stroke(path);
   } else {
-    drawPulseGlanced(ctx, { x: a.x, y: a.y, r: a.r, lane, seed: a.seed }, a.time, () =>
-      drawPulseBody(ctx, a.x, a.y, a.r, lane, a.time, a.seed, fade),
+    drawPulseGlanced(ctx, { x: a.x, y: a.y, r: a.r, lane, seed: a.seed }, a.time, (g) =>
+      drawPulseBody(g, a.x, a.y, a.r, lane, a.time, a.seed, fade),
     );
   }
   ctx.restore();

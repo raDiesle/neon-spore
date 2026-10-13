@@ -1,4 +1,5 @@
-import { drawGlanced, type Glance, glanceFrame, glanceStill, STILL_GLANCE } from "./glance.js";
+import { type Glance, glanceFrame, glanceStill, STILL_GLANCE } from "./glance.js";
+import { drawGlancedLayer } from "./glance-layer.js";
 import type { GlanceSize } from "./glance-styles.js";
 
 /**
@@ -40,14 +41,14 @@ export function drawWardenGlanced(
   r: number,
   hole: number,
   time: number,
-  draw: () => Path2D,
+  draw: (g: CanvasRenderingContext2D) => Path2D,
 ): void {
   const f = glanceFrame(WARDEN_GLANCE, time, { x: eye.x, y: eye.y, r, hold: hole / r });
   if (glanceStill(f)) {
-    draw();
+    draw(ctx);
     return;
   }
-  drawGlanced(ctx, f, { dark: FAR_DARK, full: WARDEN_GLANCE_SIZE.reach, reach: 1.5 }, () => [
-    draw(),
+  drawGlancedLayer(ctx, f, { dark: FAR_DARK, full: WARDEN_GLANCE_SIZE.reach, reach: 1.5 }, (g) => [
+    draw(g),
   ]);
 }

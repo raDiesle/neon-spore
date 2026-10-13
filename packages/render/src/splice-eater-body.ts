@@ -128,8 +128,8 @@ export function drawEaterBody(
   ctx.stroke();
   drawTornLip(ctx, x, y, wide * 0.36);
   const h = neck.along(1);
-  return drawSpliceHeadGlanced(ctx, h, wide, pose.clock, () =>
-    drawEaterHead(ctx, h, wide, pose.open, pose.hunger, pose.look, b),
+  return drawSpliceHeadGlanced(ctx, h, wide, pose.clock, (g) =>
+    drawEaterHead(g, h, wide, pose.open, pose.hunger, pose.look, b),
   );
 }
 

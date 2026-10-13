@@ -1316,6 +1316,7 @@ by hand never moves.
 | `packages/render/src/gland-tube.ts` | A TUBE AND A CURVE — the two pieces of vector arithmetic every grown thing on VERSUS is drawn out of |
 | `packages/render/src/gland-wet.ts` | WET SKIN — the ship as a clear, light-reflecting surface, with **no grain** |
 | `packages/render/src/glance-styles.ts` | **The three ways a part glances**, as the owner took them for THE INSTAR's head on 9 October 2026… |
+| `packages/render/src/glance-layer.ts` | **A glancing part laid down as one layer** (`glance.ts` has the turn) |
 | `packages/render/src/glance.ts` | **A part that glances** (`.claude/skills/depth`, "A part that glances"): a head, a claw |
 | `packages/render/src/handles.ts` | The handles: the things drawn **on the field** that a hand takes hold of and carries, as opposed to the |
 | `packages/render/src/handles-pairs.ts` | **The two handles that come in pairs** — THE BALLOON's two sides |

@@ -128,7 +128,7 @@ function drawTarget(
   if (kind === "peg") {
     const r = halfW * POD_MUL;
     const at = { x, y, halfW: r, r, pods: [0] };
-    drawPinTargetGlanced(ctx, at, seed, time, () => drawPodBody(ctx, x, y, r, t, POD_KIND));
+    drawPinTargetGlanced(ctx, at, seed, time, (g) => drawPodBody(g, x, y, r, t, POD_KIND));
     return;
   }
   // A target block: a chain of pods across it, spaced closer than their own
@@ -139,9 +139,9 @@ function drawTarget(
     { length: count },
     (_, i) => (-1 + (2 * i) / (count - 1)) * (halfW - r * 0.5),
   );
-  drawPinTargetGlanced(ctx, { x, y, halfW: halfW + r * 0.5, r, pods }, seed, time, () => {
+  drawPinTargetGlanced(ctx, { x, y, halfW: halfW + r * 0.5, r, pods }, seed, time, (g) => {
     for (let i = 0; i < count; i++) {
-      drawPodBody(ctx, x + (pods[i] ?? 0), y, r, t + i * 0.4, POD_KIND);
+      drawPodBody(g, x + (pods[i] ?? 0), y, r, t + i * 0.4, POD_KIND);
     }
   });
 }

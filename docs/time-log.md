@@ -39035,3 +39035,15 @@ Bottleneck: the eater is drawn on beats, so its head needed a seconds clock thre
 Bottleneck: the line is the layers inside a part compositing at partial cover, which no clip tweak reaches.
 
 *Measured: 5 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-13 — A glancing part is laid down as one layer
+
+- reading: 5 min. `drawGlanced`, and the eleven wrappers and their callers.
+- writing: 10 min. `glance-layer.ts`; every wrapper's draw taking the
+  context `g`, its callers converted by script and the cairn's by hand.
+- looking: 5 min. THE SPLICE's head and THE CAIRN's stone shot and
+  magnified at the seam: the line through the body is gone.
+- friction: 0 min.
+- landing: 5 min. The full render suite, one catalogue row for the new file.
+
+Bottleneck: converting eleven call sites from closing over the screen to drawing on a handed context.

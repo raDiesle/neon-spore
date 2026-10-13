@@ -65,9 +65,9 @@ export function drawCairn(
     r: (CAIRN_COLS / 2) * l.tile,
   };
   const outline = () => pilePath(cairnUnits(l, body, boss.units, time, hush));
-  const pile = () => {
-    CAIRN_LOOK.pile(ctx, l, body, boss, time, hush);
-    if (hurt.value > 0) drawHurt(ctx, outline(), hurt.value);
+  const pile = (g: CanvasRenderingContext2D) => {
+    CAIRN_LOOK.pile(g, l, body, boss, time, hush);
+    if (hurt.value > 0) drawHurt(g, outline(), hurt.value);
   };
   drawCairnGlanced(ctx, at, time, pile, outline);
   ctx.globalAlpha = alpha;

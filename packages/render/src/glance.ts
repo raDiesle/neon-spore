@@ -65,7 +65,7 @@ export function glanceSqueeze(f: GlanceFrame, s: -1 | 1): number {
 }
 
 /** How far the middle is drawn off the centre: the swing, or nothing where the centre is held. */
-const middleShift = (f: GlanceFrame): number => (f.hold === 0 ? 0 : f.swing);
+export const middleShift = (f: GlanceFrame): number => (f.hold === 0 ? 0 : f.swing);
 
 /** Where `drawGlanced` draws a point `p` of the part — a bolt or a thumb meets it there. */
 export function glancedPoint(

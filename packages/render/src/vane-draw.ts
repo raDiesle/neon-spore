@@ -116,8 +116,8 @@ function drawMechanism(
   const rim = hex === PALETTE.red ? PALETTE.redRim : PALETTE.cyanRim;
 
   // The bearing glances on its hub, where a look takes one (`vane-glance.ts`).
-  drawVaneGlanced(ctx, l.tile, px, py, hub, time, () =>
-    drawBearing(ctx, l, world, b, px, py, hub, hurt),
+  drawVaneGlanced(ctx, l.tile, px, py, hub, time, (g) =>
+    drawBearing(g, l, world, b, px, py, hub, hurt),
   );
   // The split stands on the column a shot goes up, so it never turns.
   drawSplit(ctx, l, world, b, px, py, open, hex, rim);

@@ -1,5 +1,6 @@
 import type { PulseLane } from "@neon-spore/sim";
-import { drawGlanced, type Glance, glanceFrame, glanceStill, STILL_GLANCE } from "./glance.js";
+import { type Glance, glanceFrame, glanceStill, STILL_GLANCE } from "./glance.js";
+import { drawGlancedLayer } from "./glance-layer.js";
 import type { GlanceSize } from "./glance-styles.js";
 import { pulseLaneOutline } from "./pulse-shape.js";
 
@@ -46,12 +47,12 @@ export function drawPulseGlanced(
   ctx: CanvasRenderingContext2D,
   at: { x: number; y: number; r: number; lane: PulseLane; seed: number },
   time: number,
-  draw: () => void,
+  draw: (g: CanvasRenderingContext2D) => void,
 ): void {
   const { x, y, r } = at;
   const f = glanceFrame(PULSE_GLANCE, time + at.seed * STAGGER, { x: 0, y: 0, r: 1, hold: 0 });
   if (!turns(at.lane) || glanceStill(f)) {
-    draw();
+    draw(ctx);
     return;
   }
   // Turned in the body's own unit frame, so the far side's dark is laid over
@@ -61,12 +62,12 @@ export function drawPulseGlanced(
   ctx.save();
   ctx.translate(x, y);
   ctx.scale(r, r);
-  drawGlanced(ctx, f, { dark: FAR_DARK, full: PULSE_GLANCE_SIZE.reach, reach: 2.2 }, () => {
-    ctx.save();
-    ctx.scale(1 / r, 1 / r);
-    ctx.translate(-x, -y);
-    draw();
-    ctx.restore();
+  drawGlancedLayer(ctx, f, { dark: FAR_DARK, full: PULSE_GLANCE_SIZE.reach, reach: 2.2 }, (g) => {
+    g.save();
+    g.scale(1 / r, 1 / r);
+    g.translate(-x, -y);
+    draw(g);
+    g.restore();
     return [pulseLaneOutline(at.lane)];
   });
   ctx.restore();

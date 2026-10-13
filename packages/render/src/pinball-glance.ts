@@ -1,5 +1,6 @@
 import { blobPoints, POD } from "@neon-spore/content";
-import { drawGlanced, type Glance, glanceFrame, glanceStill, STILL_GLANCE } from "./glance.js";
+import { type Glance, glanceFrame, glanceStill, STILL_GLANCE } from "./glance.js";
+import { drawGlancedLayer } from "./glance-layer.js";
 import type { GlanceSize } from "./glance-styles.js";
 import { splinePath } from "./spline.js";
 
@@ -48,17 +49,17 @@ export function drawPinTargetGlanced(
   at: { x: number; y: number; halfW: number; r: number; pods: readonly number[] },
   seed: number,
   time: number,
-  draw: () => void,
+  draw: (g: CanvasRenderingContext2D) => void,
 ): void {
   const { x, y, halfW, r } = at;
   const f = glanceFrame(PINBALL_GLANCE, time + seed * STAGGER, { x, y, r: halfW, hold: 0 });
   if (glanceStill(f)) {
-    draw();
+    draw(ctx);
     return;
   }
   const reach = 2.5 * Math.max(1, r / halfW);
-  drawGlanced(ctx, f, { dark: FAR_DARK, full: PINBALL_GLANCE_SIZE.reach, reach }, () => {
-    draw();
+  drawGlancedLayer(ctx, f, { dark: FAR_DARK, full: PINBALL_GLANCE_SIZE.reach, reach }, (g) => {
+    draw(g);
     // The pod's contour as `drawPodBody` draws it at rest, at each place.
     const k = r / Math.max(POD.rx, POD.ry);
     return at.pods.map((dx) =>

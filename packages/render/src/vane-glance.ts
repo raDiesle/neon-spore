@@ -1,4 +1,5 @@
-import { drawGlanced, type Glance, glanceFrame, glanceStill, STILL_GLANCE } from "./glance.js";
+import { type Glance, glanceFrame, glanceStill, STILL_GLANCE } from "./glance.js";
+import { drawGlancedLayer } from "./glance-layer.js";
 import type { GlanceSize } from "./glance-styles.js";
 
 /**
@@ -43,16 +44,16 @@ export function drawVaneGlanced(
   py: number,
   hub: number,
   time: number,
-  draw: () => void,
+  draw: (g: CanvasRenderingContext2D) => void,
 ): void {
   const r = tile * MOUNT_HALF;
   const f = glanceFrame(VANE_GLANCE, time, { x: px, y: py, r, hold: 0 });
   if (glanceStill(f)) {
-    draw();
+    draw(ctx);
     return;
   }
-  drawGlanced(ctx, f, { dark: FAR_DARK, full: VANE_GLANCE_SIZE.reach, reach: 1.6 }, () => {
-    draw();
+  drawGlancedLayer(ctx, f, { dark: FAR_DARK, full: VANE_GLANCE_SIZE.reach, reach: 1.6 }, (g) => {
+    draw(g);
     // What the far half's dark is laid over: the mount and the bolt circle.
     const shape = new Path2D();
     shape.rect(px - r, py - tile * 0.26, 2 * r, tile * 0.46);

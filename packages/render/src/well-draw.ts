@@ -96,9 +96,9 @@ export function drawWellBodies(
     ctx.scale(k, k);
     ctx.translate(-at.x, -at.y);
     const half = { x: at.x, y: at.y, r: l.tile * 0.45 * spanOf(c) };
-    drawWellGlanced(ctx, half, c.id, view.time, () =>
+    drawWellGlanced(ctx, half, c.id, view.time, (g) =>
       bodyDraw(c.kind)({
-        ctx,
+        ctx: g,
         l,
         world,
         c,

@@ -130,8 +130,8 @@ function drawHull(
 
   const nose = Math.min(long * 0.35, c.tile * 0.42);
   const hurt = fx.hurt.value;
-  drawFleetGlanced(ctx, { long, across, nose }, at, time, () =>
-    paintHull(ctx, { long, across, nose, tile: c.tile, len: ship.len, skin, sinking, hurt }),
+  drawFleetGlanced(ctx, { long, across, nose }, at, time, (g) =>
+    paintHull(g, { long, across, nose, tile: c.tile, len: ship.len, skin, sinking, hurt }),
   );
   ctx.restore();
 

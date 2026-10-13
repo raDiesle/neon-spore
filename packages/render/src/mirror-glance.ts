@@ -1,4 +1,5 @@
-import { drawGlanced, type Glance, glanceFrame, glanceStill, STILL_GLANCE } from "./glance.js";
+import { type Glance, glanceFrame, glanceStill, STILL_GLANCE } from "./glance.js";
+import { drawGlancedLayer } from "./glance-layer.js";
 import type { GlanceSize } from "./glance-styles.js";
 import type { Layout } from "./layout.js";
 
@@ -39,15 +40,17 @@ export function drawMirrorGlanced(
   ctx: CanvasRenderingContext2D,
   l: Layout,
   time: number,
-  draw: () => Path2D,
+  draw: (g: CanvasRenderingContext2D) => Path2D,
 ): void {
   const r = l.width / 2;
   const y = l.bandTop + l.bandHeight / 2;
   const f = glanceFrame(MIRROR_GLANCE, time, { x: r, y, r, hold: 1 });
   if (glanceStill(f)) {
-    draw();
+    draw(ctx);
     return;
   }
   const reach = 1.1 + l.bandHeight / r;
-  drawGlanced(ctx, f, { dark: FAR_DARK, full: MIRROR_GLANCE_SIZE.reach, reach }, () => [draw()]);
+  drawGlancedLayer(ctx, f, { dark: FAR_DARK, full: MIRROR_GLANCE_SIZE.reach, reach }, (g) => [
+    draw(g),
+  ]);
 }

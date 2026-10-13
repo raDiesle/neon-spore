@@ -1,4 +1,5 @@
-import { drawGlanced, type Glance, glanceFrame, glanceStill, STILL_GLANCE } from "./glance.js";
+import { type Glance, glanceFrame, glanceStill, STILL_GLANCE } from "./glance.js";
+import { drawGlancedLayer } from "./glance-layer.js";
 import type { GlanceSize } from "./glance-styles.js";
 
 /**
@@ -36,16 +37,16 @@ export function drawCairnGlanced(
   ctx: CanvasRenderingContext2D,
   at: { x: number; y: number; r: number },
   time: number,
-  draw: () => void,
+  draw: (g: CanvasRenderingContext2D) => void,
   outline: () => Path2D,
 ): void {
   const f = glanceFrame(CAIRN_GLANCE, time, { ...at, hold: 1 });
   if (glanceStill(f)) {
-    draw();
+    draw(ctx);
     return;
   }
-  drawGlanced(ctx, f, { dark: FAR_DARK, full: CAIRN_GLANCE_SIZE.reach, reach: 1.4 }, () => {
-    draw();
+  drawGlancedLayer(ctx, f, { dark: FAR_DARK, full: CAIRN_GLANCE_SIZE.reach, reach: 1.4 }, (g) => {
+    draw(g);
     return [outline()];
   });
 }
