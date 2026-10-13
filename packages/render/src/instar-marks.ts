@@ -11,6 +11,7 @@ import {
   type World,
 } from "@neon-spore/sim";
 import type { CueKind } from "./boss-cue.js";
+import { asksGrab } from "./boss-cue-shape.js";
 import { drawVerdictRing, type GripVerdict } from "./grip-verdict.js";
 import { instarMarkPoint, instarMarkRadius } from "./instar-place.js";
 import { drawInstarRing } from "./instar-ring.js";
@@ -169,12 +170,15 @@ export function drawInstarMarks(
       const along = Math.max(0, Math.min(1, swipe ? instarSwipeAlong(s, cfg, i) / 1000 : count));
       const held = (s.thumbs[i] ?? 0) !== 0;
       const { kind, word } = instarMarkWord(mark, role);
+      // A pull, a swipe or a turn of its own seat says nothing (`asksGrab`);
+      // the partner's mark still names whose it is.
+      const says = kind === undefined || !asksGrab({ kind });
       if (swipe) {
         // A track and not a ring: the way the thumb goes (`instar-track.ts`).
         const t = instarTrack(at.x, at.y, r, (l.tile * cfg.instarSwipeMilli) / 1000);
         drawInstarSwipe(ctx, t, r, mine, held, along, time, awaited, left);
         const mid = (t.top + t.bottom) / 2;
-        drawInstarWord(ctx, l, word, at.x + side * off, mid, side, mine, kind, room);
+        if (says) drawInstarWord(ctx, l, word, at.x + side * off, mid, side, mine, kind, room);
         drawVerdict(ctx, verdicts, i, at.x, at.y, r);
         return;
       }
@@ -183,7 +187,7 @@ export function drawInstarMarks(
       drawInstarRing(ctx, at.x, at.y, r, mark, mine, held, along, time, awaited);
       if (!mine) drawMarkTheirs(ctx, at.x, at.y, r, time);
       drawInstarWindow(ctx, at.x, at.y, r, left, mine);
-      drawInstarWord(ctx, l, word, at.x + side * off, at.y, side, mine, kind, room);
+      if (says) drawInstarWord(ctx, l, word, at.x + side * off, at.y, side, mine, kind, room);
     }
     drawVerdict(ctx, verdicts, i, at.x, at.y, r);
   });

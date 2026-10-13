@@ -171,7 +171,10 @@ export function queenCues(
   );
   const out: BossCue[] = [];
   if (torch !== undefined && !occupiesCol(torch, world.shieldCol)) {
-    out.push(markAt(2, "CARRY", "MOVE", tileCX(l, world.shieldCol), l.hullY, l, 37));
+    out.push({
+      ...markAt(2, "CARRY", "MOVE", tileCX(l, world.shieldCol), l.hullY, l, 37),
+      panel: true,
+    });
   }
   // The two phases answered on her picture (`queen-hand.ts`): the pilot's
   // word stands on her own column, in the gap between the marks — never on

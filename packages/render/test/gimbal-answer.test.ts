@@ -66,23 +66,15 @@ describe("THE GIMBAL's cradle answering", () => {
     expect(frame("p2", held(300, NO_BEARING)).text).toBe(frame("p2", loose).text);
   });
 
-  it("says one word to each seat, on that seat's own ring", () => {
-    // The one boss whose reading answers with two cues on one beat
-    // (`boss-cue-read-y.ts`): a word on his rim and a word on hers, never in
-    // the same place and never a direction. The still drum asks for nothing.
+  it("says no word on either ring, and the leak's word to both seats", () => {
+    // The rings ask for a turn, and a grab on the field says no word since
+    // the owner, 13 October 2026 (`asksGrab`): the knob on its lever is the
+    // ask. The still drum asks for nothing either.
     const up = (w: World) => {
       turning(w, 200, 200);
     };
     const quiet = words(frame("p1", still));
-    expect(words(frame("p1", up))).toBeGreaterThan(quiet);
-    expect(words(frame("p2", up))).toBe(words(frame("p1", up)));
-    // And the test screen, which is nobody's seat and holds both rings, still
-    // carries one cue: the drawer takes the first cue a screen may see and
-    // stops, so no screen ever says two things to do at once (`boss-cue.ts`).
-    // Its second knob adds no word: no pull handle wears PULL since the owner,
-    // 12 October 2026 (`saysPull`) — so the rig says as much as one seat.
-    const rig = words(frame("test", up));
-    expect(rig).toBe(words(frame("p1", up)));
+    for (const role of ["p1", "p2", "test"] as const) expect(words(frame(role, up))).toBe(quiet);
     // And the leak is the one word with no seat on it: both screens get it.
     expect(words(frame("p1", leaking))).toBeGreaterThan(quiet);
     expect(words(frame("p2", leaking))).toBe(words(frame("p1", leaking)));

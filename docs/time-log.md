@@ -38615,3 +38615,17 @@ Bottleneck: AUTO's second pass on BOTH AT ONCE at four turns ended before
 the other seat came in, so it never lapsed — only the loop test showed it.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-13 — No grab on the field wears a scan box or a word
+
+- reading: 20 min. Where the white-cornered box comes from (`drawTargetLock`
+  in `boss-cue-draw.ts`), which cues are grabs, and what said "tap" on THE
+  GAUGE's card.
+- writing: 15 min. `asksGrab`, the box, the words, THE INSTAR's word box, the
+  shield's `MOVE` kept, and eleven render tests that asserted the words.
+- looking: 15 min. The director's cards, before and after, read off canvases.
+- friction: 5 min. `director-here` started another worktree's director until
+  `bun run here` pointed it at this one.
+- landing: 10 min. `check:fast`, the commit, `land`.
+
+Bottleneck: eleven tests each asserting a word that a one-line rule removes.

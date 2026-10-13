@@ -855,25 +855,6 @@ the pull (`pull-lab-rule.ts`, `TOUCH_SLACK` for a finger) — then each chosen
 boss's path, drawn from the same numbers.
 
 
-## A pull's word still wears the scanner box on its knob, outside THE LAMPREY
-
-- **Found:** 2026-10-12, claude/lamprey-pull-mechanics-9b1e2a
-- **Taken:** 2026-10-13, claude/director-pull-control-visuals-2a801c (claim: claude/queue-a-pulls-word-still-wears-the-scanner-box-on-its)
-- **Files:** `packages/render/src/boss-cue-read-zu.ts`, `packages/render/src/boss-cue-read-zv.ts`, `packages/render/src/boss-cue-read-d.ts`, `packages/render/src/boss-cue-read-o.ts`, `packages/render/src/boss-cue-read-zc.ts`, `packages/render/src/boss-cue-read-q.ts`, `packages/render/src/boss-cue-read-zl.ts`, `packages/render/src/boss-cue-read-k.ts`, `packages/render/src/plumb-marks.ts`
-
-The owner, 12 October 2026, on THE LAMPREY: a scanner box round a `PULL`
-word standing on a knob *is not required as players understand now common
-concept when they see button to pull it*. THE LAMPREY's three pull cues carry
-`framed: false` now (`boss-cue-read-zs.ts`), and `docs/controls-catalogue.md`
-has the row under Not allowed. The other bosses whose `PULL` word stands on a
-knob or a pull arrow of their own still get `drawTargetLock` from
-`boss-cue-draw.ts`: THE LATCH, THE BASTION, THE STARE, THE LEDGER, THE MANTLE,
-THE CAIRN, THE CAPSTAN, THE THROAT, THE PLUMB. Check in each reading that the
-cue stands on the knob (not beside it, not on a chart), add `framed: false`,
-and leave the pulls that draw no knob — THE TASTER, THE GAUGE's tooth, THE
-VANE, THE VISE, THE GALL, THE FLEET's chart — framed, since the box is their
-only mark.
-
 ## The three lab doors in the topbar still open a page of their own
 
 - **Found:** 2026-10-12, claude/labs-on-field-page-acf3e3
@@ -899,3 +880,21 @@ window and the URL keys out, and photograph the card instead.
 - **Answered:** 2026-10-13 — into the game, the owner: `DrawRelease` becomes a hold stage then a pull stage on the cord's own track, the autopilot and THE SLING's tests with it.
 
 The owner, 12 October 2026, of the lab's HOLD, THEN SWIPE: *should be a separate "hold", then another "pull" appears after it on same place.* The lab now plays it that way (`combo-hold-then-pull.ts`); the game's two cords still loose on a swipe. The options: carry it into the game — `DrawRelease` becomes a hold stage then a pull stage on the cord's own track, the autopilot and THE SLING's tests with it; or leave the game and the lab apart until the generic pull is in the game. `bun test packages/sim/test/sling*` proves the first.
+
+## Five pulls with no knob read as taps now their box is gone
+
+- **Found:** 2026-10-13, claude/director-pull-control-visuals-2a801c
+- **Files:** `packages/render/src/gauge-tooth-grip.ts`, `packages/render/src/gauge-grip.ts`, `packages/render/src/taster-grip.ts`, `packages/render/src/vane-grip.ts`, `packages/render/src/gall-grip.ts`
+- **Asks:** Should THE GAUGE's tooth and tongue, THE TASTER's wipe and pry, THE VANE's housing and THE GALL's pull be drawn with the PULL LAB's knob, arrow and channel — or keep the plain rings they have?
+
+Since 13 October 2026 no grab on the field wears a scan box or a word
+(`asksGrab`, `boss-cue-shape.ts`). For the pulls that already draw the PULL
+LAB's knob — THE CURTAIN's hem, THE FLEET's wreck — that changes nothing a
+player needs; for these five the box and its word were the only things that
+said *pull* or *twist*, and what is left is a ring per tooth or part, which
+reads as a press. The owner, on THE GAUGE's card on CONTROLS › ON THE
+FIELD: it *shows "tap" … but this is category of PULL PAST A DISTANCE*. The
+options: (a) each one's rings become `drawPullKnob` on a `drawPullTrack` the
+length of its `…PullMilli`, the arrow its sim's direction; (b) keep the rings
+and add only the knob's arrow; (c) keep them as they are.
+

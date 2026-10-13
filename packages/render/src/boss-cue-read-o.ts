@@ -156,7 +156,7 @@ export function ledgerCues(
     const left = next.beat - world.beat;
     if (world.shieldCol !== t.socket) {
       const at = ledgerSocketPoint(l, t);
-      out.push(markAt(2, "CARRY", "MOVE", at.x, at.y, l, 52));
+      out.push({ ...markAt(2, "CARRY", "MOVE", at.x, at.y, l, 52), panel: true });
     }
     const at = cordAt(l, cfg, t, next, world.beat, beatPhase);
     // Waiting with the plate already in the socket is the pair ahead of the

@@ -1,6 +1,6 @@
 import type { World } from "@neon-spore/sim";
 import { bossCue } from "./boss-cue.js";
-import type { BossCue } from "./boss-cue-shape.js";
+import { asksGrab, type BossCue } from "./boss-cue-shape.js";
 import { drawCueText } from "./boss-cue-text.js";
 import { cueBoxed, cueDrawnAt, drawCueHelper, markIsHere } from "./cue-helper.js";
 import type { SurfaceY } from "./hull-frame.js";
@@ -43,8 +43,9 @@ export function drawBossCue(
   const cue = cueDrawnAt(read, l.hullY);
   // Only where nothing already marks the place: `BossCue.framed` — and not
   // where a hold's circle or a rub's line stands on it, which is the frame
-  // there (`cue-helper.ts`). A shot's box stands round its crosshair.
-  if (cue.framed !== false && !markIsHere(cue) && cueBoxed(cue, l.hullY)) {
+  // there (`cue-helper.ts`). A shot's box stands round its crosshair. Never
+  // round a grab on the field, whose handle is its own mark (`asksGrab`).
+  if (cue.framed !== false && !asksGrab(cue) && !markIsHere(cue) && cueBoxed(cue, l.hullY)) {
     drawTargetLock(ctx, cue.x, cue.y, cue.halfW, cue.halfH, PALETTE.rock, time, 0.85, cue.seed);
   }
   const muzzle = { x: tileCX(l, world.cannonCol), y: l.hullY };

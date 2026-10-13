@@ -33,7 +33,10 @@ import { type Layout, tileCX } from "./layout.js";
  * is under the lobe.
  */
 function moveShield(l: Layout, world: World, seed: number): BossCue {
-  return markAt(2, "CARRY", "MOVE", tileCX(l, world.shieldCol), l.hullY, l, seed);
+  return {
+    ...markAt(2, "CARRY", "MOVE", tileCX(l, world.shieldCol), l.hullY, l, seed),
+    panel: true,
+  };
 }
 
 export function undertowCues(

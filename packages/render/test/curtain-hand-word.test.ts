@@ -13,8 +13,9 @@ import { CFG, FRAME_TIMEOUT_MS, installCanvasGlobals, VIEWPORT } from "./frame-h
  * **THE CURTAIN's cue word and the hand ring's word are never one word**
  * (`curtain-hand-word.ts`). With a hand on the sheet the ring's `PULL` and the
  * cue's `SHOVE` hung the same distance under the sheet's middle and read as
- * `SHOVEPULL` on the navigator's screen (7 October 2026). Both are drawn here
- * as the game draws them, and the boxes the words land in are compared.
+ * `SHOVEPULL` on the navigator's screen (7 October 2026). Since 13 October
+ * 2026 neither verb is written (`asksGrab`), and the hand's word keeps its
+ * own place under both. Drawn here as the game draws them.
  */
 
 setDefaultTimeout(FRAME_TIMEOUT_MS);
@@ -42,49 +43,35 @@ function words(world: World, l: Layout): { cue: TextBox | null; hand: TextBox } 
   if (cue !== null) drawCueText(paper, cue, 0, l.width);
   const hand = ctx.texts.find((t) => t.text.endsWith("PULL") || t.text.endsWith("PULLS"));
   if (hand === undefined) throw new Error("no hand word was written");
-  return { cue: ctx.texts.find((t) => t.text === cue?.word) ?? null, hand };
-}
-
-function meet(a: TextBox, b: TextBox): boolean {
-  return a.x < b.x + b.w && b.x < a.x + a.w && a.y < b.y + b.h && b.y < a.y + a.h;
+  return { cue: ctx.texts.find((t) => t.text === cue?.word && t !== hand) ?? null, hand };
 }
 
 describe("THE CURTAIN's cue word and the hand's word", () => {
+  /** Where `grip.ts` puts the hand's word: the box's top is its baseline less the 9px font's ascent. */
+  const under = (l: Layout): number => handWordY(tileCY(l, CFG.curtainRow), l.tile * 0.8) - 9 * 0.8;
+
   for (const seats of [[1], [2], [1, 2]] as const) {
-    it(`stand apart under SHOVE with seat ${seats.join(" and ")} on the sheet`, () => {
+    it(`write no SHOVE, and the hand's word where it always stood, with seat ${seats.join(" and ")} on the sheet`, () => {
       for (const role of ["p1", "p2"] as const) {
-        const { cue, hand } = words(held(seats), layout(role));
-        expect(cue?.text).toBe("SHOVE");
-        if (cue === null) continue;
-        expect(meet(cue, hand)).toBe(false);
-        // Stacked, not scattered: the hand's word is the line under the verb.
-        expect(hand.y).toBeGreaterThan(cue.y);
-        expect(hand.y - (cue.y + cue.h)).toBeLessThan(6);
+        const l = layout(role);
+        const { cue, hand } = words(held(seats), l);
+        // A grab on the field says no word (`asksGrab`, the owner, 13 October 2026).
+        expect(cue).toBeNull();
+        expect(hand.y).toBeCloseTo(under(l), 6);
       }
     });
   }
 
-  it("stand apart under LIFT while the rail is jammed", () => {
+  it("write no LIFT while the rail is jammed, on either screen", () => {
     const world = held([1]);
     const c = body(world);
     c.phase = "pinned";
     c.phaseBeat = world.beat;
-    const { cue, hand } = words(world, layout("p1"));
-    expect(cue?.text).toBe("LIFT");
-    if (cue !== null) expect(meet(cue, hand)).toBe(false);
-  });
-
-  it("leaves the hand's word where it always stood when no cue is up", () => {
-    const world = held([1]);
-    const c = body(world);
-    c.phase = "pinned";
-    c.phaseBeat = world.beat;
-    // LIFT is the pilot's alone, so the navigator's sheet has no cue on it.
-    const l = layout("p2");
-    const { cue, hand } = words(world, l);
-    expect(cue).toBeNull();
-    // The box's top is its baseline less the 9px font's ascent.
-    const under = handWordY(tileCY(l, CFG.curtainRow), l.tile * 0.8);
-    expect(hand.y).toBeCloseTo(under - 9 * 0.8, 6);
+    for (const role of ["p1", "p2"] as const) {
+      const l = layout(role);
+      const { cue, hand } = words(world, l);
+      expect(cue).toBeNull();
+      expect(hand.y).toBeCloseTo(under(l), 6);
+    }
   });
 });

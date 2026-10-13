@@ -78,26 +78,22 @@ describe("THE ANTIPHON's body", () => {
     expect(count(swapped("p1"), PALETTE.organ)).toBe(count(pitted("p1"), PALETTE.organ));
   });
 
-  it("draws the organ's grip with the word on the explainer's screen, and neither on the chooser's", () => {
-    // The mark is drawn in the rock's grey whether or not a thumb holds it;
-    // the word under it shares that same fill (`boss-cue-text.ts`) and shows
-    // only while nothing holds the mark, so a count taken while the word can
-    // also be showing cannot tell the mark from the word sitting under it —
-    // a held mark can, since the word is gone and the mark is not
-    // (`frame-colours.test.ts`'s EXCEPTIONS for why this pairing is the fix).
+  it("draws the organ's grip on the explainer's screen with no word, and nothing on the chooser's", () => {
+    // The mark is drawn in the rock's grey whether or not a thumb holds it,
+    // and no word stands under it: a turn on the field says itself with its
+    // grip (the owner, 13 October 2026; `asksGrab`).
     const none = frame("p1", () => {});
     const up = frame("p1", (w) => void grown(w));
-    expect(turnWord(up.words)).toBe(true);
-    expect(turnWord(none.words)).toBe(false);
+    expect(turnWord(up.words)).toBe(false);
+    expect(count(up.text, PALETTE.rock)).toBeGreaterThan(count(none.text, PALETTE.rock));
     const held = frame("p1", (w) => {
       grown(w).heldP2 = true;
     });
     expect(turnWord(held.words)).toBe(false);
-    expect(held.text).not.toBe(up.text);
     expect(count(held.text, PALETTE.rock)).toBeGreaterThan(count(none.text, PALETTE.rock));
-    // The chooser's screen never takes the organ's mark or its word.
+    // The chooser's screen never takes the organ's mark.
     const hers = frame("p2", (w) => void grown(w));
-    expect(turnWord(hers.words)).toBe(false);
+    expect(count(hers.text, PALETTE.rock)).toBe(count(frame("p2", () => {}).text, PALETTE.rock));
   });
 
   it("draws the organ turned as far as the thumb has turned it, on the explainer's screen only", () => {
@@ -170,26 +166,15 @@ describe("THE ANTIPHON's body", () => {
 });
 
 /**
- * **The organ's word is the field's one cue** (`docs/decisions.md` #34,
- * `render/src/boss-cue-text.ts`), for `sinew-frame.test.ts`' reason. The seat
- * is the explainer's twice over: the organ hangs on their screen alone
- * (`showsAntiphonOrgan`) and the cue asks again before it is drawn, so a screen
- * that somehow got the body would still not get the instruction.
+ * **The organ says no word** (`render/src/boss-cue-text.ts`, `asksGrab`): a
+ * turn on the field is a grab, and the owner, 13 October 2026, took every
+ * grab's word away — *"turn" … all of that we do not need*.
  */
 describe("THE ANTIPHON's word", () => {
-  it("says the verb once on the explainer's screen, in the cue's grey", () => {
+  it("is not drawn on either screen", () => {
     const world = hung();
     grown(world);
-    const { words, text } = drawn(world, "p1", 3);
-    // Once and not twice: the kind of action here *is* `TURN`, and a kind line
-    // repeating the verb is dropped (`boss-cue-text.ts`).
-    expect(words.filter((w) => w === "TURN").length).toBe(1);
-    expect(text).toContain(PALETTE.rock);
-  });
-
-  it("says nothing at all on the chooser's, who has no organ to turn", () => {
-    const world = hung();
-    grown(world);
+    expect(turnWord(drawn(world, "p1", 3).words)).toBe(false);
     expect(turnWord(drawn(world, "p2", 3).words)).toBe(false);
   });
 });

@@ -1,6 +1,6 @@
 import type { CurtainState, World } from "@neon-spore/sim";
 import { curtainCues } from "./boss-cue-read.js";
-import { type BossCue, cueSeen } from "./boss-cue-shape.js";
+import { asksGrab, type BossCue, cueSeen } from "./boss-cue-shape.js";
 import { cueWordY } from "./boss-cue-text.js";
 import type { Layout } from "./layout.js";
 
@@ -15,6 +15,10 @@ import type { Layout } from "./layout.js";
  * navigator's screen, at THE CURTAIN, 7 October 2026. The cue's verb keeps its
  * place, since it is the instruction; the hand's word, which says who is doing
  * it, steps a line below whenever the two would meet.
+ *
+ * **Since 13 October 2026 `SHOVE` and `LIFT` are not written** — a grab on the
+ * field says no word (`asksGrab`) — so the hand's word keeps its place under
+ * either, and steps aside only for a verb that is still drawn.
  *
  * Widths are Courier's: every glyph advances the same share of its size, so a
  * box is known from the word alone, with no canvas to measure on.
@@ -78,7 +82,7 @@ export function curtainHandWordY(
   under: number,
 ): number {
   const cue = curtainCueSeen(l, world, c);
-  if (cue === null) return under;
+  if (cue === null || asksGrab(cue)) return under;
   const verb = cueWordBox(cue);
   if (!wordsMeet(handWordBox(text, x, under), verb)) return under;
   return verb.bottom + GAP + HAND_ABOVE;

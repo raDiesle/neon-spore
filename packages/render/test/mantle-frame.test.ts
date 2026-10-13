@@ -109,8 +109,12 @@ describe("THE MANTLE's shell", () => {
     const open = frame(role, beating);
     const shut = frame(role, (w) => pulling(w, 0, 0, 3));
     expect(open.text).not.toBe(shut.text);
-    // The last pair is gone: no plate outline anywhere, only the two rims.
-    expect(count(open.text, PALETTE.rock)).toBeLessThan(count(shut.text, PALETTE.rock));
+    // The last pair is gone: no plate outline anywhere, only the two rims —
+    // a plate's outline is a stroke in rock, which nothing else on the shell
+    // strokes since a pull's scan box went (`asksGrab`).
+    const outline = `set strokeStyle=${PALETTE.rock}|stroke`;
+    expect(count(shut.text, outline)).toBeGreaterThan(0);
+    expect(count(open.text, outline)).toBe(0);
   });
 
   it.each(ROLES)("beats the half of the ring whose tap is next, on %s", (role) => {

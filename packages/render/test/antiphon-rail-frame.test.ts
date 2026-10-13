@@ -72,20 +72,13 @@ describe("THE ANTIPHON's rail", () => {
     expect(bead(2)).toBe(bead(11));
   });
 
-  it("says CHOOSE once where the veins end, and never on the explainer's screen", () => {
-    // One word under the organ's place rather than one per candidate: a
-    // word on the candidate being described would be the chooser's own
-    // reading handed back (`boss-cue-read-p.ts`).
+  it("says no CHOOSE on either screen: the rail's rings are the grab (the owner, 13 October 2026)", () => {
     const world = hung();
     grown(world);
-    expect(chooseWord(drawn(world, "p2", 3).words).length).toBe(1);
+    expect(chooseWord(drawn(world, "p2", 3).words)).toEqual([]);
     expect(chooseWord(drawn(world, "p1", 3).words)).toEqual([]);
-  });
-
-  it("keeps the word up while a candidate is in hand, where it is carried to", () => {
-    const world = hung();
     grown(world).carried = 1;
-    expect(chooseWord(drawn(world, "p2", 3).words).length).toBe(1);
+    expect(chooseWord(drawn(world, "p2", 3).words)).toEqual([]);
   });
 
   it("draws the organ and each candidate at its resting turn, and nought as it ships", () => {

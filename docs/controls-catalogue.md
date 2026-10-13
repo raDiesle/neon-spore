@@ -88,6 +88,7 @@ Each is a rule of the owner's; the date is when he gave it.
 | `CARRY` over a verb that is already a motion | `saysKind` (`boss-cue-shape.ts`) | 24 September 2026 |
 | A line saying the order | one seat's mark first, the other's after | 24 September 2026 |
 | A scanner box, or a green progress ring, round a pull's knob — the knob riding its channel says both already | the knob and its track alone, the word with `framed: false` (`boss-cue-read-zs.ts`) | 12 October 2026 |
+| A scanner box, or any word — `LIFT`, `PULL UP`, `TURN`, `TWIST` — on a grab on the field | the handle alone; `asksGrab` (`boss-cue-shape.ts`) keeps both off every `CARRY` and `TURN` cue but the shield's own `MOVE` (`panel`) | 13 October 2026 |
 | A mark up before its window opens, or moving with the body while it asks | the window's own predicate; `slowHush` | 27 September 2026 |
 
 ## The catalogue
@@ -176,7 +177,7 @@ Taught once, by the guide; **no helper on the field** (above).
 
 | Piece | Shared | Says | Who |
 |---|---|---|---|
-| `BossCue`, `CueKind`, `cueSeen`, `saysKind`, `cueShot` | `boss-cue-shape.ts` | one thing to do, where, for which seat, and its kind line — `PRESS`, `HOLD`, `TURN`, `STILL`, `CALL`; never `CARRY`; `cueShot` is the one colour a shot's mark and its lit fire button both say | every boss's cue reading |
+| `BossCue`, `CueKind`, `cueSeen`, `saysKind`, `cueShot`, `asksGrab` | `boss-cue-shape.ts` | one thing to do, where, for which seat, and its kind line — `PRESS`, `HOLD`, `TURN`, `STILL`, `CALL`; never `CARRY`; `cueShot` is the one colour a shot's mark and its lit fire button both say; `asksGrab` is a grab on the field, drawn with no box and no word | every boss's cue reading |
 | `bossCues`, `bossCue` | `boss-cue.ts` | the cues, read off `World` | every boss with a cue |
 | `cueFrame`, `CUE_FRAME`, `CUE_FRAME_WIDE`, `markAt`, `cueAimAt` | `boss-cue-frame.ts` | how far a cue's frame reaches — THE CHOIR's, or the wider one from THE GIMBAL on — and a cue at a point in it; `cueAimAt` is the crosshair's circle on something small falling, a bead, a bolt, a spark, where no halo stands | every cue reading, and THE PLUMB's marks; `copies-table.ts` holds the sizes; `cueAimAt` from THE GIMBAL, THE HASP, THE RATCHET, THE MANTLE, THE KEEL |
 | `drawCueText`, `cueWordY`, `WORD_FONT` | `boss-cue-text.ts` | the verb under the mark and the kind over it, in THE CHOIR's courier, rock grey | every cue, and THE SINEW, THE SURGE, THE ANTIPHON which build their own `BossCue` |

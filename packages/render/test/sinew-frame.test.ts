@@ -254,7 +254,8 @@ describe("THE SINEW's tendon", () => {
     for (let i = 0; i < 4 * TPB; i++) step(world, []);
     falling(world);
     const frame = drawn(world, role, 3);
-    expect(frame.words.some((w) => w.includes("SWAY"))).toBe(true);
+    // No SWAY under it: a grab on the field says no word (`asksGrab`).
+    expect(frame.words.some((w) => w.includes("SWAY"))).toBe(false);
     expect(frame.text).toContain(PALETTE.hull);
   });
 
@@ -312,10 +313,6 @@ describe("THE SINEW's tendon", () => {
  * hand is read off the ring filling, which is what a ring is for.
  */
 describe("THE SINEW's word", () => {
-  /** How many handles each screen may be asked about: one each, both on the
-   * rig, which is the screen that is nobody's hands. */
-  const ASKED: Record<ViewRole, number> = { p1: 1, p2: 1, test: 2 };
-
   // The pull is said by the knob's arrow, as in the PULL LAB (`saysPull`, the
   // owner, 12 October 2026).
   it.each(ROLES)("says no PULL on either handle, on %s", (role) => {
@@ -323,24 +320,12 @@ describe("THE SINEW's word", () => {
     expect(words).not.toContain("PULL");
   });
 
-  // No `CARRY` over it: the verb is the motion already (`saysKind`, the owner,
-  // 24 September 2026).
-  it.each(ROLES)("says the verb alone, in the cue's grey, on %s", (role) => {
-    const world = hung();
-    falling(world);
-    const { words, text } = drawn(world, role, 3);
-    expect(words).not.toContain("CARRY");
-    expect(text, "the cue is drawn in rock grey, never an ammunition colour").toContain(
-      PALETTE.rock,
-    );
-  });
-
-  it.each(ROLES)("changes the verb once the mass falls, on %s", (role) => {
+  // No verb at all since the owner, 13 October 2026: a grab on the field
+  // says itself with its handle (`asksGrab`), and SWAY was one.
+  it.each(ROLES)("says no verb once the mass falls either, on %s", (role) => {
     const world = hung();
     falling(world);
     const { words } = drawn(world, role, 3);
-    expect(words.filter((w) => w === "SWAY").length).toBe(ASKED[role]);
-    expect(words).not.toContain("PULL");
-    expect(words).not.toContain("CARRY");
+    for (const word of ["SWAY", "PULL", "CARRY"]) expect(words).not.toContain(word);
   });
 });

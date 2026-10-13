@@ -160,6 +160,28 @@ export interface BossCue {
    * colour is the other seat's to say (#34).
    */
   shows?: Color;
+  /**
+   * **A carry that is the panel's and not a grab on the field**: the
+   * shield's `MOVE`, which a thumb does on her strip under the field. It keeps
+   * its box and its word where every grab on the field has lost both
+   * (`asksGrab`).
+   */
+  panel?: boolean;
+}
+
+/**
+ * **Whether a cue asks for a grab on the field** — a pull, a lift, a turn, a
+ * twist, a rub — and so is drawn with **no scan box and no words**. The
+ * owner, 13 October 2026, on THE CURTAIN's hem and THE FLEET's wreck: *this
+ * rectangle scanner box with white corners … should be not displayed anymore
+ * across*, and *helper text like "turn" "lift" "pull up" "twist" — all of
+ * that we do not need*. The handle says it: its knob's arrow and its channel
+ * (`pull-knob.ts`, `pull-track.ts`), as `saysPull` said for the word PULL a
+ * day before. A hold's circle and a rub's line are marks, not words, and
+ * stay (`cue-helper.ts`). The kind stays on the cue as data.
+ */
+export function asksGrab(cue: Pick<BossCue, "kind"> & { panel?: boolean }): boolean {
+  return (cue.kind === "CARRY" || cue.kind === "TURN") && cue.panel !== true;
 }
 
 /**

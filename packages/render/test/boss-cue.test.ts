@@ -16,6 +16,7 @@ import {
 } from "@neon-spore/sim";
 import { type BossCue, bossCue } from "../src/boss-cue.js";
 import { drawBossCue } from "../src/boss-cue-draw.js";
+import { saysKind } from "../src/boss-cue-shape.js";
 import { drawCueText } from "../src/boss-cue-text.js";
 import { computeLayout, type Layout, type ViewRole } from "../src/layout.js";
 import type { TextBox } from "./canvas-stub.js";
@@ -266,7 +267,7 @@ describe("the cue's kind line", () => {
  * What is here is the rule of the hand, asked directly.
  */
 describe("a kind line that is the verb said twice", () => {
-  function lines(kind: BossCue["kind"], word: string): string[] {
+  function lines(kind: BossCue["kind"], word: string, panel?: boolean): string[] {
     const { ctx } = stubCanvas();
     ctx.texts = [];
     const cue: BossCue = {
@@ -279,6 +280,7 @@ describe("a kind line that is the verb said twice", () => {
       halfH: 12,
       seed: 1,
       framed: false,
+      panel,
     };
     drawCueText(ctx as unknown as CanvasRenderingContext2D, cue, 0);
     return ctx.texts.map((t) => t.text);
@@ -286,7 +288,7 @@ describe("a kind line that is the verb said twice", () => {
 
   it("is not drawn, so the mark carries one word", () => {
     expect(lines("HOLD", "HOLD")).toEqual(["HOLD"]);
-    expect(lines("TURN", "TURN")).toEqual(["TURN"]);
+    expect(saysKind("TURN", "TURN")).toBe(false);
   });
 
   it("is drawn wherever it says something the verb does not", () => {
@@ -298,7 +300,12 @@ describe("a kind line that is the verb said twice", () => {
   });
 
   it("never says CARRY, whose verb is always the motion (the owner, 24 September 2026)", () => {
-    expect(lines("CARRY", "SWAY")).toEqual(["SWAY"]);
+    expect(lines("CARRY", "MOVE", true)).toEqual(["MOVE"]);
+  });
+
+  it("says nothing over a grab on the field (the owner, 13 October 2026)", () => {
+    for (const word of ["LIFT", "PULL UP", "SWAY", "RUB"]) expect(lines("CARRY", word)).toEqual([]);
+    for (const word of ["TURN", "TWIST"]) expect(lines("TURN", word)).toEqual([]);
   });
 
   it("never says PULL, which the knob's arrow says (the owner, 12 October 2026)", () => {

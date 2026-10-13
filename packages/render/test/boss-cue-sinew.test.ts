@@ -195,7 +195,7 @@ describe("THE SINEW's word", () => {
     expect(say(world, 1, { swinging: true })).toBeNull();
   });
 
-  it("draws the word it chose, on the seat whose thumb it is", () => {
+  it("draws no verb of a grab, and still says when to let go", () => {
     const drawn = (role: ViewRole, set: (world: World, s: SinewState) => void): string[] => {
       const world = hung();
       set(world, tendon(world));
@@ -208,19 +208,18 @@ describe("THE SINEW's word", () => {
       });
       return texts.map((t) => t.text);
     };
-    const bothFree = (): void => {};
-    // The pull is said by each knob's arrow and never in a word (`saysPull`).
-    expect(drawn("p1", bothFree)).not.toContain("PULL");
-    expect(drawn("p2", bothFree)).not.toContain("PULL");
-    // And the two words no canvas in this suite had been handed before, both of
-    // them over a ring with a thumb already on it.
+    // The pull is said by each knob's arrow (`saysPull`), and SWAY by the
+    // handle too, since the owner, 13 October 2026 (`asksGrab`). LIFT is no
+    // grab's verb but the thumb coming off, a `STILL`, and stays.
+    expect(drawn("p1", () => {})).not.toContain("PULL");
+    expect(drawn("p2", () => {})).not.toContain("PULL");
     expect(
       drawn("p1", (world, s) => {
         s.fibres = 0;
         s.fallBeat = world.beat;
         hand(s, 1);
       }),
-    ).toContain("SWAY");
+    ).not.toContain("SWAY");
     expect(
       drawn("p2", (world, s) => {
         spent(world);

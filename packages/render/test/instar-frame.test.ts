@@ -1,8 +1,10 @@
 import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
 import { INSTAR_SCRIPT } from "@neon-spore/content";
 import { type InstarState, step, type World } from "@neon-spore/sim";
+import { asksGrab } from "../src/boss-cue-shape.js";
 import { Effects } from "../src/effects.js";
 import { rgba } from "../src/hex.js";
+import { INSTAR_WORDS } from "../src/instar-marks.js";
 import { INSTAR_FLIGHT_ENDS } from "../src/instar-shape.js";
 import { computeLayout, type ViewRole } from "../src/layout.js";
 import { PALETTE } from "../src/palette.js";
@@ -155,7 +157,9 @@ describe("THE INSTAR's body", () => {
     for (const cursor of STEPS) {
       const at = (role: ViewRole) => frame(role, (w) => asking(w, cursor));
       const marks = INSTAR_SCRIPT[cursor]?.marks ?? [];
-      const ask = (seat: string) => marks.filter((m) => m.seat === seat).length;
+      // A pull, a swipe or a turn says no word on its own seat (`asksGrab`).
+      const ask = (seat: string) =>
+        marks.filter((m) => m.seat === seat && !asksGrab(INSTAR_WORDS[m.gesture])).length;
       const bright = (role: ViewRole) => count(at(role).text, PALETTE.text);
       expect(count(at("p1").text, PLATE)).toBe(count(at("p2").text, PLATE));
       expect(Math.sign(bright("p1") - bright("p2"))).toBe(Math.sign(ask("p1") - ask("p2")));
