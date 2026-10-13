@@ -6,6 +6,9 @@
 // `index.ts` next door says why it is generated at all.
 
 import type { Variant } from "../variant.js";
+import { FLEET_COCK } from "./fleet-glance/cock/index.js";
+import { FLEET_LOOK_AROUND } from "./fleet-glance/look/index.js";
+import { FLEET_SWAY } from "./fleet-glance/sway/index.js";
 import { MIRROR_COCK } from "./mirror-glance/cock/index.js";
 import { MIRROR_LOOK_AROUND } from "./mirror-glance/look/index.js";
 import { MIRROR_SWAY } from "./mirror-glance/sway/index.js";
@@ -20,6 +23,9 @@ import { WARDEN_LOOK_AROUND } from "./warden-glance/look/index.js";
 import { WARDEN_SWAY } from "./warden-glance/sway/index.js";
 
 export const VARIANTS: Variant[] = [
+  FLEET_COCK,
+  FLEET_LOOK_AROUND,
+  FLEET_SWAY,
   MIRROR_COCK,
   MIRROR_LOOK_AROUND,
   MIRROR_SWAY,

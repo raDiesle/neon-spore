@@ -1,4 +1,5 @@
 import { describe, expect, it } from "bun:test";
+import { FLEET_GLANCE, FLEET_GLANCE_SIZE } from "../src/fleet-glance.js";
 import { type Glance, glancedPoint, glanceFrame, glanceStill } from "../src/glance.js";
 import {
   cock,
@@ -42,6 +43,7 @@ const ROWS: readonly Row[] = [
   // Held at the hole's widest, at rest: the pupil is 0.44 of the body.
   { name: "THE WARDEN", record: WARDEN_GLANCE, size: WARDEN_GLANCE_SIZE, hold: 0.44 },
   { name: "THE VANE", record: VANE_GLANCE, size: VANE_GLANCE_SIZE, hold: 0 },
+  { name: "THE FLEET", record: FLEET_GLANCE, size: FLEET_GLANCE_SIZE, hold: 1 },
 ];
 
 const R = 100;

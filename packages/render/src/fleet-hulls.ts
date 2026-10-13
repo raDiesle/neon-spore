@@ -8,6 +8,7 @@ import {
 } from "@neon-spore/sim";
 import { type Chart, chartOf, chartX, chartY } from "./fleet-chart.js";
 import type { FleetFx } from "./fleet-fx.js";
+import { drawFleetGlanced } from "./fleet-glance.js";
 import { type HullSkin, paintHull } from "./fleet-hull-body.js";
 import { drawSinkWash } from "./fleet-water.js";
 import { rgba } from "./hex.js";
@@ -129,7 +130,9 @@ function drawHull(
 
   const nose = Math.min(long * 0.35, c.tile * 0.42);
   const hurt = fx.hurt.value;
-  paintHull(ctx, { long, across, nose, tile: c.tile, len: ship.len, skin, sinking, hurt });
+  drawFleetGlanced(ctx, { long, across, nose }, at, time, () =>
+    paintHull(ctx, { long, across, nose, tile: c.tile, len: ship.len, skin, sinking, hurt }),
+  );
   ctx.restore();
 
   // The water closing over it, on top of the hull rather than under it: what

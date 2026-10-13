@@ -1517,6 +1517,16 @@ for free; a cross would read better under a thumb and would need a new panel
 form to place it. That is a question about a hand on glass, and no test can
 answer it.
 
+**Offered (13 October 2026, VERSUS `fleet:glance`).** A made thing, so each
+whole hull turns in its own frame (`packages/render/src/fleet-glance.ts`,
+which ships still) — **about its two ends**, so the bow stays on its first
+square and the transom on its last and the length the pilot counts is the
+same length: the middle swings toward the bow or the stern, that end opens
+and the other closes into the dark. Scars are drawn after, on the squares
+the simulation struck, and never turn. Each hull runs the round from its
+own place in it, so the chart does not turn as one. **SWAY**, **LOOK** and
+**COCK** (`glance-styles.ts`), judged on `THE FLEET · HUNT`.
+
 ## 11.7 PINBALL — the thing you fire from is the thing you catch it with
 
 > The one where the cannon is both the gun and the glove.

@@ -2031,6 +2031,7 @@ by hand never moves.
 | `packages/render/src/fleet-grip-fx.ts` | **The five moments of THE FLEET's wound** — the water coming in, the thumb that keeps it coming |
 | `packages/render/src/fleet-grip-marks.ts` | THE FLEET's two rings haloed while the wound is open and answering a touch green, each on its own seat's screen |
 | `packages/render/src/fleet-grip.ts` | **THE FLEET's three thumbs on the chart** — the plume, the rake and the wreck |
+| `packages/render/src/fleet-glance.ts` | **THE FLEET's hulls glance** — the owner, 9 and 10 October 2026: *body parts of living things turn . |
 | `packages/render/src/flip-seam.ts` | **THE FLIP's fold, drawn** — a pane of glass down the middle of the turned screen, and ⇄ across it |
 | `packages/render/src/flip-reveal.ts` | **THE FLIP's projection breaking up** — two tiles above the hull, the mirrored body tears into strips and the true one arrives in its own column |
 | `packages/render/src/flue-draw.ts` | **THE FLUE**: a slotted exhaust flue across the middle of the field, its ember stopped dead by one seat and tapped by the other |

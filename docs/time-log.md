@@ -38881,3 +38881,14 @@ Bottleneck: none — the eye was the obvious centre to turn about.
 Bottleneck: the split rides the mount's end on a shot's column, which caps how far the mount may turn.
 
 *Measured: 9 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-13 — VERSUS offers THE FLEET's hulls glancing about their ends
+
+- reading: 5 min. The entry, `fleet-hulls.ts`, the hull's body and fittings.
+- writing: 10 min. `fleet-glance.ts`, the hull's paint wrapped in its own
+  frame, three candidates, the pose's `lookAt`, a row in the glance test.
+- looking: 5 min. One VERSUS shot and a crop of the chart.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: none — a hull's own frame already ran along it, so the turn needed no new geometry.

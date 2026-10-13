@@ -47,6 +47,8 @@ export const FIRST_BOSS_POSES: Pose[] = [
     "Every ship whole. P1 sees the ships; P2 sees the squares and moves the sights.",
     {
       crop: F,
+      lookAt:
+        "the hulls on P1's chart — whether each turns toward its bow or its stern about ends that stay on their squares, the far end going dark",
       want: (w) => w.boss?.kind === "fleet" && fleetAfloat(w.boss) === w.boss.ships.length,
     },
   ),

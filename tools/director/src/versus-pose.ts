@@ -38,6 +38,7 @@ const SLOT_POSE: Record<string, string> = {
   "mirror:glance": "THE MIRROR · LEAD",
   "warden:glance": "THE WARDEN · WATCH",
   "vane:glance": "THE VANE · SWING",
+  "fleet:glance": "THE FLEET · HUNT",
 };
 
 /** The pose a slot gets when nothing in `SLOT_POSE` names it. */
