@@ -38584,3 +38584,15 @@ Bottleneck: the first shot opened THE PULL LAB — it took any lab key it did
 not know as its own — which only a picture showed.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-13 — Every pull's grab circle grows with its 2× knob
+
+- reading: 5 min. `PULL_GRAB`'s eight callers and the lab's rule, all
+  multiplying the asked radius.
+- writing: 5 min. `PULL_GRAB` is 2.2 × `PULL_SIZE`; THE LAMPREY's head and
+  tail in an apart each keep their own press.
+- looking: 0 min. Nothing drawn.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, `land`.
+
+Bottleneck: none; one constant every grip already read.

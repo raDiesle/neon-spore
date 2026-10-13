@@ -13,7 +13,7 @@ import { lampreyToothAt } from "../src/lamprey-shape.js";
 import { computeLayout, type ViewRole } from "../src/layout.js";
 import { type Field, type Hold, touchDown, touchMove, touchUp } from "../src/touch.js";
 import { CFG, FRAME_TIMEOUT_MS, installCanvasGlobals, VIEWPORT } from "./frame-harness.js";
-import { BITE, GULLET, PULL, posed, stood } from "./lamprey-harness.js";
+import { APART, BITE, GULLET, PULL, posed, stood } from "./lamprey-harness.js";
 
 setDefaultTimeout(FRAME_TIMEOUT_MS);
 
@@ -174,5 +174,24 @@ describe("the head", () => {
     const s = posed(world);
     expect(lampreyHeadCircle(l2, CFG, s)).toBeNull();
     expect(handleCircle(l2, world, "lampreyHead", 0)).toBeNull();
+  });
+});
+
+describe("the head and the tail side by side", () => {
+  // Every pull's grab grew with its 2× knob on 13 October 2026 (`PULL_GRAB`):
+  // in an apart both are pulls at once, and each still takes its own press.
+  it.each([
+    [1, [undefined, "lampreyTail"]],
+    [2, ["lampreyHead", undefined]],
+  ] as const)("take each its own press in an apart, seat %i", (seat, want) => {
+    const world = stood();
+    const s = posed(world, "bite", APART);
+    const l = layout(seat === 1 ? "p1" : "p2");
+    const head = lampreyHeadCircle(l, CFG, s);
+    const tail = lampreyTailCircle(l, CFG, s);
+    if (head === null || tail === null) throw new Error("an apart drew no head or no tail");
+    const on = (c: { x: number; y: number }) => touchDown(l, c.x, c.y, fieldOf(world, seat));
+    const targets = [on(head), on(tail)].map((d) => (d?.command as { target?: string })?.target);
+    expect(targets).toEqual([...want]);
   });
 });

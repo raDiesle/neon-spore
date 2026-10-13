@@ -15,22 +15,25 @@ import { drawWayArrow } from "./way-arrow.js";
  */
 
 /**
- * How much wider than the drawn knob a press on a pull handle is answered,
- * before `hitReach`'s own margin — so about three times the circle drawn.
- * The owner, 25 September 2026, generic: *the area of starting the pull must
- * be much bigger than the visual, otherwise it's hard to catch, as it's also
- * moving.* Every pull handle's grab circle is its knob times this.
- */
-export const PULL_GRAB = 2.2;
-
-/**
  * How much bigger every pull handle is drawn than the handle's own code sizes
- * it — the knob and its channel both, never the length of the pull or the
- * circle a press is answered in (`PULL_GRAB`). The owner, 12 October 2026, in
+ * it — the knob and its channel, and the circle a press is answered in
+ * (`PULL_GRAB`), never the length of the pull. The owner, 12 October 2026, in
  * the PULL LAB on THE LAMPREY: *increase the size of the full pull control
  * altogether, maybe double*, and of the lab's four sizes he took 2×.
  */
 export const PULL_SIZE = 2;
+
+/**
+ * How much wider than the radius a handle's code asks for a press on a pull
+ * handle is answered, before `hitReach`'s own margin — 2.2 times the knob as
+ * drawn, and the knob is drawn `PULL_SIZE` times the asked radius. The owner,
+ * 25 September 2026, generic: *the area of starting the pull must be much
+ * bigger than the visual, otherwise it's hard to catch, as it's also moving.*
+ * The grab grew with the knob on 13 October 2026, the owner choosing it over
+ * leaving a 2× knob a press about 1.1 times its size (`docs/queue.md`). Every
+ * pull handle's grab circle is its asked radius times this.
+ */
+export const PULL_GRAB = 2.2 * PULL_SIZE;
 
 /** The arrow's reach inside the knob, in knob radii: THE INSTAR's glyph fills
  * its ring at 1.1 of the mark's radius, and the knob is the ring. */
