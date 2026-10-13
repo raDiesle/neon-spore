@@ -2,6 +2,8 @@ import { describe, expect, it } from "bun:test";
 import { existsSync, readdirSync, readFileSync } from "node:fs";
 import { CREATURES } from "@neon-spore/content";
 import { BOSS_KINDS } from "@neon-spore/sim";
+import { itCosts } from "../../../tools/test/figure.js";
+import { treeText } from "../../../tools/test/tree-text.js";
 
 /**
  * **The catalogue of marks and controls names every shared piece** — the
@@ -107,16 +109,29 @@ function exportsOf(file: string): string[] {
   );
 }
 
+const SWEEP_MS = 150;
+
 const KINDS: readonly string[] = [...BOSS_KINDS, ...Object.keys(CREATURES)];
 const kindOf = (f: string) => KINDS.find((k) => f === `${k}.ts` || f.startsWith(`${k}-`));
 
-/** Each file outside a body's own prefix, with the bodies that import it. */
-function sharedFiles(): string[] {
+/**
+ * Each file outside a body's own prefix, with the bodies that import it.
+ *
+ * It reads every body's file, so it reads them through `treeText`, sixty-four
+ * at a time, and its case has a figure scaled to the load rather than bun's
+ * five seconds: one at a time it timed out at 7039 ms at a load average of
+ * fifty-five on 9 October 2026. Its read is a fraction of the 50 ms all of
+ * `src` takes at a load average of fifty-one, so 150 (13 October 2026).
+ */
+async function sharedFiles(): Promise<string[]> {
   const users = new Map<string, Set<string>>();
-  for (const f of FILES) {
+  const bodies = FILES.flatMap((f) => {
     const kind = kindOf(f);
-    if (kind === undefined) continue;
-    const source = readFileSync(new URL(f, SRC), "utf8");
+    return kind === undefined ? [] : [{ f, kind }];
+  });
+  const texts = await treeText(bodies.map(({ f }) => new URL(f, SRC).pathname));
+  for (const [i, { kind }] of bodies.entries()) {
+    const source = texts[i] as string;
     for (const m of source.matchAll(/from "\.\/([a-z0-9-]+)\.js"/g)) {
       const dep = `${m[1]}.ts`;
       if (kindOf(dep) !== undefined) continue;
@@ -143,10 +158,16 @@ describe("the catalogue of marks and controls", () => {
     expect(missing).toEqual([]);
   });
 
-  it("has every file three bodies share, or knows why it is not a mark", () => {
-    const loose = sharedFiles().filter((f) => !LISTED.includes(f) && NOT_MARKS[f] === undefined);
-    expect(loose.sort()).toEqual([]);
-  });
+  itCosts(
+    SWEEP_MS,
+    "has every file three bodies share, or knows why it is not a mark",
+    async () => {
+      const loose = (await sharedFiles()).filter(
+        (f) => !LISTED.includes(f) && NOT_MARKS[f] === undefined,
+      );
+      expect(loose.sort()).toEqual([]);
+    },
+  );
 
   it("keeps no reason for a file that is on the page, or gone", () => {
     const stale = Object.keys(NOT_MARKS).filter(

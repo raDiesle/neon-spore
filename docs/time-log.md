@@ -38441,3 +38441,14 @@ dashed place at the end of the channel at ¼×.
 Bottleneck: finding the one tick where the knob is drawn and not yet pulled.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-13 — Two source sweeps get a figure, not bun's five seconds
+
+- reading: 5 min. The entry, `figure.ts`, `tree-text.ts`, and the knob
+  test that already read `src` through them.
+- writing: 5 min. `itCosts` and `treeText` in both sweeps.
+- looking: 0 min. Nothing drawn.
+- friction: 0 min.
+- landing: 5 min. Biome's wrap, `check:fast`, `land`.
+
+Bottleneck: none to speak of; the idiom was one test over.
