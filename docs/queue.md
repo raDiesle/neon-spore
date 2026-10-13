@@ -331,6 +331,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## Fire button lit for the colour shown: THE VANE to THE MANTLE
 
 - **Found:** 2026-10-09, claude/aim-cannon-visual-polish-39fb48
+- **Taken:** 2026-10-13, claude/session-f1471e (claim: claude/queue-fire-button-lit-for-the-colour-shown-the-vane-to)
 - **Files:** `packages/render/src/boss-cue-read-x.ts`, `packages/render/src/boss-cue-read-y.ts`, `packages/render/src/boss-cue-read-z.ts`, `packages/render/src/boss-cue-read-zb.ts`, `packages/render/src/boss-cue-read-zc.ts`, `packages/render/src/boss-cue-read-zd.ts`
 
 While a shot's mark stands on a target, EMBER rings the fire button it asks for too (`fire-button-mark.ts`, the owner, 9 October 2026): the colour this screen is already shown the shot wants, `BossCue.shows`, or both buttons where it is not. Only THE GORGE (`boss-cue-read-n.ts`) and THE FLUE (by its `tint`) say yet. For THE VANE, THE GIMBAL, THE HASP, THE RATCHET, THE MANTLE and THE KEEL, read whether the shooter's screen draws the colour the bolt wants at the moment of the `FIRE` and set `shows` off the same state where it does; leave it out where the colour is the other seat's to say. `test/fire-button-mark.test.ts` holds the rule.
