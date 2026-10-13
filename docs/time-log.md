@@ -38596,3 +38596,5 @@ not know as its own — which only a picture showed.
 - landing: 5 min. `check:fast`, `land`.
 
 Bottleneck: none; one constant every grip already read.
+
+*Measured: 7 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*

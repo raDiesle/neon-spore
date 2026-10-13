@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-13 · bf9c81bfd — Every pull's grab circle grows with its 2× knob
+
+A pull handle's knob is drawn twice its asked radius since 12 October, but a press was still answered at 2.2 times the asked radius, about 1.1 times the knob as drawn. PULL_GRAB is now 2.2 times PULL_SIZE, so the grab is 2.2 times the knob as drawn again, in the game and the PULL LAB alike. The owner chose it, 13 October 2026.
+
 ## 2026-10-13 · 3cc469269 — The owner's answers to the seven waiting queue questions
 
 THE LID's cord on a path the sim picks by room, THE LAMPREY's shut head as armour, longer LAMPREY lifts and a higher CURTAIN rail, bends for every straight pull with room, the lab doors opening their cards, the grab following the 2x knob, and THE SLING's cords as a hold then a pull.
