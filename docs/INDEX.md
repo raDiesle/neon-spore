@@ -2500,6 +2500,7 @@ by hand never moves.
 | `packages/render/src/pulse-glance.ts` | **THE PULSE's arrivals glance** — the owner, 9 and 10 October 2026: *body parts of living things turn . |
 | `packages/render/src/pull-track.ts` | **A pull is drawn as the way the hand goes, and a big circle where it starts** — every pull handle's thin channel, filling green behind the hand, closed round for a turn |
 | `packages/render/src/pull-track-thin.ts` | The piece of the spine between two fractions, as one open path |
+| `packages/render/src/pull-two-way.ts` | **A pull that may go either way across** |
 | `packages/render/src/pull-knob.ts` | **Where a pull starts**: the big circle a thumb goes on (`drawPullKnob`), and `PULL_GRAB`, how far outside it a press is still taken |
 | `packages/render/src/pull-line.ts` | **A pull measured as a distance, as a straight channel** — the track builder THE WARDEN's rope |
 | `packages/render/src/pull-counts.ts` | **Which pull handles a boss's event says have counted** |

@@ -1,9 +1,7 @@
 import type { Circle } from "./layout.js";
 import { drawMarkHalo, drawMarkTheirs, drawMarkWait } from "./mark-feedback.js";
 import { PALETTE } from "./palette.js";
-import { drawPullKnob } from "./pull-knob.js";
-import type { PullWay } from "./pull-line.js";
-import { drawPullTrack, PULL_TRACK_W } from "./pull-track.js";
+import { drawTwoWayPull } from "./pull-two-way.js";
 
 /**
  * **THE WARDEN's hatch under GLARE is a swipe, so it is drawn as a pull**:
@@ -13,12 +11,10 @@ import { drawPullTrack, PULL_TRACK_W } from "./pull-track.js";
  * its own with chevrons out along both halves.
  *
  * The throw counts either way across (`sim/warden-hand.ts`), so the channel
- * is one line through the eye, `wardenThrowMilli` long on each side, and the
- * knob starts in the middle with an arrow of two heads. The press is still
- * answered on the eye (`warden-grip.ts`). The knob rides toward the side the
- * thumb is carrying it (`sim` `wardenSwipeAlong`), its arrow that way alone,
- * and the channel fills green behind it — so the end of the channel is the
- * end of the swipe, said before the lift.
+ * is one line through the eye, `wardenThrowMilli` long on each side — the
+ * two-way pull (`pull-two-way.ts`). The press is still answered on the eye
+ * (`warden-grip.ts`), and the knob rides the carry the sim keeps
+ * (`wardenSwipeAlong`).
  *
  * On the navigator's screen it is the partner's knob, with no arrow, a dashed
  * ring turning round the eye and the waiting clock on it, the way every mark
@@ -40,35 +36,12 @@ export function drawWardenTrack(
   mine: boolean,
   time: number,
 ): void {
-  const fill = Math.max(-1, Math.min(1, along));
-  const pts = [
-    { x: c.x - reach, y: c.y },
-    { x: c.x + reach, y: c.y },
-  ];
-  const held = fill !== 0;
-  const at = { x: c.x + fill * reach, y: c.y };
   if (mine) drawMarkHalo(ctx, c.x, c.y, c.r, time);
-  drawPullTrack(
-    ctx,
-    { pts, w: knob * PULL_TRACK_W },
-    { ...LOOK, held, origin: 0.5, at: 0.5 + fill / 2, time, key: KEY },
-  );
-  drawPullKnob(ctx, at, knob, {
-    ...LOOK,
-    held,
-    time,
-    way: mine ? (fill < 0 ? LEFT : RIGHT) : null,
-    either: fill === 0,
-    theirs: !mine,
-    key: KEY,
-  });
+  drawTwoWayPull(ctx, c, { knob, reach, along, mine, ...LOOK, key: KEY, time });
   if (mine) return;
   drawMarkTheirs(ctx, c.x, c.y, c.r, time);
   drawMarkWait(ctx, c.x, c.y, c.r, time);
 }
-
-const LEFT: PullWay = { dx: -1, dy: 0 };
-const RIGHT: PullWay = { dx: 1, dy: 0 };
 
 /** The eye's red, and its lit rim. */
 const LOOK = { hex: PALETTE.red, rim: PALETTE.redRim } as const;

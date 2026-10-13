@@ -70,8 +70,12 @@ export const GAUGE_CONTROLS: readonly FieldControlDef[] = [
   {
     name: "THE GAUGE'S TONGUE",
     where:
-      "a ring on each side of the tongue, on both screens, only in the rest " +
-      "after the second level while the tongue is out",
+      "the PULL LAB's knob on each seat's place on the tongue — his at the " +
+      "tip, hers along it — on its own seat's screen, only in the rest after " +
+      "the second level while the tongue is out: a level channel " +
+      "gaugeTongueTwistMilli out each side, an arrow of two heads on the knob " +
+      "until it goes one way, a halo under it until the thumb is down, the " +
+      "channel filling green as the thumb carries it",
     seat: "both — each seat pulls its own half, and neither half does anything alone",
     gesture: "grab and drag",
     does:

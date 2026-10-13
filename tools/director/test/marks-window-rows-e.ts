@@ -1,6 +1,7 @@
 import {
   type GaugeState,
   gaugeBandAsks,
+  gaugeTongueAsks,
   type MazeState,
   type MirrorState,
   mazeHeartAsks,
@@ -29,7 +30,8 @@ import { mark, type Row } from "./marks-window-kit.js";
  * union of the boss's windows: a lobe of THE MIRROR's asked of either seat;
  * THE VANE's arm until the pin lands and its housing while the haul is up;
  * THE MAZE's string while it is read and its heart while it wants the grip;
- * THE GAUGE's band while the dial is bound and wound open.
+ * THE GAUGE's band while the dial is bound and wound open, and its tongue
+ * while it is out (13 October 2026, when the tongue became a pull).
  *
  * THE SNAKE, PINBALL and THE PULSE are the next three, the same way: the
  * jaws once the maw has rested; the plunger while it winds and the table
@@ -74,7 +76,13 @@ export const ROWS_E: readonly Row[] = [
   },
   {
     kind: "gauge",
-    marks: [mark(markFeedback, "drawMarkHalo", (w) => gaugeBandAsks(gauge(w)))],
+    marks: [
+      mark(
+        markFeedback,
+        "drawMarkHalo",
+        (w) => gaugeBandAsks(gauge(w)) || gaugeTongueAsks(gauge(w)),
+      ),
+    ],
   },
   {
     kind: "pinball",

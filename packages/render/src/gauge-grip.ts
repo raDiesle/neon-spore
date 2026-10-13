@@ -105,6 +105,6 @@ export function drawGaugeGrip(
   }
   const hand = handleRadius(l, cfg);
   if (showsGaugeMarks(role)) drawGaugeToothRings(ctx, dial, hand, g, time);
-  if (showsGaugeValve(role)) drawGaugeTongueRing(ctx, dial, hand, g, 1, time);
-  if (showsGaugeMarks(role)) drawGaugeTongueRing(ctx, dial, hand, g, 2, time);
+  if (showsGaugeValve(role)) drawGaugeTongueRing(ctx, l, cfg, dial, hand, g, 1, time);
+  if (showsGaugeMarks(role)) drawGaugeTongueRing(ctx, l, cfg, dial, hand, g, 2, time);
 }

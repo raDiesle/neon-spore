@@ -51,19 +51,25 @@ const PULL_HANDLES: Readonly<Record<string, string>> = {
   "hive-haul-knob.ts": "THE HIVE",
   "instar-pull.ts": "THE INSTAR",
   "warden-track.ts": "THE WARDEN",
+  "gauge-tongue-grip.ts": "THE GAUGE",
 };
 
 const TO_COME: Readonly<Record<string, string>> = {};
 
 /** The knob and the arrow themselves, and a glyph sheet that is not a pull. */
-const NOT_HANDLES = new Set(["pull-knob.ts", "way-arrow.ts", "instar-glyphs.ts"]);
+const NOT_HANDLES = new Set([
+  "pull-knob.ts",
+  "way-arrow.ts",
+  "instar-glyphs.ts",
+  "pull-two-way.ts",
+]);
 
 /** Chevrons a handle drew for itself before the shared arrow. */
 const RETIRED = ["mantle-handle.ts", "capstan-marks.ts"];
 
 const SRC = join(import.meta.dir, "../src");
 const read = (f: string) => readFileSync(join(SRC, f), "utf8");
-const DRAWS_WAY = /\bdraw(PullKnob|PullArrow|WayArrow)\(/;
+const DRAWS_WAY = /\bdraw(PullKnob|PullArrow|WayArrow|TwoWayPull)\(/;
 const showsWay = (f: string) => DRAWS_WAY.test(read(f));
 
 /**
