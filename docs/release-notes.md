@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-13 · 6a6570359 — VERSUS offers THE WARDEN's body glancing about its eye
+
+A new VERSUS slot, `warden:glance`, for the owner's ask that a part of every boss turn so it is seen from a new side. The horseshoe turns about its eye: the side it turns toward bunches and goes dark, the other opens, and the eye, its hatch and the rope stay exactly where a thumb and a shot find them. SWAY, LOOK and COCK. Nothing on the field changes: `WARDEN_GLANCE` ships still.
+
 ## 2026-10-13 · cafc15d3f — VERSUS offers THE MIRROR's insides glancing behind its hull
 
 A new VERSUS slot, `mirror:glance`, for the owner's ask that a part of every boss turn so it is seen from a new side. THE MIRROR's hull stays an exact copy of your ship and keeps both lobes where a thumb finds them; what turns is the chamber above it — the flesh, ribs and slime — its middle swinging toward one side, that half going dark, the other opening, the screen's edges held. SWAY, LOOK and COCK, as for THE BULB QUEEN. Nothing on the field changes: `MIRROR_GLANCE` ships still.
