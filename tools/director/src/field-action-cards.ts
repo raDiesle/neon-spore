@@ -138,6 +138,7 @@ function labCards(
     if (!key) return [];
     const host = document.createElement("div");
     host.className = "field-lab";
+    host.dataset.lab = kind; // what a topbar door scrolls to (`lab-door.ts`)
     whenSeen(host, () => LABS[kind](key, host));
     return [host];
   });
@@ -242,8 +243,7 @@ export function actionSection(
   const above = (t: ControlType): boolean => !!a.gestures?.length && !t.gestures?.length;
   const own = concepts(a.gestures, [...labCards(a), ...types.filter(above).flatMap(typeLabs)]);
   if (own) box.appendChild(own);
-  // An action with one type is that type: its title would only repeat the
-  // action's own.
+  // An action with one type is that type: its title would repeat the action's.
   const showTitles = types.length > 1;
   for (const t of types) box.appendChild(typeBlock(t, showTitles, byName, above(t)));
   return box;

@@ -179,13 +179,14 @@ export function openHoldLab(first = "2", opts: { sheet?: boolean; host?: HTMLEle
 }
 
 /**
- * The lab's door in the topbar, and the lab reopened where the URL left it
+ * The lab reopened where the URL left it
  * (`place.ts`'s `lab`, as `HOLD_LAB` and the beats): `?holdlab=<beats>`,
  * `&holdsheet=1` on its sheet — so a reload stays on the lab and `bun run
  * shot` photographs either with no clicks.
+ *
+ * Its door in the topbar opens its card on ON THE FIELD (`lab-door.ts`).
  */
 export function bindHoldLab(): void {
-  document.getElementById("holdLabOpen")?.addEventListener("click", () => openHoldLab());
   const asked = initialLab();
   if (asked?.shape.startsWith(HOLD_LAB))
     openHoldLab(asked.shape.slice(HOLD_LAB.length), { sheet: asked.sheet });

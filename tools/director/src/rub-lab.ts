@@ -206,13 +206,12 @@ export function openRubLab(
 }
 
 /**
- * The lab's door in the topbar, and the lab reopened where the URL left it
- * (`place.ts`'s `lab`, as `RUB_LAB` and its key): `?rublab=8-one-zigzag`,
- * `&rubsheet=1` on its sheet — so a reload stays on the lab and `bun run
- * shot` photographs either with no clicks.
+ * The lab reopened where the URL left it (`place.ts`'s `lab`, as `RUB_LAB`
+ * and its key): `?rublab=8-one-zigzag`, `&rubsheet=1` on its sheet — so a
+ * reload stays on the lab and `bun run shot` photographs either with no
+ * clicks. Its door in the topbar opens its card on ON THE FIELD (`lab-door.ts`).
  */
 export function bindRubLab(): void {
-  document.getElementById("rubLabOpen")?.addEventListener("click", () => openRubLab());
   const asked = initialLab();
   if (asked?.shape.startsWith(RUB_LAB))
     openRubLab(asked.shape.slice(RUB_LAB.length), { sheet: asked.sheet });

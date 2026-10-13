@@ -854,24 +854,6 @@ measured along, and the lab's rule that a thumb half a tile off the path fails
 the pull (`pull-lab-rule.ts`, `TOUCH_SLACK` for a finger) — then each chosen
 boss's path, drawn from the same numbers.
 
-
-## The three lab doors in the topbar still open a page of their own
-
-- **Found:** 2026-10-12, claude/labs-on-field-page-acf3e3
-- **Taken:** 2026-10-13, claude/session-f1471e (claim: claude/queue-the-three-lab-doors-in-the-topbar-still-open-a-p)
-- **Files:** `tools/director/index.html`, `tools/director/src/labs.ts`, `tools/director/src/lab-shell.ts`, `tools/director/src/pull-lab.ts`, `tools/director/src/hold-lab.ts`, `tools/director/src/combo-lab.ts`
-- **Asks:** Should ⇣ PULL LAB, ◉ HOLD LAB and ⊕ COMBO LAB in the topbar take you to the lab's card on CONTROLS › ON THE FIELD, stay as they are, or go?
-- **Answered:** 2026-10-13 — (a), the owner: each door opens ON THE FIELD scrolled to its lab's card, the URL keys kept for shots only.
-
-Every lab is now a card on ON THE FIELD beside its gesture (`lab-shell.ts`,
-with a `host`). The topbar doors and the `?pulllab=` / `?holdlab=` /
-`?combolab=` URLs still open the old window over everything — the window is
-what `bun run shot` photographs with no clicks, and what a reload restores.
-The options: (a) each door opens ON THE FIELD and scrolls to its lab's card
-(the URL keys kept for shots only); (b) leave the doors and the window as a
-full-screen way in, as the owner asked on 11 October; (c) take the doors, the
-window and the URL keys out, and photograph the card instead.
-
 ## THE SLING's cords: a hold, then a pull in its place, in the game too?
 
 - **Found:** 2026-10-12, claude/combo-lab-interactions-d44a22

@@ -195,13 +195,14 @@ export function openPressLab(
 }
 
 /**
- * The lab's door in the topbar, and the lab reopened where the URL left it
+ * The lab reopened where the URL left it
  * (`place.ts`'s `lab`, as `PRESS_LAB` and its key): `?presslab=5-pips`,
  * `&presssheet=1` on its sheet — so a reload stays on the lab and `bun run
  * shot` photographs either with no clicks.
+ *
+ * Its door in the topbar opens its card on ON THE FIELD (`lab-door.ts`).
  */
 export function bindPressLab(): void {
-  document.getElementById("pressLabOpen")?.addEventListener("click", () => openPressLab());
   const asked = initialLab();
   if (asked?.shape.startsWith(PRESS_LAB))
     openPressLab(asked.shape.slice(PRESS_LAB.length), { sheet: asked.sheet });

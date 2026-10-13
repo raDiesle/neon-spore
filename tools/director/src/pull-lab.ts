@@ -170,14 +170,15 @@ export function openPullLab(
 }
 
 /**
- * The lab's door in the topbar, and the lab reopened where the URL left it
+ * The lab reopened where the URL left it
  * (`place.ts`'s `lab`): `?pulllab=<shape>` on that path, `&pullsheet=1` on its
  * sheet — a reload stays on the lab, and `bun run shot` photographs either with
  * no clicks. Run after every sheet has restored itself, so the lab opens over
  * the page it was opened from.
+ *
+ * Its door in the topbar opens its card on ON THE FIELD (`lab-door.ts`).
  */
 export function bindPullLab(): void {
-  document.getElementById("pullLabOpen")?.addEventListener("click", () => openPullLab());
   const asked = initialLab();
   if (asked && !PREFIXED_LABS.some((p) => asked.shape.startsWith(p)))
     openPullLab(asked.shape, { sheet: asked.sheet });

@@ -38631,3 +38631,18 @@ the other seat came in, so it never lapsed — only the loop test showed it.
 Bottleneck: eleven tests each asserting a word that a one-line rule removes.
 
 *Measured: 7 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-13 — A lab's door in the topbar opens its card on ON THE FIELD
+
+- reading: 5 min. The four `bind*Lab` doors, the sheet's own doors and
+  tabs, and where `labCards` puts each lab.
+- writing: 10 min. `lab-door.ts`, each card marked with its lab, the four
+  doors taken off their windows, a test.
+- looking: 15 min. Four doors in the preview; the glide stopped short of
+  its card, and the frame callback never ran in a hidden pane.
+- friction: 0 min.
+- landing: 5 min. A file one line over the ceiling, the index row,
+  `check:fast`, `land`.
+
+Bottleneck: scrolling to a card that lazy cards above keep pushing down —
+only a jump, run in the click itself, lands on it.

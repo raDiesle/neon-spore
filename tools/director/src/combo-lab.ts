@@ -154,11 +154,12 @@ export function openComboLab(first = "partner", opts: { host?: HTMLElement } = {
 }
 
 /**
- * The lab's door in the topbar, and the lab reopened where the URL left it
+ * The lab reopened where the URL left it
  * (`place.ts`'s `lab`, as `COMBO_LAB` and the combo): `?combolab=partner`, `?combolab=plug`.
+ *
+ * Its door in the topbar opens its card on ON THE FIELD (`lab-door.ts`).
  */
 export function bindComboLab(): void {
-  document.getElementById("comboLabOpen")?.addEventListener("click", () => openComboLab());
   const asked = initialLab();
   if (asked?.shape.startsWith(COMBO_LAB)) openComboLab(asked.shape.slice(COMBO_LAB.length));
 }
