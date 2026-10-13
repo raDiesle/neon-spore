@@ -1,5 +1,7 @@
+import { blobPoints, POD } from "@neon-spore/content";
 import { drawGlanced, type Glance, glanceFrame, glanceStill, STILL_GLANCE } from "./glance.js";
 import type { GlanceSize } from "./glance-styles.js";
+import { splinePath } from "./spline.js";
 
 /**
  * **PINBALL's targets glance** — the owner, 9 and 10 October 2026: *body
@@ -34,28 +36,46 @@ const FAR_DARK = 0.65;
 const STAGGER = 1.3;
 
 /**
- * A target as `draw` draws it about `x`,`y`, `halfW` by `halfH` its drawn
- * half-size, turned as `PINBALL_GLANCE` says at `time` from target `seed`'s
- * place in the round. Still, it is drawn once and exactly as before.
+ * A target as `draw` draws it about `x`,`y`, `halfW` its drawn half-width,
+ * turned as `PINBALL_GLANCE` says at `time` from target `seed`'s place in the
+ * round. `pods` are where along it its pods sit, pixels off `x`, each `r`
+ * across: the far side's dark is laid over their contours rather than over a
+ * shape that reaches past a pod's lobes. Still, it is drawn once and exactly
+ * as before.
  */
 export function drawPinTargetGlanced(
   ctx: CanvasRenderingContext2D,
-  at: { x: number; y: number; halfW: number; halfH: number },
+  at: { x: number; y: number; halfW: number; r: number; pods: readonly number[] },
   seed: number,
   time: number,
   draw: () => void,
 ): void {
-  const { x, y, halfW, halfH } = at;
+  const { x, y, halfW, r } = at;
   const f = glanceFrame(PINBALL_GLANCE, time + seed * STAGGER, { x, y, r: halfW, hold: 0 });
   if (glanceStill(f)) {
     draw();
     return;
   }
-  const reach = 2.5 * Math.max(1, halfH / halfW);
+  const reach = 2.5 * Math.max(1, r / halfW);
   drawGlanced(ctx, f, { dark: FAR_DARK, full: PINBALL_GLANCE_SIZE.reach, reach }, () => {
     draw();
-    const shape = new Path2D();
-    shape.ellipse(x, y, halfW, halfH, 0, 0, Math.PI * 2);
-    return [shape];
+    // The pod's contour as `drawPodBody` draws it at rest, at each place.
+    const k = r / Math.max(POD.rx, POD.ry);
+    return at.pods.map((dx) =>
+      splinePath(
+        blobPoints(
+          x + dx,
+          y,
+          POD.rx * k,
+          POD.ry * k,
+          POD.lobes,
+          POD.depth,
+          POD.wobble,
+          0,
+          POD.seed,
+        ),
+        true,
+      ),
+    );
   });
 }

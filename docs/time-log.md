@@ -38954,3 +38954,13 @@ Bottleneck: the new halo was caught by the marks-window row for THE GAUGE,
 which only knew the band's window.
 
 *Measured: 9 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-13 — PINBALL's glance darkens its pods, not an ellipse round them
+
+- reading: 0 min. Found while building THE PULSE's glance.
+- writing: 5 min. The dark laid over each pod's contour.
+- looking: 5 min. One VERSUS shot, magnified.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: none.

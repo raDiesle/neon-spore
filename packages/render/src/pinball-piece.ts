@@ -127,7 +127,7 @@ function drawTarget(
   const t = time + seed * 0.31;
   if (kind === "peg") {
     const r = halfW * POD_MUL;
-    const at = { x, y, halfW: r, halfH: r };
+    const at = { x, y, halfW: r, r, pods: [0] };
     drawPinTargetGlanced(ctx, at, seed, time, () => drawPodBody(ctx, x, y, r, t, POD_KIND));
     return;
   }
@@ -135,11 +135,13 @@ function drawTarget(
   // width so the row reads as one body rather than as beads on a shelf.
   const r = halfH * POD_MUL;
   const count = Math.max(2, Math.round(halfW / Math.max(1, halfH * 0.9)));
-  const at = { x, y, halfW: halfW + r * 0.5, halfH: r };
-  drawPinTargetGlanced(ctx, at, seed, time, () => {
+  const pods = Array.from(
+    { length: count },
+    (_, i) => (-1 + (2 * i) / (count - 1)) * (halfW - r * 0.5),
+  );
+  drawPinTargetGlanced(ctx, { x, y, halfW: halfW + r * 0.5, r, pods }, seed, time, () => {
     for (let i = 0; i < count; i++) {
-      const along = count === 1 ? 0 : -1 + (2 * i) / (count - 1);
-      drawPodBody(ctx, x + along * (halfW - r * 0.5), y, r, t + i * 0.4, POD_KIND);
+      drawPodBody(ctx, x + (pods[i] ?? 0), y, r, t + i * 0.4, POD_KIND);
     }
   });
 }
