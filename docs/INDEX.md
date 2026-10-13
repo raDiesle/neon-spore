@@ -3850,7 +3850,7 @@ by hand never moves.
 | `tools/director/src/library/rind-stage.ts` | The game's own rind, losing its layers on a card, each one drawn coming off by a shed of the caller's choosing |
 | `tools/director/src/library/countdown-assets.ts` | THE COUNT's four counts — how a body says how many beats are left, on the one screen that is shown it |
 | `tools/director/src/library/countdown-stage.ts` | The game's own count, drawn on a card wearing a look of the caller's choosing |
-| `tools/director/src/labs.ts` | **The director's three labs, PULL, HOLD and COMBO**: each one's door in the topbar |
+| `tools/director/src/labs.ts` | **The director's four labs, PULL, HOLD, PRESS and COMBO**: each one's door in the topbar |
 | `tools/director/src/lab-shell.ts` | **Where a lab stands** — THE PULL LAB, THE HOLD LAB and THE COMBO LAB (`pull-lab.ts`, `hold-lab.ts` |
 | `tools/director/src/autopilot-ghost.ts` | **The autopilot's finger, drawn where a thumb would be**, found by the game's own hit test run backwards |
 | `tools/director/src/antiphon-editor.ts` | THE ANTIPHON's levels, a tab each and one for the ship, with who explains and who chooses |
@@ -3884,5 +3884,15 @@ by hand never moves.
 | `tools/director/src/hold-lab-rule.ts` | **The one generic HOLD, as the HOLD LAB plays it** |
 | `tools/director/src/hold-lab-sheet.ts` | **EVERY STATE** — the HOLD LAB's sheet, as the PULL LAB's (`pull-lab-sheet.ts`): one row, SOAK |
 | `tools/director/src/hold-lab.ts` | **THE HOLD LAB** — the one generic HOLD on an empty field, to be held by hand |
+| `tools/director/src/press-goo/call.ts` | **What calls a finger to a press no finger has touched yet** |
+| `tools/director/src/press-goo/goo.ts` | **The GOO press**: THE HOLD LAB's drop — the same RIPPLES · STILL drop, at the same size in the same place |
+| `tools/director/src/press-goo/looks-b.ts` | **POP**, **COUNT** and **KNOCK** — the rest of THE PRESS LAB's ways to say how many presses a mark asks… |
+| `tools/director/src/press-goo/looks.ts` | **PIPS** and **STEPS** — two of THE PRESS LAB's ways to say how many presses a mark asks before it is… |
+| `tools/director/src/press-goo/view.ts` | **What a PRESS LAB look is told**, read once a frame from the rule's state (`press-lab-rule.ts`) |
+| `tools/director/src/press-lab-auto.ts` | **AUTO's finger in THE PRESS LAB**, as `hold-lab-auto.ts` is THE HOLD LAB's: the presses a mark asks, quick |
+| `tools/director/src/press-lab-paint.ts` | One frame of THE PRESS LAB (`press-lab.ts`): the PULL LAB's empty field and the look's drop in its middle |
+| `tools/director/src/press-lab-rule.ts` | **The one generic PRESS, as THE PRESS LAB plays it** |
+| `tools/director/src/press-lab-sheet.ts` | **EVERY LOOK, EVERY STATE** — THE PRESS LAB's sheet |
+| `tools/director/src/press-lab.ts` | **THE PRESS LAB** — the one generic PRESS on an empty field, to be pressed by hand |
 
 <!-- index:code:end -->

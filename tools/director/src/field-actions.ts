@@ -34,6 +34,8 @@ export interface ControlType {
   lab?: string;
   /** The HOLD LAB's beats this type starts on (`hold-lab-rule.ts`), as `lab` is the pull's. */
   holdLab?: string;
+  /** THE PRESS LAB's presses and look this type starts on (`press-lab.ts`), `5-pips`. */
+  pressLab?: string;
   /** Which of THE COMBO LAB's combos this type is (`combo-lab-combos.ts`):
    * said under it, the lab itself standing once over its action. */
   comboLab?: string;

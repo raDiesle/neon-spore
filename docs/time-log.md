@@ -38569,3 +38569,16 @@ Bottleneck: reading the sim's verdict per boss to know which take either colour.
 Bottleneck: reading — THE MIMIC's word is a TAP, which only its reading said.
 
 *Measured: 5 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-13 — THE PRESS LAB: the one generic press, in five looks
+
+- reading: 5 min. THE HOLD LAB's rule, SOAK, its sheet and its doors.
+- writing: 10 min. The rule, AUTO, the shared popping drop and its tap
+  call, five looks, the sheet, the doors, two tests.
+- looking: 5 min. Three sheets through `bun run shot`; PIPS lit late and
+  STEPS' dashes went to moiré at ten, both fixed.
+- friction: 0 min.
+- landing: 5 min. A file two lines over the ceiling, `check:fast`, `land`.
+
+Bottleneck: the first shot opened THE PULL LAB — it took any lab key it did
+not know as its own — which only a picture showed.

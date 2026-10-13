@@ -116,6 +116,7 @@ export const OTHER_ACTIONS: readonly FieldAction[] = [
         key: "press",
         title: "PRESS",
         says: "Presses on one place, counted, or taken in turn by seat.",
+        pressLab: "5-pips",
         suggest:
           "Keep specific, but one refusal: THE MANTLE and THE KEEL refuse the " +
           "wrong seat silently, where most of the game refuses it red.",

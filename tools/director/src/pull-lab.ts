@@ -1,7 +1,7 @@
 import type { Point } from "@neon-spore/content";
 import { text } from "./gestures-page.js";
 import { labShell } from "./lab-shell.js";
-import { COMBO_LAB, HOLD_LAB } from "./place.js";
+import { PREFIXED_LABS } from "./place.js";
 import { autoDrive } from "./pull-lab-auto.js";
 import { type LabState, labBar } from "./pull-lab-bar.js";
 import { drawLab, fitCanvas, pointOn } from "./pull-lab-canvas.js";
@@ -179,6 +179,6 @@ export function openPullLab(
 export function bindPullLab(): void {
   document.getElementById("pullLabOpen")?.addEventListener("click", () => openPullLab());
   const asked = initialLab();
-  if (asked && !asked.shape.startsWith(HOLD_LAB) && !asked.shape.startsWith(COMBO_LAB))
+  if (asked && !PREFIXED_LABS.some((p) => asked.shape.startsWith(p)))
     openPullLab(asked.shape, { sheet: asked.sheet });
 }

@@ -1,3 +1,4 @@
+import type { Point } from "@neon-spore/content";
 import { PALETTE, smoothstep } from "@neon-spore/render";
 import { bodyPath, drop, type GooBody } from "../../../../packages/render/src/goo-body.js";
 import { paintGoo } from "../../../../packages/render/src/goo-drop-look.js";
@@ -51,7 +52,7 @@ export function gooHold(p: Progress): HoldLook {
     name: p.name,
     sentence: p.sentence,
     paint(v) {
-      if (v.ending !== null) fizzOut(v, p, v.ending);
+      if (v.ending !== null) fizzAway(v, v.ending, (b) => p.body?.(b, 1, v) ?? b);
       if (v.mark) mark(v, p);
     },
   };
@@ -96,13 +97,17 @@ function mark(v: HoldView, p: Progress): void {
   if (v.held) overHeld(ctx, hold, GOO);
 }
 
-/** FIZZ where the mark was counted: green at once, boiling away into bubbles. */
-function fizzOut(v: HoldView, p: Progress, e: number): void {
+/** FIZZ where a mark was counted: green at once, boiling away into bubbles — a hold's
+ * and a press's alike (`press-goo/goo.ts`). `shape` is the look's own body, full. */
+export function fizzAway(
+  v: { ctx: CanvasRenderingContext2D; at: Point; r: number; time: number },
+  e: number,
+  shape: (b: GooBody) => GooBody = (b) => b,
+): void {
   const u = clamp01(e / ENDING);
   const left = (1 - u) ** 1.3;
   if (left > 0.04) {
-    const full = p.body?.(drop(v.at, v.r * left, { shake: 0.25 * u }), 1, v);
-    const b = full ?? drop(v.at, v.r * left, { shake: 0.25 * u });
+    const b = shape(drop(v.at, v.r * left, { shake: 0.25 * u }));
     const turn = { held: false, grabbed: 9, lifted: e };
     const tint = { red: 0, green: greenAt(e), alpha: 0.4 + 0.6 * left };
     paintGoo(v.ctx, b, GOO, v.time, tint, turn);

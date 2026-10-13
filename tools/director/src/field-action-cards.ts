@@ -13,6 +13,7 @@ import { card, text } from "./gestures-page.js";
 import { openHoldLab } from "./hold-lab.js";
 import { openZoom } from "./picture-zoom.js";
 import { poseNamed } from "./poses.js";
+import { openPressLab } from "./press-lab.js";
 import { openPullLab } from "./pull-lab.js";
 import { whenSeen } from "./when-seen.js";
 
@@ -108,10 +109,12 @@ export function concepts(
 }
 
 /** Each lab, put up on its own key inside a card: the PULL LAB's shape, the
- * HOLD LAB's beats, THE COMBO LAB's combo (`lab-shell.ts`). */
+ * HOLD LAB's beats, THE PRESS LAB's presses and look, THE COMBO LAB's combo
+ * (`lab-shell.ts`). */
 const LABS = {
   pull: (key: string, host: HTMLElement) => openPullLab(key, { host }),
   hold: (key: string, host: HTMLElement) => openHoldLab(key, { host }),
+  press: (key: string, host: HTMLElement) => openPressLab(key, { host }),
   combo: (key: string, host: HTMLElement) => openComboLab(key, { host }),
 } as const;
 
@@ -121,10 +124,13 @@ const LABS = {
  * labs not on a separate page, but directly on the "on the field" related
  * page*. Each is put up as it comes near the screen (`when-seen.ts`).
  */
-function labCards(at: { lab?: string; holdLab?: string; comboLab?: string }): HTMLElement[] {
+function labCards(
+  at: Pick<ControlType, "lab" | "holdLab" | "pressLab" | "comboLab">,
+): HTMLElement[] {
   const asked = [
     ["pull", at.lab],
     ["hold", at.holdLab],
+    ["press", at.pressLab],
     ["combo", at.comboLab],
   ] as const;
   return asked.flatMap(([kind, key]) => {
@@ -138,7 +144,8 @@ function labCards(at: { lab?: string; holdLab?: string; comboLab?: string }): HT
 
 /** A type's own labs. THE COMBO LAB is not one: it stands once over the
  * COMBO action and plays every type there, so a type only names its choice. */
-const typeLabs = (t: ControlType): HTMLElement[] => labCards({ lab: t.lab, holdLab: t.holdLab });
+const typeLabs = (t: ControlType): HTMLElement[] =>
+  labCards({ lab: t.lab, holdLab: t.holdLab, pressLab: t.pressLab });
 
 /** Every gesture an action or one of its types draws first. */
 export const placedGestures = (a: FieldAction): string[] => [

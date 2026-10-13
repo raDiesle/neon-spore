@@ -46,7 +46,9 @@ export interface Place {
    * on the lab). `pulllab=` in the URL, the name its first link had. THE
    * HOLD LAB is here too, as `HOLD_LAB` and its beats (`hold:2`), and
    * `holdlab=2` in the URL, and THE COMBO LAB as `COMBO_LAB` and its combo
-   * (`combo:partner`), `combolab=partner`: only one lab is ever open.
+   * (`combo:partner`), `combolab=partner`, and THE PRESS LAB as `PRESS_LAB`
+   * and its presses and look (`press:5-pips`), `presslab=5-pips`: only one
+   * lab is ever open.
    */
   lab: string | null;
   /** The lab shows EVERY LOOK, EVERY STATE rather than the live pull — `pullsheet=1`. Always false when `lab` is null. */
@@ -55,8 +57,12 @@ export interface Place {
 
 /** What a `Place`'s `lab` starts with when the lab open is THE HOLD LAB (`hold-lab.ts`). */
 export const HOLD_LAB = "hold:";
+/** What a `Place`'s `lab` starts with when the lab open is THE PRESS LAB (`press-lab.ts`). */
+export const PRESS_LAB = "press:";
 /** What a `Place`'s `lab` starts with when the lab open is THE COMBO LAB (`combo-lab.ts`). */
 export const COMBO_LAB = "combo:";
+/** Every lab's prefix but the PULL LAB's, whose `lab` is its bare path key. */
+export const PREFIXED_LABS: readonly string[] = [HOLD_LAB, PRESS_LAB, COMBO_LAB];
 
 /**
  * Parses a `location.search`-shaped string into a `Place`. Pure, so the
@@ -80,15 +86,18 @@ export function parsePlace(search: string): Place {
   const sub = inner ? params.get("sub") || null : null;
   const hold = params.get("holdlab") || null;
   const combo = params.get("combolab") || null;
+  const pressed = params.get("presslab") || null;
   const lab =
     hold !== null
       ? HOLD_LAB + hold
       : combo !== null
         ? COMBO_LAB + combo
-        : params.get("pulllab") || null;
+        : pressed !== null
+          ? PRESS_LAB + pressed
+          : params.get("pulllab") || null;
   // THE COMBO LAB has no sheet.
-  const labSheet =
-    lab !== null && combo === null && params.get(hold !== null ? "holdsheet" : "pullsheet") === "1";
+  const sheetParam = hold !== null ? "holdsheet" : pressed !== null ? "presssheet" : "pullsheet";
+  const labSheet = lab !== null && combo === null && params.get(sheetParam) === "1";
 
   return { wave, sheet, inner, sub, lab, labSheet };
 }
@@ -107,6 +116,9 @@ export function placeToSearch(place: Place): string {
   if (place.lab?.startsWith(HOLD_LAB)) {
     params.set("holdlab", place.lab.slice(HOLD_LAB.length));
     if (place.labSheet) params.set("holdsheet", "1");
+  } else if (place.lab?.startsWith(PRESS_LAB)) {
+    params.set("presslab", place.lab.slice(PRESS_LAB.length));
+    if (place.labSheet) params.set("presssheet", "1");
   } else if (place.lab?.startsWith(COMBO_LAB)) {
     params.set("combolab", place.lab.slice(COMBO_LAB.length));
   } else if (place.lab !== null) {

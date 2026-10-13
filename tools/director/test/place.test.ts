@@ -1,5 +1,5 @@
 import { describe, expect, test } from "bun:test";
-import { HOLD_LAB, type Place, parsePlace, placeToSearch } from "../src/place.js";
+import { HOLD_LAB, type Place, PRESS_LAB, parsePlace, placeToSearch } from "../src/place.js";
 
 /**
  * `place.ts` is the half of the URL that needs no browser: a `Place` value and
@@ -218,5 +218,18 @@ describe("THE HOLD LAB in the URL", () => {
 
   test("a pull's sheet flag is not a hold's", () => {
     expect(parsePlace("?holdlab=2&pullsheet=1").labSheet).toBe(false);
+  });
+});
+
+describe("THE PRESS LAB in the URL", () => {
+  test("presslab= and presssheet= round-trip as PRESS_LAB, the presses and the look", () => {
+    const place = parsePlace("?sheet=controls&presslab=10-knock&presssheet=1");
+    expect(place.lab).toBe(`${PRESS_LAB}10-knock`);
+    expect(place.labSheet).toBe(true);
+    expect(placeToSearch(place)).toBe("?sheet=controls&presslab=10-knock&presssheet=1");
+  });
+
+  test("a hold's sheet flag is not a press's", () => {
+    expect(parsePlace("?presslab=5-pips&holdsheet=1").labSheet).toBe(false);
   });
 });
