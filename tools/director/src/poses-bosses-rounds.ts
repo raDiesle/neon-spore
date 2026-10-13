@@ -95,7 +95,12 @@ export const ROUND_BOSS_POSES: Pose[] = [
     "maze",
     "read",
     "The wheel is to be read. P1 turns the string until a way in clicks; P2 says whether it is the right one.",
-    { ...FULL, hold: 12 },
+    {
+      ...FULL,
+      hold: 12,
+      lookAt:
+        "the heart in the middle of the drum — whether it turns toward one side about a centre that stays put, its far side going dark",
+    },
   ),
   bossPose(
     "maze",

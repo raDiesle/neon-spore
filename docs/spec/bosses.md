@@ -2101,6 +2101,15 @@ to 300, so there is room inside to shake in (`content/maze-rounds.ts`,
 `maze-drawn.ts`). Looks the owner asked for by name. *Never watched at
 tempo.*
 
+**Offered (13 October 2026, VERSUS `maze:glance`).** The drum already turns —
+that is the round — so what glances is the living thing in it: the heart's
+muscle, its chamber and the clock on its skin
+(`packages/render/src/maze-glance.ts`, which ships still), **about its
+centre**, where a shot arrives and both thumbs take hold. The near side
+swells, the far side narrows into the dark, and each vein stays rooted on
+the turned edge while its tip stays on the wall of the room. **SWAY**,
+**LOOK** and **COCK** (`glance-styles.ts`), judged on `THE MAZE · READ`.
+
 ## 11.11 THE CAIRN — the boss you take apart with your hands
 
 **Nothing either control does reaches it.** The pile is seven of the field's own

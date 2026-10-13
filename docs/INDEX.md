@@ -2279,6 +2279,7 @@ by hand never moves.
 | `packages/render/src/maze-plate.ts` | THE MAZE's drum as a made thing: a bezel and bolts round the rim, gloss over the plate, and the socket the heart sits in |
 | `packages/render/src/maze-grip-fx.ts` | **The thumb landing on the heart, and the thumb leaving it** |
 | `packages/render/src/maze-grip.ts` | **THE MAZE's heart as a control**, for the one gesture that asks thumbs of it: the shake (`grip` |
+| `packages/render/src/maze-glance.ts` | **THE MAZE's heart glances** — the owner, 9 and 10 October 2026: *body parts of living things turn . |
 | `packages/render/src/maze-marks.ts` | THE MAZE's string and heart asking a seat and answering a touch green or red, the way every mark does |
 | `packages/render/src/pulse-fall.ts` | The arrows themselves: what is falling, what is standing on the line |
 | `packages/render/src/pulse-lane.ts` | Where THE PULSE's four lanes are, and where the line across them is |

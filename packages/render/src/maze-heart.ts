@@ -3,6 +3,7 @@ import type { MazeState } from "@neon-spore/sim";
 import { drawHurt } from "./boss-hurt.js";
 import { halo, strokeGlow } from "./glow.js";
 import { drawMazeBlood } from "./maze-blood.js";
+import { drawMazeGlanced, mazeGlancedPoint } from "./maze-glance.js";
 import { heartPulse, mazeHeartBlood, thump } from "./maze-pulse.js";
 import { drawMazeClock, type MazeSkin, mazeClockRun } from "./maze-timer.js";
 import { STROKE } from "./palette.js";
@@ -107,6 +108,8 @@ export function drawMazeHeart(
   beatPhase: number,
   pull = 0,
   shake = 0,
+  /** Seconds, for the glance (`maze-glance.ts`). */
+  clock = 0,
 ): void {
   const { tint, rim } = mazeHeartBlood(m.round);
   const { time, struck, squeeze } = heartPulse(m, beat, beatPhase);
@@ -130,8 +133,8 @@ export function drawMazeHeart(
     const ox = Math.cos(a);
     const oy = Math.sin(a);
     const reach = (r - body) * (1.04 + 0.16 * squeeze);
-    const rootX = mx + ox * body * 0.96;
-    const rootY = my + oy * body * 0.96;
+    const root = { x: mx + ox * body * 0.96, y: my + oy * body * 0.96 };
+    const { x: rootX, y: rootY } = mazeGlancedPoint({ x: mx, y: my, r: body }, clock, root);
     const tipX = cx + ox * (body * 0.96 + reach);
     const tipY = cy + oy * (body * 0.96 + reach);
     const dx = tipX - rootX;
@@ -152,45 +155,53 @@ export function drawMazeHeart(
   // nothing else.
   halo(ctx, mx, my, body * (1.7 + squeeze * 1.3), tint, 0.1 + 0.3 * squeeze);
 
-  // The muscle. Its lobes lie on their side — one turn, applied to the whole
-  // contour, so there is no second copy of the angle anywhere below.
-  ctx.save();
-  ctx.translate(mx, my);
-  ctx.rotate(Math.PI / 2);
-  const s = skinOf(body, time);
-  const ring = blobPoints(0, 0, s.rx, s.ry, s.lobes, s.depth, s.wobble, s.t, s.seed, SKIN_POINTS);
-  const skin = splinePath(ring, true);
+  drawMazeGlanced(ctx, { x: mx, y: my, r: body }, clock, () => {
+    // The muscle. Its lobes lie on their side — one turn, applied to the whole
+    // contour, so there is no second copy of the angle anywhere below.
+    ctx.save();
+    ctx.translate(mx, my);
+    ctx.rotate(Math.PI / 2);
+    const s = skinOf(body, time);
+    const ring = blobPoints(0, 0, s.rx, s.ry, s.lobes, s.depth, s.wobble, s.t, s.seed, SKIN_POINTS);
+    const skin = splinePath(ring, true);
 
-  // Fluid filled *into* the skin rather than into a circle behind it: a
-  // gradient disc under a contour is a lamp with a lid on, and the same
-  // gradient clipped to the contour is the thing having an inside
-  // (`gyre-core.ts`).
-  const off = body * 0.3;
-  const grad = ctx.createRadialGradient(off, -off * 0.7, 0, 0, 0, body);
-  grad.addColorStop(0, `${rim}70`);
-  grad.addColorStop(0.3, `${tint}E0`);
-  grad.addColorStop(0.8, `${tint}80`);
-  grad.addColorStop(1, `${tint}20`);
-  ctx.fillStyle = grad;
-  ctx.globalAlpha = 0.78 + 0.22 * squeeze;
-  ctx.fill(skin);
-  ctx.globalAlpha = 1;
-  strokeGlow(ctx, skin, rim, STROKE.inner, 0.5 + 0.4 * squeeze);
-  drawHurt(ctx, skin, struck);
+    // Fluid filled *into* the skin rather than into a circle behind it: a
+    // gradient disc under a contour is a lamp with a lid on, and the same
+    // gradient clipped to the contour is the thing having an inside
+    // (`gyre-core.ts`).
+    const off = body * 0.3;
+    const grad = ctx.createRadialGradient(off, -off * 0.7, 0, 0, 0, body);
+    grad.addColorStop(0, `${rim}70`);
+    grad.addColorStop(0.3, `${tint}E0`);
+    grad.addColorStop(0.8, `${tint}80`);
+    grad.addColorStop(1, `${tint}20`);
+    ctx.fillStyle = grad;
+    ctx.globalAlpha = 0.78 + 0.22 * squeeze;
+    ctx.fill(skin);
+    ctx.globalAlpha = 1;
+    strokeGlow(ctx, skin, rim, STROKE.inner, 0.5 + 0.4 * squeeze);
+    drawHurt(ctx, skin, struck);
 
-  // The chamber inside, which is the half of the thump the eye actually reads:
-  // it fills late and empties slowly, so the muscle is never uniformly bright.
-  ctx.globalAlpha = 0.22 + 0.68 * thump(time - 0.06);
-  ctx.fillStyle = rim;
-  ctx.beginPath();
-  ctx.ellipse(-body * 0.06, 0, body * 0.34, body * 0.24, 0.5, 0, Math.PI * 2);
-  ctx.fill();
-  ctx.globalAlpha = 1;
+    // The chamber inside, which is the half of the thump the eye actually reads:
+    // it fills late and empties slowly, so the muscle is never uniformly bright.
+    ctx.globalAlpha = 0.22 + 0.68 * thump(time - 0.06);
+    ctx.fillStyle = rim;
+    ctx.beginPath();
+    ctx.ellipse(-body * 0.06, 0, body * 0.34, body * 0.24, 0.5, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.globalAlpha = 1;
 
-  // The clock, on the same contour and in the same frame, so it wears the
-  // muscle's own lobes and swells with it (`maze-timer.ts`).
-  drawMazeClock(ctx, s, mazeClockRun(m, beat, beatPhase));
-  ctx.restore();
+    // The clock, on the same contour and in the same frame, so it wears the
+    // muscle's own lobes and swells with it (`maze-timer.ts`).
+    drawMazeClock(ctx, s, mazeClockRun(m, beat, beatPhase));
+    ctx.restore();
+    // The contour again in the frame the glance is in: on its side about the middle.
+    const turned = splinePath(
+      ring.map((p) => ({ x: mx - p.y, y: my + p.x })),
+      true,
+    );
+    return turned;
+  });
 
   // The wound itself: a ring of the heart's own light leaving it, once, wide
   // and quick. It is the loudest thing this boss ever does, which is what the

@@ -38966,3 +38966,15 @@ which only knew the band's window.
 Bottleneck: none.
 
 *Measured: 21 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-13 — VERSUS offers THE MAZE's heart glancing
+
+- reading: 5 min. The entry, §11.10, `maze-draw.ts` and `maze-heart.ts`.
+- writing: 10 min. `maze-glance.ts`, the muscle wrapped, the veins rooted on
+  the turned edge, three candidates, the pose's `lookAt`, a glance-test row.
+- looking: 10 min. Two VERSUS shots and magnified crops: the veins came off
+  the narrowed side until their roots asked the glance where the edge went.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: the heart is drawn adding light, so its dark had to be laid on as paint.

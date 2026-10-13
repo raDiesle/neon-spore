@@ -96,6 +96,7 @@ export function drawMaze(
     beatPhase,
     held.y,
     held.x + hurtShake(struck, time, l.tile),
+    time,
   );
   // The lever before the doors: the thumb brings the knob to the bottom just
   // as a gap arrives there, and the lit lips have to read over it.

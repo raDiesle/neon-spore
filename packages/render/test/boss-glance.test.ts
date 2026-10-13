@@ -10,6 +10,7 @@ import {
   look,
   sway,
 } from "../src/glance-styles.js";
+import { MAZE_GLANCE, MAZE_GLANCE_SIZE } from "../src/maze-glance.js";
 import { MIRROR_GLANCE, MIRROR_GLANCE_SIZE } from "../src/mirror-glance.js";
 import { PINBALL_GLANCE, PINBALL_GLANCE_SIZE } from "../src/pinball-glance.js";
 import { PULSE_GLANCE, PULSE_GLANCE_SIZE } from "../src/pulse-glance.js";
@@ -48,6 +49,7 @@ const ROWS: readonly Row[] = [
   { name: "THE FLEET", record: FLEET_GLANCE, size: FLEET_GLANCE_SIZE, hold: 1 },
   { name: "PINBALL", record: PINBALL_GLANCE, size: PINBALL_GLANCE_SIZE, hold: 0 },
   { name: "THE PULSE", record: PULSE_GLANCE, size: PULSE_GLANCE_SIZE, hold: 0 },
+  { name: "THE MAZE", record: MAZE_GLANCE, size: MAZE_GLANCE_SIZE, hold: 0 },
 ];
 
 const R = 100;
