@@ -4,6 +4,7 @@ import {
   lampreyFiring,
   lampreyHeadPull,
   lampreyHolder,
+  lampreyStep,
   lampreyTailPull,
   lampreyTailPulls,
   lampreyWorker,
@@ -21,6 +22,7 @@ import {
 } from "./lamprey-grip.js";
 import { lampreyTailRight } from "./lamprey-verdicts.js";
 import type { Layout } from "./layout.js";
+import { stepShows } from "./step-colour.js";
 
 /**
  * **What THE LAMPREY is asking for**, page forty-five of the readings. Both
@@ -45,9 +47,10 @@ import type { Layout } from "./layout.js";
  * places round the ring after a crack.
  *
  * **`FIRE` at the hull under the eel's column while the gullet is lit**, to
- * either seat. The gullet's colour is never named. Nothing is said while the
- * eel swims in, leaps, recoils or is spent. **It rings the gullet** where it
- * rears (`lampreyGulletCircle`).
+ * either seat. The gullet's colour is never named — it is lit in it on both
+ * screens, so its fire button wears the mark (`stepShows`). Nothing is said
+ * while the eel swims in, leaps, recoils or is spent. **It rings the gullet**
+ * where it rears (`lampreyGulletCircle`).
  */
 export function lampreyCues(
   l: Layout,
@@ -60,7 +63,10 @@ export function lampreyCues(
   if (lampreyFiring(s)) {
     const x = fieldX(l, s.col);
     const aim = lampreyGulletCircle(l, cfg, s, world.beat, beatPhase);
-    return [{ seat: null, kind: "PRESS", word: "FIRE", x, y: l.hullY, ...frame, aim, seed: 220 }];
+    const shows = stepShows(lampreyStep(s)?.color ?? "either");
+    return [
+      { seat: null, kind: "PRESS", word: "FIRE", x, y: l.hullY, ...frame, aim, shows, seed: 220 },
+    ];
   }
   const out: BossCue[] = [];
   const ask = lampreyAsks(s);

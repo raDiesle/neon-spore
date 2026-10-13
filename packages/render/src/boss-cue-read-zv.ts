@@ -22,6 +22,7 @@ import { CUE_FRAME_WIDE, cueFrame } from "./boss-cue-frame.js";
 import type { BossCue } from "./boss-cue-shape.js";
 import { fieldX } from "./field-flip.js";
 import type { Layout } from "./layout.js";
+import { stepShows } from "./step-colour.js";
 
 /**
  * **What THE BASTION is asking for**, page forty-eight of the readings, a
@@ -35,7 +36,8 @@ import type { Layout } from "./layout.js";
  *   the front and his thumb is off it; **`FIRE`** at the hull under the
  *   middle column once one does, to either seat, aimed at the gun. Its
  *   colour is never named: the gun wears it, and which cannon is that colour
- *   is the conversation.
+ *   is the conversation — and its fire button wears the mark (`stepShows`).
+ *   The port takes either colour, so its mark goes on jumping between both.
  * - **The cage: `SHIELD`** at the hull under the node charging, to either
  *   seat — the node lit on both screens is the whole of the tell.
  * - **The hull: `FIRE`** under the open port, aimed at it, **to the
@@ -73,7 +75,18 @@ export function bastionCues(l: Layout, world: World, s: BastionState): readonly 
     }
     const aim = bastionGunAt(l, c, bastionGunAngle(s, front, bastionPieceCount(step)));
     const x = fieldX(l, midCol(cfg));
-    out.push({ seat: null, kind: "PRESS", word: "FIRE", x, y: l.hullY, ...frame, aim, seed: 253 });
+    const shows = stepShows(bastionTarget(world)?.color ?? "either");
+    out.push({
+      seat: null,
+      kind: "PRESS",
+      word: "FIRE",
+      x,
+      y: l.hullY,
+      ...frame,
+      aim,
+      shows,
+      seed: 253,
+    });
     return out;
   }
   const next = bastionNext(s);

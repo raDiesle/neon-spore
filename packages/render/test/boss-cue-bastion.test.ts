@@ -1,5 +1,5 @@
 import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
-import { bastionPieceCol, midCol, type World } from "@neon-spore/sim";
+import { bastionFrontGun, bastionPieceCol, midCol, type World } from "@neon-spore/sim";
 import { bastionKnobAt, bastionRimKnob } from "../src/bastion-grip.js";
 import { type BossCue, bossCues, cueSeen } from "../src/boss-cue.js";
 import { fieldX } from "../src/field-flip.js";
@@ -56,6 +56,10 @@ describe("THE BASTION", () => {
     expect(said(world)).toEqual(["null:FIRE"]);
     expect(fire?.x).toBeCloseTo(fieldX(l, midCol(CFG)));
     expect(fire?.aim).toBeDefined();
+    // The gun wears its colour on both screens, so that fire button wears the mark.
+    const gun = s.steps[s.cursor]?.colors?.[bastionFrontGun(world, s)];
+    expect(gun).toBeDefined();
+    expect(fire?.shows).toBe(gun);
   });
 
   it("asks for the shield under the node charging, and nothing while none is", () => {
@@ -74,6 +78,8 @@ describe("THE BASTION", () => {
     expect(said(world)).toEqual(["2:FIRE"]);
     expect(fire?.x).toBeCloseTo(fieldX(l, bastionPieceCol(world, s, 0)));
     expect(fire?.aim).toBeDefined();
+    // Either colour takes the port, so no one fire button is named.
+    expect(fire?.shows).toBeUndefined();
     if (fire === undefined) throw new Error("no word");
     expect(cueSeen(fire, "p1")).toBe(false);
     expect(cueSeen(fire, "p2")).toBe(true);

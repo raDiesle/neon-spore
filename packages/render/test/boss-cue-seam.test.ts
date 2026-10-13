@@ -80,6 +80,15 @@ describe("THE SEAM", () => {
     },
   );
 
+  it("names the lit step's colour for the fire button, and none for either", () => {
+    const { world, s } = lit("point");
+    expect(all(world)[0]?.shows).toBeUndefined();
+    const step = s.steps[0];
+    if (step === undefined) throw new Error("no step");
+    s.steps[0] = { ...step, color: "cyan" };
+    expect(all(world)[0]?.shows).toBe("cyan");
+  });
+
   it("says FIRE under the rock's own column, not the ridge's", () => {
     const { world } = lit("rock", 2);
     const [fire] = all(world);

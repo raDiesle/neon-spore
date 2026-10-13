@@ -144,6 +144,9 @@ describe("the words", () => {
       expect(said?.aim?.y).toBeCloseTo(want.y, 5);
       expect(said?.aim?.r).toBeCloseTo(want.r, 5);
       expect(said?.aim?.y).toBeLessThan(l.hullY);
+      // The hub is lit cyan on both screens, so the cyan fire button wears
+      // the mark (`fire-button-mark.ts`).
+      expect(said?.shows).toBe("cyan");
     }
   });
 

@@ -1,6 +1,7 @@
 import {
   type GovernorState,
   governorFiring,
+  governorLitStep,
   midCol,
   type SimConfig,
   type World,
@@ -10,6 +11,7 @@ import type { BossCue } from "./boss-cue-shape.js";
 import { fieldX } from "./field-flip.js";
 import { governorNeedleCircle, governorTapCircle } from "./governor-grip.js";
 import type { Layout } from "./layout.js";
+import { stepShows } from "./step-colour.js";
 
 /**
  * **What THE GOVERNOR is asking for**, page forty-three of the readings.
@@ -27,8 +29,9 @@ import type { Layout } from "./layout.js";
  * scanner square box use the thumb control visual.*
  *
  * **`FIRE` at the hull under the middle column while the hub is lit**, to
- * either seat. The step's colour is never named. Nothing is said between
- * steps. **Its crosshair rides the needle's tip** (`governorNeedleCircle`),
+ * either seat. The step's colour is never named — the hub is lit in it on
+ * both screens, so its fire button wears the mark (`stepShows`). Nothing is
+ * said between steps. **Its crosshair rides the needle's tip** (`governorNeedleCircle`),
  * drawn `lead` ticks ahead as the needle is: the shot is aimed by the needle,
  * and fired as the crosshair crosses the cannon's column.
  */
@@ -45,7 +48,10 @@ export function governorCues(
   if (governorFiring(s)) {
     const x = fieldX(l, midCol(cfg));
     const aim = governorNeedleCircle(l, world, s, beatPhase, lead);
-    return [{ seat: null, kind: "PRESS", word: "FIRE", x, y: l.hullY, ...frame, aim, seed: 189 }];
+    const shows = stepShows(governorLitStep(s)?.color ?? "either");
+    return [
+      { seat: null, kind: "PRESS", word: "FIRE", x, y: l.hullY, ...frame, aim, shows, seed: 189 },
+    ];
   }
   const out: BossCue[] = [];
   for (const seat of [1, 2] as const) {

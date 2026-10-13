@@ -15,6 +15,7 @@ import { seamRockNow, seamThrow } from "./seam-marks.js";
 import { seamArrived } from "./seam-pose.js";
 import { seamCentre, seamLift } from "./seam-shape.js";
 import { seamCrackAsks, seamCrackCircle, seamRockCircle } from "./seam-verdicts.js";
+import { stepShows } from "./step-colour.js";
 
 /**
  * **What THE SEAM is asking for**, page forty-four of the readings. Both
@@ -27,7 +28,8 @@ import { seamCrackAsks, seamCrackCircle, seamRockCircle } from "./seam-verdicts.
  * until that shot lands. For a point or the glow that is the middle column,
  * under the ridge; for a rock it is the rock's own column (`seamStepCol`).
  * The colour is never named: the point and the rock already wear it on both
- * screens, and which cannon is that colour is the conversation.
+ * screens, and which cannon is that colour is the conversation — and its fire
+ * button wears the mark (`stepShows`).
  *
  * **`SHIELD` at the hull under the middle column** while grit is falling and
  * has not been taken, the blind throw included: with the ridge turned away,
@@ -62,7 +64,18 @@ export function seamCues(
   if (seamWantsShot(s)) {
     const x = fieldX(l, seamStepCol(world, step));
     const aim = seamAim(l, world, s, beatPhase) ?? undefined;
-    out.push({ seat: null, kind: "PRESS", word: "FIRE", x, y: l.hullY, ...frame, aim, seed: 211 });
+    const shows = stepShows(step.color);
+    out.push({
+      seat: null,
+      kind: "PRESS",
+      word: "FIRE",
+      x,
+      y: l.hullY,
+      ...frame,
+      aim,
+      shows,
+      seed: 211,
+    });
   }
   return out;
 }
