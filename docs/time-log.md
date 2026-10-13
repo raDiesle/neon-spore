@@ -38978,3 +38978,5 @@ Bottleneck: none.
 - landing: 5 min. `check:fast`, the commit, `land`.
 
 Bottleneck: the heart is drawn adding light, so its dark had to be laid on as paint.
+
+*Measured: 6 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*

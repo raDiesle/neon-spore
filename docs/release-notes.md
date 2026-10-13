@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-13 · e133862fc — VERSUS offers THE MAZE's heart glancing
+
+The heart's muscle, chamber and clock turn about the centre a shot arrives at; the near side swells, the far side narrows into the dark, and each vein stays rooted on the turned edge. Ships still; VERSUS `maze:glance` offers SWAY, LOOK and COCK, judged on THE MAZE · READ. Exemption: none — a look, offered on VERSUS.
+
 ## 2026-10-13 · 813d7624f — PINBALL's offered glance darkens its pods, not an ellipse round them
 
 The far side's dark was an ellipse as wide as the pod's radius, which reached past the pod's lobes into a crescent of shadow on the table. It is now laid over each pod's own contour. Exemption: a fix to something wrong — and only in the VERSUS candidates, which ship still.
