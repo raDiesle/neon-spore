@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-13 · cd8f981e5 — THE GOVERNOR's, THE SEAM's, THE LAMPREY's and THE BASTION's fire buttons are ringed in the colour shown
+
+While EMBER stands on THE GOVERNOR's needle, THE SEAM's point or rock, THE LAMPREY's gullet or THE BASTION's front gun, only the fire button of the colour both screens light it in wears the mark; a step either colour takes, and THE BASTION's port, keep it jumping between both. THE MIMIC's word is a TAP, so it has no fire button to ring. A look the owner asked for by name, 9 October 2026.
+
 ## 2026-10-13 · 0b9563555 — THE OCULUS's, THE VISE's, THE CAPSTAN's and THE GALL's fire buttons are ringed in the lit step's colour
 
 While EMBER stands on a step boss's lit core, kernel or alien, only the fire button of the colour it is lit in wears the mark, since both screens are drawn it; a step either colour takes keeps the mark jumping between both. THE TRAPEZE's and THE VALVE's shots take any colour, so they stay as they were. A look the owner asked for by name, 9 October 2026.

@@ -38567,3 +38567,5 @@ Bottleneck: reading the sim's verdict per boss to know which take either colour.
 - landing: 5 min. `check:fast`, `land`.
 
 Bottleneck: reading — THE MIMIC's word is a TAP, which only its reading said.
+
+*Measured: 5 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
