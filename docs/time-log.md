@@ -38662,3 +38662,5 @@ only a jump, run in the click itself, lands on it.
 
 Bottleneck: the first `bun run shot` came back under a runtime error from
 the contents bar, which was a defect of its own to fix first.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

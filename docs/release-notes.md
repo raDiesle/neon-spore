@@ -9,6 +9,14 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-13 · 8e10e4d77 — Every lab on ON THE FIELD takes the page's whole width, and its readout holds still
+
+Each lab card spans the gesture grid's whole row rather than one 340px column, and its readout keeps the room of its longest state (two lines, three on a phone), so WAITING, COUNTED and RESTING no longer move the field and the page under it. A look the owner asked for by name.
+
+## 2026-10-13 · b5ce539ce — The contents bar no longer throws when the page itself scrolls
+
+A scroll of the document reached onScroll as `document`, which passes a `contains` test but has no box, and the bar threw on every scroll of the director's page. Only an element is taken as a scroller now. A fix to something wrong.
+
 ## 2026-10-13 · f3f9bd706 — A lab's door in the topbar opens its card on ON THE FIELD
 
 PULL LAB, HOLD LAB, PRESS LAB, RUB LAB and COMBO LAB in the director's topbar now open DOCUMENTATION › CONTROLS › ON THE FIELD and jump to that lab's card, instead of putting the lab up in a window over everything — the owner's choice, 13 October 2026. `?pulllab=` and its siblings still restore the window, so `bun run shot` photographs a lab with no clicks.
