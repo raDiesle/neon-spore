@@ -96,8 +96,10 @@ export function standBar(nav: HTMLElement, container: HTMLElement): Spot {
 }
 
 function onScroll(event: Event): void {
-  const target = event.target as Element | null;
-  if (!target || typeof target.contains !== "function") return;
+  // The page itself scrolling is heard as `document`, which contains every
+  // spot and has no box to measure the bar against: only an element scrolls one.
+  const target = event.target;
+  if (!(target instanceof Element)) return;
   for (const spot of spots) {
     if (!target.contains(spot.container)) continue;
     spot.scroller = target;
