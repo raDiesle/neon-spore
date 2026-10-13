@@ -38920,3 +38920,5 @@ Bottleneck: PINBALL has no boss body, so choosing the part took longer than buil
 - landing: 5 min. `check:fast`, the commit, `land`.
 
 Bottleneck: none — THE HOLD LAB had already been settled the same way, so the cut was a copy of it.
+
+*Measured: 4 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

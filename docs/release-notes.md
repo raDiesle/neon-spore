@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-13 · 2e38a59e3 — THE PRESS LAB wears STEPS only
+
+THE PRESS LAB loses its LOOK choice: every press wears STEPS, SOAK's water cut into one terrace a press, as every hold wears SOAK. PIPS, POP, COUNT and KNOCK are gone. The sheet is EVERY STATE, in one row. THE PRESS LAB's place in the URL is now only its presses, `presslab=5`; a link that still names a look opens on its presses. PRESS on ON THE FIELD, under every wave that uses it, opens on STEPS. A look the owner asked for by name, in the director only.
+
 ## 2026-10-13 · c6782b4b8 — VERSUS offers PINBALL's targets glancing about their centres
 
 The round has no body, so the amber target pods turn — a target block as one body — each about the centre the ball bounces off, its far side narrowing into the dark. Rocks do not turn. Ships still; VERSUS `pinball:glance` offers SWAY, LOOK and COCK, judged on PINBALL · AIM. Exemption: none — a look, offered on VERSUS.
