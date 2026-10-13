@@ -331,6 +331,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## TRY IT records a take into stills, for the 22 rows AUTO does not play
 
 - **Found:** 2026-10-09, claude/controls-documentation-redesign-0e3a85
+- **Taken:** 2026-10-13, claude/queue-tasks-968943 (claim: claude/queue-try-it-records-a-take-into-stills-for-the-22-row)
 - **Files:** `tools/director/src/field-try.ts`, `tools/director/src/field-stills-art.ts`, `tools/director/test/field-stills.test.ts`
 
 A card's ▤ STILLS on CONTROLS › ON THE FIELD are six moments — a beat before the press, the press, halfway, the lift, one and three beats after — found by playing the pose with AUTO's hand (`stillTicks`). AUTO plays no creature and reaches only what its boss needs, so 22 rows (`NOT_PLAYED` in the test: THE GUM, PINBALL, THE BALLOON, THE LEDGER, THE CHOIR …) say "play it with ▶ TRY IT" and drop out of ▤ COMPARE ALL USES. Let TRY IT keep the frames of a human take — the window's cut, small, in a ring of the last few seconds — and on the lift plus three beats assemble the same six stills from the mouse's own press and lift, kept for the page's session, so the comparison can show them beside AUTO's.
