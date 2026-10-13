@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-13 · 3cc469269 — The owner's answers to the seven waiting queue questions
+
+THE LID's cord on a path the sim picks by room, THE LAMPREY's shut head as armour, longer LAMPREY lifts and a higher CURTAIN rail, bends for every straight pull with room, the lab doors opening their cards, the grab following the 2x knob, and THE SLING's cords as a hold then a pull.
+
 ## 2026-10-13 · 32565c34e — THE PRESS LAB: the one generic press on an empty field, in five looks
 
 The owner asked for a PRESS LAB like THE HOLD LAB, on the same drop, told apart from a hold, saying how many presses it asks. It has a door in the topbar beside THE HOLD LAB's, a card on CONTROLS › ON THE FIELD › PRESS, and `presslab=5-pips` in the URL (`&presssheet=1` opens its sheet). PRESS picks ONCE, 5 TIMES or 10 TIMES. A press counts the moment it lands; a resting finger counts once; a gap of two beats loses the count, red. The drop is SOAK's, but nothing sinks: each press pops it up and taller with a white ring, it calls in a quick tap-tap where a hold breathes, and on a computer the pointer over it is the pointing hand. The looks: PIPS, a bead round the drop for each press; STEPS, SOAK's water in one terrace a press; POP, a bubble inside for each press, burst one by one; COUNT, the number left; KNOCK, the drop hops as many times as it asks before it is touched. THE PULL LAB no longer opens on another lab's URL. In the director only.
