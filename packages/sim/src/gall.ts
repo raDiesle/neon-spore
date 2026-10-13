@@ -83,6 +83,11 @@ export interface GallState {
   hits: number;
   /** The point each seat's finger is down on, nought for the pilot, or -1 with none. */
   down: [number, number];
+  /** How far up each seat's finger has carried the alien since it went down, in
+   * thousandths of a tile, held to `gallPullMilli` — nought with no finger
+   * down. Drawn as the knob riding its channel (`render/gall-knob.ts`); the
+   * lift is still judged on the lift's own reach (`gall-hand.ts`). */
+  upMilli: [number, number];
 }
 
 export function gallBoss(world: World): GallState | null {
@@ -149,5 +154,6 @@ export function freshGall(beat: number, steps: readonly GallStep[]): GallState {
     leaps: 0,
     hits: 0,
     down: [-1, -1],
+    upMilli: [0, 0],
   };
 }

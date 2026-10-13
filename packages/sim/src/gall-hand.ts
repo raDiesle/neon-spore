@@ -43,11 +43,15 @@ export function gallHeard(world: World, player: 1 | 2, command: Command): void {
   if (!Number.isInteger(point) || point < 0 || point >= GALL_POINTS) return;
   const seat = player === 1 ? 0 : 1;
   if (command.on) {
+    // A press on a new point starts its carry over; every move after says how far up it has come.
+    const up = s.down[seat] === point ? Math.max(0, -(command.fromYMilli ?? 0)) : 0;
     s.down[seat] = point;
+    s.upMilli[seat] = Math.min(world.cfg.gallPullMilli, up);
     return;
   }
   if (s.down[seat] !== point) return;
   s.down[seat] = -1;
+  s.upMilli[seat] = 0;
   lifted(world, s, player, point, command.fromMilli, command.fromYMilli ?? 0);
 }
 

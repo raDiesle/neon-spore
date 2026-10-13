@@ -63,6 +63,7 @@ export function gallThrown(world: World, s: GallState): void {
   s.leaps += 1;
   s.taps = 0;
   s.down = [-1, -1];
+  s.upMilli = [0, 0];
   s.cursor += 1;
   s.phase = "leap";
   s.phaseBeat = world.beat;
@@ -117,5 +118,6 @@ function miss(world: World, s: GallState): void {
   s.phaseBeat = world.beat;
   s.cursor += 1;
   s.down = [-1, -1];
+  s.upMilli = [0, 0];
   bossStrikesHull(world, "gall", col);
 }

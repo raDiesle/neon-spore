@@ -4,6 +4,7 @@ import type { BoltStops } from "./bolt-stop.js";
 import { drawHurt } from "./boss-hurt.js";
 import { coreHurt } from "./core-hurt.js";
 import type { GallFx } from "./gall-fx.js";
+import { drawGallKnob } from "./gall-knob.js";
 import { drawGallPoints } from "./gall-points.js";
 import {
   gallArrived,
@@ -96,6 +97,7 @@ export function drawGall(
   ctx.globalAlpha = (1 - flat) * Math.min(1, arrived * 2);
   drawBody(ctx, l, s, time, beatPhase, flat, flight, fx);
   ctx.restore();
+  drawGallKnob(ctx, l, cfg, s, time, 1 - flat);
   drawGallMarkFeedback(ctx, l, cfg, s, time, 1 - flat, fx.verdicts.verdicts);
   ctx.restore();
 }

@@ -104,7 +104,7 @@ export function patchBossE(boss: BossState): void {
   }
   if (boss.kind === "gall") {
     // Two leaps landed and the alien on the navigator's far point, from the
-    // pilot's near one, two taps in, shot once, a finger down on each half —
+    // pilot's near one, two taps in, shot once, a finger down on each half and carried up —
     // every field given a value (`gall-hash.ts`).
     boss.phase = "lit";
     boss.phaseBeat = 3;
@@ -115,6 +115,7 @@ export function patchBossE(boss: BossState): void {
     boss.leaps = 2;
     boss.hits = 1;
     boss.down = [0, 3];
+    boss.upMilli = [400, 900];
   }
   if (boss.kind === "trapeze") {
     // The second level lit and swinging, a side pushed, the navigator called

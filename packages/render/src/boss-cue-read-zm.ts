@@ -14,7 +14,11 @@ import { stepShows } from "./step-colour.js";
  * **`TAP` on the alien, to the seat whose half it sits on**, while a leap is
  * lit and its taps are not all in, and **`PULL`** once they are. When it leaps
  * the word goes with it, on the frame it lands, to whichever seat is nearer
- * there, and nothing is said while it is in the air.
+ * there, and nothing is said while it is in the air. **Both are a `CARRY`**,
+ * so neither wears a box or a word (`asksGrab`): the taps and the pull are one
+ * grab on the PULL LAB's knob (`gall-knob.ts`) — the owner, 13 October 2026,
+ * on THE GALL'S TAPS AND PULL: it *still shows "tap" text*. The word stays as
+ * data.
  *
  * **`FIRE` at the hull under the alien's column**, to either seat, ringing
  * the alien where it sits. The step's colour is never named — the alien is
@@ -44,5 +48,5 @@ export function gallCues(l: Layout, world: World, s: GallState): readonly BossCu
   if (gallCharged(s)) {
     return [{ seat, kind: "CARRY", word: "PULL", x: at.x, y: at.y, ...frame, seed: 163 }];
   }
-  return [{ seat, kind: "PRESS", word: "TAP", x: at.x, y: at.y, ...frame, seed: 163 }];
+  return [{ seat, kind: "CARRY", word: "TAP", x: at.x, y: at.y, ...frame, seed: 163 }];
 }

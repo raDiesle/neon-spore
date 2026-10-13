@@ -16,7 +16,9 @@ const PRESS_DOES =
   "finger went. A lift where it went down is a tap and winds the alien one " +
   "tighter; once the leap's taps are all in, a lift dragged up toward the " +
   "top of the field throws it, and it lands on a point of the other half " +
-  "off the seeded Rng, where the clock starts again. **A hand counts only on " +
+  "off the seeded Rng, where the clock starts again. Both are made on the " +
+  "PULL LAB's knob on the alien, its channel straight up gallPullMilli long; " +
+  "its arrow comes up once the taps are in (render/gall-knob.ts). **A hand counts only on " +
   "the point the alien is on, on that seat's half**: a pull before the taps " +
   "are in, or a drag any other way, is refused (sim/gall-hand.ts). A tap " +
   "lights its rim, a leap greens it, a refused hand or a clock run out " +

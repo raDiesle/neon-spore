@@ -832,7 +832,7 @@ The owner, 12 October 2026, of the lab's HOLD, THEN SWIPE: *should be a separate
 ## Five pulls with no knob read as taps now their box is gone
 
 - **Found:** 2026-10-13, claude/director-pull-control-visuals-2a801c
-- **Files:** `packages/render/src/gauge-tooth-grip.ts`, `packages/render/src/gauge-grip.ts`, `packages/render/src/taster-grip.ts`, `packages/render/src/vane-grip.ts`, `packages/render/src/gall-grip.ts`
+- **Files:** `packages/render/src/gauge-tooth-grip.ts`, `packages/render/src/gauge-grip.ts`, `packages/render/src/taster-grip.ts`, `packages/render/src/vane-grip.ts`
 - **Asks:** Should THE GAUGE's tooth and tongue, THE TASTER's wipe and pry, THE VANE's housing and THE GALL's pull be drawn with the PULL LAB's knob, arrow and channel — or keep the plain rings they have?
 - **Answered:** 2026-10-13 — (a), the owner: each one's rings become `drawPullKnob` on a `drawPullTrack` the length of its pull, the arrow its sim's direction, over (b) rings with an arrow only and (c) leaving them.
 
@@ -846,6 +846,9 @@ FIELD: it *shows "tap" … but this is category of PULL PAST A DISTANCE*. The
 options: (a) each one's rings become `drawPullKnob` on a `drawPullTrack` the
 length of its `…PullMilli`, the arrow its sim's direction; (b) keep the rings
 and add only the knob's arrow; (c) keep them as they are.
+
+THE GALL is done (2026-10-13, claude/field-controls-standardization-44b3b7,
+`render/gall-knob.ts`): the four files above are what is left.
 
 ## `bun run shot` cannot press and hold a point on a canvas
 

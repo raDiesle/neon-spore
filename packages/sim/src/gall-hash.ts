@@ -6,7 +6,7 @@ import { GALL_ASKS, GALL_PHASES, type GallState } from "./gall.js";
  * **The authored script goes in whole**, THE SEAM's reason (`seam-hash.ts`),
  * with its length ahead of it. The point goes in because it was drawn off the
  * `Rng` and decides whose hand counts, and each seat's finger because it is
- * heard on the tick and judged at the lift.
+ * heard on the tick and judged at the lift — with how far up it has carried.
  */
 export function gallHashParts(s: GallState): number[] {
   const out = [
@@ -20,6 +20,8 @@ export function gallHashParts(s: GallState): number[] {
     s.hits,
     s.down.length,
     ...s.down,
+    s.upMilli.length,
+    ...s.upMilli,
     s.steps.length,
   ];
   for (const step of s.steps) {

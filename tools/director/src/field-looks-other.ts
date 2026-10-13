@@ -132,8 +132,8 @@ export const OTHER_LOOKS: Readonly<Record<string, UseLook>> = {
   },
   // ONE MARK WHOSE GESTURE CHANGES STEP BY STEP, filed under every type a step uses
   "THE GALL'S TAPS AND PULL": {
-    find: "The alien on its point of the seam, haloed on the screen of the seat whose half it sits on.",
-    move: "Taps wind it up; a pull up toward the top throws it to the other half, green.",
+    find: "A knob on the alien on its point of the seam, a channel straight up from it, haloed on the screen of the seat whose half it sits on; its arrow comes up once the taps are in.",
+    move: "Taps on the knob wind it up; the knob follows a pull up its channel, filling green, and throws it to the other half.",
   },
   "THE INSTAR'S MARKS": {
     find: "A red ring on the part of the body the script wants, with the gesture drawn inside it and its word in a box over it; a second ring closing in is the window.",

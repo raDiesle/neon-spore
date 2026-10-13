@@ -47,6 +47,7 @@ const PULL_HANDLES: Readonly<Record<string, string>> = {
   "bastion-handles.ts": "THE BASTION",
   "blister-turn-help.ts": "THE BLISTER",
   "blister-help.ts": "THE BLISTER",
+  "gall-knob.ts": "THE GALL",
 };
 
 const TO_COME: Readonly<Record<string, string>> = {};
