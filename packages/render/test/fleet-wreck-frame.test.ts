@@ -59,7 +59,7 @@ describe("THE FLEET's wreck, drawn whole", () => {
     expect(words(role).filter((w) => w === "PULL")).toEqual([]);
   });
 
-  it("does collect the words a frame says: the pilot's HOLD is among them", () => {
-    expect(words("p1")).toContain("HOLD");
+  it("does collect the words a frame says: the pilot's SALVO is among them", () => {
+    expect(words("p1")).toContain("SALVO");
   });
 });

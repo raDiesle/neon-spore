@@ -1,6 +1,7 @@
 import { describe, expect, test } from "bun:test";
 import type { Point } from "@neon-spore/content";
 import { pullTrackPoint } from "@neon-spore/render";
+import { soakReach } from "../../../packages/render/src/soak-water.js";
 import { HOLD_PULL, HOLD_TAP } from "../src/combo-hold-partner.js";
 import { HOLD_THEN_PULL } from "../src/combo-hold-then-pull.js";
 import type { ComboRule } from "../src/combo-kinds.js";
@@ -8,7 +9,6 @@ import { COMBO_RULES, comboRuleOf } from "../src/combo-lab-combos.js";
 import { downShape } from "../src/combo-lab-rule.js";
 import { PRESS_PULL } from "../src/combo-press-pull.js";
 import { FIELD_ACTIONS } from "../src/field-actions.js";
-import { soakReach } from "../src/hold-goo/soak.js";
 import { HOLD_AT } from "../src/hold-lab-rule.js";
 import { LAB_TILE, LAB_W } from "../src/pull-lab-shapes.js";
 

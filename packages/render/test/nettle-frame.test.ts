@@ -157,19 +157,23 @@ describe("THE NETTLE's body", () => {
   });
 
   it.each(ROLES)("puts the marks up only while the window is open, on %s", (role) => {
-    const act = frame(role, (w) => acting(w, 0));
-    const morph = frame(role, (w) => {
+    // The first step's mark is a pull: its knob is drawn while the window is
+    // open and at no other time (`instar-pull.ts`).
+    const knobs = (arrange: (w: World) => void): number =>
+      spyPulls(() => frame(role, arrange)).knobs.length;
+    const act = knobs((w) => acting(w, 0));
+    const morph = knobs((w) => {
       const s = morphing(w, 0);
       // Early in the morph, before the anticipation glows up.
       s.phaseBeat = w.beat;
     });
-    const gone = frame(role, (w) => {
+    const gone = knobs((w) => {
       const s = acting(w, 0);
       s.phase = "land";
     });
-    expect(count(act.text, PALETTE.red)).toBeGreaterThan(count(morph.text, PALETTE.red));
-    expect(count(act.text, PALETTE.red)).toBeGreaterThan(count(gone.text, PALETTE.red));
-    expect(count(morph.text, PALETTE.red)).toBe(count(gone.text, PALETTE.red));
+    expect(act).toBeGreaterThan(0);
+    expect(morph).toBe(0);
+    expect(gone).toBe(0);
   });
 
   it("draws the same body on both screens and a different word over each mark", () => {
@@ -230,7 +234,9 @@ describe("THE NETTLE's body", () => {
     const going = frame(role, down);
     const stood = frame(role, (w) => acting(w, 0));
     expect(Math.min(...alphas(going.text))).toBeLessThan(Math.min(...alphas(stood.text)));
-    expect(count(going.text, PALETTE.red)).toBeLessThan(count(stood.text, PALETTE.red));
+    const knobs = (arrange: (w: World) => void): number =>
+      spyPulls(() => frame(role, arrange)).knobs.length;
+    expect(knobs(down)).toBeLessThan(knobs((w) => acting(w, 0)));
     const gone = frame(role, (w) => {
       down(w).phaseBeat = w.beat - CFG.instarOutBeats - 1;
     });

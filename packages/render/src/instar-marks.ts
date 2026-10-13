@@ -13,31 +13,30 @@ import {
 import type { CueKind } from "./boss-cue.js";
 import { asksGrab } from "./boss-cue-shape.js";
 import { drawVerdictRing, type GripVerdict } from "./grip-verdict.js";
+import { saysHold } from "./handle-word.js";
 import { instarMarkPoint, instarMarkRadius } from "./instar-place.js";
 import { drawInstarPull, instarMarkPulls, instarPullSpan } from "./instar-pull.js";
 import { drawInstarRing } from "./instar-ring.js";
 import { instarThreat } from "./instar-shape.js";
 import type { Sway } from "./instar-sway.js";
-import {
-  drawInstarDone,
-  drawInstarWindow,
-  instarAwaited,
-  instarTogetherLeft,
-} from "./instar-together.js";
+import { drawInstarDone, instarAwaited, instarTogetherLeft } from "./instar-together.js";
 import { drawInstarWord, type MarkRoom } from "./instar-word.js";
 import type { Layout, ViewRole } from "./layout.js";
 import { drawMarkHalo, drawMarkTheirs, drawMarkWait } from "./mark-feedback.js";
+import { drawSoakHold } from "./soak-hold.js";
 import { instarMarkIsMine } from "./view-role-clocks-b.js";
 
 /**
  * **THE INSTAR's marks: the only control on the screen.** A red ring on the
  * part the script wants moved, the gesture drawn inside it
  * (`instar-glyphs.ts`), the word for it and the kind of action over that in a
- * scanner box over it (`instar-word.ts`), a progress arc that fills as the
- * part gives, and **the window**: a second ring closing in on the mark from
- * outside over the step's `windowBeats`, so how long is left is read off the
- * picture and not off a number — the world teaches the pair, and the two
- * lines are only the name of what the ring already shows.
+ * scanner box over it (`instar-word.ts`), and a progress arc that fills as
+ * the part gives. A pull is the PULL LAB's knob (`instar-pull.ts`) and a hold
+ * the HOLD LAB's drop (`soak-hold.ts`), with no word. **No window ring**: the
+ * red ring that closed in on every mark over the step's `windowBeats` went on
+ * 13 October 2026 — the owner, *there is red circle around the control - this
+ * makes it inconsistent. remove it*. The window is still the slow's, and the
+ * fuse still burns it down (`slow-fuse.ts`).
  *
  * Whose the mark is, is the split of this boss (`view-role-clocks-b.ts`):
  * on the seat it wants, the ring is bright and the box carries the kind and
@@ -69,7 +68,7 @@ import { instarMarkIsMine } from "./view-role-clocks-b.js";
  * wrong thumb and says so (`sim/instar-hand.ts`).
  */
 
-/** How far beside a ring its word hangs, in ring radii: clear of the window ring at its widest. */
+/** How far beside a ring its word hangs, in ring radii: where the window ring was widest. */
 export const MARK_WORD_OFF = 3.1;
 
 /**
@@ -137,9 +136,8 @@ export function drawInstarMarks(
   const cfg = world.cfg;
   const r = instarMarkRadius(l, cfg);
   const awaited = instarAwaited(s, cfg, beat, beatPhase);
-  // How far the window has run moves a swept mark; what is left of it closes the ring.
+  // How far the window has run moves a swept mark.
   const along = instarThreat(s, beat, beatPhase);
-  const left = 1 - along;
   // Beside the ring, clear of the window ring at its widest.
   const off = r * MARK_WORD_OFF;
   const rooms = step.marks.map((m) => markRoom(l, cfg, m, sway, along, off));
@@ -170,9 +168,9 @@ export function drawInstarMarks(
       const along = Math.max(0, Math.min(1, swipe ? instarSwipeAlong(s, cfg, i) / 1000 : count));
       const held = (s.thumbs[i] ?? 0) !== 0;
       const { kind, word } = instarMarkWord(mark, role);
-      // A pull, a swipe or a turn of its own seat says nothing (`asksGrab`);
-      // the partner's mark still names whose it is.
-      const says = kind === undefined || !asksGrab({ kind });
+      // A pull, a swipe or a turn of its own seat says nothing (`asksGrab`),
+      // nor a hold (`saysHold`); the partner's mark still names whose it is.
+      const says = (kind === undefined || !asksGrab({ kind })) && !saysHold(word);
       if (instarMarkPulls(mark.gesture)) {
         // The PULL LAB's knob and channel, and the window round where it is grabbed (`instar-pull.ts`).
         if (mine) drawMarkHalo(ctx, at.x, at.y, r, time);
@@ -180,16 +178,18 @@ export function drawInstarMarks(
         drawInstarPull(ctx, l, cfg, mark, at, { mine, held, share: along, time, key });
         if (!mine) drawMarkTheirs(ctx, at.x, at.y, r, time);
         if (!mine) drawMarkWait(ctx, at.x, at.y, r, time);
-        drawInstarWindow(ctx, at.x, at.y, r, left, mine);
         if (says) drawInstarWord(ctx, l, word, at.x + side * off, at.y, side, mine, kind, room);
         drawVerdict(ctx, verdicts, i, at.x, at.y, r);
         return;
       }
       // A shoot mark's light is the part's own red glow (`instar-weak.ts`), not a halo over it.
       if (mine && mark.gesture !== "shoot") drawMarkHalo(ctx, at.x, at.y, r, time);
-      drawInstarRing(ctx, at.x, at.y, r, mark, mine, held, along, time, awaited);
+      // A hold is the HOLD LAB's drop, filling as the beats are held (`soak-hold.ts`).
+      if (mark.gesture === "hold") {
+        drawSoakHold(ctx, at, r, { time, held, fill: along, theirs: !mine });
+      } else drawInstarRing(ctx, at.x, at.y, r, mark, mine, held, along, time, awaited);
       if (!mine) drawMarkTheirs(ctx, at.x, at.y, r, time);
-      drawInstarWindow(ctx, at.x, at.y, r, left, mine);
+      if (mark.gesture === "hold" && !mine) drawMarkWait(ctx, at.x, at.y, r, time);
       if (says) drawInstarWord(ctx, l, word, at.x + side * off, at.y, side, mine, kind, room);
     }
     drawVerdict(ctx, verdicts, i, at.x, at.y, r);

@@ -1,5 +1,5 @@
 import type { Point } from "@neon-spore/content";
-import { PALETTE, smoothstep } from "@neon-spore/render";
+import { smoothstep } from "@neon-spore/render";
 import { bodyPath, drop, type GooBody } from "../../../../packages/render/src/goo-body.js";
 import { paintGoo } from "../../../../packages/render/src/goo-drop-look.js";
 import { greenAt } from "../../../../packages/render/src/goo-ending.js";
@@ -15,7 +15,8 @@ import { ENDING, SPAWN } from "../../../../packages/render/src/goo-moment.js";
 import { clamp01, settle } from "../../../../packages/render/src/goo-noise.js";
 import type { Press } from "../../../../packages/render/src/goo-press.js";
 import { GOO } from "../../../../packages/render/src/goo-style.js";
-import { holdCall } from "./call.js";
+import { soakCall } from "../../../../packages/render/src/soak-hold.js";
+import type { Tone } from "../../../../packages/render/src/soak-water.js";
 import type { HoldLook, HoldView } from "./view.js";
 
 /**
@@ -30,9 +31,6 @@ import type { HoldLook, HoldView } from "./view.js";
  * SOAK (`soak.ts`). A refusal or a slip is the drop going red and shuddering
  * where it is, the progress draining out.
  */
-
-/** The colour progress is shown in: green while it fills, red as a failure drains it. */
-export type Tone = "good" | "red";
 
 export interface Progress {
   readonly name: string;
@@ -87,7 +85,7 @@ function mark(v: HoldView, p: Progress): void {
     body = drop(at, r, { squash: 1 + 0.35 * settle(v.failure, 6, 18), shake: 0.3 * (1 - k) });
     red = 0.9 * (1 - smoothstep(k));
   } else {
-    if (v.born >= SPAWN) holdCall(ctx, at, r, GOO, time);
+    if (v.born >= SPAWN) soakCall(ctx, at, r, GOO, time);
     body = drop(at, r * g, { squash: 1 + 0.07 * Math.sin(time * 3.4) });
   }
   body = p.body?.(body, v.fill, v) ?? body;
@@ -120,11 +118,4 @@ function clipped(ctx: CanvasRenderingContext2D, path: Path2D, f: (p: Path2D) => 
   ctx.clip(path);
   f(path);
   ctx.restore();
-}
-
-/** The colour of `tone`, and its brighter edge. */
-export function toneHex(tone: Tone): { hex: string; rim: string } {
-  return tone === "red"
-    ? { hex: PALETTE.red, rim: PALETTE.redRim }
-    : { hex: PALETTE.good, rim: PALETTE.goodRim };
 }

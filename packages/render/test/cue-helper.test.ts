@@ -167,17 +167,25 @@ describe("the cue's helper", () => {
   });
 });
 
-describe("a hold's circle", () => {
-  it("stands in the scan frame's place: a red circle with a thumbprint, and no box", () => {
+describe("a hold's drop", () => {
+  it("stands in the scan frame's place: the HOLD LAB's drop, and no box", () => {
     expect(markIsHere(cue("HOLD", 100, 200, { kind: "HOLD" }))).toBe(true);
     expect(markIsHere(cue("SHIELD", 100, 200))).toBe(false);
     expect(markIsHere(cue("FIRE", 100, 200))).toBe(false);
     const calls = log((ctx) =>
       drawCueHelper(ctx, cue("HOLD", 100, 200, { kind: "HOLD" }), HULL, 0),
     );
-    // The ring, and the print's ridges inside it: arcs and ellipses, never a rectangle.
-    expect(calls.some((c) => c.startsWith("ellipse("))).toBe(true);
+    // The drop's soft outline, never a rectangle — and not the thumbprint's ridges.
+    expect(calls.length).toBeGreaterThan(0);
+    expect(calls.some((c) => c.startsWith("ellipse("))).toBe(false);
     expect(calls.some((c) => c.startsWith("strokeRect(") || c.startsWith("rect("))).toBe(false);
+  });
+
+  it("is still the thumbprint's circle on a tap that asks for a print", () => {
+    const calls = log((ctx) =>
+      drawCueHelper(ctx, cue("TAP", 100, 200, { kind: "PRESS", print: true }), HULL, 0),
+    );
+    expect(calls.some((c) => c.startsWith("ellipse("))).toBe(true);
   });
 });
 

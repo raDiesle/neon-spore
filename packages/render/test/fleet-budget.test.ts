@@ -200,28 +200,32 @@ const BUDGETS: Readonly<Record<"p1" | "p2", Readonly<Record<"mid" | "hit", Budge
       // are the whole of what this seat is not shown (`fleet-hulls.ts`). Six
       // more since 2 October 2026: the navigator's `HOLD` wears a red circle
       // with a thumbprint (`hold-mark.ts`) — the ring's glow, five ridges and
-      // the loop, one fill and one path — in place of the scan box.
-      stroke: 84,
-      fill: 71,
-      clip: 7,
-      save: 53,
+      // the loop, one fill and one path — in place of the scan box. Since 13
+      // October 2026 that is the HOLD LAB's drop instead (`soak-hold.ts`): its
+      // calling halo and two ripples, the slime's layers and its clip, so the
+      // drop's rows rose with it — twelve strokes, eleven fills, one clip,
+      // five saves, two radial gradients, fourteen paths.
+      stroke: 96,
+      fill: 82,
+      clip: 8,
+      save: 58,
       drawImage: 23,
-      createLinearGradient: 16,
-      createRadialGradient: 12,
-      "new Path2D": 23,
+      createLinearGradient: 19,
+      createRadialGradient: 14,
+      "new Path2D": 37,
       fillText: 26,
     },
     hit: {
       fillRect: 89,
-      // The hold's circle, as at mid.
-      stroke: 85,
-      fill: 69,
-      clip: 7,
-      save: 61,
+      // The hold's drop, as at mid.
+      stroke: 97,
+      fill: 80,
+      clip: 8,
+      save: 66,
       drawImage: 26,
-      createLinearGradient: 15,
-      createRadialGradient: 13,
-      "new Path2D": 23,
+      createLinearGradient: 18,
+      createRadialGradient: 15,
+      "new Path2D": 37,
       // One fewer than the pilot's, every frame: the square's own name is on
       // both screens and the wave's own readouts are not all of them.
       fillText: 26,

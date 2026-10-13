@@ -111,20 +111,3 @@ export function drawInstarDone(
   strokeGlow(ctx, ring, PALETTE.redRim, STROKE.inner, 0.35 + 0.75 * (1 - left));
   drawInstarWord(ctx, l, "WAITING", x + side * r * 3.1, y, side, true);
 }
-
-/** The step's window: a ring closing in from outside, brighter and faster
- * the less is left. Here rather than beside the rings because it and the
- * together window are one idea drawn twice — time being taken back — and a
- * mark can be under both at once. */
-export function drawInstarWindow(
-  ctx: CanvasRenderingContext2D,
-  x: number,
-  y: number,
-  r: number,
-  left: number,
-  mine: boolean,
-): void {
-  const p = new Path2D(circleSubpath(x, y, r * (1.75 + 1.1 * left)));
-  const urgency = 1 - left;
-  strokeGlow(ctx, p, PALETTE.red, STROKE.inner, (0.25 + 0.65 * urgency) * (mine ? 1 : 0.5));
-}

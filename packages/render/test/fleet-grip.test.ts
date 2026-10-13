@@ -233,8 +233,9 @@ describe("the wound", () => {
   it("says one word a screen, and each seat only its own", () => {
     const world = round();
     expect(words("p1", holed("flood"), world)).toEqual(["RAKE"]);
-    expect(words("p2", holed("flood"), world)).toEqual(["HOLD"]);
-    expect(words("p1", holed("wreck"), world)).toEqual(["HOLD"]);
+    // A hold says no word: the HOLD LAB's drop says it (`saysHold`).
+    expect(words("p2", holed("flood"), world)).toEqual([]);
+    expect(words("p1", holed("wreck"), world)).toEqual([]);
     // Her knob says the pull with its arrow, and no word (`saysPull`).
     expect(words("p2", holed("wreck"), world)).toEqual([]);
   });

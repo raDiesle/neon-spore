@@ -2,7 +2,7 @@ import { PALETTE } from "@neon-spore/render";
 import { mix } from "../../../../packages/render/src/goo-noise.js";
 import { SHADE } from "../../../../packages/render/src/goo-press.js";
 import { GOO } from "../../../../packages/render/src/goo-style.js";
-import { toneHex } from "../hold-goo/goo.js";
+import { toneHex } from "../../../../packages/render/src/soak-water.js";
 import type { Rubbed } from "./goo.js";
 import { swayOf } from "./goo.js";
 

@@ -6,7 +6,8 @@ import { grown } from "../../../../packages/render/src/goo-enter.js";
 import { SPAWN } from "../../../../packages/render/src/goo-moment.js";
 import { clamp01, settle } from "../../../../packages/render/src/goo-noise.js";
 import { GOO } from "../../../../packages/render/src/goo-style.js";
-import { fizzAway, type Tone } from "../hold-goo/goo.js";
+import type { Tone } from "../../../../packages/render/src/soak-water.js";
+import { fizzAway } from "../hold-goo/goo.js";
 import type { RubLook, RubView } from "./view.js";
 
 /**

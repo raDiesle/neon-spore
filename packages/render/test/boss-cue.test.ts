@@ -287,8 +287,13 @@ describe("a kind line that is the verb said twice", () => {
   }
 
   it("is not drawn, so the mark carries one word", () => {
-    expect(lines("HOLD", "HOLD")).toEqual(["HOLD"]);
+    expect(saysKind("HOLD", "HOLD")).toBe(false);
     expect(saysKind("TURN", "TURN")).toBe(false);
+  });
+
+  it("is never drawn on a hold, which says itself with the HOLD LAB's drop (the owner, 13 October 2026)", () => {
+    expect(lines("HOLD", "HOLD")).toEqual([]);
+    expect(lines("HOLD", "HOLD BOTH")).toEqual([]);
   });
 
   it("is drawn wherever it says something the verb does not", () => {

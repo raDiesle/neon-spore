@@ -126,14 +126,12 @@ describe("THE LEAD's word", () => {
     const held = (w: World, s: LeadState): void => {
       s.heldBeat = w.beat;
     };
-    // The offered stalk says `HOLD` once and not twice: the kind line goes when
-    // it is the verb said over again, which is the same economy THE SURGE's
-    // charge gets (`boss-cue-text.ts`). Under her thumb it is still `HOLD`,
-    // once, and the small line under it says what the hold is buying.
-    expect(drawn("p2", offered)).toContain("HOLD");
-    expect(drawn("p2", offered).filter((t) => t === "HOLD")).toHaveLength(1);
-    expect(drawn("p2", held).filter((t) => t === "HOLD")).toHaveLength(1);
-    expect(drawn("p2", held)).toContain("WHILE THE BEAM FILLS");
+    // A hold says no word, offered or held: the HOLD LAB's drop says it
+    // (`saysHold`, the owner, 13 October 2026), and the line under it went
+    // with it, as a pull's did.
+    expect(drawn("p2", offered)).not.toContain("HOLD");
+    expect(drawn("p2", held)).not.toContain("HOLD");
+    expect(drawn("p2", held)).not.toContain("WHILE THE BEAM FILLS");
     // And the pilot is shown neither, on a stalk that is a readout on his glass.
     expect(drawn("p1", offered)).not.toContain("HOLD");
     expect(drawn("p1", held)).not.toContain("WHILE THE BEAM FILLS");

@@ -114,11 +114,14 @@ describe("THE VALVE's marks asking", () => {
   });
 
   it("through the brace, shows a thumb already down the one still missing", () => {
+    // The brace's drop calls on both screens whoever is down (`soak-hold.ts`),
+    // so the halo a seat is asked with is counted against the brace itself.
     const pilotDown = phase("brace", [true, false]);
+    const neither = phase("brace");
     expect(clocks("p1", pilotDown)).toBeGreaterThan(clocks("p1", list));
-    expect(halos("p1", pilotDown)).toBe(halos("p1", list));
-    expect(halos("p2", pilotDown)).toBeGreaterThan(halos("p2", list));
-    expect(halos("p1", phase("brace", [true, true]))).toBe(halos("p1", list));
+    expect(halos("p1", pilotDown)).toBeLessThan(halos("p1", neither));
+    expect(halos("p2", pilotDown)).toBe(halos("p2", neither));
+    expect(halos("p1", phase("brace", [true, true]))).toBe(halos("p1", pilotDown));
   });
 });
 

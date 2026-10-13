@@ -39049,3 +39049,17 @@ Bottleneck: the line is the layers inside a part compositing at partial cover, w
 Bottleneck: converting eleven call sites from closing over the screen to drawing on a handed context.
 
 *Measured: 10 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-13 — Every hold cue is the HOLD LAB's drop and says no word; THE INSTAR's window ring gone
+
+- reading: 20 min. ON THE FIELD's hold cards, `cue-helper.ts`, `hold-mark.ts`,
+  the HOLD LAB's `hold-goo/`, `instar-marks.ts`, how the pulls were moved.
+- writing: 25 min. `soak-hold.ts` and `soak-water.ts` moved out of the
+  director, the cue's hold, THE BLISTER's and THE INSTAR's, `saysHold`.
+- looking: 15 min. Four cards photographed with `bun run shot`.
+- friction: 10 min. The director that answered was another worktree's until
+  `bun run here`, and a hidden pane draws no card.
+- landing: 15 min. Eleven tests that pinned the HOLD word or the red ring,
+  two op budgets remeasured, the index, six queue entries.
+
+Bottleneck: the director that answered first was serving another tree.

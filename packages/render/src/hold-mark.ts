@@ -4,19 +4,16 @@ import { rgba } from "./hex.js";
 import { PALETTE, STROKE } from "./palette.js";
 
 /**
- * **The mark a hold asks with: a red circle with a thumbprint in it**, the
- * same on every boss. The owner, 2 October 2026, on THE OCULUS and in
- * general: *hold gesture indicator must be improved, is there no standard
- * visual we have already? i expect some red circle like, no scan rectangle
- * box. maybe as a symbol a thumb fingerprint in the middle.*
+ * **A red circle with a thumbprint in it**: the mark a hold asked with on
+ * every boss from 2 October 2026 — the owner, on THE OCULUS: *i expect some
+ * red circle like, no scan rectangle box. maybe as a symbol a thumb
+ * fingerprint in the middle* — until the HOLD LAB's drop took its place on
+ * 13 October 2026 (`soak-hold.ts`). What still wears it is a `TAP` with
+ * `BossCue.print`, THE GOVERNOR's marks (`cue-helper.ts`).
  *
- * So a `HOLD` cue wears this in place of the scan frame (`boss-cue-draw.ts`,
- * `cue-helper.ts`): the red of every mark asking this seat
- * (`mark-feedback.ts`), drawn as a ring that can be seen from across a table,
- * and the print of the thumb that goes on it — the one picture of *keep your
- * thumb here* that needs no word. The ring breathes with the cue's word; the
- * print stands still, as a thumb pressed down does. `tint` is a cue's own
- * colour where the colour is the ask (`BossCue.tint`), red otherwise.
+ * The ring breathes with the cue's word; the print stands still, as a thumb
+ * pressed down does. `tint` is a cue's own colour where the colour is the ask
+ * (`BossCue.tint`), red otherwise.
  */
 
 /** The ring's radius, in the cue frame's shorter half-extent. */

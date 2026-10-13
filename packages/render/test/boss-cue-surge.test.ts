@@ -174,8 +174,9 @@ describe("THE SURGE's word", () => {
       return texts.map((t) => t.text);
     };
     const bothOff = (): void => {};
-    expect(drawn("p1", bothOff)).toContain("HOLD");
-    expect(drawn("p2", bothOff)).toContain("HOLD");
+    // A hold says no word: the HOLD LAB's drop says it (`saysHold`).
+    expect(drawn("p1", bothOff)).not.toContain("HOLD");
+    expect(drawn("p2", bothOff)).not.toContain("HOLD");
     // The word no canvas in this suite had been handed before this entry: on a
     // mark with a thumb already on it.
     const lifting = (s: SurgeState): void => {

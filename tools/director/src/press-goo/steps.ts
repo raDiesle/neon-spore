@@ -1,5 +1,5 @@
 import { GOO } from "../../../../packages/render/src/goo-style.js";
-import { frontPath, soakWater, WELL } from "../hold-goo/soak.js";
+import { frontPath, soakWater, WELL } from "../../../../packages/render/src/soak-water.js";
 import type { Count } from "./goo.js";
 
 /**

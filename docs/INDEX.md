@@ -1735,7 +1735,7 @@ by hand never moves.
 | `packages/render/src/seam-fx.ts` | What THE SEAM leaves behind a frame (§26, *Presentation*) |
 | `packages/render/src/seam-hold.ts` | **THE SEAM's two steps answered by sending nothing** (§26 rows 10 and 16, `sim/seam-step.ts`) |
 | `packages/render/src/hover.ts` | WHAT A MOUSE IS RESTING ON, LIT |
-| `packages/render/src/hold-mark.ts` | **The mark a hold asks with: a red circle with a thumbprint in it**, the same on every boss |
+| `packages/render/src/hold-mark.ts` | **A red circle with a thumbprint in it**: the mark a hold asked with on every boss from 2 October 2026 |
 | `packages/render/src/recoil-cage-break.ts` | THE RECOIL's cage coming apart: the shot that spends the last bounce, drawn as the frame failing all at once |
 | `packages/render/src/recoil-calyx.ts` | CALYX — a kept look for THE RECOIL's cage, drawn only on the GRAPHICS page's LIBRARY |
 | `packages/render/src/radar-blip.ts` | Which arrivals this screen's warning strip is carrying, and where each one sits on it |
@@ -2630,6 +2630,8 @@ by hand never moves.
 | `packages/render/src/solid-tube-screen.ts` | **Where a tube of a rig lands on the screen**, for the one body drawn at any size and anywhere |
 | `packages/render/src/solid-sheet.ts` | A SHEET OF A RIG: skin stretched flat between bones — a wing's membrane, a fin, a sail |
 | `packages/render/src/solid-verlet.ts` | A TRAILING PART THAT IS DRAGGED: a verlet chain, for the one case `chainAt` (`solid-motion.ts`) is not |
+| `packages/render/src/soak-hold.ts` | **Every hold on the field, drawn as the HOLD LAB's**: SOAK on the PULL LAB's drop |
+| `packages/render/src/soak-water.ts` | **SOAK's water**: green water welling up under the thumb and spreading out to the rim of the drop |
 | `packages/render/src/unseen.ts` | **A frame with the bodies neither screen may draw taken out of it** — once, for every pass under it |
 | `packages/render/src/undertow-draw.ts` | THE UNDERTOW, on the ship: the plate bowing, its seams lit |
 | `packages/render/src/undertow-drift.ts` | **THE UNDERTOW leans where it comes up through the plating** |
@@ -3904,7 +3906,6 @@ by hand never moves.
 | `tools/director/src/hold-goo/goo.ts` | **The GOO hold**: the PULL LAB's shipped look — the RIPPLES · STILL drop (`goo-drop-look.ts`) |
 | `tools/director/src/hold-goo/view.ts` | **What a HOLD LAB look is told**, read once a frame from the rule's state (`hold-lab-rule.ts`) |
 | `tools/director/src/hold-goo/soak.ts` | **SOAK** — SINK with FILL's water, and the one look every hold in the director's labs wears |
-| `tools/director/src/hold-goo/call.ts` | **What calls the thumb to a hold no hand has yet**: a breathing halo and ripples out of the drop |
 | `tools/director/src/hold-goo/wait.ts` | **The waiting clock on a hold**: `drawMarkWait` on the drop's shoulder from the take to the count, in every lab |
 | `tools/director/src/hold-lab-auto.ts` | **AUTO's thumb in the HOLD LAB**, as `pull-lab-auto.ts` is the PULL LAB's: one whole hold, one let go early |
 | `tools/director/src/hold-lab-paint.ts` | One frame of the HOLD LAB (`hold-lab.ts`): the PULL LAB's empty field and SOAK's drop in its middle |

@@ -16,9 +16,7 @@ import {
 import { blisterRise } from "./blister.js";
 import { drawBlisterTurn } from "./blister-turn-help.js";
 import { flatCenter, flatRadius } from "./creature-place.js";
-import { drawGripDial } from "./grip-rings.js";
 import { handleRadius } from "./handle-draw.js";
-import { drawHoldMark } from "./hold-mark.js";
 import { drawInstarGlyph } from "./instar-glyphs.js";
 import { type Layout, seatOf } from "./layout.js";
 import { drawMarkHalo, drawMarkWait } from "./mark-feedback.js";
@@ -28,6 +26,7 @@ import { drawFuseRing } from "./pip-ring.js";
 import { drawPullKnob } from "./pull-knob.js";
 import { drawPullTrack, PULL_TRACK_W, type PullTrack } from "./pull-track.js";
 import { drawRubMark } from "./rub-mark.js";
+import { drawSoakHold } from "./soak-hold.js";
 
 /**
  * **THE BLISTER's help for all five gestures**, called and not drawn anew
@@ -41,10 +40,9 @@ import { drawRubMark } from "./rub-mark.js";
  *   the same pips — never the gesture, which reads as *your next move*
  *   (`mark-feedback.ts`). How many are left is no secret; the seat with the
  *   hand counts them off and the other is better for hearing it.
- * - HOLD, on the seat that may: the ring and print of *keep your thumb here*
- *   (`drawHoldMark`) in the tap's place, with the dial running round it as
- *   the beat in progress fills (`drawGripDial`), and the halo only while no
- *   hand is on it. On both screens, while a hand that counts is on it, the
+ * - HOLD, on the seat that may: the HOLD LAB's drop every hold wears
+ *   (`soak-hold.ts`) in the tap's place, its water welling out to the rim as
+ *   the beat in progress fills, and the halo only while no hand is on it. On both screens, while a hand that counts is on it, the
  *   steady green ring a held mark wears (`drawMarkHeld`).
  * - SWIPE, on the seat that may: the PULL LAB's pull every pull wears — the
  *   knob on the body with the way in it, and the thin channel a stroke long
@@ -95,8 +93,8 @@ export function drawBlisterHelp(
       drawRubMark(ctx, x, y, r * RUB_R, time);
     } else if (mine && holding) {
       if (!held) drawMarkHalo(ctx, x, y, r, time);
-      drawHoldMark(ctx, x, y, r * HOLD_R, time);
-      drawGripDial(ctx, x, y, r * DIAL_R, 1 - blisterHoldShare(world, c));
+      const fill = blisterHoldShare(world, c);
+      drawSoakHold(ctx, { x, y }, r * HOLD_R, { time, held, fill });
     } else if (mine) {
       drawMarkHalo(ctx, x, y, r, time);
       ctx.strokeStyle = PALETTE.text;
@@ -111,12 +109,8 @@ export function drawBlisterHelp(
   }
 }
 
-/**
- * The hold mark's ring and the dial round it, in the body's radius. The dial
- * draws at 1.3 of what it is given, so it runs just inside the pips.
- */
+/** The hold's drop, in the body's radius. */
 const HOLD_R = 0.7;
-const DIAL_R = 0.92;
 
 /** Whether a hand that counts is on it now, on either seat — the sim's own question. */
 function heldNow(world: World, c: Creature): boolean {

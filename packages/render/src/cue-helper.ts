@@ -6,6 +6,7 @@ import { drawHoldMark, HOLD_MARK_R } from "./hold-mark.js";
 import { PALETTE } from "./palette.js";
 import { drawRubMark } from "./rub-mark.js";
 import { P1_SKIN, type SeatSkin } from "./seat-skin.js";
+import { drawSoakHold } from "./soak-hold.js";
 
 /**
  * **The helper a cue's word wears on the field**, the same on every boss —
@@ -36,13 +37,14 @@ import { P1_SKIN, type SeatSkin } from "./seat-skin.js";
  * - **`SHIELD`, `SUCK`**: the panel's own button face inside the scanner
  *   box (`action-face.ts`), the ward for one and the throat for the other —
  *   the button under the thumb, shown where the field wants it pressed.
- * - **`HOLD`**: a red circle with a thumbprint in it (`hold-mark.ts`), and
- *   **no scanner box** — the owner, 2 October 2026: *i expect some red circle
- *   like, no scan rectangle box*. The circle is the frame there, as the
- *   crosshair is a shot's (`holdIsHere`).
- *   A `TAP` with `BossCue.print` wears it too — THE GOVERNOR's marks, the
- *   owner, 6 October 2026: *instead of tap scanner square box use the thumb
- *   control visual.*
+ * - **`HOLD`**: the HOLD LAB's drop, SOAK (`soak-hold.ts`), and **no scanner
+ *   box and no word** — the owner, 13 October 2026: *it should be our new
+ *   standard button … and why it still stays text "hold"*. It was a red
+ *   circle with a thumbprint in it until then (`hold-mark.ts`). The drop is
+ *   the frame there, as the crosshair is a shot's (`markIsHere`).
+ *   A `TAP` with `BossCue.print` still wears the thumbprint's circle — THE
+ *   GOVERNOR's marks, the owner, 6 October 2026: *instead of tap scanner
+ *   square box use the thumb control visual.*
  * - **`RUB`**: a red line with an arrow sliding in at it from each side
  *   (`rub-mark.ts`), and no scanner box either — the owner, 3 October 2026,
  *   on THE GRINDSTONE, since retired. The line is as long as the cue's `rubHalf` says.
@@ -195,7 +197,8 @@ export function drawCueHelper(
     return;
   }
   if (helper === "hold") {
-    drawHoldMark(ctx, cue.x, cue.y, short * HOLD_MARK_R, time, cue.tint);
+    if (cueHelper(cue.word) === "hold") drawSoakHold(ctx, cue, short * HOLD_MARK_R, { time });
+    else drawHoldMark(ctx, cue.x, cue.y, short * HOLD_MARK_R, time, cue.tint);
     return;
   }
   if (helper === "rub") {

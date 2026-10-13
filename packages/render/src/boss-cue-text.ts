@@ -1,6 +1,6 @@
 import type { BossCue } from "./boss-cue.js";
 import { asksGrab, saysKind } from "./boss-cue-shape.js";
-import { saysPull } from "./handle-word.js";
+import { saysHold, saysPull } from "./handle-word.js";
 import { PALETTE } from "./palette.js";
 
 /**
@@ -78,8 +78,9 @@ export function drawCueText(
   width = Number.POSITIVE_INFINITY,
 ): void {
   // A pull says itself with its knob's arrow, as in the PULL LAB (`saysPull`),
-  // and every grab on the field with its handle (`asksGrab`).
-  if (saysPull(cue.word) || asksGrab(cue)) return;
+  // a hold with the HOLD LAB's drop (`saysHold`), and every grab on the field
+  // with its handle (`asksGrab`).
+  if (saysPull(cue.word) || saysHold(cue.word) || asksGrab(cue)) return;
   ctx.save();
   ctx.textAlign = "center";
   ctx.fillStyle = PALETTE.rock;

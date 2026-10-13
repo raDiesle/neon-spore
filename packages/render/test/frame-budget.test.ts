@@ -379,6 +379,10 @@ function rope(fromYMilli: number) {
 const EYE_BUDGETS: Readonly<Record<string, readonly Budget[]>> = {
   "THE WARDEN's eye": [
     {
+      // **13 October 2026, SOAK**: the `HOLD` on the handle is the HOLD LAB's
+      // drop and says no word (`soak-hold.ts`, `saysHold`) — its calling halo
+      // and ripples, the slime's layers and its clip in place of the slab, so
+      // `fillText` and `fillRect` fell and the drop's rows rose.
       // **11 October 2026, FIZZ**: the cord's knob and channel are the PULL LAB's
       // drop and path (`goo-knob.ts`, `goo-track.ts`) — a soft drop with its cap,
       // ripples and moulded arrow, and the path's dots and place — so every row
@@ -390,7 +394,7 @@ const EYE_BUDGETS: Readonly<Record<string, readonly Budget[]>> = {
       // `fillRect`, three `stroke`, two `save`, one `fillText`, and it does not
       // move with the boss's state: the other seat's `FIRE` is on her screen
       // and never on this one.
-      fillRect: 57,
+      fillRect: 54,
       // Two more than the plates alone would take: the opening below the eye
       // splits the plate it stands under into the two pieces either side of
       // it, and a plate is a stroke (`render/warden.ts`).
@@ -416,50 +420,50 @@ const EYE_BUDGETS: Readonly<Record<string, readonly Budget[]>> = {
       // circle with a thumbprint (`hold-mark.ts`) in place of the scan box —
       // the ring's glow, five ridges and the loop; `save` and `new Path2D`
       // one each.
-      stroke: 169,
+      stroke: 181,
       // Four more: the two patches of the wet film, the eyelids and their
       // pupils. Flat, whatever the openness.
-      fill: 108,
+      fill: 103,
       // Two more than the body's own: the film and the veins share a single
       // clip to it, and the lens opens one of its own so the lids can cut the
       // pupil instead of the pupil being sized to miss them (`eye-lens.ts`).
-      clip: 10,
+      clip: 11,
       // Three of these are the ball: the dome, the iris on its own tangent
       // plane, and the wet point, each in a frame of its own (`eye-ball.ts`).
       // **Two more on 27 September 2026, when the ring began to rock**: the
       // body and the grip are each drawn in the pose, a frame apiece, and the
       // rope between them is not (`warden-frame.ts`).
-      save: 62,
+      save: 68,
       // Two of these are the ball as well, and they are the whole of what it
       // costs: the dome is a sprite baked once per colour and size, and the wet
       // point is `halo`'s. Neither builds a gradient, which is why the two
       // gradient rows below did not move at all.
       drawImage: 29,
-      createLinearGradient: 30,
-      createRadialGradient: 11,
+      createLinearGradient: 33,
+      createRadialGradient: 13,
       // Fourteen of them the panel's sheet, as on every frame 0 here. Four are
       // the skin's, and there are four of them however much of it is showing.
       // One is the lids' folds, and it is one however far apart they stand.
       // One more on 25 September 2026: the circle to start at the rope's end
       // is `drawPullKnob`'s disc, a path of its own (`pull-knob.ts`).
-      "new Path2D": 84,
-      fillText: 2,
+      "new Path2D": 98,
+      fillText: 0,
     },
     {
       // FIZZ, as in frame 0.
-      fillRect: 57,
+      fillRect: 54,
       // The hold's circle, as in frame 0.
-      stroke: 171,
-      fill: 108,
-      clip: 10,
-      save: 62,
+      stroke: 183,
+      fill: 103,
+      clip: 11,
+      save: 68,
       drawImage: 29,
-      createLinearGradient: 21,
-      createRadialGradient: 8,
+      createLinearGradient: 24,
+      createRadialGradient: 10,
       // One more on 25 September 2026, the rope's knob, as in frame 0; one
       // more on 2 October, the hold's circle.
-      "new Path2D": 59,
-      fillText: 2,
+      "new Path2D": 73,
+      fillText: 0,
     },
   ],
   "THE LID": [

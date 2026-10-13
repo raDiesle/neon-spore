@@ -78,8 +78,9 @@ export const FUSE_OVER_HULL = 4;
 /** Pixels the search moves the fuse per try. */
 const STEP = 3;
 
-/** THE INSTAR's window ring at its widest, as a share of the mark's radius
- * (`instar-together.ts` `drawInstarWindow`). */
+/** The room round THE INSTAR's mark, as a share of its radius: where its
+ * window ring was widest before the owner took it off, 13 October 2026, kept
+ * so the fuse did not move with it. */
 const WINDOW_RING = 2.85;
 
 /** The body's own box: the aim's capsule, head to the far end of its axis. */

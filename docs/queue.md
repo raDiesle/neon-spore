@@ -823,3 +823,111 @@ gone; this is what is left. Try clearing the second half's clip
 (`destination-out`) before laying it down, or snapping the middle to a whole
 pixel so the clips need no overlap; prove it on the same crop, and THE
 MAZE's additive heart still adding light.
+
+## Holds as the HOLD LAB's drop: THE BATON, THE MIRROR, THE OCULUS
+
+- **Found:** 2026-10-13, claude/docs-control-visuals-consistency-d98efe
+- **Files:** `packages/render/src/baton-grip.ts`, `packages/render/src/baton-marks.ts`, `packages/render/src/mirror-grip.ts`, `packages/render/src/oculus-grip.ts`, `packages/render/src/cue-helper.ts`
+
+Since 13 October 2026 every `HOLD` cue is the HOLD LAB's drop and says no
+word (`soak-hold.ts`, `saysHold`) — the owner, on CONTROLS › ON THE FIELD:
+*it should be our new standard button … why it still stays text "hold"*. The
+cue's drop knows nothing of the hold, so it calls even under a thumb and never
+fills, and these bosses still draw their own hold ring beside or under it.
+For each: draw the hold as `drawSoakHold` with the sim's own `held` and
+`fill` (the share of the hold done) and `theirs` on the partner's screen
+(with `drawMarkTheirs` and `drawMarkWait` over it, as THE INSTAR's HOLD BOTH
+does in `instar-marks.ts`), take its own ring and dial away, and stop the cue
+drawing a second drop on the same place (`markIsHere`/`drawCueHelper` in
+`cue-helper.ts`, or `framed: false` on the reading). Prove it with the frame
+tests and send one PNG of the card from ON THE FIELD.
+
+## Holds as the HOLD LAB's drop: THE PULSE, THE WARDEN, THE FLEET
+
+- **Found:** 2026-10-13, claude/docs-control-visuals-consistency-d98efe
+- **Files:** `packages/render/src/pulse-grip.ts`, `packages/render/src/warden-grip.ts`, `packages/render/src/fleet-grip-draw.ts`, `packages/render/src/cue-helper.ts`
+
+Since 13 October 2026 every `HOLD` cue is the HOLD LAB's drop and says no
+word (`soak-hold.ts`, `saysHold`) — the owner, on CONTROLS › ON THE FIELD:
+*it should be our new standard button … why it still stays text "hold"*. The
+cue's drop knows nothing of the hold, so it calls even under a thumb and never
+fills, and these bosses still draw their own hold ring beside or under it.
+For each: draw the hold as `drawSoakHold` with the sim's own `held` and
+`fill` (the share of the hold done) and `theirs` on the partner's screen
+(with `drawMarkTheirs` and `drawMarkWait` over it, as THE INSTAR's HOLD BOTH
+does in `instar-marks.ts`), take its own ring and dial away, and stop the cue
+drawing a second drop on the same place (`markIsHere`/`drawCueHelper` in
+`cue-helper.ts`, or `framed: false` on the reading). Prove it with the frame
+tests and send one PNG of the card from ON THE FIELD.
+
+## Holds as the HOLD LAB's drop: THE SURGE, THE ANTIPHON, THE LEAD
+
+- **Found:** 2026-10-13, claude/docs-control-visuals-consistency-d98efe
+- **Files:** `packages/render/src/surge-grip.ts`, `packages/render/src/antiphon-grip.ts`, `packages/render/src/lead-grip.ts`, `packages/render/src/cue-helper.ts`
+
+Since 13 October 2026 every `HOLD` cue is the HOLD LAB's drop and says no
+word (`soak-hold.ts`, `saysHold`) — the owner, on CONTROLS › ON THE FIELD:
+*it should be our new standard button … why it still stays text "hold"*. The
+cue's drop knows nothing of the hold, so it calls even under a thumb and never
+fills, and these bosses still draw their own hold ring beside or under it.
+For each: draw the hold as `drawSoakHold` with the sim's own `held` and
+`fill` (the share of the hold done) and `theirs` on the partner's screen
+(with `drawMarkTheirs` and `drawMarkWait` over it, as THE INSTAR's HOLD BOTH
+does in `instar-marks.ts`), take its own ring and dial away, and stop the cue
+drawing a second drop on the same place (`markIsHere`/`drawCueHelper` in
+`cue-helper.ts`, or `framed: false` on the reading). Prove it with the frame
+tests and send one PNG of the card from ON THE FIELD.
+
+## Holds as the HOLD LAB's drop: THE LEDGER, THE SCOUT, THE VANE, THE WELL
+
+- **Found:** 2026-10-13, claude/docs-control-visuals-consistency-d98efe
+- **Files:** `packages/render/src/ledger-grip.ts`, `packages/render/src/scout-grip.ts`, `packages/render/src/vane-grip.ts`, `packages/render/src/well-draw.ts`, `packages/render/src/cue-helper.ts`
+
+Since 13 October 2026 every `HOLD` cue is the HOLD LAB's drop and says no
+word (`soak-hold.ts`, `saysHold`) — the owner, on CONTROLS › ON THE FIELD:
+*it should be our new standard button … why it still stays text "hold"*. The
+cue's drop knows nothing of the hold, so it calls even under a thumb and never
+fills, and these bosses still draw their own hold ring beside or under it.
+For each: draw the hold as `drawSoakHold` with the sim's own `held` and
+`fill` (the share of the hold done) and `theirs` on the partner's screen
+(with `drawMarkTheirs` and `drawMarkWait` over it, as THE INSTAR's HOLD BOTH
+does in `instar-marks.ts`), take its own ring and dial away, and stop the cue
+drawing a second drop on the same place (`markIsHere`/`drawCueHelper` in
+`cue-helper.ts`, or `framed: false` on the reading). Prove it with the frame
+tests and send one PNG of the card from ON THE FIELD.
+
+## Holds as the HOLD LAB's drop: THE GAUGE's band, THE QUEEN, THE HIVE
+
+- **Found:** 2026-10-13, claude/docs-control-visuals-consistency-d98efe
+- **Files:** `packages/render/src/gauge-grip.ts`, `packages/render/src/queen-grip.ts`, `packages/render/src/hive-grip.ts`, `packages/render/src/cue-helper.ts`
+
+Since 13 October 2026 every `HOLD` cue is the HOLD LAB's drop and says no
+word (`soak-hold.ts`, `saysHold`) — the owner, on CONTROLS › ON THE FIELD:
+*it should be our new standard button … why it still stays text "hold"*. The
+cue's drop knows nothing of the hold, so it calls even under a thumb and never
+fills, and these bosses still draw their own hold ring beside or under it.
+For each: draw the hold as `drawSoakHold` with the sim's own `held` and
+`fill` (the share of the hold done) and `theirs` on the partner's screen
+(with `drawMarkTheirs` and `drawMarkWait` over it, as THE INSTAR's HOLD BOTH
+does in `instar-marks.ts`), take its own ring and dial away, and stop the cue
+drawing a second drop on the same place (`markIsHere`/`drawCueHelper` in
+`cue-helper.ts`, or `framed: false` on the reading). Prove it with the frame
+tests and send one PNG of the card from ON THE FIELD.
+
+## Holds as the HOLD LAB's drop: THE LAMPREY's tail and THE SLING's cords
+
+- **Found:** 2026-10-13, claude/docs-control-visuals-consistency-d98efe
+- **Files:** `packages/render/src/lamprey-grip.ts`, `packages/render/src/sling-grip.ts`, `packages/render/src/cue-helper.ts`
+
+Since 13 October 2026 every `HOLD` cue is the HOLD LAB's drop and says no
+word (`soak-hold.ts`, `saysHold`) — the owner, on CONTROLS › ON THE FIELD:
+*it should be our new standard button … why it still stays text "hold"*. The
+cue's drop knows nothing of the hold, so it calls even under a thumb and never
+fills, and these bosses still draw their own hold ring beside or under it.
+For each: draw the hold as `drawSoakHold` with the sim's own `held` and
+`fill` (the share of the hold done) and `theirs` on the partner's screen
+(with `drawMarkTheirs` and `drawMarkWait` over it, as THE INSTAR's HOLD BOTH
+does in `instar-marks.ts`), take its own ring and dial away, and stop the cue
+drawing a second drop on the same place (`markIsHere`/`drawCueHelper` in
+`cue-helper.ts`, or `framed: false` on the reading). Prove it with the frame
+tests and send one PNG of the card from ON THE FIELD.

@@ -70,6 +70,17 @@ export function saysPull(word: string): boolean {
   return word.split(" ").includes("PULL");
 }
 
+/**
+ * **Whether a word says HOLD** — `HOLD`, `HOLD BOTH`, `HOLD DEEP`. Never drawn
+ * either: the owner, 13 October 2026, on CONTROLS › ON THE FIELD, *why it
+ * still stays text "hold" - its not our standard control visual*. The HOLD
+ * LAB's drop says it (`soak-hold.ts`), as the knob's arrow says a pull, and
+ * the readings still return the word, as they do a pull's.
+ */
+export function saysHold(word: string): boolean {
+  return word.split(" ")[0] === "HOLD";
+}
+
 /** Whether this screen's thumb is the one the handle is for: the rig's always is. */
 export function handleIsMine(role: ViewRole, words: HandleWords = PILOT_HANDLE): boolean {
   return seatIsMine(role, words.seat);
@@ -95,7 +106,7 @@ export function drawHandleHint(
 ): void {
   const mine = handleIsMine(role, words);
   const word = mine ? words.mine : words.theirs;
-  if (saysPull(word)) return;
+  if (saysPull(word) || saysHold(word)) return;
   ctx.save();
   ctx.font = `600 ${Math.round(l.tile * style.fontTiles)}px system-ui, sans-serif`;
   ctx.textAlign = "center";
