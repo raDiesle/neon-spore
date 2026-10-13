@@ -1,4 +1,10 @@
-import { type SimConfig, type SpliceState, spliceCurrent, spliceNumberAt } from "@neon-spore/sim";
+import {
+  beatSeconds,
+  type SimConfig,
+  type SpliceState,
+  spliceCurrent,
+  spliceNumberAt,
+} from "@neon-spore/sim";
 import { rgba } from "./hex.js";
 import { type Layout, tileCX } from "./layout.js";
 import { PALETTE } from "./palette.js";
@@ -129,6 +135,7 @@ export function drawEater(
     open,
     hunger,
     look,
+    clock: b * beatSeconds(cfg),
   });
 
   if (s.eatBeat === -1) {

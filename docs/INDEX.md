@@ -2115,6 +2115,7 @@ by hand never moves.
 | `packages/render/src/splice-eater.ts` | **THE SPLICE's clock, as the thing that eats the number** (the owner, 25 September 2026 |
 | `packages/render/src/splice-hold.ts` | **Where THE SPLICE is fought**: the inside of a living ship |
 | `packages/render/src/splice-pipe.ts` | **THE SPLICE's mouths, as pipes**: each straw goes into the top of a short grown pipe that hangs over the… |
+| `packages/render/src/splice-glance.ts` | **THE SPLICE eater's head glances** — the owner, 9 and 10 October 2026: *body parts of living things turn |
 | `packages/render/src/effects-ingest-silent.ts` | **The events that leave nothing behind in `Effects`**, and why each one does not |
 | `packages/render/src/effects-ingest-silent-boss.ts` | **The bosses' half of the silent list**, and nothing else |
 | `packages/render/src/effects-ingest-silent-boss-b.ts` | **The bosses' half of the silent list, the second page** — from THE ANTIPHON on |

@@ -80,7 +80,13 @@ export const FIRST_BOSS_POSES: Pose[] = [
     "splice",
     "feeding",
     "A mouth over each column, a tangled straw out of each. P2 reads the numbers; P1 opens the maw under one.",
-    { crop: F, want: stood("splice"), hold: TPB * 2 },
+    {
+      crop: F,
+      want: stood("splice"),
+      hold: TPB * 2,
+      lookAt:
+        "the eater's red head on its neck — whether it turns toward one side about the neck, its far side going dark",
+    },
   ),
   bossPose(
     "reprise",

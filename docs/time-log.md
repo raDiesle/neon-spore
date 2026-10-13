@@ -39008,3 +39008,15 @@ Bottleneck: the hairline where the two halves meet, which is the shared helper's
 Bottleneck: THE WELL has no body, and its bodies are every kind, so the dark is a disc inside them.
 
 *Measured: 5 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-13 — VERSUS offers THE SPLICE eater's head glancing
+
+- reading: 5 min. The entry, §11.13, `splice-draw.ts`, the eater's files.
+- writing: 10 min. `splice-glance.ts`, the head wrapped with its mouth asked
+  of the turn, a seconds clock on the eater's pose, three candidates, the
+  pose's `lookAt`, a test row.
+- looking: 5 min. One VERSUS shot and a magnified crop.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: the eater is drawn on beats, so its head needed a seconds clock threaded to it.

@@ -2589,6 +2589,15 @@ the whole design rather than a gap the brief caught. `docs/queue.md`'s own
 entry (*THE SPLICE changes state more than once, and asks for more than one
 gesture*) closes here rather than adding a mark.
 
+**Offered (13 October 2026, VERSUS `splice:glance`).** The eater is the one
+living thing in the hold, and its head is the part
+(`packages/render/src/splice-glance.ts`, which ships still): cranium, jaw,
+eyes and mouth turn together **about the head's centre**, where the neck
+meets it, so the head never leaves its neck; the far side narrows into the
+dark, and the tongue still leaves the mouth where the turn has drawn it.
+**SWAY**, **LOOK** and **COCK** (`glance-styles.ts`), judged on
+`THE SPLICE · FEEDING`.
+
 ## 11.14 THE HIVE — the boss you seal, and every breach you have not sealed yet is spilling
 
 > The one on a clock nothing slows: what your speed buys is how many are

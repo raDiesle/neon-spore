@@ -2,6 +2,7 @@ import { SAC_SKIN, sacPoints } from "@neon-spore/content";
 import { rgba } from "./hex.js";
 import { PALETTE } from "./palette.js";
 import { drawEaterHead } from "./splice-eater-head.js";
+import { drawSpliceHeadGlanced } from "./splice-glance.js";
 import { splinePath } from "./spline.js";
 
 /**
@@ -40,6 +41,8 @@ export interface EaterPose {
   hunger: number;
   /** Where the eyes look. */
   look: { x: number; y: number };
+  /** Seconds, for the head's glance (`splice-glance.ts`). */
+  clock: number;
 }
 
 /** A TENDRIL out of the wall at `x, y`, lying leftward, `thick` across. */
@@ -124,7 +127,10 @@ export function drawEaterBody(
   }
   ctx.stroke();
   drawTornLip(ctx, x, y, wide * 0.36);
-  return drawEaterHead(ctx, neck.along(1), wide, pose.open, pose.hunger, pose.look, b);
+  const h = neck.along(1);
+  return drawSpliceHeadGlanced(ctx, h, wide, pose.clock, () =>
+    drawEaterHead(ctx, h, wide, pose.open, pose.hunger, pose.look, b),
+  );
 }
 
 /**

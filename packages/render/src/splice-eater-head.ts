@@ -11,7 +11,8 @@ import { splinePath } from "./spline.js";
  * It is the shape sheet's **SYMBIOSIS** held merged — a cranium and a jaw in
  * one membrane — and the jaw drops away from the cranium as the mouth opens.
  * Two slanted eyes follow whatever it is about to snap at. Returns where the
- * mouth is, which is where the tongue starts.
+ * mouth is, which is where the tongue starts, and the cranium and jaw, which a
+ * glance darkens (`splice-glance.ts`).
  */
 
 /** How far the flesh gradient's own offset drifts, and how fast — distinct
@@ -123,7 +124,7 @@ export function drawEaterHead(
   hunger: number,
   look: { x: number; y: number },
   b: number,
-): { x: number; y: number } {
+): { x: number; y: number; parts: readonly Path2D[] } {
   const cranium = splinePath(
     blobPoints(h.x, h.y - wide * 0.08, wide * 0.5, wide * 0.4, 3, 0.05, 0.04, b * 0.4, 4.7, 28),
     true,
@@ -193,5 +194,5 @@ export function drawEaterHead(
   const m = { x: h.x - wide * 0.04, y: h.y + wide * 0.2 + drop * 0.5 };
   const mh = drawMouth(ctx, m, wide, open);
   drawDrool(ctx, m.x, m.y + mh * 0.8, wide, hunger, b);
-  return m;
+  return { ...m, parts: [jaw, cranium] };
 }
