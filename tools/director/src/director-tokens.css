@@ -1,0 +1,73 @@
+/**
+ * What every other sheet reads: the reset, the palette, the type faces and
+ * the type scale, and the one `font-size` the whole director is sized from.
+ * Cut from `director-shell.css` on 13 October 2026, when the readability
+ * pass's tokens took it past 250 lines; the page and its four shared
+ * controls stayed there.
+ */
+
+* {
+  box-sizing: border-box;
+}
+:root {
+  --bg: #07060f;
+  --panel: #0e0a22;
+  --line: #241b4f;
+  --line-soft: #1a1436;
+  --ink: #f2e9dc;
+  /*
+   * Secondary text. It was #7a6fa8 — 4.5:1 on the page's black, the bare
+   * legal minimum, and the owner could not read it (10 October 2026). Lifted
+   * to about 10:1; `--faint` is the step under it, about 6.5:1, for what
+   * really is furniture — a row number, a stamp — and was #574d84 at 2.7:1.
+   */
+  --dim: #b8aee0;
+  --faint: #968cc8;
+  --gold: #ffc24b;
+  --cyan: #2fe0f0;
+  --red: #ff5470;
+  --blue: #5b8cff;
+  --green: #3ddc84;
+  /*
+   * The director is set in a text face, everywhere. Courier at 12px was the
+   * whole tool, and the owner could not read it; moving only the paragraphs to
+   * `--prose` (064675312) left every label, button, heading and list in a
+   * hairline typewriter, and he still could not (10 October 2026). Numbers
+   * keep their columns through `tabular-nums` on `body`, so a grid needs no
+   * monospace to line up. `--mono` is what is left for real code — a path, a
+   * fenced block — and it is a modern monospace rather than Courier's
+   * one-pixel stems.
+   */
+  --mono: ui-monospace, "SF Mono", Menlo, Consolas, "DejaVu Sans Mono", monospace;
+  --prose: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  /*
+   * How long a line of prose may run. Every sheet capped its paragraphs at a
+   * fixed 560-900px, so on a desktop they wrapped in the left half of an empty
+   * page; the owner asked for text not to wrap where there is room. 130
+   * characters is a wide screen's worth and still stops a sentence from
+   * crossing a 2560px monitor.
+   */
+  --measure: 130ch;
+  /*
+   * Four kinds of heading, each told from the next by more than its colour:
+   * a page title is large and gold, a section is cyan with a rule under it,
+   * a sub-section is white and bold in ordinary case, a label is small spaced
+   * capitals. They were all the same 11px spaced capitals before, told apart
+   * by colour alone.
+   */
+  --h1-size: 1.6rem;
+  --h2-size: 1.2rem;
+  --h3-size: 1.05rem;
+  --label-size: 0.8rem;
+}
+/*
+ * The one knob for the whole tool. Every `font-size` in the director's CSS is
+ * written in `rem` against this — 1rem was the old 12px body — so the size of
+ * the director is this line and nothing else. The small labels are lifted
+ * further than the body is (8px became 0.75rem rather than 0.667rem): they
+ * were the half that could not be read, and a scale that multiplies
+ * everything equally keeps them the smallest thing on the page.
+ */
+html {
+  font-size: 16px;
+}

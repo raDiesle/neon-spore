@@ -145,7 +145,7 @@ describe("a row in the wave list", () => {
     // Read out of the sheets rather than out of a browser, the way
     // `phone-map.test.ts` reads its own two rules: the desktop hides them and
     // only the media block turns them on, so both halves have to be there.
-    const desk = await Bun.file(join(SRC, "director-columns.css")).text();
+    const desk = await Bun.file(join(SRC, "director-rail.css")).text();
     const phone = await Bun.file(join(SRC, "director-phone.css")).text();
     expect(desk).toMatch(/#waveList \.row-open \{\s*display: none;/);
     const block = phone.slice(phone.indexOf("@media (max-width: 700px) {"));

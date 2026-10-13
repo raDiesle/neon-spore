@@ -1,5 +1,5 @@
-/* **WAVES GROUPED UNDER THE WAVE ABOVE THEM** (`rail-groups.ts`). Its own file because `director-columns.css` is past its
-   length already. */
+/* **WAVES GROUPED UNDER THE WAVE ABOVE THEM** (`rail-groups.ts`). Its own file because `director-columns.css` was past its
+   length already; the rest of the rail is `director-rail.css` since. */
 
 /* A variant: stepped in under its head, with a rule down its left edge so a
    run of them reads as one block hanging off the wave that introduced it. */

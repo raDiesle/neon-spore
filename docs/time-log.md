@@ -38807,3 +38807,17 @@ Bottleneck: the FIZZ knob paints with gradients of its own, so each halo-countin
 Bottleneck: the 404 did not reproduce on Bun 1.4.3, so only the sign could be built.
 
 *Measured: 4 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-13 — The director's shell and columns sheets cut under 250 lines
+
+- reading: 5 min. Both sheets' sections, the import-order test, every test
+  and comment that names either file.
+- writing: 5 min. `director-tokens.css` and `director-rail.css` cut on the
+  seams the entry named, the import list, the one test and three comments that
+  pointed at a moved rule.
+- looking: 5 min. The live director reloaded: palette, type scale, grid tracks,
+  filter width and the desk-hidden row-open all computed as before.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: none — the seams were already named in the sheets' own comments.

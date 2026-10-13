@@ -23,7 +23,7 @@ import { readRemembered, writeRemembered } from "./remembered.js";
 const KEY = "wave";
 
 /** How long a row counts as just arrived at — the pulse's own length in
- * `director-columns.css`, so a re-render during it keeps the mark. */
+ * `director-rail.css`, so a re-render during it keeps the mark. */
 const ARRIVED_MS = 1600;
 
 /** The wave last opened on this device, or `null` for none (or no storage). */
