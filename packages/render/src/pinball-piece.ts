@@ -3,6 +3,7 @@ import { halo } from "./glow.js";
 import { drawRockBody } from "./meteor.js";
 import { STONE_LOOK } from "./meteor-look.js";
 import { PALETTE } from "./palette.js";
+import { drawPinTargetGlanced } from "./pinball-glance.js";
 import type { Table } from "./pinball-table.js";
 import { pinAt } from "./pinball-table.js";
 import { drawPodBody } from "./pods.js";
@@ -125,17 +126,22 @@ function drawTarget(
 ): void {
   const t = time + seed * 0.31;
   if (kind === "peg") {
-    drawPodBody(ctx, x, y, halfW * POD_MUL, t, POD_KIND);
+    const r = halfW * POD_MUL;
+    const at = { x, y, halfW: r, halfH: r };
+    drawPinTargetGlanced(ctx, at, seed, time, () => drawPodBody(ctx, x, y, r, t, POD_KIND));
     return;
   }
   // A target block: a chain of pods across it, spaced closer than their own
   // width so the row reads as one body rather than as beads on a shelf.
   const r = halfH * POD_MUL;
   const count = Math.max(2, Math.round(halfW / Math.max(1, halfH * 0.9)));
-  for (let i = 0; i < count; i++) {
-    const at = count === 1 ? 0 : -1 + (2 * i) / (count - 1);
-    drawPodBody(ctx, x + at * (halfW - r * 0.5), y, r, t + i * 0.4, POD_KIND);
-  }
+  const at = { x, y, halfW: halfW + r * 0.5, halfH: r };
+  drawPinTargetGlanced(ctx, at, seed, time, () => {
+    for (let i = 0; i < count; i++) {
+      const along = count === 1 ? 0 : -1 + (2 * i) / (count - 1);
+      drawPodBody(ctx, x + along * (halfW - r * 0.5), y, r, t + i * 0.4, POD_KIND);
+    }
+  });
 }
 
 /**

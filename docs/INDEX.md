@@ -2506,6 +2506,7 @@ by hand never moves.
 | `packages/render/src/pinball-blast.ts` | PINBALL's two loud moments: a ball that hit the ship, and a target taken |
 | `packages/render/src/pinball-button.ts` | PINBALL's two presses, as faces on the band's own lobes |
 | `packages/render/src/pinball-grip.ts` | **PINBALL's hand on the table itself** |
+| `packages/render/src/pinball-glance.ts` | **PINBALL's targets glance** — the owner, 9 and 10 October 2026: *body parts of living things turn . |
 | `packages/render/src/pinball-socket.ts` | **The wet socket every piece on PINBALL's table stands in.** The owner, 18 September 2026 |
 | `packages/render/src/pinball-marks.ts` | PINBALL's plunger and table haloed while asked, the partner's clock on the other, green on the wind and shove, red on the tilt and the other seat's press |
 | `packages/render/src/pinball-mouth.ts` | **While the ball is up, the cannon is a funnel waiting for it** |

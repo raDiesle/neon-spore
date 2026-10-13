@@ -1755,6 +1755,16 @@ thousandths of a degree — THE MAZE's angle unit, because the sine comes off
 `mazeSinMilli`. `pinballWallPermille` is how much of the speed survives a bounce
 off a wall, deader than a peg on purpose.
 
+**Offered (13 October 2026, VERSUS `pinball:glance`).** The round has no
+body of its own, so what turns is the living thing on the table: each amber
+target pod, and a target block as one body with its chain of pods
+(`packages/render/src/pinball-glance.ts`, which ships still). The rocks do
+not turn — *boring* is their instruction. Each turns **about its centre**,
+because the centre and the radius are what the ball bounces off: the near
+side swells, the far side narrows into the dark. Each target runs the round
+from its own place in it. **SWAY**, **LOOK** and **COCK**
+(`glance-styles.ts`), judged on `PINBALL · AIM`.
+
 ## 11.8 THE PULSE — the same song, and neither of you can read all of it
 
 > The one where you both play the same chart and part of it only the other one

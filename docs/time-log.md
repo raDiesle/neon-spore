@@ -38894,3 +38894,15 @@ Bottleneck: the split rides the mount's end on a shot's column, which caps how f
 Bottleneck: none — a hull's own frame already ran along it, so the turn needed no new geometry.
 
 *Measured: 7 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-13 — VERSUS offers PINBALL's targets glancing about their centres
+
+- reading: 10 min. The entry, §11.7, the round's draw order and the pieces —
+  looking for a body the round does not have.
+- writing: 10 min. `pinball-glance.ts`, the target draw wrapped, three
+  candidates, the pose's `lookAt`, a row in the glance test.
+- looking: 10 min. Two VERSUS shots and a magnified crop of the one target.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: PINBALL has no boss body, so choosing the part took longer than building it.

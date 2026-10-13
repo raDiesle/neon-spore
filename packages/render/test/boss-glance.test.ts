@@ -11,6 +11,7 @@ import {
   sway,
 } from "../src/glance-styles.js";
 import { MIRROR_GLANCE, MIRROR_GLANCE_SIZE } from "../src/mirror-glance.js";
+import { PINBALL_GLANCE, PINBALL_GLANCE_SIZE } from "../src/pinball-glance.js";
 import { QUEEN_GLANCE, QUEEN_GLANCE_HOLD, QUEEN_GLANCE_SIZE } from "../src/queen-glance.js";
 import { VANE_GLANCE, VANE_GLANCE_SIZE } from "../src/vane-glance.js";
 import { WARDEN_GLANCE, WARDEN_GLANCE_SIZE } from "../src/warden-glance.js";
@@ -44,6 +45,7 @@ const ROWS: readonly Row[] = [
   { name: "THE WARDEN", record: WARDEN_GLANCE, size: WARDEN_GLANCE_SIZE, hold: 0.44 },
   { name: "THE VANE", record: VANE_GLANCE, size: VANE_GLANCE_SIZE, hold: 0 },
   { name: "THE FLEET", record: FLEET_GLANCE, size: FLEET_GLANCE_SIZE, hold: 1 },
+  { name: "PINBALL", record: PINBALL_GLANCE, size: PINBALL_GLANCE_SIZE, hold: 0 },
 ];
 
 const R = 100;

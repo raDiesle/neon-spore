@@ -40,6 +40,8 @@ export const ROUND_BOSS_POSES_B: Pose[] = [
     {
       ...FULL,
       hand: pinballHand,
+      lookAt:
+        "the amber pods on the table — whether each turns toward one side about a centre that stays put, its far side going dark",
       want: (w) => w.boss?.kind === "pinball" && w.boss.phase === "play" && w.boss.shot === "aim",
       hold: 6,
     },

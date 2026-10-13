@@ -12,6 +12,9 @@ import { FLEET_SWAY } from "./fleet-glance/sway/index.js";
 import { MIRROR_COCK } from "./mirror-glance/cock/index.js";
 import { MIRROR_LOOK_AROUND } from "./mirror-glance/look/index.js";
 import { MIRROR_SWAY } from "./mirror-glance/sway/index.js";
+import { PINBALL_COCK } from "./pinball-glance/cock/index.js";
+import { PINBALL_LOOK_AROUND } from "./pinball-glance/look/index.js";
+import { PINBALL_SWAY } from "./pinball-glance/sway/index.js";
 import { QUEEN_COCK } from "./queen-glance/cock/index.js";
 import { QUEEN_LOOK_AROUND } from "./queen-glance/look/index.js";
 import { QUEEN_SWAY } from "./queen-glance/sway/index.js";
@@ -29,6 +32,9 @@ export const VARIANTS: Variant[] = [
   MIRROR_COCK,
   MIRROR_LOOK_AROUND,
   MIRROR_SWAY,
+  PINBALL_COCK,
+  PINBALL_LOOK_AROUND,
+  PINBALL_SWAY,
   QUEEN_COCK,
   QUEEN_LOOK_AROUND,
   QUEEN_SWAY,
