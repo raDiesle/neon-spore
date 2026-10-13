@@ -754,6 +754,7 @@ After the first entry lands: THE LAMPREY's head (a curve), THE ANTIPHON's rail (
 - **Found:** 2026-10-10, claude/remove-rope-pull-mechanic-a1d0e2
 - **Files:** `packages/sim/src/lid.ts`, `packages/sim/src/handle-pull.ts`, `packages/render/src/lid-track.ts`, `packages/hands/src/autopilot-lid.ts`, `packages/sim/test/lid.test.ts`
 - **Asks:** Should THE LID's cord run one fixed path too — down, else across toward the middle when a low lid has no room below — or keep any direction?
+- **Answered:** 2026-10-13 — a fixed path, the owner (*yes*), the choice between (a) and (b) left to the lane: (b), the sim picks the way by room at the grab and only travel along it counts, over (a), which would leave a low lid that can never open.
 
 The owner took any-direction pulling off THE WARDEN's rope on 10 October 2026 ("remove support and usage of PULL IN ANY DIRECTION WITH A ROPE … better consistency"); the rope now runs straight down (`pullDownMilli`). THE LID's cord is the last user of the vector pull (`clampPull`, `isqrt`, the `lidPullYMilli` field, `pullOpenMilli`/`pullIsTaut` on a vector). Its channel is chosen by room in render (`fittingWay`: down, across toward the middle, the other way, up), so a fixed path needs that choice moved into the sim. The options: (a) down only, cut short where the field ends — a low lid could then never open; (b) the sim picks the way by room at the grab, as `lidCordTrack` does now, and only travel along it counts; (c) keep any direction for the cord. With (a) or (b) the vector half of `handle-pull.ts` and `lidPullYMilli` go, and the menu's A HANDLE text loses its last clause.
 
@@ -769,6 +770,7 @@ The film's three acts — the cannon to col 3 at tick 630, col 2 at 670, `fireRe
 - **Found:** 2026-10-10, claude/lamprey-cannon-hit-feedback-323ebe
 - **Files:** `packages/sim/src/lamprey-shot.ts`, `packages/sim/src/core-along.ts`, `packages/render/src/lamprey-stop.ts`
 - **Asks:** Should a bolt that meets THE LAMPREY while its gullet is shut — recoiling from a hit, bitten into a tile, crawling — burst on the head as armour (grey grit, no effect, and not a wasted shot on HARD), or keep flying through it?
+- **Answered:** 2026-10-13 — the owner left it to the lane: (a), armour while the head stands in the bolt's column in any phase but `leap`, `entering` and `spent`, over (b) recoil only and (c) leaving it — one rule for every phase a head is drawn in.
 
 Since this lane the lit gullet stops a bolt and takes the hit where it is drawn. A second bolt fired up the same column a moment later meets the eel recoiling, gets `null` from `lampreyVerdict`, and is drawn flying straight through the head to the top — the owner's complaint, 10 October 2026, in the one case the fix leaves. On HARD that bolt is also a wasted shot and loses the wave. The options: (a) armour while the head stands in the bolt's column in any phase but `leap`, `entering` and `spent` — `lampreyVerdict` answers `"armour"`, `lampreyAside` gives the head's tile in every such phase, and the stopper's foot is the sucker's lower rim (`p.y + p.r * p.tilt`); the recoil's jerk is drawn 1.2 tiles up, so the row met would need the pose's lift in thousandths, or the recoil left out; (b) armour only during `recoil`, the case a double tap hits; (c) leave it. `render/test/core-met.test.ts` covers whichever is chosen.
 
@@ -821,6 +823,7 @@ A profile of the director loaded at phone size with the CPU slowed four times sp
 - **Found:** 2026-10-11, claude/pull-longer
 - **Files:** `packages/sim/src/config-lamprey.ts`, `packages/sim/src/config-bastion.ts`, `packages/sim/src/config-curtain.ts`, `packages/sim/src/config-fleet.ts`
 - **Asks:** Make THE LAMPREY's lifts longer at the cost of rows it may land on, push THE CURTAIN's rail higher, or leave every pull its length?
+- **Answered:** 2026-10-13 — both, the owner: (a) THE LAMPREY at 2.2 and 1.8 tiles, landing a row further from top and bottom, and (b) THE CURTAIN's rail a tile higher with the hem's reach 3.5.
 
 The owner asked for longer pulls where reasonable (11 October 2026). Each short
 one was tried at half again and each is held by something that is not its
@@ -840,6 +843,7 @@ hem's reach 3.5; (c) leave them.
 - **Found:** 2026-10-11, claude/pull-longer
 - **Files:** `tools/director/src/pull-lab-shapes.ts`, `tools/director/src/pull-lab-rule.ts`, `packages/render/src/pull-track.ts`
 - **Asks:** Which pulls bend — THE WARDEN's and THE LID's long cords only, every straight pull with room (those two, THE SINEW, THE LATCH), or only bosses still to be built?
+- **Answered:** 2026-10-13 — every straight pull with room, the owner: THE WARDEN's and THE LID's cords, THE SINEW and THE LATCH; the sim lane first, then each boss's path.
 
 The owner, 11 October 2026: *curves (custom paths) increase difficulty and are
 more exciting than straight lines*. The PULL LAB plays a curve and an S
@@ -874,6 +878,7 @@ only mark.
 - **Found:** 2026-10-12, claude/labs-on-field-page-acf3e3
 - **Files:** `tools/director/index.html`, `tools/director/src/labs.ts`, `tools/director/src/lab-shell.ts`, `tools/director/src/pull-lab.ts`, `tools/director/src/hold-lab.ts`, `tools/director/src/combo-lab.ts`
 - **Asks:** Should ⇣ PULL LAB, ◉ HOLD LAB and ⊕ COMBO LAB in the topbar take you to the lab's card on CONTROLS › ON THE FIELD, stay as they are, or go?
+- **Answered:** 2026-10-13 — (a), the owner: each door opens ON THE FIELD scrolled to its lab's card, the URL keys kept for shots only.
 
 Every lab is now a card on ON THE FIELD beside its gesture (`lab-shell.ts`,
 with a `host`). The topbar doors and the `?pulllab=` / `?holdlab=` /
@@ -889,6 +894,7 @@ window and the URL keys out, and photograph the card instead.
 - **Found:** 2026-10-12, claude/pull-lab-game-apply-dba692
 - **Files:** `packages/render/src/pull-knob.ts`, `packages/render/src/tether.ts`, `packages/render/src/handles-cords.ts`, `packages/render/src/maze-string.ts`, `packages/render/src/hasp-grip.ts`, `packages/render/src/bastion-grip.ts`, `packages/render/src/gimbal-grip.ts`, `packages/render/src/lamprey-tow-grip.ts`
 - **Asks:** Now every pull is drawn twice the size, should the circle a press is taken in grow twice too, as it did in the PULL LAB, or stay where it is?
+- **Answered:** 2026-10-13 — (a), the owner: the grab follows the drawn 2× knob, every grip multiplied by `PULL_SIZE`, with a grip test per wave with two handles side by side.
 
 Every pull handle is drawn `PULL_SIZE` (2) times the radius its code asks
 since 12 October 2026 — the owner's 2× in the PULL LAB. The press is still
@@ -909,5 +915,6 @@ either.
 - **Found:** 2026-10-12, claude/combo-lab-interactions-d44a22
 - **Files:** `packages/sim/src/sling.ts`, `packages/sim/src/sling-hand.ts`, `packages/sim/src/drag-targets-e.ts`, `packages/render/src/sling-grip.ts`, `tools/director/src/field-actions-combo.ts`
 - **Asks:** Should THE SLING's cords in the game become THE COMBO LAB's HOLD, THEN PULL — the hold counted on its own, then a pull knob in its place — or keep the swipe on the lift (`DrawRelease`)?
+- **Answered:** 2026-10-13 — into the game, the owner: `DrawRelease` becomes a hold stage then a pull stage on the cord's own track, the autopilot and THE SLING's tests with it.
 
 The owner, 12 October 2026, of the lab's HOLD, THEN SWIPE: *should be a separate "hold", then another "pull" appears after it on same place.* The lab now plays it that way (`combo-hold-then-pull.ts`); the game's two cords still loose on a swipe. The options: carry it into the game — `DrawRelease` becomes a hold stage then a pull stage on the cord's own track, the autopilot and THE SLING's tests with it; or leave the game and the lab apart until the generic pull is in the game. `bun test packages/sim/test/sling*` proves the first.
