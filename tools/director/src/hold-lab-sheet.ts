@@ -1,6 +1,4 @@
 import { text } from "./gestures-page.js";
-import { HOLD_LOOKS } from "./hold-goo/index.js";
-import type { HoldLook } from "./hold-goo/view.js";
 import { autoThumb, loopOf } from "./hold-lab-auto.js";
 import { paintHoldLab } from "./hold-lab-paint.js";
 import {
@@ -17,10 +15,10 @@ import {
 } from "./hold-lab-rule.js";
 
 /**
- * **EVERY LOOK, EVERY STATE** — the HOLD LAB's comparison sheet, as the PULL
- * LAB's (`pull-lab-sheet.ts`): one row per look, one column per moment of
- * AUTO's loop, each cell the lab's own frame run from a fresh hold at a fixed
- * step — the same every time it is drawn, and never a mock.
+ * **EVERY STATE** — the HOLD LAB's sheet, as the PULL LAB's
+ * (`pull-lab-sheet.ts`): one row, SOAK — the one look a hold wears — and one
+ * column per moment of AUTO's loop, each cell the lab's own frame run from a
+ * fresh hold at a fixed step — the same every time it is drawn, and never a mock.
  */
 
 /** The moments of `ask`'s loop the sheet shows, and what each is. */
@@ -63,7 +61,7 @@ export function holdAt(ask: HoldAsk, seconds: number): LabHold {
 const PAD = SLIP_REACH + HOLD_R * 0.4;
 const CROP = { x: HOLD_AT.x - PAD, y: HOLD_AT.y - PAD * 1.15, w: PAD * 2, h: PAD * 2.15 };
 
-function cell(ask: HoldAsk, look: HoldLook, seconds: number, cssW: number): HTMLCanvasElement {
+function cell(ask: HoldAsk, seconds: number, cssW: number): HTMLCanvasElement {
   const s = cssW / CROP.w;
   const dpr = Math.min(4, 2 * (window.devicePixelRatio || 1));
   const canvas = document.createElement("canvas");
@@ -75,7 +73,7 @@ function cell(ask: HoldAsk, look: HoldLook, seconds: number, cssW: number): HTML
   if (!ctx) return canvas;
   const k = s * dpr;
   ctx.setTransform(k, 0, 0, k, -CROP.x * k, -CROP.y * k);
-  paintHoldLab(ctx, { hold: holdAt(ask, seconds), ask, look, time: seconds });
+  paintHoldLab(ctx, { hold: holdAt(ask, seconds), ask, time: seconds });
   return canvas;
 }
 
@@ -87,9 +85,7 @@ export function holdSheet(ask: HoldAsk, cssW = 110): HTMLElement {
   grid.style.gridTemplateColumns = `auto repeat(${moments.length}, ${cssW}px)`;
   grid.appendChild(text("span", ask.label, "pull-lab-sheet-corner"));
   for (const m of moments) grid.appendChild(text("span", m.label, "pull-lab-sheet-head"));
-  for (const look of HOLD_LOOKS) {
-    grid.appendChild(text("span", look.name.toUpperCase(), "pull-lab-sheet-look"));
-    for (const m of moments) grid.appendChild(cell(ask, look, m.at, cssW));
-  }
+  grid.appendChild(text("span", "SOAK", "pull-lab-sheet-look"));
+  for (const m of moments) grid.appendChild(cell(ask, m.at, cssW));
   return grid;
 }

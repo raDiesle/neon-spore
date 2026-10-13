@@ -1,4 +1,3 @@
-import type { Point } from "@neon-spore/content";
 import { PALETTE, smoothstep } from "@neon-spore/render";
 import { bodyPath, drop, type GooBody } from "../../../../packages/render/src/goo-body.js";
 import { paintGoo } from "../../../../packages/render/src/goo-drop-look.js";
@@ -26,10 +25,9 @@ import type { HoldLook, HoldView } from "./view.js";
  * off and goes red as the thumb nears the limit, as the pull's drop does at
  * the edge of its path.
  *
- * What tells one GOO hold from another is **how the beats being held are
- * shown** (`Progress`): the drop filling, dots round it, the drop blooming, a
- * thumbprint lighting, the thumb sinking in. A refusal or a slip is the
- * drop going red and shuddering where it is, the progress draining out.
+ * **How the beats being held are shown** is a `Progress`; the one left is
+ * SOAK (`soak.ts`). A refusal or a slip is the drop going red and shuddering
+ * where it is, the progress draining out.
  */
 
 /** The colour progress is shown in: green while it fills, red as a failure drains it. */
@@ -52,7 +50,6 @@ export function gooHold(p: Progress): HoldLook {
   return {
     name: p.name,
     sentence: p.sentence,
-    ownsEdge: true,
     paint(v) {
       if (v.ending !== null) fizzOut(v, p, v.ending);
       if (v.mark) mark(v, p);
@@ -125,9 +122,4 @@ export function toneHex(tone: Tone): { hex: string; rim: string } {
   return tone === "red"
     ? { hex: PALETTE.red, rim: PALETTE.redRim }
     : { hex: PALETTE.good, rim: PALETTE.goodRim };
-}
-
-/** A point at `a` radians from the top, clockwise, `d` from `at`. */
-export function clock(at: Point, d: number, a: number): Point {
-  return { x: at.x + Math.sin(a) * d, y: at.y - Math.cos(a) * d };
 }

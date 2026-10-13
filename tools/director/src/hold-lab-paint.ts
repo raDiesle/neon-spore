@@ -1,42 +1,30 @@
-import { PALETTE } from "@neon-spore/render";
-import { type HoldLook, viewOf } from "./hold-goo/view.js";
-import { HOLD_AT, type HoldAsk, type LabHold, SLIP_REACH } from "./hold-lab-rule.js";
+import { SOAK_HOLD } from "./hold-goo/index.js";
+import { viewOf } from "./hold-goo/view.js";
+import { drawHoldClock } from "./hold-goo/wait.js";
+import { HOLD_AT, HOLD_R, type HoldAsk, type LabHold } from "./hold-lab-rule.js";
 import { paintField } from "./pull-lab-paint.js";
 
 /**
- * One frame of the HOLD LAB (`hold-lab.ts`): the PULL LAB's empty field, the
- * look's mark in its middle, and — for a look with no picture of its own for
- * the limit — the faint ring a thumb must stay inside, red while a slip is
- * shown. No finger over it and no word on the field, as in the PULL LAB: the
- * bar's readout says the verdict.
+ * One frame of the HOLD LAB (`hold-lab.ts`): the PULL LAB's empty field and
+ * SOAK's drop in its middle — the one look every hold in the labs wears — with
+ * the waiting clock on its shoulder while it is held, as THE COMBO LAB's holds
+ * have it (`drawHoldClock`). SOAK draws its own picture of the slip limit, the
+ * drop leaning and reddening, so no ring is drawn round it. No finger over it
+ * and no word on the field, as in the PULL LAB: the bar's readout says the verdict.
  */
 
 export interface HoldFrame {
   hold: LabHold;
   ask: HoldAsk;
-  look: HoldLook;
   time: number;
 }
 
 export function paintHoldLab(ctx: CanvasRenderingContext2D, f: HoldFrame): void {
   paintField(ctx);
-  if (!f.look.ownsEdge) paintLimit(ctx, f.hold);
   ctx.save();
-  f.look.paint(viewOf(ctx, f.hold, f.ask, f.time));
+  SOAK_HOLD.paint(viewOf(ctx, f.hold, f.ask, f.time));
   ctx.restore();
-}
-
-function paintLimit(ctx: CanvasRenderingContext2D, h: LabHold): void {
-  const slipped = h.verdict === "slipped";
-  ctx.save();
-  ctx.strokeStyle = slipped ? PALETTE.red : PALETTE.dim;
-  ctx.globalAlpha = slipped ? 0.4 : 0.22;
-  ctx.lineWidth = 1;
-  ctx.setLineDash([3, 4]);
-  ctx.beginPath();
-  ctx.arc(HOLD_AT.x, HOLD_AT.y, SLIP_REACH, 0, Math.PI * 2);
-  ctx.stroke();
-  ctx.restore();
+  if (f.hold.phase === "held") drawHoldClock(ctx, HOLD_AT, HOLD_R, 1, f.time);
 }
 
 const VERDICT_WORDS: Readonly<Record<string, string>> = {

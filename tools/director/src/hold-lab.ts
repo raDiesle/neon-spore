@@ -1,8 +1,7 @@
 import type { Point } from "@neon-spore/content";
 import { choice, grouped } from "./field-try-bar.js";
 import { text } from "./gestures-page.js";
-import { GOO_HOLDS, HOLD_LOOKS } from "./hold-goo/index.js";
-import type { HoldLook } from "./hold-goo/view.js";
+import { SOAK_HOLD } from "./hold-goo/index.js";
 import { autoThumb } from "./hold-lab-auto.js";
 import { holdReadout, paintHoldLab } from "./hold-lab-paint.js";
 import {
@@ -31,12 +30,12 @@ import { initialLab } from "./session.js";
  * visuals and behavior … pull lab ("fizz") … the current "hold" is the
  * thumb visual, which should be also one kind of variant*).
  *
- * The choices on the bar:
- *
- * - **HOLD FOR** — how many beats the hold asks (`HOLD_ASKS`);
- * - **the look** — the game's own thumbprint mark AS SHIPPED, and the GOO
- *   holds (`hold-goo/`), FIZZ's drop and grab and ending with a different
- *   picture of the beats being held; the first GOO one when the lab opens.
+ * Its one choice on the bar is **HOLD FOR** — how many beats the hold asks
+ * (`HOLD_ASKS`). The hold wears SOAK and nothing else, as every hold in THE
+ * COMBO LAB does, with the same waiting clock on its shoulder while held (the
+ * owner, 13 October 2026: *"hold lab": use "look" : "soak" … general visuals
+ * the user expects for consistency are always consistent*). The six other
+ * looks the LOOK picker once offered are gone.
  *
  * The rule is the pull's answers made a hold's (`hold-lab-rule.ts`): let go
  * early is refused, red; half a tile off the mark fails. AUTO's thumb
@@ -44,15 +43,10 @@ import { initialLab } from "./session.js";
  * on a loop; RETRY puts a fresh mark on the field, so it is seen coming in.
  */
 
-export function openHoldLab(
-  first = "2",
-  opts: { sheet?: boolean; look?: string; host?: HTMLElement } = {},
-): void {
+export function openHoldLab(first = "2", opts: { sheet?: boolean; host?: HTMLElement } = {}): void {
   const shell = labShell(opts.host);
   let ask: HoldAsk = holdAsk(first);
   let hold: LabHold = freshHold();
-  let look: HoldLook =
-    HOLD_LOOKS.find((l) => l.name === opts.look) ?? GOO_HOLDS[0] ?? (HOLD_LOOKS[0] as HoldLook);
   let auto = true;
   let speed = 1;
   let time = 0;
@@ -70,7 +64,7 @@ export function openHoldLab(
   const readout = text("span", "", "try-readout");
 
   let sheet = opts.sheet === true;
-  const sheetButton = text("button", "▤ EVERY LOOK, EVERY STATE");
+  const sheetButton = text("button", "▤ EVERY STATE");
   const place = (): void => shell.place({ shape: HOLD_LAB + ask.key, sheet });
   const show = (): void => {
     place();
@@ -112,14 +106,6 @@ export function openHoldLab(
         reset();
       },
       "HOLD FOR",
-    ),
-    choice(
-      HOLD_LOOKS.map((l) => [l.name.toUpperCase(), l] as [string, HoldLook]),
-      look,
-      (l) => {
-        look = l;
-      },
-      "LOOK",
     ),
     choice(
       [
@@ -182,13 +168,13 @@ export function openHoldLab(
     const ctx = canvas.getContext("2d");
     if (ctx) {
       ctx.setTransform(canvas.width / LAB_W, 0, 0, canvas.height / LAB_H, 0, 0);
-      paintHoldLab(ctx, { hold, ask, look, time });
+      paintHoldLab(ctx, { hold, ask, time });
     }
-    like.textContent = `${look.name.toUpperCase()} — ${look.sentence}.`;
     readout.textContent = holdReadout(hold);
   };
 
   shell.mount({ bar, like, room, fit, frame });
+  like.textContent = `${SOAK_HOLD.name.toUpperCase()} — ${SOAK_HOLD.sentence}.`;
   show();
 }
 

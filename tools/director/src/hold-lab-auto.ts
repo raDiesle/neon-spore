@@ -5,8 +5,7 @@ import { BEAT_SECONDS, HOLD_AT, type HoldAsk, SLIP_REACH } from "./hold-lab-rule
 /**
  * **AUTO's thumb in the HOLD LAB**, as `pull-lab-auto.ts` is the PULL LAB's:
  * one whole hold, one let go early, one that slides off the mark, over and
- * over, so every state of a look passes under the eye with no mouse — the
- * same loop for every look, so two are compared on one rhythm. Its length
+ * over, so every state of the hold passes under the eye with no mouse. Its length
  * follows the beats the hold asks (`HoldAsk`).
  *
  * A held thumb is never quite still: it wanders a pixel or two the whole time,

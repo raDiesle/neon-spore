@@ -47,8 +47,6 @@ export const DRAIN = 0.5;
 export interface HoldLook {
   readonly name: string;
   readonly sentence: string;
-  /** The look's own picture of the slip limit: no band is drawn under it. */
-  readonly ownsEdge?: boolean;
   paint(v: HoldView): void;
 }
 

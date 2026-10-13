@@ -8,6 +8,7 @@ import {
 import type { ComboRule, ThumbStep } from "./combo-kinds.js";
 import { scriptedThumb } from "./combo-kinds.js";
 import { viewOf } from "./hold-goo/view.js";
+import { drawHoldClock } from "./hold-goo/wait.js";
 import {
   FRESH_AFTER,
   freshHold,
@@ -159,6 +160,7 @@ export const HOLD_THEN_PULL: ComboRule<HoldThenPull> = {
     if (s.stage === "hold") look.paint({ ...v, r: HOLD_R });
     else if (v.ending !== null) look.paint({ ...v, r: HOLD_R, mark: false });
     ctx.restore();
+    if (s.stage === "hold" && v.held) drawHoldClock(ctx, HOLD_AT, HOLD_R, 1, time);
     if (!knobIn(s)) return;
     const p = s.pull;
     const tone = toneOf(p);

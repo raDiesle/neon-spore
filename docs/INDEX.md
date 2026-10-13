@@ -3875,15 +3875,14 @@ by hand never moves.
 | `tools/compaction/run.ts` | `bun run compaction` — is the compaction trial of 29 September 2026 working? bun run compaction… |
 | `tools/compaction/transcript.ts` | One Claude Code transcript read as the events the compaction trial is judged on |
 | `tools/director/src/hold-goo/goo.ts` | **The GOO hold**: the PULL LAB's shipped look — the RIPPLES · STILL drop (`goo-drop-look.ts`) |
-| `tools/director/src/hold-goo/looks.ts` | **Three ways a GOO hold shows the beats being held** (`goo.ts` has what they share) |
-| `tools/director/src/hold-goo/print.ts` | **Two GOO holds about the thumb itself**: PRINT |
 | `tools/director/src/hold-goo/view.ts` | **What a HOLD LAB look is told**, read once a frame from the rule's state (`hold-lab-rule.ts`) |
-| `tools/director/src/hold-goo/soak.ts` | **SOAK** — SINK with FILL's water |
+| `tools/director/src/hold-goo/soak.ts` | **SOAK** — SINK with FILL's water, and the one look every hold in the director's labs wears |
 | `tools/director/src/hold-goo/call.ts` | **What calls the thumb to a hold no hand has yet**: a breathing halo and ripples out of the drop |
+| `tools/director/src/hold-goo/wait.ts` | **The waiting clock on a hold**: `drawMarkWait` on the drop's shoulder from the take to the count, in every lab |
 | `tools/director/src/hold-lab-auto.ts` | **AUTO's thumb in the HOLD LAB**, as `pull-lab-auto.ts` is the PULL LAB's: one whole hold, one let go early |
-| `tools/director/src/hold-lab-paint.ts` | One frame of the HOLD LAB (`hold-lab.ts`): the PULL LAB's empty field, the look's mark in its middle, and |
+| `tools/director/src/hold-lab-paint.ts` | One frame of the HOLD LAB (`hold-lab.ts`): the PULL LAB's empty field and SOAK's drop in its middle |
 | `tools/director/src/hold-lab-rule.ts` | **The one generic HOLD, as the HOLD LAB plays it** |
-| `tools/director/src/hold-lab-sheet.ts` | **EVERY LOOK, EVERY STATE** — the HOLD LAB's comparison sheet, as the PULL LAB's (`pull-lab-sheet.ts`) |
+| `tools/director/src/hold-lab-sheet.ts` | **EVERY STATE** — the HOLD LAB's sheet, as the PULL LAB's (`pull-lab-sheet.ts`): one row, SOAK |
 | `tools/director/src/hold-lab.ts` | **THE HOLD LAB** — the one generic HOLD on an empty field, to be held by hand |
 
 <!-- index:code:end -->

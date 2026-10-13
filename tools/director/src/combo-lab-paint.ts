@@ -6,7 +6,6 @@ import {
   smoothstep,
 } from "@neon-spore/render";
 import { ENDING } from "../../../packages/render/src/goo-moment.js";
-import { drawMarkWait } from "../../../packages/render/src/mark-feedback.js";
 import {
   type Combo,
   type LabCombo,
@@ -15,7 +14,8 @@ import {
   partnerAt,
 } from "./combo-lab-rule.js";
 import type { HoldLook, HoldView } from "./hold-goo/view.js";
-import { BEAT_SECONDS, type HoldAsk } from "./hold-lab-rule.js";
+import { drawHoldClock } from "./hold-goo/wait.js";
+import { BEAT_SECONDS, HOLD_R, type HoldAsk } from "./hold-lab-rule.js";
 import { afterOf, toneOf } from "./pull-lab-paint.js";
 import { knobAt } from "./pull-lab-rule.js";
 import { LAB_KNOB } from "./pull-lab-shapes.js";
@@ -25,7 +25,7 @@ import { strayReach } from "./pull-lab-stray.js";
  * One frame of THE COMBO LAB (`combo-lab.ts`): the PULL LAB's empty field and
  * its pull, drawn by the game's own `drawPullTrack` and `drawPullKnob` — and,
  * once the knob is at the end of its channel, **the HOLD LAB's hold in its
- * place**, the look picked on the bar, filling as the hold is done. The
+ * place**, SOAK at the HOLD LAB's own size (`HOLD_R`), filling as the hold is done. The
  * partner's knob is drawn as the game draws a partner's: dim, no arrow, no
  * channel (`lamprey-handles.ts`). No word on the field; the bar says it.
  *
@@ -36,7 +36,7 @@ import { strayReach } from "./pull-lab-stray.js";
  * clock symbol we use for other player to wait for him*). It stands in the
  * middle of the dashed place while the knob travels, and once the hold is on
  * slides up to the drop's shoulder, so SOAK's water wells up in the middle
- * uncovered.
+ * uncovered (`drawHoldClock`, which every hold in the labs wears).
  */
 
 export interface ComboFrame {
@@ -46,13 +46,7 @@ export interface ComboFrame {
   time: number;
 }
 
-/** The hold's drop, a little larger than the knob it takes over from. */
-const HOLD_SIZE = 1.3;
-/** The clock's size over the knob's, in the place and on the shoulder; how far up the
- * shoulder it sits, over the drop's radius; and the seconds it takes to get there. */
-const CLOCK_SIZE = 1.15;
-const CLOCK_ON_SHOULDER = 0.85;
-const SHOULDER = 0.9;
+/** Seconds the clock takes to slide from the place to the drop's shoulder. */
 const SLIDE = 0.3;
 /** Seconds since something that never happened. */
 const NEVER = 60;
@@ -86,9 +80,7 @@ export function paintComboLab(ctx: CanvasRenderingContext2D, f: ComboFrame): voi
   if (waits(state)) {
     const end = pullTrackPoint(combo.shape.track, 1);
     const u = state.phase === "hold" ? smoothstep(Math.min(1, state.held / SLIDE)) : 0;
-    const off = LAB_KNOB * HOLD_SIZE * SHOULDER * u;
-    const size = CLOCK_SIZE + (CLOCK_ON_SHOULDER - CLOCK_SIZE) * u;
-    drawMarkWait(ctx, end.x + off, end.y - off, LAB_KNOB * size, time);
+    drawHoldClock(ctx, end, HOLD_R, u, time);
   }
 }
 
@@ -113,7 +105,7 @@ function paintPartner(ctx: CanvasRenderingContext2D, { combo, state, time }: Com
   });
 }
 
-/** How long the hold at the end asks, as the HOLD LAB's looks count it. */
+/** How long the hold at the end asks, as the HOLD LAB's SOAK counts it. */
 export function holdAskOf(combo: Combo): HoldAsk {
   const beats =
     combo.partner === null
@@ -131,7 +123,7 @@ function holdView(ctx: CanvasRenderingContext2D, f: ComboFrame): HoldView | null
   return {
     ctx,
     at: { x: end.x, y: end.y },
-    r: LAB_KNOB * HOLD_SIZE,
+    r: HOLD_R,
     time,
     ask: holdAskOf(combo),
     mark: true,

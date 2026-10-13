@@ -5,6 +5,7 @@ import type { ComboRule, ThumbStep } from "./combo-kinds.js";
 import { scriptedThumb } from "./combo-kinds.js";
 import { PARTNER_TRACK } from "./combo-lab-rule.js";
 import { viewOf } from "./hold-goo/view.js";
+import { drawHoldClock } from "./hold-goo/wait.js";
 import {
   BEAT_SECONDS,
   freshHold,
@@ -31,6 +32,7 @@ import { LAB_KNOB, LAB_TILE, LAB_W } from "./pull-lab-shapes.js";
  * The partner's part is drawn as the game draws a partner's: the knob dim,
  * with no arrow and no channel; the mark with the turning ring that says
  * someone else is being waited on (`drawMarkTheirs`), and a verdict ring a tap.
+ * The held mark wears the waiting clock on its shoulder, as every hold does.
  */
 
 type Partner = "pull" | "tap";
@@ -168,6 +170,7 @@ function holdPartner(p: Partner): ComboRule<HoldPartner> {
       ctx.save();
       look.paint({ ...viewOf(ctx, s.hold, ask, time), r: HOLD_R });
       ctx.restore();
+      if (s.hold.phase === "held") drawHoldClock(ctx, HOLD_AT, HOLD_R, 1, time);
     },
     state(s) {
       const h = s.hold;

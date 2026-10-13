@@ -38512,3 +38512,15 @@ Bottleneck: none; the entry named the line.
 Bottleneck: none; the seam was named in the entry.
 
 *Measured: 4 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-13 — THE HOLD LAB wears SOAK only, and every lab hold its clock
+
+- reading: 5 min. The COMBO LAB's SOAK landing, the HOLD LAB, and the
+  three combo frames that draw a hold.
+- writing: 5 min. SINK's two parts into `soak.ts`, `wait.ts`, the picker
+  and the six other looks out.
+- looking: 0 min. One sheet through `bun run shot`.
+- friction: 0 min.
+- landing: 5 min. Import sort, the index's rows, `check:fast`, `land`.
+
+Bottleneck: finding that the combos drew the hold at two sizes, which only a read of all three frames showed.
