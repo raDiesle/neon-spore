@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-13 · 4e55184f8 — THE VANE's and THE KEEL's fire buttons are ringed in the colour both screens show
+
+While EMBER stands on THE VANE's split, only the fire button of the colour the housing wears is ringed, not the two in turn; the same for THE KEEL's socket, and for its marrow once one half is sealed. THE GIMBAL's leak, THE HASP's and THE RATCHET's bolts and THE MANTLE's spark take either colour, so their marks go on jumping between both buttons. A look the owner asked for by name, 9 October 2026.
+
 ## 2026-10-13 · 5774e6bd9 — THE HOLD LAB wears SOAK only, and every hold in the labs wears its clock
 
 THE HOLD LAB loses its LOOK choice: its hold wears SOAK and nothing else, as every hold in THE COMBO LAB already does. AS SHIPPED, FILL, DOTS, BLOOM, PRINT and SINK are gone; SOAK keeps SINK's thumb and ripple. The sheet is EVERY STATE, in one row. The waiting clock THE COMBO LAB puts on a held drop's shoulder is now on every hold in the labs while it is held: in THE HOLD LAB, in HOLD WHILE THE PARTNER PULLS or TAPS, and in the hold of HOLD, THEN PULL. The hold at the end of a pull is now drawn at the HOLD LAB's size, as the other combos already drew it, rather than a little smaller. A look the owner asked for by name, in the director only.
