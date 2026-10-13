@@ -331,6 +331,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## packages/render/src/index.ts is 235 lines, under the ceiling by fifteen
 
 - **Found:** 2026-10-10, claude/versus-variants-visual-67ca5d
+- **Taken:** 2026-10-13, claude/session-f1471e (claim: claude/queue-packages-render-src-index-ts-is-235-lines-under)
 - **Files:** `packages/render/src/index.ts`, `packages/sim/test/limits.test.ts`
 
 The render package's barrel grows by a line or two with every export a lane
