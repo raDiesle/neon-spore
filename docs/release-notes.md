@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-13 · 562696d55 — No grab on the field wears a scan box or a word
+
+A pull, a lift, a turn, a twist, a rub — every cue that asks a thumb to grab something on the field and carry it — is drawn with no white-cornered scan box and no word: no LIFT on THE CURTAIN's hem, no box on THE FLEET's wreck, no TWIST on THE GAUGE's tongue, no TURN on THE GIMBAL's rings, no SWAY, SHOVE, PULL UP or CHOOSE. The handle says it. A hold's red circle and a rub's red line stay, and so do the words that are not a grab's: FIRE, HOLD on a button, LIFT as the thumb coming off THE SINEW, the shield's MOVE, and the other seat's P1'S. One rule, `asksGrab`, decides it for the box, the words and THE INSTAR's word box.
+
 ## 2026-10-13 · b66f49b4e — THE RUB LAB, and RUB an action of its own on CONTROLS › ON THE FIELD
 
 The owner asked for RUB to be a category of control of its own, with its own look and a lab. RUB was a type under GRAB AND DRAG; it is now an action beside HOLD and PRESS, with THE RUB LAB on its card, a door in the topbar beside THE PRESS LAB's, and `rublab=8-one-zigzag` in the URL (`&rubsheet=1` opens its sheet). TURNS picks 4, 8 or 16 turns back; SEATS picks ONE SEAT or BOTH AT ONCE, where a turn counts only while the other seat is rubbing too, and the two seats' lights stand over the drop. A lift keeps the count; two beats with no turn lose it, red. The drop is THE HOLD LAB's, but it neither sinks nor pops: it smears after the thumb, throws a swish on every turn, wags side to side to call a rub before it is touched, and on a computer the pointer over it is the left-right arrow. The looks: ZIGZAG, the gesture drawn on the drop, a stroke a turn; WIPE, a smudge a turn wiped off; HEAT, a notch a turn and the drop warming; COUNT, the number left between two chevrons. Director only, an addition where the game draws nothing.
