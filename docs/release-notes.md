@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-13 · 1885352e8 — VERSUS offers THE FLEET's hulls glancing about their ends
+
+Each hull turns in its own frame about its bow and transom, which stay on their squares; the middle swings toward one end, which opens, and the other closes into the dark. Ships still; VERSUS `fleet:glance` offers SWAY, LOOK and COCK, judged on THE FLEET · HUNT. Exemption: none — a look, offered on VERSUS.
+
 ## 2026-10-13 · 8aba88cef — VERSUS offers THE VANE's bearing glancing on its hub
 
 A new VERSUS slot, `vane:glance`, for the owner's ask that a part of every boss turn so it is seen from a new side. THE VANE is a machine, so its whole bearing turns — the mount, the bolt circle and the hub — about its centre, because the hub is what a shot reaches: the near end of the mount grows, the far end shortens into the dark, the pins bunch on the far side. The split stays on the column a shot goes up, and the arm and its tip do not turn. SWAY, LOOK and COCK. Nothing on the field changes: `VANE_GLANCE` ships still.
