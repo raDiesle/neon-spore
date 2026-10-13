@@ -10,9 +10,12 @@
  * finds its place.
  *
  * **A page says its outline with `data-depth` on a heading**: 1 a part, 2 a
- * section of one, 3 a step inside a section, which the bar names and the menu
- * does not list. A page that says nothing is flat, every listed heading a part
- * (`listedHeadings`, `tabs.ts`), and gets the same bar with one crumb in it.
+ * section of one, 3 a step inside a section. A card's heading inside a
+ * section says `data-card` instead, with what kind of card it is: the menu
+ * lists it under its section (`contents-list.ts`), and the bar does not name
+ * it — cards stand side by side, and the last of a row would be named while
+ * the first was being read. A page that says nothing is flat, every listed
+ * heading a part (`listedHeadings`), and gets the same bar with one crumb in it.
  *
  * The heading being read is the last one whose top has gone above the bar's
  * own bottom edge. It is measured on scroll and never stored against the
@@ -23,6 +26,11 @@
 /** A heading's place in its page's outline; a heading that says none is a part. */
 export function depthOf(heading: HTMLElement): number {
   return Number(heading.dataset.depth) || 1;
+}
+
+/** A card's heading, listed under its section rather than as one. */
+export function isCard(heading: HTMLElement): boolean {
+  return heading.dataset.card !== undefined;
 }
 
 /** What the bar calls a heading: its own text, or the shorter name it says

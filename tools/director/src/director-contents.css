@@ -67,22 +67,78 @@
   scroll-margin-top: 48px;
 }
 
-/* The menu's rows in the page's outline: a part numbered, its sections
-   indented under it, and the row being read lit. */
+/* A section's number on the page, the one CONTENTS gives it (`contents-list.ts`). */
+.has-contents [data-depth][data-num]::before {
+  content: attr(data-num) "  ";
+  white-space: pre;
+  color: var(--dim);
+  font-weight: 400;
+}
+
+/* The menu's rows in the page's outline: every section numbered and indented
+   by its depth, each level a step smaller, and the row being read lit. */
 .contents-list button[data-num]::before {
   content: attr(data-num);
   min-width: 1.4em;
+  color: var(--dim);
+}
+.contents-list li.depth-1 > button:first-child {
   color: var(--gold);
 }
-.contents-list li.depth-1 button {
+.contents-list.outlined li.depth-1 > button:first-child {
+  font-weight: 700;
+}
+.contents-list li.depth-1 > button:first-child[data-num]::before {
   color: var(--gold);
 }
 .contents-list li.depth-1:not(:first-child) {
-  margin-top: 4px;
+  margin-top: 6px;
 }
-.contents-list li.depth-2 button {
-  padding-left: calc(7px + 1.4em + 10px);
+.contents-list li.depth-2 > button:first-child {
+  padding-left: 2em;
+  color: var(--cyan);
+  font-size: 0.92em;
+}
+.contents-list li.depth-3 > button:first-child {
+  padding-left: 4em;
   font-size: 0.85em;
+}
+/* A page listed whole is as long as it is: the menu is the top of the page,
+   and ↑ CONTENTS comes back to it from anywhere. */
+.contents-list.outlined {
+  max-height: none;
+}
+/* The cards inside a section, one wrapped line of names under its row. */
+.contents-list li.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px 4px;
+  margin: 0 0 6px;
+}
+.contents-list li.chips.at-2 {
+  padding-left: 2em;
+}
+.contents-list li.chips.at-3 {
+  padding-left: 4em;
+}
+.contents-list li.chips.at-4 {
+  padding-left: 6em;
+}
+.contents-list .chip {
+  display: inline;
+  width: auto;
+  padding: 1px 6px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  color: var(--dim);
+  font-size: 0.75rem;
+  letter-spacing: 0.02em;
+}
+.contents-list .chip-use {
+  color: var(--gold);
+}
+.contents-list .chip-gesture {
+  color: var(--cyan);
 }
 .contents-list li.within > button:first-child {
   background: #1a1338;

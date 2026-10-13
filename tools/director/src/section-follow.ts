@@ -8,8 +8,8 @@
  * with the `#states` sheet, and a page that redraws cannot leave a stale id.
  */
 
+import { listedHeadings } from "./contents-list.js";
 import { findSection } from "./section-link.js";
-import { listedHeadings } from "./tabs.js";
 
 /**
  * Everything a link can point at that is on screen, in page order: contents

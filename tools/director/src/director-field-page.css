@@ -12,12 +12,18 @@
   border-top: 1px solid var(--line);
   padding-top: 12px;
 }
-/* A part of the page — one of its five, numbered — reads as a band across
+/* The outline reads by size and colour, largest outermost (13 October
+   2026): a part gold in a band, an action cyan under a rule, a control type
+   white and indented under its action, and a card's name small and gold in
+   its box. Each is numbered as CONTENTS numbers it (`contents-list.ts`).
+
+   A part of the page — one of its four, numbered — reads as a band across
    it, so the sections inside it read as inside it (10 October 2026). */
 .field-part.depth-1 h2 {
   margin-top: 48px;
   padding: 10px 12px;
-  font-size: 1.25rem;
+  font-size: 1.5rem;
+  color: var(--gold);
   background: var(--panel);
   border: 1px solid var(--line);
   border-left: 4px solid var(--gold);
@@ -26,20 +32,13 @@
 .field-part.depth-1:first-child h2 {
   margin-top: 8px;
 }
-.field-part h2[data-num]::before {
-  content: attr(data-num) "  ";
-  white-space: pre;
-  color: var(--dim);
-}
 .field-part.depth-1 .sub {
   margin-left: 16px;
 }
-/* An action inside WHAT THE FIELD ANSWERS: still its own heading, smaller
-   than the part it is in. */
+/* An action inside WHAT THE FIELD ANSWERS: its own heading under a rule,
+   smaller than the part it is in and larger than the types inside it. */
 .field-part.depth-2 h2 {
-  margin-top: 26px;
-  font-size: 0.95rem;
-  color: var(--ink);
+  margin-top: 36px;
 }
 .field-part .sub {
   margin: 0 0 12px;
@@ -83,12 +82,19 @@
 .field-type {
   margin: 0 0 18px;
 }
+/* A type under a title stands indented on a line from its action's edge, so
+   its cards read as inside it. */
+.field-type.titled {
+  margin-left: 2px;
+  padding-left: 14px;
+  border-left: 2px solid var(--line);
+}
 .field-type-title {
-  margin: 18px 0 2px;
+  margin: 24px 0 4px;
   font-size: var(--h3-size);
   font-weight: 700;
   letter-spacing: 0.02em;
-  color: var(--cyan);
+  color: var(--ink);
 }
 .field-type-title .count {
   margin-left: 8px;

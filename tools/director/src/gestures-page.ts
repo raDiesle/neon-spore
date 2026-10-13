@@ -26,10 +26,23 @@ function row(dl: HTMLElement, term: string, value: string | undefined): void {
   dl.appendChild(text("dd", value));
 }
 
+/**
+ * Marks a card's heading — `el` itself, or the first heading inside it — as a
+ * card of `kind` in its page's outline (`isCard`, `contents-here.ts`).
+ * Returns `el`.
+ */
+export function cardTitle(el: HTMLElement, kind: string): HTMLElement {
+  const h = /^H[2-4]$/.test(el.tagName) ? el : el.querySelector<HTMLElement>("h2, h3, h4");
+  if (h) h.dataset.card = kind;
+  return el;
+}
+
 export function card(g: Gesture): HTMLElement {
   const section = document.createElement("section");
   section.className = `gesture-card state-${g.state}`;
   const h3 = text("h3", g.name);
+  // The stamp is inside the heading: a contents menu names it without one.
+  h3.dataset.label = g.name;
   h3.appendChild(text("span", STATE_TITLES[g.state].stamp, "stamp"));
   section.appendChild(h3);
   section.appendChild(figureSvg(g));

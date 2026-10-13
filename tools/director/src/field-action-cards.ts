@@ -9,7 +9,7 @@ import { numbersBlock } from "./field-numbers.js";
 import { compareStills, type StillsUse } from "./field-stills-compare.js";
 import { useShot } from "./field-use-shot.js";
 import { GESTURES } from "./gesture-catalogue.js";
-import { card, text } from "./gestures-page.js";
+import { card, cardTitle, text } from "./gestures-page.js";
 import { openHoldLab } from "./hold-lab.js";
 import { openZoom } from "./picture-zoom.js";
 import { poseNamed } from "./poses.js";
@@ -50,7 +50,7 @@ function countOf(n: number): HTMLElement {
 function useCard(user: string, rows: readonly FieldControlDef[], t: ControlType): HTMLElement {
   const card = document.createElement("section");
   card.className = "field-use";
-  card.appendChild(text("h4", user));
+  card.appendChild(cardTitle(text("h4", user), "use"));
   card.appendChild(text("p", rows.map((r) => r.name).join(" · "), "rows"));
   // A row of many steps is on several types; say which of its steps this is.
   for (const step of rows.map((r) => t.steps?.[r.name])) {
@@ -100,7 +100,7 @@ export function concepts(
     const g = GESTURES.find((x) => x.name === name);
     if (!g) continue;
     const c = card(g);
-    c.classList.add("field-concept");
+    cardTitle(c, "gesture").classList.add("field-concept");
     const note = GESTURE_NOTES[g.name];
     if (note) c.appendChild(suggested(note));
     box.appendChild(c);
@@ -179,7 +179,7 @@ function typeBlock(
   labsAbove: boolean,
 ): HTMLElement {
   const box = document.createElement("div");
-  box.className = `field-type field-type-${t.key}`;
+  box.className = `field-type field-type-${t.key}${showTitle ? " titled" : ""}`;
   if (showTitle) {
     const h = text("h3", t.title, "field-type-title");
     // A step in the page's outline: named by the bar, not listed.

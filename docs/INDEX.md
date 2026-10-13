@@ -3358,6 +3358,7 @@ by hand never moves.
 | `tools/hooks/lane-finished.ts` | The turn is over and the lane is finished: land it on the local trunk, and put the rest to the owner |
 | `tools/director/src/control-set-note.ts` | The roster under the wave editor's control-set picker: every button on the panel, seat by seat |
 | `tools/director/src/contents-here.ts` | Where you are on a long sheet page, kept in sight while you read it |
+| `tools/director/src/contents-list.ts` | What a contents menu lists: every level of a page that writes its own outline, numbered, its cards as jumps under their section |
 | `tools/director/src/cover.ts` | **A live overlay hides the director under it** — THE PULL LAB (`pull-lab.ts`) and TRY IT (`field-try.ts`) |
 | `tools/director/src/combo-lab-auto.ts` | **AUTO's thumb in THE COMBO LAB**, as `hold-lab-auto.ts` is the HOLD LAB's |
 | `tools/director/src/combo-lab-paint.ts` | One frame of THE COMBO LAB (`combo-lab.ts`): the PULL LAB's empty field and its pull |

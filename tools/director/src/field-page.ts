@@ -9,7 +9,7 @@ import { GESTURE_NOTES, TRIED_NOTES } from "./field-notes-gestures.js";
 import { GRAB } from "./field-numbers.js";
 import { GESTURES } from "./gesture-catalogue.js";
 import { type GestureState, STATE_TITLES } from "./gesture-types.js";
-import { card, eventsTable, legend, text } from "./gestures-page.js";
+import { card, cardTitle, eventsTable, legend, text } from "./gestures-page.js";
 import { TRIED_CONTROLS, triedControlRow } from "./tried-controls-page.js";
 
 /**
@@ -39,7 +39,9 @@ import { TRIED_CONTROLS, triedControlRow } from "./tried-controls-page.js";
  * nothing to say which part of the page a card was in). Each heading says its
  * depth in the outline (`data-depth`, `contents-here.ts`): a part is 1, an
  * action or a group of ideas 2, a control type inside an action 3 — which is
- * what the bar standing at the top of the page names as you scroll. */
+ * what the bar standing at the top of the page names as you scroll. Every
+ * card's heading says `data-card`, and CONTENTS lists it by name under its
+ * section (13 October 2026, the owner: every level in the menu, clickable). */
 interface Part {
   id: string;
   title: string;
@@ -60,9 +62,6 @@ function partHead(part: Part, sub: string): HTMLElement {
   head.id = part.id;
   const h2 = text("h2", part.title);
   h2.dataset.depth = "1";
-  // Drawn by the stylesheet, so the heading's text — what CONTENTS lists —
-  // stays the part's name.
-  h2.dataset.num = String(Object.values(PART).indexOf(part) + 1);
   head.appendChild(h2);
   head.appendChild(text("p", sub, "sub"));
   return head;
@@ -74,7 +73,7 @@ function decisions(): HTMLElement {
   for (const d of DECISIONS) {
     const item = document.createElement("section");
     item.className = "field-decision";
-    item.appendChild(text("h3", d.title));
+    item.appendChild(cardTitle(text("h3", d.title), "decision"));
     item.appendChild(text("p", d.text));
     if (d.rows) item.appendChild(text("p", `ROWS · ${d.rows.join(" · ")}`, "rows"));
     box.appendChild(item);
@@ -103,6 +102,7 @@ function gestureGrid(state: GestureState): HTMLElement {
   grid.className = "gesture-grid";
   for (const g of GESTURES.filter((x) => x.state === state)) {
     const c = card(g);
+    cardTitle(c, "gesture");
     const note = GESTURE_NOTES[g.name];
     if (note) c.appendChild(suggested(note));
     grid.appendChild(c);
@@ -171,6 +171,7 @@ export function renderFieldPage(): void {
   body.appendChild(tried);
   for (const c of TRIED_CONTROLS) {
     const row = triedControlRow(c);
+    cardTitle(row, "tried");
     const note = TRIED_NOTES[c.name];
     if (note) row.appendChild(suggested(note));
     body.appendChild(row);

@@ -1,6 +1,7 @@
 import { describe, expect, test } from "bun:test";
 import { trailOf } from "../src/contents-here.js";
-import { bindContents, listedHeadings, whereOnPage } from "../src/tabs.js";
+import { listedHeadings, outlineNumbers, whereOnPage } from "../src/contents-list.js";
+import { bindContents } from "../src/tabs.js";
 import { FakeEl, installDom } from "./fake-dom.js";
 
 /**
@@ -19,6 +20,13 @@ function heading(tag: string, text: string, depth?: number): FakeEl {
   el.tagName = tag;
   el.textContent = text;
   if (depth) el.dataset.depth = String(depth);
+  return el;
+}
+
+/** A card's heading inside a section: an enemy's use, a gesture. */
+function cardHead(text: string, kind = "use"): FakeEl {
+  const el = heading("H4", text);
+  el.dataset.card = kind;
   return el;
 }
 
@@ -144,37 +152,63 @@ describe("a page that writes its own outline", () => {
     heading("H2", "THE RAW EVENTS", 1),
   ];
 
-  test("lists its parts and their sections, never a step", () => {
+  test("lists every level of it, and nothing it did not mark", () => {
     const body = new FakeEl();
-    body.append(...outline(), heading("H3", "ONE WRONG-SEAT RULE"));
+    body.append(...outline(), heading("H3", "A HEADING OUTSIDE THE OUTLINE"));
     expect(listedHeadings(body as unknown as HTMLElement).map((h) => h.textContent)).toEqual([
       "DECISIONS",
       "WHAT THE FIELD ANSWERS",
       "GRAB AND DRAG",
+      "LEVER",
       "HOLD",
       "THE RAW EVENTS",
     ]);
   });
 
-  test("numbers its parts and nests its sections in the menu", () => {
+  test("numbers every section by where it sits, in the menu and on the page", () => {
     const body = new FakeEl();
-    body.append(...outline());
+    const sections = outline();
+    body.append(...sections);
     const { list, restore } = page(body);
     try {
       expect(list.children.map((li) => li.className)).toEqual([
         "depth-1",
         "depth-1",
         "depth-2",
+        "depth-3",
         "depth-2",
         "depth-1",
       ]);
-      expect(list.children.map((li) => li.children[0]?.dataset.num ?? "")).toEqual([
-        "1",
-        "2",
-        "",
-        "",
-        "3",
+      const numbers = ["1", "2", "2.1", "2.1.1", "2.2", "3"];
+      expect(list.children.map((li) => li.children[0]?.dataset.num ?? "")).toEqual(numbers);
+      expect(sections.map((h) => h.dataset.num)).toEqual(numbers);
+    } finally {
+      restore();
+    }
+  });
+
+  test("lists a section's cards as one line of jumps under its row", () => {
+    const body = new FakeEl();
+    const blister = cardHead("THE BLISTER");
+    body.append(
+      heading("H2", "WHAT THE FIELD ANSWERS", 1),
+      heading("H3", "LEVER", 3),
+      cardHead("THE BALLOON"),
+      blister,
+      heading("H2", "HOLD", 2),
+    );
+    const { list, restore } = page(body);
+    try {
+      expect(list.children.map((li) => li.className)).toEqual([
+        "depth-1",
+        "depth-3",
+        "chips at-4",
+        "depth-2",
       ]);
+      const chips = list.children[2]?.children ?? [];
+      expect(chips.map((c) => c.textContent)).toEqual(["THE BALLOON", "THE BLISTER"]);
+      chips[1]?.click();
+      expect(blister.scrolledIntoView).toBe(true);
     } finally {
       restore();
     }
@@ -225,6 +259,20 @@ describe("where you are", () => {
 
   test("leaves a part's section behind at the next part", () => {
     expect(names(6)).toEqual(["THE RAW EVENTS"]);
+  });
+});
+
+describe("an outline's numbers", () => {
+  test("count afresh under each new section", () => {
+    const heads = asEls([
+      heading("H2", "A", 1),
+      heading("H2", "B", 2),
+      heading("H3", "C", 3),
+      heading("H3", "D", 3),
+      heading("H2", "E", 1),
+      heading("H2", "F", 2),
+    ]);
+    expect(outlineNumbers(heads)).toEqual(["1", "1.1", "1.1.1", "1.1.2", "2", "2.1"]);
   });
 });
 

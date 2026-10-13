@@ -38695,3 +38695,18 @@ found one typecheck error at a time.
 Bottleneck: proving a stale entry stale took a browser run and a probe.
 
 *Measured: 5 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-13 — ON THE FIELD lists every level in CONTENTS, numbered
+
+- reading: 5 min. `field-page.ts`, `field-action-cards.ts`, the menu in
+  `tabs.ts` and the bar in `contents-here.ts`, and the headings as drawn.
+- writing: 5 min. `contents-list.ts` out of `tabs.ts`, `data-card` on every
+  card's heading, the numbers, the two sheets, the test.
+- looking: 5 min. The menu and a chip's jump in the browser pane, and the
+  first chip of a line wearing the row's style.
+- friction: 0 min.
+- landing: 5 min. `imports:sort`, `bun run index` for the new file,
+  `check:fast`, `land`.
+
+Bottleneck: reading which heading the page drew at which level, since tag and
+depth disagreed.
