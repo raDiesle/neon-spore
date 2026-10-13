@@ -57,6 +57,13 @@ describe("THE COMBO LAB's combos", () => {
     for (const k of keys.filter((k) => k !== "beats")) expect(named).toContain(k);
   });
 
+  test("the page has one COMBO category, and every combo type is under it", () => {
+    const withLab = FIELD_ACTIONS.filter((a) => a.comboLab);
+    const typed = FIELD_ACTIONS.filter((a) => a.types.some((t) => t.comboLab));
+    expect(withLab.map((a) => a.key)).toEqual(["combo"]);
+    expect(typed.map((a) => a.key)).toEqual(["combo"]);
+  });
+
   test("an unknown key opens on the first", () => {
     expect(comboRuleOf("nothing")).toBe(COMBO_RULES[0] as ComboRule<unknown>);
   });

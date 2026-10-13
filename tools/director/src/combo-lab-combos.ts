@@ -17,8 +17,8 @@ import { PRESS_PULL } from "./combo-press-pull.js";
 
 /**
  * **Every combo THE COMBO LAB plays**, in the order of its COMBO choice — one
- * for each action of the CONTROLS page's ON THE FIELD sheet that asks two
- * gestures as one (`field-actions-combo.ts`, its `comboLab` keys):
+ * for each type of the ON THE FIELD sheet's one COMBO action, where the lab
+ * stands once (`field-actions-combo.ts`, its `comboLab` keys):
  *
  * - **PULL, THEN HOLD** — the pull held at its end, for the partner or beats;
  * - **HOLD WHILE THE PARTNER PULLS / TAPS** — the hold first, the partner's

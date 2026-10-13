@@ -1,4 +1,5 @@
 import { openComboLab } from "./combo-lab.js";
+import { comboRuleOf } from "./combo-lab-combos.js";
 import { type ControlType, type FieldAction, typeUses, userOf, usersOf } from "./field-actions.js";
 import type { FieldControlDef } from "./field-control-def.js";
 import { lookOf } from "./field-looks.js";
@@ -135,6 +136,10 @@ function labCards(at: { lab?: string; holdLab?: string; comboLab?: string }): HT
   });
 }
 
+/** A type's own labs. THE COMBO LAB is not one: it stands once over the
+ * COMBO action and plays every type there, so a type only names its choice. */
+const typeLabs = (t: ControlType): HTMLElement[] => labCards({ lab: t.lab, holdLab: t.holdLab });
+
 /** Every gesture an action or one of its types draws first. */
 export const placedGestures = (a: FieldAction): string[] => [
   ...(a.gestures ?? []),
@@ -177,7 +182,11 @@ function typeBlock(
   box.appendChild(text("p", t.says, "says"));
   box.appendChild(text("p", `USED BY · ${usersOf(t.rows).join(" · ")}`, "users"));
   if (t.suggest) box.appendChild(suggested(t.suggest));
-  const own = concepts(t.gestures, labsAbove ? [] : labCards(t));
+  if (t.comboLab)
+    box.appendChild(
+      text("p", `IN THE COMBO LAB ABOVE · ${comboRuleOf(t.comboLab).label}`, "users"),
+    );
+  const own = concepts(t.gestures, labsAbove ? [] : typeLabs(t));
   if (own) box.appendChild(own);
   const compare = text("button", "▤ COMPARE ALL USES", "field-try");
   compare.addEventListener("click", () =>
@@ -223,7 +232,7 @@ export function actionSection(
   // A type with no gesture of its own tries the action's: its lab stands
   // beside that card, up here, rather than alone under the type's title.
   const above = (t: ControlType): boolean => !!a.gestures?.length && !t.gestures?.length;
-  const own = concepts(a.gestures, [...labCards(a), ...types.filter(above).flatMap(labCards)]);
+  const own = concepts(a.gestures, [...labCards(a), ...types.filter(above).flatMap(typeLabs)]);
   if (own) box.appendChild(own);
   // An action with one type is that type: its title would only repeat the
   // action's own.

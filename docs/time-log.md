@@ -38454,3 +38454,16 @@ Bottleneck: finding the one tick where the knob is drawn and not yet pulled.
 Bottleneck: none to speak of; the idiom was one test over.
 
 *Measured: 4 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-13 — ON THE FIELD's combos are one COMBO category, with one COMBO LAB
+
+- reading: 5 min. The four combo actions, the lab cards and where a lab
+  stands on the page.
+- writing: 10 min. One COMBO action with five types, the lab put up once at
+  its head, each type naming its choice in the lab, a test for one category.
+- looking: 5 min. The director's ON THE FIELD sheet: one COMBO heading, one lab.
+- friction: 5 min. The director preview first served another worktree;
+  `bun run here` pointed it at this one.
+- landing: 5 min. `check:fast`, `land`.
+
+Bottleneck: the preview answering from the wrong tree before `bun run here`.
