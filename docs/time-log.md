@@ -39063,3 +39063,5 @@ Bottleneck: converting eleven call sites from closing over the screen to drawing
   two op budgets remeasured, the index, six queue entries.
 
 Bottleneck: the director that answered first was serving another tree.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

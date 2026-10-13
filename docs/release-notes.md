@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-13 · b148f29b6 — Every hold on the field is the HOLD LAB's drop, says no HOLD, and THE INSTAR loses its red ring
+
+A HOLD cue on any boss is no longer a red circle with a thumbprint and the word HOLD under it: it is the HOLD LAB's SOAK drop, calling with its halo and ripples, and no word or line beside it — as a pull says no PULL. THE BLISTER's hold and THE INSTAR's HOLD BOTH wear the drop too, its green water welling out to the rim as the hold is done. THE INSTAR's red window ring round every mark is gone. A TAP that asks for a print (THE GOVERNOR) keeps the thumbprint's circle. The drop is the game's own now, and the labs draw it from there. A look the owner asked for by name. The bosses that still draw their own hold ring under the cue's drop are queued, a few to a lane.
+
 ## 2026-10-13 · 78d13ae6b — A glancing part is laid down as one picture, so no hairline runs down its middle
 
 A boss part offered glancing in VERSUS was drawn twice, once under each half's clip. Where the clips met, its layers composited at partial cover and left a line down the middle. Now `drawGlancedLayer` draws the part once into an offscreen layer and lays that picture down twice, clipped and squeezed. Every boss's glance callback now draws on the context it is handed.
