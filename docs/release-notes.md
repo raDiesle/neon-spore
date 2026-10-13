@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-13 · 199a1c260 — The director says restart me when a page asks for a source by path
+
+A page whose bundle lost track of director.css once asked the director for /tools/director/src/director.css and got a bare "not found", which read like a missing file. The file was there; only the running server's picture of the tree was stale. A request under tools/, packages/ or apps/ that no route takes now gets a 404 saying to stop and start the director. The 404 itself did not reproduce on Bun 1.4.3: two sheets added to the @import list with the page open were rebuilt on reload.
+
 ## 2026-10-13 · 9d90f4a3a — time-log: seven field controls drawn as the PULL LAB's knob
 
 ## 2026-10-13 · ca8cd45ed — THE WARDEN's hatch swipe is the PULL LAB's knob on a two-way channel
