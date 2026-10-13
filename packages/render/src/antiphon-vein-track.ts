@@ -1,4 +1,5 @@
 import type { AntiphonState, SimConfig } from "@neon-spore/sim";
+import { antiphonVeinKey } from "./antiphon-rail-grip.js";
 import { antiphonOrganCircle, antiphonPerch } from "./antiphon-shape.js";
 import type { Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
@@ -15,7 +16,7 @@ import { drawPullTrack, type PullTrack } from "./pull-track.js";
  * organ's place, and green behind the candidate as far as it has been
  * carried. The vein is the flesh round it (`antiphon-veins.ts`), wide enough
  * that both read — the road as a vein, the vein as a road. The big circle to
- * start is the candidate's own ring (`antiphon-rail-grip.ts`).
+ * start is the PULL LAB's knob over the candidate (`antiphon-rail-grip.ts`).
  *
  * Up when the rings are, and gone with them: a channel that showed before
  * the rail could be taken would be a mark up before its window.
@@ -59,6 +60,7 @@ export function drawAntiphonVeinTracks(
       origin: 0,
       at: held ? s.carryMilli / 1000 : 0,
       time,
+      key: antiphonVeinKey(i),
     });
   }
 }

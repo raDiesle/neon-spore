@@ -8,12 +8,12 @@ import { antiphonCandidateAt, antiphonOrganCircle, antiphonPerch } from "./antip
 import type { BossCue } from "./boss-cue.js";
 import { cueSeen } from "./boss-cue.js";
 import { drawCueText } from "./boss-cue-text.js";
-import { drawGripRing } from "./grip-rings.js";
 import { drawVerdictRing, type GripVerdicts } from "./grip-verdict.js";
 import { handleRadius } from "./handle-draw.js";
 import { hitCircle, type Layout } from "./layout.js";
 import { drawMarkHalo } from "./mark-feedback.js";
-import { drawPullArrow } from "./pull-knob.js";
+import { PALETTE } from "./palette.js";
+import { drawPullKnob } from "./pull-knob.js";
 import type { Field, Touch } from "./touch.js";
 import { bossOf } from "./touch-field.js";
 import { showsAntiphonRail } from "./view-role-clocks-b.js";
@@ -33,10 +33,12 @@ import { showsAntiphonRail } from "./view-role-clocks-b.js";
  * seat cannot see is not a handle. A press from the other seat is dropped
  * without a sound in the simulation, as `queenMark` drops it.
  *
- * **A ring on every candidate, never on one**: a ring on the one being
- * described would be the chooser's own reading handed back. Each carries
- * the way down its vein inside it (`drawPullArrow`), and the one in hand
- * moves with its ring. The hit test is the candidate's resting circle at its
+ * **A knob on every candidate, never on one**: a knob on the one being
+ * described would be the chooser's own reading handed back. Each is the
+ * PULL LAB's knob every pull wears (`drawPullKnob`), over the candidate, with
+ * the way down its vein inside it, and the one in hand moves with its knob —
+ * the owner, 13 October 2026, on THE ANTIPHON'S RAIL: *it should have regular
+ * pull button on top of the visuals, not individual*. The hit test is the candidate's resting circle at its
  * perch, thumb-sized, nearest wins — `creatureAt`'s rule. Whether the carry
  * *takes* — not before the organ stands, not a second one at once — is the
  * simulation's to refuse.
@@ -87,7 +89,7 @@ export function antiphonRailUnder(l: Layout, x: number, y: number, field: Field)
   };
 }
 
-/** The rings, each with the way down its vein, and the one word where the veins end. */
+/** The knobs, each with the way down its vein, and the one word where the veins end. */
 export function drawAntiphonRailGrip(
   ctx: CanvasRenderingContext2D,
   l: Layout,
@@ -104,12 +106,11 @@ export function drawAntiphonRailGrip(
     const at = antiphonCandidateAt(l, cfg, s, i);
     if (antiphonRailAsks(s, cfg, beat, i)) drawMarkHalo(ctx, at.x, at.y, r, time);
     const held = s.carried === i;
-    drawGripRing(ctx, at.x, at.y, r, held, time);
-    const len = Math.hypot(organ.x - at.x, organ.y - at.y);
-    if (len > 1) {
-      const way = { dx: (organ.x - at.x) / len, dy: (organ.y - at.y) / len };
-      drawPullArrow(ctx, at, r, way, time, { alpha: held ? 0.6 : 0.85 });
-    }
+    // The way down the vein, from the perch: the knob rides the carry, the arrow does not turn with it.
+    const from = antiphonPerch(l, cfg, s.rail[i]?.col ?? 0);
+    const len = Math.hypot(organ.x - from.x, organ.y - from.y) || 1;
+    const way = { dx: (organ.x - from.x) / len, dy: (organ.y - from.y) / len };
+    drawPullKnob(ctx, at, r, { ...LOOK, held, time, way, key: antiphonVeinKey(i) });
   }
   // **The cue** (`decisions.md` #34, `boss-cue-text.ts`): CHOOSE, standing
   // where the carry ends — the owner, 5 October 2026: *add some helper text
@@ -130,6 +131,14 @@ export function drawAntiphonRailGrip(
     framed: false,
   };
   if (cueSeen(cue, l.role)) drawCueText(ctx, cue, time);
+}
+
+/** The knobs' colours: the organ's, as the channel in each vein is (`antiphon-vein-track.ts`). */
+const LOOK = { hex: PALETTE.organ, rim: PALETTE.organRim } as const;
+
+/** Which vein's pull this is, the one name its knob and its channel share (`PullMemory`). */
+export function antiphonVeinKey(i: number): string {
+  return `antiphon-vein-${i}`;
 }
 
 /** The organ's verdict, on every screen: green for the organ carried home, red for a decoy. */

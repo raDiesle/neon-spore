@@ -20,7 +20,7 @@ export const DRAG_LOOKS: Readonly<Record<string, UseLook>> = {
     move: "The slab comes off the moon after the thumb and its channel fills; past the pull it tears and flies off. Let go short and it snaps back red.",
   },
   "THE ANTIPHON'S RAIL": {
-    find: "A ring on each candidate on the rail a third of the way down, on the chooser's screen, haloed once the organ stands.",
+    find: "A knob on each candidate on the rail a third of the way down, on the chooser's screen, haloed once the organ stands.",
     move: "The candidate follows the thumb down its vein towards the organ; let go short and it springs back to the rail. The verdict is drawn round the organ on both screens.",
   },
   "THE GAUGE'S TOOTH": {

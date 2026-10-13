@@ -72,18 +72,30 @@ describe("THE ANTIPHON's handles asking", () => {
     expect(asked - organ(s, "p1")).toBe(1);
   });
 
+  // Each candidate wears the PULL LAB's knob, which lights itself with gradients
+  // of its own (`goo-knob.ts`): the halos are what the frame draws beyond the
+  // same knobs on a rail that asks nothing — the organ still growing.
+  const unasked = (world: World, s: AntiphonState, role: ViewRole): number => {
+    const grown = s.organ?.grownBeat;
+    if (s.organ !== null) s.organ.grownBeat = world.beat;
+    const n = count(rail(world, s, role), HALO);
+    if (s.organ !== null && grown !== undefined) s.organ.grownBeat = grown;
+    return n;
+  };
+
   it("halo every candidate a carry would take on, and none while one is in hand", () => {
     const { world, s } = standing();
-    expect(count(rail(world, s, "p2"), HALO)).toBe(3);
-    expect(count(rail(world, s, "test"), HALO)).toBe(3);
+    expect(count(rail(world, s, "p2"), HALO) - unasked(world, s, "p2")).toBe(3);
+    expect(count(rail(world, s, "test"), HALO) - unasked(world, s, "test")).toBe(3);
     s.carried = 0;
-    expect(count(rail(world, s, "p2"), HALO)).toBe(0);
+    expect(count(rail(world, s, "p2"), HALO) - unasked(world, s, "p2")).toBe(0);
   });
 
   it("ask no carry while the organ is still growing, since the carry would be dropped", () => {
     const { world, s } = standing();
+    const asking = count(rail(world, s, "p2"), HALO);
     if (s.organ !== null) s.organ.grownBeat = world.beat;
-    expect(count(rail(world, s, "p2"), HALO)).toBe(0);
+    expect(asking - count(rail(world, s, "p2"), HALO)).toBe(3);
     expect(rail(world, s, "p2")).not.toBe("");
   });
 });

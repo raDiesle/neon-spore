@@ -44,7 +44,7 @@ export const ANTIPHON_CONTROLS: readonly FieldControlDef[] = [
     where:
       "any candidate on the rail a third of the way down the field, on the " +
       "chooser's screen — player 2's on the first level, swapping every level",
-    seat: "the chooser on their screen; the chooser on the test screen — a ring on each candidate",
+    seat: "the chooser on their screen; the chooser on the test screen — a knob on each candidate",
     gesture: "grab and drag",
     does:
       "Carrying a candidate down its vein to where the organ stands, " +
