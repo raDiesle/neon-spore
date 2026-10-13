@@ -54,12 +54,13 @@ export const WARDEN_CONTROLS: readonly FieldControlDef[] = [
   {
     name: "THE WARDEN'S SWIPE",
     where:
-      "a track across the eye on player 1's screen under GLARE — the last " +
-      "plate, with no rope coming down — wardenThrowMilli out each side, " +
-      "chevrons on it and a halo under it, filling green as the thumb " +
-      "carries it; on player 2's, the partner's dashed bar and clock, and " +
-      "the fill; on the test screen; a dial round the eye on both while " +
-      "it is thrown",
+      "the PULL LAB's knob on a channel across the eye on player 1's screen " +
+      "under GLARE — the last plate, with no rope coming down — " +
+      "wardenThrowMilli out each side, an arrow of two heads on the knob " +
+      "until it goes one way, a halo under it, the channel filling green " +
+      "as the thumb carries it; on player 2's, the partner's knob with no " +
+      "arrow, a dashed ring and the clock, and the fill; on the test " +
+      "screen; a dial round the eye on both while it is thrown",
     seat: "player 1 only — the seat whose rope is gone, given the door instead",
     gesture: "grab and drag",
     does:

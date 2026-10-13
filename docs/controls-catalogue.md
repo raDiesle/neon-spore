@@ -155,7 +155,7 @@ Taught once, by the guide; **no helper on the field** (above).
 | `straightPullTrack`, `StraightPull`, `PullWay`, `PULL_UP`, `PULL_DOWN`, `pullRoom`, `fittingWay` | `pull-line.ts` | a pull measured as a distance, as a straight track that turns to follow the hand; how much field it has room for | THE WARDEN, THE LID, THE STARE, THE CURTAIN |
 | `drawWayArrow` | `way-arrow.ts` | **a direction**: THE INSTAR's arrow turned any way; `heads: 2` for a pull that may go either way | THE INSTAR's rings, every knob |
 | `drawShakeArrows` | `maze-shake-arrows.ts` | a shake: eight chevrons, any way, green once this seat's thumb is on | THE MAZE's heart |
-| `drawInstarGlyph` | `instar-glyphs.ts` | the gesture inside a ring: an arrow for a pull, flaring dots for a tap, chevrons for a swipe, a hooked arc for a turn either way, two thumbs for a hold, the button face for a shield or a suck | THE INSTAR, THE WARDEN's swipe |
+| `drawInstarGlyph` | `instar-glyphs.ts` | the gesture inside a ring: an arrow for a pull, flaring dots for a tap, chevrons for a swipe, a hooked arc for a turn either way, two thumbs for a hold, the button face for a shield or a suck | THE INSTAR |
 | `drawInstarPull`, `instarPullTrack`, `instarPullSpan`, `instarMarkPulls` | `instar-pull.ts` | **a mark that is a carry** — PULL DOWN, PULL UP, SWIPE DOWN: the PULL LAB's knob on a channel as long as the carry the simulation counts | THE INSTAR |
 | `drawCrankDial` | `crank-dial.ts` | a turn of the crank | the band |
 

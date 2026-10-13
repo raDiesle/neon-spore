@@ -12,14 +12,15 @@ import {
   runFrames,
   waveWith,
 } from "./frame-harness.js";
+import { spyPulls } from "./pull-spy.js";
 
 setDefaultTimeout(FRAME_TIMEOUT_MS);
 
 /**
- * **THE WARDEN's hatch is a track that fills before the lift**
- * (`warden-track.ts`): under GLARE the carry the thumb has made is drawn green
- * along the bar on both screens, the rim goes green once the lift would
- * throw, and the navigator's copy wears the partner's clock.
+ * **THE WARDEN's hatch is the PULL LAB's knob on a channel that fills before
+ * the lift** (`warden-track.ts`): under GLARE the knob rides the carry the
+ * thumb has made and the channel fills green behind it on both screens, and
+ * the navigator's copy wears the partner's clock.
  */
 
 beforeAll(installCanvasGlobals);
@@ -57,11 +58,36 @@ describe("THE WARDEN's hatch track", () => {
   it.each(ROLES)("fills green with the carry, and not before it, on %s", (role) => {
     const none = count(drawn(role, carried(0)), PALETTE.good);
     const some = count(drawn(role, carried((CFG.wardenThrowMilli * 3) / 4)), PALETTE.good);
-    const full = count(drawn(role, carried(-CFG.wardenThrowMilli)), PALETTE.good);
     expect(none).toBe(0);
     expect(some).toBeGreaterThan(0);
-    // The whole way: the rim goes green as well as the fill.
-    expect(full).toBeGreaterThan(some);
+  });
+
+  it.each(ROLES)("carries the knob from the eye toward the side the thumb went, on %s", (role) => {
+    // The channel runs `wardenThrowMilli` either side of the eye, the knob
+    // starting in the middle (`warden-track.ts`).
+    const at = (milli: number) => {
+      const { tracks } = spyPulls(() => drawn(role, carried(milli)));
+      const hatch = tracks.filter((t) => t.o.key === "warden:hatch");
+      expect(hatch.length).toBeGreaterThan(0);
+      return hatch.map((t) => t.o.at);
+    };
+    expect(at(0).every((a) => a === 0.5)).toBe(true);
+    expect(at(CFG.wardenThrowMilli / 2).every((a) => a > 0.5 && a < 1)).toBe(true);
+    expect(at(-CFG.wardenThrowMilli).every((a) => a === 0)).toBe(true);
+  });
+
+  it("asks either way with two heads on the pilot's knob, and shows none on the navigator's", () => {
+    const knobs = (role: ViewRole, milli: number) => {
+      const spied = spyPulls(() => drawn(role, carried(milli)));
+      const hatch = spied.knobs.filter((k) => k.key === "warden:hatch");
+      expect(hatch.length).toBeGreaterThan(0);
+      return hatch;
+    };
+    expect(knobs("p1", 0).every((k) => k.either === true && k.way !== null)).toBe(true);
+    expect(
+      knobs("p1", -CFG.wardenThrowMilli / 2).every((k) => !k.either && (k.way?.dx ?? 0) < 0),
+    ).toBe(true);
+    expect(knobs("p2", 0).every((k) => k.way === null && k.theirs === true)).toBe(true);
   });
 
   it("wears the partner's ring and clock on the navigator's screen alone", () => {

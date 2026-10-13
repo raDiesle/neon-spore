@@ -9,6 +9,7 @@ import {
 } from "@neon-spore/sim";
 import { drawGripDial, drawGripRing } from "./grip-rings.js";
 import { drawVerdictRing, type GripVerdict } from "./grip-verdict.js";
+import { handleRadius } from "./handle-draw.js";
 import { type Circle, hitCircle, type Layout } from "./layout.js";
 import { drawMarkHalo, drawMarkTheirs, drawMarkWait } from "./mark-feedback.js";
 import type { Field, Touch } from "./touch.js";
@@ -37,9 +38,10 @@ import { drawWardenTrack } from "./warden-track.js";
  *
  * What is drawn is read off the world every frame and nothing is kept: under
  * NARROW a ring on the eye on the navigator's screen, breathing until her
- * thumb lands and filled while the sim has it (`eyeHeld`); under GLARE a track
- * through the hatch, because a swipe is drawn as the way the thumb goes and
- * never as a ring, filling as his thumb carries it (`warden-track.ts`), until
+ * thumb lands and filled while the sim has it (`eyeHeld`); under GLARE the
+ * PULL LAB's knob on a channel through the hatch, because a swipe is drawn as
+ * the way the thumb goes and never as a ring, riding as his thumb carries it
+ * (`warden-track.ts`), until
  * the lift throws it, and then the window's dial round the eye on **both**
  * screens, because three beats is *our* count — the shot has to go inside it. The other seat's thumb is never
  * drawn as a thumb: the pilot sees the lids part, the navigator sees the
@@ -153,7 +155,8 @@ export function drawWardenGrip(
   } else if (!wardenThrown(world, b)) {
     const reach = (l.tile * cfg.wardenThrowMilli) / 1000;
     const along = wardenSwipeAlong(world, b) / 1000;
-    drawWardenTrack(ctx, { x: c.x, y: c.y, r }, reach, along, role !== "p2", time);
+    const knob = handleRadius(l, cfg);
+    drawWardenTrack(ctx, { x: c.x, y: c.y, r }, knob, reach, along, role !== "p2", time);
   } else {
     // The window, off the same beat `wardenThrown` read: the dial and the door agree.
     const gone = (world.beat - b.throwBeat + beatPhase) / cfg.wardenThrowBeats;

@@ -739,19 +739,19 @@ circle — and the desk asks the eye whose it is before a press
 (`wardenGripSeat`, `desk-grab.ts`), as it asks THE INSTAR's rings. The
 rope keeps the shared pull track it already had (`tether.ts`).
 
-**The hatch's swipe is a track, not a ring** (28 September 2026, the
-owner's rule of the 24th: a swipe is drawn the length of the swipe). Under
-GLARE the eye wears a bar through it, `wardenThrowMilli` out each side
-because the throw counts either way across, with the chevrons pointing out
-along both halves (`warden-track.ts`, THE INSTAR's `instar-pull.ts` in its
-own shape). Every move of the pilot's thumb is heard, not only the lift:
+**The hatch's swipe is a pull, not a ring** (28 September 2026, the
+owner's rule of the 24th: a swipe is drawn the length of the swipe; since
+13 October 2026 the PULL LAB's knob on its channel, as every pull). Under
+GLARE the eye wears a channel through it, `wardenThrowMilli` out each side
+because the throw counts either way across, the knob in the middle with an
+arrow of two heads until the thumb picks a side (`warden-track.ts`). Every move of the pilot's thumb is heard, not only the lift:
 `hatchCarryMilli` keeps the furthest carry, signed, capped at the throw and
 forgotten on the lift, and the lift is judged on it — so a thumb that went
 the whole way and drifted back still throws, and the fill cannot promise
-what the lift will not do. The bar fills green from the eye toward the side
-the thumb is going (`wardenSwipeAlong`), and its rim goes green the moment
-the lift would throw. The navigator sees the same fill inside the
-partner's dashed bar, since the carry is his hand arriving.
+what the lift will not do. The knob rides from the eye toward the side
+the thumb is going (`wardenSwipeAlong`), the channel filling green behind
+it. The navigator sees the same knob travel, with no arrow and a dashed
+ring round the eye, since the carry is his hand arriving.
 
 **What is not built**: nothing of the design. *Never watched at tempo*:
 whether three beats is a window a pair can hit across a voice delay, whether
