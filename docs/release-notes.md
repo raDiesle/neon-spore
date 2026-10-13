@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-13 · d77b45ed0 — Two source sweeps get a figure scaled to the load, not bun's five seconds
+
+The catalogue's shared-file sweep and the bakedCache guard each read all of packages/render/src and timed out at a load average of fifty-five. Both now read through treeText and run under itCosts, so their cap grows with the machine's load and a drifted figure is said.
+
 ## 2026-10-12 · 460aa58cd — THE LAMPREY's plug: the tail's pull appears once the button is pressed in
 
 In THE LAMPREY's fourth level, the seat on the tail no longer has a knob before the partner has pressed the bitten button back in. Once the button is in, the teeth have lost it: it stops creeping out, and the tail's knob comes in to be pulled the whole way, bringing the eel out of the ship. The old rule is gone: a pull that could be taken at once and was yanked back, with the thumb thrown off, if it got there before the press. The yank's event, its sound and its number go with it. THE COMBO LAB plays the new rule as PRESS, THEN PULL, in place of PULL ONCE THE PARTNER HAS PRESSED. The specs and the CONTROLS rows say it. A change the owner asked for by name.

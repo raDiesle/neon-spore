@@ -38452,3 +38452,5 @@ Bottleneck: finding the one tick where the knob is drawn and not yet pulled.
 - landing: 5 min. Biome's wrap, `check:fast`, `land`.
 
 Bottleneck: none to speak of; the idiom was one test over.
+
+*Measured: 4 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
