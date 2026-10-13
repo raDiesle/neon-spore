@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-13 · 813d7624f — PINBALL's offered glance darkens its pods, not an ellipse round them
+
+The far side's dark was an ellipse as wide as the pod's radius, which reached past the pod's lobes into a crescent of shadow on the table. It is now laid over each pod's own contour. Exemption: a fix to something wrong — and only in the VERSUS candidates, which ship still.
+
 ## 2026-10-13 · 0b61f95f5 — Time log for THE GAUGE's tongue two-way pull
 
 ## 2026-10-13 · 3e587efd8 — THE GAUGE's tongue is the PULL LAB's knob on a two-way channel
