@@ -38485,3 +38485,15 @@ Bottleneck: the preview answering from the wrong tree before `bun run here`.
 Bottleneck: reconciling two lanes' opposite fixes — renaming serves both.
 
 *Measured: 5 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-13 — versus adopt takes every record a candidate patches in one file
+
+- reading: 5 min. `planFor`, `adopt`'s write loop, the function take that
+  already took the text it was handed.
+- writing: 5 min. One map of each file's text so far; `planFor` exported
+  and a test of two records in one file, red without the fix.
+- looking: 0 min. Nothing drawn.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, `land`.
+
+Bottleneck: none; the entry named the line.

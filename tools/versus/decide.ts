@@ -77,9 +77,16 @@ function noSlot(name: string, open: readonly string[]): Error {
  * comparison has to be what the live record says at this moment, because a
  * value copied into a candidate is the drift this whole arrangement exists to
  * prevent.
+ *
+ * **Two patches on one file rewrite one text.** Each entry's text was read
+ * from disk, and `adopt` writes every entry whole, so of SCUTTLE_ROWS and
+ * SCUTTLE_FRAME, both in `scuttle-shape.ts`, only the second reached the file
+ * (9 October 2026). A file's later patch starts from what its earlier one
+ * produced, so the last write of a file carries all of them.
  */
-function planFor(won: Variant, root: string, as?: string): FileEdit[] {
+export function planFor(won: Variant, root: string, as?: string): FileEdit[] {
   const plan: FileEdit[] = [];
+  const written = new Map<string, string>();
   for (const patch of won.patches) {
     const file = join(root, patch.where.file);
     const fields = patch.fields as Record<string, unknown>;
@@ -93,7 +100,8 @@ function planFor(won: Variant, root: string, as?: string): FileEdit[] {
         functions.push(field);
       } else plain[field] = fields[field];
     }
-    const result = rewriteRecord(readFileSync(file, "utf8"), patch.where.symbol, plain, current);
+    const was = written.get(file) ?? readFileSync(file, "utf8");
+    const result = rewriteRecord(was, patch.where.symbol, plain, current);
     if (isRefusal(result)) {
       throw new Error(
         [`${patch.where.file} — ${result.why}`, "", ...byHand(won, patch.where.file)].join("\n"),
@@ -109,6 +117,7 @@ function planFor(won: Variant, root: string, as?: string): FileEdit[] {
       taken = take;
       text = take.recordText;
     }
+    written.set(file, text);
     plan.push({
       file: patch.where.file,
       symbol: patch.where.symbol,
