@@ -38980,3 +38980,15 @@ Bottleneck: none.
 Bottleneck: the heart is drawn adding light, so its dark had to be laid on as paint.
 
 *Measured: 6 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-13 — VERSUS offers THE CAIRN's pile glancing
+
+- reading: 5 min. The entry, §11.11, `cairn.ts`, `cairn-units.ts`.
+- writing: 10 min. `cairn-glance.ts`, the pile wrapped with its outline asked
+  for only while it turns, three candidates, the pose's `lookAt`, a test row.
+- looking: 15 min. Three VERSUS shots and magnified crops chasing a hairline
+  down the middle; overlapping the halves made it brighter, so it was queued.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: the hairline where the two halves meet, which is the shared helper's and is queued.

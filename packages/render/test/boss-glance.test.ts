@@ -1,4 +1,5 @@
 import { describe, expect, it } from "bun:test";
+import { CAIRN_GLANCE, CAIRN_GLANCE_SIZE } from "../src/cairn-glance.js";
 import { FLEET_GLANCE, FLEET_GLANCE_SIZE } from "../src/fleet-glance.js";
 import { type Glance, glancedPoint, glanceFrame, glanceStill } from "../src/glance.js";
 import {
@@ -50,6 +51,7 @@ const ROWS: readonly Row[] = [
   { name: "PINBALL", record: PINBALL_GLANCE, size: PINBALL_GLANCE_SIZE, hold: 0 },
   { name: "THE PULSE", record: PULSE_GLANCE, size: PULSE_GLANCE_SIZE, hold: 0 },
   { name: "THE MAZE", record: MAZE_GLANCE, size: MAZE_GLANCE_SIZE, hold: 0 },
+  { name: "THE CAIRN", record: CAIRN_GLANCE, size: CAIRN_GLANCE_SIZE, hold: 1 },
 ];
 
 const R = 100;

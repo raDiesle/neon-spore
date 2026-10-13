@@ -1,12 +1,13 @@
-import type { CairnState, Creature, World } from "@neon-spore/sim";
+import { CAIRN_COLS, type CairnState, type Creature, type World } from "@neon-spore/sim";
 import { type BossHurt, drawHurt } from "./boss-hurt.js";
+import { drawCairnGlanced } from "./cairn-glance.js";
 import { drawPileHand } from "./cairn-hand.js";
 import { CAIRN_LOOK } from "./cairn-look.js";
 import { drawCairnVerdict } from "./cairn-marks.js";
 import { drawCairnSettle, showsCairnSettle } from "./cairn-settle.js";
 import { cairnRoot, cairnUnits, pilePath } from "./cairn-units.js";
 import type { GripVerdicts } from "./grip-verdict.js";
-import type { Layout } from "./layout.js";
+import { type Layout, tileCX, tileCY } from "./layout.js";
 import { outlineHush, outlinePose, poseMatrix } from "./outline-drift.js";
 import type { ViewState } from "./renderer.js";
 
@@ -57,9 +58,18 @@ export function drawCairn(
   const alpha = ctx.globalAlpha;
   // Each stone rocks on its seat by the same hush (`cairn-rock.ts`), and every
   // mark below asks `cairnUnits` with it, so each stays on its stone.
-  CAIRN_LOOK.pile(ctx, l, body, boss, time, hush);
-  if (hurt.value > 0)
-    drawHurt(ctx, pilePath(cairnUnits(l, body, boss.units, time, hush)), hurt.value);
+  // The pile glances with its outer stones held (`cairn-glance.ts`).
+  const at = {
+    x: tileCX(l, body.col + (CAIRN_COLS - 1) / 2),
+    y: tileCY(l, body.row),
+    r: (CAIRN_COLS / 2) * l.tile,
+  };
+  const outline = () => pilePath(cairnUnits(l, body, boss.units, time, hush));
+  const pile = () => {
+    CAIRN_LOOK.pile(ctx, l, body, boss, time, hush);
+    if (hurt.value > 0) drawHurt(ctx, outline(), hurt.value);
+  };
+  drawCairnGlanced(ctx, at, time, pile, outline);
   ctx.globalAlpha = alpha;
   // A hand on it, over the stack rather than under it — the field's grip
   // pass runs before the boss is drawn, and a ring behind seven rocks was

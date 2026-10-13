@@ -56,7 +56,12 @@ export const FIRST_BOSS_POSES: Pose[] = [
     "cairn",
     "stacked",
     "Seven rocks piled five columns wide, and nothing fired reaches them. P1 carries a thumb across it; P2 waits.",
-    { want: stood("cairn"), hold: TPB * 2 },
+    {
+      want: stood("cairn"),
+      hold: TPB * 2,
+      lookAt:
+        "the pile of rocks — whether it turns toward one side about outer stones that stay over their columns, its far side going dark",
+    },
   ),
   bossPose(
     "well",

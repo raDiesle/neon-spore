@@ -2261,6 +2261,14 @@ hold buys off the clock (`cairnHeld`), so a resting thumb goes green once a
 beat while it is buying and stops the beat the hold runs out. One
 `GripVerdicts` in `BossBlows`, one key.
 
+**Offered (13 October 2026, VERSUS `cairn:glance`).** A pile of rocks has no
+head, so the whole stack turns (`packages/render/src/cairn-glance.ts`, which
+ships still) with **its two outer edges held** over the columns a pull drags
+a stone out of; the middle swings toward one side, whose stones open, while
+the far side's close into the dark. The hand, the lane mark and the verdict
+are drawn after it and do not turn. **SWAY**, **LOOK** and **COCK**
+(`glance-styles.ts`), judged on `THE CAIRN · STACKED`.
+
 ## 11.12 THE WELL — the field turned inside out, on one phone
 
 > The one where the lane beside it is the other end of the field.

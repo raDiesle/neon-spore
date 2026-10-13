@@ -328,14 +328,6 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/skipped.test.ts` holds the listing's count of the entries
 `next` stepped past and why.
 
-## THE CAIRN: a part that turns, so it is seen from a new side
-
-- **Found:** 2026-10-10, claude/turn-queue-and-perspective-ideas
-- **Taken:** 2026-10-13, claude/queue-tasks-159048 (claim: claude/queue-the-cairn-a-part-that-turns-so-it-is-seen-from-a)
-- **Files:** `packages/render/src/cairn.ts`, `docs/spec/bosses.md`
-
-The owner, 9 and 10 October 2026, after THE INSTAR's head glances: *body parts of living things turn, especially the head, but also feet and hands, or if mechanical the full boss shape*, and one entry per boss. Read §11.11, pick the part — a head, claws, a turret, or the whole shape of a machine — and follow `.claude/skills/depth`, "A part that glances": a record for its turn that ships still, the far side darkening as it swings, the points a thumb is on held (or the hit test reading the same turn), big enough to see in a still. Offer SWAY, LOOK and COCK on VERSUS as THE INSTAR's were, each cycle six seconds; the owner decides there.
-
 ## THE WELL: a part that turns, so it is seen from a new side
 
 - **Found:** 2026-10-10, claude/turn-queue-and-perspective-ideas
@@ -816,3 +808,19 @@ two shots and a re-crop finding out it was the tool. Refuse a window that
 leaves the picture, naming the picture's size, or clip it and say so in the
 line `crop` prints; a test in `tools/frames/test/` with a window one pixel
 over each edge.
+
+## A glancing part shows a hairline down its middle
+
+- **Found:** 2026-10-13, claude/queue-tasks-159048
+- **Files:** `packages/render/src/glance.ts`
+
+`drawGlanced` draws a part twice, each half under its own clip, and the two
+clips meet at the middle with soft edges. On THE CAIRN's VERSUS shot
+(`cairn:glance`, SWAY) a pale vertical hairline runs down the top stone where
+the halves meet. Running each clip a pixel past the middle made it brighter,
+not gone — the pile has light added under it, which the overlap doubles — so
+that was reverted. Try snapping the middle to a whole device pixel (the two
+clips then meet hard), or drawing the far half first unclipped on the near
+side and the near half over it only where the part is drawn source-over.
+Prove it with a magnified crop of `bun run versus:shot cairn:glance sway
+--freeze 1.5` and the `boss-glance` test still green.
