@@ -892,6 +892,7 @@ window and the URL keys out, and photograph the card instead.
 ## A pull's grab circle did not grow with its 2× knob
 
 - **Found:** 2026-10-12, claude/pull-lab-game-apply-dba692
+- **Taken:** 2026-10-13, claude/session-f1471e (claim: claude/queue-a-pulls-grab-circle-did-not-grow-with-its-2-knob)
 - **Files:** `packages/render/src/pull-knob.ts`, `packages/render/src/tether.ts`, `packages/render/src/handles-cords.ts`, `packages/render/src/maze-string.ts`, `packages/render/src/hasp-grip.ts`, `packages/render/src/bastion-grip.ts`, `packages/render/src/gimbal-grip.ts`, `packages/render/src/lamprey-tow-grip.ts`
 - **Asks:** Now every pull is drawn twice the size, should the circle a press is taken in grow twice too, as it did in the PULL LAB, or stay where it is?
 - **Answered:** 2026-10-13 — (a), the owner: the grab follows the drawn 2× knob, every grip multiplied by `PULL_SIZE`, with a grip test per wave with two handles side by side.
