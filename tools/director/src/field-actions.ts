@@ -1,6 +1,7 @@
 import { COMBO_ACTION } from "./field-actions-combo.js";
 import { DRAG_TYPES } from "./field-actions-drag.js";
 import { OTHER_ACTIONS } from "./field-actions-other.js";
+import { RUB_ACTION } from "./field-actions-rub.js";
 
 /**
  * Where every row of `FIELD_CONTROLS` stands on the CONTROLS sheet — the
@@ -36,6 +37,8 @@ export interface ControlType {
   holdLab?: string;
   /** THE PRESS LAB's presses and look this type starts on (`press-lab.ts`), `5-pips`. */
   pressLab?: string;
+  /** THE RUB LAB's turns, seats and look this type starts on (`rub-lab.ts`), `8-one-zigzag`. */
+  rubLab?: string;
   /** Which of THE COMBO LAB's combos this type is (`combo-lab-combos.ts`):
    * said under it, the lab itself standing once over its action. */
   comboLab?: string;
@@ -92,6 +95,7 @@ export const FIELD_ACTIONS: readonly FieldAction[] = [
     types: DRAG_TYPES,
   },
   ...OTHER_ACTIONS,
+  RUB_ACTION,
   COMBO_ACTION,
 ];
 

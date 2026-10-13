@@ -38598,3 +38598,18 @@ not know as its own — which only a picture showed.
 Bottleneck: none; one constant every grip already read.
 
 *Measured: 7 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-13 — THE RUB LAB, and RUB an action of its own
+
+- reading: 5 min. THE PRESS LAB whole, the game's rub counter
+  (`render/rub-turns.ts`) and THE CHOIR's arrows, for the second task.
+- writing: 5 min. The rule with BOTH AT ONCE, AUTO and the other seat, the
+  smearing drop and its wag, four looks, the sheet found by running the
+  loop, `place.ts`'s labs made a table, two tests.
+- looking: 0 min. One sheet through `bun run shot`; ZIGZAG thickened.
+- friction: 0 min. The browser pane's animation crawls while it is hidden,
+  so the live lab read WAITING for seconds; the sheet was judged instead.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: AUTO's second pass on BOTH AT ONCE at four turns ended before
+the other seat came in, so it never lapsed — only the loop test showed it.

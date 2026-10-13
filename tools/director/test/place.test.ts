@@ -1,5 +1,12 @@
 import { describe, expect, test } from "bun:test";
-import { HOLD_LAB, type Place, PRESS_LAB, parsePlace, placeToSearch } from "../src/place.js";
+import {
+  HOLD_LAB,
+  type Place,
+  PRESS_LAB,
+  parsePlace,
+  placeToSearch,
+  RUB_LAB,
+} from "../src/place.js";
 
 /**
  * `place.ts` is the half of the URL that needs no browser: a `Place` value and
@@ -222,6 +229,14 @@ describe("THE HOLD LAB in the URL", () => {
 });
 
 describe("THE PRESS LAB in the URL", () => {
+  test("rublab= and rubsheet= round-trip as RUB_LAB, the turns, the seats and the look", () => {
+    const place = parsePlace("?sheet=controls&rublab=16-both-heat&rubsheet=1");
+    expect(place.lab).toBe(`${RUB_LAB}16-both-heat`);
+    expect(place.labSheet).toBe(true);
+    expect(placeToSearch(place)).toBe("?sheet=controls&rublab=16-both-heat&rubsheet=1");
+    expect(parsePlace("?rublab=8-one-zigzag&presssheet=1").labSheet).toBe(false);
+  });
+
   test("presslab= and presssheet= round-trip as PRESS_LAB, the presses and the look", () => {
     const place = parsePlace("?sheet=controls&presslab=10-knock&presssheet=1");
     expect(place.lab).toBe(`${PRESS_LAB}10-knock`);

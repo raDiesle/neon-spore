@@ -3679,6 +3679,7 @@ by hand never moves.
 | `tools/director/src/field-actions-drag.ts` | GRAB AND DRAG's control types — a finger put on a thing and moved |
 | `tools/director/src/field-actions-other.ts` | Every action on CONTROLS › ON THE FIELD but GRAB AND DRAG (`field-actions-drag.ts`) |
 | `tools/director/src/field-actions-combo.ts` | **Two gestures in one action** on CONTROLS › ON THE FIELD — the owner, 12 October 2026, on THE LAMPREY |
+| `tools/director/src/field-actions-rub.ts` | **RUB, an action of its own** — the owner, 13 October 2026 |
 | `tools/director/src/field-actions.ts` | Where every row of `FIELD_CONTROLS` stands on the CONTROLS sheet — the owner's order of 6 October 2026 |
 | `tools/director/src/field-looks-drag.ts` | FIND IT and WHILE YOU MOVE for every GRAB AND DRAG card, keyed by one row of the card |
 | `tools/director/src/field-looks-other.ts` | FIND IT and WHILE YOU MOVE for every card but GRAB AND DRAG's (`field-looks-drag.ts`) |
@@ -3850,7 +3851,7 @@ by hand never moves.
 | `tools/director/src/library/rind-stage.ts` | The game's own rind, losing its layers on a card, each one drawn coming off by a shed of the caller's choosing |
 | `tools/director/src/library/countdown-assets.ts` | THE COUNT's four counts — how a body says how many beats are left, on the one screen that is shown it |
 | `tools/director/src/library/countdown-stage.ts` | The game's own count, drawn on a card wearing a look of the caller's choosing |
-| `tools/director/src/labs.ts` | **The director's four labs, PULL, HOLD, PRESS and COMBO**: each one's door in the topbar |
+| `tools/director/src/labs.ts` | **The director's five labs, PULL, HOLD, PRESS, RUB and COMBO**: each one's door in the topbar |
 | `tools/director/src/lab-shell.ts` | **Where a lab stands** — THE PULL LAB, THE HOLD LAB and THE COMBO LAB (`pull-lab.ts`, `hold-lab.ts` |
 | `tools/director/src/autopilot-ghost.ts` | **The autopilot's finger, drawn where a thumb would be**, found by the game's own hit test run backwards |
 | `tools/director/src/antiphon-editor.ts` | THE ANTIPHON's levels, a tab each and one for the ship, with who explains and who chooses |
@@ -3894,5 +3895,14 @@ by hand never moves.
 | `tools/director/src/press-lab-rule.ts` | **The one generic PRESS, as THE PRESS LAB plays it** |
 | `tools/director/src/press-lab-sheet.ts` | **EVERY LOOK, EVERY STATE** — THE PRESS LAB's sheet |
 | `tools/director/src/press-lab.ts` | **THE PRESS LAB** — the one generic PRESS on an empty field, to be pressed by hand |
+| `tools/director/src/rub-goo/goo.ts` | **The GOO rub**: THE HOLD LAB's drop — the same RIPPLES · STILL drop, at the same size in the same place |
+| `tools/director/src/rub-goo/looks-b.ts` | **HEAT** and **COUNT** — the rest of THE RUB LAB's ways to say how many turns a mark asks (`looks.ts` has… |
+| `tools/director/src/rub-goo/looks.ts` | **ZIGZAG** and **WIPE** — two of THE RUB LAB's ways to say how many turns a mark asks before it is touched |
+| `tools/director/src/rub-goo/view.ts` | **What a RUB LAB look is told**, read once a frame from the rule's state (`rub-lab-rule.ts`) |
+| `tools/director/src/rub-lab-auto.ts` | **AUTO's finger in THE RUB LAB**, as `press-lab-auto.ts` is THE PRESS LAB's |
+| `tools/director/src/rub-lab-paint.ts` | One frame of THE RUB LAB (`rub-lab.ts`): the PULL LAB's empty field and the look's drop in its middle |
+| `tools/director/src/rub-lab-rule.ts` | **The one generic RUB, as THE RUB LAB plays it** — the owner, 13 October 2026 |
+| `tools/director/src/rub-lab-sheet.ts` | **EVERY LOOK, EVERY STATE** — THE RUB LAB's sheet, as THE PRESS LAB's is: one row per look |
+| `tools/director/src/rub-lab.ts` | **THE RUB LAB** — the one generic RUB on an empty field, to be rubbed by hand |
 
 <!-- index:code:end -->

@@ -107,16 +107,6 @@ export const DRAG_TYPES: readonly ControlType[] = [
     ],
   },
   {
-    key: "rub",
-    title: "RUB",
-    says: "Back and forth over one body; what counts is the reversals, or the travel.",
-    suggest:
-      "Make it generic under THE CAPSTAN's rules. THE MAZE's heart counts travel " +
-      "rather than reversals — move it to a rub, or say why not.",
-    gestures: ["RUB"],
-    rows: ["THE CAPSTAN'S RUB", "THE MAZE'S HEART", "THE THROAT'S PUMP", "THE BLISTER'S RUB"],
-  },
-  {
     key: "bearing",
     title: "TURN A WHEEL",
     says:

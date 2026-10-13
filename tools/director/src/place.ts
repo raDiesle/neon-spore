@@ -46,9 +46,10 @@ export interface Place {
    * on the lab). `pulllab=` in the URL, the name its first link had. THE
    * HOLD LAB is here too, as `HOLD_LAB` and its beats (`hold:2`), and
    * `holdlab=2` in the URL, and THE COMBO LAB as `COMBO_LAB` and its combo
-   * (`combo:partner`), `combolab=partner`, and THE PRESS LAB as `PRESS_LAB`
-   * and its presses and look (`press:5-pips`), `presslab=5-pips`: only one
-   * lab is ever open.
+   * (`combo:partner`), `combolab=partner`, THE PRESS LAB as `PRESS_LAB`
+   * and its presses and look (`press:5-pips`), `presslab=5-pips`, and THE
+   * RUB LAB as `RUB_LAB` and its turns, seats and look (`rub:8-one-zigzag`),
+   * `rublab=8-one-zigzag`: only one lab is ever open (`LAB_PARAMS`).
    */
   lab: string | null;
   /** The lab shows EVERY LOOK, EVERY STATE rather than the live pull — `pullsheet=1`. Always false when `lab` is null. */
@@ -61,8 +62,21 @@ export const HOLD_LAB = "hold:";
 export const PRESS_LAB = "press:";
 /** What a `Place`'s `lab` starts with when the lab open is THE COMBO LAB (`combo-lab.ts`). */
 export const COMBO_LAB = "combo:";
-/** Every lab's prefix but the PULL LAB's, whose `lab` is its bare path key. */
-export const PREFIXED_LABS: readonly string[] = [HOLD_LAB, PRESS_LAB, COMBO_LAB];
+/** What a `Place`'s `lab` starts with when the lab open is THE RUB LAB (`rub-lab.ts`). */
+export const RUB_LAB = "rub:";
+
+/** Every lab but the PULL LAB, whose `lab` is its bare path key: its prefix, its
+ * name in the URL, and its sheet's — THE COMBO LAB has none. The first in the
+ * URL wins. */
+const LAB_PARAMS: readonly { prefix: string; param: string; sheet: string | null }[] = [
+  { prefix: HOLD_LAB, param: "holdlab", sheet: "holdsheet" },
+  { prefix: COMBO_LAB, param: "combolab", sheet: null },
+  { prefix: PRESS_LAB, param: "presslab", sheet: "presssheet" },
+  { prefix: RUB_LAB, param: "rublab", sheet: "rubsheet" },
+];
+
+/** Every lab's prefix but the PULL LAB's. */
+export const PREFIXED_LABS: readonly string[] = LAB_PARAMS.map((l) => l.prefix);
 
 /**
  * Parses a `location.search`-shaped string into a `Place`. Pure, so the
@@ -84,20 +98,12 @@ export function parsePlace(search: string): Place {
   // digits is.
   const inner = sheet ? params.get("inner") || null : null;
   const sub = inner ? params.get("sub") || null : null;
-  const hold = params.get("holdlab") || null;
-  const combo = params.get("combolab") || null;
-  const pressed = params.get("presslab") || null;
-  const lab =
-    hold !== null
-      ? HOLD_LAB + hold
-      : combo !== null
-        ? COMBO_LAB + combo
-        : pressed !== null
-          ? PRESS_LAB + pressed
-          : params.get("pulllab") || null;
-  // THE COMBO LAB has no sheet.
-  const sheetParam = hold !== null ? "holdsheet" : pressed !== null ? "presssheet" : "pullsheet";
-  const labSheet = lab !== null && combo === null && params.get(sheetParam) === "1";
+  const prefixed = LAB_PARAMS.find((l) => params.get(l.param));
+  const lab = prefixed
+    ? prefixed.prefix + params.get(prefixed.param)
+    : params.get("pulllab") || null;
+  const sheetParam = prefixed ? prefixed.sheet : "pullsheet";
+  const labSheet = lab !== null && sheetParam !== null && params.get(sheetParam) === "1";
 
   return { wave, sheet, inner, sub, lab, labSheet };
 }
@@ -113,14 +119,10 @@ export function placeToSearch(place: Place): string {
       if (place.sub !== null) params.set("sub", place.sub);
     }
   }
-  if (place.lab?.startsWith(HOLD_LAB)) {
-    params.set("holdlab", place.lab.slice(HOLD_LAB.length));
-    if (place.labSheet) params.set("holdsheet", "1");
-  } else if (place.lab?.startsWith(PRESS_LAB)) {
-    params.set("presslab", place.lab.slice(PRESS_LAB.length));
-    if (place.labSheet) params.set("presssheet", "1");
-  } else if (place.lab?.startsWith(COMBO_LAB)) {
-    params.set("combolab", place.lab.slice(COMBO_LAB.length));
+  const prefixed = LAB_PARAMS.find((l) => place.lab?.startsWith(l.prefix));
+  if (place.lab !== null && prefixed) {
+    params.set(prefixed.param, place.lab.slice(prefixed.prefix.length));
+    if (place.labSheet && prefixed.sheet !== null) params.set(prefixed.sheet, "1");
   } else if (place.lab !== null) {
     params.set("pulllab", place.lab);
     if (place.labSheet) params.set("pullsheet", "1");
