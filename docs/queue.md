@@ -328,14 +328,6 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/skipped.test.ts` holds the listing's count of the entries
 `next` stepped past and why.
 
-## TRY IT records a take into stills, for the 22 rows AUTO does not play
-
-- **Found:** 2026-10-09, claude/controls-documentation-redesign-0e3a85
-- **Taken:** 2026-10-13, claude/queue-tasks-968943 (claim: claude/queue-try-it-records-a-take-into-stills-for-the-22-row)
-- **Files:** `tools/director/src/field-try.ts`, `tools/director/src/field-stills-art.ts`, `tools/director/test/field-stills.test.ts`
-
-A card's ▤ STILLS on CONTROLS › ON THE FIELD are six moments — a beat before the press, the press, halfway, the lift, one and three beats after — found by playing the pose with AUTO's hand (`stillTicks`). AUTO plays no creature and reaches only what its boss needs, so 22 rows (`NOT_PLAYED` in the test: THE GUM, PINBALL, THE BALLOON, THE LEDGER, THE CHOIR …) say "play it with ▶ TRY IT" and drop out of ▤ COMPARE ALL USES. Let TRY IT keep the frames of a human take — the window's cut, small, in a ring of the last few seconds — and on the lift plus three beats assemble the same six stills from the mouse's own press and lift, kept for the page's session, so the comparison can show them beside AUTO's.
-
 ## The Bulb Queen: a part that turns, so it is seen from a new side
 
 - **Found:** 2026-10-10, claude/turn-queue-and-perspective-ideas
@@ -867,3 +859,10 @@ FIELD: it *shows "tap" … but this is category of PULL PAST A DISTANCE*. The
 options: (a) each one's rings become `drawPullKnob` on a `drawPullTrack` the
 length of its `…PullMilli`, the arrow its sim's direction; (b) keep the rings
 and add only the knob's arrow; (c) keep them as they are.
+
+## `bun run shot` cannot press and hold a point on a canvas
+
+- **Found:** 2026-10-13, claude/queue-tasks-968943
+- **Files:** `tools/frames/shot.ts`, `tools/frames/shot-flags.ts`
+
+Proving that ▶ TRY IT keeps a take (`field-takes.ts`) meant pressing THE LEAD's ring for a second, waiting three beats, closing the window and opening ▤ STILLS. `--click` presses a selector and nothing else, so it took a throwaway Playwright script — and the browser pane could not stand in, because a hidden pane runs no animation frame and TRY IT steps nothing. Give `shot` a press-and-hold on a point of an element (fractions of its box, a duration, a wait after) and a second `--click` after it, with a test of the flags, so a lane photographs a take in one command.

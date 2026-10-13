@@ -161,6 +161,16 @@
   color: var(--dim);
   font-size: 0.8rem;
 }
+/* A person's take drawn in AUTO's place (`field-takes.ts`): said once, over the row. */
+.stills-take {
+  flex-basis: 100%;
+  margin: 0;
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  letter-spacing: 2px;
+  color: var(--dim);
+  text-align: center;
+}
 .pic-zoom-stage:has(.stills-compare) {
   display: block;
   overflow-y: auto;

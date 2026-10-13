@@ -1,11 +1,18 @@
 import { controlSetForWave, seatedSet } from "@neon-spore/content";
 import { Canvas2DRenderer, computeLayout, computeStage, handedLayout } from "@neon-spore/render";
-import { framePhase, type SimEvent, ticksPerBeat } from "@neon-spore/sim";
+import {
+  framePhase,
+  type SimEvent,
+  type TimedCommand,
+  ticksPerBeat,
+  type World,
+} from "@neon-spore/sim";
 import { AutopilotGhosts } from "./autopilot-ghost.js";
 import type { FieldControlDef } from "./field-control-def.js";
 import { focusOf } from "./field-focus.js";
 import { cardArea } from "./field-focus-art.js";
-import { autoTick, stillTicks } from "./field-stills.js";
+import { autoTick, stillTicks, takeTick } from "./field-stills.js";
+import { takeFor } from "./field-takes.js";
 import { text } from "./gestures-page.js";
 import { poseCropRect } from "./pose-art.js";
 import { cutCard, PHONE } from "./pose-frame.js";
@@ -21,7 +28,15 @@ import { stageField } from "./stage-field.js";
  * A run is a few hundred frames, so the strip fills in as it goes and the
  * page keeps answering: the element comes back at once, and a frame is
  * added each time one is ready.
+ *
+ * **A card AUTO cannot play shows a person's take instead**, once one has been
+ * played in ▶ TRY IT since the page opened (`field-takes.ts`): the same run,
+ * the same six moments, with the mouse's own commands replayed in AUTO's
+ * place and its finger drawn where AUTO's would be.
  */
+
+/** What plays the pose forward one tick: AUTO's hand, or a kept take. */
+type Player = (w: World) => TimedCommand[];
 
 /** Most device pixels the run is drawn at; every tick is a whole phone. */
 const MAX_DPR = 3;
@@ -43,13 +58,25 @@ export function stillsStrip(
   const box = document.createElement("div");
   box.className = "stills";
   const moments = stillTicks(pose.build(), rows);
-  if (!moments) {
+  if (moments) {
+    void fill(box, pose, rows, moments, autoTick, frame, cap);
+    return box;
+  }
+  const take = takeFor(pose, rows);
+  if (!take) {
     box.appendChild(
-      text("p", "AUTO does not reach this control — play it with ▶ TRY IT.", "stills-none"),
+      text(
+        "p",
+        "AUTO does not reach this control — play it with ▶ TRY IT, and your take is drawn here.",
+        "stills-none",
+      ),
     );
     return box;
   }
-  void fill(box, pose, rows, moments, frame, cap);
+  box.appendChild(
+    text("p", "YOUR TAKE in ▶ TRY IT — AUTO does not reach this control.", "stills-take"),
+  );
+  void fill(box, pose, rows, take.moments, (w) => takeTick(w, take.sent), frame, cap);
   return box;
 }
 
@@ -58,6 +85,7 @@ async function fill(
   pose: Pose,
   rows: readonly FieldControlDef[],
   moments: readonly { label: string; at: number }[],
+  play: Player,
   frame: number,
   cap: number,
 ): Promise<void> {
@@ -99,7 +127,7 @@ async function fill(
   for (let i = 0; i < SETTLE; i++) draw(1 / 20);
   const last = Math.max(...moments.map((m) => m.at));
   for (let t = 0; t <= last && box.isConnected; t++) {
-    const sent = autoTick(world);
+    const sent = play(world);
     events.push(...world.events);
     ghosts.observe(layout(), field, world.tick, tpb, sent);
     since++;

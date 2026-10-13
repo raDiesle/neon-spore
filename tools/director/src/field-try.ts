@@ -8,10 +8,20 @@ import {
   pointOnStage,
   type ViewRole,
 } from "@neon-spore/render";
-import { type Command, framePhase, type SimEvent, step, type World } from "@neon-spore/sim";
+import {
+  type Command,
+  framePhase,
+  type SimEvent,
+  step,
+  type TimedCommand,
+  ticksPerBeat,
+  type World,
+} from "@neon-spore/sim";
 import { coverPage } from "./cover.js";
 import type { FieldControlDef } from "./field-control-def.js";
 import { controlRect, type Rect, touchArea } from "./field-focus.js";
+import { takeMoments } from "./field-stills.js";
+import { keepTake } from "./field-takes.js";
 import { paintTouchArea } from "./field-touch-paint.js";
 import { type TryBar, tryBar } from "./field-try-bar.js";
 import { TryLog } from "./field-try-log.js";
@@ -36,6 +46,11 @@ import { bindStageTouch } from "./stage-touch.js";
  * after the lift can be watched; RESTART stands the pose up again; SCREEN
  * draws either seat's screen. Under it, what the hand sent and what the game
  * answered — its events and the sounds its own mixer played (`field-try-log.ts`).
+ *
+ * **Every take is kept.** What the mouse sent since the pose was stood up is
+ * the take, and three beats after its lift it is handed to `field-takes.ts`,
+ * so a card AUTO cannot play shows the six stills of it in ▤ STILLS and
+ * ▤ COMPARE ALL USES. RESTART begins a new one.
  */
 
 /**
@@ -102,6 +117,8 @@ export function openTry(title: string, pose: Pose, rows: readonly FieldControlDe
       pending = [];
       events = [];
       log.reset();
+      take = [];
+      kept = false;
     },
     sound: (on) => log.setSound(on),
     fit: () => fit(),
@@ -154,14 +171,25 @@ export function openTry(title: string, pose: Pose, rows: readonly FieldControlDe
   };
 
   let events: SimEvent[] = [];
+  /** The take so far: every command stepped since the pose was stood up. */
+  let take: TimedCommand[] = [];
+  let kept = false;
   const stepOnce = (): void => {
     const tick = world.tick;
-    step(
-      world,
-      pending.map((p) => ({ tick, ...p })),
-    );
+    const sent = pending.map((p) => ({ tick, ...p }));
+    step(world, sent);
+    take.push(...sent);
     pending = [];
     events.push(...world.events);
+    if (!kept) keepIfWhole();
+  };
+  /** Three beats past the lift, the take is whole and kept for the stills. */
+  const keepIfWhole = (): void => {
+    const moments = takeMoments(take, first.tick, world.tick, rows, ticksPerBeat(cfg));
+    const last = moments?.at(-1);
+    if (!moments || !last || world.tick - first.tick < last.at) return;
+    keepTake(pose, rows, { sent: [...take], moments });
+    kept = true;
   };
 
   let carried = 0;
@@ -191,7 +219,8 @@ export function openTry(title: string, pose: Pose, rows: readonly FieldControlDe
     log.frame(world, events, role());
     events = [];
     if (++frames % OUTLINE_EVERY === 0) paintOutline();
-    bar.readout(`TICK ${world.tick} · BEAT ${world.waveBeat}${world.over ? " · OVER" : ""}`);
+    const said = `${world.over ? " · OVER" : ""}${kept ? " · TAKE KEPT FOR ▤ STILLS" : ""}`;
+    bar.readout(`TICK ${world.tick} · BEAT ${world.waveBeat}${said}`);
     requestAnimationFrame(frame);
   };
 

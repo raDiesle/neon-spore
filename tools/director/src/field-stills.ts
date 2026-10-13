@@ -67,6 +67,16 @@ export function stillTicks(world: World, rows: readonly FieldControlDef[]): Stil
   if (press === null) return null;
   // A tap sends no lift, and a lever AUTO is still holding sends none yet.
   const held = lift === null && rows.some((r) => r.sends.includes("drag"));
+  return momentsOf(press, lift, held, tpb);
+}
+
+/**
+ * The six moments round a press at `press` and a lift at `lift`, in ticks
+ * from wherever the run began. `held` is a drag still down when the run
+ * stopped looking: its lift is put two beats on and called STILL HELD. A
+ * press with no lift and no hold — a tap — lifts half a beat on.
+ */
+export function momentsOf(press: number, lift: number | null, held: boolean, tpb: number): Still[] {
   const up = lift ?? press + (held ? 2 * tpb : Math.round(tpb / 2));
   const ticks = [
     Math.max(0, press - tpb),
@@ -78,4 +88,36 @@ export function stillTicks(world: World, rows: readonly FieldControlDef[]): Stil
   ];
   const labels = ["BEFORE", "PRESS", "MOVING", held ? "STILL HELD" : "LIFT", "+1 BEAT", "+3 BEATS"];
   return labels.map((label, i) => ({ label, at: ticks[i] ?? 0 }));
+}
+
+/**
+ * **The six moments of a person's own take** in ▶ TRY IT (`field-try.ts`):
+ * every command the mouse sent since the pose was stood up, each at the tick
+ * it was stepped on, and `start` the pose's own tick. The first command that
+ * reaches the rows is the press and the first drag let go after it the lift;
+ * a row that sends no drag is a tap, lifted half a beat on, and a drag still
+ * down two beats after the press is STILL HELD, as AUTO's is. Null while the
+ * take is not yet whole at tick `now`.
+ */
+export function takeMoments(
+  sent: readonly TimedCommand[],
+  start: number,
+  now: number,
+  rows: readonly FieldControlDef[],
+  tpb: number,
+): Still[] | null {
+  const press = sent.find((s) => reaches(s.command, rows));
+  if (!press) return null;
+  const lift = sent.find((s) => s.tick > press.tick && lifts(s.command, rows));
+  const drags = rows.some((r) => r.sends.includes("drag"));
+  const held = !lift && drags;
+  if (held && now - press.tick < 2 * tpb) return null;
+  return momentsOf(press.tick - start, lift ? lift.tick - start : null, held, tpb);
+}
+
+/** One tick of a take played back on `w`: what was sent on this tick, stepped. */
+export function takeTick(w: World, sent: readonly TimedCommand[]): TimedCommand[] {
+  const now = sent.filter((s) => s.tick === w.tick);
+  step(w, now);
+  return now;
 }

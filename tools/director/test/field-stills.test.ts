@@ -1,7 +1,7 @@
 import { describe, expect, test } from "bun:test";
 import { FIELD_ACTIONS, userOf } from "../src/field-actions.js";
 import { FIELD_CONTROLS } from "../src/field-controls-page.js";
-import { stillTicks } from "../src/field-stills.js";
+import { momentsOf, stillTicks, takeMoments, takeTick } from "../src/field-stills.js";
 import { poseNamed } from "../src/poses.js";
 
 /**
@@ -65,5 +65,43 @@ describe("a card's stills", () => {
   // cards says so and points at ▶ TRY IT.
   test("the rows AUTO does not play", () => {
     expect([...new Set(unplayed)].sort()).toEqual(NOT_PLAYED);
+  });
+});
+
+describe("a take's stills", () => {
+  const tpb = 12;
+  const stalk = byName.get("THE LEAD'S STALK");
+  if (!stalk) throw new Error("THE LEAD'S STALK");
+  const drag = (tick: number, on: boolean) => ({
+    tick,
+    player: 2 as const,
+    command: { kind: "drag" as const, target: "leadStalk" as const, on, fromMilli: 0 },
+  });
+  const aim = (tick: number) => ({
+    tick,
+    player: 1 as const,
+    command: { kind: "cannonCol" as const, col: 3 },
+  });
+
+  test("are the press and the lift the mouse sent, from the pose's tick", () => {
+    const sent = [aim(102), drag(110, true), drag(130, false)];
+    const moments = takeMoments(sent, 100, 200, [stalk], tpb);
+    expect(moments?.map((m) => m.at)).toEqual([0, 10, 20, 30, 42, 66]);
+    expect(moments?.map((m) => m.label)).toEqual(momentsOf(10, 30, false, tpb).map((m) => m.label));
+  });
+
+  test("wait for a lift, and call a thumb two beats down STILL HELD", () => {
+    expect(takeMoments([aim(102)], 100, 400, [stalk], tpb)).toBeNull();
+    expect(takeMoments([drag(110, true)], 100, 110 + 2 * tpb - 1, [stalk], tpb)).toBeNull();
+    const held = takeMoments([drag(110, true)], 100, 110 + 2 * tpb, [stalk], tpb);
+    expect(held?.[3]?.label).toBe("STILL HELD");
+  });
+
+  test("replay on the pose's own ticks", () => {
+    const pose = poseNamed(stalk.pose);
+    const w = pose.build();
+    const sent = [drag(w.tick + 1, true)];
+    expect(takeTick(w, sent)).toEqual([]);
+    expect(takeTick(w, sent)).toEqual(sent);
   });
 });

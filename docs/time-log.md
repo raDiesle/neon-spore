@@ -38729,3 +38729,17 @@ depth disagreed.
 Bottleneck: five probes, one per boss, to find the tick each control asks.
 
 *Measured: 20 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-13 — ▶ TRY IT keeps a take, and ▤ STILLS draws it where AUTO cannot
+
+- reading: 10 min. TRY IT, the stills strip, how AUTO's six moments are
+  found.
+- writing: 20 min. `momentsOf` shared, `takeMoments`/`takeTick`,
+  `field-takes.ts`, the strip playing either, the TRY IT recorder, tests.
+- looking: 20 min. The pane was hidden and ran no frames; a throwaway
+  Playwright take, and a second once the press was put on the ring.
+- friction: 10 min. A `cat` with no input hung a commit for ten minutes.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: no tool presses and holds a canvas, so seeing a take needed a
+script of its own (queued).
