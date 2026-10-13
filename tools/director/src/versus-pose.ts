@@ -40,6 +40,7 @@ const SLOT_POSE: Record<string, string> = {
   "vane:glance": "THE VANE · SWING",
   "fleet:glance": "THE FLEET · HUNT",
   "pinball:glance": "PINBALL · AIM",
+  "pulse:glance": "THE PULSE · PLAY",
 };
 
 /** The pose a slot gets when nothing in `SLOT_POSE` names it. */

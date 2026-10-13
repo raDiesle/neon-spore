@@ -11367,6 +11367,16 @@ phone — the owner's eye — has never been watched.
 
 ## Retired
 
+**Offered (13 October 2026, VERSUS `pulse:glance`).** The round's boss is
+its chart, so what turns is the living bodies falling down it — the slick,
+the bulb and the pod (`packages/render/src/pulse-glance.ts`, which ships
+still) — each **about its centre**, so it still meets its socket where the
+socket is cut, its far side going dark over its own contour. The meteor does
+not, since a rock already spins, and a veiled arrival does not, since its
+cycling silhouette is the one thing on it to read. Each runs the round from
+its note's place in it. **SWAY**, **LOOK** and **COCK** (`glance-styles.ts`),
+judged on `THE PULSE · PLAY`.
+
 ## 11.9 THE TELL — rock, paper, scissors, and half the tell on each screen
 
 > The one where the boss shows you what it is about to throw, and only one of

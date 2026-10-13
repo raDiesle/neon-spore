@@ -38922,3 +38922,16 @@ Bottleneck: PINBALL has no boss body, so choosing the part took longer than buil
 Bottleneck: none — THE HOLD LAB had already been settled the same way, so the cut was a copy of it.
 
 *Measured: 4 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-13 — VERSUS offers THE PULSE's falling bodies glancing
+
+- reading: 5 min. The entry, §11.8, `pulse-body.ts` and `pulse-shape.ts`.
+- writing: 10 min. `pulse-glance.ts`, the arrival's body wrapped, three
+  candidates, the pose's `lookAt`, a row in the glance test.
+- looking: 10 min. Two VERSUS shots and magnified crops: a dark circle
+  reached past the pod's lobes, so the dark is now laid over the lane's own
+  contour in the body's unit frame.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: the far side's dark has to follow the body's contour, and a circle does not.

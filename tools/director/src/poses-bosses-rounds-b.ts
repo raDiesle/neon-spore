@@ -92,7 +92,12 @@ export const ROUND_BOSS_POSES_B: Pose[] = [
     "pulse",
     "play",
     "Steps come down both lanes on the beat, one meter for the two. P1 steps his; P2 steps hers.",
-    { ...FULL, hold: 24 },
+    {
+      ...FULL,
+      hold: 24,
+      lookAt:
+        "the slicks, bulbs and pods falling down the lanes — whether each turns toward one side about its centre as it falls, its far side going dark",
+    },
   ),
   bossPose(
     "pulse",

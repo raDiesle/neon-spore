@@ -2,6 +2,7 @@ import { PULSE_LANES, type PulseLane } from "@neon-spore/sim";
 import { halo } from "./glow.js";
 import { rgba } from "./hex.js";
 import { PALETTE } from "./palette.js";
+import { drawPulseGlanced } from "./pulse-glance.js";
 import { drawPulseBody, pulseLaneColor, pulseLaneOutline, pulseLaneRim } from "./pulse-shape.js";
 
 /**
@@ -95,7 +96,9 @@ export function drawPulseArrival(ctx: CanvasRenderingContext2D, a: BodyLook): vo
     ctx.lineWidth = 1 / a.r;
     ctx.stroke(path);
   } else {
-    drawPulseBody(ctx, a.x, a.y, a.r, lane, a.time, a.seed, fade);
+    drawPulseGlanced(ctx, { x: a.x, y: a.y, r: a.r, lane, seed: a.seed }, a.time, () =>
+      drawPulseBody(ctx, a.x, a.y, a.r, lane, a.time, a.seed, fade),
+    );
   }
   ctx.restore();
 
