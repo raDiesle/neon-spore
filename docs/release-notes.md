@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-13 · 21bce5575 — AUTO's PINBALL flies the ball before it shoots, and plays the fight through
+
+AUTO's PINBALL hand latched on its first tick and launched on its next, so every shot went straight up at four thousandths of the bar, fell back onto the cannon and was fired again the same way until the round's clock ran out. Nothing bounced at the bottom of the table: the cannon caught each ball and the hand relaunched it. The hand now flies a copy of the ball through the sim's own stepBall before it latches or launches, slides the cannon to a column that reaches a target, and slides it under where the ball will come down. AUTO now passes all three boards with no ball dropped, and its hard shots leave the spring slack, so the plunger's mark is reached in marks-window.
+
 ## 2026-10-13 · 305e676bc — THE FLEET's wreck says PULL on no screen, and a whole-frame test keeps it so
 
 The navigator once saw PULL twice under the wreck's knob. Since no pull wears the word, no screen says it at all; `fleet-wreck-frame.test.ts` draws the whole frame in the wreck on every screen and counts none, so a word put back by any pass is caught.

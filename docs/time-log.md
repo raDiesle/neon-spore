@@ -38774,3 +38774,5 @@ Bottleneck: none — the entry was stale and needed only its guard.
 - landing: 5 min. `check:fast`, the commit, `land`.
 
 Bottleneck: the trial flights' cost — the first version was right and five times too slow.
+
+*Measured: 24 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
