@@ -798,7 +798,6 @@ over each edge.
 ## A glancing part shows a hairline down its middle
 
 - **Found:** 2026-10-13, claude/queue-tasks-159048
-- **Taken:** 2026-10-13, claude/queue-tasks-159048 (claim: claude/queue-a-glancing-part-shows-a-hairline-down-its-middle)
 - **Files:** `packages/render/src/glance.ts`
 
 `drawGlanced` draws a part twice, each half under its own clip, and the two
