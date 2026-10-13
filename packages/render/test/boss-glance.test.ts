@@ -11,6 +11,7 @@ import {
 } from "../src/glance-styles.js";
 import { MIRROR_GLANCE, MIRROR_GLANCE_SIZE } from "../src/mirror-glance.js";
 import { QUEEN_GLANCE, QUEEN_GLANCE_HOLD, QUEEN_GLANCE_SIZE } from "../src/queen-glance.js";
+import { WARDEN_GLANCE, WARDEN_GLANCE_SIZE } from "../src/warden-glance.js";
 
 /**
  * **Every boss's part that glances** (`glance.ts`, `.claude/skills/depth`, "A
@@ -37,6 +38,8 @@ const ROWS: readonly Row[] = [
     hold: QUEEN_GLANCE_HOLD,
   },
   { name: "THE MIRROR", record: MIRROR_GLANCE, size: MIRROR_GLANCE_SIZE, hold: 1 },
+  // Held at the hole's widest, at rest: the pupil is 0.44 of the body.
+  { name: "THE WARDEN", record: WARDEN_GLANCE, size: WARDEN_GLANCE_SIZE, hold: 0.44 },
 ];
 
 const R = 100;

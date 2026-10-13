@@ -12,6 +12,7 @@ import { type Circle, type Layout, tileCX, tileCY } from "./layout.js";
 import { PALETTE } from "./palette.js";
 import { splineInto } from "./spline.js";
 import { drawEye, drawHatch, HATCH } from "./warden-eye.js";
+import { drawWardenGlanced } from "./warden-glance.js";
 import { WARDEN_LOOK } from "./warden-look.js";
 
 /**
@@ -168,37 +169,41 @@ export function drawWarden(
     splineInto(body2d, pupilPts, true);
   }
 
-  // Even-odd still, for the fallback's sake: it cuts that hole whichever way
-  // either loop happens to wind, and on one contour it decides nothing.
-  ctx.save();
-  ctx.fillStyle = PALETTE.rockDark;
-  ctx.fill(body2d, "evenodd");
-  ctx.restore();
+  // The body glances about the eye, where a look takes one (`warden-glance.ts`).
+  drawWardenGlanced(ctx, { x: cx + dx, y: cy }, r, pupilR, time, () => {
+    // Even-odd still, for the fallback's sake: it cuts that hole whichever way
+    // either loop happens to wind, and on one contour it decides nothing.
+    ctx.save();
+    ctx.fillStyle = PALETTE.rockDark;
+    ctx.fill(body2d, "evenodd");
+    ctx.restore();
 
-  // The surface: everything on this body between its material and its door —
-  // what is under the skin, what is set into it, the fringe off its edge, the
-  // two glows along that edge, and the armour over all of it. One record, so
-  // a second answer can rebuild the whole of it (`warden-look.ts`). The lip
-  // of the hole carries the cycle's colour, and it is the only part of the
-  // body that does.
-  WARDEN_LOOK.surface({
-    ctx,
-    cx,
-    cy,
-    r,
-    b,
-    cfg,
-    time,
-    cut,
-    shape: body2d,
-    outer: outerPts,
-    pupil: pupilPts,
-    pupilX: cx + dx,
-    pupilR,
-    openness,
-    lip: openness > 0 ? rim : hex,
+    // The surface: everything on this body between its material and its door —
+    // what is under the skin, what is set into it, the fringe off its edge, the
+    // two glows along that edge, and the armour over all of it. One record, so
+    // a second answer can rebuild the whole of it (`warden-look.ts`). The lip
+    // of the hole carries the cycle's colour, and it is the only part of the
+    // body that does.
+    WARDEN_LOOK.surface({
+      ctx,
+      cx,
+      cy,
+      r,
+      b,
+      cfg,
+      time,
+      cut,
+      shape: body2d,
+      outer: outerPts,
+      pupil: pupilPts,
+      pupilX: cx + dx,
+      pupilR,
+      openness,
+      lip: openness > 0 ? rim : hex,
+    });
+    drawHurt(ctx, body2d, hurt);
+    return body2d;
   });
-  drawHurt(ctx, body2d, hurt);
   drawHatch(ctx, cx + dx, cy, pupilR * HATCH, openness);
   // The eye behind the door — the same one THE LID wears, `eye.ts`. The fluid
   // and the fringe are drawn whether or not the hatch is open, because they are

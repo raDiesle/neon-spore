@@ -949,6 +949,15 @@ The owner chose the block-and-tackle instead —
 The two go together: hold-to-tear is the control, and the ceiling it puts on
 the window is the reason to reach for it.
 
+**Offered (13 October 2026, VERSUS `warden:glance`).** Its eye, the hatch
+and the rope do not move — they are what a thumb holds and a shot goes in
+at. What turns is the horseshoe round them
+(`packages/render/src/warden-glance.ts`, which ships still): two planes
+meeting at the eye, the hole's widest points held, so the body swings toward
+one side about an eye that stays put, that side bunching and going dark.
+**SWAY**, **LOOK** and **COCK** (`glance-styles.ts`), judged on
+`THE WARDEN · WATCH`.
+
 ## 11.5 THE VANE — the arm that decides where you are hit
 
 > The one where the column you were told is never the column it lands in.

@@ -23,6 +23,9 @@ export const CLOCK_BOSS_POSES: Pose[] = [
     "watch",
     "Every plate on and the eye drifts a column a beat. P1 hauls the rope; P2 fires through the hole.",
     {
+      // `warden:glance` is judged here: every plate on, the whole horseshoe round its eye.
+      lookAt:
+        "the horseshoe round the eye — whether it turns toward one side about an eye that stays put, its far side going dark",
       want: (w) => w.boss?.kind === "warden" && wardenPhase(w.boss.plates).name === "WATCH",
       hold: 6,
     },

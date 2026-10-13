@@ -38852,3 +38852,14 @@ Bottleneck: the first swing could not be seen in a still — the reach had to be
 Bottleneck: choosing the part — its hull must stay the ship and holds both lobes, so the chamber behind it turns.
 
 *Measured: 9 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-13 — VERSUS offers THE WARDEN's body glancing about its eye
+
+- reading: 5 min. The entry, `warden.ts`, the eye, the grip's targets.
+- writing: 10 min. `warden-glance.ts`, the body's draw wrapped, three
+  candidates from a script, the pose's `lookAt`, a row in the glance test.
+- looking: 5 min. Two VERSUS shots, SWAY and COCK.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: none — the eye was the obvious centre to turn about.

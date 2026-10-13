@@ -12,6 +12,9 @@ import { MIRROR_SWAY } from "./mirror-glance/sway/index.js";
 import { QUEEN_COCK } from "./queen-glance/cock/index.js";
 import { QUEEN_LOOK_AROUND } from "./queen-glance/look/index.js";
 import { QUEEN_SWAY } from "./queen-glance/sway/index.js";
+import { WARDEN_COCK } from "./warden-glance/cock/index.js";
+import { WARDEN_LOOK_AROUND } from "./warden-glance/look/index.js";
+import { WARDEN_SWAY } from "./warden-glance/sway/index.js";
 
 export const VARIANTS: Variant[] = [
   MIRROR_COCK,
@@ -20,4 +23,7 @@ export const VARIANTS: Variant[] = [
   QUEEN_COCK,
   QUEEN_LOOK_AROUND,
   QUEEN_SWAY,
+  WARDEN_COCK,
+  WARDEN_LOOK_AROUND,
+  WARDEN_SWAY,
 ];
