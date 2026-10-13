@@ -674,6 +674,7 @@ The owner, 9 and 10 October 2026, after THE INSTAR's head glances: *body parts o
 ## THE FLEET's wreck says PULL twice on the navigator's screen
 
 - **Found:** 2026-10-10, claude/fleets-wreck-drag-drop-133829
+- **Taken:** 2026-10-13, claude/queue-tasks-968943 (claim: claude/queue-the-fleets-wreck-says-pull-twice-on-the-navigato)
 - **Files:** `packages/render/src/fleet-grip-draw.ts`, `packages/render/src/pull-knob.ts`, `packages/render/test/fleet-grip.test.ts`
 
 Drawn from player 2's screen (the STATES card `THE FLEET · WRECK`, now `role: "p2"`), the word under the wreck's pull knob is two copies of PULL a few pixels apart, one over the other. `drawFleetGrip` calls `drawHandleHint` once and `drawHandleHint` fills the text once, so the second copy comes from somewhere else that draws under the same knob — find it, keep one, and add a frame test that counts one `fillText("PULL")` for the navigator in the wreck.
