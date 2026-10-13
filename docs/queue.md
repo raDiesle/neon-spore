@@ -858,6 +858,7 @@ boss's path, drawn from the same numbers.
 ## A pull's word still wears the scanner box on its knob, outside THE LAMPREY
 
 - **Found:** 2026-10-12, claude/lamprey-pull-mechanics-9b1e2a
+- **Taken:** 2026-10-13, claude/director-pull-control-visuals-2a801c (claim: claude/queue-a-pulls-word-still-wears-the-scanner-box-on-its)
 - **Files:** `packages/render/src/boss-cue-read-zu.ts`, `packages/render/src/boss-cue-read-zv.ts`, `packages/render/src/boss-cue-read-d.ts`, `packages/render/src/boss-cue-read-o.ts`, `packages/render/src/boss-cue-read-zc.ts`, `packages/render/src/boss-cue-read-q.ts`, `packages/render/src/boss-cue-read-zl.ts`, `packages/render/src/boss-cue-read-k.ts`, `packages/render/src/plumb-marks.ts`
 
 The owner, 12 October 2026, on THE LAMPREY: a scanner box round a `PULL`
