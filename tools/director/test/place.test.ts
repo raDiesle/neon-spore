@@ -237,14 +237,14 @@ describe("THE PRESS LAB in the URL", () => {
     expect(parsePlace("?rublab=8-one-zigzag&presssheet=1").labSheet).toBe(false);
   });
 
-  test("presslab= and presssheet= round-trip as PRESS_LAB, the presses and the look", () => {
-    const place = parsePlace("?sheet=controls&presslab=10-knock&presssheet=1");
-    expect(place.lab).toBe(`${PRESS_LAB}10-knock`);
+  test("presslab= and presssheet= round-trip as PRESS_LAB and the presses", () => {
+    const place = parsePlace("?sheet=controls&presslab=10&presssheet=1");
+    expect(place.lab).toBe(`${PRESS_LAB}10`);
     expect(place.labSheet).toBe(true);
-    expect(placeToSearch(place)).toBe("?sheet=controls&presslab=10-knock&presssheet=1");
+    expect(placeToSearch(place)).toBe("?sheet=controls&presslab=10&presssheet=1");
   });
 
   test("a hold's sheet flag is not a press's", () => {
-    expect(parsePlace("?presslab=5-pips&holdsheet=1").labSheet).toBe(false);
+    expect(parsePlace("?presslab=5&holdsheet=1").labSheet).toBe(false);
   });
 });

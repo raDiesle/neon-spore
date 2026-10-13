@@ -1,25 +1,24 @@
-import type { PressLook } from "./press-goo/view.js";
+import { STEPS_PRESS } from "./press-goo/index.js";
 import { viewOf } from "./press-goo/view.js";
 import type { LabPress, PressAsk } from "./press-lab-rule.js";
 import { paintField } from "./pull-lab-paint.js";
 
 /**
  * One frame of THE PRESS LAB (`press-lab.ts`): the PULL LAB's empty field and
- * the look's drop in its middle. No finger over it and no word on the field,
+ * STEPS' drop in its middle. No finger over it and no word on the field,
  * as in THE HOLD LAB: the bar's readout says the verdict.
  */
 
 export interface PressFrame {
   press: LabPress;
   ask: PressAsk;
-  look: PressLook;
   time: number;
 }
 
 export function paintPressLab(ctx: CanvasRenderingContext2D, f: PressFrame): void {
   paintField(ctx);
   ctx.save();
-  f.look.paint(viewOf(ctx, f.press, f.ask, f.time));
+  STEPS_PRESS.paint(viewOf(ctx, f.press, f.ask, f.time));
   ctx.restore();
 }
 

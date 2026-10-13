@@ -3906,13 +3906,12 @@ by hand never moves.
 | `tools/director/src/hold-lab.ts` | **THE HOLD LAB** — the one generic HOLD on an empty field, to be held by hand |
 | `tools/director/src/press-goo/call.ts` | **What calls a finger to a press no finger has touched yet** |
 | `tools/director/src/press-goo/goo.ts` | **The GOO press**: THE HOLD LAB's drop — the same RIPPLES · STILL drop, at the same size in the same place |
-| `tools/director/src/press-goo/looks-b.ts` | **POP**, **COUNT** and **KNOCK** — the rest of THE PRESS LAB's ways to say how many presses a mark asks… |
-| `tools/director/src/press-goo/looks.ts` | **PIPS** and **STEPS** — two of THE PRESS LAB's ways to say how many presses a mark asks before it is… |
 | `tools/director/src/press-goo/view.ts` | **What a PRESS LAB look is told**, read once a frame from the rule's state (`press-lab-rule.ts`) |
+| `tools/director/src/press-goo/steps.ts` | **STEPS** — THE HOLD LAB's SOAK, cut into the presses |
 | `tools/director/src/press-lab-auto.ts` | **AUTO's finger in THE PRESS LAB**, as `hold-lab-auto.ts` is THE HOLD LAB's: the presses a mark asks, quick |
-| `tools/director/src/press-lab-paint.ts` | One frame of THE PRESS LAB (`press-lab.ts`): the PULL LAB's empty field and the look's drop in its middle |
+| `tools/director/src/press-lab-paint.ts` | One frame of THE PRESS LAB (`press-lab.ts`): the PULL LAB's empty field and STEPS' drop in its middle |
 | `tools/director/src/press-lab-rule.ts` | **The one generic PRESS, as THE PRESS LAB plays it** |
-| `tools/director/src/press-lab-sheet.ts` | **EVERY LOOK, EVERY STATE** — THE PRESS LAB's sheet |
+| `tools/director/src/press-lab-sheet.ts` | **EVERY STATE** — THE PRESS LAB's sheet, as THE HOLD LAB's is: one row, STEPS |
 | `tools/director/src/press-lab.ts` | **THE PRESS LAB** — the one generic PRESS on an empty field, to be pressed by hand |
 | `tools/director/src/rub-goo/goo.ts` | **The GOO rub**: THE HOLD LAB's drop — the same RIPPLES · STILL drop, at the same size in the same place |
 | `tools/director/src/rub-goo/looks-b.ts` | **HEAT** and **COUNT** — the rest of THE RUB LAB's ways to say how many turns a mark asks (`looks.ts` has… |
@@ -3921,7 +3920,7 @@ by hand never moves.
 | `tools/director/src/rub-lab-auto.ts` | **AUTO's finger in THE RUB LAB**, as `press-lab-auto.ts` is THE PRESS LAB's |
 | `tools/director/src/rub-lab-paint.ts` | One frame of THE RUB LAB (`rub-lab.ts`): the PULL LAB's empty field and the look's drop in its middle |
 | `tools/director/src/rub-lab-rule.ts` | **The one generic RUB, as THE RUB LAB plays it** — the owner, 13 October 2026 |
-| `tools/director/src/rub-lab-sheet.ts` | **EVERY LOOK, EVERY STATE** — THE RUB LAB's sheet, as THE PRESS LAB's is: one row per look |
+| `tools/director/src/rub-lab-sheet.ts` | **EVERY LOOK, EVERY STATE** — THE RUB LAB's sheet, as THE PRESS LAB's was one row per look |
 | `tools/director/src/rub-lab.ts` | **THE RUB LAB** — the one generic RUB on an empty field, to be rubbed by hand |
 
 <!-- index:code:end -->

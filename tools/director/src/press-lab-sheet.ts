@@ -1,6 +1,5 @@
 import { text } from "./gestures-page.js";
 import { HOLD_R, SLIP_REACH } from "./hold-lab-rule.js";
-import { PRESS_LOOKS } from "./press-goo/index.js";
 import { autoFinger, loopOf, TAP_GAP } from "./press-lab-auto.js";
 import { paintPressLab } from "./press-lab-paint.js";
 import {
@@ -14,9 +13,8 @@ import {
 } from "./press-lab-rule.js";
 
 /**
- * **EVERY LOOK, EVERY STATE** — THE PRESS LAB's sheet, as THE HOLD LAB's was
- * while it still had looks to pick from: one row per look, one column per
- * moment of AUTO's loop, each cell the lab's own frame run from a fresh mark
+ * **EVERY STATE** — THE PRESS LAB's sheet, as THE HOLD LAB's is: one row,
+ * STEPS, one column per moment of AUTO's loop, each cell the lab's own frame run from a fresh mark
  * at a fixed step — the same every time it is drawn, and never a mock. The
  * first two columns are the ones the owner asked about: what the mark says,
  * untouched, about how many presses it wants.
@@ -65,11 +63,11 @@ export function pressAt(ask: PressAsk, seconds: number): LabPress {
   return h;
 }
 
-/** The box round the mark, with room for PIPS' ring, a pop and a bubble rising. */
+/** The box round the mark, with room for a pop, its ring and a bubble rising. */
 const PAD = SLIP_REACH + HOLD_R * 0.4;
 const CROP = { x: PRESS_AT.x - PAD, y: PRESS_AT.y - PAD * 1.15, w: PAD * 2, h: PAD * 2.15 };
 
-function cell(ask: PressAsk, look: number, seconds: number, cssW: number): HTMLCanvasElement {
+function cell(ask: PressAsk, seconds: number, cssW: number): HTMLCanvasElement {
   const s = cssW / CROP.w;
   const dpr = Math.min(4, 2 * (window.devicePixelRatio || 1));
   const canvas = document.createElement("canvas");
@@ -78,11 +76,10 @@ function cell(ask: PressAsk, look: number, seconds: number, cssW: number): HTMLC
   canvas.style.width = `${CROP.w * s}px`;
   canvas.style.height = `${CROP.h * s}px`;
   const ctx = canvas.getContext("2d");
-  const l = PRESS_LOOKS[look];
-  if (!ctx || !l) return canvas;
+  if (!ctx) return canvas;
   const k = s * dpr;
   ctx.setTransform(k, 0, 0, k, -CROP.x * k, -CROP.y * k);
-  paintPressLab(ctx, { press: pressAt(ask, seconds), ask, look: l, time: seconds });
+  paintPressLab(ctx, { press: pressAt(ask, seconds), ask, time: seconds });
   return canvas;
 }
 
@@ -94,9 +91,7 @@ export function pressSheet(ask: PressAsk, cssW = 110): HTMLElement {
   grid.style.gridTemplateColumns = `auto repeat(${moments.length}, ${cssW}px)`;
   grid.appendChild(text("span", ask.label, "pull-lab-sheet-corner"));
   for (const m of moments) grid.appendChild(text("span", m.label, "pull-lab-sheet-head"));
-  PRESS_LOOKS.forEach((look, i) => {
-    grid.appendChild(text("span", look.name.toUpperCase(), "pull-lab-sheet-look"));
-    for (const m of moments) grid.appendChild(cell(ask, i, m.at, cssW));
-  });
+  grid.appendChild(text("span", "STEPS", "pull-lab-sheet-look"));
+  for (const m of moments) grid.appendChild(cell(ask, m.at, cssW));
   return grid;
 }

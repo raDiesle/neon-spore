@@ -3,8 +3,7 @@ import { choice, grouped } from "./field-try-bar.js";
 import { text } from "./gestures-page.js";
 import { labShell } from "./lab-shell.js";
 import { PRESS_LAB } from "./place.js";
-import { PRESS_LOOKS, pressLook } from "./press-goo/index.js";
-import type { PressLook } from "./press-goo/view.js";
+import { STEPS_PRESS } from "./press-goo/index.js";
 import { autoFinger } from "./press-lab-auto.js";
 import { paintPressLab, pressReadout } from "./press-lab-paint.js";
 import {
@@ -31,9 +30,12 @@ import { initialLab } from "./session.js";
  * press one or multiple times … maybe also on pc the mouse cursor
  * differentiation can help … provide to me several variants*).
  *
- * Its choices on the bar are **PRESS** — how many presses the mark asks
- * (`PRESS_ASKS`) — and **LOOK**, the five ways of saying so on THE HOLD LAB's
- * drop (`press-goo/`). On a computer the pointer over the mark is the
+ * Its one choice on the bar is **PRESS** — how many presses the mark asks
+ * (`PRESS_ASKS`). The press wears STEPS and nothing else, on THE HOLD LAB's
+ * drop (`press-goo/`), as every hold wears SOAK (the owner, 13 October 2026:
+ * *for "press lab" apply and remove variants for "look" which is preferred
+ * "steps"*). The four other looks the LOOK picker once offered are gone. On
+ * a computer the pointer over the mark is the
  * pointing hand, where a hold's is the open one (`grab`, the labs' canvas).
  *
  * The rule (`press-lab-rule.ts`): a press counts as it lands; a resting finger
@@ -42,17 +44,13 @@ import { initialLab } from "./session.js";
  * it until it lapses; RETRY puts a fresh mark on the field.
  */
 
-/** `key` is the presses and the look, `5-pips`: what `PRESS_LAB` carries in the URL. */
-const keyOf = (ask: PressAsk, look: PressLook): string => `${ask.key}-${look.key}`;
-
 export function openPressLab(
-  first = "5-pips",
+  first = "5",
   opts: { sheet?: boolean; host?: HTMLElement } = {},
 ): void {
   const shell = labShell(opts.host);
-  const [askKey = "5", lookKey = "pips"] = first.split("-");
-  let ask: PressAsk = pressAsk(askKey);
-  let look: PressLook = pressLook(lookKey);
+  // A link from before the look was settled still says it, `5-pips`: the presses are first.
+  let ask: PressAsk = pressAsk(first.split("-")[0] ?? first);
   let mark: LabPress = freshPress();
   let auto = true;
   let speed = 1;
@@ -72,11 +70,11 @@ export function openPressLab(
   const readout = text("span", "", "try-readout");
 
   let sheet = opts.sheet === true;
-  const sheetButton = text("button", "▤ EVERY LOOK, EVERY STATE");
-  const place = (): void => shell.place({ shape: PRESS_LAB + keyOf(ask, look), sheet });
+  const sheetButton = text("button", "▤ EVERY STATE");
+  const place = (): void => shell.place({ shape: PRESS_LAB + ask.key, sheet });
   const show = (): void => {
     place();
-    like.textContent = `${look.name.toUpperCase()} — ${look.sentence}.`;
+    like.textContent = `${STEPS_PRESS.name.toUpperCase()} — ${STEPS_PRESS.sentence}.`;
     sheetButton.classList.toggle("on", sheet);
     room.classList.toggle("pull-lab-room-sheet", sheet);
     room.replaceChildren(sheet ? pressSheet(ask) : canvas);
@@ -114,15 +112,6 @@ export function openPressLab(
         reset();
       },
       "PRESS",
-    ),
-    choice(
-      PRESS_LOOKS.map((l) => [l.name.toUpperCase(), l.key] as [string, string]),
-      look.key,
-      (k) => {
-        look = pressLook(k);
-        show();
-      },
-      "LOOK",
     ),
     choice(
       [
@@ -185,7 +174,7 @@ export function openPressLab(
     const ctx = canvas.getContext("2d");
     if (ctx) {
       ctx.setTransform(canvas.width / LAB_W, 0, 0, canvas.height / LAB_H, 0, 0);
-      paintPressLab(ctx, { press: mark, ask, look, time });
+      paintPressLab(ctx, { press: mark, ask, time });
     }
     readout.textContent = pressReadout(mark, ask);
   };
@@ -196,7 +185,7 @@ export function openPressLab(
 
 /**
  * The lab reopened where the URL left it
- * (`place.ts`'s `lab`, as `PRESS_LAB` and its key): `?presslab=5-pips`,
+ * (`place.ts`'s `lab`, as `PRESS_LAB` and its presses): `?presslab=5`,
  * `&presssheet=1` on its sheet — so a reload stays on the lab and `bun run
  * shot` photographs either with no clicks.
  *

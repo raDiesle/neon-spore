@@ -28,24 +28,16 @@ import type { PressLook, PressView } from "./view.js";
  * - **a lapse** is the drop going red and shuddering where it is, the count
  *   draining out — the hold's refusal. As the gap nears it, the drop reddens.
  *
- * How many presses it asks, and how many are done, is a `Count` — the looks
- * THE PRESS LAB offers on its picker (`looks.ts`).
+ * How many presses it asks, and how many are done, is a `Count` — STEPS, the
+ * one a press wears (`steps.ts`).
  */
 
 export interface Count {
   readonly key: string;
   readonly name: string;
   readonly sentence: string;
-  /** The call before the first press, in place of the tap call; how high it hops the drop, 0..1. */
-  call?(v: PressView): number;
-  /** The drop's body, given what is done. */
-  body?(b: GooBody, v: PressView): GooBody;
-  /** How green the drop itself is, 0..1. */
-  green?(v: PressView): number;
   /** Inside the drop, clipped to it, over everything the drop paints. */
-  inside?(v: PressView, drawn: GooBody, tone: Tone): void;
-  /** Over the drop and the field round it, unclipped. */
-  over?(v: PressView, drawn: GooBody, tone: Tone): void;
+  inside(v: PressView, drawn: GooBody, tone: Tone): void;
 }
 
 export function gooPress(c: Count): PressLook {
@@ -54,7 +46,7 @@ export function gooPress(c: Count): PressLook {
     name: c.name,
     sentence: c.sentence,
     paint(v) {
-      if (v.ending !== null) fizzAway(v, v.ending, (b) => c.body?.(b, v) ?? b);
+      if (v.ending !== null) fizzAway(v, v.ending);
       if (v.mark) mark(v, c);
     },
   };
@@ -77,7 +69,6 @@ function mark(v: PressView, c: Count): void {
   const { ctx, at, r, time } = v;
   const g = grown(v.born);
   if (g < 0.02) return;
-  const tone = toneOf(v);
   let body: GooBody;
   let red = 0;
   if (v.failure !== null) {
@@ -86,22 +77,17 @@ function mark(v: PressView, c: Count): void {
     red = 0.9 * (1 - smoothstep(k));
   } else {
     let hop = 0;
-    if (v.done === 0 && v.born >= SPAWN) hop = c.call ? c.call(v) : tapCall(v);
+    if (v.done === 0 && v.born >= SPAWN) hop = tapCall(v);
     const pop = Math.max(popOf(v.pressed), 0.6 * hop);
     const up: Point = { x: at.x, y: at.y - r * 0.28 * Math.max(0, pop) };
     body = drop(up, r * g, { squash: 1 - 0.3 * pop, shake: 0.1 * v.near ** 2 });
     red = 0.6 * v.near ** 2;
   }
-  body = c.body?.(body, v) ?? body;
-  const tint = { red, green: c.green?.(v) ?? 0 };
-  const drawn = paintGoo(ctx, body, GOO, time, tint, FREE);
-  if (c.inside) {
-    ctx.save();
-    ctx.clip(bodyPath(drawn, GOO, time));
-    c.inside(v, drawn, tone);
-    ctx.restore();
-  }
-  c.over?.(v, drawn, tone);
+  const drawn = paintGoo(ctx, body, GOO, time, { red, green: 0 }, FREE);
+  ctx.save();
+  ctx.clip(bodyPath(drawn, GOO, time));
+  c.inside(v, drawn, toneOf(v));
+  ctx.restore();
   popRing(v, drawn);
 }
 

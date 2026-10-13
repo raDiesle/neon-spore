@@ -38908,3 +38908,15 @@ Bottleneck: none — a hull's own frame already ran along it, so the turn needed
 Bottleneck: PINBALL has no boss body, so choosing the part took longer than building it.
 
 *Measured: 5 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-13 — THE PRESS LAB wears STEPS only
+
+- reading: 5 min. THE PRESS LAB, `press-goo/`, and THE HOLD LAB's own
+  settling on SOAK as the pattern.
+- writing: 10 min. STEPS the one press look, four looks and the picker
+  gone, `Count` and the call trimmed, the URL key down to the presses.
+- looking: 5 min. One sheet shot, cropped to its row.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: none — THE HOLD LAB had already been settled the same way, so the cut was a copy of it.

@@ -47,7 +47,7 @@ export interface Place {
    * HOLD LAB is here too, as `HOLD_LAB` and its beats (`hold:2`), and
    * `holdlab=2` in the URL, and THE COMBO LAB as `COMBO_LAB` and its combo
    * (`combo:partner`), `combolab=partner`, THE PRESS LAB as `PRESS_LAB`
-   * and its presses and look (`press:5-pips`), `presslab=5-pips`, and THE
+   * and its presses (`press:5`), `presslab=5`, and THE
    * RUB LAB as `RUB_LAB` and its turns, seats and look (`rub:8-one-zigzag`),
    * `rublab=8-one-zigzag`: only one lab is ever open (`LAB_PARAMS`).
    */

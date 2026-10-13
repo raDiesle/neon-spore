@@ -35,7 +35,7 @@ export interface ControlType {
   lab?: string;
   /** The HOLD LAB's beats this type starts on (`hold-lab-rule.ts`), as `lab` is the pull's. */
   holdLab?: string;
-  /** THE PRESS LAB's presses and look this type starts on (`press-lab.ts`), `5-pips`. */
+  /** THE PRESS LAB's presses this type starts on (`press-lab.ts`), `5`. */
   pressLab?: string;
   /** THE RUB LAB's turns, seats and look this type starts on (`rub-lab.ts`), `8-one-zigzag`. */
   rubLab?: string;

@@ -10,31 +10,20 @@ import type { PressView } from "./view.js";
  * and out, slow, the press's flashes twice, quick — *tap tap* — then waits,
  * and each flash hops the drop and throws a ring. So a hold and a press differ
  * before either is touched, on the same drop.
- *
- * `knocks` is how a call is played: the times of its hops in one round, and
- * how long a round lasts. THE PRESS LAB's KNOCK plays as many as the mark asks.
  */
 
-export interface Knocks {
-  readonly at: readonly number[];
-  readonly round: number;
-}
-
-/** *Tap tap*, then a wait. */
-const TAP_TAP: Knocks = { at: [0, 0.2], round: 1.1 };
+/** *Tap tap*, then a wait: the times of a round's hops, and how long a round lasts. */
+const TAP_TAP = { at: [0, 0.2], round: 1.1 };
 
 /** Each knock's hop, 1 at once and gone in about a fifth of a second. */
 const HOP = 14;
 /** Seconds a knock's ring takes to spread and fade. */
 const RING = 0.45;
 
+/** Play the call round the mark; how high it hops the drop now, 0..1. */
 export function tapCall(v: PressView): number {
-  return knock(v, TAP_TAP);
-}
-
-/** Play `k` round the mark; how high it hops the drop now, 0..1. */
-export function knock(v: PressView, k: Knocks): number {
   const { ctx, at, r } = v;
+  const k = TAP_TAP;
   const s = Math.max(0, v.born - SPAWN) % k.round;
   let hop = 0;
   ctx.save();

@@ -6,7 +6,7 @@ import { paintRubLab } from "./rub-lab-paint.js";
 import { freshRub, type LabRub, RUB_AT, type RubAsk, type RubSeats, tick } from "./rub-lab-rule.js";
 
 /**
- * **EVERY LOOK, EVERY STATE** — THE RUB LAB's sheet, as THE PRESS LAB's is:
+ * **EVERY LOOK, EVERY STATE** — THE RUB LAB's sheet, as THE PRESS LAB's was:
  * one row per look, one column per moment of AUTO's loop, each cell the lab's
  * own frame run from a fresh mark at a fixed step — the same every time it is
  * drawn, and never a mock. The moments are found by running the loop, not
