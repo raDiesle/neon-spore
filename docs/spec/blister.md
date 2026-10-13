@@ -92,10 +92,12 @@ blow that counts is a `blisterBlow` event, answered with the green verdict ring
 (`render/blister-verdicts.ts`) and THE GORGE's bubble-press cue pitched up a
 step a blow (`audio/bind-blister.ts`).
 
-The SWIPE help replaces the tap's on the seat that may stroke it: THE INSTAR's
-swipe track (`render/instar-track.ts`) laid across the body along its way, a
-bar with its chevrons pointing the way and its fill the furthest stroke still
-open (`blisterSwipeShare`). The other seat is drawn the waiting clock, never
+The SWIPE help replaces the tap's on the seat that may stroke it: the PULL
+LAB's pull every pull wears (`render/pull-knob.ts`, `render/pull-track.ts`) —
+the knob on the body with the way in it, riding the furthest stroke still open
+(`blisterSwipeShare`), on a channel a stroke long out that way, filling green
+behind it. The owner, 13 October 2026: *also should use default pull control
+we have, no custom one*. The other seat is drawn the waiting clock, never
 the way. The press is a `blisterSwipe` drag (`render/blister-tap.ts`), the lift
 carries how far the hand went, and `sim/blister-swipe.ts` judges it.
 

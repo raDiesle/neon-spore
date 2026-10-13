@@ -15,8 +15,9 @@ export const BLISTER_CONTROLS: readonly FieldControlDef[] = [
     gesture: "grab and drag",
     does:
       "A blister comes up out of a pore in the hull for two beats and goes " +
-      "back under. A SWIPE one wears a bar across it with chevrons pointing " +
-      "its way — left, right, up or down. Press on it and carry the finger " +
+      "back under. A SWIPE one wears the knob every pull wears, with its " +
+      "way in it — left, right, up or down — and a channel a stroke long out " +
+      "that way. Press on it and carry the finger " +
       "blisterSwipeMilli that way, more along than across, and lift: one " +
       "blow. A short stroke, a sideways one and one the wrong way count " +
       "nothing and cost nothing. A stroke still open when it sinks counts " +

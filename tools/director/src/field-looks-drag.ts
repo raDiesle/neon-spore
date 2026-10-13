@@ -8,8 +8,8 @@ import type { UseLook } from "./field-looks.js";
 export const DRAG_LOOKS: Readonly<Record<string, UseLook>> = {
   // PULL PAST A DISTANCE
   "THE BLISTER'S SWIPE": {
-    find: "A bar across a blister while it is up out of its pore, chevrons pointing its way, on the seat its BY names. The other seat sees the waiting clock.",
-    move: "The bar fills as the thumb carries along the chevrons; lifted past the end, one blow and one pip gone. Short, sideways or the wrong way counts nothing.",
+    find: "A knob on a blister while it is up out of its pore, its arrow pointing its way down a channel, on the seat its BY names. The other seat sees the waiting clock.",
+    move: "The knob follows the thumb and the channel fills green behind it; lifted past the end, one blow and one pip gone. Short, sideways or the wrong way counts nothing.",
   },
   "THE WARDEN'S TETHER": {
     find: "A rope hanging from the rim with a resting circle at its end, on the pilot's screen.",

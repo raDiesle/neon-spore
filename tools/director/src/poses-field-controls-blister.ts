@@ -13,7 +13,7 @@ import { fresh, type Pose, run, until } from "./pose-kit.js";
  */
 export const BLISTER_SWIPE: Pose = {
   name: "BLISTER · A STROKE HALF CARRIED",
-  note: "A SWIPE blister is up out of its pore for its two beats, pointing up. Player 2 has pressed on it and carried the thumb half the way a stroke needs: the bar across it is half full. Lifted now it would count nothing; carried on and lifted, one of its three blows. Player 2's screen, the seat its BY names.",
+  note: "A SWIPE blister is up out of its pore for its two beats, pointing up. Player 2 has pressed on it and carried the thumb half the way a stroke needs: the knob is half way down its channel. Lifted now it would count nothing; carried on and lifted, one of its three blows. Player 2's screen, the seat its BY names.",
   lookAt: "whether the bar reads as which way to go, and whether half full reads as not yet",
   crop: "field",
   role: "p2",

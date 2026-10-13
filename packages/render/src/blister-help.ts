@@ -6,6 +6,7 @@ import {
   blisterLeft,
   blisterMayTap,
   blisterRubbing,
+  blisterSwipeHeld,
   blisterSwipeShare,
   blisterWayOf,
   type Creature,
@@ -16,14 +17,16 @@ import { blisterRise } from "./blister.js";
 import { drawBlisterTurn } from "./blister-turn-help.js";
 import { flatCenter, flatRadius } from "./creature-place.js";
 import { drawGripDial } from "./grip-rings.js";
+import { handleRadius } from "./handle-draw.js";
 import { drawHoldMark } from "./hold-mark.js";
 import { drawInstarGlyph } from "./instar-glyphs.js";
-import { drawInstarTrack, instarTrack } from "./instar-track.js";
 import { type Layout, seatOf } from "./layout.js";
 import { drawMarkHalo, drawMarkWait } from "./mark-feedback.js";
 import { drawMarkHeld } from "./mark-progress.js";
 import { PALETTE } from "./palette.js";
 import { drawFuseRing } from "./pip-ring.js";
+import { drawPullKnob } from "./pull-knob.js";
+import { drawPullTrack, PULL_TRACK_W, type PullTrack } from "./pull-track.js";
 import { drawRubMark } from "./rub-mark.js";
 
 /**
@@ -43,10 +46,12 @@ import { drawRubMark } from "./rub-mark.js";
  *   the beat in progress fills (`drawGripDial`), and the halo only while no
  *   hand is on it. On both screens, while a hand that counts is on it, the
  *   steady green ring a held mark wears (`drawMarkHeld`).
- * - SWIPE, on the seat that may: THE INSTAR's swipe track (`instar-track.ts`)
- *   laid across the body along its way, a bar and never a ring (the owner, 24
- *   September 2026), its chevrons pointing the way and its fill the furthest
- *   open stroke. The partner is drawn the waiting clock, never the way.
+ * - SWIPE, on the seat that may: the PULL LAB's pull every pull wears — the
+ *   knob on the body with the way in it, and the thin channel a stroke long
+ *   out that way, filling green as the furthest open stroke comes (the owner,
+ *   13 October 2026, on THE BLISTER'S SWIPE: *also should use default pull
+ *   control we have, no custom one*). The partner is drawn the waiting clock,
+ *   never the way.
  * - TURN, on the seat that may: THE MAZE's turn round the body — channel,
  *   lever and knob, filling green as the turn goes round
  *   (`blister-turn-help.ts`). The partner, again, the waiting clock.
@@ -119,9 +124,10 @@ function heldNow(world: World, c: Creature): boolean {
 }
 
 /**
- * SWIPE's track, centred on the body and as long as the stroke the lift counts
- * at (`blisterSwipeMilli`). The track is drawn pointing down, so it is turned
- * to the way rather than drawn four times.
+ * SWIPE's pull: the knob on the body, where the stroke starts, and a channel
+ * as long as the stroke the lift counts at (`blisterSwipeMilli`) out along its
+ * way. The knob rides the furthest open stroke, so it goes where the thumb has
+ * taken it and no further than the stroke counts.
  */
 function drawSwipeTrack(
   ctx: CanvasRenderingContext2D,
@@ -133,25 +139,35 @@ function drawSwipeTrack(
 ): void {
   const length = (world.cfg.blisterSwipeMilli * l.tile) / 1000;
   const along = blisterSwipeShare(world, c);
-  const mark = at.r * TRACK_R;
-  ctx.save();
-  ctx.translate(at.x, at.y);
-  ctx.rotate(TURN_TO[blisterWayOf(c)]);
-  const track = instarTrack(0, -length / 2, mark, length);
-  drawInstarTrack(ctx, track, mark, true, along > 0, along, time, false);
-  ctx.restore();
+  const held = blisterSwipeHeld(c);
+  const way = WAY[blisterWayOf(c)];
+  const r = handleRadius(l, world.cfg) * KNOB_SHARE;
+  const track: PullTrack = {
+    pts: [
+      { x: at.x, y: at.y },
+      { x: at.x + way.dx * length, y: at.y + way.dy * length },
+    ],
+    w: r * PULL_TRACK_W,
+  };
+  const key = `blister:${c.id}`;
+  drawPullTrack(ctx, track, { ...LOOK, held, origin: 0, at: along, time, key });
+  const knob = { x: at.x + way.dx * length * along, y: at.y + way.dy * length * along };
+  drawPullKnob(ctx, knob, r, { ...LOOK, held, time, way, key });
 }
+
+/** The knob, as a share of every pull handle's radius: a blister is small (`blister-turn-help.ts`). */
+const KNOB_SHARE = 0.8;
+
+/** The swipe's colours: THE MAZE's, as the TURN's knob wears them (`blister-turn-help.ts`). */
+const LOOK = { hex: PALETTE.hullRim, rim: PALETTE.text } as const;
+
+/** Each way a stroke counts, as the unit step on the field. */
+const WAY: Record<BlisterSwipeWay, { dx: number; dy: number }> = {
+  down: { dx: 0, dy: 1 },
+  up: { dx: 0, dy: -1 },
+  right: { dx: 1, dy: 0 },
+  left: { dx: -1, dy: 0 },
+};
 
 /** The rub line's half-length, in body radii: top to bottom of the body. */
 const RUB_R = 0.9;
-
-/** The track's mark radius, in body radii: its bar and chevrons inside the body. */
-const TRACK_R = 0.8;
-
-/** How far to turn a track drawn pointing down so it points the way. */
-const TURN_TO: Record<BlisterSwipeWay, number> = {
-  down: 0,
-  up: Math.PI,
-  right: -Math.PI / 2,
-  left: Math.PI / 2,
-};

@@ -55,6 +55,11 @@ export function blisterSwipeShare(world: World, c: Creature): number {
   return Math.min(1, (c.blisterAlongMilli ?? 0) / Math.max(1, world.cfg.blisterSwipeMilli));
 }
 
+/** Whether a stroke is open on it, from either seat: a thumb down on it now. */
+export function blisterSwipeHeld(c: Creature): boolean {
+  return ((c.blisterStrokes ?? 0) & 3) !== 0;
+}
+
 /** Whether a carry is a stroke: far enough along its way, and more along than across. */
 function stroked(world: World, c: Creature, dx: number, dy: number): boolean {
   const way = blisterWayOf(c);
