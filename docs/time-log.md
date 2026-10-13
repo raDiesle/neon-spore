@@ -39033,3 +39033,5 @@ Bottleneck: the eater is drawn on beats, so its head needed a seconds clock thre
 - landing: 5 min. The entry rewritten with the cause and the real fix.
 
 Bottleneck: the line is the layers inside a part compositing at partial cover, which no clip tweak reaches.
+
+*Measured: 5 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*

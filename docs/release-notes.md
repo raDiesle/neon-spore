@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-13 · d38a08c28 — The glance's hairline is the part's layers, not a gap — what was tried
+
+A one-pixel or half-pixel overlap of the two halves' clips leaves the line down a glancing part's middle; the cause is a part drawn in layers compositing at the seam's partial cover. The queue entry now names that and the real fix, an offscreen layer laid down twice, and is given back.
+
 ## 2026-10-13 · 5948b46d0 — VERSUS offers THE SPLICE eater's head glancing
 
 The eater's head — cranium, jaw, eyes and mouth — turns about where its neck meets it, the far side narrowing into the dark, and the tongue still leaves the mouth where the turn draws it. Ships still; VERSUS `splice:glance` offers SWAY, LOOK and COCK, judged on THE SPLICE · FEEDING. Exemption: none — a look, offered on VERSUS.
