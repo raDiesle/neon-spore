@@ -159,8 +159,12 @@ export function drawCurtain(
     const ringX = mid + give.across;
     const r = l.tile * 0.8;
     // A line under the cue's verb when the two would meet (`curtain-hand-word.ts`).
+    // **No word while the rail is jammed**: the hem is the pull then, drawn as the
+    // PULL LAB's, and a pull says no word (`saysPull`). The owner, 13 October
+    // 2026, on THE CURTAIN'S HEM: *shows text below "p1 pulls" - remove it*.
     const text = gripLabel(l.role, "pull", p1, p2, names);
-    const wordY = curtainHandWordY(l, world, c, text, ringX, handWordY(cy, r));
+    const wordY =
+      c.phase === "pinned" ? null : curtainHandWordY(l, world, c, text, ringX, handWordY(cy, r));
     drawHandAt(ctx, l, world, body, "pull", p1, p2, ringX, cy, r, time, names, wordY);
   }
   if (verdicts) drawCurtainVerdicts(ctx, l, world, c, body, beatPhase, verdicts);

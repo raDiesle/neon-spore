@@ -116,8 +116,10 @@ export function drawHandAt(
   r: number,
   time: number,
   names?: SeatNames,
-  /** The word's baseline, where a caller has moved it off something else's (`curtain-hand-word.ts`). */
-  wordY: number = handWordY(y, r),
+  /** The word's baseline, where a caller has moved it off something else's
+   * (`curtain-hand-word.ts`); `null` writes none — THE CURTAIN's ring while
+   * the hem is the pull (`curtain-draw.ts`). */
+  wordY: number | null = handWordY(y, r),
 ): void {
   // Two hands pull harder, and the picture says so before the numbers do.
   const weight = p1 && p2 ? 1 : 0.62;
@@ -126,7 +128,7 @@ export function drawHandAt(
   // The beat of quiet after a carry, and only a braked body has one: an aim
   // does not move what it is pointed at (`grip-arrows.ts`).
   if (means === "brake") drawCarryArrows(ctx, l, world, c, x, y, r);
-  drawLabel(ctx, l.role, x, wordY, means, p1, p2, names);
+  if (wordY !== null) drawLabel(ctx, l.role, x, wordY, means, p1, p2, names);
 }
 
 /** Where the word under a ring of radius `r` at `y` is written: a line under it. */

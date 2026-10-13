@@ -62,16 +62,15 @@ describe("THE CURTAIN's cue word and the hand's word", () => {
     });
   }
 
-  it("write no LIFT while the rail is jammed, on either screen", () => {
+  // The hem is the pull while the rail is jammed, and a pull says no word: the
+  // owner, 13 October 2026, on THE CURTAIN'S HEM — *remove* the P1 PULLS under it.
+  it("write no word at all while the rail is jammed, on either screen", () => {
     const world = held([1]);
     const c = body(world);
     c.phase = "pinned";
     c.phaseBeat = world.beat;
     for (const role of ["p1", "p2"] as const) {
-      const l = layout(role);
-      const { cue, hand } = words(world, l);
-      expect(cue).toBeNull();
-      expect(hand.y).toBeCloseTo(under(l), 6);
+      expect(() => words(world, layout(role))).toThrow("no hand word was written");
     }
   });
 });
