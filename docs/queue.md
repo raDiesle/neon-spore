@@ -810,3 +810,15 @@ clips then meet hard), or drawing the far half first unclipped on the near
 side and the near half over it only where the part is drawn source-over.
 Prove it with a magnified crop of `bun run versus:shot cairn:glance sway
 --freeze 1.5` and the `boss-glance` test still green.
+
+Tried the same day and not enough: running only the first half's clip one
+pixel, or half a pixel, past the middle leaves the line where it was — on
+THE SPLICE's head it only turned from dark to pale. The cause is not a gap
+but a part drawn in **layers** (an opaque under-fill, a translucent flesh
+over it, a stroke): at the seam's soft pixel each half composites its layers
+at partial cover, so the under-fill shows through. Snapping the middle to a
+device pixel only helps while the roll is 0 (SWAY), since a rolled seam is
+slanted. What would fix it is drawing the part once into an offscreen layer
+and laying that down twice, clipped and squeezed — which needs every
+`draw<Boss>Glanced` callback (twelve so far) to take the context it draws on
+rather than closing over the screen's.

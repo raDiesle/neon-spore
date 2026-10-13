@@ -39022,3 +39022,14 @@ Bottleneck: THE WELL has no body, and its bodies are every kind, so the dark is 
 Bottleneck: the eater is drawn on beats, so its head needed a seconds clock threaded to it.
 
 *Measured: 6 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-13 — The glance's hairline: what was tried, back in the queue
+
+- reading: 5 min. `glance.ts`'s two clips.
+- writing: 5 min. A one-pixel and a half-pixel overlap on the first half.
+- looking: 10 min. Four VERSUS shots, magnified at the seam on THE SPLICE and
+  THE CAIRN: neither overlap removed it.
+- friction: 0 min.
+- landing: 5 min. The entry rewritten with the cause and the real fix.
+
+Bottleneck: the line is the layers inside a part compositing at partial cover, which no clip tweak reaches.
