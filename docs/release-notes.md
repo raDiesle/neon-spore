@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-13 · 5dee51059 — ON THE FIELD's CONTENTS lists every level, and the headings shrink as they nest
+
+DOCUMENTATION › CONTROLS › ON THE FIELD numbers every section by where it sits, 2 › 2.1 › 2.1.3, in CONTENTS and on the heading itself. A part is large and gold in its band, an action cyan under a rule, a control type white and indented on a line under its action, and a card's name small and gold in its box; before, a control type was drawn larger than the action it was in. CONTENTS now lists the control types too, and every card under a section — each enemy or boss wave's use, each gesture, each decision, each idea — as a line of names under its row, every one a jump to it. The menu is no longer a short box that scrolls inside itself; it is as long as the outline.
+
 ## 2026-10-13 · 368b9164b — THE HIVE under AUTO opens every site, the underside's too, and a test keeps it so
 
 The queue said `--auto both` opened one wall cocoon and then nothing for four thousand ticks; that no longer happens — the same `frames` run fires nine openings, and a headless run opens all thirteen and beats the wave. The openings run on the clock and nothing a hand does holds them. `hive-hand.test.ts` plays three seeds to THE HIVE's fall and asserts every underside site opened and every opening was sealed.
