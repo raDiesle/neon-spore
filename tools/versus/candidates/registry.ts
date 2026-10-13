@@ -33,6 +33,9 @@ import { VANE_SWAY } from "./vane-glance/sway/index.js";
 import { WARDEN_COCK } from "./warden-glance/cock/index.js";
 import { WARDEN_LOOK_AROUND } from "./warden-glance/look/index.js";
 import { WARDEN_SWAY } from "./warden-glance/sway/index.js";
+import { WELL_COCK } from "./well-glance/cock/index.js";
+import { WELL_LOOK_AROUND } from "./well-glance/look/index.js";
+import { WELL_SWAY } from "./well-glance/sway/index.js";
 
 export const VARIANTS: Variant[] = [
   CAIRN_COCK,
@@ -62,4 +65,7 @@ export const VARIANTS: Variant[] = [
   WARDEN_COCK,
   WARDEN_LOOK_AROUND,
   WARDEN_SWAY,
+  WELL_COCK,
+  WELL_LOOK_AROUND,
+  WELL_SWAY,
 ];

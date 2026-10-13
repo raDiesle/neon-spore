@@ -18,6 +18,7 @@ import { PULSE_GLANCE, PULSE_GLANCE_SIZE } from "../src/pulse-glance.js";
 import { QUEEN_GLANCE, QUEEN_GLANCE_HOLD, QUEEN_GLANCE_SIZE } from "../src/queen-glance.js";
 import { VANE_GLANCE, VANE_GLANCE_SIZE } from "../src/vane-glance.js";
 import { WARDEN_GLANCE, WARDEN_GLANCE_SIZE } from "../src/warden-glance.js";
+import { WELL_GLANCE, WELL_GLANCE_SIZE } from "../src/well-glance.js";
 
 /**
  * **Every boss's part that glances** (`glance.ts`, `.claude/skills/depth`, "A
@@ -52,6 +53,7 @@ const ROWS: readonly Row[] = [
   { name: "THE PULSE", record: PULSE_GLANCE, size: PULSE_GLANCE_SIZE, hold: 0 },
   { name: "THE MAZE", record: MAZE_GLANCE, size: MAZE_GLANCE_SIZE, hold: 0 },
   { name: "THE CAIRN", record: CAIRN_GLANCE, size: CAIRN_GLANCE_SIZE, hold: 1 },
+  { name: "THE WELL", record: WELL_GLANCE, size: WELL_GLANCE_SIZE, hold: 0 },
 ];
 
 const R = 100;

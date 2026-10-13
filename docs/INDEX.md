@@ -1855,6 +1855,7 @@ by hand never moves.
 | `packages/render/src/well-arrivals.ts` | THE WELL's warnings: the flat field's strip, bent into a ring outside the rim, and the crossing rock's mark |
 | `packages/render/src/well-body.ts` | Where a body stands on THE WELL — the one spelling of the well's placement, in its own file so `creature-place.ts` can read it |
 | `packages/render/src/well-roll.ts` | THE WELL's roll, as a screen sees it — the angle on the layout, so a frame and a finger cannot disagree |
+| `packages/render/src/well-glance.ts` | **THE WELL's bodies glance** — the owner, 9 and 10 October 2026: *body parts of living things turn . |
 | `packages/render/src/well.ts` | THE WELL's projection: columns to hours, rows to radii, and the seam the two walls meet at |
 | `packages/render/src/wet-socket.ts` | **A wet hollow in whatever surface a body stands on**: darker than the water round it, darkest at the bottom |
 | `packages/render/src/world-layout.ts` | **The three things a world does to a layout, in one order, for both callers** |

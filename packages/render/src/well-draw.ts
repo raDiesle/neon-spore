@@ -1,4 +1,4 @@
-import { bulletShown, isBossBody, recoilTurn, type World } from "@neon-spore/sim";
+import { bulletShown, isBossBody, recoilTurn, spanOf, type World } from "@neon-spore/sim";
 import { bodyDraw } from "./creature-body.js";
 import { byDepth, depthScale, drawnCol, glidePhase, nearness } from "./depth.js";
 import type { Effects } from "./effects.js";
@@ -13,6 +13,7 @@ import { WELL_BODY, wellFall, wellPlace } from "./well.js";
 import { drawWellArrivals } from "./well-arrivals.js";
 import { wellBodyAt } from "./well-body.js";
 import { drawWellFace } from "./well-face.js";
+import { drawWellGlanced } from "./well-glance.js";
 
 /**
  * THE WELL's board and the bodies on it, in place of the flat field's two
@@ -94,20 +95,23 @@ export function drawWellBodies(
     ctx.rotate(wellFall(l, col));
     ctx.scale(k, k);
     ctx.translate(-at.x, -at.y);
-    bodyDraw(c.kind)({
-      ctx,
-      l,
-      world,
-      c,
-      x: at.x,
-      y: at.y,
-      time: view.time,
-      beats,
-      beatPhase: view.beatPhase,
-      near: nearness(l, at.row),
-      blocked: effects.blocked,
-      turn: recoilTurn(c, view.beatPhase),
-    });
+    const half = { x: at.x, y: at.y, r: l.tile * 0.45 * spanOf(c) };
+    drawWellGlanced(ctx, half, c.id, view.time, () =>
+      bodyDraw(c.kind)({
+        ctx,
+        l,
+        world,
+        c,
+        x: at.x,
+        y: at.y,
+        time: view.time,
+        beats,
+        beatPhase: view.beatPhase,
+        near: nearness(l, at.row),
+        blocked: effects.blocked,
+        turn: recoilTurn(c, view.beatPhase),
+      }),
+    );
     ctx.restore();
   }
   // Over the bodies, in the flat pass's own order (`frame-field.ts`): the

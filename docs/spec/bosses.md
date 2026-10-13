@@ -2447,6 +2447,14 @@ warning marks, and that his rings crowd at the rim — and both went into the
 wave's own guide, because neither is a thing a thumb does and a rehearsal page is
 a thumb landing on something.
 
+**Offered (13 October 2026, VERSUS `well:glance`).** THE WELL has no body, so
+what turns is each body the wave stands on it (`packages/render/src/well-glance.ts`,
+which ships still), on its hour of the clock and **about its centre**, which
+is where a grip's ring, a lock's frame and a caption find it. The far side
+darkens over a disc inside the body, since the bodies are every kind the
+field has. Each runs the round from its own place in it. **SWAY**, **LOOK**
+and **COCK** (`glance-styles.ts`), judged on `THE WELL · STILL`.
+
 ## 11.13 THE SPLICE — straws fed in the order the numbers say
 
 > The one where the number is at the other end of the straw, and only one of

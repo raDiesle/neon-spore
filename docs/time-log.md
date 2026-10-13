@@ -38994,3 +38994,15 @@ Bottleneck: the heart is drawn adding light, so its dark had to be laid on as pa
 Bottleneck: the hairline where the two halves meet, which is the shared helper's and is queued.
 
 *Measured: 6 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-13 — VERSUS offers THE WELL's bodies glancing
+
+- reading: 10 min. The entry, §11.12, `well-draw.ts`, `well-face.ts`, and a
+  look for a contour every kind would answer — there is none.
+- writing: 10 min. `well-glance.ts`, each body's draw wrapped in its hour's
+  frame, three candidates, the pose's `lookAt`, a test row.
+- looking: 5 min. One VERSUS shot and a magnified crop.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: THE WELL has no body, and its bodies are every kind, so the dark is a disc inside them.
