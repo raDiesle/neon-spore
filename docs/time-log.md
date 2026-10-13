@@ -38524,3 +38524,5 @@ Bottleneck: none; the seam was named in the entry.
 - landing: 5 min. Import sort, the index's rows, `check:fast`, `land`.
 
 Bottleneck: finding that the combos drew the hold at two sizes, which only a read of all three frames showed.
+
+*Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
