@@ -9,6 +9,12 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-13 · 368b9164b — THE HIVE under AUTO opens every site, the underside's too, and a test keeps it so
+
+The queue said `--auto both` opened one wall cocoon and then nothing for four thousand ticks; that no longer happens — the same `frames` run fires nine openings, and a headless run opens all thirteen and beats the wave. The openings run on the clock and nothing a hand does holds them. `hive-hand.test.ts` plays three seeds to THE HIVE's fall and asserts every underside site opened and every opening was sealed.
+
+## 2026-10-13 · ce4958ff0 — The owner's answer to the five knobless pulls: the PULL LAB's knob
+
 ## 2026-10-13 · 805e63ba5 — THE CHOIR's two arrows become one rub in the middle, both seats at once
 
 On a phone that cannot report a shake, or on a computer, THE CHOIR's membrane is now opened by the RUB in the middle of the field instead of the two SWIPE arrows against its walls. The mark is on both screens. A turn counts only while the other seat turned within a beat (`choirTogetherBeats`). The first turn made together opens the window, each later one keeps it open, and eight made together (`choirRubTurns`) draw the two voices into one body. A turn made alone counts nothing, and a rub that stops short lets the window shut, so the membrane sings. Shaking the phone twice still works as before.
