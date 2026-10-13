@@ -38646,3 +38646,5 @@ Bottleneck: eleven tests each asserting a word that a one-line rule removes.
 
 Bottleneck: scrolling to a card that lazy cards above keep pushing down —
 only a jump, run in the click itself, lands on it.
+
+*Measured: 12 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*

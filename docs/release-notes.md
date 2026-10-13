@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-13 · f3f9bd706 — A lab's door in the topbar opens its card on ON THE FIELD
+
+PULL LAB, HOLD LAB, PRESS LAB, RUB LAB and COMBO LAB in the director's topbar now open DOCUMENTATION › CONTROLS › ON THE FIELD and jump to that lab's card, instead of putting the lab up in a window over everything — the owner's choice, 13 October 2026. `?pulllab=` and its siblings still restore the window, so `bun run shot` photographs a lab with no clicks.
+
 ## 2026-10-13 · 562696d55 — No grab on the field wears a scan box or a word
 
 A pull, a lift, a turn, a twist, a rub — every cue that asks a thumb to grab something on the field and carry it — is drawn with no white-cornered scan box and no word: no LIFT on THE CURTAIN's hem, no box on THE FLEET's wreck, no TWIST on THE GAUGE's tongue, no TURN on THE GIMBAL's rings, no SWAY, SHOVE, PULL UP or CHOOSE. The handle says it. A hold's red circle and a rub's red line stay, and so do the words that are not a grab's: FIRE, HOLD on a button, LIFT as the thumb coming off THE SINEW, the shield's MOVE, and the other seat's P1'S. One rule, `asksGrab`, decides it for the box, the words and THE INSTAR's word box.
