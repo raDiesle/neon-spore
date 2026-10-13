@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-13 · 1e7ae7d4c — The render barrel's pull handle and look records are barrels of their own
+
+packages/render/src/index.ts stood at 235 of its 250 lines. The pull handle's names are index-pull.ts now and the bosses' and creatures' look records index-looks.ts, both re-exported whole, so no import moved and the barrel is at 178 lines.
+
 ## 2026-10-13 · dfcbc0d05 — versus adopt takes every record a candidate patches in one file
 
 Each patch's rewrite was read from disk and every entry written whole, so a candidate patching two records in one file kept only the second. A file's later patch now starts from the text its earlier one produced.
