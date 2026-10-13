@@ -328,14 +328,6 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/skipped.test.ts` holds the listing's count of the entries
 `next` stepped past and why.
 
-## Seven ON THE FIELD cards keep half the phone: no press reaches the control
-
-- **Found:** 2026-10-09, claude/controls-documentation-redesign-0e3a85
-- **Taken:** 2026-10-13, claude/queue-tasks-968943 (claim: claude/queue-seven-on-the-field-cards-keep-half-the-phone-no)
-- **Files:** `tools/director/src/field-focus.ts`, `tools/director/test/field-focus.test.ts`, `tools/director/src/poses-field-controls.ts`
-
-CONTROLS › ON THE FIELD cuts each use card to the box its control answers a press in, by sweeping the posed world through `deskDown` (`controlRect`). Six rows find nothing — PINBALL'S PLUNGER, THE FLEET'S WRECK, THE GAUGE'S BAND, THE LEAD'S STALK, THE BATON'S STRIP, THE QUEEN'S MARKS — so their cards keep the pose's own crop. On each pose's tick the sweep meets other holds (THE GAUGE a `held` valve, THE FLEET only `fleetRake`, the rest the cannon, shield and prime), never the row's `DragTarget`. For each: find whether the pose catches the moment after the control (move the pose a tick where it is pressable, or add a second pose for the card) or whether the hit test answers it through a path `holdsRow` does not read; take it off `UNFOUND` in the test, which goes red on a listed row that is found.
-
 ## TRY IT records a take into stills, for the 22 rows AUTO does not play
 
 - **Found:** 2026-10-09, claude/controls-documentation-redesign-0e3a85

@@ -3084,6 +3084,7 @@ by hand never moves.
 | `tools/director/src/poses-field-controls-spool.ts` | THE SPOOL's brake under the pilot's thumb — one picture, where THE GIMBAL and THE HASP next door each need two |
 | `tools/director/src/poses-field-controls-sling.ts` | THE SLING's two cords, **each photographed from the seat that draws it**, the screen its thumb is on |
 | `tools/director/src/poses-field-controls-antiphon.ts` | THE ANTIPHON with the pilot's thumb on the organ, a quarter turn in |
+| `tools/director/src/poses-field-controls-asking.ts` | **Four controls photographed on the tick they first ask for a thumb** |
 | `tools/director/src/poses-field-controls-instar.ts` | THE INSTAR in its first pose, the gape, with the pilot's thumb halfway down the lower jaw |
 | `tools/director/src/poses-field-controls-gimbal.ts` | THE GIMBAL's two rings, one under each seat's thumb |
 | `tools/director/src/poses-field-controls-gall.ts` | THE GALL's taps: the first leap lit with the alien on the seam's first point |

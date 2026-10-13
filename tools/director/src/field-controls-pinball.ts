@@ -48,6 +48,6 @@ export const PINBALL_CONTROLS: readonly FieldControlDef[] = [
     holdKind: "drag",
     dragTarget: "pinPlunger",
     sends: ["drag"],
-    pose: "PINBALL · POWER",
+    pose: "PINBALL · THE SPRING SLACK, ASKING A WIND",
   },
 ];

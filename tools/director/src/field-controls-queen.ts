@@ -31,6 +31,6 @@ export const QUEEN_CONTROLS: readonly FieldControlDef[] = [
     holdKind: "drag",
     dragTarget: "queenMark",
     sends: ["drag"],
-    pose: "BULB QUEEN · PRIED",
+    pose: "BULB QUEEN · HER MARKS ASKING A PRESS",
   },
 ];

@@ -11,7 +11,6 @@ import { poseNamed } from "../src/poses.js";
  */
 
 const NOT_PLAYED = [
-  "PINBALL'S PLUNGER",
   "THE ANTIPHON'S ORGAN",
   "THE BALLOON'S LEFT HANDLE",
   "THE BALLOON'S RIGHT HANDLE",
@@ -61,7 +60,7 @@ describe("a card's stills", () => {
     });
   }
 
-  // A creature has no hand (THE GUM, PINBALL), and a hand reaches what its
+  // A creature has no hand (THE GUM), and a hand reaches what its
   // boss needs within the reach, not every control it has. Each of these
   // cards says so and points at ▶ TRY IT.
   test("the rows AUTO does not play", () => {

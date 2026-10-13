@@ -43,7 +43,7 @@ export const GAUGE_CONTROLS: readonly FieldControlDef[] = [
     holdKind: "drag",
     dragTarget: "gaugeBand",
     sends: ["drag"],
-    pose: "THE GAUGE · BOUND",
+    pose: "GAUGE · THE BAND WOUND, ASKING A THUMB",
   },
   {
     name: "THE GAUGE'S TOOTH",

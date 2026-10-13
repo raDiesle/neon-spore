@@ -40,7 +40,7 @@ export const BATON_CONTROLS: readonly FieldControlDef[] = [
     holdKind: "drag",
     dragTarget: "batonSocket",
     sends: ["drag"],
-    pose: "THE BATON · PASSING",
+    pose: "BATON · A SOCKET SWELLING, ASKING A STRIP",
   },
   {
     name: "THE BATON'S DRAW",

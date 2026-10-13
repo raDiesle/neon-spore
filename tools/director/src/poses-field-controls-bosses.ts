@@ -1,4 +1,5 @@
 import type { Pose } from "./pose-kit.js";
+import { ASKING_GRIPS } from "./poses-field-controls-asking.js";
 import { BASTION_GRIPS } from "./poses-field-controls-bastion.js";
 import { CAPSTAN_GRIPS } from "./poses-field-controls-capstan.js";
 import { GALL_GRIPS } from "./poses-field-controls-gall.js";
@@ -38,4 +39,5 @@ export const BOSS_GRIPS: readonly Pose[] = [
   ...LAMPREY_GRIPS,
   ...LATCH_GRIPS,
   ...BASTION_GRIPS,
+  ...ASKING_GRIPS,
 ];

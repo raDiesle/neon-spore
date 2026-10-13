@@ -38712,3 +38712,18 @@ Bottleneck: reading which heading the page drew at which level, since tag and
 depth disagreed.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-13 — Five ON THE FIELD cards cut to their control at last
+
+- reading: 15 min. The sweep, each row's hit test, and why each pose's
+  tick missed it — a wound regrowing, a mark already pried, a spring
+  never slack, a still already held, no socket swelling.
+- writing: 15 min. `poses-field-controls-asking.ts`, four poses run to the
+  tick the control first asks; THE LEAD's row on its STILL; `UNFOUND`
+  emptied.
+- looking: 10 min. The director's cards for THE GAUGE, THE LEAD and
+  PINBALL.
+- friction: 0 min.
+- landing: 5 min. `bun run index`, `check:fast`, `land`.
+
+Bottleneck: five probes, one per boss, to find the tick each control asks.

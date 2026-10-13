@@ -45,6 +45,6 @@ export const LEAD_CONTROLS: readonly FieldControlDef[] = [
     holdKind: "drag",
     dragTarget: "leadStalk",
     sends: ["drag"],
-    pose: "THE LEAD · HELD",
+    pose: "THE LEAD · STILL",
   },
 ];

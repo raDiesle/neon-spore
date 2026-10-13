@@ -18,19 +18,12 @@ const onPage = FIELD_ACTIONS.flatMap((a) => a.types.flatMap((t) => t.rows));
 
 /**
  * Rows the sweep cannot find on their pose's tick: nothing pressed anywhere
- * on the phone reaches them, so the card keeps the pose's crop. Each is
- * queued (`docs/queue.md`, 9 October 2026) — a pose a tick where the control
- * can be pressed, or a hit test that answers it — and leaves this list when
- * it is found.
+ * on the phone reaches them, so the card keeps the pose's crop. None today —
+ * the last five were posed on the tick their control first asks
+ * (`poses-field-controls-asking.ts`, and THE LEAD's on its STILL). A row put
+ * here is queued with it (`docs/queue.md`) and leaves when it is found.
  */
-const NOT_ON_THE_TICK = "no press reaches it on the pose's tick";
-const UNFOUND: Readonly<Record<string, string>> = {
-  "PINBALL'S PLUNGER": NOT_ON_THE_TICK,
-  "THE GAUGE'S BAND": NOT_ON_THE_TICK,
-  "THE LEAD'S STALK": NOT_ON_THE_TICK,
-  "THE BATON'S STRIP": NOT_ON_THE_TICK,
-  "THE QUEEN'S MARKS": NOT_ON_THE_TICK,
-};
+const UNFOUND: Readonly<Record<string, string>> = {};
 
 describe("a use card's picture is cut to its control", () => {
   const cards = new Map<string, string[]>();
