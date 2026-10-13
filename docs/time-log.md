@@ -38679,3 +38679,5 @@ the contents bar, which was a defect of its own to fix first.
 
 Bottleneck: the arrows were named in twelve places across seven packages,
 found one typecheck error at a time.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

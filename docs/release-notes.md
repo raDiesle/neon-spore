@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-13 · 805e63ba5 — THE CHOIR's two arrows become one rub in the middle, both seats at once
+
+On a phone that cannot report a shake, or on a computer, THE CHOIR's membrane is now opened by the RUB in the middle of the field instead of the two SWIPE arrows against its walls. The mark is on both screens. A turn counts only while the other seat turned within a beat (`choirTogetherBeats`). The first turn made together opens the window, each later one keeps it open, and eight made together (`choirRubTurns`) draw the two voices into one body. A turn made alone counts nothing, and a rub that stops short lets the window shut, so the membrane sings. Shaking the phone twice still works as before.
+
 ## 2026-10-13 · 8e10e4d77 — Every lab on ON THE FIELD takes the page's whole width, and its readout holds still
 
 Each lab card spans the gesture grid's whole row rather than one 340px column, and its readout keeps the room of its longest state (two lines, three on a phone), so WAITING, COUNTED and RESTING no longer move the field and the page under it. A look the owner asked for by name.
