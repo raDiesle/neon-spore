@@ -1,3 +1,4 @@
+import type { Glance } from "./glance.js";
 import { glanceAt } from "./instar-glance-styles.js";
 import { tailLeanAt } from "./instar-tail-lean.js";
 import { bodyLife } from "./motion-life.js";
@@ -18,12 +19,7 @@ import { bodyLife } from "./motion-life.js";
  * way, and wherever it leans it is kept on the screen (`instar-tail-fit.ts`).
  */
 
-export interface Glance {
-  /** How far the snout swings on top of its turn, in head radii, `time` seconds in: + toward the screen's right. */
-  swing: (time: number) => number;
-  /** How far the head rolls about its centre, radians: + clockwise. */
-  roll: (time: number) => number;
-}
+export type { Glance } from "./glance.js";
 
 export const INSTAR_GLANCE: Glance = {
   swing: (time) => glanceAt(time).swing * bodyLife(),

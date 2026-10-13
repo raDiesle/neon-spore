@@ -6,6 +6,7 @@ import { type Layout, tileCX, tileCY } from "./layout.js";
 import { PALETTE } from "./palette.js";
 import { drawEgg, drawSideHint } from "./queen-egg.js";
 import { QUEEN_FIGURE, queenMarkCenter } from "./queen-figure.js";
+import { drawQueenGlanced } from "./queen-glance.js";
 import { drawQueenGrip } from "./queen-grip.js";
 import { QUEEN_LOOK } from "./queen-look.js";
 import { drawQueenAsked, drawQueenVerdicts } from "./queen-marks.js";
@@ -202,8 +203,12 @@ function drawShell(
 
   ctx.save();
   ctx.translate(x, y);
-  QUEEN_LOOK.shell({ ctx, path, rx, ry, t, time, healthShare, turn });
-  drawHurt(ctx, path, hurt);
+  // The whole shell glances, where a look takes one (`queen-glance.ts`).
+  drawQueenGlanced(ctx, rx, time, () => {
+    QUEEN_LOOK.shell({ ctx, path, rx, ry, t, time, healthShare, turn });
+    drawHurt(ctx, path, hurt);
+    return path;
+  });
   ctx.restore();
 }
 

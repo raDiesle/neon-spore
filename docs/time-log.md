@@ -38823,3 +38823,17 @@ Bottleneck: the 404 did not reproduce on Bun 1.4.3, so only the sign could be bu
 Bottleneck: none — the seams were already named in the sheets' own comments.
 
 *Measured: 4 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-13 — VERSUS offers THE BULB QUEEN's shell glancing
+
+- reading: 15 min. The entry, the depth skill, THE INSTAR's glance lane and
+  its candidates, her shell, crane and figure.
+- writing: 20 min. `glance.ts` and `glance-styles.ts` lifted out of THE
+  INSTAR's two files, which now call them; `queen-glance.ts`, three
+  candidates, the pose row, the test, the spec and the skill.
+- looking: 10 min. Two VERSUS shots: the first swing was too small to tell
+  apart in a still, so it was widened and the far half darkened more.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: the first swing could not be seen in a still — the reach had to be read off a picture, not a number.

@@ -1314,6 +1314,8 @@ by hand never moves.
 | `packages/render/src/gland-organ.ts` | A BUTTON GROWN AS AN ORGAN — the flesh it swells out of, the veins that feed it |
 | `packages/render/src/gland-tube.ts` | A TUBE AND A CURVE — the two pieces of vector arithmetic every grown thing on VERSUS is drawn out of |
 | `packages/render/src/gland-wet.ts` | WET SKIN — the ship as a clear, light-reflecting surface, with **no grain** |
+| `packages/render/src/glance-styles.ts` | **The three ways a part glances**, as the owner took them for THE INSTAR's head on 9 October 2026… |
+| `packages/render/src/glance.ts` | **A part that glances** (`.claude/skills/depth`, "A part that glances"): a head, a claw |
 | `packages/render/src/handles.ts` | The handles: the things drawn **on the field** that a hand takes hold of and carries, as opposed to the |
 | `packages/render/src/handles-pairs.ts` | **The two handles that come in pairs** — THE BALLOON's two sides |
 | `packages/render/src/handles-cords.ts` | **The three cords**: THE MAZE's string, THE WARDEN's rope and THE LID's cord |
@@ -1347,6 +1349,7 @@ by hand never moves.
 | `packages/render/src/other-hand.ts` | THE OTHER HAND: the cheapest presence a two-device co-op game can show — not what a control is doing, only |
 | `packages/render/src/queen-egg.ts` | Never quite zero — a degenerate radius is what `frame.test.ts` exists to catch |
 | `packages/render/src/queen-glyph.ts` | Points around the contour — the same count `blobPath` itself walks |
+| `packages/render/src/queen-glance.ts` | **THE BULB QUEEN's shell glances** — the owner, 9 and 10 October 2026: *body parts of living things turn |
 | `packages/render/src/queen-grip.ts` | **THE BULB QUEEN's marks as a control**, for the two phases that ask a thumb for them (`QUEEN_GESTURES` |
 | `packages/render/src/queen-weakpoint.ts` | Breath speed at full health, out of bloom |
 | `packages/render/src/queen.ts` | How much faster the outer body's wobble gets by her last petal |

@@ -1,4 +1,12 @@
-import { smoothstep } from "./ease.js";
+import {
+  cock,
+  GLANCE_ROUND,
+  type GlancePose,
+  type GlanceSize,
+  type GlanceStyle,
+  look,
+  sway,
+} from "./glance-styles.js";
 
 /**
  * **THE INSTAR's three glances, taken in turn, COCK most** — the owner, 9 October 2026,
@@ -19,63 +27,32 @@ import { smoothstep } from "./ease.js";
  * radians, + clockwise (`instar-glance.ts`, `instar-turn.ts`).
  */
 
-/** Seconds a round of one glance takes. */
-export const GLANCE_ROUND = 6;
 /** Where every round begins and ends: past the head's rest, toward the right. */
 const MIDDLE = 0.05;
-/** How far a turning round swings either way from the middle. */
-const REACH = { sway: 0.19, cock: 0.17 } as const;
-/** How far the head cocks, radians, and how many times a round. */
-const COCK = 0.09;
-const COCKS = 3;
+/** How big each round is: COCK a little narrower than the other two (`glance-styles.ts`). */
+const SIZE = {
+  sway: { reach: 0.19, cock: 0, tilt: 0 },
+  cock: { reach: 0.17, cock: 0.09, tilt: 0 },
+  look: { reach: 0.19, cock: 0, tilt: 0.28 },
+} as const;
 
-/** LOOK's looks: the swing at each, and how long it is held, seconds. With the turns, one round. */
-const LOOKS: readonly { swing: number; hold: number }[] = [
-  { swing: MIDDLE, hold: 0.6 },
-  { swing: -0.14, hold: 1.3 },
-  { swing: MIDDLE, hold: 0.8 },
-  { swing: 0.24, hold: 1.5 },
-];
-/** Seconds LOOK's turn from one look to the next takes. */
-const LOOK_TURN = 0.45;
-/** How far LOOK tilts the head toward where it looks, radians per head radius of swing off the middle. */
-const TILT = 0.28;
+export { GLANCE_ROUND, type GlancePose } from "./glance-styles.js";
 
-export interface GlancePose {
-  swing: number;
-  roll: number;
-}
-
-/** A turn on one sine, `t` seconds into its round. */
-function turning(t: number, reach: number): number {
-  return MIDDLE + reach * Math.sin((2 * Math.PI * t) / GLANCE_ROUND);
-}
-
-/** LOOK's swing `t` seconds into its round: held, or turning from one look to the next. */
-function looking(t: number): number {
-  for (let i = 0; i < LOOKS.length; i++) {
-    const here = LOOKS[i] as (typeof LOOKS)[number];
-    if (t < here.hold) return here.swing;
-    t -= here.hold;
-    const next = LOOKS[(i + 1) % LOOKS.length] as (typeof LOOKS)[number];
-    if (t < LOOK_TURN) return here.swing + (next.swing - here.swing) * smoothstep(t / LOOK_TURN);
-    t -= LOOK_TURN;
-  }
-  return MIDDLE;
-}
-
-const cock = (t: number): GlancePose => ({
-  swing: turning(t, REACH.cock),
-  roll: COCK * Math.sin((2 * Math.PI * COCKS * t) / GLANCE_ROUND),
-});
-const sway = (t: number): GlancePose => ({ swing: turning(t, REACH.sway), roll: 0 });
-const look = (t: number): GlancePose => {
-  const swing = looking(t);
-  return { swing, roll: (swing - MIDDLE) * TILT };
-};
+/** A round of `style` at its size, about the head's own middle. */
+const about =
+  (style: GlanceStyle, z: GlanceSize) =>
+  (t: number): GlancePose => {
+    const p = style(t, z);
+    return { swing: MIDDLE + p.swing, roll: p.roll };
+  };
 
 /** The rounds in order, then again: COCK, the owner's favourite, every other one. */
-const STYLES: readonly ((t: number) => GlancePose)[] = [cock, sway, cock, look];
+const STYLES: readonly ((t: number) => GlancePose)[] = [
+  about(cock, SIZE.cock),
+  about(sway, SIZE.sway),
+  about(cock, SIZE.cock),
+  about(look, SIZE.look),
+];
 
 /** Where the head glances `time` seconds in: whichever round it is in, and how far through. */
 export function glanceAt(time: number): GlancePose {

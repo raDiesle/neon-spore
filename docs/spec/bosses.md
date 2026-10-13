@@ -388,6 +388,17 @@ the socket the last one broke off from — 1 is the whole beat, 0 is it simply
 being there again — and only the picture reads it. `queenHoldBeats` is how
 long a SCREAM bloom may be held open in all.
 
+**Offered (13 October 2026, VERSUS `queen:glance`).** Her part that turns
+is her whole shell — she has no head, and the owner's word for a machine is
+*the full boss shape*. `packages/render/src/queen-glance.ts`, which ships
+still: the middle of her shell swings toward one wing, that half squeezes
+and goes dark, the other opens, and the two points her crane arms' shoulders
+sit on are held, so neither arm comes off her and neither torch moves. Her
+marks hang under the shell, not on it, so they and their hit test do not
+move at all. **SWAY**, **LOOK** and **COCK** are the shared three
+(`packages/render/src/glance-styles.ts`), six seconds a round, judged on
+`BULB QUEEN · SHUT`.
+
 ## 11.3 THE MIRROR — your own ship, asking for your moves back
 
 > The one where the boss is an exact copy of your ship, and Simon says.

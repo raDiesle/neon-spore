@@ -163,6 +163,14 @@ What makes it read, all four or it is a squash:
   pose every six seconds) shows a whole round. Shipped, COCK takes two rounds
   in four — COCK, SWAY, COCK, LOOK — at his word on 10 October 2026.
 
+**Call it, never write it again.** `packages/render/src/glance.ts` is the
+two-plane turn — `glanceFrame`, `drawGlanced`, and `glancedPoint` for the hit
+test — and `glance-styles.ts` is SWAY, LOOK and COCK as `glanceOf(style,
+size)`, which is what a candidate patches onto a boss's still record
+(`STILL_GLANCE`). THE INSTAR's head and THE BULB QUEEN's shell
+(`queen-glance.ts`, the worked example for a body whose marks are not on the
+turning part) both stand on them.
+
 So when he names a boss and asks for its graphics to be better: find the
 part a face or a machine would turn — the head, the claws, a turret, the
 whole hull of a machine — put a record on its turn that ships still, and

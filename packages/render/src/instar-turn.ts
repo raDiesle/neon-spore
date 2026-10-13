@@ -1,9 +1,8 @@
 import { FRONT, see, view } from "@neon-spore/content";
 import { smoothstep } from "./ease.js";
-import { rgba } from "./hex.js";
+import { drawGlanced, type GlanceFrame, glancedPoint } from "./glance.js";
 import { INSTAR_GLANCE } from "./instar-glance.js";
 import type { Point } from "./instar-place.js";
-import { SHADOW } from "./solid-tube-light.js";
 
 /**
  * **THE INSTAR a third of the way round**: face-on it is never square to the
@@ -89,22 +88,15 @@ function snoutSwing(r: number, turn: HeadTurn): number {
   return (INSTAR_GLANCE.swing(turn.time) - (SNOUT + (SNOUT_FAR - SNOUT) * turn.side)) * r;
 }
 
-/** How half `s` of the head is turned: the squeeze `k` about the snout's swing `m`, each eye held. */
-function turnedHalf(r: number, m: number, s: -1 | 1): number {
-  return 1 - (s * m) / (EYE_X * r);
+/** The head's glance this frame: its snout's swing about its centre, each eye held. */
+function headFrame(head: Point, r: number, turn: HeadTurn): GlanceFrame {
+  const swing = snoutSwing(r, turn);
+  return { x: head.x, y: head.y, r, hold: EYE_X, swing, roll: INSTAR_GLANCE.roll(turn.time) };
 }
 
 /** Where `drawTurnedHead` draws a point `p` of the head about `head` — a bolt meets it there (`instar-head-stop.ts`). */
 export function turnedHeadPoint(head: Point, r: number, turn: HeadTurn, p: Point): Point {
-  const m = snoutSwing(r, turn);
-  const k = turnedHalf(r, m, p.x < head.x ? -1 : 1);
-  const x = m + k * (p.x - head.x);
-  const y = p.y - head.y;
-  // The roll about the head's centre, added on so no roll is the point exactly.
-  const a = INSTAR_GLANCE.roll(turn.time);
-  const c = Math.cos(a) - 1;
-  const sn = Math.sin(a);
-  return { x: head.x + m + k * (p.x - head.x) + (x * c - y * sn), y: p.y + (x * sn + y * c) };
+  return glancedPoint(headFrame(head, r, turn), p);
 }
 
 /**
@@ -122,28 +114,5 @@ export function drawTurnedHead(
   look: HeadTurn & { fade: number },
   draw: (half: -1 | 1) => readonly Path2D[],
 ): void {
-  const { fade } = look;
-  const m = snoutSwing(r, look);
-  const far = m > 0 ? 1 : -1;
-  const shade = FAR_CHEEK * fade * Math.min(1, Math.abs(m) / (SNOUT * r));
-  for (const s of [-1, 1] as const) {
-    const k = turnedHalf(r, m, s);
-    ctx.save();
-    ctx.translate(head.x, head.y);
-    ctx.rotate(INSTAR_GLANCE.roll(look.time));
-    ctx.translate(-head.x, -head.y);
-    ctx.transform(k, 0, 0, 1, head.x + m - k * head.x, 0);
-    ctx.beginPath();
-    ctx.rect(s < 0 ? head.x - 4 * r : head.x, head.y - 4 * r, 4 * r, 8 * r);
-    ctx.clip();
-    const plates = draw(s);
-    if (s === far) {
-      const dark = ctx.createLinearGradient(head.x, 0, head.x + s * r, 0);
-      dark.addColorStop(0, rgba(SHADOW, 0));
-      dark.addColorStop(1, rgba(SHADOW, shade));
-      ctx.fillStyle = dark;
-      for (const p of plates) ctx.fill(p);
-    }
-    ctx.restore();
-  }
+  drawGlanced(ctx, headFrame(head, r, look), { dark: FAR_CHEEK * look.fade, full: SNOUT }, draw);
 }

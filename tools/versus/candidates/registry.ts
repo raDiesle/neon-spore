@@ -6,5 +6,8 @@
 // `index.ts` next door says why it is generated at all.
 
 import type { Variant } from "../variant.js";
+import { QUEEN_COCK } from "./queen-glance/cock/index.js";
+import { QUEEN_LOOK_AROUND } from "./queen-glance/look/index.js";
+import { QUEEN_SWAY } from "./queen-glance/sway/index.js";
 
-export const VARIANTS: Variant[] = [];
+export const VARIANTS: Variant[] = [QUEEN_COCK, QUEEN_LOOK_AROUND, QUEEN_SWAY];
