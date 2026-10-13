@@ -34,7 +34,13 @@ export const CLOCK_BOSS_POSES: Pose[] = [
     "vane",
     "swing",
     "Every pin in and the vane sweeps two columns. P1 pins the arm; P2 fires up the split.",
-    { want: (w) => w.boss?.kind === "vane" && vanePhase(w.boss.pins).name === "SWING", hold: 6 },
+    {
+      // `vane:glance` is judged here: every pin in, the whole bearing on its mount.
+      lookAt:
+        "the bearing and the bar it is bolted to — whether it turns on its hub, one end growing and the other shortening into the dark, while the hub stays on its column",
+      want: (w) => w.boss?.kind === "vane" && vanePhase(w.boss.pins).name === "SWING",
+      hold: 6,
+    },
   ),
   bossPose(
     "stare",

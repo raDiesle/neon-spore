@@ -38865,3 +38865,17 @@ Bottleneck: choosing the part — its hull must stay the ship and holds both lob
 Bottleneck: none — the eye was the obvious centre to turn about.
 
 *Measured: 5 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-13 — VERSUS offers THE VANE's bearing glancing on its hub
+
+- reading: 5 min. The entry, `vane-draw.ts`, the bearing, the split.
+- writing: 15 min. A centre-held mode in `glance.ts`, `vane-glance.ts`, the
+  split drawn on its own after the bearing, three candidates, the pose's
+  `lookAt`, a row in the glance test.
+- looking: 15 min. Five VERSUS shots: a crop past the image's edge smeared
+  into what looked like a stretch, the split rode off its column, and its
+  mouth came off the mount's end until the turn was cut down.
+- friction: 5 min. The smeared crop.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: the split rides the mount's end on a shot's column, which caps how far the mount may turn.

@@ -11,6 +11,7 @@ import {
 } from "../src/glance-styles.js";
 import { MIRROR_GLANCE, MIRROR_GLANCE_SIZE } from "../src/mirror-glance.js";
 import { QUEEN_GLANCE, QUEEN_GLANCE_HOLD, QUEEN_GLANCE_SIZE } from "../src/queen-glance.js";
+import { VANE_GLANCE, VANE_GLANCE_SIZE } from "../src/vane-glance.js";
 import { WARDEN_GLANCE, WARDEN_GLANCE_SIZE } from "../src/warden-glance.js";
 
 /**
@@ -26,7 +27,7 @@ interface Row {
   name: string;
   record: Glance;
   size: GlanceSize;
-  /** The held points, in part radii either side of the centre. */
+  /** The held points, in part radii either side of the centre; 0 the centre itself. */
   hold: number;
 }
 
@@ -40,6 +41,7 @@ const ROWS: readonly Row[] = [
   { name: "THE MIRROR", record: MIRROR_GLANCE, size: MIRROR_GLANCE_SIZE, hold: 1 },
   // Held at the hole's widest, at rest: the pupil is 0.44 of the body.
   { name: "THE WARDEN", record: WARDEN_GLANCE, size: WARDEN_GLANCE_SIZE, hold: 0.44 },
+  { name: "THE VANE", record: VANE_GLANCE, size: VANE_GLANCE_SIZE, hold: 0 },
 ];
 
 const R = 100;
@@ -73,8 +75,15 @@ describe.each(ROWS.map((r) => [r.name, r] as const))("%s's glance", (_, row) => 
     }
   });
 
-  it("holds its held points, and moves its middle", () => {
+  it("holds its held points, and turns between them", () => {
     const f = { ...at, swing: row.size.reach * R, roll: 0 };
+    if (row.hold === 0) {
+      // Held at its centre: the middle stays, the near half opens, the far one closes.
+      expect(glancedPoint(f, { x: 0, y: 0 }).x).toBeCloseTo(0, 6);
+      expect(glancedPoint(f, { x: -R, y: 0 }).x).toBeLessThan(-R);
+      expect(glancedPoint(f, { x: R, y: 0 }).x).toBeLessThan(R);
+      return;
+    }
     for (const side of [-1, 1]) {
       const p = { x: side * row.hold * R, y: 5 };
       const q = glancedPoint(f, p);

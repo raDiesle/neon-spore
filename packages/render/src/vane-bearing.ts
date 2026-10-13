@@ -57,7 +57,9 @@ const FLANGE = 1.16;
 
 /**
  * The bearing, drawn from the pivot out: the mount across three columns, the
- * flange with the pins in it, the hub, and the split when there is one.
+ * flange with the pins in it, and the hub. The split is `drawSplit`, drawn
+ * after it, because it stands on a column a shot goes up and the bearing may
+ * turn under it (`vane-glance.ts`).
  */
 export function drawBearing(
   ctx: CanvasRenderingContext2D,
@@ -67,16 +69,12 @@ export function drawBearing(
   px: number,
   py: number,
   hub: number,
-  open: boolean,
-  hex: string,
-  rim: string,
   /** How red the blow of a knocked-out pin still shows on the hub (`boss-blows.ts`). */
   hurt = 0,
 ): void {
   mount(ctx, l, px, py);
   flange(ctx, world, b, px, py, hub);
   boss(ctx, px, py, hub, hurt);
-  split(ctx, l, world, b, px, py, open, hex, rim);
 }
 
 /** The bar the bearing is bolted to, with a head at each end. */
@@ -192,7 +190,7 @@ function boss(
  * answer is -1 there — which would leave the split undrawn for two thirds of
  * the fight (`sim/vane-open.ts`, `docs/spec/bosses.md` §11.5).
  */
-function split(
+export function drawSplit(
   ctx: CanvasRenderingContext2D,
   l: Layout,
   world: World,

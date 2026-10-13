@@ -11,7 +11,10 @@ import { SHADOW } from "./solid-tube-light.js";
  * opened by its own affine about the middle's swing, and the two affines are
  * fitted so the points `hold` part radii either side of the centre stay where
  * they are — the two eyes, the two shoulders a crane hangs from, the two marks
- * a thumb is on. The side it turns toward opens; the far side closes and goes
+ * a thumb is on. **A `hold` of 0 holds the centre instead**: nothing swings,
+ * the near half opens and the far half closes about a middle that stays put —
+ * a machine's mount turning on the hub a shot is aimed at (`vane-glance.ts`).
+ * The side it turns toward opens; the far side closes and goes
  * into the cool dark toward its edge, as dark as the swing is wide. A roll
  * about the centre goes on top. A thumb meets the part where it is drawn by
  * asking `glancedPoint` the same question.
@@ -35,7 +38,7 @@ export interface GlanceFrame {
   y: number;
   /** The part's radius: the unit `swing` and `hold` are counted in. */
   r: number;
-  /** How far either side of the centre the held points sit, in part radii. */
+  /** How far either side of the centre the held points sit, in part radii; 0 holds the centre. */
   hold: number;
   /** How far the middle has swung, pixels. */
   swing: number;
@@ -58,8 +61,11 @@ export const glanceStill = (f: GlanceFrame): boolean => f.swing === 0 && f.roll 
 
 /** How half `s` of the part is squeezed (under 1) or opened (over 1), the held point on it staying put. */
 export function glanceSqueeze(f: GlanceFrame, s: -1 | 1): number {
-  return 1 - (s * f.swing) / (f.hold * f.r);
+  return 1 - (s * f.swing) / ((f.hold || 1) * f.r);
 }
+
+/** How far the middle is drawn off the centre: the swing, or nothing where the centre is held. */
+const middleShift = (f: GlanceFrame): number => (f.hold === 0 ? 0 : f.swing);
 
 /** Where `drawGlanced` draws a point `p` of the part — a bolt or a thumb meets it there. */
 export function glancedPoint(
@@ -67,7 +73,7 @@ export function glancedPoint(
   p: { x: number; y: number },
 ): { x: number; y: number } {
   const k = glanceSqueeze(f, p.x < f.x ? -1 : 1);
-  const x = f.swing + k * (p.x - f.x);
+  const x = middleShift(f) + k * (p.x - f.x);
   const y = p.y - f.y;
   // The roll about the centre, added on so no roll is the point exactly.
   const c = Math.cos(f.roll) - 1;
@@ -100,7 +106,7 @@ export function drawGlanced(
     ctx.translate(x, y);
     ctx.rotate(f.roll);
     ctx.translate(-x, -y);
-    ctx.transform(k, 0, 0, 1, x + swing - k * x, 0);
+    ctx.transform(k, 0, 0, 1, x + middleShift(f) - k * x, 0);
     ctx.beginPath();
     ctx.rect(s < 0 ? x - reach : x, y - reach, reach, 2 * reach);
     ctx.clip();

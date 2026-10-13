@@ -14,7 +14,8 @@ import { strokeGlow } from "./glow.js";
 import type { GripVerdicts } from "./grip-verdict.js";
 import { type Layout, tileCX, tileCY } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
-import { drawBearing } from "./vane-bearing.js";
+import { drawBearing, drawSplit } from "./vane-bearing.js";
+import { drawVaneGlanced } from "./vane-glance.js";
 import { drawVaneGrips, vaneHubAt, vaneTipPoint } from "./vane-grip.js";
 import { drawVaneGuards } from "./vane-guards.js";
 import { drawVaneAsked, drawVaneVerdicts } from "./vane-marks.js";
@@ -114,7 +115,12 @@ function drawMechanism(
   const hex = vaneColor(cfg, opening) === "red" ? PALETTE.red : PALETTE.cyan;
   const rim = hex === PALETTE.red ? PALETTE.redRim : PALETTE.cyanRim;
 
-  drawBearing(ctx, l, world, b, px, py, hub, open, hex, rim, hurt);
+  // The bearing glances on its hub, where a look takes one (`vane-glance.ts`).
+  drawVaneGlanced(ctx, l.tile, px, py, hub, time, () =>
+    drawBearing(ctx, l, world, b, px, py, hub, hurt),
+  );
+  // The split stands on the column a shot goes up, so it never turns.
+  drawSplit(ctx, l, world, b, px, py, open, hex, rim);
   // The guard arms each re-forming adds, over the housing so the one standing
   // across a mouth is seen covering it (`vane-guards.ts`).
   drawVaneGuards(ctx, l, world, b, px, py, beatPhase, hex);

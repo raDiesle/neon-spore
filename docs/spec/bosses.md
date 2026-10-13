@@ -1268,6 +1268,16 @@ touch keeps its radius.
 whether a spar at twelve beats a turn reads as covering a mouth before the shot
 leaves the hull.
 
+**Offered (13 October 2026, VERSUS `vane:glance`).** A made thing, so the
+whole bearing turns — the mount, the bolt circle and the hub
+(`packages/render/src/vane-glance.ts`, which ships still) — **about its
+centre**, because the hub is what a shot reaches and a thumb presses: the
+near end of the mount grows, the far end shortens into the dark, the pins
+bunch on the far side. The split is drawn after it and never turns, since it
+stands on the column a shot goes up; the turn is kept small enough that the
+mount's far end never leaves it. The arm and its tip do not turn. **SWAY**,
+**LOOK** and **COCK** (`glance-styles.ts`), judged on `THE VANE · SWING`.
+
 ## 11.6 THE FLEET — one of you has the map, the other has the sights
 
 > The one where the only one who can see the ships is the one who cannot move
