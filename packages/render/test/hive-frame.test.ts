@@ -24,6 +24,7 @@ import {
   VIEWPORT,
   waveWith,
 } from "./frame-harness.js";
+import { spyPulls } from "./pull-spy.js";
 
 setDefaultTimeout(FRAME_TIMEOUT_MS);
 
@@ -237,28 +238,32 @@ describe("THE HIVE's mass", () => {
     // is a `translate`, which this log does not record** — the height itself
     // is read off `hiveClenchRise` two tests down, and what is asked here is
     // that the branch draws at all, with every breach still in it.
-    const up = frame(role, (w) => clenched(w));
+    const { out: up, tracks } = spyPulls(() => frame(role, (w) => clenched(w)));
     expect(up.calls).toBeGreaterThan(200);
     expect(up.text).toContain(PALETTE.bile);
-    expect(count(up.text, PALETTE.dim)).toBeGreaterThan(
-      count(frame(role, () => {}).text, PALETTE.dim),
-    );
+    // His screen and the test's: the haul's pull is up on it. Hers: the clench, drawn dim.
+    if (role === "p2") {
+      expect(count(up.text, PALETTE.dim)).toBeGreaterThan(
+        count(frame(role, () => {}).text, PALETTE.dim),
+      );
+    } else expect(tracks.filter((d) => d.o.key === "hive").length).toBeGreaterThan(0);
   });
 
-  it("rings the clenched underside on the pilot's screen alone, and fills it under his thumb", () => {
-    const carrying = (role: ViewRole) => frame(role, (w) => clenched(w, CFG.hiveHaulMilli / 2));
-    const still = (role: ViewRole) => frame(role, (w) => clenched(w));
-    const hung = (role: ViewRole) => frame(role, (w) => open(w, 2));
-    // His: a ring, and it fills once a thumb is carrying it.
-    expect(count(still("p1").text, PALETTE.text)).toBeGreaterThan(
-      count(hung("p1").text, PALETTE.text),
-    );
-    expect(count(carrying("p1").text, PALETTE.text)).toBeGreaterThan(
-      count(still("p1").text, PALETTE.text),
-    );
+  it("puts the PULL LAB's pull on the clenched underside on the pilot's screen alone, and fills it under his thumb", () => {
+    // The haul's channel as each frame asks for it: held, and how far along.
+    const hauls = (role: ViewRole, arrange: (w: World) => void) =>
+      spyPulls(() => frame(role, arrange)).tracks.filter((d) => d.o.key === "hive");
+    const last = (role: ViewRole, arrange: (w: World) => void) => hauls(role, arrange).at(-1)?.o;
+    // His: the knob down its channel, at the top until a thumb carries it, then half way.
+    expect(hauls("p1", (w) => open(w, 2))).toEqual([]);
+    expect(last("p1", (w) => clenched(w))).toMatchObject({ held: false, at: 0 });
+    expect(last("p1", (w) => clenched(w, CFG.hiveHaulMilli / 2))).toMatchObject({
+      held: true,
+      at: 0.5,
+    });
     // Hers: the clench, and no handle on it at all — the mass is up on her
     // screen too, and there is nothing she can do about it (`hive-hand.ts`).
-    expect(count(still("p2").text, PALETTE.text)).toBe(count(hung("p2").text, PALETTE.text));
+    expect(hauls("p2", (w) => clenched(w))).toEqual([]);
   });
 
   it("answers the haul frame by frame, and is home when the carry is enough", () => {

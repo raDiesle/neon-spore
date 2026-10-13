@@ -40,8 +40,8 @@ export const DRAG_LOOKS: Readonly<Record<string, UseLook>> = {
     move: "Dragged up, the eel comes out of the ship. Before the press there is no knob to take.",
   },
   "THE HIVE'S HAUL": {
-    find: "A wide ring in the middle of the clenched underside, on the pilot's screen, with the halo under it.",
-    move: "The heavy mass comes down after the deepest point the thumb has reached, not where it rests. A haul home washes the mass green.",
+    find: "A knob in the middle of the clenched underside with its arrow down a channel, on the pilot's screen, with the halo under it and the clench's dial round it.",
+    move: "The knob and the channel's green go down to the deepest point the thumb has reached, not where it rests. A haul home washes the mass green.",
   },
   "THE VANE'S HOUSING": {
     find: "A ring hanging just under the bearing's hub under SEIZE, haloed on the navigator's screen.",

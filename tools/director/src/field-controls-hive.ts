@@ -21,8 +21,9 @@ export const HIVE_CONTROLS: readonly FieldControlDef[] = [
   {
     name: "THE HIVE'S HAUL",
     where:
-      "a wide circle in the middle of the clenched underside, at the height " +
-      "the mass has drawn itself up to this frame — a palm's worth rather " +
+      "the knob every pull wears in the middle of the clenched underside, at " +
+      "the height the mass has drawn itself up to this frame, a channel " +
+      "hiveHaulMilli straight down — answered a palm's worth wide rather " +
       "than a thumb's, because the handle is the whole underside — on " +
       "player 1's screen, while the mass is clenched",
     seat: "player 1 only — the seat shown the mass with every breach in its colour, so the underside going out of reach is his to pull back",

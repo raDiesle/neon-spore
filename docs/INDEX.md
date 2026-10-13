@@ -2540,6 +2540,7 @@ by hand never moves.
 | `packages/render/src/hive-spores.ts` | **THE HIVE's spores, swarming round each open breach**: a cloud of glowing motes circling the wound |
 | `packages/render/src/hive-grip.ts` | **THE HIVE's one handle, offered to whichever seat the mass's state is for** |
 | `packages/render/src/hive-hold.ts` | **THE HIVE's two held states, in field pixels**: how far a clench has drawn the mass up out of reach |
+| `packages/render/src/hive-haul-knob.ts` | **THE HIVE's haul, drawn as every pull is** |
 | `packages/render/src/hive-cell.ts` | **THE HIVE's lobes and breaches, as wax** (`hive-wax.ts` is the mass) |
 | `packages/render/src/hive-wax.ts` | **What THE HIVE is made of**: wax — a dark mass of it, lit from the upper left and gone to the deep beneath |
 | `packages/render/src/hive-walls.ts` | **THE HIVE's two walls, in field pixels**: the mass hung down both sides into an arch, a socket round each cocoon, the cocoon laid on its side, and where a bolt meets them |

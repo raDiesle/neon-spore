@@ -24,6 +24,7 @@ import {
   VIEWPORT,
   waveWith,
 } from "./frame-harness.js";
+import { spyPulls } from "./pull-spy.js";
 
 setDefaultTimeout(FRAME_TIMEOUT_MS);
 
@@ -91,7 +92,8 @@ function rings(world: World, s: HiveState, role: ViewRole, v = new GripVerdicts(
   const log: string[] = [];
   ctx.log = log;
   const c = ctx as unknown as CanvasRenderingContext2D;
-  drawHiveGrip(c, layout(role), CFG, s, world.beat, 0.4, 1.2, v);
+  // The haul's knob is the PULL LAB's, which lights itself with gradients of its own: held.
+  spyPulls(() => drawHiveGrip(c, layout(role), CFG, s, world.beat, 0.4, 1.2, v));
   return log.join("|");
 }
 
