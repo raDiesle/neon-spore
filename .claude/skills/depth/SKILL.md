@@ -169,7 +169,9 @@ test — and `glance-styles.ts` is SWAY, LOOK and COCK as `glanceOf(style,
 size)`, which is what a candidate patches onto a boss's still record
 (`STILL_GLANCE`). THE INSTAR's head and THE BULB QUEEN's shell
 (`queen-glance.ts`, the worked example for a body whose marks are not on the
-turning part) both stand on them.
+turning part) both stand on them, and so does THE MIRROR's chamber
+(`mirror-glance.ts`) — the example for a boss whose body may not turn at all,
+where a part behind it does instead.
 
 So when he names a boss and asks for its graphics to be better: find the
 part a face or a machine would turn — the head, the claws, a turret, the

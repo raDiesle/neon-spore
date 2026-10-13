@@ -6,8 +6,18 @@
 // `index.ts` next door says why it is generated at all.
 
 import type { Variant } from "../variant.js";
+import { MIRROR_COCK } from "./mirror-glance/cock/index.js";
+import { MIRROR_LOOK_AROUND } from "./mirror-glance/look/index.js";
+import { MIRROR_SWAY } from "./mirror-glance/sway/index.js";
 import { QUEEN_COCK } from "./queen-glance/cock/index.js";
 import { QUEEN_LOOK_AROUND } from "./queen-glance/look/index.js";
 import { QUEEN_SWAY } from "./queen-glance/sway/index.js";
 
-export const VARIANTS: Variant[] = [QUEEN_COCK, QUEEN_LOOK_AROUND, QUEEN_SWAY];
+export const VARIANTS: Variant[] = [
+  MIRROR_COCK,
+  MIRROR_LOOK_AROUND,
+  MIRROR_SWAY,
+  QUEEN_COCK,
+  QUEEN_LOOK_AROUND,
+  QUEEN_SWAY,
+];

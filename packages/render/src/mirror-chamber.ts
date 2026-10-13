@@ -59,7 +59,7 @@ const NO_LOBES: readonly Circle[] = [];
  * the visible edge of the ship is the membrane rather than a rectangle's
  * bottom (`seam-line.ts`).
  */
-export function drawMirrorChamber(ctx: CanvasRenderingContext2D, l: Layout, time: number): void {
+export function drawMirrorChamber(ctx: CanvasRenderingContext2D, l: Layout, time: number): Path2D {
   const skin = MIRROR_SEAT;
   const chamber = chamberPath(l, time, NO_LOBES);
   drawSeamFlesh(ctx, l, skin);
@@ -77,4 +77,5 @@ export function drawMirrorChamber(ctx: CanvasRenderingContext2D, l: Layout, time
   });
   BAND_SLIME.drips({ ctx, l, time, skin, lobes: NO_LOBES });
   ctx.restore();
+  return chamber;
 }

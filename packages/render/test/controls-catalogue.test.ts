@@ -26,6 +26,8 @@ import { treeText } from "../../../tools/test/tree-text.js";
 const NOT_MARKS: Readonly<Record<string, string>> = {
   "palette.ts": "colour",
   "layout.ts": "the field's geometry",
+  "glance.ts": "a part turning, the picture of a boss",
+  "glance-styles.ts": "the clocks a part turns on",
   "hex.ts": "colour arithmetic",
   "glow.ts": "light on a stroke",
   "touch.ts": "where a press lands, not what is drawn",

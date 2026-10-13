@@ -50,7 +50,12 @@ export const ROUND_BOSS_POSES: Pose[] = [
     "mirror",
     "lead",
     "The ship is upside down and in the wrong colours, the band locked. P1 watches; P2 watches — nothing else.",
-    FULL,
+    {
+      ...FULL,
+      // `mirror:glance` is judged here: no ring or hand over it, so the eye is on its insides.
+      lookAt:
+        "the copy's insides above its hull — whether the flesh and ribs turn toward one side, its far half going dark, while the hull itself stays the ship",
+    },
   ),
   bossPose(
     "mirror",

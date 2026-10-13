@@ -35,6 +35,7 @@ import { POSE_GROUPS } from "./poses.js";
  */
 const SLOT_POSE: Record<string, string> = {
   "queen:glance": "BULB QUEEN · SHUT",
+  "mirror:glance": "THE MIRROR · LEAD",
 };
 
 /** The pose a slot gets when nothing in `SLOT_POSE` names it. */

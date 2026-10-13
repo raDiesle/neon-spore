@@ -1101,6 +1101,7 @@ by hand never moves.
 | `packages/render/src/mirror.ts` | the same ship, flipped and in the wrong colours — THE MIRROR |
 | `packages/render/src/mirror-grip-fx.ts` | The pin landing and the pin lost: a ring thrown off both of THE MIRROR's lobes, cleared with `MirrorFx` |
 | `packages/render/src/mirror-grip.ts` | THE MIRROR's two lobes as a control: the pair's grab circles upside down, rings per seat, the pin and its count |
+| `packages/render/src/mirror-glance.ts` | **THE MIRROR's insides glance** — the owner, 9 and 10 October 2026: *body parts of living things turn . |
 | `packages/render/src/mirror-chamber.ts` | THE MIRROR'S INSIDES — the chamber under its hull, the way the pair's own ship has one under theirs |
 | `packages/render/src/mirror-marks.ts` | THE MIRROR's lobes answering a touch like every mark: halo, the partner's ring and clock, the green or red verdict |
 | `packages/render/src/mine-tap.ts` | **A finger on a bare square of the field**, from the seat that cannot see what is standing on it |

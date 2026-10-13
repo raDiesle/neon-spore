@@ -38839,3 +38839,14 @@ Bottleneck: none — the seams were already named in the sheets' own comments.
 Bottleneck: the first swing could not be seen in a still — the reach had to be read off a picture, not a number.
 
 *Measured: 11 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-13 — VERSUS offers THE MIRROR's insides glancing
+
+- reading: 5 min. The entry, THE MIRROR's hull, chamber and lobe hit test.
+- writing: 10 min. `mirror-glance.ts`, the chamber handing back its outline,
+  three candidates, the pose's `lookAt`, the glance test made a table.
+- looking: 10 min. Two VERSUS shots; the first swing was widened.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: choosing the part — its hull must stay the ship and holds both lobes, so the chamber behind it turns.

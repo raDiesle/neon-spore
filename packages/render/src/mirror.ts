@@ -5,6 +5,7 @@ import { frame } from "./hull-frame.js";
 import { hullOutline } from "./hull-outline.js";
 import type { Layout } from "./layout.js";
 import { drawMirrorChamber } from "./mirror-chamber.js";
+import { drawMirrorGlanced } from "./mirror-glance.js";
 import type { ShieldSegment } from "./shield.js";
 
 /**
@@ -131,6 +132,7 @@ export function drawMirror(
   );
   if (hurt > 0) drawHurt(ctx, hullOutline(lm, f).filled, hurt);
   // Over the hull's belly and inside the same flip: the inside of the copy.
-  drawMirrorChamber(ctx, lm, time);
+  // It glances, where a look takes one (`mirror-glance.ts`); the hull never does.
+  drawMirrorGlanced(ctx, lm, time, () => drawMirrorChamber(ctx, lm, time));
   ctx.restore();
 }

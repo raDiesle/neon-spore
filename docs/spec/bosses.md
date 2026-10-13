@@ -550,6 +550,14 @@ Its number in `packages/sim/src/config-boss.ts` is `mirrorRow`, the row its
 own hull surface sits on — the ship's, upside down; the thumb's three are in
 `packages/sim/src/config-mirror.ts`.
 
+**Offered (13 October 2026, VERSUS `mirror:glance`).** Its hull is not the
+part that turns: it is *an exact copy of your ship* and carries both lobes a
+thumb is on. What turns is its chamber, the flesh, ribs and slime above the
+hull (`packages/render/src/mirror-glance.ts`, which ships still): the middle
+swings toward one side, that half squeezes into the dark, the other opens,
+and the two screen edges are held. **SWAY**, **LOOK** and **COCK**
+(`glance-styles.ts`), judged on `THE MIRROR · LEAD`.
+
 ## 11.4 The Warden — the gate one of you holds open
 
 > The one where he holds the door open and she has to be quick enough to shoot
