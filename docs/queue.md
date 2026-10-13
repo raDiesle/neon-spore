@@ -674,6 +674,7 @@ The owner, 9 and 10 October 2026, after THE INSTAR's head glances: *body parts o
 ## AUTO's PINBALL shot hops on the cannon for a whole flight
 
 - **Found:** 2026-10-10, claude/pinball-table-touch-area-7a3f1f
+- **Taken:** 2026-10-13, claude/queue-tasks-968943 (claim: claude/queue-autos-pinball-shot-hops-on-the-cannon-for-a-whol)
 - **Files:** `packages/hands/src/boss-hands-rounds.ts`, `packages/sim/src/pinball-physics.ts`, `packages/sim/src/pinball-funnel.ts`, `packages/sim/src/pinball-round.ts`
 
 `pinballHand` latches the needle on its first tick and launches on the next, so every AUTO shot leaves at `angleMilli` 0 and `powerMilli` 4: straight up from x 5500, it climbs to y ≈ 7.8 tiles (no peg is lower than 3), falls, and is thrown back up from y ≈ 13.7 with `vxMilli` 0 and no height lost, over and over. It never crosses the floor at 14000, so each flight runs about 60 beats (~38 s at 96 bpm) until `pinballFlightBeats` times it out. A played PINBALL is three of those and a verdict: the table offers the shove the whole time and nothing on the board is ever touched (`bun run probe` on `waveWorld("pinball")` with `playedBeat`). Two things to settle: what at y ≈ 13.7 returns a vertical ball with no loss, when the bounce should take `bouncePermille` off and the cannon should catch a ball that falls back onto it; and give the hand an aim and a power that reach the board, with a test that an AUTO PINBALL flight ends under the flight clock and lights at least one piece.
