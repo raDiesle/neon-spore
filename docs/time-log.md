@@ -38467,3 +38467,5 @@ Bottleneck: none to speak of; the idiom was one test over.
 - landing: 5 min. `check:fast`, `land`.
 
 Bottleneck: the preview answering from the wrong tree before `bun run here`.
+
+*Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

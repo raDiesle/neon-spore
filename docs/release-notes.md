@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-13 · 0d14af149 — ON THE FIELD's combos are one COMBO category, with one COMBO LAB
+
+CONTROLS › ON THE FIELD drew four combo categories — PULL, THEN HOLD; HOLD WHILE THE PARTNER WORKS; PRESS, THEN PULL; HOLD, THEN SWIPE — and a COMBO LAB under each type, five copies of the same lab. They are now one COMBO category with the five combos as its types, and THE COMBO LAB stands once at its head; each type says which COMBO choice in the lab plays it.
+
 ## 2026-10-13 · d77b45ed0 — Two source sweeps get a figure scaled to the load, not bun's five seconds
 
 The catalogue's shared-file sweep and the bakedCache guard each read all of packages/render/src and timed out at a load average of fifty-five. Both now read through treeText and run under itCosts, so their cap grows with the machine's load and a drifted figure is said.
