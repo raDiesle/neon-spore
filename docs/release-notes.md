@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-13 · d541de2af — VERSUS offers THE PULSE's falling bodies glancing
+
+The slick, the bulb and the pod turn as they fall, each about its centre so it still meets its socket, the far side darkening over the lane's own contour. The meteor and a veiled arrival do not. Ships still; VERSUS `pulse:glance` offers SWAY, LOOK and COCK, judged on THE PULSE · PLAY. Exemption: none — a look, offered on VERSUS.
+
 ## 2026-10-13 · 2e38a59e3 — THE PRESS LAB wears STEPS only
 
 THE PRESS LAB loses its LOOK choice: every press wears STEPS, SOAK's water cut into one terrace a press, as every hold wears SOAK. PIPS, POP, COUNT and KNOCK are gone. The sheet is EVERY STATE, in one row. THE PRESS LAB's place in the URL is now only its presses, `presslab=5`; a link that still names a look opens on its presses. PRESS on ON THE FIELD, under every wave that uses it, opens on STEPS. A look the owner asked for by name, in the director only.
