@@ -38776,3 +38776,18 @@ Bottleneck: none — the entry was stale and needed only its guard.
 Bottleneck: the trial flights' cost — the first version was right and five times too slow.
 
 *Measured: 24 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-13 — seven field controls drawn as the PULL LAB's knob
+
+- reading: 15 min. Each control's drawer, its sim state and the director
+  card: the CURTAIN's hem word, the ANTIPHON's rail, the BLISTER's swipe,
+  the GALL's alien, the HIVE's haul, the INSTAR's marks, the WARDEN's hatch.
+- writing: 20 min. Seven drawers onto `drawPullKnob` and `drawPullTrack`,
+  the GALL's `upMilli`, `instar-pull.ts`, `pull-spy.ts`, the director text.
+- looking: 5 min. The director's cards, and `frames` for the INSTAR and
+  the WARDEN once the browser pane went hidden.
+- friction: 10 min. The FIZZ knob's own gradients broke every test that
+  counted a halo, and its cost timed out marks-window's ANTIPHON row.
+- landing: 5 min. `check:fast` per piece, the commits, `land`.
+
+Bottleneck: the FIZZ knob paints with gradients of its own, so each halo-counting test had to be rewritten to diff against a baseline or spy on the knob.
