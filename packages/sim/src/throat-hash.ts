@@ -30,8 +30,7 @@ export function throatHashParts(b: ThroatState): number[] {
     b.aimFromXMilli,
     b.aimFromYMilli,
     THROAT_MODES.indexOf(b.mode),
-    b.pumpDir,
-    b.pumpFromYMilli,
+    b.pumpHeard,
     b.pumpMilli,
   ];
 }

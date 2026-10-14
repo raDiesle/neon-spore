@@ -80,15 +80,15 @@ export function drag(
   on: boolean,
   fromMilli: number,
   fromYMilli: number,
+  id?: number,
 ): void {
-  const command: Command = { kind: "drag", target, on, fromMilli, fromYMilli };
+  const command: Command = { kind: "drag", target, on, fromMilli, fromYMilli, id };
   throatHeard(world, player, command);
 }
 
-/** A thumb carried down once and then turned `turns` times on the pump, then
- * lifted: the first stroke is free, so this is `turns` gains. */
-export function pump(world: World, turns: number, reach = 2000): void {
-  for (let i = 0; i <= turns + 1; i++)
-    drag(world, 1, "throatPump", true, 0, i % 2 === 0 ? 0 : reach);
-  drag(world, 1, "throatPump", false, 0, 0);
+/** A thumb down on the pump, turned back `turns` times as the host counts
+ * them (`render/rub-turns.ts`), then lifted: `turns` gains. */
+export function pump(world: World, turns: number): void {
+  for (let id = 0; id <= turns; id++) drag(world, 1, "throatPump", true, 0, 0, id);
+  drag(world, 1, "throatPump", false, 0, 0, turns);
 }

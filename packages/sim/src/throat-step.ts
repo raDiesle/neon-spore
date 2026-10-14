@@ -32,8 +32,7 @@ export function installThroat(world: World): ThroatState {
     aimFromXMilli: -1,
     aimFromYMilli: -1,
     mode: "red",
-    pumpDir: 0,
-    pumpFromYMilli: 0,
+    pumpHeard: -1,
     pumpMilli: 0,
   };
   throatAimAt(cfg, b, throatHomeCol(cfg) * 1000, (hullRow(cfg) - 3) * 1000);

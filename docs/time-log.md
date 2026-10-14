@@ -39338,3 +39338,16 @@ Bottleneck: finding what still read the old ring (`maze-marks.ts` keeps it).
 Bottleneck: none to speak of — the hanging plates were the obvious part, and HELD's notes named two slots long closed.
 
 *Measured: 5 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-14 — THE THROAT's pump is rubbed, not stroked
+
+- reading: 10 min. `throat-hand.ts`, the pump's readers in hands, the film,
+  the frames tool and the director.
+- writing: 10 min. `pumpTurned` reading the host's turns, `throatPumpTurns`
+  in place of the stroke and its gain, the pump's touch a rubbing hold.
+- looking: 0 min. The picture is the next lane.
+- friction: 5 min. The sim surface one line past the ceiling; the export
+  left for the look lane, through the surface's third page.
+- landing: 5 min. The throat tests rewritten for turns, the specs.
+
+Bottleneck: the readers of the old stroke spread over six packages.

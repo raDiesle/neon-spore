@@ -52,9 +52,9 @@ describe("a gesture under way", () => {
     expect(word(world, "p1")).toBe("PUMP");
   });
 
-  it("drops PUMP while a stroke is running", () => {
+  it("drops PUMP while his thumb is on it", () => {
     const { world, t } = opened();
-    t.pumpDir = 1;
+    t.pumpHeard = 0;
     expect(word(world, "p1")).toBeNull();
     expect(word(world, "p2")).toBe("PULL");
   });

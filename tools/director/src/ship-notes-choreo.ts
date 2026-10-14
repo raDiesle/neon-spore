@@ -65,8 +65,8 @@ export const CHOREO_NOTES = {
     "joined to the hull, and its mouth is the only weapon in the wave. Player " +
     "2 carries the mouth anywhere on the field, kept throatSideMarginMilli " +
     "off the walls and throatTopMarginMilli off the top. Player 1 pumps a " +
-    "handle up and down: every stroke of throatStrokeMilli adds " +
-    "throatPumpGainMilli and every tick takes throatPumpDecayMilli back, and " +
+    "handle as a rub: throatPumpTurns turns open it from shut to full and " +
+    "every tick takes throatPumpDecayMilli back, and " +
     "the circle round the mouth is throatMinRadiusMilli to " +
     "throatMaxRadiusMilli as wide as the pump is full. The mouth has four " +
     "colours, two a seat: red and cyan are player 2's and swallow a slick and " +

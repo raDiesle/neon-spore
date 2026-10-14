@@ -166,10 +166,11 @@ export const throatHand: Hand = (w) => {
       fromYMilli: target.y - fromY,
     },
   });
-  const stroke = w.tick % 2 === 0 ? w.cfg.throatStrokeMilli : -w.cfg.throatStrokeMilli;
+  // The pump rubbed: one turn back every tick once the thumb is down.
+  const id = b.pumpHeard < 0 ? 0 : b.pumpHeard + 1;
   out.push({
     player: 1,
-    command: { kind: "drag", target: "throatPump", on: true, fromMilli: 0, fromYMilli: stroke },
+    command: { kind: "drag", target: "throatPump", on: true, fromMilli: 0, fromYMilli: 0, id },
   });
   return out;
 };

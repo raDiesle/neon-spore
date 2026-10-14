@@ -36,7 +36,7 @@ import type { HoldSpec } from "./spec.js";
  *   --hold stareLash2=0,y=-350      and the navigator's, on the same fan
  *   --hold mazeHeart=0,id=4         THE MAZE: the navigator's thumb four turns into the heart's rub
  *   --hold throatAim=0,y=-3000      THE THROAT: the navigator carrying the mouth three rows up
- *   --hold throatPump=0,y=1500      and the pilot's thumb one stroke down the pump
+ *   --hold throatPump=0,id=4        and the pilot's thumb four turns into the pump's rub
  *   --hold scuttlePart=1000,id=10   THE SCUTTLE: the pilot carrying part 10 a column right
  *
  * The distance is in **thousandths of a tile**, which is what a `drag` carries

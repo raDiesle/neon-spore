@@ -170,6 +170,8 @@ export const ROWS: Record<string, Row> = {
   // `maze-hand.ts`: either seat's thumb on the heart, `id` the reversal
   // count; a capture holds the navigator's, one of the two the rub needs.
   mazeHeart: { seat: 2, id: true },
+  // `throat-hand.ts`: the pilot's thumb on the pump, `id` the reversal count.
+  throatPump: { id: true },
   // `blister-rub.ts`: a reversal count in `id`, the body riding `fromMilli`.
   blisterRub: { seat: 2, id: true },
   blisterRub1: { as: "blisterRub", id: true },

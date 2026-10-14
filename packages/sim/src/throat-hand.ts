@@ -1,3 +1,4 @@
+import type { SimConfig } from "./config.js";
 import {
   type ThroatMode,
   type ThroatState,
@@ -23,12 +24,12 @@ import type { World } from "./world.js";
  * puts it at anchor plus displacement, kept inside the box (`throatAimAt`).
  * A lifted thumb leaves the mouth where it was.
  *
- * **The pump is player 1's**, a drag on a handle of his own, and only its
- * height matters. A stroke is the thumb carried `throatStrokeMilli` the other
- * way from the last turn, and every stroke adds `throatPumpGainMilli` to the
- * pump; the suck takes a little back every tick (`throat-suck.ts`), so the
- * circle is as wide as the strokes are quick. A thumb that drifts back by less
- * than a stroke has not turned, which is what keeps jitter from pumping.
+ * **The pump is player 1's**, a rub on a handle of his own: what it sends is
+ * how many times his thumb has turned back since it went down, counted by the
+ * host as every rub is (`render/rub-turns.ts`, which keeps jitter from
+ * pumping), and every fresh turn adds `throatPumpGain` to the pump; the suck
+ * takes a little back every tick (`throat-suck.ts`), so the circle is as wide
+ * as the turns are quick.
  *
  * **The colour is each seat's own two**: red and cyan are player 2's, as the
  * two shots are on the ordinary panel, and SHIELD and SUCK are player 1's, as
@@ -44,7 +45,7 @@ export function throatHeard(world: World, player: 1 | 2, command: Command): void
   if (command.kind === "throatMode") modeHeard(world, b, player, command.mode);
   if (command.kind !== "drag") return;
   if (command.target === "throatAim" && player === 2) aimHeard(world, b, command);
-  if (command.target === "throatPump" && player === 1) pumpHeard(world, b, command);
+  if (command.target === "throatPump" && player === 1) pumpTurned(world, b, command);
 }
 
 /** Which seat sets which colour: the shots are the navigator's, the shield
@@ -84,37 +85,27 @@ function aimHeard(world: World, b: ThroatState, command: Drag): void {
   );
 }
 
+/** What one turn of the rub adds to the pump, out of 1000. */
+export function throatPumpGain(cfg: SimConfig): number {
+  return Math.ceil(1000 / Math.max(1, cfg.throatPumpTurns));
+}
+
 /**
- * One sample of the pump, at the thumb's height `y` from where it went down.
- *
- * `pumpDir` is the way the current stroke is going and `pumpFromYMilli` the
- * furthest the thumb has got along it: a sample further the same way moves
- * that mark, and one a whole stroke back from it is a turn — a stroke counted.
- * The first stroke of a hold is free of the gain, so a thumb that only goes
- * down once has not pumped.
+ * One message of the pump: the turns the thumb has made since it went down.
+ * The first of a hold is where its count starts, so a thumb that only goes
+ * down has not pumped, and a message coalesced away is made good by the next.
  */
-function pumpHeard(world: World, b: ThroatState, command: Drag): void {
+function pumpTurned(world: World, b: ThroatState, command: Drag): void {
   if (!command.on) {
-    b.pumpDir = 0;
-    b.pumpFromYMilli = 0;
+    b.pumpHeard = -1;
     return;
   }
-  const y = command.fromYMilli ?? 0;
-  const stroke = world.cfg.throatStrokeMilli;
-  const d = y - b.pumpFromYMilli;
-  if (b.pumpDir === 0) {
-    // Measured from where the thumb went down, which a lift reset to nought.
-    if (Math.abs(d) < stroke) return;
-    b.pumpDir = Math.sign(d);
-    b.pumpFromYMilli = y;
+  const count = Math.max(0, command.id ?? 0);
+  if (b.pumpHeard < 0) {
+    b.pumpHeard = count;
     return;
   }
-  if (Math.sign(d) === b.pumpDir) {
-    b.pumpFromYMilli = y;
-    return;
-  }
-  if (Math.abs(d) < stroke) return;
-  b.pumpDir = -b.pumpDir;
-  b.pumpFromYMilli = y;
-  b.pumpMilli = Math.min(1000, b.pumpMilli + world.cfg.throatPumpGainMilli);
+  const fresh = count >= b.pumpHeard ? count - b.pumpHeard : count;
+  b.pumpHeard = count;
+  b.pumpMilli = Math.min(1000, b.pumpMilli + fresh * throatPumpGain(world.cfg));
 }

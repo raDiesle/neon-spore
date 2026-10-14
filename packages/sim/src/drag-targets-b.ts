@@ -122,9 +122,9 @@ export type DragTargetB =
  * down, so the mouth follows the thumb anywhere inside its box. No `id`:
  * there is one mouth.
  *
- * `throatPump` is the pilot's handle, and only `fromYMilli` is read — a
- * stroke is the thumb carried far enough down and then far enough up again,
- * and how quick the strokes come is how wide the mouth sucks.
+ * `throatPump` is the pilot's handle, rubbed: `id` is how many times his
+ * thumb has turned back since it went down (`render/rub-turns.ts`), and how
+ * quick the turns come is how wide the mouth sucks.
  */
 
 /**

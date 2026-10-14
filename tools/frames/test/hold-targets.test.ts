@@ -75,11 +75,11 @@ describe("the handles on a boss's own picture", () => {
     ]);
   });
 
-  it("THE THROAT's pump is his", () => {
-    // `pumpHeard` refuses player 2 and reads only the height.
-    expect(shape("throatPump=0,y=1500")).toEqual([
-      { player: 1, kind: "drag", target: "throatPump", on: true, fromMilli: 0, fromYMilli: 0 },
-      { player: 1, kind: "drag", target: "throatPump", on: true, fromMilli: 0, fromYMilli: 1500 },
+  it("THE THROAT's pump is his, and rubbed", () => {
+    // `pumpTurned` refuses player 2 and reads the turns in `id`.
+    expect(shape("throatPump=0,id=4")).toMatchObject([
+      { player: 1, kind: "drag", target: "throatPump", on: true },
+      { player: 1, kind: "drag", target: "throatPump", on: true, id: 4 },
     ]);
   });
 

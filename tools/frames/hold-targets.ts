@@ -153,7 +153,6 @@ export const DRAGS = [
   "stareLash",
   "stareLash2",
   "throatAim",
-  "throatPump",
   "scuttlePart",
   ...rows.map(([name]) => name),
 ];

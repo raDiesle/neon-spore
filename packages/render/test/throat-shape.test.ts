@@ -39,8 +39,7 @@ function tube(over: Partial<ThroatState> = {}): ThroatState {
     aimFromXMilli: -1,
     aimFromYMilli: -1,
     mode: "red",
-    pumpDir: 0,
-    pumpFromYMilli: 0,
+    pumpHeard: -1,
     pumpMilli: 0,
     ...over,
   };

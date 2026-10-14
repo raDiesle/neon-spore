@@ -115,7 +115,7 @@ describe("the throat", () => {
       const { world, t } = opened();
       t.slack = CFG.throatRings - 1;
       t.pumpMilli = 1000;
-      t.pumpDir = 1;
+      t.pumpHeard = 0;
       expect(still(world, role).log.length).toBeGreaterThan(200);
     });
 
@@ -170,7 +170,7 @@ describe("the throat", () => {
 
   it("draws the pilot's pump beside the root", () => {
     const { world, t } = opened();
-    t.pumpDir = 1;
+    t.pumpHeard = 0;
     const { log } = still(world);
     expect(dialAt(log, throatPumpCircle(LAYOUT, CFG))).toBe(true);
   });

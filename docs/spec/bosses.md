@@ -3677,11 +3677,14 @@ cannon has nothing to do.
   `throatAimBox`: `throatSideMarginMilli` off each side wall and
   `throatTopMarginMilli` off the top, so the mouth and its circle are never
   cut by the frame or hidden under the status bar.
-- **P1 pumps.** A drag on the pump handle beside the root (`throatPump`),
-  down and then up, as fast as it will go. A stroke is a thumb carried
-  `throatStrokeMilli` the other way; each adds `throatPumpGainMilli` to the
-  pump, and every tick takes `throatPumpDecayMilli` back
-  (`sim/throat-hand.ts`). The pump is the circle: `throatRadiusMilli` runs
+- **P1 pumps.** A rub on the pump handle beside the root (`throatPump`),
+  back and forth as fast as it will go. Every turn back is one turn, as every
+  RUB in the game counts (`render/rub-turns.ts`); each opens a
+  `throatPumpTurns`th of the pump, and every tick takes
+  `throatPumpDecayMilli` back (`sim/throat-hand.ts`). Until 14 October 2026
+  it was a stroke of `throatStrokeMilli` up or down adding
+  `throatPumpGainMilli`; the owner, *use default "rub" instead for less
+  variants*. The pump is the circle: `throatRadiusMilli` runs
   from `throatMinRadiusMilli` at the first stroke to `throatMaxRadiusMilli` at
   a full pump, and a still pump closes it.
 - **Each seat sets two colours.** The `throatMode` command, from the four

@@ -149,7 +149,7 @@ export function dragCommands(act: SceneAct, cfg: SimConfig): SceneCommand[] {
     ];
   }
   // A pump is stroked back and forth, not carried (`scene-pump.ts`).
-  if (target === "throatPump") return pumpCommands(act, player, cfg);
+  if (target === "throatPump") return pumpCommands(act, player);
   // And a rub is scrubbed, turn by turn (`scene-rub.ts`).
   if (target === "choirRub") return rubCommands(act, player);
   const to = act.toMilli ?? tautMilli(target, cfg) * (act.dir ?? 1);

@@ -100,12 +100,11 @@ export interface ThroatState {
   /** The colour the mouth is set to. Red to begin with, the first shot. */
   mode: ThroatMode;
   /**
-   * **The pump**: which way the current stroke is going (-1 up, 1 down, 0
-   * before the first sample of a hold), the thumb's height the stroke is
-   * measured from, and how hard it is pumped, 0 to 1000 (`throat-hand.ts`).
+   * **The pump**: the turns of the pilot's rub heard since his thumb went
+   * down, -1 while no thumb is on it, and how hard it is pumped, 0 to 1000
+   * (`throat-hand.ts`).
    */
-  pumpDir: number;
-  pumpFromYMilli: number;
+  pumpHeard: number;
   pumpMilli: number;
 }
 

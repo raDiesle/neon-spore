@@ -48,12 +48,12 @@ export const THROAT_CONTROLS: readonly FieldControlDef[] = [
       "(render/throat-marks.ts, sim/throat-hand.ts)",
     gesture: "grab and drag",
     does:
-      "Every stroke of throatStrokeMilli the other way from the last adds " +
-      "throatPumpGainMilli to the pump, which drains throatPumpDecayMilli a " +
-      "tick. The faster the strokes, the wider the circle round the mouth " +
-      "that draws bodies in, from throatMinRadiusMilli to " +
-      "throatMaxRadiusMilli (throatRadiusMilli). Only the height travelled " +
-      "counts; sideways does nothing.",
+      "A rub: every time the thumb turns back is one turn (render/rub-turns.ts), " +
+      "and throatPumpTurns of them open the pump from shut to full, which " +
+      "drains throatPumpDecayMilli a tick. The faster the turns, the wider " +
+      "the circle round the mouth that draws bodies in, from " +
+      "throatMinRadiusMilli to throatMaxRadiusMilli (throatRadiusMilli). " +
+      "Any way counts, as on every rub.",
     source: "touch.ts — throatGripUnder() under handleUnder()",
     holdKind: "drag",
     dragTarget: "throatPump",

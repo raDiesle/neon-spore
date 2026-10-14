@@ -57,10 +57,10 @@ describe("THE THROAT's handles asking", () => {
     t.aimFromXMilli = t.aimXMilli;
     t.aimFromYMilli = t.aimYMilli;
     expect(halos("p2")).toBe(0);
-    t.pumpDir = 1;
+    t.pumpHeard = 0;
     expect(halos("p1")).toBe(0);
     t.aimFromXMilli = -1;
-    t.pumpDir = 0;
+    t.pumpHeard = -1;
     t.phase = "everts";
     expect(halos("test")).toBe(0);
   });
@@ -77,7 +77,8 @@ describe("a desk press", () => {
     const p = throatPumpCircle(l, CFG);
     const onPump = deskDown(l, p.x, p.y, [2, 1], (seat) => field(world, seat));
     expect(onPump?.player).toBe(1);
-    expect(onPump?.command).toMatchObject({ target: "throatPump" });
+    // A rub: the host counts its turns and says its first message itself.
+    expect(onPump?.hold).toMatchObject({ target: "throatPump", rub: true });
   });
 });
 

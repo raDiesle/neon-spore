@@ -45,10 +45,12 @@ describe("the navigator's thumb on the mouth", () => {
 });
 
 describe("the pilot's thumb on the pump", () => {
-  it("takes hold of the pump beside the root", () => {
+  it("takes a rubbing hold of the pump beside the root", () => {
     const { world } = opened();
     const at = throatPumpCircle(LAYOUT.p1, CFG);
-    expect(target(touchDown(LAYOUT.p1, at.x, at.y, field(world, 1)))).toBe("throatPump");
+    const touch = touchDown(LAYOUT.p1, at.x, at.y, field(world, 1));
+    expect(target(touch)).toBe("throatPump");
+    expect(touch?.hold).toMatchObject({ kind: "drag", target: "throatPump", player: 1, rub: true });
   });
 
   it("is the pilot's: the navigator's press is handed through with no hold", () => {

@@ -53,8 +53,8 @@ export function throatPumpCircle(l: Layout, cfg: SimConfig): Circle {
 /** Whether the carry is running: a thumb is down on the mouth. */
 export const throatCarrying = (b: ThroatState): boolean => b.aimFromXMilli >= 0;
 
-/** Whether the pump is running: a stroke is under way. */
-export const throatPumping = (b: ThroatState): boolean => b.pumpDir !== 0;
+/** Whether the pump is running: the pilot's thumb is on it. */
+export const throatPumping = (b: ThroatState): boolean => b.pumpHeard >= 0;
 
 interface Hand {
   target: "throatAim" | "throatPump";
@@ -101,11 +101,18 @@ function grab(
   x: number,
   y: number,
 ): Touch {
-  return {
-    player,
-    command: { kind: "drag", target, on: true, fromMilli: 0, fromYMilli: 0 },
-    hold: owns ? { kind: "drag", target, player, originX: x, originY: y } : null,
-  };
+  const command = { kind: "drag", target, on: true, fromMilli: 0, fromYMilli: 0 } as const;
+  if (!owns) return { player, command, hold: null };
+  // The pump is a rub: its turns are counted by the host that owns the
+  // pointers (`rub-turns.ts`), which sends its first message itself.
+  if (target === "throatPump") {
+    return {
+      player,
+      command: null,
+      hold: { kind: "drag", target, player, originX: x, originY: y, rub: true },
+    };
+  }
+  return { player, command, hold: { kind: "drag", target, player, originX: x, originY: y } };
 }
 
 /**

@@ -9,7 +9,7 @@ import {
   throatRadiusMilli,
   throatRingsLeft,
 } from "../src/throat.js";
-import { throatHeard, throatModeSeat } from "../src/throat-hand.js";
+import { throatHeard, throatModeSeat, throatPumpGain } from "../src/throat-hand.js";
 import { CFG, drag, open, pump, tube } from "./throat-fixture.js";
 
 /**
@@ -97,13 +97,13 @@ describe("the carry, player 2's", () => {
 });
 
 describe("the pump, player 1's", () => {
-  it("gives nothing for the first stroke, and a gain for every turn after", () => {
+  it("gives nothing for the thumb going down, and a gain for every turn after", () => {
     const world = open();
     const b = tube(world);
     pump(world, 0);
     expect(b.pumpMilli).toBe(0);
     pump(world, 3);
-    expect(b.pumpMilli).toBe(3 * CFG.throatPumpGainMilli);
+    expect(b.pumpMilli).toBe(3 * throatPumpGain(CFG));
   });
 
   it("opens the circle wider the more it is pumped, and never past full", () => {
@@ -118,23 +118,29 @@ describe("the pump, player 1's", () => {
     expect(small).toBeLessThan(CFG.throatMaxRadiusMilli);
   });
 
-  it("does not count a thumb that drifts back by less than a stroke", () => {
+  it("counts a turn once however often it is said, and makes good one coalesced away", () => {
     const world = open();
     const b = tube(world);
-    const jitter = CFG.throatStrokeMilli - 1;
-    drag(world, 1, "throatPump", true, 0, 0);
-    drag(world, 1, "throatPump", true, 0, 2000);
-    for (let i = 0; i < 10; i++) {
-      drag(world, 1, "throatPump", true, 0, 2000 - jitter);
-      drag(world, 1, "throatPump", true, 0, 2000);
-    }
-    expect(b.pumpMilli).toBe(0);
+    drag(world, 1, "throatPump", true, 0, 0, 0);
+    for (let i = 0; i < 5; i++) drag(world, 1, "throatPump", true, 0, 0, 1);
+    expect(b.pumpMilli).toBe(throatPumpGain(CFG));
+    drag(world, 1, "throatPump", true, 0, 0, 3);
+    expect(b.pumpMilli).toBe(3 * throatPumpGain(CFG));
+  });
+
+  it("opens fully in throatPumpTurns turns", () => {
+    const world = open();
+    const b = tube(world);
+    pump(world, CFG.throatPumpTurns - 1);
+    expect(b.pumpMilli).toBeLessThan(1000);
+    pump(world, 1);
+    expect(b.pumpMilli).toBe(1000);
   });
 
   it("is not the navigator's: player 2 on the pump opens nothing", () => {
     const world = open();
     const b = tube(world);
-    for (let i = 0; i < 6; i++) drag(world, 2, "throatPump", true, 0, i % 2 === 0 ? 0 : 2000);
+    for (let id = 0; id < 6; id++) drag(world, 2, "throatPump", true, 0, 0, id);
     expect(b.pumpMilli).toBe(0);
   });
 });

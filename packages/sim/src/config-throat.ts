@@ -6,13 +6,14 @@
  *
  * Its own file for the reason `config-stare.ts` gives: `SimConfig` extends
  * it rather than nesting it, so every call site still reads
- * `cfg.throatStrokeMilli`.
+ * `cfg.throatPumpTurns`.
  *
- * **The pump's three numbers are one sentence**: a stroke is a thumb carried
- * `throatStrokeMilli` the other way, each stroke adds `throatPumpGainMilli`,
- * and a tick takes `throatPumpDecayMilli` back. A pilot who strokes about
- * twice a second holds the circle near its widest; one who stops sees it
- * close in under three seconds. Change the three together.
+ * **The pump's two numbers are one sentence**: it is a rub, every turn back
+ * of the pilot's thumb counted by the host as every RUB is
+ * (`render/rub-turns.ts`), each turn opens a `throatPumpTurns`th of it, and a
+ * tick takes `throatPumpDecayMilli` back. A pilot who turns about twice a
+ * second holds the circle near its widest; one who stops sees it close in
+ * under three seconds. Change the two together.
  */
 export interface ThroatConfig {
   /**
@@ -45,18 +46,16 @@ export interface ThroatConfig {
    * under the status bar and the wave's title. */
   throatTopMarginMilli: number;
   /**
-   * How far the pilot's thumb must travel the other way before it is a new
-   * stroke, in thousandths of a tile.
+   * Turns of the pilot's rub that take the pump from shut to full: each adds
+   * `throatPumpGain` (`throat-hand.ts`). A turn is a thumb going back the way
+   * it came, any way, as every rub counts — a longer stroke counts the same,
+   * so the pump rewards speed rather than reach, as the owner asked.
    *
-   * 1500: a stroke is a deliberate push down or up of a tile and a half,
-   * which a fingertip's jitter is nowhere near. It is a threshold and not a
-   * distance — a longer stroke counts the same, so the pump rewards speed
-   * rather than reach, as the owner asked.
+   * 6: six strokes from still to the widest circle, the six the stroke and its
+   * gain of 180 made before the pump was a rub (the owner, 14 October 2026:
+   * *use default "rub" instead for less variants*).
    */
-  throatStrokeMilli: number;
-  /** What one stroke adds to the pump, out of 1000. 180: six strokes from
-   * still to near the widest circle. */
-  throatPumpGainMilli: number;
+  throatPumpTurns: number;
   /** What a tick takes back, out of 1000. 6: an idle pump closes from full in
    * under three seconds at sixty ticks, so the circle is earned all fight. */
   throatPumpDecayMilli: number;
@@ -80,7 +79,7 @@ export interface ThroatConfig {
  * The defaults, spread into `DEFAULT_CONFIG`.
  *
  * Read as one fight: five rings, a mouth kept a column off the walls and two
- * rows off the top, a pump that wants about two strokes a second, and six
+ * rows off the top, a pump that wants about two turns a second, and six
  * beats of turning inside out at the end.
  */
 export const THROAT_DEFAULTS: ThroatConfig = {
@@ -88,8 +87,7 @@ export const THROAT_DEFAULTS: ThroatConfig = {
   throatEvertBeats: 6,
   throatSideMarginMilli: 1000,
   throatTopMarginMilli: 2000,
-  throatStrokeMilli: 1500,
-  throatPumpGainMilli: 180,
+  throatPumpTurns: 6,
   throatPumpDecayMilli: 6,
   throatMinRadiusMilli: 1000,
   throatMaxRadiusMilli: 3200,
