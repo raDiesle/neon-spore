@@ -40791,3 +40791,5 @@ was composed, a few minutes a run.
 
 Bottleneck: reading — the gate had to be understood before the enemy lanes
 could be cut in the right order.
+
+*Measured: 11 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*

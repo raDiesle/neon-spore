@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-14 · c88066070 — A part that turns is built straight into the game, and every enemy's glance is queued
+
+The owner, 14 October 2026, said to apply movement to the rest of the game without VERSUS candidates. The depth skill and `docs/looks.md` now say a part that turns is built straight in: COCK by default, SWAY for a thing that hangs or flows, LOOK for a thing that watches. On a small enemy the turn is held to what the nameability gate allows, as he chose. No VERSUS movement entry was left in the queue to rewrite. Every enemy's glance is queued as three lanes in order: the gate measures a turned body, then every living enemy glances, then the rocks, hazards and held bodies. A fourth entry brings the spec's per-boss glance paragraphs up to what ships.
+
 ## 2026-10-14 · 5c7b91f75 — Each block's first wave starts a little above the block before's
 
 The composer aims a block's gentlest wave 0.1 over the gentlest composed wave of the block before, and every four blocks past the tutorial arc the steps grow so it can: wider by a column each side, then mixed with older things, then from block 24 more arrivals land with a twin across the field. Gaps stay as the table says. Composed in memory, the 33 blocks after the arc climb from 3.9 to 8.4 at their first wave and to about 13.7 at their peak; nothing in the game changes until a block is written.
