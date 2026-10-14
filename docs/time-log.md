@@ -41223,3 +41223,5 @@ constants a tool cannot import.
 Bottleneck: reading — the entry named `tools/test/figure.js`, which is
 `figure.ts`, and the load it scales by is `cpu-time.ts`' read at import,
 too early for a run that installs a tree first.
+
+*Measured: 5 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*

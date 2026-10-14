@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-15 · e8da5e54f — `bun run frames` waits for a slow build in proportion to the load
+
+The preview's port is now waited for 30 s for each process a core is running, up to two minutes, with the load read when the wait starts — after the scratch tree's install, whose burst is what left a cold build past the flat thirty seconds on 14 October. The error says how long it waited and at what load.
+
 ## 2026-10-15 · 66f1683d9 — ONE BOSS'S OWN lists THE HASP to THE TRAPEZE, and THE GAUGE's marks
 
 CONTROLS › HELPERS gains its fourth page of one-seat pictures, so every split in view-role-clocks-c.ts and THE GAUGE's wound on P2's screen now has a row and its real frame: THE HASP's latch, THE LAMPREY's lit tooth, THE MIMIC's sign, THE RATCHET's catch, THE SPOOL's brake, THE TRAPEZE's hands and THE GAUGE's marks. Five of them get a cut round the part, which is a few pixels on the whole field. No look exemption is needed: the director page is not the game.
