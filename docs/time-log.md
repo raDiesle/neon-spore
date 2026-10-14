@@ -40004,3 +40004,5 @@ Bottleneck: THE TRAPEZE and THE BLISTER judged their swipe on the lift, so movin
 - landing: 5 min. `check:fast`, the commit, `land`.
 
 Bottleneck: the entry put two kinds of pull under one title — four that count once and three that hold a depth while the partner's hand is there — and telling them apart took longer than moving the four.
+
+*Measured: 13 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*

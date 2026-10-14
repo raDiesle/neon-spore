@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-14 · c9e4d9450 — THE ANTIPHON's rail, THE GAUGE's tooth, PINBALL's plunger and THE BASTION's slabs are the one generic PULL
+
+Four counted pulls are read by `pullHeard` now. THE ANTIPHON's candidate down its vein and THE BASTION's plate along its track (straight or curved) count at the reach as before. THE GAUGE's tooth is any way, measured as the straight line from where the hand took hold. PINBALL's plunger winds the moment it gets back `pinballWindMilli`, not only on the lift. A carry let go short is now said: `pullShort` for the rail, the tooth and the plunger, and THE BASTION's own snap for a plate — past a tap rather than past `bastionSnapMilli`, which now only governs a plate straying off its curve. The held pulls — THE LAMPREY's head and tail, THE WARDEN's tether — stay queued as their own entry, and so does THE GUM. Every replay hash is unchanged.
+
 ## 2026-10-14 · 44a3958a3 — The up, either-way and sideways pulls are the one generic PULL
 
 THE CURTAIN's hem and THE STARE's lash (up), THE TASTER's wipe (either way) and its pry (down), THE TRAPEZE's swipes and THE BLISTER's strokes (sideways, a signed pull toward the asked way) are read by `pullHeard` now: each counts the moment it reaches its distance, or on the lift that got there, and a carry let go short says `pullShort` — the knob going home red the renderer already draws. THE TRAPEZE and THE BLISTER used to judge on the lift alone, so they now count mid-hold; a wrong-way TRAPEZE carry or a tap no longer whiffs, and one let go short is the whiff `way`. THE TASTER's pry was a straight-down pull the last lane missed. THE SCOUT's prime stays off the rule: the owner put it under HOLD on 10 October 2026. Every replay hash is unchanged.
