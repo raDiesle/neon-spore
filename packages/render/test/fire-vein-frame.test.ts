@@ -1,4 +1,5 @@
 import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
+import { WAVES } from "@neon-spore/content";
 import { createWorld, type World } from "@neon-spore/sim";
 import { drawBand } from "../src/band.js";
 import { type FireShot, FireVein } from "../src/fire-vein.js";
@@ -26,10 +27,11 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
 
 beforeAll(installCanvasGlobals);
 
-/** TWO COLOURS: both fire buttons on the panel. */
+/** TWO COLOURS: both fire buttons on the panel. By id: it was index 2 until
+ * the arc's regular waves went in ahead of it. */
 function world(): World {
   const w = createWorld(CFG, 5);
-  w.wave = 2;
+  w.wave = WAVES.findIndex((wave) => wave.id === "twoColours");
   return w;
 }
 
