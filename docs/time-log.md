@@ -39948,3 +39948,5 @@ Bottleneck: none to speak of — the colony is one skin drawn in one function, s
 - landing: 5 min. `check:fast`, the commit, `land`.
 
 Bottleneck: the first cut turned the whole moon and hushed it while any shell was lit, which is nearly the whole fight, so the shot came out identical; turning only the sphere inside the armour, hushed for its own two shells, is what made it seen.
+
+*Measured: 9 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*

@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-14 · ad73ff944 — VERSUS offers THE BASTION's sphere turning inside its armour
+
+The core, the hull and the cage turn together about the moon's middle inside the armour and the gun ring, which stay where they hang, so the slabs, the rim and the gun a bolt stops on never move. The sphere steadies to face-on over the first beat of a lit lattice or port, whose nodes and port are judged with no clock, and turns again once the shell is off. It ships still; VERSUS `bastion:glance` offers SWAY, LOOK and COCK on THE BASTION · LAYER, which gains a `lookAt`.
+
 ## 2026-10-14 · e36b9bd8e — VERSUS offers THE LATCH's colony turning over the rope
 
 The colony turns about its core: every body on the skin and its nucleus yaw together, the near bodies opening and the far ones closing into the dark. The tendril, its knots and coil, and both grips stay where they hang, so nothing a thumb is on moves. It ships still; VERSUS `latch:glance` offers SWAY, LOOK and COCK on THE LATCH · LEVEL, which gains a `lookAt`.
