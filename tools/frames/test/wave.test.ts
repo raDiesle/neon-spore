@@ -45,9 +45,14 @@ describe("resolveWaveFlag", () => {
  * September it took 44 s alone under three lanes' checks, 18 s of it deleting
  * the `node_modules` the install had made. Linking the workspace instead
  * (`linkWorkspaces`), it took 2363 to 3182 ms over four runs at a load
- * average of sixteen to thirty, at a slowdown of one. So 1200.
+ * average of sixteen to thirty, at a slowdown of one, and was set at 1200.
+ * By 14 October 2026 the tree had grown and `check:fast` called that a third
+ * of it: about 3611 and 3905 ms idle. Run alone three times that evening on
+ * fourteen cores at a load average of thirty-nine to forty-two — no idle
+ * machine was to be had — it took 8830 to 10410 ms, which divided by the core
+ * load is 2980 to 3720 ms. So 3500.
  */
-const SCRATCH_TREE_MS = 1200;
+const SCRATCH_TREE_MS = 3500;
 
 describe("waveNamesAt", () => {
   itCosts(

@@ -40998,3 +40998,16 @@ Bottleneck: looking — the full check is four minutes, and the sheet's
 forty-eight shots each start a director of their own.
 
 *Measured: 15 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
+
+## 2026-10-14 — `waveNamesAt`'s figure is a third of what it costs
+
+- reading: 5 min. The entry, the figure's comment and how `figure.ts`
+  divides by the core load.
+- writing: 5 min. The figure and its runs.
+- looking: 0 min.
+- friction: 5 min. No idle machine: other sessions' checks held the load
+  near forty, so the runs were divided by it rather than taken quiet.
+- landing: 5 min.
+
+Bottleneck: friction — a figure meant to be timed idle had to be read off a
+machine running three other lanes.

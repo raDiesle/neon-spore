@@ -328,21 +328,6 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/skipped.test.ts` holds the listing's count of the entries
 `next` stepped past and why.
 
-## `waveNamesAt`'s figure is a third of what it costs
-
-- **Found:** 2026-10-14, claude/queue-the-sling-a-part-that-turns-so-it-is-seen-from-a
-- **Taken:** 2026-10-14, main (claim: claude/queue-wavenamesat-s-figure-is-a-third-of-what-it-costs)
-- **Files:** `tools/frames/test/wave.test.ts`
-
-`check:fast` reported a figure drift on "reads today's WAVES from the working
-tree's own HEAD commit": 18054 ms at slowdown 5.0, about 3611 ms idle, and
-8894 ms at slowdown 2.3 run alone, about 3905 ms idle — against
-`SCRATCH_TREE_MS` of 1200. The test passes, but the figure no longer says what
-a scratch checkout costs. Time it alone a few times on an idle machine, set
-`SCRATCH_TREE_MS` to what it takes at a slowdown of one, and write the runs
-into its comment as the 30 September ones are. Prove with
-`bun test tools/frames/test/wave.test.ts` and `bun run check`.
-
 ## THE SHIELD on HELPERS: six rows owed a pose
 
 - **Found:** 2026-10-14, claude/shield-visualization-controls-51b28d
