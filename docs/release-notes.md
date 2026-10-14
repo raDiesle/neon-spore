@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-14 · af9f59fe3 — VERSUS offers THE VISE's seed-case turning on its spine
+
+`vise:glance` offers the whole seed-case a turn about its spine — SWAY, LOOK or COCK — the hollow, kernel, both lobes and their seams yawing together on top of the swing from the hinge, the spine staying on the middle column while the near lobe opens and the far lobe closes into the dark and back, on THE VISE · LIT. The bite's bar and the spat seed do not turn, and a bolt meets each lobe where it is drawn. The record ships still, so the game draws what it did.
+
 ## 2026-10-14 · acb42c96e — VERSUS offers THE OCULUS's lens turning about its middle
 
 `oculus:glance` offers the whole lens a turn about its middle — SWAY, LOOK or COCK — the rim, glass, leaves, socket and core yawing together while the middle line between the two seats' halves stays put, the near half opening and the far half closing into the dark and back, on THE OCULUS · LIT. The levers, the glare and the sight are drawn outside the turn, and a bolt meets each half of the rim as far out as it is drawn. The record ships still, so the game draws what it did.

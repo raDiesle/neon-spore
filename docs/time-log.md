@@ -39564,3 +39564,5 @@ Bottleneck: the glare and the sight reach down to the hull, past any layer the t
 - landing: 5 min. `check:fast`, the commit, `land`.
 
 Bottleneck: a lobe is drawn under its own swing and pinch, so the dark needed its outline in the case's frame — the stop already had it, and it was lifted out to be shared rather than written twice.
+
+*Measured: 9 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
