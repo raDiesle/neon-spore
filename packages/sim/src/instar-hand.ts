@@ -2,6 +2,7 @@ import { MAX_BEARING_STEP, NO_BEARING, TURN } from "./bearing.js";
 import {
   instarActing,
   instarMarkCol,
+  instarMarkDone,
   instarPanel,
   instarSeatHears,
   instarStep,
@@ -11,6 +12,7 @@ import {
   sceneBoss,
 } from "./instar.js";
 import { answerMark, slipMark } from "./instar-marks.js";
+import { pullHeard } from "./pull.js";
 import type { Command } from "./types.js";
 import type { World } from "./world.js";
 
@@ -27,9 +29,12 @@ import type { World } from "./world.js";
  * - `pullDown` / `pullUp` **stand at** the depth the thumb is carrying the part,
  *   in its own direction, less what the part has pushed back while the thumb
  *   was on it (`ref`, grown by the beat — `instar-step.ts`); the other
- *   direction is nought. A lift before the
- *   step lands lets the part go — back to nought, and the partner's pull
- *   slips with it on the beat if it was already there (`instar-step.ts`).
+ *   direction is nought. It is the one generic PULL (`pull.ts`), counted
+ *   once at the reach — the lane's (b) when the owner left it to it, 14
+ *   October 2026 — so a part pulled its
+ *   whole `need` stays done when the thumb comes off and waits for its
+ *   partner as a tap does. A lift short of it lets the part go, said
+ *   (`instarSlip`); a tap's worth goes back without a word.
  * - `swipeDown` arms on a carry past `instarSwipeMilli` and counts on the lift
  *   that follows: an egg is off the body when the thumb comes away, not when
  *   it is dragged. The furthest the carry has gone is kept on the way, so the
@@ -91,7 +96,17 @@ export function instarHeard(world: World, player: 1 | 2, command: Command): void
 function pull(world: World, s: SceneState, i: number, mark: SceneMark, command: Command): void {
   if (command.kind !== "drag") return;
   if (!command.on) {
-    if ((s.progress[i] ?? 0) > 0) slipMark(world, s, i);
+    // The one generic PULL (`pull.ts`): a part pulled its whole `need` has
+    // counted, and the lift keeps it; one let go short slips back, said.
+    if (instarMarkDone(s, i) || (s.progress[i] ?? 0) <= 0) return;
+    const reach = { way: "down", reachMilli: mark.need } as const;
+    const { heard } = pullHeard(reach, false, false, s.progress[i] ?? 0);
+    if (heard === "short") {
+      slipMark(world, s, i);
+      return;
+    }
+    s.progress[i] = 0;
+    s.ref[i] = NO_BEARING;
     return;
   }
   const depth = command.fromYMilli ?? 0;

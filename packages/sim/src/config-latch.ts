@@ -18,8 +18,6 @@ export interface LatchConfig {
   latchKnotMilli: number;
   /** The furthest one pull carries the tendril, thousandths of a row. */
   latchReachMilli: number;
-  /** How far a pull must go before letting go passes the turn, thousandths of a row. */
-  latchStrokeMilli: number;
   /** Beats between yanks in a level that yanks; the first comes this far in. */
   latchYankEveryBeats: number;
   /** Beats the slime rears back before a yank, the warning. */
@@ -34,7 +32,6 @@ export const LATCH_DEFAULTS: LatchConfig = {
   latchSpentBeats: 4,
   latchKnotMilli: 4000,
   latchReachMilli: 2500,
-  latchStrokeMilli: 1000,
   latchYankEveryBeats: 7,
   latchRearBeats: 2,
   latchGripRowMilli: 8000,

@@ -2059,8 +2059,9 @@ Together means together: a step's marks land only when both are done inside
 `instarTogetherBeats` (2, one figure for every pose — the owner, 20 September
 2026: keep it simple) of each other; a count reached alone and left
 waiting **slips** back to nought with a sound, and the pair starts the beat
-again inside the same window. A pull or a hold is exempt, because its *done*
-is a state the thumb keeps — letting go is what undoes it. The wrong seat on
+again inside the same window. A hold is exempt, and so is a pull while its
+thumb is on it; a pull counted and let go is lonely like a tap (the one
+generic PULL, counted once at its reach — 14 October 2026). The wrong seat on
 a mark is refused, once per press, and told so.
 
 **The missed branch is the wave.** A window that closes with a mark undone is

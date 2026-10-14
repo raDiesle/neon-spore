@@ -114,8 +114,8 @@ export const CHOREO_NOTES_D = {
     "slime has hooked the hull with a rope, and each seat has one grip on it, " +
     "the pilot's left and the navigator's right. They take turns: the grip " +
     "whose turn it is carries the rope down as far as the thumb goes, at most " +
-    "latchReachMilli, while the other holds; letting go after latchStrokeMilli " +
-    "passes the turn. A knot is latchKnotMilli, so two pulls at least. Both " +
+    "latchReachMilli, while the other holds; a pull of the whole reach passes " +
+    "the turn the moment it gets there. A knot is latchKnotMilli, so two pulls at least. Both " +
     "hands off at once and the rope slips back to the last knot. A yank level rears for latchRearBeats every " +
     "latchYankEveryBeats and yanks: both hands must be holding. A cross level " +
     "swaps the grips. A level run out tears the hull. No SLOW. " +

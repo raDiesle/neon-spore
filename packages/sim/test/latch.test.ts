@@ -20,8 +20,8 @@ import {
 
 /**
  * THE LATCH's receipts, one rule a test (`sim/latch.ts`): the grips are
- * whose they are, only the turn's grip moves the rope, a pull let go passes
- * the turn, both off is a slip back to the last knot and never past it, a
+ * whose they are, only the turn's grip moves the rope, a pull reaching its
+ * stroke passes the turn, both off is a slip back to the last knot and never past it, a
  * knot is kept, a yank wants both hands, a crossed level swaps the grips,
  * a level run out tears the hull, and the whole script is a slime torn loose.
  */
@@ -81,12 +81,23 @@ describe("THE LATCH", () => {
     expect(latch(world).hauledMilli).toBe(REACH);
   });
 
-  it("keeps the turn when a pull lets go too short", () => {
+  it("keeps the turn when a pull lets go too short, and says so", () => {
     const world = install();
     toLevel(world);
     tick(world, [hold(2, 1)]);
-    pull(world, 1, 0, CFG.latchStrokeMilli - 1);
+    expect(pull(world, 1, 0, REACH - 1)).toContain("pullShort");
     expect(latch(world).turn).toBe(0);
+    expect(pull(world, 1, 0, 10)).not.toContain("pullShort");
+  });
+
+  it("passes the turn the moment a pull reaches its stroke, with the grip still held", () => {
+    const world = install();
+    toLevel(world);
+    tick(world, [hold(2, 1)]);
+    tick(world, [hold(1, 0)]);
+    expect(tick(world, [hold(1, 0, REACH)])).toContain("latchTurn");
+    expect(latch(world).turn).toBe(1);
+    expect(tick(world, [lift(1, 0)])).not.toContain("latchTurn");
   });
 
   it("slips back to the last knot when both let go at once, and keeps the turn", () => {

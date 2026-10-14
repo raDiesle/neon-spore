@@ -6533,9 +6533,11 @@ what happens when that was not read.
 are done inside `instarTogetherBeats` of each other. A count reached alone
 and left waiting longer than that **slips** (`instarSlip`) back to nought
 with a sound, and the pair starts the beat again inside the same window.
-A pull or a hold never slips for waiting, because its *done* is a state
-the thumb keeps — letting go is what undoes it, and a partner already at
-depth slips with it on the beat. The slip is judged on the beat and not
+A hold never slips for waiting, and nor does a pull while its thumb is on
+it. A pull is the one generic PULL (`sim/pull.ts`), counted once at its
+reach (14 October 2026), so a pull counted and let go stays done and is
+lonely the way a tap is (`sim/instar-beat.ts`); one let go short slips,
+said, and a tap's worth goes back without a word. The slip is judged on the beat and not
 the tick, so a hand two ticks late on the other phone is not two ticks
 late: the window the pair is given is in beats, the unit they can hear.
 
@@ -6713,8 +6715,8 @@ spark table at its limit. **And a step seen from another side** (suggested 10 Oc
 **Never watched at tempo.** What the tests say is the mechanism: it comes
 in over the middle morphing into its first pose with the marks hidden, and
 a thumb before the marks are up is nothing; both pulls at depth land the
-step and it settles into the next morph; a pull standing alone waits, and
-letting go is what undoes it; a tap done alone slips once its partner is
+step and it settles into the next morph; a pull standing alone waits while
+held, and let go is lonely as a tap; a tap done alone slips once its partner is
 more than the together beats late, and a tap and a tap inside them land;
 a mark alone on its step never slips; a tap counts the press and not the
 hold; a pull reads its own direction only and stands where the thumb is; a
@@ -11453,9 +11455,11 @@ takes hold of nothing and is said (`latchWrong`) — the owner, 7 October
 the rope, less the depth the thumb already has. **Only the grip whose turn
 it is moves the rope**: it hauls it down as far as its anchor and its depth,
 never more than `latchReachMilli` a pull; the other grip, pulled, only
-holds. **Letting go** after a pull of at least `latchStrokeMilli` passes the
-turn (`latchTurn`), and the new puller pulls from where its thumb is on the
-rope now. **Letting go while the other grip is off too** is both off: the
+holds. **A stroke is the one generic PULL** (`sim/pull.ts`): the moment
+it has gone the whole `latchReachMilli` with the other grip held, the turn passes
+(`latchTurn`) and the grip that pulled holds; the new puller pulls from
+where its thumb is on the rope now. Let go short of it and it is said
+(`pullShort`), and the turn stays. **Letting go while the other grip is off too** is both off: the
 rope slips back to the floor (`latchSlip`, *both*) and the same grip pulls
 again. Every `latchKnotMilli` hauled is **a knot**, and a knot is kept — the
 floor moves up to it and no slip goes back past it.

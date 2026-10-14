@@ -6,6 +6,7 @@ import {
   latchGripSeat,
 } from "./latch.js";
 import { latchHauled, latchSlips } from "./latch-step.js";
+import { type Pull, pullHeard } from "./pull.js";
 import type { Command } from "./types.js";
 import type { World } from "./world.js";
 
@@ -27,10 +28,12 @@ import type { World } from "./world.js";
  * lit takes hold without the tendril jumping. **Pulling**, by the grip whose
  * turn it is, carries the tendril down as far as the anchor and the depth
  * reach, never past `latchReachMilli` of depth; the other grip pulled does
- * nothing but hold. **Letting go** after a pull of `latchStrokeMilli` passes
- * the turn (`latchTurn`) — unless the other grip is not held, when both are
- * off and the tendril slips back to the last knot (`latchSlips`), and the
- * same grip pulls again.
+ * nothing but hold. **A stroke is the one generic PULL** (`pull.ts`): the
+ * moment it has gone the whole `latchReachMilli` with the other grip held, the turn
+ * passes (`latchTurn`), and the grip that pulled holds; let go short of it
+ * and it is said (`pullShort`). **Letting go** with the other grip not held
+ * lets both off, and the tendril slips back to the last knot (`latchSlips`),
+ * and the same grip pulls again.
  *
  * Outside a level the grips are still taken and let go, so a thumb can be
  * waiting on the tendril when the level lights, but nothing is pulled and
@@ -57,7 +60,19 @@ export function latchHeard(world: World, player: 1 | 2, command: Command): void 
   }
   if (!s.down[grip]) take(world, s, seat, grip, depth);
   s.depthMilli[grip] = depth;
-  if (s.phase === "level" && grip === s.turn) latchHauled(world, s, s.anchorMilli[grip] + depth);
+  if (s.phase !== "level" || grip !== s.turn) return;
+  latchHauled(world, s, s.anchorMilli[grip] + depth);
+  // The one generic PULL (`pull.ts`): a stroke counts the moment it has gone
+  // the whole `latchReachMilli`, with the other grip there to take the turn.
+  const other: LatchGrip = grip === 0 ? 1 : 0;
+  if (s.down[other] && pullHeard(stroke(world), false, true, depth).heard === "counted") {
+    passTurn(world, s, other);
+  }
+}
+
+/** A grip's stroke as the one generic PULL: down, the whole `latchReachMilli` long. */
+function stroke(world: World): Pull {
+  return { way: "down", reachMilli: world.cfg.latchReachMilli };
 }
 
 function gripOf(target: string): LatchGrip | null {
@@ -83,11 +98,23 @@ function letGo(world: World, s: LatchState, grip: LatchGrip): void {
     latchSlips(world, s, "both");
     return;
   }
-  if (grip !== s.turn || pulled < world.cfg.latchStrokeMilli) return;
-  s.turn = other;
-  // Its pull starts from where its thumb is now, on the rope the last pull left.
-  s.anchorMilli[other] = s.hauledMilli - s.depthMilli[other];
-  world.events.push({ type: "latchTurn", grip: other, col: latchGripCol(world.cfg, other) });
+  if (grip !== s.turn) return;
+  const { heard } = pullHeard(stroke(world), false, false, pulled);
+  if (heard === "counted") passTurn(world, s, other);
+  else if (heard === "short") {
+    world.events.push({
+      type: "pullShort",
+      col: latchGripCol(world.cfg, grip),
+      player: latchGripSeat(s, grip) === 0 ? 1 : 2,
+    });
+  }
+}
+
+/** The turn to `to`, whose pull starts from where its thumb is now, on the rope the last pull left. */
+function passTurn(world: World, s: LatchState, to: LatchGrip): void {
+  s.turn = to;
+  s.anchorMilli[to] = s.hauledMilli - s.depthMilli[to];
+  world.events.push({ type: "latchTurn", grip: to, col: latchGripCol(world.cfg, to) });
 }
 
 function wrong(world: World, seat: 0 | 1, grip: LatchGrip): void {

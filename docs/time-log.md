@@ -40020,3 +40020,16 @@ Bottleneck: the entry put two kinds of pull under one title — four that count 
 Bottleneck: deciding what a held pull takes from a rule built to count once — its travel and its short lift, never the count — and that the tow, whose knob stays where it is let go, takes neither.
 
 *Measured: 4 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-14 — One generic PULL: THE LATCH's grips and THE INSTAR's pulls, counted (half of the five LEVER rows)
+
+- reading: 10 min. The four hands, and where each keeps its depth — two in
+  boss state, two on the creature.
+- writing: 15 min. The stroke counted at its reach, the INSTAR pull kept on
+  the lift, a let-go pull lonely as a tap, `instar-beat.ts` cut off at the
+  size ceiling, tests and rows.
+- looking: 0 min. Nothing drawn moved.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: THE INSTAR's together rule exempted a pull because letting go undid it; counted once, a let-go pull had to become lonely like a tap, or a pull counted and released would have waited for its partner for ever.

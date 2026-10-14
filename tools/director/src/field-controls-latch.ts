@@ -13,8 +13,9 @@ const does = (side: "left" | "right") =>
   `A **hold and pull**: a thumb on the ${side} grip takes hold of the tendril ` +
   "on the press alone, and carried down hauls it, as far as the grip's anchor " +
   "and latchReachMilli of depth — but only the grip whose turn it is moves " +
-  "the rope; the other only holds. A lift after a pull of latchStrokeMilli " +
-  "passes the turn; a lift while the other grip is off too slips the rope back " +
+  "the rope; the other only holds. A pull of the whole latchReachMilli " +
+  "passes the turn the moment it gets there (the one generic PULL, sim/pull.ts), " +
+  "and a lift short of it is refused; a lift while the other grip is off too slips the rope back " +
   "to the last knot. In a yank level both grips must be down on the yank " +
   "(sim/latch-hand.ts). The grip to pull wears the arrow down and, on its own " +
   "seat's screen, a channel one pull long; the holding grip is a knob with no " +

@@ -15,10 +15,11 @@ import type { World } from "./world.js";
  * it takes hold where the tendril is (`anchorMilli`) and carries it down by
  * the thumb's depth (`depthMilli`), never past `latchReachMilli`, so a knot
  * (`latchKnotMilli`, longer than a reach) takes two pulls at least. The other
- * grip's job is to hold. When the puller lets go after a real pull
- * (`latchStrokeMilli`), the turn passes to the other grip — and if that one is
- * not being held, **both are off at once and the tendril slips back to the
- * last knot** (`floorMilli`). A knot pulled past the floor is kept for good,
+ * grip's job is to hold. When the puller has gone the whole reach — the one
+ * generic PULL (`pull.ts`), counted there — the turn passes to the other
+ * grip; and if the puller lets go while that one is not being held, **both
+ * are off at once and the tendril slips back to the last knot**
+ * (`floorMilli`). A knot pulled past the floor is kept for good,
  * and is one lobe of the slime torn off. So both seats work all the time: one
  * pulls, the other holds, and they swap.
  *

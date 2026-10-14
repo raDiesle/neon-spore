@@ -167,7 +167,7 @@ describe("a step with a mark for each seat", () => {
     expect(s.phase).toBe("morph");
   });
 
-  it("lets a pull that stands alone wait — letting go is what undoes it", () => {
+  it("lets a pull that stands alone wait while held — let go, it is lonely as a tap", () => {
     const world = install([scripted(mark("p1", "pullDown", 1000), mark("p2", "tap", 1))]);
     const s = instar(world);
     shown(world);
@@ -177,11 +177,30 @@ describe("a step with a mark for each seat", () => {
     let seen = runTo(world, world.tick + TPB * (CFG.instarTogetherBeats + 2));
     expect(seen.has("instarSlip")).toBe(false);
     expect(instarMarkDone(s, 0)).toBe(true);
+    // Counted once at its reach (the one generic PULL): the lift keeps it.
     const u = world.tick;
     seen = runTo(world, u + 1, [thumb(u, 1, 0, false)]);
+    expect(seen.has("instarSlip")).toBe(false);
+    expect(instarMarkDone(s, 0)).toBe(true);
+    seen = runTo(world, world.tick + TPB * (CFG.instarTogetherBeats + 2));
     expect(seen.has("instarSlip")).toBe(true);
     expect(s.progress[0]).toBe(0);
     expect(s.doneBeat[0]).toBe(NOT_DONE);
+  });
+
+  it("slips a pull let go short, said, and a tap's worth without a word", () => {
+    const world = install([scripted(mark("p1", "pullDown", 1000), mark("p2", "tap", 1))]);
+    const s = instar(world);
+    shown(world);
+    let t = world.tick;
+    runTo(world, t + 1, [thumb(t, 1, 0, true, 500)]);
+    t = world.tick;
+    expect(runTo(world, t + 1, [thumb(t, 1, 0, false)]).has("instarSlip")).toBe(true);
+    t = world.tick;
+    runTo(world, t + 1, [thumb(t, 1, 0, true, 10)]);
+    t = world.tick;
+    expect(runTo(world, t + 1, [thumb(t, 1, 0, false)]).has("instarSlip")).toBe(false);
+    expect(s.progress[0]).toBe(0);
   });
 
   it("slips a tap done alone once its partner is more than the together beats late", () => {

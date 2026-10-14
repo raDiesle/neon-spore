@@ -328,15 +328,17 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/skipped.test.ts` holds the listing's count of the entries
 `next` stepped past and why.
 
-## One generic PULL: the five rows moved over from the LEVER
+## One generic PULL: THE LID's cord and THE BALLOON's handles, counted
 
 - **Found:** 2026-10-14, claude/lever-lab-depth-hold-6a9001
-- **Taken:** 2026-10-14, claude/queue-one-generic-pull-the-five-rows-moved-over-from-t
-- **Files:** `packages/sim/src/lid.ts`, `packages/sim/src/balloon-pull.ts`, `packages/sim/src/latch-hand.ts`, `packages/sim/src/instar-hand.ts`, `tools/director/src/field-actions-drag.ts`
+- **Files:** `packages/sim/src/lid.ts`, `packages/sim/src/balloon-pull.ts`, `packages/sim/src/types.ts`, `packages/sim/src/hash.ts`, `tools/director/src/field-actions-drag.ts`
 - **Asks:** THE LID's cord, THE BALLOON's handles, THE LATCH's grips and THE INSTAR's PULL DOWN / PULL UP now sit under PULL PAST A DISTANCE, but each still stands at the depth the thumb has it. Should they (a) keep their own rule and take only the generic knob and channel, or (b) move onto the one PULL rule, counted once at the reach — the lid's plates and the balloon's stretch then answering the count, not the depth?
 - **Answered:** 2026-10-14 — (b), the one PULL rule, counted once at the reach. The owner left it to the lane (*you decide all*); the lane took (b) because the owner filed them by what the thumb does, and the generic PULL's knob still follows the thumb on the way, so the plates, the stretch and the knot can keep following it while only the count moves to the reach.
 
 The owner moved these rows from LEVER — CARRY TO A DEPTH AND HOLD to PULL PAST A DISTANCE on 14 October 2026: *from user control perspective* each is a pull past a distance. None of the three generic-PULL entries above names them. After the first of those lands: each onto the one rule, a replay test unchanged or a sentence on why its behaviour moved.
+
+**Half landed 2026-10-14** (claude/queue-one-generic-pull-the-five-rows-moved-over-from-t): THE LATCH's grips and THE INSTAR's PULL DOWN / PULL UP count once at the reach. What is left are the two that keep the depth on the creature itself: THE LID is open only while `pullIsTaut`, and a BALLOON side only while `balloonSideTaut`, each read off the live pull. Counted once means a latched bit per hold — a new `Creature` field each (so `hashWorld` and the restart test), set at the reach and cleared on the lift — with `lidIsOpen` and `balloonSideTaut` reading it, while the plates and the stretch go on following the depth.
+
 
 ## A lane's trunk step misses a local main that is ahead of origin
 

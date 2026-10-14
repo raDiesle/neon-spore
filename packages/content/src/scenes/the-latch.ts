@@ -8,7 +8,8 @@ import type { GuideScene } from "../scene-types.js";
  * four beats, sixty ticks each at the film's tempo, and the haul lights at
  * tick 239. Player 2's thumb is on the right grip from tick 90 and only
  * holds: the left grip pulls first. Player 1 pulls the left a whole reach
- * down and lets go at 380, and the turn passes to the right; player 1 takes
+ * down, and the turn passes to the right the moment it gets there (the one
+ * generic PULL); player 1 lets go at 380 and takes
  * hold again at 400, so player 2 can lift at 470 and pull from where the tendril now
  * is, and the second reach passes the knot — one body of the slime torn off,
  * the haul won. The yank lights after its rest, both thumbs go down at 810,

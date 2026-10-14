@@ -1,24 +1,20 @@
-import { NO_BEARING } from "./bearing.js";
 import { bossStrikesHull } from "./boss-strike.js";
 import { midCol } from "./config.js";
 import {
   type BossSequenceStep,
   type InstarState,
   instarActing,
-  instarHeld,
   instarMarkCol,
   instarMarkDone,
-  instarPanel,
-  instarPulled,
   instarStep,
   instarStrikeBeat,
   type NettleState,
   type NettleStep,
-  NOT_DONE,
   type SceneState,
   type SceneStep,
 } from "./instar.js";
-import { answerMark, armMarks, slipMark } from "./instar-marks.js";
+import { stepInstarMarks } from "./instar-beat.js";
+import { armMarks } from "./instar-marks.js";
 import { closeSlow, openSlow } from "./slow.js";
 import type { World } from "./world.js";
 
@@ -34,7 +30,7 @@ import type { World } from "./world.js";
  * is never two: the failed field is held from the next tick and this clock
  * does not run under a hold.
  *
- * The beat also **lets a lonely mark slip**: one done `instarTogetherBeats`
+ * The beat also **lets a lonely mark slip** (`instar-beat.ts`): one done `instarTogetherBeats`
  * ago whose partner is still not, back to nought with its sound. The thumbs
  * decide when a mark is done (`instar-hand.ts`); the beat decides whether
  * *done* was together. On the beat and not the tick so a hand two ticks late
@@ -112,63 +108,6 @@ function strike(world: World, s: SceneState): void {
   }
 }
 
-function slipLonely(world: World, s: SceneState): void {
-  const step = instarStep(s);
-  if (step === null || step.marks.length < 2) return;
-  // Together is only asked of thumbs on the body. A mark done while what is
-  // left is the panel's waits for the panel: the cannon has to get there,
-  // and a pair cannot shoot and tap *at once* in any sense worth saying.
-  // A hold is waited for the same way: it is beats, not a count, so it cannot
-  // be hurried to meet a partner — the split lunge's eye, tapped shut before
-  // the brow's three beats were up, slipped and had to be tapped again.
-  const body = step.marks.some(
-    (m, i) => !instarPanel(m.gesture) && m.gesture !== "hold" && !instarMarkDone(s, i),
-  );
-  if (!body) return;
-  for (let i = 0; i < step.marks.length; i++) {
-    const mark = step.marks[i];
-    const done = s.doneBeat[i] ?? NOT_DONE;
-    if (mark === undefined || instarHeld(mark.gesture) || done === NOT_DONE) continue;
-    if (world.beat - done <= world.cfg.instarTogetherBeats) continue;
-    slipMark(world, s, i);
-  }
-}
-
-/** The part pushes back against every thumb on a pull, by the step's
- * `pushMilli`: what it has taken back is kept in `ref` (`NO_BEARING` until
- * the first shove of a grab), so the next move is judged against it. */
-function pushBack(world: World, s: SceneState): void {
-  const step = instarStep(s);
-  const push = step?.pushMilli ?? 0;
-  if (step === null || push <= 0) return;
-  for (let i = 0; i < step.marks.length; i++) {
-    const mark = step.marks[i];
-    if (mark === undefined || !instarPulled(mark.gesture) || (s.thumbs[i] ?? 0) === 0) continue;
-    s.ref[i] = Math.max(0, s.ref[i] ?? NO_BEARING) + push;
-    s.progress[i] = Math.max(0, (s.progress[i] ?? 0) - push);
-    if ((s.progress[i] ?? 0) < mark.need) s.doneBeat[i] = NOT_DONE;
-    const col = instarMarkCol(world.cfg, mark);
-    world.events.push({ type: "instarShove", mark: i, part: mark.part, pushMilli: push, col });
-  }
-}
-
-/** Which thumbs a hold mark wants, as the bits `s.thumbs` keeps: player 1's
- * is 1, player 2's is 2. */
-const HOLDERS = { p1: 1, p2: 2, both: 3 } as const;
-
-/** Every thumb a hold mark wants on it is one more beat of it — both on a
- * `both` mark, and one seat's alone on a mark of its own, which is the
- * lunge holding its brow while the other seat strikes the eye. */
-function countHolds(world: World, s: SceneState): void {
-  const step = instarStep(s);
-  if (step === null) return;
-  for (let i = 0; i < step.marks.length; i++) {
-    const mark = step.marks[i];
-    if (mark?.gesture !== "hold" || s.thumbs[i] !== HOLDERS[mark.seat]) continue;
-    answerMark(world, s, i, 1);
-  }
-}
-
 export function stepInstar(world: World, s: SceneState): void {
   const cfg = world.cfg;
   const mid = midCol(cfg);
@@ -198,9 +137,7 @@ export function stepInstar(world: World, s: SceneState): void {
     return;
   }
   if (s.phase === "act") {
-    slipLonely(world, s);
-    pushBack(world, s);
-    countHolds(world, s);
+    stepInstarMarks(world, s);
     // A hold that landed the step this beat has closed the window itself.
     if (instarActing(s) && world.beat >= instarStrikeBeat(s)) strike(world, s);
     return;
