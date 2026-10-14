@@ -40696,3 +40696,5 @@ seam its drop stands and how big had to be decided rather than swapped.
 
 Bottleneck: writing — the plan's pressure targets could not be aimed at, and
 the composer had to hold a ramp instead, chosen over the whole block at once.
+
+*Measured: 51 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*

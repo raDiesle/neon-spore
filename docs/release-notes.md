@@ -9,6 +9,18 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-14 · 1ec7558c1 — The cord test finds TWO COLOURS by id
+
+It played index 2, which became SIDE TO SIDE — a red-only panel — when the arc's regular waves went in, so the cyan cord had nothing to run up.
+
+## 2026-10-14 · 039fa0ede — SALVAGE is found by id in the band test, and the perf baseline is renumbered for the arc's twelve new waves
+
+The twelve regular waves composed into the tutorial arc moved every wave after them; the band test read SALVAGE at index 16, and the baseline's rows still carried the old numbers. The twelve new waves are marked unmeasured — they go in unweighed, and the next weekly perf run weighs them.
+
+## 2026-10-14 · 09ee83f53 — The tutorial arc gets its regular waves, twelve of them, composed by `bun run waves:compose`
+
+Each basic thing the arc teaches now has a short block of regular waves after its introduction before the next new thing arrives: the slick (STEADY, SIDE TO SIDE, QUICKER), the bulb (ONLY CYAN), the rock (FIVE ROCKS, WIDE ROCKS, ROCKS BETWEEN), the purge (SAVE IT, PURGE WIDE, PURGE THE TORCH) and the shield pod (SHIELD HELD, HELD WIDE). Each block starts gentle — the new thing alone, near the middle — then reaches to the edges, then pairs it with the thing before it, and every wave's pressure rises 0.3 to 2 over the one before. The torch's block already had five regular waves and gets none. They are variants of their intro, so the director's list folds them under it, and the arc is 31 waves where it was 19.
+
 ## 2026-10-14 · e7b11e254 — THE SCOUT, THE VANE and THE WELL hold the HOLD LAB's drop
 
 THE SCOUT's line on the ship and prime off the stern are each a drop, sunk while the thumb is down, the other seat's dimmed, with no water because neither hold counts towards anything. THE VANE's pin is the drop on the arm's tip, its water welling over the vanePinBeats before the sweep tears it out, and its cue draws no second drop (`BossCue.ownDrop`). THE WELL's seam, which had no mark of its own, wears the drop in the middle of the empty sector while the face slips, sunk under his thumb and filling as the hold he may spend runs out (`well-seam-hold.ts`).
