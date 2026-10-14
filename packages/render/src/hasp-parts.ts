@@ -11,6 +11,7 @@ import {
   type SimConfig,
 } from "@neon-spore/sim";
 import { strokeGlow } from "./glow.js";
+import { haspGlancedPoint } from "./hasp-glance.js";
 import { drawHaspKnob } from "./hasp-knob.js";
 import { haspFree, haspLatchHex, haspSpokeTurns } from "./hasp-pose.js";
 import { haspBarAt, haspCentre, haspHubRadius, haspRail, haspStapleFoot } from "./hasp-shape.js";
@@ -132,6 +133,7 @@ export function drawHaspLatch(
   s: HaspState,
   beat: number,
   beatPhase: number,
+  time: number,
   flare: number,
 ): void {
   const bar = haspLatchBar(l, cfg, s);
@@ -151,7 +153,8 @@ export function drawHaspLatch(
   ctx.strokeStyle = rgba(PALETTE.rock, 0.45);
   ctx.stroke(track);
 
-  const foot = haspStapleFoot(l, cfg, i);
+  // The staple keeps hold of the shell's edge as the shell turns (`hasp-glance.ts`).
+  const foot = haspGlancedPoint(l, cfg, i, time, haspStapleFoot(l, cfg, i));
   const staple = new Path2D();
   staple.moveTo(foot.x, foot.y);
   staple.lineTo(bar.x - rail.side * bar.halfW, bar.y);

@@ -7832,6 +7832,15 @@ four means no state is a beat shorter than another.
 
 **What is not built — a step seen from another side** (suggested 10 October 2026, after the owner on THE BASTION: *very 3 dimensional and even user action is 3d to rotate*). The door turns on its hinge and the latch goes round to the back, where only the holder's screen still shows it; the winder winds blind while the holder says it is still held.
 
+**Offered (14 October 2026, VERSUS `hasp:glance`).** A machine, so the full
+shape turns: the door's three shells yaw together, each about its own hub
+(`packages/render/src/hasp-glance.ts`), so her wheel, the cap and the latch's
+rail stay where a thumb has them. Each far half closes into the dark and back;
+the story's chatter and rust go with their shell, the latch's staple keeps hold
+of its edge, and a bolt meets the shell where it is drawn. It ships still, and
+VERSUS offers **SWAY**, **LOOK** and **COCK** at a fifth of the shell's radius
+on THE HASP · WORK.
+
 
 ## 11.38 THE RATCHET — the boss where every step you take stays taken
 

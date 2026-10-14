@@ -6,6 +6,7 @@ import { smoothstep } from "./ease.js";
 import { strokeGlow } from "./glow.js";
 import type { GripVerdict } from "./grip-verdict.js";
 import { HASP_BOLT, haspBoltAt } from "./hasp-bolt.js";
+import { drawHaspGlanced } from "./hasp-glance.js";
 import { drawHaspHalos, drawHaspVerdicts } from "./hasp-marks.js";
 import { drawHaspCap, drawHaspLatch, drawHaspWheel } from "./hasp-parts.js";
 import { haspClearing, haspGape, haspOpened, haspStillPhase } from "./hasp-pose.js";
@@ -84,9 +85,13 @@ export function drawHasp(
     const rest = haspGape(s, cfg, i, beat, beatPhase, wheel);
     const gape = rest + haspStoryGape(s, cfg, i, beat, beatPhase, time, latch, rest);
     const swing = haspSwing(world, s, i, beat, beatPhase);
-    drawClasp(ctx, l, world, s, i, gape, swing, fx.hurt.value, time);
+    // The door turns on its hubs, where a look takes one (`hasp-glance.ts`).
+    drawHaspGlanced(ctx, l, cfg, i, time, (g) => {
+      const shell = drawClasp(g, l, world, s, i, gape, swing, fx.hurt.value, time);
+      drawHaspStory(g, l, cfg, s, i, gape, beat, beatPhase, time, latch, wheel);
+      return [shell];
+    });
     swung.push({ gape, swing });
-    drawHaspStory(ctx, l, cfg, s, i, gape, beat, beatPhase, time, latch, wheel);
   }
   // The halos go on the shells and under the marks they ask for.
   drawHaspHalos(ctx, l, cfg, s, time);
@@ -96,11 +101,11 @@ export function drawHasp(
       drawHaspSmear(ctx, l, cfg, s, i, beat, beatPhase);
     } else drawHaspCap(ctx, l, cfg, i);
   }
-  if (latch) drawHaspLatch(ctx, l, cfg, s, beat, beatPhase, fx.flare);
+  if (latch) drawHaspLatch(ctx, l, cfg, s, beat, beatPhase, time, fx.flare);
   drawHaspVerdicts(ctx, l, cfg, s, fx.verdicts);
   if (haspLoose(s)) drawBolt(ctx, l, world, s, beat, beatPhase);
   ctx.restore();
-  stops?.aim(haspStopper(l, world, s, swung, shift, wheel, latch, beat, beatPhase));
+  stops?.aim(haspStopper(l, world, s, swung, shift, wheel, latch, beat, beatPhase, time));
 
   // The seize, said as the design says it: the whole field dark for a beat,
   // on the screens that are shown a wheel to seize (§20, *Presentation*).
@@ -126,7 +131,7 @@ interface HaspFx {
  * One clasp's shell at the gape its pose gives it, swung `swing` on its pin
  * (`hasp-sway.ts`). A sealed clasp is drawn whole and a swung one is drawn
  * fainter, so the row reads as a count from across a room: two bright shut
- * lids and one gone slack is one hasp done.
+ * lids and one gone slack is one hasp done. Answers with the shell's outline.
  */
 function drawClasp(
   ctx: CanvasRenderingContext2D,
@@ -138,7 +143,7 @@ function drawClasp(
   swing: number,
   hurt: number,
   time: number,
-): void {
+): Path2D {
   const spent = haspOpened(s, i) && s.phase !== "clear";
   const shell = haspShellPath(l, world.cfg, i, gape, swing);
   ctx.fillStyle = rgba(PALETTE.rockDark, spent ? 0.5 : 0.88);
@@ -155,6 +160,7 @@ function drawClasp(
   ctx.strokeStyle = spent ? rgba(PALETTE.rock, 0.45) : PALETTE.rock;
   ctx.stroke(shell);
   drawHurt(ctx, shell, hurt);
+  return shell;
 }
 
 /**

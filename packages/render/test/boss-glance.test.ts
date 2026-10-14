@@ -16,6 +16,7 @@ import {
   sway,
 } from "../src/glance-styles.js";
 import { GORGE_GLANCE, GORGE_GLANCE_SIZE } from "../src/gorge-glance.js";
+import { HASP_GLANCE, HASP_GLANCE_SIZE } from "../src/hasp-glance.js";
 import { HIVE_GLANCE, HIVE_GLANCE_SIZE } from "../src/hive-glance.js";
 import { LEAD_GLANCE, LEAD_GLANCE_SIZE } from "../src/lead-glance.js";
 import { LEDGER_GLANCE, LEDGER_GLANCE_SIZE } from "../src/ledger-glance.js";
@@ -90,6 +91,7 @@ const ROWS: readonly Row[] = [
   { name: "THE ANTIPHON", record: ANTIPHON_GLANCE, size: ANTIPHON_GLANCE_SIZE, hold: 0 },
   { name: "THE GIMBAL", record: GIMBAL_GLANCE, size: GIMBAL_GLANCE_SIZE, hold: 0 },
   { name: "THE SPOOL", record: SPOOL_GLANCE, size: SPOOL_GLANCE_SIZE, hold: 0 },
+  { name: "THE HASP", record: HASP_GLANCE, size: HASP_GLANCE_SIZE, hold: 0 },
 ];
 
 const R = 100;

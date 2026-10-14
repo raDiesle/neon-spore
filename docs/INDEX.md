@@ -1610,6 +1610,7 @@ by hand never moves.
 | `packages/render/src/hasp-stop.ts` | Where a bolt meets THE HASP: the loose bolt in either colour, else the clasps, hubs and latch bar as drawn |
 | `packages/render/src/hasp-sway.ts` | **A spent clasp of THE HASP swings on its hinge** (`docs/spec/living-bosses.md`, step 11) |
 | `packages/render/src/hasp-grip.ts` | **The two thumbs on THE HASP** — half two of the look lane |
+| `packages/render/src/hasp-glance.ts` | **THE HASP glances**: the door's three shells turn on their hubs, offered on VERSUS `hasp:glance` |
 | `packages/render/src/hasp-blow.ts` | **THE HASP's own blow at the hull** (`boss-strike-look.ts`): its falling bolt driven home into the plating |
 | `packages/render/src/hasp-bolt.ts` | **THE HASP's loose bolt**, thrown from under the second clasp's hub and falling down its column to the hull |
 | `packages/render/src/hasp-marks.ts` | **THE HASP's halos and verdicts** — each seat's own mark answers a touch, and neither is shown the partner's ring |

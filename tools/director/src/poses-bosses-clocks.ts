@@ -163,7 +163,10 @@ export const CLOCK_BOSS_POSES: Pose[] = [
     "hasp",
     "work",
     "A clasp lit and its latch cool. P1 holds the latch down; P2 turns the wheel while he holds it.",
-    { hold: 6 },
+    {
+      hold: 6,
+      lookAt: "the door's three shells turning on their hubs — each far half going into the dark",
+    },
   ),
   bossPose(
     "filament",

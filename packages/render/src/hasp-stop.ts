@@ -2,6 +2,7 @@ import { HASP_COUNT, type HaspState, haspVerdict, type World } from "@neon-spore
 import type { Stopper } from "./bolt-stop.js";
 import { coreStopper, type Foot, lowestFoot, outlineFoot, roundFoot } from "./core-stop.js";
 import { HASP_BOLT, haspBoltAt } from "./hasp-bolt.js";
+import { haspGlancedPoint } from "./hasp-glance.js";
 import { haspLatchBar } from "./hasp-parts.js";
 import { haspCentre, haspHubRadius, haspShellHalves, type Point } from "./hasp-shape.js";
 import type { Layout } from "./layout.js";
@@ -17,7 +18,8 @@ export interface HaspSwung {
  * loose bolt in its own column, in either colour (`haspVerdict`), at its
  * lower end; and otherwise the lowest of what this screen draws over that x
  * — each clasp's two half-shells at the gape and the swing they are drawn at
- * (`swung`), the hub, wheel or cap, over each, and the latch's bar on a
+ * (`swung`) and turned on their hubs at `time` (`hasp-glance.ts`), the hub,
+ * wheel or cap, over each, and the latch's bar on a
  * screen shown the latch — all `shift` off where they stand, as the jolt lays
  * them.
  *
@@ -36,14 +38,17 @@ export function haspStopper(
   latch: boolean,
   beat: number,
   beatPhase: number,
+  time: number,
 ): Stopper {
   const cfg = world.cfg;
   const hub = haspHubRadius(l) * (wheel ? 1 : CAP);
   const feet: Foot[] = [];
   for (let i = 0; i < HASP_COUNT; i++) {
     const at = swung[i] ?? { gape: 0, swing: 0 };
-    for (const half of haspShellHalves(l, cfg, i, at.gape, at.swing))
-      feet.push(outlineFoot(half, shift.x, shift.y));
+    for (const half of haspShellHalves(l, cfg, i, at.gape, at.swing)) {
+      const turned = half.map((p) => haspGlancedPoint(l, cfg, i, time, p));
+      feet.push(outlineFoot(turned, shift.x, shift.y));
+    }
     const hubAt = haspCentre(l, cfg, i);
     feet.push(roundFoot(hubAt.x + shift.x, hubAt.y + shift.y, hub));
   }

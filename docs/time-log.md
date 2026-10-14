@@ -39421,3 +39421,15 @@ Bottleneck: the context cut mid-lane, and re-reading what had already been decid
 Bottleneck: choosing a pivot that leaves the knob and the line's foot where a thumb and an eye expect them.
 
 *Measured: 5 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-14 — THE HASP: a part that turns, so it is seen from a new side
+
+- reading: 5 min. `hasp-draw.ts`, `hasp-shape.ts`, `hasp-stop.ts` and the
+  latch in `hasp-parts.ts`, to find what a thumb is on and what follows a shell.
+- writing: 5 min. The record about each hub, the staple and the bolt's stop
+  read through the same turn, three candidates, the pose's lookAt, the spec note.
+- looking: 5 min. One shot; the far halves close into the dark, hubs and latch still.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: finding every point that reads a shell's edge — the staple and the bolt stop — so none was left behind the turn.
