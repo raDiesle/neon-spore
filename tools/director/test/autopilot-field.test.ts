@@ -1,17 +1,7 @@
 import { describe, expect, test } from "bun:test";
-import {
-  buildBoss,
-  buildPods,
-  buildQueue,
-  controlSet,
-  placedFaults,
-  WAVES,
-} from "@neon-spore/content";
-import { computeLayout, type Field } from "@neon-spore/render";
-import { type SimConfig, step, type World } from "@neon-spore/sim";
-import { fresh, POSE_CONFIG } from "../src/pose-kit.js";
-import { stageAutopilot } from "../src/stage-autopilot.js";
-import { stageField } from "../src/stage-field.js";
+import { WAVES, type Wave } from "@neon-spore/content";
+import type { SimConfig, World } from "@neon-spore/sim";
+import { playOut, standWave } from "../src/autopilot-play.js";
 import { CHARGES } from "./charges.js";
 
 /**
@@ -36,39 +26,9 @@ import { CHARGES } from "./charges.js";
  * it has all five gestures now (`autopilot-blister.ts`). */
 const HALF_PLAYED = new Set<string>([]);
 
-/** Wave `index` stood up the way the game starts it, on the poses' config
- * and the charge `cfg` lays a shot over. */
-function waveWorld(index: number, cfg: Partial<SimConfig>): World {
-  const cols = POSE_CONFIG.cols;
-  return fresh(
-    buildQueue(index, cols),
-    buildPods(index, cols),
-    buildBoss(index, cols),
-    cfg,
-    index,
-    placedFaults(WAVES[index]?.faults),
-  );
-}
-
-/** AUTO on BOTH until the wave is credited, or the budget is spent, with every
- * breach it let through counted. Scars are not enough: a soundbox discharging
- * breaches the hull and draws no scar (`breachUnscarred`), and the poses'
- * config never fails a wave. */
-function playOut(world: World): { world: World; breaches: number } {
-  // The finger AUTO draws is placed on the stage's own layout and field, so
-  // the rig is the one `autopilot.test.ts` stands a boss up with.
-  const l = computeLayout({ width: 900, height: 1600, dpr: 2 }, world.cfg, "test");
-  const field = (seat: 1 | 2): Field =>
-    stageField(world, "test", controlSet("default"), world.cfg, seat, null);
-  const auto = stageAutopilot({ layout: () => l, field });
-  auto.setMode("both");
-  let breaches = 0;
-  for (let i = 0; i < 30_000 && world.balance.wavesCleared === 0; i++) {
-    step(world, auto.commands(world));
-    breaches += world.events.filter((e) => e.type === "breach").length;
-  }
-  return { world, breaches };
-}
+/** Wave `index` stood up the way the game starts it. */
+const waveWorld = (index: number, cfg: Partial<SimConfig>): World =>
+  standWave(WAVES[index] as Wave, index, cfg);
 
 describe.each(CHARGES)("AUTO on a wave with no boss, %s", (_charge, cfg) => {
   test("BOTH clears ONE LAST CHANCE with every rock turned by the dome", () => {

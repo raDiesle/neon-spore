@@ -1,6 +1,7 @@
 import { arrivalJob, type Wave } from "@neon-spore/content";
 import { clearBeat } from "../../probe/measure-waves.ts";
 import { worldOf } from "../../probe/world.ts";
+import { playsClean } from "./autopilot-play.js";
 import type { Block } from "./compose-block.js";
 import { isBasic } from "./compose-place.js";
 import { gapRule, needsBasics, type Step } from "./compose-steps.js";
@@ -64,7 +65,9 @@ export function paperFaults(wave: Wave, step: Step, block: Block): string[] {
 }
 
 /** The beat AUTO clears the wave on, played where it will stand in the list,
- * or -1 when AUTO loses it. */
+ * or -1 when AUTO loses it — or clears it with a breach, at either charge,
+ * which `autopilot-field.test.ts` fails every ordinary wave of the game for. */
 export function autoClears(wave: Wave, block: Block): number {
-  return clearBeat(worldOf(wave, block.insertAt));
+  const beat = clearBeat(worldOf(wave, block.insertAt));
+  return beat !== -1 && playsClean(wave, block.insertAt) ? beat : -1;
 }

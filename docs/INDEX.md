@@ -4063,6 +4063,7 @@ by hand never moves.
 | `tools/director/src/lever-lab-setup.ts` | **What THE LEVER LAB can be set to** (`lever-lab.ts`): what the lever asks, its groove |
 | `tools/director/src/lever-lab.ts` | **THE LEVER LAB** — the one generic LEVER on an empty field, to be carried by hand |
 | `tools/director/src/autopilot-ghost.ts` | **The autopilot's finger, drawn where a thumb would be**, found by the game's own hit test run backwards |
+| `tools/director/src/autopilot-play.ts` | AUTO plays a wave out at both charges with every breach counted — the bar `autopilot-field.test.ts` and the composer share |
 | `tools/director/src/antiphon-editor.ts` | THE ANTIPHON's levels, a tab each and one for the ship, with who explains and who chooses |
 | `tools/imports/classify.ts` | Which of a file's characters are code rather than a comment or a string |
 | `tools/imports/imports.ts` | Dropping the names a file split strands in an import list, and refusing to delete a statement |
