@@ -331,6 +331,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## `docs/spec/briefings.md` §1 is renumbered by hand after every wave inserted
 
 - **Found:** 2026-10-14, claude/blocks-lure-to-veil
+- **Taken:** 2026-10-14, main (claim: claude/queue-docs-spec-briefings-md-1-is-renumbered-by-hand-a)
 - **Files:** `docs/spec/briefings.md`, `tools/probe/measure-waves.ts`, `packages/content/test/waves.test.ts`
 
 Every lane that writes composed waves (`bun run waves:compose --write`) moves
