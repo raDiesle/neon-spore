@@ -1,8 +1,8 @@
 import type { BastionLayer, BastionState } from "@neon-spore/sim";
 import type { At } from "./bastion-shape.js";
-import { type Glance, glanceFrame, glanceStill, STILL_GLANCE } from "./glance.js";
+import { type Glance, glanceFrame, glanceStill } from "./glance.js";
 import { drawGlancedLayer } from "./glance-layer.js";
-import type { GlanceSize } from "./glance-styles.js";
+import { cock, type GlanceSize, glanceOf } from "./glance-styles.js";
 
 /**
  * **THE BASTION glances** — the owner, 9 and 10 October 2026: *... or if
@@ -22,14 +22,15 @@ import type { GlanceSize } from "./glance-styles.js";
  * port and turns again over the first beat after it — the shell flung off or
  * grown back.
  *
- * Shipped, it does not glance: `BASTION_GLANCE` is still, and VERSUS
- * `bastion:glance` offers SWAY, LOOK and COCK for it (`glance-styles.ts`),
- * each at `BASTION_GLANCE_SIZE`, counted in the cage's radius.
+ * It glances as COCK (`glance-styles.ts`), turning to one side and tipping
+ * as it does — the owner took it from VERSUS `bastion:glance` on 14 October
+ * 2026 — at `BASTION_GLANCE_SIZE`, counted in the cage's radius.
  */
-export const BASTION_GLANCE: Glance = { ...STILL_GLANCE };
 
 /** How far the sphere turns, in the cage's radius, and how far it rolls — a machine's, as THE GOVERNOR's. */
 export const BASTION_GLANCE_SIZE: GlanceSize = { reach: 0.3, cock: 0.04, tilt: 0.2 };
+
+export const BASTION_GLANCE: Glance = glanceOf(cock, BASTION_GLANCE_SIZE);
 
 /** How dark the far side goes, reached at the widest turn. */
 const FAR_DARK = 0.6;

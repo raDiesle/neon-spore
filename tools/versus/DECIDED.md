@@ -1774,3 +1774,12 @@ packages/render/src/antiphon-glance.ts
 
 The other answers offered were `cock`, `look` and `sway`; they went with the
 slot.
+
+## `bastion:glance` — nothing taken, 2026-10-14
+
+taken by hand — the owner, 14 October 2026: this one is probably best.
+BASTION_GLANCE is glanceOf(cock, BASTION_GLANCE_SIZE) in
+packages/render/src/bastion-glance.ts, at the candidate's size
+
+The other answers offered were `cock`, `look` and `sway`; they went with the
+slot.

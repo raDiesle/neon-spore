@@ -139,7 +139,14 @@ const ROWS: readonly Row[] = [
   { name: "THE LAMPREY", record: LAMPREY_GLANCE, size: LAMPREY_GLANCE_SIZE, hold: 0 },
   { name: "THE MIMIC", record: MIMIC_GLANCE, size: MIMIC_GLANCE_SIZE, hold: 0 },
   { name: "THE LATCH", record: LATCH_GLANCE, size: LATCH_GLANCE_SIZE, hold: 0 },
-  { name: "THE BASTION", record: BASTION_GLANCE, size: BASTION_GLANCE_SIZE, hold: 0 },
+  // Taken: COCK, the owner, 14 October 2026.
+  {
+    name: "THE BASTION",
+    record: BASTION_GLANCE,
+    size: BASTION_GLANCE_SIZE,
+    hold: 0,
+    taken: true,
+  },
 ];
 
 const R = 100;
