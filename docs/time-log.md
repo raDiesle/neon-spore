@@ -39990,3 +39990,5 @@ Bottleneck: the owner's answer — *you decide* — and the lane chose down, the
 - landing: 5 min. `check:fast`, the commit, `land`.
 
 Bottleneck: THE TRAPEZE and THE BLISTER judged their swipe on the lift, so moving them to count at the reach moved what a tap and a wrong-way carry say, and their tests had to be re-read rather than re-run.
+
+*Measured: 17 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*

@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-14 · 44a3958a3 — The up, either-way and sideways pulls are the one generic PULL
+
+THE CURTAIN's hem and THE STARE's lash (up), THE TASTER's wipe (either way) and its pry (down), THE TRAPEZE's swipes and THE BLISTER's strokes (sideways, a signed pull toward the asked way) are read by `pullHeard` now: each counts the moment it reaches its distance, or on the lift that got there, and a carry let go short says `pullShort` — the knob going home red the renderer already draws. THE TRAPEZE and THE BLISTER used to judge on the lift alone, so they now count mid-hold; a wrong-way TRAPEZE carry or a tap no longer whiffs, and one let go short is the whiff `way`. THE TASTER's pry was a straight-down pull the last lane missed. THE SCOUT's prime stays off the rule: the owner put it under HOLD on 10 October 2026. Every replay hash is unchanged.
+
 ## 2026-10-14 · baa8d5e9e — THE VANE's housing is carried down, and an upward carry is no carry
 
 The navigator's haul on the seized housing is the one generic PULL with `way: "down"`: the owner left the choice to the lane on 14 October 2026, and down is the way the director's row, the autopilot and the queue already had it, and the one the field always has room for. Until now any carry of the reach counted either way. The render's sentence now says down, as does the one render test that carried it up, and the knob entry waiting on the way points its arrow down.
