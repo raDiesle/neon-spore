@@ -328,14 +328,6 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/skipped.test.ts` holds the listing's count of the entries
 `next` stepped past and why.
 
-## `bun run shot` cannot press and hold a point on a canvas
-
-- **Found:** 2026-10-13, claude/queue-tasks-968943
-- **Taken:** 2026-10-14, claude/queue-the-slings-cords-a-hold-then-a-pull-in-its-place (claim: claude/queue-bun-run-shot-cannot-press-and-hold-a-point-on-a)
-- **Files:** `tools/frames/shot.ts`, `tools/frames/shot-flags.ts`
-
-Proving that ▶ TRY IT keeps a take (`field-takes.ts`) meant pressing THE LEAD's ring for a second, waiting three beats, closing the window and opening ▤ STILLS. `--click` presses a selector and nothing else, so it took a throwaway Playwright script — and the browser pane could not stand in, because a hidden pane runs no animation frame and TRY IT steps nothing. Give `shot` a press-and-hold on a point of an element (fractions of its box, a duration, a wait after) and a second `--click` after it, with a test of the flags, so a lane photographs a take in one command.
-
 ## The PULL LAB's FIZZ knob costs 400 rings a call
 
 - **Found:** 2026-10-13, claude/field-controls-standardization-44b3b7

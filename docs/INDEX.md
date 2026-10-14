@@ -3879,6 +3879,7 @@ by hand never moves.
 | `tools/frames/shot-usage.ts` | What `bun run shot` prints when it is called with nothing to photograph |
 | `tools/frames/shot-state.ts` | Getting the page into the state that is worth photographing |
 | `tools/frames/shot-flags.ts` | READING `bun run shot`'s COMMAND LINE — every flag it takes |
+| `tools/frames/shot-press.ts` | **`--press`: a thumb held on a point of an element**, for `bun run shot` |
 | `tools/frames/sheet.ts` | **A STRIP OF FRAMES AS ONE PICTURE**, so a scene can be watched rather than read a frame at a time |
 | `tools/frames/tall.ts` | An element taller than the window, photographed whole rather than black below the fold |
 | `tools/frames/versus-shot.ts` | `bun run versus:shot` — one PNG of one VERSUS candidate |

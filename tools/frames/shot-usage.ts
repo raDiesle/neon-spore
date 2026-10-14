@@ -32,6 +32,10 @@ export function usage(): never {
   console.error('       --type fills a field first, e.g. "#waveFilter=boss"');
   console.error('       --select turns a <select> first, e.g. ".versus-rate=0.25"');
   console.error("       --wait is milliseconds to settle before the shot, for an animation");
+  console.error(
+    '       --press holds a point of an element, fractions of its box, ms held, ms after: ".try-window@0.5,0.5,1000,1500"',
+  );
+  console.error('       --then-click is a CSS selector pressed after --press, e.g. "#stills"');
   console.error("       --hold is a modifier key held down for the shot, e.g. Control");
   console.error("       --serve starts a director of its own and stops it, instead of --port");
   process.exit(1);

@@ -1,5 +1,6 @@
 import { WAVES } from "@neon-spore/content";
 import { parseAt } from "./crop.js";
+import { parsePress } from "./shot-press.js";
 import type { Reach } from "./shot-state.js";
 import { usage } from "./shot-usage.js";
 import { resolveWaveFlag } from "./wave.js";
@@ -86,6 +87,10 @@ export function readShotFlags(argv: readonly string[]): ShotFlags {
    * Default 1, which is what a selector on its own has always meant.
    */
   const nth = Number(flag("nth") ?? 1);
+  // A thumb held on a point of an element, and a press after it: a take kept by
+  // a hold is only seen behind a second button (`shot-press.ts`).
+  const press = flag("press") === undefined ? undefined : parsePress(flag("press") as string);
+  const thenClick = flag("then-click");
   const open = flag("open");
   const settle = Number(flag("wait") ?? 2500);
   /**
@@ -174,7 +179,7 @@ export function readShotFlags(argv: readonly string[]): ShotFlags {
   return {
     selector: selector as string,
     out: out as string,
-    reach: { open, tab, inner, click, nth, type: typed, select, hold },
+    reach: { open, tab, inner, click, nth, type: typed, select, press, thenClick, hold },
     settle,
     until,
     serve,

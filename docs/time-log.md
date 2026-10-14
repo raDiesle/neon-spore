@@ -40358,3 +40358,18 @@ Bottleneck: none worth the name — the TASTER lane had already cut the path,
 and the only choice was the knob's size against the hub above it.
 
 *Measured: 9 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-14 — `bun run shot` holds a press on a point of an element
+
+- reading: 5 min. `shot-flags.ts`, `shot-state.ts` and their tests, both
+  files a flag from crowded.
+- writing: 10 min. `shot-press.ts`, `--press` and `--then-click`, and a
+  test of the parse and of the order things are pressed in.
+- looking: 15 min. Five real runs to reach TRY IT: CONTROLS is a room of
+  DOCUMENTATION, the first `.field-try` is a COMPARE button, and the canvas
+  is scaled past its window.
+- friction: 0 min.
+- landing: 5 min.
+
+Bottleneck: finding the URL and the selector that reach one card's TRY IT —
+the run that proves the flag cost more than the flag.

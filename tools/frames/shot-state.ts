@@ -1,4 +1,5 @@
 import type { Page } from "playwright-core";
+import { holdPress, type Press } from "./shot-press.js";
 
 /**
  * Getting the page into the state that is worth photographing
@@ -42,6 +43,10 @@ export interface Reach {
   type?: string | undefined;
   /** `<selector>=<value>` chosen in a `<select>`. */
   select?: string | undefined;
+  /** A thumb held on a point of an element, after everything above (`shot-press.ts`). */
+  press?: Press | undefined;
+  /** A CSS selector pressed after the hold, as `click` is before it. */
+  thenClick?: string | undefined;
   /** A key held down while the picture is taken. */
   hold?: string | undefined;
 }
@@ -125,23 +130,7 @@ export async function reachState(page: Page, reach: Reach): Promise<void> {
     }
     await page.waitForTimeout(BUILD_MS);
   }
-  if (reach.click) {
-    const nth = reach.nth ?? 1;
-    const pressed = await page.evaluate(
-      ({ sel, at }: { sel: string; at: number }) => {
-        const el = document.querySelectorAll<HTMLElement>(sel)[at - 1];
-        if (!el) return false;
-        el.scrollIntoView({ block: "center", inline: "center" });
-        el.click();
-        return true;
-      },
-      { sel: reach.click, at: nth },
-    );
-    if (!pressed) {
-      throw new Unreachable(`no element ${nth} matches ${reach.click} — nothing was pressed`, 2);
-    }
-    await page.waitForTimeout(BUILD_MS);
-  }
+  if (reach.click) await clickNth(page, reach.click, reach.nth ?? 1);
   if (reach.type) {
     const [selector, text] = split("type", reach.type);
     await page.locator(selector).fill(text);
@@ -157,5 +146,29 @@ export async function reachState(page: Page, reach: Reach): Promise<void> {
     await page.locator(selector).selectOption(value);
     await page.waitForTimeout(300);
   }
+  if (reach.press && !(await holdPress(page, reach.press))) {
+    throw new Unreachable(`nothing matches ${reach.press.selector} to hold — --press`, 2);
+  }
+  // A take is kept by the press and seen behind a second button — TRY IT's
+  // window closed, ▤ STILLS opened — so the press can be followed by a click.
+  if (reach.thenClick) await clickNth(page, reach.thenClick, 1);
   if (reach.hold) await page.keyboard.down(reach.hold);
+}
+
+/** Press match `nth` of a CSS selector, counting from 1, and let the page build. */
+async function clickNth(page: Page, sel: string, nth: number): Promise<void> {
+  const pressed = await page.evaluate(
+    ({ sel, at }: { sel: string; at: number }) => {
+      const el = document.querySelectorAll<HTMLElement>(sel)[at - 1];
+      if (!el) return false;
+      el.scrollIntoView({ block: "center", inline: "center" });
+      el.click();
+      return true;
+    },
+    { sel, at: nth },
+  );
+  if (!pressed) {
+    throw new Unreachable(`no element ${nth} matches ${sel} — nothing was pressed`, 2);
+  }
+  await page.waitForTimeout(BUILD_MS);
 }
