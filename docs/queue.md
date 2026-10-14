@@ -637,6 +637,7 @@ another — each under ~250 lines, and `bun run check` green.
 ## The composer stalls eight later blocks at R7–R8
 
 - **Found:** 2026-10-14, claude/wave-composer
+- **Taken:** 2026-10-14, claude/queue-a-rise-in-difficulty-across-blocks-is-not-held (claim: claude/queue-the-composer-stalls-eight-later-blocks-at-r7-r8)
 - **Files:** `tools/director/src/compose-place.ts`, `tools/director/src/compose-steps.ts`, `tools/director/src/compose-ramp.ts`
 
 `bun run waves:compose` fills 31 of the game's 39 blocks dry, and eight stop
