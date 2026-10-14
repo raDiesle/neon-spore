@@ -331,6 +331,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## `waveNamesAt`'s figure is a third of what it costs
 
 - **Found:** 2026-10-14, claude/queue-the-sling-a-part-that-turns-so-it-is-seen-from-a
+- **Taken:** 2026-10-14, main (claim: claude/queue-wavenamesat-s-figure-is-a-third-of-what-it-costs)
 - **Files:** `tools/frames/test/wave.test.ts`
 
 `check:fast` reported a figure drift on "reads today's WAVES from the working
