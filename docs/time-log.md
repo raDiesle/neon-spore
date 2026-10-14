@@ -39300,3 +39300,13 @@ Bottleneck: the grip marks sit half-way out each flank, so the turn's size was s
 Bottleneck: rewriting the maze's gesture tests from distance to turns.
 
 *Measured: 15 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-14 — VERSUS offers THE LEAD's body glancing
+
+- reading: 5 min. The entry, §11.29, `lead-draw.ts`, `lead-stop.ts`, the lead poses.
+- writing: 10 min. `lead-glance.ts`, the mound and stalk answering their outlines, the file held at its ceiling, COCK dropped as SWAY.
+- looking: 10 min. Two VERSUS shots and four crops; the mound's contact stayed at rest past its narrowed side.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: the head was too small to turn alone and the stalk may not tilt, so it is the whole body turning about the foot with no roll.

@@ -5895,6 +5895,15 @@ can buy, not a wrong touch, and the still passes in the same tick.
 
 **What is not built — a step seen from another side** (suggested 10 October 2026, after the owner on THE BASTION: *very 3 dimensional and even user action is 3d to rotate*). It flies an orbit in depth, toward the screen and away; a shot meets it only while it comes round in front of its own body, and passes behind it otherwise — leading it in time through a turn rather than across the field.
 
+**Offered (14 October 2026, VERSUS `lead:glance`).** The organ at the tip is
+a head, but too small turned on its own to be seen, so the part that turns is
+the body it stands on — the mound, the stalk and the head, as one
+(`packages/render/src/lead-glance.ts`, which ships still): **about the foot**,
+on the navigator's screen only, the far side narrowing into the dark. It
+**never rolls**: her stalk stands dead upright by design, and a lean there
+would read as the pilot's lean, so COCK would be SWAY and is not offered.
+**SWAY** and **LOOK** (`glance-styles.ts`), judged on `THE LEAD · PACING`.
+
 
 ## 11.30 THE SCUTTLE — the boss racing you to its own death
 

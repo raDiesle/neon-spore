@@ -24,6 +24,8 @@ import { GORGE_SWAY } from "./gorge-glance/sway/index.js";
 import { HIVE_COCK } from "./hive-glance/cock/index.js";
 import { HIVE_LOOK_AROUND } from "./hive-glance/look/index.js";
 import { HIVE_SWAY } from "./hive-glance/sway/index.js";
+import { LEAD_LOOK_AROUND } from "./lead-glance/look/index.js";
+import { LEAD_SWAY } from "./lead-glance/sway/index.js";
 import { LEDGER_COCK } from "./ledger-glance/cock/index.js";
 import { LEDGER_LOOK_AROUND } from "./ledger-glance/look/index.js";
 import { LEDGER_SWAY } from "./ledger-glance/sway/index.js";
@@ -95,6 +97,8 @@ export const VARIANTS: Variant[] = [
   HIVE_COCK,
   HIVE_LOOK_AROUND,
   HIVE_SWAY,
+  LEAD_LOOK_AROUND,
+  LEAD_SWAY,
   LEDGER_COCK,
   LEDGER_LOOK_AROUND,
   LEDGER_SWAY,

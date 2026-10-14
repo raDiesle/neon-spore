@@ -2365,6 +2365,7 @@ by hand never moves.
 | `packages/render/src/lead-shape.ts` | Where THE LEAD is in field pixels: the ridge, the foot, the stalk's length and the angle each seat is asked for |
 | `packages/render/src/lead-stop.ts` | **Where a bolt meets THE LEAD**, for `BoltStops` (`bolt-stop.ts`): the ridge's underside |
 | `packages/render/src/lead-grip.ts` | **THE LEAD's stalk as a control**, for the one movement that asks a thumb for it: the still |
+| `packages/render/src/lead-glance.ts` | **THE LEAD's body glances** — the owner, 9 and 10 October 2026: *body parts of living things turn |
 | `packages/render/src/lead-word.ts` | **What THE LEAD is asking of the navigator's thumb while it stands still** |
 | `packages/render/src/lead-rock.ts` | **THE LEAD's ridge**: dark rock, lit along its top edge and gone to the deep under it |
 | `packages/render/src/lead-rock-crags.ts` | How tall a crag stands over the ridge's top, and how wide its foot, in tiles |

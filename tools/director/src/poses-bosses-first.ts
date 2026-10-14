@@ -174,6 +174,8 @@ export const FIRST_BOSS_POSES: Pose[] = [
         leadShootable(w.boss) &&
         !leadRunning(w.boss, w.cfg) &&
         w.beat >= 3,
+      lookAt:
+        "the navigator's mound and stalk — whether they turn about the foot, the far side dark",
     },
   ),
   bossPose(

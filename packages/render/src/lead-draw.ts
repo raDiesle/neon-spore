@@ -7,6 +7,7 @@ import { type Layout, tileCX } from "./layout.js";
 import { beadRim, moundContact, moundRim, paintLedge, stemHide } from "./lead-depth.js";
 import { paintBead, paintMound, paintStem, STEM } from "./lead-flesh.js";
 import type { LeadFx } from "./lead-fx.js";
+import { drawLeadGlanced } from "./lead-glance.js";
 import { LEAN_LOOK } from "./lead-lean.js";
 import { faded, paintRidge } from "./lead-rock.js";
 import {
@@ -74,14 +75,22 @@ export function drawLead(
 
   ctx.save();
   const ridge = drawRidge(ctx, l, cfg, time, fade);
-  if (placed) moundContact(ctx, ridge, foot.x, foot.y, l.tile * 0.5, fade);
   drawFlights(ctx, l, cfg, s, beat, beatPhase, time, fade);
   // The blow of a hit shakes the body and not the ridge it stands on.
   ctx.translate(fx.hurt.shakeX(time, l.tile), 0);
   const hurt = fx.hurt.value * fade;
-  if (placed) drawMound(ctx, l, foot, still, time, fade, hurt);
-  else drawSill(ctx, l, foot, fade);
-  drawStalk(ctx, l, s, foot, angle, placed, still, time, hurt);
+  if (placed) {
+    const at = { ...foot, r: l.tile * 0.5 }; // turned about the foot (`lead-glance.ts`)
+    drawLeadGlanced(ctx, at, length + l.tile * TIP, time, (g) => {
+      moundContact(g, ridge, foot.x, foot.y, l.tile * 0.5, fade);
+      const mound = drawMound(g, l, foot, still, time, fade, hurt);
+      const beads = drawStalk(g, l, s, foot, angle, placed, still, time, hurt);
+      return beads === null ? [mound] : [mound, beads];
+    });
+  } else {
+    drawSill(ctx, l, foot, fade);
+    drawStalk(ctx, l, s, foot, angle, placed, still, time, hurt);
+  }
   if (showsLeadLean(l.role) && s.segments > 0) {
     const pace = leadPace(s, cfg);
     LEAN_LOOK.draw({ ctx, l, foot, tip, lean: s.lean, pace, still, time, fade });
@@ -168,7 +177,7 @@ function drawMound(
   time: number,
   fade: number,
   hurt: number,
-): void {
+): Path2D {
   const breath = still ? 0 : 0.04 * Math.sin(time * 3);
   const rx = l.tile * (0.5 + breath);
   const ry = l.tile * (0.28 + breath);
@@ -179,6 +188,7 @@ function drawMound(
   paintMound(ctx, p, foot.x, foot.y, rx, ry, l.tile, hex, rim, fade);
   moundRim(ctx, foot.x, foot.y, rx, ry, l.tile, still ? 0.4 * fade : fade);
   drawHurt(ctx, p, hurt);
+  return p;
 }
 
 /** The pilot's sill: a short grey bar the readout stands on, so a stalk in the middle of his screen reads as an instrument and not a body in the middle column. */
@@ -208,8 +218,8 @@ function drawStalk(
   still: boolean,
   time: number,
   hurt: number,
-): void {
-  if (s.segments <= 0) return;
+): Path2D | null {
+  if (s.segments <= 0) return null;
   const length = leadStalkLength(l, s);
   const body = placed ? PALETTE.hull : mixHex(PALETTE.hull, PALETTE.dim, 0.45);
   const hex = still ? PALETTE.dim : body;
@@ -236,4 +246,5 @@ function drawStalk(
     beads.arc(at.x, at.y, r, 0, Math.PI * 2);
   }
   drawHurt(ctx, beads, hurt);
+  return beads;
 }
