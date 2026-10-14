@@ -331,6 +331,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## A glanced part's translucent rim shows a pale tick at the middle
 
 - **Found:** 2026-10-13, claude/queue-tasks-159048
+- **Taken:** 2026-10-14, claude/queue-the-slings-cords-a-hold-then-a-pull-in-its-place (claim: claude/queue-a-glanced-parts-translucent-rim-shows-a-pale-tic)
 - **Files:** `packages/render/src/glance-layer.ts`
 
 `drawGlancedLayer` lays the one picture down twice, the first half's clip a
