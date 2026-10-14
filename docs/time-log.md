@@ -40561,3 +40561,5 @@ the flood, so the drop needed a frame of its own.
 
 Bottleneck: writing — a cut that moves a boss to a new file has to move the
 import of its script with it, which nothing had needed before.
+
+*Measured: 13 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*

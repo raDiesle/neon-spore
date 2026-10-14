@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-14 · 5744a83fd — A wave saved from the director stays in its own act file, and a full act is cut into a new one on its own
+
+The save used to cut the flat list at each act's current length, so a wave inserted in act one pushed a wave out of every act after it, every file was rewritten, and the last one grew until somebody cut it by hand. Now a wave stays in the act that holds it, a new wave joins the act of the wave before it, and an act that would pass the 250-line ceiling is cut into a file named after it (`act-1-p2.ts`) that plays straight after it. Which act files exist, in what order, is one generated list (`packages/content/src/waves/acts.ts`); the director reads its table off that list and the save rewrites it. A boss that carries a script takes its import along when it moves to another file.
+
 ## 2026-10-14 · 82a626f42 — THE PULSE, THE WARDEN and THE FLEET hold the HOLD LAB's drop
 
 THE PULSE's arrest and brace are a drop at each end of the meter in place of the lit caps and the BRACE/HELD/BOTH word, the partner's end dimmed. THE WARDEN's eye under NARROW is the drop on the navigator's screen, sunk while her thumb is down, and the pilot sees it dimmed with the clock until it is. THE FLEET's breach under the flood and keep under the wreck are the drop; the rake stays a ring and the wreck's pull its knob. None holds water: no round keeps a count of these holds, and THE FLEET's drain bar is the window. The three cues draw no drop of their own (`BossCue.ownDrop`).
