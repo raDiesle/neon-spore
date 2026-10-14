@@ -2692,6 +2692,7 @@ by hand never moves.
 | `packages/render/src/blister-turn-help.ts` | **THE BLISTER's TURN help**: THE MAZE's turn, the one turn for every wave (the owner, 5 October 2026) |
 | `packages/render/src/blister-help.ts` | **THE BLISTER's help for all five gestures**, called and not drawn anew (`docs/controls-catalogue.md`) |
 | `packages/render/src/blister-verdicts.ts` | Where a blister was last drawn, for the ring of the blow that finished it |
+| `packages/render/src/blister-bodies.ts` | **The body a blister is drawn as, one record per gesture** (the owner, 14 October 2026 |
 | `packages/render/src/blister.ts` | THE BLISTER, drawn: |
 | `packages/render/src/canvas2d-stage.ts` | **The letterbox**: what is drawn in the window but outside the game — the paint either side of a phone-shaped stage, and the hairline saying where the phone ends |
 | `packages/render/src/canvas2d-held.ts` | **What a host may reach of the renderer's state**, as the class `Canvas2DRenderer` stands on |

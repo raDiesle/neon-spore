@@ -1,12 +1,13 @@
 import {
   blisterByOf,
+  blisterGestureOf,
   blisterIsUp,
   blisterSwelling,
   type Creature,
   type SimConfig,
 } from "@neon-spore/sim";
+import { BLISTER_BODY } from "./blister-bodies.js";
 import type { Body } from "./creature-body-in.js";
-import { drawLivingBody } from "./creature-body-living.js";
 import { flatRadius } from "./creature-place.js";
 import { smoothstep } from "./ease.js";
 import { rgba } from "./hex.js";
@@ -17,7 +18,8 @@ import { PALETTE, STROKE } from "./palette.js";
  * THE BLISTER, drawn: **the pore, the body coming up out of it and going back
  * into it, and the bulge a beat before** (`docs/spec/blister.md`).
  *
- * The body is ROOTED CLOVER through the ordinary living draw
+ * The body is its gesture's record in `blister-bodies.ts` — ROOTED CLOVER
+ * through the ordinary living draw for every gesture today
  * (`content/silhouettes-blister.ts`), its roots running down into a dark pore
  * in the membrane. It comes up over the first `RISE_BEATS` of its time up and
  * goes back down over the last, clipped at the pore so it is seen to come out
@@ -84,7 +86,7 @@ export function drawBlisterBody(b: Body): void {
   clip.ellipse(b.x, py, r * PORE_RX, r * PORE_RY, 0, 0, Math.PI * 2);
   ctx.clip(clip);
   ctx.globalAlpha *= Math.min(1, h * 2);
-  drawLivingBody({ ...b, y: b.y + (1 - h) * r * 1.5 });
+  BLISTER_BODY[blisterGestureOf(c)].draw(b, { r, rise: h, poreY: py });
   ctx.restore();
   drawPore(ctx, b.x, py, r, "lip");
 }

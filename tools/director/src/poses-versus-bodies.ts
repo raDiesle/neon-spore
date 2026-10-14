@@ -18,6 +18,7 @@ import { CAIRN_PILE_POSE } from "./poses-cairn.js";
 import { CORES_POSE } from "./poses-cores.js";
 import { COUNT_EYE_POSE, COUNT_POSE } from "./poses-count.js";
 import { CAROM_POSE, CHUTE_POSE, VEER_POSE } from "./poses-crossing.js";
+import { BLISTER_TAP } from "./poses-field-controls-blister.js";
 import { HUSK_POSE } from "./poses-husk.js";
 import { COIL_POSE, TETHER_POSE } from "./poses-link.js";
 
@@ -142,6 +143,7 @@ const GRIP_POSE: Pose = {
 
 /** Every compared look whose state is a body, in the order the sheet shows them. */
 export const VERSUS_BODY_POSES: Pose[] = [
+  BLISTER_TAP,
   CRAWLER_POSE,
   MAGNET_POSE,
   STRAND_POSE,

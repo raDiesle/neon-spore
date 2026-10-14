@@ -110,3 +110,32 @@ export const BLISTER_RUB: Pose = {
     return w;
   },
 };
+
+/**
+ * THE BLISTER's TAP up out of its pore with no hand on it yet: the press's
+ * halo, its flaring dots and its three pips, on the seat that taps. It is what
+ * `blister:tap` on VERSUS is judged on — a body built round the button
+ * against the clover the button covers — so it replays every second and a
+ * half, inside the two beats the blister stays up. It is on the COMPARED
+ * LOOKS sheet (`poses-versus-bodies.ts`), not ON THE FIELD's: no row there
+ * names it, since TAP is the tap every body already answers.
+ */
+export const BLISTER_TAP: Pose = {
+  name: "BLISTER · UP FOR A TAP",
+  note: "A TAP blister is up out of its pore for its two beats, three blows owed, and no thumb on it yet. Player 2's screen, the seat its BY names: the halo and the flaring dots say tap here.",
+  lookAt: "whether a creature is seen round the button, or only the button",
+  crop: "tile",
+  role: "p2",
+  span: 3,
+  cadenceSeconds: 1.5,
+  at: (w) => {
+    const c = w.creatures.find(blisterIsUp);
+    return c ? { col: c.col, row: c.row } : { col: 4, row: 3 };
+  },
+  build: () => {
+    const w = fresh([{ beat: 0, col: 4, kind: "blister", color: null, row: 3, count: 3 }]);
+    until(w, "a blister up", (x) => x.creatures.some(blisterIsUp));
+    run(w, 12);
+    return w;
+  },
+};

@@ -709,3 +709,96 @@ the three, and add a COPIES row for the constant. Where a file's numbers
 would change what is drawn, keep its own and say why in the row's `also`, as
 the raster painters do. Prove it with `bun test packages/render` and
 `bun run check`.
+
+## THE BLISTER's HOLD gets bodies built round its drop, on VERSUS
+
+- **Found:** 2026-10-14, claude/control-bodies
+- **Files:** `packages/render/src/blister-bodies.ts`, `packages/render/src/soak-hold.ts`, `tools/director/src/poses-field-controls-blister.ts`, `tools/director/src/poses-versus-bodies.ts`, `tools/director/src/versus-pose.ts`
+
+The owner, 14 October 2026: *every control has its own visual related thing
+around the button visuals integrating it … one brush per on screen control
+type … several "versus" variants each*. TAP's are open as `blister:tap`
+(MOLE, RIDER, CRADLE in `tools/versus/candidates/blister-tap/`) — copy that
+slot's shape. Open `blister:hold`, patching `BLISTER_BODY.hold`'s `draw`:
+three bodies that come up out of the pore with the HOLD LAB's drop held in
+them rather than laid over them, the drop and its waiting clock left exactly
+as `blister-help.ts` draws them. Ideas to start from: a clam whose open
+shell holds the drop as its pearl; a body with a cupped hollow on top the
+drop sits in like water in a palm; a bud whose petals close round the drop
+while a thumb is on it. Add a pose of a HOLD blister up with a thumb on it
+to the COMPARED LOOKS group, its row in `SLOT_POSE`, and send one PNG of
+the current beside the three (`bun run versus:shot … --only candidate`,
+`bun run crop`, `bun run pair`). Prove it with `bun test tools/versus` and
+`bun run check`.
+
+## THE BLISTER's SWIPE gets bodies built round its pull, on VERSUS
+
+- **Found:** 2026-10-14, claude/control-bodies
+- **Files:** `packages/render/src/blister-bodies.ts`, `packages/render/src/blister-help.ts`, `tools/director/src/poses-field-controls-blister.ts`, `tools/director/src/versus-pose.ts`
+
+The same ask as THE BLISTER's HOLD entry, for `blister:swipe`, patching
+`BLISTER_BODY.swipe`'s `draw`. The knob sits on the body and its channel
+runs a stroke long out its way (`drawSwipeTrack`), so a body built round it
+can run along the channel: a slug whose back is the channel and whose head
+is the knob; a frog-mouthed body with the channel as its tongue, the knob
+its tip; a seam or zip the knob opens down the body. A body must follow the
+way a SWIPE is authored to go — left, right, up or down — so build the
+pose `BLISTER · A STROKE HALF CARRIED` already gives you and one with
+another way. Send one PNG of the current beside the three. Prove it with
+`bun test tools/versus` and `bun run check`.
+
+## THE BLISTER's TURN gets bodies built round its knob, on VERSUS
+
+- **Found:** 2026-10-14, claude/control-bodies
+- **Files:** `packages/render/src/blister-bodies.ts`, `packages/render/src/blister-turn-help.ts`, `tools/director/src/poses-field-controls-blister.ts`, `tools/director/src/versus-pose.ts`
+
+The same ask as THE BLISTER's HOLD entry, for `blister:turn`, patching
+`BLISTER_BODY.turn`'s `draw`, judged on `BLISTER · A TURN HALF ROUND`.
+THE MAZE's channel goes round the body and the knob rides it on a lever, so
+the body can be what turns: a snail whose shell's spiral is the channel; a
+flower or a wheel of lobes the lever sweeps past; a coiled worm whose head
+is the knob. Clockwise and anticlockwise must both read. Send one PNG of
+the current beside the three. Prove it with `bun test tools/versus` and
+`bun run check`.
+
+## THE BLISTER's RUB gets bodies built round its zigzag, on VERSUS
+
+- **Found:** 2026-10-14, claude/control-bodies
+- **Files:** `packages/render/src/blister-bodies.ts`, `packages/render/src/rub-drop.ts`, `tools/director/src/poses-field-controls-blister.ts`, `tools/director/src/versus-pose.ts`
+
+The same ask as THE BLISTER's HOLD entry, for `blister:rub`, patching
+`BLISTER_BODY.rub`'s `draw`, judged on `BLISTER · RUBBED ONCE`. The RUB
+LAB's drop wears a zigzag stroke for every blow (`rub-drop.ts`), so the
+body can be the thing scrubbed: an urchin or a hedgehog whose spines lie
+along the zigzag; a ridged belly like a washboard; a furred back that
+bristles where it has been rubbed. Send one PNG of the current beside the
+three. Prove it with `bun test tools/versus` and `bun run check`.
+
+## THE BLISTER takes a LEVER, and the CONTROLS group a LEVER brush
+
+- **Found:** 2026-10-14, claude/control-bodies
+- **Files:** `packages/sim/src/blister.ts`, `packages/sim/src/creature-state-blister.ts`, `tools/director/src/lever-lab-rule.ts`, `tools/director/src/entry-fields-blister.ts`, `tools/director/src/control-brushes.ts`
+
+The owner asked for one brush per on-screen control, and the CONTROLS group
+has five: the five gestures THE BLISTER knows. THE LEVER LAB's lever —
+carried to a depth and held there — is a control the game has no body for.
+Give THE BLISTER a `lever` gesture on the lab's rule (the knob carried down
+its groove into the band and held for the beats it asks, a blow when it is
+held long enough, sprung back when let go), drawn with the lab's paint, and
+add it to `BLISTER_GESTURES`; `CONTROL_BRUSHES` then has a LEVER brush by
+construction. A creature is its simulation, then its look: this entry is
+the simulation, the help and the brush; its body is a `blister:lever` slot
+after it. Prove it with `bun test packages/sim tools/director` and
+`bun run check`.
+
+## THE BLISTER takes a COMBO, and the CONTROLS group a COMBO brush
+
+- **Found:** 2026-10-14, claude/control-bodies
+- **Files:** `packages/sim/src/blister.ts`, `packages/sim/src/creature-state-blister.ts`, `tools/director/src/combo-lab-combos.ts`, `tools/director/src/entry-fields-blister.ts`, `tools/director/src/control-brushes.ts`
+
+As THE BLISTER's LEVER entry, for THE COMBO LAB's chain: a press, then a
+pull in its place (the lab's ONE, THEN ANOTHER group), one blow when both
+are done inside the time it is up. A `combo` gesture, the lab's paint,
+`BLISTER_GESTURES` and so a COMBO brush. Its body is a `blister:combo` slot
+after it. Prove it with `bun test packages/sim tools/director` and
+`bun run check`.

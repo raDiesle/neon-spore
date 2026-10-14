@@ -41013,3 +41013,21 @@ Bottleneck: friction — a figure meant to be timed idle had to be read off a
 machine running three other lanes.
 
 *Measured: 8 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-14 — control-bodies — a body per control, and TAP's on VERSUS
+
+`BLISTER_BODY` gives each gesture its own body, all the clover still, and
+`blister:tap` offers three built round the press: MOLE, RIDER and CRADLE.
+HOLD, SWIPE, TURN and RUB are queued as a slot each, and LEVER and COMBO as
+gestures THE BLISTER does not have yet.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | how a candidate patches a function, and which pose a slot opens on |
+| writing | 10 | `blister-bodies.ts`, the TAP pose, three candidates' paint, six queue entries |
+| looking | 5 | four shots through `versus:shot`, RIDER's arms put back on its body and the rider made bigger |
+| friction | 0 | |
+| landing | 5 | a pose moved to COMPARED LOOKS for the ON THE FIELD test, two sentences given their dash, `check:fast`, this entry |
+
+**The bottleneck was the looking**: the first rider was too small to be seen
+and its arms floated free, which only a shot showed.
