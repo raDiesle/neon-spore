@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-14 · e7fb3cec1 — THE COMBO LAB: clock before the pull, finish under the held thumb, press then pull as a chain
+
+A pull-then-hold's waiting clock is up from the moment its knob is on the field, not only once it is taken; every hold in the labs wears it from the moment its mark is up. Counted with the thumb still down, SOAK's drop now boils away at once instead of standing full green until the lift. PRESS, THEN PULL is one seat's press, counted and gone, then a separate pull in its place, as HOLD, THEN PULL is; both are one `thenPull` chain (`combo-then-pull.ts`). Every combo has a `kind` — `held` while it waits, or `chain`, one gesture then another — and the lab's COMBO choice shows them in two groups.
+
 ## 2026-10-14 · 8c8a0fa63 — VERSUS offers THE SEAM's ridge turning on its spine
 
 `seam:glance` offers the whole shelled ridge a turn about its spine — SWAY, LOOK or COCK — the crack staying on the middle column the cannon shoots up while the near flank opens and the far flank closes into the dark and back, on top of the story's own turn away, on THE SEAM · LIT. The grit and the rock do not turn, and a bolt meets each flank as far out as it is drawn. The record ships still, so the game draws what it did.
