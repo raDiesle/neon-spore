@@ -33,12 +33,18 @@ const BODY_TOP = 1.5;
 const BODY_BOTTOM = 0.4;
 const BODY_FLANK = 0.5;
 /**
- * The organ's radius grown and a candidate's on the rail, in tiles — the
- * same, so the one carried down is the size of the place it is carried to,
- * and three times what they were (the owner, 5 October 2026).
+ * The organ's radius grown, in tiles — three times what it was (the owner,
+ * 5 October 2026).
  */
 export const ORGAN_R = 0.8;
-export const RAIL_R = 0.8;
+/**
+ * A candidate's on the rail, in tiles: big enough that its outline stands
+ * well clear of the knob over it — the owner, 14 October 2026, *make the
+ * shapes behind the pull buttons much bigger otherwise it cannot be seen*.
+ * Carried down it shrinks to the organ's, so the one carried home is the
+ * size of the place it is carried to (`antiphonCandidateR`).
+ */
+export const RAIL_R = 1.35;
 /** A pit's radius on the body, in tiles. */
 export const PIT_R = 0.2;
 /** Columns under each of the underside's slow waves. */
@@ -87,6 +93,12 @@ export function antiphonCandidateAt(l: Layout, cfg: SimConfig, s: AntiphonState,
   const to = antiphonOrganCircle(l, cfg);
   const k = s.carryMilli / 1000;
   return { x: from.x + (to.x - from.x) * k, y: from.y + (to.y - from.y) * k };
+}
+
+/** Rail index `i`'s radius now, in tiles: the rail's at its perch, the organ's when carried home. */
+export function antiphonCandidateR(s: AntiphonState, i: number): number {
+  if (s.carried !== i) return RAIL_R;
+  return RAIL_R + (ORGAN_R - RAIL_R) * (s.carryMilli / 1000);
 }
 
 /** Where pit `i` sits on the body: spread across it in the order taken, alternating a little up and down. */

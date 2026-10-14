@@ -1,10 +1,9 @@
 import { afterEach, describe, expect, it, setDefaultTimeout } from "bun:test";
 import type { AntiphonState, World } from "@neon-spore/sim";
-import { ANTIPHON_GLANCE, ANTIPHON_GLANCE_SIZE } from "../src/antiphon-glance.js";
+import { ANTIPHON_GLANCE } from "../src/antiphon-glance.js";
 import { antiphonBox } from "../src/antiphon-shape.js";
 import { antiphonStopper } from "../src/antiphon-stop.js";
 import { glancedPoint, glanceFrame, STILL_GLANCE } from "../src/glance.js";
-import { glanceOf, sway } from "../src/glance-styles.js";
 import { computeLayout, tileCX } from "../src/layout.js";
 import { CFG, FRAME_TIMEOUT_MS, VIEWPORT } from "./frame-harness.js";
 
@@ -28,10 +27,12 @@ const T = 1.5;
 const stopper = (still: boolean) =>
   antiphonStopper(L, WORLD, S, { shift: 0, fade: 1, time: T, still });
 
-afterEach(() => Object.assign(ANTIPHON_GLANCE, STILL_GLANCE));
+const SHIPPED = { ...ANTIPHON_GLANCE };
+afterEach(() => Object.assign(ANTIPHON_GLANCE, SHIPPED));
 
 describe("THE ANTIPHON's mantle, turned", () => {
-  it("ships still: both outer columns stop on the underside", () => {
+  it("still, both outer columns stop on the underside", () => {
+    Object.assign(ANTIPHON_GLANCE, STILL_GLANCE);
     const stop = stopper(false);
     for (const col of [0, CFG.cols - 1]) {
       expect(stop(col, tileCX(L, col), "red")?.y).toBe(BOX.bottom);
@@ -39,7 +40,6 @@ describe("THE ANTIPHON's mantle, turned", () => {
   });
 
   it("stops a bolt at the far end it has drawn back to, and not past it", () => {
-    Object.assign(ANTIPHON_GLANCE, glanceOf(sway, ANTIPHON_GLANCE_SIZE));
     const f = glanceFrame(ANTIPHON_GLANCE, T, {
       x: MID,
       y: (BOX.top + BOX.bottom) * 0.5,
@@ -58,7 +58,6 @@ describe("THE ANTIPHON's mantle, turned", () => {
   });
 
   it("does not turn once it is still", () => {
-    Object.assign(ANTIPHON_GLANCE, glanceOf(sway, ANTIPHON_GLANCE_SIZE));
     const stop = stopper(true);
     expect(stop(CFG.cols - 1, MID + HW - 2, "red")?.y).toBe(BOX.bottom);
   });

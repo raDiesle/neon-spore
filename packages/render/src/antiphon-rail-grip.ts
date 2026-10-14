@@ -4,7 +4,12 @@ import {
   antiphonRailAsks,
   type SimConfig,
 } from "@neon-spore/sim";
-import { antiphonCandidateAt, antiphonOrganCircle, antiphonPerch } from "./antiphon-shape.js";
+import {
+  antiphonCandidateAt,
+  antiphonOrganCircle,
+  antiphonPerch,
+  RAIL_R,
+} from "./antiphon-shape.js";
 import type { BossCue } from "./boss-cue.js";
 import { cueSeen } from "./boss-cue.js";
 import { drawCueText } from "./boss-cue-text.js";
@@ -39,7 +44,7 @@ import { showsAntiphonRail } from "./view-role-clocks-b.js";
  * the way down its vein inside it, and the one in hand moves with its knob —
  * the owner, 13 October 2026, on THE ANTIPHON'S RAIL: *it should have regular
  * pull button on top of the visuals, not individual*. The hit test is the candidate's resting circle at its
- * perch, thumb-sized, nearest wins — `creatureAt`'s rule. Whether the carry
+ * perch, `RAIL_R` across, nearest wins — `creatureAt`'s rule. Whether the carry
  * *takes* — not before the organ stands, not a second one at once — is the
  * simulation's to refuse.
  *
@@ -73,7 +78,7 @@ export function antiphonRailUnder(l: Layout, x: number, y: number, field: Field)
     const c = s.rail[i];
     if (c === undefined) continue;
     const at = antiphonPerch(l, field.cfg, c.col);
-    if (!hitCircle({ x: at.x, y: at.y, r: Math.max(r, l.tile * 0.8) }, x, y)) continue;
+    if (!hitCircle({ x: at.x, y: at.y, r: Math.max(r, l.tile * RAIL_R) }, x, y)) continue;
     const d = Math.hypot(x - at.x, y - at.y);
     if (d >= bestDist) continue;
     best = i;

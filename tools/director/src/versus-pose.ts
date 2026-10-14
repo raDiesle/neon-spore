@@ -59,7 +59,6 @@ const SLOT_POSE: Record<string, string> = {
   "surge:glance": "THE SURGE · SHUT",
   "lead:glance": "THE LEAD · PACING",
   "scuttle:glance": "THE SCUTTLE · HELD",
-  "antiphon:glance": "THE ANTIPHON · CYCLING",
   "filament:glance": "THE FILAMENT · ARM",
   "gimbal:glance": "THE GIMBAL · STILL",
   "spool:glance": "THE SPOOL · TAUT",

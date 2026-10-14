@@ -1,6 +1,6 @@
-import { type Glance, type GlanceFrame, glanceFrame, glanceStill, STILL_GLANCE } from "./glance.js";
+import { type Glance, type GlanceFrame, glanceFrame, glanceStill } from "./glance.js";
 import { drawGlancedLayer } from "./glance-layer.js";
-import type { GlanceSize } from "./glance-styles.js";
+import { type GlanceSize, glanceOf, sway } from "./glance-styles.js";
 
 /**
  * **THE ANTIPHON's mantle glances** — the owner, 9 and 10 October 2026:
@@ -21,14 +21,16 @@ import type { GlanceSize } from "./glance-styles.js";
  * it is still it stops turning, as its light does, because that is what still
  * means.
  *
- * Shipped, it does not glance: `ANTIPHON_GLANCE` is still, and VERSUS
- * `antiphon:glance` offers SWAY, LOOK and COCK for it (`glance-styles.ts`),
- * each at `ANTIPHON_GLANCE_SIZE`, in the mantle's half-width.
- */
-export const ANTIPHON_GLANCE: Glance = { ...STILL_GLANCE };
-
 /** How far the mantle's ends open and close, in its half-width, and how far it rolls. */
 export const ANTIPHON_GLANCE_SIZE: GlanceSize = { reach: 0.14, cock: 0.03, tilt: 0.2 };
+
+/**
+ * **SWAY** (`glance-styles.ts`), at `ANTIPHON_GLANCE_SIZE`: one end toward
+ * the field and then the other and back on one slow sine. VERSUS
+ * `antiphon:glance` offered it beside LOOK and COCK, and the owner took it
+ * on 14 October 2026, seeing no difference between the three.
+ */
+export const ANTIPHON_GLANCE: Glance = glanceOf(sway, ANTIPHON_GLANCE_SIZE);
 
 /** How dark the far end goes, reached at the widest turn. */
 const FAR_DARK = 0.5;

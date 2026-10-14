@@ -40563,3 +40563,17 @@ Bottleneck: writing — a cut that moves a boss to a new file has to move the
 import of its script with it, which nothing had needed before.
 
 *Measured: 13 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
+
+## 2026-10-14 — THE ANTIPHON's mantle sways, and its rail's candidates grow past their knobs
+
+- reading: 10 min. The three candidates, the adopt command's refusal, the
+  rail's drawer and its geometry.
+- writing: 10 min. SWAY into the record by hand, the slot dropped, `RAIL_R`
+  up with the carry shrinking to the organ, the tests that pinned the old
+  sizes.
+- looking: 5 min. A frame before and after, and the pair.
+- friction: 0 min.
+- landing: 5 min. A rail-touch test probed at the old reach; `check:fast`.
+
+Bottleneck: `versus adopt` cannot move a style written inline, so the slot
+was taken by hand and two tests that assumed it ships still had to learn it.

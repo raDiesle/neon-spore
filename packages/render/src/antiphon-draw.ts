@@ -18,6 +18,7 @@ import {
   antiphonBox,
   antiphonBudR,
   antiphonCandidateAt,
+  antiphonCandidateR,
   antiphonContourPath,
   antiphonDecoyLobes,
   antiphonFade,
@@ -28,7 +29,6 @@ import {
   antiphonStill,
   ORGAN_R,
   PIT_R,
-  RAIL_R,
 } from "./antiphon-shape.js";
 import { antiphonStopper } from "./antiphon-stop.js";
 import { drawAntiphonUnknown, drawAntiphonVeins } from "./antiphon-veins.js";
@@ -124,7 +124,8 @@ export function drawAntiphon(
       if (c === undefined) continue;
       const at = antiphonCandidateAt(l, cfg, s, i);
       const turn = milliTurn(antiphonQuarterMilli(c.turn));
-      drawContour(ctx, l, c.shape, at, RAIL_R * grow, time, fade, lobesOf[i], turn);
+      const r = antiphonCandidateR(s, i) * grow;
+      drawContour(ctx, l, c.shape, at, r, time, fade, lobesOf[i], turn);
     }
     // The rings on the rail, over the candidates so each stands on its own
     // (`antiphon-rail-grip.ts`).

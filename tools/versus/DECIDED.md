@@ -1765,3 +1765,12 @@ October 2026); the OOZE helpers it read went with it to
 packages/render/src/goo-ooze.ts.
 
 The other answer offered was `ooze`; it went with the slot.
+
+## `antiphon:glance` — nothing taken, 2026-10-14
+
+taken by hand — the owner, 14 October 2026: saw no difference between the
+three and chose SWAY; written into ANTIPHON_GLANCE in
+packages/render/src/antiphon-glance.ts
+
+The other answers offered were `cock`, `look` and `sway`; they went with the
+slot.

@@ -73,6 +73,8 @@ interface Row {
   size: GlanceSize;
   /** The held points, in part radii either side of the centre; 0 the centre itself. */
   hold: number;
+  /** Taken off VERSUS into the game, so it turns. */
+  taken?: true;
 }
 
 const ROWS: readonly Row[] = [
@@ -107,7 +109,14 @@ const ROWS: readonly Row[] = [
   { name: "THE SURGE", record: SURGE_GLANCE, size: SURGE_GLANCE_SIZE, hold: 0 },
   { name: "THE LEAD", record: LEAD_GLANCE, size: LEAD_GLANCE_SIZE, hold: 0 },
   { name: "THE SCUTTLE", record: SCUTTLE_GLANCE, size: SCUTTLE_GLANCE_SIZE, hold: 0 },
-  { name: "THE ANTIPHON", record: ANTIPHON_GLANCE, size: ANTIPHON_GLANCE_SIZE, hold: 0 },
+  // Taken: SWAY, the owner, 14 October 2026.
+  {
+    name: "THE ANTIPHON",
+    record: ANTIPHON_GLANCE,
+    size: ANTIPHON_GLANCE_SIZE,
+    hold: 0,
+    taken: true,
+  },
   { name: "THE GIMBAL", record: GIMBAL_GLANCE, size: GIMBAL_GLANCE_SIZE, hold: 0 },
   { name: "THE SPOOL", record: SPOOL_GLANCE, size: SPOOL_GLANCE_SIZE, hold: 0 },
   { name: "THE HASP", record: HASP_GLANCE, size: HASP_GLANCE_SIZE, hold: 0 },
@@ -140,9 +149,10 @@ const sweep = (g: Glance) =>
 describe.each(ROWS.map((r) => [r.name, r] as const))("%s's glance", (_, row) => {
   const at = { x: 0, y: 0, r: R, hold: row.hold };
 
-  it("ships still, and a still frame draws it as before", () => {
+  it("ships still until taken, and a still frame draws it as before", () => {
     for (const t of [0, 0.7, 1.5, 4.5, 13]) {
-      expect(glanceStill(glanceFrame(row.record, t, at))).toBe(true);
+      const still = glanceStill(glanceFrame(row.record, t, at));
+      expect(still).toBe(t === 0 || row.taken !== true);
     }
   });
 

@@ -1,6 +1,7 @@
 import { describe, expect, it } from "bun:test";
 import type { AntiphonState, World } from "@neon-spore/sim";
-import { antiphonPerch } from "../src/antiphon-shape.js";
+import { antiphonPerch, RAIL_R } from "../src/antiphon-shape.js";
+import { hitReach } from "../src/hit.js";
 import { touchDown } from "../src/touch.js";
 import { CFG, field, hung, layout, organ, target } from "./antiphon-touch-harness.js";
 
@@ -85,9 +86,10 @@ describe("a thumb on THE ANTIPHON's rail", () => {
     const c = s.rail[0];
     if (c === undefined) throw new Error("no candidate");
     const at = antiphonPerch(l, CFG, c.col);
-    // Past the thumb-sized circle and its finger's slack (`hitCircle`), on
+    // Past the candidate's circle and its finger's slack (`hitCircle`), on
     // the side away from the next candidate a slot over.
-    expect(target(touchDown(l, at.x - l.tile * 2, at.y, field(world, 2)))).not.toBe("antiphonRail");
+    const past = hitReach(l.tile * RAIL_R) + 2;
+    expect(target(touchDown(l, at.x - past, at.y, field(world, 2)))).not.toBe("antiphonRail");
     s.rail = [];
     expect(target(touchDown(l, at.x, at.y, field(world, 2)))).not.toBe("antiphonRail");
   });
