@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-14 · 9a7da505a — The dev supervisor gives a server that panics at start one more try
+
+A director restarted by a tree move could die with a Bun panic at start (exit 134) and take `bun run dev`'s supervisor down with it, since the loop read any exit outside a restart as the human's own stop. A child that aborts within five seconds of being spawned is now spawned once more after half a second, said in one line; a second panic in a row exits as before. A test runs the real loop against a stub child that aborts.
+
 ## 2026-10-14 · 8832a5c53 — THE LAMPREY's head is armour wherever it stands
 
 A bolt up THE LAMPREY's column while its gullet is shut — recoiling from a hit, bitten into a tile, pulled up, towed or crawling — now bursts on the head's sucker as armour: it costs nothing and is not a wasted shot on HARD. Until now the second bolt of a double tap was drawn flying straight through the recoiling head to the top. The simulation meets it at the highest the head is drawn that beat, so never short of the picture; the recoil's lift is a named field, `lampreyRecoilLiftMilli`, the pose reads too. Exemption: a fix to something wrong — a bolt drawn through a body.
