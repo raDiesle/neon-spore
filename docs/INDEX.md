@@ -1650,6 +1650,7 @@ by hand never moves.
 | `packages/render/src/filament-draw.ts` | **THE FILAMENT**: a body over the top of the field made of loose filaments the way a nerve is a bundle |
 | `packages/render/src/filament-fx.ts` | What THE FILAMENT leaves behind a frame: the **whip** of a filament snapping back to its free end |
 | `packages/render/src/filament-grip.ts` | **A thumb on THE FILAMENT's line**: the pilot's on the head, the navigator's on the tail |
+| `packages/render/src/filament-glance.ts` | **THE FILAMENT's heart glances** — the owner, 9 and 10 October 2026: *body parts of living things turn |
 | `packages/render/src/filament-shape.ts` | **Where THE FILAMENT is**, in field pixels: every tile of the armed filament at its tile's centre |
 | `packages/render/src/filament-strike.ts` | **The strike, and the spit** — the owner, 25 September 2026: *when both reach … the hearth inside |
 | `packages/render/src/filament-turn-draw.ts` | **Whose move THE FILAMENT is, drawn** — the owner, 25 September 2026 |

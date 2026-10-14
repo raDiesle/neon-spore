@@ -7109,6 +7109,16 @@ dark is both, and a line left standing is red on the thumb it waited on. The
 verdict is drawn where the ring is now, which after a strike is the free end
 both thumbs have to grab again.
 
+**Offered (14 October 2026, VERSUS `filament:glance`).** The heart already
+turns — a yaw there and back about its apex, in depth — so its turn became a
+record (`packages/render/src/filament-glance.ts`) that ships as that sway,
+and VERSUS offers it the two other ways: **LOOK**, holding a look either
+side, and **COCK**, cocking as it turns, each rolling **about the apex**
+where every vein goes in, so the leads and the tools riding them stay on it.
+SWAY is the turn it already has and is not offered. Judged on `THE FILAMENT
+· ARM`.
+
+
 ## 11.34 THE GIMBAL — the boss where the same turn is not the same turn
 
 > The one that divides the geometry. One wheel, gripped from its two opposite

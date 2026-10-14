@@ -18,6 +18,8 @@ import { CAIRN_SWAY } from "./cairn-glance/sway/index.js";
 import { CURTAIN_COCK } from "./curtain-glance/cock/index.js";
 import { CURTAIN_LOOK_AROUND } from "./curtain-glance/look/index.js";
 import { CURTAIN_SWAY } from "./curtain-glance/sway/index.js";
+import { FILAMENT_COCK } from "./filament-glance/cock/index.js";
+import { FILAMENT_LOOK_AROUND } from "./filament-glance/look/index.js";
 import { FLEET_COCK } from "./fleet-glance/cock/index.js";
 import { FLEET_LOOK_AROUND } from "./fleet-glance/look/index.js";
 import { FLEET_SWAY } from "./fleet-glance/sway/index.js";
@@ -97,6 +99,8 @@ export const VARIANTS: Variant[] = [
   CURTAIN_COCK,
   CURTAIN_LOOK_AROUND,
   CURTAIN_SWAY,
+  FILAMENT_COCK,
+  FILAMENT_LOOK_AROUND,
   FLEET_COCK,
   FLEET_LOOK_AROUND,
   FLEET_SWAY,

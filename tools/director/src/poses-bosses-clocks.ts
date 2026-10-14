@@ -166,7 +166,11 @@ export const CLOCK_BOSS_POSES: Pose[] = [
     "filament",
     "arm",
     "One filament lit at its free end. P1 draws the lit end a tile a beat; P2 follows a tile behind.",
-    { hold: 6 },
+    {
+      hold: 6,
+      lookAt:
+        "the heart over the field — how it turns about its apex, and whether it holds or cocks",
+    },
   ),
   bossPose(
     "spool",

@@ -1,4 +1,5 @@
 import { view } from "@neon-spore/content";
+import { FILAMENT_GLANCE } from "./filament-glance.js";
 import type { Heart } from "./filament-heart.js";
 import {
   FLUSH_STEPS,
@@ -30,9 +31,6 @@ import { TOP_CHROME_PX } from "./top-chrome.js";
  *   rim red, rather than laying a fill over an outline the rig never has.
  */
 
-/** The idle turn: how far either way, in radians, and the wall-clock seconds there and back. */
-const SWAY = 0.32;
-const SWAY_PERIOD = 7.5;
 /**
  * Looked at a little from below — it hangs over the players' heads — so the
  * vessels it hangs from go back into the body as they rise, and their roots
@@ -66,9 +64,9 @@ export function heartSqueeze(beatPhase: number): HeartSqueeze {
   return { atria: Math.exp(-beatPhase * 9), ventricles: dub > 0 ? Math.exp(-dub * 9) : 0 };
 }
 
-/** The heart's yaw at `time`: its idle sway. */
+/** The heart's yaw at `time`: its idle sway, or a turn VERSUS offers (`filament-glance.ts`). */
 export function heartYaw(time: number): number {
-  return SWAY * Math.sin((time * Math.PI * 2) / SWAY_PERIOD);
+  return FILAMENT_GLANCE.swing(time);
 }
 
 /**

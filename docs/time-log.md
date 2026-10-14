@@ -39380,3 +39380,13 @@ Bottleneck: every part but the mantle was a read or too small, and a turn big en
 Bottleneck: the tests that counted the pump's ring from three directions.
 
 *Measured: 19 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-14 — VERSUS offers THE FILAMENT's heart looking and cocking
+
+- reading: 10 min. The entry, §11.33, `filament-draw.ts`, the heart's look, rig and apex.
+- writing: 10 min. `filament-glance.ts` shipping the heart's own sway, the roll about the apex in `filament-draw.ts`, its test, two candidates.
+- looking: 5 min. One VERSUS shot and a crop.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: the heart already turned, so its record ships turning and SWAY had nothing to offer.

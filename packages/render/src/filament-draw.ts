@@ -1,7 +1,8 @@
 import { type FilamentState, filamentTiles, filamentTracing, type World } from "@neon-spore/sim";
 import { hurtShake } from "./boss-hurt.js";
 import type { FilamentFx } from "./filament-fx.js";
-import { filamentHeart, type Heart } from "./filament-heart.js";
+import { FILAMENT_GLANCE } from "./filament-glance.js";
+import { filamentHeart, filamentHeartPoint, type Heart } from "./filament-heart.js";
 import { drawFilamentHeart } from "./filament-heart-look.js";
 import { drawFilamentVerdicts } from "./filament-marks.js";
 import {
@@ -76,6 +77,14 @@ export function drawFilament(
   const hurt = Math.max(fx.hurt.value, strike);
   const heart = struckHeart(filamentHeart(l, cfg, strands, beatPhase), strike);
   ctx.translate(hurtShake(hurt, time, l.tile), -fx.jolt * l.tile);
+  // A roll goes about the apex, where every vein goes in (`filament-glance.ts`).
+  const roll = FILAMENT_GLANCE.roll(time);
+  if (roll !== 0) {
+    const apex = filamentHeartPoint(heart);
+    ctx.translate(apex.x, apex.y);
+    ctx.rotate(roll);
+    ctx.translate(-apex.x, -apex.y);
+  }
   drawFilamentHeart(ctx, heart, strands, time, beatPhase, fade, hurt);
   ctx.restore();
   if (filamentTiles(s) === null) return;
