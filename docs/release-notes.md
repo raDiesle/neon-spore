@@ -9,6 +9,14 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-14 · ff0395f4f — THE BASTION's gun ring sways round the sphere and its armour breathes
+
+The ring rides the turning sphere like a loose collar: it tips after the sphere's cock, a beat late and a little further, and nods on its own slower clock, its ellipse opening and closing. It steadies while it is the shell lit, where a bolt stops on its front gun. The armour's slabs stand a hair out and back one after another round the moon, the tower rising and the keel sinking with them; a slab under a thumb stays put under its knob. Exemption: a look the owner asked for by name (14 October 2026, "let the other front parts move as well").
+
+## 2026-10-14 · 48e9ef450 — THE BASTION's sphere glances as COCK, taken from VERSUS
+
+The core, the hull and the cage turn to one side inside the armour and the gun ring, tipping as they do, and hold before turning back — still steadied to face-on while the lattice or the port is lit. The owner picked COCK from `bastion:glance` on 14 October 2026; it was taken by hand, since `adopt` cannot move an inline glance, and the slot is closed with SWAY and LOOK.
+
 ## 2026-10-14 · 5ed9a798c — THE ANTIPHON's mantle sways, and the shapes on its rail are big enough to see
 
 The mantle across the top now turns one end toward the field and then the other, on one slow swing (SWAY, taken off VERSUS: the owner saw no difference between the three). The candidates on the chooser's rail grew from 0.8 tiles to 1.35, so each outline reaches well past the pull knob over it; one carried down shrinks to the organ's size on the way, and a thumb anywhere on the outline takes it.

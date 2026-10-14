@@ -40594,3 +40594,5 @@ was taken by hand and two tests that assumed it ships still had to learn it.
 
 Bottleneck: landing — a full `check:fast` is three minutes, and a missing
 index row cost a second one.
+
+*Measured: 25 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
