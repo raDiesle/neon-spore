@@ -6266,7 +6266,8 @@ under it. Each candidate's **vein** runs from its slot to that place
 displacement is projected onto the vein in integers, the candidate moving
 down as far as the thumb has, back up if it goes back, and staying put
 while the thumb is more than `antiphonVeinSlackMilli` (1000) off the line.
-Let go short and it springs back, nothing said. Carried
+It is the one generic PULL (`sim/pull.ts`): let go short and it springs
+back, refused (`pullShort`); a tap says nothing. Carried
 `antiphonReachMilli` (900) of the way it **arrives** (`antiphonArrive`):
 the organ shrivels to a pit (`antiphonPit`, with the count) and the level
 ends; a decoy hardens (`antiphonHarden`) and strikes the hull
@@ -11632,11 +11633,13 @@ four ports where there were three. A script never steps back outward
   away from the ship, 2.4. On a curve the thumb is read as the point of the
   curve nearest it, no more than `bastionStrideMilli` from where the plate
   was, so it cannot cut across a bend, and **a thumb more than
-  `bastionSlackMilli` off the curve loses the plate**, which snaps back. A
+  `bastionSlackMilli` off the curve loses the plate**, which snaps back —
+  once it has come `bastionSnapMilli` along; short of that it stays put. A
   curve's length is its shape, fitted round the plates it fits; which those
   are is the fit test's. At the track's end the plate tears off and flies
-  (`bastionTear`). **Let go short of that** — at least `bastionSnapMilli`
-  pulled — and it snaps back (`bastionSnap`): only that plate starts over,
+  (`bastionTear`) — the one generic PULL (`sim/pull.ts`), measured along
+  the track. **Let go short of that** — anything past a tap — and it snaps
+  back (`bastionSnap`): only that plate starts over,
   the other side keeps every plate it has taken. A thumb on the partner's
   plates is said (`bastionWrong`).
 - **The ring** — a gun per authored colour, spaced round the moon. The pilot

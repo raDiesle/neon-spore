@@ -80,6 +80,19 @@ describe("THE BASTION", () => {
     expect(s.pullMilli[0]).toBe(0);
   });
 
+  it("says a plate let go just past a tap, and nothing for a tap", () => {
+    const world = install(STRAIGHT);
+    toLayer(world);
+    const [wx, wy] = bastionPlateWay(0);
+    // Along the way, a twentieth of a tile is 50 — past a tap — and a fiftieth 20.
+    tick(world, [plate(1, 0)]);
+    tick(world, [plate(1, 0, wx / 20, wy / 20)]);
+    expect(tick(world, [lift(1, 0)])).toContain("bastionSnap");
+    tick(world, [plate(1, 0)]);
+    tick(world, [plate(1, 0, wx / 50, wy / 50)]);
+    expect(tick(world, [lift(1, 0)])).not.toContain("bastionSnap");
+  });
+
   it("holds nothing more under a thumb that tore until it lifts", () => {
     const world = install(STRAIGHT);
     toLayer(world);

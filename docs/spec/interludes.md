@@ -215,7 +215,9 @@ p2 which one to pull out.)*. The rest after the first level is
 one loose at a time (three since 2 October 2026, the owner: *increase number of
 teeth require to pull out*), and the split is turned round for it: the pilot's
 screen shows which tooth is loose, the navigator's hand pulls — a drag of
-`gaugeToothPullMilli` from the tooth she pressed. The next comes loose the
+`gaugeToothPullMilli` from the tooth she pressed, any way: the one generic
+PULL (`sim/pull.ts`), out the moment it gets there, and a pull let go short
+puts the tooth back and is said (`pullShort`). The next comes loose the
 moment the last is out; the last right one ends the rest early, after
 `gaugeRegrowBeats`; any other
 comes out anyway and loses the round, and a rest that runs out with the loose
@@ -533,7 +535,7 @@ in a state the two of them did not just put it in.
 | Shot | Waiting on | What is new |
 |---|---|---|
 | `aim` | player 1's latch | nothing: the needle sweeps and the pair talks over it |
-| `power` | player 2's launch | **the spring may be slack.** A launch above `pinballHardMilli` leaves it so, and the bar does not run at all until player 1 carries the plunger back (`pinPlunger`, `pinballWindMilli`) |
+| `power` | player 2's launch | **the spring may be slack.** A launch above `pinballHardMilli` leaves it so, and the bar does not run at all until player 1 carries the plunger back (`pinPlunger`, `pinballWindMilli`, the one generic PULL either way) |
 | `flight` | nobody — the ball is out of their hands | **the nudge.** Either player may bump the table with ◀ or ▶ on their panel (`pinNudge`), three times between them, and the ball takes `pinballNudgeShoveMilli` that way. The bump after that **tilts** it and both hands are dead for the rest of the flight |
 
 **The wind is the price of the shot they just took.** A launch at the top of

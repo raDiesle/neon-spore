@@ -39992,3 +39992,15 @@ Bottleneck: the owner's answer — *you decide* — and the lane chose down, the
 Bottleneck: THE TRAPEZE and THE BLISTER judged their swipe on the lift, so moving them to count at the reach moved what a tap and a wrong-way carry say, and their tests had to be re-read rather than re-run.
 
 *Measured: 17 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-14 — One generic PULL: the counted rope and vein pulls onto it (half of the curved and rope pulls)
+
+- reading: 10 min. Six hand files and two more the entry did not name, to
+  sort the pulls that count from the ones that hold.
+- writing: 10 min. Four hands onto `pullHeard`, a short-lift test each,
+  the spec rows, the split entry.
+- looking: 0 min. Nothing drawn moved.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: the entry put two kinds of pull under one title — four that count once and three that hold a depth while the partner's hand is there — and telling them apart took longer than moving the four.

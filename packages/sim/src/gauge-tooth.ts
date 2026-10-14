@@ -1,4 +1,6 @@
 import type { GaugeState } from "./gauge.js";
+import { isqrt } from "./handle-pull.js";
+import { pullHeard } from "./pull.js";
 import { nextInt } from "./rng.js";
 import type { Command } from "./types.js";
 import type { World } from "./world.js";
@@ -88,8 +90,10 @@ export function gaugeToothLapses(world: World, gauge: GaugeState): void {
 
 /**
  * Her hand on a tooth. The press names the tooth (`id`); the drag says how far
- * it has been pulled, and a pull past `gaugeToothPullMilli` in any direction
- * takes it out. The pilot has no hand on the teeth — his screen shows which,
+ * it has been pulled, and it is the one generic PULL (`pull.ts`), any way and
+ * `gaugeToothPullMilli` long, measured as the straight line from where she
+ * took hold: out the moment it gets there, and a pull let go short is said
+ * (`pullShort`). The pilot has no hand on the teeth — his screen shows which,
  * hers does the pulling, which is the whole of the gesture.
  */
 export function gaugeToothHeard(
@@ -99,23 +103,32 @@ export function gaugeToothHeard(
   command: Extract<Command, { kind: "drag" }>,
 ): void {
   if (player !== 2 || !gaugeToothAsks(gauge)) return;
-  if (!command.on) {
-    releaseTooth(gauge);
-    return;
-  }
-  if (gauge.toothHold === -1) {
+  if (command.on && gauge.toothHold === -1) {
     const k = command.id ?? -1;
     if (k < 0 || k >= GAUGE_TEETH || gaugeToothPulled(gauge, k)) return;
     gauge.toothHold = k;
     world.events.push({ type: "gaugeHold", part: "tooth" });
   }
-  gauge.toothDxMilli = command.fromMilli;
-  gauge.toothDyMilli = command.fromYMilli ?? 0;
-  const pull = world.cfg.gaugeToothPullMilli;
-  const dx = gauge.toothDxMilli;
-  const dy = gauge.toothDyMilli;
-  if (dx * dx + dy * dy < pull * pull) return;
-  pulled(world, gauge, gauge.toothHold);
+  const k = gauge.toothHold;
+  if (k === -1) return;
+  const dx = command.fromMilli;
+  const dy = command.fromYMilli ?? 0;
+  gauge.toothDxMilli = dx;
+  gauge.toothDyMilli = dy;
+  const pull = { way: "either", reachMilli: world.cfg.gaugeToothPullMilli } as const;
+  const { heard } = pullHeard(pull, false, command.on, isqrt(dx * dx + dy * dy));
+  if (heard === "counted") {
+    pulled(world, gauge, k);
+    return;
+  }
+  if (command.on) return;
+  releaseTooth(gauge);
+  if (heard === "short") world.events.push({ type: "pullShort", col: toothCol(world, k), player });
+}
+
+/** The column tooth `k` stands over, for the sound: the rim's teeth spread across the field. */
+function toothCol(world: World, k: number): number {
+  return Math.round((k * (world.cfg.cols - 1)) / (GAUGE_TEETH - 1));
 }
 
 /** A tooth out, the right one or not. */

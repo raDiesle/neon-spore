@@ -328,13 +328,12 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/skipped.test.ts` holds the listing's count of the entries
 `next` stepped past and why.
 
-## One generic PULL: the curved and rope pulls onto it
+## One generic PULL: the held pulls, THE LAMPREY and THE WARDEN
 
-- **Found:** 2026-10-10, claude/pull-control-visuals-35c04f
-- **Taken:** 2026-10-14, claude/queue-one-generic-pull-the-curved-and-rope-pulls-onto
-- **Files:** `packages/sim/src/lamprey-hand.ts`, `packages/sim/src/antiphon-rail.ts`, `packages/sim/src/warden-rope.ts`, `packages/sim/src/bastion-hand.ts`, `packages/sim/src/gauge-tooth.ts`, `packages/sim/src/pinball-hand.ts`
+- **Found:** 2026-10-10, claude/pull-control-visuals-35c04f; split 2026-10-14, claude/queue-one-generic-pull-the-curved-and-rope-pulls-onto
+- **Files:** `packages/sim/src/lamprey-hand.ts`, `packages/sim/src/lamprey-tow.ts`, `packages/sim/src/warden-rope.ts`, `packages/sim/src/handle-pull.ts`
 
-After the first entry lands: THE LAMPREY's head (a curve), THE ANTIPHON's rail (down a vein), THE WARDEN's tether and THE BASTION's slabs (a rope, any way), THE GAUGE's tooth and PINBALL's plunger onto the one rule. A curve is a path the rule measures along, as the PULL LAB's CURVE and S-CURVE do. THE GUM is a pull by a body rather than a knob — say in the entry's commit whether it joins or why not (SNAKE's jaws were the other, until the owner took them out on 10 October 2026).
+The counted half landed (THE ANTIPHON's rail, THE GAUGE's tooth, PINBALL's plunger, THE BASTION's slabs). What is left are the pulls that **hold a depth** rather than count once: THE LAMPREY's head (up, `lampreyHeadPullMilli`), its tail (along the body, `lampreyTailWay`) and its towed head (a curve, `lamprey-tow.ts`) are each worth something only while the partner's hand is also there (`settle`), and THE WARDEN's tether opens the hatch as far as it is taut (`pullDownMilli`, `pullOpenMilli`). Put their travel through `pullTravelMilli` — the direction a `Pull` field — and say a short lift with `pullShort`, but keep their held answer: the count is not theirs. THE GUM is a pull by a body rather than a knob — say in the commit whether it joins or why not.
 
 ## One generic PULL: the five rows moved over from the LEVER
 
@@ -845,3 +844,11 @@ picks SALVAGE by index). `fast-scope.ts` should treat a change to the wave
 files as reaching every test that imports `WAVES` or scans the act pages.
 Prove it by touching one act file and checking that the scope lists all
 three, then run `bun run check`.
+
+## Two integer square roots in sim, `isqrt` written twice
+
+- **Found:** 2026-10-14, claude/queue-one-generic-pull-the-curved-and-rope-pulls-onto
+- **Files:** `packages/sim/src/handle-pull.ts`, `packages/sim/src/pinball-contact.ts`, `packages/sim/test/copies-table.ts`
+
+Both export `isqrt`: `handle-pull.ts` by bisection up to 46340, `pinball-contact.ts` by Newton's step with no ceiling. Keep the one without a ceiling in a small `isqrt.ts`, import it in both places (and in `gauge-tooth.ts`, which takes `handle-pull.ts`'s now), and add a `COPIES` row so a third is not written.
+

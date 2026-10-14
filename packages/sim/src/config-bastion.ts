@@ -24,7 +24,7 @@ export interface BastionConfig {
   bastionSlackMilli: number;
   /** The most one reading may carry a plate along a curve from where it was, thousandths of a tile: no cutting across. */
   bastionStrideMilli: number;
-  /** The least pull a let-go is said for: a plate snapping back, not a thumb brushing it. */
+  /** The least a plate is carried along a curve before straying off it slips it, said: under it the plate stays put. A let-go is the generic PULL's (`pull.ts`). */
   bastionSnapMilli: number;
   /** The rim the pilot turns the moon by, thousandths of a tile from its centre. */
   bastionRimMilli: number;

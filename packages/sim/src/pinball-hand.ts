@@ -1,4 +1,5 @@
 import type { PinballState } from "./pinball.js";
+import { pullHeard } from "./pull.js";
 import type { Command } from "./types.js";
 import type { World } from "./world.js";
 
@@ -31,7 +32,7 @@ import type { World } from "./world.js";
  * between them; one count is a thing they have to spend together, and *not
  * yet — mine* is a sentence the pair now has to say.
  *
- * Nothing here can hurt them. A wind too short, a nudge on a shot that is not
+ * Nothing here can hurt them. A wind too short (said, and nothing more), a nudge on a shot that is not
  * in flight, a second nudge — each does nothing, and a tilt costs a hand and
  * never the hull (`pinball-round.ts` is where the hull is broken).
  */
@@ -95,9 +96,15 @@ function windHeard(
     return;
   }
   if (!pinWindable(state)) return;
-  // The press says nothing; the wind is the lift, and only one that travelled.
-  if (command.on) return;
-  if (Math.abs(command.fromYMilli ?? 0) < world.cfg.pinballWindMilli) return;
+  // The one generic PULL (`pull.ts`), back either way along the band and
+  // `pinballWindMilli` long: wound the moment it gets there, and a carry let
+  // go short is said. Once wound the spring stops asking, so a hold counts once.
+  const pull = { way: "either", reachMilli: world.cfg.pinballWindMilli } as const;
+  const { heard } = pullHeard(pull, false, command.on, command.fromYMilli ?? 0);
+  if (heard === "short") {
+    world.events.push({ type: "pullShort", col: world.cfg.cols - 1, player });
+  }
+  if (heard !== "counted") return;
   state.slack = false;
   world.events.push({ type: "pinWind" });
 }

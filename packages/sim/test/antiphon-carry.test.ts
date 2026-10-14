@@ -12,7 +12,7 @@ import { body, CFG, grown, open, thumb, tick } from "./antiphon-kit.js";
  * reached, it will reveal if its correct one or not* — and what has to hold
  * beside it: the chooser's thumb and nobody else's, nothing before the organ
  * stands, a thumb off the vein carrying nothing, a candidate let go short
- * springing back, and the carry a fact both devices hash.
+ * springing back refused, and the carry a fact both devices hash.
  */
 
 describe("the vein", () => {
@@ -53,7 +53,7 @@ describe("a thumb on the rail", () => {
     expect(s.carryMilli).toBe(200);
   });
 
-  it("springs back to the rail when let go short, nothing said", () => {
+  it("springs back to the rail when let go short, refused and judged nothing", () => {
     const world = open();
     const s = grown(world);
     const d = s.rail.findIndex((_, i) => !antiphonIsOrgan(s, i));
@@ -62,7 +62,16 @@ describe("a thumb on the rail", () => {
     expect(s.carried).toBe(-1);
     expect(s.carryMilli).toBe(0);
     expect([...seen].some((e) => e.startsWith("antiphon"))).toBe(false);
+    expect(seen.has("pullShort")).toBe(true);
     expect(s.rail).toHaveLength(CFG.antiphonRail);
+  });
+
+  it("says nothing for a tap", () => {
+    const world = open();
+    const s = grown(world);
+    tick(world, [thumb(world, 0, 10)]);
+    expect(tick(world, [thumb(world, 0, 10, { on: false })]).has("pullShort")).toBe(false);
+    expect(s.carried).toBe(-1);
   });
 
   it("stays put while the thumb wanders off the vein", () => {

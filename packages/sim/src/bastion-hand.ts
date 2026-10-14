@@ -8,6 +8,7 @@ import {
 } from "./bastion-track.js";
 import { midCol } from "./config.js";
 import { curveNearest } from "./curve.js";
+import { type Pull, pullHeard, pullTravelMilli } from "./pull.js";
 import { rimLapMilli, rimTurnMilli } from "./rim-turn.js";
 import type { Command } from "./types.js";
 import type { World } from "./world.js";
@@ -26,7 +27,8 @@ import type { World } from "./world.js";
  * cannot cut across a bend; **a thumb more than `bastionSlackMilli` off the
  * curve loses the plate**, which slips and snaps back, said, and the thumb
  * holds nothing more until it lifts. At the track's end the plate tears off
- * on the tick, and the thumb holds nothing more until it lifts. **Let go
+ * on the tick — the one generic PULL (`pull.ts`), counted the moment it
+ * gets there — and the thumb holds nothing more until it lifts. **Let go
  * before that and the plate snaps back** — said, and only that plate starts
  * over; the other side keeps every plate it has taken (the owner, 8 October
  * 2026, from THE GRINDSTONE).
@@ -65,7 +67,8 @@ export function bastionHeard(world: World, player: 1 | 2, command: Command): voi
   if (s.tore[seat] || bastionLitStep(s)?.layer !== "plates") return;
   const i = bastionPlateOf(s, seat);
   if (i < 0 || !pulled(world, s, seat, i, command.fromMilli, command.fromYMilli ?? 0)) return;
-  if (s.pullMilli[seat] < bastionTrackLen(world.cfg, bastionTrackOf(s, i))) return;
+  const { heard } = pullHeard(plateRope(world, s, i), false, true, s.pullMilli[seat]);
+  if (heard !== "counted") return;
   s.pullMilli[seat] = 0;
   s.tore[seat] = true;
   world.events.push({ type: "bastionTear", seat, piece: i, col: plateCol(world, seat) });
@@ -82,7 +85,7 @@ function pulled(world: World, s: BastionState, seat: 0 | 1, i: number, x: number
   const track = bastionTrackOf(s, i);
   if (track === "straight") {
     const [wx, wy] = bastionPlateWay(i);
-    s.pullMilli[seat] = Math.max(0, Math.round((x * wx + y * wy) / 1000));
+    s.pullMilli[seat] = pullTravelMilli(plateRope(world, s, i), (x * wx + y * wy) / 1000);
     return true;
   }
   const at = s.pullMilli[seat];
@@ -118,14 +121,29 @@ function plateCol(world: World, seat: 0 | 1): number {
   return midCol(world.cfg) + (seat === 0 ? -3 : 3);
 }
 
-/** A plate let go: short of tearing, it snaps back and starts over. */
+/**
+ * A plate's track as the one generic PULL (`pull.ts`): out along it, the
+ * track's whole length long. What the plate has come is measured along the
+ * track, straight or curved, so the rule only ever sees one number.
+ */
+function plateRope(world: World, s: BastionState, i: number): Pull {
+  return { way: "down", reachMilli: bastionTrackLen(world.cfg, bastionTrackOf(s, i)) };
+}
+
+/**
+ * A plate let go: short of tearing, it snaps back and starts over — the
+ * generic PULL's short lift, said as the plate's own snap. A plate barely
+ * moved is a tap and says nothing; one torn or slipped has nothing to say.
+ */
 function letGo(world: World, s: BastionState, seat: 0 | 1): void {
-  const pulled = s.pullMilli[seat];
+  const was = s.pullMilli[seat];
+  const spent = s.tore[seat];
   s.down[seat] = false;
   s.tore[seat] = false;
   s.pullMilli[seat] = 0;
-  if (bastionLitStep(s)?.layer !== "plates" || pulled < world.cfg.bastionSnapMilli) return;
   const piece = bastionPlateOf(s, seat);
+  if (bastionLitStep(s)?.layer !== "plates" || piece < 0) return;
+  if (pullHeard(plateRope(world, s, piece), spent, false, was).heard !== "short") return;
   world.events.push({ type: "bastionSnap", seat, piece, col: plateCol(world, seat) });
 }
 

@@ -110,6 +110,27 @@ describe("THE GAUGE's loose tooth", () => {
     expect(g.toothHold).toBe(-1);
   });
 
+  it("says a pull let go short, puts the tooth back, and says nothing for a tap", () => {
+    const { world, g } = toTheTooth();
+    const k = g.looseTooth;
+    pull(world, 2, k, CFG.gaugeToothPullMilli - 100);
+    world.events.length = 0;
+    gaugeRoundHeard(world, 2, {
+      kind: "drag",
+      target: "gaugeTooth",
+      on: false,
+      fromMilli: 0,
+      fromYMilli: CFG.gaugeToothPullMilli - 100,
+    });
+    expect(world.events.map((e) => e.type)).toEqual(["pullShort"]);
+    expect(g.toothHold).toBe(-1);
+    expect(gaugeToothPulled(g, k)).toBe(false);
+    pull(world, 2, k, 10);
+    world.events.length = 0;
+    gaugeRoundHeard(world, 2, { kind: "drag", target: "gaugeTooth", on: false, fromMilli: 10 });
+    expect(world.events).toEqual([]);
+  });
+
   it("loosens the next the moment the last is out, never one already out", () => {
     const { world, g } = toTheTooth();
     const before = g.levelBeat;

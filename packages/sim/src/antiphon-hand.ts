@@ -8,6 +8,7 @@ import {
 import { antiphonArrive } from "./antiphon-step.js";
 import { springAntiphonTurn } from "./antiphon-turn.js";
 import { antiphonAlongVein } from "./antiphon-vein.js";
+import { type Pull, pullHeard } from "./pull.js";
 import type { Command } from "./types.js";
 import type { World } from "./world.js";
 
@@ -33,8 +34,9 @@ import type { World } from "./world.js";
  * rail, and its displacement from the grab, in thousandths of a tile, is
  * read along that candidate's vein (`antiphon-vein.ts`): the candidate moves
  * down it as far as the thumb has, back up if the thumb goes back, and stays
- * put while the thumb is off the line. Let go short of the organ and it
- * springs back to the rail, nothing said. Carried `antiphonReachMilli` of the
+ * put while the thumb is off the line. It is the one generic PULL
+ * (`pull.ts`): let go short of the organ and it springs back to the rail,
+ * refused (`pullShort`), and a tap says nothing. Carried `antiphonReachMilli` of the
  * way, it **arrives** and is judged there (`antiphonArrive`): the one THE
  * FILAMENT's line taught, a path to drag along and a place to drop at.
  *
@@ -69,10 +71,12 @@ export function antiphonCarried(world: World, player: 1 | 2, command: Command): 
   if (!command.on) {
     // Lifting off a candidate the thumb is not carrying says nothing: it is
     // an old press letting go behind a new one (`scuttle-hand.ts`).
-    if (s.carried === i) {
-      s.carried = -1;
-      s.carryMilli = 0;
-    }
+    if (s.carried !== i) return;
+    const was = s.carryMilli;
+    s.carried = -1;
+    s.carryMilli = 0;
+    if (pullHeard(veinPull(world), false, false, was).heard !== "short") return;
+    world.events.push({ type: "pullShort", col: s.rail[i]?.col ?? 0, player });
     return;
   }
   if (s.rail[i] === undefined || !antiphonStanding(s, world.cfg, world.beat)) return;
@@ -81,5 +85,16 @@ export function antiphonCarried(world: World, player: 1 | 2, command: Command): 
   const along = antiphonAlongVein(world.cfg, s, i, command.fromMilli, command.fromYMilli ?? 0);
   if (along === null) return;
   s.carryMilli = along;
-  if (along >= world.cfg.antiphonReachMilli) antiphonArrive(world, s, i);
+  if (pullHeard(veinPull(world), false, true, along).heard === "counted") {
+    antiphonArrive(world, s, i);
+  }
+}
+
+/**
+ * A vein as the one generic PULL (`pull.ts`): down it, measured in
+ * thousandths of the vein rather than of a tile, so its reach is
+ * `antiphonReachMilli` of the way whatever length the vein is drawn.
+ */
+function veinPull(world: World): Pull {
+  return { way: "down", reachMilli: world.cfg.antiphonReachMilli };
 }

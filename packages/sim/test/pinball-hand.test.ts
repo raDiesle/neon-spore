@@ -127,6 +127,20 @@ describe("the spring, after a hard launch", () => {
     expect(pin(world).slack).toBe(false);
   });
 
+  it("says a wind let go short, and nothing for a tap", () => {
+    const world = open();
+    launchAt(world, 1000);
+    pin(world).shot = "power";
+    const said = (milli: number) => {
+      world.events.length = 0;
+      press(world, 1, plunger(milli));
+      return world.events.filter((e) => e.type === "pullShort").length;
+    };
+    expect(said(CFG.pinballWindMilli / 2)).toBe(1);
+    expect(said(10)).toBe(0);
+    expect(pin(world).slack).toBe(true);
+  });
+
   it("runs the bar again once it is wound", () => {
     const world = open();
     launchAt(world, 1000);
