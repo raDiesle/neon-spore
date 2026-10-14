@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-14 · e36b9bd8e — VERSUS offers THE LATCH's colony turning over the rope
+
+The colony turns about its core: every body on the skin and its nucleus yaw together, the near bodies opening and the far ones closing into the dark. The tendril, its knots and coil, and both grips stay where they hang, so nothing a thumb is on moves. It ships still; VERSUS `latch:glance` offers SWAY, LOOK and COCK on THE LATCH · LEVEL, which gains a `lookAt`.
+
 ## 2026-10-14 · 3b4767f62 — VERSUS offers THE MIMIC's mantle turning over the field
 
 `mimic:glance` offers the mantle a turn about its middle — SWAY, LOOK or COCK — its skin, mottle, arms and rim of marks together, on top of its own roll, the near side opening and the far side closing into the dark and back; split, each half turns inside its own cut. The crane's arms leave the mantle where the turn carries their roots, so they still come out from under it; their grips, the core and the board stay where they hang, and a press is a square of the board, never the mantle. Opens on THE MIMIC · ENTERING, which now says where to look. The record ships still, so the game draws what it did.

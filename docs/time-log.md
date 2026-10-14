@@ -39934,3 +39934,5 @@ Bottleneck: the crane's arms are drawn apart from the mantle they leave, so turn
 - landing: 5 min. `check:fast`, the commit, `land`.
 
 Bottleneck: none to speak of — the colony is one skin drawn in one function, so it turned whole with nothing left hanging from it.
+
+*Measured: 6 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
