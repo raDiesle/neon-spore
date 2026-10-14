@@ -40389,3 +40389,5 @@ the run that proves the flag cost more than the flag.
 
 Bottleneck: none to speak of — the profile named one function at 86%, and
 it was the same five numbers hashed again on every sample.
+
+*Measured: 7 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*

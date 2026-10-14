@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-14 · 02ad2ab21 — The PULL LAB's knob costs a sixth of what it did, drawn the same
+
+A pull knob took 0.38 ms a call on the stub canvas, and 86% of that was the rim's lumps: the five lobes' size, phase and speed were hashed from the seed again on each of the 44 samples of each of the dozen outlines a knob draws. They are now worked out once per seed (`goo-noise.ts`). The cap's wall, foot and face are one outline stood at eleven heights, and now share one rim (`goo-soft-cap.ts`). A knob is 0.064 ms now. THE ANTIPHON's marks-window row went from 4.5 s to 0.75 s.
+
 ## 2026-10-14 · 92f2bce5d — `bun run shot` holds a press on a point of an element
 
 `--press "<selector>@fx,fy[,ms[,after]]"` holds the mouse on a point of an element, given as fractions of its box, for `ms` (a second by default) and waits `after` once it lets go; `--then-click` presses a selector after it. A take in ▶ TRY IT can now be photographed in one command. Before, it needed a throwaway Playwright script.
