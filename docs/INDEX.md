@@ -2597,6 +2597,7 @@ by hand never moves.
 | `packages/render/src/curtain-scorch.ts` | **Where a bolt struck THE CURTAIN's cloth** |
 | `packages/render/src/curtain-grip.ts` | **THE CURTAIN's hem**: the one part of this boss a single thumb takes hold of |
 | `packages/render/src/curtain-give.ts` | **THE CURTAIN gives under a hand** rather than sliding whole |
+| `packages/render/src/curtain-glance.ts` | **THE CURTAIN's core glances** — the owner, 9 and 10 October 2026: *body parts of living things turn |
 | `packages/render/src/curtain-hem.ts` | **THE CURTAIN's membrane as an outline**: the rail, the right edge and the hem, a scallop a column |
 | `packages/render/src/curtain-hand-word.ts` | **Where the hand ring's word goes under THE CURTAIN's sheet**, so it is never written over the cue's |
 | `packages/render/src/curtain-marks.ts` | **THE CURTAIN's hem and sheet answering a touch the way every mark does** (`mark-feedback.ts` |

@@ -39226,3 +39226,13 @@ Bottleneck: none — one drawing, one test.
 Bottleneck: the sack already turns in depth, so the part had to be the bubbles, each about the intake the rule reads.
 
 *Measured: 7 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-14 — VERSUS offers THE CURTAIN's core glancing
+
+- reading: 5 min. The entry, §11.24, `curtain-sheet.ts`, the curtain's poses.
+- writing: 5 min. `curtain-glance.ts`, the bare core's draw wrapped, the scaffold.
+- looking: 10 min. BARE and PINNED both freeze with the cloth over the core; TORN and two crops.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: only TORN shows the core naked, and torn the curtain has no creature on the field, so the pose test had to be told why.

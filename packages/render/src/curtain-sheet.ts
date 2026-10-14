@@ -3,6 +3,7 @@ import { type Color, CURTAIN_COLS } from "@neon-spore/sim";
 import { drawHurt } from "./boss-hurt.js";
 import { paintBead, paintCoreBody, paintSheet } from "./curtain-flesh.js";
 import { type CurtainGive, giveReach, NO_GIVE } from "./curtain-give.js";
+import { drawCurtainCoreGlanced } from "./curtain-glance.js";
 import { CURTAIN_HEM_DROP, CURTAIN_RAIL_RISE, curtainSheetPath } from "./curtain-hem.js";
 import type { CurtainThin } from "./curtain-thin.js";
 import { halo, strokeGlow } from "./glow.js";
@@ -186,6 +187,10 @@ export function drawCurtainCore(
   const path = splinePath(curtainCorePoints(x, y, r, time), true);
   const dark = color === "red" ? PALETTE.redDark : PALETTE.cyanDark;
   const beat = naked ? 0.5 + 0.5 * Math.sin(time * 9) : 0;
-  paintCoreBody(ctx, path, x, y, r, t, hex, dark, rimHex, beat, fade, time);
-  drawHurt(ctx, path, hurt * fade);
+  // It turns, bare, when a glance is taken (`curtain-glance.ts`).
+  drawCurtainCoreGlanced(ctx, { x, y, r }, time, (g) => {
+    paintCoreBody(g, path, x, y, r, t, hex, dark, rimHex, beat, fade, time);
+    drawHurt(g, path, hurt * fade);
+    return path;
+  });
 }

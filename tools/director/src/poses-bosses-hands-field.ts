@@ -108,6 +108,8 @@ export const FIELD_HAND_POSES: Pose[] = [
     {
       hand: curtainHandWith(false),
       want: (w) => w.boss?.kind === "curtain" && w.boss.phase === "torn",
+      lookAt:
+        "the naked core where the cloth was — whether it turns toward one side about its centre, its far side going dark",
     },
   ),
   bossPose(

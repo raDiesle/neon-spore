@@ -328,14 +328,6 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/skipped.test.ts` holds the listing's count of the entries
 `next` stepped past and why.
 
-## THE CURTAIN: a part that turns, so it is seen from a new side
-
-- **Found:** 2026-10-10, claude/turn-queue-and-perspective-ideas
-- **Taken:** 2026-10-14, claude/queue-the-curtain-a-part-that-turns-so-it-is-seen-from
-- **Files:** `packages/render/src/curtain-draw.ts`, `docs/spec/bosses.md`
-
-The owner, 9 and 10 October 2026, after THE INSTAR's head glances: *body parts of living things turn, especially the head, but also feet and hands, or if mechanical the full boss shape*, and one entry per boss. Read §11.24, pick the part — a head, claws, a turret, or the whole shape of a machine — and follow `.claude/skills/depth`, "A part that glances": a record for its turn that ships still, the far side darkening as it swings, the points a thumb is on held (or the hit test reading the same turn), big enough to see in a still. Offer SWAY, LOOK and COCK on VERSUS as THE INSTAR's were, each cycle six seconds; the owner decides there.
-
 ## THE TASTER: a part that turns, so it is seen from a new side
 
 - **Found:** 2026-10-10, claude/turn-queue-and-perspective-ideas
@@ -918,3 +910,15 @@ with the zigzag lit by how wide the circle is now, unlit again as it shrinks;
 (b) the drop with no zigzag, wagging, as the pump's call only; (c) keep its
 ring and move its row off the RUB card. Prove whichever with the throat frame
 tests and one PNG.
+
+## `versus-pose.test.ts` is past the line ceiling
+
+- **Found:** 2026-10-14, claude/queue-the-curtain-a-part-that-turns-so-it-is-seen-from
+- **Files:** `tools/director/test/versus-pose.test.ts`
+
+The file is 318 lines, and `NOT_ONE_BODY` with its comments grows by a few
+each time a slot whose subject is not on the field opens (`curtain:glance`
+on 14 October 2026). Move `NOT_ONE_BODY`, `isKind` and `subjectOf` into
+their own module under `tools/director/test/`, which the test imports, so the
+test file holds tests only and sits under ~250 lines. Prove with
+`bun test tools/director/test/versus-pose.test.ts` and `bun run check`.

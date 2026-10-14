@@ -4320,6 +4320,14 @@ and never at tempo.
 **What is not built — a step seen from another side** (suggested 10 October 2026, after the owner on THE BASTION: *very 3 dimensional and even user action is 3d to rotate*). The sheet swings edge-on like a door on its hinge, and for as long as one seat holds the hinge the body behind it is open to a shot; let go and it swings shut — the first time the curtain is seen side-on.
 
 
+**Offered (14 October 2026, VERSUS `curtain:glance`).** The cloth hangs on a
+rail and its beads are held over their columns, so the part that turns is the
+core behind it, once bare (`packages/render/src/curtain-glance.ts`, which
+ships still): **about its own centre**, where a bolt meets it, the far side
+narrowing into the dark — a thing behind a curtain turning to see who pulled
+it aside. **SWAY**, **LOOK** and **COCK** (`glance-styles.ts`), judged on
+`THE CURTAIN · TORN`.
+
 ## 11.25 THE TASTER — the boss that grows armour in the colour you spend
 
 > The one where the colour you keep firing is the colour that stops working.

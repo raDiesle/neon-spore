@@ -79,6 +79,10 @@ const NOT_ONE_BODY: Record<string, null> = {
   // And the interior every blob without one of its own draws — a count, a
   // box, a throb, a dart — which is a record shared by kinds, not a kind.
   "creature:body-interior": null,
+  // And THE CURTAIN's core, which is naked only once the fabric is torn —
+  // and torn, the fabric's creature is gone from the field, so the boss is
+  // the subject and `THE CURTAIN · TORN` is the one pose that shows it.
+  "curtain:glance": null,
 };
 
 function isKind(name: string): boolean {

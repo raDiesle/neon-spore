@@ -1,6 +1,7 @@
 import { describe, expect, it } from "bun:test";
 import { BATON_GLANCE, BATON_GLANCE_SIZE } from "../src/baton-glance.js";
 import { CAIRN_GLANCE, CAIRN_GLANCE_SIZE } from "../src/cairn-glance.js";
+import { CURTAIN_GLANCE, CURTAIN_GLANCE_SIZE } from "../src/curtain-glance.js";
 import { FLEET_GLANCE, FLEET_GLANCE_SIZE } from "../src/fleet-glance.js";
 import { type Glance, glancedPoint, glanceFrame, glanceStill } from "../src/glance.js";
 import {
@@ -70,6 +71,7 @@ const ROWS: readonly Row[] = [
   { name: "THE THROAT", record: THROAT_GLANCE, size: THROAT_GLANCE_SIZE, hold: 0 },
   { name: "THE UNDERTOW", record: UNDERTOW_GLANCE, size: UNDERTOW_GLANCE_SIZE, hold: 0 },
   { name: "THE GORGE", record: GORGE_GLANCE, size: GORGE_GLANCE_SIZE, hold: 0 },
+  { name: "THE CURTAIN", record: CURTAIN_GLANCE, size: CURTAIN_GLANCE_SIZE, hold: 0 },
 ];
 
 const R = 100;
