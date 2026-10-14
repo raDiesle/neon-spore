@@ -331,7 +331,6 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## `lead-draw.ts` sits on the line ceiling
 
 - **Found:** 2026-10-14, claude/queue-the-lead-a-part-that-turns-so-it-is-seen-from-a
-- **Taken:** 2026-10-14, claude/queue-lead-draw-ts-sits-on-the-line-ceiling
 - **Files:** `packages/render/src/lead-draw.ts`
 
 The file is at 250 lines after THE LEAD's glance wrapped its mound and stalk
