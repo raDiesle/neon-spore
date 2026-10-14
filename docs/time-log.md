@@ -39518,3 +39518,5 @@ Bottleneck: the two thumb marks sit off the drum's middle, so the turn is centre
 - landing: 5 min. `check:fast`, the commit, `land`.
 
 Bottleneck: the stop reads a foot by its share of the ridge's width rather than by points, so the turn had to answer as a squeeze per flank.
+
+*Measured: 5 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*

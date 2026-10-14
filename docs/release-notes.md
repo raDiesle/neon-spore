@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-14 · 8c8a0fa63 — VERSUS offers THE SEAM's ridge turning on its spine
+
+`seam:glance` offers the whole shelled ridge a turn about its spine — SWAY, LOOK or COCK — the crack staying on the middle column the cannon shoots up while the near flank opens and the far flank closes into the dark and back, on top of the story's own turn away, on THE SEAM · LIT. The grit and the rock do not turn, and a bolt meets each flank as far out as it is drawn. The record ships still, so the game draws what it did.
+
 ## 2026-10-14 · 58eb6f2dc — VERSUS offers THE VALVE's drum turning about its wheel and socket
 
 `valve:glance` offers the whole drum a turn — SWAY, LOOK or COCK — rim, face and everything on it yawing together, held at the wheel's hub and the socket so neither moves under a thumb, the near end reaching out and the far end closing into the dark and back, on THE VALVE · TURN. The pins hang still under it and a bolt meets the rim where it is drawn. The record ships still, so the game draws what it did.
