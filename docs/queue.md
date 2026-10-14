@@ -331,6 +331,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## A lane's trunk step misses a local main that is ahead of origin
 
 - **Found:** 2026-10-10, claude/visual-helpers-docs-2773b1
+- **Taken:** 2026-10-14, claude/queue-a-lanes-trunk-step-misses-a-local-main-that-is-a
 - **Files:** `.claude/skills/lane/SKILL.md`, `tools/dev/here.ts`
 
 `git fetch origin main && git merge --ff-only origin/main` says *already up to date* in a fresh worktree while the local `main` holds landings that are not pushed yet, so the lane starts behind its own trunk. This lane built a sub tab against a `session.ts` without `subBars` and only found out when `sub=helpers` restored to PANELS; the lane before it (STEP BY STEP, `docs/time-log.md`) hit the same thing. The queue's preamble already says `git merge --ff-only main` in the lane; the lane skill's start step should say it too, or `bun run here` — which every lane that previews runs — should warn when `HEAD` is behind the local `main`. `bun test tools/dev` for a warning test, if the second.
