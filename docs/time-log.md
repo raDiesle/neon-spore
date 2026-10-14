@@ -41066,3 +41066,15 @@ Bottleneck: looking — three of the five frames were wrong the first time in
 ways only the picture showed.
 
 *Measured: 13 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-14 — `guard.test.ts` reports a figure drift
+
+- reading: 5 min. The entry and `fileCosts`.
+- writing: 0 min. Two lines of comment; the figure stands.
+- looking: 0 min.
+- friction: 5 min. The test prints no per-case time when it is under its
+  figure; bun's junit reporter gave them.
+- landing: 5 min.
+
+Bottleneck: friction — a figure under its drift line says nothing, so timing
+one needed a reporter the check does not use.

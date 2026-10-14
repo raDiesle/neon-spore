@@ -8,6 +8,9 @@ import { dialectFor, refusalFor } from "../guard.ts";
 // (`tools/test/repo-time.ts`), because bun's five-second default is a flat number and
 // these cases are not. Four cases put a payload on the hook's own stdin, which is a
 // `bun` process apiece. 40 ms alone, and the other twenty-seven spawn nothing.
+// On 14 October 2026 `check:fast` reported one of the four at 1732 ms under a
+// slowdown of five; alone four times that evening at a load of one per core the
+// slowest took 12 to 13 ms, so the figure holds and the drift was the check's burst.
 fileCosts(50);
 
 const SCRIPT = path.join(import.meta.dir, "..", "guard.ts");
