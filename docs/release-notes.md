@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-14 · c38487568 — THE QUEEN's held mark is the HOLD LAB's drop
+
+Under SCREAM, the mark under the pilot's thumb becomes the HOLD LAB's drop, sunk, its water the hold spent on the open mark, in place of the filled ring and its dial; the other mark keeps its ring, and both keep it until a thumb lands, so the marks player 1 reads stay bare. The cue's drop in the gap goes once a thumb is down. Decided by this lane, the owner having left it to it.
+
 ## 2026-10-14 · 5f7ceccf1 — The composer fills the blocks that stalled at R7 and R8
 
 R8 lands a twin across the field as R7 does, so the peak can sit above R7 instead of topping out under it. A twin is only ever a slick, bulb or rock, and only where the step's count has room — two fences or two magnets at once is a wave AUTO never clears. A pod after the last body is dropped rather than failing the draw. Composed in memory, 30 of the 33 blocks after the arc now fill; THE COUNT, THE COIL and THE CROSSING wait on AUTO learning them.
