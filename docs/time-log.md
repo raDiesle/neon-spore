@@ -40177,3 +40177,16 @@ Bottleneck: none.
 Bottleneck: none.
 
 *Measured: 4 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-14 — Longer pulls: THE LAMPREY's head and tail, THE CURTAIN's hem
+
+- reading: 10 min. The leap's room rule, the curtain's hem and grip, which
+  had moved since the entry was written.
+- writing: 10 min. Four numbers and a rail, the head pull in two test files,
+  the leap-length test told about the `apart`, the curtain's verbatim before.
+- looking: 5 min. A before and after of THE CURTAIN in its jam.
+- friction: 5 min. A biome format miss sent one `land` back.
+- landing: 10 min. Two landings, one per boss.
+
+Bottleneck: the entry's `curtainHemReach` arithmetic no longer matched the
+drawing, so what *a tile higher* meant had to be read off the code.

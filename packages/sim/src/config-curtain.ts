@@ -73,7 +73,7 @@ export const CURTAIN_DEFAULTS: CurtainConfig = {
   curtainNakedFireBeats: 2,
   curtainRerollBeats: 4,
   curtainPinBeats: 12,
-  curtainLiftMilli: 2500,
+  curtainLiftMilli: 3500,
   curtainCoreHits: 3,
   curtainOutBeats: 2,
 };

@@ -13,7 +13,7 @@ import type { Layout } from "./layout.js";
 /** How far below the row's centre the hem hangs, in tiles. */
 const HEM_DROP = 0.42;
 /** How far above it the rail is. */
-const RAIL_RISE = 0.5;
+const RAIL_RISE = 1.5;
 /** Both of them again for `curtain-grip.ts`, which has to know how far the hem
  * may be carried before it is at the rail: the ring rides the edge this file
  * draws, and a reach worked out from a second copy of these would be a handle

@@ -1,7 +1,12 @@
 import { describe, expect, it } from "bun:test";
 import { createCanvas } from "@napi-rs/canvas";
 import { CURTAIN_COLS, DEFAULT_CONFIG } from "@neon-spore/sim";
-import { CURTAIN_HEM_DROP, curtainHem, curtainSheetPath } from "../src/curtain-hem.js";
+import {
+  CURTAIN_HEM_DROP,
+  CURTAIN_RAIL_RISE,
+  curtainHem,
+  curtainSheetPath,
+} from "../src/curtain-hem.js";
 import { computeLayout, type Layout } from "../src/layout.js";
 import { installPixelGlobals, PIXEL_VIEWPORT } from "./pixel-harness.js";
 
@@ -32,7 +37,7 @@ function before(
   time: number,
 ): Path2D {
   const t = l.tile;
-  const railY = cy - t * 0.5;
+  const railY = cy - t * CURTAIN_RAIL_RISE;
   const hemY = cy + t * 0.42 - lift;
   const x1 = x0 + CURTAIN_COLS * t;
   const path = new Path2D();

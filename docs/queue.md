@@ -328,27 +328,6 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/skipped.test.ts` holds the listing's count of the entries
 `next` stepped past and why.
 
-## Longer pulls: every straight one is held to its length by something else
-
-- **Found:** 2026-10-11, claude/pull-longer
-- **Taken:** 2026-10-14, claude/queue-longer-pulls-every-straight-one-is-held-to-its-l
-- **Files:** `packages/sim/src/config-lamprey.ts`, `packages/sim/src/config-bastion.ts`, `packages/sim/src/config-curtain.ts`, `packages/sim/src/config-fleet.ts`
-- **Asks:** Make THE LAMPREY's lifts longer at the cost of rows it may land on, push THE CURTAIN's rail higher, or leave every pull its length?
-- **Answered:** 2026-10-13 — both, the owner: (a) THE LAMPREY at 2.2 and 1.8 tiles, landing a row further from top and bottom, and (b) THE CURTAIN's rail a tile higher with the hem's reach 3.5.
-
-The owner asked for longer pulls where reasonable (11 October 2026). Each short
-one was tried at half again and each is held by something that is not its
-number: THE LAMPREY's head (1.5 tiles) and tail (1.2) must lie whole on the
-field wherever it lands, and twelve tests went red on the landings it lost;
-THE BASTION's side plates (1.8) pull outward to the screen's edge; THE
-CURTAIN's hem (2.5) is drawn from the hem to the rail (`curtainHemReach`), so
-a longer number only makes the thumb go further than the knob; THE FLEET's
-wreck (1.5) is dragged on a chart whose bottom rows have no room under them.
-THE WARDEN's and THE LID's cords (7 tiles), THE SINEW (3) and THE LATCH (2.5)
-are already long. Options: (a) THE LAMPREY at 2.2 and 1.8 tiles, landing a
-row further from top and bottom; (b) THE CURTAIN's rail a tile higher, the
-hem's reach 3.5; (c) leave them.
-
 ## Curved pulls: the sim knows only straight ones
 
 - **Found:** 2026-10-11, claude/pull-longer
