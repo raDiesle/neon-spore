@@ -4,6 +4,7 @@ import type { QueenState } from "./boss-state.js";
 import type { BossState } from "./boss-union.js";
 import { stepCairn } from "./cairn.js";
 import { stepCapstan } from "./capstan-step.js";
+import { stepChrysalis } from "./chrysalis-step.js";
 import { stepFleet } from "./fleet.js";
 import { stepFlue } from "./flue-step.js";
 import { stepGall } from "./gall-step.js";
@@ -61,6 +62,11 @@ export function stepLateBoss(world: World, boss: Exclude<BossState, QueenState>)
   // THE BASTION: a shell lit, a node charged and loosed, a shell run out, the core blown (`bastion-step.ts`).
   if (boss.kind === "bastion") {
     stepBastion(world, boss);
+    return;
+  }
+  // THE CHRYSALIS: a skin lit, a sac swelled and sprayed, a skin run out, the grub dead (`chrysalis-step.ts`).
+  if (boss.kind === "chrysalis") {
+    stepChrysalis(world, boss);
     return;
   }
   // THE MIMIC: the slap, a sign's window and its change, the mimicry and the reach, the core and the fall (`mimic-step.ts`).

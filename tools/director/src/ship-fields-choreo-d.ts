@@ -149,4 +149,12 @@ export const CHOREO_FIELD_GROUP_D = {
   bastionFrontMilli: "THE BASTION — a metal moon you take apart, one layer at a time",
   bastionChargeBeats: "THE BASTION — a metal moon you take apart, one layer at a time",
   bastionGapBeats: "THE BASTION — a metal moon you take apart, one layer at a time",
+  // ChrysalisConfig — the beats around the skins and a sac's swell (`config-chrysalis.ts`);
+  // its quills are pulled along THE BASTION's tracks, so their dials are THE BASTION's.
+  chrysalisEnterBeats: "THE CHRYSALIS — a living cocoon you peel, one skin at a time",
+  chrysalisShedBeats: "THE CHRYSALIS — a living cocoon you peel, one skin at a time",
+  chrysalisRegrowBeats: "THE CHRYSALIS — a living cocoon you peel, one skin at a time",
+  chrysalisSpentBeats: "THE CHRYSALIS — a living cocoon you peel, one skin at a time",
+  chrysalisSwellBeats: "THE CHRYSALIS — a living cocoon you peel, one skin at a time",
+  chrysalisGapBeats: "THE CHRYSALIS — a living cocoon you peel, one skin at a time",
 } satisfies Record<string, GroupName>;

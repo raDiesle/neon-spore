@@ -1,6 +1,7 @@
 import { bastionStruck } from "./bastion-shot.js";
 import { bulletShown } from "./bullet-types.js";
 import { capstanStruck } from "./capstan-shot.js";
+import { chrysalisStruck } from "./chrysalis-shot.js";
 import { curtainStruck } from "./curtain-shot.js";
 import { flueStruck } from "./flue-shot.js";
 import { gallStruck } from "./gall-shot.js";
@@ -117,6 +118,8 @@ export function shotLeaves(world: World, b: Bullet, to: number): void {
   met = lampreyStruck(world, b) || met;
   // THE BASTION's gun at the front or its port, or its armour (`bastion-shot.ts`).
   met = bastionStruck(world, b) || met;
+  // THE CHRYSALIS's heart in its colour, or its hide (`chrysalis-shot.ts`).
+  met = chrysalisStruck(world, b) || met;
   // THE HASP's loose bolt, the same shape and the same either colour
   // (`hasp-shot.ts`).
   met = haspStruck(world, b) || met;
@@ -180,6 +183,7 @@ export const SKY_BOSSES: ReadonlySet<string> = new Set([
   "instar",
   "stare",
   "bastion",
+  "chrysalis",
 ]);
 
 /** Whether a boss is hanging above the field to take a bolt out of the top. */

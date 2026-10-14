@@ -1,6 +1,8 @@
 import { bastionHeard } from "./bastion-hand.js";
 import { bastionGuarded } from "./bastion-shot.js";
 import { capstanHeard } from "./capstan-hand.js";
+import { chrysalisHeard } from "./chrysalis-hand.js";
+import { chrysalisGuarded } from "./chrysalis-shot.js";
 import { flueRolled } from "./flue-step.js";
 import { gallHeard } from "./gall-hand.js";
 import { governorHeard } from "./governor-hand.js";
@@ -75,4 +77,7 @@ export function scriptedHandsHeard(world: World, commands: readonly TimedCommand
   // enough (`bastion-hand.ts`); and its lattice, THE SEAM's shield once a tick after them.
   for (const c of commands) bastionHeard(world, c.player, c.command);
   bastionGuarded(world);
+  // THE CHRYSALIS's rub and quills on the tick, and its sacs, THE BASTION's shield after them.
+  for (const c of commands) chrysalisHeard(world, c.player, c.command);
+  chrysalisGuarded(world);
 }

@@ -133,4 +133,14 @@ export const CHOREO_NOTES_D = {
     "charges again after bastionGapBeats. Port: only the navigator sees it; the " +
     "cannon under it, either colour. A shell run out grows back. THE SLOW on each. " +
     "See sim/bastion.ts, sim/bastion-step.ts, sim/bastion-hand.ts, sim/bastion-shot.ts.",
+  "THE CHRYSALIS — a living cocoon you peel, one skin at a time":
+    "The owner's ask of 14 October 2026: THE BASTION's layers on a body that is " +
+    "alive. Four skins, each a different job, each may come twice. Slime: each seat " +
+    "rubs its own half, the step's rubs turns, kept through a lift. Quills: four a " +
+    "side, pulled along THE BASTION's tracks (bastionPullMilli and its curves). Sacs: " +
+    "one swells chrysalisSwellBeats, the shield under it throws the spores back; " +
+    "unanswered it swells again after chrysalisGapBeats. Heart: only the pilot sees " +
+    "it; the cannon under it, in the colour it beats in. A skin run out grows back. " +
+    "THE SLOW on each. See sim/chrysalis.ts, sim/chrysalis-step.ts, " +
+    "sim/chrysalis-hand.ts, sim/chrysalis-shot.ts.",
 } satisfies Partial<Record<GroupName, string>>;

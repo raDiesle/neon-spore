@@ -8,7 +8,7 @@
  * whole, so the set being written keeps the comment that explains it and the
  * one being moved keeps its own. THE TRIVET's pads came over with this file
  * and left with it on 8 October 2026; THE PLUMB's levels were written on it, and THE SLING's draws after them,
- * THE CAPSTAN's steer and rub, THE GALL's tap and pull, THE TRAPEZE's tap and draw, and THE BASTION's plates and rim. `drag-targets.ts` unions the pages
+ * THE CAPSTAN's steer and rub, THE GALL's tap and pull, THE TRAPEZE's tap and draw, THE BASTION's plates and rim, and THE CHRYSALIS's rubs and quills. `drag-targets.ts` unions the pages
  * together, so `DragTarget` is one name.
  */
 export type DragTargetE =
@@ -35,7 +35,11 @@ export type DragTargetE =
   | "bastionSpin"
   | "blisterSwipe"
   | "blisterTurn"
-  | "blisterRub";
+  | "blisterRub"
+  | "chrysalisRubLeft"
+  | "chrysalisRubRight"
+  | "chrysalisQuillLeft"
+  | "chrysalisQuillRight";
 
 /**
  * `plumbLevelLeft` and `plumbLevelRight` are the eighty-first and
@@ -199,4 +203,15 @@ export type DragTargetE =
  * — `id` how many times the thumb has turned back since it went down — and,
  * because `id` is the count, **the body rides `fromMilli`**, the one rub that
  * has to say which of several (`blister-rub.ts`).
+ */
+
+/**
+ * `chrysalisRubLeft`, `chrysalisRubRight`, `chrysalisQuillLeft` and
+ * `chrysalisQuillRight` are the hundred-and-twenty-first to fourth: THE
+ * CHRYSALIS's halves, the pilot's on the left and the navigator's on the
+ * right (`chrysalis-hand.ts`).
+ *
+ * No new reading. A rub is a `RubCount`, `id` the turns since the press; a
+ * quill is THE BASTION's plate, `fromMilli` and `fromYMilli` the drag along
+ * its track (`bastion-track.ts`).
  */

@@ -21,6 +21,7 @@ type BossIdB = Extract<
   | "mimic"
   | "latch"
   | "bastion"
+  | "chrysalis"
   | "capstan"
   | "gall"
   | "trapeze"
@@ -136,6 +137,10 @@ export const BOSS_MECHANICS_B = {
   },
   bastion: {
     what: "A metal moon in layers. Take each layer off before it grows back. Pull panels along their lines, shoot guns, shield sparks, shoot the port.",
+    reach: "spawn",
+  },
+  chrysalis: {
+    what: "A living cocoon in skins. Peel each skin off before it grows back. Rub off slime, pull spikes, shield the sacs, shoot the heart.",
     reach: "spawn",
   },
   vane: {

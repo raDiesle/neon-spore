@@ -288,6 +288,7 @@ by hand never moves.
 | `packages/sim/src/boss-surface-clocks-c.ts` | **The clock bosses' half of the surface, the third page** — THE KEEL's spine to THE VISE's seed-case |
 | `packages/sim/src/boss-surface-clocks-d.ts` | **The clock bosses' half of the surface, the fourth page** — THE WELL's face and the thumb on its seam |
 | `packages/sim/src/boss-surface-clocks-e.ts` | **The clock bosses' half of the surface, the fifth page** — THE TRAPEZE's swing, whatever comes after it, and THE WELL's face |
+| `packages/sim/src/boss-surface-chrysalis.ts` | **THE CHRYSALIS's names, on a page of their own** — the cocoon, its skins, the rub, the quills |
 | `packages/sim/src/boss-surface-snake.ts` | **SNAKE's names on `@neon-spore/sim`'s surface** |
 | `packages/sim/src/boss-surface-splice.ts` | **THE SPLICE's names on `@neon-spore/sim`'s surface**, cut off `boss-surface.ts` on 25 September 2026 |
 | `packages/sim/src/boss-surface-pinball.ts` | **PINBALL's names on `@neon-spore/sim`'s surface** |
@@ -620,10 +621,17 @@ by hand never moves.
 | `packages/sim/src/choir-rub.ts` | **THE CHOIR's rub**: both seats scrubbing the one mark in the middle of the field, at the same time |
 | `packages/sim/src/choir.ts` | THE CHOIR: three dots in one membrane, and the first body in this game that **no button can reach** |
 | `packages/sim/src/choke.ts` | THE CHOKE: the cannon strip dead and the cannon walking wall to wall by itself, a column every few beats, for the whole wave |
+| `packages/sim/src/chrysalis-hand.ts` | THE CHRYSALIS's hands: a half each, `chrysalisRubLeft` and `chrysalisQuillLeft` the pilot's |
+| `packages/sim/src/chrysalis-hash.ts` | What THE CHRYSALIS puts into `hashWorld`, and nothing else |
+| `packages/sim/src/chrysalis-shot.ts` | **THE CHRYSALIS's shot**, met where it leaves the top of the field (`shot-out.ts`, `lance-burn.ts`) |
+| `packages/sim/src/chrysalis-step.ts` | THE CHRYSALIS's clock: the cocoon coming in, each skin lighting, a sac swelling and spraying |
+| `packages/sim/src/chrysalis.ts` | THE CHRYSALIS: a living cocoon hanging over the field, an alien grub inside four skins |
 | `packages/sim/src/config-choir.ts` | THE CHOIR's numbers: how many turns the pair rubs together |
 | `packages/sim/src/config-choke.ts` | THE CHOKE's one number: how many beats the steer fault takes per column of the cannon's walk |
+| `packages/sim/src/config-chrysalis.ts` | THE CHRYSALIS's tuning: the beats around its skins and how long a sac swells |
 | `packages/sim/src/config-curtain.ts` | THE CURTAIN's numbers — the row the fabric hangs at, how much of it must stay on the field |
 | `packages/sim/src/events-choir.ts` | **THE CHOIR's three**: an arrow out, both in, and the window gone |
+| `packages/sim/src/events-chrysalis.ts` | What THE CHRYSALIS says as it happens, one line per thing the picture and the sound answer |
 | `packages/sim/src/events-cling.ts` | **Everything THE LIMPET and THE LEECH do**, as events: one takes hold of a control, is shaken a move looser |
 | `packages/sim/src/events-curtain.ts` | **Everything THE CURTAIN does that neither screen already says**, as events |
 | `packages/sim/src/command-round.ts` | **The rounds' own verbs**, as their half of the `Command` union |
@@ -2440,6 +2448,7 @@ by hand never moves.
 | `packages/render/src/choke-strip.ts` | **Player 1's cannon strip while THE CHOKE has the cannon.** Drawn over the strip the band has just drawn |
 | `packages/render/src/choke-hull.ts` | THE CHOKE's grip on the cannon over the finished hull — the loops round the swelling while the steer fault has it, and the pilot's light toward the next column |
 | `packages/render/src/chart-lattice.ts` | **A chart's lattice**: the lines between the squares, a mark on every crossing pulsing on the beat |
+| `packages/render/src/chrysalis-shape.ts` | **THE CHRYSALIS's geometry**: where the cocoon hangs and how far out each of its skins stands |
 | `packages/render/src/action-face.ts` | Player 1's action buttons, showing the ship doing the thing instead of spelling its name |
 | `packages/render/src/antiphon-draw.ts` | **THE ANTIPHON**: a smooth violet body hung over the top of the field above row 0 |
 | `packages/render/src/antiphon-depth.ts` | **THE ANTIPHON in depth**: the mantle is not a band painted across the top of the field but a long soft body… |
@@ -2780,6 +2789,7 @@ by hand never moves.
 | `packages/audio/src/bind-choreographed-b.ts` | **The hands the §6.2 lanes added to bosses that had already shipped** |
 | `packages/audio/src/bind-choreographed-c.ts` | **The tail of `bind-choreographed.ts`** |
 | `packages/audio/src/bind-choreographed-d.ts` | **The tail of `bind-choreographed-c.ts`** |
+| `packages/audio/src/bind-chrysalis.ts` | THE CHRYSALIS's fifteen sounds, panned to their column, a skin peeled pitched lower the deeper it lay |
 | `packages/audio/src/bind-cling.ts` | THE LIMPET's and THE LEECH's four, in a file of their own on `bind-balloon.ts`'s pattern |
 | `packages/audio/src/mixer-pulse.ts` | THE PULSE's song, played off the simulation's own clock |
 | `packages/audio/src/mixer-handover.ts` | THE HANDOVER, heard: the beat the panels change screens, and the beat they come back |
@@ -2841,6 +2851,7 @@ by hand never moves.
 | `packages/hands/src/boss-hands-sling.ts` | **THE SLING played right**, for the autopilot: each seat holds its own draw down while the lit step asks it |
 | `packages/hands/src/boss-hands-clocks.ts` | **The pair's hands on the bosses that keep a ledger of their own** — THE TASTER, THE LEDGER, THE LEAD |
 | `packages/hands/src/boss-hands-capstan.ts` | **THE CAPSTAN played right**, for the autopilot: the steering seat leans past the mark, the other rubs, the bared core shot |
+| `packages/hands/src/boss-hands-chrysalis.ts` | **THE CHRYSALIS played right**, for the autopilot: the slime rubbed, the quills pulled, the sacs shielded, the heart shot |
 | `packages/hands/src/boss-hands-field.ts` | **The pair's hands on the bosses of the field** — THE GORGE, THE CURTAIN, THE SCUTTLE |
 | `packages/hands/src/boss-hands-flue.ts` | **THE FLUE played right**, for the autopilot: the navigator's thumb sent on the lead the pilot would call |
 | `packages/hands/src/boss-hands-handles.ts` | **The pair's hands on the bosses a handle answers** — THE SINEW, THE SURGE, THE INSTAR |
@@ -3547,6 +3558,7 @@ by hand never moves.
 | `tools/director/src/poses-bosses-hands-shots.ts` | **The states a shot earns** on the clock bosses — THE WARDEN's plates, THE VANE's pins |
 | `tools/director/src/poses-bosses-hands-seam.ts` | **THE SEAM's states**, posed with a hand on the controls (`boss-hands-seam.ts`) |
 | `tools/director/src/poses-bosses-hands-clocks.ts` | **The states the pair's hands bring on the bosses that keep a ledger of their own** — THE TASTER's fan |
+| `tools/director/src/poses-bosses-hands-chrysalis.ts` | **THE CHRYSALIS's states**, posed with a hand on the controls (`boss-hands-chrysalis.ts`) |
 | `tools/director/src/poses-bosses-hands-field.ts` | **The states the pair's hands bring on the bosses of the field** — THE FLEET's chart, THE GORGE's mouth |
 | `tools/director/src/poses-bosses-hands-handles.ts` | **The states a handle brings on** — THE SINEW's tendon pulled, THE SURGE's bulb held and let go |
 | `tools/director/src/poses-bosses-hands-hasp.ts` | **THE HASP's story between the hasps**, posed with a hand on the controls: the rattle, the backspin, the rust and the sway |

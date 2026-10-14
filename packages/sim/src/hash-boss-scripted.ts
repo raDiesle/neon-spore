@@ -1,6 +1,7 @@
 import { bastionHashParts } from "./bastion-hash.js";
 import type { BossState } from "./boss-union.js";
 import { capstanHashParts } from "./capstan-hash.js";
+import { chrysalisHashParts } from "./chrysalis-hash.js";
 import { flueHashParts } from "./flue-hash.js";
 import { gallHashParts } from "./gall-hash.js";
 import { governorHashParts } from "./governor-hash.js";
@@ -93,6 +94,10 @@ export function scriptedHashParts(boss: BossState): number[] {
   // THE BASTION: the phase, the pieces off, the plates, the turn, the charge and the script (`bastion-hash.ts`).
   if (boss.kind === "bastion") {
     for (const n of bastionHashParts(boss)) out.push(n);
+  }
+  // THE CHRYSALIS: the phase, the pieces off, the quills, the rub, the swell and the script (`chrysalis-hash.ts`).
+  if (boss.kind === "chrysalis") {
+    for (const n of chrysalisHashParts(boss)) out.push(n);
   }
   return out;
 }

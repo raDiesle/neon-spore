@@ -40426,3 +40426,19 @@ Bottleneck: friction — moving one draw onto a second canvas surfaced two
 caches that assumed there was only ever one.
 
 *Measured: 10 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-14 — THE CHRYSALIS, lane one: the simulation
+
+- reading: 20 min. THE BASTION end to end — its spec, its sim files, its
+  registrations and its hand — and the owner's rules for every boss.
+- writing: 35 min. The cocoon's four skins in `sim/`, the track-carry rule
+  lifted out of THE BASTION's hand to be shared, fifteen events and sounds,
+  AUTO's hand, the pose cards, the wave and §11.63.
+- looking: 0 min. Nothing drawn yet; the look is lane two.
+- friction: 15 min. Sixteen tables the typecheck does not list, each found
+  by its own red test — the silent lists, the slow's aim, the hold rows, the
+  doc counts, the prose list — and the slow's aim needing a shape a lane early.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: the registrations — the typecheck found half and the other half
+was sixteen red tests, one table each.

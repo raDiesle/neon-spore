@@ -1,14 +1,8 @@
 import { type BastionState, bastionBoss, bastionLitStep, bastionPlateOf } from "./bastion.js";
 import { bastionTakes } from "./bastion-step.js";
-import {
-  bastionPlateWay,
-  bastionTrackLen,
-  bastionTrackOf,
-  bastionTrackPoints,
-} from "./bastion-track.js";
+import { bastionTrackCarry, bastionTrackLen, bastionTrackOf } from "./bastion-track.js";
 import { midCol } from "./config.js";
-import { curveNearest } from "./curve.js";
-import { type Pull, pullHeard, pullTravelMilli } from "./pull.js";
+import { type Pull, pullHeard } from "./pull.js";
 import { rimLapMilli, rimTurnMilli } from "./rim-turn.js";
 import type { Command } from "./types.js";
 import type { World } from "./world.js";
@@ -81,29 +75,12 @@ export function bastionHeard(world: World, player: 1 | 2, command: Command): voi
  * a curve: the plate has slipped, or — barely moved yet — stays put.
  */
 function pulled(world: World, s: BastionState, seat: 0 | 1, i: number, x: number, y: number) {
-  const cfg = world.cfg;
-  const track = bastionTrackOf(s, i);
-  if (track === "straight") {
-    const [wx, wy] = bastionPlateWay(i);
-    s.pullMilli[seat] = pullTravelMilli(plateRope(world, s, i), (x * wx + y * wy) / 1000);
+  const carry = bastionTrackCarry(world.cfg, bastionTrackOf(s, i), i, s.pullMilli[seat], x, y);
+  if (carry === "stay") return false;
+  if (carry !== "slip") {
+    s.pullMilli[seat] = carry.along;
     return true;
   }
-  const at = s.pullMilli[seat];
-  const len = bastionTrackLen(cfg, track);
-  const pts = bastionTrackPoints(cfg, track, i);
-  const near = curveNearest(
-    pts,
-    len,
-    x,
-    y,
-    at - cfg.bastionStrideMilli,
-    at + cfg.bastionStrideMilli,
-  );
-  if (near.offSq <= cfg.bastionSlackMilli * cfg.bastionSlackMilli) {
-    s.pullMilli[seat] = near.along;
-    return true;
-  }
-  if (at < cfg.bastionSnapMilli) return false;
   s.pullMilli[seat] = 0;
   s.tore[seat] = true;
   world.events.push({ type: "bastionSnap", seat, piece: i, col: plateCol(world, seat) });

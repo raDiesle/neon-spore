@@ -118,6 +118,9 @@ const STILL_PROSE = [
   // And THE BASTION (§11.62), 8 October 2026: the moon is undrawn, and the
   // guide says which seat does what to each of its four layers.
   "THE BASTION",
+  // And THE CHRYSALIS (§11.63), 14 October 2026: the cocoon is undrawn, and
+  // the guide says which seat does what to each of its four skins.
+  "THE CHRYSALIS",
   // THE LATCH (cinematic §2) left this list on 8 October 2026: its film is
   // the tendril hauled hand over hand, the turn passed, and a yank braced.
 ];

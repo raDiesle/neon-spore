@@ -3,6 +3,7 @@ import { BASTION_DEFAULTS, type BastionConfig } from "./config-bastion.js";
 import { BATON_DEFAULTS, type BatonConfig } from "./config-baton.js";
 import { CAIRN_DEFAULTS, type CairnConfig } from "./config-cairn.js";
 import { CAPSTAN_DEFAULTS, type CapstanConfig } from "./config-capstan.js";
+import { CHRYSALIS_DEFAULTS, type ChrysalisConfig } from "./config-chrysalis.js";
 import { CURTAIN_DEFAULTS, type CurtainConfig } from "./config-curtain.js";
 import { FILAMENT_DEFAULTS, type FilamentConfig } from "./config-filament.js";
 import { FLUE_DEFAULTS, type FlueConfig } from "./config-flue.js";
@@ -107,6 +108,7 @@ export interface BossClockConfig
     MimicConfig,
     LatchConfig,
     BastionConfig,
+    ChrysalisConfig,
     SpoolConfig,
     HaspConfig,
     RatchetConfig,
@@ -153,6 +155,7 @@ export const BOSS_CLOCK_DEFAULTS: BossClockConfig = {
   ...MIMIC_DEFAULTS,
   ...LATCH_DEFAULTS,
   ...BASTION_DEFAULTS,
+  ...CHRYSALIS_DEFAULTS,
   ...SPOOL_DEFAULTS,
   ...HASP_DEFAULTS,
   ...RATCHET_DEFAULTS,

@@ -93,4 +93,21 @@ export const NO_SUBJECT_E: Record<string, string> = {
   "boss.bastionRegrow": "a shell growing back. Same argument.",
   "boss.bastionSpent": "the core blowing. Same argument.",
   "boss.bastionOut": "the moon gone and the wave ending. Same argument, and an absence.",
+  // THE CHRYSALIS's fifteen (`sim/events-chrysalis.ts`): the same argument.
+  "boss.chrysalisEnter": "THE CHRYSALIS, the cocoon coming in. No shape-sheet subject yet.",
+  "boss.chrysalisSkin": "THE CHRYSALIS, a skin lit. Same argument.",
+  "boss.chrysalisRub": "THE CHRYSALIS, a turn of the rub. Same argument.",
+  "boss.chrysalisWipe": "THE CHRYSALIS, a half of slime rubbed clear. Same argument.",
+  "boss.chrysalisRip": "THE CHRYSALIS, a quill ripped out. Same argument.",
+  "boss.chrysalisSnap": "THE CHRYSALIS, a quill sinking back. Same argument.",
+  "boss.chrysalisWrong": "THE CHRYSALIS, the partner's half touched. Same argument.",
+  "boss.chrysalisSwell": "THE CHRYSALIS, a sac swelling. Same argument.",
+  "boss.chrysalisBurst": "THE CHRYSALIS, a sac burst by the shield. Same argument.",
+  "boss.chrysalisSpray": "THE CHRYSALIS, a sac's spores sprayed unanswered. Same argument.",
+  "boss.chrysalisHeart": "THE CHRYSALIS, a bolt in the heart. Same argument.",
+  "boss.chrysalisShed": "THE CHRYSALIS, a skin peeling off. Same argument.",
+  "boss.chrysalisRegrow": "THE CHRYSALIS, a skin growing back. Same argument.",
+  "boss.chrysalisSpent": "THE CHRYSALIS, the grub dying. Same argument.",
+  "boss.chrysalisOut":
+    "THE CHRYSALIS, the cocoon gone and the wave ending. Same argument, and an absence.",
 };

@@ -77,4 +77,22 @@ export const INGEST_SILENT_BOSS_F = [
   "bastionRegrow",
   "bastionSpent",
   "bastionOut",
+  // THE CHRYSALIS's fifteen are drawn by nothing yet: its look is the
+  // second lane (`docs/spec/bosses.md` §11.63), and until it lands they leave
+  // nothing behind for the next frame and burst nowhere.
+  "chrysalisEnter",
+  "chrysalisSkin",
+  "chrysalisRub",
+  "chrysalisWipe",
+  "chrysalisRip",
+  "chrysalisSnap",
+  "chrysalisWrong",
+  "chrysalisSwell",
+  "chrysalisBurst",
+  "chrysalisSpray",
+  "chrysalisHeart",
+  "chrysalisShed",
+  "chrysalisRegrow",
+  "chrysalisSpent",
+  "chrysalisOut",
 ] as const satisfies readonly SimEvent["type"][];

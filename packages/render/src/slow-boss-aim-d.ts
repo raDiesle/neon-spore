@@ -1,6 +1,7 @@
 import {
   bastionBoss,
   capstanBoss,
+  chrysalisBoss,
   flueBoss,
   gallBoss,
   governorBoss,
@@ -13,6 +14,7 @@ import { bastionCentre, bastionReach } from "./bastion-shape.js";
 import { capstanArrived, capstanGone, capstanTurn } from "./capstan-pose.js";
 import { capstanAt, capstanOnScreen, capstanPivot, capstanSize } from "./capstan-shape.js";
 import { type Box, sides, spread } from "./caption-anchor-box.js";
+import { CHRYSALIS_TALL, chrysalisCentre, chrysalisReach } from "./chrysalis-shape.js";
 import { flueCentre, flueUnitR } from "./flue-shape.js";
 import { gallPointCircle } from "./gall-grip.js";
 import { gallFlight } from "./gall-pose.js";
@@ -164,6 +166,14 @@ export function lastBossAim(world: World, l: Layout, beat: number, beatPhase: nu
       const c = bastionCentre(l, cfg);
       const r = bastionReach(l, s);
       return capsule(sides(c.x - r, c.x + r, c.y - r, c.y + r));
+    }
+    // The cocoon at the size it is now, taller than wide: the outermost skin still on.
+    case "chrysalis": {
+      const s = chrysalisBoss(world);
+      if (s === null) return null;
+      const c = chrysalisCentre(l, cfg);
+      const r = chrysalisReach(l, s);
+      return capsule(sides(c.x - r, c.x + r, c.y - r * CHRYSALIS_TALL, c.y + r * CHRYSALIS_TALL));
     }
     default:
       return null;

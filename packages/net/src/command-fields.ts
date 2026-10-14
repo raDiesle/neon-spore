@@ -53,6 +53,7 @@ export const DRAG_TARGETS: readonly DragTarget[] = [
   "lampreyTail", "lampreyHead", "lampreyTooth",
   "latchGripLeft", "latchGripRight",
   "bastionPlateLeft", "bastionPlateRight", "bastionSpin",
+  "chrysalisRubLeft", "chrysalisRubRight", "chrysalisQuillLeft", "chrysalisQuillRight",
   "blisterSwipe", "blisterTurn", "blisterRub",
 ];
 

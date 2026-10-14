@@ -11819,6 +11819,134 @@ the shell is off. It ships still, and VERSUS offers **SWAY**, **LOOK** and
 **COCK** at 0.3 of the cage's radius on THE BASTION · LAYER.
 
 
+## 11.63 THE CHRYSALIS — a living cocoon you peel, one skin at a time
+
+> A living cocoon in four skins. Peel each skin off before it grows back.
+> Rub the slime off your half, pull the spikes along their lines, throw the
+> spores back with the shield, and shoot the heart only one of you sees.
+
+The owner's ask of 14 October 2026: *create some new boss wave which is
+similar from conceptional idea of the bastion. e.g. can be something living
+alien like instead. also create similar number of levels, so it does not end
+too quick.* THE BASTION's idea (§11.62) — a body taken apart a layer at a
+time, each layer a different action, the body smaller each time and a
+picture of each layer won — on a body that is alive. A choreographed scene,
+the third kind in `.claude/skills/new-boss`. **Built on 14 October 2026 as
+its simulation**; its body, its marks and its words are the next lanes.
+
+**The rule, in one sentence.** Peel each skin off the cocoon before its time
+runs out, or it grows back.
+
+**It is the cocoon, and its skins are its health.** The state
+(`sim/chrysalis.ts`, hashed in `sim/chrysalis-hash.ts`) is the **phase**
+(`enter`, `skin`, `shed`, `regrow`, `spent`) and the beat it began, the
+**cursor** into the script, which pieces of the lit skin are **gone** and how
+many have come off in all; for each seat whether a thumb is **down** on its
+quills, how far it has **pulled** and whether its quill **ripped** under it;
+the rub's last count from each seat and the **turns** each half of the slime
+has had; and a sac's **spray** beat, the tick it began to swell and the beat
+the next will. The script is the wave's (`ChrysalisEntry.steps`), copied at
+install: each step names a **skin**, its **beats**, and the slime's **rubs**,
+the quills' **tracks**, or the sacs' and the heart's column **offsets** and
+the heart's **colours**.
+
+**Eight steps, each skin two courses deep**, THE BASTION's length (the owner:
+*similar number of levels, so it does not end too quick*): slime, slime,
+quills, quills, sacs, sacs, heart, heart — each second course harder: ten
+turns of the rub where there were six, the quills round curves where they
+were straight, five sacs in a new order where there were four, four beats of
+the heart where there were three. About 316 beats of windows, against THE
+BASTION's 340.
+
+**The four skins**, outside in, each a different job split across the seats:
+- **The slime** — a coat over the whole cocoon, the left half the pilot's
+  and the right half the navigator's. Two `DragTarget`s, `chrysalisRubLeft`
+  and `chrysalisRubRight`, each a `RubCount`: the thumb goes back and forth
+  over its own half, and every turn back is one turn of the rub
+  (`chrysalisRub`). At the step's `rubs` the half is clear
+  (`chrysalisWipe`). **A half keeps its turns when the thumb lifts** — the
+  owner's rule for a boss's own count (2 October 2026, THE OCULUS). Both
+  seats rub at once. This is the one job THE BASTION does not have.
+- **The quills** — spines, four a side, `chrysalisQuillLeft` (the pilot's)
+  and `chrysalisQuillRight` (the navigator's), each pulled **along its
+  track** until it rips free (`chrysalisRip`). The track is THE BASTION's
+  plate exactly — the one pull along a track, `bastionTrackCarry` in
+  `sim/bastion-track.ts`, which both bosses call — so its lengths and its
+  slack are THE BASTION's dials (`bastionPullMilli`, `bastionSlackMilli`).
+  Let go short, or stray off a curve, and the quill sinks back
+  (`chrysalisSnap`): only that quill starts over.
+- **The sacs** — a sac per authored offset, in order. A sac swells for
+  `chrysalisSwellBeats` (`chrysalisSwell`); the shield under its column,
+  raised after it began, throws the spores back and bursts it
+  (`chrysalisBurst`, THE SEAM's test). Unanswered, the spores come down on
+  nothing (`chrysalisSpray`) and the same sac swells again after
+  `chrysalisGapBeats`. The navigator slides the shield, the pilot raises it.
+- **The heart** — a beat per authored offset, in order, each in its colour.
+  **Only the pilot's screen will show it** (the look lane's
+  `showsChrysalisHeart`): the pilot slides the cannon under it himself and
+  says the colour; the navigator fires that colour (`chrysalisHeart`). The
+  wrong colour loses the wave — the owner's default of 10 October 2026
+  (`bossColourMissed`) — so the colour is the word the pair must say. This
+  is THE BASTION's port turned round: there the navigator saw and the pilot
+  moved; here the pilot sees, moves, and must say a colour.
+
+A thumb on the partner's half is said (`chrysalisWrong`) and takes hold of
+nothing.
+
+**The clock** (`sim/chrysalis-step.ts`) runs on the beat: the cocoon comes in
+for `chrysalisEnterBeats`, and each skin lights after `chrysalisShedBeats` —
+`chrysalisRegrowBeats` after one grew back. A skin's last piece off peels it
+(`chrysalisShed`), the step the owner asked to *see* on THE BASTION; the last
+skin off kills the grub (`chrysalisSpent`) and the cocoon leaves after
+`chrysalisSpentBeats`. **Every skin's window is THE SLOW**, the owner's rule
+of 22 September 2026.
+
+**Where this departs from THE BASTION, and why.**
+- **The slime is rubbed, not pulled**, so the outer skin asks a gesture THE
+  BASTION does not: a shipped step may come back as one state among several,
+  never as most of a boss (the owner, 27 September 2026).
+- **The heart is the pilot's to see**, the port's split turned round, and it
+  asks a colour where the port took either.
+- **No ring of guns.** The rim THE BASTION is turned by has no living reason
+  on a cocoon, and a gesture needs a reason the picture gives (THE BELLOWS'
+  verdict); the slime took its place.
+- **No hull hit anywhere**, THE BASTION's pick: a skin run out grows back
+  whole (`chrysalisRegrow`), a quill let go short sinks back, a half of slime
+  keeps its turns.
+
+**The hand.** AUTO (`hands/src/boss-hands-chrysalis.ts`) rubs each seat's
+half a turn a message until it is clear, takes each seat's next quill along
+its track to the rip, carries the shield under a swelling sac, and brings the
+cannon under the heart and fires its colour;
+`hands/test/chrysalis-hand.test.ts` proves it wins the shipped wave with no
+skin grown back.
+
+**The sound** (`audio/src/bind-chrysalis.ts`, `sounds/boss-chrysalis.ts`):
+fifteen, all wet and alive where THE BASTION's are metal, a skin lit and a
+skin peeled pitched lower the deeper it lay, and a turn of the rub climbing a
+little each turn so a half nearly clear is heard nearly clear.
+
+**What is proven, and what is not.** `sim/test/chrysalis.test.ts` proves the
+rules: the install and the first skin; a half wiped at its turns and only
+that half; the turns kept through a lift; a rub on the partner's half said
+and not counted; the slime shed and the quills lit; a quill ripped along its
+track and one let go short snapped back; a thumb on the partner's quills
+said; a sac burst on the shield and swollen again when not; the heart in its
+column and colour, and the wrong colour losing the wave; a skin run out
+grown back with no hull hit; the grub killed and gone; the same thumbs
+hashing the same.
+
+**What is not built.** Its body: the cocoon is undrawn, and its fifteen
+events are on the silent lists until the look lane draws them — the slime
+glistening and thinning under the thumb, the quills standing out along their
+way, the sacs swelling, the heart beating behind its pore on the pilot's
+screen, a skin peeling away whole and the smaller cocoon left. Its marks:
+the rub's track on each half, the quills' knobs and channels, the shield and
+fire cues, and their four touch answers. Its words (`boss-cue.ts`): `RUB`,
+`PULL`, `SHIELD`, `FIRE`. Its bolt stopping on the cocoon (`core-along.ts`).
+The guide is prose. **Never watched at tempo**: whether a pair can rub,
+pull, shield and call the heart's colour in time — the owner's eye.
+
 ## Retired
 
 **Offered (13 October 2026, VERSUS `pulse:glance`).** The round's boss is

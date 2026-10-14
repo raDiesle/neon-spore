@@ -2,12 +2,11 @@ import type { BossEntry } from "../src/boss-entries.js";
 import type { BossState } from "../src/boss-union.js";
 
 /**
- * **THE FLUE on: the last page of `hash-fixture.ts`**, and the one a new
- * boss's entry and patch go on. It opened the day that boss landed because
- * `-d.ts` stood at 483 lines; it was `-e.ts` until `-d.ts` was cut in two
- * and its back half took the letter. `BOSS_KINDS` is appended to, never
- * inserted into, so the newest boss is always at the end of this file; when
- * it passes 250 lines, a `-g.ts` takes the next boss.
+ * **THE FLUE to THE BASTION: a page of `hash-fixture.ts`.** It opened the day
+ * THE FLUE landed because `-d.ts` stood at 483 lines; it was `-e.ts` until
+ * `-d.ts` was cut in two and its back half took the letter. It filled at THE
+ * BASTION, and a new boss's entry and patch go on `-g.ts`, which took THE
+ * CHRYSALIS.
  */
 
 /** THE FLUE on's share of `BOSS_ENTRIES`. */

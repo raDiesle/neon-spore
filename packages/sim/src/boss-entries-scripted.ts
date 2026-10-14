@@ -1,5 +1,6 @@
 import type { BastionEntry } from "./bastion.js";
 import type { CapstanEntry } from "./capstan.js";
+import type { ChrysalisEntry } from "./chrysalis.js";
 import type { FlueEntry } from "./flue.js";
 import type { GallEntry } from "./gall.js";
 import type { GovernorEntry } from "./governor.js";
@@ -53,10 +54,13 @@ export type ScriptedBossEntry =
   // The one hauled hand over hand: two grips on one tendril, never both let go (`latch.ts`).
   | LatchEntry
   // The one taken apart a shell at a time, each a different way (`bastion.ts`).
-  | BastionEntry;
+  | BastionEntry
+  // The living one peeled a skin at a time, each a different way (`chrysalis.ts`).
+  | ChrysalisEntry;
 
 export type { BastionEntry, BastionStep } from "./bastion.js";
 export type { CapstanEntry, CapstanStep } from "./capstan.js";
+export type { ChrysalisEntry, ChrysalisStep } from "./chrysalis.js";
 export type { FlueEntry, FlueLevel } from "./flue.js";
 export type { GallEntry, GallStep } from "./gall.js";
 export type { GovernorEntry, GovernorStep } from "./governor.js";

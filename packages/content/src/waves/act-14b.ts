@@ -30,6 +30,17 @@ import type { Wave } from "../wave-types.js";
  * round it says which. The hand that knocks it down changes too, so a seat
  * that has just struck is the seat that has to call the next pore. The last
  * two are up together, one for each hand.
+ *
+ * **THE CHRYSALIS is THE BASTION's idea on a body that is alive** (the owner,
+ * 14 October 2026: *similar in concept to THE BASTION … something living,
+ * alien-like … a similar number of levels*; `sim/chrysalis.ts`). A cocoon in
+ * four skins, each a different job split across the seats and each two
+ * courses deep: slime rubbed off a half each, six turns and then ten; spikes
+ * pulled along their lines, straight and then round curves; spore sacs whose
+ * spray the shield throws back, four and then five; and the heart, which only
+ * the pilot sees — the pilot brings the cannon under it and says its colour,
+ * and the navigator fires it. A course run out grows back whole, and nothing
+ * hits the hull.
  */
 export const WAVES_ACT_14B: Wave[] = [
   {
@@ -113,5 +124,35 @@ export const WAVES_ACT_14B: Wave[] = [
         way: "up",
       },
     ],
+  },
+  {
+    id: "theChrysalis",
+    name: "THE CHRYSALIS",
+    guide: {
+      both: "A living cocoon in four skins, each two deep. Peel each skin off before it grows back. It gets smaller as you go.",
+      p1: "1. Rub the slime off your left half.\n2. Pull your left spikes along their lines.\n3. Fire the SHIELD under the swelling sac.\n4. Only you see the heart: slide the cannon under it and say its colour.",
+      p2: "1. Rub the slime off your right half.\n2. Pull your right spikes along their lines.\n3. Slide the shield under the swelling sac.\n4. Fire the colour the other says.",
+    },
+    entries: [],
+    boss: {
+      kind: "chrysalis",
+      steps: [
+        { skin: "slime", rubs: 6, beats: 32 },
+        { skin: "slime", rubs: 10, beats: 40 },
+        { skin: "quills", beats: 36 },
+        { skin: "quills", tracks: ["sweep", "sweep", "snake", "climb"], beats: 48 },
+        { skin: "sacs", offsets: [-2, 1, 0, 2], beats: 40 },
+        { skin: "sacs", offsets: [1, -1, 2, -2, 0], beats: 48 },
+        { skin: "heart", offsets: [-1, 2, 0], colors: ["red", "cyan", "red"], beats: 32 },
+        {
+          skin: "heart",
+          offsets: [2, -2, 1, -1],
+          colors: ["cyan", "red", "red", "cyan"],
+          beats: 40,
+        },
+      ],
+    },
+    bossType: "normal",
+    controls: "standard5",
   },
 ];

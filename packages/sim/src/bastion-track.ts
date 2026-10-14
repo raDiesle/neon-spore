@@ -1,6 +1,7 @@
 import type { BastionState } from "./bastion.js";
 import type { SimConfig } from "./config.js";
-import { type CurvePoint, curveAt } from "./curve.js";
+import { type CurvePoint, curveAt, curveNearest } from "./curve.js";
+import { pullTravelMilli } from "./pull.js";
 
 /**
  * **The track a plate is pulled along** — the owner, 14 October 2026: *increase
@@ -181,4 +182,39 @@ export function bastionTrackAt(
   milli: number,
 ): CurvePoint {
   return curveAt(bastionTrackPoints(cfg, track, i), bastionTrackLen(cfg, track), milli);
+}
+
+/**
+ * What a thumb `x` across and `y` down from where it took hold does to piece
+ * `i` standing `at` along `track`: carries it to `along`, slips it off a curve
+ * (`"slip"`, once it has come `bastionSnapMilli`), or leaves it where it is
+ * (`"stay"`). On a straight track only the way out counts; on a curve the
+ * nearest point no more than `bastionStrideMilli` from `at`, so a thumb cannot
+ * cut across a bend. THE BASTION's plates and THE CHRYSALIS's quills both call
+ * it, so a piece pulled along a track is one rule.
+ */
+export function bastionTrackCarry(
+  cfg: SimConfig,
+  track: BastionTrack,
+  i: number,
+  at: number,
+  x: number,
+  y: number,
+): { along: number } | "slip" | "stay" {
+  const len = bastionTrackLen(cfg, track);
+  if (track === "straight") {
+    const [wx, wy] = bastionPlateWay(i);
+    return { along: pullTravelMilli({ way: "down", reachMilli: len }, (x * wx + y * wy) / 1000) };
+  }
+  const pts = bastionTrackPoints(cfg, track, i);
+  const near = curveNearest(
+    pts,
+    len,
+    x,
+    y,
+    at - cfg.bastionStrideMilli,
+    at + cfg.bastionStrideMilli,
+  );
+  if (near.offSq <= cfg.bastionSlackMilli * cfg.bastionSlackMilli) return { along: near.along };
+  return at < cfg.bastionSnapMilli ? "stay" : "slip";
 }

@@ -4,6 +4,7 @@ import type { BatonState } from "./baton.js";
 import type { FleetState, QueenState, VaneState, WardenState } from "./boss-state.js";
 import type { CairnState } from "./cairn.js";
 import type { CapstanState } from "./capstan.js";
+import type { ChrysalisState } from "./chrysalis.js";
 import type { CurtainState } from "./curtain.js";
 import type { FilamentState } from "./filament.js";
 import type { FlueState } from "./flue.js";
@@ -129,4 +130,5 @@ export type BossState =
   | LampreyState
   | MimicState
   | LatchState
-  | BastionState;
+  | BastionState
+  | ChrysalisState;

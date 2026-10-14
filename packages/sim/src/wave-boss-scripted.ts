@@ -1,6 +1,7 @@
 import { installBastion } from "./bastion-step.js";
 import type { BossState } from "./boss-union.js";
 import { installCapstan } from "./capstan-step.js";
+import { installChrysalis } from "./chrysalis-step.js";
 import { installFlue } from "./flue-step.js";
 import { installGall } from "./gall-step.js";
 import { installGovernor } from "./governor-step.js";
@@ -43,6 +44,7 @@ export const SCRIPTED_KINDS = [
   "mimic",
   "latch",
   "bastion",
+  "chrysalis",
 ] as const;
 
 export type ScriptedEntry = Extract<BossEntry, { kind: (typeof SCRIPTED_KINDS)[number] }>;
@@ -65,5 +67,6 @@ export function installScripted(world: World, boss: ScriptedEntry): BossState {
   if (boss.kind === "lamprey") return installLamprey(world, boss.steps, boss.meal);
   if (boss.kind === "latch") return installLatch(world, boss.steps);
   if (boss.kind === "bastion") return installBastion(world, boss.steps);
+  if (boss.kind === "chrysalis") return installChrysalis(world, boss.steps);
   return installMimic(world, boss.steps);
 }

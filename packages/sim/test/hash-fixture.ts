@@ -9,6 +9,7 @@ import { BOSS_ENTRIES_C, patchBossC } from "./hash-fixture-bosses-c.js";
 import { BOSS_ENTRIES_D, patchBossD } from "./hash-fixture-bosses-d.js";
 import { BOSS_ENTRIES_E, patchBossE } from "./hash-fixture-bosses-e.js";
 import { BOSS_ENTRIES_F, patchBossF } from "./hash-fixture-bosses-f.js";
+import { BOSS_ENTRIES_G, patchBossG } from "./hash-fixture-bosses-g.js";
 import { beam, bullet, charge, creature, pod, prime, scar } from "./hash-fixture-fields.js";
 
 /**
@@ -36,6 +37,7 @@ export const BOSS_ENTRIES: Record<BossEntry["kind"], BossEntry> = {
   ...BOSS_ENTRIES_D,
   ...BOSS_ENTRIES_E,
   ...BOSS_ENTRIES_F,
+  ...BOSS_ENTRIES_G,
 };
 
 /** Every boss kind, so the walk covers each arm of `bossHashParts`. */
@@ -140,4 +142,5 @@ function patchBoss(world: World): void {
   patchBossD(boss);
   patchBossE(boss);
   patchBossF(boss);
+  patchBossG(boss);
 }

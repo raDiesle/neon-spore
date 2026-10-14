@@ -155,6 +155,13 @@ export const ROWS: Record<string, Row> = {
   bastionPlateLeft: {},
   bastionPlateRight: { seat: 2 },
   bastionSpin: {},
+  // `chrysalis-hand.ts`: the pilot's half on the left and the navigator's on
+  // the right — a rub, `id` the turns since the press, and a quill pulled out
+  // along its track, THE BASTION's plate.
+  chrysalisRubLeft: { id: true },
+  chrysalisRubRight: { seat: 2, id: true },
+  chrysalisQuillLeft: {},
+  chrysalisQuillRight: { seat: 2 },
   // `blister-swipe.ts`: a stroke across a SWIPE blister, judged on the lift's
   // carry; the navigator's, the default `by`, and the pilot's for `by` 1.
   blisterSwipe: { seat: 2, id: true, swipe: true },

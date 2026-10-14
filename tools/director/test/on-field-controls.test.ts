@@ -418,6 +418,11 @@ const TARGET_PLACE: Record<DragTarget, TargetPlace> = {
   bastionPlateLeft: "field",
   bastionPlateRight: "field",
   bastionSpin: "field",
+  // THE CHRYSALIS's halves of slime and its quills: heard, and drawn in the look lane (§11.63).
+  chrysalisRubLeft: "unbuilt",
+  chrysalisRubRight: "unbuilt",
+  chrysalisQuillLeft: "unbuilt",
+  chrysalisQuillRight: "unbuilt",
   // THE BLISTER's SWIPE, a stroke across the body (`sim/blister-swipe.ts`,
   // answered by `render/blister-tap.ts`).
   blisterSwipe: "field",

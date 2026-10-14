@@ -3,6 +3,7 @@ import { batonBeadAlong, batonShotSpends, batonStruck } from "./baton-press.js";
 import { bossAlong, bossAlongStruck } from "./boss-along.js";
 import { resolve } from "./bullet-hit.js";
 import { capstanStruck } from "./capstan-shot.js";
+import { chrysalisStruck } from "./chrysalis-shot.js";
 import { hullRow } from "./config.js";
 import { curtainStruck } from "./curtain-shot.js";
 import { flueStruck } from "./flue-shot.js";
@@ -202,6 +203,8 @@ function burnColumn(world: World, col: number, color: Color): number {
   lampreyStruck(world, b);
   // And THE BASTION's gun at the front or its open port (`bastion-shot.ts`).
   bastionStruck(world, b);
+  // And THE CHRYSALIS's heart (`chrysalis-shot.ts`).
+  chrysalisStruck(world, b);
   // And THE HASP's loose bolt, the same shape and the same either colour
   // (`hasp-shot.ts`).
   haspStruck(world, b);

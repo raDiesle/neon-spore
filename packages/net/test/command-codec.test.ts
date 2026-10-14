@@ -274,6 +274,11 @@ const ACCEPTED: Command[] = [
   { kind: "drag", target: "bastionPlateLeft", on: true, fromMilli: -1200, fromYMilli: -900 },
   { kind: "drag", target: "bastionPlateRight", on: false, fromMilli: 0 },
   { kind: "drag", target: "bastionSpin", on: true, fromMilli: -700 },
+  // THE CHRYSALIS's slime rubbed, a count of turns, and its quills pulled out (`sim/chrysalis-hand.ts`).
+  { kind: "drag", target: "chrysalisRubLeft", on: true, fromMilli: 0, fromYMilli: 0, id: 3 },
+  { kind: "drag", target: "chrysalisRubRight", on: false, fromMilli: 0, fromYMilli: 0, id: 5 },
+  { kind: "drag", target: "chrysalisQuillLeft", on: true, fromMilli: -1400, fromYMilli: -600 },
+  { kind: "drag", target: "chrysalisQuillRight", on: false, fromMilli: 0 },
   // THE BLISTER's SWIPE, the carry judged on the lift (`sim/blister-swipe.ts`).
   { kind: "drag", target: "blisterSwipe", on: false, fromMilli: 1100, fromYMilli: -40, id: 4 },
   // THE BLISTER's TURN, a bearing round the body, and the press with none (`sim/blister-turn.ts`).
@@ -461,6 +466,10 @@ const EVERY_TARGET: Record<DragTarget, true> = {
   bastionPlateLeft: true,
   bastionPlateRight: true,
   bastionSpin: true,
+  chrysalisRubLeft: true,
+  chrysalisRubRight: true,
+  chrysalisQuillLeft: true,
+  chrysalisQuillRight: true,
   blisterSwipe: true,
   blisterTurn: true,
   blisterRub: true,
