@@ -185,6 +185,7 @@ function topOut(world: World, c: Creature): void {
   c.balloonSplits = undefined;
   c.balloonPullP1 = undefined;
   c.balloonPullP2 = undefined;
+  c.balloonCounted = undefined;
   c.balloonTautTick = undefined;
   world.events.push({ type: "balloonTopped", col: c.col, row: c.row });
 }

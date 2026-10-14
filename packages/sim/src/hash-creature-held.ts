@@ -28,6 +28,9 @@ export function heldHashParts(c: Creature): number[] {
   // the plates stand apart — which is to say about whether the shot player 2
   // just fired counted.
   out.push(c.lidPullYMilli ?? 0);
+  // Whether that pull has counted this hold — the lens bare until the lift,
+  // however far the hand eases (`lid.ts`). It decides a hit as the pull does.
+  out.push(c.lidCounted ? 1 : 0);
   // The beat this body was last carried a column on. It decides whether the
   // next hand that has earned a column gets one, so two devices that disagree
   // about it disagree about which column the body is standing in a beat later

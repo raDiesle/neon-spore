@@ -231,6 +231,24 @@ describe("the hand on the cord", () => {
     expect(only(world).lidPullMilli).toBe(0);
   });
 
+  it("stays open when the hand eases after it was taut — counted once, the one generic PULL", () => {
+    const { world } = run([lid(COL)], TPB * 3, [pull(TPB, TAUT), pull(TPB * 2, TAUT / 2)]);
+    expect(lidIsOpen(CFG, only(world))).toBe(true);
+    expect(lidOpenMilli(CFG, only(world))).toBe(1000);
+  });
+
+  it("says a cord let go short of taut, and nothing for a tap or a taut one", () => {
+    // Two beats in, clear of the chrome's bound along the top: a cord resting
+    // under it is clamped down, and a tap there would read as a pull.
+    const said = (milli: number) => {
+      const { events } = run([lid(COL)], TPB * 4, [pull(TPB * 2, milli), letGo(TPB * 3)]);
+      return events.filter((e) => e.type === "pullShort").length;
+    };
+    expect(said(Math.round(TAUT / 2))).toBe(1);
+    expect(said(10)).toBe(0);
+    expect(said(TAUT)).toBe(0);
+  });
+
   it("shuts the instant the hand lifts", () => {
     const { world } = run([lid(COL)], TPB * 3, [pull(TPB, TAUT), letGo(TPB * 2)]);
     expect(lidIsHeld(only(world))).toBe(false);

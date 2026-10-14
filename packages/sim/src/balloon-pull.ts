@@ -1,4 +1,5 @@
 import type { SimConfig } from "./config.js";
+import { type Pull, pullHeard } from "./pull.js";
 import type { Command, Creature } from "./types.js";
 import type { World } from "./world.js";
 
@@ -48,9 +49,21 @@ export function balloonHeld(c: Creature, player: 1 | 2): boolean {
   return (player === 1 ? c.balloonPullP1 : c.balloonPullP2) !== undefined;
 }
 
+/** The bit `balloonCounted` keeps for a seat's side. */
+function bit(player: 1 | 2): number {
+  return player === 1 ? 1 : 2;
+}
+
+/** A side as the one generic PULL: outward — left for the pilot, right for the navigator — `balloonTautMilli` long. */
+function outward(cfg: SimConfig, player: 1 | 2): Pull {
+  return { way: "signed", sign: player === 1 ? -1 : 1, reachMilli: cfg.balloonTautMilli };
+}
+
 /**
- * Whether one side is pulled taut — **the raw distance against the raw
- * threshold**, never the readout below.
+ * Whether one side is pulled taut: it has counted this hold — the one generic
+ * PULL (`pull.ts`), counted once at its reach, the lane's (b) of 14 October
+ * 2026 — and the hand is still on it. The count is made against **the raw
+ * distance and the raw threshold**, never the readout below.
  *
  * `balloonTension` rounds, so a hand a thousandth of a tile short would read
  * as a full thousand and a rub the pair had not earned would land;
@@ -62,18 +75,19 @@ export function balloonHeld(c: Creature, player: 1 | 2): boolean {
  * pushing a balloon inward from both sides is a pair squeezing it rather than
  * stretching it, and nothing gives.
  */
-export function balloonSideTaut(cfg: SimConfig, c: Creature, player: 1 | 2): boolean {
-  const pull = balloonPull(c, player);
-  return player === 1 ? pull <= -cfg.balloonTautMilli : pull >= cfg.balloonTautMilli;
+export function balloonSideTaut(_cfg: SimConfig, c: Creature, player: 1 | 2): boolean {
+  return balloonHeld(c, player) && ((c.balloonCounted ?? 0) & bit(player)) !== 0;
 }
 
 /**
  * How taut one side is, 0..1000 — and so how far the skin has given on it,
  * because they are the same number drawn twice. A pull the wrong way reads as
  * nought: the picture must say *this side is not doing anything*, which is
- * what the rule above says too.
+ * what the rule above says too. A side that has counted reads full until its
+ * hand lets go, because it is taut until then and the skin must say so.
  */
 export function balloonTension(cfg: SimConfig, c: Creature, player: 1 | 2): number {
+  if (balloonSideTaut(cfg, c, player)) return 1000;
   const full = Math.max(1, cfg.balloonTautMilli);
   const pull = balloonPull(c, player) * (player === 1 ? -1 : 1);
   return Math.max(0, Math.min(1000, Math.round((pull * 1000) / full)));
@@ -104,6 +118,13 @@ export function balloonHeard(world: World, player: 1 | 2, command: Command): voi
   const side = command.target === "balloonLeft" ? 1 : command.target === "balloonRight" ? 2 : null;
   if (side === null || side !== player) return;
   if (!command.on) {
+    for (const c of world.creatures) {
+      if (c.kind !== "balloon" || !balloonHeld(c, player) || balloonSideTaut(world.cfg, c, player))
+        continue;
+      const along = balloonPull(c, player);
+      if (pullHeard(outward(world.cfg, player), false, false, along).heard !== "short") continue;
+      world.events.push({ type: "pullShort", col: c.col, player });
+    }
     releaseBalloons(world, player);
     return;
   }
@@ -115,11 +136,15 @@ export function balloonHeard(world: World, player: 1 | 2, command: Command): voi
     releaseBalloons(world, player);
     return;
   }
+  const counted = balloonSideTaut(world.cfg, held, player);
   releaseBalloons(world, player);
   const taut = world.cfg.balloonTautMilli;
   const cut = Math.max(-taut, Math.min(taut, Math.round(command.fromMilli)));
   if (player === 1) held.balloonPullP1 = cut;
   else held.balloonPullP2 = cut;
+  const { heard } = pullHeard(outward(world.cfg, player), counted, true, cut);
+  if (counted || heard === "counted")
+    held.balloonCounted = (held.balloonCounted ?? 0) | bit(player);
 }
 
 /** Every handle this seat is holding, let go of — however it happened. */
@@ -128,5 +153,7 @@ export function releaseBalloons(world: World, player: 1 | 2): void {
     if (c.kind !== "balloon") continue;
     if (player === 1) c.balloonPullP1 = undefined;
     else c.balloonPullP2 = undefined;
+    const left = (c.balloonCounted ?? 0) & ~bit(player);
+    c.balloonCounted = left === 0 ? undefined : left;
   }
 }

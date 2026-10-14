@@ -143,6 +143,7 @@ function rubBalloon(world: World, c: Creature): void {
       // taut on a thing they never took hold of.
       balloonPullP1: undefined,
       balloonPullP2: undefined,
+      balloonCounted: undefined,
       balloonTautTick: undefined,
     });
   }

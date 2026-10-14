@@ -21,7 +21,8 @@ export const DRAG_TYPES: readonly ControlType[] = [
       "FLEET'S WRECK, THE LEDGER'S HAUL, THE CURTAIN'S HEM, THE STARE'S LASHES, " +
       "THE TASTER'S WIPE AND PRY, THE TRAPEZE'S ZONES, THE BLISTER'S SWIPE, " +
       "THE ANTIPHON'S RAIL, THE GAUGE'S TOOTH, PINBALL'S PLUNGER, THE " +
-      "BASTION'S SLABS, THE LATCH'S GRIPS and THE INSTAR'S PULL DOWN / PULL UP " +
+      "BASTION'S SLABS, THE LATCH'S GRIPS, THE INSTAR'S PULL DOWN / PULL UP, " +
+      "THE LID'S CORD and THE BALLOON'S HANDLES " +
       "are on it; THE LAMPREY'S HEAD and THE WARDEN'S TETHER " +
       "take its travel and its short lift but are held at the reach, not " +
       "counted; the rest keep their own rule.",

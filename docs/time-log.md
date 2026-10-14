@@ -40035,3 +40035,17 @@ Bottleneck: deciding what a held pull takes from a rule built to count once — 
 Bottleneck: THE INSTAR's together rule exempted a pull because letting go undid it; counted once, a let-go pull had to become lonely like a tap, or a pull counted and released would have waited for its partner for ever.
 
 *Measured: 11 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-14 — One generic PULL: THE LID's cord and THE BALLOON's handles, counted
+
+- reading: 10 min. The two creatures' pulls, where the depth is read, and
+  every place that writes or hashes them.
+- writing: 15 min. A latched bit each (`lidCounted`, `balloonCounted`),
+  hashed and cleared, the plates and the skin reading full once counted,
+  `lid-struck.ts` cut off at the ceiling, tests and rows.
+- looking: 0 min. No frame of the running game changes until a hand eases
+  after taut, which is new behaviour.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: the balloon's hand re-released every balloon on every move, so the count had to be read off the body before the release or it would never have lasted past the next tick.

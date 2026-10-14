@@ -50,6 +50,7 @@ export const creature = (): Required<Creature> => ({
   gyreSlot: 3,
   lidPullMilli: -1800,
   lidPullYMilli: 900,
+  lidCounted: true,
   pushBeat: 4,
   recoilBounces: 2,
   caromDir: -1,
@@ -114,6 +115,7 @@ export const creature = (): Required<Creature> => ({
   balloonRise: 2,
   balloonPullP1: -900,
   balloonPullP2: 700,
+  balloonCounted: 2,
   balloonTautTick: 731,
   unseen: true,
 });

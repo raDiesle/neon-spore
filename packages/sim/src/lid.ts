@@ -1,9 +1,7 @@
-import { metColor, missedColor } from "./balance.js";
 import type { SimConfig } from "./config.js";
-import { wornKind } from "./creature-rules.js";
-import { removeCreature } from "./field.js";
-import { clampPull, pullIsTaut, pullOpenMilli, tileCentreMilli } from "./handle-pull.js";
-import type { Bullet, Command, Creature } from "./types.js";
+import { clampPull, isqrt, pullOpenMilli, tileCentreMilli } from "./handle-pull.js";
+import { type Pull, pullHeard } from "./pull.js";
+import type { Command, Creature } from "./types.js";
 import type { World } from "./world.js";
 
 /**
@@ -14,8 +12,9 @@ import type { World } from "./world.js";
  * it. Player 1 takes the cord and pulls it aside; the plates part from the
  * middle outwards, by degrees, in proportion to the tension — and only at full
  * tension is the lens bare. Player 2 fires the lens's own colour up its column.
- * A hand that lifts lets the plates close again, so the opening lasts exactly
- * as long as somebody is holding it.
+ * Once taut the lens stays bare however the hand eases — the one generic PULL,
+ * counted at its reach — and a hand that lifts lets the plates close again,
+ * so the opening lasts exactly as long as somebody is holding it.
  *
  * **It is THE CLASP's coupling made continuous, and that is the creature.** A
  * clasp is opened by a *moment* — the ward lands, the shield is off, and the
@@ -44,9 +43,12 @@ import type { World } from "./world.js";
  * the plates *is* player 2's readout of a hand they cannot see, and a readout
  * that lags the rule is a readout that lies at exactly the moment somebody is
  * deciding to fire. `wardenPullMilli` makes the same argument about a hatch.
+ * Once the cord has counted it reads full open until the lift, because the
+ * lens is bare until then (`lidIsOpen`) and the plates must say so.
  */
 export function lidOpenMilli(cfg: SimConfig, c: Creature): number {
   if (c.lidPullMilli === undefined) return 0;
+  if (c.lidCounted) return 1000;
   return pullOpenMilli(lidPull(c), cfg.lidTautMilli);
 }
 
@@ -102,16 +104,19 @@ export function lidHandleMilli(cfg: SimConfig, c: Creature): { x: number; y: num
 }
 
 /**
- * Whether the lens is bare this instant — the only window a shot counts in.
+ * Whether the lens is bare this instant — the only window a shot counts in:
+ * the cord held, and pulled taut at some point of this hold. It is the one
+ * generic PULL (`pull.ts`), counted once at its reach (the lane's (b), 14
+ * October 2026), so a hand that eases after the plates parted keeps them
+ * parted until it lets go.
  *
- * **The raw pull against the raw threshold, never the readout above.**
- * `lidOpenMilli` rounds, so a hand a thousandth of a tile short of taut reads
- * as a full thousand and a shot the pair had not earned would land;
- * `wardenEyeOpen` is on the same arrangement for the same reason. The rounding
- * belongs to the picture and must never decide a hit.
+ * **The raw pull against the raw threshold, never the readout above**, is
+ * where the count is made (`lidHeard`): `lidOpenMilli` rounds, so a hand a
+ * thousandth of a tile short of taut reads as a full thousand, and the
+ * rounding belongs to the picture and must never decide a hit.
  */
-export function lidIsOpen(cfg: SimConfig, c: Creature): boolean {
-  return c.lidPullMilli !== undefined && pullIsTaut(lidPull(c), cfg.lidTautMilli);
+export function lidIsOpen(_cfg: SimConfig, c: Creature): boolean {
+  return c.lidPullMilli !== undefined && c.lidCounted === true;
 }
 
 /** Whether a hand is on this lid's cord at all. Absent is the whole of "no
@@ -144,6 +149,8 @@ export function lidIsHeld(c: Creature): boolean {
 export function lidHeard(world: World, player: 1 | 2, command: Command): void {
   if (player !== 1 || command.kind !== "drag" || command.target !== "lidString") return;
   if (!command.on) {
+    const short = world.creatures.find((c) => c.kind === "lid" && lidIsHeld(c) && !c.lidCounted);
+    if (short !== undefined) sayShort(world, short);
     releaseLids(world);
     return;
   }
@@ -160,6 +167,7 @@ export function lidHeard(world: World, player: 1 | 2, command: Command): void {
     if (c === held) continue;
     c.lidPullMilli = undefined;
     c.lidPullYMilli = undefined;
+    c.lidCounted = undefined;
   }
   // Cut to taut and then kept on the field, both in one rule and neither of
   // them spelled out here (`handle-pull.ts`) — against the cord's rest today,
@@ -172,9 +180,31 @@ export function lidHeard(world: World, player: 1 | 2, command: Command): void {
   );
   held.lidPullMilli = pulled.x;
   held.lidPullYMilli = pulled.y;
+  if (
+    pullHeard(cord(world.cfg), held.lidCounted === true, true, lidLength(held)).heard === "counted"
+  ) {
+    held.lidCounted = true;
+  }
   if (!was && lidIsOpen(world.cfg, held) && held.color !== null) {
     world.events.push({ type: "eyeOpen", col: held.col, color: held.color });
   }
+}
+
+/** The cord as the one generic PULL: any way, `lidTautMilli` long. */
+function cord(cfg: SimConfig): Pull {
+  return { way: "either", reachMilli: cfg.lidTautMilli };
+}
+
+/** How far the cord stands from its rest, whole thousandths: the pull's length. */
+function lidLength(c: Creature): number {
+  const p = lidPull(c);
+  return isqrt(p.x * p.x + p.y * p.y);
+}
+
+/** A cord let go short of taut, past a tap: refused, and said. */
+function sayShort(world: World, c: Creature): void {
+  if (pullHeard(cord(world.cfg), false, false, lidLength(c)).heard !== "short") return;
+  world.events.push({ type: "pullShort", col: c.col, player: 1 });
 }
 
 /** Every cord let go of, however it happened. */
@@ -183,6 +213,7 @@ export function releaseLids(world: World): void {
     if (c.kind !== "lid") continue;
     c.lidPullMilli = undefined;
     c.lidPullYMilli = undefined;
+    c.lidCounted = undefined;
   }
 }
 
@@ -205,42 +236,4 @@ export function stepLidPulls(world: World): void {
     c.lidPullMilli = kept.x;
     c.lidPullYMilli = kept.y;
   }
-}
-
-/**
- * A shot met a lid.
- *
- * Three answers, and each is charged to the seat that could have prevented it.
- * Plates still across the lens is a *reject* and deliberately not a colour
- * miss — the ammunition may have been exactly right and the hand simply not
- * there yet, which is the pair's timing rather than player 2's choice, and
- * `claspStruck` and `resolveWarden` both make the same argument. The wrong
- * colour into a bare lens is a colour miss and nothing else: the lens has been
- * that colour, on both screens, since the body entered the field.
- *
- * The kill is worth what a veil and a ghost are worth, and for their reason
- * rather than by coincidence: all three are bodies the pair can only reach by
- * doing one thing together at one moment, and a pair that learned one of them
- * priced above the others would be learning that one kind of agreement is
- * worth more than another.
- */
-export function lidStruck(world: World, b: Bullet, hit: Creature): void {
-  if (!lidIsOpen(world.cfg, hit)) {
-    world.events.push({ type: "reject", col: b.col, row: hit.row });
-    return;
-  }
-  if (hit.color !== b.color) {
-    missedColor(world);
-    world.events.push({ type: "reject", col: b.col, row: hit.row });
-    return;
-  }
-  metColor(world);
-  world.events.push({
-    type: "destroy",
-    col: hit.col,
-    row: hit.row,
-    color: hit.color,
-    kind: wornKind(hit),
-  });
-  removeCreature(world, hit.id);
 }

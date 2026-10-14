@@ -273,6 +273,7 @@ by hand never moves.
 | `packages/sim/src/bullet-hit-boss.ts` | a shot met the queen or the warden and you want to know which half of the pair a rejection is charged to |
 | `packages/sim/src/bullet-types.ts` | you need what a bullet *is* rather than what one does — the shape, lifted out of `types.ts` beside `pod-types.ts` |
 | `packages/sim/src/lid.ts` | you are working on the armoured eye — the cord, how far the plates have parted, and what a shot into it does |
+| `packages/sim/src/lid-struck.ts` | THE LID's answer to a shot: bare lens, wrong colour, or plates still across it |
 | `packages/sim/src/config-ghost.ts` | THE GHOST's numbers: what one is worth, the row a crossing one prowls along, how far it goes each beat, how |
 | `packages/sim/src/config-gorge.ts` | THE GORGE's numbers — where the bubbles hang, how big the ring is |
 | `packages/sim/src/config-governor.ts` | THE GOVERNOR's tuning: the beats around its steps, how fast the needle idles |

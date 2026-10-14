@@ -88,6 +88,12 @@ export interface BalloonState {
    * could not be taut twice. */
   balloonPullP2?: number;
   /**
+   * Which sides have been pulled taut this hold, as bits — 1 the pilot's, 2
+   * the navigator's: the one generic PULL counted at its reach (`pull.ts`), so
+   * a side stays taut until its hand lets go even if it eases. Absent for none.
+   */
+  balloonCounted?: number;
+  /**
    * The tick both sides became taut at once, and absent while they are not.
    * The rub waits `balloonHoldBeats` from here (`rubBalloons`), which is the
    * hold at full stretch the owner asked for, and the picture reads the same

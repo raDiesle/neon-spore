@@ -50,6 +50,12 @@ export interface HeldState {
   lidPullMilli?: number;
   lidPullYMilli?: number;
   /**
+   * The cord has been pulled taut this hold: the one generic PULL counted at
+   * its reach (`pull.ts`), so the lens stays bare until the hand lets go even
+   * if it eases. Absent on a lid nobody holds, and on one not yet taut.
+   */
+  lidCounted?: boolean;
+  /**
    * **THE LIMPET or THE LEECH has its control.** Set once, by the fault that
    * fires it, and never cleared: one leaves the field by being reeled home or
    * by going off, and no other way. Read through `clingIsStuck` (`cling.ts`).

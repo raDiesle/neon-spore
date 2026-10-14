@@ -47,6 +47,9 @@ export function tailHashParts(c: Creature): number[] {
   out.push(c.balloonPullP1 ?? NO_BALLOON_HAND);
   out.push(c.balloonPullP2 ?? NO_BALLOON_HAND);
   out.push(c.balloonTautTick ?? -1);
+  // Which sides have counted: a side counted and eased is still taut, so two
+  // devices that disagree about it disagree about whether the rub is on.
+  out.push(c.balloonCounted ?? 0);
   // Where THE COUNT's rim stands in its period. It decides the one beat in
   // five a shot is let in on, so two devices that disagree about it are two
   // devices where one player's shot kills and the other's breaks the hull —

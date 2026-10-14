@@ -17,7 +17,7 @@ import { crystalStruck } from "./crystal.js";
 import { echoStruck } from "./echo.js";
 import { removeCreature } from "./field.js";
 import { ghostStruck } from "./ghost.js";
-import { lidStruck } from "./lid.js";
+import { lidStruck } from "./lid-struck.js";
 import { magnetStruck } from "./magnet.js";
 import { recoilStruck } from "./recoil.js";
 import { rindStruck } from "./rind.js";

@@ -349,16 +349,45 @@ describe("the hold", () => {
     expect(world.creatures).toHaveLength(2);
   });
 
-  it("starts again from nothing when a hand slackens inside it", () => {
-    const slack: TimedCommand = {
+  it("starts again from nothing when a hand lets go inside it", () => {
+    const off: TimedCommand = {
+      tick: ON_FIELD + Math.floor(HOLD / 2),
+      player: 1,
+      command: { kind: "drag", target: "balloonLeft", on: false, fromMilli: 0, id: 1 },
+    };
+    const inputs = [...rub(ON_FIELD, 1), off];
+    const { world, events } = play([balloon(3)], ON_FIELD + GIVES + 1, inputs);
+    expect(events.some((e) => e.type === "balloonSplit")).toBe(false);
+    expect(only(world).balloonTautTick).toBeUndefined();
+  });
+
+  it("keeps a side taut that eases after it counted — the one generic PULL", () => {
+    const ease: TimedCommand = {
       tick: ON_FIELD + Math.floor(HOLD / 2),
       player: 1,
       command: { kind: "drag", target: "balloonLeft", on: true, fromMilli: 0, id: 1 },
     };
-    const inputs = [...rub(ON_FIELD, 1), slack];
-    const { world, events } = play([balloon(3)], ON_FIELD + GIVES + 1, inputs);
-    expect(events.some((e) => e.type === "balloonSplit")).toBe(false);
-    expect(only(world).balloonTautTick).toBeUndefined();
+    const inputs = [...rub(ON_FIELD, 1), ease];
+    const { events } = play([balloon(3)], ON_FIELD + GIVES + 1, inputs);
+    expect(events.filter((e) => e.type === "balloonSplit")).toHaveLength(1);
+  });
+});
+
+describe("a side let go short", () => {
+  it("is said, and a tap or a counted side is not", () => {
+    const said = (milli: number) => {
+      const off: TimedCommand = {
+        tick: ON_FIELD + 3,
+        player: 2,
+        command: { kind: "drag", target: "balloonRight", on: false, fromMilli: milli, id: 1 },
+      };
+      const inputs = [...pull(ON_FIELD, 2, "balloonRight", milli, 1), off];
+      const { events } = play([balloon(3)], ON_FIELD + 5, inputs);
+      return events.filter((e) => e.type === "pullShort").length;
+    };
+    expect(said(Math.round(CFG.balloonTautMilli / 2))).toBe(1);
+    expect(said(10)).toBe(0);
+    expect(said(CFG.balloonTautMilli)).toBe(0);
   });
 });
 
