@@ -4,6 +4,7 @@
  * director's poses and AUTO row play with, and the game's TEST panel too.
  */
 
+export * from "./autopilot-claw.js";
 export * from "./autopilot-field-hand.js";
 export * from "./autopilot-hands.js";
 export * from "./boss-hand-fleet.js";

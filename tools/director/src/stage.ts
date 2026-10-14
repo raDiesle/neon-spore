@@ -1,3 +1,4 @@
+import { setHas } from "@neon-spore/content";
 import { Canvas2DRenderer, handedLayout, pointerSeats, type ViewRole } from "@neon-spore/render";
 import { createWorld, type SimConfig, type World } from "@neon-spore/sim";
 import { stageAutopilot } from "./stage-autopilot.js";
@@ -53,7 +54,11 @@ export function bindStage(
     stageField(world, role, currentControlSet(), cfg, seat ?? desk.seat(), renderer.skinY);
   // AUTO: a boss's hand on the seats the row names (`stage-autopilot.ts`).
   const auto = stageAutopilot(
-    { layout: () => handedLayout(layout(), world), field: fieldFor },
+    {
+      layout: () => handedLayout(layout(), world),
+      field: fieldFor,
+      arm: () => setHas(currentControlSet(), "reach"),
+    },
     document,
   );
   const touch = bindStageTouch({

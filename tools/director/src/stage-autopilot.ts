@@ -34,6 +34,8 @@ export interface StageAutopilotDeps {
   layout: () => Layout;
   /** The field as a seat sees it — the same one the mouse is tested against. */
   field: (seat: 1 | 2) => Field;
+  /** Whether the panel has THE CLAW's arm on it, which the world does not know. */
+  arm?: () => boolean;
 }
 
 export interface StageAutopilot {
@@ -104,7 +106,7 @@ export function stageAutopilot(deps: StageAutopilotDeps, doc?: Document): StageA
       const plays = PLAYS[mode];
       paintNote(w);
       if (plays.length === 0) return [];
-      const hand = autopilotHand(w);
+      const hand = autopilotHand(w, deps.arm?.() ?? false);
       if (!hand) return [];
       const sent = hand(w).filter((c) => plays.includes(c.player));
       ghosts.observe(deps.layout(), deps.field, w.tick, ticksPerBeat(w.cfg), sent);

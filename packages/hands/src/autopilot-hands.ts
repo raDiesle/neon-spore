@@ -1,4 +1,5 @@
 import type { World } from "@neon-spore/sim";
+import { clawHand } from "./autopilot-claw.js";
 import { fieldHand } from "./autopilot-field-hand.js";
 import { fleetHand } from "./boss-hand-fleet.js";
 import { hiveHand } from "./boss-hand-hive.js";
@@ -136,7 +137,10 @@ export const AUTOPILOT_HANDS: Partial<Record<BossKind, Hand>> = {
 
 /** The hand for the boss on the field, null for a boss with no hand, and the
  * cannon and shield played together when there is no boss at all
- * (`autopilot-field-hand.ts`). */
-export function autopilotHand(w: World): Hand | null {
-  return w.boss ? (AUTOPILOT_HANDS[w.boss.kind] ?? null) : fieldHand;
+ * (`autopilot-field-hand.ts`) — or THE CLAW's arm and crank when the panel
+ * has them (`autopilot-claw.ts`). `arm` is the caller's to say: the world does
+ * not know its panel, and the caller looked it up to draw it. */
+export function autopilotHand(w: World, arm = false): Hand | null {
+  if (w.boss) return AUTOPILOT_HANDS[w.boss.kind] ?? null;
+  return arm ? clawHand : fieldHand;
 }

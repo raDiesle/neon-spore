@@ -1,3 +1,4 @@
+import { controlSetForWave, setHas } from "@neon-spore/content";
 import { autopilotHand } from "@neon-spore/hands";
 import type { World } from "@neon-spore/sim";
 import type { InputBuffer } from "./input-buffer.js";
@@ -37,6 +38,9 @@ export interface GameAutopilot {
   handless(w: World): boolean;
 }
 
+/** Whether this wave's panel has THE CLAW's arm on it, which the world does not know. */
+const armed = (w: World): boolean => setHas(controlSetForWave(w.wave), "reach");
+
 export function gameAutopilot(): GameAutopilot {
   let mode: AutoMode = "off";
   return {
@@ -48,7 +52,7 @@ export function gameAutopilot(): GameAutopilot {
       const plays = PLAYS[mode];
       // A finished run waits for a restart tap, and that is a person's.
       if (plays.length === 0 || w.over) return;
-      const hand = autopilotHand(w);
+      const hand = autopilotHand(w, armed(w));
       if (!hand) return;
       for (const c of hand(w)) if (plays.includes(c.player)) buffer.push(c.player, c.command);
     },

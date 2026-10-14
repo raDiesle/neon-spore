@@ -111,7 +111,7 @@ export {
   pullPathNearest,
   pullPathPoint,
 } from "./pull-path.js";
-export { ARM_HOME, reachOut, reachTipMilli } from "./reach.js";
+export { ARM_HOME, reachMilliPerTick, reachOut, reachTipMilli } from "./reach.js";
 export {
   chargeDueTick,
   chargeMilli,

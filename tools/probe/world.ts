@@ -4,6 +4,7 @@ import {
   placedFaults,
   podsFromWave,
   queueFromWave,
+  setHas,
   setLance,
   WAVES,
   type Wave,
@@ -125,11 +126,20 @@ export function playedBeat(world: World): boolean {
   const ticks = ticksPerBeat(world.cfg);
   let handless = false;
   for (let i = 0; i < ticks; i++) {
-    const hand = world.over ? null : autopilotHand(world);
+    const hand = world.over ? null : autopilotHand(world, armed(world));
     if (hand === null && !world.over) handless = true;
     step(world, hand === null ? [] : hand(world).map((c) => ({ ...c, tick: world.tick })));
   }
   return !handless;
+}
+
+/**
+ * Whether the wave's panel has THE CLAW's arm on it, which the world does not
+ * know: off the list by the world's own index, the panel the game would stand
+ * (`apps/game/src/autopilot.ts` asks the same).
+ */
+function armed(world: World): boolean {
+  return setHas(controlSet(WAVES[world.wave]?.controls), "reach");
 }
 
 /** `beats`, played by AUTO rather than left alone. */

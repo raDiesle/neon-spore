@@ -41300,3 +41300,16 @@ Bottleneck: reading — the wave was lost on the second of two counts at
 once, which only the probe's beat-by-beat field showed.
 
 *Measured: 6 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-15 — AUTO loses THE CLAW (half two of THE COUNT and THE CLAW)
+
+- reading: 20 min. `reach.ts`, `crank.ts`, the claw panel and its seats,
+  how a wave ends and fails, and probes of the wave with and without AUTO.
+- writing: 10 min. `autopilot-claw.ts`, `autopilotHand`'s `arm` and its
+  three callers, a test on the wave's own pods, the queue's question.
+- looking: 0 min. Nothing drawn.
+- friction: 0 min.
+- landing: 5 min.
+
+Bottleneck: reading. The world does not know its panel, and THE CLAW's rocks
+turned out to have no answer on it, which only a probe with no commands showed.
