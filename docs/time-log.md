@@ -39642,3 +39642,13 @@ Bottleneck: the pull had to stay one number for the simulation, so the bend live
 Bottleneck: the rehearsal is authored in ticks against the old landings, so every act and page after the first hit moved with the cadence.
 
 *Measured: 33 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-14 — THE BALLOON's pull is three tiles
+
+- reading: 0 min. The number and its comment were already open.
+- writing: 5 min. `balloonTautMilli` 2000 → 3000 and its reason.
+- looking: 5 min. One shot at four fifths of the pull.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: waiting for the previous landing's full check before this tree could change.

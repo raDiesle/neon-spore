@@ -89,10 +89,11 @@ export interface BalloonConfig {
    * Thousandths of a tile a hand has to carry a balloon's handle **outward**
    * before that side counts as pulled.
    *
-   * **Two tiles**, up from the little over one it began at: the owner asked on
-   * 9 September 2026 for a hand to carry a handle further before it counts,
-   * so that a pull is a gesture the other seat can watch happen rather than a
-   * brush past the ring. What bounded it was the edge of the screen, while a
+   * **Three tiles**, up from two, and from the little over one it began at:
+   * the owner asked on 9 September 2026 for a hand to carry a handle further
+   * before it counts, so that a pull is a gesture the other seat can watch
+   * happen rather than a brush past the ring, and again on 14 October 2026
+   * once the bend had made the room for it. What bounded it was the edge of the screen, while a
    * pull went straight out: from the two outer columns on each side a thumb
    * ran off the glass first. Since 14 October 2026 it is carried along a bend,
    * out and down, that leaves steeper the nearer the wall is, so the whole of
@@ -141,7 +142,7 @@ export const BALLOON_DEFAULTS: BalloonConfig = {
   balloonRiseRows: 1,
   balloonClimbBeats: 2,
   balloonSplits: 1,
-  balloonTautMilli: 2000,
+  balloonTautMilli: 3000,
   balloonHoldBeats: 1,
   balloonHandleMilli: 1150,
 };
