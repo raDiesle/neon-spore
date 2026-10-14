@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-14 · f4f142eb0 — The director's brush palette draws its pictures only when they are near the screen
+
+Every brush button's picture — a world posed and drawn by the shipping renderer — was drawn at startup, about 1.5 s of a phone-speed load, even on pages that cover the palette. Each button now draws it through `whenSeen`, as CONTROLS' cards do: the wave page draws the buttons in view and the rest on scrolling, and a sheet over the palette draws none.
+
 ## 2026-10-14 · 3db970dc9 — The director's wave list stops asking for a sentence no wave has
 
 The note under the wave list said a wave without a sentence does not save, and the filter's tooltip offered *sentence* as a term — but waves have had no sentence since 25 September 2026, and the save no longer refuses on one. The note is gone and the tooltip and the filter's comment no longer name it.
