@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-14 · acfd5840e — VERSUS offers THE GOVERNOR's works turning on their foot
+
+`governor:glance` offers the works over the dial a turn about the spindle — SWAY, LOOK or COCK — the casing and crown, the drum and the yoke and both flyweights together, pivoting on the spindle's foot so a roll tips the tower, the near side opening and the far one closing into the dark and back, on GOVERNOR · BOTH MARKS LIT. The dial — the track, the marks a thumb taps, the needle, the tip and the gap a bolt goes up through — does not move. The record ships still, so the game draws what it did.
+
 ## 2026-10-14 · ab993f3de — HELPERS shows every state of THE SIREN on both phones
 
 Under THE SIREN on DOCUMENTATION › CONTROLS › HELPERS, eighteen states, each drawn as the top of player 1's phone beside the top of player 2's, with which chip is lit, what each phone reads under the dial and what it means: dark; one seat, the other, both for one body, both with one sentence, two bodies, two words on one seat; the torch before it lands, the fence open and shut, a mine drawn on P1, a harpooned cannon, the panels traded; THE ANTIPHON, THE FLUE, THE MIMIC both ways round and THE GAUGE. The words are read off the renderer, not copied. No change to anything the game draws; the renderer only exports `sirenWord`, `commsCall` and `GAUGE_DUTY` for the page.
