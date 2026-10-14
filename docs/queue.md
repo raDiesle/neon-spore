@@ -331,6 +331,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## HELPERS: six helpers that ship with no frame showing them
 
 - **Found:** 2026-10-14, claude/docs-controls-helpers-org-c825df
+- **Taken:** 2026-10-14, main (claim: claude/queue-helpers-six-helpers-that-ship-with-no-frame-show)
 - **Files:** `tools/director/src/helpers-marks.ts`, `tools/director/src/helpers-faults.ts`, `tools/director/src/helpers-poses-faults.ts`, `tools/director/test/helpers-page.test.ts`
 
 The sweep of `packages/render/src` for CONTROLS › HELPERS found six generic
