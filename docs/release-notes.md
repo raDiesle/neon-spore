@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-14 · 1455417ed — THE THROAT's pump is rubbed, not stroked
+
+The pilot's pump beside the gullet's root is a RUB now, counted as THE CAPSTAN's, THE VALVE's and THE MAZE's heart are: every time the thumb turns back is one turn, any way, and six turns open the pump from shut to full (`throatPumpTurns`, in place of the stroke's distance and its gain). The pump still drains between turns, so the circle round the mouth is as wide as the turns are quick. The owner, use default "rub" instead for less variants. Its picture, THE RUB LAB's zigzag drop, is the next landing.
+
 ## 2026-10-14 · bfce581dc — VERSUS offers THE SCUTTLE's hanging parts glancing
 
 Each part hanging under THE SCUTTLE's slab twists on its thread about its own middle, where a thumb takes it and the thread meets it, the far end narrowing into the dark, each out of step with the others. Ships still; VERSUS `scuttle:glance` offers SWAY, LOOK and COCK, judged on THE SCUTTLE · HELD. Exemption: none — a look, offered on VERSUS.
