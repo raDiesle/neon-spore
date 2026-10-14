@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-14 · 2a07c6e77 — `bun run drop-sheet`: a PULL LAB moment up close, with no browser
+
+`bun run drop-sheet <shape>` paints the PULL LAB's own frames through Skia into one PNG grid — `--at` seconds of AUTO's loop (or since the drop came in, with `--wait` and no thumb), `--crop knob|start|wide`, `--size` per cell, `--looks` for a row per VERSUS look. Seven lanes wrote a throwaway for this; the lab's moment code moved out of the DOM sheet into `pull-lab-moment.ts` so a tool can call it. The director takes `@napi-rs/canvas` as a dev dependency, the version render already has.
+
 ## 2026-10-14 · 2cce46dc5 — CLAUDE.md's trunk step brings a worktree up to the local main too
 
 The rule's own step merged only `origin/main`, which says *already up to date* while the local `main` holds landings nobody has pushed — how a lane on 11 October 2026 built a day behind its own trunk. It now ends with `git merge --ff-only main` in a worktree. The session-start hook (`trunk-behind.ts`, tested against a real worktree) and the lane skill already did the same.

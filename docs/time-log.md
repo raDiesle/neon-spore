@@ -40150,3 +40150,5 @@ Bottleneck: finding that three of the four places the item named were done.
 
 Bottleneck: `pullAt` sat in a file that builds DOM, so nothing outside a page
 could call it.
+
+*Measured: 4 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
