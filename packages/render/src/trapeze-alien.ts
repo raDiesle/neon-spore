@@ -3,6 +3,7 @@ import { drawHurt } from "./boss-hurt.js";
 import { mixHex, rgba } from "./hex.js";
 import { litRound } from "./key-light.js";
 import { PALETTE } from "./palette.js";
+import { drawTrapezeGlanced } from "./trapeze-glance.js";
 import { drawArm, drawLeg, drawSeat } from "./trapeze-limbs.js";
 import {
   type Point,
@@ -87,11 +88,15 @@ export function drawTrapezeAlien(
   );
   const headAt = up(hip, lean + p.lag, TRAPEZE_HEAD_UP * T, 0.06 * T);
   const head = trapezeBodyPath(headAt, TRAPEZE_HEAD * T, time * 1.3, 5.1);
-  drawAntennae(ctx, T, headAt, lean + 2 * p.lag);
   fillBody(ctx, torso, up(hip, lean, TRAPEZE_TORSO_UP * T, 0), TRAPEZE_TORSO * T);
-  fillBody(ctx, head, headAt, TRAPEZE_HEAD * T);
+  // The head, its feelers and its eyes turn as `trapeze-glance.ts` says; the rest does not.
+  drawTrapezeGlanced(ctx, headAt, TRAPEZE_HEAD * T, time, (g) => {
+    drawAntennae(g, T, headAt, lean + 2 * p.lag);
+    fillBody(g, head, headAt, TRAPEZE_HEAD * T);
+    drawEyes(g, T, headAt);
+    return [head];
+  });
   drawHurt(ctx, torso, hurt);
-  drawEyes(ctx, T, headAt);
   drawLeg(ctx, T, hip, shin, 0, false);
   drawArm(ctx, T, shoulder, 0, false);
   ctx.restore();

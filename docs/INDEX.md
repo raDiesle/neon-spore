@@ -1211,6 +1211,7 @@ by hand never moves.
 | `packages/render/src/trapeze-blow.ts` | **THE TRAPEZE's own blow at the hull** (`boss-strike-look.ts`) |
 | `packages/render/src/trapeze-receipts.ts` | **What THE TRAPEZE's receipts are drawn as**, off the numbers `trapeze-fx.ts` keeps |
 | `packages/render/src/trapeze-grip.ts` | **THE TRAPEZE's controls**: the two zones, `trapezePushLeft` and `trapezePushRight`, and the alien itself |
+| `packages/render/src/trapeze-glance.ts` | **THE TRAPEZE glances**: the alien's head turns about its middle on the swing, offered on VERSUS `trapeze:glance` |
 | `packages/render/src/trapeze-verdicts.ts` | **THE TRAPEZE's marks answering a touch the way every mark does** (`mark-feedback.ts` |
 | `packages/render/src/trapeze-arc.ts` | **How high the swing goes, and how high it has to go** (the owner, 7 October 2026 |
 | `packages/render/src/trapeze-alien.ts` | **The alien on the swing, seen from the side**: facing the gong, pumping its legs, turning round between levels |

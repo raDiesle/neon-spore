@@ -76,6 +76,7 @@ const SLOT_POSE: Record<string, string> = {
   "sling:glance": "THE SLING · STILL",
   "capstan:glance": "CAPSTAN · THE LEFT BAND RUBBED",
   "gall:glance": "GALL · TAPS ON THE LEFT END",
+  "trapeze:glance": "THE TRAPEZE · ENTER",
 };
 
 /** The pose a slot gets when nothing in `SLOT_POSE` names it. */

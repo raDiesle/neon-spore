@@ -44,6 +44,7 @@ import { STARE_GLANCE, STARE_GLANCE_SIZE } from "../src/stare-glance.js";
 import { SURGE_GLANCE, SURGE_GLANCE_SIZE } from "../src/surge-glance.js";
 import { TASTER_GLANCE, TASTER_GLANCE_SIZE } from "../src/taster-glance.js";
 import { THROAT_GLANCE, THROAT_GLANCE_SIZE } from "../src/throat-glance.js";
+import { TRAPEZE_GLANCE, TRAPEZE_GLANCE_SIZE } from "../src/trapeze-glance.js";
 import { UNDERTOW_GLANCE, UNDERTOW_GLANCE_SIZE } from "../src/undertow-glance.js";
 import { VALVE_GLANCE, VALVE_GLANCE_SIZE } from "../src/valve-glance.js";
 import { VANE_GLANCE, VANE_GLANCE_SIZE } from "../src/vane-glance.js";
@@ -117,6 +118,7 @@ const ROWS: readonly Row[] = [
   { name: "THE NETTLE", record: NETTLE_GLANCE, size: NETTLE_GLANCE_SIZE, hold: 0 },
   { name: "THE RATCHET", record: RATCHET_GLANCE, size: RATCHET_GLANCE_SIZE, hold: 0 },
   { name: "THE GALL", record: GALL_GLANCE, size: GALL_GLANCE_SIZE, hold: 0 },
+  { name: "THE TRAPEZE", record: TRAPEZE_GLANCE, size: TRAPEZE_GLANCE_SIZE, hold: 0 },
 ];
 
 const R = 100;

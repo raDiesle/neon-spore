@@ -39830,3 +39830,15 @@ Bottleneck: finding the pose that shows the alien sat on the seam, since THE GAL
 Bottleneck: wave numbers are written down by hand in a spec table and four tests, so a reorder of two waves touched six places.
 
 *Measured: 10 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-14 — THE TRAPEZE: a part that turns, so it is seen from a new side
+
+- reading: 5 min. The alien's drawing in the seat's frame, and the lock's
+  and the bolt's circle round the whole alien, which the head does not move.
+- writing: 5 min. `trapeze-glance.ts`, the head, its feelers and eyes
+  wrapped in it, and the wiring by a script kept from THE GALL's lane.
+- looking: 5 min. `versus:shot trapeze:glance cock`, cropped against today.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: none to speak of — the glance is one call, and the wiring round it is the same six files every time.

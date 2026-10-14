@@ -112,6 +112,9 @@ import { TASTER_SWAY } from "./taster-glance/sway/index.js";
 import { THROAT_COCK } from "./throat-glance/cock/index.js";
 import { THROAT_LOOK_AROUND } from "./throat-glance/look/index.js";
 import { THROAT_SWAY } from "./throat-glance/sway/index.js";
+import { TRAPEZE_COCK } from "./trapeze-glance/cock/index.js";
+import { TRAPEZE_LOOK_AROUND } from "./trapeze-glance/look/index.js";
+import { TRAPEZE_SWAY } from "./trapeze-glance/sway/index.js";
 import { UNDERTOW_COCK } from "./undertow-glance/cock/index.js";
 import { UNDERTOW_LOOK_AROUND } from "./undertow-glance/look/index.js";
 import { UNDERTOW_SWAY } from "./undertow-glance/sway/index.js";
@@ -238,6 +241,9 @@ export const VARIANTS: Variant[] = [
   THROAT_COCK,
   THROAT_LOOK_AROUND,
   THROAT_SWAY,
+  TRAPEZE_COCK,
+  TRAPEZE_LOOK_AROUND,
+  TRAPEZE_SWAY,
   UNDERTOW_COCK,
   UNDERTOW_LOOK_AROUND,
   UNDERTOW_SWAY,

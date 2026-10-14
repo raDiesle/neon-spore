@@ -10465,6 +10465,16 @@ its middle, never a disc over half the field.
 
 **What is not built — a step seen from another side** (suggested 10 October 2026, after the owner on THE BASTION: *very 3 dimensional and even user action is 3d to rotate*). The swing turns into depth, toward the screen and away; a push counts as it comes toward the screen, and the gong is behind it.
 
+**Offered (14 October 2026, VERSUS `trapeze:glance`).** The alien's head is
+the part that turns: it yaws about its own middle on top of its lag behind
+the swing (`packages/render/src/trapeze-glance.ts`), its feelers and both
+eyes turning with it, the near cheek opening and the far one closing into
+the dark and back, in the seat's own frame so it faces the gong whichever way
+the alien sits. The swing, the seat, the torso and the limbs do not move, and
+the pilot's lock and a bolt both take the circle round the whole alien. It
+ships still, and VERSUS offers **SWAY**, **LOOK** and **COCK** at 0.36 of the
+head's radius on THE TRAPEZE · ENTER.
+
 
 ## 11.57 THE FLUE — an ember one seat sees and the other shoots
 
