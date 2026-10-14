@@ -2337,6 +2337,7 @@ by hand never moves.
 | `packages/render/src/lamprey-verdicts.ts` | **THE LAMPREY's marks answering a touch the way every mark does** (`mark-feedback.ts`, `grip-verdict.ts`) |
 | `packages/render/src/lamprey-grip.ts` | **THE LAMPREY's hands**: the pinner's thumb on the jaw, following it, and the tapper's tap on the nearest tooth |
 | `packages/render/src/lamprey-gills.ts` | **THE LAMPREY's gills and eyes**: a row of seven pores down each flank behind the head |
+| `packages/render/src/lamprey-glance.ts` | **THE LAMPREY glances**: the head turns about the mouth's middle, hushed while it bites, offered on VERSUS `lamprey:glance` |
 | `packages/render/src/lamprey-blow.ts` | **THE LAMPREY's own blow at the hull** (`boss-strike-look.ts`) |
 | `packages/render/src/lamprey-fx.ts` | What THE LAMPREY leaves behind a frame: the flung tooth, the snap, the gulp, the shudder and the blow |
 | `packages/render/src/lamprey-fang.ts` | **One of THE LAMPREY's fangs**, wherever it stands |

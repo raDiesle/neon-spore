@@ -56,7 +56,11 @@ export const LAMPREY_POSES = [
     "lamprey",
     "rearing",
     "The first level won, the eel reared on its tile, its gullet lit red. P1 lays the cannon under it; P2 fires red.",
-    { hand: lampreyHand, budgetBeats: 160 },
+    {
+      hand: lampreyHand,
+      budgetBeats: 160,
+      lookAt: "the sucker reared face-on — whether its lit gullet reads as the mouth to shoot into",
+    },
   ),
   bossPose(
     "lamprey",

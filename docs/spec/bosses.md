@@ -11184,6 +11184,18 @@ and leave punctures bleeding the hull's red. Its twelve sounds are bound
 
 **What is not built — a step seen from another side** (suggested 10 October 2026, after the owner on THE BASTION: *very 3 dimensional and even user action is 3d to rotate*). It rolls on the hull, head and tail changing sides, and the seat pinning the tail changes with the roll.
 
+**Offered (14 October 2026, VERSUS `lamprey:glance`).** The head is the part
+that turns: the sucker, its fringe, the mouth, the ring of teeth and their
+marks — or the jaws while it hunts — yaw together about the mouth's middle
+(`packages/render/src/lamprey-glance.ts`), the near side of the lip opening
+and the far side closing into the dark and back. The body, the fin and the
+tail's knob stay as they lie, and a bolt meets the gullet's rim under the
+mouth's middle, which the turn holds. It is hushed while the eel bites: the
+tooth a press is judged against is read off the pose with no clock, so the
+head steadies to face-on over the bite's first beat and turns again after
+it. It ships still, and VERSUS offers **SWAY**, **LOOK** and **COCK** at
+about a third of the mouth's radius on THE LAMPREY · REARING.
+
 
 ## 11.60 THE MIMIC — a skin only one of you can read, and only the other can answer
 

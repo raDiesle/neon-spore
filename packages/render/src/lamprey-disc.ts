@@ -1,8 +1,15 @@
 import { KEY } from "@neon-spore/content";
-import { LAMPREY_TEETH } from "@neon-spore/sim";
+import { LAMPREY_TEETH, type LampreyState, lampreyFiring, lampreyStep } from "@neon-spore/sim";
+import { strokeGlowFaded } from "./glow.js";
 import { rgba } from "./hex.js";
-import { type LampreyPose, lampreyToothAt } from "./lamprey-shape.js";
-import { PALETTE } from "./palette.js";
+import {
+  type LampreyPose,
+  lampreyGulletReach,
+  lampreyRing,
+  lampreyToothAt,
+} from "./lamprey-shape.js";
+import { PALETTE, STROKE } from "./palette.js";
+import { stepColour } from "./step-colour.js";
 
 /**
  * **THE LAMPREY's sucker, in detail**: the fleshy fringe of papillae round
@@ -114,4 +121,34 @@ export function drawLampreyGums(
   }
   ctx.fillStyle = PALETTE.lampreyGum;
   ctx.fill(gums);
+}
+
+/** The mouth's black inside the lip, in radii. */
+const MOUTH_IN = 0.8;
+
+/**
+ * The mouth's black inside the lip, and the gullet opening out of it once the
+ * eel is off the hull: dull meat, lit in the shot's colour while reared,
+ * smaller a step for each hit.
+ */
+export function drawLampreyMouth(
+  ctx: CanvasRenderingContext2D,
+  p: LampreyPose,
+  s: LampreyState,
+): void {
+  ctx.fillStyle = PALETTE.lampreyMouth;
+  ctx.fill(lampreyRing(p, MOUTH_IN));
+  drawLampreyThroat(ctx, p, p.wave);
+  if (s.phase !== "rearing" && s.phase !== "recoil" && s.phase !== "spent") return;
+  const gullet = lampreyRing(p, lampreyGulletReach(s.hits));
+  const step = lampreyStep(s);
+  if (lampreyFiring(s) && step !== null) {
+    const lit = stepColour(step.color).rim;
+    ctx.fillStyle = lit;
+    ctx.fill(gullet);
+    strokeGlowFaded(ctx, gullet, lit, STROKE.outline, 1, 1);
+    return;
+  }
+  ctx.fillStyle = PALETTE.lampreyGullet;
+  ctx.fill(gullet);
 }

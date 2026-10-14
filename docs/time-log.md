@@ -39890,3 +39890,17 @@ Bottleneck: the traded-panels row — the picture was right and the text under i
 Bottleneck: none — the works were already apart from everything a thumb or a bolt meets.
 
 *Measured: 5 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-14 — THE LAMPREY: a part that turns, so it is seen from a new side
+
+- reading: 10 min. The eel's drawing, the tooth a press is judged against
+  (`lamprey-grip.ts`, no clock on `Field`), and the bolt's stop at the
+  gullet's rim.
+- writing: 15 min. `lamprey-glance.ts` with a hush through the bite, the
+  head lifted into its own function, the mouth moved to `lamprey-disc.ts` to
+  keep `lamprey-draw.ts` under the ceiling, and the hush's test.
+- looking: 5 min. `versus:shot lamprey:glance cock`, cropped.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: the teeth a thumb taps are on the turning part and the hit test has no clock, so the turn had to be hushed through the bite rather than read by the grip.

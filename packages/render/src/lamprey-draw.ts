@@ -3,24 +3,23 @@ import {
   type LampreyState,
   lampreyAsks,
   lampreyCrawling,
-  lampreyFiring,
   lampreyPlugButton,
-  lampreyStep,
   lampreyTapsWanted,
   lampreyWorker,
+  type SimConfig,
   type World,
 } from "@neon-spore/sim";
 import { drawHurt } from "./boss-hurt.js";
 import { creatureCenter } from "./creature-place.js";
 import { glidePhase } from "./depth.js";
 import { smoothstep } from "./ease.js";
-import { strokeGlowFaded } from "./glow.js";
 import { rgba } from "./hex.js";
 import { litRound } from "./key-light.js";
 import { FOLD_GAPE, type LampreyChomp } from "./lamprey-chomp.js";
-import { drawLampreyFringe, drawLampreyLipGloss, drawLampreyThroat } from "./lamprey-disc.js";
+import { drawLampreyFringe, drawLampreyLipGloss, drawLampreyMouth } from "./lamprey-disc.js";
 import type { LampreyFx } from "./lamprey-fx.js";
 import { drawLampreyGills } from "./lamprey-gills.js";
+import { drawLampreyGlanced } from "./lamprey-glance.js";
 import { drawLampreyHandles } from "./lamprey-handles.js";
 import { drawLampreyJaws } from "./lamprey-jaws.js";
 import { drawLampreyToothMark } from "./lamprey-marks.js";
@@ -29,7 +28,6 @@ import { drawLampreyFlung, drawLampreyGulp, drawLampreySnap } from "./lamprey-re
 import {
   type LampreyPose,
   lampreyBody,
-  lampreyGulletReach,
   lampreyRing,
   lampreySpine,
   MOUTH,
@@ -39,11 +37,8 @@ import { drawLampreyTeeth } from "./lamprey-teeth.js";
 import { drawLampreyHalos, drawLampreyVerdicts } from "./lamprey-verdicts.js";
 import type { Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
-import { stepColour } from "./step-colour.js";
 import { showsLampreyHand } from "./view-role-clocks-c.js";
 
-/** The mouth's black inside the lip, in radii. */
-const MOUTH_IN = 0.8;
 /** How far below the eel its shadow falls, in tiles. */
 const DROP = 0.1;
 /** How narrow the sucker is turned edge-on, as a share of its width taken off. */
@@ -94,27 +89,10 @@ export function drawLamprey(
   ctx.translate(fx.hurt.shakeX(time, l.tile), 0);
   drawHide(ctx, l, p, fx.hurt.value);
   const fold = aimJaws(l, world, s, p, beatPhase, fx.chomp);
-  if (fold >= 1) {
-    drawLampreyJaws(ctx, p, fold, fx.chomp.face, fx.chomp.morsel, fx.hurt.value);
-  } else if (lampreyPlugButton(s) === null) {
-    // (In a plug the mouth is inside the ship, on the button: `lamprey-plug-look.ts`.)
-    ctx.save();
-    // Turning to the side: the sucker narrowed across the way it is about to face.
-    if (fold > 0) squash(ctx, p, fx.chomp.face, 1 - TURNED * fold);
-    drawSucker(ctx, p, s.phase === "bite", fx.hurt.value);
-    drawLampreyHalos(ctx, l, cfg, p, s, time);
-    drawMouth(ctx, p, s);
-    drawLampreyGulp(ctx, p, fx.gulp);
-    drawLampreyTeeth(ctx, p, s);
-    drawLampreySnap(ctx, p, fx.snap);
-    const worker = lampreyWorker(s);
-    if (worker !== null && lampreyAsks(s) === "teeth") {
-      const full = showsLampreyHand(l.role, worker);
-      const along = s.toothTaps / lampreyTapsWanted(s);
-      drawLampreyToothMark(ctx, p, s.litTooth, full, along, time);
-    }
-    ctx.restore();
-  }
+  // The head turns as `lamprey-glance.ts` says, hushed while a thumb works it; the body does not.
+  drawLampreyGlanced(ctx, p, s, beat + beatPhase, time, (g) =>
+    drawHead(g, l, cfg, s, p, fold, time, fx),
+  );
   ctx.restore();
   drawLampreyHandles(ctx, l, cfg, s, time);
   ctx.save();
@@ -125,6 +103,41 @@ export function drawLamprey(
   fx.crumbs.draw(ctx, l.tile);
   ctx.restore();
   return p;
+}
+
+/** The head: the jaws while it hunts, else the sucker, its mouth, teeth and marks. Answers with its outline. */
+function drawHead(
+  g: CanvasRenderingContext2D,
+  l: Layout,
+  cfg: SimConfig,
+  s: LampreyState,
+  p: LampreyPose,
+  fold: number,
+  time: number,
+  fx: LampreyFx,
+): Path2D[] {
+  if (fold >= 1) {
+    drawLampreyJaws(g, p, fold, fx.chomp.face, fx.chomp.morsel, fx.hurt.value);
+  } else if (lampreyPlugButton(s) === null) {
+    // (In a plug the mouth is inside the ship, on the button: `lamprey-plug-look.ts`.)
+    g.save();
+    // Turning to the side: the sucker narrowed across the way it is about to face.
+    if (fold > 0) squash(g, p, fx.chomp.face, 1 - TURNED * fold);
+    drawSucker(g, p, s.phase === "bite", fx.hurt.value);
+    drawLampreyHalos(g, l, cfg, p, s, time);
+    drawLampreyMouth(g, p, s);
+    drawLampreyGulp(g, p, fx.gulp);
+    drawLampreyTeeth(g, p, s);
+    drawLampreySnap(g, p, fx.snap);
+    const worker = lampreyWorker(s);
+    if (worker !== null && lampreyAsks(s) === "teeth") {
+      const full = showsLampreyHand(l.role, worker);
+      const along = s.toothTaps / lampreyTapsWanted(s);
+      drawLampreyToothMark(g, p, s.litTooth, full, along, time);
+    }
+    g.restore();
+  }
+  return [lampreyRing(p, 1)];
 }
 
 /** The body: the fin round the tail under it, its shadow, lit from the key, the skin's detail (`lamprey-skin.ts`), and the blow's red. */
@@ -224,27 +237,4 @@ function aimJaws(
     Math.atan2(at.y - p.y, at.x - p.x),
   );
   return chomp.fold;
-}
-
-/**
- * The mouth's black inside the lip, and the gullet opening out of it once the
- * eel is off the hull: dull meat, lit in the shot's colour while reared,
- * smaller a step for each hit.
- */
-function drawMouth(ctx: CanvasRenderingContext2D, p: LampreyPose, s: LampreyState): void {
-  ctx.fillStyle = PALETTE.lampreyMouth;
-  ctx.fill(lampreyRing(p, MOUTH_IN));
-  drawLampreyThroat(ctx, p, p.wave);
-  if (s.phase !== "rearing" && s.phase !== "recoil" && s.phase !== "spent") return;
-  const gullet = lampreyRing(p, lampreyGulletReach(s.hits));
-  const step = lampreyStep(s);
-  if (lampreyFiring(s) && step !== null) {
-    const lit = stepColour(step.color).rim;
-    ctx.fillStyle = lit;
-    ctx.fill(gullet);
-    strokeGlowFaded(ctx, gullet, lit, STROKE.outline, 1, 1);
-    return;
-  }
-  ctx.fillStyle = PALETTE.lampreyGullet;
-  ctx.fill(gullet);
 }

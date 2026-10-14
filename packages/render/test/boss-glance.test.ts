@@ -23,6 +23,7 @@ import { GOVERNOR_GLANCE, GOVERNOR_GLANCE_SIZE } from "../src/governor-glance.js
 import { HASP_GLANCE, HASP_GLANCE_SIZE } from "../src/hasp-glance.js";
 import { HIVE_GLANCE, HIVE_GLANCE_SIZE } from "../src/hive-glance.js";
 import { KEEL_GLANCE, KEEL_GLANCE_SIZE } from "../src/keel-glance.js";
+import { LAMPREY_GLANCE, LAMPREY_GLANCE_SIZE } from "../src/lamprey-glance.js";
 import { LEAD_GLANCE, LEAD_GLANCE_SIZE } from "../src/lead-glance.js";
 import { LEDGER_GLANCE, LEDGER_GLANCE_SIZE } from "../src/ledger-glance.js";
 import { MANTLE_GLANCE, MANTLE_GLANCE_SIZE } from "../src/mantle-glance.js";
@@ -123,6 +124,7 @@ const ROWS: readonly Row[] = [
   { name: "THE TRAPEZE", record: TRAPEZE_GLANCE, size: TRAPEZE_GLANCE_SIZE, hold: 0 },
   { name: "THE FLUE", record: FLUE_GLANCE, size: FLUE_GLANCE_SIZE, hold: 0 },
   { name: "THE GOVERNOR", record: GOVERNOR_GLANCE, size: GOVERNOR_GLANCE_SIZE, hold: 0 },
+  { name: "THE LAMPREY", record: LAMPREY_GLANCE, size: LAMPREY_GLANCE_SIZE, hold: 0 },
 ];
 
 const R = 100;
