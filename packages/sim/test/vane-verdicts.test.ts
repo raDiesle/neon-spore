@@ -103,3 +103,11 @@ test("the navigator's carry let go short is refused and said; a tap and a whole 
   expect(said(send(world, housing(2, true, CFG.vaneHaulMilli)), "vaneHaul")).toHaveLength(1);
   expect(said(send(world, housing(2, false, 200)), "pullShort")).toEqual([]);
 });
+
+test("the navigator's carry counts down only: up is no carry at all", () => {
+  const world = settled(1);
+  send(world, arm(1, true));
+  expect(said(send(world, housing(2, true, -CFG.vaneHaulMilli)), "vaneHaul")).toEqual([]);
+  expect(said(send(world, housing(2, false, -CFG.vaneHaulMilli)), "pullShort")).toEqual([]);
+  expect(vane(world).hauled).toBe(false);
+});

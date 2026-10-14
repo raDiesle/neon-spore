@@ -29,7 +29,7 @@ import type { World } from "./world.js";
  *
  * **The haul is the navigator's**, and it is the split of SEIZE. The bearing
  * has locked: a pinned arm is no longer an opening, only the chance of one.
- * She carries the housing off it — the one generic PULL, either way and
+ * She carries the housing off it — the one generic PULL, straight down and
  * `vaneHaulMilli` long — and it stands open for the rest of his pin. A housing on a
  * moving arm cannot be hauled at all, so the last pin needs both their hands
  * on the picture and her shot after them.
@@ -82,11 +82,11 @@ function housingHeard(
     return;
   }
   if (!asked) return;
-  // The one generic PULL (`pull.ts`), `vaneHaulMilli` long: counted the moment
-  // it gets there, refused let go short. Either way, as it always was: the
-  // housing's ring wears no arrow, and render says she carries it up where the
-  // director says down (`docs/queue.md`).
-  const pull = { way: "either", reachMilli: world.cfg.vaneHaulMilli } as const;
+  // The one generic PULL (`pull.ts`), straight down and `vaneHaulMilli` long:
+  // counted the moment it gets there, refused let go short. Down, the owner
+  // leaving it to the lane on 14 October 2026: off the bearing it hangs under,
+  // and the one way the field always has room for (`content/scene-drag.ts`).
+  const pull = { way: "down", reachMilli: world.cfg.vaneHaulMilli } as const;
   const { heard } = pullHeard(pull, b.hauled, command.on, command.fromYMilli ?? 0);
   if (heard === "short") {
     world.events.push({ type: "pullShort", col: vaneSplitCol(world, b), player: 2 });

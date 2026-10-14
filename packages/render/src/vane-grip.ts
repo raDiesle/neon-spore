@@ -42,7 +42,8 @@ import { bossOf } from "./touch-field.js";
  * **The housing's does not move while it asks**: it hangs over the pivot on
  * the arm's row, and it is asked only while a pin stands, when even the last
  * form's wandering pivot is held still (`vanePivotAt`). Her
- * ring rests just under the casing, clear of the hub, and she carries it up.
+ * ring rests just under the casing, clear of the hub, and she carries it
+ * down, off the bearing (`sim/vane-hand.ts`).
  */
 
 /** How far the tip dips below the bearing at mid-swing, in tiles. */

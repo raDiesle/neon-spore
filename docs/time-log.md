@@ -39966,3 +39966,14 @@ Bottleneck: the first cut turned the whole moon and hushed it while any shell wa
 Bottleneck: THE VANE's housing — the render says up, the director down and the simulation either — so its `way` could not be read off anything and is queued for the owner.
 
 *Measured: 13 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-14 — THE VANE's housing: up or down, and no arrow to say which
+
+- reading: 5 min. The housing's ring, the knob entry that waits on its way.
+- writing: 5 min. `way: "down"`, the render's sentence, a wrong-way test,
+  and the knob entry told.
+- looking: 0 min. Nothing drawn moved.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: the owner's answer — *you decide* — and the lane chose down, the way the director, the autopilot and the queue's own wording already had it.

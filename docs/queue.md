@@ -328,15 +328,6 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/skipped.test.ts` holds the listing's count of the entries
 `next` stepped past and why.
 
-## THE VANE's housing: up or down, and no arrow to say which
-
-- **Found:** 2026-10-14, claude/queue-one-generic-pull-in-the-simulation-and-the-strai
-- **Taken:** 2026-10-14, claude/queue-the-vanes-housing-up-or-down-and-no-arrow-to-say
-- **Files:** `packages/sim/src/vane-hand.ts`, `packages/render/src/vane-grip.ts`, `tools/director/src/field-controls-vane.ts`
-- **Asks:** Which way does the navigator carry THE VANE's housing off the bearing: (a) down, as the director's row says, (b) up, as the render's grip says, or (c) either way, as the simulation has always counted it?
-
-Moving it onto the one generic PULL (`sim/pull.ts`) needed a `way`, and the three places disagree: `vane-grip.ts` says *she carries it up*, `field-controls-vane.ts` says *a pull of at least vaneHaulMilli downward*, and `vane-hand.ts` took `Math.abs`. The ring wears no arrow and no channel, so nothing on the screen settles it. The lane kept `either`, which is what the game did. After the answer: the `way` in `vane-hand.ts`, the sentence in the other two, and the generic knob's arrow and channel on the ring (`pull-knob.ts`), with `vane-verdicts.test.ts` holding the wrong way refused.
-
 ## One generic PULL: the up, either-way and sideways pulls onto it
 
 - **Found:** 2026-10-10, claude/pull-control-visuals-35c04f
@@ -500,6 +491,8 @@ and add only the knob's arrow; (c) keep them as they are.
 
 THE GALL is done (2026-10-13, claude/field-controls-standardization-44b3b7,
 `render/gall-knob.ts`): the four files above are what is left.
+THE VANE's housing goes **down** (2026-10-14, the owner leaving it to the
+lane; `sim/vane-hand.ts`), so its arrow and channel point down.
 
 ## `bun run shot` cannot press and hold a point on a canvas
 

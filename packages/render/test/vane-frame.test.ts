@@ -125,7 +125,7 @@ describe("the vane", () => {
                 target: "vaneHousing",
                 on: false,
                 fromMilli: 0,
-                fromYMilli: -CFG.vaneHaulMilli,
+                fromYMilli: CFG.vaneHaulMilli,
               },
             });
           }
