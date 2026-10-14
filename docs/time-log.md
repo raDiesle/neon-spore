@@ -41193,3 +41193,18 @@ Bottleneck: reading — three of the splits are on a boss's last step, which
 no gallery pose reaches.
 
 *Measured: 7 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
+
+## 2026-10-15 — HELPERS: THE BASTION to THE TRAPEZE (half two)
+
+- reading: 10 min. The six splits left in `view-role-clocks-c.ts` and
+  THE GAUGE's in `gauge.ts`, and where each boss is drawn.
+- writing: 5 min. Seven rows in `helpers-bosses-d.ts`, all on gallery poses.
+- looking: 15 min. Each frame in the browser pane; THE HASP's latch, THE
+  LAMPREY's tooth, THE MIMIC's sign, THE RATCHET's catch and THE SPOOL's
+  brake were a hair on the whole field and got a cut round them.
+- friction: 0 min.
+- landing: 5 min.
+
+Bottleneck: looking — five of seven controls are a few pixels on the whole
+field, and each cut is found by trying, since the geometry is in render
+constants a tool cannot import.

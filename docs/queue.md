@@ -328,21 +328,6 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/skipped.test.ts` holds the listing's count of the entries
 `next` stepped past and why.
 
-## HELPERS: THE BASTION to THE TRAPEZE's one-seat pictures are not listed
-
-- **Found:** 2026-10-14, claude/docs-controls-helpers-org-c825df
-- **Taken:** 2026-10-14, main (claim: claude/queue-helpers-the-bastion-to-the-trapezes-one-seat-pic)
-- **Files:** `tools/director/src/helpers-bosses-c.ts`, `packages/render/src/view-role-clocks-c.ts`, `packages/render/src/gauge.ts`
-
-ONE BOSS'S OWN has a third page since claude/queue-helpers-bastion-to-trapeze
-(`tools/director/src/helpers-bosses-c.ts`): THE BASTION, THE CHRYSALIS, THE
-HYDRA, THE FLUE, THE GALL, THE GIMBAL and THE GOVERNOR. Left of
-`view-role-clocks-c.ts`: THE HASP, THE LAMPREY, THE MIMIC, THE RATCHET, THE
-SPOOL and THE TRAPEZE — and THE GAUGE's marks on player 2's screen
-(`gauge.ts`). Same group, same rule: a row a boss, the real frame, a closer
-cut where the whole field leaves the picture a hair; keep
-`helpers-bosses.test.ts` green.
-
 ## `bun run frames <sha>` gave up on a build that was only slow
 
 - **Found:** 2026-10-14, claude/bastion-gameplay-enhancement-749629
@@ -738,3 +723,17 @@ browser pane instead. Find whether the sub tab is restored from `?sub=` on a
 cold load and whether the rows are built only once scrolled to; give `shot`
 a way to reach one HELPERS row by its name (as `--open`/`--inner` reach a
 sheet), and prove it with a test in `tools/frames/test/` and `bun run check`.
+
+## ONE BOSS'S OWN's close cuts copy render's private rows
+
+- **Found:** 2026-10-15, claude/queue-helpers-bastion-to-trapeze
+- **Files:** `tools/director/src/helpers-bosses-d.ts`, `packages/render/src/hasp-shape.ts`, `packages/render/src/ratchet-shape.ts`, `packages/render/src/spool-shape.ts`
+
+THE HASP's, THE RATCHET's and THE SPOOL's cuts on CONTROLS › HELPERS aim at
+`row: 8.6`, `5.5` and `2.5`, which are `ROWS[0]` in `hasp-shape.ts`,
+`PAWL_ROW` in `ratchet-shape.ts` and `ROW` in `spool-shape.ts` — module
+constants the director cannot import, so a moved part leaves its cut on
+empty field and no test says so. Export each as a named row from render
+(as `coreRowMilli` is from sim), aim the three zooms at them, and add a
+row to `COPIES` in `packages/sim/test/copies-table.ts`. Prove with
+`bun test tools/director` and `bun run check`.

@@ -1,6 +1,7 @@
 import { midCol } from "@neon-spore/sim";
 import { CLOCK_B_ROWS } from "./helpers-bosses-b.js";
 import { CLOCK_C_ROWS } from "./helpers-bosses-c.js";
+import { CLOCK_D_ROWS } from "./helpers-bosses-d.js";
 import type { HelperDef, HelperGroup } from "./helpers-def.js";
 import { UNDERTOW_BOWING } from "./helpers-poses-bosses.js";
 
@@ -138,5 +139,5 @@ const CLOCK_ROWS: HelperDef[] = [
 export const BOSS_GROUP: HelperGroup = {
   title: "ONE BOSS'S OWN",
   sub: "the picture a boss with a split draws on one seat only, and what the other seat is shown instead",
-  rows: [...CLOCK_ROWS, ...CLOCK_B_ROWS, ...CLOCK_C_ROWS],
+  rows: [...CLOCK_ROWS, ...CLOCK_B_ROWS, ...CLOCK_C_ROWS, ...CLOCK_D_ROWS],
 };
