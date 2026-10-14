@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-14 · 7d3e6b66b — THE LEVER LAB: FIZZ's goal ring stands in a band's middle
+
+Asked IN A BAND, the lever's FIZZ channel now ends in the band's middle, so the goal ring FIZZ draws at its end is where to hold, and a knob carried on past it along the faint groove reads as too deep. The game's own pull drawing is untouched. THE LID's cord, THE BALLOON's handles, THE LATCH's grips and THE INSTAR's pulls go onto the one PULL rule, counted at the reach (the queue's answer). Exemption: a look the owner asked for by name — the director's lab only.
+
 ## 2026-10-14 · 1bac30993 — VERSUS offers THE CAPSTAN's drum turning between its faces
 
 `capstan:glance` offers the drum a turn on top of the yaw its cradle already gives it — SWAY, LOOK or COCK — with the two end faces a rubbing thumb is on held where they stand: the near face swells, the far face shrinks into the dark, and what lies between is carried toward the near end, on CAPSTAN · THE LEFT BAND RUBBED. The cradle and horns do not turn, and a bolt meets the drum where it is drawn. Held so near the ends, and capped so the core stays over its column, the turn is faint; whether to make it larger is asked in the queue. The record ships still, so the game draws what it did.

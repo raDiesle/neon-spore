@@ -39734,3 +39734,5 @@ Bottleneck: the rub's hit test reads the faces with no clock, so they had to be 
 - landing: 5 min. `check:fast`, the commit, `land`.
 
 Bottleneck: none to speak of — cutting the channel in the lab put the ring where to hold without touching the game's drawing.
+
+*Measured: 6 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
