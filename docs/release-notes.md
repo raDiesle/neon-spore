@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-14 · 03b365c05 — THE CURTAIN's hem pulls a tile further, under a rail a tile higher
+
+The hem now has to be carried 3.5 tiles up instead of 2.5 before the gap over the core opens, and the rail it is carried towards hangs a tile higher, so the knob's channel is a tile longer too — the owner's answer of 13 October 2026 to *longer pulls where reasonable*. Exemption: asked for by name.
+
 ## 2026-10-14 · ea6ac30e5 — THE LAMPREY's head and tail pull further
 
 The head now comes off its tile at 2.2 tiles up instead of 1.5, and an `apart` or a tow pulls the tail 1.8 tiles instead of 1.2 — the owner's answer of 13 October 2026 to *longer pulls where reasonable*. So that a tail laid out and pulled stays whole on the field, the eel lands a row further from the top and the bottom: rows 4 to 8 rather than 3 to 9. The leap out of an `apart`, whose tail now lies 4.8 tiles out, is held shorter by the room it leaves from. Exemption: asked for by name.
