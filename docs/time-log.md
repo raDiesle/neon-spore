@@ -40124,3 +40124,14 @@ head, so the sim never meets a bolt short of it.
 Bottleneck: none — the item named the fix and the test.
 
 *Measured: 3 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-14 — CLAUDE.md's trunk step reaches the local `main`
+
+- reading: 5 min. The hook, its test and the lane skill, all of which had
+  the fix already; only `CLAUDE.md`'s own step still merged `origin` alone.
+- writing: 0 min. One rule's command.
+- looking: 0 min. Nothing drawn.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, `land`.
+
+Bottleneck: finding that three of the four places the item named were done.

@@ -46,9 +46,9 @@ purpose, and the sort's diff is read before it is committed (`docs/commands.md`)
   worktree needs its own `bun install` — never link or copy `node_modules` from
   the main tree — and on Windows that runs from a native shell.
 - **Bring the trunk up before you start:**
-  `git fetch origin main && git merge --ff-only origin/main`. `bun run land`
-  refuses while `main` is behind `origin/main`. **Land each green piece** rather
-  than holding a branch open for a second.
+  `git fetch origin main && git merge --ff-only origin/main`, then
+  `git merge --ff-only main`. **Land each green piece** rather than holding a
+  branch open for a second.
 - **Landing is one command: `bun run land`, from inside the lane's worktree.**
   It rebases, checks, fast-forwards, writes the release note, deletes the branch
   and sweeps spent worktrees. Do none of it by hand and skip no step.

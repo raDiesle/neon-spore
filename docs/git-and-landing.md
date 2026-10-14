@@ -143,6 +143,15 @@ what happened next: the reconciliation landed on the *trunk*, with the branch
 already swept, the check already spent, and seven conflicts arriving at the one
 moment there was no lane left to fix them on.
 
+**And a worktree is brought up to the local `main` too**, which is the half
+`origin` cannot see: landings wait on the local `main` until the owner says
+`bun run push`, so `git merge --ff-only origin/main` says *already up to date*
+while the trunk is a day ahead. A lane cut on 11 October 2026 built against
+files twenty-odd unpushed landings had moved, and learned it when `land` would
+not replay. `CLAUDE.md`'s step ends with `git merge --ff-only main` since 14
+October; the session-start hook does the same for a clean worktree
+(`tools/hooks/trunk-behind.ts`).
+
 The cost is not linear in how long you wait. A rebase over one commit is nothing;
 over eleven that touch what you touched, it is a conflict per file and a full
 `bun run check` per mistake.

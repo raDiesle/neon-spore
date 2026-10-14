@@ -328,14 +328,6 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/skipped.test.ts` holds the listing's count of the entries
 `next` stepped past and why.
 
-## A fresh worktree can start a day behind the local `main`
-
-- **Found:** 2026-10-12, claude/pull-lab-visual-redesign-05e743
-- **Taken:** 2026-10-14, claude/queue-a-fresh-worktree-can-start-a-day-behind-the-loca
-- **Files:** `tools/hooks/session-start.ts`, `tools/land/lane-start.ts`, `CLAUDE.md`
-
-This lane's worktree was cut at 11 October 11:06 while the local `main` was twenty-odd landings ahead, none of them pushed. The rule's own step, `git fetch origin main && git merge --ff-only origin/main`, said *Already up to date*, so the lane built against files `main` had already moved (`pull-goo/` into `packages/render/src/goo-*.ts`) and only learned it when `bun run land` refused to replay. A check that compares `HEAD` with the local `main` too — `git merge-base --is-ancestor main HEAD`, and `git merge --ff-only main` when it is not — at the start of a lane, by a hook or by the rule's own command, would have caught it in the first minute. `bun run check` proves nothing here; a test of the hook against a branch behind a local `main` does.
-
 ## THE PULL LAB has no way to photograph a moment of a pull up close
 
 - **Found:** 2026-10-10, claude/pull-lab-animation-refinements-075bc8
