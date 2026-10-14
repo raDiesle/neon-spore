@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-14 · cc5d63bce — THE TRAPEZE's zones write no P1 or P2
+
+The seat badge in each zone is gone. Whose zone it is now shows only as the arrow in the pull knob, drawn on the screen of the seat that pulls there; the partner's knob has none.
+
 ## 2026-10-14 · 35773a95d — VERSUS offers THE UNDERTOW's lobes glancing
 
 Each lobe of THE UNDERTOW up through the plating turns about the line up its middle, which is its column. It rolls about where it leaves the skin, so its foot stays in the parted plate. The far side narrows into the dark, and two lobes standing never turn as one. Ships still; VERSUS `undertow:glance` offers SWAY, LOOK and COCK, judged on THE UNDERTOW · ONE. Exemption: none — a look, offered on VERSUS.

@@ -39212,3 +39212,5 @@ Bottleneck: a lobe's height changes as it grows, so the turn's reach is handed i
 - landing: 5 min. `check:fast`, the commit, `land`.
 
 Bottleneck: none — one drawing, one test.
+
+*Measured: 6 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
