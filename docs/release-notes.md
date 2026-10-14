@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-14 · 3db970dc9 — The director's wave list stops asking for a sentence no wave has
+
+The note under the wave list said a wave without a sentence does not save, and the filter's tooltip offered *sentence* as a term — but waves have had no sentence since 25 September 2026, and the save no longer refuses on one. The note is gone and the tooltip and the filter's comment no longer name it.
+
 ## 2026-10-14 · 2a07c6e77 — `bun run drop-sheet`: a PULL LAB moment up close, with no browser
 
 `bun run drop-sheet <shape>` paints the PULL LAB's own frames through Skia into one PNG grid — `--at` seconds of AUTO's loop (or since the drop came in, with `--wait` and no thumb), `--crop knob|start|wide`, `--size` per cell, `--looks` for a row per VERSUS look. Seven lanes wrote a throwaway for this; the lab's moment code moved out of the DOM sheet into `pull-lab-moment.ts` so a tool can call it. The director takes `@napi-rs/canvas` as a dev dependency, the version render already has.
