@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-14 · 55f05e604 — THE LATCH's grips and THE INSTAR's PULL DOWN / PULL UP count once at the reach
+
+Both are on the one generic PULL now, answered (b). A LATCH pull passes the turn the moment it has gone its whole `latchReachMilli` with the other grip held, and no longer waits for the lift; a pull let go short of the reach says `pullShort` and keeps the turn. The reach is the count, not `latchStrokeMilli` — counting there would have cut every pull to 1000 of its 2500 and doubled the pulls a knot takes — so `latchStrokeMilli` is gone. The rehearsal film plays as before. An INSTAR pull counted at its `need` stays done when the thumb comes off, and is then lonely the way a tap is: it slips if its partner does not come within the together beats. One let go short still slips, said; a tap's worth goes back silently. What the beat does to the marks moved to `instar-beat.ts` at the size ceiling. THE LID's cord and THE BALLOON's handles keep their depth on the creature and stay queued as the second half. Every replay hash is unchanged.
+
 ## 2026-10-14 · 9fcae9a43 — THE LAMPREY's head and tail and THE WARDEN's tether take the one generic PULL's travel and its short lift
 
 These pulls hold a depth rather than count once. The head and the tail are worth something only while the partner's hand is also there, and the tether opens the hatch only for as long as it is held taut. So they take the rule's travel (`pullTravelMilli`, the way a field — `pullDownMilli` now reads it too) and its short lift, said with `pullShort`, but not its count. THE LAMPREY's tow stays off it: its knob waits where it is let go, so a tow lifted part way is a pull in two presses, never a short one. THE GUM does not join, because it left the game on 10 October 2026. Every replay hash is unchanged.

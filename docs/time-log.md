@@ -40033,3 +40033,5 @@ Bottleneck: deciding what a held pull takes from a rule built to count once — 
 - landing: 5 min. `check:fast`, the commit, `land`.
 
 Bottleneck: THE INSTAR's together rule exempted a pull because letting go undid it; counted once, a let-go pull had to become lonely like a tap, or a pull counted and released would have waited for its partner for ever.
+
+*Measured: 11 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
