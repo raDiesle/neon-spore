@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-14 · 4f5b1458c — VERSUS offers THE RATCHET's rack turning in its strut
+
+`ratchet:glance` offers the rack of plates and its spring a turn about their own column — SWAY, LOOK or COCK — the teeth swinging toward the pawl and away, each far half closing into the dark, inside a strut that stands still, on THE RATCHET · WORK. The pawl's tip follows its shoulder and a bolt meets the plates where they are drawn; the lock, the catch and the pad do not move. The record ships still, so the game draws what it did.
+
 ## 2026-10-14 · 960721003 — VERSUS offers THE HASP's door turning on its hubs
 
 `hasp:glance` offers the door's three shells a turn, each about its own hub — SWAY, LOOK or COCK — the far half of every shell closing into the dark and back while her wheel, the cap and the latch's rail stay where a thumb has them, on THE HASP · WORK. The latch's staple and a bolt's stop read the same turn. The record ships still, so the game draws what it did.

@@ -39447,3 +39447,5 @@ Bottleneck: finding every point that reads a shell's edge — the staple and the
 - landing: 5 min. `check:fast`, the commit, `land`.
 
 Bottleneck: a narrow rack needs a larger share of its width before a still shows the turn.
+
+*Measured: 8 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
