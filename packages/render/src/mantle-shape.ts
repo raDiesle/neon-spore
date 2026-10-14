@@ -225,15 +225,16 @@ export function mantleKnobDrop(l: Layout, depthMilli: number): number {
   return Math.min(TRAVEL, Math.max(0, depthMilli / 1000)) * l.tile;
 }
 
-/** The strap from one handle's tail to its knob: the cord the thumb pulls on. */
+/** The strap from one handle's tail, where `turn` carries it, to its knob: the cord the thumb pulls on. */
 export function mantleStrapPath(
   l: Layout,
   at: Point,
   side: Side,
   pose: ValvePose,
   knob: Point,
+  turn: (p: Point) => Point = (p) => p,
 ): Path2D {
-  const tie = mantleTie(l, at, side, pose);
+  const tie = turn(mantleTie(l, at, side, pose));
   const p = new Path2D();
   p.moveTo(tie.x, tie.y);
   p.lineTo(knob.x, knob.y);

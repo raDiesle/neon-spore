@@ -8321,6 +8321,15 @@ test: `render/test/mantle-verdict.test.ts`.
 
 **What is not built — a step seen from another side** (suggested 10 October 2026, after the owner on THE BASTION: *very 3 dimensional and even user action is 3d to rotate*). The mantle turns so its plate-pair stands on one side; both pulls run along the turned plates, no longer straight down, and together is asked at an angle.
 
+**Offered (14 October 2026, VERSUS `mantle:glance`).** A hinged shell, so the
+full shape turns: both valves, their plates, the seam and the core yaw
+together about the shell's middle at the height the straps are tied
+(`packages/render/src/mantle-glance.ts`), the height its lean turns about.
+The far valve closes into the dark and back. The knobs and grooves a thumb
+drags do not move; each strap keeps hold of its tie, and a bolt meets the
+shell where it is drawn. It ships still, and VERSUS offers **SWAY**, **LOOK**
+and **COCK** at under a fifth of the shell's half-width on THE MANTLE · PULL.
+
 
 ## 11.41 THE KEEL — the boss whose next joint is whichever thumb is nearer
 

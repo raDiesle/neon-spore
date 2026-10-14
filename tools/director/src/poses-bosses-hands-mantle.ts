@@ -28,7 +28,10 @@ export const MANTLE_POSES: Pose[] = [
     "mantle",
     "pull",
     "Both handles lit. P1 pulls the left knob down; P2 pulls the right, together.",
-    { hold: 6 },
+    {
+      hold: 6,
+      lookAt: "the whole shell turning about its middle — its far valve going into the dark",
+    },
   ),
   bossPose(
     "mantle",

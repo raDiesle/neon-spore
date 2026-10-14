@@ -4,6 +4,7 @@ import { strokeGlowFaded } from "./glow.js";
 import type { GripVerdicts } from "./grip-verdict.js";
 import { rgba } from "./hex.js";
 import type { Layout } from "./layout.js";
+import { mantleGlancedPoint } from "./mantle-glance.js";
 import { drawMantleKnobHalo, drawMantleKnobMarks, mantleMine } from "./mantle-marks.js";
 import { counted, mantleCoreBeat } from "./mantle-pose.js";
 import {
@@ -72,7 +73,9 @@ export function drawMantleHandles(
     drawGroove(ctx, l, rest, cfg.mantleFloorMilli, need / 2, lit);
     ctx.lineWidth = STROKE.inner;
     ctx.strokeStyle = rgba(PALETTE.rock, 0.7);
-    ctx.stroke(mantleStrapPath(l, at, side, poses[side], knob));
+    // Tied where the shell's turn carries it (`mantle-glance.ts`).
+    const turn = (p: Point) => mantleGlancedPoint(l, at, time, p);
+    ctx.stroke(mantleStrapPath(l, at, side, poses[side], knob, turn));
     drawMantleKnobHalo(ctx, l, cfg, s, index, knob, time);
     drawKnob(ctx, l, knob, counted(s, cfg, index) > 0, lit, time);
     const mine = mantleMine(l.role, index === 0 ? 1 : 2);

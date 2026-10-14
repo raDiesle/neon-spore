@@ -9,6 +9,7 @@ import { litRound } from "./key-light.js";
 import type { Layout } from "./layout.js";
 import { drawMantleBraceRings, drawMantleSeam, mantleShudder } from "./mantle-brace.js";
 import type { MantleFx } from "./mantle-fx.js";
+import { drawMantleGlanced } from "./mantle-glance.js";
 import { drawMantleHandles, drawMantleRing } from "./mantle-handle.js";
 import { drawMantleHalos, drawMantleMarks } from "./mantle-marks.js";
 import {
@@ -102,14 +103,18 @@ export function drawMantle(
   ctx.translate(shift.x, shift.y);
   // The shell leans on its straps (`mantle-sway.ts`); the knobs and rings stand still.
   const lean = mantleLean(world, s, beat, beatPhase);
-  withMantleLean(ctx, l, at, lean, () => {
-    drawCore(ctx, l, world, s, at, beat, beatPhase, fx.flare);
-    for (const side of [-1, 1] as const)
-      drawValve(ctx, l, s, at, side, poses[side], beat, beatPhase, time, fx.hurt.value);
-    drawMantleSeam(ctx, l, world, s, at, beatPhase);
-    drawMantleCrossCrack(ctx, l, world, s, at, beat, beatPhase);
-    drawMantleVent(ctx, l, world, s, beat, beatPhase, time);
-  });
+  withMantleLean(ctx, l, at, lean, () =>
+    // And turns about its middle, where a look takes one (`mantle-glance.ts`).
+    drawMantleGlanced(ctx, l, at, time, (g) => {
+      drawCore(g, l, world, s, at, beat, beatPhase, fx.flare);
+      for (const side of [-1, 1] as const)
+        drawValve(g, l, s, at, side, poses[side], beat, beatPhase, time, fx.hurt.value);
+      drawMantleSeam(g, l, world, s, at, beatPhase);
+      drawMantleCrossCrack(g, l, world, s, at, beat, beatPhase);
+      drawMantleVent(g, l, world, s, beat, beatPhase, time);
+      return ([-1, 1] as const).map((side) => mantleRimPath(l, at, side, poses[side]));
+    }),
+  );
   drawMantleBraceRings(ctx, l, world, s, beatPhase);
   const lit = mantleHandlesLit(s, beat, beatPhase);
   drawMantleHalos(ctx, l, cfg, s, at, time);
@@ -119,7 +124,7 @@ export function drawMantle(
   drawMantleMarks(ctx, l, cfg, s, at, time, fx.marks.verdicts);
   if (mantleLeaking(s)) drawSpark(ctx, l, world, s, beat, beatPhase);
   ctx.restore();
-  stops?.aim(mantleStopper(l, world, s, at, poses, shift, beat, beatPhase, lean));
+  stops?.aim(mantleStopper(l, world, s, at, poses, shift, beat, beatPhase, time, lean));
 }
 
 /**

@@ -2470,6 +2470,7 @@ by hand never moves.
 | `packages/render/src/mantle-stop.ts` | **Where a bolt meets THE MANTLE**, for `BoltStops` (`bolt-stop.ts`): the leaking spark in its column |
 | `packages/render/src/mantle-sway.ts` | **THE MANTLE leans on its straps** (`docs/spec/living-bosses.md` §1, the outline tier) |
 | `packages/render/src/mantle-grip.ts` | **The thumbs on THE MANTLE** — half two of the look lane |
+| `packages/render/src/mantle-glance.ts` | **THE MANTLE glances**: the whole shell turns about its middle, offered on VERSUS `mantle:glance` |
 | `packages/render/src/mantle-fx.ts` | What THE MANTLE leaves behind a frame: the **kick** of the shell as a plate-pair shears |
 | `packages/render/src/mantle-brace.ts` | **THE MANTLE's brace, drawn**: the seam's crack and glow, the shudder, and each knob's hold ring |
 | `packages/render/src/mantle-blow.ts` | **THE MANTLE's own blow at the hull**: the leaked spark bursting on the plating |

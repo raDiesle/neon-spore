@@ -40,6 +40,9 @@ import { LEAD_SWAY } from "./lead-glance/sway/index.js";
 import { LEDGER_COCK } from "./ledger-glance/cock/index.js";
 import { LEDGER_LOOK_AROUND } from "./ledger-glance/look/index.js";
 import { LEDGER_SWAY } from "./ledger-glance/sway/index.js";
+import { MANTLE_COCK } from "./mantle-glance/cock/index.js";
+import { MANTLE_LOOK_AROUND } from "./mantle-glance/look/index.js";
+import { MANTLE_SWAY } from "./mantle-glance/sway/index.js";
 import { MAZE_COCK } from "./maze-glance/cock/index.js";
 import { MAZE_LOOK_AROUND } from "./maze-glance/look/index.js";
 import { MAZE_SWAY } from "./maze-glance/sway/index.js";
@@ -157,6 +160,9 @@ export const VARIANTS: Variant[] = [
   SINEW_COCK,
   SINEW_LOOK_AROUND,
   SINEW_SWAY,
+  MANTLE_COCK,
+  MANTLE_LOOK_AROUND,
+  MANTLE_SWAY,
   NETTLE_COCK,
   NETTLE_LOOK_AROUND,
   NETTLE_SWAY,

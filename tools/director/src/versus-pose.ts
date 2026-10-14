@@ -66,6 +66,7 @@ const SLOT_POSE: Record<string, string> = {
   "hasp:glance": "THE HASP · WORK",
   "ratchet:glance": "THE RATCHET · WORK",
   "nettle:glance": "THE NETTLE · ACT",
+  "mantle:glance": "THE MANTLE · PULL",
 };
 
 /** The pose a slot gets when nothing in `SLOT_POSE` names it. */
