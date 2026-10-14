@@ -201,7 +201,7 @@ export function openRubLab(
  * The lab reopened where the URL left it (`place.ts`'s `lab`, as `RUB_LAB`
  * and its key): `?rublab=8-one`, `&rubsheet=1` on its sheet — so a
  * reload stays on the lab and `bun run shot` photographs either with no
- * clicks. Its door in the topbar opens its card on ON THE FIELD (`lab-door.ts`).
+ * clicks.
  */
 export function bindRubLab(): void {
   const asked = initialLab();

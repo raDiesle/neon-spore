@@ -175,8 +175,6 @@ function comboChoice(first: string, pick: (key: string) => void): HTMLElement[] 
 /**
  * The lab reopened where the URL left it
  * (`place.ts`'s `lab`, as `COMBO_LAB` and the combo): `?combolab=partner`, `?combolab=plug`.
- *
- * Its door in the topbar opens its card on ON THE FIELD (`lab-door.ts`).
  */
 export function bindComboLab(): void {
   const asked = initialLab();

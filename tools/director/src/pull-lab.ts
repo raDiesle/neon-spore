@@ -175,8 +175,6 @@ export function openPullLab(
  * sheet — a reload stays on the lab, and `bun run shot` photographs either with
  * no clicks. Run after every sheet has restored itself, so the lab opens over
  * the page it was opened from.
- *
- * Its door in the topbar opens its card on ON THE FIELD (`lab-door.ts`).
  */
 export function bindPullLab(): void {
   const asked = initialLab();

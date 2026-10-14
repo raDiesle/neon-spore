@@ -44,7 +44,6 @@ export function labCards(
     if (!key) return [];
     const host = document.createElement("div");
     host.className = "field-lab";
-    host.dataset.lab = kind; // what a topbar door scrolls to (`lab-door.ts`)
     whenSeen(host, () => LABS[kind](key, host));
     return [host];
   });

@@ -183,8 +183,6 @@ export function openHoldLab(first = "2", opts: { sheet?: boolean; host?: HTMLEle
  * (`place.ts`'s `lab`, as `HOLD_LAB` and the beats): `?holdlab=<beats>`,
  * `&holdsheet=1` on its sheet — so a reload stays on the lab and `bun run
  * shot` photographs either with no clicks.
- *
- * Its door in the topbar opens its card on ON THE FIELD (`lab-door.ts`).
  */
 export function bindHoldLab(): void {
   const asked = initialLab();

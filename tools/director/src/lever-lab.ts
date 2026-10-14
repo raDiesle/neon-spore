@@ -166,8 +166,6 @@ export function openLeverLab(first = "grip", opts: { host?: HTMLElement } = {}):
  * The lab reopened where the URL left it (`place.ts`'s `lab`, as
  * `LEVER_LAB` and its setup): `?leverlab=grip-down-one-2`, so a reload stays
  * on the lab and `bun run shot` photographs it with no clicks.
- *
- * Its door in the topbar opens its card on ON THE FIELD (`lab-door.ts`).
  */
 export function bindLeverLab(): void {
   const asked = initialLab();

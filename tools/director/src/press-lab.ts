@@ -188,8 +188,6 @@ export function openPressLab(
  * (`place.ts`'s `lab`, as `PRESS_LAB` and its presses): `?presslab=5`,
  * `&presssheet=1` on its sheet — so a reload stays on the lab and `bun run
  * shot` photographs either with no clicks.
- *
- * Its door in the topbar opens its card on ON THE FIELD (`lab-door.ts`).
  */
 export function bindPressLab(): void {
   const asked = initialLab();
