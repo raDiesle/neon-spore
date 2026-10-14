@@ -39844,3 +39844,16 @@ Bottleneck: wave numbers are written down by hand in a spec table and four tests
 Bottleneck: none to speak of — the glance is one call, and the wiring round it is the same six files every time.
 
 *Measured: 5 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-14 — THE FLUE: a part that turns, so it is seen from a new side
+
+- reading: 5 min. The flue's drawing in its hung frame, the segment's and
+  the tally's local frames, and the BOSSES sheet, which had no FLUE pose.
+- writing: 15 min. The whole flue turned about the sight first, then each
+  unit about its own middle with the turn rippling along it; THE FLUE · LIT
+  posed, and `OWED` one shorter.
+- looking: 10 min. `versus:shot flue:glance cock` twice, cropped.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: the first answer — the whole flue turned about its sight — ran its near end off the screen, since a part as wide as the field has no room to open.

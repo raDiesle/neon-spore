@@ -10689,6 +10689,17 @@ whether the beam's prime is learnable, is the owner's eye.
 
 **What is not built — a step seen from another side** (suggested 10 October 2026, after the owner on THE BASTION: *very 3 dimensional and even user action is 3d to rotate*). The vent turns and the ember runs round behind its curve; the one who sees it calls it as it comes round, the other fires as it crosses the front.
 
+**Offered (14 October 2026, VERSUS `flue:glance`).** The flue's flesh is the
+part that turns: every unit yaws about its own middle
+(`packages/render/src/flue-glance.ts`), its level's lobe with it, the near
+flank opening and the far one closing into the dark and back, and the turn
+runs along the body a little behind from unit to unit, so the flue ripples end
+to end. The whole flue turned about the sight was tried first and dropped: it
+spans the field, so its near end ran off the screen. The gullet, the spore,
+the sight, the scale and the glass stay where they hang, so the call keeps its
+moment. It ships still, and VERSUS offers **SWAY**, **LOOK** and **COCK** at
+0.36 of a unit's radius on THE FLUE · LIT, posed for it.
+
 
 ## 11.58 THE GOVERNOR — a needle each of you taps on your own mark
 

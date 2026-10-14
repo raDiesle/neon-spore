@@ -5,6 +5,7 @@ import { CAIRN_GLANCE, CAIRN_GLANCE_SIZE } from "../src/cairn-glance.js";
 import { CAPSTAN_GLANCE, CAPSTAN_GLANCE_SIZE } from "../src/capstan-glance.js";
 import { CURTAIN_GLANCE, CURTAIN_GLANCE_SIZE } from "../src/curtain-glance.js";
 import { FLEET_GLANCE, FLEET_GLANCE_SIZE } from "../src/fleet-glance.js";
+import { FLUE_GLANCE, FLUE_GLANCE_SIZE } from "../src/flue-glance.js";
 import { GALL_GLANCE, GALL_GLANCE_SIZE } from "../src/gall-glance.js";
 import { GIMBAL_GLANCE, GIMBAL_GLANCE_SIZE } from "../src/gimbal-glance.js";
 import { type Glance, glancedPoint, glanceFrame, glanceStill } from "../src/glance.js";
@@ -119,6 +120,7 @@ const ROWS: readonly Row[] = [
   { name: "THE RATCHET", record: RATCHET_GLANCE, size: RATCHET_GLANCE_SIZE, hold: 0 },
   { name: "THE GALL", record: GALL_GLANCE, size: GALL_GLANCE_SIZE, hold: 0 },
   { name: "THE TRAPEZE", record: TRAPEZE_GLANCE, size: TRAPEZE_GLANCE_SIZE, hold: 0 },
+  { name: "THE FLUE", record: FLUE_GLANCE, size: FLUE_GLANCE_SIZE, hold: 0 },
 ];
 
 const R = 100;

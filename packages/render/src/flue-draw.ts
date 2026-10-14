@@ -11,6 +11,7 @@ import { drawFlueCard } from "./flue-card.js";
 import { drawFlueStrings } from "./flue-cords.js";
 import { drawFlueCilia, drawFlueSegment } from "./flue-flesh.js";
 import type { FlueFx } from "./flue-fx.js";
+import { drawFlueUnitGlanced } from "./flue-glance.js";
 import { drawFlueGlassGloss } from "./flue-glass.js";
 import { drawFlueFlash, drawFlueSight, drawFlueSlotGlow } from "./flue-marks.js";
 import { drawFlueMirageFluid, drawFlueMiragePhantoms } from "./flue-mirage.js";
@@ -96,11 +97,19 @@ export function drawFlue(
     // The cilia stop short of the sight's own units, where the words stand.
     if (Math.abs(k - aimed) > 1) drawFlueCilia(ctx, l, k, flueUnitAt(l, cfg, k), time);
   }
+  const mid = { x: 0, y: 0 };
   for (let k = 0; k < units; k++) {
     const at = flueUnitAt(l, cfg, k);
-    const unit = drawFlueSegment(ctx, l, k, at, hurt, time);
-    // The levels, one a lobe: cleared, lit now, or still to come (`flue-tally.ts`).
-    drawFlueTally(ctx, l, cfg, s, k, unit, at, beatPhase, fx.flare);
+    // Each unit turns about its own middle as `flue-glance.ts` says, the turn running along the flue.
+    ctx.save();
+    ctx.translate(at.x, at.y);
+    drawFlueUnitGlanced(ctx, l, k, time, (g) => {
+      const unit = drawFlueSegment(g, l, k, mid, hurt, time);
+      // The levels, one a lobe: cleared, lit now, or still to come (`flue-tally.ts`).
+      drawFlueTally(g, l, cfg, s, k, unit, mid, beatPhase, fx.flare);
+      return [unit];
+    });
+    ctx.restore();
   }
   const slot = flueSlotPath(l, cfg);
   drawGullet(ctx, slot, l);

@@ -8,7 +8,9 @@ import { bossPose } from "./poses-bosses-kit.js";
  * stay on `OWED` (`test/boss-states.test.ts`) — but for THE PLUMB's bleed
  * and THE SLING's cool, each row 11's look, played to by its own hand: every
  * step answered, both thumbs up after the last shot. THE TRAPEZE's swing
- * coming down on its ropes, and its first level pushed by its own hand.
+ * coming down on its ropes, and its first level pushed by its own hand. THE
+ * FLUE's first level lit, the spore running its gullet — the still its turn
+ * is offered on (`flue-glance.ts`).
  */
 export const MECHANISM_POSES: Pose[] = [
   bossPose(
@@ -65,6 +67,15 @@ export const MECHANISM_POSES: Pose[] = [
       hand: trapezeHand,
       hold: TPB * 6,
       lookAt: "the gauge under the arc — whether it reads as how high the swing goes",
+    },
+  ),
+  bossPose(
+    "flue",
+    "lit",
+    "The spore runs the flue's gullet toward the sight. P1 sees it and calls the shot; P2 waits on the trigger.",
+    {
+      hold: Math.round(TPB * 1.5),
+      lookAt: "the flue end to end — whether it reads as one long body or as a row of units",
     },
   ),
 ];
