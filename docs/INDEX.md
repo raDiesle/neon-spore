@@ -2648,6 +2648,7 @@ by hand never moves.
 | `packages/render/src/undertow-flesh.ts` | **What THE UNDERTOW is made of** where it comes up through the plating: the ship's own flesh |
 | `packages/render/src/undertow-clock.ts` | How long THE UNDERTOW's level has left, as a bar and as a number |
 | `packages/render/src/undertow-tap.ts` | **A thumb on a tall lobe**, either seat's |
+| `packages/render/src/undertow-glance.ts` | **THE UNDERTOW's lobes glance** — the owner, 9 and 10 October 2026: *body parts of living things turn . |
 
 ### packages/net
 

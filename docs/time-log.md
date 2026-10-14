@@ -39189,3 +39189,13 @@ Bottleneck: the mouth is small at the gullet's end, so the turn needed a magnifi
 Bottleneck: finding a tick where THE CHOIR's rub was on the field to shoot.
 
 *Measured: 6 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-14 — VERSUS offers THE UNDERTOW's lobes glancing
+
+- reading: 5 min. The entry, `undertow-draw.ts`, `undertow-lobe.ts`.
+- writing: 5 min. `undertow-glance.ts`, the lobe's draw answering its outline, the scaffold.
+- looking: 5 min. One VERSUS shot and a crop.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: a lobe's height changes as it grows, so the turn's reach is handed in per lobe rather than fixed.

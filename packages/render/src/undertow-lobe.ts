@@ -8,6 +8,7 @@ import { PALETTE } from "./palette.js";
 import { splinePath } from "./spline.js";
 import { lobePose } from "./undertow-drift.js";
 import { paintLobe } from "./undertow-flesh.js";
+import { drawUndertowGlanced } from "./undertow-glance.js";
 import { lobeHeight } from "./undertow-shape.js";
 
 /**
@@ -75,13 +76,18 @@ export function drawUndertowLobes(
     const x = tileCX(l, b.col);
     // Each leans about where it crosses the skin (`undertow-drift.ts`).
     const root = { x: x + shake + lobeShake(b, l.tile, time), y: skinY(x) };
+    // And turns about its own middle, when a glance is taken (`undertow-glance.ts`).
+    const at = { ...root, r: BASE_HALF * l.tile };
+    const tall = (h + BURIED) * l.tile;
     withOutlinePose(ctx, lobePose(cfg, b.col, h, l.tile, beat, beatPhase), root, () =>
-      drawLobe(ctx, l, root.x, root.y, h, b, time, hurt),
+      drawUndertowGlanced(ctx, at, tall, b.col, time, (g) =>
+        drawLobe(g, l, root.x, root.y, h, b, time, hurt),
+      ),
     );
   }
 }
 
-/** One lobe: a bump wide at the skin and round at the crown, breathing at its rim. */
+/** One lobe: a bump wide at the skin and round at the crown, breathing at its rim; answers its outline. */
 function drawLobe(
   ctx: CanvasRenderingContext2D,
   l: Layout,
@@ -91,7 +97,7 @@ function drawLobe(
   b: UndertowLobe,
   time: number,
   hurt: number,
-): void {
+): Path2D {
   const t = l.tile;
   const top = skin - tiles * t;
   const base = skin + BURIED * t;
@@ -108,4 +114,5 @@ function drawLobe(
   const path = splinePath([...side(-1), { x, y: top }, ...side(1).reverse()], true);
   paintLobe(ctx, path, { x, top, skin, hw: foot, tile: t }, lobeColour(b), b.stage === "tall");
   drawHurt(ctx, path, hurt);
+  return path;
 }

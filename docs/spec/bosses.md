@@ -11853,6 +11853,14 @@ beam's own beat, with a clamp sent the beat before
 same kind of thing, and so is whether a ring that breathes on no count reads
 as a place to wait rather than a beat to follow.
 
+**Offered (14 October 2026, VERSUS `undertow:glance`).** All that is seen of
+THE UNDERTOW is its lobes, so each lobe turns (`packages/render/src/undertow-glance.ts`,
+which ships still) **about the line up its middle** — its column, which the
+answer and the tap are judged by — rolling about where it leaves the skin, so
+its foot stays in the parted plate; the far side narrows into the dark, and two
+standing never turn as one. **SWAY**, **LOOK** and **COCK**
+(`glance-styles.ts`), judged on `THE UNDERTOW · ONE`.
+
 ## 11.21 THE ORRERY — three orbits, and neither of you can see all three
 
 **Built and taken out.** It shipped and the owner removed it on 25 September

@@ -110,6 +110,8 @@ export const CLOCK_BOSS_POSES: Pose[] = [
       want: (w) => w.boss?.kind === "undertow" && w.boss.lobes.some((b) => b.stage === "tall"),
       hold: 12,
       budgetBeats: 24,
+      lookAt:
+        "the lobe up through the plating — whether it turns toward one side about its middle, its far side going dark",
     },
   ),
   bossPose(

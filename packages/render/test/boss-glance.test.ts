@@ -22,6 +22,7 @@ import { REPRISE_GLANCE, REPRISE_GLANCE_SIZE } from "../src/reprise-glance.js";
 import { SPLICE_GLANCE, SPLICE_GLANCE_SIZE } from "../src/splice-glance.js";
 import { STARE_GLANCE, STARE_GLANCE_SIZE } from "../src/stare-glance.js";
 import { THROAT_GLANCE, THROAT_GLANCE_SIZE } from "../src/throat-glance.js";
+import { UNDERTOW_GLANCE, UNDERTOW_GLANCE_SIZE } from "../src/undertow-glance.js";
 import { VANE_GLANCE, VANE_GLANCE_SIZE } from "../src/vane-glance.js";
 import { WARDEN_GLANCE, WARDEN_GLANCE_SIZE } from "../src/warden-glance.js";
 import { WELL_GLANCE, WELL_GLANCE_SIZE } from "../src/well-glance.js";
@@ -66,6 +67,7 @@ const ROWS: readonly Row[] = [
   { name: "THE STARE", record: STARE_GLANCE, size: STARE_GLANCE_SIZE, hold: 0 },
   { name: "THE BATON", record: BATON_GLANCE, size: BATON_GLANCE_SIZE, hold: 0 },
   { name: "THE THROAT", record: THROAT_GLANCE, size: THROAT_GLANCE_SIZE, hold: 0 },
+  { name: "THE UNDERTOW", record: UNDERTOW_GLANCE, size: UNDERTOW_GLANCE_SIZE, hold: 0 },
 ];
 
 const R = 100;
