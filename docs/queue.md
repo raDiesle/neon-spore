@@ -328,14 +328,6 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/skipped.test.ts` holds the listing's count of the entries
 `next` stepped past and why.
 
-## THE RATCHET: a part that turns, so it is seen from a new side
-
-- **Found:** 2026-10-10, claude/turn-queue-and-perspective-ideas
-- **Taken:** 2026-10-14, claude/task-queue-work-2770bc (claim: claude/queue-the-ratchet-a-part-that-turns-so-it-is-seen-from)
-- **Files:** `packages/render/src/ratchet-draw.ts`, `packages/render/src/ratchet-shape.ts`, `docs/spec/bosses.md`
-
-The owner, 9 and 10 October 2026, after THE INSTAR's head glances: *body parts of living things turn, especially the head, but also feet and hands, or if mechanical the full boss shape*, and one entry per boss. Read §11.38, pick the part — a head, claws, a turret, or the whole shape of a machine — and follow `.claude/skills/depth`, "A part that glances": a record for its turn that ships still, the far side darkening as it swings, the points a thumb is on held (or the hit test reading the same turn), big enough to see in a still. Offer SWAY, LOOK and COCK on VERSUS as THE INSTAR's were, each cycle six seconds; the owner decides there.
-
 ## THE NETTLE: a part that turns, so it is seen from a new side
 
 - **Found:** 2026-10-10, claude/turn-queue-and-perspective-ideas
@@ -836,3 +828,15 @@ The file is at 250 lines after THE LEAD's glance wrapped its mound and stalk
 is a subject of its own and does not touch the body: move it to
 `lead-flights.ts`, imported by `drawLead`. Prove with
 `bun test packages/render` and `bun run check`.
+
+## `ratchet-parts.ts` sits on the line ceiling
+
+- **Found:** 2026-10-14, claude/queue-the-ratchet-a-part-that-turns-so-it-is-seen-from
+- **Files:** `packages/render/src/ratchet-parts.ts`
+
+The file is at 250 lines after THE RATCHET's glance carried the pawl's tip
+with the rack (14 October 2026), and the next line added to it fails
+`limits.test.ts`. The catch — `drawRatchetCatch` and `ratchetCatchBar`, the
+navigator's half, read by `ratchet-stop.ts` and the grip — is a subject of its
+own and touches neither the rack nor the pawl: move both to
+`ratchet-catch.ts`. Prove with `bun test packages/render` and `bun run check`.

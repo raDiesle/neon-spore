@@ -7979,6 +7979,16 @@ to both seats.
 
 **What is not built.** The guide is prose. **And a step seen from another side** (suggested 10 October 2026, after the owner on THE BASTION: *very 3 dimensional and even user action is 3d to rotate*): The wheel tips over and the pawl swings to its other side, and for that step the seats swap — the one who set the catch presses the pawl.
 
+**Offered (14 October 2026, VERSUS `ratchet:glance`).** A machine, so what
+moves in it turns: the rack of plates and its spring yaw together about the
+rack's own column, centred on the seam the pawl bears on
+(`packages/render/src/ratchet-glance.ts`), inside a strut that stands still.
+The far halves close into the dark and back; the pawl's tip follows its
+shoulder, and a bolt meets the plates where they are drawn, while the lock,
+the catch and the pawl's pad stay where a thumb has them. It ships still, and
+VERSUS offers **SWAY**, **LOOK** and **COCK** at two fifths of the widest
+plate's half-width on THE RATCHET · WORK.
+
 **Never watched at tempo.** What the tests say is the mechanism
 (`sim/test/ratchet.test.ts`): the rack comes in with seven teeth and lights
 its first pawl after the still; a press with the catch set climbs clean and

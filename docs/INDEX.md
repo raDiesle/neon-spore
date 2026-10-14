@@ -1753,6 +1753,7 @@ by hand never moves.
 | `packages/render/src/ratchet-story.ts` | **THE RATCHET's story between the teeth, drawn** (§22): the rack sagging, the pawl kicked, the teeth grinding with sparks, the spring wound back |
 | `packages/render/src/ratchet-stop.ts` | Where a bolt meets THE RATCHET: the loose bolt in either colour, else the rack, pawl, jaws and catch through the fold |
 | `packages/render/src/ratchet-grip.ts` | **The two thumbs on THE RATCHET**: half two of the look lane |
+| `packages/render/src/ratchet-glance.ts` | **THE RATCHET glances**: the rack and its spring turn about their column, offered on VERSUS `ratchet:glance` |
 | `packages/render/src/ratchet-blow.ts` | **THE RATCHET's own blows at the hull** (`boss-strike-look.ts`): the jam shoots the rack's head plate down the strut; the loose bolt is driven home |
 | `packages/render/src/ratchet-bolt.ts` | **THE RATCHET's loose bolt**, thrown from under the lock and falling down its column to the hull: its size |
 | `packages/render/src/ratchet-marks.ts` | **THE RATCHET's catch and pawl answering a touch the way every mark does** (`mark-feedback.ts` |

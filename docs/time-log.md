@@ -39435,3 +39435,15 @@ Bottleneck: choosing a pivot that leaves the knob and the line's foot where a th
 Bottleneck: finding every point that reads a shell's edge — the staple and the bolt stop — so none was left behind the turn.
 
 *Measured: 7 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-14 — THE RATCHET: a part that turns, so it is seen from a new side
+
+- reading: 5 min. `ratchet-draw.ts`, `ratchet-shape.ts`, the pawl's arm in
+  `ratchet-parts.ts` and `ratchet-stop.ts`, to find what a thumb is on.
+- writing: 10 min. The record about the rack's column, the pawl's tip and the
+  bolt's stop read through it, three candidates, the pose's lookAt, the spec note.
+- looking: 5 min. Two shots; the first turn was too small on a narrow rack, raised to 0.4.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: a narrow rack needs a larger share of its width before a still shows the turn.

@@ -10,6 +10,7 @@ import {
 } from "./core-stop.js";
 import type { Layout } from "./layout.js";
 import { RATCHET_BOLT, ratchetBoltAt } from "./ratchet-bolt.js";
+import { ratchetGlancedPoint } from "./ratchet-glance.js";
 import { ratchetCatchBar, ratchetJaws, ratchetPawlArm } from "./ratchet-parts.js";
 import { ratchetFoldScale } from "./ratchet-pose.js";
 import { type Point, ratchetLock, ratchetPlatePoints } from "./ratchet-shape.js";
@@ -50,6 +51,7 @@ export function ratchetStopper(
   catchShown: boolean,
   beat: number,
   beatPhase: number,
+  time: number,
 ): Stopper {
   const cfg = world.cfg;
   const lock = ratchetLock(l, cfg);
@@ -69,8 +71,14 @@ export function ratchetStopper(
     );
   const feet: Foot[] = [];
   for (let i = 0; i < RATCHET_TEETH; i++)
-    feet.push(outlineFoot(ratchetPlatePoints(l, cfg, i, rack.top).map((p) => lay(p, rack.shake))));
-  const arm = ratchetPawlArm(l, cfg, rack.bears, rack.lift);
+    feet.push(
+      outlineFoot(
+        ratchetPlatePoints(l, cfg, i, rack.top).map((p) =>
+          lay(ratchetGlancedPoint(l, cfg, time, p), rack.shake),
+        ),
+      ),
+    );
+  const arm = ratchetPawlArm(l, cfg, rack.bears, rack.lift, time);
   const pivot = lay(arm.pivot);
   feet.push(rodFoot(pivot, lay(arm.tip), arm.half * k.x));
   feet.push(roundFoot(pivot.x, pivot.y, arm.hub * k.x, arm.hub * k.y));

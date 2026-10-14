@@ -55,6 +55,9 @@ import { PULSE_SWAY } from "./pulse-glance/sway/index.js";
 import { QUEEN_COCK } from "./queen-glance/cock/index.js";
 import { QUEEN_LOOK_AROUND } from "./queen-glance/look/index.js";
 import { QUEEN_SWAY } from "./queen-glance/sway/index.js";
+import { RATCHET_COCK } from "./ratchet-glance/cock/index.js";
+import { RATCHET_LOOK_AROUND } from "./ratchet-glance/look/index.js";
+import { RATCHET_SWAY } from "./ratchet-glance/sway/index.js";
 import { REPRISE_COCK } from "./reprise-glance/cock/index.js";
 import { REPRISE_LOOK_AROUND } from "./reprise-glance/look/index.js";
 import { REPRISE_SWAY } from "./reprise-glance/sway/index.js";
@@ -151,6 +154,9 @@ export const VARIANTS: Variant[] = [
   SINEW_COCK,
   SINEW_LOOK_AROUND,
   SINEW_SWAY,
+  RATCHET_COCK,
+  RATCHET_LOOK_AROUND,
+  RATCHET_SWAY,
   SPLICE_COCK,
   SPLICE_LOOK_AROUND,
   SPLICE_SWAY,

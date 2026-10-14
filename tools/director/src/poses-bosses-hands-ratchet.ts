@@ -22,7 +22,10 @@ export const RATCHET_POSES: Pose[] = [
     "ratchet",
     "work",
     "A pawl lit and the window open. P2 holds the catch and says set; P1 presses the pawl.",
-    { hold: 6 },
+    {
+      hold: 6,
+      lookAt: "the rack turning in its strut — its teeth swinging toward the pawl and away",
+    },
   ),
   bossPose(
     "ratchet",

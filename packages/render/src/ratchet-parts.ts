@@ -9,6 +9,7 @@ import { strokeGlow } from "./glow.js";
 import { rgba } from "./hex.js";
 import type { Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
+import { ratchetGlancedPoint } from "./ratchet-glance.js";
 import {
   type Point,
   ratchetBarAt,
@@ -133,9 +134,10 @@ export function drawRatchetPawl(
   s: RatchetState,
   bears: number,
   lift: number,
+  time: number,
   pad: boolean,
 ): void {
-  const { pivot, tip } = ratchetPawlArm(l, cfg, bears, lift);
+  const { pivot, tip } = ratchetPawlArm(l, cfg, bears, lift, time);
   const arm = new Path2D();
   arm.moveTo(pivot.x, pivot.y);
   arm.lineTo(tip.x, tip.y);
@@ -214,8 +216,8 @@ export function ratchetJaws(
 }
 
 /**
- * The pawl's arm, from its pivot to the tip resting on tooth `bears`'s
- * shoulder and `lift` off it, and the half-thickness it is drawn at and the
+ * The pawl's arm, from its pivot to the tip on tooth `bears`'s shoulder as the
+ * rack's turn at `time` carries it, `lift` off it, its half-thickness and the
  * hub's radius: drawn there and met there (`ratchet-stop.ts`).
  */
 export function ratchetPawlArm(
@@ -223,10 +225,13 @@ export function ratchetPawlArm(
   cfg: SimConfig,
   bears: number,
   lift: number,
+  time: number,
 ): { pivot: Point; tip: Point; half: number; hub: number } {
   const pivot = ratchetPawl(l, cfg);
   const seam = ratchetPawlY(l);
-  const rest = ratchetShoulder(l, cfg, bears, seam - (bears + 1) * ratchetStep(l));
+  // The tip bears on the shoulder where the rack's turn has carried it (`ratchet-glance.ts`).
+  const shoulder = ratchetShoulder(l, cfg, bears, seam - (bears + 1) * ratchetStep(l));
+  const rest = ratchetGlancedPoint(l, cfg, time, shoulder);
   const side = Math.sign(pivot.x - rest.x) || 1;
   const out = Math.min(1, lift);
   const up = Math.max(0, lift - 1);

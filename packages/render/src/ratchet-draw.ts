@@ -10,6 +10,7 @@ import { litBox } from "./key-light.js";
 import type { Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
 import { RATCHET_BOLT, ratchetBoltAt } from "./ratchet-bolt.js";
+import { drawRatchetGlanced } from "./ratchet-glance.js";
 import { drawRatchetHalos, drawRatchetVerdicts } from "./ratchet-marks.js";
 import {
   drawRatchetCatch,
@@ -116,15 +117,21 @@ export function drawRatchet(
   // The bind shakes the rack and its spring alone: the pad and the catch are
   // marks a thumb is on, and stay put under THE SLOW (`ratchet-story.ts`).
   ctx.translate(shake, 0);
-  drawRatchetSpring(ctx, l, cfg, top, ratchetCoils(s, cfg, beat, beatPhase));
-  for (let i = 0; i < RATCHET_TEETH; i++) {
-    RATCHET_PLATE.paint(ctx, l, world, i, top, i + 1 <= rise + 1e-6, fx.hurt.value, time);
-  }
+  // The rack turns about its column, where a look takes one (`ratchet-glance.ts`).
+  drawRatchetGlanced(ctx, l, cfg, time, (g) => {
+    drawRatchetSpring(g, l, cfg, top, ratchetCoils(s, cfg, beat, beatPhase));
+    const plates: Path2D[] = [];
+    for (let i = 0; i < RATCHET_TEETH; i++) {
+      RATCHET_PLATE.paint(g, l, world, i, top, i + 1 <= rise + 1e-6, fx.hurt.value, time);
+      plates.push(ratchetPlatePath(l, cfg, i, top));
+    }
+    return plates;
+  });
   ctx.translate(-shake, 0);
   const bears = Math.max(0, Math.min(RATCHET_TEETH - 1, Math.round(rise) - 1));
   const lift = ratchetPawlLift(s, cfg, beat, beatPhase) + ratchetKickLift(s, cfg, beat, beatPhase);
   drawRatchetHalos(ctx, l, cfg, s, time);
-  drawRatchetPawl(ctx, l, cfg, s, bears, lift, showsRatchetPawl(l.role));
+  drawRatchetPawl(ctx, l, cfg, s, bears, lift, time, showsRatchetPawl(l.role));
   drawRatchetSparks(ctx, l, cfg, grind, beatPhase);
   if (fx.click > 0) drawClick(ctx, l, world, fx.click);
   drawRatchetLock(ctx, l, cfg, s, fold);
@@ -135,7 +142,7 @@ export function drawRatchet(
   if (ratchetLoose(s)) drawBolt(ctx, l, world, s, beat, beatPhase);
   const rack = { top, shake, fold, bears, lift };
   const shown = showsRatchetCatch(l.role);
-  stops?.aim(ratchetStopper(l, world, s, rack, shift, shown, beat, beatPhase));
+  stops?.aim(ratchetStopper(l, world, s, rack, shift, shown, beat, beatPhase, time));
 }
 
 /** What the drawer needs of the transients, taken as an interface so this page
