@@ -40745,3 +40745,5 @@ writing; the edits wanted one TypeScript script from the start.
 Bottleneck: reading — THE QUEEN's marks could not take the drop without
 hiding the mark the ring was put outside of, so she was put to the owner
 rather than converted.
+
+*Measured: 26 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*

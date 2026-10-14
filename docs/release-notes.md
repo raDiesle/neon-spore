@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-14 · 5f20ebb08 — THE GAUGE's band and THE HIVE's lobes hold the HOLD LAB's drop
+
+THE GAUGE's band, once wound, is the HOLD LAB's drop at the rim, sunk under the navigator's thumb, and its cue draws no second one. Each swelling lobe of THE HIVE is a drop too, filling with water as the pinch goes on, in place of the ring and its dial; the haul's dial stays. THE QUEEN's marks are put to the owner: her ring stands outside the half-buried mark on purpose.
+
 ## 2026-10-14 · fb3a5810d — Every boss but two glances: COCK most, SWAY and LOOK where they fit
 
 The owner, 14 October 2026, liked COCK best on THE BATON, THE CAIRN and THE CAPSTAN, liked every glance offered, and left the choice for the rest to the lane. Thirty-seven bosses now cock as they turn. THE PLUMB, THE SLING, THE TRAPEZE, THE CURTAIN, THE UNDERTOW and THE LEAD sway, being things that hang or flow. THE OCULUS, THE STARE and THE TASTER look side to side. THE BATON's knuckles and THE CAIRN's pile turn half again as far as offered, since THE BATON's was barely seen. THE GIMBAL sways at a third of its offered size, the most its rings allow and still stay in the grab and the true band. THE ANTIPHON and THE BASTION are being taken in their own lanes.
