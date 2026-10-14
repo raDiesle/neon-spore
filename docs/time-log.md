@@ -40442,3 +40442,5 @@ caches that assumed there was only ever one.
 
 Bottleneck: the registrations — the typecheck found half and the other half
 was sixteen red tests, one table each.
+
+*Measured: 23 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*

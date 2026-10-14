@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-14 · 74a97149a — THE CHRYSALIS: a living cocoon peeled one skin at a time (simulation)
+
+THE BASTION's idea on a body that is alive, as the owner asked: a cocoon in four skins, each two courses deep, eight steps in all. Each seat rubs the slime off its own half, then pulls its spikes out along their lines; the shield throws a swelling sac's spores back; and only the pilot sees the heart, slides the cannon under it and says its colour for the navigator to fire. A skin run out grows back whole, and nothing hits the hull.
+
 ## 2026-10-14 · f990dd0af — THE INSTAR's head loses the hairline down its snout
 
 The face-on head was drawn whole twice, once under each half's clip, and where the two clips met a thin line ran down the face plate between the eyes. It is now drawn once onto the glance's own layer and laid down a half at a time, as every other turning boss part is.
