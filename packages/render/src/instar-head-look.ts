@@ -5,8 +5,8 @@ import { drawTurnedHead } from "./instar-turn.js";
 
 /**
  * **THE INSTAR's head, as the one record every view draws it through**: the
- * face-on view's turned head (`drawTurnedHead` over `drawFrontHead`'s two
- * halves) and the profile's (`drawQuarterHead`). A record so VERSUS can offer
+ * face-on view's turned head (`drawTurnedHead` over `drawFrontHead`, laid
+ * down a half at a time) and the profile's (`drawQuarterHead`). A record so VERSUS can offer
  * another head in both at once; the draw paths call `INSTAR_HEAD.front` and
  * `.side` every frame and never the drawings directly.
  *
@@ -48,6 +48,6 @@ export function drawInstarFront(ctx: CanvasRenderingContext2D, look: Look): void
     look.head,
     look.r,
     { fade: look.fade, side: look.f.side, time: look.time },
-    (half) => drawFrontHead(ctx, look, half),
+    (g) => drawFrontHead(g, look),
   );
 }

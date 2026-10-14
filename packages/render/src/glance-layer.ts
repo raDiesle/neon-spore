@@ -1,3 +1,4 @@
+import { bakedCache } from "./baked.js";
 import { type GlanceFrame, glanceSqueeze, middleShift } from "./glance.js";
 import { rgba } from "./hex.js";
 import { SHADOW } from "./solid-tube-light.js";
@@ -60,11 +61,21 @@ function inverse(m: Matrix): Matrix {
   };
 }
 
-let scratch: HTMLCanvasElement | null = null;
+/**
+ * The one scratch canvas, held as baked work so whatever empties the sprite
+ * caches empties it too: a test that swaps the stub canvas for Skia's
+ * (`pixel-harness.ts`) must not be handed a stub's layer to blit, which is
+ * what THE INSTAR's pixel test was handed once its head was laid down here.
+ */
+const SCRATCH = bakedCache<"layer", HTMLCanvasElement>();
 
 /** The scratch canvas, at least `w` by `h`. */
 function layerOf(w: number, h: number): HTMLCanvasElement {
-  scratch ??= document.createElement("canvas");
+  let scratch = SCRATCH.get("layer");
+  if (scratch === undefined) {
+    scratch = document.createElement("canvas");
+    SCRATCH.set("layer", scratch);
+  }
   if (scratch.width < w) scratch.width = w;
   if (scratch.height < h) scratch.height = h;
   return scratch;

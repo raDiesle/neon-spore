@@ -17,8 +17,11 @@ import { mixHex } from "./hex.js";
  * has; the caller lays the fade on as `globalAlpha` instead, which composites
  * the same.
  *
- * Rebuilt when the context changes, as `gradient-slot.ts` is, so a gradient
- * is never used on a canvas other than the one that made it.
+ * Held per context, so a gradient is never used on a canvas other than the
+ * one that made it. Until 14 October 2026 it was emptied whenever the context
+ * changed, as `gradient-slot.ts` is — and once THE INSTAR's head was drawn
+ * onto the glance's own layer (`glance-layer.ts`), its horns' tubes changed it
+ * twice a frame and the body's light was baked again every frame.
  */
 
 export const SHADOW = "#0B1024";
@@ -55,7 +58,18 @@ const SPEC_FROM = 0.55;
 const SPEC_TO = 0.65;
 const GRADIENTS = bakedCache<string, CanvasGradient>();
 
-let owner: CanvasRenderingContext2D | undefined;
+/** A number per context, which leads every key: the layer and the screen hold their own. */
+const OWNERS = new WeakMap<CanvasRenderingContext2D, number>();
+let owners = 0;
+
+function ownerOf(ctx: CanvasRenderingContext2D): number {
+  let n = OWNERS.get(ctx);
+  if (n === undefined) {
+    n = ++owners;
+    OWNERS.set(ctx, n);
+  }
+  return n;
+}
 
 /** The gradient across a section lit as `ring` is, from 0 (its right) to 1 (its left), opaque. */
 export function sectionGradient(
@@ -66,11 +80,7 @@ export function sectionGradient(
   const { across, facing } = ringSection(ring);
   const qa = Math.round(across * LIGHT_STEPS);
   const qf = Math.round(facing * LIGHT_STEPS);
-  const key = `${skin.base}${skin.lift}${skin.sheen}|${qa}|${qf}`;
-  if (owner !== ctx) {
-    owner = ctx;
-    GRADIENTS.clear();
-  }
+  const key = `${ownerOf(ctx)}|${skin.base}${skin.lift}${skin.sheen}|${qa}|${qf}`;
   let g = GRADIENTS.get(key);
   if (g) return g;
   if (GRADIENTS.size >= HELD) GRADIENTS.clear();

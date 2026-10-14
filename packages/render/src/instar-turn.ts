@@ -1,6 +1,7 @@
 import { FRONT, see, view } from "@neon-spore/content";
 import { smoothstep } from "./ease.js";
-import { drawGlanced, type GlanceFrame, glancedPoint } from "./glance.js";
+import { type GlanceFrame, glancedPoint } from "./glance.js";
+import { drawGlancedLayer } from "./glance-layer.js";
 import { INSTAR_GLANCE } from "./instar-glance.js";
 import type { Point } from "./instar-place.js";
 
@@ -100,8 +101,11 @@ export function turnedHeadPoint(head: Point, r: number, turn: HeadTurn, p: Point
 }
 
 /**
- * The head `draw` draws about `head`, turned: once for each half, clipped at
- * the snout and squeezed or opened about it, so each eye stays where it was.
+ * The head `draw` draws about `head`, turned: drawn once onto the context it
+ * is handed and laid down a half at a time, clipped at the snout and squeezed
+ * or opened about it, so each eye stays where it was. Drawn twice under two
+ * clips, it left a hairline down the snout where the halves met
+ * (`glance-layer.ts`; fixed 14 October 2026).
  * The far half — the one the snout has swung toward — goes into the cool dark
  * toward its edge over the plates `draw` answers with, as dark as the swing
  * is wide up to the turn's own. `side` swings the snout further round, and
@@ -112,7 +116,8 @@ export function drawTurnedHead(
   head: Point,
   r: number,
   look: HeadTurn & { fade: number },
-  draw: (half: -1 | 1) => readonly Path2D[],
+  draw: (g: CanvasRenderingContext2D) => readonly Path2D[],
 ): void {
-  drawGlanced(ctx, headFrame(head, r, look), { dark: FAR_CHEEK * look.fade, full: SNOUT }, draw);
+  const shade = { dark: FAR_CHEEK * look.fade, full: SNOUT };
+  drawGlancedLayer(ctx, headFrame(head, r, look), shade, draw);
 }

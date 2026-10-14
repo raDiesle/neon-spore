@@ -328,21 +328,6 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/skipped.test.ts` holds the listing's count of the entries
 `next` stepped past and why.
 
-## THE INSTAR's turned head may show the glance's hairline
-
-- **Found:** 2026-10-13, claude/queue-tasks-159048
-- **Taken:** 2026-10-14, claude/queue-the-slings-cords-a-hold-then-a-pull-in-its-place (claim: claude/queue-the-instars-turned-head-may-show-the-glances-hai)
-- **Files:** `packages/render/src/instar-turn.ts`, `packages/render/src/glance-layer.ts`
-
-Every boss's VERSUS glance now lays its part down as one offscreen layer
-(`drawGlancedLayer`), which took away the hairline two clipped halves left
-down a part drawn in layers. THE INSTAR's head ships turning, through
-`drawTurnedHead`, and still draws it twice through `drawGlanced` — left
-alone because moving it changes a frame of the running game. Shoot the
-instar's head mid-turn, magnify the middle (`bun run crop … --zoom 4`), and
-if the line is there, it is a fix to something wrong: move it onto
-`drawGlancedLayer` with its draw taking the context `g`, as `queen.ts` does.
-
 ## A glanced part's translucent rim shows a pale tick at the middle
 
 - **Found:** 2026-10-13, claude/queue-tasks-159048

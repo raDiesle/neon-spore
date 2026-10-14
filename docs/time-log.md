@@ -40407,3 +40407,20 @@ Bottleneck: none — a small fix whose answer the queue entry had already
 written.
 
 *Measured: 3 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-14 — THE INSTAR's head loses the hairline down its snout
+
+- reading: 10 min. `glance-layer.ts`, `instar-turn.ts`, and what the head's
+  `half` left out.
+- writing: 10 min. The head on `drawGlancedLayer`, `half` taken out, the
+  tube light cache held per canvas, the layer's scratch canvas made baked work.
+- looking: 10 min. Three magnified frames to tell the seam from a ridge, and
+  the pair.
+- friction: 15 min. Four tests went red for reasons the change only exposed:
+  a light cache emptied on every change of canvas, a scratch canvas kept
+  across a test's swap of `document`, and a glob test that was counting the
+  head's gradients.
+- landing: 5 min.
+
+Bottleneck: friction — moving one draw onto a second canvas surfaced two
+caches that assumed there was only ever one.

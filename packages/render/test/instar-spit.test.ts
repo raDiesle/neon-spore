@@ -2,6 +2,7 @@ import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
 import { INSTAR_SCRIPT } from "@neon-spore/content";
 import { step } from "@neon-spore/sim";
 import { rgba } from "../src/hex.js";
+import { SPIT_LOOK } from "../src/instar-spit.js";
 import { PALETTE } from "../src/palette.js";
 import { FRAME_TIMEOUT_MS, installCanvasGlobals, runFrames } from "./frame-harness.js";
 import { acting, hung } from "./instar-kit.js";
@@ -20,7 +21,7 @@ const at = (pose: string): number => INSTAR_SCRIPT.findIndex((s) => s.pose === p
 /** A colour's strokes at any alpha, as the canvas is handed it. */
 const tint = (hex: string): string => rgba(hex, 0.5).replace(/[\d.]+\)$/, "");
 
-/** How often `what` — a colour, or a call's name — is in two frames' log. */
+/** How often the colour `what` is in two frames' log. */
 function count(cursor: number, what: string): number {
   const world = hung();
   acting(world, cursor);
@@ -31,15 +32,33 @@ function count(cursor: number, what: string): number {
     },
     onTick: (_, w) => step(w, []),
   });
-  const needle = what.startsWith("#") ? tint(what) : what;
+  const needle = tint(what);
   return log.join("|").split(needle).length - 1;
+}
+
+/** How many globs two frames draw. */
+function globs(cursor: number): number {
+  const drawn = SPIT_LOOK.glob;
+  let n = 0;
+  SPIT_LOOK.glob = (ctx, ball) => {
+    n++;
+    drawn(ctx, ball);
+  };
+  try {
+    count(cursor, PALETTE.ember);
+  } finally {
+    SPIT_LOOK.glob = drawn;
+  }
+  return n;
 }
 
 describe("THE INSTAR's second act, drawn", () => {
   it("throws globs out of the rear's mouth at its shield marks", () => {
-    // A glob is a gradient, whose stops the stub does not log: count gradients.
-    const glob = "createRadialGradient";
-    expect(count(at("rear"), glob)).toBeGreaterThanOrEqual(count(at("coil"), glob) + 2);
+    // A glob is a baked blit (`SPIT_LOOK`), so it is counted by the call that
+    // draws it. Counting radial gradients, as this did until 14 October 2026,
+    // counted the turned head's too, which made up the whole margin.
+    expect(globs(at("rear"))).toBeGreaterThanOrEqual(2);
+    expect(globs(at("coil"))).toBe(0);
   });
 
   it("shakes embers off the spread onto its suck marks", () => {

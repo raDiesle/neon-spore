@@ -74,6 +74,19 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
  * and the dive's fills fell 301 → 289, less of its body sliced at the
  * screen's edge.
  *
+ * On 14 October 2026 the face-on head was drawn once onto the glance's own
+ * layer and laid down a half at a time (`instar-turn.ts`, `glance-layer.ts`),
+ * where it had been drawn whole under each half's clip, which left a hairline
+ * down the snout. Its draws are made on the layer's canvas now, which these
+ * rows do not count — they count the screen's — so the rows fell by the head
+ * twice over: coil fills 469 → 375, strokes 433 → 313, radial gradients
+ * 41 → 25; dive 289 → 237, 236 → 184, 40 → 24; roar 474 → 376, 434 → 308,
+ * 40 → 24. The head itself is drawn once where it was drawn twice. The linear
+ * gradients fell too (coil 79 → 76, dive 56 → 51, roar 149 → 104), the
+ * head's own being made on the layer. The tube light cache is held per canvas
+ * now (`solid-tube-light.ts`): emptied on every change of canvas, as it was,
+ * the head drawn on the layer made the body bake its light again every frame.
+ *
  * Each row is the worst of each op over one beat starting a third of the way
  * into the step's morph, on a phone. Set `MEASURE` to true and run this file
  * to print the rows as they are written below (`budget-row.ts`); never
@@ -91,31 +104,31 @@ const BUDGETS: Record<string, { cursor: number; budget: Budget }> = {
   "13 coil": {
     cursor: 13,
     budget: {
-      fill: 469,
-      stroke: 433,
+      fill: 375,
+      stroke: 313,
       drawImage: 34,
-      createLinearGradient: 79,
-      createRadialGradient: 41,
+      createLinearGradient: 76,
+      createRadialGradient: 25,
     },
   },
   "15 dive": {
     cursor: 15,
     budget: {
-      fill: 289,
-      stroke: 236,
+      fill: 237,
+      stroke: 184,
       drawImage: 34,
-      createLinearGradient: 56,
-      createRadialGradient: 40,
+      createLinearGradient: 51,
+      createRadialGradient: 24,
     },
   },
   "20 roar": {
     cursor: 20,
     budget: {
-      fill: 474,
-      stroke: 434,
+      fill: 376,
+      stroke: 308,
       drawImage: 34,
-      createLinearGradient: 149,
-      createRadialGradient: 40,
+      createLinearGradient: 104,
+      createRadialGradient: 24,
     },
   },
 };

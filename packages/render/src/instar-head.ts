@@ -122,17 +122,12 @@ export function frontJaws(look: Look): { top: Point; up: Point; down: Point } {
 
 /**
  * The head face-on; it answers with its two plates, the chin and the skull,
- * for what is laid over them. With `half`, what sits wholly on the other side
- * of the snout — a horn, an eye, a nostril, a drip — is left out, for a head
- * drawn a half at a time (`instar-turn.ts`).
+ * for what is laid over them. Drawn whole and once, even turned: the turn lays
+ * the one picture down a half at a time (`instar-turn.ts`).
  */
-export function drawFrontHead(
-  ctx: CanvasRenderingContext2D,
-  look: Look,
-  half?: -1 | 1,
-): readonly Path2D[] {
+export function drawFrontHead(ctx: CanvasRenderingContext2D, look: Look): readonly Path2D[] {
   const { f, head, r, fade, hurt, time } = look;
-  const sides = half ? [half] : ([-1, 1] as const);
+  const sides = [-1, 1] as const;
   const { top, up, down } = frontJaws(look);
   const gap = (down.y - up.y) / r;
   // The horns turn with the brow's idle turn, one coming forward as the other goes back.
@@ -160,8 +155,7 @@ export function drawFrontHead(
     [-0.3, 0.5, 1],
     [0.22, 0.56, 2],
   ] as const)
-    if (!half || Math.sign(x) === half)
-      drawDrip(ctx, r2(down, r, x, y), r * 0.3, r * 0.028, time, k, fade);
+    drawDrip(ctx, r2(down, r, x, y), r * 0.3, r * 0.028, time, k, fade);
   drawSeam(ctx, r2(down, r, -0.4, 0.3), r2(down, r, 0, 0.42), r2(down, r, 0.4, 0.3), fade);
   // The mouth, lip to lip, and the throat lit by the fire in it.
   const mouth = new Path2D();
