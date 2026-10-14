@@ -39238,3 +39238,13 @@ Bottleneck: the sack already turns in depth, so the part had to be the bubbles, 
 Bottleneck: only TORN shows the core naked, and torn the curtain has no creature on the field, so the pose test had to be told why.
 
 *Measured: 9 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-14 — VERSUS offers THE TASTER's blades glancing
+
+- reading: 5 min. The entry, §11.25, `taster-draw.ts`, `taster-blade.ts`, `taster-sway.ts`.
+- writing: 5 min. `taster-glance.ts`, the blade's draw answering its outline, the scaffold.
+- looking: 5 min. One VERSUS shot and two crops.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: the fan already sways its tips, so the turn had to be a twist about each root rather than another lean.

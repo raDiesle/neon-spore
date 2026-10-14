@@ -4655,6 +4655,14 @@ ask here with a clock on it. The first beam is said since the same day: a
 
 **What is not built — a step seen from another side** (suggested 10 October 2026, after the owner on THE BASTION: *very 3 dimensional and even user action is 3d to rotate*). The crest turns and shows its back, where the blades grown in an earlier step are still set; the pair spends so the back's colours flip before they come round to the front.
 
+**Offered (14 October 2026, VERSUS `taster:glance`).** The crest spans the
+field and its notches are aimed up, so the part that turns is each blade
+standing out of it (`packages/render/src/taster-glance.ts`, which ships
+still): a knife twisted in its socket **about its root**, where the pin and
+the pry stand, the far flat narrowing into the dark, each out of step with
+its neighbours. **SWAY**, **LOOK** and **COCK** (`glance-styles.ts`), judged
+on `THE TASTER · FANNING`.
+
 
 ## 11.26 THE SINEW — the boss that asks how hard, not when
 

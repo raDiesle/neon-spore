@@ -75,7 +75,13 @@ export const CLOCK_HAND_POSES: Pose[] = [
     "taster",
     "fanning",
     "The fan is edged in the colour the pair leans on. P1 aims at a standing blade; P2 fires the other colour.",
-    { hand: tasterHand, want: tasterIs("fanning"), hold: 6 },
+    {
+      hand: tasterHand,
+      want: tasterIs("fanning"),
+      hold: 6,
+      lookAt:
+        "the blades standing out of the crest — whether each twists in its socket about its root, out of step, its far flat going dark",
+    },
   ),
   bossPose(
     "taster",

@@ -23,6 +23,7 @@ import { QUEEN_GLANCE, QUEEN_GLANCE_HOLD, QUEEN_GLANCE_SIZE } from "../src/queen
 import { REPRISE_GLANCE, REPRISE_GLANCE_SIZE } from "../src/reprise-glance.js";
 import { SPLICE_GLANCE, SPLICE_GLANCE_SIZE } from "../src/splice-glance.js";
 import { STARE_GLANCE, STARE_GLANCE_SIZE } from "../src/stare-glance.js";
+import { TASTER_GLANCE, TASTER_GLANCE_SIZE } from "../src/taster-glance.js";
 import { THROAT_GLANCE, THROAT_GLANCE_SIZE } from "../src/throat-glance.js";
 import { UNDERTOW_GLANCE, UNDERTOW_GLANCE_SIZE } from "../src/undertow-glance.js";
 import { VANE_GLANCE, VANE_GLANCE_SIZE } from "../src/vane-glance.js";
@@ -72,6 +73,7 @@ const ROWS: readonly Row[] = [
   { name: "THE UNDERTOW", record: UNDERTOW_GLANCE, size: UNDERTOW_GLANCE_SIZE, hold: 0 },
   { name: "THE GORGE", record: GORGE_GLANCE, size: GORGE_GLANCE_SIZE, hold: 0 },
   { name: "THE CURTAIN", record: CURTAIN_GLANCE, size: CURTAIN_GLANCE_SIZE, hold: 0 },
+  { name: "THE TASTER", record: TASTER_GLANCE, size: TASTER_GLANCE_SIZE, hold: 0 },
 ];
 
 const R = 100;

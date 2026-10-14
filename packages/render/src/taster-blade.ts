@@ -28,7 +28,7 @@ import { paintSteel, paintUnset } from "./taster-flesh.js";
  */
 
 /** Half the width of a blade's base, in tiles. */
-const BASE = 0.3;
+export const BLADE_BASE = 0.3;
 /** A blade at full growth, in tiles. The space over row 0 is about one deep. */
 export const BLADE_TILES = 0.92;
 
@@ -52,7 +52,7 @@ export function edgeHex(color: Color | null): { rim: string; lit: string } {
  * whetted curve rather than a triangle — a blade has a belly.
  */
 export function bladePath(x: number, y: number, tile: number, h: number, lean: number): Path2D {
-  const w = tile * BASE;
+  const w = tile * BLADE_BASE;
   const tipX = x + lean;
   const p = new Path2D();
   p.moveTo(x - w, y);
@@ -71,7 +71,7 @@ function edgePath(
   lean: number,
   inset: number,
 ): Path2D {
-  const w = tile * BASE * (1 - inset);
+  const w = tile * BLADE_BASE * (1 - inset);
   const p = new Path2D();
   p.moveTo(x - w, y - h * inset * 0.5);
   p.quadraticCurveTo(x - w * 0.8, y - h * 0.55, x + lean, y - h * (1 - inset * 0.3));
@@ -100,7 +100,8 @@ export interface BladeLook {
  * A growing blade is the same shape short and colourless, breathing — it is
  * the four beats of warning the design owes the pair before a colour is
  * decided, so it has to be visible as *not decided yet* rather than as a
- * small blade.
+ * small blade. Answers with the blade's outline, or `null` when nothing of it
+ * is drawn.
  */
 export function drawBlade(
   ctx: CanvasRenderingContext2D,
@@ -110,9 +111,9 @@ export function drawBlade(
   look: BladeLook,
   /** Wall-clock seconds, for the growing blade's shimmer alone. */
   time: number,
-): void {
+): Path2D | null {
   const h = tile * BLADE_TILES * Math.max(0.15, look.grown);
-  if (h <= 0 || look.alpha <= 0) return;
+  if (h <= 0 || look.alpha <= 0) return null;
   const body = bladePath(x, y, tile, h, look.lean);
   const hex = edgeHex(look.color);
 
@@ -128,7 +129,7 @@ export function drawBlade(
     // steel, for the reason the edge below is saturated: nothing on this crest
     // may read as an edge until it is one.
     paintUnset(ctx, body, y, h, look.alpha, (time * 0.5 + x * 0.013) % 1);
-    return;
+    return body;
   }
 
   paintSteel(
@@ -160,9 +161,10 @@ export function drawBlade(
     // bolt is the right one and the shape says it before the bolt is fired.
     const other = edgeHex(look.both);
     const back = new Path2D();
-    back.moveTo(x + tile * BASE, y);
-    back.quadraticCurveTo(x + tile * BASE * 0.5, y - h * 0.4, x + look.lean, y - h);
+    back.moveTo(x + tile * BLADE_BASE, y);
+    back.quadraticCurveTo(x + tile * BLADE_BASE * 0.5, y - h * 0.4, x + look.lean, y - h);
     strokeGlow(ctx, back, other.lit, STROKE.outline, 0.85, look.alpha);
     strokeGlow(ctx, back, other.rim, STROKE.inner, 0.45, look.alpha);
   }
+  return body;
 }

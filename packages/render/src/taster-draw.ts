@@ -8,9 +8,10 @@ import {
 import type { BoltStops } from "./bolt-stop.js";
 import { drawHurt } from "./boss-hurt.js";
 import { type Layout, tileCX, tileCY } from "./layout.js";
-import { BLADE_TILES, type BladeLook, drawBlade } from "./taster-blade.js";
+import { BLADE_BASE, BLADE_TILES, type BladeLook, drawBlade } from "./taster-blade.js";
 import { crestPath, drawSeam, NOTCH_LOOK } from "./taster-crest.js";
 import { paintGum } from "./taster-flesh.js";
+import { drawTasterGlanced } from "./taster-glance.js";
 import { drawTasterPryLight, pryLean, tasterPryOpen } from "./taster-pry.js";
 import { drawTasterNext, drawTasterTally } from "./taster-read.js";
 import { tasterStopper } from "./taster-stop.js";
@@ -182,7 +183,10 @@ export function drawTaster(
   for (let i = 0; i < fan.length; i++) {
     const look = fan[i];
     if (look === undefined) continue;
-    drawBlade(ctx, tileCX(l, t.col + i), y, l.tile, look, time);
+    // Each blade twisted in its socket, about its root (`taster-glance.ts`).
+    const root = { x: tileCX(l, t.col + i), y, r: l.tile * BLADE_BASE };
+    const span = reach + Math.abs(look.lean);
+    drawTasterGlanced(ctx, root, span, i, time, (g) => drawBlade(g, root.x, y, l.tile, look, time));
   }
 
   drawTasterNext(ctx, l, t, y, breath);

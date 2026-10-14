@@ -1569,6 +1569,7 @@ by hand never moves.
 | `packages/render/src/taster-flesh.ts` | **What THE TASTER is made of**: blades of whetted steel standing in a gum of wet flesh |
 | `packages/render/src/taster-read.ts` | **What is written about THE TASTER's fan, and which seat is shown it.** Its own file beside `taster-draw.ts` |
 | `packages/render/src/taster-grip.ts` | **THE TASTER's three thumbs on its own fan**: the pilot's pin on a blade that has not decided |
+| `packages/render/src/taster-glance.ts` | **THE TASTER's blades glance** — the owner, 9 and 10 October 2026: *body parts of living things turn . |
 | `packages/render/src/taster-sway.ts` | **THE TASTER's fan sways like a field of wheat** (`docs/spec/living-bosses.md` §1, the outline tier) |
 | `packages/render/src/taster-stop.ts` | **Where a bolt meets THE TASTER**, for `BoltStops` (`bolt-stop.ts`): the crest's underside over the bolt's x |
 | `packages/render/src/taster-marks.ts` | **THE TASTER's three thumbs answering a touch the way every mark does** (`mark-feedback.ts` |
