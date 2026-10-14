@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-14 · a18a486b1 — THE LAMPREY's tail and THE SLING's cords hold the HOLD LAB's drop
+
+THE LAMPREY's tail at rest is the HOLD LAB's drop, sunk under the holder's thumb and dimmed on the partner's screen, and its HOLD cue draws no second one; in an apart it is still the pull's knob. THE SLING's cord is the drop while its hold is asked, filling with the beats held, until the pull's knob takes its place.
+
 ## 2026-10-14 · c88066070 — A part that turns is built straight into the game, and every enemy's glance is queued
 
 The owner, 14 October 2026, said to apply movement to the rest of the game without VERSUS candidates. The depth skill and `docs/looks.md` now say a part that turns is built straight in: COCK by default, SWAY for a thing that hangs or flows, LOOK for a thing that watches. On a small enemy the turn is held to what the nameability gate allows, as he chose. No VERSUS movement entry was left in the queue to rewrite. Every enemy's glance is queued as three lanes in order: the gate measures a turned body, then every living enemy glances, then the rocks, hazards and held bodies. A fourth entry brings the spec's per-boss glance paragraphs up to what ships.
