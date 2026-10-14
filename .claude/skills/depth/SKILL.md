@@ -175,10 +175,20 @@ where a part behind it does instead.
 
 So when he names a boss and asks for its graphics to be better: find the
 part a face or a machine would turn — the head, the claws, a turret, the
-whole hull of a machine — put a record on its turn that ships still, and
-offer SWAY, LOOK and COCK for it on VERSUS (or, where he says *apply*, build
-the rotation of all three straight in). Its look of detail is
-`new-boss-more` §6.3; this is its movement.
+whole hull of a machine — and **build its turn straight into the game, never
+on VERSUS** (the owner, 14 October 2026: *apply to other elements of game
+without explicitly providing me versus candidates*; he took every boss's
+glance that day and left the choice of rhythm to the lane). **COCK is the
+default** — *in most cases the most realistic* — with SWAY for a thing that
+hangs or flows (THE PLUMB, THE SLING, THE CURTAIN) and LOOK for a thing that
+watches (THE OCULUS, THE STARE), at a size a still shows, as big as what a
+thumb or a bolt meets allows (`gimbal-glance.ts` is the worked example of
+measuring that cap). The lane lands under **a look the owner asked for by
+name**. Its look of detail is `new-boss-more` §6.3; this is its movement.
+
+**A small body is the exception that needs a number first**: on a 26 px
+creature the turn is held to what `tools/shape-sheet`'s nameability gate
+allows, so every kind stays its own word (the owner, 14 October 2026).
 
 ## The house rule still holds
 

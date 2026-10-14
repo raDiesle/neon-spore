@@ -663,7 +663,9 @@ seven colour tests hold the boss still to read it at all
 context's tally — as `new Path2D` already is — for canvases `glance-layer.ts`
 makes, remeasure the rows that move with a sentence each, and see whether
 `holdGlancesStill` can go. Prove it with the three budget files and
-`bun run check`.
+`bun run check`. **Work it before "Every living enemy glances"**: that lane
+puts every blob on the field through the same layer, and without this every
+creature colour test reads an empty log.
 
 ## Holds as the HOLD LAB's drop: THE QUEEN's marks
 
@@ -707,3 +709,69 @@ napi canvas. Find out whether THE SCOUT's two rows reach ON THE FIELD at all
 the round never carries enough to offer them), and either show them or say
 on the sheet why not; a test that every row of the bosses' field controls
 has a card proves it.
+
+## The nameability gate measures an enemy turned by its glance
+
+- **Found:** 2026-10-14, claude/creature-glance
+- **Files:** `tools/shape-sheet/src/nameability.ts`, `tools/shape-sheet/test/nameability.test.ts`
+
+The owner, 14 October 2026, wants every enemy to glance as the bosses do —
+*within the naming gate*, so each kind stays its own word. First of three
+lanes. Give `nameabilityOf` an optional glance: at each pose sample, turn the
+contour as `glance.ts` does with a `hold` of 0 — each half's x times
+`1 ∓ swing` about the centre — then roll it, across a whole COCK round
+(`glance-styles.ts`) crossed with the pose window. A turn about the centre
+leaves width, height and size alone; the roll and the lobe profile are what
+can move. Write packages/render/src/creature-glance.ts with
+`CREATURE_GLANCE` still and `CREATURE_GLANCE_SIZE` as the largest reach and
+cock (searched, not guessed) at which no pair the gate keeps apart today
+becomes confusable, and a test that holds that line. Prove it with
+`bun test tools/shape-sheet` and `bun run check`.
+
+## Every living enemy glances
+
+- **Found:** 2026-10-14, claude/creature-glance
+- **Files:** `packages/render/src/creatures.ts`, `packages/render/src/glance-layer.ts`
+
+Second of three, after "The nameability gate measures an enemy turned by its
+glance" and "The op-count budgets do not count what a glancing part draws".
+Every body the table draws with `drawLivingBody` (`creature-body.ts`) goes
+through `drawGlancedLayer` (`glance-layer.ts`) with a `hold` of 0, at
+`l.tile * 0.4` times its `sizeMul`, each creature from its own place in the
+round by its id so a crowd does not turn as one. `CREATURE_GLANCE` becomes
+`glanceOf(cock, CREATURE_GLANCE_SIZE)`. The far side's dark has no contour to
+fill, so add a `source-atop` ramp on the layer to `drawGlancedLayer` rather
+than a disc that would smear past a blob's edge. Only the body turns:
+`drawOverBody`, grips, marks and cords stay flat. Remeasure the budget rows
+that move with a sentence each. Exemption: a look the owner asked for by
+name. Send one PNG strip of a wave with several kinds. Prove it with
+`bun test packages/render` and `bun run check`.
+
+## The rest of the enemies glance: rocks, hazards and held bodies
+
+- **Found:** 2026-10-14, claude/creature-glance
+- **Files:** `packages/render/src/creature-body.ts`, `packages/render/src/creature-body-rock.ts`, `packages/render/src/creature-body-worn.ts`, `packages/render/src/creatures.ts`
+
+Third of three, after "Every living enemy glances". The bodies `EXCLUSIVE`
+routes away from `drawLivingBody` — the meteor, the torch (not its streak),
+THE COIL, the crystal, the mine, the lid, the balloon, the blister, the
+choir, the cling bodies, the magnet, the strand, the moult, the beatbox —
+glance on the same record. A rock is big and not a living word, so it may
+turn further than the gate allows a blob. Leave out the ghost and the wisp,
+which are mostly not drawn, and say so in creature-glance.ts. Check every
+body a thumb holds (`balloon-handles.ts`, `lid-string.ts`, `weight.ts`)
+still meets its handle where it is drawn. Send one PNG strip. Prove it with
+`bun test packages/render` and `bun run check`.
+
+## `docs/spec/bosses.md` still says every boss's glance ships still
+
+- **Found:** 2026-10-14, claude/creature-glance
+- **Files:** `docs/spec/bosses.md`, `docs/spec/bosses-choreographed.md`
+
+Every boss took its glance on 14 October 2026 (`tools/versus/DECIDED.md`),
+but each boss's section still reads *Offered (… VERSUS `x:glance`)* and *It
+ships still*. Rewrite each as *Taken (14 October 2026)* with the rhythm and
+size its `packages/render/src/*-glance.ts` now ships — THE ANTIPHON's is the
+pattern already written — and nothing else. Prove it with
+`grep -n "glance" docs/spec/bosses.md` showing no *ships still* and
+`bun run check`.

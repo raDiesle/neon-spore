@@ -40779,3 +40779,15 @@ Bottleneck: looking — every lever's ceiling only showed once a whole chain
 was composed, a few minutes a run.
 
 *Measured: 42 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-14 — A part that turns is built in, and the enemies' glance is queued
+
+- reading: 10 min. The depth skill, `docs/looks.md`, the queue and spec for
+  VERSUS movement still planned, and the nameability gate.
+- writing: 10 min. The two passages, and four queue entries in lane order.
+- looking: 0 min. Nothing drawn changed.
+- friction: 0 min.
+- landing: 5 min.
+
+Bottleneck: reading — the gate had to be understood before the enemy lanes
+could be cut in the right order.

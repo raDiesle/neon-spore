@@ -213,3 +213,11 @@ same way (`instar-tail-lean.ts`). A part that turns must stay on the screen
 as it turns: the tail is kept in off the edges (`instar-tail-fit.ts`). That is the worked
 example; how to build one for any boss is `.claude/skills/depth`, "A part
 that glances".
+
+**Movement is built in, not offered** (the owner, 14 October 2026). Every
+boss's glance went on VERSUS that week, he liked all of them, and he took
+them all at once — COCK on most, *in most cases the most realistic*, the
+rhythm for each left to the lane — and said to apply such movement to the
+rest of the game without VERSUS candidates. A part that turns is therefore
+built straight into the game under **a look the owner asked for by name**;
+VERSUS stays for a look that replaces one he already sees.
