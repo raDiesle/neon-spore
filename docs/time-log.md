@@ -39324,3 +39324,5 @@ Bottleneck: the head was too small to turn alone and the stalk may not tilt, so 
 - landing: 5 min. The cue and grip tests, the controls rows, the spec.
 
 Bottleneck: finding what still read the old ring (`maze-marks.ts` keeps it).
+
+*Measured: 25 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*

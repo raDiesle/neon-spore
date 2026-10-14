@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-14 · d7b4fbc02 — THE MAZE's heart wears THE RUB LAB's zigzag drop
+
+Under the grip the heart is asked for by one RUB cue on both screens — the drop every rub wears, its zigzag lit by the pair's turns together, wagging until this seat's thumb is on. The ring, the eight arrows, the green count round the room and the word SHAKE are gone; P2 TOO / P1 TOO and the waiting clock stay. A look the owner asked for by name (14 October 2026: to have less variants and consistency).
+
 ## 2026-10-14 · c5402b095 — VERSUS offers THE LEAD's body glancing
 
 On the navigator's screen THE LEAD's mound, stalk and head turn as one about the foot, the far side narrowing into the dark. They never roll: her stalk stands upright by design, and a lean there would read as the pilot's, so COCK would be SWAY and is not offered. Ships still; VERSUS `lead:glance` offers SWAY and LOOK, judged on THE LEAD · PACING. Exemption: none — a look, offered on VERSUS.
