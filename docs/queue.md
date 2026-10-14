@@ -331,6 +331,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## A wave editor save moves a wave and leaves its import behind
 
 - **Found:** 2026-10-14, claude/task-queue-work-2770bc
+- **Taken:** 2026-10-14, main (claim: claude/queue-a-wave-editor-save-moves-a-wave-and-leaves-its-i)
 - **Files:** `tools/director/src/waves-acts.ts`, `tools/director/src/waves-act-files.ts`
 
 The owner moved THE INSTAR up the list in the wave editor (`bun run dev`) and
