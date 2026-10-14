@@ -39262,3 +39262,13 @@ Bottleneck: the fan already sways its tips, so the turn had to be a twist about 
 Bottleneck: the turn on a mass this wide read faint at the shared size, so it was raised.
 
 *Measured: 4 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-14 — VERSUS offers THE LEDGER's body glancing
+
+- reading: 5 min. The entry, §11.27, `ledger-draw.ts`, `ledger-shape.ts`, the ledger poses.
+- writing: 5 min. `ledger-glance.ts`, the halves answering their outlines, the scaffold.
+- looking: 5 min. One VERSUS shot and two crops.
+- friction: 5 min. `limits.test.ts` on the poses file, trimmed by three lines.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: the poses file both glance poses went into hit its line ceiling, so it was trimmed and its split queued.

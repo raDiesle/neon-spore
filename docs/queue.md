@@ -328,14 +328,6 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/skipped.test.ts` holds the listing's count of the entries
 `next` stepped past and why.
 
-## THE LEDGER: a part that turns, so it is seen from a new side
-
-- **Found:** 2026-10-10, claude/turn-queue-and-perspective-ideas
-- **Taken:** 2026-10-14, claude/queue-the-ledger-a-part-that-turns-so-it-is-seen-from
-- **Files:** `packages/render/src/ledger-draw.ts`, `packages/render/src/ledger-shape.ts`, `docs/spec/bosses.md`
-
-The owner, 9 and 10 October 2026, after THE INSTAR's head glances: *body parts of living things turn, especially the head, but also feet and hands, or if mechanical the full boss shape*, and one entry per boss. Read §11.27, pick the part — a head, claws, a turret, or the whole shape of a machine — and follow `.claude/skills/depth`, "A part that glances": a record for its turn that ships still, the far side darkening as it swings, the points a thumb is on held (or the hit test reading the same turn), big enough to see in a still. Offer SWAY, LOOK and COCK on VERSUS as THE INSTAR's were, each cycle six seconds; the owner decides there.
-
 ## THE SURGE: a part that turns, so it is seen from a new side
 
 - **Found:** 2026-10-10, claude/turn-queue-and-perspective-ideas
@@ -910,3 +902,16 @@ on 14 October 2026). Move `NOT_ONE_BODY`, `isKind` and `subjectOf` into
 their own module under `tools/director/test/`, which the test imports, so the
 test file holds tests only and sits under ~250 lines. Prove with
 `bun test tools/director/test/versus-pose.test.ts` and `bun run check`.
+
+## `poses-bosses-hands-clocks.ts` sits on the line ceiling
+
+- **Found:** 2026-10-14, claude/queue-the-ledger-a-part-that-turns-so-it-is-seen-from
+- **Files:** `tools/director/src/poses-bosses-hands-clocks.ts`, `tools/director/src/poses.ts`
+
+The file is at 250 lines after THE TASTER's and THE LEDGER's glance poses
+took a `lookAt` each (14 October 2026), and the next lane to add a line to
+any of its six bosses fails `limits.test.ts`. Its header already says THE
+SPOOL's cards were filed here for want of room elsewhere: move THE WELL's
+three or THE SPOOL's six into their own `poses-bosses-hands-*.ts`, joined in
+`poses.ts` where the others are, with the header paragraph that explains them
+going along. Prove with `bun test tools/director` and `bun run check`.

@@ -2348,6 +2348,7 @@ by hand never moves.
 | `packages/render/src/ledger-stop.ts` | **Where a bolt meets THE LEDGER**, for `BoltStops` (`bolt-stop.ts`): the halves' underside and the seam's mouth |
 | `packages/render/src/ledger-sway.ts` | **THE LEDGER leans on its root** (`docs/spec/living-bosses.md` §1, the outline tier) |
 | `packages/render/src/ledger-grip.ts` | **The navigator's two hands on THE LEDGER's root**: the foot of the cord while it is still paying out |
+| `packages/render/src/ledger-glance.ts` | **THE LEDGER's body glances** — the owner, 9 and 10 October 2026: *body parts of living things turn . |
 | `packages/render/src/ledger-haul.ts` | **The pilot's carry on the taut cord** |
 | `packages/render/src/ledger-pull.ts` | **The pilot's two hands on THE LEDGER's cord**: his thumb on the soonest return |
 | `packages/render/src/ledger-metal.ts` | **What THE LEDGER is made of**: plating — two halves of dark metal |

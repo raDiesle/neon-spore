@@ -15,6 +15,7 @@ import {
 } from "../src/glance-styles.js";
 import { GORGE_GLANCE, GORGE_GLANCE_SIZE } from "../src/gorge-glance.js";
 import { HIVE_GLANCE, HIVE_GLANCE_SIZE } from "../src/hive-glance.js";
+import { LEDGER_GLANCE, LEDGER_GLANCE_SIZE } from "../src/ledger-glance.js";
 import { MAZE_GLANCE, MAZE_GLANCE_SIZE } from "../src/maze-glance.js";
 import { MIRROR_GLANCE, MIRROR_GLANCE_SIZE } from "../src/mirror-glance.js";
 import { PINBALL_GLANCE, PINBALL_GLANCE_SIZE } from "../src/pinball-glance.js";
@@ -76,6 +77,7 @@ const ROWS: readonly Row[] = [
   { name: "THE CURTAIN", record: CURTAIN_GLANCE, size: CURTAIN_GLANCE_SIZE, hold: 0 },
   { name: "THE TASTER", record: TASTER_GLANCE, size: TASTER_GLANCE_SIZE, hold: 0 },
   { name: "THE SINEW", record: SINEW_GLANCE, size: SINEW_GLANCE_SIZE, hold: 0 },
+  { name: "THE LEDGER", record: LEDGER_GLANCE, size: LEDGER_GLANCE_SIZE, hold: 0 },
 ];
 
 const R = 100;

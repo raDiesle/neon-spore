@@ -38,9 +38,8 @@ import { bossPose } from "./poses-bosses-kit.js";
  * THE WELL's three are here too, and its ledger is the odd one: not a count
  * the pair keeps but the angle its own face stands at, which is a clock all
  * the same and reached the same way — a hand on the one handle it has
- * (`boss-hands-well.ts`). Its fourth state, the square face it opens on, is
- * a boss standing still and is posed with the rest of those in
- * `poses-bosses-first.ts`.
+ * (`boss-hands-well.ts`). Its fourth state, the square face it opens on,
+ * stands still and is posed with the others in `poses-bosses-first.ts`.
  *
  * **THE SPOOL's six earned states — three of the fight, and the story's
  * three between the ribs — are here rather than with the other
@@ -79,8 +78,7 @@ export const CLOCK_HAND_POSES: Pose[] = [
       hand: tasterHand,
       want: tasterIs("fanning"),
       hold: 6,
-      lookAt:
-        "the blades standing out of the crest — whether each twists in its socket about its root, out of step, its far flat going dark",
+      lookAt: "the blades — whether each twists about its root, out of step, its far flat dark",
     },
   ),
   bossPose(
@@ -125,7 +123,12 @@ export const CLOCK_HAND_POSES: Pose[] = [
     "ledger",
     "whipping",
     "The cord whips and every bolt bills a return. P1 triggers the beat one lands; P2 holds her fire.",
-    { hand: ledgerHand, want: ledgerIs("whipping"), hold: 6 },
+    {
+      hand: ledgerHand,
+      want: ledgerIs("whipping"),
+      hold: 6,
+      lookAt: "the split body — whether it turns about its seam, its far half going dark",
+    },
   ),
   bossPose(
     "ledger",
@@ -224,8 +227,8 @@ function wellIs(phase: string): (w: World) => boolean {
   return (w) => w.boss?.kind === "well" && w.boss.phase === phase;
 }
 
-/** The slip stopped under a thumb — a phase and a grip together, not a phase. */
-/** A declaration rather than a const, because the cards above name it and a
+/** The slip stopped under a thumb — a phase and a grip together, not a phase.
+ * A declaration rather than a const, because the cards above name it and a
  * `const` is not hoisted — the same reason `wellIs` is one. */
 function wellHeld(w: World): boolean {
   return w.boss?.kind === "well" && w.boss.phase === "rolling" && wellHeldNow(w.boss);

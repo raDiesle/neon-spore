@@ -13,6 +13,7 @@ import {
   ledgerTaut,
 } from "./ledger-cord-shape.js";
 import type { LedgerFx } from "./ledger-fx.js";
+import { drawLedgerGlanced } from "./ledger-glance.js";
 import { drawLedgerPilotAsked, drawLedgerPilotVerdict } from "./ledger-marks.js";
 import { paintPlate } from "./ledger-metal.js";
 import { drawLedgerPulls } from "./ledger-pull.js";
@@ -86,7 +87,7 @@ function drawHalf(
   hex: string,
   lit: number,
   hurt: number,
-): void {
+): Path2D {
   // The boss's fade going out is on the context (`drawLedger`), and
   // `strokeGlow` neither reads it nor puts it back: handed on and set again, or
   // the cut face and the whole second half were drawn whole as it went.
@@ -103,6 +104,7 @@ function drawHalf(
   face.lineTo(x, bottom);
   strokeGlow(ctx, face, hex, STROKE.inner, 0.5 + 0.5 * lit, fade);
   ctx.globalAlpha = fade;
+  return path;
 }
 
 export function drawLedger(
@@ -160,11 +162,19 @@ export function drawLedger(
   ctx.translate(shake, 0);
   // Both halves lean on the underside together (`ledger-sway.ts`).
   ctx.transform(1, 0, -lean, 1, lean * root.y, 0);
-  drawHalf(ctx, l, seamX, -1, gap, time, hex, lit, fx.hurt.value);
-  drawHalf(ctx, l, seamX, 1, gap, time, hex, lit, fx.hurt.value);
-  // And what is between them, once there is anything between them: the split
-  // itself, lit in the colour that widens it, brighter the wider it is.
-  if (gap > l.tile * 0.02 && !out) drawSeam(ctx, l, seamX, gap, rim, taut);
+  // And the whole body turns about its seam (`ledger-glance.ts`).
+  const { mid, ry } = ledgerBodyY(l);
+  const body = { x: seamX, y: mid, r: l.tile * LEDGER_HALF_W + gap * 0.5 };
+  drawLedgerGlanced(ctx, body, ry, time, (g) => {
+    const halves = [
+      drawHalf(g, l, seamX, -1, gap, time, hex, lit, fx.hurt.value),
+      drawHalf(g, l, seamX, 1, gap, time, hex, lit, fx.hurt.value),
+    ];
+    // And what is between them, once there is anything between them: the split
+    // itself, lit in the colour that widens it, brighter the wider it is.
+    if (gap > l.tile * 0.02 && !out) drawSeam(g, l, seamX, gap, rim, taut);
+    return halves;
+  });
   ctx.restore();
 
   // And the pilot's read, with his two hands under it. **Hers is not here**:

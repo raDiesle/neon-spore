@@ -55,6 +55,7 @@ const SLOT_POSE: Record<string, string> = {
   "curtain:glance": "THE CURTAIN · TORN",
   "taster:glance": "THE TASTER · FANNING",
   "sinew:glance": "THE SINEW · HANGING",
+  "ledger:glance": "THE LEDGER · WHIPPING",
 };
 
 /** The pose a slot gets when nothing in `SLOT_POSE` names it. */

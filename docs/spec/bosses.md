@@ -5302,6 +5302,15 @@ cord tears, and the tear is its answer (`ledger-fx.ts`).
 
 **What is not built — a step seen from another side** (suggested 10 October 2026, after the owner on THE BASTION: *very 3 dimensional and even user action is 3d to rotate*). The two halves swing round and show the seam on the far side, up another column; the pilot turns the body by the cord to bring the seam back over the cannon before the bill comes due.
 
+**Offered (14 October 2026, VERSUS `ledger:glance`).** THE LEDGER is metal,
+so the part that turns is the whole body (`packages/render/src/
+ledger-glance.ts`, which ships still): both halves and the seam between them,
+**about the seam**, which stays on the one column a bolt can hurt, the near
+half widening and the far half narrowing into the dark. The cord, whose foot
+is in the ship's plating, and the pilot's rings and beads do not turn.
+**SWAY**, **LOOK** and **COCK** (`glance-styles.ts`), judged on `THE LEDGER ·
+WHIPPING`.
+
 
 ## 11.28 THE SURGE — the boss beaten by letting go
 
