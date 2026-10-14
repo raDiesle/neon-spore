@@ -2922,6 +2922,16 @@ clock and no refusal, since each ring is one seat's alone and a hand on the
 other is dropped without a sound. A thumb lifted early has no verdict: the
 lobe opens coloured, which the pilot's screen already says.
 
+**Offered (14 October 2026, VERSUS `hive:glance`).** The mass is the width
+of the field, and turning it would slide every column a shot is aimed up, so
+what turns is each lobe hung under it (`packages/render/src/hive-glance.ts`,
+which ships still): **about the point it hangs from**, like a drop on a
+thread, the far side narrowing into the dark and a roll swinging its tip, each
+lobe from its own place in the round so the row never turns as one. The
+site's centre — a grip's ring, a breach's socket — stays on the axis.
+**SWAY**, **LOOK** and **COCK** (`glance-styles.ts`), judged on
+`THE HIVE · HANG`.
+
 ## 11.15 THE REPRISE — the wave you have just beaten, sent again unseen
 
 > The one where the wave you have just beaten comes back with nothing to see.

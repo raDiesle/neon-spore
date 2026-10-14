@@ -11,6 +11,7 @@ import {
   look,
   sway,
 } from "../src/glance-styles.js";
+import { HIVE_GLANCE, HIVE_GLANCE_SIZE } from "../src/hive-glance.js";
 import { MAZE_GLANCE, MAZE_GLANCE_SIZE } from "../src/maze-glance.js";
 import { MIRROR_GLANCE, MIRROR_GLANCE_SIZE } from "../src/mirror-glance.js";
 import { PINBALL_GLANCE, PINBALL_GLANCE_SIZE } from "../src/pinball-glance.js";
@@ -56,6 +57,7 @@ const ROWS: readonly Row[] = [
   { name: "THE CAIRN", record: CAIRN_GLANCE, size: CAIRN_GLANCE_SIZE, hold: 1 },
   { name: "THE WELL", record: WELL_GLANCE, size: WELL_GLANCE_SIZE, hold: 0 },
   { name: "THE SPLICE", record: SPLICE_GLANCE, size: SPLICE_GLANCE_SIZE, hold: 0 },
+  { name: "THE HIVE", record: HIVE_GLANCE, size: HIVE_GLANCE_SIZE, hold: 0 },
 ];
 
 const R = 100;

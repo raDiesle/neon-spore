@@ -39065,3 +39065,13 @@ Bottleneck: converting eleven call sites from closing over the screen to drawing
 Bottleneck: the director that answered first was serving another tree.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-14 — VERSUS offers THE HIVE's lobes glancing
+
+- reading: 5 min. The entry, §11.14, `hive-draw.ts`, `hive-sites.ts`, THE SPLICE's and THE WELL's glances.
+- writing: 10 min. `hive-glance.ts`, the site's draw wrapped with its outline, three candidates, the pose's `lookAt`, a test row.
+- looking: 5 min. One VERSUS shot and a magnified crop.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: the mass is the width of the field, so the part had to be the lobes, each about where it hangs.

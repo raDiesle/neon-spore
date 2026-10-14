@@ -2553,6 +2553,7 @@ by hand never moves.
 | `packages/render/src/hive-sway.ts` | **THE HIVE's drops sway on their sites** (`docs/spec/living-bosses.md` §1, the outline tier) |
 | `packages/render/src/hive-spores.ts` | **THE HIVE's spores, swarming round each open breach**: a cloud of glowing motes circling the wound |
 | `packages/render/src/hive-grip.ts` | **THE HIVE's one handle, offered to whichever seat the mass's state is for** |
+| `packages/render/src/hive-glance.ts` | **THE HIVE's lobes glance** — the owner, 9 and 10 October 2026: *body parts of living things turn . |
 | `packages/render/src/hive-hold.ts` | **THE HIVE's two held states, in field pixels**: how far a clench has drawn the mass up out of reach |
 | `packages/render/src/hive-haul-knob.ts` | **THE HIVE's haul, drawn as every pull is** |
 | `packages/render/src/hive-cell.ts` | **THE HIVE's lobes and breaches, as wax** (`hive-wax.ts` is the mass) |

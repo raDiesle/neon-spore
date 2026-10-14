@@ -193,7 +193,11 @@ export const FIRST_BOSS_POSES: Pose[] = [
     "hive",
     "hang",
     "Nine sites sown and none open: four beats to look. P1 reads the underside; P2 reads it with him.",
-    { want: (w) => w.boss?.kind === "hive" && hiveOpenCount(w.boss) === 0 && w.beat >= 2 },
+    {
+      want: (w) => w.boss?.kind === "hive" && hiveOpenCount(w.boss) === 0 && w.beat >= 2,
+      lookAt:
+        "the lobes hung under the wax — whether each turns on its thread, out of step, its far side going dark",
+    },
   ),
   bossPose(
     "hive",

@@ -12,8 +12,17 @@ import {
 import type { BoltStops } from "./bolt-stop.js";
 import { drawHurt } from "./boss-hurt.js";
 import type { HiveFx } from "./hive-fx.js";
+import { drawHiveGlanced } from "./hive-glance.js";
 import { hiveClenchRise, hivePinchPhase } from "./hive-hold.js";
-import { hiveBox, hiveFade, hiveMassPath, hiveSite, hiveSwellPhase } from "./hive-shape.js";
+import {
+  hiveBox,
+  hiveFade,
+  hiveMassPath,
+  hiveSite,
+  hiveSitePath,
+  hiveSwellPhase,
+  SITE_R,
+} from "./hive-shape.js";
 import { drawBreach, drawLobe, drawScar, drawSwell } from "./hive-sites.js";
 import { drawHiveSpores } from "./hive-spores.js";
 import { type HiveHang, hiveStopper } from "./hive-stop.js";
@@ -103,14 +112,20 @@ export function drawHive(
       ctx.transform(1, 0, lean, 1, -lean * c.y, 0);
       hangs[i] = { drop: 0, open, lean };
     }
-    if (s.sealed[i]) drawScar(ctx, l, c, open, fade);
-    else if (hiveOpen(s, i)) {
-      const wrung = hiveWrungAt(s, i);
-      const color = wrung || !coloured ? null : (s.colors[i] ?? "red");
-      drawBreach(ctx, l, c, color, open, time, fade, wrung);
-    } else if (swelling && (i === next || i === twin))
-      hangs[i] = drawSwell(ctx, l, c, swell, open, time, fade, i === s.pinch ? pinch : -1);
-    else drawLobe(ctx, l, c, 0, open, fade);
+    // Each lobe turns on its thread, when a glance is taken (`hive-glance.ts`).
+    drawHiveGlanced(ctx, { ...c, r: l.tile * SITE_R }, i, time, (g) => {
+      if (s.sealed[i]) drawScar(g, l, c, open, fade);
+      else if (hiveOpen(s, i)) {
+        const wrung = hiveWrungAt(s, i);
+        const color = wrung || !coloured ? null : (s.colors[i] ?? "red");
+        drawBreach(g, l, c, color, open, time, fade, wrung);
+      } else if (swelling && (i === next || i === twin)) {
+        const hang = drawSwell(g, l, c, swell, open, time, fade, i === s.pinch ? pinch : -1);
+        hangs[i] = hang;
+        return hiveSitePath(l, c, hang.drop, hang.open);
+      } else drawLobe(g, l, c, 0, open, fade);
+      return hiveSitePath(l, c, 0, open);
+    });
     ctx.restore();
   }
   // A swarm round every open wound, over the wax a wall's breach is under (`hive-spores.ts`).
