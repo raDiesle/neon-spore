@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-14 · bfce581dc — VERSUS offers THE SCUTTLE's hanging parts glancing
+
+Each part hanging under THE SCUTTLE's slab twists on its thread about its own middle, where a thumb takes it and the thread meets it, the far end narrowing into the dark, each out of step with the others. Ships still; VERSUS `scuttle:glance` offers SWAY, LOOK and COCK, judged on THE SCUTTLE · HELD. Exemption: none — a look, offered on VERSUS.
+
 ## 2026-10-14 · d7b4fbc02 — THE MAZE's heart wears THE RUB LAB's zigzag drop
 
 Under the grip the heart is asked for by one RUB cue on both screens — the drop every rub wears, its zigzag lit by the pair's turns together, wagging until this seat's thumb is on. The ring, the eight arrows, the green count round the room and the word SHAKE are gone; P2 TOO / P1 TOO and the waiting clock stay. A look the owner asked for by name (14 October 2026: to have less variants and consistency).

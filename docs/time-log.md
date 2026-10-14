@@ -39336,3 +39336,5 @@ Bottleneck: finding what still read the old ring (`maze-marks.ts` keeps it).
 - landing: 5 min. `check:fast`, the commit, `land`.
 
 Bottleneck: none to speak of — the hanging plates were the obvious part, and HELD's notes named two slots long closed.
+
+*Measured: 5 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
