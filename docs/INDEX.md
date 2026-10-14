@@ -1793,6 +1793,7 @@ by hand never moves.
 | `packages/render/src/stare-lash-pull.ts` | **THE STARE's lashes, to be pulled**: the one thing on the eye a hand takes hold of |
 | `packages/render/src/stare-level-look.ts` | **How angry THE STARE is, and how dangerous it looks**: the colour a level opens in |
 | `packages/render/src/stare-globe.ts` | **The globe's geometry**: an eye modelled as a ball set in the cowl, and the opening |
+| `packages/render/src/stare-glance.ts` | **THE STARE's head glances** — the owner, 9 and 10 October 2026: *body parts of living things turn |
 | `packages/render/src/intro-parts.ts` | The parts the intro's picture is built out of: a plate, a body, a hull |
 | `packages/render/src/intro-pair.ts` | THE PICTURE THE WHOLE INTRO IS: two people, two phones, and a word crossing between them |
 | `packages/render/src/intro-player.ts` | ONE OF THE TWO PEOPLE IN THE SCENE |

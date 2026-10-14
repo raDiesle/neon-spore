@@ -58,7 +58,11 @@ export const CLOCK_BOSS_POSES: Pose[] = [
     "stare",
     "live",
     "The rhythm for real. On an open beat P1 and P2 both touch nothing. Nothing hurts the eye.",
-    { hold: 6, lookAt: "the red eye in the cowl, open or shut on this beat" },
+    {
+      hold: 6,
+      lookAt:
+        "the red eye in the cowl, open or shut on this beat — and whether the cowled head turns toward one side, its far side going dark",
+    },
   ),
   bossPose(
     "stare",

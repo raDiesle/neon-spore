@@ -11647,6 +11647,14 @@ bolt is the only arrow the game teaches by itself — and the tell has to be a
 thing the game already shows, not a lobe filling on a body built for the
 purpose.
 
+**Offered (14 October 2026, VERSUS `stare:glance`).** The eye already rolls
+in its socket as it opens, so what turns is the head it is set in — the cowl,
+its scars, the eye, the brow, the charge and the score's lashes, together
+(`packages/render/src/stare-glance.ts`, which ships still) — **about the eye's
+centre**, the far side narrowing into the dark. The lashes the charge asks to
+be pulled and the glass a bolt stops on do not turn. **SWAY**, **LOOK** and
+**COCK** (`glance-styles.ts`), judged on `THE STARE · LIVE`.
+
 ## 11.17 THE DIASTOLE — two hearts on two cadences, one each
 
 **Built and taken out.** It shipped and the owner removed it on 25 September

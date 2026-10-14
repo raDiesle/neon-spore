@@ -16,6 +16,7 @@ import { PALETTE, STROKE } from "./palette.js";
 import { drawCharge, drawVent } from "./stare-charge.js";
 import { STARE_EYE } from "./stare-eye-look.js";
 import type { StareFx } from "./stare-fx.js";
+import { drawStareGlanced } from "./stare-glance.js";
 import { drawStareLashPull } from "./stare-lash-pull.js";
 import { drawLashes, drawScars } from "./stare-lashes.js";
 import { drawStareBrow, drawStareTurns, stareAnger, stareLevelInk } from "./stare-level-look.js";
@@ -90,64 +91,69 @@ export function drawStare(
   // all but the count of turns, which is read level.
   const roll = stareRoll(world, boss, beat, beatPhase);
   withStareRoll(ctx, socket, roll, () => {
-    // The cowl, in the field's own rock, with its rim lit a little by the eye —
-    // and, through the blue pass and its lead-in, a halo of the lesson's cyan
-    // breathing on the beat, so the eye that costs nothing looks it.
-    const cowl = cowlPath(socket, time);
-    ctx.save();
-    ctx.fillStyle = PALETTE.rockDark;
-    ctx.fill(cowl);
-    if (stareBlue(boss)) {
-      const breath = 0.5 + 0.5 * Math.cos(beatPhase * Math.PI * 2);
-      strokeGlow(
-        ctx,
-        cowl,
-        PALETTE.cyan,
-        STROKE.outline * 2,
-        1.6 + 1.4 * breath,
-        0.9,
-        l.tile * 0.5,
-      );
-    } else {
-      // Outside the lesson, the level's colour round the cowl, hotter as it angers.
-      strokeGlow(ctx, cowl, level.hex, STROKE.outline * 1.5, 0.6 + anger, 0.35 + 0.4 * anger);
-    }
-    // And through the charge, the same halo in ember, hotter as it fills.
-    if (swell > 0) {
-      strokeGlow(
-        ctx,
-        cowl,
-        PALETTE.ember,
-        STROKE.outline * 2,
-        1 + 2 * swell,
-        0.5 + 0.5 * swell,
-        l.tile * 0.5,
-      );
-    }
-    strokeGlow(ctx, cowl, mixHex(PALETTE.dim, ink.rim, 0.5), STROKE.outline, 0.6);
-    ctx.restore();
-    drawScars(ctx, socket, boss.level);
+    // The head turns as one, when a glance is taken (`stare-glance.ts`); the
+    // lashes a thumb pulls do not.
+    drawStareGlanced(ctx, socket, time, (g) => {
+      // The cowl, in the field's own rock, with its rim lit a little by the eye —
+      // and, through the blue pass and its lead-in, a halo of the lesson's cyan
+      // breathing on the beat, so the eye that costs nothing looks it.
+      const cowl = cowlPath(socket, time);
+      g.save();
+      g.fillStyle = PALETTE.rockDark;
+      g.fill(cowl);
+      if (stareBlue(boss)) {
+        const breath = 0.5 + 0.5 * Math.cos(beatPhase * Math.PI * 2);
+        strokeGlow(
+          g,
+          cowl,
+          PALETTE.cyan,
+          STROKE.outline * 2,
+          1.6 + 1.4 * breath,
+          0.9,
+          l.tile * 0.5,
+        );
+      } else {
+        // Outside the lesson, the level's colour round the cowl, hotter as it angers.
+        strokeGlow(g, cowl, level.hex, STROKE.outline * 1.5, 0.6 + anger, 0.35 + 0.4 * anger);
+      }
+      // And through the charge, the same halo in ember, hotter as it fills.
+      if (swell > 0) {
+        strokeGlow(
+          g,
+          cowl,
+          PALETTE.ember,
+          STROKE.outline * 2,
+          1 + 2 * swell,
+          0.5 + 0.5 * swell,
+          l.tile * 0.5,
+        );
+      }
+      strokeGlow(g, cowl, mixHex(PALETTE.dim, ink.rim, 0.5), STROKE.outline, 0.6);
+      g.restore();
+      drawScars(g, socket, boss.level);
 
-    // The eye, through the record VERSUS patches (`stare-eye-look.ts`).
-    STARE_EYE.paint(ctx, {
-      e: eye,
-      face: f.face,
-      lean: f.lean,
-      open: f.open,
-      ink,
-      wash,
-      time,
-      beats: beat + beatPhase,
+      // The eye, through the record VERSUS patches (`stare-eye-look.ts`).
+      STARE_EYE.paint(g, {
+        e: eye,
+        face: f.face,
+        lean: f.lean,
+        open: f.open,
+        ink,
+        wash,
+        time,
+        beats: beat + beatPhase,
+      });
+      drawStareBrow(g, socket, anger, wash);
+      drawCharge(g, eye, swell, beatPhase, time);
+
+      // The lashes are the score, from the lead-in to the end of the pass.
+      if (boss.phase === "rest" || boss.phase === "teach" || boss.phase === "live") {
+        drawLashes(g, socket, stareLevelPattern(boss), stareStepAt(boss, beat), wash, anger);
+      }
+      return cowl;
     });
-    drawStareBrow(ctx, socket, anger, wash);
-    drawCharge(ctx, eye, swell, beatPhase, time);
     // The lashes over it while it charges, to be pulled (`stare-lash-pull.ts`).
     drawStareLashPull(ctx, l, cfg, boss, time);
-
-    // The lashes are the score, from the lead-in to the end of the pass.
-    if (boss.phase === "rest" || boss.phase === "teach" || boss.phase === "live") {
-      drawLashes(ctx, socket, stareLevelPattern(boss), stareStepAt(boss, beat), wash, anger);
-    }
   });
   if (boss.phase !== "rise" && boss.phase !== "calm") {
     drawStareTurns(ctx, l, cfg, socket, boss, wash);

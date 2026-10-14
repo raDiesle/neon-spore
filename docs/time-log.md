@@ -39102,3 +39102,13 @@ Bottleneck: none — THE PRESS LAB's cut was the template, line for line.
 Bottleneck: the cords were drawn inside the sac's draw, so they had to come out before the sac could turn without them.
 
 *Measured: 5 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-14 — VERSUS offers THE STARE's head glancing
+
+- reading: 5 min. The entry, `stare-draw.ts`, the eye's record, the cowl and the lashes.
+- writing: 10 min. `stare-glance.ts`, the head's draw wrapped and the pulled lashes moved after it, the scaffold for the rest.
+- looking: 5 min. One VERSUS shot and a crop.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: the eye already turns in its socket, so the part had to be the head round it, with the pulled lashes left out.

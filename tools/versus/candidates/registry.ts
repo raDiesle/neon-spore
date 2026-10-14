@@ -36,6 +36,9 @@ import { REPRISE_SWAY } from "./reprise-glance/sway/index.js";
 import { SPLICE_COCK } from "./splice-glance/cock/index.js";
 import { SPLICE_LOOK_AROUND } from "./splice-glance/look/index.js";
 import { SPLICE_SWAY } from "./splice-glance/sway/index.js";
+import { STARE_COCK } from "./stare-glance/cock/index.js";
+import { STARE_LOOK_AROUND } from "./stare-glance/look/index.js";
+import { STARE_SWAY } from "./stare-glance/sway/index.js";
 import { VANE_COCK } from "./vane-glance/cock/index.js";
 import { VANE_LOOK_AROUND } from "./vane-glance/look/index.js";
 import { VANE_SWAY } from "./vane-glance/sway/index.js";
@@ -77,6 +80,9 @@ export const VARIANTS: Variant[] = [
   SPLICE_COCK,
   SPLICE_LOOK_AROUND,
   SPLICE_SWAY,
+  STARE_COCK,
+  STARE_LOOK_AROUND,
+  STARE_SWAY,
   VANE_COCK,
   VANE_LOOK_AROUND,
   VANE_SWAY,
