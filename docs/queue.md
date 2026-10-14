@@ -813,26 +813,6 @@ SUCKS` stops on a red slick, and meteors come from beat 28; and DEFLECTED
 not show the word. Add each as a row of `SHIELD_GROUP`, look at the frame,
 and keep `helpers-page.test.ts` green.
 
-## THE CAPSTAN's glance is faint: its faces are held at the drum's ends
-
-- **Found:** 2026-10-14, claude/queue-the-capstan-a-part-that-turns-so-it-is-seen-from
-- **Taken:** 2026-10-14, claude/queue-tasks-988432 (claim: claude/queue-the-capstans-glance-is-faint-its-faces-are-held)
-- **Files:** `packages/render/src/capstan-glance.ts`, `packages/render/src/capstan-grip.ts`, `packages/render/src/touch-field.ts`
-- **Asks:** THE CAPSTAN's turn on VERSUS is faint — keep it as offered, make the rub read a clock so the drum can turn about its middle, or drop the slot?
-
-`capstan:glance` holds the two end faces, because the rub's hit test reads
-them with no clock (`capstan-grip.ts`'s `endAt`; `Field` carries none). The
-faces sit at 0.94 of the drum's half-length, so held there the outline hardly
-changes, and the middle — where the core rides — swings by the full reach, so
-the reach is capped at 0.13 to keep the core over the middle column. On
-VERSUS that reads as the near face a little larger and the far one a little
-darker. The options: **(a)** keep it and let the owner judge it there;
-**(b)** give the rub the clock the drawing reads — a `time` on `Field`, built
-in 99 files today, or a glance clocked off `beat` and `beatPhase` instead of
-seconds — and turn the drum about its middle with the faces travelling, at a
-reach like THE SEAM's; **(c)** drop `capstan:glance`, since the drum already
-yaws with its cradle as the game's own mechanic.
-
 ## `guard.test.ts` reports a figure drift
 
 - **Found:** 2026-10-14, claude/queue-the-capstan-a-part-that-turns-so-it-is-seen-from

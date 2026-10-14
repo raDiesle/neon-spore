@@ -39787,3 +39787,14 @@ Bottleneck: none to speak of — the drop takes the ring's circle, so the hit te
 Bottleneck: a curve's length is bounded by the field round the moon, not by a number, so the shapes had to be fitted slot by slot before a line of the sim could be written.
 
 *Measured: 76 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-14 — THE CAPSTAN's glance is faint: kept as offered
+
+- reading: 5 min. The entry and its three options.
+- writing: 0 min. The owner chose (a): `capstan:glance` stays on VERSUS as
+  offered, for him to judge there; nothing in the tree changes.
+- looking: 0 min.
+- friction: 0 min.
+- landing: 5 min. `queue done`, the commit, `land`.
+
+Bottleneck: none — an answered question whose answer is to leave the tree as it is.
