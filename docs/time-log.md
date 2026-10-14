@@ -40273,3 +40273,5 @@ across is the whole ask.
 Bottleneck: THE SINEW's bow had just been written as its own, and the second
 caller is what showed it was a shape — lifting it out first made this lane
 one file of wrappers.
+
+*Measured: 65 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*

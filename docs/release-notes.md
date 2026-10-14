@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-14 · e7db8c5cd — THE LATCH's grips bow away from the tendril, and a thumb that strays drops one
+
+Each grip's stroke down is now a half-wave out away from the tendril, `latchBowMilli` (1500) at its widest halfway down the reach. The depth that hauls the rope is still the straight distance down; a thumb a tile across from the bow says `pullStray` and lets the grip go — as a lift would, with no short pull said besides — until it lifts. Films, the autopilot and the director's pose pull along the bow; the channel is the sim's own path, filled by its length.
+
 ## 2026-10-14 · 054d42308 — THE SINEW's handles bow away from the mass, and a thumb that strays drops one
 
 Each handle's way down is now a half-wave out away from the mass, `sinewBowMilli` (1500) at its widest halfway down the reach, so the two splay apart. The depth is still the straight distance down; a thumb a tile across from the bow at its depth says `pullStray` and drops the handle until it lifts. The catch and the fall, where across is the ask, are not bowed. Films, the autopilot, the director's pose and the `--hold` examples pull along the bow; the channel is drawn from the sim's own path and fills by its length.
