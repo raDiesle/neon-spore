@@ -39625,3 +39625,5 @@ Bottleneck: picking the rocks' beats by when each arrives rather than when it is
 - landing: 5 min. `check:fast`, the index, the commit, `land`.
 
 Bottleneck: the pull had to stay one number for the simulation, so the bend lives entirely on the device — the hold keeps the arc from the press and reports distance along it.
+
+*Measured: 18 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
