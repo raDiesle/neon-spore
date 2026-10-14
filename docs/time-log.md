@@ -40930,3 +40930,5 @@ the same moments.
 - landing: 5 min. `check:fast` at three and a half minutes.
 
 Bottleneck: landing — the check outlasts the move it checks.
+
+*Measured: 13 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
