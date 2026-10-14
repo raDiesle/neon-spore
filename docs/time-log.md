@@ -39140,3 +39140,5 @@ the viewport was given a size and a screenshot forced a frame.
 - landing: 5 min. `check:fast`, the commit, `land`.
 
 Bottleneck: none — the arm's knuckles were already drawn one at a time about a centre the grips share.
+
+*Measured: 11 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*

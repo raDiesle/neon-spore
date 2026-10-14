@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-14 · 464d4da73 — VERSUS offers THE BATON's knuckles glancing
+
+Each knuckle on THE BATON's arm twists about its own centre, where its bead sits and a grip finds it, like a vertebra. Each turns a little after the one above it, and the far side narrows into the dark. The beads and the arm's line stay put. Ships still; VERSUS `baton:glance` offers SWAY, LOOK and COCK, judged on THE BATON · PASSING. Exemption: none — a look, offered on VERSUS.
+
 ## 2026-10-14 · f781cb124 — The director's URL follows the section being read
 
 Scrolling a page with a contents menu now writes the section the bar names into the URL's hash — ?sheet=states&inner=controlsets&sub=field#pull-past-a-distance — so a reload opens on PULL PAST A DISTANCE rather than at the top. Opening a hash holds the section in place while the pictures above it draw, and changing sheet, room or sub tab drops it. Section links are now named by a heading's label, without the use count beside it, so a link outlives the count; older links with the count still open.
