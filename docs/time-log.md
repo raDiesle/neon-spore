@@ -39490,3 +39490,5 @@ Bottleneck: holding the straps' ties would have crushed the shell, since they si
 - landing: 5 min. `check:fast`, the commit, `land`.
 
 Bottleneck: the joints are both the marks and whose half a step is, so only each vertebra about its own joint could turn, and a plate is a tile long.
+
+*Measured: 5 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
