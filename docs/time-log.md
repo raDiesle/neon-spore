@@ -39224,3 +39224,5 @@ Bottleneck: none — one drawing, one test.
 - landing: 5 min. `check:fast`, the commit, `land`.
 
 Bottleneck: the sack already turns in depth, so the part had to be the bubbles, each about the intake the rule reads.
+
+*Measured: 7 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*

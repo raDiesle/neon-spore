@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-14 · 6069f18ce — VERSUS offers THE GORGE's bubbles glancing
+
+Each bubble in THE GORGE's sack turns, with the beads it has swallowed. It turns about the line up its middle and rolls about its intake, the one point the rule reads. Each starts from its own place in the round, and the far side narrows into the dark. Ships still; VERSUS `gorge:glance` offers SWAY, LOOK and COCK, judged on THE GORGE · ROW. Exemption: none — a look, offered on VERSUS.
+
 ## 2026-10-14 · cc5d63bce — THE TRAPEZE's zones write no P1 or P2
 
 The seat badge in each zone is gone. Whose zone it is now shows only as the arrow in the pull knob, drawn on the screen of the seat that pulls there; the partner's knob has none.
