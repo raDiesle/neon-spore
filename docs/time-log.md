@@ -39170,3 +39170,5 @@ needed a rule change first.
 - landing: 5 min. `check:fast`, the commit, `land`.
 
 Bottleneck: the mouth is small at the gullet's end, so the turn needed a magnified crop to judge.
+
+*Measured: 7 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*

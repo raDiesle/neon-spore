@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-14 · 605a151e7 — VERSUS offers THE THROAT's mouth glancing
+
+THE THROAT's lip and the colour's face in it turn together about the mouth's centre, where the navigator carries it and the pump's ring sits. The far side narrows into the dark. The pull's circle, the halo and a swallow's flare stay level. Ships still; VERSUS `throat:glance` offers SWAY, LOOK and COCK, judged on THE THROAT · SUCKS. Exemption: none — a look, offered on VERSUS.
+
 ## 2026-10-14 · bba3dc0d9 — THE TRAPEZE's zones wear the pull knob, a pull toward the middle
 
 Each zone now draws the pull every pull handle wears: a knob with its arrow toward the middle on a channel 1.5 tiles long, the knob following the thumb in and the channel filling green, dim while the swing is elsewhere. The swipe's reach is 1500 thousandths rather than 300, which was too short to draw as a channel, and the simulation keeps each seat's carry so the knob can ride it. THE STARE's card now says its lashes take a thumb only while the eye charges; the rest of the fight they count the beats.
