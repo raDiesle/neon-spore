@@ -1,0 +1,61 @@
+import { type Glance, glancedPoint, glanceFrame, glanceStill, STILL_GLANCE } from "./glance.js";
+import { drawGlancedLayer } from "./glance-layer.js";
+import type { GlanceSize } from "./glance-styles.js";
+import type { Layout } from "./layout.js";
+import { type Point, plumbSacRadius } from "./plumb-shape.js";
+
+/**
+ * **THE PLUMB glances** — the owner, 9 and 10 October 2026: *body parts of
+ * living things turn ... or if mechanical the full boss shape*, one entry per
+ * boss.
+ *
+ * The bob is the part that turns: the sac and the core in its belly yaw
+ * together **about the sac's middle** (`glance.ts`, a `hold` of 0), in the
+ * beam's skewed frame, on top of its own slow turn to show the core
+ * (`plumbWide`). The hook, the beam and its ends stay where they hang, so the
+ * chains and the stones a thumb pulls (`plumb-grip.ts`) do not move; the
+ * near flank of the sac opens and the far one closes into the dark, and a
+ * bolt meets the sac where it is drawn (`plumbGlancedPoint`, `plumb-stop.ts`).
+ *
+ * Shipped, it does not glance: `PLUMB_GLANCE` is still, and VERSUS
+ * `plumb:glance` offers SWAY, LOOK and COCK for it (`glance-styles.ts`), each
+ * at `PLUMB_GLANCE_SIZE`, counted in the sac's half-width.
+ */
+export const PLUMB_GLANCE: Glance = { ...STILL_GLANCE };
+
+/** How far the sac turns, in its half-width, and how far it rolls. */
+export const PLUMB_GLANCE_SIZE: GlanceSize = { reach: 0.3, cock: 0.05, tilt: 0.25 };
+
+/** How dark the far flank goes, reached at the widest turn. */
+const FAR_DARK = 0.6;
+/** How far the layer reaches, in half-widths: the sac is taller than wide, and its ridge runs below it. */
+const REACH = 2.6;
+
+/** The sac's turn at `time`, about its own middle. */
+const frameAt = (l: Layout, time: number) =>
+  glanceFrame(PLUMB_GLANCE, time, { x: 0, y: 0, r: plumbSacRadius(l).rx, hold: 0 });
+
+/**
+ * The sac as `draw` draws it about its middle, turned as `PLUMB_GLANCE`
+ * says. `draw` answers with the outlines the far flank's dark is laid over.
+ * Still, it is drawn once and exactly as before.
+ */
+export function drawPlumbGlanced(
+  ctx: CanvasRenderingContext2D,
+  l: Layout,
+  time: number,
+  draw: (g: CanvasRenderingContext2D) => readonly Path2D[],
+): void {
+  const f = frameAt(l, time);
+  if (glanceStill(f)) {
+    draw(ctx);
+    return;
+  }
+  drawGlancedLayer(ctx, f, { dark: FAR_DARK, full: PLUMB_GLANCE_SIZE.reach, reach: REACH }, draw);
+}
+
+/** Where the sac's turn carries a point `p` of it, about its middle — a bolt's stop. */
+export function plumbGlancedPoint(l: Layout, time: number, p: Point): Point {
+  const f = frameAt(l, time);
+  return glanceStill(f) ? p : glancedPoint(f, p);
+}

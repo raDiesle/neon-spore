@@ -9,6 +9,7 @@ import {
   roundFoot,
 } from "./core-stop.js";
 import type { Circle, Layout } from "./layout.js";
+import { plumbGlancedPoint } from "./plumb-glance.js";
 import {
   type Point,
   plumbBar,
@@ -39,7 +40,8 @@ export interface PlumbHang {
  * chain and stone, and the two spirit levels under them.
  *
  * The sac hangs face-on with the core in its belly, so a bolt up the middle
- * column to a lit core crosses the sac's face on its way.
+ * column to a lit core crosses the sac's face on its way. Turned
+ * (`plumb-glance.ts`), the sac is met where the turn draws it.
  */
 export function plumbStopper(l: Layout, world: World, h: PlumbHang): Stopper {
   const c = Math.cos(h.skew);
@@ -54,7 +56,9 @@ export function plumbStopper(l: Layout, world: World, h: PlumbHang): Stopper {
   const ends = [plumbBeamEnd(l, 0, h.skew), plumbBeamEnd(l, 1, h.skew)] as const;
   const feet: Foot[] = [
     outlineFoot(
-      plumbSacPoints(l, h.wide, h.time).map((p) => turned({ x: p.x + mid.x, y: p.y + mid.y })),
+      plumbSacPoints(l, h.wide, h.time)
+        .map((p) => plumbGlancedPoint(l, h.time, p))
+        .map((p) => turned({ x: p.x + mid.x, y: p.y + mid.y })),
     ),
     rodFoot(off(ends[0]), off(ends[1]), bar.beam),
     rodFoot(h.at, turned({ x: 0, y: plumbBeamY(l) }), bar.stem),

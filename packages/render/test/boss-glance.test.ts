@@ -27,6 +27,7 @@ import { MIRROR_GLANCE, MIRROR_GLANCE_SIZE } from "../src/mirror-glance.js";
 import { NETTLE_GLANCE, NETTLE_GLANCE_SIZE } from "../src/nettle-glance.js";
 import { OCULUS_GLANCE, OCULUS_GLANCE_SIZE } from "../src/oculus-glance.js";
 import { PINBALL_GLANCE, PINBALL_GLANCE_SIZE } from "../src/pinball-glance.js";
+import { PLUMB_GLANCE, PLUMB_GLANCE_SIZE } from "../src/plumb-glance.js";
 import { PULSE_GLANCE, PULSE_GLANCE_SIZE } from "../src/pulse-glance.js";
 import { QUEEN_GLANCE, QUEEN_GLANCE_HOLD, QUEEN_GLANCE_SIZE } from "../src/queen-glance.js";
 import { RATCHET_GLANCE, RATCHET_GLANCE_SIZE } from "../src/ratchet-glance.js";
@@ -103,6 +104,7 @@ const ROWS: readonly Row[] = [
   { name: "THE KEEL", record: KEEL_GLANCE, size: KEEL_GLANCE_SIZE, hold: 0 },
   // Held at the wheel's hub and the socket, 0.95 tiles either side of a drum 2.3 wide.
   { name: "THE VALVE", record: VALVE_GLANCE, size: VALVE_GLANCE_SIZE, hold: 0.41 },
+  { name: "THE PLUMB", record: PLUMB_GLANCE, size: PLUMB_GLANCE_SIZE, hold: 0 },
   { name: "THE VISE", record: VISE_GLANCE, size: VISE_GLANCE_SIZE, hold: 0 },
   { name: "THE OCULUS", record: OCULUS_GLANCE, size: OCULUS_GLANCE_SIZE, hold: 0 },
   { name: "THE SEAM", record: SEAM_GLANCE, size: SEAM_GLANCE_SIZE, hold: 0 },

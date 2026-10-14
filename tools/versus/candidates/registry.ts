@@ -61,6 +61,9 @@ import { OCULUS_SWAY } from "./oculus-glance/sway/index.js";
 import { PINBALL_COCK } from "./pinball-glance/cock/index.js";
 import { PINBALL_LOOK_AROUND } from "./pinball-glance/look/index.js";
 import { PINBALL_SWAY } from "./pinball-glance/sway/index.js";
+import { PLUMB_COCK } from "./plumb-glance/cock/index.js";
+import { PLUMB_LOOK_AROUND } from "./plumb-glance/look/index.js";
+import { PLUMB_SWAY } from "./plumb-glance/sway/index.js";
 import { PULSE_COCK } from "./pulse-glance/cock/index.js";
 import { PULSE_LOOK_AROUND } from "./pulse-glance/look/index.js";
 import { PULSE_SWAY } from "./pulse-glance/sway/index.js";
@@ -196,6 +199,9 @@ export const VARIANTS: Variant[] = [
   VISE_COCK,
   VISE_LOOK_AROUND,
   VISE_SWAY,
+  PLUMB_COCK,
+  PLUMB_LOOK_AROUND,
+  PLUMB_SWAY,
   SPLICE_COCK,
   SPLICE_LOOK_AROUND,
   SPLICE_SWAY,

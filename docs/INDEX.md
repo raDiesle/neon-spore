@@ -2554,6 +2554,7 @@ by hand never moves.
 | `packages/render/src/plumb-bleed-light.ts` | How much of the way the running light covers, as a share of it |
 | `packages/render/src/plumb-fx.ts` | What THE PLUMB leaves behind a frame: a weight's **settle** ringing its glass, a **drift**'s jolt through it |
 | `packages/render/src/plumb-grip.ts` | **The stones on THE PLUMB** — the hands lane that makes the bob answer a thumb (§11.48 |
+| `packages/render/src/plumb-glance.ts` | **THE PLUMB glances**: the bob's sac turns about its middle, offered on VERSUS `plumb:glance` |
 | `packages/render/src/plumb-weight.ts` | THE PLUMB's two weights, one at a time |
 | `packages/render/src/plumb-verdicts.ts` | **THE PLUMB's marks answering a touch the way every mark does** (`mark-feedback.ts` |
 | `packages/render/src/phase-into.ts` | **How far into its phase a choreographed boss is**, in beats, this beat's own fraction counted in |

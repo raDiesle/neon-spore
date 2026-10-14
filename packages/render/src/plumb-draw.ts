@@ -15,6 +15,7 @@ import type { Circle, Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
 import { drawPlumbBleed } from "./plumb-bleed-light.js";
 import type { PlumbFx } from "./plumb-fx.js";
+import { drawPlumbGlanced } from "./plumb-glance.js";
 import { drawPlumbCore, drawPlumbGlass } from "./plumb-marks.js";
 import {
   plumbArrived,
@@ -179,38 +180,42 @@ function drawBob(
   const { rx, ry } = plumbSacRadius(l);
   ctx.save();
   ctx.translate(mid.x, mid.y);
-  const sac = plumbSacPath(l, wide, time);
-  ctx.fillStyle = rgba(PALETTE.background, 0.9);
-  ctx.fill(sac);
-  ctx.fillStyle = rgba(PALETTE.plumbBronze, 0.55);
-  ctx.fill(sac);
-  ctx.save();
-  ctx.clip(sac);
-  litRound(ctx, -rx * 0.2 * wide, ry * 0.2, Math.max(rx, ry) * 1.2, LIGHT_HALF.rock);
-  if (turn < 0.98) {
-    const ridge = new Path2D();
-    const x = rx * wide * 0.9 * turn;
-    ridge.moveTo(x, -ry);
-    ridge.quadraticCurveTo(x * 1.1, ry * 0.4, x, ry * 1.6);
-    ctx.lineWidth = STROKE.inner;
-    ctx.strokeStyle = rgba(PALETTE.plumbBronzeDark, 0.8 * (1 - turn));
-    ctx.stroke(ridge);
-  }
-  ctx.restore();
-  ctx.lineWidth = STROKE.outline;
-  ctx.strokeStyle = rgba(PALETTE.plumbBronze, 0.95);
-  ctx.stroke(sac);
-  drawHurt(ctx, sac, fx.hurt.value);
+  // The sac and its core turn as `plumb-glance.ts` says; the hook and the beam do not.
+  drawPlumbGlanced(ctx, l, time, (g) => {
+    const sac = plumbSacPath(l, wide, time);
+    g.fillStyle = rgba(PALETTE.background, 0.9);
+    g.fill(sac);
+    g.fillStyle = rgba(PALETTE.plumbBronze, 0.55);
+    g.fill(sac);
+    g.save();
+    g.clip(sac);
+    litRound(g, -rx * 0.2 * wide, ry * 0.2, Math.max(rx, ry) * 1.2, LIGHT_HALF.rock);
+    if (turn < 0.98) {
+      const ridge = new Path2D();
+      const x = rx * wide * 0.9 * turn;
+      ridge.moveTo(x, -ry);
+      ridge.quadraticCurveTo(x * 1.1, ry * 0.4, x, ry * 1.6);
+      g.lineWidth = STROKE.inner;
+      g.strokeStyle = rgba(PALETTE.plumbBronzeDark, 0.8 * (1 - turn));
+      g.stroke(ridge);
+    }
+    g.restore();
+    g.lineWidth = STROKE.outline;
+    g.strokeStyle = rgba(PALETTE.plumbBronze, 0.95);
+    g.stroke(sac);
+    drawHurt(g, sac, fx.hurt.value);
 
-  const step = plumbLitStep(s);
-  const fire =
-    step !== null && step.ask === "fire" && s.coreLit
-      ? { color: step.color, left: plumbLeft(s, world, beat, beatPhase) }
-      : null;
-  if (fire !== null) fx.tell(stepColour(fire.color).rim);
-  // Once the last shot is in, the core's light has left it for the chains.
-  const glowing = s.coreLit && s.phase !== "bleed" && s.phase !== "free";
-  drawPlumbCore(ctx, l, turn, coreHurt(s.hits), glowing, fire, beatPhase);
+    const step = plumbLitStep(s);
+    const fire =
+      step !== null && step.ask === "fire" && s.coreLit
+        ? { color: step.color, left: plumbLeft(s, world, beat, beatPhase) }
+        : null;
+    if (fire !== null) fx.tell(stepColour(fire.color).rim);
+    // Once the last shot is in, the core's light has left it for the chains.
+    const glowing = s.coreLit && s.phase !== "bleed" && s.phase !== "free";
+    drawPlumbCore(g, l, turn, coreHurt(s.hits), glowing, fire, beatPhase);
+    return [sac];
+  });
   ctx.restore();
 }
 

@@ -9677,6 +9677,15 @@ shot of the wrong colour, stay silent, as the simulation is.
 
 **What is not built — a step seen from another side** (suggested 10 October 2026, after the owner on THE BASTION: *very 3 dimensional and even user action is 3d to rotate*). The frame tips toward the screen and the bob swings in depth; it hangs true only when both stones are level in the new tilt.
 
+**Offered (14 October 2026, VERSUS `plumb:glance`).** The bob is the part that
+turns: the sac and the core in its belly yaw together about the sac's middle
+(`packages/render/src/plumb-glance.ts`), on top of its own slow turn to show the
+core, the near flank opening and the far flank closing into the dark and back.
+The hook, the beam, the chains and the stones a thumb pulls stay where they
+hang, and a bolt meets the sac where it is drawn. It ships still, and VERSUS
+offers **SWAY**, **LOOK** and **COCK** at three tenths of the sac's half-width
+on THE PLUMB · STILL. The frame tipping toward the screen is not built.
+
 
 ## 11.49 THE SLING — the boss two draws loose, then shoot into
 

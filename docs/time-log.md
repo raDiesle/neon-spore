@@ -39566,3 +39566,15 @@ Bottleneck: the glare and the sight reach down to the hull, past any layer the t
 Bottleneck: a lobe is drawn under its own swing and pinch, so the dark needed its outline in the case's frame — the stop already had it, and it was lifted out to be shared rather than written twice.
 
 *Measured: 9 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-14 — THE PLUMB: a part that turns, so it is seen from a new side
+
+- reading: 5 min. `plumb-draw.ts`'s bob, `plumb-grip.ts`'s stones and
+  `plumb-stop.ts`'s sac outline.
+- writing: 10 min. The record about the sac's middle, the sac and core wrapped,
+  the stop's outline mapped, three candidates, the spec note.
+- looking: 5 min. One shot at the widest; the sac turns under a beam that stays.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: none to speak of — the stones a thumb pulls hang off the beam, not the sac, so turning the sac alone left every grip where it was.
