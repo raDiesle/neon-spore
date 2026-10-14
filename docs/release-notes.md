@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-14 · 72bb3c57d — The sim can measure a pull along a bent path, and fail a thumb that strays
+
+A pull's path is now a polyline in thousandths of a tile from the knob's rest (`pull-path.ts`): progress is the distance along it to the point nearest the thumb, looked for within the PULL LAB's window round the knob so a curve that doubles back is not jumped across, and a thumb more than a tile off it — the lab's half a tile, doubled for a finger — fails the pull with `pullStray`, heard and drawn as the short lift's refusal. Everything else is the straight pull's. No boss uses it yet; THE WARDEN, THE LID, THE SINEW and THE LATCH follow, one lane each.
+
 ## 2026-10-14 · 03b365c05 — THE CURTAIN's hem pulls a tile further, under a rail a tile higher
 
 The hem now has to be carried 3.5 tiles up instead of 2.5 before the gap over the core opens, and the rail it is carried towards hangs a tile higher, so the knob's channel is a tile longer too — the owner's answer of 13 October 2026 to *longer pulls where reasonable*. Exemption: asked for by name.

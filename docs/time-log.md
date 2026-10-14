@@ -40205,3 +40205,5 @@ drawing, so what *a tile higher* meant had to be read off the code.
 Bottleneck: the nearest point had to stay inside the lab's window without a
 square root, which a projection clamped to the window's part of each segment
 does.
+
+*Measured: 9 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
