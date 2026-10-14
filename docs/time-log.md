@@ -40903,3 +40903,5 @@ hand, now a queue item.
 
 Bottleneck: none of note — the entry named the cut, and the cards are
 joined in `poses-bosses.ts`, not `poses.ts` as it said.
+
+*Measured: 8 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*

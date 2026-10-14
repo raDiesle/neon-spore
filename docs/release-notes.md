@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-14 · 2fb16469c — THE SPOOL's poses move out of poses-bosses-hands-clocks.ts
+
+THE SPOOL's six earned states, with the paragraph that explains them, move to their own `poses-bosses-hands-spool.ts`, joined straight after the clocks' cards so the sheet's order is unchanged; the clocks' file drops from 250 lines to 197.
+
 ## 2026-10-14 · 3decdefcf — Six blocks after FINALE get their regular waves, THE LURE to THE VEIL
 
 Forty-eight waves composed by `bun run waves:compose`, eight after each of THE LURE, THE THROB, THE SHELL, THE CLASP, THE DART and THE VEIL: again, spread, far apart, with the block before's thing, easy, recall, with twins, and the peak. Each block's first wave starts a little above the last — 3.6 at THE LURE to 5.1 at THE VEIL — and its peak climbs from 8.6 to 9.9. All are variants, so they fold under their intro in the director's list and every name can be changed there. A look the owner asked for by name.
