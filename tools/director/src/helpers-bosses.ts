@@ -1,4 +1,5 @@
 import { midCol } from "@neon-spore/sim";
+import { CLOCK_B_ROWS } from "./helpers-bosses-b.js";
 import type { HelperDef, HelperGroup } from "./helpers-def.js";
 import { UNDERTOW_BOWING } from "./helpers-poses-bosses.js";
 
@@ -44,8 +45,9 @@ const CLOCK_ROWS: HelperDef[] = [
     says:
       "The same beads on both screens and a different sentence about them on each: " +
       "the pilot says one more into the three, the navigator says which one and in " +
-      "which colour.",
-    source: "gorge-draw.ts",
+      "which colour. On the ring, the mark for the tap that opens the bottom " +
+      "bubble is on his screen alone: it is his thumb.",
+    source: "gorge-draw.ts, gorge-grip.ts",
     pose: "THE GORGE · ROW",
     role: "p1",
     lookAt: "the violet tally under each bubble",
@@ -134,5 +136,5 @@ const CLOCK_ROWS: HelperDef[] = [
 export const BOSS_GROUP: HelperGroup = {
   title: "ONE BOSS'S OWN",
   sub: "the picture a boss with a split draws on one seat only, and what the other seat is shown instead",
-  rows: CLOCK_ROWS,
+  rows: [...CLOCK_ROWS, ...CLOCK_B_ROWS],
 };

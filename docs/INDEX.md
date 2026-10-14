@@ -3769,6 +3769,7 @@ by hand never moves.
 | `tools/director/src/helpers-faults.ts` | CONTROLS › HELPERS, **WHEN A CONTROL BREAKS** |
 | `tools/director/src/helpers-marks.ts` | CONTROLS › HELPERS, **ON A BOSS'S MARK**: the few pictures every boss's parts wear |
 | `tools/director/src/helpers-bosses.ts` | **ONE BOSS'S OWN** on CONTROLS › HELPERS — the picture a boss with a split draws on one seat only |
+| `tools/director/src/helpers-bosses-b.ts` | **ONE BOSS'S OWN, page two** — THE SCUTTLE to THE THROAT |
 | `tools/director/src/brush-hints.ts` | SHOW DESCRIPTIONS: whether each brush in the palette carries its sentence |
 | `tools/director/src/brush-lists.ts` | which strings are brushes and which kind each one paints — the lists, not the palette's rows |
 | `tools/director/src/scene-marks.ts` | The marks: everything a scene draws that is not a body |

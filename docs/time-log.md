@@ -41161,3 +41161,18 @@ Bottleneck: looking — a one-seat picture is small by design, and at the
 size of the whole field half of them were a hair.
 
 *Measured: 9 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
+
+## 2026-10-15 — HELPERS: THE CURTAIN to THE STARE (half two)
+
+- reading: 10 min. The seven splits in `view-role-clocks-b.ts`, and THE
+  THROAT's, which is in `throat-marks.ts` rather than either page.
+- writing: 10 min. Seven rows in `helpers-bosses-b.ts`, THE STARE's catch
+  pose, the gorge's tap folded into its row.
+- looking: 10 min. Each frame in the browser pane; THE SCUTTLE and THE
+  THROAT wanted a closer cut.
+- friction: 0 min.
+- landing: 5 min.
+
+Bottleneck: reading — the entry named THE THROAT with the others, and its
+split is drawn somewhere neither page says.
+

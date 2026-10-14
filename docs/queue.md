@@ -328,23 +328,6 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/skipped.test.ts` holds the listing's count of the entries
 `next` stepped past and why.
 
-## HELPERS: THE CURTAIN to THE STARE's one-seat pictures are not listed
-
-- **Found:** 2026-10-14, claude/docs-controls-helpers-org-c825df
-- **Taken:** 2026-10-14, main (claim: claude/queue-helpers-the-curtain-to-the-stares-one-seat-pictu)
-- **Files:** `tools/director/src/helpers-bosses.ts`, `packages/render/src/view-role-clocks-b.ts`
-
-ONE BOSS'S OWN is on the page since claude/queue-helpers-curtain-to-stare
-(`tools/director/src/helpers-bosses.ts`), with a row for each boss
-`view-role-clocks.ts` splits: THE UNDERTOW, THE GORGE, THE CURTAIN, THE
-TASTER, THE SINEW, THE LEDGER, THE SURGE and THE LEAD. Left: the bosses
-`view-role-clocks-b.ts` splits — THE SCUTTLE, THE ANTIPHON, THE HIVE, THE
-INSTAR, THE STARE, THE FILAMENT, THE GORGE's tap — and THE THROAT. Add
-their rows to the same group in the same shape — a row a boss, the frame on
-one seat and the other seat's picture named in `seat`, a closer cut where
-the whole field leaves the picture a hair — look at each, and keep
-`helpers-bosses.test.ts` green.
-
 ## HELPERS: THE BASTION to THE TRAPEZE's one-seat pictures are not listed
 
 - **Found:** 2026-10-14, claude/docs-controls-helpers-org-c825df
