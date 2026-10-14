@@ -97,6 +97,9 @@ import { THROAT_SWAY } from "./throat-glance/sway/index.js";
 import { UNDERTOW_COCK } from "./undertow-glance/cock/index.js";
 import { UNDERTOW_LOOK_AROUND } from "./undertow-glance/look/index.js";
 import { UNDERTOW_SWAY } from "./undertow-glance/sway/index.js";
+import { VALVE_COCK } from "./valve-glance/cock/index.js";
+import { VALVE_LOOK_AROUND } from "./valve-glance/look/index.js";
+import { VALVE_SWAY } from "./valve-glance/sway/index.js";
 import { VANE_COCK } from "./vane-glance/cock/index.js";
 import { VANE_LOOK_AROUND } from "./vane-glance/look/index.js";
 import { VANE_SWAY } from "./vane-glance/sway/index.js";
@@ -185,6 +188,9 @@ export const VARIANTS: Variant[] = [
   HASP_LOOK_AROUND,
   HASP_SWAY,
   STARE_COCK,
+  VALVE_COCK,
+  VALVE_LOOK_AROUND,
+  VALVE_SWAY,
   STARE_LOOK_AROUND,
   STARE_SWAY,
   SURGE_COCK,

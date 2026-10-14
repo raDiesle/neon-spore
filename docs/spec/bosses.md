@@ -8786,6 +8786,15 @@ socket stays silent, as the hand says. Its test:
 
 **What is not built — a step seen from another side** (suggested 10 October 2026, after the owner on THE BASTION: *very 3 dimensional and even user action is 3d to rotate*). The wheel tips back edge-on and its mark goes out of sight; the freeze is timed to the tip back, when the mark comes round again.
 
+**Offered (14 October 2026, VERSUS `valve:glance`).** A machine, so the full
+shape turns: the drum, its notched rim, its face and everything on it yaw
+together (`packages/render/src/valve-glance.ts`), held at the two points a
+thumb is on — the wheel's hub and the socket — so each is squeezed about its
+own middle and neither moves. The drum's near end reaches out and its far end
+closes into the dark and back; the pins hang under it and do not turn, and a
+bolt meets the rim where it is drawn. It ships still, and VERSUS offers
+**SWAY**, **LOOK** and **COCK** on THE VALVE · TURN.
+
 
 ## 11.43 THE SEAM — the boss answered with the cannon and the shield, in order
 

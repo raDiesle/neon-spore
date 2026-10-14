@@ -31,7 +31,12 @@ export const VALVE_POSES: Pose[] = [
     "valve",
     "turn",
     "The first mark lit on the drum's face. P1 turns the wheel onto it; P2 waits.",
-    { hold: 6, role: "p1" },
+    {
+      hold: 6,
+      role: "p1",
+      lookAt:
+        "the whole drum turning, held at the wheel and the socket — its far end into the dark",
+    },
   ),
   bossPose(
     "valve",

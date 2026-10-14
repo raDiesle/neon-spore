@@ -2,6 +2,7 @@ import { VALVE_PINS, type ValveState, valveVerdict, type World } from "@neon-spo
 import type { Stopper } from "./bolt-stop.js";
 import { coreStopper, type Foot, lowestFoot, outlineFoot } from "./core-stop.js";
 import type { Layout } from "./layout.js";
+import { valveGlancedPoint } from "./valve-glance.js";
 import { VALVE_PIN, valvePinPoints, valvePinTop } from "./valve-pins.js";
 import { valveHalfSwing, valveOpen, valvePinOut, valvePinReach } from "./valve-pose.js";
 import { type Point, valveRimPoints } from "./valve-shape.js";
@@ -55,7 +56,8 @@ export function valveStopper(
     const plate = valvePinPoints(l, i, VALVE_PINS, valvePinReach(s, i, beatPhase), going);
     feet.push(outlineFoot(plate.map((p) => lay(turned(p, sway, top)))));
   }
-  const rim = valveRimPoints(l, s.wheelMilli, time * 0.4);
+  // Met where the drum's turn draws it (`valve-glance.ts`).
+  const rim = valveRimPoints(l, s.wheelMilli, time * 0.4).map((p) => valveGlancedPoint(l, time, p));
   const open = valveOpen(s, cfg, beat, beatPhase);
   if (open <= 0) feet.push(outlineFoot(rim.map(lay)));
   else {

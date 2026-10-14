@@ -17,6 +17,7 @@ import { PALETTE, STROKE } from "./palette.js";
 import { drawPullArrow } from "./pull-knob.js";
 import { PULL_DOWN } from "./pull-line.js";
 import { drawValveFx, type ValveFx } from "./valve-fx.js";
+import { drawValveGlanced } from "./valve-glance.js";
 import { drawValveMark, drawValveSocket } from "./valve-marks.js";
 import {
   VALVE_PIN,
@@ -128,32 +129,36 @@ function drawDrum(
   time: number,
   fx: ValveFx,
 ): void {
-  const rim = valveRimPath(l, s.wheelMilli, time * 0.4);
-  const { rx } = valveReach(l);
-  ctx.fillStyle = rgba(PALETTE.rockDark, 0.95);
-  ctx.fill(rim);
-  ctx.save();
-  ctx.clip(rim);
-  litRound(ctx, 0, 0, rx, LIGHT_HALF.rock, 0.02 * Math.sin(time * 0.7));
-  ctx.restore();
-  ctx.lineWidth = STROKE.outline;
-  ctx.strokeStyle = rgba(PALETTE.rock, 0.9);
-  ctx.stroke(rim);
-  drawHurt(ctx, rim, fx.hurt.value);
-  ctx.lineWidth = STROKE.inner;
-  ctx.strokeStyle = rgba(PALETTE.rock, 0.4);
-  ctx.stroke(valveFacePath(l));
-  for (let i = 0; i < pulled(s); i++) {
-    ctx.fillStyle = rgba(PALETTE.rockDark, 1);
-    ctx.fill(valveHolePath(l, i, VALVE_PINS));
-  }
-  drawValveHalos(ctx, l, s, beatPhase, time);
-  drawWheel(ctx, l, s);
-  drawValveFx(ctx, l, fx);
-  if (valveTurning(s) || valveFrozen(s)) drawValveMark(ctx, l, world, s);
-  drawValveSocket(ctx, l, world, s, valveSocketGlow(s, beatPhase), beat, beatPhase);
-  drawValveStory(ctx, l, s, world.cfg, beat, beatPhase, fx.rub);
-  drawValveVerdicts(ctx, l, s, beatPhase, time, fx.marks.verdicts);
+  // The whole drum turns, held at the wheel's hub and the socket (`valve-glance.ts`).
+  drawValveGlanced(ctx, l, time, (g) => {
+    const rim = valveRimPath(l, s.wheelMilli, time * 0.4);
+    const { rx } = valveReach(l);
+    g.fillStyle = rgba(PALETTE.rockDark, 0.95);
+    g.fill(rim);
+    g.save();
+    g.clip(rim);
+    litRound(g, 0, 0, rx, LIGHT_HALF.rock, 0.02 * Math.sin(time * 0.7));
+    g.restore();
+    g.lineWidth = STROKE.outline;
+    g.strokeStyle = rgba(PALETTE.rock, 0.9);
+    g.stroke(rim);
+    drawHurt(g, rim, fx.hurt.value);
+    g.lineWidth = STROKE.inner;
+    g.strokeStyle = rgba(PALETTE.rock, 0.4);
+    g.stroke(valveFacePath(l));
+    for (let i = 0; i < pulled(s); i++) {
+      g.fillStyle = rgba(PALETTE.rockDark, 1);
+      g.fill(valveHolePath(l, i, VALVE_PINS));
+    }
+    drawValveHalos(g, l, s, beatPhase, time);
+    drawWheel(g, l, s);
+    drawValveFx(g, l, fx);
+    if (valveTurning(s) || valveFrozen(s)) drawValveMark(g, l, world, s);
+    drawValveSocket(g, l, world, s, valveSocketGlow(s, beatPhase), beat, beatPhase);
+    drawValveStory(g, l, s, world.cfg, beat, beatPhase, fx.rub);
+    drawValveVerdicts(g, l, s, beatPhase, time, fx.marks.verdicts);
+    return [rim];
+  });
 }
 
 /**

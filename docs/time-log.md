@@ -39492,3 +39492,15 @@ Bottleneck: holding the straps' ties would have crushed the shell, since they si
 Bottleneck: the joints are both the marks and whose half a step is, so only each vertebra about its own joint could turn, and a plate is a tile long.
 
 *Measured: 5 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-14 — THE VALVE: a part that turns, so it is seen from a new side
+
+- reading: 5 min. `valve-draw.ts`, `valve-shape.ts`, `valve-grip.ts` and
+  `valve-stop.ts`, to find the wheel's hub and the socket a thumb is on.
+- writing: 10 min. The record held at both, in the drum's own frame, the
+  bolt's stop read through it, three candidates, the pose's lookAt, the spec note.
+- looking: 5 min. One shot at the widest; the far end closes into the dark.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: the two thumb marks sit off the drum's middle, so the turn is centred between them and holds both.

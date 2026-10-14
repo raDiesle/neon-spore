@@ -1470,6 +1470,7 @@ by hand never moves.
 | `packages/render/src/valve-spark.ts` | **THE VALVE's sparks** (§25 rows 7 and 11): an ember falling from under the drum down its column |
 | `packages/render/src/valve-blow.ts` | THE VALVE's timeout blow: its ember burns through the hull and the ship vents a jet of steam up the column |
 | `packages/render/src/valve-grip.ts` | **The two thumbs on THE VALVE** — the grip of its hands lane |
+| `packages/render/src/valve-glance.ts` | **THE VALVE glances**: the whole drum turns, held at the wheel and the socket, offered on VERSUS `valve:glance` |
 | `packages/render/src/valve-fx.ts` | What THE VALVE leaves behind a frame: the **clamp** round a frozen wheel, a pulled pin's slot, the kick, the hull shock |
 | `packages/render/src/valve-fx-story.ts` | **What THE VALVE's story throws** (`sim/valve-story.ts`): the burst each of its thirteen events leaves |
 | `packages/render/src/valve-verdicts.ts` | **THE VALVE's wheel and pin answering a touch the way every mark does** (`mark-feedback.ts` |
