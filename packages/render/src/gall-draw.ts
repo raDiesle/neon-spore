@@ -4,6 +4,7 @@ import type { BoltStops } from "./bolt-stop.js";
 import { drawHurt } from "./boss-hurt.js";
 import { coreHurt } from "./core-hurt.js";
 import type { GallFx } from "./gall-fx.js";
+import { drawGallGlanced } from "./gall-glance.js";
 import { drawGallKnob } from "./gall-knob.js";
 import { drawGallPoints } from "./gall-points.js";
 import {
@@ -144,24 +145,28 @@ function drawBody(
     press: Math.max(charge, stretch),
     sunk: flat,
   });
-  ctx.fillStyle = PALETTE.gallFlesh;
-  ctx.fill(body);
-  ctx.save();
-  ctx.clip(body);
-  litRound(ctx, -rx * 0.3, -ry * 0.45, rx * 1.1, LIGHT_HALF.creature);
-  ctx.restore();
-  const step = gallLitStep(s);
-  if (step?.ask === "fire") {
-    const hurt = coreHurt(s.hits);
-    fx.tell(lightCore(ctx, body, step.color, beatPhase, { x: 0, y: 0, r: rx }, hurt.bright));
-  }
-  ctx.lineWidth = STROKE.outline;
-  ctx.strokeStyle = rgba(PALETTE.gallFleshDark, 0.95);
-  ctx.stroke(body);
-  // A tap lights its rim; once charged, the rim stays lit for the pull.
-  const rim = Math.max(fx.flare, charge >= 1 ? 0.6 + 0.4 * Math.sin(time * 12) : 0);
-  if (rim > 0) strokeGlow(ctx, body, PALETTE.hullRim, STROKE.outline, rim);
-  drawHurt(ctx, body, fx.hurt.value);
-  drawGallFlash(ctx, rx * size, fx.flash, 0);
+  // The body turns as `gall-glance.ts` says; the seam and its points do not.
+  drawGallGlanced(ctx, l, time, (g) => {
+    g.fillStyle = PALETTE.gallFlesh;
+    g.fill(body);
+    g.save();
+    g.clip(body);
+    litRound(g, -rx * 0.3, -ry * 0.45, rx * 1.1, LIGHT_HALF.creature);
+    g.restore();
+    const step = gallLitStep(s);
+    if (step?.ask === "fire") {
+      const hurt = coreHurt(s.hits);
+      fx.tell(lightCore(g, body, step.color, beatPhase, { x: 0, y: 0, r: rx }, hurt.bright));
+    }
+    g.lineWidth = STROKE.outline;
+    g.strokeStyle = rgba(PALETTE.gallFleshDark, 0.95);
+    g.stroke(body);
+    // A tap lights its rim; once charged, the rim stays lit for the pull.
+    const rim = Math.max(fx.flare, charge >= 1 ? 0.6 + 0.4 * Math.sin(time * 12) : 0);
+    if (rim > 0) strokeGlow(g, body, PALETTE.hullRim, STROKE.outline, rim);
+    drawHurt(g, body, fx.hurt.value);
+    drawGallFlash(g, rx * size, fx.flash, 0);
+    return [body];
+  });
   ctx.restore();
 }

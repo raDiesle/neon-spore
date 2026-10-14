@@ -39800,3 +39800,16 @@ Bottleneck: a curve's length is bounded by the field round the moon, not by a nu
 Bottleneck: none — an answered question whose answer is to leave the tree as it is.
 
 *Measured: 2 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-14 — THE GALL: a part that turns, so it is seen from a new side
+
+- reading: 10 min. THE PLUMB's glance lane to copy, §11.55, the body's
+  drawing, the grip's and the stop's geometry to be sure neither reads the
+  outline, and which pose shows the alien sitting.
+- writing: 5 min. `gall-glance.ts`, the body wrapped in it, three
+  candidates, the pose row, the test row, the spec and the index.
+- looking: 5 min. `versus:shot gall:glance cock`, cropped against today.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: finding the pose that shows the alien sat on the seam, since THE GALL has no boss-state pose of its own.

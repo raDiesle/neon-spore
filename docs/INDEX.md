@@ -1309,6 +1309,7 @@ by hand never moves.
 | `packages/render/src/gall-fx.ts` | What THE GALL leaves behind a frame (§11.55): the **flare** of a tap |
 | `packages/render/src/gall-receipts.ts` | **What THE GALL's receipts are drawn as**, off the numbers `gall-fx.ts` keeps |
 | `packages/render/src/gall-grip.ts` | **The pinch on THE GALL** — the hands lane that makes the nodule answer two fingers at all |
+| `packages/render/src/gall-glance.ts` | **THE GALL glances**: the alien's body turns about its middle on the seam, offered on VERSUS `gall:glance` |
 | `packages/render/src/gall-verdicts.ts` | **THE GALL's mark answering a touch the way every mark does** (`mark-feedback.ts` |
 | `packages/render/src/gall-knob.ts` | **THE GALL's taps and pull, drawn as every pull is**: the PULL LAB's knob on the alien where it sits |
 | `packages/render/src/glide.ts` | A spring that chases a value |

@@ -26,6 +26,9 @@ import { FILAMENT_LOOK_AROUND } from "./filament-glance/look/index.js";
 import { FLEET_COCK } from "./fleet-glance/cock/index.js";
 import { FLEET_LOOK_AROUND } from "./fleet-glance/look/index.js";
 import { FLEET_SWAY } from "./fleet-glance/sway/index.js";
+import { GALL_COCK } from "./gall-glance/cock/index.js";
+import { GALL_LOOK_AROUND } from "./gall-glance/look/index.js";
+import { GALL_SWAY } from "./gall-glance/sway/index.js";
 import { GIMBAL_COCK } from "./gimbal-glance/cock/index.js";
 import { GIMBAL_LOOK_AROUND } from "./gimbal-glance/look/index.js";
 import { GIMBAL_SWAY } from "./gimbal-glance/sway/index.js";
@@ -149,6 +152,9 @@ export const VARIANTS: Variant[] = [
   FLEET_COCK,
   FLEET_LOOK_AROUND,
   FLEET_SWAY,
+  GALL_COCK,
+  GALL_LOOK_AROUND,
+  GALL_SWAY,
   GIMBAL_COCK,
   GIMBAL_LOOK_AROUND,
   GIMBAL_SWAY,

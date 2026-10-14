@@ -10345,6 +10345,16 @@ as the simulation is.
 
 **What is not built — a step seen from another side** (suggested 10 October 2026, after the owner on THE BASTION: *very 3 dimensional and even user action is 3d to rotate*). The gall jumps round to the back of the body, out of sight; it is found by turning the body round by a rim, not by searching the field.
 
+**Offered (14 October 2026, VERSUS `gall:glance`).** The alien is small and
+all head, so its whole body is the part that turns: it yaws about its own
+middle where it stands on the seam (`packages/render/src/gall-glance.ts`), the
+lit core, the rim and the flash turning with it, the near flank opening and
+the far one closing into the dark and back. The seam, its four points and the
+knob stay where they are; a hand is taken in its point's share of the seam
+and a bolt is stopped by the seam, so nothing a thumb or a bolt meets moves.
+It ships still, and VERSUS offers **SWAY**, **LOOK** and **COCK** at 0.36 of
+the body's half-width on GALL · TAPS ON THE LEFT END.
+
 ## 11.56 THE TRAPEZE — an alien swung up to a gong
 > An alien sits on a swing hung from long ropes over the middle. Swipe
 > toward the middle when the swing comes back on your side, and it goes
