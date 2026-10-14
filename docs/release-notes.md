@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-14 · 9644e61e0 — A bolt stops on THE CHRYSALIS where it is drawn, and is met there
+
+A shot up the cocoon bursts on the lower edge of the skin it wears now, and on the heart's pore while it beats, and the simulation judges it on that row rather than at the top of the field. The cocoon's row and the pore's depth are read from the simulation's own table, so the two cannot drift.
+
 ## 2026-10-14 · 87e6414df — THE SURGE, THE ANTIPHON and THE LEAD hold the HOLD LAB's drop
 
 THE SURGE's two grip marks on the bulb are each a drop, sunk under its seat's thumb on both screens, the partner's dimmed and both dimmed while the bulb takes no thumb; they hold no water, so the pressure stays the navigator's number. THE ANTIPHON's organ wears the drop where its grip mark was, sunk while a thumb turns it. THE LEAD's stalk is the drop in place of the ring and dial, with the water welling to the rim over leadHoldBeats, and its still cue draws no second drop (`BossCue.ownDrop`).
