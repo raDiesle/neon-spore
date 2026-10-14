@@ -39798,3 +39798,5 @@ Bottleneck: a curve's length is bounded by the field round the moon, not by a nu
 - landing: 5 min. `queue done`, the commit, `land`.
 
 Bottleneck: none — an answered question whose answer is to leave the tree as it is.
+
+*Measured: 2 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
