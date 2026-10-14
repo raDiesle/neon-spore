@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-14 · 960721003 — VERSUS offers THE HASP's door turning on its hubs
+
+`hasp:glance` offers the door's three shells a turn, each about its own hub — SWAY, LOOK or COCK — the far half of every shell closing into the dark and back while her wheel, the cap and the latch's rail stay where a thumb has them, on THE HASP · WORK. The latch's staple and a bolt's stop read the same turn. The record ships still, so the game draws what it did.
+
 ## 2026-10-14 · ac88697d4 — VERSUS offers THE SPOOL turning about its brake
 
 `spool:glance` offers the whole spool a turn about the brake's flange — SWAY, LOOK or COCK — its far end swinging away into the dark and back while the shoe, the rail and the knob stay where a thumb has them, on THE SPOOL · TAUT. The record ships still, so the game draws what it did.
