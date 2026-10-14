@@ -39250,3 +39250,13 @@ Bottleneck: only TORN shows the core naked, and torn the curtain has no creature
 Bottleneck: the fan already sways its tips, so the turn had to be a twist about each root rather than another lean.
 
 *Measured: 5 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-14 — VERSUS offers THE SINEW's mass glancing
+
+- reading: 5 min. The entry, §11.26, `sinew-draw.ts`, `sinew-shape.ts`, the sinew poses.
+- writing: 5 min. `sinew-glance.ts`, the mass's paint wrapped, the scaffold.
+- looking: 5 min. One VERSUS shot, two crops, and the reach raised for a mass three columns wide.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: the turn on a mass this wide read faint at the shared size, so it was raised.

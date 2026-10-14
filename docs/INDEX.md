@@ -1416,6 +1416,7 @@ by hand never moves.
 | `packages/render/src/sinew-tear.ts` | **A fibre torn: the stage won, said so nobody can miss it** — the owner, 2 October 2026 |
 | `packages/render/src/sinew-power.ts` | **What a hand's pull is worth, on the handle it is worth it on** |
 | `packages/render/src/sinew-veil.ts` | THE SINEW's strings laid down veiled while THE SLOW is open |
+| `packages/render/src/sinew-glance.ts` | **THE SINEW's mass glances** — the owner, 9 and 10 October 2026: *body parts of living things turn . |
 | `packages/render/src/slime-look.ts` | WHAT HANGS OFF THE MEMBRANE INTO THE CHAMBER, AS A RECORD |
 | `packages/render/src/sling-draw.ts` | **THE SLING** (§32): a forked bracket over the middle column, folded until it swings into stand |
 | `packages/render/src/sling-grip.ts` | **THE SLING's two cords as controls**: `slingDrawLeft` is the pilot's (seat 1) |

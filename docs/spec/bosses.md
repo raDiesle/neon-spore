@@ -4970,6 +4970,14 @@ are drawn at the pull (`handle-draw.ts`).
 
 **What is not built — a step seen from another side** (suggested 10 October 2026, after the owner on THE BASTION: *very 3 dimensional and even user action is 3d to rotate*). The body twists, and each handle pulls along the twisted way, not straight down — THE BASTION's plate pulled along its own way — so how hard is asked at a slant that turns between steps.
 
+**Offered (14 October 2026, VERSUS `sinew:glance`).** The crown flies and the
+tendon is a rope, and the handles rest off the mass's centre rather than its
+outline, so the part that turns is the mass (`packages/render/src/
+sinew-glance.ts`, which ships still): **about its own centre**, its far side
+narrowing into the dark — a weight on a rope turning as it hangs. The handles
+are drawn after it and do not turn. **SWAY**, **LOOK** and **COCK**
+(`glance-styles.ts`), judged on `THE SINEW · HANGING`.
+
 
 ## 11.27 THE LEDGER — the boss that bills your own hull for every shot
 

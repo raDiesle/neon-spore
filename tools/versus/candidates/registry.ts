@@ -42,6 +42,9 @@ import { QUEEN_SWAY } from "./queen-glance/sway/index.js";
 import { REPRISE_COCK } from "./reprise-glance/cock/index.js";
 import { REPRISE_LOOK_AROUND } from "./reprise-glance/look/index.js";
 import { REPRISE_SWAY } from "./reprise-glance/sway/index.js";
+import { SINEW_COCK } from "./sinew-glance/cock/index.js";
+import { SINEW_LOOK_AROUND } from "./sinew-glance/look/index.js";
+import { SINEW_SWAY } from "./sinew-glance/sway/index.js";
 import { SPLICE_COCK } from "./splice-glance/cock/index.js";
 import { SPLICE_LOOK_AROUND } from "./splice-glance/look/index.js";
 import { SPLICE_SWAY } from "./splice-glance/sway/index.js";
@@ -104,6 +107,9 @@ export const VARIANTS: Variant[] = [
   REPRISE_COCK,
   REPRISE_LOOK_AROUND,
   REPRISE_SWAY,
+  SINEW_COCK,
+  SINEW_LOOK_AROUND,
+  SINEW_SWAY,
   SPLICE_COCK,
   SPLICE_LOOK_AROUND,
   SPLICE_SWAY,

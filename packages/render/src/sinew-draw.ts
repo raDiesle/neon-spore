@@ -15,6 +15,7 @@ import { drawSinewCrown, sinewCrownRoot } from "./sinew-crown.js";
 import { drawSinewFibres, FIBRE_LOOK } from "./sinew-fibres.js";
 import { paintMass } from "./sinew-flesh.js";
 import type { SinewFx } from "./sinew-fx.js";
+import { drawSinewMassGlanced } from "./sinew-glance.js";
 import { drawSinewHandles } from "./sinew-handles.js";
 import {
   sinewCrushed,
@@ -124,6 +125,10 @@ function drawMass(
   const hex = crushed ? PALETTE.ember : mixHex(PALETTE.hull, PALETTE.hullRim, strain * 0.35);
   const rim = crushed ? PALETTE.emberRim : PALETTE.hullRim;
   const m = { x: c.x, y: c.y, rx, ry: sinewMassRy(l), tile: l.tile };
-  paintMass(ctx, path, m, hex, rim, strain, time);
-  drawHurt(ctx, path, hurt);
+  // Turned about its centre, the handles' rest, as it hangs (`sinew-glance.ts`).
+  drawSinewMassGlanced(ctx, { x: c.x, y: c.y, r: rx }, time, (g) => {
+    paintMass(g, path, m, hex, rim, strain, time);
+    drawHurt(g, path, hurt);
+    return path;
+  });
 }

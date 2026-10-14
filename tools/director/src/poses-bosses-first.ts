@@ -136,6 +136,8 @@ export const FIRST_BOSS_POSES: Pose[] = [
         !sinewHeld(w.boss, 2) &&
         !sinewSwinging(w.boss, w) &&
         w.beat >= 2,
+      lookAt:
+        "the mass on the end of the tendon — whether it turns toward one side about its centre, its far side going dark",
     },
   ),
   bossPose(
