@@ -816,6 +816,7 @@ and keep `helpers-page.test.ts` green.
 ## THE CAPSTAN's glance is faint: its faces are held at the drum's ends
 
 - **Found:** 2026-10-14, claude/queue-the-capstan-a-part-that-turns-so-it-is-seen-from
+- **Taken:** 2026-10-14, claude/queue-tasks-988432 (claim: claude/queue-the-capstans-glance-is-faint-its-faces-are-held)
 - **Files:** `packages/render/src/capstan-glance.ts`, `packages/render/src/capstan-grip.ts`, `packages/render/src/touch-field.ts`
 - **Asks:** THE CAPSTAN's turn on VERSUS is faint — keep it as offered, make the rub read a clock so the drum can turn about its middle, or drop the slot?
 
