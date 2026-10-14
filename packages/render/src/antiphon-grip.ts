@@ -9,10 +9,10 @@ import { antiphonOrganCircle } from "./antiphon-shape.js";
 import type { BossCue } from "./boss-cue.js";
 import { cueSeen } from "./boss-cue.js";
 import { drawCueText } from "./boss-cue-text.js";
-import { drawHandleRing, handleRadius } from "./handle-draw.js";
+import { handleRadius } from "./handle-draw.js";
 import { hitCircle, type Layout } from "./layout.js";
 import { drawMarkHalo } from "./mark-feedback.js";
-import { PALETTE } from "./palette.js";
+import { drawSoakHold } from "./soak-hold.js";
 import type { Field, Touch } from "./touch.js";
 import { bossOf } from "./touch-field.js";
 import { showsAntiphonOrgan } from "./view-role-clocks-b.js";
@@ -37,8 +37,10 @@ import { showsAntiphonOrgan } from "./view-role-clocks-b.js";
  * rest, never the breathing contour; whether the organ *takes* the thumb —
  * not once the body is down — is the simulation's to refuse.
  *
- * What is drawn is a **grip mark** on the organ's lower flank, held while
- * either thumb is on, and the word under it while none is — and, while it
+ * What is drawn is the HOLD LAB's drop on the organ's lower flank
+ * (`soak-hold.ts`; the owner, 13 October 2026, every hold the drop), sunk
+ * while either thumb is on and holding no water, because the turn counts
+ * nothing, and the word under it while none is — and, while it
  * is asked (`antiphonOrganAsks`), the halo every asked mark wears under it
  * (`antiphon-marks.ts`). The turn has no verdict: it answers nothing.
  */
@@ -80,16 +82,7 @@ export function drawAntiphonGrip(
   const c = antiphonOrganCircle(l, cfg);
   const y = c.y + c.r * GRIP_DOWN;
   if (asked) drawMarkHalo(ctx, c.x, y, r, time);
-  drawHandleRing(ctx, {
-    x: c.x,
-    y,
-    r,
-    hex: PALETTE.rock,
-    rim: PALETTE.text,
-    held,
-    pull: 0,
-    time,
-  });
+  drawSoakHold(ctx, { x: c.x, y }, r, { time, held });
   if (held) return;
   // **The cue** (`decisions.md` #34, `boss-cue-text.ts`). The seat is the
   // explainer's: the organ stands on their screen and the test screen alone

@@ -15,6 +15,7 @@ import {
   stubCanvas,
   VIEWPORT,
 } from "./frame-harness.js";
+import { spyHolds } from "./soak-spy.js";
 
 setDefaultTimeout(FRAME_TIMEOUT_MS);
 
@@ -50,9 +51,10 @@ function drawn(role: ViewRole, paint: (ctx: CanvasRenderingContext2D, l: Layout)
   return log.join("|");
 }
 
+// The drop lights itself with gradients of its own: only the mark's halo is counted.
 const organ = (s: AntiphonState, role: ViewRole) =>
   count(
-    drawn(role, (ctx, l) => drawAntiphonGrip(ctx, l, CFG, s, 1.2, 1)),
+    spyHolds(() => drawn(role, (ctx, l) => drawAntiphonGrip(ctx, l, CFG, s, 1.2, 1))).out,
     HALO,
   );
 

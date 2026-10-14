@@ -24,6 +24,7 @@ import {
   VIEWPORT,
   waveWith,
 } from "./frame-harness.js";
+import { spyHolds } from "./soak-spy.js";
 
 setDefaultTimeout(FRAME_TIMEOUT_MS);
 
@@ -64,8 +65,9 @@ function ring(world: World, s: LeadState, role: ViewRole, v = new GripVerdicts()
   const log: string[] = [];
   ctx.log = log;
   const c = ctx as unknown as CanvasRenderingContext2D;
-  drawLeadGrip(c, layout(role), CFG, s, world.beat, 0.4, 1.2, v);
-  return log.join("|");
+  // The drop lights itself with gradients of its own: only the mark's are counted.
+  const { holds } = spyHolds(() => drawLeadGrip(c, layout(role), CFG, s, world.beat, 0.4, 1.2, v));
+  return [...log, ...holds.map((h) => `drop ${h.o.held === true ? "held" : "calling"}`)].join("|");
 }
 
 describe("THE LEAD's ring asking", () => {
@@ -76,7 +78,7 @@ describe("THE LEAD's ring asking", () => {
     expect(ring(world, s, "p1")).toBe("");
     s.heldBeat = world.beat;
     expect(count(ring(world, s, "p2"), HALO)).toBe(0);
-    expect(ring(world, s, "p2")).not.toBe("");
+    expect(ring(world, s, "p2")).toContain("drop held");
   });
 
   it("asks nothing of a still already spent, or of a body walking", () => {
@@ -86,6 +88,30 @@ describe("THE LEAD's ring asking", () => {
     s.freeBeat = -1;
     s.stillBeat = -1;
     expect(ring(world, s, "p2")).toBe("");
+  });
+
+  it("is the HOLD LAB's drop, filling over the hold as the beam does", () => {
+    const { world, s } = still();
+    const drop = () =>
+      spyHolds(() =>
+        drawLeadGrip(
+          stubCanvas().ctx as unknown as CanvasRenderingContext2D,
+          layout("p2"),
+          CFG,
+          s,
+          world.beat,
+          0,
+          1.2,
+          new GripVerdicts(),
+        ),
+      ).holds[0]?.o;
+    expect(drop()).toMatchObject({ held: false, fill: 0 });
+    // Taken now, and drawn half the fuse later.
+    s.heldBeat = world.beat;
+    world.beat += Math.floor(CFG.leadHoldBeats / 2);
+    const half = drop();
+    expect(half?.held).toBe(true);
+    expect(half?.fill).toBeCloseTo(Math.floor(CFG.leadHoldBeats / 2) / CFG.leadHoldBeats, 6);
   });
 });
 

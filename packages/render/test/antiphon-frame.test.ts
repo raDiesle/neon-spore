@@ -16,6 +16,7 @@ import {
   turnWord,
 } from "./antiphon-frame-harness.js";
 import { CFG, FRAME_TIMEOUT_MS, installCanvasGlobals, ROLES, VIEWPORT } from "./frame-harness.js";
+import { spyHolds } from "./soak-spy.js";
 
 setDefaultTimeout(FRAME_TIMEOUT_MS);
 
@@ -79,21 +80,22 @@ describe("THE ANTIPHON's body", () => {
   });
 
   it("draws the organ's grip on the explainer's screen with no word, and nothing on the chooser's", () => {
-    // The mark is drawn in the rock's grey whether or not a thumb holds it,
-    // and no word stands under it: a turn on the field says itself with its
-    // grip (the owner, 13 October 2026; `asksGrab`).
-    const none = frame("p1", () => {});
-    const up = frame("p1", (w) => void grown(w));
-    expect(turnWord(up.words)).toBe(false);
-    expect(count(up.text, PALETTE.rock)).toBeGreaterThan(count(none.text, PALETTE.rock));
-    const held = frame("p1", (w) => {
-      grown(w).heldP2 = true;
-    });
-    expect(turnWord(held.words)).toBe(false);
-    expect(count(held.text, PALETTE.rock)).toBeGreaterThan(count(none.text, PALETTE.rock));
+    // The mark is the HOLD LAB's drop, sunk while a thumb holds it, and no
+    // word stands under it: a turn on the field says itself with its grip
+    // (the owner, 13 October 2026; `asksGrab`), and a hold with the drop.
+    const up = spyHolds(() => frame("p1", (w) => void grown(w)));
+    expect(turnWord(up.out.words)).toBe(false);
+    expect(up.holds.length).toBeGreaterThan(0);
+    expect(up.holds.some((h) => h.o.held === true)).toBe(false);
+    const held = spyHolds(() =>
+      frame("p1", (w) => {
+        grown(w).heldP2 = true;
+      }),
+    );
+    expect(turnWord(held.out.words)).toBe(false);
+    expect(held.holds.some((h) => h.o.held === true)).toBe(true);
     // The chooser's screen never takes the organ's mark.
-    const hers = frame("p2", (w) => void grown(w));
-    expect(count(hers.text, PALETTE.rock)).toBe(count(frame("p2", () => {}).text, PALETTE.rock));
+    expect(spyHolds(() => frame("p2", (w) => void grown(w))).holds).toEqual([]);
   });
 
   it("draws the organ turned as far as the thumb has turned it, on the explainer's screen only", () => {

@@ -5,13 +5,15 @@ import {
   leadStill,
   type SimConfig,
 } from "@neon-spore/sim";
-import { drawGripDial, drawGripRing } from "./grip-rings.js";
+import { cueFrame } from "./boss-cue-frame.js";
+import { holdDropR } from "./cue-helper.js";
 import { drawVerdictRing, type GripVerdicts } from "./grip-verdict.js";
 import { handleRadius } from "./handle-draw.js";
 import { hitCircle, type Layout } from "./layout.js";
 import { LEAD_STALK } from "./lead-marks.js";
 import { leadAlong, leadFoot, leadStalkLength } from "./lead-shape.js";
 import { drawMarkHalo } from "./mark-feedback.js";
+import { drawSoakHold } from "./soak-hold.js";
 import type { Field, Touch } from "./touch.js";
 import { bossOf } from "./touch-field.js";
 import { showsLeadCol } from "./view-role-clocks.js";
@@ -30,12 +32,15 @@ import { showsLeadCol } from "./view-role-clocks.js";
  * refused.
  *
  * Two states, both read off beats the simulation already stores, so nothing
- * here outlives a frame: **asked**, the ring breathing on the organ while the
- * still may still be taken (`leadGrippable`); **held**, the ring filled with
- * the beats of hold left closing round it as a dial — `leadHoldBeats` from
+ * here outlives a frame: **asked**, the HOLD LAB's drop calling on the organ
+ * while the still may still be taken (`leadGrippable`); **held**, her thumb
+ * sunk into it and the water welling to the rim over `leadHoldBeats` from
  * `heldBeat`, which is the fuse she is holding and the one readout the pilot
- * has no copy of. Once the stalk has been let go of or has torn free, the ring
- * is gone for the rest of the still: this still cannot be taken twice.
+ * has no copy of. It was a ring with a dial closing round it until the owner,
+ * 13 October 2026, made every hold the drop (`soak-hold.ts`); the cue draws
+ * no second drop over it (`BossCue.ownDrop`, `boss-cue-read-c.ts`). Once the
+ * stalk has been let go of or has torn free, the drop is gone for the rest of
+ * the still: this still cannot be taken twice.
  *
  * Over those two, the convention every mark answers a touch with
  * (`lead-marks.ts`): the halo under the ring while it is asked, and the
@@ -100,11 +105,10 @@ export function drawLeadGrip(
   const r = l.tile * RING_TILES;
   if (held || leadGrippable(s)) {
     if (!held) drawMarkHalo(ctx, at.x, at.y, r, time);
-    drawGripRing(ctx, at.x, at.y, r, held, time);
-    if (held) {
-      const left = 1 - clamp01((beat - s.heldBeat + beatPhase) / Math.max(1, cfg.leadHoldBeats));
-      drawGripDial(ctx, at.x, at.y, r, left);
-    }
+    const fill = held
+      ? clamp01((beat - s.heldBeat + beatPhase) / Math.max(1, cfg.leadHoldBeats))
+      : 0;
+    drawSoakHold(ctx, at, holdDropR(cueFrame(l)), { time, held, fill });
   }
   const v = verdicts.at(LEAD_STALK);
   if (v !== null) drawVerdictRing(ctx, at.x, at.y, r, v);

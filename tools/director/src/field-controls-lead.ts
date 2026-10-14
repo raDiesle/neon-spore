@@ -20,7 +20,7 @@ export const LEAD_CONTROLS: readonly FieldControlDef[] = [
   {
     name: "THE LEAD'S STALK",
     where:
-      "a ring on the organ at the tip of the stalk, over the body's own " +
+      "the HOLD LAB's drop on the organ at the tip of the stalk, over the body's own " +
       "column on player 2's screen, and only through the still — from the " +
       "beat the body stops dead with one segment left to the beat the pass " +
       "begins; nowhere on player 1's, where the stalk stands in the middle " +
@@ -35,10 +35,10 @@ export const LEAD_CONTROLS: readonly FieldControlDef[] = [
       "lancePrimeBeats, once for each of leadStillFills, which is why the " +
       "hand exists: a pair who spent the still saying the column have missed " +
       "it. Held past leadHoldBeats the stalk tears out of her and it passes " +
-      "anyway — the ring fills with a dial running that fuse down, and the " +
+      "anyway — the drop's water wells to its rim over that fuse, and the " +
       "fight still ends on the pilot's cannon standing where the pass comes " +
       "through (render/lead-grip.ts). Let go of once, the still cannot be " +
-      "taken again. While it is on offer the ring wears the halo every " +
+      "taken again. While it is on offer the drop wears the halo every " +
       "asked mark wears, and her thumb landing washes it green " +
       "(render/lead-marks.ts); the tear is not judged.",
     source: "touch.ts — leadStalkUnder() under handleUnder()",

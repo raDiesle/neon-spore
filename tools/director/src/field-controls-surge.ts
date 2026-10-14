@@ -21,7 +21,8 @@ export const SURGE_CONTROLS: readonly FieldControlDef[] = [
     gesture: "hold",
     does:
       "A thumb anywhere on the bulb is that seat's thumb on it, and the " +
-      "grip mark on that seat's flank fills on both screens. Each thumb " +
+      "HOLD LAB's drop on that seat's flank sinks on both screens, the " +
+      "partner's dimmed. Each thumb " +
       "charges the pressure surgeChargeMilli a beat; no thumb leaks it " +
       "surgeDecayMilli. The only gesture that scores is the **lift**: both " +
       "thumbs off within a beat of each other with the pressure inside the " +

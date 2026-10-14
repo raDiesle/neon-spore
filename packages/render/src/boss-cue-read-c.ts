@@ -79,6 +79,8 @@ export function leadCues(l: Layout, world: World, s: LeadState): readonly BossCu
   if (!leadStill(s)) return [];
   const say = leadWord(s);
   if (say === null) return [];
-  const cue = markAt(2, say.kind, say.word, tileCX(l, s.col), leadRidgeY(l, world.cfg).mid, l, 95);
+  const at = markAt(2, say.kind, say.word, tileCX(l, s.col), leadRidgeY(l, world.cfg).mid, l, 95);
+  // The drop is the grip's, on the organ, with her thumb and the beam in it (`lead-grip.ts`).
+  const cue = { ...at, ownDrop: true };
   return [say.why === undefined ? cue : { ...cue, why: say.why }];
 }

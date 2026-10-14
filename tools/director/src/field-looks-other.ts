@@ -8,11 +8,11 @@ import type { UseLook } from "./field-looks.js";
 export const OTHER_LOOKS: Readonly<Record<string, UseLook>> = {
   // HOLD
   "THE SURGE'S BULB": {
-    find: "The ribbed bulb over the middle of the field, on both screens; each seat's grip mark on its flank is haloed while that seat is asked.",
-    move: "The grip mark fills while the thumb is down and the pressure climbs; letting go together in the band opens a notch, green — apart, short or over, red.",
+    find: "The ribbed bulb over the middle of the field, on both screens; each seat's grip mark on its flank is the HOLD LAB's drop, the partner's dimmed, haloed while that seat is asked.",
+    move: "The thumb sinks into its drop, on both screens, while it is down and the pressure climbs; letting go together in the band opens a notch, green — apart, short or over, red.",
   },
   "THE ANTIPHON'S ORGAN": {
-    find: "The organ under the rail on the explainer's screen; its grip mark is haloed while no thumb rests on it.",
+    find: "The organ under the rail on the explainer's screen; its grip mark is the HOLD LAB's drop, haloed while no thumb rests on it.",
     move: "The organ turns slowly in place while the thumb stays and stops the moment it lifts.",
   },
   "THE GAUGE'S BAND": {
@@ -20,8 +20,8 @@ export const OTHER_LOOKS: Readonly<Record<string, UseLook>> = {
     move: "Green as the thumb lands; the band opens to its full width and stops walking while she holds.",
   },
   "THE LEAD'S STALK": {
-    find: "A ring on the organ at the stalk's tip, over the body's column on the navigator's screen, through the still.",
-    move: "Green as the thumb lands; a dial runs down the time before the stalk tears out of her hand.",
+    find: "The HOLD LAB's drop on the organ at the stalk's tip, over the body's column on the navigator's screen, through the still.",
+    move: "Her thumb sinks in, green as it lands; the water wells to the rim over the time before the stalk tears out of her hand.",
   },
   "THE WELL'S SEAM": {
     find: "The empty sector of the clock face where the two walls meet — the brightest line on the picture — on the pilot's screen while the face slips.",

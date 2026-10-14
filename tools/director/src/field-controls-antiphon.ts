@@ -26,12 +26,12 @@ export const ANTIPHON_CONTROLS: readonly FieldControlDef[] = [
     does:
       "A thumb resting on the organ turns it slowly in place, a whole turn " +
       "in antiphonTurnBeats, and it stops the moment the thumb lifts; the " +
-      "grip mark under it fills while a thumb is on. " +
+      "HOLD LAB's drop under it sinks while a thumb is on. " +
       "The turn is the explainer's way of looking — a lobe the organ hides " +
       "upright it shows turned — and it scores nothing: it changes no " +
       "window, sinks no organ and names no shape (sim/antiphon-hand.ts). " +
       "The rail on the chooser's screen never turns. While no thumb rests on " +
-      "it the grip mark wears the halo every asked mark wears " +
+      "it the drop wears the halo every asked mark wears " +
       "(render/antiphon-marks.ts); the turn is not judged.",
     source: "touch.ts — antiphonOrganUnder() under handleUnder()",
     holdKind: "drag",

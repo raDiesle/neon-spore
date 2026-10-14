@@ -40612,3 +40612,18 @@ Bottleneck: the director's tables, five files that each want the same four
 rows and are only found by the test that misses them.
 
 *Measured: 47 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
+
+## 2026-10-14 — THE SURGE, THE ANTIPHON and THE LEAD hold the HOLD LAB's drop
+
+- reading: 5 min. The three grips, THE LEAD's cue and words, and which tests
+  counted the rings' grey or their gradients.
+- writing: 15 min. The drop on each, THE LEAD's water off its fuse, `ownDrop`
+  on THE LEAD's still cue, four tests moved off the ring onto `spyHolds`, a
+  fill test, and the cards.
+- looking: 5 min. The cards, and THE LEAD's frame rendered on its own because
+  its card crops the drop.
+- friction: 0 min.
+- landing: 5 min.
+
+Bottleneck: writing — four tests read the ring's colour or its gradient
+count, and each had to be asked about the drop instead.

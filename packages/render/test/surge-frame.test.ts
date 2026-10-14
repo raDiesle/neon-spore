@@ -23,6 +23,7 @@ import {
   VIEWPORT,
   waveWith,
 } from "./frame-harness.js";
+import { spyHolds } from "./soak-spy.js";
 
 setDefaultTimeout(FRAME_TIMEOUT_MS);
 
@@ -232,7 +233,10 @@ describe("THE SURGE's word", () => {
     expect(words.filter((w) => w === "HOLD")).toEqual([]);
   });
 
-  it.each(ROLES)("is drawn in the cue's grey, never an ammunition colour, on %s", (role) => {
-    expect(drawn(hung(), role, 3).text).toContain(PALETTE.rock);
+  it.each(ROLES)("is the HOLD LAB's drop on each mark, the partner's dimmed, on %s", (role) => {
+    const { holds } = spyHolds(() => drawn(hung(), role, 3));
+    const frame = holds.slice(-2).map((h) => h.o.theirs);
+    const mine = { p1: [false, true], p2: [true, false], test: [false, false] };
+    expect(frame).toEqual(mine[role as keyof typeof mine]);
   });
 });

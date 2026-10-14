@@ -9,9 +9,9 @@ import {
 import type { BossCue } from "./boss-cue.js";
 import { cueSeen } from "./boss-cue.js";
 import { drawCueText, WORD_FONT } from "./boss-cue-text.js";
-import { drawHandleRing, handleRadius } from "./handle-draw.js";
+import { handleRadius } from "./handle-draw.js";
 import { type Circle, hitCircle, type Layout, tileCX } from "./layout.js";
-import { PALETTE } from "./palette.js";
+import { drawSoakHold } from "./soak-hold.js";
 import {
   type Point,
   surgeBulbCentre,
@@ -37,22 +37,24 @@ import { bossOf } from "./touch-field.js";
  * THE BALLOON's sides — so each seat can see the other's thumb land and,
  * which is the whole boss, see it come off.
  *
- * The grip marks carry no pull arc: a ring that filled with the pressure
+ * **Each mark is the HOLD LAB's drop** (`soak-hold.ts`), the owner, 13
+ * October 2026: every hold the drop. It was a ring until then.
+ *
+ * The grip marks carry no water: a drop that filled with the pressure
  * would put the navigator's number on the pilot's screen
  * (`view-role-clocks.ts`). Held is held, and that is all a *mark* says; what
  * the **word** under it says is `surge-word.ts`'s, and it is `HOLD` while the
  * thumb is off and `LIFT` once it is on with the pressure in the band — the
  * gesture this whole boss is, which the marks shipped without.
  *
- * **Neither mark fills for the seat it is not** (`theirs`, `handle-draw.ts`,
- * 22 September 2026), and this is the one handle in the game where that rule
- * is not about who may press. Either seat may press the bulb anywhere, this
+ * **The seat a mark is not is shown it dimmed** (`theirs`; when it was a
+ * ring, `handle-draw.ts`, 22 September 2026), and this is the one handle in
+ * the game where that rule is not about who may press. Either seat may press the bulb anywhere, this
  * mark included; what the dim one says is *your partner's thumb is there*, and
- * a report does not need the opaque disc an invitation does. It was taking
- * one: two flat black discs on the bulb's lower flank, on the boss whose whole
- * reading is how much the glass has swollen. A mark that is held fills at
- * `0.55` and up anyway, so the one thing this rule had to preserve — seeing
- * the other thumb land and come off — is exactly what still reads.
+ * a report does not need the call an invitation makes. The dimmed drop still
+ * sinks under the partner's thumb, so the one thing this rule had to
+ * preserve — seeing the other thumb land and come off — is exactly what still
+ * reads.
  *
  * The **rest** a thumb is tested against is the bulb's circle on the row
  * the simulation hangs it at (`surge-shape.ts`), never the eased or swollen
@@ -176,17 +178,8 @@ export function drawSurgeGrips(
     const held = surgeHeld(s, player);
     const mine = l.role === "test" || (l.role === "p1") === (player === 1);
     const { x, y, r } = surgeGripCircle(l, cfg, c, rx, ry, side, roll);
-    drawHandleRing(ctx, {
-      x,
-      y,
-      r,
-      hex: refusing ? PALETTE.dim : mine ? PALETTE.rock : PALETTE.dim,
-      rim: refusing ? PALETTE.rock : mine ? PALETTE.text : PALETTE.rock,
-      held,
-      pull: 0,
-      time,
-      theirs: !mine,
-    });
+    // Dimmed and not calling while the bulb takes no thumb, as the partner's is.
+    drawSoakHold(ctx, { x, y }, r, { time, held, theirs: !mine || refusing });
     // **The cue** (`decisions.md` #34, `boss-cue-text.ts`). Which word, and the
     // three silences, are `surge-word.ts`'s — the argument is long and the one
     // thing it must not do is say a number. What is this file's is *where*: the

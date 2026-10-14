@@ -28,7 +28,9 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
  * is not an invitation refused, it is a report — *your partner's thumb is
  * there* — and a report does not need the disc an invitation does. What it was
  * taking instead was two black holes in the glass, on the boss whose whole
- * reading is how far that glass has swollen.
+ * reading is how far that glass has swollen. Since 13 October 2026 the marks
+ * are the HOLD LAB's drop, which cuts no disc for anybody, and the partner's
+ * is dimmed instead (`surge-frame.test.ts`).
  *
  * **THE SCOUT** is the plain check after all; it was last only because no
  * photograph of it can be taken (`bun run frames` knows no verb that flies the
@@ -68,10 +70,10 @@ describe("THE SINEW's two handles, resting on the mass's own lobes", () => {
 });
 
 describe("THE SURGE's two grip marks, on the bulb's lower flank", () => {
-  it("spares each seat the disc of the mark that reports the other thumb", () => {
+  it("cuts no disc on either screen: the marks are the HOLD LAB's drop", () => {
     const { p1, p2 } = spared(() => boss("surge"));
-    expect(p1).toBe(1);
-    expect(p2).toBe(1);
+    expect(p1).toBe(0);
+    expect(p2).toBe(0);
   });
 });
 
