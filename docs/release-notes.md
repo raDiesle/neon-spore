@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-14 · 0b1d123ee — waveNamesAt's figure is 3500 ms, what a scratch checkout now costs
+
+The scratch-tree test declared 1200 ms and `check:fast` measured it at about 3600 to 3900 idle. Timed alone three times on a loaded machine and divided by the core load it is 2980 to 3720 ms, so the figure is 3500, with the runs in its comment.
+
 ## 2026-10-14 · 3a025f919 — Six more blocks get their regular waves, THE WARD to THE GYRE
 
 Forty-eight waves composed by `bun run waves:compose`, eight after each of THE WARD, THE WISP, THE GHOST, THE ECHO, THE RIND and THE GYRE, named the way the six before them were. Each block's first wave starts a little above the last — 4.7 at THE WARD to 6.3 at THE GYRE — and its peak climbs from 9.1 to 10.9. All are variants, folded under their intro in the director's list. A look the owner asked for by name.
