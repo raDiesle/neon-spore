@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-14 · 99f9646e0 — VERSUS offers THE TASTER's blades glancing
+
+Each blade of THE TASTER's fan twists in its socket about its root, where the pin and the pry stand. Its far flat narrows into the dark, and each blade starts from its own place in the round. Ships still; VERSUS `taster:glance` offers SWAY, LOOK and COCK, judged on THE TASTER · FANNING.
+
 ## 2026-10-14 · 5dbd2d4d6 — VERSUS offers THE CURTAIN's core glancing
 
 THE CURTAIN's naked core turns toward one side about its centre, so the point a bolt is aimed at stays put, and its far side narrows into the dark. Ships still; VERSUS `curtain:glance` offers SWAY, LOOK and COCK, judged on THE CURTAIN · TORN, the one pose where the core hangs bare. Exemption: none — a look, offered on VERSUS.

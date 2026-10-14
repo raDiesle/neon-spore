@@ -39248,3 +39248,5 @@ Bottleneck: only TORN shows the core naked, and torn the curtain has no creature
 - landing: 5 min. `check:fast`, the commit, `land`.
 
 Bottleneck: the fan already sways its tips, so the turn had to be a twist about each root rather than another lean.
+
+*Measured: 5 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
