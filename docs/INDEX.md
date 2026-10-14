@@ -897,6 +897,8 @@ by hand never moves.
 | `packages/content/src/living-look-stroked.ts` | a creature is not a blob — the nine kinds a radial contour cannot describe, each `null` with the reason its shape needs a path of its own |
 | `packages/content/src/waves/act-4.ts` | act four, opening on THE WISP; filled the day THE GYRE was written |
 | `packages/content/src/waves/act-4b.ts` | The tail of act four, cut off `act-4.ts` at ten lines under the 250-line ceiling rather than at it |
+| `packages/content/src/waves/act-4-p2.ts` | Cut from `act-4.ts` by the director's save when that file passed the 250-line ceiling; it plays straight… |
+| `packages/content/src/waves/act-4-p3.ts` | Cut from `act-4-p2.ts` by the director's save when that file passed the 250-line ceiling; it plays straight… |
 | `packages/content/src/ghost-shape.ts` | THE GHOST's contour, which is the third family of them in this package |
 | `packages/content/src/gimbal-script.ts` | THE GIMBAL's six alignments: where each ring's mark sits on the true wheel, how far the marks creep a beat |
 | `packages/content/src/gorge-levels.ts` | THE GORGE's levels: five rows or rings of bubbles, and the layout is the level |
@@ -908,6 +910,7 @@ by hand never moves.
 | `packages/content/src/controls-pulse.ts` | **THE PULSE's eight**: four lanes, a slick, a bulb, a meteor and a pod |
 | `packages/content/src/pinball-rounds.ts` | PINBALL's boards, one per round, **drawn rather than listed** |
 | `packages/content/src/waves/act-5.ts` | you are adding a wave — this is the act new ones land in, act four having filled |
+| `packages/content/src/waves/act-5-p2.ts` | Cut from `act-5.ts` by the director's save when that file passed the 250-line ceiling; it plays straight… |
 | `packages/content/src/lid-shape.ts` | you are tuning THE LID's outline — two arcs meeting at a corner, the fourth contour family here |
 | `packages/content/src/scenes.ts` | you are authoring or retiming the rehearsal a guide shows — arrivals, tempo and the acts a ghost thumb plays |
 | `packages/content/src/scene-script.ts` | A rehearsal turned into the two things the runner takes: a command track and a whole `SceneScript` |

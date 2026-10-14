@@ -40984,3 +40984,15 @@ Bottleneck: writing — six marks of three kinds, each a row in eleven tables
 outside the boss's own files.
 
 *Measured: 31 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
+
+## 2026-10-14 — Six more blocks get their regular waves, THE WARD to THE GYRE
+
+- reading: 5 min. The next six blocks in order, and what a player calls
+  each one's thing.
+- writing: 10 min. Forty-eight waves composed and named.
+- looking: 10 min. Every block's table read; the maps shot for the sheet.
+- friction: 5 min. The briefings table renumbered by script again.
+- landing: 5 min.
+
+Bottleneck: looking — the full check is four minutes, and the sheet's
+forty-eight shots each start a director of their own.
