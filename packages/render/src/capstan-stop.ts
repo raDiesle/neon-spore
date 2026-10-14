@@ -1,6 +1,7 @@
 import type { Point } from "@neon-spore/content";
 import { type CapstanState, capstanVerdict, type World } from "@neon-spore/sim";
 import type { Stopper } from "./bolt-stop.js";
+import { capstanGlancedPoint } from "./capstan-glance.js";
 import {
   capstanBodyPoints,
   capstanCoreR,
@@ -22,13 +23,15 @@ export interface CapstanPlace {
   thud: number;
   turn: number;
   shake: { x: number; y: number; roll: number };
+  /** The clock the drum's turn reads (`capstan-glance.ts`). */
+  time: number;
 }
 
 /**
  * **Where a bolt meets THE CAPSTAN**, for `BoltStops` (`bolt-stop.ts`): the
  * core in the drum's middle, bared on a fire step, at its near rim, and
  * otherwise the lowest of the drum and its cradle over x — each carried
- * through the roll and the rattle the drawer gives it.
+ * through the roll, the rattle and the turn the drawer gives it.
  *
  * The drum lies on its side with the core on the face turned to the eye, so
  * a bolt up the middle column to it crosses the cradle's post and saddle on
@@ -44,7 +47,9 @@ export function capstanStopper(l: Layout, world: World, s: CapstanState, p: Caps
     return cradle({ x: p.shake.x + c * q.x - k * q.y, y: p.shake.y + k * q.x + c * q.y });
   };
   const feet = capstanCradleOutline(l).map((piece) => outlineFoot(piece.map(cradle)));
-  feet.push(outlineFoot(capstanBodyPoints(l, capstanSqueeze(p.turn)).map(drum)));
+  const squeeze = capstanSqueeze(p.turn);
+  const body = capstanBodyPoints(l, squeeze).map((q) => capstanGlancedPoint(l, squeeze, p.time, q));
+  feet.push(outlineFoot(body.map(drum)));
   const core = drum({ x: 0, y: 0 }).y + capstanCoreR(l) * coreHurt(s.hits).size;
   return coreStopper(world, capstanVerdict, core, lowestFoot(feet));
 }

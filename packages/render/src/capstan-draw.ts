@@ -9,6 +9,7 @@ import {
 import type { BoltStops } from "./bolt-stop.js";
 import { drawHurt } from "./boss-hurt.js";
 import type { CapstanFx } from "./capstan-fx.js";
+import { drawCapstanGlanced } from "./capstan-glance.js";
 import {
   drawCapstanCore,
   drawCapstanFace,
@@ -93,7 +94,7 @@ export function drawCapstan(
   const shook = { x: at.x + fx.hurt.shakeX(time, l.tile), y: at.y };
   const shake = capstanShake(l, world, s, beat, beatPhase, time);
   const place = { at: shook, lift: gone * l.tile, thud: fx.thud * l.tile, turn, shake };
-  stops?.aim(capstanStopper(l, world, s, place));
+  stops?.aim(capstanStopper(l, world, s, { ...place, time }));
 
   const fade = (0.2 + 0.8 * arrived) * (1 - gone);
   ctx.save();
@@ -112,29 +113,32 @@ export function drawCapstan(
   ctx.translate(shake.x, shake.y);
   ctx.rotate(shake.roll);
   const squeeze = capstanSqueeze(turn);
-  // The end turned away is behind the drum; the one coming round, and a sliver centred, over it.
-  for (const side of SIDES)
-    if (away(side, turn)) drawEnd(ctx, l, world, s, side, turn, beatPhase, fx);
-  drawBody(ctx, l, squeeze, turn, fx.hurt.value);
-  for (const side of SIDES) {
-    if (!away(side, turn)) drawEnd(ctx, l, world, s, side, turn, beatPhase, fx);
-  }
-
   const hurt = coreHurt(s.hits);
   const shot =
     step?.ask === "fire" && s.bared
       ? { color: step.color, left: capstanLeft(s, beat, beatPhase) }
       : null;
-  drawCapstanCore(
-    ctx,
-    l,
-    capstanCover(world, s, beat, beatPhase),
-    hurt.size,
-    hurt.bright,
-    shot,
-    beatPhase,
-  );
-  drawCapstanFlash(ctx, l, fx.flash, fx.open);
+  // The drum turns as `capstan-glance.ts` says; the cradle and the horns under it do not.
+  drawCapstanGlanced(ctx, l, squeeze, time, (g) => {
+    // The end turned away is behind the drum; the one coming round, and a sliver centred, over it.
+    for (const side of SIDES)
+      if (away(side, turn)) drawEnd(g, l, world, s, side, turn, beatPhase, fx);
+    const body = drawBody(g, l, squeeze, turn, fx.hurt.value);
+    for (const side of SIDES) {
+      if (!away(side, turn)) drawEnd(g, l, world, s, side, turn, beatPhase, fx);
+    }
+    drawCapstanCore(
+      g,
+      l,
+      capstanCover(world, s, beat, beatPhase),
+      hurt.size,
+      hurt.bright,
+      shot,
+      beatPhase,
+    );
+    drawCapstanFlash(g, l, fx.flash, fx.open);
+    return [body];
+  });
   ctx.restore();
   drawCapstanMarkFeedback(ctx, l, cfg, s, beat, beatPhase, time, fade, fx.verdicts.verdicts);
 }
@@ -167,14 +171,14 @@ function drawCradle(ctx: CanvasRenderingContext2D, l: Layout): void {
   ctx.stroke(cradle);
 }
 
-/** GATE's bar, the drum seen from the side: the key light sliding the way it turns. */
+/** GATE's bar, the drum seen from the side: the key light sliding the way it turns. Answers with its outline. */
 function drawBody(
   ctx: CanvasRenderingContext2D,
   l: Layout,
   squeeze: number,
   turn: number,
   hurt: number,
-): void {
+): Path2D {
   const { rx, ry } = capstanSize(l);
   const body = capstanBodyPath(l, squeeze);
   ctx.fillStyle = PALETTE.capstanRust;
@@ -196,6 +200,7 @@ function drawBody(
   ctx.strokeStyle = rgba(PALETTE.capstanRustDark, 0.95);
   ctx.stroke(body);
   drawHurt(ctx, body, hurt);
+  return body;
 }
 
 /**

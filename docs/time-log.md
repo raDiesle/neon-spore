@@ -39709,3 +39709,16 @@ times out under the load of every lane checking together.
 Bottleneck: the helper sits on the hull, so it had to go in the pass drawn after the ship rather than with the body.
 
 *Measured: 13 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-14 — THE CAPSTAN: a part that turns, so it is seen from a new side
+
+- reading: 10 min. `capstan-draw.ts`, the drum's own yaw in `capstan-shape.ts`,
+  `capstan-grip.ts`'s ends and `touch-field.ts` for a clock.
+- writing: 10 min. The record held at the two faces, the drum wrapped over a
+  cradle that stays, the stop mapped, three candidates, the spec note, the Asks.
+- looking: 10 min. Three shots; the faces held at the ends pin the outline, and
+  the core caps the reach, so the turn stays faint.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: the rub's hit test reads the faces with no clock, so they had to be held — and held at the drum's ends, they leave the turn almost nothing to show; that is put to the owner.

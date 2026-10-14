@@ -2,6 +2,7 @@ import { describe, expect, it } from "bun:test";
 import { ANTIPHON_GLANCE, ANTIPHON_GLANCE_SIZE } from "../src/antiphon-glance.js";
 import { BATON_GLANCE, BATON_GLANCE_SIZE } from "../src/baton-glance.js";
 import { CAIRN_GLANCE, CAIRN_GLANCE_SIZE } from "../src/cairn-glance.js";
+import { CAPSTAN_GLANCE, CAPSTAN_GLANCE_SIZE } from "../src/capstan-glance.js";
 import { CURTAIN_GLANCE, CURTAIN_GLANCE_SIZE } from "../src/curtain-glance.js";
 import { FLEET_GLANCE, FLEET_GLANCE_SIZE } from "../src/fleet-glance.js";
 import { GIMBAL_GLANCE, GIMBAL_GLANCE_SIZE } from "../src/gimbal-glance.js";
@@ -105,6 +106,7 @@ const ROWS: readonly Row[] = [
   { name: "THE KEEL", record: KEEL_GLANCE, size: KEEL_GLANCE_SIZE, hold: 0 },
   // Held at the wheel's hub and the socket, 0.95 tiles either side of a drum 2.3 wide.
   { name: "THE VALVE", record: VALVE_GLANCE, size: VALVE_GLANCE_SIZE, hold: 0.41 },
+  { name: "THE CAPSTAN", record: CAPSTAN_GLANCE, size: CAPSTAN_GLANCE_SIZE, hold: 0.94 },
   { name: "THE SLING", record: SLING_GLANCE, size: SLING_GLANCE_SIZE, hold: 0 },
   { name: "THE PLUMB", record: PLUMB_GLANCE, size: PLUMB_GLANCE_SIZE, hold: 0 },
   { name: "THE VISE", record: VISE_GLANCE, size: VISE_GLANCE_SIZE, hold: 0 },

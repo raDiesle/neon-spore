@@ -328,14 +328,6 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/skipped.test.ts` holds the listing's count of the entries
 `next` stepped past and why.
 
-## THE CAPSTAN: a part that turns, so it is seen from a new side
-
-- **Found:** 2026-10-10, claude/turn-queue-and-perspective-ideas
-- **Taken:** 2026-10-14, claude/task-queue-work-2770bc (claim: claude/queue-the-capstan-a-part-that-turns-so-it-is-seen-from)
-- **Files:** `packages/render/src/capstan-draw.ts`, `packages/render/src/capstan-shape.ts`, `docs/spec/bosses.md`
-
-The owner, 9 and 10 October 2026, after THE INSTAR's head glances: *body parts of living things turn, especially the head, but also feet and hands, or if mechanical the full boss shape*, and one entry per boss. Read §11.54, pick the part — a head, claws, a turret, or the whole shape of a machine — and follow `.claude/skills/depth`, "A part that glances": a record for its turn that ships still, the far side darkening as it swings, the points a thumb is on held (or the hit test reading the same turn), big enough to see in a still. Offer SWAY, LOOK and COCK on VERSUS as THE INSTAR's were, each cycle six seconds; the owner decides there.
-
 ## THE GALL: a part that turns, so it is seen from a new side
 
 - **Found:** 2026-10-10, claude/turn-queue-and-perspective-ideas
@@ -819,3 +811,33 @@ SUCKS` stops on a red slick, and meteors come from beat 28; and DEFLECTED
 (`banner.ts`) — `WARD · DEFLECTED` ends on the deflection, but its frame does
 not show the word. Add each as a row of `SHIELD_GROUP`, look at the frame,
 and keep `helpers-page.test.ts` green.
+
+## THE CAPSTAN's glance is faint: its faces are held at the drum's ends
+
+- **Found:** 2026-10-14, claude/queue-the-capstan-a-part-that-turns-so-it-is-seen-from
+- **Files:** `packages/render/src/capstan-glance.ts`, `packages/render/src/capstan-grip.ts`, `packages/render/src/touch-field.ts`
+- **Asks:** THE CAPSTAN's turn on VERSUS is faint — keep it as offered, make the rub read a clock so the drum can turn about its middle, or drop the slot?
+
+`capstan:glance` holds the two end faces, because the rub's hit test reads
+them with no clock (`capstan-grip.ts`'s `endAt`; `Field` carries none). The
+faces sit at 0.94 of the drum's half-length, so held there the outline hardly
+changes, and the middle — where the core rides — swings by the full reach, so
+the reach is capped at 0.13 to keep the core over the middle column. On
+VERSUS that reads as the near face a little larger and the far one a little
+darker. The options: **(a)** keep it and let the owner judge it there;
+**(b)** give the rub the clock the drawing reads — a `time` on `Field`, built
+in 99 files today, or a glance clocked off `beat` and `beatPhase` instead of
+seconds — and turn the drum about its middle with the faces travelling, at a
+reach like THE SEAM's; **(c)** drop `capstan:glance`, since the drum already
+yaws with its cradle as the game's own mechanic.
+
+## `guard.test.ts` reports a figure drift
+
+- **Found:** 2026-10-14, claude/queue-the-capstan-a-part-that-turns-so-it-is-seen-from
+- **Files:** `tools/hooks/test/guard.test.ts`
+
+`check:fast` reported `tools/hooks/test/guard.test.ts` at 1732 ms at slowdown
+5.0, about 346 ms idle, against a figure of 50. The test passes; the figure may
+only be stale. Time it alone on an idle machine, raise the figure to what it
+costs at a slowdown of one if the drift holds, and say the runs in its comment.
+Prove with `bun test tools/hooks/test/guard.test.ts` and `bun run check`.

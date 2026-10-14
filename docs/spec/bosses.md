@@ -10108,6 +10108,19 @@ simulation is.
 
 **What is not built — a step seen from another side** (suggested 10 October 2026, after the owner on THE BASTION: *very 3 dimensional and even user action is 3d to rotate*). The drum tips its axle toward the screen and its bands are seen face-on, as rings; the rubbing runs round a band instead of across it.
 
+**Offered (14 October 2026, VERSUS `capstan:glance`).** A machine, so the
+drum turns whole (`packages/render/src/capstan-glance.ts`), on top of the yaw
+its cradle's roll already gives it: the body, both end faces and the core
+between them yaw together, with the two faces a rubbing thumb is on **held**
+where they stand, so the near face swells, the far face shrinks into the dark,
+and what lies between is carried toward the near end. The cradle and its horns
+do not turn, and a bolt meets the drum where it is drawn. Held so near the
+ends the outline hardly changes, and the reach is kept to the core's radius so
+the core stays over the middle column: it ships still, and VERSUS offers
+**SWAY**, **LOOK** and **COCK** at an eighth of the drum's half-length on
+CAPSTAN · THE LEFT BAND RUBBED. Whether to make it larger is asked in
+`docs/queue.md`. The axle tipping toward the screen is not built.
+
 
 ## 11.55 THE GALL — the boss that moves the moment it is closed
 
