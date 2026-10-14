@@ -2,7 +2,7 @@ import { describe, expect, test } from "bun:test";
 import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 import { TALKER } from "@neon-spore/render";
-import { faultsNow, gripsCreature, type World } from "@neon-spore/sim";
+import { faultsNow, gripsCreature, guardArmed, ticksSinceGuard, type World } from "@neon-spore/sim";
 import { groupRows } from "../src/helpers-def.js";
 import { HELPER_GROUPS, helperPose } from "../src/helpers-page.js";
 import {
@@ -23,6 +23,13 @@ import {
   WISP_UP,
 } from "../src/helpers-poses.js";
 import { CANNON_FAULT, CODEX_ON, FLIP_ON, SHIELD_FAULT } from "../src/helpers-poses-faults.js";
+import {
+  GUARD_FADING,
+  GUARD_LIT,
+  PUSH_FLASH,
+  THROAT_SHIELD,
+  VOLLEY_TURNED,
+} from "../src/helpers-poses-shield.js";
 import { SIREN_GROUP, sirenRoster } from "../src/helpers-siren.js";
 import {
   SIREN_DARK,
@@ -136,6 +143,19 @@ describe("the frames built for HELPERS reach their moment", () => {
     const c = w.creatures[0];
     expect(c).toBeDefined();
     expect(gripsCreature(w, 1, c?.id ?? -1)).toBe(true);
+  });
+
+  test("THE SHIELD's frames end on their moment", () => {
+    const said = (w: World) => w.events.map((e) => e.type);
+    expect(said(PUSH_FLASH.build())).toContain("shieldPush");
+    expect(said(VOLLEY_TURNED.build())).toContain("volleyReturn");
+    expect(guardArmed(GUARD_LIT.build())).toBe(true);
+    // Shut, and only just: the button's fade is a few ticks long (`guard-lapse.ts`).
+    const fading = GUARD_FADING.build();
+    expect(guardArmed(fading)).toBe(false);
+    expect(ticksSinceGuard(fading)).toBeLessThan(6);
+    const throat = THROAT_SHIELD.build().boss;
+    expect(throat?.kind === "throat" && throat.mode).toBe("shield");
   });
 
   test("each fault's frame has its fault in force", () => {

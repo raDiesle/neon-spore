@@ -3751,6 +3751,7 @@ by hand never moves.
 | `tools/director/src/helpers-page.ts` | CONTROLS › HELPERS — every picture the game draws on the field to explain something rather than to be… |
 | `tools/director/src/helpers-poses.ts` | The frames CONTROLS › HELPERS draws that the STATES gallery has no pose for (`helpers-page.ts`) |
 | `tools/director/src/helpers-poses-faults.ts` | The frames CONTROLS › HELPERS draws for a **fault** (`helpers-faults.ts` |
+| `tools/director/src/helpers-poses-shield.ts` | **The frames THE SHIELD's rows on HELPERS are drawn in**: the push, the button lit and going out, DEFLECTED, THE THROAT's face |
 | `tools/director/src/helpers-shield.ts` | CONTROLS › HELPERS › **THE SHIELD** — every picture the field draws to say something about the shield |
 | `tools/director/src/helpers-siren.ts` | CONTROLS › HELPERS, after THE SHIELD: **THE SIREN** |
 | `tools/director/src/helpers-siren-draw.ts` | THE SIREN's every-state rows drawn (`helpers-siren-states.ts`): a heading CONTENTS lists |

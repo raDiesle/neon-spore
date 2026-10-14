@@ -41048,3 +41048,19 @@ Bottleneck: reading — the meet row has to sit past the drawn stop by less
 than the test's eight ticks, which only the bolt's speed says.
 
 *Measured: 10 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
+
+## 2026-10-14 — THE SHIELD on HELPERS: six rows owed a pose
+
+- reading: 20 min. The four helpers' draw paths — the push's fx, the guard's
+  lapse, THE THROAT's mouth, the banner — and why a rock's DEFLECTED never
+  reaches a posed frame.
+- writing: 15 min. Five poses in `helpers-poses-shield.ts`, four rows, the
+  test.
+- looking: 25 min. Each frame in the browser pane; the band built on wave 0
+  had no SHIELD button at all, and THE THROAT's face was under a thumb and
+  then under the navigator's handle.
+- friction: 5 min. `bun run shot` found no HELPERS row; queued.
+- landing: 5 min.
+
+Bottleneck: looking — three of the five frames were wrong the first time in
+ways only the picture showed.

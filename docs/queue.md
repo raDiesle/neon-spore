@@ -328,26 +328,6 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/skipped.test.ts` holds the listing's count of the entries
 `next` stepped past and why.
 
-## THE SHIELD on HELPERS: six rows owed a pose
-
-- **Found:** 2026-10-14, claude/shield-visualization-controls-51b28d
-- **Taken:** 2026-10-14, main (claim: claude/queue-the-shield-on-helpers-six-rows-owed-a-pose)
-- **Files:** `tools/director/src/helpers-shield.ts`, `tools/director/src/helpers-poses.ts`, `tools/director/test/helpers-page.test.ts`
-
-CONTROLS › HELPERS › THE SHIELD lists every shield helper that ships with a
-gallery frame to draw it in. Four still ship without one; each needs a pose built
-in `helpers-poses.ts` that ends on a tick the helper is drawn on (only the last
-frame of a pose is handed `world.events`, `pose-frame.ts`). THE FENCE's skull,
-doorway and sweep are on the page since claude/docs-controls-helpers-org-c825df
-(`FENCE_UP`, `FENCE_SKULL`), and SHIELD STUCK ON since the faults' frames
-(`helpers-poses-faults.ts`); what is left is the push's red rim and spray (`shield-push-fx.ts`) —
-`PUSHED_ONCE` runs a beat past it; the SHIELD button's fading glow
-(`guard-lapse.ts`); THE THROAT's shield face (`throat-hue.ts`) — `THE THROAT ·
-SUCKS` stops on a red slick, and meteors come from beat 28; and DEFLECTED
-(`banner.ts`) — `WARD · DEFLECTED` ends on the deflection, but its frame does
-not show the word. Add each as a row of `SHIELD_GROUP`, look at the frame,
-and keep `helpers-page.test.ts` green.
-
 ## `guard.test.ts` reports a figure drift
 
 - **Found:** 2026-10-14, claude/queue-the-capstan-a-part-that-turns-so-it-is-seen-from
@@ -802,3 +782,17 @@ are done inside the time it is up. A `combo` gesture, the lab's paint,
 `BLISTER_GESTURES` and so a COMBO brush. Its body is a `blister:combo` slot
 after it. Prove it with `bun test packages/sim tools/director` and
 `bun run check`.
+
+## `bun run shot` cannot reach a row on CONTROLS › HELPERS
+
+- **Found:** 2026-10-14, claude/queue-the-shield-on-helpers-six-rows-owed-a-pose
+- **Files:** `tools/frames/shot.ts`, `tools/frames/shot-flags.ts`, `tools/director/src/helpers-page.ts`
+
+`bun run shot ".field-control:has(h3[data-label=\"DEFLECTED\"]) canvas" out.png
+--port <director> --path "/?sheet=states&inner=controlsets&sub=helpers"`
+answered *no element matches* after a 404 in the page's console, while the
+same URL in the browser pane draws the row. The lane took its PNG off the
+browser pane instead. Find whether the sub tab is restored from `?sub=` on a
+cold load and whether the rows are built only once scrolled to; give `shot`
+a way to reach one HELPERS row by its name (as `--open`/`--inner` reach a
+sheet), and prove it with a test in `tools/frames/test/` and `bun run check`.
