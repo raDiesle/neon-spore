@@ -142,7 +142,10 @@ export const CLOCK_BOSS_POSES: Pose[] = [
     "gimbal",
     "still",
     "The drum hangs between two dark rings. P1 and P2 both wait: no mark is up on either rim yet.",
-    { hold: 6 },
+    {
+      hold: 6,
+      lookAt: "the whole cradle in its yoke — how it turns to look, and whether it holds or cocks",
+    },
   ),
   bossPose(
     "gimbal",

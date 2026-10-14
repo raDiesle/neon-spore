@@ -2261,6 +2261,7 @@ by hand never moves.
 | `packages/render/src/gimbal-stop.ts` | How many points a hoop or the opened drum is taken at: a pixel off its circle at the outer ring's size |
 | `packages/render/src/gimbal-fx.ts` | What THE GIMBAL leaves behind a frame: the **kick** of the whole cradle as a tooth shears off it |
 | `packages/render/src/gimbal-grip.ts` | **The ring under each thumb**: where a hand may take hold of it and what a turn of it says |
+| `packages/render/src/gimbal-glance.ts` | **THE GIMBAL glances** — the owner, 9 and 10 October 2026: *. |
 | `packages/render/src/gimbal-blow.ts` | THE GIMBAL's timeout blow: the seam's bead pressed into the skin and the plating split open in its colour |
 | `packages/render/src/gimbal-beam.ts` | **THE GIMBAL locked** — the picture of both rings standing true, asked for by name (the owner |
 | `packages/render/src/gimbal-marks.ts` | **THE GIMBAL's two rings answering a touch the way every mark does** (`mark-feedback.ts` |

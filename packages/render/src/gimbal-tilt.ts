@@ -1,4 +1,5 @@
 import type { GimbalState } from "@neon-spore/sim";
+import { GIMBAL_GLANCE } from "./gimbal-glance.js";
 import type { Point } from "./gimbal-shape.js";
 import { easeHush, HUSH, idleDrift } from "./idle-drift.js";
 import { bodyLife } from "./motion-life.js";
@@ -79,7 +80,9 @@ export function gimbalTilt(time: number, hush: number): GimbalTilt {
   const k = hush * bodyLife();
   if (k === 0) return LEVEL;
   const d = idleDrift(time, SEED, k);
-  return { yaw: d.yaw, pitch: d.pitch, roll: d.roll, drum: d.headYaw };
+  // And a look on top of the wander, hushed the same (`gimbal-glance.ts`).
+  const yaw = d.yaw + GIMBAL_GLANCE.swing(time) * hush;
+  return { yaw, pitch: d.pitch, roll: d.roll + GIMBAL_GLANCE.roll(time) * hush, drum: d.headYaw };
 }
 
 /**

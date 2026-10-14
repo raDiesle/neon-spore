@@ -7362,6 +7362,16 @@ every screen, because both true is the one thing both seats are told.
 
 **What is not built — a step seen from another side** (suggested 10 October 2026, after the owner on THE BASTION: *very 3 dimensional and even user action is 3d to rotate*). The whole gimbal tips toward the screen, so a ring's mark is foreshortened on one seat's screen and face-on on the other's, and the same turn reads as a different amount to each.
 
+**Offered (14 October 2026, VERSUS `gimbal:glance`).** The whole cradle
+already wanders in its yoke on the idle drift (`render/gimbal-tilt.ts`), so the
+full shape is the part that turns; what it never did was *look*. The turn is a
+record laid on top of that wander (`packages/render/src/gimbal-glance.ts`), a
+yaw of the whole cradle in radians and a roll about its middle, hushed by the
+drift's own table so it steadies for the hands as the wander does — rings,
+teeth and marks go through the same plane, and the bolt stopper reads the tilt
+that is drawn. It ships still, and VERSUS offers **SWAY**, **LOOK** and
+**COCK** at a reach of 0.45 rad on THE GIMBAL · STILL.
+
 
 ## 11.36 THE SPOOL — the boss where the line runs out at the speed one of you reads
 

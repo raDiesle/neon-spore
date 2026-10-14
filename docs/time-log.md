@@ -39392,3 +39392,16 @@ Bottleneck: the tests that counted the pump's ring from three directions.
 Bottleneck: the heart already turned, so its record ships turning and SWAY had nothing to offer.
 
 *Measured: 5 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-14 — THE GIMBAL: a part that turns, so it is seen from a new side
+
+- reading: 10 min. `gimbal-tilt.ts`, its callers and its test, to lay the turn
+  on the drift rather than beside it.
+- writing: 10 min. The record and its size, two lines in `gimbalTilt`, three
+  candidates, the pose's lookAt, the spec note.
+- looking: 5 min. One shot; the turned rings read narrower beside the shipped.
+- friction: 5 min. The candidates' sentences carried no dash, which
+  `distinct.test.ts` asks of a claim; rewritten.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: the context cut mid-lane, and re-reading what had already been decided.
