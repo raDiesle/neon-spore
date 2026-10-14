@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-14 · 5dbd2d4d6 — VERSUS offers THE CURTAIN's core glancing
+
+THE CURTAIN's naked core turns toward one side about its centre, so the point a bolt is aimed at stays put, and its far side narrows into the dark. Ships still; VERSUS `curtain:glance` offers SWAY, LOOK and COCK, judged on THE CURTAIN · TORN, the one pose where the core hangs bare. Exemption: none — a look, offered on VERSUS.
+
 ## 2026-10-14 · 6069f18ce — VERSUS offers THE GORGE's bubbles glancing
 
 Each bubble in THE GORGE's sack turns, with the beads it has swallowed. It turns about the line up its middle and rolls about its intake, the one point the rule reads. Each starts from its own place in the round, and the far side narrows into the dark. Ships still; VERSUS `gorge:glance` offers SWAY, LOOK and COCK, judged on THE GORGE · ROW. Exemption: none — a look, offered on VERSUS.
