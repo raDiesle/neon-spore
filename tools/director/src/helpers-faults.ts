@@ -1,6 +1,7 @@
 import { FAULT_LABEL } from "@neon-spore/render";
 import type { HelperGroup } from "./helpers-def.js";
 import { CANNON_FAULT, CANNON_FAULT_BAND, CODEX_ON, FLIP_ON } from "./helpers-poses-faults.js";
+import { HANDOVER_PLATE } from "./helpers-poses-marks.js";
 
 /**
  * CONTROLS › HELPERS, **WHEN A CONTROL BREAKS**: what the field draws while a
@@ -67,6 +68,19 @@ export const FAULT_GROUP: HelperGroup = {
       pose: FLIP_ON,
       role: "p1",
       lookAt: "the glass down the middle with its arrows, and MIRRORED by the lantern",
+    },
+    {
+      name: "THE HANDOVER'S PLATE",
+      where:
+        "on the lip of the band, two beats before the panels trade and all the while they are traded",
+      seat: "BOTH, the same words",
+      says:
+        "When. The band changing colours says the panels have traded; the plate " +
+        "counts down to the trade — PANELS TRADE IN 2 — and then back: THEIR PANEL — BACK IN 5.",
+      source: "handover-look.ts",
+      pose: HANDOVER_PLATE,
+      role: "p1",
+      lookAt: "THEIR PANEL — BACK IN on the band's lip, and the band in the other seat's colours",
     },
   ],
 };

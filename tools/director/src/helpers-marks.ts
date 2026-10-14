@@ -1,5 +1,6 @@
-import { coreRowMilli, midCol } from "@neon-spore/sim";
+import { batonBoss, batonSocketCol, batonSocketRow, coreRowMilli, midCol } from "@neon-spore/sim";
 import type { HelperDef, HelperGroup } from "./helpers-def.js";
+import { VERDICT_GIVEN } from "./helpers-poses-marks.js";
 
 /**
  * CONTROLS › HELPERS, **ON A BOSS'S MARK**: the few pictures every boss's
@@ -11,6 +12,18 @@ import type { HelperDef, HelperGroup } from "./helpers-def.js";
 /** THE CAPSTAN's drum, close enough that the marks on its bands read. */
 const ON_THE_DRUM: HelperDef["zoom"] = {
   at: (w) => ({ col: midCol(w.cfg) - 1, row: coreRowMilli("capstan") / 1000 }),
+  span: 5,
+};
+
+/** Round THE BATON's two lowest sockets, where the draw is asked for and its label stands. */
+const AT_THE_DRAW: HelperDef["zoom"] = {
+  at: (w) => {
+    const b = batonBoss(w);
+    if (b === null) return { col: midCol(w.cfg), row: 6 };
+    const last = w.cfg.batonSockets - 1;
+    const row = (batonSocketRow(w.cfg, b, last - 1) + batonSocketRow(w.cfg, b, last)) / 2;
+    return { col: batonSocketCol(w.cfg, b, last) - 1, row };
+  },
   span: 5,
 };
 
@@ -80,6 +93,34 @@ export const MARK_GROUP: HelperGroup = {
       role: "p1",
       zoom: ON_THE_DRUM,
       lookAt: "the steady green ring and the green arc round the mark",
+    },
+    {
+      name: "THE VERDICT",
+      where: "on the mark a thumb touched, the moment the touch is judged",
+      seat: "BOTH",
+      says:
+        "Was that right? The mark washes green and a green ring opens off it when " +
+        "the touch moved the part; red when it was refused or let the part slip. " +
+        "Gone in a little over half a second.",
+      source: "grip-verdict.ts — fed by each boss's verdicts, here capstan-verdicts.ts",
+      pose: VERDICT_GIVEN,
+      role: "p2",
+      zoom: ON_THE_DRUM,
+      lookAt: "the green wash on the two marks and the ring opening off them",
+    },
+    {
+      name: "THE BATON'S WORDS",
+      where:
+        "a banner across the field while a new part of the arm is coming, then a label beside it while it runs",
+      seat: "each screen its own job — the two halves are said out loud",
+      says:
+        "What the arm is about to do, two or three beats ahead, and then what this " +
+        "seat does about it. The first time a part comes in on a wave, and never again.",
+      source: "baton-explain.ts, baton-explain-when.ts",
+      pose: "THE BATON · MERGING",
+      role: "p1",
+      zoom: AT_THE_DRAW,
+      lookAt: "the label beside the beads: HOLD THE UPPER BEAD WITH P2",
     },
     {
       name: "THE SLOW'S FUSE",

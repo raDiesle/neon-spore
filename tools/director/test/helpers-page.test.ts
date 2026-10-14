@@ -2,7 +2,14 @@ import { describe, expect, test } from "bun:test";
 import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 import { TALKER } from "@neon-spore/render";
-import { faultsNow, gripsCreature, guardArmed, ticksSinceGuard, type World } from "@neon-spore/sim";
+import {
+  faultsNow,
+  gripsCreature,
+  guardArmed,
+  handoverLeft,
+  ticksSinceGuard,
+  type World,
+} from "@neon-spore/sim";
 import { groupRows } from "../src/helpers-def.js";
 import { HELPER_GROUPS, helperPose } from "../src/helpers-page.js";
 import {
@@ -23,6 +30,7 @@ import {
   WISP_UP,
 } from "../src/helpers-poses.js";
 import { CANNON_FAULT, CODEX_ON, FLIP_ON, SHIELD_FAULT } from "../src/helpers-poses-faults.js";
+import { HANDOVER_PLATE, VERDICT_GIVEN } from "../src/helpers-poses-marks.js";
 import {
   GUARD_FADING,
   GUARD_LIT,
@@ -156,6 +164,11 @@ describe("the frames built for HELPERS reach their moment", () => {
     expect(ticksSinceGuard(fading)).toBeLessThan(6);
     const throat = THROAT_SHIELD.build().boss;
     expect(throat?.kind === "throat" && throat.mode).toBe("shield");
+  });
+
+  test("the verdict's frame ends on the judging tick, the plate's inside the trade", () => {
+    expect(VERDICT_GIVEN.build().events.map((e) => e.type)).toContain("capstanBright");
+    expect(handoverLeft(HANDOVER_PLATE.build())).toBeGreaterThan(0);
   });
 
   test("each fault's frame has its fault in force", () => {

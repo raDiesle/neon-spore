@@ -331,22 +331,17 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## HELPERS: six helpers that ship with no frame showing them
 
 - **Found:** 2026-10-14, claude/docs-controls-helpers-org-c825df
-- **Taken:** 2026-10-14, main (claim: claude/queue-helpers-six-helpers-that-ship-with-no-frame-show)
-- **Files:** `tools/director/src/helpers-marks.ts`, `tools/director/src/helpers-faults.ts`, `tools/director/src/helpers-poses-faults.ts`, `tools/director/test/helpers-page.test.ts`
+- **Files:** `tools/director/src/helpers-marks.ts`, `tools/director/src/helpers-poses-marks.ts`, `tools/director/src/helpers-page.ts`, `tools/director/test/helpers-page.test.ts`
 
-The sweep of `packages/render/src` for CONTROLS › HELPERS found six generic
-helpers whose rows were written and taken out again, because no frame tried
-showed them: THE VERDICT (`grip-verdict.ts`) — `THE MIRROR · VERDICT` shows no
-ring, and it is drawn off `world.events`, so the pose must end on the judging
-tick; the thumb's ring (`thumb-aura.ts`) — it reads this device's own thumb,
-which no pose holds; THE BATON's banner and labels (`baton-explain.ts`) —
-`THE BATON · UNFOLDING` is an empty field; the band put out (`band-lock.ts`)
-— `THE MIRROR · LISTEN` shows the band lit; THE HANDOVER's plate
-(`handover-look.ts`) — `HANDOVER · THE TRADE` cut to the ship shows no plate;
-and WRONG COLOUR (`fail-cause.ts`) — no pose loses a wave to a shot. Build a
-frame for each that ends on a tick it is drawn, add the row (marks to
-`MARK_GROUP`, the plate to `FAULT_GROUP`), look at it, and keep
-`helpers-page.test.ts` green.
+Three of the six are on the page since
+claude/queue-helpers-six-helpers-that-ship-with-no-frame-show: THE VERDICT,
+THE BATON'S WORDS and THE HANDOVER'S PLATE (`helpers-poses-marks.ts`). Three
+are left: the thumb's ring (`thumb-aura.ts`) — it reads this device's own
+thumb, which no pose holds, so the frame needs a way to hand one in; the band
+put out (`band-lock.ts`) — `THE MIRROR · LISTEN` shows the band lit; and
+WRONG COLOUR (`fail-cause.ts`) — no pose loses a wave to a shot. Build a
+frame for each that ends on a tick it is drawn, add the row to `MARK_GROUP`
+or wherever it belongs, look at it, and keep `helpers-page.test.ts` green.
 
 ## HELPERS: THE CURTAIN to THE STARE's one-seat pictures are not listed
 
