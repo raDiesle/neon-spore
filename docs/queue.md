@@ -331,6 +331,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## Longer pulls: every straight one is held to its length by something else
 
 - **Found:** 2026-10-11, claude/pull-longer
+- **Taken:** 2026-10-14, claude/queue-longer-pulls-every-straight-one-is-held-to-its-l
 - **Files:** `packages/sim/src/config-lamprey.ts`, `packages/sim/src/config-bastion.ts`, `packages/sim/src/config-curtain.ts`, `packages/sim/src/config-fleet.ts`
 - **Asks:** Make THE LAMPREY's lifts longer at the cost of rows it may land on, push THE CURTAIN's rail higher, or leave every pull its length?
 - **Answered:** 2026-10-13 — both, the owner: (a) THE LAMPREY at 2.2 and 1.8 tiles, landing a row further from top and bottom, and (b) THE CURTAIN's rail a tile higher with the hem's reach 3.5.
