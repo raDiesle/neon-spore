@@ -122,7 +122,7 @@ const DOOR_LIGHT = 1.45;
  * about her half, and the field never will.
  *
  * **Under `grip`, the heart holding the shot** (`sim/maze-hand.ts`,
- * `maze-shake.ts`): `CARRY` / `SHAKE` on the heart, on each seat's screen
+ * `maze-rub.ts`): `CARRY` / `SHAKE` on the heart, on each seat's screen
  * until that seat's thumb is on it. Both seats shake it loose, so both are
  * asked, and neither is told how far the other has come — the green count
  * round the room says that to both at once (`maze-grip.ts`).

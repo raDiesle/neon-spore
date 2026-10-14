@@ -2088,8 +2088,13 @@ refusal — and each thumb carries the same heart any way, held to a disc
 forth inside the room rather than drag once. Only distance the heart
 actually moves counts, a push into the wall earns nothing, and the heart
 comes loose after `mazeShakeWidths` (eight) room widths in all, half from
-each seat, so one seat alone stops at half (`sim/maze-shake.ts`,
-`maze-hand.ts`). `mazeGripBeats` went from eight to twelve rather than
+each seat, so one seat alone stops at half (`maze-hand.ts`). *The rub*,
+since 14 October 2026 — the owner, *to have less variants and
+consistency*: the heart no longer moves; each thumb on it rubs, and what
+counts is how often it turns back, as every RUB in the game counts
+(`render/rub-turns.ts`). `mazeHeartTurns` (sixteen) in all, half from each
+seat (`sim/maze-rub.ts`); `mazeHeartFreeMilli` and `mazeShakeWidths` are
+gone. `mazeGripBeats` went from eight to twelve rather than
 down: the shake is the one step that got longer. The picture says "any way"
 with eight chevrons round the room, white until this seat's thumb is on and
 green after, a green count filling round the room for the pair's progress,

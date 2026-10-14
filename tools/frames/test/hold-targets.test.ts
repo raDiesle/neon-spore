@@ -59,10 +59,10 @@ describe("the handles on a boss's own picture", () => {
 
   it("THE MAZE's heart is held from the navigator's seat", () => {
     // Either seat's thumb is heard (`maze-hand.ts`); a capture holds hers,
-    // one of the two the shake needs.
-    expect(shape("mazeHeart=0,y=900")).toEqual([
-      { player: 2, kind: "drag", target: "mazeHeart", on: true, fromMilli: 0, fromYMilli: 0 },
-      { player: 2, kind: "drag", target: "mazeHeart", on: true, fromMilli: 0, fromYMilli: 900 },
+    // one of the two the rub needs, `id` turns into it.
+    expect(shape("mazeHeart=0,id=4")).toMatchObject([
+      { player: 2, kind: "drag", target: "mazeHeart", on: true },
+      { player: 2, kind: "drag", target: "mazeHeart", on: true, id: 4 },
     ]);
   });
 

@@ -102,7 +102,7 @@ export const DRAG_NUMBERS: Readonly<Record<string, readonly (keyof SimConfig)[]>
   "THE THROAT'S MOUTH": ["throatSideMarginMilli", "throatTopMarginMilli"],
   // Rubbed.
   "THE CAPSTAN'S RUB": ["capstanWearThreshold", "capstanHoldBeats"],
-  "THE MAZE'S HEART": ["mazeHeartFreeMilli", "mazeShakeWidths", "mazeGripBeats"],
+  "THE MAZE'S HEART": ["mazeHeartTurns", "mazeGripBeats"],
   "THE THROAT'S PUMP": [
     "throatStrokeMilli",
     "throatPumpGainMilli",

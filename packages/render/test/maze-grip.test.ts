@@ -4,7 +4,8 @@ import { DEFAULT_CONFIG, type MazeState } from "@neon-spore/sim";
 import { computeLayout, type ViewRole } from "../src/layout.js";
 import { mazeHeartCircle, mazeHeartUnder } from "../src/maze-grip.js";
 import { mazeStringCircle } from "../src/maze-string.js";
-import { type Field, type Hold, touchDown, touchMove, touchUp } from "../src/touch.js";
+import { Rubs } from "../src/rub-turns.js";
+import { type Field, type Hold, touchDown } from "../src/touch.js";
 import { CFG, FRAME_TIMEOUT_MS, installCanvasGlobals } from "./frame-harness.js";
 import { gripState as grip } from "./maze-harness.js";
 
@@ -46,22 +47,15 @@ function fieldWith(seat: 1 | 2, boss: MazeState | null): Field {
 const heart = (l: ReturnType<typeof layout>, m: MazeState) => mazeHeartCircle(l, DEFAULT_CONFIG, m);
 
 describe("a thumb on the heart", () => {
-  it("is either seat's, under grip, and takes a hold on both", () => {
+  it("is either seat's, under grip, and takes a rubbing hold on both", () => {
     const l = layout("p2");
     const at = heart(l, grip());
     const touch = mazeHeartUnder(l, at.x, at.y, fieldWith(2, grip()));
-    expect(touch?.command).toEqual({
-      kind: "drag",
-      target: "mazeHeart",
-      on: true,
-      fromMilli: 0,
-      fromYMilli: 0,
-    });
-    expect(touch?.hold).toMatchObject({ kind: "drag", target: "mazeHeart", player: 2 });
+    expect(touch?.command).toBeNull();
+    expect(touch?.hold).toMatchObject({ kind: "drag", target: "mazeHeart", player: 2, rub: true });
     expect(mazeHeartUnder(layout("p1"), at.x, at.y, fieldWith(1, grip()))).toMatchObject({
       player: 1,
-      command: { target: "mazeHeart", on: true },
-      hold: { kind: "drag", target: "mazeHeart", player: 1 },
+      hold: { kind: "drag", target: "mazeHeart", player: 1, rub: true },
     });
     expect(mazeHeartUnder(l, at.x, at.y, fieldWith(2, grip({ phase: "read" })))).toBeNull();
     expect(mazeHeartUnder(l, at.x, at.y, fieldWith(2, grip({ phase: "travel" })))).toBeNull();
@@ -72,25 +66,26 @@ describe("a thumb on the heart", () => {
   it("is reached through touchDown, over the field", () => {
     const l = layout("p2");
     const at = heart(l, grip());
-    expect(touchDown(l, at.x, at.y, fieldWith(2, grip()))?.command).toMatchObject({
+    expect(touchDown(l, at.x, at.y, fieldWith(2, grip()))?.hold).toMatchObject({
       target: "mazeHeart",
+      rub: true,
     });
   });
 
-  it("reports where it has come on both axes, and lets go on the lift", () => {
+  it("is counted by the host: nought on the press, one a turn back, and the lift", () => {
     const l = layout("p1");
-    const field = fieldWith(1, grip());
     const at = heart(l, grip());
-    const hold = touchDown(l, at.x, at.y, field)?.hold as Hold;
-    const pulled = touchMove(l, hold, at.x - l.tile * 0.4, at.y + l.tile * 0.6)?.command;
-    expect(pulled).toMatchObject({
+    const hold = touchDown(l, at.x, at.y, fieldWith(1, grip()))?.hold as Hold;
+    const rubs = new Rubs();
+    expect(rubs.down(1, [hold], at.x, at.y)?.command).toMatchObject({
       target: "mazeHeart",
       on: true,
-      fromMilli: -400,
-      fromYMilli: 600,
+      id: 0,
     });
-    const lifted = touchUp(l, hold, { x: at.x, y: at.y + l.tile })?.command;
-    expect(lifted).toMatchObject({ target: "mazeHeart", on: false });
+    rubs.move(l, 1, at.x + l.tile, at.y);
+    const back = rubs.move(l, 1, at.x, at.y)?.command;
+    expect(back).toMatchObject({ target: "mazeHeart", on: true, id: 1 });
+    expect(rubs.up(1)?.command).toMatchObject({ target: "mazeHeart", on: false });
   });
 });
 

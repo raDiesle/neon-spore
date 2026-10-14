@@ -77,10 +77,8 @@ export function mazeState(overrides: Partial<MazeState> = {}): MazeState {
     verdictCol: -1,
     lost: null,
     gripSeats: 0,
-    gripFromMilli: [0, 0, 0, 0],
-    gripXMilli: 0,
-    gripYMilli: 0,
-    gripShookMilli: [0, 0],
+    gripHeard: [0, 0],
+    gripTurns: [0, 0],
     ...overrides,
   };
 }

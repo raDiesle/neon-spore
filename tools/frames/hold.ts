@@ -34,7 +34,7 @@ import type { HoldSpec } from "./spec.js";
  *   --hold filament2=0,y=1000       and the navigator following one tile down
  *   --hold stareLash=0,y=-350       THE STARE: the pilot's thumb pulling a lash up
  *   --hold stareLash2=0,y=-350      and the navigator's, on the same fan
- *   --hold mazeHeart=0,y=900        THE MAZE: the navigator's thumb shaking the heart
+ *   --hold mazeHeart=0,id=4         THE MAZE: the navigator's thumb four turns into the heart's rub
  *   --hold throatAim=0,y=-3000      THE THROAT: the navigator carrying the mouth three rows up
  *   --hold throatPump=0,y=1500      and the pilot's thumb one stroke down the pump
  *   --hold scuttlePart=1000,id=10   THE SCUTTLE: the pilot carrying part 10 a column right

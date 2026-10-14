@@ -92,11 +92,9 @@ function skinOf(body: number, t: number): MazeSkin {
  * boss's hull is gone is how fast it beats and how much blood is round it, and
  * a verdict just landed is a hit it has to show.
  *
- * `pull` is how far down the muscle has been dragged, in pixels — the
- * navigator's tear (`maze-grip.ts`). The blood and the veins' far ends stay
- * where the room is; only the body and its roots move, so a pull reads as
- * the heart coming away from the wall rather than the whole room sliding.
- * `shake` is the blow's, sideways, in pixels, and moves the same things.
+ * `shake` is the blow's, sideways, in pixels. The blood and the veins' far
+ * ends stay where the room is; only the body and its roots move, so a blow
+ * reads as the heart jolting rather than the whole room sliding.
  */
 export function drawMazeHeart(
   ctx: CanvasRenderingContext2D,
@@ -106,7 +104,6 @@ export function drawMazeHeart(
   m: MazeState,
   beat: number,
   beatPhase: number,
-  pull = 0,
   shake = 0,
   /** Seconds, for the glance (`maze-glance.ts`). */
   clock = 0,
@@ -115,7 +112,7 @@ export function drawMazeHeart(
   const { time, struck, squeeze } = heartPulse(m, beat, beatPhase);
   const body = r * REST * (1 + SWELL * squeeze) * (1 + 0.28 * struck);
   const mx = cx + shake;
-  const my = cy + pull;
+  const my = cy;
 
   drawMazeBlood(ctx, cx, cy, r, m, (round) => mazeHeartBlood(round).tint, beat, beatPhase);
 

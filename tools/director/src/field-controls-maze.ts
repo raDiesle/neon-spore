@@ -31,14 +31,13 @@ export const MAZE_CONTROLS: readonly FieldControlDef[] = [
       "a ring on the heart in the middle of the drum, on both screens once the " +
       "right shot is in it, with SHAKE until a thumb lands and eight arrows, green once it has; " +
       "on the test screen",
-    seat: "both — each seat's thumb carries the same heart, and each has half the shake to do",
+    seat: "both — each seat's thumb rubs the same heart, and each has half the rub to do",
     gesture: "grab and drag",
     does:
-      "Shakes the heart loose: a thumb carries it any way, stopped at " +
-      "mazeHeartFreeMilli of its room, and only distance it actually moves " +
-      "counts. mazeShakeWidths room widths in all, half from each seat, before " +
-      "mazeGripBeats run out, and the round is won; the ring fills green as it " +
-      "goes (sim/maze-hand.ts, sim/maze-shake.ts).",
+      "Rubs the heart loose: a thumb scrubbed back and forth over it, and " +
+      "every time it turns back is one turn. mazeHeartTurns in all, half from " +
+      "each seat, before mazeGripBeats run out, and the round is won; the " +
+      "ring fills green as it goes (sim/maze-hand.ts, sim/maze-rub.ts).",
     source: "touch.ts — mazeHeartUnder() under handleUnder()",
     holdKind: "drag",
     dragTarget: "mazeHeart",

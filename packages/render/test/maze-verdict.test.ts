@@ -115,7 +115,7 @@ describe("a desk press on a part", () => {
     const string = mazeStringCircle(l, CFG);
     expect(mazeGripSeat(l, heart.x, heart.y, field(1, grip()))).toBe(2);
     // The heart is both seats', so one mouse takes whichever half is behind.
-    const behind = grip({ gripShookMilli: [0, 500] });
+    const behind = grip({ gripTurns: [0, 5] });
     expect(mazeGripSeat(l, heart.x, heart.y, field(1, behind))).toBe(1);
     expect(mazeGripSeat(l, string.x, string.y, field(1, maze()))).toBe(1);
     expect(mazeGripSeat(l, string.x, string.y, field(1, grip()))).toBeUndefined();

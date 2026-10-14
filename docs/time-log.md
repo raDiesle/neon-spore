@@ -39286,3 +39286,15 @@ Bottleneck: the poses file both glance poses went into hit its line ceiling, so 
 Bottleneck: the grip marks sit half-way out each flank, so the turn's size was set by the far mark staying on the bulb.
 
 *Measured: 6 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-14 — THE MAZE's heart is rubbed, not shaken
+
+- reading: 15 min. `maze-shake.ts`, `maze-hand.ts`, THE CAPSTAN's rub, every
+  reader of the heart's place and its distance.
+- writing: 20 min. `maze-rub.ts` in place of the shake, the heart's touch a
+  rubbing hold, AUTO's hand, `mazeHeartTurns`, the frames tool's `--hold`.
+- looking: 0 min. The picture is the next lane.
+- friction: 5 min. A rebase on the queue's claim line.
+- landing: 10 min. The maze tests rewritten for turns, the specs.
+
+Bottleneck: rewriting the maze's gesture tests from distance to turns.

@@ -46,9 +46,6 @@ export const SEAT: Record<string, 1 | 2> = {
   filament2: 2,
   /** THE STARE's lashes take both seats at once, so they have a name each. */
   stareLash2: 2,
-  /** THE MAZE's heart takes either seat's thumb (`maze-hand.ts`); a capture
-   * holds the navigator's, one thumb of the two the shake needs. */
-  mazeHeart: 2,
   /** THE THROAT's carry is hers; the pump is his (`throat-hand.ts`). */
   throatAim: 2,
   ...Object.fromEntries(rows.flatMap(([name, r]) => (r.seat ? [[name, r.seat]] : []))),
@@ -155,7 +152,6 @@ export const DRAGS = [
   "filament2",
   "stareLash",
   "stareLash2",
-  "mazeHeart",
   "throatAim",
   "throatPump",
   "scuttlePart",

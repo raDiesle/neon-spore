@@ -103,21 +103,16 @@ export interface MazeState {
   /** The column that verdict landed in — the one the shot went up. */
   verdictCol: number;
   /**
-   * The heart under `grip`, shaken loose by both seats (`maze-shake.ts`).
+   * The heart under `grip`, rubbed loose by both seats (`maze-rub.ts`).
    * `gripSeats` is which thumbs are on it — bit 1 the pilot's, bit 2 the
    * navigator's — so each screen can show whose hand is missing.
-   * `gripFromMilli` is the last displacement each thumb reported, x then y,
-   * the pilot's pair first: a thumb carries the heart by the change in it,
-   * the way the string turns the wheel. `gripXMilli`/`gripYMilli` is where the
-   * heart stands from the room's middle, in thousandths of a tile, and
-   * `gripShookMilli` how far each seat has carried it in all. Wiped on `lead`
-   * and on entering `grip`.
+   * `gripHeard` is the reversal count each thumb last reported, the pilot's
+   * first, so only fresh ones count; `gripTurns` how many each seat has made
+   * in all. Wiped on `lead` and on entering `grip`.
    */
   gripSeats: number;
-  gripFromMilli: number[];
-  gripXMilli: number;
-  gripYMilli: number;
-  gripShookMilli: number[];
+  gripHeard: number[];
+  gripTurns: number[];
 }
 
 /** The wheel of the round being played, or nothing past the last one. */
@@ -131,10 +126,8 @@ export function enterMazePhase(m: MazeState, phase: MazePhase, beat: number): vo
   // The heart's hold begins with no thumb on it, and a wheel wiped has none.
   if (phase === "grip" || phase === "lead") {
     m.gripSeats = 0;
-    m.gripFromMilli = [0, 0, 0, 0];
-    m.gripXMilli = 0;
-    m.gripYMilli = 0;
-    m.gripShookMilli = [0, 0];
+    m.gripHeard = [0, 0];
+    m.gripTurns = [0, 0];
   }
   if (phase !== "lead") return;
   m.angleMilli = mazeWrap(mazeCurrent(m)?.startMilli ?? 0);
@@ -190,9 +183,7 @@ export function installMaze(world: World, rounds: MazeWheel[], upright = false):
     verdictCol: -1,
     lost: null,
     gripSeats: 0,
-    gripFromMilli: [0, 0, 0, 0],
-    gripXMilli: 0,
-    gripYMilli: 0,
-    gripShookMilli: [0, 0],
+    gripHeard: [0, 0],
+    gripTurns: [0, 0],
   };
 }

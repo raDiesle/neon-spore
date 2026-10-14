@@ -20,7 +20,7 @@ import { seatOf } from "./view-role.js";
  * Whether each part is asked is the simulation's (`mazeStringAsks`,
  * `mazeHeartAsks`): the string is the pilot's, under `read` to turn, and the
  * heart is **both seats'** while it holds the shot, to shake loose together
- * (`sim/maze-shake.ts`). On this screen the part asked of this seat wears the
+ * (`sim/maze-rub.ts`). On this screen the part asked of this seat wears the
  * halo, until the sim has this hand on it (`dragging`, this seat's bit of
  * `gripSeats`), whose lit knob or filled ring says so; the part asked of the
  * partner wears their turning ring and the clock — *not your hand, theirs*.

@@ -1,6 +1,6 @@
 import { mazeBottomCol } from "./maze.js";
 import { mazeRound } from "./maze-controls.js";
-import { mazeShakeBy, mazeShaken } from "./maze-shake.js";
+import { mazeRubbed, mazeRubSeatTurns } from "./maze-rub.js";
 import type { MazeState } from "./maze-state.js";
 import { mazeRight } from "./maze-verdict.js";
 import type { Command } from "./types.js";
@@ -12,47 +12,44 @@ import type { World } from "./world.js";
  * The round's third state and its second gesture on the picture
  * (`.claude/skills/new-boss` §6.2). A shot of the right colour that reaches
  * the middle is *held* there (`grip`, `maze-round.ts`), and the wheel is
- * finished by shaking it loose — the owner, 29 September 2026: *both players
- * need to pull it in any direction more like shaking*. So **either seat's
- * thumb** may take the heart, and each carries it by the change in its own
- * displacement since its last message, both axes, the way the string turns
- * the wheel (`maze-controls.ts`): a message coalesced away is made good by the
- * next. Where the heart may go, and how much going tears it out, is
- * `maze-shake.ts`; a heart held past `mazeGripBeats` lets go of the shot,
- * which comes back down the column as its own blood (`mazeWrong`, `slip`).
+ * finished by rubbing it loose: **either seat's thumb** may take the heart,
+ * and what it sends is how many times it has turned back since it went down
+ * (`render/rub.ts`), so a message coalesced away is made good by the next.
+ * Each seat's fresh turns go into its own half, up to half of
+ * `mazeHeartTurns` (`maze-rub.ts`); a heart held past `mazeGripBeats` lets go
+ * of the shot, which comes back down the column as its own blood
+ * (`mazeWrong`, `slip`).
  *
- * It used to be the navigator's pull down against the pilot's hand braced on
- * the string. The owner found it unclear *how it should pull and in which
- * direction*, and the answer now is: any, both of you.
+ * It was the navigator's pull down against the pilot's hand braced on the
+ * string, then both seats shaking it about its room by distance; the owner,
+ * 14 October 2026, made it the game's one RUB *to have less variants and
+ * consistency*.
  */
 export function mazeHeartHeard(world: World, player: 1 | 2, command: Command): void {
   if (command.kind !== "drag" || command.target !== "mazeHeart") return;
   const m = mazeRound(world);
   if (m === null) return;
   const bit = player === 1 ? 1 : 2;
-  const at = (player - 1) * 2;
+  const i = player - 1;
   if (!command.on) {
-    lift(world, m, bit);
+    lift(world, m, bit, i);
     return;
   }
   if (m.phase !== "grip") return;
-  const x = Math.round(command.fromMilli);
-  const y = Math.round(command.fromYMilli ?? 0);
+  const count = Math.max(0, command.id ?? 0);
   if ((m.gripSeats & bit) === 0) {
-    // The press is where this thumb grabbed: nothing moves until it does.
     m.gripSeats |= bit;
-    m.gripFromMilli[at] = x;
-    m.gripFromMilli[at + 1] = y;
+    m.gripHeard[i] = count;
     world.events.push({ type: "mazeGrip", col: mazeBottomCol(world.cfg), on: true });
     return;
   }
-  const dx = x - (m.gripFromMilli[at] ?? x);
-  const dy = y - (m.gripFromMilli[at + 1] ?? y);
-  m.gripFromMilli[at] = x;
-  m.gripFromMilli[at + 1] = y;
-  const moved = mazeShakeBy(world.cfg, m, dx, dy);
-  m.gripShookMilli[player - 1] = (m.gripShookMilli[player - 1] ?? 0) + moved;
-  if (mazeShaken(world.cfg, m)) mazeRight(world, m);
+  const heard = m.gripHeard[i] ?? 0;
+  const fresh = count >= heard ? count - heard : count;
+  m.gripHeard[i] = count;
+  if (fresh === 0) return;
+  const was = m.gripTurns[i] ?? 0;
+  m.gripTurns[i] = Math.min(mazeRubSeatTurns(world.cfg), was + fresh);
+  if (mazeRubbed(world.cfg, m)) mazeRight(world, m);
 }
 
 /**
@@ -67,15 +64,12 @@ export function mazeHeartAsks(m: MazeState): boolean {
 /**
  * A thumb leaving the heart, answered whatever phase the round is in — a
  * thumb still counted as on it after the verdict would be on the next wheel's
- * heart before the wheel was up. What it shook stays shaken; a heart with no
- * thumb left on it springs back to the middle of its room.
+ * heart before the wheel was up. What it rubbed stays rubbed; the next thumb
+ * down starts its count again from nought.
  */
-function lift(world: World, m: MazeState, bit: number): void {
+function lift(world: World, m: MazeState, bit: number, i: number): void {
   if ((m.gripSeats & bit) === 0) return;
   m.gripSeats &= ~bit;
-  if (m.gripSeats === 0) {
-    m.gripXMilli = 0;
-    m.gripYMilli = 0;
-  }
+  m.gripHeard[i] = 0;
   world.events.push({ type: "mazeGrip", col: mazeBottomCol(world.cfg), on: false });
 }

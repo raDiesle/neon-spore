@@ -100,7 +100,7 @@ describe("the ring", () => {
         words: ctx.texts.map((t) => t.text),
       };
     };
-    const DONE = 1_000_000_000;
+    const DONE = CFG.mazeHeartTurns;
     // Nobody on it, or both shaking with neither done: nothing to wait on.
     expect(read("p1", grip()).clock).toBe(false);
     expect(read("p1", grip({ gripSeats: 3 })).clock).toBe(false);
@@ -108,16 +108,16 @@ describe("the ring", () => {
     expect(read("p1", grip({ gripSeats: 1 })).clock).toBe(true);
     expect(read("p2", grip({ gripSeats: 1 })).clock).toBe(false);
     // Half shaken and let go: told the partner is still to come, not to shake.
-    const mineDone = grip({ gripShookMilli: [DONE, 0] });
+    const mineDone = grip({ gripTurns: [DONE, 0] });
     expect(read("p1", mineDone)).toEqual({ clock: true, words: ["P2 TOO"] });
     expect(read("p2", mineDone).clock).toBe(false);
     // Their half done: this screen waits on nobody.
-    expect(read("p1", grip({ gripSeats: 1, gripShookMilli: [0, DONE] })).clock).toBe(false);
+    expect(read("p1", grip({ gripSeats: 1, gripTurns: [0, DONE] })).clock).toBe(false);
     expect(read("test", grip({ gripSeats: 1 })).clock).toBe(false);
   });
 
   it("fills the green count as the pair shakes", () => {
-    const some = grip({ gripShookMilli: [3_000, 1_000] });
+    const some = grip({ gripTurns: [3, 1] });
     expect(strokes("p1", some)).toBeGreaterThan(strokes("p1", grip()));
   });
 });

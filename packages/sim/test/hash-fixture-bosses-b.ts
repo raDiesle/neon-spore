@@ -126,10 +126,8 @@ export function patchBossB(boss: BossState, scar: () => Required<Scar>): void {
     boss.verdictCol = 3;
     boss.lost = "mouth";
     boss.gripSeats = 3;
-    boss.gripFromMilli = [10, -20, 30, 40];
-    boss.gripXMilli = 120;
-    boss.gripYMilli = -80;
-    boss.gripShookMilli = [500, 700];
+    boss.gripHeard = [3, 5];
+    boss.gripTurns = [4, 6];
   }
   if (boss.kind === "gorge") {
     // A shot of each colour in, a tap on it and the ring turned on from one, and

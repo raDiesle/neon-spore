@@ -176,6 +176,7 @@ by hand never moves.
 | `packages/sim/src/maze-controls.ts` | THE MAZE's two verbs, and they are the whole of what the pair can do |
 | `packages/sim/src/maze-catch.ts` | **How THE MAZE's wheel catches, lets go and coasts** |
 | `packages/sim/src/maze-round.ts` | the round the pair plays against THE MAZE, and what it costs them |
+| `packages/sim/src/maze-rub.ts` | **THE MAZE's heart, rubbed loose: how many turns each seat owes and has made** |
 | `packages/sim/src/maze-wheel.ts` | THE MAZE's drum as a *written-down thing*: its circles, walls and openings, and what is wrong with them if they were typed wrong |
 | `packages/sim/src/maze.ts` | THE MAZE's wheel, as arithmetic |
 | `packages/sim/src/queen-mark.ts` | the mark itself: the two vulnerable spots cradled under her middle, only one ever real |
@@ -341,7 +342,6 @@ by hand never moves.
 | `packages/sim/src/maze-solve.ts` | The way through THE MAZE's drum, worked out from the walls rather than typed beside them |
 | `packages/sim/src/maze-state.ts` | what THE MAZE remembers between ticks — `MazeState`, a paragraph per field — and the two ways it is set: fresh for a wave, wiped for a phase |
 | `packages/sim/src/maze-spin.ts` | **Where a drum stands when it comes up: somewhere the pair has not seen it** |
-| `packages/sim/src/maze-shake.ts` | **THE MAZE's heart, shaken loose: where it may go and how far it has been** |
 | `packages/sim/src/maze-hash.ts` | What THE MAZE puts into `hashWorld`, and nothing else |
 | `packages/sim/src/maze-hand.ts` | **Thumbs on THE MAZE's heart**, off the wire, on the tick |
 | `packages/sim/src/maze-verdict.ts` | How an attempt on THE MAZE ends, and what it costs |
@@ -479,7 +479,7 @@ by hand never moves.
 | `packages/sim/src/events-filament.ts` | What THE FILAMENT says as it happens, one line per thing the picture and the sound answer |
 | `packages/sim/src/fence.ts` | THE FENCE: a live line the width of the field, with gaps burnt through it |
 | `packages/sim/src/config-malfunction.ts` | THE MALFUNCTION's four numbers: how often a broken control acts by itself |
-| `packages/sim/src/config-maze-grip.ts` | THE MAZE's grip: the heart holding the right shot until the pair shakes it loose (`maze-hand.ts` |
+| `packages/sim/src/config-maze-grip.ts` | THE MAZE's grip: the heart holding the right shot until the pair rubs it loose (`maze-hand.ts` |
 | `packages/sim/src/config-maze-turn.ts` | THE MAZE's wheel under the hand: how fast it turns, how far a pull carries it, and how its click catches and lets go |
 | `packages/sim/src/config-mantle.ts` | THE MANTLE's tuning: how deep a floor either handle must clear before it counts toward the sum |
 | `packages/sim/src/config-mirror.ts` | THE MIRROR's tuning: how far a carry goes before it is one, how long the pin is held |

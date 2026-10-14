@@ -11,7 +11,6 @@ import {
 } from "@neon-spore/sim";
 import { halo } from "./glow.js";
 import type { Layout } from "./layout.js";
-import { mazeHeartAt } from "./maze-grip.js";
 import { mazeDrum } from "./maze-walls.js";
 import { PALETTE } from "./palette.js";
 
@@ -129,8 +128,7 @@ export function drawMazeShot(
     ctx.globalAlpha = 1;
   } else if (m.phase === "grip") {
     const d = mazeDrum(l, cfg);
-    const held = mazeHeartAt(l, m);
-    at = { x: d.cx + held.x, y: d.cy + held.y };
+    at = { x: d.cx, y: d.cy };
   } else {
     const inside = Math.max(0, since - MAZE_APPROACH_BEATS);
     if (route[m.step] === undefined) return;

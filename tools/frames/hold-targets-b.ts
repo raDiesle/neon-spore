@@ -167,6 +167,9 @@ export const ROWS: Record<string, Row> = {
   // count; a turn counts only while the other seat's is turning too.
   choirRub: { id: true },
   choirRub2: { seat: 2, as: "choirRub", id: true },
+  // `maze-hand.ts`: either seat's thumb on the heart, `id` the reversal
+  // count; a capture holds the navigator's, one of the two the rub needs.
+  mazeHeart: { seat: 2, id: true },
   // `blister-rub.ts`: a reversal count in `id`, the body riding `fromMilli`.
   blisterRub: { seat: 2, id: true },
   blisterRub1: { as: "blisterRub", id: true },
