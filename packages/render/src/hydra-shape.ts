@@ -1,4 +1,7 @@
 import {
+  coreRowMilli,
+  HYDRA_MAW_DROOP_MILLI,
+  HYDRA_MAW_ROW_MILLI,
   HYDRA_SPAN,
   type HydraState,
   type HydraStep,
@@ -25,8 +28,11 @@ import { type Layout, tileCY } from "./layout.js";
  * it where it is drawn.
  */
 
-/** The row the body's centre hangs on, in rows: under the seat switcher, with the field below it. */
-export const HYDRA_ROW = 3.4;
+/**
+ * The row the body's centre hangs on, in rows: under the seat switcher, with
+ * the field below it — the simulation's, which meets a bolt there (`sim/core-along.ts`).
+ */
+export const HYDRA_ROW = coreRowMilli("hydra") / 1000;
 
 /** How far the body reaches across at the first level, in tiles: half a column past the columns a bolt meets it in. */
 export const HYDRA_BODY_TILES = HYDRA_SPAN + 0.5;
@@ -56,9 +62,9 @@ export const EYE_ROW = 8.0;
 export const EYE_HEAD_TILES = 1.25;
 export const EYE_RING_TILES = 0.72;
 
-/** The row a maw hangs on at the middle, and how much lower each column out. */
-export const MAW_ROW = 7.0;
-export const MAW_DROOP_ROWS = 0.45;
+/** The row a maw hangs on at the middle, and how much lower each column out: the simulation's, which meets a bolt at the open one. */
+export const MAW_ROW = HYDRA_MAW_ROW_MILLI / 1000;
+export const MAW_DROOP_ROWS = HYDRA_MAW_DROOP_MILLI / 1000;
 
 /** A point on the screen. */
 export interface At {

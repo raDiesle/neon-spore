@@ -36,4 +36,9 @@ export {
   hydraUnwindWay,
   hydraWayOf,
 } from "./hydra.js";
-export { hydraTarget, hydraVerdict } from "./hydra-shot.js";
+export {
+  HYDRA_MAW_DROOP_MILLI,
+  HYDRA_MAW_ROW_MILLI,
+  hydraTarget,
+  hydraVerdict,
+} from "./hydra-shot.js";

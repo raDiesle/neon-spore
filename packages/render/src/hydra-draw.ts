@@ -1,4 +1,5 @@
 import { type HydraState, hydraNext, type World } from "@neon-spore/sim";
+import type { BoltStops } from "./bolt-stop.js";
 import { drawHurt } from "./boss-hurt.js";
 import { drawHydraBody } from "./hydra-body.js";
 import { drawCoils } from "./hydra-coil.js";
@@ -8,6 +9,7 @@ import { drawHydraHandles } from "./hydra-handles.js";
 import { drawBites, drawMaws, type HeadsFrame } from "./hydra-heads.js";
 import { hydraPose } from "./hydra-pose.js";
 import { drawHydraReceipts } from "./hydra-receipts.js";
+import { hydraStopper } from "./hydra-stop.js";
 import { drawHydraHalos, drawHydraVerdicts } from "./hydra-verdicts.js";
 import type { Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
@@ -33,6 +35,8 @@ import { showsHydraFire, showsHydraMaw } from "./view-role-clocks-c.js";
  * and stitched, a maw a smoking stump — and the crown a stump more for every
  * level, the body a little smaller and turned half round as it rears.
  *
+ * **A bolt stops on the hydra** where it meets it (`hydra-stop.ts`).
+ *
  * Everything is read off `world` each frame but its receipts — the heads
  * falling, the coils dropping, the steam, the lunge, the shudder and the
  * blow (`hydra-fx.ts`, drawn by `hydra-receipts.ts`).
@@ -46,8 +50,10 @@ export function drawHydra(
   beatPhase: number,
   time: number,
   fx: HydraFx,
+  stops?: BoltStops,
 ): void {
   const p = hydraPose(l, world.cfg, s, beat, beatPhase, time);
+  stops?.aim(hydraStopper(l, world, s, p, time));
   const step = s.steps[s.cursor];
   const c = p.c;
   ctx.save();

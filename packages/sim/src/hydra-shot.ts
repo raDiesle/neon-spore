@@ -17,6 +17,8 @@ import type { World } from "./world.js";
  *   met, and nothing.
  *
  * What it says of a bolt is `hydraVerdict`, which the picture asks too.
+ * A bolt is met where it hangs (`core-along.ts`): up the middle past the
+ * body's foot, and up the open maw's own column at its head (`hydraAside`).
  */
 export function hydraStruck(world: World, bullet: Bullet): boolean {
   const s = hydraBoss(world);
@@ -54,4 +56,19 @@ export function hydraVerdict(world: World, col: number, color: Color): CoreVerdi
   const target = hydraTarget(world);
   if (target === null || target.col !== col) return "armour";
   return target.color === color ? "target" : "wrong";
+}
+
+/** The row a maw over the middle column hangs on, thousandths of a row (`render/hydra-shape.ts`). */
+export const HYDRA_MAW_ROW_MILLI = 7000;
+/** How much lower each column out from the middle a maw hangs, thousandths of a row. */
+export const HYDRA_MAW_DROOP_MILLI = 450;
+/** The aside's row under its maw: THE CHRYSALIS's pore's, `MEET_MILLI` less four tenths of a row. */
+const HYDRA_PAST = 100;
+
+/** The open maw, up its own column at its own row, for `core-along.ts`. */
+export function hydraAside(world: World): { col: number; milli: number } | null {
+  const target = hydraTarget(world);
+  if (target === null) return null;
+  const off = Math.abs(target.col - midCol(world.cfg));
+  return { col: target.col, milli: HYDRA_MAW_ROW_MILLI + off * HYDRA_MAW_DROOP_MILLI + HYDRA_PAST };
 }

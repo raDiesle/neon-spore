@@ -12222,8 +12222,17 @@ on each open eye, and on the maws `COLOUR` at the throat to the pilot, who
 sees the fire, with `FIRE` at the hull under the open maw, aimed at it, to
 the navigator, who sees which maw is open.
 
-**What is not built.** The bolt stopping on the body; the guide is prose.
-**Never watched at tempo** — the owner's eye.
+**A bolt stops on the hydra** where it is drawn (`render/src/hydra-stop.ts`):
+on the body's lower edge across every column it covers, on every maw still
+hanging on a maw level, and on the open maw's head — and the simulation
+meets it there (`sim/core-along.ts`): the open maw up its own column just
+past its head (`hydraAside`), the body up the middle just inside its foot
+at its smallest. The body's row and the maws' rows are the simulation's
+own (`HYDRA_MAW_ROW_MILLI`, `HYDRA_MAW_DROOP_MILLI`), so the two cannot
+drift.
+
+**What is not built.** The guide is prose. **Never watched at tempo** — the
+owner's eye.
 
 ## Retired
 

@@ -32,6 +32,11 @@ const SIDES = 36;
 
 /** The body's outline at its pose: a lobed slime, sagging toward its necks. */
 export function hydraBodyPath(p: HydraPose, time: number): Path2D {
+  return smoothClosed(hydraBodyPoints(p, time));
+}
+
+/** The points the body's outline is drawn through: what a bolt is stopped on (`hydra-stop.ts`). */
+export function hydraBodyPoints(p: HydraPose, time: number): At[] {
   const pts: At[] = [];
   for (let k = 0; k < SIDES; k++) {
     const a = (k / SIDES) * Math.PI * 2;
@@ -41,7 +46,7 @@ export function hydraBodyPath(p: HydraPose, time: number): Path2D {
     const ry = p.ry * (1 + 0.12 * lower * lower + 0.1 * p.hunch * lower) * lobe;
     pts.push({ x: p.c.x + Math.sin(a) * rx, y: p.c.y - Math.cos(a) * ry });
   }
-  return smoothClosed(pts);
+  return pts;
 }
 
 /** The body, its crown, its markings and its throat. `fire` the throat's colour, or null. Answers its outline. */

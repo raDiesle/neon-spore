@@ -41033,3 +41033,16 @@ gestures THE BLISTER does not have yet.
 and its arms floated free, which only a shot showed.
 
 *Measured: 14 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
+
+## 2026-10-14 — A bolt stops on THE HYDRA where it is drawn, and is met there
+
+- reading: 5 min. THE CHRYSALIS's stop commit, `core-along.ts`,
+  `core-stop.ts` and what `core-met.test.ts` measures.
+- writing: 15 min. `hydraAside` and the table row, the maws' rows moved
+  into the simulation, the body's points split from its path, the stopper.
+- looking: 0 min. The core-met test is the picture's check here.
+- friction: 0 min.
+- landing: 5 min.
+
+Bottleneck: reading — the meet row has to sit past the drawn stop by less
+than the test's eight ticks, which only the bolt's speed says.

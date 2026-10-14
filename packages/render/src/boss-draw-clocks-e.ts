@@ -142,5 +142,5 @@ export function drawLatestPairBoss(
 
   // THE HYDRA: a slime with many heads, each level its own kind of head and
   // its own gesture (`hydra-draw.ts`); its receipts are `hydra-fx.ts`.
-  drawHydra(ctx, l, world, boss, beat, beatPhase, time, effects.boss.hydra);
+  drawHydra(ctx, l, world, boss, beat, beatPhase, time, effects.boss.hydra, effects.bolts);
 }

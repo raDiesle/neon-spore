@@ -2673,6 +2673,7 @@ by hand never moves.
 | `packages/render/src/hive-lock.ts` | **The pilot's thumb on a wall's cocoon**: the ring on every high cocoon that only a held thumb reaches, and the press on it |
 | `packages/render/src/hit.ts` | **How far past its drawn edge a circle answers a thumb.** Every ring, lobe |
 | `packages/render/src/hydra-shape.ts` | **THE HYDRA's geometry**: where the body hangs, how far it reaches |
+| `packages/render/src/hydra-stop.ts` | **Where a bolt meets THE HYDRA**: the body's lower edge, the maws still hanging, and the open maw's head |
 | `packages/render/src/hydra-body.ts` | **THE HYDRA's body** (§11.64): the slime every neck runs out of — an abyssal teal mass, wider than tall |
 | `packages/render/src/hydra-coil.ts` | **THE HYDRA's coils** (§11.64): on each side a neck run down and wound round on itself in a flat spiral |
 | `packages/render/src/hydra-draw.ts` | **THE HYDRA** (§11.64): a slime with many heads hung over the field, and every head coming for the ship |

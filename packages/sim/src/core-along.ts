@@ -7,6 +7,7 @@ import type { CoreVerdict } from "./core-verdict.js";
 import { curtainCoreAside, curtainVerdict } from "./curtain-shot.js";
 import { gallAside, gallVerdict } from "./gall-shot.js";
 import { governorVerdict } from "./governor-shot.js";
+import { hydraAside, hydraVerdict } from "./hydra-shot.js";
 import { lampreyAside, lampreyVerdict } from "./lamprey-shot.js";
 import { oculusVerdict } from "./oculus-shot.js";
 import { plumbVerdict } from "./plumb-shot.js";
@@ -67,6 +68,15 @@ const CHRYSALIS_ROW = 4200;
  */
 const CHRYSALIS_FOOT = CHRYSALIS_ROW + 2800;
 
+/** THE HYDRA's row: the body's centre, over the middle column. */
+const HYDRA_ROW = 3400;
+/**
+ * Where a bolt up the middle is met: just inside the body's foot at its
+ * smallest, the last level's, 1.4 rows under the centre
+ * (`render/hydra-shape.ts`), so a bigger body is reached first in the picture.
+ */
+const HYDRA_FOOT = HYDRA_ROW + 1300;
+
 /** THE GALL's row: below the middle of the field's fifteen. */
 const GALL_ROW = 8500;
 
@@ -90,6 +100,16 @@ const CORES: Partial<Record<BossKind, Core>> = {
     meet: CHRYSALIS_FOOT,
     verdict: (w, c, k) => chrysalisVerdict(w, c, k),
     aside: (w) => chrysalisAside(w, CHRYSALIS_ROW),
+  },
+  // THE HYDRA's body hangs over the middle column and shrinks a level at a
+  // time. The open maw is met up its own column just past its head
+  // (`hydra-shot.ts`); the body up the middle, inside its foot
+  // (`render/hydra-stop.ts`).
+  hydra: {
+    milli: HYDRA_ROW,
+    meet: HYDRA_FOOT,
+    verdict: (w, c, k) => hydraVerdict(w, c, k),
+    aside: (w) => hydraAside(w),
   },
   capstan: { milli: 2700, verdict: (w, c, k) => capstanVerdict(w, c, k) },
   curtain: { verdict: (w, c, k) => curtainVerdict(w, c, k), aside: (w) => curtainCoreAside(w) },
