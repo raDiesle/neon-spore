@@ -39461,3 +39461,5 @@ Bottleneck: a narrow rack needs a larger share of its width before a still shows
 - landing: 5 min. `check:fast`, the commit, `land`.
 
 Bottleneck: the marks sit all across the bell, so no point could be held, and the turn was kept moderate instead.
+
+*Measured: 6 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*

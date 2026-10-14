@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-14 · b83d7b97b — VERSUS offers THE NETTLE's bell turning about its middle
+
+`nettle:glance` offers the jellyfish's bell a turn — SWAY, LOOK or COCK — crown or underside, arms, curtain and core turning with it, the far side closing into the dark and back, on THE NETTLE · ACT. The marks stay where the script planted them, as they do while the bell pulses, and a bolt meets the bell where it is drawn. The record ships still, so the game draws what it did.
+
 ## 2026-10-14 · 4f5b1458c — VERSUS offers THE RATCHET's rack turning in its strut
 
 `ratchet:glance` offers the rack of plates and its spring a turn about their own column — SWAY, LOOK or COCK — the teeth swinging toward the pawl and away, each far half closing into the dark, inside a strut that stands still, on THE RATCHET · WORK. The pawl's tip follows its shoulder and a bolt meets the plates where they are drawn; the lock, the catch and the pad do not move. The record ships still, so the game draws what it did.
