@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-14 · d42aba9c8 — THE BATON, THE MIRROR and THE OCULUS hold the HOLD LAB's drop
+
+Every hold on these three bosses is now the HOLD LAB's drop, drawn by the boss itself with the simulation's thumb and fill, and the cue no longer draws a second drop over it. THE BATON's merge loses its rings and dials: a drop on each bead, sinking under its own seat's thumb, its water the window spent, so it still never says whether the other thumb is down. THE MIRROR's pin loses its lobe rings and count dial: a drop at the hull under this seat's lobe, and once both thumbs are down the partner's beside it, dimmed, both filling with the count. THE OCULUS's shut and reseal keep a drop on each half for the whole hold, on both screens, the partner's dimmed, filling as the pair comes, where the cue's drop used to vanish the moment a thumb landed.
+
 ## 2026-10-14 · 263ecf8c8 — A glanced part's middle is the picture once, translucent or not
 
 A glanced part's two halves are now put together on a scratch layer of their own, each added at half strength and the sum doubled, and laid on the screen once. The seam pixel used to hold the picture twice: SPLICE's pale rim showed a tick at the middle, top and bottom, and THE MAZE's heart, drawn adding light, had a bright line down it. Both are gone; the rest of the part moves by at most one step of 255, from the halving.

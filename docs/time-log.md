@@ -40495,3 +40495,5 @@ not what the specification reads as, and only a measured probe said how.
 
 Bottleneck: writing — three bosses each keep their hold differently, and
 THE BATON's must not show the count, which only runs when both are down.
+
+*Measured: 15 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
