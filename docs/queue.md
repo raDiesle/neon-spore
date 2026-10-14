@@ -331,6 +331,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## One generic PULL: the curved and rope pulls onto it
 
 - **Found:** 2026-10-10, claude/pull-control-visuals-35c04f
+- **Taken:** 2026-10-14, claude/queue-one-generic-pull-the-curved-and-rope-pulls-onto
 - **Files:** `packages/sim/src/lamprey-hand.ts`, `packages/sim/src/antiphon-rail.ts`, `packages/sim/src/warden-rope.ts`, `packages/sim/src/bastion-hand.ts`, `packages/sim/src/gauge-tooth.ts`, `packages/sim/src/pinball-hand.ts`
 
 After the first entry lands: THE LAMPREY's head (a curve), THE ANTIPHON's rail (down a vein), THE WARDEN's tether and THE BASTION's slabs (a rope, any way), THE GAUGE's tooth and PINBALL's plunger onto the one rule. A curve is a path the rule measures along, as the PULL LAB's CURVE and S-CURVE do. THE GUM is a pull by a body rather than a knob — say in the entry's commit whether it joins or why not (SNAKE's jaws were the other, until the owner took them out on 10 October 2026).
