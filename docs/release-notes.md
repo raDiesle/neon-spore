@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-14 · 5f7ceccf1 — The composer fills the blocks that stalled at R7 and R8
+
+R8 lands a twin across the field as R7 does, so the peak can sit above R7 instead of topping out under it. A twin is only ever a slick, bulb or rock, and only where the step's count has room — two fences or two magnets at once is a wave AUTO never clears. A pod after the last body is dropped rather than failing the draw. Composed in memory, 30 of the 33 blocks after the arc now fill; THE COUNT, THE COIL and THE CROSSING wait on AUTO learning them.
+
 ## 2026-10-14 · a18a486b1 — THE LAMPREY's tail and THE SLING's cords hold the HOLD LAB's drop
 
 THE LAMPREY's tail at rest is the HOLD LAB's drop, sunk under the holder's thumb and dimmed on the partner's screen, and its HOLD cue draws no second one; in an apart it is still the pull's knob. THE SLING's cord is the drop while its hold is asked, filling with the beats held, until the pull's knob takes its place.
