@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-14 · 91692daf4 — THE LEDGER shows the pilot where the cannon has to stand
+
+While the cord is empty and the fight is still paying, the pilot's hull carries the pull's waiting path from the cannon to a dashed placeholder under the seam: the dots lit one after another, the see-through ghost running along them, the placeholder flashing as it lands. It goes the moment the cannon is under the seam, where FIRE stands instead, and is as quiet as FIRE once the cord bills every shot. A place, not a word.
+
 ## 2026-10-14 · c06089052 — CONTROLS › HELPERS in groups: the siren and its roster, and what one screen has and the other has not
 
 After THE SHIELD, the page now has THE SIREN and a table of everything that lights it: every creature and boss, who speaks, and each seat's chip word. The table is read from the renderer's own tables, so it cannot go stale. Next comes the split itself, in two halves: NOT ON THIS SCREEN — ASK and ONLY ON THIS SCREEN — TELL. THE SHIELD gains THE SKULL over a dome under a shut fence, and ONE LAST CHANCE names the red push that earns it. Twenty helpers the page did not list are added, each pictured in a real frame, and CONTENTS numbers every level.
