@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-14 · bcc44cd80 — THE LID's cord bows off whichever way it runs, and a thumb that strays drops it
+
+The cord still runs the one way the grab chose (down, across, or up), but its channel now bows a tile and a half to one side halfway (`lid-bow.ts`, `lidBowMilli`): toward the middle for a cord run down or up, and up for one run across. Progress is measured along the bow; a thumb more than a tile off it drops the cord with `pullStray` and holds nothing until it lifts. The tension stays the straight distance along the way, so the falling lid's room still bounds the handle exactly. Films and the director's poses lay their carries on the bow, and THE WARDEN's bow now shares the same shape (`pullBowPath`). A look the owner asked for by name: every straight pull with room bends, THE LID's cord second.
+
 ## 2026-10-14 · d70fbb8c4 — THE WARDEN's rope bows toward the middle, and a thumb that strays drops it
 
 The rope's channel is no longer straight down: it drops the same seven tiles and bows a tile and a half toward the middle of the field halfway down (`warden-bow.ts`, `wardenBowMilli`), and the hand's progress is measured along it. A thumb more than a tile off the bow drops the rope with `pullStray` and holds nothing until it lifts. The tension is still counted in thousandths of the drop, so the hatch opens in proportion as before; the autopilot, the films, the desk keys and the director's poses all carry the rope along the bow. A look the owner asked for by name: every straight pull with room bends, THE WARDEN's cord first.

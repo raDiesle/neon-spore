@@ -40238,3 +40238,5 @@ each of them change by one call.
 Bottleneck: a falling lid's room shrinks under a held cord, so the tension
 had to stay the straight distance along its way, with the knob placed on the
 bow at that distance, for the floor to keep bounding it exactly.
+
+*Measured: 40 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
