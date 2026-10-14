@@ -107,9 +107,16 @@ export interface WardenState {
    * device resolved.
    */
   pullOriginMilli: number;
+  /** The same, across the screen: the bowed path reads both (`warden-bow.ts`). */
+  pullOriginXMilli: number;
   /**
-   * How far the handle has been carried down its one fixed path, in
-   * thousandths of a tile, 0..`wardenTautMilli` — the tension, and the picture
+   * Whether the hand on the rope wandered off its bow and dropped it
+   * (`pullStray`): nothing it does holds the rope again until it lifts.
+   */
+  ropeStrayed: boolean;
+  /**
+   * How far the handle has been carried along its one fixed path, in
+   * thousandths of a tile of the drop, 0..`wardenTautMilli` — the tension, and the picture
    * as well as the rule: the rope is drawn running to where the hand carried
    * it, and one thing player 2 can see about their partner's hand has to be the
    * thing it is actually doing (`pullDownMilli`, `handle-pull.ts`).

@@ -10,7 +10,7 @@ import {
   fresh,
   guard,
   type Pose,
-  pullCord,
+  pullRope,
   run,
   runUntil,
   POSE_TPB as TPB,
@@ -123,7 +123,7 @@ const CYCLE_BEATS = 6;
 const HANG_BEATS = 2;
 const TETHER_CADENCE_SECONDS = DEFAULT_CONFIG.wardenCycleBeats * beatSeconds(DEFAULT_CONFIG);
 
-/** The hand coming off the rope. `pullCord` is the hand going on. */
+/** The hand coming off the rope. `pullRope` is the hand going on. */
 const letGo = (tick: number, id: number): TimedCommand => ({
   tick,
   player: 1,
@@ -169,7 +169,7 @@ export const TETHER_POSE: Pose = {
     if (inCycle < 0) return [];
     if (inCycle < pullTicks) {
       const reach = Math.round((w.cfg.wardenTautMilli * 1.2 * (inCycle + 1)) / pullTicks);
-      return [pullCord(w.tick, rope.id, reach, "wardenTether")];
+      return [pullRope(w, w.tick, rope.id, reach)];
     }
     if (inCycle === Math.round(TPB * (PULL_BEATS + HOLD_BEATS))) return [letGo(w.tick, rope.id)];
     return [];

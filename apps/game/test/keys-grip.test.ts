@@ -233,7 +233,7 @@ it("opens the hatch all the way, which is what the key never did", () => {
     step(world, []);
   expect(wardenTether(world)).not.toBeNull();
 
-  const rig = deskGrip(DEFAULT_CONFIG);
+  const rig = deskGrip(DEFAULT_CONFIG, () => world.boss);
   const presses = [...rig.take(world.creatures, 2)];
   for (let i = 0; i < DEFAULT_CONFIG.wardenTautMilli / DEFAULT_CONFIG.gripPushMilli; i++) {
     presses.push(...rig.carry(1));

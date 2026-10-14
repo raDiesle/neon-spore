@@ -224,6 +224,9 @@ export {
   // (`tools/director/src/poses-bosses-clocks.ts`) — read, never re-derived.
   wardenPhase,
   wardenPullMilli,
+  // The rope's bow, which the channel is drawn along and the hands follow (`warden-bow.ts`).
+  wardenRopeFromMilli,
+  wardenRopePath,
   wardenTether,
 } from "./bosses.js";
 // Whether THE FLEET's wound asks for both thumbs, which its rings read (`fleet-grip-marks.ts`).

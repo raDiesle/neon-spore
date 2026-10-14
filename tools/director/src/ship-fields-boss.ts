@@ -23,6 +23,7 @@ export const BOSS_FIELDS = {
   wardenPlates: "WARDEN",
   wardenThrowMilli: "WARDEN",
   wardenThrowBeats: "WARDEN",
+  wardenBowMilli: "WARDEN",
   cairnRow: "THE CAIRN — a pile of rocks taken apart by hand",
   cairnUnits: "THE CAIRN — a pile of rocks taken apart by hand",
   cairnShedBeats: "THE CAIRN — a pile of rocks taken apart by hand",

@@ -1,4 +1,9 @@
-import type { DragTarget, TimedCommand } from "@neon-spore/sim";
+import {
+  type DragTarget,
+  type TimedCommand,
+  type World,
+  wardenRopeFromMilli,
+} from "@neon-spore/sim";
 
 /**
  * **The commands a pose presses, spelled short.** A pose is mostly a list of
@@ -64,6 +69,17 @@ export const pullCord = (
   player: 1,
   command: { kind: "drag", target, on: true, fromMilli: 0, fromYMilli: milli, id },
 });
+/**
+ * The pilot's thumb on THE WARDEN's rope, carried `milli` of taut **along its
+ * bow** (`sim/warden-bow.ts`): the rope is not a cord that runs straight
+ * down, and a thumb pulled straight down it strays off and drops it.
+ */
+export const pullRope = (w: World, tick: number, id: number, milli: number): TimedCommand => {
+  const b = w.boss;
+  const at = b?.kind === "warden" ? wardenRopeFromMilli(w.cfg, b, milli) : null;
+  const cmd = pullCord(tick, id, milli, "wardenTether");
+  return at === null ? cmd : ({ ...cmd, command: { ...cmd.command, ...at } } as TimedCommand);
+};
 export const hold = (tick: number, player: 1 | 2, id: number): TimedCommand => ({
   tick,
   player,

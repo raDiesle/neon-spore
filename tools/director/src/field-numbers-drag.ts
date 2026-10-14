@@ -11,7 +11,7 @@ import type { SimConfig } from "@neon-spore/sim";
 export const DRAG_NUMBERS: Readonly<Record<string, readonly (keyof SimConfig)[]>> = {
   // Pull past a distance.
   "THE BLISTER'S SWIPE": ["blisterSwipeMilli", "blisterUpBeats", "blisterBlows"],
-  "THE WARDEN'S TETHER": ["wardenTautMilli", "wardenCycleBeats"],
+  "THE WARDEN'S TETHER": ["wardenTautMilli", "wardenBowMilli", "wardenCycleBeats"],
   "THE WARDEN'S SWIPE": ["wardenThrowMilli", "wardenThrowBeats"],
   "THE ANTIPHON'S RAIL": [
     "antiphonReachMilli",

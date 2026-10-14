@@ -14,8 +14,9 @@ import { type PullHeard, pullHeard } from "./pull.js";
  *   axes as a drag's `fromMilli` and `fromYMilli`, so a caller hands the
  *   command's displacement straight in.
  * - **Progress is the distance along it** to the point nearest the thumb,
- *   looked for only within `PULL_PATH_WINDOW` of where the knob already is,
- *   so a curve that doubles back is not jumped across — the lab's ±0.3.
+ *   looked for first within `PULL_PATH_WINDOW` of where the knob already is,
+ *   so a curve that doubles back is not jumped across — the lab's ±0.3 — and
+ *   on the whole path only when the thumb is off the window's part of it.
  * - **A thumb further off the path than `PULL_STRAY_MILLI` fails the pull**:
  *   `strayed`, the knob home, and the caller says it with `pullStray`. A pull
  *   that has already counted cannot stray; the hand is only coming home.
@@ -89,7 +90,11 @@ export function pullPathPoint(path: PullPath, along: number): PullPoint {
 
 /**
  * The point of the path nearest `(x, y)` within the window round `from`, as
- * its distance along, and the square of how far off it the thumb is.
+ * its distance along, and the square of how far off it the thumb is — or,
+ * where nothing in the window is within the stray, the nearest on the whole
+ * path: a hand that jumped further than the window in one command (a film, a
+ * slow frame) and is on the path is on it, and a hairpin is still not jumped
+ * across while the thumb is on the leg it was on.
  */
 export function pullPathNearest(
   path: PullPath,
@@ -99,9 +104,22 @@ export function pullPathNearest(
 ): { alongMilli: number; offSq: number } {
   const total = pullPathLength(path);
   const w = Math.trunc((total * PULL_PATH_WINDOW) / 1000);
-  const lo = Math.max(0, from - w);
-  const hi = Math.min(total, from + w);
-  let best = { alongMilli: Math.max(0, Math.min(total, from)), offSq: Number.MAX_SAFE_INTEGER };
+  const near = nearestIn(path, Math.max(0, from - w), Math.min(total, from + w), x, y, from);
+  if (near.offSq <= PULL_STRAY_MILLI * PULL_STRAY_MILLI) return near;
+  const all = nearestIn(path, 0, total, x, y, from);
+  return all.offSq < near.offSq ? all : near;
+}
+
+/** The nearest point between `lo` and `hi` along the path; `from`, held to them, with none. */
+function nearestIn(
+  path: PullPath,
+  lo: number,
+  hi: number,
+  x: number,
+  y: number,
+  from: number,
+): { alongMilli: number; offSq: number } {
+  let best = { alongMilli: Math.max(lo, Math.min(hi, from)), offSq: Number.MAX_SAFE_INTEGER };
   let cum = 0;
   for (let i = 0; i + 1 < path.pts.length; i++) {
     const len = segLength(path, i);

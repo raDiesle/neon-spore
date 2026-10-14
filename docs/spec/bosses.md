@@ -609,16 +609,19 @@ mechanic.
 **How far is far enough** is `wardenTautMilli`, thousandths of a tile of hand
 travel, and the pull is a **distance rather than a duration**.
 
-**The path is fixed: straight down.** The channel is drawn under the handle
-before anybody touches it, and only the hand's travel down it counts — across
-counts nothing, up is slack, and a diagonal counts its downward part
-(`pullDownMilli`, `packages/sim/src/handle-pull.ts`). The handle stays in the
-column the hand took it in and runs down the channel after the thumb. For a
-while the rope could be carried any way at all and what counted was the pull's
-length; the owner took that out on 10 October 2026, for consistency — a pull in
-this game goes the way its channel shows. Down is the one way the field holds
-the whole of `wardenTautMilli` from where this rope hangs (7.2 tiles below it),
-and the handle is still kept wholly on the field above the bottom edge.
+**The path is fixed: down, bowed toward the middle.** The channel is drawn
+under the handle before anybody touches it, and only the hand's progress along
+it counts (`packages/sim/src/warden-bow.ts`, `pull-path.ts`). It drops the
+whole of `wardenTautMilli` — the one way the field holds it from where this
+rope hangs, 7.2 tiles below it — and bows `wardenBowMilli` across halfway
+down, toward the middle so it has room from any column. A thumb more than a
+tile off the bow **drops the rope**, said (`pullStray`), and holds nothing
+until it lifts. For a while the rope could be carried any way at all; the owner
+took that out on 10 October 2026, for consistency — a pull in this game goes
+the way its channel shows — and bent the channel on 13 October: *curves
+increase difficulty and are more exciting than straight lines*. The tension is
+still counted in thousandths of the drop, so the hatch opens in proportion as
+it did.
 
 **Nothing but the tension holds it open.** There is no tear and no clock. Keep
 pulling and it stays open; slacken and it shuts; land a shot and the rope is

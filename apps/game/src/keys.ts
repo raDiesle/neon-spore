@@ -21,6 +21,8 @@ export interface KeyBindings {
   isOver: () => boolean;
   /** The field, for G — the grip needs something to take hold of. */
   creatures: () => readonly Creature[];
+  /** The boss, for G on THE WARDEN's rope, whose carry follows its bow (`keys-grip.ts`). */
+  boss?: Parameters<typeof deskGrip>[1];
   /**
    * Whether the guide is up — the only state the desk's three gate keys answer.
    * The introduction before it passes on its own timer, and a `brief` sent
@@ -83,6 +85,7 @@ export function bindKeys({
   cfg,
   isOver,
   creatures,
+  boss,
   guideHolds,
   onPauseToggle,
   onWaveStep,
@@ -103,7 +106,7 @@ export function bindKeys({
     buffer.push(player, command);
   };
 
-  const grip = deskGrip(cfg);
+  const grip = deskGrip(cfg, boss);
   const held = new Set<string>();
   /** The two keys under each hand that carry something sideways, and nothing
    * else in this file has to know they have a timer (`keys-slide.ts`). */

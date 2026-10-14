@@ -210,4 +210,4 @@ export function runUntil(
  * The commands a pose presses — `aim`, `ward`, `guard` and the rest — are
  * `pose-commands.ts`, re-exported here so a pose imports from one place.
  */
-export { aim, guard, hold, prime, pullCord, shoot, suck, ward } from "./pose-commands.js";
+export { aim, guard, hold, prime, pullCord, pullRope, shoot, suck, ward } from "./pose-commands.js";

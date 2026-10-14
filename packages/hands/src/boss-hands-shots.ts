@@ -9,12 +9,14 @@ import {
   vanePinned,
   vanePivotNow,
   vaneSplitCol,
+  type WardenState,
   type World,
   wardenColor,
   wardenCycle,
   wardenEyeOpen,
   wardenLeadCol,
   wardenPhase,
+  wardenRopeFromMilli,
   wardenTether,
   wardenThrown,
 } from "@neon-spore/sim";
@@ -46,9 +48,15 @@ type Press = Omit<TimedCommand, "tick">;
 
 const aim = (col: number): Press => ({ player: 1, command: { kind: "cannonCol", col } });
 const fire = (color: Color): Press => ({ player: 2, command: { kind: "fire", color } });
-const drag = (milli: number): Press => ({
+/** The rope carried `milli` of taut along its bow, as a thumb following the channel (`sim/warden-bow.ts`). */
+const drag = (w: World, b: WardenState, milli: number): Press => ({
   player: 1,
-  command: { kind: "drag", target: "wardenTether", on: true, fromMilli: 0, fromYMilli: milli },
+  command: {
+    kind: "drag",
+    target: "wardenTether",
+    on: true,
+    ...wardenRopeFromMilli(w.cfg, b, milli),
+  },
 });
 /** The navigator's thumb landing on the eye. */
 const thumb: Press = {
@@ -83,7 +91,7 @@ export const wardenHand: Hand = (w) => {
   } else {
     if (wardenTether(w) === null) return [];
     if (asks === "hold" && !b.eyeHeld) out.push(thumb);
-    if (!wardenEyeOpen(w, b)) return [...out, drag(b.pulling ? w.cfg.wardenTautMilli : 0)];
+    if (!wardenEyeOpen(w, b)) return [...out, drag(w, b, b.pulling ? w.cfg.wardenTautMilli : 0)];
   }
   // Where the pupil will be when the bolt gets there, not where it is: it
   // walks a step a beat and the bolt is most of one on the way (`warden-lead.ts`).

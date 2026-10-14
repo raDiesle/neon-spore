@@ -219,6 +219,8 @@ export {
   vaneStageIndex,
   vaneStageStart,
 } from "./vane-cycle.js";
+// THE WARDEN's rope's bow, which its channel and every scripted hand follow.
+export { wardenRopeFromMilli, wardenRopePath } from "./warden-bow.js";
 export {
   NO_TETHER,
   WARDEN_PHASES,

@@ -7,6 +7,7 @@ import {
   type TimedCommand,
   ticksPerBeat,
   type World,
+  wardenRopeFromMilli,
 } from "@neon-spore/sim";
 import type { ViewRole } from "../src/layout.js";
 import { budgetRow } from "./budget-row.js";
@@ -321,8 +322,8 @@ const EYES: readonly { name: string; index: number; pull: (world: World) => Time
     index: waveWith("warden"),
     // The grab and the distance from it, in that order (`sim/warden.ts`).
     pull: (world) => [
-      { tick: world.tick, player: 1, command: rope(0) },
-      { tick: world.tick, player: 1, command: rope(CFG.wardenTautMilli) },
+      { tick: world.tick, player: 1, command: rope(world, 0) },
+      { tick: world.tick, player: 1, command: rope(world, CFG.wardenTautMilli) },
     ],
   },
   {
@@ -348,11 +349,13 @@ const EYES: readonly { name: string; index: number; pull: (world: World) => Time
   },
 ];
 
-/** THE WARDEN's rope, carried that far **down** from where the hand grabbed —
- * the one direction the field always has room for from where it hangs
- * (`sim/handle-pull.ts`). */
-function rope(fromYMilli: number) {
-  return { kind: "drag", target: "wardenTether", on: true, fromMilli: 0, fromYMilli } as const;
+/** THE WARDEN's rope, carried that far of taut **along its bow** from where
+ * the hand grabbed (`sim/warden-bow.ts`). */
+function rope(world: World, milli: number) {
+  const b = world.boss;
+  const at =
+    b?.kind === "warden" ? wardenRopeFromMilli(CFG, b, milli) : { fromMilli: 0, fromYMilli: milli };
+  return { kind: "drag", target: "wardenTether", on: true, ...at } as const;
 }
 
 /**
@@ -422,8 +425,11 @@ const EYE_BUDGETS: Readonly<Record<string, readonly Budget[]>> = {
       // one each.
       stroke: 181,
       // Four more: the two patches of the wet film, the eyelids and their
-      // pupils. Flat, whatever the openness.
-      fill: 103,
+      // pupils. Flat, whatever the openness. **Two more on 14 October 2026**:
+      // the rope's channel bows (`sim/warden-bow.ts`), and a bow is longer
+      // than the straight drop it replaced, so it carries two more of the
+      // path's dots (`goo-track.ts`).
+      fill: 105,
       // Two more than the body's own: the film and the veins share a single
       // clip to it, and the lens opens one of its own so the lids can cut the
       // pupil instead of the pupil being sized to miss them (`eye-lens.ts`).
@@ -454,7 +460,8 @@ const EYE_BUDGETS: Readonly<Record<string, readonly Budget[]>> = {
       fillRect: 54,
       // The hold's circle, as in frame 0.
       stroke: 183,
-      fill: 103,
+      // The bow's two dots, as in frame 0.
+      fill: 105,
       clip: 11,
       save: 68,
       drawImage: 29,

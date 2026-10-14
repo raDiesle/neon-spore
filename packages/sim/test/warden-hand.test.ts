@@ -19,6 +19,7 @@ import {
   wardenHatchMilli,
   wardenLidsMilli,
   wardenPhase,
+  wardenRopeFromMilli,
   wardenTether,
   wardenThrown,
 } from "../src/index.js";
@@ -80,10 +81,15 @@ const warden = (world: World): WardenState => {
   return b;
 };
 
-const rope = (on: boolean, milli: number): Omit<TimedCommand, "tick"> => ({
-  player: 1,
-  command: { kind: "drag", target: "wardenTether", on, fromMilli: 0, fromYMilli: milli },
-});
+/** The rope carried `milli` of taut along its bow (`warden-bow.ts`). */
+const rope = (world: World, on: boolean, milli: number): Omit<TimedCommand, "tick"> => {
+  const b = world.boss;
+  const at =
+    b !== null && b.kind === "warden"
+      ? wardenRopeFromMilli(world.cfg, b, milli)
+      : { fromMilli: 0, fromYMilli: milli };
+  return { player: 1, command: { kind: "drag", target: "wardenTether", on, ...at } };
+};
 
 const eye = (player: 1 | 2, on: boolean): Omit<TimedCommand, "tick"> => ({
   player,
@@ -99,8 +105,8 @@ const hatch = (player: 1 | 2, on: boolean, milli: number): Omit<TimedCommand, "t
 function taut(plates: number): Run {
   const run = open(plates);
   beats(run, 1);
-  tick(run, rope(true, 0));
-  tick(run, rope(true, TAUT));
+  tick(run, rope(run.world, true, 0));
+  tick(run, rope(run.world, true, TAUT));
   return run;
 }
 
@@ -157,8 +163,8 @@ describe("under NARROW, the thumb on the eye", () => {
     beats(run, 1);
     tick(run, eye(2, true));
     expect(wardenEyeOpen(run.world, warden(run.world))).toBe(false);
-    tick(run, rope(true, 0));
-    tick(run, rope(true, TAUT));
+    tick(run, rope(run.world, true, 0));
+    tick(run, rope(run.world, true, TAUT));
     expect(wardenEyeOpen(run.world, warden(run.world))).toBe(true);
     expect(heard(run, "eyeOpen")).toHaveLength(1);
   });
@@ -298,8 +304,8 @@ describe("the whole fight", () => {
     // and haul it taut again.
     const again = (): void => {
       while (wardenTether(run.world) === null) beats(run, 1);
-      tick(run, rope(true, 0));
-      tick(run, rope(true, TAUT));
+      tick(run, rope(run.world, true, 0));
+      tick(run, rope(run.world, true, TAUT));
     };
     hit();
     expect(warden(run.world).plates).toBe(4);

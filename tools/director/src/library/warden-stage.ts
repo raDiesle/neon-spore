@@ -58,6 +58,8 @@ const STATE: WardenState = {
   eyeSpent: false,
   pulling: false,
   pullOriginMilli: 0,
+  pullOriginXMilli: 0,
+  ropeStrayed: false,
   pullMilli: 0,
   pullAnchorX: 0,
   pullAnchorY: 0,

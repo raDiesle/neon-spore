@@ -1,9 +1,16 @@
 import type { WardenState } from "./boss-state.js";
 import { removeCreature } from "./field.js";
-import { pullDownMilli, pullOpenMilli, tileCentreMilli } from "./handle-pull.js";
+import { pullDownMilli, pullOpenMilli } from "./handle-pull.js";
 import { pullHeard } from "./pull.js";
+import { pullPathHeard, pullPathPoint } from "./pull-path.js";
 import { NO_SHELL } from "./shell.js";
 import { type Command, type Creature, WARDEN_COLS } from "./types.js";
+import {
+  wardenRopeAlong,
+  wardenRopePath,
+  wardenRopeRest,
+  wardenRopeTension,
+} from "./warden-bow.js";
 import { NO_TETHER, wardenColor, wardenCycle } from "./warden-cycle.js";
 import { wardenEyeOpen } from "./warden-open.js";
 import type { World } from "./world.js";
@@ -42,18 +49,16 @@ export function wardenPullMilli(world: World, b: WardenState): number {
 
 /**
  * Where the handle actually is, in thousandths of a tile: the anchor the hand
- * took it from plus how far down its path the hand has carried it — and the
- * rope's own rest while nobody is holding it.
+ * took it from plus how far along its bowed path the hand has carried it
+ * (`warden-bow.ts`) — and the rope's own rest while nobody is holding it.
  */
 export function wardenHandleMilli(world: World, b: WardenState): { x: number; y: number } {
-  if (!b.pulling) return ropeRest(world, b);
-  return { x: b.pullAnchorX, y: b.pullAnchorY + b.pullMilli };
-}
-
-/** Where the handle hangs with nobody on it, in thousandths of a tile. */
-function ropeRest(world: World, b: WardenState): { x: number; y: number } {
-  const cfg = world.cfg;
-  return tileCentreMilli(b.pupilCol, cfg.wardenRow + cfg.wardenHangRows);
+  if (!b.pulling) return wardenRopeRest(world.cfg, b);
+  const at = pullPathPoint(
+    wardenRopePath(world.cfg, b),
+    wardenRopeAlong(world.cfg, b, b.pullMilli),
+  );
+  return { x: b.pullAnchorX + at.x, y: b.pullAnchorY + at.y };
 }
 
 /**
@@ -66,16 +71,18 @@ function ropeRest(world: World, b: WardenState): { x: number; y: number } {
  * `fromYMilli` is how far down the hand has come from where it grabbed, in
  * thousandths of a tile — a displacement and not a place, resolved on the
  * device whose finger it is (`Command` in `types.ts` has why). **The path is
- * fixed: straight down**, the channel drawn under the handle before anybody
- * touches it (`render/tether-track.ts`). Only the hand's travel along it
- * counts; across is nothing and up is slack. It went any direction for a
+ * fixed: down, bowed toward the middle** (`warden-bow.ts`), the channel drawn
+ * under the handle before anybody touches it (`render/tether-track.ts`).
+ * Only the hand's progress along it counts. It went any direction for a
  * while, and the owner took that out (10 October 2026) for consistency — a
- * pull in this game goes the way its channel shows, and down is the one way
- * the field holds the whole of `wardenTautMilli` from where the rope hangs.
+ * pull in this game goes the way its channel shows — and bent it on 13
+ * October: *curves increase difficulty*.
  *
- * It is the one generic PULL (`pull.ts`) for its travel, and a hand let go
- * short of taut is said (`pullShort`); the count is not the rope's, because
- * the gate stands open only for as long as the hand holds it there.
+ * It is the one generic PULL along a path (`pull-path.ts`): a hand let go
+ * short of taut is said (`pullShort`), and **a thumb that wanders off the bow
+ * drops the rope** (`pullStray`) and holds nothing until it lifts
+ * (`ropeStrayed`). The count is not the rope's, because the gate stands open
+ * only for as long as the hand holds it there.
  *
  * A hand that lifts lets the tension go and the gate shuts with it. That and a
  * landed shot are the only two that shut it (`docs/spec/bosses.md` 11.4).
@@ -86,32 +93,44 @@ export function wardenTetherHeard(world: World, player: 1 | 2, command: Command)
   if (command.kind !== "drag" || command.target !== "wardenTether") return;
   if (!command.on || b.tetherId === NO_TETHER) {
     if (!command.on && b.pulling && b.tetherId !== NO_TETHER) shortOf(world, b);
+    if (!command.on) b.ropeStrayed = false;
     slacken(b);
     return;
   }
+  if (b.ropeStrayed) return;
   if (!b.pulling) {
     // The grab. Wherever the hand is standing is slack, so a line that was cut
     // and replaced under a finger still has to be pulled from where that finger
     // now is rather than arriving taut.
     b.pulling = true;
     b.pullOriginMilli = command.fromYMilli ?? 0;
+    b.pullOriginXMilli = command.fromMilli;
     b.pullMilli = 0;
     // Where the handle was when the hand took it, held there for as long as
     // the hand stays: the pupil drifts a column or two a beat, and a handle
     // hung off today's rest slides out from under a still thumb.
-    const rest = ropeRest(world, b);
+    const rest = wardenRopeRest(world.cfg, b);
     b.pullAnchorX = rest.x;
     b.pullAnchorY = rest.y;
     return;
   }
   const was = wardenEyeOpen(world, b);
-  // Down the path, cut to taut and kept on the field — one rule, `handle-pull.ts`.
-  b.pullMilli = pullDownMilli(
-    world.cfg,
-    b.pullAnchorY,
+  // Along the bow, cut to its end, which the field holds (`warden-bow.ts`).
+  const heard = pullPathHeard(
+    wardenRopePath(world.cfg, b),
+    false,
+    true,
+    command.fromMilli - b.pullOriginXMilli,
     (command.fromYMilli ?? 0) - b.pullOriginMilli,
-    world.cfg.wardenTautMilli,
+    wardenRopeAlong(world.cfg, b, b.pullMilli),
   );
+  if (heard.heard === "strayed") {
+    world.events.push({ type: "pullStray", col: b.pupilCol, player: 1 });
+    slacken(b);
+    b.ropeStrayed = true;
+    return;
+  }
+  b.pullMilli = wardenRopeTension(world.cfg, b, heard.travelMilli);
   noteEyeOpened(world, b, was);
 }
 
@@ -155,6 +174,7 @@ export function noteEyeOpened(world: World, b: WardenState, was: boolean): void 
 function slacken(b: WardenState): void {
   b.pulling = false;
   b.pullOriginMilli = 0;
+  b.pullOriginXMilli = 0;
   b.pullMilli = 0;
   b.pullAnchorX = 0;
   b.pullAnchorY = 0;

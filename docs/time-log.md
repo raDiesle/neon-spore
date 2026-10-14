@@ -40207,3 +40207,17 @@ square root, which a projection clamped to the window's part of each segment
 does.
 
 *Measured: 9 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-14 — Curved pulls, THE WARDEN: the rope bows toward the middle
+
+- reading: 15 min. The rope's rule, its channel, and every hand that pulls it
+  without a thumb: the autopilot, the films, the desk keys, the director's poses.
+- writing: 25 min. `warden-bow.ts`, the stray state, the window's fallback in
+  `pull-path.ts`, the five scripted hands laid along the bow, the tests.
+- looking: 5 min. The rope on the field, before and after.
+- friction: 5 min. A doubled regex replacement in the test helper.
+- landing: 5 min.
+
+Bottleneck: a pull that bends breaks every script that pulled it straight,
+and they are in five packages; the tension kept in taut's units is what let
+each of them change by one call.

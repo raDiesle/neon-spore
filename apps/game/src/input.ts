@@ -221,6 +221,7 @@ export function bindControls(bindings: Bindings): Controls {
       cfg: bindings.cfg,
       isOver,
       creatures: bindings.creatures,
+      boss: bindings.boss,
       guideHolds: bindings.guideHolds,
       onPauseToggle: bindings.onPauseToggle,
       onWaveStep: bindings.onWaveStep,

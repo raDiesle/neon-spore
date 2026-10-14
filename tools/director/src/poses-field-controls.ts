@@ -11,7 +11,7 @@ import {
   fresh,
   type Pose,
   type PoseGroup,
-  pullCord,
+  pullRope,
   run,
   POSE_TPB as TPB,
   until,
@@ -77,8 +77,8 @@ const TETHER_TAUT: Pose = {
     // (`warden-rope.ts`), and only the second carries any distance.
     const reach = Math.round(w.cfg.wardenTautMilli * 1.2);
     run(w, Math.round(TPB / 2), [
-      pullCord(w.tick, rope.id, 0, "wardenTether"),
-      pullCord(w.tick + 1, rope.id, reach, "wardenTether"),
+      pullRope(w, w.tick, rope.id, 0),
+      pullRope(w, w.tick + 1, rope.id, reach),
     ]);
     return w;
   },

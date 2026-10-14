@@ -18,6 +18,7 @@ import {
   wardenEyeOpen,
   wardenHandleMilli,
   wardenPullMilli,
+  wardenRopeFromMilli,
   wardenTether,
 } from "../src/index.js";
 
@@ -91,24 +92,45 @@ const at = (beat: number, player: 1 | 2, command: TimedCommand["command"]): Time
 });
 
 /**
- * A hand on the handle, `milli` from where it grabbed — and **down the screen
- * rather than across it**, because that is where the field has the room.
- *
- * The direction is not a flourish. The rope runs down one fixed path
- * (`pullDownMilli`, `handle-pull.ts`); it hangs at `wardenRow + wardenHangRows`,
- * which leaves 7.2 tiles below it, while the width either side depends on where
- * the pupil has drifted to. Down is the one direction whose room does not move,
- * and `wardenTautMilli` is set to fit inside it.
+ * A hand on the handle, `milli` of taut from where it grabbed — **down the
+ * screen, bowed toward the middle**, the one fixed path the rope runs
+ * (`warden-bow.ts`). It hangs at `wardenRow + wardenHangRows`, which leaves
+ * 7.2 tiles below it, so the bow drops `wardenTautMilli` from any column and
+ * bends into the field rather than off it.
  */
-const drag = (player: 1 | 2, on: boolean, milli: number): Omit<TimedCommand, "tick"> => ({
+const drag = (
+  world: World,
+  player: 1 | 2,
+  on: boolean,
+  milli: number,
+  grabYMilli = 0,
+): Omit<TimedCommand, "tick"> => ({
   player,
-  command: { kind: "drag", target: "wardenTether", on, fromMilli: 0, fromYMilli: milli },
+  command: { kind: "drag", target: "wardenTether", on, ...ropeAt(world, milli, grabYMilli) },
 });
 
-/** Grab the handle and haul it `milli` thousandths of a tile down. Two ticks. */
+/**
+ * Where a thumb that grabbed `grabYMilli` down stands with the rope carried
+ * `milli` of taut along its bow (`warden-bow.ts`): the hand following the
+ * channel, which is the only hand the rope answers.
+ */
+function ropeAt(world: World, milli: number, grabYMilli = 0) {
+  const b = world.boss;
+  if (b === null || b.kind !== "warden") return { fromMilli: 0, fromYMilli: grabYMilli + milli };
+  const at = wardenRopeFromMilli(world.cfg, b, milli);
+  return { fromMilli: at.fromMilli, fromYMilli: grabYMilli + at.fromYMilli };
+}
+
+/** A thumb on the rope at exactly `(x, y)` from its grab, bow or no bow. */
+const raw = (on: boolean, x: number, y: number): Omit<TimedCommand, "tick"> => ({
+  player: 1,
+  command: { kind: "drag", target: "wardenTether", on, fromMilli: x, fromYMilli: y },
+});
+
+/** Grab the handle and haul it `milli` of taut along its bow. Two ticks. */
 function haul(run: Run, milli: number, player: 1 | 2 = 1): Run {
-  tick(run, drag(player, true, 0));
-  tick(run, drag(player, true, milli));
+  tick(run, drag(run.world, player, true, 0));
+  tick(run, drag(run.world, player, true, milli));
   return run;
 }
 
@@ -166,10 +188,10 @@ describe("the pull", () => {
   it("opens the hatch by degrees, in proportion and with nothing eased", () => {
     const run = open();
     beats(run, 1);
-    tick(run, drag(1, true, 0));
+    tick(run, drag(run.world, 1, true, 0));
     expect(wardenPullMilli(run.world, warden(run.world))).toBe(0);
     for (const share of [0.25, 0.5, 0.75, 1]) {
-      tick(run, drag(1, true, Math.round(TAUT * share)));
+      tick(run, drag(run.world, 1, true, Math.round(TAUT * share)));
       expect(wardenPullMilli(run.world, warden(run.world))).toBe(Math.round(share * 1000));
     }
   });
@@ -177,68 +199,62 @@ describe("the pull", () => {
   it("opens the eye only when the rope is fully taut, and not a step before", () => {
     const run = open();
     beats(run, 1);
-    tick(run, drag(1, true, 0));
-    tick(run, drag(1, true, TAUT - 1));
+    tick(run, drag(run.world, 1, true, 0));
+    tick(run, drag(run.world, 1, true, TAUT - 1));
     expect(wardenEyeOpen(run.world, warden(run.world))).toBe(false);
-    tick(run, drag(1, true, TAUT));
+    tick(run, drag(run.world, 1, true, TAUT));
     expect(wardenEyeOpen(run.world, warden(run.world))).toBe(true);
     expect(run.events.some((e) => e.type === "eyeOpen")).toBe(true);
   });
 
   /**
-   * The rule is the hand's travel **down one fixed path** — the channel drawn
-   * under the handle — and nothing else. It went any direction for a while; the
-   * owner took that out (10 October 2026), so a pull goes the way its channel
-   * shows: up is slack, across is nothing, a diagonal counts its downward part,
-   * and the handle stays in the column the hand took it in.
-   *
-   * Pulling down leaves the rope in the pupil's own column, which is fine: a
-   * tether never stopped a shot (`bullets.ts`), so the lane was only ever
-   * cleared for the look of it.
+   * The rule is the hand's progress **along one fixed bow** — the channel
+   * drawn under the handle (`warden-bow.ts`) — and nothing else. It went any
+   * direction for a while, then straight down (the owner, 10 October 2026),
+   * and bowed toward the middle on 13 October: a little up is slack, and a
+   * thumb pulled straight down leaves the bow halfway and drops the rope,
+   * said (`pullStray`), holding nothing again until it lifts.
    */
-  it("runs down one fixed path: across and up open nothing", () => {
-    const down = open();
-    beats(down, 1);
-    haul(down, TAUT);
-    expect(wardenEyeOpen(down.world, warden(down.world))).toBe(true);
+  it("runs along one fixed bow: a little up is slack, straight down strays", () => {
+    const along = open();
+    beats(along, 1);
+    haul(along, TAUT);
+    expect(wardenEyeOpen(along.world, warden(along.world))).toBe(true);
+    // Halfway, the handle stands the whole bow across from where it was taken.
+    const half = open();
+    beats(half, 1);
+    haul(half, TAUT / 2);
+    const b = warden(half.world);
+    expect(Math.abs(wardenHandleMilli(half.world, b).x - b.pullAnchorX)).toBeGreaterThan(
+      CFG.wardenBowMilli - 50,
+    );
 
     const up = open();
     beats(up, 1);
-    haul(up, -TAUT);
-    expect(wardenEyeOpen(up.world, warden(up.world))).toBe(false);
+    tick(up, raw(true, 0, 0));
+    tick(up, raw(true, 0, -500));
     expect(wardenPullMilli(up.world, warden(up.world))).toBe(0);
+    expect(warden(up.world).pulling).toBe(true);
 
-    const across = open();
-    beats(across, 1);
-    tick(across, {
-      player: 1,
-      command: { kind: "drag", target: "wardenTether", on: true, fromMilli: 0 },
-    });
-    tick(across, {
-      player: 1,
-      command: { kind: "drag", target: "wardenTether", on: true, fromMilli: -TAUT, fromYMilli: 0 },
-    });
-    expect(wardenPullMilli(across.world, warden(across.world))).toBe(0);
-    // And a diagonal counts only its downward part.
-    tick(across, {
-      player: 1,
-      command: {
-        kind: "drag",
-        target: "wardenTether",
-        on: true,
-        fromMilli: TAUT,
-        fromYMilli: TAUT / 2,
-      },
-    });
-    expect(wardenPullMilli(across.world, warden(across.world))).toBe(500);
-    expect(wardenHandleMilli(across.world, warden(across.world)).x).toBe(
-      warden(across.world).pullAnchorX,
-    );
+    const straight = open();
+    beats(straight, 1);
+    tick(straight, raw(true, 0, 0));
+    for (let y = 250; y <= TAUT; y += 250) tick(straight, raw(true, 0, y));
+    expect(straight.events.filter((e) => e.type === "pullStray")).toHaveLength(1);
+    expect(warden(straight.world).ropeStrayed).toBe(true);
+    expect(wardenEyeOpen(straight.world, warden(straight.world))).toBe(false);
+    // Back on the bow with the same thumb: still nothing, until it lifts.
+    tick(straight, drag(straight.world, 1, true, TAUT));
+    expect(wardenPullMilli(straight.world, warden(straight.world))).toBe(0);
+    tick(straight, raw(false, 0, TAUT));
+    expect(warden(straight.world).ropeStrayed).toBe(false);
+    haul(straight, TAUT);
+    expect(wardenEyeOpen(straight.world, warden(straight.world))).toBe(true);
   });
 
   it("shuts the moment the hand lifts", () => {
     const run = taut();
-    tick(run, drag(1, false, 0));
+    tick(run, drag(run.world, 1, false, 0));
     expect(wardenEyeOpen(run.world, warden(run.world))).toBe(false);
     expect(wardenPullMilli(run.world, warden(run.world))).toBe(0);
   });
@@ -249,7 +265,7 @@ describe("the pull", () => {
       beats(run, 1);
       haul(run, milli);
       run.events.length = 0;
-      tick(run, drag(1, false, milli));
+      tick(run, drag(run.world, 1, false, milli));
       return run.events.filter((e) => e.type === "pullShort").length;
     };
     expect(said(TAUT / 2)).toBe(1);
@@ -271,9 +287,9 @@ describe("the pull", () => {
     // exactly as far as one under the handle (`Command` in `types.ts`).
     const run = open();
     beats(run, 1);
-    tick(run, drag(1, true, 9_000));
+    tick(run, drag(run.world, 1, true, 0, 9_000));
     expect(wardenPullMilli(run.world, warden(run.world))).toBe(0);
-    tick(run, drag(1, true, 9_000 + TAUT));
+    tick(run, drag(run.world, 1, true, TAUT, 9_000));
     expect(wardenEyeOpen(run.world, warden(run.world))).toBe(true);
   });
 
@@ -348,7 +364,7 @@ describe("the shot into the eye", () => {
     shoot(run, warden(run.world).pupilCol, rimColor());
     beats(run, CFG.wardenCycleBeats);
     expect(wardenTether(run.world)).not.toBeNull();
-    tick(run, drag(1, true, TAUT));
+    tick(run, drag(run.world, 1, true, TAUT));
     expect(wardenEyeOpen(run.world, warden(run.world))).toBe(false);
   });
 

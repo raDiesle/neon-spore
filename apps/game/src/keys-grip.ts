@@ -1,5 +1,5 @@
-import type { Command, Creature, SimConfig } from "@neon-spore/sim";
-import { NO_GRIP, nearestHull } from "@neon-spore/sim";
+import type { BossState, Command, Creature, SimConfig } from "@neon-spore/sim";
+import { NO_GRIP, nearestHull, wardenRopeFromMilli } from "@neon-spore/sim";
 
 /**
  * **What the desk rig's grip key takes hold of, and what it does with it.**
@@ -68,7 +68,7 @@ export interface DeskGrip {
   release(): DeskPress[];
 }
 
-export function deskGrip(cfg: SimConfig): DeskGrip {
+export function deskGrip(cfg: SimConfig, boss: () => BossState | null = () => null): DeskGrip {
   let held = NO_GRIP;
   /** Which seat asked for the hold, so the carry and the release are its hand
    * and not whichever one the call site last had in mind. */
@@ -79,14 +79,15 @@ export function deskGrip(cfg: SimConfig): DeskGrip {
 
   /** The rope, said the way a thumb says it. `fromMilli` and `fromYMilli` are
    * a displacement from the grab and this rig grabs at nought, so the total is
-   * the whole of the message (`sim/warden-rope.ts`). */
-  const rope = (on: boolean, y: number): Command => ({
-    kind: "drag",
-    target: "wardenTether",
-    on,
-    fromMilli: 0,
-    fromYMilli: y,
-  });
+   * the whole of the message (`sim/warden-rope.ts`) — the running total read
+   * as tension and laid along the rope's bow, as a thumb following the
+   * channel would carry it (`sim/warden-bow.ts`). */
+  const rope = (on: boolean, y: number): Command => {
+    const b = boss();
+    const at =
+      b?.kind === "warden" ? wardenRopeFromMilli(cfg, b, y) : { fromMilli: 0, fromYMilli: y };
+    return { kind: "drag", target: "wardenTether", on, ...at };
+  };
 
   return {
     take(creatures, player) {

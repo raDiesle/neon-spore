@@ -32,10 +32,20 @@ export interface WardenHandConfig {
    * GLARE the timing is the whole of the fight.
    */
   wardenThrowBeats: number;
+  /**
+   * How far the rope's path bows toward the middle of the field, halfway
+   * down, in thousandths of a tile (`warden-bow.ts`). The owner, 13 October
+   * 2026: every straight pull with room bends — *curves increase difficulty
+   * and are more exciting than straight lines*. A tile and a half: half a
+   * tile more than a thumb may stray (`PULL_STRAY_MILLI`), so a hand pulled
+   * straight down fails, and a bow toward the middle has room from any column.
+   */
+  wardenBowMilli: number;
 }
 
-/** The defaults, spread into `DEFAULT_CONFIG`: a tile and a half, three beats. */
+/** The defaults, spread into `DEFAULT_CONFIG`: a tile and a half, three beats, a tile and a half. */
 export const WARDEN_HAND_DEFAULTS: WardenHandConfig = {
   wardenThrowMilli: 1500,
   wardenThrowBeats: 3,
+  wardenBowMilli: 1500,
 };

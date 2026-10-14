@@ -748,3 +748,15 @@ Both export `isqrt`: `handle-pull.ts` by bisection up to 46340, `pinball-contact
 - **Files:** `tools/land/queue-dropped.ts`, `tools/land/test/`
 
 `queueDropped` closes an entry a lane names in its commit messages with `laneLog.includes(entry.title)`, against `git log --format=%B` as it stands. A message wrapped at 72 columns breaks a long title over a line, so the lane that closed "A tap on a lid's cord under the chrome reads as a pull" was refused until the title was put on one line by hand. Collapse runs of whitespace in both the log and the title before comparing, and add the wrapped case to the test beside it.
+
+## `keys.ts` is four lines under the line ceiling
+
+- **Found:** 2026-10-14, claude/queue-curved-pulls-the-sim-knows-only-straight-ones
+- **Files:** `apps/game/src/keys.ts`
+
+The desk rig's key file is at 246 lines after THE WARDEN's rope learned to
+follow its bow from the keys (`boss` on `KeyBindings`, 14 October 2026), and
+the next key added fails `limits.test.ts`. The `KeyBindings` interface — every
+getter the rig is handed, each with its paragraph — is a subject of its own:
+move it to `keys-bindings.ts`, re-exported from `keys.ts` so `input.ts` and the
+tests import as they do. Prove with `bun test apps/game` and `bun run check`.

@@ -82,6 +82,8 @@ export function bossHashParts(boss: BossState | null): number[] {
     // whether the hatch is open, which is whether the next shot counts.
     push(boss.pulling ? 1 : 0);
     push(boss.pullOriginMilli);
+    push(boss.pullOriginXMilli);
+    push(boss.ropeStrayed ? 1 : 0);
     push(boss.pullMilli);
     // And where the hand took it. Two devices that disagree about the anchor
     // draw the handle in two places and bound it against two different pieces

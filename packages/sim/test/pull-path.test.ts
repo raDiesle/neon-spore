@@ -55,6 +55,10 @@ describe("a path's length and its points", () => {
 });
 
 describe("the nearest point to a thumb", () => {
+  it("is found on the whole path when the hand jumped past the window and is on it", () => {
+    expect(pullPathNearest(L, 0, 2000, 2000).alongMilli).toBe(4000);
+  });
+
   it("is the foot on the segment, and how far off it the thumb is", () => {
     const n = pullPathNearest(L, 1500, 300, 1500);
     expect(n.alongMilli).toBe(1500);
@@ -90,12 +94,12 @@ describe("a hand on a path", () => {
 
   it("fails off the path past the stray, the knob home", () => {
     const off = PULL_STRAY_MILLI + 100;
-    expect(pullPathHeard(L, false, true, off, 1000, 1000)).toEqual({
+    expect(pullPathHeard(L, false, true, off, 500, 500)).toEqual({
       travelMilli: 0,
       heard: "strayed",
     });
     // And a lift off the path is the same failure.
-    expect(pullPathHeard(L, false, false, off, 1000, 1000).heard).toBe("strayed");
+    expect(pullPathHeard(L, false, false, off, 500, 500).heard).toBe("strayed");
   });
 
   it("cannot stray once it has counted: the hand is only coming home", () => {

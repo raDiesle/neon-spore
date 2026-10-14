@@ -1,20 +1,19 @@
-import type { SimConfig, WardenState } from "@neon-spore/sim";
+import { type SimConfig, type WardenState, wardenRopePath } from "@neon-spore/sim";
 import { fieldPoint } from "./handle-draw.js";
 import type { Circle, Layout } from "./layout.js";
-import { PULL_DOWN, straightPullTrack } from "./pull-line.js";
-import type { PullTrack } from "./pull-track.js";
+import { PULL_TRACK_W, type PullTrack } from "./pull-track.js";
 
 /**
  * **Where THE WARDEN's rope can be pulled**, as the channel `pull-track.ts`
- * draws: from where the hand takes hold, `wardenTautMilli` long — the
- * distance at which the line is taut and the hatch fully open.
+ * draws: from where the hand takes hold, down to taut.
  *
- * **One fixed path, straight down** (`sim/warden-rope.ts`): only the hand's
- * travel down it counts, so the channel never turns to follow the hand — it is
- * the path, drawn before anybody touches it and still there while they pull.
- * Down rather than along the rope, which leans as the pupil walks and would
- * point it off the field; down is the one way the field holds the whole length
- * from where the rope hangs, with a fifth of a tile in hand (`config-boss.ts`).
+ * **One fixed path, bowed toward the middle of the field** — the simulation's
+ * own, point for point (`sim/warden-bow.ts`), so a thumb on the drawing is a
+ * thumb on the rule, and one that leaves the drawing by more than a tile
+ * drops the rope. The channel never turns to follow the hand — it is the path,
+ * drawn before anybody touches it and still there while they pull. Straight
+ * down until the owner bent it, 13 October 2026: *curves increase difficulty
+ * and are more exciting than straight lines*.
  */
 export function wardenRopeTrack(
   l: Layout,
@@ -23,10 +22,11 @@ export function wardenRopeTrack(
   rest: Circle,
 ): PullTrack {
   const from = b.pulling ? fieldPoint(l, { x: b.pullAnchorX, y: b.pullAnchorY }) : rest;
-  return straightPullTrack({
-    from,
-    r: rest.r,
-    way: PULL_DOWN,
-    len: (cfg.wardenTautMilli * l.tile) / 1000,
-  });
+  return {
+    pts: wardenRopePath(cfg, b).pts.map((p) => ({
+      x: from.x + (p.x * l.tile) / 1000,
+      y: from.y + (p.y * l.tile) / 1000,
+    })),
+    w: rest.r * PULL_TRACK_W,
+  };
 }
