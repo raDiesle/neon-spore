@@ -331,6 +331,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## A director restarted by a tree move dies with the Bun panic its restart hit
 
 - **Found:** 2026-10-10, claude/pull-lab-animation-feedback-efdf98
+- **Taken:** 2026-10-14, claude/queue-a-director-restarted-by-a-tree-move-dies-with-th
 - **Files:** `tools/dev/supervise.ts`
 
 A `git rm` of two files under `tools/director/src/pull-goo/` while `director-here` ran: the hot reload failed to resolve the removed imports, the supervisor's tree-move restart fired ("the tree moved — restarting"), and the fresh `bun --hot tools/director/server.ts` child panicked at start (*index out of bounds: the len is 0 but the index is 0*, exit 134, Bun 1.4.2). The loop at the bottom of `supervise.ts` treats a child that exits while `restarting` is false as the human's own stop and exits with its code, so the whole server went down and `bun run shot --port 3000` then failed with ERR_CONNECTION_REFUSED; it was worked around with `--serve`. A child that dies with 134 (a Bun crash, not an idle exit or Ctrl-C) within a few seconds of a restart should be spawned once more after a short wait, and said so in one line; a second crash in a row exits as today. A test that runs the loop against a stub child exiting 134 once proves it.
