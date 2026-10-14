@@ -13,7 +13,8 @@ describe("THE FILAMENT's heart turn", () => {
   it("turns as far as the idle sway did, rolls both ways, and the heart reads it", () => {
     let widest = 0;
     const rolls: number[] = [];
-    for (let t = 0; t < 6; t += 0.05) {
+    // A whole cycle of its temper, which reaches the full turn once in five rounds.
+    for (let t = 0; t < 45; t += 0.05) {
       expect(heartYaw(t)).toBe(FILAMENT_GLANCE.swing(t));
       widest = Math.max(widest, Math.abs(FILAMENT_GLANCE.swing(t)));
       rolls.push(FILAMENT_GLANCE.roll(t));

@@ -1,6 +1,7 @@
 import { type Glance, glanceFrame, glanceStill } from "./glance.js";
 import { drawGlancedLayer } from "./glance-layer.js";
 import { cock, type GlanceSize, glanceOf } from "./glance-styles.js";
+import { temperOf } from "./glance-temper.js";
 import type { RepriseFrame } from "./reprise-body.js";
 
 /** How far the sac's sides open and close, in its half-width, and how far it rolls. */
@@ -29,7 +30,7 @@ export const REPRISE_GLANCE_SIZE: GlanceSize = { reach: 0.3, cock: 0.08, tilt: 0
  * real (`glance-styles.ts`), at `REPRISE_GLANCE_SIZE`, in the sac's
  * half-width.
  */
-export const REPRISE_GLANCE: Glance = glanceOf(cock, REPRISE_GLANCE_SIZE);
+export const REPRISE_GLANCE: Glance = glanceOf(cock, REPRISE_GLANCE_SIZE, temperOf("reprise"));
 
 /** How dark the far side goes, reached at the widest turn. */
 const FAR_DARK = 0.55;

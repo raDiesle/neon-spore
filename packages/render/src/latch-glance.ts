@@ -1,6 +1,7 @@
 import { type Glance, glanceFrame, glanceStill } from "./glance.js";
 import { drawGlancedLayer } from "./glance-layer.js";
 import { cock, type GlanceSize, glanceOf } from "./glance-styles.js";
+import { temperOf } from "./glance-temper.js";
 import type { LatchBody } from "./latch-shape.js";
 
 /** How far the colony turns, in its half-width, and how far it rolls — a creature's cock, as THE GALL's. */
@@ -23,7 +24,7 @@ export const LATCH_GLANCE_SIZE: GlanceSize = { reach: 0.32, cock: 0.1, tilt: 0.3
  * (`glance-styles.ts`), at `LATCH_GLANCE_SIZE`, counted in the colony's
  * half-width.
  */
-export const LATCH_GLANCE: Glance = glanceOf(cock, LATCH_GLANCE_SIZE);
+export const LATCH_GLANCE: Glance = glanceOf(cock, LATCH_GLANCE_SIZE, temperOf("latch"));
 
 /** How dark the far side goes, reached at the widest turn. */
 const FAR_DARK = 0.6;

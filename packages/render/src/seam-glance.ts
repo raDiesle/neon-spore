@@ -1,6 +1,7 @@
 import { type Glance, glanceFrame, glanceSqueeze, glanceStill } from "./glance.js";
 import { drawGlancedLayer } from "./glance-layer.js";
 import { cock, type GlanceSize, glanceOf } from "./glance-styles.js";
+import { temperOf } from "./glance-temper.js";
 import type { Layout } from "./layout.js";
 import { seamHalfWidth } from "./seam-shape.js";
 
@@ -29,7 +30,7 @@ export const SEAM_GLANCE_SIZE: GlanceSize = { reach: 0.25, cock: 0.03, tilt: 0.1
  * half-width — small in the roll, because the ridge is more than four times as
  * tall as it is wide.
  */
-export const SEAM_GLANCE: Glance = glanceOf(cock, SEAM_GLANCE_SIZE);
+export const SEAM_GLANCE: Glance = glanceOf(cock, SEAM_GLANCE_SIZE, temperOf("seam"));
 
 /** How dark the far flank goes, reached at the widest turn. */
 const FAR_DARK = 0.6;

@@ -2,6 +2,7 @@ import { gallSize } from "./gall-shape.js";
 import { type Glance, glanceFrame, glanceStill } from "./glance.js";
 import { drawGlancedLayer } from "./glance-layer.js";
 import { cock, type GlanceSize, glanceOf } from "./glance-styles.js";
+import { temperOf } from "./glance-temper.js";
 import type { Layout } from "./layout.js";
 
 /** How far the body turns, in its half-width, and how far it rolls — a creature's cock, as THE THROAT's. */
@@ -25,7 +26,7 @@ export const GALL_GLANCE_SIZE: GlanceSize = { reach: 0.36, cock: 0.14, tilt: 0.4
  * (`glance-styles.ts`), at `GALL_GLANCE_SIZE`, counted in the body's
  * half-width.
  */
-export const GALL_GLANCE: Glance = glanceOf(cock, GALL_GLANCE_SIZE);
+export const GALL_GLANCE: Glance = glanceOf(cock, GALL_GLANCE_SIZE, temperOf("gall"));
 
 /** How dark the far flank goes, reached at the widest turn. */
 const FAR_DARK = 0.6;

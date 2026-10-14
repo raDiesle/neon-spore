@@ -1,6 +1,7 @@
 import { type Glance, type GlanceFrame, glanceFrame, glanceStill } from "./glance.js";
 import { drawGlancedLayer } from "./glance-layer.js";
 import { type GlanceSize, glanceOf, sway } from "./glance-styles.js";
+import { temperOf } from "./glance-temper.js";
 
 /**
  * **THE ANTIPHON's mantle glances** — the owner, 9 and 10 October 2026:
@@ -30,7 +31,7 @@ export const ANTIPHON_GLANCE_SIZE: GlanceSize = { reach: 0.14, cock: 0.03, tilt:
  * `antiphon:glance` offered it beside LOOK and COCK, and the owner took it
  * on 14 October 2026, seeing no difference between the three.
  */
-export const ANTIPHON_GLANCE: Glance = glanceOf(sway, ANTIPHON_GLANCE_SIZE);
+export const ANTIPHON_GLANCE: Glance = glanceOf(sway, ANTIPHON_GLANCE_SIZE, temperOf("antiphon"));
 
 /** How dark the far end goes, reached at the widest turn. */
 const FAR_DARK = 0.5;

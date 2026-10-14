@@ -1,6 +1,7 @@
 import { type Glance, glanceFrame, glanceStill } from "./glance.js";
 import { drawGlancedLayer } from "./glance-layer.js";
 import { cock, type GlanceSize, glanceOf } from "./glance-styles.js";
+import { temperOf } from "./glance-temper.js";
 
 /** How far the bearing turns, in halves of its mount — a share of the near half's growth — and how far it rolls. */
 export const VANE_GLANCE_SIZE: GlanceSize = { reach: 0.13, cock: 0.06, tilt: 0.4 };
@@ -26,7 +27,7 @@ export const VANE_GLANCE_SIZE: GlanceSize = { reach: 0.13, cock: 0.06, tilt: 0.4
  * — small, because the split rides the mount's far end a tile out and the end
  * may not leave it.
  */
-export const VANE_GLANCE: Glance = glanceOf(cock, VANE_GLANCE_SIZE);
+export const VANE_GLANCE: Glance = glanceOf(cock, VANE_GLANCE_SIZE, temperOf("vane"));
 
 /** Half the mount's length, in tiles (`vane-bearing.ts`). */
 const MOUNT_HALF = 1.15;

@@ -1,6 +1,7 @@
 import { type Glance, glancedPoint, glanceFrame, glanceSqueeze, glanceStill } from "./glance.js";
 import { drawGlancedLayer } from "./glance-layer.js";
 import { type GlanceSize, glanceOf, look } from "./glance-styles.js";
+import { temperOf } from "./glance-temper.js";
 import type { Layout } from "./layout.js";
 import { oculusRadius, type Point } from "./oculus-shape.js";
 
@@ -28,7 +29,7 @@ export const OCULUS_GLANCE_SIZE: GlanceSize = { reach: 0.2, cock: 0.05, tilt: 0.
  * that watches does (`glance-styles.ts`), at `OCULUS_GLANCE_SIZE`, counted in
  * the rim's radius.
  */
-export const OCULUS_GLANCE: Glance = glanceOf(look, OCULUS_GLANCE_SIZE);
+export const OCULUS_GLANCE: Glance = glanceOf(look, OCULUS_GLANCE_SIZE, temperOf("oculus"));
 
 /** How dark the far half goes, reached at the widest turn. */
 const FAR_DARK = 0.6;

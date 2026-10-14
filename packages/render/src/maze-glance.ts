@@ -1,6 +1,7 @@
 import { type Glance, glancedPoint, glanceFrame, glanceStill } from "./glance.js";
 import { drawGlancedLayer } from "./glance-layer.js";
 import { cock, type GlanceSize, glanceOf } from "./glance-styles.js";
+import { temperOf } from "./glance-temper.js";
 
 /** How far the muscle's sides open and close, in its radius, and how far it rolls. */
 export const MAZE_GLANCE_SIZE: GlanceSize = { reach: 0.3, cock: 0.12, tilt: 0.45 };
@@ -24,7 +25,7 @@ export const MAZE_GLANCE_SIZE: GlanceSize = { reach: 0.3, cock: 0.12, tilt: 0.45
  * LOOK or COCK to each boss: COCK, the turn he found the most real
  * (`glance-styles.ts`), at `MAZE_GLANCE_SIZE`, in the muscle's own radius.
  */
-export const MAZE_GLANCE: Glance = glanceOf(cock, MAZE_GLANCE_SIZE);
+export const MAZE_GLANCE: Glance = glanceOf(cock, MAZE_GLANCE_SIZE, temperOf("maze"));
 
 /** How dark the far side goes, reached at the widest turn. */
 const FAR_DARK = 0.6;

@@ -29,6 +29,7 @@ const NOT_MARKS: Readonly<Record<string, string>> = {
   "glance.ts": "a part turning, the picture of a boss",
   "glance-styles.ts": "the clocks a part turns on",
   "glance-layer.ts": "a turning part laid down as one picture",
+  "glance-temper.ts": "how each thing plays its turn",
   "hex.ts": "colour arithmetic",
   "glow.ts": "light on a stroke",
   "touch.ts": "where a press lands, not what is drawn",

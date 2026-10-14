@@ -140,11 +140,14 @@ const sweep = (g: Glance) =>
 describe.each(ROWS.map((r) => [r.name, r] as const))("%s's glance", (_, row) => {
   const at = { x: 0, y: 0, r: R, hold: row.hold };
 
-  it("ships turning, level only at the round's start", () => {
-    for (const t of [0, 0.7, 1.5, 4.5, 13]) {
-      const still = glanceStill(glanceFrame(row.record, t, at));
-      expect(still).toBe(t === 0);
+  it("ships turning, level at the round's start and seldom after", () => {
+    expect(glanceStill(glanceFrame(row.record, 0, at))).toBe(true);
+    let turning = 0;
+    for (let t = 0.05; t < 40; t += 0.1) {
+      if (!glanceStill(glanceFrame(row.record, t, at))) turning++;
     }
+    // LOOK holds the middle a share of every round; nothing else rests at all.
+    expect(turning).toBeGreaterThan(300);
   });
 
   it("swings both ways in every answer, a good share of the part", () => {

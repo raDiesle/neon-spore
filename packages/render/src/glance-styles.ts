@@ -1,5 +1,6 @@
 import { smoothstep } from "./ease.js";
 import type { Glance } from "./glance.js";
+import { GLANCE_ROUND, type GlanceTemper, STEADY, temperedAt } from "./glance-temper.js";
 import { bodyLife } from "./motion-life.js";
 
 /**
@@ -12,14 +13,14 @@ import { bodyLife } from "./motion-life.js";
  * - **LOOK** holds a look at the middle, the left, the middle and the right,
  *   turning briskly between them, the part tilted toward where it looks.
  *
- * A round is six seconds, the length a VERSUS pair replays its pose over, and
- * every round begins and ends at the middle of the swing with the part level,
- * so one hands over to the next without a jump. The swing is in part radii, +
+ * A steady round is six seconds — each boss plays it its own way
+ * (`glance-temper.ts`) — and every round begins and ends at the middle of the
+ * swing with the part level, so one hands over to the next without a jump. The swing is in part radii, +
  * toward the screen's right; the roll in radians, + clockwise (`glance.ts`).
  */
 
-/** Seconds a round of one glance takes. */
-export const GLANCE_ROUND = 6;
+/** Seconds a steady round of one glance takes; a boss's own temper stretches it (`glance-temper.ts`). */
+export { GLANCE_ROUND } from "./glance-temper.js";
 
 /** How big a part's glance is. */
 export interface GlanceSize {
@@ -36,7 +37,7 @@ export interface GlancePose {
   roll: number;
 }
 
-/** How many times COCK cocks a round. */
+/** How many times COCK cocks a steady round; a temper says how many its own rounds take. */
 const COCKS = 3;
 /** LOOK's looks, as shares of the reach, and how long each is held, seconds. With the turns, one round. */
 const LOOKS: readonly { at: number; hold: number }[] = [
@@ -64,13 +65,13 @@ function looking(t: number): number {
   return 0;
 }
 
-/** A style: where a part of size `z` is, `t` seconds into one of its rounds. */
-export type GlanceStyle = (t: number, z: GlanceSize) => GlancePose;
+/** A style: where a part of size `z` is, `t` seconds into one of its rounds, cocking `cocks` times a round. */
+export type GlanceStyle = (t: number, z: GlanceSize, cocks?: number) => GlancePose;
 
 export const sway: GlanceStyle = (t, z) => ({ swing: z.reach * turning(t), roll: 0 });
-export const cock: GlanceStyle = (t, z) => ({
+export const cock: GlanceStyle = (t, z, cocks = COCKS) => ({
   swing: z.reach * turning(t),
-  roll: z.cock * Math.sin((2 * Math.PI * COCKS * t) / GLANCE_ROUND),
+  roll: z.cock * Math.sin((2 * Math.PI * cocks * t) / GLANCE_ROUND),
 });
 export const look: GlanceStyle = (t, z) => {
   const swing = z.reach * looking(t);
@@ -84,13 +85,18 @@ export function glanceRound(style: GlanceStyle, time: number, z: GlanceSize): Gl
 }
 
 /**
- * A glance record running `style` over and over, halved on a device asking
- * for less motion (`bodyLife`) — what a VERSUS candidate patches onto a
- * boss's still record, and what that record becomes once one is taken.
+ * A glance record running `style` over and over on `temper` — a boss's own,
+ * read off its name (`temperOf`), or every round alike — halved on a device
+ * asking for less motion (`bodyLife`): what a boss's record is.
  */
-export function glanceOf(style: GlanceStyle, z: GlanceSize): Glance {
+export function glanceOf(style: GlanceStyle, z: GlanceSize, temper: GlanceTemper = STEADY): Glance {
+  const at = (time: number): GlancePose => {
+    const { t, gain } = temperedAt(temper, time);
+    const p = style(t, z, temper.cocks);
+    return { swing: p.swing * gain, roll: p.roll * gain };
+  };
   return {
-    swing: (time) => glanceRound(style, time, z).swing * bodyLife(),
-    roll: (time) => glanceRound(style, time, z).roll * bodyLife(),
+    swing: (time) => at(time).swing * bodyLife(),
+    roll: (time) => at(time).roll * bodyLife(),
   };
 }

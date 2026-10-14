@@ -2,6 +2,7 @@ import type { LampreyState } from "@neon-spore/sim";
 import { type Glance, glanceFrame, glanceStill } from "./glance.js";
 import { drawGlancedLayer } from "./glance-layer.js";
 import { cock, type GlanceSize, glanceOf } from "./glance-styles.js";
+import { temperOf } from "./glance-temper.js";
 import type { LampreyPose } from "./lamprey-shape.js";
 
 /** How far the head turns, in the mouth's radius, and how far it rolls — a head's cock. */
@@ -29,7 +30,7 @@ export const LAMPREY_GLANCE_SIZE: GlanceSize = { reach: 0.32, cock: 0.12, tilt: 
  * real (`glance-styles.ts`), at `LAMPREY_GLANCE_SIZE`, counted in the mouth's
  * radius.
  */
-export const LAMPREY_GLANCE: Glance = glanceOf(cock, LAMPREY_GLANCE_SIZE);
+export const LAMPREY_GLANCE: Glance = glanceOf(cock, LAMPREY_GLANCE_SIZE, temperOf("lamprey"));
 
 /** How dark the far side goes, reached at the widest turn. */
 const FAR_DARK = 0.6;

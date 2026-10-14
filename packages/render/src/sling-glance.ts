@@ -1,6 +1,7 @@
 import { type Glance, glancedPoint, glanceFrame, glanceStill } from "./glance.js";
 import { drawGlancedLayer } from "./glance-layer.js";
 import { type GlanceSize, glanceOf, sway } from "./glance-styles.js";
+import { temperOf } from "./glance-temper.js";
 import type { Layout } from "./layout.js";
 import { type Point, slingTip } from "./sling-shape.js";
 
@@ -27,7 +28,7 @@ export const SLING_GLANCE_SIZE: GlanceSize = { reach: 0.3, cock: 0.05, tilt: 0.2
  * fork's half-span at its tips — a large share, because the fork is barely
  * more than a tile across.
  */
-export const SLING_GLANCE: Glance = glanceOf(sway, SLING_GLANCE_SIZE);
+export const SLING_GLANCE: Glance = glanceOf(sway, SLING_GLANCE_SIZE, temperOf("sling"));
 
 /** How dark the far tine goes, reached at the widest turn. */
 const FAR_DARK = 0.6;

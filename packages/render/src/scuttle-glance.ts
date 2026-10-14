@@ -1,6 +1,7 @@
 import { type Glance, glanceFrame, glanceStill } from "./glance.js";
 import { drawGlancedLayer } from "./glance-layer.js";
 import { cock, type GlanceSize, glanceOf } from "./glance-styles.js";
+import { temperOf } from "./glance-temper.js";
 
 /** How far a plate's ends open and close, in its half-width, and how far it rolls. */
 export const SCUTTLE_GLANCE_SIZE: GlanceSize = { reach: 0.4, cock: 0.12, tilt: 0.2 };
@@ -27,7 +28,7 @@ export const SCUTTLE_GLANCE_SIZE: GlanceSize = { reach: 0.4, cock: 0.12, tilt: 0
  * real (`glance-styles.ts`), at `SCUTTLE_GLANCE_SIZE`, in the plate's
  * half-width.
  */
-export const SCUTTLE_GLANCE: Glance = glanceOf(cock, SCUTTLE_GLANCE_SIZE);
+export const SCUTTLE_GLANCE: Glance = glanceOf(cock, SCUTTLE_GLANCE_SIZE, temperOf("scuttle"));
 
 /** How dark the far end goes, reached at the widest turn. */
 const FAR_DARK = 0.6;

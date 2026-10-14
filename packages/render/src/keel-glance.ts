@@ -1,6 +1,7 @@
 import { type Glance, glancedPoint, glanceFrame, glanceStill } from "./glance.js";
 import { drawGlancedLayer } from "./glance-layer.js";
 import { cock, type GlanceSize, glanceOf } from "./glance-styles.js";
+import { temperOf } from "./glance-temper.js";
 import { keelTendons } from "./keel-pose.js";
 import { keelPlateHalf, type Point, type Seg } from "./keel-shape.js";
 import type { Layout } from "./layout.js";
@@ -27,7 +28,7 @@ export const KEEL_GLANCE_SIZE: GlanceSize = { reach: 0.35, cock: 0.08, tilt: 0.4
  * (`glance-styles.ts`), at `KEEL_GLANCE_SIZE`, counted in half a plate's
  * length — a large share, because a plate is a tile long.
  */
-export const KEEL_GLANCE: Glance = glanceOf(cock, KEEL_GLANCE_SIZE);
+export const KEEL_GLANCE: Glance = glanceOf(cock, KEEL_GLANCE_SIZE, temperOf("keel"));
 
 /** How dark a plate's far end goes, reached at the widest turn. */
 const FAR_DARK = 0.6;

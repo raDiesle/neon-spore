@@ -1,6 +1,7 @@
 import { type Glance, glancedPoint, glanceFrame, glanceStill } from "./glance.js";
 import { drawGlancedLayer } from "./glance-layer.js";
 import { cock, type GlanceSize, glanceOf } from "./glance-styles.js";
+import { temperOf } from "./glance-temper.js";
 import type { NettleBell } from "./nettle-stop.js";
 
 /** How far the bell turns, in its radius, and how far it rolls. */
@@ -25,7 +26,7 @@ export const NETTLE_GLANCE_SIZE: GlanceSize = { reach: 0.16, cock: 0.05, tilt: 0
  * — kept moderate, because a mark on the rim drifts off its part by the share
  * it turns.
  */
-export const NETTLE_GLANCE: Glance = glanceOf(cock, NETTLE_GLANCE_SIZE);
+export const NETTLE_GLANCE: Glance = glanceOf(cock, NETTLE_GLANCE_SIZE, temperOf("nettle"));
 
 /** How dark the far side goes, reached at the widest turn. */
 const FAR_DARK = 0.55;

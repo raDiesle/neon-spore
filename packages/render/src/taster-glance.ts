@@ -1,6 +1,7 @@
 import { type Glance, glanceFrame, glanceStill } from "./glance.js";
 import { drawGlancedLayer } from "./glance-layer.js";
 import { type GlanceSize, glanceOf, look } from "./glance-styles.js";
+import { temperOf } from "./glance-temper.js";
 
 /** How far a blade's flats open and close, in its half-width, and how far it rolls. */
 export const TASTER_GLANCE_SIZE: GlanceSize = { reach: 0.4, cock: 0.1, tilt: 0.3 };
@@ -26,7 +27,7 @@ export const TASTER_GLANCE_SIZE: GlanceSize = { reach: 0.4, cock: 0.1, tilt: 0.3
  * that watches does (`glance-styles.ts`), at `TASTER_GLANCE_SIZE`, in the
  * blade's half-width at its root.
  */
-export const TASTER_GLANCE: Glance = glanceOf(look, TASTER_GLANCE_SIZE);
+export const TASTER_GLANCE: Glance = glanceOf(look, TASTER_GLANCE_SIZE, temperOf("taster"));
 
 /** How dark the far side goes, reached at the widest turn. */
 const FAR_DARK = 0.6;

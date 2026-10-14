@@ -1,6 +1,7 @@
 import { type Glance, glanceFrame, glanceStill } from "./glance.js";
 import { drawGlancedLayer } from "./glance-layer.js";
 import { cock, type GlanceSize, glanceOf } from "./glance-styles.js";
+import { temperOf } from "./glance-temper.js";
 import type { Layout } from "./layout.js";
 
 /** How far the chamber's middle swings, in half-widths of the field, and how far it rolls. */
@@ -25,7 +26,7 @@ export const MIRROR_GLANCE_SIZE: GlanceSize = { reach: 0.26, cock: 0.03, tilt: 0
  * LOOK or COCK to each boss: COCK, the turn he found the most real
  * (`glance-styles.ts`), at `MIRROR_GLANCE_SIZE`, in half-widths of the field.
  */
-export const MIRROR_GLANCE: Glance = glanceOf(cock, MIRROR_GLANCE_SIZE);
+export const MIRROR_GLANCE: Glance = glanceOf(cock, MIRROR_GLANCE_SIZE, temperOf("mirror"));
 
 /** How dark the far half goes at the screen's edge, reached at the widest swing. */
 const FAR_DARK = 0.6;

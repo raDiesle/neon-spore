@@ -1,6 +1,7 @@
 import { type Glance, glanceFrame, glanceStill } from "./glance.js";
 import { drawGlancedLayer } from "./glance-layer.js";
 import { cock, type GlanceSize, glanceOf } from "./glance-styles.js";
+import { temperOf } from "./glance-temper.js";
 
 /** How far a knuckle's sides open and close, in its radius, and how far it rolls. */
 export const BATON_GLANCE_SIZE: GlanceSize = { reach: 0.5, cock: 0.21, tilt: 0.4 };
@@ -26,7 +27,7 @@ export const BATON_GLANCE_SIZE: GlanceSize = { reach: 0.5, cock: 0.21, tilt: 0.4
  * (`glance-styles.ts`), at `BATON_GLANCE_SIZE`, in the knuckle's radius —
  * half again what VERSUS offered, as he asked: it was barely seen.
  */
-export const BATON_GLANCE: Glance = glanceOf(cock, BATON_GLANCE_SIZE);
+export const BATON_GLANCE: Glance = glanceOf(cock, BATON_GLANCE_SIZE, temperOf("baton"));
 
 /** How dark the far side goes, reached at the widest turn. */
 const FAR_DARK = 0.6;

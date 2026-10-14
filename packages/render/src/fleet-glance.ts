@@ -2,6 +2,7 @@ import { hullOutline } from "./fleet-hull-body.js";
 import { type Glance, glanceFrame, glanceStill } from "./glance.js";
 import { drawGlancedLayer } from "./glance-layer.js";
 import { cock, type GlanceSize, glanceOf } from "./glance-styles.js";
+import { temperOf } from "./glance-temper.js";
 
 /** How far a hull's middle swings, in halves of its length, and how far it rolls. */
 export const FLEET_GLANCE_SIZE: GlanceSize = { reach: 0.14, cock: 0.04, tilt: 0.25 };
@@ -28,7 +29,7 @@ export const FLEET_GLANCE_SIZE: GlanceSize = { reach: 0.14, cock: 0.04, tilt: 0.
  * (`glance-styles.ts`), at `FLEET_GLANCE_SIZE`, in halves of a hull's length —
  * small, because a long hull's half is two squares and more.
  */
-export const FLEET_GLANCE: Glance = glanceOf(cock, FLEET_GLANCE_SIZE);
+export const FLEET_GLANCE: Glance = glanceOf(cock, FLEET_GLANCE_SIZE, temperOf("fleet"));
 
 /** How dark the far end goes, reached at the widest swing. */
 const FAR_DARK = 0.6;

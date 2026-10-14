@@ -1,6 +1,7 @@
 import { type Glance, glancedPoint, glanceFrame, glanceStill } from "./glance.js";
 import { drawGlancedLayer } from "./glance-layer.js";
 import { cock, type GlanceSize, glanceOf } from "./glance-styles.js";
+import { temperOf } from "./glance-temper.js";
 import type { MimicPose, Point } from "./mimic-shape.js";
 
 /** How far the mantle turns, in its radius, and how far it rolls — a soft body's, as THE NETTLE's bell. */
@@ -25,7 +26,7 @@ export const MIMIC_GLANCE_SIZE: GlanceSize = { reach: 0.28, cock: 0.08, tilt: 0.
  * (`glance-styles.ts`), at `MIMIC_GLANCE_SIZE`, counted in the mantle's
  * radius.
  */
-export const MIMIC_GLANCE: Glance = glanceOf(cock, MIMIC_GLANCE_SIZE);
+export const MIMIC_GLANCE: Glance = glanceOf(cock, MIMIC_GLANCE_SIZE, temperOf("mimic"));
 
 /** How dark the far side goes, reached at the widest turn. */
 const FAR_DARK = 0.6;

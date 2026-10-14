@@ -1,6 +1,7 @@
 import { type Glance, glancedPoint, glanceFrame, glanceStill } from "./glance.js";
 import { drawGlancedLayer } from "./glance-layer.js";
 import { cock, type GlanceSize, glanceOf } from "./glance-styles.js";
+import { temperOf } from "./glance-temper.js";
 import type { Layout } from "./layout.js";
 import { type Point, valveReach, valveSocket, valveWheel } from "./valve-shape.js";
 
@@ -28,7 +29,7 @@ export const VALVE_GLANCE_SIZE: GlanceSize = { reach: 0.13, cock: 0.04, tilt: 0.
  * (`glance-styles.ts`), at `VALVE_GLANCE_SIZE`, counted in the drum's
  * half-width.
  */
-export const VALVE_GLANCE: Glance = glanceOf(cock, VALVE_GLANCE_SIZE);
+export const VALVE_GLANCE: Glance = glanceOf(cock, VALVE_GLANCE_SIZE, temperOf("valve"));
 
 /** How dark the far end goes, reached at the widest turn. */
 const FAR_DARK = 0.6;

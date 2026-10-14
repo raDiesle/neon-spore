@@ -1,6 +1,7 @@
 import { type Glance, glancedPoint, glanceFrame, glanceStill } from "./glance.js";
 import { drawGlancedLayer } from "./glance-layer.js";
 import { cock, type GlanceSize, glanceOf } from "./glance-styles.js";
+import { temperOf } from "./glance-temper.js";
 import type { Layout } from "./layout.js";
 import { type Point, viseRadius } from "./vise-shape.js";
 
@@ -28,7 +29,7 @@ export const VISE_GLANCE_SIZE: GlanceSize = { reach: 0.3, cock: 0.05, tilt: 0.25
  * half-width — a large share, because the case is barely more than two tiles
  * across.
  */
-export const VISE_GLANCE: Glance = glanceOf(cock, VISE_GLANCE_SIZE);
+export const VISE_GLANCE: Glance = glanceOf(cock, VISE_GLANCE_SIZE, temperOf("vise"));
 
 /** How dark the far lobe goes, reached at the widest turn. */
 const FAR_DARK = 0.6;

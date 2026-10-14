@@ -1,6 +1,7 @@
 import { type Glance, glanceFrame, glanceStill } from "./glance.js";
 import { drawGlancedLayer } from "./glance-layer.js";
 import { type GlanceSize, glanceOf, look } from "./glance-styles.js";
+import { temperOf } from "./glance-temper.js";
 import type { StareEye } from "./stare-shape.js";
 
 /** How far the head's sides open and close, in the cowl's half-width, and how far it rolls. */
@@ -24,7 +25,7 @@ export const STARE_GLANCE_SIZE: GlanceSize = { reach: 0.3, cock: 0.1, tilt: 0.35
  * that watches does (`glance-styles.ts`), at `STARE_GLANCE_SIZE`, in the
  * cowl's half-width.
  */
-export const STARE_GLANCE: Glance = glanceOf(look, STARE_GLANCE_SIZE);
+export const STARE_GLANCE: Glance = glanceOf(look, STARE_GLANCE_SIZE, temperOf("stare"));
 
 /** How dark the far side goes, reached at the widest turn. */
 const FAR_DARK = 0.55;

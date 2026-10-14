@@ -1,6 +1,7 @@
 import { type Glance, glanceFrame, glanceStill } from "./glance.js";
 import { drawGlancedLayer } from "./glance-layer.js";
 import { cock, type GlanceSize, glanceOf } from "./glance-styles.js";
+import { temperOf } from "./glance-temper.js";
 
 /** How far the pile's middle swings, in halves of its width, and how far it rolls. */
 export const CAIRN_GLANCE_SIZE: GlanceSize = { reach: 0.22, cock: 0.08, tilt: 0.3 };
@@ -23,7 +24,7 @@ export const CAIRN_GLANCE_SIZE: GlanceSize = { reach: 0.22, cock: 0.08, tilt: 0.
  * (`glance-styles.ts`), at `CAIRN_GLANCE_SIZE`, in halves of the pile's width —
  * half again what VERSUS offered, as he asked of THE BATON the same day.
  */
-export const CAIRN_GLANCE: Glance = glanceOf(cock, CAIRN_GLANCE_SIZE);
+export const CAIRN_GLANCE: Glance = glanceOf(cock, CAIRN_GLANCE_SIZE, temperOf("cairn"));
 
 /** How dark the far side goes, reached at the widest swing. */
 const FAR_DARK = 0.6;

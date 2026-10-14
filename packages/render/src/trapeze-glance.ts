@@ -1,6 +1,7 @@
 import { type Glance, glanceFrame, glanceStill } from "./glance.js";
 import { drawGlancedLayer } from "./glance-layer.js";
 import { type GlanceSize, glanceOf, sway } from "./glance-styles.js";
+import { temperOf } from "./glance-temper.js";
 import type { Point } from "./trapeze-shape.js";
 
 /** How far the head turns, in its radius, and how far it rolls — a head's cock, as THE INSTAR's. */
@@ -24,7 +25,7 @@ export const TRAPEZE_GLANCE_SIZE: GlanceSize = { reach: 0.36, cock: 0.14, tilt: 
  * or flows swings (`glance-styles.ts`), at `TRAPEZE_GLANCE_SIZE`, counted in
  * the head's radius.
  */
-export const TRAPEZE_GLANCE: Glance = glanceOf(sway, TRAPEZE_GLANCE_SIZE);
+export const TRAPEZE_GLANCE: Glance = glanceOf(sway, TRAPEZE_GLANCE_SIZE, temperOf("trapeze"));
 
 /** How dark the far cheek goes, reached at the widest turn. */
 const FAR_DARK = 0.6;

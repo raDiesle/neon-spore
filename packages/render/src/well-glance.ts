@@ -1,6 +1,7 @@
 import { type Glance, glanceFrame, glanceStill } from "./glance.js";
 import { drawGlancedLayer } from "./glance-layer.js";
 import { cock, type GlanceSize, glanceOf } from "./glance-styles.js";
+import { temperOf } from "./glance-temper.js";
 
 /** How far a body's sides open and close, in its half-width, and how far it rolls. */
 export const WELL_GLANCE_SIZE: GlanceSize = { reach: 0.28, cock: 0.12, tilt: 0.45 };
@@ -27,7 +28,7 @@ export const WELL_GLANCE_SIZE: GlanceSize = { reach: 0.28, cock: 0.12, tilt: 0.4
  * LOOK or COCK to each boss: COCK, the turn he found the most real
  * (`glance-styles.ts`), at `WELL_GLANCE_SIZE`, in the body's own half-width.
  */
-export const WELL_GLANCE: Glance = glanceOf(cock, WELL_GLANCE_SIZE);
+export const WELL_GLANCE: Glance = glanceOf(cock, WELL_GLANCE_SIZE, temperOf("well"));
 
 /** How dark the far side goes, reached at the widest turn. */
 const FAR_DARK = 0.55;

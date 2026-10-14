@@ -2,6 +2,7 @@ import type { SimConfig } from "@neon-spore/sim";
 import { type Glance, glancedPoint, glanceFrame, glanceStill } from "./glance.js";
 import { drawGlancedLayer } from "./glance-layer.js";
 import { cock, type GlanceSize, glanceOf } from "./glance-styles.js";
+import { temperOf } from "./glance-temper.js";
 import { haspCentre, haspShellRadius, type Point } from "./hasp-shape.js";
 import type { Layout } from "./layout.js";
 
@@ -27,7 +28,7 @@ export const HASP_GLANCE_SIZE: GlanceSize = { reach: 0.22, cock: 0.06, tilt: 0.3
  * LOOK or COCK to each boss: COCK, the turn he found the most real
  * (`glance-styles.ts`), at `HASP_GLANCE_SIZE`, counted in the shell's radius.
  */
-export const HASP_GLANCE: Glance = glanceOf(cock, HASP_GLANCE_SIZE);
+export const HASP_GLANCE: Glance = glanceOf(cock, HASP_GLANCE_SIZE, temperOf("hasp"));
 
 /** How dark a shell's far half goes, reached at the widest turn. */
 const FAR_DARK = 0.6;

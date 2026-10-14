@@ -1,6 +1,7 @@
 import { type Glance, glancedPoint, glanceFrame, glanceStill } from "./glance.js";
 import { drawGlancedLayer } from "./glance-layer.js";
 import { cock, type GlanceSize, glanceOf } from "./glance-styles.js";
+import { temperOf } from "./glance-temper.js";
 import type { Layout } from "./layout.js";
 import { mantleReach, mantleTieY, type Point } from "./mantle-shape.js";
 
@@ -27,7 +28,7 @@ export const MANTLE_GLANCE_SIZE: GlanceSize = { reach: 0.18, cock: 0.04, tilt: 0
  * (`glance-styles.ts`), at `MANTLE_GLANCE_SIZE`, counted in the shell's
  * half-width.
  */
-export const MANTLE_GLANCE: Glance = glanceOf(cock, MANTLE_GLANCE_SIZE);
+export const MANTLE_GLANCE: Glance = glanceOf(cock, MANTLE_GLANCE_SIZE, temperOf("mantle"));
 
 /** How dark the far valve goes, reached at the widest turn. */
 const FAR_DARK = 0.6;

@@ -1,6 +1,7 @@
 import { type Glance, glanceFrame, glanceStill } from "./glance.js";
 import { drawGlancedLayer } from "./glance-layer.js";
 import { type GlanceSize, glanceOf, sway } from "./glance-styles.js";
+import { temperOf } from "./glance-temper.js";
 
 /** How far the mound's sides open and close, in its half-width — and no roll. */
 export const LEAD_GLANCE_SIZE: GlanceSize = { reach: 0.4, cock: 0, tilt: 0 };
@@ -27,7 +28,7 @@ export const LEAD_GLANCE_SIZE: GlanceSize = { reach: 0.4, cock: 0, tilt: 0 };
  * LOOK or COCK to each boss: SWAY, since it has no roll and COCK would be SWAY
  * (`glance-styles.ts`), at `LEAD_GLANCE_SIZE`, in the mound's half-width.
  */
-export const LEAD_GLANCE: Glance = glanceOf(sway, LEAD_GLANCE_SIZE);
+export const LEAD_GLANCE: Glance = glanceOf(sway, LEAD_GLANCE_SIZE, temperOf("lead"));
 
 /** How dark the far side goes, reached at the widest turn. */
 const FAR_DARK = 0.6;

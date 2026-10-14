@@ -2,6 +2,7 @@ import { RATCHET_TEETH, type SimConfig } from "@neon-spore/sim";
 import { type Glance, glancedPoint, glanceFrame, glanceStill } from "./glance.js";
 import { drawGlancedLayer } from "./glance-layer.js";
 import { cock, type GlanceSize, glanceOf } from "./glance-styles.js";
+import { temperOf } from "./glance-temper.js";
 import type { Layout } from "./layout.js";
 import { type Point, ratchetGirth, ratchetPawlY, ratchetX } from "./ratchet-shape.js";
 
@@ -28,7 +29,7 @@ export const RATCHET_GLANCE_SIZE: GlanceSize = { reach: 0.4, cock: 0.04, tilt: 0
  * plate's half-width — large, because the rack is narrow, and a small roll,
  * because it is tall.
  */
-export const RATCHET_GLANCE: Glance = glanceOf(cock, RATCHET_GLANCE_SIZE);
+export const RATCHET_GLANCE: Glance = glanceOf(cock, RATCHET_GLANCE_SIZE, temperOf("ratchet"));
 
 /** How dark the far halves go, reached at the widest turn. */
 const FAR_DARK = 0.6;

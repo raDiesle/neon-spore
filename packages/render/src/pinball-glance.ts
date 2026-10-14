@@ -2,6 +2,7 @@ import { blobPoints, POD } from "@neon-spore/content";
 import { type Glance, glanceFrame, glanceStill } from "./glance.js";
 import { drawGlancedLayer } from "./glance-layer.js";
 import { cock, type GlanceSize, glanceOf } from "./glance-styles.js";
+import { temperOf } from "./glance-temper.js";
 import { splinePath } from "./spline.js";
 
 /** How far a target's sides open and close, in its radius, and how far it rolls. */
@@ -30,7 +31,7 @@ export const PINBALL_GLANCE_SIZE: GlanceSize = { reach: 0.3, cock: 0.12, tilt: 0
  * real (`glance-styles.ts`), at `PINBALL_GLANCE_SIZE`, in the target's own
  * radius.
  */
-export const PINBALL_GLANCE: Glance = glanceOf(cock, PINBALL_GLANCE_SIZE);
+export const PINBALL_GLANCE: Glance = glanceOf(cock, PINBALL_GLANCE_SIZE, temperOf("pinball"));
 
 /** How dark the far side goes, reached at the widest turn. */
 const FAR_DARK = 0.65;

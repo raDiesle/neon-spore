@@ -1,5 +1,6 @@
 import type { Glance } from "./glance.js";
 import { cock, type GlanceSize, glanceOf } from "./glance-styles.js";
+import { temperOf } from "./glance-temper.js";
 
 /** How far the heart turns either way, in radians, and how far it rolls about its apex. */
 export const FILAMENT_GLANCE_SIZE: GlanceSize = { reach: 0.32, cock: 0.12, tilt: 0.4 };
@@ -22,4 +23,4 @@ export const FILAMENT_GLANCE_SIZE: GlanceSize = { reach: 0.32, cock: 0.12, tilt:
  * sway it replaces, which turned there and back over seven and a half seconds
  * with no roll.
  */
-export const FILAMENT_GLANCE: Glance = glanceOf(cock, FILAMENT_GLANCE_SIZE);
+export const FILAMENT_GLANCE: Glance = glanceOf(cock, FILAMENT_GLANCE_SIZE, temperOf("filament"));

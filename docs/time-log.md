@@ -40905,3 +40905,15 @@ Bottleneck: none of note — the entry named the cut, and the cards are
 joined in `poses-bosses.ts`, not `poses.ts` as it said.
 
 *Measured: 8 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-14 — Every boss glances on a temper of its own
+
+- reading: 5 min. The glance styles, INSTAR's rotation, and render's hashes.
+- writing: 15 min. `glance-temper.ts`, `nameHash`, the temper on every
+  record, a test file, and four tests that had leaned on the old steady round.
+- looking: 0 min. A still cannot show a timing change.
+- friction: 5 min. The first hash gave every round of a cycle the same value.
+- landing: 5 min.
+
+Bottleneck: writing — four tests had quietly relied on every boss resting at
+the same moments.

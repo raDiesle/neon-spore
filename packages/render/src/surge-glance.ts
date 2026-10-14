@@ -1,6 +1,7 @@
 import { type Glance, glanceFrame, glanceStill } from "./glance.js";
 import { drawGlancedLayer } from "./glance-layer.js";
 import { cock, type GlanceSize, glanceOf } from "./glance-styles.js";
+import { temperOf } from "./glance-temper.js";
 
 /** How far the bulb's sides open and close, in its half-width, and how far it rolls. */
 export const SURGE_GLANCE_SIZE: GlanceSize = { reach: 0.22, cock: 0.1, tilt: 0.2 };
@@ -22,7 +23,7 @@ export const SURGE_GLANCE_SIZE: GlanceSize = { reach: 0.22, cock: 0.1, tilt: 0.2
  * LOOK or COCK to each boss: COCK, the turn he found the most real
  * (`glance-styles.ts`), at `SURGE_GLANCE_SIZE`, in the bulb's half-width.
  */
-export const SURGE_GLANCE: Glance = glanceOf(cock, SURGE_GLANCE_SIZE);
+export const SURGE_GLANCE: Glance = glanceOf(cock, SURGE_GLANCE_SIZE, temperOf("surge"));
 
 /** How dark the far side goes, reached at the widest turn. */
 const FAR_DARK = 0.65;

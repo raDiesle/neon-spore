@@ -1,6 +1,7 @@
 import { type Glance, glancedPoint, glanceFrame, glanceStill } from "./glance.js";
 import { drawGlancedLayer } from "./glance-layer.js";
 import { cock, type GlanceSize, glanceOf } from "./glance-styles.js";
+import { temperOf } from "./glance-temper.js";
 import type { Point } from "./spool-shape.js";
 
 /** How far the far end swings, in the barrel's whole length, and how far it rolls. */
@@ -24,7 +25,7 @@ export const SPOOL_GLANCE_SIZE: GlanceSize = { reach: 0.2, cock: 0.05, tilt: 0.1
  * (`glance-styles.ts`), at `SPOOL_GLANCE_SIZE`, counted in the whole barrel's
  * length.
  */
-export const SPOOL_GLANCE: Glance = glanceOf(cock, SPOOL_GLANCE_SIZE);
+export const SPOOL_GLANCE: Glance = glanceOf(cock, SPOOL_GLANCE_SIZE, temperOf("spool"));
 
 /** How dark the far end goes, reached at the widest turn. */
 const FAR_DARK = 0.6;

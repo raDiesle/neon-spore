@@ -1,5 +1,6 @@
 import type { Glance } from "./glance.js";
 import { type GlanceSize, glanceOf, sway } from "./glance-styles.js";
+import { temperOf } from "./glance-temper.js";
 
 /** How far the cradle turns either way, in radians of yaw, and how far it rolls. */
 export const GIMBAL_GLANCE_SIZE: GlanceSize = { reach: 0.16, cock: 0, tilt: 0.25 };
@@ -27,4 +28,4 @@ export const GIMBAL_GLANCE_SIZE: GlanceSize = { reach: 0.16, cock: 0, tilt: 0.25
  * half the grab, and a ring inside half its band (`gimbal-tilt.test.ts`
  * samples `gimbalTilt` with both in it).
  */
-export const GIMBAL_GLANCE: Glance = glanceOf(sway, GIMBAL_GLANCE_SIZE);
+export const GIMBAL_GLANCE: Glance = glanceOf(sway, GIMBAL_GLANCE_SIZE, temperOf("gimbal"));

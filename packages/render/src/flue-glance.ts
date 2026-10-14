@@ -2,6 +2,7 @@ import { flueUnitR } from "./flue-shape.js";
 import { type Glance, glanceFrame, glanceStill } from "./glance.js";
 import { drawGlancedLayer } from "./glance-layer.js";
 import { cock, type GlanceSize, glanceOf } from "./glance-styles.js";
+import { temperOf } from "./glance-temper.js";
 import type { Layout } from "./layout.js";
 
 /** How far a unit turns, in its radius, and how far it rolls. */
@@ -25,7 +26,7 @@ export const FLUE_GLANCE_SIZE: GlanceSize = { reach: 0.36, cock: 0.12, tilt: 0.3
  * LOOK or COCK to each boss: COCK, the turn he found the most real
  * (`glance-styles.ts`), at `FLUE_GLANCE_SIZE`, counted in a unit's radius.
  */
-export const FLUE_GLANCE: Glance = glanceOf(cock, FLUE_GLANCE_SIZE);
+export const FLUE_GLANCE: Glance = glanceOf(cock, FLUE_GLANCE_SIZE, temperOf("flue"));
 
 /** How far behind the unit before it each unit turns, in seconds: a ripple, not a row in step. */
 const STAGGER = 0.22;

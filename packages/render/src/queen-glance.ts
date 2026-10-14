@@ -1,6 +1,7 @@
 import { type Glance, glanceFrame, glanceStill } from "./glance.js";
 import { drawGlancedLayer } from "./glance-layer.js";
 import { cock, type GlanceSize, glanceOf } from "./glance-styles.js";
+import { temperOf } from "./glance-temper.js";
 import { QUEEN_FIGURE } from "./queen-figure.js";
 
 /** How far her middle swings, in shares of her half-width, and how far she rolls. */
@@ -27,7 +28,7 @@ export const QUEEN_GLANCE_SIZE: GlanceSize = { reach: 0.32, cock: 0.05, tilt: 0.
  * a turn of their own (`queen-surface.ts`); a glance turns the picture they
  * are drawn on.
  */
-export const QUEEN_GLANCE: Glance = glanceOf(cock, QUEEN_GLANCE_SIZE);
+export const QUEEN_GLANCE: Glance = glanceOf(cock, QUEEN_GLANCE_SIZE, temperOf("queen"));
 
 /** Where her crane arms' shoulders sit, as a share of her half-width: the points a turn holds. */
 export const QUEEN_GLANCE_HOLD = 1.35 / QUEEN_FIGURE.bodyRx;

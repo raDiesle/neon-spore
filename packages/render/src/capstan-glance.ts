@@ -3,6 +3,7 @@ import { capstanFaceAt, capstanSize } from "./capstan-shape.js";
 import { type Glance, glancedPoint, glanceFrame, glanceStill } from "./glance.js";
 import { drawGlancedLayer } from "./glance-layer.js";
 import { cock, type GlanceSize, glanceOf } from "./glance-styles.js";
+import { temperOf } from "./glance-temper.js";
 import type { Layout } from "./layout.js";
 
 /** How far the drum's middle swings, in its half-length, and how far it rolls. */
@@ -35,7 +36,7 @@ export const CAPSTAN_GLANCE_SIZE: GlanceSize = { reach: 0.13, cock: 0.04, tilt: 
  * end. A turn about the middle that let the faces travel would need the hit
  * test to read the same clock, and `Field` carries none.
  */
-export const CAPSTAN_GLANCE: Glance = glanceOf(cock, CAPSTAN_GLANCE_SIZE);
+export const CAPSTAN_GLANCE: Glance = glanceOf(cock, CAPSTAN_GLANCE_SIZE, temperOf("capstan"));
 
 /** How dark the far half goes, reached at the widest turn. */
 const FAR_DARK = 0.6;

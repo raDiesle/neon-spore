@@ -680,9 +680,11 @@ Second of three, after "The nameability gate measures an enemy turned by its
 glance" and "The op-count budgets do not count what a glancing part draws".
 Every body the table draws with `drawLivingBody` (`creature-body.ts`) goes
 through `drawGlancedLayer` (`glance-layer.ts`) with a `hold` of 0, at
-`l.tile * 0.4` times its `sizeMul`, each creature from its own place in the
-round by its id so a crowd does not turn as one. `CREATURE_GLANCE` becomes
-`glanceOf(cock, CREATURE_GLANCE_SIZE)`. The far side's dark has no contour to
+`l.tile * 0.4` times its `sizeMul`, each creature on a temper of its own,
+`temperOf(c.id)` (`glance-temper.ts`): its own round length, cocks and cycle,
+so no two enemies turn alike (the owner, 14 October 2026: *they should be not
+exactly equal*). The record is `glanceOf(cock, CREATURE_GLANCE_SIZE)`; one
+`Glance` a temper, cached by id and dropped when the creature goes. The far side's dark has no contour to
 fill, so add a `source-atop` ramp on the layer to `drawGlancedLayer` rather
 than a disc that would smear past a blob's edge. Only the body turns:
 `drawOverBody`, grips, marks and cords stay flat. Remeasure the budget rows
@@ -731,3 +733,17 @@ both marks, and the marks are what player 1 reads to say what is coming.
 Give `BossCue` a way to say a smaller drop (or size it to the gap,
 `queenMarkCenter` both sides less each mark's ring), and prove with a test
 that the drop's rim stays clear of both mark rings.
+
+## Three integer mixers in render, each written privately
+
+- **Found:** 2026-10-14, claude/glance-temper
+- **Files:** `packages/render/src/idle-drift.ts`, `packages/render/src/backdrop.ts`, `packages/render/src/solid-motion.ts`, `packages/render/src/hash.ts`, `packages/sim/test/copies-table.ts`
+
+Each of the three files mixes an integer with murmur3's `0x85ebca6b` by a
+private few lines of its own, slightly differently. `hash.ts` holds render's
+shared hashes (`sinHash`, `stream`, and now `nameHash`, whose finaliser is the
+same murmur3 step). Give `hash.ts` one exported integer mixer, call it from
+the three, and add a COPIES row for the constant. Where a file's numbers
+would change what is drawn, keep its own and say why in the row's `also`, as
+the raster painters do. Prove it with `bun test packages/render` and
+`bun run check`.

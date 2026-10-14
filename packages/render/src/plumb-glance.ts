@@ -1,6 +1,7 @@
 import { type Glance, glancedPoint, glanceFrame, glanceStill } from "./glance.js";
 import { drawGlancedLayer } from "./glance-layer.js";
 import { type GlanceSize, glanceOf, sway } from "./glance-styles.js";
+import { temperOf } from "./glance-temper.js";
 import type { Layout } from "./layout.js";
 import { type Point, plumbSacRadius } from "./plumb-shape.js";
 
@@ -25,7 +26,7 @@ export const PLUMB_GLANCE_SIZE: GlanceSize = { reach: 0.3, cock: 0.05, tilt: 0.2
  * flows swings (`glance-styles.ts`), at `PLUMB_GLANCE_SIZE`, counted in the
  * sac's half-width.
  */
-export const PLUMB_GLANCE: Glance = glanceOf(sway, PLUMB_GLANCE_SIZE);
+export const PLUMB_GLANCE: Glance = glanceOf(sway, PLUMB_GLANCE_SIZE, temperOf("plumb"));
 
 /** How dark the far flank goes, reached at the widest turn. */
 const FAR_DARK = 0.6;

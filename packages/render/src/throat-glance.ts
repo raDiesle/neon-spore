@@ -1,6 +1,7 @@
 import { type Glance, glanceFrame, glanceStill } from "./glance.js";
 import { drawGlancedLayer } from "./glance-layer.js";
 import { cock, type GlanceSize, glanceOf } from "./glance-styles.js";
+import { temperOf } from "./glance-temper.js";
 
 /** How far the lip's sides open and close, in its half-width, and how far it rolls. */
 export const THROAT_GLANCE_SIZE: GlanceSize = { reach: 0.32, cock: 0.14, tilt: 0.4 };
@@ -22,7 +23,7 @@ export const THROAT_GLANCE_SIZE: GlanceSize = { reach: 0.32, cock: 0.14, tilt: 0
  * LOOK or COCK to each boss: COCK, the turn he found the most real
  * (`glance-styles.ts`), at `THROAT_GLANCE_SIZE`, in the lip's half-width.
  */
-export const THROAT_GLANCE: Glance = glanceOf(cock, THROAT_GLANCE_SIZE);
+export const THROAT_GLANCE: Glance = glanceOf(cock, THROAT_GLANCE_SIZE, temperOf("throat"));
 
 /** How dark the far side goes, reached at the widest turn. */
 const FAR_DARK = 0.55;

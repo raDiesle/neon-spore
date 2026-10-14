@@ -1,6 +1,7 @@
 import { type Glance, glanceFrame, glanceStill } from "./glance.js";
 import { drawGlancedLayer } from "./glance-layer.js";
 import { type GlanceSize, glanceOf, sway } from "./glance-styles.js";
+import { temperOf } from "./glance-temper.js";
 
 /** How far the core's sides open and close, in its radius, and how far it rolls. */
 export const CURTAIN_GLANCE_SIZE: GlanceSize = { reach: 0.36, cock: 0.16, tilt: 0.45 };
@@ -22,7 +23,7 @@ export const CURTAIN_GLANCE_SIZE: GlanceSize = { reach: 0.36, cock: 0.16, tilt: 
  * or flows swings (`glance-styles.ts`), at `CURTAIN_GLANCE_SIZE`, in the
  * core's radius.
  */
-export const CURTAIN_GLANCE: Glance = glanceOf(sway, CURTAIN_GLANCE_SIZE);
+export const CURTAIN_GLANCE: Glance = glanceOf(sway, CURTAIN_GLANCE_SIZE, temperOf("curtain"));
 
 /** How dark the far side goes, reached at the widest turn. */
 const FAR_DARK = 0.6;

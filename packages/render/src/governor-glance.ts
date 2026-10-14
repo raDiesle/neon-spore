@@ -1,6 +1,7 @@
 import { type Glance, glanceFrame, glanceStill } from "./glance.js";
 import { drawGlancedLayer } from "./glance-layer.js";
 import { cock, type GlanceSize, glanceOf } from "./glance-styles.js";
+import { temperOf } from "./glance-temper.js";
 import { type Dial, spindleAt } from "./governor-shape.js";
 import type { Layout } from "./layout.js";
 
@@ -24,7 +25,7 @@ export const GOVERNOR_GLANCE_SIZE: GlanceSize = { reach: 0.3, cock: 0.04, tilt: 
  * SWAY, LOOK or COCK to each boss: COCK, the turn he found the most
  * real (`glance-styles.ts`), at `GOVERNOR_GLANCE_SIZE`, counted in `WORKS_R`.
  */
-export const GOVERNOR_GLANCE: Glance = glanceOf(cock, GOVERNOR_GLANCE_SIZE);
+export const GOVERNOR_GLANCE: Glance = glanceOf(cock, GOVERNOR_GLANCE_SIZE, temperOf("governor"));
 
 /** The works' half-width the turn is counted in, in tiles: about as far as a flyweight's arm reaches out. */
 const WORKS_R = 1.9;

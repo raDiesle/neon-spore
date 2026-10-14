@@ -51,3 +51,25 @@ export function stream(seed: number): () => number {
     return ((n >>> 8) % 10000) / 10000;
   };
 }
+
+/**
+ * A repeatable 0..1 from a **name** — a boss's id, an enemy's — and a counter,
+ * for a thing that has to be told apart from its neighbours by what it is
+ * called rather than by where or when it is (`glance-temper.ts`). FNV-1a over
+ * `name#n`, then murmur3's finaliser: without it, names a last letter apart
+ * came out within a hundredth of each other.
+ */
+export function nameHash(name: string, n = 0): number {
+  let h = 0x811c9dc5;
+  const s = `${name}#${n}`;
+  for (let i = 0; i < s.length; i++) {
+    h ^= s.charCodeAt(i);
+    h = Math.imul(h, 0x01000193) >>> 0;
+  }
+  h ^= h >>> 16;
+  h = Math.imul(h, 0x85ebca6b) >>> 0;
+  h ^= h >>> 13;
+  h = Math.imul(h, 0xc2b2ae35) >>> 0;
+  h ^= h >>> 16;
+  return (h >>> 0) / 0x100000000;
+}

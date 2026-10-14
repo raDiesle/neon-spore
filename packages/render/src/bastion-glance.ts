@@ -3,6 +3,7 @@ import type { At } from "./bastion-shape.js";
 import { type Glance, glanceFrame, glanceStill } from "./glance.js";
 import { drawGlancedLayer } from "./glance-layer.js";
 import { cock, type GlanceSize, glanceOf } from "./glance-styles.js";
+import { temperOf } from "./glance-temper.js";
 
 /**
  * **THE BASTION glances** — the owner, 9 and 10 October 2026: *... or if
@@ -30,7 +31,7 @@ import { cock, type GlanceSize, glanceOf } from "./glance-styles.js";
 /** How far the sphere turns, in the cage's radius, and how far it rolls — a machine's, as THE GOVERNOR's. */
 export const BASTION_GLANCE_SIZE: GlanceSize = { reach: 0.3, cock: 0.04, tilt: 0.2 };
 
-export const BASTION_GLANCE: Glance = glanceOf(cock, BASTION_GLANCE_SIZE);
+export const BASTION_GLANCE: Glance = glanceOf(cock, BASTION_GLANCE_SIZE, temperOf("bastion"));
 
 /** How dark the far side goes, reached at the widest turn. */
 const FAR_DARK = 0.6;
