@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-14 · 312c05fb3 — versus-pose.test.ts holds tests only, back under the line ceiling
+
+Which body a VERSUS slot is about (`NOT_ONE_BODY`, `subjectOf`), a pose by its name and the rows of `SLOT_POSE` move to `versus-pose-help.ts`, so the test file is 238 lines and the list can grow as slots open.
+
 ## 2026-10-14 · a8b4d42bf — THE HYDRA is drawn: a slime with many heads, each level its own picture
 
 An abyssal teal slime hung over the field, a crown along its top with a bud for every level to come and a seared stump for every level stopped. Its bites are serpent heads on banded necks standing in a stair down each side, swinging lower and gaping wider as the window runs, a swipe cutting a gash into the neck; its coils are necks wound flat in a spiral, a ring fewer for every lap turned off; its eyes wake one at a time round a great bulb of a head, amber and slit-pupilled, and an eye put out is stitched shut; and its maws are crossed — the navigator sees the open one gaping on a white heat, the pilot sees the fire's colour burning up its throat. Each kind of head holds the body its own way, and between levels it rears and turns half round as the next heads grow. Cut heads fall tumbling, coils drop, quenched maws steam, and a head let through lunges down to the hull.
