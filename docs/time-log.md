@@ -39405,3 +39405,5 @@ Bottleneck: the heart already turned, so its record ships turning and SWAY had n
 - landing: 5 min. `check:fast`, the commit, `land`.
 
 Bottleneck: the context cut mid-lane, and re-reading what had already been decided.
+
+*Measured: 6 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*

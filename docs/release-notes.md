@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-14 · 90dd24654 — VERSUS offers THE GIMBAL's cradle turning to look
+
+The whole cradle already wanders in its yoke; now `gimbal:glance` offers it a deliberate turn on top of that wander — SWAY, LOOK or COCK, a yaw of the whole cradle hushed by the drift's own table — on THE GIMBAL · STILL. The record ships still, so the game draws what it did.
+
 ## 2026-10-14 · a1f453743 — VERSUS offers THE FILAMENT's heart looking and cocking
 
 THE FILAMENT's heart already turns, so its turn is now a record that ships as that same idle sway, and VERSUS offers it two other ways: LOOK, holding a look either side, and COCK, cocking as it turns, each rolling about the apex where every vein goes in. Nothing the game draws changes. Judged on THE FILAMENT · ARM. Exemption: none — a look, offered on VERSUS.
