@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-15 · 3528238b6 — AUTO plays THE COUNT: the cannon holds its shot for the zero
+
+The field hand fired the moment it stood under a countdown body, which shuts it, and lost THE COUNT to the second of two counts on the field at once. Now it waits for the zero, with time for the shot to arrive, and turns to a body it can answer meanwhile. THE COUNT clears in 25 beats, the today table says so, and `bun run waves:compose theCount` composes the whole block. THE CLAW is the half still to come.
+
 ## 2026-10-15 · f07e5c209 — `bun run briefings:renumber` puts the briefings page back on today's waves
 
 Every `N · NAME` in §1 of `docs/spec/briefings.md` and the page's count of guided waves are rewritten from the wave order, so a block lane that has just run `waves:compose --write` — which now names the command — runs one command instead of fixing the page by hand. The count's wording is shared with the test that checks it.

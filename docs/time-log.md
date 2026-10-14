@@ -41298,3 +41298,5 @@ heredoc here, and the refusal comes after the whole command is composed.
 
 Bottleneck: reading — the wave was lost on the second of two counts at
 once, which only the probe's beat-by-beat field showed.
+
+*Measured: 6 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
