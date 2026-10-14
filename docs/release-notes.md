@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-14 · f72025b03 — THE BALLOON's pull is three tiles
+
+A hand now carries a balloon's handle three tiles along its bend before that side counts as pulled, up from two. The bend added in the landing before this one leaves steeper near a wall, so the longer pull is still on the screen from every column.
+
 ## 2026-10-14 · bebf2f033 — THE LEDGER's returns come down the cord at half the pace
 
 A return now lands seven beats behind the hit that sent it, then six, five, and four from the fourth hit on, where it was four, three and two. The floor is the old first return. The navigator's thumb in the socket keeps five beats of grace for the fight, one over the new floor as it was over the old. The rehearsal is retimed to the later landings. The owner, 14 October 2026: the falling downs were too fast to reach.
