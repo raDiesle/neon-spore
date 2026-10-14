@@ -39857,3 +39857,5 @@ Bottleneck: none to speak of — the glance is one call, and the wiring round it
 - landing: 5 min. `check:fast`, the commit, `land`.
 
 Bottleneck: the first answer — the whole flue turned about its sight — ran its near end off the screen, since a part as wide as the field has no room to open.
+
+*Measured: 8 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*

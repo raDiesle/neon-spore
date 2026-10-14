@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-14 · 5929b01fa — VERSUS offers THE FLUE's flesh turning lobe by lobe
+
+`flue:glance` offers every unit of the flue's flesh a turn about its own middle — SWAY, LOOK or COCK — its level's lobe with it, the near flank opening and the far one closing into the dark and back, the turn running along the body a little behind from unit to unit so the flue ripples end to end, on THE FLUE · LIT, a new pose on the BOSSES sheet. The gullet, the spore, the sight, the scale and the glass stay where they hang, so the call and the shot keep their moment. The whole flue turned about its sight was tried first and dropped: it spans the field, so its near end ran off the screen. The record ships still, so the game draws what it did.
+
 ## 2026-10-14 · f7331676c — VERSUS offers THE TRAPEZE's alien turning its head
 
 `trapeze:glance` offers the alien's head a turn about its own middle — SWAY, LOOK or COCK — on top of its lag behind the swing, its feelers and both eyes turning with it, the near cheek opening and the far one closing into the dark and back, in the seat's frame so it faces the gong whichever way it sits, on THE TRAPEZE · ENTER. The swing, the seat, the torso and the limbs stay as they are, and the pilot's lock and a bolt both take the circle round the whole alien. The record ships still, so the game draws what it did.
