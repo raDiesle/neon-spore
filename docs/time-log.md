@@ -39128,3 +39128,5 @@ Bottleneck: the eye already turns in its socket, so the part had to be the head 
 
 Bottleneck: the hidden browser pane — measurements looked like a bug until
 the viewport was given a size and a screenshot forced a frame.
+
+*Measured: 5 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

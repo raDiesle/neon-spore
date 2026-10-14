@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-14 · f781cb124 — The director's URL follows the section being read
+
+Scrolling a page with a contents menu now writes the section the bar names into the URL's hash — ?sheet=states&inner=controlsets&sub=field#pull-past-a-distance — so a reload opens on PULL PAST A DISTANCE rather than at the top. Opening a hash holds the section in place while the pictures above it draw, and changing sheet, room or sub tab drops it. Section links are now named by a heading's label, without the use count beside it, so a link outlives the count; older links with the count still open.
+
 ## 2026-10-14 · 0dd79fb88 — VERSUS offers THE STARE's head glancing
 
 THE STARE's cowled head turns as one about the eye's centre: the cowl, its scars, the eye, the brow, the charge and the score's lashes. The far side narrows into the dark. The lashes a thumb pulls and the glass a bolt stops on stay level. Ships still; VERSUS `stare:glance` offers SWAY, LOOK and COCK, judged on THE STARE · LIVE. Exemption: none — a look, offered on VERSUS.
