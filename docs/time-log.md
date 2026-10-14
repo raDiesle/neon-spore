@@ -39260,3 +39260,5 @@ Bottleneck: the fan already sways its tips, so the turn had to be a twist about 
 - landing: 5 min. `check:fast`, the commit, `land`.
 
 Bottleneck: the turn on a mass this wide read faint at the shared size, so it was raised.
+
+*Measured: 4 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*

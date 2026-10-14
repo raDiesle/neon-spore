@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-14 · 2479ff0bd — VERSUS offers THE SINEW's mass glancing
+
+THE SINEW's mass turns about its own centre as it hangs on the tendon, its far side narrowing into the dark; the handles rest off that centre and are drawn after it, so neither moves. Ships still; VERSUS `sinew:glance` offers SWAY, LOOK and COCK, judged on THE SINEW · HANGING. Exemption: none — a look, offered on VERSUS.
+
 ## 2026-10-14 · 99f9646e0 — VERSUS offers THE TASTER's blades glancing
 
 Each blade of THE TASTER's fan twists in its socket about its root, where the pin and the pry stand. Its far flat narrows into the dark, and each blade starts from its own place in the round. Ships still; VERSUS `taster:glance` offers SWAY, LOOK and COCK, judged on THE TASTER · FANNING.
