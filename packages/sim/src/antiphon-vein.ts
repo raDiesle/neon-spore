@@ -26,6 +26,15 @@ export function antiphonSlotCol(cfg: SimConfig, n: number, i: number): number {
   return midCol(cfg) + Math.floor(((2 * i - (n - 1)) * cfg.antiphonRailGap) / 2);
 }
 
+/**
+ * The row rail slot `i` of `n` hangs on: the middle one on `antiphonRailRow`,
+ * the rest `antiphonRailDrop` under it — staggered so each candidate can be
+ * drawn big without touching its neighbours (the owner, 14 October 2026).
+ */
+export function antiphonSlotRow(cfg: SimConfig, n: number, i: number): number {
+  return cfg.antiphonRailRow + (2 * i === n - 1 ? 0 : cfg.antiphonRailDrop);
+}
+
 /** The vein from candidate `i` to the organ, in whole tiles: across, then down. */
 export function antiphonVein(
   cfg: SimConfig,
@@ -34,7 +43,8 @@ export function antiphonVein(
 ): { dx: number; dy: number } | null {
   const c = s.rail[i];
   if (c === undefined) return null;
-  return { dx: antiphonOrganCol(cfg) - c.col, dy: cfg.antiphonVeinRows };
+  const dy = cfg.antiphonVeinRows - (antiphonSlotRow(cfg, s.rail.length, i) - cfg.antiphonRailRow);
+  return { dx: antiphonOrganCol(cfg) - c.col, dy };
 }
 
 /**

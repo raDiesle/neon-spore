@@ -141,6 +141,7 @@ export const CHOREO_FIELD_GROUP_B = {
   antiphonRail: "THE ANTIPHON — the boss that grows a thing nobody has a word for",
   antiphonRailRow: "THE ANTIPHON — the boss that grows a thing nobody has a word for",
   antiphonRailGap: "THE ANTIPHON — the boss that grows a thing nobody has a word for",
+  antiphonRailDrop: "THE ANTIPHON — the boss that grows a thing nobody has a word for",
   antiphonVeinRows: "THE ANTIPHON — the boss that grows a thing nobody has a word for",
   antiphonReachMilli: "THE ANTIPHON — the boss that grows a thing nobody has a word for",
   antiphonVeinSlackMilli: "THE ANTIPHON — the boss that grows a thing nobody has a word for",

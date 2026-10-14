@@ -2477,6 +2477,7 @@ by hand never moves.
 | `packages/render/src/antiphon-grip.ts` | **THE ANTIPHON's first handle: the organ, on the screen it is shown on** |
 | `packages/render/src/antiphon-glance.ts` | **THE ANTIPHON's mantle glances** — the owner, 9 and 10 October 2026: *body parts of living things turn . |
 | `packages/render/src/antiphon-rail-grip.ts` | **THE ANTIPHON's second handle: the rail, on the one screen it hangs on** — a ring on every candidate… |
+| `packages/render/src/antiphon-rail-shape.ts` | **Where THE ANTIPHON's rail is**, in field pixels: where each candidate hangs, how big it is drawn |
 | `packages/render/src/antiphon-reveal.ts` | THE ANTIPHON's reveal: the candidate carried home standing at the organ's place on every screen for a moment |
 | `packages/render/src/antiphon-marks.ts` | **THE ANTIPHON's two handles answering a touch the way every mark does** (`mark-feedback.ts` |
 | `packages/render/src/antiphon-veins.ts` | THE ANTIPHON's veins from each candidate to the organ's place, the bead in hand on the explainer's screen, and the unknown turning on the chooser's |

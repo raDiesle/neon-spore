@@ -1,9 +1,14 @@
-import { type AntiphonState, antiphonSlotCol, type SimConfig } from "@neon-spore/sim";
+import type { AntiphonState, SimConfig } from "@neon-spore/sim";
 import { faded } from "./antiphon-flesh.js";
-import { antiphonCandidateAt, antiphonOrganCircle, antiphonPerch } from "./antiphon-shape.js";
+import {
+  antiphonCandidateAt,
+  antiphonRailPerch,
+  antiphonSlotPerch,
+} from "./antiphon-rail-shape.js";
+import { antiphonOrganCircle } from "./antiphon-shape.js";
 import { drawAntiphonVeinTracks } from "./antiphon-vein-track.js";
 import { rgba } from "./hex.js";
-import type { Layout } from "./layout.js";
+import { type Layout, tileCY } from "./layout.js";
 import { PALETTE } from "./palette.js";
 import type { SharpRect } from "./slow-intake-aim.js";
 
@@ -107,8 +112,8 @@ export function drawAntiphonVeins(
   ctx.save();
   ctx.lineCap = "round";
   ctx.lineJoin = "round";
-  s.rail.forEach((c, i) => {
-    const from = antiphonPerch(l, cfg, c.col);
+  s.rail.forEach((_, i) => {
+    const from = antiphonRailPerch(l, cfg, s, i);
     const path = veinPath(from, to, grow, l.tile, time, i * 2.1);
     // The vein's wall, a lighter rim round dark flesh.
     ctx.strokeStyle = faded(PALETTE.organRim, fade, 0.35);
@@ -228,11 +233,11 @@ export function drawAntiphonUnknown(
  */
 export function antiphonSharp(l: Layout, cfg: SimConfig, s: AntiphonState): SharpRect {
   const n = Math.max(s.rail.length, cfg.antiphonRail);
-  const left = antiphonPerch(l, cfg, antiphonSlotCol(cfg, n, 0));
-  const right = antiphonPerch(l, cfg, antiphonSlotCol(cfg, n, n - 1));
+  const left = antiphonSlotPerch(l, cfg, n, 0);
+  const right = antiphonSlotPerch(l, cfg, n, n - 1);
   const organ = antiphonOrganCircle(l, cfg);
   const pad = l.tile * SHARP_PAD;
-  const top = left.y - pad;
+  const top = tileCY(l, cfg.antiphonRailRow) - pad;
   return { x: left.x - pad, y: top, w: right.x - left.x + pad * 2, h: organ.y + pad * 1.6 - top };
 }
 

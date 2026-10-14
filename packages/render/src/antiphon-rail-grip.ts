@@ -4,12 +4,8 @@ import {
   antiphonRailAsks,
   type SimConfig,
 } from "@neon-spore/sim";
-import {
-  antiphonCandidateAt,
-  antiphonOrganCircle,
-  antiphonPerch,
-  RAIL_R,
-} from "./antiphon-shape.js";
+import { antiphonCandidateAt, antiphonRailPerch, RAIL_R } from "./antiphon-rail-shape.js";
+import { antiphonOrganCircle } from "./antiphon-shape.js";
 import type { BossCue } from "./boss-cue.js";
 import { cueSeen } from "./boss-cue.js";
 import { drawCueText } from "./boss-cue-text.js";
@@ -77,7 +73,7 @@ export function antiphonRailUnder(l: Layout, x: number, y: number, field: Field)
   for (let i = 0; i < s.rail.length; i++) {
     const c = s.rail[i];
     if (c === undefined) continue;
-    const at = antiphonPerch(l, field.cfg, c.col);
+    const at = antiphonRailPerch(l, field.cfg, s, i);
     if (!hitCircle({ x: at.x, y: at.y, r: Math.max(r, l.tile * RAIL_R) }, x, y)) continue;
     const d = Math.hypot(x - at.x, y - at.y);
     if (d >= bestDist) continue;
@@ -112,7 +108,7 @@ export function drawAntiphonRailGrip(
     if (antiphonRailAsks(s, cfg, beat, i)) drawMarkHalo(ctx, at.x, at.y, r, time);
     const held = s.carried === i;
     // The way down the vein, from the perch: the knob rides the carry, the arrow does not turn with it.
-    const from = antiphonPerch(l, cfg, s.rail[i]?.col ?? 0);
+    const from = antiphonRailPerch(l, cfg, s, i);
     const len = Math.hypot(organ.x - from.x, organ.y - from.y) || 1;
     const way = { dx: (organ.x - from.x) / len, dy: (organ.y - from.y) / len };
     drawPullKnob(ctx, at, r, { ...LOOK, held, time, way, key: antiphonVeinKey(i) });

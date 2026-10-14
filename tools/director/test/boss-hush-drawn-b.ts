@@ -1,5 +1,6 @@
 import { type BossKind, scuttlePartCol } from "@neon-spore/sim";
-import { antiphonOrganCircle, antiphonPerch } from "../../../packages/render/src/antiphon-shape.js";
+import { antiphonRailPerch } from "../../../packages/render/src/antiphon-rail-shape.js";
+import { antiphonOrganCircle } from "../../../packages/render/src/antiphon-shape.js";
 import { tileCX } from "../../../packages/render/src/layout.js";
 import { scuttleLockBox } from "../../../packages/render/src/scuttle-lock.js";
 import { scuttleRowY, scuttleShiver } from "../../../packages/render/src/scuttle-shape.js";
@@ -68,7 +69,9 @@ export const DRAWN_B: Partial<Record<BossKind, Drawn>> = {
       marks.push({ id: -1, x: c.x, y: c.y + c.r * ORGAN_GRIP_DOWN });
     }
     if (showsAntiphonRail(l.role, s)) {
-      for (const c of s.rail) marks.push({ id: -100 - c.col, ...antiphonPerch(l, cfg, c.col) });
+      s.rail.forEach((c, i) => {
+        marks.push({ id: -100 - c.col, ...antiphonRailPerch(l, cfg, s, i) });
+      });
     }
     return marks;
   },

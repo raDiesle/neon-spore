@@ -1,9 +1,11 @@
 import type { AntiphonState, SimConfig } from "@neon-spore/sim";
 import { antiphonVeinKey } from "./antiphon-rail-grip.js";
-import { antiphonOrganCircle, antiphonPerch } from "./antiphon-shape.js";
+import { antiphonRailPerch } from "./antiphon-rail-shape.js";
+import { antiphonOrganCircle } from "./antiphon-shape.js";
+import { handleRadius } from "./handle-draw.js";
 import type { Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
-import { drawPullTrack, type PullTrack } from "./pull-track.js";
+import { drawPullTrack, PULL_TRACK_W, type PullTrack } from "./pull-track.js";
 
 /**
  * **The way down each vein, drawn as every pull is** (the owner, 5 October
@@ -22,9 +24,6 @@ import { drawPullTrack, type PullTrack } from "./pull-track.js";
  * the rail could be taken would be a mark up before its window.
  */
 
-/** The channel's half-width, in tiles: wide enough to read inside the vein, narrower than it. */
-const TRACK_W = 0.22;
-
 /** Vein `i`'s channel: from the candidate's perch to the organ's place. */
 export function antiphonVeinTrack(
   l: Layout,
@@ -34,9 +33,13 @@ export function antiphonVeinTrack(
 ): PullTrack | null {
   const c = s.rail[i];
   if (c === undefined) return null;
-  const from = antiphonPerch(l, cfg, c.col);
+  const from = antiphonRailPerch(l, cfg, s, i);
   const to = antiphonOrganCircle(l, cfg);
-  return { pts: [from, { x: to.x, y: to.y }], w: l.tile * TRACK_W };
+  // Sized off the knob, as every pull's is: a channel drawn wider than that
+  // made the place it ends in, its ghost and its splash 2.6 times the knob —
+  // the owner, 14 October 2026: *the middle to drag into much smaller - its
+  // too huge*.
+  return { pts: [from, { x: to.x, y: to.y }], w: handleRadius(l, cfg) * PULL_TRACK_W };
 }
 
 /** Every vein's channel, on the chooser's screen, while the rail can be taken. */

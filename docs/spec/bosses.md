@@ -6266,8 +6266,9 @@ candidates laid the same beat (`sim/antiphon-rail.ts`: the organ's shape,
 then the decoys, then the rail's own shuffle, all through `nextInt` in that
 order). The rail hangs on row `antiphonRailRow` (3), its slots
 `antiphonRailGap` (3) columns apart about the middle (`antiphonSlotCol`),
-and the organ's place is the middle column `antiphonVeinRows` (2) rows
-under it. Each candidate's **vein** runs from its slot to that place
+the ones off the middle `antiphonRailDrop` (2) rows lower
+(`antiphonSlotRow`) so each can be drawn big, and the organ's place is the
+middle column `antiphonVeinRows` (5) rows under the rail's row. Each candidate's **vein** runs from its slot to that place
 (`sim/antiphon-vein.ts`): the chooser's thumb grabs a candidate and its
 displacement is projected onto the vein in integers, the candidate moving
 down as far as the thumb has, back up if it goes back, and staying put
@@ -6428,8 +6429,13 @@ end at its narrowest, and a bolt is stopped on the underside the turn draws
 from goes on by. **SWAY**, **LOOK** and **COCK** (`glance-styles.ts`) were
 offered on `THE ANTIPHON · CYCLING`; the owner saw no difference between them
 and took SWAY. The same day the candidates on the rail grew from 0.8 tiles to
-1.35 (`RAIL_R`), so each outline reaches well past the pull knob over it, and
-one carried down shrinks to the organ's size on the way.
+1.35, so each outline reaches well past the pull knob over it, and one
+carried down shrinks to the organ's size on the way. Asked for *even more
+bigger* the same evening, they are 1.6 (`RAIL_R`), the outer two hung
+`antiphonRailDrop` rows lower so neighbours do not touch; and the place in
+the middle they are dragged to, which had been drawn 2.6 times the knob
+because the vein's channel was sized in tiles, is sized off the knob as
+every pull's is (`antiphon-vein-track.ts`).
 
 
 ## 11.32 THE INSTAR — the boss with no panel, marked where it will hurt you

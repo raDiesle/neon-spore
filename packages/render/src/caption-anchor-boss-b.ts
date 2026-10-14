@@ -13,13 +13,8 @@ import {
   scuttleBoss,
   type World,
 } from "@neon-spore/sim";
-import {
-  antiphonBox,
-  antiphonOrganCircle,
-  antiphonPerch,
-  ORGAN_R,
-  RAIL_R,
-} from "./antiphon-shape.js";
+import { antiphonSlotPerch, RAIL_R } from "./antiphon-rail-shape.js";
+import { antiphonBox, antiphonOrganCircle, ORGAN_R } from "./antiphon-shape.js";
 import type { AnchorPoint } from "./caption-anchor.js";
 import { bossAnchorC } from "./caption-anchor-boss-c.js";
 import { around, box } from "./caption-anchor-box.js";
@@ -118,9 +113,9 @@ function antiphonPart(
   }
   if (part === "rail") {
     if (!showsAntiphonRail(l.role, s)) return null;
-    const cols = s.rail.length > 0 ? s.rail.map((c) => c.col) : [0, cfg.cols - 1];
+    const n = s.rail.length > 0 ? s.rail.length : cfg.antiphonRail;
     return around(
-      cols.map((col) => antiphonPerch(l, cfg, col)),
+      Array.from({ length: n }, (_, i) => antiphonSlotPerch(l, cfg, n, i)),
       RAIL_R * l.tile,
     );
   }

@@ -32,12 +32,7 @@ export * from "./boss-surface-clocks-c.js";
 export * from "./boss-surface-instar.js";
 // THE HIVE's entry, which authors nothing, and THE INSTAR's, which authors
 // its script: both travel out of `boss-entries.ts` through `bosses.ts`.
-export type {
-  HaspEntry,
-  HiveEntry,
-  InstarEntry,
-  SpoolEntry,
-} from "./bosses.js";
+export type { HaspEntry, HiveEntry, InstarEntry, SpoolEntry } from "./bosses.js";
 // THE BATON's arm as a control: which socket is coming away, whose thumb may
 // take it, and whose bead is whose while the two are drawn together — all four
 // read by `render/baton-grip.ts` and the cue beside it (`baton-hand.ts`).
@@ -72,6 +67,7 @@ export {
   antiphonShipUp,
   antiphonSinkBeat,
   antiphonSlotCol,
+  antiphonSlotRow,
   antiphonStanding,
   antiphonTight,
   antiphonTurned,

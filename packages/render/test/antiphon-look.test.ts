@@ -1,5 +1,6 @@
 import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
-import { antiphonOrganCircle, antiphonPerch } from "../src/antiphon-shape.js";
+import { antiphonRailPerch } from "../src/antiphon-rail-shape.js";
+import { antiphonOrganCircle } from "../src/antiphon-shape.js";
 import { antiphonVeinTrack } from "../src/antiphon-vein-track.js";
 import { commsCall } from "../src/comms.js";
 import { bossDuty } from "../src/comms-boss.js";
@@ -45,9 +46,9 @@ describe("THE ANTIPHON's pull channel", () => {
   it("runs each vein from the candidate's perch to the organ's place", () => {
     const s = grown(hung());
     const organ = antiphonOrganCircle(L, CFG);
-    s.rail.forEach((c, i) => {
+    s.rail.forEach((_, i) => {
       const t = antiphonVeinTrack(L, CFG, s, i);
-      expect(t?.pts[0]).toEqual(antiphonPerch(L, CFG, c.col));
+      expect(t?.pts[0]).toEqual(antiphonRailPerch(L, CFG, s, i));
       expect(t?.pts.at(-1)).toEqual({ x: organ.x, y: organ.y });
     });
   });

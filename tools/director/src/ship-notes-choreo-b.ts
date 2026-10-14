@@ -132,7 +132,8 @@ export const CHOREO_NOTES_B = {
     "organ a level from a table of antiphonShapes contours in families of " +
     "antiphonFamily. The explainer sees it, antiphonVeinRows rows under a " +
     "rail of antiphonRail green candidates on row antiphonRailRow, " +
-    "antiphonRailGap columns apart; the chooser sees the rail and nothing " +
+    "antiphonRailGap columns apart, the outer ones antiphonRailDrop rows " +
+    "lower; the chooser sees the rail and nothing " +
     "they can read where the organ stands. The chooser carries a candidate " +
     "down its vein to the organ, antiphonReachMilli of the way and never " +
     "more than antiphonVeinSlackMilli off it: the organ makes a pit, anything " +

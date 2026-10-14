@@ -65,6 +65,7 @@ export {
 export {
   antiphonAlongVein,
   antiphonSlotCol,
+  antiphonSlotRow,
   antiphonVein,
   antiphonVeinMilli,
 } from "./antiphon-vein.js";

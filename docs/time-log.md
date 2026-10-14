@@ -40644,3 +40644,19 @@ Bottleneck: lane three's landing, run three times while other lanes moved
 the trunk under its full check.
 
 *Measured: 8 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
+
+## 2026-10-14 — THE ANTIPHON's options grow again and the place in the middle shrinks
+
+- reading: 10 min. What drew the yellow disk: the shared pull track, sized
+  off a channel width in tiles where every other pull sizes off the knob.
+- writing: 15 min. `antiphonRailDrop` and `antiphonSlotRow` through the sim,
+  the perch by slot in render, `RAIL_R` to 1.6, the track off the knob, the
+  rail's geometry cut into `antiphon-rail-shape.ts`.
+- looking: 10 min. Five frames: a wider gap clipped the screen edges, a
+  frame with the tracks off found the ghosts' glow.
+- friction: 0 min.
+- landing: 10 min. Two files over 250 lines, and the new field unnamed in a
+  document.
+
+Bottleneck: looking — which of three overlapping layers drew the disk took
+a frame with one switched off to tell.

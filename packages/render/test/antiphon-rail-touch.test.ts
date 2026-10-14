@@ -1,6 +1,6 @@
 import { describe, expect, it } from "bun:test";
 import type { AntiphonState, World } from "@neon-spore/sim";
-import { antiphonPerch, RAIL_R } from "../src/antiphon-shape.js";
+import { antiphonRailPerch, RAIL_R } from "../src/antiphon-rail-shape.js";
 import { hitReach } from "../src/hit.js";
 import { touchDown } from "../src/touch.js";
 import { CFG, field, hung, layout, organ, target } from "./antiphon-touch-harness.js";
@@ -31,7 +31,7 @@ describe("a thumb on THE ANTIPHON's rail", () => {
     const s = railed(world);
     const c = s.rail[1];
     if (c === undefined) throw new Error("no candidate");
-    const at = antiphonPerch(l, CFG, c.col);
+    const at = antiphonRailPerch(l, CFG, s, 1);
     const touch = touchDown(l, at.x, at.y, field(world, 2));
     expect(target(touch)).toBe("antiphonRail");
     expect(touch?.command).toEqual({
@@ -52,7 +52,7 @@ describe("a thumb on THE ANTIPHON's rail", () => {
     for (let i = 0; i < s.rail.length; i++) {
       const c = s.rail[i];
       if (c === undefined) throw new Error("no candidate");
-      const at = antiphonPerch(l, CFG, c.col);
+      const at = antiphonRailPerch(l, CFG, s, i);
       expect(heldId(touchDown(l, at.x, at.y, field(world, 2)))).toBe(i);
     }
   });
@@ -63,7 +63,7 @@ describe("a thumb on THE ANTIPHON's rail", () => {
     const s = railed(world);
     const c = s.rail[0];
     if (c === undefined) throw new Error("no candidate");
-    const at = antiphonPerch(l, CFG, c.col);
+    const at = antiphonRailPerch(l, CFG, s, 0);
     expect(target(touchDown(l, at.x, at.y, field(world, 2)))).not.toBe("antiphonRail");
     expect(target(touchDown(l, at.x, at.y, field(world, 1)))).not.toBe("antiphonRail");
   });
@@ -74,7 +74,7 @@ describe("a thumb on THE ANTIPHON's rail", () => {
     const s = railed(world);
     const c = s.rail[0];
     if (c === undefined) throw new Error("no candidate");
-    const at = antiphonPerch(l, CFG, c.col);
+    const at = antiphonRailPerch(l, CFG, s, 0);
     expect(target(touchDown(l, at.x, at.y, field(world, 2)))).toBe("antiphonRail");
     expect(target(touchDown(l, at.x, at.y, field(world, 1)))).not.toBe("antiphonRail");
   });
@@ -85,7 +85,7 @@ describe("a thumb on THE ANTIPHON's rail", () => {
     const s = railed(world);
     const c = s.rail[0];
     if (c === undefined) throw new Error("no candidate");
-    const at = antiphonPerch(l, CFG, c.col);
+    const at = antiphonRailPerch(l, CFG, s, 0);
     // Past the candidate's circle and its finger's slack (`hitCircle`), on
     // the side away from the next candidate a slot over.
     const past = hitReach(l.tile * RAIL_R) + 2;
@@ -100,7 +100,7 @@ describe("a thumb on THE ANTIPHON's rail", () => {
     const s = railed(world);
     const c = s.rail[0];
     if (c === undefined) throw new Error("no candidate");
-    const at = antiphonPerch(l, CFG, c.col);
+    const at = antiphonRailPerch(l, CFG, s, 0);
     expect(target(touchDown(l, at.x, at.y, field(world, 2, null)))).not.toBe("antiphonRail");
     s.downBeat = world.beat;
     expect(target(touchDown(l, at.x, at.y, field(world, 2)))).not.toBe("antiphonRail");
@@ -113,7 +113,7 @@ describe("a thumb on THE ANTIPHON's rail", () => {
     const c = s.rail[0];
     if (c === undefined) throw new Error("no candidate");
     const p1 = layout("p1");
-    const at = antiphonPerch(p1, CFG, c.col);
+    const at = antiphonRailPerch(p1, CFG, s, 0);
     expect(heldId(touchDown(p1, at.x, at.y, field(world, 1)))).toBe(0);
     expect(target(touchDown(layout("p2"), at.x, at.y, field(world, 2)))).not.toBe("antiphonRail");
   });

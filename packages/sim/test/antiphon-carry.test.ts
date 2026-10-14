@@ -1,6 +1,6 @@
 import { describe, expect, it } from "bun:test";
-import { antiphonIsOrgan } from "../src/antiphon.js";
-import { antiphonAlongVein, antiphonVein } from "../src/antiphon-vein.js";
+import { antiphonIsOrgan, antiphonOrganRow } from "../src/antiphon.js";
+import { antiphonAlongVein, antiphonSlotRow, antiphonVein } from "../src/antiphon-vein.js";
 import { hashWorld } from "../src/index.js";
 import { body, CFG, grown, open, thumb, tick } from "./antiphon-kit.js";
 
@@ -16,12 +16,13 @@ import { body, CFG, grown, open, thumb, tick } from "./antiphon-kit.js";
  */
 
 describe("the vein", () => {
-  it("runs from each candidate across and down to the middle, antiphonVeinRows deep", () => {
+  it("runs from each candidate across and down to the middle, to the organ's row", () => {
     const world = open();
     const s = grown(world);
     for (let i = 0; i < s.rail.length; i++) {
       const v = antiphonVein(CFG, s, i);
-      expect(v?.dy).toBe(CFG.antiphonVeinRows);
+      const row = antiphonSlotRow(CFG, s.rail.length, i);
+      expect(row + (v?.dy ?? 0)).toBe(antiphonOrganRow(CFG));
       expect((s.rail[i]?.col ?? 0) + (v?.dx ?? 0)).toBe(Math.floor(CFG.cols / 2));
     }
   });

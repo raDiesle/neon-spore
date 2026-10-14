@@ -13,12 +13,11 @@ import type { AntiphonFx } from "./antiphon-fx.js";
 import { drawAntiphonGlanced } from "./antiphon-glance.js";
 import { drawAntiphonGrip } from "./antiphon-grip.js";
 import { drawAntiphonRailGrip, drawAntiphonVerdict } from "./antiphon-rail-grip.js";
+import { antiphonCandidateAt, antiphonCandidateR } from "./antiphon-rail-shape.js";
 import {
   antiphonBodyPath,
   antiphonBox,
   antiphonBudR,
-  antiphonCandidateAt,
-  antiphonCandidateR,
   antiphonContourPath,
   antiphonDecoyLobes,
   antiphonFade,

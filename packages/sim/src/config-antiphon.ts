@@ -36,6 +36,8 @@ export interface AntiphonConfig {
   antiphonRailRow: number;
   /** Columns between two neighbours on the rail. */
   antiphonRailGap: number;
+  /** Rows under the rail's the slots off its middle hang, so neighbours have room to be big. */
+  antiphonRailDrop: number;
   /** Rows from the rail down to where the organ stands — every vein's drop. */
   antiphonVeinRows: number;
   /** How far down its vein a candidate must be carried to arrive, in thousandths of the vein. */
@@ -107,6 +109,7 @@ export const ANTIPHON_DEFAULTS: AntiphonConfig = {
   antiphonRail: 3,
   antiphonRailRow: 3,
   antiphonRailGap: 3,
+  antiphonRailDrop: 2,
   antiphonVeinRows: 5,
   antiphonReachMilli: 900,
   antiphonVeinSlackMilli: 1000,
