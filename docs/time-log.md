@@ -39187,3 +39187,5 @@ Bottleneck: the mouth is small at the gullet's end, so the turn needed a magnifi
   entries for the rubs that are not drawn as one.
 
 Bottleneck: finding a tick where THE CHOIR's rub was on the field to shoot.
+
+*Measured: 6 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

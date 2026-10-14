@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-14 · 4af6ce59c — Every rub on the field is THE RUB LAB's zigzag drop
+
+A RUB is no longer a red line with an arrow sliding in at it from each side: it is THE RUB LAB's drop with ZIGZAG on it, one stroke for every turn the rub asks, lit green as the turns are made, wagging left and right to call until a thumb is on it or a turn is made. THE CAPSTAN's rub and THE VALVE's wipe show their own count of turns on it, THE BLISTER's rub a stroke a blow, and THE CHOIR's rub its turns in place of the row of pips, its two seat lights moved under the drop. The zigzag is the game's own now, and the lab draws it from there. A look the owner asked for by name. THE MAZE's heart and THE THROAT's pump, which are not drawn as a rub, are queued with a question each.
+
 ## 2026-10-14 · 605a151e7 — VERSUS offers THE THROAT's mouth glancing
 
 THE THROAT's lip and the colour's face in it turn together about the mouth's centre, where the navigator carries it and the pump's ring sits. The far side narrows into the dark. The pull's circle, the halo and a swallow's flare stay level. Ships still; VERSUS `throat:glance` offers SWAY, LOOK and COCK, judged on THE THROAT · SUCKS. Exemption: none — a look, offered on VERSUS.
