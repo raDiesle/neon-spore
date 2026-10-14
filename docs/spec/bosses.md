@@ -7575,6 +7575,15 @@ THE VALVE's open mid-beat and add one.
 
 **What is not built — a step seen from another side** (suggested 10 October 2026, after the owner on THE BASTION: *very 3 dimensional and even user action is 3d to rotate*). The spool turns end-on and shows its flange, where a rib sits under the lip; the brake is held at its speed only while it stays end-on.
 
+**Offered (14 October 2026, VERSUS `spool:glance`).** A machine, so the full
+shape turns: casing, winding, ribs and both flanges yaw together about the
+brake's flange (`packages/render/src/spool-glance.ts`), the pivot the barrel
+already rolls on, so the shoe, the rail and the knob a thumb holds do not move.
+The far flange swings away into the dark and back, and the line's top is
+carried with the winding's middle. The slack spool keeps its own turn and takes
+none of this. It ships still, and VERSUS offers **SWAY**, **LOOK** and **COCK**
+at a fifth of the barrel's length on THE SPOOL · TAUT.
+
 ## 11.37 THE HASP — the boss where one hand holds what the other cannot see
 
 > The one that asks for faith. A door of three iron clasps hangs over the

@@ -9,6 +9,7 @@ import { PALETTE, STROKE } from "./palette.js";
 import { drawSpoolBrakeMark } from "./spool-brake.js";
 import type { SpoolFx } from "./spool-fx.js";
 import { drawSpoolGauge } from "./spool-gauge.js";
+import { drawSpoolGlanced, spoolGlancedTop } from "./spool-glance.js";
 import { drawSpoolLine } from "./spool-line.js";
 import { spoolDrift, spoolEnter, spoolPlaced, spoolRibLift, spoolRunMilli } from "./spool-pose.js";
 import {
@@ -75,7 +76,11 @@ export function drawSpool(
   // The barrel rolls on the brake's flange; the line's top goes with it (`spool-sway.ts`).
   const roll = spoolSway(world, s, beat, beatPhase);
   const pivot = spoolPivot(l, pose, side);
-  drawSpoolLine(ctx, l, cfg, s, spoolRolled(l, pose, side, roll), beat, beatPhase, time, run);
+  // And turns about that flange, the winding's middle carried with it (`spool-glance.ts`).
+  const length = 2 * spoolBarrelHalf(l, pose.turn);
+  const slack = s.phase === "slack";
+  const mid = spoolGlancedTop(pivot, length, time, slack, pose.at);
+  drawSpoolLine(ctx, l, cfg, s, spoolRolled(l, pose, side, roll, mid), beat, beatPhase, time, run);
   ctx.globalAlpha = alpha;
   const hurt = fx.hurt.value;
   // The snag shudders the casing and nothing a thumb has to find (`spool-story.ts`).
@@ -84,10 +89,13 @@ export function drawSpool(
   ctx.translate(shake.x + pivot.x, shake.y + pivot.y);
   ctx.rotate(roll);
   ctx.translate(-pivot.x, -pivot.y);
-  drawFlange(ctx, l, pose, side, false, time, hurt);
-  drawBarrel(ctx, l, pose, run, drift, hurt);
-  drawRibs(ctx, l, world, s, pose, side, beat, beatPhase);
-  drawFlange(ctx, l, pose, -side as -1 | 1, true, time, hurt);
+  drawSpoolGlanced(ctx, pivot, length, time, slack, (g) => {
+    drawFlange(g, l, pose, side, false, time, hurt);
+    drawBarrel(g, l, pose, run, drift, hurt);
+    drawRibs(g, l, world, s, pose, side, beat, beatPhase);
+    drawFlange(g, l, pose, -side as -1 | 1, true, time, hurt);
+    return [spoolBarrelPath(l, pose), spoolFlangePath(l, pose, -side as -1 | 1, true)];
+  });
   ctx.restore();
   if (s.phase !== "slack") drawSpoolBrakeMark(ctx, l, cfg, s, pose, time, fx.verdicts);
   if (s.phase !== "slack" && showsSpoolZone(l.role)) {

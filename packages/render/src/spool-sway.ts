@@ -46,11 +46,21 @@ export function spoolPivot(l: Layout, pose: SpoolPose, side: -1 | 1): Point {
   return { x: pose.at.x + side * spoolBarrelHalf(l, pose.turn), y: pose.at.y };
 }
 
-/** The pose with its axle's middle where the roll has carried it — for the line, whose top is the winding's underside. */
-export function spoolRolled(l: Layout, pose: SpoolPose, side: -1 | 1, roll: number): SpoolPose {
+/**
+ * The pose with its axle's middle where the roll has carried it — for the
+ * line, whose top is the winding's underside. `at` is the middle before the
+ * roll, where the body's turn put it (`spool-glance.ts`); the pose's own by default.
+ */
+export function spoolRolled(
+  l: Layout,
+  pose: SpoolPose,
+  side: -1 | 1,
+  roll: number,
+  mid: Point = pose.at,
+): SpoolPose {
   const p = spoolPivot(l, pose, side);
-  const dx = pose.at.x - p.x;
-  const dy = pose.at.y - p.y;
+  const dx = mid.x - p.x;
+  const dy = mid.y - p.y;
   const at = {
     x: p.x + dx * Math.cos(roll) - dy * Math.sin(roll),
     y: p.y + dx * Math.sin(roll) + dy * Math.cos(roll),

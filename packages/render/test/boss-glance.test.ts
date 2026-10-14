@@ -28,6 +28,7 @@ import { REPRISE_GLANCE, REPRISE_GLANCE_SIZE } from "../src/reprise-glance.js";
 import { SCUTTLE_GLANCE, SCUTTLE_GLANCE_SIZE } from "../src/scuttle-glance.js";
 import { SINEW_GLANCE, SINEW_GLANCE_SIZE } from "../src/sinew-glance.js";
 import { SPLICE_GLANCE, SPLICE_GLANCE_SIZE } from "../src/splice-glance.js";
+import { SPOOL_GLANCE, SPOOL_GLANCE_SIZE } from "../src/spool-glance.js";
 import { STARE_GLANCE, STARE_GLANCE_SIZE } from "../src/stare-glance.js";
 import { SURGE_GLANCE, SURGE_GLANCE_SIZE } from "../src/surge-glance.js";
 import { TASTER_GLANCE, TASTER_GLANCE_SIZE } from "../src/taster-glance.js";
@@ -88,6 +89,7 @@ const ROWS: readonly Row[] = [
   { name: "THE SCUTTLE", record: SCUTTLE_GLANCE, size: SCUTTLE_GLANCE_SIZE, hold: 0 },
   { name: "THE ANTIPHON", record: ANTIPHON_GLANCE, size: ANTIPHON_GLANCE_SIZE, hold: 0 },
   { name: "THE GIMBAL", record: GIMBAL_GLANCE, size: GIMBAL_GLANCE_SIZE, hold: 0 },
+  { name: "THE SPOOL", record: SPOOL_GLANCE, size: SPOOL_GLANCE_SIZE, hold: 0 },
 ];
 
 const R = 100;

@@ -179,7 +179,11 @@ export const CLOCK_BOSS_POSES: Pose[] = [
     "spool",
     "taut",
     "The spool hangs still, its line already run to the hull. P1 waits with his thumb off the brake; P2 waits.",
-    { hold: 6 },
+    {
+      hold: 6,
+      lookAt:
+        "the whole spool turning about the brake's flange — its far end swinging away and back",
+    },
   ),
   bossPose(
     "spool",

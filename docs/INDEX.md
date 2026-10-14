@@ -2616,6 +2616,7 @@ by hand never moves.
 | `packages/render/src/spool-fx-story.ts` | **What THE SPOOL's story throws** (`sim/spool-story.ts`): the burst each of its nine events leaves |
 | `packages/render/src/spool-gauge.ts` | **The navigator's gauge**: a track under the barrel, the zone as a bracket in the middle of it |
 | `packages/render/src/spool-grip.ts` | **The thumb on THE SPOOL's brake** — half two of the look lane |
+| `packages/render/src/spool-glance.ts` | **THE SPOOL glances** — the owner, 9 and 10 October 2026: *body parts of living things turn . |
 | `packages/render/src/spool-line.ts` | **The line**, from the underside of the winding to the hull |
 | `packages/render/src/spool-pose.ts` | **How far through a pose THE SPOOL is** — the clock the whole scene is posed off (§21, *Animation*) |
 | `packages/render/src/spool-shape.ts` | **Where THE SPOOL is**, in field pixels: the barrel slung sideways across the top of the field |

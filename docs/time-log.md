@@ -39407,3 +39407,15 @@ Bottleneck: the heart already turned, so its record ships turning and SWAY had n
 Bottleneck: the context cut mid-lane, and re-reading what had already been decided.
 
 *Measured: 6 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-14 — THE SPOOL: a part that turns, so it is seen from a new side
+
+- reading: 10 min. `spool-draw.ts`, `spool-shape.ts` and `spool-sway.ts`, to
+  find the point the brake and the line are drawn off.
+- writing: 10 min. The record about the brake's flange, the line's top carried
+  with it, three candidates, the pose's lookAt, the spec note.
+- looking: 5 min. One shot; the far end shortens into the dark beside the shipped.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: choosing a pivot that leaves the knob and the line's foot where a thumb and an eye expect them.
