@@ -349,8 +349,9 @@ and add only the knob's arrow; (c) keep them as they are.
 
 THE GALL is done (2026-10-13, claude/field-controls-standardization-44b3b7,
 `render/gall-knob.ts`), and THE GAUGE (2026-10-14: the tongue had the
-two-way pull already, the teeth have a knob each, `gauge-tooth-grip.ts`):
-`taster-grip.ts` and `vane-grip.ts` are what is left.
+two-way pull already, the teeth have a knob each, `gauge-tooth-grip.ts`),
+and THE TASTER (2026-10-14: the wipe and the pry, `taster-pulls.ts`; the pin
+is a hold and keeps its ring): `vane-grip.ts` is what is left.
 THE VANE's housing goes **down** (2026-10-14, the owner leaving it to the
 lane; `sim/vane-hand.ts`), so its arrow and channel point down.
 

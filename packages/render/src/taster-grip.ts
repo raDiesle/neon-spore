@@ -6,9 +6,8 @@ import {
   tasterPryable,
   tasterWipable,
 } from "@neon-spore/sim";
-import { drawHandleRing, handleRadius } from "./handle-draw.js";
+import { handleRadius } from "./handle-draw.js";
 import { type Circle, hitCircle, type Layout, tileCX } from "./layout.js";
-import { PALETTE } from "./palette.js";
 import { tasterCrestY } from "./taster-draw.js";
 import type { Field, Touch } from "./touch.js";
 import { bossOf } from "./touch-field.js";
@@ -42,7 +41,7 @@ import { bossOf } from "./touch-field.js";
  * is how near the crest is to being cut, and a row of discs over the notches
  * would have hidden the fight's own progress bar.
  *
- * **There are as many gap rings as there are gaps**, six to eight of them by
+ * **There are as many wipes as there are gaps**, six to eight of them by
  * the third movement, and that is the reading rather than a crowd: they are
  * what is left of eleven blades, spaced a tile apart and a fifth of a tile
  * short of touching, so the row of them says how far the fan has been eaten at
@@ -138,86 +137,4 @@ function partUnder(
     }
   }
   return null;
-}
-
-/**
- * All three, drawn with the fan so the fan and the hands on it are one
- * drawing. Each on both screens, bright on the seat that owns it and dim on
- * the other: the pin buys the navigator her window to turn the ledger over,
- * the wipe is the one cut that costs the ledger nothing, and the pry is what
- * her beam is waiting on — so every one of the three is a thing the *other*
- * seat is watching for.
- *
- * **The dim copy fills nothing** (`theirs`, `handle-draw.ts`, 22 September
- * 2026). A ring punches its circle out of the background first, so it reads
- * over whatever it stands on, and this fight is read entirely off the lit edge
- * of a blade: the pin's ring is on the crest and the wipe's is in a gap the
- * crest has already lost. The seat that may not press one cannot see the wash
- * inside the hole, so its copy came out a *second* notch — the one mark this
- * boss uses for progress, said by a handle that meant nothing of the kind.
- * Theirs is its rim and its wash now. The count in
- * `taster-grip-frame.test.ts` is the seat's own for the same reason.
- *
- * **Each dial is the clock its own gesture is racing.** The pin's fills toward
- * `tasterPinBeats`, where the blade decides anyway and comes up thick, so a
- * full ring is a bet lost rather than a hold won. The wipe's has two positions
- * because the carry has two states — `wiped` is the whole of what the round
- * remembers about it — and full means *this carry has spent its cut, lift and
- * come again*. The pry's is the carry itself, `pryMilli` out of
- * `tasterPryMilli`, and when it lands the ring goes out altogether: the window
- * is a beat count and he may let go, so a ring left standing would be asking
- * for a second carry the round refuses.
- */
-export function drawTasterGrips(
-  ctx: CanvasRenderingContext2D,
-  l: Layout,
-  cfg: SimConfig,
-  t: TasterState,
-  beatPhase: number,
-  beat: number,
-  time: number,
-): void {
-  if (tasterPryable(t, beat, cfg)) {
-    const pull = Math.max(0, Math.min(1, t.pryMilli / Math.max(1, cfg.tasterPryMilli)));
-    ring(ctx, tasterLockCircle(l, cfg, t), l, 1, t.pryMilli > 0, pull, time);
-  }
-  for (let i = 0; i < t.blades.length; i++) {
-    const col = t.col + i;
-    if (tasterPinnable(t, cfg, i)) {
-      const held = t.pin === i;
-      const spent = (t.pinBeats + beatPhase) / Math.max(1, cfg.tasterPinBeats);
-      ring(ctx, tasterBladeCircle(l, cfg, col), l, 1, held, held ? clamp(spent) : 0, time);
-    }
-    if (tasterWipable(t, cfg, i)) {
-      const held = t.wipe === i;
-      ring(ctx, tasterGapCircle(l, cfg, col), l, 2, held, held && t.wiped ? 1 : 0, time);
-    }
-  }
-}
-
-function clamp(v: number): number {
-  return Math.max(0, Math.min(1, v));
-}
-
-function ring(
-  ctx: CanvasRenderingContext2D,
-  at: Circle,
-  l: Layout,
-  player: 1 | 2,
-  held: boolean,
-  pull: number,
-  time: number,
-): void {
-  const mine = l.role === "test" || (l.role === "p1") === (player === 1);
-  drawHandleRing(ctx, {
-    x: at.x,
-    y: at.y,
-    r: at.r,
-    hex: mine ? PALETTE.hull : PALETTE.dim,
-    rim: mine ? PALETTE.text : PALETTE.rock,
-    held,
-    pull,
-    time,
-    theirs: !mine,
-  });
 }

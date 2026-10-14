@@ -40325,3 +40325,19 @@ Bottleneck: the queue item named five pulls and two were done; finding which
 took as long as drawing the third.
 
 *Measured: 7 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-14 — THE TASTER's wipe and pry are pulls, not rings
+
+- reading: 5 min. Which of the three is a carry (the wipe, the pry) and
+  which a hold (the pin), and their reaches.
+- writing: 15 min. `taster-pulls.ts`, the drawing moved out of
+  `taster-grip.ts` with it, and the frame test counting knobs off the spy
+  rather than the discs a ring punched.
+- looking: 10 min. The autopilot never wipes, so the hurrying fan was posed
+  with `--boss-json` blades.
+- friction: 0 min.
+- landing: 5 min.
+
+Bottleneck: the frame test counted rings by the hole each punched in the
+background, which a knob does not, so the test had to change its way of
+counting before it could say anything.

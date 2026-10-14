@@ -20,12 +20,14 @@ import {
   runFrames,
   waveWith,
 } from "./frame-harness.js";
+import { spyPulls } from "./pull-spy.js";
 
 setDefaultTimeout(FRAME_TIMEOUT_MS);
 
 /**
- * **THE TASTER's three rings, drawn** — the other half of `taster-grip.ts`,
- * which `taster-grip.test.ts` asks only about as a hit test.
+ * **THE TASTER's three handles, drawn** (`taster-pulls.ts`) — the other
+ * half of `taster-grip.ts`, which `taster-grip.test.ts` asks only about as a
+ * hit test.
  *
  * A ring fills a flat disc in `PALETTE.background` before anything else
  * (`handle-draw.ts`), and the stage paints its own background with a gradient,
@@ -41,6 +43,11 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
  * is how much of the fan is gone. So a count on `p1` or `p2` is that seat's
  * handles, and `test` is both seats' — which is what makes the pair of cases
  * at the end a proof rather than a restatement.
+ *
+ * **The wipe and the pry are pull knobs** since 14 October 2026
+ * (`taster-pulls.ts`), which punch no disc, so a count here is the pin's
+ * punched rings and the seat's own knobs together, the knobs read off the
+ * shared spy (`pull-spy.ts`) rather than off the paint.
  */
 
 beforeAll(installCanvasGlobals);
@@ -102,24 +109,32 @@ function closed(world: World): TasterState {
 }
 
 function drawn(world: World, role: ViewRole): string {
+  return frame(world, role).text;
+}
+
+/** One frame's paint, and the pull knobs it asked for: its own, and the other seat's dim ones. */
+function frame(world: World, role: ViewRole): { text: string; mine: number; theirs: number } {
   const log: string[] = [];
-  runFrames(world, role, 3, {
-    every: 3,
-    onCanvas: (c) => {
-      c.log = log;
-    },
-  });
-  return log.join("|");
+  const { knobs } = spyPulls(() =>
+    runFrames(world, role, 3, {
+      every: 3,
+      onCanvas: (c) => {
+        c.log = log;
+      },
+    }),
+  );
+  const theirs = knobs.filter((k) => k.theirs === true).length;
+  return { text: log.join("|"), mine: knobs.length - theirs, theirs };
 }
 
 function count(text: string, colour: string): number {
   return text.split(colour).length - 1;
 }
 
-/** How many rings are standing on this screen, net of the fan's own notches. */
+/** How many of the seat's own marks are standing on this screen, net of the fan's own notches. */
 function rings(world: World, role: ViewRole = "test"): number {
-  const text = drawn(world, role);
-  return count(text, PALETTE.background) - fan(world).shorn;
+  const { text, mine } = frame(world, role);
+  return count(text, PALETTE.background) - fan(world).shorn + mine;
 }
 
 /** The seats the pin and the pry are *his* on, and the ones the wipe is
@@ -193,9 +208,7 @@ describe("THE TASTER's rings", () => {
     );
     const hers = standing();
     hurrying(hers);
-    expect(count(drawn(hers, "p1"), PALETTE.dim)).toBeGreaterThan(
-      count(drawn(hers, "p2"), PALETTE.dim),
-    );
+    expect(frame(hers, "p1").theirs).toBeGreaterThan(frame(hers, "p2").theirs);
   });
 
   it.each(ROLES)("has none at all once the fan is going out, on %s", (role) => {
