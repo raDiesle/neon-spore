@@ -25,9 +25,12 @@ import type { GuideScene } from "../scene-types.js";
  * only names a verb the field is already saying is a page teaching the pair to
  * read the film instead of the fight. The petal it was written over stays —
  * aimed at her weak side rather than at the mark her middle is showing, which
- * are two different columns, and fired on the second of her two open beats
- * because the third is already shut. It is the film's picture of the fight
- * being answered, and it no longer needs a caption to be one.
+ * are two different columns, and fired in her *first* bloom, under the page
+ * about the marks. It was fired in her second until 14 October 2026, and on
+ * the ten-beat clock that one opens two beats after the torch has paid the
+ * hull and held the wave, so the film slid the cannon and then stood still
+ * (`test/scene-queen.test.ts`). It is the film's picture of the fight being
+ * answered, and it no longer needs a caption to be one.
  *
  * What is left is the two things the field cannot say: that one of two marks
  * is real and only one screen knows which, and that the torch comes on a clock
@@ -48,11 +51,11 @@ export const BULB_QUEEN: GuideScene = {
     // Under the *weak* mark rather than under the tell, and they are not the
     // same column: `tellCol` is what her middle is showing and the petal comes
     // off at `col + weakSide` (`bullet-hit-boss.ts`). Both of them move with
-    // her, so this is a measurement of where she has drifted to by beat twelve
-    // rather than a place chosen for her.
-    { tick: 630, control: "cannon", col: 3 },
-    { tick: 670, control: "cannon", col: 2 },
-    { tick: 770, control: "fireRed" },
+    // her, so this is a measurement of where she has drifted to by beat four
+    // — column 6, weak side right — rather than a place chosen for her. Her
+    // first bloom is cyan and stands open from beat 4 to beat 7.
+    { tick: 180, control: "cannon", col: 4 },
+    { tick: 270, control: "fireCyan" },
   ],
   steps: [
     // `marks` and not `body`: the ring has to hold *both* of them, or a page

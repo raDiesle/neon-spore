@@ -40081,3 +40081,16 @@ Bottleneck: the circular import between the body and its way, settled by
 splitting the hand into a third file.
 
 *Measured: 16 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-14 — BULB QUEEN's film takes a petal again
+
+- reading: 5 min. The film, `SceneRun` and the queen's state, to find where
+  her blooms and the torch fall on the ten-beat clock.
+- writing: 5 min. The two acts moved into her first bloom, the comment over
+  them, `scene-queen.test.ts`.
+- looking: 0 min. No picture: a probe printed the petal and the breach.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, `land`.
+
+Bottleneck: finding that the queen's column and petals live on her creature,
+not on `world.boss`.
