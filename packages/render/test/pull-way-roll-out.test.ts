@@ -54,6 +54,7 @@ const PULL_HANDLES: Readonly<Record<string, string>> = {
   "gauge-tooth-grip.ts": "THE GAUGE",
   "trapeze-marks.ts": "THE TRAPEZE",
   "taster-pulls.ts": "THE TASTER",
+  "vane-hands.ts": "THE VANE",
   "sling-pull.ts": "THE SLING",
 };
 

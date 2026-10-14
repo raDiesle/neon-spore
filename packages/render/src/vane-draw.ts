@@ -16,8 +16,9 @@ import { type Layout, tileCX, tileCY } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
 import { drawBearing, drawSplit } from "./vane-bearing.js";
 import { drawVaneGlanced } from "./vane-glance.js";
-import { drawVaneGrips, vaneHubAt, vaneTipPoint } from "./vane-grip.js";
+import { vaneHubAt, vaneTipPoint } from "./vane-grip.js";
 import { drawVaneGuards } from "./vane-guards.js";
+import { drawVaneGrips } from "./vane-hands.js";
 import { drawVaneAsked, drawVaneVerdicts } from "./vane-marks.js";
 import { drawArm } from "./vane-spar.js";
 
@@ -127,7 +128,7 @@ function drawMechanism(
   drawArm(ctx, l, px, py, hub, tx, ty, whip, hurt);
   // The two hands, under the tip so the ring circles it rather than covering
   // it, and over the spar so a thumb is never behind the thing it is on
-  // (`vane-grip.ts`) — and the asking under the rings (`vane-marks.ts`).
+  // (`vane-hands.ts`) — and the asking under them (`vane-marks.ts`).
   drawVaneAsked(ctx, l, cfg, b, world.beat, tip, time, pivot);
   drawVaneGrips(ctx, l, cfg, b, world.beat, tip, time, pivot);
 

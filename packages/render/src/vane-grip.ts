@@ -3,7 +3,6 @@ import {
   type VaneState,
   vaneArmAsks,
   vaneHousingAsks,
-  vanePhase,
   vanePinnedAt,
   vanePivotAt,
   vanePivotCol,
@@ -11,9 +10,8 @@ import {
   vaneTipAt,
   vaneTipCol,
 } from "@neon-spore/sim";
-import { drawHandleRing, handleRadius } from "./handle-draw.js";
+import { handleRadius } from "./handle-draw.js";
 import { type Circle, hitCircle, type Layout, tileCX, tileCY } from "./layout.js";
-import { PALETTE } from "./palette.js";
 import type { Field, Touch } from "./touch.js";
 import { bossOf } from "./touch-field.js";
 
@@ -42,8 +40,11 @@ import { bossOf } from "./touch-field.js";
  * **The housing's does not move while it asks**: it hangs over the pivot on
  * the arm's row, and it is asked only while a pin stands, when even the last
  * form's wandering pivot is held still (`vanePivotAt`). Her
- * ring rests just under the casing, clear of the hub, and she carries it
+ * knob rests just under the casing, clear of the hub, and she carries it
  * down, off the bearing (`sim/vane-hand.ts`).
+ *
+ * Both are drawn in `vane-hands.ts`; this file is where they stand and what
+ * a press on them takes hold of.
  */
 
 /** How far the tip dips below the bearing at mid-swing, in tiles. */
@@ -112,7 +113,7 @@ export function vaneArmCircle(
   return { x: tip.x, y: tip.y, r: handleRadius(l, cfg) };
 }
 
-/** The navigator's circle: under the casing, clear of the hub. */
+/** The navigator's circle: under the casing, clear of the hub, where her knob starts. */
 export function vaneHousingCircle(l: Layout, cfg: SimConfig, pivot = vanePivotCol(cfg)): Circle {
   const hub = vaneHubAt(l, cfg, pivot);
   const r = handleRadius(l, cfg);
@@ -178,70 +179,4 @@ function grab(
     command: { kind: "drag", target, on: true, fromMilli: 0, fromYMilli: 0 },
     hold: own ? { kind: "drag", target, player, originX: x, originY: y } : null,
   };
-}
-
-/**
- * Both rings, drawn from `drawVane` so the mechanism and the hands on it are
- * one drawing in the order they belong in — the arm's ring under the tip it
- * circles, the housing's under the casing it hangs off.
- *
- * **Each is drawn on both screens, yours bright and theirs dim**, the bargain
- * `sinew-handles.ts` made for the same reason: the last pin of the fight needs
- * both their hands on the picture at once, and neither can feel the other's.
- *
- * **The dim copy fills nothing** (`theirs`, `handle-draw.ts`, 22 September
- * 2026). A ring fills its circle with the background before its own colour, to
- * read over whatever is behind it — and the arm's ring is *on* the tip and the
- * housing's is on the casing. The seat that may not press one cannot see the
- * wash inside, so its copy came out a hole bored through the mechanism. Theirs
- * is its rim and its wash over the metal now, and only the seat that may take
- * hold of it cuts.
- *
- * **The arm's ring stays up while the pin stands, drawn `held`** — which is
- * the ordinary convention and not an exception to it: the pin *is* his thumb,
- * held until he lifts it or the sweep tears it out `vanePinBeats` later
- * (`stepVanePin`). It is `vaneArmAsks` that says no there, because a
- * second press cannot start a pin that has already started, and the ring is
- * showing the one it did. A ring that vanished on the press would take the
- * fold line off both screens on the beat it began to matter, and the housing's
- * ring beside it would be hanging off nothing.
- */
-export function drawVaneGrips(
-  ctx: CanvasRenderingContext2D,
-  l: Layout,
-  cfg: SimConfig,
-  b: VaneState,
-  beat: number,
-  tip: { x: number; y: number },
-  time: number,
-  pivot = vanePivotCol(cfg),
-): void {
-  const asks = vanePhase(b.pins).asks;
-  if (asks === "shoot") return;
-  const pinned = vanePinnedAt(cfg, b, beat);
-  ring(ctx, { x: tip.x, y: tip.y, r: handleRadius(l, cfg) }, l, 1, pinned, time);
-  if (asks !== "haul" || !pinned) return;
-  ring(ctx, vaneHousingCircle(l, cfg, pivot), l, 2, b.hauled, time);
-}
-
-function ring(
-  ctx: CanvasRenderingContext2D,
-  at: Circle,
-  l: Layout,
-  player: 1 | 2,
-  held: boolean,
-  time: number,
-): void {
-  const mine = l.role === "test" || (l.role === "p1") === (player === 1);
-  drawHandleRing(ctx, {
-    x: at.x,
-    y: at.y,
-    r: at.r,
-    hex: mine ? PALETTE.rock : PALETTE.dim,
-    rim: mine ? PALETTE.text : PALETTE.rock,
-    held,
-    pull: held ? 1 : 0,
-    time,
-    theirs: !mine,
-  });
 }

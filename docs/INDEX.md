@@ -1483,6 +1483,7 @@ by hand never moves.
 | `packages/render/src/vane-guards.ts` | **THE VANE's guard arms, drawn**: one steel spar round the hub for every form after the first |
 | `packages/render/src/vane-glance.ts` | **THE VANE's bearing glances on its hub** — the owner, 9 and 10 October 2026 |
 | `packages/render/src/vane-marks.ts` | THE VANE's arm and housing asking a seat and answering a touch green or red, the way every mark does |
+| `packages/render/src/vane-hands.ts` | **THE VANE's two hands, drawn** — where they stand and what a press on them takes hold of is… |
 | `packages/render/src/valve-draw.ts` | **THE VALVE**: a squat iron drum standing over the middle of the field, one wheel in its face |
 | `packages/render/src/valve-marks.ts` | **THE VALVE's marks**: the three things on the drum that say a gesture — the wheel's mark |
 | `packages/render/src/valve-pose.ts` | **The clock THE VALVE is posed off** (§25, *Animation*): four poses — sealed and upright, listing one pin |

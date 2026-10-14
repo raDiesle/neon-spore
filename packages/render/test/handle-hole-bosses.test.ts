@@ -11,6 +11,7 @@ import {
 } from "@neon-spore/sim";
 import { CFG, FRAME_TIMEOUT_MS, installCanvasGlobals, waveWith } from "./frame-harness.js";
 import { added } from "./handle-hole-count.js";
+import { spyPulls } from "./pull-spy.js";
 
 setDefaultTimeout(FRAME_TIMEOUT_MS);
 
@@ -108,7 +109,7 @@ describe("THE THROAT's two rings, on the mouth and beside the root", () => {
   });
 });
 
-describe("THE VANE's two rings, on the mechanism", () => {
+describe("THE VANE's hands, on the mechanism", () => {
   it("punches the arm's disc on his screen and not on hers", () => {
     const { p1, p2, test } = added(vane("SWING"), vane("VEER"));
     expect(p1).toBe(1);
@@ -116,10 +117,16 @@ describe("THE VANE's two rings, on the mechanism", () => {
     expect(test).toBe(1);
   });
 
-  it("punches the housing's on hers once the pin is standing", () => {
-    const { p1, p2, test } = added(vane("SWING"), vane("SEIZE", true));
+  /**
+   * The housing is hauled by the field's pull knob since 14 October 2026
+   * (`vane-hands.ts`), which is not a ring and punches nothing of its own: its
+   * paint is held by the spy (`pull-spy.ts`), so what is left is the arm's.
+   * `vane-hands.test.ts` asks where the knob is and whose.
+   */
+  it("punches only the arm's once the pin is standing, the housing being a knob", () => {
+    const { p1, p2, test } = spyPulls(() => added(vane("SWING"), vane("SEIZE", true))).out;
     expect(p1).toBe(1);
-    expect(p2).toBe(1);
-    expect(test).toBe(2);
+    expect(p2).toBe(0);
+    expect(test).toBe(1);
   });
 });

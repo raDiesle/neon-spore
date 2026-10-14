@@ -40343,3 +40343,16 @@ background, which a knob does not, so the test had to change its way of
 counting before it could say anything.
 
 *Measured: 16 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-14 — THE VANE's housing is hauled by a knob, not pressed as a ring
+
+- reading: 5 min. The TASTER's pry as the pattern, and `vane-hand.ts` for
+  the haul's way and reach.
+- writing: 10 min. `vane-hands.ts`, the drawing moved out of a
+  `vane-grip.ts` at 247 lines, and a test of the knob, channel and arrow.
+- looking: 5 min. One frame posed with `--boss pins=1 --hold vaneArm=0`.
+- friction: 0 min.
+- landing: 5 min.
+
+Bottleneck: none worth the name — the TASTER lane had already cut the path,
+and the only choice was the knob's size against the hub above it.

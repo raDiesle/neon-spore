@@ -328,33 +328,6 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/skipped.test.ts` holds the listing's count of the entries
 `next` stepped past and why.
 
-## Five pulls with no knob read as taps now their box is gone
-
-- **Found:** 2026-10-13, claude/director-pull-control-visuals-2a801c
-- **Taken:** 2026-10-14, claude/queue-the-slings-cords-a-hold-then-a-pull-in-its-place (claim: claude/queue-five-pulls-with-no-knob-read-as-taps-now-their-b)
-- **Files:** `packages/render/src/gauge-tooth-grip.ts`, `packages/render/src/gauge-grip.ts`, `packages/render/src/taster-grip.ts`, `packages/render/src/vane-grip.ts`
-- **Asks:** Should THE GAUGE's tooth and tongue, THE TASTER's wipe and pry, THE VANE's housing and THE GALL's pull be drawn with the PULL LAB's knob, arrow and channel — or keep the plain rings they have?
-- **Answered:** 2026-10-13 — (a), the owner: each one's rings become `drawPullKnob` on a `drawPullTrack` the length of its pull, the arrow its sim's direction, over (b) rings with an arrow only and (c) leaving them.
-
-Since 13 October 2026 no grab on the field wears a scan box or a word
-(`asksGrab`, `boss-cue-shape.ts`). For the pulls that already draw the PULL
-LAB's knob — THE CURTAIN's hem, THE FLEET's wreck — that changes nothing a
-player needs; for these five the box and its word were the only things that
-said *pull* or *twist*, and what is left is a ring per tooth or part, which
-reads as a press. The owner, on THE GAUGE's card on CONTROLS › ON THE
-FIELD: it *shows "tap" … but this is category of PULL PAST A DISTANCE*. The
-options: (a) each one's rings become `drawPullKnob` on a `drawPullTrack` the
-length of its `…PullMilli`, the arrow its sim's direction; (b) keep the rings
-and add only the knob's arrow; (c) keep them as they are.
-
-THE GALL is done (2026-10-13, claude/field-controls-standardization-44b3b7,
-`render/gall-knob.ts`), and THE GAUGE (2026-10-14: the tongue had the
-two-way pull already, the teeth have a knob each, `gauge-tooth-grip.ts`),
-and THE TASTER (2026-10-14: the wipe and the pry, `taster-pulls.ts`; the pin
-is a hold and keeps its ring): `vane-grip.ts` is what is left.
-THE VANE's housing goes **down** (2026-10-14, the owner leaving it to the
-lane; `sim/vane-hand.ts`), so its arrow and channel point down.
-
 ## `bun run shot` cannot press and hold a point on a canvas
 
 - **Found:** 2026-10-13, claude/queue-tasks-968943
