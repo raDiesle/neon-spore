@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-14 · f1d4c5e33 — BULB QUEEN's film takes a petal again
+
+BULB QUEEN's rehearsal slid the cannon and fired at her second bloom, which on the ten-beat clock opens two beats after her torch has reached the hull and held the wave — so the film moved the cannon and then stood still. The shot now goes into her first bloom, cyan, at her weak side, under the page about the marks; a petal comes off before the torch pays the hull, and a test holds both. Exemption: a fix to something wrong — the film's acts did nothing.
+
 ## 2026-10-14 · 214d3e5eb — Queue: `land` misses a queue title wrapped across two lines
 
 The check that a lane closed a queue entry on purpose matches the title word for word in the lane's commit messages, so a title wrapped over a line break is not found and the landing is refused. Filed for a lane to compare with the whitespace collapsed.

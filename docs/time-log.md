@@ -40094,3 +40094,5 @@ splitting the hand into a third file.
 
 Bottleneck: finding that the queen's column and petals live on her creature,
 not on `world.boss`.
+
+*Measured: 4 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
