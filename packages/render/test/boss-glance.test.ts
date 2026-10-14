@@ -18,6 +18,7 @@ import {
 import { GORGE_GLANCE, GORGE_GLANCE_SIZE } from "../src/gorge-glance.js";
 import { HASP_GLANCE, HASP_GLANCE_SIZE } from "../src/hasp-glance.js";
 import { HIVE_GLANCE, HIVE_GLANCE_SIZE } from "../src/hive-glance.js";
+import { KEEL_GLANCE, KEEL_GLANCE_SIZE } from "../src/keel-glance.js";
 import { LEAD_GLANCE, LEAD_GLANCE_SIZE } from "../src/lead-glance.js";
 import { LEDGER_GLANCE, LEDGER_GLANCE_SIZE } from "../src/ledger-glance.js";
 import { MANTLE_GLANCE, MANTLE_GLANCE_SIZE } from "../src/mantle-glance.js";
@@ -95,6 +96,7 @@ const ROWS: readonly Row[] = [
   { name: "THE GIMBAL", record: GIMBAL_GLANCE, size: GIMBAL_GLANCE_SIZE, hold: 0 },
   { name: "THE SPOOL", record: SPOOL_GLANCE, size: SPOOL_GLANCE_SIZE, hold: 0 },
   { name: "THE HASP", record: HASP_GLANCE, size: HASP_GLANCE_SIZE, hold: 0 },
+  { name: "THE KEEL", record: KEEL_GLANCE, size: KEEL_GLANCE_SIZE, hold: 0 },
   { name: "THE MANTLE", record: MANTLE_GLANCE, size: MANTLE_GLANCE_SIZE, hold: 0 },
   { name: "THE NETTLE", record: NETTLE_GLANCE, size: NETTLE_GLANCE_SIZE, hold: 0 },
   { name: "THE RATCHET", record: RATCHET_GLANCE, size: RATCHET_GLANCE_SIZE, hold: 0 },

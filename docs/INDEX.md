@@ -1337,6 +1337,7 @@ by hand never moves.
 | `packages/render/src/keel-seam-look.ts` | What a locked segment's seam is painted from, read off the pose and `KeelFx` by `keel-draw.ts` |
 | `packages/render/src/keel-sway.ts` | **THE KEEL's loose segments heave on a swell** (`docs/spec/living-bosses.md` §1, the outline tier) |
 | `packages/render/src/keel-grip.ts` | **The thumb on THE KEEL** — the first of its hands lanes |
+| `packages/render/src/keel-glance.ts` | **THE KEEL glances**: every vertebra turns about its joint, offered on VERSUS `keel:glance` |
 | `packages/render/src/keel-fx.ts` | What THE KEEL leaves behind a frame: the **snap** of a segment as it locks |
 | `packages/render/src/keel-verdicts.ts` | **THE KEEL's joints answering a touch the way every mark does** (`mark-feedback.ts` |
 | `packages/render/src/keel-rock.ts` | **THE KEEL's rock**, the lump of iron the tail throws |

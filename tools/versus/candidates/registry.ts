@@ -35,6 +35,9 @@ import { HASP_SWAY } from "./hasp-glance/sway/index.js";
 import { HIVE_COCK } from "./hive-glance/cock/index.js";
 import { HIVE_LOOK_AROUND } from "./hive-glance/look/index.js";
 import { HIVE_SWAY } from "./hive-glance/sway/index.js";
+import { KEEL_COCK } from "./keel-glance/cock/index.js";
+import { KEEL_LOOK_AROUND } from "./keel-glance/look/index.js";
+import { KEEL_SWAY } from "./keel-glance/sway/index.js";
 import { LEAD_LOOK_AROUND } from "./lead-glance/look/index.js";
 import { LEAD_SWAY } from "./lead-glance/sway/index.js";
 import { LEDGER_COCK } from "./ledger-glance/cock/index.js";
@@ -160,6 +163,9 @@ export const VARIANTS: Variant[] = [
   SINEW_COCK,
   SINEW_LOOK_AROUND,
   SINEW_SWAY,
+  KEEL_COCK,
+  KEEL_LOOK_AROUND,
+  KEEL_SWAY,
   MANTLE_COCK,
   MANTLE_LOOK_AROUND,
   MANTLE_SWAY,

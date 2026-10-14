@@ -39478,3 +39478,15 @@ Bottleneck: the marks sit all across the bell, so no point could be held, and th
 Bottleneck: holding the straps' ties would have crushed the shell, since they sit near its narrow tail; turning about the middle moves them a tenth of a tile instead.
 
 *Measured: 5 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-14 — THE KEEL: a part that turns, so it is seen from a new side
+
+- reading: 5 min. `keel-draw.ts`, `keel-shape.ts`, the tendons in
+  `keel-pose.ts` and `keel-stop.ts`, to see that the joints are the marks.
+- writing: 10 min. The record about each joint, the tendons and the bolt's
+  stop read through it, three candidates, the pose's lookAt, the spec note.
+- looking: 5 min. One shot at the widest; each far end shortens into the dark.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: the joints are both the marks and whose half a step is, so only each vertebra about its own joint could turn, and a plate is a tile long.

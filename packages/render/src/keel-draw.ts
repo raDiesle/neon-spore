@@ -4,6 +4,7 @@ import type { BoltStops } from "./bolt-stop.js";
 import { drawHurt } from "./boss-hurt.js";
 import { rgba } from "./hex.js";
 import type { KeelFx } from "./keel-fx.js";
+import { drawKeelGlanced, keelGlancedTendons } from "./keel-glance.js";
 import { drawKeelFaces, drawKeelRing, drawKeelSocket } from "./keel-marks.js";
 import {
   keelArrived,
@@ -13,7 +14,6 @@ import {
   keelRockNow,
   keelSegs,
   keelSway,
-  keelTendons,
 } from "./keel-pose.js";
 import { KEEL_ROCK } from "./keel-rock.js";
 import { KEEL_SEAM } from "./keel-seam-look.js";
@@ -74,13 +74,17 @@ export function drawKeel(
   const shift = { x: fx.hurt.shakeX(time, l.tile), y: -fx.jolt * l.tile };
   ctx.translate(shift.x, shift.y);
   ctx.globalAlpha = 0.2 + 0.8 * arrived;
-  drawTendons(ctx, l, segs);
+  drawTendons(ctx, l, segs, time);
   segs.forEach((g, k) => {
     const inward = (n - 1) / 2 - k > 0 ? 1 : -1;
     const lag = s.locked[k] ? 0 : 0.25 * keelSway(k, beat, beatPhase, 0.8);
-    ctx.lineWidth = STROKE.inner;
-    ctx.strokeStyle = rgba(PALETTE.rock, 0.3 + 0.4 * keelBright(s, cfg, k, beat, beatPhase));
-    ctx.stroke(keelRibsPath(l, g.centre, g.slope, g.pose, inward, lag));
+    // Each vertebra turns about its joint, where a look takes one (`keel-glance.ts`).
+    drawKeelGlanced(ctx, l, g.centre, time, (c) => {
+      c.lineWidth = STROKE.inner;
+      c.strokeStyle = rgba(PALETTE.rock, 0.3 + 0.4 * keelBright(s, cfg, k, beat, beatPhase));
+      c.stroke(keelRibsPath(l, g.centre, g.slope, g.pose, inward, lag));
+      return [];
+    });
   });
   const open = keelOpen(s, cfg, beat, beatPhase);
   const socket = open > 0 ? drawKeelFaces(ctx, l, s, segs, open) : null;
@@ -88,7 +92,9 @@ export function drawKeel(
   segs.forEach((g, k) => {
     const heat = keelHeat(s, cfg, k, beat, beatPhase);
     const bright = keelBright(s, cfg, k, beat, beatPhase);
-    drawSegment(ctx, l, s, k, g, heat, bright, beatPhase, time, fx);
+    drawKeelGlanced(ctx, l, g.centre, time, (c) => [
+      drawSegment(c, l, s, k, g, heat, bright, beatPhase, time, fx),
+    ]);
   });
   drawKeelMarrow(ctx, l, s, segs, beatPhase);
   drawKeelHalos(ctx, l, cfg, s, segs, time);
@@ -102,13 +108,13 @@ export function drawKeel(
   const rock = keelRockNow(l, cfg, s, segs, beat, beatPhase);
   if (rock !== null) drawRock(ctx, l, rock, beat + beatPhase);
   ctx.restore();
-  stops?.aim(keelStopper(l, world, s, segs, rock, shift));
+  stops?.aim(keelStopper(l, world, s, segs, rock, shift, time));
 }
 
 /** The tendons between neighbouring segments: one line from each end to the next one's start, which a loose pair stretches. */
-function drawTendons(ctx: CanvasRenderingContext2D, l: Layout, segs: Seg[]): void {
+function drawTendons(ctx: CanvasRenderingContext2D, l: Layout, segs: Seg[], time: number): void {
   const p = new Path2D();
-  for (const [from, to] of keelTendons(l, segs)) {
+  for (const [from, to] of keelGlancedTendons(l, segs, time)) {
     p.moveTo(from.x, from.y);
     p.lineTo(to.x, to.y);
   }
@@ -121,7 +127,7 @@ function drawTendons(ctx: CanvasRenderingContext2D, l: Layout, segs: Seg[]): voi
  * One segment: the iron plate, lit by the one key light, its outline as
  * bright as the pose says, the blow over it, and a seam if locked — flaring
  * as it snaps, and white-hot while the cooldown has it hot
- * (`keel-seam-look.ts`).
+ * (`keel-seam-look.ts`). Answers with the plate's outline.
  */
 function drawSegment(
   ctx: CanvasRenderingContext2D,
@@ -134,7 +140,7 @@ function drawSegment(
   beatPhase: number,
   time: number,
   fx: KeelFx,
-): void {
+): Path2D {
   const plate = keelPlatePath(l, g.centre, g.slope, g.pose);
   ctx.fillStyle = rgba(PALETTE.rockDark, 0.95);
   ctx.fill(plate);
@@ -158,10 +164,11 @@ function drawSegment(
     ctx.stroke(plate);
   }
   drawHurt(ctx, plate, fx.hurt.value);
-  if (!s.locked[k]) return;
+  if (!s.locked[k]) return plate;
   const seam = keelSeamPath(l, g.centre, g.slope, g.pose);
   const pulse = keelPulse(s, k, beatPhase);
   KEEL_SEAM.paint(ctx, seam, { s, k, bright, pulse, snap: fx.snap(k), heat, beatPhase });
+  return plate;
 }
 
 /** The tail's rock, a lump of the same iron, falling. */

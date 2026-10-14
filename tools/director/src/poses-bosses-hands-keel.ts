@@ -20,7 +20,10 @@ export const KEEL_POSES: Pose[] = [
     "keel",
     "joint",
     "The leftmost joint lit over P1's half. P1 taps its ring; P2 does nothing.",
-    { hold: 6 },
+    {
+      hold: 6,
+      lookAt: "every vertebra turning about its joint — each far end shortening into the dark",
+    },
   ),
   bossPose("keel", "rest", "A segment locked and the spine resting. P1 and P2 wait.", {
     hand: keelHand,

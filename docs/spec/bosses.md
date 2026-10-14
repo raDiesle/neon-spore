@@ -8575,6 +8575,15 @@ test: `render/test/keel-verdict.test.ts`.
 
 **What is not built — a step seen from another side** (suggested 10 October 2026, after the owner on THE BASTION: *very 3 dimensional and even user action is 3d to rotate*). The spine turns, carrying joints across the middle of the screen, so whose half a joint is on changes while it is lit, and the seat it calls on is the one it has turned toward.
 
+**Offered (14 October 2026, VERSUS `keel:glance`).** A spine, so every
+vertebra turns, all six in step, each about its own joint
+(`packages/render/src/keel-glance.ts`): the joint is what a thumb taps and
+which half it stands on is whose it is, so neither moves. Each plate's far end
+shortens into the dark and back, its ribs and seam with it; the tendons stay
+strung between the turned ends, and a bolt meets the plates where they are
+drawn. It ships still, and VERSUS offers **SWAY**, **LOOK** and **COCK** at a
+third of half a plate's length on THE KEEL · JOINT.
+
 
 ## 11.42 THE VALVE — the boss one hand turns and the other hand stops
 

@@ -8,8 +8,8 @@ import {
   rodFoot,
   roundFoot,
 } from "./core-stop.js";
+import { keelGlancedPoint, keelGlancedTendons } from "./keel-glance.js";
 import { KEEL_SOCKET_R, keelSocketAt } from "./keel-marks.js";
-import { keelTendons } from "./keel-pose.js";
 import { KEEL_ROCK } from "./keel-rock.js";
 import { keelPlatePoints, type Point, type Seg } from "./keel-shape.js";
 import { KEEL_MARROW, keelMarrowAt } from "./keel-story.js";
@@ -23,7 +23,8 @@ import { STROKE } from "./palette.js";
  * the socket at its lower rim while it is open — `wrong` there in the other
  * colour — and otherwise the lowest of what is drawn over that x: the plates,
  * the tendons between them, and the lens while it is lit. All `shift` off
- * where they stand, as the jolt lays them.
+ * where they stand, as the jolt lays them, and the plates and tendons turned
+ * at `time` as each vertebra is (`keel-glance.ts`).
  *
  * The ribs hung under each plate and the cut faces the split shows are thin
  * strokes a bolt passes, and they are not met here.
@@ -35,12 +36,20 @@ export function keelStopper(
   segs: readonly Seg[],
   rock: Point | null,
   shift: Point,
+  time: number,
 ): Stopper {
   const lay = (p: Point): Point => ({ x: p.x + shift.x, y: p.y + shift.y });
+  // Met where each vertebra's turn draws it (`keel-glance.ts`).
   const feet: Foot[] = segs.map((g) =>
-    outlineFoot(keelPlatePoints(l, g.centre, g.slope, g.pose), shift.x, shift.y),
+    outlineFoot(
+      keelPlatePoints(l, g.centre, g.slope, g.pose).map((p) =>
+        keelGlancedPoint(l, g.centre, time, p),
+      ),
+      shift.x,
+      shift.y,
+    ),
   );
-  for (const [a, b] of keelTendons(l, segs))
+  for (const [a, b] of keelGlancedTendons(l, segs, time))
     feet.push(rodFoot(lay(a), lay(b), STROKE.outline * 0.7));
   const lens = keelMarrowLit(s) ? keelMarrowAt(l, s, segs) : null;
   if (lens !== null) {
