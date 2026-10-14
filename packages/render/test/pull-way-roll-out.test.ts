@@ -44,6 +44,7 @@ const PULL_HANDLES: Readonly<Record<string, string>> = {
   "lamprey-handles.ts": "THE LAMPREY",
   "latch-handles.ts": "THE LATCH",
   "bastion-handles.ts": "THE BASTION",
+  "chrysalis-handles.ts": "THE CHRYSALIS",
   "blister-turn-help.ts": "THE BLISTER",
   "blister-help.ts": "THE BLISTER",
   "gall-knob.ts": "THE GALL",

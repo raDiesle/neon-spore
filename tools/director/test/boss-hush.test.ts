@@ -96,6 +96,7 @@ const STILL: readonly BossKind[] = [
   "sinew",
   "antiphon",
   "bastion",
+  "chrysalis",
 ];
 
 interface Reading {

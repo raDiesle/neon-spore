@@ -40596,3 +40596,17 @@ Bottleneck: landing — a full `check:fast` is three minutes, and a missing
 index row cost a second one.
 
 *Measured: 25 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
+
+## 2026-10-14 — THE CHRYSALIS's marks and words
+
+- reading: 5 min. THE BASTION's grip, handles, verdicts and cue page, and
+  how THE MAZE's cue carries a rub's drop.
+- writing: 10 min. The grip, the knobs, the verdicts, the cue page, two
+  tests, and the director's four rows, two poses and the window and hush rows.
+- looking: 5 min. Two frames off AUTO, the slime rubbed and the quills lit.
+- friction: 0 min.
+- landing: 5 min. `imports:sort`, a CALL written through `markAt` for
+  `cue-verbs`, `index`, `check:fast`, `land`.
+
+Bottleneck: the director's tables, five files that each want the same four
+rows and are only found by the test that misses them.

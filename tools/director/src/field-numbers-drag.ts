@@ -63,6 +63,18 @@ export const DRAG_NUMBERS: Readonly<Record<string, readonly (keyof SimConfig)[]>
     "bastionSlackMilli",
     "bastionStrideMilli",
   ],
+  "THE CHRYSALIS'S LEFT QUILL": [
+    "bastionPullMilli",
+    "bastionSnapMilli",
+    "bastionSlackMilli",
+    "bastionStrideMilli",
+  ],
+  "THE CHRYSALIS'S RIGHT QUILL": [
+    "bastionPullMilli",
+    "bastionSnapMilli",
+    "bastionSlackMilli",
+    "bastionStrideMilli",
+  ],
   // A lever: carried to a depth and held.
   "THE LID'S CORD": ["lidTautMilli", "lidCordMilli", "lidBowMilli"],
   "THE BALLOON'S LEFT HANDLE": ["balloonTautMilli", "balloonHoldBeats"],

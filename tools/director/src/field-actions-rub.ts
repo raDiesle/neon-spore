@@ -25,7 +25,14 @@ export const RUB_ACTION: FieldAction = {
         "drop. THE MAZE's heart counts travel rather than reversals — move it to " +
         "a rub, or say why not.",
       rubLab: "8-one",
-      rows: ["THE CAPSTAN'S RUB", "THE MAZE'S HEART", "THE THROAT'S PUMP", "THE BLISTER'S RUB"],
+      rows: [
+        "THE CAPSTAN'S RUB",
+        "THE MAZE'S HEART",
+        "THE THROAT'S PUMP",
+        "THE BLISTER'S RUB",
+        "THE CHRYSALIS'S LEFT SLIME",
+        "THE CHRYSALIS'S RIGHT SLIME",
+      ],
     },
   ],
 };

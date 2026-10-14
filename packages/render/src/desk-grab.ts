@@ -1,6 +1,7 @@
 import { bastionGripSeatAt } from "./bastion-grip.js";
 import { batonGripSeat } from "./baton-grip.js";
 import { capstanGripSeat } from "./capstan-grip.js";
+import { chrysalisGripSeatAt } from "./chrysalis-grip.js";
 import { curtainHemSeat } from "./curtain-grip.js";
 import { filamentGripSeat } from "./filament-grip.js";
 import { governorGripSeat } from "./governor-grip.js";
@@ -201,6 +202,7 @@ export function markSeat(l: Layout, x: number, y: number, field: Field): 1 | 2 |
     trapezeGripSeat(l, x, y, field) ??
     pulseGripSeat(l, x, y, field) ??
     latchGripSeatAt(l, x, y, field) ??
-    bastionGripSeatAt(l, x, y, field)
+    bastionGripSeatAt(l, x, y, field) ??
+    chrysalisGripSeatAt(l, x, y, field)
   );
 }

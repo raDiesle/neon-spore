@@ -3,11 +3,13 @@ import { drawHurt } from "./boss-hurt.js";
 import { drawChrysalisHeart, drawChrysalisSacs } from "./chrysalis-belly.js";
 import { drawChrysalisQuills, drawChrysalisSlime } from "./chrysalis-coat.js";
 import type { ChrysalisFx } from "./chrysalis-fx.js";
+import { drawChrysalisHandles } from "./chrysalis-handles.js";
 import { drawChrysalisHide, drawChrysalisSilk } from "./chrysalis-hide.js";
 import { chrysalisPose } from "./chrysalis-pose.js";
 import { drawChrysalisReceipts } from "./chrysalis-receipts.js";
 import { type At, CHRYSALIS_SKIN_TILES, chrysalisReach } from "./chrysalis-shape.js";
 import { drawChrysalisRegrow, drawChrysalisShed } from "./chrysalis-shed.js";
+import { drawChrysalisHalos, drawChrysalisVerdicts } from "./chrysalis-verdicts.js";
 import { smoothstep } from "./ease.js";
 import type { Layout } from "./layout.js";
 import { showsChrysalisHeart } from "./view-role-clocks-c.js";
@@ -80,6 +82,11 @@ export function drawChrysalis(
   if (p.shed !== null) drawChrysalisShed(ctx, l, c, p.shed.skin, p.shed.k, reach);
   if (s.phase === "regrow" && on !== null) drawChrysalisRegrow(ctx, l, c, on, p.grow, p.pulse);
   drawChrysalisReceipts(ctx, l, c, fx);
+  // The marks, unshaken, where a thumb's hit test finds them (`chrysalis-grip.ts`).
+  fx.marks.note(s);
+  drawChrysalisHalos(ctx, l, world.cfg, s, time);
+  drawChrysalisHandles(ctx, l, world.cfg, s, time);
+  drawChrysalisVerdicts(ctx, l, world.cfg, s, time, fx.marks.verdicts);
 }
 
 /** The first step from the cursor on whose skin `which` takes, or null past the last. */

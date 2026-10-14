@@ -1,6 +1,7 @@
 import { type DragTarget, valveTurning, type World } from "@neon-spore/sim";
 import { bastionHandleStanding } from "./bastion-grip.js";
 import { capstanRubStanding, capstanSteerStanding, capstanTakesHand } from "./capstan-grip.js";
+import { chrysalisHandleStanding } from "./chrysalis-grip.js";
 import { gallPointCircle, gallTakesPress } from "./gall-grip.js";
 import { governorTapCircle } from "./governor-grip.js";
 import { lampreyHeadCircle, lampreyTailCircle, lampreyToothCircle } from "./lamprey-grip.js";
@@ -119,6 +120,17 @@ export function laterBossHandleCircle(
     // the gun ring is (`bastion-grip.ts`).
     const b = world.boss?.kind === "bastion" ? world.boss : null;
     return b === null ? null : bastionHandleStanding(l, world, b, target);
+  }
+  if (
+    target === "chrysalisQuillLeft" ||
+    target === "chrysalisQuillRight" ||
+    target === "chrysalisRubLeft" ||
+    target === "chrysalisRubRight"
+  ) {
+    // THE CHRYSALIS's quill knobs while the quills are lit, and its halves
+    // of slime while the slime is (`chrysalis-grip.ts`).
+    const b = world.boss?.kind === "chrysalis" ? world.boss : null;
+    return b === null ? null : chrysalisHandleStanding(l, world, b, target);
   }
   return undefined;
 }

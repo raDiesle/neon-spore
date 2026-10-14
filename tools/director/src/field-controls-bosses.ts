@@ -4,6 +4,7 @@ import { BALLOON_CONTROLS } from "./field-controls-balloon.js";
 import { BASTION_CONTROLS } from "./field-controls-bastion.js";
 import { BATON_CONTROLS } from "./field-controls-baton.js";
 import { CAPSTAN_CONTROLS } from "./field-controls-capstan.js";
+import { CHRYSALIS_CONTROLS } from "./field-controls-chrysalis.js";
 import { CURTAIN_CONTROLS } from "./field-controls-curtain.js";
 import { FILAMENT_CONTROLS } from "./field-controls-filament.js";
 import { FLEET_CONTROLS } from "./field-controls-fleet.js";
@@ -184,4 +185,6 @@ export const BOSS_FIELD_CONTROLS: readonly FieldControlDef[] = [
   ...LATCH_CONTROLS,
   // THE BASTION's slabs a side and the pilot's rim, each lit by the shell it takes off.
   ...BASTION_CONTROLS,
+  // THE CHRYSALIS's halves of slime and its quills a side, each lit by the skin it peels.
+  ...CHRYSALIS_CONTROLS,
 ];

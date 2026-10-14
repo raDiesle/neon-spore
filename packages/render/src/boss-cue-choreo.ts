@@ -11,6 +11,7 @@ import { lampreyCues } from "./boss-cue-read-zs.js";
 import { mimicCues } from "./boss-cue-read-zt.js";
 import { latchCues } from "./boss-cue-read-zu.js";
 import { bastionCues } from "./boss-cue-read-zv.js";
+import { chrysalisCues } from "./boss-cue-read-zw.js";
 import type { BossCue } from "./boss-cue-shape.js";
 import type { Layout } from "./layout.js";
 import { plumbCues } from "./plumb-marks.js";
@@ -35,6 +36,7 @@ const CHOREO_KINDS: ReadonlySet<BossState["kind"]> = new Set([
   "mimic",
   "latch",
   "bastion",
+  "chrysalis",
 ]);
 
 /** Whether `boss` is one of the choreographed kinds whose page is in this file. */
@@ -97,6 +99,9 @@ export function choreoCues(
     // THE BASTION's, a pull on each side's slab, a turn on the rim and a shot at the front gun, a shield under the charging node, and a shot under the port to the seat that sees it (`boss-cue-read-zv.ts`).
     case "bastion":
       return bastionCues(l, world, boss);
+    // THE CHRYSALIS's, a rub on each half of the slime, a pull on each side's quill, a shield under the swelling sac, and the heart's colour to the seat that sees it and its shot to the other (`boss-cue-read-zw.ts`).
+    case "chrysalis":
+      return chrysalisCues(l, world, boss);
     default:
       return [];
   }

@@ -4,6 +4,7 @@ import { bastionGripUnder } from "./bastion-grip.js";
 import { batonSocketUnder } from "./baton-grip.js";
 import { batonBeadUnder } from "./baton-tap.js";
 import { capstanRubUnder, capstanSteerUnder } from "./capstan-grip.js";
+import { chrysalisGripUnder } from "./chrysalis-grip.js";
 import { curtainHemUnder } from "./curtain-grip.js";
 import { filamentGrabUnder } from "./filament-grip.js";
 import { fleetGripUnder } from "./fleet-grip.js";
@@ -155,7 +156,8 @@ export function handleUnder(l: Layout, x: number, y: number, field: Field): Touc
     governorGripUnder(l, x, y, field) ?? // THE GOVERNOR's dial, the tap of a seat with a mark to land (`governor-grip.ts`).
     lampreyGripUnder(l, x, y, field) ?? // THE LAMPREY's mouth, the tapper's tap on a tooth, and the band round it, the pinner's thumb on the jaw (`lamprey-grip.ts`).
     latchGripUnder(l, x, y, field) ?? // THE LATCH's two grips on the tendril, this seat's taken and the partner's refused aloud (`latch-grip.ts`).
-    bastionGripUnder(l, x, y, field) // THE BASTION's slab knobs and its rim, this seat's taken and the partner's refused aloud (`bastion-grip.ts`).
+    bastionGripUnder(l, x, y, field) ?? // THE BASTION's slab knobs and its rim, this seat's taken and the partner's refused aloud (`bastion-grip.ts`).
+    chrysalisGripUnder(l, x, y, field) // THE CHRYSALIS's quill knobs and its halves of slime, this seat's taken and the partner's refused aloud (`chrysalis-grip.ts`).
   );
 }
 

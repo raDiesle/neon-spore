@@ -46,7 +46,4 @@ export const NO_ROW: Partial<Record<BossKind, NoRowWhy>> = {
   // Its one mark was the ring on the neck, and the owner took it out on 10
   // October 2026: the round asks for nothing on the body now.
   snake: "no-marks-file",
-  // Its simulation landed first (14 October 2026); its marks come with its look,
-  // and this line goes for a row when `chrysalis-marks.ts` is written.
-  chrysalis: "no-marks-file",
 };

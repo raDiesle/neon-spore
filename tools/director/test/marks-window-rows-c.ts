@@ -1,6 +1,8 @@
 import {
   type BastionState,
   bastionLitStep,
+  type ChrysalisState,
+  chrysalisLitStep,
   type FlueState,
   flueLitLevel,
   type LampreyState,
@@ -35,6 +37,7 @@ import { mark, type Row } from "./marks-window-kit.js";
  */
 
 const bastion = (w: World) => w.boss as BastionState;
+const chrysalis = (w: World) => w.boss as ChrysalisState;
 const flue = (w: World) => w.boss as FlueState;
 const lamprey = (w: World) => w.boss as LampreyState;
 const latch = (w: World) => w.boss as LatchState;
@@ -134,7 +137,26 @@ export const ROWS_C: readonly Row[] = [
       mark(markFeedback, "drawMarkTheirs", (w) => bastionHandled(bastion(w))),
     ],
   },
+  {
+    // THE CHRYSALIS's halos and the partner's ring (`chrysalis-verdicts.ts`):
+    // on the halves of slime while the slime is lit, on the quill knobs while
+    // the quills are — never while the cocoon comes in, sheds or grows a skin
+    // back, and never on the sacs or the heart, which the shield and the
+    // cannon answer.
+    kind: "chrysalis",
+    roles: ["p1", "p2"],
+    marks: [
+      mark(markFeedback, "drawMarkHalo", (w) => chrysalisHandled(chrysalis(w))),
+      mark(markFeedback, "drawMarkTheirs", (w) => chrysalisHandled(chrysalis(w))),
+    ],
+  },
 ];
+
+/** Whether the lit skin is one a thumb takes off: the slime or the quills. */
+function chrysalisHandled(s: ChrysalisState): boolean {
+  const skin = chrysalisLitStep(s)?.skin;
+  return skin === "slime" || skin === "quills";
+}
 
 /** Whether the lit shell is one a thumb takes off: the armour or the gun ring. */
 function bastionHandled(s: BastionState): boolean {

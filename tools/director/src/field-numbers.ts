@@ -36,6 +36,10 @@ export const LITERAL: Readonly<Record<string, string>> = {
   "THE WELL'S WIND": "one tile of carry winds one sector (well-hand.ts)",
   "THE CAPSTAN'S RUB": "a reversal is a carry back past RUB_TURN (render/src/rub.ts)",
   "THE BLISTER'S RUB": "a reversal is a carry back past RUB_TURN (render/src/rub.ts)",
+  "THE CHRYSALIS'S LEFT SLIME":
+    "a reversal is a carry back past RUB_TURN (render/src/rub.ts); a half takes its step's rubs",
+  "THE CHRYSALIS'S RIGHT SLIME":
+    "a reversal is a carry back past RUB_TURN (render/src/rub.ts); a half takes its step's rubs",
   "THE BLISTER'S TURN": "a whole turn is sim/bearing.ts TURN",
   "THE WARDEN'S THUMB": "a level hold: down is held, up is let go (warden-open.ts)",
   "THE FILAMENT'S LINE": "the line moves one tile a beat",

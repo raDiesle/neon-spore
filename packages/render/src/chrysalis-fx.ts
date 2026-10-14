@@ -10,6 +10,7 @@ import {
   QUILL_TIP,
   quillAt,
 } from "./chrysalis-shape.js";
+import { ChrysalisVerdicts } from "./chrysalis-verdicts.js";
 import type { Burst } from "./effects-boss.js";
 import { fieldX } from "./field-flip.js";
 import { HullShock } from "./hull-shock.js";
@@ -70,6 +71,8 @@ export class ChrysalisFx {
   readonly shock = new HullShock();
   /** The blow a piece off and a skin off deal. */
   readonly hurt = new BossHurt();
+  /** What the marks said back to the last touch on each (`chrysalis-verdicts.ts`). */
+  readonly marks = new ChrysalisVerdicts();
 
   get flung(): readonly FlungQuill[] {
     return this.flungOf;
@@ -90,6 +93,7 @@ export class ChrysalisFx {
     beatSeconds: number,
     burst: Burst,
   ): void {
+    this.marks.ingest(events);
     for (const e of events) {
       if (!e.type.startsWith("chrysalis")) continue;
       const c = chrysalisCentre(l, cfg);
@@ -181,6 +185,7 @@ export class ChrysalisFx {
       this.sporesOf = this.sporesOf.filter((s) => s.now > 0);
     this.shock.update(dt);
     this.hurt.update(dt);
+    this.marks.update(dt);
   }
 
   clear(): void {
@@ -189,5 +194,6 @@ export class ChrysalisFx {
     this.sporesOf = [];
     this.shock.clear();
     this.hurt.clear();
+    this.marks.clear();
   }
 }

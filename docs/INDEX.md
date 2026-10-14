@@ -1203,6 +1203,7 @@ by hand never moves.
 | `packages/render/src/boss-cue-read-zt.ts` | **What THE MIMIC is asking for**: TILES round the picture on the screen that reads, TAP over the board on the one that paints, TAP on the bare core |
 | `packages/render/src/boss-cue-read-zu.ts` | **What THE LATCH is asking for**, page forty-seven of the readings |
 | `packages/render/src/boss-cue-read-zv.ts` | **What THE BASTION is asking for**, page forty-eight of the readings, a word for each shell's job |
+| `packages/render/src/boss-cue-read-zw.ts` | **What THE CHRYSALIS is asking for**, page forty-nine of the readings, a word for each skin's job |
 | `packages/render/src/boss-cue-read.ts` | **What THE GORGE, THE CURTAIN and BULB QUEEN are asking for** |
 | `packages/render/src/boss-cue-text.ts` | **A cue's two lines, drawn**: the verb under the mark, the kind of action over it |
 | `packages/render/src/boss-cue-field.ts` | **The one word the boss wants, drawn separately from `drawBodies` and after `drawShip`** (`canvas2d.ts`) |
@@ -2460,8 +2461,11 @@ by hand never moves.
 | `packages/render/src/chrysalis-draw.ts` | **THE CHRYSALIS** (§11.63): a living cocoon hung over the field on strands of silk |
 | `packages/render/src/chrysalis-fx.ts` | What THE CHRYSALIS leaves behind a frame (§11.63, *The receipts*): **the quills ripped out** |
 | `packages/render/src/chrysalis-hide.ts` | **THE CHRYSALIS's hide** (§11.63): the living body under the slime |
+| `packages/render/src/chrysalis-handles.ts` | **THE CHRYSALIS's quill knobs**, in the field's one look for a thumb's control (`pull-knob.ts` |
 | `packages/render/src/chrysalis-pose.ts` | **THE CHRYSALIS's pose**: where in its story the cocoon is this frame |
 | `packages/render/src/chrysalis-receipts.ts` | THE CHRYSALIS's receipts, drawn (§11.63): the quills ripped out flying off along their ways and dropping |
+| `packages/render/src/chrysalis-grip.ts` | **The thumbs on THE CHRYSALIS** (§11.63): a knob on each side's next quill, pulled along its track |
+| `packages/render/src/chrysalis-verdicts.ts` | **THE CHRYSALIS's marks answering a touch the way every mark does** (`mark-feedback.ts`, `grip-verdict.ts`) |
 | `packages/render/src/action-face.ts` | Player 1's action buttons, showing the ship doing the thing instead of spelling its name |
 | `packages/render/src/antiphon-draw.ts` | **THE ANTIPHON**: a smooth violet body hung over the top of the field above row 0 |
 | `packages/render/src/antiphon-depth.ts` | **THE ANTIPHON in depth**: the mantle is not a band painted across the top of the field but a long soft body… |
@@ -3209,6 +3213,7 @@ by hand never moves.
 | `tools/director/src/poses-field-controls-valve.ts` | THE VALVE's two hands, **each photographed from the seat whose half it is** |
 | `tools/director/src/poses-field-controls-capstan.ts` | THE CAPSTAN's rub: the left band asked for, the pilot's thumb pulled over so its face is round |
 | `tools/director/src/poses-field-controls-choir.ts` | THE CHOIR's SHAKE as the pair is offered it: a membrane on the field and the rub in the middle of it |
+| `tools/director/src/poses-field-controls-chrysalis.ts` | THE CHRYSALIS's thumbs: the slime lit with the pilot's thumb three turns into rubbing his half |
 | `tools/director/src/poses-field-controls-trapeze.ts` | THE TRAPEZE's controls, **each photographed from the seat whose control it is** |
 | `tools/director/src/poses-field-controls-bosses.ts` | Every boss's grips on the ON THE FIELD tab, in the tab's order: one file a boss |
 | `tools/director/src/poses-field-controls-bastion.ts` | THE BASTION's thumbs: the armour lit with the pilot's thumb carrying his next slab most of a pull out |
@@ -3786,6 +3791,7 @@ by hand never moves.
 | `tools/director/src/field-controls-well.ts` | **THE WELL's seam**, in a file of its own, the split every boss since THE INSTAR has made |
 | `tools/director/src/field-controls-curtain.ts` | **THE CURTAIN's hem**, in a file of its own, the split every boss since THE INSTAR has made |
 | `tools/director/src/field-controls-capstan.ts` | THE CAPSTAN's pull and rub, as two rows of the ON THE FIELD tab |
+| `tools/director/src/field-controls-chrysalis.ts` | THE CHRYSALIS's four thumbs, as four rows of the ON THE FIELD tab |
 | `tools/director/src/field-controls-hive.ts` | **THE HIVE's underside**, in a file of its own, the split every boss since THE INSTAR has made |
 | `tools/director/src/field-controls-hasp.ts` | THE HASP's latch and wheel, as rows of the ON THE FIELD tab |
 | `tools/director/src/field-controls-lead.ts` | **THE LEAD's stalk**, in a file of its own, the split every boss since THE INSTAR has made |

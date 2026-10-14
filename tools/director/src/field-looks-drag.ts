@@ -19,6 +19,10 @@ export const DRAG_LOOKS: Readonly<Record<string, UseLook>> = {
     find: "A knob in the middle of the next armour slab each side of the moon — left the pilot's, right the navigator's — with the arrow out along the slab's way.",
     move: "The slab comes off the moon after the thumb and its channel fills; past the pull it tears and flies off. Let go short and it snaps back red.",
   },
+  "THE CHRYSALIS'S LEFT QUILL": {
+    find: "A knob on the next quill each side of the cocoon — left the pilot's, right the navigator's — with the arrow out along the quill's way.",
+    move: "The quill stands out of the cocoon after the thumb and its channel fills; past the pull it rips and flies off. Let go short and it sinks back red.",
+  },
   "THE ANTIPHON'S RAIL": {
     find: "A knob on each candidate on the rail a third of the way down, on the chooser's screen, haloed once the organ stands.",
     move: "The candidate follows the thumb down its vein towards the organ; let go short and it springs back to the rail. The verdict is drawn round the organ on both screens.",
@@ -141,6 +145,10 @@ export const DRAG_LOOKS: Readonly<Record<string, UseLook>> = {
   "THE BLISTER'S RUB": {
     find: "THE RUB LAB's drop on a blister while it is up, a zigzag stroke on it for every blow, on the seat its BY names. The other seat sees the waiting clock.",
     move: "Every time the thumb turns back is one blow, one stroke lit and one pip gone. A thumb still rubbing when it sinks counts nothing more until it lifts.",
+  },
+  "THE CHRYSALIS'S LEFT SLIME": {
+    find: "THE RUB LAB's drop on each half of the slime over the cocoon — left the pilot's, right the navigator's — with RUB beside it.",
+    move: "Every turn back lights a stroke of the drop and thins the half; at its last the half drops away in globs. Lifted, the half keeps its turns.",
   },
   "THE CAPSTAN'S RUB": {
     find: "Either end of the drum where the cradle has rocked it, haloed on the screen of the seat that is not steering.",

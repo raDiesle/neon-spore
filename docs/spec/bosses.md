@@ -11987,12 +11987,27 @@ peels and as the grub dies, and the blow every piece and every skin deals.
 screens, the heart's split both ways, a piece off, the cocoon smaller a skin
 at a time, the peel, the regrow and the grub bare.
 
-**What is not built.** Its marks: the rub's track on each half, the quills'
-knobs and channels, the shield and fire cues, and their four touch answers.
-Its words (`boss-cue.ts`): `RUB`, `PULL`, `SHIELD`, `FIRE`. Its bolt
-stopping on the cocoon (`core-along.ts`). The guide is prose. **Never
-watched at tempo**: whether a pair can rub, pull, shield and call the
-heart's colour in time — the owner's eye.
+**Its marks** (`chrysalis-grip.ts`, `chrysalis-handles.ts`,
+`chrysalis-verdicts.ts`) are the field's one look for a thumb. A knob on each
+side's next quill, THE BASTION's slab knob on a spine, wearing its arrow and,
+on its own seat's screen, the channel of its track; and the whole of each
+half of the slime a rub, taken anywhere on it, its turns counted by the host
+(`rub-turns.ts`) and worn as THE RUB LAB's drop. This seat's open mark wears
+the halo, the partner's their ring and clock; a quill ripped and a half wiped
+green their mark, a quill sunk back reddens it, and a thumb on the partner's
+mark is sent through for the simulation to refuse aloud and reddens that
+mark. `render/test/chrysalis-grip.test.ts` proves each with real thumbs.
+
+**Its words** (`boss-cue-read-zw.ts`): `RUB` on each half with the drop's
+strokes lit by the turns it has had; `PULL` on each quill's knob until a
+thumb is on it; `SHIELD` at the hull under the sac swelling; and on the heart
+`COLOUR` at the pore to the pilot, who sees it, and `FIRE` at the hull under
+it, aimed at it, to the navigator — whose fire button is never told the
+colour. `render/test/boss-cue-chrysalis.test.ts`.
+
+**What is not built.** Its bolt stopping on the cocoon (`core-along.ts`).
+The guide is prose. **Never watched at tempo**: whether a pair can rub,
+pull, shield and call the heart's colour in time — the owner's eye.
 
 ## Retired
 

@@ -51,6 +51,8 @@ export const DRAG_TYPES: readonly ControlType[] = [
       "THE TRAPEZE'S RIGHT ZONE",
       "THE BASTION'S LEFT SLAB",
       "THE BASTION'S RIGHT SLAB",
+      "THE CHRYSALIS'S LEFT QUILL",
+      "THE CHRYSALIS'S RIGHT QUILL",
       "THE INSTAR'S MARKS",
       "THE MIRROR'S LOBES",
       "THE GALL'S TAPS AND PULL",
