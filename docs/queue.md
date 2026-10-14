@@ -331,6 +331,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## One generic PULL: the five rows moved over from the LEVER
 
 - **Found:** 2026-10-14, claude/lever-lab-depth-hold-6a9001
+- **Taken:** 2026-10-14, claude/queue-one-generic-pull-the-five-rows-moved-over-from-t
 - **Files:** `packages/sim/src/lid.ts`, `packages/sim/src/balloon-pull.ts`, `packages/sim/src/latch-hand.ts`, `packages/sim/src/instar-hand.ts`, `tools/director/src/field-actions-drag.ts`
 - **Asks:** THE LID's cord, THE BALLOON's handles, THE LATCH's grips and THE INSTAR's PULL DOWN / PULL UP now sit under PULL PAST A DISTANCE, but each still stands at the depth the thumb has it. Should they (a) keep their own rule and take only the generic knob and channel, or (b) move onto the one PULL rule, counted once at the reach — the lid's plates and the balloon's stretch then answering the count, not the depth?
 - **Answered:** 2026-10-14 — (b), the one PULL rule, counted once at the reach. The owner left it to the lane (*you decide all*); the lane took (b) because the owner filed them by what the thumb does, and the generic PULL's knob still follows the thumb on the way, so the plates, the stretch and the knot can keep following it while only the count moves to the reach.
