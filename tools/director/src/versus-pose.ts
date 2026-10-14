@@ -48,6 +48,7 @@ const SLOT_POSE: Record<string, string> = {
   "hive:glance": "THE HIVE · HANG",
   "reprise:glance": "THE REPRISE · RUNNING",
   "stare:glance": "THE STARE · LIVE",
+  "baton:glance": "THE BATON · PASSING",
 };
 
 /** The pose a slot gets when nothing in `SLOT_POSE` names it. */

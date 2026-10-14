@@ -96,7 +96,11 @@ export const CLOCK_BOSS_POSES: Pose[] = [
     "baton",
     "passing",
     "Beads pass down the arm. P1 or P2 taps one sitting in a socket; P2 bolts one in the air.",
-    { hold: 12 },
+    {
+      hold: 12,
+      lookAt:
+        "the knuckles down the arm — whether each twists toward one side about its socket, out of step, its far side going dark",
+    },
   ),
   bossPose(
     "undertow",

@@ -150,9 +150,9 @@ export function drawSocket(
   time: number,
   /** How red the blow of a landed bead still shows (`boss-blows.ts`). */
   hurt = 0,
-): void {
+): Path2D | null {
   const state = b.sockets[socket];
-  if (state === BATON_SOCKET_SHED) return;
+  if (state === BATON_SOCKET_SHED) return null;
   const { x, y } = socketPoint(l, cfg, b, socket);
   const lit = state === BATON_SOCKET_LIT;
   const swell = state === BATON_SOCKET_SWELL ? swellOf(cfg, b, beat, beatPhase) : 0;
@@ -183,4 +183,5 @@ export function drawSocket(
   paintKnuckle(ctx, ring, { x, y, r, tile: l.tile, lit, breath, swell, time, seed: socket });
   drawHurt(ctx, ring, hurt * alpha);
   ctx.globalAlpha = alpha;
+  return ring;
 }

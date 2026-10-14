@@ -2479,6 +2479,7 @@ by hand never moves.
 | `packages/render/src/baton-drop.ts` | **THE BATON's bead as a drop**, split off `baton-flesh.ts` when the cup's slosh took that file to its limit |
 | `packages/render/src/baton-bead-draw.ts` | THE BATON's bead — and its second, and the one the two become |
 | `packages/render/src/baton-grip.ts` | **THE BATON's own arm as a control**: the shell a thumb strips off a swelling socket |
+| `packages/render/src/baton-glance.ts` | **THE BATON's knuckles glance** — the owner, 9 and 10 October 2026: *body parts of living things turn . |
 | `packages/render/src/baton-socket-draw.ts` | **One socket of THE BATON's arm**, drawn |
 | `packages/render/src/baton-flesh.ts` | **What THE BATON's arm is made of**: a tendon hung from above the field |
 | `packages/render/src/baton-tube.ts` | **THE BATON's arm, as a tube of the rig** (`solid-tube.ts`): the tendon is a cord of flesh with a round back |

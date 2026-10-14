@@ -2,7 +2,8 @@ import type { Point } from "@neon-spore/content";
 import { type BatonState, batonAcross, batonSlot, type SimConfig } from "@neon-spore/sim";
 import { drawBead } from "./baton-bead-draw.js";
 import { strokeTendon } from "./baton-flesh.js";
-import { drawSocket, socketPoint } from "./baton-socket-draw.js";
+import { drawBatonGlanced } from "./baton-glance.js";
+import { drawSocket, socketPoint, socketReach } from "./baton-socket-draw.js";
 import { drawArmTube } from "./baton-tube.js";
 import { type Layout, tileCY } from "./layout.js";
 import { splinePath } from "./spline.js";
@@ -99,7 +100,11 @@ export function drawBaton(
     for (let i = 0; i < length; i++) {
       const grow = Math.max(0, Math.min(1, shown - i));
       if (grow <= 0) break;
-      drawSocket(ctx, l, cfg, b, first + i, grow, thread, beat, beatPhase, time, hurt);
+      // Each knuckle twists on the arm, when a glance is taken (`baton-glance.ts`).
+      const at = { ...socketPoint(l, cfg, b, first + i), r: socketReach(l) };
+      drawBatonGlanced(ctx, at, first + i, time, (g) =>
+        drawSocket(g, l, cfg, b, first + i, grow, thread, beat, beatPhase, time, hurt),
+      );
     }
   }
   // The crossing is the last flight, and the bead is the whole of it.

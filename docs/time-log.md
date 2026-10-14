@@ -39130,3 +39130,13 @@ Bottleneck: the hidden browser pane — measurements looked like a bug until
 the viewport was given a size and a screenshot forced a frame.
 
 *Measured: 5 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-14 — VERSUS offers THE BATON's knuckles glancing
+
+- reading: 5 min. The entry, §11.18, `baton-draw.ts`, `baton-socket-draw.ts`.
+- writing: 5 min. `baton-glance.ts`, the socket's draw answering its ring, the scaffold.
+- looking: 5 min. One VERSUS shot and a crop.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: none — the arm's knuckles were already drawn one at a time about a centre the grips share.

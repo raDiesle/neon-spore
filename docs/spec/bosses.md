@@ -3626,6 +3626,14 @@ held drag repeats its press on every move. At a desk the press is signed with
 the ring's own seat (`baton-grip.ts` `batonGripSeat`). One `GripVerdicts` in
 `BossBlows`, keyed by socket.
 
+**Offered (14 October 2026, VERSUS `baton:glance`).** Turning the arm would
+bend the line the beads are passed down, so what turns is each socket's
+knuckle (`packages/render/src/baton-glance.ts`, which ships still), twisting
+on the arm like a vertebra **about its own centre** — where the bead sits and
+a grip's ring finds it — each a little after the one above it, the far side
+narrowing into the dark. The beads do not turn. **SWAY**, **LOOK** and
+**COCK** (`glance-styles.ts`), judged on `THE BATON · PASSING`.
+
 ## 11.19 THE THROAT — the boss you answer by feeding it
 
 *Built 16–17 September 2026; **reworked 1 October 2026** at the owner's word —

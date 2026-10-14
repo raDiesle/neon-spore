@@ -1,4 +1,5 @@
 import { describe, expect, it } from "bun:test";
+import { BATON_GLANCE, BATON_GLANCE_SIZE } from "../src/baton-glance.js";
 import { CAIRN_GLANCE, CAIRN_GLANCE_SIZE } from "../src/cairn-glance.js";
 import { FLEET_GLANCE, FLEET_GLANCE_SIZE } from "../src/fleet-glance.js";
 import { type Glance, glancedPoint, glanceFrame, glanceStill } from "../src/glance.js";
@@ -62,6 +63,7 @@ const ROWS: readonly Row[] = [
   { name: "THE HIVE", record: HIVE_GLANCE, size: HIVE_GLANCE_SIZE, hold: 0 },
   { name: "THE REPRISE", record: REPRISE_GLANCE, size: REPRISE_GLANCE_SIZE, hold: 0 },
   { name: "THE STARE", record: STARE_GLANCE, size: STARE_GLANCE_SIZE, hold: 0 },
+  { name: "THE BATON", record: BATON_GLANCE, size: BATON_GLANCE_SIZE, hold: 0 },
 ];
 
 const R = 100;
