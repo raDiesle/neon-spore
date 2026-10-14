@@ -662,6 +662,7 @@ each, fill in the rows. Prove with `bun test packages/hands` and
 ## The wave pressure score, in content and on the wave list
 
 - **Found:** 2026-10-14, claude/wave-plan
+- **Taken:** 2026-10-14, claude/wave-plan (claim: claude/queue-the-wave-pressure-score-in-content-and-on-the-wa)
 - **Files:** `docs/spec/wave-curriculum.md`, `packages/content/src/wave-regular.ts`, `tools/director/src/rail-marks.ts`
 - **Asks:** Is the curriculum's plan right as written — eight regular waves after every new thing, existing waves kept in order, the boss bands at twice AUTO's time?
 
