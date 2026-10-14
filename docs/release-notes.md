@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-14 · b336b7814 — VERSUS offers THE SLING's fork turning about its crotch
+
+`sling:glance` offers the whole fork a turn about its crotch — SWAY, LOOK or COCK — both tines, their cords and the cup yawing together, the near tine reaching out and the far one closing into the dark and back, on THE SLING · STILL. Each cord is carried with its tine and the marks round the cords follow them; a bolt meets the tines and cords where they are drawn. The record ships still, so the game draws what it did.
+
 ## 2026-10-14 · 7a3aad0fa — VERSUS offers THE PLUMB's bob turning under its beam
 
 `plumb:glance` offers the bob's sac a turn about its middle — SWAY, LOOK or COCK — the sac and the core in its belly yawing together on top of its own slow turn to show the core, the near flank opening and the far flank closing into the dark and back, on THE PLUMB · STILL. The hook, the beam, the chains and the stones a thumb pulls stay where they hang, and a bolt meets the sac where it is drawn. The record ships still, so the game draws what it did.

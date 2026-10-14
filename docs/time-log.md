@@ -39594,3 +39594,5 @@ Bottleneck: none to speak of — the stones a thumb pulls hang off the beam, not
 - landing: 5 min. `check:fast`, the commit, `land`.
 
 Bottleneck: the cool and the fire step ended the draw in two branches, so they were folded into one callback to draw the fork in one turned layer.
+
+*Measured: 15 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
