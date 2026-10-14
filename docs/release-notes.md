@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-14 · 361d7ce7e — THE HYDRA's marks: a knob across each neck, a lever on each coil, a tap on the open eye
+
+Each kind of head now asks for its own gesture on the field. A biting head's neck wears a knob to swipe across it the way its arrow points; a coil wears THE MAZE's lever, turned round the way it unwinds, the pilot's anticlockwise and the navigator's clockwise; an eye is tapped while it is open, and a tap on a shut one is refused aloud. The field says SWIPE, TURN and TAP beside them, and on the maws COLOUR to the pilot who sees the fire and FIRE to the navigator who sees the open maw. A thumb on the partner's mark is refused red, and every mark greens on its head stopped.
+
 ## 2026-10-14 · 5bc8da334 — THE LEAD's flights move to lead-flights.ts, off the line ceiling
 
 `drawFlights` — the shots climbing over the ridge, with its two constants — leaves `lead-draw.ts` for a file of its own, taking it from 250 lines to 211. Nothing drawn changes.

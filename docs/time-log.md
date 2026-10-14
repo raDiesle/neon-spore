@@ -40982,3 +40982,5 @@ Bottleneck: landing — the full check, for a forty-line move.
 
 Bottleneck: writing — six marks of three kinds, each a row in eleven tables
 outside the boss's own files.
+
+*Measured: 31 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
