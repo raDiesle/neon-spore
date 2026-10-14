@@ -39859,3 +39859,18 @@ Bottleneck: none to speak of — the glance is one call, and the wiring round it
 Bottleneck: the first answer — the whole flue turned about its sight — ran its near end off the screen, since a part as wide as the field has no room to open.
 
 *Measured: 8 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-14 — The lab doors out of the topbar; THE SIREN's every state on HELPERS
+
+- reading: 10 min. The lab doors and what pressed them; the siren, its
+  roster, the duty words and the three files where the field picks the
+  words; how HELPERS draws a row and which poses already existed.
+- writing: 15 min. Six doors and `lab-door.ts` out; a `top` crop,
+  `sirenWord` and `commsCall` exported, eighteen worlds, the states page and
+  its test.
+- looking: 10 min. Every state in the browser on both phones, which caught
+  the traded panels' words printed under the wrong phone.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, two commits, `land`.
+
+Bottleneck: the traded-panels row — the picture was right and the text under it was not, and only looking at the frame showed it.

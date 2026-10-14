@@ -25,7 +25,9 @@ export { ClaspFrames } from "./clasp-frames.js";
 // disc: the iris it wears, the notches it wore, and the two kept beside it
 // (`countdown-look.ts`).
 // Who speaks about each kind, and the word each seat's chip says — read by
-// the director's CONTROLS › HELPERS for the siren's roster.
+// the director's CONTROLS › HELPERS for the siren's roster, and the live call
+// and words its every-state rows print under each pair of screens.
+export { commsCall } from "./comms.js";
 export { TALKER } from "./comms-talker.js";
 export { drawCountMarks, showsCount } from "./countdown.js";
 export { dialCount, dialOver } from "./countdown-dial.js";
@@ -55,6 +57,7 @@ export {
   showsGaugeMarks,
   showsGaugeValve,
 } from "./gauge.js";
+export { GAUGE_DUTY } from "./gauge-crown.js";
 export { drawGaugeRound } from "./gauge-round.js";
 export { halo, haloSprite, strokeGlow } from "./glow.js";
 export { gripLabel } from "./grip.js";
@@ -150,7 +153,7 @@ export { P1_SKIN, P2_SKIN, type SeatSkin, seatSkin } from "./seat-skin.js";
 export { type Fracture, type Shard, shatter } from "./shatter.js";
 export { type Fall, type ShardPose, shardAt } from "./shatter-fall.js";
 export { drawStepGlyph, stepHex, stepLabel } from "./simon-glyph.js";
-export { sirenCentre } from "./siren.js";
+export { sirenCentre, sirenWord } from "./siren.js";
 export { type Arena, snakeArena } from "./snake-draw.js";
 export { drawSnakeRound } from "./snake-round.js";
 export { splinters } from "./splinter.js";

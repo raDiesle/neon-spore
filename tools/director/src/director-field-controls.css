@@ -111,3 +111,30 @@
   color: var(--gold);
   white-space: nowrap;
 }
+/* THE SIREN's every state (`helpers-siren-draw.ts`): the top of player 1's
+   phone beside the top of player 2's, stacked on a phone. */
+.field-control.siren-state {
+  max-width: max(var(--measure), 784px);
+}
+.siren-state-pair {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 12px;
+}
+.siren-state-pair figure {
+  margin: 0;
+  max-width: 100%;
+}
+.siren-state-pair figcaption {
+  color: var(--cyan);
+  font-size: 0.75rem;
+  letter-spacing: 0.03em;
+  margin-top: 6px;
+}
+.siren-state-pair .field-control-shot {
+  margin-top: 2px;
+}
+.siren-state-pair .field-control-shot:empty {
+  width: 380px;
+  aspect-ratio: 5 / 2;
+}

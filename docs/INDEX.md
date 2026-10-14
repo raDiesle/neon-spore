@@ -3642,6 +3642,9 @@ by hand never moves.
 | `tools/director/src/helpers-poses-faults.ts` | The frames CONTROLS › HELPERS draws for a **fault** (`helpers-faults.ts` |
 | `tools/director/src/helpers-shield.ts` | CONTROLS › HELPERS › **THE SHIELD** — every picture the field draws to say something about the shield |
 | `tools/director/src/helpers-siren.ts` | CONTROLS › HELPERS, after THE SHIELD: **THE SIREN** |
+| `tools/director/src/helpers-siren-draw.ts` | THE SIREN's every-state rows drawn (`helpers-siren-states.ts`): a heading CONTENTS lists |
+| `tools/director/src/helpers-siren-poses.ts` | The worlds THE SIREN's every-state rows are drawn from (`helpers-siren-states.ts`) |
+| `tools/director/src/helpers-siren-states.ts` | **Every state THE SIREN can be in, and every line it writes, each on the two phones at once** — the owner |
 | `tools/director/src/helpers-hidden.ts` | CONTROLS › HELPERS, **what one screen has and the other has not** |
 | `tools/director/src/helpers-tell.ts` | CONTROLS › HELPERS, the telling half of THE HIDDEN (`helpers-hidden.ts`) |
 | `tools/director/src/helpers-faults.ts` | CONTROLS › HELPERS, **WHEN A CONTROL BREAKS** |
@@ -3934,9 +3937,8 @@ by hand never moves.
 | `tools/director/src/library/rind-stage.ts` | The game's own rind, losing its layers on a card, each one drawn coming off by a shed of the caller's choosing |
 | `tools/director/src/library/countdown-assets.ts` | THE COUNT's four counts — how a body says how many beats are left, on the one screen that is shown it |
 | `tools/director/src/library/countdown-stage.ts` | The game's own count, drawn on a card wearing a look of the caller's choosing |
-| `tools/director/src/labs.ts` | **The director's labs, PULL, HOLD, PRESS, RUB, COMBO, SHIELD and LEVER**: each one's door in the topbar |
+| `tools/director/src/labs.ts` | **The director's labs, PULL, HOLD, PRESS, RUB, COMBO, SHIELD and LEVER**: the one the URL left open |
 | `tools/director/src/lab-shell.ts` | **Where a lab stands** — every lab (`labs.ts`) keeps its bar, its canvas and its rule; this is the rest |
-| `tools/director/src/lab-door.ts` | **A lab's door in the topbar opens its card** on CONTROLS › ON THE FIELD, scrolled to — the owner |
 | `tools/director/src/lever-lab-auto.ts` | **AUTO's thumb in THE LEVER LAB**, as `hold-lab-auto.ts` is the HOLD LAB's |
 | `tools/director/src/lever-lab-paint.ts` | One frame of THE LEVER LAB (`lever-lab.ts`): the PULL LAB's empty field and its FIZZ knob and channel |
 | `tools/director/src/lever-lab-readout.ts` | THE LEVER LAB's readout on its bar (`lever-lab.ts`): no word is drawn on the field |

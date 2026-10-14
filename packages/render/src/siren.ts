@@ -7,6 +7,7 @@ import type { Layout } from "./layout.js";
 import type { SeatNames } from "./seat-name.js";
 import { DIAL_R, drawDial, TICK } from "./siren-dial.js";
 import { drawSeat, pillWidth, SIREN_PAD, seatChip } from "./siren-seats.js";
+import type { ViewRole } from "./view-role.js";
 
 /**
  * The warning siren, top centre of the field, and the two seats' jobs either
@@ -104,6 +105,16 @@ export function sirenBottom(l: Layout): number {
   return sirenCentre(l).y + DIAL_R + DUTY_DROP + DUTY_HALF;
 }
 
+/**
+ * The word or words this seat owes the other about whatever split body is on
+ * the field, under the dial. Nothing else on the field writes a word here
+ * (`duty.ts`). The word is the panel's, which is what it is about. Exported
+ * for the director's HELPERS page, which prints what each seat reads.
+ */
+export function sirenWord(role: ViewRole, world: World): string | null {
+  return bossDuty(role, world) ?? dutyWord(role, world);
+}
+
 export function drawCommsSiren(
   ctx: CanvasRenderingContext2D,
   l: Layout,
@@ -116,10 +127,7 @@ export function drawCommsSiren(
 ): void {
   const call = commsCall(world);
   if (!call) return;
-  // And, under it, the word or words this seat owes the other about whatever
-  // split body is on the field. Nothing else on the field writes a word here
-  // (`duty.ts`). The word is the panel's, which is what it is about.
-  const word = bossDuty(l.role, world) ?? dutyWord(l.role, world);
+  const word = sirenWord(l.role, world);
   // **The chips are people, and a traded panel is not a traded person.** The
   // call is worked out by panel — the pilot's panel sees through a veil, and
   // THE FLUE's ember — so while the panels are traded (THE HANDOVER, or THE

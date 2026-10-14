@@ -2,6 +2,7 @@ import { DUTY_WORD, TALKER } from "@neon-spore/render";
 import type { CreatureKind } from "@neon-spore/sim";
 import type { HelperGroup } from "./helpers-def.js";
 import { SIREN_ON, STRIP_BUSY } from "./helpers-poses.js";
+import { SIREN_STATE_PARTS } from "./helpers-siren-draw.js";
 
 /**
  * CONTROLS › HELPERS, after THE SHIELD: **THE SIREN**, the one picture every
@@ -49,6 +50,9 @@ export const SIREN_GROUP: HelperGroup = {
       lookAt: "the blips along the top strip, and the eye over the one that needs a call",
     },
   ],
+  // Every state it can be in and every line it writes, on both phones
+  // (`helpers-siren-states.ts`).
+  parts: SIREN_STATE_PARTS,
 };
 
 /** One line of the roster: what lights the siren, who speaks, each chip's word. */

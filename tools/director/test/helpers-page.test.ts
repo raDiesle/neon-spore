@@ -24,6 +24,18 @@ import {
 } from "../src/helpers-poses.js";
 import { CANNON_FAULT, CODEX_ON, FLIP_ON, SHIELD_FAULT } from "../src/helpers-poses-faults.js";
 import { SIREN_GROUP, sirenRoster } from "../src/helpers-siren.js";
+import {
+  SIREN_DARK,
+  SIREN_EARLY,
+  SIREN_FENCE_OPEN,
+  SIREN_FENCE_SHUT,
+  SIREN_HARPOON,
+  SIREN_MINE_P1,
+  SIREN_TRADED,
+  SIREN_TWO_WORDS,
+} from "../src/helpers-siren-poses.js";
+import { SIREN_STATES, sirenLit, sirenReads } from "../src/helpers-siren-states.js";
+import type { Pose } from "../src/pose-kit.js";
 import { poseNamed } from "../src/poses.js";
 
 /**
@@ -78,9 +90,10 @@ describe("THE SIREN's roster", () => {
     expect(HELPER_GROUPS[at + 1]?.title).toBe("WHAT ONE SCREEN HAS AND THE OTHER HAS NOT");
   });
 
-  test("a group holds rows or smaller groups, never neither", () => {
+  test("a group holds rows, smaller groups or a table, never none", () => {
     const walk = (g: (typeof HELPER_GROUPS)[number]): void => {
-      expect((g.rows?.length ?? 0) + (g.parts?.length ?? 0), g.title).toBeGreaterThan(0);
+      const held = (g.rows?.length ?? 0) + (g.parts?.length ?? 0) + (g.table ? 1 : 0);
+      expect(held, g.title).toBeGreaterThan(0);
       for (const p of g.parts ?? []) walk(p);
     };
     for (const g of HELPER_GROUPS) walk(g);
@@ -137,5 +150,48 @@ describe("the frames built for HELPERS reach their moment", () => {
         faultsNow(pose.build()).map((f) => f.kind),
         pose.name,
       ).toContain(kind);
+  });
+});
+
+describe("THE SIREN's every state", () => {
+  test("each state's world puts the siren in the state its row says", () => {
+    const seen = new Set<string>();
+    for (const s of SIREN_STATES) {
+      const w = s.pose.build();
+      const lit = sirenLit(s, w);
+      const words = [sirenReads(s, w, "p1"), sirenReads(s, w, "p2")];
+      seen.add(s.pose.name);
+      // Only the dark state is unlit, and an unlit siren writes nothing.
+      if (s.pose === SIREN_DARK) {
+        expect(lit, s.pose.name).toBeNull();
+        expect(words, s.pose.name).toEqual([null, null]);
+      } else {
+        expect(lit === null ? false : lit.p1 || lit.p2, s.pose.name).toBe(true);
+        expect(
+          words.some((x) => x !== null),
+          s.pose.name,
+        ).toBe(true);
+      }
+    }
+    expect(seen.size).toBe(SIREN_STATES.length);
+  });
+
+  test("the cases the field picks say what their rows say they do", () => {
+    const read = (p: Pose, seat: "p1" | "p2") => {
+      const s = SIREN_STATES.find((x) => x.pose === p);
+      if (!s) throw new Error(p.name);
+      return sirenReads(s, p.build(), seat);
+    };
+    expect(read(SIREN_FENCE_OPEN, "p2")).toBe("FIND GAP FOR SHIELD");
+    expect(read(SIREN_FENCE_SHUT, "p2")).toBe("SHOOT THE CRACK");
+    expect(read(SIREN_MINE_P1, "p1")).toBe("SAY THE TILE");
+    expect(read(SIREN_HARPOON, "p2")).toBe("MOVE CANNON!");
+    expect(read(SIREN_TWO_WORDS, "p1")).toContain(" · ");
+    expect(SIREN_EARLY.build().creatures.length).toBe(0);
+    const traded = SIREN_STATES.find((x) => x.pose === SIREN_TRADED);
+    if (!traded) throw new Error("traded");
+    const w = SIREN_TRADED.build();
+    expect(sirenLit(traded, w)).toEqual({ p1: false, p2: true });
+    expect([sirenReads(traded, w, "p1"), sirenReads(traded, w, "p2")]).toEqual([null, "COLOUR"]);
   });
 });

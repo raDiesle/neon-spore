@@ -79,6 +79,7 @@ function cropRect(
     // above the grid rather than floating in a band of its own.
     return { x: left, y: l.gridTop - l.radarHeight, w: l.width, h: l.radarHeight + l.tile * 0.7 };
   }
+  if (crop === "top") return { x: left, y: 0, w: l.width, h: l.gridTop + 3 * l.tile };
   if (crop === "ship") {
     // The hull, five tiles of the field over it, and the whole band.
     const top = l.gridTop + (hullRow(cfg) - 5) * l.tile;

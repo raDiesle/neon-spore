@@ -23,6 +23,9 @@ export type CropKind =
   | "field"
   /** The warning strip along the top. */
   | "radar"
+  /** The top of the phone the whole width across: the run's line, the siren
+   * with its chips and words, the strip, and the field's first rows. */
+  | "top"
   /** A few tiles square, centred on what `Pose.at` names. */
   | "tile"
   /** The whole phone. */
