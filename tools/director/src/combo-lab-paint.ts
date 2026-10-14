@@ -31,9 +31,11 @@ import { strayReach } from "./pull-lab-stray.js";
  *
  * **The place the hold will stand wears the waiting clock** — the one a mark
  * only the partner is asked wears in the game (`drawMarkWait`) — from the
- * moment the knob is taken until the hold is counted, whether it waits on the
+ * moment a knob is on the field until the hold is counted, whether it waits on the
  * partner or on the beats (the owner, 12 October 2026: *show on placeholder a
- * clock symbol we use for other player to wait for him*). It stands in the
+ * clock symbol we use for other player to wait for him*) — and from before the
+ * knob is taken (14 October: *should already show the clock icon before the
+ * user started to pull it*). It stands in the
  * middle of the dashed place while the knob travels, and once the hold is on
  * slides up to the drop's shoulder, so SOAK's water wells up in the middle
  * uncovered (`drawHoldClock`, which every hold in the labs wears).
@@ -84,11 +86,8 @@ export function paintComboLab(ctx: CanvasRenderingContext2D, f: ComboFrame): voi
   }
 }
 
-/** The knob is taken, or held at the end, and nothing is counted yet: the clock is up. */
-const waits = (s: LabCombo): boolean =>
-  !s.waiting &&
-  (s.phase === "hold" ||
-    (s.phase === "pull" && (s.pull.phase === "held" || s.pull.phase === "full")));
+/** A knob is on the field and nothing is counted yet: the clock is up, before the thumb is. */
+export const waits = (s: LabCombo): boolean => !s.waiting;
 
 function paintPartner(ctx: CanvasRenderingContext2D, { combo, state, time }: ComboFrame): void {
   const track = combo.partner;
@@ -115,7 +114,7 @@ export function holdAskOf(combo: Combo): HoldAsk {
 }
 
 /** What the hold look is told while the knob is held at the end, or its count plays out. */
-function holdView(ctx: CanvasRenderingContext2D, f: ComboFrame): HoldView | null {
+export function holdView(ctx: CanvasRenderingContext2D, f: ComboFrame): HoldView | null {
   const { combo, state, time } = f;
   const ending = state.verdict === "counted" && state.since < ENDING ? state.since : null;
   if (state.phase === "pull" && ending === null) return null;
@@ -126,7 +125,8 @@ function holdView(ctx: CanvasRenderingContext2D, f: ComboFrame): HoldView | null
     r: HOLD_R,
     time,
     ask: holdAskOf(combo),
-    mark: true,
+    // Counted with the thumb still down, the drop boils away under it: no lift asked.
+    mark: !state.waiting,
     held: state.phase === "hold",
     fill: state.phase === "pull" ? 1 : state.fill,
     near: 0,

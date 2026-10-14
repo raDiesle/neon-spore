@@ -7,7 +7,7 @@ import { paintField } from "./pull-lab-paint.js";
 /**
  * One frame of the HOLD LAB (`hold-lab.ts`): the PULL LAB's empty field and
  * SOAK's drop in its middle — the one look every hold in the labs wears — with
- * the waiting clock on its shoulder while it is held, as THE COMBO LAB's holds
+ * the waiting clock on its shoulder from the moment it is up, as THE COMBO LAB's holds
  * have it (`drawHoldClock`). SOAK draws its own picture of the slip limit, the
  * drop leaning and reddening, so no ring is drawn round it. No finger over it
  * and no word on the field, as in the PULL LAB: the bar's readout says the verdict.
@@ -24,7 +24,7 @@ export function paintHoldLab(ctx: CanvasRenderingContext2D, f: HoldFrame): void 
   ctx.save();
   SOAK_HOLD.paint(viewOf(ctx, f.hold, f.ask, f.time));
   ctx.restore();
-  if (f.hold.phase === "held") drawHoldClock(ctx, HOLD_AT, HOLD_R, 1, f.time);
+  if (!f.hold.waiting) drawHoldClock(ctx, HOLD_AT, HOLD_R, 1, f.time);
 }
 
 const VERDICT_WORDS: Readonly<Record<string, string>> = {

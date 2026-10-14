@@ -1,6 +1,7 @@
 import { describe, expect, test } from "bun:test";
 import { pullTrackPoint } from "@neon-spore/render";
 import { comboLoop, comboThumb, holdSeconds } from "../src/combo-lab-auto.js";
+import { holdView, waits } from "../src/combo-lab-paint.js";
 import {
   COMBOS,
   type Combo,
@@ -14,6 +15,7 @@ import {
   pressCombo,
   tickCombo,
 } from "../src/combo-lab-rule.js";
+import { SOAK_HOLD } from "../src/hold-goo/index.js";
 import { COMBO_LAB, parsePlace, placeToSearch } from "../src/place.js";
 
 /**
@@ -140,4 +142,31 @@ describe("THE COMBO LAB in the URL", () => {
     expect(place.labSheet).toBe(false);
     expect(placeToSearch(place)).toBe("?sheet=controls&combolab=beats");
   });
+});
+
+describe("THE COMBO LAB's picture", () => {
+  const ctx = {} as CanvasRenderingContext2D;
+  const view = (c: Combo, s: LabCombo) =>
+    holdView(ctx, { combo: c, state: s, look: SOAK_HOLD, time: 0 });
+
+  test.each(COMBOS.map((c) => [c.key, c]))(
+    "%s: the clock is up before the knob is taken",
+    (_k, c) => {
+      expect(waits(freshCombo(c))).toBe(true);
+    },
+  );
+
+  test.each(COMBOS.map((c) => [c.key, c]))(
+    "%s: counted with the thumb still down, the drop boils away — no lift asked",
+    (_k, c) => {
+      const s = freshCombo(c);
+      pullWhole(c, s);
+      run(c, s, holdSeconds(c) + 0.1);
+      expect(s.phase).toBe("done");
+      const v = view(c, s);
+      expect(v?.mark).toBe(false);
+      expect(v?.ending).not.toBe(null);
+      expect(waits(s)).toBe(false);
+    },
+  );
 });

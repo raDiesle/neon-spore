@@ -32,7 +32,8 @@ import { LAB_KNOB, LAB_TILE, LAB_W } from "./pull-lab-shapes.js";
  * The partner's part is drawn as the game draws a partner's: the knob dim,
  * with no arrow and no channel; the mark with the turning ring that says
  * someone else is being waited on (`drawMarkTheirs`), and a verdict ring a tap.
- * The held mark wears the waiting clock on its shoulder, as every hold does.
+ * The mark wears the waiting clock on its shoulder from the moment it is up,
+ * before the thumb is on it, as every hold does.
  */
 
 type Partner = "pull" | "tap";
@@ -136,6 +137,7 @@ function holdPartner(p: Partner): ComboRule<HoldPartner> {
   return {
     key: p === "pull" ? "holdpull" : "holdtap",
     label: p === "pull" ? "HOLD WHILE THE PARTNER PULLS" : "HOLD WHILE THE PARTNER TAPS",
+    kind: "held",
     says:
       p === "pull"
         ? "a mark held until the partner has pulled theirs the whole way"
@@ -170,7 +172,7 @@ function holdPartner(p: Partner): ComboRule<HoldPartner> {
       ctx.save();
       look.paint({ ...viewOf(ctx, s.hold, ask, time), r: HOLD_R });
       ctx.restore();
-      if (s.hold.phase === "held") drawHoldClock(ctx, HOLD_AT, HOLD_R, 1, time);
+      if (!s.hold.waiting) drawHoldClock(ctx, HOLD_AT, HOLD_R, 1, time);
     },
     state(s) {
       const h = s.hold;

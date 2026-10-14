@@ -5,10 +5,12 @@ import { LAB_KNOB } from "../pull-lab-shapes.js";
 /**
  * **The waiting clock on a hold** — the one a mark only the partner is asked
  * wears in the game (`drawMarkWait`), drawn on every hold in the labs from the
- * moment it is taken until it is counted, whether it waits on the beats or on
- * the partner (the owner, 12 October 2026: *show on placeholder a clock symbol
- * we use for other player to wait for him*; 13 October: *general visuals the
- * user expects for consistency are always consistent … also with "hold lab"*).
+ * moment it is on the field — before the thumb is on it — until it is
+ * counted, whether it waits on the beats or on the partner (the owner, 12
+ * October 2026: *show on placeholder a clock symbol we use for other player to
+ * wait for him*; 13 October: *general visuals the user expects for
+ * consistency are always consistent … also with "hold lab"*; 14 October:
+ * *should already show the clock icon before the user started to pull it*).
  *
  * `u` is where it stands: 0 in the middle of the place a hold will come into
  * (THE COMBO LAB's dashed place at the end of a channel, while the knob still

@@ -20,11 +20,11 @@ import { PRESS_PULL } from "./combo-press-pull.js";
  * for each type of the ON THE FIELD sheet's one COMBO action, where the lab
  * stands once (`field-actions-combo.ts`, its `comboLab` keys):
  *
- * - **PULL, THEN HOLD** — the pull held at its end, for the partner or beats;
- * - **HOLD WHILE THE PARTNER PULLS / TAPS** — the hold first, the partner's
- *   part done only while it is down;
- * - **PRESS, THEN PULL** — the partner's press brings the pull;
- * - **HOLD, THEN PULL** — a hold counted, then a pull in its place.
+ * - `held` (`combo-kinds.ts`) — **PULL, THEN HOLD**, the pull held at its
+ *   end for the partner or beats; **HOLD WHILE THE PARTNER PULLS / TAPS**,
+ *   the hold first, the partner's part done only while it is down;
+ * - `chain` — **PRESS, THEN PULL** and **HOLD, THEN PULL**: a press or a
+ *   hold counted and gone, then a pull in its place.
  */
 
 /** A pull-then-hold combo (`combo-lab-rule.ts`) as the lab's rule. */
@@ -32,6 +32,7 @@ function pullThenHold(c: Combo): ComboRule<LabCombo> {
   return {
     key: c.key,
     label: c.label,
+    kind: "held",
     says: c.says,
     like: c.like,
     fresh: () => freshCombo(c),

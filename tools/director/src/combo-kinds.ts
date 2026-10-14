@@ -17,9 +17,29 @@ export interface ComboTally {
   strayed: number;
 }
 
+/**
+ * **The two kinds of combo**, which the lab's COMBO choice keeps apart — the
+ * owner, 14 October 2026: *same player different actions is not a combo —
+ * only when related to e.g. wait for something.*
+ *
+ * - **`held`** — one gesture kept while it waits: a pull held at its end, a
+ *   mark held down, until the partner has done theirs or the beats are up.
+ *   The thumb never leaves; the wait is what joins the two. Its hold wears
+ *   the waiting clock from the moment it is on the field.
+ * - **`chain`** — two gestures one after the other, each whole on its own:
+ *   the first is counted and gone, and only then does the second come in
+ *   where it was (`combo-then-pull.ts`). Not joined, so not a combo in the
+ *   owner's sense; kept in the lab because the second waits on the first.
+ *
+ * A new pair of gestures is a `chain` unless one of them is held through the
+ * other's whole.
+ */
+export type ComboKind = "held" | "chain";
+
 export interface ComboRule<S = unknown> {
   key: string;
   label: string;
+  kind: ComboKind;
   /** What the action is, in a sentence, and which rows of the CONTROLS page ask it. */
   says: string;
   like: string;

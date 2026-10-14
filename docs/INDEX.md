@@ -3414,9 +3414,10 @@ by hand never moves.
 | `tools/director/src/combo-lab-combos.ts` | **Every combo THE COMBO LAB plays**, in the order of its COMBO choice |
 | `tools/director/src/combo-lab.ts` | **THE COMBO LAB** — two gestures in one action, on an empty field |
 | `tools/director/src/combo-hold-partner.ts` | **HOLD WHILE THE PARTNER WORKS**, in THE COMBO LAB: this thumb holds a mark |
-| `tools/director/src/combo-hold-then-pull.ts` | **HOLD, THEN PULL**, in THE COMBO LAB — two gestures one after the other, each whole on its own (the owner |
+| `tools/director/src/combo-hold-then-pull.ts` | **HOLD, THEN PULL**, in THE COMBO LAB — a `chain` (`combo-then-pull.ts`): a mark held for its beats |
 | `tools/director/src/combo-kinds.ts` | **What every combo in THE COMBO LAB is**, whatever its two gestures are: a rule the lab's pointer drives |
-| `tools/director/src/combo-press-pull.ts` | **PRESS, THEN PULL**, in THE COMBO LAB — THE LAMPREY's tail in a `plug` (`sim/lamprey-plug.ts`) |
+| `tools/director/src/combo-press-pull.ts` | **PRESS, THEN PULL**, in THE COMBO LAB — a `chain` (`combo-then-pull.ts`), as HOLD, THEN PULL is |
+| `tools/director/src/combo-then-pull.ts` | **One gesture, then a pull in its place** — THE COMBO LAB's `chain` kind (`combo-kinds.ts`) |
 | `tools/director/src/rail-marks.ts` | The small glyphs in front of a wave's name in the rail: a boss, a panel, a guide |
 | `tools/land/say.ts` | What a landing says about itself before and after it happens |
 | `tools/maze/draw.ts` | Draw a sheet for THE MAZE: the walls of one circular maze |

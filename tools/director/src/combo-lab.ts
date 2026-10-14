@@ -1,5 +1,5 @@
 import type { Point } from "@neon-spore/content";
-import { type ComboRule, comboReadout } from "./combo-kinds.js";
+import { type ComboKind, type ComboRule, comboReadout } from "./combo-kinds.js";
 import { COMBO_RULES, comboRuleOf } from "./combo-lab-combos.js";
 import { choice, grouped } from "./field-try-bar.js";
 import { text } from "./gestures-page.js";
@@ -19,9 +19,9 @@ import { initialLab } from "./session.js";
  * this category*).
  *
  * Its one choice on the bar is **COMBO** — what the action is (`COMBO_RULES`,
- * `combo-lab-combos.ts`): a pull held at its end, a hold while the partner
- * works, a pull the partner's press brings, a hold and then a pull in
- * its place. Every hold in a combo wears the HOLD LAB's SOAK and nothing else (the owner,
+ * `combo-lab-combos.ts`), in two groups by its kind (`combo-kinds.ts`): HELD
+ * WHILE IT WAITS — a pull held at its end, a hold while the partner works —
+ * and ONE, THEN ANOTHER — a press or a hold, then a pull in its place. Every hold in a combo wears the HOLD LAB's SOAK and nothing else (the owner,
  * 12 October 2026: *all should follow "hold look" of "soak" to be consistent -
  * remove alternatives*); the pull is the game's own knob, FIZZ.
  *
@@ -70,16 +70,11 @@ export function openComboLab(first = "partner", opts: { host?: HTMLElement } = {
   bar.append(
     text("b", "COMBO LAB · TWO GESTURES IN ONE ACTION, ON AN EMPTY FIELD"),
     close,
-    choice(
-      COMBO_RULES.map((c) => [c.label, c.key] as [string, string]),
-      combo.key,
-      (k) => {
-        combo = comboRuleOf(k);
-        reset();
-        say();
-      },
-      "COMBO",
-    ),
+    ...comboChoice(combo.key, (k) => {
+      combo = comboRuleOf(k);
+      reset();
+      say();
+    }),
     choice(
       [
         ["1×", 1],
@@ -151,6 +146,30 @@ export function openComboLab(first = "partner", opts: { host?: HTMLElement } = {
 
   shell.mount({ bar, like, room, fit, frame });
   say();
+}
+
+const GROUPS: readonly [ComboKind, string][] = [
+  ["held", "COMBO · HELD WHILE IT WAITS"],
+  ["chain", "ONE, THEN ANOTHER"],
+];
+
+/** The COMBO choice, a group for each kind, one button lit across them all. */
+function comboChoice(first: string, pick: (key: string) => void): HTMLElement[] {
+  const buttons: HTMLElement[] = [];
+  const groups = GROUPS.map(([kind, name]) => {
+    const mine = COMBO_RULES.filter((c) => c.kind === kind).map((c) => {
+      const b = text("button", c.label);
+      b.classList.toggle("on", c.key === first);
+      b.addEventListener("click", () => {
+        for (const o of buttons) o.classList.toggle("on", o === b);
+        pick(c.key);
+      });
+      return b;
+    });
+    buttons.push(...mine);
+    return grouped(name, ...mine);
+  });
+  return groups;
 }
 
 /**

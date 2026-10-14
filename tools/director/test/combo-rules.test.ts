@@ -1,16 +1,14 @@
 import { describe, expect, test } from "bun:test";
 import type { Point } from "@neon-spore/content";
-import { pullTrackPoint } from "@neon-spore/render";
 import { soakReach } from "../../../packages/render/src/soak-water.js";
 import { HOLD_PULL, HOLD_TAP } from "../src/combo-hold-partner.js";
 import { HOLD_THEN_PULL } from "../src/combo-hold-then-pull.js";
 import type { ComboRule } from "../src/combo-kinds.js";
 import { COMBO_RULES, comboRuleOf } from "../src/combo-lab-combos.js";
-import { downShape } from "../src/combo-lab-rule.js";
 import { PRESS_PULL } from "../src/combo-press-pull.js";
 import { FIELD_ACTIONS } from "../src/field-actions.js";
 import { HOLD_AT } from "../src/hold-lab-rule.js";
-import { LAB_TILE, LAB_W } from "../src/pull-lab-shapes.js";
+import { LAB_TILE } from "../src/pull-lab-shapes.js";
 
 /**
  * Every combo THE COMBO LAB plays (`combo-lab-combos.ts`), through its own
@@ -95,37 +93,55 @@ describe.each([
 
 describe("PRESS, THEN PULL", () => {
   const r = PRESS_PULL;
-  const track = downShape(LAB_W * 0.3).track;
-  const at = (k: number): Point => {
-    const q = pullTrackPoint(track, k);
-    return { x: q.x, y: q.y };
-  };
+  const at = (k: number): Point => ({ x: HOLD_AT.x + LAB_TILE * 3.5 * k, y: HOLD_AT.y });
   const pull = (s: ReturnType<typeof r.fresh>, to: number): void => {
     r.press(s, at(0));
     for (let k = 0; k <= to + 0.0001; k += 0.05) r.move(s, at(Math.min(1, k)));
     r.lift(s);
   };
+  const pressed = (): ReturnType<typeof r.fresh> => {
+    const s = r.fresh();
+    r.press(s, HOLD_AT);
+    r.lift(s);
+    run(r, s, 0.6);
+    return s;
+  };
 
-  test("before the partner's press there is no knob to take", () => {
+  test("a pull before the press is only the press: no knob, and no count", () => {
     const s = r.fresh();
     pull(s, 1);
-    expect(r.tally(s)).toEqual({ counted: 0, refused: 0, strayed: 0 });
-    expect(r.state(s)).toContain("NO PULL YET");
+    run(r, s, 0.1);
+    expect(r.tally(s).counted).toBe(0);
+    expect(s.stage).toBe("pull");
   });
 
-  test("pressed, the knob comes in, and the whole way counts", () => {
-    const s = r.fresh();
-    run(r, s, 1.1);
+  test("pressed, the press is gone and the pull in its place, the whole way, counts", () => {
+    const s = pressed();
+    expect(r.state(s)).toBe("PRESSED · PULL IT");
     pull(s, 1);
     expect(r.tally(s)).toEqual({ counted: 1, refused: 0, strayed: 0 });
   });
 
-  test("counted and let go, the next round waits on the press again", () => {
-    const s = r.fresh();
-    run(r, s, 1.1);
+  test("after a count, a fresh press is asked", () => {
+    const s = pressed();
     pull(s, 1);
     run(r, s, 1);
-    expect(r.state(s)).toContain("NO PULL YET");
+    expect(s.stage).toBe("first");
+    expect(r.state(s)).toBe("WAITING");
+  });
+});
+
+describe("the two kinds", () => {
+  test("a combo held while it waits, and one gesture then another, each in their own group", () => {
+    const kinds = Object.fromEntries(COMBO_RULES.map((c) => [c.key, c.kind]));
+    expect(kinds).toEqual({
+      partner: "held",
+      beats: "held",
+      holdpull: "held",
+      holdtap: "held",
+      presspull: "chain",
+      thenpull: "chain",
+    });
   });
 });
 

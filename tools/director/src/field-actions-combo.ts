@@ -14,10 +14,11 @@ import type { FieldAction } from "./field-actions.js";
  * plays every type. A type's `comboLab` names which choice it is, said under
  * the type (`field-action-cards.ts`) rather than drawn a second time.
  *
- * There are five: a pull held at its end; a hold kept while the partner
- * pulls, or taps; a pull the partner's press brings; a hold loosed by a
- * swipe (once DRAW, THEN SWIPE under GRAB AND DRAG), which the lab plays as
- * a hold and then a pull in its place.
+ * There are five, of two kinds (`combo-kinds.ts`). **Held while it waits**: a
+ * pull held at its end; a hold kept while the partner pulls, or taps. **One,
+ * then another**, each whole on its own: a press, then a pull; a hold loosed
+ * by a swipe (once DRAW, THEN SWIPE under GRAB AND DRAG), which the lab plays
+ * as a hold and then a pull in its place.
  *
  * A row filed here is one whose gesture changes with the step, so it is on
  * every type a step of it uses with its `steps` line, as THE INSTAR's are —
@@ -87,11 +88,10 @@ export const COMBO_ACTION: FieldAction = {
       key: "presspull",
       title: "PRESS, THEN PULL",
       says:
-        "The knob is not on the field until the partner has pressed; then " +
-        "it comes in and is taken the whole way, the PULL LAB's own pull. " +
-        "It replaced a pull that could be taken at once and was thrown back " +
-        "if it got to the end before the press — the owner, 12 October " +
-        "2026: too difficult to understand.",
+        "Two gestures one after the other, each whole on its own: a press, " +
+        "counted and gone, and only then a pull, taken the whole way. In the " +
+        "game the press is the worker's and brings the holder's pull; the " +
+        "lab plays both on one seat.",
       comboLab: "presspull",
       rows: ["THE LAMPREY'S TAIL, IN A PLUG"],
     },

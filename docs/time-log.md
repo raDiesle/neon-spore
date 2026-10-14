@@ -39520,3 +39520,16 @@ Bottleneck: the two thumb marks sit off the drum's middle, so the turn is centre
 Bottleneck: the stop reads a foot by its share of the ridge's width rather than by points, so the turn had to answer as a squeeze per flank.
 
 *Measured: 5 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-14 — THE COMBO LAB: the clock before the pull, the finish under the thumb, and the two kinds
+
+- reading: 5 min. `combo-lab-rule.ts`, `combo-lab-paint.ts`, the hold and
+  press labs' rules and views, to see why the drop stayed full until the lift.
+- writing: 5 min. `combo-then-pull.ts` for both chains, PRESS, THEN PULL on
+  one seat, `ComboKind` and the grouped choice, the clock gate, the tests.
+- looking: 5 min. The lab driven by hand in the browser pane: clock idle,
+  count held, the press and then the pull; one shot.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: the counted pull-then-hold kept `mark: true`, so SOAK's full drop was painted over its own FIZZ until the hand came off.
