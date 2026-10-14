@@ -331,7 +331,6 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## Five pulls with no knob read as taps now their box is gone
 
 - **Found:** 2026-10-13, claude/director-pull-control-visuals-2a801c
-- **Taken:** 2026-10-14, claude/queue-the-slings-cords-a-hold-then-a-pull-in-its-place (claim: claude/queue-five-pulls-with-no-knob-read-as-taps-now-their-b)
 - **Files:** `packages/render/src/gauge-tooth-grip.ts`, `packages/render/src/gauge-grip.ts`, `packages/render/src/taster-grip.ts`, `packages/render/src/vane-grip.ts`
 - **Asks:** Should THE GAUGE's tooth and tongue, THE TASTER's wipe and pry, THE VANE's housing and THE GALL's pull be drawn with the PULL LAB's knob, arrow and channel — or keep the plain rings they have?
 - **Answered:** 2026-10-13 — (a), the owner: each one's rings become `drawPullKnob` on a `drawPullTrack` the length of its pull, the arrow its sim's direction, over (b) rings with an arrow only and (c) leaving them.
