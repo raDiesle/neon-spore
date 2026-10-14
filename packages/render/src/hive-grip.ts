@@ -13,7 +13,7 @@ import {
   type SimConfig,
   type World,
 } from "@neon-spore/sim";
-import { drawGripDial, drawGripRing } from "./grip-rings.js";
+import { drawGripDial } from "./grip-rings.js";
 import { drawVerdictRing, type GripVerdicts } from "./grip-verdict.js";
 import { handleRadius } from "./handle-draw.js";
 import { drawHaulKnob } from "./hive-haul-knob.js";
@@ -23,6 +23,7 @@ import { hiveSite, hiveSiteBelly, hiveUnderY, type Point } from "./hive-shape.js
 import { hiveWallSide, WALL_SITE } from "./hive-walls.js";
 import { type Circle, hitCircle, type Layout, tileCX } from "./layout.js";
 import { drawMarkHalo } from "./mark-feedback.js";
+import { drawSoakHold } from "./soak-hold.js";
 import type { Field, Touch } from "./touch.js";
 import { bossOf } from "./touch-field.js";
 import { showsHiveColor, showsHiveSwell } from "./view-role-clocks-b.js";
@@ -163,13 +164,14 @@ function swellingLobes(s: HiveState, cfg: SimConfig, beat: number): number[] {
 }
 
 /**
- * The rings, drawn after the body so each stands over its own wax — and at
+ * The handles, drawn after the body so each stands over its own wax — and at
  * most one kind of them, on at most one screen.
  *
- * Both wear a dial, and the two dials count opposite ways on purpose: the
- * pilot's empties as the clench runs out, because what he is racing is the
- * backlog the relax beat drops (`hive-step.ts`), and hers fills as her hold
- * goes on, because what she is waiting for is the end of it.
+ * Both count, and the two count opposite ways on purpose: the pilot's dial
+ * empties as the clench runs out, because what he is racing is the backlog
+ * the relax beat drops (`hive-step.ts`), and her lobe — the HOLD LAB's drop
+ * since the owner made every hold one, 13 October 2026 — fills with water as
+ * her hold goes on, because what she is waiting for is the end of it.
  *
  * Under a ring that asks, the halo; over the mass hauled home or a lobe
  * wrung, the verdict, on the screen that ring was drawn on
@@ -204,8 +206,7 @@ export function drawHiveGrip(
     const c = hiveLobeCircle(l, cfg, s, i, beat, beatPhase);
     const held = i === s.pinch;
     if (hiveLobeAsks(s, cfg, beat, i)) drawMarkHalo(ctx, c.x, c.y, c.r, time);
-    drawGripRing(ctx, c.x, c.y, c.r, held, time);
-    if (held) drawGripDial(ctx, c.x, c.y, c.r, phase);
+    drawSoakHold(ctx, c, c.r, { time, held, fill: held ? phase : 0 });
   }
   s.cols.forEach((col, i) => {
     const v = verdicts.at(hiveMarkKey(col, hiveOnWall(s, i) ? s.rows[i] : undefined));

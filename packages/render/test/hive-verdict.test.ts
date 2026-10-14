@@ -25,6 +25,7 @@ import {
   waveWith,
 } from "./frame-harness.js";
 import { spyPulls } from "./pull-spy.js";
+import { spyHolds } from "./soak-spy.js";
 
 setDefaultTimeout(FRAME_TIMEOUT_MS);
 
@@ -92,9 +93,12 @@ function rings(world: World, s: HiveState, role: ViewRole, v = new GripVerdicts(
   const log: string[] = [];
   ctx.log = log;
   const c = ctx as unknown as CanvasRenderingContext2D;
-  // The haul's knob is the PULL LAB's, which lights itself with gradients of its own: held.
-  spyPulls(() => drawHiveGrip(c, layout(role), CFG, s, world.beat, 0.4, 1.2, v));
-  return log.join("|");
+  // The haul's knob is the PULL LAB's and a lobe the HOLD LAB's drop, which
+  // light themselves with gradients of their own: held, and the drop named.
+  const { holds } = spyHolds(() =>
+    spyPulls(() => drawHiveGrip(c, layout(role), CFG, s, world.beat, 0.4, 1.2, v)),
+  );
+  return [...log, ...holds.map((h) => `drop ${h.o.held === true ? "held" : "calling"}`)].join("|");
 }
 
 describe("THE HIVE's handle asking", () => {
@@ -118,7 +122,23 @@ describe("THE HIVE's handle asking", () => {
     s.pinch = 2;
     s.pinchBeat = world.beat;
     expect(count(rings(world, s, "p2"), HALO)).toBe(0);
-    expect(rings(world, s, "p2")).not.toBe("");
+    expect(rings(world, s, "p2")).toContain("drop held");
+  });
+
+  it("fills her lobe's drop as the hold goes on", () => {
+    const world = hung();
+    const s = swelling(world);
+    s.pinch = 2;
+    s.pinchBeat = world.beat;
+    const c = stubCanvas().ctx as unknown as CanvasRenderingContext2D;
+    const fill = () =>
+      spyHolds(() =>
+        drawHiveGrip(c, layout("p2"), CFG, s, world.beat, 0.4, 1.2, new GripVerdicts()),
+      ).holds.find((h) => h.o.held === true)?.o.fill ?? -1;
+    const early = fill();
+    expect(early).toBeGreaterThanOrEqual(0);
+    world.beat += 1;
+    expect(fill()).toBeGreaterThan(early);
   });
 
   it("asks nothing of either seat once the mass is down", () => {

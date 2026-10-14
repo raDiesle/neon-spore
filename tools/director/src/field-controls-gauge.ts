@@ -26,7 +26,7 @@ export const GAUGE_CONTROLS: readonly FieldControlDef[] = [
   {
     name: "THE GAUGE'S BAND",
     where:
-      "a ring in the middle of the band, out at the rim, on player 2's " +
+      "the HOLD LAB's drop in the middle of the band, out at the rim, on player 2's " +
       "screen only — where the band is drawn at all — and only while it is " +
       "wound tight; haloed until her thumb is down, and green the moment it lands",
     seat:

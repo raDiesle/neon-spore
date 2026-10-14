@@ -16,8 +16,8 @@ export const OTHER_LOOKS: Readonly<Record<string, UseLook>> = {
     move: "The organ turns slowly in place while the thumb stays and stops the moment it lifts.",
   },
   "THE GAUGE'S BAND": {
-    find: "A ring in the middle of the band at the rim, on the navigator's screen only, while it is wound tight; haloed until her thumb is down.",
-    move: "Green as the thumb lands; the band opens to its full width and stops walking while she holds.",
+    find: "The HOLD LAB's drop in the middle of the band at the rim, on the navigator's screen only, while it is wound tight; haloed until her thumb is down.",
+    move: "Her thumb sinks in, green as it lands; the band opens to its full width and stops walking while she holds.",
   },
   "THE LEAD'S STALK": {
     find: "The HOLD LAB's drop on the organ at the stalk's tip, over the body's column on the navigator's screen, through the still.",
@@ -68,8 +68,8 @@ export const OTHER_LOOKS: Readonly<Record<string, UseLook>> = {
     move: "The lids part behind the hatch and the pupil stops walking for as long as the thumb stays; green when it lands.",
   },
   "THE HIVE'S WRING": {
-    find: "A ring on each swelling lobe, on the navigator's screen only; every swelling lobe but the one under her thumb wears the halo.",
-    move: "The lobe is held while the thumb stays and opens colourless; a lobe wrung washes green.",
+    find: "The HOLD LAB's drop on each swelling lobe, on the navigator's screen only; every swelling lobe but the one under her thumb wears the halo.",
+    move: "The drop sinks under the thumb and fills with water while she holds, and the lobe opens colourless; a lobe wrung washes green.",
   },
   // PRESS — TAP ON THE MARK, IN TIME
   "THE VALVE'S PIN": {

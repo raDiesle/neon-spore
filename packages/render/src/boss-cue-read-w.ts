@@ -91,7 +91,9 @@ export function gaugeCues(l: Layout, world: World, g: GaugeState): readonly Boss
   }
   if (gaugeBound(g) && !g.openThumb) {
     const mid = gaugeBandMid(dial, g);
-    out.push({ ...markAt(2, "HOLD", "HOLD", mid.x, mid.y, l, 80), why: "KEEPS IT OPEN" });
+    // The drop is the grip's, with her thumb in it (`gauge-grip.ts`).
+    const hold = markAt(2, "HOLD", "HOLD", mid.x, mid.y, l, 80);
+    out.push({ ...hold, why: "KEEPS IT OPEN", ownDrop: true });
   }
   if (callDue(g) && !gaugeSeated(world, g)) {
     const mid = gaugeBandMid(dial, g);

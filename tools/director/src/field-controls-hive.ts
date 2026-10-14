@@ -47,7 +47,7 @@ export const HIVE_CONTROLS: readonly FieldControlDef[] = [
   {
     name: "THE HIVE'S WRING",
     where:
-      "a ring on each lobe that is swelling, on its own site and lifted with " +
+      "the HOLD LAB's drop on each lobe that is swelling, on its own site and lifted with " +
       "the mass if the mass is up, on player 2's screen only — the nearest " +
       "of the two wins a thumb that covers both",
     seat: "player 2 only — the only seat a swell is drawn for at all, so the lobe about to open is hers to squeeze",

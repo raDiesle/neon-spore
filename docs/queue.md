@@ -328,25 +328,6 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/skipped.test.ts` holds the listing's count of the entries
 `next` stepped past and why.
 
-## Holds as the HOLD LAB's drop: THE GAUGE's band, THE QUEEN, THE HIVE
-
-- **Found:** 2026-10-13, claude/docs-control-visuals-consistency-d98efe
-- **Taken:** 2026-10-14, claude/queue-holds-as-the-hold-labs-drop-the-gauges-band-the
-- **Files:** `packages/render/src/gauge-grip.ts`, `packages/render/src/queen-grip.ts`, `packages/render/src/hive-grip.ts`, `packages/render/src/cue-helper.ts`
-
-Since 13 October 2026 every `HOLD` cue is the HOLD LAB's drop and says no
-word (`soak-hold.ts`, `saysHold`) — the owner, on CONTROLS › ON THE FIELD:
-*it should be our new standard button … why it still stays text "hold"*. The
-cue's drop knows nothing of the hold, so it calls even under a thumb and never
-fills, and these bosses still draw their own hold ring beside or under it.
-For each: draw the hold as `drawSoakHold` with the sim's own `held` and
-`fill` (the share of the hold done) and `theirs` on the partner's screen
-(with `drawMarkTheirs` and `drawMarkWait` over it, as THE INSTAR's HOLD BOTH
-does in `instar-marks.ts`), take its own ring and dial away, and stop the cue
-drawing a second drop on the same place (`markIsHere`/`drawCueHelper` in
-`cue-helper.ts`, or `framed: false` on the reading). Prove it with the frame
-tests and send one PNG of the card from ON THE FIELD.
-
 ## Holds as the HOLD LAB's drop: THE LAMPREY's tail and THE SLING's cords
 
 - **Found:** 2026-10-13, claude/docs-control-visuals-consistency-d98efe
@@ -698,3 +679,46 @@ context's tally — as `new Path2D` already is — for canvases `glance-layer.ts
 makes, remeasure the rows that move with a sentence each, and see whether
 `holdGlancesStill` can go. Prove it with the three budget files and
 `bun run check`.
+
+## Holds as the HOLD LAB's drop: THE QUEEN's marks
+
+- **Found:** 2026-10-13, claude/docs-control-visuals-consistency-d98efe
+- **Files:** `packages/render/src/queen-grip.ts`, `packages/render/src/queen.ts`, `packages/render/src/boss-cue-read.ts`
+- **Asks:** THE QUEEN's SCREAM hold as the HOLD LAB's drop: over each mark, under it, one drop in the gap between them, or keep the ring?
+
+THE GAUGE's band and THE HIVE's lobes became the drop on 14 October 2026;
+THE QUEEN was left, because her ring is drawn **outside** the mark on
+purpose and never fills it (`queen-grip.ts`'s header): the mark is half
+buried under the shell and is what player 1 reads to say what is coming,
+and a drop the ring's size (`RING_MUL`, 1.55 marks) laid over it hides it.
+The options:
+
+1. **Over each mark**, as every other hold: the drop on both marks, sunk
+   and filling (`queenHoldBeats` from `openBeat`) on the one under his
+   thumb. Hides the mark while it asks.
+2. **Under each mark**: drawn before the marks in `queen.ts`, so the mark
+   stands in the drop. The shell closes over both, so most of it is hidden.
+3. **One drop in the gap** between the marks on her column, where the cue's
+   own drop stands now, sunk whichever mark his thumb is on. The thumb is
+   not under it.
+4. **Keep the ring** and draw no drop, with `ownDrop` on the cue so it draws
+   none either.
+
+Whichever: `ownDrop: true` on the `HOLD` cue in `boss-cue-read.ts` for 1, 2
+and 4; the pry keeps its ring, being a tap; and the tests that count the
+ring's colour move to `test/soak-spy.ts`.
+
+## `bun run shot` finds no ON THE FIELD card for THE SCOUT's two holds
+
+- **Found:** 2026-10-14, claude/queue-holds-as-the-hold-labs-drop-the-scout-the-vane-t
+- **Files:** `tools/director/src/field-controls-scout.ts`, `tools/director/src/field-action-cards.ts`, `tools/frames/shot.ts`
+
+`bun run shot` with the selector `section.field-use:has(p.rows:has-text(...))`
+and the path `/?sheet=states&inner=controlsets&sub=field` says no element
+matches for THE SCOUT'S LINE, where the same selector finds THE VANE'S ARM
+and THE WELL'S SEAM. The lane worked round it by rendering the ship on a
+napi canvas. Find out whether THE SCOUT's two rows reach ON THE FIELD at all
+(their pose is `THE SCOUT · LADEN`, and `tools/frames/scout-press.ts` says
+the round never carries enough to offer them), and either show them or say
+on the sheet why not; a test that every row of the bosses' field controls
+has a card proves it.

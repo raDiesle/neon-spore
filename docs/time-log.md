@@ -40730,3 +40730,18 @@ Bottleneck: friction — shell quoting across fifty files cost as much as the
 writing; the edits wanted one TypeScript script from the start.
 
 *Measured: 63 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
+
+## 2026-10-14 — THE GAUGE's band and THE HIVE hold the HOLD LAB's drop
+
+- reading: 10 min. The three grips, and why THE QUEEN's ring stands outside
+  her half-buried mark.
+- writing: 15 min. The drop on THE GAUGE's band and on THE HIVE's lobes with
+  its water off the pinch, `ownDrop` on the band's cue, three tests moved
+  onto `spyHolds` and one new, and the cards.
+- looking: 5 min. Two cards.
+- friction: 5 min. One test run timed out at five seconds under load.
+- landing: 5 min.
+
+Bottleneck: reading — THE QUEEN's marks could not take the drop without
+hiding the mark the ring was put outside of, so she was put to the owner
+rather than converted.

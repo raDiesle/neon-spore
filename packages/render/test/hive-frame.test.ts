@@ -27,6 +27,7 @@ import {
 } from "./frame-harness.js";
 import { holdGlancesStill } from "./glance-held.js";
 import { spyPulls } from "./pull-spy.js";
+import { spyHolds } from "./soak-spy.js";
 
 setDefaultTimeout(FRAME_TIMEOUT_MS);
 
@@ -322,14 +323,13 @@ describe("THE HIVE's mass", () => {
   });
 
   it("squeezes a held lobe on the navigator's screen and nothing on the pilot's", () => {
-    const held = (role: ViewRole) => frame(role, (w) => pinched(w));
-    const loose = (role: ViewRole) => frame(role, (w) => swelling(w, 2));
-    expect(held("p2").text).not.toBe(loose("p2").text);
-    expect(count(held("p2").text, PALETTE.text)).toBeGreaterThan(
-      count(loose("p2").text, PALETTE.text),
-    );
+    // The lobe is the HOLD LAB's drop (`hive-grip.ts`), sunk under her thumb.
+    const sunk = (role: ViewRole, arrange: (w: World) => unknown) =>
+      spyHolds(() => frame(role, arrange)).holds.filter((h) => h.o.held === true).length;
+    expect(sunk("p2", (w) => pinched(w))).toBeGreaterThan(0);
+    expect(sunk("p2", (w) => swelling(w, 2))).toBe(0);
     // He is shown no swell at all, so a thumb on one is nothing on his screen.
-    expect(held("p1").text).toBe(loose("p1").text);
+    expect(spyHolds(() => frame("p1", (w) => pinched(w))).holds).toEqual([]);
   });
 
   it.each(ROLES)("collars a wrung breach on %s", (role) => {

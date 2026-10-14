@@ -4,9 +4,9 @@ import { gaugeOpenDial } from "./gauge-gape.js";
 import { gaugeDial } from "./gauge-round.js";
 import { drawGaugeTongueRing, gaugeTongueUnder } from "./gauge-tongue-grip.js";
 import { drawGaugeToothPulls, gaugeToothUnder } from "./gauge-tooth-grip.js";
-import { drawGripRing } from "./grip-rings.js";
 import { handleRadius } from "./handle-draw.js";
 import { type Circle, hitCircle, type Layout } from "./layout.js";
+import { drawSoakHold } from "./soak-hold.js";
 import type { Field, Touch } from "./touch.js";
 import { bossOf } from "./touch-field.js";
 import type { ViewRole } from "./view-role.js";
@@ -23,9 +23,11 @@ import type { ViewRole } from "./view-role.js";
  *
  * Each ring stands on the half of the picture its own seat is shown
  * (`showsGaugeValve`, `showsGaugeMarks`), which is the round's whole split: he
- * has never seen the band and she has never had a valve. The ring is
- * `queen-grip.ts`' — breathing until a thumb lands, filled once one has — so a
- * held band and a held mark read as one gesture across the whole game.
+ * has never seen the band and she has never had a valve. **Her band is the
+ * HOLD LAB's drop** (`soak-hold.ts`), calling until her thumb lands and sunk
+ * once it has — the owner, 13 October 2026, every hold the drop — and its
+ * cue draws no second one over it (`BossCue.ownDrop`, `boss-cue-read-w.ts`).
+ * It was `queen-grip.ts`' ring until then.
  *
  * **The ring is never standing when nothing would answer it.** The simulation
  * refuses a band that is not wound (`sim/gauge-hand.ts`), and the same
@@ -34,8 +36,8 @@ import type { ViewRole } from "./view-role.js";
  * control drawn where it is not answered, which is the thing `handles.ts`
  * exists to prevent.
  *
- * No dial on the ring. THE GORGE's tap carries one because it counts taps
- * out; this one lasts exactly as long as the thumb does.
+ * No water in the drop. THE GORGE's tap carries a dial because it counts
+ * taps out; this hold lasts exactly as long as the thumb does.
  */
 
 /** The ring in the middle of the band, out at the rim where the band is drawn. */
@@ -101,7 +103,7 @@ export function drawGaugeGrip(
   if (g.phase !== "play") return;
   if (showsGaugeMarks(role) && gaugeBandAsks(g)) {
     const c = gaugeBandGrip(l, cfg, dial, g);
-    drawGripRing(ctx, c.x, c.y, c.r, g.openThumb, time);
+    drawSoakHold(ctx, c, c.r, { time, held: g.openThumb });
   }
   const hand = handleRadius(l, cfg);
   if (showsGaugeMarks(role)) drawGaugeToothPulls(ctx, l, cfg, dial, hand, g, time);

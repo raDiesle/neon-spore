@@ -21,7 +21,8 @@ import {
   stubCanvas,
   waveWith,
 } from "./frame-harness.js";
-import { layout, playing, round } from "./gauge-grip-harness.js";
+import { bandAt, layout, playing, round } from "./gauge-grip-harness.js";
+import { spyHolds } from "./soak-spy.js";
 
 setDefaultTimeout(FRAME_TIMEOUT_MS);
 
@@ -76,6 +77,17 @@ describe("the rings", () => {
     expect(strokes("p2", playing({ boundBeat: 3, openThumb: true }))).toBeGreaterThan(
       strokes("p2", playing({ boundBeat: 3 })),
     );
+  });
+
+  it("are the HOLD LAB's drop on the band, sunk under her thumb and holding no water", () => {
+    const drop = (g: GaugeState) => spyHolds(() => strokes("p2", g)).holds;
+    const l = layout("p2");
+    const bound = playing({ boundBeat: 3 });
+    const at = bandAt(l, bound);
+    expect(drop(bound)).toEqual([
+      { at: { x: at.x, y: at.y }, r: at.r, o: { time: 1.2, held: false } },
+    ]);
+    expect(drop(playing({ boundBeat: 3, openThumb: true }))[0]?.o.held).toBe(true);
   });
 });
 
