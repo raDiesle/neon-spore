@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-14 · 2ea5acb1f — THE ANTIPHON's options are bigger again, and the place they are dragged to is small
+
+The candidates on the chooser's rail grew from 1.35 tiles to 1.6, and the two off the middle now hang two rows lower (antiphonRailDrop), so three that big fit across the field without touching. Their veins run from where they hang. The place in the middle they are dragged into is now the size of the knob: the vein's channel had been sized in tiles rather than off the knob as every other pull's is, which drew that place, its ghost and its splash 2.6 times too big.
+
 ## 2026-10-14 · 9644e61e0 — A bolt stops on THE CHRYSALIS where it is drawn, and is met there
 
 A shot up the cocoon bursts on the lower edge of the skin it wears now, and on the heart's pore while it beats, and the simulation judges it on that row rather than at the top of the field. The cocoon's row and the pore's depth are read from the simulation's own table, so the two cannot drift.
