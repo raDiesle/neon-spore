@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-15 · f07e5c209 — `bun run briefings:renumber` puts the briefings page back on today's waves
+
+Every `N · NAME` in §1 of `docs/spec/briefings.md` and the page's count of guided waves are rewritten from the wave order, so a block lane that has just run `waves:compose --write` — which now names the command — runs one command instead of fixing the page by hand. The count's wording is shared with the test that checks it.
+
 ## 2026-10-15 · 06bf8e82c — `land` reads a queue title its commit message wrapped across lines
 
 The guard that refuses a landing for queue entries it never closed now collapses whitespace in the lane's messages and in the title before comparing, so a `Closes:` title broken at 72 columns counts as named.

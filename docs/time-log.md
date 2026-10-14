@@ -41283,3 +41283,5 @@ backslash, so the regex went in through the editor instead.
 
 Bottleneck: friction — a script with regexes in it cannot be written in a
 heredoc here, and the refusal comes after the whole command is composed.
+
+*Measured: 5 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
