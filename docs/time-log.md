@@ -39785,3 +39785,5 @@ Bottleneck: none to speak of — the drop takes the ring's circle, so the hit te
   drift and a test's timeout — the commit, `land`.
 
 Bottleneck: a curve's length is bounded by the field round the moon, not by a number, so the shapes had to be fitted slot by slot before a line of the sim could be written.
+
+*Measured: 76 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

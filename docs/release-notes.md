@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-14 · 4bc045205 — THE BASTION: every shell two courses deep, plates pulled further and round curves
+
+The metal moon now comes apart in eight steps where it took four: two courses of armour, then six guns and eight, two lattices in different orders, and three ports then four. The moon shrinks only once both courses of a shell are off. Plates are pulled further — 2.4 tiles straight, where it was 1.8 — and the second course of armour is pulled along curves round the moon: a sweep of 3.5 tiles, a snake of 6.1 swinging in and out, a climb of 2.4. A thumb that strays more than 0.6 of a tile off a curve loses its plate, which snaps back, and no thumb can cut across a bend.
+
 ## 2026-10-14 · 2b2216d1b — THE LEDGER's root wears the HOLD LAB's drop, not the old ring
 
 The navigator's thumb on the cord's root — walking the foot while it pays out, plugging the socket after — was the violet handle ring with a dial, the look every hold wore before 13 October. It is the HOLD LAB's drop now, as every hold is: rippling to call the thumb, pressed in while held, its water rising as the foot's two beats run out and as the plug's grace is spent. Same circle, same hit test. Exemption: a look the owner asked for by name, 14 October 2026.
