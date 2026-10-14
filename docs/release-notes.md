@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-14 · d70fbb8c4 — THE WARDEN's rope bows toward the middle, and a thumb that strays drops it
+
+The rope's channel is no longer straight down: it drops the same seven tiles and bows a tile and a half toward the middle of the field halfway down (`warden-bow.ts`, `wardenBowMilli`), and the hand's progress is measured along it. A thumb more than a tile off the bow drops the rope with `pullStray` and holds nothing until it lifts. The tension is still counted in thousandths of the drop, so the hatch opens in proportion as before; the autopilot, the films, the desk keys and the director's poses all carry the rope along the bow. A look the owner asked for by name: every straight pull with room bends, THE WARDEN's cord first.
+
 ## 2026-10-14 · 72bb3c57d — The sim can measure a pull along a bent path, and fail a thumb that strays
 
 A pull's path is now a polyline in thousandths of a tile from the knob's rest (`pull-path.ts`): progress is the distance along it to the point nearest the thumb, looked for within the PULL LAB's window round the knob so a curve that doubles back is not jumped across, and a thumb more than a tile off it — the lab's half a tile, doubled for a finger — fails the pull with `pullStray`, heard and drawn as the short lift's refusal. Everything else is the straight pull's. No boss uses it yet; THE WARDEN, THE LID, THE SINEW and THE LATCH follow, one lane each.

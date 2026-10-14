@@ -40221,3 +40221,5 @@ does.
 Bottleneck: a pull that bends breaks every script that pulled it straight,
 and they are in five packages; the tension kept in taut's units is what let
 each of them change by one call.
+
+*Measured: 27 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
