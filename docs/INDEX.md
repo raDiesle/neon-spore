@@ -3698,6 +3698,7 @@ by hand never moves.
 | `tools/director/src/pull-lab-bar.ts` | The PULL LAB's bar (`pull-lab.ts`): the shape, the look, the speed |
 | `tools/director/src/pull-lab-canvas.ts` | **The PULL LAB's canvas** (`pull-lab.ts`): cut to its room, a pointer read into the pixels the pull runs in |
 | `tools/director/src/pull-lab-tune.ts` | **What the PULL LAB is tried on, and how loud**: the choices the owner asked for on 12 October 2026 |
+| `tools/director/src/pull-lab-moment.ts` | **A moment of the PULL LAB, with no page round it**: the pull as AUTO leaves it |
 | `tools/director/src/pull-lab.ts` | **THE PULL LAB** — the one generic PULL on an empty field, to be pulled by hand (the owner, 10 October 2026) |
 | `tools/director/src/versus-crop.ts` | One side of a VERSUS pair: a whole phone, drawn, shown through the window its pose's own `crop` cuts in it |
 | `tools/director/src/versus-diff.ts` | How two pictures of the same frame are compared — the pixel arithmetic behind `versus-seat.ts` |
@@ -4004,5 +4005,7 @@ by hand never moves.
 | `tools/director/src/rub-lab-rule.ts` | **The one generic RUB, as THE RUB LAB plays it** — the owner, 13 October 2026 |
 | `tools/director/src/rub-lab-sheet.ts` | **EVERY LOOK, EVERY STATE** — THE RUB LAB's sheet, as THE PRESS LAB's was one row per look |
 | `tools/director/src/rub-lab.ts` | **THE RUB LAB** — the one generic RUB on an empty field, to be rubbed by hand |
+| `tools/director/drop-sheet-paint.ts` | **The PULL LAB's own frames, painted through Skia into one PNG grid** |
+| `tools/director/drop-sheet.ts` | `bun run drop-sheet` — a moment of a PULL LAB pull, up close, with no browser |
 
 <!-- index:code:end -->

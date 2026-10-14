@@ -110,6 +110,9 @@
         "@neon-spore/sim": "workspace:*",
         "@neon-spore/style-guide": "workspace:*",
       },
+      "devDependencies": {
+        "@napi-rs/canvas": "1.0.9",
+      },
     },
     "tools/frames": {
       "name": "@neon-spore/frames",

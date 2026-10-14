@@ -2,6 +2,7 @@ import { describe, expect, test } from "bun:test";
 import { PULL_KNOB, pullTrackPoint } from "@neon-spore/render";
 import type { Variant } from "../../versus/variant.js";
 import { AUTO_SECONDS, autoThumb } from "../src/pull-lab-auto.js";
+import { MOMENTS, pullAt } from "../src/pull-lab-moment.js";
 import { pullLooks } from "../src/pull-lab-paint.js";
 import {
   freshPull,
@@ -21,7 +22,6 @@ import {
   type LabShape,
   labShape,
 } from "../src/pull-lab-shapes.js";
-import { MOMENTS, pullAt } from "../src/pull-lab-sheet.js";
 import { STRAY_TILES, type Stray, TOUCH_SLACK } from "../src/pull-lab-stray.js";
 
 /**

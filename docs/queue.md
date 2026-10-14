@@ -328,23 +328,6 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/skipped.test.ts` holds the listing's count of the entries
 `next` stepped past and why.
 
-## THE PULL LAB has no way to photograph a moment of a pull up close
-
-- **Found:** 2026-10-10, claude/pull-lab-animation-refinements-075bc8
-- **Taken:** 2026-10-14, claude/queue-the-pull-lab-has-no-way-to-photograph-a-moment-o
-- **Files:** `tools/frames/shot.ts`, `tools/frames/shot-flags.ts`, `tools/director/src/pull-lab-sheet.ts`
-
-Judging a GOO look means seeing one drop at a precise moment of AUTO's loop — the frame a count's fizz starts, the frame a SQUISH grab lands — at many times its size. The EVERY LOOK sheet's cells are 150 px for a whole track, `bun run shot` photographs an element at whatever moment the page is in, and the in-app browser pane, hidden, pauses `requestAnimationFrame`, so the lab's clock does not move at all. Two lanes in a row wrote a throwaway for it; this one was a scratch Playwright script that replaces `performance.now` and `requestAnimationFrame` before the page loads, opens the lab, presses bar buttons by their words, steps the clock in 20 ms frames, enlarges the canvas buffer and crops a square round the drop into a grid. Make it a flag set on `shot`: `--pull-lab "<shape>"`, `--bar "FIZZ,FLAT"` (bar buttons by their words), `--at 0.82,0.9,1.5` (seconds of AUTO's loop) and `--crop x,y,size` in lab pixels, writing one PNG grid. A test that runs it against `--serve` and checks the PNG's size proves it.
-
-A third lane wrote it again on 11 October 2026 (claude/pull-lab-dotted-path-15b934): the waiting path with AUTO off, the ghost lighting the dots and then the place — a strip of eight canvas crops 0.8 s apart. So `--bar` must also turn AUTO off (`○ AUTO`), and `--at` then counts seconds since the drop came in rather than of AUTO's loop.
-
-A fourth, the same day (claude/pull-lab-placeholder-crater-fe6e88), went round the page instead: a scratch entry that calls `gooKnob(GOO)` straight onto a canvas for every DROP at chosen held moments (a fake `PullAfter` with `grabbed`), bundled by `bun build` and inlined into the HTML — `file://` refuses a module script beside it (CORS), and the director's dev server bundles, so `/src/...` cannot be imported from the page either. That is the cheaper half for a drop alone: `--drop-sheet` drawing `SOFT_DROPS` × moments without the lab at all.
-
-A fifth (claude/pull-lab-button-refinements-87bed1, 11 October 2026) found the cheapest way yet: no browser at all. `@napi-rs/canvas` is already a dependency of `packages/render` for `test/pixel-harness.ts`, so a scratch file under `packages/render/` that sets `globalThis.Path2D` to Skia's, imports the GOO knob (`packages/render/src/goo-knob.ts` since) by relative path, sets `GOO_DROP.look` and calls `gooKnob(GOO)` into a grid wrote a PNG in under a second. It cannot live under `tools/director/`, which does not depend on the canvas package. So `--drop-sheet` is best a `bun run drop-sheet "<DROP>" out.png` in `packages/render` or `tools/frames`, with `--r` and `--moments`, and needs neither a server nor `shot`.
-
-A sixth (claude/pull-lab-visual-refinements-253cc3, 11 October 2026) wrote the Skia scratch again, this time driving `paintLab` itself — `freshPull`, `autoThumb`, `press`/`move`/`lift`/`tick` at 1/60 s, as `pullAt` in `pull-lab-sheet.ts` does (that file imports `gestures-page.ts`, so the scratch copies the loop rather than importing it) — and cropping round the knob or round the start of the path. With one drop left (`GOO_DROP`), `--drop-sheet` is now best a `--crop knob|start|wide` and `--at` on that loop.
-
-A seventh (claude/pull-lab-visual-redesign-05e743, 12 October 2026) wrote that `paintLab` loop again, with no thumb at all (only `tick`) to see a waiting drop through the dots' run, one column per entry of `labLooks()` and one row per moment, at the flash (`RUN` in `goo-beat.ts`, 1.35 s) and the place's. So `--at` wants a `--wait` beside it, and a row per LOOK.
 ## The wave list's footnote still asks for a sentence no wave has
 
 - **Found:** 2026-10-11, claude/wave-grouping-organization-14abd6

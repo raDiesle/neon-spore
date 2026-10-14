@@ -125,6 +125,8 @@ bun run versus:shot <slot> <name>      # one PNG of one VERSUS candidate
 bun run png <in.svg> <out.png>         # rasterise a sheet
 bun run crop           # a rectangle of a PNG already taken, magnified — tools/frames/picture.ts
                        #   <in.png> <out.png> --at x,y,w,h --zoom 4 — versus:shot's spelling; positional still works
+bun run drop-sheet     # PULL LAB moments up close, painted through Skia, no browser — tools/director/drop-sheet.ts
+                       #   <shape> --at 2.2,2.3 --crop knob|start|wide --size 320 --wait --looks
 bun run pair <before.png> <after.png> <out.png>  # a before/after as one PNG — tools/frames/pair.ts
                        #   before left or on top; stacks crops, sets frames side by side; --stack|--beside, --gutter 8
 bun run sheet <prefix> <out.png>       # a strip of frames as one picture, so motion can be seen

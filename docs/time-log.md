@@ -40137,3 +40137,16 @@ Bottleneck: none — the item named the fix and the test.
 Bottleneck: finding that three of the four places the item named were done.
 
 *Measured: 6 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-14 — `bun run drop-sheet`: a PULL LAB moment up close
+
+- reading: 10 min. The seven throwaways the queue entry described, the lab's
+  sheet, its rule and its paint.
+- writing: 15 min. `pull-lab-moment.ts` cut out of the DOM sheet,
+  `drop-sheet-paint.ts` and its CLI, the canvas devDependency, a test.
+- looking: 5 min. Two sheets, one close on the knob, one the whole strip.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, `land`.
+
+Bottleneck: `pullAt` sat in a file that builds DOM, so nothing outside a page
+could call it.
