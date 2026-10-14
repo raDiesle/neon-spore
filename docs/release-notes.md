@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-14 · 10af664b7 — `bun run crop` clips a window that runs past the picture's edge
+
+A window that ran past the right or bottom edge used to come back at the full size asked for, with the overhang filled by the edge pixels repeated. That read as part of the picture stretched into a bar. Now the window is clipped to the picture, and `crop` says it clipped and to what. A window with nothing of the picture in it is refused, and the message gives the picture's size.
+
 ## 2026-10-14 · 02ad2ab21 — The PULL LAB's knob costs a sixth of what it did, drawn the same
 
 A pull knob took 0.38 ms a call on the stub canvas, and 86% of that was the rim's lumps: the five lobes' size, phase and speed were hashed from the seed again on each of the 44 samples of each of the dozen outlines a knob draws. They are now worked out once per seed (`goo-noise.ts`). The cap's wall, foot and face are one outline stood at eleven heights, and now share one rim (`goo-soft-cap.ts`). A knob is 0.064 ms now. THE ANTIPHON's marks-window row went from 4.5 s to 0.75 s.

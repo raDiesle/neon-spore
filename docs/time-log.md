@@ -40405,3 +40405,5 @@ it was the same five numbers hashed again on every sample.
 
 Bottleneck: none — a small fix whose answer the queue entry had already
 written.
+
+*Measured: 3 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
