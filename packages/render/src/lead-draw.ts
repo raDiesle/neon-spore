@@ -3,9 +3,10 @@ import type { BoltStops } from "./bolt-stop.js";
 import { drawHurt } from "./boss-hurt.js";
 import { strokeGlow } from "./glow.js";
 import { mixHex } from "./hex.js";
-import { type Layout, tileCX } from "./layout.js";
+import type { Layout } from "./layout.js";
 import { beadRim, moundContact, moundRim, paintLedge, stemHide } from "./lead-depth.js";
 import { paintBead, paintMound, paintStem, STEM } from "./lead-flesh.js";
+import { drawFlights } from "./lead-flights.js";
 import type { LeadFx } from "./lead-fx.js";
 import { drawLeadGlanced } from "./lead-glance.js";
 import { LEAN_LOOK } from "./lead-lean.js";
@@ -126,46 +127,6 @@ function drawRidge(
   paintRidge(ctx, body, ridge, fade);
   paintLedge(ctx, body, ridge, fade);
   return body;
-}
-
-/** How far above the ridge a flight climbs before it is judged, in tiles, and a bolt's length. */
-const FLIGHT_RISE = 0.9;
-const BOLT = 0.3;
-
-/**
- * The shots in the air: a white bolt over each flight's column, climbing
- * from the ridge's underside over the beats of the flight, on both screens —
- * the shot is the pilot's own and the column it went up is no secret from
- * anyone. It is judged on `dueBeat`, and on that beat it is at the top of its
- * climb; what happens to it there is the receipts' (`lead-fx.ts`).
- */
-function drawFlights(
-  ctx: CanvasRenderingContext2D,
-  l: Layout,
-  cfg: SimConfig,
-  s: LeadState,
-  beat: number,
-  beatPhase: number,
-  time: number,
-  fade: number,
-): void {
-  const ridge = leadRidgeY(l, cfg);
-  const beats = Math.max(1, cfg.leadFlightBeats);
-  for (const f of s.flights) {
-    const spent = Math.min(1, Math.max(0, (beat - (f.dueBeat - beats) + beatPhase) / beats));
-    const x = tileCX(l, f.col);
-    const y = ridge.bottom - spent * (ridge.bottom - ridge.top + FLIGHT_RISE * l.tile);
-    const p = new Path2D();
-    p.moveTo(x, y + BOLT * l.tile * 0.5);
-    p.lineTo(x, y - BOLT * l.tile * 0.5);
-    strokeGlow(
-      ctx,
-      p,
-      faded(PALETTE.text, fade),
-      STROKE.outline,
-      (0.9 + 0.3 * Math.sin(time * 14)) * fade,
-    );
-  }
 }
 
 /** The mound the stalk grows from: a low violet swell of flesh on the ridge, grey while it stands dead still (`lead-flesh.ts`). */

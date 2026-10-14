@@ -2431,12 +2431,13 @@ by hand never moves.
 | `packages/render/src/ledger-nerves.ts` | what the ship does under THE LEDGER's socket while a return comes down, as a record — ships drawing nothing, `ledger:nerves` patches it |
 | `packages/render/src/ledger-nerves-lit.ts` | **LIT** — the ship's nerves under the socket, lit by her shield standing under it |
 | `packages/render/src/ledger-aim.ts` | **Where the cannon has to stand to hurt THE LEDGER**, on the pilot's hull: the pull's dots and ghost from the cannon to a placeholder under the seam |
-| `packages/render/src/lead-draw.ts` | THE LEAD drawn: the ridge, the stalk of beads, the mound or the sill, the lock and the flights, split by seat |
+| `packages/render/src/lead-draw.ts` | THE LEAD drawn: the ridge, the stalk of beads, the mound or the sill and the lock, split by seat |
 | `packages/render/src/lead-drop.ts` | THE LEAD's run littering the field, past the burst it puts over the column |
 | `packages/render/src/lead-drop-torn.ts` | When the strand parts, as a share of the drop's beat |
 | `packages/render/src/lead-depth.ts` | **THE LEAD in depth**: the ridge is not a grey band laid across the top of the field but a ledge seen a… |
 | `packages/render/src/lead-fx.ts` | What THE LEAD leaves behind a frame: the spring the lean rides, the whip, the tumbling bead, the bursts |
 | `packages/render/src/lead-flesh.ts` | **What THE LEAD is made of**, the living part |
+| `packages/render/src/lead-flights.ts` | **THE LEAD's flights**: the shots climbing over the ridge until they are judged |
 | `packages/render/src/lead-shape.ts` | Where THE LEAD is in field pixels: the ridge, the foot, the stalk's length and the angle each seat is asked for |
 | `packages/render/src/lead-stop.ts` | **Where a bolt meets THE LEAD**, for `BoltStops` (`bolt-stop.ts`): the ridge's underside |
 | `packages/render/src/lead-grip.ts` | **THE LEAD's stalk as a control**, for the one movement that asks a thumb for it: the still |

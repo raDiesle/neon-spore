@@ -11,7 +11,7 @@ import { leadRidgePoints } from "./lead-shape.js";
  * What it meets there is what the simulation will do with it
  * (`leadVerdict`). While the stalk paces with segments to shoot, the bolt is
  * put in the air above the ridge and drawn climbing out of its underside
- * (`lead-draw.ts`' flights), so it ends there with no burst: `pass`. Any
+ * (`lead-flights.ts`), so it ends there with no burst: `pass`. Any
  * other time it is the plating in the body's own column or the bare rock
  * anywhere else, and both are a scuff and nothing more: `body`.
  */

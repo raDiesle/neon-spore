@@ -40952,3 +40952,14 @@ a sweep of the history first, and every brush consumer had to be found
 before deciding the five paint one kind rather than five.
 
 *Measured: 18 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
+
+## 2026-10-14 — `lead-draw.ts` sits on the line ceiling
+
+- reading: 5 min. The entry and `drawFlights`.
+- writing: 5 min. The flights and their two constants moved to
+  `lead-flights.ts`; one comment repointed.
+- looking: 0 min.
+- friction: 0 min.
+- landing: 5 min.
+
+Bottleneck: landing — the full check, for a forty-line move.

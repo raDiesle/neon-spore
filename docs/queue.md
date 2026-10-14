@@ -328,19 +328,6 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/skipped.test.ts` holds the listing's count of the entries
 `next` stepped past and why.
 
-## `lead-draw.ts` sits on the line ceiling
-
-- **Found:** 2026-10-14, claude/queue-the-lead-a-part-that-turns-so-it-is-seen-from-a
-- **Taken:** 2026-10-14, main (claim: claude/queue-lead-draw-ts-sits-on-the-line-ceiling)
-- **Files:** `packages/render/src/lead-draw.ts`
-
-The file is at 250 lines after THE LEAD's glance wrapped its mound and stalk
-(14 October 2026), and the next line added to it fails `limits.test.ts`.
-`drawFlights` — the shots climbing over the ridge, with its two constants —
-is a subject of its own and does not touch the body: move it to
-`lead-flights.ts`, imported by `drawLead`. Prove with
-`bun test packages/render` and `bun run check`.
-
 ## `waveNamesAt`'s figure is a third of what it costs
 
 - **Found:** 2026-10-14, claude/queue-the-sling-a-part-that-turns-so-it-is-seen-from-a
