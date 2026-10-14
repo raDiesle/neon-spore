@@ -347,6 +347,7 @@ moment; look at each.
 ## HELPERS: THE BASTION to THE TRAPEZE's one-seat pictures are not listed
 
 - **Found:** 2026-10-14, claude/docs-controls-helpers-org-c825df
+- **Taken:** 2026-10-14, main (claim: claude/queue-helpers-the-bastion-to-the-trapezes-one-seat-pic)
 - **Files:** `tools/director/src/helpers-page.ts`, `packages/render/src/view-role-clocks-c.ts`, `packages/render/src/gauge.ts`
 
 The second half of the entry above: `view-role-clocks-c.ts` — THE BASTION,
