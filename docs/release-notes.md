@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-14 · 9c2227263 — THE SLING's held cord is a pull knob in its mark's place
+
+Once a cord's hold has counted, the mark gives way to the field's own pull knob, and a fresh press carries it toward the lit side. On the cord's own screen it has a channel and an arrow, and on the partner's it is dim. A pull let go short is said red on the cord's mark.
+
 ## 2026-10-14 · ddc885579 — THE SLING's cords are a hold, then a pull in its place
 
 A draw is two gestures now, each whole on its own, as THE COMBO LAB's HOLD, THEN PULL plays it. The hold's beats are counted as before, and a lift too soon still springs the arm. Once the hold has counted, a fresh press pulls the cord `slingPullMilli` (two tiles) toward the lit side. That pull is the one generic PULL: it looses the arm the moment it gets there, and a pull let go short is said and waits to be taken again. The thumb that held moves nothing. The swipe on the lift is gone. The autopilot, the tests and the documents follow it.

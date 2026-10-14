@@ -40308,3 +40308,5 @@ have pulled.
 
 Bottleneck: a picture of a state the autopilot passes through in two ticks
 has to be posed, and finding the flags that pose it took longer than the code.
+
+*Measured: 26 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
