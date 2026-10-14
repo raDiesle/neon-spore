@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-14 · aceafe1b1 — THE VANE's housing is hauled by a knob, not pressed as a ring
+
+The navigator's haul on the seized housing is now the field's own pull knob under the casing, with a channel and an arrow pointing down on her screen and the knob dim on the pilot's; it stands at the foot of its channel once the haul has counted. It was a bare ring, which read as a tap. The pilot's pin is a hold and keeps its ring. The drawing moved out of `vane-grip.ts` into `vane-hands.ts`.
+
 ## 2026-10-14 · 34eca5f91 — THE TASTER's wipe and pry are pulled by a knob, not pressed as a ring
 
 The navigator's wipe across a gap is now the field's own pull knob, in the middle of a level channel with a two-headed arrow, and the pilot's pry is a knob carried down its channel out of the interlock. Each was a bare ring, which read as a tap. The pin is a hold and keeps its ring. The drawing moved out of `taster-grip.ts` into `taster-pulls.ts`.

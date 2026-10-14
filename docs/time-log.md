@@ -40356,3 +40356,5 @@ counting before it could say anything.
 
 Bottleneck: none worth the name — the TASTER lane had already cut the path,
 and the only choice was the knob's size against the hub above it.
+
+*Measured: 9 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
