@@ -46,22 +46,22 @@ import type { GuideScene } from "../scene-types.js";
  * the rest. The film takes no hit and points at no retries.
  */
 export const THE_LEDGER: GuideScene = {
-  ticks: 1860,
+  ticks: 2100,
   bpm: 120,
   seed: 4,
   entries: [],
   boss: { kind: "ledger" },
   acts: [
     // The colour the seed rolled, up the seam: the hit is at 552, the return
-    // lands four beats later on beat 13, and the trigger goes forty before.
+    // lands seven beats later on beat 16, and the trigger goes forty before.
     { tick: 480, control: "fireCyan" },
-    { tick: 740, control: "guard" },
+    { tick: 920, control: "guard" },
     // The socket has walked to column 6, which is the plate's by `atBoss`.
-    { tick: 960, control: "shield", col: 3, atBoss: true },
+    { tick: 1040, control: "shield", col: 3, atBoss: true },
     // The colour the hit rerolled: the second hit opens the seam to two — the
-    // whipping phase — and its return lands three beats later, on 23.
-    { tick: 1160, control: "fireRed" },
-    { tick: 1340, control: "guard" },
+    // whipping phase — and its return lands six beats later, on 27.
+    { tick: 1220, control: "fireRed" },
+    { tick: 1580, control: "guard" },
   ],
   // The cord, the lock and the body each have an anchor of their own now
   // (`render/caption-anchor-boss-e.ts`, 21 September 2026). Nothing here
@@ -92,34 +92,34 @@ export const THE_LEDGER: GuideScene = {
     {
       tick: 540,
       seat: 1,
-      text: "THE HIT COMES BACK · 4 BEATS",
+      text: "THE HIT COMES BACK · 7 BEATS",
       anchor: { at: "boss", part: "cord" },
     },
     // GUARD AS IT LANDS stood here and came out (`decisions.md` #34): the
     // fight writes PRESS over the bead riding down the cord and GUARD under
-    // it, and the bead's own position is the four beats this page counted.
+    // it, and the bead's own position is the seven beats this page counted.
     // THE FIFTH · LET IT LAND below stays, because the cue is silent there.
     {
-      tick: 900,
+      tick: 960,
       seat: 2,
       text: "IT WALKS A COLUMN · SAY IT",
       anchor: { at: "boss", part: "lock" },
     },
     {
-      tick: 1080,
+      tick: 1140,
       seat: 2,
       text: "SHIELD THERE · FIRE RED",
       anchor: { at: "control", control: "fireRed" },
     },
     {
-      tick: 1260,
+      tick: 1400,
       seat: 1,
       text: "SHIELD · IT WHIPS THE SEAM",
       anchor: { at: "control", control: "guard" },
     },
-    { tick: 1440, seat: 1, text: "NOW EVERY SHOT BILLS YOU", anchor: { at: "boss" } },
+    { tick: 1680, seat: 1, text: "NOW EVERY SHOT BILLS YOU", anchor: { at: "boss" } },
     {
-      tick: 1620,
+      tick: 1860,
       seat: 2,
       text: "THE FIFTH · LET IT LAND",
       anchor: { at: "boss", part: "cord" },

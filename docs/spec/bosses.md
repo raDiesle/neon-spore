@@ -5022,8 +5022,8 @@ this fight has.
 **The rule, in one sentence.** The cord pays out over `ledgerRootBeats` (2)
 beats and nothing can be hit until it is in; then the seam shows a colour, and
 **a bolt of that colour up the seam's own column** widens the split and starts
-a return down the cord, which lands in the socket `ledgerCadenceBeats` (5)
-beats less one per hit later — never under `ledgerCadenceMinBeats` (2) — and is
+a return down the cord, which lands in the socket `ledgerCadenceBeats` (8)
+beats less one per hit later — never under `ledgerCadenceMinBeats` (4) — and is
 **warded exactly the way a rock is**: the plate in the socket's column and the
 trigger inside its own window, neither re-derived here (`hull-guard.ts`'s
 `guardArmed`). A return nobody answered is a hit on the hull, which loses the
@@ -5070,7 +5070,7 @@ it was asked.
   over** — refused, back on the cord a cadence later, the root sliding under it
   as always, nothing warded and nothing whipped (`rolled` is its own count
   beside `warded`, because a plug is not a deflection). It is rationed rather
-  than timed: `ledgerPlugBeats` (3) for the whole fight, spent on the beat, and
+  than timed: `ledgerPlugBeats` (5) for the whole fight, spent on the beat, and
   at nought the socket will not take a thumb again. It cannot be put in during
   `taut`, which is the exclusion the movement exists for.
 - **`ledgerBead`**, the pilot's, while the cord is `whipping`. His thumb on the

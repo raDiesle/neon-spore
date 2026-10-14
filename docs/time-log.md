@@ -39627,3 +39627,16 @@ Bottleneck: picking the rocks' beats by when each arrives rather than when it is
 Bottleneck: the pull had to stay one number for the simulation, so the bend lives entirely on the device — the hold keeps the arc from the press and reports distance along it.
 
 *Measured: 18 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-14 — THE LEDGER's returns come down the cord at half the pace
+
+- reading: 15 min. `ledger.ts`, `config-ledger.ts`, the cue and the root's
+  ring, and frames of both seats under AUTO to find which thing falls.
+- writing: 5 min. The cadence and its floor, the plug's grace kept a beat over
+  the floor, the rehearsal retimed to the new landings.
+- looking: 5 min. Six frames, two seats at three moments.
+- friction: 5 min. `timeout` is not on this Mac, and a frames run lost its
+  preview port once and was run again.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: the rehearsal is authored in ticks against the old landings, so every act and page after the first hit moved with the cadence.

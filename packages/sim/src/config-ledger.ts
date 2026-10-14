@@ -9,9 +9,10 @@
  * than nesting it, so every call site reads `cfg.ledgerCadenceBeats`.
  *
  * **The cadence is the only number here the pair ever says out loud**, and it
- * is the fight: four beats is long enough to carry the shield across the hull
- * and say which column it is going to, and two is the same sentence with the
- * time for it taken away. Nothing else in the game has ever asked the pair to
+ * is the fight: seven beats is long enough to carry the shield across the hull
+ * and say which column it is going to, and four is the same sentence with the
+ * time for it taken away. It was four and two until 14 October 2026, when the
+ * owner played it: *the falling downs are very too fast for players to reach*. Nothing else in the game has ever asked the pair to
  * answer something they caused, so the number they are answering has to be
  * one they can hear themselves start.
  */
@@ -55,26 +56,26 @@ export interface LedgerConfig {
  * The defaults, spread into `DEFAULT_CONFIG`.
  *
  * Read as one fight: the cord roots over two beats, the seam takes five hits
- * to part, and the first return comes down four beats behind the shot that
- * made it — three behind the second, two from the third onward, which is the
- * floor and where the last three of the five are answered. From the second hit the cord bills **everything** the cannon does and
+ * to part, and the first return comes down seven beats behind the shot that
+ * made it — six behind the second, five behind the third, four from the fourth
+ * onward, which is the floor. From the second hit the cord bills **everything** the cannon does and
  * a warded return is thrown back up it, so the last three hits can be made
  * without firing at the body at all. The root walks one column per return.
  */
 export const LEDGER_DEFAULTS: LedgerConfig = {
   ledgerCols: 3,
   ledgerSeamHits: 5,
-  ledgerCadenceBeats: 5,
-  ledgerCadenceMinBeats: 2,
+  ledgerCadenceBeats: 8,
+  ledgerCadenceMinBeats: 4,
   ledgerRootBeats: 2,
   ledgerWhipSeam: 2,
   ledgerSocketStep: 1,
   ledgerSlowBeats: 1,
   ledgerOutBeats: 3,
-  // Three beats of grace, which is one cadence at the floor and a beat over:
+  // Five beats of grace, which is one cadence at the floor and a beat over:
   // enough to roll one bill over and be somewhere by the next, and not enough
   // to hold the socket shut while the cord fills up.
-  ledgerPlugBeats: 3,
+  ledgerPlugBeats: 5,
   // Most of a tile and a half down, the interlock's depth (`tasterPryMilli`):
   // far enough that a thumb resting on the cord never tears it out.
   ledgerHaulMilli: 1900,
