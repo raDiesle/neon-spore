@@ -39090,3 +39090,13 @@ Bottleneck: the mass is the width of the field, so the part had to be the lobes,
 Bottleneck: none — THE PRESS LAB's cut was the template, line for line.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-14 — VERSUS offers THE REPRISE's sac glancing
+
+- reading: 5 min. The entry, §11.15, `reprise-draw.ts`, `reprise-body.ts`.
+- writing: 10 min. `reprise-glance.ts`, the cords drawn apart from the sac, a scaffold for the candidates, slot and test row.
+- looking: 5 min. One VERSUS shot and a crop.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: the cords were drawn inside the sac's draw, so they had to come out before the sac could turn without them.

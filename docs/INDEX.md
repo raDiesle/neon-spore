@@ -2161,6 +2161,7 @@ by hand never moves.
 | `packages/render/src/reprise-brood.ts` | THE REPRISE's count: a ring of eggs round the lens, laid as bodies are recorded and spent as they are sent, then a dashed shell per unseen body still falling |
 | `packages/render/src/reprise-lens.ts` | THE REPRISE's eye: a camera lens — shutter blink and blinking red dot while recording, rewind and triangle while playing |
 | `packages/render/src/reprise-parts.ts` | THE REPRISE's parts — the outline tier's (`outline-parts.ts`) on the sac |
+| `packages/render/src/reprise-glance.ts` | **THE REPRISE's sac glances** — the owner, 9 and 10 October 2026: *body parts of living things turn . |
 | `packages/render/src/rub.ts` | **`RubCount` from one thumb** — the one gesture a host has to keep count of |
 | `packages/render/src/rub-turns.ts` | A rub's answer, and the seat it is from |
 | `packages/render/src/rub-mark.ts` | **The mark a rub asks with: a red line, and an arrow coming in at it from each side**, the same on every boss |

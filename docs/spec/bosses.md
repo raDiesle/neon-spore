@@ -3117,6 +3117,14 @@ own spec argues hardest for having none. `docs/queue.md`'s own entry (*THE
 REPRISE changes state more than once, and asks for more than one gesture*)
 closes here rather than adding a mark.
 
+**Offered (14 October 2026, VERSUS `reprise:glance`).** A camera grown into a
+sac has no head but itself, so the whole sac turns, and the lens, the eggs and
+the camera's word with it (`packages/render/src/reprise-glance.ts`, which ships
+still): **about the line down its middle**, where the lens comes home whenever
+an echo plays, rolling about the top where its cords take it; the cords do not
+turn. The far side narrows into the dark. **SWAY**, **LOOK** and **COCK**
+(`glance-styles.ts`), judged on `THE REPRISE · RUNNING`.
+
 ## 11.16 THE STARE — the thing that looks, and the hands that must not move
 
 The owner asked for it on 16 September 2026, in his own words: *when the boss

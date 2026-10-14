@@ -4,10 +4,11 @@ import { rgba } from "./hex.js";
 import { type Layout, tileCX } from "./layout.js";
 import { outlinePose, withOutlinePose } from "./outline-drift.js";
 import { PALETTE, STROKE } from "./palette.js";
-import { drawBeam, drawHalo, drawSac, type RepriseFrame } from "./reprise-body.js";
+import { drawBeam, drawCords, drawHalo, drawSac, type RepriseFrame } from "./reprise-body.js";
 import { drawBrood } from "./reprise-brood.js";
 import { drawTearLip } from "./reprise-flesh.js";
 import type { RepriseFx, ReprisePhase } from "./reprise-fx.js";
+import { drawRepriseGlanced } from "./reprise-glance.js";
 import { drawLens } from "./reprise-lens.js";
 import { cordSwing, eyeFreedom, repriseEye } from "./reprise-parts.js";
 import { repriseTurn } from "./reprise-surface.js";
@@ -163,19 +164,23 @@ export function drawReprise(
   const eye = repriseEye(f, l.tile, d.time, d.hush, eyeFreedom(d.phase, d.fx.before, flip));
   const looked = { ...f, x: eye.x, cy: eye.y };
   withOutlinePose(ctx, pose, root, () => {
-    const swing = cordSwing(f, l.tile, d.time, d.hush);
-    drawSac(ctx, f, playing, swallow, d.time, swing, repriseTurn(d.time, d.hush));
-    drawLens(ctx, looked, { phase: d.phase, flip, beatPhase: d.beatPhase, time: d.time });
-    drawBrood(ctx, looked, {
-      phase: d.phase,
-      eggs: d.eggs,
-      standing: d.standing,
-      swallow,
-      take: d.fx.sinceTake(d.time),
-      beatPhase: d.beatPhase,
-      time: d.time,
+    drawCords(ctx, f, d.time, cordSwing(f, l.tile, d.time, d.hush));
+    // The sac and all drawn into it turn as one, when a glance is taken (`reprise-glance.ts`).
+    drawRepriseGlanced(ctx, f, d.time, (g) => {
+      const sac = drawSac(g, f, playing, swallow, d.time, repriseTurn(d.time, d.hush));
+      drawLens(g, looked, { phase: d.phase, flip, beatPhase: d.beatPhase, time: d.time });
+      drawBrood(g, looked, {
+        phase: d.phase,
+        eggs: d.eggs,
+        standing: d.standing,
+        swallow,
+        take: d.fx.sinceTake(d.time),
+        beatPhase: d.beatPhase,
+        time: d.time,
+      });
+      drawLabel(g, f, d.phase, d.beatPhase);
+      return sac;
     });
-    drawLabel(ctx, f, d.phase, d.beatPhase);
   });
 }
 

@@ -108,8 +108,10 @@ function sacPoints(f: RepriseFrame, clench: number, t: number): Point[] {
 }
 
 /** The two cords it hangs from, up to the field's top edge, each swung
- * about its end there by `swing` and the left mirrored (`reprise-parts.ts`). */
-function drawCords(
+ * about its end there by `swing` and the left mirrored (`reprise-parts.ts`).
+ * Drawn before the sac, apart from it, since the sac may turn and they do
+ * not (`reprise-glance.ts`). */
+export function drawCords(
   ctx: CanvasRenderingContext2D,
   f: RepriseFrame,
   t: number,
@@ -136,10 +138,8 @@ export function drawSac(
   playing: boolean,
   clench: number,
   t: number,
-  swing: PartAngles,
   theta = 0,
 ): Path2D {
-  drawCords(ctx, f, t, swing);
   const sac = splinePath(sacPoints(f, clench, t), true);
   ctx.save();
   ctx.fillStyle = PALETTE.rockDark;

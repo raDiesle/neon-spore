@@ -17,6 +17,7 @@ import { MIRROR_GLANCE, MIRROR_GLANCE_SIZE } from "../src/mirror-glance.js";
 import { PINBALL_GLANCE, PINBALL_GLANCE_SIZE } from "../src/pinball-glance.js";
 import { PULSE_GLANCE, PULSE_GLANCE_SIZE } from "../src/pulse-glance.js";
 import { QUEEN_GLANCE, QUEEN_GLANCE_HOLD, QUEEN_GLANCE_SIZE } from "../src/queen-glance.js";
+import { REPRISE_GLANCE, REPRISE_GLANCE_SIZE } from "../src/reprise-glance.js";
 import { SPLICE_GLANCE, SPLICE_GLANCE_SIZE } from "../src/splice-glance.js";
 import { VANE_GLANCE, VANE_GLANCE_SIZE } from "../src/vane-glance.js";
 import { WARDEN_GLANCE, WARDEN_GLANCE_SIZE } from "../src/warden-glance.js";
@@ -58,6 +59,7 @@ const ROWS: readonly Row[] = [
   { name: "THE WELL", record: WELL_GLANCE, size: WELL_GLANCE_SIZE, hold: 0 },
   { name: "THE SPLICE", record: SPLICE_GLANCE, size: SPLICE_GLANCE_SIZE, hold: 0 },
   { name: "THE HIVE", record: HIVE_GLANCE, size: HIVE_GLANCE_SIZE, hold: 0 },
+  { name: "THE REPRISE", record: REPRISE_GLANCE, size: REPRISE_GLANCE_SIZE, hold: 0 },
 ];
 
 const R = 100;

@@ -94,7 +94,8 @@ export const FIRST_BOSS_POSES: Pose[] = [
     "The wave's first stretch falls in plain sight, before any of it comes down again. P1 aims; P2 fires.",
     {
       want: (w) => w.boss?.kind === "reprise" && !repriseEchoing(w) && w.beat >= 4,
-      lookAt: "the sac in its tear — whether it hangs dead still or sways where it hangs",
+      lookAt:
+        "the sac in its tear — whether it turns toward one side under its cords, lens and eggs with it, its far side going dark",
     },
   ),
   bossPose(
