@@ -25,6 +25,7 @@ import {
   stubCanvas,
   waveWith,
 } from "./frame-harness.js";
+import { spyHolds } from "./soak-spy.js";
 
 setDefaultTimeout(FRAME_TIMEOUT_MS);
 
@@ -182,10 +183,20 @@ describe("the rings", () => {
     expect(strokes("p2", pried, queenAt("red"), 8)).toBe(0);
   });
 
-  it("draw the held mark heavier than the asked one, with the dial on it", () => {
-    const asked = strokes("p1", brood({ phase: 2 }), queenAt("red", 3));
-    const held = strokes("p1", brood({ phase: 2, holdSide: 1 }), queenAt("red", 3));
-    expect(held).toBeGreaterThan(asked);
+  it("make the held mark the HOLD LAB's drop, sunk and filling, and leave the other its ring", () => {
+    const drops = (boss: QueenState, queen: Creature, beat = 6) =>
+      spyHolds(() => strokes("p1", boss, queen, beat)).holds;
+    expect(drops(brood({ phase: 2 }), queenAt("red", 3)).length).toBe(0);
+    const held = drops(brood({ phase: 2, holdSide: 1 }), queenAt("red", 3));
+    expect(held.length).toBe(1);
+    expect(held[0]?.o.held).toBe(true);
+    const later = drops(brood({ phase: 2, holdSide: 1 }), queenAt("red", 3), 7)[0]?.o.fill ?? 0;
+    expect(later).toBeGreaterThan(held[0]?.o.fill ?? 1);
+    const shut = drops(brood({ phase: 2, holdSide: -1 }), queenAt("red", 3))[0];
+    expect(shut?.o.fill).toBe(0);
+    // On the mark under the thumb: the right one for side 1, the left for -1.
+    expect(held[0]?.at.x ?? 0).toBeGreaterThan(shut?.at.x ?? Number.POSITIVE_INFINITY);
+    expect(strokes("p1", brood({ phase: 2, holdSide: 1 }), queenAt("red", 3))).toBeGreaterThan(0);
   });
 });
 

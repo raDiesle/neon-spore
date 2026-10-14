@@ -145,6 +145,6 @@ export const OTHER_LOOKS: Readonly<Record<string, UseLook>> = {
   },
   "THE QUEEN'S MARKS": {
     find: "A faint ring round each of her two marks on the pilot's screen, with a halo; the navigator sees the real one bare.",
-    move: "The real mark opens and the other flinches shut; held, a dial counts down how long it stays open.",
+    move: "The real mark opens and the other flinches shut; held, the mark under the thumb is the HOLD LAB's drop, sunk, its water how long it stays open.",
   },
 };

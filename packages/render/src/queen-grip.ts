@@ -1,9 +1,10 @@
 import { type Creature, type QueenState, queenAsks, type SimConfig } from "@neon-spore/sim";
-import { drawGripDial, drawGripRing, drawThrownRing } from "./grip-rings.js";
+import { drawGripRing, drawThrownRing } from "./grip-rings.js";
 import { handleRadius } from "./handle-draw.js";
 import { hitCircle, type Layout, showsQueenShape } from "./layout.js";
 import { queenMarkCenter } from "./queen-figure.js";
 import { queenTurn } from "./queen-surface.js";
+import { drawSoakHold } from "./soak-hold.js";
 import type { Field, Touch } from "./touch.js";
 import { bossOf } from "./touch-field.js";
 
@@ -27,9 +28,14 @@ import { bossOf } from "./touch-field.js";
  * Three states, all read off the beat the sim already stores, so nothing
  * here outlives a frame: **asked**, the ring breathing on both marks;
  * **pried** (`pryBeat`), the armour thrown off the real one in a ring that
- * runs outward over the beat after; **held** (`holdSide`), the ring filled
- * on the mark under the thumb, with the beats of hold left closing round it
- * as a dial — the one readout of a thumb player 2 cannot see.
+ * runs outward over the beat after; **held** (`holdSide`), the mark under
+ * the thumb become the HOLD LAB's drop (`soak-hold.ts`; the owner, 13
+ * October 2026, *it should be our new standard button*), sunk, its water
+ * the hold spent on the open mark — the one readout of a thumb player 2
+ * cannot see. **Only the held mark**: the thumb already covers it, so the
+ * drop hides nothing player 1 could still read, and the other mark keeps
+ * its ring. Until a thumb lands the drop is the cue's, in the gap between
+ * the marks (`boss-cue-read.ts`), and it goes from there when one does.
  */
 
 /** Which mark to ring, relative to the mark's own radius: outside it, clear of the shell's lip. */
@@ -102,7 +108,7 @@ export function queenGripSeat(l: Layout, x: number, y: number, field: Field): 1 
 const clamp01 = (v: number): number => Math.max(0, Math.min(1, v));
 
 /**
- * The rings, drawn after the shell so they stand over its lip. `ox`/`oy` is
+ * The rings and the held drop, drawn after the shell so they stand over its lip. `ox`/`oy` is
  * her shudder, the same one the marks were drawn with. The rings themselves
  * are `grip-rings.ts`, shared with THE MIRROR's lobes.
  */
@@ -134,14 +140,15 @@ export function drawQueenGrip(
       if (k < 1) drawThrownRing(ctx, x, y, at.r * (1.2 + 1.6 * k), 1 - k);
     }
     if (!mine || asks === null) continue;
-    const held = asks === "hold" && boss.holdSide === side;
-    drawGripRing(ctx, x, y, r, held, time);
-    // The dial: how much of the hold is left, on the mark being held, while
-    // it is the one that is open. It runs from the opening, not the thumb —
-    // `holdBloom` counts from `openBeat` — so it is the beat she shuts on.
-    if (held && boss.weakSide === side && queen.color !== null) {
-      const left = 1 - clamp01((beat - boss.openBeat + beatPhase) / cfg.queenHoldBeats);
-      drawGripDial(ctx, x, y, r, left);
+    if (asks !== "hold" || boss.holdSide !== side) {
+      drawGripRing(ctx, x, y, r, false, time);
+      continue;
     }
+    // The water: how much of the hold is spent, while it is the open mark.
+    // It runs from the opening, not the thumb — `holdBloom` counts from
+    // `openBeat` — so it reaches the rim on the beat she shuts on.
+    const open = boss.weakSide === side && queen.color !== null;
+    const fill = open ? clamp01((beat - boss.openBeat + beatPhase) / cfg.queenHoldBeats) : 0;
+    drawSoakHold(ctx, { x, y }, r, { time, held: true, fill });
   }
 }

@@ -649,35 +649,6 @@ makes, remeasure the rows that move with a sentence each, and see whether
 puts every blob on the field through the same layer, and without this every
 creature colour test reads an empty log.
 
-## Holds as the HOLD LAB's drop: THE QUEEN's marks
-
-- **Found:** 2026-10-13, claude/docs-control-visuals-consistency-d98efe
-- **Taken:** 2026-10-14, claude/queue-holds-as-the-hold-labs-drop-the-lampreys-tail-an (claim: claude/queue-holds-as-the-hold-labs-drop-the-queens-marks)
-- **Files:** `packages/render/src/queen-grip.ts`, `packages/render/src/queen.ts`, `packages/render/src/boss-cue-read.ts`
-- **Asks:** THE QUEEN's SCREAM hold as the HOLD LAB's drop: over each mark, under it, one drop in the gap between them, or keep the ring?
-
-THE GAUGE's band and THE HIVE's lobes became the drop on 14 October 2026;
-THE QUEEN was left, because her ring is drawn **outside** the mark on
-purpose and never fills it (`queen-grip.ts`'s header): the mark is half
-buried under the shell and is what player 1 reads to say what is coming,
-and a drop the ring's size (`RING_MUL`, 1.55 marks) laid over it hides it.
-The options:
-
-1. **Over each mark**, as every other hold: the drop on both marks, sunk
-   and filling (`queenHoldBeats` from `openBeat`) on the one under his
-   thumb. Hides the mark while it asks.
-2. **Under each mark**: drawn before the marks in `queen.ts`, so the mark
-   stands in the drop. The shell closes over both, so most of it is hidden.
-3. **One drop in the gap** between the marks on her column, where the cue's
-   own drop stands now, sunk whichever mark his thumb is on. The thumb is
-   not under it.
-4. **Keep the ring** and draw no drop, with `ownDrop` on the cue so it draws
-   none either.
-
-Whichever: `ownDrop: true` on the `HOLD` cue in `boss-cue-read.ts` for 1, 2
-and 4; the pry keeps its ring, being a tap; and the tests that count the
-ring's colour move to `test/soak-spy.ts`.
-
 ## `bun run shot` finds no ON THE FIELD card for THE SCOUT's two holds
 
 - **Found:** 2026-10-14, claude/queue-holds-as-the-hold-labs-drop-the-scout-the-vane-t
@@ -758,3 +729,16 @@ size its `packages/render/src/*-glance.ts` now ships — THE ANTIPHON's is the
 pattern already written — and nothing else. Prove it with
 `grep -n "glance" docs/spec/bosses.md` showing no *ships still* and
 `bun run check`.
+
+## THE QUEEN's gap drop overlaps the marks it stands between
+
+- **Found:** 2026-10-14, claude/queue-holds-as-the-hold-labs-drop-the-queens-marks
+- **Files:** `packages/render/src/boss-cue-read.ts`, `packages/render/src/cue-helper.ts`, `packages/render/src/boss-cue-shape.ts`
+
+THE QUEEN's SCREAM `HOLD` cue draws the HOLD LAB's drop in the gap between
+her two marks until a thumb lands (`queen-grip.ts`), at the cue frame's size
+(`holdDropR`). On a 390-wide phone that drop reaches over the inner edge of
+both marks, and the marks are what player 1 reads to say what is coming.
+Give `BossCue` a way to say a smaller drop (or size it to the gap,
+`queenMarkCenter` both sides less each mark's ring), and prove with a test
+that the drop's rim stays clear of both mark rings.

@@ -25,7 +25,8 @@ export const QUEEN_CONTROLS: readonly FieldControlDef[] = [
     does:
       "BROOD: P1 presses the real mark to open it — the other flinches shut. " +
       "P2 says which. SCREAM: P1 holds the real mark to keep it open, up to " +
-      "queenHoldBeats; a dial round it counts the beats down. P2 fires its " +
+      "queenHoldBeats; the mark under his thumb becomes the HOLD LAB's drop, " +
+      "its water the beats spent, the other keeping its ring. P2 fires its " +
       "colour (sim/queen-hand.ts).",
     source: "touch.ts — queenMarkUnder() under handleUnder()",
     holdKind: "drag",

@@ -190,6 +190,8 @@ export function queenCues(
     out.push({
       ...markAt(1, "HOLD", "HOLD", tileCX(l, queen.col), y, l, 42),
       why: "TILL IT OPENS",
+      // A thumb on a mark makes that mark the drop (`queen-grip.ts`).
+      ownDrop: q.holdSide !== 0,
     });
   }
   if (queen.color !== null) {

@@ -40825,3 +40825,18 @@ Bottleneck: looking — which of three causes stopped a block only showed in a
 step-by-step table of reach and AUTO's clears, built by hand per block.
 
 *Measured: 5 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-14 — THE QUEEN's held mark is the HOLD LAB's drop
+
+- reading: 5 min. Her grip, its reason for the ring outside the mark, and
+  her SCREAM cue.
+- writing: 10 min. The held mark as the drop with its water the hold spent,
+  the ring kept on the other, `ownDrop` once a thumb is down, the test
+  moved onto `spyHolds`, and the cards.
+- looking: 10 min. SCREAM rendered on its own, before and after the thumb —
+  her card is posed in BROOD.
+- friction: 0 min.
+- landing: 5 min.
+
+Bottleneck: looking — the card shows no hold, so the frame was rendered by
+hand, and it found the gap drop over the marks, which is queued.
