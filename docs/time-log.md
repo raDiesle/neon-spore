@@ -41078,3 +41078,5 @@ ways only the picture showed.
 
 Bottleneck: friction — a figure under its drift line says nothing, so timing
 one needed a reporter the check does not use.
+
+*Measured: 4 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
