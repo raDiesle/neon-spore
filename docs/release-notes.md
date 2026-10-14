@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-14 · ac88697d4 — VERSUS offers THE SPOOL turning about its brake
+
+`spool:glance` offers the whole spool a turn about the brake's flange — SWAY, LOOK or COCK — its far end swinging away into the dark and back while the shoe, the rail and the knob stay where a thumb has them, on THE SPOOL · TAUT. The record ships still, so the game draws what it did.
+
 ## 2026-10-14 · 90dd24654 — VERSUS offers THE GIMBAL's cradle turning to look
 
 The whole cradle already wanders in its yoke; now `gimbal:glance` offers it a deliberate turn on top of that wander — SWAY, LOOK or COCK, a yaw of the whole cradle hushed by the drift's own table — on THE GIMBAL · STILL. The record ships still, so the game draws what it did.
