@@ -651,6 +651,7 @@ creature colour test reads an empty log.
 ## Holds as the HOLD LAB's drop: THE QUEEN's marks
 
 - **Found:** 2026-10-13, claude/docs-control-visuals-consistency-d98efe
+- **Taken:** 2026-10-14, claude/queue-holds-as-the-hold-labs-drop-the-lampreys-tail-an (claim: claude/queue-holds-as-the-hold-labs-drop-the-queens-marks)
 - **Files:** `packages/render/src/queen-grip.ts`, `packages/render/src/queen.ts`, `packages/render/src/boss-cue-read.ts`
 - **Asks:** THE QUEEN's SCREAM hold as the HOLD LAB's drop: over each mark, under it, one drop in the gap between them, or keep the ring?
 
