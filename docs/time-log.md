@@ -40018,3 +40018,5 @@ Bottleneck: the entry put two kinds of pull under one title — four that count 
 - landing: 5 min. `check:fast`, the commit, `land`.
 
 Bottleneck: deciding what a held pull takes from a rule built to count once — its travel and its short lift, never the count — and that the tow, whose knob stays where it is let go, takes neither.
+
+*Measured: 4 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*

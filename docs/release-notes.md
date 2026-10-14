@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-14 · 9fcae9a43 — THE LAMPREY's head and tail and THE WARDEN's tether take the one generic PULL's travel and its short lift
+
+These pulls hold a depth rather than count once. The head and the tail are worth something only while the partner's hand is also there, and the tether opens the hatch only for as long as it is held taut. So they take the rule's travel (`pullTravelMilli`, the way a field — `pullDownMilli` now reads it too) and its short lift, said with `pullShort`, but not its count. THE LAMPREY's tow stays off it: its knob waits where it is let go, so a tow lifted part way is a pull in two presses, never a short one. THE GUM does not join, because it left the game on 10 October 2026. Every replay hash is unchanged.
+
 ## 2026-10-14 · c9e4d9450 — THE ANTIPHON's rail, THE GAUGE's tooth, PINBALL's plunger and THE BASTION's slabs are the one generic PULL
 
 Four counted pulls are read by `pullHeard` now. THE ANTIPHON's candidate down its vein and THE BASTION's plate along its track (straight or curved) count at the reach as before. THE GAUGE's tooth is any way, measured as the straight line from where the hand took hold. PINBALL's plunger winds the moment it gets back `pinballWindMilli`, not only on the lift. A carry let go short is now said: `pullShort` for the rail, the tooth and the plunger, and THE BASTION's own snap for a plate — past a tap rather than past `bastionSnapMilli`, which now only governs a plate straying off its curve. The held pulls — THE LAMPREY's head and tail, THE WARDEN's tether — stay queued as their own entry, and so does THE GUM. Every replay hash is unchanged.
