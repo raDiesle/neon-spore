@@ -328,22 +328,6 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/skipped.test.ts` holds the listing's count of the entries
 `next` stepped past and why.
 
-## A glanced part's translucent rim shows a pale tick at the middle
-
-- **Found:** 2026-10-13, claude/queue-tasks-159048
-- **Taken:** 2026-10-14, claude/queue-the-slings-cords-a-hold-then-a-pull-in-its-place (claim: claude/queue-a-glanced-parts-translucent-rim-shows-a-pale-tic)
-- **Files:** `packages/render/src/glance-layer.ts`
-
-`drawGlancedLayer` lays the one picture down twice, the first half's clip a
-pixel past the middle, so where the picture is itself translucent — THE
-SPLICE head's pale rim — that pixel is the rim over itself and reads as a
-short pale tick top and bottom (`versus:shot splice:glance sway --freeze
-1.5`, crop `--at 1298,200,240,200 --zoom 3`). The line through the body is
-gone; this is what is left. Try clearing the second half's clip
-(`destination-out`) before laying it down, or snapping the middle to a whole
-pixel so the clips need no overlap; prove it on the same crop, and THE
-MAZE's additive heart still adding light.
-
 ## Holds as the HOLD LAB's drop: THE BATON, THE MIRROR, THE OCULUS
 
 - **Found:** 2026-10-13, claude/docs-control-visuals-consistency-d98efe

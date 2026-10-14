@@ -40462,3 +40462,19 @@ Bottleneck: reading — what a wave introduces is answered in a test, not by a
 function, so it had to be found and lifted out before anything could count.
 
 *Measured: 9 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
+
+## 2026-10-14 — A glanced part's middle is the picture once, translucent or not
+
+- reading: 5 min. `glance-layer.ts` again, and the seam pixels of SPLICE's
+  head before the change.
+- writing: 5 min. A second scratch layer the halves are put together on,
+  half strength `lighter` then doubled.
+- looking: 10 min. SPLICE's rim and THE MAZE's heart, before and after,
+  magnified and read pixel by pixel, and the pair.
+- friction: 10 min. Two tries, `copy` and cut-then-add, each still left a
+  line; a probe in Chrome found that `lighter` clamps before it weighs a soft
+  clip's cover.
+- landing: 5 min.
+
+Bottleneck: friction — the canvas's blend arithmetic at a soft clip edge is
+not what the specification reads as, and only a measured probe said how.
