@@ -1,7 +1,9 @@
 import { authorsBodyColor, CREATURES, type Wave, type WaveEntry } from "@neon-spore/content";
 import type { CreatureKind } from "@neon-spore/sim";
-import { type Brush, faultKindOf, ROCK_BRUSHES } from "./brushes.js";
+import { type Brush, controlGestureOf, faultKindOf, ROCK_BRUSHES } from "./brushes.js";
+import { CONTROL_KIND } from "./control-brushes.js";
 import { setBody } from "./entry-fields.js";
+import { setBlisterGesture } from "./entry-fields-blister.js";
 import { paintFault } from "./paint-fault.js";
 import {
   brushOf,
@@ -63,6 +65,13 @@ export function paint(wave: Wave, beat: number, col: number, brush: Brush): void
   // rebuild either — replacing it with an identical entry would throw away the
   // per-entry configuration hanging off it the moment those fields exist.
   if (existing && brushOf(existing) === brush) return;
+  // A CONTROLS brush over a blister changes its gesture and keeps the rest —
+  // whose hand, how many blows — as the GESTURE row under the map does.
+  const gesture = controlGestureOf(brush);
+  if (existing?.kind === CONTROL_KIND && gesture) {
+    setBlisterGesture(existing, gesture);
+    return;
+  }
   removeEntry(wave, beat, col);
   wave.entries.push(makeEntry(beat, col, brush));
   sortEntries(wave);
@@ -158,6 +167,12 @@ type PodBrush = Extract<Brush, "purge" | "ward">;
 function makeEntry(beat: number, col: number, brush: EntryBrush): WaveEntry {
   const rock = ROCK_BRUSHES.find(([b]) => b === brush);
   if (rock) return { beat, col, kind: rock[1], color: null };
+  const gesture = controlGestureOf(brush);
+  if (gesture) {
+    const entry: WaveEntry = { beat, col, kind: CONTROL_KIND as WaveEntry["kind"], color: null };
+    setBlisterGesture(entry, gesture);
+    return entry;
+  }
 
   // A living brush left: its own `CreatureKind` — every rock literal was
   // handled above, so the cast only narrows to what the runtime already

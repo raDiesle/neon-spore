@@ -3507,6 +3507,8 @@ by hand never moves.
 | `tools/land/specs.ts` | The spent-delegate-spec half of the sweep |
 | `tools/hooks/lane-finished.ts` | The turn is over and the lane is finished: land it on the local trunk, and put the rest to the owner |
 | `tools/director/src/control-set-note.ts` | The roster under the wave editor's control-set picker: every button on the panel, seat by seat |
+| `tools/director/src/control-brushes.ts` | **The CONTROLS brushes: one per on-screen control** (the owner, 14 October 2026 |
+| `tools/director/src/control-look.ts` | **The CONTROLS brushes as the palette shows them**: the gesture's word, the blister's stroke |
 | `tools/director/src/contents-here.ts` | Where you are on a long sheet page, kept in sight while you read it |
 | `tools/director/src/contents-list.ts` | What a contents menu lists: every level of a page that writes its own outline, numbered, its cards as jumps under their section |
 | `tools/director/src/cover.ts` | **A live overlay hides the director under it** — THE PULL LAB (`pull-lab.ts`) and TRY IT (`field-try.ts`) |
@@ -3557,6 +3559,7 @@ by hand never moves.
 | `tools/land/queue-dropped.ts` | **A landing must not take out a queue entry nobody closed** |
 | `tools/hooks/session-start.ts` | Pin bun to a version new enough for this repo on the web, and name a bun below the pin anywhere |
 | `tools/director/src/brush-poses-echo.ts` | THE ECHO's specimen, split out of `brush-poses.ts` when THE CAROM took that file over its 250-line limit |
+| `tools/director/src/brush-poses-control.ts` | **A CONTROLS brush's picture**: THE BLISTER up out of its pore, wearing its gesture's control |
 | `tools/land/state.ts` | the facts a landing is decided from, read off git — `run.ts` moves refs, `land.ts` decides |
 | `tools/land/stamp.ts` | The `*Measured:` line a landing stamps under a time-log entry — the elapsed from the lane's first commit to the trunk moving, beside the session's own estimate |
 | `tools/land/shallow.ts` | A shallow clone, which is what a cloud session lands from |

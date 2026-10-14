@@ -1,6 +1,7 @@
 import { kindForColor, type Wave, type WaveEntry } from "@neon-spore/content";
 import { bossFillsWave, type Color, isMeteorKind, type PodEntry, podKindOf } from "@neon-spore/sim";
-import { type Brush, LIVING_BRUSH_KINDS, ROCK_BRUSHES } from "./brushes.js";
+import { type Brush, CONTROL_BRUSHES, LIVING_BRUSH_KINDS, ROCK_BRUSHES } from "./brushes.js";
+import { CONTROL_KIND, controlBrushOf } from "./control-brushes.js";
 
 /**
  * What is in a wave: the questions, with no answer that changes anything.
@@ -53,6 +54,8 @@ export function brushOf(entry: WaveEntry): Brush {
   // rather than a tool (`entry-fields.ts`).
   if (entry.kind === "torch" || entry.kind === "veer") return entry.kind;
   if (entry.kind && isMeteorKind(entry.kind)) return "rock";
+  // A blister reads back as the CONTROLS brush of its gesture.
+  if (entry.kind === CONTROL_KIND) return controlBrushOf(entry.gesture);
   if (entry.kind) return entry.kind;
   return kindForColor(entry.color as Color);
 }
@@ -66,6 +69,7 @@ export function podBrushOf(pod: PodEntry): Brush {
 export const CREATURE_BRUSHES: readonly Brush[] = [
   ...LIVING_BRUSH_KINDS,
   ...ROCK_BRUSHES.map(([brush]) => brush),
+  ...CONTROL_BRUSHES,
 ];
 
 /**

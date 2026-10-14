@@ -1,5 +1,5 @@
 import { type MechanicId, mechanicsInWave, WAVES, type Wave } from "@neon-spore/content";
-import { BRUSH_KIND, type Brush } from "./brushes.js";
+import { BRUSH_KIND, type Brush, CONTROL_BRUSHES } from "./brushes.js";
 
 /**
  * Which wave a brush is first seen in, and how to get there.
@@ -39,6 +39,8 @@ export const BRUSH_MECHANIC: Partial<Record<Brush, MechanicId>> = {
   "fault:dark": "darkFault",
   "fault:leech": "leech",
   "fault:limpet": "limpet",
+  // The CONTROLS brushes are all THE BLISTER, which is one mechanic.
+  ...Object.fromEntries(CONTROL_BRUSHES.map((brush) => [brush, "blister"])),
 };
 
 export interface FirstWave {

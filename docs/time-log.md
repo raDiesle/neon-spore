@@ -40932,3 +40932,21 @@ the same moments.
 Bottleneck: landing — the check outlasts the move it checks.
 
 *Measured: 13 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-14 — control-brushes — one brush per on-screen control
+
+THE BLISTER's one button in SPECIAL becomes a CONTROLS group of five, TAP,
+HOLD, SWIPE, TURN and RUB, each placing a blister with that gesture set and
+drawing it up with its control on.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 15 | which brush the owner meant, the palette's groups and hidden set, paint and its read-back, BLISTER's five gestures, the labs and VERSUS |
+| writing | 10 | `control-brushes.ts`, `control-look.ts`, `brush-poses-control.ts`, paint and read-back, nine tests |
+| looking | 5 | a frame of the TAP blister with its ring over the body; the palette's new group in this tree's director |
+| friction | 0 | |
+| landing | 5 | format, the import sort, `bun run index`, `check:fast`, this entry |
+
+**The bottleneck was the reading**: finding which enemy the owner meant took
+a sweep of the history first, and every brush consumer had to be found
+before deciding the five paint one kind rather than five.

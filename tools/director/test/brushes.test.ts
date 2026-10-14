@@ -24,7 +24,8 @@ import { brushOf, CREATURE_BRUSHES, emptyWave, paint } from "../src/state.js";
  */
 function expectedLivingKinds(): CreatureKind[] {
   return (Object.keys(CREATURES) as CreatureKind[]).filter(
-    (kind) => !isMeteorKind(kind) && !isBossBody(kind) && !isInstalled(kind),
+    // THE BLISTER is the five CONTROLS brushes instead (`control-brushes.test.ts`).
+    (kind) => !isMeteorKind(kind) && !isBossBody(kind) && !isInstalled(kind) && kind !== "blister",
   );
 }
 

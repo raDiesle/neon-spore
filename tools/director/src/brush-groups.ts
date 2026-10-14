@@ -1,5 +1,5 @@
 import { type CreatureCategory, categoryOf } from "@neon-spore/content";
-import { BRUSH_KIND, BRUSHES, type Brush, FAULT_BRUSHES } from "./brushes.js";
+import { BRUSH_KIND, BRUSHES, type Brush, CONTROL_BRUSHES, FAULT_BRUSHES } from "./brushes.js";
 
 /**
  * How the palette is divided into sections. Split from `brushes.ts` when that
@@ -56,6 +56,10 @@ export const BRUSH_GROUPS: BrushGroup[] = (() => {
     const brushes = byCategory.get(category);
     if (brushes?.length) groups.push({ label: CATEGORY_LABEL[category], brushes });
   }
+  // One brush per on-screen control, each THE BLISTER with its gesture chosen
+  // (`control-brushes.ts`): a body is not in it for its category but for the
+  // control it is put there to teach.
+  groups.push({ label: "CONTROLS", brushes: [...CONTROL_BRUSHES] });
   groups.push({ label: "SUCK", brushes: ["purge", "ward"] });
   // Last, and its own group: a fault is not a body and does not arrive — it is
   // a pencil laid across a row of the map (`brushes.ts` `FAULT_BRUSHES`).

@@ -2,6 +2,7 @@ import { CREATURES } from "@neon-spore/content";
 import { PALETTE } from "@neon-spore/render";
 import { cardSubjects, livingStroke, SHORT_NOTE } from "./brush-cards.js";
 import { type Brush, LIVING_BRUSH_KINDS } from "./brush-lists.js";
+import { CONTROL_LOOK } from "./control-look.js";
 
 /**
  * **What the palette draws**: one row per brush, with a label, a stroke, the
@@ -90,6 +91,9 @@ export const BRUSHES: {
   // is empty and the button is its word and its line, which is what a pencil
   // laid across a row looks like in a palette of creatures.
   ...FAULT_LOOK.map((f) => ({ ...f, subjects: [], stroke: PALETTE.arc })),
+  // One per on-screen control, each a blister with its gesture chosen; the
+  // picture is the body with the control on it (`brush-poses-control.ts`).
+  ...CONTROL_LOOK,
   {
     brush: "rock",
     label: "METEOR",
@@ -162,3 +166,4 @@ export {
   LIVING_BRUSH_KINDS,
   ROCK_BRUSHES,
 } from "./brush-lists.js";
+export { CONTROL_BRUSHES, type ControlBrush, controlGestureOf } from "./control-brushes.js";

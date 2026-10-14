@@ -1,8 +1,9 @@
 import { authorsBodyColor, CREATURES } from "@neon-spore/content";
 import { type Color, type CreatureKind, type PodKind, SHELL_INTACT } from "@neon-spore/sim";
 import { COL, creatureAt, podAt, tile } from "./brush-frame.js";
+import { controlArt } from "./brush-poses-control.js";
 import { echoArt } from "./brush-poses-echo.js";
-import { type Brush, LIVING_BRUSH_KINDS } from "./brushes.js";
+import { type Brush, CONTROL_BRUSHES, controlGestureOf, LIVING_BRUSH_KINDS } from "./brushes.js";
 import {
   aim,
   fresh,
@@ -225,6 +226,9 @@ const BUILDERS: Partial<Record<Brush, () => HTMLCanvasElement>> = {
   crystal: crystalArt,
   purge: () => podArt("purge"),
   ward: () => podArt("ward"),
+  ...Object.fromEntries(
+    CONTROL_BRUSHES.map((brush) => [brush, () => controlArt(controlGestureOf(brush) ?? "tap")]),
+  ),
 };
 
 /**

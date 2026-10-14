@@ -6,6 +6,7 @@ import {
   type MalfunctionKind,
   type RockKind,
 } from "@neon-spore/sim";
+import { CONTROL_KIND, type ControlBrush } from "./control-brushes.js";
 
 /**
  * **What a brush is**, as opposed to what the palette draws for one.
@@ -80,7 +81,7 @@ export function faultKindOf(brush: Brush): MalfunctionKind | null {
     : null;
 }
 
-export type Brush = CreatureKind | "rock" | "purge" | "ward" | "erase" | FaultBrush;
+export type Brush = CreatureKind | "rock" | "purge" | "ward" | "erase" | FaultBrush | ControlBrush;
 
 /**
  * The rock brushes, paired with the kind each one paints *first*.
@@ -129,11 +130,13 @@ export const ROCK_BRUSHES: readonly [Brush, RockKind][] = [
  * questions ("what does the sheet draw" there, "what can a click place" here).
  *
  * Every key of `CREATURES` is covered by exactly one of "rock", "boss body",
- * "installed", or this list — so a creature added there needs nothing done here
+ * "installed", the CONTROLS brushes, or this list — so a creature added there needs nothing done here
  * to get a brush, and `brushes.test.ts` fails if that ever stops being true.
  */
 export const LIVING_BRUSH_KINDS: CreatureKind[] = (Object.keys(CREATURES) as CreatureKind[]).filter(
-  (kind) => !isMeteorKind(kind) && !isBossBody(kind) && !isInstalled(kind),
+  // THE BLISTER is placed by the five CONTROLS brushes, one per gesture, and
+  // has no button of its own (`control-brushes.ts`).
+  (kind) => !isMeteorKind(kind) && !isBossBody(kind) && !isInstalled(kind) && kind !== CONTROL_KIND,
 );
 
 export const BRUSH_KIND: Partial<Record<Brush, CreatureKind>> = {
