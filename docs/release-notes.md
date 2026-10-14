@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-14 · f5f461405 — The wave curriculum is planned, today's waves are measured, and the wave list filters to regular waves
+
+The director's wave list has a fifth press, ≡, that shows only the regular waves — no boss, no guide, nothing the pair has not met before. Ten of the 120 waves are regular today. `docs/spec/wave-curriculum.md` is the plan for about a thousand waves: every new thing opens a block of its intro and eight regular waves, each wave has a length band and a pressure score it is aimed at, and the waves are composed once into the act files and edited in the wave editor like any other. `docs/spec/wave-curriculum-today.md` measures every wave and every boss with AUTO playing both seats.
+
 ## 2026-10-14 · 74a97149a — THE CHRYSALIS: a living cocoon peeled one skin at a time (simulation)
 
 THE BASTION's idea on a body that is alive, as the owner asked: a cocoon in four skins, each two courses deep, eight steps in all. Each seat rubs the slime off its own half, then pulls its spikes out along their lines; the shield throws a swelling sac's spores back; and only the pilot sees the heart, slides the cannon under it and says its colour for the navigator to fire. A skin run out grows back whole, and nothing hits the hull.

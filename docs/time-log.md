@@ -40460,3 +40460,5 @@ was sixteen red tests, one table each.
 
 Bottleneck: reading — what a wave introduces is answered in a test, not by a
 function, so it had to be found and lifted out before anything could count.
+
+*Measured: 9 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
