@@ -67,6 +67,11 @@ figure layer above it. Figures are the next authoring step, and
 The wave test is stricter than it sounds. Realistically it carries 60–80 waves,
 not 200.
 
+**Superseded on count, 14 October 2026**: the owner plans about a thousand
+waves. The test still applies to every one of them; what carries the number is
+the curriculum's eight regular waves per new thing (`wave-curriculum.md`,
+`docs/decisions.md` #35).
+
 Applied, not stored: `Wave` had a required `sentence` until the owner took it
 off every wave on 25 September 2026 (*name of wave and number is good enough*),
 so the skill at `.claude/skills/new-wave` applies the test when a wave is
@@ -106,9 +111,10 @@ moves from act 4 to act 5.
 | 8–9 | invert (modifier) |
 | 10 | boss |
 
-**New creatures only up to about wave 50.** After that, nothing but
-recombination and modifiers. That half carries for a long time precisely
-because the pair has mastered its repertoire there and only execution counts.
+~~New creatures only up to about wave 50, then nothing but recombination and
+modifiers.~~ Superseded on 14 October 2026 by the curriculum's blocks: one new
+thing, then eight regular waves of recombination, for as long as there are new
+things (`wave-curriculum.md`).
 
 ## 8.6 How to proceed
 

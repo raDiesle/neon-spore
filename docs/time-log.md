@@ -40444,3 +40444,19 @@ Bottleneck: the registrations — the typecheck found half and the other half
 was sixteen red tests, one table each.
 
 *Measured: 23 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
+
+## 2026-10-14 — The wave curriculum, planned and measured, and the ≡ press
+
+- reading: 20 min. The wave skill, the rail's filters, the guide tests, the
+  probe rig, the wave-design spec, and a web search on pacing and on rhythm
+  games' difficulty scores.
+- writing: 20 min. Three probe scripts that played all 120 waves with AUTO and
+  scored them, the two curriculum pages, `wave-regular.ts`, the ≡ press, the
+  tests, the decision and the queue entries.
+- looking: 5 min. The ≡ press in the director pane, once.
+- friction: 5 min. `timeout` is not on macOS, and the probe prints its own
+  command line on stdout, so its JSON had to be filtered before it parsed.
+- landing: 5 min.
+
+Bottleneck: reading — what a wave introduces is answered in a test, not by a
+function, so it had to be found and lifted out before anything could count.

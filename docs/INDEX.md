@@ -69,6 +69,8 @@ the code disagree, and the code is the truth for numbers.
 | `docs/spec/briefings.md` | you teach the pair a mechanic or a creature |
 | `docs/spec/between-waves.md` | you draw anything over the rest between one wave and the next — what a cleared wave says, and the hand-off into the next one's guide |
 | `docs/spec/wave-design.md` | you author a wave or an act |
+| `docs/spec/wave-curriculum.md` | you compose regular waves, decide how long a wave is or how many follow a new thing, or score a wave's difficulty |
+| `docs/spec/wave-curriculum-today.md` | you want every wave's length, novelty and pressure, or every boss's time, as measured on 14 October 2026 |
 | `docs/spec/graphics.md` | you draw anything |
 | `docs/spec/audio.md` | you add a sound, or wonder why none of them sit in the speech band |
 | `docs/spec/bestiary.md` | you add or change a creature |
@@ -1002,6 +1004,7 @@ by hand never moves.
 | `packages/content/src/wave-entry-fence.ts` | **THE FENCE's three fields**: where a wall is open, and where it can be cut |
 | `packages/content/src/wave-faults.ts` | **A fault as an author writes it**: the kind, the beat row it enters on, and how many beat rows it holds |
 | `packages/content/src/wave-marks.ts` | **Which of the four marks a wave carries** — a boss, a panel, a guide, a fault |
+| `packages/content/src/wave-regular.ts` | **Which waves are regular** — no boss, no guide, nothing new (`isRegularWave`), and what a wave is the first to carry (`waveIntroduces`); the director's ≡ press filters by it |
 | `packages/content/src/creatures-hazards.ts` | **The arrivals with nothing alive in them**: the five speed tiers, THE VEER, the torch — and THE FENCE |
 | `packages/content/src/creatures-split.ts` | The three bodies **one seat cannot see whole** that wear nothing to do it — the dart, the wisp and the ghost |
 | `packages/content/src/mechanics-split.ts` | The five bestiary rows for bodies one seat cannot see whole — the lure, the dart, the veil, the wisp and the ghost |

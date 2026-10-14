@@ -1231,3 +1231,21 @@ said by the pull channel's chevrons (5 October 2026).
 **Reconsider if:** a cue starts carrying a column, a colour or a count. That is
 the pair's own sentence, and a field that says it has taken the game's subject
 away.
+
+## 35. A thousand waves, in blocks of one new thing and eight regular ones
+
+**14 October 2026.** The owner: *there should be an equal number of waves until
+something new is added … increase difficulty in very small steps*, and *the
+game will have around 1000 waves, probably more.* `docs/spec/wave-design.md`
+had capped the game at 60–80 waves and new creatures at wave 50; both are
+superseded. Every new thing — a body, a pod, a fault, a panel — opens a block
+of its intro wave and eight regular waves, a boss may close it, and each wave
+is aimed at a pressure score that rises by small steps with a dip in the
+middle of the block. Regular waves are composed once at author time into the
+act files and edited like any other wave; nothing is generated at run time,
+which `wave-design.md` §8.1 and the randomness rule (`structure.md` §7.3)
+both still require. The numbers: `docs/spec/wave-curriculum.md`.
+
+**Reconsider if:** a pair playing eight regular waves in a row says they are
+bored before the next new thing — then the count drops, not the rule that it is
+equal for every block.

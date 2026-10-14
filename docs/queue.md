@@ -650,6 +650,63 @@ Both export `isqrt`: `handle-pull.ts` by bisection up to 46340, `pinball-contact
 
 `queueDropped` closes an entry a lane names in its commit messages with `laneLog.includes(entry.title)`, against `git log --format=%B` as it stands. A message wrapped at 72 columns breaks a long title over a line, so the lane that closed "A tap on a lid's cord under the chrome reads as a pull" was refused until the title was put on one line by hand. Collapse runs of whitespace in both the log and the title before comparing, and add the wrapped case to the test beside it.
 
+## AUTO loses THE COUNT and THE CLAW
+
+- **Found:** 2026-10-14, claude/wave-plan
+- **Files:** `packages/hands/src/autopilot-field-hand.ts`, `tools/probe/world.ts`, `docs/spec/wave-curriculum-today.md`
+
+Playing every wave with AUTO on both seats (`playedBeat` in a loop until the
+field is clear) to measure the curriculum's table, two waves with no boss are
+lost: THE COUNT and THE CLAW. The field hand does not answer a countdown body
+or THE CLAW's panel, so their length is missing from the table and AUTO in the
+director cannot show either played right. Teach the field hand both, add a
+test in `packages/hands` that plays each wave to a clear, and refill their rows
+in the today table. Prove with `bun test packages/hands` and `bun run check`.
+
+## AUTO loses BULB QUEEN and THE VANE
+
+- **Found:** 2026-10-14, claude/wave-plan
+- **Files:** `packages/hands/src/boss-hands-queen.ts`, `packages/sim/src/vane-hand.ts`, `docs/spec/wave-curriculum-today.md`
+
+The same measurement: AUTO playing both seats loses both bosses, so the boss
+table in `wave-curriculum-today.md` has no time for them. Find which press the
+hand misses (the probe's `playedBeat` and `field` print it beat by beat), fix
+it, add a play-to-the-end test per boss, and fill in the two rows. Prove with
+`bun test packages/hands` and `bun run check`.
+
+## AUTO loses THE CURTAIN and THE TASTER
+
+- **Found:** 2026-10-14, claude/wave-plan
+- **Files:** `packages/sim/src/curtain-hand.ts`, `packages/sim/src/taster-hand.ts`, `docs/spec/wave-curriculum-today.md`
+
+As above, for these two bosses: AUTO loses both, so the boss table cannot say
+how long either takes. Fix the hands, add a play-to-the-end test for each, fill
+in the rows. Prove with `bun test packages/hands` and `bun run check`.
+
+## AUTO loses THE LEAD and THE SCUTTLE
+
+- **Found:** 2026-10-14, claude/wave-plan
+- **Files:** `packages/sim/src/lead-hand.ts`, `packages/sim/src/scuttle-hand.ts`, `docs/spec/wave-curriculum-today.md`
+
+As above, for these two bosses. Fix the hands, add a play-to-the-end test for
+each, fill in the rows. Prove with `bun test packages/hands` and
+`bun run check`.
+
+## The wave pressure score, in content and on the wave list
+
+- **Found:** 2026-10-14, claude/wave-plan
+- **Files:** `docs/spec/wave-curriculum.md`, `packages/content/src/wave-regular.ts`, `tools/director/src/rail-marks.ts`
+- **Asks:** Is the curriculum's plan right as written — eight regular waves after every new thing, existing waves kept in order, the boss bands at twice AUTO's time?
+
+The first lane of `wave-curriculum.md` §8: `wavePressure(wave)` in
+`packages/content`, exactly §5's formula, with a test pinning TWO ROCKS < THE
+WALL < FINALE and the fault term; the number drawn at the end of every row of
+the director's wave list; and the probe scripts that wrote
+`wave-curriculum-today.md` made a command (`bun run waves:measure`) that
+rewrites its tables. The options the answer picks between are §9's four
+questions. Prove with `bun test packages/content tools/director` and
+`bun run check`.
+
 ## `keys.ts` is four lines under the line ceiling
 
 - **Found:** 2026-10-14, claude/queue-curved-pulls-the-sim-knows-only-straight-ones

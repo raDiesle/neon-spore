@@ -183,6 +183,7 @@ export { SNAKE_ROUNDS } from "./snake-rounds.js";
 export { STARE_LEVELS } from "./stare-levels.js";
 export { placedFaults, type WaveFault } from "./wave-faults.js";
 export { WAVE_MARK_IDS, type WaveMarkId, waveMarksOn } from "./wave-marks.js";
+export { isRegularWave, waveIntroduces } from "./wave-regular.js";
 export { freshWaveId } from "./wave-types.js";
 export {
   type BossType,

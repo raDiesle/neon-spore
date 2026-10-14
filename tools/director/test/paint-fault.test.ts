@@ -95,4 +95,15 @@ describe("filtering by the rail's own symbols", () => {
       false,
     ]);
   });
+
+  test("≡ takes the regular waves: no boss, no guide, nothing new", () => {
+    // The first wave is the first on its panel, which is something new; a
+    // boss wave is never regular; the plain wave after both of them is.
+    const regular = [wave(), bossWave, wave()];
+    expect([0, 1, 2].map((i) => marksMatch(regular, i, new Set(["regular"])))).toEqual([
+      false,
+      false,
+      true,
+    ]);
+  });
 });

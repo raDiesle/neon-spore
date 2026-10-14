@@ -1,4 +1,4 @@
-import { controlSet, DEFAULT_CONTROL_SET_ID, type Wave } from "@neon-spore/content";
+import { controlSet, DEFAULT_CONTROL_SET_ID, isRegularWave, type Wave } from "@neon-spore/content";
 import { readRemembered, writeRemembered } from "./remembered.js";
 import { BRUSHES, brushOf, podBrushOf } from "./state.js";
 
@@ -67,6 +67,8 @@ export function waveHaystack(waves: readonly Wave[], index: number): string {
   if (set.id !== DEFAULT_CONTROL_SET_ID) parts.push("panel");
 
   if (wave.boss) parts.push("boss", wave.boss.kind);
+  // The word for the ≡ press (`rail-symbols.ts`), so it can be typed too.
+  if (isRegularWave(waves, index)) parts.push("regular");
   for (const fault of wave.faults ?? []) parts.push("fault", "malfunction", fault.kind);
 
   // What arrives, by the name of the brush that would have placed it: the one

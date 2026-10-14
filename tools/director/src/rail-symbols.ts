@@ -1,4 +1,4 @@
-import { type Wave, waveMarksOn } from "@neon-spore/content";
+import { isRegularWave, type Wave, waveMarksOn } from "@neon-spore/content";
 import { MARKS, type MarkId } from "./rail-marks.js";
 import { readRemembered, writeRemembered } from "./remembered.js";
 
@@ -24,7 +24,22 @@ import { readRemembered, writeRemembered } from "./remembered.js";
  *
  * Which marks are pressed is remembered across a reload, with the field's
  * text and for the same request (`remembered.ts`).
+ *
+ * **A fifth press, ≡, for the regular waves** — the owner, 14 October 2026:
+ * *a filter in the waves list for regular waves, which do not introduce
+ * anything special*. It is the one press that marks the *absence* of the other
+ * four, so no row draws it in front of a name: a wave with no glyph is
+ * nearly always a regular one, and the press is how to see only those.
+ * Whether a wave is regular is content's question (`isRegularWave`), the same
+ * rule the curriculum counts with (`docs/spec/wave-curriculum.md`). ORed like
+ * the rest — ≡ with ♛ is the regular waves and the boss waves.
  */
+
+/** The press for the regular waves, beside the four marks. */
+const REGULAR = ["regular", "≡", "regular"] as const;
+
+/** A press in the row: one of the four marks, or the regular waves. */
+export type PressId = MarkId | "regular";
 
 export interface RailSymbols {
   /** Whether this wave carries at least one of the pressed marks. Every wave
@@ -43,9 +58,10 @@ export interface RailSymbols {
 export function marksMatch(
   waves: readonly Wave[],
   index: number,
-  pressed: ReadonlySet<MarkId>,
+  pressed: ReadonlySet<PressId>,
 ): boolean {
   if (pressed.size === 0) return true;
+  if (pressed.has("regular") && isRegularWave(waves, index)) return true;
   return waveMarksOn(waves, index).some((id) => pressed.has(id));
 }
 
@@ -56,10 +72,10 @@ const MARKS_KEY = "wave-marks";
  * Pure: the pressed marks a stored value names. An id no mark has any more —
  * a stored value outlives the code that wrote it — is dropped, not kept.
  */
-export function parsePressed(raw: string | null): Set<MarkId> {
-  const known = new Set<string>(MARKS.map(([id]) => id));
-  const pressed = new Set<MarkId>();
-  for (const id of (raw ?? "").split(",")) if (known.has(id)) pressed.add(id as MarkId);
+export function parsePressed(raw: string | null): Set<PressId> {
+  const known = new Set<string>([...MARKS.map(([id]) => id), REGULAR[0]]);
+  const pressed = new Set<PressId>();
+  for (const id of (raw ?? "").split(",")) if (known.has(id)) pressed.add(id as PressId);
   return pressed;
 }
 
@@ -69,14 +85,17 @@ export function bindRailSymbols(host: HTMLElement | null, onChange: () => void):
   const pressed = parsePressed(readRemembered(MARKS_KEY));
   if (!host) return { passes: () => true, active: () => false };
 
-  for (const [id, glyph, word] of MARKS) {
+  for (const [id, glyph, word] of [...MARKS, REGULAR]) {
     const button = document.createElement("button");
     button.type = "button";
     button.className = "mark-toggle";
     button.textContent = glyph;
     // The word the field would have taken for the same thing, so the row
     // teaches the vocabulary rather than replacing it (`rail-filter.ts`).
-    button.title = `Only waves with a ${word}`;
+    button.title =
+      id === "regular"
+        ? "Only regular waves — nothing new, no guide, no boss"
+        : `Only waves with a ${word}`;
     button.classList.toggle("on", pressed.has(id));
     button.addEventListener("click", () => {
       if (pressed.has(id)) pressed.delete(id);

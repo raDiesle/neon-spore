@@ -12,8 +12,9 @@ Say the sentence first, before any entries:
 > "The one where you never keep the same colour twice."
 > "The one where you are not allowed to dodge."
 
-If no such sentence exists, the wave is padding. Cut it. This test is stricter
-than it sounds — realistically it carries 60–80 waves, not 200.
+If no such sentence exists, the wave is padding. Cut it. The game is heading
+for about a thousand waves (the owner, 14 October 2026), and every one of them
+passes this test.
 
 **The sentence is said, not stored.** A wave has no `sentence` field: the owner
 took it off every wave on 25 September 2026 — *name of wave and number is good
@@ -113,10 +114,13 @@ new without anything being drawn:
   any new creature
 - **modifiers** — echo, interference, camouflage, countdown, reversed orders
 
-## 4. Where it belongs
+## 4. Where it belongs, and what follows it
 
-New creatures only up to about wave 50. After that: recombination and modifiers
-only. A creature belongs in the act of its pillar, not wherever there is room.
+Every new thing opens a block: its intro wave, then **eight regular waves**
+that use it — alone, then spread, then mixed with older things — before the next
+new thing arrives. Lengths, the order of the eight, and the pressure score a
+wave is aimed at: `docs/spec/wave-curriculum.md`. A creature belongs in the act
+of its pillar, not wherever there is room.
 
 ## 5. Check
 
