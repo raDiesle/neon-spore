@@ -39904,3 +39904,5 @@ Bottleneck: none — the works were already apart from everything a thumb or a b
 - landing: 5 min. `check:fast`, the commit, `land`.
 
 Bottleneck: the teeth a thumb taps are on the turning part and the hit test has no clock, so the turn had to be hushed through the bite rather than read by the grip.
+
+*Measured: 8 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*

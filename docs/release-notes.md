@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-14 · 090aa5f14 — VERSUS offers THE LAMPREY's head turning, steadied for the bite
+
+`lamprey:glance` offers the eel's head a turn about the mouth's middle — SWAY, LOOK or COCK — the sucker, its fringe, the mouth, the teeth and their marks, or the jaws while it hunts, the near side of the lip opening and the far side closing into the dark and back, on THE LAMPREY · REARING. The body, the fin and the tail's knob stay as they lie, and a bolt meets the gullet's rim under the mouth's middle, which the turn holds. The turn is hushed while the eel bites, since the tooth a press is judged against is read with no clock: the head steadies over the bite's first beat and turns again after it. The record ships still, so the game draws what it did. The mouth's drawing moved to `lamprey-disc.ts` to keep `lamprey-draw.ts` under the ceiling.
+
 ## 2026-10-14 · acfd5840e — VERSUS offers THE GOVERNOR's works turning on their foot
 
 `governor:glance` offers the works over the dial a turn about the spindle — SWAY, LOOK or COCK — the casing and crown, the drum and the yoke and both flyweights together, pivoting on the spindle's foot so a roll tips the tower, the near side opening and the far one closing into the dark and back, on GOVERNOR · BOTH MARKS LIT. The dial — the track, the marks a thumb taps, the needle, the tip and the gap a bolt goes up through — does not move. The record ships still, so the game draws what it did.
