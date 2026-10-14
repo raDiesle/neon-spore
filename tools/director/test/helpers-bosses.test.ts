@@ -4,7 +4,8 @@ import { bossTitle } from "../src/boss-states.js";
 import { BOSS_GROUP } from "../src/helpers-bosses.js";
 import { groupRows } from "../src/helpers-def.js";
 import { helperPose } from "../src/helpers-page.js";
-import { UNDERTOW_BOWING } from "../src/helpers-poses-bosses.js";
+import { STARE_CAUGHT, UNDERTOW_BOWING } from "../src/helpers-poses-bosses.js";
+import { BASTION_PORT, CHRYSALIS_HEART, HYDRA_MAW } from "../src/helpers-poses-cores.js";
 
 /**
  * ONE BOSS'S OWN on CONTROLS › HELPERS (`helpers-bosses.ts`): a row a boss,
@@ -23,5 +24,16 @@ describe("ONE BOSS'S OWN", () => {
   test("the undertow's frame holds a plate still bowing", () => {
     const u = undertowBoss(UNDERTOW_BOWING.build());
     expect(u?.lobes.some((l) => l.stage === "bowing")).toBe(true);
+  });
+
+  test("the stare's frame ends on the tick it catches the press", () => {
+    expect(STARE_CAUGHT.build().events.map((e) => e.type)).toContain("stareCaught");
+  });
+
+  test("each last-step frame has its step lit", () => {
+    const lit = (b: unknown) => (b as { phase?: string } | null)?.phase;
+    expect(lit(BASTION_PORT.build().boss)).toBe("layer");
+    expect(lit(CHRYSALIS_HEART.build().boss)).toBe("skin");
+    expect(lit(HYDRA_MAW.build().boss)).toBe("heads");
   });
 });

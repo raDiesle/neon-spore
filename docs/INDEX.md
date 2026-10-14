@@ -3759,6 +3759,7 @@ by hand never moves.
 | `tools/director/src/helpers-poses-marks.ts` | **The frames for a mark's verdict and THE HANDOVER's plate** on CONTROLS › HELPERS |
 | `tools/director/src/helpers-poses-band.ts` | **The frames for WRONG COLOUR and THE BATON's grey panel** on CONTROLS › HELPERS |
 | `tools/director/src/helpers-poses-bosses.ts` | **The frames for ONE BOSS'S OWN** where no gallery pose holds the picture — THE UNDERTOW's bow |
+| `tools/director/src/helpers-poses-cores.ts` | **THE BASTION, THE CHRYSALIS and THE HYDRA on their last step**, for ONE BOSS'S OWN |
 | `tools/director/src/helpers-shield.ts` | CONTROLS › HELPERS › **THE SHIELD** — every picture the field draws to say something about the shield |
 | `tools/director/src/helpers-siren.ts` | CONTROLS › HELPERS, after THE SHIELD: **THE SIREN** |
 | `tools/director/src/helpers-siren-draw.ts` | THE SIREN's every-state rows drawn (`helpers-siren-states.ts`): a heading CONTENTS lists |
@@ -3770,6 +3771,7 @@ by hand never moves.
 | `tools/director/src/helpers-marks.ts` | CONTROLS › HELPERS, **ON A BOSS'S MARK**: the few pictures every boss's parts wear |
 | `tools/director/src/helpers-bosses.ts` | **ONE BOSS'S OWN** on CONTROLS › HELPERS — the picture a boss with a split draws on one seat only |
 | `tools/director/src/helpers-bosses-b.ts` | **ONE BOSS'S OWN, page two** — THE SCUTTLE to THE THROAT |
+| `tools/director/src/helpers-bosses-c.ts` | **ONE BOSS'S OWN, page three** — THE BASTION to THE GOVERNOR |
 | `tools/director/src/brush-hints.ts` | SHOW DESCRIPTIONS: whether each brush in the palette carries its sentence |
 | `tools/director/src/brush-lists.ts` | which strings are brushes and which kind each one paints — the lists, not the palette's rows |
 | `tools/director/src/scene-marks.ts` | The marks: everything a scene draws that is not a body |

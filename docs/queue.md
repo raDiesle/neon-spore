@@ -332,12 +332,16 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 
 - **Found:** 2026-10-14, claude/docs-controls-helpers-org-c825df
 - **Taken:** 2026-10-14, main (claim: claude/queue-helpers-the-bastion-to-the-trapezes-one-seat-pic)
-- **Files:** `tools/director/src/helpers-page.ts`, `packages/render/src/view-role-clocks-c.ts`, `packages/render/src/gauge.ts`
+- **Files:** `tools/director/src/helpers-bosses-c.ts`, `packages/render/src/view-role-clocks-c.ts`, `packages/render/src/gauge.ts`
 
-The second half of the entry above: `view-role-clocks-c.ts` — THE BASTION,
-THE FLUE, THE GALL, THE GIMBAL, THE GOVERNOR, THE HASP, THE LAMPREY, THE
-MIMIC, THE RATCHET, THE SPOOL, THE TRAPEZE — and THE GAUGE's marks on player
-2's screen (`gauge.ts`). Same group, same rule: a row a boss, the real frame.
+ONE BOSS'S OWN has a third page since claude/queue-helpers-bastion-to-trapeze
+(`tools/director/src/helpers-bosses-c.ts`): THE BASTION, THE CHRYSALIS, THE
+HYDRA, THE FLUE, THE GALL, THE GIMBAL and THE GOVERNOR. Left of
+`view-role-clocks-c.ts`: THE HASP, THE LAMPREY, THE MIMIC, THE RATCHET, THE
+SPOOL and THE TRAPEZE — and THE GAUGE's marks on player 2's screen
+(`gauge.ts`). Same group, same rule: a row a boss, the real frame, a closer
+cut where the whole field leaves the picture a hair; keep
+`helpers-bosses.test.ts` green.
 
 ## `bun run frames <sha>` gave up on a build that was only slow
 

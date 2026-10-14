@@ -41177,3 +41177,18 @@ Bottleneck: reading — the entry named THE THROAT with the others, and its
 split is drawn somewhere neither page says.
 
 *Measured: 14 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
+
+## 2026-10-15 — HELPERS: THE BASTION to THE TRAPEZE (half one)
+
+- reading: 10 min. The splits in `view-role-clocks-c.ts`, two of them —
+  THE CHRYSALIS and THE HYDRA — not in the entry's list.
+- writing: 10 min. Seven rows in `helpers-bosses-c.ts`, three last-step
+  poses in `helpers-poses-cores.ts`, the tests.
+- looking: 10 min. Each frame in the browser pane; the three cores wanted a
+  cut round the body, and THE HYDRA's maws hang under it.
+- friction: 0 min.
+- landing: 5 min.
+
+Bottleneck: reading — three of the splits are on a boss's last step, which
+no gallery pose reaches.
+

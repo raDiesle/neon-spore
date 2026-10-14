@@ -1,5 +1,6 @@
 import { midCol } from "@neon-spore/sim";
 import { CLOCK_B_ROWS } from "./helpers-bosses-b.js";
+import { CLOCK_C_ROWS } from "./helpers-bosses-c.js";
 import type { HelperDef, HelperGroup } from "./helpers-def.js";
 import { UNDERTOW_BOWING } from "./helpers-poses-bosses.js";
 
@@ -9,7 +10,8 @@ import { UNDERTOW_BOWING } from "./helpers-poses-bosses.js";
  * boss shares (`helpers-marks.ts`). A row a boss, framed on the seat the
  * row's first picture is drawn for, with what the other seat is shown
  * instead in its `seat`. Which seat is shown what is decided in
- * `view-role-clocks.ts`; this is the reader's half of it.
+ * `view-role-clocks.ts` and its pages `-b` and `-c`; this is the reader's
+ * half of it, a page of rows to each (`helpers-bosses-b.ts`, `-c.ts`).
  */
 
 /** THE SURGE's bulb, close enough that the notches on its seam read. */
@@ -136,5 +138,5 @@ const CLOCK_ROWS: HelperDef[] = [
 export const BOSS_GROUP: HelperGroup = {
   title: "ONE BOSS'S OWN",
   sub: "the picture a boss with a split draws on one seat only, and what the other seat is shown instead",
-  rows: [...CLOCK_ROWS, ...CLOCK_B_ROWS],
+  rows: [...CLOCK_ROWS, ...CLOCK_B_ROWS, ...CLOCK_C_ROWS],
 };
