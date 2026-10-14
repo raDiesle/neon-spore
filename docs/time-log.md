@@ -40049,3 +40049,5 @@ Bottleneck: THE INSTAR's together rule exempted a pull because letting go undid 
 - landing: 5 min. `check:fast`, the commit, `land`.
 
 Bottleneck: the balloon's hand re-released every balloon on every move, so the count had to be read off the body before the release or it would never have lasted past the next tick.
+
+*Measured: 12 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*

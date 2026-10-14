@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-14 · a69960fc7 — THE LID's cord and THE BALLOON's handles count once at the reach
+
+The last two of the five LEVER rows are on the one generic PULL, answered (b). A cord pulled taut stays counted until the hand lets go (`lidCounted`, hashed): the lens stays bare and the plates stand full open even if the hand eases. A balloon side pulled taut stays taut until its hand lets go (`balloonCounted`, a bit a seat, hashed), so easing inside the hold no longer gives it back; only a lift does. Either one let go short of taut says `pullShort`. THE LID's shot answer moved to `lid-struck.ts` at the size ceiling. Queued: a tap on a cord resting under the chrome's bound reads as a pull. Every replay hash still agrees between runs.
+
 ## 2026-10-14 · 55f05e604 — THE LATCH's grips and THE INSTAR's PULL DOWN / PULL UP count once at the reach
 
 Both are on the one generic PULL now, answered (b). A LATCH pull passes the turn the moment it has gone its whole `latchReachMilli` with the other grip held, and no longer waits for the lift; a pull let go short of the reach says `pullShort` and keeps the turn. The reach is the count, not `latchStrokeMilli` — counting there would have cut every pull to 1000 of its 2500 and doubled the pulls a knot takes — so `latchStrokeMilli` is gone. The rehearsal film plays as before. An INSTAR pull counted at its `need` stays done when the thumb comes off, and is then lonely the way a tap is: it slips if its partner does not come within the together beats. One let go short still slips, said; a tap's worth goes back silently. What the beat does to the marks moved to `instar-beat.ts` at the size ceiling. THE LID's cord and THE BALLOON's handles keep their depth on the creature and stay queued as the second half. Every replay hash is unchanged.
