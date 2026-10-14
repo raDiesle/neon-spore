@@ -669,6 +669,7 @@ or R6 aimed higher), and add a test that composes each of the eight dry.
 ## A rise in difficulty across blocks is not held
 
 - **Found:** 2026-10-14, claude/wave-composer
+- **Taken:** 2026-10-14, claude/wave-composer (claim: claude/queue-a-rise-in-difficulty-across-blocks-is-not-held)
 - **Files:** `tools/director/src/compose-steps.ts`, `tools/director/src/compose-ramp.ts`, `docs/spec/wave-curriculum.md`
 - **Asks:** Which should make block 40 harder than block 4 — tighter gaps, more arrivals, or the ramp starting higher?
 
