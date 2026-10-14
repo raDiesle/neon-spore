@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-14 · be7d260a9 — THE HYDRA: a slime with many heads, each stopped its own way (simulation)
+
+A new boss after THE CHRYSALIS and THE INSTAR, where every level asks a different gesture. Necks swing down at the ship and each seat cuts its own with a swipe across, the way the arrow points; coils wind round the hull and each seat turns its own off, lap by lap; eyes open one at a time and each seat taps its own while it is open; and fire burns in the last mouths, crossed: the navigator sees which mouth opens, the pilot sees its colour. Each kind comes twice, the second harder, and a level run out is a head on the hull.
+
 ## 2026-10-14 · 5f20ebb08 — THE GAUGE's band and THE HIVE's lobes hold the HOLD LAB's drop
 
 THE GAUGE's band, once wound, is the HOLD LAB's drop at the rim, sunk under the navigator's thumb, and its cue draws no second one. Each swelling lobe of THE HIVE is a drop too, filling with water as the pinch goes on, in place of the ring and its dial; the haul's dial stays. THE QUEEN's marks are put to the owner: her ring stands outside the half-buried mark on purpose.

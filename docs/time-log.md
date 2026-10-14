@@ -40761,3 +40761,5 @@ rather than converted.
 
 Bottleneck: reading — the registrations are a list THE CHRYSALIS's commit
 holds better than any page, so its diff was read file by file.
+
+*Measured: 26 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
