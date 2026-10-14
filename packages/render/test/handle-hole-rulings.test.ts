@@ -34,7 +34,9 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
  *
  * **THE SCOUT** is the plain check after all; it was last only because no
  * photograph of it can be taken (`bun run frames` knows no verb that flies the
- * round). A count needs no verb, which is what this file is.
+ * round). A count needs no verb, which is what this file is. Its two holds
+ * are the HOLD LAB's drop since 13 October 2026, which cuts no disc for
+ * anybody (`scout-frame.test.ts` asks whose each is).
  */
 
 beforeAll(installCanvasGlobals);
@@ -77,19 +79,11 @@ describe("THE SURGE's two grip marks, on the bulb's lower flank", () => {
   });
 });
 
-describe("THE SCOUT's two rings, one of them on the ship itself", () => {
-  it("punches the line's disc on her screen and not on his", () => {
+describe("THE SCOUT's two holds, one of them on the ship itself", () => {
+  it("punches no hole through the ship on any screen: they are drops", () => {
     // Laden: hers alone is offered, and it sits on the ship's own middle.
-    const { p1, p2, test } = added(scout(0), scout(CFG.scoutLadenMotes + 1));
-    expect(p2).toBe(1);
-    expect(p1).toBe(0);
-    expect(test).toBe(1);
-  });
-
-  it("punches one apiece once the ship is heavy and both hands are on offer", () => {
-    const { p1, p2, test } = added(scout(0), scout(CFG.scoutHeavyMotes + 1));
-    expect(p1).toBe(1);
-    expect(p2).toBe(1);
-    expect(test).toBe(2);
+    for (const motes of [CFG.scoutLadenMotes + 1, CFG.scoutHeavyMotes + 1]) {
+      expect(added(scout(0), scout(motes))).toEqual({ p1: 0, p2: 0, test: 0 });
+    }
   });
 });

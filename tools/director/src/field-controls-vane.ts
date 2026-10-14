@@ -22,7 +22,7 @@ export const VANE_CONTROLS: readonly FieldControlDef[] = [
     name: "THE VANE'S ARM",
     where:
       "on the tip of the sweeping arm itself, above the field's first row, " +
-      "from VEER on — the ring travels with the arm rather than waiting at a " +
+      "from VEER on — the HOLD LAB's drop travels with the arm rather than waiting at a " +
       "rest position, because where the arm is when the thumb lands is the " +
       "whole of what the press decides (render/vane-grip.ts)",
     seat:
@@ -42,7 +42,8 @@ export const VANE_CONTROLS: readonly FieldControlDef[] = [
       "housing on its own clock and a pinned arm would take the fight's one " +
       "window away. The arm asked wears the halo on the pilot's screen and " +
       "the partner's turning ring and clock on the navigator's, and the pin " +
-      "landing washes it green (render/vane-marks.ts).",
+      "landing washes it green (render/vane-marks.ts); while the pin stands " +
+      "the drop's water wells to its rim over vanePinBeats.",
     source: "touch.ts — vaneGripUnder() under handleUnder()",
     holdKind: "drag",
     dragTarget: "vaneArm",

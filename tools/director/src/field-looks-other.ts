@@ -24,12 +24,12 @@ export const OTHER_LOOKS: Readonly<Record<string, UseLook>> = {
     move: "Her thumb sinks in, green as it lands; the water wells to the rim over the time before the stalk tears out of her hand.",
   },
   "THE WELL'S SEAM": {
-    find: "The empty sector of the clock face where the two walls meet — the brightest line on the picture — on the pilot's screen while the face slips.",
-    move: "The face stops slipping under the thumb and the hours stay on their columns while he holds.",
+    find: "The HOLD LAB's drop in the empty sector of the clock face where the two walls meet — the brightest line on the picture — on the pilot's screen while the face slips.",
+    move: "The face stops slipping under the thumb and the hours stay on their columns while he holds; the drop fills as the hold he may spend runs out.",
   },
   "THE VANE'S ARM": {
-    find: "A ring on the tip of the sweeping arm, travelling with it, haloed on the pilot's screen from VEER on.",
-    move: "The arm stops in its column under the thumb and the housing splits over that column; green as it lands, torn free after its count.",
+    find: "The HOLD LAB's drop on the tip of the sweeping arm, travelling with it, haloed on the pilot's screen from VEER on.",
+    move: "The arm stops in its column under the thumb and the housing splits over that column; green as it lands, the drop filling until it is torn free.",
   },
   "THE LEDGER'S PLUG": {
     find: "A ring above the grommet once the cord is in, on the navigator's screen, with a breathing halo until her thumb is in.",
@@ -44,8 +44,8 @@ export const OTHER_LOOKS: Readonly<Record<string, UseLook>> = {
     move: "The tail is held while the thumb is down; in an apart it is pulled along the body away from the head.",
   },
   "THE SCOUT'S PRIME": {
-    find: "A ring off the little ship's stern, behind the amber beads, haloed on the pilot's screen while no thumb is on it.",
-    move: "Green as the thumb lands; the ring stays lit and the burn answers while he holds, and goes cold the moment he lets go.",
+    find: "The HOLD LAB's drop off the little ship's stern, behind the amber beads, haloed on the pilot's screen while no thumb is on it.",
+    move: "Green as the thumb lands; the drop stays sunk and the burn answers while he holds, and goes cold the moment he lets go.",
   },
   "THE BATON'S DRAW": {
     find: "The HOLD LAB's drop on each of the two resting beads, one per screen, each haloed until that seat's thumb is down. Nothing says whether the other is down.",

@@ -126,7 +126,9 @@ function handCues(l: Layout, world: World, b: VaneState): BossCue[] {
   const out: BossCue[] = [];
   if (vaneArmAsks(cfg, b, beat)) {
     const arm = vaneArmCircle(l, cfg, b, beat, waveBeat, 0);
-    out.push({ ...markAt(1, "HOLD", "HOLD", arm.x, arm.y, l, 75), why: "TO PIN IT" });
+    // The drop is the arm's own, with the pin in it (`vane-hands.ts`).
+    const cue = markAt(1, "HOLD", "HOLD", arm.x, arm.y, l, 75);
+    out.push({ ...cue, why: "TO PIN IT", ownDrop: true });
   }
   if (vaneHousingAsks(cfg, b, beat)) {
     const h = vaneHousingCircle(l, cfg, vanePivotAt(cfg, b, beat, waveBeat));

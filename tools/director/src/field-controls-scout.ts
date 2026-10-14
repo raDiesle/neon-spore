@@ -28,11 +28,11 @@ export const SCOUT_CONTROLS: readonly FieldControlDef[] = [
       "on the little ship itself, riding it wherever it has got to, from the " +
       "moment it is past scoutLadenMotes — her screen shows the ship with no " +
       "nose and none of the motes it carries, so the middle of it is a place " +
-      "and nothing else and the ring covers nothing she reads " +
+      "and nothing else and the HOLD LAB's drop on it covers nothing she reads " +
       "(render/scout-grip.ts)",
     seat:
       "player 2 only — the seat that can see the arena and can move nothing " +
-      "in it. The ring is haloed on her screen until her thumb is down, the " +
+      "in it. The drop is haloed on her screen until her thumb is down, the " +
       "line going on washes it green, and the pilot's press on it is refused " +
       "red (render/scout-marks.ts, sim/scout-hand.ts scoutRefuse)",
     gesture: "hold",
@@ -45,7 +45,7 @@ export const SCOUT_CONTROLS: readonly FieldControlDef[] = [
       "is — a hazard on it is a hazard the ship is being dragged into. It " +
       "does not break the round's split: she chooses when, never where, and " +
       "the one place it goes is the place the round is already aiming at. On " +
-      "a ship that is not laden there is no ring and nothing happens.",
+      "a ship that is not laden there is no drop and nothing happens.",
     source: "touch.ts — scoutGripUnder() under handleUnder()",
     holdKind: "drag",
     dragTarget: "scoutLine",
@@ -58,11 +58,11 @@ export const SCOUT_CONTROLS: readonly FieldControlDef[] = [
       "off the little ship's stern, along its heading and behind the amber " +
       "beads that ride the rim, from the moment it is past scoutHeavyMotes — " +
       "in the air the wake takes up when the thruster answers, which is empty " +
-      "exactly while the ring is offered (render/scout-grip.ts)",
+      "exactly while the HOLD LAB's drop is offered (render/scout-grip.ts)",
     seat:
       "player 1 only — the ship is the one thing his screen shows him. The " +
-      "ring is haloed on his screen while no thumb is on it, and on hers it " +
-      "wears his turning ring and a clock, since her burn waits on it; the " +
+      "drop is haloed on his screen while no thumb is on it, and on hers it " +
+      "is dimmed with his turning ring and a clock, since her burn waits on it; the " +
       "prime washes it green and her press on it is refused red " +
       "(render/scout-marks.ts, sim/scout-hand.ts scoutRefuse)",
     gesture: "hold",
@@ -71,7 +71,7 @@ export const SCOUT_CONTROLS: readonly FieldControlDef[] = [
       "burn answers while it stays and not at all once it lifts " +
       "(sim/scout-hand.ts, scoutPrimed). Nothing is carried. It costs him a " +
       "hand for the whole burn, so a heavy ship burns or turns and not both. " +
-      "The ring is lit and full while it is held, as the line's is; the wake " +
+      "The drop is sunk while it is held, as the line's is; the wake " +
       "asks the same reading, so a burn held with no thumb on the stern draws " +
       "nothing. A hold since 10 October 2026 — it was a carry, which no thumb " +
       "could give.",

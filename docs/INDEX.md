@@ -1908,6 +1908,7 @@ by hand never moves.
 | `packages/render/src/well-face.ts` | THE WELL's clock face: the bowl, the lanes, the rings and the seam — the empty board, in the round |
 | `packages/render/src/well-flesh.ts` | THE WELL as a throat: the bowl deepening to the hub, a lobed lip, grooves, a socket, a film |
 | `packages/render/src/well-ship.ts` | THE WELL's ship: the hull as a ring at the middle of the clock |
+| `packages/render/src/well-seam-hold.ts` | THE WELL's hold: the HOLD LAB's drop in the seam while the face slips, sunk under his thumb, filling as the hold is spent |
 | `packages/render/src/well-arrivals.ts` | THE WELL's warnings: the flat field's strip, bent into a ring outside the rim, and the crossing rock's mark |
 | `packages/render/src/well-body.ts` | Where a body stands on THE WELL — the one spelling of the well's placement, in its own file so `creature-place.ts` can read it |
 | `packages/render/src/well-roll.ts` | THE WELL's roll, as a screen sees it — the angle on the layout, so a frame and a finger cannot disagree |

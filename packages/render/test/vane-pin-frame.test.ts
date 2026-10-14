@@ -14,6 +14,7 @@ import { BossHurt } from "../src/boss-hurt.js";
 import { GripVerdicts } from "../src/grip-verdict.js";
 import { computeLayout, tileCX } from "../src/layout.js";
 import { drawVane } from "../src/vane-draw.js";
+import { spyHolds } from "./soak-spy.js";
 
 /**
  * The one thing `docs/queue.md` named: from VEER on, a pinned arm has to be
@@ -89,15 +90,19 @@ function tipPathOf(world: World, b: VaneState): string {
   };
   // `beatPhase = 0` so the drawn column is exactly `vaneTipNow`'s answer, with
   // no interpolation towards the next beat's to read past.
-  drawVane(
-    ctx as unknown as CanvasRenderingContext2D,
-    layout,
-    world,
-    b,
-    0,
-    0,
-    new BossHurt(),
-    new GripVerdicts(),
+  // The pin's drop is drawn over the tip (`vane-hands.ts`) with fills of its
+  // own, so it is asked for and not painted.
+  spyHolds(() =>
+    drawVane(
+      ctx as unknown as CanvasRenderingContext2D,
+      layout,
+      world,
+      b,
+      0,
+      0,
+      new BossHurt(),
+      new GripVerdicts(),
+    ),
   );
   if (last === undefined) throw new Error("drawVane filled nothing");
   return last;

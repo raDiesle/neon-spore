@@ -40662,3 +40662,19 @@ Bottleneck: looking — which of three overlapping layers drew the disk took
 a frame with one switched off to tell.
 
 *Measured: 21 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
+
+## 2026-10-14 — THE SCOUT, THE VANE and THE WELL hold the HOLD LAB's drop
+
+- reading: 10 min. The three grips, THE WELL's seam as a hit test and a
+  drawing, and what of the slip and the pin the simulation keeps.
+- writing: 20 min. The drop on THE SCOUT's two holds and THE VANE's pin with
+  its water off the pin's count, `well-seam-hold.ts`, `ownDrop` on the pin's
+  cue, two disc rulings and two frame tests moved onto `spyHolds`, a new
+  test, and the cards.
+- looking: 5 min. Two cards, and THE SCOUT's ship rendered on its own.
+- friction: 5 min. THE SCOUT's card is not on ON THE FIELD's page, and the
+  new test wanted the frame timeout.
+- landing: 5 min.
+
+Bottleneck: writing — THE WELL's hold had no mark at all, so where in the
+seam its drop stands and how big had to be decided rather than swapped.

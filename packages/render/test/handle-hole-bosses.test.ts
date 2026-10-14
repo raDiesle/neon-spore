@@ -110,23 +110,20 @@ describe("THE THROAT's two rings, on the mouth and beside the root", () => {
 });
 
 describe("THE VANE's hands, on the mechanism", () => {
-  it("punches the arm's disc on his screen and not on hers", () => {
-    const { p1, p2, test } = added(vane("SWING"), vane("VEER"));
-    expect(p1).toBe(1);
-    expect(p2).toBe(0);
-    expect(test).toBe(1);
+  // The pin is the HOLD LAB's drop since 13 October 2026 (`vane-hands.ts`),
+  // which cuts no disc on either screen.
+  it("punches no disc for the arm on either screen", () => {
+    expect(added(vane("SWING"), vane("VEER"))).toEqual({ p1: 0, p2: 0, test: 0 });
   });
 
   /**
    * The housing is hauled by the field's pull knob since 14 October 2026
    * (`vane-hands.ts`), which is not a ring and punches nothing of its own: its
-   * paint is held by the spy (`pull-spy.ts`), so what is left is the arm's.
+   * paint is held by the spy (`pull-spy.ts`), and the arm's is a drop.
    * `vane-hands.test.ts` asks where the knob is and whose.
    */
-  it("punches only the arm's once the pin is standing, the housing being a knob", () => {
-    const { p1, p2, test } = spyPulls(() => added(vane("SWING"), vane("SEIZE", true))).out;
-    expect(p1).toBe(1);
-    expect(p2).toBe(0);
-    expect(test).toBe(1);
+  it("punches nothing once the pin is standing, the housing being a knob", () => {
+    const { out } = spyPulls(() => added(vane("SWING"), vane("SEIZE", true)));
+    expect(out).toEqual({ p1: 0, p2: 0, test: 0 });
   });
 });

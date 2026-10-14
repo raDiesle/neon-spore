@@ -5,19 +5,24 @@ import {
   vanePinnedAt,
   vanePivotCol,
 } from "@neon-spore/sim";
-import { drawHandleRing, handleRadius } from "./handle-draw.js";
+import { handleRadius } from "./handle-draw.js";
 import type { Circle, Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
 import { drawPullKnob, PULL_SIZE } from "./pull-knob.js";
 import { PULL_DOWN, straightPullTrack } from "./pull-line.js";
 import { drawPullTrack, pullTrackPoint } from "./pull-track.js";
+import { drawSoakHold } from "./soak-hold.js";
 import { vaneHousingCircle } from "./vane-grip.js";
 
 /**
  * **THE VANE's two hands, drawn** — where they stand and what a press on them
  * takes hold of is `vane-grip.ts`'s; this is the picture of them.
  *
- * **The pilot's pin is a hold and keeps its ring.** **The navigator's haul is
+ * **The pilot's pin is a hold, and the HOLD LAB's drop** (`soak-hold.ts`;
+ * the owner, 13 October 2026, every hold the drop), the water welling to its
+ * rim over the `vanePinBeats` before the sweep tears it out; the cue draws no
+ * second drop over it (`BossCue.ownDrop`, `boss-cue-read-x.ts`). It was a
+ * ring until then, which is what the paragraphs below about a ring are. **The navigator's haul is
  * the field's pull** (`pull-knob.ts`, `pull-track.ts`), the owner, 13 October
  * 2026: until then it was a ring too, which read as a press. It goes straight
  * down off the bearing, `vaneHaulMilli` long (`sim/vane-hand.ts`), so its
@@ -69,7 +74,8 @@ export function drawVaneGrips(
   const asks = vanePhase(b.pins).asks;
   if (asks === "shoot") return;
   const pinned = vanePinnedAt(cfg, b, beat);
-  ring(ctx, { x: tip.x, y: tip.y, r: handleRadius(l, cfg) }, l, pinned, time);
+  const fill = pinned ? Math.min(1, (beat - b.pinBeat) / Math.max(1, cfg.vanePinBeats)) : 0;
+  pin(ctx, { x: tip.x, y: tip.y, r: handleRadius(l, cfg) }, l, pinned, fill, time);
   if (asks !== "haul" || !pinned) return;
   drawVaneHaul(ctx, l, cfg, vaneHousingCircle(l, cfg, pivot), b.hauled, time);
 }
@@ -101,24 +107,14 @@ function isMine(l: Layout, player: 1 | 2): boolean {
   return l.role === "test" || (l.role === "p1") === (player === 1);
 }
 
-/** The pilot's ring on the arm. */
-function ring(
+/** The pilot's drop on the arm. */
+function pin(
   ctx: CanvasRenderingContext2D,
   at: Circle,
   l: Layout,
   held: boolean,
+  fill: number,
   time: number,
 ): void {
-  const mine = isMine(l, 1);
-  drawHandleRing(ctx, {
-    x: at.x,
-    y: at.y,
-    r: at.r,
-    hex: mine ? PALETTE.rock : PALETTE.dim,
-    rim: mine ? PALETTE.text : PALETTE.rock,
-    held,
-    pull: held ? 1 : 0,
-    time,
-    theirs: !mine,
-  });
+  drawSoakHold(ctx, at, at.r, { time, held, fill, theirs: !isMine(l, 1) });
 }

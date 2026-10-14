@@ -10,10 +10,11 @@ import {
   scoutPrimeOffered,
 } from "@neon-spore/sim";
 import { strokeGlow } from "./glow.js";
-import { drawHandleRing, handleRadius } from "./handle-draw.js";
+import { handleRadius } from "./handle-draw.js";
 import { type Circle, hitCircle, type Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
 import { scoutAt } from "./scout-draw.js";
+import { drawSoakHold } from "./soak-hold.js";
 import type { Field, Touch } from "./touch.js";
 import { bossOf } from "./touch-field.js";
 
@@ -51,8 +52,12 @@ import { bossOf } from "./touch-field.js";
  * pilot's three — and it can be now: `tools/frames/scout-press.ts` carries the
  * flight that puts four motes aboard and takes her ring's picture.
  *
- * **Both are holds, and both rings say so the same way**: full and lit while
- * the thumb is down, empty the moment it lifts. The prime was a carry that
+ * **Both are holds, and both are the HOLD LAB's drop** (`soak-hold.ts`; the
+ * owner, 13 October 2026, every hold the drop): sunk while the thumb is down,
+ * calling the moment it lifts, and holding no water, because neither hold
+ * counts towards anything — it lasts as long as the thumb does. They were
+ * rings until then, and the paragraphs above about a ring's disc are why
+ * the partner's is dimmed and not cut. The prime was a carry that
  * bought a window, with a dial draining it, until the owner called it a hold
  * on 10 October 2026 — and the carry never reached the simulation from a
  * thumb, because a drag's lift reports no distance unless it is a swipe
@@ -188,12 +193,12 @@ export function drawScoutGrips(
   if (scoutLineGrippable(cfg, scout)) {
     if (scout.reeling) drawLineHome(ctx, l, cfg, scout);
     const hers = scoutNavigator(scout);
-    ring(ctx, scoutLineCircle(l, cfg, scout), l, hers, scout.reeling, scout.reeling ? 1 : 0, time);
+    ring(ctx, scoutLineCircle(l, cfg, scout), l, hers, scout.reeling, time);
   }
   if (!scoutPrimeGrippable(cfg, scout)) return;
   const his = scoutPilot(scout);
   const lit = scoutPrimed(cfg, scout);
-  ring(ctx, scoutPrimeCircle(l, cfg, scout), l, his, lit, lit ? 1 : 0, time);
+  ring(ctx, scoutPrimeCircle(l, cfg, scout), l, his, lit, time);
 }
 
 /**
@@ -222,19 +227,8 @@ function ring(
   l: Layout,
   player: 1 | 2,
   held: boolean,
-  pull: number,
   time: number,
 ): void {
   const mine = l.role === "test" || (l.role === "p1") === (player === 1);
-  drawHandleRing(ctx, {
-    x: at.x,
-    y: at.y,
-    r: at.r,
-    hex: mine ? PALETTE.hull : PALETTE.dim,
-    rim: mine ? PALETTE.text : PALETTE.rock,
-    held,
-    pull,
-    time,
-    theirs: !mine,
-  });
+  drawSoakHold(ctx, at, at.r, { time, held, theirs: !mine });
 }

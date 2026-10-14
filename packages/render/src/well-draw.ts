@@ -14,6 +14,7 @@ import { drawWellArrivals } from "./well-arrivals.js";
 import { wellBodyAt } from "./well-body.js";
 import { drawWellFace } from "./well-face.js";
 import { drawWellGlanced } from "./well-glance.js";
+import { drawWellSeamHold } from "./well-seam-hold.js";
 
 /**
  * THE WELL's board and the bodies on it, in place of the flat field's two
@@ -54,6 +55,7 @@ export function drawWellBack(
 ): void {
   drawBackground(ctx, l, world.wave, view.time);
   drawWellFace(ctx, l, flash, view.time);
+  drawWellSeamHold(ctx, l, world, view.time);
   drawWellArrivals(ctx, l, world, view.time);
 }
 
