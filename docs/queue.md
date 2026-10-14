@@ -331,6 +331,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## One generic PULL in the simulation, and the straight-down pulls onto it
 
 - **Found:** 2026-10-10, claude/pull-control-visuals-35c04f
+- **Taken:** 2026-10-14, claude/queue-one-generic-pull-in-the-simulation-and-the-strai
 - **Files:** `packages/sim/src/handle-pull.ts`, `packages/sim/src/hive-hand.ts`, `packages/sim/src/vane-hand.ts`, `packages/sim/src/fleet-hand.ts`, `packages/sim/src/ledger-hand.ts`, `tools/director/src/pull-lab-rule.ts`, `tools/director/src/field-actions-drag.ts`
 - **Asks:** When a pull is let go short of its distance, is it refused (the knob springs back red, a fault the pair hears) or ignored (it springs back quietly and nothing is said)? Today both happen. Both can be felt in the PULL LAB: CONTROLS › ON THE FIELD › PULL PAST A DISTANCE › TRY THE GENERIC PULL, and the SHORT · RED / SHORT · IGNORED switch on its bar.
 - **Answered:** a pull let go short of its distance is **refused** — the knob springs back red, a fault the pair hears. The owner, 10 October 2026, in the PULL LAB: *for the tolerance variants i prefer "short * red" so remove the others*. The lab's bar no longer offers IGNORED.
