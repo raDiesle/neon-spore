@@ -41031,3 +41031,5 @@ gestures THE BLISTER does not have yet.
 
 **The bottleneck was the looking**: the first rider was too small to be seen
 and its arms floated free, which only a shot showed.
+
+*Measured: 14 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*

@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-14 · 56519ce4f — VERSUS offers THE BLISTER's TAP a body built round its button
+
+A blister's control is as big as its body, and the press's halo covered the clover whole, so what the pair saw was a ring and no creature. Each gesture now has its own body record (`BLISTER_BODY`), every one still the clover, so the game draws what it did; `blister:tap` offers three bodies that come up out of the pore with the button set in them — MOLE, whose face it is; RIDER, a round pad with an amber slime riding its shoulder, THE VEER's way; and CRADLE, two arms cupping it like a pearl. HOLD, SWIPE, TURN and RUB are queued as a slot each, and LEVER and COMBO as gestures THE BLISTER does not have yet. Exemption: none — a look, offered on VERSUS.
+
 ## 2026-10-14 · 0b1d123ee — waveNamesAt's figure is 3500 ms, what a scratch checkout now costs
 
 The scratch-tree test declared 1200 ms and `check:fast` measured it at about 3600 to 3900 idle. Timed alone three times on a loaded machine and divided by the core load it is 2980 to 3720 ms, so the figure is 3500, with the runs in its comment.
