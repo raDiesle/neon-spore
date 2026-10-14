@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-14 · fb6ec3ab1 — THE SHIELD LAB, and THE SHIELD first on HELPERS
+
+CONTROLS › HELPERS opens on THE SHIELD: everything the field draws about the shield in one group — THE TORCH ALARM and ONE LAST CHANCE moved in beside the lit SHIELD button, THE VOLLEY's band, THE CRAWLER's domes, a boss's SHIELD cue, THE SURGE's SHIELD and MOVE SHIELD! — and THE SHIELD LAB at its head (`?shieldlab=tether` over everything). The lab runs TWO ROCKS on the real simulation, P1's phone and P2's side by side, with five looks for "the shield is wanted here, now": TETHER, a thread from the rock to the dome that pulls straight when the dome is under it and on P1's screen runs down to SHIELD; LANDING, a dashed dome where it will land and one closing in on it to the moment; LANE, the rock's column lit down to the hull with the beats counted; GHOST, a see-through dome that swells and bounces a ghost of the rock off it; CUE, a boss's SHIELD cue on an ordinary rock. MOMENT shows the press for the first of each kind only, every rock, or never; BUTTON lights SHIELD with a closing dome and points the strip's knob at the column. AUTO plays both hands; a click or ← → and space play them by hand.
+
 ## 2026-10-14 · b336b7814 — VERSUS offers THE SLING's fork turning about its crotch
 
 `sling:glance` offers the whole fork a turn about its crotch — SWAY, LOOK or COCK — both tines, their cords and the cup yawing together, the near tine reaching out and the far one closing into the dark and back, on THE SLING · STILL. Each cord is carried with its tine and the marks round the cords follow them; a bolt meets the tines and cords where they are drawn. The record ships still, so the game draws what it did.

@@ -39611,3 +39611,5 @@ Bottleneck: the cool and the fire step ended the draw in two branches, so they w
 - landing: 5 min. `check:fast`, the commit, `land`.
 
 Bottleneck: picking the rocks' beats by when each arrives rather than when it is queued — a faster tier overtakes and makes a beat no pair can save.
+
+*Measured: 10 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
