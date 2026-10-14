@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-14 · 0f608833c — HELPERS lists ONE BOSS'S OWN: THE UNDERTOW to THE LEAD
+
+CONTROLS › HELPERS gets a group for the picture a boss with a split draws on one seat only, a row a boss, the frame on one seat and the other's picture named beside it: THE UNDERTOW's bow, THE GORGE's tally and ring, THE CURTAIN's shadow and soft lobes, THE TASTER's counts and next, THE SINEW's zone and sum, THE LEDGER's beads and socket, THE SURGE's notches and pressure, THE LEAD's lean and column. THE UNDERTOW's bow is in no gallery pose, so the page builds one. The director only.
+
 ## 2026-10-14 · ab0488c57 — HELPERS shows WRONG COLOUR, the band put out and the thumb's ring
 
 CONTROLS › HELPERS gets four rows for helpers the game draws that no frame on the page showed: WRONG COLOUR stamped over a wave lost to a bolt in the wrong colour on THE BULB QUEEN, LOCKED — WATCH over the band THE MIRROR holds, THE BATON's grey panel over the seat that just pressed, and the thumb's ring round THE CAPSTAN's mark under the navigator's thumb. A posed frame can now be handed this device's thumb (`Pose.thumb`, through `drawPhone`), since a world holds none. The director only; nothing the game draws changes.

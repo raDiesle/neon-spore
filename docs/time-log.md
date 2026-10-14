@@ -41160,3 +41160,4 @@ are bright, so the wrong colour was posed on THE BULB QUEEN instead.
 Bottleneck: looking — a one-seat picture is small by design, and at the
 size of the whole field half of them were a hair.
 
+*Measured: 9 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
