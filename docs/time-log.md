@@ -40547,3 +40547,17 @@ Bottleneck: looking — THE FLEET's card shows the seat that has no hold under
 the flood, so the drop needed a frame of its own.
 
 *Measured: 27 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-14 — A save keeps each wave in its act and cuts a full act on its own
+
+- reading: 10 min. The save's split, the act table, the barrel, and the tests
+  that copy the acts into a temporary tree.
+- writing: 20 min. `acts.ts` as the one list, the director's table read off
+  it, the id-anchored split, the cut, the import bookkeeping, the tests.
+- looking: 0 min. Nothing drawn changed.
+- friction: 5 min. The Bash guard refused a heredoc with a doubled backslash;
+  the edit went through a script written by path.
+- landing: 5 min.
+
+Bottleneck: writing — a cut that moves a boss to a new file has to move the
+import of its script with it, which nothing had needed before.

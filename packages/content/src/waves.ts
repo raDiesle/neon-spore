@@ -1,33 +1,6 @@
 import { sceneSteps } from "./scenes.js";
 import type { Wave, WaveGuide } from "./wave-types.js";
-import { WAVES_ACT_1 } from "./waves/act-1.js";
-import { WAVES_ACT_1B } from "./waves/act-1b.js";
-import { WAVES_ACT_2 } from "./waves/act-2.js";
-import { WAVES_ACT_3 } from "./waves/act-3.js";
-import { WAVES_ACT_3B } from "./waves/act-3b.js";
-import { WAVES_ACT_4 } from "./waves/act-4.js";
-import { WAVES_ACT_4B } from "./waves/act-4b.js";
-import { WAVES_ACT_5 } from "./waves/act-5.js";
-import { WAVES_ACT_6 } from "./waves/act-6.js";
-import { WAVES_ACT_7 } from "./waves/act-7.js";
-import { WAVES_ACT_7A } from "./waves/act-7a.js";
-import { WAVES_ACT_7B } from "./waves/act-7b.js";
-import { WAVES_ACT_7C } from "./waves/act-7c.js";
-import { WAVES_ACT_7D } from "./waves/act-7d.js";
-import { WAVES_ACT_7E } from "./waves/act-7e.js";
-import { WAVES_ACT_7F } from "./waves/act-7f.js";
-import { WAVES_ACT_7G } from "./waves/act-7g.js";
-import { WAVES_ACT_8 } from "./waves/act-8.js";
-import { WAVES_ACT_8B } from "./waves/act-8b.js";
-import { WAVES_ACT_9 } from "./waves/act-9.js";
-import { WAVES_ACT_10 } from "./waves/act-10.js";
-import { WAVES_ACT_11 } from "./waves/act-11.js";
-import { WAVES_ACT_11B } from "./waves/act-11b.js";
-import { WAVES_ACT_12 } from "./waves/act-12.js";
-import { WAVES_ACT_13 } from "./waves/act-13.js";
-import { WAVES_ACT_13B } from "./waves/act-13b.js";
-import { WAVES_ACT_14 } from "./waves/act-14.js";
-import { WAVES_ACT_14B } from "./waves/act-14b.js";
+import { WAVE_ACTS } from "./waves/acts.js";
 
 export type {
   BossType,
@@ -53,40 +26,13 @@ export type {
  *
  * `tools/director/src/serialize.ts` regenerates one act file at a time —
  * `serializeWaveArray` takes the export name (`WAVES_ACT_1`, `WAVES_ACT_2`,
- * …) along with the array, so a save never touches this barrel. A new act,
- * once the newest one fills up in its own turn, is one more import and one
- * more spread here — which is exactly what `act-4.ts` cost.
+ * …) along with the array, so a save never touches this barrel. **Which act
+ * files there are, and in what order, is `waves/acts.ts`**, since 14 October
+ * 2026: the game is heading for a thousand waves, and an act cut by hand was
+ * one import and one spread here and five lines in the director's table every
+ * time. The save writes that list itself now, and cuts a full act on its own.
  */
-export const WAVES: Wave[] = [
-  ...WAVES_ACT_1,
-  ...WAVES_ACT_1B,
-  ...WAVES_ACT_2,
-  ...WAVES_ACT_3,
-  ...WAVES_ACT_3B,
-  ...WAVES_ACT_4,
-  ...WAVES_ACT_4B,
-  ...WAVES_ACT_5,
-  ...WAVES_ACT_6,
-  ...WAVES_ACT_7,
-  ...WAVES_ACT_7A,
-  ...WAVES_ACT_7B,
-  ...WAVES_ACT_7C,
-  ...WAVES_ACT_7D,
-  ...WAVES_ACT_7E,
-  ...WAVES_ACT_7F,
-  ...WAVES_ACT_7G,
-  ...WAVES_ACT_8,
-  ...WAVES_ACT_8B,
-  ...WAVES_ACT_9,
-  ...WAVES_ACT_10,
-  ...WAVES_ACT_11,
-  ...WAVES_ACT_11B,
-  ...WAVES_ACT_12,
-  ...WAVES_ACT_13,
-  ...WAVES_ACT_13B,
-  ...WAVES_ACT_14,
-  ...WAVES_ACT_14B,
-];
+export const WAVES: Wave[] = WAVE_ACTS.flat();
 
 /**
  * How many pages a guide made of prose is read in: the shared line, then the

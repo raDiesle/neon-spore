@@ -11,12 +11,21 @@ import { join } from "node:path";
 import type { Wave } from "@neon-spore/content";
 import type { PinballRound } from "@neon-spore/sim";
 import { SCOUT_LISTS, type ScoutList } from "./scout-lists.js";
-import { countWaveArray, serializeWaveArray } from "./serialize.js";
+import { serializeWaveArray } from "./serialize.js";
 import { serializePinballRounds } from "./serialize-pinball.js";
 import { serializeScoutArenas } from "./serialize-scout.js";
-import { ACT_FILES, type ActFile } from "./waves-act-files.js";
+import { ACT_FILES, ACT_LIST, type ActFile, type ActList, actFilesIn } from "./waves-act-files.js";
+import {
+  type ActName,
+  actListSource,
+  assignToActs,
+  cutAct,
+  fixImports,
+  idsInAct,
+  knownImports,
+} from "./waves-act-list.js";
 
-export { ACT_FILES, type ActFile };
+export { ACT_FILES, ACT_LIST, type ActFile, type ActList };
 
 export const repoRootPath = Bun.fileURLToPath(new URL("../../../", import.meta.url));
 
@@ -56,6 +65,10 @@ export interface WaveFiles {
   /** What every `rel` is relative to, and Biome's working directory. */
   readonly root: string;
   readonly acts: readonly ActFile[];
+  /** The list of act files (`acts.ts`). With it, a save reads its acts off
+   * the list, and may cut a full act into a new file and list it; without
+   * it, `acts` is taken as given and never grows. */
+  readonly list?: ActList;
   /** PINBALL's board file, written beside the acts when the list holds a pinball wave. */
   readonly boards: { readonly file: URL; readonly rel: string };
   /** THE SCOUT's arena files, one a scout wave, written the same way when the list holds it. */
@@ -70,7 +83,12 @@ export interface ScoutFile extends ScoutList {
 /** The checkout this director is running in — what a save writes unless told otherwise. */
 export const REAL_FILES: WaveFiles = {
   root: repoRootPath,
-  acts: ACT_FILES,
+  // Read off the list each time it is asked, so the token hashes an act the
+  // last save cut (`wavesToken`).
+  get acts() {
+    return actFilesIn(ACT_LIST);
+  },
+  list: ACT_LIST,
   boards: { file: pinballFile, rel: pinballRel },
   arenas: SCOUT_FILES,
 };
@@ -92,27 +110,44 @@ export interface Written {
 }
 
 export async function writeWaves(waves: Wave[], files: WaveFiles = REAL_FILES): Promise<Written> {
-  let offset = 0;
-  const acts = files.acts;
-  for (let i = 0; i < acts.length; i++) {
-    const act = acts[i]!;
-    const isLast = i === acts.length - 1;
-    // Counted in the source rather than imported: the file is read a line
-    // later anyway, and importing it once per act per save was the other half
-    // of the module leak `lastRead` above describes.
-    const source = await Bun.file(act.file).text();
-    const currentLen = countWaveArray(source, act.exportName);
-    const remaining = waves.length - offset;
-    const count = isLast ? remaining : Math.min(currentLen, remaining);
-    const slice = waves.slice(offset, offset + count);
-    offset += slice.length;
-
-    const next = serializeWaveArray(source, slice, act.exportName);
-    await Bun.write(act.file, next);
+  // The list is read again rather than trusted: the last save may have cut an
+  // act this module has never heard of (`waves-act-list.ts`).
+  const acts = files.list ? actFilesIn(files.list) : [...files.acts];
+  const sources = await Promise.all(acts.map((act) => Bun.file(act.file).text()));
+  const homes = assignToActs(
+    waves,
+    acts.map((act, i) => idsInAct(sources[i] ?? "", act.exportName)),
+  );
+  const taken = new Set(acts.map(nameOf));
+  const known = knownImports(sources);
+  const written: ActFile[] = [];
+  const order: ActName[] = [];
+  for (const [i, act] of acts.entries()) {
+    const own: ActName = { name: nameOf(act), exportName: act.exportName };
+    const source = sources[i] ?? "";
+    const mine = homes[i] ?? [];
+    // Only a save that can rewrite the list may cut a new act: a file nobody
+    // lists is a file the game never loads.
+    const pieces = files.list
+      ? cutAct(own, source, mine, taken)
+      : [{ act: own, text: serializeWaveArray(source, mine, act.exportName) }];
+    for (const piece of pieces) {
+      const file = piece.act.name === own.name ? act : beside(act, piece.act);
+      await Bun.write(file.file, fixImports(piece.text, known));
+      written.push(file);
+      order.push(piece.act);
+    }
+  }
+  const listed: string[] = [];
+  if (files.list && order.length !== acts.length) {
+    const source = await Bun.file(files.list.file).text();
+    await Bun.write(files.list.file, actListSource(source, order));
+    listed.push(files.list.rel);
   }
 
   const rels = [
-    ...acts.map((act) => act.rel),
+    ...written.map((act) => act.rel),
+    ...listed,
     ...(await writeBoards(waves, files)),
     ...(await writeArenas(waves, files)),
   ];
@@ -127,6 +162,21 @@ export async function writeWaves(waves: Wave[], files: WaveFiles = REAL_FILES): 
   const code = await proc.exited;
   if (code === 0) return { complaint: null, rels };
   return { complaint: await new Response(proc.stderr).text(), rels };
+}
+
+/** An act file's name: its file without the directory or `.ts`. */
+function nameOf(act: ActFile): string {
+  return act.rel.slice(act.rel.lastIndexOf("/") + 1).replace(/\.ts$/, "");
+}
+
+/** A new act file in the same directory as `act`. */
+function beside(act: ActFile, name: ActName): ActFile {
+  const dir = act.rel.slice(0, act.rel.lastIndexOf("/") + 1);
+  return {
+    file: new URL(`./${name.name}.ts`, act.file),
+    rel: `${dir}${name.name}.ts`,
+    exportName: name.exportName,
+  };
 }
 
 /**

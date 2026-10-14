@@ -1088,6 +1088,7 @@ by hand never moves.
 | `packages/content/src/waves/act-8.ts` | Act eight, opened for THE BEATBOX rather than for a chapter |
 | `packages/content/src/waves/act-8b.ts` | Act eight's second page: THE WELL and THE HANDOVER, cut off `act-8.ts` at the ceiling |
 | `packages/content/src/waves/act-9.ts` | Act nine: THE LEAK, the fault that takes the hold rather than a button, on the figure THE LANCE was taught on |
+| `packages/content/src/waves/acts.ts` | **The act files, in the order of the game** — the one list of them, written by the director's save when it cuts a full act |
 | `packages/content/src/balloon-shape.ts` | THE BALLOON's contour: a skin with a knot under it, and the fifth family of contour in this package |
 | `packages/content/src/creatures-handed.ts` | **The bodies answered by hands alone**, and today there is one of them |
 | `packages/content/src/creatures-held.ts` | a creature needs a hand on it *and* the trigger — the lid, the magnet and the choir, and why each still names `aim` |
@@ -3443,6 +3444,7 @@ by hand never moves.
 | `tools/land/claims.ts` | Which of the branches a landing finds merged are really queue claims |
 | `tools/director/src/waves-acts.ts` | The act files, and the save that writes a wave list back across them |
 | `tools/director/src/waves-act-files.ts` | **Where the waves live on disk**, and nothing about writing them |
+| `tools/director/src/waves-act-list.ts` | The act list read and written, which act a saved wave goes to (the one it is in), cutting a full act into `act-N-pM`, and keeping each file's imports matched to its waves |
 | `tools/director/src/waves-baseline.ts` | A save runs `baseline:blank` in a fresh process before it commits, so a wave changed under its baseline row cannot land `main` red |
 | `tools/director/src/waves-draft.ts` | Unsaved wave edits kept in localStorage across a reload, the count on SAVE, and what RESET goes back to |
 | `tools/director/src/wordings-glossary.ts` | The words on the WORDINGS page that have no one place on the picture — the list under the two labelled screens |
