@@ -331,6 +331,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## BULB QUEEN's film fires a shot into a held wave
 
 - **Found:** 2026-10-10, claude/bulb-queen-timing-107642
+- **Taken:** 2026-10-14, claude/queue-bulb-queens-film-fires-a-shot-into-a-held-wave
 - **Files:** `packages/content/src/scenes/bulb-queen.ts`
 
 The film's three acts — the cannon to col 3 at tick 630, col 2 at 670, `fireRed` at 770 — never land a shot. The torch reaches the hull (beat 9 on the old 8-beat clock, beat 11 on the 10-beat one) and the wave holds (`heldTick` 600, now 720), so the world is still for the rest of the 1020 ticks. On the old clock none of the three acts ran; on the new one the cannon slides to col 3 just before the hold and the shot is dropped. The comment over them still describes a petal fired on her second open beat. Either retime the film so the shot lands in her second bloom (beats 14–16) before the torch hits — which means the torch has to be shielded or the film ends later — or take the three acts and their comment out, so the film is the two marks and the torch paying the hull. A probe over `SceneRun(sceneScript("bulbQueen", …))` printing `petals`, `cannonCol` and `heldTick` per beat proves it.
