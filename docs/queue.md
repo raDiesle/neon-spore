@@ -331,6 +331,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## THE LID's cord still goes any direction, the last handle that does
 
 - **Found:** 2026-10-10, claude/remove-rope-pull-mechanic-a1d0e2
+- **Taken:** 2026-10-14, claude/queue-the-lids-cord-still-goes-any-direction-the-last
 - **Files:** `packages/sim/src/lid.ts`, `packages/sim/src/handle-pull.ts`, `packages/render/src/lid-track.ts`, `packages/hands/src/autopilot-lid.ts`, `packages/sim/test/lid.test.ts`
 - **Asks:** Should THE LID's cord run one fixed path too — down, else across toward the middle when a low lid has no room below — or keep any direction?
 - **Answered:** 2026-10-13 — a fixed path, the owner (*yes*), the choice between (a) and (b) left to the lane: (b), the sim picks the way by room at the grab and only travel along it counts, over (a), which would leave a low lid that can never open.
