@@ -25,6 +25,7 @@ import { REPRISE_GLANCE, REPRISE_GLANCE_SIZE } from "../src/reprise-glance.js";
 import { SINEW_GLANCE, SINEW_GLANCE_SIZE } from "../src/sinew-glance.js";
 import { SPLICE_GLANCE, SPLICE_GLANCE_SIZE } from "../src/splice-glance.js";
 import { STARE_GLANCE, STARE_GLANCE_SIZE } from "../src/stare-glance.js";
+import { SURGE_GLANCE, SURGE_GLANCE_SIZE } from "../src/surge-glance.js";
 import { TASTER_GLANCE, TASTER_GLANCE_SIZE } from "../src/taster-glance.js";
 import { THROAT_GLANCE, THROAT_GLANCE_SIZE } from "../src/throat-glance.js";
 import { UNDERTOW_GLANCE, UNDERTOW_GLANCE_SIZE } from "../src/undertow-glance.js";
@@ -78,6 +79,7 @@ const ROWS: readonly Row[] = [
   { name: "THE TASTER", record: TASTER_GLANCE, size: TASTER_GLANCE_SIZE, hold: 0 },
   { name: "THE SINEW", record: SINEW_GLANCE, size: SINEW_GLANCE_SIZE, hold: 0 },
   { name: "THE LEDGER", record: LEDGER_GLANCE, size: LEDGER_GLANCE_SIZE, hold: 0 },
+  { name: "THE SURGE", record: SURGE_GLANCE, size: SURGE_GLANCE_SIZE, hold: 0 },
 ];
 
 const R = 100;

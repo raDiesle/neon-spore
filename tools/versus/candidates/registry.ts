@@ -54,6 +54,9 @@ import { SPLICE_SWAY } from "./splice-glance/sway/index.js";
 import { STARE_COCK } from "./stare-glance/cock/index.js";
 import { STARE_LOOK_AROUND } from "./stare-glance/look/index.js";
 import { STARE_SWAY } from "./stare-glance/sway/index.js";
+import { SURGE_COCK } from "./surge-glance/cock/index.js";
+import { SURGE_LOOK_AROUND } from "./surge-glance/look/index.js";
+import { SURGE_SWAY } from "./surge-glance/sway/index.js";
 import { TASTER_COCK } from "./taster-glance/cock/index.js";
 import { TASTER_LOOK_AROUND } from "./taster-glance/look/index.js";
 import { TASTER_SWAY } from "./taster-glance/sway/index.js";
@@ -122,6 +125,9 @@ export const VARIANTS: Variant[] = [
   STARE_COCK,
   STARE_LOOK_AROUND,
   STARE_SWAY,
+  SURGE_COCK,
+  SURGE_LOOK_AROUND,
+  SURGE_SWAY,
   TASTER_COCK,
   TASTER_LOOK_AROUND,
   TASTER_SWAY,

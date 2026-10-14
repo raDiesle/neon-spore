@@ -39274,3 +39274,13 @@ Bottleneck: the turn on a mass this wide read faint at the shared size, so it wa
 Bottleneck: the poses file both glance poses went into hit its line ceiling, so it was trimmed and its split queued.
 
 *Measured: 8 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-14 — VERSUS offers THE SURGE's bulb glancing
+
+- reading: 5 min. The entry, §11.28, `surge-draw.ts`, `surge-grip.ts`, the surge poses.
+- writing: 5 min. `surge-glance.ts`, the bulb and its gauge wrapped, the scaffold.
+- looking: 10 min. Two VERSUS shots and three crops; the first turn left the far grip mark on the bulb's edge.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: the grip marks sit half-way out each flank, so the turn's size was set by the far mark staying on the bulb.

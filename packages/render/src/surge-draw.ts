@@ -9,10 +9,12 @@ import type { Layout } from "./layout.js";
 import { drawSurgeBody, EVERT_LOOK, surgeFoldedRy } from "./surge-body.js";
 import type { SurgeFx } from "./surge-fx.js";
 import { drawSurgeGauge } from "./surge-gauge.js";
+import { drawSurgeGlanced } from "./surge-glance.js";
 import { drawSurgeGrips } from "./surge-grip.js";
 import { drawSurgeAsked, drawSurgeVerdicts } from "./surge-marks.js";
 import {
   surgeBulbCentre,
+  surgeBulbPath,
   surgeBulbRx,
   surgeBulbRy,
   surgeEvert01,
@@ -85,8 +87,8 @@ export function drawSurge(
   ctx.translate(c.x, c.y);
   ctx.rotate(roll);
   ctx.translate(-c.x, -c.y);
-  const body = (bodyRy: number, inside: boolean): void =>
-    drawSurgeBody(ctx, cfg, s, {
+  const body = (on: CanvasRenderingContext2D, bodyRy: number, inside: boolean): void =>
+    drawSurgeBody(on, cfg, s, {
       c,
       rx,
       ry: bodyRy,
@@ -98,9 +100,15 @@ export function drawSurge(
       tile: l.tile,
       hurt: fx.hurt.value,
     });
-  if (evert > 0) EVERT_LOOK.draw({ ctx, c, rx, ry: fullRy, evert, time, tile: l.tile, body });
-  else body(ry, false);
-  drawSurgeGauge(ctx, l, cfg, s, c, rx, ry, time, everting);
+  // The bulb turns about its middle, its seam with it (`surge-glance.ts`).
+  drawSurgeGlanced(ctx, { x: c.x, y: c.y, r: rx }, Math.max(ry, fullRy), time, (g) => {
+    const on = (bodyRy: number, inside: boolean): void => body(g, bodyRy, inside);
+    if (evert > 0)
+      EVERT_LOOK.draw({ ctx: g, c, rx, ry: fullRy, evert, time, tile: l.tile, body: on });
+    else body(g, ry, false);
+    drawSurgeGauge(g, l, cfg, s, c, rx, ry, time, everting);
+    return surgeBulbPath(c, rx, ry, time);
+  });
   ctx.restore();
   if (!everting) {
     drawSurgeAsked(ctx, l, world, s, c, rx, ry, time, roll);

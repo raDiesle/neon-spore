@@ -161,6 +161,7 @@ export const FIRST_BOSS_POSES: Pose[] = [
         !surgeInBand(w.boss, w.cfg) &&
         !surgeSealing(w.boss, w) &&
         w.beat >= 2,
+      lookAt: "the bulb — whether it turns about its middle, seam and all, its far side going dark",
     },
   ),
   bossPose(

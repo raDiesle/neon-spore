@@ -2624,6 +2624,7 @@ by hand never moves.
 | `packages/render/src/surge-gauge.ts` | **THE SURGE's seam**: the dark line round the bulb's equator, and the gauge read along it by seat (§11.28) |
 | `packages/render/src/surge-gauge-gape.ts` | How far each lip stands off the seam at the burst, as a share of the half-height |
 | `packages/render/src/surge-grip.ts` | **THE SURGE's one handle, taken by both seats**: the bulb itself |
+| `packages/render/src/surge-glance.ts` | **THE SURGE's bulb glances** — the owner, 9 and 10 October 2026: *body parts of living things turn . |
 | `packages/render/src/surge-shape.ts` | **Where THE SURGE is**, in field pixels: the bulb's centre, its two radii, its outline |
 | `packages/render/src/surge-sway.ts` | **THE SURGE rocks where it hangs** (`docs/spec/living-bosses.md` §1, the outline tier) |
 | `packages/render/src/surge-spray.ts` | THE SURGE's burst, past its first instant: what the bulb throws across the ship when the pressure goes over |

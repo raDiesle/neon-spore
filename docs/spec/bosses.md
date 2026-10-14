@@ -5585,6 +5585,14 @@ with the mark's seat (`surgeMarkSeat`, `desk-grab.ts`).
 
 **What is not built — a step seen from another side** (suggested 10 October 2026, after the owner on THE BASTION: *very 3 dimensional and even user action is 3d to rotate*). The bulb rolls and its vent comes round to one side and then the other; letting go only vents while the vent faces the seat letting go, so who lets go first is read off the turn.
 
+**Offered (14 October 2026, VERSUS `surge:glance`).** THE SURGE is one bulb,
+so the bulb turns, its seam and gauge with it (`packages/render/src/
+surge-glance.ts`, which ships still): **about its own middle**, inside the
+rock it already has, the far side narrowing into the dark. The grip marks
+stay where the thumbs land, half-way out to each flank, and the turn is kept
+small enough that the far side still covers its mark. **SWAY**, **LOOK** and
+**COCK** (`glance-styles.ts`), judged on `THE SURGE · SHUT`.
+
 
 ## 11.29 THE LEAD — the boss you shoot where it will be
 
