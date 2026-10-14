@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-14 · 351ce91cc — THE SHIELD on HELPERS shows every shield helper on a frame of its own
+
+CONTROLS › HELPERS › THE SHIELD gains four rows: the push's red rim, the SHIELD button going out, DEFLECTED, and THE THROAT's SHIELD face — each on a frame that ends on the moment it is drawn (`helpers-poses-shield.ts`). THE LIT BUTTON's frame showed no button, because it stood wave 0, whose panel has none; it and the new one stand the first wave with the SHIELD button. DEFLECTED is shown off a volley, whose word comes on the event, where a rock's waits for the rock's last step. Director only; the game draws nothing new.
+
 ## 2026-10-14 · 6d1b79d38 — A bolt stops on THE HYDRA where it is drawn, and is met there
 
 A shot up the hydra bursts on the body's lower edge, on any maw still hanging under it, and on the open maw's head, and the simulation judges it there rather than at the top of the field. The body's row and the maws' rows are read from the simulation's own constants, so the two cannot drift.

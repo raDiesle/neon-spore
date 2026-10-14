@@ -41064,3 +41064,5 @@ than the test's eight ticks, which only the bolt's speed says.
 
 Bottleneck: looking — three of the five frames were wrong the first time in
 ways only the picture showed.
+
+*Measured: 13 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
