@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-14 · 82a626f42 — THE PULSE, THE WARDEN and THE FLEET hold the HOLD LAB's drop
+
+THE PULSE's arrest and brace are a drop at each end of the meter in place of the lit caps and the BRACE/HELD/BOTH word, the partner's end dimmed. THE WARDEN's eye under NARROW is the drop on the navigator's screen, sunk while her thumb is down, and the pilot sees it dimmed with the clock until it is. THE FLEET's breach under the flood and keep under the wreck are the drop; the rake stays a ring and the wreck's pull its knob. None holds water: no round keeps a count of these holds, and THE FLEET's drain bar is the window. The three cues draw no drop of their own (`BossCue.ownDrop`).
+
 ## 2026-10-14 · f3e80d162 — Every wave in the director's list shows its pressure, and `bun run waves:measure` rewrites the measured table
 
 The number at the end of each row of the wave list is the wave's pressure — the curriculum's difficulty score: the most an arrival costs inside any eight beats, counting the columns travelled, a change of job and two at once, plus two for every fault. A boss wave shows none. `bun run waves:measure` plays every wave with AUTO and rewrites `docs/spec/wave-curriculum-today.md` in about four seconds.

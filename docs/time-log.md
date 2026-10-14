@@ -40545,3 +40545,5 @@ ones, and only the pane showed it.
 
 Bottleneck: looking — THE FLEET's card shows the seat that has no hold under
 the flood, so the drop needed a frame of its own.
+
+*Measured: 27 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
