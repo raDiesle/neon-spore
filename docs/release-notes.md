@@ -9,6 +9,12 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-14 · 514fb0100 — THE MAZE's heart is rubbed loose, not shaken
+
+THE MAZE's heart is the game's one RUB now: a thumb on it scrubs back and forth, and every time it turns back is one turn, as on THE CAPSTAN and THE VALVE. Sixteen turns in all, eight from each seat, before the heart lets go of the shot; one seat alone still stops at half. The heart no longer moves about its room under the thumbs. The owner, *to have less variants and consistency*. Its picture — the ring, the arrows and SHAKE — is the next landing.
+
+## 2026-10-14 · c0c5fd5ed — THE MAZE's heart and THE THROAT's pump become counted rubs: the owner's answers
+
 ## 2026-10-14 · fc1ad6e44 — VERSUS offers THE SURGE's bulb glancing
 
 THE SURGE's bulb turns about its own middle, its seam and gauge with it, the far side narrowing into the dark. The grip marks stay where the thumbs land, and the turn is small enough that the far side still covers its mark. Ships still; VERSUS `surge:glance` offers SWAY, LOOK and COCK, judged on THE SURGE · SHUT. Exemption: none — a look, offered on VERSUS.

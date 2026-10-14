@@ -39298,3 +39298,5 @@ Bottleneck: the grip marks sit half-way out each flank, so the turn's size was s
 - landing: 10 min. The maze tests rewritten for turns, the specs.
 
 Bottleneck: rewriting the maze's gesture tests from distance to turns.
+
+*Measured: 15 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
