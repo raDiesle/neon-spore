@@ -39284,3 +39284,5 @@ Bottleneck: the poses file both glance poses went into hit its line ceiling, so 
 - landing: 5 min. `check:fast`, the commit, `land`.
 
 Bottleneck: the grip marks sit half-way out each flank, so the turn's size was set by the far mark staying on the bulb.
+
+*Measured: 6 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
