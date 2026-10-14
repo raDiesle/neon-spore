@@ -328,16 +328,6 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/skipped.test.ts` holds the listing's count of the entries
 `next` stepped past and why.
 
-## THE LID's cord still goes any direction, the last handle that does
-
-- **Found:** 2026-10-10, claude/remove-rope-pull-mechanic-a1d0e2
-- **Taken:** 2026-10-14, claude/queue-the-lids-cord-still-goes-any-direction-the-last
-- **Files:** `packages/sim/src/lid.ts`, `packages/sim/src/handle-pull.ts`, `packages/render/src/lid-track.ts`, `packages/hands/src/autopilot-lid.ts`, `packages/sim/test/lid.test.ts`
-- **Asks:** Should THE LID's cord run one fixed path too — down, else across toward the middle when a low lid has no room below — or keep any direction?
-- **Answered:** 2026-10-13 — a fixed path, the owner (*yes*), the choice between (a) and (b) left to the lane: (b), the sim picks the way by room at the grab and only travel along it counts, over (a), which would leave a low lid that can never open.
-
-The owner took any-direction pulling off THE WARDEN's rope on 10 October 2026 ("remove support and usage of PULL IN ANY DIRECTION WITH A ROPE … better consistency"); the rope now runs straight down (`pullDownMilli`). THE LID's cord is the last user of the vector pull (`clampPull`, `isqrt`, the `lidPullYMilli` field, `pullOpenMilli`/`pullIsTaut` on a vector). Its channel is chosen by room in render (`fittingWay`: down, across toward the middle, the other way, up), so a fixed path needs that choice moved into the sim. The options: (a) down only, cut short where the field ends — a low lid could then never open; (b) the sim picks the way by room at the grab, as `lidCordTrack` does now, and only travel along it counts; (c) keep any direction for the cord. With (a) or (b) the vector half of `handle-pull.ts` and `lidPullYMilli` go, and the menu's A HANDLE text loses its last clause.
-
 ## BULB QUEEN's film fires a shot into a held wave
 
 - **Found:** 2026-10-10, claude/bulb-queen-timing-107642
@@ -830,10 +820,3 @@ three, then run `bun run check`.
 - **Files:** `packages/sim/src/handle-pull.ts`, `packages/sim/src/pinball-contact.ts`, `packages/sim/test/copies-table.ts`
 
 Both export `isqrt`: `handle-pull.ts` by bisection up to 46340, `pinball-contact.ts` by Newton's step with no ceiling. Keep the one without a ceiling in a small `isqrt.ts`, import it in both places (and in `gauge-tooth.ts`, which takes `handle-pull.ts`'s now), and add a `COPIES` row so a third is not written.
-
-## A tap on a lid's cord under the chrome reads as a pull
-
-- **Found:** 2026-10-14, claude/queue-one-generic-pull-the-lids-cord-and-the-balloons
-- **Files:** `packages/sim/src/handle-pull.ts`, `packages/sim/src/lid.ts`, `packages/sim/test/lid.test.ts`
-
-A lid in its first rows hangs its cord's rest above `handleBoundsMilli`'s top (the chrome's tile plus the handle's radius), so `clampPull` pushes even a grab at nought down to the bound and the pull has a length the hand never made. Since the cord went onto the one generic PULL, that length is read on the lift: a tap there is refused with `pullShort`, and the plates part a little under a still thumb. Measure the pull from the clamped rest — clamp the rest first, then the hand's travel from it — and add the tap case at row 0 to `lid.test.ts` (its short test now waits two beats to step round this).

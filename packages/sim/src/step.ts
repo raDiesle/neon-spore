@@ -10,7 +10,7 @@ import { dropLostGrips } from "./grip.js";
 import { stepHarpoons } from "./harpoon.js";
 import { stepBeam } from "./lance.js";
 import { releaseLance } from "./lance-burn.js";
-import { stepLidPulls } from "./lid.js";
+import { stepLidPulls } from "./lid-hand.js";
 import { stepMalfunction } from "./malfunction.js";
 import { advancePods } from "./pods.js";
 import { stepReach } from "./reach.js";

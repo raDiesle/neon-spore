@@ -126,9 +126,9 @@ export type Command =
    * **`fromMilli` is the x of it and `fromYMilli` the y**, and the two names do
    * not match because the wire has a history: a pull was one signed number
    * along x for as long as the only handle in the game hung under a rim and was
-   * swung *aside*. The owner asked for the whole circle, so a hand may now
-   * carry a handle in any direction — and an absent `fromYMilli` means nought,
-   * which is exactly what every drag sent before today was. Renaming the first
+   * swung *aside*. A handle may run down, across or up now (THE LID's cord,
+   * `lid-way.ts`), so a drag carries both — and an absent `fromYMilli` means
+   * nought, which is exactly what every drag sent before it was. Renaming the first
    * one would have said the same thing at the cost of every recorded replay.
    */
   | {

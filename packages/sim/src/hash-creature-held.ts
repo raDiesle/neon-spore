@@ -23,11 +23,10 @@ export function heldHashParts(c: Creature): number[] {
   // there is no value of it left over to mean "nobody is holding this".
   out.push(c.lidPullMilli === undefined ? 0 : 1);
   out.push(c.lidPullMilli ?? 0);
-  // And the other half of it. A hand may carry a cord any way it likes, so two
-  // devices that agreed about the x and not the y would disagree about how far
-  // the plates stand apart — which is to say about whether the shot player 2
-  // just fired counted.
-  out.push(c.lidPullYMilli ?? 0);
+  // And the way it runs. The grab chooses it by the room the field had then,
+  // so two devices that disagreed about it would read the same hand as a
+  // pull on one and nothing on the other — and so whether a shot counted.
+  out.push(c.lidWay ?? -1);
   // Whether that pull has counted this hold — the lens bare until the lift,
   // however far the hand eases (`lid.ts`). It decides a hit as the pull does.
   out.push(c.lidCounted ? 1 : 0);

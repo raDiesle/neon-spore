@@ -61,7 +61,7 @@ const PHONE: [string, string][] = [
   ],
   [
     "A HANDLE",
-    "A cord or a rope hanging over the field is taken hold of and pulled. A rope goes one way only: down the line drawn under it. It is asked before whatever is behind it, and you grab it where it rests rather than where it has swung to.",
+    "A cord or a rope hanging over the field is taken hold of and pulled. Each goes one way only, along the line drawn from it: down where the field has room, across or up where it has not. It is asked before whatever is behind it, and you grab it where it rests rather than where it has swung to.",
   ],
   [
     "THE GUIDE",

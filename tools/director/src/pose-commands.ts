@@ -49,12 +49,10 @@ export const shoot = (tick: number, color: "red" | "cyan"): TimedCommand => ({
  * length of the replay (`sim/lid.ts`).
  *
  * Downward and not sideways, and that is the whole reason this is a helper
- * rather than a literal at each pose. `clampPull` bounds the handle to the
- * field, so a sideways pull is cut by whichever wall it reaches first: THE
- * LID's cord is taut at seven tiles and the field is eleven wide, so a straight
- * pull from the middle column comes back at 5200 of 7000 and the eye simply
- * does not open. Below a body there is always room, because a cord hangs under
- * one — which is also where a thumb actually goes.
+ * rather than a literal at each pose. The cord runs one way, the first the
+ * field holds the whole of (`sim/lid-way.ts`), and that is down for a lid
+ * with room under it — which is also where a thumb actually goes. A sideways
+ * pull along a cord that runs down counts nothing.
  */
 export const pullCord = (
   tick: number,

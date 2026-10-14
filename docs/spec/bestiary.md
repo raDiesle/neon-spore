@@ -890,8 +890,8 @@ three, where the foot of the rim reaches the hull row.
 **THE LID** (`packages/sim/src/config-creatures.ts`). `lidCordMilli` is how far
 beside its own centre the cord hangs, toward the middle of the field, in
 thousandths of a tile — a whole tile, clear of the eye at every row.
-`lidTautMilli` is the thousandths of a tile player 1's hand must carry the cord
-for the plates to stand fully apart — `wardenTautMilli`'s figure exactly, the
+`lidTautMilli` is the thousandths of a tile player 1's hand must carry the cord,
+along the one way it runs (`lid-way.ts`), for the plates to stand fully apart — `wardenTautMilli`'s figure exactly, the
 same gesture asked of the same thumb.
 
 **THE LURE** (`packages/sim/src/config-creatures.ts`). `lureBlastPlaces` is the

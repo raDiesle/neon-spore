@@ -73,9 +73,9 @@ export function handleRadius(l: Layout, cfg: SimConfig): number {
  * goes to nothing exactly as the tension goes to one.
  *
  * **The belly hangs across the line rather than sideways on the screen.** A
- * hand may now carry a handle in any direction at all, so a sag that was always
- * horizontal would lie flat along a rope pulled straight left and bulge out of
- * one pulled straight down. The perpendicular to the line between the two ends
+ * cord may run down, across or up (THE LID's, `sim/lid-way.ts`), so a sag
+ * that was always horizontal would lie flat along a cord pulled straight left
+ * and bulge out of one pulled straight down. The perpendicular to the line between the two ends
  * is the same picture whichever way the hand went — and for a rope swung aside,
  * which is all this used to have to draw, it is the picture it always was.
  * Of the two perpendiculars, the one with a downward part: a cord run

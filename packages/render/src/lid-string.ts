@@ -145,7 +145,7 @@ function drawOne(
   // filling green behind the hand (`lid-track.ts`); then the circle to start,
   // where the thumb has it (`pull-knob.ts`) — the owner's rule for every
   // handle you pull.
-  const track = lidCordTrack(l, cfg, c, rest, head, held);
+  const track = lidCordTrack(l, cfg, c, rest);
   drawPullTrack(ctx, track, { hex, rim, held, origin: 0, at: pull, time, key: "lid" });
   strokeGlow(ctx, cord, held ? rim : hex, STROKE.outline * (1 - pull * 0.35), 0.4 + pull * 1.4);
   const way = handleIsMine(l.role) ? pullWay(track, pull, 1) : null;

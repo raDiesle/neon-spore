@@ -5,6 +5,8 @@ import {
   failHolds,
   hashWorld,
   hullRow,
+  LID_DOWN,
+  LID_UP,
   lidHandleMilli,
   lidIsHeld,
   lidIsOpen,
@@ -76,11 +78,9 @@ const lid = (col: number, color: "red" | "cyan" = "red"): SpawnEntry => ({
 const pull = (tick: number, milli: number, id = 1, player: 1 | 2 = 1): TimedCommand => ({
   tick,
   player,
-  // **Downward**, because that is where the room is. A pull may not carry the
-  // handle off the field (`handle-pull.ts`), and a lid two rows down has most
-  // of the field under it and half of one either side — so a straight pull
-  // across would be cut short by the wall long before it reached taut, and
-  // testing against a gesture the field cannot hold would prove nothing.
+  // **Downward**, because that is the way the cord runs from a lid with the
+  // whole cord's room under it (`lid-way.ts`): down is tried first, and the
+  // field has fifteen rows. A negative `milli` is a hand going back up it.
   command: { kind: "drag", target: "lidString", on: true, fromMilli: 0, fromYMilli: milli, id },
 });
 const letGo = (tick: number, id = 1): TimedCommand => ({
@@ -127,13 +127,12 @@ describe("the hand on the cord", () => {
   });
 
   /**
-   * The length is what counts, and never one axis of it. Three pulls of
-   * exactly `lidTautMilli`: straight down, which the field has room for from a
-   * lid near the top; a 3-4-5 diagonal, which it also has room for; and
-   * straight up, which it does not — and the third one is the boundary doing
-   * its job rather than a failure.
+   * One fixed path (the owner, 13 October 2026): only the travel along the
+   * cord's way counts. Three hands of exactly `lidTautMilli`: straight down,
+   * along the way; a 3-4-5 diagonal, of which only the four-fifths down is
+   * travel; and straight up, which is slack.
    */
-  it("takes the length of the pull, whichever way it goes", () => {
+  it("counts only the travel along the way the cord runs", () => {
     const down = run([lid(COL)], TPB * 2, [pull(TPB, TAUT)]);
     expect(lidIsOpen(CFG, only(down.world))).toBe(true);
 
@@ -151,35 +150,37 @@ describe("the hand on the cord", () => {
         },
       },
     ]);
-    expect(lidIsOpen(CFG, only(diagonal.world))).toBe(true);
+    expect(lidIsOpen(CFG, only(diagonal.world))).toBe(false);
+    expect(lidOpenMilli(CFG, only(diagonal.world))).toBe(800);
 
-    // Up, from a body one row down, is a wall a hand's length away.
     const up = run([lid(COL)], TPB * 2, [pull(TPB, -TAUT)]);
+    expect(only(up.world).lidPullMilli).toBe(0);
     expect(lidIsOpen(CFG, only(up.world))).toBe(false);
   });
 
   /**
-   * The boundary, said as the owner asked for it: the handle stops where its
-   * own circle would leave the field, and it stops *there* rather than
-   * wherever the finger went on.
+   * The way is the grab's, by the room the field has then: down while the
+   * whole cord fits under the lid, and once it does not — from row 8 on —
+   * the next way that holds it, which from column 3 is up. The hold keeps
+   * the way it took however far the body falls.
    */
-  it("keeps the handle on the field, whole, however far the hand goes", () => {
-    // Upward from a body one row down, where the ceiling is much nearer than
-    // the cord is long: the handle stops with its whole circle still on the
-    // field, and it stops *there* rather than wherever the finger went on to.
-    const { world } = run([lid(COL)], TPB * 2, [pull(TPB, -99_000)]);
-    const body = only(world);
-    // The cord hangs level with the body's own centre, a tile beside it; the
-    // field is inset by the handle's own radius, so what is kept on is the
-    // whole circle, and by a tile along the top, which is the app's own chrome.
-    const rest = body.row * 1000 + 500;
-    const handle = rest + (body.lidPullYMilli ?? 0);
-    expect(handle).toBeGreaterThanOrEqual(CFG.handleRadiusMilli + 1000);
-    expect(handle).toBeLessThanOrEqual(CFG.rows * 1000 - CFG.handleRadiusMilli);
-    // And the wall is what stopped it, not the cord: the hand asked for far
-    // more than taut and got less, which no taut clamp alone would give.
-    expect(Math.abs(body.lidPullYMilli ?? 0)).toBeLessThan(CFG.lidTautMilli);
-    expect(lidIsOpen(CFG, body)).toBe(false);
+  it("takes the way the field has room for at the grab, and keeps it", () => {
+    const high = run([lid(COL)], TPB * 2, [pull(TPB, TAUT)]);
+    expect(only(high.world).lidWay).toBe(LID_DOWN);
+
+    const low = run([lid(COL)], TPB * 10, [pull(TPB * 9, -TAUT)]);
+    expect(only(low.world).lidWay).toBe(LID_UP);
+    expect(lidIsOpen(CFG, only(low.world))).toBe(true);
+
+    const kept = run([lid(COL)], TPB * 12, [pull(TPB * 8, TAUT)]);
+    expect(only(kept.world).lidWay).toBe(LID_DOWN);
+  });
+
+  /** A tap is nought, wherever the cord rests — even under the chrome. */
+  it("reads a grab at row 0 as no pull at all", () => {
+    const { world, events } = run([lid(COL)], TPB + 2, [pull(TPB, 0), letGo(TPB + 1)]);
+    expect(events.filter((e) => e.type === "pullShort")).toHaveLength(0);
+    expect(lidOpenMilli(CFG, only(world))).toBe(0);
   });
 
   /**
@@ -211,24 +212,23 @@ describe("the hand on the cord", () => {
   });
 
   it("pays the cord out when the handle reaches the floor before the lid does", () => {
-    // Pulled straight down as far as the field allows, from low enough that
-    // the floor is nearer than taut: the handle is pinned on the bottom edge.
-    // Two beats later the lid is two rows lower and the handle is still on
-    // the field — the pull is shorter, not the field.
-    const pinned = run([lid(COL)], TPB * 9 + 1, [pull(TPB * 9, 99_000)]);
-    const later = run([lid(COL)], TPB * 11 + 1, [pull(TPB * 9, 99_000)]);
+    // Grabbed down while the whole cord fits under the lid, and held: the lid
+    // goes on falling, the floor comes nearer than taut, and the handle is
+    // pinned on the bottom edge. Two beats later the lid is two rows lower and
+    // the handle is still on the field — the pull is shorter, not the field.
+    const pinned = run([lid(COL)], TPB * 10 + 1, [pull(TPB * 8, 99_000)]);
+    const later = run([lid(COL)], TPB * 12 + 1, [pull(TPB * 8, 99_000)]);
     const floor = CFG.rows * 1000 - CFG.handleRadiusMilli;
     expect(lidHandleMilli(CFG, only(pinned.world)).y).toBe(floor);
     expect(lidHandleMilli(CFG, only(later.world)).y).toBe(floor);
-    expect(only(later.world).lidPullYMilli).toBe((only(pinned.world).lidPullYMilli ?? 0) - 2000);
+    expect(only(later.world).lidPullMilli).toBe((only(pinned.world).lidPullMilli ?? 0) - 2000);
   });
 
   it("clamps past taut, so leaning further does not bank anything", () => {
     // A body far enough up that the field has more room below it than the cord
     // is long: what stops this pull is the taut length and not the wall.
     const { world } = run([lid(COL)], TPB * 2, [pull(TPB, TAUT + 1000)]);
-    expect(only(world).lidPullYMilli).toBe(TAUT);
-    expect(only(world).lidPullMilli).toBe(0);
+    expect(only(world).lidPullMilli).toBe(TAUT);
   });
 
   it("stays open when the hand eases after it was taut — counted once, the one generic PULL", () => {
@@ -238,10 +238,8 @@ describe("the hand on the cord", () => {
   });
 
   it("says a cord let go short of taut, and nothing for a tap or a taut one", () => {
-    // Two beats in, clear of the chrome's bound along the top: a cord resting
-    // under it is clamped down, and a tap there would read as a pull.
     const said = (milli: number) => {
-      const { events } = run([lid(COL)], TPB * 4, [pull(TPB * 2, milli), letGo(TPB * 3)]);
+      const { events } = run([lid(COL)], TPB * 3, [pull(TPB, milli), letGo(TPB * 2)]);
       return events.filter((e) => e.type === "pullShort").length;
     };
     expect(said(Math.round(TAUT / 2))).toBe(1);

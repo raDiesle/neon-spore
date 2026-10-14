@@ -37,7 +37,7 @@ export function wardenTether(world: World): Creature | null {
  * picture may ease it). What stands open in each phase is `warden-open.ts`.
  */
 export function wardenPullMilli(world: World, b: WardenState): number {
-  return pullOpenMilli({ x: 0, y: b.pullMilli }, world.cfg.wardenTautMilli);
+  return pullOpenMilli(b.pullMilli, world.cfg.wardenTautMilli);
 }
 
 /**

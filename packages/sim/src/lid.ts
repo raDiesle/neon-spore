@@ -1,8 +1,6 @@
 import type { SimConfig } from "./config.js";
-import { clampPull, isqrt, pullOpenMilli, tileCentreMilli } from "./handle-pull.js";
-import { type Pull, pullHeard } from "./pull.js";
-import type { Command, Creature } from "./types.js";
-import type { World } from "./world.js";
+import { pullOpenMilli, tileCentreMilli } from "./handle-pull.js";
+import type { Creature } from "./types.js";
 
 /**
  * THE LID: an armoured eye, and the first body on the field that a hand has to
@@ -32,7 +30,9 @@ import type { World } from "./world.js";
  * way a shell's does — what the armour buys is not surprise, it is *timing*.
  *
  * `render/lid.ts` draws the eye and its plates, `render/lid-string.ts` the cord
- * and its handle. Everything here is integers and the tick counter.
+ * and its handle. The cord's one path is `lid-way.ts`, the hand on it
+ * `lid-hand.ts`, a shot's answer `lid-struck.ts`. Everything here is integers
+ * and the tick counter.
  */
 
 /**
@@ -49,14 +49,7 @@ import type { World } from "./world.js";
 export function lidOpenMilli(cfg: SimConfig, c: Creature): number {
   if (c.lidPullMilli === undefined) return 0;
   if (c.lidCounted) return 1000;
-  return pullOpenMilli(lidPull(c), cfg.lidTautMilli);
-}
-
-/** The pull as a vector, nought where a lid has no hand on it. Read it through
- * this rather than the two fields: the y is absent on every world recorded
- * before a pull could go any way but sideways. */
-export function lidPull(c: Creature): { x: number; y: number } {
-  return { x: c.lidPullMilli ?? 0, y: c.lidPullYMilli ?? 0 };
+  return pullOpenMilli(c.lidPullMilli, cfg.lidTautMilli);
 }
 
 /**
@@ -81,29 +74,6 @@ export function cordRest(cfg: SimConfig, c: Creature): { x: number; y: number } 
 }
 
 /**
- * Where the handle is, in thousandths of a tile — the cord's rest **today**
- * plus how far the hand has carried it.
- *
- * So the handle goes down the field with the lid, held or not, and the cord
- * keeps its length: the owner's ask, *it should glide as the lid glides*. It
- * was the other way for a while — an anchor frozen at the grab, so the handle
- * sat under a still thumb while the body fell away and the cord paid out —
- * and that read as the handle having come off the creature. The tension is
- * how far the hand has come from where it grabbed (`lidHeard`), which a body
- * falling under a still hand does not change; the picture the pilot is
- * holding simply travels with the thing it is attached to, and the finger,
- * which is captured, does not have to follow it.
- *
- * Render glides this by the beat's phase rather than reading it off the row;
- * this is the rule the clamp and the tests are on.
- */
-export function lidHandleMilli(cfg: SimConfig, c: Creature): { x: number; y: number } {
-  const rest = cordRest(cfg, c);
-  const pull = lidPull(c);
-  return { x: rest.x + pull.x, y: rest.y + pull.y };
-}
-
-/**
  * Whether the lens is bare this instant — the only window a shot counts in:
  * the cord held, and pulled taut at some point of this hold. It is the one
  * generic PULL (`pull.ts`), counted once at its reach (the lane's (b), 14
@@ -124,116 +94,4 @@ export function lidIsOpen(_cfg: SimConfig, c: Creature): boolean {
  * still has a field, and one nobody has hold of has none. */
 export function lidIsHeld(c: Creature): boolean {
   return c.lidPullMilli !== undefined;
-}
-
-/**
- * The hand on the cord, and the whole of the gesture.
- *
- * **Only player 1 may pull**, for the reason player 2 is the only one who
- * fires: player 2's panel carries both colours, so a lid either seat could open
- * would be a creature one phone could play. It is the rule THE WARDEN's rope
- * and THE MAZE's string are already on.
- *
- * **One cord at a time**, because it is one hand. A grab on a second lid lets
- * the first one shut — stated here rather than left to the lift, because a
- * `drag` on the way in is the only message that arrives when a finger moves
- * from one handle to another without ever leaving the glass.
- *
- * `fromMilli` is how far the hand has come from where it grabbed, in
- * thousandths of a tile, resolved on the device whose finger it is
- * (`touchDown`, `packages/render/src/touch.ts`) — so a grab reports zero and
- * there is no origin to keep. The **sign** is kept so the cord can be drawn
- * swinging the way the hand went; the **rule** takes its magnitude, because
- * plates on a spring do not care which way you lean.
- */
-export function lidHeard(world: World, player: 1 | 2, command: Command): void {
-  if (player !== 1 || command.kind !== "drag" || command.target !== "lidString") return;
-  if (!command.on) {
-    const short = world.creatures.find((c) => c.kind === "lid" && lidIsHeld(c) && !c.lidCounted);
-    if (short !== undefined) sayShort(world, short);
-    releaseLids(world);
-    return;
-  }
-  const held = world.creatures.find((c) => c.id === command.id && c.kind === "lid");
-  if (held === undefined) {
-    // A cord whose body has gone — shot, or off the bottom of the field — with
-    // a finger still pressed against the glass. Nothing to hold open, and the
-    // hand is not on anything else either.
-    releaseLids(world);
-    return;
-  }
-  const was = lidIsOpen(world.cfg, held);
-  for (const c of world.creatures) {
-    if (c === held) continue;
-    c.lidPullMilli = undefined;
-    c.lidPullYMilli = undefined;
-    c.lidCounted = undefined;
-  }
-  // Cut to taut and then kept on the field, both in one rule and neither of
-  // them spelled out here (`handle-pull.ts`) — against the cord's rest today,
-  // which is where the handle hangs from (`lidHandleMilli`).
-  const pulled = clampPull(
-    world.cfg,
-    cordRest(world.cfg, held),
-    { x: command.fromMilli, y: command.fromYMilli ?? 0 },
-    world.cfg.lidTautMilli,
-  );
-  held.lidPullMilli = pulled.x;
-  held.lidPullYMilli = pulled.y;
-  if (
-    pullHeard(cord(world.cfg), held.lidCounted === true, true, lidLength(held)).heard === "counted"
-  ) {
-    held.lidCounted = true;
-  }
-  if (!was && lidIsOpen(world.cfg, held) && held.color !== null) {
-    world.events.push({ type: "eyeOpen", col: held.col, color: held.color });
-  }
-}
-
-/** The cord as the one generic PULL: any way, `lidTautMilli` long. */
-function cord(cfg: SimConfig): Pull {
-  return { way: "either", reachMilli: cfg.lidTautMilli };
-}
-
-/** How far the cord stands from its rest, whole thousandths: the pull's length. */
-function lidLength(c: Creature): number {
-  const p = lidPull(c);
-  return isqrt(p.x * p.x + p.y * p.y);
-}
-
-/** A cord let go short of taut, past a tap: refused, and said. */
-function sayShort(world: World, c: Creature): void {
-  if (pullHeard(cord(world.cfg), false, false, lidLength(c)).heard !== "short") return;
-  world.events.push({ type: "pullShort", col: c.col, player: 1 });
-}
-
-/** Every cord let go of, however it happened. */
-export function releaseLids(world: World): void {
-  for (const c of world.creatures) {
-    if (c.kind !== "lid") continue;
-    c.lidPullMilli = undefined;
-    c.lidPullYMilli = undefined;
-    c.lidCounted = undefined;
-  }
-}
-
-/**
- * Every held cord, kept on the field as the body under it falls.
- *
- * The clamp in `lidHeard` settles where a handle may be at the instant a
- * finger reports, and the handle rides the lid down a tile a beat afterwards
- * (`lidHandleMilli`) — so one pinned against the bottom of the field would be
- * off it a beat later with no new command to notice. Re-clamping shortens the
- * pull rather than moving the body, which is the honest reading: the handle
- * reached the floor and the lid went on falling, so the cord paid it out and
- * the plates close by themselves. Both seats see it, because both draw the
- * same number. Called from `step` once a beat, after the field has fallen.
- */
-export function stepLidPulls(world: World): void {
-  for (const c of world.creatures) {
-    if (c.kind !== "lid" || c.lidPullMilli === undefined) continue;
-    const kept = clampPull(world.cfg, cordRest(world.cfg, c), lidPull(c), world.cfg.lidTautMilli);
-    c.lidPullMilli = kept.x;
-    c.lidPullYMilli = kept.y;
-  }
 }

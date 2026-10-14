@@ -162,9 +162,9 @@ export function decodeCommand(x: unknown): Command | null {
     // `id` is present only for a target that is a creature (THE LID's cord),
     // and optional for the two that are fixtures, so a peer on an older build
     // sending a drag without one is still understood. `fromYMilli` is optional
-    // for the same reason turned the other way round: a hand may carry a
-    // handle any way it likes now, and a peer from before that sends only the
-    // x — which is what an absent y means.
+    // for the same reason turned the other way round: a cord may run down,
+    // across or up now, and a peer from before that sends only the x — which
+    // is what an absent y means.
     case "drag":
       return isDragTarget(c.target) &&
         isBool(c.on) &&

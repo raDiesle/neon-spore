@@ -43,11 +43,8 @@ export function drawLatchHandles(
       const track = straightPullTrack({
         from: rest,
         r: rest.r,
-        head: at,
-        held,
-        rest: PULL_DOWN,
+        way: PULL_DOWN,
         len: latchMilliPx(l, reach),
-        follow: false,
       });
       const along = Math.min(1, s.depthMilli[grip] / reach);
       drawPullTrack(ctx, track, {

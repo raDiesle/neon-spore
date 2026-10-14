@@ -43,10 +43,8 @@ export { carryIsReady, carryPauseLeft, type GripPush, gripPushOf } from "./grip-
 // picture all ask rather than answer for themselves (`hand.ts`).
 export { type HandMeans, handMeans } from "./hand.js";
 export {
-  clampPull,
   handleBoundsMilli,
   isqrt,
-  type PullVec,
   pullIsTaut,
   tileCentreMilli,
 } from "./handle-pull.js";
@@ -69,13 +67,23 @@ export {
 } from "./lance.js";
 export {
   cordRest,
-  lidHandleMilli,
   lidIsHeld,
   lidIsOpen,
   lidOpenMilli,
-  lidPull,
   lidSide,
 } from "./lid.js";
+export {
+  LID_DOWN,
+  LID_LEFT,
+  LID_RIGHT,
+  LID_UP,
+  lidFittingWay,
+  lidHandleMilli,
+  lidPull,
+  lidWayNow,
+  lidWayRoom,
+  lidWayVec,
+} from "./lid-way.js";
 export { isLockedOn, lockedBody } from "./lock.js";
 export { mawOpen, podKindOf } from "./pods.js";
 export {

@@ -14,13 +14,10 @@ import type { GuideScene } from "../scene-types.js";
  * It is not a page about the cannon — the pair has slid it since wave one — it
  * is a page about the order, which is the whole wave.
  *
- * **The pull is a diagonal, and that is the field's doing rather than a
- * flourish.** The plates are fully apart at `lidTautMilli`, and a cord dragged
- * straight sideways from a body near the middle runs out of field before it
- * gets there — `clampPull` keeps a handle on the screen. Carried down as well
- * as across it reaches taut with room to spare, which is what the owner asked
- * for when a pull stopped being one signed number: *a hand may carry a handle
- * in any direction*.
+ * **The pull is straight down, because that is the way the cord runs here.**
+ * The cord runs one fixed path, the first way the field holds the whole of
+ * `lidTautMilli` of (`sim/lid-way.ts`), and a lid this high has room below it;
+ * a hand carried across as well counts only its travel down.
  */
 export const THE_LID: GuideScene = {
   ticks: 900,

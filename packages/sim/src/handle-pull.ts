@@ -2,31 +2,23 @@ import type { SimConfig } from "./config.js";
 import { pullTravelMilli } from "./pull.js";
 
 /**
- * **What a hand on a handle is allowed to do**, and it is one rule for all
- * three of them — THE MAZE's string, THE WARDEN's rope, THE LID's cord.
+ * **What a hand on a handle is allowed to do**, and it is one rule for both
+ * of them — THE WARDEN's rope and THE LID's cord.
  *
- * A pull used to be one signed number along x, because the only handle in the
- * game hung under a rim and was swung *aside*. The owner asked for the whole
- * circle: a hand could carry a handle in any direction, and the tension was
- * how far it had come rather than how far across. He took that back for THE
- * WARDEN's rope (10 October 2026): it runs down one fixed path,
- * `pullDownMilli`, and only THE LID's cord still goes any way.
+ * For a while a hand could carry a handle in any direction, and the tension
+ * was how far it had come. The owner took that back (10 October 2026, THE
+ * WARDEN's rope; 13 October, THE LID's cord): **a handle runs down one fixed
+ * path**, and only the hand's travel along it counts — across is nothing and
+ * back is slack. The rope's path is straight down (`pullDownMilli`); the
+ * cord's is the way the field has room for at the grab (`lid-way.ts`).
  *
  * **Two bounds, and they are different kinds of thing.**
  *
- *  1. **Taut** — `tautMilli`, the length the gate opens over. It bounds the
- *     *vector*, not each axis: a diagonal pull that reached taut on each axis
- *     separately would be half as long again as a straight one, and the pair
- *     would learn that the cheapest way to open anything is to pull corner-ways.
+ *  1. **Taut** — `tautMilli`, the length the gate opens over.
  *  2. **The field** — the handle may not leave it, and it may not go under the
  *     app's own chrome along the top either (`CHROME_MILLI`). The owner asked
  *     for the circle to stay wholly on screen, "like a boundary", and this is
- *     that:
- *     the handle slides *along* the edge it reached instead of stopping dead,
- *     because the bound is applied to each axis of the **position** after the
- *     vector has been cut to length. A hand carrying a handle down and to the
- *     left past the left wall goes on travelling downward, which is what a
- *     boundary does and what a hard stop does not.
+ *     that: the travel is cut to the room the path has (`handleBoundsMilli`).
  *
  * **In tiles, in the simulation, and not in pixels in render.** The bound has
  * to be somewhere both devices agree about, and it has to be somewhere the
@@ -63,12 +55,6 @@ export function isqrt(n: number): number {
   return lo;
 }
 
-/** A point or a displacement, in thousandths of a tile. */
-export interface PullVec {
-  x: number;
-  y: number;
-}
-
 /**
  * How much of the top row is somebody else's, in thousandths of a tile.
  *
@@ -102,40 +88,8 @@ export function handleBoundsMilli(cfg: SimConfig): {
 
 /** The tile centre `col`/`row` name, in thousandths — where a handle hangs
  * before anybody has touched it. */
-export function tileCentreMilli(col: number, row: number): PullVec {
+export function tileCentreMilli(col: number, row: number): { x: number; y: number } {
   return { x: col * 1000 + 500, y: row * 1000 + 500 };
-}
-
-/**
- * The pull, cut to length and then kept on the field.
- *
- * `anchor` is **where the handle hangs from**, and `raw` is what the pulling
- * device reported — a displacement from wherever the finger grabbed, resolved
- * on that device (`Command` in `command-types.ts`). Anchor plus pull is the
- * handle. For THE LID it is the cord's rest **today**, so the handle
- * rides the falling body (`lidHandleMilli`, the owner's ask) and is re-clamped
- * once a beat as it goes (`stepLidPulls`). What comes back is what the handle
- * actually did, which is what both the picture and the openness are read off.
- */
-export function clampPull(
-  cfg: SimConfig,
-  anchor: PullVec,
-  raw: PullVec,
-  tautMilli: number,
-): PullVec {
-  const len = isqrt(raw.x * raw.x + raw.y * raw.y);
-  // Cut to taut first, so the box below can only ever shorten it further and
-  // the two bounds cannot fight over which one is the length.
-  const cut =
-    len > tautMilli && len > 0
-      ? { x: Math.round((raw.x * tautMilli) / len), y: Math.round((raw.y * tautMilli) / len) }
-      : { x: Math.round(raw.x), y: Math.round(raw.y) };
-
-  const b = handleBoundsMilli(cfg);
-  return {
-    x: Math.max(b.x0, Math.min(b.x1, anchor.x + cut.x)) - anchor.x,
-    y: Math.max(b.y0, Math.min(b.y1, anchor.y + cut.y)) - anchor.y,
-  };
 }
 
 /**
@@ -165,23 +119,18 @@ export function pullDownMilli(
  * the rule is a readout that lies at exactly the moment somebody is deciding to
  * fire.
  */
-export function pullOpenMilli(pull: PullVec, tautMilli: number): number {
+export function pullOpenMilli(pullMilli: number, tautMilli: number): number {
   const full = Math.max(1, tautMilli);
-  const len = isqrt(pull.x * pull.x + pull.y * pull.y);
-  return Math.min(1000, Math.round((len * 1000) / full));
+  return Math.min(1000, Math.round((Math.max(0, pullMilli) * 1000) / full));
 }
 
 /**
- * Whether a pull has reached taut — **the squares compared, never the readout
- * above and never even the root**.
- *
- * `pullOpenMilli` rounds, so a hand a thousandth of a tile short reads as a
- * full thousand and a shot the pair had not earned would land; the rounding
- * belongs to the picture and must never decide a hit. And the root itself is
- * not needed at all to answer this — two squares compared is the same question
- * with no rounding anywhere in it, which is the strongest form the rule can
- * take on two phones.
+ * Whether a pull has reached taut — **the raw travel against the raw
+ * threshold, never the readout above**. `pullOpenMilli` rounds, so a hand a
+ * thousandth of a tile short reads as a full thousand and a shot the pair had
+ * not earned would land; the rounding belongs to the picture and must never
+ * decide a hit.
  */
-export function pullIsTaut(pull: PullVec, tautMilli: number): boolean {
-  return pull.x * pull.x + pull.y * pull.y >= tautMilli * tautMilli;
+export function pullIsTaut(pullMilli: number, tautMilli: number): boolean {
+  return pullMilli >= tautMilli;
 }

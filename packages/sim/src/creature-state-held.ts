@@ -39,16 +39,20 @@ export interface HeldState {
    */
   dropped?: boolean;
   /**
-   * How far player 1's hand has carried THE LID's cord from where it grabbed,
-   * across and down, in thousandths of a tile — and **absent on a lid nobody
-   * has hold of**, which is what makes the absence itself the answer to "is a
-   * hand on this": a grab reports zero, so nought and nothing are two states.
-   * The two together are the pull and its **length** is the tension. Read them
-   * through `lidPull`, `lidOpenMilli`, `lidIsOpen` and `lidIsHeld`, never
-   * directly; `handle-pull.ts` is what bounds them.
+   * How far player 1's hand has carried THE LID's cord along its way, in
+   * thousandths of a tile, nought to `lidTautMilli` — and **absent on a lid
+   * nobody has hold of**, which is what makes the absence itself the answer
+   * to "is a hand on this": a grab reports zero, so nought and nothing are two
+   * states. Read it through `lidPull`, `lidOpenMilli`, `lidIsOpen` and
+   * `lidIsHeld`, never directly.
    */
   lidPullMilli?: number;
-  lidPullYMilli?: number;
+  /**
+   * The way that hand's cord runs, chosen at the grab by the room the field
+   * had (`lid-way.ts`): `LID_DOWN`, `LID_RIGHT`, `LID_LEFT` or `LID_UP`.
+   * Absent with no hand on it.
+   */
+  lidWay?: number;
   /**
    * The cord has been pulled taut this hold: the one generic PULL counted at
    * its reach (`pull.ts`), so the lens stays bare until the hand lets go even

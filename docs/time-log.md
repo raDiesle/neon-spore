@@ -40065,3 +40065,17 @@ Bottleneck: the balloon's hand re-released every balloon on every move, so the c
 Bottleneck: none worth the name — the entry named both fixes and both were small; the guard's heredoc refusal cost one rewrite.
 
 *Measured: 3 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-14 — THE LID's cord runs one way
+
+- reading: 5 min. `lid.ts`, `handle-pull.ts` and render's `fittingWay`, to
+  move the choice of way into the sim.
+- writing: 15 min. `lid-way.ts` and `lid-hand.ts` split out of `lid.ts`,
+  the vector half of `handle-pull.ts` gone, render's channel on the sim's
+  way and the follow-the-hand code removed, the autopilot, six tests.
+- looking: 0 min. No picture: the channel lies where it lay before the grab.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, `land`.
+
+Bottleneck: the circular import between the body and its way, settled by
+splitting the hand into a third file.

@@ -116,7 +116,7 @@ export function drawTether(
   // behind the hand (`pull-track.ts`), under the rope so the line lies in its
   // channel; then the circle to start, at the rope's end, where the thumb has
   // it (`pull-knob.ts`).
-  const track = wardenRopeTrack(l, cfg, b, head, rest);
+  const track = wardenRopeTrack(l, cfg, b, rest);
   drawPullTrack(ctx, track, { hex, rim, held, origin: 0, at: pull, time, key: "warden" });
   TETHER_LOOK.rope(d);
   TETHER_LOOK.root(d);

@@ -193,11 +193,8 @@ export function drawCurtainHem(
   const track = straightPullTrack({
     from: rest,
     r: rest.r,
-    head,
-    held,
-    rest: PULL_UP,
+    way: PULL_UP,
     len,
-    follow: false,
   });
   drawPullTrack(ctx, track, {
     ...LOOK,

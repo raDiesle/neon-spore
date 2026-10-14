@@ -11,7 +11,7 @@ import { choirRubHeard } from "./choir-rub.js";
 import { crankHeard } from "./crank.js";
 import { fleetHeard } from "./fleet.js";
 import { gripPushHeard } from "./grip-push.js";
-import { lidHeard } from "./lid.js";
+import { lidHeard } from "./lid-hand.js";
 import { mazeStringHeard, stepMazeTurn } from "./maze-controls.js";
 import { sinewHeard } from "./sinew-hand.js";
 import type { TimedCommand } from "./types.js";

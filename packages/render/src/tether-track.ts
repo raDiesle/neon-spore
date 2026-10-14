@@ -1,4 +1,3 @@
-import type { Point } from "@neon-spore/content";
 import type { SimConfig, WardenState } from "@neon-spore/sim";
 import { fieldPoint } from "./handle-draw.js";
 import type { Circle, Layout } from "./layout.js";
@@ -21,17 +20,13 @@ export function wardenRopeTrack(
   l: Layout,
   cfg: SimConfig,
   b: WardenState,
-  head: Point,
   rest: Circle,
 ): PullTrack {
   const from = b.pulling ? fieldPoint(l, { x: b.pullAnchorX, y: b.pullAnchorY }) : rest;
   return straightPullTrack({
     from,
     r: rest.r,
-    head,
-    held: b.pulling,
-    rest: PULL_DOWN,
-    follow: false,
+    way: PULL_DOWN,
     len: (cfg.wardenTautMilli * l.tile) / 1000,
   });
 }

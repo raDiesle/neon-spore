@@ -199,7 +199,7 @@ export function drawSinewHandles(
     if (mine && !falling && !swinging) {
       const rest = { ...sinewHandleCircle(l, cfg, s, beat, beatPhase, side), x: head.x };
       const len = (cfg.sinewReachMilli * l.tile) / 1000;
-      drawSinewChannel(ctx, rest, head, len, pull, held, time, `sinew:${side}`);
+      drawSinewChannel(ctx, rest, len, pull, held, time, `sinew:${side}`);
     }
     drawSinewHandleHalo(ctx, head, mine, asks, time);
     // The shared knob, carrying the way down on its owner's screen alone. FIZZ's

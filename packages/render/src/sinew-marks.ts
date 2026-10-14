@@ -52,7 +52,6 @@ export function sinewHandleAsks(
 export function drawSinewChannel(
   ctx: CanvasRenderingContext2D,
   rest: Circle,
-  head: Circle,
   /** The whole reach, in pixels, and how much of it the hand has pulled, 0..1. */
   len: number,
   pull: number,
@@ -64,11 +63,8 @@ export function drawSinewChannel(
   const track = straightPullTrack({
     from: rest,
     r: rest.r,
-    head,
-    held,
-    rest: PULL_DOWN,
+    way: PULL_DOWN,
     len,
-    follow: false,
   });
   drawPullTrack(ctx, track, {
     hex: PALETTE.rock,

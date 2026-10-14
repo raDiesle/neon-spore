@@ -63,11 +63,8 @@ export function drawLampreyHandles(
       const track = straightPullTrack({
         from: rest,
         r: rest.r,
-        head: at,
-        held,
-        rest: dir,
+        way: dir,
         len,
-        follow: false,
       });
       if (mine)
         drawPullTrack(ctx, track, {
@@ -134,11 +131,8 @@ export function drawLampreyHandles(
     const track = straightPullTrack({
       from: rest,
       r: rest.r,
-      head: at,
-      held,
-      rest: PULL_UP,
+      way: PULL_UP,
       len,
-      follow: false,
     });
     if (mine)
       drawPullTrack(ctx, track, {

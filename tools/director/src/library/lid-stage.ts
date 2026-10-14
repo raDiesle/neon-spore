@@ -40,7 +40,7 @@ const LID: Creature = {
   dragMilli: 0,
   shell: 0,
   lidPullMilli: 0,
-  lidPullYMilli: 0,
+  lidWay: 0,
 };
 
 /** Beats in one shut–open–shut cycle, in four equal parts. */

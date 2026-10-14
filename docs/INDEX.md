@@ -274,6 +274,8 @@ by hand never moves.
 | `packages/sim/src/bullet-types.ts` | you need what a bullet *is* rather than what one does — the shape, lifted out of `types.ts` beside `pod-types.ts` |
 | `packages/sim/src/lid.ts` | you are working on the armoured eye — the cord, how far the plates have parted, and what a shot into it does |
 | `packages/sim/src/lid-struck.ts` | THE LID's answer to a shot: bare lens, wrong colour, or plates still across it |
+| `packages/sim/src/lid-hand.ts` | THE LID's hand on the cord: the grab takes the way, the travel along it is the pull, counted at taut |
+| `packages/sim/src/lid-way.ts` | **The one path THE LID's cord runs**, chosen by the simulation at the grab: the first way the field holds the whole cord, and only travel along it counts |
 | `packages/sim/src/config-ghost.ts` | THE GHOST's numbers: what one is worth, the row a crossing one prowls along, how far it goes each beat, how |
 | `packages/sim/src/config-gorge.ts` | THE GORGE's numbers — where the bubbles hang, how big the ring is |
 | `packages/sim/src/config-governor.ts` | THE GOVERNOR's tuning: the beats around its steps, how fast the needle idles |
