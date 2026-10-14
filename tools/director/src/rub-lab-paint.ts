@@ -1,13 +1,14 @@
 import { PALETTE } from "@neon-spore/render";
 import { SHADE } from "../../../packages/render/src/goo-press.js";
 import { paintField } from "./pull-lab-paint.js";
-import type { RubLook, RubView } from "./rub-goo/view.js";
+import { ZIGZAG_RUB } from "./rub-goo/index.js";
+import type { RubView } from "./rub-goo/view.js";
 import { viewOf } from "./rub-goo/view.js";
 import { LAPSE, type LabRub, type RubAsk, type RubSeats, TOGETHER } from "./rub-lab-rule.js";
 
 /**
- * One frame of THE RUB LAB (`rub-lab.ts`): the PULL LAB's empty field and the
- * look's drop in its middle. No finger over it and no word on the field, as
+ * One frame of THE RUB LAB (`rub-lab.ts`): the PULL LAB's empty field and
+ * ZIGZAG's drop in its middle. No finger over it and no word on the field, as
  * in THE PRESS LAB — but for BOTH AT ONCE, whose two seat lights stand over
  * the drop, each lit while its seat is rubbing, so the eye can see the other
  * seat a turn has to be made with.
@@ -17,7 +18,6 @@ export interface RubFrame {
   rub: LabRub;
   ask: RubAsk;
   seats: RubSeats;
-  look: RubLook;
   time: number;
 }
 
@@ -25,7 +25,7 @@ export function paintRubLab(ctx: CanvasRenderingContext2D, f: RubFrame): void {
   paintField(ctx);
   ctx.save();
   const v = viewOf(ctx, f.rub, f.ask, f.seats, f.time);
-  f.look.paint(v);
+  ZIGZAG_RUB.paint(v);
   if (f.seats === "both") seatLights(v, rubbingNow(f.rub));
   ctx.restore();
 }

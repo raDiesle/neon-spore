@@ -159,7 +159,7 @@ export const OTHER_ACTIONS: readonly FieldAction[] = [
           "Both ways are offered always: the shake itself, and the RUB in the " +
           "middle of the field that both seats make at once — the owner, 13 " +
           "October 2026 (`apps/game/src/shake.ts`, `render/choir-rub.ts`).",
-        rubLab: "8-both-zigzag",
+        rubLab: "8-both",
         rows: ["THE CHOIR'S RUB"],
       },
     ],

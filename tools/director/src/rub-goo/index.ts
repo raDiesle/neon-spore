@@ -1,15 +1,13 @@
 import { gooRub } from "./goo.js";
-import { WIPE, ZIGZAG } from "./looks.js";
-import { COUNT, HEAT } from "./looks-b.js";
 import type { RubLook } from "./view.js";
+import { ZIGZAG } from "./zigzag.js";
 
 /**
- * **The looks THE RUB LAB offers**, one drop each — THE HOLD LAB's, smeared
- * after the thumb rather than sinking or popping (`goo.ts`) — differing only
- * in how they say how many turns a mark asks and how many are done. Four, for
- * the owner to pick one of. None is in the game.
+ * **The look every rub in the director's labs wears**: ZIGZAG, on THE HOLD
+ * LAB's drop smeared after the thumb rather than sinking or popping
+ * (`goo.ts`) — the gesture itself drawn on the drop, a stroke a turn. THE RUB
+ * LAB once offered four looks on a picker; the owner, 14 October 2026: *about
+ * "rub lab": apply "zigzag" and remove other variants*, as THE PRESS LAB kept
+ * STEPS and THE HOLD LAB SOAK. WIPE, HEAT and COUNT are gone.
  */
-export const RUB_LOOKS: readonly RubLook[] = [ZIGZAG, WIPE, HEAT, COUNT].map(gooRub);
-
-export const rubLook = (key: string): RubLook =>
-  RUB_LOOKS.find((l) => l.key === key) ?? (RUB_LOOKS[0] as RubLook);
+export const ZIGZAG_RUB: RubLook = gooRub(ZIGZAG);

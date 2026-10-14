@@ -1,6 +1,6 @@
 import type { Point } from "@neon-spore/content";
 import { PALETTE, smoothstep } from "@neon-spore/render";
-import { bodyPath, drop, type GooBody } from "../../../../packages/render/src/goo-body.js";
+import { drop, type GooBody } from "../../../../packages/render/src/goo-body.js";
 import { paintGoo } from "../../../../packages/render/src/goo-drop-look.js";
 import { grown } from "../../../../packages/render/src/goo-enter.js";
 import { SPAWN } from "../../../../packages/render/src/goo-moment.js";
@@ -27,22 +27,16 @@ import type { RubLook, RubView } from "./view.js";
  * - **a lapse** is the drop going red and shuddering where it is, the count
  *   draining out — the press's refusal.
  *
- * How many turns it asks, and how many are done, is a `Rubbed` — the looks
- * THE RUB LAB offers on its picker (`looks.ts`, `looks-b.ts`).
+ * How many turns it asks, and how many are done, is a `Rubbed` — ZIGZAG, the
+ * one a rub wears (`zigzag.ts`).
  */
 
 export interface Rubbed {
   readonly key: string;
   readonly name: string;
   readonly sentence: string;
-  /** The drop's body, given what is done. */
-  body?(b: GooBody, v: RubView): GooBody;
-  /** How green the drop itself is, 0..1. */
-  green?(v: RubView): number;
-  /** Inside the drop, clipped to it, over everything the drop paints. */
-  inside?(v: RubView, drawn: GooBody, tone: Tone): void;
   /** Over the drop and the field round it, unclipped. */
-  over?(v: RubView, drawn: GooBody, tone: Tone): void;
+  over(v: RubView, drawn: GooBody, tone: Tone): void;
 }
 
 export function gooRub(c: Rubbed): RubLook {
@@ -51,7 +45,7 @@ export function gooRub(c: Rubbed): RubLook {
     name: c.name,
     sentence: c.sentence,
     paint(v) {
-      if (v.ending !== null) fizzAway(v, v.ending, (b) => c.body?.(b, v) ?? b);
+      if (v.ending !== null) fizzAway(v, v.ending);
       if (v.mark) mark(v, c);
     },
   };
@@ -114,16 +108,8 @@ function mark(v: RubView, c: Rubbed): void {
     });
     red = 0.6 * v.near ** 2;
   }
-  body = c.body?.(body, v) ?? body;
-  const tint = { red, green: c.green?.(v) ?? 0 };
-  const drawn = paintGoo(ctx, body, GOO, time, tint, FREE);
-  if (c.inside) {
-    ctx.save();
-    ctx.clip(bodyPath(drawn, GOO, time));
-    c.inside(v, drawn, tone);
-    ctx.restore();
-  }
-  c.over?.(v, drawn, tone);
+  const drawn = paintGoo(ctx, body, GOO, time, { red, green: 0 }, FREE);
+  c.over(v, drawn, tone);
   if (v.failure === null) swishes(v, drawn, smear.way, smear.k);
 }
 

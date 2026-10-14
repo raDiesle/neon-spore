@@ -3923,11 +3923,10 @@ by hand never moves.
 | `tools/director/src/press-lab-sheet.ts` | **EVERY STATE** — THE PRESS LAB's sheet, as THE HOLD LAB's is: one row, STEPS |
 | `tools/director/src/press-lab.ts` | **THE PRESS LAB** — the one generic PRESS on an empty field, to be pressed by hand |
 | `tools/director/src/rub-goo/goo.ts` | **The GOO rub**: THE HOLD LAB's drop — the same RIPPLES · STILL drop, at the same size in the same place |
-| `tools/director/src/rub-goo/looks-b.ts` | **HEAT** and **COUNT** — the rest of THE RUB LAB's ways to say how many turns a mark asks (`looks.ts` has… |
-| `tools/director/src/rub-goo/looks.ts` | **ZIGZAG** and **WIPE** — two of THE RUB LAB's ways to say how many turns a mark asks before it is touched |
 | `tools/director/src/rub-goo/view.ts` | **What a RUB LAB look is told**, read once a frame from the rule's state (`rub-lab-rule.ts`) |
+| `tools/director/src/rub-goo/zigzag.ts` | **ZIGZAG** — THE RUB LAB's one way to say how many turns a mark asks before it is touched |
 | `tools/director/src/rub-lab-auto.ts` | **AUTO's finger in THE RUB LAB**, as `press-lab-auto.ts` is THE PRESS LAB's |
-| `tools/director/src/rub-lab-paint.ts` | One frame of THE RUB LAB (`rub-lab.ts`): the PULL LAB's empty field and the look's drop in its middle |
+| `tools/director/src/rub-lab-paint.ts` | One frame of THE RUB LAB (`rub-lab.ts`): the PULL LAB's empty field and ZIGZAG's drop in its middle |
 | `tools/director/src/rub-lab-rule.ts` | **The one generic RUB, as THE RUB LAB plays it** — the owner, 13 October 2026 |
 | `tools/director/src/rub-lab-sheet.ts` | **EVERY LOOK, EVERY STATE** — THE RUB LAB's sheet, as THE PRESS LAB's was one row per look |
 | `tools/director/src/rub-lab.ts` | **THE RUB LAB** — the one generic RUB on an empty field, to be rubbed by hand |

@@ -229,12 +229,12 @@ describe("THE HOLD LAB in the URL", () => {
 });
 
 describe("THE PRESS LAB in the URL", () => {
-  test("rublab= and rubsheet= round-trip as RUB_LAB, the turns, the seats and the look", () => {
-    const place = parsePlace("?sheet=controls&rublab=16-both-heat&rubsheet=1");
-    expect(place.lab).toBe(`${RUB_LAB}16-both-heat`);
+  test("rublab= and rubsheet= round-trip as RUB_LAB, the turns and the seats", () => {
+    const place = parsePlace("?sheet=controls&rublab=16-both&rubsheet=1");
+    expect(place.lab).toBe(`${RUB_LAB}16-both`);
     expect(place.labSheet).toBe(true);
-    expect(placeToSearch(place)).toBe("?sheet=controls&rublab=16-both-heat&rubsheet=1");
-    expect(parsePlace("?rublab=8-one-zigzag&presssheet=1").labSheet).toBe(false);
+    expect(placeToSearch(place)).toBe("?sheet=controls&rublab=16-both&rubsheet=1");
+    expect(parsePlace("?rublab=8-one&presssheet=1").labSheet).toBe(false);
   });
 
   test("presslab= and presssheet= round-trip as PRESS_LAB and the presses", () => {

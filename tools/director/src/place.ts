@@ -48,8 +48,8 @@ export interface Place {
    * `holdlab=2` in the URL, and THE COMBO LAB as `COMBO_LAB` and its combo
    * (`combo:partner`), `combolab=partner`, THE PRESS LAB as `PRESS_LAB`
    * and its presses (`press:5`), `presslab=5`, and THE
-   * RUB LAB as `RUB_LAB` and its turns, seats and look (`rub:8-one-zigzag`),
-   * `rublab=8-one-zigzag`: only one lab is ever open (`LAB_PARAMS`).
+   * RUB LAB as `RUB_LAB` and its turns and seats (`rub:8-one`), `rublab=8-one`:
+   * only one lab is ever open (`LAB_PARAMS`).
    */
   lab: string | null;
   /** The lab shows EVERY LOOK, EVERY STATE rather than the live pull — `pullsheet=1`. Always false when `lab` is null. */

@@ -39077,3 +39077,14 @@ Bottleneck: the director that answered first was serving another tree.
 Bottleneck: the mass is the width of the field, so the part had to be the lobes, each about where it hangs.
 
 *Measured: 6 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-14 — THE RUB LAB wears ZIGZAG only
+
+- reading: 5 min. `rub-goo/`, and THE PRESS LAB's same cut on 13 October.
+- writing: 10 min. The picker, the three looks and the sheet's rows gone;
+  the URL key down to turns and seats.
+- looking: 0 min.
+- friction: 0 min.
+- landing: 5 min. The URL test, the index.
+
+Bottleneck: none — THE PRESS LAB's cut was the template, line for line.

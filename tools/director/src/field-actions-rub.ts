@@ -24,7 +24,7 @@ export const RUB_ACTION: FieldAction = {
         "Make it generic under THE CAPSTAN's rules and draw it as THE RUB LAB's " +
         "drop. THE MAZE's heart counts travel rather than reversals — move it to " +
         "a rub, or say why not.",
-      rubLab: "8-one-zigzag",
+      rubLab: "8-one",
       rows: ["THE CAPSTAN'S RUB", "THE MAZE'S HEART", "THE THROAT'S PUMP", "THE BLISTER'S RUB"],
     },
   ],

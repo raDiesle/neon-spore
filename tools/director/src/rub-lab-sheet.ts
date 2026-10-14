@@ -1,13 +1,12 @@
 import { text } from "./gestures-page.js";
 import { HOLD_R, SLIP_REACH } from "./hold-lab-rule.js";
-import { RUB_LOOKS } from "./rub-goo/index.js";
 import { freshDriving, loopOf, stepAuto } from "./rub-lab-auto.js";
 import { paintRubLab } from "./rub-lab-paint.js";
 import { freshRub, type LabRub, RUB_AT, type RubAsk, type RubSeats, tick } from "./rub-lab-rule.js";
 
 /**
- * **EVERY LOOK, EVERY STATE** — THE RUB LAB's sheet, as THE PRESS LAB's was:
- * one row per look, one column per moment of AUTO's loop, each cell the lab's
+ * **EVERY STATE** — THE RUB LAB's sheet, as THE PRESS LAB's is: one row,
+ * ZIGZAG, one column per moment of AUTO's loop, each cell the lab's
  * own frame run from a fresh mark at a fixed step — the same every time it is
  * drawn, and never a mock. The moments are found by running the loop, not
  * written down, so they land on the turn they name whatever its timing.
@@ -75,11 +74,11 @@ export function rubMoments(ask: RubAsk, seats: RubSeats): { at: number; label: s
   return moments.sort((a, b) => a.at - b.at);
 }
 
-/** The box round the mark, with room for the swishes, the notches and the seat lights. */
+/** The box round the mark, with room for the swishes and the seat lights. */
 const PAD = SLIP_REACH + HOLD_R * 0.6;
 const CROP = { x: RUB_AT.x - PAD, y: RUB_AT.y - PAD * 1.4, w: PAD * 2, h: PAD * 2.4 };
 
-function cell(ask: RubAsk, seats: RubSeats, look: number, seconds: number, cssW: number) {
+function cell(ask: RubAsk, seats: RubSeats, seconds: number, cssW: number) {
   const s = cssW / CROP.w;
   const dpr = Math.min(4, 2 * (window.devicePixelRatio || 1));
   const canvas = document.createElement("canvas");
@@ -88,11 +87,10 @@ function cell(ask: RubAsk, seats: RubSeats, look: number, seconds: number, cssW:
   canvas.style.width = `${CROP.w * s}px`;
   canvas.style.height = `${CROP.h * s}px`;
   const ctx = canvas.getContext("2d");
-  const l = RUB_LOOKS[look];
-  if (!ctx || !l) return canvas;
+  if (!ctx) return canvas;
   const k = s * dpr;
   ctx.setTransform(k, 0, 0, k, -CROP.x * k, -CROP.y * k);
-  paintRubLab(ctx, { rub: rubAt(ask, seats, seconds), ask, seats, look: l, time: seconds });
+  paintRubLab(ctx, { rub: rubAt(ask, seats, seconds), ask, seats, time: seconds });
   return canvas;
 }
 
@@ -104,9 +102,7 @@ export function rubSheet(ask: RubAsk, seats: RubSeats, cssW = 110): HTMLElement 
   grid.style.gridTemplateColumns = `auto repeat(${moments.length}, ${cssW}px)`;
   grid.appendChild(text("span", ask.label, "pull-lab-sheet-corner"));
   for (const m of moments) grid.appendChild(text("span", m.label, "pull-lab-sheet-head"));
-  RUB_LOOKS.forEach((look, i) => {
-    grid.appendChild(text("span", look.name.toUpperCase(), "pull-lab-sheet-look"));
-    for (const m of moments) grid.appendChild(cell(ask, seats, i, m.at, cssW));
-  });
+  grid.appendChild(text("span", "ZIGZAG", "pull-lab-sheet-look"));
+  for (const m of moments) grid.appendChild(cell(ask, seats, m.at, cssW));
   return grid;
 }

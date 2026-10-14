@@ -5,8 +5,7 @@ import { labShell } from "./lab-shell.js";
 import { RUB_LAB } from "./place.js";
 import { fitCanvas } from "./pull-lab-canvas.js";
 import { LAB_H, LAB_W } from "./pull-lab-shapes.js";
-import { RUB_LOOKS, rubLook } from "./rub-goo/index.js";
-import type { RubLook } from "./rub-goo/view.js";
+import { ZIGZAG_RUB } from "./rub-goo/index.js";
 import { freshDriving, handPartner, stepAuto, stepPartner } from "./rub-lab-auto.js";
 import { paintRubLab, rubReadout } from "./rub-lab-paint.js";
 import {
@@ -33,9 +32,12 @@ import { initialLab } from "./session.js";
  * control. which we need a special visual for it. also build me a lab for it*).
  *
  * Its choices on the bar are **TURNS** — how many times the thumb has to turn
- * back (`RUB_ASKS`) — **SEATS**, one seat or both at once (THE CHOIR's rub,
- * the same day), and **LOOK**, the four ways of saying so on THE HOLD LAB's
- * drop (`rub-goo/`). On a computer the pointer over the mark is the
+ * back (`RUB_ASKS`) — and **SEATS**, one seat or both at once (THE CHOIR's
+ * rub, the same day). The rub wears ZIGZAG and nothing else, on THE HOLD
+ * LAB's drop (`rub-goo/`), as every press wears STEPS (the owner, 14 October
+ * 2026: *about "rub lab": apply "zigzag" and remove other variants*). WIPE,
+ * HEAT and COUNT, the other looks the LOOK picker once offered, are gone. On
+ * a computer the pointer over the mark is the
  * left-right arrow, where a press's is the pointing hand and a hold's the open one.
  *
  * The rule (`rub-lab-rule.ts`): a turn counts as the thumb comes back; a lift
@@ -44,19 +46,18 @@ import { initialLab } from "./session.js";
  * until it lapses; RETRY puts a fresh mark on the field.
  */
 
-/** `key` is the turns, the seats and the look, `8-one-zigzag`: what `RUB_LAB` carries in the URL. */
-const keyOf = (ask: RubAsk, seats: RubSeats, look: RubLook): string =>
-  `${ask.key}-${seats}-${look.key}`;
+/** `key` is the turns and the seats, `8-one`: what `RUB_LAB` carries in the URL. */
+const keyOf = (ask: RubAsk, seats: RubSeats): string => `${ask.key}-${seats}`;
 
 export function openRubLab(
-  first = "8-one-zigzag",
+  first = "8-one",
   opts: { sheet?: boolean; host?: HTMLElement } = {},
 ): void {
   const shell = labShell(opts.host);
-  const [askKey = "8", seatKey = "one", lookKey = "zigzag"] = first.split("-");
+  // A link from before the look was settled still says it, `8-one-zigzag`: the look is last.
+  const [askKey = "8", seatKey = "one"] = first.split("-");
   let ask: RubAsk = rubAsk(askKey);
   let seats: RubSeats = seatKey === "both" ? "both" : "one";
-  let look: RubLook = rubLook(lookKey);
   let mark: LabRub = freshRub();
   let auto = true;
   let speed = 1;
@@ -77,11 +78,11 @@ export function openRubLab(
   const readout = text("span", "", "try-readout");
 
   let sheet = opts.sheet === true;
-  const sheetButton = text("button", "▤ EVERY LOOK, EVERY STATE");
-  const place = (): void => shell.place({ shape: RUB_LAB + keyOf(ask, seats, look), sheet });
+  const sheetButton = text("button", "▤ EVERY STATE");
+  const place = (): void => shell.place({ shape: RUB_LAB + keyOf(ask, seats), sheet });
   const show = (): void => {
     place();
-    like.textContent = `${look.name.toUpperCase()} — ${look.sentence}.`;
+    like.textContent = `${ZIGZAG_RUB.name.toUpperCase()} — ${ZIGZAG_RUB.sentence}.`;
     sheetButton.classList.toggle("on", sheet);
     room.classList.toggle("pull-lab-room-sheet", sheet);
     room.replaceChildren(sheet ? rubSheet(ask, seats) : canvas);
@@ -128,15 +129,6 @@ export function openRubLab(
         reset();
       },
       "SEATS",
-    ),
-    choice(
-      RUB_LOOKS.map((l) => [l.name.toUpperCase(), l.key] as [string, string]),
-      look.key,
-      (k) => {
-        look = rubLook(k);
-        show();
-      },
-      "LOOK",
     ),
     choice(
       [
@@ -196,7 +188,7 @@ export function openRubLab(
     const ctx = canvas.getContext("2d");
     if (ctx) {
       ctx.setTransform(canvas.width / LAB_W, 0, 0, canvas.height / LAB_H, 0, 0);
-      paintRubLab(ctx, { rub: mark, ask, seats, look, time });
+      paintRubLab(ctx, { rub: mark, ask, seats, time });
     }
     readout.textContent = rubReadout(mark, ask, seats);
   };
@@ -207,7 +199,7 @@ export function openRubLab(
 
 /**
  * The lab reopened where the URL left it (`place.ts`'s `lab`, as `RUB_LAB`
- * and its key): `?rublab=8-one-zigzag`, `&rubsheet=1` on its sheet — so a
+ * and its key): `?rublab=8-one`, `&rubsheet=1` on its sheet — so a
  * reload stays on the lab and `bun run shot` photographs either with no
  * clicks. Its door in the topbar opens its card on ON THE FIELD (`lab-door.ts`).
  */
