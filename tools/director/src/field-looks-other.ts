@@ -36,8 +36,8 @@ export const OTHER_LOOKS: Readonly<Record<string, UseLook>> = {
     move: "The plug goes in green; the ring's dial drains the fight's ration of plugging while the thumb stays.",
   },
   "THE FLEET'S PLUME": {
-    find: "A ring on the holed square on the navigator's screen while the water stands out of the hole; haloed until her thumb is down.",
-    move: "Green as it lands; the hole stays open while she holds and closes the moment she lets go.",
+    find: "The HOLD LAB's drop on the holed square on the navigator's screen while the water stands out of the hole; calling until her thumb is down.",
+    move: "Her thumb sinks into it, green as it lands; the hole stays open while she holds and closes the moment she lets go.",
   },
   "THE LAMPREY'S TAIL": {
     find: "The knob at the tip of the tail, laid away from the tile the eel leaps to next, while a bite is on.",
@@ -52,7 +52,7 @@ export const OTHER_LOOKS: Readonly<Record<string, UseLook>> = {
     move: "The drop sinks under the thumb and its water rises as the window is spent; with both thumbs down the two beads draw together into one, green.",
   },
   "THE PULSE'S ARREST": {
-    find: "The same box on the meter, gone red. One thumb on it and the word under the bar reads BOTH; two and it reads HELD.",
+    find: "The same box on the meter, gone red, with the HOLD LAB's drop at each end and no word.",
     move: "The partner's end is ringed with a clock until the second thumb lands; then both ends wash green and the meter climbs a beat at a time.",
   },
   "THE OCULUS'S LEFT LEAF": {
@@ -60,11 +60,11 @@ export const OTHER_LOOKS: Readonly<Record<string, UseLook>> = {
     move: "With both halves held the lit pair slides shut across the face and both drops fill; a lift slips it, red.",
   },
   "THE FLEET'S RAKE": {
-    find: "Anywhere along the holed hull, on the pilot's screen; his ring is haloed until his thumb is down.",
+    find: "Anywhere along the holed hull, on the pilot's screen; his ring is haloed until his thumb is down, and is the HOLD LAB's drop once the hull is under.",
     move: "While her thumb holds the plume, every square his rests on for a beat is marked; a hull raked end to end goes to wreck, and his thumb stays down until she has sunk it.",
   },
   "THE WARDEN'S THUMB": {
-    find: "A ring on the shut eye where the pupil stands, haloed on the navigator's screen, while the pilot hauls the rope.",
+    find: "The HOLD LAB's drop on the shut eye where the pupil stands, haloed on the navigator's screen, while the pilot hauls the rope.",
     move: "The lids part behind the hatch and the pupil stops walking for as long as the thumb stays; green when it lands.",
   },
   "THE HIVE'S WRING": {
@@ -94,8 +94,8 @@ export const OTHER_LOOKS: Readonly<Record<string, UseLook>> = {
   },
   // PRESS
   "THE PULSE'S BRACE": {
-    find: "A dashed box round the meter across the top of both screens, once it drops low; each seat's end of the bar haloed on its own screen.",
-    move: "The end nearest the seat lights and washes green when its thumb lands.",
+    find: "A dashed box round the meter across the top of both screens, once it drops low, and the HOLD LAB's drop at each end, haloed on its own seat's screen.",
+    move: "The drop nearest the seat sinks under its thumb and washes green when it lands.",
   },
   "THE MANTLE'S CORE": {
     find: "A ring round the bared core once the shell has split; the half that beats says whose tap is next.",

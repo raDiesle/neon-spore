@@ -7,11 +7,14 @@ import {
   wardenSwipeAlong,
   wardenThrown,
 } from "@neon-spore/sim";
-import { drawGripDial, drawGripRing } from "./grip-rings.js";
+import { cueFrame } from "./boss-cue-frame.js";
+import { holdDropR } from "./cue-helper.js";
+import { drawGripDial } from "./grip-rings.js";
 import { drawVerdictRing, type GripVerdict } from "./grip-verdict.js";
 import { handleRadius } from "./handle-draw.js";
 import { type Circle, hitCircle, type Layout } from "./layout.js";
 import { drawMarkHalo, drawMarkTheirs, drawMarkWait } from "./mark-feedback.js";
+import { drawSoakHold } from "./soak-hold.js";
 import type { Field, Touch } from "./touch.js";
 import { bossOf } from "./touch-field.js";
 import type { ViewRole } from "./view-role.js";
@@ -37,8 +40,10 @@ import { drawWardenTrack } from "./warden-track.js";
  * once it is down the pupil stops under it.
  *
  * What is drawn is read off the world every frame and nothing is kept: under
- * NARROW a ring on the eye on the navigator's screen, breathing until her
- * thumb lands and filled while the sim has it (`eyeHeld`); under GLARE the
+ * NARROW the HOLD LAB's drop on the eye on the navigator's screen
+ * (`soak-hold.ts`), sunk while the sim has her thumb (`eyeHeld`) and with no
+ * water, because the round keeps no count of the hold — the owner, 13
+ * October 2026, every hold the drop; under GLARE the
  * PULL LAB's knob on a channel through the hatch, because a swipe is drawn as
  * the way the thumb goes and never as a ring, riding as his thumb carries it
  * (`warden-track.ts`), until
@@ -151,7 +156,7 @@ export function drawWardenGrip(
   const c = wardenGripCircle(l, body, b);
   const r = c.r * RING_MUL;
   if (asks === "hold") {
-    drawEyeMark(ctx, c, r, role !== "p1", b.eyeHeld, time);
+    drawEyeMark(ctx, c, holdDropR(cueFrame(l)), role !== "p1", b.eyeHeld, time);
   } else if (!wardenThrown(world, b)) {
     const reach = (l.tile * cfg.wardenThrowMilli) / 1000;
     const along = wardenSwipeAlong(world, b) / 1000;
@@ -167,9 +172,11 @@ export function drawWardenGrip(
 }
 
 /**
- * The eye while it asks: this seat's ring with the halo under it, or the
- * partner's turning ring and clock — and nothing once the partner's thumb
- * is down, because then the lids parting are what this seat is shown.
+ * The eye while it asks: this seat's drop with the halo under it, or the
+ * partner's dimmed drop with the turning ring and clock round it — and
+ * nothing once the partner's thumb is down, because then the lids parting
+ * are what this seat is shown. The cue draws no drop of its own over it
+ * (`BossCue.ownDrop`, `boss-cue-read-f.ts`).
  */
 function drawEyeMark(
   ctx: CanvasRenderingContext2D,
@@ -181,10 +188,11 @@ function drawEyeMark(
 ): void {
   if (mine) {
     drawMarkHalo(ctx, c.x, c.y, r, time);
-    drawGripRing(ctx, c.x, c.y, r, held, time);
+    drawSoakHold(ctx, c, r, { time, held });
     return;
   }
   if (held) return;
+  drawSoakHold(ctx, c, r, { time, theirs: true });
   drawMarkTheirs(ctx, c.x, c.y, r, time);
   drawMarkWait(ctx, c.x, c.y, r, time);
 }

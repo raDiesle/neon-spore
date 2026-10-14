@@ -95,7 +95,7 @@ export function wardenCues(
   } else if (body !== undefined && pose !== undefined) {
     const eye = wardenPosed(pose, wardenGripCircle(l, body, b));
     if (asks === "hold" && !b.eyeHeld && wardenTether(world) !== null) {
-      out.push(markAt(2, "HOLD", "HOLD", eye.x, eye.y, l, 82));
+      out.push({ ...markAt(2, "HOLD", "HOLD", eye.x, eye.y, l, 82), ownDrop: true });
     }
     if (asks === "throw" && !wardenThrown(world, b)) {
       out.push(markAt(1, "CARRY", "SWIPE", eye.x, eye.y, l, 83));

@@ -11,13 +11,12 @@ import { GripVerdicts } from "../src/grip-verdict.js";
 import { rgba } from "../src/hex.js";
 import { computeLayout, type Layout, type ViewRole } from "../src/layout.js";
 import { PALETTE } from "../src/palette.js";
-import { pulseGripBox } from "../src/pulse-grip.js";
+import { pulseEnd, pulseGripBox } from "../src/pulse-grip.js";
 import {
   drawPulseHalo,
   drawPulseVerdicts,
   drawPulseWaiting,
   PulseMarks,
-  pulseEnd,
 } from "../src/pulse-marks.js";
 import {
   CFG,

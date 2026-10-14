@@ -33,10 +33,10 @@ export const WARDEN_CONTROLS: readonly FieldControlDef[] = [
   {
     name: "THE WARDEN'S THUMB",
     where:
-      "a ring on the shut eye, where the pupil stands, on player 2's screen " +
-      "under NARROW — from the second plate off, with a halo under it; on " +
-      "player 1's, the partner's turning ring and clock until her thumb is " +
-      "down; on the test screen",
+      "the HOLD LAB's drop on the shut eye, where the pupil stands, on player " +
+      "2's screen under NARROW — from the second plate off, with a halo under " +
+      "it; on player 1's, the partner's dimmed drop with a turning ring and " +
+      "clock until her thumb is down; on the test screen",
     seat: "player 2 only — the seat firing into an eye that will not show until she holds it",
     gesture: "hold",
     does:

@@ -15,6 +15,7 @@ import { drawMarkHalo } from "./mark-feedback.js";
 import { PALETTE, STROKE } from "./palette.js";
 import { drawPullKnob } from "./pull-knob.js";
 import { PULL_DOWN } from "./pull-line.js";
+import { drawSoakHold } from "./soak-hold.js";
 import { seatOf } from "./view-role.js";
 
 /**
@@ -22,7 +23,10 @@ import { seatOf } from "./view-role.js";
  * it, the state's own clock under it, and this seat's ring on it — or, for
  * her pull on the wreck, the shared knob with the way down in it
  * (`pull-knob.ts`, 30 September 2026). The ring is on one screen only, so
- * the arrow is too.
+ * the arrow is too. **A hold — his keep under the wreck, her breach under
+ * the flood — is the HOLD LAB's drop instead** (`soak-hold.ts`), sunk under
+ * the thumb, with no water because the drain bar under it is already the
+ * window: the owner, 13 October 2026, every hold the drop.
  *
  * The three touches it belongs to are `fleet-grip.ts` next door, and that
  * header carries the argument for all of it: one circle, one ring a screen,
@@ -116,8 +120,10 @@ export function drawFleetGrip(
   // seat's ring until its thumb is down (`fleet-grip-marks.ts`).
   if (fleetWoundAsks(b) && !grip.held) drawMarkHalo(ctx, ring.x, ring.y, ring.r, time);
   // Her thumb on the wreck is a pull, so it is the shared knob with the way
-  // down in it; the other three are holds and a rake, and stay rings.
-  if (grip.words === WRECK_WORDS) {
+  // down in it; the two holds are the drop, and the rake stays a ring.
+  const holds = grip.words === KEEP_WORDS || grip.words === BREACH_WORDS;
+  if (holds) drawSoakHold(ctx, ring, ring.r, { time, held: grip.held });
+  else if (grip.words === WRECK_WORDS) {
     const rim = PALETTE.text;
     drawPullKnob(ctx, ring, ring.r, {
       hex: PALETTE.rock,

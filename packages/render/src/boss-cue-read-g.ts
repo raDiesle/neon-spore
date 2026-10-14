@@ -117,12 +117,12 @@ function fleetHoleCues(l: Layout, world: World, f: FleetState): readonly BossCue
   const at = { x: chartX(c, f.holeCol), y: chartY(c, f.holeRow), halfW: half, halfH: half };
   if (f.phase === "flood") {
     return [
-      { seat: 2, kind: "HOLD", word: "HOLD", ...at, seed: 73, framed: true },
+      { seat: 2, kind: "HOLD", word: "HOLD", ...at, seed: 73, framed: true, ownDrop: true },
       { seat: 1, kind: "CARRY", word: "RAKE", ...at, seed: 74, framed: true },
     ];
   }
   return [
-    { seat: 1, kind: "HOLD", word: "HOLD", ...at, seed: 75, framed: true },
+    { seat: 1, kind: "HOLD", word: "HOLD", ...at, seed: 75, framed: true, ownDrop: true },
     { seat: 2, kind: "CARRY", word: "PULL", ...at, seed: 76, framed: true },
   ];
 }

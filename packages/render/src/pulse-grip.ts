@@ -1,8 +1,10 @@
 import { type PulseState, pulseBarAsks, pulseHeart, type SimConfig } from "@neon-spore/sim";
 import { onlySeat } from "./desk-seat.js";
 import { handleRadius } from "./handle-draw.js";
+import { seatIsMine } from "./handle-word.js";
 import type { Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
+import { drawSoakHold } from "./soak-hold.js";
 import type { Field, Touch } from "./touch.js";
 import { bossOf } from "./touch-field.js";
 
@@ -26,7 +28,7 @@ import { bossOf } from "./touch-field.js";
  * be a second object over the one thing the round asks them to watch. So the
  * bar grows a box round it and the box is the button.
  *
- * **Which end lights is which seat is holding**, which is the arrangement the
+ * **Which end sinks is which seat is holding**, which is the arrangement the
  * meter already had: the only per-seat thing on one vessel is the end each of
  * them last put something into. The pilot's is the left, the navigator's the
  * right, on both screens — so a thumb of his lights the same end on her phone
@@ -94,17 +96,20 @@ export function pulseMeterUnder(l: Layout, x: number, y: number, field: Field): 
   };
 }
 
-/** How wide an end cap is, as a fraction of the bar: enough to read as a thumb
- * resting on that end and not so much that it covers the level. */
-const CAP = 0.16;
-
 /**
- * The offer, over the bar: an outline round the box, a cap at each end that is
- * lit while that seat is holding, and one word under it.
+ * The offer, over the bar: an outline round the box, and at each end that
+ * seat's hold, the HOLD LAB's drop (`soak-hold.ts`) — sunk while that seat is
+ * holding, the partner's dimmed. Since 14 October 2026, as every hold is: the
+ * owner, 13 October, *it should be our new standard button … why it still
+ * stays text "hold"*. Until then each end was a cap lit under its thumb, and
+ * a word in the bar — BRACE, HELD, BOTH — said what was missing; a hold says
+ * no word now, and the partner's ring and clock over their end
+ * (`pulse-marks.ts`) say BOTH under `arrest`. The drop has no water: a brace
+ * is held for as long as the bar needs it, and has no share to be done.
  *
  * Drawn by `drawPulseMeter` rather than called from `pulse-round.ts`, so the
  * vessel and the hand on it are one drawing in the order they belong in — the
- * outline over the rim, the caps over the outline.
+ * outline over the rim, the drops over the outline.
  */
 export function drawPulseGrip(
   ctx: CanvasRenderingContext2D,
@@ -135,46 +140,20 @@ export function drawPulseGrip(
     [1, state.brace1],
     [2, state.brace2],
   ] as const) {
-    if (!on) continue;
-    const w = b.w * CAP;
-    const cap = new Path2D();
-    cap.roundRect(seat === 1 ? b.x : b.x + b.w - w, b.y, w, b.h, b.h / 2);
-    ctx.save();
-    ctx.fillStyle = color;
-    ctx.globalAlpha = 0.45;
-    ctx.fill(cap);
-    // **Outlined in the hull's own bone rather than in `color`.** A thumb is
-    // most often on the left end of a bar that is nearly empty, and the first
-    // frame of this had a red cap over a red level: the seat holding it was
-    // unreadable exactly where it mattered. The rim is the one line on the
-    // bar that is not a reading, so it is the one that can carry a hand.
-    ctx.strokeStyle = PALETTE.text;
-    ctx.globalAlpha = 0.85;
-    ctx.lineWidth = STROKE.outline;
-    ctx.setLineDash([]);
-    ctx.stroke(cap);
-    ctx.restore();
+    const end = pulseEnd(l, cfg, seat);
+    drawSoakHold(ctx, end, end.r, { time, held: on, theirs: !seatIsMine(l.role, seat) });
   }
+}
 
-  // The one word: what is missing, never what is already being done. Under
-  // `arrest` with one thumb down it reads BOTH, which is the whole of that
-  // state said in four letters (`sim/pulse-hand.ts`).
-  //
-  // **Inside the bar, not under it.** Under it is where `drawPulseTally` puts
-  // RUN / STAGE / LEFT, and the first frame taken of this control had BOTH
-  // printed through the word STAGE. There is no room over it either — the
-  // round's name and the stage's are already there — and the middle of the bar
-  // is empty by construction: the word only exists below `pulseFlutterMilli`,
-  // which is two fifths of the vessel, so the level can never reach it.
-  const word = arrest ? (state.brace1 && state.brace2 ? "HELD" : "BOTH") : held ? "HELD" : "BRACE";
-  ctx.save();
-  ctx.font = `600 ${Math.round(b.h * 0.6)}px "Courier New",monospace`;
-  ctx.fillStyle = color;
-  ctx.globalAlpha = held ? 0.55 : 0.95;
-  ctx.textAlign = "center";
-  ctx.textBaseline = "middle";
-  ctx.fillText(word, l.width / 2, b.y + b.h / 2);
-  ctx.restore();
+/** Seat `seat`'s end of the bar, as the circle its hold and its marks stand on. */
+export function pulseEnd(
+  l: Layout,
+  cfg: SimConfig,
+  seat: 1 | 2,
+): { x: number; y: number; r: number } {
+  const b = pulseGripBox(l, cfg);
+  const r = b.h / 2;
+  return { x: seat === 1 ? b.x + r : b.x + b.w - r, y: b.y + r, r };
 }
 
 /**

@@ -28,8 +28,9 @@ export const PULSE_CONTROLS: readonly FieldControlDef[] = [
     where:
       "on the meter itself, across the top of both screens, and only once it " +
       "has dropped under pulseFlutterMilli — the bar grows a dashed box a " +
-      "handle's height round it, and the end nearest each seat lights while " +
-      "that seat is holding",
+      "handle's height round it, and the HOLD LAB's drop stands at each end, " +
+      "the one nearest each seat sinking while that seat is holding and the " +
+      "partner's dimmed",
     seat:
       "either, and one at a time — whichever of them can best afford to stop " +
       "playing. Each seat's end of the bar is haloed on its screen until its " +
@@ -57,8 +58,8 @@ export const PULSE_CONTROLS: readonly FieldControlDef[] = [
     name: "THE PULSE'S ARREST",
     where:
       "the same box on the same bar, gone red, once the meter is under " +
-      "pulseArrestMilli — with one thumb on it the word under the bar reads " +
-      "BOTH, and with two it reads HELD",
+      "pulseArrestMilli — a drop at each end, and no word: with one thumb on " +
+      "it the partner's end is ringed with the clock",
     seat:
       "both at once, and nothing at all from one. The seat holding sees the " +
       "partner's end ringed with the clock until the second thumb lands, and " +

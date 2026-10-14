@@ -8,7 +8,7 @@ import {
 import { drawVerdictRing, GripVerdicts } from "./grip-verdict.js";
 import type { Layout } from "./layout.js";
 import { drawMarkHalo, drawMarkTheirs, drawMarkWait } from "./mark-feedback.js";
-import { pulseGripBox } from "./pulse-grip.js";
+import { pulseEnd } from "./pulse-grip.js";
 
 /**
  * **THE PULSE's bar answering a touch the way every mark does**
@@ -56,17 +56,6 @@ export class PulseMarks {
   clear(): void {
     this.verdicts.clear();
   }
-}
-
-/** Seat `seat`'s end of the bar, as the circle its marks stand on. */
-export function pulseEnd(
-  l: Layout,
-  cfg: SimConfig,
-  seat: 1 | 2,
-): { x: number; y: number; r: number } {
-  const b = pulseGripBox(l, cfg);
-  const r = b.h / 2;
-  return { x: seat === 1 ? b.x + r : b.x + b.w - r, y: b.y + r, r };
 }
 
 /** Whether this screen's seat is `seat` — the test screen is both. */

@@ -328,25 +328,6 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/skipped.test.ts` holds the listing's count of the entries
 `next` stepped past and why.
 
-## Holds as the HOLD LAB's drop: THE PULSE, THE WARDEN, THE FLEET
-
-- **Found:** 2026-10-13, claude/docs-control-visuals-consistency-d98efe
-- **Taken:** 2026-10-14, claude/queue-holds-as-the-hold-labs-drop-the-pulse-the-warden
-- **Files:** `packages/render/src/pulse-grip.ts`, `packages/render/src/warden-grip.ts`, `packages/render/src/fleet-grip-draw.ts`, `packages/render/src/cue-helper.ts`
-
-Since 13 October 2026 every `HOLD` cue is the HOLD LAB's drop and says no
-word (`soak-hold.ts`, `saysHold`) — the owner, on CONTROLS › ON THE FIELD:
-*it should be our new standard button … why it still stays text "hold"*. The
-cue's drop knows nothing of the hold, so it calls even under a thumb and never
-fills, and these bosses still draw their own hold ring beside or under it.
-For each: draw the hold as `drawSoakHold` with the sim's own `held` and
-`fill` (the share of the hold done) and `theirs` on the partner's screen
-(with `drawMarkTheirs` and `drawMarkWait` over it, as THE INSTAR's HOLD BOTH
-does in `instar-marks.ts`), take its own ring and dial away, and stop the cue
-drawing a second drop on the same place (`markIsHere`/`drawCueHelper` in
-`cue-helper.ts`, or `framed: false` on the reading). Prove it with the frame
-tests and send one PNG of the card from ON THE FIELD.
-
 ## Holds as the HOLD LAB's drop: THE SURGE, THE ANTIPHON, THE LEAD
 
 - **Found:** 2026-10-13, claude/docs-control-visuals-consistency-d98efe
