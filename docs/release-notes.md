@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-14 · 7fcc5c48d — THE LEVER LAB: the one generic lever, carried to a depth and held
+
+A sixth lab on CONTROLS › ON THE FIELD and in the topbar (⇳ LEVER LAB, `leverlab=` in the URL): the PULL LAB's FIZZ knob and channel, enhanced for what a lever asks — a graduated groove whose depth is the value, a zone on it (DEPTH ONLY · PAST A GRIP · IN A BAND) held for the HOLD LAB's beats with the handle dial and the waiting clock, a spring back on every lift, a sideways groove that counts either way, and a partner's lever beside it whose zone is asked of each (TWO · EACH) or of the two summed (TWO · SUMMED). THE LID's cord, THE BALLOON's handles, THE LATCH's grips and THE INSTAR's PULL DOWN / PULL UP move from LEVER to PULL PAST A DISTANCE, as the owner asked. Exemption: a look the owner asked for by name — the lab is the director's, and the game draws nothing new.
+
 ## 2026-10-14 · f72025b03 — THE BALLOON's pull is three tiles
 
 A hand now carries a balloon's handle three tiles along its bend before that side counts as pulled, up from two. The bend added in the landing before this one leaves steeper near a wall, so the longer pull is still on the screen from every column.

@@ -39669,3 +39669,5 @@ Bottleneck: waiting for the previous landing's full check before this tree could
 - landing: 5 min. `bun run index`, `check:fast`, the commit, `land`.
 
 Bottleneck: FIZZ draws a pull's goal at the channel's end, which a lever's zone cannot move without changing the game's own drawing — found only by looking.
+
+*Measured: 23 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
