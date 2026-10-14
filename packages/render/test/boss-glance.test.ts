@@ -35,6 +35,7 @@ import { REPRISE_GLANCE, REPRISE_GLANCE_SIZE } from "../src/reprise-glance.js";
 import { SCUTTLE_GLANCE, SCUTTLE_GLANCE_SIZE } from "../src/scuttle-glance.js";
 import { SEAM_GLANCE, SEAM_GLANCE_SIZE } from "../src/seam-glance.js";
 import { SINEW_GLANCE, SINEW_GLANCE_SIZE } from "../src/sinew-glance.js";
+import { SLING_GLANCE, SLING_GLANCE_SIZE } from "../src/sling-glance.js";
 import { SPLICE_GLANCE, SPLICE_GLANCE_SIZE } from "../src/splice-glance.js";
 import { SPOOL_GLANCE, SPOOL_GLANCE_SIZE } from "../src/spool-glance.js";
 import { STARE_GLANCE, STARE_GLANCE_SIZE } from "../src/stare-glance.js";
@@ -104,6 +105,7 @@ const ROWS: readonly Row[] = [
   { name: "THE KEEL", record: KEEL_GLANCE, size: KEEL_GLANCE_SIZE, hold: 0 },
   // Held at the wheel's hub and the socket, 0.95 tiles either side of a drum 2.3 wide.
   { name: "THE VALVE", record: VALVE_GLANCE, size: VALVE_GLANCE_SIZE, hold: 0.41 },
+  { name: "THE SLING", record: SLING_GLANCE, size: SLING_GLANCE_SIZE, hold: 0 },
   { name: "THE PLUMB", record: PLUMB_GLANCE, size: PLUMB_GLANCE_SIZE, hold: 0 },
   { name: "THE VISE", record: VISE_GLANCE, size: VISE_GLANCE_SIZE, hold: 0 },
   { name: "THE OCULUS", record: OCULUS_GLANCE, size: OCULUS_GLANCE_SIZE, hold: 0 },

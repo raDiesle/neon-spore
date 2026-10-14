@@ -39580,3 +39580,17 @@ Bottleneck: a lobe is drawn under its own swing and pinch, so the dark needed it
 Bottleneck: none to speak of — the stones a thumb pulls hang off the beam, not the sac, so turning the sac alone left every grip where it was.
 
 *Measured: 6 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-14 — THE SLING: a part that turns, so it is seen from a new side
+
+- reading: 5 min. `sling-draw.ts`, `sling-twang.ts`'s ring, `sling-grip.ts`'s
+  whole-panel draw and `sling-stop.ts`.
+- writing: 15 min. The record about the crotch, the tines, cords, cup and heat
+  wrapped in one layer with the marks after it, each tine's outline turned by its
+  ring for the dark, the stop and the cord marks mapped, three candidates, the
+  spec note.
+- looking: 5 min. One shot at the widest, cropped at twice: the fork is a tile across.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: the cool and the fire step ended the draw in two branches, so they were folded into one callback to draw the fork in one turned layer.

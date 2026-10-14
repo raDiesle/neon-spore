@@ -1422,6 +1422,7 @@ by hand never moves.
 | `packages/render/src/slime-look.ts` | WHAT HANGS OFF THE MEMBRANE INTO THE CHAMBER, AS A RECORD |
 | `packages/render/src/sling-draw.ts` | **THE SLING** (§32): a forked bracket over the middle column, folded until it swings into stand |
 | `packages/render/src/sling-grip.ts` | **THE SLING's two cords as controls**: `slingDrawLeft` is the pilot's (seat 1) |
+| `packages/render/src/sling-glance.ts` | **THE SLING glances**: the whole fork turns about its crotch, offered on VERSUS `sling:glance` |
 | `packages/render/src/sling-marks.ts` | One side's cord: cord-brown at rest, glowing white while this side is the one asked to draw it |
 | `packages/render/src/sling-pose.ts` | **The clock THE SLING is posed off** (§32) |
 | `packages/render/src/sling-shape.ts` | **THE SLING's geometry**: a forked bracket bolted over the middle column |

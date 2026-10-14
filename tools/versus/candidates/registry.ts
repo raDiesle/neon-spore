@@ -85,6 +85,9 @@ import { SEAM_SWAY } from "./seam-glance/sway/index.js";
 import { SINEW_COCK } from "./sinew-glance/cock/index.js";
 import { SINEW_LOOK_AROUND } from "./sinew-glance/look/index.js";
 import { SINEW_SWAY } from "./sinew-glance/sway/index.js";
+import { SLING_COCK } from "./sling-glance/cock/index.js";
+import { SLING_LOOK_AROUND } from "./sling-glance/look/index.js";
+import { SLING_SWAY } from "./sling-glance/sway/index.js";
 import { SPLICE_COCK } from "./splice-glance/cock/index.js";
 import { SPLICE_LOOK_AROUND } from "./splice-glance/look/index.js";
 import { SPLICE_SWAY } from "./splice-glance/sway/index.js";
@@ -202,6 +205,9 @@ export const VARIANTS: Variant[] = [
   PLUMB_COCK,
   PLUMB_LOOK_AROUND,
   PLUMB_SWAY,
+  SLING_COCK,
+  SLING_LOOK_AROUND,
+  SLING_SWAY,
   SPLICE_COCK,
   SPLICE_LOOK_AROUND,
   SPLICE_SWAY,

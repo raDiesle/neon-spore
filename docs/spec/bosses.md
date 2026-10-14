@@ -9863,6 +9863,16 @@ simulation is.
 
 **What is not built — a step seen from another side** (suggested 10 October 2026, after the owner on THE BASTION: *very 3 dimensional and even user action is 3d to rotate*). The sling turns, and the side to loose toward is the one that will be lit after the turn, not the one lit now.
 
+**Offered (14 October 2026, VERSUS `sling:glance`).** A machine, so the whole
+fork turns, about its crotch (`packages/render/src/sling-glance.ts`): both
+tines, the cords off them and the cup yaw together, the near tine reaching out
+and the far one closing into the dark and back, each cord carried with its
+tine and the marks round the cords following them. A draw is a thumb anywhere
+on its seat's own panel, so nothing a thumb is on moves, and a bolt meets the
+tines and cords where they are drawn. It ships still, and VERSUS offers
+**SWAY**, **LOOK** and **COCK** at three tenths of the fork's half-span on THE
+SLING · STILL. The turn that changes which side to loose toward is not built.
+
 
 ## 11.54 THE CAPSTAN — the boss one hand rocks for the other to wear
 
