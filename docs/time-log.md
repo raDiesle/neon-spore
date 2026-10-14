@@ -40577,3 +40577,5 @@ import of its script with it, which nothing had needed before.
 
 Bottleneck: `versus adopt` cannot move a style written inline, so the slot
 was taken by hand and two tests that assumed it ships still had to learn it.
+
+*Measured: 20 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
