@@ -87,6 +87,8 @@ export const CHOREO_FIELD_GROUP_D = {
   lampreyEdgeCols: "THE LAMPREY — an eel one of you holds by the tail for the other to pull off",
   lampreyLeapBeats: "THE LAMPREY — an eel one of you holds by the tail for the other to pull off",
   lampreyRecoilBeats: "THE LAMPREY — an eel one of you holds by the tail for the other to pull off",
+  lampreyRecoilLiftMilli:
+    "THE LAMPREY — an eel one of you holds by the tail for the other to pull off",
   lampreySpentBeats: "THE LAMPREY — an eel one of you holds by the tail for the other to pull off",
   lampreyRowTop: "THE LAMPREY — an eel one of you holds by the tail for the other to pull off",
   lampreyRowBottom: "THE LAMPREY — an eel one of you holds by the tail for the other to pull off",

@@ -40096,3 +40096,17 @@ Bottleneck: finding that the queen's column and petals live on her creature,
 not on `world.boss`.
 
 *Measured: 4 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-14 — THE LAMPREY's head is armour wherever it stands
+
+- reading: 10 min. `lamprey-shot.ts`, `core-along.ts`, `bullets.ts` and the
+  pose, to find where the head is drawn in each phase.
+- writing: 10 min. The head's column and row per phase in the sim, the
+  recoil's lift into `SimConfig`, the sucker as the stopper's foot,
+  `lamprey-armour.test.ts`, the spec paragraph.
+- looking: 0 min. No picture: the test flies the bolts.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, `land`.
+
+Bottleneck: working out, phase by phase, the highest the picture draws the
+head, so the sim never meets a bolt short of it.

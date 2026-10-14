@@ -10987,6 +10987,15 @@ field, and drawn ending and bursting on the gullet's near rim a few ticks
 before (`render/lamprey-stop.ts`). A bolt already above the head when the
 gullet lit meets nothing.
 
+**Anywhere else the head stands it is armour** (14 October 2026, the owner's
+answer to the bolt drawn flying through a recoiling head): crawling, bitten
+into a tile, pulled up off it, towed or jerked up by a hit, a bolt up the
+head's column bursts on the sucker's lower rim, costs nothing and is not a
+wasted shot on HARD. It is met at the highest the head is drawn that beat —
+the top of the recoil's jerk, `lampreyRecoilLiftMilli` — so never short of
+the picture. Leaping, crawling in and spent, the head is in no tile and a
+bolt meets nothing.
+
 **The worm on the field** (the owner, 6 October 2026, `sim/lamprey-roam.ts`):
 *let the enemy appear as an intro animation, eat its way through things that
 fall … leave crumbs … crawl out of the picture and back … between each slow

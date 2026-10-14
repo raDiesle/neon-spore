@@ -137,7 +137,7 @@ export function lampreyPose(
   }
   if (s.phase === "recoil") {
     const k = Math.min(1, into / Math.max(1, cfg.lampreyRecoilBeats));
-    const jerk = Math.sin(k * Math.PI) * 1.2 * l.tile;
+    const jerk = (Math.sin(k * Math.PI) * cfg.lampreyRecoilLiftMilli * l.tile) / 1000;
     const tilt = lerp(TILT_LEAP, 1, k);
     const lean = tailLean(l, s) + sweep(beat, beatPhase);
     return { ...base, x: here.x, y: here.y - jerk, tilt, lean, curve: CURVE * 2 };

@@ -328,16 +328,6 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/skipped.test.ts` holds the listing's count of the entries
 `next` stepped past and why.
 
-## THE LAMPREY lets a bolt through its head while it is not reared
-
-- **Found:** 2026-10-10, claude/lamprey-cannon-hit-feedback-323ebe
-- **Taken:** 2026-10-14, claude/queue-the-lamprey-lets-a-bolt-through-its-head-while-i
-- **Files:** `packages/sim/src/lamprey-shot.ts`, `packages/sim/src/core-along.ts`, `packages/render/src/lamprey-stop.ts`
-- **Asks:** Should a bolt that meets THE LAMPREY while its gullet is shut — recoiling from a hit, bitten into a tile, crawling — burst on the head as armour (grey grit, no effect, and not a wasted shot on HARD), or keep flying through it?
-- **Answered:** 2026-10-13 — the owner left it to the lane: (a), armour while the head stands in the bolt's column in any phase but `leap`, `entering` and `spent`, over (b) recoil only and (c) leaving it — one rule for every phase a head is drawn in.
-
-Since this lane the lit gullet stops a bolt and takes the hit where it is drawn. A second bolt fired up the same column a moment later meets the eel recoiling, gets `null` from `lampreyVerdict`, and is drawn flying straight through the head to the top — the owner's complaint, 10 October 2026, in the one case the fix leaves. On HARD that bolt is also a wasted shot and loses the wave. The options: (a) armour while the head stands in the bolt's column in any phase but `leap`, `entering` and `spent` — `lampreyVerdict` answers `"armour"`, `lampreyAside` gives the head's tile in every such phase, and the stopper's foot is the sucker's lower rim (`p.y + p.r * p.tilt`); the recoil's jerk is drawn 1.2 tiles up, so the row met would need the pose's lift in thousandths, or the recoil left out; (b) armour only during `recoil`, the case a double tap hits; (c) leave it. `render/test/core-met.test.ts` covers whichever is chosen.
-
 ## A director restarted by a tree move dies with the Bun panic its restart hit
 
 - **Found:** 2026-10-10, claude/pull-lab-animation-feedback-efdf98

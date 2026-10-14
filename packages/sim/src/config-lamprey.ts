@@ -26,6 +26,8 @@ export interface LampreyConfig {
   lampreyLeapBeats: number;
   /** Beats it recoils from a hit before it leaps on. */
   lampreyRecoilBeats: number;
+  /** How far up the field a hit jerks the head at the height of its recoil, thousandths of a tile. */
+  lampreyRecoilLiftMilli: number;
   /** Beats the spent eel falls away before the wave may end. */
   lampreySpentBeats: number;
   /** The highest row it lands on: clear of the top of the screen, where the switcher stands. */
@@ -69,6 +71,7 @@ export const LAMPREY_DEFAULTS: LampreyConfig = {
   lampreyEdgeCols: 1,
   lampreyLeapBeats: 1,
   lampreyRecoilBeats: 1,
+  lampreyRecoilLiftMilli: 1200,
   lampreySpentBeats: 2,
   lampreyRowTop: 3,
   lampreyRowBottom: 9,
