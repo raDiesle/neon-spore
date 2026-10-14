@@ -1,4 +1,3 @@
-import { INSTAR_SCRIPT } from "../instar-script.js";
 import type { Wave } from "../wave-types.js";
 
 /**
@@ -71,6 +70,37 @@ import type { Wave } from "../wave-types.js";
  * a wave's braces.
  */
 export const WAVES_ACT_7G: Wave[] = [
+  {
+    id: "theTaster",
+    name: "THE TASTER",
+    guide: {
+      scene: "theTaster",
+    },
+    entries: [
+      { beat: 16, col: 2, kind: "meteor", color: null },
+      { beat: 24, col: 8, kind: "meteor", color: null },
+      { beat: 30, col: 5, color: "red" },
+      { beat: 36, col: 0, color: "cyan" },
+      { beat: 44, col: 10, kind: "meteor", color: null },
+      { beat: 50, col: 3, color: "red" },
+      { beat: 56, col: 7, color: "cyan" },
+      { beat: 64, col: 5, kind: "meteor", color: null },
+      { beat: 72, col: 2, color: "cyan" },
+      { beat: 80, col: 8, color: "red" },
+    ],
+    boss: { kind: "taster" },
+    bossType: "normal",
+  },
+  {
+    id: "theSinew",
+    name: "THE SINEW",
+    guide: {
+      scene: "theSinew",
+    },
+    entries: [],
+    boss: { kind: "sinew" },
+    bossType: "normal",
+  },
   {
     id: "theLedger",
     name: "THE LEDGER",
@@ -147,23 +177,5 @@ export const WAVES_ACT_7G: Wave[] = [
     entries: [],
     boss: { kind: "antiphon" },
     bossType: "normal",
-  },
-  {
-    id: "theHive",
-    name: "THE HIVE",
-    guide: {
-      scene: "theHive",
-    },
-    entries: [],
-    boss: { kind: "hive" },
-    bossType: "normal",
-  },
-  {
-    id: "theInstar",
-    name: "THE INSTAR",
-    entries: [],
-    boss: { kind: "instar", steps: INSTAR_SCRIPT },
-    bossType: "normal",
-    controls: "standard5",
   },
 ];

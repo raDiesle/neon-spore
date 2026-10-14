@@ -10,11 +10,69 @@ import type { Wave } from "../wave-types.js";
  * tutorial arc and they read in one breath — the pod arrives, the hand learns
  * to aim, and then everything at once.
  *
+ * **THE BASTION stands between them**, moved here by the director's save of
+ * 14 October 2026.
+ *
+ * **THE BASTION is a metal moon taken apart from the outside in** (the
+ * owner, 8 October 2026, in THE HALTER's place: *removing layers requires
+ * different actions … the smaller the ball gets*; `sim/bastion.ts`). Four
+ * shells, each a different job split across the seats, and **each two courses
+ * deep** (the owner, 14 October 2026: *more layers of steps … longer plays*):
+ * eight panels pulled off, four a side — the first course mostly straight
+ * out, the second along curves round the moon (`sim/bastion-track.ts`); six
+ * guns and then eight, turned to the front by the pilot's rim and shot in
+ * their colour by the navigator; five nodes twice over, in a new order,
+ * whose lightning the shield throws back; three ports and then four, only
+ * the navigator sees them, the cannon slid under each. A plate let go short
+ * or carried off its curve snaps back, and a course run out grows back whole
+ * — nothing hits the hull (THE GRINDSTONE's rule, the owner's pick).
+ *
  * New waves still land in the newest act rather than here; the director's save
  * splits an incoming list across the act files at each one's current length
  * (`tools/director/src/waves-acts.ts`).
  */
 export const WAVES_ACT_1B: Wave[] = [
+  {
+    id: "crowded",
+    name: "CROWDED",
+    entries: [
+      { beat: 0, col: 2, color: "red" },
+      { beat: 1, col: 8, color: "cyan" },
+      { beat: 3, col: 5, kind: "meteor", color: null },
+      { beat: 5, col: 0, color: "red" },
+      { beat: 6, col: 10, color: "cyan" },
+    ],
+    controls: "standard4",
+  },
+  {
+    id: "theBastion",
+    name: "THE BASTION",
+    guide: {
+      both: "A metal moon in four layers, each two deep. Take each layer off before it grows back. The moon gets smaller as you go.",
+      p1: "1. Pull your left panels along their lines. Stay on the bends.\n2. Turn the moon by its rim. The other shoots the gun at the front.\n3. Fire the SHIELD under the spark.\n4. Slide the cannon under the port.",
+      p2: "1. Pull your right panels along their lines. Stay on the bends.\n2. Shoot the gun at the front in its colour.\n3. Slide the shield under the spark.\n4. Only you see the port: say where, then fire.",
+    },
+    entries: [],
+    boss: {
+      kind: "bastion",
+      steps: [
+        { layer: "plates", tracks: ["sweep", "straight", "straight", "straight"], beats: 36 },
+        { layer: "plates", tracks: ["snake", "sweep", "snake", "climb"], beats: 48 },
+        { layer: "ring", colors: ["red", "cyan", "red", "cyan", "red", "cyan"], beats: 40 },
+        {
+          layer: "ring",
+          colors: ["red", "red", "cyan", "red", "cyan", "cyan", "red", "cyan"],
+          beats: 48,
+        },
+        { layer: "lattice", offsets: [-2, 2, 0, -1, 1], beats: 48 },
+        { layer: "lattice", offsets: [1, -2, 0, 2, -1], beats: 48 },
+        { layer: "port", offsets: [-2, 1, 0], beats: 32 },
+        { layer: "port", offsets: [2, -1, 1, -2], beats: 40 },
+      ],
+    },
+    bossType: "normal",
+    controls: "standard5",
+  },
   {
     id: "salvage",
     name: "SALVAGE",
@@ -26,37 +84,6 @@ export const WAVES_ACT_1B: Wave[] = [
       { beat: 7, col: 8, color: "red" },
     ],
     pods: [{ beat: 0, col: 5, row: 3, kind: "purge" }],
-    controls: "standard5",
-  },
-  {
-    id: "catchAndAim",
-    name: "CATCH AND AIM",
-    guide: {
-      scene: "catchAndAim",
-    },
-    entries: [
-      { beat: 4, col: 10, color: "cyan" },
-      { beat: 9, col: 8, color: "red" },
-      { beat: 15, col: 10, color: "red" },
-    ],
-    pods: [
-      { beat: 0, col: 2, row: 3, kind: "ward" },
-      { beat: 11, col: 0, row: 4, kind: "ward" },
-    ],
-    controls: "standard5",
-  },
-  {
-    id: "finale",
-    name: "FINALE",
-    entries: [
-      { beat: 0, col: 0, color: "cyan" },
-      { beat: 0, col: 10, color: "red" },
-      { beat: 2, col: 5, kind: "meteor", color: null },
-      { beat: 4, col: 3, color: "cyan" },
-      { beat: 4, col: 7, color: "red" },
-      { beat: 7, col: 2, kind: "meteor", color: null },
-      { beat: 7, col: 8, kind: "meteor", color: null },
-    ],
     controls: "standard5",
   },
 ];

@@ -39815,3 +39815,16 @@ Bottleneck: none — an answered question whose answer is to leave the tree as i
 Bottleneck: finding the pose that shows the alien sat on the seam, since THE GALL has no boss-state pose of its own.
 
 *Measured: 7 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-14 — The director's wave order saved: THE INSTAR fifth, THE BASTION sixteenth
+
+- reading: 5 min. The save's diff against the trunk's order, the hold rule,
+  the two director constants that name SALVAGE by its index.
+- writing: 10 min. The save rebalanced across the act pages, THE BASTION on
+  STANDARD 5, the wave numbers in the briefings table and three tests.
+- looking: 0 min.
+- friction: 10 min. The save sat uncommitted in the main checkout, so it
+  went through a tagged stash to reach this worktree.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: wave numbers are written down by hand in a spec table and four tests, so a reorder of two waves touched six places.

@@ -1,4 +1,3 @@
-import { PULSE_STAGES } from "../pulse-stages.js";
 import { SCOUT_ARENAS } from "../scout-arenas.js";
 import { SCOUT_HAUL_ARENAS } from "../scout-haul-arenas.js";
 import { STARE_LEVELS } from "../stare-levels.js";
@@ -44,6 +43,45 @@ import type { Wave } from "../wave-types.js";
  * was drawn with are finally asked for. It is flown second because it is the
  * same picture with two more hands on it. */
 export const WAVES_ACT_7C: Wave[] = [
+  {
+    id: "theTwitch",
+    name: "THE TWITCH",
+    entries: [
+      { beat: 0, col: 5, kind: "meteor", color: null },
+      { beat: 10, col: 10, kind: "coil", color: null },
+      { beat: 26, col: 10, kind: "coil", color: null },
+      { beat: 28, col: 10, kind: "coil", color: null },
+      { beat: 30, col: 10, kind: "coil", color: null },
+      { beat: 48, col: 10, kind: "coil", color: null },
+      { beat: 50, col: 10, kind: "coil", color: null },
+      { beat: 52, col: 10, kind: "coil", color: null },
+      { beat: 54, col: 10, kind: "coil", color: null },
+      { beat: 62, col: 0, kind: "meteorMedium", color: null },
+    ],
+    faults: [{ kind: "shield" }],
+  },
+  {
+    id: "theClaw",
+    name: "THE CLAW",
+    guide: {
+      scene: "theClaw",
+    },
+    entries: [
+      { beat: 4, col: 5, kind: "meteor", color: null },
+      { beat: 14, col: 2, kind: "meteor", color: null },
+      { beat: 24, col: 8, kind: "meteorMedium", color: null },
+      { beat: 36, col: 3, kind: "meteor", color: null },
+      { beat: 44, col: 7, kind: "meteor", color: null },
+      { beat: 54, col: 10, kind: "meteorMedium", color: null },
+    ],
+    pods: [
+      { beat: 2, col: 0, row: 4, kind: "ward", cross: 1 },
+      { beat: 18, col: 10, row: 6, kind: "ward", cross: -1 },
+      { beat: 34, col: 0, row: 3, kind: "purge", cross: 1, speed: 3 },
+      { beat: 50, col: 10, row: 5, kind: "purge", cross: -1 },
+    ],
+    controls: "claw",
+  },
   {
     id: "theScout",
     name: "THE SCOUT",
@@ -101,32 +139,6 @@ export const WAVES_ACT_7C: Wave[] = [
       { beat: 10, col: 0, kind: "choir", color: "cyan" },
       { beat: 22, col: 7, kind: "choir", color: "cyan" },
       { beat: 34, col: 2, kind: "choir", color: "red" },
-    ],
-  },
-  {
-    id: "pulse",
-    name: "THE PULSE",
-    guide: {
-      scene: "thePulse",
-    },
-    entries: [],
-    boss: { kind: "pulse", stages: PULSE_STAGES },
-    bossType: "special",
-    controls: "pulse",
-  },
-  {
-    id: "theBalloon",
-    name: "THE BALLOON",
-    guide: {
-      scene: "theBalloon",
-    },
-    entries: [
-      { beat: 0, col: 3, kind: "balloon", color: null },
-      { beat: 6, col: 8, kind: "balloon", color: null },
-      { beat: 16, col: 7, kind: "balloon", color: null },
-      { beat: 24, col: 0, kind: "balloon", color: null },
-      { beat: 26, col: 10, kind: "balloon", color: null },
-      { beat: 36, col: 3, kind: "balloon", color: null },
     ],
   },
 ];

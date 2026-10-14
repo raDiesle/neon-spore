@@ -155,6 +155,23 @@ import type { Wave } from "../wave-types.js";
  */
 export const WAVES_ACT_9: Wave[] = [
   {
+    id: "theHandover",
+    name: "THE HANDOVER",
+    guide: {
+      scene: "theHandover",
+    },
+    entries: [
+      { beat: 0, col: 5, color: "red" },
+      { beat: 2, col: 8, kind: "meteor", color: null },
+      { beat: 6, col: 2, color: "cyan" },
+      { beat: 10, col: 7, color: "red" },
+      { beat: 12, col: 3, color: "cyan" },
+      { beat: 18, col: 10, color: "red" },
+      { beat: 24, col: 0, color: "cyan" },
+    ],
+    faults: [{ kind: "handover", at: 9, beats: 8 }],
+  },
+  {
     id: "theLeak",
     name: "THE LEAK",
     guide: {
@@ -215,20 +232,6 @@ export const WAVES_ACT_9: Wave[] = [
     entries: [
       { beat: 0, col: 5, kind: "blister", color: null, row: 2, by: 2, count: 3 },
       { beat: 12, col: 2, kind: "blister", color: null, row: 3, by: 2, count: 3 },
-    ],
-  },
-  {
-    id: "theMoult",
-    name: "THE MOULT",
-    guide: {
-      scene: "theMoult",
-    },
-    entries: [
-      { beat: 0, col: 0, kind: "meteor", color: null },
-      { beat: 4, col: 5, kind: "moult", color: null, cargo: "ward" },
-      { beat: 9, col: 8, kind: "moult", color: null, cargo: "ward" },
-      { beat: 18, col: 3, kind: "moult", color: null, cargo: "purge" },
-      { beat: 19, col: 7, kind: "moult", color: null, cargo: "purge" },
     ],
   },
 ];

@@ -133,14 +133,14 @@ the two can be compared by opening the wave.
 |---|---|---|---|---|
 | 1 | **The opening** | two devices, one ship; the cannon; the colour | see §2 | 1 · FIRST STEP |
 | 2 | **The two colours** | red answers red, cyan answers cyan; a wrong colour is *spent*, not missed, and the body it was spent on refuses everything for `colourArmourMs` | p1 the column, p2 the colour | 2 · CYAN |
-| 3 | **The rock** | cannot be shot; shield in the column **and** triggered at contact | p2 slides, p1 triggers | 5 · THE ROCK |
-| 4 | **The torch** | two columns wide, the fastest thing in the field, and only on p1's strip | p1 sees it coming, p2 must cover both columns | 8 · TORCH |
-| 5 | **The push** | the shield sends a creature back up once and never kills it; the rim goes red and the body carries ONE LAST CHANCE | p1 triggers, p2 shoots it on its second fall | 9 · ONE LAST CHANCE |
-| 6 | **The pod** | shooting it loose is half of getting it; then it sinks and drifts | p2 frees it, p1 chases and opens the maw | 15 · SALVAGE |
-| 7 | **The lock** | player 1's hand on a body steers every shot into it, from whatever column the cannon is in; it says nothing about the colour | p1 holds and keeps the cannon on the pod, p2 fires the colour | 16 · CATCH AND AIM |
-| 8 | **The queen** | two marks, one real; she opens for three beats; a torch drops every ten | p1 sees *what*, p2 sees *where* | 18 · BULB QUEEN |
-| 9 | **The bosses** | the mirror, the maze, the gauge, the warden and its line, the vane | one guide each, on their own wave | 19 · THE MIRROR, 20 · THE MAZE, 21 · THE GAUGE, 22 · THE WARDEN, 31 · THE VANE |
-| 10 | **The rest of the bestiary** | the lure that took the runt's place, the throb, the count, the shell, the pods, the rock speed tiers | one guide each | 24 · THE LURE, 25 · THE THROB, 26 · THE COUNT, 27 · THE SHELL, 33 · THE PURGE, 34 · THE WARD |
+| 3 | **The rock** | cannot be shot; shield in the column **and** triggered at contact | p2 slides, p1 triggers | 6 · THE ROCK |
+| 4 | **The torch** | two columns wide, the fastest thing in the field, and only on p1's strip | p1 sees it coming, p2 must cover both columns | 9 · TORCH |
+| 5 | **The push** | the shield sends a creature back up once and never kills it; the rim goes red and the body carries ONE LAST CHANCE | p1 triggers, p2 shoots it on its second fall | 10 · ONE LAST CHANCE |
+| 6 | **The pod** | shooting it loose is half of getting it; then it sinks and drifts | p2 frees it, p1 chases and opens the maw | 17 · SALVAGE |
+| 7 | **The lock** | player 1's hand on a body steers every shot into it, from whatever column the cannon is in; it says nothing about the colour | p1 holds and keeps the cannon on the pod, p2 fires the colour | 18 · CATCH AND AIM |
+| 8 | **The queen** | two marks, one real; she opens for three beats; a torch drops every ten | p1 sees *what*, p2 sees *where* | 20 · BULB QUEEN |
+| 9 | **The bosses** | the mirror, the maze, the gauge, the warden and its line, the vane | one guide each, on their own wave | 21 · THE MIRROR, 22 · THE MAZE, 23 · THE GAUGE, 24 · THE WARDEN, 33 · THE VANE |
+| 10 | **The rest of the bestiary** | the lure that took the runt's place, the throb, the count, the shell, the pods, the rock speed tiers | one guide each | 26 · THE LURE, 27 · THE THROB, 28 · THE COUNT, 29 · THE SHELL, 35 · THE PURGE, 36 · THE WARD |
 
 **The grip is still the odd one out**, and it has no guide. It is a control no
 wave *contains*, so no wave is the first to carry it and nothing places it.
@@ -149,7 +149,7 @@ did not solve it, it only moved where the hole is.
 
 The lance used to sit beside it and no longer does. It lost its own button on
 7 September 2026 and became a thing the two colours do when they are held, and
-wave 32 — THE LANCE, three cyan in one column and three red in the next — is
+wave 34 — THE LANCE, three cyan in one column and three red in the next — is
 the wave that carries it and the guide that teaches it.
 
 ### The gap the merge left

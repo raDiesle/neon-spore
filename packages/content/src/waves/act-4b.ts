@@ -42,16 +42,18 @@ import type { Wave } from "../wave-types.js";
  */
 export const WAVES_ACT_4B: Wave[] = [
   {
-    id: "theRind",
-    name: "THE RIND",
+    id: "theEcho",
+    name: "THE ECHO",
     guide: {
-      scene: "theRind",
+      scene: "theEcho",
     },
     entries: [
-      { beat: 0, col: 5, kind: "rind", color: "red" },
-      { beat: 8, col: 2, kind: "rind", color: "cyan" },
-      { beat: 18, col: 3, kind: "rind", color: "cyan" },
-      { beat: 21, col: 8, kind: "rind", color: "red" },
+      { beat: 0, col: 5, kind: "echo", color: "cyan" },
+      { beat: 12, col: 5, kind: "echo", color: "red" },
+      { beat: 13, col: 10, color: "red" },
+      { beat: 14, col: 0, color: "cyan" },
+      { beat: 20, col: 3, kind: "echo", color: "cyan" },
+      { beat: 24, col: 7, kind: "echo", color: "red" },
     ],
   },
 ];

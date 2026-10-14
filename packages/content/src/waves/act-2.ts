@@ -14,6 +14,37 @@ import type { Wave } from "../wave-types.js";
  */
 export const WAVES_ACT_2: Wave[] = [
   {
+    id: "catchAndAim",
+    name: "CATCH AND AIM",
+    guide: {
+      scene: "catchAndAim",
+    },
+    entries: [
+      { beat: 4, col: 10, color: "cyan" },
+      { beat: 9, col: 8, color: "red" },
+      { beat: 15, col: 10, color: "red" },
+    ],
+    pods: [
+      { beat: 0, col: 2, row: 3, kind: "ward" },
+      { beat: 11, col: 0, row: 4, kind: "ward" },
+    ],
+    controls: "standard5",
+  },
+  {
+    id: "finale",
+    name: "FINALE",
+    entries: [
+      { beat: 0, col: 0, color: "cyan" },
+      { beat: 0, col: 10, color: "red" },
+      { beat: 2, col: 5, kind: "meteor", color: null },
+      { beat: 4, col: 3, color: "cyan" },
+      { beat: 4, col: 7, color: "red" },
+      { beat: 7, col: 2, kind: "meteor", color: null },
+      { beat: 7, col: 8, kind: "meteor", color: null },
+    ],
+    controls: "standard5",
+  },
+  {
     id: "bulbQueen",
     name: "BULB QUEEN",
     guide: {
@@ -64,36 +95,5 @@ export const WAVES_ACT_2: Wave[] = [
     boss: { kind: "gauge" },
     bossType: "special",
     controls: "gauge",
-  },
-  {
-    id: "theWarden",
-    name: "THE WARDEN",
-    guide: {
-      scene: "theWarden",
-    },
-    entries: [],
-    boss: { kind: "warden" },
-    bossType: "normal",
-    controls: "standard5",
-  },
-  {
-    id: "theFleet",
-    name: "THE FLEET",
-    guide: {
-      scene: "theFleet",
-    },
-    entries: [],
-    boss: {
-      kind: "fleet",
-      ships: [
-        { col: 1, row: 1, len: 5, dir: "h" },
-        { col: 8, row: 0, len: 4, dir: "v" },
-        { col: 3, row: 5, len: 3, dir: "h" },
-        { col: 0, row: 6, len: 3, dir: "v" },
-        { col: 7, row: 8, len: 2, dir: "h" },
-      ],
-    },
-    bossType: "special",
-    controls: "fleet",
   },
 ];

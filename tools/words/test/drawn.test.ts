@@ -24,7 +24,7 @@ const DIRS = ["packages/render/src", "apps/game/src", "packages/content/src"];
 const LITERAL = /"([A-Z][A-Z0-9 ,.'!?·-]{1,})"/g;
 const COMMENT = /^\s*(?:\/\/|\/?\*)/;
 
-const STANDING: readonly string[] = ["packages/content/src/waves/act-3b.ts: THE WARD"];
+const STANDING: readonly string[] = ["packages/content/src/waves/act-4.ts: THE WARD"];
 
 function drawnHits(): string[] {
   const hits = new Set<string>();

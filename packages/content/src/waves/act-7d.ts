@@ -1,3 +1,4 @@
+import { PULSE_STAGES } from "../pulse-stages.js";
 import type { Wave } from "../wave-types.js";
 
 /**
@@ -22,13 +23,14 @@ import type { Wave } from "../wave-types.js";
  */
 export const WAVES_ACT_7D: Wave[] = [
   {
-    id: "theBaton",
-    name: "THE BATON",
+    id: "pulse",
+    name: "THE PULSE",
     guide: {
-      scene: "theBaton",
+      scene: "thePulse",
     },
     entries: [],
-    boss: { kind: "baton" },
-    bossType: "normal",
+    boss: { kind: "pulse", stages: PULSE_STAGES },
+    bossType: "special",
+    controls: "pulse",
   },
 ];

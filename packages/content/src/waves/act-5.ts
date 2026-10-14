@@ -1,3 +1,4 @@
+import { PINBALL_ROUNDS } from "../pinball-rounds.js";
 import type { Wave } from "../wave-types.js";
 
 /**
@@ -112,6 +113,30 @@ import type { Wave } from "../wave-types.js";
  */
 export const WAVES_ACT_5: Wave[] = [
   {
+    id: "pinball",
+    name: "PINBALL",
+    guide: {
+      scene: "pinball",
+    },
+    entries: [],
+    boss: { kind: "pinball", rounds: PINBALL_ROUNDS },
+    bossType: "special",
+    controls: "pinball",
+  },
+  {
+    id: "theRind",
+    name: "THE RIND",
+    guide: {
+      scene: "theRind",
+    },
+    entries: [
+      { beat: 0, col: 5, kind: "rind", color: "red" },
+      { beat: 8, col: 2, kind: "rind", color: "cyan" },
+      { beat: 18, col: 3, kind: "rind", color: "cyan" },
+      { beat: 21, col: 8, kind: "rind", color: "red" },
+    ],
+  },
+  {
     id: "theGyre",
     name: "THE GYRE",
     guide: {
@@ -155,30 +180,6 @@ export const WAVES_ACT_5: Wave[] = [
       { beat: 12, col: 10, kind: "carom", color: "cyan" },
       { beat: 24, col: 2, kind: "carom", color: "cyan" },
       { beat: 28, col: 8, kind: "carom", color: "red" },
-    ],
-  },
-  {
-    id: "theCrystal",
-    name: "THE CRYSTAL",
-    guide: {
-      scene: "theCrystal",
-    },
-    entries: [
-      { beat: 0, col: 0, kind: "crystal", color: "red" },
-      { beat: 20, col: 10, kind: "crystal", color: "cyan" },
-      { beat: 40, col: 2, kind: "crystal", color: "cyan" },
-      { beat: 46, col: 8, kind: "crystal", color: "red" },
-    ],
-  },
-  {
-    id: "theVolley",
-    name: "THE VOLLEY",
-    guide: {
-      scene: "theVolley",
-    },
-    entries: [
-      { beat: 0, col: 2, kind: "volley", color: "red" },
-      { beat: 26, col: 8, kind: "volley", color: "cyan" },
     ],
   },
 ];

@@ -90,42 +90,42 @@ import type { Wave } from "../wave-types.js";
  */
 export const WAVES_ACT_7B: Wave[] = [
   {
-    id: "theTwitch",
-    name: "THE TWITCH",
-    entries: [
-      { beat: 0, col: 5, kind: "meteor", color: null },
-      { beat: 10, col: 10, kind: "coil", color: null },
-      { beat: 26, col: 10, kind: "coil", color: null },
-      { beat: 28, col: 10, kind: "coil", color: null },
-      { beat: 30, col: 10, kind: "coil", color: null },
-      { beat: 48, col: 10, kind: "coil", color: null },
-      { beat: 50, col: 10, kind: "coil", color: null },
-      { beat: 52, col: 10, kind: "coil", color: null },
-      { beat: 54, col: 10, kind: "coil", color: null },
-      { beat: 62, col: 0, kind: "meteorMedium", color: null },
-    ],
-    faults: [{ kind: "shield" }],
-  },
-  {
-    id: "theClaw",
-    name: "THE CLAW",
+    id: "theLimpet",
+    name: "THE LIMPET",
     guide: {
-      scene: "theClaw",
+      scene: "theLimpet",
     },
     entries: [
-      { beat: 4, col: 5, kind: "meteor", color: null },
-      { beat: 14, col: 2, kind: "meteor", color: null },
-      { beat: 24, col: 8, kind: "meteorMedium", color: null },
-      { beat: 36, col: 3, kind: "meteor", color: null },
-      { beat: 44, col: 7, kind: "meteor", color: null },
-      { beat: 54, col: 10, kind: "meteorMedium", color: null },
+      { beat: 0, col: 3, kind: "meteor", color: null },
+      { beat: 16, col: 2, kind: "meteor", color: null },
+      { beat: 22, col: 8, kind: "meteor", color: null },
+      { beat: 30, col: 3, kind: "meteor", color: null },
+      { beat: 44, col: 0, kind: "meteor", color: null },
+      { beat: 50, col: 8, kind: "meteor", color: null },
     ],
-    pods: [
-      { beat: 2, col: 0, row: 4, kind: "ward", cross: 1 },
-      { beat: 18, col: 10, row: 6, kind: "ward", cross: -1 },
-      { beat: 34, col: 0, row: 3, kind: "purge", cross: 1, speed: 3 },
-      { beat: 50, col: 10, row: 5, kind: "purge", cross: -1 },
+    faults: [
+      { kind: "limpet", at: 6, beats: 12 },
+      { kind: "limpet", at: 29, beats: 14 },
     ],
-    controls: "claw",
+  },
+  {
+    id: "theLeech",
+    name: "THE LEECH",
+    guide: {
+      scene: "theLeech",
+    },
+    entries: [
+      { beat: 0, col: 5, color: "red" },
+      { beat: 4, col: 2, color: "cyan" },
+      { beat: 18, col: 0, color: "red" },
+      { beat: 22, col: 10, color: "cyan" },
+      { beat: 28, col: 3, color: "red" },
+      { beat: 42, col: 8, color: "cyan" },
+      { beat: 48, col: 2, color: "red" },
+    ],
+    faults: [
+      { kind: "leech", at: 8, beats: 12 },
+      { kind: "leech", at: 34, beats: 14 },
+    ],
   },
 ];

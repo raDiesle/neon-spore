@@ -1,51 +1,117 @@
 import type { Wave } from "../wave-types.js";
 
 /**
- * Act fourteen, its second page, opened for THE BASTION on 14 October 2026
- * when its second courses took `act-14.ts` to the 250-line ceiling. It plays
- * straight after that page (`waves.ts`).
+ * Act fourteen, its second page, opened on 14 October 2026 when the
+ * director's save brought THE GOVERNOR into `act-14.ts` and took it past the
+ * 250-line ceiling. It plays straight after that page (`waves.ts`).
  *
- * **THE BASTION is a metal moon taken apart from the outside in** (the
- * owner, 8 October 2026, in THE HALTER's place: *removing layers requires
- * different actions … the smaller the ball gets*; `sim/bastion.ts`). Four
- * shells, each a different job split across the seats, and **each two courses
- * deep** (the owner, 14 October 2026: *more layers of steps … longer plays*):
- * eight panels pulled off, four a side — the first course mostly straight
- * out, the second along curves round the moon (`sim/bastion-track.ts`); six
- * guns and then eight, turned to the front by the pilot's rim and shot in
- * their colour by the navigator; five nodes twice over, in a new order,
- * whose lightning the shield throws back; three ports and then four, only
- * the navigator sees them, the cannon slid under each. A plate let go short
- * or carried off its curve snaps back, and a course run out grows back whole
- * — nothing hits the hull (THE GRINDSTONE's rule, the owner's pick).
+ * **THE MIMIC is the boss answered by painting** (§42, `sim/mimic.ts`): a
+ * picture of tiles shows on one seat's screen only, and the other seat taps
+ * it into the frame the mantle holds. The pilot reads a picture three tiles
+ * square and two four square, the last changing; the mantle rolls, and the
+ * navigator reads two five square, the second changing, and one six; it
+ * rolls again and the seats take one each, a six and a seven; then the board
+ * splits, three and then four, each seat reads the half the other paints,
+ * and the core it bares is tapped. **No picture comes up twice in a fight**
+ * (`MimicState.shown`). The owner, 6 October 2026: *add more levels with more
+ * tiles … reduce the available time by a third*, so every window is two
+ * thirds of what it was — a three square 24 beats where it was 36, a five
+ * 37 where it was 56, a split three 29 where it was 44, the core 7 where it
+ * was 10 — and the new sizes are cut to the same measure. No panel and no
+ * SLOW: the windows are in plain beats. **A worded guide opens it** (the
+ * owner, 6 October 2026: *add a tutorial guide at the start of the wave
+ * that briefly explains what has to be done*), and while it plays the
+ * siren top right says whose turn it is (`render/comms-mimic.ts`).
+ *
+ * **FIVE BLISTERS is the one where the body never says how to hit it**
+ * (`docs/spec/blister.md`, *The gestures*): THE BLISTER, met plain in act
+ * nine, comes back wanting each of its five gestures in turn — tapped, held,
+ * swiped, turned round and rubbed — every one the same body, so only the help
+ * round it says which. The hand that knocks it down changes too, so a seat
+ * that has just struck is the seat that has to call the next pore. The last
+ * two are up together, one for each hand.
  */
 export const WAVES_ACT_14B: Wave[] = [
   {
-    id: "theBastion",
-    name: "THE BASTION",
+    id: "theMimic",
+    name: "THE MIMIC",
     guide: {
-      both: "A metal moon in four layers, each two deep. Take each layer off before it grows back. The moon gets smaller as you go.",
-      p1: "1. Pull your left panels along their lines. Stay on the bends.\n2. Turn the moon by its rim. The other shoots the gun at the front.\n3. Fire the SHIELD under the spark.\n4. Slide the cannon under the port.",
-      p2: "1. Pull your right panels along their lines. Stay on the bends.\n2. Shoot the gun at the front in its colour.\n3. Slide the shield under the spark.\n4. Only you see the port: say where, then fire.",
+      both: "One of you sees a picture of tiles. The other taps it into the frame. The siren top right says whose turn it is.",
+      p1: "1. First you see the picture: tell the other which tiles.\n2. Then tap the tiles the other tells you.\n3. Last, each of you sees one half and taps the other half.",
+      p2: "1. First tap the tiles the other tells you.\n2. Then you see the picture: tell the other which tiles.\n3. Last, each of you sees one half and taps the other half.",
     },
     entries: [],
     boss: {
-      kind: "bastion",
+      kind: "mimic",
       steps: [
-        { layer: "plates", tracks: ["sweep", "straight", "straight", "straight"], beats: 36 },
-        { layer: "plates", tracks: ["snake", "sweep", "snake", "climb"], beats: 48 },
-        { layer: "ring", colors: ["red", "cyan", "red", "cyan", "red", "cyan"], beats: 40 },
-        {
-          layer: "ring",
-          colors: ["red", "red", "cyan", "red", "cyan", "cyan", "red", "cyan"],
-          beats: 48,
-        },
-        { layer: "lattice", offsets: [-2, 2, 0, -1, 1], beats: 48 },
-        { layer: "lattice", offsets: [1, -2, 0, 2, -1], beats: 48 },
-        { layer: "port", offsets: [-2, 1, 0], beats: 32 },
-        { layer: "port", offsets: [2, -1, 1, -2], beats: 40 },
+        { ask: "sign", reader: 1, changes: false, size: 3, beats: 24 },
+        { ask: "sign", reader: 1, changes: false, size: 4, beats: 30 },
+        { ask: "sign", reader: 1, changes: true, size: 4, beats: 30 },
+        { ask: "roll", reader: 1, changes: false, size: 0, beats: 2 },
+        { ask: "sign", reader: 2, changes: false, size: 5, beats: 37 },
+        { ask: "sign", reader: 2, changes: true, size: 5, beats: 37 },
+        { ask: "sign", reader: 2, changes: false, size: 6, beats: 44 },
+        { ask: "roll", reader: 2, changes: false, size: 0, beats: 2 },
+        { ask: "sign", reader: 1, changes: false, size: 6, beats: 44 },
+        { ask: "sign", reader: 2, changes: false, size: 7, beats: 50 },
+        { ask: "roll", reader: 1, changes: false, size: 0, beats: 2 },
+        { ask: "split", reader: 1, changes: false, size: 3, beats: 29 },
+        { ask: "core", reader: 1, changes: false, size: 0, beats: 7 },
+        { ask: "split", reader: 1, changes: false, size: 4, beats: 37 },
+        { ask: "core", reader: 1, changes: false, size: 0, beats: 7 },
       ],
     },
     bossType: "normal",
+    controls: "scene",
+  },
+  {
+    id: "theLatch",
+    name: "THE LATCH",
+    guide: {
+      scene: "theLatch",
+    },
+    entries: [],
+    boss: {
+      kind: "latch",
+      steps: [
+        { ask: "haul", knots: 2, beats: 28 },
+        { ask: "yank", knots: 2, beats: 32 },
+        { ask: "cross", knots: 2, beats: 32 },
+      ],
+    },
+    bossType: "normal",
+    controls: "scene",
+  },
+  {
+    id: "fiveBlisters",
+    name: "FIVE BLISTERS",
+    entries: [
+      { beat: 0, col: 5, kind: "blister", color: null, row: 2, by: 2, count: 3 },
+      { beat: 10, col: 8, kind: "blister", color: null, row: 2, by: 1, count: 2, gesture: "hold" },
+      {
+        beat: 20,
+        col: 2,
+        kind: "blister",
+        color: null,
+        row: 3,
+        by: 2,
+        count: 2,
+        gesture: "swipe",
+        way: "left",
+      },
+      { beat: 30, col: 7, kind: "blister", color: null, row: 2, by: 1, count: 2, gesture: "turn" },
+      { beat: 40, col: 3, kind: "blister", color: null, row: 2, by: 2, count: 4, gesture: "rub" },
+      {
+        beat: 41,
+        col: 8,
+        kind: "blister",
+        color: null,
+        row: 3,
+        by: 1,
+        count: 2,
+        gesture: "swipe",
+        way: "up",
+      },
+    ],
   },
 ];

@@ -107,6 +107,16 @@ import type { Wave } from "../wave-types.js";
  */
 export const WAVES_ACT_8: Wave[] = [
   {
+    id: "theHive",
+    name: "THE HIVE",
+    guide: {
+      scene: "theHive",
+    },
+    entries: [],
+    boss: { kind: "hive" },
+    bossType: "normal",
+  },
+  {
     id: "theBeatbox",
     name: "THE BEATBOX",
     guide: {
@@ -143,23 +153,5 @@ export const WAVES_ACT_8: Wave[] = [
     entries: [],
     boss: { kind: "cairn" },
     bossType: "normal",
-  },
-  {
-    id: "theCodex",
-    name: "THE CODEX",
-    guide: {
-      scene: "theCodex",
-    },
-    entries: [
-      { beat: 0, col: 3, color: "red" },
-      { beat: 6, col: 7, color: "cyan" },
-      { beat: 14, col: 2, color: "red" },
-      { beat: 16, col: 8, color: "red" },
-      { beat: 24, col: 5, color: "cyan" },
-      { beat: 26, col: 0, color: "red" },
-      { beat: 34, col: 10, color: "cyan" },
-      { beat: 36, col: 3, color: "cyan" },
-    ],
-    faults: [{ kind: "codex" }],
   },
 ];

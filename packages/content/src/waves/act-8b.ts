@@ -40,6 +40,24 @@ import type { Wave } from "../wave-types.js";
  */
 export const WAVES_ACT_8B: Wave[] = [
   {
+    id: "theCodex",
+    name: "THE CODEX",
+    guide: {
+      scene: "theCodex",
+    },
+    entries: [
+      { beat: 0, col: 3, color: "red" },
+      { beat: 6, col: 7, color: "cyan" },
+      { beat: 14, col: 2, color: "red" },
+      { beat: 16, col: 8, color: "red" },
+      { beat: 24, col: 5, color: "cyan" },
+      { beat: 26, col: 0, color: "red" },
+      { beat: 34, col: 10, color: "cyan" },
+      { beat: 36, col: 3, color: "cyan" },
+    ],
+    faults: [{ kind: "codex" }],
+  },
+  {
     id: "theWell",
     name: "THE WELL",
     guide: {
@@ -56,22 +74,5 @@ export const WAVES_ACT_8B: Wave[] = [
     ],
     boss: { kind: "well" },
     bossType: "special",
-  },
-  {
-    id: "theHandover",
-    name: "THE HANDOVER",
-    guide: {
-      scene: "theHandover",
-    },
-    entries: [
-      { beat: 0, col: 5, color: "red" },
-      { beat: 2, col: 8, kind: "meteor", color: null },
-      { beat: 6, col: 2, color: "cyan" },
-      { beat: 10, col: 7, color: "red" },
-      { beat: 12, col: 3, color: "cyan" },
-      { beat: 18, col: 10, color: "red" },
-      { beat: 24, col: 0, color: "cyan" },
-    ],
-    faults: [{ kind: "handover", at: 9, beats: 8 }],
   },
 ];

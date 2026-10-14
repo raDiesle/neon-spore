@@ -1,5 +1,4 @@
 import { FILAMENT_SCRIPT } from "../filament-script.js";
-import { GIMBAL_SCRIPT } from "../gimbal-script.js";
 import type { Wave } from "../wave-types.js";
 
 /**
@@ -99,6 +98,20 @@ import type { Wave } from "../wave-types.js";
  */
 export const WAVES_ACT_10: Wave[] = [
   {
+    id: "theMoult",
+    name: "THE MOULT",
+    guide: {
+      scene: "theMoult",
+    },
+    entries: [
+      { beat: 0, col: 0, kind: "meteor", color: null },
+      { beat: 4, col: 5, kind: "moult", color: null, cargo: "ward" },
+      { beat: 9, col: 8, kind: "moult", color: null, cargo: "ward" },
+      { beat: 18, col: 3, kind: "moult", color: null, cargo: "purge" },
+      { beat: 19, col: 7, kind: "moult", color: null, cargo: "purge" },
+    ],
+  },
+  {
     id: "theReprise",
     name: "THE REPRISE",
     guide: {
@@ -179,15 +192,5 @@ export const WAVES_ACT_10: Wave[] = [
     boss: { kind: "filament", filaments: FILAMENT_SCRIPT },
     bossType: "normal",
     controls: "scene",
-  },
-  {
-    id: "theGimbal",
-    name: "THE GIMBAL",
-    guide: {
-      scene: "theGimbal",
-    },
-    entries: [],
-    boss: { kind: "gimbal", marks: GIMBAL_SCRIPT },
-    bossType: "normal",
   },
 ];

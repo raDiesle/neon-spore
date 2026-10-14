@@ -27,6 +27,36 @@ import type { Wave } from "../wave-types.js";
  */
 export const WAVES_ACT_3B: Wave[] = [
   {
+    id: "theDart",
+    name: "THE DART",
+    guide: {
+      scene: "theDart",
+    },
+    entries: [
+      { beat: 0, col: 5, kind: "dart", color: "red" },
+      { beat: 8, col: 10, kind: "dart", color: "cyan" },
+      { beat: 16, col: 2, kind: "dart", color: "red" },
+      { beat: 17, col: 8, kind: "dart", color: "cyan" },
+      { beat: 26, col: 3, kind: "dart", color: "cyan" },
+    ],
+    controls: "standard5",
+  },
+  {
+    id: "theVeil",
+    name: "THE VEIL",
+    guide: {
+      scene: "theVeil",
+    },
+    entries: [
+      { beat: 0, col: 5, kind: "veil", color: null },
+      { beat: 10, col: 2, kind: "veil", color: null },
+      { beat: 11, col: 8, kind: "veil", color: null },
+      { beat: 18, col: 3, kind: "veil", color: null },
+      { beat: 24, col: 0, kind: "veil", color: null },
+    ],
+    controls: "standard5",
+  },
+  {
     id: "theVane",
     name: "THE VANE",
     entries: [
@@ -51,33 +81,5 @@ export const WAVES_ACT_3B: Wave[] = [
       { beat: 11, col: 8, color: "red" },
       { beat: 12, col: 8, color: "red" },
     ],
-  },
-  {
-    id: "thePurge",
-    name: "THE PURGE",
-    guide: {
-      scene: "thePurge",
-    },
-    entries: [
-      { beat: 0, col: 0, color: "cyan" },
-      { beat: 1, col: 10, color: "red" },
-      { beat: 3, col: 7, color: "cyan" },
-    ],
-    pods: [{ beat: 0, col: 5, row: 2, kind: "purge" }],
-  },
-  {
-    id: "theWard",
-    name: "THE WARD",
-    guide: {
-      scene: "theWard",
-    },
-    entries: [
-      { beat: 0, col: 0, kind: "meteor", color: null },
-      { beat: 2, col: 3, kind: "meteorMedium", color: null },
-      { beat: 4, col: 8, kind: "meteorFast", color: null },
-      { beat: 6, col: 2, kind: "meteorFaster", color: null },
-      { beat: 8, col: 10, kind: "meteorFastest", color: null },
-    ],
-    pods: [{ beat: 0, col: 5, row: 2, kind: "ward" }],
   },
 ];

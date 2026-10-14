@@ -47,6 +47,31 @@ import type { Wave } from "../wave-types.js";
  */
 export const WAVES_ACT_13: Wave[] = [
   {
+    id: "theSling",
+    name: "THE SLING",
+    guide: {
+      both: "Hold until your arm is drawn home, then swipe toward the lit side. Both arms drawn light the yoke: shoot it in its colour. When both light, draw together.",
+      p1: "1. Hold a finger down when the left arm lights, and say which side is lit.\n2. Keep holding until the arm is home.\n3. Swipe toward the lit side as you let go.",
+      p2: "1. Hold a finger down when the right arm lights, and say which side is lit.\n2. Keep holding until the arm is home.\n3. White takes either colour. Draw with the other one when both light.",
+    },
+    entries: [],
+    boss: {
+      kind: "sling",
+      steps: [
+        { ask: "left", aim: "left", color: "either", beats: 5 },
+        { ask: "left", aim: "right", color: "either", beats: 4 },
+        { ask: "right", aim: "right", color: "either", beats: 5 },
+        { ask: "right", aim: "left", color: "either", beats: 4 },
+        { ask: "fire", aim: "left", color: "red", beats: 6 },
+        { ask: "both", aim: "left", color: "either", beats: 3 },
+        { ask: "fire", aim: "left", color: "cyan", beats: 6 },
+        { ask: "both", aim: "right", color: "either", beats: 3 },
+        { ask: "fire", aim: "left", color: "either", beats: 6 },
+      ],
+    },
+    bossType: "normal",
+  },
+  {
     id: "theCapstan",
     name: "THE CAPSTAN",
     guide: {
@@ -113,52 +138,5 @@ export const WAVES_ACT_13: Wave[] = [
       ],
     },
     bossType: "normal",
-  },
-  {
-    id: "theFlue",
-    name: "THE FLUE",
-    guide: {
-      scene: "theFlue",
-    },
-    entries: [],
-    boss: {
-      kind: "flue",
-      levels: [
-        { weapon: "bolt", color: "red", speedMilli: 1000, slowMilli: 1000, from: "left", needs: 1 },
-        {
-          weapon: "bolt",
-          color: "cyan",
-          speedMilli: 1000,
-          slowMilli: 1000,
-          from: "right",
-          needs: 1,
-        },
-        { weapon: "bolt", color: "red", speedMilli: 1500, slowMilli: 1000, from: "left", needs: 1 },
-        {
-          weapon: "beam",
-          color: "cyan",
-          speedMilli: 1000,
-          slowMilli: 1000,
-          from: "left",
-          needs: 1,
-        },
-        {
-          weapon: "bolt",
-          color: "cyan",
-          speedMilli: 1500,
-          slowMilli: 1000,
-          from: "left",
-          needs: 2,
-        },
-        { weapon: "beam", color: "red", speedMilli: 1500, slowMilli: 500, from: "right", needs: 1 },
-        { weapon: "bolt", color: "red", speedMilli: 2250, slowMilli: 750, from: "right", needs: 1 },
-        { weapon: "beam", color: "cyan", speedMilli: 2000, slowMilli: 500, from: "left", needs: 1 },
-        { weapon: "bolt", color: "cyan", speedMilli: 3000, slowMilli: 500, from: "left", needs: 2 },
-        { weapon: "bolt", color: "red", speedMilli: 3600, slowMilli: 250, from: "right", needs: 1 },
-        { weapon: "beam", color: "red", speedMilli: 2250, slowMilli: 250, from: "left", needs: 2 },
-      ],
-    },
-    bossType: "normal",
-    controls: "shots",
   },
 ];

@@ -90,6 +90,37 @@ import type { Wave } from "../wave-types.js";
  */
 export const WAVES_ACT_3: Wave[] = [
   {
+    id: "theWarden",
+    name: "THE WARDEN",
+    guide: {
+      scene: "theWarden",
+    },
+    entries: [],
+    boss: { kind: "warden" },
+    bossType: "normal",
+    controls: "standard5",
+  },
+  {
+    id: "theFleet",
+    name: "THE FLEET",
+    guide: {
+      scene: "theFleet",
+    },
+    entries: [],
+    boss: {
+      kind: "fleet",
+      ships: [
+        { col: 1, row: 1, len: 5, dir: "h" },
+        { col: 8, row: 0, len: 4, dir: "v" },
+        { col: 3, row: 5, len: 3, dir: "h" },
+        { col: 0, row: 6, len: 3, dir: "v" },
+        { col: 7, row: 8, len: 2, dir: "h" },
+      ],
+    },
+    bossType: "special",
+    controls: "fleet",
+  },
+  {
     id: "theLure",
     name: "THE LURE",
     guide: {
@@ -152,36 +183,6 @@ export const WAVES_ACT_3: Wave[] = [
       { beat: 12, col: 8, kind: "clasp", color: "red" },
       { beat: 20, col: 3, kind: "clasp", color: "cyan" },
       { beat: 28, col: 7, kind: "clasp", color: "cyan" },
-    ],
-    controls: "standard5",
-  },
-  {
-    id: "theDart",
-    name: "THE DART",
-    guide: {
-      scene: "theDart",
-    },
-    entries: [
-      { beat: 0, col: 5, kind: "dart", color: "red" },
-      { beat: 8, col: 10, kind: "dart", color: "cyan" },
-      { beat: 16, col: 2, kind: "dart", color: "red" },
-      { beat: 17, col: 8, kind: "dart", color: "cyan" },
-      { beat: 26, col: 3, kind: "dart", color: "cyan" },
-    ],
-    controls: "standard5",
-  },
-  {
-    id: "theVeil",
-    name: "THE VEIL",
-    guide: {
-      scene: "theVeil",
-    },
-    entries: [
-      { beat: 0, col: 5, kind: "veil", color: null },
-      { beat: 10, col: 2, kind: "veil", color: null },
-      { beat: 11, col: 8, kind: "veil", color: null },
-      { beat: 18, col: 3, kind: "veil", color: null },
-      { beat: 24, col: 0, kind: "veil", color: null },
     ],
     controls: "standard5",
   },

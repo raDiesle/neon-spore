@@ -152,6 +152,33 @@ import type { Wave } from "../wave-types.js";
  */
 export const WAVES_ACT_7: Wave[] = [
   {
+    id: "theGap",
+    name: "THE GAP",
+    guide: {
+      scene: "theGap",
+    },
+    entries: [
+      { beat: 0, col: 8, kind: "fence", color: null },
+      { beat: 12, col: 2, kind: "fence", color: null },
+      { beat: 26, col: 10, kind: "fence", color: null },
+      { beat: 40, col: 0, kind: "fence", color: null },
+      { beat: 56, col: 5, kind: "fence", color: null },
+    ],
+  },
+  {
+    id: "theCut",
+    name: "THE CUT",
+    guide: {
+      scene: "theCut",
+    },
+    entries: [
+      { beat: 0, col: 5, kind: "fence", color: null, gaps: [], cracksRed: [5] },
+      { beat: 16, col: 5, kind: "fence", color: null, gaps: [], cracksCyan: [8] },
+      { beat: 32, col: 5, kind: "fence", color: null, gaps: [], cracksRed: [2] },
+      { beat: 48, col: 5, kind: "fence", color: null, gaps: [], cracksCyan: [7] },
+    ],
+  },
+  {
     id: "theMagnet",
     name: "THE MAGNET",
     guide: {
@@ -164,39 +191,5 @@ export const WAVES_ACT_7: Wave[] = [
       { beat: 44, col: 0, kind: "magnet", color: "cyan" },
       { beat: 46, col: 10, kind: "magnet", color: "red" },
     ],
-  },
-  {
-    id: "theJam",
-    name: "THE JAM",
-    guide: {
-      scene: "theJam",
-    },
-    entries: [
-      { beat: 0, col: 5, kind: "lure", color: "red" },
-      { beat: 6, col: 8, color: "cyan" },
-      { beat: 18, col: 2, kind: "lure", color: "cyan" },
-      { beat: 20, col: 5, color: "red" },
-      { beat: 22, col: 8, kind: "lure", color: "red" },
-      { beat: 36, col: 3, color: "red" },
-      { beat: 48, col: 0, kind: "lure", color: "cyan" },
-      { beat: 50, col: 10, color: "red" },
-    ],
-    faults: [{ kind: "cannon", color: "alternating", at: 7 }],
-  },
-  {
-    id: "theCoil",
-    name: "THE COIL",
-    guide: {
-      scene: "theCoil",
-    },
-    entries: [
-      { beat: 7, col: 8, kind: "coil", color: null },
-      { beat: 10, col: 10, kind: "coil", color: null },
-      { beat: 14, col: 3, kind: "meteor", color: null },
-      { beat: 28, col: 10, kind: "coil", color: null },
-      { beat: 30, col: 10, kind: "coil", color: null },
-      { beat: 46, col: 10, kind: "coil", color: null },
-    ],
-    faults: [{ kind: "shield" }],
   },
 ];

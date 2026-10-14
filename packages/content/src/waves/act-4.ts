@@ -1,4 +1,3 @@
-import { PINBALL_ROUNDS } from "../pinball-rounds.js";
 import { SNAKE_ROUNDS } from "../snake-rounds.js";
 import type { Wave } from "../wave-types.js";
 
@@ -117,6 +116,34 @@ import type { Wave } from "../wave-types.js";
  */
 export const WAVES_ACT_4: Wave[] = [
   {
+    id: "thePurge",
+    name: "THE PURGE",
+    guide: {
+      scene: "thePurge",
+    },
+    entries: [
+      { beat: 0, col: 0, color: "cyan" },
+      { beat: 1, col: 10, color: "red" },
+      { beat: 3, col: 7, color: "cyan" },
+    ],
+    pods: [{ beat: 0, col: 5, row: 2, kind: "purge" }],
+  },
+  {
+    id: "theWard",
+    name: "THE WARD",
+    guide: {
+      scene: "theWard",
+    },
+    entries: [
+      { beat: 0, col: 0, kind: "meteor", color: null },
+      { beat: 2, col: 3, kind: "meteorMedium", color: null },
+      { beat: 4, col: 8, kind: "meteorFast", color: null },
+      { beat: 6, col: 2, kind: "meteorFaster", color: null },
+      { beat: 8, col: 10, kind: "meteorFastest", color: null },
+    ],
+    pods: [{ beat: 0, col: 5, row: 2, kind: "ward" }],
+  },
+  {
     id: "theWisp",
     name: "THE WISP",
     guide: {
@@ -150,31 +177,5 @@ export const WAVES_ACT_4: Wave[] = [
     boss: { kind: "snake", rounds: SNAKE_ROUNDS },
     bossType: "special",
     controls: "snake",
-  },
-  {
-    id: "theEcho",
-    name: "THE ECHO",
-    guide: {
-      scene: "theEcho",
-    },
-    entries: [
-      { beat: 0, col: 5, kind: "echo", color: "cyan" },
-      { beat: 12, col: 5, kind: "echo", color: "red" },
-      { beat: 13, col: 10, color: "red" },
-      { beat: 14, col: 0, color: "cyan" },
-      { beat: 20, col: 3, kind: "echo", color: "cyan" },
-      { beat: 24, col: 7, kind: "echo", color: "red" },
-    ],
-  },
-  {
-    id: "pinball",
-    name: "PINBALL",
-    guide: {
-      scene: "pinball",
-    },
-    entries: [],
-    boss: { kind: "pinball", rounds: PINBALL_ROUNDS },
-    bossType: "special",
-    controls: "pinball",
   },
 ];

@@ -967,7 +967,7 @@ by hand never moves.
 | `packages/content/src/waves/act-13.ts` | Act thirteen, opened for THE DAVIT on 26 September 2026 |
 | `packages/content/src/waves/act-13b.ts` | Act thirteen's second page, opened for THE GOVERNOR on 6 October 2026 |
 | `packages/content/src/waves/act-14.ts` | Act fourteen, opened for THE LAMPREY on 1 October 2026 |
-| `packages/content/src/waves/act-14b.ts` | Act fourteen, its second page, opened for THE BASTION on 14 October 2026 when its second courses took… |
+| `packages/content/src/waves/act-14b.ts` | Act fourteen, its second page, opened on 14 October 2026 when the director's save brought THE GOVERNOR into… |
 | `packages/content/src/maze-drawn.ts` | The four sheets THE MAZE plays after the owner's own, drawn by `bun run maze` and printed here |
 | `packages/content/src/body-path.ts` | one living body's contour — a blob, or the walk that puts clubs on its rim |
 | `packages/content/src/body-path-clubbed.ts` | a creature is not a blob — the walked rim of balls on stalks THE THROB and THE BEATBOX wear, and the four numbers it is sampled at |

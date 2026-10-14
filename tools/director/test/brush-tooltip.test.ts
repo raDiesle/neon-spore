@@ -19,8 +19,8 @@ describe("brushTooltip", () => {
     // when THE LOCK arrived and pushed both on by one again. THE COUNT went in
     // between these two on 11 September 2026 and moved the shell alone. ONE
     // LAST CHANCE went into act one on 26 September 2026 and moved both again.
-    expect(brushTooltip("throb")).toBe("First in WAVE 25 · THE THROB");
-    expect(brushTooltip("shell")).toBe("First in WAVE 27 · THE SHELL");
+    expect(brushTooltip("throb")).toBe("First in WAVE 27 · THE THROB");
+    expect(brushTooltip("shell")).toBe("First in WAVE 29 · THE SHELL");
   });
 
   test("says nothing for ERASE, which paints nothing", () => {

@@ -81,6 +81,40 @@ import type { Wave } from "../wave-types.js";
  */
 export const WAVES_ACT_7A: Wave[] = [
   {
+    id: "theJam",
+    name: "THE JAM",
+    guide: {
+      scene: "theJam",
+    },
+    entries: [
+      { beat: 0, col: 5, kind: "lure", color: "red" },
+      { beat: 6, col: 8, color: "cyan" },
+      { beat: 18, col: 2, kind: "lure", color: "cyan" },
+      { beat: 20, col: 5, color: "red" },
+      { beat: 22, col: 8, kind: "lure", color: "red" },
+      { beat: 36, col: 3, color: "red" },
+      { beat: 48, col: 0, kind: "lure", color: "cyan" },
+      { beat: 50, col: 10, color: "red" },
+    ],
+    faults: [{ kind: "cannon", color: "alternating", at: 7 }],
+  },
+  {
+    id: "theCoil",
+    name: "THE COIL",
+    guide: {
+      scene: "theCoil",
+    },
+    entries: [
+      { beat: 7, col: 8, kind: "coil", color: null },
+      { beat: 10, col: 10, kind: "coil", color: null },
+      { beat: 14, col: 3, kind: "meteor", color: null },
+      { beat: 28, col: 10, kind: "coil", color: null },
+      { beat: 30, col: 10, kind: "coil", color: null },
+      { beat: 46, col: 10, kind: "coil", color: null },
+    ],
+    faults: [{ kind: "shield" }],
+  },
+  {
     id: "theChoke",
     name: "THE CHOKE",
     guide: {
@@ -99,44 +133,5 @@ export const WAVES_ACT_7A: Wave[] = [
       { beat: 48, col: 3, color: "cyan" },
     ],
     faults: [{ kind: "steer" }],
-  },
-  {
-    id: "theLimpet",
-    name: "THE LIMPET",
-    guide: {
-      scene: "theLimpet",
-    },
-    entries: [
-      { beat: 0, col: 3, kind: "meteor", color: null },
-      { beat: 16, col: 2, kind: "meteor", color: null },
-      { beat: 22, col: 8, kind: "meteor", color: null },
-      { beat: 30, col: 3, kind: "meteor", color: null },
-      { beat: 44, col: 0, kind: "meteor", color: null },
-      { beat: 50, col: 8, kind: "meteor", color: null },
-    ],
-    faults: [
-      { kind: "limpet", at: 6, beats: 12 },
-      { kind: "limpet", at: 29, beats: 14 },
-    ],
-  },
-  {
-    id: "theLeech",
-    name: "THE LEECH",
-    guide: {
-      scene: "theLeech",
-    },
-    entries: [
-      { beat: 0, col: 5, color: "red" },
-      { beat: 4, col: 2, color: "cyan" },
-      { beat: 18, col: 0, color: "red" },
-      { beat: 22, col: 10, color: "cyan" },
-      { beat: 28, col: 3, color: "red" },
-      { beat: 42, col: 8, color: "cyan" },
-      { beat: 48, col: 2, color: "red" },
-    ],
-    faults: [
-      { kind: "leech", at: 8, beats: 12 },
-      { kind: "leech", at: 34, beats: 14 },
-    ],
   },
 ];

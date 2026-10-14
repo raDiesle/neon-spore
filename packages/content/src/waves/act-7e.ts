@@ -1,4 +1,3 @@
-import { GORGE_LEVELS } from "../gorge-levels.js";
 import type { Wave } from "../wave-types.js";
 
 /**
@@ -55,6 +54,31 @@ import type { Wave } from "../wave-types.js";
  */
 export const WAVES_ACT_7E: Wave[] = [
   {
+    id: "theBalloon",
+    name: "THE BALLOON",
+    guide: {
+      scene: "theBalloon",
+    },
+    entries: [
+      { beat: 0, col: 3, kind: "balloon", color: null },
+      { beat: 6, col: 8, kind: "balloon", color: null },
+      { beat: 16, col: 7, kind: "balloon", color: null },
+      { beat: 24, col: 0, kind: "balloon", color: null },
+      { beat: 26, col: 10, kind: "balloon", color: null },
+      { beat: 36, col: 3, kind: "balloon", color: null },
+    ],
+  },
+  {
+    id: "theBaton",
+    name: "THE BATON",
+    guide: {
+      scene: "theBaton",
+    },
+    entries: [],
+    boss: { kind: "baton" },
+    bossType: "normal",
+  },
+  {
     id: "theUndertow",
     name: "THE UNDERTOW",
     guide: {
@@ -100,36 +124,5 @@ export const WAVES_ACT_7E: Wave[] = [
     boss: { kind: "throat" },
     bossType: "normal",
     controls: "throat",
-  },
-  {
-    id: "theGorge",
-    name: "THE GORGE",
-    guide: {
-      scene: "theGorge",
-    },
-    entries: [
-      { beat: 20, col: 2, kind: "meteor", color: null },
-      { beat: 28, col: 8, kind: "meteor", color: null },
-      { beat: 34, col: 5, color: "red" },
-      { beat: 40, col: 0, color: "cyan" },
-      { beat: 46, col: 10, kind: "meteor", color: null },
-      { beat: 52, col: 5, color: "cyan" },
-      { beat: 60, col: 3, kind: "meteor", color: null },
-      { beat: 66, col: 7, color: "red" },
-      { beat: 74, col: 5, kind: "meteor", color: null },
-      { beat: 82, col: 2, color: "cyan" },
-    ],
-    boss: { kind: "gorge", levels: GORGE_LEVELS },
-    bossType: "normal",
-  },
-  {
-    id: "theCurtain",
-    name: "THE CURTAIN",
-    guide: {
-      scene: "theCurtain",
-    },
-    entries: [],
-    boss: { kind: "curtain" },
-    bossType: "normal",
   },
 ];

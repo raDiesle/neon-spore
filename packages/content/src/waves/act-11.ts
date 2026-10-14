@@ -1,3 +1,4 @@
+import { GIMBAL_SCRIPT } from "../gimbal-script.js";
 import { MANTLE_SCRIPT } from "../mantle-script.js";
 import { NETTLE_SCRIPT } from "../nettle-script.js";
 import type { Wave } from "../wave-types.js";
@@ -99,6 +100,16 @@ import type { Wave } from "../wave-types.js";
  */
 export const WAVES_ACT_11: Wave[] = [
   {
+    id: "theGimbal",
+    name: "THE GIMBAL",
+    guide: {
+      scene: "theGimbal",
+    },
+    entries: [],
+    boss: { kind: "gimbal", marks: GIMBAL_SCRIPT },
+    bossType: "normal",
+  },
+  {
     id: "theSpool",
     name: "THE SPOOL",
     guide: {
@@ -175,35 +186,6 @@ export const WAVES_ACT_11: Wave[] = [
     },
     entries: [],
     boss: { kind: "valve", marks: [250, 600, 850] },
-    bossType: "normal",
-  },
-  {
-    id: "theSeam",
-    name: "THE SEAM",
-    guide: {
-      both: "A point on the crack lights in a colour. Shoot it in that colour. When grit flies, raise the shield under it. Three points close the crack. Never shoot grey.",
-      p1: "1. Move the cannon under the lit point.\n2. When grit flies, press the shield.\n3. A rock falls to one side. Slide the cannon under it.",
-      p2: "1. Fire the lit point in its colour. White takes either.\n2. Slide the shield under the ridge when grit flies.\n3. At the end one of you shields while the other fires.",
-    },
-    entries: [],
-    boss: {
-      kind: "seam",
-      steps: [
-        { ask: "point", color: "red", offset: 0, seals: false },
-        { ask: "grit", color: "either", offset: 0, seals: false },
-        { ask: "point", color: "cyan", offset: 0, seals: true },
-        { ask: "blind", color: "either", offset: 0, seals: false },
-        { ask: "point", color: "red", offset: 0, seals: false },
-        { ask: "point", color: "cyan", offset: 0, seals: true },
-        { ask: "grit", color: "either", offset: 0, seals: false },
-        { ask: "decoy", color: "either", offset: 0, seals: false },
-        { ask: "rock", color: "cyan", offset: 2, seals: false },
-        { ask: "glow", color: "either", offset: 0, seals: false },
-        { ask: "point", color: "either", offset: 0, seals: true },
-        { ask: "both", color: "either", offset: -2, seals: false },
-        { ask: "dark", color: "either", offset: 0, seals: false },
-      ],
-    },
     bossType: "normal",
   },
 ];
