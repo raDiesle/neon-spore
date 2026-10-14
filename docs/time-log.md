@@ -39640,3 +39640,5 @@ Bottleneck: the pull had to stay one number for the simulation, so the bend live
 - landing: 5 min. `check:fast`, the commit, `land`.
 
 Bottleneck: the rehearsal is authored in ticks against the old landings, so every act and page after the first hit moved with the cadence.
+
+*Measured: 33 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

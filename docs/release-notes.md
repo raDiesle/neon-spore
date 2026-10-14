@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-14 · bebf2f033 — THE LEDGER's returns come down the cord at half the pace
+
+A return now lands seven beats behind the hit that sent it, then six, five, and four from the fourth hit on, where it was four, three and two. The floor is the old first return. The navigator's thumb in the socket keeps five beats of grace for the fight, one over the new floor as it was over the old. The rehearsal is retimed to the later landings. The owner, 14 October 2026: the falling downs were too fast to reach.
+
 ## 2026-10-14 · 3a6ad2d5c — Carry THE BALLOON's handles along a bend, out and down
 
 Each of THE BALLOON's two handles is now pulled along an arc that leaves the body a little below level and bends to straight down, instead of straight out to the side. Near a wall the arc leaves steeper, so the whole pull is on the screen from every column — a balloon in a wall column could not be pulled by the seat on that side before. The knob rides the bend with its arrow along it, a channel shows the way, and the cord to the skin hangs slack until the hand draws it straight. The pull is still two tiles, now measured along the bend; the simulation hears the same one number.
