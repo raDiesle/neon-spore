@@ -11,6 +11,7 @@ import { CLOCK_HAND_POSES } from "./poses-bosses-hands-clocks.js";
 import { FIELD_HAND_POSES } from "./poses-bosses-hands-field.js";
 import { HANDLE_HAND_POSES } from "./poses-bosses-hands-handles.js";
 import { HASP_STORY_POSES } from "./poses-bosses-hands-hasp.js";
+import { HYDRA_POSES } from "./poses-bosses-hands-hydra.js";
 import { KEEL_POSES } from "./poses-bosses-hands-keel.js";
 import { LAMPREY_POSES } from "./poses-bosses-hands-lamprey.js";
 import { LATCH_POSES } from "./poses-bosses-hands-latch.js";
@@ -75,6 +76,7 @@ export const BOSS_POSES: Pose[] = [
   ...LATCH_POSES,
   ...BASTION_POSES,
   ...CHRYSALIS_POSES,
+  ...HYDRA_POSES,
   ...MECHANISM_POSES,
 ];
 

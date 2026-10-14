@@ -54,6 +54,8 @@ export const DRAG_TARGETS: readonly DragTarget[] = [
   "latchGripLeft", "latchGripRight",
   "bastionPlateLeft", "bastionPlateRight", "bastionSpin",
   "chrysalisRubLeft", "chrysalisRubRight", "chrysalisQuillLeft", "chrysalisQuillRight",
+  "hydraNeckLeft", "hydraNeckRight", "hydraCoilLeft", "hydraCoilRight",
+  "hydraEyeLeft", "hydraEyeRight",
   "blisterSwipe", "blisterTurn", "blisterRub",
 ];
 

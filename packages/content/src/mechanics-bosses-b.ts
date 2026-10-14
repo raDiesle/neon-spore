@@ -22,6 +22,7 @@ type BossIdB = Extract<
   | "latch"
   | "bastion"
   | "chrysalis"
+  | "hydra"
   | "capstan"
   | "gall"
   | "trapeze"
@@ -141,6 +142,10 @@ export const BOSS_MECHANICS_B = {
   },
   chrysalis: {
     what: "A living cocoon in skins. Peel each skin off before it grows back. Rub off slime, pull spikes, shield the sacs, shoot the heart.",
+    reach: "spawn",
+  },
+  hydra: {
+    what: "A slime with many heads. Stop each head before it reaches the ship. Cut necks, turn coils, tap eyes, shoot mouths.",
     reach: "spawn",
   },
   vane: {

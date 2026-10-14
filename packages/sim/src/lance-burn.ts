@@ -12,6 +12,7 @@ import { gimbalStruck } from "./gimbal-shot.js";
 import { governorStruck } from "./governor-shot.js";
 import { haspStruck } from "./hasp-shot.js";
 import { hiveStruck } from "./hive-shot.js";
+import { hydraStruck } from "./hydra-shot.js";
 import { keelStruck } from "./keel-shot.js";
 import { lampreyStruck } from "./lamprey-shot.js";
 import { beamTicks, lanceReady, primeColor, spendPrime } from "./lance.js";
@@ -205,6 +206,8 @@ function burnColumn(world: World, col: number, color: Color): number {
   bastionStruck(world, b);
   // And THE CHRYSALIS's heart (`chrysalis-shot.ts`).
   chrysalisStruck(world, b);
+  // And THE HYDRA's open maw (`hydra-shot.ts`).
+  hydraStruck(world, b);
   // And THE HASP's loose bolt, the same shape and the same either colour
   // (`hasp-shot.ts`).
   haspStruck(world, b);

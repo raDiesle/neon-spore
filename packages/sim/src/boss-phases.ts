@@ -15,6 +15,7 @@ import { GOVERNOR_PHASES } from "./governor.js";
 import { HASP_PHASES } from "./hasp.js";
 import { HIVE_PHASES } from "./hive.js";
 import { HIVE_LOBES } from "./hive-lobe.js";
+import { HYDRA_PHASES } from "./hydra.js";
 import { INSTAR_PHASES } from "./instar.js";
 import { KEEL_PHASES } from "./keel.js";
 import { LAMPREY_PHASES } from "./lamprey.js";
@@ -142,5 +143,6 @@ export const BOSS_PHASES: Partial<Record<BossEntry["kind"], readonly string[]>> 
   latch: LATCH_PHASES,
   bastion: BASTION_PHASES,
   chrysalis: CHRYSALIS_PHASES,
+  hydra: HYDRA_PHASES,
   fleet: FLEET_PHASES,
 };

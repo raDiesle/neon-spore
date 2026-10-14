@@ -157,4 +157,12 @@ export const CHOREO_FIELD_GROUP_D = {
   chrysalisSpentBeats: "THE CHRYSALIS — a living cocoon you peel, one skin at a time",
   chrysalisSwellBeats: "THE CHRYSALIS — a living cocoon you peel, one skin at a time",
   chrysalisGapBeats: "THE CHRYSALIS — a living cocoon you peel, one skin at a time",
+  // HydraConfig — the beats around the levels, the cut, the coil's rim and the blink (`config-hydra.ts`).
+  hydraEnterBeats: "THE HYDRA — a slime with many heads, each stopped its own way",
+  hydraRearBeats: "THE HYDRA — a slime with many heads, each stopped its own way",
+  hydraSpentBeats: "THE HYDRA — a slime with many heads, each stopped its own way",
+  hydraCutMilli: "THE HYDRA — a slime with many heads, each stopped its own way",
+  hydraCoilRimMilli: "THE HYDRA — a slime with many heads, each stopped its own way",
+  hydraStareBeats: "THE HYDRA — a slime with many heads, each stopped its own way",
+  hydraBlinkBeats: "THE HYDRA — a slime with many heads, each stopped its own way",
 } satisfies Record<string, GroupName>;

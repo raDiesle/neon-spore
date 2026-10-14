@@ -12024,6 +12024,130 @@ says its own word (`content/test/waves.test.ts`, `SAYS_ITSELF`).
 **What is not built.** **Never watched at tempo**: whether a pair can rub,
 pull, shield and call the heart's colour in time — the owner's eye.
 
+## 11.64 THE HYDRA — a slime with many heads, each stopped its own way
+
+> A slime with many heads, and every head coming for the ship. Cut the necks
+> swinging down, turn the coils off the hull, tap the eyes while they are
+> open, and put out the fire in the mouths — the navigator sees which mouth,
+> the pilot sees its colour.
+
+The owner's ask of 14 October 2026: *create another boss like "the
+chrysalis" and "the instar". make it interesting to play and vary in on
+screen mechanics. make good graphics.* A choreographed scene, the third kind
+in `.claude/skills/new-boss`. **Built on 14 October 2026 as its
+simulation**; its body, its marks and its words are the next lanes.
+
+**The rule, in one sentence.** Stop each head before it reaches the ship.
+
+**It is the body, and its heads are its health.** The state
+(`sim/hydra.ts`, hashed in `sim/hydra-hash.ts`) is the **phase** (`enter`,
+`heads`, `rear`, `struck`, `spent`) and the beat it began, the **cursor**
+into the script, which heads of the lit level are **gone** and how many have
+gone in all; for each seat whether a thumb is **down**, how far its swipe has
+**cut** and whether it is **spent** until it lifts; whether it is **turning**
+its coil, where its thumb **was** round the ring and how far its coil is
+**unwound**; and for each side whether its eye's **lid is open** and the beat
+it next **blinks**. The script is the wave's (`HydraEntry.steps`), copied at
+install: each level names a **head**, its **beats**, and the bites' or eyes'
+**count** a side, the bites' **ways**, the coils' **laps**, or the maws'
+column **offsets** and their fire's **colours**.
+
+**Eight levels, each kind of head two courses deep**, THE CHRYSALIS's
+length: bite, bite, coil, coil, eye, eye, maw, maw — each second course
+harder: three necks a side where there were two, and the way of the cut
+changing from neck to neck; three laps of the coil where there were two; six
+eyes a side where there were four; four maws where there were three. About
+300 beats of windows, against THE CHRYSALIS's 316.
+
+**The four kinds of head**, each a different gesture, so no two levels ask
+the same thing of a thumb — the owner's *vary in on screen mechanics*:
+- **The bites** — a head on a neck swinging down at the hull on each side,
+  jaws open, the pilot's on the left and the navigator's on the right. Two
+  `DragTarget`s, `hydraNeckLeft` and `hydraNeckRight`: **a swipe across the
+  neck** cuts it, read as the one generic PULL signed the way the neck's
+  arrow points (`hydraWayOf`) and cut at `hydraCutMilli` (`hydraCut`). The
+  first course cuts outward; the second's arrows are authored neck by neck,
+  the navigator's the pilot's mirrored. A swipe let go short glances off
+  (`hydraGlance`) and the neck swings on.
+- **The coils** — a neck wound round the hull on each side, squeezing.
+  `hydraCoilLeft` and `hydraCoilRight` are **THE MAZE's lever** on a living
+  rope (`rim-turn.ts`): `fromMilli` the way round a ring of
+  `hydraCoilRimMilli`, the pilot's coil unwinding anticlockwise and the
+  navigator's clockwise (`hydraUnwindWay`). Each lap is said (`hydraLap`); at
+  the level's `laps` the coil falls off (`hydraUncoil`). Round the other way
+  it winds back on, never past where it began. **A coil keeps its laps when
+  the thumb lifts** — the owner's rule for a boss's own count, 2 October
+  2026, on THE OCULUS.
+- **The eyes** — a head of eyes over each half, one eye opening at a time
+  (`hydraOpen`) for `hydraStareBeats`, then blinking shut (`hydraBlink`) for
+  `hydraBlinkBeats` and opening again. `hydraEyeLeft` and `hydraEyeRight`
+  are **THE GOVERNOR's tap**, an edge: an open eye tapped shuts for good
+  (`hydraPoke`) and the side's next opens after a blink; a tap on a shut eye
+  is refused aloud (`hydraMiss`). **No SLOW on the eyes** — the owner, 6
+  October 2026, on THE GOVERNOR: *apply no slow if tap control is required*
+  — so the level's fuse burns at the beat's own rate.
+- **The maws** — the last heads, rising in the middle, one opening at a time
+  with fire in it (`hydraMaw`). **Crossed**: only the navigator's screen
+  will show which maw is open, and only the pilot's the fire's colour (the
+  look lane's two predicates). The pilot slides the cannon where the
+  navigator says, and the navigator fires the colour the pilot says
+  (`hydraQuench`). The wrong colour loses the wave — the owner's default of
+  10 October 2026 (`bossColourMissed`).
+
+A thumb on the partner's head is said (`hydraWrong`) and takes hold of
+nothing.
+
+**The clock** (`sim/hydra-step.ts`) runs on the beat: the body comes in for
+`hydraEnterBeats`, and each level's heads come after `hydraRearBeats` of the
+body rearing back and growing them. A level's last head stopped clears it
+(`hydraCleared`); the last level's beats the hydra (`hydraSpent`) and it
+sinks away after `hydraSpentBeats`. **Every level's window is THE SLOW** but
+the eyes', the owner's rule of 22 September 2026.
+
+**A level run out is the threat carried out.** The first head still coming
+— the bite, the coil, the eye's stare, the maw's fire — strikes the hull
+(`hydraStrike`, `bossStrikesHull` with the head as its blow), and the wave is
+lost: the owner's rule of 25 September 2026 on THE INSTAR, *a missed window
+is drawn as the threat carried out*.
+
+**Where this departs from THE CHRYSALIS, and why.**
+- **Every level is a gesture THE CHRYSALIS does not ask**: a swipe across
+  where it rubs, a turn round where it pulls along a track, a tap in time
+  where it shields, and the colour and the column split across the seats
+  where one seat saw both.
+- **A level run out strikes the hull**, where THE CHRYSALIS grows a skin
+  back. The owner's rule on THE INSTAR, and a hydra's heads are what is
+  coming for the ship; the windows are long enough for it (THE SLOW on
+  every one but the taps).
+- **The split of the shot is crossed.** On THE CHRYSALIS the pilot saw the
+  heart and its colour and only the fire button was the navigator's; here
+  each seat sees what the other needs, so both must speak.
+
+**The hand.** AUTO (`hands/src/boss-hands-hydra.ts`) swipes each seat's next
+neck past the cut the way its arrow points, carries each coil's lever round
+the way it unwinds, taps each eye while it is open, and brings the cannon
+under the open maw and fires its colour; `hands/test/hydra-hand.test.ts`
+proves it wins the shipped wave with no head on the hull.
+
+**The sound** (`audio/src/bind-hydra.ts`, `sounds/boss-hydra.ts`):
+seventeen, throats and a body — a chop, a creak, a wet click, a roar's
+breath and a hiss of steam — heads coming pitched lower the later the
+level, and a lap of a coil climbing a little each lap.
+
+**What is proven, and what is not.** `sim/test/hydra.test.ts` proves the
+rules: the install and the first heads; a neck cut the way its arrow points
+and only that side's; nothing cut the wrong way, and a short swipe glancing;
+the harder course's ways, mirrored; a thumb on the partner's neck said; a
+coil turned off its laps and kept through a lift, and nothing for the wrong
+way; an eye shut while open, refused while shut, and blinking when left; the
+maw in its column and colour, and the wrong colour losing the wave; a level
+run out striking the hull; the body rearing between levels and beaten after
+the last; the same thumbs hashing the same.
+
+**What is not built.** The body, its poses and its turn; the marks, the
+cues and the verdicts; the bolt stopping on the body; the guide is prose.
+**Never watched at tempo** — the owner's eye.
+
 ## Retired
 
 **Offered (13 October 2026, VERSUS `pulse:glance`).** The round's boss is

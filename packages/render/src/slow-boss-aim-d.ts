@@ -5,6 +5,7 @@ import {
   flueBoss,
   gallBoss,
   governorBoss,
+  hydraBoss,
   lampreyBoss,
   sceneBoss,
   seamBoss,
@@ -21,6 +22,7 @@ import { gallFlight } from "./gall-pose.js";
 import { gallArcAt, gallSize } from "./gall-shape.js";
 import { governorStanding, governorSwing } from "./governor-pose.js";
 import { ballR, flyweightAt, headAt, rimDepth } from "./governor-shape.js";
+import { HYDRA_TALL, hydraCentre, hydraReach } from "./hydra-shape.js";
 import { instarAt, instarLen } from "./instar-place.js";
 import { lampreyTailRest } from "./lamprey-grip.js";
 import { lampreyPose } from "./lamprey-pose.js";
@@ -174,6 +176,14 @@ export function lastBossAim(world: World, l: Layout, beat: number, beatPhase: nu
       const c = chrysalisCentre(l, cfg);
       const r = chrysalisReach(l, s);
       return capsule(sides(c.x - r, c.x + r, c.y - r * CHRYSALIS_TALL, c.y + r * CHRYSALIS_TALL));
+    }
+    // The body at the size it is now, wider than tall; the necks run out from it.
+    case "hydra": {
+      const s = hydraBoss(world);
+      if (s === null) return null;
+      const c = hydraCentre(l, cfg);
+      const r = hydraReach(l, s);
+      return capsule(sides(c.x - r, c.x + r, c.y - r * HYDRA_TALL, c.y + r * HYDRA_TALL));
     }
     default:
       return null;

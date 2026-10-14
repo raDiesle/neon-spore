@@ -1,3 +1,5 @@
+import type { DragTargetF } from "./drag-targets-f.js";
+
 /**
  * **Every thing on this field a hand may take hold of, the fifth page** — the
  * names from THE PLUMB's levels on.
@@ -39,7 +41,8 @@ export type DragTargetE =
   | "chrysalisRubLeft"
   | "chrysalisRubRight"
   | "chrysalisQuillLeft"
-  | "chrysalisQuillRight";
+  | "chrysalisQuillRight"
+  | DragTargetF;
 
 /**
  * `plumbLevelLeft` and `plumbLevelRight` are the eighty-first and

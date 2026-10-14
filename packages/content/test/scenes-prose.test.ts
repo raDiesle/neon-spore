@@ -120,6 +120,9 @@ const STILL_PROSE = [
   "THE BASTION",
   // THE CHRYSALIS (§11.63) left this list the day it came, 14 October 2026:
   // *it does not need tutorial, it is self explanatory* (`waves.test.ts`).
+  // And THE HYDRA (§11.64), 14 October 2026: the body is undrawn, and the
+  // guide says which seat does what to each of its four kinds of head.
+  "THE HYDRA",
   // THE LATCH (cinematic §2) left this list on 8 October 2026: its film is
   // the tendril hauled hand over hand, the turn passed, and a yank braced.
 ];

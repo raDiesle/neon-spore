@@ -42,6 +42,7 @@ const AUTHORS_NOTHING = [
   "latch",
   "bastion",
   "chrysalis",
+  "hydra",
 ] as const satisfies readonly BossEntry["kind"][];
 
 const NOTHING: ReadonlySet<string> = new Set(AUTHORS_NOTHING);
@@ -186,6 +187,8 @@ const NOTHING: ReadonlySet<string> = new Set(AUTHORS_NOTHING);
  *   are offsets from `midCol`, fields of the shell (`sim/bastion.ts`).
  * - **THE CHRYSALIS**'s the same: one list of skins, its sacs and its heart
  *   offsets from `midCol` (`sim/chrysalis.ts`).
+ * - **THE HYDRA**'s the same: one list of levels, its maws offsets from
+ *   `midCol` (`sim/hydra.ts`).
  *
  * A boss added to this list and given a form next door is a form nobody can
  * reach; one left off it and given no form falls through to the queen's, which

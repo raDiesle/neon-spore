@@ -300,6 +300,7 @@ by hand never moves.
 | `packages/sim/src/boss-surface-maze.ts` | **THE MAZE's names on `@neon-spore/sim`'s surface**, cut off `boss-surface.ts` on 29 September 2026 |
 | `packages/sim/src/boss-surface-verdicts.ts` | **Every boss's shot, asked rather than acted on** — the `…Verdict` each boss's `…Struck` acts on |
 | `packages/sim/src/boss-surface-bastion.ts` | **THE BASTION's names, on a page of their own** — the moon, its shells, the plates, the ring and the port |
+| `packages/sim/src/boss-surface-hydra.ts` | **THE HYDRA's names, on a page of their own** — the body, its heads, the cut, the coil, the eye and the maw |
 | `packages/sim/src/boss-script.ts` | **Where a choreographed boss is in its script**: which step is up, out of how many |
 | `packages/sim/src/handle-pull.ts` | a hand is carrying a handle and you need to know how far it may go — the taut length, the field it may not leave, and how taut is measured |
 | `packages/sim/src/wave-end.ts` | How a wave ends, in one place, because two paths reach it |
@@ -610,6 +611,11 @@ by hand never moves.
 | `packages/sim/src/hive-lobe.ts` | **One lobe of THE HIVE's underside, and the two gestures it answers to.** `hive.ts` is the mass: where it is |
 | `packages/sim/src/hive-wall.ts` | **THE HIVE's two walls**: cocoons down both sides, the lowest in front of the rest, the pilot's held thumb steering past it, and the spill out sideways |
 | `packages/sim/src/hive.ts` | THE HIVE: close the source, not the spill |
+| `packages/sim/src/hydra-hand.ts` | THE HYDRA's hands: a side each, `hydraNeckLeft`, `hydraCoilLeft` and `hydraEyeLeft` the pilot's |
+| `packages/sim/src/hydra-hash.ts` | What THE HYDRA puts into `hashWorld`, and nothing else |
+| `packages/sim/src/hydra-shot.ts` | **THE HYDRA's shot**, met where it leaves the top of the field (`shot-out.ts`, `lance-burn.ts`) |
+| `packages/sim/src/hydra-step.ts` | THE HYDRA's clock: the body coming in, each level's heads coming for the ship |
+| `packages/sim/src/hydra.ts` | THE HYDRA: a slime with many heads on long necks, hung over the field, and every head coming for the ship |
 | `packages/sim/src/coil-state.ts` | **What a coil is right now**: which way it is going, whether it is still wearing its dome |
 | `packages/sim/src/config-rock-cross.ts` | **A crossing rock's two numbers**: how far along its row it goes each beat |
 | `packages/sim/src/rock-cross.ts` | **A rock authored to cross the field instead of holding its lane** |
@@ -730,6 +736,7 @@ by hand never moves.
 | `packages/sim/src/drag-targets-c.ts` | **Every thing on this field a hand may take hold of, the third page** — the names from THE TASTER's fan on |
 | `packages/sim/src/drag-targets-d.ts` | **Every thing on this field a hand may take hold of, the fourth page** — the names from THE HIVE's underside on |
 | `packages/sim/src/drag-targets-e.ts` | **Every thing on this field a hand may take hold of, the fifth page** — the names from THE PLUMB's levels on |
+| `packages/sim/src/drag-targets-f.ts` | **Every thing on this field a hand may take hold of, the sixth page** — the names from THE HYDRA on |
 | `packages/sim/src/difficulty.ts` | **EASY, MEDIUM and HARD**, and the one number they move: the tempo, which on this field is the falling speed of everything |
 | `packages/sim/src/events-balloon.ts` | **THE BALLOON's three**: one given, one popped, one gone off at the top |
 | `packages/sim/src/events-baton.ts` | **Everything THE BATON does that neither screen already says**, as events |
@@ -747,6 +754,7 @@ by hand never moves.
 | `packages/sim/src/events-antiphon.ts` | **Everything THE ANTIPHON does that neither screen already says**, as events |
 | `packages/sim/src/events-hive.ts` | **Everything THE HIVE does that neither screen already says**, as events |
 | `packages/sim/src/events-hasp.ts` | What THE HASP says as it happens, one line per thing the picture and the sound answer |
+| `packages/sim/src/events-hydra.ts` | What THE HYDRA says as it happens, one line per thing the picture and the sound answer |
 | `packages/sim/src/events-instar.ts` | What THE INSTAR says as it happens, one line per thing the picture and the sound answer — and THE NETTLE |
 | `packages/sim/src/events-queen.ts` | **What THE BULB QUEEN reports**, off the beat and the thumb |
 | `packages/sim/src/events-warden.ts` | THE WARDEN's events: its rope's line, plate and fall, and the hold, throw and slam its second and third hands add |
@@ -785,6 +793,7 @@ by hand never moves.
 | `packages/sim/src/config-antiphon.ts` | THE ANTIPHON's numbers — how many contours the body can grow and how they fall into families |
 | `packages/sim/src/config-hive.ts` | THE HIVE's numbers — how many breach sites the underside has, how long it hangs before the first opens |
 | `packages/sim/src/config-hasp.ts` | THE HASP's tuning: how long a grip lasts before it burns the hand off, how long the burn holds |
+| `packages/sim/src/config-hydra.ts` | THE HYDRA's tuning: the beats around its levels, how far a cut goes, the coil's rim and how an eye blinks |
 | `packages/sim/src/config-instar.ts` | THE INSTAR's tuning: the rules that hold across every step of a scene |
 | `packages/sim/src/config-keel.ts` | THE KEEL's tuning: how many segments the spine has |
 | `packages/sim/src/config-oculus.ts` | THE OCULUS's tuning: the rests around its steps and the grace a hold is given… |
@@ -2652,6 +2661,7 @@ by hand never moves.
 | `packages/render/src/hive-marks.ts` | **THE HIVE's one handle answering a touch the way every mark does** (`mark-feedback.ts` |
 | `packages/render/src/hive-lock.ts` | **The pilot's thumb on a wall's cocoon**: the ring on every high cocoon that only a held thumb reaches, and the press on it |
 | `packages/render/src/hit.ts` | **How far past its drawn edge a circle answers a thumb.** Every ring, lobe |
+| `packages/render/src/hydra-shape.ts` | **THE HYDRA's geometry**: where the body hangs and how far it reaches |
 | `packages/render/src/beatbox-count.ts` | **What the counter over a soundbox is saying**, as a shape rather than as a drawing — how many slots |
 | `packages/render/src/beatbox-silence.ts` | **A soundbox going quiet**, which is the one thing on this creature that goes right and until now was the… |
 | `packages/render/src/blister-tap.ts` | **A tap on THE BLISTER**, answered only where the simulation would count it: on a blister that is up |
@@ -2833,6 +2843,7 @@ by hand never moves.
 | `packages/audio/src/bind-handed.ts` | The bodies a hand answers, heard: a weight giving between two thumbs and a pile losing a rock, pulled or shed |
 | `packages/audio/src/bind-hasp.ts` | Whether an event is THE HASP's, so a page of the chain can hand it over whole |
 | `packages/audio/src/bind-hive.ts` | THE HIVE's twelve, in a file of their own for `bind-gorge.ts`' reason |
+| `packages/audio/src/bind-hydra.ts` | How late a kind of head comes, nought the first bite: each level is heard a step lower |
 | `packages/audio/src/bind-splice.ts` | **What THE SPLICE sounds like**: a straw drawn on, and what comes down it |
 | `packages/audio/src/bind-spool.ts` | THE SPOOL's eleven, in a file of their own so the page that routes them stays a switch |
 | `packages/audio/src/bind-sinew.ts` | THE SINEW's thirteen, in a file of their own for `bind-gorge.ts`' reason |
@@ -2879,6 +2890,7 @@ by hand never moves.
 | `packages/hands/src/boss-hands-flue.ts` | **THE FLUE played right**, for the autopilot: the navigator's thumb sent on the lead the pilot would call |
 | `packages/hands/src/boss-hands-handles.ts` | **The pair's hands on the bosses a handle answers** — THE SINEW, THE SURGE, THE INSTAR |
 | `packages/hands/src/boss-hands-hasp.ts` | **THE HASP played right**, for the STATES sheet: the latch kept down and the wheel kept turning |
+| `packages/hands/src/boss-hands-hydra.ts` | **THE HYDRA played right**, for the autopilot, a level at a time: - **The bites** |
 | `packages/hands/src/boss-hands-takes.ts` | **The pair's hands on the bosses a taking answers** — THE CAIRN, THE SPLICE, THE UNDERTOW, THE ANTIPHON |
 | `packages/hands/src/boss-hands-rounds.ts` | **The pair's hands on the rounds a hand has to play** — THE MAZE, THE MIRROR's pin |
 | `packages/hands/src/boss-hands-ratchet.ts` | **THE RATCHET played right, and played blind**, for the STATES sheet |
@@ -3593,6 +3605,7 @@ by hand never moves.
 | `tools/director/src/poses-bosses-hands-field.ts` | **The states the pair's hands bring on the bosses of the field** — THE FLEET's chart, THE GORGE's mouth |
 | `tools/director/src/poses-bosses-hands-handles.ts` | **The states a handle brings on** — THE SINEW's tendon pulled, THE SURGE's bulb held and let go |
 | `tools/director/src/poses-bosses-hands-hasp.ts` | **THE HASP's story between the hasps**, posed with a hand on the controls: the rattle, the backspin, the rust and the sway |
+| `tools/director/src/poses-bosses-hands-hydra.ts` | **THE HYDRA's states**, posed with a hand on the controls (`boss-hands-hydra.ts`) |
 | `tools/director/src/poses-bosses-hands-takes.ts` | **The states a taking brings on** — a rock out of THE CAIRN, a number down THE SPLICE's straw |
 | `tools/director/src/poses-bosses-hands-ratchet.ts` | **THE RATCHET's nine states**, posed with a hand on the controls (`boss-hands-ratchet.ts`) |
 | `tools/director/src/poses-bosses-hands-nettle.ts` | **THE NETTLE's four states**, THE INSTAR's four (`poses-bosses-clocks.ts` |

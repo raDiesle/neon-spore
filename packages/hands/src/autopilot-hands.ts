@@ -16,6 +16,7 @@ import { gimbalHand } from "./boss-hands-gimbal.js";
 import { governorHand } from "./boss-hands-governor.js";
 import { filamentHand, sinewHand, surgeHand } from "./boss-hands-handles.js";
 import { haspHand } from "./boss-hands-hasp.js";
+import { hydraHand } from "./boss-hands-hydra.js";
 import { keelHand } from "./boss-hands-keel.js";
 import { lampreyHand } from "./boss-hands-lamprey.js";
 import { latchHand } from "./boss-hands-latch.js";
@@ -96,6 +97,7 @@ export const AUTOPILOT_HANDS: Partial<Record<BossKind, Hand>> = {
   latch: latchHand,
   bastion: bastionHand,
   chrysalis: chrysalisHand,
+  hydra: hydraHand,
   maze: mazeHand,
   mirror: mirrorHand,
   nettle: nettleHand,

@@ -162,6 +162,14 @@ export const ROWS: Record<string, Row> = {
   chrysalisRubRight: { seat: 2, id: true },
   chrysalisQuillLeft: {},
   chrysalisQuillRight: { seat: 2 },
+  // `hydra-hand.ts`: the pilot's on the left and the navigator's on the
+  // right — a neck swiped across, a coil's lever turned round, an eye tapped.
+  hydraNeckLeft: {},
+  hydraNeckRight: { seat: 2 },
+  hydraCoilLeft: {},
+  hydraCoilRight: { seat: 2 },
+  hydraEyeLeft: {},
+  hydraEyeRight: { seat: 2 },
   // `blister-swipe.ts`: a stroke across a SWIPE blister, judged on the lift's
   // carry; the navigator's, the default `by`, and the pilot's for `by` 1.
   blisterSwipe: { seat: 2, id: true, swipe: true },

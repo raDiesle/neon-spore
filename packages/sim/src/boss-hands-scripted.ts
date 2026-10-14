@@ -7,6 +7,7 @@ import { flueRolled } from "./flue-step.js";
 import { gallHeard } from "./gall-hand.js";
 import { governorHeard } from "./governor-hand.js";
 import { governorTurned } from "./governor-turn.js";
+import { hydraHeard } from "./hydra-hand.js";
 import { lampreyHeard } from "./lamprey-hand.js";
 import { latchHeard } from "./latch-hand.js";
 import { mimicHeard } from "./mimic-hand.js";
@@ -80,4 +81,6 @@ export function scriptedHandsHeard(world: World, commands: readonly TimedCommand
   // THE CHRYSALIS's rub and quills on the tick, and its sacs, THE BASTION's shield after them.
   for (const c of commands) chrysalisHeard(world, c.player, c.command);
   chrysalisGuarded(world);
+  // THE HYDRA's cut, coil and eye on the tick.
+  for (const c of commands) hydraHeard(world, c.player, c.command);
 }

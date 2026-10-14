@@ -22,6 +22,7 @@ export * from "./boss-hands-gimbal.js";
 export * from "./boss-hands-governor.js";
 export * from "./boss-hands-handles.js";
 export * from "./boss-hands-hasp.js";
+export * from "./boss-hands-hydra.js";
 export * from "./boss-hands-keel.js";
 export * from "./boss-hands-lamprey.js";
 export * from "./boss-hands-latch.js";

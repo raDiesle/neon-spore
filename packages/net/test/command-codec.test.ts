@@ -279,6 +279,13 @@ const ACCEPTED: Command[] = [
   { kind: "drag", target: "chrysalisRubRight", on: false, fromMilli: 0, fromYMilli: 0, id: 5 },
   { kind: "drag", target: "chrysalisQuillLeft", on: true, fromMilli: -1400, fromYMilli: -600 },
   { kind: "drag", target: "chrysalisQuillRight", on: false, fromMilli: 0 },
+  // THE HYDRA's necks swiped across, its coils turned round and its eyes tapped (`sim/hydra-hand.ts`).
+  { kind: "drag", target: "hydraNeckLeft", on: true, fromMilli: -1700 },
+  { kind: "drag", target: "hydraNeckRight", on: false, fromMilli: 0 },
+  { kind: "drag", target: "hydraCoilLeft", on: true, fromMilli: -3200 },
+  { kind: "drag", target: "hydraCoilRight", on: true, fromMilli: 4100 },
+  { kind: "drag", target: "hydraEyeLeft", on: true, fromMilli: 0 },
+  { kind: "drag", target: "hydraEyeRight", on: false, fromMilli: 0 },
   // THE BLISTER's SWIPE, the carry judged on the lift (`sim/blister-swipe.ts`).
   { kind: "drag", target: "blisterSwipe", on: false, fromMilli: 1100, fromYMilli: -40, id: 4 },
   // THE BLISTER's TURN, a bearing round the body, and the press with none (`sim/blister-turn.ts`).
@@ -470,6 +477,12 @@ const EVERY_TARGET: Record<DragTarget, true> = {
   chrysalisRubRight: true,
   chrysalisQuillLeft: true,
   chrysalisQuillRight: true,
+  hydraNeckLeft: true,
+  hydraNeckRight: true,
+  hydraCoilLeft: true,
+  hydraCoilRight: true,
+  hydraEyeLeft: true,
+  hydraEyeRight: true,
   blisterSwipe: true,
   blisterTurn: true,
   blisterRub: true,

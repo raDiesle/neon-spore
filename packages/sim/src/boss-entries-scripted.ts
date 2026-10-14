@@ -4,6 +4,7 @@ import type { ChrysalisEntry } from "./chrysalis.js";
 import type { FlueEntry } from "./flue.js";
 import type { GallEntry } from "./gall.js";
 import type { GovernorEntry } from "./governor.js";
+import type { HydraEntry } from "./hydra.js";
 import type { LampreyEntry } from "./lamprey.js";
 import type { LatchEntry } from "./latch.js";
 import type { MimicEntry } from "./mimic.js";
@@ -56,7 +57,9 @@ export type ScriptedBossEntry =
   // The one taken apart a shell at a time, each a different way (`bastion.ts`).
   | BastionEntry
   // The living one peeled a skin at a time, each a different way (`chrysalis.ts`).
-  | ChrysalisEntry;
+  | ChrysalisEntry
+  // The heads stopped a kind at a time, each a different gesture (`hydra.ts`).
+  | HydraEntry;
 
 export type { BastionEntry, BastionStep } from "./bastion.js";
 export type { CapstanEntry, CapstanStep } from "./capstan.js";
@@ -64,6 +67,7 @@ export type { ChrysalisEntry, ChrysalisStep } from "./chrysalis.js";
 export type { FlueEntry, FlueLevel } from "./flue.js";
 export type { GallEntry, GallStep } from "./gall.js";
 export type { GovernorEntry, GovernorStep } from "./governor.js";
+export type { HydraEntry, HydraStep } from "./hydra.js";
 export type { LampreyEntry, LampreyStep } from "./lamprey.js";
 export type { LatchEntry, LatchStep } from "./latch.js";
 export type { MimicEntry, MimicStep } from "./mimic.js";

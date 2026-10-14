@@ -423,6 +423,13 @@ const TARGET_PLACE: Record<DragTarget, TargetPlace> = {
   chrysalisRubRight: "field",
   chrysalisQuillLeft: "field",
   chrysalisQuillRight: "field",
+  // THE HYDRA's necks, coils and eyes: heard, and drawn in the look lane (§11.64).
+  hydraNeckLeft: "unbuilt",
+  hydraNeckRight: "unbuilt",
+  hydraCoilLeft: "unbuilt",
+  hydraCoilRight: "unbuilt",
+  hydraEyeLeft: "unbuilt",
+  hydraEyeRight: "unbuilt",
   // THE BLISTER's SWIPE, a stroke across the body (`sim/blister-swipe.ts`,
   // answered by `render/blister-tap.ts`).
   blisterSwipe: "field",

@@ -110,4 +110,22 @@ export const NO_SUBJECT_E: Record<string, string> = {
   "boss.chrysalisSpent": "THE CHRYSALIS, the grub dying. Same argument.",
   "boss.chrysalisOut":
     "THE CHRYSALIS, the cocoon gone and the wave ending. Same argument, and an absence.",
+  // THE HYDRA's seventeen (`sim/events-hydra.ts`): the same argument.
+  "boss.hydraEnter": "THE HYDRA, the body coming in. No shape-sheet subject yet.",
+  "boss.hydraHeads": "THE HYDRA, a level of heads coming. Same argument.",
+  "boss.hydraCut": "THE HYDRA, a neck cut. Same argument.",
+  "boss.hydraGlance": "THE HYDRA, a swipe let go short. Same argument.",
+  "boss.hydraLap": "THE HYDRA, a coil a lap looser. Same argument.",
+  "boss.hydraUncoil": "THE HYDRA, a coil off the hull. Same argument.",
+  "boss.hydraOpen": "THE HYDRA, an eye opening. Same argument.",
+  "boss.hydraBlink": "THE HYDRA, an eye blinking shut. Same argument.",
+  "boss.hydraPoke": "THE HYDRA, an eye tapped shut. Same argument.",
+  "boss.hydraMiss": "THE HYDRA, a tap on a shut eye. Same argument.",
+  "boss.hydraMaw": "THE HYDRA, a maw opening with fire. Same argument.",
+  "boss.hydraQuench": "THE HYDRA, a maw quenched. Same argument.",
+  "boss.hydraWrong": "THE HYDRA, the partner's head touched. Same argument.",
+  "boss.hydraCleared": "THE HYDRA, a level of heads down. Same argument.",
+  "boss.hydraStrike": "THE HYDRA, a head reaching the hull. Same argument.",
+  "boss.hydraSpent": "THE HYDRA, beaten. Same argument.",
+  "boss.hydraOut": "THE HYDRA, the body gone and the wave ending. Same argument, and an absence.",
 };

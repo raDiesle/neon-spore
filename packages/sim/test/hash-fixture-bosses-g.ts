@@ -21,6 +21,16 @@ export const BOSS_ENTRIES_G = {
       { skin: "heart", offsets: [-2, 1], colors: ["cyan", "red"], beats: 19 },
     ],
   },
+  // Every kind of head once, the counts, ways, laps, offsets and colours apart (`hydra-hash.ts`).
+  hydra: {
+    kind: "hydra",
+    steps: [
+      { head: "bite", count: 2, ways: [1, -1], beats: 11 },
+      { head: "coil", laps: 3, beats: 13 },
+      { head: "eye", count: 3, beats: 17 },
+      { head: "maw", offsets: [2, -1], colors: ["cyan", "red"], beats: 19 },
+    ],
+  },
 } satisfies Partial<Record<BossEntry["kind"], BossEntry>>;
 
 /** THE CHRYSALIS on's share of `patchBoss`. */
@@ -42,5 +52,23 @@ export function patchBossG(boss: BossState): void {
     boss.sprayBeat = 9;
     boss.swellTick = 41;
     boss.nextSwellBeat = 12;
+  }
+  if (boss.kind === "hydra") {
+    // The eyes lit with one gone, the left lid open and the right shut, the
+    // left thumb part way across a neck and the right's spent, both coils
+    // part unwound — every field given a value (`hydra-hash.ts`).
+    boss.phase = "heads";
+    boss.phaseBeat = 3;
+    boss.cursor = 2;
+    boss.goneMask = 1;
+    boss.pieces = 7;
+    boss.down = [true, true];
+    boss.cutMilli = [700, 0];
+    boss.spent = [false, true];
+    boss.turning = [true, false];
+    boss.turnAtMilli = [1200, -800];
+    boss.unwoundMilli = [2400, 900];
+    boss.lidOpen = [true, false];
+    boss.blinkBeat = [9, 12];
   }
 }

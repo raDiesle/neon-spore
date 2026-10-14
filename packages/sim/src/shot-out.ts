@@ -9,6 +9,7 @@ import { gimbalStruck } from "./gimbal-shot.js";
 import { governorStruck } from "./governor-shot.js";
 import { haspStruck } from "./hasp-shot.js";
 import { hiveStruck } from "./hive-shot.js";
+import { hydraStruck } from "./hydra-shot.js";
 import { keelStruck } from "./keel-shot.js";
 import { lampreyStruck } from "./lamprey-shot.js";
 import { leadStruck } from "./lead-shot.js";
@@ -120,6 +121,8 @@ export function shotLeaves(world: World, b: Bullet, to: number): void {
   met = bastionStruck(world, b) || met;
   // THE CHRYSALIS's heart in its colour, or its hide (`chrysalis-shot.ts`).
   met = chrysalisStruck(world, b) || met;
+  // THE HYDRA's open maw in its fire's colour, or its hide (`hydra-shot.ts`).
+  met = hydraStruck(world, b) || met;
   // THE HASP's loose bolt, the same shape and the same either colour
   // (`hasp-shot.ts`).
   met = haspStruck(world, b) || met;
@@ -184,6 +187,7 @@ export const SKY_BOSSES: ReadonlySet<string> = new Set([
   "stare",
   "bastion",
   "chrysalis",
+  "hydra",
 ]);
 
 /** Whether a boss is hanging above the field to take a bolt out of the top. */

@@ -13,6 +13,7 @@ import type { GorgeEvent } from "./events-gorge.js";
 import type { GovernorEvent } from "./events-governor.js";
 import type { HaspEvent } from "./events-hasp.js";
 import type { HiveEvent } from "./events-hive.js";
+import type { HydraEvent } from "./events-hydra.js";
 import type { InstarEvent } from "./events-instar.js";
 import type { KeelEvent } from "./events-keel.js";
 import type { LampreyEvent } from "./events-lamprey.js";
@@ -103,6 +104,7 @@ export type BossEvent =
   | LatchEvent
   | BastionEvent
   | ChrysalisEvent
+  | HydraEvent
   | SpoolEvent
   | HaspEvent
   | RatchetEvent
@@ -132,6 +134,7 @@ export type { GorgeEvent } from "./events-gorge.js";
 export type { GovernorEvent } from "./events-governor.js";
 export type { HaspEvent } from "./events-hasp.js";
 export type { HiveEvent } from "./events-hive.js";
+export type { HydraEvent } from "./events-hydra.js";
 export type { InstarEvent } from "./events-instar.js";
 export type { KeelEvent } from "./events-keel.js";
 export type { LampreyEvent } from "./events-lamprey.js";

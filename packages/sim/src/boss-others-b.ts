@@ -10,6 +10,7 @@ import { stepFlue } from "./flue-step.js";
 import { stepGall } from "./gall-step.js";
 import { stepGovernor } from "./governor-step.js";
 import { stepHasp } from "./hasp-step.js";
+import { stepHydra } from "./hydra-step.js";
 import { stepLamprey } from "./lamprey-step.js";
 import { stepLatch } from "./latch-step.js";
 import { stepMaze } from "./maze-round.js";
@@ -67,6 +68,11 @@ export function stepLateBoss(world: World, boss: Exclude<BossState, QueenState>)
   // THE CHRYSALIS: a skin lit, a sac swelled and sprayed, a skin run out, the grub dead (`chrysalis-step.ts`).
   if (boss.kind === "chrysalis") {
     stepChrysalis(world, boss);
+    return;
+  }
+  // THE HYDRA: heads come, an eye blinks, a level runs out, the body sinks away (`hydra-step.ts`).
+  if (boss.kind === "hydra") {
+    stepHydra(world, boss);
     return;
   }
   // THE MIMIC: the slap, a sign's window and its change, the mimicry and the reach, the core and the fall (`mimic-step.ts`).

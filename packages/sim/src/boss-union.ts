@@ -15,6 +15,7 @@ import type { GorgeState } from "./gorge.js";
 import type { GovernorState } from "./governor.js";
 import type { HaspState } from "./hasp.js";
 import type { HiveState } from "./hive.js";
+import type { HydraState } from "./hydra.js";
 import type { InstarState, NettleState } from "./instar.js";
 import type { KeelState } from "./keel.js";
 import type { LampreyState } from "./lamprey.js";
@@ -131,4 +132,5 @@ export type BossState =
   | MimicState
   | LatchState
   | BastionState
-  | ChrysalisState;
+  | ChrysalisState
+  | HydraState;

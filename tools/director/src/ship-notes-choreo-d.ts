@@ -143,4 +143,14 @@ export const CHOREO_NOTES_D = {
     "it; the cannon under it, in the colour it beats in. A skin run out grows back. " +
     "THE SLOW on each. See sim/chrysalis.ts, sim/chrysalis-step.ts, " +
     "sim/chrysalis-hand.ts, sim/chrysalis-shot.ts.",
+  "THE HYDRA — a slime with many heads, each stopped its own way":
+    "The owner's ask of 14 October 2026: another boss like THE CHRYSALIS and THE " +
+    "INSTAR, varied in its on-screen mechanics. Four kinds of head, each may come " +
+    "twice. Bite: each seat cuts its own necks by a swipe of hydraCutMilli the way " +
+    "the arrow points. Coil: each seat turns its coil off, the step's laps round a " +
+    "ring of hydraCoilRimMilli, kept through a lift. Eye: one opens a side for " +
+    "hydraStareBeats, shuts for hydraBlinkBeats; tapped while open, at the beat's " +
+    "own rate. Maw: the navigator sees where, the pilot the colour. A level run out " +
+    "strikes the hull. THE SLOW on each but the eyes. See sim/hydra.ts, " +
+    "sim/hydra-step.ts, sim/hydra-hand.ts, sim/hydra-shot.ts.",
 } satisfies Partial<Record<GroupName, string>>;

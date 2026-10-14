@@ -5,6 +5,7 @@ import { chrysalisHashParts } from "./chrysalis-hash.js";
 import { flueHashParts } from "./flue-hash.js";
 import { gallHashParts } from "./gall-hash.js";
 import { governorHashParts } from "./governor-hash.js";
+import { hydraHashParts } from "./hydra-hash.js";
 import { lampreyHashParts } from "./lamprey-hash.js";
 import { latchHashParts } from "./latch-hash.js";
 import { mimicHashParts } from "./mimic-hash.js";
@@ -98,6 +99,10 @@ export function scriptedHashParts(boss: BossState): number[] {
   // THE CHRYSALIS: the phase, the pieces off, the quills, the rub, the swell and the script (`chrysalis-hash.ts`).
   if (boss.kind === "chrysalis") {
     for (const n of chrysalisHashParts(boss)) out.push(n);
+  }
+  // THE HYDRA: the phase, the heads stopped, the cut, the coil, the lids and the script (`hydra-hash.ts`).
+  if (boss.kind === "hydra") {
+    for (const n of hydraHashParts(boss)) out.push(n);
   }
   return out;
 }

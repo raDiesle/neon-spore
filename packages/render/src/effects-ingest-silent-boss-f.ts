@@ -96,4 +96,24 @@ export const INGEST_SILENT_BOSS_F = [
   "chrysalisRegrow",
   "chrysalisSpent",
   "chrysalisOut",
+  // THE HYDRA's seventeen are drawn by nothing yet: its look is the second
+  // lane (`docs/spec/bosses.md` §11.64), and until it lands they leave
+  // nothing behind for the next frame and burst nowhere.
+  "hydraEnter",
+  "hydraHeads",
+  "hydraCut",
+  "hydraGlance",
+  "hydraLap",
+  "hydraUncoil",
+  "hydraOpen",
+  "hydraBlink",
+  "hydraPoke",
+  "hydraMiss",
+  "hydraMaw",
+  "hydraQuench",
+  "hydraWrong",
+  "hydraCleared",
+  "hydraStrike",
+  "hydraSpent",
+  "hydraOut",
 ] as const satisfies readonly SimEvent["type"][];

@@ -43,6 +43,16 @@ import type { Wave } from "../wave-types.js";
  * hits the hull. **It carries no guide**, THE VANE's way: the owner, 14
  * October 2026, *it does not need tutorial, it is self explanatory* — every
  * skin's mark says its own word (`RUB`, `PULL`, `SHIELD`, `COLOUR`, `FIRE`).
+ *
+ * **THE HYDRA is the one where every level is a different gesture** (the
+ * owner, 14 October 2026: *another boss like THE CHRYSALIS and THE INSTAR …
+ * varied in its on-screen mechanics*; `sim/hydra.ts`). A slime with many
+ * heads, four kinds, each two courses deep: necks swinging down, cut by a
+ * swipe across, two a side and then three with the way changing; coils round
+ * the hull, turned off two laps and then three; eyes opening one at a time,
+ * tapped while open, four a side and then six; and maws with fire in them,
+ * crossed — the navigator sees which one opens, the pilot its colour. A level
+ * run out is a head on the hull, and the wave is lost.
  */
 export const WAVES_ACT_14B: Wave[] = [
   {
@@ -147,6 +157,31 @@ export const WAVES_ACT_14B: Wave[] = [
           colors: ["cyan", "red", "red", "cyan"],
           beats: 40,
         },
+      ],
+    },
+    bossType: "normal",
+    controls: "standard5",
+  },
+  {
+    id: "theHydra",
+    name: "THE HYDRA",
+    guide: {
+      both: "A slime with many heads. Stop each head before it reaches the ship. Four kinds of head, each comes twice.",
+      p1: "1. Swipe across your left necks to cut them.\n2. Turn your left coil off the ship.\n3. Tap your left eye while it is open.\n4. Only you see the fire's colour: say it. Slide the cannon where the other says.",
+      p2: "1. Swipe across your right necks to cut them.\n2. Turn your right coil off the ship.\n3. Tap your right eye while it is open.\n4. Only you see which mouth opens: say where. Fire the colour the other says.",
+    },
+    entries: [],
+    boss: {
+      kind: "hydra",
+      steps: [
+        { head: "bite", count: 2, beats: 28 },
+        { head: "bite", count: 3, ways: [-1, 1, -1], beats: 36 },
+        { head: "coil", laps: 2, beats: 32 },
+        { head: "coil", laps: 3, beats: 40 },
+        { head: "eye", count: 4, beats: 36 },
+        { head: "eye", count: 6, beats: 48 },
+        { head: "maw", offsets: [-2, 1, 0], colors: ["red", "cyan", "red"], beats: 36 },
+        { head: "maw", offsets: [2, -1, 1, -2], colors: ["cyan", "red", "cyan", "red"], beats: 44 },
       ],
     },
     bossType: "normal",

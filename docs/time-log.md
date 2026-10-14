@@ -40747,3 +40747,17 @@ hiding the mark the ring was put outside of, so she was put to the owner
 rather than converted.
 
 *Measured: 26 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-14 — THE HYDRA: a slime with many heads, each stopped its own way (simulation)
+
+- reading: 20 min. The boss skill and the owner's record, THE CHRYSALIS's
+  four lanes, the generic PULL, THE MAZE's lever and THE GOVERNOR's tap.
+- writing: 25 min. The state, clock, hands, shot and hash; seventeen sounds;
+  AUTO and its test; the wave; every registration row.
+- looking: 0 min. Nothing drawn yet.
+- friction: 10 min. A lift read the kept cut unsigned, and the sim hook's
+  full suite timed out twice on a busy machine.
+- landing: 5 min.
+
+Bottleneck: reading — the registrations are a list THE CHRYSALIS's commit
+holds better than any page, so its diff was read file by file.
