@@ -845,6 +845,7 @@ tests and send one PNG of the card from ON THE FIELD.
 ## THE THROAT's pump as THE RUB LAB's zigzag drop
 
 - **Found:** 2026-10-14, claude/rub-lab-zigzag-variant-1620a4
+- **Taken:** 2026-10-14, claude/rub-lab-zigzag-variant-1620a4 (claim: claude/queue-the-throats-pump-as-the-rub-labs-zigzag-drop)
 - **Files:** `packages/render/src/throat-grip.ts`, `packages/render/src/throat-marks.ts`, `packages/render/src/rub-drop.ts`
 
 Since 14 October 2026 every rub mark on the field is THE RUB LAB's drop with
