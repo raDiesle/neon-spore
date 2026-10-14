@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-14 · a6db93261 — One generic PULL in the simulation, and four straight pulls onto it
+
+`sim/pull.ts` is the PULL LAB's rule on the tick: the direction a named field (down · up · either · signed), a reach in thousandths, counted once the moment the reach is met — on a move, or on the lift that carried it there — and a lift short of it refused with `pullShort`, which the pair hears as the field's red refusal; a tap under 40 thousandths is left alone. THE HIVE's haul, THE VANE's housing, THE FLEET's wreck and THE LEDGER's haul now read it, and every replay hash is unchanged.
+
 ## 2026-10-14 · ad73ff944 — VERSUS offers THE BASTION's sphere turning inside its armour
 
 The core, the hull and the cage turn together about the moon's middle inside the armour and the gun ring, which stay where they hang, so the slabs, the rim and the gun a bolt stops on never move. The sphere steadies to face-on over the first beat of a lit lattice or port, whose nodes and port are judged with no clock, and turns again once the shell is off. It ships still; VERSUS `bastion:glance` offers SWAY, LOOK and COCK on THE BASTION · LAYER, which gains a `lookAt`.

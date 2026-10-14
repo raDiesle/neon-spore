@@ -39964,3 +39964,5 @@ Bottleneck: the first cut turned the whole moon and hushed it while any shell wa
 - landing: 5 min. `check:fast`, the commit, `land`.
 
 Bottleneck: THE VANE's housing — the render says up, the director down and the simulation either — so its `way` could not be read off anything and is queued for the owner.
+
+*Measured: 13 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
