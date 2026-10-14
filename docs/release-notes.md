@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-14 · baa8d5e9e — THE VANE's housing is carried down, and an upward carry is no carry
+
+The navigator's haul on the seized housing is the one generic PULL with `way: "down"`: the owner left the choice to the lane on 14 October 2026, and down is the way the director's row, the autopilot and the queue already had it, and the one the field always has room for. Until now any carry of the reach counted either way. The render's sentence now says down, as does the one render test that carried it up, and the knob entry waiting on the way points its arrow down.
+
 ## 2026-10-14 · a6db93261 — One generic PULL in the simulation, and four straight pulls onto it
 
 `sim/pull.ts` is the PULL LAB's rule on the tick: the direction a named field (down · up · either · signed), a reach in thousandths, counted once the moment the reach is met — on a move, or on the lift that carried it there — and a lift short of it refused with `pullShort`, which the pair hears as the field's red refusal; a tap under 40 thousandths is left alone. THE HIVE's haul, THE VANE's housing, THE FLEET's wreck and THE LEDGER's haul now read it, and every replay hash is unchanged.

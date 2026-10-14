@@ -39977,3 +39977,5 @@ Bottleneck: THE VANE's housing — the render says up, the director down and the
 - landing: 5 min. `check:fast`, the commit, `land`.
 
 Bottleneck: the owner's answer — *you decide* — and the lane chose down, the way the director, the autopilot and the queue's own wording already had it.
+
+*Measured: 7 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
