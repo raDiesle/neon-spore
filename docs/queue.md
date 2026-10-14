@@ -328,21 +328,21 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/skipped.test.ts` holds the listing's count of the entries
 `next` stepped past and why.
 
-## AUTO loses THE COUNT and THE CLAW
+## AUTO loses THE CLAW
 
 - **Found:** 2026-10-14, claude/wave-plan
 - **Taken:** 2026-10-14, main (claim: claude/queue-auto-loses-the-count-and-the-claw)
-- **Files:** `packages/hands/src/autopilot-field-hand.ts`, `tools/probe/world.ts`, `docs/spec/wave-curriculum-today.md`
+- **Files:** `packages/hands/src/autopilot-field-hand.ts`, `docs/spec/wave-curriculum-today.md`
 
-Playing every wave with AUTO on both seats (`playedBeat` in a loop until the
-field is clear) to measure the curriculum's table, two waves with no boss are
-lost: THE COUNT and THE CLAW. The field hand does not answer a countdown body
-or THE CLAW's panel, so their length is missing from the table and AUTO in the
-director cannot show either played right. Teach the field hand both, add a
-test in `packages/hands` that plays each wave to a clear, and refill their rows
-in the today table. Prove with `bun test packages/hands` and `bun run check`.
-The composer stops on it too: AUTO loses every R8 of THE COUNT's block it
-draws, so `bun run waves:compose theCount` writes nothing until this lands.
+Half of "AUTO loses THE COUNT and THE CLAW". THE COUNT is played since
+claude/queue-auto-loses-the-count-and-the-claw — the cannon holds its shot
+for the zero (`packages/hands/src/autopilot-count.ts`, `count-hand.test.ts`),
+and `bun run waves:compose theCount` composes the whole block. Left: THE
+CLAW, whose panel the field hand does not answer, so `bun run waves:measure`
+still writes *AUTO fails* on its row. Teach the field hand THE CLAW, add a
+test in `packages/hands` that plays the wave to a clear, and run
+`bun run waves:measure`. Prove with `bun test packages/hands` and
+`bun run check`.
 
 ## AUTO loses THE COIL and THE CROSSING in composed waves
 

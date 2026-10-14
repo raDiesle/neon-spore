@@ -72,7 +72,7 @@ the wave. *Pressure* is `wavePressure`
 | 53 | THROB RECALL | **regular** | — | STANDARD 5 | 8 | 37 | 51 b · 32 s | 7.3 |
 | 54 | THROBS AND TWINS | **regular** | — | STANDARD 5 | 12 | 48 | 62 b · 39 s | 8.3 |
 | 55 | THROB PEAK | **regular** | — | STANDARD 5 | 16 | 48 | 62 b · 39 s | 9.3 |
-| 56 | THE COUNT | intro | countdown | STANDARD 5 | 4 | 19 | AUTO fails | 4.8 |
+| 56 | THE COUNT | intro | countdown | STANDARD 5 | 4 | 19 | 25 b · 16 s | 4.8 |
 | 57 | THE SHELL | intro | shell | STANDARD 5 | 2 | 10 | 14 b · 9 s | 3 |
 | 58 | SHELLS AGAIN | **regular** | — | STANDARD 5 | 5 | 29 | 33 b · 21 s | 4.2 |
 | 59 | SHELLS SPREAD | **regular** | — | STANDARD 5 | 5 | 27 | 31 b · 19 s | 5.4 |
@@ -81,7 +81,7 @@ the wave. *Pressure* is `wavePressure`
 | 62 | EASY SHELLS | **regular** | — | STANDARD 5 | 6 | 35 | 39 b · 24 s | 6.2 |
 | 63 | SHELL RECALL | **regular** | — | STANDARD 5 | 8 | 40 | 54 b · 34 s | 7.3 |
 | 64 | SHELLS AND TWINS | **regular** | — | STANDARD 5 | 11 | 44 | 48 b · 30 s | 8.4 |
-| 65 | SHELL PEAK | **regular** | — | STANDARD 5 | 14 | 48 | 54 b · 34 s | 9.4 |
+| 65 | SHELL PEAK | **regular** | — | STANDARD 5 | 14 | 48 | 53 b · 33 s | 9.4 |
 | 66 | THE CLASP | intro | clasp | STANDARD 5 | 5 | 28 | 31 b · 19 s | 5.7 |
 | 67 | CLASPS AGAIN | **regular** | — | STANDARD 5 | 5 | 29 | 32 b · 20 s | 4.5 |
 | 68 | CLASPS SPREAD | **regular** | — | STANDARD 5 | 6 | 31 | 34 b · 21 s | 5.7 |

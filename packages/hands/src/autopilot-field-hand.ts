@@ -15,6 +15,7 @@ import {
 } from "@neon-spore/sim";
 import { aimColumn, cannonAnswers } from "./autopilot-aim.js";
 import { shakeChoir } from "./autopilot-choir.js";
+import { countReady } from "./autopilot-count.js";
 import { wardCrawler } from "./autopilot-crawler.js";
 import { crystalOpen, lowestCrystal, shieldCrystal } from "./autopilot-crystal.js";
 import { burnFence, fenceGap } from "./autopilot-fence.js";
@@ -51,7 +52,8 @@ import type { Hand } from "./hand.js";
  * (`autopilot-lid.ts`), THE FENCE passed through a gap or a burnt crack
  * (`autopilot-fence.ts`), THE MAGNET locked from beside it
  * (`autopilot-magnet.ts`), THE CRYSTAL opened in the middle
- * (`autopilot-crystal.ts`), THE CHOIR shaken together (`autopilot-choir.ts`),
+ * (`autopilot-crystal.ts`), THE COUNT shot on its zero (`autopilot-count.ts`),
+ * THE CHOIR shaken together (`autopilot-choir.ts`),
  * THE CRAWLER's plates turned by the dome (`autopilot-crawler.ts`), THE JAM's
  * runaway cannon steered (`autopilot-jam.ts`), and the bodies a finger answers
  * — THE WEIGHT, THE MINE, THE BEATBOX and THE BLISTER (`autopilot-touch.ts`). Any
@@ -99,7 +101,9 @@ function cannon(w: World): Press[] {
   if (moult !== null) return moult;
   const wall = burnFence(w, free(w));
   if (wall !== null) return wall;
-  const body = lowest(w, (c) => answersNow(w, c));
+  // A count that is shut or off its zero waits behind a body answered now.
+  const body =
+    lowest(w, (c) => answersNow(w, c) && countReady(w, c)) ?? lowest(w, (c) => answersNow(w, c));
   const pod = body ? undefined : hanging(w);
   const col =
     body?.kind === "magnet"
@@ -116,6 +120,7 @@ function cannon(w: World): Press[] {
   if (w.cannonCol !== col) return [aim(col), ...hold];
   if (lidShut(w, body)) return hold;
   if (body?.kind === "crystal" && !crystalOpen(w, body)) return [];
+  if (body !== undefined && !countReady(w, body)) return [];
   const lock = lockMagnet(w, body);
   if (lock.length > 0) return lock;
   return free(w) ? [fire(shotColor(w, body))] : [];

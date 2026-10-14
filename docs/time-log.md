@@ -41285,3 +41285,16 @@ Bottleneck: friction — a script with regexes in it cannot be written in a
 heredoc here, and the refusal comes after the whole command is composed.
 
 *Measured: 5 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-15 — AUTO loses THE COUNT and THE CLAW (half one: THE COUNT)
+
+- reading: 10 min. `countdown.ts`'s zero and shut rules, the field hand's
+  cannon, and a probe of the wave beat by beat.
+- writing: 10 min. `autopilot-count.ts`, the cannon's choice of body, a
+  test on five seeds proved red against the old hand, the today table.
+- looking: 0 min. Nothing drawn.
+- friction: 0 min.
+- landing: 5 min.
+
+Bottleneck: reading — the wave was lost on the second of two counts at
+once, which only the probe's beat-by-beat field showed.
