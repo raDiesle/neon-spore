@@ -39312,3 +39312,15 @@ Bottleneck: rewriting the maze's gesture tests from distance to turns.
 Bottleneck: the head was too small to turn alone and the stalk may not tilt, so it is the whole body turning about the foot with no roll.
 
 *Measured: 9 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-14 — THE MAZE's heart wears THE RUB LAB's zigzag drop
+
+- reading: 5 min. `drawMazeGrip`, `mazeGripCues`, `maze-marks.ts`.
+- writing: 10 min. One seat-less RUB cue with the pair's turns, and the
+  ring, arrows, count and SHAKE taken out of `maze-grip.ts`.
+- looking: 5 min. One frame of the grip and a crop of the heart.
+- friction: 5 min. The compaction mid-edit, and `seatOf` imported from the
+  wrong file.
+- landing: 5 min. The cue and grip tests, the controls rows, the spec.
+
+Bottleneck: finding what still read the old ring (`maze-marks.ts` keeps it).

@@ -95,29 +95,26 @@ describe("THE MAZE", () => {
     }
   });
 
-  it("under the grip: SHAKE on the heart, for each seat until its thumb is on", () => {
+  it("under the grip: RUB on the heart, on both screens, its drop the pair's turns", () => {
     const { world, m } = opened();
     m.phase = "grip";
     m.gripSeats = 0;
-    for (const [role, seat] of [
-      ["p1", 1],
-      ["p2", 2],
-    ] as const) {
+    for (const role of ["p1", "p2"] as const) {
       const c = cue(world, role);
-      expect(c?.word).toBe("SHAKE");
+      expect(c?.word).toBe("RUB");
       expect(c?.kind).toBe("CARRY");
-      expect(c?.seat).toBe(seat);
+      expect(c?.seat).toBeNull();
       const d = mazeDrum(LAYOUT[role], CFG);
       expect(c?.x).toBe(d.cx);
       expect(c?.y).toBe(d.cy);
+      expect(c?.rubs).toEqual({ turns: CFG.mazeHeartTurns, done: 0, held: false });
     }
-    // His thumb on: the field has nothing more to say to him, and still
-    // asks her — the tear is both seats or nothing.
+    // Each seat's own thumb stops its drop calling on that screen only, and
+    // the strokes lit are both halves together.
     m.gripSeats = 1;
-    expect(cue(world, "p1")).toBeNull();
-    expect(cue(world, "p2")?.word).toBe("SHAKE");
-    m.gripSeats = 3;
-    expect(cue(world, "p2")).toBeNull();
+    m.gripTurns = [3, 2];
+    expect(cue(world, "p1")?.rubs).toEqual({ turns: CFG.mazeHeartTurns, done: 5, held: true });
+    expect(cue(world, "p2")?.rubs?.held).toBe(false);
   });
 
   it("asks the pilot to TURN, on the handle, while nothing has clicked", () => {

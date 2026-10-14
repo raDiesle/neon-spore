@@ -147,8 +147,8 @@ export const DRAG_LOOKS: Readonly<Record<string, UseLook>> = {
     move: "Every turn back wears the bared face; a band worn to its mark cracks bright.",
   },
   "THE MAZE'S HEART": {
-    find: "A ring on the heart in the middle of the drum, with SHAKE and eight arrows until a thumb lands — on both screens.",
-    move: "The heart moves with the thumb inside its room, and the ring fills green with the distance shaken.",
+    find: "THE RUB LAB's drop on the heart in the middle of the drum, wagging with RUB until this seat's thumb lands — on both screens.",
+    move: "Every turn back lights one more stroke of the drop's zigzag, the pair's turns together.",
   },
   "THE THROAT'S PUMP": {
     find: "A ring on the hull two columns beside the gullet's root, haloed on the pilot's screen while the circle is small. It never moves.",

@@ -1877,7 +1877,6 @@ by hand never moves.
 | `packages/render/src/queen-marks.ts` | THE BULB QUEEN's marks asking (halo, or the partner's ring and clock) and their verdict rings |
 | `packages/render/src/maze-walls.ts` | THE MAZE's walls: the circles, the gaps cut in them, and the radial walls that make the corridors turn |
 | `packages/render/src/maze-shot.ts` | The shot inside THE MAZE: where it stands, the corridors behind it, and what it found when it stopped |
-| `packages/render/src/maze-shake-arrows.ts` | **THE MAZE's heart, told it may go any way**: eight chevrons round the room, pointing out |
 | `packages/render/src/maze-heart.ts` | What is in the middle of THE MAZE: a heart, beating |
 | `packages/render/src/volley-cracks.ts` | **The damage on THE VOLLEY's shell**: the fractures a ward leaves across the stone that is still there |
 | `packages/render/src/volley-core.ts` | THE VOLLEY's core: a smaller glossy ball of the body's colour, wearing the shell's seams, drawn inside the shell once a ward has opened it |
@@ -2288,7 +2287,7 @@ by hand never moves.
 | `packages/render/src/maze-pulse.ts` | the numbers THE MAZE's heart runs on — which blood the round is on, the double thump, the tempo from whole to hurt, how long a wound lasts — beside `maze-heart.ts` |
 | `packages/render/src/maze-plate.ts` | THE MAZE's drum as a made thing: a bezel and bolts round the rim, gloss over the plate, and the socket the heart sits in |
 | `packages/render/src/maze-grip-fx.ts` | **The thumb landing on the heart, and the thumb leaving it** |
-| `packages/render/src/maze-grip.ts` | **THE MAZE's heart as a control**, for the one gesture that asks thumbs of it: the shake (`grip` |
+| `packages/render/src/maze-grip.ts` | **THE MAZE's heart as a control**, for the one gesture that asks thumbs of it: the rub (`grip` |
 | `packages/render/src/maze-glance.ts` | **THE MAZE's heart glances** — the owner, 9 and 10 October 2026: *body parts of living things turn . |
 | `packages/render/src/maze-marks.ts` | THE MAZE's string and heart asking a seat and answering a touch green or red, the way every mark does |
 | `packages/render/src/pulse-fall.ts` | The arrows themselves: what is falling, what is standing on the line |

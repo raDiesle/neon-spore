@@ -165,7 +165,7 @@ export function cueBoxed(cue: BossCue, hullY: number): boolean {
 }
 
 /** A `RUB` cue that does not say its turns: THE RUB LAB's own first ask, none made. */
-const NO_RUBS = { turns: 8, done: 0 };
+const NO_RUBS: { turns: number; done: number; held?: boolean } = { turns: 8, done: 0 };
 
 /** Whether the cue wears a mark of its own that stands in the scan frame's place: a hold's drop or a rub's. */
 export function markIsHere(cue: BossCue): boolean {
@@ -207,8 +207,8 @@ export function drawCueHelper(
     return;
   }
   if (helper === "rub") {
-    const { turns, done } = cue.rubs ?? NO_RUBS;
-    drawRubDrop(ctx, cue, short * HOLD_MARK_R, { time, turns, done });
+    const { turns, done, held } = cue.rubs ?? NO_RUBS;
+    drawRubDrop(ctx, cue, short * HOLD_MARK_R, { time, turns, done, held });
     return;
   }
   ctx.save();

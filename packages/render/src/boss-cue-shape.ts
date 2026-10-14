@@ -134,9 +134,10 @@ export interface BossCue {
   /**
    * **What a `RUB` asks and has had**: the turns, and how many are made —
    * the strokes of the zigzag on its drop, lit as they are rubbed
-   * (`rub-drop.ts`). THE RUB LAB's first ask, eight, when left out.
+   * (`rub-drop.ts`) — and whether this screen's thumb is rubbing it, which
+   * stops the drop's call. THE RUB LAB's first ask, eight, when left out.
    */
-  rubs?: { turns: number; done: number };
+  rubs?: { turns: number; done: number; held?: boolean };
   /**
    * **A `TAP` that wears the thumbprint** in place of the scan box: `HOLD`'s
    * red circle (`hold-mark.ts`), drawn by `cue-helper.ts`. THE GOVERNOR's

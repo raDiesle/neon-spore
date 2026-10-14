@@ -28,8 +28,8 @@ export const MAZE_CONTROLS: readonly FieldControlDef[] = [
   {
     name: "THE MAZE'S HEART",
     where:
-      "a ring on the heart in the middle of the drum, on both screens once the " +
-      "right shot is in it, with SHAKE until a thumb lands and eight arrows, green once it has; " +
+      "THE RUB LAB's drop on the heart in the middle of the drum, on both screens once the " +
+      "right shot is in it, wagging and saying RUB until this seat's thumb lands; " +
       "on the test screen",
     seat: "both — each seat's thumb rubs the same heart, and each has half the rub to do",
     gesture: "grab and drag",
@@ -37,7 +37,7 @@ export const MAZE_CONTROLS: readonly FieldControlDef[] = [
       "Rubs the heart loose: a thumb scrubbed back and forth over it, and " +
       "every time it turns back is one turn. mazeHeartTurns in all, half from " +
       "each seat, before mazeGripBeats run out, and the round is won; the " +
-      "ring fills green as it goes (sim/maze-hand.ts, sim/maze-rub.ts).",
+      "drop's zigzag lights stroke by stroke as it goes (sim/maze-hand.ts, sim/maze-rub.ts).",
     source: "touch.ts — mazeHeartUnder() under handleUnder()",
     holdKind: "drag",
     dragTarget: "mazeHeart",

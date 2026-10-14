@@ -3,6 +3,7 @@ import {
   type MirrorState,
   mazeCurrent,
   mazeHeartColor,
+  mazeRubDone,
   mirrorGesture,
   type World,
 } from "@neon-spore/sim";
@@ -13,6 +14,7 @@ import { mazeDoorHalf, mazeDoorMouth } from "./maze-door.js";
 import { mazeStringHandle } from "./maze-string.js";
 import { mazeDrum } from "./maze-walls.js";
 import { mirrorHullY } from "./mirror.js";
+import { seatOf } from "./view-role.js";
 
 /**
  * **What the rounds are asking for** — page five of the readings: THE MIRROR
@@ -122,10 +124,10 @@ const DOOR_LIGHT = 1.45;
  * about her half, and the field never will.
  *
  * **Under `grip`, the heart holding the shot** (`sim/maze-hand.ts`,
- * `maze-rub.ts`): `CARRY` / `SHAKE` on the heart, on each seat's screen
- * until that seat's thumb is on it. Both seats shake it loose, so both are
- * asked, and neither is told how far the other has come — the green count
- * round the room says that to both at once (`maze-grip.ts`).
+ * `maze-rub.ts`): `RUB` on the heart, on both screens, for as long as it
+ * holds — THE RUB LAB's drop every rub wears (`rub-drop.ts`), its zigzag lit
+ * by the turns the pair has made between them, so both see how far the
+ * other has come. Each seat's own thumb on it stops its call on that screen.
  */
 export function mazeCues(l: Layout, world: World, m: MazeState): readonly BossCue[] {
   if (m.phase === "grip") return mazeGripCues(l, world, m);
@@ -152,8 +154,11 @@ export function mazeCues(l: Layout, world: World, m: MazeState): readonly BossCu
 
 function mazeGripCues(l: Layout, world: World, m: MazeState): readonly BossCue[] {
   const d = mazeDrum(l, world.cfg);
-  const out: BossCue[] = [];
-  if ((m.gripSeats & 1) === 0) out.push(markAt(1, "CARRY", "SHAKE", d.cx, d.cy, l, 75));
-  if ((m.gripSeats & 2) === 0) out.push(markAt(2, "CARRY", "SHAKE", d.cx, d.cy, l, 76));
-  return out;
+  const mine = l.role === "test" ? 3 : seatOf(l.role);
+  const rubs = {
+    turns: world.cfg.mazeHeartTurns,
+    done: mazeRubDone(world.cfg, m),
+    held: (m.gripSeats & mine) !== 0,
+  };
+  return [{ ...markAt(null, "CARRY", "RUB", d.cx, d.cy, l, 75), rubs }];
 }

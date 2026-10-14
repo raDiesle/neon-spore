@@ -28,11 +28,11 @@ import { gripState as grip } from "./maze-harness.js";
 setDefaultTimeout(FRAME_TIMEOUT_MS);
 
 /**
- * THE MAZE's heart as a picture (`maze-grip.ts`, `maze-grip-fx.ts`): the ring
- * only under `grip` and the same on every screen, green under this seat's
- * thumb with the word naming the partner's, the green count filling as the
- * pair shakes, the ring a landing thumb throws, and all of it reaching the
- * field from a wave. The thumb itself is `maze-grip.test.ts`.
+ * THE MAZE's heart as a picture (`maze-grip.ts`, `maze-grip-fx.ts`): only
+ * under `grip`, the word naming the partner while this seat waits on them,
+ * the waiting clock, the ring a landing thumb throws, and all of it reaching
+ * the field from a wave. The rub's drop is the cue's (`boss-cue-maze.test.ts`);
+ * the thumb itself is `maze-grip.test.ts`.
  */
 
 beforeAll(installCanvasGlobals);
@@ -47,7 +47,7 @@ function strokes(role: ViewRole, m: MazeState): number {
   return ctx.calls;
 }
 
-describe("the ring", () => {
+describe("the partner", () => {
   it("is nobody's outside grip", () => {
     for (const role of ROLES) {
       expect(strokes(role, grip({ phase: "read" }))).toBe(0);
@@ -56,17 +56,9 @@ describe("the ring", () => {
     }
   });
 
-  it("is on every screen, the same picture for the same state", () => {
-    expect(strokes("p1", grip())).toBeGreaterThan(0);
-    expect(strokes("p1", grip())).toBe(strokes("p2", grip()));
-    expect(strokes("test", grip())).toBe(strokes("p2", grip()));
-  });
-
-  it("goes green under this seat's thumb, and the word names the partner's", () => {
-    const green = (m: MazeState) => {
+  it("names the partner only while this seat waits on them", () => {
+    const words = (m: MazeState) => {
       const { ctx } = stubCanvas();
-      const log: string[] = [];
-      ctx.log = log;
       ctx.texts = [];
       drawMazeGrip(
         ctx as unknown as CanvasRenderingContext2D,
@@ -76,14 +68,12 @@ describe("the ring", () => {
         "p1",
         1.2,
       );
-      const good = log.filter((line) => line.includes(PALETTE.good)).length;
-      return { good, words: ctx.texts.map((t) => t.text) };
+      return ctx.texts.map((t) => t.text);
     };
-    expect(green(grip()).words).toEqual(["SHAKE"]);
-    const held = green(grip({ gripSeats: 1 }));
-    expect(held.words).toEqual(["P2 TOO"]);
-    expect(held.good).toBeGreaterThan(green(grip()).good);
-    expect(green(grip({ gripSeats: 3 })).words).toEqual([]);
+    expect(words(grip())).toEqual([]);
+    expect(words(grip({ gripSeats: 1 }))).toEqual(["P2 TOO"]);
+    expect(words(grip({ gripSeats: 3 }))).toEqual([]);
+    expect(strokes("test", grip({ gripSeats: 1 }))).toBe(0);
   });
 
   it("shows the waiting clock while the partner's half is not done", () => {
@@ -101,24 +91,19 @@ describe("the ring", () => {
       };
     };
     const DONE = CFG.mazeHeartTurns;
-    // Nobody on it, or both shaking with neither done: nothing to wait on.
+    // Nobody on it, or both rubbing with neither done: nothing to wait on.
     expect(read("p1", grip()).clock).toBe(false);
     expect(read("p1", grip({ gripSeats: 3 })).clock).toBe(false);
     // Holding alone: the partner is waited on, on this screen only.
     expect(read("p1", grip({ gripSeats: 1 })).clock).toBe(true);
     expect(read("p2", grip({ gripSeats: 1 })).clock).toBe(false);
-    // Half shaken and let go: told the partner is still to come, not to shake.
+    // Half rubbed and let go: told the partner is still to come.
     const mineDone = grip({ gripTurns: [DONE, 0] });
     expect(read("p1", mineDone)).toEqual({ clock: true, words: ["P2 TOO"] });
     expect(read("p2", mineDone).clock).toBe(false);
     // Their half done: this screen waits on nobody.
     expect(read("p1", grip({ gripSeats: 1, gripTurns: [0, DONE] })).clock).toBe(false);
     expect(read("test", grip({ gripSeats: 1 })).clock).toBe(false);
-  });
-
-  it("fills the green count as the pair shakes", () => {
-    const some = grip({ gripTurns: [3, 1] });
-    expect(strokes("p1", some)).toBeGreaterThan(strokes("p1", grip()));
   });
 });
 
@@ -143,7 +128,7 @@ describe("the thumb landing", () => {
 
 describe("on the field", () => {
   for (const role of ROLES) {
-    it(`draws the held shot, the stretched heart and the ring for ${role}`, () => {
+    it(`draws the held shot and the heart for ${role}`, () => {
       const world = createWorld(CFG, 7, buildQueue(0, CFG.cols));
       const index = waveWith("maze");
       startWave(world, index, buildQueue(index, CFG.cols), [], buildBoss(index, CFG.cols));

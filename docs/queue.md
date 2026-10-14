@@ -842,26 +842,6 @@ drawing a second drop on the same place (`markIsHere`/`drawCueHelper` in
 `cue-helper.ts`, or `framed: false` on the reading). Prove it with the frame
 tests and send one PNG of the card from ON THE FIELD.
 
-## THE MAZE's heart as THE RUB LAB's zigzag drop
-
-- **Found:** 2026-10-14, claude/rub-lab-zigzag-variant-1620a4
-- **Taken:** 2026-10-14, claude/rub-lab-zigzag-variant-1620a4 (claim: claude/queue-the-mazes-heart-as-the-rub-labs-zigzag-drop)
-- **Files:** `packages/sim/src/maze*.ts`, `packages/render/src/maze-heart.ts`, `packages/render/src/rub-drop.ts`
-
-Since 14 October 2026 every rub mark on the field is THE RUB LAB's drop with
-ZIGZAG on it, a stroke a turn (`rub-drop.ts`) — the owner: *apply "zigzag"
-… to all usages in game*. THE CAPSTAN, THE VALVE, THE BLISTER and THE CHOIR
-wear it. THE MAZE's heart is filed under RUB on ON THE FIELD but is not drawn
-as a rub: a ring with SHAKE and eight arrows that fills green with the
-distance shaken (`mazeHeartFreeMilli`), because it counts travel, not
-reversals, so there is no count of turns for the zigzag to show. The options:
-(a) make it a rub — count reversals through `rub-turns.ts` as THE CAPSTAN
-does, give it a turns figure in `SimConfig`, draw `drawRubDrop`; (b) keep the
-travel and draw the drop with the zigzag lit by the share travelled; (c) keep
-it as it is and move its row off the RUB card to SHAKE. **Decided** — the
-owner, 14 October 2026, (a): *to have less variants and consistency*. Prove
-it with the maze frame tests and one PNG.
-
 ## THE THROAT's pump as THE RUB LAB's zigzag drop
 
 - **Found:** 2026-10-14, claude/rub-lab-zigzag-variant-1620a4
