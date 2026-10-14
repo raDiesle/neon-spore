@@ -41144,3 +41144,19 @@ Bottleneck: reading — THE CAPSTAN's core only takes a bolt once both bands
 are bright, so the wrong colour was posed on THE BULB QUEEN instead.
 
 *Measured: 19 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-14 — HELPERS: THE CURTAIN to THE STARE (half one)
+
+- reading: 10 min. The eight splits in `view-role-clocks.ts` and which
+  gallery pose shows each.
+- writing: 10 min. ONE BOSS'S OWN in `helpers-bosses.ts`, eight rows, the
+  undertow's bow pose, the test.
+- looking: 15 min. Each frame in the browser pane: four read on the whole
+  field, three wanted a closer cut, and THE UNDERTOW's bow is in no gallery
+  pose at all.
+- friction: 0 min.
+- landing: 5 min.
+
+Bottleneck: looking — a one-seat picture is small by design, and at the
+size of the whole field half of them were a hair.
+

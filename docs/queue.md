@@ -332,17 +332,18 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 
 - **Found:** 2026-10-14, claude/docs-controls-helpers-org-c825df
 - **Taken:** 2026-10-14, main (claim: claude/queue-helpers-the-curtain-to-the-stares-one-seat-pictu)
-- **Files:** `tools/director/src/helpers-page.ts`, `packages/render/src/view-role-clocks.ts`, `packages/render/src/view-role-clocks-b.ts`
+- **Files:** `tools/director/src/helpers-bosses.ts`, `packages/render/src/view-role-clocks-b.ts`
 
-Every boss with a split draws a picture on one seat only — a tally, a next,
-a zone, a lean arrow — and CONTROLS › HELPERS lists none of them, only the
-marks every boss shares. `view-role-clocks.ts` and `-b.ts` hold THE CURTAIN,
-THE GORGE, THE LEAD, THE LEDGER, THE SINEW, THE SURGE, THE TASTER, THE THROAT,
-THE UNDERTOW, THE ANTIPHON, THE FILAMENT, THE HIVE, THE INSTAR, THE SCUTTLE
-and THE STARE. Give them a group of their own, ONE BOSS'S OWN, in a new file
-helpers-bosses.ts beside the other groups' — a row a boss
-on the seat that is shown it, framed on a gallery pose where one holds the
-moment; look at each.
+ONE BOSS'S OWN is on the page since claude/queue-helpers-curtain-to-stare
+(`tools/director/src/helpers-bosses.ts`), with a row for each boss
+`view-role-clocks.ts` splits: THE UNDERTOW, THE GORGE, THE CURTAIN, THE
+TASTER, THE SINEW, THE LEDGER, THE SURGE and THE LEAD. Left: the bosses
+`view-role-clocks-b.ts` splits — THE SCUTTLE, THE ANTIPHON, THE HIVE, THE
+INSTAR, THE STARE, THE FILAMENT, THE GORGE's tap — and THE THROAT. Add
+their rows to the same group in the same shape — a row a boss, the frame on
+one seat and the other seat's picture named in `seat`, a closer cut where
+the whole field leaves the picture a hair — look at each, and keep
+`helpers-bosses.test.ts` green.
 
 ## HELPERS: THE BASTION to THE TRAPEZE's one-seat pictures are not listed
 

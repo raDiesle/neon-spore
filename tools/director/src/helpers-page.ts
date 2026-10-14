@@ -1,4 +1,5 @@
 import { AIM_GROUP, BODY_GROUP } from "./helpers-aim.js";
+import { BOSS_GROUP } from "./helpers-bosses.js";
 import type { HelperDef, HelperGroup } from "./helpers-def.js";
 import { FAULT_GROUP } from "./helpers-faults.js";
 import { HIDDEN_GROUP } from "./helpers-hidden.js";
@@ -27,7 +28,8 @@ import { whenSeen } from "./when-seen.js";
  * Grouped by what a helper is about (the owner, 14 October 2026): the shield
  * first, at his word that morning; the siren every split speaks through, and
  * the split itself beside it — the seat not told, the seat that must tell;
- * then the shot, a body, a boss's mark, and a control taken by a fault.
+ * then the shot, a body, a boss's mark, one boss's own picture, and a control
+ * taken by a fault.
  */
 export const HELPER_GROUPS: readonly HelperGroup[] = [
   SHIELD_GROUP,
@@ -36,6 +38,7 @@ export const HELPER_GROUPS: readonly HelperGroup[] = [
   AIM_GROUP,
   BODY_GROUP,
   MARK_GROUP,
+  BOSS_GROUP,
   FAULT_GROUP,
 ];
 
