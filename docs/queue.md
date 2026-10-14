@@ -331,6 +331,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## One generic PULL: the held pulls, THE LAMPREY and THE WARDEN
 
 - **Found:** 2026-10-10, claude/pull-control-visuals-35c04f; split 2026-10-14, claude/queue-one-generic-pull-the-curved-and-rope-pulls-onto
+- **Taken:** 2026-10-14, claude/queue-one-generic-pull-the-held-pulls-the-lamprey-and
 - **Files:** `packages/sim/src/lamprey-hand.ts`, `packages/sim/src/lamprey-tow.ts`, `packages/sim/src/warden-rope.ts`, `packages/sim/src/handle-pull.ts`
 
 The counted half landed (THE ANTIPHON's rail, THE GAUGE's tooth, PINBALL's plunger, THE BASTION's slabs). What is left are the pulls that **hold a depth** rather than count once: THE LAMPREY's head (up, `lampreyHeadPullMilli`), its tail (along the body, `lampreyTailWay`) and its towed head (a curve, `lamprey-tow.ts`) are each worth something only while the partner's hand is also there (`settle`), and THE WARDEN's tether opens the hatch as far as it is taut (`pullDownMilli`, `pullOpenMilli`). Put their travel through `pullTravelMilli` — the direction a `Pull` field — and say a short lift with `pullShort`, but keep their held answer: the count is not theirs. THE GUM is a pull by a body rather than a knob — say in the commit whether it joins or why not.
