@@ -91,7 +91,12 @@ describe("a swipe", () => {
       world.events.filter((e) => e.type === "trapezeWhiff").map((e) => ("why" in e ? e.why : ""));
     swipe(world, 2, -1);
     expect(whys()).toEqual(["seat"]);
+    // The wrong way never carries the knob off its rest, so the lift is a tap
+    // and says nothing (`sim/pull.ts`); a carry the right way let go short is
+    // the whiff `way`.
     swipe(world, 1, -1, -600);
+    expect(whys()).toEqual([]);
+    swipe(world, 1, -1, 600);
     expect(whys()).toEqual(["way"]);
     swipe(world, 2, 1);
     expect(whys()).toEqual(["time"]);

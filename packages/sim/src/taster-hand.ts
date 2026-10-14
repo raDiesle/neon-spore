@@ -1,4 +1,5 @@
 import type { SimConfig } from "./config.js";
+import { pullHeard } from "./pull.js";
 import { openSlow } from "./slow.js";
 import {
   type TasterState,
@@ -170,18 +171,23 @@ function pin(world: World, t: TasterState, on: boolean, col: number): void {
  */
 function wipe(world: World, t: TasterState, on: boolean, col: number, fromMilli: number): void {
   const i = tasterBladeAt(t, col);
-  if (!on) {
-    if (t.wipe !== i || i < 0) return;
-    t.wipe = -1;
-    t.wiped = false;
-    return;
-  }
-  if (!tasterWipable(t, world.cfg, i)) return;
-  if (t.wipe !== i) {
+  if (!on && (t.wipe !== i || i < 0)) return;
+  if (on && !tasterWipable(t, world.cfg, i)) return;
+  if (on && t.wipe !== i) {
     t.wipe = i;
     t.wiped = false;
   }
-  if (t.wiped || Math.abs(fromMilli) < world.cfg.tasterWipeMilli) return;
+  // The one generic PULL (`pull.ts`), across either way and `tasterWipeMilli`
+  // long, once per blade held.
+  const pull = { way: "either", reachMilli: world.cfg.tasterWipeMilli } as const;
+  const asked = tasterWipable(t, world.cfg, i);
+  const { heard } = pullHeard(pull, t.wiped, on, fromMilli);
+  if (!on) {
+    t.wipe = -1;
+    t.wiped = false;
+  }
+  if (heard === "short" && asked) world.events.push({ type: "pullShort", col, player: 2 });
+  if (heard !== "counted" || !asked) return;
   t.wiped = true;
   world.events.push({ type: "tasterWipe", col });
   tasterCut(world, t, i);
@@ -203,14 +209,18 @@ function wipe(world: World, t: TasterState, on: boolean, col: number, fromMilli:
  * again, and shut by `closeSlow` in `taster-shot.ts` when the last beam lands.
  */
 function pry(world: World, t: TasterState, on: boolean, fromYMilli: number): void {
-  if (!on) {
-    t.pryMilli = 0;
-    return;
-  }
   const cfg = world.cfg;
-  if (!tasterPryable(t, world.beat, cfg)) return;
-  t.pryMilli = Math.max(0, Math.min(cfg.tasterPryMilli, Math.round(fromYMilli)));
-  if (t.pryMilli < cfg.tasterPryMilli) return;
+  const asked = tasterPryable(t, world.beat, cfg);
+  if (on && !asked) return;
+  // The one generic PULL (`pull.ts`), straight down and `tasterPryMilli` long.
+  const pull = { way: "down", reachMilli: cfg.tasterPryMilli } as const;
+  const { travelMilli, heard } = pullHeard(pull, false, on, fromYMilli);
+  t.pryMilli = travelMilli;
+  if (!asked) return;
+  if (heard === "short") {
+    world.events.push({ type: "pullShort", col: tasterLockCol(t), player: 1 });
+  }
+  if (heard !== "counted") return;
   t.pryBeat = world.beat;
   t.pryFills = 0;
   openSlow(world, cfg.tasterPryBeats, "ask");

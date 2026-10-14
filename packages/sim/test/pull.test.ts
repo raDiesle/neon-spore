@@ -9,18 +9,20 @@ import { PULL_TAP_MILLI, type Pull, pullHeard, pullTravelMilli } from "../src/pu
 const DOWN: Pull = { way: "down", reachMilli: 1000 };
 
 describe("the travel along a pull's way", () => {
-  it("counts down for down, up for up, either for either, and keeps a signed one's sign", () => {
+  it("counts down for down, up for up, either for either, and a signed one its asked way", () => {
     expect(pullTravelMilli(DOWN, 600)).toBe(600);
     expect(pullTravelMilli(DOWN, -600)).toBe(0);
     expect(pullTravelMilli({ way: "up", reachMilli: 1000 }, -600)).toBe(600);
     expect(pullTravelMilli({ way: "up", reachMilli: 1000 }, 600)).toBe(0);
     expect(pullTravelMilli({ way: "either", reachMilli: 1000 }, -600)).toBe(600);
-    expect(pullTravelMilli({ way: "signed", reachMilli: 1000 }, -600)).toBe(-600);
+    expect(pullTravelMilli({ way: "signed", reachMilli: 1000, sign: -1 }, -600)).toBe(600);
+    expect(pullTravelMilli({ way: "signed", reachMilli: 1000, sign: -1 }, 600)).toBe(0);
+    expect(pullTravelMilli({ way: "signed", reachMilli: 1000 }, 600)).toBe(600);
   });
 
   it("is cut to the reach", () => {
     expect(pullTravelMilli(DOWN, 4000)).toBe(1000);
-    expect(pullTravelMilli({ way: "signed", reachMilli: 1000 }, -4000)).toBe(-1000);
+    expect(pullTravelMilli({ way: "signed", reachMilli: 1000, sign: -1 }, -4000)).toBe(1000);
   });
 });
 

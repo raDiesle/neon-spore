@@ -199,6 +199,23 @@ describe("the hem carried up", () => {
     expect(seen.has("curtainLift")).toBe(false);
   });
 
+  it("says a hem let go short out loud, and nothing once the gap has opened", () => {
+    const { world, c } = jammed();
+    const lift = (milli: number): TimedCommand => ({
+      ...letGo(world.tick),
+      command: { kind: "drag", target: "curtainHem", on: false, fromMilli: 0, fromYMilli: -milli },
+    });
+    step(world, [hem(world.tick, CFG.curtainLiftMilli / 2)]);
+    step(world, [lift(CFG.curtainLiftMilli / 2)]);
+    expect(world.events.filter((e) => e.type === "pullShort")).toEqual([
+      { type: "pullShort", col: c.coreCol, player: 1 },
+    ]);
+    step(world, [hem(world.tick, CFG.curtainLiftMilli)]);
+    step(world, [lift(CFG.curtainLiftMilli)]);
+    expect(world.events.filter((e) => e.type === "pullShort")).toEqual([]);
+    expect(c.liftMilli).toBe(0);
+  });
+
   it("is the pilot's alone: the navigator's thumb lifts nothing and is refused", () => {
     const { world, c } = jammed();
     step(world, [hem(world.tick, CFG.curtainLiftMilli, 2)]);

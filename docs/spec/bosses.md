@@ -10388,14 +10388,17 @@ with `ampMilli` at the level's `gongMilli`, the alien kicks the gong
 (`trapezeGong`) and `trapezeKeepMilli` of the swing is kept. **No level
 opens THE SLOW** — the owner's word.
 **The swipes** (`sim/trapeze-hand.ts`). The drags `trapezePushLeft` and
-`trapezePushRight`, by the zone the finger went down in, the lift carrying
-the run across on `fromMilli`. A lift pushes (`trapezePush`,
-`trapezePushMilli`) if this seat pushes this side, the swing is on this side
-coming back, the run is `trapezeSwipeMilli` toward the middle and this half
-swing is not pushed yet. While the swing goes out the same lift brakes it
+`trapezePushRight`, by the zone the finger went down in, each move and the
+lift carrying the run across on `fromMilli`. It is the one generic PULL
+(`sim/pull.ts`, 14 October 2026), sideways toward the middle: the swipe is
+judged the moment the run reaches `trapezeSwipeMilli`, or on the lift that
+got it there. It pushes (`trapezePush`, `trapezePushMilli`) if this seat
+pushes this side, the swing is on this side coming back and this half swing
+is not pushed yet. While the swing goes out the same swipe brakes it
 (`trapezeBrake`, `trapezeBrakeMilli`). **A swipe never does nothing
 silently**: anything else is a `trapezeWhiff` with its reason, `seat`,
-`time` or `way`. In a `push` level P1 pushes left and P2 right; in a `call`
+`time` or `way` — `way` a run let go short of the middle. A run the wrong
+way never leaves the knob's rest and is a tap, which says nothing. In a `push` level P1 pushes left and P2 right; in a `call`
 level each side's pusher is drawn by `nextInt` as the swing passes the
 bottom heading there (`trapezeCall`).
 **The shots** (`sim/trapeze-shot.ts`, through `boss-along.ts`). In a `shoot`

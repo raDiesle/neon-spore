@@ -39979,3 +39979,14 @@ Bottleneck: THE VANE's housing — the render says up, the director down and the
 Bottleneck: the owner's answer — *you decide* — and the lane chose down, the way the director, the autopilot and the queue's own wording already had it.
 
 *Measured: 7 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-14 — One generic PULL: the up, either-way and sideways pulls onto it
+
+- reading: 5 min. Five hand files, each judging its own distance on the lift.
+- writing: 15 min. `signed` with a `sign`, the five onto `pullHeard`,
+  TASTER's pry, a short-lift test for each, the spec rows.
+- looking: 0 min. Nothing drawn moved; the knob going home red was already drawn.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: THE TRAPEZE and THE BLISTER judged their swipe on the lift, so moving them to count at the reach moved what a tap and a wrong-way carry say, and their tests had to be re-read rather than re-run.

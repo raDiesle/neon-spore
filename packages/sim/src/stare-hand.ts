@@ -1,3 +1,5 @@
+import { midCol } from "./config.js";
+import { pullHeard } from "./pull.js";
 import { stareCharging, stareLashesOwed } from "./stare.js";
 import { stareBoss, stareVented } from "./stare-step.js";
 import type { Command } from "./types.js";
@@ -30,24 +32,30 @@ export function stareLashHeard(world: World, player: 1 | 2, command: Command): v
   const s = stareBoss(world);
   if (s === null) return;
   const seat = player - 1;
-  if (!command.on || !stareCharging(s)) {
+  if (!stareCharging(s)) {
     s.lashHeld[seat] = false;
     s.lashMilli[seat] = 0;
     return;
   }
   const y = Math.round(command.fromYMilli ?? 0);
-  if (!s.lashHeld[seat]) {
+  if (command.on && !s.lashHeld[seat]) {
     s.lashHeld[seat] = true;
     s.lashBaseMilli[seat] = y;
   }
+  // Measured from the lowest the thumb has been since the last lash, so a
+  // hand that strokes down and up again strokes another lash.
   const base = Math.max(s.lashBaseMilli[seat] as number, y);
   s.lashBaseMilli[seat] = base;
-  const pull = world.cfg.stareLashPullMilli;
-  const up = base - y;
-  if (up < pull) {
-    s.lashMilli[seat] = Math.max(0, up);
-    return;
-  }
+  // The one generic PULL (`pull.ts`), straight up and `stareLashPullMilli`
+  // long, once per lash: a lash counted starts the next from where it ended.
+  const pull = { way: "up", reachMilli: world.cfg.stareLashPullMilli } as const;
+  const held = s.lashHeld[seat] === true;
+  const { travelMilli, heard } = pullHeard(pull, false, command.on, y - base);
+  s.lashMilli[seat] = travelMilli;
+  if (!command.on) s.lashHeld[seat] = false;
+  if (heard === "short" && held)
+    world.events.push({ type: "pullShort", col: midCol(world.cfg), player });
+  if (heard !== "counted" || !held) return;
   s.lashesUp += 1;
   s.lashBaseMilli[seat] = y;
   s.lashMilli[seat] = 0;

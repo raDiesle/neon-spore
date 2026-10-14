@@ -8,8 +8,9 @@
  *
  * - **The direction is a field** (`PullWay`), never a function of its own in
  *   a hand file: `down` and `up` count travel one way and none the other,
- *   `either` counts it whichever way, and `signed` keeps the sign for a pull
- *   whose two ways mean two things.
+ *   `either` counts it whichever way, and `signed` is a sideways pull whose
+ *   one way is asked by the thing it hangs on — a zone's inward, a swipe's
+ *   arrow — and given as its `sign`.
  * - **A pull counts the moment it has gone its whole reach**, once: the
  *   caller says whether this hold has already counted, and the rule answers
  *   `counted` only on the command that first meets the reach — a move, or
@@ -23,8 +24,8 @@
  *
  * The travel is the hand's displacement along the pull's own axis, in
  * thousandths of a tile, down and right positive — `fromYMilli` for a pull
- * that runs up or down the field — so the axis stays the caller's and the
- * rule is the same for every one.
+ * that runs up or down the field, `fromMilli` for one across it — so the
+ * axis stays the caller's and the rule is the same for every one.
  */
 
 /** Which way a pull counts: `docs/spec` PULL PAST A DISTANCE's four. */
@@ -34,6 +35,8 @@ export type PullWay = "down" | "up" | "either" | "signed";
 export interface Pull {
   way: PullWay;
   reachMilli: number;
+  /** A `signed` pull's asked way along its axis: 1 for right or down, -1 for left or up. */
+  sign?: 1 | -1;
 }
 
 /** What a hand on a pull came to on one command. */
@@ -56,14 +59,20 @@ export type PullHeard =
 export const PULL_TAP_MILLI = 40;
 
 /**
- * The travel along `p`'s way, cut to its reach: none the wrong way for `down`
- * and `up`, the size either way for `either`, and the sign kept for `signed`.
+ * The travel along `p`'s way, cut to its reach: none the wrong way for
+ * `down`, `up` and `signed`, and the size either way for `either`.
  */
 export function pullTravelMilli(p: Pull, along: number): number {
   const d = Math.round(along);
-  const size = p.way === "down" ? d : p.way === "up" ? -d : Math.abs(d);
-  const cut = Math.max(0, Math.min(p.reachMilli, size));
-  return p.way === "signed" && d < 0 ? -cut : cut;
+  const size =
+    p.way === "down"
+      ? d
+      : p.way === "up"
+        ? -d
+        : p.way === "signed"
+          ? (p.sign ?? 1) * d
+          : Math.abs(d);
+  return Math.max(0, Math.min(p.reachMilli, size));
 }
 
 /**
@@ -78,12 +87,11 @@ export function pullHeard(
   along: number,
 ): { travelMilli: number; heard: PullHeard } {
   const travel = pullTravelMilli(p, along);
-  const size = Math.abs(travel);
   if (on) {
-    return { travelMilli: travel, heard: !counted && size >= p.reachMilli ? "counted" : "held" };
+    return { travelMilli: travel, heard: !counted && travel >= p.reachMilli ? "counted" : "held" };
   }
   // A lift that carries the whole reach met it too: the hand went the whole
   // way, and the move that said so may have been the lift itself.
-  if (!counted && size >= p.reachMilli) return { travelMilli: 0, heard: "counted" };
-  return { travelMilli: 0, heard: !counted && size >= PULL_TAP_MILLI ? "short" : "home" };
+  if (!counted && travel >= p.reachMilli) return { travelMilli: 0, heard: "counted" };
+  return { travelMilli: 0, heard: !counted && travel >= PULL_TAP_MILLI ? "short" : "home" };
 }

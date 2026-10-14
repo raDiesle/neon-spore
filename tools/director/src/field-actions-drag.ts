@@ -18,7 +18,9 @@ export const DRAG_TYPES: readonly ControlType[] = [
       "One generic PULL with the direction a named field " +
       "(down · up · either · signed) and one drawn arrow for it, a short pull " +
       "refused red (sim/pull.ts). THE HIVE'S HAUL, THE VANE'S HOUSING, THE " +
-      "FLEET'S WRECK and THE LEDGER'S HAUL are on it; the rest keep their own rule.",
+      "FLEET'S WRECK, THE LEDGER'S HAUL, THE CURTAIN'S HEM, THE STARE'S LASHES, " +
+      "THE TASTER'S WIPE AND PRY, THE TRAPEZE'S ZONES and THE BLISTER'S SWIPE " +
+      "are on it; the rest keep their own rule.",
     gestures: ["SWIPE PAST A DISTANCE"],
     lab: "down",
     rows: [

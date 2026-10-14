@@ -136,6 +136,22 @@ describe("a SWIPE blister, stroked the way its arrow points", () => {
     expect(blisterLeft(CFG, s.body()!)).toBe(3);
   });
 
+  it("says a short stroke out loud, and counts a whole one the moment it gets there", () => {
+    const s = stage([swiped(3)]);
+    const c = s.untilUp();
+    s.stroke(2, FAR - 1, 0);
+    expect(s.events.filter((e) => e.type === "pullShort")).toEqual([
+      { type: "pullShort", col: c.col, player: 2 },
+    ]);
+    s.go(1, [drag(s.world.tick, 2, c.id, true, 0, 0)]);
+    s.go(1, [drag(s.world.tick, 2, c.id, true, FAR, 0)]);
+    expect(s.blows()).toBe(1);
+    // Spent: the rest of the hold and its lift add nothing.
+    s.go(1, [drag(s.world.tick, 2, c.id, true, FAR * 2, 0)]);
+    s.go(1, [drag(s.world.tick, 2, c.id, false, FAR * 2, 0)]);
+    expect(s.blows()).toBe(1);
+  });
+
   it("shows how far the open stroke has come, and empties on the lift", () => {
     const s = stage([swiped(3)]);
     const c = s.untilUp();

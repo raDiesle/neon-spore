@@ -17,7 +17,7 @@ import {
   tasterPhase,
   tasterPried,
 } from "../src/taster.js";
-import { tasterHandsHeard } from "../src/taster-hand.js";
+import { tasterHandsHeard, tasterLockCol } from "../src/taster-hand.js";
 import type { Color, Command, DragTarget } from "../src/types.js";
 
 /**
@@ -202,6 +202,22 @@ describe("the wipe", () => {
     tasterHandsHeard(world, player, drag("tasterGap", true, { id: t.col + i, fromMilli: milli }));
   }
 
+  it("says a wipe let go short out loud, and nothing for a tap", () => {
+    const { world, t } = hurrying();
+    const short = () => world.events.filter((e) => e.type === "pullShort");
+    carry(world, t, 0, 10);
+    tasterHandsHeard(world, 2, drag("tasterGap", false, { id: t.col, fromMilli: 10 }));
+    expect(short()).toEqual([]);
+    carry(world, t, 0, -CFG.tasterWipeMilli / 2);
+    tasterHandsHeard(
+      world,
+      2,
+      drag("tasterGap", false, { id: t.col, fromMilli: -CFG.tasterWipeMilli / 2 }),
+    );
+    expect(short()).toEqual([{ type: "pullShort", col: t.col, player: 2 }]);
+    expect(t.crest).toBe(0);
+  });
+
   it("cuts the crest the thousandth the carry is long enough, either way", () => {
     for (const sign of [1, -1]) {
       const { world, t } = hurrying();
@@ -293,6 +309,16 @@ describe("the pry", () => {
     haul(world, CFG.tasterPryMilli);
     expect(tasterPried(t, world.beat, CFG)).toBe(true);
     expect(world.events.some((e) => e.type === "tasterPry")).toBe(true);
+  });
+
+  it("says a pry let go short out loud", () => {
+    const { world, t } = closed();
+    haul(world, CFG.tasterPryMilli / 2);
+    tasterHandsHeard(world, 1, drag("tasterLock", false, { fromYMilli: CFG.tasterPryMilli / 2 }));
+    expect(world.events.filter((e) => e.type === "pullShort")).toEqual([
+      { type: "pullShort", col: tasterLockCol(t), player: 1 },
+    ]);
+    expect(t.pryMilli).toBe(0);
   });
 
   it("reads a carry upward as no carry at all", () => {

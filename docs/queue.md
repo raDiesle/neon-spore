@@ -328,14 +328,6 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/skipped.test.ts` holds the listing's count of the entries
 `next` stepped past and why.
 
-## One generic PULL: the up, either-way and sideways pulls onto it
-
-- **Found:** 2026-10-10, claude/pull-control-visuals-35c04f
-- **Taken:** 2026-10-14, claude/queue-one-generic-pull-the-up-either-way-and-sideways
-- **Files:** `packages/sim/src/curtain-hand.ts`, `packages/sim/src/stare-hand.ts`, `packages/sim/src/scout-hand.ts`, `packages/sim/src/trapeze-hand.ts`, `packages/sim/src/taster-hand.ts`, `packages/sim/src/blister-swipe.ts`
-
-After the entry above lands: THE CURTAIN's hem and THE STARE's lashes (up), THE SCOUT's prime (either), THE TRAPEZE's zones, THE TASTER's wipe and THE BLISTER's swipe (signed) onto the one rule, their direction a value of its field rather than code. Replay tests unchanged, or a sentence each on why not.
-
 ## One generic PULL: the curved and rope pulls onto it
 
 - **Found:** 2026-10-10, claude/pull-control-visuals-35c04f

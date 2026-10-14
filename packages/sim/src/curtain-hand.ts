@@ -1,4 +1,5 @@
 import { type CurtainState, curtainBody, curtainBoss, curtainHemHigh } from "./curtain.js";
+import { pullHeard } from "./pull.js";
 import { CURTAIN_COLS } from "./span.js";
 import type { Command } from "./types.js";
 import type { World } from "./world.js";
@@ -67,18 +68,21 @@ export function curtainHemHeard(world: World, player: 1 | 2, command: Command): 
     if (command.on && c.phase === "pinned") refuse(world, c);
     return;
   }
-  if (!command.on) {
+  if (c.phase !== "pinned") {
     c.liftMilli = 0;
     return;
   }
-  if (c.phase !== "pinned") return;
+  // The one generic PULL (`pull.ts`), straight up and `curtainLiftMilli` long,
+  // and the hem stands as high as the thumb has it: let go, it drops.
+  const pull = { way: "up", reachMilli: world.cfg.curtainLiftMilli } as const;
   const was = curtainHemHigh(c, world.cfg);
-  const top = world.cfg.curtainLiftMilli;
-  c.liftMilli = Math.max(0, Math.min(top, -Math.round(command.fromYMilli ?? 0)));
+  const { travelMilli, heard } = pullHeard(pull, was, command.on, command.fromYMilli ?? 0);
+  c.liftMilli = travelMilli;
+  if (heard === "short") world.events.push({ type: "pullShort", col: c.coreCol, player: 1 });
   // The edge, not the depth: how far the hem has come is in the world every
   // frame, and the tick worth saying is the one the gap opens
-  // (`events-curtain.ts`).
-  if (!was && curtainHemHigh(c, world.cfg)) {
+  // (`events-curtain.ts`) — never a lift, which lets it fall again.
+  if (heard === "counted" && command.on) {
     world.events.push({ type: "curtainLift", col: c.coreCol });
   }
 }

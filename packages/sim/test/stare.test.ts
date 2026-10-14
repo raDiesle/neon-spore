@@ -168,6 +168,20 @@ describe("THE STARE", () => {
     expect(world.events.some((e) => e.type === "stareLash" && e.up === 2)).toBe(true);
   });
 
+  it("says a lash let go short out loud, and nothing for a tap", () => {
+    const world = open();
+    until(world, inPhase("charge"));
+    const short = () => world.events.filter((e) => e.type === "pullShort");
+    step(world, [lash(world, 2, 0)]);
+    step(world, [lash(world, 2, -10, false)]);
+    expect(short()).toEqual([]);
+    step(world, [lash(world, 2, 0)]);
+    step(world, [lash(world, 2, -PULL / 2)]);
+    step(world, [lash(world, 2, -PULL / 2, false)]);
+    expect(short()).toEqual([{ type: "pullShort", col: MID, player: 2 }]);
+    expect(eye(world).lashesUp).toBe(0);
+  });
+
   it("counts both seats' lashes together, and vents when the last comes up", () => {
     const world = open();
     until(world, inPhase("charge"));

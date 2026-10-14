@@ -1,3 +1,4 @@
+import { type Pull, pullHeard } from "./pull.js";
 import {
   type TrapezeSide,
   type TrapezeState,
@@ -43,13 +44,22 @@ export function trapezeHeard(world: World, player: 1 | 2, command: Command): voi
   }
   const zone = zoneOf(command.target);
   if (zone === 0) return;
+  // The one generic PULL (`pull.ts`), sideways toward the middle of the
+  // field — the zone's inward — and `trapezeSwipeMilli` long, once per hold:
+  // a carry that has counted stays at the end until the lift.
+  const pull: Pull = {
+    way: "signed",
+    sign: zone < 0 ? 1 : -1,
+    reachMilli: world.cfg.trapezeSwipeMilli,
+  };
+  const counted = (s.carryMilli[seat] ?? 0) >= pull.reachMilli;
   if (command.on) {
     if (s.down[seat] !== zone) s.carryMilli[seat] = 0;
-    else if (Number.isInteger(command.fromMilli))
-      s.carryMilli[seat] = Math.max(
-        0,
-        Math.min(world.cfg.trapezeSwipeMilli, -zone * command.fromMilli),
-      );
+    else if (Number.isInteger(command.fromMilli)) {
+      const { travelMilli, heard } = pullHeard(pull, counted, true, command.fromMilli);
+      s.carryMilli[seat] = counted ? pull.reachMilli : travelMilli;
+      if (heard === "counted") swiped(world, s, seat, zone, true);
+    }
     s.down[seat] = zone;
     return;
   }
@@ -57,7 +67,8 @@ export function trapezeHeard(world: World, player: 1 | 2, command: Command): voi
   s.down[seat] = 0;
   s.carryMilli[seat] = 0;
   if (!Number.isInteger(command.fromMilli)) return;
-  swiped(world, s, seat, zone, command.fromMilli);
+  const { heard } = pullHeard(pull, counted, false, command.fromMilli);
+  if (heard !== "home") swiped(world, s, seat, zone, heard === "counted");
 }
 
 function zoneOf(target: string): -1 | 0 | 1 {
@@ -71,15 +82,17 @@ function swiped(
   s: TrapezeState,
   seat: 0 | 1,
   zone: TrapezeSide,
-  fromMilli: number,
+  full: boolean,
 ): void {
   if (!trapezeSwiping(s)) return;
   const cfg = world.cfg;
   const col = trapezeCol(world, s);
+  // A carry let go short is this boss's whiff `way`, its own word for the
+  // generic PULL's short lift.
   const why =
     trapezeCaller(s, zone) !== seat
       ? "seat"
-      : -zone * fromMilli < cfg.trapezeSwipeMilli
+      : !full
         ? "way"
         : trapezeOnSide(cfg, s) !== zone || s.pushedHalf === s.half
           ? "time"
