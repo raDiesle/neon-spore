@@ -6,6 +6,7 @@ import { grown } from "../../../../packages/render/src/goo-enter.js";
 import { SPAWN } from "../../../../packages/render/src/goo-moment.js";
 import { clamp01, settle } from "../../../../packages/render/src/goo-noise.js";
 import { GOO } from "../../../../packages/render/src/goo-style.js";
+import { rubSway } from "../../../../packages/render/src/rub-zigzag.js";
 import type { Tone } from "../../../../packages/render/src/soak-water.js";
 import { fizzAway } from "../hold-goo/goo.js";
 import type { RubLook, RubView } from "./view.js";
@@ -51,17 +52,8 @@ export function gooRub(c: Rubbed): RubLook {
   };
 }
 
-/** The wag a mark no thumb has touched calls with: two quick sways each way, then
- * a rest. Signed, -1 leaning left to 1 right. */
-const SWAY = { wag: 0.3, wags: 2, round: 1.5 };
-
-export function swayOf(v: RubView): number {
-  const s = Math.max(0, v.born - SPAWN) % SWAY.round;
-  const span = SWAY.wag * SWAY.wags;
-  if (s >= span + SWAY.wag * 0.5) return 0;
-  const fade = s < span ? 1 : 1 - (s - span) / (SWAY.wag * 0.5);
-  return Math.sin((2 * Math.PI * s) / SWAY.wag) * fade;
-}
+/** The wag a mark no thumb has touched calls with (`rub-zigzag.ts`): signed, -1 leaning left to 1 right. */
+const swayOf = (v: RubView): number => rubSway(v.born - SPAWN);
 
 /** A drop never pressed has turned freely all along (`goo-soft.ts`'s `Turn`). */
 const FREE = { held: false, grabbed: 99, lifted: 99 };

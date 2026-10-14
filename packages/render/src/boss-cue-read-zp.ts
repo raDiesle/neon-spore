@@ -85,7 +85,8 @@ export function valveCues(
   const story = STORY[s.phase];
   if (story !== undefined) {
     const { x, y } = valveSocketCircle(l, cfg, s, beat, beatPhase);
-    out.push({ seat: null, ...story, x, y, ...frame });
+    const rubs = s.phase === "wipe" ? { turns: cfg.valveWipeRubs, done: s.wiped } : undefined;
+    out.push({ seat: null, ...story, x, y, ...frame, ...(rubs && { rubs }) });
   }
   return out;
 }

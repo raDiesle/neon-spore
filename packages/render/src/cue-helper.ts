@@ -4,7 +4,7 @@ import { EMBER_REACH, paintEmber } from "./aim-ember.js";
 import { type BossCue, cueShot } from "./boss-cue-shape.js";
 import { drawHoldMark, HOLD_MARK_R } from "./hold-mark.js";
 import { PALETTE } from "./palette.js";
-import { drawRubMark } from "./rub-mark.js";
+import { drawRubDrop } from "./rub-drop.js";
 import { P1_SKIN, type SeatSkin } from "./seat-skin.js";
 import { drawSoakHold } from "./soak-hold.js";
 
@@ -45,9 +45,11 @@ import { drawSoakHold } from "./soak-hold.js";
  *   A `TAP` with `BossCue.print` still wears the thumbprint's circle — THE
  *   GOVERNOR's marks, the owner, 6 October 2026: *instead of tap scanner
  *   square box use the thumb control visual.*
- * - **`RUB`**: a red line with an arrow sliding in at it from each side
- *   (`rub-mark.ts`), and no scanner box either — the owner, 3 October 2026,
- *   on THE GRINDSTONE, since retired. The line is as long as the cue's `rubHalf` says.
+ * - **`RUB`**: THE RUB LAB's drop with ZIGZAG on it (`rub-drop.ts`), a stroke
+ *   for every turn the cue's `rubs` asks, lit as they are made, and no scanner
+ *   box and no word either — the owner, 14 October 2026: *apply "zigzag" …
+ *   to all usages in game*. It was a red line with an arrow sliding in at it
+ *   from each side until then (the owner's of 3 October 2026).
  *
  * Pulls are not here: a pull is a handle, and its arrow is the knob's
  * (`pull-knob.ts`, `way-arrow.ts`).
@@ -162,7 +164,10 @@ export function cueBoxed(cue: BossCue, hullY: number): boolean {
   return AIM_LOOK.boxed || cueAim(cue, hullY) === null;
 }
 
-/** Whether the cue wears a mark of its own that stands in the scan frame's place: a hold's circle or a rub's line. */
+/** A `RUB` cue that does not say its turns: THE RUB LAB's own first ask, none made. */
+const NO_RUBS = { turns: 8, done: 0 };
+
+/** Whether the cue wears a mark of its own that stands in the scan frame's place: a hold's drop or a rub's. */
 export function markIsHere(cue: BossCue): boolean {
   const helper = helperOf(cue);
   return helper === "hold" || helper === "rub";
@@ -202,7 +207,8 @@ export function drawCueHelper(
     return;
   }
   if (helper === "rub") {
-    drawRubMark(ctx, cue.x, cue.y, cue.rubHalf ?? cue.halfH, time);
+    const { turns, done } = cue.rubs ?? NO_RUBS;
+    drawRubDrop(ctx, cue, short * HOLD_MARK_R, { time, turns, done });
     return;
   }
   ctx.save();

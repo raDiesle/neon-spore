@@ -2166,7 +2166,8 @@ by hand never moves.
 | `packages/render/src/reprise-glance.ts` | **THE REPRISE's sac glances** — the owner, 9 and 10 October 2026: *body parts of living things turn . |
 | `packages/render/src/rub.ts` | **`RubCount` from one thumb** — the one gesture a host has to keep count of |
 | `packages/render/src/rub-turns.ts` | A rub's answer, and the seat it is from |
-| `packages/render/src/rub-mark.ts` | **The mark a rub asks with: a red line, and an arrow coming in at it from each side**, the same on every boss |
+| `packages/render/src/rub-drop.ts` | **Every rub on the field, drawn as THE RUB LAB's**: its drop — THE HOLD LAB's, the same RIPPLES · STILL goo |
+| `packages/render/src/rub-zigzag.ts` | **ZIGZAG** — what a rub asks, drawn on its drop: the gesture itself |
 | `packages/render/src/comms-talker.ts` | one row per creature: which seat has to say something about it |
 | `packages/render/src/comms-boss.ts` | The siren for a boss whose split is the whole fight: THE ANTIPHON's explainer lit, EXPLAIN SHAPE and CHOOSE SHAPE swapping every level |
 | `packages/render/src/comms-mimic.ts` | THE MIMIC's siren, top right: the reader's chip lit and each seat's job under the dial |

@@ -25,7 +25,7 @@ import { PALETTE } from "./palette.js";
 import { drawFuseRing } from "./pip-ring.js";
 import { drawPullKnob } from "./pull-knob.js";
 import { drawPullTrack, PULL_TRACK_W, type PullTrack } from "./pull-track.js";
-import { drawRubMark } from "./rub-mark.js";
+import { drawRubDrop } from "./rub-drop.js";
 import { drawSoakHold } from "./soak-hold.js";
 
 /**
@@ -53,9 +53,10 @@ import { drawSoakHold } from "./soak-hold.js";
  * - TURN, on the seat that may: THE MAZE's turn round the body — channel,
  *   lever and knob, filling green as the turn goes round
  *   (`blister-turn-help.ts`). The partner, again, the waiting clock.
- * - RUB, on the seat that may: the rub's red line and its two arrows sliding
- *   in (`drawRubMark`), the same on every rub in the game, with the halo
- *   while no hand is rubbing. Its count is the pips, as every gesture's is.
+ * - RUB, on the seat that may: THE RUB LAB's drop every rub wears, ZIGZAG on
+ *   it a stroke for every blow the blister asks, lit as they land
+ *   (`rub-drop.ts`), and the halo while no hand is rubbing. The pips round it
+ *   count the same blows, as every gesture's do.
  * - The verdict on each blow is a transient and is `blister-verdicts.ts`'.
  *
  * Flat, after every body, outside the perspective transform — the tap's
@@ -89,8 +90,10 @@ export function drawBlisterHelp(
     } else if (mine && gesture === "turn") {
       drawBlisterTurn(ctx, l, world, c, { x, y, r }, time);
     } else if (mine && gesture === "rub") {
-      if (!blisterRubbing(c)) drawMarkHalo(ctx, x, y, r, time);
-      drawRubMark(ctx, x, y, r * RUB_R, time);
+      const held = blisterRubbing(c);
+      if (!held) drawMarkHalo(ctx, x, y, r, time);
+      const turns = Math.max(world.cfg.blisterBlows, left);
+      drawRubDrop(ctx, { x, y }, r * HOLD_R, { time, turns, done: turns - left, held });
     } else if (mine && holding) {
       if (!held) drawMarkHalo(ctx, x, y, r, time);
       const fill = blisterHoldShare(world, c);
@@ -109,7 +112,7 @@ export function drawBlisterHelp(
   }
 }
 
-/** The hold's drop, in the body's radius. */
+/** The hold's drop, and the rub's, in the body's radius. */
 const HOLD_R = 0.7;
 
 /** Whether a hand that counts is on it now, on either seat — the sim's own question. */
@@ -162,6 +165,3 @@ const WAY: Record<BlisterSwipeWay, { dx: number; dy: number }> = {
   right: { dx: 1, dy: 0 },
   left: { dx: -1, dy: 0 },
 };
-
-/** The rub line's half-length, in body radii: top to bottom of the body. */
-const RUB_R = 0.9;

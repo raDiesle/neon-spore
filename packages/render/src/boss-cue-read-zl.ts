@@ -73,8 +73,9 @@ export function capstanCues(
   const seat = capstanWearer(world, s);
   const mid = capstanSteerStanding(l, cfg, s, world.beat, beatPhase);
   const steer = capstanSteerer(world, s);
+  const rubs = { turns: cfg.capstanWearThreshold, done: s.wear[face] };
   return [
-    { seat, kind: "CARRY", word: "RUB", x: at.x, y: at.y, ...frame, seed: 161 },
+    { seat, kind: "CARRY", word: "RUB", x: at.x, y: at.y, ...frame, rubs, seed: 161 },
     { seat: steer, kind: "HOLD", word: "HOLD", x: mid.x, y: mid.y, ...frame, seed: 232 },
   ];
 }

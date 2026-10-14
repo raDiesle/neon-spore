@@ -132,11 +132,11 @@ export interface BossCue {
    */
   aim?: { x: number; y: number; r?: number };
   /**
-   * **How long a `RUB`'s red line is**, half of it, in pixels: the face being
-   * rubbed, top to middle (`rub-mark.ts`). The frame's half-height when left
-   * out.
+   * **What a `RUB` asks and has had**: the turns, and how many are made —
+   * the strokes of the zigzag on its drop, lit as they are rubbed
+   * (`rub-drop.ts`). THE RUB LAB's first ask, eight, when left out.
    */
-  rubHalf?: number;
+  rubs?: { turns: number; done: number };
   /**
    * **A `TAP` that wears the thumbprint** in place of the scan box: `HOLD`'s
    * red circle (`hold-mark.ts`), drawn by `cue-helper.ts`. THE GOVERNOR's
@@ -177,7 +177,7 @@ export interface BossCue {
  * across*, and *helper text like "turn" "lift" "pull up" "twist" — all of
  * that we do not need*. The handle says it: its knob's arrow and its channel
  * (`pull-knob.ts`, `pull-track.ts`), as `saysPull` said for the word PULL a
- * day before. A hold's circle and a rub's line are marks, not words, and
+ * day before. A hold's drop and a rub's are marks, not words, and
  * stay (`cue-helper.ts`). The kind stays on the cue as data.
  */
 export function asksGrab(cue: Pick<BossCue, "kind"> & { panel?: boolean }): boolean {

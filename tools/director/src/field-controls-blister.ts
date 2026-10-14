@@ -53,8 +53,8 @@ export const BLISTER_CONTROLS: readonly FieldControlDef[] = [
     seat: "the seat the blister's BY names — either, on a BOTH blister",
     gesture: "grab and drag",
     does:
-      "A RUB blister wears the rub's red line with two arrows sliding in at " +
-      "it from each side, as every rub in the game does. Press on it and " +
+      "A RUB blister wears THE RUB LAB's drop, a zigzag stroke on it for " +
+      "every blow, as every rub in the game does. Press on it and " +
       "scrub back and forth: every time the thumb turns back is one blow. " +
       "A thumb still rubbing when it sinks counts nothing more until it " +
       "lifts (sim/blister-rub.ts; the reversals counted by render/rub-turns.ts).",

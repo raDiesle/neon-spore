@@ -11,7 +11,7 @@ import {
 } from "../src/cue-helper.js";
 import { PALETTE } from "../src/palette.js";
 import { drawPullKnob } from "../src/pull-knob.js";
-import { rubArrows } from "../src/rub-mark.js";
+import { drawRubZigzag, rubSway } from "../src/rub-zigzag.js";
 import { P2_SKIN } from "../src/seat-skin.js";
 import { drawWayArrow } from "../src/way-arrow.js";
 import { FRAME_TIMEOUT_MS, installCanvasGlobals, stubCanvas } from "./canvas-stub.js";
@@ -189,27 +189,37 @@ describe("a hold's drop", () => {
   });
 });
 
-describe("a rub's line", () => {
+describe("a rub's drop", () => {
   it("stands in the scan frame's place, with no box", () => {
     expect(cueHelper("RUB")).toBe("rub");
     expect(markIsHere(cue("RUB", 100, 200, { kind: "CARRY" }))).toBe(true);
+    const rubs = { turns: 4, done: 1 };
     const calls = log((ctx) =>
-      drawCueHelper(ctx, cue("RUB", 100, 200, { kind: "CARRY", rubHalf: 60 }), HULL, 0.2),
+      drawCueHelper(ctx, cue("RUB", 100, 200, { kind: "CARRY", rubs }), HULL, 0.2),
     );
     expect(calls.some((c) => c.startsWith("stroke("))).toBe(true);
     expect(calls.some((c) => c.startsWith("strokeRect(") || c.startsWith("rect("))).toBe(false);
   });
 
-  it("brings an arrow in from each side toward the line as time runs", () => {
-    const early = rubArrows(100, 60, 0.1);
-    const late = rubArrows(100, 60, 0.4);
-    expect(early.tips[0]).toBeLessThan(100);
-    expect(early.tips[1]).toBeGreaterThan(100);
-    expect(late.tips[0]).toBeGreaterThan(early.tips[0]);
-    expect(late.tips[1]).toBeLessThan(early.tips[1]);
-    // Never onto the line itself, and faded out at the loop's seam.
-    expect(late.tips[0]).toBeLessThan(100);
-    expect(rubArrows(100, 60, 0).alpha).toBeCloseTo(0);
+  it("wears one zigzag stroke for every turn asked, the made ones lit", () => {
+    const at = { x: 100, y: 200 };
+    for (const [turns, done] of [
+      [4, 0],
+      [8, 3],
+      [16, 16],
+    ] as const) {
+      const calls = log((ctx) => drawRubZigzag(ctx, { at, r: 30 }, turns, done, "good"));
+      expect(calls.filter((c) => c.startsWith("lineTo(")).length).toBe(turns);
+      // An unlit stroke is laid twice, shade then neon; a lit one a third time, its glow.
+      expect(calls.filter((c) => c.startsWith("stroke(")).length).toBe(2 * turns + done);
+    }
+  });
+
+  it("calls by wagging both ways, then rests", () => {
+    const wag = [0.05, 0.1, 0.2, 0.25].map(rubSway);
+    expect(Math.max(...wag)).toBeGreaterThan(0.5);
+    expect(Math.min(...wag)).toBeLessThan(-0.5);
+    expect(rubSway(1.2)).toBe(0);
   });
 });
 

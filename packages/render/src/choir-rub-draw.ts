@@ -3,19 +3,20 @@ import { choirRubCircle, RUB_DROP, showsChoirRub } from "./choir-rub.js";
 import { halo } from "./glow.js";
 import type { Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
-import { drawRubMark } from "./rub-mark.js";
+import { drawRubDrop } from "./rub-drop.js";
 
 /**
  * **THE CHOIR's rub, drawn** — the mark in the middle of the field
  * (`choir-rub.ts`), on both screens, read off the world alone and keeping
  * nothing of its own, so a restart or a seek can never leave a stale light on.
  *
- * - **The mark is the game's one rub mark** (`rub-mark.ts`): the red line and
- *   the two arrows sliding in at it from the sides, in a socket the size of
- *   the grab circle — the owner, *we will reuse the "rub" control*.
- * - **A row of pips under it** is the turns asked (`choirRubTurns`), lit as
- *   many as the pair has made together (`choirRubbed`).
- * - **Two seat lights**, one each side, are lit while that seat is rubbing —
+ * - **The mark is the game's one rub mark** (`rub-drop.ts`): THE RUB LAB's
+ *   drop with ZIGZAG on it, the size of the grab circle — the owner, *we will
+ *   reuse the "rub" control*. Its strokes are the turns asked
+ *   (`choirRubTurns`), lit as many as the pair has made together
+ *   (`choirRubbed`); they were a row of pips under a red line until the
+ *   owner's *apply "zigzag" … to all usages in game*, 14 October 2026.
+ * - **Two seat lights**, under it, clear of the call's swishes either side, are lit while that seat is rubbing —
  *   turned inside `choirTogetherBeats` — so a thumb going alone sees at once
  *   that the other light is dark, and why nothing is counting.
  * - **The word** says the half that cannot be drawn: *together*.
@@ -38,29 +39,25 @@ export function drawChoirRub(
   const both = one && two;
 
   ctx.save();
-  if (both) halo(ctx, x, y, r * 1.8, PALETTE.red, 0.22);
-  ctx.beginPath();
-  ctx.arc(x, y, drop, 0, Math.PI * 2);
-  ctx.fillStyle = "rgba(7,4,15,.62)";
-  ctx.fill();
-  ctx.strokeStyle = PALETTE.red;
-  ctx.globalAlpha = 0.55;
-  ctx.lineWidth = Math.max(1.5, drop * 0.06);
-  ctx.stroke();
-  ctx.globalAlpha = 1;
-  drawRubMark(ctx, x, y, drop * 0.62, time);
+  if (both) halo(ctx, x, y, r * 1.8, PALETTE.good, 0.22);
+  const turns = world.cfg.choirRubTurns;
+  drawRubDrop(ctx, { x, y }, drop, { time, turns, done: world.choirRubbed, held: one || two });
 
-  seatLight(ctx, x - drop * 1.3, y, drop * 0.14, one, "1");
-  seatLight(ctx, x + drop * 1.3, y, drop * 0.14, two, "2");
-  pips(ctx, x, y + drop * 1.28, drop, world.cfg.choirRubTurns, world.choirRubbed);
+  const below = y + drop * SEAT_DOWN;
+  seatLight(ctx, x - drop * SEAT_OUT, below, drop * 0.14, one, "1");
+  seatLight(ctx, x + drop * SEAT_OUT, below, drop * 0.14, two, "2");
 
   ctx.font = '700 11px "Courier New",monospace';
   ctx.textAlign = "center";
   ctx.fillStyle = PALETTE.redRim;
   ctx.globalAlpha = 0.9;
-  ctx.fillText("RUB TOGETHER", x, y + drop * 1.28 + 18);
+  ctx.fillText("RUB TOGETHER", x, below + 30);
   ctx.restore();
 }
+
+/** Where a seat's light stands, in the drop's radius: under it, and out to either side. */
+const SEAT_DOWN = 1.35;
+const SEAT_OUT = 0.8;
 
 /** One seat's light: lit green while that seat's thumb is turning, dim while it is not. */
 function seatLight(
@@ -83,27 +80,4 @@ function seatLight(
   ctx.textAlign = "center";
   ctx.fillStyle = lit ? PALETTE.goodRim : PALETTE.dim;
   ctx.fillText(seat, x, y + r + 12);
-}
-
-/** The turns asked, as a row of pips across the mark's width, `done` of them lit. */
-function pips(
-  ctx: CanvasRenderingContext2D,
-  x: number,
-  y: number,
-  width: number,
-  asked: number,
-  done: number,
-): void {
-  const gap = (width * 2) / Math.max(1, asked);
-  const pr = Math.min(gap * 0.32, 4);
-  for (let i = 0; i < asked; i++) {
-    const px = x - width + gap * (i + 0.5);
-    ctx.beginPath();
-    ctx.arc(px, y, pr, 0, Math.PI * 2);
-    ctx.fillStyle = i < done ? PALETTE.red : "rgba(7,4,15,.8)";
-    ctx.fill();
-    ctx.strokeStyle = i < done ? PALETTE.redRim : PALETTE.dim;
-    ctx.lineWidth = 1;
-    ctx.stroke();
-  }
 }

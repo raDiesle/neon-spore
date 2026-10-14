@@ -90,7 +90,7 @@ export const BLISTER_TURN: Pose = {
  */
 export const BLISTER_RUB: Pose = {
   name: "BLISTER · RUBBED ONCE",
-  note: "A RUB blister is up out of its pore for its two beats. Player 2 is scrubbing it and has turned back once: one of its three pips is gone, and the red line with its two arrows sliding in still asks for more. Player 2's screen, the seat its BY names.",
+  note: "A RUB blister is up out of its pore for its two beats. Player 2 is scrubbing it and has turned back once: one of its three pips is gone and one of the three zigzag strokes on its drop is lit; the other two still ask. Player 2's screen, the seat its BY names.",
   lookAt: "whether the line and arrows read as scrub here, and whether the pips say what is left",
   crop: "field",
   role: "p2",

@@ -61,7 +61,7 @@ out on purpose — a desk with a mouse has none of them.
 | **HOLD** | `HOLD` | presses and keeps the press | ticks held, from `grip` on to `grip` off; a release resets | `drawHoldMark`, with `drawGripDial` running round it |
 | **SWIPE** | `SWIPE` | drags across the body the way the arrow points | one stroke when the drag passes `blisterSwipeMilli` (one tile) in that direction, judged on the lift | the PULL LAB's knob on its channel, never a ring (the owner, 24 September and 13 October 2026) |
 | **TURN** (the circle) | `TURN` | drags a full turn round the body, the way the channel points | thousandths of a turn, as the crank's bearing is | `drawMazeLever`, the one turn for every wave (the owner, 5 October 2026) |
-| **RUB** | `RUB` | scrubs back and forth over it | reversals, as `packages/render/src/rub-turns.ts` counts them | `drawRubMark` |
+| **RUB** | `RUB` | scrubs back and forth over it | reversals, as `packages/render/src/rub-turns.ts` counts them | `drawRubDrop` |
 
 **The body is the same in all five.** Only the help round it changes, so a
 wave can mix them and the pair reads *which* from the help, never from the
@@ -110,10 +110,10 @@ The press is a `blisterTurn` drag about the body's centre, read the crank's way
 (`render/blister-tap.ts`, `touch-drag.ts` `turnAbout`), and
 `sim/blister-turn.ts` counts it.
 
-The RUB help is the game's one rub mark (`render/rub-mark.ts` `drawRubMark`)
-across the body: the scrub line with its two arrows, the halo round it while
-nobody is rubbing. The pip ring already says how many blows are left, so the
-mark carries no progress of its own. The press sends nothing; the host counts
+The RUB help is the game's one rub mark (`render/rub-drop.ts` `drawRubDrop`)
+on the body: THE RUB LAB's drop with ZIGZAG on it, a stroke for every blow,
+lit as they land, and the halo round it while nobody is rubbing. The pip ring
+counts the same blows. The press sends nothing; the host counts
 the reversals (`render/rub-turns.ts`) and every count is a `blisterRub` drag
 whose `id` is the count and whose `fromMilli` is the body (`render/rub.ts`) —
 the one target that rides it there, because the count already holds `id`.

@@ -897,3 +897,38 @@ does in `instar-marks.ts`), take its own ring and dial away, and stop the cue
 drawing a second drop on the same place (`markIsHere`/`drawCueHelper` in
 `cue-helper.ts`, or `framed: false` on the reading). Prove it with the frame
 tests and send one PNG of the card from ON THE FIELD.
+
+## THE MAZE's heart as THE RUB LAB's zigzag drop
+
+- **Found:** 2026-10-14, claude/rub-lab-zigzag-variant-1620a4
+- **Files:** `packages/sim/src/maze*.ts`, `packages/render/src/maze-heart.ts`, `packages/render/src/rub-drop.ts`
+- **Asks:** Should THE MAZE's heart become a counted rub that wears the zigzag drop, or keep its shake ring?
+
+Since 14 October 2026 every rub mark on the field is THE RUB LAB's drop with
+ZIGZAG on it, a stroke a turn (`rub-drop.ts`) — the owner: *apply "zigzag"
+… to all usages in game*. THE CAPSTAN, THE VALVE, THE BLISTER and THE CHOIR
+wear it. THE MAZE's heart is filed under RUB on ON THE FIELD but is not drawn
+as a rub: a ring with SHAKE and eight arrows that fills green with the
+distance shaken (`mazeHeartFreeMilli`), because it counts travel, not
+reversals, so there is no count of turns for the zigzag to show. The options:
+(a) make it a rub — count reversals through `rub-turns.ts` as THE CAPSTAN
+does, give it a turns figure in `SimConfig`, draw `drawRubDrop`; (b) keep the
+travel and draw the drop with the zigzag lit by the share travelled; (c) keep
+it as it is and move its row off the RUB card to SHAKE. Prove whichever with
+the maze frame tests and one PNG.
+
+## THE THROAT's pump as THE RUB LAB's zigzag drop
+
+- **Found:** 2026-10-14, claude/rub-lab-zigzag-variant-1620a4
+- **Files:** `packages/render/src/throat-grip.ts`, `packages/render/src/throat-marks.ts`, `packages/render/src/rub-drop.ts`
+- **Asks:** Should THE THROAT's pump wear the zigzag drop, and if so what do its strokes count?
+
+Since 14 October 2026 every rub mark on the field is THE RUB LAB's drop with
+ZIGZAG on it (`rub-drop.ts`). THE THROAT's pump is filed under RUB on ON THE
+FIELD but is drawn as its own ring on the hull: strokes up and down widen the
+circle round the mouth, and it shrinks again when they stop — no number of
+turns is asked, so the zigzag has nothing to count. The options: (a) the drop
+with the zigzag lit by how wide the circle is now, unlit again as it shrinks;
+(b) the drop with no zigzag, wagging, as the pump's call only; (c) keep its
+ring and move its row off the RUB card. Prove whichever with the throat frame
+tests and one PNG.

@@ -39172,3 +39172,18 @@ needed a rule change first.
 Bottleneck: the mouth is small at the gullet's end, so the turn needed a magnified crop to judge.
 
 *Measured: 7 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-14 — Every rub on the field is THE RUB LAB's zigzag drop
+
+- reading: 15 min. Every caller of `drawRubMark`, the HOLD LAB's move into
+  render the day before, where each boss keeps its count of turns.
+- writing: 20 min. `rub-zigzag.ts` and `rub-drop.ts` in render, the cue's
+  `rubs` on THE CAPSTAN and THE VALVE, THE BLISTER's and THE CHOIR's rub.
+- looking: 15 min. THE CAPSTAN, THE VALVE and THE CHOIR shot; THE CHOIR's
+  seat lights moved under the drop, off the SHAKE SCREEN prompt.
+- friction: 10 min. A `grep -r` over the tree ran into `node_modules` and
+  hung the reindex; THE CHOIR's rub shows only before the dots arm.
+- landing: 10 min. The index, the catalogue, the blister spec, two queue
+  entries for the rubs that are not drawn as one.
+
+Bottleneck: finding a tick where THE CHOIR's rub was on the field to shoot.
