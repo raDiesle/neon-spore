@@ -10194,7 +10194,8 @@ straight out, and the gong swings away on its cord as it rings
 side the alien turns round on the seat, through edge-on
 (`TrapezeFx.facing`).
 **Where and when** (`trapeze-marks.ts`): in a swipe level the field is cut
-into two zones, each badged with the seat that pushes there; in each, the
+into two zones — no `P1` or `P2` written in either since 14 October 2026, the
+owner: *do not show the helper text such as "p1" or "p2"* — and in each the
 pull every pull handle wears — a knob with its arrow toward the middle on a
 channel `trapezeSwipeMilli` long, the knob riding the finger's carry
 (`carryMilli`) — dim while shut and lit while the swing comes back over it,

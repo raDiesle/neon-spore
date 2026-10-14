@@ -45,7 +45,7 @@ const TRAPEZE_LEFT: Pose = {
 const TRAPEZE_RIGHT: Pose = {
   name: "TRAPEZE · THE RIGHT ZONE OPEN",
   note: `${SWING} The first level is lit and the swing is coming back over the right zone. Player 2's screen.`,
-  lookAt: "whether the badge says whose zone it is at a glance",
+  lookAt: "whether the arrow on this screen alone says whose zone it is at a glance",
   crop: "field",
   role: "p2",
   build: () => open(1),

@@ -15,8 +15,10 @@ import { trapezeOnArc } from "./trapeze-shape.js";
  *
  * **Where**: each zone is its half of the field from the swing's lowest
  * point down to a row above the hull, so a thumb never lands on the cannon.
- * **Whose**: a badge in each, `P1` or `P2`, the seat that pushes there — a
- * call level changes it as the swing heads that way. **When**: a zone is dim
+ * **Whose**: the arrow in the knob, drawn only on the screen of the seat
+ * that pushes there — a call level changes it as the swing heads that way.
+ * No `P1` or `P2` is written in a zone: the owner, 14 October 2026, *do not
+ * show the helper text such as "p1" or "p2"*. **When**: a zone is dim
  * while the swing is anywhere else, and lights the moment the swing comes
  * back over it. **What**: the pull every pull handle wears (`pull-knob.ts`,
  * `pull-track.ts`) — the owner, 14 October 2026, on this card of CONTROLS ›
@@ -72,7 +74,7 @@ export interface ZonePull {
 }
 
 /**
- * One zone: its frame, its seat's badge, its pull, and — while `open` — its
+ * One zone: its frame, its pull, and — while `open` — its
  * light. `mine` is whether this screen's seat pushes here; `pulse` 0..1
  * breathes the light.
  */
@@ -81,7 +83,6 @@ export function drawTrapezeZone(
   l: Layout,
   z: Zone,
   side: TrapezeSide,
-  seat: 1 | 2,
   open: boolean,
   mine: boolean,
   pulse: number,
@@ -102,7 +103,6 @@ export function drawTrapezeZone(
     ctx.stroke(frame);
     ctx.setLineDash([]);
   }
-  drawBadge(ctx, l, z, side, seat, open ? k : 0.45 * k);
   drawZonePull(ctx, z, side, mine, open || pull.held ? k : SHUT * k, pull);
 }
 
@@ -135,22 +135,4 @@ function drawZonePull(
   const knob = { x: from.x - side * pull.length * pull.carry, y };
   drawPullKnob(ctx, knob, pull.r, { ...look, way: mine ? { dx: -side, dy: 0 } : null });
   ctx.restore();
-}
-
-/** The badge in the zone's top outer corner: the seat that pushes here. */
-function drawBadge(
-  ctx: CanvasRenderingContext2D,
-  l: Layout,
-  z: Zone,
-  side: TrapezeSide,
-  seat: 1 | 2,
-  k: number,
-): void {
-  const x = side < 0 ? z.x + 0.75 * l.tile : z.x + z.w - 0.75 * l.tile;
-  const y = z.y + 0.6 * l.tile;
-  ctx.font = `700 ${Math.round(0.42 * l.tile)}px "Courier New",monospace`;
-  ctx.textAlign = "center";
-  ctx.textBaseline = "middle";
-  ctx.fillStyle = rgba(PALETTE.hullRim, k);
-  ctx.fillText(`P${seat}`, x, y);
 }

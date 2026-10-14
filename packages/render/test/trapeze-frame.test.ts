@@ -13,8 +13,7 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
 
 /**
  * THE TRAPEZE, drawn (`render/src/trapeze-draw.ts`): the swing on its long
- * ropes with the alien on it, the zones badged with the seat that pushes
- * there, the gong at its angle with the gauge running up to it, and the word
+ * ropes with the alien on it, the zones with their pulls, the gong at its angle with the gauge running up to it, and the word
  * a refused swipe stands — on all three screens, set rather than played to;
  * `sim/test/trapeze.test.ts` proves the rules.
  */
@@ -70,13 +69,15 @@ describe("THE TRAPEZE's swing", () => {
 });
 
 describe("the zones", () => {
-  it("are badged with the seat that pushes on each side, in a swipe level", () => {
-    expect(drawn("test", () => {}).words.sort()).toEqual(["P1", "P2"]);
-    expect(drawn("test", (s) => (s.callers = [1, 0])).words.sort()).toEqual(["P1", "P2"]);
+  it("write no seat in a zone — no P1, no P2 (the owner, 14 October 2026)", () => {
+    expect(drawn("test", () => {}).words).toEqual([]);
+    expect(drawn("test", (s) => (s.callers = [1, 0])).words).toEqual([]);
   });
 
   it("are not drawn in a shot level", () => {
-    expect(drawn("test", () => {}, "shoot" as never).words).toEqual([]);
+    const swipe = drawn("test", () => {});
+    const shot = drawn("test", () => {}, "shoot" as never);
+    expect(shot.ctx.calls).toBeLessThan(swipe.ctx.calls);
   });
 
   it("light the open zone, loud on its seat's screen and faint on the other", () => {

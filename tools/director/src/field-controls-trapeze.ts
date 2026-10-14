@@ -26,7 +26,7 @@ export const TRAPEZE_CONTROLS: readonly FieldControlDef[] = [
     name: "THE TRAPEZE'S LEFT ZONE",
     where:
       "the left half of the field under the swing, down to a row above the hull, in a swipe level",
-    seat: "player 1 in the first level; in a call level whoever the field badges, drawn by chance",
+    seat: "player 1 in the first level; in a call level whoever is drawn by chance, the arrow on that seat's screen",
     gesture: "grab and drag",
     does: ZONE_DOES,
     source: SOURCE,
@@ -39,7 +39,7 @@ export const TRAPEZE_CONTROLS: readonly FieldControlDef[] = [
     name: "THE TRAPEZE'S RIGHT ZONE",
     where:
       "the right half of the field under the swing, down to a row above the hull, in a swipe level",
-    seat: "player 2 in the first level; in a call level whoever the field badges, drawn by chance",
+    seat: "player 2 in the first level; in a call level whoever is drawn by chance, the arrow on that seat's screen",
     gesture: "grab and drag",
     does: ZONE_DOES,
     source: SOURCE,

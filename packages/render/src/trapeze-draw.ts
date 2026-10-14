@@ -120,7 +120,7 @@ export function drawTrapeze(
   ctx.restore();
 }
 
-/** Both zones: lit while the swing comes back over one, badged with the seat that pushes there. */
+/** Both zones: lit while the swing comes back over one, the arrow on the screen of the seat that pushes there. */
 function drawZones(
   ctx: CanvasRenderingContext2D,
   l: Layout,
@@ -139,17 +139,7 @@ function drawZones(
     );
     const z = trapezeZone(l, world.cfg, side);
     const mine = showsTrapezeHand(l.role, seat);
-    drawTrapezeZone(
-      ctx,
-      l,
-      z,
-      side,
-      seat,
-      open === side,
-      mine,
-      pulse,
-      zonePull(l, world, s, side, time),
-    );
+    drawTrapezeZone(ctx, l, z, side, open === side, mine, pulse, zonePull(l, world, s, side, time));
   }
 }
 

@@ -27,7 +27,7 @@ import { trapezeAlienAt, trapezeDeg, trapezeSpeed } from "./trapeze-shape.js";
  *
  * **A zone names the seat that pushes there** to the test screen's one mouse
  * (`trapezeGripSeat`, `desk-grab.ts`), so a press in the left zone in the
- * first level is the pilot's, and in a call level whoever is badged.
+ * first level is the pilot's, and in a call level whoever it is called for.
  *
  * **The alien is the pilot's, in a lock level**: a tap on it locks the cannon
  * (`sim/lock.ts`), and the press is an edge the simulation reads.

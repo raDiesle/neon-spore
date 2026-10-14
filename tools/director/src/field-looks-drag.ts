@@ -68,7 +68,7 @@ export const DRAG_LOOKS: Readonly<Record<string, UseLook>> = {
     move: "Pulled down while the pilot's thumb is still on the hull, the wreck sinks and the wound goes green.",
   },
   "THE TRAPEZE'S LEFT ZONE": {
-    find: "A pull knob in the left half of the field under the swing, its arrow toward the middle, badged P1 or P2, lit while the swing comes back over it.",
+    find: "A pull knob in the left half of the field under the swing, its arrow toward the middle on the screen of the seat that pulls there, lit while the swing comes back over it.",
     move: "The knob follows the thumb in and its channel fills green; let go past the end and the swing goes higher. Too early brakes it, and a wrong seat or a short pull says why, red.",
   },
   // LEVER — CARRY TO A DEPTH AND HOLD

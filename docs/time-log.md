@@ -39201,3 +39201,14 @@ Bottleneck: finding a tick where THE CHOIR's rub was on the field to shoot.
 Bottleneck: a lobe's height changes as it grows, so the turn's reach is handed in per lobe rather than fixed.
 
 *Measured: 5 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-14 — THE TRAPEZE's zones write no P1 or P2
+
+- reading: 5 min. The badge, and the frame test that counted its words.
+- writing: 5 min. The badge out, the zone's argument with it, the cards'
+  and the spec's words.
+- looking: 5 min. One frame of the left zone on the pilot's screen.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: none — one drawing, one test.

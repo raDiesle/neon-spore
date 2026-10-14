@@ -40,7 +40,7 @@ export const ROWS_B: readonly Row[] = [
         trapezeMarks,
         "drawTrapezeZone",
         (w) => trapezeOpenZone(w.cfg, trapeze(w)) !== 0,
-        (a) => a[5] === true,
+        (a) => a[4] === true,
       ),
     ],
   },
