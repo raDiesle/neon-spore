@@ -39548,3 +39548,5 @@ Bottleneck: the counted pull-then-hold kept `mark: true`, so SOAK's full drop wa
 - landing: 5 min. `check:fast`, the commit, `land`.
 
 Bottleneck: the glare and the sight reach down to the hull, past any layer the turn can draw, so the lens had to be split into a turned body, the beams, and the turned lit pair over them.
+
+*Measured: 10 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*

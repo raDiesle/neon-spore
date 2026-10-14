@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-14 · acb42c96e — VERSUS offers THE OCULUS's lens turning about its middle
+
+`oculus:glance` offers the whole lens a turn about its middle — SWAY, LOOK or COCK — the rim, glass, leaves, socket and core yawing together while the middle line between the two seats' halves stays put, the near half opening and the far half closing into the dark and back, on THE OCULUS · LIT. The levers, the glare and the sight are drawn outside the turn, and a bolt meets each half of the rim as far out as it is drawn. The record ships still, so the game draws what it did.
+
 ## 2026-10-14 · e7fb3cec1 — THE COMBO LAB: clock before the pull, finish under the held thumb, press then pull as a chain
 
 A pull-then-hold's waiting clock is up from the moment its knob is on the field, not only once it is taken; every hold in the labs wears it from the moment its mark is up. Counted with the thumb still down, SOAK's drop now boils away at once instead of standing full green until the lift. PRESS, THEN PULL is one seat's press, counted and gone, then a separate pull in its place, as HOLD, THEN PULL is; both are one `thenPull` chain (`combo-then-pull.ts`). Every combo has a `kind` — `held` while it waits, or `chain`, one gesture then another — and the lab's COMBO choice shows them in two groups.
