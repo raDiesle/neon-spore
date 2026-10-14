@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-14 · 8832a5c53 — THE LAMPREY's head is armour wherever it stands
+
+A bolt up THE LAMPREY's column while its gullet is shut — recoiling from a hit, bitten into a tile, pulled up, towed or crawling — now bursts on the head's sucker as armour: it costs nothing and is not a wasted shot on HARD. Until now the second bolt of a double tap was drawn flying straight through the recoiling head to the top. The simulation meets it at the highest the head is drawn that beat, so never short of the picture; the recoil's lift is a named field, `lampreyRecoilLiftMilli`, the pose reads too. Exemption: a fix to something wrong — a bolt drawn through a body.
+
 ## 2026-10-14 · f1d4c5e33 — BULB QUEEN's film takes a petal again
 
 BULB QUEEN's rehearsal slid the cannon and fired at her second bloom, which on the ten-beat clock opens two beats after her torch has reached the hull and held the wave — so the film moved the cannon and then stood still. The shot now goes into her first bloom, cyan, at her weak side, under the page about the marks; a petal comes off before the torch pays the hull, and a test holds both. Exemption: a fix to something wrong — the film's acts did nothing.
