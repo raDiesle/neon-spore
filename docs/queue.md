@@ -820,3 +820,10 @@ three, then run `bun run check`.
 - **Files:** `packages/sim/src/handle-pull.ts`, `packages/sim/src/pinball-contact.ts`, `packages/sim/test/copies-table.ts`
 
 Both export `isqrt`: `handle-pull.ts` by bisection up to 46340, `pinball-contact.ts` by Newton's step with no ceiling. Keep the one without a ceiling in a small `isqrt.ts`, import it in both places (and in `gauge-tooth.ts`, which takes `handle-pull.ts`'s now), and add a `COPIES` row so a third is not written.
+
+## `land` misses a queue title wrapped across two lines of a commit message
+
+- **Found:** 2026-10-14, claude/queue-the-lids-cord-still-goes-any-direction-the-last
+- **Files:** `tools/land/queue-dropped.ts`, `tools/land/test/`
+
+`queueDropped` closes an entry a lane names in its commit messages with `laneLog.includes(entry.title)`, against `git log --format=%B` as it stands. A message wrapped at 72 columns breaks a long title over a line, so the lane that closed "A tap on a lid's cord under the chrome reads as a pull" was refused until the title was put on one line by hand. Collapse runs of whitespace in both the log and the title before comparing, and add the wrapped case to the test beside it.
