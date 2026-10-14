@@ -39754,3 +39754,15 @@ Bottleneck: looking — a still frame of a moment that lives one tick (a verdict
 a banner) shows nothing, and only drawing it says so.
 
 *Measured: 9 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-14 — THE LEDGER's root wears the HOLD LAB's drop
+
+- reading: 10 min. `soak-hold.ts`, THE INSTAR's use of it, the ring in
+  `ledger-grip.ts` and its frame test.
+- writing: 5 min. The drop for the foot and the plug, the water as the clock
+  each used to drain, two tests that asked for the ring's violet rim.
+- looking: 5 min. One frame of the navigator's screen and a crop of the root.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: none to speak of — the drop takes the ring's circle, so the hit test and the cue's word stayed where they were.

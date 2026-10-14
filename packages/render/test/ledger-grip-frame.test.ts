@@ -27,7 +27,8 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
 
 /**
  * **THE LEDGER's one ring, drawn** — the other half of `ledger-grip.ts`, which
- * `ledger-grip.test.ts` asks about only as a hit test.
+ * `ledger-grip.test.ts` asks about only as a hit test. It is the HOLD LAB's
+ * drop since 14 October 2026 and is still counted as one ring here.
  *
  * A ring fills a flat disc in `PALETTE.background` before anything else
  * (`handle-draw.ts`), and on this boss **two other things do**: each half of
@@ -160,29 +161,25 @@ describe("THE LEDGER's ring on the root", () => {
     expect(rings(paying, "p1")).toBe(0);
   });
 
-  it("lights the rim while her thumb is on the foot, and in violet", () => {
-    // `hullRim` and not the white every other handle's rim is: white is the
-    // lock's on this boss, and the two marks are a finger apart.
+  it("sinks under her thumb on the foot, as every hold's drop does", () => {
+    // The HOLD LAB's drop since 14 October 2026 (`soak-hold.ts`): waiting it
+    // calls with ripples, held it is pressed in and calls no more.
     const loose = open();
     const held = open();
     cord(held).foot = cord(held).socket;
-    expect(count(drawn(held, "test"), PALETTE.hullRim)).toBeGreaterThan(
-      count(drawn(loose, "test"), PALETTE.hullRim),
-    );
+    expect(drawn(held, "test")).not.toBe(drawn(loose, "test"));
   });
 
-  it("lights the rim while her thumb is in the socket", () => {
+  it("sinks under her thumb in the socket", () => {
     const loose = open();
     rooted(loose);
     const held = open();
     rooted(held).plug = true;
-    expect(count(drawn(held, "test"), PALETTE.hullRim)).toBeGreaterThan(
-      count(drawn(loose, "test"), PALETTE.hullRim),
-    );
+    expect(drawn(held, "test")).not.toBe(drawn(loose, "test"));
   });
 
-  it("drains the plug's dial as the grace is spent, thumb or no thumb", () => {
-    // The count keeps on the beat either way (`ledger-step.ts`), so the dial
+  it("fills the plug's drop as the grace is spent, thumb or no thumb", () => {
+    // The count keeps on the beat either way (`ledger-step.ts`), so the water
     // is the grace and not the hold — THE UNDERTOW's free, read the same way.
     const full = open();
     rooted(full);

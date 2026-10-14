@@ -1,8 +1,7 @@
 import { type LedgerState, ledgerFootable, ledgerPlugs, type World } from "@neon-spore/sim";
-import { drawHandleRing } from "./handle-draw.js";
-import { type Circle, hitCircle, type Layout } from "./layout.js";
+import { hitCircle, type Layout } from "./layout.js";
 import { ledgerRootCircle } from "./ledger-cord-shape.js";
-import { PALETTE } from "./palette.js";
+import { drawSoakHold } from "./soak-hold.js";
 import type { Field, Touch } from "./touch.js";
 import { bossOf } from "./touch-field.js";
 
@@ -45,10 +44,12 @@ import { bossOf } from "./touch-field.js";
  * that file, with everything else about where this boss is: the word that
  * stands in `rooting` stands on it (`boss-cue-read-o.ts`).
  *
- * **And its rim is not white**, which every other handle's is: white is the
- * lock's on this boss and the two marks are a finger apart. `hullRim` is the
- * pale end of the violet the cord, the beads and the grommet are already in,
- * so a held ring brightens rather than turning into a second lock.
+ * **It is the HOLD LAB's drop** (`soak-hold.ts`) since 14 October 2026, the
+ * owner on this boss: *why there is a circle with asks for taps, but follows
+ * old visual, not the up to date "press" visuals and behavior?* It was a
+ * violet handle ring with a dial draining round it, the look every hold wore
+ * before 13 October; the drop is every hold's now, and both of hers are a
+ * thumb that rests.
  */
 
 /** The one circle, from the file that holds every other place this boss is. */
@@ -113,11 +114,11 @@ function grab(target: "ledgerFoot" | "ledgerSocket", x: number, y: number): Touc
  * over (`ledger-root.ts`) — THE SCOUT's pair, where a split fight shows
  * neither seat both handles.
  *
- * **Each dial drains, and they drain different clocks.** The foot's is what is
- * left of `ledgerRootBeats` — two beats, and then where the cord went in is
- * where it went in for the rest of the fight, so what she is watching empty is
- * her whole chance to choose the geometry. The plug's is the grace itself,
- * `plugBeats` of `ledgerPlugBeats` for the whole encounter, and it is drawn
+ * **The drop's water rises on two different clocks.** The foot's is how much
+ * of `ledgerRootBeats` has gone — two beats, and then where the cord went in
+ * is where it went in for the rest of the fight, so what she is watching fill
+ * is her whole chance to choose the geometry used up. The plug's is the grace
+ * spent, of `ledgerPlugBeats` for the whole encounter, and it is drawn
  * **whether or not her thumb is down** because the count keeps either way
  * (`ledger-step.ts`) — THE UNDERTOW's free, read the same way.
  */
@@ -130,46 +131,17 @@ export function drawLedgerGrips(
   time: number,
 ): void {
   const { cfg, beat } = world;
+  const at = ledgerRootCircle(l, cfg, t);
   if (ledgerFootable(t, cfg, beat)) {
     const paid = (beat - t.rootBeat + beatPhase) / Math.max(1, cfg.ledgerRootBeats);
-    ring(ctx, ledgerRootCircle(l, cfg, t), t.foot >= 0, clamp(1 - paid), time);
+    drawSoakHold(ctx, at, at.r, { time, held: t.foot >= 0, fill: clamp(paid) });
     return;
   }
   if (!ledgerPlugs(t, cfg, beat)) return;
-  const left = t.plugBeats / Math.max(1, cfg.ledgerPlugBeats);
-  ring(ctx, ledgerRootCircle(l, cfg, t), t.plug, clamp(left), time);
+  const spent = 1 - t.plugBeats / Math.max(1, cfg.ledgerPlugBeats);
+  drawSoakHold(ctx, at, at.r, { time, held: t.plug, fill: clamp(spent) });
 }
 
 function clamp(v: number): number {
   return Math.max(0, Math.min(1, v));
-}
-
-/**
- * One ring, in one colour: the seat that is shown it is the only seat that
- * may pull it, so there is no *theirs* to dim (`drawLedgerGrips` above).
- *
- * **Hull purple, which everything at this end of the cord already is.** The
- * cord and its beads are violet because what travels them is the ship's own
- * damage, and the grommet is violet because it is a hole in the ship
- * (`ledger-cord.ts`) — so a ring in that same violet reads as one more piece
- * of the ship, which is what a handle should be. The white is left to the
- * lock, and the two must not be the same mark.
- */
-function ring(
-  ctx: CanvasRenderingContext2D,
-  at: Circle,
-  held: boolean,
-  pull: number,
-  time: number,
-): void {
-  drawHandleRing(ctx, {
-    x: at.x,
-    y: at.y,
-    r: at.r,
-    hex: PALETTE.hull,
-    rim: PALETTE.hullRim,
-    held,
-    pull,
-    time,
-  });
 }

@@ -677,10 +677,10 @@ drawing a second drop on the same place (`markIsHere`/`drawCueHelper` in
 `cue-helper.ts`, or `framed: false` on the reading). Prove it with the frame
 tests and send one PNG of the card from ON THE FIELD.
 
-## Holds as the HOLD LAB's drop: THE LEDGER, THE SCOUT, THE VANE, THE WELL
+## Holds as the HOLD LAB's drop: THE SCOUT, THE VANE, THE WELL
 
 - **Found:** 2026-10-13, claude/docs-control-visuals-consistency-d98efe
-- **Files:** `packages/render/src/ledger-grip.ts`, `packages/render/src/scout-grip.ts`, `packages/render/src/vane-grip.ts`, `packages/render/src/well-draw.ts`, `packages/render/src/cue-helper.ts`
+- **Files:** `packages/render/src/scout-grip.ts`, `packages/render/src/vane-grip.ts`, `packages/render/src/well-draw.ts`, `packages/render/src/cue-helper.ts`
 
 Since 13 October 2026 every `HOLD` cue is the HOLD LAB's drop and says no
 word (`soak-hold.ts`, `saysHold`) — the owner, on CONTROLS › ON THE FIELD:
