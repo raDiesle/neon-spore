@@ -39919,3 +39919,5 @@ Bottleneck: the teeth a thumb taps are on the turning part and the hit test has 
 - landing: 5 min. `check:fast`, the commit, `land`.
 
 Bottleneck: the crane's arms are drawn apart from the mantle they leave, so turning the mantle alone left one hanging until its roots read the same turn.
+
+*Measured: 6 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
