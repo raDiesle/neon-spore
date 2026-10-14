@@ -41252,3 +41252,5 @@ undo the point of a fast check; timed, they are half a minute.
 
 Bottleneck: reading — both copies were re-exported from the package, from
 two index pages, so one had to go without a name changing.
+
+*Measured: 5 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*

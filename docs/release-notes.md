@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-15 · 4ebc74850 — One whole-number square root in sim, `isqrt.ts`
+
+THE PINBALL's Newton root and the pulls' bisection under a ceiling of 46340 are one function now, the one without the ceiling, and every length in the simulation — the pulls, THE GAUGE's tooth, THE BASTION's port, the ball — takes it from `isqrt.ts`. A `COPIES` row fails the next file that writes a third.
+
 ## 2026-10-15 · 3d1bee332 — `check:fast` runs every test that reads the wave list when a wave file changes
 
 A change to `packages/content/src/waves.ts` or an act page now reaches every test outside `packages/content` that names `WAVES` or an act page — found by reading the tests when the check runs, ninety-seven today and half a minute through the shards. The director's save that moved THE INSTAR and THE BASTION was green here and red three times in the landing's full check.
