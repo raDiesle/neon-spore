@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-14 · fba8c6216 — Every boss glances on a temper of its own, so no two turn alike
+
+The owner, 14 October 2026: the movements should vary, not be exactly equal. Each boss now plays its glance on a temper read off its name: rounds of 4.8 to 7.8 seconds where all were six, COCK cocking two, three or four times a round, and a cycle of five rounds that differ from each other in length and in reach. So no two bosses turn in step, and none repeats itself round for round. A round never reaches past the boss's own size, which is still the widest its hit tests allow, and one round in every cycle reaches all of it. Every round still starts and ends level, so nothing jumps. THE INSTAR keeps its own rotation of all three rhythms.
+
 ## 2026-10-14 · 2fb16469c — THE SPOOL's poses move out of poses-bosses-hands-clocks.ts
 
 THE SPOOL's six earned states, with the paragraph that explains them, move to their own `poses-bosses-hands-spool.ts`, joined straight after the clocks' cards so the sheet's order is unchanged; the clocks' file drops from 250 lines to 197.

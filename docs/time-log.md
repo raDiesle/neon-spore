@@ -40917,3 +40917,5 @@ joined in `poses-bosses.ts`, not `poses.ts` as it said.
 
 Bottleneck: writing — four tests had quietly relied on every boss resting at
 the same moments.
+
+*Measured: 27 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
