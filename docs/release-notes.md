@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-14 · 3a025f919 — Six more blocks get their regular waves, THE WARD to THE GYRE
+
+Forty-eight waves composed by `bun run waves:compose`, eight after each of THE WARD, THE WISP, THE GHOST, THE ECHO, THE RIND and THE GYRE, named the way the six before them were. Each block's first wave starts a little above the last — 4.7 at THE WARD to 6.3 at THE GYRE — and its peak climbs from 9.1 to 10.9. All are variants, folded under their intro in the director's list. A look the owner asked for by name.
+
 ## 2026-10-14 · 361d7ce7e — THE HYDRA's marks: a knob across each neck, a lever on each coil, a tap on the open eye
 
 Each kind of head now asks for its own gesture on the field. A biting head's neck wears a knob to swipe across it the way its arrow points; a coil wears THE MAZE's lever, turned round the way it unwinds, the pilot's anticlockwise and the navigator's clockwise; an eye is tapped while it is open, and a tap on a shut one is refused aloud. The field says SWIPE, TURN and TAP beside them, and on the maws COLOUR to the pilot who sees the fire and FIRE to the navigator who sees the open maw. A thumb on the partner's mark is refused red, and every mark greens on its head stopped.

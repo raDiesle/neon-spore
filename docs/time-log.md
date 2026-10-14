@@ -40996,3 +40996,5 @@ outside the boss's own files.
 
 Bottleneck: looking — the full check is four minutes, and the sheet's
 forty-eight shots each start a director of their own.
+
+*Measured: 15 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
