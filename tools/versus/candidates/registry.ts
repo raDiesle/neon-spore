@@ -53,6 +53,9 @@ import { KEEL_SWAY } from "./keel-glance/sway/index.js";
 import { LAMPREY_COCK } from "./lamprey-glance/cock/index.js";
 import { LAMPREY_LOOK_AROUND } from "./lamprey-glance/look/index.js";
 import { LAMPREY_SWAY } from "./lamprey-glance/sway/index.js";
+import { LATCH_COCK } from "./latch-glance/cock/index.js";
+import { LATCH_LOOK_AROUND } from "./latch-glance/look/index.js";
+import { LATCH_SWAY } from "./latch-glance/sway/index.js";
 import { LEAD_LOOK_AROUND } from "./lead-glance/look/index.js";
 import { LEAD_SWAY } from "./lead-glance/sway/index.js";
 import { LEDGER_COCK } from "./ledger-glance/cock/index.js";
@@ -194,6 +197,9 @@ export const VARIANTS: Variant[] = [
   LAMPREY_COCK,
   LAMPREY_LOOK_AROUND,
   LAMPREY_SWAY,
+  LATCH_COCK,
+  LATCH_LOOK_AROUND,
+  LATCH_SWAY,
   LEAD_LOOK_AROUND,
   LEAD_SWAY,
   LEDGER_COCK,

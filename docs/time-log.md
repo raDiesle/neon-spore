@@ -39921,3 +39921,16 @@ Bottleneck: the teeth a thumb taps are on the turning part and the hit test has 
 Bottleneck: the crane's arms are drawn apart from the mantle they leave, so turning the mantle alone left one hanging until its roots read the same turn.
 
 *Measured: 6 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-14 — THE LATCH: a part that turns, so it is seen from a new side
+
+- reading: 5 min. The colony, the tendril and the grips, and who reads the
+  colony's geometry: only the blow, from the colony at rest.
+- writing: 5 min. `latch-glance.ts`, the colony wrapped in it, and a
+  `lookAt` on THE LATCH · LEVEL.
+- looking: 5 min. `versus:shot latch:glance cock` once, cropped.
+- friction: 5 min. A context cut at the lane's start, and an index row
+  written twice over by the helper.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: none to speak of — the colony is one skin drawn in one function, so it turned whole with nothing left hanging from it.

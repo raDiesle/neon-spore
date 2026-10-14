@@ -2353,6 +2353,7 @@ by hand never moves.
 | `packages/render/src/lamprey-wound.ts` | **Where THE LAMPREY bit into the ship, the hull bleeds**: a torn hole ringed with punctures, blood running down the hull for the rest of the fight |
 | `packages/render/src/latch-draw.ts` | **THE LATCH** drawn: the colony in its one skin, the tendril and its knots, the coil on the hull, the grips |
 | `packages/render/src/latch-grip.ts` | **The thumbs on THE LATCH** (§11.61): the two grips on the tendril, pulled down |
+| `packages/render/src/latch-glance.ts` | **THE LATCH glances**: the colony turns about its core, offered on VERSUS `latch:glance` |
 | `packages/render/src/latch-handles.ts` | **THE LATCH's two grips**, in the field's one look for a thumb's control (`pull-knob.ts`, `pull-track.ts`) |
 | `packages/render/src/latch-pose.ts` | **How THE LATCH stands this frame**, read off the simulation and nothing else (§11.61) |
 | `packages/render/src/latch-shape.ts` | **THE LATCH's shape** (§11.61): the shape sheet's COLONY — small bodies sharing one skin |

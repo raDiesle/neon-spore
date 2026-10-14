@@ -10,6 +10,7 @@ import { drawHurt } from "./boss-hurt.js";
 import { mixHex, rgba } from "./hex.js";
 import { litRound } from "./key-light.js";
 import type { LatchFx } from "./latch-fx.js";
+import { drawLatchGlanced } from "./latch-glance.js";
 import { drawLatchHandles } from "./latch-handles.js";
 import { type LatchPose, latchPose } from "./latch-pose.js";
 import { drawLatchTorn } from "./latch-receipts.js";
@@ -71,7 +72,7 @@ export function drawLatch(
   // The colony takes the blow of a knot pulled in; the rope and the grips do not.
   ctx.save();
   ctx.translate(fx.hurt.shakeX(time, l.tile), 0);
-  drawColony(ctx, l, bodies, p, fx.hurt.value);
+  drawLatchGlanced(ctx, bodies, time, (g) => [drawColony(g, l, bodies, p, fx.hurt.value)]);
   ctx.restore();
   drawLatchTorn(ctx, l, fx.torn);
   drawLatchHalos(ctx, l, cfg, s, time);
@@ -182,7 +183,7 @@ function drawColony(
   bodies: readonly LatchBody[],
   p: LatchPose,
   hurt: number,
-): void {
+): Path2D {
   const path = new Path2D();
   for (const loop of latchSkinLoops(l, bodies)) path.addPath(splinePath(resample(loop, 40), true));
   ctx.save();
@@ -222,4 +223,5 @@ function drawColony(
     ctx.fill();
   }
   ctx.restore();
+  return path;
 }

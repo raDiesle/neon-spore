@@ -24,6 +24,7 @@ import { HASP_GLANCE, HASP_GLANCE_SIZE } from "../src/hasp-glance.js";
 import { HIVE_GLANCE, HIVE_GLANCE_SIZE } from "../src/hive-glance.js";
 import { KEEL_GLANCE, KEEL_GLANCE_SIZE } from "../src/keel-glance.js";
 import { LAMPREY_GLANCE, LAMPREY_GLANCE_SIZE } from "../src/lamprey-glance.js";
+import { LATCH_GLANCE, LATCH_GLANCE_SIZE } from "../src/latch-glance.js";
 import { LEAD_GLANCE, LEAD_GLANCE_SIZE } from "../src/lead-glance.js";
 import { LEDGER_GLANCE, LEDGER_GLANCE_SIZE } from "../src/ledger-glance.js";
 import { MANTLE_GLANCE, MANTLE_GLANCE_SIZE } from "../src/mantle-glance.js";
@@ -127,6 +128,7 @@ const ROWS: readonly Row[] = [
   { name: "THE GOVERNOR", record: GOVERNOR_GLANCE, size: GOVERNOR_GLANCE_SIZE, hold: 0 },
   { name: "THE LAMPREY", record: LAMPREY_GLANCE, size: LAMPREY_GLANCE_SIZE, hold: 0 },
   { name: "THE MIMIC", record: MIMIC_GLANCE, size: MIMIC_GLANCE_SIZE, hold: 0 },
+  { name: "THE LATCH", record: LATCH_GLANCE, size: LATCH_GLANCE_SIZE, hold: 0 },
 ];
 
 const R = 100;

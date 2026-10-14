@@ -81,6 +81,7 @@ const SLOT_POSE: Record<string, string> = {
   "governor:glance": "GOVERNOR · BOTH MARKS LIT",
   "lamprey:glance": "THE LAMPREY · REARING",
   "mimic:glance": "THE MIMIC · ENTERING",
+  "latch:glance": "THE LATCH · LEVEL",
 };
 
 /** The pose a slot gets when nothing in `SLOT_POSE` names it. */

@@ -11551,6 +11551,15 @@ comes. `content/test/scene-latch.test.ts` runs it.
 
 **What is not built.** Nothing. **And a step seen from another side** (suggested 10 October 2026, after the owner on THE BASTION: *very 3 dimensional and even user action is 3d to rotate*): The drum turns the rope round, and a knot on its back is out of reach until it is hauled round to the front.
 
+**Offered (14 October 2026, VERSUS `latch:glance`).** The colony is the part
+that turns: every body on the skin and its nucleus yaw together about the
+core (`packages/render/src/latch-glance.ts`), the near bodies opening and the
+far ones closing into the dark and back. The tendril, its rings, knots and
+coil, and both grips stay where they hang, so nothing a thumb is on moves,
+and the blow at the hull leaves from the colony at rest. It ships still, and
+VERSUS offers **SWAY**, **LOOK** and **COCK** at 0.32 of the colony's
+half-width on THE LATCH · LEVEL.
+
 **What is proven, and what is not.** `sim/test/latch.test.ts` proves the
 rules: the install and the first level; whose grip is whose and the wrong
 grab said; only the turn's grip moves the rope, never more than a reach; a

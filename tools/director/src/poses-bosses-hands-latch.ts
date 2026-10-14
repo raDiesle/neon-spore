@@ -29,7 +29,11 @@ export const LATCH_POSES = [
     "latch",
     "level",
     "The rope is taut. P1's grip on the left pulls first while P2's on the right holds, then they swap.",
-    { hand: latchHand, want: into("level", 1) },
+    {
+      hand: latchHand,
+      want: into("level", 1),
+      lookAt: "the colony hung over the rope — whether its bodies read as round or as flat discs",
+    },
   ),
   bossPose(
     "latch",
