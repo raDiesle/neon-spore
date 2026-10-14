@@ -41095,3 +41095,17 @@ Bottleneck: friction — the composer asked a weaker question of AUTO than the
 game's own test does, and that only showed in the four-minute check.
 
 *Measured: 8 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
+
+## 2026-10-14 — A wave editor save moves a wave and leaves its import behind
+
+- reading: 10 min. The save, and `fixImports`, which a lane had landed
+  eight hours after the entry was filed without closing it.
+- writing: 10 min. The test: a copy of `packages/content/src`, THE INSTAR
+  dragged into the next act, the real `tsc` over the written acts.
+- looking: 0 min.
+- friction: 5 min. TypeScript here is 7, with no JS API to check in-process;
+  `tsc` on a temp `tsconfig` with `paths` was the way, and quick.
+- landing: 5 min.
+
+Bottleneck: reading — the fix was already on main, and finding that took
+longer than the proof it was missing.

@@ -328,25 +328,6 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/skipped.test.ts` holds the listing's count of the entries
 `next` stepped past and why.
 
-## A wave editor save moves a wave and leaves its import behind
-
-- **Found:** 2026-10-14, claude/task-queue-work-2770bc
-- **Taken:** 2026-10-14, main (claim: claude/queue-a-wave-editor-save-moves-a-wave-and-leaves-its-i)
-- **Files:** `tools/director/src/waves-acts.ts`, `tools/director/src/waves-act-files.ts`
-
-The owner moved THE INSTAR up the list in the wave editor (`bun run dev`) and
-saved. The save splits the flat list back across the act files at each act's
-current length, so every wave between the old and new place shifted into the
-next file — and five of them (THE INSTAR, THE GIMBAL, the pinball, THE PULSE,
-THE GORGE) took a reference to a constant imported only by the file they left:
-`INSTAR_SCRIPT is not defined` at `act-1.ts:83`, and `tsc` red on five act
-files. Fixed by hand in the main checkout by moving each import with its wave.
-The save should write each act file's imports from the waves it now holds —
-the names a wave's source references, imported from where they were before —
-and drop the ones no wave there uses. Prove it with a test that moves a wave
-carrying an imported constant across an act boundary and type-checks the
-written files, then `bun run check`.
-
 ## HELPERS: six helpers that ship with no frame showing them
 
 - **Found:** 2026-10-14, claude/docs-controls-helpers-org-c825df
