@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-14 · 263ecf8c8 — A glanced part's middle is the picture once, translucent or not
+
+A glanced part's two halves are now put together on a scratch layer of their own, each added at half strength and the sum doubled, and laid on the screen once. The seam pixel used to hold the picture twice: SPLICE's pale rim showed a tick at the middle, top and bottom, and THE MAZE's heart, drawn adding light, had a bright line down it. Both are gone; the rest of the part moves by at most one step of 255, from the halving.
+
 ## 2026-10-14 · f5f461405 — The wave curriculum is planned, today's waves are measured, and the wave list filters to regular waves
 
 The director's wave list has a fifth press, ≡, that shows only the regular waves — no boss, no guide, nothing the pair has not met before. Ten of the 120 waves are regular today. `docs/spec/wave-curriculum.md` is the plan for about a thousand waves: every new thing opens a block of its intro and eight regular waves, each wave has a length band and a pressure score it is aimed at, and the waves are composed once into the act files and edited in the wave editor like any other. `docs/spec/wave-curriculum-today.md` measures every wave and every boss with AUTO playing both seats.

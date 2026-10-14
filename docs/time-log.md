@@ -40478,3 +40478,5 @@ function, so it had to be found and lifted out before anything could count.
 
 Bottleneck: friction — the canvas's blend arithmetic at a soft clip edge is
 not what the specification reads as, and only a measured probe said how.
+
+*Measured: 15 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
