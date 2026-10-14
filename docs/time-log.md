@@ -41313,3 +41313,5 @@ once, which only the probe's beat-by-beat field showed.
 
 Bottleneck: reading. The world does not know its panel, and THE CLAW's rocks
 turned out to have no answer on it, which only a probe with no commands showed.
+
+*Measured: 16 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*

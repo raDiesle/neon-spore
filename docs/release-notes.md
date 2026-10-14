@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-15 · 984980f50 — AUTO plays THE CLAW's arm: reach for a crossing pod, wind it home, open the mouth
+
+On THE CLAW's panel AUTO used to fire at every pod, though the panel has no colours, so the first pod crossed the field and the wave was lost. Now player 1 stands the arm one column ahead of the pod and presses so the tip meets it, winds the crank until the arm is home, and player 2 opens the mouth over the last of the way. All four of the wave's pods are taken. The wave is still lost to its rocks, which nobody can answer on this panel; that question is queued for the owner.
+
 ## 2026-10-15 · 3528238b6 — AUTO plays THE COUNT: the cannon holds its shot for the zero
 
 The field hand fired the moment it stood under a countdown body, which shuts it, and lost THE COUNT to the second of two counts on the field at once. Now it waits for the zero, with time for the shot to arrive, and turns to a body it can answer meanwhile. THE COUNT clears in 25 beats, the today table says so, and `bun run waves:compose theCount` composes the whole block. THE CLAW is the half still to come.
