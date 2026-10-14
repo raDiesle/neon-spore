@@ -40112,3 +40112,13 @@ Bottleneck: working out, phase by phase, the highest the picture draws the
 head, so the sim never meets a bolt short of it.
 
 *Measured: 8 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-14 — The dev supervisor gives a panicked start one more try
+
+- reading: 5 min. `supervise.ts` and its stop test.
+- writing: 5 min. The retry in the loop, `supervise-panic.test.ts`.
+- looking: 0 min. Nothing drawn.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, `land`.
+
+Bottleneck: none — the item named the fix and the test.

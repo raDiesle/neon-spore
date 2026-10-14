@@ -206,12 +206,36 @@ if (gitDir === undefined) {
   });
 }
 
+/**
+ * **A Bun panic at start is given one more try.** A restart after a `git rm`
+ * while the director ran spawned a child that panicked before serving
+ * anything (*index out of bounds*, exit 134, Bun 1.4.2, 10 October 2026), and
+ * the loop took that for the human's own stop and went down with it. A child
+ * that aborts within `PANIC_WINDOW_MS` of being spawned is spawned once more
+ * after `PANIC_WAIT_MS`; a second panic in a row exits as any other stop does.
+ */
+const PANIC = 134;
+const PANIC_WINDOW_MS = 5000;
+const PANIC_WAIT_MS = 500;
+let spawnedAt = Date.now();
+let panicked = false;
+
 while (child !== undefined) {
   const code = await child.exited;
-  // The child stopped for its own reasons — an idle exit, a crash, or the
-  // human's Ctrl-C reaching it first. The supervisor has nothing to add.
-  if (!restarting) process.exit(code);
-  restarting = false;
-  await reinstall();
+  const panic = code === PANIC || child.signalCode === "SIGABRT";
+  if (!restarting && !leaving && panic && !panicked && Date.now() - spawnedAt < PANIC_WINDOW_MS) {
+    console.log(`the server crashed at start (exit ${code}) — starting it once more`);
+    panicked = true;
+    await Bun.sleep(PANIC_WAIT_MS);
+  } else {
+    // The child stopped for its own reasons — an idle exit, a crash, or the
+    // human's Ctrl-C reaching it first. The supervisor has nothing to add.
+    if (!restarting) process.exit(code);
+    restarting = false;
+    panicked = false;
+    await reinstall();
+  }
+  if (leaving) break;
+  spawnedAt = Date.now();
   child = spawn();
 }
