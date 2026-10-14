@@ -9,6 +9,8 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-14 · 6e6bcda05 — Queue: a wave editor save leaves a moved wave's import behind
+
 ## 2026-10-14 · 7d3e6b66b — THE LEVER LAB: FIZZ's goal ring stands in a band's middle
 
 Asked IN A BAND, the lever's FIZZ channel now ends in the band's middle, so the goal ring FIZZ draws at its end is where to hold, and a knob carried on past it along the faint groove reads as too deep. The game's own pull drawing is untouched. THE LID's cord, THE BALLOON's handles, THE LATCH's grips and THE INSTAR's pulls go onto the one PULL rule, counted at the reach (the queue's answer). Exemption: a look the owner asked for by name — the director's lab only.
