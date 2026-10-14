@@ -46,10 +46,23 @@ const held = (layer: BastionLayer | undefined): boolean => layer === "lattice" |
  * first beat of the phase after one.
  */
 export function bastionGlanceHush(s: BastionState, at: number): number {
+  return bastionHush(s, at, held);
+}
+
+/**
+ * How much of its motion a part of the moon shows at `at`: none while a
+ * shell `still` names is lit, steadying over the first beat of it and coming
+ * back over the first beat of the phase after.
+ */
+export function bastionHush(
+  s: BastionState,
+  at: number,
+  still: (layer: BastionLayer | undefined) => boolean,
+): number {
   const into = Math.max(0, Math.min(1, at - s.phaseBeat));
-  if (s.phase === "layer") return held(s.steps[s.cursor]?.layer) ? 1 - into : 1;
+  if (s.phase === "layer") return still(s.steps[s.cursor]?.layer) ? 1 - into : 1;
   const before = s.phase === "regrow" ? s.steps[s.cursor] : s.steps[s.cursor - 1];
-  return s.phase !== "enter" && held(before?.layer) ? into : 1;
+  return s.phase !== "enter" && still(before?.layer) ? into : 1;
 }
 
 /**

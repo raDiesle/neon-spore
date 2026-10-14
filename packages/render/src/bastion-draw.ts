@@ -13,6 +13,7 @@ import type { BastionFx } from "./bastion-fx.js";
 import { drawBastionGlanced } from "./bastion-glance.js";
 import { drawBastionHandles } from "./bastion-handles.js";
 import { drawBastionCore, drawBastionHull, type PortMark } from "./bastion-hull.js";
+import { bastionRingSway, drawSwayed } from "./bastion-idle.js";
 import { drawBastionPlates } from "./bastion-plates.js";
 import { type BastionPose, bastionPose } from "./bastion-pose.js";
 import { drawBastionArcs, drawBastionFlung } from "./bastion-receipts.js";
@@ -118,7 +119,11 @@ function drawShells(
     if (stepOf(s, layer) === null) return;
     grown(g, c, layer === growing ? p.grow : 1, draw);
   };
-  shell("ring", () => drawRingBack(ctx, l, c, guns, yaw, p.pulse));
+  // The ring sways round the sphere, and the armour breathes (`bastion-idle.ts`).
+  const sway = bastionRingSway(s, at, time);
+  shell("ring", () =>
+    drawSwayed(ctx, l, c, sway, () => drawRingBack(ctx, l, c, guns, yaw, p.pulse)),
+  );
   // The sphere inside the armour and the ring — the core, the hull and the
   // cage — turns as one (`bastion-glance.ts`).
   const sphere = new Path2D();
@@ -147,8 +152,12 @@ function drawShells(
     );
     return [sphere];
   });
-  shell("ring", () => drawRingFront(ctx, l, c, guns, yaw, p.pulse));
-  shell("plates", () => drawBastionPlates(ctx, l, c, s, lit === "plates", world.cfg, p.pulse));
+  shell("ring", () =>
+    drawSwayed(ctx, l, c, sway, () => drawRingFront(ctx, l, c, guns, yaw, p.pulse)),
+  );
+  shell("plates", () =>
+    drawBastionPlates(ctx, l, c, s, lit === "plates", world.cfg, p.pulse, time),
+  );
 }
 
 /** A shell growing back is drawn smaller, filling out to where it stands. */

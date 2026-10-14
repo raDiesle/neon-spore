@@ -9,6 +9,7 @@ import {
   type SimConfig,
 } from "@neon-spore/sim";
 import { bastionPulledOut } from "./bastion-grip.js";
+import { bastionBreath } from "./bastion-idle.js";
 import {
   type At,
   BASTION_PLATE_HALF,
@@ -35,6 +36,8 @@ import { PALETTE, STROKE } from "./palette.js";
  * stencil marks. **A slab being pulled stands out along its track by as
  * much as the thumb has it** — straight out or round a curve, under the knob
  * — and the seam it leaves behind glows hotter the nearer it is to tearing.
+ * Every other slab breathes, and the tower and the keel with them
+ * (`bastion-idle.ts`).
  */
 
 export function drawBastionPlates(
@@ -45,9 +48,11 @@ export function drawBastionPlates(
   lit: boolean,
   cfg: SimConfig,
   pulse: number,
+  time: number,
 ): void {
-  drawTower(ctx, l, c, pulse);
-  drawKeel(ctx, l, c);
+  const t = l.tile;
+  drawTower(ctx, l, { x: c.x, y: c.y - bastionBreath(0, time) * t }, pulse);
+  drawKeel(ctx, l, { x: c.x, y: c.y + bastionBreath(Math.PI, time) * t });
   const outer = BASTION_SHELL_TILES.plates * l.tile;
   const inner = BASTION_PLATE_IN * l.tile;
   for (let i = 0; i < BASTION_PLATES_A_SIDE * 2; i++) {
@@ -56,13 +61,16 @@ export function drawBastionPlates(
     const pulled = held ? s.pullMilli[bastionPlateSeat(i)] : 0;
     const off = bastionPulledOut(cfg, s, i, pulled);
     const angle = bastionPlateAngle(i);
+    const out = held ? 0 : bastionBreath(angle, time) * t;
     if (pulled > 0) {
       // The seam left behind, hot with how near it is to tearing.
       const seam = bastionPlatePath(c, angle, outer, inner);
       const near = pulled / Math.max(1, bastionTrackLen(cfg, bastionTrackOf(s, i)));
       strokeGlowFaded(ctx, seam, PALETTE.bastionLight, STROKE.outline, 2 * near);
     }
-    drawPlate(ctx, l, c, angle, (off.x / 1000) * l.tile, (off.y / 1000) * l.tile, 1);
+    const ox = (off.x / 1000) * t + Math.sin(angle) * out;
+    const oy = (off.y / 1000) * t - Math.cos(angle) * out;
+    drawPlate(ctx, l, c, angle, ox, oy, 1);
   }
 }
 

@@ -2578,6 +2578,7 @@ by hand never moves.
 | `packages/render/src/bastion-grip.ts` | **The thumbs on THE BASTION** (§11.62): a knob on each side's next slab, pulled along the slab's track |
 | `packages/render/src/bastion-glance.ts` | **THE BASTION glances**: the sphere inside the armour turns, still while its own shell is lit, offered on VERSUS `bastion:glance` |
 | `packages/render/src/bastion-verdicts.ts` | **THE BASTION's knobs answering a touch the way every mark does** (`mark-feedback.ts`, `grip-verdict.ts`) |
+| `packages/render/src/bastion-idle.ts` | **THE BASTION's outer shells idle**, so the moon is not a sphere turning inside a frame nailed to the sky |
 | `packages/render/src/pulse-wash.ts` | **The whole ship lit, by the one body that got past.** A body answered too late is not answered |
 | `packages/render/src/pulse-grip.ts` | **THE PULSE's hand on the bar**: the rectangle the meter is drawn in, the box a thumb is answered in |
 | `packages/render/src/pulse-glance.ts` | **THE PULSE's arrivals glance** — the owner, 9 and 10 October 2026: *body parts of living things turn . |

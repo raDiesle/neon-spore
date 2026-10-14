@@ -40579,3 +40579,18 @@ Bottleneck: `versus adopt` cannot move a style written inline, so the slot
 was taken by hand and two tests that assumed it ships still had to learn it.
 
 *Measured: 20 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
+
+## 2026-10-14 — THE BASTION glances as COCK, and its ring and armour idle
+
+- reading: 10 min. The VERSUS adopt path for an inline glance, the BASTION's
+  draw, plates, ring and stop files, to keep the bolt's stop point honest.
+- writing: 15 min. COCK by hand and the slot dropped, the boss-glance row for
+  a taken answer, `bastion-idle.ts` and its tests.
+- looking: 10 min. A `versus:shot` of COCK to see the moon, then four frames
+  of the arrived moon at four clock times, cropped into one strip.
+- friction: 5 min. `adopt` refuses an inline glance, so the take went by
+  hand; the strip's first labels assumed the wrong stride.
+- landing: 10 min. Two `check:fast` runs, the second for `docs/INDEX.md`.
+
+Bottleneck: landing — a full `check:fast` is three minutes, and a missing
+index row cost a second one.
