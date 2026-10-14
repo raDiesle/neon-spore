@@ -39842,3 +39842,5 @@ Bottleneck: wave numbers are written down by hand in a spec table and four tests
 - landing: 5 min. `check:fast`, the commit, `land`.
 
 Bottleneck: none to speak of — the glance is one call, and the wiring round it is the same six files every time.
+
+*Measured: 5 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*

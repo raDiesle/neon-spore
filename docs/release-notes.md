@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-14 · f7331676c — VERSUS offers THE TRAPEZE's alien turning its head
+
+`trapeze:glance` offers the alien's head a turn about its own middle — SWAY, LOOK or COCK — on top of its lag behind the swing, its feelers and both eyes turning with it, the near cheek opening and the far one closing into the dark and back, in the seat's frame so it faces the gong whichever way it sits, on THE TRAPEZE · ENTER. The swing, the seat, the torso and the limbs stay as they are, and the pilot's lock and a bolt both take the circle round the whole alien. The record ships still, so the game draws what it did.
+
 ## 2026-10-14 · 2a9aa2269 — The director's wave order: THE INSTAR fifth, THE BASTION sixteenth
 
 The director's save of 14 October 2026 moves THE INSTAR up to wave 5, before THE ROCK, and THE BASTION up to wave 16, between CROWDED and SALVAGE. Both play on STANDARD 5: every button is there and the hold fills nothing, so neither hands the pair the lance before THE LANCE teaches it. The save's act pages are rebalanced under the line ceiling: THE BASTION moves into act-1b, and THE MIMIC, THE LATCH and FIVE BLISTERS into act-14b. The wave numbers in the briefings table follow.
