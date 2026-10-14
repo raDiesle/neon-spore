@@ -1,6 +1,6 @@
 import { describe, expect, it, setDefaultTimeout } from "bun:test";
 import { type ControlSet, controlSet } from "@neon-spore/content";
-import { type Command, type LatchGrip, step, type World } from "@neon-spore/sim";
+import { type Command, type LatchGrip, latchBowPoint, step, type World } from "@neon-spore/sim";
 import { handleCircle } from "../src/handle-place.js";
 import { latchGripRest } from "../src/latch-shape.js";
 import { LatchVerdicts } from "../src/latch-verdicts.js";
@@ -72,10 +72,15 @@ describe("thumbs on THE LATCH", () => {
     expect(s.down).toEqual([true, true]);
     if (down?.hold?.kind !== "drag") throw new Error("the press took no hold");
     const l = layout("p1");
-    const moved = touchMove(l, down.hold, down.hold.originX, down.hold.originY + l.tile * 1.5);
+    // Down its bow, which runs out to the left of the left grip (`sim/latch-bow.ts`).
+    const on = {
+      x: down.hold.originX + (latchBowPoint(world.cfg, 0, 1500).x * l.tile) / 1000,
+      y: down.hold.originY + l.tile * 1.5,
+    };
+    const moved = touchMove(l, down.hold, on.x, on.y);
     send(world, 1, moved?.command);
     expect(s.hauledMilli).toBeGreaterThan(1000);
-    const up = touchUp(l, down.hold, { x: down.hold.originX, y: down.hold.originY + l.tile * 1.5 });
+    const up = touchUp(l, down.hold, on);
     expect(send(world, 1, up?.command)).not.toContain("latchSlip");
   });
 

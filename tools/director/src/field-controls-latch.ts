@@ -18,8 +18,10 @@ const does = (side: "left" | "right") =>
   "and a lift short of it is refused; a lift while the other grip is off too slips the rope back " +
   "to the last knot. In a yank level both grips must be down on the yank " +
   "(sim/latch-hand.ts). The grip to pull wears the arrow down and, on its own " +
-  "seat's screen, a channel one pull long; the holding grip is a knob with no " +
-  "arrow (render/latch-handles.ts).";
+  "seat's screen, a channel one pull long, bowed latchBowMilli out away from " +
+  "the tendril — a thumb a tile off the bow drops the grip until it lifts " +
+  "(sim/latch-bow.ts); the holding grip is a knob with no arrow " +
+  "(render/latch-handles.ts).";
 
 export const LATCH_CONTROLS: readonly FieldControlDef[] = [
   {

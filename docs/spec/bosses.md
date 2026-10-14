@@ -11461,7 +11461,10 @@ wants and how many **beats** it has.
 **The grips.** Two `DragTarget`s, `latchGripLeft` and `latchGripRight`, a
 column either side of the middle at the depth `latchGripRowMilli`, each
 pulled **down** — `fromYMilli` the depth, the way THE MANTLE's handles are.
-The pilot's is the left and the navigator's the right, **crossed** in a
+Since 13 October 2026 each stroke **bows** `latchBowMilli` (1500) out away
+from the tendril halfway down (`sim/latch-bow.ts`): the depth is still the
+straight distance, but a thumb a tile across from the bow drops the grip
+with `pullStray` until it lifts. The pilot's is the left and the navigator's the right, **crossed** in a
 `cross` level (`latchGripSeat`). A thumb going down on the partner's grip
 takes hold of nothing and is said (`latchWrong`) — the owner, 7 October
 2026, on THE TRAPEZE: *I don't understand why nothing happens on tap.*

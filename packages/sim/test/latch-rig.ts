@@ -17,6 +17,7 @@ import {
   latchBoss,
   latchGripSeat,
 } from "../src/latch.js";
+import { latchBowFromMilli } from "../src/latch-bow.js";
 
 /**
  * THE LATCH's test rig: a script installed, and a grip taken, pulled and let
@@ -77,12 +78,17 @@ function target(grip: LatchGrip): DragTarget {
   return grip === 0 ? "latchGripLeft" : "latchGripRight";
 }
 
-/** `player`'s thumb on `grip`, `depth` pulled down: the grab is the message with no depth. */
+/** `player`'s thumb on `grip`, `depth` pulled down its bow: the grab is the message with no depth. */
 export function hold(player: 1 | 2, grip: LatchGrip, depth = 0): TimedCommand {
   return {
     tick: 0,
     player,
-    command: { kind: "drag", target: target(grip), on: true, fromMilli: 0, fromYMilli: depth },
+    command: {
+      kind: "drag",
+      target: target(grip),
+      on: true,
+      ...latchBowFromMilli(CFG, grip, depth),
+    },
   };
 }
 

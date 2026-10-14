@@ -328,23 +328,6 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/skipped.test.ts` holds the listing's count of the entries
 `next` stepped past and why.
 
-## Curved pulls: the sim knows only straight ones
-
-- **Found:** 2026-10-11, claude/pull-longer
-- **Taken:** 2026-10-14, claude/queue-curved-pulls-the-sim-knows-only-straight-ones
-- **Files:** `tools/director/src/pull-lab-shapes.ts`, `tools/director/src/pull-lab-rule.ts`, `packages/render/src/pull-track.ts`
-- **Asks:** Which pulls bend — THE WARDEN's and THE LID's long cords only, every straight pull with room (those two, THE SINEW, THE LATCH), or only bosses still to be built?
-- **Answered:** 2026-10-13 — every straight pull with room, the owner: THE WARDEN's and THE LID's cords, THE SINEW and THE LATCH; the sim lane first, then each boss's path.
-
-The owner, 11 October 2026: *curves (custom paths) increase difficulty and are
-more exciting than straight lines*. The PULL LAB plays a curve and an S
-(`pull-lab-shapes.ts`) and FIZZ draws any polyline (`PullTrack.pts`), but
-every pull in `packages/sim` is a distance along one direction. A bend is a
-sim lane first: a path in thousandths of a tile the hand's progress is
-measured along, and the lab's rule that a thumb half a tile off the path fails
-the pull (`pull-lab-rule.ts`, `TOUCH_SLACK` for a finger) — then each chosen
-boss's path, drawn from the same numbers.
-
 ## THE SLING's cords: a hold, then a pull in its place, in the game too?
 
 - **Found:** 2026-10-12, claude/combo-lab-interactions-d44a22

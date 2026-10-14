@@ -65,6 +65,7 @@ export {
   primeColor,
   priming,
 } from "./lance.js";
+export { latchBowFromMilli, latchBowPath, latchBowPoint, latchBowShare } from "./latch-bow.js";
 export {
   cordRest,
   lidIsHeld,

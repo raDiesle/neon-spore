@@ -2,6 +2,7 @@ import { isoLoops, type Point } from "@neon-spore/content";
 import {
   type LatchGrip,
   type LatchState,
+  latchBowPoint,
   latchGripCol,
   latchKnotsAll,
   midCol,
@@ -150,8 +151,9 @@ export function latchGripRest(l: Layout, cfg: SimConfig, grip: LatchGrip): Circl
   };
 }
 
-/** A grip's knob where its thumb has it: drawn down by its depth. */
+/** A grip's knob where its thumb has it: down by its depth, out on its bow (`sim/latch-bow.ts`). */
 export function latchKnobAt(l: Layout, cfg: SimConfig, s: LatchState, grip: LatchGrip): Circle {
   const rest = latchGripRest(l, cfg, grip);
-  return { ...rest, y: rest.y + latchMilliPx(l, s.depthMilli[grip]) };
+  const at = latchBowPoint(cfg, grip, s.depthMilli[grip]);
+  return { ...rest, x: rest.x + latchMilliPx(l, at.x), y: rest.y + latchMilliPx(l, at.y) };
 }

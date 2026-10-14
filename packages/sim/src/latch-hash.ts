@@ -29,6 +29,7 @@ export function latchHashParts(s: LatchState): number[] {
     s.turn,
     s.yankBeat,
     s.steps.length,
+    s.strayed,
   ];
   for (const step of s.steps) {
     out.push(LATCH_ASKS.indexOf(step.ask) + 1);

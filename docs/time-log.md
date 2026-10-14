@@ -40258,3 +40258,18 @@ only be asked while a depth is read — not in the whip or the fall, where
 across is the whole ask.
 
 *Measured: 57 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-14 — Curved pulls, THE LATCH: each grip bows away from the tendril
+
+- reading: 5 min. The grips' anchor and depth, the stroke as the generic
+  PULL, and the scripts that pull a grip.
+- writing: 15 min. The depth pull down a bow lifted out of THE SINEW's file
+  into `pull-down-bow.ts` and shared, `latch-bow.ts`, the `strayed` bits, the
+  knob and channel on the bow, films, the autopilot, the pose, the tests.
+- looking: 5 min. The grips' channels before and after.
+- friction: 0 min.
+- landing: 5 min.
+
+Bottleneck: THE SINEW's bow had just been written as its own, and the second
+caller is what showed it was a shape — lifting it out first made this lane
+one file of wrappers.

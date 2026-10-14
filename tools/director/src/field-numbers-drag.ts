@@ -104,8 +104,8 @@ export const DRAG_NUMBERS: Readonly<Record<string, readonly (keyof SimConfig)[]>
   "THE VISE'S LEFT LOBE": ["viseOpenMilli", "viseShutMilli", "viseGraceBeats"],
   "THE VISE'S RIGHT LOBE": ["viseOpenMilli", "viseShutMilli", "viseGraceBeats"],
   "THE CAPSTAN'S PULL": ["capstanPullMilli", "capstanHoldBeats"],
-  "THE LATCH'S LEFT GRIP": ["latchReachMilli", "latchKnotMilli"],
-  "THE LATCH'S RIGHT GRIP": ["latchReachMilli", "latchKnotMilli"],
+  "THE LATCH'S LEFT GRIP": ["latchReachMilli", "latchBowMilli", "latchKnotMilli"],
+  "THE LATCH'S RIGHT GRIP": ["latchReachMilli", "latchBowMilli", "latchKnotMilli"],
   // Carried to a place.
   "THE SCUTTLE'S PART": ["scuttleSwingMilli", "scuttleThrowBeats"],
   "THE LEDGER'S FOOT": ["ledgerRootBeats"],

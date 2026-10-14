@@ -1,4 +1,11 @@
-import { type LatchState, latchLitStep, midCol, type SimConfig } from "@neon-spore/sim";
+import {
+  type LatchState,
+  latchBowPath,
+  latchBowShare,
+  latchLitStep,
+  midCol,
+  type SimConfig,
+} from "@neon-spore/sim";
 import { seatIsMine } from "./handle-word.js";
 import { rgba } from "./hex.js";
 import { latchGripPlayer, latchTakesHand } from "./latch-grip.js";
@@ -6,8 +13,8 @@ import { latchGripRest, latchKnobAt, latchMilliPx } from "./latch-shape.js";
 import { type Layout, tileCX } from "./layout.js";
 import { PALETTE } from "./palette.js";
 import { drawPullKnob } from "./pull-knob.js";
-import { PULL_DOWN, straightPullTrack } from "./pull-line.js";
-import { drawPullTrack } from "./pull-track.js";
+import { PULL_DOWN } from "./pull-line.js";
+import { drawPullTrack, PULL_TRACK_W } from "./pull-track.js";
 
 /**
  * **THE LATCH's two grips**, in the field's one look for a thumb's control
@@ -17,7 +24,8 @@ import { drawPullTrack } from "./pull-track.js";
  * Each grip is a knob one column off the tendril, tied to it by a strap that
  * pulls taut while a thumb has it. **The grip whose turn it is to pull** wears
  * the arrow down and, on its own seat's screen, the channel as long as one
- * pull, filling as the thumb carries it; **the other grip** is a knob with no
+ * pull, bowed out away from the tendril (`sim/latch-bow.ts`) and filling as
+ * the thumb carries it; **the other grip** is a knob with no
  * arrow — it is only held. The partner's knob is drawn too, dim and with no
  * channel: what says their thumb has landed (`sinew-handles.ts`).
  */
@@ -30,7 +38,6 @@ export function drawLatchHandles(
 ): void {
   if (!latchTakesHand(s)) return;
   const lit = latchLitStep(s) !== null;
-  const reach = Math.max(1, cfg.latchReachMilli);
   const ropeX = tileCX(l, midCol(cfg));
   for (const grip of [0, 1] as const) {
     const mine = seatIsMine(l.role, latchGripPlayer(s, grip));
@@ -40,13 +47,15 @@ export function drawLatchHandles(
     const pulls = lit && grip === s.turn;
     drawStrap(ctx, l, at, ropeX, held);
     if (pulls && mine) {
-      const track = straightPullTrack({
-        from: rest,
-        r: rest.r,
-        way: PULL_DOWN,
-        len: latchMilliPx(l, reach),
-      });
-      const along = Math.min(1, s.depthMilli[grip] / reach);
+      // The simulation's own bow, point for point, filled by its length.
+      const track = {
+        pts: latchBowPath(cfg, grip).pts.map((p) => ({
+          x: rest.x + latchMilliPx(l, p.x),
+          y: rest.y + latchMilliPx(l, p.y),
+        })),
+        w: rest.r * PULL_TRACK_W,
+      };
+      const along = latchBowShare(cfg, grip, s.depthMilli[grip]);
       drawPullTrack(ctx, track, {
         ...look(mine),
         held,

@@ -18,6 +18,12 @@ export interface LatchConfig {
   latchKnotMilli: number;
   /** The furthest one pull carries the tendril, thousandths of a row. */
   latchReachMilli: number;
+  /**
+   * How far across each grip's stroke bows at its widest, away from the
+   * tendril, thousandths of a tile (`latch-bow.ts`) — half a tile more than a
+   * thumb may stray, so a grip pulled straight down drops.
+   */
+  latchBowMilli: number;
   /** Beats between yanks in a level that yanks; the first comes this far in. */
   latchYankEveryBeats: number;
   /** Beats the slime rears back before a yank, the warning. */
@@ -32,6 +38,7 @@ export const LATCH_DEFAULTS: LatchConfig = {
   latchSpentBeats: 4,
   latchKnotMilli: 4000,
   latchReachMilli: 2500,
+  latchBowMilli: 1500,
   latchYankEveryBeats: 7,
   latchRearBeats: 2,
   latchGripRowMilli: 8000,

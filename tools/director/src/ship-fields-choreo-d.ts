@@ -131,6 +131,7 @@ export const CHOREO_FIELD_GROUP_D = {
   latchSpentBeats: "THE LATCH — a rope you haul down in turns, never both letting go",
   latchKnotMilli: "THE LATCH — a rope you haul down in turns, never both letting go",
   latchReachMilli: "THE LATCH — a rope you haul down in turns, never both letting go",
+  latchBowMilli: "THE LATCH — a rope you haul down in turns, never both letting go",
   latchYankEveryBeats: "THE LATCH — a rope you haul down in turns, never both letting go",
   latchRearBeats: "THE LATCH — a rope you haul down in turns, never both letting go",
   latchGripRowMilli: "THE LATCH — a rope you haul down in turns, never both letting go",

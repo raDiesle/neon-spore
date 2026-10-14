@@ -641,6 +641,7 @@ by hand never moves.
 | `packages/sim/src/pulse-open.ts` | Opening a stage, and opening the round — the two places a `PulseState` is written from nothing |
 | `packages/sim/src/pull.ts` | a thumb carries a knob a distance and you need the one generic PULL — its way as a field, its reach, counted once when met, a short lift refused |
 | `packages/sim/src/pull-path.ts` | a pull bends — a polyline the thumb is measured along, near the knob, failed a tile off it, the lab's half doubled for a finger (`pullStray`) |
+| `packages/sim/src/pull-down-bow.ts` | A depth pull down a bow, shared by THE SINEW and THE LATCH: the path, the knob at a depth, the stray across, the channel's fill |
 | `packages/sim/src/lance-burn.ts` | **THE LANCE going off**: the lobe coming full, and the column burning on that tick |
 | `packages/sim/src/lamprey-hand.ts` | THE LAMPREY's three handles: the tail, the head and the teeth, heard on the tick |
 | `packages/sim/src/lamprey-hash.ts` | What THE LAMPREY puts into `hashWorld`, and nothing else |
@@ -656,6 +657,7 @@ by hand never moves.
 | `packages/sim/src/latch-hand.ts` | THE LATCH's hands: two grips on the one tendril, `latchGripLeft` and `latchGripRight`, each pulled **down** |
 | `packages/sim/src/latch-hash.ts` | What THE LATCH puts into `hashWorld`, and nothing else |
 | `packages/sim/src/latch-step.ts` | THE LATCH's clock: each level lighting and running out, the slime rearing and yanking in a level that yanks |
+| `packages/sim/src/latch-bow.ts` | THE LATCH's grips bow away from the tendril: its two grips' depth pulls down a bow |
 | `packages/sim/src/latch.ts` | THE LATCH: a slime clinging over the field has hooked a tendril into the hull and is reeling it in |
 | `packages/sim/src/ledger-bead.ts` | **What a bill is**: one hit down the seam, and one return on the cord |
 | `packages/sim/src/ledger-hash.ts` | What THE LEDGER puts into `hashWorld`, and nothing else |

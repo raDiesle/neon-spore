@@ -2,6 +2,7 @@ import {
   type LatchGrip,
   type LatchState,
   latchBoss,
+  latchBowFromMilli,
   latchGripSeat,
   latchLitStep,
   latchRearing,
@@ -31,23 +32,23 @@ export const latchHand = (w: World): Press[] => {
   if (w.tick % Math.max(1, Math.floor(ticksPerBeat(w.cfg) / 3)) !== 0) return [];
   const puller = s.turn;
   const holder: LatchGrip = puller === 0 ? 1 : 0;
-  if (!s.down[holder]) return [grip(s, holder, true, 0)];
-  if (!s.down[puller]) return [grip(s, puller, true, 0)];
+  if (!s.down[holder]) return [grip(w, s, holder, true, 0)];
+  if (!s.down[puller]) return [grip(w, s, puller, true, 0)];
   const reach = w.cfg.latchReachMilli;
-  if (s.depthMilli[puller] < reach) return [grip(s, puller, true, reach)];
+  if (s.depthMilli[puller] < reach) return [grip(w, s, puller, true, reach)];
   if (latchRearing(w, s)) return [];
-  return [grip(s, puller, false, 0)];
+  return [grip(w, s, puller, false, 0)];
 };
 
-function grip(s: LatchState, g: LatchGrip, on: boolean, depth: number): Press {
+/** A thumb on grip `g`, `depth` down its bow (`sim/latch-bow.ts`). */
+function grip(w: World, s: LatchState, g: LatchGrip, on: boolean, depth: number): Press {
   return {
     player: latchGripSeat(s, g) === 0 ? 1 : 2,
     command: {
       kind: "drag",
       target: g === 0 ? "latchGripLeft" : "latchGripRight",
       on,
-      fromMilli: 0,
-      ...(on ? { fromYMilli: depth } : {}),
+      ...(on ? latchBowFromMilli(w.cfg, g, depth) : { fromMilli: 0 }),
     },
   };
 }

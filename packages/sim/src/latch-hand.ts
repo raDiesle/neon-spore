@@ -5,6 +5,7 @@ import {
   latchGripCol,
   latchGripSeat,
 } from "./latch.js";
+import { latchStrays } from "./latch-bow.js";
 import { latchHauled, latchSlips } from "./latch-step.js";
 import { type Pull, pullHeard } from "./pull.js";
 import type { Command } from "./types.js";
@@ -35,6 +36,11 @@ import type { World } from "./world.js";
  * lets both off, and the tendril slips back to the last knot (`latchSlips`),
  * and the same grip pulls again.
  *
+ * **A stroke bows** (the owner, 13 October 2026, `latch-bow.ts`): the depth
+ * is still the straight distance down, but a thumb a tile across from its
+ * grip's bow has strayed — `pullStray`, the grip let go as a lift would, and
+ * nothing it sends read until it lifts and presses again.
+ *
  * Outside a level the grips are still taken and let go, so a thumb can be
  * waiting on the tendril when the level lights, but nothing is pulled and
  * nothing slips.
@@ -54,8 +60,18 @@ export function latchHeard(world: World, player: 1 | 2, command: Command): void 
     if (command.on && depth === 0 && command.fromMilli === 0) wrong(world, seat, grip);
     return;
   }
+  const bit = grip === 0 ? 1 : 2;
   if (!command.on) {
+    s.strayed &= ~bit;
     letGo(world, s, grip);
+    return;
+  }
+  if ((s.strayed & bit) !== 0) return;
+  if (latchStrays(world.cfg, grip, command.fromMilli, command.fromYMilli ?? 0)) {
+    s.strayed |= bit;
+    const player = seat === 0 ? 1 : 2;
+    world.events.push({ type: "pullStray", col: latchGripCol(world.cfg, grip), player });
+    letGo(world, s, grip, false);
     return;
   }
   if (!s.down[grip]) take(world, s, seat, grip, depth);
@@ -87,7 +103,8 @@ function take(world: World, s: LatchState, seat: 0 | 1, grip: LatchGrip, depth: 
   world.events.push({ type: "latchGrip", seat, grip, col: latchGripCol(world.cfg, grip) });
 }
 
-function letGo(world: World, s: LatchState, grip: LatchGrip): void {
+/** A grip let go — lifted, or dropped for straying, which says no short pull besides. */
+function letGo(world: World, s: LatchState, grip: LatchGrip, lifted = true): void {
   if (!s.down[grip]) return;
   const pulled = s.depthMilli[grip];
   s.down[grip] = false;
@@ -101,7 +118,7 @@ function letGo(world: World, s: LatchState, grip: LatchGrip): void {
   if (grip !== s.turn) return;
   const { heard } = pullHeard(stroke(world), false, false, pulled);
   if (heard === "counted") passTurn(world, s, other);
-  else if (heard === "short") {
+  else if (heard === "short" && lifted) {
     world.events.push({
       type: "pullShort",
       col: latchGripCol(world.cfg, grip),

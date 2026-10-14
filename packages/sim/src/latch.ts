@@ -83,6 +83,12 @@ export interface LatchState {
   anchorMilli: [number, number];
   /** How far down each grip has been pulled since, thousandths of a row. */
   depthMilli: [number, number];
+  /**
+   * Which grips' thumbs strayed off the bow and have not lifted since, a bit
+   * each — `1` the left, `2` the right (`latch-bow.ts`): a grip dropped for
+   * wandering is taken again only with a fresh press.
+   */
+  strayed: number;
   /** The grip that pulls next; the other holds. */
   turn: LatchGrip;
   /** `world.beat` of the next yank, or -1 when none is coming. */
@@ -168,6 +174,7 @@ export function freshLatch(beat: number, steps: readonly LatchStep[]): LatchStat
     down: [false, false],
     anchorMilli: [0, 0],
     depthMilli: [0, 0],
+    strayed: 0,
     turn: 0,
     yankBeat: -1,
   };

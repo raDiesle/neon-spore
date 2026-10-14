@@ -1,4 +1,10 @@
-import type { LatchStep, TimedCommand, World } from "@neon-spore/sim";
+import {
+  DEFAULT_CONFIG,
+  type LatchStep,
+  latchBowFromMilli,
+  type TimedCommand,
+  type World,
+} from "@neon-spore/sim";
 import { fresh, type Pose, run, runUntil, POSE_TPB as TPB } from "./pose-kit.js";
 
 /**
@@ -17,8 +23,7 @@ const grip = (player: 1 | 2, depth: number): TimedCommand => ({
     kind: "drag",
     target: player === 1 ? "latchGripLeft" : "latchGripRight",
     on: true,
-    fromMilli: 0,
-    fromYMilli: depth,
+    ...latchBowFromMilli(DEFAULT_CONFIG, player === 1 ? 0 : 1, depth),
   },
 });
 
