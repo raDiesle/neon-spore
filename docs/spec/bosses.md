@@ -3782,6 +3782,14 @@ circle is bright enough to carry the mouth against.
 **What is not built — a step seen from another side** (suggested 10 October 2026, after the owner on THE BASTION: *very 3 dimensional and even user action is 3d to rotate*). It turns its head away, the mouth to one side; the pilot drags it back to the front by its jaw, and the side it faced last decides which seat feeds it next — the feeding read off which way it is looking.
 
 
+**Offered (14 October 2026, VERSUS `throat:glance`).** The mouth is the
+gullet's head: the lip and the colour's face in it turn together **about the
+mouth's centre** (`packages/render/src/throat-glance.ts`, which ships still),
+where the navigator carries it and the pump's ring sits, the far side
+narrowing into the dark. The pull's circle, the halo and a swallow's flare
+stay level. **SWAY**, **LOOK** and **COCK** (`glance-styles.ts`), judged on
+`THE THROAT · SUCKS`.
+
 ## 11.20 THE UNDERTOW — the boss under the floor, answered downward
 
 > The one that comes up through the floor, so the shield faces down and the

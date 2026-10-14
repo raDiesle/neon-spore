@@ -44,7 +44,12 @@ export const BEAT_HAND_POSES: Pose[] = [
     "throat",
     "sucks",
     "The mouth carried over a body and pumped wide, in the colour that body wants. P2 pulls the mouth; P1 pumps.",
-    { hand: throatHand, hold: 12 },
+    {
+      hand: throatHand,
+      hold: 12,
+      lookAt:
+        "the coloured lip at the gullet's end — whether it turns toward one side about its centre, its far side going dark",
+    },
   ),
   bossPose(
     "throat",

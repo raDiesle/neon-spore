@@ -39160,3 +39160,13 @@ Bottleneck: a 300-thousandth swipe has no channel to draw, so the look
 needed a rule change first.
 
 *Measured: 20 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
+
+## 2026-10-14 — VERSUS offers THE THROAT's mouth glancing
+
+- reading: 5 min. The entry, §11.19, `throat-draw.ts`, `throat-mouth.ts`.
+- writing: 5 min. `throat-glance.ts`, the lip and its face wrapped, the scaffold.
+- looking: 5 min. One VERSUS shot and a crop.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: the mouth is small at the gullet's end, so the turn needed a magnified crop to judge.

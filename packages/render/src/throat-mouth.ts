@@ -5,6 +5,7 @@ import type { Layout } from "./layout.js";
 import { STROKE } from "./palette.js";
 import { splinePath } from "./spline.js";
 import { paintLip } from "./throat-flesh-lip.js";
+import { drawThroatGlanced } from "./throat-glance.js";
 import { drawModeFace, drawPullCircle, throatHue } from "./throat-hue.js";
 import { mouthX, mouthY } from "./throat-shape.js";
 
@@ -59,8 +60,12 @@ export function drawMouth(
   const hue = throatHue(b.mode);
   if (b.phase === "sucks") drawPullCircle(ctx, l, cfg, b, time);
   if (open > 0) halo(ctx, x, y, r * 2.4, hue.hex, 0.18 * open);
-  paintLip(ctx, lip, x, y, r, l.tile, hue.hex, hue.rim, 0.6 + 0.4 * open);
-  if (b.phase === "sucks") drawModeFace(ctx, b.mode, x, y, r);
+  // The lip and its face turn, when a glance is taken (`throat-glance.ts`).
+  drawThroatGlanced(ctx, { x, y, r }, time, (g) => {
+    paintLip(g, lip, x, y, r, l.tile, hue.hex, hue.rim, 0.6 + 0.4 * open);
+    if (b.phase === "sucks") drawModeFace(g, b.mode, x, y, r);
+    return lip;
+  });
 
   drawFlare(ctx, x, y, r, b.fedBeat, beat, beatPhase, hue.rim);
 }
