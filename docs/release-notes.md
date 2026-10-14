@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-14 · f3e80d162 — Every wave in the director's list shows its pressure, and `bun run waves:measure` rewrites the measured table
+
+The number at the end of each row of the wave list is the wave's pressure — the curriculum's difficulty score: the most an arrival costs inside any eight beats, counting the columns travelled, a change of job and two at once, plus two for every fault. A boss wave shows none. `bun run waves:measure` plays every wave with AUTO and rewrites `docs/spec/wave-curriculum-today.md` in about four seconds.
+
 ## 2026-10-14 · 46b45bdf4 — THE CHRYSALIS is drawn: a living cocoon in four skins, each its own tissue
 
 The cocoon hangs over the middle of the field on strands of silk, a bruised plum teardrop ridged end to end with two eye spots on its face and the grub glowing through it. Over it a wet lime slime coat, a half to each seat, thinning turn by turn and dripping; bone quills standing out of it that a pull stands out along their track; magenta sacs off its belly, the one swelling trembling and lit; and under the last skin the heart, beating behind its pore in its colour on the pilot's screen alone. Each skin holds the body its own way, and as a skin peels the cocoon turns half round, the skin splitting and falling away in two halves in a green shockwave; one run out grows back inside a red ring, and the bare grub dies dark.

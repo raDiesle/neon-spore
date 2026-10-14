@@ -40529,3 +40529,5 @@ would have, and each needed a frame to see it fixed.
 
 Bottleneck: looking — a float that reads fine on short names wraps on long
 ones, and only the pane showed it.
+
+*Measured: 11 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
