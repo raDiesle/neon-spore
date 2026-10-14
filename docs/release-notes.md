@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-14 · d67449857 — VERSUS offers THE LEDGER's body glancing
+
+THE LEDGER's whole body — both halves and the seam between them — turns about the seam, which stays on the one column a bolt can hurt, the far half narrowing into the dark. The cord and the pilot's rings and beads do not turn. Ships still; VERSUS `ledger:glance` offers SWAY, LOOK and COCK, judged on THE LEDGER · WHIPPING. Exemption: none — a look, offered on VERSUS.
+
 ## 2026-10-14 · 2479ff0bd — VERSUS offers THE SINEW's mass glancing
 
 THE SINEW's mass turns about its own centre as it hangs on the tendon, its far side narrowing into the dark; the handles rest off that centre and are drawn after it, so neither moves. Ships still; VERSUS `sinew:glance` offers SWAY, LOOK and COCK, judged on THE SINEW · HANGING. Exemption: none — a look, offered on VERSUS.

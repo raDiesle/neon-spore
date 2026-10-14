@@ -39272,3 +39272,5 @@ Bottleneck: the turn on a mass this wide read faint at the shared size, so it wa
 - landing: 5 min. `check:fast`, the commit, `land`.
 
 Bottleneck: the poses file both glance poses went into hit its line ceiling, so it was trimmed and its split queued.
+
+*Measured: 8 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
