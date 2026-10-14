@@ -53,6 +53,11 @@ describe("what a lane may take out", () => {
     expect(dropped(md(entry(ABOVE), own), titles(), LANE, log)).toEqual([]);
   });
 
+  it("an entry whose title its commit message wrapped across two lines", () => {
+    const log = "Close the winch\n\nCloses: THE WINCH —\nthe look\n";
+    expect(dropped(md(entry(ABOVE), own), titles(), LANE, log)).toEqual([]);
+  });
+
   it("an entry that moved to the other file, which is still kept", () => {
     expect(dropped(md(entry(ABOVE)), titles(ABOVE), LANE, "")).toEqual([]);
   });

@@ -36,9 +36,17 @@ export function takenBy(entry: Entry): string[] {
   return [];
 }
 
-/** Did this lane close the entry: claimed on `branch`, or named in `laneLog`? */
+/**
+ * Text with every run of whitespace made one space: a commit message wrapped
+ * at 72 columns breaks a long title over a line, and on 14 October 2026 the
+ * lane that closed "A tap on a lid's cord under the chrome reads as a pull"
+ * was refused until the title was put back on one line by hand.
+ */
+const unwrapped = (text: string): string => text.replace(/\s+/g, " ");
+
+/** Did this lane close the entry: claimed on `branch`, or named in `laneLog`, however it wrapped? */
 export function closedBy(entry: Entry, branch: string, laneLog: string): boolean {
-  return takenBy(entry).includes(branch) || laneLog.includes(entry.title);
+  return takenBy(entry).includes(branch) || unwrapped(laneLog).includes(unwrapped(entry.title));
 }
 
 /**

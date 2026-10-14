@@ -41254,3 +41254,15 @@ Bottleneck: reading — both copies were re-exported from the package, from
 two index pages, so one had to go without a name changing.
 
 *Measured: 5 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-15 — `land` misses a queue title wrapped across two lines of a commit message
+
+- reading: 0 min. The one comparison in `queue-dropped.ts`.
+- writing: 5 min. Whitespace collapsed on both sides, and the wrapped case
+  beside the word-for-word one, proved red against the old comparison.
+- looking: 0 min. Nothing drawn.
+- friction: 0 min.
+- landing: 5 min.
+
+Bottleneck: writing — the guard hook refuses a heredoc carrying a doubled
+backslash, so the regex went in through the editor instead.
