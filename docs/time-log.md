@@ -40164,3 +40164,14 @@ could call it.
 Bottleneck: none.
 
 *Measured: 3 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-14 — The brush palette draws its pictures when they are seen
+
+- reading: 5 min. `palette.ts`, `brush-art.ts`, `when-seen.ts`.
+- writing: 5 min. The button's picture behind `whenSeen`.
+- looking: 5 min. The director: 30 of 45 buttons drawn on the wave page,
+  none under CONTROLS.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, `land`.
+
+Bottleneck: none.

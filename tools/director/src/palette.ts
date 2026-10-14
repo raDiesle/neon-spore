@@ -5,6 +5,7 @@ import type { Held } from "./held.js";
 import type { Selection } from "./selection.js";
 import { silhouette } from "./silhouette.js";
 import { BRUSH_GROUPS, BRUSHES, type Brush } from "./state.js";
+import { whenSeen } from "./when-seen.js";
 
 export interface Palette {
   render(): void;
@@ -146,13 +147,15 @@ export function bindPalette({
     bindBrushCard(button, b.brush);
 
     // The button's own picture — a settled frame of the real renderer where
-    // this module has one (`brush-art.ts`), the plain contour otherwise.
-    const art = brushArtImage(b.brush, 26);
-    if (art) {
-      button.appendChild(art);
-    } else {
-      for (const subject of b.subjects) button.appendChild(silhouette(subject, b.stroke, 26));
-    }
+    // this module has one (`brush-art.ts`), the plain contour otherwise. Drawn
+    // when the button comes near the screen (`when-seen.ts`): every brush's
+    // frame drawn at startup was 1.5 s of a phone-speed load, paid on pages
+    // that never show the palette at all.
+    whenSeen(button, () => {
+      const art = brushArtImage(b.brush, 26);
+      if (art) button.prepend(art);
+      else button.prepend(...b.subjects.map((subject) => silhouette(subject, b.stroke, 26)));
+    });
 
     const text = document.createElement("div");
     const name = document.createElement("span");

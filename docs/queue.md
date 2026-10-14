@@ -328,14 +328,6 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/skipped.test.ts` holds the listing's count of the entries
 `next` stepped past and why.
 
-## The brush palette draws every brush's picture at startup, on any page
-
-- **Found:** 2026-10-11, claude/pull-lab-perf-routing-b551b5
-- **Taken:** 2026-10-14, claude/queue-the-brush-palette-draws-every-brushs-picture-at
-- **Files:** `tools/director/src/palette.ts`, `tools/director/src/brush-art.ts`, `tools/director/src/when-seen.ts`
-
-A profile of the director loaded at phone size with the CPU slowed four times spends about 1.5 s of a 3.5 s load in `bindPalette` → `render` → `brushArtImage` → `brushSpecimen`: every brush's picture is a world posed and drawn to a data URL before the first paint, even when the URL opens DOCUMENTATION or THE PULL LAB over it and the WAVE column is not on a phone's screen at all. Hold each brush button's picture behind `whenSeen` (`when-seen.ts`, as CONTROLS' cards are) so a palette that is not on screen draws nothing. A scratch Playwright profile (`Profiler.start` around `page.goto`, `Emulation.setCPUThrottlingRate` 4) shows `brushArtImage` gone from a load of `?sheet=states&inner=controlsets`; `bun test tools/director` stays green.
-
 ## Longer pulls: every straight one is held to its length by something else
 
 - **Found:** 2026-10-11, claude/pull-longer
