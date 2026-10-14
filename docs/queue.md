@@ -331,6 +331,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## THE SHIELD on HELPERS: six rows owed a pose
 
 - **Found:** 2026-10-14, claude/shield-visualization-controls-51b28d
+- **Taken:** 2026-10-14, main (claim: claude/queue-the-shield-on-helpers-six-rows-owed-a-pose)
 - **Files:** `tools/director/src/helpers-shield.ts`, `tools/director/src/helpers-poses.ts`, `tools/director/test/helpers-page.test.ts`
 
 CONTROLS › HELPERS › THE SHIELD lists every shield helper that ships with a
