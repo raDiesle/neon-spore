@@ -1,0 +1,123 @@
+import type { Wave } from "../wave-types.js";
+
+/**
+ * Cut from `act-3b.ts` by the director's save when that file passed the
+ * 250-line ceiling; it plays straight after it (`acts.ts`).
+ */
+export const WAVES_ACT_3B_P2: Wave[] = [
+  {
+    id: "theVeilPair",
+    name: "VEIL AND DART",
+    variant: true,
+    entries: [
+      { beat: 0, col: 3, color: "cyan" },
+      { beat: 6, col: 9, kind: "veil", color: null },
+      { beat: 10, col: 1, color: "cyan" },
+      { beat: 14, col: 4, kind: "dart", color: "red" },
+      { beat: 20, col: 9, color: "red" },
+      { beat: 26, col: 3, kind: "shell", color: "red" },
+      { beat: 32, col: 1, color: "red" },
+      { beat: 36, col: 2, kind: "veil", color: null },
+    ],
+    controls: "standard5",
+  },
+  {
+    id: "theVeilBreathe",
+    name: "EASY VEILS",
+    variant: true,
+    entries: [
+      { beat: 0, col: 3, color: "cyan" },
+      { beat: 7, col: 8, kind: "veil", color: null },
+      { beat: 15, col: 3, color: "cyan" },
+      { beat: 22, col: 6, kind: "veil", color: null },
+      { beat: 28, col: 1, color: "cyan" },
+      { beat: 36, col: 9, kind: "veil", color: null },
+    ],
+    controls: "standard5",
+  },
+  {
+    id: "theVeilRecall",
+    name: "VEIL RECALL",
+    variant: true,
+    entries: [
+      { beat: 0, col: 2, color: "red" },
+      { beat: 6, col: 9, kind: "veil", color: null },
+      { beat: 11, col: 5, color: "cyan" },
+      { beat: 17, col: 2, kind: "shell", color: "cyan" },
+      { beat: 23, col: 6, color: "red" },
+      { beat: 28, col: 1, kind: "veil", color: null },
+      { beat: 33, col: 7, color: "cyan" },
+      { beat: 39, col: 4, kind: "shell", color: "cyan" },
+    ],
+    controls: "standard5",
+  },
+  {
+    id: "theVeilBend",
+    name: "VEILS AND TWINS",
+    variant: true,
+    entries: [
+      { beat: 0, col: 8, color: "cyan" },
+      { beat: 5, col: 10, kind: "veil", color: null },
+      { beat: 11, col: 4, color: "cyan" },
+      { beat: 16, col: 8, kind: "dart", color: "red" },
+      { beat: 21, col: 5, color: "cyan" },
+      { beat: 21, col: 8, color: "cyan" },
+      { beat: 26, col: 6, kind: "veil", color: null },
+      { beat: 32, col: 7, kind: "dart", color: "cyan" },
+      { beat: 38, col: 4, color: "cyan" },
+      { beat: 38, col: 7, color: "cyan" },
+      { beat: 44, col: 10, kind: "veil", color: null },
+    ],
+    controls: "standard5",
+  },
+  {
+    id: "theVeilPeak",
+    name: "VEIL PEAK",
+    variant: true,
+    entries: [
+      { beat: 0, col: 0, color: "cyan" },
+      { beat: 4, col: 2, kind: "veil", color: null },
+      { beat: 8, col: 1, color: "cyan" },
+      { beat: 12, col: 0, kind: "dart", color: "cyan" },
+      { beat: 16, col: 5, color: "cyan" },
+      { beat: 16, col: 8, color: "cyan" },
+      { beat: 20, col: 3, kind: "veil", color: null },
+      { beat: 24, col: 2, kind: "dart", color: "cyan" },
+      { beat: 28, col: 3, color: "cyan" },
+      { beat: 28, col: 7, color: "cyan" },
+      { beat: 32, col: 3, kind: "veil", color: null },
+      { beat: 36, col: 9, kind: "dart", color: "red" },
+      { beat: 40, col: 4, color: "cyan" },
+      { beat: 40, col: 7, color: "cyan" },
+      { beat: 44, col: 1, kind: "veil", color: null },
+      { beat: 48, col: 3, kind: "dart", color: "cyan" },
+    ],
+    controls: "standard5",
+  },
+  {
+    id: "theVane",
+    name: "THE VANE",
+    entries: [
+      { beat: 0, col: 2, kind: "meteor", color: null },
+      { beat: 3, col: 8, color: "red" },
+    ],
+    boss: { kind: "vane" },
+    bossType: "normal",
+    controls: "standard5",
+  },
+  {
+    id: "theLance",
+    name: "THE LANCE",
+    guide: {
+      scene: "theLance",
+    },
+    entries: [
+      { beat: 0, col: 3, color: "cyan" },
+      { beat: 1, col: 3, color: "cyan" },
+      { beat: 2, col: 3, color: "cyan" },
+      { beat: 10, col: 8, color: "red" },
+      { beat: 11, col: 8, color: "red" },
+      { beat: 12, col: 8, color: "red" },
+    ],
+  },
+];

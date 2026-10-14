@@ -1,4 +1,5 @@
 import { describe, expect, test } from "bun:test";
+import { WAVES } from "@neon-spore/content";
 import { brushTooltip } from "../src/brush-tooltip.js";
 import { BRUSHES } from "../src/brushes.js";
 
@@ -20,9 +21,12 @@ describe("brushTooltip", () => {
     // between these two on 11 September 2026 and moved the shell alone. ONE
     // LAST CHANCE went into act one on 26 September 2026 and moved both again.
     // The arc's short blocks of regular waves went in ahead of them on 14
-    // October 2026 and moved both on by twelve.
-    expect(brushTooltip("throb")).toBe("First in WAVE 39 · THE THROB");
-    expect(brushTooltip("shell")).toBe("First in WAVE 41 · THE SHELL");
+    // October 2026 and moved both on by twelve, and the composed blocks after
+    // it move them every lane — so the number is read off the wave's id now,
+    // and the name is still pinned.
+    const wave = (id: string) => WAVES.findIndex((w) => w.id === id) + 1;
+    expect(brushTooltip("throb")).toBe(`First in WAVE ${wave("theThrob")} · THE THROB`);
+    expect(brushTooltip("shell")).toBe(`First in WAVE ${wave("theThirdShot")} · THE SHELL`);
   });
 
   test("says nothing for ERASE, which paints nothing", () => {

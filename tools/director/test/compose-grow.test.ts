@@ -1,5 +1,5 @@
 import { describe, expect, test } from "bun:test";
-import { isRegularWave, WAVES, wavePressure } from "@neon-spore/content";
+import { isRegularWave, WAVES, type Wave, wavePressure } from "@neon-spore/content";
 import { composeBlock } from "../src/compose.js";
 import { type Block, readBlock } from "../src/compose-block.js";
 import {
@@ -21,6 +21,15 @@ function block(id: string): Block {
   const b = readBlock(WAVES, id);
   if (typeof b === "string") throw new Error(b);
   return b;
+}
+
+/** The list as it stood before a block's regular waves were written, and
+ * the block read off it. */
+function unwritten(id: string): { waves: Wave[]; b: Block } {
+  const waves = WAVES.filter((w) => !(w.variant && w.id.startsWith(id)));
+  const b = readBlock(waves, id);
+  if (typeof b === "string") throw new Error(b);
+  return { waves, b };
 }
 
 describe("a step, grown", () => {
@@ -84,8 +93,8 @@ describe("where a block's first wave aims", () => {
   });
 
   test("a composed block's first wave is not below that floor and a rise", () => {
-    const b = block("theLure");
-    const first = composeBlock(WAVES, { ...b, floor: 3.5 }, "theLure")[0];
+    const { waves, b } = unwritten("theLure");
+    const first = composeBlock(waves, { ...b, floor: 3.5 }, "theLure")[0];
     expect(first?.pressure ?? 0).toBeGreaterThanOrEqual(3.5 + START_RISE);
   });
 });
@@ -98,7 +107,8 @@ describe("where a block's first wave aims", () => {
 describe("blocks that used to stall", () => {
   for (const id of ["theClasp", "theFence"]) {
     test(`${id} composes all eight steps`, () => {
-      const out = composeBlock(WAVES, block(id), id);
+      const { waves, b } = unwritten(id);
+      const out = composeBlock(waves, b, id);
       expect(out.map((c) => c.faults.join("; ") || c.step.id)).toEqual([
         "R1",
         "R2",

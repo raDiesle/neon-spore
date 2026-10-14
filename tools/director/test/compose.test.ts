@@ -4,7 +4,14 @@ import { composeBlock } from "../src/compose.js";
 import { type Block, readBlock } from "../src/compose-block.js";
 import { autoClears, paperFaults } from "../src/compose-check.js";
 import { chooseRamp } from "../src/compose-ramp.js";
-import { RISE, rampOf, STEPS, stepById, stepsToCompose } from "../src/compose-steps.js";
+import {
+  RISE,
+  rampOf,
+  STEPS,
+  stepById,
+  stepsToCompose,
+  TUTORIAL_LAST_ID,
+} from "../src/compose-steps.js";
 
 /**
  * The composer (`bun run waves:compose`, `docs/spec/wave-curriculum.md` §6):
@@ -96,7 +103,11 @@ describe("a composed block", () => {
 });
 
 describe("the tutorial arc's composed waves", () => {
-  const composed = WAVES.map((w, i) => ({ w, i })).filter(({ w }) => w.variant && !w.boss);
+  // Up to FINALE: the arc's short blocks only rise. A full block dips at R5.
+  const last = WAVES.findIndex((w) => w.id === TUTORIAL_LAST_ID);
+  const composed = WAVES.map((w, i) => ({ w, i })).filter(
+    ({ w, i }) => w.variant && !w.boss && i <= last,
+  );
 
   test("are there, regular, and each block's rise on the one before it", () => {
     expect(composed.length).toBeGreaterThanOrEqual(12);

@@ -40874,3 +40874,17 @@ Bottleneck: friction — the entry's cut was not enough on its own, so the
 pose helpers went too.
 
 *Measured: 8 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-14 — Six blocks after FINALE get their regular waves, THE LURE to THE VEIL
+
+- reading: 5 min. Which blocks compose, in order, and what each one's thing
+  is called where a player reads it.
+- writing: 15 min. Forty-eight waves composed and named; four tests that
+  pinned a wave number or the act list's order, moved to ids.
+- looking: 10 min. Every block's table read; the maps shot for the sheet.
+- friction: 10 min. zsh did not split a loop's words and a bash wrapper was
+  refused, so six commands ran one by one; briefings §1 renumbered by script.
+- landing: 5 min.
+
+Bottleneck: friction — every wave inserted renumbers the briefings table by
+hand, now a queue item.

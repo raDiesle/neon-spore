@@ -29,9 +29,10 @@ describe("the list of act files", () => {
     const source = await Bun.file(ACT_LIST.file).text();
     const acts = parseActList(source);
     expect(acts[0]).toEqual({ name: "act-1", exportName: "WAVES_ACT_1" });
-    expect(acts.map((a) => a.name).indexOf("act-3b")).toBe(
-      acts.map((a) => a.name).indexOf("act-3") + 1,
-    );
+    // `act-3b` plays after act three's last page, whatever its name says.
+    const names = acts.map((a) => a.name);
+    const pages = names.filter((n) => n === "act-3" || n.startsWith("act-3-p"));
+    expect(names.indexOf("act-3b")).toBe(names.indexOf(pages[pages.length - 1] ?? "") + 1);
     let total = 0;
     for (const act of actFilesIn(ACT_LIST)) {
       total += idsInAct(await Bun.file(act.file).text(), act.exportName).length;

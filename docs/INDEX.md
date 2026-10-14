@@ -960,6 +960,10 @@ by hand never moves.
 | `packages/content/src/scenes/the-flip.ts` | THE FLIP's rehearsal: a screen that turns, shown by turning and then by being believed |
 | `packages/content/src/scenes/the-flue.ts` | THE FLUE's rehearsal: one level called and shot, then the seats swapped and the next called the other way round |
 | `packages/content/src/waves/act-3b.ts` | The second half of act three, cut off `act-3.ts` when that file reached the 250-line ceiling on `THE VEIL` |
+| `packages/content/src/waves/act-3b-p2.ts` | Cut from `act-3b.ts` by the director's save when that file passed the 250-line ceiling; it plays straight… |
+| `packages/content/src/waves/act-3-p2.ts` | Cut from `act-3.ts` by the director's save when that file passed the 250-line ceiling; it plays straight… |
+| `packages/content/src/waves/act-3-p3.ts` | Cut from `act-3-p2.ts` by the director's save when that file passed the 250-line ceiling; it plays straight… |
+| `packages/content/src/waves/act-3-p4.ts` | Cut from `act-3-p3.ts` by the director's save when that file passed the 250-line ceiling; it plays straight… |
 | `packages/content/src/intro.ts` | WHAT THIS GAME IS, IN ONE SCENE |
 | `packages/content/src/index-shapes.ts` | Every shape on `@neon-spore/content`'s surface — contours, outlines and stacks — split off the barrel by subject |
 | `packages/content/src/instar-script.ts` | THE INSTAR's script: twenty-eight steps over twenty-one poses, and what the pair does to each |
