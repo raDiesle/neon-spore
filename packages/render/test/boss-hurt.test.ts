@@ -4,6 +4,7 @@ import { BossHurt, JAB_SHAKE } from "../src/boss-hurt.js";
 import { Effects } from "../src/effects.js";
 import { computeLayout } from "../src/layout.js";
 import { PALETTE } from "../src/palette.js";
+import { UNDERTOW_GLANCE } from "../src/undertow-glance.js";
 import { fourBeatsIn, HURT_ROWS, type Row } from "./boss-hurt-rows.js";
 import { HURT_ROWS_B } from "./boss-hurt-rows-b.js";
 import { HURT_ROWS_C } from "./boss-hurt-rows-c.js";
@@ -14,6 +15,7 @@ import {
   runFrames,
   VIEWPORT,
 } from "./frame-harness.js";
+import { holdGlancesStill } from "./glance-held.js";
 
 setDefaultTimeout(FRAME_TIMEOUT_MS);
 
@@ -35,6 +37,8 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
  */
 
 beforeAll(installCanvasGlobals);
+// Read off the screen's log, so held still (`glance-held.ts`).
+holdGlancesStill(UNDERTOW_GLANCE);
 afterEach(() => {
   hitOff?.mockRestore();
   hitOff = null;

@@ -1,7 +1,10 @@
-import { type Glance, glanceFrame, glanceStill, STILL_GLANCE } from "./glance.js";
+import { type Glance, glanceFrame, glanceStill } from "./glance.js";
 import { drawGlancedLayer } from "./glance-layer.js";
-import type { GlanceSize } from "./glance-styles.js";
+import { type GlanceSize, glanceOf, sway } from "./glance-styles.js";
 import type { Point } from "./trapeze-shape.js";
+
+/** How far the head turns, in its radius, and how far it rolls — a head's cock, as THE INSTAR's. */
+export const TRAPEZE_GLANCE_SIZE: GlanceSize = { reach: 0.36, cock: 0.14, tilt: 0.4 };
 
 /**
  * **THE TRAPEZE glances** — the owner, 9 and 10 October 2026: *body parts of
@@ -16,14 +19,12 @@ import type { Point } from "./trapeze-shape.js";
  * the head alone: the pilot's lock and a bolt both take the circle round the
  * whole alien (`trapezeAlienCircle`, `trapeze-stop.ts`).
  *
- * Shipped, it does not glance: `TRAPEZE_GLANCE` is still, and VERSUS
- * `trapeze:glance` offers SWAY, LOOK and COCK for it (`glance-styles.ts`),
- * each at `TRAPEZE_GLANCE_SIZE`, counted in the head's radius.
+ * Taken off VERSUS `trapeze:glance` on 14 October 2026, the owner leaving
+ * SWAY, LOOK or COCK to each boss: SWAY, one slow sine, as a thing that hangs
+ * or flows swings (`glance-styles.ts`), at `TRAPEZE_GLANCE_SIZE`, counted in
+ * the head's radius.
  */
-export const TRAPEZE_GLANCE: Glance = { ...STILL_GLANCE };
-
-/** How far the head turns, in its radius, and how far it rolls — a head's cock, as THE INSTAR's. */
-export const TRAPEZE_GLANCE_SIZE: GlanceSize = { reach: 0.36, cock: 0.14, tilt: 0.4 };
+export const TRAPEZE_GLANCE: Glance = glanceOf(sway, TRAPEZE_GLANCE_SIZE);
 
 /** How dark the far cheek goes, reached at the widest turn. */
 const FAR_DARK = 0.6;

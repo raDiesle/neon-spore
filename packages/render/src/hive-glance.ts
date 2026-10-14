@@ -1,6 +1,9 @@
-import { type Glance, glanceFrame, glanceStill, STILL_GLANCE } from "./glance.js";
+import { type Glance, glanceFrame, glanceStill } from "./glance.js";
 import { drawGlancedLayer } from "./glance-layer.js";
-import type { GlanceSize } from "./glance-styles.js";
+import { cock, type GlanceSize, glanceOf } from "./glance-styles.js";
+
+/** How far a lobe's sides open and close, in its half-width, and how far it rolls. */
+export const HIVE_GLANCE_SIZE: GlanceSize = { reach: 0.32, cock: 0.12, tilt: 0.35 };
 
 /**
  * **THE HIVE's lobes glance** — the owner, 9 and 10 October 2026: *body
@@ -19,14 +22,11 @@ import type { GlanceSize } from "./glance-styles.js";
  * Each lobe runs the round from its own place in it, by its site, so a row of
  * them does not turn as one.
  *
- * Shipped, they do not glance: `HIVE_GLANCE` is still, and VERSUS
- * `hive:glance` offers SWAY, LOOK and COCK for it (`glance-styles.ts`), each
- * at `HIVE_GLANCE_SIZE`, in the lobe's half-width.
+ * Taken off VERSUS `hive:glance` on 14 October 2026, the owner leaving SWAY,
+ * LOOK or COCK to each boss: COCK, the turn he found the most real
+ * (`glance-styles.ts`), at `HIVE_GLANCE_SIZE`, in the lobe's half-width.
  */
-export const HIVE_GLANCE: Glance = { ...STILL_GLANCE };
-
-/** How far a lobe's sides open and close, in its half-width, and how far it rolls. */
-export const HIVE_GLANCE_SIZE: GlanceSize = { reach: 0.32, cock: 0.12, tilt: 0.35 };
+export const HIVE_GLANCE: Glance = glanceOf(cock, HIVE_GLANCE_SIZE);
 
 /** How dark the far side goes, reached at the widest turn. */
 const FAR_DARK = 0.55;

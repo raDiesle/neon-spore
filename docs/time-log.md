@@ -40712,3 +40712,19 @@ the composer had to hold a ramp instead, chosen over the whole block at once.
 Bottleneck: the counts in `briefings.md`, found by the test that misses them.
 
 *Measured: 13 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
+
+## 2026-10-14 — Every boss but two glances: COCK most, SWAY and LOOK where they fit
+
+- reading: 10 min. Fifty glance records, the candidates, `adopt` and `drop`,
+  and the two lanes already taking ANTIPHON and BASTION.
+- writing: 15 min. One script taking the records, FILAMENT and GIMBAL by hand,
+  THE BATON and THE CAIRN half again, the stub's zero-size canvas, and the
+  hold-still helper for seven colour tests.
+- looking: 5 min. A strip of THE BATON's arm.
+- friction: 15 min. A multi-file `sed` that ran the files together, zsh
+  reading `$b:glance` as a modifier, and budgets reported one figure a run
+  until the measure switch.
+- landing: 10 min. `check:fast`, four budgets remeasured, `land`.
+
+Bottleneck: friction — shell quoting across fifty files cost as much as the
+writing; the edits wanted one TypeScript script from the start.

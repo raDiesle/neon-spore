@@ -1,7 +1,10 @@
-import { type Glance, glancedPoint, glanceFrame, glanceStill, STILL_GLANCE } from "./glance.js";
+import { type Glance, glancedPoint, glanceFrame, glanceStill } from "./glance.js";
 import { drawGlancedLayer } from "./glance-layer.js";
-import type { GlanceSize } from "./glance-styles.js";
+import { cock, type GlanceSize, glanceOf } from "./glance-styles.js";
 import type { MimicPose, Point } from "./mimic-shape.js";
+
+/** How far the mantle turns, in its radius, and how far it rolls — a soft body's, as THE NETTLE's bell. */
+export const MIMIC_GLANCE_SIZE: GlanceSize = { reach: 0.28, cock: 0.08, tilt: 0.3 };
 
 /**
  * **THE MIMIC glances** — the owner, 9 and 10 October 2026: *body parts of
@@ -17,14 +20,12 @@ import type { MimicPose, Point } from "./mimic-shape.js";
  * (`mimic-tap.ts`). The crane's arms leave the mantle where the turn carries
  * their roots (`mimicGlancedPoint`), so they come out from under it still.
  *
- * Shipped, it does not glance: `MIMIC_GLANCE` is still, and VERSUS
- * `mimic:glance` offers SWAY, LOOK and COCK for it (`glance-styles.ts`), each
- * at `MIMIC_GLANCE_SIZE`, counted in the mantle's radius.
+ * Taken off VERSUS `mimic:glance` on 14 October 2026, the owner leaving SWAY,
+ * LOOK or COCK to each boss: COCK, the turn he found the most real
+ * (`glance-styles.ts`), at `MIMIC_GLANCE_SIZE`, counted in the mantle's
+ * radius.
  */
-export const MIMIC_GLANCE: Glance = { ...STILL_GLANCE };
-
-/** How far the mantle turns, in its radius, and how far it rolls — a soft body's, as THE NETTLE's bell. */
-export const MIMIC_GLANCE_SIZE: GlanceSize = { reach: 0.28, cock: 0.08, tilt: 0.3 };
+export const MIMIC_GLANCE: Glance = glanceOf(cock, MIMIC_GLANCE_SIZE);
 
 /** How dark the far side goes, reached at the widest turn. */
 const FAR_DARK = 0.6;

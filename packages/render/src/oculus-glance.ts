@@ -1,15 +1,11 @@
-import {
-  type Glance,
-  glancedPoint,
-  glanceFrame,
-  glanceSqueeze,
-  glanceStill,
-  STILL_GLANCE,
-} from "./glance.js";
+import { type Glance, glancedPoint, glanceFrame, glanceSqueeze, glanceStill } from "./glance.js";
 import { drawGlancedLayer } from "./glance-layer.js";
-import type { GlanceSize } from "./glance-styles.js";
+import { type GlanceSize, glanceOf, look } from "./glance-styles.js";
 import type { Layout } from "./layout.js";
 import { oculusRadius, type Point } from "./oculus-shape.js";
+
+/** How far the lens turns, in its rim's radius, and how far it rolls. */
+export const OCULUS_GLANCE_SIZE: GlanceSize = { reach: 0.2, cock: 0.05, tilt: 0.25 };
 
 /**
  * **THE OCULUS glances** — the owner, 9 and 10 October 2026: *body parts of
@@ -27,14 +23,12 @@ import { oculusRadius, type Point } from "./oculus-shape.js";
  * (`oculusGlancedPoint`). A bolt meets each half of the rim as far out as it
  * is drawn (`oculusGlanceSqueeze`, `oculus-stop.ts`).
  *
- * Shipped, it does not glance: `OCULUS_GLANCE` is still, and VERSUS
- * `oculus:glance` offers SWAY, LOOK and COCK for it (`glance-styles.ts`), each
- * at `OCULUS_GLANCE_SIZE`, counted in the rim's radius.
+ * Taken off VERSUS `oculus:glance` on 14 October 2026, the owner leaving SWAY,
+ * LOOK or COCK to each boss: LOOK, holding a look to each side, as a thing
+ * that watches does (`glance-styles.ts`), at `OCULUS_GLANCE_SIZE`, counted in
+ * the rim's radius.
  */
-export const OCULUS_GLANCE: Glance = { ...STILL_GLANCE };
-
-/** How far the lens turns, in its rim's radius, and how far it rolls. */
-export const OCULUS_GLANCE_SIZE: GlanceSize = { reach: 0.2, cock: 0.05, tilt: 0.25 };
+export const OCULUS_GLANCE: Glance = glanceOf(look, OCULUS_GLANCE_SIZE);
 
 /** How dark the far half goes, reached at the widest turn. */
 const FAR_DARK = 0.6;

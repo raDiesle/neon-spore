@@ -1,7 +1,10 @@
-import { type Glance, glancedPoint, glanceFrame, glanceStill, STILL_GLANCE } from "./glance.js";
+import { type Glance, glancedPoint, glanceFrame, glanceStill } from "./glance.js";
 import { drawGlancedLayer } from "./glance-layer.js";
-import type { GlanceSize } from "./glance-styles.js";
+import { cock, type GlanceSize, glanceOf } from "./glance-styles.js";
 import type { NettleBell } from "./nettle-stop.js";
+
+/** How far the bell turns, in its radius, and how far it rolls. */
+export const NETTLE_GLANCE_SIZE: GlanceSize = { reach: 0.16, cock: 0.05, tilt: 0.25 };
 
 /**
  * **THE NETTLE glances** — the owner, 9 and 10 October 2026: *body parts of
@@ -16,15 +19,13 @@ import type { NettleBell } from "./nettle-stop.js";
  * (`nettle-draw.ts`), and a bolt meets the bell where it is drawn
  * (`nettle-stop.ts`).
  *
- * Shipped, it does not glance: `NETTLE_GLANCE` is still, and VERSUS
- * `nettle:glance` offers SWAY, LOOK and COCK for it (`glance-styles.ts`),
- * each at `NETTLE_GLANCE_SIZE`, counted in the bell's radius — kept moderate,
- * because a mark on the rim drifts off its part by the share it turns.
+ * Taken off VERSUS `nettle:glance` on 14 October 2026, the owner leaving SWAY,
+ * LOOK or COCK to each boss: COCK, the turn he found the most real
+ * (`glance-styles.ts`), at `NETTLE_GLANCE_SIZE`, counted in the bell's radius
+ * — kept moderate, because a mark on the rim drifts off its part by the share
+ * it turns.
  */
-export const NETTLE_GLANCE: Glance = { ...STILL_GLANCE };
-
-/** How far the bell turns, in its radius, and how far it rolls. */
-export const NETTLE_GLANCE_SIZE: GlanceSize = { reach: 0.16, cock: 0.05, tilt: 0.25 };
+export const NETTLE_GLANCE: Glance = glanceOf(cock, NETTLE_GLANCE_SIZE);
 
 /** How dark the far side goes, reached at the widest turn. */
 const FAR_DARK = 0.55;

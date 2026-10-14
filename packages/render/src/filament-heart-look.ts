@@ -64,7 +64,7 @@ export function heartSqueeze(beatPhase: number): HeartSqueeze {
   return { atria: Math.exp(-beatPhase * 9), ventricles: dub > 0 ? Math.exp(-dub * 9) : 0 };
 }
 
-/** The heart's yaw at `time`: its idle sway, or a turn VERSUS offers (`filament-glance.ts`). */
+/** The heart's yaw at `time`: its glance (`filament-glance.ts`). */
 export function heartYaw(time: number): number {
   return FILAMENT_GLANCE.swing(time);
 }

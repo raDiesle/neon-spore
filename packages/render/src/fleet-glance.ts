@@ -1,7 +1,10 @@
 import { hullOutline } from "./fleet-hull-body.js";
-import { type Glance, glanceFrame, glanceStill, STILL_GLANCE } from "./glance.js";
+import { type Glance, glanceFrame, glanceStill } from "./glance.js";
 import { drawGlancedLayer } from "./glance-layer.js";
-import type { GlanceSize } from "./glance-styles.js";
+import { cock, type GlanceSize, glanceOf } from "./glance-styles.js";
+
+/** How far a hull's middle swings, in halves of its length, and how far it rolls. */
+export const FLEET_GLANCE_SIZE: GlanceSize = { reach: 0.14, cock: 0.04, tilt: 0.25 };
 
 /**
  * **THE FLEET's hulls glance** — the owner, 9 and 10 October 2026: *body
@@ -20,15 +23,12 @@ import type { GlanceSize } from "./glance-styles.js";
  * Each hull runs the same round from its own place in it, so a chart of five
  * does not turn as one.
  *
- * Shipped, they do not glance: `FLEET_GLANCE` is still, and VERSUS
- * `fleet:glance` offers SWAY, LOOK and COCK for it (`glance-styles.ts`), each
- * at `FLEET_GLANCE_SIZE`, in halves of a hull's length — small, because a
- * long hull's half is two squares and more.
+ * Taken off VERSUS `fleet:glance` on 14 October 2026, the owner leaving SWAY,
+ * LOOK or COCK to each boss: COCK, the turn he found the most real
+ * (`glance-styles.ts`), at `FLEET_GLANCE_SIZE`, in halves of a hull's length —
+ * small, because a long hull's half is two squares and more.
  */
-export const FLEET_GLANCE: Glance = { ...STILL_GLANCE };
-
-/** How far a hull's middle swings, in halves of its length, and how far it rolls. */
-export const FLEET_GLANCE_SIZE: GlanceSize = { reach: 0.14, cock: 0.04, tilt: 0.25 };
+export const FLEET_GLANCE: Glance = glanceOf(cock, FLEET_GLANCE_SIZE);
 
 /** How dark the far end goes, reached at the widest swing. */
 const FAR_DARK = 0.6;

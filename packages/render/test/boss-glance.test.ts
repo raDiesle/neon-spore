@@ -60,11 +60,11 @@ import { WELL_GLANCE, WELL_GLANCE_SIZE } from "../src/well-glance.js";
 
 /**
  * **Every boss's part that glances** (`glance.ts`, `.claude/skills/depth`, "A
- * part that glances"): each record ships still until the owner takes an
- * answer on VERSUS, each answer — SWAY, LOOK and COCK at the boss's own size —
- * swings both ways far enough to be seen in a still, every round hands over
- * level, and the points a turn holds stay where they are. A boss's glance is
- * a row here.
+ * part that glances"): every record ships turning, the answer the owner
+ * took off VERSUS on 14 October 2026; each answer — SWAY, LOOK and COCK at
+ * the boss's own size — swings both ways far enough to be seen in a still,
+ * every round hands over level, and the points a turn holds stay where they
+ * are. A boss's glance is a row here.
  */
 
 interface Row {
@@ -73,8 +73,6 @@ interface Row {
   size: GlanceSize;
   /** The held points, in part radii either side of the centre; 0 the centre itself. */
   hold: number;
-  /** Taken off VERSUS into the game, so it turns. */
-  taken?: true;
 }
 
 const ROWS: readonly Row[] = [
@@ -109,14 +107,7 @@ const ROWS: readonly Row[] = [
   { name: "THE SURGE", record: SURGE_GLANCE, size: SURGE_GLANCE_SIZE, hold: 0 },
   { name: "THE LEAD", record: LEAD_GLANCE, size: LEAD_GLANCE_SIZE, hold: 0 },
   { name: "THE SCUTTLE", record: SCUTTLE_GLANCE, size: SCUTTLE_GLANCE_SIZE, hold: 0 },
-  // Taken: SWAY, the owner, 14 October 2026.
-  {
-    name: "THE ANTIPHON",
-    record: ANTIPHON_GLANCE,
-    size: ANTIPHON_GLANCE_SIZE,
-    hold: 0,
-    taken: true,
-  },
+  { name: "THE ANTIPHON", record: ANTIPHON_GLANCE, size: ANTIPHON_GLANCE_SIZE, hold: 0 },
   { name: "THE GIMBAL", record: GIMBAL_GLANCE, size: GIMBAL_GLANCE_SIZE, hold: 0 },
   { name: "THE SPOOL", record: SPOOL_GLANCE, size: SPOOL_GLANCE_SIZE, hold: 0 },
   { name: "THE HASP", record: HASP_GLANCE, size: HASP_GLANCE_SIZE, hold: 0 },
@@ -139,14 +130,7 @@ const ROWS: readonly Row[] = [
   { name: "THE LAMPREY", record: LAMPREY_GLANCE, size: LAMPREY_GLANCE_SIZE, hold: 0 },
   { name: "THE MIMIC", record: MIMIC_GLANCE, size: MIMIC_GLANCE_SIZE, hold: 0 },
   { name: "THE LATCH", record: LATCH_GLANCE, size: LATCH_GLANCE_SIZE, hold: 0 },
-  // Taken: COCK, the owner, 14 October 2026.
-  {
-    name: "THE BASTION",
-    record: BASTION_GLANCE,
-    size: BASTION_GLANCE_SIZE,
-    hold: 0,
-    taken: true,
-  },
+  { name: "THE BASTION", record: BASTION_GLANCE, size: BASTION_GLANCE_SIZE, hold: 0 },
 ];
 
 const R = 100;
@@ -156,10 +140,10 @@ const sweep = (g: Glance) =>
 describe.each(ROWS.map((r) => [r.name, r] as const))("%s's glance", (_, row) => {
   const at = { x: 0, y: 0, r: R, hold: row.hold };
 
-  it("ships still until taken, and a still frame draws it as before", () => {
+  it("ships turning, level only at the round's start", () => {
     for (const t of [0, 0.7, 1.5, 4.5, 13]) {
       const still = glanceStill(glanceFrame(row.record, t, at));
-      expect(still).toBe(t === 0 || row.taken !== true);
+      expect(still).toBe(t === 0);
     }
   });
 

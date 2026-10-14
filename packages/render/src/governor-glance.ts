@@ -1,8 +1,11 @@
-import { type Glance, glanceFrame, glanceStill, STILL_GLANCE } from "./glance.js";
+import { type Glance, glanceFrame, glanceStill } from "./glance.js";
 import { drawGlancedLayer } from "./glance-layer.js";
-import type { GlanceSize } from "./glance-styles.js";
+import { cock, type GlanceSize, glanceOf } from "./glance-styles.js";
 import { type Dial, spindleAt } from "./governor-shape.js";
 import type { Layout } from "./layout.js";
+
+/** How far the works turn, in `WORKS_R`, and how far they roll — a machine's, as THE PLUMB's. */
+export const GOVERNOR_GLANCE_SIZE: GlanceSize = { reach: 0.3, cock: 0.04, tilt: 0.2 };
 
 /**
  * **THE GOVERNOR glances** — the owner, 9 and 10 October 2026: *... or if
@@ -17,14 +20,11 @@ import type { Layout } from "./layout.js";
  * and the gap a bolt goes up through — lies flat under it and does not move,
  * so nothing a thumb or a bolt meets is turned.
  *
- * Shipped, it does not glance: `GOVERNOR_GLANCE` is still, and VERSUS
- * `governor:glance` offers SWAY, LOOK and COCK for it (`glance-styles.ts`),
- * each at `GOVERNOR_GLANCE_SIZE`, counted in `WORKS_R`.
+ * Taken off VERSUS `governor:glance` on 14 October 2026, the owner leaving
+ * SWAY, LOOK or COCK to each boss: COCK, the turn he found the most
+ * real (`glance-styles.ts`), at `GOVERNOR_GLANCE_SIZE`, counted in `WORKS_R`.
  */
-export const GOVERNOR_GLANCE: Glance = { ...STILL_GLANCE };
-
-/** How far the works turn, in `WORKS_R`, and how far they roll — a machine's, as THE PLUMB's. */
-export const GOVERNOR_GLANCE_SIZE: GlanceSize = { reach: 0.3, cock: 0.04, tilt: 0.2 };
+export const GOVERNOR_GLANCE: Glance = glanceOf(cock, GOVERNOR_GLANCE_SIZE);
 
 /** The works' half-width the turn is counted in, in tiles: about as far as a flyweight's arm reaches out. */
 const WORKS_R = 1.9;

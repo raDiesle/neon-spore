@@ -1,8 +1,11 @@
 import { flueUnitR } from "./flue-shape.js";
-import { type Glance, glanceFrame, glanceStill, STILL_GLANCE } from "./glance.js";
+import { type Glance, glanceFrame, glanceStill } from "./glance.js";
 import { drawGlancedLayer } from "./glance-layer.js";
-import type { GlanceSize } from "./glance-styles.js";
+import { cock, type GlanceSize, glanceOf } from "./glance-styles.js";
 import type { Layout } from "./layout.js";
+
+/** How far a unit turns, in its radius, and how far it rolls. */
+export const FLUE_GLANCE_SIZE: GlanceSize = { reach: 0.36, cock: 0.12, tilt: 0.35 };
 
 /**
  * **THE FLUE glances** — the owner, 9 and 10 October 2026: *body parts of
@@ -18,14 +21,11 @@ import type { Layout } from "./layout.js";
  * glass stay where they hang, so the call and the shot keep their moment;
  * nothing a thumb or a bolt meets is on a unit.
  *
- * Shipped, it does not glance: `FLUE_GLANCE` is still, and VERSUS
- * `flue:glance` offers SWAY, LOOK and COCK for it (`glance-styles.ts`), each
- * at `FLUE_GLANCE_SIZE`, counted in a unit's radius.
+ * Taken off VERSUS `flue:glance` on 14 October 2026, the owner leaving SWAY,
+ * LOOK or COCK to each boss: COCK, the turn he found the most real
+ * (`glance-styles.ts`), at `FLUE_GLANCE_SIZE`, counted in a unit's radius.
  */
-export const FLUE_GLANCE: Glance = { ...STILL_GLANCE };
-
-/** How far a unit turns, in its radius, and how far it rolls. */
-export const FLUE_GLANCE_SIZE: GlanceSize = { reach: 0.36, cock: 0.12, tilt: 0.35 };
+export const FLUE_GLANCE: Glance = glanceOf(cock, FLUE_GLANCE_SIZE);
 
 /** How far behind the unit before it each unit turns, in seconds: a ripple, not a row in step. */
 const STAGGER = 0.22;

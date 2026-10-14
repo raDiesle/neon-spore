@@ -1,6 +1,9 @@
-import { type Glance, glanceFrame, glanceStill, STILL_GLANCE } from "./glance.js";
+import { type Glance, glanceFrame, glanceStill } from "./glance.js";
 import { drawGlancedLayer } from "./glance-layer.js";
-import type { GlanceSize } from "./glance-styles.js";
+import { type GlanceSize, glanceOf, look } from "./glance-styles.js";
+
+/** How far a blade's flats open and close, in its half-width, and how far it rolls. */
+export const TASTER_GLANCE_SIZE: GlanceSize = { reach: 0.4, cock: 0.1, tilt: 0.3 };
 
 /**
  * **THE TASTER's blades glance** — the owner, 9 and 10 October 2026: *body
@@ -18,14 +21,12 @@ import type { GlanceSize } from "./glance-styles.js";
  * Each blade runs the round from its own place in it, by its column, so the
  * fan does not turn as one.
  *
- * Shipped, they do not glance: `TASTER_GLANCE` is still, and VERSUS
- * `taster:glance` offers SWAY, LOOK and COCK for it (`glance-styles.ts`), each
- * at `TASTER_GLANCE_SIZE`, in the blade's half-width at its root.
+ * Taken off VERSUS `taster:glance` on 14 October 2026, the owner leaving SWAY,
+ * LOOK or COCK to each boss: LOOK, holding a look to each side, as a thing
+ * that watches does (`glance-styles.ts`), at `TASTER_GLANCE_SIZE`, in the
+ * blade's half-width at its root.
  */
-export const TASTER_GLANCE: Glance = { ...STILL_GLANCE };
-
-/** How far a blade's flats open and close, in its half-width, and how far it rolls. */
-export const TASTER_GLANCE_SIZE: GlanceSize = { reach: 0.4, cock: 0.1, tilt: 0.3 };
+export const TASTER_GLANCE: Glance = glanceOf(look, TASTER_GLANCE_SIZE);
 
 /** How dark the far side goes, reached at the widest turn. */
 const FAR_DARK = 0.6;

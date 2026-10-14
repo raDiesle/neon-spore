@@ -1,6 +1,9 @@
-import { type Glance, glancedPoint, glanceFrame, glanceStill, STILL_GLANCE } from "./glance.js";
+import { type Glance, glancedPoint, glanceFrame, glanceStill } from "./glance.js";
 import { drawGlancedLayer } from "./glance-layer.js";
-import type { GlanceSize } from "./glance-styles.js";
+import { cock, type GlanceSize, glanceOf } from "./glance-styles.js";
+
+/** How far the muscle's sides open and close, in its radius, and how far it rolls. */
+export const MAZE_GLANCE_SIZE: GlanceSize = { reach: 0.3, cock: 0.12, tilt: 0.45 };
 
 /**
  * **THE MAZE's heart glances** — the owner, 9 and 10 October 2026: *body parts
@@ -17,14 +20,11 @@ import type { GlanceSize } from "./glance-styles.js";
  * out to the wall of the room, which does not move, and each is rooted where
  * the turned muscle has put its edge (`mazeGlancedPoint`).
  *
- * Shipped, it does not glance: `MAZE_GLANCE` is still, and VERSUS
- * `maze:glance` offers SWAY, LOOK and COCK for it (`glance-styles.ts`), each
- * at `MAZE_GLANCE_SIZE`, in the muscle's own radius.
+ * Taken off VERSUS `maze:glance` on 14 October 2026, the owner leaving SWAY,
+ * LOOK or COCK to each boss: COCK, the turn he found the most real
+ * (`glance-styles.ts`), at `MAZE_GLANCE_SIZE`, in the muscle's own radius.
  */
-export const MAZE_GLANCE: Glance = { ...STILL_GLANCE };
-
-/** How far the muscle's sides open and close, in its radius, and how far it rolls. */
-export const MAZE_GLANCE_SIZE: GlanceSize = { reach: 0.3, cock: 0.12, tilt: 0.45 };
+export const MAZE_GLANCE: Glance = glanceOf(cock, MAZE_GLANCE_SIZE);
 
 /** How dark the far side goes, reached at the widest turn. */
 const FAR_DARK = 0.6;

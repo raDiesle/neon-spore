@@ -1,6 +1,9 @@
-import { type Glance, glanceFrame, glanceStill, STILL_GLANCE } from "./glance.js";
+import { type Glance, glanceFrame, glanceStill } from "./glance.js";
 import { drawGlancedLayer } from "./glance-layer.js";
-import type { GlanceSize } from "./glance-styles.js";
+import { type GlanceSize, glanceOf, sway } from "./glance-styles.js";
+
+/** How far the mound's sides open and close, in its half-width — and no roll. */
+export const LEAD_GLANCE_SIZE: GlanceSize = { reach: 0.4, cock: 0, tilt: 0 };
 
 /**
  * **THE LEAD's body glances** — the owner, 9 and 10 October 2026: *body
@@ -20,14 +23,11 @@ import type { GlanceSize } from "./glance-styles.js";
  * a body**, on the navigator's screen; on the pilot's the stalk is a readout
  * and stands still.
  *
- * Shipped, it does not glance: `LEAD_GLANCE` is still, and VERSUS
- * `lead:glance` offers SWAY and LOOK for it (`glance-styles.ts`), each
- * at `LEAD_GLANCE_SIZE`, in the mound's half-width.
+ * Taken off VERSUS `lead:glance` on 14 October 2026, the owner leaving SWAY,
+ * LOOK or COCK to each boss: SWAY, since it has no roll and COCK would be SWAY
+ * (`glance-styles.ts`), at `LEAD_GLANCE_SIZE`, in the mound's half-width.
  */
-export const LEAD_GLANCE: Glance = { ...STILL_GLANCE };
-
-/** How far the mound's sides open and close, in its half-width — and no roll. */
-export const LEAD_GLANCE_SIZE: GlanceSize = { reach: 0.4, cock: 0, tilt: 0 };
+export const LEAD_GLANCE: Glance = glanceOf(sway, LEAD_GLANCE_SIZE);
 
 /** How dark the far side goes, reached at the widest turn. */
 const FAR_DARK = 0.6;

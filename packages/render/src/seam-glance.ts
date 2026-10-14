@@ -1,8 +1,11 @@
-import { type Glance, glanceFrame, glanceSqueeze, glanceStill, STILL_GLANCE } from "./glance.js";
+import { type Glance, glanceFrame, glanceSqueeze, glanceStill } from "./glance.js";
 import { drawGlancedLayer } from "./glance-layer.js";
-import type { GlanceSize } from "./glance-styles.js";
+import { cock, type GlanceSize, glanceOf } from "./glance-styles.js";
 import type { Layout } from "./layout.js";
 import { seamHalfWidth } from "./seam-shape.js";
+
+/** How far the ridge turns, in its half-width, and how far it rolls. */
+export const SEAM_GLANCE_SIZE: GlanceSize = { reach: 0.25, cock: 0.03, tilt: 0.12 };
 
 /**
  * **THE SEAM glances** — the owner, 9 and 10 October 2026: *body parts of
@@ -20,15 +23,13 @@ import { seamHalfWidth } from "./seam-shape.js";
  * `seam-stop.ts`); the roll is too small to move a foot by much and is left
  * out there.
  *
- * Shipped, it does not glance: `SEAM_GLANCE` is still, and VERSUS
- * `seam:glance` offers SWAY, LOOK and COCK for it (`glance-styles.ts`), each
- * at `SEAM_GLANCE_SIZE`, counted in the widest lobe's half-width — small in
- * the roll, because the ridge is more than four times as tall as it is wide.
+ * Taken off VERSUS `seam:glance` on 14 October 2026, the owner leaving SWAY,
+ * LOOK or COCK to each boss: COCK, the turn he found the most real
+ * (`glance-styles.ts`), at `SEAM_GLANCE_SIZE`, counted in the widest lobe's
+ * half-width — small in the roll, because the ridge is more than four times as
+ * tall as it is wide.
  */
-export const SEAM_GLANCE: Glance = { ...STILL_GLANCE };
-
-/** How far the ridge turns, in its half-width, and how far it rolls. */
-export const SEAM_GLANCE_SIZE: GlanceSize = { reach: 0.25, cock: 0.03, tilt: 0.12 };
+export const SEAM_GLANCE: Glance = glanceOf(cock, SEAM_GLANCE_SIZE);
 
 /** How dark the far flank goes, reached at the widest turn. */
 const FAR_DARK = 0.6;

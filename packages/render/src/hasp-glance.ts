@@ -1,9 +1,12 @@
 import type { SimConfig } from "@neon-spore/sim";
-import { type Glance, glancedPoint, glanceFrame, glanceStill, STILL_GLANCE } from "./glance.js";
+import { type Glance, glancedPoint, glanceFrame, glanceStill } from "./glance.js";
 import { drawGlancedLayer } from "./glance-layer.js";
-import type { GlanceSize } from "./glance-styles.js";
+import { cock, type GlanceSize, glanceOf } from "./glance-styles.js";
 import { haspCentre, haspShellRadius, type Point } from "./hasp-shape.js";
 import type { Layout } from "./layout.js";
+
+/** How far each shell turns, in its radius — a share of the near half's growth — and how far it rolls. */
+export const HASP_GLANCE_SIZE: GlanceSize = { reach: 0.22, cock: 0.06, tilt: 0.3 };
 
 /**
  * **THE HASP glances** — the owner, 9 and 10 October 2026: *body parts of
@@ -20,14 +23,11 @@ import type { Layout } from "./layout.js";
  * staple keeps hold of the shell's edge (`haspGlancedPoint`), as does a bolt
  * meeting it (`hasp-stop.ts`).
  *
- * Shipped, it does not glance: `HASP_GLANCE` is still, and VERSUS
- * `hasp:glance` offers SWAY, LOOK and COCK for it (`glance-styles.ts`), each
- * at `HASP_GLANCE_SIZE`, counted in the shell's radius.
+ * Taken off VERSUS `hasp:glance` on 14 October 2026, the owner leaving SWAY,
+ * LOOK or COCK to each boss: COCK, the turn he found the most real
+ * (`glance-styles.ts`), at `HASP_GLANCE_SIZE`, counted in the shell's radius.
  */
-export const HASP_GLANCE: Glance = { ...STILL_GLANCE };
-
-/** How far each shell turns, in its radius — a share of the near half's growth — and how far it rolls. */
-export const HASP_GLANCE_SIZE: GlanceSize = { reach: 0.22, cock: 0.06, tilt: 0.3 };
+export const HASP_GLANCE: Glance = glanceOf(cock, HASP_GLANCE_SIZE);
 
 /** How dark a shell's far half goes, reached at the widest turn. */
 const FAR_DARK = 0.6;

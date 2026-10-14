@@ -1,6 +1,9 @@
-import { type Glance, glanceFrame, glanceStill, STILL_GLANCE } from "./glance.js";
+import { type Glance, glanceFrame, glanceStill } from "./glance.js";
 import { drawGlancedLayer } from "./glance-layer.js";
-import type { GlanceSize } from "./glance-styles.js";
+import { cock, type GlanceSize, glanceOf } from "./glance-styles.js";
+
+/** How far a plate's ends open and close, in its half-width, and how far it rolls. */
+export const SCUTTLE_GLANCE_SIZE: GlanceSize = { reach: 0.4, cock: 0.12, tilt: 0.2 };
 
 /**
  * **THE SCUTTLE's hanging parts glance** — the owner, 9 and 10 October 2026:
@@ -19,14 +22,12 @@ import type { GlanceSize } from "./glance-styles.js";
  * Each part runs the round from its own place in it, by its socket, so the
  * parts hanging at once do not turn as one.
  *
- * Shipped, they do not glance: `SCUTTLE_GLANCE` is still, and VERSUS
- * `scuttle:glance` offers SWAY, LOOK and COCK for it (`glance-styles.ts`),
- * each at `SCUTTLE_GLANCE_SIZE`, in the plate's half-width.
+ * Taken off VERSUS `scuttle:glance` on 14 October 2026, the owner leaving
+ * SWAY, LOOK or COCK to each boss: COCK, the turn he found the most
+ * real (`glance-styles.ts`), at `SCUTTLE_GLANCE_SIZE`, in the plate's
+ * half-width.
  */
-export const SCUTTLE_GLANCE: Glance = { ...STILL_GLANCE };
-
-/** How far a plate's ends open and close, in its half-width, and how far it rolls. */
-export const SCUTTLE_GLANCE_SIZE: GlanceSize = { reach: 0.4, cock: 0.12, tilt: 0.2 };
+export const SCUTTLE_GLANCE: Glance = glanceOf(cock, SCUTTLE_GLANCE_SIZE);
 
 /** How dark the far end goes, reached at the widest turn. */
 const FAR_DARK = 0.6;

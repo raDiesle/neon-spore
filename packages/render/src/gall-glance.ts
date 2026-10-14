@@ -1,8 +1,11 @@
 import { gallSize } from "./gall-shape.js";
-import { type Glance, glanceFrame, glanceStill, STILL_GLANCE } from "./glance.js";
+import { type Glance, glanceFrame, glanceStill } from "./glance.js";
 import { drawGlancedLayer } from "./glance-layer.js";
-import type { GlanceSize } from "./glance-styles.js";
+import { cock, type GlanceSize, glanceOf } from "./glance-styles.js";
 import type { Layout } from "./layout.js";
+
+/** How far the body turns, in its half-width, and how far it rolls — a creature's cock, as THE THROAT's. */
+export const GALL_GLANCE_SIZE: GlanceSize = { reach: 0.36, cock: 0.14, tilt: 0.4 };
 
 /**
  * **THE GALL glances** — the owner, 9 and 10 October 2026: *body parts of
@@ -17,14 +20,12 @@ import type { Layout } from "./layout.js";
  * (`gall-grip.ts`), and a bolt is stopped by the seam and the core's column
  * (`gall-stop.ts`), never by the body's outline.
  *
- * Shipped, it does not glance: `GALL_GLANCE` is still, and VERSUS
- * `gall:glance` offers SWAY, LOOK and COCK for it (`glance-styles.ts`), each
- * at `GALL_GLANCE_SIZE`, counted in the body's half-width.
+ * Taken off VERSUS `gall:glance` on 14 October 2026, the owner leaving SWAY,
+ * LOOK or COCK to each boss: COCK, the turn he found the most real
+ * (`glance-styles.ts`), at `GALL_GLANCE_SIZE`, counted in the body's
+ * half-width.
  */
-export const GALL_GLANCE: Glance = { ...STILL_GLANCE };
-
-/** How far the body turns, in its half-width, and how far it rolls — a creature's cock, as THE THROAT's. */
-export const GALL_GLANCE_SIZE: GlanceSize = { reach: 0.36, cock: 0.14, tilt: 0.4 };
+export const GALL_GLANCE: Glance = glanceOf(cock, GALL_GLANCE_SIZE);
 
 /** How dark the far flank goes, reached at the widest turn. */
 const FAR_DARK = 0.6;

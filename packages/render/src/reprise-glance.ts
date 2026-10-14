@@ -1,7 +1,10 @@
-import { type Glance, glanceFrame, glanceStill, STILL_GLANCE } from "./glance.js";
+import { type Glance, glanceFrame, glanceStill } from "./glance.js";
 import { drawGlancedLayer } from "./glance-layer.js";
-import type { GlanceSize } from "./glance-styles.js";
+import { cock, type GlanceSize, glanceOf } from "./glance-styles.js";
 import type { RepriseFrame } from "./reprise-body.js";
+
+/** How far the sac's sides open and close, in its half-width, and how far it rolls. */
+export const REPRISE_GLANCE_SIZE: GlanceSize = { reach: 0.3, cock: 0.08, tilt: 0.3 };
 
 /**
  * **THE REPRISE's sac glances** — the owner, 9 and 10 October 2026: *body
@@ -21,14 +24,12 @@ import type { RepriseFrame } from "./reprise-body.js";
  * Its skin already carries a turn of its own (`repriseTurn`), which moves the
  * veins round it; a glance turns the picture they are drawn on.
  *
- * Shipped, it does not glance: `REPRISE_GLANCE` is still, and VERSUS
- * `reprise:glance` offers SWAY, LOOK and COCK for it (`glance-styles.ts`),
- * each at `REPRISE_GLANCE_SIZE`, in the sac's half-width.
+ * Taken off VERSUS `reprise:glance` on 14 October 2026, the owner leaving
+ * SWAY, LOOK or COCK to each boss: COCK, the turn he found the most
+ * real (`glance-styles.ts`), at `REPRISE_GLANCE_SIZE`, in the sac's
+ * half-width.
  */
-export const REPRISE_GLANCE: Glance = { ...STILL_GLANCE };
-
-/** How far the sac's sides open and close, in its half-width, and how far it rolls. */
-export const REPRISE_GLANCE_SIZE: GlanceSize = { reach: 0.3, cock: 0.08, tilt: 0.3 };
+export const REPRISE_GLANCE: Glance = glanceOf(cock, REPRISE_GLANCE_SIZE);
 
 /** How dark the far side goes, reached at the widest turn. */
 const FAR_DARK = 0.55;

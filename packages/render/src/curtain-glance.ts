@@ -1,6 +1,9 @@
-import { type Glance, glanceFrame, glanceStill, STILL_GLANCE } from "./glance.js";
+import { type Glance, glanceFrame, glanceStill } from "./glance.js";
 import { drawGlancedLayer } from "./glance-layer.js";
-import type { GlanceSize } from "./glance-styles.js";
+import { type GlanceSize, glanceOf, sway } from "./glance-styles.js";
+
+/** How far the core's sides open and close, in its radius, and how far it rolls. */
+export const CURTAIN_GLANCE_SIZE: GlanceSize = { reach: 0.36, cock: 0.16, tilt: 0.45 };
 
 /**
  * **THE CURTAIN's core glances** — the owner, 9 and 10 October 2026: *body
@@ -14,14 +17,12 @@ import type { GlanceSize } from "./glance-styles.js";
  * narrowing into the dark — a thing behind a curtain turning to see who has
  * pulled it aside. Covered, it is a shadow, and a shadow has no side to show.
  *
- * Shipped, it does not glance: `CURTAIN_GLANCE` is still, and VERSUS
- * `curtain:glance` offers SWAY, LOOK and COCK for it (`glance-styles.ts`),
- * each at `CURTAIN_GLANCE_SIZE`, in the core's radius.
+ * Taken off VERSUS `curtain:glance` on 14 October 2026, the owner leaving
+ * SWAY, LOOK or COCK to each boss: SWAY, one slow sine, as a thing that hangs
+ * or flows swings (`glance-styles.ts`), at `CURTAIN_GLANCE_SIZE`, in the
+ * core's radius.
  */
-export const CURTAIN_GLANCE: Glance = { ...STILL_GLANCE };
-
-/** How far the core's sides open and close, in its radius, and how far it rolls. */
-export const CURTAIN_GLANCE_SIZE: GlanceSize = { reach: 0.36, cock: 0.16, tilt: 0.45 };
+export const CURTAIN_GLANCE: Glance = glanceOf(sway, CURTAIN_GLANCE_SIZE);
 
 /** How dark the far side goes, reached at the widest turn. */
 const FAR_DARK = 0.6;

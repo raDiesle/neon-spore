@@ -1,8 +1,11 @@
 import { blobPoints, POD } from "@neon-spore/content";
-import { type Glance, glanceFrame, glanceStill, STILL_GLANCE } from "./glance.js";
+import { type Glance, glanceFrame, glanceStill } from "./glance.js";
 import { drawGlancedLayer } from "./glance-layer.js";
-import type { GlanceSize } from "./glance-styles.js";
+import { cock, type GlanceSize, glanceOf } from "./glance-styles.js";
 import { splinePath } from "./spline.js";
+
+/** How far a target's sides open and close, in its radius, and how far it rolls. */
+export const PINBALL_GLANCE_SIZE: GlanceSize = { reach: 0.3, cock: 0.12, tilt: 0.5 };
 
 /**
  * **PINBALL's targets glance** — the owner, 9 and 10 October 2026: *body
@@ -22,14 +25,12 @@ import { splinePath } from "./spline.js";
  * the circle the physics knows stays where it was drawn. Each target runs the
  * round from its own place in it, so a table of five does not turn as one.
  *
- * Shipped, they do not glance: `PINBALL_GLANCE` is still, and VERSUS
- * `pinball:glance` offers SWAY, LOOK and COCK for it (`glance-styles.ts`),
- * each at `PINBALL_GLANCE_SIZE`, in the target's own radius.
+ * Taken off VERSUS `pinball:glance` on 14 October 2026, the owner leaving
+ * SWAY, LOOK or COCK to each boss: COCK, the turn he found the most
+ * real (`glance-styles.ts`), at `PINBALL_GLANCE_SIZE`, in the target's own
+ * radius.
  */
-export const PINBALL_GLANCE: Glance = { ...STILL_GLANCE };
-
-/** How far a target's sides open and close, in its radius, and how far it rolls. */
-export const PINBALL_GLANCE_SIZE: GlanceSize = { reach: 0.3, cock: 0.12, tilt: 0.5 };
+export const PINBALL_GLANCE: Glance = glanceOf(cock, PINBALL_GLANCE_SIZE);
 
 /** How dark the far side goes, reached at the widest turn. */
 const FAR_DARK = 0.65;

@@ -1,6 +1,9 @@
-import { type Glance, glanceFrame, glanceStill, STILL_GLANCE } from "./glance.js";
+import { type Glance, glanceFrame, glanceStill } from "./glance.js";
 import { drawGlancedLayer } from "./glance-layer.js";
-import type { GlanceSize } from "./glance-styles.js";
+import { cock, type GlanceSize, glanceOf } from "./glance-styles.js";
+
+/** How far the body's sides open and close, in its half-width, and how far it rolls. */
+export const LEDGER_GLANCE_SIZE: GlanceSize = { reach: 0.34, cock: 0.08, tilt: 0.15 };
 
 /**
  * **THE LEDGER's body glances** — the owner, 9 and 10 October 2026: *body
@@ -15,14 +18,11 @@ import type { GlanceSize } from "./glance-styles.js";
  * plating and is drawn before the body, so it does not turn, and neither do
  * the pilot's rings and the beads drawn after it.
  *
- * Shipped, it does not glance: `LEDGER_GLANCE` is still, and VERSUS
- * `ledger:glance` offers SWAY, LOOK and COCK for it (`glance-styles.ts`), each
- * at `LEDGER_GLANCE_SIZE`, in the body's half-width.
+ * Taken off VERSUS `ledger:glance` on 14 October 2026, the owner leaving SWAY,
+ * LOOK or COCK to each boss: COCK, the turn he found the most real
+ * (`glance-styles.ts`), at `LEDGER_GLANCE_SIZE`, in the body's half-width.
  */
-export const LEDGER_GLANCE: Glance = { ...STILL_GLANCE };
-
-/** How far the body's sides open and close, in its half-width, and how far it rolls. */
-export const LEDGER_GLANCE_SIZE: GlanceSize = { reach: 0.34, cock: 0.08, tilt: 0.15 };
+export const LEDGER_GLANCE: Glance = glanceOf(cock, LEDGER_GLANCE_SIZE);
 
 /** How dark the far side goes, reached at the widest turn. */
 const FAR_DARK = 0.55;

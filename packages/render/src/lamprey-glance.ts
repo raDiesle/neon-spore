@@ -1,8 +1,11 @@
 import type { LampreyState } from "@neon-spore/sim";
-import { type Glance, glanceFrame, glanceStill, STILL_GLANCE } from "./glance.js";
+import { type Glance, glanceFrame, glanceStill } from "./glance.js";
 import { drawGlancedLayer } from "./glance-layer.js";
-import type { GlanceSize } from "./glance-styles.js";
+import { cock, type GlanceSize, glanceOf } from "./glance-styles.js";
 import type { LampreyPose } from "./lamprey-shape.js";
+
+/** How far the head turns, in the mouth's radius, and how far it rolls — a head's cock. */
+export const LAMPREY_GLANCE_SIZE: GlanceSize = { reach: 0.32, cock: 0.12, tilt: 0.35 };
 
 /**
  * **THE LAMPREY glances** — the owner, 9 and 10 October 2026: *body parts of
@@ -21,14 +24,12 @@ import type { LampreyPose } from "./lamprey-shape.js";
  * face-on over the bite's first beat and turns again over the first beat of
  * whatever comes after.
  *
- * Shipped, it does not glance: `LAMPREY_GLANCE` is still, and VERSUS
- * `lamprey:glance` offers SWAY, LOOK and COCK for it (`glance-styles.ts`),
- * each at `LAMPREY_GLANCE_SIZE`, counted in the mouth's radius.
+ * Taken off VERSUS `lamprey:glance` on 14 October 2026, the owner leaving
+ * SWAY, LOOK or COCK to each boss: COCK, the turn he found the most
+ * real (`glance-styles.ts`), at `LAMPREY_GLANCE_SIZE`, counted in the mouth's
+ * radius.
  */
-export const LAMPREY_GLANCE: Glance = { ...STILL_GLANCE };
-
-/** How far the head turns, in the mouth's radius, and how far it rolls — a head's cock. */
-export const LAMPREY_GLANCE_SIZE: GlanceSize = { reach: 0.32, cock: 0.12, tilt: 0.35 };
+export const LAMPREY_GLANCE: Glance = glanceOf(cock, LAMPREY_GLANCE_SIZE);
 
 /** How dark the far side goes, reached at the widest turn. */
 const FAR_DARK = 0.6;

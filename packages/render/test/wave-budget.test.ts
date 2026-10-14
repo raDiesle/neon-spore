@@ -330,6 +330,9 @@ const SCENES: readonly Scene[] = [
     // (`queen-surface.ts`, VERSUS `queen:plates` · TURN, adopted): the far
     // seam that comes round the rim is three more strokes, a fill and a save,
     // the turned body a few more paths, and on both seats one word fewer.
+    // `save` one higher on frame 1 from 14 October 2026: the queen glances
+    // (`queen-glance.ts`), and the far half's dark is laid under a save of its
+    // own. Frame 0 is the round's level start and does not turn.
     rows: {
       p1: [
         {
@@ -349,7 +352,7 @@ const SCENES: readonly Scene[] = [
           stroke: 152,
           fill: 92,
           clip: 7,
-          save: 57,
+          save: 58,
           drawImage: 113,
           createLinearGradient: 22,
           createRadialGradient: 8,
@@ -375,7 +378,7 @@ const SCENES: readonly Scene[] = [
           stroke: 143,
           fill: 97,
           clip: 7,
-          save: 55,
+          save: 56,
           drawImage: 111,
           createLinearGradient: 22,
           createRadialGradient: 8,
@@ -551,6 +554,9 @@ const SCENES: readonly Scene[] = [
     // more of its fire past the others' circles, so the window keeps more of
     // its marks (`rock-window.ts`) — `fill` and the gradients up by at most a
     // twentieth, and no op added for the rock itself.
+    // `new Path2D` one higher on frame 1 from 14 October 2026: the pile glances
+    // (`cairn-glance.ts`), and its outline is built once more for the far
+    // side's dark. Frame 0 is the round's level start and does not turn.
     rows: {
       p1: [
         {
@@ -574,7 +580,7 @@ const SCENES: readonly Scene[] = [
           drawImage: 49,
           createLinearGradient: 122,
           createRadialGradient: 60,
-          "new Path2D": 54,
+          "new Path2D": 55,
           fillText: 6,
         },
       ],
@@ -600,7 +606,7 @@ const SCENES: readonly Scene[] = [
           drawImage: 48,
           createLinearGradient: 121,
           createRadialGradient: 60,
-          "new Path2D": 54,
+          "new Path2D": 55,
           fillText: 6,
         },
       ],

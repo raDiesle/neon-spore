@@ -1,7 +1,10 @@
-import { type Glance, glanceFrame, glanceStill, STILL_GLANCE } from "./glance.js";
+import { type Glance, glanceFrame, glanceStill } from "./glance.js";
 import { drawGlancedLayer } from "./glance-layer.js";
-import type { GlanceSize } from "./glance-styles.js";
+import { cock, type GlanceSize, glanceOf } from "./glance-styles.js";
 import type { Layout } from "./layout.js";
+
+/** How far the chamber's middle swings, in half-widths of the field, and how far it rolls. */
+export const MIRROR_GLANCE_SIZE: GlanceSize = { reach: 0.26, cock: 0.03, tilt: 0.1 };
 
 /**
  * **THE MIRROR's insides glance** — the owner, 9 and 10 October 2026: *body
@@ -18,14 +21,11 @@ import type { Layout } from "./layout.js";
  * the copy were turning its belly to look at you. The two screen edges are
  * held, so the chamber never comes away from them.
  *
- * Shipped, it does not glance: `MIRROR_GLANCE` is still, and VERSUS
- * `mirror:glance` offers SWAY, LOOK and COCK for it (`glance-styles.ts`), each
- * at `MIRROR_GLANCE_SIZE`, in half-widths of the field.
+ * Taken off VERSUS `mirror:glance` on 14 October 2026, the owner leaving SWAY,
+ * LOOK or COCK to each boss: COCK, the turn he found the most real
+ * (`glance-styles.ts`), at `MIRROR_GLANCE_SIZE`, in half-widths of the field.
  */
-export const MIRROR_GLANCE: Glance = { ...STILL_GLANCE };
-
-/** How far the chamber's middle swings, in half-widths of the field, and how far it rolls. */
-export const MIRROR_GLANCE_SIZE: GlanceSize = { reach: 0.26, cock: 0.03, tilt: 0.1 };
+export const MIRROR_GLANCE: Glance = glanceOf(cock, MIRROR_GLANCE_SIZE);
 
 /** How dark the far half goes at the screen's edge, reached at the widest swing. */
 const FAR_DARK = 0.6;

@@ -1,8 +1,11 @@
-import { type Glance, glancedPoint, glanceFrame, glanceStill, STILL_GLANCE } from "./glance.js";
+import { type Glance, glancedPoint, glanceFrame, glanceStill } from "./glance.js";
 import { drawGlancedLayer } from "./glance-layer.js";
-import type { GlanceSize } from "./glance-styles.js";
+import { cock, type GlanceSize, glanceOf } from "./glance-styles.js";
 import type { Layout } from "./layout.js";
 import { mantleReach, mantleTieY, type Point } from "./mantle-shape.js";
+
+/** How far the shell turns, in its half-width, and how far it rolls. */
+export const MANTLE_GLANCE_SIZE: GlanceSize = { reach: 0.18, cock: 0.04, tilt: 0.2 };
 
 /**
  * **THE MANTLE glances** — the owner, 9 and 10 October 2026: *body parts of
@@ -19,14 +22,12 @@ import { mantleReach, mantleTieY, type Point } from "./mantle-shape.js";
  * near the middle (`mantleGlancedPoint`), and a bolt meets the shell where
  * it is drawn (`mantle-stop.ts`).
  *
- * Shipped, it does not glance: `MANTLE_GLANCE` is still, and VERSUS
- * `mantle:glance` offers SWAY, LOOK and COCK for it (`glance-styles.ts`),
- * each at `MANTLE_GLANCE_SIZE`, counted in the shell's half-width.
+ * Taken off VERSUS `mantle:glance` on 14 October 2026, the owner leaving SWAY,
+ * LOOK or COCK to each boss: COCK, the turn he found the most real
+ * (`glance-styles.ts`), at `MANTLE_GLANCE_SIZE`, counted in the shell's
+ * half-width.
  */
-export const MANTLE_GLANCE: Glance = { ...STILL_GLANCE };
-
-/** How far the shell turns, in its half-width, and how far it rolls. */
-export const MANTLE_GLANCE_SIZE: GlanceSize = { reach: 0.18, cock: 0.04, tilt: 0.2 };
+export const MANTLE_GLANCE: Glance = glanceOf(cock, MANTLE_GLANCE_SIZE);
 
 /** How dark the far valve goes, reached at the widest turn. */
 const FAR_DARK = 0.6;

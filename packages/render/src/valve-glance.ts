@@ -1,8 +1,11 @@
-import { type Glance, glancedPoint, glanceFrame, glanceStill, STILL_GLANCE } from "./glance.js";
+import { type Glance, glancedPoint, glanceFrame, glanceStill } from "./glance.js";
 import { drawGlancedLayer } from "./glance-layer.js";
-import type { GlanceSize } from "./glance-styles.js";
+import { cock, type GlanceSize, glanceOf } from "./glance-styles.js";
 import type { Layout } from "./layout.js";
 import { type Point, valveReach, valveSocket, valveWheel } from "./valve-shape.js";
+
+/** How far the face's middle swings, in the drum's half-width, and how far it rolls. */
+export const VALVE_GLANCE_SIZE: GlanceSize = { reach: 0.13, cock: 0.04, tilt: 0.25 };
 
 /**
  * **THE VALVE glances** — the owner, 9 and 10 October 2026: *body parts of
@@ -20,14 +23,12 @@ import { type Point, valveReach, valveSocket, valveWheel } from "./valve-shape.j
  * meets the rim where it is drawn (`valve-stop.ts`). Everything here is in
  * the drum's own frame, about its middle, before it lists.
  *
- * Shipped, it does not glance: `VALVE_GLANCE` is still, and VERSUS
- * `valve:glance` offers SWAY, LOOK and COCK for it (`glance-styles.ts`), each
- * at `VALVE_GLANCE_SIZE`, counted in the drum's half-width.
+ * Taken off VERSUS `valve:glance` on 14 October 2026, the owner leaving SWAY,
+ * LOOK or COCK to each boss: COCK, the turn he found the most real
+ * (`glance-styles.ts`), at `VALVE_GLANCE_SIZE`, counted in the drum's
+ * half-width.
  */
-export const VALVE_GLANCE: Glance = { ...STILL_GLANCE };
-
-/** How far the face's middle swings, in the drum's half-width, and how far it rolls. */
-export const VALVE_GLANCE_SIZE: GlanceSize = { reach: 0.13, cock: 0.04, tilt: 0.25 };
+export const VALVE_GLANCE: Glance = glanceOf(cock, VALVE_GLANCE_SIZE);
 
 /** How dark the far end goes, reached at the widest turn. */
 const FAR_DARK = 0.6;

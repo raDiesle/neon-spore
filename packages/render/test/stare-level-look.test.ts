@@ -13,6 +13,7 @@ import { computeLayout } from "../src/layout.js";
 import { PALETTE } from "../src/palette.js";
 import { drawStare } from "../src/stare-draw.js";
 import { StareFx } from "../src/stare-fx.js";
+import { STARE_GLANCE } from "../src/stare-glance.js";
 import { browPoint, stareAnger, stareLevelInk } from "../src/stare-level-look.js";
 import { stareEye } from "../src/stare-shape.js";
 import {
@@ -23,6 +24,7 @@ import {
   VIEWPORT,
   waveWith,
 } from "./frame-harness.js";
+import { holdGlancesStill } from "./glance-held.js";
 
 setDefaultTimeout(FRAME_TIMEOUT_MS);
 
@@ -35,6 +37,8 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
  */
 
 beforeAll(installCanvasGlobals);
+// Read off the screen's log, so held still (`glance-held.ts`).
+holdGlancesStill(STARE_GLANCE);
 
 const TPB = ticksPerBeat(CFG);
 const L = computeLayout(VIEWPORT, CFG, "test");

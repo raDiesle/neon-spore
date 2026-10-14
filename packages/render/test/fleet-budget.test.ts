@@ -153,6 +153,11 @@ type Budget = Partial<
 // Remeasured, not padded.
 const BUDGETS: Readonly<Record<"p1" | "p2", Readonly<Record<"mid" | "hit", Budget>>>> = {
   p1: {
+    // From 14 October 2026 every hull glances (`fleet-glance.ts`): on p1, where
+    // the fleet is seen, each is laid down as one picture and its far side
+    // darkened under a clip of its own, so `clip`, `save` and `new Path2D` rose
+    // by about one a hull; the strokes and fills drawn into the layer are not
+    // this context's and fell out of the count.
     mid: {
       fillRect: 64,
       // One more stroke and one more clip than before the hull's light became a
@@ -163,14 +168,14 @@ const BUDGETS: Readonly<Record<"p1" | "p2", Readonly<Record<"mid" | "hit", Budge
       // colour pass and a glow pass inside it (`part-light.ts`), where the old
       // halo was one red cloud over everything round it. Both rows carry it.
       fill: 57,
-      clip: 7,
-      save: 46,
+      clip: 12,
+      save: 54,
       drawImage: 16,
       // Five of these are the hulls' own: one ramp across the beam a vessel,
       // which is what the flat fill under an outline used to cost.
       createLinearGradient: 18,
       createRadialGradient: 6,
-      "new Path2D": 22,
+      "new Path2D": 27,
       fillText: 28,
     },
     hit: {
@@ -178,10 +183,10 @@ const BUDGETS: Readonly<Record<"p1" | "p2", Readonly<Record<"mid" | "hit", Budge
       // Two more than mid: the shockwave ring and the fireball's own contour.
       stroke: 89,
       fill: 56,
-      clip: 7,
+      clip: 12,
       // Nine more: the burst opens one per shard it turns, and the shards are
       // the only thing in this picture drawn in a frame of its own.
-      save: 55,
+      save: 63,
       // Three more: the flash and the fireball are `halo` blits, and the halo
       // the shell was carrying is gone.
       drawImage: 20,
@@ -189,7 +194,7 @@ const BUDGETS: Readonly<Record<"p1" | "p2", Readonly<Record<"mid" | "hit", Budge
       createLinearGradient: 17,
       // The fireball, and the halo under the ring (the table's preamble).
       createRadialGradient: 7,
-      "new Path2D": 22,
+      "new Path2D": 27,
       fillText: 28,
     },
   },

@@ -1,9 +1,12 @@
 import { RATCHET_TEETH, type SimConfig } from "@neon-spore/sim";
-import { type Glance, glancedPoint, glanceFrame, glanceStill, STILL_GLANCE } from "./glance.js";
+import { type Glance, glancedPoint, glanceFrame, glanceStill } from "./glance.js";
 import { drawGlancedLayer } from "./glance-layer.js";
-import type { GlanceSize } from "./glance-styles.js";
+import { cock, type GlanceSize, glanceOf } from "./glance-styles.js";
 import type { Layout } from "./layout.js";
 import { type Point, ratchetGirth, ratchetPawlY, ratchetX } from "./ratchet-shape.js";
+
+/** How far the rack turns, in the widest plate's half-width, and how far it rolls. */
+export const RATCHET_GLANCE_SIZE: GlanceSize = { reach: 0.4, cock: 0.04, tilt: 0.12 };
 
 /**
  * **THE RATCHET glances** — the owner, 9 and 10 October 2026: *body parts of
@@ -19,15 +22,13 @@ import { type Point, ratchetGirth, ratchetPawlY, ratchetX } from "./ratchet-shap
  * pawl's tip follows its shoulder (`ratchetGlancedPoint`, `ratchetPawlArm`),
  * and a bolt meets the plates where they are drawn (`ratchet-stop.ts`).
  *
- * Shipped, it does not glance: `RATCHET_GLANCE` is still, and VERSUS
- * `ratchet:glance` offers SWAY, LOOK and COCK for it (`glance-styles.ts`),
- * each at `RATCHET_GLANCE_SIZE`, counted in the widest plate's half-width —
- * large, because the rack is narrow, and a small roll, because it is tall.
+ * Taken off VERSUS `ratchet:glance` on 14 October 2026, the owner leaving
+ * SWAY, LOOK or COCK to each boss: COCK, the turn he found the most
+ * real (`glance-styles.ts`), at `RATCHET_GLANCE_SIZE`, counted in the widest
+ * plate's half-width — large, because the rack is narrow, and a small roll,
+ * because it is tall.
  */
-export const RATCHET_GLANCE: Glance = { ...STILL_GLANCE };
-
-/** How far the rack turns, in the widest plate's half-width, and how far it rolls. */
-export const RATCHET_GLANCE_SIZE: GlanceSize = { reach: 0.4, cock: 0.04, tilt: 0.12 };
+export const RATCHET_GLANCE: Glance = glanceOf(cock, RATCHET_GLANCE_SIZE);
 
 /** How dark the far halves go, reached at the widest turn. */
 const FAR_DARK = 0.6;

@@ -1,5 +1,8 @@
-import { type Glance, STILL_GLANCE } from "./glance.js";
-import type { GlanceSize } from "./glance-styles.js";
+import type { Glance } from "./glance.js";
+import { type GlanceSize, glanceOf, sway } from "./glance-styles.js";
+
+/** How far the cradle turns either way, in radians of yaw, and how far it rolls. */
+export const GIMBAL_GLANCE_SIZE: GlanceSize = { reach: 0.16, cock: 0, tilt: 0.25 };
 
 /**
  * **THE GIMBAL glances** — the owner, 9 and 10 October 2026: *... or if
@@ -16,13 +19,12 @@ import type { GlanceSize } from "./glance-styles.js";
  * the tilt that is drawn, so nothing a thumb or a bolt meets is left behind.
  * The rig shades the far side as it turns away.
  *
- * Shipped, it adds nothing: `GIMBAL_GLANCE` is still, and VERSUS
- * `gimbal:glance` offers SWAY, LOOK and COCK for it (`glance-styles.ts`), each
- * at `GIMBAL_GLANCE_SIZE`. Taking one means measuring the widest the drift and
- * the turn reach together against the grab radius, as `gimbal-tilt.test.ts`
- * does for the drift alone.
+ * Taken off VERSUS `gimbal:glance` on 14 October 2026, the owner leaving
+ * SWAY, LOOK or COCK to each boss: SWAY (`glance-styles.ts`), because a roll
+ * turns every ring off its bearing and the first true band is too narrow to
+ * spend it in, at `GIMBAL_GLANCE_SIZE` — a third of what VERSUS offered, the
+ * most the drift and the turn together allow: a rim a thumb is on stays inside
+ * half the grab, and a ring inside half its band (`gimbal-tilt.test.ts`
+ * samples `gimbalTilt` with both in it).
  */
-export const GIMBAL_GLANCE: Glance = { ...STILL_GLANCE };
-
-/** How far the cradle turns either way, in radians of yaw, and how far it rolls. */
-export const GIMBAL_GLANCE_SIZE: GlanceSize = { reach: 0.45, cock: 0.1, tilt: 0.25 };
+export const GIMBAL_GLANCE: Glance = glanceOf(sway, GIMBAL_GLANCE_SIZE);

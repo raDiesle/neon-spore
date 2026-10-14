@@ -119,8 +119,10 @@ function screenBox(ctx: CanvasRenderingContext2D, m: Matrix, f: GlanceFrame, rea
   }
   const ox = Math.max(0, Math.floor(Math.min(...xs)));
   const oy = Math.max(0, Math.floor(Math.min(...ys)));
-  const ex = Math.ceil(Math.min(ctx.canvas?.width ?? Infinity, Math.max(...xs)));
-  const ey = Math.ceil(Math.min(ctx.canvas?.height ?? Infinity, Math.max(...ys)));
+  // A canvas of no size bounds nothing: it draws nothing anyway, and a test's
+  // stand-in reports one, which would leave the part not drawn at all.
+  const ex = Math.ceil(Math.min(ctx.canvas?.width || Infinity, Math.max(...xs)));
+  const ey = Math.ceil(Math.min(ctx.canvas?.height || Infinity, Math.max(...ys)));
   return { ox, oy, w: ex - ox, h: ey - oy };
 }
 

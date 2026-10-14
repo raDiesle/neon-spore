@@ -1775,11 +1775,435 @@ packages/render/src/antiphon-glance.ts
 The other answers offered were `cock`, `look` and `sway`; they went with the
 slot.
 
+## `baton:glance` — nothing taken, 2026-10-14
+
+taken by hand: the owner, 14 October 2026, liked COCK the most and asked for
+more of its movement, it being barely seen, and left the choice for every
+other boss glance to the lane. COCK written into BATON_GLANCE in
+packages/render/src/baton-glance.ts, half again the size offered.
+
+The other answers offered were `cock`, `look` and `sway`; they went with the
+slot.
+
 ## `bastion:glance` — nothing taken, 2026-10-14
 
 taken by hand — the owner, 14 October 2026: this one is probably best.
 BASTION_GLANCE is glanceOf(cock, BASTION_GLANCE_SIZE) in
 packages/render/src/bastion-glance.ts, at the candidate's size
+
+The other answers offered were `cock`, `look` and `sway`; they went with the
+slot.
+
+## `cairn:glance` — nothing taken, 2026-10-14
+
+taken by hand: the owner, 14 October 2026, left the choice for each boss
+glance to the lane, finding COCK the most real in most. COCK written into
+CAIRN_GLANCE in packages/render/src/cairn-glance.ts, half again the size
+offered.
+
+The other answers offered were `cock`, `look` and `sway`; they went with the
+slot.
+
+## `capstan:glance` — nothing taken, 2026-10-14
+
+taken by hand: the owner, 14 October 2026, left the choice for each boss
+glance to the lane, finding COCK the most real in most. COCK written into
+CAPSTAN_GLANCE in packages/render/src/capstan-glance.ts.
+
+The other answers offered were `cock`, `look` and `sway`; they went with the
+slot.
+
+## `filament:glance` — nothing taken, 2026-10-14
+
+taken by hand: the owner, 14 October 2026, left the choice for each boss
+glance to the lane, finding COCK the most real in most. COCK written into
+FILAMENT_GLANCE in packages/render/src/filament-glance.ts.
+
+The other answers offered were `cock` and `look`; they went with the slot.
+
+## `fleet:glance` — nothing taken, 2026-10-14
+
+taken by hand: the owner, 14 October 2026, left the choice for each boss
+glance to the lane, finding COCK the most real in most. COCK written into
+FLEET_GLANCE in packages/render/src/fleet-glance.ts.
+
+The other answers offered were `cock`, `look` and `sway`; they went with the
+slot.
+
+## `flue:glance` — nothing taken, 2026-10-14
+
+taken by hand: the owner, 14 October 2026, left the choice for each boss
+glance to the lane, finding COCK the most real in most. COCK written into
+FLUE_GLANCE in packages/render/src/flue-glance.ts.
+
+The other answers offered were `cock`, `look` and `sway`; they went with the
+slot.
+
+## `gall:glance` — nothing taken, 2026-10-14
+
+taken by hand: the owner, 14 October 2026, left the choice for each boss
+glance to the lane, finding COCK the most real in most. COCK written into
+GALL_GLANCE in packages/render/src/gall-glance.ts.
+
+The other answers offered were `cock`, `look` and `sway`; they went with the
+slot.
+
+## `gimbal:glance` — nothing taken, 2026-10-14
+
+taken by hand: the owner, 14 October 2026, left the choice for each boss
+glance to the lane, finding COCK the most real in most. SWAY written into
+GIMBAL_GLANCE in packages/render/src/gimbal-glance.ts, at a third the size
+offered, the most the grab allows.
+
+The other answers offered were `cock`, `look` and `sway`; they went with the
+slot.
+
+## `gorge:glance` — nothing taken, 2026-10-14
+
+taken by hand: the owner, 14 October 2026, left the choice for each boss
+glance to the lane, finding COCK the most real in most. COCK written into
+GORGE_GLANCE in packages/render/src/gorge-glance.ts.
+
+The other answers offered were `cock`, `look` and `sway`; they went with the
+slot.
+
+## `governor:glance` — nothing taken, 2026-10-14
+
+taken by hand: the owner, 14 October 2026, left the choice for each boss
+glance to the lane, finding COCK the most real in most. COCK written into
+GOVERNOR_GLANCE in packages/render/src/governor-glance.ts.
+
+The other answers offered were `cock`, `look` and `sway`; they went with the
+slot.
+
+## `hasp:glance` — nothing taken, 2026-10-14
+
+taken by hand: the owner, 14 October 2026, left the choice for each boss
+glance to the lane, finding COCK the most real in most. COCK written into
+HASP_GLANCE in packages/render/src/hasp-glance.ts.
+
+The other answers offered were `cock`, `look` and `sway`; they went with the
+slot.
+
+## `hive:glance` — nothing taken, 2026-10-14
+
+taken by hand: the owner, 14 October 2026, left the choice for each boss
+glance to the lane, finding COCK the most real in most. COCK written into
+HIVE_GLANCE in packages/render/src/hive-glance.ts.
+
+The other answers offered were `cock`, `look` and `sway`; they went with the
+slot.
+
+## `keel:glance` — nothing taken, 2026-10-14
+
+taken by hand: the owner, 14 October 2026, left the choice for each boss
+glance to the lane, finding COCK the most real in most. COCK written into
+KEEL_GLANCE in packages/render/src/keel-glance.ts.
+
+The other answers offered were `cock`, `look` and `sway`; they went with the
+slot.
+
+## `lamprey:glance` — nothing taken, 2026-10-14
+
+taken by hand: the owner, 14 October 2026, left the choice for each boss
+glance to the lane, finding COCK the most real in most. COCK written into
+LAMPREY_GLANCE in packages/render/src/lamprey-glance.ts.
+
+The other answers offered were `cock`, `look` and `sway`; they went with the
+slot.
+
+## `latch:glance` — nothing taken, 2026-10-14
+
+taken by hand: the owner, 14 October 2026, left the choice for each boss
+glance to the lane, finding COCK the most real in most. COCK written into
+LATCH_GLANCE in packages/render/src/latch-glance.ts.
+
+The other answers offered were `cock`, `look` and `sway`; they went with the
+slot.
+
+## `lead:glance` — nothing taken, 2026-10-14
+
+taken by hand: the owner, 14 October 2026, left the choice for each boss
+glance to the lane, finding COCK the most real in most. SWAY written into
+LEAD_GLANCE in packages/render/src/lead-glance.ts.
+
+The other answers offered were `look` and `sway`; they went with the slot.
+
+## `ledger:glance` — nothing taken, 2026-10-14
+
+taken by hand: the owner, 14 October 2026, left the choice for each boss
+glance to the lane, finding COCK the most real in most. COCK written into
+LEDGER_GLANCE in packages/render/src/ledger-glance.ts.
+
+The other answers offered were `cock`, `look` and `sway`; they went with the
+slot.
+
+## `mantle:glance` — nothing taken, 2026-10-14
+
+taken by hand: the owner, 14 October 2026, left the choice for each boss
+glance to the lane, finding COCK the most real in most. COCK written into
+MANTLE_GLANCE in packages/render/src/mantle-glance.ts.
+
+The other answers offered were `cock`, `look` and `sway`; they went with the
+slot.
+
+## `maze:glance` — nothing taken, 2026-10-14
+
+taken by hand: the owner, 14 October 2026, left the choice for each boss
+glance to the lane, finding COCK the most real in most. COCK written into
+MAZE_GLANCE in packages/render/src/maze-glance.ts.
+
+The other answers offered were `cock`, `look` and `sway`; they went with the
+slot.
+
+## `mimic:glance` — nothing taken, 2026-10-14
+
+taken by hand: the owner, 14 October 2026, left the choice for each boss
+glance to the lane, finding COCK the most real in most. COCK written into
+MIMIC_GLANCE in packages/render/src/mimic-glance.ts.
+
+The other answers offered were `cock`, `look` and `sway`; they went with the
+slot.
+
+## `mirror:glance` — nothing taken, 2026-10-14
+
+taken by hand: the owner, 14 October 2026, left the choice for each boss
+glance to the lane, finding COCK the most real in most. COCK written into
+MIRROR_GLANCE in packages/render/src/mirror-glance.ts.
+
+The other answers offered were `cock`, `look` and `sway`; they went with the
+slot.
+
+## `nettle:glance` — nothing taken, 2026-10-14
+
+taken by hand: the owner, 14 October 2026, left the choice for each boss
+glance to the lane, finding COCK the most real in most. COCK written into
+NETTLE_GLANCE in packages/render/src/nettle-glance.ts.
+
+The other answers offered were `cock`, `look` and `sway`; they went with the
+slot.
+
+## `oculus:glance` — nothing taken, 2026-10-14
+
+taken by hand: the owner, 14 October 2026, left the choice for each boss
+glance to the lane, finding COCK the most real in most. LOOK written into
+OCULUS_GLANCE in packages/render/src/oculus-glance.ts.
+
+The other answers offered were `cock`, `look` and `sway`; they went with the
+slot.
+
+## `pinball:glance` — nothing taken, 2026-10-14
+
+taken by hand: the owner, 14 October 2026, left the choice for each boss
+glance to the lane, finding COCK the most real in most. COCK written into
+PINBALL_GLANCE in packages/render/src/pinball-glance.ts.
+
+The other answers offered were `cock`, `look` and `sway`; they went with the
+slot.
+
+## `plumb:glance` — nothing taken, 2026-10-14
+
+taken by hand: the owner, 14 October 2026, left the choice for each boss
+glance to the lane, finding COCK the most real in most. SWAY written into
+PLUMB_GLANCE in packages/render/src/plumb-glance.ts.
+
+The other answers offered were `cock`, `look` and `sway`; they went with the
+slot.
+
+## `pulse:glance` — nothing taken, 2026-10-14
+
+taken by hand: the owner, 14 October 2026, left the choice for each boss
+glance to the lane, finding COCK the most real in most. COCK written into
+PULSE_GLANCE in packages/render/src/pulse-glance.ts.
+
+The other answers offered were `cock`, `look` and `sway`; they went with the
+slot.
+
+## `queen:glance` — nothing taken, 2026-10-14
+
+taken by hand: the owner, 14 October 2026, left the choice for each boss
+glance to the lane, finding COCK the most real in most. COCK written into
+QUEEN_GLANCE in packages/render/src/queen-glance.ts.
+
+The other answers offered were `cock`, `look` and `sway`; they went with the
+slot.
+
+## `ratchet:glance` — nothing taken, 2026-10-14
+
+taken by hand: the owner, 14 October 2026, left the choice for each boss
+glance to the lane, finding COCK the most real in most. COCK written into
+RATCHET_GLANCE in packages/render/src/ratchet-glance.ts.
+
+The other answers offered were `cock`, `look` and `sway`; they went with the
+slot.
+
+## `reprise:glance` — nothing taken, 2026-10-14
+
+taken by hand: the owner, 14 October 2026, left the choice for each boss
+glance to the lane, finding COCK the most real in most. COCK written into
+REPRISE_GLANCE in packages/render/src/reprise-glance.ts.
+
+The other answers offered were `cock`, `look` and `sway`; they went with the
+slot.
+
+## `scuttle:glance` — nothing taken, 2026-10-14
+
+taken by hand: the owner, 14 October 2026, left the choice for each boss
+glance to the lane, finding COCK the most real in most. COCK written into
+SCUTTLE_GLANCE in packages/render/src/scuttle-glance.ts.
+
+The other answers offered were `cock`, `look` and `sway`; they went with the
+slot.
+
+## `seam:glance` — nothing taken, 2026-10-14
+
+taken by hand: the owner, 14 October 2026, left the choice for each boss
+glance to the lane, finding COCK the most real in most. COCK written into
+SEAM_GLANCE in packages/render/src/seam-glance.ts.
+
+The other answers offered were `cock`, `look` and `sway`; they went with the
+slot.
+
+## `sinew:glance` — nothing taken, 2026-10-14
+
+taken by hand: the owner, 14 October 2026, left the choice for each boss
+glance to the lane, finding COCK the most real in most. COCK written into
+SINEW_GLANCE in packages/render/src/sinew-glance.ts.
+
+The other answers offered were `cock`, `look` and `sway`; they went with the
+slot.
+
+## `sling:glance` — nothing taken, 2026-10-14
+
+taken by hand: the owner, 14 October 2026, left the choice for each boss
+glance to the lane, finding COCK the most real in most. SWAY written into
+SLING_GLANCE in packages/render/src/sling-glance.ts.
+
+The other answers offered were `cock`, `look` and `sway`; they went with the
+slot.
+
+## `splice:glance` — nothing taken, 2026-10-14
+
+taken by hand: the owner, 14 October 2026, left the choice for each boss
+glance to the lane, finding COCK the most real in most. COCK written into
+SPLICE_GLANCE in packages/render/src/splice-glance.ts.
+
+The other answers offered were `cock`, `look` and `sway`; they went with the
+slot.
+
+## `spool:glance` — nothing taken, 2026-10-14
+
+taken by hand: the owner, 14 October 2026, left the choice for each boss
+glance to the lane, finding COCK the most real in most. COCK written into
+SPOOL_GLANCE in packages/render/src/spool-glance.ts.
+
+The other answers offered were `cock`, `look` and `sway`; they went with the
+slot.
+
+## `stare:glance` — nothing taken, 2026-10-14
+
+taken by hand: the owner, 14 October 2026, left the choice for each boss
+glance to the lane, finding COCK the most real in most. LOOK written into
+STARE_GLANCE in packages/render/src/stare-glance.ts.
+
+The other answers offered were `cock`, `look` and `sway`; they went with the
+slot.
+
+## `surge:glance` — nothing taken, 2026-10-14
+
+taken by hand: the owner, 14 October 2026, left the choice for each boss
+glance to the lane, finding COCK the most real in most. COCK written into
+SURGE_GLANCE in packages/render/src/surge-glance.ts.
+
+The other answers offered were `cock`, `look` and `sway`; they went with the
+slot.
+
+## `taster:glance` — nothing taken, 2026-10-14
+
+taken by hand: the owner, 14 October 2026, left the choice for each boss
+glance to the lane, finding COCK the most real in most. LOOK written into
+TASTER_GLANCE in packages/render/src/taster-glance.ts.
+
+The other answers offered were `cock`, `look` and `sway`; they went with the
+slot.
+
+## `throat:glance` — nothing taken, 2026-10-14
+
+taken by hand: the owner, 14 October 2026, left the choice for each boss
+glance to the lane, finding COCK the most real in most. COCK written into
+THROAT_GLANCE in packages/render/src/throat-glance.ts.
+
+The other answers offered were `cock`, `look` and `sway`; they went with the
+slot.
+
+## `trapeze:glance` — nothing taken, 2026-10-14
+
+taken by hand: the owner, 14 October 2026, left the choice for each boss
+glance to the lane, finding COCK the most real in most. SWAY written into
+TRAPEZE_GLANCE in packages/render/src/trapeze-glance.ts.
+
+The other answers offered were `cock`, `look` and `sway`; they went with the
+slot.
+
+## `undertow:glance` — nothing taken, 2026-10-14
+
+taken by hand: the owner, 14 October 2026, left the choice for each boss
+glance to the lane, finding COCK the most real in most. SWAY written into
+UNDERTOW_GLANCE in packages/render/src/undertow-glance.ts.
+
+The other answers offered were `cock`, `look` and `sway`; they went with the
+slot.
+
+## `valve:glance` — nothing taken, 2026-10-14
+
+taken by hand: the owner, 14 October 2026, left the choice for each boss
+glance to the lane, finding COCK the most real in most. COCK written into
+VALVE_GLANCE in packages/render/src/valve-glance.ts.
+
+The other answers offered were `cock`, `look` and `sway`; they went with the
+slot.
+
+## `vane:glance` — nothing taken, 2026-10-14
+
+taken by hand: the owner, 14 October 2026, left the choice for each boss
+glance to the lane, finding COCK the most real in most. COCK written into
+VANE_GLANCE in packages/render/src/vane-glance.ts.
+
+The other answers offered were `cock`, `look` and `sway`; they went with the
+slot.
+
+## `vise:glance` — nothing taken, 2026-10-14
+
+taken by hand: the owner, 14 October 2026, left the choice for each boss
+glance to the lane, finding COCK the most real in most. COCK written into
+VISE_GLANCE in packages/render/src/vise-glance.ts.
+
+The other answers offered were `cock`, `look` and `sway`; they went with the
+slot.
+
+## `warden:glance` — nothing taken, 2026-10-14
+
+taken by hand: the owner, 14 October 2026, left the choice for each boss
+glance to the lane, finding COCK the most real in most. COCK written into
+WARDEN_GLANCE in packages/render/src/warden-glance.ts.
+
+The other answers offered were `cock`, `look` and `sway`; they went with the
+slot.
+
+## `well:glance` — nothing taken, 2026-10-14
+
+taken by hand: the owner, 14 October 2026, left the choice for each boss
+glance to the lane, finding COCK the most real in most. COCK written into
+WELL_GLANCE in packages/render/src/well-glance.ts.
+
+The other answers offered were `cock`, `look` and `sway`; they went with the
+slot.
+
+## `curtain:glance` — nothing taken, 2026-10-14
+
+taken by hand: the owner, 14 October 2026, left the choice for each boss
+glance to the lane, finding COCK the most real in most. SWAY written into
+CURTAIN_GLANCE in packages/render/src/curtain-glance.ts.
 
 The other answers offered were `cock`, `look` and `sway`; they went with the
 slot.

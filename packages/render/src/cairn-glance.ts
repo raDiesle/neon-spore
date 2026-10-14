@@ -1,6 +1,9 @@
-import { type Glance, glanceFrame, glanceStill, STILL_GLANCE } from "./glance.js";
+import { type Glance, glanceFrame, glanceStill } from "./glance.js";
 import { drawGlancedLayer } from "./glance-layer.js";
-import type { GlanceSize } from "./glance-styles.js";
+import { cock, type GlanceSize, glanceOf } from "./glance-styles.js";
+
+/** How far the pile's middle swings, in halves of its width, and how far it rolls. */
+export const CAIRN_GLANCE_SIZE: GlanceSize = { reach: 0.22, cock: 0.08, tilt: 0.3 };
 
 /**
  * **THE CAIRN's pile glances** — the owner, 9 and 10 October 2026: *body
@@ -15,14 +18,12 @@ import type { GlanceSize } from "./glance-styles.js";
  * hand on the pile, the lane mark and the verdict are drawn after it and do
  * not turn; the stones under them move by a fraction of a tile at most.
  *
- * Shipped, it does not glance: `CAIRN_GLANCE` is still, and VERSUS
- * `cairn:glance` offers SWAY, LOOK and COCK for it (`glance-styles.ts`), each
- * at `CAIRN_GLANCE_SIZE`, in halves of the pile's width.
+ * Taken off VERSUS `cairn:glance` on 14 October 2026, the owner leaving SWAY,
+ * LOOK or COCK to each boss: COCK, the turn he found the most real
+ * (`glance-styles.ts`), at `CAIRN_GLANCE_SIZE`, in halves of the pile's width —
+ * half again what VERSUS offered, as he asked of THE BATON the same day.
  */
-export const CAIRN_GLANCE: Glance = { ...STILL_GLANCE };
-
-/** How far the pile's middle swings, in halves of its width, and how far it rolls. */
-export const CAIRN_GLANCE_SIZE: GlanceSize = { reach: 0.14, cock: 0.05, tilt: 0.3 };
+export const CAIRN_GLANCE: Glance = glanceOf(cock, CAIRN_GLANCE_SIZE);
 
 /** How dark the far side goes, reached at the widest swing. */
 const FAR_DARK = 0.6;

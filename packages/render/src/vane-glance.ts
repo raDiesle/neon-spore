@@ -1,6 +1,9 @@
-import { type Glance, glanceFrame, glanceStill, STILL_GLANCE } from "./glance.js";
+import { type Glance, glanceFrame, glanceStill } from "./glance.js";
 import { drawGlancedLayer } from "./glance-layer.js";
-import type { GlanceSize } from "./glance-styles.js";
+import { cock, type GlanceSize, glanceOf } from "./glance-styles.js";
+
+/** How far the bearing turns, in halves of its mount — a share of the near half's growth — and how far it rolls. */
+export const VANE_GLANCE_SIZE: GlanceSize = { reach: 0.13, cock: 0.06, tilt: 0.4 };
 
 /**
  * **THE VANE's bearing glances on its hub** — the owner, 9 and 10 October
@@ -17,15 +20,13 @@ import type { GlanceSize } from "./glance-styles.js";
  * its guards and its tip are drawn after and do not turn — the tip is the fold
  * line the pair reads a column off.
  *
- * Shipped, it does not glance: `VANE_GLANCE` is still, and VERSUS
- * `vane:glance` offers SWAY, LOOK and COCK for it (`glance-styles.ts`), each
- * at `VANE_GLANCE_SIZE`, in halves of the mount's length — small, because the
- * split rides the mount's far end a tile out and the end may not leave it.
+ * Taken off VERSUS `vane:glance` on 14 October 2026, the owner leaving SWAY,
+ * LOOK or COCK to each boss: COCK, the turn he found the most real
+ * (`glance-styles.ts`), at `VANE_GLANCE_SIZE`, in halves of the mount's length
+ * — small, because the split rides the mount's far end a tile out and the end
+ * may not leave it.
  */
-export const VANE_GLANCE: Glance = { ...STILL_GLANCE };
-
-/** How far the bearing turns, in halves of its mount — a share of the near half's growth — and how far it rolls. */
-export const VANE_GLANCE_SIZE: GlanceSize = { reach: 0.13, cock: 0.06, tilt: 0.4 };
+export const VANE_GLANCE: Glance = glanceOf(cock, VANE_GLANCE_SIZE);
 
 /** Half the mount's length, in tiles (`vane-bearing.ts`). */
 const MOUNT_HALF = 1.15;

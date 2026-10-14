@@ -16,6 +16,7 @@ import {
 import { rgba } from "../src/hex.js";
 import type { ViewRole } from "../src/layout.js";
 import { PALETTE } from "../src/palette.js";
+import { VALVE_GLANCE } from "../src/valve-glance.js";
 import { VALVE_PIN_MARK, VALVE_WHEEL_MARK, ValveVerdicts } from "../src/valve-verdicts.js";
 import {
   CFG,
@@ -25,6 +26,7 @@ import {
   runFrames,
   waveWith,
 } from "./frame-harness.js";
+import { holdGlancesStill } from "./glance-held.js";
 
 setDefaultTimeout(FRAME_TIMEOUT_MS);
 
@@ -39,6 +41,8 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
  */
 
 beforeAll(installCanvasGlobals);
+// Read off the screen's log, so held still (`glance-held.ts`).
+holdGlancesStill(VALVE_GLANCE);
 
 const TPB = ticksPerBeat(CFG);
 const HALO = "createRadialGradient";

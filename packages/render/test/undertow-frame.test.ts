@@ -12,6 +12,7 @@ import {
 } from "@neon-spore/sim";
 import type { ViewRole } from "../src/layout.js";
 import { PALETTE } from "../src/palette.js";
+import { UNDERTOW_GLANCE } from "../src/undertow-glance.js";
 import type { TextBox } from "./canvas-stub-text.js";
 import {
   CFG,
@@ -21,6 +22,7 @@ import {
   runFrames,
   waveWith,
 } from "./frame-harness.js";
+import { holdGlancesStill } from "./glance-held.js";
 
 setDefaultTimeout(FRAME_TIMEOUT_MS);
 
@@ -38,6 +40,8 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
  */
 
 beforeAll(installCanvasGlobals);
+// Read off the screen's log, so held still (`glance-held.ts`).
+holdGlancesStill(UNDERTOW_GLANCE);
 
 const TPB = ticksPerBeat(CFG);
 

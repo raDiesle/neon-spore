@@ -466,8 +466,12 @@ const EYE_BUDGETS: Readonly<Record<string, readonly Budget[]>> = {
       fill: 105,
       clip: 11,
       save: 68,
-      drawImage: 29,
-      createLinearGradient: 24,
+      // One more, and a ramp more, on 14 October 2026: the body glances
+      // (`warden-glance.ts`), laid on the screen as one picture with the far
+      // side's dark ramped over it (`glance-layer.ts`). Frame 0 is the round's
+      // level start and does not move.
+      drawImage: 30,
+      createLinearGradient: 25,
       createRadialGradient: 10,
       // One more on 25 September 2026, the rope's knob, as in frame 0; one
       // more on 2 October, the hold's circle.

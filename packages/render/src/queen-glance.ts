@@ -1,7 +1,10 @@
-import { type Glance, glanceFrame, glanceStill, STILL_GLANCE } from "./glance.js";
+import { type Glance, glanceFrame, glanceStill } from "./glance.js";
 import { drawGlancedLayer } from "./glance-layer.js";
-import type { GlanceSize } from "./glance-styles.js";
+import { cock, type GlanceSize, glanceOf } from "./glance-styles.js";
 import { QUEEN_FIGURE } from "./queen-figure.js";
+
+/** How far her middle swings, in shares of her half-width, and how far she rolls. */
+export const QUEEN_GLANCE_SIZE: GlanceSize = { reach: 0.32, cock: 0.05, tilt: 0.12 };
 
 /**
  * **THE BULB QUEEN's shell glances** — the owner, 9 and 10 October 2026: *body
@@ -18,15 +21,13 @@ import { QUEEN_FIGURE } from "./queen-figure.js";
  * leaves them and their hit test exactly where they were, and only the lip
  * that closes over each slides by a few pixels.
  *
- * Shipped, she does not glance: `QUEEN_GLANCE` is still, and VERSUS
- * `queen:glance` offers SWAY, LOOK and COCK for it (`glance-styles.ts`), each
- * at `QUEEN_GLANCE_SIZE`. Her shell's seams already ride a turn of their own
- * (`queen-surface.ts`); a glance turns the picture they are drawn on.
+ * Taken off VERSUS `queen:glance` on 14 October 2026, the owner leaving SWAY,
+ * LOOK or COCK to each boss: COCK, the turn he found the most real
+ * (`glance-styles.ts`), at `QUEEN_GLANCE_SIZE`. Her shell's seams already ride
+ * a turn of their own (`queen-surface.ts`); a glance turns the picture they
+ * are drawn on.
  */
-export const QUEEN_GLANCE: Glance = { ...STILL_GLANCE };
-
-/** How far her middle swings, in shares of her half-width, and how far she rolls. */
-export const QUEEN_GLANCE_SIZE: GlanceSize = { reach: 0.32, cock: 0.05, tilt: 0.12 };
+export const QUEEN_GLANCE: Glance = glanceOf(cock, QUEEN_GLANCE_SIZE);
 
 /** Where her crane arms' shoulders sit, as a share of her half-width: the points a turn holds. */
 export const QUEEN_GLANCE_HOLD = 1.35 / QUEEN_FIGURE.bodyRx;

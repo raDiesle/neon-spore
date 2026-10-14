@@ -12,6 +12,7 @@ import {
 import { Effects } from "../src/effects.js";
 import { handleThumb } from "../src/guide-hand.js";
 import { rgba } from "../src/hex.js";
+import { HIVE_GLANCE } from "../src/hive-glance.js";
 import { hiveClenchRise } from "../src/hive-hold.js";
 import { computeLayout, type ViewRole } from "../src/layout.js";
 import { PALETTE } from "../src/palette.js";
@@ -24,6 +25,7 @@ import {
   VIEWPORT,
   waveWith,
 } from "./frame-harness.js";
+import { holdGlancesStill } from "./glance-held.js";
 import { spyPulls } from "./pull-spy.js";
 
 setDefaultTimeout(FRAME_TIMEOUT_MS);
@@ -52,6 +54,8 @@ beforeAll(() => {
   installCanvasGlobals();
   for (const role of ROLES) drawn(hung(), role, 3);
 });
+// Read off the screen's log, so held still (`glance-held.ts`).
+holdGlancesStill(HIVE_GLANCE);
 
 const TPB = ticksPerBeat(CFG);
 const L = computeLayout(VIEWPORT, CFG, "test");

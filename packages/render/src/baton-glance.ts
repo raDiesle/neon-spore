@@ -1,6 +1,9 @@
-import { type Glance, glanceFrame, glanceStill, STILL_GLANCE } from "./glance.js";
+import { type Glance, glanceFrame, glanceStill } from "./glance.js";
 import { drawGlancedLayer } from "./glance-layer.js";
-import type { GlanceSize } from "./glance-styles.js";
+import { cock, type GlanceSize, glanceOf } from "./glance-styles.js";
+
+/** How far a knuckle's sides open and close, in its radius, and how far it rolls. */
+export const BATON_GLANCE_SIZE: GlanceSize = { reach: 0.5, cock: 0.21, tilt: 0.4 };
 
 /**
  * **THE BATON's knuckles glance** — the owner, 9 and 10 October 2026: *body
@@ -18,14 +21,12 @@ import type { GlanceSize } from "./glance-styles.js";
  * Each knuckle runs the round from its own place in it, by its socket, so the
  * arm twists down its length rather than as one.
  *
- * Shipped, they do not glance: `BATON_GLANCE` is still, and VERSUS
- * `baton:glance` offers SWAY, LOOK and COCK for it (`glance-styles.ts`), each
- * at `BATON_GLANCE_SIZE`, in the knuckle's radius.
+ * Taken off VERSUS `baton:glance` on 14 October 2026, the owner leaving SWAY,
+ * LOOK or COCK to each boss: COCK, the turn he found the most real
+ * (`glance-styles.ts`), at `BATON_GLANCE_SIZE`, in the knuckle's radius —
+ * half again what VERSUS offered, as he asked: it was barely seen.
  */
-export const BATON_GLANCE: Glance = { ...STILL_GLANCE };
-
-/** How far a knuckle's sides open and close, in its radius, and how far it rolls. */
-export const BATON_GLANCE_SIZE: GlanceSize = { reach: 0.34, cock: 0.14, tilt: 0.4 };
+export const BATON_GLANCE: Glance = glanceOf(cock, BATON_GLANCE_SIZE);
 
 /** How dark the far side goes, reached at the widest turn. */
 const FAR_DARK = 0.6;

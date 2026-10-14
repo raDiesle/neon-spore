@@ -1,8 +1,11 @@
 import type { PulseLane } from "@neon-spore/sim";
-import { type Glance, glanceFrame, glanceStill, STILL_GLANCE } from "./glance.js";
+import { type Glance, glanceFrame, glanceStill } from "./glance.js";
 import { drawGlancedLayer } from "./glance-layer.js";
-import type { GlanceSize } from "./glance-styles.js";
+import { cock, type GlanceSize, glanceOf } from "./glance-styles.js";
 import { pulseLaneOutline } from "./pulse-shape.js";
+
+/** How far an arrival's sides open and close, in its radius, and how far it rolls. */
+export const PULSE_GLANCE_SIZE: GlanceSize = { reach: 0.3, cock: 0.14, tilt: 0.5 };
 
 /**
  * **THE PULSE's arrivals glance** — the owner, 9 and 10 October 2026: *body
@@ -21,14 +24,11 @@ import { pulseLaneOutline } from "./pulse-shape.js";
  * Each arrival runs the round from its own place in it, the note's index, so
  * a lane of them does not turn as one.
  *
- * Shipped, they do not glance: `PULSE_GLANCE` is still, and VERSUS
- * `pulse:glance` offers SWAY, LOOK and COCK for it (`glance-styles.ts`), each
- * at `PULSE_GLANCE_SIZE`, in the arrival's own radius.
+ * Taken off VERSUS `pulse:glance` on 14 October 2026, the owner leaving SWAY,
+ * LOOK or COCK to each boss: COCK, the turn he found the most real
+ * (`glance-styles.ts`), at `PULSE_GLANCE_SIZE`, in the arrival's own radius.
  */
-export const PULSE_GLANCE: Glance = { ...STILL_GLANCE };
-
-/** How far an arrival's sides open and close, in its radius, and how far it rolls. */
-export const PULSE_GLANCE_SIZE: GlanceSize = { reach: 0.3, cock: 0.14, tilt: 0.5 };
+export const PULSE_GLANCE: Glance = glanceOf(cock, PULSE_GLANCE_SIZE);
 
 /** How dark the far side goes, reached at the widest turn. */
 const FAR_DARK = 0.6;

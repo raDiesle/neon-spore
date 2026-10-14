@@ -1,7 +1,10 @@
-import { type Glance, glanceFrame, glanceStill, STILL_GLANCE } from "./glance.js";
+import { type Glance, glanceFrame, glanceStill } from "./glance.js";
 import { drawGlancedLayer } from "./glance-layer.js";
-import type { GlanceSize } from "./glance-styles.js";
+import { type GlanceSize, glanceOf, look } from "./glance-styles.js";
 import type { StareEye } from "./stare-shape.js";
+
+/** How far the head's sides open and close, in the cowl's half-width, and how far it rolls. */
+export const STARE_GLANCE_SIZE: GlanceSize = { reach: 0.3, cock: 0.1, tilt: 0.35 };
 
 /**
  * **THE STARE's head glances** — the owner, 9 and 10 October 2026: *body
@@ -16,14 +19,12 @@ import type { StareEye } from "./stare-shape.js";
  * pulled stand where the simulation puts them, and the glass a bolt stops on
  * is drawn over the head, level (`stare-draw.ts`).
  *
- * Shipped, it does not glance: `STARE_GLANCE` is still, and VERSUS
- * `stare:glance` offers SWAY, LOOK and COCK for it (`glance-styles.ts`), each
- * at `STARE_GLANCE_SIZE`, in the cowl's half-width.
+ * Taken off VERSUS `stare:glance` on 14 October 2026, the owner leaving SWAY,
+ * LOOK or COCK to each boss: LOOK, holding a look to each side, as a thing
+ * that watches does (`glance-styles.ts`), at `STARE_GLANCE_SIZE`, in the
+ * cowl's half-width.
  */
-export const STARE_GLANCE: Glance = { ...STILL_GLANCE };
-
-/** How far the head's sides open and close, in the cowl's half-width, and how far it rolls. */
-export const STARE_GLANCE_SIZE: GlanceSize = { reach: 0.3, cock: 0.1, tilt: 0.35 };
+export const STARE_GLANCE: Glance = glanceOf(look, STARE_GLANCE_SIZE);
 
 /** How dark the far side goes, reached at the widest turn. */
 const FAR_DARK = 0.55;

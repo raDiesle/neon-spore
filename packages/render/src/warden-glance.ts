@@ -1,6 +1,9 @@
-import { type Glance, glanceFrame, glanceStill, STILL_GLANCE } from "./glance.js";
+import { type Glance, glanceFrame, glanceStill } from "./glance.js";
 import { drawGlancedLayer } from "./glance-layer.js";
-import type { GlanceSize } from "./glance-styles.js";
+import { cock, type GlanceSize, glanceOf } from "./glance-styles.js";
+
+/** How far the body's middle swings, in body radii, and how far it rolls. */
+export const WARDEN_GLANCE_SIZE: GlanceSize = { reach: 0.13, cock: 0.06, tilt: 0.3 };
 
 /**
  * **THE WARDEN's body glances about its eye** — the owner, 9 and 10 October
@@ -17,14 +20,11 @@ import type { GlanceSize } from "./glance-styles.js";
  * of. The swing is kept inside the hatch's margin, so the top of the hole
  * never slides out from behind the door.
  *
- * Shipped, it does not glance: `WARDEN_GLANCE` is still, and VERSUS
- * `warden:glance` offers SWAY, LOOK and COCK for it (`glance-styles.ts`), each
- * at `WARDEN_GLANCE_SIZE`, in body radii.
+ * Taken off VERSUS `warden:glance` on 14 October 2026, the owner leaving SWAY,
+ * LOOK or COCK to each boss: COCK, the turn he found the most real
+ * (`glance-styles.ts`), at `WARDEN_GLANCE_SIZE`, in body radii.
  */
-export const WARDEN_GLANCE: Glance = { ...STILL_GLANCE };
-
-/** How far the body's middle swings, in body radii, and how far it rolls. */
-export const WARDEN_GLANCE_SIZE: GlanceSize = { reach: 0.13, cock: 0.06, tilt: 0.3 };
+export const WARDEN_GLANCE: Glance = glanceOf(cock, WARDEN_GLANCE_SIZE);
 
 /** How dark the far side goes at its edge, reached at the widest swing. */
 const FAR_DARK = 0.5;

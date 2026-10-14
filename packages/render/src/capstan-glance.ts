@@ -1,9 +1,12 @@
 import type { Point } from "@neon-spore/content";
 import { capstanFaceAt, capstanSize } from "./capstan-shape.js";
-import { type Glance, glancedPoint, glanceFrame, glanceStill, STILL_GLANCE } from "./glance.js";
+import { type Glance, glancedPoint, glanceFrame, glanceStill } from "./glance.js";
 import { drawGlancedLayer } from "./glance-layer.js";
-import type { GlanceSize } from "./glance-styles.js";
+import { cock, type GlanceSize, glanceOf } from "./glance-styles.js";
 import type { Layout } from "./layout.js";
+
+/** How far the drum's middle swings, in its half-length, and how far it rolls. */
+export const CAPSTAN_GLANCE_SIZE: GlanceSize = { reach: 0.13, cock: 0.04, tilt: 0.2 };
 
 /**
  * **THE CAPSTAN glances** — the owner, 9 and 10 October 2026: *body parts of
@@ -21,21 +24,18 @@ import type { Layout } from "./layout.js";
  * and do not turn, and a bolt meets the drum where it is drawn
  * (`capstanGlancedPoint`, `capstan-stop.ts`).
  *
- * Shipped, it does not glance: `CAPSTAN_GLANCE` is still, and VERSUS
- * `capstan:glance` offers SWAY, LOOK and COCK for it (`glance-styles.ts`),
- * each at `CAPSTAN_GLANCE_SIZE`, counted in the drum's half-length as drawn —
- * no more than the core's own radius at the drum's longest, because the core
- * rides the middle as it swings and a bolt up the middle column must still
- * meet it. With the faces held so near the ends the outline hardly changes:
- * what is seen is the near face swelling, the far face shrinking into the
- * dark, and everything between them carried toward the near end. A turn about
- * the middle that let the faces travel would need the hit test to read the
- * same clock, and `Field` carries none.
+ * Taken off VERSUS `capstan:glance` on 14 October 2026, the owner leaving
+ * SWAY, LOOK or COCK to each boss: COCK, the turn he found the most
+ * real (`glance-styles.ts`), at `CAPSTAN_GLANCE_SIZE`, counted in the drum's
+ * half-length as drawn — no more than the core's own radius at the drum's
+ * longest, because the core rides the middle as it swings and a bolt up the
+ * middle column must still meet it. With the faces held so near the ends the
+ * outline hardly changes: what is seen is the near face swelling, the far face
+ * shrinking into the dark, and everything between them carried toward the near
+ * end. A turn about the middle that let the faces travel would need the hit
+ * test to read the same clock, and `Field` carries none.
  */
-export const CAPSTAN_GLANCE: Glance = { ...STILL_GLANCE };
-
-/** How far the drum's middle swings, in its half-length, and how far it rolls. */
-export const CAPSTAN_GLANCE_SIZE: GlanceSize = { reach: 0.13, cock: 0.04, tilt: 0.2 };
+export const CAPSTAN_GLANCE: Glance = glanceOf(cock, CAPSTAN_GLANCE_SIZE);
 
 /** How dark the far half goes, reached at the widest turn. */
 const FAR_DARK = 0.6;

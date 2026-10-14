@@ -2,6 +2,7 @@ import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
 import { flueBoss, governorBoss, midCol, type World } from "@neon-spore/sim";
 import { drawFlue } from "../src/flue-draw.js";
 import { FlueFx } from "../src/flue-fx.js";
+import { FLUE_GLANCE } from "../src/flue-glance.js";
 import { strokeGlowFaded } from "../src/glow.js";
 import { drawGovernor } from "../src/governor-draw.js";
 import { GovernorFx } from "../src/governor-fx.js";
@@ -13,6 +14,7 @@ import { MimicFx } from "../src/mimic-fx.js";
 import { STROKE } from "../src/palette.js";
 import { stood as flueStood } from "./flue-harness.js";
 import { CFG, FRAME_TIMEOUT_MS, installCanvasGlobals, VIEWPORT } from "./frame-harness.js";
+import { holdGlancesStill } from "./glance-held.js";
 import { marks } from "./glow-marks.js";
 import { stood as governorStood } from "./governor-harness.js";
 import { GULLET, posed as lampreyPosed, stood as lampreyStood } from "./lamprey-harness.js";
@@ -31,6 +33,8 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
  */
 
 beforeAll(installCanvasGlobals);
+// Read off the screen's log, so held still (`glance-held.ts`).
+holdGlancesStill(FLUE_GLANCE);
 
 describe("strokeGlowFaded", () => {
   it("fades the glow and the core by the alpha it finds, and leaves it", () => {
