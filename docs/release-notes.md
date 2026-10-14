@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-14 · 2e862cb5c — THE RUB LAB wears ZIGZAG only
+
+THE RUB LAB loses its LOOK choice: every rub wears ZIGZAG, the gesture drawn on the drop a stroke a turn, as every press wears STEPS and every hold SOAK. WIPE, HEAT and COUNT are gone. The sheet is EVERY STATE, in one row. THE RUB LAB's place in the URL is now its turns and seats, `rublab=8-one`; a link that still names a look opens on its turns and seats. A look the owner asked for by name, in the director only.
+
 ## 2026-10-14 · 12d6f4736 — VERSUS offers THE HIVE's lobes glancing
 
 Each lobe hung under THE HIVE turns about the point it hangs from, like a drop on a thread, its far side narrowing into the dark and its tip swinging, each from its own place in the round. Ships still; VERSUS `hive:glance` offers SWAY, LOOK and COCK, judged on THE HIVE · HANG. Exemption: none — a look, offered on VERSUS.

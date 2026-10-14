@@ -39088,3 +39088,5 @@ Bottleneck: the mass is the width of the field, so the part had to be the lobes,
 - landing: 5 min. The URL test, the index.
 
 Bottleneck: none — THE PRESS LAB's cut was the template, line for line.
+
+*Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
