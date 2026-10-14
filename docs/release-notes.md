@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-15 · b8d0cb169 — ONE BOSS'S OWN lists THE BASTION to THE GOVERNOR
+
+A third page of HELPERS' one-seat pictures: THE BASTION's port, THE CHRYSALIS's heart, THE HYDRA's maw and fire, THE FLUE's ember, THE GALL's pinch, THE GIMBAL's rings and THE GOVERNOR's marks. The first three are on a boss's last step, which no gallery pose reaches, so the page poses each as a boss whose script is that step alone. The director only.
+
 ## 2026-10-15 · b8c207943 — ONE BOSS'S OWN lists THE SCUTTLE to THE THROAT
 
 The second page of HELPERS' one-seat pictures: THE SCUTTLE's count and live part, THE ANTIPHON's organ and rail, THE HIVE's swell and colour, THE INSTAR's own marks, THE STARE's catch, THE FILAMENT's way ahead and THE THROAT's handles, and THE GORGE's tap folded into its row. THE STARE's catch is in no gallery pose, so the page builds one. The director only.

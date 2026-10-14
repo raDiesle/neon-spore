@@ -41192,3 +41192,4 @@ split is drawn somewhere neither page says.
 Bottleneck: reading — three of the splits are on a boss's last step, which
 no gallery pose reaches.
 
+*Measured: 7 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
