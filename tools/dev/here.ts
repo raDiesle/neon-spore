@@ -70,6 +70,17 @@ export function hereRoot(cwd: string): string {
   return cwd;
 }
 
+/**
+ * How many commits the local `main` holds that `HEAD` in `tree` does not — the
+ * landings a lane would be working without. Nought on `main` itself, and when
+ * git cannot answer (no `main`, not a checkout): this is a warning, never a gate.
+ */
+export function behindMain(tree: string): number {
+  const out = Bun.spawnSync(["git", "rev-list", "--count", "HEAD..main"], { cwd: tree });
+  if (out.exitCode !== 0) return 0;
+  return Number.parseInt(out.stdout.toString().trim(), 10) || 0;
+}
+
 /** Write `tree` as the pointer for its repository; returns the file written. */
 export function writeHere(tree: string): string {
   const file = hereFile(tree);
@@ -83,4 +94,11 @@ if (import.meta.main) {
   const file = writeHere(tree);
   console.log(`director-here and game-here now serve ${tree}`);
   console.log(`(written to ${file}; run this from the main checkout to point it back)`);
+  const behind = behindMain(tree);
+  if (behind > 0) {
+    console.log(
+      `⚠ this tree is ${behind} commit${behind === 1 ? "" : "s"} behind the local main — ` +
+        "`git merge --ff-only main` before you measure anything",
+    );
+  }
 }

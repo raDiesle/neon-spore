@@ -28,6 +28,18 @@ branch out there instead** — `git checkout claude/queue-<slug>` — and the
 prompt `next` prints says so. A desktop session is refused every write outside
 the tree it was opened in, so a new tree would be one it could not edit.
 
+**Then bring the branch up to the local `main`, not only to `origin`'s**:
+
+```bash
+git merge --ff-only main
+```
+
+`git fetch origin main && git merge --ff-only origin/main` says *already up
+to date* while the local `main` holds landings nobody has pushed yet, and the
+lane starts behind its own trunk — one built a sub tab against a `session.ts`
+that did not have `subBars` yet, and the lane before it hit the same thing
+(10 October 2026). `bun run here` says so too, when `HEAD` is behind `main`.
+
 Then, **from inside the new tree** (or the one you checked out in), `bun install`. This is not optional and
 `node_modules` must not be linked or copied from the main checkout: the
 workspace links inside it point at the main tree's `packages/*` by absolute

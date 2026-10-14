@@ -3,7 +3,7 @@ import { mkdirSync, mkdtempSync, realpathSync, rmSync, writeFileSync } from "nod
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { fileCosts } from "../../test/figure.js";
-import { commonGitDir, HERE_FILE, hereRoot, writeHere } from "../here.js";
+import { behindMain, commonGitDir, HERE_FILE, hereRoot, writeHere } from "../here.js";
 
 // What this file is allowed to take, scaled to how busy the machine is
 // (`tools/test/repo-time.ts`), because bun's five-second default is a flat number and
@@ -125,5 +125,40 @@ describe("the route a lane can name", () => {
     const out = run.stdout.toString().replaceAll("\\", "/");
     expect(out).toContain(`supervising ${wt}`);
     expect(out.trim().split("\n").at(-1)).toBe(wt);
+  });
+});
+
+describe("a tree behind its own trunk", () => {
+  /** A real repository: two commits on `main`, a branch left at the first. */
+  function gitRepo(): string {
+    const dir = realpathSync(mkdtempSync(join(tmpdir(), "ns-behind-")));
+    const git = (...args: string[]) =>
+      Bun.spawnSync(["git", "-c", "user.name=t", "-c", "user.email=t@t", ...args], { cwd: dir });
+    git("init", "-q", "-b", "main");
+    git("commit", "-q", "--allow-empty", "-m", "one");
+    git("branch", "lane");
+    git("commit", "-q", "--allow-empty", "-m", "two");
+    git("checkout", "-q", "lane");
+    return dir;
+  }
+
+  test("counts what the local main holds that HEAD does not", () => {
+    const dir = gitRepo();
+    try {
+      expect(behindMain(dir)).toBe(1);
+      Bun.spawnSync(["git", "merge", "-q", "--ff-only", "main"], { cwd: dir });
+      expect(behindMain(dir)).toBe(0);
+    } finally {
+      rmSync(dir, { recursive: true, force: true });
+    }
+  });
+
+  test("answers nought where git cannot", () => {
+    const dir = realpathSync(mkdtempSync(join(tmpdir(), "ns-behind-")));
+    try {
+      expect(behindMain(dir)).toBe(0);
+    } finally {
+      rmSync(dir, { recursive: true, force: true });
+    }
   });
 });

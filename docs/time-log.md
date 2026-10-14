@@ -40051,3 +40051,15 @@ Bottleneck: THE INSTAR's together rule exempted a pull because letting go undid 
 Bottleneck: the balloon's hand re-released every balloon on every move, so the count had to be read off the body before the release or it would never have lasted past the next tick.
 
 *Measured: 12 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-14 — A lane's trunk step misses a local main that is ahead of origin
+
+- reading: 5 min. The lane skill's open step and `here.ts`.
+- writing: 5 min. The step, `behindMain` and its warning, a test on a real
+  two-commit repository.
+- looking: 0 min. Nothing drawn.
+- friction: 5 min. The Bash guard refused a heredoc with a doubled
+  backslash; the edit went through a script by path.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: none worth the name — the entry named both fixes and both were small; the guard's heredoc refusal cost one rewrite.
