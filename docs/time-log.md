@@ -39722,3 +39722,5 @@ Bottleneck: the helper sits on the hull, so it had to go in the pass drawn after
 - landing: 5 min. `check:fast`, the commit, `land`.
 
 Bottleneck: the rub's hit test reads the faces with no clock, so they had to be held — and held at the drum's ends, they leave the turn almost nothing to show; that is put to the owner.
+
+*Measured: 55 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*

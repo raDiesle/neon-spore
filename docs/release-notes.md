@@ -9,6 +9,14 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-14 · 1bac30993 — VERSUS offers THE CAPSTAN's drum turning between its faces
+
+`capstan:glance` offers the drum a turn on top of the yaw its cradle already gives it — SWAY, LOOK or COCK — with the two end faces a rubbing thumb is on held where they stand: the near face swells, the far face shrinks into the dark, and what lies between is carried toward the near end, on CAPSTAN · THE LEFT BAND RUBBED. The cradle and horns do not turn, and a bolt meets the drum where it is drawn. Held so near the ends, and capped so the core stays over its column, the turn is faint; whether to make it larger is asked in the queue. The record ships still, so the game draws what it did.
+
+## 2026-10-14 · ddfb9f691 — Exempt VERSUS's generated registry from the line ceiling
+
+`tools/versus/candidates/registry.ts` is written by `bun run versus index`, two lines a candidate, and passed 250 lines at 121 candidates. Nobody edits it and a conflict in it is resolved by the command, so `counted` leaves it out, for `limits.test.ts` and the edit hook alike.
+
 ## 2026-10-14 · 91692daf4 — THE LEDGER shows the pilot where the cannon has to stand
 
 While the cord is empty and the fight is still paying, the pilot's hull carries the pull's waiting path from the cannon to a dashed placeholder under the seam: the dots lit one after another, the see-through ghost running along them, the placeholder flashing as it lands. It goes the moment the cannon is under the seam, where FIRE stands instead, and is as quiet as FIRE once the cord bills every shot. A place, not a word.
