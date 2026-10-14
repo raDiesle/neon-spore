@@ -3633,10 +3633,13 @@ by hand never moves.
 | `tools/director/src/helpers-def.ts` | **What one row of CONTROLS › HELPERS is** — a picture the game draws on the field to explain something |
 | `tools/director/src/helpers-page.ts` | CONTROLS › HELPERS — every picture the game draws on the field to explain something rather than to be… |
 | `tools/director/src/helpers-poses.ts` | The frames CONTROLS › HELPERS draws that the STATES gallery has no pose for (`helpers-page.ts`) |
+| `tools/director/src/helpers-poses-faults.ts` | The frames CONTROLS › HELPERS draws for a **fault** (`helpers-faults.ts` |
 | `tools/director/src/helpers-shield.ts` | CONTROLS › HELPERS › **THE SHIELD** — every picture the field draws to say something about the shield |
 | `tools/director/src/helpers-siren.ts` | CONTROLS › HELPERS, after THE SHIELD: **THE SIREN** |
 | `tools/director/src/helpers-hidden.ts` | CONTROLS › HELPERS, **what one screen has and the other has not** |
 | `tools/director/src/helpers-tell.ts` | CONTROLS › HELPERS, the telling half of THE HIDDEN (`helpers-hidden.ts`) |
+| `tools/director/src/helpers-faults.ts` | CONTROLS › HELPERS, **WHEN A CONTROL BREAKS** |
+| `tools/director/src/helpers-marks.ts` | CONTROLS › HELPERS, **ON A BOSS'S MARK**: the few pictures every boss's parts wear |
 | `tools/director/src/brush-hints.ts` | SHOW DESCRIPTIONS: whether each brush in the palette carries its sentence |
 | `tools/director/src/brush-lists.ts` | which strings are brushes and which kind each one paints — the lists, not the palette's rows |
 | `tools/director/src/scene-marks.ts` | The marks: everything a scene draws that is not a body |

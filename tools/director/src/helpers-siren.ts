@@ -19,6 +19,7 @@ export const SIREN_GROUP: HelperGroup = {
     "not a helper for one body but the one place every split says itself: " +
     "whenever one screen has what the other has not, it lights, names the seat " +
     "that must speak and gives each seat its job",
+  table: sirenRosterTable,
   rows: [
     {
       name: "THE SIREN",

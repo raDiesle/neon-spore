@@ -1,8 +1,10 @@
-import { AIM_GROUP, BODY_GROUP, MARK_GROUP } from "./helpers-aim.js";
+import { AIM_GROUP, BODY_GROUP } from "./helpers-aim.js";
 import type { HelperDef, HelperGroup } from "./helpers-def.js";
+import { FAULT_GROUP } from "./helpers-faults.js";
 import { HIDDEN_GROUP } from "./helpers-hidden.js";
+import { MARK_GROUP } from "./helpers-marks.js";
 import { SHIELD_GROUP } from "./helpers-shield.js";
-import { SIREN_GROUP, sirenRosterTable } from "./helpers-siren.js";
+import { SIREN_GROUP } from "./helpers-siren.js";
 import { poseArt } from "./pose-art.js";
 import type { Pose } from "./pose-kit.js";
 import { poseNamed } from "./poses.js";
@@ -25,7 +27,7 @@ import { whenSeen } from "./when-seen.js";
  * Grouped by what a helper is about (the owner, 14 October 2026): the shield
  * first, at his word that morning; the siren every split speaks through, and
  * the split itself beside it — the seat not told, the seat that must tell;
- * then the shot, a body and a boss's mark.
+ * then the shot, a body, a boss's mark, and a control taken by a fault.
  */
 export const HELPER_GROUPS: readonly HelperGroup[] = [
   SHIELD_GROUP,
@@ -34,6 +36,7 @@ export const HELPER_GROUPS: readonly HelperGroup[] = [
   AIM_GROUP,
   BODY_GROUP,
   MARK_GROUP,
+  FAULT_GROUP,
 ];
 
 /** The same width as an ON THE FIELD row's picture, so the two tabs line up. */
@@ -133,7 +136,7 @@ export function renderHelpers(): void {
  * page's outline numbered by CONTENTS as ON THE FIELD's is (`contents-list.ts`). */
 function appendGroup(body: HTMLElement, g: HelperGroup, depth: number): void {
   body.appendChild(groupHead(g, depth));
-  if (g === SIREN_GROUP) body.appendChild(sirenRosterTable());
+  if (g.table) body.appendChild(g.table());
   if (g.lab) body.appendChild(labCard(g.lab));
   for (const h of g.rows ?? []) body.appendChild(helperRow(h, depth + 1));
   for (const p of g.parts ?? []) appendGroup(body, p, depth + 1);

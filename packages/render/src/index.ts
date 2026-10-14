@@ -46,6 +46,8 @@ export {
 export { drawnCol, drawnRow } from "./depth.js";
 export { DUTY_WORD } from "./duty-words.js";
 export { smoothstep } from "./ease.js";
+// The words beside the lantern, one a fault — CONTROLS › HELPERS lists them.
+export { FAULT_LABEL } from "./fault-label.js";
 export {
   type Dial,
   type DialView,

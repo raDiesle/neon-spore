@@ -1,6 +1,7 @@
 import { hullRow, midCol } from "@neon-spore/sim";
 import type { HelperGroup } from "./helpers-def.js";
 import { FENCE_SKULL, PUSHED_ONCE, TORCH_COMING } from "./helpers-poses.js";
+import { SHIELD_FAULT } from "./helpers-poses-faults.js";
 import { openShieldLab } from "./shield-lab.js";
 
 /**
@@ -19,8 +20,9 @@ import { openShieldLab } from "./shield-lab.js";
  * doorway and sweep are a split and stand with the split
  * (`helpers-hidden.ts`, `helpers-tell.ts`). Owed rows, for helpers that ship
  * with no frame yet that shows them, are a queue entry (`docs/queue.md`):
- * SHIELD STUCK ON, the push's red rim, the button's fading glow, THE
- * THROAT's shield face, and DEFLECTED.
+ * the push's red rim, the button's fading glow, THE THROAT's shield face,
+ * and DEFLECTED. SHIELD STUCK ON is posed beside the other faults
+ * (`helpers-poses-faults.ts`).
  */
 
 export const SHIELD_GROUP: HelperGroup = {
@@ -140,6 +142,19 @@ export const SHIELD_GROUP: HelperGroup = {
       pose: "LIMPET · ON THE PLATE",
       role: "p1",
       lookAt: "the scanner box on the hull and MOVE SHIELD! above it",
+    },
+    {
+      name: "SHIELD STUCK ON",
+      where: "beside the lantern at the top, its beam down to the dome",
+      seat: "BOTH — the beam lands on the dome on P2's screen, on GUARD on P1's",
+      says:
+        "A fault holds the shield up: it cannot be pressed off, and what it " +
+        "catches it catches whether the pair wanted it or not. KEEP SHIELD MOVING " +
+        "is the same lantern for a limpet on the dome.",
+      source: "fault-label.ts, fault-emitter.ts, fault-beam-ends.ts",
+      pose: SHIELD_FAULT,
+      role: "p2",
+      lookAt: "SHIELD STUCK ON beside the lantern and the beam down to the dome",
     },
   ],
 };

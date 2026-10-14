@@ -1,12 +1,11 @@
-import { coreRowMilli, midCol } from "@neon-spore/sim";
-import type { HelperDef, HelperGroup } from "./helpers-def.js";
+import type { HelperGroup } from "./helpers-def.js";
 import { EMPTY_FIELD, LOCKED, MINE_UP } from "./helpers-poses.js";
 import { firstOfKind } from "./pose-kit.js";
 
 /**
  * CONTROLS › HELPERS, after the siren, the split and the shield: where a
- * shot goes, the words and counts that stand on a body, and the marks every
- * boss's part wears.
+ * shot goes, and the words and counts that stand on a body. A boss's marks
+ * are `helpers-marks.ts`.
  */
 
 export const AIM_GROUP: HelperGroup = {
@@ -139,55 +138,6 @@ export const BODY_GROUP: HelperGroup = {
       role: "p2",
       zoom: { at: firstOfKind("blister"), span: 4 },
       lookAt: "the halo and the gesture over the blister",
-    },
-  ],
-};
-
-/** THE CAPSTAN's drum, close enough that the marks on its bands read. */
-const ON_THE_DRUM: HelperDef["zoom"] = {
-  at: (w) => ({ col: midCol(w.cfg) - 1, row: coreRowMilli("capstan") / 1000 }),
-  span: 5,
-};
-
-export const MARK_GROUP: HelperGroup = {
-  title: "ON A BOSS'S MARK",
-  sub: "the same few marks on every boss — whose a part is, how it is going, whether it was right",
-  rows: [
-    {
-      name: "THE HALO, THE TURNING RING, THE CLOCK",
-      where: "on a boss's open mark",
-      seat: "yours: a red halo inside it — your partner's: a dim turning ring and a clock",
-      says:
-        "Act on this now, or wait: it is the other seat's. The clock replaces the " +
-        "gesture, so the waiting seat never reads it as its own next move.",
-      source: "mark-feedback.ts, part-light.ts",
-      pose: "CAPSTAN · THE LEFT BAND RUBBED",
-      role: "p2",
-      zoom: ON_THE_DRUM,
-      lookAt: "the light inside one mark and the dashed ring and clock on the other",
-    },
-    {
-      name: "THE HOLD MARK",
-      where: "on a boss's HOLD",
-      seat: "the seat asked to hold",
-      says: "Keep your thumb here: a red ring that breathes, a thumbprint in it.",
-      source: "hold-mark.ts",
-      pose: "BULB QUEEN · HELD",
-      role: "p1",
-      lookAt: "the red ring with the thumbprint",
-    },
-    {
-      name: "THE GREEN RING AND THE ARC",
-      where: "round a mark held where it is wanted, and round one being worked",
-      seat: "BOTH — the working seat's count is the waiting seat's reason to keep holding",
-      says:
-        "Right, keep it there; and how far the partner has got — a green arc from " +
-        "twelve o'clock, in segments where the part needs a count.",
-      source: "mark-progress.ts",
-      pose: "CAPSTAN · THE LEFT BAND RUBBED",
-      role: "p1",
-      zoom: ON_THE_DRUM,
-      lookAt: "the steady green ring and the green arc round the mark",
     },
   ],
 };

@@ -39736,3 +39736,19 @@ Bottleneck: the rub's hit test reads the faces with no clock, so they had to be 
 Bottleneck: none to speak of — cutting the channel in the lab put the ring where to hold without touching the game's drawing.
 
 *Measured: 6 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-14 — CONTROLS › HELPERS: when a control breaks, and a boss's cue
+
+- reading: 10 min. The fault union and its words (`malfunction.ts`,
+  `fault-label.ts`), how a pose places a fault, and the boss cue's files.
+- writing: 15 min. Four fault frames, WHEN A CONTROL BREAKS with the words
+  read off `FAULT_LABEL`, SHIELD STUCK ON, and ON A BOSS'S MARK moved to its
+  own file with the cue, the word beside a mark and THE HOLD brought up to date.
+- looking: 25 min. Thirteen frames; four showed nothing of their helper and
+  were taken out and queued, one reworded to what its frame does show.
+- friction: 15 min. The browser pane was hidden, so a picture drew only when a
+  screenshot forced a frame; a hot reload mid-edit left a stale error to rule out.
+- landing: 10 min. `bun run index`, `check:fast`, `land`.
+
+Bottleneck: looking — a still frame of a moment that lives one tick (a verdict,
+a banner) shows nothing, and only drawing it says so.

@@ -2,7 +2,7 @@ import { describe, expect, test } from "bun:test";
 import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 import { TALKER } from "@neon-spore/render";
-import { gripsCreature, type World } from "@neon-spore/sim";
+import { faultsNow, gripsCreature, type World } from "@neon-spore/sim";
 import { groupRows } from "../src/helpers-def.js";
 import { HELPER_GROUPS, helperPose } from "../src/helpers-page.js";
 import {
@@ -22,6 +22,7 @@ import {
   VEIL_UP,
   WISP_UP,
 } from "../src/helpers-poses.js";
+import { CANNON_FAULT, CODEX_ON, FLIP_ON, SHIELD_FAULT } from "../src/helpers-poses-faults.js";
 import { SIREN_GROUP, sirenRoster } from "../src/helpers-siren.js";
 import { poseNamed } from "../src/poses.js";
 
@@ -122,5 +123,19 @@ describe("the frames built for HELPERS reach their moment", () => {
     const c = w.creatures[0];
     expect(c).toBeDefined();
     expect(gripsCreature(w, 1, c?.id ?? -1)).toBe(true);
+  });
+
+  test("each fault's frame has its fault in force", () => {
+    const pairs = [
+      [CANNON_FAULT, "cannon"],
+      [SHIELD_FAULT, "shield"],
+      [CODEX_ON, "codex"],
+      [FLIP_ON, "flip"],
+    ] as const;
+    for (const [pose, kind] of pairs)
+      expect(
+        faultsNow(pose.build()).map((f) => f.kind),
+        pose.name,
+      ).toContain(kind);
   });
 });

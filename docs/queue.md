@@ -800,12 +800,12 @@ into its comment as the 30 September ones are. Prove with
 - **Files:** `tools/director/src/helpers-shield.ts`, `tools/director/src/helpers-poses.ts`, `tools/director/test/helpers-page.test.ts`
 
 CONTROLS › HELPERS › THE SHIELD lists every shield helper that ships with a
-gallery frame to draw it in. Five still ship without one; each needs a pose built
+gallery frame to draw it in. Four still ship without one; each needs a pose built
 in `helpers-poses.ts` that ends on a tick the helper is drawn on (only the last
 frame of a pose is handed `world.events`, `pose-frame.ts`). THE FENCE's skull,
 doorway and sweep are on the page since claude/docs-controls-helpers-org-c825df
-(`FENCE_UP`, `FENCE_SKULL`); what is left is SHIELD STUCK ON (`fault-label.ts`) — no pose puts a
-shield fault in force; the push's red rim and spray (`shield-push-fx.ts`) —
+(`FENCE_UP`, `FENCE_SKULL`), and SHIELD STUCK ON since the faults' frames
+(`helpers-poses-faults.ts`); what is left is the push's red rim and spray (`shield-push-fx.ts`) —
 `PUSHED_ONCE` runs a beat past it; the SHIELD button's fading glow
 (`guard-lapse.ts`); THE THROAT's shield face (`throat-hue.ts`) — `THE THROAT ·
 SUCKS` stops on a red slick, and meteors come from beat 28; and DEFLECTED
@@ -860,3 +860,47 @@ the names a wave's source references, imported from where they were before —
 and drop the ones no wave there uses. Prove it with a test that moves a wave
 carrying an imported constant across an act boundary and type-checks the
 written files, then `bun run check`.
+
+## HELPERS: six helpers that ship with no frame showing them
+
+- **Found:** 2026-10-14, claude/docs-controls-helpers-org-c825df
+- **Files:** `tools/director/src/helpers-marks.ts`, `tools/director/src/helpers-faults.ts`, `tools/director/src/helpers-poses-faults.ts`, `tools/director/test/helpers-page.test.ts`
+
+The sweep of `packages/render/src` for CONTROLS › HELPERS found six generic
+helpers whose rows were written and taken out again, because no frame tried
+showed them: THE VERDICT (`grip-verdict.ts`) — `THE MIRROR · VERDICT` shows no
+ring, and it is drawn off `world.events`, so the pose must end on the judging
+tick; the thumb's ring (`thumb-aura.ts`) — it reads this device's own thumb,
+which no pose holds; THE BATON's banner and labels (`baton-explain.ts`) —
+`THE BATON · UNFOLDING` is an empty field; the band put out (`band-lock.ts`)
+— `THE MIRROR · LISTEN` shows the band lit; THE HANDOVER's plate
+(`handover-look.ts`) — `HANDOVER · THE TRADE` cut to the ship shows no plate;
+and WRONG COLOUR (`fail-cause.ts`) — no pose loses a wave to a shot. Build a
+frame for each that ends on a tick it is drawn, add the row (marks to
+`MARK_GROUP`, the plate to `FAULT_GROUP`), look at it, and keep
+`helpers-page.test.ts` green.
+
+## HELPERS: THE CURTAIN to THE STARE's one-seat pictures are not listed
+
+- **Found:** 2026-10-14, claude/docs-controls-helpers-org-c825df
+- **Files:** `tools/director/src/helpers-page.ts`, `packages/render/src/view-role-clocks.ts`, `packages/render/src/view-role-clocks-b.ts`
+
+Every boss with a split draws a picture on one seat only — a tally, a next,
+a zone, a lean arrow — and CONTROLS › HELPERS lists none of them, only the
+marks every boss shares. `view-role-clocks.ts` and `-b.ts` hold THE CURTAIN,
+THE GORGE, THE LEAD, THE LEDGER, THE SINEW, THE SURGE, THE TASTER, THE THROAT,
+THE UNDERTOW, THE ANTIPHON, THE FILAMENT, THE HIVE, THE INSTAR, THE SCUTTLE
+and THE STARE. Give them a group of their own, ONE BOSS'S OWN, in a new file
+helpers-bosses.ts beside the other groups' — a row a boss
+on the seat that is shown it, framed on a gallery pose where one holds the
+moment; look at each.
+
+## HELPERS: THE BASTION to THE TRAPEZE's one-seat pictures are not listed
+
+- **Found:** 2026-10-14, claude/docs-controls-helpers-org-c825df
+- **Files:** `tools/director/src/helpers-page.ts`, `packages/render/src/view-role-clocks-c.ts`, `packages/render/src/gauge.ts`
+
+The second half of the entry above: `view-role-clocks-c.ts` — THE BASTION,
+THE FLUE, THE GALL, THE GIMBAL, THE GOVERNOR, THE HASP, THE LAMPREY, THE
+MIMIC, THE RATCHET, THE SPOOL, THE TRAPEZE — and THE GAUGE's marks on player
+2's screen (`gauge.ts`). Same group, same rule: a row a boss, the real frame.

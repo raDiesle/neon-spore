@@ -51,6 +51,9 @@ export interface HelperGroup {
   sub: string;
   /** A lab put up under the heading, before the rows (THE SHIELD LAB). */
   lab?: (host: HTMLElement) => void;
+  /** A table put up under the heading, read off the renderer's own tables:
+   * what lights THE SIREN, the words beside the lantern. */
+  table?: () => HTMLElement;
   rows?: readonly HelperDef[];
   parts?: readonly HelperGroup[];
 }
