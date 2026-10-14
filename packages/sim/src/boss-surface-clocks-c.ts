@@ -192,7 +192,6 @@ export {
   slingCupAsks,
   slingDone,
   slingLitStep,
-  slingSwipe,
 } from "./sling.js";
 export { slingWindowBeats } from "./sling-step.js";
 // THE VALVE's drum: the phase, the movement, the pins, the wheel and its mark,

@@ -191,11 +191,12 @@ export const CHOREO_NOTES_C = {
   "THE SLING — the boss two draws loose, then shoot into":
     "Asked for in docs/spec/bosses-choreographed.md §32: a draw, each seat " +
     "holding a finger down to pull its own arm of a fork over the middle " +
-    "column, then loosing it by swiping toward the lit side as it lifts, and " +
-    "a script the wave authors, aims and all. A left or right step looses " +
-    "that arm once the finger has held for the step's beats and leaves " +
-    "toward its aim; a lift too soon, the wrong way or with no swipe springs " +
-    "the arm slack with the step still lit, and a step run out springs it " +
+    "column, then — since 13 October 2026 — a fresh press pulling it toward " +
+    "the lit side, and a script the wave authors, aims and all. A left or " +
+    "right step looses that arm once the finger has held for the step's " +
+    "beats and the pull has gone slingPullMilli toward its aim; a lift too " +
+    "soon springs the arm slack with the step still lit, a pull let go short " +
+    "is said and waits, and a step run out springs it " +
     "and relights it. Two draws an arm light the yoke; a fire step wants a " +
     "shot in its colour; a both step is both seats drawing and loosing at " +
     "once, and one run out dims the yoke until it is redrawn. A fire step " +

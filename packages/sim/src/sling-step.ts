@@ -58,8 +58,10 @@ function lit(world: World, s: SlingState, since: number): void {
   const step = s.steps[s.cursor];
   if (step === undefined) return;
   for (const side of [0, 1] as const) {
-    if (slingAsks(s, side) && s.holding[side] && s.drawnBeats[side] < step.beats)
-      s.drawnBeats[side] += 1;
+    if (!slingAsks(s, side) || !s.holding[side] || s.drawnBeats[side] >= step.beats) continue;
+    s.drawnBeats[side] += 1;
+    // The hold counted: the cord's pull is asked in its place (`sling-hand.ts`).
+    if (s.drawnBeats[side] >= step.beats) s.held[side] = true;
   }
   if (since < slingWindowBeats(world, step)) return;
   const col = midCol(world.cfg);
@@ -76,8 +78,8 @@ function lit(world: World, s: SlingState, since: number): void {
 }
 
 /**
- * A seat loosed its draw true — held its beats and swiped toward the aim —
- * in a step that asked it: an arm drawn home, or one half of a redraw under
+ * A seat loosed its draw true — held its beats, then pulled the whole way
+ * toward the aim — in a step that asked it: an arm drawn home, or one half of a redraw under
  * the yoke. Called by the lift (`sling-hand.ts`).
  */
 export function slingLoosed(world: World, s: SlingState, side: 0 | 1): void {
@@ -122,6 +124,8 @@ function next(world: World, s: SlingState): void {
   s.phase = "lit";
   s.phaseBeat = world.beat;
   s.drawnBeats = [0, 0];
+  s.held = [false, false];
+  s.pullMilli = [-1, -1];
   s.loosed = [false, false];
   openSlow(world, slingWindowBeats(world, step), "ask");
   world.events.push({ type: "slingLight", ask: step.ask, aim: step.aim, col });
@@ -148,6 +152,8 @@ function rest(world: World, s: SlingState, advance: boolean): void {
   s.phase = "rest";
   s.phaseBeat = world.beat;
   s.drawnBeats = [0, 0];
+  s.held = [false, false];
+  s.pullMilli = [-1, -1];
   s.loosed = [false, false];
   if (advance) s.cursor += 1;
 }

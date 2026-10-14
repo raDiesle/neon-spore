@@ -123,8 +123,18 @@ export const DRAG_NUMBERS: Readonly<Record<string, readonly (keyof SimConfig)[]>
   ],
   "THE BLISTER'S RUB": ["blisterUpBeats", "blisterBlows"],
   // Drawn, then swiped.
-  "THE SLING'S LEFT CORD": ["slingGraceBeats", "slingCoolBeats", "slingCoolSnaps"],
-  "THE SLING'S RIGHT CORD": ["slingGraceBeats", "slingCoolBeats", "slingCoolSnaps"],
+  "THE SLING'S LEFT CORD": [
+    "slingGraceBeats",
+    "slingPullMilli",
+    "slingCoolBeats",
+    "slingCoolSnaps",
+  ],
+  "THE SLING'S RIGHT CORD": [
+    "slingGraceBeats",
+    "slingPullMilli",
+    "slingCoolBeats",
+    "slingCoolSnaps",
+  ],
   // A wheel turned.
   "THE GIMBAL'S OUTER RING": ["gimbalCarryPct", "gimbalLetGoTicks", "gimbalDriftMilli"],
   "THE GIMBAL'S INNER RING": ["gimbalLetGoTicks", "gimbalDriftMilli"],

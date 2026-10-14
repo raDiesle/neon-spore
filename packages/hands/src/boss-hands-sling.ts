@@ -10,16 +10,16 @@ import {
 
 /**
  * **THE SLING played right**, for the autopilot: each seat holds its own draw
- * down while the lit step asks it, until the step's beats are held, then
- * lifts it swiping toward the lit side; both seats at once on a redraw; the
- * lit yoke shot in its colour up the middle.
+ * down while the lit step asks it, until the step's beats are held, lifts,
+ * then presses again and pulls the cord the whole way toward the lit side;
+ * both seats at once on a redraw; the lit yoke shot in its colour up the
+ * middle.
  *
- * **A draw is one drag** (`sim/sling-hand.ts`): the finger goes down once the
- * seat is asked, and the lift carries the swipe on `fromMilli`, its sign
- * alone. A lift before the beats are held, or toward the wrong side, springs
- * the arm, so this hand lifts only once `drawnBeats` has reached the step's
- * `beats`. A finger still down when its seat is no longer asked is let go
- * with no swipe, which outside an asking step only lets go.
+ * **A draw is a hold, then a pull in its place** (`sim/sling-hand.ts`): a
+ * lift before the beats are held springs the arm, so this hand lifts only
+ * once the hold has counted (`held`), and the thumb that held moves nothing,
+ * so the pull is a fresh press. A finger still down when its seat is no
+ * longer asked is let go, which outside an asking step only lets go.
  *
  * **The shot** wants the step's colour; the white yoke takes either, and the
  * navigator fires cyan. The cannon is slid only while it is off the middle
@@ -30,14 +30,12 @@ type Press = Omit<TimedCommand, "tick">;
 export const slingHand = (w: World): Press[] => {
   const s = slingBoss(w);
   if (s === null) return [];
-  return [...draw(s), ...shoot(w, s)];
+  return [...draw(w, s), ...shoot(w, s)];
 };
 
 const TARGET = ["slingDrawLeft", "slingDrawRight"] as const;
-/** A swipe's `fromMilli`: only its sign is read. */
-const SWIPE = 1000;
 
-function draw(s: SlingState): Press[] {
+function draw(w: World, s: SlingState): Press[] {
   const step = slingLitStep(s);
   const out: Press[] = [];
   for (const side of [0, 1] as const) {
@@ -46,9 +44,11 @@ function draw(s: SlingState): Press[] {
       if (asked) out.push(hold(side, true, 0));
       continue;
     }
-    if (!asked) out.push(hold(side, false, 0));
-    else if (s.drawnBeats[side] >= step.beats)
-      out.push(hold(side, false, step.aim === "left" ? -SWIPE : SWIPE));
+    if (!asked || (s.held[side] && s.pullMilli[side] < 0)) out.push(hold(side, false, 0));
+    else if (s.pullMilli[side] >= 0) {
+      const reach = w.cfg.slingPullMilli;
+      out.push(hold(side, true, step.aim === "left" ? -reach : reach));
+    }
   }
   return out;
 }

@@ -3,16 +3,19 @@ import type { FieldControlDef } from "./field-control-def.js";
 /**
  * THE SLING's two cords, as rows of the ON THE FIELD tab: one a seat by
  * geometry, the pilot's the left and the navigator's the right, each taken by
- * a thumb anywhere on that seat's own panel while the lit step asks it, and
- * loosed by the way the thumb leaves (`render/sling-grip.ts`,
+ * a thumb anywhere on that seat's own panel while the lit step asks it, held
+ * for the step's beats and then pulled toward the lit side
+ * (`render/sling-grip.ts`,
  * `docs/spec/bosses-choreographed.md` §32).
  */
 const DOES =
-  "A **draw and swipe**, `DrawRelease`: a finger down anywhere on the seat's " +
-  "own screen takes the cord and counts the beats it is held, and the lift " +
-  "carries the swipe's side. A lift that has held the step's beats and " +
-  "swipes toward the lit side is a true loose; one too soon, the wrong way or " +
-  "with no swipe springs the arm slack, the step still lit. Asked only while " +
+  "A **hold, then a pull in its place** (the owner, 13 October 2026): a finger " +
+  "down anywhere on the seat's own screen takes the cord and counts the " +
+  "beats it is held; a lift too soon springs the arm slack, the step still " +
+  "lit. Once the step's beats are held the hold has counted, and a fresh " +
+  "press pulls the cord slingPullMilli toward the lit side — the one generic " +
+  "PULL, a true loose the moment it gets there; let go short, it is said and " +
+  "waits to be taken again. Asked only while " +
   "the lit step wants this seat's draw, so a fire step's cannon answers " +
   "underneath it (sim/sling-hand.ts). While the step is lit on this cord and " +
   "it is not yet loosed, the cord wears the halo on its seat's screen and the " +
@@ -21,7 +24,7 @@ const DOES =
   "(render/sling-verdicts.ts).";
 
 const SOURCE =
-  "handles.ts — slingDrawUnder() under handleUnder(); the swipe's side carried on the lift by touch.ts' swiped set";
+  "handles.ts — slingDrawUnder() under handleUnder(); a lift's carry kept by touch.ts' swiped set";
 
 const WHEN = "anywhere on the field, while the lit step asks this seat's draw";
 

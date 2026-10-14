@@ -9724,6 +9724,16 @@ finger is **down**, the beats each has held in the lit step, and, in a
 **The rule, in one sentence.** Hold your draw until it is home, then loose
 it toward the lit side; shoot the lit yoke in its colour.
 
+**A hold, then a pull in its place** (the owner, 13 October 2026, carrying
+THE COMBO LAB's HOLD, THEN PULL into the game, in place of the swipe on the
+lift). A draw is two gestures, each whole on its own: the hold, its beats
+counted on the beat (`held` once they are in), and then a fresh press that
+pulls the cord `slingPullMilli` (2000) toward the aim — the one generic PULL
+(`sim/pull.ts`), a true loose the moment it gets there, with a pull let go
+short said (`pullShort`) and waiting to be taken again (`pullMilli`). The
+thumb that held moves nothing. What follows about the lift is the swipe this
+replaced, kept for its reasons.
+
 **The split.** Geometry, THE MANTLE's rule: `slingDrawLeft` is Player 1's
 and `slingDrawRight` Player 2's, and the wrong seat's finger is not heard
 (`sim/sling-hand.ts`). A fire step is the ordinary shot — Player 1's cannon
@@ -9783,7 +9793,7 @@ so does a finger still down as a beat turns.
 - **A draw is given grace.** §32's windows are "5 beats, held"; a window
   exactly its count long could only be met by a finger already down on its
   first beat, and never lifted in time. The step stays lit
-  `slingGraceBeats` longer for the finger to find its panel and the lift to
+  `slingGraceBeats` longer for the finger to find its panel and the pull to
   be made.
 - **A finger down before the step lights is counted.** A hold begun in the
   rest counts from the lit step's first beat, the same as THE PLUMB's lean;

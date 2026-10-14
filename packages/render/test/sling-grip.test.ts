@@ -51,6 +51,15 @@ function toRight(): { world: World; b: SlingState } {
       },
     ]);
     for (let t = 0; t < b.steps[b.cursor]!.beats * ticksPerBeat(CFG); t++) step(world, []);
+    // The hold counted: lifted, pressed again, and the pull carried home.
+    for (const on of [false, true])
+      step(world, [
+        {
+          tick: world.tick,
+          player: 1,
+          command: { kind: "drag", target: "slingDrawLeft", on, fromMilli: 0 },
+        },
+      ]);
     step(world, [
       {
         tick: world.tick,
@@ -59,7 +68,7 @@ function toRight(): { world: World; b: SlingState } {
           kind: "drag",
           target: "slingDrawLeft",
           on: false,
-          fromMilli: aim === "left" ? -1000 : 1000,
+          fromMilli: aim === "left" ? -CFG.slingPullMilli : CFG.slingPullMilli,
         },
       },
     ]);

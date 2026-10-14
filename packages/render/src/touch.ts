@@ -147,8 +147,9 @@ export function touchUp(l: Layout, hold: Hold, at?: Point): Touch | null {
     // carry past the threshold or a tap short of it, the muzzle's and the
     // maw's rule on the boss's own ship (`sim/mirror-hand.ts`) — so the lift
     // says where the hand ended; THE WARDEN's hatch is the second, a swipe
-    // (`sim/warden-hand.ts`). THE SLING's own cords are the third, loosed
-    // toward whichever column is lit (`sim/sling-hand.ts`), and THE TRAPEZE's
+    // (`sim/warden-hand.ts`). THE SLING's own cords are the third, a pull
+    // toward whichever column is lit whose lift may carry it home
+    // (`sim/sling-hand.ts`), and THE TRAPEZE's
     // two zones the fourth, swiped toward the middle (`sim/trapeze-hand.ts`), and
     // THE GALL's alien the fifth, tapped or pulled up (`sim/gall-hand.ts`), and
     // THE BLISTER's SWIPE the sixth, a stroke (`sim/blister-swipe.ts`). Every

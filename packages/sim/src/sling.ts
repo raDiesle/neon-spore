@@ -11,12 +11,13 @@ import type { World } from "./world.js";
  * it toward the lit side; shoot the lit yoke in its colour.
  *
  * Each seat has one arm — the pilot's `slingDrawLeft`, the navigator's
- * `slingDrawRight` — and holds it as a drag: `on: true` is the finger down,
- * and the lift carries the swipe's direction on `fromMilli`, its sign alone
- * (`DrawRelease`, §32's primitive). A draw step counts the beats the seat has
- * held; a lift that has held the step's `beats` and swipes toward its `aim`
- * is a true loose, and anything else springs the arm slack, the count gone
- * and the step still lit. Two loosed draws lock an arm drawn, both arms drawn
+ * `slingDrawRight` — and a draw is **a hold, then a pull in its place** (the
+ * owner, 13 October 2026, THE COMBO LAB's HOLD, THEN PULL): a step counts
+ * the beats the seat holds its cord, and a lift before the step's `beats`
+ * springs the arm slack, the count gone and the step still lit. Once the hold
+ * has counted, a fresh press takes the cord's pull and carries it
+ * `slingPullMilli` toward the step's `aim` — the one generic PULL — which is
+ * a true loose; a pull let go short is said and waits to be taken again. Two loosed draws lock an arm drawn, both arms drawn
  * light the yoke, and after that the script alternates a shot at the yoke
  * with both seats redrawing at once to keep it lit.
  *
@@ -43,7 +44,7 @@ export type SlingPhase = (typeof SLING_PHASES)[number];
 export const SLING_ASKS = ["left", "right", "fire", "both"] as const;
 export type SlingAsk = (typeof SLING_ASKS)[number];
 
-/** Which half a lit column falls in, and so which way a draw must be loosed. */
+/** Which half a lit column falls in, and so which way a draw's pull must go. */
 export const SLING_AIMS = ["left", "right"] as const;
 export type SlingAim = (typeof SLING_AIMS)[number];
 
@@ -83,6 +84,14 @@ export interface SlingState {
   holding: [boolean, boolean];
   /** Beats each seat has held its draw in the lit step, up to the step's `beats`. */
   drawnBeats: [number, number];
+  /** Whether each seat's hold has counted in the lit step: its pull is the next thing asked. */
+  held: [boolean, boolean];
+  /**
+   * How far each seat's pull has come toward the aim, thousandths of a tile;
+   * `-1` while no fresh press has taken it — a thumb still down from the hold
+   * moves nothing.
+   */
+  pullMilli: [number, number];
   /** In a `both` step, whether each seat has already loosed true. */
   loosed: [boolean, boolean];
   /** Beats a reflex draw has added to the cool, up to `slingCoolSnaps`. */
@@ -113,13 +122,6 @@ export function slingCupAsks(s: SlingState): boolean {
   return slingLitStep(s)?.ask === "fire" && s.yokeLit;
 }
 
-/** The side a swipe went, from its signed `fromMilli`, or null for a lift with no swipe. */
-export function slingSwipe(fromMilli: number): SlingAim | null {
-  if (fromMilli < 0) return "left";
-  if (fromMilli > 0) return "right";
-  return null;
-}
-
 /** The fork snapped forward: the fight is over and it is only falling away. */
 export function slingDone(s: SlingState): boolean {
   return s.phase === "free";
@@ -138,6 +140,8 @@ export function freshSling(beat: number, steps: readonly SlingStep[]): SlingStat
     yokeLit: false,
     holding: [false, false],
     drawnBeats: [0, 0],
+    held: [false, false],
+    pullMilli: [-1, -1],
     loosed: [false, false],
     snaps: 0,
     stirred: false,

@@ -211,6 +211,7 @@ export const CHOREO_FIELD_GROUP_C = {
   slingStillBeats: "THE SLING — the boss two draws loose, then shoot into",
   slingRestBeats: "THE SLING — the boss two draws loose, then shoot into",
   slingGraceBeats: "THE SLING — the boss two draws loose, then shoot into",
+  slingPullMilli: "THE SLING — the boss two draws loose, then shoot into",
   slingCoolBeats: "THE SLING — the boss two draws loose, then shoot into",
   slingCoolSnaps: "THE SLING — the boss two draws loose, then shoot into",
   slingFreeBeats: "THE SLING — the boss two draws loose, then shoot into",

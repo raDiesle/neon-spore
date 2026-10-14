@@ -58,7 +58,10 @@ function drag(world: World, ring: SlingRing, on: boolean, fromMilli: number): vo
   ring.ingest(world.events);
 }
 
-/** The first step lit, the pilot's arm held its beats, and lifted with `swipe`. */
+/**
+ * The first step lit, the pilot's arm held its beats, and its cord pulled
+ * `swipe` across by a fresh press and lifted there (`sim/sling-hand.ts`).
+ */
 function loosed(swipe: number): { world: World; s: SlingState; ring: SlingRing } {
   const world = createWorld(CFG, 0);
   startWave(world, 0, [], [], { kind: "sling", steps: SCRIPT });
@@ -66,6 +69,8 @@ function loosed(swipe: number): { world: World; s: SlingState; ring: SlingRing }
   run(world, ring, (s) => s.phase === "lit");
   drag(world, ring, true, 0);
   run(world, ring, (s) => s.drawnBeats[0] >= 2);
+  drag(world, ring, false, 0);
+  drag(world, ring, true, 0);
   drag(world, ring, false, swipe);
   return { world, s: sling(world), ring };
 }
@@ -83,7 +88,7 @@ function travel(s: SlingState, rung: boolean): number[] {
 
 describe("THE SLING's tines ring after a true loose", () => {
   it("rings through the rest, more than half a tile at the first swing, never past the cap", () => {
-    const { s, ring } = loosed(-600);
+    const { s, ring } = loosed(-CFG.slingPullMilli);
     expect(s.phase).toBe("rest");
     expect(ring.rung).toBe(true);
     const t = travel(s, ring.rung);
@@ -95,7 +100,7 @@ describe("THE SLING's tines ring after a true loose", () => {
   });
 
   it("is still by the time the next draw is asked for", () => {
-    const { world, s, ring } = loosed(-600);
+    const { world, s, ring } = loosed(-CFG.slingPullMilli);
     expect(slingTwang(s, CFG, ring.rung, s.phaseBeat + CFG.slingRestBeats, 0)).toBe(0);
     run(world, ring, (x) => x.phase === "lit");
     expect(ring.rung).toBe(false);
@@ -103,7 +108,7 @@ describe("THE SLING's tines ring after a true loose", () => {
   });
 
   it("swings the two tines as mirrors", () => {
-    const { s, ring } = loosed(-600);
+    const { s, ring } = loosed(-CFG.slingPullMilli);
     const turn = slingTwang(s, CFG, ring.rung, s.phaseBeat, 0.1);
     const a = slingRung(slingTip(L, 0, 1), 0, turn);
     const b = slingRung(slingTip(L, 1, 1), 1, turn);
@@ -112,7 +117,7 @@ describe("THE SLING's tines ring after a true loose", () => {
   });
 
   it("rings nothing for a draw sprung slack the wrong way", () => {
-    const { s, ring } = loosed(600);
+    const { s, ring } = loosed(CFG.slingPullMilli);
     expect(ring.rung).toBe(false);
     expect(slingTwang(s, CFG, ring.rung, s.phaseBeat, 0.1)).toBe(0);
   });

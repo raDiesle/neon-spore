@@ -11,8 +11,13 @@ export interface SlingConfig {
   slingStillBeats: number;
   /** Beats the fork rests after a step before the next lights. */
   slingRestBeats: number;
-  /** Beats a draw step is lit past its own count, for a finger to find its panel and a lift to be made. */
+  /** Beats a draw step is lit past its own count, for a finger to find its panel and the pull to be made. */
   slingGraceBeats: number;
+  /**
+   * How far a cord's pull runs toward the lit side once its hold has counted,
+   * thousandths of a tile (`sling-hand.ts`): the whole of it looses the draw.
+   */
+  slingPullMilli: number;
   /** Beats the spent fork falls away before the wave may end. */
   slingFreeBeats: number;
   /** Beats the spent yoke ticks as it cools, both draws left alone, before the fork snaps free (§32 row 11). */
@@ -25,6 +30,7 @@ export const SLING_DEFAULTS: SlingConfig = {
   slingStillBeats: 2,
   slingRestBeats: 1,
   slingGraceBeats: 2,
+  slingPullMilli: 2000,
   slingFreeBeats: 2,
   slingCoolBeats: 3,
   slingCoolSnaps: 2,

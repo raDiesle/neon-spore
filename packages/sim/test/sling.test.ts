@@ -11,6 +11,8 @@ import {
   hold,
   install,
   lift,
+  loose,
+  pull,
   runUntil,
   SCRIPT,
   shot,
@@ -22,14 +24,15 @@ import {
 
 /**
  * THE SLING: each seat holding a finger down on its own arm for as many beats
- * as a step asks, then loosing it by swiping toward the lit side as it lifts,
- * both at once when a step asks both, then the ordinary shot into the yoke the
- * two drawn arms light.
+ * as a step asks, then — a hold, then a pull in its place — pressing again
+ * and pulling the cord the whole way toward the lit side, both at once when a
+ * step asks both, then the ordinary shot into the yoke the two drawn arms
+ * light.
  *
  * What these pin is the gate a screen cannot show: that a draw is counted
- * only while it is held and only for the seat asked, that a lift too soon,
- * the wrong way or with no swipe springs the arm slack with the step still
- * lit, that the wrong seat's finger is not heard, that a draw run out is tried
+ * only while it is held and only for the seat asked, that a lift too soon
+ * springs the arm slack with the step still lit, that the thumb that held
+ * moves nothing and a pull the wrong way or short looses nothing, that the wrong seat's finger is not heard, that a draw run out is tried
  * again rather than lost, that a shot outside its step or in the wrong colour
  * does nothing, and that a shot run out is the wave.
  */
@@ -64,14 +67,15 @@ describe("THE SLING comes in", () => {
 });
 
 describe("a one-arm draw", () => {
-  it("counts the beats the finger is held, and looses the arm lifted home toward the aim", () => {
+  it("counts the beats the finger is held, then looses the arm pulled toward the aim", () => {
     const world = install();
     toLit(world);
     hold(world, 0);
     beats(world, 2);
     expect(sling(world).drawnBeats[0]).toBe(2);
     drawHome(world, [0]);
-    const types = lift(world, 0, toward("left"));
+    expect(sling(world).held).toEqual([true, false]);
+    const types = loose(world, 0, "left");
     expect(types).toContain("slingLoose");
     expect(sling(world).arms).toEqual([1, 0]);
     expect(sling(world).phase).toBe("rest");
@@ -79,17 +83,42 @@ describe("a one-arm draw", () => {
     expect(slowing(world)).toBe(false);
   });
 
-  it("looses toward the right when the step aims right", () => {
+  it("pulls toward the right when the step aims right, and the other way is no pull", () => {
     const world = toStep(1);
     hold(world, 0);
     drawHome(world, [0]);
-    expect(lift(world, 0, toward("left"))).toContain("slingSlack");
-    hold(world, 0);
-    drawHome(world, [0]);
-    expect(lift(world, 0, toward("right"))).toContain("slingLoose");
+    const wrong = loose(world, 0, "left");
+    expect(wrong).not.toContain("slingLoose");
+    expect(wrong).not.toContain("slingSlack");
+    expect(loose(world, 0, "right")).toContain("slingLoose");
     expect(sling(world).arms).toEqual([2, 0]);
   });
 
+  it("moves nothing with the thumb that held: the pull wants a fresh press", () => {
+    const world = install();
+    toLit(world);
+    hold(world, 0);
+    drawHome(world, [0]);
+    expect(pull(world, 0, toward("left"))).not.toContain("slingLoose");
+    expect(sling(world).pullMilli[0]).toBe(-1);
+    expect(lift(world, 0, toward("left"))).not.toContain("slingLoose");
+    expect(sling(world).arms).toEqual([0, 0]);
+  });
+
+  it("says a pull let go short, and waits for it to be taken again", () => {
+    const world = install();
+    toLit(world);
+    hold(world, 0);
+    drawHome(world, [0]);
+    lift(world, 0, 0);
+    hold(world, 0);
+    pull(world, 0, toward("left") / 2);
+    expect(sling(world).pullMilli[0]).toBe(CFG.slingPullMilli / 2);
+    expect(lift(world, 0, toward("left") / 2)).toContain("pullShort");
+    expect(sling(world).held[0]).toBe(true);
+    hold(world, 0);
+    expect(lift(world, 0, toward("left"))).toContain("slingLoose");
+  });
   it("counts nothing with no finger down", () => {
     const world = install();
     toLit(world);
@@ -97,14 +126,14 @@ describe("a one-arm draw", () => {
     expect(sling(world).drawnBeats).toEqual([0, 0]);
   });
 
-  it("counts no further than the step's own count, and a late lift still looses", () => {
+  it("counts no further than the step's own count, and a late pull still looses", () => {
     const world = install();
     toLit(world);
     hold(world, 0);
     beats(world, SCRIPT[0]!.beats + 1);
     expect(sling(world).drawnBeats[0]).toBe(SCRIPT[0]!.beats);
     expect(sling(world).phase).toBe("lit");
-    expect(lift(world, 0, toward("left"))).toContain("slingLoose");
+    expect(loose(world, 0, "left")).toContain("slingLoose");
   });
 
   it("springs slack on a lift too soon, the count gone and the step still lit", () => {
@@ -117,15 +146,6 @@ describe("a one-arm draw", () => {
     expect(sling(world).drawnBeats[0]).toBe(0);
     expect(sling(world).arms).toEqual([0, 0]);
     expect(sling(world).phase).toBe("lit");
-  });
-
-  it("springs slack on a lift home with no swipe", () => {
-    const world = install();
-    toLit(world);
-    hold(world, 0);
-    drawHome(world, [0]);
-    expect(lift(world, 0, 0)).toContain("slingSlack");
-    expect(sling(world).arms).toEqual([0, 0]);
   });
 
   it("counts nothing for the other arm, and its lift only lets go", () => {
@@ -182,7 +202,7 @@ describe("the yoke", () => {
     expect(sling(world).yokeLit).toBe(false);
     hold(world, 1);
     drawHome(world, [1]);
-    const types = lift(world, 1, toward("left"));
+    const types = loose(world, 1, "left");
     expect(types).toContain("slingYoke");
     expect(sling(world).arms).toEqual([SLING_DRAWS_PER_ARM, SLING_DRAWS_PER_ARM]);
     expect(sling(world).yokeLit).toBe(true);
@@ -227,12 +247,13 @@ describe("a both", () => {
     const world = toStep(5);
     hold(world, 0);
     drawHome(world, [0]);
-    expect(lift(world, 0, toward("left"))).toContain("slingLoose");
+    expect(loose(world, 0, "left")).toContain("slingLoose");
     expect(sling(world).loosed).toEqual([true, false]);
     expect(sling(world).phase).toBe("lit");
+    const drawn = sling(world).drawnBeats[0];
     hold(world, 0);
     beats(world, 1);
-    expect(sling(world).drawnBeats[0]).toBe(0);
+    expect(sling(world).drawnBeats[0]).toBe(drawn);
     expect(lift(world, 0, toward("left"))).not.toContain("slingSlack");
   });
 
@@ -241,8 +262,8 @@ describe("a both", () => {
     hold(world, 0);
     hold(world, 1);
     drawHome(world, [0, 1]);
-    lift(world, 0, toward("left"));
-    const types = lift(world, 1, toward("left"));
+    loose(world, 0, "left");
+    const types = loose(world, 1, "left");
     expect(types).toContain("slingSteady");
     expect(sling(world).yokeLit).toBe(true);
     expect(sling(world).arms).toEqual([SLING_DRAWS_PER_ARM, SLING_DRAWS_PER_ARM]);

@@ -26,6 +26,8 @@ export function slingHashParts(s: SlingState): number[] {
     s.snaps,
     s.stirred ? 1 : 0,
     s.steps.length,
+    ...s.held.map((h) => (h ? 1 : 0)),
+    ...s.pullMilli,
   ];
   for (const step of s.steps) {
     out.push(SLING_ASKS.indexOf(step.ask) + 1);

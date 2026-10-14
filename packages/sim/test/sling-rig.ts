@@ -98,13 +98,30 @@ export function hold(world: World, side: 0 | 1, player: 1 | 2 = seatOf(side)): s
   return drag(world, side, true, 0, player);
 }
 
-/** The finger lifted, swiping `swipe` — negative left, positive right, nought none. */
-export function lift(world: World, side: 0 | 1, swipe: number): string[] {
-  return drag(world, side, false, swipe, seatOf(side));
+/** The finger lifted, carried `along` across — negative left, positive right. */
+export function lift(world: World, side: 0 | 1, along: number): string[] {
+  return drag(world, side, false, along, seatOf(side));
 }
 
-/** A swipe toward `aim`. */
-export const toward = (aim: SlingAim): number => (aim === "left" ? -600 : 600);
+/** The finger down on an arm carried `along` across, still down. */
+export function pull(world: World, side: 0 | 1, along: number): string[] {
+  return drag(world, side, true, along, seatOf(side));
+}
+
+/** A whole pull toward `aim`. */
+export const toward = (aim: SlingAim): number =>
+  aim === "left" ? -CFG.slingPullMilli : CFG.slingPullMilli;
+
+/**
+ * An arm whose hold has counted, loosed: the holding thumb lifted, a fresh
+ * press, the whole pull toward `aim` and the lift (`sim/sling-hand.ts`). The
+ * event types the pull and its lift raised.
+ */
+export function loose(world: World, side: 0 | 1, aim: SlingAim): string[] {
+  lift(world, side, 0);
+  hold(world, side);
+  return [...pull(world, side, toward(aim)), ...lift(world, side, toward(aim))];
+}
 
 /** Until each of `sides` has held the lit step's count. */
 export function drawHome(world: World, sides: readonly (0 | 1)[]): Set<string> {
@@ -121,7 +138,7 @@ export function rightColor(step: SlingStep): Color {
   return step.color === "either" ? "cyan" : step.color;
 }
 
-/** The lit step answered: its arm or arms drawn home and loosed toward the aim, or shot in its colour. */
+/** The lit step answered: its arm or arms held home and pulled toward the aim, or shot in its colour. */
 export function answer(world: World): void {
   const step = slingLitStep(sling(world));
   if (step === null) throw new Error("nothing is lit");
@@ -132,7 +149,7 @@ export function answer(world: World): void {
   const sides: (0 | 1)[] = step.ask === "both" ? [0, 1] : [step.ask === "left" ? 0 : 1];
   for (const side of sides) hold(world, side);
   drawHome(world, sides);
-  for (const side of sides) lift(world, side, toward(step.aim));
+  for (const side of sides) loose(world, side, step.aim);
 }
 
 /** A fork with the steps before `n` answered and step `n` lit. */

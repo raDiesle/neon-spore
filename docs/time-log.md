@@ -40275,3 +40275,19 @@ caller is what showed it was a shape — lifting it out first made this lane
 one file of wrappers.
 
 *Measured: 65 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-14 — THE SLING's cords, the sim: a hold, then a pull in its place
+
+- reading: 10 min. The cord's hold and swipe, THE COMBO LAB's chain it is
+  to become, and every script that draws a cord.
+- writing: 20 min. `held` and `pullMilli`, the hold counted on the beat, a
+  fresh press pulling the generic PULL toward the aim, `slingPullMilli`, the
+  autopilot, the rig's `loose`, the tests and the documents.
+- looking: 0 min. Nothing is drawn yet; the knob is the next lane.
+- friction: 5 min. A run of every hand's test went past two minutes and was
+  stopped for the one autopilot test that plays THE SLING.
+- landing: 5 min.
+
+Bottleneck: the thumb that held is still down when the hold counts, so the
+pull had to be a fresh press with its own state, or the hold's thumb would
+have pulled.
