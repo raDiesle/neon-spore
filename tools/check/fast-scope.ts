@@ -33,7 +33,11 @@
  * counts.
  */
 
+import { join } from "node:path";
 import { scopeFor } from "../hooks/scope.js";
+import { isWaveFile, waveReaders } from "./wave-readers.js";
+
+const ROOT = join(import.meta.dirname, "..", "..");
 
 /**
  * The tests that read the whole tree, and so run whatever changed. The third
@@ -87,10 +91,12 @@ function memberOf(path: string): string | undefined {
  * time, because the table answers "everything" for the *set* — one
  * `package.json` in a diff of ten would otherwise silence the nine narrow
  * answers beside it. A sweep already under a listed directory is not named
- * twice.
+ * twice, and neither is a test the wave list reaches (`wave-readers.ts`),
+ * which every wave file adds wherever it lives.
  */
-export function fastScopeFor(paths: readonly string[]): string[] {
+export function fastScopeFor(paths: readonly string[], root: string = ROOT): string[] {
   const dirs = new Set<string>();
+  const extra = paths.some(isWaveFile) ? waveReaders(root) : [];
   for (const path of paths) {
     const scoped = scopeFor([path]);
     if (scoped.length > 0) for (const d of scoped) dirs.add(d);
@@ -99,8 +105,8 @@ export function fastScopeFor(paths: readonly string[]): string[] {
       if (member) dirs.add(member);
     }
   }
-  for (const sweep of SWEEPS) {
-    if (![...dirs].some((d) => sweep.startsWith(`${d}/`))) dirs.add(sweep);
+  for (const file of [...SWEEPS, ...extra]) {
+    if (![...dirs].some((d) => file.startsWith(`${d}/`))) dirs.add(file);
   }
   return [...dirs].sort();
 }

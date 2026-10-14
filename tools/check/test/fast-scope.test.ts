@@ -82,6 +82,29 @@ describe("fastScopeFor", () => {
     );
   });
 
+  it("a wave moved reaches every test that reads the list from another package", () => {
+    // The director's save that moved THE INSTAR to wave 5 and THE BASTION to
+    // 16 touched only act pages, was green here on 14 October 2026, and went
+    // red three times in `bun run land` — in these three.
+    const reached = fastScopeFor(["packages/content/src/waves/act-1.ts"]);
+    for (const test of [
+      "tools/perf/test/baseline.test.ts",
+      "tools/words/test/drawn.test.ts",
+      "packages/render/test/frame.test.ts",
+    ]) {
+      expect(reached, test).toContain(test);
+    }
+    expect(fastScopeFor(["packages/content/src/waves.ts"])).toContain(
+      "packages/render/test/frame.test.ts",
+    );
+  });
+
+  it("a content change that is not a wave reaches none of the list's readers", () => {
+    expect(fastScopeFor(["packages/content/src/creatures.ts"])).not.toContain(
+      "packages/render/test/frame.test.ts",
+    );
+  });
+
   it("a shared file with no package of its own is the sweeps alone", () => {
     expect(fastScopeFor(["package.json"])).toEqual([...SWEEPS]);
     expect(fastScopeFor(["tsconfig.json"])).toEqual([...SWEEPS]);

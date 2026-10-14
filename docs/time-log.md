@@ -41225,3 +41225,15 @@ Bottleneck: reading — the entry named `tools/test/figure.js`, which is
 too early for a run that installs a tree first.
 
 *Measured: 5 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-15 — `check:fast` passed a wave reorder that `check` failed three times
+
+- reading: 5 min. `fast-scope.ts` and its test, and which tests outside
+  `packages/content` read the wave list — ninety-seven.
+- writing: 5 min. `wave-readers.ts`, its use in `fastScopeFor`, two tests.
+- looking: 0 min. Nothing drawn.
+- friction: 0 min.
+- landing: 5 min.
+
+Bottleneck: reading — whether ninety-seven tests on every wave save would
+undo the point of a fast check; timed, they are half a minute.

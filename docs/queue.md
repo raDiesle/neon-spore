@@ -328,22 +328,6 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/skipped.test.ts` holds the listing's count of the entries
 `next` stepped past and why.
 
-## `check:fast` passed a wave reorder that `check` failed three times
-
-- **Found:** 2026-10-14, claude/bastion-gameplay-enhancement-749629
-- **Taken:** 2026-10-14, main (claim: claude/queue-check-fast-passed-a-wave-reorder-that-check-fail)
-- **Files:** `tools/check/fast-scope.ts`, `tools/perf/test/baseline.test.ts`, `tools/words/test/drawn.test.ts`, `packages/render/test/frame.test.ts`
-
-The director's save that moved THE INSTAR to wave 5 and THE BASTION to 16
-touched only `packages/content/src/waves/act-*.ts`, and `check:fast` went
-green. `land`'s full `check` then failed in three tests that read the wave
-list or its files: the perf baseline's numbers, the standing-word list (it
-names THE WARD's act page), and the band override in `frame.test.ts` (it
-picks SALVAGE by index). `fast-scope.ts` should treat a change to the wave
-files as reaching every test that imports `WAVES` or scans the act pages.
-Prove it by touching one act file and checking that the scope lists all
-three, then run `bun run check`.
-
 ## Two integer square roots in sim, `isqrt` written twice
 
 - **Found:** 2026-10-14, claude/queue-one-generic-pull-the-curved-and-rope-pulls-onto
