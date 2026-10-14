@@ -39752,3 +39752,5 @@ Bottleneck: none to speak of — cutting the channel in the lab put the ring whe
 
 Bottleneck: looking — a still frame of a moment that lives one tick (a verdict,
 a banner) shows nothing, and only drawing it says so.
+
+*Measured: 9 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

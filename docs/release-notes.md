@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-14 · 736124037 — CONTROLS › HELPERS: when a control breaks, SHIELD STUCK ON, and the boss cue
+
+CONTROLS › HELPERS gains a new group, WHEN A CONTROL BREAKS. It covers the lantern and its beam, the torn button, the colours-swapped haze and the mirrored screen, each in a frame with its fault in force. Under it is the words beside the lantern for every fault, read from the renderer's own table. THE SHIELD gains SHIELD STUCK ON. ON A BOSS'S MARK adds the boss cue and the word beside a mark, and THE HOLD now describes the drop that replaced the red thumbprint. Six helpers no frame could show yet are queued, and so are the bosses' one-seat pictures, in two entries.
+
 ## 2026-10-14 · 6e6bcda05 — Queue: a wave editor save leaves a moved wave's import behind
 
 ## 2026-10-14 · 7d3e6b66b — THE LEVER LAB: FIZZ's goal ring stands in a band's middle
