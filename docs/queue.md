@@ -328,21 +328,6 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/skipped.test.ts` holds the listing's count of the entries
 `next` stepped past and why.
 
-## `bun run frames <sha>` gave up on a build that was only slow
-
-- **Found:** 2026-10-14, claude/bastion-gameplay-enhancement-749629
-- **Taken:** 2026-10-14, main (claim: claude/queue-bun-run-frames-sha-gave-up-on-a-build-that-was-o)
-- **Files:** `tools/frames/serve.ts`
-
-The first `bun run frames 2bd47f41e --wave "THE BASTION" …` died with
-*preview:once never printed its port* after its fresh `bun install`; the same
-command run again straight after wrote both pictures. `previewUrlFrom` races
-the build's first line against a fixed `PORT_MS`, and a cold build of the
-before and the after at once is slower than that on a loaded machine. Scale
-the patience with the load average, the way `tools/test/figure.js` scales a
-test's figure, or retry the start once before failing, and say which in the
-error. Prove with `bun test tools/frames` and `bun run check`.
-
 ## `check:fast` passed a wave reorder that `check` failed three times
 
 - **Found:** 2026-10-14, claude/bastion-gameplay-enhancement-749629

@@ -41210,3 +41210,16 @@ field, and each cut is found by trying, since the geometry is in render
 constants a tool cannot import.
 
 *Measured: 18 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
+
+## 2026-10-15 — `bun run frames <sha>` gave up on a build that was only slow
+
+- reading: 5 min. `serve.ts`'s wait, and the two load figures in
+  `tools/test/` it could borrow.
+- writing: 5 min. `portPatience` and its four tests.
+- looking: 0 min. Nothing drawn.
+- friction: 0 min.
+- landing: 5 min.
+
+Bottleneck: reading — the entry named `tools/test/figure.js`, which is
+`figure.ts`, and the load it scales by is `cpu-time.ts`' read at import,
+too early for a run that installs a tree first.

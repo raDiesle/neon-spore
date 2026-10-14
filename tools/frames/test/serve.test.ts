@@ -1,5 +1,5 @@
 import { describe, expect, it } from "bun:test";
-import { previewUrlFrom } from "../serve.js";
+import { portPatience, previewUrlFrom } from "../serve.js";
 
 /**
  * The server's port read off its own stdout, and the sentence when there is
@@ -67,5 +67,27 @@ describe("previewUrlFrom", () => {
   it("gives up on a server that prints nothing, rather than waiting on the read", async () => {
     const failed = previewUrlFrom(silence(), silence(), 50);
     await expect(failed).rejects.toThrow("preview:once never printed its port");
+  });
+});
+
+describe("portPatience", () => {
+  it("waits the flat figure on a machine with a core to spare", () => {
+    expect(portPatience(0.3)).toBe(30_000);
+    expect(portPatience(1)).toBe(30_000);
+  });
+
+  it("waits longer the more each core is running", () => {
+    expect(portPatience(2.5)).toBe(75_000);
+  });
+
+  it("stops stretching at two minutes, which is a hung build and not a slow one", () => {
+    expect(portPatience(40)).toBe(120_000);
+  });
+
+  it("says how long it waited and at what load when the port never comes", async () => {
+    const failed = previewUrlFrom(silence(), silence(), 50);
+    await expect(failed).rejects.toThrow(
+      /in 0 s \(the wait scales with the load, \d+\.\d a core now\)/,
+    );
   });
 });

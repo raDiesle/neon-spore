@@ -1,3 +1,4 @@
+import { cpus, loadavg } from "node:os";
 import { type CaptureResult, captureFrames, type FrameSpec } from "./capture.js";
 import { within } from "./deadline.js";
 import { root, run } from "./exec.js";
@@ -71,8 +72,33 @@ async function stopServerBehind(url: string): Promise<void> {
 }
 
 /** How long the server is given to print its port before this stops waiting
- * for it: a build of `apps/game` and the serve behind it, on a busy machine. */
+ * for it, on a machine with a core for every runnable process: a build of
+ * `apps/game` and the serve behind it. */
 const PORT_MS = 30_000;
+/** The most the load stretches `PORT_MS`: two minutes is not a slow build, it is a hung one. */
+const PORT_STRETCH = 4;
+
+/** Runnable work per core, the one-minute average — `tools/test/cpu-time.ts`' `CORE_LOAD`, read now. */
+function coreLoad(): number {
+  return (loadavg()[0] ?? 0) / Math.max(1, cpus().length);
+}
+
+/**
+ * **How long to wait for the port at a per-core load of `load`**: `PORT_MS`
+ * for each process a core is running, up to `PORT_STRETCH` of them.
+ *
+ * A flat thirty seconds was what `bun run frames 2bd47f41e` died on, on 14
+ * October 2026: *never printed its port* after its scratch tree's fresh
+ * install, and the same command again straight after wrote both pictures.
+ * The build was slow, not stuck. So the wait has `loadedTimeout`'s shape
+ * (`tools/test/repo-time.ts`), a figure times the load under a ceiling, and
+ * the load is the per-core one, read when the wait starts rather than at
+ * import: a `frames` run installs a tree first, and the install is the burst
+ * the build is behind.
+ */
+export function portPatience(load: number = coreLoad()): number {
+  return Math.round(PORT_MS * Math.min(PORT_STRETCH, Math.max(1, load)));
+}
 /** How many of stderr's last lines an early exit carries in its message. */
 const TAIL_LINES = 12;
 
@@ -91,7 +117,7 @@ const TAIL_LINES = 12;
 export async function previewUrlFrom(
   stdout: ReadableStream<Uint8Array>,
   stderr: ReadableStream<Uint8Array>,
-  patienceMs = PORT_MS,
+  patienceMs = portPatience(),
 ): Promise<string> {
   const reader = stdout.getReader();
   const decoder = new TextDecoder();
@@ -101,11 +127,12 @@ export async function previewUrlFrom(
     while (true) {
       // The deadline is raced against the read, not checked between reads: a
       // build that prints nothing at all would otherwise hold `read()` open
-      // for as long as it liked, and the thirty seconds meant nothing.
+      // for as long as it liked, and the patience meant nothing.
       const { value, done } = await within(
         reader.read(),
         deadline,
-        "preview:once never printed its port",
+        `preview:once never printed its port in ${Math.round(patienceMs / 1000)} s ` +
+          `(the wait scales with the load, ${coreLoad().toFixed(1)} a core now)`,
       );
       if (done) {
         const said = (await new Response(stderr).text()).trim();
