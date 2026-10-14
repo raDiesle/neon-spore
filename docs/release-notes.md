@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-14 · ab0488c57 — HELPERS shows WRONG COLOUR, the band put out and the thumb's ring
+
+CONTROLS › HELPERS gets four rows for helpers the game draws that no frame on the page showed: WRONG COLOUR stamped over a wave lost to a bolt in the wrong colour on THE BULB QUEEN, LOCKED — WATCH over the band THE MIRROR holds, THE BATON's grey panel over the seat that just pressed, and the thumb's ring round THE CAPSTAN's mark under the navigator's thumb. A posed frame can now be handed this device's thumb (`Pose.thumb`, through `drawPhone`), since a world holds none. The director only; nothing the game draws changes.
+
 ## 2026-10-14 · 4d349828a — HELPERS shows THE VERDICT, THE BATON'S WORDS and THE HANDOVER'S PLATE
 
 Three helpers that shipped with no frame showing them are on CONTROLS ›

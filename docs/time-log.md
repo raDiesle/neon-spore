@@ -41142,3 +41142,5 @@ frame can only be built once that is found.
 
 Bottleneck: reading — THE CAPSTAN's core only takes a bolt once both bands
 are bright, so the wrong colour was posed on THE BULB QUEEN instead.
+
+*Measured: 19 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
