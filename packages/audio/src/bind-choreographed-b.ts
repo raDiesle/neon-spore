@@ -1,6 +1,7 @@
 import type { SimEvent } from "@neon-spore/sim";
 import type { Cue } from "./bind-cue.js";
 import { pinballHandCue } from "./bind-pinball-hand.js";
+import { panForCol } from "./bind-place.js";
 import { pulseHandCue } from "./bind-pulse-hand.js";
 import { scoutHandCue } from "./bind-scout-hand.js";
 import { vaneCue } from "./bind-vane.js";
@@ -65,7 +66,9 @@ export type AddedEvent = Extract<
       | "wellRoll"
       | "wellHeld"
       | "wellWound"
-      | "wellHome";
+      | "wellHome"
+      // And the one generic PULL's short lift, whichever boss the knob hangs on.
+      | "pullShort";
   }
 >;
 
@@ -98,6 +101,7 @@ const ADDED_EVENTS = new Set<string>([
   "wellHeld",
   "wellWound",
   "wellHome",
+  "pullShort",
 ]);
 
 /** Whether this is one of the names above, and not a boss arriving whole. */
@@ -133,6 +137,10 @@ export function addedCue(e: AddedEvent, cols: number): Cue {
     case "scoutSlip":
     case "scoutPrime":
       return scoutHandCue(e);
+    case "pullShort":
+      // A pull let go part way is refused, and refused is one sound on the
+      // field: every mark's red (`boss-instar.ts`), here panned to the knob.
+      return { id: "boss.instarRefuse", pan: panForCol(e.col, cols) };
     default:
       return pulseHandCue(e);
   }

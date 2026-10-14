@@ -10,14 +10,15 @@ export const DRAG_TYPES: readonly ControlType[] = [
     key: "pull",
     title: "PULL PAST A DISTANCE",
     says:
-      "A carry that counts once, when it has gone far enough; short of it, " +
-      "nothing. The direction asked differs: down only, up or down, signed " +
+      "A carry that counts once, when it has gone far enough; let go short " +
+      "of it, refused red. The direction asked differs: down only, up or down, signed " +
       "sideways, either way across — or, on THE GAUGE'S TONGUE, a way each " +
       "seat chooses, so long as the two pull opposite.",
     suggest:
-      "Make it one generic PULL with the direction a named field " +
-      "(down · up · either · signed) and one drawn arrow for it. Decide once " +
-      "whether a short pull is refused red or ignored — today both happen.",
+      "One generic PULL with the direction a named field " +
+      "(down · up · either · signed) and one drawn arrow for it, a short pull " +
+      "refused red (sim/pull.ts). THE HIVE'S HAUL, THE VANE'S HOUSING, THE " +
+      "FLEET'S WRECK and THE LEDGER'S HAUL are on it; the rest keep their own rule.",
     gestures: ["SWIPE PAST A DISTANCE"],
     lab: "down",
     rows: [

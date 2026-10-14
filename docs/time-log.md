@@ -39950,3 +39950,17 @@ Bottleneck: none to speak of — the colony is one skin drawn in one function, s
 Bottleneck: the first cut turned the whole moon and hushed it while any shell was lit, which is nearly the whole fight, so the shot came out identical; turning only the sphere inside the armour, hushed for its own two shells, is what made it seen.
 
 *Measured: 9 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-14 — One generic PULL in the simulation, and the straight-down pulls onto it
+
+- reading: 15 min. `handle-pull.ts`, the PULL LAB's toy rule, the four hand
+  files, how a short lift is already drawn red (`pull-memory.ts`) and how an
+  event reaches the ear and the field.
+- writing: 25 min. `pull.ts` and its test, `pullShort` and its five
+  registrations, the four bosses moved and a short-lift test each, the
+  director's row.
+- looking: 0 min. Nothing drawn moved.
+- friction: 5 min. THE VANE's housing has three stories of its way.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: THE VANE's housing — the render says up, the director down and the simulation either — so its `way` could not be read off anything and is queued for the owner.

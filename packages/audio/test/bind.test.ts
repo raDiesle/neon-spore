@@ -117,6 +117,7 @@ const SAMPLES: Record<string, SimEvent> = {
   vaneHaul: { type: "vaneHaul", col: 2 },
   vaneRefuse: { type: "vaneRefuse", col: 2, part: "housing", player: 1 },
   vaneKnock: { type: "vaneKnock", pins: 2, col: 3 },
+  pullShort: { type: "pullShort", col: 2, player: 1 },
   pinWind: { type: "pinWind" },
   pinNudge: { type: "pinNudge", way: 1 },
   pinTilt: { type: "pinTilt" },

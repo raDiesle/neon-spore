@@ -91,6 +91,9 @@ export const INGEST_SILENT_BOSS_E = [
   // And THE MAZE's, on the heart or the string: a ring round the part,
   // `effects.boss.maze`'s (`maze-grip-fx.ts`, `maze-marks.ts`).
   "mazeRefuse",
+  // And the one generic PULL's short lift: its red is the knob's own, going
+  // home from where it was let go (`pull-memory.ts`).
+  "pullShort",
   // And THE GAUGE's thumb landing on its band, tooth or tongue: a green ring round
   // the part, `effects.boss.gauge`'s (`gauge-marks.ts`).
   "gaugeHold",

@@ -2,6 +2,7 @@ import { midCol } from "./config.js";
 import { type HiveState, hiveBoss, hiveOnWall } from "./hive.js";
 import { hiveClenched, hiveHauled, hiveSwellingAt, NO_PINCH } from "./hive-lobe.js";
 import { enterHivePhase } from "./hive-step.js";
+import { pullHeard } from "./pull.js";
 import type { Command } from "./types.js";
 import type { World } from "./world.js";
 
@@ -48,18 +49,30 @@ export function hiveHeard(world: World, player: 1 | 2, command: Command): void {
   pinch(world, s, command);
 }
 
-/** The pilot's carry on a clenched underside, cumulative from the grab and downward only. */
+/**
+ * The pilot's carry on a clenched underside: the one generic PULL
+ * (`pull.ts`), straight down and `hiveHaulMilli` long, counted the moment it
+ * gets there and refused let go short.
+ */
 function haul(world: World, s: HiveState, command: Command & { kind: "drag" }): void {
   if (!hiveClenched(s)) return;
-  if (!command.on) return;
+  const cfg = world.cfg;
+  const pull = { way: "down", reachMilli: cfg.hiveHaulMilli } as const;
+  const { travelMilli, heard } = pullHeard(
+    pull,
+    hiveHauled(s, cfg),
+    command.on,
+    command.fromYMilli ?? 0,
+  );
   // The deepest the carry has reached in this clench, not where the thumb
   // rests: a hand that wobbles back up has still hauled what it hauled, and
   // the mass is heavy enough that it does not follow a thumb home.
-  const down = Math.max(0, command.fromYMilli ?? 0);
-  s.haulMilli = Math.max(s.haulMilli, down);
-  if (!hiveHauled(s, world.cfg)) return;
+  s.haulMilli = Math.max(s.haulMilli, travelMilli);
+  if (heard === "short") world.events.push({ type: "pullShort", col: midCol(cfg), player: 1 });
+  if (heard !== "counted") return;
+  s.haulMilli = cfg.hiveHaulMilli;
   enterHivePhase(s, "spill", world.beat);
-  world.events.push({ type: "hiveHaul", col: midCol(world.cfg) });
+  world.events.push({ type: "hiveHaul", col: midCol(cfg) });
 }
 
 /**

@@ -1,6 +1,7 @@
 import { fleetRound } from "./fleet.js";
 import { sinkFleetWreck } from "./fleet-flood.js";
 import type { FleetState } from "./fleet-state.js";
+import { pullHeard } from "./pull.js";
 import type { Command } from "./types.js";
 import type { World } from "./world.js";
 
@@ -92,16 +93,25 @@ function rake(
 }
 
 function wreck(world: World, b: FleetState, on: boolean, downMilli: number): void {
-  if (!on || b.phase !== "wreck") {
+  if (b.phase !== "wreck") {
     b.wreckPullMilli = 0;
     return;
   }
-  const reach = world.cfg.fleetWreckPullMilli;
+  // The one generic PULL (`pull.ts`), straight down and `fleetWreckPullMilli`
+  // long, refused let go short. It counts only with the rake on the hull, so
+  // a wreck held at the reach without it is still uncounted and sinks on the
+  // next move that finds the rake there.
+  const pull = { way: "down", reachMilli: world.cfg.fleetWreckPullMilli } as const;
   const was = b.wreckPullMilli;
-  b.wreckPullMilli = Math.max(0, Math.min(reach, Math.round(downMilli)));
+  const { travelMilli, heard } = pullHeard(pull, false, on, downMilli);
+  b.wreckPullMilli = travelMilli;
+  if (heard === "short") {
+    world.events.push({ type: "pullShort", col: b.holeCol, player: 2 });
+    return;
+  }
   // The pull taking is the thumb landing, as `fleet-grip-draw.ts` reads it.
   if (was === 0 && b.wreckPullMilli > 0) world.events.push(hold(b, "wreck"));
-  if (b.wreckPullMilli >= reach && b.rakeOn) sinkFleetWreck(world, b);
+  if (heard === "counted" && b.rakeOn) sinkFleetWreck(world, b);
 }
 
 function hold(b: FleetState, part: "rake" | "wreck") {

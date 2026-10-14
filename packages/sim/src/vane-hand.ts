@@ -1,4 +1,5 @@
 import type { VaneState } from "./boss-state.js";
+import { pullHeard } from "./pull.js";
 import type { Command } from "./types.js";
 import {
   vaneArmAsks,
@@ -28,8 +29,8 @@ import type { World } from "./world.js";
  *
  * **The haul is the navigator's**, and it is the split of SEIZE. The bearing
  * has locked: a pinned arm is no longer an opening, only the chance of one.
- * She carries the housing off it — a lift whose travel is at least
- * `vaneHaulMilli` — and it stands open for the rest of his pin. A housing on a
+ * She carries the housing off it — the one generic PULL, either way and
+ * `vaneHaulMilli` long — and it stands open for the rest of his pin. A housing on a
  * moving arm cannot be hauled at all, so the last pin needs both their hands
  * on the picture and her shot after them.
  *
@@ -80,9 +81,17 @@ function housingHeard(
     if (command.on && asked) refuse(world, "housing", vaneSplitCol(world, b));
     return;
   }
-  // The press says nothing; the haul is the lift, and only one that travelled.
-  if (command.on || !asked) return;
-  if (Math.abs(command.fromYMilli ?? 0) < world.cfg.vaneHaulMilli) return;
+  if (!asked) return;
+  // The one generic PULL (`pull.ts`), `vaneHaulMilli` long: counted the moment
+  // it gets there, refused let go short. Either way, as it always was: the
+  // housing's ring wears no arrow, and render says she carries it up where the
+  // director says down (`docs/queue.md`).
+  const pull = { way: "either", reachMilli: world.cfg.vaneHaulMilli } as const;
+  const { heard } = pullHeard(pull, b.hauled, command.on, command.fromYMilli ?? 0);
+  if (heard === "short") {
+    world.events.push({ type: "pullShort", col: vaneSplitCol(world, b), player: 2 });
+  }
+  if (heard !== "counted") return;
   b.hauled = true;
   world.events.push({ type: "vaneHaul", col: vaneSplitCol(world, b) });
 }

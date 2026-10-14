@@ -211,6 +211,26 @@ describe("the wreck", () => {
     expect(world.events.some((e) => e.type === "fleetSunk" && e.left === 1)).toBe(true);
   });
 
+  it("refuses her pull let go short, out loud, and keeps the wreck afloat", () => {
+    const world = fleetWorld();
+    const b = wrecked(world);
+    press(world, 1, rake(0, 1000));
+    world.events = [];
+    const half = world.cfg.fleetWreckPullMilli / 2;
+    press(world, 2, {
+      kind: "drag",
+      target: "fleetWreck",
+      on: false,
+      fromMilli: 0,
+      fromYMilli: half,
+    });
+    expect(world.events.filter((e) => e.type === "pullShort")).toEqual([
+      { type: "pullShort", col: b.holeCol, player: 2 },
+    ]);
+    expect(b.phase).toBe("wreck");
+    expect(b.wreckPullMilli).toBe(0);
+  });
+
   it("ends the wave when the last hull goes under, and costs the pair nothing", () => {
     const world = fleetWorld();
     for (const ship of [1, 0]) {

@@ -1,4 +1,5 @@
 import { describe, expect, it } from "bun:test";
+import { midCol } from "../src/config.js";
 import {
   type HiveState,
   hiveBoss,
@@ -221,6 +222,18 @@ describe("the pilot's haul", () => {
     expect(s.haulMilli).toBe(CFG.hiveHaulMilli - 1);
     thumb(world, 1, { fromYMilli: CFG.hiveHaulMilli });
     expect(hiveClenched(s)).toBe(false);
+  });
+
+  it("refuses a carry let go short, out loud, and leaves a tap alone", () => {
+    const world = open();
+    untilClenched(world);
+    const s = body(world);
+    const short = () => world.events.filter((e) => e.type === "pullShort");
+    thumb(world, 1, { on: false, fromYMilli: 10 });
+    expect(short()).toEqual([]);
+    thumb(world, 1, { on: false, fromYMilli: CFG.hiveHaulMilli - 1 });
+    expect(short()).toEqual([{ type: "pullShort", col: midCol(CFG), player: 1 }]);
+    expect(hiveClenched(s)).toBe(true);
   });
 });
 

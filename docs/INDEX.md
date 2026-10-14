@@ -631,6 +631,7 @@ by hand never moves.
 | `packages/sim/src/pulse-round.ts` | THE PULSE's clock: the count-in, the song, and the one way the hull pays |
 | `packages/sim/src/pulse.ts` | THE PULSE: the same song on two screens, and neither of you can read all of it |
 | `packages/sim/src/pulse-open.ts` | Opening a stage, and opening the round — the two places a `PulseState` is written from nothing |
+| `packages/sim/src/pull.ts` | a thumb carries a knob a distance and you need the one generic PULL — its way as a field, its reach, counted once when met, a short lift refused |
 | `packages/sim/src/lance-burn.ts` | **THE LANCE going off**: the lobe coming full, and the column burning on that tick |
 | `packages/sim/src/lamprey-hand.ts` | THE LAMPREY's three handles: the tail, the head and the teeth, heard on the tick |
 | `packages/sim/src/lamprey-hash.ts` | What THE LAMPREY puts into `hashWorld`, and nothing else |
@@ -731,6 +732,7 @@ by hand never moves.
 | `packages/sim/src/events-well.ts` | **Everything THE WELL does that neither screen already says**, as events |
 | `packages/sim/src/events-pinball.ts` | **What PINBALL's two hands on the table do that neither screen already says** |
 | `packages/sim/src/events-pulse.ts` | **What THE PULSE's hand on the bar does that neither screen already says**, as three events (`pulse-hand.ts`) |
+| `packages/sim/src/events-pull.ts` | `pullShort`, the one event every pull on the generic rule says when it is let go short |
 | `packages/sim/src/events-push.ts` | **The shield pushing a creature back up the field** (`shield-push.ts`) |
 | `packages/sim/src/events-plumb.ts` | What THE PLUMB says as it happens, one line per thing the picture and the sound answer |
 | `packages/sim/src/events-rounds.ts` | **THE MIRROR's seven and THE MAZE's five** |
@@ -3684,7 +3686,7 @@ by hand never moves.
 | `tools/director/src/phone-view.ts` | WHICH OF THE THREE VIEWS THE PHONE IS SHOWING, AS ONE OWNER |
 | `tools/director/src/pull-lab-auto.ts` | **AUTO's thumb in the PULL LAB**: one whole pull and one short one, over and over, so every state of a look |
 | `tools/director/src/pull-lab-paint.ts` | One frame of the PULL LAB (`pull-lab.ts`): the empty field |
-| `tools/director/src/pull-lab-rule.ts` | **The one generic PULL, as the lab plays it** — a toy rule beside the twenty-odd the simulation keeps |
+| `tools/director/src/pull-lab-rule.ts` | **The one generic PULL, as the lab plays it** |
 | `tools/director/src/pull-lab-shapes.ts` | **The shapes the one generic PULL can take**, for the PULL LAB (`pull-lab.ts`) |
 | `tools/director/src/pull-lab-sheet.ts` | **EVERY LOOK, EVERY STATE** — the PULL LAB's comparison sheet: one row per look (what ships |
 | `tools/director/src/pull-lab-stray.ts` | **A thumb off the path, in the PULL LAB** — ignored, as every pull in the game ignores it today |

@@ -2,6 +2,7 @@ import { midCol } from "./config.js";
 import { type LedgerState, ledgerBoss, ledgerPlugs } from "./ledger.js";
 import { tearCord } from "./ledger-bead.js";
 import { ledgerFootable, ledgerHaulable, ledgerPullable } from "./ledger-gates.js";
+import { pullHeard } from "./pull.js";
 import type { Command } from "./types.js";
 import type { World } from "./world.js";
 
@@ -165,25 +166,27 @@ function pull(world: World, t: LedgerState, on: boolean): void {
  * while the socket was still covered would be the pair answering the last
  * return after all, with a gesture instead of a trigger.
  *
- * `fromYMilli` is how far **down** the thumb has come from where it grabbed,
- * cut to `ledgerHaulMilli`, and a carry upward is no carry — THE TASTER's
- * interlock, read the same way. It is reset to nought on a
- * tick the plate is in the column, so a thumb held on the cord through her
- * walking back into the socket has to start again when she leaves it.
+ * It is the one generic PULL (`pull.ts`): `fromYMilli` is how far **down**
+ * the thumb has come from where it grabbed, cut to `ledgerHaulMilli`, a carry
+ * upward is no carry, and a carry let go short is refused. It is reset to
+ * nought on a tick the plate is in the column, so a thumb held on the cord
+ * through her walking back into the socket has to start again when she
+ * leaves it.
  */
 function haul(world: World, t: LedgerState, on: boolean, fromYMilli: number): void {
   const cfg = world.cfg;
-  if (!on) {
-    t.haulMilli = 0;
-    return;
-  }
-  if (!ledgerHaulable(t, cfg, world.beat)) return;
+  const asked = ledgerHaulable(t, cfg, world.beat);
+  if (on && !asked) return;
   if (world.shieldCol === t.socket) {
     t.haulMilli = 0;
     return;
   }
-  t.haulMilli = Math.max(0, Math.min(cfg.ledgerHaulMilli, Math.round(fromYMilli)));
-  if (t.haulMilli < cfg.ledgerHaulMilli) return;
+  const pull = { way: "down", reachMilli: cfg.ledgerHaulMilli } as const;
+  const { travelMilli, heard } = pullHeard(pull, false, on, fromYMilli);
+  t.haulMilli = travelMilli;
+  if (!asked) return;
+  if (heard === "short") world.events.push({ type: "pullShort", col: t.socket, player: 1 });
+  if (heard !== "counted") return;
   world.events.push({ type: "ledgerHaul", col: t.socket });
   // The same tear the fifth return makes, out of the file that owns it: a
   // cord pulled out by hand and a cord pulled out by a bill leave the ship in

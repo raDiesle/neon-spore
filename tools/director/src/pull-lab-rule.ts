@@ -4,10 +4,11 @@ import { knobOf, type LabShape, tileOf } from "./pull-lab-shapes.js";
 import { nearest, type Stray, strayReach } from "./pull-lab-stray.js";
 
 /**
- * **The one generic PULL, as the lab plays it** — a toy rule beside the
- * twenty-odd the simulation keeps, one per boss (`docs/queue.md` has the
- * item that would make them this one). It holds the decisions the SUGGESTED
- * line asks for in one place, so they can be felt before they are taken:
+ * **The one generic PULL, as the lab plays it** — the specification of the
+ * simulation's own (`packages/sim/src/pull.ts`), in seconds where that one is
+ * in ticks, and the bosses not on it yet keep their own rule (`docs/queue.md`
+ * has the entries that move them). It holds the decisions the SUGGESTED line
+ * asked for in one place, so they can be felt:
  *
  * - **the direction is a field** (`LabShape.direction`), never a function;
  * - **a pull counts the moment it has gone the whole way**, once, and the

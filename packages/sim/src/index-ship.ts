@@ -78,6 +78,14 @@ export {
 } from "./lid.js";
 export { isLockedOn, lockedBody } from "./lock.js";
 export { mawOpen, podKindOf } from "./pods.js";
+export {
+  PULL_TAP_MILLI,
+  type Pull,
+  type PullHeard,
+  type PullWay,
+  pullHeard,
+  pullTravelMilli,
+} from "./pull.js";
 export { ARM_HOME, reachOut, reachTipMilli } from "./reach.js";
 export {
   chargeDueTick,

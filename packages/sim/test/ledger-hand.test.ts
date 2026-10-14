@@ -263,6 +263,16 @@ describe("the haul", () => {
     expect(t.haulMilli).toBe(0);
   });
 
+  it("refuses a carry let go short, out loud, and leaves a tap alone", () => {
+    const { world, t } = taut();
+    const short = () => world.events.filter((e) => e.type === "pullShort");
+    ledgerHandsHeard(world, 1, drag("ledgerCord", false, { fromYMilli: 10 }));
+    expect(short()).toEqual([]);
+    ledgerHandsHeard(world, 1, drag("ledgerCord", false, { fromYMilli: 800 }));
+    expect(short()).toEqual([{ type: "pullShort", col: t.socket, player: 1 }]);
+    expect(t.outBeat).toBe(-1);
+  });
+
   it("will not come while the plate is still in the socket's column", () => {
     const { world, t } = taut();
     world.shieldCol = t.socket;

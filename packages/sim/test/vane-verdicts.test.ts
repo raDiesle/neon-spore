@@ -89,3 +89,17 @@ test("a press on a part nobody is asked for says nothing", () => {
   // Pinned: the arm is asked of nobody, and VEER never asks for the housing.
   expect(said(send(veer, arm(2, true), housing(1, true)), "vaneRefuse")).toEqual([]);
 });
+
+test("the navigator's carry let go short is refused and said; a tap and a whole carry are not", () => {
+  const world = settled(1);
+  send(world, arm(1, true));
+  const col = vaneSplitCol(world, vane(world));
+  expect(said(send(world, housing(2, false, 10)), "pullShort")).toEqual([]);
+  expect(said(send(world, housing(2, false, CFG.vaneHaulMilli - 1)), "pullShort")).toEqual([
+    { type: "pullShort", col, player: 2 },
+  ]);
+  expect(vane(world).hauled).toBe(false);
+  // Carried the whole way, it counts the moment it gets there, and the lift says nothing.
+  expect(said(send(world, housing(2, true, CFG.vaneHaulMilli)), "vaneHaul")).toHaveLength(1);
+  expect(said(send(world, housing(2, false, 200)), "pullShort")).toEqual([]);
+});

@@ -328,15 +328,13 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/skipped.test.ts` holds the listing's count of the entries
 `next` stepped past and why.
 
-## One generic PULL in the simulation, and the straight-down pulls onto it
+## THE VANE's housing: up or down, and no arrow to say which
 
-- **Found:** 2026-10-10, claude/pull-control-visuals-35c04f
-- **Taken:** 2026-10-14, claude/queue-one-generic-pull-in-the-simulation-and-the-strai
-- **Files:** `packages/sim/src/handle-pull.ts`, `packages/sim/src/hive-hand.ts`, `packages/sim/src/vane-hand.ts`, `packages/sim/src/fleet-hand.ts`, `packages/sim/src/ledger-hand.ts`, `tools/director/src/pull-lab-rule.ts`, `tools/director/src/field-actions-drag.ts`
-- **Asks:** When a pull is let go short of its distance, is it refused (the knob springs back red, a fault the pair hears) or ignored (it springs back quietly and nothing is said)? Today both happen. Both can be felt in the PULL LAB: CONTROLS › ON THE FIELD › PULL PAST A DISTANCE › TRY THE GENERIC PULL, and the SHORT · RED / SHORT · IGNORED switch on its bar.
-- **Answered:** a pull let go short of its distance is **refused** — the knob springs back red, a fault the pair hears. The owner, 10 October 2026, in the PULL LAB: *for the tolerance variants i prefer "short * red" so remove the others*. The lab's bar no longer offers IGNORED.
+- **Found:** 2026-10-14, claude/queue-one-generic-pull-in-the-simulation-and-the-strai
+- **Files:** `packages/sim/src/vane-hand.ts`, `packages/render/src/vane-grip.ts`, `tools/director/src/field-controls-vane.ts`
+- **Asks:** Which way does the navigator carry THE VANE's housing off the bearing: (a) down, as the director's row says, (b) up, as the render's grip says, or (c) either way, as the simulation has always counted it?
 
-The owner took PULL PAST A DISTANCE's SUGGESTED line on 10 October 2026: one generic PULL with the direction a named field (down · up · either · signed) and one drawn arrow. Twenty-six rows each keep their own rule today, in a hand file per boss. Write the rule once in the simulation, beside `handle-pull.ts` — a direction field, a reach in thousandths, counted once the moment the reach is met, a short lift refused — taking the PULL LAB's toy rule (`pull-lab-rule.ts`) as its specification, then move the four straight-down pulls onto it: THE HIVE's haul, THE VANE's housing, THE FLEET's wreck and THE LEDGER's pull, each a replay test unchanged or a sentence on why its behaviour moved. Two entries below move the rest, one lane each.
+Moving it onto the one generic PULL (`sim/pull.ts`) needed a `way`, and the three places disagree: `vane-grip.ts` says *she carries it up*, `field-controls-vane.ts` says *a pull of at least vaneHaulMilli downward*, and `vane-hand.ts` took `Math.abs`. The ring wears no arrow and no channel, so nothing on the screen settles it. The lane kept `either`, which is what the game did. After the answer: the `way` in `vane-hand.ts`, the sentence in the other two, and the generic knob's arrow and channel on the ring (`pull-knob.ts`), with `vane-verdicts.test.ts` holding the wrong way refused.
 
 ## One generic PULL: the up, either-way and sideways pulls onto it
 

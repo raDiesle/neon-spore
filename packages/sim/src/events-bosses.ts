@@ -23,6 +23,7 @@ import type { MimicEvent } from "./events-mimic.js";
 import type { OculusEvent } from "./events-oculus.js";
 import type { PinballEvent } from "./events-pinball.js";
 import type { PlumbEvent } from "./events-plumb.js";
+import type { PullEvent } from "./events-pull.js";
 import type { PulseEvent } from "./events-pulse.js";
 import type { QueenEvent } from "./events-queen.js";
 import type { RatchetEvent } from "./events-ratchet.js";
@@ -109,6 +110,7 @@ export type BossEvent =
   | PinballEvent
   | ScoutEvent
   | PulseEvent
+  | PullEvent
   | ThroatEvent
   | GaugeEvent
   | WellEvent;
@@ -138,6 +140,7 @@ export type { MimicEvent } from "./events-mimic.js";
 export type { OculusEvent } from "./events-oculus.js";
 export type { PinballEvent } from "./events-pinball.js";
 export type { PlumbEvent } from "./events-plumb.js";
+export type { PullEvent } from "./events-pull.js";
 export type { PulseEvent } from "./events-pulse.js";
 export type { QueenEvent } from "./events-queen.js";
 export type { RatchetEvent } from "./events-ratchet.js";
