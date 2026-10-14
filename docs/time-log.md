@@ -40373,3 +40373,5 @@ and the only choice was the knob's size against the hub above it.
 
 Bottleneck: finding the URL and the selector that reach one card's TRY IT —
 the run that proves the flag cost more than the flag.
+
+*Measured: 9 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
