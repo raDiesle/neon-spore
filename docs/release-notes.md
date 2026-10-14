@@ -9,6 +9,14 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-14 · ab993f3de — HELPERS shows every state of THE SIREN on both phones
+
+Under THE SIREN on DOCUMENTATION › CONTROLS › HELPERS, eighteen states, each drawn as the top of player 1's phone beside the top of player 2's, with which chip is lit, what each phone reads under the dial and what it means: dark; one seat, the other, both for one body, both with one sentence, two bodies, two words on one seat; the torch before it lands, the fence open and shut, a mine drawn on P1, a harpooned cannon, the panels traded; THE ANTIPHON, THE FLUE, THE MIMIC both ways round and THE GAUGE. The words are read off the renderer, not copied. No change to anything the game draws; the renderer only exports `sirenWord`, `commsCall` and `GAUGE_DUTY` for the page.
+
+## 2026-10-14 · 9d903ee52 — The director's topbar has no lab doors any more
+
+The six buttons PULL LAB, HOLD LAB, PRESS LAB, RUB LAB, COMBO LAB and LEVER LAB are gone from the director's header, at the owner's word: each lab is reached as its card on DOCUMENTATION › CONTROLS › ON THE FIELD, beside the gesture it is the bare form of, and THE SHIELD LAB on HELPERS. `lab-door.ts` and its test went with them; `?pulllab=` and its siblings still reopen a lab, for `bun run shot`.
+
 ## 2026-10-14 · 5929b01fa — VERSUS offers THE FLUE's flesh turning lobe by lobe
 
 `flue:glance` offers every unit of the flue's flesh a turn about its own middle — SWAY, LOOK or COCK — its level's lobe with it, the near flank opening and the far one closing into the dark and back, the turn running along the body a little behind from unit to unit so the flue ripples end to end, on THE FLUE · LIT, a new pose on the BOSSES sheet. The gullet, the spore, the sight, the scale and the glass stay where they hang, so the call and the shot keep their moment. The whole flue turned about its sight was tried first and dropped: it spans the field, so its near end ran off the screen. The record ships still, so the game draws what it did.

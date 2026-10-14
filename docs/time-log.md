@@ -39874,3 +39874,5 @@ Bottleneck: the first answer — the whole flue turned about its sight — ran i
 - landing: 5 min. `check:fast`, two commits, `land`.
 
 Bottleneck: the traded-panels row — the picture was right and the text under it was not, and only looking at the frame showed it.
+
+*Measured: 4 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
