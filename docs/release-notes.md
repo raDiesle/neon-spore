@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-14 · a1f453743 — VERSUS offers THE FILAMENT's heart looking and cocking
+
+THE FILAMENT's heart already turns, so its turn is now a record that ships as that same idle sway, and VERSUS offers it two other ways: LOOK, holding a look either side, and COCK, cocking as it turns, each rolling about the apex where every vein goes in. Nothing the game draws changes. Judged on THE FILAMENT · ARM. Exemption: none — a look, offered on VERSUS.
+
 ## 2026-10-14 · f6756472f — THE THROAT's pump wears THE RUB LAB's zigzag drop
 
 On the pilot's screen the pump beside the gullet's root is the drop every rub wears, saying RUB, its zigzag lit by how many turns full the pump is and going out again as it drains. It stands still under his thumb and stays all through the fight. His ring, its up-and-down arrow and the word PUMP are gone; the navigator still sees the pump's dim ring. A look the owner asked for by name (14 October 2026: use default "rub" instead for less variants).

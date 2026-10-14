@@ -39390,3 +39390,5 @@ Bottleneck: the tests that counted the pump's ring from three directions.
 - landing: 5 min. `check:fast`, the commit, `land`.
 
 Bottleneck: the heart already turned, so its record ships turning and SWAY had nothing to offer.
+
+*Measured: 5 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
