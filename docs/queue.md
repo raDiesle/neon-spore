@@ -331,6 +331,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## THE INSTAR's turned head may show the glance's hairline
 
 - **Found:** 2026-10-13, claude/queue-tasks-159048
+- **Taken:** 2026-10-14, claude/queue-the-slings-cords-a-hold-then-a-pull-in-its-place (claim: claude/queue-the-instars-turned-head-may-show-the-glances-hai)
 - **Files:** `packages/render/src/instar-turn.ts`, `packages/render/src/glance-layer.ts`
 
 Every boss's VERSUS glance now lays its part down as one offscreen layer
