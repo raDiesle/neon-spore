@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-14 · 2b2216d1b — THE LEDGER's root wears the HOLD LAB's drop, not the old ring
+
+The navigator's thumb on the cord's root — walking the foot while it pays out, plugging the socket after — was the violet handle ring with a dial, the look every hold wore before 13 October. It is the HOLD LAB's drop now, as every hold is: rippling to call the thumb, pressed in while held, its water rising as the foot's two beats run out and as the plug's grace is spent. Same circle, same hit test. Exemption: a look the owner asked for by name, 14 October 2026.
+
 ## 2026-10-14 · 736124037 — CONTROLS › HELPERS: when a control breaks, SHIELD STUCK ON, and the boss cue
 
 CONTROLS › HELPERS gains a new group, WHEN A CONTROL BREAKS. It covers the lantern and its beam, the torn button, the colours-swapped haze and the mirrored screen, each in a frame with its fault in force. Under it is the words beside the lantern for every fault, read from the renderer's own table. THE SHIELD gains SHIELD STUCK ON. ON A BOSS'S MARK adds the boss cue and the word beside a mark, and THE HOLD now describes the drop that replaced the red thumbprint. Six helpers no frame could show yet are queued, and so are the bosses' one-seat pictures, in two entries.
