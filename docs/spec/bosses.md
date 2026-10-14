@@ -8115,6 +8115,15 @@ owner's eye.
 
 **What is not built — a step seen from another side** (suggested 10 October 2026, after the owner on THE BASTION: *very 3 dimensional and even user action is 3d to rotate*). The jellyfish rolls; rings on its far side face away and can only be answered with the panel, the cannon or the shield, as they come round to the front.
 
+**Offered (14 October 2026, VERSUS `nettle:glance`).** A jellyfish's head is
+its bell, so the bell turns, and everything hanging from it with it — crown or
+underside, arms, curtain, core — about its own middle
+(`packages/render/src/nettle-glance.ts`). The far side closes into the dark
+and back. The marks stay where the script planted them, as they do while the
+bell pulses and flinches, and a bolt meets the bell where it is drawn. It
+ships still, and VERSUS offers **SWAY**, **LOOK** and **COCK** at a sixth of
+the bell's radius on THE NETTLE · ACT.
+
 
 ## 11.40 THE MANTLE — the boss both hands have to pull at once, or neither counts
 

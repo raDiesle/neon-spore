@@ -46,6 +46,9 @@ import { MAZE_SWAY } from "./maze-glance/sway/index.js";
 import { MIRROR_COCK } from "./mirror-glance/cock/index.js";
 import { MIRROR_LOOK_AROUND } from "./mirror-glance/look/index.js";
 import { MIRROR_SWAY } from "./mirror-glance/sway/index.js";
+import { NETTLE_COCK } from "./nettle-glance/cock/index.js";
+import { NETTLE_LOOK_AROUND } from "./nettle-glance/look/index.js";
+import { NETTLE_SWAY } from "./nettle-glance/sway/index.js";
 import { PINBALL_COCK } from "./pinball-glance/cock/index.js";
 import { PINBALL_LOOK_AROUND } from "./pinball-glance/look/index.js";
 import { PINBALL_SWAY } from "./pinball-glance/sway/index.js";
@@ -154,6 +157,9 @@ export const VARIANTS: Variant[] = [
   SINEW_COCK,
   SINEW_LOOK_AROUND,
   SINEW_SWAY,
+  NETTLE_COCK,
+  NETTLE_LOOK_AROUND,
+  NETTLE_SWAY,
   RATCHET_COCK,
   RATCHET_LOOK_AROUND,
   RATCHET_SWAY,

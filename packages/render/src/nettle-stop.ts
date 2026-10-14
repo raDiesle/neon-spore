@@ -5,6 +5,7 @@ import type { Sway } from "./instar-sway.js";
 import type { Layout } from "./layout.js";
 import { nettleBellPoints, nettleSac } from "./nettle-body.js";
 import type { Figure } from "./nettle-figure.js";
+import { nettleGlancedPoint } from "./nettle-glance.js";
 import { sceneStopper } from "./scene-stop.js";
 
 /** Where the bell is laid this frame, as `drawNettle` lays it: its middle, shake and jolt in it, and its radius. */
@@ -38,10 +39,13 @@ export function nettleStopper(
   beatPhase: number,
   time: number,
 ): Stopper {
-  const feet: Foot[] = [outlineFoot(nettleBellPoints(bell.x, bell.y, bell.r, time))];
+  // Met where the bell's turn draws it (`nettle-glance.ts`).
+  const turn = (p: { x: number; y: number }) => nettleGlancedPoint(bell, time, p);
+  const feet: Foot[] = [outlineFoot(nettleBellPoints(bell.x, bell.y, bell.r, time).map(turn))];
   if (f.sac > 0 && fade * (1 - f.side) > 0.01) {
     const sac = nettleSac(bell.x, bell.y, bell.r, f);
-    feet.push(roundFoot(sac.x, sac.y, sac.r));
+    const at = turn(sac);
+    feet.push(roundFoot(at.x, at.y, sac.r));
   }
   return sceneStopper(l, world, s, sway, beat, beatPhase, nettleVerdict, lowestFoot(feet));
 }

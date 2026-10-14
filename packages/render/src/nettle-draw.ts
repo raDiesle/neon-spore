@@ -4,10 +4,12 @@ import { drawInstarMarks } from "./instar-marks.js";
 import { instarAt, instarLen } from "./instar-place.js";
 import { instarFade, instarThreat } from "./instar-shape.js";
 import type { Layout } from "./layout.js";
-import { drawNettleBody } from "./nettle-body.js";
+import { drawNettleBody, nettleBellPoints } from "./nettle-body.js";
 import type { NettleFx } from "./nettle-fx.js";
+import { drawNettleGlanced } from "./nettle-glance.js";
 import { nettleStopper } from "./nettle-stop.js";
 import { nettleBody } from "./nettle-sway.js";
+import { splinePath } from "./spline.js";
 
 /**
  * **THE NETTLE**: a jellyfish the size of the field (§11.39,
@@ -52,9 +54,13 @@ export function drawNettle(
   const shake = fx.flinch * l.tile * 0.25 * Math.sin(time * 40) + fx.hurt.shakeX(time, l.tile);
   const x = center.x + shake;
   const y = center.y - fx.jolt * l.tile;
-  drawNettleBody(ctx, x, y, r, f, time, fade, fx.hurt.value);
+  const bell = { x, y, r };
+  // The bell turns about its middle, where a look takes one (`nettle-glance.ts`).
+  drawNettleGlanced(ctx, bell, time, (g) => {
+    drawNettleBody(g, x, y, r, f, time, fade, fx.hurt.value);
+    return [splinePath(nettleBellPoints(x, y, r, time), true)];
+  });
   fx.place(l, s, sway, instarThreat(s, beat, beatPhase), { x, y }, r);
   drawInstarMarks(ctx, l, world, s, sway, beat, beatPhase, time, l.role, fx.verdicts);
-  const bell = { x, y, r };
   stops?.aim(nettleStopper(l, world, s, sway, bell, f, fade, beat, beatPhase, time));
 }

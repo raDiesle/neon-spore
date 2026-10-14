@@ -25,7 +25,10 @@ export const NETTLE_POSES: Pose[] = [
     "nettle",
     "act",
     "The rings are up and closing. P1 pulls the left arm up off the ship; P2 pulls the right.",
-    { hold: 6 },
+    {
+      hold: 6,
+      lookAt: "the bell turning about its middle — its far side going into the dark and back",
+    },
   ),
   bossPose(
     "nettle",

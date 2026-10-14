@@ -39449,3 +39449,15 @@ Bottleneck: finding every point that reads a shell's edge — the staple and the
 Bottleneck: a narrow rack needs a larger share of its width before a still shows the turn.
 
 *Measured: 8 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-14 — THE NETTLE: a part that turns, so it is seen from a new side
+
+- reading: 5 min. `nettle-draw.ts`, `nettle-stop.ts` and the script's marks,
+  to see how far off the bell's middle a thumb is asked to go.
+- writing: 5 min. The record about the bell's middle, the bolt's stop read
+  through it, three candidates, the pose's lookAt, the spec note.
+- looking: 5 min. One shot at the widest; the far side narrows into the dark.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: the marks sit all across the bell, so no point could be held, and the turn was kept moderate instead.

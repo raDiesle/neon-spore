@@ -22,6 +22,7 @@ import { LEAD_GLANCE, LEAD_GLANCE_SIZE } from "../src/lead-glance.js";
 import { LEDGER_GLANCE, LEDGER_GLANCE_SIZE } from "../src/ledger-glance.js";
 import { MAZE_GLANCE, MAZE_GLANCE_SIZE } from "../src/maze-glance.js";
 import { MIRROR_GLANCE, MIRROR_GLANCE_SIZE } from "../src/mirror-glance.js";
+import { NETTLE_GLANCE, NETTLE_GLANCE_SIZE } from "../src/nettle-glance.js";
 import { PINBALL_GLANCE, PINBALL_GLANCE_SIZE } from "../src/pinball-glance.js";
 import { PULSE_GLANCE, PULSE_GLANCE_SIZE } from "../src/pulse-glance.js";
 import { QUEEN_GLANCE, QUEEN_GLANCE_HOLD, QUEEN_GLANCE_SIZE } from "../src/queen-glance.js";
@@ -93,6 +94,7 @@ const ROWS: readonly Row[] = [
   { name: "THE GIMBAL", record: GIMBAL_GLANCE, size: GIMBAL_GLANCE_SIZE, hold: 0 },
   { name: "THE SPOOL", record: SPOOL_GLANCE, size: SPOOL_GLANCE_SIZE, hold: 0 },
   { name: "THE HASP", record: HASP_GLANCE, size: HASP_GLANCE_SIZE, hold: 0 },
+  { name: "THE NETTLE", record: NETTLE_GLANCE, size: NETTLE_GLANCE_SIZE, hold: 0 },
   { name: "THE RATCHET", record: RATCHET_GLANCE, size: RATCHET_GLANCE_SIZE, hold: 0 },
 ];
 
