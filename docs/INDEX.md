@@ -3631,6 +3631,7 @@ by hand never moves.
 | `tools/director/src/helpers-def.ts` | **What one row of CONTROLS › HELPERS is** — a picture the game draws on the field to explain something |
 | `tools/director/src/helpers-page.ts` | CONTROLS › HELPERS — every picture the game draws on the field to explain something rather than to be… |
 | `tools/director/src/helpers-poses.ts` | The frames CONTROLS › HELPERS draws that the STATES gallery has no pose for (`helpers-page.ts`) |
+| `tools/director/src/helpers-shield.ts` | CONTROLS › HELPERS › **THE SHIELD** — every picture the field draws to say something about the shield |
 | `tools/director/src/brush-hints.ts` | SHOW DESCRIPTIONS: whether each brush in the palette carries its sentence |
 | `tools/director/src/brush-lists.ts` | which strings are brushes and which kind each one paints — the lists, not the palette's rows |
 | `tools/director/src/scene-marks.ts` | The marks: everything a scene draws that is not a body |
@@ -3771,6 +3772,13 @@ by hand never moves.
 | `tools/director/src/ship-notes-choreo-c.ts` | The paragraph under each **choreographed boss's** card, the third page |
 | `tools/director/src/ship-notes-choreo-d.ts` | The paragraph under each **choreographed boss's** card, the fourth page |
 | `tools/director/src/ship-boss-group.ts` | **The boss group each `BossEntry` kind shows.** It arrived in `ship-groups.ts` with THE CLAW |
+| `tools/director/src/shield-lab-button.ts` | **THE SHIELD LAB's marks on the band** — the owner, 14 October 2026 |
+| `tools/director/src/shield-lab-looks.ts` | **THE SHIELD LAB's looks** — five answers to *when is the shield wanted*, the owner, 14 October 2026 |
+| `tools/director/src/shield-lab-looks-b.ts` | THE SHIELD LAB's last two looks, GHOST and CUE — the first three and the list are `shield-lab-looks.ts` |
+| `tools/director/src/shield-lab-run.ts` | **THE SHIELD LAB's run, without a canvas** (`shield-lab-scene.ts` draws it) |
+| `tools/director/src/shield-lab-scene.ts` | **THE SHIELD LAB's field, drawn** (`shield-lab.ts`) |
+| `tools/director/src/shield-lab-ink.ts` | **What THE SHIELD LAB's looks are drawn with** (`shield-lab-looks.ts`, `shield-lab-looks-b.ts` |
+| `tools/director/src/shield-lab.ts` | **THE SHIELD LAB** — every look offered for *the shield is wanted here*, on a real field: the owner |
 | `tools/director/src/sheet-doors.ts` | The topbar's page doors as tabs: the open page's door lit, pressed again to go back, another door switches straight there |
 | `tools/style-guide/src/colour.ts` | the swatch grid and the hue dial — every colour under its rule, and the twelve body hues at their measured angles |
 | `tools/style-guide/src/families.ts` | Every swatch in `PALETTE`, filed under the rule it belongs to |
@@ -3911,7 +3919,7 @@ by hand never moves.
 | `tools/director/src/library/rind-stage.ts` | The game's own rind, losing its layers on a card, each one drawn coming off by a shed of the caller's choosing |
 | `tools/director/src/library/countdown-assets.ts` | THE COUNT's four counts — how a body says how many beats are left, on the one screen that is shown it |
 | `tools/director/src/library/countdown-stage.ts` | The game's own count, drawn on a card wearing a look of the caller's choosing |
-| `tools/director/src/labs.ts` | **The director's five labs, PULL, HOLD, PRESS, RUB and COMBO**: each one's door in the topbar |
+| `tools/director/src/labs.ts` | **The director's labs, PULL, HOLD, PRESS, RUB, COMBO and SHIELD**: each one's door in the topbar |
 | `tools/director/src/lab-shell.ts` | **Where a lab stands** — THE PULL LAB, THE HOLD LAB and THE COMBO LAB (`pull-lab.ts`, `hold-lab.ts` |
 | `tools/director/src/lab-door.ts` | **A lab's door in the topbar opens its card** on CONTROLS › ON THE FIELD, scrolled to — the owner |
 | `tools/director/src/autopilot-ghost.ts` | **The autopilot's finger, drawn where a thumb would be**, found by the game's own hit test run backwards |

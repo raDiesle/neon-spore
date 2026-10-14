@@ -1,6 +1,7 @@
 import { AIM_GROUP, BODY_GROUP, MARK_GROUP } from "./helpers-aim.js";
 import { CALL_GROUP, LOCK_GROUP } from "./helpers-calls.js";
 import type { HelperDef, HelperGroup } from "./helpers-def.js";
+import { SHIELD_GROUP } from "./helpers-shield.js";
 import { poseArt } from "./pose-art.js";
 import type { Pose } from "./pose-kit.js";
 import { poseNamed } from "./poses.js";
@@ -20,6 +21,7 @@ import { whenSeen } from "./when-seen.js";
  */
 
 export const HELPER_GROUPS: readonly HelperGroup[] = [
+  SHIELD_GROUP,
   CALL_GROUP,
   LOCK_GROUP,
   AIM_GROUP,
@@ -96,6 +98,14 @@ function groupHead(g: HelperGroup): HTMLElement {
   return head;
 }
 
+/** A group's lab, as ON THE FIELD stands one: a card put up as it nears the screen. */
+function labCard(open: (host: HTMLElement) => void): HTMLElement {
+  const host = document.createElement("div");
+  host.className = "field-lab";
+  whenSeen(host, () => open(host));
+  return host;
+}
+
 let drawn = false;
 
 /** The whole tab, once; each row's picture is drawn as it comes near. */
@@ -107,6 +117,7 @@ export function renderHelpers(): void {
   body.replaceChildren();
   for (const g of HELPER_GROUPS) {
     body.appendChild(groupHead(g));
+    if (g.lab) body.appendChild(labCard(g.lab));
     for (const h of g.rows) body.appendChild(helperRow(h));
   }
 }

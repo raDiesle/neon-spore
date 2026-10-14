@@ -792,3 +792,23 @@ a scratch checkout costs. Time it alone a few times on an idle machine, set
 `SCRATCH_TREE_MS` to what it takes at a slowdown of one, and write the runs
 into its comment as the 30 September ones are. Prove with
 `bun test tools/frames/test/wave.test.ts` and `bun run check`.
+
+## THE SHIELD on HELPERS: six rows owed a pose
+
+- **Found:** 2026-10-14, claude/shield-visualization-controls-51b28d
+- **Files:** `tools/director/src/helpers-shield.ts`, `tools/director/src/helpers-poses.ts`, `tools/director/test/helpers-page.test.ts`
+
+CONTROLS › HELPERS › THE SHIELD lists every shield helper that ships with a
+gallery frame to draw it in. Six ship without one, and each needs a pose built
+in `helpers-poses.ts` that ends on a tick the helper is drawn on (only the last
+frame of a pose is handed `world.events`, `pose-frame.ts`):
+THE FENCE's skull over a shut dome (`fence-skull.ts`) and its gaps, sweep and
+FIND GAP FOR SHIELD (`fence-gate.ts`, `fence-sweep.ts`, `duty-fence.ts`) — no
+fence pose exists at all; SHIELD STUCK ON (`fault-label.ts`) — no pose puts a
+shield fault in force; the push's red rim and spray (`shield-push-fx.ts`) —
+`PUSHED_ONCE` runs a beat past it; the SHIELD button's fading glow
+(`guard-lapse.ts`); THE THROAT's shield face (`throat-hue.ts`) — `THE THROAT ·
+SUCKS` stops on a red slick, and meteors come from beat 28; and DEFLECTED
+(`banner.ts`) — `WARD · DEFLECTED` ends on the deflection, but its frame does
+not show the word. Add each as a row of `SHIELD_GROUP`, look at the frame,
+and keep `helpers-page.test.ts` green.

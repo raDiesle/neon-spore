@@ -75,5 +75,10 @@ test("the one that does is the one everything else calls", async () => {
     if (/\brunStageLoop(?:WhileSeen)?\(/.test(await Bun.file(join(SRC, file)).text()))
       callers.push(rel);
   }
-  expect(callers.sort()).toEqual(["src/pull-lab-scene.ts", "src/stage.ts", "src/versus-pair.ts"]);
+  expect(callers.sort()).toEqual([
+    "src/pull-lab-scene.ts",
+    "src/shield-lab-scene.ts",
+    "src/stage.ts",
+    "src/versus-pair.ts",
+  ]);
 });

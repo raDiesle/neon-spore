@@ -4,11 +4,13 @@ import { bindLabDoors } from "./lab-door.js";
 import { bindPressLab } from "./press-lab.js";
 import { bindPullLab } from "./pull-lab.js";
 import { bindRubLab } from "./rub-lab.js";
+import { bindShieldLab } from "./shield-lab.js";
 
 /**
- * **The director's five labs, PULL, HOLD, PRESS, RUB and COMBO**: each one's door in the topbar,
+ * **The director's labs, PULL, HOLD, PRESS, RUB, COMBO and SHIELD**: each one's door in the topbar,
  * to its card on ON THE FIELD (`lab-door.ts`), and the one the URL left open
- * opened again (`place.ts`'s `lab`).
+ * opened again (`place.ts`'s `lab`). THE SHIELD LAB has no door: its card
+ * stands on CONTROLS › HELPERS (`helpers-shield.ts`).
  */
 export function bindLabs(): void {
   bindLabDoors();
@@ -17,4 +19,5 @@ export function bindLabs(): void {
   bindPressLab();
   bindRubLab();
   bindComboLab();
+  bindShieldLab();
 }

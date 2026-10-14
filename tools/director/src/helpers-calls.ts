@@ -1,19 +1,12 @@
 import type { HelperGroup } from "./helpers-def.js";
-import {
-  LURE_UP,
-  MAGNET_UP,
-  SIREN_ON,
-  STRIP_BUSY,
-  TORCH_COMING,
-  VEIL_UP,
-  WISP_UP,
-} from "./helpers-poses.js";
+import { LURE_UP, MAGNET_UP, SIREN_ON, STRIP_BUSY, VEIL_UP, WISP_UP } from "./helpers-poses.js";
 
 /**
  * CONTROLS › HELPERS, the first half: the helpers that tell the pair **to
  * talk**, and the scanner box that says *found, and the rest is withheld*.
  * The second half — where a shot goes and the marks on a body — is
- * `helpers-aim.ts`. Split on the seam the page itself is cut along.
+ * `helpers-aim.ts`. Split on the seam the page itself is cut along. THE
+ * TORCH ALARM moved to THE SHIELD (`helpers-shield.ts`).
  */
 
 export const CALL_GROUP: HelperGroup = {
@@ -44,18 +37,6 @@ export const CALL_GROUP: HelperGroup = {
       pose: STRIP_BUSY,
       role: "test",
       lookAt: "the blips along the top strip, and the eye over the one that needs a call",
-    },
-    {
-      name: "THE TORCH ALARM",
-      where: "a grey band across the strip and down both edges, a torch's fall ahead",
-      seat: "BOTH, different words — P1: TORCH · COLUMN n · CALL IT; P2: TORCH INBOUND · TAKE THE COLUMN",
-      says:
-        "The fastest thing in the game is coming. The pilot can see where and must " +
-        "say it; the navigator must move the shield there on the word.",
-      source: "torch-alarm.ts",
-      pose: TORCH_COMING,
-      role: "p1",
-      lookAt: "the grey band under the strip and the column it names",
     },
     {
       name: "THE MAGNET'S CALL",

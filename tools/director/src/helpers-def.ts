@@ -45,5 +45,7 @@ export interface HelperDef {
 export interface HelperGroup {
   title: string;
   sub: string;
+  /** A lab put up under the heading, before the rows (THE SHIELD LAB). */
+  lab?: (host: HTMLElement) => void;
   rows: readonly HelperDef[];
 }

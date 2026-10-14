@@ -64,6 +64,8 @@ export const PRESS_LAB = "press:";
 export const COMBO_LAB = "combo:";
 /** What a `Place`'s `lab` starts with when the lab open is THE RUB LAB (`rub-lab.ts`). */
 export const RUB_LAB = "rub:";
+/** What a `Place`'s `lab` starts with when the lab open is THE SHIELD LAB (`shield-lab.ts`). */
+export const SHIELD_LAB = "shield:";
 
 /** Every lab but the PULL LAB, whose `lab` is its bare path key: its prefix, its
  * name in the URL, and its sheet's — THE COMBO LAB has none. The first in the
@@ -73,6 +75,7 @@ const LAB_PARAMS: readonly { prefix: string; param: string; sheet: string | null
   { prefix: COMBO_LAB, param: "combolab", sheet: null },
   { prefix: PRESS_LAB, param: "presslab", sheet: "presssheet" },
   { prefix: RUB_LAB, param: "rublab", sheet: "rubsheet" },
+  { prefix: SHIELD_LAB, param: "shieldlab", sheet: null },
 ];
 
 /** Every lab's prefix but the PULL LAB's. */

@@ -1,6 +1,6 @@
 import { coreRowMilli, midCol } from "@neon-spore/sim";
 import type { HelperDef, HelperGroup } from "./helpers-def.js";
-import { EMPTY_FIELD, LOCKED, MINE_UP, PUSHED_ONCE } from "./helpers-poses.js";
+import { EMPTY_FIELD, LOCKED, MINE_UP } from "./helpers-poses.js";
 
 /**
  * CONTROLS › HELPERS, the second half: where a shot goes, the words and
@@ -66,18 +66,6 @@ export const BODY_GROUP: HelperGroup = {
   title: "ON A BODY",
   sub: "a word, a frame or a count standing on one falling body",
   rows: [
-    {
-      name: "ONE LAST CHANCE",
-      where: "over a body the shield has already pushed back up once",
-      seat: "BOTH — both hands were in the push, and both must change what they do",
-      says:
-        "The shield will not save this one again: this fall is the cannon's or " +
-        "the hull's. The body itself looks the same as the first time.",
-      source: "last-chance.ts",
-      pose: PUSHED_ONCE,
-      role: "test",
-      lookAt: "the words over the body",
-    },
     {
       name: "THE LOCK",
       where: "round a body player 1's hand is holding",

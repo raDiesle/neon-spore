@@ -39596,3 +39596,18 @@ Bottleneck: none to speak of — the stones a thumb pulls hang off the beam, not
 Bottleneck: the cool and the fire step ended the draw in two branches, so they were folded into one callback to draw the fork in one turned layer.
 
 *Measured: 15 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-14 — THE SHIELD LAB, and THE SHIELD first on HELPERS
+
+- reading: 10 min. The gunsight and EMBER on the fire button, the labs' shell,
+  THE PULL LAB's real-wave scene, the shield's arithmetic and who holds which
+  control; a background search catalogued every shield helper and its pose.
+- writing: 15 min. The run, the scene on two phones, five looks, the marks on
+  SHIELD and the strip, THE SHIELD group, the test.
+- looking: 10 min. Every look stopped on the moment in the browser pane, each
+  shield row's frame; three zoomed or dropped.
+- friction: 5 min. The queue is not consumed (`spawned` counts), so the field
+  never started over; then two rocks arriving on one beat in two columns.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: picking the rocks' beats by when each arrives rather than when it is queued — a faster tier overtakes and makes a beat no pair can save.
