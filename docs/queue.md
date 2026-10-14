@@ -358,6 +358,7 @@ is a subject of its own and does not touch the body: move it to
 ## `ratchet-parts.ts` sits on the line ceiling
 
 - **Found:** 2026-10-14, claude/queue-the-ratchet-a-part-that-turns-so-it-is-seen-from
+- **Taken:** 2026-10-14, main (claim: claude/queue-ratchet-parts-ts-sits-on-the-line-ceiling)
 - **Files:** `packages/render/src/ratchet-parts.ts`
 
 The file is at 250 lines after THE RATCHET's glance carried the pawl's tip
