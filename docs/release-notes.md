@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-14 · 58eb6f2dc — VERSUS offers THE VALVE's drum turning about its wheel and socket
+
+`valve:glance` offers the whole drum a turn — SWAY, LOOK or COCK — rim, face and everything on it yawing together, held at the wheel's hub and the socket so neither moves under a thumb, the near end reaching out and the far end closing into the dark and back, on THE VALVE · TURN. The pins hang still under it and a bolt meets the rim where it is drawn. The record ships still, so the game draws what it did.
+
 ## 2026-10-14 · b3a31c7e3 — VERSUS offers THE KEEL's vertebrae turning on their joints
 
 `keel:glance` offers every vertebra of the spine a turn, all six in step, each about its own joint — SWAY, LOOK or COCK — each plate's far end shortening into the dark and back with its ribs and seam, on THE KEEL · JOINT. The joints a thumb taps and the half each stands on do not move; the tendons stay strung between the turned ends, and a bolt meets the plates where they are drawn. The record ships still, so the game draws what it did.
