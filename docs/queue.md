@@ -331,6 +331,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## THE LAMPREY lets a bolt through its head while it is not reared
 
 - **Found:** 2026-10-10, claude/lamprey-cannon-hit-feedback-323ebe
+- **Taken:** 2026-10-14, claude/queue-the-lamprey-lets-a-bolt-through-its-head-while-i
 - **Files:** `packages/sim/src/lamprey-shot.ts`, `packages/sim/src/core-along.ts`, `packages/render/src/lamprey-stop.ts`
 - **Asks:** Should a bolt that meets THE LAMPREY while its gullet is shut — recoiling from a hit, bitten into a tile, crawling — burst on the head as armour (grey grit, no effect, and not a wasted shot on HARD), or keep flying through it?
 - **Answered:** 2026-10-13 — the owner left it to the lane: (a), armour while the head stands in the bolt's column in any phase but `leap`, `entering` and `spent`, over (b) recoil only and (c) leaving it — one rule for every phase a head is drawn in.
