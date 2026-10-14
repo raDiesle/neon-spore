@@ -331,6 +331,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## `poses-bosses-hands-clocks.ts` sits on the line ceiling
 
 - **Found:** 2026-10-14, claude/queue-the-ledger-a-part-that-turns-so-it-is-seen-from
+- **Taken:** 2026-10-14, claude/queue-poses-bosses-hands-clocks-ts-sits-on-the-line-ce
 - **Files:** `tools/director/src/poses-bosses-hands-clocks.ts`, `tools/director/src/poses.ts`
 
 The file is at 250 lines after THE TASTER's and THE LEDGER's glance poses
