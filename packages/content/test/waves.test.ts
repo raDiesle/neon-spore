@@ -225,10 +225,18 @@ describe("wave content", () => {
    * blue pass: *the guide is not required for this wave*. THE VANE's went on
    * 30 September 2026, its split already wearing `FIRE` in its colour:
    * *remove the tutorial, not required*. THE MIMIC's went on 5 October
-   * 2026 and came back on the 6th, at the owner's word both times. A name
-   * goes here only on the owner's word.
+   * 2026 and came back on the 6th, at the owner's word both times. THE
+   * CHRYSALIS's went on 14 October 2026, each skin's mark saying its word:
+   * *it does not need tutorial, it is self explanatory*. A name goes here
+   * only on the owner's word.
    */
-  const SAYS_ITSELF = new Set(["THE INSTAR", "THE FILAMENT", "THE STARE", "THE VANE"]);
+  const SAYS_ITSELF = new Set([
+    "THE INSTAR",
+    "THE FILAMENT",
+    "THE STARE",
+    "THE VANE",
+    "THE CHRYSALIS",
+  ]);
 
   it("gives the first wave that carries anything new a guide", () => {
     const seen = new Set<string>();

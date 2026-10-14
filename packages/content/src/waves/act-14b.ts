@@ -40,7 +40,9 @@ import type { Wave } from "../wave-types.js";
  * spray the shield throws back, four and then five; and the heart, which only
  * the pilot sees — the pilot brings the cannon under it and says its colour,
  * and the navigator fires it. A course run out grows back whole, and nothing
- * hits the hull.
+ * hits the hull. **It carries no guide**, THE VANE's way: the owner, 14
+ * October 2026, *it does not need tutorial, it is self explanatory* — every
+ * skin's mark says its own word (`RUB`, `PULL`, `SHIELD`, `COLOUR`, `FIRE`).
  */
 export const WAVES_ACT_14B: Wave[] = [
   {
@@ -128,11 +130,6 @@ export const WAVES_ACT_14B: Wave[] = [
   {
     id: "theChrysalis",
     name: "THE CHRYSALIS",
-    guide: {
-      both: "A living cocoon in four skins, each two deep. Peel each skin off before it grows back. It gets smaller as you go.",
-      p1: "1. Rub the slime off your left half.\n2. Pull your left spikes along their lines.\n3. Fire the SHIELD under the swelling sac.\n4. Only you see the heart: slide the cannon under it and say its colour.",
-      p2: "1. Rub the slime off your right half.\n2. Pull your right spikes along their lines.\n3. Slide the shield under the swelling sac.\n4. Fire the colour the other says.",
-    },
     entries: [],
     boss: {
       kind: "chrysalis",

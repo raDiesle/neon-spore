@@ -12017,7 +12017,11 @@ on the heart's pore while it beats — and the simulation meets it there too
 (`sim/core-along.ts`, `chrysalisAside`), the row the picture hangs the
 cocoon on read from the same table. `render/test/core-met.test.ts` plays it.
 
-**What is not built.** The guide is prose. **Never watched at tempo**: whether a pair can rub,
+**It opens with no guide**, on its number and name: the owner, 14 October
+2026, *it does not need tutorial, it is self explanatory* — every skin's mark
+says its own word (`content/test/waves.test.ts`, `SAYS_ITSELF`).
+
+**What is not built.** **Never watched at tempo**: whether a pair can rub,
 pull, shield and call the heart's colour in time — the owner's eye.
 
 ## Retired

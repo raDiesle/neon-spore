@@ -40698,3 +40698,15 @@ Bottleneck: writing — the plan's pressure targets could not be aimed at, and
 the composer had to hold a ramp instead, chosen over the whole block at once.
 
 *Measured: 51 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
+
+## 2026-10-14 — THE CHRYSALIS opens with no guide
+
+- reading: 5 min. THE VANE's removal, to copy it.
+- writing: 5 min. The guide off, `SAYS_ITSELF` and `STILL_PROSE`, the
+  briefing counts by one.
+- looking: 0 min. No picture: the wave opens on its name.
+- friction: 0 min. A heredoc with a doubled backslash refused by the guard;
+  the edit went through Edit instead.
+- landing: 5 min. `check:fast`, `land`.
+
+Bottleneck: the counts in `briefings.md`, found by the test that misses them.
