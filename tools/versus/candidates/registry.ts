@@ -64,6 +64,9 @@ import { MANTLE_SWAY } from "./mantle-glance/sway/index.js";
 import { MAZE_COCK } from "./maze-glance/cock/index.js";
 import { MAZE_LOOK_AROUND } from "./maze-glance/look/index.js";
 import { MAZE_SWAY } from "./maze-glance/sway/index.js";
+import { MIMIC_COCK } from "./mimic-glance/cock/index.js";
+import { MIMIC_LOOK_AROUND } from "./mimic-glance/look/index.js";
+import { MIMIC_SWAY } from "./mimic-glance/sway/index.js";
 import { MIRROR_COCK } from "./mirror-glance/cock/index.js";
 import { MIRROR_LOOK_AROUND } from "./mirror-glance/look/index.js";
 import { MIRROR_SWAY } from "./mirror-glance/sway/index.js";
@@ -202,6 +205,9 @@ export const VARIANTS: Variant[] = [
   MAZE_COCK,
   MAZE_LOOK_AROUND,
   MAZE_SWAY,
+  MIMIC_COCK,
+  MIMIC_LOOK_AROUND,
+  MIMIC_SWAY,
   MIRROR_COCK,
   MIRROR_LOOK_AROUND,
   MIRROR_SWAY,

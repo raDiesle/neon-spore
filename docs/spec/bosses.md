@@ -11400,6 +11400,17 @@ pair can say a picture square by square across a room inside its window —
 
 **What is not built — a step seen from another side** (suggested 10 October 2026, after the owner on THE BASTION: *very 3 dimensional and even user action is 3d to rotate*). The skin wraps a body that turns; the picture is said face-on, and painted onto the side that has turned toward the painter.
 
+**Offered (14 October 2026, VERSUS `mimic:glance`).** The mantle is the part
+that turns: its skin, its mottle, its arms and the rim of marks round its
+edge yaw together about its middle (`packages/render/src/mimic-glance.ts`),
+on top of its own roll to turn a face, the near side opening and the far side
+closing into the dark and back; split, each half turns inside its own cut.
+The crane's arms and grips, the reaching arm, the core and the board stay
+where they hang, the arms' roots carried with the turn so they still come out
+from under it, and a press is a square of the board, never the mantle. It
+ships still, and VERSUS offers **SWAY**, **LOOK** and **COCK** at 0.28 of the
+mantle's radius on THE MIMIC · ENTERING.
+
 
 ## 11.61 THE LATCH — a rope you haul down in turns, never both letting go
 

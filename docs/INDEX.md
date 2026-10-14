@@ -1122,6 +1122,7 @@ by hand never moves.
 | `packages/render/src/mimic-tile.ts` | **One square of THE MIMIC's board**, and **the same square on every level** — the owner, 5 October 2026 |
 | `packages/render/src/mimic-tendrils.ts` | **THE MIMIC's arms curling in at its own heart** |
 | `packages/render/src/mimic-crane.ts` | **THE MIMIC as a crane**: two arms holding the frame up by its top corners |
+| `packages/render/src/mimic-glance.ts` | **THE MIMIC glances**: the mantle turns about its middle, offered on VERSUS `mimic:glance` |
 | `packages/render/src/simon-fx.ts` | the count-in, the handover, and what the row is showing |
 | `packages/render/src/simon-row.ts` | the row of slots: a control, or a question mark |
 | `packages/render/src/simon-verdict.ts` | the sequence flying into whichever ship earned it |

@@ -28,6 +28,7 @@ import { LEAD_GLANCE, LEAD_GLANCE_SIZE } from "../src/lead-glance.js";
 import { LEDGER_GLANCE, LEDGER_GLANCE_SIZE } from "../src/ledger-glance.js";
 import { MANTLE_GLANCE, MANTLE_GLANCE_SIZE } from "../src/mantle-glance.js";
 import { MAZE_GLANCE, MAZE_GLANCE_SIZE } from "../src/maze-glance.js";
+import { MIMIC_GLANCE, MIMIC_GLANCE_SIZE } from "../src/mimic-glance.js";
 import { MIRROR_GLANCE, MIRROR_GLANCE_SIZE } from "../src/mirror-glance.js";
 import { NETTLE_GLANCE, NETTLE_GLANCE_SIZE } from "../src/nettle-glance.js";
 import { OCULUS_GLANCE, OCULUS_GLANCE_SIZE } from "../src/oculus-glance.js";
@@ -125,6 +126,7 @@ const ROWS: readonly Row[] = [
   { name: "THE FLUE", record: FLUE_GLANCE, size: FLUE_GLANCE_SIZE, hold: 0 },
   { name: "THE GOVERNOR", record: GOVERNOR_GLANCE, size: GOVERNOR_GLANCE_SIZE, hold: 0 },
   { name: "THE LAMPREY", record: LAMPREY_GLANCE, size: LAMPREY_GLANCE_SIZE, hold: 0 },
+  { name: "THE MIMIC", record: MIMIC_GLANCE, size: MIMIC_GLANCE_SIZE, hold: 0 },
 ];
 
 const R = 100;

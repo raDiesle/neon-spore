@@ -40,7 +40,10 @@ export const MIMIC_POSES = [
     "mimic",
     "entering",
     "The flat mottle at the top slaps into a round mantle, eight arms out. P1 and P2 wait: nothing is asked yet.",
-    { want: into("entering", 2.6) },
+    {
+      want: into("entering", 2.6),
+      lookAt: "the mantle hung over the field — whether it reads as a soft body or a flat disc",
+    },
   ),
   bossPose(
     "mimic",

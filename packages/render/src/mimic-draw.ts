@@ -10,6 +10,7 @@ import { CRANE_RIM, drawMimicCraneArms, drawMimicCraneGrips } from "./mimic-cran
 import { mimicFrames, mimicHold } from "./mimic-frame-look.js";
 import { drawMimicFuse } from "./mimic-fuse.js";
 import type { MimicFx } from "./mimic-fx.js";
+import { drawMimicGlanced } from "./mimic-glance.js";
 import { mimicHalfSide, mimicPose, PART, PEELED_BACK } from "./mimic-pose.js";
 import { drawMimicFlash, drawMimicPeel } from "./mimic-receipts.js";
 import {
@@ -68,7 +69,7 @@ export function drawMimic(
   // The mantle shakes with the blow it took.
   ctx.translate(fx.hurt.shakeX(time, l.tile), 0);
 
-  drawMimicCraneArms(ctx, l, hold, p);
+  drawMimicCraneArms(ctx, l, hold, p, time);
   drawReach(ctx, l, p);
   if (split) {
     drawCore(ctx, p, s);
@@ -79,16 +80,16 @@ export function drawMimic(
       ctx.save();
       ctx.translate(dx, 0);
       clipHalf(ctx, l, p, seat);
-      drawSkin(ctx, l, { ...p, face: seat }, hurt);
+      drawMimicGlanced(ctx, p, time, (g) => [drawSkin(g, l, { ...p, face: seat }, hurt)]);
       ctx.restore();
     }
     // Its arms curl in at the core from the cut edges of its halves (`mimic-tendrils.ts`).
     drawMimicTendrils(ctx, p.x, p.y, CORE * p.r, p.squash, Math.min(1, p.split), time);
-  } else drawSkin(ctx, l, p, hurt);
+  } else drawMimicGlanced(ctx, p, time, (g) => [drawSkin(g, l, p, hurt)]);
   drawMimicFlash(ctx, p, fx.flash);
   ctx.restore();
   drawMimicBoard(ctx, l, world, s, beatPhase, veil);
-  drawMimicCraneGrips(ctx, l, hold, p);
+  drawMimicCraneGrips(ctx, l, hold, p, time);
   drawMimicFuse(ctx, l, world, s, p, beatPhase);
   // The peel drifts free of the shake, but not of the fade.
   ctx.save();
@@ -129,8 +130,12 @@ function clipHalf(ctx: CanvasRenderingContext2D, l: Layout, p: MimicPose, seat: 
   ctx.clip(half);
 }
 
-/** The mantle: its shadow, the skin, the mottle, the key light, its outline round the arms and marks, and the blow's red. */
-function drawSkin(ctx: CanvasRenderingContext2D, l: Layout, p: MimicPose, hurt: number): void {
+/**
+ * The mantle: its shadow, the skin, the mottle, the key light, its outline
+ * round the arms and marks, and the blow's red. Answers with its outline, for
+ * a turn's dark (`mimic-glance.ts`).
+ */
+function drawSkin(ctx: CanvasRenderingContext2D, l: Layout, p: MimicPose, hurt: number): Path2D {
   const mantle = mimicMantle(p);
   ctx.save();
   ctx.translate(0, l.tile * 0.12);
@@ -155,4 +160,5 @@ function drawSkin(ctx: CanvasRenderingContext2D, l: Layout, p: MimicPose, hurt: 
   if (p.held > 0)
     strokeGlowFaded(ctx, mantle, PALETTE.mimicSign, STROKE.outline, CRANE_RIM, p.held);
   drawHurt(ctx, mantle, hurt);
+  return mantle;
 }
