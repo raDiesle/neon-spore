@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-15 · b8c207943 — ONE BOSS'S OWN lists THE SCUTTLE to THE THROAT
+
+The second page of HELPERS' one-seat pictures: THE SCUTTLE's count and live part, THE ANTIPHON's organ and rail, THE HIVE's swell and colour, THE INSTAR's own marks, THE STARE's catch, THE FILAMENT's way ahead and THE THROAT's handles, and THE GORGE's tap folded into its row. THE STARE's catch is in no gallery pose, so the page builds one. The director only.
+
 ## 2026-10-14 · 0f608833c — HELPERS lists ONE BOSS'S OWN: THE UNDERTOW to THE LEAD
 
 CONTROLS › HELPERS gets a group for the picture a boss with a split draws on one seat only, a row a boss, the frame on one seat and the other's picture named beside it: THE UNDERTOW's bow, THE GORGE's tally and ring, THE CURTAIN's shadow and soft lobes, THE TASTER's counts and next, THE SINEW's zone and sum, THE LEDGER's beads and socket, THE SURGE's notches and pressure, THE LEAD's lean and column. THE UNDERTOW's bow is in no gallery pose, so the page builds one. The director only.
