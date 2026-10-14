@@ -40256,3 +40256,5 @@ bow at that distance, for the floor to keep bounding it exactly.
 Bottleneck: the sway is the same thumb's carry across, so the stray could
 only be asked while a depth is read — not in the whip or the fall, where
 across is the whole ask.
+
+*Measured: 57 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*

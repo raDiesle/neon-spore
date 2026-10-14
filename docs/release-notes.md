@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-14 · 054d42308 — THE SINEW's handles bow away from the mass, and a thumb that strays drops one
+
+Each handle's way down is now a half-wave out away from the mass, `sinewBowMilli` (1500) at its widest halfway down the reach, so the two splay apart. The depth is still the straight distance down; a thumb a tile across from the bow at its depth says `pullStray` and drops the handle until it lifts. The catch and the fall, where across is the ask, are not bowed. Films, the autopilot, the director's pose and the `--hold` examples pull along the bow; the channel is drawn from the sim's own path and fills by its length.
+
 ## 2026-10-14 · bcc44cd80 — THE LID's cord bows off whichever way it runs, and a thumb that strays drops it
 
 The cord still runs the one way the grab chose (down, across, or up), but its channel now bows a tile and a half to one side halfway (`lid-bow.ts`, `lidBowMilli`): toward the middle for a cord run down or up, and up for one run across. Progress is measured along the bow; a thumb more than a tile off it drops the cord with `pullStray` and holds nothing until it lifts. The tension stays the straight distance along the way, so the falling lid's room still bounds the handle exactly. Films and the director's poses lay their carries on the bow, and THE WARDEN's bow now shares the same shape (`pullBowPath`). A look the owner asked for by name: every straight pull with room bends, THE LID's cord second.
