@@ -13,7 +13,7 @@
  */
 import { readFileSync, writeFileSync } from "node:fs";
 import { type CropArgs, parseAt, parseCropArgs } from "./crop.js";
-import { encodePng, magnify } from "./picture.js";
+import { clipWindow, encodePng, magnify } from "./picture.js";
 import { decodePng } from "./pixels.js";
 
 let args: CropArgs;
@@ -30,8 +30,20 @@ const { input, output, zoom } = args;
 const at = parseAt(args.rect);
 const pic = decodePng(new Uint8Array(readFileSync(input)));
 const channels = pic.pixels.length / (pic.width * pic.height);
-const out = magnify(pic, channels, at, zoom);
+let kept: ReturnType<typeof clipWindow>;
+try {
+  kept = clipWindow(pic, at);
+} catch (error) {
+  console.error(error instanceof Error ? error.message : String(error));
+  process.exit(2);
+}
+const out = magnify(pic, channels, kept, zoom);
 writeFileSync(output, encodePng(out, channels));
+// A window that ran past an edge is said, so a crop smaller than asked is never a surprise.
+const clipped =
+  kept.width === at.width && kept.height === at.height
+    ? ""
+    : ` — clipped to ${kept.x},${kept.y},${kept.width},${kept.height}, the rest was past the edge`;
 console.log(
-  `wrote ${output} — ${out.width}x${out.height}, ${at.width}x${at.height} of ${pic.width}x${pic.height} at ${zoom}x`,
+  `wrote ${output} — ${out.width}x${out.height}, ${kept.width}x${kept.height} of ${pic.width}x${pic.height} at ${zoom}x${clipped}`,
 );

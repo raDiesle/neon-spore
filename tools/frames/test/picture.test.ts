@@ -1,5 +1,5 @@
 import { describe, expect, it } from "bun:test";
-import { encodePng, magnify } from "../picture.js";
+import { clipWindow, encodePng, magnify } from "../picture.js";
 import { decodePng, type Picture } from "../pixels.js";
 
 /**
@@ -49,15 +49,36 @@ describe("magnify", () => {
     }
   });
 
-  it("clamps a rectangle reaching past the picture to its edge", () => {
+  it("clips a rectangle reaching past the picture rather than smearing its edge", () => {
     const pic = tiny();
     const out = magnify(pic, 4, { x: 2, y: 1, width: 2, height: 2 }, 1);
-    const last = [...pic.pixels.subarray(20, 24)];
-    for (let i = 0; i < 4; i++) expect([...out.pixels.subarray(i * 4, i * 4 + 4)]).toEqual(last);
+    expect(out.width).toBe(1);
+    expect(out.height).toBe(1);
+    expect([...out.pixels]).toEqual([...pic.pixels.subarray(20, 24)]);
   });
 
+  it("refuses a rectangle with nothing of the picture in it", () => {
+    expect(() => magnify(tiny(), 4, { x: 3, y: 0, width: 1, height: 1 }, 1)).toThrow("3x2");
+  });
   it("refuses a zoom that is not a whole number of pixels", () => {
     expect(() => magnify(tiny(), 4, { x: 0, y: 0, width: 1, height: 1 }, 1.5)).toThrow(/whole/);
     expect(() => magnify(tiny(), 4, { x: 0, y: 0, width: 1, height: 1 }, 0)).toThrow(/whole/);
+  });
+});
+
+describe("clipWindow", () => {
+  const pic = { width: 3, height: 2 };
+  it.each([
+    ["the right", { x: 1, y: 0, width: 3, height: 2 }, { x: 1, y: 0, width: 2, height: 2 }],
+    ["the bottom", { x: 0, y: 1, width: 3, height: 2 }, { x: 0, y: 1, width: 3, height: 1 }],
+    ["the left", { x: -1, y: 0, width: 2, height: 2 }, { x: 0, y: 0, width: 1, height: 2 }],
+    ["the top", { x: 0, y: -1, width: 3, height: 2 }, { x: 0, y: 0, width: 3, height: 1 }],
+  ])("keeps what is inside a window one pixel over %s edge", (_edge, win, kept) => {
+    expect(clipWindow(pic, win)).toEqual(kept);
+  });
+
+  it("leaves a window inside the picture as it is", () => {
+    const win = { x: 1, y: 0, width: 2, height: 2 };
+    expect(clipWindow(pic, win)).toEqual(win);
   });
 });

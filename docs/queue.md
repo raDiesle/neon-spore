@@ -328,21 +328,6 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/skipped.test.ts` holds the listing's count of the entries
 `next` stepped past and why.
 
-## `bun run crop` smears a rectangle that runs past the picture's edge
-
-- **Found:** 2026-10-13, claude/queue-tasks-159048
-- **Taken:** 2026-10-14, claude/queue-the-slings-cords-a-hold-then-a-pull-in-its-place (claim: claude/queue-bun-run-crop-smears-a-rectangle-that-runs-past-t)
-- **Files:** `tools/frames/picture.ts`, `tools/frames/crop-png.ts`
-
-`magnify` clamps every source pixel into the picture, so an `--at` window that
-runs past the right or bottom edge comes back the full size asked for, its
-overhang filled by the edge column repeated. On THE VANE's VERSUS shot that
-read as the bearing's far end stretched into a long bar, and the lane spent
-two shots and a re-crop finding out it was the tool. Refuse a window that
-leaves the picture, naming the picture's size, or clip it and say so in the
-line `crop` prints; a test in `tools/frames/test/` with a window one pixel
-over each edge.
-
 ## THE INSTAR's turned head may show the glance's hairline
 
 - **Found:** 2026-10-13, claude/queue-tasks-159048

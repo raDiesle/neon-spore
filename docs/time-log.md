@@ -40391,3 +40391,17 @@ Bottleneck: none to speak of — the profile named one function at 86%, and
 it was the same five numbers hashed again on every sample.
 
 *Measured: 7 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-14 — `bun run crop` clips a window that runs past the edge
+
+- reading: 5 min. `picture.ts`, `crop-png.ts` and the test that held the
+  clamp as wanted.
+- writing: 10 min. `clipWindow`, the line `crop` prints when it clipped, and
+  a test a pixel over each of the four edges.
+- looking: 0 min. Two real crops of a frame already taken, one clipped and
+  one refused.
+- friction: 0 min.
+- landing: 5 min.
+
+Bottleneck: none — a small fix whose answer the queue entry had already
+written.

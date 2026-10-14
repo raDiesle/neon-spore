@@ -44,21 +44,45 @@ function colourTypeFor(channels: number): number {
 }
 
 /**
- * The rectangle, each of its pixels drawn `zoom` times over in both directions.
- * A window reaching past the picture is clamped to its edge rather than
- * refused: a person asking for the corner of a frame is asking for the corner.
+ * The part of `win` inside the picture. A window reaching past an edge used to
+ * be clamped pixel by pixel, which filled the overhang with the edge column
+ * repeated: on THE VANE's VERSUS shot the bearing's far end came back
+ * stretched into a long bar, and the lane spent two shots and a re-crop
+ * finding out it was the tool (13 October 2026). A person asking for the
+ * corner of a frame is asking for the corner, so it is clipped rather than
+ * refused — and `crop` says so. A window with nothing of the picture in it is
+ * refused, naming the picture's size.
  */
-export function magnify(pic: Picture, channels: number, win: Window, zoom: number): Picture {
+export function clipWindow(pic: { width: number; height: number }, win: Window): Window {
+  const x = Math.max(0, win.x);
+  const y = Math.max(0, win.y);
+  const right = Math.min(pic.width, win.x + win.width);
+  const bottom = Math.min(pic.height, win.y + win.height);
+  if (right <= x || bottom <= y) {
+    throw new Error(
+      `${win.x},${win.y},${win.width},${win.height} is outside the picture, which is ${pic.width}x${pic.height}`,
+    );
+  }
+  return { x, y, width: right - x, height: bottom - y };
+}
+
+/**
+ * The rectangle, each of its pixels drawn `zoom` times over in both directions,
+ * clipped to the picture first (`clipWindow`).
+ */
+export function magnify(pic: Picture, channels: number, asked: Window, zoom: number): Picture {
   if (!Number.isInteger(zoom) || zoom < 1)
     throw new Error(`zoom ${zoom}: a whole number, one or more`);
-  if (win.width <= 0 || win.height <= 0) throw new Error("a crop with no area is not a picture");
+  if (asked.width <= 0 || asked.height <= 0)
+    throw new Error("a crop with no area is not a picture");
+  const win = clipWindow(pic, asked);
   const width = win.width * zoom;
   const height = win.height * zoom;
   const pixels = new Uint8Array(width * height * channels);
   for (let oy = 0; oy < height; oy++) {
-    const sy = Math.min(pic.height - 1, Math.max(0, win.y + Math.floor(oy / zoom)));
+    const sy = win.y + Math.floor(oy / zoom);
     for (let ox = 0; ox < width; ox++) {
-      const sx = Math.min(pic.width - 1, Math.max(0, win.x + Math.floor(ox / zoom)));
+      const sx = win.x + Math.floor(ox / zoom);
       const from = (sy * pic.width + sx) * channels;
       const to = (oy * width + ox) * channels;
       for (let c = 0; c < channels; c++) pixels[to + c] = pic.pixels[from + c] ?? 0;
