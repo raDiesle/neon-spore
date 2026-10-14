@@ -99,26 +99,24 @@ get good at something before being taught again.
 A *new thing* is whatever `waveIntroduces` names: a body, a pod, a fault, a
 panel. A boss is not a block — it closes one (§7).
 
-Eight because it fits the owner's thousand: the 56 non-boss introductions today
-make 56 × 9 = 504 waves, plus 54 bosses is about 560; the hundred-odd new
-things the game is heading for make about a thousand. It also makes a new thing arrive every four to five
-minutes of play.
+Eight because it fits the owner's thousand: 56 introductions × 9 + 54 bosses
+is about 560 today, and the hundred-odd new things to come make a thousand.
 
 Each of the eight has a job, and the order is the owner's FIRST STEP rule
 generalised — *first in the middle, then a second in the same wave, then
 another lane, then further*:
 
-| Step | Name | What it does | Pressure |
+| Step | Name | What it does | Pressure, on the wave before |
 |---|---|---|---|
-| I | Show | The new thing alone, **centre column**, nothing else on the field | floor |
-| R1 | Again | The new thing alone, centre and its neighbours (cols 4–6), one at a time | floor + 1 |
-| R2 | Spread | Alone, lanes widen to cols 2–8 | floor + 2 |
-| R3 | Reach | Alone, to the edges (0 and 10), long jumps between arrivals | floor + 3 |
-| R4 | Pair | With the **previous** block's thing, the jobs alternating | floor + 4 |
-| R5 | Breathe | With the oldest basics (slick, bulb, slow rock), wide gaps — the dip in the sawtooth | floor + 2 |
-| R6 | Recall | With a thing from **three or more blocks back** — the spaced repeat | floor + 4 |
-| R7 | Bend | One known **lever** on top: a known fault, a known panel, a faster rock, two at once | floor + 5 |
-| R8 | Peak | With two known things, the tightest gaps the gap rule allows | floor + 6 |
+| I | Show | The new thing alone, **centre column**, nothing else on the field | — |
+| R1 | Again | The new thing alone, centre and its neighbours (cols 4–6), one at a time | the gentlest |
+| R2 | Spread | Alone, lanes widen to cols 2–8 | + 0.3 to 2 |
+| R3 | Reach | Alone, to the edges (0 and 10), long jumps between arrivals | + 0.3 to 2 |
+| R4 | Pair | With the **previous** block's thing, the jobs alternating | + 0.3 to 2 |
+| R5 | Breathe | With the oldest basics (slick, bulb, slow rock), wide gaps — the dip in the sawtooth | − 0.5 to 3 |
+| R6 | Recall | With a thing from **three or more blocks back** — the spaced repeat | + 0.3 to 2 |
+| R7 | Bend | One known **lever** on top: a known fault, a known panel, a faster rock, two at once | + 0.3 to 2 |
+| R8 | Peak | With two known things, the tightest gaps the gap rule allows | + 0.3 to 2 |
 
 **Decision 4 — one lever per step.** From one wave to the next, change one
 thing: where (columns), when (gaps), with what (a second kind), or how (a
@@ -134,12 +132,12 @@ COLOURS to CROWDED, and FINALE) count among the three. Slick and bulb are the
 game's ordinary enemy, so **from R4 on, at least half of every regular wave's
 arrivals are slicks and bulbs**, in the tutorial and after it.
 
-**Decision 5 — the floor rises slowly.** Block *b* (counting from 0) has
-floor = 3 + 0.1 × *b*, so block 50 starts at 8 and peaks at 14. The ceiling is
-never above 20 — FINALE today, the hardest regular wave the game has.
-
-The intro wave of block *b* + 1 is back at its floor: the tooth drops and the
-new thing always arrives easy.
+**Decision 5 — revised by the composer, 14 October 2026.** A floor of
+3 + 0.1 × *b* could not be aimed at: a wave of slicks eight beats apart scores
+1.2, and a torch block sits higher at every step than a slick block. So a block
+holds its **ramp**, not a number: R1 is the lower quarter of what its draws
+reach, each step after rises 0.3 to 2 over the one before, R5 dips. The tooth
+still drops at the next intro. A rise *across* blocks is not held yet (§8).
 
 ## 5. Pressure — the number that says *harder*
 
@@ -159,12 +157,12 @@ Weights: slick, bulb, slow rock 1 · medium rock 1.3 · fast 1.6 · faster 1.8 �
 fastest 2 · torch 1.5 · every other body 1.5 until it is tuned. The first
 arrival's travel is counted from the centre column.
 
-It is a prototype. It already ranks the existing waves the way the owner would
-(TWO ROCKS 2.4 < THE WALL 10 < FINALE 20.9), but the weights are guesses; they
-are tuned against a pair playing, not against AUTO.
+A prototype: it ranks TWO ROCKS 2.4 < THE WALL 10 < FINALE 20.9, but the
+weights are guesses, to be tuned against a pair playing, not AUTO.
 
 **Decision 6 — a step may raise pressure by at most 2** over the wave before it
-in the block, and a generated wave lands within ±1 of its target in §4.
+in the block (two steps' worth where the tutorial skips R2). The composer picks
+a block's pressures together, nearest a rise of 1 a step (`compose-ramp.ts`).
 
 ## 6. How the waves get made
 
@@ -196,13 +194,13 @@ is X, the previous block's is Y and an older one is Z:
 | Step | Columns | Gaps (beats) | Kinds |
 |---|---|---|---|
 | I | 5 | ≥ 8 | X |
-| R1 | 4–6 | 8 | X |
-| R2 | 2–8 | 6–8 | X |
-| R3 | 0–10 | 6 | X |
-| R4 | 0–10 | 5–6 | X, Y alternating |
-| R5 | 2–8 | 8 | X, slick/bulb/rock |
-| R6 | 0–10 | 5 | X, Z |
-| R7 | 0–10 | 5 | X, Y + one lever |
+| R1 | 4–6 | 6–8 | X |
+| R2 | 2–8 | 5–7 | X |
+| R3 | 0–10 | 5–6 | X |
+| R4 | 0–10 | 4–6 | X, Y alternating |
+| R5 | 2–8 | 6–8 | X, slick/bulb/rock |
+| R6 | 0–10 | 5–6 | X, Z |
+| R7 | 0–10 | 5–6 | X, Y + one lever |
 | R8 | 0–10 | 4 (3 after block 20) | X, Y, Z |
 
 ## 7. Bosses
@@ -229,8 +227,10 @@ Bosses are the owner's to lengthen by hand. This plan only places them.
 
 1. **The scorer** — built: `wavePressure`, its test, and the number at the
    end of every row of the director's wave list.
-2. **The composer** — `bun run waves:compose`, the checks of §6, and the block
-   sheet PNG.
+2. **The composer** — built: `bun run waves:compose`; the arc's five short
+   blocks are written. A pod never comes alone (two bodies after each), and
+   R7's lever is a twin across the field. Not held yet: the rise across
+   blocks, and eight later blocks that stall at R7–R8 (`docs/queue.md`).
 3. **Blocks**, about six per lane, in game order: compose, read, name, land,
    send the sheet.
 4. **The bosses moved** to the end of their blocks (§7), with the guide and

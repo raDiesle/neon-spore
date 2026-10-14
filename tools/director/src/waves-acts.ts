@@ -14,7 +14,15 @@ import { SCOUT_LISTS, type ScoutList } from "./scout-lists.js";
 import { serializeWaveArray } from "./serialize.js";
 import { serializePinballRounds } from "./serialize-pinball.js";
 import { serializeScoutArenas } from "./serialize-scout.js";
-import { ACT_FILES, ACT_LIST, type ActFile, type ActList, actFilesIn } from "./waves-act-files.js";
+import {
+  ACT_FILES,
+  ACT_LIST,
+  type ActFile,
+  type ActList,
+  actFilesIn,
+  beside,
+  nameOf,
+} from "./waves-act-files.js";
 import {
   type ActName,
   actListSource,
@@ -23,6 +31,7 @@ import {
   fixImports,
   idsInAct,
   knownImports,
+  pageRoot,
 } from "./waves-act-list.js";
 
 export { ACT_FILES, ACT_LIST, type ActFile, type ActList };
@@ -128,9 +137,22 @@ export async function writeWaves(waves: Wave[], files: WaveFiles = REAL_FILES): 
     const mine = homes[i] ?? [];
     // Only a save that can rewrite the list may cut a new act: a file nobody
     // lists is a file the game never loads.
-    const pieces = files.list
+    let pieces = files.list
       ? cutAct(own, source, mine, taken)
       : [{ act: own, text: serializeWaveArray(source, mine, act.exportName) }];
+    // What does not fit goes on into the act's own next page when it has one,
+    // and only the last page cuts a new file — otherwise a second cut of act
+    // one became `act-1-p3` and played before `act-1-p2`.
+    const next = acts[i + 1];
+    const [first, ...rest] = pieces;
+    if (first && rest.length > 0 && next && pageRoot(nameOf(next)) === pageRoot(own.name)) {
+      homes[i + 1] = [
+        ...rest.flatMap((p) => ("waves" in p ? p.waves : [])),
+        ...(homes[i + 1] ?? []),
+      ];
+      for (const p of rest) taken.delete(p.act.name);
+      pieces = [first];
+    }
     for (const piece of pieces) {
       const file = piece.act.name === own.name ? act : beside(act, piece.act);
       await Bun.write(file.file, fixImports(piece.text, known));
@@ -162,21 +184,6 @@ export async function writeWaves(waves: Wave[], files: WaveFiles = REAL_FILES): 
   const code = await proc.exited;
   if (code === 0) return { complaint: null, rels };
   return { complaint: await new Response(proc.stderr).text(), rels };
-}
-
-/** An act file's name: its file without the directory or `.ts`. */
-function nameOf(act: ActFile): string {
-  return act.rel.slice(act.rel.lastIndexOf("/") + 1).replace(/\.ts$/, "");
-}
-
-/** A new act file in the same directory as `act`. */
-function beside(act: ActFile, name: ActName): ActFile {
-  const dir = act.rel.slice(0, act.rel.lastIndexOf("/") + 1);
-  return {
-    file: new URL(`./${name.name}.ts`, act.file),
-    rel: `${dir}${name.name}.ts`,
-    exportName: name.exportName,
-  };
 }
 
 /**

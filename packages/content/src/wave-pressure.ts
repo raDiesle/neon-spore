@@ -42,8 +42,9 @@ export const PRESSURE_PER_FAULT = 2;
 
 /** Which job an arrival asks for: a colour on the cannon, the shield for a
  * rock, or its own kind for everything else. Two arrivals in a row asking for
- * different jobs is a switch, and a switch is a sentence said out loud. */
-function job(e: WaveEntry): string {
+ * different jobs is a switch, and a switch is a sentence said out loud — and
+ * the gap rule the composer holds (`docs/spec/wave-curriculum.md` §3). */
+export function arrivalJob(e: Pick<WaveEntry, "kind" | "color">): string {
   if (e.kind === undefined) return `cannon:${e.color}`;
   if (e.kind.startsWith("meteor")) return "shield";
   return e.kind;
@@ -70,7 +71,7 @@ export function entriesPressure(
   for (const [i, e] of sorted.entries()) {
     const prev = sorted[i - 1];
     const travel = (Math.abs(e.col - (prev?.col ?? centre)) * scale) / 5;
-    const change = prev && job(prev) !== job(e) ? 1 : 0;
+    const change = prev && arrivalJob(prev) !== arrivalJob(e) ? 1 : 0;
     const together = prev && prev.beat === e.beat ? 0.5 : 0;
     costs.push({ beat: e.beat, cost: weight(e) * (1 + travel + change + together) });
   }

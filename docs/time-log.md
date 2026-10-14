@@ -40680,3 +40680,19 @@ Bottleneck: writing — THE WELL's hold had no mark at all, so where in the
 seam its drop stands and how big had to be decided rather than swapped.
 
 *Measured: 15 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-14 — The tutorial arc gets its regular waves, composed by `bun run waves:compose`
+
+- reading: 15 min. The entry and pod types, the probe's world, how a variant
+  folds, and the arc's waves one by one.
+- writing: 55 min. The step table, the block reader, placement, the checks,
+  the ramp chosen whole, the command; then seventeen tests that pinned a wave
+  by its number, moved to ids.
+- looking: 10 min. Every composed wave read and named; the director's map
+  shot for each.
+- friction: 10 min. A slice matched the first of two identical comments and
+  doubled half of `waves-acts.ts`; rebuilt from its own halves.
+- landing: 5 min.
+
+Bottleneck: writing — the plan's pressure targets could not be aimed at, and
+the composer had to hold a ramp instead, chosen over the whole block at once.

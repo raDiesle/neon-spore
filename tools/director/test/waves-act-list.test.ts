@@ -114,13 +114,14 @@ describe("a save that fills an act", () => {
     await rm(dir, { recursive: true, force: true });
   });
 
-  test("cuts it into a new file straight after it, and touches no other act", async () => {
+  test("fills the act's own pages in order, cuts the last, and touches no other act", async () => {
     if (!copy.list) throw new Error("the copy has no list");
-    const second = copy.acts[1];
+    const second = copy.acts.find((a) => !/\/act-1(-p\d+)?\.ts$/.test(a.rel));
     if (!second) throw new Error("no second act");
     const before = await Bun.file(second.file).text();
 
-    const added = Array.from({ length: 40 }, (_, i) => ({
+    // More than act one and every page it has can hold, whatever they hold now.
+    const added = Array.from({ length: 120 }, (_, i) => ({
       id: `added${i}`,
       name: `ADDED ${i}`,
       entries: [{ beat: 0, col: 5, color: "red" as const }],
@@ -129,9 +130,13 @@ describe("a save that fills an act", () => {
     const { complaint, rels } = await writeWaves(waves, copy);
     expect(complaint).toBeNull();
 
+    // Act one and its pages, in page order, with one new page at their end.
     const acts = actFilesIn(copy.list);
-    expect(acts[0]?.exportName).toBe("WAVES_ACT_1");
-    expect(acts[1]?.exportName).toBe("WAVES_ACT_1_P2");
+    const pages = acts.map((a) => a.exportName).filter((n) => /^WAVES_ACT_1(_P\d+)?$/.test(n));
+    const had = copy.acts.filter((a) => /\/act-1(-p\d+)?\.ts$/.test(a.rel)).length;
+    expect(pages.length).toBeGreaterThan(had);
+    expect(pages).toEqual(pages.map((_, i) => (i === 0 ? "WAVES_ACT_1" : `WAVES_ACT_1_P${i + 1}`)));
+    expect(acts.slice(0, pages.length).map((a) => a.exportName)).toEqual(pages);
     expect(rels).toContain(copy.list.rel);
     expect(await Bun.file(second.file).text()).toBe(before);
 

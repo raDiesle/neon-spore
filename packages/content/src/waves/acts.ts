@@ -1,5 +1,7 @@
 import type { Wave } from "../wave-types.js";
 import { WAVES_ACT_1 } from "./act-1.js";
+import { WAVES_ACT_1_P2 } from "./act-1-p2.js";
+import { WAVES_ACT_1_P3 } from "./act-1-p3.js";
 import { WAVES_ACT_1B } from "./act-1b.js";
 import { WAVES_ACT_2 } from "./act-2.js";
 import { WAVES_ACT_3 } from "./act-3.js";
@@ -43,6 +45,8 @@ import { WAVES_ACT_14B } from "./act-14b.js";
  */
 export const WAVE_ACTS: readonly (readonly Wave[])[] = [
   WAVES_ACT_1,
+  WAVES_ACT_1_P2,
+  WAVES_ACT_1_P3,
   WAVES_ACT_1B,
   WAVES_ACT_2,
   WAVES_ACT_3,

@@ -1,5 +1,5 @@
 import { readFileSync } from "node:fs";
-import { parseActList } from "./waves-act-list.js";
+import { type ActName, parseActList } from "./waves-act-list.js";
 
 /**
  * **Where the waves live on disk**, and nothing about writing them.
@@ -48,3 +48,18 @@ export function actFilesIn(list: ActList): ActFile[] {
 /** The act files as they stood when this module loaded. A save reads the list
  * again (`actFilesIn`) rather than trusting this. */
 export const ACT_FILES: readonly ActFile[] = actFilesIn(ACT_LIST);
+
+/** An act file's name: its file without the directory or `.ts`. */
+export function nameOf(act: ActFile): string {
+  return act.rel.slice(act.rel.lastIndexOf("/") + 1).replace(/\.ts$/, "");
+}
+
+/** A new act file in the same directory as `act`. */
+export function beside(act: ActFile, name: ActName): ActFile {
+  const dir = act.rel.slice(0, act.rel.lastIndexOf("/") + 1);
+  return {
+    file: new URL(`./${name.name}.ts`, act.file),
+    rel: `${dir}${name.name}.ts`,
+    exportName: name.exportName,
+  };
+}

@@ -27,6 +27,7 @@ import {
   TREMBLE,
 } from "../src/own-motion.js";
 import { buildBoss, buildPods, buildQueue } from "../src/queue.js";
+import { WAVES } from "../src/waves.js";
 
 /**
  * Spec 5.8: own-motion may not touch the lane. A creature that swayed half a
@@ -178,14 +179,18 @@ describe("a body's phase", () => {
  */
 describe("two devices", () => {
   const cfg = DEFAULT_CONFIG;
-  // Wave 2 puts two bulbs and a slick on the field a few hundred ticks in:
-  // three living bodies, two of them the same kind, which is the case where a
-  // phase collision would have been visible and a wall clock catastrophic.
-  const WAVE = 2;
+  // TWO COLOURS puts a slick and a bulb on the field a few hundred ticks in,
+  // which is the case where a phase collision would have been visible and a
+  // wall clock catastrophic. By id: it was index 2 until twelve waves were
+  // composed into the arc ahead of it, and an index is a claim about the
+  // whole list. The seed stays the 2 it always was — the ids it deals decide
+  // the phases, and the neighbours test below is about those phases.
+  const WAVE = WAVES.findIndex((w) => w.id === "twoColours");
+  const SEED = 2;
 
   /** One phone: its own `World`, stepped in its own frame-sized chunks. */
   function device(ticks: number, chunk: number): World {
-    const world = createWorld({ ...cfg }, WAVE);
+    const world = createWorld({ ...cfg }, SEED);
     startWave(
       world,
       WAVE,

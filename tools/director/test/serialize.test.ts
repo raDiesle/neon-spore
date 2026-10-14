@@ -227,8 +227,12 @@ test("a wave on every tile saves the columns it is counted on, above its entries
 test("a variant is written under its name, and a save reads it back", async () => {
   const file = new URL("../../../packages/content/src/waves/act-1.ts", import.meta.url);
   const source = await Bun.file(file).text();
-  const waves = WAVES_ACT_1.map((w, i) => (i === 1 ? { ...w, variant: true as const } : w));
+  // The first wave that is not a variant already — act one carries the arc's
+  // composed ones (`docs/spec/wave-curriculum.md` §6).
+  const at = WAVES_ACT_1.findIndex((w, i) => i > 0 && !w.variant);
+  const waves = WAVES_ACT_1.map((w, i) => (i === at ? { ...w, variant: true as const } : w));
   const out = serializeWaveArray(source, waves, "WAVES_ACT_1");
-  expect(out).toContain(`    name: "${WAVES_ACT_1[1]?.name}",\n    variant: true,\n`);
-  expect(out.match(/variant: true/g)?.length).toBe(1);
+  expect(out).toContain(`    name: "${WAVES_ACT_1[at]?.name}",\n    variant: true,\n`);
+  const already = WAVES_ACT_1.filter((w) => w.variant).length;
+  expect(out.match(/variant: true/g)?.length).toBe(already + 1);
 });

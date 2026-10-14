@@ -1,11 +1,12 @@
 import {
-  buildBoss,
-  buildPods,
-  buildQueue,
-  controlSetForWave,
+  bossFromWave,
+  controlSet,
   placedFaults,
+  podsFromWave,
+  queueFromWave,
   setLance,
   WAVES,
+  type Wave,
 } from "@neon-spore/content";
 import { autopilotHand } from "@neon-spore/hands";
 import {
@@ -56,25 +57,40 @@ import {
  */
 export function waveWorld(id: string, seed = 1, cfg: SimConfig = DEFAULT_CONFIG): World {
   const index = WAVES.findIndex((w) => w.id === id);
-  if (index === -1) {
+  const wave = WAVES[index];
+  if (!wave) {
     throw new Error(
       `no wave with the id ${JSON.stringify(id)} — ${WAVES.map((w) => w.id).join(", ")}`,
     );
   }
+  return worldOf(wave, index, seed, cfg);
+}
+
+/**
+ * The same for a wave that is **not in the list** — one the composer is still
+ * deciding whether to keep (`tools/director/src/compose-check.ts`). `index` is
+ * where it would play; nothing on the field reads it but the HUD.
+ */
+export function worldOf(
+  wave: Wave,
+  index: number,
+  seed = 1,
+  cfg: SimConfig = DEFAULT_CONFIG,
+): World {
   const world = createWorld(cfg, seed, []);
   startWave(
     world,
     index,
-    buildQueue(index, cfg.cols),
-    buildPods(index, cfg.cols),
-    buildBoss(index, cfg.cols),
+    queueFromWave(wave, cfg.cols),
+    podsFromWave(wave, cfg.cols),
+    bossFromWave(wave, cfg.cols),
     false,
     0,
-    placedFaults(WAVES[index]?.faults),
+    placedFaults(wave.faults),
     // And the panel's hold, off the set the wave names. Without it a probe of
     // any wave before THE LANCE would show a lobe filling that the game does
     // not fill (`content/control-sets.ts` `setLance`).
-    setLance(controlSetForWave(index)),
+    setLance(controlSet(wave.controls)),
   );
   return world;
 }

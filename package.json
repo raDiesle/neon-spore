@@ -35,6 +35,7 @@
     "baseline:blank": "bun run tools/perf/blank.ts",
     "port": "bun run tools/port.ts",
     "probe": "bun run tools/probe/run.ts",
+    "waves:compose": "bun run tools/director/waves-compose.ts",
     "waves:measure": "bun run tools/probe/measure-waves.ts",
     "queue": "bun run tools/queue/run.ts",
     "index": "bun run tools/index/run.ts",

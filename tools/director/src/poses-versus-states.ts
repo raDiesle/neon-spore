@@ -1,3 +1,4 @@
+import { WAVES } from "@neon-spore/content";
 import { fresh, type Pose, run, POSE_TPB as TPB } from "./pose-kit.js";
 import { ANTIPHON_TURNED_RAIL_POSE } from "./poses-antiphon-turned.js";
 import { VALVE_SECOND_SPARK_POSE } from "./poses-bosses-hands-valve.js";
@@ -25,13 +26,14 @@ import { SURGE_BURST_POSE } from "./poses-surge-burst.js";
  */
 
 /**
- * The first wave that names no control set of its own and so draws the
- * `default` one — both ACTION faces. Written as a number with its reason
- * beside it rather than derived: `poses.test.ts` builds every pose here, so a
- * wave list that reordered under this fails there rather than quietly drawing
- * a band with nothing on it.
+ * SALVAGE, the first wave played on the whole STANDARD panel — both ACTION
+ * faces. It was the number 16, written beside its reason so a reordered list
+ * would fail `versus-pose.test.ts` rather than quietly draw a band with
+ * nothing on it; it did, when the arc's regular waves went in ahead of it on
+ * 14 October 2026, and that test still holds the faces. By id now, so the
+ * next wave written into the arc does not move it.
  */
-export const WAVE_WITH_BOTH_FACES = 16;
+export const WAVE_WITH_BOTH_FACES = WAVES.findIndex((w) => w.id === "salvage");
 
 /**
  * The band with an ACTION face on it. Every other pose on the sheet starts

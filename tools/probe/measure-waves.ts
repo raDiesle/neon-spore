@@ -7,7 +7,7 @@ import {
   waveIntroduces,
   wavePressure,
 } from "@neon-spore/content";
-import { beatSeconds, DEFAULT_CONFIG, failHolds } from "@neon-spore/sim";
+import { beatSeconds, DEFAULT_CONFIG, failHolds, type World } from "@neon-spore/sim";
 import { playedBeat, waveWorld } from "./world.js";
 
 /**
@@ -47,13 +47,21 @@ export interface Measured {
 export function measureWave(index: number): Measured {
   const wave = WAVES[index];
   if (!wave) throw new Error(`no wave at ${index}`);
-  const world = waveWorld(wave.id);
+  return { wave, index, clearBeat: clearBeat(waveWorld(wave.id)) };
+}
+
+/**
+ * The beat a world stood at a wave's start is clear with AUTO on both seats,
+ * or -1 when AUTO loses it. The composer asks the same of a wave it has not
+ * written yet (`tools/director/src/compose-check.ts`).
+ */
+export function clearBeat(world: World): number {
   for (let beat = 1; beat <= LIMIT_BEATS; beat++) {
     playedBeat(world);
-    if (world.restBeat !== 0) return { wave, index, clearBeat: beat };
+    if (world.restBeat !== 0) return beat;
     if (failHolds(world)) break;
   }
-  return { wave, index, clearBeat: -1 };
+  return -1;
 }
 
 const seconds = (beats: number): number => Math.round(beats * beatSeconds(DEFAULT_CONFIG));

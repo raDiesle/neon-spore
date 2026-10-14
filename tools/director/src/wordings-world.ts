@@ -1,3 +1,4 @@
+import { WAVES } from "@neon-spore/content";
 import type { World } from "@neon-spore/sim";
 import {
   aim,
@@ -26,8 +27,10 @@ import {
  * ordinary button is there to be named.
  */
 
-/** The first wave that names the full STANDARD set (`control-sets-table.ts`). */
-export const WORDINGS_WAVE = 16;
+/** The first wave that names the full STANDARD set (`control-sets-table.ts`).
+ * By id: it was the number 16 until the arc's regular waves went in ahead of
+ * it on 14 October 2026. */
+export const WORDINGS_WAVE = WAVES.findIndex((w) => w.id === "salvage");
 
 export const SLICK_COL = 3;
 export const BULB_COL = 7;

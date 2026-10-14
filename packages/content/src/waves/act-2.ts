@@ -31,6 +31,37 @@ export const WAVES_ACT_2: Wave[] = [
     controls: "standard5",
   },
   {
+    id: "catchAndAimAgain",
+    name: "SHIELD HELD",
+    variant: true,
+    entries: [
+      { beat: 6, col: 4, color: "cyan" },
+      { beat: 14, col: 6, color: "cyan" },
+      { beat: 28, col: 6, color: "cyan" },
+    ],
+    pods: [
+      { beat: 0, col: 6, row: 4, kind: "ward" },
+      { beat: 21, col: 5, row: 4, kind: "ward" },
+    ],
+    controls: "standard5",
+  },
+  {
+    id: "catchAndAimReach",
+    name: "HELD WIDE",
+    variant: true,
+    entries: [
+      { beat: 5, col: 5, color: "cyan" },
+      { beat: 10, col: 1, color: "cyan" },
+      { beat: 22, col: 2, color: "cyan" },
+      { beat: 28, col: 8, color: "cyan" },
+    ],
+    pods: [
+      { beat: 0, col: 9, row: 3, kind: "ward" },
+      { beat: 16, col: 10, row: 4, kind: "ward" },
+    ],
+    controls: "standard5",
+  },
+  {
     id: "finale",
     name: "FINALE",
     entries: [

@@ -117,11 +117,16 @@ export function freshActSource(name: string, from: string): string {
   ].join("\n");
 }
 
+/** The act a page was cut from: `act-1-p3` → `act-1`; an act is its own. */
+export function pageRoot(name: string): string {
+  return name.replace(/-p\d+$/, "");
+}
+
 /** A name for a file cut from `from` that no act in `taken` has: the act's
  * own name and a page, `act-1-p2`, so it can never be taken for an act of
  * its own number. */
 export function freshActName(from: string, taken: ReadonlySet<string>): string {
-  const root = from.replace(/-p\d+$/, "");
+  const root = pageRoot(from);
   for (let n = 2; ; n++) {
     const name = `${root}-p${n}`;
     if (!taken.has(name)) return name;
@@ -138,15 +143,19 @@ export function cutAct(
   source: string,
   waves: readonly Wave[],
   taken: Set<string>,
-): { act: ActName; text: string }[] {
-  const out: { act: ActName; text: string }[] = [];
+): { act: ActName; text: string; waves: Wave[] }[] {
+  const out: { act: ActName; text: string; waves: Wave[] }[] = [];
   let current = act;
   let base = source;
   let chunk: Wave[] = [];
   for (const wave of waves) {
     const tried = serializeWaveArray(base, [...chunk, wave], current.exportName);
     if (chunk.length > 0 && lineCount(tried) > CUT_AT) {
-      out.push({ act: current, text: serializeWaveArray(base, chunk, current.exportName) });
+      out.push({
+        act: current,
+        text: serializeWaveArray(base, chunk, current.exportName),
+        waves: chunk,
+      });
       const name = freshActName(act.name, taken);
       taken.add(name);
       current = { name, exportName: exportNameFor(name) };
@@ -155,7 +164,11 @@ export function cutAct(
     }
     chunk.push(wave);
   }
-  out.push({ act: current, text: serializeWaveArray(base, chunk, current.exportName) });
+  out.push({
+    act: current,
+    text: serializeWaveArray(base, chunk, current.exportName),
+    waves: chunk,
+  });
   return out;
 }
 

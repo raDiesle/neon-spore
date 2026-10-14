@@ -53,7 +53,9 @@ describe("the wave list under a filter", () => {
         () => {},
         () => {},
       );
-      expect(list.children.length).toBe(WAVES.length);
+      // Every row, that is: a variant is folded under its head until the head
+      // is opened (`rail-groups.ts`).
+      expect(list.children.length).toBe(WAVES.filter((w) => !w.variant).length);
       expect(note.hidden).toBe(true);
     } finally {
       restore();

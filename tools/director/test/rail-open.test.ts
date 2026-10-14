@@ -25,8 +25,11 @@ import { type FakeDom, FakeEl, installDom } from "./fake-dom.js";
 
 const SRC = join(dirname(fileURLToPath(import.meta.url)), "..", "src");
 
+/** The list with no variants in it, so row *n* is wave *n*: a variant is
+ * folded under its head (`rail-groups.ts`), and which row a wave lands on is
+ * that file's test, not this one's. */
 function store(index = 0): Store {
-  return { waves: WAVES.map((w) => ({ ...w })), index, dirty: false };
+  return { waves: WAVES.filter((w) => !w.variant).map((w) => ({ ...w })), index, dirty: false };
 }
 
 /** A page with the list on it, on a phone or on a desk. */

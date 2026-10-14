@@ -255,14 +255,23 @@ describe("the standard ladder", () => {
     const rungs = WAVES.map((_, i) => controlSetForWave(i).id).filter((id) =>
       (LADDER as string[]).includes(id),
     );
+    // Each rung carries its regular waves too — the short blocks the
+    // curriculum composed (`docs/spec/wave-curriculum.md` §4, decision 8).
     expect(rungs).toEqual([
+      "standard1",
+      "standard1",
+      "standard1",
       "standard1",
       "standard2",
       "standard2",
       "standard2",
+      "standard2",
       "standard3",
-      // Nine waves on the top rung, because the maw is held back until
+      // Twelve waves on the top rung, because the maw is held back until
       // SALVAGE — the one wave whose subject asks for it.
+      "standard4",
+      "standard4",
+      "standard4",
       "standard4",
       "standard4",
       "standard4",

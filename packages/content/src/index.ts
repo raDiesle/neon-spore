@@ -184,6 +184,7 @@ export { STARE_LEVELS } from "./stare-levels.js";
 export { placedFaults, type WaveFault } from "./wave-faults.js";
 export { WAVE_MARK_IDS, type WaveMarkId, waveMarksOn } from "./wave-marks.js";
 export {
+  arrivalJob,
   entriesPressure,
   PRESSURE_DEFAULT_WEIGHT,
   PRESSURE_PER_FAULT,

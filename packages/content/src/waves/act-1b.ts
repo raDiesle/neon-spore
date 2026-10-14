@@ -86,4 +86,53 @@ export const WAVES_ACT_1B: Wave[] = [
     pods: [{ beat: 0, col: 5, row: 3, kind: "purge" }],
     controls: "standard5",
   },
+  {
+    id: "salvageAgain",
+    name: "SAVE IT",
+    variant: true,
+    entries: [
+      { beat: 7, col: 6, color: "red" },
+      { beat: 14, col: 5, color: "red" },
+      { beat: 27, col: 6, color: "red" },
+    ],
+    pods: [
+      { beat: 0, col: 4, row: 3, kind: "purge" },
+      { beat: 20, col: 4, row: 3, kind: "purge" },
+    ],
+    controls: "standard5",
+  },
+  {
+    id: "salvageReach",
+    name: "PURGE WIDE",
+    variant: true,
+    entries: [
+      { beat: 6, col: 6, color: "red" },
+      { beat: 11, col: 0, color: "red" },
+      { beat: 22, col: 6, color: "red" },
+      { beat: 27, col: 0, color: "red" },
+    ],
+    pods: [
+      { beat: 0, col: 0, row: 3, kind: "purge" },
+      { beat: 17, col: 10, row: 3, kind: "purge" },
+    ],
+    controls: "standard5",
+  },
+  {
+    id: "salvagePair",
+    name: "PURGE THE TORCH",
+    variant: true,
+    entries: [
+      { beat: 0, col: 6, color: "red" },
+      { beat: 10, col: 7, color: "red" },
+      { beat: 14, col: 8, kind: "torch", color: null },
+      { beat: 18, col: 10, color: "red" },
+      { beat: 28, col: 4, color: "red" },
+      { beat: 34, col: 5, kind: "torch", color: null },
+    ],
+    pods: [
+      { beat: 6, col: 8, row: 3, kind: "purge" },
+      { beat: 24, col: 3, row: 3, kind: "purge" },
+    ],
+    controls: "standard5",
+  },
 ];

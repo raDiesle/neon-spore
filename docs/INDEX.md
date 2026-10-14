@@ -992,6 +992,8 @@ by hand never moves.
 | `packages/content/src/waves/act-13b.ts` | Act thirteen's second page, opened for THE GOVERNOR on 6 October 2026 |
 | `packages/content/src/waves/act-14.ts` | Act fourteen, opened for THE LAMPREY on 1 October 2026 |
 | `packages/content/src/waves/act-14b.ts` | Act fourteen, its second page, opened on 14 October 2026 when the director's save brought THE GOVERNOR into… |
+| `packages/content/src/waves/act-1-p2.ts` | Act one's second page — the arc's composed regular waves pushed it past the ceiling, and the save cut it (`acts.ts`) |
+| `packages/content/src/waves/act-1-p3.ts` | Act one's third page, cut the same way; plays straight after `act-1-p2.ts` |
 | `packages/content/src/maze-drawn.ts` | The four sheets THE MAZE plays after the owner's own, drawn by `bun run maze` and printed here |
 | `packages/content/src/body-path.ts` | one living body's contour — a blob, or the walk that puts clubs on its rim |
 | `packages/content/src/body-path-clubbed.ts` | a creature is not a blob — the walked rim of balls on stalks THE THROB and THE BEATBOX wear, and the four numbers it is sampled at |
@@ -3490,6 +3492,12 @@ by hand never moves.
 | `tools/director/src/combo-kinds.ts` | **What every combo in THE COMBO LAB is**, whatever its two gestures are: a rule the lab's pointer drives |
 | `tools/director/src/combo-press-pull.ts` | **PRESS, THEN PULL**, in THE COMBO LAB — a `chain` (`combo-then-pull.ts`), as HOLD, THEN PULL is |
 | `tools/director/src/combo-then-pull.ts` | **One gesture, then a pull in its place** — THE COMBO LAB's `chain` kind (`combo-kinds.ts`) |
+| `tools/director/src/compose-block.ts` | **A block, read off the wave list**: the wave that introduces a thing, what came before it |
+| `tools/director/src/compose-check.ts` | **Whether a composed wave is one to keep** — the checks of `docs/spec/wave-curriculum.md` §6, step 3 |
+| `tools/director/src/compose-place.ts` | **One step of a block, placed** — the table in `docs/spec/wave-curriculum.md` §6 turned into entries |
+| `tools/director/src/compose-ramp.ts` | **The pressures a block's steps land on, chosen together** |
+| `tools/director/src/compose-steps.ts` | **The steps of a block**, as data — `docs/spec/wave-curriculum.md` §3 |
+| `tools/director/src/compose.ts` | **A block's regular waves, composed** — `docs/spec/wave-curriculum.md` §6 |
 | `tools/director/src/rail-marks.ts` | The small glyphs in front of a wave's name in the rail: a boss, a panel, a guide |
 | `tools/land/say.ts` | What a landing says about itself before and after it happens |
 | `tools/maze/draw.ts` | Draw a sheet for THE MAZE: the walls of one circular maze |
@@ -4057,5 +4065,6 @@ by hand never moves.
 | `tools/director/src/rub-lab.ts` | **THE RUB LAB** — the one generic RUB on an empty field, to be rubbed by hand |
 | `tools/director/drop-sheet-paint.ts` | **The PULL LAB's own frames, painted through Skia into one PNG grid** |
 | `tools/director/drop-sheet.ts` | `bun run drop-sheet` — a moment of a PULL LAB pull, up close, with no browser |
+| `tools/director/waves-compose.ts` | `bun run waves:compose <intro id>` — a block's regular waves composed from its intro, checked, and with `--write` put into the act files |
 
 <!-- index:code:end -->

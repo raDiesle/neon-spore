@@ -1,0 +1,114 @@
+import type { Wave, WaveEntry } from "@neon-spore/content";
+import { nextInt, type Rng } from "@neon-spore/sim";
+import type { Block, Motif } from "./compose-block.js";
+import { gapRule, needsBasics, type Step } from "./compose-steps.js";
+
+/**
+ * **One step of a block, placed** — the table in
+ * `docs/spec/wave-curriculum.md` §6 turned into entries. Every arrival is a
+ * copy of one its thing's intro wave wrote (`compose-block.ts`), moved to a
+ * column and a beat; nothing here invents a body.
+ *
+ * It places and does not judge: `compose-check.ts` says whether the wave is
+ * one to keep, and the composer draws again until it is.
+ */
+
+const LAST_COL = 10;
+
+const pick = <T>(rng: Rng, list: readonly T[]): T | undefined => list[nextInt(rng, list.length)];
+const between = (rng: Rng, [lo, hi]: readonly [number, number]): number =>
+  lo + nextInt(rng, hi - lo + 1);
+
+/** A slick or a bulb: the game's ordinary enemy, which §4 wants to be at least
+ * half of everything from R4 on. */
+export function isBasic(e: WaveEntry): boolean {
+  return e.kind === undefined;
+}
+
+/** The kinds a step cycles through, before the basics are mixed in. */
+function cycle(block: Block, step: Step, rng: Rng): string[] {
+  const y = block.y ?? block.x;
+  const z = pick(rng, block.z) ?? y;
+  const b = pick(rng, block.basics) ?? y;
+  // A pod hangs and waits to be taken; a wave of nothing else gives it
+  // nothing to do (purge clears what falls), so a pod is never alone: each
+  // one has two bodies after it.
+  const isPod = (block.motifs.get(block.x) ?? []).some((m) => m.pods.length > 0);
+  switch (step.mix) {
+    case "x":
+      return isPod ? [block.x, b, b] : [block.x];
+    case "xy":
+    case "xyLever":
+      return [block.x, y];
+    case "xb":
+      return [block.x, b];
+    case "xz":
+      return [block.x, z];
+    case "xyz":
+      return [block.x, y, z];
+  }
+}
+
+/** A column for the next arrival: in the step's range, and on R3 far from the
+ * one before it. */
+function column(rng: Rng, step: Step, prev: number): number {
+  for (let tries = 0; tries < 20; tries++) {
+    const col = between(rng, step.cols);
+    if (step.jump ? Math.abs(col - prev) >= 4 : col !== prev) return col;
+  }
+  return between(rng, step.cols);
+}
+
+/** A motif put down at a beat, by its anchor at a column. */
+function put(motif: Motif, beat: number, col: number): Pick<Wave, "entries" | "pods"> {
+  const shift = (c: number) => Math.max(0, Math.min(LAST_COL, c + col - motif.anchor));
+  return {
+    entries: motif.entries.map((e) => ({ ...e, beat: e.beat + beat, col: shift(e.col) })),
+    pods: motif.pods.map((p) => ({ ...p, beat: p.beat + beat, col: shift(p.col) })),
+  };
+}
+
+/** The other column of a pair landing together: the mirror, unless that is
+ * too close to tell apart. */
+function partner(col: number): number {
+  const mirror = LAST_COL - col;
+  return Math.abs(mirror - col) >= 3 ? mirror : col <= 5 ? col + 3 : col - 3;
+}
+
+/** The step's wave, drawn once from `rng`. */
+export function placeStep(block: Block, step: Step, rng: Rng): Pick<Wave, "entries" | "pods"> {
+  const kinds = cycle(block, step, rng);
+  const basicsFor: string[] = block.basics.filter((id) => id === "slick" || id === "bulb");
+  const entries: WaveEntry[] = [];
+  const pods: NonNullable<Wave["pods"]> = [];
+  const lo = step.id === "R8" ? gapRule(block.number) : step.gaps[0];
+  let beat = 0;
+  let prev = 5;
+  // `k` counts what is placed; `c` walks the cycle, and stands still while a
+  // slick or a bulb is put in to keep them half of the wave — so the cycle's
+  // own kinds all still come, only further apart.
+  for (let k = 0, c = 0; ; k++) {
+    let kind = kinds[c % kinds.length] ?? block.x;
+    const basic = entries.filter(isBasic).length;
+    const short = basic * 2 < entries.length + pods.length + 1;
+    if (needsBasics(step) && short && !basicsFor.includes(kind) && basicsFor.length > 0) {
+      kind = pick(rng, basicsFor) ?? kind;
+    } else c++;
+    const motif = pick(rng, block.motifs.get(kind) ?? []);
+    if (!motif) break;
+    if (beat + motif.length > step.span[1]) break;
+    const col = column(rng, step, prev);
+    const placed = put(motif, beat, col);
+    entries.push(...(placed.entries ?? []));
+    pods.push(...(placed.pods ?? []));
+    // R7's lever: one arrival in three lands with a twin across the field.
+    if (step.mix === "xyLever" && k % 3 === 1 && motif.pods.length === 0) {
+      entries.push(...(put(motif, beat, partner(col)).entries ?? []));
+    }
+    if (entries.length + pods.length >= step.arrivals[1]) break;
+    prev = col;
+    beat += motif.length + between(rng, [lo, Math.max(lo, step.gaps[1])]);
+  }
+  entries.sort((a, b) => a.beat - b.beat || a.col - b.col);
+  return pods.length > 0 ? { entries, pods } : { entries };
+}

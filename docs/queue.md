@@ -652,3 +652,31 @@ landing's fx and a run on the field, in one file. Split by what each asks —
 the press (`mirrorLobeUnder`, `mirrorGripSeat`, the readout) in one, the
 picture (`drawMirrorGrip`'s rings and drops, `MirrorGripFx`, the field run) in
 another — each under ~250 lines, and `bun run check` green.
+
+## The composer stalls eight later blocks at R7–R8
+
+- **Found:** 2026-10-14, claude/wave-composer
+- **Files:** `tools/director/src/compose-place.ts`, `tools/director/src/compose-steps.ts`, `tools/director/src/compose-ramp.ts`
+
+`bun run waves:compose` fills 31 of the game's 39 blocks dry, and eight stop
+with "no pressure in reach keeps the ramp": THE COUNT, THE THIRD SHOT and THE
+CLASP and THE LID at R8; THE FENCE, THE MAGNET, THE COIL and THE CROSSING at
+R7. Either AUTO loses every draw that fits, or R7's twin (or a fence's / a
+coil's own fields) lands R7 more than 2 over R6. Find which per block, make
+the placement reach (a gentler lever for bodies that cannot twin, more draws,
+or R6 aimed higher), and add a test that composes each of the eight dry.
+
+## A rise in difficulty across blocks is not held
+
+- **Found:** 2026-10-14, claude/wave-composer
+- **Files:** `tools/director/src/compose-steps.ts`, `tools/director/src/compose-ramp.ts`, `docs/spec/wave-curriculum.md`
+- **Asks:** Which should make block 40 harder than block 4 — tighter gaps, more arrivals, or the ramp starting higher?
+
+Inside a block the ramp holds (decision 6), but every block's R1 lands near
+3.9 and every R8 near 10, so block 40 is no harder than block 4 beyond what
+its new thing weighs. Decision 5's floor was dropped because it could not be
+aimed at (`docs/spec/wave-curriculum.md` §4). The options: **tighter gaps** —
+each step's gaps shrink a beat every ten blocks, down to the gap rule;
+**more arrivals** — each step's arrival band grows one every ten blocks,
+within its span band; **the ramp starting higher** — R1 aims at the block
+before's R2, so each tooth starts a little above the last.
