@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-14 · a80fa8e3d — THE LID's cord runs one way, chosen at the grab
+
+The simulation picks the cord's way when the hand takes hold — down, across toward the middle, across the other way, up: the first the field holds the whole cord of, else the roomiest — and only the hand's travel along it counts; across is nothing and back is slack. THE WARDEN's rope has run one path since 10 October; the cord was the last handle that went any direction. A tap on a cord resting under the chrome is now nought, so the queued finding goes too: "A tap on a lid's cord under the chrome reads as a pull".
+
 ## 2026-10-14 · 605b304fb — A lane is told to come up to the local main, and `bun run here` warns when it has not
 
 The lane skill's open step now says `git merge --ff-only main` after the checkout: fetching `origin` says *already up to date* while the local `main` holds landings nobody has pushed, and two lanes on 10 October 2026 started behind their own trunk that way. `bun run here`, which every lane that previews runs, prints how many commits `HEAD` is behind the local `main` when it is (`behindMain`, tested on a real two-commit repository).

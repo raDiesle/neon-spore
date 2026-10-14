@@ -40079,3 +40079,5 @@ Bottleneck: none worth the name — the entry named both fixes and both were sma
 
 Bottleneck: the circular import between the body and its way, settled by
 splitting the hand into a third file.
+
+*Measured: 16 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
