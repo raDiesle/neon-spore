@@ -10886,6 +10886,16 @@ plays the script through (`tools/director/test/autopilot-governor.test.ts`).
 
 **What is not built — a step seen from another side** (suggested 10 October 2026, after the owner on THE BASTION: *very 3 dimensional and even user action is 3d to rotate*). The dial tips edge-on and the needle's tip goes behind it; a seat's mark can only be tapped while its side of the dial faces the screen.
 
+**Offered (14 October 2026, VERSUS `governor:glance`).** The works are the
+part that turns: the spindle behind the dial, its casing and crown, the drum
+and the yoke at its foot and the two flyweights yaw together about the
+spindle (`packages/render/src/governor-glance.ts`), pivoting on its foot so a
+roll tips the tower, the near side opening and the far one closing into the
+dark and back. The dial — the track, the marks a thumb taps, the needle, the
+tip and the gap a bolt goes up through — lies flat under it and does not
+move. It ships still, and VERSUS offers **SWAY**, **LOOK** and **COCK** at
+three tenths of a flyweight's reach on GOVERNOR · BOTH MARKS LIT.
+
 
 ## 11.59 THE LAMPREY — a mouth on the hull, one thumb pinning it and one knocking its teeth out
 

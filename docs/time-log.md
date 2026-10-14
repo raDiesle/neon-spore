@@ -39876,3 +39876,15 @@ Bottleneck: the first answer — the whole flue turned about its sight — ran i
 Bottleneck: the traded-panels row — the picture was right and the text under it was not, and only looking at the frame showed it.
 
 *Measured: 4 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-14 — THE GOVERNOR: a part that turns, so it is seen from a new side
+
+- reading: 5 min. The governor's drawing, the works over the dial, and the
+  stop and the marks, which lie on the dial the works stand behind.
+- writing: 5 min. `governor-glance.ts`, the works answering with their
+  outlines, and the wiring.
+- looking: 5 min. `versus:shot governor:glance cock`, cropped.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: none — the works were already apart from everything a thumb or a bolt meets.

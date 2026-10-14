@@ -13,6 +13,7 @@ import { strokeGlowFaded } from "./glow.js";
 import { governorVeinPulse } from "./governor-face-baked.js";
 import { drawGovernorFuse } from "./governor-fuse.js";
 import type { GovernorFx } from "./governor-fx.js";
+import { drawGovernorGlanced } from "./governor-glance.js";
 import { drawGovernorHub } from "./governor-hub.js";
 import { drawGovernorMark, drawGovernorStuds, type GovernorMarkLook } from "./governor-marks.js";
 import {
@@ -124,11 +125,13 @@ export function drawGovernor(
   drawGovernorHub(ctx, l, d, s);
   drawGovernorFlash(ctx, l, d, fx.flash);
 
-  drawGovernorWorks(ctx, l, d, {
+  // The works turn about the spindle's foot as `governor-glance.ts` says; the dial does not.
+  const works = {
     swing: governorSwing(s, cfg, beat, beatPhase),
     orbit: governorOrbit(needle),
     pulse: governorVeinPulse(beatPhase),
-  });
+  };
+  drawGovernorGlanced(ctx, l, d, time, (g) => drawGovernorWorks(g, l, d, works));
   drawGovernorVerdicts(ctx, l, d, s, time, fx.verdicts);
   ctx.restore();
   drawGovernorFuse(ctx, l, world, s, beatPhase);

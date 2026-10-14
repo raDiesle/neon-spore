@@ -19,6 +19,7 @@ import {
   sway,
 } from "../src/glance-styles.js";
 import { GORGE_GLANCE, GORGE_GLANCE_SIZE } from "../src/gorge-glance.js";
+import { GOVERNOR_GLANCE, GOVERNOR_GLANCE_SIZE } from "../src/governor-glance.js";
 import { HASP_GLANCE, HASP_GLANCE_SIZE } from "../src/hasp-glance.js";
 import { HIVE_GLANCE, HIVE_GLANCE_SIZE } from "../src/hive-glance.js";
 import { KEEL_GLANCE, KEEL_GLANCE_SIZE } from "../src/keel-glance.js";
@@ -121,6 +122,7 @@ const ROWS: readonly Row[] = [
   { name: "THE GALL", record: GALL_GLANCE, size: GALL_GLANCE_SIZE, hold: 0 },
   { name: "THE TRAPEZE", record: TRAPEZE_GLANCE, size: TRAPEZE_GLANCE_SIZE, hold: 0 },
   { name: "THE FLUE", record: FLUE_GLANCE, size: FLUE_GLANCE_SIZE, hold: 0 },
+  { name: "THE GOVERNOR", record: GOVERNOR_GLANCE, size: GOVERNOR_GLANCE_SIZE, hold: 0 },
 ];
 
 const R = 100;

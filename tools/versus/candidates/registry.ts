@@ -38,6 +38,9 @@ import { GIMBAL_SWAY } from "./gimbal-glance/sway/index.js";
 import { GORGE_COCK } from "./gorge-glance/cock/index.js";
 import { GORGE_LOOK_AROUND } from "./gorge-glance/look/index.js";
 import { GORGE_SWAY } from "./gorge-glance/sway/index.js";
+import { GOVERNOR_COCK } from "./governor-glance/cock/index.js";
+import { GOVERNOR_LOOK_AROUND } from "./governor-glance/look/index.js";
+import { GOVERNOR_SWAY } from "./governor-glance/sway/index.js";
 import { HASP_COCK } from "./hasp-glance/cock/index.js";
 import { HASP_LOOK_AROUND } from "./hasp-glance/look/index.js";
 import { HASP_SWAY } from "./hasp-glance/sway/index.js";
@@ -170,6 +173,9 @@ export const VARIANTS: Variant[] = [
   GORGE_COCK,
   GORGE_LOOK_AROUND,
   GORGE_SWAY,
+  GOVERNOR_COCK,
+  GOVERNOR_LOOK_AROUND,
+  GOVERNOR_SWAY,
   HASP_COCK,
   HASP_LOOK_AROUND,
   HASP_SWAY,

@@ -54,19 +54,20 @@ const LEVER = 0.5;
 const SHAFT = 1.4;
 /** The back flyweight's alpha, dimmed by the spindle's shadow. */
 const BACK = 0.7;
-/** Draws the works. */
+/** Draws the works; answers with the drum's side and the flyweights, for a turn's dark (`governor-glance.ts`). */
 export function drawGovernorWorks(
   ctx: CanvasRenderingContext2D,
   l: Layout,
   d: Dial,
   w: GovernorWorks,
-): void {
+): Path2D[] {
   const head = headAt(l, d);
   const collar = collarAt(l, d, w.swing);
   const phis = [w.orbit, w.orbit + Math.PI];
   const back = phis.filter((phi) => Math.sin(phi) < 0);
   const front = phis.filter((phi) => Math.sin(phi) >= 0);
-  for (const phi of back) drawFlyweight(ctx, l, d, w, phi, head, collar, BACK);
+  const outlines: Path2D[] = [];
+  for (const phi of back) outlines.push(drawFlyweight(ctx, l, d, w, phi, head, collar, BACK));
 
   const foot = spindleAt(l, d, 0);
   const shaft = new Path2D();
@@ -82,13 +83,14 @@ export function drawGovernorWorks(
   drawCasing(ctx, l, foot, head);
   drawCrown(ctx, l, head, w.pulse);
 
-  drawDrumAndYoke(ctx, l, d);
+  outlines.push(drawDrumAndYoke(ctx, l, d));
   drawBoss(ctx, collar, 0.16 * l.tile, 0.08 * l.tile);
   drawBoss(ctx, head, 0.2 * l.tile, 0.12 * l.tile);
-  for (const phi of front) drawFlyweight(ctx, l, d, w, phi, head, collar, 1);
+  for (const phi of front) outlines.push(drawFlyweight(ctx, l, d, w, phi, head, collar, 1));
+  return outlines;
 }
 
-/** One flyweight: its arm from the head, its link down to the collar, and the ball. */
+/** One flyweight: its arm from the head, its link down to the collar, and the ball, which it answers with. */
 function drawFlyweight(
   ctx: CanvasRenderingContext2D,
   l: Layout,
@@ -98,7 +100,7 @@ function drawFlyweight(
   head: Point,
   collar: Point,
   alpha: number,
-): void {
+): Path2D {
   const ball = flyweightAt(l, d, w.swing, phi);
   const r = ballR(l, phi);
   ctx.save();
@@ -127,10 +129,11 @@ function drawFlyweight(
   ctx.strokeStyle = PALETTE.governorBrassDark;
   ctx.stroke(body);
   ctx.restore();
+  return body;
 }
 
-/** The brake drum, seen as a short cylinder, and the yoke's two shoes and levers on it. */
-function drawDrumAndYoke(ctx: CanvasRenderingContext2D, l: Layout, d: Dial): void {
+/** The brake drum, seen as a short cylinder, and the yoke's two shoes and levers on it; answers with the drum's side. */
+function drawDrumAndYoke(ctx: CanvasRenderingContext2D, l: Layout, d: Dial): Path2D {
   const drum = drumAt(l, d);
   const { x, y } = drum.at;
   const squash = drum.r * d.tilt;
@@ -172,6 +175,7 @@ function drawDrumAndYoke(ctx: CanvasRenderingContext2D, l: Layout, d: Dial): voi
     ctx.strokeStyle = rgba(PALETTE.governorBrassDark, 0.95);
     ctx.stroke(jaw);
   }
+  return side;
 }
 
 /** A small brass boss on the spindle: the collar, or the head the arms hang from. */

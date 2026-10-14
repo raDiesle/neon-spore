@@ -2236,6 +2236,7 @@ by hand never moves.
 | `packages/render/src/governor-wheel.ts` | THE GOVERNOR's flywheel: the ribbed, vented edge, the lit rim, the face, the baked alloy and veins laid over it, the graduations |
 | `packages/render/src/governor-verdicts.ts` | **THE GOVERNOR's marks answering a touch the way every mark does**: the mark's, the yoke's and the hub's halos and verdicts |
 | `packages/render/src/governor-grip.ts` | **THE GOVERNOR's hand**: the tap on the dial (`sim/governor-hand.ts`, `docs/spec/bosses.md` §11.58) |
+| `packages/render/src/governor-glance.ts` | **THE GOVERNOR glances**: the works over the dial turn about the spindle, offered on VERSUS `governor:glance` |
 | `packages/render/src/governor-blow.ts` | **THE GOVERNOR's own blow at the hull** (`boss-strike-look.ts`) |
 | `packages/render/src/governor-fx.ts` | What THE GOVERNOR leaves behind a frame (§11.58, *The receipts*) |
 | `packages/render/src/governor-fuse.ts` | **THE GOVERNOR's tap window: THE SLOW's fuse, with no slow** |
