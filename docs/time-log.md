@@ -41208,3 +41208,5 @@ no gallery pose reaches.
 Bottleneck: looking — five of seven controls are a few pixels on the whole
 field, and each cut is found by trying, since the geometry is in render
 constants a tool cannot import.
+
+*Measured: 18 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*

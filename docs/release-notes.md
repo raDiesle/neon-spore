@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-15 · 66f1683d9 — ONE BOSS'S OWN lists THE HASP to THE TRAPEZE, and THE GAUGE's marks
+
+CONTROLS › HELPERS gains its fourth page of one-seat pictures, so every split in view-role-clocks-c.ts and THE GAUGE's wound on P2's screen now has a row and its real frame: THE HASP's latch, THE LAMPREY's lit tooth, THE MIMIC's sign, THE RATCHET's catch, THE SPOOL's brake, THE TRAPEZE's hands and THE GAUGE's marks. Five of them get a cut round the part, which is a few pixels on the whole field. No look exemption is needed: the director page is not the game.
+
 ## 2026-10-15 · b8d0cb169 — ONE BOSS'S OWN lists THE BASTION to THE GOVERNOR
 
 A third page of HELPERS' one-seat pictures: THE BASTION's port, THE CHRYSALIS's heart, THE HYDRA's maw and fire, THE FLUE's ember, THE GALL's pinch, THE GIMBAL's rings and THE GOVERNOR's marks. The first three are on a boss's last step, which no gallery pose reaches, so the page poses each as a boss whose script is that step alone. The director only.
