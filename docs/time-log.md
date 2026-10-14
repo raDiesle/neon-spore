@@ -41080,3 +41080,16 @@ Bottleneck: friction — a figure under its drift line says nothing, so timing
 one needed a reporter the check does not use.
 
 *Measured: 4 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-14 — Six more blocks, THE LID to THE VEER, and the composer's AUTO bar raised to the game's
+
+- reading: 5 min. Why AUTO's own test failed a wave the composer kept.
+- writing: 15 min. The play-out shared between that test and the composer;
+  forty-eight waves composed twice and named.
+- looking: 5 min. Every block's table read.
+- friction: 15 min. The first composition passed the composer and failed
+  the full check, so the lane's waves were thrown away and composed again.
+- landing: 5 min.
+
+Bottleneck: friction — the composer asked a weaker question of AUTO than the
+game's own test does, and that only showed in the four-minute check.
