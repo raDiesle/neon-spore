@@ -29,6 +29,7 @@ import {
   runFrames,
   waveWith,
 } from "./frame-harness.js";
+import { spyHolds } from "./soak-spy.js";
 
 setDefaultTimeout(FRAME_TIMEOUT_MS);
 
@@ -82,16 +83,19 @@ function frame(role: ViewRole, arrange: (world: World) => void, said: SimEvent[]
   const world = stood();
   arrange(world);
   const log: string[] = [];
-  runFrames(world, role, 9, {
-    every: 3,
-    onCanvas: (c) => {
-      c.log = log;
-    },
-    onTick: (tick, w) => {
-      w.events.length = 0;
-      if (tick === 2) w.events.push(...said);
-    },
-  });
+  // The HOLD LAB's drop on each half paints a halo of its own (`soak-hold.ts`): held out.
+  spyHolds(() =>
+    runFrames(world, role, 9, {
+      every: 3,
+      onCanvas: (c) => {
+        c.log = log;
+      },
+      onTick: (tick, w) => {
+        w.events.length = 0;
+        if (tick === 2) w.events.push(...said);
+      },
+    }),
+  );
   return log.join("|");
 }
 

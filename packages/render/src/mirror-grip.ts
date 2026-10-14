@@ -1,8 +1,13 @@
 import { type MirrorState, mirrorAsks, mirrorGesture, type SimConfig } from "@neon-spore/sim";
-import { drawGripDial, drawGripRing } from "./grip-rings.js";
+import { cueFrame } from "./boss-cue-frame.js";
+import { holdDropR } from "./cue-helper.js";
+import { drawGripRing } from "./grip-rings.js";
+import { seatIsMine } from "./handle-word.js";
 import { type Circle, hitCircle, type Layout, tileCX } from "./layout.js";
+import { drawMarkTheirs } from "./mark-feedback.js";
 import { mirrorHullY } from "./mirror.js";
 import type { PlaceHand } from "./ship-hand.js";
+import { drawSoakHold } from "./soak-hold.js";
 import type { Field, Touch } from "./touch.js";
 import { bossOf } from "./touch-field.js";
 import { CANNON_R, CANNON_UP, SHIELD_R, SHIELD_UP } from "./touch-ship.js";
@@ -26,13 +31,17 @@ import { seatOf } from "./view-role.js";
  * sim with no hold, so it is refused once and said (`mirrorRefuse`), the
  * way every mark answers the wrong thumb.
  *
- * What the rings say is read off the world every frame: under `reflect` a
- * breathing ring on each lobe this seat answers; under `hold` this seat's
- * own lobe, filled while the sim has its thumb (`holdThumbs`), and the dial
- * of `mirrorHoldBeats` round both once both have landed. **The other seat's
- * thumb is never drawn**: whether the partner is on is the partner's to say,
- * and that is the split. Whose each lobe is, and the verdict of a touch, are
- * `mirror-marks.ts`'s.
+ * What the marks say is read off the world every frame: under `reflect` a
+ * breathing ring on each lobe this seat answers; under `hold` the HOLD LAB's
+ * drop (`soak-hold.ts`) where the cue stands, at the hull under this seat's
+ * own lobe — since 14 October 2026, as every hold is; it was a ring round
+ * the lobe and a dial until then. It sinks while the sim has its thumb
+ * (`holdThumbs`), and once both have landed its water rises with the count
+ * of `mirrorHoldBeats`, and the partner's drop stands dimmed under theirs,
+ * filling with it. **The other seat's thumb is never drawn alone**: whether
+ * the partner is on is the partner's to say, and that is the split; the
+ * count is the one thing shown, because it only exists while both are there.
+ * Whose each lobe is, and the verdict of a touch, are `mirror-marks.ts`'s.
  */
 
 /** Outside the grab circle, clear of the lobe's own rim. */
@@ -152,9 +161,9 @@ export function thumbBit(seat: 1 | 2): number {
 }
 
 /**
- * The rings, drawn after the mirror so they stand over its rim. Read off
- * the world and this screen's seat, nothing else — a frame test sets the
- * world and gets the picture.
+ * The rings and drops, drawn after the mirror so they stand over its rim.
+ * Read off the world and this screen's seat, nothing else — a frame test sets
+ * the world and gets the picture.
  */
 export function drawMirrorGrip(
   ctx: CanvasRenderingContext2D,
@@ -166,21 +175,28 @@ export function drawMirrorGrip(
   beatPhase: number,
   time: number,
 ): void {
-  const gesture = mirrorGesture(m);
   const seat = seatOf(l.role);
-  for (const id of mirrorAsks(m, seat)) {
-    const c = mirrorLobeCircle(l, cfg, id, lobeCol(m, shieldCol, id));
-    const held = gesture === "hold" && (m.holdThumbs & thumbBit(seat)) !== 0;
-    drawGripRing(ctx, c.x, c.y, c.r * RING_MUL, held, time);
+  if (mirrorGesture(m) !== "hold") {
+    for (const id of mirrorAsks(m, seat)) {
+      const c = mirrorLobeCircle(l, cfg, id, lobeCol(m, shieldCol, id));
+      drawGripRing(ctx, c.x, c.y, c.r * RING_MUL, false, time);
+    }
+    return;
   }
-  // The count, once both thumbs are down, round both lobes: it is one count
-  // and it is *ours*, so each seat sees it on the lobe under its own thumb
-  // and on the other's — the one thing about the other thumb that is shown,
-  // because it only exists while both are there.
-  if (gesture !== "hold" || m.holdBeat === -1) return;
-  const left = 1 - clamp01((beat - m.holdBeat + beatPhase) / cfg.mirrorHoldBeats);
-  for (const id of [0, 1] as const) {
-    const c = mirrorLobeCircle(l, cfg, id, lobeCol(m, shieldCol, id));
-    drawGripDial(ctx, c.x, c.y, c.r * RING_MUL, left);
+  // The pin: the count once both thumbs are down, on both drops — it is one
+  // count and it is *ours*, so each seat sees it on its own and the other's.
+  const both = m.holdBeat !== -1;
+  const fill = both ? clamp01((beat - m.holdBeat + beatPhase) / cfg.mirrorHoldBeats) : 0;
+  const r = holdDropR(cueFrame(l));
+  const y = mirrorHullY(l, cfg);
+  for (const player of [1, 2] as const) {
+    const mine = seatIsMine(l.role, player);
+    if (!mine && !both) continue;
+    for (const id of mirrorAsks(m, player)) {
+      const at = { x: tileCX(l, lobeCol(m, shieldCol, id)), y };
+      const held = (m.holdThumbs & thumbBit(player)) !== 0;
+      drawSoakHold(ctx, at, r, { time, held, fill, theirs: !mine });
+      if (!mine) drawMarkTheirs(ctx, at.x, at.y, r, time);
+    }
   }
 }

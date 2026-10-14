@@ -67,9 +67,11 @@ export function mirrorCues(l: Layout, world: World, m: MirrorState): readonly Bo
   const y = mirrorHullY(l, world.cfg);
   const gesture = mirrorGesture(m);
   if (gesture === "hold") {
+    // The drops are the grip's own, with the thumbs and the count (`mirror-grip.ts`).
+    const why = "BOTH AT ONCE";
     return [
-      { ...markAt(1, "HOLD", "HOLD", tileCX(l, m.cannonCol), y, l, 64), why: "BOTH AT ONCE" },
-      { ...markAt(2, "HOLD", "HOLD", tileCX(l, world.shieldCol), y, l, 65), why: "BOTH AT ONCE" },
+      { ...markAt(1, "HOLD", "HOLD", tileCX(l, m.cannonCol), y, l, 64), why, ownDrop: true },
+      { ...markAt(2, "HOLD", "HOLD", tileCX(l, world.shieldCol), y, l, 65), why, ownDrop: true },
     ];
   }
   if (m.phase !== "listen") return [];

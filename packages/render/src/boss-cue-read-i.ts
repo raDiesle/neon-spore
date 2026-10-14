@@ -82,18 +82,9 @@ function merging(l: Layout, world: World, b: BatonState): readonly BossCue[] {
     if (batonDrawing(b, seat)) continue;
     const socket = batonMergeSocket(world.cfg, b, seat);
     const at = socketPoint(l, world.cfg, b, socket);
-    out.push(
-      markAt(
-        seat,
-        "HOLD",
-        "HOLD",
-        at.x,
-        at.y,
-        l,
-        92 + seat,
-        socketRoomBelow(l, world.cfg, b, socket),
-      ),
-    );
+    // The drop is the arm's own, with the thumb and the window (`baton-grip.ts`).
+    const room = socketRoomBelow(l, world.cfg, b, socket);
+    out.push({ ...markAt(seat, "HOLD", "HOLD", at.x, at.y, l, 92 + seat, room), ownDrop: true });
   }
   return out;
 }

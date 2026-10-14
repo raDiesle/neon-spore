@@ -23,6 +23,7 @@ import {
   stubCanvas,
   waveWith,
 } from "./frame-harness.js";
+import { spyHolds } from "./soak-spy.js";
 
 setDefaultTimeout(FRAME_TIMEOUT_MS);
 
@@ -205,22 +206,25 @@ describe("the rings", () => {
     expect(strokes("test", mirror())).toBe(strokes("p1", mirror()));
   });
 
-  it("fill this seat's own lobe under its own thumb, and never the other's", () => {
-    const own = strokes("p1", hold({ holdThumbs: 1 }));
-    const theirs = strokes("p1", hold({ holdThumbs: 2 }));
-    expect(own).toBeGreaterThan(strokes("p1", hold()));
-    expect(theirs).toBe(strokes("p1", hold()));
-    expect(strokes("p2", hold({ holdThumbs: 2 }))).toBeGreaterThan(strokes("p2", hold()));
-    expect(strokes("p2", hold({ holdThumbs: 1 }))).toBe(strokes("p2", hold()));
+  it("sink this seat's own drop under its own thumb, and never show the other's alone", () => {
+    expect(drops("p1", hold({ holdThumbs: 1 })).map((d) => d.o.held)).toEqual([true]);
+    expect(drops("p1", hold({ holdThumbs: 2 })).map((d) => d.o.held)).toEqual([false]);
+    expect(drops("p2", hold({ holdThumbs: 2 })).map((d) => d.o.held)).toEqual([true]);
+    expect(drops("p2", hold({ holdThumbs: 1 })).map((d) => d.o.held)).toEqual([false]);
   });
 
-  it("show the count on both screens once both thumbs are down", () => {
+  it("fill both drops with the count once both thumbs are down, the partner's dimmed", () => {
     for (const role of ROLES) {
-      const counting = strokes(role, hold({ holdThumbs: 3, holdBeat: 5 }));
-      expect(counting).toBeGreaterThan(strokes(role, hold({ holdThumbs: 3 })));
+      const got = drops(role, hold({ holdThumbs: 3, holdBeat: 5 }));
+      expect(got.length).toBe(2);
+      for (const d of got) expect(d.o.fill ?? 0).toBeGreaterThan(0);
+      expect(got.filter((d) => d.o.theirs).length).toBe(role === "test" ? 0 : 1);
     }
   });
 });
+
+/** The HOLD LAB's drops the grip asks for on a role's screen. */
+const drops = (role: ViewRole, m: MirrorState) => spyHolds(() => strokes(role, m)).holds;
 
 describe("the pin landing", () => {
   it("throws a ring off both lobes, then fades", () => {

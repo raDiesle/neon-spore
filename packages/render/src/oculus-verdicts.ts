@@ -2,20 +2,26 @@ import {
   type OculusAsk,
   type OculusState,
   oculusCoreAsks,
+  oculusHolding,
   oculusHullAsks,
   oculusLeafAsks,
+  oculusLevelShare,
   type SimConfig,
   type SimEvent,
   type World,
 } from "@neon-spore/sim";
+import { CUE_FRAME_WIDE, cueFrame } from "./boss-cue-frame.js";
+import { holdDropR } from "./cue-helper.js";
 import { fieldX } from "./field-flip.js";
 import { drawVerdictRing, GripVerdicts } from "./grip-verdict.js";
+import { seatIsMine } from "./handle-word.js";
 import { type Circle, type Layout, seatOf } from "./layout.js";
 import { drawMarkHalo, drawMarkTheirs, drawMarkWait } from "./mark-feedback.js";
 import { oculusSide } from "./oculus-grip.js";
 import { oculusArrived } from "./oculus-pose.js";
 import { oculusCentre, oculusLift, oculusRadius, oculusSocketRadius } from "./oculus-shape.js";
 import { oculusCorePose, oculusGaze, oculusGlare, oculusLookedCol } from "./oculus-story.js";
+import { drawSoakHold } from "./soak-hold.js";
 
 /**
  * **THE OCULUS's marks answering a touch the way every mark does**
@@ -166,6 +172,14 @@ function asked(l: Layout, s: OculusState, mark: number): "own" | "theirs" | null
 /**
  * Over the lens: the halo on each mark that asks this screen, the partner's
  * ring and clock on each that asks only them, and every verdict still showing.
+ *
+ * **A hold is the HOLD LAB's drop on each half** (`soak-hold.ts`), the size
+ * and place the cue's stood, since 14 October 2026 — the cue's own drop went
+ * the moment a thumb landed, and never filled. Both seats' stand on both
+ * screens for the whole of a shut or a reseal, as the whole lens does: each
+ * sinks under its own seat's thumb, the partner's dimmed, and their water is
+ * how far the pair has come (`oculusLevelShare`), which the leaves sliding
+ * across the face already show.
  */
 export function drawOculusMarkFeedback(
   ctx: CanvasRenderingContext2D,
@@ -179,10 +193,17 @@ export function drawOculusMarkFeedback(
   v: GripVerdicts,
 ): void {
   const fade = ctx.globalAlpha;
+  const fill = oculusLevelShare(cfg, s);
+  const r = holdDropR(cueFrame(l, CUE_FRAME_WIDE));
   marksAt(l, cfg, s, beat, beatPhase, hull).forEach((c, mark) => {
     const says = asked(l, s, mark);
     if (says === "own") drawMarkHalo(ctx, c.x, c.y, c.r, time);
     ctx.globalAlpha = fade;
+    const seat = mark === OCULUS_LEFT_MARK ? 1 : mark === OCULUS_RIGHT_MARK ? 2 : null;
+    if (seat !== null && oculusHolding(s)) {
+      const theirs = !seatIsMine(l.role, seat);
+      drawSoakHold(ctx, c, r, { time, held: s.held[seat - 1], fill, theirs });
+    }
     if (says === "theirs") {
       drawMarkTheirs(ctx, c.x, c.y, c.r, time);
       drawMarkWait(ctx, c.x, c.y, c.r, time);

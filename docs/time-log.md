@@ -40480,3 +40480,18 @@ Bottleneck: friction — the canvas's blend arithmetic at a soft clip edge is
 not what the specification reads as, and only a measured probe said how.
 
 *Measured: 15 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-14 — THE BATON, THE MIRROR and THE OCULUS hold the HOLD LAB's drop
+
+- reading: 15 min. Each boss's grip, its cue reading, `cue-helper.ts`, and
+  what of each hold its simulation keeps — the window, the count, the share.
+- writing: 25 min. `BossCue.ownDrop` and `holdDropR`, the drop drawn by each
+  boss with its thumb and fill, `SOAK_HOLD` and `soak-spy.ts`, two new tests,
+  two rewritten, and the cards' words.
+- looking: 10 min. The three cards on ON THE FIELD, shot twice — the first
+  before their words were changed.
+- friction: 5 min. Three selectors to find a card on ON THE FIELD.
+- landing: 5 min.
+
+Bottleneck: writing — three bosses each keep their hold differently, and
+THE BATON's must not show the count, which only runs when both are down.

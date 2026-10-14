@@ -48,6 +48,18 @@ export function drawSoakHold(
   r: number,
   o: SoakHoldDraw,
 ): void {
+  SOAK_HOLD.paint(ctx, at, r, o);
+}
+
+/**
+ * The paint, held where a test can swap it, as `PULL_KNOB`'s is: a boss's
+ * test asks *is the hold there, held, how full* (`test/soak-spy.ts`), and the
+ * drop lights itself with gradients a test counting the boss's own would
+ * count too.
+ */
+export const SOAK_HOLD = { paint: paintSoakHold };
+
+function paintSoakHold(ctx: CanvasRenderingContext2D, at: Point, r: number, o: SoakHoldDraw): void {
   const { time } = o;
   const held = o.held === true;
   const fill = Math.max(0, Math.min(1, o.fill ?? 0));

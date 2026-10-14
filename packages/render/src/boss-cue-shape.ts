@@ -146,6 +146,13 @@ export interface BossCue {
    */
   print?: boolean;
   /**
+   * **A `HOLD` whose drop the boss draws itself** (`soak-hold.ts`), with the
+   * simulation's thumb and fill and the partner's dimmed, so the cue draws
+   * none — the cue's own drop knows nothing of the hold: it calls under a
+   * thumb and never fills. Still no frame and no word, as every `HOLD`.
+   */
+  ownDrop?: boolean;
+  /**
    * **The colour a shot's mark is drawn in**, where the colour is the ask:
    * THE FLUE's levels each want one colour, and a red crosshair or `HOLD`
    * circle over a sight asking cyan was read as *fire red*, which the flue

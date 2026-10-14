@@ -45,7 +45,7 @@ export const BATON_CONTROLS: readonly FieldControlDef[] = [
   {
     name: "THE BATON'S DRAW",
     where:
-      "a ring on each of the two beads at rest in the last two sockets, one " +
+      "the HOLD LAB's drop on each of the two beads at rest in the last two sockets, one " +
       "per screen — the upper on player 1's, the one that waited on player " +
       "2's — from the beat they are both there; both on the test screen",
     seat:
@@ -57,9 +57,10 @@ export const BATON_CONTROLS: readonly FieldControlDef[] = [
     does:
       "Draws the two beads into one. The count runs only while both thumbs are " +
       "down and goes back to nought the moment either lifts, and it takes " +
-      "batonMergeBeats of both; a dial runs the batonMergeWindowBeats out, and " +
+      "batonMergeBeats of both; each drop's water rises as the batonMergeWindowBeats " +
+      "are spent, thumb or no thumb, and " +
       "the window closing short shakes the bead that waited back a socket. " +
-      "Neither ring says whether the other is down: that is the " +
+      "Neither drop says whether the other is down: that is the " +
       "sentence, and it is the only beat of this fight the pair may act on " +
       "together (sim/baton-pair.ts).",
     source: "touch.ts — batonSocketUnder() under handleUnder()",

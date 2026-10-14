@@ -41,7 +41,9 @@ import { drawSoakHold } from "./soak-hold.js";
  *   box and no word** — the owner, 13 October 2026: *it should be our new
  *   standard button … and why it still stays text "hold"*. It was a red
  *   circle with a thumbprint in it until then (`hold-mark.ts`). The drop is
- *   the frame there, as the crosshair is a shot's (`markIsHere`).
+ *   the frame there, as the crosshair is a shot's (`markIsHere`). A boss that
+ *   draws the drop itself, with the hold's thumb and fill, says so
+ *   (`BossCue.ownDrop`), and the cue draws none.
  *   A `TAP` with `BossCue.print` still wears the thumbprint's circle — THE
  *   GOVERNOR's marks, the owner, 6 October 2026: *instead of tap scanner
  *   square box use the thumb control visual.*
@@ -164,6 +166,11 @@ export function cueBoxed(cue: BossCue, hullY: number): boolean {
   return AIM_LOOK.boxed || cueAim(cue, hullY) === null;
 }
 
+/** How big a `HOLD` cue's drop is in its frame — what a boss drawing its own (`BossCue.ownDrop`) draws it at. */
+export function holdDropR(frame: { halfW: number; halfH: number }): number {
+  return Math.min(frame.halfW, frame.halfH) * HOLD_MARK_R;
+}
+
 /** A `RUB` cue that does not say its turns: THE RUB LAB's own first ask, none made. */
 const NO_RUBS: { turns: number; done: number; held?: boolean } = { turns: 8, done: 0 };
 
@@ -202,7 +209,8 @@ export function drawCueHelper(
     return;
   }
   if (helper === "hold") {
-    if (cueHelper(cue.word) === "hold") drawSoakHold(ctx, cue, short * HOLD_MARK_R, { time });
+    if (cue.ownDrop === true) return;
+    if (cueHelper(cue.word) === "hold") drawSoakHold(ctx, cue, holdDropR(cue), { time });
     else drawHoldMark(ctx, cue.x, cue.y, short * HOLD_MARK_R, time, cue.tint);
     return;
   }

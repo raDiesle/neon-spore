@@ -48,16 +48,16 @@ export const OTHER_LOOKS: Readonly<Record<string, UseLook>> = {
     move: "Green as the thumb lands; the ring stays lit and the burn answers while he holds, and goes cold the moment he lets go.",
   },
   "THE BATON'S DRAW": {
-    find: "A ring on each of the two resting beads, one per screen, each haloed until that seat's thumb is down. Nothing says whether the other is down.",
-    move: "A dial runs the window out; with both thumbs down the two beads draw together into one, green.",
+    find: "The HOLD LAB's drop on each of the two resting beads, one per screen, each haloed until that seat's thumb is down. Nothing says whether the other is down.",
+    move: "The drop sinks under the thumb and its water rises as the window is spent; with both thumbs down the two beads draw together into one, green.",
   },
   "THE PULSE'S ARREST": {
     find: "The same box on the meter, gone red. One thumb on it and the word under the bar reads BOTH; two and it reads HELD.",
     move: "The partner's end is ringed with a clock until the second thumb lands; then both ends wash green and the meter climbs a beat at a time.",
   },
   "THE OCULUS'S LEFT LEAF": {
-    find: "Each half of the lens — left the pilot's, right the navigator's — haloed while a pair is lit and that thumb is not down.",
-    move: "With both halves held the lit pair slides shut across the face; a lift slips it, red.",
+    find: "Each half of the lens — left the pilot's, right the navigator's — haloed while a pair is lit and that thumb is not down; through a shut or a reseal each wears the HOLD LAB's drop, the partner's dimmed.",
+    move: "With both halves held the lit pair slides shut across the face and both drops fill; a lift slips it, red.",
   },
   "THE FLEET'S RAKE": {
     find: "Anywhere along the holed hull, on the pilot's screen; his ring is haloed until his thumb is down.",
@@ -140,8 +140,8 @@ export const OTHER_LOOKS: Readonly<Record<string, UseLook>> = {
     move: "The part moves the way the word says; every mark of the step done together lands it.",
   },
   "THE MIRROR'S LOBES": {
-    find: "A ring round each lobe of the mirror's ship this seat answers, haloed when asked.",
-    move: "A count runs round both once both thumbs are down; green or red round the lobe a touch was judged on.",
+    find: "A ring round each lobe of the mirror's ship this seat answers, haloed when asked; under the pin, the HOLD LAB's drop at the hull under this seat's lobe.",
+    move: "Once both thumbs are down the partner's drop shows dimmed beside yours and both fill with the count; green or red round the lobe a touch was judged on.",
   },
   "THE QUEEN'S MARKS": {
     find: "A faint ring round each of her two marks on the pilot's screen, with a halo; the navigator sees the real one bare.",

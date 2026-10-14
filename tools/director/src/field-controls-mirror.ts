@@ -15,10 +15,11 @@ export const MIRROR_CONTROLS: readonly FieldControlDef[] = [
   {
     name: "THE MIRROR'S LOBES",
     where:
-      "a ring round each lobe of the mirror's ship this seat answers, while " +
-      "it listens on its last round and under the pin: both lobes on player " +
-      "1's screen, the cannon on player 2's; the count round both on every " +
-      "screen once both thumbs are down; the halo on a lobe this seat is " +
+      "a ring round each lobe of the mirror's ship this seat answers while " +
+      "it listens on its last round: both lobes on player " +
+      "1's screen, the cannon on player 2's; under the pin, the HOLD LAB's drop " +
+      "at the hull under this seat's lobe, and once both thumbs are down the " +
+      "partner's dimmed beside it, both filling with the count; the halo on a lobe this seat is " +
       "asked for, the partner's ring and clock on one asked only of theirs, " +
       "and green or red round the lobe a touch was judged on",
     seat: "both — P1 its cannon and its shield, P2 its cannon; under the pin one lobe each",

@@ -7,9 +7,12 @@ import {
   type SimConfig,
 } from "@neon-spore/sim";
 import { socketPoint } from "./baton-socket-draw.js";
+import { cueFrame } from "./boss-cue-frame.js";
+import { holdDropR } from "./cue-helper.js";
 import { drawGripDial, drawGripRing } from "./grip-rings.js";
 import { handleRadius } from "./handle-draw.js";
 import { type Circle, hitCircle, type Layout } from "./layout.js";
+import { drawSoakHold } from "./soak-hold.js";
 import type { Field, Touch } from "./touch.js";
 import { bossOf } from "./touch-field.js";
 import type { ViewRole } from "./view-role.js";
@@ -29,15 +32,19 @@ import { showsCannon, showsShield } from "./view-role.js";
  * the whole picture of the rule: the beat you cannot touch the ship in is the
  * beat you can reach the arm.
  *
- * **The merge's two rings are on one screen each**, by geometry and never by
+ * **The merge's two holds are on one screen each**, by geometry and never by
  * colour: the upper bead is the pilot's and the one that waited is the
- * navigator's (`batonMergeSocket`). Each ring fills under its own thumb and
- * neither says whether the other is down — that is the sentence the pair has
- * to say, and it is the one sentence this fight has never made them say,
- * because until this state nothing here could be done together at all.
+ * navigator's (`batonMergeSocket`). Each is the HOLD LAB's drop
+ * (`soak-hold.ts`) since 14 October 2026, as every hold is — it was a ring
+ * with a dial until then. Each sinks under its own thumb and neither says
+ * whether the other is down — that is the sentence the pair has to say, and
+ * it is the one sentence this fight has never made them say, because until
+ * this state nothing here could be done together at all. So the drop's water
+ * is the window spent, which runs whoever is down, and never the count
+ * (`mergeHeld`), which runs only while both are: water rising on that would
+ * say the partner's thumb for them.
  *
- * Both dials run **out**: the swell's window before the shell falls, and the
- * merge's before the bead that waited is shaken home.
+ * The strip's dial runs **out**: the swell's window before the shell falls.
  */
 
 /** Where the ring on a swelling socket rests. */
@@ -136,8 +143,8 @@ function left(from: number, span: number, beat: number, beatPhase: number): numb
 }
 
 /**
- * The rings, drawn after the arm so they stand on it and nothing stands on
- * them. Nothing here outlives a frame: every number is off the boss, the beat
+ * The strip's ring and the merge's drops, drawn after the arm so they stand
+ * on it and nothing stands on them. Nothing here outlives a frame: every number is off the boss, the beat
  * and the wall clock, which is `baton-draw.ts`' own rule.
  */
 export function drawBatonGrip(
@@ -151,17 +158,12 @@ export function drawBatonGrip(
   time: number,
 ): void {
   if (b.stage === "merging") {
+    const fill = 1 - left(b.stageBeat, cfg.batonMergeWindowBeats, beat, beatPhase);
+    const r = holdDropR(cueFrame(l));
     for (const player of [1, 2] as const) {
       const rest = batonDrawRest(l, cfg, b, player);
       if (rest === null || !seatShows(role, player)) continue;
-      drawGripRing(ctx, rest.x, rest.y, rest.r, batonDrawing(b, player), time);
-      drawGripDial(
-        ctx,
-        rest.x,
-        rest.y,
-        rest.r,
-        left(b.stageBeat, cfg.batonMergeWindowBeats, beat, beatPhase),
-      );
+      drawSoakHold(ctx, rest, r, { time, held: batonDrawing(b, player), fill });
     }
     return;
   }

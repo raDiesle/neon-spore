@@ -93,7 +93,9 @@ export function oculusCues(
       if (!oculusLeafAsks(s, seat)) continue;
       const half = oculusHalfStanding(l, world, s, seat, beatPhase);
       const seed = seat === 1 ? 131 : 132;
-      out.push({ seat, kind, word, x: half.x, y: half.y, ...frame, seed });
+      // A hold's drop is the lens's own, with the thumbs and the share (`oculus-verdicts.ts`).
+      const ownDrop = kind === "HOLD";
+      out.push({ seat, kind, word, x: half.x, y: half.y, ...frame, seed, ownDrop });
     }
   }
   return out;
