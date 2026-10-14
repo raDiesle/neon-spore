@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-14 · 0dd79fb88 — VERSUS offers THE STARE's head glancing
+
+THE STARE's cowled head turns as one about the eye's centre: the cowl, its scars, the eye, the brow, the charge and the score's lashes. The far side narrows into the dark. The lashes a thumb pulls and the glass a bolt stops on stay level. Ships still; VERSUS `stare:glance` offers SWAY, LOOK and COCK, judged on THE STARE · LIVE. Exemption: none — a look, offered on VERSUS.
+
 ## 2026-10-14 · eed216d46 — VERSUS offers THE REPRISE's sac glancing
 
 THE REPRISE's whole sac turns, with the lens, the eggs and the camera's word drawn into it. It turns about the line down its middle and rolls from the top, where its cords take it. The cords stay still and the far side narrows into the dark. Ships still; VERSUS `reprise:glance` offers SWAY, LOOK and COCK, judged on THE REPRISE · RUNNING. Exemption: none — a look, offered on VERSUS.
