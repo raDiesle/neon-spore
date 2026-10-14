@@ -168,3 +168,12 @@ export const showsMimicPaint = (role: ViewRole, drawer: 1 | 2): boolean =>
  * crater on both screens. `test` is both.
  */
 export const showsBastionPort = (role: ViewRole): boolean => role !== "p1";
+
+/**
+ * THE CHRYSALIS's split on its last skin (§11.63): **the heart is shown to
+ * the pilot alone** — the pore open over its column and the colour it beats
+ * in — and the pilot, whose hand is on the cannon, slides it under and says
+ * the colour for the navigator to fire. THE BASTION's port turned round. A
+ * pore already shot is a scar on both screens. `test` is both.
+ */
+export const showsChrysalisHeart = (role: ViewRole): boolean => role !== "p2";

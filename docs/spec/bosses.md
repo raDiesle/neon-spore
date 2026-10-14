@@ -11832,7 +11832,7 @@ too quick.* THE BASTION's idea (§11.62) — a body taken apart a layer at a
 time, each layer a different action, the body smaller each time and a
 picture of each layer won — on a body that is alive. A choreographed scene,
 the third kind in `.claude/skills/new-boss`. **Built on 14 October 2026 as
-its simulation**; its body, its marks and its words are the next lanes.
+its simulation and its body**; its marks and its words are the next lanes.
 
 **The rule, in one sentence.** Peel each skin off the cocoon before its time
 runs out, or it grows back.
@@ -11936,16 +11936,60 @@ column and colour, and the wrong colour losing the wave; a skin run out
 grown back with no hull hit; the grub killed and gone; the same thumbs
 hashing the same.
 
-**What is not built.** Its body: the cocoon is undrawn, and its fifteen
-events are on the silent lists until the look lane draws them — the slime
-glistening and thinning under the thumb, the quills standing out along their
-way, the sacs swelling, the heart beating behind its pore on the pilot's
-screen, a skin peeling away whole and the smaller cocoon left. Its marks:
-the rub's track on each half, the quills' knobs and channels, the shield and
-fire cues, and their four touch answers. Its words (`boss-cue.ts`): `RUB`,
-`PULL`, `SHIELD`, `FIRE`. Its bolt stopping on the cocoon (`core-along.ts`).
-The guide is prose. **Never watched at tempo**: whether a pair can rub,
-pull, shield and call the heart's colour in time — the owner's eye.
+**The look** (`render/src/chrysalis-draw.ts` and the pages it calls). A
+living cocoon hung over the middle of the field on strands of silk run out to
+both walls, a bruised plum teardrop ridged from end to end, drawn from the
+hide out:
+- **The hide** (`chrysalis-hide.ts`), with the grub glowing through it —
+  faintly under the quills' leather, plainer under the sacs', and under the
+  heart's membrane as itself, a pale curled grub beating. Its ridges are
+  meridians drawn round the body, and it wears two eye spots on its face and
+  a row of breathing holes on its back.
+- **The slime** (`chrysalis-coat.ts`), a wet translucent lime coat, its left
+  half the pilot's and its right the navigator's, glistening and dripping
+  from its belly. A half thins with every turn of the rub — paler, its drips
+  shorter — a gleam runs over it under a rubbing thumb, and wiped it is gone.
+- **The quills**, bone spines dark at the root, standing out past the slime
+  and bristling on the beat while lit. A quill being pulled stands out along
+  its track by as much as the thumb has it, a wet string stretched from its
+  socket, thinner the nearer it is to ripping; ripped, it leaves the socket
+  raw.
+- **The sacs** (`chrysalis-belly.ts`), magenta bladders off the belly, each
+  over its own column; the one swelling grows, trembles and lights its veins,
+  and a sac burst is a puckered scar.
+- **The heart**, on the pilot's screen alone (`showsChrysalisHeart`): one
+  pore open over its column and the heart beating behind it in its colour,
+  its veins lit in it. A pore shot is a stitched scar on both screens.
+
+**Its pose** (`chrysalis-pose.ts`) is THE INSTAR's five points read on a
+cocoon. Each skin has a **stance** — heavy under the slime, bristling with
+its quills, swollen low with its sacs, squeezing on every beat down to its
+heart — and the body between two is the eased blend. **It turns as it
+sheds**: half round about its long axis as it writhes out of each skin, so
+the eye spots go round the back and the breathing holes come round, and the
+next skin turns it back; never while a skin is lit, so the quills, the sacs
+and the pores stay where they are judged. **A skin peeling** is a flash, a
+green shockwave and the skin split down its middle, both halves curling out
+and falling in its own tissue (`chrysalis-shed.ts`), the cocoon left
+smaller; a skin's second course grows in under the first as it falls; a skin
+run out grows back inside a red ring. With every skin off the grub is bare,
+writhes, goes dark and is gone.
+
+**The receipts** (`chrysalis-fx.ts`, drawn by `chrysalis-receipts.ts`): a
+ripped quill flying off along its way, globs of a wiped half falling down the
+field, spores in a cloud down a sac's column to the hull or back up off the
+shield into the sac, the hull's shudder as the cocoon comes in, as a skin
+peels and as the grub dies, and the blow every piece and every skin deals.
+`render/test/chrysalis-frame.test.ts` draws every skin on all three
+screens, the heart's split both ways, a piece off, the cocoon smaller a skin
+at a time, the peel, the regrow and the grub bare.
+
+**What is not built.** Its marks: the rub's track on each half, the quills'
+knobs and channels, the shield and fire cues, and their four touch answers.
+Its words (`boss-cue.ts`): `RUB`, `PULL`, `SHIELD`, `FIRE`. Its bolt
+stopping on the cocoon (`core-along.ts`). The guide is prose. **Never
+watched at tempo**: whether a pair can rub, pull, shield and call the
+heart's colour in time — the owner's eye.
 
 ## Retired
 

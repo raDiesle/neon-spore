@@ -1,5 +1,6 @@
 import type { World } from "@neon-spore/sim";
 import { drawBastion } from "./bastion-draw.js";
+import { drawChrysalis } from "./chrysalis-draw.js";
 import type { Effects } from "./effects.js";
 import { drawFlue } from "./flue-draw.js";
 import { drawGovernor } from "./governor-draw.js";
@@ -34,6 +35,7 @@ export const LATEST_PAIR_KINDS = [
   "mimic",
   "latch",
   "bastion",
+  "chrysalis",
 ] as const;
 
 export type LatestPairBoss = Extract<Installed, { kind: (typeof LATEST_PAIR_KINDS)[number] }>;
@@ -113,5 +115,13 @@ export function drawLatestPairBoss(
   // THE BASTION: a metal moon in four shells, each its own metal and its
   // own machine, taken off from the outside in (`bastion-draw.ts`); its
   // receipts are `bastion-fx.ts`, and a bolt stops on it (`bastion-stop.ts`).
-  drawBastion(ctx, l, world, boss, beat, beatPhase, time, effects.boss.bastion, effects.bolts);
+  if (boss.kind === "bastion") {
+    drawBastion(ctx, l, world, boss, beat, beatPhase, time, effects.boss.bastion, effects.bolts);
+    return;
+  }
+
+  // THE CHRYSALIS: a living cocoon in four skins, each its own tissue and
+  // its own job, peeled from the outside in (`chrysalis-draw.ts`); its
+  // receipts are `chrysalis-fx.ts`.
+  drawChrysalis(ctx, l, world, boss, beat, beatPhase, time, effects.boss.chrysalis);
 }

@@ -95,6 +95,9 @@ export function drawOnShip(
   // And THE BASTION's: the moon coming in, a shell coming away, and the core
   // blowing (`bastion-fx.ts`, §11.62).
   held.effects.boss.bastion.shock.draw(ctx, l, surfaceY, view.time);
+  // And THE CHRYSALIS's: the cocoon coming in, a skin peeling, and the grub
+  // dying (`chrysalis-fx.ts`, §11.63).
+  held.effects.boss.chrysalis.shock.draw(ctx, l, surfaceY, view.time);
   // And THE SEAM's: a click for every point shot shut, and the ridge splitting
   // a harder shudder (`seam-fx.ts`, §26).
   held.effects.boss.seam.shock.draw(ctx, l, surfaceY, view.time);

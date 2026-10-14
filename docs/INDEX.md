@@ -2451,7 +2451,15 @@ by hand never moves.
 | `packages/render/src/choke-strip.ts` | **Player 1's cannon strip while THE CHOKE has the cannon.** Drawn over the strip the band has just drawn |
 | `packages/render/src/choke-hull.ts` | THE CHOKE's grip on the cannon over the finished hull — the loops round the swelling while the steer fault has it, and the pilot's light toward the next column |
 | `packages/render/src/chart-lattice.ts` | **A chart's lattice**: the lines between the squares, a mark on every crossing pulsing on the beat |
-| `packages/render/src/chrysalis-shape.ts` | **THE CHRYSALIS's geometry**: where the cocoon hangs and how far out each of its skins stands |
+| `packages/render/src/chrysalis-shape.ts` | **THE CHRYSALIS's geometry**: where the cocoon hangs, how far out each of its skins stands |
+| `packages/render/src/chrysalis-shed.ts` | **A skin peeling away** (§11.63): THE BASTION's *visual of a successful step level achieved* (§11.62) on a… |
+| `packages/render/src/chrysalis-belly.ts` | **THE CHRYSALIS's two inner skins** (§11.63): the sacs and the heart |
+| `packages/render/src/chrysalis-coat.ts` | **THE CHRYSALIS's two outer skins** (§11.63): the slime coat and the quills |
+| `packages/render/src/chrysalis-draw.ts` | **THE CHRYSALIS** (§11.63): a living cocoon hung over the field on strands of silk |
+| `packages/render/src/chrysalis-fx.ts` | What THE CHRYSALIS leaves behind a frame (§11.63, *The receipts*): **the quills ripped out** |
+| `packages/render/src/chrysalis-hide.ts` | **THE CHRYSALIS's hide** (§11.63): the living body under the slime |
+| `packages/render/src/chrysalis-pose.ts` | **THE CHRYSALIS's pose**: where in its story the cocoon is this frame |
+| `packages/render/src/chrysalis-receipts.ts` | THE CHRYSALIS's receipts, drawn (§11.63): the quills ripped out flying off along their ways and dropping |
 | `packages/render/src/action-face.ts` | Player 1's action buttons, showing the ship doing the thing instead of spelling its name |
 | `packages/render/src/antiphon-draw.ts` | **THE ANTIPHON**: a smooth violet body hung over the top of the field above row 0 |
 | `packages/render/src/antiphon-depth.ts` | **THE ANTIPHON in depth**: the mantle is not a band painted across the top of the field but a long soft body… |

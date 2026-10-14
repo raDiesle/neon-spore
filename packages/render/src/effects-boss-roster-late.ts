@@ -1,5 +1,6 @@
 import { BastionFx } from "./bastion-fx.js";
 import { CapstanFx } from "./capstan-fx.js";
+import { ChrysalisFx } from "./chrysalis-fx.js";
 import { RoundMarks } from "./effects-round-marks.js";
 import { FlueFx } from "./flue-fx.js";
 import { GallFx } from "./gall-fx.js";
@@ -78,4 +79,9 @@ export class LateRoster extends RoundMarks {
    * comes away and as the core blows, and the blow it takes (`bastion-fx.ts`,
    * `bastion-receipts.ts`). */
   readonly bastion = new BastionFx();
+  /** THE CHRYSALIS's quills flying off, its slime dropping, its spores down
+   * to the hull and back up from the shield, the hull's shudder as it comes
+   * in, as a skin peels and as the grub dies, and the blow it takes
+   * (`chrysalis-fx.ts`, `chrysalis-receipts.ts`). */
+  readonly chrysalis = new ChrysalisFx();
 }

@@ -142,4 +142,22 @@ export const LATE_CREATURE_HUES = {
   bastionHull: "#59606A",
   bastionHullDark: "#202429",
   bastionCore: "#FFF2C8",
+  /**
+   * THE CHRYSALIS (§11.63): a living cocoon, every skin its own tissue. The
+   * hide a bruised plum with a near-black outline and lilac ridges; the slime
+   * over it a sickly translucent lime with a wet white sheen; the quills
+   * bone, dark at the root; the sacs a swollen magenta whose spores are a
+   * paler pink no cannon, shield or hull carries; and the grub inside a pale
+   * flesh glowing through. The heart beats in a cannon's colour, its own.
+   */
+  chrysalisHide: "#4E2A5C",
+  chrysalisHideDark: "#170A1D",
+  chrysalisRidge: "#9A6CC0",
+  chrysalisSlime: "#B8D45A",
+  chrysalisSheen: "#F4FFD2",
+  chrysalisQuill: "#E9DCC0",
+  chrysalisQuillRoot: "#5B4630",
+  chrysalisSac: "#C2479C",
+  chrysalisSpore: "#FFB2EC",
+  chrysalisGrub: "#F0C8A8",
 } as const;

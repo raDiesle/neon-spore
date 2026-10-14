@@ -212,4 +212,32 @@ export const HURT_ROWS_C: Row[] = [
     ],
     hurt: (fx) => fx.boss.bastion.hurt,
   },
+  {
+    boss: "chrysalis",
+    // A skin peeled, and the grub dead after the last.
+    land: [
+      { type: "chrysalisShed", skin: "slime", col: 5 },
+      { type: "chrysalisSpent", col: 5 },
+    ],
+    // A skin lit, a turn of the rub, a quill snapped back, a thumb on the
+    // wrong half, a sac swelling, spores nobody shielded and a skin grown
+    // back only work toward one, or against it.
+    part: [
+      { type: "chrysalisSkin", skin: "slime", col: 5 },
+      { type: "chrysalisRub", seat: 0, rubbed: 1, col: 5 },
+      { type: "chrysalisSnap", seat: 0, piece: 0, col: 5 },
+      { type: "chrysalisWrong", seat: 1, col: 5 },
+      { type: "chrysalisSwell", piece: 0, col: 3 },
+      { type: "chrysalisSpray", piece: 0, col: 3 },
+      { type: "chrysalisRegrow", skin: "quills", col: 5 },
+    ],
+    // A piece off its skin: a half wiped, a quill ripped, a sac burst, the heart shot.
+    hit: [
+      { type: "chrysalisWipe", seat: 0, piece: 0, col: 5 },
+      { type: "chrysalisRip", seat: 0, piece: 0, col: 5 },
+      { type: "chrysalisBurst", piece: 0, col: 3 },
+      { type: "chrysalisHeart", piece: 0, col: 4 },
+    ],
+    hurt: (fx) => fx.boss.chrysalis.hurt,
+  },
 ];

@@ -80,9 +80,10 @@ export const SILENT_BOSS_F = [
   "bastionRegrow",
   "bastionSpent",
   "bastionOut",
-  // THE CHRYSALIS's fifteen are drawn by nothing yet: its look is the
-  // second lane (`docs/spec/bosses.md` §11.63), and until it lands they leave
-  // nothing behind for the next frame and burst nowhere.
+  // THE CHRYSALIS's fifteen are read as one family above the loop by
+  // `chrysalis-fx.ts` (`Effects.boss.chrysalis`), the way THE BASTION's are:
+  // a burst at the half, the quill, the sac or the pore, a quill flung off,
+  // the slime dropping, the spores, and the shudder as a skin peels.
   "chrysalisEnter",
   "chrysalisSkin",
   "chrysalisRub",

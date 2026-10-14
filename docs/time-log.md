@@ -40497,3 +40497,19 @@ Bottleneck: writing — three bosses each keep their hold differently, and
 THE BATON's must not show the count, which only runs when both are down.
 
 *Measured: 15 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-14 — THE CHRYSALIS, lane two: the look
+
+- reading: 5 min. THE BASTION's look commit as the map — its draw, pose,
+  shed, fx and the seven tables it was registered in.
+- writing: 10 min. The hide, the slime and quills, the sacs and heart, the
+  pose with its stances and its half turn, the peel, the receipts, the
+  palette, the frame test and *The look* in §11.63.
+- looking: 5 min. Five frames through `bun run frames`: the slime too thick,
+  the teardrop too round and the grub a beak, each fixed.
+- friction: 0 min. The frame test's colour counts met the HUD's own red and
+  a mixed hex; read off the canvas log in one pass.
+- landing: 5 min. `check:fast`, the style sheet, the index, the commit, `land`.
+
+Bottleneck: looking — the first frame showed three things wrong that no test
+would have, and each needed a frame to see it fixed.
