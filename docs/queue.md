@@ -331,6 +331,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## `bun run crop` smears a rectangle that runs past the picture's edge
 
 - **Found:** 2026-10-13, claude/queue-tasks-159048
+- **Taken:** 2026-10-14, claude/queue-the-slings-cords-a-hold-then-a-pull-in-its-place (claim: claude/queue-bun-run-crop-smears-a-rectangle-that-runs-past-t)
 - **Files:** `tools/frames/picture.ts`, `tools/frames/crop-png.ts`
 
 `magnify` clamps every source pixel into the picture, so an `--at` window that
