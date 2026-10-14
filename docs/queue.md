@@ -331,6 +331,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## THE VANE's housing: up or down, and no arrow to say which
 
 - **Found:** 2026-10-14, claude/queue-one-generic-pull-in-the-simulation-and-the-strai
+- **Taken:** 2026-10-14, claude/queue-the-vanes-housing-up-or-down-and-no-arrow-to-say
 - **Files:** `packages/sim/src/vane-hand.ts`, `packages/render/src/vane-grip.ts`, `tools/director/src/field-controls-vane.ts`
 - **Asks:** Which way does the navigator carry THE VANE's housing off the bearing: (a) down, as the director's row says, (b) up, as the render's grip says, or (c) either way, as the simulation has always counted it?
 
