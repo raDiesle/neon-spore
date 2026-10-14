@@ -111,6 +111,13 @@ export function mark(rel: string): number {
  * keeps the same directory out of the guards that read source; this is the
  * half the hook and `limits.test.ts` share.
  *
+ * **VERSUS's `candidates/registry.ts` is exempt because nobody writes it**:
+ * `bun run versus index` generates it from the directories, two lines a
+ * candidate, and a conflict in it is resolved by running that command
+ * (`tools/versus/registry.ts`). It passed the ceiling at 121 candidates on
+ * 14 October 2026, and splitting it would only move the same list into two
+ * files nobody reads either.
+ *
  * **A skill's own `SKILL.md` is the one `.md` file this reaches**, checked
  * before the `.ts` rule below rather than folded into it, since nothing else
  * about a skill file matches that rule at all.
@@ -121,6 +128,7 @@ export function counted(rel: string): boolean {
   if (!p.endsWith(".ts") || p.endsWith(".test.ts")) return false;
   if (p.includes("node_modules/") || p.includes("dist/") || p.includes("/test/")) return false;
   if (p.includes("tools/probe/scratch/")) return false;
+  if (p === "tools/versus/candidates/registry.ts") return false;
   return /^(packages|apps|tools)\//.test(p);
 }
 
