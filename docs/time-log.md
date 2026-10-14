@@ -40950,3 +40950,5 @@ drawing it up with its control on.
 **The bottleneck was the reading**: finding which enemy the owner meant took
 a sweep of the history first, and every brush consumer had to be found
 before deciding the five paint one kind rather than five.
+
+*Measured: 18 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*

@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-14 · 7808ebdfe — The director's palette has a CONTROLS group, one brush per on-screen control
+
+THE BLISTER's single button in SPECIAL is now five, in a CONTROLS group of their own: TAP, HOLD, SWIPE, TURN and RUB. Each places a blister with that gesture already set, and its picture is the blister up out of its pore wearing that control, so the five buttons differ by the control alone. A second brush over a blister changes its gesture and keeps whose hand it is and how many blows; the GESTURE row under the map still does the same, and the cell reads back as the brush of its new gesture. The owner asked for the group by name on 14 October 2026; it is a director tool, not a look.
+
 ## 2026-10-14 · c392b9374 — THE RATCHET's catch moves to ratchet-catch.ts, off the line ceiling
 
 `drawRatchetCatch` and `ratchetCatchBar` — the navigator's half, read by `ratchet-stop.ts` and the grip — leave `ratchet-parts.ts` for a file of their own, taking it from 250 lines to 197. Nothing drawn changes.
