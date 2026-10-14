@@ -328,19 +328,6 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/skipped.test.ts` holds the listing's count of the entries
 `next` stepped past and why.
 
-## `versus-pose.test.ts` is past the line ceiling
-
-- **Found:** 2026-10-14, claude/queue-the-curtain-a-part-that-turns-so-it-is-seen-from
-- **Taken:** 2026-10-14, claude/queue-versus-pose-test-ts-is-past-the-line-ceiling
-- **Files:** `tools/director/test/versus-pose.test.ts`
-
-The file is 318 lines, and `NOT_ONE_BODY` with its comments grows by a few
-each time a slot whose subject is not on the field opens (`curtain:glance`
-on 14 October 2026). Move `NOT_ONE_BODY`, `isKind` and `subjectOf` into
-their own module under `tools/director/test/`, which the test imports, so the
-test file holds tests only and sits under ~250 lines. Prove with
-`bun test tools/director/test/versus-pose.test.ts` and `bun run check`.
-
 ## `poses-bosses-hands-clocks.ts` sits on the line ceiling
 
 - **Found:** 2026-10-14, claude/queue-the-ledger-a-part-that-turns-so-it-is-seen-from

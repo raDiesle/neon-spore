@@ -40859,3 +40859,16 @@ Bottleneck: looking — the bite level drew three necks on one line, which
 only a frame showed.
 
 *Measured: 28 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
+
+## 2026-10-14 — `versus-pose.test.ts` back under the line ceiling
+
+- reading: 5 min. The test's helpers and what uses them.
+- writing: 5 min. `NOT_ONE_BODY`, `subjectOf`, `poseNamed` and
+  `slotPoseRows` moved into `versus-pose-help.ts`.
+- looking: 0 min.
+- friction: 5 min. Moving the subject list alone left the file at 261 lines,
+  and a heredoc with an escaped newline was refused by the guard.
+- landing: 5 min.
+
+Bottleneck: friction — the entry's cut was not enough on its own, so the
+pose helpers went too.
