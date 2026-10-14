@@ -3,8 +3,6 @@ import {
   leadHandLate,
   leadHoldHand,
   ledgerHand,
-  spoolHand,
-  spoolWrongHand,
   tasterHand,
   wellHoldHand,
   wellWindHand,
@@ -15,7 +13,6 @@ import {
   leadRunning,
   leadStill,
   ledgerPhase,
-  spoolBoss,
   tasterPhase,
   type World,
   wellHeldNow,
@@ -40,15 +37,6 @@ import { bossPose } from "./poses-bosses-kit.js";
  * the same and reached the same way — a hand on the one handle it has
  * (`boss-hands-well.ts`). Its fourth state, the square face it opens on,
  * stands still and is posed with the others in `poses-bosses-first.ts`.
- *
- * **THE SPOOL's six earned states — three of the fight, and the story's
- * three between the ribs — are here rather than with the other
- * handle boss**, which is where a brake belongs by rights: THE BELLOWS's five
- * cards took `poses-bosses-hands-handles.ts` within a couple of dozen lines
- * of its limit, and a boss's cards are worth more kept in one block than
- * filed under the control they happen to use. Its other two — the spool
- * hanging taut and the line simply running — arrive with no hand on anything
- * and are with the unattended states in `poses-bosses-clocks.ts`.
  */
 
 export const CLOCK_HAND_POSES: Pose[] = [
@@ -184,42 +172,6 @@ export const CLOCK_HAND_POSES: Pose[] = [
     "The second beam stood in the pass's own column and the lead is down. P1 aims at the wave again; P2 fires.",
     { hand: leadHand, want: (w) => w.boss?.kind === "lead" && w.boss.downBeat >= 0, hold: 6 },
   ),
-  bossPose(
-    "spool",
-    "slip",
-    "P1 held the brake at the wrong end and the line left its zone. P1 and P2 wait: the call starts again.",
-    { hand: spoolWrongHand, want: spoolIn("slip"), hold: 6 },
-  ),
-  bossPose(
-    "spool",
-    "ease",
-    "A whole call held inside the zone and a rib eases open. P1 keeps his depth; P2 reads the next zone.",
-    { hand: spoolHand, want: spoolIn("ease"), hold: 6, budgetBeats: 120 },
-  ),
-  bossPose(
-    "spool",
-    "slack",
-    "The fourth rib is open and the spool drifts off the top. P1 lets the brake go; P2 is done.",
-    { hand: spoolHand, want: spoolIn("slack"), hold: 6, budgetBeats: 240 },
-  ),
-  bossPose(
-    "spool",
-    "snag",
-    "The line caught dead, the casing shuddering. P1 lets the brake go, then grips again; P2 counts.",
-    { hand: spoolHand, want: spoolIn("snag"), hold: 2, budgetBeats: 60 },
-  ),
-  bossPose(
-    "spool",
-    "whip",
-    "The line thrown wide in a loop. P1 holds the brake full deep; P2 counts the beats.",
-    { hand: spoolHand, want: spoolIn("whip"), hold: 2, budgetBeats: 90 },
-  ),
-  bossPose(
-    "spool",
-    "fray",
-    "The line furred with fibres. P1 holds the brake featherlight; P2 says how light.",
-    { hand: spoolHand, want: spoolIn("fray"), hold: 2, budgetBeats: 120 },
-  ),
 ];
 
 /** THE WELL's face in one of its three phases. */
@@ -242,9 +194,4 @@ function tasterIs(phase: string): (w: World) => boolean {
 /** THE LEDGER in one of its named phases. */
 function ledgerIs(phase: string): (w: World) => boolean {
   return (w) => w.boss?.kind === "ledger" && ledgerPhase(w.boss, w.cfg, w.beat) === phase;
-}
-
-/** THE SPOOL in one of its named phases. */
-function spoolIn(phase: string): (w: World) => boolean {
-  return (w) => spoolBoss(w)?.phase === phase;
 }

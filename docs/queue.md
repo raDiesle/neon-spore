@@ -328,20 +328,6 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/skipped.test.ts` holds the listing's count of the entries
 `next` stepped past and why.
 
-## `poses-bosses-hands-clocks.ts` sits on the line ceiling
-
-- **Found:** 2026-10-14, claude/queue-the-ledger-a-part-that-turns-so-it-is-seen-from
-- **Taken:** 2026-10-14, claude/queue-poses-bosses-hands-clocks-ts-sits-on-the-line-ce
-- **Files:** `tools/director/src/poses-bosses-hands-clocks.ts`, `tools/director/src/poses.ts`
-
-The file is at 250 lines after THE TASTER's and THE LEDGER's glance poses
-took a `lookAt` each (14 October 2026), and the next lane to add a line to
-any of its six bosses fails `limits.test.ts`. Its header already says THE
-SPOOL's cards were filed here for want of room elsewhere: move THE WELL's
-three or THE SPOOL's six into their own `poses-bosses-hands-*.ts`, joined in
-`poses.ts` where the others are, with the header paragraph that explains them
-going along. Prove with `bun test tools/director` and `bun run check`.
-
 ## `lead-draw.ts` sits on the line ceiling
 
 - **Found:** 2026-10-14, claude/queue-the-lead-a-part-that-turns-so-it-is-seen-from-a

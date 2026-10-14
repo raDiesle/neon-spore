@@ -3615,6 +3615,7 @@ by hand never moves.
 | `tools/director/src/poses-bosses-hands-bastion.ts` | **THE BASTION's states**, posed with a hand on the controls (`boss-hands-bastion.ts`) |
 | `tools/director/src/poses-bosses-hands-shots.ts` | **The states a shot earns** on the clock bosses — THE WARDEN's plates, THE VANE's pins |
 | `tools/director/src/poses-bosses-hands-seam.ts` | **THE SEAM's states**, posed with a hand on the controls (`boss-hands-seam.ts`) |
+| `tools/director/src/poses-bosses-hands-spool.ts` | **THE SPOOL's six earned states**, posed with a hand on the brake (`boss-hands-spool.ts`): three of the fight and the story's three between the ribs |
 | `tools/director/src/poses-bosses-hands-clocks.ts` | **The states the pair's hands bring on the bosses that keep a ledger of their own** — THE TASTER's fan |
 | `tools/director/src/poses-bosses-hands-chrysalis.ts` | **THE CHRYSALIS's states**, posed with a hand on the controls (`boss-hands-chrysalis.ts`) |
 | `tools/director/src/poses-bosses-hands-field.ts` | **The states the pair's hands bring on the bosses of the field** — THE FLEET's chart, THE GORGE's mouth |

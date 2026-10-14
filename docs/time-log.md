@@ -40890,3 +40890,16 @@ Bottleneck: friction — every wave inserted renumbers the briefings table by
 hand, now a queue item.
 
 *Measured: 18 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
+
+## 2026-10-14 — THE SPOOL's poses out of `poses-bosses-hands-clocks.ts`
+
+- reading: 5 min. The file's six bosses and where its cards are joined.
+- writing: 5 min. THE SPOOL's six cards, their header paragraph and
+  `spoolIn` moved to `poses-bosses-hands-spool.ts`, joined after the clocks'
+  cards in `poses-bosses.ts`, and its index line.
+- looking: 0 min.
+- friction: 0 min.
+- landing: 5 min.
+
+Bottleneck: none of note — the entry named the cut, and the cards are
+joined in `poses-bosses.ts`, not `poses.ts` as it said.

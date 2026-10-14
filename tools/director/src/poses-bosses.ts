@@ -23,6 +23,7 @@ import { OCULUS_POSES } from "./poses-bosses-hands-oculus.js";
 import { RATCHET_POSES } from "./poses-bosses-hands-ratchet.js";
 import { SEAM_POSES } from "./poses-bosses-hands-seam.js";
 import { SHOT_HAND_POSES } from "./poses-bosses-hands-shots.js";
+import { SPOOL_HAND_POSES } from "./poses-bosses-hands-spool.js";
 import { TAKE_HAND_POSES } from "./poses-bosses-hands-takes.js";
 import { VALVE_POSES } from "./poses-bosses-hands-valve.js";
 import { VISE_POSES } from "./poses-bosses-hands-vise.js";
@@ -60,6 +61,7 @@ export const BOSS_POSES: Pose[] = [
   ...BEAT_HAND_POSES,
   ...FIELD_HAND_POSES,
   ...CLOCK_HAND_POSES,
+  ...SPOOL_HAND_POSES,
   ...TAKE_HAND_POSES,
   ...HANDLE_HAND_POSES,
   ...HASP_STORY_POSES,
