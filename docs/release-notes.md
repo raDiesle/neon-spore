@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-14 · ddc885579 — THE SLING's cords are a hold, then a pull in its place
+
+A draw is two gestures now, each whole on its own, as THE COMBO LAB's HOLD, THEN PULL plays it. The hold's beats are counted as before, and a lift too soon still springs the arm. Once the hold has counted, a fresh press pulls the cord `slingPullMilli` (two tiles) toward the lit side. That pull is the one generic PULL: it looses the arm the moment it gets there, and a pull let go short is said and waits to be taken again. The thumb that held moves nothing. The swipe on the lift is gone. The autopilot, the tests and the documents follow it.
+
 ## 2026-10-14 · e7db8c5cd — THE LATCH's grips bow away from the tendril, and a thumb that strays drops one
 
 Each grip's stroke down is now a half-wave out away from the tendril, `latchBowMilli` (1500) at its widest halfway down the reach. The depth that hauls the rope is still the straight distance down; a thumb a tile across from the bow says `pullStray` and lets the grip go — as a lift would, with no short pull said besides — until it lifts. Films, the autopilot and the director's pose pull along the bow; the channel is the sim's own path, filled by its length.

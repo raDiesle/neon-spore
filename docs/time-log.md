@@ -40291,3 +40291,5 @@ one file of wrappers.
 Bottleneck: the thumb that held is still down when the hold counts, so the
 pull had to be a fresh press with its own state, or the hold's thumb would
 have pulled.
+
+*Measured: 12 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
