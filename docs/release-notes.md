@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-14 · 2a9aa2269 — The director's wave order: THE INSTAR fifth, THE BASTION sixteenth
+
+The director's save of 14 October 2026 moves THE INSTAR up to wave 5, before THE ROCK, and THE BASTION up to wave 16, between CROWDED and SALVAGE. Both play on STANDARD 5: every button is there and the hold fills nothing, so neither hands the pair the lance before THE LANCE teaches it. The save's act pages are rebalanced under the line ceiling: THE BASTION moves into act-1b, and THE MIMIC, THE LATCH and FIVE BLISTERS into act-14b. The wave numbers in the briefings table follow.
+
 ## 2026-10-14 · 142abdd72 — VERSUS offers THE GALL's alien turning where it sits
 
 `gall:glance` offers the alien a turn about its own middle — SWAY, LOOK or COCK — the whole small body yawing where it stands on the seam, the lit core, the rim and the flash turning with it, the near flank opening and the far flank closing into the dark and back, on GALL · TAPS ON THE LEFT END. The seam, its four points and the knob stay where they are; a hand is taken in its point's share of the seam and a bolt is stopped by the seam, so nothing a thumb or a bolt meets moves. The record ships still, so the game draws what it did.

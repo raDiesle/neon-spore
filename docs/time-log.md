@@ -39828,3 +39828,5 @@ Bottleneck: finding the pose that shows the alien sat on the seam, since THE GAL
 - landing: 5 min. `check:fast`, the commit, `land`.
 
 Bottleneck: wave numbers are written down by hand in a spec table and four tests, so a reorder of two waves touched six places.
+
+*Measured: 10 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
