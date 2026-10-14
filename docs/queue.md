@@ -331,6 +331,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## THE SLING's cords: a hold, then a pull in its place, in the game too?
 
 - **Found:** 2026-10-12, claude/combo-lab-interactions-d44a22
+- **Taken:** 2026-10-14, claude/queue-curved-pulls-the-sim-knows-only-straight-ones (claim: claude/queue-the-slings-cords-a-hold-then-a-pull-in-its-place)
 - **Files:** `packages/sim/src/sling.ts`, `packages/sim/src/sling-hand.ts`, `packages/sim/src/drag-targets-e.ts`, `packages/render/src/sling-grip.ts`, `tools/director/src/field-actions-combo.ts`
 - **Asks:** Should THE SLING's cords in the game become THE COMBO LAB's HOLD, THEN PULL — the hold counted on its own, then a pull knob in its place — or keep the swipe on the lift (`DrawRelease`)?
 - **Answered:** 2026-10-13 — into the game, the owner: `DrawRelease` becomes a hold stage then a pull stage on the cord's own track, the autopilot and THE SLING's tests with it.
