@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-14 · 42a58e635 — THE CHRYSALIS opens with no guide: every skin's mark says its word
+
+The owner, 14 October 2026: *it does not need tutorial, it is self explanatory*. The wave opens on its number and name like THE VANE and THE INSTAR; each skin's mark already says RUB, PULL, SHIELD, COLOUR or FIRE. `waves.test.ts` names it in `SAYS_ITSELF`, and `briefings.md` counts one hundred and six guided waves.
+
 ## 2026-10-14 · 1ec7558c1 — The cord test finds TWO COLOURS by id
 
 It played index 2, which became SIDE TO SIDE — a red-only panel — when the arc's regular waves went in, so the cyan cord had nothing to run up.

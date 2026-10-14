@@ -40710,3 +40710,5 @@ the composer had to hold a ramp instead, chosen over the whole block at once.
 - landing: 5 min. `check:fast`, `land`.
 
 Bottleneck: the counts in `briefings.md`, found by the test that misses them.
+
+*Measured: 13 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
