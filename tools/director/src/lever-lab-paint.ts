@@ -4,7 +4,7 @@ import { drawHandleDial } from "../../../packages/render/src/handle-draw.js";
 import { PULL_SIZE } from "../../../packages/render/src/pull-knob.js";
 import { drawHoldClock } from "./hold-goo/wait.js";
 import { inZone, type LabLever, leverValue } from "./lever-lab-rule.js";
-import { atOf, type LeverSetup, mineShape, theirShape } from "./lever-lab-setup.js";
+import { atOf, depthOf, type LeverSetup, mineShape, theirShape } from "./lever-lab-setup.js";
 import { afterOf, paintField, toneOf } from "./pull-lab-paint.js";
 import { knobAt } from "./pull-lab-rule.js";
 import { LAB_KNOB, LAB_TILE, type LabShape } from "./pull-lab-shapes.js";
@@ -26,6 +26,11 @@ import { strayReach } from "./pull-lab-stray.js";
  *   held (`drawHandleDial`, the game's handle dial), and **the waiting
  *   clock** every hold in the labs wears sits on its shoulder until it is
  *   counted (`drawHoldClock`);
+ * - **FIZZ's goal ring stands where the lever is to be held**: at the end of
+ *   the groove for a grip, and for a band in the band's middle — the channel
+ *   drawn only that far, the knob going on past it along the faint groove
+ *   when it is too deep (`fizzOf`). The game's own drawing is untouched (the
+ *   owner left it to the lane, 14 October 2026);
  * - **the partner's lever** is drawn as THE COMBO LAB draws a partner's knob:
  *   dim, no arrow — its channel dim with it.
  *
@@ -55,13 +60,15 @@ export function paintLeverLab(ctx: CanvasRenderingContext2D, f: LeverFrame): voi
   const tone = toneOf(p);
   const held = p.phase === "held" || p.phase === "full";
   const after = afterOf(p, strayReach("half", f.touch));
-  drawPullTrack(ctx, mine.track, {
+  const fizz = fizzOf(mine, setup.ask.zone);
+  const from = after.from && { ...after.from, at: fizz.at(after.from.at) };
+  drawPullTrack(ctx, fizz.track, {
     ...tone,
     held,
     origin: mine.origin,
-    at: p.at,
+    at: fizz.at(p.at),
     time: f.time,
-    after,
+    after: { ...after, ...(from ? { from } : {}) },
   });
   const at = knobAt(mine, p);
   const q = pullTrackPoint(mine.track, p.at);
@@ -78,6 +85,24 @@ export function paintLeverLab(ctx: CanvasRenderingContext2D, f: LeverFrame): voi
   if (p.phase === "held")
     drawHandleDial(ctx, at.x, at.y, DRAWN * 0.75, PALETTE.goodRim, lever.fill);
   if (p.phase !== "full") drawHoldClock(ctx, at, DRAWN * 0.75, 1, f.time);
+}
+
+/** FIZZ's channel for a lever: the whole groove, or for a band only as far as
+ * its middle, so the goal ring FIZZ draws at the channel's end is where to
+ * hold — and where along that channel a point of the groove falls. */
+function fizzOf(
+  s: LabShape,
+  zone: readonly [number, number] | null,
+): { track: LabShape["track"]; at: (k: number) => number } {
+  if (!zone || zone[1] >= 1) return { track: s.track, at: (k) => k };
+  const goal = (zone[0] + zone[1]) / 2;
+  const a = pointAt(s, goal, -1);
+  const b = pointAt(s, goal, 1);
+  const track = { pts: [s.origin > 0 ? a : pointAt(s, 0, 1), b], w: s.track.w };
+  return {
+    track,
+    at: (k) => atOf(s, Math.min(1, depthOf(s, k) / goal), k < s.origin ? -1 : 1),
+  };
 }
 
 /** A depth's point on a groove, on the side `sign` names. */

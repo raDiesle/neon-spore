@@ -39724,3 +39724,13 @@ Bottleneck: the helper sits on the hull, so it had to go in the pass drawn after
 Bottleneck: the rub's hit test reads the faces with no clock, so they had to be held — and held at the drum's ends, they leave the turn almost nothing to show; that is put to the owner.
 
 *Measured: 55 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-14 — THE LEVER LAB: FIZZ's goal ring in a band's middle
+
+- reading: 5 min. FIZZ's goal ends in `goo-ooze.ts` and `goo-parts.ts`, to see a goal is always a channel's end.
+- writing: 5 min. The channel cut at the band's middle in the lab, the moved rows' answer in the queue.
+- looking: 5 min. A band down and sideways, at rest, held and too deep.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: none to speak of — cutting the channel in the lab put the ring where to hold without touching the game's drawing.
