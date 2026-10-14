@@ -30,7 +30,11 @@ export const BASTION_POSES = [
     "bastion",
     "layer",
     "The outer panels are lit. P1 pulls the left ones out, P2 the right ones, away from the moon.",
-    { hand: bastionHand, want: into("layer", 1) },
+    {
+      hand: bastionHand,
+      want: into("layer", 1),
+      lookAt: "the sphere inside the armour — whether its cage reads as a ball or a flat disc",
+    },
   ),
   bossPose(
     "bastion",

@@ -10,6 +10,7 @@ import {
 } from "@neon-spore/sim";
 import { drawBastionCage, type NodeMark } from "./bastion-cage.js";
 import type { BastionFx } from "./bastion-fx.js";
+import { drawBastionGlanced } from "./bastion-glance.js";
 import { drawBastionHandles } from "./bastion-handles.js";
 import { drawBastionCore, drawBastionHull, type PortMark } from "./bastion-hull.js";
 import { drawBastionPlates } from "./bastion-plates.js";
@@ -80,7 +81,7 @@ export function drawBastion(
     ctx.translate(-c.x, -c.y);
     ctx.globalAlpha = 0.3 + 0.7 * p.near;
   }
-  drawShells(ctx, l, world, s, p, time);
+  drawShells(ctx, l, world, s, p, beat + beatPhase, time);
   const body = new Path2D();
   body.arc(c.x, c.y, reach, 0, Math.PI * 2);
   drawHurt(ctx, body, fx.hurt.value);
@@ -101,6 +102,7 @@ function drawShells(
   world: World,
   s: BastionState,
   p: BastionPose,
+  at: number,
   time: number,
 ): void {
   const c = p.c;
@@ -112,32 +114,39 @@ function drawShells(
       : bastionGuns(l, c, s, ringStep, lit === "ring", bastionFrontGun(world, s));
   const yaw = (s.yawMilli / 1000) * (Math.PI / 180);
   const growing = s.phase === "regrow" ? (s.steps[s.cursor]?.layer ?? null) : null;
-  const shell = (layer: BastionLayer, draw: () => void) => {
+  const shell = (layer: BastionLayer, draw: () => void, g = ctx) => {
     if (stepOf(s, layer) === null) return;
-    grown(ctx, c, layer === growing ? p.grow : 1, draw);
+    grown(g, c, layer === growing ? p.grow : 1, draw);
   };
   shell("ring", () => drawRingBack(ctx, l, c, guns, yaw, p.pulse));
-  drawBastionCore(ctx, c, BASTION_CORE_TILES * l.tile, p.blow, p.pulse);
-  shell("port", () =>
-    drawBastionHull(
-      ctx,
-      c,
-      BASTION_SHELL_TILES.port * l.tile,
-      time,
-      ports(l, world, s, c, lit === "port"),
-      p.pulse,
-    ),
-  );
-  shell("lattice", () =>
-    drawBastionCage(
-      ctx,
-      c,
-      BASTION_SHELL_TILES.lattice * l.tile,
-      time,
-      nodes(l, world, s, c, lit === "lattice"),
-      p.charge,
-    ),
-  );
+  // The sphere inside the armour and the ring — the core, the hull and the
+  // cage — turns as one (`bastion-glance.ts`).
+  const sphere = new Path2D();
+  const sphereR = BASTION_SHELL_TILES.lattice * l.tile;
+  sphere.arc(c.x, c.y, sphereR, 0, Math.PI * 2);
+  drawBastionGlanced(ctx, c, sphereR, s, at, time, (g) => {
+    drawBastionCore(g, c, BASTION_CORE_TILES * l.tile, p.blow, p.pulse);
+    shell(
+      "port",
+      () =>
+        drawBastionHull(
+          g,
+          c,
+          BASTION_SHELL_TILES.port * l.tile,
+          time,
+          ports(l, world, s, c, lit === "port"),
+          p.pulse,
+        ),
+      g,
+    );
+    shell(
+      "lattice",
+      () =>
+        drawBastionCage(g, c, sphereR, time, nodes(l, world, s, c, lit === "lattice"), p.charge),
+      g,
+    );
+    return [sphere];
+  });
   shell("ring", () => drawRingFront(ctx, l, c, guns, yaw, p.pulse));
   shell("plates", () => drawBastionPlates(ctx, l, c, s, lit === "plates", world.cfg, p.pulse));
 }

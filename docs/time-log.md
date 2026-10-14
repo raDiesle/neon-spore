@@ -39936,3 +39936,15 @@ Bottleneck: the crane's arms are drawn apart from the mantle they leave, so turn
 Bottleneck: none to speak of — the colony is one skin drawn in one function, so it turned whole with nothing left hanging from it.
 
 *Measured: 6 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-14 — THE BASTION: a part that turns, so it is seen from a new side
+
+- reading: 5 min. The four shells' drawing, the knobs on the slabs and the
+  rim, and the bolt's stop on the front gun and the open port.
+- writing: 15 min. `bastion-glance.ts` twice, the sphere wrapped in it, its
+  hush and its test, and a `lookAt` on THE BASTION · LAYER.
+- looking: 10 min. `versus:shot bastion:glance cock` twice, cropped.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: the first cut turned the whole moon and hushed it while any shell was lit, which is nearly the whole fight, so the shot came out identical; turning only the sphere inside the armour, hushed for its own two shells, is what made it seen.

@@ -1,5 +1,6 @@
 import { describe, expect, it } from "bun:test";
 import { ANTIPHON_GLANCE, ANTIPHON_GLANCE_SIZE } from "../src/antiphon-glance.js";
+import { BASTION_GLANCE, BASTION_GLANCE_SIZE } from "../src/bastion-glance.js";
 import { BATON_GLANCE, BATON_GLANCE_SIZE } from "../src/baton-glance.js";
 import { CAIRN_GLANCE, CAIRN_GLANCE_SIZE } from "../src/cairn-glance.js";
 import { CAPSTAN_GLANCE, CAPSTAN_GLANCE_SIZE } from "../src/capstan-glance.js";
@@ -129,6 +130,7 @@ const ROWS: readonly Row[] = [
   { name: "THE LAMPREY", record: LAMPREY_GLANCE, size: LAMPREY_GLANCE_SIZE, hold: 0 },
   { name: "THE MIMIC", record: MIMIC_GLANCE, size: MIMIC_GLANCE_SIZE, hold: 0 },
   { name: "THE LATCH", record: LATCH_GLANCE, size: LATCH_GLANCE_SIZE, hold: 0 },
+  { name: "THE BASTION", record: BASTION_GLANCE, size: BASTION_GLANCE_SIZE, hold: 0 },
 ];
 
 const R = 100;

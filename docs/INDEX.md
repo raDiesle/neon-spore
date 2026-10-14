@@ -2536,6 +2536,7 @@ by hand never moves.
 | `packages/render/src/bastion-receipts.ts` | THE BASTION's receipts, drawn (`bastion-fx.ts` holds them): a torn plate flying out along its way |
 | `packages/render/src/bastion-ring.ts` | **THE BASTION's gun ring** (§11.62): a dark bronze band round the moon's middle |
 | `packages/render/src/bastion-grip.ts` | **The thumbs on THE BASTION** (§11.62): a knob on each side's next slab, pulled along the slab's track |
+| `packages/render/src/bastion-glance.ts` | **THE BASTION glances**: the sphere inside the armour turns, still while its own shell is lit, offered on VERSUS `bastion:glance` |
 | `packages/render/src/bastion-verdicts.ts` | **THE BASTION's knobs answering a touch the way every mark does** (`mark-feedback.ts`, `grip-verdict.ts`) |
 | `packages/render/src/pulse-wash.ts` | **The whole ship lit, by the one body that got past.** A body answered too late is not answered |
 | `packages/render/src/pulse-grip.ts` | **THE PULSE's hand on the bar**: the rectangle the meter is drawn in, the box a thumb is answered in |

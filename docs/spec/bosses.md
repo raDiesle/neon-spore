@@ -11769,6 +11769,17 @@ phone — the owner's eye — has never been watched.
 
 **What is not built — a step seen from another side** (suggested 10 October 2026, after the owner on THE BASTION: *very 3 dimensional and even user action is 3d to rotate*). The moon tips its pole toward the screen, not only turning on its axis; the pole's cap is a fifth shell, taken off with both rims turned together.
 
+**Offered (14 October 2026, VERSUS `bastion:glance`).** The sphere at the
+moon's heart is the part that turns: the core, the hull and the cage yaw
+together about its middle (`packages/render/src/bastion-glance.ts`) inside
+the armour and the gun ring, which stay where they hang, the near side
+opening and the far side closing into the dark and back. The slabs, the rim
+and the gun a bolt stops on are on the armour and the ring, so none of them
+moves; the sphere steadies to face-on over the first beat of a lit lattice
+or port, whose nodes and port are judged with no clock, and turns again once
+the shell is off. It ships still, and VERSUS offers **SWAY**, **LOOK** and
+**COCK** at 0.3 of the cage's radius on THE BASTION · LAYER.
+
 
 ## Retired
 
