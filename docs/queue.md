@@ -842,3 +842,21 @@ yaws with its cradle as the game's own mechanic.
 only be stale. Time it alone on an idle machine, raise the figure to what it
 costs at a slowdown of one if the drift holds, and say the runs in its comment.
 Prove with `bun test tools/hooks/test/guard.test.ts` and `bun run check`.
+
+## A wave editor save moves a wave and leaves its import behind
+
+- **Found:** 2026-10-14, claude/task-queue-work-2770bc
+- **Files:** `tools/director/src/waves-acts.ts`, `tools/director/src/waves-act-files.ts`
+
+The owner moved THE INSTAR up the list in the wave editor (`bun run dev`) and
+saved. The save splits the flat list back across the act files at each act's
+current length, so every wave between the old and new place shifted into the
+next file — and five of them (THE INSTAR, THE GIMBAL, the pinball, THE PULSE,
+THE GORGE) took a reference to a constant imported only by the file they left:
+`INSTAR_SCRIPT is not defined` at `act-1.ts:83`, and `tsc` red on five act
+files. Fixed by hand in the main checkout by moving each import with its wave.
+The save should write each act file's imports from the waves it now holds —
+the names a wave's source references, imported from where they were before —
+and drop the ones no wave there uses. Prove it with a test that moves a wave
+carrying an imported constant across an act boundary and type-checks the
+written files, then `bun run check`.
