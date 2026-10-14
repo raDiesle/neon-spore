@@ -331,6 +331,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## `versus-pose.test.ts` is past the line ceiling
 
 - **Found:** 2026-10-14, claude/queue-the-curtain-a-part-that-turns-so-it-is-seen-from
+- **Taken:** 2026-10-14, claude/queue-versus-pose-test-ts-is-past-the-line-ceiling
 - **Files:** `tools/director/test/versus-pose.test.ts`
 
 The file is 318 lines, and `NOT_ONE_BODY` with its comments grows by a few
