@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-14 · 2cce46dc5 — CLAUDE.md's trunk step brings a worktree up to the local main too
+
+The rule's own step merged only `origin/main`, which says *already up to date* while the local `main` holds landings nobody has pushed — how a lane on 11 October 2026 built a day behind its own trunk. It now ends with `git merge --ff-only main` in a worktree. The session-start hook (`trunk-behind.ts`, tested against a real worktree) and the lane skill already did the same.
+
 ## 2026-10-14 · 9a7da505a — The dev supervisor gives a server that panics at start one more try
 
 A director restarted by a tree move could die with a Bun panic at start (exit 134) and take `bun run dev`'s supervisor down with it, since the loop read any exit outside a restart as the human's own stop. A child that aborts within five seconds of being spawned is now spawned once more after half a second, said in one line; a second panic in a row exits as before. A test runs the real loop against a stub child that aborts.

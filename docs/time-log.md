@@ -40135,3 +40135,5 @@ Bottleneck: none — the item named the fix and the test.
 - landing: 5 min. `check:fast`, `land`.
 
 Bottleneck: finding that three of the four places the item named were done.
+
+*Measured: 6 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
