@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-14 · e7b11e254 — THE SCOUT, THE VANE and THE WELL hold the HOLD LAB's drop
+
+THE SCOUT's line on the ship and prime off the stern are each a drop, sunk while the thumb is down, the other seat's dimmed, with no water because neither hold counts towards anything. THE VANE's pin is the drop on the arm's tip, its water welling over the vanePinBeats before the sweep tears it out, and its cue draws no second drop (`BossCue.ownDrop`). THE WELL's seam, which had no mark of its own, wears the drop in the middle of the empty sector while the face slips, sunk under his thumb and filling as the hold he may spend runs out (`well-seam-hold.ts`).
+
 ## 2026-10-14 · 2ea5acb1f — THE ANTIPHON's options are bigger again, and the place they are dragged to is small
 
 The candidates on the chooser's rail grew from 1.35 tiles to 1.6, and the two off the middle now hang two rows lower (antiphonRailDrop), so three that big fit across the field without touching. Their veins run from where they hang. The place in the middle they are dragged into is now the size of the knob: the vein's channel had been sized in tiles rather than off the knob as every other pull's is, which drew that place, its ghost and its splash 2.6 times too big.

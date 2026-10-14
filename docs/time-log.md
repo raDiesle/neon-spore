@@ -40678,3 +40678,5 @@ a frame with one switched off to tell.
 
 Bottleneck: writing — THE WELL's hold had no mark at all, so where in the
 seam its drop stands and how big had to be decided rather than swapped.
+
+*Measured: 15 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
