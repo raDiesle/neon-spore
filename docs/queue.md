@@ -331,6 +331,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## The PULL LAB's FIZZ knob costs 400 rings a call
 
 - **Found:** 2026-10-13, claude/field-controls-standardization-44b3b7
+- **Taken:** 2026-10-14, claude/queue-the-slings-cords-a-hold-then-a-pull-in-its-place (claim: claude/queue-the-pull-labs-fizz-knob-costs-400-rings-a-call)
 - **Files:** `packages/render/src/goo-knob.ts`, `packages/render/src/goo-soft.ts`, `packages/render/src/goo-parts.ts`, `tools/director/test/marks-window.test.ts`
 
 `drawPullKnob` paints FIZZ (`goo-knob.ts`), and one knob costs 0.41 ms on the
