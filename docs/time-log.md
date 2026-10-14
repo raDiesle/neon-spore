@@ -40810,3 +40810,16 @@ Bottleneck: looking — neither card shows the drop big enough, so the frames
 were rendered by hand.
 
 *Measured: 52 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-14 — The composer fills the blocks that stalled at R7 and R8
+
+- reading: 5 min. What each stalled block could reach, step by step, and
+  how often AUTO cleared it.
+- writing: 15 min. R8 takes a twin, a twin is only ever a slick, bulb or
+  rock and only where the count has room, a trailing pod is dropped; tests.
+- looking: 15 min. The 33-block chain composed in memory again.
+- friction: 5 min. A twin pushed R8 one past its count on every fence draw.
+- landing: 5 min.
+
+Bottleneck: looking — which of three causes stopped a block only showed in a
+step-by-step table of reach and AUTO's clears, built by hand per block.

@@ -51,13 +51,16 @@ describe("a step, grown", () => {
 
   test("lands more twins in the harder half from the plateau on", () => {
     const r8 = stepById("R8");
-    expect(grownStep(r8, TWINS_FROM - 1).twins).toBeUndefined();
-    expect(grownStep(r8, TWINS_FROM).twins).toBe(1);
-    expect(grownStep(r8, TWINS_FROM + TWINS_EVERY).twins).toBe(2);
+    const r4 = stepById("R4");
+    expect(grownStep(r4, TWINS_FROM - 1).twins).toBeUndefined();
+    expect(grownStep(r4, TWINS_FROM).twins).toBe(1);
+    expect(grownStep(r4, TWINS_FROM + TWINS_EVERY).twins).toBe(2);
+    // R7 and R8 start with one of their own.
     expect(grownStep(stepById("R7"), TWINS_FROM).twins).toBe(2);
+    expect(grownStep(r8, TWINS_FROM).twins).toBe(2);
     expect(grownStep(r8, 99).twins).toBe(3);
     // A twin is an arrival of its own: a third more for each.
-    expect(grownStep(r8, TWINS_FROM).arrivals).toEqual([12, 16]);
+    expect(grownStep(r4, TWINS_FROM).arrivals).toEqual([8, 11]);
   });
 });
 
@@ -85,4 +88,27 @@ describe("where a block's first wave aims", () => {
     const first = composeBlock(WAVES, { ...b, floor: 3.5 }, "theLure")[0];
     expect(first?.pressure ?? 0).toBeGreaterThanOrEqual(3.5 + START_RISE);
   });
+});
+
+/**
+ * Blocks the composer once could not fill (`docs/queue.md`, 14 October 2026):
+ * THE CLASP's peak could not sit over R7's twin, and THE FENCE's R7 doubled a
+ * fence, which AUTO never clears. Composed dry, as `waves:compose` would.
+ */
+describe("blocks that used to stall", () => {
+  for (const id of ["theClasp", "theFence"]) {
+    test(`${id} composes all eight steps`, () => {
+      const out = composeBlock(WAVES, block(id), id);
+      expect(out.map((c) => c.faults.join("; ") || c.step.id)).toEqual([
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6",
+        "R7",
+        "R8",
+      ]);
+    }, 120_000);
+  }
 });

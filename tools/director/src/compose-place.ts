@@ -68,6 +68,16 @@ function put(motif: Motif, beat: number, col: number): Pick<Wave, "entries" | "p
   };
 }
 
+/** Whether a motif may land with a twin: a slick, a bulb or a rock. Two of
+ * the block's new thing at once is a different wave from the one it teaches —
+ * and two fences, or two magnets, is one AUTO never clears. */
+function twinnable(motif: Motif): boolean {
+  return (
+    motif.pods.length === 0 &&
+    motif.entries.every((e) => e.kind === undefined || e.kind.startsWith("meteor"))
+  );
+}
+
 /** The other column of a pair landing together: the mirror, unless that is
  * too close to tell apart. */
 function partner(col: number): number {
@@ -103,7 +113,8 @@ export function placeStep(block: Block, step: Step, rng: Rng): Pick<Wave, "entri
     pods.push(...(placed.pods ?? []));
     // R7's lever: one arrival in three lands with a twin across the field —
     // the second of each three, then the third, then the first.
-    if ((k + 2) % 3 < (step.twins ?? 0) && motif.pods.length === 0) {
+    const room = entries.length + pods.length + motif.entries.length <= step.arrivals[1];
+    if ((k + 2) % 3 < (step.twins ?? 0) && twinnable(motif) && room) {
       entries.push(...(put(motif, beat, partner(col)).entries ?? []));
     }
     if (entries.length + pods.length >= step.arrivals[1]) break;
@@ -111,5 +122,9 @@ export function placeStep(block: Block, step: Step, rng: Rng): Pick<Wave, "entri
     beat += motif.length + between(rng, [lo, Math.max(lo, step.gaps[1])]);
   }
   entries.sort((a, b) => a.beat - b.beat || a.col - b.col);
+  // A pod after the last body hangs over a wave that is already over: drop it,
+  // and let the checks say whether what is left still fits.
+  const end = Math.max(-1, ...entries.map((e) => e.beat));
+  for (let i = pods.length - 1; i >= 0; i--) if ((pods[i]?.beat ?? 0) >= end) pods.splice(i, 1);
   return pods.length > 0 ? { entries, pods } : { entries };
 }

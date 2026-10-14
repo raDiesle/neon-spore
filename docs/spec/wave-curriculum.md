@@ -203,7 +203,7 @@ is X, the previous block's is Y and an older one is Z:
 | R5 | 2–8 | 6–8 | X, slick/bulb/rock |
 | R6 | 0–10 | 5–6 | X, Z |
 | R7 | 0–10 | 5–6 | X, Y + one lever |
-| R8 | 0–10 | 4 (3 after block 20) | X, Y, Z |
+| R8 | 0–10 | 4 (3 after block 20) | X, Y, Z + a twin |
 
 ## 7. Bosses
 
@@ -231,8 +231,9 @@ Bosses are the owner's to lengthen by hand. This plan only places them.
    end of every row of the director's wave list.
 2. **The composer** — built: `bun run waves:compose`; the arc's five short
    blocks are written. A pod never comes alone (two bodies after each), and
-   R7's lever is a twin across the field; the rise across blocks is held
-   (§4). Not yet: eight later blocks that stall at R7–R8 (`docs/queue.md`).
+   R7's lever is a twin across the field, of a slick, bulb or rock only, and
+   R8 has one too; the rise across blocks is held (§4). THE COUNT, THE COIL
+   and THE CROSSING wait on AUTO (`docs/queue.md`).
 3. **Blocks**, about six per lane, in game order: compose, read, name, land,
    send the sheet.
 4. **The bosses moved** to the end of their blocks (§7), with the guide and

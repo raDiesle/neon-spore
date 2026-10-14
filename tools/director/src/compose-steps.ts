@@ -114,8 +114,11 @@ export const STEPS: readonly Step[] = [
     cols: [0, 10],
     gaps: [4, 4],
     span: [40, 48],
-    arrivals: [9, 12],
+    // R7's twin as well as the tightest gaps: without it R8 tops out at
+    // about 10, under the 9.5 R7's twin starts at, and the peak cannot rise.
+    arrivals: [10, 17],
     mix: "xyz",
+    twins: 1,
     ramp: "rise",
   },
 ];

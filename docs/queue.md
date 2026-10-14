@@ -538,6 +538,21 @@ or THE CLAW's panel, so their length is missing from the table and AUTO in the
 director cannot show either played right. Teach the field hand both, add a
 test in `packages/hands` that plays each wave to a clear, and refill their rows
 in the today table. Prove with `bun test packages/hands` and `bun run check`.
+The composer stops on it too: AUTO loses every R8 of THE COUNT's block it
+draws, so `bun run waves:compose theCount` writes nothing until this lands.
+
+## AUTO loses THE COIL and THE CROSSING in composed waves
+
+- **Found:** 2026-10-14, claude/queue-the-composer-stalls-eight-later-blocks-at-r7-r8
+- **Files:** `packages/hands/src/autopilot-field-hand.ts`, `tools/director/src/compose-check.ts`
+
+`bun run waves:compose` keeps only waves AUTO clears, and AUTO loses nearly
+every composed wave with a coil or a crossing rock in it — THE COIL's block
+at R7, THE CROSSING's at R2, with one draw in twelve or none clearing at most
+steps. Their own hand-made waves clear. Find what the field hand misses when a
+coil or a crossing comes among other bodies, teach it, and add a test in
+`packages/hands` that plays a composed wave of each to a clear. Prove with
+`bun run waves:compose theCoil` and `theCrossing` filling all their steps.
 
 ## AUTO loses BULB QUEEN and THE VANE
 
@@ -614,20 +629,6 @@ landing's fx and a run on the field, in one file. Split by what each asks —
 the press (`mirrorLobeUnder`, `mirrorGripSeat`, the readout) in one, the
 picture (`drawMirrorGrip`'s rings and drops, `MirrorGripFx`, the field run) in
 another — each under ~250 lines, and `bun run check` green.
-
-## The composer stalls eight later blocks at R7–R8
-
-- **Found:** 2026-10-14, claude/wave-composer
-- **Taken:** 2026-10-14, claude/queue-a-rise-in-difficulty-across-blocks-is-not-held (claim: claude/queue-the-composer-stalls-eight-later-blocks-at-r7-r8)
-- **Files:** `tools/director/src/compose-place.ts`, `tools/director/src/compose-steps.ts`, `tools/director/src/compose-ramp.ts`
-
-`bun run waves:compose` fills 31 of the game's 39 blocks dry, and eight stop
-with "no pressure in reach keeps the ramp": THE COUNT, THE THIRD SHOT and THE
-CLASP and THE LID at R8; THE FENCE, THE MAGNET and THE COIL at R7; THE
-CROSSING at R2 since the rise across blocks (`compose-grow.ts`). Either AUTO loses every draw that fits, or R7's twin (or a fence's / a
-coil's own fields) lands R7 more than 2 over R6. Find which per block, make
-the placement reach (a gentler lever for bodies that cannot twin, more draws,
-or R6 aimed higher), and add a test that composes each of the eight dry.
 
 ## The op-count budgets do not count what a glancing part draws
 
