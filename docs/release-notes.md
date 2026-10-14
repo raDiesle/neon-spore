@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-14 · bba3dc0d9 — THE TRAPEZE's zones wear the pull knob, a pull toward the middle
+
+Each zone now draws the pull every pull handle wears: a knob with its arrow toward the middle on a channel 1.5 tiles long, the knob following the thumb in and the channel filling green, dim while the swing is elsewhere. The swipe's reach is 1500 thousandths rather than 300, which was too short to draw as a channel, and the simulation keeps each seat's carry so the knob can ride it. THE STARE's card now says its lashes take a thumb only while the eye charges; the rest of the fight they count the beats.
+
 ## 2026-10-14 · 464d4da73 — VERSUS offers THE BATON's knuckles glancing
 
 Each knuckle on THE BATON's arm twists about its own centre, where its bead sits and a grip finds it, like a vertebra. Each turns a little after the one above it, and the far side narrows into the dark. The beads and the arm's line stay put. Ships still; VERSUS `baton:glance` offers SWAY, LOOK and COCK, judged on THE BATON · PASSING. Exemption: none — a look, offered on VERSUS.

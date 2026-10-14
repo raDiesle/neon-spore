@@ -39158,3 +39158,5 @@ Bottleneck: none — the arm's knuckles were already drawn one at a time about a
 
 Bottleneck: a 300-thousandth swipe has no channel to draw, so the look
 needed a rule change first.
+
+*Measured: 20 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
