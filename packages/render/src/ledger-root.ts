@@ -2,6 +2,7 @@ import { ledgerBoss, ledgerPhase, type World } from "@neon-spore/sim";
 import type { GripVerdicts } from "./grip-verdict.js";
 import type { SurfaceY } from "./hull-frame.js";
 import { type Layout, tileCX } from "./layout.js";
+import { drawLedgerAim } from "./ledger-aim.js";
 import { drawLedgerSocket } from "./ledger-cord.js";
 import { ledgerRootPoint, ledgerSocketPoint, ledgerTaut } from "./ledger-cord-shape.js";
 import { drawLedgerGrips } from "./ledger-grip.js";
@@ -42,6 +43,9 @@ export function drawLedgerRoot(
   const t = ledgerBoss(world);
   if (t === null || l.tile <= 0) return;
   const { cfg } = world;
+  // His one mark on the hull, before her gate: the cannon's way to the seam
+  // (`ledger-aim.ts`).
+  drawLedgerAim(ctx, l, world, t, time);
   if (!showsLedgerSocket(l.role)) return;
   // Her two hands first, and **behind the same gate as the socket**: the ring
   // stands in the socket's own column, so drawing it on his screen would read

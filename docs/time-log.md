@@ -39694,3 +39694,16 @@ Bottleneck: landing — two lanes rewrote one page at once, and the full check
 times out under the load of every lane checking together.
 
 *Measured: 39 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-14 — THE LEDGER shows the pilot where the cannon has to stand
+
+- reading: 15 min. The pull's path in `goo-parts.ts` and `goo-beat.ts`, the
+  cannon's grab circle, `ledger-root.ts`' pass on the finished ship.
+- writing: 10 min. `ledger-aim.ts` behind `FIRE`'s gate, its test.
+- looking: 5 min. One frame of the pilot's screen with the cannon off the seam.
+- friction: 10 min. The first landing ran its check over this lane's
+  uncommitted file and failed on the index; the file was set aside and the
+  landing run again.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: the helper sits on the hull, so it had to go in the pass drawn after the ship rather than with the body.
