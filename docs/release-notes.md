@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-14 · 46b45bdf4 — THE CHRYSALIS is drawn: a living cocoon in four skins, each its own tissue
+
+The cocoon hangs over the middle of the field on strands of silk, a bruised plum teardrop ridged end to end with two eye spots on its face and the grub glowing through it. Over it a wet lime slime coat, a half to each seat, thinning turn by turn and dripping; bone quills standing out of it that a pull stands out along their track; magenta sacs off its belly, the one swelling trembling and lit; and under the last skin the heart, beating behind its pore in its colour on the pilot's screen alone. Each skin holds the body its own way, and as a skin peels the cocoon turns half round, the skin splitting and falling away in two halves in a green shockwave; one run out grows back inside a red ring, and the bare grub dies dark.
+
 ## 2026-10-14 · d42aba9c8 — THE BATON, THE MIRROR and THE OCULUS hold the HOLD LAB's drop
 
 Every hold on these three bosses is now the HOLD LAB's drop, drawn by the boss itself with the simulation's thumb and fill, and the cue no longer draws a second drop over it. THE BATON's merge loses its rings and dials: a drop on each bead, sinking under its own seat's thumb, its water the window spent, so it still never says whether the other thumb is down. THE MIRROR's pin loses its lobe rings and count dial: a drop at the hull under this seat's lobe, and once both thumbs are down the partner's beside it, dimmed, both filling with the count. THE OCULUS's shut and reseal keep a drop on each half for the whole hold, on both screens, the partner's dimmed, filling as the pair comes, where the cue's drop used to vanish the moment a thumb landed.

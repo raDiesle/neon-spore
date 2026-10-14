@@ -40513,3 +40513,5 @@ THE BATON's must not show the count, which only runs when both are down.
 
 Bottleneck: looking — the first frame showed three things wrong that no test
 would have, and each needed a frame to see it fixed.
+
+*Measured: 22 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
