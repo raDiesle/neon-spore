@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-14 · fb3a5810d — Every boss but two glances: COCK most, SWAY and LOOK where they fit
+
+The owner, 14 October 2026, liked COCK best on THE BATON, THE CAIRN and THE CAPSTAN, liked every glance offered, and left the choice for the rest to the lane. Thirty-seven bosses now cock as they turn. THE PLUMB, THE SLING, THE TRAPEZE, THE CURTAIN, THE UNDERTOW and THE LEAD sway, being things that hang or flow. THE OCULUS, THE STARE and THE TASTER look side to side. THE BATON's knuckles and THE CAIRN's pile turn half again as far as offered, since THE BATON's was barely seen. THE GIMBAL sways at a third of its offered size, the most its rings allow and still stay in the grab and the true band. THE ANTIPHON and THE BASTION are being taken in their own lanes.
+
 ## 2026-10-14 · 42a58e635 — THE CHRYSALIS opens with no guide: every skin's mark says its word
 
 The owner, 14 October 2026: *it does not need tutorial, it is self explanatory*. The wave opens on its number and name like THE VANE and THE INSTAR; each skin's mark already says RUB, PULL, SHIELD, COLOUR or FIRE. `waves.test.ts` names it in `SAYS_ITSELF`, and `briefings.md` counts one hundred and six guided waves.

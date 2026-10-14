@@ -40728,3 +40728,5 @@ Bottleneck: the counts in `briefings.md`, found by the test that misses them.
 
 Bottleneck: friction — shell quoting across fifty files cost as much as the
 writing; the edits wanted one TypeScript script from the start.
+
+*Measured: 63 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
