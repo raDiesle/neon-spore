@@ -40424,3 +40424,5 @@ written.
 
 Bottleneck: friction — moving one draw onto a second canvas surfaced two
 caches that assumed there was only ever one.
+
+*Measured: 10 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*

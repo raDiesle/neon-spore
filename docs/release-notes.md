@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-14 · f990dd0af — THE INSTAR's head loses the hairline down its snout
+
+The face-on head was drawn whole twice, once under each half's clip, and where the two clips met a thin line ran down the face plate between the eyes. It is now drawn once onto the glance's own layer and laid down a half at a time, as every other turning boss part is.
+
 ## 2026-10-14 · 10af664b7 — `bun run crop` clips a window that runs past the picture's edge
 
 A window that ran past the right or bottom edge used to come back at the full size asked for, with the overhang filled by the edge pixels repeated. That read as part of the picture stretched into a bar. Now the window is clipped to the picture, and `crop` says it clipped and to what. A window with nothing of the picture in it is refused, and the message gives the picture's size.
