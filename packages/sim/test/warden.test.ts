@@ -243,6 +243,20 @@ describe("the pull", () => {
     expect(wardenPullMilli(run.world, warden(run.world))).toBe(0);
   });
 
+  it("says a rope let go short of taut, and nothing for a tap or a taut one", () => {
+    const said = (milli: number) => {
+      const run = open();
+      beats(run, 1);
+      haul(run, milli);
+      run.events.length = 0;
+      tick(run, drag(1, false, milli));
+      return run.events.filter((e) => e.type === "pullShort").length;
+    };
+    expect(said(TAUT / 2)).toBe(1);
+    expect(said(10)).toBe(0);
+    expect(said(TAUT)).toBe(0);
+  });
+
   it("refuses player 2, who is the one who fires", () => {
     const run = open();
     beats(run, 1);

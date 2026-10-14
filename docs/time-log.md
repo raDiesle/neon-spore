@@ -40006,3 +40006,15 @@ Bottleneck: THE TRAPEZE and THE BLISTER judged their swipe on the lift, so movin
 Bottleneck: the entry put two kinds of pull under one title — four that count once and three that hold a depth while the partner's hand is there — and telling them apart took longer than moving the four.
 
 *Measured: 13 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-14 — One generic PULL: the held pulls, THE LAMPREY and THE WARDEN
+
+- reading: 5 min. The head, the tail, the tow and the rope, and where each
+  is worth something only while the partner's hand is there.
+- writing: 10 min. Their travel through `pullTravelMilli`, a short lift
+  said, two tests, the rows.
+- looking: 0 min. Nothing drawn moved.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: deciding what a held pull takes from a rule built to count once — its travel and its short lift, never the count — and that the tow, whose knob stays where it is let go, takes neither.

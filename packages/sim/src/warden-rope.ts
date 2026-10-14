@@ -1,6 +1,7 @@
 import type { WardenState } from "./boss-state.js";
 import { removeCreature } from "./field.js";
 import { pullDownMilli, pullOpenMilli, tileCentreMilli } from "./handle-pull.js";
+import { pullHeard } from "./pull.js";
 import { NO_SHELL } from "./shell.js";
 import { type Command, type Creature, WARDEN_COLS } from "./types.js";
 import { NO_TETHER, wardenColor, wardenCycle } from "./warden-cycle.js";
@@ -72,6 +73,10 @@ function ropeRest(world: World, b: WardenState): { x: number; y: number } {
  * pull in this game goes the way its channel shows, and down is the one way
  * the field holds the whole of `wardenTautMilli` from where the rope hangs.
  *
+ * It is the one generic PULL (`pull.ts`) for its travel, and a hand let go
+ * short of taut is said (`pullShort`); the count is not the rope's, because
+ * the gate stands open only for as long as the hand holds it there.
+ *
  * A hand that lifts lets the tension go and the gate shuts with it. That and a
  * landed shot are the only two that shut it (`docs/spec/bosses.md` 11.4).
  */
@@ -80,6 +85,7 @@ export function wardenTetherHeard(world: World, player: 1 | 2, command: Command)
   if (b === null || b.kind !== "warden" || player !== 1) return;
   if (command.kind !== "drag" || command.target !== "wardenTether") return;
   if (!command.on || b.tetherId === NO_TETHER) {
+    if (!command.on && b.pulling && b.tetherId !== NO_TETHER) shortOf(world, b);
     slacken(b);
     return;
   }
@@ -107,6 +113,23 @@ export function wardenTetherHeard(world: World, player: 1 | 2, command: Command)
     world.cfg.wardenTautMilli,
   );
   noteEyeOpened(world, b, was);
+}
+
+/**
+ * The rope let go part way: the one generic PULL's short lift (`pull.ts`),
+ * said. Taut is the reach, or the field's edge where that comes first, so a
+ * rope pulled as far as the field lets it is never short.
+ */
+function shortOf(world: World, b: WardenState): void {
+  const room = pullDownMilli(
+    world.cfg,
+    b.pullAnchorY,
+    world.cfg.wardenTautMilli,
+    world.cfg.wardenTautMilli,
+  );
+  const rope = { way: "down", reachMilli: room } as const;
+  if (pullHeard(rope, false, false, b.pullMilli).heard !== "short") return;
+  world.events.push({ type: "pullShort", col: b.pupilCol, player: 1 });
 }
 
 /**

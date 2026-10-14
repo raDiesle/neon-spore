@@ -215,6 +215,20 @@ describe("a pull", () => {
     expect(slowing(world)).toBe(false);
   });
 
+  it("says a head let go short of the top, and nothing for a tap or one all the way up", () => {
+    const world = install();
+    toStay(world);
+    const w = worker(world);
+    const half = -CFG.lampreyHeadPullMilli / 2;
+    drag(world, w, "lampreyHead", { on: true, y: half });
+    expect(drag(world, w, "lampreyHead", { on: false, y: half })).toContain("pullShort");
+    drag(world, w, "lampreyHead", { on: true, y: -10 });
+    expect(drag(world, w, "lampreyHead", { on: false, y: -10 })).not.toContain("pullShort");
+    pullHead(world);
+    expect(drag(world, w, "lampreyHead", { on: false, y: -2000 })).not.toContain("pullShort");
+    expect(eel(world).phase).toBe("bite");
+  });
+
   it("slips with the tail loose, said once a press, and comes off the instant the tail is taken", () => {
     const world = install();
     toStay(world);

@@ -1,4 +1,5 @@
 import type { SimConfig } from "./config.js";
+import { pullTravelMilli } from "./pull.js";
 
 /**
  * **What a hand on a handle is allowed to do**, and it is one rule for all
@@ -142,7 +143,8 @@ export function clampPull(
  * hand has made down it, cut to taut and kept on the field (`handleBoundsMilli`,
  * so the whole circle stays above the bottom edge). Across counts nothing and
  * up is slack — the pair reads the way from the channel, and the channel only
- * goes one way.
+ * goes one way. The one generic PULL's travel (`pull.ts`), with the field's
+ * edge as a second bound.
  */
 export function pullDownMilli(
   cfg: SimConfig,
@@ -151,7 +153,7 @@ export function pullDownMilli(
   tautMilli: number,
 ): number {
   const room = handleBoundsMilli(cfg).y1 - anchorY;
-  return Math.max(0, Math.min(Math.round(rawY), tautMilli, room));
+  return Math.max(0, Math.min(pullTravelMilli({ way: "down", reachMilli: tautMilli }, rawY), room));
 }
 
 /**

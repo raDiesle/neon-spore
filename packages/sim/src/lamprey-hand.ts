@@ -13,6 +13,7 @@ import { lampreyTailWay } from "./lamprey-leap.js";
 import { lampreyPlugPressed, lampreyPlugPulled, lampreyTailOffered } from "./lamprey-plug.js";
 import { lampreyFreed, lampreySnapped, lampreyTapped } from "./lamprey-step.js";
 import { lampreyTowEnd, lampreyTowHeard } from "./lamprey-tow.js";
+import { type Pull, pullHeard, pullTravelMilli } from "./pull.js";
 import type { Command } from "./types.js";
 import type { World } from "./world.js";
 
@@ -29,6 +30,14 @@ import type { World } from "./world.js";
  * negative going up the screen, THE CURTAIN's hem (`curtain-hand.ts`), so the
  * pull is `-fromYMilli`, cut to `lampreyHeadPullMilli`. In a `tow` the same
  * drag carries the head along its curve instead (`lamprey-tow.ts`).
+ *
+ * **The head and the tail are the one generic PULL** (`pull.ts`) for their
+ * travel — up, and out along the body — and for a lift let go short, which
+ * is said (`pullShort`). The count is not theirs: what either is worth is
+ * whether the partner's hand is there too (`settle`), so a pull is *held*
+ * at its reach rather than counted at it. The tow's knob stays where it is
+ * let go, so a tow lifted part way is a pull taken in two presses, never a
+ * short one, and is off the rule.
  *
  * **The teeth are `lampreyTooth`**, an edge like THE VALVE's pin
  * (`valve-hand.ts`), its `id` the tooth: a thumb already resting has to lift
@@ -84,8 +93,14 @@ function tail(
   s.tailDown[side] = on;
   const way = lampreyTailWay(s);
   const along = Math.trunc((fromMilli * way.x + fromYMilli * way.y) / 1000);
-  const full = world.cfg.lampreyTailPullMilli;
-  s.tailMilli[side] = on ? Math.max(0, Math.min(full, along)) : 0;
+  const rope: Pull = { way: "down", reachMilli: world.cfg.lampreyTailPullMilli };
+  // A tail carried out — an `apart`'s or a tow's — let go short of the reach
+  // is said; a `pull`'s tail is only held, and has no distance to fall short of.
+  const carried = lampreyAsks(s) === "apart" || lampreyAsks(s) === "tow";
+  if (!on && carried && lampreyHolder(s) === side + 1) {
+    shortOf(world, s, rope.reachMilli, s.tailMilli[side] ?? 0, side);
+  }
+  s.tailMilli[side] = on ? pullTravelMilli(rope, along) : 0;
   if (on && !was && lampreyHolder(s) === side + 1) {
     world.events.push({ type: "lampreyGrip", side, col: s.col });
   }
@@ -93,10 +108,24 @@ function tail(
 }
 
 function head(world: World, s: LampreyState, side: 0 | 1, on: boolean, fromYMilli: number): void {
-  const full = world.cfg.lampreyHeadPullMilli;
-  s.headMilli[side] = on ? Math.max(0, Math.min(full, -Math.round(fromYMilli))) : 0;
+  const rope: Pull = { way: "up", reachMilli: world.cfg.lampreyHeadPullMilli };
+  const asked = lampreyAsks(s) === "pull" || lampreyAsks(s) === "apart";
+  if (!on && asked && lampreyWorker(s) === side + 1) {
+    shortOf(world, s, rope.reachMilli, s.headMilli[side] ?? 0, side);
+  }
+  s.headMilli[side] = on ? pullTravelMilli(rope, fromYMilli) : 0;
   if (!on) s.slipped[side] = false;
   settle(world, s);
+}
+
+/**
+ * A hand let go of a held pull: `held` is how far along its way it had it,
+ * read as the lift. Short of `reachMilli` and past a tap, it is refused and
+ * said.
+ */
+function shortOf(world: World, s: LampreyState, reachMilli: number, held: number, side: 0 | 1) {
+  if (pullHeard({ way: "down", reachMilli }, false, false, held).heard !== "short") return;
+  world.events.push({ type: "pullShort", col: s.col, player: side === 0 ? 1 : 2 });
 }
 
 /**

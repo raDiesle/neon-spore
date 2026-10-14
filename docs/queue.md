@@ -328,14 +328,6 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/skipped.test.ts` holds the listing's count of the entries
 `next` stepped past and why.
 
-## One generic PULL: the held pulls, THE LAMPREY and THE WARDEN
-
-- **Found:** 2026-10-10, claude/pull-control-visuals-35c04f; split 2026-10-14, claude/queue-one-generic-pull-the-curved-and-rope-pulls-onto
-- **Taken:** 2026-10-14, claude/queue-one-generic-pull-the-held-pulls-the-lamprey-and
-- **Files:** `packages/sim/src/lamprey-hand.ts`, `packages/sim/src/lamprey-tow.ts`, `packages/sim/src/warden-rope.ts`, `packages/sim/src/handle-pull.ts`
-
-The counted half landed (THE ANTIPHON's rail, THE GAUGE's tooth, PINBALL's plunger, THE BASTION's slabs). What is left are the pulls that **hold a depth** rather than count once: THE LAMPREY's head (up, `lampreyHeadPullMilli`), its tail (along the body, `lampreyTailWay`) and its towed head (a curve, `lamprey-tow.ts`) are each worth something only while the partner's hand is also there (`settle`), and THE WARDEN's tether opens the hatch as far as it is taut (`pullDownMilli`, `pullOpenMilli`). Put their travel through `pullTravelMilli` — the direction a `Pull` field — and say a short lift with `pullShort`, but keep their held answer: the count is not theirs. THE GUM is a pull by a body rather than a knob — say in the commit whether it joins or why not.
-
 ## One generic PULL: the five rows moved over from the LEVER
 
 - **Found:** 2026-10-14, claude/lever-lab-depth-hold-6a9001
@@ -852,4 +844,3 @@ three, then run `bun run check`.
 - **Files:** `packages/sim/src/handle-pull.ts`, `packages/sim/src/pinball-contact.ts`, `packages/sim/test/copies-table.ts`
 
 Both export `isqrt`: `handle-pull.ts` by bisection up to 46340, `pinball-contact.ts` by Newton's step with no ceiling. Keep the one without a ceiling in a small `isqrt.ts`, import it in both places (and in `gauge-tooth.ts`, which takes `handle-pull.ts`'s now), and add a `COPIES` row so a third is not written.
-
