@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-14 · 87e6414df — THE SURGE, THE ANTIPHON and THE LEAD hold the HOLD LAB's drop
+
+THE SURGE's two grip marks on the bulb are each a drop, sunk under its seat's thumb on both screens, the partner's dimmed and both dimmed while the bulb takes no thumb; they hold no water, so the pressure stays the navigator's number. THE ANTIPHON's organ wears the drop where its grip mark was, sunk while a thumb turns it. THE LEAD's stalk is the drop in place of the ring and dial, with the water welling to the rim over leadHoldBeats, and its still cue draws no second drop (`BossCue.ownDrop`).
+
 ## 2026-10-14 · cdb4afff0 — THE CHRYSALIS takes thumbs: a rub on each half of slime, a knob on each quill, and a word for every skin
 
 Each seat rubs its own half of the slime, wearing THE RUB LAB's drop lit by the turns it has had, and pulls its own quill by a knob along its track, THE BASTION's slab pull. The halo, the partner's ring and clock, and the green and red verdicts answer every touch, and a thumb on the partner's mark is refused aloud. The field says RUB, PULL, SHIELD under a swelling sac, and on the heart COLOUR to the pilot who sees it and FIRE to the navigator.

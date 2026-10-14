@@ -40627,3 +40627,5 @@ rows and are only found by the test that misses them.
 
 Bottleneck: writing — four tests read the ring's colour or its gradient
 count, and each had to be asked about the drop instead.
+
+*Measured: 26 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
