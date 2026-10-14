@@ -39578,3 +39578,5 @@ Bottleneck: a lobe is drawn under its own swing and pinch, so the dark needed it
 - landing: 5 min. `check:fast`, the commit, `land`.
 
 Bottleneck: none to speak of — the stones a thumb pulls hang off the beam, not the sac, so turning the sac alone left every grip where it was.
+
+*Measured: 6 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*

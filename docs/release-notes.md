@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-14 · 7a3aad0fa — VERSUS offers THE PLUMB's bob turning under its beam
+
+`plumb:glance` offers the bob's sac a turn about its middle — SWAY, LOOK or COCK — the sac and the core in its belly yawing together on top of its own slow turn to show the core, the near flank opening and the far flank closing into the dark and back, on THE PLUMB · STILL. The hook, the beam, the chains and the stones a thumb pulls stay where they hang, and a bolt meets the sac where it is drawn. The record ships still, so the game draws what it did.
+
 ## 2026-10-14 · af9f59fe3 — VERSUS offers THE VISE's seed-case turning on its spine
 
 `vise:glance` offers the whole seed-case a turn about its spine — SWAY, LOOK or COCK — the hollow, kernel, both lobes and their seams yawing together on top of the swing from the hinge, the spine staying on the middle column while the near lobe opens and the far lobe closes into the dark and back, on THE VISE · LIT. The bite's bar and the spat seed do not turn, and a bolt meets each lobe where it is drawn. The record ships still, so the game draws what it did.
