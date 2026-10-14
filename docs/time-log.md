@@ -39378,3 +39378,5 @@ Bottleneck: every part but the mantle was a read or too small, and a turn big en
   dial or its arrow; the specs and the director's rows.
 
 Bottleneck: the tests that counted the pump's ring from three directions.
+
+*Measured: 19 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
