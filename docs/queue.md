@@ -866,6 +866,7 @@ tests and send one PNG of the card from ON THE FIELD.
 ## THE MAZE's heart as THE RUB LAB's zigzag drop
 
 - **Found:** 2026-10-14, claude/rub-lab-zigzag-variant-1620a4
+- **Taken:** 2026-10-14, claude/rub-lab-zigzag-variant-1620a4 (claim: claude/queue-the-mazes-heart-as-the-rub-labs-zigzag-drop)
 - **Files:** `packages/sim/src/maze*.ts`, `packages/render/src/maze-heart.ts`, `packages/render/src/rub-drop.ts`
 - **Asks:** Should THE MAZE's heart become a counted rub that wears the zigzag drop, or keep its shake ring?
 
