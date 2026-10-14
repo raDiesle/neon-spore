@@ -331,6 +331,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## Curved pulls: the sim knows only straight ones
 
 - **Found:** 2026-10-11, claude/pull-longer
+- **Taken:** 2026-10-14, claude/queue-curved-pulls-the-sim-knows-only-straight-ones
 - **Files:** `tools/director/src/pull-lab-shapes.ts`, `tools/director/src/pull-lab-rule.ts`, `packages/render/src/pull-track.ts`
 - **Asks:** Which pulls bend — THE WARDEN's and THE LID's long cords only, every straight pull with room (those two, THE SINEW, THE LATCH), or only bosses still to be built?
 - **Answered:** 2026-10-13 — every straight pull with room, the owner: THE WARDEN's and THE LID's cords, THE SINEW and THE LATCH; the sim lane first, then each boss's path.
