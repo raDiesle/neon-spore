@@ -807,12 +807,11 @@ into its comment as the 30 September ones are. Prove with
 - **Files:** `tools/director/src/helpers-shield.ts`, `tools/director/src/helpers-poses.ts`, `tools/director/test/helpers-page.test.ts`
 
 CONTROLS › HELPERS › THE SHIELD lists every shield helper that ships with a
-gallery frame to draw it in. Six ship without one, and each needs a pose built
+gallery frame to draw it in. Five still ship without one; each needs a pose built
 in `helpers-poses.ts` that ends on a tick the helper is drawn on (only the last
-frame of a pose is handed `world.events`, `pose-frame.ts`):
-THE FENCE's skull over a shut dome (`fence-skull.ts`) and its gaps, sweep and
-FIND GAP FOR SHIELD (`fence-gate.ts`, `fence-sweep.ts`, `duty-fence.ts`) — no
-fence pose exists at all; SHIELD STUCK ON (`fault-label.ts`) — no pose puts a
+frame of a pose is handed `world.events`, `pose-frame.ts`). THE FENCE's skull,
+doorway and sweep are on the page since claude/docs-controls-helpers-org-c825df
+(`FENCE_UP`, `FENCE_SKULL`); what is left is SHIELD STUCK ON (`fault-label.ts`) — no pose puts a
 shield fault in force; the push's red rim and spray (`shield-push-fx.ts`) —
 `PUSHED_ONCE` runs a beat past it; the SHIELD button's fading glow
 (`guard-lapse.ts`); THE THROAT's shield face (`throat-hue.ts`) — `THE THROAT ·

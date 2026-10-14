@@ -39671,3 +39671,24 @@ Bottleneck: waiting for the previous landing's full check before this tree could
 Bottleneck: FIZZ draws a pull's goal at the channel's end, which a lever's zone cannot move without changing the game's own drawing — found only by looking.
 
 *Measured: 23 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-14 — CONTROLS › HELPERS in groups: the siren and its roster, the split, the shield
+
+- reading: 15 min. The page and its two files, the siren's tables
+  (`comms-talker.ts`, `duty-words.ts`), and a subagent's sweep of
+  `packages/render/src` for helpers the page did not list.
+- writing: 30 min. Nested groups with a numbered outline, the roster read off
+  the renderer's tables, the split cut into ASK and TELL, a SHIELD group, 25
+  rows added and five frames built for them.
+- looking: 25 min. Every new row's picture in the browser pane; the husk
+  under the wave's title, the skull out of frame and the blister too small,
+  each re-framed.
+- friction: 10 min. `director-here` started another lane's tree, the hidden
+  pane drew pictures slowly enough to time a script out, and a stray `cat`
+  waited on stdin.
+- landing: 30 min. Two full checks red on a timeout in a test this lane never
+  touched, then THE SHIELD LAB landed its own SHIELD group in the same five
+  files, merged by hand into one group.
+
+Bottleneck: landing — two lanes rewrote one page at once, and the full check
+times out under the load of every lane checking together.

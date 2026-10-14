@@ -1,6 +1,6 @@
 import { hullRow, midCol } from "@neon-spore/sim";
 import type { HelperGroup } from "./helpers-def.js";
-import { PUSHED_ONCE, TORCH_COMING } from "./helpers-poses.js";
+import { FENCE_SKULL, PUSHED_ONCE, TORCH_COMING } from "./helpers-poses.js";
 import { openShieldLab } from "./shield-lab.js";
 
 /**
@@ -15,11 +15,12 @@ import { openShieldLab } from "./shield-lab.js";
  * now* — on a real field. The rows under it are what already ships. THE
  * TORCH ALARM came here from TIME TO TALK and ONE LAST CHANCE from ON A BODY.
  *
- * Owed rows, for helpers that ship with no pose in the gallery to draw them
- * in, are a queue entry (`docs/queue.md`): THE FENCE's skull and gaps,
+ * THE FENCE's skull is here on a frame of its own (`FENCE_SKULL`); its
+ * doorway and sweep are a split and stand with the split
+ * (`helpers-hidden.ts`, `helpers-tell.ts`). Owed rows, for helpers that ship
+ * with no frame yet that shows them, are a queue entry (`docs/queue.md`):
  * SHIELD STUCK ON, the push's red rim, the button's fading glow, THE
- * THROAT's shield face, and DEFLECTED — `WARD · DEFLECTED` ends on the tick
- * but its frame does not show the word.
+ * THROAT's shield face, and DEFLECTED.
  */
 
 export const SHIELD_GROUP: HelperGroup = {
@@ -54,13 +55,28 @@ export const SHIELD_GROUP: HelperGroup = {
       lookAt: "the lit SHIELD button on the band",
     },
     {
+      name: "THE SKULL",
+      where: "a tile over the dome, while the dome stands under a shut stretch of fence",
+      seat: "BOTH",
+      says:
+        "Move the shield: the wall above it is shut, and the current will go to " +
+        "ground through the dome. A skull struck out of the fence's own blue, lit " +
+        "for as long as the column is wrong. Where the way through is, player 1 " +
+        "is shown (THE FENCE'S DOORWAY).",
+      source: "fence-skull.ts, fence-arc.ts",
+      pose: FENCE_SKULL,
+      role: "test",
+      lookAt: "the electric skull hanging over the dome",
+    },
+    {
       name: "ONE LAST CHANCE",
       where: "over a body the shield has already pushed back up once",
       seat: "BOTH — both hands were in the push, and both must change what they do",
       says:
         "The shield will not save this one again: this fall is the cannon's or " +
-        "the hull's. The body itself looks the same as the first time.",
-      source: "last-chance.ts",
+        "the hull's. The push that earned it flashed the rim red for a moment; " +
+        "the words stay. The body itself looks the same as the first time.",
+      source: "last-chance.ts, shield-push-fx.ts",
       pose: PUSHED_ONCE,
       role: "test",
       lookAt: "the words over the body",

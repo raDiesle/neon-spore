@@ -1,20 +1,28 @@
 import { describe, expect, test } from "bun:test";
 import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
+import { TALKER } from "@neon-spore/render";
 import { gripsCreature, type World } from "@neon-spore/sim";
+import { groupRows } from "../src/helpers-def.js";
 import { HELPER_GROUPS, helperPose } from "../src/helpers-page.js";
 import {
+  BEATBOX_UP,
   EMPTY_FIELD,
+  FENCE_UP,
+  HUSK_UP,
   LOCKED,
   LURE_UP,
   MAGNET_UP,
+  MINE_BLIND,
   MINE_UP,
+  MOULT_UP,
   PUSHED_ONCE,
   STRIP_BUSY,
   TORCH_COMING,
   VEIL_UP,
   WISP_UP,
 } from "../src/helpers-poses.js";
+import { SIREN_GROUP, sirenRoster } from "../src/helpers-siren.js";
 import { poseNamed } from "../src/poses.js";
 
 /**
@@ -25,7 +33,7 @@ import { poseNamed } from "../src/poses.js";
  */
 
 const RENDER_SRC = join(import.meta.dir, "../../../packages/render/src");
-const ROWS = HELPER_GROUPS.flatMap((g) => g.rows);
+const ROWS = HELPER_GROUPS.flatMap(groupRows);
 
 describe("CONTROLS › HELPERS", () => {
   test("every gallery pose a row names is in the gallery", () => {
@@ -60,6 +68,24 @@ describe("CONTROLS › HELPERS", () => {
   });
 });
 
+describe("THE SIREN's roster", () => {
+  test("names every creature that lights the siren, and stands just before the split", () => {
+    const named = new Set(sirenRoster().map((l) => l.what));
+    for (const [kind, talker] of Object.entries(TALKER))
+      if (talker !== null) expect(named.has(`THE ${kind.toUpperCase()}`), kind).toBe(true);
+    const at = HELPER_GROUPS.indexOf(SIREN_GROUP);
+    expect(HELPER_GROUPS[at + 1]?.title).toBe("WHAT ONE SCREEN HAS AND THE OTHER HAS NOT");
+  });
+
+  test("a group holds rows or smaller groups, never neither", () => {
+    const walk = (g: (typeof HELPER_GROUPS)[number]): void => {
+      expect((g.rows?.length ?? 0) + (g.parts?.length ?? 0), g.title).toBeGreaterThan(0);
+      for (const p of g.parts ?? []) walk(p);
+    };
+    for (const g of HELPER_GROUPS) walk(g);
+  });
+});
+
 describe("the frames built for HELPERS reach their moment", () => {
   const kinds = (p: { build: () => World }) => p.build().creatures.map((c) => c.kind);
 
@@ -69,6 +95,11 @@ describe("the frames built for HELPERS reach their moment", () => {
     expect(kinds(WISP_UP)).toContain("wisp");
     expect(kinds(MINE_UP)).toContain("mine");
     expect(kinds(MAGNET_UP)).toContain("magnet");
+    expect(kinds(MINE_BLIND)).toContain("mine");
+    expect(kinds(FENCE_UP)).toContain("fence");
+    expect(kinds(MOULT_UP)).toContain("moult");
+    expect(kinds(BEATBOX_UP)).toContain("beatbox");
+    expect(HUSK_UP.build().pods[0]?.husk).toBe(true);
   });
 
   test("the gunsight's field is empty and its wave still running", () => {

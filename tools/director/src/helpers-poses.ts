@@ -154,3 +154,61 @@ export const LOCKED: Pose = {
     return w;
   },
 };
+
+/** A mine two beats down, the whole screen: the seat not drawn the mine gets
+ * its fuse ring in the row under the siren. */
+export const MINE_BLIND: Pose = {
+  ...field("HELPERS · A MINE NOT DRAWN", () => oneBody("mine", "red", 2)),
+  crop: "full",
+};
+
+/** A fence open two columns left of the dome, which stands under the shut
+ * wire: the doorway on player 1's screen, the sweep on player 2's, and the
+ * skull over the dome on both. */
+function fenceOverDome(): World {
+  const w = fresh([{ beat: 0, col: COL, kind: "fence", color: null, gaps: [COL - 2] }]);
+  run(w, POSE_TPB * 4);
+  return w;
+}
+export const FENCE_UP: Pose = field("HELPERS · A FENCE SHUT OVER THE DOME", fenceOverDome);
+
+/** The same, the whole screen, so the dome and the skull over it are in it. */
+export const FENCE_SKULL: Pose = {
+  ...field("HELPERS · THE SKULL OVER THE DOME", fenceOverDome),
+  crop: "full",
+};
+
+/** A moult on the field: its next form beside it on player 2's screen. */
+export const MOULT_UP = close("HELPERS · A MOULT ON THE FIELD", "moult", () => {
+  const w = fresh([{ beat: 0, col: COL, kind: "moult", color: null, cargo: "ward" }]);
+  run(w, POSE_TPB * 2);
+  return w;
+});
+
+/** A beatbox that wants three: the numeral on player 1's screen, the lock on
+ * player 2's. */
+export const BEATBOX_UP = close("HELPERS · A BEATBOX ON THE FIELD", "beatbox", () => {
+  const w = fresh([{ beat: 0, col: COL, kind: "beatbox", color: null, beats: 3 }]);
+  run(w, POSE_TPB * 2);
+  return w;
+});
+
+/** A husk hanging long enough that the wave's title has gone from over it:
+ * DO NOT TAKE beside it on player 2's screen. */
+export const HUSK_UP: Pose = {
+  name: "HELPERS · A HUSK HANGING",
+  note: "A husk moored in the field.",
+  crop: "tile",
+  span: 5,
+  at: (w) => {
+    const p = w.pods[0];
+    // One column right of the pod, so the words beside it are in the frame.
+    const col = p ? Math.round(p.colMilli / 1000) : COL;
+    return { col: col + 1, row: p ? Math.round(p.rowMilli / 1000) : 5 };
+  },
+  build: () => {
+    const w = fresh([], [{ beat: 0, col: COL, row: 5, kind: "ward", husk: true }]);
+    run(w, POSE_TPB * 8);
+    return w;
+  },
+};

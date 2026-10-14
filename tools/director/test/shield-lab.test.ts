@@ -80,6 +80,6 @@ describe("THE SHIELD LAB's place and looks", () => {
   test("THE SHIELD stands first on HELPERS, with the lab and the torch's alarm", () => {
     expect(HELPER_GROUPS[0]).toBe(SHIELD_GROUP);
     expect(SHIELD_GROUP.lab).toBeDefined();
-    expect(SHIELD_GROUP.rows.map((r) => r.name)).toContain("THE TORCH ALARM");
+    expect((SHIELD_GROUP.rows ?? []).map((r) => r.name)).toContain("THE TORCH ALARM");
   });
 });

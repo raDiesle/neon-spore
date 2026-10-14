@@ -24,6 +24,9 @@ export { ClaspFrames } from "./clasp-frames.js";
 // THE COUNT's looks, so the SHAPES page's LIBRARY can draw each on the real
 // disc: the iris it wears, the notches it wore, and the two kept beside it
 // (`countdown-look.ts`).
+// Who speaks about each kind, and the word each seat's chip says — read by
+// the director's CONTROLS › HELPERS for the siren's roster.
+export { TALKER } from "./comms-talker.js";
 export { drawCountMarks, showsCount } from "./countdown.js";
 export { dialCount, dialOver } from "./countdown-dial.js";
 export { fuseCount, fuseOver } from "./countdown-fuse.js";
@@ -41,6 +44,7 @@ export {
   rindPrevBodyMul,
 } from "./creature-place.js";
 export { drawnCol, drawnRow } from "./depth.js";
+export { DUTY_WORD } from "./duty-words.js";
 export { smoothstep } from "./ease.js";
 export {
   type Dial,

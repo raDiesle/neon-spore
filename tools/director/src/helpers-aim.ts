@@ -1,11 +1,12 @@
 import { coreRowMilli, midCol } from "@neon-spore/sim";
 import type { HelperDef, HelperGroup } from "./helpers-def.js";
 import { EMPTY_FIELD, LOCKED, MINE_UP } from "./helpers-poses.js";
+import { firstOfKind } from "./pose-kit.js";
 
 /**
- * CONTROLS › HELPERS, the second half: where a shot goes, the words and
- * counts that stand on a body, and the marks every boss's part wears. The
- * first half is `helpers-calls.ts`.
+ * CONTROLS › HELPERS, after the siren, the split and the shield: where a
+ * shot goes, the words and counts that stand on a body, and the marks every
+ * boss's part wears.
  */
 
 export const AIM_GROUP: HelperGroup = {
@@ -27,45 +28,30 @@ export const AIM_GROUP: HelperGroup = {
       lookAt: "the soft column above the cannon, its rails and the ticks up its middle",
     },
     {
-      name: "EMBER, AND A COLOUR NOT KNOWN",
+      name: "EMBER",
       where: "round what a boss's FIRE or SHOOT asks the bolt to reach",
       seat: "the seat the shot is asked of",
       says:
         "Shoot this. A ring of neon round the whole target, never across it, and " +
         "four arrows on the diagonals swinging in at it, in the colour of the " +
-        "fire button to press. Where this screen is not told the colour — the " +
-        "other seat has to say it — the mark flickers fast between red and cyan, " +
-        "torn at each change like a signal caught between two channels: shoot " +
-        "this, and ask which colour.",
+        "fire button to press. Where this screen is not told the colour it " +
+        "flickers instead — A COLOUR NOT KNOWN, under the split.",
       source: "aim-ember.ts (emberEither), called by cue-helper.ts for every boss",
       pose: "BULB QUEEN · HELD",
-      role: "p2",
-      lookAt:
-        "the ring and four arrows round the real mark — caught here on red; on " +
-        "player 2's screen it switches between red and cyan, because player 1 is " +
-        "the one told the colour",
+      role: "p1",
+      lookAt: "the ring and four arrows round the real mark, in the colour to fire",
     },
     {
       name: "EMBER ON THE FIRE BUTTON",
       where: "round the fire button on the band, while EMBER stands on a target",
       seat: "the screen with the fire buttons",
-      says:
-        "Press this one. The same mark as on the target, in the button's colour; " +
-        "where the colour is not known it jumps between the two buttons, one at " +
-        "a time, never both.",
+      says: "Press this one. The same mark as on the target, in the button's colour.",
       source: "fire-button-mark.ts",
       pose: "BULB QUEEN · HELD",
       role: "p2",
       crop: "ship",
       lookAt: "the ring and arrows round a fire button at the bottom",
     },
-  ],
-};
-
-export const BODY_GROUP: HelperGroup = {
-  title: "ON A BODY",
-  sub: "a word, a frame or a count standing on one falling body",
-  rows: [
     {
       name: "THE LOCK",
       where: "round a body player 1's hand is holding",
@@ -78,6 +64,23 @@ export const BODY_GROUP: HelperGroup = {
       role: "p2",
       lookAt: "the amber scanner box round the held body",
     },
+    {
+      name: "THE TURNED SHOT",
+      where: "off a magnet's plate, when a bolt comes in from the wrong side",
+      seat: "BOTH",
+      says: "Turned away, not lost: fire again from the side the pilot names.",
+      source: "magnet-bounce.ts",
+      pose: "MAGNET · A SHOT TURNED AWAY",
+      role: "test",
+      lookAt: "the bolt glancing off the plate",
+    },
+  ],
+};
+
+export const BODY_GROUP: HelperGroup = {
+  title: "ON A BODY",
+  sub: "a word, a frame or a count standing on one falling body",
+  rows: [
     {
       name: "THE PUSH'S PAUSE",
       where: "either side of a rock that has just been carried a column",
@@ -103,18 +106,6 @@ export const BODY_GROUP: HelperGroup = {
       lookAt: "the glow on the caught lobe",
     },
     {
-      name: "THE COUNT",
-      where: "on a countdown's rim",
-      seat: "P1 only — on player 2's screen the body is bare",
-      says:
-        "When it opens. The navigator holds the trigger and cannot see the count, " +
-        "so the pilot has to say the beat out loud.",
-      source: "countdown.ts, countdown-look.ts",
-      pose: "COUNT · THREE BLADES LEFT",
-      role: "p1",
-      lookAt: "the blades closing across the body",
-    },
-    {
       name: "THE PIPS",
       where: "a ring round a mine, and round a blister",
       seat: "BOTH",
@@ -123,6 +114,31 @@ export const BODY_GROUP: HelperGroup = {
       pose: MINE_UP,
       role: "test",
       lookAt: "the ring of pips round the body",
+    },
+    {
+      name: "THE CHOIR'S PROMPT",
+      where: "a scanner box round the middle of a membrane, the gesture under it",
+      seat: "the screen with the cannon — the phone that has to be shaken",
+      says:
+        "Do this with the phone: SHAKE SCREEN, SHAKE AGAIN, KEEP RUBBING. The one " +
+        "answer in the game that is on no panel, so it is written on the body.",
+      source: "choir-prompt.ts",
+      pose: "CHOIR · RUB OR SHAKE",
+      role: "p1",
+      lookAt: "the box on the membrane and the words under it",
+    },
+    {
+      name: "THE BLISTER'S HELP",
+      where: "on a blister that is up",
+      seat: "the hand that may knock it down: a halo and the gesture — the other: a waiting clock",
+      says:
+        "Knock this one, and how: the halo inside, the tap's dots over it, a TURN's " +
+        "channel and knob. The seat that may not is shown the clock, never the gesture.",
+      source: "blister-help.ts, blister-turn-help.ts",
+      pose: "BLISTER · RUBBED ONCE",
+      role: "p2",
+      zoom: { at: firstOfKind("blister"), span: 4 },
+      lookAt: "the halo and the gesture over the blister",
     },
   ],
 };

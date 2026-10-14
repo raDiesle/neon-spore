@@ -83,3 +83,31 @@
   color: var(--ink);
   margin-top: 4px;
 }
+/* CONTROLS › HELPERS: everything that lights THE SIREN (`helpers-siren.ts`),
+   one line each, under the siren's heading. */
+.siren-roster {
+  max-width: var(--measure);
+  margin: 0 0 20px 16px;
+  border-collapse: collapse;
+  font-size: 0.8125rem;
+  line-height: 1.4;
+}
+.siren-roster th {
+  color: var(--cyan);
+  letter-spacing: 0.03em;
+  text-align: left;
+  font-weight: 700;
+}
+.siren-roster th,
+.siren-roster td {
+  padding: 3px 12px 3px 0;
+  border-bottom: 1px solid var(--line-soft);
+  vertical-align: top;
+}
+.siren-roster td {
+  color: var(--dim);
+}
+.siren-roster td:first-child {
+  color: var(--gold);
+  white-space: nowrap;
+}

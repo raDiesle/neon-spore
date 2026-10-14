@@ -1,7 +1,8 @@
 import { AIM_GROUP, BODY_GROUP, MARK_GROUP } from "./helpers-aim.js";
-import { CALL_GROUP, LOCK_GROUP } from "./helpers-calls.js";
 import type { HelperDef, HelperGroup } from "./helpers-def.js";
+import { HIDDEN_GROUP } from "./helpers-hidden.js";
 import { SHIELD_GROUP } from "./helpers-shield.js";
+import { SIREN_GROUP, sirenRosterTable } from "./helpers-siren.js";
 import { poseArt } from "./pose-art.js";
 import type { Pose } from "./pose-kit.js";
 import { poseNamed } from "./poses.js";
@@ -20,10 +21,16 @@ import { whenSeen } from "./when-seen.js";
  * is being told, and on which screen.
  */
 
+/**
+ * Grouped by what a helper is about (the owner, 14 October 2026): the shield
+ * first, at his word that morning; the siren every split speaks through, and
+ * the split itself beside it — the seat not told, the seat that must tell;
+ * then the shot, a body and a boss's mark.
+ */
 export const HELPER_GROUPS: readonly HelperGroup[] = [
   SHIELD_GROUP,
-  CALL_GROUP,
-  LOCK_GROUP,
+  SIREN_GROUP,
+  HIDDEN_GROUP,
   AIM_GROUP,
   BODY_GROUP,
   MARK_GROUP,
@@ -45,7 +52,7 @@ export function helperPose(h: HelperDef): Pose {
   return { ...pose, role: h.role, crop: h.crop ?? pose.crop };
 }
 
-function helperRow(h: HelperDef): HTMLElement {
+function helperRow(h: HelperDef, depth: number): HTMLElement {
   const section = document.createElement("section");
   section.className = "field-control";
 
@@ -53,6 +60,9 @@ function helperRow(h: HelperDef): HTMLElement {
   const stamp = document.createElement("span");
   stamp.className = "stamp";
   stamp.textContent = SEAT_STAMP[h.role];
+  h3.dataset.depth = String(depth);
+  // CONTENTS lists the name, not the seat stamp run into it.
+  h3.dataset.label = h.name;
   h3.append(stamp, document.createTextNode(h.name));
   section.appendChild(h3);
 
@@ -86,10 +96,11 @@ function helperRow(h: HelperDef): HTMLElement {
   return section;
 }
 
-function groupHead(g: HelperGroup): HTMLElement {
+function groupHead(g: HelperGroup, depth: number): HTMLElement {
   const head = document.createElement("div");
-  head.className = "field-part";
+  head.className = `field-part depth-${depth}`;
   const h2 = document.createElement("h2");
+  h2.dataset.depth = String(depth);
   h2.textContent = g.title;
   const sub = document.createElement("p");
   sub.className = "sub";
@@ -115,11 +126,17 @@ export function renderHelpers(): void {
   if (!body) return;
   drawn = true;
   body.replaceChildren();
-  for (const g of HELPER_GROUPS) {
-    body.appendChild(groupHead(g));
-    if (g.lab) body.appendChild(labCard(g.lab));
-    for (const h of g.rows) body.appendChild(helperRow(h));
-  }
+  for (const g of HELPER_GROUPS) appendGroup(body, g, 1);
+}
+
+/** A group's heading, its own rows, then each smaller group under it — the
+ * page's outline numbered by CONTENTS as ON THE FIELD's is (`contents-list.ts`). */
+function appendGroup(body: HTMLElement, g: HelperGroup, depth: number): void {
+  body.appendChild(groupHead(g, depth));
+  if (g === SIREN_GROUP) body.appendChild(sirenRosterTable());
+  if (g.lab) body.appendChild(labCard(g.lab));
+  for (const h of g.rows ?? []) body.appendChild(helperRow(h, depth + 1));
+  for (const p of g.parts ?? []) appendGroup(body, p, depth + 1);
 }
 
 /** Drawn on its own tab's first click — before the sheet is mounted, so a

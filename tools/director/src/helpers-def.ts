@@ -41,11 +41,21 @@ export interface HelperDef {
   lookAt: string;
 }
 
-/** A heading on the page, and the rows under it. */
+/**
+ * A heading on the page, and what stands under it: rows of its own, or
+ * smaller groups each with its rows — THE HIDDEN is two, the seat that is
+ * not told and the seat that has to tell (the owner, 14 October 2026).
+ */
 export interface HelperGroup {
   title: string;
   sub: string;
   /** A lab put up under the heading, before the rows (THE SHIELD LAB). */
   lab?: (host: HTMLElement) => void;
-  rows: readonly HelperDef[];
+  rows?: readonly HelperDef[];
+  parts?: readonly HelperGroup[];
+}
+
+/** Every row under a group, its smaller groups' included, in page order. */
+export function groupRows(g: HelperGroup): HelperDef[] {
+  return [...(g.rows ?? []), ...(g.parts ?? []).flatMap(groupRows)];
 }
