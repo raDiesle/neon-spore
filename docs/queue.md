@@ -331,6 +331,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## `guard.test.ts` reports a figure drift
 
 - **Found:** 2026-10-14, claude/queue-the-capstan-a-part-that-turns-so-it-is-seen-from
+- **Taken:** 2026-10-14, main (claim: claude/queue-guard-test-ts-reports-a-figure-drift)
 - **Files:** `tools/hooks/test/guard.test.ts`
 
 `check:fast` reported `tools/hooks/test/guard.test.ts` at 1732 ms at slowdown
