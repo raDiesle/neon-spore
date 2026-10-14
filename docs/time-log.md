@@ -39550,3 +39550,17 @@ Bottleneck: the counted pull-then-hold kept `mark: true`, so SOAK's full drop wa
 Bottleneck: the glare and the sight reach down to the hull, past any layer the turn can draw, so the lens had to be split into a turned body, the beams, and the turned lit pair over them.
 
 *Measured: 10 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-14 — THE VISE: a part that turns, so it is seen from a new side
+
+- reading: 5 min. `vise-draw.ts`, `vise-stop.ts`'s lobe outline, `vise-grip.ts`'s
+  seat zones and `vise-sway.ts`'s hinge.
+- writing: 15 min. The record about the spine, the lobe frame and its outline
+  moved to `vise-lobe.ts` and shared by the stop and the far lobe's dark, three
+  candidates, the pose's lookAt, the spec note.
+- looking: 5 min. Two shots; a fifth of the half-width read faint on a case two
+  tiles across, three tenths reads.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: a lobe is drawn under its own swing and pinch, so the dark needed its outline in the case's frame — the stop already had it, and it was lifted out to be shared rather than written twice.

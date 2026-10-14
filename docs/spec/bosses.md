@@ -9499,6 +9499,17 @@ silent, as the simulation is.
 
 **What is not built — a step seen from another side** (suggested 10 October 2026, after the owner on THE BASTION: *very 3 dimensional and even user action is 3d to rotate*). The vise turns a quarter round, and the lobes close up and down instead of left and right — the two drags change their way.
 
+**Offered (14 October 2026, VERSUS `vise:glance`).** A seed-case, so the whole
+case turns, about its spine (`packages/render/src/vise-glance.ts`), on top of
+its swing from the hinge: the hollow, the kernel, both lobes with their seams
+and the spine yaw together, the spine staying on the middle column while the
+near lobe opens and the far lobe closes into the dark and back. A lobe is
+dragged shut from anywhere on its seat's side, so nothing a thumb is on moves;
+the bite's bar and the spat seed do not turn, and a bolt meets each lobe where
+it is drawn. It ships still, and VERSUS offers **SWAY**, **LOOK** and **COCK**
+at three tenths of the case's half-width on THE VISE · LIT. The quarter turn
+that changes the drags' way is not built.
+
 
 ## 11.48 THE PLUMB — the boss two pulls hold level, then shoot into
 

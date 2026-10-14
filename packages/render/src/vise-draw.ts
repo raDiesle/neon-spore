@@ -1,4 +1,3 @@
-import { LIGHT_HALF } from "@neon-spore/content";
 import {
   midCol,
   VISE_SEAMS_PER_LOBE,
@@ -10,15 +9,15 @@ import {
   type World,
 } from "@neon-spore/sim";
 import type { BoltStops } from "./bolt-stop.js";
-import { drawHurt } from "./boss-hurt.js";
 import { coreHurt } from "./core-hurt.js";
 import { fieldX } from "./field-flip.js";
 import { rgba } from "./hex.js";
-import { litRound } from "./key-light.js";
 import type { Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
 import { stepColour } from "./step-colour.js";
 import type { ViseFx } from "./vise-fx.js";
+import { drawViseGlanced } from "./vise-glance.js";
+import { drawViseLobe, viseLobeFrame, viseLobeShell } from "./vise-lobe.js";
 import { drawViseFlash, drawViseKernel, drawViseLitSeam } from "./vise-marks.js";
 import {
   viseArrived,
@@ -29,17 +28,7 @@ import {
   viseSplit,
   viseSqueeze,
 } from "./vise-pose.js";
-import {
-  VISE_PINCH_NARROW,
-  viseCentre,
-  viseHinge,
-  viseHollowPath,
-  viseLift,
-  viseLobePath,
-  viseRadius,
-  viseSeamPath,
-  viseSpinePath,
-} from "./vise-shape.js";
+import { viseCentre, viseHinge, viseHollowPath, viseLift, viseSpinePath } from "./vise-shape.js";
 import { type ViseStand, viseStopper } from "./vise-stop.js";
 import {
   drawViseBiteBar,
@@ -99,8 +88,6 @@ export function drawVise(
 
   // The case swings from its hinge (`vise-sway.ts`); the kernel hangs still.
   const swing = viseSwing(cfg, s, beat, beatPhase, world);
-  ctx.fillStyle = rgba(PALETTE.background, 0.92);
-  swungFrom(ctx, l, swing, () => ctx.fill(viseHollowPath(l)));
   const step = viseLitStep(s);
   if (step?.ask === "fire") fx.tell(stepColour(step.color).rim);
   const firing = step !== null && step.ask === "fire" && s.bared;
@@ -108,37 +95,44 @@ export function drawVise(
     ? { color: step.color, left: viseLeft(s, viseWindowBeats(world, step), beat, beatPhase) }
     : null;
   const hurt = coreHurt(s.hits);
-  drawViseKernel(ctx, l, hurt.size * (1 - 0.5 * split), hurt.bright, s.bared, lit, beatPhase, time);
-
   const held = viseHeldShare(world, s, beatPhase);
   // A pinch lights the seam it will crack; a `both` step lights the tight
   // seam by the spine on each lobe, the same word said to both seats at once.
   const both = step?.ask === "both";
   const litSide = viseLitSide(s);
   const leans: [number, number] = [0, 0];
-  for (const side of [0, 1] as const) {
-    // A bite clamps both lobes shut on the kernel as it lunges.
-    const open = (viseOpenAngle(world, s, side, beat, beatPhase) + fx.spring(side)) * (1 - bite);
-    // A lobe's lean opens it outward, so the same turn on screen is + on the left and - on the right.
-    const lean = open + (side === 0 ? swing : -swing);
-    leans[side] = lean;
-    drawLobe(ctx, l, s, side, lean, viseSqueeze(cfg, s, side), split, time, fx.hurt.value);
-    if (both || litSide === side) {
-      ctx.save();
-      lobeFrame(ctx, l, side, lean, viseSqueeze(cfg, s, side), split);
-      const seam = both
-        ? VISE_SEAMS_PER_LOBE - 1
-        : Math.min(VISE_SEAMS_PER_LOBE - 1, s.cracks[side]);
-      drawViseLitSeam(ctx, l, side, seam, held, beatPhase);
-      ctx.restore();
+  // The whole case turns as `vise-glance.ts` says; the bar and the seed under it do not.
+  drawViseGlanced(ctx, l, time, (g) => {
+    g.fillStyle = rgba(PALETTE.background, 0.92);
+    swungFrom(g, l, swing, () => g.fill(viseHollowPath(l)));
+    drawViseKernel(g, l, hurt.size * (1 - 0.5 * split), hurt.bright, s.bared, lit, beatPhase, time);
+    const shells: Path2D[] = [];
+    for (const side of [0, 1] as const) {
+      // A bite clamps both lobes shut on the kernel as it lunges.
+      const open = (viseOpenAngle(world, s, side, beat, beatPhase) + fx.spring(side)) * (1 - bite);
+      // A lobe's lean opens it outward, so the same turn on screen is + on the left and - on the right.
+      const lean = open + (side === 0 ? swing : -swing);
+      leans[side] = lean;
+      const squeeze = viseSqueeze(cfg, s, side);
+      drawViseLobe(g, l, s, { side, lean, squeeze, split }, time, fx.hurt.value);
+      shells.push(viseLobeShell(l, { side, lean, squeeze, split }));
+      if (both || litSide === side) {
+        g.save();
+        viseLobeFrame(g, l, { side, lean, squeeze, split });
+        const seam = both
+          ? VISE_SEAMS_PER_LOBE - 1
+          : Math.min(VISE_SEAMS_PER_LOBE - 1, s.cracks[side]);
+        drawViseLitSeam(g, l, side, seam, held, beatPhase);
+        g.restore();
+      }
     }
-  }
-
-  if (split <= 0) {
-    ctx.lineWidth = STROKE.inner;
-    ctx.strokeStyle = rgba(PALETTE.viseCrack, 0.35);
-    swungFrom(ctx, l, swing, () => ctx.stroke(viseSpinePath(l)));
-  }
+    if (split <= 0) {
+      g.lineWidth = STROKE.inner;
+      g.strokeStyle = rgba(PALETTE.viseCrack, 0.35);
+      swungFrom(g, l, swing, () => g.stroke(viseSpinePath(l)));
+    }
+    return shells;
+  });
   drawViseBiteBar(ctx, l, bite, l.hullY - y, beatPhase);
   const spat = s.phase === "lit" ? s.steps[s.cursor] : s.steps[s.cursor - 1];
   let seed: ViseStand["seed"] = null;
@@ -152,7 +146,7 @@ export function drawVise(
   // simulation says (`sim/vise-shot.ts`).
   if (!viseDone(s)) {
     const squeeze = [viseSqueeze(cfg, s, 0), viseSqueeze(cfg, s, 1)] as const;
-    stops?.aim(viseStopper(l, world, { x, y, leans, squeeze, kernel: hurt.size, seed }));
+    stops?.aim(viseStopper(l, world, { x, y, leans, squeeze, kernel: hurt.size, seed, time }));
   }
   drawViseMarkFeedback(ctx, l, world, s, beat, beatPhase, time, l.hullY - y, fx.marks.verdicts);
   drawViseFlash(ctx, l, fx.flash, fx.split);
@@ -174,60 +168,5 @@ function swungFrom(
   ctx.rotate(swing);
   ctx.translate(-hinge.x, -hinge.y);
   draw();
-  ctx.restore();
-}
-
-/**
- * Move the canvas into lobe `side`'s own frame: swung `lean` about the hinge
- * at the top of the spine, its bottom outward; narrowed toward the spine by
- * the pinch on it; and, as the case splits, thrown out and down.
- */
-function lobeFrame(
-  ctx: CanvasRenderingContext2D,
-  l: Layout,
-  side: 0 | 1,
-  lean: number,
-  squeeze: number,
-  split: number,
-): void {
-  const out = side === 0 ? -1 : 1;
-  if (split > 0) ctx.translate(out * split * l.tile * 0.9, split * l.tile * 0.7);
-  const hinge = viseHinge(l);
-  ctx.translate(hinge.x, hinge.y);
-  ctx.rotate(-out * lean);
-  ctx.translate(-hinge.x, -hinge.y);
-  ctx.scale(1 - VISE_PINCH_NARROW * squeeze, 1);
-}
-
-/** One half-shell: tan fill, the key light on it, its bristled outline, the blow over it, and every seam already cracked. */
-function drawLobe(
-  ctx: CanvasRenderingContext2D,
-  l: Layout,
-  s: ViseState,
-  side: 0 | 1,
-  lean: number,
-  squeeze: number,
-  split: number,
-  time: number,
-  hurt: number,
-): void {
-  const shell = viseLobePath(l, side);
-  const { ry, rx } = viseRadius(l);
-  ctx.save();
-  lobeFrame(ctx, l, side, lean, squeeze, split);
-  ctx.fillStyle = rgba(PALETTE.viseCase, 0.95);
-  ctx.fill(shell);
-  ctx.save();
-  ctx.clip(shell);
-  litRound(ctx, 0, -ry * 0.2, Math.max(rx, ry), LIGHT_HALF.rock, 0.02 * Math.sin(time * 0.5));
-  ctx.restore();
-  ctx.lineWidth = STROKE.outline;
-  ctx.strokeStyle = rgba(PALETTE.viseCaseDark, 0.95);
-  ctx.stroke(shell);
-  drawHurt(ctx, shell, hurt);
-  const cracked = Math.min(VISE_SEAMS_PER_LOBE, s.cracks[side]);
-  ctx.lineWidth = STROKE.outline;
-  ctx.strokeStyle = rgba(PALETTE.viseCrack, 0.85);
-  for (let k = 0; k < cracked; k++) ctx.stroke(viseSeamPath(l, side, k));
   ctx.restore();
 }

@@ -109,6 +109,9 @@ import { VALVE_SWAY } from "./valve-glance/sway/index.js";
 import { VANE_COCK } from "./vane-glance/cock/index.js";
 import { VANE_LOOK_AROUND } from "./vane-glance/look/index.js";
 import { VANE_SWAY } from "./vane-glance/sway/index.js";
+import { VISE_COCK } from "./vise-glance/cock/index.js";
+import { VISE_LOOK_AROUND } from "./vise-glance/look/index.js";
+import { VISE_SWAY } from "./vise-glance/sway/index.js";
 import { WARDEN_COCK } from "./warden-glance/cock/index.js";
 import { WARDEN_LOOK_AROUND } from "./warden-glance/look/index.js";
 import { WARDEN_SWAY } from "./warden-glance/sway/index.js";
@@ -190,6 +193,9 @@ export const VARIANTS: Variant[] = [
   SEAM_COCK,
   SEAM_LOOK_AROUND,
   SEAM_SWAY,
+  VISE_COCK,
+  VISE_LOOK_AROUND,
+  VISE_SWAY,
   SPLICE_COCK,
   SPLICE_LOOK_AROUND,
   SPLICE_SWAY,

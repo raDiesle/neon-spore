@@ -43,6 +43,7 @@ import { THROAT_GLANCE, THROAT_GLANCE_SIZE } from "../src/throat-glance.js";
 import { UNDERTOW_GLANCE, UNDERTOW_GLANCE_SIZE } from "../src/undertow-glance.js";
 import { VALVE_GLANCE, VALVE_GLANCE_SIZE } from "../src/valve-glance.js";
 import { VANE_GLANCE, VANE_GLANCE_SIZE } from "../src/vane-glance.js";
+import { VISE_GLANCE, VISE_GLANCE_SIZE } from "../src/vise-glance.js";
 import { WARDEN_GLANCE, WARDEN_GLANCE_SIZE } from "../src/warden-glance.js";
 import { WELL_GLANCE, WELL_GLANCE_SIZE } from "../src/well-glance.js";
 
@@ -102,6 +103,7 @@ const ROWS: readonly Row[] = [
   { name: "THE KEEL", record: KEEL_GLANCE, size: KEEL_GLANCE_SIZE, hold: 0 },
   // Held at the wheel's hub and the socket, 0.95 tiles either side of a drum 2.3 wide.
   { name: "THE VALVE", record: VALVE_GLANCE, size: VALVE_GLANCE_SIZE, hold: 0.41 },
+  { name: "THE VISE", record: VISE_GLANCE, size: VISE_GLANCE_SIZE, hold: 0 },
   { name: "THE OCULUS", record: OCULUS_GLANCE, size: OCULUS_GLANCE_SIZE, hold: 0 },
   { name: "THE SEAM", record: SEAM_GLANCE, size: SEAM_GLANCE_SIZE, hold: 0 },
   { name: "THE MANTLE", record: MANTLE_GLANCE, size: MANTLE_GLANCE_SIZE, hold: 0 },

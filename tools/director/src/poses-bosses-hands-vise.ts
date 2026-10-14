@@ -23,7 +23,11 @@ export const VISE_POSES: Pose[] = [
     "vise",
     "lit",
     "The left lobe's seam lit white. P1 pinches it shut and keeps it shut; P2 waits.",
-    { hold: 6 },
+    {
+      hold: 6,
+      lookAt:
+        "the whole seed-case turning on its spine — its far lobe going into the dark and back",
+    },
   ),
   bossPose(
     "vise",

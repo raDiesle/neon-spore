@@ -1537,10 +1537,12 @@ by hand never moves.
 | `packages/render/src/vise-stop.ts` | **Where a bolt meets THE VISE**, for `BoltStops` (`bolt-stop.ts`): the bared kernel, the seed on a spit, the swung lobes |
 | `packages/render/src/vise-sway.ts` | **THE VISE's case swings from its hinge** (`docs/spec/living-bosses.md` §1, the outline tier) |
 | `packages/render/src/vise-grip.ts` | **The hand on THE VISE** — the first of its hands lanes |
+| `packages/render/src/vise-glance.ts` | **THE VISE glances**: the whole seed-case turns on its spine, offered on VERSUS `vise:glance` |
 | `packages/render/src/vise-fx.ts` | What THE VISE leaves behind a frame (§28, *Presentation*): the **dry thud** of a seam cracking |
 | `packages/render/src/vise-blow.ts` | THE VISE's timeout blow: the case spits a husk seed that cracks in two on the hull |
 | `packages/render/src/vise-verdicts.ts` | **THE VISE's marks answering a touch the way every mark does** (`mark-feedback.ts` |
 | `packages/render/src/vise-carry.ts` | **How shut a thumb has carried THE VISE's lobe**: the gap the lobe stands at open |
+| `packages/render/src/vise-lobe.ts` | One lobe of THE VISE: its frame, its outline in the case's frame, and its shell drawn |
 | `packages/render/src/snake-body.ts` | The body: where it is between two tiles, and what it looks like |
 | `packages/render/src/snake-button.ts` | SNAKE's four presses, as faces on the band's own lobes |
 | `packages/render/src/snake-button-mouth.ts` | SNAKE's SHOOT and EAT faces as the act, no word: the head spitting venom, the head biting a pod |
