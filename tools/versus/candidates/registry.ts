@@ -73,6 +73,9 @@ import { REPRISE_SWAY } from "./reprise-glance/sway/index.js";
 import { SCUTTLE_COCK } from "./scuttle-glance/cock/index.js";
 import { SCUTTLE_LOOK_AROUND } from "./scuttle-glance/look/index.js";
 import { SCUTTLE_SWAY } from "./scuttle-glance/sway/index.js";
+import { SEAM_COCK } from "./seam-glance/cock/index.js";
+import { SEAM_LOOK_AROUND } from "./seam-glance/look/index.js";
+import { SEAM_SWAY } from "./seam-glance/sway/index.js";
 import { SINEW_COCK } from "./sinew-glance/cock/index.js";
 import { SINEW_LOOK_AROUND } from "./sinew-glance/look/index.js";
 import { SINEW_SWAY } from "./sinew-glance/sway/index.js";
@@ -178,6 +181,9 @@ export const VARIANTS: Variant[] = [
   RATCHET_COCK,
   RATCHET_LOOK_AROUND,
   RATCHET_SWAY,
+  SEAM_COCK,
+  SEAM_LOOK_AROUND,
+  SEAM_SWAY,
   SPLICE_COCK,
   SPLICE_LOOK_AROUND,
   SPLICE_SWAY,

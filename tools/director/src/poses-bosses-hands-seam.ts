@@ -59,7 +59,10 @@ export const SEAM_POSES: Pose[] = [
     "seam",
     "lit",
     "A point on the crack lit red under THE SLOW. P1 lays the cannon under it; P2 fires red.",
-    { hold: 6 },
+    {
+      hold: 6,
+      lookAt: "the whole ridge turning on its spine — its far flank going into the dark and back",
+    },
   ),
   bossPose(
     "seam",

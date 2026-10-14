@@ -39506,3 +39506,15 @@ Bottleneck: the joints are both the marks and whose half a step is, so only each
 Bottleneck: the two thumb marks sit off the drum's middle, so the turn is centred between them and holds both.
 
 *Measured: 5 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-14 — THE SEAM: a part that turns, so it is seen from a new side
+
+- reading: 5 min. `seam-draw.ts`, `seam-shape.ts`, `seam-story.ts`'s own
+  turn and `seam-stop.ts`, which reads a foot by its share of the width.
+- writing: 10 min. The record about the spine, under the story's turn, each
+  flank's squeeze in the stop, three candidates, the pose's lookAt, the spec note.
+- looking: 5 min. One shot at the widest; the near flank reaches past the lit ring.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: the stop reads a foot by its share of the ridge's width rather than by points, so the turn had to answer as a squeeze per flank.

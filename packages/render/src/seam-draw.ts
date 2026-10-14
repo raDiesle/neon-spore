@@ -14,6 +14,7 @@ import { litRound } from "./key-light.js";
 import type { Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
 import type { SeamFx } from "./seam-fx.js";
+import { drawSeamGlanced } from "./seam-glance.js";
 import {
   drawSeamDark,
   drawSeamEmber,
@@ -92,7 +93,7 @@ export function drawSeam(
   const hurt = fx.hurt.value;
   const thrown = seamThrow(l, world, s, c, beat, beatPhase);
   fx.note(seamCrackCircle(l, s, c), seamRockNow(l, thrown));
-  stops?.aim(seamStopper(l, world, s, c, arrived, split, thrown, beat, beatPhase));
+  stops?.aim(seamStopper(l, world, s, c, arrived, split, thrown, beat, beatPhase, time));
 
   ctx.save();
   ctx.globalAlpha = (0.2 + 0.8 * arrived) * (1 - 0.6 * split);
@@ -138,23 +139,34 @@ function drawRidge(
   const ridge = seamRidgePath(l, open, time * 0.6);
   const half = seamHalfHeight(l);
   const turn = seamTurn(s, world.cfg, beat, beatPhase);
-  ctx.save();
-  ctx.scale(seamTurnWidth(turn), 1);
-  ctx.fillStyle = rgba(PALETTE.rockDark, 0.95);
-  ctx.fill(ridge);
-  ctx.save();
-  ctx.clip(ridge);
-  litRound(ctx, 0, -half * 0.4, half, LIGHT_HALF.rock, 0.02 * Math.sin(time * 0.7));
-  ctx.restore();
-  ctx.lineWidth = STROKE.outline;
-  ctx.strokeStyle = rgba(PALETTE.rock, 0.9);
-  ctx.stroke(ridge);
-  const fade = ctx.globalAlpha;
-  drawHurt(ctx, ridge, hurt);
-  ctx.globalAlpha = fade;
-  if (turn >= 0.5) drawSeamBack(ctx, l, ridge, half);
-  else drawFace(ctx, l, world, s, ridge, open, beat, beatPhase, time, reseal);
-  ctx.restore();
+  // The ridge turns on its spine, where a look takes one (`seam-glance.ts`).
+  drawSeamGlanced(ctx, l, time, (g) => {
+    g.save();
+    g.scale(seamTurnWidth(turn), 1);
+    g.fillStyle = rgba(PALETTE.rockDark, 0.95);
+    g.fill(ridge);
+    g.save();
+    g.clip(ridge);
+    litRound(g, 0, -half * 0.4, half, LIGHT_HALF.rock, 0.02 * Math.sin(time * 0.7));
+    g.restore();
+    g.lineWidth = STROKE.outline;
+    g.strokeStyle = rgba(PALETTE.rock, 0.9);
+    g.stroke(ridge);
+    const fade = g.globalAlpha;
+    drawHurt(g, ridge, hurt);
+    g.globalAlpha = fade;
+    if (turn >= 0.5) drawSeamBack(g, l, ridge, half);
+    else drawFace(g, l, world, s, ridge, open, beat, beatPhase, time, reseal);
+    g.restore();
+    return [seamTurnedRidge(ridge, seamTurnWidth(turn))];
+  });
+}
+
+/** The ridge's outline as the story's turn draws it, narrowed to `width` of itself. */
+function seamTurnedRidge(ridge: Path2D, width: number): Path2D {
+  const p = new Path2D();
+  p.addPath(ridge, { a: width, b: 0, c: 0, d: 1, e: 0, f: 0 });
+  return p;
 }
 
 /** The face the pair reads: the crack, and the lit point, the glow or the false point on it

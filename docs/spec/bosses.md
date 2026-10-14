@@ -9015,6 +9015,15 @@ yet. Its test: `render/test/seam-verdict.test.ts`.
 
 **What is not built — a step seen from another side** (suggested 10 October 2026, after the owner on THE BASTION: *very 3 dimensional and even user action is 3d to rotate*). The body turns and the lit point goes round to its side; the grit is thrown from the side it faces, so the shield moves with the turn.
 
+**Offered (14 October 2026, VERSUS `seam:glance`).** A shelled ridge, so the
+whole ridge turns, about its own spine (`packages/render/src/seam-glance.ts`):
+the crack stays on the middle column the cannon shoots up while the near flank
+opens and the far flank closes into the dark and back, on top of the story's
+own turn away. The grit and the rock are thrown in the field's frame and do
+not turn, and a bolt meets each flank as far out as it is drawn. It ships
+still, and VERSUS offers **SWAY**, **LOOK** and **COCK** at a quarter of the
+widest lobe's half-width on THE SEAM · LIT.
+
 
 ## 11.44 THE OCULUS — the boss both hands hold shut, then shoot into
 

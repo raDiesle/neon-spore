@@ -1,6 +1,7 @@
 import { midCol, type SeamState, seamVerdict, type World } from "@neon-spore/sim";
 import type { BoltHit, Stopper } from "./bolt-stop.js";
 import type { Layout } from "./layout.js";
+import { seamGlanceSqueeze } from "./seam-glance.js";
 import { type SeamThrow, seamRockNow } from "./seam-marks.js";
 import { type Point, seamFootAt } from "./seam-shape.js";
 import { seamTurn, seamTurnWidth } from "./seam-story.js";
@@ -35,6 +36,7 @@ export function seamStopper(
   thrown: SeamThrow | null,
   beat: number,
   beatPhase: number,
+  time: number,
 ): Stopper | null {
   if (split > 0 || arrived < 0.5) return null;
   const width = seamTurnWidth(seamTurn(s, world.cfg, beat, beatPhase));
@@ -48,7 +50,9 @@ export function seamStopper(
     if (col === mid && asks && v !== null && v !== "held") {
       return { y: seamCrackCircle(l, s, c).y, hit };
     }
-    const foot = seamFootAt(l, (x - c.x) / width);
+    // Each flank as far out as the ridge's turn draws it (`seam-glance.ts`).
+    const k = seamGlanceSqueeze(l, time, x < c.x ? -1 : 1);
+    const foot = seamFootAt(l, (x - c.x) / (width * k));
     return foot === null ? null : { y: c.y + foot, hit };
   };
 }

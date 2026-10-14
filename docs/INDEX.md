@@ -1742,6 +1742,7 @@ by hand never moves.
 | `packages/render/src/seam-verdicts.ts` | **THE SEAM's marks answering a touch the way every mark does** (`mark-feedback.ts` |
 | `packages/render/src/seam-fx.ts` | What THE SEAM leaves behind a frame (§26, *Presentation*) |
 | `packages/render/src/seam-hold.ts` | **THE SEAM's two steps answered by sending nothing** (§26 rows 10 and 16, `sim/seam-step.ts`) |
+| `packages/render/src/seam-glance.ts` | **THE SEAM glances**: the whole ridge turns on its spine, offered on VERSUS `seam:glance` |
 | `packages/render/src/hover.ts` | WHAT A MOUSE IS RESTING ON, LIT |
 | `packages/render/src/hold-mark.ts` | **A red circle with a thumbprint in it**: the mark a hold asked with on every boss from 2 October 2026 |
 | `packages/render/src/recoil-cage-break.ts` | THE RECOIL's cage coming apart: the shot that spends the last bounce, drawn as the frame failing all at once |
