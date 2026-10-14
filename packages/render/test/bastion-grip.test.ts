@@ -1,6 +1,14 @@
 import { describe, expect, it, setDefaultTimeout } from "bun:test";
 import { type ControlSet, controlSet } from "@neon-spore/content";
-import { bastionPlateOf, bastionPlateWay, type Command, step, type World } from "@neon-spore/sim";
+import {
+  bastionPlateOf,
+  bastionTrackAt,
+  bastionTrackLen,
+  bastionTrackOf,
+  type Command,
+  step,
+  type World,
+} from "@neon-spore/sim";
 import { type BastionMark, bastionMarkAt } from "../src/bastion-grip.js";
 import { BastionVerdicts } from "../src/bastion-verdicts.js";
 import { handleCircle } from "../src/handle-place.js";
@@ -15,7 +23,7 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
 /**
  * **Real thumbs on THE BASTION** (`render/src/bastion-grip.ts`): whether the
  * knob the picture draws is where a press is taken, on either seat's
- * screen; whether a thumb carried out along a slab's way tears it, and one
+ * screen; whether a thumb carried along a slab's track tears it, and one
  * let go short snaps it back; whether the rim turns the moon; and whether
  * the partner's knob is pressed through for the simulation to refuse aloud
  * — each answered by the verdict ring (`bastion-verdicts.ts`).
@@ -55,8 +63,12 @@ function press(world: World, role: ViewRole, seat: 1 | 2, mark: BastionMark) {
   return touchDown(layout(role), at.x, at.y, field(world, seat));
 }
 
-/** A slab pressed on `seat`'s own knob and carried `tiles` out along its way. */
-function pull(world: World, seat: 1 | 2, tiles: number) {
+/**
+ * A slab pressed on `seat`'s own knob and carried `milli` along its track —
+ * to its end by default — a third of a tile a move, as a thumb would trace
+ * it. Every event type the moves raised.
+ */
+function pull(world: World, seat: 1 | 2, milli?: number) {
   const s = world.boss;
   if (s?.kind !== "bastion") throw new Error("no moon");
   const role = seat === 1 ? "p1" : "p2";
@@ -64,11 +76,21 @@ function pull(world: World, seat: 1 | 2, tiles: number) {
   const down = press(world, role, seat, seat === 1 ? 0 : 1);
   send(world, seat, down?.command);
   if (down?.hold?.kind !== "drag") throw new Error("the press took no hold");
-  const [wx, wy] = bastionPlateWay(bastionPlateOf(s, seat === 1 ? 0 : 1));
-  const x = down.hold.originX + (wx / 1000) * tiles * l.tile;
-  const y = down.hold.originY + (wy / 1000) * tiles * l.tile;
-  const moved = send(world, seat, touchMove(l, down.hold, x, y)?.command);
-  return { l, hold: down.hold, at: { x, y }, moved };
+  const i = bastionPlateOf(s, seat === 1 ? 0 : 1);
+  const track = bastionTrackOf(s, i);
+  const to = milli ?? bastionTrackLen(CFG, track);
+  const moved: string[] = [];
+  let at = { x: down.hold.originX, y: down.hold.originY };
+  for (let m = Math.min(330, to); ; m = Math.min(to, m + 330)) {
+    const p = bastionTrackAt(CFG, track, i, m);
+    at = {
+      x: down.hold.originX + (p.x / 1000) * l.tile,
+      y: down.hold.originY + (p.y / 1000) * l.tile,
+    };
+    moved.push(...send(world, seat, touchMove(l, down.hold, at.x, at.y)?.command));
+    if (m >= to) break;
+  }
+  return { l, hold: down.hold, at, moved };
 }
 
 describe("thumbs on THE BASTION", () => {
@@ -99,13 +121,13 @@ describe("thumbs on THE BASTION", () => {
     expect(handleCircle(layout("p1"), world, "bastionSpin", 0)).toBeNull();
   });
 
-  it("tears a slab carried out past the pull, and snaps one let go short", () => {
+  it("tears a slab carried along its track to the end, and snaps one let go short", () => {
     const world = stood();
     const s = posed(world, "plates");
-    const torn = pull(world, 1, 2.4);
+    const torn = pull(world, 1);
     expect(torn.moved).toContain("bastionTear");
     expect(s.goneMask).not.toBe(0);
-    const short = pull(world, 2, 0.8);
+    const short = pull(world, 2, 800);
     expect(s.pullMilli[1]).toBeGreaterThan(500);
     const up = touchUp(short.l, short.hold, short.at);
     expect(send(world, 2, up?.command)).toContain("bastionSnap");
@@ -140,7 +162,7 @@ describe("thumbs on THE BASTION", () => {
     const v = new BastionVerdicts();
     const s = posed(world, "plates");
     v.note(s);
-    pull(world, 2, 2.4);
+    pull(world, 2);
     v.ingest(world.events);
     expect(v.verdicts.at(1)?.good).toBe(true);
     send(world, 1, press(world, "p1", 1, 1)?.command);

@@ -39768,3 +39768,20 @@ a banner) shows nothing, and only drawing it says so.
 Bottleneck: none to speak of — the drop takes the ring's circle, so the hit test and the cue's word stayed where they were.
 
 *Measured: 17 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-14 — THE BASTION two courses deep, its plates pulled further and round curves
+
+- reading: 10 min. The moon's sim, hand, script and hash; how the render
+  keys a shell by kind; THE LAMPREY's tow, the one curve a thumb already
+  carries; where on the field a plate's knob has room to go.
+- writing: 20 min. `curve.ts` lifted out of the tow, `bastion-track.ts` and
+  its four tables fitted offline against the field, the stride and the slip,
+  the eight-step script and the split act page, AUTO along the curve, the
+  knob and channel and slab along it, the tests.
+- looking: 10 min. `bun run frames` on the second course mid-snake, cropped.
+- friction: 5 min. `frames .` against a sha it reads as the commit's own
+  before and after, so the picture waited on the commit.
+- landing: 5 min. `check:fast` twice — the act file, the index, the doc
+  drift and a test's timeout — the commit, `land`.
+
+Bottleneck: a curve's length is bounded by the field round the moon, not by a number, so the shapes had to be fitted slot by slot before a line of the sim could be written.

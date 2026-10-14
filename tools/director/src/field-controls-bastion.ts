@@ -11,11 +11,14 @@ import type { FieldControlDef } from "./field-control-def.js";
  */
 const slab = (side: "left" | "right") =>
   `A **pull**: a thumb on the knob of the next slab on the ${side} takes hold ` +
-  "of it, and carried out along the slab's own way pulls it off the moon — " +
-  "sideways and back towards the core count for nothing. Out past " +
-  "bastionPullMilli the slab tears off on the tick; let go before that and it " +
-  "snaps back, and only that slab starts over (sim/bastion-hand.ts). The knob " +
-  "wears the arrow out and, on its own seat's screen, a channel one pull long " +
+  "of it, and carried along the slab's track pulls it off the moon. A straight " +
+  "track runs out along the slab's own way, bastionPullMilli long, and sideways " +
+  "and back towards the core count for nothing; a curve (sweep, snake, climb) " +
+  "bends round the moon, and a thumb more than bastionSlackMilli off it slips " +
+  "and the slab snaps back (sim/bastion-track.ts). At the track's end the slab " +
+  "tears off on the tick; let go before that and it snaps back, and only that " +
+  "slab starts over (sim/bastion-hand.ts). The knob wears the arrow along the " +
+  "track and, on its own seat's screen, the channel of the whole track " +
   "(render/bastion-handles.ts).";
 
 export const BASTION_CONTROLS: readonly FieldControlDef[] = [

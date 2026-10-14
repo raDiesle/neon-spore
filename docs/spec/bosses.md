@@ -11529,19 +11529,40 @@ its plates, how far it has **pulled** and whether its plate **tore** under
 it; the moon's **yaw**, and whether the rim is held and where; and a node's
 **discharge** beat, the tick it began to charge and the beat the next one
 will. The script is the wave's (`BastionEntry.steps`), copied at install:
-each step names a **layer**, its **beats**, and the ring's **colours** or a
-lattice's or port's column **offsets** from the middle.
+each step names a **layer**, its **beats**, and the ring's **colours**, a
+lattice's or port's column **offsets** from the middle, or the plates'
+**tracks**.
+
+**Each shell two courses deep** (the owner, 14 October 2026: *more layers
+of steps to resolve for players for more excitement and longer plays*). The
+script may name the same shell twice running, and the second is another
+course of it under the first: as big, drawn whole again, and the moon only
+smaller once both are off. The shipped moon is eight steps — plates, plates,
+ring, ring, lattice, lattice, port, port — each second course harder: the
+plates curved, eight guns where there were six, the nodes in a new order,
+four ports where there were three. A script never steps back outward
+(`render/test/bastion-track-fit.test.ts`).
 
 **The four shells**, outside in, each a different job split across the seats:
 - **The plates** — eight, four a side. Two `DragTarget`s,
   `bastionPlateLeft` (the pilot's) and `bastionPlateRight` (the
-  navigator's), each pulled **out from the core** along the plate's own way
-  (`bastionPlateWay`): sideways and back count for nothing. Out past
-  `bastionPullMilli` the plate tears off and flies (`bastionTear`). **Let go
-  short of that** — at least `bastionSnapMilli` pulled — and it snaps back
-  (`bastionSnap`): only that plate starts over, the other side keeps every
-  plate it has taken. A thumb on the partner's plates is said
-  (`bastionWrong`).
+  navigator's), each pulled **along its track** (`sim/bastion-track.ts`; the
+  owner, 14 October 2026: *increase the distance required for pull. It can
+  also be curves*). A `straight` track runs out from the core along the
+  plate's own way (`bastionPlateWay`), `bastionPullMilli` long — 2.4 tiles,
+  where it was 1.8 — and sideways and back count for nothing. A curve sets
+  off out and bends round the moon: `sweep` an eighth of a turn towards the
+  ship, 3.5 tiles; `snake` the same way swinging out and in, 6.1; `climb`
+  away from the ship, 2.4. On a curve the thumb is read as the point of the
+  curve nearest it, no more than `bastionStrideMilli` from where the plate
+  was, so it cannot cut across a bend, and **a thumb more than
+  `bastionSlackMilli` off the curve loses the plate**, which snaps back. A
+  curve's length is its shape, fitted round the plates it fits; which those
+  are is the fit test's. At the track's end the plate tears off and flies
+  (`bastionTear`). **Let go short of that** — at least `bastionSnapMilli`
+  pulled — and it snaps back (`bastionSnap`): only that plate starts over,
+  the other side keeps every plate it has taken. A thumb on the partner's
+  plates is said (`bastionWrong`).
 - **The ring** — a gun per authored colour, spaced round the moon. The pilot
   turns the moon by its rim, `bastionSpin`, THE MAZE's lever
   (`rim-turn.ts`, `bastionRimMilli`), either way; the gun within
@@ -11580,7 +11601,7 @@ the core (`bastionSpent`) and the moon leaves after `bastionSpentBeats`.
   control the other three shells leave idle.
 
 **The hand.** AUTO (`hands/src/boss-hands-bastion.ts`) takes each seat's next
-plate out past the tear, turns the next gun to the front the short way, keeps
+plate along its track to the tear, turns the next gun to the front the short way, keeps
 the rim still while a bolt climbs, carries the shield under a charging node,
 and brings the cannon under the port; `hands/test/bastion-hand.test.ts`
 proves it wins the shipped wave with no shell grown back.

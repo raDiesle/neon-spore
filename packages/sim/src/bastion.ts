@@ -1,3 +1,4 @@
+import { BASTION_PLATES_A_SIDE, type BastionTrack } from "./bastion-track.js";
 import { midCol } from "./config.js";
 import type { Color } from "./types.js";
 import type { World } from "./world.js";
@@ -14,8 +15,9 @@ import type { World } from "./world.js";
  *
  * **Four shells**, outside in, each a different job for each seat:
  * - `plates`: armour plates, four on the left for the pilot and four on the
- *   right for the navigator, each pulled straight out away from the core
- *   until it tears off. Both seats pull at once.
+ *   right for the navigator, each pulled out along its track until it tears
+ *   off — straight out, or a curve round the moon (`bastion-track.ts`). Both
+ *   seats pull at once.
  * - `ring`: a ring of guns round the moon. The pilot turns the moon by its
  *   rim; the gun turned to the front, over the middle column, is shot in its
  *   colour by the navigator.
@@ -33,6 +35,11 @@ import type { World } from "./world.js";
  * whole and is tried again; the shells already taken stay taken. Nothing in
  * this fight strikes the hull.
  *
+ * **A shell may come more than once**, one course under another (the owner,
+ * 14 October 2026: *more layers of steps … longer plays*): the script lists
+ * the shells outside in, and the same shell twice running is a second course
+ * of it, as thick, and the moon only smaller once it is through both.
+ *
  * **Its health is the shells**, and no bar: every piece off is one gone from
  * the outline, and every shell gone leaves the moon smaller.
  */
@@ -44,22 +51,6 @@ export type BastionPhase = (typeof BASTION_PHASES)[number];
 /** The shells, outside in. */
 export const BASTION_LAYERS = ["plates", "ring", "lattice", "port"] as const;
 export type BastionLayer = (typeof BASTION_LAYERS)[number];
-
-/** Plates on each side of the moon: a figure of the silhouette, `OCULUS_LEAVES`' reason. */
-export const BASTION_PLATES_A_SIDE = 4;
-
-/**
- * Which way each of a side's plates tears off, top to bottom, in thousandths
- * of a tile along x and y (y down): the left side's, and the right's mirrored.
- * Spread from 35 to 145 degrees off straight up, written out so no device
- * rounds a sine its own way.
- */
-export const BASTION_PLATE_WAYS: readonly (readonly [number, number])[] = [
-  [-574, -819],
-  [-951, -309],
-  [-951, 309],
-  [-574, 819],
-];
 
 /** Columns either side of the middle each shell covers, for what a bolt meets. */
 export const BASTION_SPAN: Record<BastionLayer, number> = {
@@ -78,6 +69,8 @@ export interface BastionStep {
   colors?: Color[];
   /** A `lattice`'s nodes or a `port`'s openings, in the order they come: columns from the middle. */
   offsets?: number[];
+  /** A `plates` shell's tracks, one for each plate of a side, top to bottom; straight where none is named. */
+  tracks?: BastionTrack[];
 }
 
 /** What a wave authors: the whole script, in order. */
@@ -103,7 +96,7 @@ export interface BastionState {
   down: [boolean, boolean];
   /** How far each seat's plate is pulled out, thousandths of a tile along its way. */
   pullMilli: [number, number];
-  /** Whether each seat's plate tore under the thumb still down: nothing more until it lifts. */
+  /** Whether each seat's thumb is done until it lifts: its plate tore under it, or slipped off its track. */
   tore: [boolean, boolean];
   /** How far round the moon is turned, thousandths of a degree, nought to a whole turn. */
   yawMilli: number;
@@ -164,12 +157,6 @@ export function bastionPlateOf(s: BastionState, seat: 0 | 1): number {
   return -1;
 }
 
-/** Which way plate `i` tears off, thousandths of a tile along x and y. */
-export function bastionPlateWay(i: number): readonly [number, number] {
-  const way = BASTION_PLATE_WAYS[i % BASTION_PLATES_A_SIDE] ?? [0, -1000];
-  return i < BASTION_PLATES_A_SIDE ? way : [-way[0], way[1]];
-}
-
 /** Where gun `i` of `count` sits round the ring with the moon turned, thousandths of a degree from the front. */
 export function bastionGunAngle(s: BastionState, i: number, count: number): number {
   const turn = 360_000;
@@ -225,6 +212,7 @@ export function freshBastion(beat: number, steps: readonly BastionStep[]): Basti
       ...step,
       ...(step.colors === undefined ? {} : { colors: [...step.colors] }),
       ...(step.offsets === undefined ? {} : { offsets: [...step.offsets] }),
+      ...(step.tracks === undefined ? {} : { tracks: [...step.tracks] }),
     })),
     phase: "enter",
     phaseBeat: beat,

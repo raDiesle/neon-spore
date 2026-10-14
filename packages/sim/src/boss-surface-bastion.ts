@@ -8,8 +8,6 @@
 export {
   BASTION_LAYERS,
   BASTION_PHASES,
-  BASTION_PLATE_WAYS,
-  BASTION_PLATES_A_SIDE,
   BASTION_SPAN,
   type BastionEntry,
   type BastionLayer,
@@ -30,9 +28,19 @@ export {
   bastionPieceCount,
   bastionPiecesAll,
   bastionPlateOf,
-  bastionPlateWay,
   freshBastion,
 } from "./bastion.js";
 export { bastionTarget, bastionVerdict } from "./bastion-shot.js";
+export {
+  BASTION_PLATE_WAYS,
+  BASTION_PLATES_A_SIDE,
+  BASTION_TRACKS,
+  type BastionTrack,
+  bastionPlateWay,
+  bastionTrackAt,
+  bastionTrackLen,
+  bastionTrackOf,
+  bastionTrackPoints,
+} from "./bastion-track.js";
 export type { BastionConfig } from "./config-bastion.js";
 export type { BastionEvent } from "./events-bastion.js";

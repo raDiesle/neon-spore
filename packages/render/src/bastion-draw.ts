@@ -139,9 +139,7 @@ function drawShells(
     ),
   );
   shell("ring", () => drawRingFront(ctx, l, c, guns, yaw, p.pulse));
-  shell("plates", () =>
-    drawBastionPlates(ctx, l, c, s, lit === "plates", world.cfg.bastionPullMilli, p.pulse),
-  );
+  shell("plates", () => drawBastionPlates(ctx, l, c, s, lit === "plates", world.cfg, p.pulse));
 }
 
 /** A shell growing back is drawn smaller, filling out to where it stands. */

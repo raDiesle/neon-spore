@@ -1,5 +1,6 @@
 import type { SimConfig } from "./config.js";
 import { midCol } from "./config.js";
+import { curveAt, curveNearest } from "./curve.js";
 import { type LampreyState, type LampreyStep, lampreyWorker } from "./lamprey.js";
 import { lampreyLeapTo, type Tile } from "./lamprey-leap.js";
 import { nextInt } from "./rng.js";
@@ -25,9 +26,9 @@ import type { World } from "./world.js";
  * (`lampreyTowBackMilli`), and the thumb is thrown off it — it has to lift and
  * take the knob again where it now waits, and pull it all the way.
  *
- * The curve is a table of integers, never `Math.sin` (`purity.test.ts`): eight
- * equal pieces of an arc an eighth of a turn round, a thousand long, scaled
- * to the tow and mirrored to its side.
+ * The curve is a table of integers, never `Math.sin` (`purity.test.ts`):
+ * eight equal pieces of an arc an eighth of a turn round, a thousand long,
+ * scaled to the tow and mirrored to its side, and walked by `curve.ts`.
  */
 
 /** The arc, `[x, y]` thousandths of its length from the head's tile: up the field, bending right. */
@@ -71,16 +72,7 @@ export function lampreyTowAt(
   s: LampreyState,
   milli: number,
 ): { x: number; y: number } {
-  const len = Math.max(1, cfg.lampreyTowMilli);
-  const u = Math.trunc((Math.max(0, Math.min(len, milli)) * PIECES * 1000) / len);
-  const i = Math.min(PIECES - 1, Math.trunc(u / 1000));
-  const f = u - i * 1000;
-  const a = point(cfg, s, i);
-  const b = point(cfg, s, i + 1);
-  return {
-    x: a.x + Math.trunc(((b.x - a.x) * f) / 1000),
-    y: a.y + Math.trunc(((b.y - a.y) * f) / 1000),
-  };
+  return curveAt(lampreyTowPoints(cfg, s), cfg.lampreyTowMilli, milli);
 }
 
 /**
@@ -88,25 +80,7 @@ export function lampreyTowAt(
  * tile: the nearest piece, and the share of it the point lies over.
  */
 export function lampreyTowAlong(cfg: SimConfig, s: LampreyState, x: number, y: number): number {
-  let best = 0;
-  let near = Number.POSITIVE_INFINITY;
-  for (let i = 0; i < PIECES; i++) {
-    const a = point(cfg, s, i);
-    const b = point(cfg, s, i + 1);
-    const dx = b.x - a.x;
-    const dy = b.y - a.y;
-    const den = Math.max(1, dx * dx + dy * dy);
-    const dot = (x - a.x) * dx + (y - a.y) * dy;
-    const f = Math.max(0, Math.min(1000, Math.trunc((dot * 1000) / den)));
-    const px = a.x + Math.trunc((dx * f) / 1000) - x;
-    const py = a.y + Math.trunc((dy * f) / 1000) - y;
-    const d = px * px + py * py;
-    if (d < near) {
-      near = d;
-      best = i * 1000 + f;
-    }
-  }
-  return Math.trunc((best * cfg.lampreyTowMilli) / (PIECES * 1000));
+  return curveNearest(lampreyTowPoints(cfg, s), cfg.lampreyTowMilli, x, y).along;
 }
 
 /** The tile under the curve's far end: where the head is when the tow lets go of the hull. */

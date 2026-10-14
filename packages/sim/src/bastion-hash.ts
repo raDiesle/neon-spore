@@ -1,10 +1,11 @@
 import { BASTION_LAYERS, BASTION_PHASES, type BastionState } from "./bastion.js";
+import { BASTION_TRACKS } from "./bastion-track.js";
 
 /**
  * What THE BASTION puts into `hashWorld`, and nothing else.
  *
  * **The authored script goes in whole**, THE SEAM's reason (`seam-hash.ts`),
- * each shell's colours and columns with their lengths ahead of them. The
+ * each shell's colours, columns and tracks with their lengths ahead of them. The
  * pieces off go in because they are the fight; each seat's thumb, its pull
  * and whether its plate tore under it because a lift is judged on them; the
  * turn of the moon and the rim's thumb because the gun a shot meets is read
@@ -40,6 +41,9 @@ export function bastionHashParts(s: BastionState): number[] {
     const offsets = step.offsets ?? [];
     out.push(offsets.length);
     for (const o of offsets) out.push(o);
+    const tracks = step.tracks ?? [];
+    out.push(tracks.length);
+    for (const t of tracks) out.push(BASTION_TRACKS.indexOf(t) + 1);
   }
   return out;
 }

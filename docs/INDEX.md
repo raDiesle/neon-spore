@@ -692,10 +692,11 @@ by hand never moves.
 | `packages/sim/src/bastion-hash.ts` | What THE BASTION puts into `hashWorld`, and nothing else |
 | `packages/sim/src/bastion-shot.ts` | **THE BASTION's shot**, met where the moon hangs (`core-along.ts`) up the middle column and up the open… |
 | `packages/sim/src/bastion-step.ts` | THE BASTION's clock: the moon coming in, each shell lighting, a node charging and throwing its lightning |
+| `packages/sim/src/bastion-track.ts` | **The track a plate is pulled along** — the owner, 14 October 2026: *increase the distance required for pull |
 | `packages/sim/src/bastion.ts` | THE BASTION: a metal moon built in shells, hanging over the field, taken apart from the outside in |
 | `packages/sim/src/config-balloon.ts` | THE BALLOON's numbers: how long one swells before it moves, how fast it climbs |
 | `packages/sim/src/config-baton.ts` | THE BATON's numbers — how many sockets the arm has, how long a bead is in the air |
-| `packages/sim/src/config-bastion.ts` | THE BASTION's tuning: the beats around its shells, how far a plate is pulled before it tears |
+| `packages/sim/src/config-bastion.ts` | THE BASTION's tuning: the beats around its shells |
 | `packages/sim/src/config-blister.ts` | THE BLISTER's numbers: how long it stays up, how long it is under, how much nearer each surfacing comes |
 | `packages/sim/src/config-trapeze.ts` | THE TRAPEZE's tuning: where the swing hangs and how long its ropes are, how fast it swings |
 | `packages/sim/src/creature-state-balloon.ts` | **THE BALLOON's six**, and the seventh group carried out of `creature-state.ts` along the seam that file's… |
@@ -773,6 +774,7 @@ by hand never moves.
 | `packages/sim/src/curtain-shove.ts` | **The shove**: two hands on the sheet, carrying it along its rail |
 | `packages/sim/src/curtain-step.ts` | THE CURTAIN's clock — the soft lobes redrawn, the roll-back, the core's fire, the beats after the last hit |
 | `packages/sim/src/curtain.ts` | THE CURTAIN: what it is standing in front of |
+| `packages/sim/src/curve.ts` | **A curve a thumb carries something along**: a polyline of equal pieces, in thousandths of a tile, `len` long |
 | `packages/sim/src/step-round.ts` | The rounds' own tick, and the one thing all five of them have in common |
 | `packages/sim/src/stare-hash.ts` | What THE STARE puts into `hashWorld`, and nothing else |
 | `packages/sim/src/stare-hand.ts` | **The one hand on THE STARE**: its lashes, pulled up off the charging eye one at a time so the beam vents out to the sides |
@@ -965,6 +967,7 @@ by hand never moves.
 | `packages/content/src/waves/act-13.ts` | Act thirteen, opened for THE DAVIT on 26 September 2026 |
 | `packages/content/src/waves/act-13b.ts` | Act thirteen's second page, opened for THE GOVERNOR on 6 October 2026 |
 | `packages/content/src/waves/act-14.ts` | Act fourteen, opened for THE LAMPREY on 1 October 2026 |
+| `packages/content/src/waves/act-14b.ts` | Act fourteen, its second page, opened for THE BASTION on 14 October 2026 when its second courses took… |
 | `packages/content/src/maze-drawn.ts` | The four sheets THE MAZE plays after the owner's own, drawn by `bun run maze` and printed here |
 | `packages/content/src/body-path.ts` | one living body's contour — a blob, or the walk that puts clubs on its rim |
 | `packages/content/src/body-path-clubbed.ts` | a creature is not a blob — the walked rim of balls on stalks THE THROB and THE BEATBOX wear, and the four numbers it is sampled at |
@@ -2525,7 +2528,7 @@ by hand never moves.
 | `packages/render/src/bastion-pose.ts` | **THE BASTION's pose**: where in its story the moon is this frame |
 | `packages/render/src/bastion-receipts.ts` | THE BASTION's receipts, drawn (`bastion-fx.ts` holds them): a torn plate flying out along its way |
 | `packages/render/src/bastion-ring.ts` | **THE BASTION's gun ring** (§11.62): a dark bronze band round the moon's middle |
-| `packages/render/src/bastion-grip.ts` | **The thumbs on THE BASTION** (§11.62): a knob on each side's next slab, pulled out along the slab's own way |
+| `packages/render/src/bastion-grip.ts` | **The thumbs on THE BASTION** (§11.62): a knob on each side's next slab, pulled along the slab's track |
 | `packages/render/src/bastion-verdicts.ts` | **THE BASTION's knobs answering a touch the way every mark does** (`mark-feedback.ts`, `grip-verdict.ts`) |
 | `packages/render/src/pulse-wash.ts` | **The whole ship lit, by the one body that got past.** A body answered too late is not answered |
 | `packages/render/src/pulse-grip.ts` | **THE PULSE's hand on the bar**: the rectangle the meter is drawn in, the box a thumb is answered in |

@@ -51,8 +51,18 @@ export const DRAG_NUMBERS: Readonly<Record<string, readonly (keyof SimConfig)[]>
   "THE FLEET'S WRECK": ["fleetWreckPullMilli", "fleetWreckBeats"],
   "THE TRAPEZE'S LEFT ZONE": ["trapezeSwipeMilli", "trapezePushMilli", "trapezeBrakeMilli"],
   "THE TRAPEZE'S RIGHT ZONE": ["trapezeSwipeMilli", "trapezePushMilli", "trapezeBrakeMilli"],
-  "THE BASTION'S LEFT SLAB": ["bastionPullMilli", "bastionSnapMilli"],
-  "THE BASTION'S RIGHT SLAB": ["bastionPullMilli", "bastionSnapMilli"],
+  "THE BASTION'S LEFT SLAB": [
+    "bastionPullMilli",
+    "bastionSnapMilli",
+    "bastionSlackMilli",
+    "bastionStrideMilli",
+  ],
+  "THE BASTION'S RIGHT SLAB": [
+    "bastionPullMilli",
+    "bastionSnapMilli",
+    "bastionSlackMilli",
+    "bastionStrideMilli",
+  ],
   // A lever: carried to a depth and held.
   "THE LID'S CORD": ["lidTautMilli", "lidCordMilli"],
   "THE BALLOON'S LEFT HANDLE": ["balloonTautMilli", "balloonHoldBeats"],

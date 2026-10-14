@@ -123,8 +123,10 @@ export const CHOREO_NOTES_D = {
   "THE BASTION — a metal moon you take apart, one layer at a time":
     "The owner's brief of 8 October 2026, in THE HALTER's place: a moon of " +
     "armour shells, each taken off by a different job and the moon smaller " +
-    "for each. Plates: four a side, each pulled out past bastionPullMilli " +
-    "along its own way; let go short and it snaps back. Ring: the pilot turns " +
+    "for each, and a shell may come twice, one course under another. Plates: " +
+    "four a side, each pulled along its track — straight out bastionPullMilli, " +
+    "or a curve round the moon a thumb must stay within bastionSlackMilli of; " +
+    "let go short or stray and it snaps back. Ring: the pilot turns " +
     "the moon by its rim (bastionRimMilli), the navigator shoots the gun within " +
     "bastionFrontMilli of the front in its colour. Lattice: a node charges " +
     "bastionChargeBeats, the shield under it throws it back; unanswered it " +

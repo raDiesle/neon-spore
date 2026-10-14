@@ -1,12 +1,13 @@
-import {
-  type BastionState,
-  bastionBoss,
-  bastionLitStep,
-  bastionPlateOf,
-  bastionPlateWay,
-} from "./bastion.js";
+import { type BastionState, bastionBoss, bastionLitStep, bastionPlateOf } from "./bastion.js";
 import { bastionTakes } from "./bastion-step.js";
+import {
+  bastionPlateWay,
+  bastionTrackLen,
+  bastionTrackOf,
+  bastionTrackPoints,
+} from "./bastion-track.js";
 import { midCol } from "./config.js";
+import { curveNearest } from "./curve.js";
 import { rimLapMilli, rimTurnMilli } from "./rim-turn.js";
 import type { Command } from "./types.js";
 import type { World } from "./world.js";
@@ -16,14 +17,19 @@ import type { World } from "./world.js";
  * and `bastionPlateRight` the navigator's, and the rim, `bastionSpin`, the
  * pilot's alone.
  *
- * **A plate is pulled straight out from the core.** The drag is carried in
- * any direction (`fromMilli` the x, `fromYMilli` the y), and what counts is
- * how far it has come along the plate's own way out (`bastionPlateWay`):
- * sideways is nothing, and back towards the core is nothing. Out past
- * `bastionPullMilli` the plate tears off on the tick, and the thumb holds
- * nothing more until it lifts. **Let go before that and the plate snaps
- * back** — said, and only that plate starts over; the other side keeps every
- * plate it has taken (the owner, 8 October 2026, from THE GRINDSTONE).
+ * **A plate is pulled along its track** (`bastion-track.ts`). The drag is
+ * carried in any direction (`fromMilli` the x, `fromYMilli` the y). On a
+ * straight track what counts is how far it has come along the plate's own
+ * way out: sideways is nothing, and back towards the core is nothing. On a
+ * curve it is the point of the curve nearest the thumb, looked for no more
+ * than `bastionStrideMilli` either side of where the plate is, so a thumb
+ * cannot cut across a bend; **a thumb more than `bastionSlackMilli` off the
+ * curve loses the plate**, which slips and snaps back, said, and the thumb
+ * holds nothing more until it lifts. At the track's end the plate tears off
+ * on the tick, and the thumb holds nothing more until it lifts. **Let go
+ * before that and the plate snaps back** — said, and only that plate starts
+ * over; the other side keeps every plate it has taken (the owner, 8 October
+ * 2026, from THE GRINDSTONE).
  *
  * **A thumb on the partner's side** takes hold of nothing and is said
  * (`bastionWrong`), THE LATCH's reason (`latch-hand.ts`).
@@ -58,15 +64,47 @@ export function bastionHeard(world: World, player: 1 | 2, command: Command): voi
   s.down[seat] = true;
   if (s.tore[seat] || bastionLitStep(s)?.layer !== "plates") return;
   const i = bastionPlateOf(s, seat);
-  if (i < 0) return;
-  const [wx, wy] = bastionPlateWay(i);
-  const along = Math.round((command.fromMilli * wx + (command.fromYMilli ?? 0) * wy) / 1000);
-  s.pullMilli[seat] = Math.max(0, along);
-  if (s.pullMilli[seat] < world.cfg.bastionPullMilli) return;
+  if (i < 0 || !pulled(world, s, seat, i, command.fromMilli, command.fromYMilli ?? 0)) return;
+  if (s.pullMilli[seat] < bastionTrackLen(world.cfg, bastionTrackOf(s, i))) return;
   s.pullMilli[seat] = 0;
   s.tore[seat] = true;
   world.events.push({ type: "bastionTear", seat, piece: i, col: plateCol(world, seat) });
   bastionTakes(world, s, i);
+}
+
+/**
+ * Plate `i` carried to where the thumb, `x` across and `y` down from where
+ * it took hold, has it along its track. False when the thumb has strayed off
+ * a curve: the plate has slipped, or — barely moved yet — stays put.
+ */
+function pulled(world: World, s: BastionState, seat: 0 | 1, i: number, x: number, y: number) {
+  const cfg = world.cfg;
+  const track = bastionTrackOf(s, i);
+  if (track === "straight") {
+    const [wx, wy] = bastionPlateWay(i);
+    s.pullMilli[seat] = Math.max(0, Math.round((x * wx + y * wy) / 1000));
+    return true;
+  }
+  const at = s.pullMilli[seat];
+  const len = bastionTrackLen(cfg, track);
+  const pts = bastionTrackPoints(cfg, track, i);
+  const near = curveNearest(
+    pts,
+    len,
+    x,
+    y,
+    at - cfg.bastionStrideMilli,
+    at + cfg.bastionStrideMilli,
+  );
+  if (near.offSq <= cfg.bastionSlackMilli * cfg.bastionSlackMilli) {
+    s.pullMilli[seat] = near.along;
+    return true;
+  }
+  if (at < cfg.bastionSnapMilli) return false;
+  s.pullMilli[seat] = 0;
+  s.tore[seat] = true;
+  world.events.push({ type: "bastionSnap", seat, piece: i, col: plateCol(world, seat) });
+  return false;
 }
 
 function sideOf(target: string): 0 | 1 | null {

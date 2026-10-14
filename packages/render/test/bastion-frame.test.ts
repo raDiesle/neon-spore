@@ -66,14 +66,17 @@ describe("THE BASTION's shells", () => {
     expect(count(torn, PALETTE.bastionArmour)).toBeLessThan(count(whole, PALETTE.bastionArmour));
   });
 
-  it("is smaller for every shell taken off", () => {
+  it("is smaller for every shell taken off, and as big through a shell's second course", () => {
     const s = posed(stood(), "plates");
-    const sizes: number[] = [];
-    for (let cursor = 0; cursor <= s.steps.length; cursor++) {
+    for (let cursor = 1; cursor <= s.steps.length; cursor++) {
+      s.cursor = cursor - 1;
+      const before = bastionReach(L, s);
+      const was = s.steps[cursor - 1]?.layer;
       s.cursor = cursor;
-      sizes.push(bastionReach(L, s));
+      const now = bastionReach(L, s);
+      if (s.steps[cursor]?.layer === was) expect(now).toBe(before);
+      else expect(now).toBeLessThan(before);
     }
-    for (let k = 1; k < sizes.length; k++) expect(sizes[k]).toBeLessThan(sizes[k - 1] ?? 0);
   });
 
   it("brings the gun the rim turned round to the front, over the middle", () => {

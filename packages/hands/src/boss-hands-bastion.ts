@@ -11,6 +11,9 @@ import {
   bastionPlateOf,
   bastionPlateWay,
   bastionTarget,
+  bastionTrackAt,
+  bastionTrackLen,
+  bastionTrackOf,
   type Color,
   type TimedCommand,
   ticksPerBeat,
@@ -21,7 +24,8 @@ import {
  * **THE BASTION played right**, for the autopilot, a shell at a time:
  *
  * - **The plates**: each seat takes hold of its own next plate, carries it
- *   out along the plate's way past the tear, and lifts.
+ *   along its track a stride a message — straight out past the tear, or
+ *   round a curve to its end, never cutting across — and lifts.
  * - **The ring**: the pilot turns the moon by its rim, the short way, until
  *   the next gun still on is at the front; then the cannon under the middle
  *   and the navigator fires the gun's colour. The rim is still while a bolt
@@ -57,11 +61,23 @@ function plate(w: World, s: BastionState, seat: 0 | 1): Press[] {
   if (i < 0) return [];
   if (!s.down[seat]) return [{ player, command: { kind: "drag", target, on: true, fromMilli: 0 } }];
   if (s.tore[seat]) return [{ player, command: { kind: "drag", target, on: false, fromMilli: 0 } }];
+  const track = bastionTrackOf(s, i);
+  const to = Math.min(bastionTrackLen(w.cfg, track), s.pullMilli[seat] + STRIDE);
+  const at =
+    track === "straight"
+      ? beyond(i, w.cfg.bastionPullMilli + 300)
+      : bastionTrackAt(w.cfg, track, i, to);
+  const command = { kind: "drag", target, on: true, fromMilli: at.x, fromYMilli: at.y } as const;
+  return [{ player, command }];
+}
+
+/** How far along its track a plate is carried a message: well inside the stride the simulation allows. */
+const STRIDE = 900;
+
+/** A straight plate's way out, `far` along it. */
+function beyond(i: number, far: number): { x: number; y: number } {
   const [wx, wy] = bastionPlateWay(i);
-  const far = w.cfg.bastionPullMilli + 300;
-  const fromMilli = Math.round((wx * far) / 1000);
-  const fromYMilli = Math.round((wy * far) / 1000);
-  return [{ player, command: { kind: "drag", target, on: true, fromMilli, fromYMilli } }];
+  return { x: Math.round((wx * far) / 1000), y: Math.round((wy * far) / 1000) };
 }
 
 /**

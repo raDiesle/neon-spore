@@ -133,7 +133,7 @@ export const CHOREO_FIELD_GROUP_D = {
   latchYankEveryBeats: "THE LATCH — a rope you haul down in turns, never both letting go",
   latchRearBeats: "THE LATCH — a rope you haul down in turns, never both letting go",
   latchGripRowMilli: "THE LATCH — a rope you haul down in turns, never both letting go",
-  // BastionConfig — the beats around the shells, a plate's tear, the rim
+  // BastionConfig — the beats around the shells, a plate's tear and its curve, the rim
   // and the front, a node's charge (`config-bastion.ts`).
   bastionEnterBeats: "THE BASTION — a metal moon you take apart, one layer at a time",
   bastionShedBeats: "THE BASTION — a metal moon you take apart, one layer at a time",
@@ -141,6 +141,8 @@ export const CHOREO_FIELD_GROUP_D = {
   bastionSpentBeats: "THE BASTION — a metal moon you take apart, one layer at a time",
   bastionPullMilli: "THE BASTION — a metal moon you take apart, one layer at a time",
   bastionSnapMilli: "THE BASTION — a metal moon you take apart, one layer at a time",
+  bastionSlackMilli: "THE BASTION — a metal moon you take apart, one layer at a time",
+  bastionStrideMilli: "THE BASTION — a metal moon you take apart, one layer at a time",
   bastionRimMilli: "THE BASTION — a metal moon you take apart, one layer at a time",
   bastionFrontMilli: "THE BASTION — a metal moon you take apart, one layer at a time",
   bastionChargeBeats: "THE BASTION — a metal moon you take apart, one layer at a time",

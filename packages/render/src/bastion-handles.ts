@@ -2,7 +2,9 @@ import type { Point } from "@neon-spore/content";
 import {
   type BastionState,
   bastionPlateOf,
-  bastionPlateWay,
+  bastionTrackLen,
+  bastionTrackOf,
+  bastionTrackPoints,
   type SimConfig,
 } from "@neon-spore/sim";
 import {
@@ -19,8 +21,7 @@ import type { Layout } from "./layout.js";
 import { drawMazeLever } from "./maze-lever.js";
 import { PALETTE } from "./palette.js";
 import { drawPullKnob } from "./pull-knob.js";
-import { type PullWay, straightPullTrack } from "./pull-line.js";
-import { drawPullTrack, PULL_TRACK_W } from "./pull-track.js";
+import { drawPullTrack, PULL_TRACK_W, type PullTrack, pullWay } from "./pull-track.js";
 
 /**
  * **THE BASTION's knobs**, in the field's one look for a thumb's control
@@ -28,8 +29,9 @@ import { drawPullTrack, PULL_TRACK_W } from "./pull-track.js";
  * default visuals for on screen controls we have*.
  *
  * **A knob on each side's next slab** while the armour is lit, wearing the
- * arrow out along the slab's way and, on its own seat's screen, the channel
- * as long as the pull that tears it, filling as the thumb carries it. **A
+ * arrow along the slab's track and, on its own seat's screen, the channel of
+ * the whole track — straight out, or bending round the moon — filling as the
+ * thumb carries it (the owner, 14 October 2026: *it can also be curves*). **A
  * knob on the rim** while the gun ring is lit, the pilot's — THE MAZE's
  * lever (`maze-lever.ts`), its arm bolted to the cage under the ring — on a
  * ring channel round the moon with a two-headed arrow, since it turns either
@@ -52,20 +54,13 @@ export function drawBastionHandles(
     const mine = seatIsMine(l.role, bastionMarkPlayer(side));
     const rest = bastionKnobRest(l, cfg, s, side);
     const at = bastionKnobAt(l, cfg, s, side);
-    const [wx, wy] = bastionPlateWay(bastionPlateOf(s, side));
-    const way: PullWay = { dx: wx / 1000, dy: wy / 1000 };
+    const i = bastionPlateOf(s, side);
+    const kind = bastionTrackOf(s, i);
+    const track = trackOf(l, cfg, s, side);
+    const along = Math.min(1, s.pullMilli[side] / Math.max(1, bastionTrackLen(cfg, kind)));
+    const way = pullWay(track, along, 1);
     const held = s.down[side];
     if (mine) {
-      const track = straightPullTrack({
-        from: rest,
-        r: rest.r,
-        head: at,
-        held,
-        rest: way,
-        len: (cfg.bastionPullMilli / 1000) * l.tile,
-        follow: false,
-      });
-      const along = Math.min(1, s.pullMilli[side] / Math.max(1, cfg.bastionPullMilli));
       drawPullTrack(ctx, track, {
         ...look(mine),
         held,
@@ -113,6 +108,17 @@ export function drawBastionHandles(
     theirs: !mine,
     key: "bastion:rim",
   });
+}
+
+/** `side`'s next slab's whole track, from where its knob rests, on this screen. */
+export function trackOf(l: Layout, cfg: SimConfig, s: BastionState, side: 0 | 1): PullTrack {
+  const rest = bastionKnobRest(l, cfg, s, side);
+  const i = Math.max(0, bastionPlateOf(s, side));
+  const pts = bastionTrackPoints(cfg, bastionTrackOf(s, i), i).map((p) => ({
+    x: rest.x + (p.x / 1000) * l.tile,
+    y: rest.y + (p.y / 1000) * l.tile,
+  }));
+  return { pts, w: rest.r * PULL_TRACK_W };
 }
 
 /** A knob's colours: THE MAZE's on this screen's own, dim on the partner's. */

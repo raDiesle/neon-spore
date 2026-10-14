@@ -904,3 +904,17 @@ The second half of the entry above: `view-role-clocks-c.ts` — THE BASTION,
 THE FLUE, THE GALL, THE GIMBAL, THE GOVERNOR, THE HASP, THE LAMPREY, THE
 MIMIC, THE RATCHET, THE SPOOL, THE TRAPEZE — and THE GAUGE's marks on player
 2's screen (`gauge.ts`). Same group, same rule: a row a boss, the real frame.
+
+## `bun run frames <sha>` gave up on a build that was only slow
+
+- **Found:** 2026-10-14, claude/bastion-gameplay-enhancement-749629
+- **Files:** `tools/frames/serve.ts`
+
+The first `bun run frames 2bd47f41e --wave "THE BASTION" …` died with
+*preview:once never printed its port* after its fresh `bun install`; the same
+command run again straight after wrote both pictures. `previewUrlFrom` races
+the build's first line against a fixed `PORT_MS`, and a cold build of the
+before and the after at once is slower than that on a loaded machine. Scale
+the patience with the load average, the way `tools/test/figure.js` scales a
+test's figure, or retry the start once before failing, and say which in the
+error. Prove with `bun test tools/frames` and `bun run check`.

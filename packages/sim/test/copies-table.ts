@@ -42,6 +42,15 @@ export interface Copy {
  */
 export const COPIES: Copy[] = [
   {
+    // The point of a curve nearest a thumb, in thousandths along it. THE
+    // LAMPREY's tow wrote it out first, and THE BASTION's curved plates would
+    // have written it a second time; both call `curve.ts` now, and a third
+    // copy is a curve whose knob a thumb reads a tick apart from the other.
+    call: "curveNearest",
+    owner: "packages/sim/src/curve.ts",
+    pattern: /\(dot \* 1000\) \/ den/,
+  },
+  {
     // Whether the rest after a cleared wave is what the pair is looking at.
     // `restBeat` is a sentinel with three meanings — `0` live, a beat number
     // through the rest, `-1` once the next wave has been asked for — and the

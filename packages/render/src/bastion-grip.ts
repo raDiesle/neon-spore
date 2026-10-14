@@ -2,7 +2,8 @@ import {
   type BastionState,
   bastionLitStep,
   bastionPlateOf,
-  bastionPlateWay,
+  bastionTrackAt,
+  bastionTrackOf,
   type DragTarget,
   type SimConfig,
   type World,
@@ -21,13 +22,14 @@ import { bossOf } from "./touch-field.js";
 
 /**
  * **The thumbs on THE BASTION** (§11.62): a knob on each side's next slab,
- * pulled out along the slab's own way, while the armour is lit; and a knob on
+ * pulled along the slab's track — straight out, or round a curve
+ * (`sim/bastion-track.ts`) — while the armour is lit; and a knob on
  * the rim the pilot turns the moon by, while the gun ring is lit.
  *
  * **A press is a message.** A slab's knob says `on` at nothing pulled, and
  * every move after it how far the thumb has come, in thousandths of a tile
- * across and down (`touch-move.ts`) — the simulation keeps only the part
- * along the slab's way. The rim is a lever (`rimFrom`): how far round the
+ * across and down (`touch-move.ts`) — the simulation keeps only how far
+ * along the slab's track that is. The rim is a lever (`rimFrom`): how far round the
  * ring the thumb has come, which turns the moon as far.
  *
  * **The partner's knob is pressed through**, THE LATCH's rule: a thumb on
@@ -73,12 +75,21 @@ export function bastionKnobRest(l: Layout, cfg: SimConfig, s: BastionState, side
   };
 }
 
-/** Where `side`'s knob stands now: out along its slab's way as far as the thumb has it. */
+/** Where `side`'s knob stands now: along its slab's track as far as the thumb has it. */
 export function bastionKnobAt(l: Layout, cfg: SimConfig, s: BastionState, side: 0 | 1): Circle {
   const rest = bastionKnobRest(l, cfg, s, side);
-  const [wx, wy] = bastionPlateWay(Math.max(0, bastionPlateOf(s, side)));
-  const out = (s.pullMilli[side] / 1000) * l.tile;
-  return { ...rest, x: rest.x + (wx / 1000) * out, y: rest.y + (wy / 1000) * out };
+  const off = bastionPulledOut(cfg, s, Math.max(0, bastionPlateOf(s, side)), s.pullMilli[side]);
+  return { ...rest, x: rest.x + (off.x / 1000) * l.tile, y: rest.y + (off.y / 1000) * l.tile };
+}
+
+/** How far plate `i` stands from its place `pulled` along its track, thousandths of a tile across and down. */
+export function bastionPulledOut(
+  cfg: SimConfig,
+  s: BastionState,
+  i: number,
+  pulled: number,
+): { x: number; y: number } {
+  return bastionTrackAt(cfg, bastionTrackOf(s, i), i, pulled);
 }
 
 /** The rim the pilot turns the moon by: round the centre at the sim's own radius. */

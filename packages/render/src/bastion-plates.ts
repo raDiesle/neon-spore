@@ -4,8 +4,11 @@ import {
   type BastionState,
   bastionGone,
   bastionPlateOf,
-  bastionPlateWay,
+  bastionTrackLen,
+  bastionTrackOf,
+  type SimConfig,
 } from "@neon-spore/sim";
+import { bastionPulledOut } from "./bastion-grip.js";
 import {
   type At,
   BASTION_PLATE_HALF,
@@ -29,9 +32,9 @@ import { PALETTE, STROKE } from "./palette.js";
  * A slab is drawn thick — its edge first, a shade down and dropped below it,
  * then its face, lit as part of the ball it is cut from, a bevelled panel
  * line inset round it with a rivet at each corner, and a pair of amber
- * stencil marks. **A slab being pulled stands out along its own way by as
- * much as the thumb has it**, and the seam it leaves behind glows hotter the
- * nearer it is to tearing.
+ * stencil marks. **A slab being pulled stands out along its track by as
+ * much as the thumb has it** — straight out or round a curve, under the knob
+ * — and the seam it leaves behind glows hotter the nearer it is to tearing.
  */
 
 export function drawBastionPlates(
@@ -40,7 +43,7 @@ export function drawBastionPlates(
   c: At,
   s: BastionState,
   lit: boolean,
-  pullMilli: number,
+  cfg: SimConfig,
   pulse: number,
 ): void {
   drawTower(ctx, l, c, pulse);
@@ -51,15 +54,15 @@ export function drawBastionPlates(
     if (lit && bastionGone(s, i)) continue;
     const held = lit && bastionPlateOf(s, bastionPlateSeat(i)) === i;
     const pulled = held ? s.pullMilli[bastionPlateSeat(i)] : 0;
-    const [wx, wy] = bastionPlateWay(i);
-    const out = (pulled / 1000) * l.tile;
+    const off = bastionPulledOut(cfg, s, i, pulled);
     const angle = bastionPlateAngle(i);
     if (pulled > 0) {
       // The seam left behind, hot with how near it is to tearing.
       const seam = bastionPlatePath(c, angle, outer, inner);
-      strokeGlowFaded(ctx, seam, PALETTE.bastionLight, STROKE.outline, 2 * (pulled / pullMilli));
+      const near = pulled / Math.max(1, bastionTrackLen(cfg, bastionTrackOf(s, i)));
+      strokeGlowFaded(ctx, seam, PALETTE.bastionLight, STROKE.outline, 2 * near);
     }
-    drawPlate(ctx, l, c, angle, (wx / 1000) * out, (wy / 1000) * out, 1);
+    drawPlate(ctx, l, c, angle, (off.x / 1000) * l.tile, (off.y / 1000) * l.tile, 1);
   }
 }
 

@@ -1,4 +1,15 @@
-import { type BastionState, type BastionStep, bastionBoss } from "../src/bastion.js";
+import {
+  type BastionState,
+  type BastionStep,
+  bastionBoss,
+  bastionPlateOf,
+} from "../src/bastion.js";
+import {
+  bastionPlateWay,
+  bastionTrackAt,
+  bastionTrackLen,
+  bastionTrackOf,
+} from "../src/bastion-track.js";
 import {
   type Bullet,
   type Color,
@@ -29,11 +40,22 @@ export const PULL = CFG.bastionPullMilli;
 
 /** The shipped wave's script, written out: sim tests do not read content. */
 export const SCRIPT: readonly BastionStep[] = [
-  { layer: "plates", beats: 32 },
+  { layer: "plates", tracks: ["sweep", "straight", "straight", "straight"], beats: 36 },
+  { layer: "plates", tracks: ["snake", "sweep", "snake", "climb"], beats: 48 },
   { layer: "ring", colors: ["red", "cyan", "red", "cyan", "red", "cyan"], beats: 40 },
+  {
+    layer: "ring",
+    colors: ["red", "red", "cyan", "red", "cyan", "cyan", "red", "cyan"],
+    beats: 48,
+  },
   { layer: "lattice", offsets: [-2, 2, 0, -1, 1], beats: 48 },
+  { layer: "lattice", offsets: [1, -2, 0, 2, -1], beats: 48 },
   { layer: "port", offsets: [-2, 1, 0], beats: 32 },
+  { layer: "port", offsets: [2, -1, 1, -2], beats: 40 },
 ];
+
+/** Armour whose every plate is pulled straight out. */
+export const STRAIGHT: readonly BastionStep[] = [{ layer: "plates", beats: 36 }];
 
 export function install(steps: readonly BastionStep[] = SCRIPT, seed = 0): World {
   const world = createWorld({ ...CFG }, seed);
@@ -91,19 +113,32 @@ export function rim(player: 1 | 2, along: number, on = true): TimedCommand {
   return drag(player, "bastionSpin", on, along);
 }
 
+/** How far along a stride of the rig's thumb carries a plate on one tick. */
+const STEP = 400;
+
 /**
- * One plate pulled out `along` its own way and let go, by the seat it
- * belongs to: down, carried, lifted. The event types the three ticks raised.
+ * `side`'s next plate carried `along` its own track — to its end by default,
+ * and a straight one past it — and let go, by the seat it belongs to: down,
+ * carried a stride a tick, lifted. The event types the ticks raised.
  */
-export function pullPlate(world: World, side: 0 | 1, way: readonly [number, number], along = PULL) {
+export function pullPlate(world: World, side: 0 | 1, along?: number): string[] {
+  const s = bastion(world);
   const player = side === 0 ? 1 : 2;
-  const x = Math.round((way[0] * along) / 1000);
-  const y = Math.round((way[1] * along) / 1000);
-  return [
-    ...tick(world, [plate(player, side)]),
-    ...tick(world, [plate(player, side, x, y)]),
-    ...tick(world, [lift(player, side)]),
-  ];
+  const i = Math.max(0, bastionPlateOf(s, side));
+  const track = bastionTrackOf(s, i);
+  const len = bastionTrackLen(world.cfg, track);
+  const to = along ?? (track === "straight" ? len + STEP : len);
+  const [wx, wy] = bastionPlateWay(i);
+  const seen = tick(world, [plate(player, side)]);
+  for (let m = Math.min(STEP, to); ; m = Math.min(to, m + STEP)) {
+    const at =
+      track === "straight"
+        ? { x: Math.round((wx * m) / 1000), y: Math.round((wy * m) / 1000) }
+        : bastionTrackAt(world.cfg, track, i, m);
+    seen.push(...tick(world, [plate(player, side, at.x, at.y)]));
+    if (m >= to) break;
+  }
+  return [...seen, ...tick(world, [lift(player, side)])];
 }
 
 export function shot(col: number, color: Color): Bullet {

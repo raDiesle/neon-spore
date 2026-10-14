@@ -1,12 +1,7 @@
 import { describe, expect, it } from "bun:test";
-import {
-  bastionFrontGun,
-  bastionLeft,
-  bastionPiecesAll,
-  bastionPlateOf,
-  bastionPlateWay,
-} from "../src/bastion.js";
+import { bastionFrontGun, bastionLeft, bastionPiecesAll, bastionPlateOf } from "../src/bastion.js";
 import { bastionStruck, bastionVerdict } from "../src/bastion-shot.js";
+import { bastionPlateWay } from "../src/bastion-track.js";
 import {
   bastion,
   CFG,
@@ -20,6 +15,7 @@ import {
   pullPlate,
   rim,
   runUntil,
+  STRAIGHT,
   shield,
   shot,
   TPB,
@@ -42,24 +38,24 @@ describe("THE BASTION", () => {
     const world = install();
     const s = bastion(world);
     expect(s.phase).toBe("enter");
-    expect(bastionPiecesAll(s)).toBe(8 + 6 + 5 + 3);
+    expect(bastionPiecesAll(s)).toBe(8 + 8 + 6 + 8 + 5 + 5 + 3 + 4);
     const seen = toLayer(world);
     expect(seen.has("bastionLayer")).toBe(true);
     expect(bastion(world).cursor).toBe(0);
   });
 
   it("tears a plate pulled out past the reach along its own way", () => {
-    const world = install();
+    const world = install(STRAIGHT);
     toLayer(world);
     const s = bastion(world);
-    const types = pullPlate(world, 0, bastionPlateWay(bastionPlateOf(s, 0)));
+    const types = pullPlate(world, 0);
     expect(types).toContain("bastionTear");
     expect(bastionLeft(s)).toBe(7);
     expect(bastionPlateOf(s, 0)).toBe(1);
   });
 
   it("counts nothing pulled sideways or back towards the core", () => {
-    const world = install();
+    const world = install(STRAIGHT);
     toLayer(world);
     const s = bastion(world);
     const [wx, wy] = bastionPlateWay(0);
@@ -72,12 +68,12 @@ describe("THE BASTION", () => {
   });
 
   it("snaps a plate let go short back, and only that one starts over", () => {
-    const world = install();
+    const world = install(STRAIGHT);
     toLayer(world);
     const s = bastion(world);
-    pullPlate(world, 1, bastionPlateWay(bastionPlateOf(s, 1)));
+    pullPlate(world, 1);
     expect(bastionLeft(s)).toBe(7);
-    const types = pullPlate(world, 0, bastionPlateWay(0), PULL / 2);
+    const types = pullPlate(world, 0, PULL / 2);
     expect(types).toContain("bastionSnap");
     expect(bastionLeft(s)).toBe(7);
     expect(bastionPlateOf(s, 0)).toBe(0);
@@ -85,17 +81,17 @@ describe("THE BASTION", () => {
   });
 
   it("holds nothing more under a thumb that tore until it lifts", () => {
-    const world = install();
+    const world = install(STRAIGHT);
     toLayer(world);
     const s = bastion(world);
     const [wx, wy] = bastionPlateWay(0);
     tick(world, [plate(1, 0)]);
-    tick(world, [plate(1, 0, wx * 2, wy * 2)]);
+    tick(world, [plate(1, 0, wx * 3, wy * 3)]);
     expect(bastionLeft(s)).toBe(7);
-    tick(world, [plate(1, 0, wx * 4, wy * 4)]);
+    tick(world, [plate(1, 0, wx * 5, wy * 5)]);
     expect(bastionLeft(s)).toBe(7);
     tick(world, [lift(1, 0)]);
-    expect(pullPlate(world, 0, bastionPlateWay(1))).toContain("bastionTear");
+    expect(pullPlate(world, 0)).toContain("bastionTear");
   });
 
   it("says a thumb on the partner's plates or the navigator's on the rim, and moves nothing", () => {
@@ -106,22 +102,22 @@ describe("THE BASTION", () => {
     expect(bastionLeft(bastion(world))).toBe(8);
   });
 
-  it("sheds the plates when all eight are off, then lights the ring", () => {
+  it("sheds each course of plates when all eight are off, and lights the ring after both", () => {
     const world = install();
     toLayer(world);
     const s = bastion(world);
-    const seen = new Set<string>();
-    for (let k = 0; k < 4; k++) {
-      for (const side of [0, 1] as const) {
-        for (const t of pullPlate(world, side, bastionPlateWay(bastionPlateOf(s, side))))
-          seen.add(t);
+    for (const course of [1, 2]) {
+      const seen = new Set<string>();
+      for (let k = 0; k < 4; k++) {
+        for (const side of [0, 1] as const) for (const t of pullPlate(world, side)) seen.add(t);
       }
+      expect(seen.has("bastionShed")).toBe(true);
+      expect(seen.has("bastionSnap")).toBe(false);
+      expect(s.phase).toBe("shed");
+      expect(s.cursor).toBe(course);
+      toLayer(world);
     }
-    expect(seen.has("bastionShed")).toBe(true);
-    expect(s.phase).toBe("shed");
-    expect(s.cursor).toBe(1);
-    toLayer(world);
-    expect(bastion(world).steps[bastion(world).cursor]?.layer).toBe("ring");
+    expect(s.steps[s.cursor]?.layer).toBe("ring");
   });
 
   it("turns the moon by the pilot's rim, either way, and only on the ring", () => {
@@ -216,7 +212,7 @@ describe("THE BASTION", () => {
     const run = () => {
       const world = install();
       toLayer(world);
-      pullPlate(world, 0, bastionPlateWay(0));
+      pullPlate(world, 0);
       for (let t = 0; t < TPB * 3; t++) tick(world);
       return hashWorld(world);
     };

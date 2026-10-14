@@ -135,7 +135,7 @@ export const BOSS_MECHANICS_B = {
     reach: "spawn",
   },
   bastion: {
-    what: "A metal moon in layers. Take each layer off before it grows back. Pull panels out, shoot guns, shield sparks, shoot the port.",
+    what: "A metal moon in layers. Take each layer off before it grows back. Pull panels along their lines, shoot guns, shield sparks, shoot the port.",
     reach: "spawn",
   },
   vane: {
