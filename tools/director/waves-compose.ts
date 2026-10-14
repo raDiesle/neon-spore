@@ -84,3 +84,5 @@ if (complaint) {
   process.exit(1);
 }
 console.log(`wrote ${waves.length} waves into ${rels.join(", ")}`);
+// Every wave after the intro moved, and `docs/spec/briefings.md` names some by number.
+console.log("then: bun run briefings:renumber");

@@ -134,6 +134,7 @@ bun run sheet <prefix> <out.png>       # a strip of frames as one picture, so mo
                        #   --band 0.35,0.72 windows a slice of each frame instead of shrinking it
 bun run probe          # run a scratch script against a live world — tools/probe/
 bun run waves:compose <intro id>  # a block's regular waves, composed and checked; --write puts them after the intro, --names "A|B", --seed N draws again
+bun run briefings:renumber  # §1 of docs/spec/briefings.md: every `N · NAME` and the guided count from today's order — after waves:compose --write
 bun run waves:measure  # play every wave with AUTO and rewrite docs/spec/wave-curriculum-today.md — length, novelty, pressure, boss times
 ```
 

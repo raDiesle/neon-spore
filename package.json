@@ -37,6 +37,7 @@
     "probe": "bun run tools/probe/run.ts",
     "waves:compose": "bun run tools/director/waves-compose.ts",
     "waves:measure": "bun run tools/probe/measure-waves.ts",
+    "briefings:renumber": "bun run tools/probe/briefings-numbers.ts",
     "queue": "bun run tools/queue/run.ts",
     "index": "bun run tools/index/run.ts",
     "lane-speed": "bun run tools/ledger/run.ts",

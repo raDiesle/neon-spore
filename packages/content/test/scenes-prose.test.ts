@@ -1,7 +1,7 @@
 import { describe, expect, it } from "bun:test";
 import { WAVES } from "../src/index.js";
 import { SCENES } from "../src/scenes.js";
-import { spelled } from "./spelled.js";
+import { guidedOfAll, spelled } from "./spelled.js";
 
 /**
  * **The guides that are still prose, and the count of the ones that are
@@ -180,11 +180,11 @@ describe("what `docs/spec/briefings.md` §3.2 says about the rehearsals", () => 
   it("counts the guided waves the opening section names", () => {
     // "seventy-four of the eighty-three waves today" — the one figure in §1
     // that goes stale the same way, and it went stale at sixteen of twenty-six.
-    const all = spelled(WAVES.length).replace(/^one /, "");
-    const phrase = `${spelled(guided.length)} of the ${all} waves today`;
-    expect(DOC.includes(phrase), `update §1 of docs/spec/briefings.md to say "${phrase}"`).toBe(
-      true,
-    );
+    const phrase = guidedOfAll(guided.length, WAVES.length);
+    expect(
+      DOC.includes(phrase),
+      `bun run briefings:renumber — briefings.md should say "${phrase}"`,
+    ).toBe(true);
   });
 
   it("puts a film instead of the prose rather than beside it", () => {

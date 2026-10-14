@@ -328,20 +328,6 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/skipped.test.ts` holds the listing's count of the entries
 `next` stepped past and why.
 
-## `docs/spec/briefings.md` §1 is renumbered by hand after every wave inserted
-
-- **Found:** 2026-10-14, claude/blocks-lure-to-veil
-- **Taken:** 2026-10-14, main (claim: claude/queue-docs-spec-briefings-md-1-is-renumbered-by-hand-a)
-- **Files:** `docs/spec/briefings.md`, `tools/probe/measure-waves.ts`, `packages/content/test/waves.test.ts`
-
-Every lane that writes composed waves (`bun run waves:compose --write`) moves
-the wave numbers in §1's table and its "of the hundred and … waves today"
-figure, and `waves.test.ts` and `scenes-prose.test.ts` fail until both are
-rewritten by hand — a script did it this lane. Make `bun run waves:measure`
-(or a command of its own, in `docs/commands.md`) rewrite each `N · NAME` in
-§1 from today's order and the count in words, with a test, so a block lane
-runs one command instead.
-
 ## AUTO loses THE COUNT and THE CLAW
 
 - **Found:** 2026-10-14, claude/wave-plan

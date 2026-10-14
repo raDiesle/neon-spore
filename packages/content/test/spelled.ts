@@ -38,3 +38,13 @@ export function spelled(n: number): string {
   const hundreds = `${ONES[Math.floor(n / 100)]} hundred`;
   return n % 100 === 0 ? hundreds : `${hundreds} and ${spelled(n % 100)}`;
 }
+
+/**
+ * `docs/spec/briefings.md`'s one count of the guided waves, *one hundred and seven of the
+ * two hundred and seventy-eight waves today*: read by `scenes-prose.test.ts`
+ * and written by `bun run briefings:renumber`, so the two cannot spell it two
+ * ways. The total drops a leading *one* — *the hundred and six waves*.
+ */
+export function guidedOfAll(guided: number, all: number): string {
+  return `${spelled(guided)} of the ${spelled(all).replace(/^one /, "")} waves today`;
+}

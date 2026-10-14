@@ -41268,3 +41268,18 @@ Bottleneck: writing — the guard hook refuses a heredoc carrying a doubled
 backslash, so the regex went in through the editor instead.
 
 *Measured: 4 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-15 — `docs/spec/briefings.md` §1 is renumbered by hand after every wave inserted
+
+- reading: 5 min. The two tests that read the page, and where its count
+  actually sits — in the opening, above §1.
+- writing: 15 min. `bun run briefings:renumber`, the count phrase moved
+  into `spelled.ts` so the test and the command share it, four tests, and a
+  line after `waves:compose --write` naming the command.
+- looking: 0 min. Nothing drawn.
+- friction: 5 min. The guard hook refused two heredocs that carried a
+  regex's doubled backslash; both went in through the editor.
+- landing: 5 min.
+
+Bottleneck: friction — a script with regexes in it cannot be written in a
+heredoc here, and the refusal comes after the whole command is composed.

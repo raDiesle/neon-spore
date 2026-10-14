@@ -508,7 +508,10 @@ describe("the briefings spec's wave numbers", () => {
   it("points every named wave at the wave that carries that name", async () => {
     for (const { row, waves } of rows(await Bun.file(BRIEFINGS).text())) {
       for (const { wave, name } of waves) {
-        expect(WAVES[wave - 1]?.name, `briefings.md §1 ${row} says ${wave} · ${name}`).toBe(name);
+        expect(
+          WAVES[wave - 1]?.name,
+          `briefings.md §1 ${row} says ${wave} · ${name} — bun run briefings:renumber`,
+        ).toBe(name);
       }
     }
   });
