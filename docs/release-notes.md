@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-15 · 3d1bee332 — `check:fast` runs every test that reads the wave list when a wave file changes
+
+A change to `packages/content/src/waves.ts` or an act page now reaches every test outside `packages/content` that names `WAVES` or an act page — found by reading the tests when the check runs, ninety-seven today and half a minute through the shards. The director's save that moved THE INSTAR and THE BASTION was green here and red three times in the landing's full check.
+
 ## 2026-10-15 · e8da5e54f — `bun run frames` waits for a slow build in proportion to the load
 
 The preview's port is now waited for 30 s for each process a core is running, up to two minutes, with the load read when the wait starts — after the scratch tree's install, whose burst is what left a cold build past the flat thirty seconds on 14 October. The error says how long it waited and at what load.
