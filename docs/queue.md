@@ -331,6 +331,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## Holds as the HOLD LAB's drop: THE SCOUT, THE VANE, THE WELL
 
 - **Found:** 2026-10-13, claude/docs-control-visuals-consistency-d98efe
+- **Taken:** 2026-10-14, claude/queue-holds-as-the-hold-labs-drop-the-scout-the-vane-t
 - **Files:** `packages/render/src/scout-grip.ts`, `packages/render/src/vane-grip.ts`, `packages/render/src/well-draw.ts`, `packages/render/src/cue-helper.ts`
 
 Since 13 October 2026 every `HOLD` cue is the HOLD LAB's drop and says no
