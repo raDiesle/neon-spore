@@ -19,6 +19,7 @@ import { PALETTE } from "./palette.js";
 import { drawPullKnob } from "./pull-knob.js";
 import { PULL_UP, straightPullTrack } from "./pull-line.js";
 import { drawPullTrack, pullWay } from "./pull-track.js";
+import { drawSoakHold } from "./soak-hold.js";
 
 /**
  * **THE LAMPREY's handles**, in the field's one look for a thumb's control
@@ -27,10 +28,11 @@ import { drawPullTrack, pullWay } from "./pull-track.js";
  *
  * **The tail's knob** stands where the tail rests, every bite, for the
  * holder — in a `plug` only once the worker has pressed the button back in,
- * so the press is what brings the pull (`sim/lamprey-plug.ts`): a knob with
- * no arrow while it is only held, and in an `apart` a channel along the
- * body away from the head, `lampreyTailPullMilli` long, filling as the
- * thumb drags it. **The head's knob** stands on the tile in a
+ * so the press is what brings the pull (`sim/lamprey-plug.ts`): the HOLD
+ * LAB's drop while it is only held (`soak-hold.ts`; the owner, 13 October
+ * 2026, *it should be our new standard button*), and in an `apart` a knob
+ * with a channel along the body away from the head, `lampreyTailPullMilli`
+ * long, filling as the thumb drags it. **The head's knob** stands on the tile in a
  * `pull` or an `apart`, for the other seat, with a channel straight up,
  * `lampreyHeadPullMilli` long; it rides up with the head as it comes off.
  * **In a `tow`** the tail is an `apart`'s, and the head's channel is the
@@ -85,14 +87,7 @@ export function drawLampreyHandles(
         key: "lamprey:tail",
       });
     } else {
-      drawPullKnob(ctx, rest, rest.r, {
-        ...look(mine),
-        held,
-        time,
-        way: null,
-        theirs: !mine,
-        key: "lamprey:tail",
-      });
+      drawSoakHold(ctx, rest, rest.r, { time, held, theirs: !mine });
     }
   }
   if (worker !== null && ask === "tow") {

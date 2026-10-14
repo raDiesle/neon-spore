@@ -15,7 +15,7 @@ export const LAMPREY_CONTROLS: readonly FieldControlDef[] = [
   {
     name: "THE LAMPREY'S TAIL",
     where:
-      "the knob at the tail's tip, laid away from the tile the eel leaps to next, while a bite is on",
+      "the HOLD LAB's drop at the tail's tip, laid away from the tile the eel leaps to next, while a bite is on — a knob in an `apart` or a `tow`",
     seat: "the stay's holder — player 1 in the first stay, player 2 in the fifth",
     gesture: "grab and drag",
     does:

@@ -40,8 +40,8 @@ export const OTHER_LOOKS: Readonly<Record<string, UseLook>> = {
     move: "Her thumb sinks into it, green as it lands; the hole stays open while she holds and closes the moment she lets go.",
   },
   "THE LAMPREY'S TAIL": {
-    find: "The knob at the tip of the tail, laid away from the tile the eel leaps to next, while a bite is on.",
-    move: "The tail is held while the thumb is down; in an apart it is pulled along the body away from the head.",
+    find: "The HOLD LAB's drop at the tip of the tail, laid away from the tile the eel leaps to next, while a bite is on; the partner's dimmed. In an apart it is the PULL LAB's knob.",
+    move: "The thumb sinks into the drop and the tail is held while it stays; in an apart the knob is pulled along the body away from the head.",
   },
   "THE SCOUT'S PRIME": {
     find: "The HOLD LAB's drop off the little ship's stern, behind the amber beads, haloed on the pilot's screen while no thumb is on it.",

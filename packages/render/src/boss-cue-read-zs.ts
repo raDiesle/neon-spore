@@ -96,6 +96,8 @@ export function lampreyCues(
         y: at.y,
         ...frame,
         seed: 221,
+        // The tail draws its own drop at rest, and in an `apart` the knob is under the thumb.
+        ownDrop: true,
       });
     }
   }

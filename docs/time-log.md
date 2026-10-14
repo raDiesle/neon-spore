@@ -40793,3 +40793,18 @@ Bottleneck: reading — the gate had to be understood before the enemy lanes
 could be cut in the right order.
 
 *Measured: 11 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
+
+## 2026-10-14 — THE LAMPREY's tail and THE SLING's cords hold the HOLD LAB's drop
+
+- reading: 10 min. The tail's knobs and its cue, and where THE SLING's cord
+  draws its hold — a halo with no cue at all.
+- writing: 15 min. The drop on the tail at rest with `ownDrop` on its cue,
+  `drawSlingHolds` with its water the beats held, one halo count moved onto
+  `spyHolds`, a new test, and the cards.
+- looking: 10 min. Two cards, then both drops rendered on their own — the
+  tail's card is posed in an `apart`, where it is still a knob.
+- friction: 0 min.
+- landing: 5 min.
+
+Bottleneck: looking — neither card shows the drop big enough, so the frames
+were rendered by hand.

@@ -164,8 +164,8 @@ export const DRAG_LOOKS: Readonly<Record<string, UseLook>> = {
   },
   // DRAW, THEN SWIPE
   "THE SLING'S LEFT CORD": {
-    find: "Anywhere on the field; a ghost hand stands on the lit tine's handle. Left cord the pilot's, right the navigator's.",
-    move: "The cord is drawn while the finger stays down; the lift's swipe towards the lit side looses it, green — too soon or the wrong way springs it slack, red.",
+    find: "Anywhere on the field; the HOLD LAB's drop stands on the lit cord, the partner's dimmed. Left cord the pilot's, right the navigator's.",
+    move: "The drop sinks and fills while the finger stays down and the cord is drawn; once the beats are held a knob takes its place, and a pull towards the lit side looses it, green — too soon springs it slack, red.",
   },
   // TURN A WHEEL
   "THE GIMBAL'S OUTER RING": {
