@@ -40515,3 +40515,17 @@ Bottleneck: looking — the first frame showed three things wrong that no test
 would have, and each needed a frame to see it fixed.
 
 *Measured: 22 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
+
+## 2026-10-14 — Every wave row shows its pressure, and `bun run waves:measure`
+
+- reading: 5 min. The row builder and its stylesheet.
+- writing: 15 min. `wavePressure` and its tests, the number on the row, the
+  measure command out of the scratch probes, the owner's five answers into the
+  plan.
+- looking: 5 min. Two passes in the director pane: the number wrapped under a
+  long name, then the marks lost their spaces in the flex row.
+- friction: 0 min.
+- landing: 5 min.
+
+Bottleneck: looking — a float that reads fine on short names wraps on long
+ones, and only the pane showed it.

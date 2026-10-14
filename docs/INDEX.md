@@ -1005,6 +1005,7 @@ by hand never moves.
 | `packages/content/src/wave-faults.ts` | **A fault as an author writes it**: the kind, the beat row it enters on, and how many beat rows it holds |
 | `packages/content/src/wave-marks.ts` | **Which of the four marks a wave carries** — a boss, a panel, a guide, a fault |
 | `packages/content/src/wave-regular.ts` | **Which waves are regular** — no boss, no guide, nothing new (`isRegularWave`), and what a wave is the first to carry (`waveIntroduces`); the director's ≡ press filters by it |
+| `packages/content/src/wave-pressure.ts` | **A wave's pressure** (`wavePressure`): the curriculum's difficulty score, the most an arrival costs inside eight beats — printed on every row of the director's wave list |
 | `packages/content/src/creatures-hazards.ts` | **The arrivals with nothing alive in them**: the five speed tiers, THE VEER, the torch — and THE FENCE |
 | `packages/content/src/creatures-split.ts` | The three bodies **one seat cannot see whole** that wear nothing to do it — the dart, the wisp and the ghost |
 | `packages/content/src/mechanics-split.ts` | The five bestiary rows for bodies one seat cannot see whole — the lure, the dart, the veil, the wisp and the ghost |
@@ -3708,6 +3709,7 @@ by hand never moves.
 | `tools/probe/example.ts` | The worked example, and the thing to copy |
 | `tools/probe/run.ts` | `bun run probe [file]` — run a script that needs a live world |
 | `tools/probe/world.ts` | A world, stood up and stepped, for a question that only a running one answers |
+| `tools/probe/measure-waves.ts` | `bun run waves:measure`: every wave played with AUTO, written to `docs/spec/wave-curriculum-today.md` |
 | `tools/director/src/stage-panel.ts` | **What the stage panel is, as a contract**, and nothing about how it is driven |
 | `tools/director/src/stage-play.ts` | Everything that starts, stops and restarts the stage: the `⏸`/`▶` button and the label it wears |
 | `tools/frames/guide-film.ts` | **Driving a rehearsal**, which is a clock of its own and not the world's |

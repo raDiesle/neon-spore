@@ -1,8 +1,10 @@
 # The wave curriculum
 
-> **Status: not built — the plan, waiting on the owner's four answers at the
-> end.** Today's game, measured, is `wave-curriculum-today.md` beside this
-> file. The director's ≡ press, which shows only the regular waves, is built.
+> **Status: partly built.** The plan is answered (§9). Built: the ≡ press that
+> shows only the regular waves, the pressure score on every row of the wave
+> list (`wavePressure`), and `bun run waves:measure`, which writes today's game
+> measured to `wave-curriculum-today.md` beside this file. Not built: the
+> composer and the blocks.
 
 The owner, 14 October 2026: *I want AI to generate regular waves, composed from
 the mechanics and enemies we already have … there should be an equal number of
@@ -122,6 +124,16 @@ another lane, then further*:
 thing: where (columns), when (gaps), with what (a second kind), or how (a
 fault, a panel, speed). Never two. This is what keeps the steps small.
 
+**Decision 8 — the tutorial arc has short blocks.** Waves 1–19, up to
+FINALE, teach the basic panel and the basic mechanics: slick and bulb, the
+rock, the torch, the pods, and the bosses on screen there (THE INSTAR, THE
+BASTION). The owner, 14 October 2026: there, each basic thing gets **three**
+regular waves, not eight — R1 *Again*, R3 *Reach*, R4 *Pair* — so the arc grows
+to about forty waves and is still a tutorial. Its old regular waves (TWO
+COLOURS to CROWDED, and FINALE) count among the three. Slick and bulb are the
+game's ordinary enemy, so **from R4 on, at least half of every regular wave's
+arrivals are slicks and bulbs**, in the tutorial and after it.
+
 **Decision 5 — the floor rises slowly.** Block *b* (counting from 0) has
 floor = 3 + 0.1 × *b*, so block 50 starts at 8 and peaks at 14. The ceiling is
 never above 20 — FINALE today, the hardest regular wave the game has.
@@ -195,9 +207,14 @@ is X, the previous block's is Y and an older one is Z:
 
 ## 7. Bosses
 
-**Decision 7 — a boss closes a block.** It comes after R8, at most one per
-block. There are 54 bosses and 56 blocks today, so nearly every block ends on
-one; a block without one goes straight on to the next intro.
+**Decision 7 — a boss closes a block, and the bosses are spread out.** It
+comes after R8, at most one per block. There are 54 bosses and 56 blocks today,
+so nearly every block ends on one; a block without one goes straight on to the
+next intro. The owner chose on 14 October 2026 to move the bosses rather than
+leave the 22 at waves 98–119 together: each boss goes to the end of the first
+block after which everything it needs has been taught — its panel's buttons,
+and any body it sends. Moving a boss never moves an intro: the order new
+things are taught in stays the order they ship in today.
 
 The boss table — every boss's AUTO time against the band — is in
 `wave-curriculum-today.md`. AUTO plays perfectly and never talks, so the
@@ -210,21 +227,24 @@ Bosses are the owner's to lengthen by hand. This plan only places them.
 
 ## 8. Lanes, once the answers are in
 
-1. **The scorer** — `wavePressure` in `packages/content`, its test, and the
-   number on every row of the director's wave list beside the marks.
+1. **The scorer** — built: `wavePressure`, its test, and the number at the
+   end of every row of the director's wave list.
 2. **The composer** — `bun run waves:compose`, the checks of §6, and the block
    sheet PNG.
 3. **Blocks**, about six per lane, in game order: compose, read, name, land,
    send the sheet.
-4. **The today table** made a command (`bun run waves:measure`) so this page's
-   numbers can be regenerated rather than copied.
+4. **The bosses moved** to the end of their blocks (§7), with the guide and
+   panel tests green — its own lane, before the blocks around them are
+   composed.
+5. **The today table** — built: `bun run waves:measure` rewrites it.
 
-## 9. Asked of the owner, 14 October 2026
+## 9. Answered by the owner, 14 October 2026
 
-1. Eight regular waves per new thing — or fewer, or more?
-2. Do the existing waves keep their order, with blocks inserted after each
-   intro — or are the 22 bosses at the end (waves 98–119) spread out, one per
-   block?
-3. Do the 10 old regular waves stay where they are, or count as the first of
-   their block's eight?
-4. Is a pair taking twice AUTO's time the right guess for the boss bands?
+1. **Eight** regular waves per new thing (over six and twelve).
+2. **The bosses are spread out**, one closing a block (§7), rather than the
+   existing order kept with 22 bosses in a row.
+3. **The 10 old regular waves count** as the first of their block's eight; the
+   composer writes only the rest, and nothing hand-made is lost.
+4. **A pair takes twice AUTO's time** — the boss bands of §3 stand.
+5. **Waves 1–19 get short blocks** of three regular waves per basic thing
+   (§4, decision 8), over keeping the arc as it is or giving it full blocks.

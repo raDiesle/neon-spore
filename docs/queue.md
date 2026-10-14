@@ -659,22 +659,6 @@ As above, for these two bosses. Fix the hands, add a play-to-the-end test for
 each, fill in the rows. Prove with `bun test packages/hands` and
 `bun run check`.
 
-## The wave pressure score, in content and on the wave list
-
-- **Found:** 2026-10-14, claude/wave-plan
-- **Taken:** 2026-10-14, claude/wave-plan (claim: claude/queue-the-wave-pressure-score-in-content-and-on-the-wa)
-- **Files:** `docs/spec/wave-curriculum.md`, `packages/content/src/wave-regular.ts`, `tools/director/src/rail-marks.ts`
-- **Asks:** Is the curriculum's plan right as written — eight regular waves after every new thing, existing waves kept in order, the boss bands at twice AUTO's time?
-
-The first lane of `wave-curriculum.md` §8: `wavePressure(wave)` in
-`packages/content`, exactly §5's formula, with a test pinning TWO ROCKS < THE
-WALL < FINALE and the fault term; the number drawn at the end of every row of
-the director's wave list; and the probe scripts that wrote
-`wave-curriculum-today.md` made a command (`bun run waves:measure`) that
-rewrites its tables. The options the answer picks between are §9's four
-questions. Prove with `bun test packages/content tools/director` and
-`bun run check`.
-
 ## `keys.ts` is four lines under the line ceiling
 
 - **Found:** 2026-10-14, claude/queue-curved-pulls-the-sim-knows-only-straight-ones

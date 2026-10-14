@@ -1,3 +1,4 @@
+import { wavePressure } from "@neon-spore/content";
 import type { RowDrag } from "./rail-drag.js";
 import { waveGroups } from "./rail-groups.js";
 import { waveMarks } from "./rail-marks.js";
@@ -57,7 +58,20 @@ export function renderRows(
     button.append(n);
     // A boss, a panel the pair has not held before, a guide (`rail-marks.ts`).
     button.append(...waveMarks(store.waves, i));
-    button.append(document.createTextNode(wave.name || "— unnamed —"));
+    const name = document.createElement("span");
+    name.className = "name";
+    name.textContent = wave.name || "— unnamed —";
+    button.append(name);
+    // Its pressure, at the end of the row, so a block reads as a rising
+    // number down the list (`docs/spec/wave-curriculum.md` §5). Nothing on a
+    // boss, or on a wave with nothing placed yet.
+    const pressure = wavePressure(wave);
+    if (pressure !== undefined && wave.entries.length > 0) {
+      const p = document.createElement("span");
+      p.className = "pressure";
+      p.textContent = pressure.toFixed(1);
+      button.append(p);
+    }
     button.addEventListener("click", () => select(i));
     // A row is the name and the two ways out of it, and the wrapper carries
     // the row's own marks so that everything which reads the list still finds

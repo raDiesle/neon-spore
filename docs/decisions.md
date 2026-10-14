@@ -1244,7 +1244,9 @@ is aimed at a pressure score that rises by small steps with a dip in the
 middle of the block. Regular waves are composed once at author time into the
 act files and edited like any other wave; nothing is generated at run time,
 which `wave-design.md` §8.1 and the randomness rule (`structure.md` §7.3)
-both still require. The numbers: `docs/spec/wave-curriculum.md`.
+both still require. The tutorial arc, waves 1–19, gets short blocks of three,
+and the bosses move to close the blocks rather than stand together at the end.
+The numbers: `docs/spec/wave-curriculum.md`.
 
 **Reconsider if:** a pair playing eight regular waves in a row says they are
 bored before the next new thing — then the count drops, not the rule that it is

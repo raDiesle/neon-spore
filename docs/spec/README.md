@@ -33,7 +33,7 @@ and record why in `docs/decisions.md`.
 | [briefings.md](briefings.md) | what is taught before a wave, and how it is placed | not built |
 | [between-waves.md](between-waves.md) | the rest between one wave and the next: what a cleared wave says, and the hand-off into the next guide | built, unheard |
 | [wave-design.md](wave-design.md) | figures, variation, the two filters, the ten acts | partly built |
-| [wave-curriculum.md](wave-curriculum.md) | the plan for a thousand waves: wave length, eight regular waves per new thing, the pressure score, how the composer works | not built |
+| [wave-curriculum.md](wave-curriculum.md) | the plan for a thousand waves: wave length, eight regular waves per new thing, the pressure score, how the composer works | partly built |
 | [wave-curriculum-today.md](wave-curriculum-today.md) | every wave and boss measured on 14 October 2026: what each introduces, its span, AUTO's time, its pressure | a measurement |
 | [graphics.md](graphics.md) | the visual rules and the fiction | mostly built |
 | [audio.md](audio.md) | the speech-band rule, the grains, the catalogue | built, unheard |
