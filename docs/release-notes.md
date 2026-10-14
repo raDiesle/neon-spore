@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-14 · 6d1b79d38 — A bolt stops on THE HYDRA where it is drawn, and is met there
+
+A shot up the hydra bursts on the body's lower edge, on any maw still hanging under it, and on the open maw's head, and the simulation judges it there rather than at the top of the field. The body's row and the maws' rows are read from the simulation's own constants, so the two cannot drift.
+
 ## 2026-10-14 · 56519ce4f — VERSUS offers THE BLISTER's TAP a body built round its button
 
 A blister's control is as big as its body, and the press's halo covered the clover whole, so what the pair saw was a ring and no creature. Each gesture now has its own body record (`BLISTER_BODY`), every one still the clover, so the game draws what it did; `blister:tap` offers three bodies that come up out of the pore with the button set in them — MOLE, whose face it is; RIDER, a round pad with an amber slime riding its shoulder, THE VEER's way; and CRADLE, two arms cupping it like a pearl. HOLD, SWIPE, TURN and RUB are queued as a slot each, and LEVER and COMBO as gestures THE BLISTER does not have yet. Exemption: none — a look, offered on VERSUS.

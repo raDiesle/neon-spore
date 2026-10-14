@@ -41046,3 +41046,5 @@ and its arms floated free, which only a shot showed.
 
 Bottleneck: reading — the meet row has to sit past the drawn stop by less
 than the test's eight ticks, which only the bolt's speed says.
+
+*Measured: 10 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
