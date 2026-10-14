@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-14 · 142abdd72 — VERSUS offers THE GALL's alien turning where it sits
+
+`gall:glance` offers the alien a turn about its own middle — SWAY, LOOK or COCK — the whole small body yawing where it stands on the seam, the lit core, the rim and the flash turning with it, the near flank opening and the far flank closing into the dark and back, on GALL · TAPS ON THE LEFT END. The seam, its four points and the knob stay where they are; a hand is taken in its point's share of the seam and a bolt is stopped by the seam, so nothing a thumb or a bolt meets moves. The record ships still, so the game draws what it did.
+
 ## 2026-10-14 · d567dc80f — THE CAPSTAN's glance stays on VERSUS as offered
 
 The owner answered the queue's question on 14 October 2026 with (a): the drum's faint turn, its faces held at the drum's ends, stays a VERSUS candidate for him to judge there, over clocking the rub (b) or dropping the slot (c). Nothing in the game changes.
