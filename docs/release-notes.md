@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-14 · ea6ac30e5 — THE LAMPREY's head and tail pull further
+
+The head now comes off its tile at 2.2 tiles up instead of 1.5, and an `apart` or a tow pulls the tail 1.8 tiles instead of 1.2 — the owner's answer of 13 October 2026 to *longer pulls where reasonable*. So that a tail laid out and pulled stays whole on the field, the eel lands a row further from the top and the bottom: rows 4 to 8 rather than 3 to 9. The leap out of an `apart`, whose tail now lies 4.8 tiles out, is held shorter by the room it leaves from. Exemption: asked for by name.
+
 ## 2026-10-14 · f4f142eb0 — The director's brush palette draws its pictures only when they are near the screen
 
 Every brush button's picture — a world posed and drawn by the shipping renderer — was drawn at startup, about 1.5 s of a phone-speed load, even on pages that cover the palette. Each button now draws it through `whenSeen`, as CONTROLS' cards do: the wave page draws the buttons in view and the rest on scrolling, and a sheet over the palette draws none.
