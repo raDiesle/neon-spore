@@ -160,4 +160,23 @@ export const LATE_CREATURE_HUES = {
   chrysalisSac: "#C2479C",
   chrysalisSpore: "#FFB2EC",
   chrysalisGrub: "#F0C8A8",
+  /**
+   * THE HYDRA (§11.64): a slime with many heads, its own deep-sea tissue. The
+   * hide an abyssal teal with a near-black outline, a sea-green sheen on its
+   * scales and pale spots glowing along its back; the fangs bone, the gullet
+   * a dark wine; the eyes an amber no cannon carries; the ichor out of a cut a
+   * violet; a stump seared dark; the fire in a maw a white heat, its
+   * colour the pilot's alone (`showsHydraFire`); and the smoke off a maw a grey.
+   */
+  hydraHide: "#16584F",
+  hydraHideDark: "#05201C",
+  hydraScale: "#3FD3A8",
+  hydraSpot: "#B8FFE9",
+  hydraFang: "#F3EAD2",
+  hydraGullet: "#5E0F2E",
+  hydraIris: "#FFC233",
+  hydraIchor: "#B57CFF",
+  hydraStump: "#2A1B2E",
+  hydraFire: "#FFF4E0",
+  hydraSmoke: "#9AA6A2",
 } as const;

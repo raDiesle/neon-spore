@@ -96,9 +96,10 @@ export const INGEST_SILENT_BOSS_F = [
   "chrysalisRegrow",
   "chrysalisSpent",
   "chrysalisOut",
-  // THE HYDRA's seventeen are drawn by nothing yet: its look is the second
-  // lane (`docs/spec/bosses.md` §11.64), and until it lands they leave
-  // nothing behind for the next frame and burst nowhere.
+  // THE HYDRA's seventeen are read as one family above the loop by
+  // `hydra-fx.ts` (`Effects.boss.hydra`), the way THE CHRYSALIS's are: a
+  // burst at the head, a head cut off falling, a coil dropping, the steam off
+  // a maw, the lunge, and the shudder as a level is stopped.
   "hydraEnter",
   "hydraHeads",
   "hydraCut",

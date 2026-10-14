@@ -115,6 +115,10 @@ const LOOK: Partial<Record<BossKind, StrikeLook>> = {
   // THE NETTLE's the same way: the sting, the glare, the brood, the drop, the
   // curtain and the flare are `nettle-strike.ts`'s, off its `instarStrike`.
   nettle: () => {},
+  // THE HYDRA's the same way: the head still coming lunges down on its neck
+  // to the column and is drawn back, by `hydra-receipts.ts` off its
+  // `hydraStrike`.
+  hydra: () => {},
 };
 
 export function strikeLook(by: BossKind): StrikeLook {

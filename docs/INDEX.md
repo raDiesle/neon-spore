@@ -2661,7 +2661,17 @@ by hand never moves.
 | `packages/render/src/hive-marks.ts` | **THE HIVE's one handle answering a touch the way every mark does** (`mark-feedback.ts` |
 | `packages/render/src/hive-lock.ts` | **The pilot's thumb on a wall's cocoon**: the ring on every high cocoon that only a held thumb reaches, and the press on it |
 | `packages/render/src/hit.ts` | **How far past its drawn edge a circle answers a thumb.** Every ring, lobe |
-| `packages/render/src/hydra-shape.ts` | **THE HYDRA's geometry**: where the body hangs and how far it reaches |
+| `packages/render/src/hydra-shape.ts` | **THE HYDRA's geometry**: where the body hangs, how far it reaches |
+| `packages/render/src/hydra-body.ts` | **THE HYDRA's body** (§11.64): the slime every neck runs out of — an abyssal teal mass, wider than tall |
+| `packages/render/src/hydra-coil.ts` | **THE HYDRA's coils** (§11.64): on each side a neck run down and wound round on itself in a flat spiral |
+| `packages/render/src/hydra-draw.ts` | **THE HYDRA** (§11.64): a slime with many heads hung over the field, and every head coming for the ship |
+| `packages/render/src/hydra-eyes.ts` | **THE HYDRA's heads of eyes** (§11.64): on each side a great bulb of a head on a thick neck |
+| `packages/render/src/hydra-fx.ts` | What THE HYDRA leaves behind a frame (§11.64, *The receipts*): **a head cut off** |
+| `packages/render/src/hydra-head.ts` | **THE HYDRA's heads, the piece every kind is drawn with** (§11.64) |
+| `packages/render/src/hydra-heads.ts` | **THE HYDRA's biting necks and its maws** (§11.64) |
+| `packages/render/src/hydra-neck.ts` | **THE HYDRA's flesh** (§11.64): a neck — a living tube, tapering from the body to the head |
+| `packages/render/src/hydra-pose.ts` | **THE HYDRA's pose**: where in its story the body is this frame |
+| `packages/render/src/hydra-receipts.ts` | THE HYDRA's receipts, drawn (§11.64): the heads cut off falling and tumbling |
 | `packages/render/src/beatbox-count.ts` | **What the counter over a soundbox is saying**, as a shape rather than as a drawing — how many slots |
 | `packages/render/src/beatbox-silence.ts` | **A soundbox going quiet**, which is the one thing on this creature that goes right and until now was the… |
 | `packages/render/src/blister-tap.ts` | **A tap on THE BLISTER**, answered only where the simulation would count it: on a blister that is up |

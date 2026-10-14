@@ -177,3 +177,16 @@ export const showsBastionPort = (role: ViewRole): boolean => role !== "p1";
  * pore already shot is a scar on both screens. `test` is both.
  */
 export const showsChrysalisHeart = (role: ViewRole): boolean => role !== "p2";
+
+/**
+ * THE HYDRA's split on its maws (§11.64), crossed: **the navigator is shown
+ * which maw is open** — its jaws gaping, a white heat in it — and **the pilot
+ * the fire's colour**, burning up its throat. The pilot's hand is on the
+ * cannon and the navigator's on the colours, so each holds the other's word:
+ * the navigator says where, the pilot says which colour. A maw quenched is a
+ * stump on both screens. `test` is both.
+ */
+export const showsHydraMaw = (role: ViewRole): boolean => role !== "p1";
+
+/** The other half of THE HYDRA's crossing: the fire's colour, the pilot's. */
+export const showsHydraFire = (role: ViewRole): boolean => role !== "p2";

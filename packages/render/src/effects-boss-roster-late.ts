@@ -5,6 +5,7 @@ import { RoundMarks } from "./effects-round-marks.js";
 import { FlueFx } from "./flue-fx.js";
 import { GallFx } from "./gall-fx.js";
 import { GovernorFx } from "./governor-fx.js";
+import { HydraFx } from "./hydra-fx.js";
 import { LampreyFx } from "./lamprey-fx.js";
 import { LatchFx } from "./latch-fx.js";
 import { MimicFx } from "./mimic-fx.js";
@@ -84,4 +85,9 @@ export class LateRoster extends RoundMarks {
    * in, as a skin peels and as the grub dies, and the blow it takes
    * (`chrysalis-fx.ts`, `chrysalis-receipts.ts`). */
   readonly chrysalis = new ChrysalisFx();
+  /** THE HYDRA's heads cut off falling, its coils dropping, the steam off a
+   * maw quenched, the head that struck lunging, the hull's shudder as it
+   * comes in, as a level is stopped and as it is beaten, and the blow it takes
+   * (`hydra-fx.ts`, `hydra-receipts.ts`). */
+  readonly hydra = new HydraFx();
 }

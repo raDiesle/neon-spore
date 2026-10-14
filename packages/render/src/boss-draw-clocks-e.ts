@@ -4,6 +4,7 @@ import { drawChrysalis } from "./chrysalis-draw.js";
 import type { Effects } from "./effects.js";
 import { drawFlue } from "./flue-draw.js";
 import { drawGovernor } from "./governor-draw.js";
+import { drawHydra } from "./hydra-draw.js";
 import { drawLamprey } from "./lamprey-draw.js";
 import { lampreyStopper } from "./lamprey-stop.js";
 import { drawLatch } from "./latch-draw.js";
@@ -36,6 +37,7 @@ export const LATEST_PAIR_KINDS = [
   "latch",
   "bastion",
   "chrysalis",
+  "hydra",
 ] as const;
 
 export type LatestPairBoss = Extract<Installed, { kind: (typeof LATEST_PAIR_KINDS)[number] }>;
@@ -123,5 +125,22 @@ export function drawLatestPairBoss(
   // THE CHRYSALIS: a living cocoon in four skins, each its own tissue and
   // its own job, peeled from the outside in (`chrysalis-draw.ts`); its
   // receipts are `chrysalis-fx.ts`, and a bolt stops on it (`chrysalis-stop.ts`).
-  drawChrysalis(ctx, l, world, boss, beat, beatPhase, time, effects.boss.chrysalis, effects.bolts);
+  if (boss.kind === "chrysalis") {
+    drawChrysalis(
+      ctx,
+      l,
+      world,
+      boss,
+      beat,
+      beatPhase,
+      time,
+      effects.boss.chrysalis,
+      effects.bolts,
+    );
+    return;
+  }
+
+  // THE HYDRA: a slime with many heads, each level its own kind of head and
+  // its own gesture (`hydra-draw.ts`); its receipts are `hydra-fx.ts`.
+  drawHydra(ctx, l, world, boss, beat, beatPhase, time, effects.boss.hydra);
 }

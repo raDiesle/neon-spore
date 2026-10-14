@@ -12035,7 +12035,7 @@ The owner's ask of 14 October 2026: *create another boss like "the
 chrysalis" and "the instar". make it interesting to play and vary in on
 screen mechanics. make good graphics.* A choreographed scene, the third kind
 in `.claude/skills/new-boss`. **Built on 14 October 2026 as its
-simulation**; its body, its marks and its words are the next lanes.
+simulation and its body**; its marks and its words are the next lane.
 
 **The rule, in one sentence.** Stop each head before it reaches the ship.
 
@@ -12144,9 +12144,65 @@ maw in its column and colour, and the wrong colour losing the wave; a level
 run out striking the hull; the body rearing between levels and beaten after
 the last; the same thumbs hashing the same.
 
-**What is not built.** The body, its poses and its turn; the marks, the
-cues and the verdicts; the bolt stopping on the body; the guide is prose.
-**Never watched at tempo** — the owner's eye.
+**The look** (`render/src/hydra-draw.ts` and the pages it calls). An
+abyssal teal slime hung over the middle of the field, wider than tall, its
+lobes rippling as it breathes, with **every level its own kind of head and
+its own picture**, the necks run out of its lower rim:
+- **The body** (`hydra-body.ts`), drawn in the round: a pale ribbed belly on
+  one face, and on the other a spined back with two rows of pale spots
+  glowing either side. Along its top runs **a crown with a place for every
+  level** — a bud asleep for each level to come, an empty socket for the
+  level out now, and a seared stump for each level stopped — so the fight's
+  length is read off the body, never a bar.
+- **The bites** (`hydra-heads.ts`): serpent heads on banded necks, a side's
+  heads in a stair, the top one nearest the middle and each under it a step
+  lower and further out, so no neck lies over another. They swing, and come
+  lower and gape wider as the window runs. **A swipe going across is a gash
+  cut into the neck** at the depth the thumb has it, the violet ichor showing;
+  a neck cut is a seared stump and its head falls tumbling away.
+- **The coils** (`hydra-coil.ts`): a neck run down and wound flat on itself,
+  **one turn of the spiral for every lap still wound**, its head biting at the
+  middle and squeezing on the beat. The whole spiral turns round the way the
+  thumb carries it, and gets a ring smaller every lap; turned off, it is a
+  stump hanging and its rings drop away.
+- **The eyes** (`hydra-eyes.ts`): a great bulb of a head on a thick neck each
+  side, its eyes set round it in a ring. One at a time is awake: its lids draw
+  apart on an amber iris with a slit pupil turned down at the ship, glowing,
+  and blink shut again. An eye put out is a seared hollow stitched across.
+- **The maws**, hung over the columns they open on. **Crossed**
+  (`view-role-clocks-c.ts`): **the navigator is shown which maw is open** —
+  its jaws gaping on a white heat (`showsHydraMaw`) — and **the pilot the
+  fire's colour**, burning up the body's throat (`showsHydraFire`), with
+  every maw on the pilot's screen smouldering the same. A maw quenched is a
+  smoking stump on both screens. `test` is both.
+
+**Its pose** (`hydra-pose.ts`) is THE INSTAR's five points read on a hydra.
+Each kind of head has a **stance** — hunched forward behind the bites,
+squatting wide holding its coils, standing tall under its eyes, swollen with
+its maws and the fire in its throat — and the body between two is the eased
+blend. **It rears and turns between levels**: up and back as the next heads
+grow out of its rim, and half round about its upright axis, so the belly
+goes round and the spined back comes round, and the next level turns it back;
+never while heads are coming. It comes in out of the dark from small, and
+beaten it shrinks up into it and is gone.
+
+**The receipts** (`hydra-fx.ts`, drawn by `hydra-receipts.ts`): a head cut
+off falling and tumbling from where it was drawn, dripping ichor; a coil's
+rings slackening as they drop; steam boiling off a maw quenched; **the head
+that struck** lunging down on its neck to the column on the hull and drawn
+back — its own blow, so `boss-strike-look.ts` draws no lash over it; and the
+hull's shudder as it comes in, as a level is stopped and as it is beaten.
+Every head stopped is a counted hit and every level the blow of a landed
+sequence (`BossHurt`).
+
+`render/test/hydra-frame.test.ts` draws every kind of head on all three
+screens: a cut going in and a stump left, a coil a ring fewer, an eye awake
+and put out, the maws crossed both ways, a quenched stump, the body smaller a
+level at a time with its crown a stump more, the rear, and the body beaten.
+
+**What is not built.** The marks, the cues and the verdicts; the bolt
+stopping on the body; the guide is prose. **Never watched at tempo** — the
+owner's eye.
 
 ## Retired
 

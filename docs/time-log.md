@@ -40842,3 +40842,18 @@ Bottleneck: looking — the card shows no hold, so the frame was rendered by
 hand, and it found the gap drop over the marks, which is queued.
 
 *Measured: 8 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-14 — THE HYDRA is drawn: a slime with many heads, each level its own picture
+
+- reading: 10 min. THE CHRYSALIS's look commit for its registrations, its
+  pose, fx and frame harness, and the strike look's table.
+- writing: 35 min. Body, flesh, serpent head, bites, coils, eyes, maws,
+  pose, fx, receipts, the two seat predicates and the frame test.
+- looking: 10 min. Five rounds of frames: necks lying on one another
+  until the bites stood in a stair, and every head too small.
+- friction: 5 min. The landing of lane one stopped on three files main had
+  moved under it — THE CHRYSALIS's guide gone — and was resolved by hand.
+- landing: 5 min.
+
+Bottleneck: looking — the bite level drew three necks on one line, which
+only a frame showed.
