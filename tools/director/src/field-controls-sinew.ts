@@ -19,7 +19,9 @@ export const SINEW_CONTROLS: readonly FieldControlDef[] = [
     seat: "player 1 — one handle each, and the sides never change",
     gesture: "grab and drag",
     does:
-      "Carried **down** it pulls, as far as sinewReachMilli — one tile — and " +
+      "Carried **down** it pulls, along a channel bowed sinewBowMilli away " +
+      "from the mass, as far as sinewReachMilli — three tiles; a thumb a tile " +
+      "off the bow drops it until it lifts (sim/sinew-bow.ts) — and " +
       "the pull is added to the other hand's into one sum on the strain band " +
       "at the tendon's collar. Player 1's screen shows where the zone is on " +
       "that band and never the sum; his job is to say *more* and *less*. " +

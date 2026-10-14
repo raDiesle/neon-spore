@@ -44,6 +44,7 @@ export function installSinew(world: World): SinewState {
     pullP2Milli: -1,
     swayP1Milli: 0,
     swayP2Milli: 0,
+    strayed: 0,
     slackMilli: 0,
     zoneLowMilli: 0,
     zoneSlots: 0,

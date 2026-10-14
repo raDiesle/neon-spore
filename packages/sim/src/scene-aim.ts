@@ -5,10 +5,10 @@ import { gripOf, NO_GRIP } from "./grip.js";
 import { hiveBoss, hiveNext } from "./hive.js";
 import { hiveHoldable } from "./hive-wall.js";
 import { lidCordFromMilli } from "./lid-bow.js";
+import { aimedOnBow } from "./scene-aim-bow.js";
 import { bodyCenterCol, occupiesCol } from "./span.js";
 import type { Command, Creature } from "./types.js";
 import { undertowBoss } from "./undertow.js";
-import { wardenRopeFromMilli } from "./warden-bow.js";
 import type { World } from "./world.js";
 
 /**
@@ -108,6 +108,8 @@ export interface SceneCommand {
  * treats as a hand let go.
  */
 export function aimed(world: World, c: SceneCommand): Command {
+  const bowed = aimedOnBow(world, c.command);
+  if (bowed !== null) return bowed;
   if (c.command.kind === "drag" && c.command.target === "gripBody") {
     // **THE PUSH is aimed off the hand rather than off a column**, and it is
     // the one act here that cannot use the arrangement the other three use:
@@ -150,14 +152,6 @@ export function aimed(world: World, c: SceneCommand): Command {
     if (s === null || s.rail.length === 0) return c.command;
     const way = antiphonVeinMilli(world.cfg, s, s.answer, c.command.fromYMilli ?? 0);
     return { ...c.command, ...way, id: s.answer };
-  }
-  if (c.command.kind === "drag" && c.command.target === "wardenTether") {
-    // THE WARDEN's rope bows toward the middle from wherever the pupil hung
-    // it: the film writes the carry in taut's units, and the world lays it
-    // along the bow (`warden-bow.ts`) — a thumb straight down would stray.
-    const b = world.boss;
-    if (b?.kind !== "warden") return c.command;
-    return { ...c.command, ...wardenRopeFromMilli(world.cfg, b, c.command.fromYMilli ?? 0) };
   }
   if (c.command.kind === "drag" && c.command.target === "undertowTap") {
     // THE UNDERTOW's tap is on a tall lobe, named by its column — and where a

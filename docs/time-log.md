@@ -40240,3 +40240,19 @@ had to stay the straight distance along its way, with the knob placed on the
 bow at that distance, for the floor to keep bounding it exactly.
 
 *Measured: 40 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-14 — Curved pulls, THE SINEW: each handle bows away from the mass
+
+- reading: 10 min. The two hands' depth and sway, which states read which,
+  and every script that pulls a handle — films, the autopilot, poses, `--hold`.
+- writing: 25 min. `sinew-bow.ts`, the `strayed` bits, the hit test cut off
+  `sinew-handles.ts`, the bowed films cut off `scene-aim.ts`, the channel and
+  knob on the bow, the tests' helpers laid on it and a test file of its own.
+- looking: 5 min. The two handles' channels before and after.
+- friction: 5 min. The film resolver went over the line ceiling on the
+  formatter's wrap and had to be split inside the lane.
+- landing: 5 min.
+
+Bottleneck: the sway is the same thumb's carry across, so the stray could
+only be asked while a depth is read — not in the whip or the fall, where
+across is the whole ask.

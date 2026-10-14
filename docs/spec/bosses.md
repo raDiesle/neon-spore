@@ -4705,10 +4705,13 @@ only if something arrives while both hands are on the rope.
 **The rule, in one sentence.** Each seat has one handle (`sinewLeft` is player
 1's, `sinewRight` player 2's, a `drag` whose `fromYMilli` is the pull, up to
 `sinewReachMilli` (3000, three tiles of thumb since 2 October 2026), and whose
-`fromMilli` is the sway — dropped while the tendon hangs, so a pull runs
-straight down, and kept only for the catch and the fall, which the owner kept
-on 2 October 2026 because neither is a pull; `sim/sinew-hand.ts`
-hears them on the tick), the two pulls **add** into one sum less the slack,
+`fromMilli` is the sway — not read while the tendon hangs, and kept only for
+the catch and the fall, which the owner kept on 2 October 2026 because neither
+is a pull; `sim/sinew-hand.ts` hears them on the tick. Since 13 October 2026
+each handle's way down **bows** `sinewBowMilli` (1500) away from the mass
+halfway down (`sim/sinew-bow.ts`): the pull is still the straight depth, but
+a thumb a tile across from the bow at that depth drops the handle with
+`pullStray` until it lifts), the two pulls **add** into one sum less the slack,
 and the fibre being held **parts** when that sum has sat inside a **zone**
 for `sinewHoldBeats` (4) beats on end. The zone is `sinewZoneMilli` (1440)
 wide less `sinewZoneNarrowMilli` (240) per fibre gone, never narrower than one
@@ -4847,7 +4850,7 @@ the tube flashes green, a ring goes out, the fibre's runs whip back to stubs.
 The boss **drops in** over `sinewEnterBeats` — the crown slides down, the mass
 falls past its row and rings back like a rubber band — then bobs on the
 tendon for a beat after every part. Each seat's own handle stands in a
-**pull channel** straight down, the shared pull track (`pull-track.ts`) a
+**pull channel** down its bow, the shared pull track (`pull-track.ts`) a
 reach long, filling green as it is pulled (`sinew-marks.ts`). The two
 **handles** hang off the mass's flanks on the shipped SINEW tether
 (`tether-sinew.ts`), the pilot's on the left and the navigator's on the

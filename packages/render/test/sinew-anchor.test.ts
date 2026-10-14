@@ -4,6 +4,8 @@ import {
   createWorld,
   DEFAULT_CONFIG,
   sinewBoss,
+  sinewBowFromMilli,
+  sinewBowPoint,
   startWave,
   step,
   ticksPerBeat,
@@ -75,17 +77,16 @@ describe("a caption pointed at one of THE SINEW's handles", () => {
         kind: "drag",
         target: "sinewRight",
         on: true,
-        fromMilli: 0,
-        fromYMilli,
+        ...sinewBowFromMilli(CFG, 2, fromYMilli),
       } as const;
       step(world, [{ tick: world.tick, player: 2, command }]);
     }
     expect(s.pullP2Milli).toBe(500);
     // The rest itself follows the mass, which a pull moves; the hand is the
-    // pull below wherever the rest now is.
+    // pull below wherever the rest now is, out on its bow (`sim/sinew-bow.ts`).
     const rest = sinewHandleCircle(L, CFG, s, world.beat, 0, 1);
     const held = handleCircle(L, world, "sinewRight", 0);
-    expect(held?.x).toBe(rest.x);
+    expect(held?.x).toBe(rest.x + (sinewBowPoint(CFG, 2, 500).x * L.tile) / 1000);
     expect(held?.y).toBe(rest.y + (500 * L.tile) / 1000);
   });
 

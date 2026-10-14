@@ -760,3 +760,14 @@ the next key added fails `limits.test.ts`. The `KeyBindings` interface — every
 getter the rig is handed, each with its paragraph — is a subject of its own:
 move it to `keys-bindings.ts`, re-exported from `keys.ts` so `input.ts` and the
 tests import as they do. Prove with `bun test apps/game` and `bun run check`.
+
+## `boss-hands-handles.ts` is past 225 lines
+
+- **Found:** 2026-10-14, claude/queue-curved-pulls-the-sim-knows-only-straight-ones
+- **Files:** `packages/hands/src/boss-hands-handles.ts`
+
+The autopilot's hands on the handled bosses are at 229 lines after THE SINEW's
+hands learned to follow the bow (`tendon(w, …)`, 14 October 2026). THE SINEW's
+three hands — `sinewHand`, `sinewSnapHand`, `sinewCatchHand` and `tendon` —
+are a seam: move them to `boss-hands-sinew.ts`, with the index re-exporting as
+it does now. Prove with `bun test packages/hands` and `bun run check`.

@@ -14,6 +14,7 @@ import {
   ticksPerBeat,
   type World,
 } from "../src/index.js";
+import { sinewBowFromMilli } from "../src/sinew-bow.js";
 
 /**
  * THE SINEW doubled (`docs/spec/choreographed-windows.md`, 24 September
@@ -34,15 +35,15 @@ function sinew(world: World): SinewState {
   return s;
 }
 
-/** One hand on its handle, `depth` down and `sway` across, in thousandths. */
-const pull = (tick: number, player: 1 | 2, depth: number, sway = 0): TimedCommand => ({
+/** One hand on its handle, `depth` down and `sway` across — on its bow with none — in thousandths. */
+const pull = (tick: number, player: 1 | 2, depth: number, sway?: number): TimedCommand => ({
   tick,
   player,
   command: {
     kind: "drag",
     target: player === 1 ? "sinewLeft" : "sinewRight",
     on: true,
-    fromMilli: sway,
+    fromMilli: sway ?? sinewBowFromMilli(CFG, player, depth).fromMilli,
     fromYMilli: depth,
   },
 });

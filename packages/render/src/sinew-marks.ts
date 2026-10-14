@@ -1,10 +1,9 @@
-import { type SimConfig, type SinewState, sinewHeld } from "@neon-spore/sim";
+import { type SimConfig, type SinewState, sinewBowPath, sinewHeld } from "@neon-spore/sim";
 import { drawVerdictRing, type GripVerdict } from "./grip-verdict.js";
-import type { Circle } from "./layout.js";
+import type { Circle, Layout } from "./layout.js";
 import { drawMarkHalo, drawMarkTheirs, drawMarkWait } from "./mark-feedback.js";
 import { PALETTE } from "./palette.js";
-import { PULL_DOWN, straightPullTrack } from "./pull-line.js";
-import { drawPullTrack } from "./pull-track.js";
+import { drawPullTrack, PULL_TRACK_W } from "./pull-track.js";
 import { sinewWord } from "./sinew-word.js";
 
 /**
@@ -45,27 +44,31 @@ export function sinewHandleAsks(
  * channel every pull in the game wears (`pull-track.ts`), from where the
  * handle rests to a whole reach below it, filling behind the hand — the
  * owner's ask of 2 October 2026 that THE SINEW's pull carry the same
- * direction mark as every other. Straight down and only down, the way the
- * simulation now reads it (`sim/sinew-hand.ts`); not drawn through the
- * snap-back or the fall, where the ask is sideways.
+ * direction mark as every other. Down and bowed away from the mass, the
+ * simulation's own path point for point (`sim/sinew-bow.ts`), so a thumb on
+ * the drawing is a thumb on the rule; not drawn through the snap-back or the
+ * fall, where the ask is sideways.
  */
 export function drawSinewChannel(
   ctx: CanvasRenderingContext2D,
+  l: Layout,
+  cfg: SimConfig,
+  player: 1 | 2,
   rest: Circle,
-  /** The whole reach, in pixels, and how much of it the hand has pulled, 0..1. */
-  len: number,
+  /** How much of the bow's length the hand has pulled, 0..1 (`sinewBowShare`). */
   pull: number,
   held: boolean,
   time: number,
   /** Which handle, for what it has just been through (`PullTrackDraw.key`). */
   key?: string,
 ): void {
-  const track = straightPullTrack({
-    from: rest,
-    r: rest.r,
-    way: PULL_DOWN,
-    len,
-  });
+  const track = {
+    pts: sinewBowPath(cfg, player).pts.map((p) => ({
+      x: rest.x + (p.x * l.tile) / 1000,
+      y: rest.y + (p.y * l.tile) / 1000,
+    })),
+    w: rest.r * PULL_TRACK_W,
+  };
   drawPullTrack(ctx, track, {
     hex: PALETTE.rock,
     rim: PALETTE.text,

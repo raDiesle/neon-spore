@@ -21,6 +21,7 @@ import {
   ticksPerBeat,
   type World,
 } from "../src/index.js";
+import { sinewBowFromMilli } from "../src/sinew-bow.js";
 
 /**
  * THE SINEW: the one boss answered in a number, and the two of you add up
@@ -64,15 +65,15 @@ function sinew(world: World): SinewState {
 
 const rocks = (world: World) => world.creatures.filter((c) => c.kind === "meteor");
 
-/** One hand on its handle, `depth` down and `sway` across, in thousandths. */
-const pull = (tick: number, player: 1 | 2, depth: number, sway = 0): TimedCommand => ({
+/** One hand on its handle, `depth` down and `sway` across — on its bow with none — in thousandths. */
+const pull = (tick: number, player: 1 | 2, depth: number, sway?: number): TimedCommand => ({
   tick,
   player,
   command: {
     kind: "drag",
     target: player === 1 ? "sinewLeft" : "sinewRight",
     on: true,
-    fromMilli: sway,
+    fromMilli: sway ?? sinewBowFromMilli(CFG, player, depth).fromMilli,
     fromYMilli: depth,
   },
 });
@@ -94,8 +95,8 @@ function hold(
   until: number,
   depth1: number,
   depth2: number,
-  sway1 = 0,
-  sway2 = 0,
+  sway1?: number,
+  sway2?: number,
 ): TimedCommand[] {
   const out: TimedCommand[] = [];
   for (let t = at; t < until; t++) out.push(pull(t, 1, depth1, sway1), pull(t, 2, depth2, sway2));
@@ -185,11 +186,11 @@ describe("the two hands", () => {
   it("report a depth, never a height, cut to the reach, and never a sway", () => {
     const world = install();
     const s = sinew(world);
-    const seen = runTo(world, 4, [pull(1, 1, -400), pull(2, 1, 99000), pull(3, 2, 250, -9000)]);
+    const seen = runTo(world, 4, [pull(1, 1, -400), pull(2, 1, 99000), pull(3, 2, 250, 600)]);
     expect(seen.has("sinewGrip")).toBe(true);
     expect(s.pullP2Milli).toBe(250);
-    // A pull is straight down: the sideways half of the drag is dropped while
-    // the tendon hangs, and kept only for the catch and the fall.
+    // A pull is down its bow: a thumb that wanders within the stray is not a
+    // sway while the tendon hangs, which is kept only for the catch and the fall.
     expect(s.swayP2Milli).toBe(0);
     expect(s.pullP1Milli).toBe(CFG.sinewReachMilli);
     runTo(world, 2, []);

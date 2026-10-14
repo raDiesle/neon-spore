@@ -36,7 +36,7 @@ import { queenMarkUnder } from "./queen-grip.js";
 import { ratchetCatchUnder, ratchetPawlUnder } from "./ratchet-grip.js";
 import { scoutGripUnder } from "./scout-grip.js";
 import { scuttlePartUnder } from "./scuttle-grip.js";
-import { sinewHandleUnder } from "./sinew-handles.js";
+import { sinewHandleUnder } from "./sinew-handle-hit.js";
 import { slingDrawUnder } from "./sling-grip.js";
 import { spoolBrakeUnder } from "./spool-grip.js";
 import { stareLashUnder } from "./stare-lash-pull.js";

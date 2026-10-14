@@ -61,6 +61,12 @@ export interface SinewState {
   /** How far sideways each hand has carried its handle, signed the way the field is. */
   swayP1Milli: number;
   swayP2Milli: number;
+  /**
+   * Which hands strayed off their handle's bow and have not lifted since, a
+   * bit each — `1` the pilot's, `2` the navigator's (`sinew-bow.ts`): a hand
+   * dropped for wandering takes hold again only with a fresh press.
+   */
+  strayed: number;
   /** What the tendon has gone slack by: taken off the sum. */
   slackMilli: number;
   /** Bottom of the zone on the band; its width is `sinewZoneWidth`. */

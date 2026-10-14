@@ -35,5 +35,6 @@ export function sinewHashParts(s: SinewState): number[] {
     s.callP1Permille,
     s.callP2Permille,
     s.shiftBeat,
+    s.strayed,
   ];
 }

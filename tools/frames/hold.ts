@@ -18,8 +18,8 @@ import type { HoldSpec } from "./spec.js";
  *   --hold choirRub2=0,id=4         and the navigator's, the other half of it
  *   --hold balloonLeft=-1600,id=1   THE BALLOON: the pilot's hand on body 1
  *   --hold balloonRight=1600,id=1   and the navigator's on the same one
- *   --hold sinewLeft=0,y=900        THE SINEW: the pilot's hand, pulled 0.9 down
- *   --hold sinewRight=0,y=500       and the navigator's, half a tile
+ *   --hold sinewLeft=-1189,y=900    THE SINEW: the pilot's hand, 0.9 down its bow
+ *   --hold sinewRight=736,y=500     and the navigator's, half a tile down its own
  *   --hold surgeBulb=0              THE SURGE: the pilot's thumb on the bulb
  *   --hold surgeBulb2=0             and the navigator's, on the same bulb
  *   --hold antiphonOrgan=0          THE ANTIPHON: the pilot's thumb on the organ

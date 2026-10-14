@@ -117,6 +117,7 @@ by hand never moves.
 | `packages/sim/src/sinew-step.ts` | THE SINEW's clock — the hold, the part, the snap-back, the slack, the fall |
 | `packages/sim/src/sinew-shift.ts` | **THE SINEW's shifting fibre**: one fibre of the fight on which each hand's pull is worth more or less than… |
 | `packages/sim/src/sinew-zone.ts` | Where the zone sits for the fibre now hanging by |
+| `packages/sim/src/sinew-bow.ts` | THE SINEW's handles bow away from the mass: the path, the knob at a depth, the stray, the channel's fill, the films' carry |
 | `packages/sim/src/sinew.ts` | THE SINEW: how hard, not when |
 | `packages/sim/src/mirror.ts` | THE MIRROR's choreography: count in, perform, listen |
 | `packages/sim/src/mirror-round.ts` | how a round ends: the echo strike, the break, the bait |
@@ -370,6 +371,7 @@ by hand never moves.
 | `packages/sim/src/mimic-frame.ts` | **THE MIMIC's frame**: the square of the board a seat's picture stands in |
 | `packages/sim/src/mimic.ts` | THE MIMIC: a picture only one seat can see |
 | `packages/sim/src/scene-aim.ts` | The three acts a film aims rather than writes down, resolved against a world |
+| `packages/sim/src/scene-aim-bow.ts` | A film's straight carry on THE WARDEN's rope or THE SINEW's handles laid on the bow |
 | `packages/sim/src/scene-panel.ts` | **The ship's own panel on a scene's body**: SHOOT, SHIELD and SUCK marks (`INSTAR_GESTURES`) |
 | `packages/sim/src/scout-arena.ts` | What the scout is touching, and the two ways an arena ends badly |
 | `packages/sim/src/scout-ask.ts` | **The questions every THE SCOUT file asks of the round** |
@@ -1423,6 +1425,7 @@ by hand never moves.
 | `packages/render/src/sinew-flesh.ts` | **What THE SINEW is made of**: a tendon of wet cords, each lit along one side, in a sheath of membrane |
 | `packages/render/src/sinew-fray.ts` | **The hold, counted on the fibre it is counting down to** |
 | `packages/render/src/sinew-handles.ts` | **THE SINEW's two handles**, one either side of the mass and one per seat |
+| `packages/render/src/sinew-handle-hit.ts` | THE SINEW's handles answering a press, and whose thumb the one under a point is for |
 | `packages/render/src/sinew-hold.ts` | **The hold, counted where both players are already looking** — the owner, 5 October 2026 |
 | `packages/render/src/sinew-shape.ts` | **Where THE SINEW is**, in field pixels: the root the tendon hangs from, the mass on the end of it |
 | `packages/render/src/sinew-sway.ts` | **THE SINEW's mass swings on its tendon like a weight on a rope** (`docs/spec/living-bosses.md` §1, the outline tier) |

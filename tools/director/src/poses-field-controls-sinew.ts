@@ -1,4 +1,4 @@
-import type { TimedCommand } from "@neon-spore/sim";
+import { sinewBowFromMilli, type TimedCommand } from "@neon-spore/sim";
 import { fresh, type Pose, run, POSE_TPB as TPB } from "./pose-kit.js";
 
 /**
@@ -32,8 +32,7 @@ export const SINEW_PULL: Pose = {
         kind: "drag",
         target: player === 1 ? "sinewLeft" : "sinewRight",
         on: true,
-        fromMilli: 0,
-        fromYMilli,
+        ...sinewBowFromMilli(w.cfg, player, fromYMilli),
       },
     });
     run(w, 2, [pull(1, 1000), pull(2, 600)]);

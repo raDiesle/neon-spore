@@ -40,6 +40,7 @@ export const CHOREO_FIELD_GROUP_B = {
   // count as clear and how long it holds the wave after (`config-sinew.ts`).
   sinewFibres: "THE SINEW — the boss that asks how hard, not when",
   sinewReachMilli: "THE SINEW — the boss that asks how hard, not when",
+  sinewBowMilli: "THE SINEW — the boss that asks how hard, not when",
   sinewZoneMilli: "THE SINEW — the boss that asks how hard, not when",
   sinewZoneNarrowMilli: "THE SINEW — the boss that asks how hard, not when",
   sinewZoneLowMilli: "THE SINEW — the boss that asks how hard, not when",

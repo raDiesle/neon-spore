@@ -119,6 +119,7 @@ export {
   PLAY_CHARGE,
   type ShotCharge,
 } from "./shot-charge.js";
+export { sinewBowFromMilli, sinewBowPath, sinewBowPoint, sinewBowShare } from "./sinew-bow.js";
 // THE WEIGHT: whether both hands are on one, and how far the press has come.
 // The picture asks both rather than reading `weightPressTicks` off the body —
 // absent and nought are the same answer to a caller and two different worlds to

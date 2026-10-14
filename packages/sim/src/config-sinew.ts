@@ -22,6 +22,13 @@ export interface SinewConfig {
   sinewFibres: number;
   /** How far down one hand can pull its handle, in thousandths of a tile. The band is twice this. */
   sinewReachMilli: number;
+  /**
+   * How far across each handle's way down bows at its widest, away from the
+   * mass, in thousandths of a tile (`sinew-bow.ts`) — THE LID's and THE
+   * WARDEN's half a tile more than a thumb may stray, so a handle pulled
+   * straight down drops.
+   */
+  sinewBowMilli: number;
   /** Width of the strain zone on the band with every fibre whole, in thousandths. */
   sinewZoneMilli: number;
   /** Width the zone loses per fibre parted, in thousandths — and the narrowest it gets. */
@@ -109,6 +116,7 @@ export interface SinewConfig {
 export const SINEW_DEFAULTS: SinewConfig = {
   sinewFibres: 6,
   sinewReachMilli: 3000,
+  sinewBowMilli: 1500,
   sinewZoneMilli: 1440,
   sinewZoneNarrowMilli: 240,
   sinewZoneLowMilli: 600,

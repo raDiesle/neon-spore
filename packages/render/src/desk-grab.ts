@@ -15,7 +15,7 @@ import { pinballGripSeat } from "./pinball-grip.js";
 import { pulseGripSeat } from "./pulse-grip.js";
 import { queenGripSeat } from "./queen-grip.js";
 import { scoutGripSeat } from "./scout-grip.js";
-import { sinewGripSeat } from "./sinew-handles.js";
+import { sinewGripSeat } from "./sinew-handle-hit.js";
 import { spoolGripSeat } from "./spool-grip.js";
 import { surgeMarkSeat } from "./surge-grip.js";
 import { tasterGripSeat } from "./taster-grip.js";

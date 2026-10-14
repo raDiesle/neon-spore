@@ -14,6 +14,7 @@ import {
   type SceneMark,
   sceneBoss,
   sinewBoss,
+  sinewBowFromMilli,
   sinewCaught,
   sinewInZone,
   sinewSwinging,
@@ -41,15 +42,19 @@ import type { Hand } from "./hand.js";
 
 type Press = Omit<TimedCommand, "tick">;
 
-/** A hand on one of THE SINEW's handles: how far down, and how far across. */
-function tendon(player: 1 | 2, on: boolean, down = 0, across = 0): Press {
+/**
+ * A hand on one of THE SINEW's handles: how far down, and how far across —
+ * on the handle's bow where it is not carried across (`sim/sinew-bow.ts`).
+ */
+function tendon(w: World, player: 1 | 2, on: boolean, down = 0, across?: number): Press {
+  const at = sinewBowFromMilli(w.cfg, player, down);
   return {
     player,
     command: {
       kind: "drag",
       target: player === 1 ? "sinewLeft" : "sinewRight",
       on,
-      fromMilli: across,
+      fromMilli: across ?? at.fromMilli,
       fromYMilli: down,
     },
   };
@@ -70,7 +75,7 @@ export const sinewHand: Hand = (w) => {
   if (s === null || s.outBeat >= 0 || sinewSwinging(s, w)) return [];
   const reach = w.cfg.sinewReachMilli;
   if (s.fallBeat >= 0) {
-    return [tendon(1, true, reach / 2, reach), tendon(2, true, reach / 2, reach)];
+    return [tendon(w, 1, true, reach / 2, reach), tendon(w, 2, true, reach / 2, reach)];
   }
   const zone = sinewZone(s, w.cfg);
   // Each hand brings half the sum at its power — the called one once a call
@@ -82,8 +87,8 @@ export const sinewHand: Hand = (w) => {
   const g2 = s.callP2Permille > 0 ? s.callP2Permille : s.powerP2Permille;
   const p1 = Math.min(reach, Math.ceil((half * 1000) / g1));
   const p2 = Math.ceil(((half * 2 - Math.floor((p1 * g1) / 1000)) * 1000) / g2);
-  if (p2 > reach) return [tendon(1, false), tendon(2, false)];
-  return [tendon(1, true, p1), tendon(2, true, p2)];
+  if (p2 > reach) return [tendon(w, 1, false), tendon(w, 2, false)];
+  return [tendon(w, 1, true, p1), tendon(w, 2, true, p2)];
 };
 
 /** THE SINEW's hands pulled past the zone's top, for the snap-back. */
@@ -91,7 +96,7 @@ export const sinewSnapHand: Hand = (w) => {
   const s = sinewBoss(w);
   if (s === null || sinewSwinging(s, w) || !sinewInZone(s, w.cfg)) return sinewHand(w);
   const reach = w.cfg.sinewReachMilli;
-  return [tendon(1, true, reach), tendon(2, true, reach)];
+  return [tendon(w, 1, true, reach), tendon(w, 2, true, reach)];
 };
 
 /**
@@ -107,7 +112,7 @@ export const sinewCatchHand: Hand = (w) => {
   if (s === null || s.outBeat >= 0 || s.fallBeat >= 0) return [];
   const reach = w.cfg.sinewReachMilli;
   if (sinewSwinging(s, w) || sinewCaught(s, w.cfg, w.beat)) {
-    return [tendon(1, true, 0, -reach), tendon(2, true, 0, reach)];
+    return [tendon(w, 1, true, 0, -reach), tendon(w, 2, true, 0, reach)];
   }
   return sinewSnapHand(w);
 };

@@ -69,6 +69,7 @@ export const DRAG_NUMBERS: Readonly<Record<string, readonly (keyof SimConfig)[]>
   "THE BALLOON'S RIGHT HANDLE": ["balloonTautMilli", "balloonHoldBeats"],
   "THE SINEW'S LEFT HANDLE": [
     "sinewReachMilli",
+    "sinewBowMilli",
     "sinewZoneMilli",
     "sinewZoneNarrowMilli",
     "sinewZoneLowMilli",
@@ -78,6 +79,7 @@ export const DRAG_NUMBERS: Readonly<Record<string, readonly (keyof SimConfig)[]>
   ],
   "THE SINEW'S RIGHT HANDLE": [
     "sinewReachMilli",
+    "sinewBowMilli",
     "sinewZoneMilli",
     "sinewZoneNarrowMilli",
     "sinewZoneLowMilli",
