@@ -12,6 +12,7 @@ import {
   look,
   sway,
 } from "../src/glance-styles.js";
+import { GORGE_GLANCE, GORGE_GLANCE_SIZE } from "../src/gorge-glance.js";
 import { HIVE_GLANCE, HIVE_GLANCE_SIZE } from "../src/hive-glance.js";
 import { MAZE_GLANCE, MAZE_GLANCE_SIZE } from "../src/maze-glance.js";
 import { MIRROR_GLANCE, MIRROR_GLANCE_SIZE } from "../src/mirror-glance.js";
@@ -68,6 +69,7 @@ const ROWS: readonly Row[] = [
   { name: "THE BATON", record: BATON_GLANCE, size: BATON_GLANCE_SIZE, hold: 0 },
   { name: "THE THROAT", record: THROAT_GLANCE, size: THROAT_GLANCE_SIZE, hold: 0 },
   { name: "THE UNDERTOW", record: UNDERTOW_GLANCE, size: UNDERTOW_GLANCE_SIZE, hold: 0 },
+  { name: "THE GORGE", record: GORGE_GLANCE, size: GORGE_GLANCE_SIZE, hold: 0 },
 ];
 
 const R = 100;

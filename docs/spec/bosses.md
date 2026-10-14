@@ -4025,6 +4025,14 @@ turn; `sim/test/gorge-hand.test.ts` the tap, the offers and the asks;
 **What is not built — a step seen from another side** (suggested 10 October 2026, after the owner on THE BASTION: *very 3 dimensional and even user action is 3d to rotate*). The cluster turns, and the bubbles at its back come round to the front one by one; a bubble is due only while it faces the pair, so the counter calls them as they come round rather than as they stand.
 
 
+**Offered (14 October 2026, VERSUS `gorge:glance`).** The sack already turns
+in depth, so what turns is each bubble in it, with its beads
+(`packages/render/src/gorge-glance.ts`, which ships still): **about the line
+up its middle**, rolling about its intake — the one point of it a shot is
+judged at — each from its own place in the round, the far side narrowing into
+the dark. **SWAY**, **LOOK** and **COCK** (`glance-styles.ts`), judged on
+`THE GORGE · ROW`.
+
 ## 11.24 THE CURTAIN — the boss that is in the way
 
 > The one that is not the threat; it is the thing hiding the threat, and the

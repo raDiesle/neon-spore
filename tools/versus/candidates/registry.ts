@@ -15,6 +15,9 @@ import { CAIRN_SWAY } from "./cairn-glance/sway/index.js";
 import { FLEET_COCK } from "./fleet-glance/cock/index.js";
 import { FLEET_LOOK_AROUND } from "./fleet-glance/look/index.js";
 import { FLEET_SWAY } from "./fleet-glance/sway/index.js";
+import { GORGE_COCK } from "./gorge-glance/cock/index.js";
+import { GORGE_LOOK_AROUND } from "./gorge-glance/look/index.js";
+import { GORGE_SWAY } from "./gorge-glance/sway/index.js";
 import { HIVE_COCK } from "./hive-glance/cock/index.js";
 import { HIVE_LOOK_AROUND } from "./hive-glance/look/index.js";
 import { HIVE_SWAY } from "./hive-glance/sway/index.js";
@@ -68,6 +71,9 @@ export const VARIANTS: Variant[] = [
   FLEET_COCK,
   FLEET_LOOK_AROUND,
   FLEET_SWAY,
+  GORGE_COCK,
+  GORGE_LOOK_AROUND,
+  GORGE_SWAY,
   HIVE_COCK,
   HIVE_LOOK_AROUND,
   HIVE_SWAY,

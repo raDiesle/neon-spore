@@ -97,7 +97,7 @@ export function drawLobe(
   seed: number,
   /** Where it stands in the sack's bow this frame (`gorge-depth.ts`). */
   depth: LobeDepth,
-): void {
+): Path2D {
   const full = gorgeSated(k);
   const swell = (full ? 1.18 : 1) * depth.s;
   const rx = tile * RX * swell;
@@ -137,6 +137,12 @@ export function drawLobe(
   // The pucker: the intake itself, a small dark mouth under the lobe that a
   // shot goes into. It is what makes the swallow a picture the rule teaches.
   paintPucker(ctx, x, y, tile, floor, time, seed);
+  return body;
+}
+
+/** A bubble's half-width at rest, in pixels, at its depth in the sack — what a glance counts in. */
+export function gorgeLobeRadius(tile: number, depth: LobeDepth): number {
+  return tile * RX * depth.s;
 }
 
 /**

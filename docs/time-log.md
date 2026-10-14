@@ -39214,3 +39214,13 @@ Bottleneck: a lobe's height changes as it grows, so the turn's reach is handed i
 Bottleneck: none — one drawing, one test.
 
 *Measured: 6 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
+
+## 2026-10-14 — VERSUS offers THE GORGE's bubbles glancing
+
+- reading: 5 min. The entry, §11.23, `gorge-draw.ts`, `gorge-depth.ts`, `gorge-lobe.ts`.
+- writing: 5 min. `gorge-glance.ts`, the bubble's draw answering its skin and a radius, the scaffold.
+- looking: 5 min. One VERSUS shot and two crops.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: the sack already turns in depth, so the part had to be the bubbles, each about the intake the rule reads.

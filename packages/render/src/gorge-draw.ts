@@ -12,7 +12,8 @@ import { drawHurt } from "./boss-hurt.js";
 import { type LobeDepth, lobeDepths } from "./gorge-depth.js";
 import { gorgePose } from "./gorge-drift.js";
 import { paintSack, paintSackGone } from "./gorge-flesh.js";
-import { drawLobe, gorgeWant } from "./gorge-lobe.js";
+import { drawGorgeGlanced } from "./gorge-glance.js";
+import { drawLobe, gorgeLobeRadius, gorgeWant } from "./gorge-lobe.js";
 import { gorgeBubbleAt, gorgeOrderAt, gorgeSackBox, gorgeTallyAt } from "./gorge-place.js";
 import type { Layout } from "./layout.js";
 import { withOutlinePose } from "./outline-drift.js";
@@ -102,8 +103,12 @@ export function drawGorge(
     // Each lobe leans on its own intake, which stays where a shot meets it (`gorge-drift.ts`).
     const pose = gorgePose(l, cfg, p, i, beat, beatPhase);
     const want = colours ? gorgeWant(k) : null;
+    // And turns on its intake, when a glance is taken (`gorge-glance.ts`).
+    const intake = { ...p, r: gorgeLobeRadius(l.tile, d) };
     withOutlinePose(ctx, pose.pose, pose.root, () =>
-      drawLobe(ctx, l.tile, k, p.x, p.y, breath, want, time, i, d),
+      drawGorgeGlanced(ctx, intake, i, time, (c) =>
+        drawLobe(c, l.tile, k, p.x, p.y, breath, want, time, i, d),
+      ),
     );
   }
   if (showsGorgeTally(l.role)) drawTally(ctx, l, cfg, g, beats);

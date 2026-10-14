@@ -107,7 +107,7 @@ export const FIRST_BOSS_POSES: Pose[] = [
       // The one boss pose whose shot's mark stands whole in the middle of the
       // field, on the cannon's own column: EMBER (`aim-ember.ts`) was taken here.
       lookAt:
-        "the mark on the bubble to shoot — whether it reads as the cannon's, in the fire button's red or cyan",
+        "the mark on the bubble to shoot — whether it reads as the cannon's, in the fire button's red or cyan — and whether each bubble turns toward one side on its intake, out of step, its far side going dark",
     },
   ),
   bossPose(

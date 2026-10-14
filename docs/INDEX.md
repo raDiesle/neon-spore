@@ -2201,6 +2201,7 @@ by hand never moves.
 | `packages/render/src/gorge-lobe.ts` | One bubble of THE GORGE: the intake puckered under it and the shots it has swallowed hanging in it |
 | `packages/render/src/gorge-lobe-skin.ts` | **One lobe of THE GORGE's skin**: the wash over an empty one, the light across its top |
 | `packages/render/src/gorge-grip.ts` | **THE GORGE's one thumb**: the pilot's tap that opens the bubble at the bottom of a ring |
+| `packages/render/src/gorge-glance.ts` | **THE GORGE's bubbles glance** — the owner, 9 and 10 October 2026: *body parts of living things turn . |
 | `packages/render/src/gorge-marks.ts` | **THE GORGE's tap answering a touch the way every mark does** (`mark-feedback.ts` |
 | `packages/render/src/gorge-place.ts` | **Where THE GORGE's bubbles hang**, asked by the picture, the rings and the cues alike |
 | `packages/render/src/gorge-want.ts` | **What a bubble of THE GORGE wants, poured into it** — on the navigator's screen only (`gorge-draw.ts` |
