@@ -40310,3 +40310,16 @@ Bottleneck: a picture of a state the autopilot passes through in two ticks
 has to be posed, and finding the flags that pose it took longer than the code.
 
 *Measured: 26 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-14 — THE GAUGE's teeth are pulls, not rings
+
+- reading: 10 min. The queue's answer, which of the five were already done
+  (THE GALL, THE GAUGE's tongue), and the tooth's pull in the sim.
+- writing: 10 min. A knob and channel on every tooth, toward its point, the
+  knob kept to the ring's size so fifteen fit.
+- looking: 5 min. A posed tooth rest on her screen.
+- friction: 0 min.
+- landing: 5 min.
+
+Bottleneck: the queue item named five pulls and two were done; finding which
+took as long as drawing the third.

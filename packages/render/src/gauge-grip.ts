@@ -3,7 +3,7 @@ import { type Dial, gaugeBandMid, showsGaugeMarks, showsGaugeValve } from "./gau
 import { gaugeOpenDial } from "./gauge-gape.js";
 import { gaugeDial } from "./gauge-round.js";
 import { drawGaugeTongueRing, gaugeTongueUnder } from "./gauge-tongue-grip.js";
-import { drawGaugeToothRings, gaugeToothUnder } from "./gauge-tooth-grip.js";
+import { drawGaugeToothPulls, gaugeToothUnder } from "./gauge-tooth-grip.js";
 import { drawGripRing } from "./grip-rings.js";
 import { handleRadius } from "./handle-draw.js";
 import { type Circle, hitCircle, type Layout } from "./layout.js";
@@ -104,7 +104,7 @@ export function drawGaugeGrip(
     drawGripRing(ctx, c.x, c.y, c.r, g.openThumb, time);
   }
   const hand = handleRadius(l, cfg);
-  if (showsGaugeMarks(role)) drawGaugeToothRings(ctx, dial, hand, g, time);
+  if (showsGaugeMarks(role)) drawGaugeToothPulls(ctx, l, cfg, dial, hand, g, time);
   if (showsGaugeValve(role)) drawGaugeTongueRing(ctx, l, cfg, dial, hand, g, 1, time);
   if (showsGaugeMarks(role)) drawGaugeTongueRing(ctx, l, cfg, dial, hand, g, 2, time);
 }

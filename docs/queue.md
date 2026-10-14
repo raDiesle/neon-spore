@@ -348,7 +348,9 @@ length of its `…PullMilli`, the arrow its sim's direction; (b) keep the rings
 and add only the knob's arrow; (c) keep them as they are.
 
 THE GALL is done (2026-10-13, claude/field-controls-standardization-44b3b7,
-`render/gall-knob.ts`): the four files above are what is left.
+`render/gall-knob.ts`), and THE GAUGE (2026-10-14: the tongue had the
+two-way pull already, the teeth have a knob each, `gauge-tooth-grip.ts`):
+`taster-grip.ts` and `vane-grip.ts` are what is left.
 THE VANE's housing goes **down** (2026-10-14, the owner leaving it to the
 lane; `sim/vane-hand.ts`), so its arrow and channel point down.
 
