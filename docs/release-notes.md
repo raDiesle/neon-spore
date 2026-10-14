@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-14 · 4674d52d6 — VERSUS offers THE ANTIPHON's mantle glancing
+
+THE ANTIPHON's mantle turns about its middle, one end coming forward and the other drawing back into the dark, and stops when the body is still. The organ and the candidates are read by their outline and do not turn; the pits keep their spots, and a bolt is stopped on the underside the turn draws. Ships still; VERSUS `antiphon:glance` offers SWAY, LOOK and COCK, judged on THE ANTIPHON · CYCLING. Exemption: none — a look, offered on VERSUS.
+
 ## 2026-10-14 · 1455417ed — THE THROAT's pump is rubbed, not stroked
 
 The pilot's pump beside the gullet's root is a RUB now, counted as THE CAPSTAN's, THE VALVE's and THE MAZE's heart are: every time the thumb turns back is one turn, any way, and six turns open the pump from shut to full (`throatPumpTurns`, in place of the stroke's distance and its gain). The pump still drains between turns, so the circle round the mouth is as wide as the turns are quick. The owner, use default "rub" instead for less variants. Its picture, THE RUB LAB's zigzag drop, is the next landing.

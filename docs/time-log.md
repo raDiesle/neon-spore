@@ -39363,3 +39363,5 @@ Bottleneck: the readers of the old stroke spread over six packages.
 - landing: 5 min. `check:fast`, the commit, `land`.
 
 Bottleneck: every part but the mantle was a read or too small, and a turn big enough to pass the glance test uncovered the outer column, so the stopper had to read the turn.
+
+*Measured: 14 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
