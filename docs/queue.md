@@ -331,6 +331,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## AUTO loses THE COUNT and THE CLAW
 
 - **Found:** 2026-10-14, claude/wave-plan
+- **Taken:** 2026-10-14, main (claim: claude/queue-auto-loses-the-count-and-the-claw)
 - **Files:** `packages/hands/src/autopilot-field-hand.ts`, `tools/probe/world.ts`, `docs/spec/wave-curriculum-today.md`
 
 Playing every wave with AUTO on both seats (`playedBeat` in a loop until the
