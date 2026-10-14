@@ -2497,6 +2497,7 @@ by hand never moves.
 | `packages/render/src/motion-life.ts` | **The bosses' `life` level** (`docs/spec/living-bosses.md` §1, "One number turns it down") |
 | `packages/render/src/balloon-alive.ts` | **What makes THE BALLOON alien**: the film that travels over its skin |
 | `packages/render/src/balloon-burst.ts` | **THE BALLOON popping**: the skin the pair stretched, torn into shreds that fly outward and fade in the air |
+| `packages/render/src/balloon-path.ts` | **The way THE BALLOON's handles are carried**: out from the body and bending down |
 | `packages/render/src/baton-draw.ts` | THE BATON, drawn: an arm of sockets hanging down the middle column |
 | `packages/render/src/baton-drop.ts` | **THE BATON's bead as a drop**, split off `baton-flesh.ts` when the cup's slosh took that file to its limit |
 | `packages/render/src/baton-bead-draw.ts` | THE BATON's bead — and its second, and the one the two become |

@@ -111,12 +111,13 @@ export function dragging(
 /**
  * How far round a rim a thumb has come since the press, in thousandths of a
  * tile along the arc — positive the way a thumb under the circle goes when it
- * moves right, which is the sign a sideways carry had before the lever. A
- * finger off the arc is read by its angle alone, so wandering in or out
- * costs nothing and only going round counts.
+ * moves right, which is the sign a sideways carry had before the lever — or
+ * over it, for a rim marked `over`, where moving right goes round the other
+ * way. A finger off the arc is read by its angle alone, so wandering in or
+ * out costs nothing and only going round counts.
  */
 export function rimFrom(
-  rim: { cx: number; cy: number; r: number; angle: number },
+  rim: { cx: number; cy: number; r: number; angle: number; over?: true },
   tile: number,
   x: number,
   y: number,
@@ -126,5 +127,6 @@ export function rimFrom(
   if (d < -Math.PI) d += 2 * Math.PI;
   // `|| 0`: a move straight out along the spoke rounds to -0, and a command
   // is compared and sent as it is.
-  return Math.round((-d * rim.r * 1000) / tile) || 0;
+  const way = rim.over ? 1 : -1;
+  return Math.round((way * d * rim.r * 1000) / tile) || 0;
 }

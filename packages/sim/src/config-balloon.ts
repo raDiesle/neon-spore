@@ -92,17 +92,12 @@ export interface BalloonConfig {
    * **Two tiles**, up from the little over one it began at: the owner asked on
    * 9 September 2026 for a hand to carry a handle further before it counts,
    * so that a pull is a gesture the other seat can watch happen rather than a
-   * brush past the ring. What bounds it is the edge of the screen. On the
-   * phones the game ships on the field is the full width of the glass, a
-   * handle rests `balloonHandleMilli` out from its body, and the thumb on it
-   * travels *outward* — so from a body in column `c` (counted from the wall
-   * on that side) the pilot's thumb has `c + 0.5 - 1.15` tiles of screen to
-   * cross before it runs off the edge and the pull is lost. From the third
-   * column in that is 2.35 tiles; from the second it is 1.35, which the old
-   * figure was already past. Two tiles keeps the third column reachable with
-   * a little to spare, and nothing between 1.35 and 2.35 would reach a column
-   * this does not. The two outer columns on each side are where a balloon is
-   * turning anyway, and the pair takes it on the way in or on the way back.
+   * brush past the ring. What bounded it was the edge of the screen, while a
+   * pull went straight out: from the two outer columns on each side a thumb
+   * ran off the glass first. Since 14 October 2026 it is carried along a bend,
+   * out and down, that leaves steeper the nearer the wall is, so the whole of
+   * it is on the screen from every column (`render/balloon-path.ts`) — and
+   * this is the length along that bend.
    */
   balloonTautMilli: number;
   /**

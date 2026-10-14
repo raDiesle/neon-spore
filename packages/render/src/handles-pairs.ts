@@ -1,6 +1,7 @@
 import { balloonHandleCircle, balloonHandleSeat } from "./balloon-handles.js";
+import { balloonArc } from "./balloon-path.js";
 import { choirRubUnder } from "./choir-rub.js";
-import { hitCircle, type Layout } from "./layout.js";
+import { type Circle, hitCircle, type Layout } from "./layout.js";
 import type { Field, Touch } from "./touch.js";
 
 /**
@@ -32,6 +33,7 @@ export function balloonHandleUnder(l: Layout, x: number, y: number, field: Field
   const side = field.seat === 1 ? -1 : 1;
   if (balloonHandleSeat(side) !== field.seat) return null;
   let best: number | null = null;
+  let bestAt: Circle | null = null;
   let bestDist = Number.POSITIVE_INFINITY;
   for (const c of field.creatures) {
     if (c.kind !== "balloon") continue;
@@ -40,14 +42,28 @@ export function balloonHandleUnder(l: Layout, x: number, y: number, field: Field
     const d = Math.hypot(x - circle.x, y - circle.y);
     if (d >= bestDist) continue;
     best = c.id;
+    bestAt = circle;
     bestDist = d;
   }
-  if (best === null) return null;
+  if (best === null || bestAt === null) return null;
   const target = side === -1 ? "balloonLeft" : "balloonRight";
+  // The bend this handle is carried along, taken where the thumb landed rather
+  // than at the ring's middle, so a press off-centre does not jump
+  // (`balloon-path.ts`). A move reports how far along it the thumb has come.
+  const arc = balloonArc(l, field.cfg, bestAt, side);
+  const rim = { cx: arc.cx + x - bestAt.x, cy: arc.cy + y - bestAt.y, r: arc.r, angle: arc.start };
   return {
     player: field.seat,
     command: { kind: "drag", target, on: true, fromMilli: 0, fromYMilli: 0, id: best },
-    hold: { kind: "drag", target, player: field.seat, originX: x, originY: y, id: best },
+    hold: {
+      kind: "drag",
+      target,
+      player: field.seat,
+      originX: x,
+      originY: y,
+      id: best,
+      rim: { ...rim, over: true },
+    },
   };
 }
 

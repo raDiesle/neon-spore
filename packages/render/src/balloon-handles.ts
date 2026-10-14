@@ -7,6 +7,7 @@ import {
   type World,
 } from "@neon-spore/sim";
 import { balloonRy } from "./balloon.js";
+import { type BalloonArc, balloonArc, balloonArcPoint, balloonArcPts } from "./balloon-path.js";
 import { creatureCenter, flatCenter } from "./creature-place.js";
 import { glidePhase } from "./depth.js";
 import { strokeGlow } from "./glow.js";
@@ -15,6 +16,7 @@ import { drawHandleHint, type HintStyle, seatIsMine } from "./handle-word.js";
 import type { Circle, Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
 import { drawPullKnob } from "./pull-knob.js";
+import { drawPullTrack, PULL_TRACK_W } from "./pull-track.js";
 
 /**
  * **THE BALLOON's two handles**: the one thing on this field that two people
@@ -93,21 +95,27 @@ export function balloonHandleCircle(
   return { x: Math.min(Math.max(rest, r), l.width - r), y, r };
 }
 
-/** Where it actually stands: its rest plus how far the hand has carried it.
- * The pull is thousandths of a tile, which is what `l.tile` turns back into
+/** Where it actually stands: its rest carried along its bend as far as the
+ * hand has taken it, and which way the bend runs there. The pull is
+ * thousandths of a tile along the arc, which is what `l.tile` turns back into
  * pixels — and the rule has already cut it to taut, so nothing here bounds it
- * a second time (`sim/balloon-pull.ts`). */
-function handleAt(
+ * a second time (`sim/balloon-pull.ts`). Asked by `handleCircle` too, so the
+ * guide's thumb rides the knob it is drawn on. */
+export function balloonHandleAt(
   l: Layout,
   cfg: SimConfig,
   c: Creature,
   beat: number,
   beatPhase: number,
   side: -1 | 1,
-): Circle {
+): Circle & { arc: BalloonArc; dx: number; dy: number } {
   const rest = balloonHandleCircle(l, cfg, c, beat, beatPhase, side);
-  const pull = balloonPull(c, balloonHandleSeat(side));
-  return { ...rest, x: rest.x + (pull * l.tile) / 1000 };
+  const arc = balloonArc(l, cfg, rest, side);
+  // Outward is the way the arc runs, so a pull the wrong way — inward,
+  // squeezing — goes back along the same circle, as far as the rule allows.
+  const along = (side * balloonPull(c, balloonHandleSeat(side)) * l.tile) / 1000;
+  const at = balloonArcPoint(arc, along);
+  return { ...at, r: rest.r, arc };
 }
 
 /** Every handle on the field, drawn flat. Called from `drawCreatures` after
@@ -141,7 +149,7 @@ function drawOne(
 ): void {
   const cfg = world.cfg;
   const player = balloonHandleSeat(side);
-  const head = handleAt(l, cfg, c, world.beat, beatPhase, side);
+  const head = balloonHandleAt(l, cfg, c, world.beat, beatPhase, side);
   const held = balloonHeld(c, player);
   const pull = balloonTension(cfg, c, player) / 1000;
   // Whose it is on *this* screen. The rig sees both as its own, which is what
@@ -149,27 +157,40 @@ function drawOne(
   const mine = seatIsMine(l.role, player);
   const body = creatureCenter(l, world, c, glidePhase(cfg, world.beat, c, beatPhase));
 
-  // The tab: a short line from the skin out to the ring, so the handle reads
-  // as attached to this body and not to the one in the next lane. It starts at
-  // the body's own edge, which grows as the body swells.
+  // The tab: a cord from the skin out to the ring, so the handle reads as
+  // attached to this body and not to the one in the next lane. It starts at
+  // the body's own edge, which grows as the body swells, and hangs slack —
+  // bowed down — until the hand draws it straight.
   const edge = balloonRy(l, cfg, c, beats) * 0.82;
+  const from = { x: body.x + side * edge, y: body.y };
+  const to = { x: head.x - head.dx * head.r * 0.9, y: head.y - head.dy * head.r * 0.9 };
+  const sag = l.tile * 0.3 * (1 - pull);
   const tab = new Path2D();
-  tab.moveTo(body.x + side * edge, body.y);
-  tab.lineTo(head.x - side * head.r * 0.9, head.y);
+  tab.moveTo(from.x, from.y);
+  tab.quadraticCurveTo((from.x + to.x) / 2, Math.max(from.y, to.y) + sag, to.x, to.y);
   strokeGlow(ctx, tab, mine ? PALETTE.text : PALETTE.dim, STROKE.inner, held ? 1.1 : 0.45);
 
-  // The shared knob, carried outward — its arrow on its owner's screen alone,
-  // and the tension dial round it for both, since the moment both are taut is
-  // the one each seat has to see in the other's.
+  // The way it goes: the bend, as every pulled handle's channel is drawn
+  // (`pull-track.ts`), filling as the side comes taut.
   const rim = mine ? PALETTE.text : PALETTE.rock;
+  const hex = mine ? PALETTE.rock : PALETTE.dim;
+  const key = `balloon:${c.id}:${side}`;
+  const length = (cfg.balloonTautMilli * l.tile) / 1000;
+  const track = { pts: balloonArcPts(head.arc, length), w: head.r * PULL_TRACK_W };
+  drawPullTrack(ctx, track, { hex, rim, held, origin: 0, at: pull, time, key });
+
+  // The shared knob, carried along it — its arrow on its owner's screen alone,
+  // pointing the way the bend runs, and the tension dial round it for both,
+  // since the moment both are taut is the one each seat has to see in the
+  // other's.
   drawPullKnob(ctx, head, head.r, {
-    hex: mine ? PALETTE.rock : PALETTE.dim,
+    hex,
     rim,
     held,
     time,
-    way: mine ? { dx: side, dy: 0 } : null,
+    way: mine ? { dx: head.dx, dy: head.dy } : null,
     theirs: !mine,
-    key: `balloon:${c.id}:${side}`,
+    key,
   });
   drawHandleDial(ctx, head.x, head.y, head.r, rim, pull);
   if (!held) hint(ctx, l, head, side);

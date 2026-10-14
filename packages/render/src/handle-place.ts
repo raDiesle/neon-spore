@@ -1,5 +1,4 @@
 import {
-  balloonPull,
   type DragTarget,
   lidIsHeld,
   NO_TETHER,
@@ -7,7 +6,7 @@ import {
   type World,
   wardenHandleMilli,
 } from "@neon-spore/sim";
-import { balloonHandleCircle, balloonHandleSeat } from "./balloon-handles.js";
+import { balloonHandleAt } from "./balloon-handles.js";
 import { choirRubCircle, showsChoirRub } from "./choir-rub.js";
 import { fieldPoint, handleRadius } from "./handle-draw.js";
 import { bossHandleCircle } from "./handle-place-boss.js";
@@ -81,9 +80,8 @@ export function handleCircle(
       (b) => b.kind === "balloon" && (col === undefined || occupiesCol(b, col)),
     );
     if (!c) return null;
-    const rest = balloonHandleCircle(l, cfg, c, world.beat, beatPhase, side);
-    const pull = balloonPull(c, balloonHandleSeat(side));
-    return { ...rest, x: rest.x + (pull * l.tile) / 1000 };
+    const { x, y, r } = balloonHandleAt(l, cfg, c, world.beat, beatPhase, side);
+    return { x, y, r };
   }
   if (target === "mazeString") {
     const m = world.boss?.kind === "maze" ? world.boss : null;

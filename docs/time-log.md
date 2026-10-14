@@ -39613,3 +39613,15 @@ Bottleneck: the cool and the fire step ended the draw in two branches, so they w
 Bottleneck: picking the rocks' beats by when each arrives rather than when it is queued — a faster tier overtakes and makes a beat no pair can save.
 
 *Measured: 10 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-14 — Carry THE BALLOON's handles along a bend, out and down
+
+- reading: 10 min. `balloon-handles.ts`, `handles-pairs.ts`, `touch-move.ts`'s
+  rim and `pull-track.ts`, to find where a pull is measured and drawn.
+- writing: 10 min. `balloon-path.ts`, the rim read `over` its bend, the knob,
+  channel and slack cord on the arc, the test from every column.
+- looking: 5 min. Two shots: resting, and both hands part way.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the index, the commit, `land`.
+
+Bottleneck: the pull had to stay one number for the simulation, so the bend lives entirely on the device — the hold keeps the arc from the press and reports distance along it.

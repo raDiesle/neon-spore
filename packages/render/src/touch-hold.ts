@@ -158,8 +158,11 @@ export type Hold =
        * was taken at, in pixels and radians, so a move reports how far along
        * that arc the thumb has come in thousandths of a tile — the distance
        * the wheel already measures a pull in (`sim/maze-controls.ts`).
+       * THE BALLOON's handles ride one too, **over** their bend rather than
+       * under it, so `over` turns the sign: still positive moving right
+       * (`balloon-path.ts`).
        */
-      rim?: { cx: number; cy: number; r: number; angle: number };
+      rim?: { cx: number; cy: number; r: number; angle: number; over?: true };
       /**
        * THE VISE's lobes, **carried shut by one thumb**: the gap a lobe stands
        * at open, `viseOpenMilli`, read off `SimConfig` at the press, so a move
