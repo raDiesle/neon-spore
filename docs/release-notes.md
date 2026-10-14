@@ -9,6 +9,14 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-14 · ab6af9b40 — Six more blocks get their regular waves, THE LID to THE VEER
+
+Forty-eight waves composed by `bun run waves:compose`, eight after each of THE LID, THE RECOIL, THE CAROM, THE CRYSTAL, THE VOLLEY and THE VEER, each one cleared by AUTO with no breach at both charges. The first waves hold at 6.3 to 6.6 here, between two of the steps' growth notches, and the peaks climb from 10.9 to 12. A look the owner asked for by name.
+
+## 2026-10-14 · a9e9f4b1e — The composer keeps only waves AUTO clears with no breach, at both charges
+
+`autopilot-field.test.ts` fails any ordinary wave AUTO clears with a breach, at no charge or at the game's, and the composer only asked whether AUTO cleared it at all — so it kept CAROM PEAK, which the test then failed. The play-out the test uses is one module now (`autopilot-play.ts`), and the composer holds every wave it keeps to it.
+
 ## 2026-10-14 · 5eb85a21e — guard.test.ts keeps its figure of 50 ms: the drift was the check's burst
 
 `check:fast` reported one of the hook's spawning cases at 1732 ms under a slowdown of five. Timed alone four times on a quiet machine the slowest case takes 12 to 13 ms, so the figure stands and its comment now says so.

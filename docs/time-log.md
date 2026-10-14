@@ -41093,3 +41093,5 @@ one needed a reporter the check does not use.
 
 Bottleneck: friction — the composer asked a weaker question of AUTO than the
 game's own test does, and that only showed in the four-minute check.
+
+*Measured: 8 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
