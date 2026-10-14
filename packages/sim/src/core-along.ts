@@ -1,6 +1,7 @@
 import { bastionAside, bastionVerdict } from "./bastion-shot.js";
 import type { BossKind } from "./boss-strike.js";
 import { capstanVerdict } from "./capstan-shot.js";
+import { chrysalisAside, chrysalisVerdict } from "./chrysalis-shot.js";
 import { midCol } from "./config.js";
 import type { CoreVerdict } from "./core-verdict.js";
 import { curtainCoreAside, curtainVerdict } from "./curtain-shot.js";
@@ -57,6 +58,15 @@ interface Core {
 /** THE BASTION's row: the moon's centre, over the middle column. */
 const BASTION_ROW = 4200;
 
+/** THE CHRYSALIS's row: the cocoon's centre, over the middle column. */
+const CHRYSALIS_ROW = 4200;
+/**
+ * Where a bolt up the middle is met: past the foot of its innermost skin, the
+ * heart's, 3.2 rows under the centre (`render/chrysalis-shape.ts`), by
+ * `MEET_MILLI` less a tenth.
+ */
+const CHRYSALIS_FOOT = CHRYSALIS_ROW + 2800;
+
 /** THE GALL's row: below the middle of the field's fifteen. */
 const GALL_ROW = 8500;
 
@@ -70,6 +80,16 @@ const CORES: Partial<Record<BossKind, Core>> = {
     meet: 5900,
     verdict: (w, c, k) => bastionVerdict(w, c, k),
     aside: (w) => bastionAside(w, BASTION_ROW),
+  },
+  // THE CHRYSALIS's cocoon hangs over the middle column and shrinks a skin at
+  // a time. The heart is met up its own column just past its pore
+  // (`chrysalis-shot.ts`); the hide up the middle, past the innermost skin's
+  // foot (`render/chrysalis-stop.ts`).
+  chrysalis: {
+    milli: CHRYSALIS_ROW,
+    meet: CHRYSALIS_FOOT,
+    verdict: (w, c, k) => chrysalisVerdict(w, c, k),
+    aside: (w) => chrysalisAside(w, CHRYSALIS_ROW),
   },
   capstan: { milli: 2700, verdict: (w, c, k) => capstanVerdict(w, c, k) },
   curtain: { verdict: (w, c, k) => curtainVerdict(w, c, k), aside: (w) => curtainCoreAside(w) },

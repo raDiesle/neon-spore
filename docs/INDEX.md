@@ -2456,6 +2456,7 @@ by hand never moves.
 | `packages/render/src/chart-lattice.ts` | **A chart's lattice**: the lines between the squares, a mark on every crossing pulsing on the beat |
 | `packages/render/src/chrysalis-shape.ts` | **THE CHRYSALIS's geometry**: where the cocoon hangs, how far out each of its skins stands |
 | `packages/render/src/chrysalis-shed.ts` | **A skin peeling away** (§11.63): THE BASTION's *visual of a successful step level achieved* (§11.62) on a… |
+| `packages/render/src/chrysalis-stop.ts` | **Where a bolt meets THE CHRYSALIS**, for `BoltStops` (`bolt-stop.ts`) |
 | `packages/render/src/chrysalis-belly.ts` | **THE CHRYSALIS's two inner skins** (§11.63): the sacs and the heart |
 | `packages/render/src/chrysalis-coat.ts` | **THE CHRYSALIS's two outer skins** (§11.63): the slime coat and the quills |
 | `packages/render/src/chrysalis-draw.ts` | **THE CHRYSALIS** (§11.63): a living cocoon hung over the field on strands of silk |

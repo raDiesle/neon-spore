@@ -1,4 +1,5 @@
 import type { ChrysalisSkin, ChrysalisState, ChrysalisStep, World } from "@neon-spore/sim";
+import type { BoltStops } from "./bolt-stop.js";
 import { drawHurt } from "./boss-hurt.js";
 import { drawChrysalisHeart, drawChrysalisSacs } from "./chrysalis-belly.js";
 import { drawChrysalisQuills, drawChrysalisSlime } from "./chrysalis-coat.js";
@@ -9,6 +10,7 @@ import { chrysalisPose } from "./chrysalis-pose.js";
 import { drawChrysalisReceipts } from "./chrysalis-receipts.js";
 import { type At, CHRYSALIS_SKIN_TILES, chrysalisReach } from "./chrysalis-shape.js";
 import { drawChrysalisRegrow, drawChrysalisShed } from "./chrysalis-shed.js";
+import { chrysalisStopper } from "./chrysalis-stop.js";
 import { drawChrysalisHalos, drawChrysalisVerdicts } from "./chrysalis-verdicts.js";
 import { smoothstep } from "./ease.js";
 import type { Layout } from "./layout.js";
@@ -30,6 +32,8 @@ import { showsChrysalisHeart } from "./view-role-clocks-c.js";
  * skin off leaves the cocoon smaller and turned half round, the skin falling
  * away in two halves (`chrysalis-shed.ts`).
  *
+ * **A bolt stops on the cocoon** where it meets it (`chrysalis-stop.ts`).
+ *
  * Everything is read off `world` each frame but its receipts — the quills
  * flung, the globs, the spores, the shudder and the blow (`chrysalis-fx.ts`,
  * drawn by `chrysalis-receipts.ts`).
@@ -43,8 +47,10 @@ export function drawChrysalis(
   beatPhase: number,
   time: number,
   fx: ChrysalisFx,
+  stops?: BoltStops,
 ): void {
   const p = chrysalisPose(l, world.cfg, s, beat, beatPhase, time);
+  stops?.aim(chrysalisStopper(l, world, s, p, time));
   const c = p.c;
   const reach = chrysalisReach(l, s);
   ctx.save();

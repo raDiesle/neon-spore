@@ -12005,8 +12005,13 @@ thumb is on it; `SHIELD` at the hull under the sac swelling; and on the heart
 it, aimed at it, to the navigator — whose fire button is never told the
 colour. `render/test/boss-cue-chrysalis.test.ts`.
 
-**What is not built.** Its bolt stopping on the cocoon (`core-along.ts`).
-The guide is prose. **Never watched at tempo**: whether a pair can rub,
+**A bolt stops on the cocoon** where it is drawn (`render/chrysalis-stop.ts`):
+on the lower edge of the skin on it now, across every column it covers, and
+on the heart's pore while it beats — and the simulation meets it there too
+(`sim/core-along.ts`, `chrysalisAside`), the row the picture hangs the
+cocoon on read from the same table. `render/test/core-met.test.ts` plays it.
+
+**What is not built.** The guide is prose. **Never watched at tempo**: whether a pair can rub,
 pull, shield and call the heart's colour in time — the owner's eye.
 
 ## Retired

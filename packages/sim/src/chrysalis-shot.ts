@@ -26,6 +26,9 @@ import type { World } from "./world.js";
  * - Anything else of the cocoon, any skin, is hide: met, and nothing.
  *
  * What it says of a bolt is `chrysalisVerdict`, which the picture asks too.
+ * A bolt is met where it hangs (`core-along.ts`): up the middle past the
+ * innermost skin's foot, and up the heart's own column at its pore
+ * (`chrysalisAside`).
  */
 export function chrysalisStruck(world: World, bullet: Bullet): boolean {
   const s = chrysalisBoss(world);
@@ -83,4 +86,19 @@ export function chrysalisGuarded(world: World): void {
   markMoment(world, true);
   world.events.push({ type: "chrysalisBurst", piece: i, col });
   chrysalisTakes(world, s, i);
+}
+
+/** How far under the cocoon's centre the heart's pores are drawn, thousandths of a row (`render/chrysalis-shape.ts`). */
+export const CHRYSALIS_PORE_DOWN_MILLI = 750;
+/** The aside's row under its pore: THE BASTION's port's, `MEET_MILLI` less four tenths of a row. */
+const CHRYSALIS_PAST = 100;
+
+/** The heart's pore while it beats, up its own column at its own row, for `core-along.ts`. */
+export function chrysalisAside(
+  world: World,
+  centre: number,
+): { col: number; milli: number } | null {
+  const target = chrysalisTarget(world);
+  if (target === null) return null;
+  return { col: target.col, milli: centre + CHRYSALIS_PORE_DOWN_MILLI + CHRYSALIS_PAST };
 }

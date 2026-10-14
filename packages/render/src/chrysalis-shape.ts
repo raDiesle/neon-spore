@@ -1,10 +1,12 @@
 import {
   bastionPlateWay,
   bastionTrackAt,
+  CHRYSALIS_PORE_DOWN_MILLI,
   type ChrysalisSkin,
   type ChrysalisState,
   chrysalisSkinOn,
   chrysalisTrackOf,
+  coreRowMilli,
   midCol,
   type SimConfig,
 } from "@neon-spore/sim";
@@ -23,8 +25,11 @@ import { type Layout, tileCY } from "./layout.js";
  * (`CHRYSALIS_SPAN`), so a bolt stops on what it is seen to hit.
  */
 
-/** The row the cocoon's centre hangs on, in rows: under the seat switcher, with the field below it. */
-export const CHRYSALIS_ROW = 4.2;
+/**
+ * The row the cocoon's centre hangs on, in rows: under the seat switcher, with
+ * the field below it — the simulation's, which meets a bolt there (`sim/core-along.ts`).
+ */
+export const CHRYSALIS_ROW = coreRowMilli("chrysalis") / 1000;
 
 /** How far out each skin stands from the centre across, in tiles, outermost first. */
 export const CHRYSALIS_SKIN_TILES: Record<ChrysalisSkin, number> = {
@@ -89,6 +94,11 @@ const SIDES = 40;
 
 /** The hide's outline at `c`: a lobed teardrop, its lower half drawn in to a blunt point. */
 export function chrysalisHidePath(c: At, h: HideShape): Path2D {
+  return smoothClosed(chrysalisHidePoints(c, h));
+}
+
+/** The points the hide's outline is drawn through: what a bolt is stopped on (`chrysalis-stop.ts`). */
+export function chrysalisHidePoints(c: At, h: HideShape): At[] {
   const pts: At[] = [];
   for (let k = 0; k < SIDES; k++) {
     const a = (k / SIDES) * Math.PI * 2;
@@ -102,7 +112,7 @@ export function chrysalisHidePath(c: At, h: HideShape): Path2D {
       y: c.y - Math.cos(a) * ry * lobe * breath,
     });
   }
-  return smoothClosed(pts);
+  return pts;
 }
 
 /** A closed curve through the midpoints of `pts`, each point a control. */
@@ -161,5 +171,5 @@ export function chrysalisSacAt(l: Layout, cfg: SimConfig, c: At, offset: number)
 /** A pore in the heart's skin `offset` columns from the middle: over its column, just under the waist. */
 export function chrysalisPoreAt(l: Layout, cfg: SimConfig, c: At, offset: number): At {
   const x = fieldX(l, midCol(cfg) + offset);
-  return { x, y: c.y + CHRYSALIS_SKIN_TILES.heart * l.tile * 0.3 };
+  return { x, y: c.y + (CHRYSALIS_PORE_DOWN_MILLI / 1000) * l.tile };
 }

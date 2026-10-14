@@ -40629,3 +40629,16 @@ Bottleneck: writing — four tests read the ring's colour or its gradient
 count, and each had to be asked about the drop instead.
 
 *Measured: 26 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-14 — a bolt stops on THE CHRYSALIS
+
+- reading: 5 min. THE BASTION's stopper and its row on `core-along.ts`.
+- writing: 5 min. The row, the heart's aside, the hide's points split from
+  its path, the stopper, and the cocoon's row and pore read off the
+  simulation.
+- looking: 5 min. A frame of the heart under fire.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, `land`.
+
+Bottleneck: lane three's landing, run three times while other lanes moved
+the trunk under its full check.

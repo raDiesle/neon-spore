@@ -122,6 +122,6 @@ export function drawLatestPairBoss(
 
   // THE CHRYSALIS: a living cocoon in four skins, each its own tissue and
   // its own job, peeled from the outside in (`chrysalis-draw.ts`); its
-  // receipts are `chrysalis-fx.ts`.
-  drawChrysalis(ctx, l, world, boss, beat, beatPhase, time, effects.boss.chrysalis);
+  // receipts are `chrysalis-fx.ts`, and a bolt stops on it (`chrysalis-stop.ts`).
+  drawChrysalis(ctx, l, world, boss, beat, beatPhase, time, effects.boss.chrysalis, effects.bolts);
 }

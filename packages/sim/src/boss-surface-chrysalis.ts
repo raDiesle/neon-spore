@@ -30,6 +30,10 @@ export {
   chrysalisTrackOf,
   freshChrysalis,
 } from "./chrysalis.js";
-export { chrysalisTarget, chrysalisVerdict } from "./chrysalis-shot.js";
+export {
+  CHRYSALIS_PORE_DOWN_MILLI,
+  chrysalisTarget,
+  chrysalisVerdict,
+} from "./chrysalis-shot.js";
 export type { ChrysalisConfig } from "./config-chrysalis.js";
 export type { ChrysalisEvent } from "./events-chrysalis.js";
