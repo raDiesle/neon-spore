@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-14 · 214d3e5eb — Queue: `land` misses a queue title wrapped across two lines
+
+The check that a lane closed a queue entry on purpose matches the title word for word in the lane's commit messages, so a title wrapped over a line break is not found and the landing is refused. Filed for a lane to compare with the whitespace collapsed.
+
 ## 2026-10-14 · a80fa8e3d — THE LID's cord runs one way, chosen at the grab
 
 The simulation picks the cord's way when the hand takes hold — down, across toward the middle, across the other way, up: the first the field holds the whole cord of, else the roomiest — and only the hand's travel along it counts; across is nothing and back is slack. THE WARDEN's rope has run one path since 10 October; the cord was the last handle that went any direction. A tap on a cord resting under the chrome is now nought, so the queued finding goes too: "A tap on a lid's cord under the chrome reads as a pull".
