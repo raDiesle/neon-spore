@@ -1,5 +1,5 @@
 import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
-import { buildQueue, CONTROL_SETS, controlSetForWave } from "@neon-spore/content";
+import { buildQueue, CONTROL_SETS, controlSetForWave, WAVES } from "@neon-spore/content";
 import { createWorld, step, ticksPerBeat } from "@neon-spore/sim";
 import { bandControlSet } from "../src/band.js";
 import { bandLobes } from "../src/band-lobes.js";
@@ -159,8 +159,9 @@ describe("the band draws the panel it is handed", () => {
     const world = createWorld(CFG, 7, buildQueue(0, CFG.cols));
     // SALVAGE, the first wave played on the whole standard panel — so the
     // shipped frame has a maw on it and the override's frame has an arm, which
-    // is a trade in both directions rather than a button added.
-    world.wave = 16;
+    // is a trade in both directions rather than a button added. By id: it was
+    // index 16 until the arc's regular waves went in ahead of it.
+    world.wave = WAVES.findIndex((w) => w.id === "salvage");
     expect(controlSetForWave(world.wave).id).not.toBe(claw.id);
     // The arm is on THE CLAW's panel and on no other, so it is the whole of
     // the difference in one direction.
