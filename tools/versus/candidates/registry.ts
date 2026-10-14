@@ -55,6 +55,9 @@ import { MIRROR_SWAY } from "./mirror-glance/sway/index.js";
 import { NETTLE_COCK } from "./nettle-glance/cock/index.js";
 import { NETTLE_LOOK_AROUND } from "./nettle-glance/look/index.js";
 import { NETTLE_SWAY } from "./nettle-glance/sway/index.js";
+import { OCULUS_COCK } from "./oculus-glance/cock/index.js";
+import { OCULUS_LOOK_AROUND } from "./oculus-glance/look/index.js";
+import { OCULUS_SWAY } from "./oculus-glance/sway/index.js";
 import { PINBALL_COCK } from "./pinball-glance/cock/index.js";
 import { PINBALL_LOOK_AROUND } from "./pinball-glance/look/index.js";
 import { PINBALL_SWAY } from "./pinball-glance/sway/index.js";
@@ -178,6 +181,9 @@ export const VARIANTS: Variant[] = [
   NETTLE_COCK,
   NETTLE_LOOK_AROUND,
   NETTLE_SWAY,
+  OCULUS_COCK,
+  OCULUS_LOOK_AROUND,
+  OCULUS_SWAY,
   RATCHET_COCK,
   RATCHET_LOOK_AROUND,
   RATCHET_SWAY,

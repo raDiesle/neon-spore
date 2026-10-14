@@ -39535,3 +39535,16 @@ Bottleneck: the stop reads a foot by its share of the ridge's width rather than 
 Bottleneck: the counted pull-then-hold kept `mark: true`, so SOAK's full drop was painted over its own FIZZ until the hand came off.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-14 — THE OCULUS: a part that turns, so it is seen from a new side
+
+- reading: 5 min. `oculus-draw.ts`, `oculus-grip.ts`'s halves, `oculus-story.ts`'s
+  glare and sight, and `oculus-stop.ts`'s round foot.
+- writing: 15 min. The record about the middle, the lens moved to `oculus-lens.ts`
+  with the beams lifted out of the turn, the stop's squeeze per half, three
+  candidates, the pose's lookAt, the spec note.
+- looking: 5 min. One shot at the widest; the far half closes clear of the levers' ring.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: the glare and the sight reach down to the hull, past any layer the turn can draw, so the lens had to be split into a turned body, the beams, and the turned lit pair over them.

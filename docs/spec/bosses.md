@@ -9260,6 +9260,17 @@ simulation is.
 
 **What is not built — a step seen from another side** (suggested 10 October 2026, after the owner on THE BASTION: *very 3 dimensional and even user action is 3d to rotate*). The eye looks to one side, the far leaf foreshortened and dark; the pair turns it back to look ahead before both leaves can be held shut.
 
+**Offered (14 October 2026, VERSUS `oculus:glance`).** A machine, so the whole
+lens turns, about its middle (`packages/render/src/oculus-glance.ts`): the rim,
+the glass, the leaves, the socket and the core yaw together while the middle
+line that splits the two seats' halves stays put, the near half opening and the
+far half closing into the dark and back. The levers a thumb turns, the glare
+and the sight are drawn outside the turn, the sight leaving from where the turn
+carries the core, and a bolt meets each half of the rim as far out as it is
+drawn. It ships still, and VERSUS offers **SWAY**, **LOOK** and **COCK** at a
+fifth of the rim's radius on THE OCULUS · LIT. The pair turning it back to look
+ahead is not built.
+
 
 ## 11.45 THE VISE — the boss two drags crack, then shoot into
 

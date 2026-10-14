@@ -19,7 +19,10 @@ export const OCULUS_POSES: Pose[] = [
     "oculus",
     "lit",
     "The first pair of leaves lit white. P1 holds the left half of the lens; P2 the right.",
-    { hold: 6 },
+    {
+      hold: 6,
+      lookAt: "the whole lens turning about its middle — its far half going into the dark and back",
+    },
   ),
   bossPose("oculus", "rest", "A pair shut and the lens resting. P1 and P2 let go and wait.", {
     hand: oculusHand,

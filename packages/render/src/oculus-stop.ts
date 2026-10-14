@@ -2,6 +2,7 @@ import { midCol, oculusVerdict, type World } from "@neon-spore/sim";
 import type { Stopper } from "./bolt-stop.js";
 import { coreStopper, roundFoot } from "./core-stop.js";
 import type { Circle, Layout } from "./layout.js";
+import { oculusGlanceSqueeze } from "./oculus-glance.js";
 import { oculusRadius } from "./oculus-shape.js";
 
 /**
@@ -14,12 +15,16 @@ import { oculusRadius } from "./oculus-shape.js";
  * asks for a column two off the middle, past the rim, where nothing is drawn
  * to meet: the bolt there is judged at row 0 and stops there. Both are looks,
  * and neither is fixed here.
+ *
+ * Turned (`oculus-glance.ts`), each half of the rim is met as far out as the
+ * turn draws it.
  */
 export function oculusStopper(
   l: Layout,
   world: World,
   at: { x: number; y: number },
   core: Circle,
+  time: number,
 ): Stopper {
   const coreY = at.y + core.y + core.r;
   const mid = midCol(world.cfg);
@@ -27,6 +32,10 @@ export function oculusStopper(
     world,
     oculusVerdict,
     (col) => (col === mid ? coreY : l.gridTop),
-    roundFoot(at.x, at.y, oculusRadius(l).rim),
+    (x) => {
+      const rim = oculusRadius(l).rim;
+      const k = oculusGlanceSqueeze(l, time, x < at.x ? -1 : 1);
+      return roundFoot(at.x, at.y, rim * k, rim)(x);
+    },
   );
 }

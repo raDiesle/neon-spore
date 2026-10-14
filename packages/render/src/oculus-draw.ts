@@ -1,66 +1,24 @@
-import { LIGHT_HALF } from "@neon-spore/content";
 import {
   OCULUS_LEAVES,
   type OculusState,
   oculusDone,
-  oculusIsPair,
   oculusLitStep,
-  oculusWindowBeats,
   type World,
 } from "@neon-spore/sim";
 import type { BoltStops } from "./bolt-stop.js";
-import { drawHurt } from "./boss-hurt.js";
 import { fieldX } from "./field-flip.js";
-import { rgba } from "./hex.js";
-import { litRound } from "./key-light.js";
-import type { Circle, Layout } from "./layout.js";
+import type { Layout } from "./layout.js";
 import { drawOculusFuse } from "./oculus-fuse.js";
 import type { OculusFx } from "./oculus-fx.js";
+import { drawOculusLens, type OculusAim } from "./oculus-lens.js";
 import { drawOculusLevers } from "./oculus-levers.js";
-import {
-  drawOculusCore,
-  drawOculusFlash,
-  drawOculusLitPair,
-  oculusCoreRadius,
-} from "./oculus-marks.js";
-import {
-  oculusArrived,
-  oculusHung,
-  oculusLeft,
-  oculusLitPair,
-  oculusShatter,
-  oculusShut,
-  oculusSocket,
-} from "./oculus-pose.js";
-import {
-  oculusCentre,
-  oculusFacePath,
-  oculusLapPath,
-  oculusLeafPath,
-  oculusLift,
-  oculusPinAngle,
-  oculusRadius,
-  oculusRimPath,
-  oculusSocketPath,
-} from "./oculus-shape.js";
+import { drawOculusFlash } from "./oculus-marks.js";
+import { oculusArrived, oculusShatter } from "./oculus-pose.js";
+import { oculusCentre, oculusLift, oculusPinAngle, oculusRadius } from "./oculus-shape.js";
 import { oculusStopper } from "./oculus-stop.js";
-import {
-  drawOculusGlare,
-  drawOculusSight,
-  oculusCorePose,
-  oculusGaze,
-  oculusGlare,
-  oculusLookedCol,
-} from "./oculus-story.js";
+import { oculusLookedCol } from "./oculus-story.js";
 import { drawOculusMarkFeedback } from "./oculus-verdicts.js";
-import { PALETTE, STROKE } from "./palette.js";
 import { stepColour } from "./step-colour.js";
-
-/** Where the hull and the look's column are from the lens's centre — the story steps' aim. */
-interface Aim {
-  toHull: number;
-  lookX: number;
-}
 
 /**
  * **THE OCULUS**: a lens of six leaves over the middle column, shut two at a
@@ -103,15 +61,15 @@ export function drawOculus(
   if (step?.ask === "fire") fx.tell(stepColour(step.color).rim);
   const y = home.y - oculusLift(l, arrived) + fx.thud * l.tile;
   const lookX = fieldX(l, oculusLookedCol(cfg, s)) - home.x;
-  const aim: Aim = { toHull: l.hullY - y, lookX };
+  const aim: OculusAim = { toHull: l.hullY - y, lookX };
   ctx.save();
   ctx.globalAlpha = (0.2 + 0.8 * arrived) * (1 - 0.7 * shatter);
   const x = home.x + fx.hurt.shakeX(time, l.tile);
   ctx.translate(x, y);
   if (shatter <= 0) {
-    const core = drawLens(ctx, l, world, s, beat, beatPhase, time, fx, aim);
+    const core = drawOculusLens(ctx, l, world, s, beat, beatPhase, time, fx, aim);
     // From the beat it shatters, as the simulation says (`sim/oculus-shot.ts`).
-    if (!oculusDone(s)) stops?.aim(oculusStopper(l, world, { x, y }, core));
+    if (!oculusDone(s)) stops?.aim(oculusStopper(l, world, { x, y }, core, time));
   } else {
     // The lens falls apart along its plates: six wedges, each thrown out
     // along its own middle and turned a little as it goes.
@@ -127,7 +85,7 @@ export function drawOculus(
       wedge.arc(0, 0, rim, a - seg / 2, a + seg / 2);
       wedge.closePath();
       ctx.clip(wedge);
-      drawLens(ctx, l, world, s, beat, beatPhase, time, fx, aim);
+      drawOculusLens(ctx, l, world, s, beat, beatPhase, time, fx, aim);
       ctx.restore();
     }
   }
@@ -137,90 +95,4 @@ export function drawOculus(
   drawOculusFlash(ctx, l, fx.flash, fx.shatter);
   ctx.restore();
   drawOculusFuse(ctx, l, world, s, beat, beatPhase);
-}
-
-/**
- * The lens whole: glass face, the leaves across it, the socket and core
- * behind, the rim over their roots, the blow over the rim. Hands back the
- * core as drawn, about the lens's middle.
- */
-function drawLens(
-  ctx: CanvasRenderingContext2D,
-  l: Layout,
-  world: World,
-  s: OculusState,
-  beat: number,
-  beatPhase: number,
-  time: number,
-  fx: OculusFx,
-  aim: Aim,
-): Circle {
-  const face = oculusFacePath(l);
-  ctx.fillStyle = rgba(PALETTE.background, 0.9);
-  ctx.fill(face);
-
-  const shut = oculusShut(s, world.cfg, beat, beatPhase).map((v, k) => oculusHung(v, k, time));
-  ctx.save();
-  ctx.clip(face);
-  for (let k = 0; k < OCULUS_LEAVES; k++) {
-    const leaf = oculusLeafPath(l, k, shut[k] ?? 0);
-    ctx.fillStyle = rgba(PALETTE.dim, 0.85);
-    ctx.fill(leaf);
-    ctx.lineWidth = STROKE.inner;
-    ctx.strokeStyle = rgba(PALETTE.rock, 0.6);
-    ctx.stroke(leaf);
-  }
-  ctx.restore();
-
-  const step = oculusLitStep(s);
-  const open = oculusSocket(s, beat, beatPhase);
-  if (open > 0) {
-    const socket = oculusSocketPath(l, open);
-    ctx.fillStyle = rgba(PALETTE.background, 1);
-    ctx.fill(socket);
-    ctx.lineWidth = STROKE.inner;
-    ctx.strokeStyle = rgba(PALETTE.rock, 0.6);
-    ctx.stroke(socket);
-  }
-  // The core is lit while a step asks the eye itself: a fire, a look in
-  // its colour, a glare in white.
-  const eyed =
-    step !== null && (step.ask === "fire" || step.ask === "look" || step.ask === "glare");
-  const lit =
-    eyed && s.socketOpen
-      ? { color: step.color, left: oculusLeft(s, oculusWindowBeats(world, step), beat, beatPhase) }
-      : null;
-  const gaze = oculusGaze(s, world.cfg, beat, beatPhase);
-  const glare = oculusGlare(s, world.cfg, beat, beatPhase);
-  const core = oculusCorePose(l, gaze, glare);
-  ctx.save();
-  ctx.translate(core.x, core.y);
-  drawOculusCore(ctx, l, open, s.hits, lit, beatPhase, core.scale);
-  ctx.restore();
-  const eye = { x: core.x, y: core.y, r: oculusCoreRadius(l, open, s.hits, core.scale) };
-
-  const { rim } = oculusRadius(l);
-  const ring = oculusRimPath(l, time * 0.6);
-  ctx.fillStyle = rgba(PALETTE.rockDark, 0.95);
-  ctx.fill(ring, "evenodd");
-  ctx.save();
-  ctx.clip(ring, "evenodd");
-  litRound(ctx, 0, -rim * 0.4, rim, LIGHT_HALF.rock, 0.02 * Math.sin(time * 0.7));
-  ctx.restore();
-  ctx.lineWidth = STROKE.outline;
-  ctx.strokeStyle = rgba(PALETTE.rock, 0.9);
-  ctx.stroke(ring);
-  drawHurt(ctx, ring, fx.hurt.value);
-  ctx.lineWidth = STROKE.inner;
-  ctx.strokeStyle = rgba(PALETTE.rock, 0.5);
-  ctx.stroke(oculusLapPath(l));
-  drawOculusGlare(ctx, l, glare, aim.toHull, beatPhase);
-  const colour = stepColour(step?.ask === "look" ? step.color : "either");
-  drawOculusSight(ctx, l, core, { x: aim.lookX, y: aim.toHull }, colour, gaze);
-
-  if (step !== null && oculusIsPair(step)) {
-    const pair = oculusLitPair(s);
-    drawOculusLitPair(ctx, l, [pair, pair + OCULUS_LEAVES / 2], shut, beatPhase);
-  }
-  return eye;
 }

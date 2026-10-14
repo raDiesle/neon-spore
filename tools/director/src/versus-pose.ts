@@ -70,6 +70,7 @@ const SLOT_POSE: Record<string, string> = {
   "keel:glance": "THE KEEL · JOINT",
   "valve:glance": "THE VALVE · TURN",
   "seam:glance": "THE SEAM · LIT",
+  "oculus:glance": "THE OCULUS · LIT",
 };
 
 /** The pose a slot gets when nothing in `SLOT_POSE` names it. */
