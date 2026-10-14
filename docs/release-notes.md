@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-14 · 0326bb926 — THE GAUGE's teeth are pulled by a knob, not pressed as a ring
+
+In the tooth rest, every tooth on the navigator's screen has the field's own pull knob on a channel running toward its point, the way a tooth comes out of the gum, with the arrow. Until now each tooth had a bare ring, which read as a tap. The knob is kept to the ring's size so fifteen fit side by side.
+
 ## 2026-10-14 · 9c2227263 — THE SLING's held cord is a pull knob in its mark's place
 
 Once a cord's hold has counted, the mark gives way to the field's own pull knob, and a fresh press carries it toward the lit side. On the cord's own screen it has a channel and an arrow, and on the partner's it is dim. A pull let go short is said red on the cord's mark.
