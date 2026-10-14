@@ -7,4 +7,6 @@
  */
 export type PullEvent =
   /** A thumb let a pull go part way, in the knob's column: nothing moved. */
-  { type: "pullShort"; col: number; player: 1 | 2 };
+  | { type: "pullShort"; col: number; player: 1 | 2 }
+  /** A thumb wandered off a path's bend, in the knob's column: the pull failed (`pull-path.ts`). */
+  | { type: "pullStray"; col: number; player: 1 | 2 };

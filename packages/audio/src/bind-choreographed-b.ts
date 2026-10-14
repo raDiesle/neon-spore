@@ -67,8 +67,10 @@ export type AddedEvent = Extract<
       | "wellHeld"
       | "wellWound"
       | "wellHome"
-      // And the one generic PULL's short lift, whichever boss the knob hangs on.
-      | "pullShort";
+      // And the one generic PULL's short lift, whichever boss the knob hangs
+      // on, and a thumb off a bent path's way.
+      | "pullShort"
+      | "pullStray";
   }
 >;
 
@@ -102,6 +104,7 @@ const ADDED_EVENTS = new Set<string>([
   "wellWound",
   "wellHome",
   "pullShort",
+  "pullStray",
 ]);
 
 /** Whether this is one of the names above, and not a boss arriving whole. */
@@ -138,8 +141,10 @@ export function addedCue(e: AddedEvent, cols: number): Cue {
     case "scoutPrime":
       return scoutHandCue(e);
     case "pullShort":
-      // A pull let go part way is refused, and refused is one sound on the
-      // field: every mark's red (`boss-instar.ts`), here panned to the knob.
+    case "pullStray":
+      // A pull let go part way, or wandered off its path, is refused, and
+      // refused is one sound on the field: every mark's red
+      // (`boss-instar.ts`), here panned to the knob.
       return { id: "boss.instarRefuse", pan: panForCol(e.col, cols) };
     default:
       return pulseHandCue(e);

@@ -94,6 +94,17 @@ export {
   pullHeard,
   pullTravelMilli,
 } from "./pull.js";
+export {
+  PULL_PATH_WINDOW,
+  PULL_STRAY_MILLI,
+  type PullPath,
+  type PullPathHeard,
+  type PullPoint,
+  pullPathHeard,
+  pullPathLength,
+  pullPathNearest,
+  pullPathPoint,
+} from "./pull-path.js";
 export { ARM_HOME, reachOut, reachTipMilli } from "./reach.js";
 export {
   chargeDueTick,

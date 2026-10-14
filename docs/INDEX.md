@@ -636,6 +636,7 @@ by hand never moves.
 | `packages/sim/src/pulse.ts` | THE PULSE: the same song on two screens, and neither of you can read all of it |
 | `packages/sim/src/pulse-open.ts` | Opening a stage, and opening the round — the two places a `PulseState` is written from nothing |
 | `packages/sim/src/pull.ts` | a thumb carries a knob a distance and you need the one generic PULL — its way as a field, its reach, counted once when met, a short lift refused |
+| `packages/sim/src/pull-path.ts` | a pull bends — a polyline the thumb is measured along, near the knob, failed a tile off it, the lab's half doubled for a finger (`pullStray`) |
 | `packages/sim/src/lance-burn.ts` | **THE LANCE going off**: the lobe coming full, and the column burning on that tick |
 | `packages/sim/src/lamprey-hand.ts` | THE LAMPREY's three handles: the tail, the head and the teeth, heard on the tick |
 | `packages/sim/src/lamprey-hash.ts` | What THE LAMPREY puts into `hashWorld`, and nothing else |

@@ -40192,3 +40192,16 @@ Bottleneck: the entry's `curtainHemReach` arithmetic no longer matched the
 drawing, so what *a tile higher* meant had to be read off the code.
 
 *Measured: 16 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-14 — Curved pulls, the sim half: a path and a stray
+
+- reading: 5 min. The straight pull, the lab's stray rule and window.
+- writing: 10 min. `pull-path.ts` in integers, `pullStray` in its four
+  registrations, a test of the L and the hairpin.
+- looking: 0 min. Nothing drawn moves; no boss uses a path yet.
+- friction: 0 min.
+- landing: 5 min.
+
+Bottleneck: the nearest point had to stay inside the lab's window without a
+square root, which a projection clamped to the window's part of each segment
+does.
