@@ -41127,3 +41127,18 @@ Bottleneck: reading — each helper is fed from somewhere different, and the
 frame can only be built once that is found.
 
 *Measured: 7 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-14 — HELPERS: six helpers that ship with no frame (half two)
+
+- reading: 10 min. How a boss's wrong colour loses the wave, which the
+  pose config's invulnerable hull switches off, and where the ring's thumb
+  comes from.
+- writing: 10 min. Two frames in `helpers-poses-band.ts`, a thumb handed
+  through `drawPhone`, four rows, the test.
+- looking: 5 min. Each frame in the browser pane; the first thumb landed on
+  the partner's mark and was moved onto her own.
+- friction: 0 min.
+- landing: 5 min.
+
+Bottleneck: reading — THE CAPSTAN's core only takes a bolt once both bands
+are bright, so the wrong colour was posed on THE BULB QUEEN instead.

@@ -1,5 +1,6 @@
 import { FAULT_LABEL } from "@neon-spore/render";
 import type { HelperGroup } from "./helpers-def.js";
+import { BATON_GREY } from "./helpers-poses-band.js";
 import { CANNON_FAULT, CANNON_FAULT_BAND, CODEX_ON, FLIP_ON } from "./helpers-poses-faults.js";
 import { HANDOVER_PLATE } from "./helpers-poses-marks.js";
 
@@ -9,7 +10,9 @@ import { HANDOVER_PLATE } from "./helpers-poses-marks.js";
  * at the top doing it, the words for what it is doing, the button it tore.
  * The owner's rule of 12 September 2026 is that a malfunction always has a
  * visible cause, and these are it. SHIELD STUCK ON and KEEP SHIELD MOVING are
- * the shield's, and stand in THE SHIELD (`helpers-shield.ts`).
+ * the shield's, and stand in THE SHIELD (`helpers-shield.ts`). A boss that
+ * takes the band away is no fault, but its picture is the same argument — a
+ * control taken is drawn dead, not removed — and stands here beside them.
  */
 
 export const FAULT_GROUP: HelperGroup = {
@@ -43,6 +46,31 @@ export const FAULT_GROUP: HelperGroup = {
       pose: CANNON_FAULT_BAND,
       role: "p2",
       lookAt: "the torn button on the band and the one beside it",
+    },
+    {
+      name: "LOCKED — WATCH",
+      where: "over the whole band, while THE MIRROR shows its pattern",
+      seat: "BOTH",
+      says:
+        "Nothing on this band answers now: watch the ship play the steps back and " +
+        "count them. The buttons stay, dimmed, so the band reads as taken and not broken.",
+      source: "band-lock.ts (drawLock)",
+      pose: "THE MIRROR · SHOW",
+      role: "p1",
+      crop: "band",
+      lookAt: "the dark scrim over the band and LOCKED — WATCH between its two red rules",
+    },
+    {
+      name: "THE GREY PANEL",
+      where: "over the band of the seat that just acted on THE BATON, for one beat",
+      seat: "the seat that pressed — the other's band is lit",
+      says:
+        "Your turn is over: the bead is your partner's now. Grey and no words, and " +
+        "it clears on the next beat by itself, so taking turns reads as a metronome.",
+      source: "band-lock.ts (drawBatonGrey)",
+      pose: BATON_GREY,
+      role: "p1",
+      lookAt: "the grey over P1's whole band",
     },
     {
       name: "THE HAZE",

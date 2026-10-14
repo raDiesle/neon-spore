@@ -159,8 +159,19 @@ export function onCard(f: Framed, x: number, y: number): { x: number; y: number 
  */
 export function poseArt(pose: Pose, width: number): HTMLCanvasElement {
   const world = builtWorld(pose);
-  return frameWorld(world, pose.role ?? "test", pose.crop, width, pose.at?.(world), pose.span)
-    .canvas;
+  const role = pose.role ?? "test";
+  const thumb = pose.thumb?.(world);
+  return frameWorld(
+    world,
+    role,
+    pose.crop,
+    width,
+    pose.at?.(world),
+    pose.span,
+    MAX_HEIGHT,
+    false,
+    thumb,
+  ).canvas;
 }
 
 /** One settled frame of a world, cut to `crop` and scaled into a card. */
@@ -184,8 +195,10 @@ export function frameWorld(
    * scenery behind the subject — they are most of the picture.
    */
   bare = false,
+  /** This device's thumb on a tile, for the ring round the mark under it. */
+  thumb?: { col: number; row: number },
 ): Framed {
-  const phone = drawPhone(world, role, bare);
+  const phone = drawPhone(world, role, bare, undefined, thumb);
   const { layout, stage } = phone;
   const rect = cropRect(crop, layout, stage, at, span ?? TILE_SPAN, world.cfg);
   const { canvas, scale } = cutCard(phone, rect, width, cap);

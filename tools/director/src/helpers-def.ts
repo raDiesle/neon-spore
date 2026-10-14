@@ -37,6 +37,8 @@ export interface HelperDef {
   /** A few tiles round one point instead, for a mark too small to read at
    * the size of the whole field. */
   zoom?: { at: (w: World) => { col: number; row: number }; span: number };
+  /** This device's thumb down on a tile, for a helper drawn round the thumb (`Pose.thumb`). */
+  thumb?: Pose["thumb"];
   /** Where on the frame to look. */
   lookAt: string;
 }

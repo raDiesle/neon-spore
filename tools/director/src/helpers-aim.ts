@@ -1,5 +1,6 @@
 import type { HelperGroup } from "./helpers-def.js";
 import { EMPTY_FIELD, LOCKED, MINE_UP } from "./helpers-poses.js";
+import { WRONG_COLOUR } from "./helpers-poses-band.js";
 import { firstOfKind } from "./pose-kit.js";
 
 /**
@@ -72,6 +73,20 @@ export const AIM_GROUP: HelperGroup = {
       pose: "MAGNET · A SHOT TURNED AWAY",
       role: "test",
       lookAt: "the bolt glancing off the plate",
+    },
+    {
+      name: "WRONG COLOUR",
+      where:
+        "across the middle of the held field, on the tick a bolt in the wrong colour reaches a boss",
+      seat: "BOTH",
+      says:
+        "Why the wave was lost. A shot in the wrong colour leaves the field as it " +
+        "was, so the reason is stamped over it through the pause, and said again " +
+        "under the wave's name on the lost screen.",
+      source: "fail-cause.ts, lost-words.ts",
+      pose: WRONG_COLOUR,
+      role: "p2",
+      lookAt: "WRONG COLOUR in red on its dark band across the field",
     },
   ],
 };

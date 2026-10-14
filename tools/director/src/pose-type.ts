@@ -89,6 +89,12 @@ export interface Pose {
    */
   span?: number;
   /**
+   * This device's own thumb, down on the tile named, for the ring round the
+   * mark under it (`thumb-aura.ts`). A world holds no thumb — it is the
+   * host's, per device — so a frame of the ring is handed one here.
+   */
+  thumb?: (world: World) => { col: number; row: number };
+  /**
    * Seconds between replays of this pose's built moment — set on a pose
    * whose whole difference lives in one instant (a shot leaving, a ward
    * deflecting, a hull cracking), left undefined on a *continuous* one (a

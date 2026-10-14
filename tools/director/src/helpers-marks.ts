@@ -1,4 +1,11 @@
-import { batonBoss, batonSocketCol, batonSocketRow, coreRowMilli, midCol } from "@neon-spore/sim";
+import {
+  batonBoss,
+  batonSocketCol,
+  batonSocketRow,
+  coreRowMilli,
+  midCol,
+  type World,
+} from "@neon-spore/sim";
 import type { HelperDef, HelperGroup } from "./helpers-def.js";
 import { VERDICT_GIVEN } from "./helpers-poses-marks.js";
 
@@ -14,6 +21,12 @@ const ON_THE_DRUM: HelperDef["zoom"] = {
   at: (w) => ({ col: midCol(w.cfg) - 1, row: coreRowMilli("capstan") / 1000 }),
   span: 5,
 };
+
+/** The navigator's thumb on her own mark, the drum's left one, rubbing it. */
+const ON_HER_MARK = (w: World): { col: number; row: number } => ({
+  col: midCol(w.cfg) - 2.3,
+  row: coreRowMilli("capstan") / 1000,
+});
 
 /** Round THE BATON's two lowest sockets, where the draw is asked for and its label stands. */
 const AT_THE_DRAW: HelperDef["zoom"] = {
@@ -93,6 +106,21 @@ export const MARK_GROUP: HelperGroup = {
       role: "p1",
       zoom: ON_THE_DRUM,
       lookAt: "the steady green ring and the green arc round the mark",
+    },
+    {
+      name: "THE THUMB'S RING",
+      where: "round the mark under this device's own thumb, while it is down",
+      seat: "the seat whose thumb it is — never shared, the other screen draws its own",
+      says:
+        "Still holding, and still going: the thumb covers the mark and its arc, so " +
+        "a ring opens round it, quickly and then slowly, and beats green on the " +
+        "beat. It goes red and stops when the mark judges the touch wrong.",
+      source: "thumb-aura.ts, thumb-aura-ring.ts",
+      pose: "CAPSTAN · THE LEFT BAND RUBBED",
+      role: "p2",
+      zoom: ON_THE_DRUM,
+      thumb: ON_HER_MARK,
+      lookAt: "the green ring round the rubbed mark, wider than the mark itself",
     },
     {
       name: "THE VERDICT",

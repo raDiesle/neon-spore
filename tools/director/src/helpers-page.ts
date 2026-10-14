@@ -50,7 +50,8 @@ const SEAT_STAMP: Record<HelperDef["role"], string> = {
 
 /** The row's pose, drawn as the screen and cut the row names. */
 export function helperPose(h: HelperDef): Pose {
-  const pose = typeof h.pose === "string" ? poseNamed(h.pose) : h.pose;
+  const named = typeof h.pose === "string" ? poseNamed(h.pose) : h.pose;
+  const pose = h.thumb ? { ...named, thumb: h.thumb } : named;
   if (h.zoom) return { ...pose, role: h.role, crop: "tile", at: h.zoom.at, span: h.zoom.span };
   return { ...pose, role: h.role, crop: h.crop ?? pose.crop };
 }

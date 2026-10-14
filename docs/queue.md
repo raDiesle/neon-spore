@@ -328,21 +328,6 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/skipped.test.ts` holds the listing's count of the entries
 `next` stepped past and why.
 
-## HELPERS: six helpers that ship with no frame showing them
-
-- **Found:** 2026-10-14, claude/docs-controls-helpers-org-c825df
-- **Files:** `tools/director/src/helpers-marks.ts`, `tools/director/src/helpers-poses-marks.ts`, `tools/director/src/helpers-page.ts`, `tools/director/test/helpers-page.test.ts`
-
-Three of the six are on the page since
-claude/queue-helpers-six-helpers-that-ship-with-no-frame-show: THE VERDICT,
-THE BATON'S WORDS and THE HANDOVER'S PLATE (`helpers-poses-marks.ts`). Three
-are left: the thumb's ring (`thumb-aura.ts`) — it reads this device's own
-thumb, which no pose holds, so the frame needs a way to hand one in; the band
-put out (`band-lock.ts`) — `THE MIRROR · LISTEN` shows the band lit; and
-WRONG COLOUR (`fail-cause.ts`) — no pose loses a wave to a shot. Build a
-frame for each that ends on a tick it is drawn, add the row to `MARK_GROUP`
-or wherever it belongs, look at it, and keep `helpers-page.test.ts` green.
-
 ## HELPERS: THE CURTAIN to THE STARE's one-seat pictures are not listed
 
 - **Found:** 2026-10-14, claude/docs-controls-helpers-org-c825df

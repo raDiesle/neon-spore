@@ -4,6 +4,7 @@ import {
   computeStage,
   type Layout,
   type Stage,
+  type Thumb,
   type Viewport,
   type ViewRole,
 } from "@neon-spore/render";
@@ -44,11 +45,19 @@ export interface DrawnPhone {
  * first and only the last frame is kept — the easing settled, the effects
  * fresh. `dpr` above `PHONE`'s is for a picture that will be enlarged.
  */
-export function drawPhone(world: World, role: ViewRole, bare = false, dpr = PHONE.dpr): DrawnPhone {
+export function drawPhone(
+  world: World,
+  role: ViewRole,
+  bare = false,
+  dpr = PHONE.dpr,
+  thumb?: { col: number; row: number },
+): DrawnPhone {
   const cfg = world.cfg;
   const off = document.createElement("canvas");
   const renderer = new Canvas2DRenderer(off);
   renderer.resize({ ...PHONE, dpr });
+  const stage = computeStage(PHONE);
+  const layout = computeLayout({ width: stage.width, height: stage.height, dpr }, cfg, role);
   const view = {
     world,
     beatPhase: framePhase(world),
@@ -57,6 +66,8 @@ export function drawPhone(world: World, role: ViewRole, bare = false, dpr = PHON
     running: true,
     banner: null,
     bare,
+    // Down through all the settling frames, so its ring has had them to open.
+    thumbs: thumb === undefined ? undefined : [thumbOnStage(layout, thumb)],
   };
   // Settled first, with nothing reported: a long `dt` walks the eased pose to
   // where it belongs without spending the events on frames nobody keeps.
@@ -65,9 +76,12 @@ export function drawPhone(world: World, role: ViewRole, bare = false, dpr = PHON
   // so a deflection is drawn with its flash on rather than a second later.
   renderer.draw({ ...view, dt: 1 / 60, events: world.events });
   renderer.dispose();
-  const stage = computeStage(PHONE);
-  const layout = computeLayout({ width: stage.width, height: stage.height, dpr }, cfg, role);
   return { canvas: off, layout, stage, dpr };
+}
+
+/** A thumb on the middle of a tile, in the stage's coordinates — the layout's. */
+function thumbOnStage(l: Layout, at: { col: number; row: number }): Thumb {
+  return { id: 1, x: l.gridLeft + (at.col + 0.5) * l.tile, y: l.gridTop + (at.row + 0.5) * l.tile };
 }
 
 /**
