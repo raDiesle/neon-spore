@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-14 · 3821cfdae — VERSUS offers THE MANTLE's shell turning about its middle
+
+`mantle:glance` offers the hinged shell a turn — SWAY, LOOK or COCK — both valves, their plates, the seam and the core yawing together about the shell's middle at the height its straps are tied, the far valve closing into the dark and back, on THE MANTLE · PULL. The knobs stay under the thumbs, each strap keeps hold of its tie, and a bolt meets the shell where it is drawn. The record ships still, so the game draws what it did.
+
 ## 2026-10-14 · b83d7b97b — VERSUS offers THE NETTLE's bell turning about its middle
 
 `nettle:glance` offers the jellyfish's bell a turn — SWAY, LOOK or COCK — crown or underside, arms, curtain and core turning with it, the far side closing into the dark and back, on THE NETTLE · ACT. The marks stay where the script planted them, as they do while the bell pulses, and a bolt meets the bell where it is drawn. The record ships still, so the game draws what it did.
