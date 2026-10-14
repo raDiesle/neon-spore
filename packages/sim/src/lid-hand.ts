@@ -1,7 +1,9 @@
 import type { SimConfig } from "./config.js";
 import { lidIsHeld, lidIsOpen } from "./lid.js";
-import { LID_DOWN, lidFittingWay, lidWayRoom, lidWayVec } from "./lid-way.js";
-import { type Pull, pullHeard, pullTravelMilli } from "./pull.js";
+import { lidCordAlong, lidCordPath, lidCordTension } from "./lid-bow.js";
+import { LID_DOWN, lidFittingWay, lidWayRoom } from "./lid-way.js";
+import { type Pull, pullHeard } from "./pull.js";
+import { pullPathHeard, pullPathPoint } from "./pull-path.js";
 import type { Command, Creature } from "./types.js";
 import type { World } from "./world.js";
 
@@ -19,8 +21,10 @@ import type { World } from "./world.js";
  * from one handle to another without ever leaving the glass.
  *
  * **One path** (`lid-way.ts`): the grab takes the way the field has room
- * for, and only the hand's travel along it counts — across it is nothing and
- * back is slack, the rule THE WARDEN's rope has had since 10 October 2026.
+ * for, and the cord bows to one side of it (`lid-bow.ts`); only the hand's
+ * progress along the bow counts, the rule THE WARDEN's rope has had since 10
+ * October 2026 and bent on the 13th. A thumb a tile off the bow drops the
+ * cord (`pullStray`) and holds nothing until it lifts (`lidStrayed`).
  * `fromMilli` and `fromYMilli` are how far the hand has come from where it
  * grabbed, in thousandths of a tile, resolved on the device whose finger it
  * is (`touchDown`, `packages/render/src/touch.ts`) — so a grab reports zero
@@ -43,16 +47,33 @@ export function lidHeard(world: World, player: 1 | 2, command: Command): void {
     releaseLids(world);
     return;
   }
+  if (held.lidStrayed === true) return;
   const was = lidIsOpen(world.cfg, held);
   for (const c of world.creatures) if (c !== held) letGo(c);
   // The grab chooses the way, by the room the field has from where the cord
   // rests now, and the hold keeps it however the body falls.
   if (held.lidWay === undefined) held.lidWay = lidFittingWay(world.cfg, held);
-  const v = lidWayVec(held.lidWay);
-  const along = v.dx * command.fromMilli + v.dy * (command.fromYMilli ?? 0);
-  const travel = pullTravelMilli(cord(world.cfg), along);
-  held.lidPullMilli = Math.min(travel, lidWayRoom(world.cfg, held, held.lidWay));
   const counted = held.lidCounted === true;
+  const path = lidCordPath(world.cfg, held);
+  const heard = pullPathHeard(
+    path,
+    counted,
+    true,
+    command.fromMilli,
+    command.fromYMilli ?? 0,
+    lidCordAlong(world.cfg, held, held.lidPullMilli ?? 0),
+  );
+  if (heard.heard === "strayed") {
+    world.events.push({ type: "pullStray", col: held.col, player: 1 });
+    letGo(held);
+    held.lidStrayed = true;
+    return;
+  }
+  // The tension is the straight distance along the way the bow has come,
+  // cut to the room the field has that way.
+  const along = lidCordTension(world.cfg, held, pullPathPoint(path, heard.travelMilli));
+  const travel = Math.max(0, Math.min(along, world.cfg.lidTautMilli));
+  held.lidPullMilli = Math.min(travel, lidWayRoom(world.cfg, held, held.lidWay));
   if (pullHeard(cord(world.cfg), counted, true, held.lidPullMilli).heard === "counted") {
     held.lidCounted = true;
   }
@@ -72,11 +93,12 @@ function sayShort(world: World, c: Creature): void {
   world.events.push({ type: "pullShort", col: c.col, player: 1 });
 }
 
-/** One cord let go of: the pull, its way and its count. */
+/** One cord let go of: the pull, its way, its count and a stray. */
 function letGo(c: Creature): void {
   c.lidPullMilli = undefined;
   c.lidWay = undefined;
   c.lidCounted = undefined;
+  c.lidStrayed = undefined;
 }
 
 /** Every cord let go of, however it happened. */

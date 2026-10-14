@@ -276,6 +276,7 @@ by hand never moves.
 | `packages/sim/src/lid-struck.ts` | THE LID's answer to a shot: bare lens, wrong colour, or plates still across it |
 | `packages/sim/src/lid-hand.ts` | THE LID's hand on the cord: the grab takes the way, the travel along it is the pull, counted at taut |
 | `packages/sim/src/lid-way.ts` | **The one path THE LID's cord runs**, chosen by the simulation at the grab: the first way the field holds the whole cord, and only travel along it counts |
+| `packages/sim/src/lid-bow.ts` | **THE LID's cord bows**: along whichever of its four ways the grab took (`lid-way.ts`), `lidTautMilli` long |
 | `packages/sim/src/config-ghost.ts` | THE GHOST's numbers: what one is worth, the row a crossing one prowls along, how far it goes each beat, how |
 | `packages/sim/src/config-gorge.ts` | THE GORGE's numbers — where the bubbles hang, how big the ring is |
 | `packages/sim/src/config-governor.ts` | THE GOVERNOR's tuning: the beats around its steps, how fast the needle idles |
@@ -766,6 +767,7 @@ by hand never moves.
 | `packages/sim/src/config-lead.ts` | THE LEAD's numbers — how many segments the stalk has, how far ahead of the body a shot has to be put |
 | `packages/sim/src/config-lamprey.ts` | THE LAMPREY's tuning: the worm's crawl, the beats around its stays, the tiles it lands on |
 | `packages/sim/src/config-latch.ts` | THE LATCH's tuning: how long a knot is and how far one pull reaches |
+| `packages/sim/src/config-lid.ts` | **How far THE LID's cord bows** (`lid-bow.ts`) |
 | `packages/sim/src/config-antiphon.ts` | THE ANTIPHON's numbers — how many contours the body can grow and how they fall into families |
 | `packages/sim/src/config-hive.ts` | THE HIVE's numbers — how many breach sites the underside has, how long it hangs before the first opens |
 | `packages/sim/src/config-hasp.ts` | THE HASP's tuning: how long a grip lasts before it burns the hand off, how long the burn holds |

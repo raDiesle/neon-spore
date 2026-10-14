@@ -232,7 +232,7 @@ const LID_POSE: Pose = {
     runUntil(
       w,
       "a lid with its eye open",
-      [pullCord(w.tick, lid.id, w.cfg.lidTautMilli * 1.2)],
+      [pullCord(w, w.tick, lid.id, w.cfg.lidTautMilli * 1.2)],
       (x) => x.creatures.some((c) => c.kind === "lid" && lidIsOpen(x.cfg, c)),
     );
     return w;

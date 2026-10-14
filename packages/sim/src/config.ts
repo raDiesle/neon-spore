@@ -15,6 +15,7 @@ import { CRYSTAL_DEFAULTS, type CrystalConfig } from "./config-crystal.js";
 import { FENCE_DEFAULTS, type FenceConfig } from "./config-fence.js";
 import { GHOST_DEFAULTS, type GhostConfig } from "./config-ghost.js";
 import { GYRE_DEFAULTS, type GyreConfig } from "./config-gyre.js";
+import { LID_HAND_DEFAULTS, type LidHandConfig } from "./config-lid.js";
 import { MALFUNCTION_DEFAULTS, type MalfunctionConfig } from "./config-malfunction.js";
 import type { PairConfig } from "./config-pair.js";
 import { POD_DEFAULTS, type PodConfig } from "./config-pod.js";
@@ -61,6 +62,7 @@ export interface SimConfig
     ChokeConfig,
     ClingConfig,
     CreatureConfig,
+    LidHandConfig,
     GhostConfig,
     RockCrossConfig,
     FenceConfig,
@@ -171,6 +173,7 @@ export const DEFAULT_CONFIG: SimConfig = {
   ...VEER_DEFAULTS,
   ...VOLLEY_DEFAULTS,
   ...CREATURE_DEFAULTS,
+  ...LID_HAND_DEFAULTS,
   ...CLAW_DEFAULTS,
   ...SCOUT_DEFAULTS,
   ...BOSS_CLOCK_DEFAULTS,

@@ -74,36 +74,3 @@ export function lidFittingWay(cfg: SimConfig, c: Creature): number {
 export function lidWayNow(cfg: SimConfig, c: Creature): number {
   return c.lidWay ?? lidFittingWay(cfg, c);
 }
-
-/**
- * The pull as a vector: the travel along the way the hand took, nought where
- * a lid has no hand on it. Thousandths of a tile, x across and y down.
- */
-export function lidPull(c: Creature): { x: number; y: number } {
-  const v = lidWayVec(c.lidWay ?? LID_DOWN);
-  const along = c.lidPullMilli ?? 0;
-  return { x: v.dx * along, y: v.dy * along };
-}
-
-/**
- * Where the handle is, in thousandths of a tile — the cord's rest **today**
- * plus how far the hand has carried it.
- *
- * So the handle goes down the field with the lid, held or not, and the cord
- * keeps its length: the owner's ask, *it should glide as the lid glides*. It
- * was the other way for a while — an anchor frozen at the grab, so the handle
- * sat under a still thumb while the body fell away and the cord paid out —
- * and that read as the handle having come off the creature. The tension is
- * how far the hand has come from where it grabbed (`lidHeard`), which a body
- * falling under a still hand does not change; the picture the pilot is
- * holding simply travels with the thing it is attached to, and the finger,
- * which is captured, does not have to follow it.
- *
- * Render glides this by the beat's phase rather than reading it off the row;
- * this is the rule the room and the tests are on.
- */
-export function lidHandleMilli(cfg: SimConfig, c: Creature): { x: number; y: number } {
-  const rest = cordRest(cfg, c);
-  const pull = lidPull(c);
-  return { x: rest.x + pull.x, y: rest.y + pull.y };
-}

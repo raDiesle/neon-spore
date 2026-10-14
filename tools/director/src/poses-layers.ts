@@ -130,7 +130,7 @@ const LID_POSE: Pose = {
     if (inCycle < 0) return [];
     if (inCycle < pullTicks) {
       const reach = Math.round((w.cfg.lidTautMilli * 1.2 * (inCycle + 1)) / pullTicks);
-      return [pullCord(w.tick, lid.id, reach)];
+      return [pullCord(w, w.tick, lid.id, reach)];
     }
     if (inCycle === Math.round(TPB * (PULL_BEATS + HOLD_BEATS))) return [letGo(w.tick, lid.id)];
     return [];

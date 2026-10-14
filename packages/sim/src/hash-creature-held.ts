@@ -54,5 +54,9 @@ export function heldHashParts(c: Creature): number[] {
   // old are different worlds — so presence gets a number of its own.
   out.push(c.weightPressTicks === undefined ? 0 : 1);
   out.push(c.weightPressTicks ?? 0);
+  // THE LID's hand that wandered off the cord's bow: it holds nothing until
+  // it lifts (`lid-hand.ts`), so two devices that disagree about it disagree
+  // about whether the next move opens the plates.
+  out.push(c.lidStrayed === true ? 1 : 0);
   return out;
 }

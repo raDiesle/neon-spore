@@ -1,5 +1,6 @@
 import {
   type Creature,
+  lidCordShare,
   lidIsHeld,
   lidOpenMilli,
   lidPull,
@@ -86,7 +87,7 @@ export function lidHandlePoint(
   beatPhase: number,
 ): { x: number; y: number } {
   const rest = lidCordCircle(l, cfg, c, beatPhase);
-  const pull = lidPull(c);
+  const pull = lidPull(cfg, c);
   return { x: rest.x + (pull.x * l.tile) / 1000, y: rest.y + (pull.y * l.tile) / 1000 };
 }
 
@@ -145,10 +146,12 @@ function drawOne(
   // filling green behind the hand (`lid-track.ts`); then the circle to start,
   // where the thumb has it (`pull-knob.ts`) — the owner's rule for every
   // handle you pull.
+  // The fill and the arrow read the bow's own length, which the knob is on.
   const track = lidCordTrack(l, cfg, c, rest);
-  drawPullTrack(ctx, track, { hex, rim, held, origin: 0, at: pull, time, key: "lid" });
+  const share = lidCordShare(cfg, c);
+  drawPullTrack(ctx, track, { hex, rim, held, origin: 0, at: share, time, key: "lid" });
   strokeGlow(ctx, cord, held ? rim : hex, STROKE.outline * (1 - pull * 0.35), 0.4 + pull * 1.4);
-  const way = handleIsMine(l.role) ? pullWay(track, pull, 1) : null;
+  const way = handleIsMine(l.role) ? pullWay(track, share, 1) : null;
   drawPullKnob(ctx, head, rest.r, { hex, rim, held, time, way, key: "lid" });
   if (!held) drawHandleHint(ctx, l, l.role, head.x, head.y + l.tile * 0.62, HINT_SOFT);
 }

@@ -40223,3 +40223,18 @@ and they are in five packages; the tension kept in taut's units is what let
 each of them change by one call.
 
 *Measured: 27 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-14 — Curved pulls, THE LID: the cord bows off whichever way it runs
+
+- reading: 10 min. The cord's four ways, its room cut as the lid falls, and
+  the films' and poses' straight carries.
+- writing: 20 min. `pullBowPath` and `pullBowAt` shared with THE WARDEN,
+  `lid-bow.ts`, `lidStrayed`, the channel and its fill along the bow, the
+  films and poses laid on it, the tests read through the bow.
+- looking: 5 min. A lid's channel before and after.
+- friction: 0 min.
+- landing: 5 min.
+
+Bottleneck: a falling lid's room shrinks under a held cord, so the tension
+had to stay the straight distance along its way, with the knob placed on the
+bow at that distance, for the floor to keep bounding it exactly.

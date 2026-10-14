@@ -4,6 +4,7 @@ import { bossAnswerCol } from "./boss-answer.js";
 import { gripOf, NO_GRIP } from "./grip.js";
 import { hiveBoss, hiveNext } from "./hive.js";
 import { hiveHoldable } from "./hive-wall.js";
+import { lidCordFromMilli } from "./lid-bow.js";
 import { bodyCenterCol, occupiesCol } from "./span.js";
 import type { Command, Creature } from "./types.js";
 import { undertowBoss } from "./undertow.js";
@@ -172,7 +173,12 @@ export function aimed(world: World, c: SceneCommand): Command {
     // written — `lidHeard` treats a target it cannot find as a hand let go,
     // which is exactly what a film that mistimed its grab should look like.
     const on = lowestIn(world, c.dragCol);
-    return on === null ? c.command : { ...c.command, id: on.id };
+    if (on === null) return c.command;
+    if (on.kind !== "lid" || c.command.target !== "lidString") return { ...c.command, id: on.id };
+    // THE LID's cord bows to one side of whichever way the grab takes: the
+    // film writes how far, and the world lays it along the bow (`lid-bow.ts`).
+    const far = Math.max(0, c.command.fromMilli + (c.command.fromYMilli ?? 0));
+    return { ...c.command, id: on.id, ...lidCordFromMilli(world.cfg, on, far) };
   }
   if (c.atBody && (c.command.kind === "shieldCol" || c.command.kind === "cannonCol")) {
     // An empty field leaves the press exactly as it was written, which is the

@@ -1,7 +1,7 @@
 import type { WardenState } from "./boss-state.js";
 import type { SimConfig } from "./config.js";
 import { pullDownMilli, tileCentreMilli } from "./handle-pull.js";
-import { type PullPath, pullPathLength, pullPathPoint } from "./pull-path.js";
+import { type PullPath, pullBowPath, pullPathLength, pullPathPoint } from "./pull-path.js";
 
 /**
  * **THE WARDEN's rope bows**: its path from where the hand takes hold is
@@ -19,12 +19,8 @@ import { type PullPath, pullPathLength, pullPathPoint } from "./pull-path.js";
  *   and every film that writes a carry in taut's units read as they did; the
  *   path's own length is only the hand's.
  *
- * Integer throughout: the bow is a table of the half-sine in eighths, never
- * `Math.sin`, which two engines need not round alike.
+ * Integer throughout: the bow is `pullBowPath`'s table of the half-sine.
  */
-
-/** A half-sine in eighths, thousandths: the bow's share of its width at each eighth of the drop. */
-const BOW = [0, 383, 707, 924, 1000, 924, 707, 383, 0] as const;
 
 /** The rope's rest with nobody on it, in thousandths of a tile. */
 export function wardenRopeRest(cfg: SimConfig, b: WardenState): { x: number; y: number } {
@@ -46,13 +42,7 @@ export function wardenRopePath(cfg: SimConfig, b: WardenState): PullPath {
   const from = ropeFrom(cfg, b);
   const drop = wardenRopeDrop(cfg, from.y);
   const side = from.x * 2 < cfg.cols * 1000 ? 1 : -1;
-  const n = BOW.length - 1;
-  return {
-    pts: BOW.map((s, k) => ({
-      x: side * Math.trunc((s * cfg.wardenBowMilli) / 1000),
-      y: Math.trunc((drop * k) / n),
-    })),
-  };
+  return pullBowPath({ dx: 0, dy: 1 }, { dx: side, dy: 0 }, drop, cfg.wardenBowMilli);
 }
 
 /** The tension a progress along the path is, in thousandths of a tile of the drop. */

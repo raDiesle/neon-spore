@@ -51,6 +51,7 @@ export const creature = (): Required<Creature> => ({
   lidPullMilli: 1800,
   lidWay: 2,
   lidCounted: true,
+  lidStrayed: true,
   pushBeat: 4,
   recoilBounces: 2,
   caromDir: -1,

@@ -73,13 +73,18 @@ export {
   lidSide,
 } from "./lid.js";
 export {
+  lidCordFromMilli,
+  lidCordPath,
+  lidCordShare,
+  lidHandleMilli,
+  lidPull,
+} from "./lid-bow.js";
+export {
   LID_DOWN,
   LID_LEFT,
   LID_RIGHT,
   LID_UP,
   lidFittingWay,
-  lidHandleMilli,
-  lidPull,
   lidWayNow,
   lidWayRoom,
   lidWayVec,

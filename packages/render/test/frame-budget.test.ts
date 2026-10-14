@@ -2,6 +2,7 @@ import { describe, expect, it, setDefaultTimeout } from "bun:test";
 import { buildBoss, buildQueue, controlSet, WAVES } from "@neon-spore/content";
 import {
   createWorld,
+  lidCordFromMilli,
   startWave,
   step,
   type TimedCommand,
@@ -340,7 +341,8 @@ const EYES: readonly { name: string; index: number; pull: (world: World) => Time
             kind: "drag",
             target: "lidString",
             on: true,
-            fromMilli: CFG.lidTautMilli,
+            // Along the cord's bow, the whole of it (`sim/lid-bow.ts`).
+            ...lidCordFromMilli(CFG, body, CFG.lidTautMilli),
             id: body.id,
           },
         },

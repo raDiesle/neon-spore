@@ -127,6 +127,7 @@ export const FIELD_GROUP: Record<keyof SimConfig, GroupName> = {
   echoSplitBeats: "THE ECHO — one body that becomes eight",
   lidTautMilli: "THE LID — an armoured eye held open by a hand",
   lidCordMilli: "THE LID — an armoured eye held open by a hand",
+  lidBowMilli: "THE LID — an armoured eye held open by a hand",
   rindLayers: "THE RIND — one body, three sizes",
   chuteRiseRows: "THE CAROM — a rock with something alive in it",
   chuteFallBeats: "THE CAROM — a rock with something alive in it",

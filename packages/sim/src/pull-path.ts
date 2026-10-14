@@ -52,6 +52,57 @@ export const PULL_STRAY_MILLI = 1000;
 /** How far either side of the knob the nearest point is looked for, thousandths of the path's length. */
 export const PULL_PATH_WINDOW = 300;
 
+/** A half-sine in eighths, thousandths: a bow's share of its width at each eighth of its length. */
+const BOW = [0, 383, 707, 924, 1000, 924, 707, 383, 0] as const;
+
+/**
+ * A bowed path: `lengthMilli` along `way`, bulging `bowMilli` toward `side`
+ * halfway — a half-wave out and back, the shape every bent pull in the game
+ * takes (`warden-bow.ts`, `lid-bow.ts`). Both are unit steps in whole
+ * numbers, x across and y down. A table of the half-sine rather than
+ * `Math.sin`, which two engines need not round alike.
+ */
+export function pullBowPath(
+  way: { dx: number; dy: number },
+  side: { dx: number; dy: number },
+  lengthMilli: number,
+  bowMilli: number,
+): PullPath {
+  const n = BOW.length - 1;
+  return {
+    pts: BOW.map((s, k) => {
+      const along = Math.trunc((lengthMilli * k) / n);
+      const out = Math.trunc((s * bowMilli) / 1000);
+      return { x: way.dx * along + side.dx * out, y: way.dy * along + side.dy * out };
+    }),
+  };
+}
+
+/**
+ * The point of `pullBowPath(way, side, lengthMilli, bowMilli)` that stands
+ * `at` thousandths along `way` — the bow read by its straight distance
+ * rather than its length, for a pull whose tension is how far along its way
+ * the hand has come (`lid-bow.ts`).
+ */
+export function pullBowAt(
+  way: { dx: number; dy: number },
+  side: { dx: number; dy: number },
+  lengthMilli: number,
+  bowMilli: number,
+  at: number,
+): PullPoint {
+  const n = BOW.length - 1;
+  const a = Math.max(0, Math.min(lengthMilli, at));
+  const k = lengthMilli <= 0 ? 0 : Math.min(n - 1, Math.trunc((a * n) / lengthMilli));
+  const k0 = Math.trunc((lengthMilli * k) / n);
+  const k1 = Math.trunc((lengthMilli * (k + 1)) / n);
+  const s0 = BOW[k] ?? 0;
+  const s1 = BOW[k + 1] ?? 0;
+  const s = k1 === k0 ? s0 : s0 + Math.trunc(((s1 - s0) * (a - k0)) / (k1 - k0));
+  const out = Math.trunc((s * bowMilli) / 1000);
+  return { x: way.dx * a + side.dx * out, y: way.dy * a + side.dy * out };
+}
+
 /** The length of segment `i` (from `pts[i]` to `pts[i + 1]`), thousandths of a tile. */
 function segLength(path: PullPath, i: number): number {
   const a = path.pts[i];

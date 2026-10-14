@@ -1,5 +1,5 @@
 import {
-  type DragTarget,
+  lidCordFromMilli,
   type TimedCommand,
   type World,
   wardenRopeFromMilli,
@@ -46,29 +46,20 @@ export const shoot = (tick: number, color: "red" | "cyan"): TimedCommand => ({
   command: { kind: "fire", color },
 });
 /**
- * The pilot's thumb on a hanging cord, dragged `milli` thousandths of a tile
- * **down the field** from where it grabbed.
+ * The pilot's thumb on THE LID's cord, carried `milli` along the way the cord
+ * runs (`sim/lid-way.ts`) **and laid on its bow** (`sim/lid-bow.ts`): the cord
+ * bends, and a thumb pulled straight along its way strays off and drops it.
  *
  * One of these is a hand that stays down: the pull is kept on the body until it
  * is let go, so a pose sends it once and the thing it opened stays open for the
  * length of the replay (`sim/lid.ts`).
- *
- * Downward and not sideways, and that is the whole reason this is a helper
- * rather than a literal at each pose. The cord runs one way, the first the
- * field holds the whole of (`sim/lid-way.ts`), and that is down for a lid
- * with room under it — which is also where a thumb actually goes. A sideways
- * pull along a cord that runs down counts nothing.
  */
-export const pullCord = (
-  tick: number,
-  id: number,
-  milli: number,
-  target: DragTarget = "lidString",
-): TimedCommand => ({
-  tick,
-  player: 1,
-  command: { kind: "drag", target, on: true, fromMilli: 0, fromYMilli: milli, id },
-});
+export const pullCord = (w: World, tick: number, id: number, milli: number): TimedCommand => {
+  const body = w.creatures.find((c) => c.id === id && c.kind === "lid");
+  const at =
+    body === undefined ? { fromMilli: 0, fromYMilli: milli } : lidCordFromMilli(w.cfg, body, milli);
+  return { tick, player: 1, command: { kind: "drag", target: "lidString", on: true, ...at, id } };
+};
 /**
  * The pilot's thumb on THE WARDEN's rope, carried `milli` of taut **along its
  * bow** (`sim/warden-bow.ts`): the rope is not a cord that runs straight
@@ -76,9 +67,15 @@ export const pullCord = (
  */
 export const pullRope = (w: World, tick: number, id: number, milli: number): TimedCommand => {
   const b = w.boss;
-  const at = b?.kind === "warden" ? wardenRopeFromMilli(w.cfg, b, milli) : null;
-  const cmd = pullCord(tick, id, milli, "wardenTether");
-  return at === null ? cmd : ({ ...cmd, command: { ...cmd.command, ...at } } as TimedCommand);
+  const at =
+    b?.kind === "warden"
+      ? wardenRopeFromMilli(w.cfg, b, milli)
+      : { fromMilli: 0, fromYMilli: milli };
+  return {
+    tick,
+    player: 1,
+    command: { kind: "drag", target: "wardenTether", on: true, ...at, id },
+  };
 };
 export const hold = (tick: number, player: 1 | 2, id: number): TimedCommand => ({
   tick,

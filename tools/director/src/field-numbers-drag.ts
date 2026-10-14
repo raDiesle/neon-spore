@@ -64,7 +64,7 @@ export const DRAG_NUMBERS: Readonly<Record<string, readonly (keyof SimConfig)[]>
     "bastionStrideMilli",
   ],
   // A lever: carried to a depth and held.
-  "THE LID'S CORD": ["lidTautMilli", "lidCordMilli"],
+  "THE LID'S CORD": ["lidTautMilli", "lidCordMilli", "lidBowMilli"],
   "THE BALLOON'S LEFT HANDLE": ["balloonTautMilli", "balloonHoldBeats"],
   "THE BALLOON'S RIGHT HANDLE": ["balloonTautMilli", "balloonHoldBeats"],
   "THE SINEW'S LEFT HANDLE": [

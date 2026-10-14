@@ -60,6 +60,12 @@ export interface HeldState {
    */
   lidCounted?: boolean;
   /**
+   * The hand on this cord wandered off its bow and dropped it (`pullStray`,
+   * `lid-bow.ts`): nothing it does holds the cord again until it lifts.
+   * Absent otherwise.
+   */
+  lidStrayed?: true;
+  /**
    * **THE LIMPET or THE LEECH has its control.** Set once, by the fault that
    * fires it, and never cleared: one leaves the field by being reeled home or
    * by going off, and no other way. Read through `clingIsStuck` (`cling.ts`).

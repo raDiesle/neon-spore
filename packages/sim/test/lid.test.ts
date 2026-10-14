@@ -7,11 +7,14 @@ import {
   hullRow,
   LID_DOWN,
   LID_UP,
+  lidCordFromMilli,
   lidHandleMilli,
   lidIsHeld,
   lidIsOpen,
   lidOpenMilli,
   lidSide,
+  lidWayNow,
+  lidWayVec,
   record,
   runReplay,
   type SimConfig,
@@ -57,7 +60,10 @@ function run(queue: SpawnEntry[], ticks: number, inputs: TimedCommand[] = []): R
   for (const i of inputs) byTick.set(i.tick, [...(byTick.get(i.tick) ?? []), i]);
   const events: SimEvent[] = [];
   for (let t = 0; t < ticks; t++) {
-    step(world, byTick.get(t) ?? []);
+    step(
+      world,
+      (byTick.get(t) ?? []).map((c) => onBow(world, c)),
+    );
     events.push(...world.events);
   }
   return { world, events };
@@ -75,14 +81,38 @@ const lid = (col: number, color: "red" | "cyan" = "red"): SpawnEntry => ({
  * the field, so unlike THE WARDEN's rope the message has to say which one.
  * Ids are dealt out by the simulation from 1, so the first arrival is 1.
  */
-const pull = (tick: number, milli: number, id = 1, player: 1 | 2 = 1): TimedCommand => ({
-  tick,
-  player,
-  // **Downward**, because that is the way the cord runs from a lid with the
-  // whole cord's room under it (`lid-way.ts`): down is tried first, and the
-  // field has fifteen rows. A negative `milli` is a hand going back up it.
-  command: { kind: "drag", target: "lidString", on: true, fromMilli: 0, fromYMilli: milli, id },
-});
+const pull = (tick: number, milli: number, id = 1, player: 1 | 2 = 1): TimedCommand => {
+  const c: TimedCommand = {
+    tick,
+    player,
+    // **Downward**, because that is the way the cord runs from a lid with the
+    // whole cord's room under it (`lid-way.ts`): down is tried first, and the
+    // field has fifteen rows. A negative `milli` is a hand going back up it.
+    command: { kind: "drag", target: "lidString", on: true, fromMilli: 0, fromYMilli: milli, id },
+  };
+  BOWED.add(c);
+  return c;
+};
+
+/** The hands `pull` made, which follow the cord's bow when they land. */
+const BOWED = new WeakSet<TimedCommand>();
+
+/**
+ * A `pull` read the way a thumb following the channel carries it: its
+ * straight distance along the way the cord runs, laid on the bow
+ * (`lid-bow.ts`) — and a hand that goes back along the way stays at the rest.
+ * Any other command goes as written.
+ */
+function onBow(world: Run["world"], c: TimedCommand): TimedCommand {
+  if (!BOWED.has(c) || c.command.kind !== "drag") return c;
+  const id = c.command.id;
+  const body = world.creatures.find((b) => b.id === id && b.kind === "lid");
+  if (body === undefined) return c;
+  const v = lidWayVec(lidWayNow(world.cfg, body));
+  const along = v.dx * c.command.fromMilli + v.dy * (c.command.fromYMilli ?? 0);
+  const at = lidCordFromMilli(world.cfg, body, Math.max(0, along));
+  return { ...c, command: { ...c.command, ...at } };
+}
 const letGo = (tick: number, id = 1): TimedCommand => ({
   tick,
   player: 1,
@@ -127,31 +157,35 @@ describe("the hand on the cord", () => {
   });
 
   /**
-   * One fixed path (the owner, 13 October 2026): only the travel along the
-   * cord's way counts. Three hands of exactly `lidTautMilli`: straight down,
-   * along the way; a 3-4-5 diagonal, of which only the four-fifths down is
-   * travel; and straight up, which is slack.
+   * One fixed path (the owner, 13 October 2026), bowed on the 13th too: only
+   * the progress along the cord's bow counts. A hand along it opens the
+   * plates; one straight down the way, which the bow leaves by a tile and a
+   * half halfway, strays off and drops the cord (`pullStray`); and one going
+   * back up the way is slack.
    */
-  it("counts only the travel along the way the cord runs", () => {
-    const down = run([lid(COL)], TPB * 2, [pull(TPB, TAUT)]);
-    expect(lidIsOpen(CFG, only(down.world))).toBe(true);
+  it("counts only the progress along the bow the cord runs", () => {
+    const along = run([lid(COL)], TPB * 2, [pull(TPB, TAUT)]);
+    expect(lidIsOpen(CFG, only(along.world))).toBe(true);
 
-    const diagonal = run([lid(COL)], TPB * 2, [
-      {
-        tick: TPB,
-        player: 1,
+    const straight = run(
+      [lid(COL)],
+      TPB * 2,
+      [0, 1, 2, 3, 4].map((i) => ({
+        tick: TPB + i,
+        player: 1 as const,
         command: {
-          kind: "drag",
-          target: "lidString",
+          kind: "drag" as const,
+          target: "lidString" as const,
           on: true,
-          fromMilli: Math.round(TAUT * 0.6),
-          fromYMilli: Math.round(TAUT * 0.8),
+          fromMilli: 0,
+          fromYMilli: Math.round((TAUT * i) / 8),
           id: 1,
         },
-      },
-    ]);
-    expect(lidIsOpen(CFG, only(diagonal.world))).toBe(false);
-    expect(lidOpenMilli(CFG, only(diagonal.world))).toBe(800);
+      })),
+    );
+    expect(straight.events.filter((e) => e.type === "pullStray")).toHaveLength(1);
+    expect(lidIsHeld(only(straight.world))).toBe(false);
+    expect(only(straight.world).lidStrayed).toBe(true);
 
     const up = run([lid(COL)], TPB * 2, [pull(TPB, -TAUT)]);
     expect(only(up.world).lidPullMilli).toBe(0);
