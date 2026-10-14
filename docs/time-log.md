@@ -40610,3 +40610,5 @@ index row cost a second one.
 
 Bottleneck: the director's tables, five files that each want the same four
 rows and are only found by the test that misses them.
+
+*Measured: 47 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*

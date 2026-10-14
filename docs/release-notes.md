@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-14 · cdb4afff0 — THE CHRYSALIS takes thumbs: a rub on each half of slime, a knob on each quill, and a word for every skin
+
+Each seat rubs its own half of the slime, wearing THE RUB LAB's drop lit by the turns it has had, and pulls its own quill by a knob along its track, THE BASTION's slab pull. The halo, the partner's ring and clock, and the green and red verdicts answer every touch, and a thumb on the partner's mark is refused aloud. The field says RUB, PULL, SHIELD under a swelling sac, and on the heart COLOUR to the pilot who sees it and FIRE to the navigator.
+
 ## 2026-10-14 · ff0395f4f — THE BASTION's gun ring sways round the sphere and its armour breathes
 
 The ring rides the turning sphere like a loose collar: it tips after the sphere's cock, a beat late and a little further, and nods on its own slower clock, its ellipse opening and closing. It steadies while it is the shell lit, where a bolt stops on its front gun. The armour's slabs stand a hair out and back one after another round the moon, the tower rising and the keel sinking with them; a slab under a thumb stays put under its knob. Exemption: a look the owner asked for by name (14 October 2026, "let the other front parts move as well").
