@@ -90,7 +90,8 @@ function tap(world: World, player: 1 | 2, tooth: number): string[] {
 const holder = (w: World): 1 | 2 => lampreyHolder(eel(w)) ?? 1;
 const worker = (w: World): 1 | 2 => lampreyWorker(eel(w)) ?? 2;
 const holdTail = (w: World) => drag(w, holder(w), "lampreyTail", { on: true });
-const pullHead = (w: World) => drag(w, worker(w), "lampreyHead", { on: true, y: -2000 });
+const pullHead = (w: World) =>
+  drag(w, worker(w), "lampreyHead", { on: true, y: -(CFG.lampreyHeadPullMilli + 300) });
 
 function runUntil(world: World, until: (w: World) => boolean, beats = 80): Set<string> {
   const seen = new Set<string>();
@@ -182,7 +183,15 @@ describe("THE LAMPREY leaps", () => {
         answer(world);
       }
     }
-    for (let k = 2; k < SCRIPT.length; k++) expect(sum[k] ?? 0).toBeGreaterThan(sum[k - 1] ?? 0);
+    // Not the leap out of an `apart`: its tail lies a pull further out than any
+    // other stay's, 4.8 tiles since 14 October 2026, and has to fit on the field
+    // where it is leaving — so that leap is held short by the room, not the step.
+    let prev = sum[1] ?? 0;
+    for (let k = 2; k < SCRIPT.length; k++) {
+      if (SCRIPT[k - 1]?.ask === "apart") continue;
+      expect(sum[k] ?? 0).toBeGreaterThan(prev);
+      prev = sum[k] ?? 0;
+    }
   });
 
   it("lays its tail away from where it leaps next", () => {
@@ -225,7 +234,9 @@ describe("a pull", () => {
     drag(world, w, "lampreyHead", { on: true, y: -10 });
     expect(drag(world, w, "lampreyHead", { on: false, y: -10 })).not.toContain("pullShort");
     pullHead(world);
-    expect(drag(world, w, "lampreyHead", { on: false, y: -2000 })).not.toContain("pullShort");
+    expect(
+      drag(world, w, "lampreyHead", { on: false, y: -(CFG.lampreyHeadPullMilli + 300) }),
+    ).not.toContain("pullShort");
     expect(eel(world).phase).toBe("bite");
   });
 

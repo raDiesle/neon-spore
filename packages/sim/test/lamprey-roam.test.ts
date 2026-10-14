@@ -100,7 +100,10 @@ function tap(world: World, player: 1 | 2, tooth: number): string[] {
 function pull(world: World): string[] {
   return [
     ...drag(world, lampreyHolder(eel(world)) ?? 1, "lampreyTail", { on: true }),
-    ...drag(world, lampreyWorker(eel(world)) ?? 2, "lampreyHead", { on: true, fromYMilli: -2000 }),
+    ...drag(world, lampreyWorker(eel(world)) ?? 2, "lampreyHead", {
+      on: true,
+      fromYMilli: -(CFG.lampreyHeadPullMilli + 300),
+    }),
   ];
 }
 
@@ -225,7 +228,10 @@ function apart(world: World): void {
   const way = lampreyTailWay(eel(world));
   const out = { on: true, fromMilli: way.x * 2, fromYMilli: way.y * 2 };
   drag(world, lampreyHolder(eel(world)) ?? 1, "lampreyTail", out);
-  drag(world, lampreyWorker(eel(world)) ?? 2, "lampreyHead", { on: true, fromYMilli: -2000 });
+  drag(world, lampreyWorker(eel(world)) ?? 2, "lampreyHead", {
+    on: true,
+    fromYMilli: -(CFG.lampreyHeadPullMilli + 300),
+  });
 }
 
 /** Where the tail's tip lies, in tiles: `tiles` from the head along the way it lies. */
