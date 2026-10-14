@@ -40919,3 +40919,14 @@ Bottleneck: writing — four tests had quietly relied on every boss resting at
 the same moments.
 
 *Measured: 27 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
+
+## 2026-10-14 — `ratchet-parts.ts` sits on the line ceiling
+
+- reading: 5 min. The entry, the file and its four importers.
+- writing: 5 min. The catch moved to `ratchet-catch.ts`, imports and two
+  comments repointed.
+- looking: 0 min.
+- friction: 0 min.
+- landing: 5 min. `check:fast` at three and a half minutes.
+
+Bottleneck: landing — the check outlasts the move it checks.

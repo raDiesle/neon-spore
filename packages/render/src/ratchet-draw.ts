@@ -10,14 +10,10 @@ import { litBox } from "./key-light.js";
 import type { Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
 import { RATCHET_BOLT, ratchetBoltAt } from "./ratchet-bolt.js";
+import { drawRatchetCatch } from "./ratchet-catch.js";
 import { drawRatchetGlanced } from "./ratchet-glance.js";
 import { drawRatchetHalos, drawRatchetVerdicts } from "./ratchet-marks.js";
-import {
-  drawRatchetCatch,
-  drawRatchetLock,
-  drawRatchetPawl,
-  drawRatchetSpring,
-} from "./ratchet-parts.js";
+import { drawRatchetLock, drawRatchetPawl, drawRatchetSpring } from "./ratchet-parts.js";
 import {
   ratchetDrive,
   ratchetFold,

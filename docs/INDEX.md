@@ -1820,6 +1820,7 @@ by hand never moves.
 | `packages/render/src/ratchet-blow.ts` | **THE RATCHET's own blows at the hull** (`boss-strike-look.ts`): the jam shoots the rack's head plate down the strut; the loose bolt is driven home |
 | `packages/render/src/ratchet-bolt.ts` | **THE RATCHET's loose bolt**, thrown from under the lock and falling down its column to the hull: its size |
 | `packages/render/src/ratchet-marks.ts` | **THE RATCHET's catch and pawl answering a touch the way every mark does** (`mark-feedback.ts` |
+| `packages/render/src/ratchet-catch.ts` | **THE RATCHET's catch**, the navigator's own: the rail, the notch and the bar she pulls down and holds |
 | `packages/render/src/caption-anchor.ts` | Where a caption's subject is on the screen |
 | `packages/render/src/caption-anchor-boss.ts` | **Where a boss's own fixture is** — the one anchor `caption-anchor.ts` answers per boss rather than per kind… |
 | `packages/render/src/caption-anchor-boss-b.ts` | **Where the fixtures of THE LEAD, THE SCUTTLE, THE ANTIPHON and THE SCOUT are** |

@@ -15,9 +15,9 @@ import {
 } from "@neon-spore/sim";
 import { BoltStops } from "../src/bolt-stop.js";
 import { computeLayout, type Layout, tileCX } from "../src/layout.js";
+import { ratchetCatchBar } from "../src/ratchet-catch.js";
 import { drawRatchet } from "../src/ratchet-draw.js";
 import { RatchetFx } from "../src/ratchet-fx.js";
-import { ratchetCatchBar } from "../src/ratchet-parts.js";
 import { installCanvasGlobals, stubCanvas } from "./canvas-stub.js";
 import { CFG, FRAME_TIMEOUT_MS, ROLES, VIEWPORT, waveWith } from "./frame-harness.js";
 

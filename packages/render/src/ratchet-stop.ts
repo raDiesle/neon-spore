@@ -10,8 +10,9 @@ import {
 } from "./core-stop.js";
 import type { Layout } from "./layout.js";
 import { RATCHET_BOLT, ratchetBoltAt } from "./ratchet-bolt.js";
+import { ratchetCatchBar } from "./ratchet-catch.js";
 import { ratchetGlancedPoint } from "./ratchet-glance.js";
-import { ratchetCatchBar, ratchetJaws, ratchetPawlArm } from "./ratchet-parts.js";
+import { ratchetJaws, ratchetPawlArm } from "./ratchet-parts.js";
 import { ratchetFoldScale } from "./ratchet-pose.js";
 import { type Point, ratchetLock, ratchetPlatePoints } from "./ratchet-shape.js";
 

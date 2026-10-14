@@ -85,7 +85,7 @@ export const showsHaspWheel = (role: ViewRole): boolean => role !== "p1";
  * The catch is the one that matters. He presses when he believes she is
  * holding, and must never see her hold directly — only her `SET`, across the
  * delay — so the glow, the bar and the bursts of a set and a let-go are all
- * drawn on her screens alone (`ratchet-parts.ts`, `ratchet-fx.ts`). `test`
+ * drawn on her screens alone (`ratchet-catch.ts`, `ratchet-fx.ts`). `test`
  * is both.
  */
 export const showsRatchetPawl = (role: ViewRole): boolean => role !== "p2";

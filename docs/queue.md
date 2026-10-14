@@ -340,19 +340,6 @@ is a subject of its own and does not touch the body: move it to
 `lead-flights.ts`, imported by `drawLead`. Prove with
 `bun test packages/render` and `bun run check`.
 
-## `ratchet-parts.ts` sits on the line ceiling
-
-- **Found:** 2026-10-14, claude/queue-the-ratchet-a-part-that-turns-so-it-is-seen-from
-- **Taken:** 2026-10-14, main (claim: claude/queue-ratchet-parts-ts-sits-on-the-line-ceiling)
-- **Files:** `packages/render/src/ratchet-parts.ts`
-
-The file is at 250 lines after THE RATCHET's glance carried the pawl's tip
-with the rack (14 October 2026), and the next line added to it fails
-`limits.test.ts`. The catch — `drawRatchetCatch` and `ratchetCatchBar`, the
-navigator's half, read by `ratchet-stop.ts` and the grip — is a subject of its
-own and touches neither the rack nor the pawl: move both to
-`ratchet-catch.ts`. Prove with `bun test packages/render` and `bun run check`.
-
 ## `waveNamesAt`'s figure is a third of what it costs
 
 - **Found:** 2026-10-14, claude/queue-the-sling-a-part-that-turns-so-it-is-seen-from-a
