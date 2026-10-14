@@ -40,7 +40,6 @@ const PULL_HANDLES: Readonly<Record<string, string>> = {
   "mantle-handle.ts": "THE MANTLE",
   "capstan-marks.ts": "THE CAPSTAN",
   "capstan-verdicts.ts": "THE CAPSTAN",
-  "throat-grip.ts": "THE THROAT",
   "oculus-levers.ts": "THE OCULUS",
   "lamprey-handles.ts": "THE LAMPREY",
   "latch-handles.ts": "THE LATCH",

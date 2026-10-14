@@ -2,8 +2,6 @@ import { type SimConfig, type ThroatState, throatHomeCol } from "@neon-spore/sim
 import { drawHandleRing, handleRadius } from "./handle-draw.js";
 import { type Circle, hitCircle, type Layout, tileCX } from "./layout.js";
 import { PALETTE } from "./palette.js";
-import { drawPullArrow } from "./pull-knob.js";
-import { PULL_DOWN } from "./pull-line.js";
 import { mouthX, mouthY } from "./throat-shape.js";
 import type { Field, Touch } from "./touch.js";
 import { bossOf } from "./touch-field.js";
@@ -122,7 +120,9 @@ function grab(
  * `sinew-handles.ts` made: neither seat can feel the other's thumb, and the
  * pump is the reason the mouth she is carrying is pulling at all. **The dim
  * copy fills nothing** (`theirs`, `handle-draw.ts`), so his copy of her ring
- * leaves the lip and the body standing in it showing.
+ * leaves the lip and the body standing in it showing. **The pilot's own
+ * pump is not a ring**: it is a rub, and wears THE RUB LAB's drop like every
+ * rub, drawn by its cue (`boss-cue-read-k.ts`).
  *
  * Each is drawn `held` while its gesture runs.
  */
@@ -134,11 +134,9 @@ export function drawThroatGrips(
   time: number,
 ): void {
   if (b.phase !== "sucks") return;
-  const pump = throatPumpCircle(l, cfg);
-  ring(ctx, pump, l, 1, throatPumping(b), time);
-  // The pump's way inside its ring, on the pilot's screen: up and down, so two
-  // heads — every handle that is pulled carries its arrow (`way-arrow.ts`).
-  if (mine(l, 1)) drawPullArrow(ctx, pump, pump.r, PULL_DOWN, time, { alpha: 0.9, either: true });
+  // The pump on the pilot's own screen is the rub's drop, which the cue draws
+  // (`boss-cue-read-k.ts`); the navigator sees where it stands, dim.
+  if (!mine(l, 1)) ring(ctx, throatPumpCircle(l, cfg), l, 1, throatPumping(b), time);
   ring(ctx, throatAimCircle(l, cfg, b), l, 2, throatCarrying(b), time);
 }
 

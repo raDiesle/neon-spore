@@ -168,11 +168,17 @@ describe("the throat", () => {
     expect(dialAt(log, throatAimCircle(LAYOUT, CFG, t))).toBe(true);
   });
 
-  it("draws the pilot's pump beside the root", () => {
+  it("draws the pilot's pump beside the root as a dim ring for her, and none for him", () => {
     const { world, t } = opened();
+    // Held, so the ring carries its dial, which is what `dialAt` finds.
     t.pumpHeard = 0;
-    const { log } = still(world);
-    expect(dialAt(log, throatPumpCircle(LAYOUT, CFG))).toBe(true);
+    expect(dialAt(still(world).log, throatPumpCircle(LAYOUT, CFG))).toBe(false);
+    const hers = computeLayout(
+      { width: STAGE.width, height: STAGE.height, dpr: VIEWPORT.dpr },
+      CFG,
+      "p2",
+    );
+    expect(dialAt(still(world, "p2").log, throatPumpCircle(hers, CFG))).toBe(true);
   });
 
   it("never draws the gullet before its wave installs one", () => {

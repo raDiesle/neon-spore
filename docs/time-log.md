@@ -39365,3 +39365,16 @@ Bottleneck: the readers of the old stroke spread over six packages.
 Bottleneck: every part but the mantle was a read or too small, and a turn big enough to pass the glance test uncovered the outer column, so the stopper had to read the turn.
 
 *Measured: 14 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-14 — THE THROAT's pump wears THE RUB LAB's zigzag drop
+
+- reading: 5 min. `boss-cue-read-k.ts`, `drawThroatGrips`, `throat-marks.ts`.
+- writing: 10 min. `throatPumpDone`, the RUB cue with the pump's turns, and
+  the pilot's ring and its arrow taken off his screen.
+- looking: 5 min. One frame of the pilot's screen and a crop of the pump.
+- friction: 5 min. The surface's second page at its ceiling; the export went
+  on the fourth.
+- landing: 10 min. Five render tests that counted the pilot's ring, its
+  dial or its arrow; the specs and the director's rows.
+
+Bottleneck: the tests that counted the pump's ring from three directions.

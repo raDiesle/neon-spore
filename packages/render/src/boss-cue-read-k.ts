@@ -1,4 +1,4 @@
-import type { ThroatState, World } from "@neon-spore/sim";
+import { type ThroatState, throatPumpDone, type World } from "@neon-spore/sim";
 import type { BossCue } from "./boss-cue.js";
 import { cueFrame } from "./boss-cue-frame.js";
 import type { Layout } from "./layout.js";
@@ -17,10 +17,15 @@ import { THROAT_WHY } from "./throat-say.js";
  * circle needs is the sentence the pair has to say out loud, and the field
  * that said it would be playing the fight for them (`docs/decisions.md` #34).
  *
- * **Silent once the thumb is on it.** A word over a handle that is already
- * being worked teaches the pair to stop reading the words. **Silent while the
- * tube everts**: both handles are gone, and the simulation hears neither
- * (`throatHeard`).
+ * **The carry's word is silent once the thumb is on it.** A word over a
+ * handle that is already being worked teaches the pair to stop reading the
+ * words. **The pump is a rub**, and wears what every rub wears: THE RUB LAB's
+ * drop with ZIGZAG on it, `RUB`, its strokes lit by how many turns full the
+ * pump is and going out again as it drains — standing still under the
+ * pilot's thumb, and there all the while, because the strokes are what he
+ * reads (`rub-drop.ts`; the owner, 14 October 2026: *use default "rub"
+ * instead for less variants*). **Silent while the tube everts**: both
+ * handles are gone, and the simulation hears neither (`throatHeard`).
  */
 
 function markAt(seat: 1 | 2, word: string, x: number, y: number, l: Layout, seed: number): BossCue {
@@ -39,9 +44,12 @@ export function throatCues(
     const at = throatAimCircle(l, world.cfg, b);
     cues.push(markAt(2, "PULL", at.x, at.y, l, 51));
   }
-  if (!throatPumping(b)) {
-    const at = throatPumpCircle(l, world.cfg);
-    cues.push(markAt(1, "PUMP", at.x, at.y, l, 52));
-  }
+  const at = throatPumpCircle(l, world.cfg);
+  const rubs = {
+    turns: world.cfg.throatPumpTurns,
+    done: throatPumpDone(world.cfg, b),
+    held: throatPumping(b),
+  };
+  cues.push({ ...markAt(1, "RUB", at.x, at.y, l, 52), rubs });
   return cues;
 }

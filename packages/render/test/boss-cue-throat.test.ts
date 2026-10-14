@@ -10,7 +10,7 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
  *
  * One of you carries the mouth and the other pumps it open, so there are two
  * gestures and each is asked of the seat that owns it: `PULL` on the mouth for
- * the navigator, `PUMP` on the handle beside the root for the pilot. Each word
+ * the navigator, `RUB` on the handle beside the root for the pilot. Each word
  * goes while its gesture runs, and both go once the tube everts. The colour is
  * never said — which colour the body in the circle wants is the sentence the
  * pair has to say to one another.
@@ -22,7 +22,7 @@ describe("the two hands", () => {
   it("asks the navigator to pull the mouth and the pilot to pump", () => {
     const { world } = opened();
     expect(word(world, "p2")).toBe("PULL");
-    expect(word(world, "p1")).toBe("PUMP");
+    expect(word(world, "p1")).toBe("RUB");
     expect(cue(world, "p2")?.kind).toBe("CARRY");
     expect(cue(world, "p1")?.kind).toBe("CARRY");
   });
@@ -49,13 +49,21 @@ describe("a gesture under way", () => {
     t.aimFromXMilli = t.aimXMilli;
     t.aimFromYMilli = t.aimYMilli;
     expect(word(world, "p2")).toBeNull();
-    expect(word(world, "p1")).toBe("PUMP");
+    expect(word(world, "p1")).toBe("RUB");
   });
 
-  it("drops PUMP while his thumb is on it", () => {
+  it("keeps RUB under his thumb, standing, its strokes how full the pump is", () => {
     const { world, t } = opened();
+    expect(cue(world, "p1")?.rubs).toEqual({ turns: CFG.throatPumpTurns, done: 0, held: false });
     t.pumpHeard = 0;
-    expect(word(world, "p1")).toBeNull();
+    t.pumpMilli = 1000;
+    expect(cue(world, "p1")?.rubs).toEqual({
+      turns: CFG.throatPumpTurns,
+      done: CFG.throatPumpTurns,
+      held: true,
+    });
+    t.pumpMilli = 1;
+    expect(cue(world, "p1")?.rubs?.done).toBe(1);
     expect(word(world, "p2")).toBe("PULL");
   });
 });

@@ -19,7 +19,7 @@ describe("the line under each verb", () => {
   it("is carried by the cue each seat is given", () => {
     const { world } = opened();
     expect(cue(world, "p2")?.why).toBe(THROAT_WHY.PULL);
-    expect(cue(world, "p1")?.why).toBe(THROAT_WHY.PUMP);
+    expect(cue(world, "p1")?.why).toBe(THROAT_WHY.RUB);
   });
 
   it("never says a column, a colour or a count", () => {

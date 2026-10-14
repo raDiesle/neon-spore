@@ -91,6 +91,15 @@ export function throatPumpGain(cfg: SimConfig): number {
 }
 
 /**
+ * How full the pump is, in turns of `throatPumpTurns`: rounded up, so one turn
+ * reads as one until the drain has taken it all back, and a full pump reads
+ * full. What the picture lights the rub's strokes by (`render/boss-cue-read-k.ts`).
+ */
+export function throatPumpDone(cfg: SimConfig, b: ThroatState): number {
+  return Math.min(cfg.throatPumpTurns, Math.ceil(b.pumpMilli / throatPumpGain(cfg)));
+}
+
+/**
  * One message of the pump: the turns the thumb has made since it went down.
  * The first of a hold is where its count starts, so a thumb that only goes
  * down has not pumped, and a message coalesced away is made good by the next.

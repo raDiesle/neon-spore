@@ -13,8 +13,8 @@
 export const THROAT_WHY: Readonly<Record<string, string>> = {
   // The mouth, under the navigator's thumb: carry it to what it should eat.
   PULL: "MOVE THE MOUTH",
-  // The pump, under the pilot's: up and down, and the circle opens.
-  PUMP: "UP AND DOWN, FAST",
+  // The pump, under the pilot's: a rub, and the quicker the wider it opens.
+  RUB: "FAST, AND IT OPENS",
 };
 
 /** The receipt for a body swallowed, a ring the poorer. */

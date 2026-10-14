@@ -43,6 +43,9 @@ export {
 // THE PLUMB's window in beats, for the ring round its core and the creep of
 // its weights off true (`plumb-step.ts`).
 export { plumbWindowBeats } from "./plumb-step.js";
+// THE THROAT's pump as a rub: how many of its turns it is full, for the
+// strokes the cue lights (`throat-hand.ts`).
+export { throatPumpDone } from "./throat-hand.js";
 // THE VISE's seed-case: the phase, the lit step, the cracks and both gaps, for
 // the picture, the cue and the director's hand. Straight off `vise.ts`
 // (`docs/spec/bosses-choreographed.md` §28).

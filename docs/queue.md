@@ -828,24 +828,6 @@ drawing a second drop on the same place (`markIsHere`/`drawCueHelper` in
 `cue-helper.ts`, or `framed: false` on the reading). Prove it with the frame
 tests and send one PNG of the card from ON THE FIELD.
 
-## THE THROAT's pump as THE RUB LAB's zigzag drop
-
-- **Found:** 2026-10-14, claude/rub-lab-zigzag-variant-1620a4
-- **Taken:** 2026-10-14, claude/rub-lab-zigzag-variant-1620a4 (claim: claude/queue-the-throats-pump-as-the-rub-labs-zigzag-drop)
-- **Files:** `packages/render/src/throat-grip.ts`, `packages/render/src/throat-marks.ts`, `packages/render/src/rub-drop.ts`
-
-Since 14 October 2026 every rub mark on the field is THE RUB LAB's drop with
-ZIGZAG on it (`rub-drop.ts`). THE THROAT's pump is filed under RUB on ON THE
-FIELD but is drawn as its own ring on the hull: strokes up and down widen the
-circle round the mouth, and it shrinks again when they stop — no number of
-turns is asked, so the zigzag has nothing to count. The options: (a) the drop
-with the zigzag lit by how wide the circle is now, unlit again as it shrinks;
-(b) the drop with no zigzag, wagging, as the pump's call only; (c) keep its
-ring and move its row off the RUB card. **Decided** — the owner, 14 October
-2026: *use default "rub" instead for less variants* — a counted rub, turns
-through `rub-turns.ts` and a turns figure in `SimConfig`, as THE CAPSTAN's,
-wearing `drawRubDrop`. Prove it with the throat frame tests and one PNG.
-
 ## `versus-pose.test.ts` is past the line ceiling
 
 - **Found:** 2026-10-14, claude/queue-the-curtain-a-part-that-turns-so-it-is-seen-from

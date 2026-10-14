@@ -41,7 +41,8 @@ export const THROAT_CONTROLS: readonly FieldControlDef[] = [
     name: "THE THROAT'S PUMP",
     where:
       "on the hull two columns beside the gullet's root, where the cannon " +
-      "would stand, and it never moves (render/throat-grip.ts)",
+      "would stand, and it never moves: THE RUB LAB's drop on the pilot's " +
+      "screen, a dim ring on the navigator's (render/throat-grip.ts)",
     seat:
       "player 1 only — the pilot. Haloed on that screen while the circle is " +
       "small; the navigator's press is handed through and heard by nothing " +

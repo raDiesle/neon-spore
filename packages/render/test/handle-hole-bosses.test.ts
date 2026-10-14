@@ -91,19 +91,20 @@ describe("SNAKE, which has no ring on its body", () => {
 });
 
 describe("THE THROAT's two rings, on the mouth and beside the root", () => {
-  it("punches one for the seat that may press it, and none for the other", () => {
+  it("punches hers on the mouth for her alone, and none for the pump", () => {
     // Both are on offer for the whole of `sucks` and neither once the tube
-    // everts: hers on the mouth, his on the pump. A hole in hers is a bite out
-    // of the lip and the body standing in it.
+    // everts. A hole in hers is a bite out of the lip and the body standing in
+    // it. His pump is not a ring on his own screen but the rub's drop
+    // (`boss-cue-read-k.ts`), and on hers it is the dim ring, which fills none.
     const { p1, p2, test } = added(
       throat((b) => {
         b.phase = "everts";
       }),
       throat(() => {}),
     );
-    expect(p1).toBe(1);
+    expect(p1).toBe(0);
     expect(p2).toBe(1);
-    expect(test).toBe(2);
+    expect(test).toBe(1);
   });
 });
 

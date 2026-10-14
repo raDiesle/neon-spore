@@ -151,8 +151,8 @@ export const DRAG_LOOKS: Readonly<Record<string, UseLook>> = {
     move: "Every turn back lights one more stroke of the drop's zigzag, the pair's turns together.",
   },
   "THE THROAT'S PUMP": {
-    find: "A ring on the hull two columns beside the gullet's root, haloed on the pilot's screen while the circle is small. It never moves.",
-    move: "Strokes up and down widen the circle round the mouth that draws bodies in; it shrinks again when the strokes stop.",
+    find: "THE RUB LAB's drop on the hull two columns beside the gullet's root, wagging with RUB until the pilot's thumb is on it. It never moves.",
+    move: "Every turn back lights a stroke of the zigzag and widens the circle round the mouth; both go out again when the turns stop.",
   },
   // DRAW, THEN SWIPE
   "THE SLING'S LEFT CORD": {

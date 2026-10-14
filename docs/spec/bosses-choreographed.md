@@ -2236,7 +2236,7 @@ never the number.
 
 | Boss | The pilot is told | The navigator is told |
 |---|---|---|
-| THE THROAT | `PUMP` (carry) on the handle beside the root, while no stroke is running | `PULL` (carry) on the mouth, while it is not being carried |
+| THE THROAT | `RUB` (carry) on the handle beside the root — THE RUB LAB's zigzag drop, its strokes how full the pump is — all through `sucks` | `PULL` (carry) on the mouth, while it is not being carried |
 | THE LEDGER | `SHIELD` (press) on the return coming down the cord, which is his half of the picture | `MOVE` (carry) onto the socket, and only while the plate is not already there |
 | THE LEAD | nothing | `BURN` (hold) on the last pass, when the trigger has quietly stopped working |
 | THE SCUTTLE | `MOVE` (carry) on a hanging part one column off the cannon (on the cannon itself on the wind-up until 5 October 2026) | `FIRE` (press) on the live part, and `BURN` (hold) on the wind-up |

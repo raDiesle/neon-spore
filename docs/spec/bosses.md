@@ -3734,8 +3734,13 @@ wherever P2 has carried it (`render/throat-shape.ts`).
 ### The words
 
 Two, one per seat, beside its own handle (`render/boss-cue-read-k.ts`):
-`PULL` on the mouth for P2, `PUMP` on the handle for P1, each gone while its
-gesture runs and both gone once it everts. The colour is never said — which
+`PULL` on the mouth for P2, gone while she carries it, and `RUB` on the
+handle for P1 — THE RUB LAB's drop with ZIGZAG on it, which every rub wears,
+its strokes lit by how many turns full the pump is and going out as it
+drains, standing still under his thumb and there all the while. It took the
+place of `PUMP`, his own ring and its up-and-down arrow on 14 October 2026
+(the owner, *use default "rub" instead for less variants*); the navigator
+still sees the pump's dim ring. Both go once it everts. The colour is never said — which
 colour the body in the circle wants is the sentence the pair says to each
 other. After a right swallow `SWALLOWED` stands under the mouth for two beats
 (`render/throat-receipt.ts`).
