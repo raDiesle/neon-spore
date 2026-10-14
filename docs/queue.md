@@ -346,6 +346,7 @@ error. Prove with `bun test tools/frames` and `bun run check`.
 ## `check:fast` passed a wave reorder that `check` failed three times
 
 - **Found:** 2026-10-14, claude/bastion-gameplay-enhancement-749629
+- **Taken:** 2026-10-14, main (claim: claude/queue-check-fast-passed-a-wave-reorder-that-check-fail)
 - **Files:** `tools/check/fast-scope.ts`, `tools/perf/test/baseline.test.ts`, `tools/words/test/drawn.test.ts`, `packages/render/test/frame.test.ts`
 
 The director's save that moved THE INSTAR to wave 5 and THE BASTION to 16
