@@ -93,8 +93,10 @@ dropped when it is left, and restored on load after the room.
 A page with a `<nav class="contents" data-contents="<body id>">` gets a
 contents menu of its own headings, each row with a 🔗 that copies
 `?sheet=…&inner=…#<slug>`; opening one scrolls there once the page has drawn
-(`tabs.ts`, `section-link.ts`, `section-follow.ts`). A long page wants one —
-it is a line of markup, not a module.
+(`tabs.ts`, `section-link.ts`, `section-follow.ts`). Scrolling it writes the
+section being read into the hash, so a reload comes back to it
+(`section-hash.ts`). A long page wants one — it is a line of markup, not a
+module.
 
 ## Tests
 

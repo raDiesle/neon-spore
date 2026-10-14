@@ -2992,6 +2992,7 @@ by hand never moves.
 | `tools/director/src/sections.ts` | the "## N Title — tail" shape shared by several spec files |
 | `tools/director/src/section-follow.ts` | opening a section link: scroll to the section its `#slug` names once the page draws |
 | `tools/director/src/section-link.ts` | the 🔗 beside a contents row or a NOT BUILT YET card: a URL to one section |
+| `tools/director/src/section-hash.ts` | the section being read as the URL's `#slug`, held until the opening hash is followed |
 | `tools/director/src/concepts.ts` | couplings, assist forms, unbuilt systems and the idea store |
 | `tools/director/src/shapes-panel.ts` | the shape catalogue: drafts, then spare, then spent |
 | `tools/director/src/shapes-motion.ts` | a sway in tiles turned into a card that does not clip |

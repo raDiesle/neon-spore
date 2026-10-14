@@ -322,6 +322,16 @@ one seat and not the other. The rows are `src/helpers-calls.ts` and
 every source file a row names. The pieces a builder picks from are
 `docs/controls-catalogue.md`.
 
+**The section being read is the URL's hash.** Scrolling a page with a
+contents menu writes the heading the bar under it names as `#<slug>` —
+`?sheet=states&inner=controlsets&sub=field#pull-past-a-distance` — so a
+reload opens on PULL PAST A DISTANCE rather than at the top, and the address
+bar is always the link the 🔗 would copy (`src/section-hash.ts`). The slug is
+the heading's name without its count, so a link outlives the count changing.
+Opening one holds the section in place for a few seconds while the pictures
+above it draw, and lets go at the reader's first scroll; a change of sheet,
+room or sub tab drops the hash with the page it named.
+
 **THE PULL LAB** (`src/pull-lab.ts`) is the one generic pull on an empty
 field, opened from the topbar's ⇣ PULL LAB door or from a TRY THE GENERIC
 PULL button under ON THE FIELD. It covers whatever is on screen and keeps

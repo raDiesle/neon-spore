@@ -143,7 +143,9 @@ export function fillContents(spot: Spot, list: HTMLElement): void {
     jump.appendChild(where);
 
     // A link to this section, to paste elsewhere (`section-link.ts`).
-    item.append(jump, linkButton(heading.textContent ?? ""));
+    // Named by its label, not its text: a count beside a heading changes, and
+    // a link pasted last week must still find it.
+    item.append(jump, linkButton(labelOf(heading)));
     list.appendChild(item);
     spot.rows.set(heading, item);
   }

@@ -39114,3 +39114,17 @@ Bottleneck: the cords were drawn inside the sac's draw, so they had to come out 
 Bottleneck: the eye already turns in its socket, so the part had to be the head round it, with the pulled lashes left out.
 
 *Measured: 6 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-14 — The director's URL follows the section being read
+
+- reading: 10 min. `section-link.ts`, `section-follow.ts`, the bar in
+  `contents-here.ts`, and `session.ts`'s URL writer.
+- writing: 15 min. `section-hash.ts`, the bar writing it, the hash dropped
+  with the page, slugs by label, the hold while the page settles, a test.
+- looking: 20 min. The browser pane, reloading ON THE FIELD on a hash.
+- friction: 15 min. The pane was hidden: a zero-height viewport made a
+  correct jump read 857 px short, and no frames meant the bar never ran.
+- landing: 5 min.
+
+Bottleneck: the hidden browser pane — measurements looked like a bug until
+the viewport was given a size and a screenshot forced a frame.

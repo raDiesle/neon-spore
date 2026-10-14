@@ -182,11 +182,15 @@ export function installDom(spec: DomSpec = {}): FakeDom {
     },
     location: {
       get search(): string {
-        const at = href.indexOf("?");
-        return at === -1 ? "" : href.slice(at);
+        const path = href.split("#")[0] ?? "";
+        const at = path.indexOf("?");
+        return at === -1 ? "" : path.slice(at);
       },
       pathname: "/",
-      hash: "",
+      get hash(): string {
+        const at = href.indexOf("#");
+        return at === -1 ? "" : href.slice(at);
+      },
     },
     history: {
       replaceState: (_state: unknown, _title: string, url: string): void => {

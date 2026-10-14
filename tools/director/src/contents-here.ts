@@ -21,7 +21,13 @@
  * own bottom edge. It is measured on scroll and never stored against the
  * page's layout, for the reason the menu is read off the page: these pages
  * redraw.
+ *
+ * The section being read is also the URL's hash (`section-hash.ts`), so a
+ * reload opens on it.
  */
+
+import { writeSectionHash } from "./section-hash.js";
+import { sectionSlug } from "./section-link.js";
 
 /** A heading's place in its page's outline; a heading that says none is a part. */
 export function depthOf(heading: HTMLElement): number {
@@ -145,6 +151,12 @@ export function markHere(spot: Spot): void {
   if (key === spot.drawn && spot.bar.children.length > 0) return;
   spot.drawn = key;
   drawBar(spot, trail);
+  // Only a page that was measured says where the reader is: one never
+  // scrolled, or on a tab out of sight, reads as the top of itself.
+  if (spot.scroller && spot.container.offsetParent !== null) {
+    const deepest = trail[trail.length - 1];
+    writeSectionHash(deepest ? sectionSlug(labelOf(deepest)) : null);
+  }
   // Back at the top — which is where the menu is — the row keeps saying the
   // section last read, so ↑ CONTENTS lands on a menu that shows the place.
   if (trail.length === 0) return;

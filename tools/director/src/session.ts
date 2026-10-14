@@ -46,6 +46,7 @@
  */
 
 import { type Place, parsePlace, placeToSearch } from "./place.js";
+import { hashReleased } from "./section-hash.js";
 
 /** Read once, at startup — see the module header. */
 function readPlace(): Place {
@@ -55,11 +56,18 @@ function readPlace(): Place {
 /**
  * Written on every navigation (a tab click, a wave picked, a sheet opened or
  * closed), so the URL is always the place currently on screen without ever
- * growing the history stack. Never touches anything but the query string —
- * the path and any hash a future tool adds are left exactly as they were.
+ * growing the history stack. Never touches the path. The hash is the section
+ * being read (`section-hash.ts`), and it is dropped when the page under it
+ * changes — a sheet, room or sub tab — since it named a section of the page
+ * left. Not while startup restores the place: those clicks lead to the page
+ * the hash was written on.
  */
 function writePlace(place: Place): void {
-  const url = `${window.location.pathname}${placeToSearch(place)}${window.location.hash}`;
+  const left =
+    place.sheet !== current.sheet || place.inner !== current.inner || place.sub !== current.sub;
+  const hash = left && hashReleased() ? "" : window.location.hash;
+  current = place;
+  const url = `${window.location.pathname}${placeToSearch(place)}${hash}`;
   window.history.replaceState(null, "", url);
 }
 
@@ -99,8 +107,7 @@ export function bindPlace(waveCount: number, fallback: number | null = null): Pl
   return {
     initialWave: current.wave ?? 0,
     persist(wave: number): void {
-      current = { ...current, wave };
-      writePlace(current);
+      writePlace({ ...current, wave });
     },
   };
 }
@@ -112,8 +119,7 @@ export function initialLab(): { shape: string; sheet: boolean } | null {
 
 /** THE PULL LAB opened, moved to another path or sheet, or shut (`null`). */
 export function placeLab(lab: { shape: string; sheet: boolean } | null): void {
-  current = { ...current, lab: lab?.shape ?? null, labSheet: lab?.sheet ?? false };
-  writePlace(current);
+  writePlace({ ...current, lab: lab?.shape ?? null, labSheet: lab?.sheet ?? false });
 }
 
 function initialSheet(name: string): boolean {
@@ -129,13 +135,11 @@ function initialSub(name: string): string | null {
 }
 
 function openSheet(name: string, inner: string | null, sub: string | null): void {
-  current = { ...current, sheet: name, inner, sub: inner ? sub : null };
-  writePlace(current);
+  writePlace({ ...current, sheet: name, inner, sub: inner ? sub : null });
 }
 
 function closeSheet(): void {
-  current = { ...current, sheet: null, inner: null, sub: null };
-  writePlace(current);
+  writePlace({ ...current, sheet: null, inner: null, sub: null });
 }
 
 /** The `data-tab` of whichever button in `barSelector` currently carries `.on` — `bindTabs` puts it there, so this reads a bar's own idea of its current inner tab without a second copy of that state. */

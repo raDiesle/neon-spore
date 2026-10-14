@@ -1,4 +1,5 @@
 import { describe, expect, test } from "bun:test";
+import { holdHash, releaseHash, writeSectionHash } from "../src/section-hash.js";
 import { bindPlace, initialLab, mountSheet, placeLab } from "../src/session.js";
 import { FakeEl, installDom, makeBar } from "./fake-dom.js";
 
@@ -146,6 +147,30 @@ describe("THE PULL LAB's place", () => {
       expect(url()).not.toContain("pulllab");
       expect(url()).toContain("sheet=backlog");
     } finally {
+      restore();
+    }
+  });
+});
+
+describe("the section hash", () => {
+  test("survives the restore, follows the reading, and goes with the page it named", () => {
+    const { inner, url, restore } = mount("?sheet=backlog&inner=shapes#the-queen");
+    try {
+      // The restore's own clicks lead to the page the hash was written on.
+      expect(url()).toBe("/?wave=0&sheet=backlog&inner=shapes#the-queen");
+      // Held until the hash has been followed: a page measured too early
+      // would read as its own top.
+      writeSectionHash(null);
+      expect(url()).toEndWith("#the-queen");
+      releaseHash();
+      writeSectionHash("the-hive");
+      expect(url()).toBe("/?wave=0&sheet=backlog&inner=shapes#the-hive");
+      placeLab(null);
+      expect(url()).toEndWith("#the-hive");
+      inner[0]?.click();
+      expect(url()).toBe("/?wave=0&sheet=backlog&inner=states");
+    } finally {
+      holdHash();
       restore();
     }
   });
