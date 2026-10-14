@@ -331,6 +331,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## HELPERS: THE CURTAIN to THE STARE's one-seat pictures are not listed
 
 - **Found:** 2026-10-14, claude/docs-controls-helpers-org-c825df
+- **Taken:** 2026-10-14, main (claim: claude/queue-helpers-the-curtain-to-the-stares-one-seat-pictu)
 - **Files:** `tools/director/src/helpers-page.ts`, `packages/render/src/view-role-clocks.ts`, `packages/render/src/view-role-clocks-b.ts`
 
 Every boss with a split draws a picture on one seat only — a tally, a next,
