@@ -30,14 +30,39 @@ export function fbm(x: number, seed = 0): number {
  * drop, never even enough to be a circle.
  */
 export function lumps(a: number, time: number, seed: number): number {
+  const lobes = lobesOf(seed);
   let out = 0;
+  for (let i = 0; i < lobes.length; i += 4) {
+    const k = lobes[i] as number;
+    out +=
+      (lobes[i + 1] as number) *
+      Math.sin(k * a + (lobes[i + 2] as number) + time * (lobes[i + 3] as number));
+  }
+  return out * 0.5;
+}
+
+/**
+ * The five lobes' `k`, size, phase and speed for `seed`, flat, worked out
+ * once per seed. They are the seed's alone, and a drop's rim reads `lumps`
+ * forty-four times an outline and a pull knob draws about a dozen outlines,
+ * so hashing them again on every sample was most of what a knob cost
+ * (`docs/queue.md`, 14 October 2026). The same numbers by the same
+ * arithmetic, so every rim is drawn where it was.
+ */
+const LOBES = new Map<number, readonly number[]>();
+
+function lobesOf(seed: number): readonly number[] {
+  const known = LOBES.get(seed);
+  if (known) return known;
+  const made: number[] = [];
   for (let k = 2; k <= 6; k++) {
     const amp = (0.5 + hash(seed * 13 + k)) / k;
     const phase = hash(seed * 7 + k * 3) * Math.PI * 2;
     const speed = (hash(seed * 3 + k * 11) - 0.5) * 3;
-    out += amp * Math.sin(k * a + phase + time * speed);
+    made.push(k, amp, phase, speed);
   }
-  return out * 0.5;
+  LOBES.set(seed, made);
+  return made;
 }
 
 /** `a` to `b` by `t`, for hex colours `#RRGGBB`. */

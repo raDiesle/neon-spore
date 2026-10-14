@@ -73,14 +73,21 @@ export function centre(b: GooBody): Point {
 
 /** The contour, smoothed through the midpoints of its samples so it has no corner. */
 export function bodyPath(b: GooBody, style: GooStyle, time: number): Path2D {
+  return ringPath(centre(b), rimRing(b, style, time));
+}
+
+/** The contour's samples as offsets from its centre: everything `rimAt` reads but where
+ * the body stands, so outlines that differ only in that can share one (`goo-soft-cap.ts`). */
+export function rimRing(b: GooBody, style: GooStyle, time: number): readonly Point[] {
   const n = 44;
-  const c = centre(b);
-  const pts: Point[] = [];
-  for (let i = 0; i < n; i++) {
-    const o = rimAt(b, style, time, (i / n) * Math.PI * 2);
-    pts.push({ x: c.x + o.x, y: c.y + o.y });
-  }
-  return smoothPath(pts);
+  const out: Point[] = [];
+  for (let i = 0; i < n; i++) out.push(rimAt(b, style, time, (i / n) * Math.PI * 2));
+  return out;
+}
+
+/** `rimRing`'s offsets stood round `c`, smoothed. */
+export function ringPath(c: Point, ring: readonly Point[]): Path2D {
+  return smoothPath(ring.map((o) => ({ x: c.x + o.x, y: c.y + o.y })));
 }
 
 /** A closed path through the midpoints of `pts`, each point a control, so it has no corner. */

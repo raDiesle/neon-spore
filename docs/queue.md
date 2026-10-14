@@ -328,23 +328,6 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/skipped.test.ts` holds the listing's count of the entries
 `next` stepped past and why.
 
-## The PULL LAB's FIZZ knob costs 400 rings a call
-
-- **Found:** 2026-10-13, claude/field-controls-standardization-44b3b7
-- **Taken:** 2026-10-14, claude/queue-the-slings-cords-a-hold-then-a-pull-in-its-place (claim: claude/queue-the-pull-labs-fizz-knob-costs-400-rings-a-call)
-- **Files:** `packages/render/src/goo-knob.ts`, `packages/render/src/goo-soft.ts`, `packages/render/src/goo-parts.ts`, `tools/director/test/marks-window.test.ts`
-
-`drawPullKnob` paints FIZZ (`goo-knob.ts`), and one knob costs 0.41 ms on the
-stub canvas, against 0.001 ms for the `drawGripRing` it replaced — measured
-3000 calls each in a scratch test, 13 October 2026, load average twenty. THE
-ANTIPHON's rail now draws one on every candidate, and its row of
-`marks-window.test.ts` went from 0.8 s to 4.5 s and timed out twice under
-`check:fast`, so that file was given `fileCosts(5000)` rather than a fix.
-Find what each call rebuilds — a drop's outline, a noise field, a path per
-frame — and cache what does not change between frames (`.claude/skills/render-perf`),
-proving it with the op-count budgets and a figure; then take
-`marks-window.test.ts` back to bun's default if the row falls under a second.
-
 ## `bun run crop` smears a rectangle that runs past the picture's edge
 
 - **Found:** 2026-10-13, claude/queue-tasks-159048
@@ -716,3 +699,16 @@ hands learned to follow the bow (`tendon(w, …)`, 14 October 2026). THE SINEW's
 three hands — `sinewHand`, `sinewSnapHand`, `sinewCatchHand` and `tendon` —
 are a seam: move them to `boss-hands-sinew.ts`, with the index re-exporting as
 it does now. Prove with `bun test packages/hands` and `bun run check`.
+
+## No command profiles a render function by name
+
+- **Found:** 2026-10-14, claude/queue-the-pull-labs-fizz-knob-costs-400-rings-a-call
+- **Files:** `tools/perf/`, `package.json`
+
+Finding why a FIZZ knob cost 0.4 ms took a scratch script calling it 5000
+times on the stub canvas under `bun --cpu-prof` (`bun test --cpu-prof` writes
+no profile), and a second scratch script folding the `.cpuprofile` into self
+and total time per function. That fold named `rimAt` at 86% at once. Make it
+a command — `bun run profile <file.ts>` running a script and printing the top
+functions by self and total time — with a test of the fold on a small
+hand-written profile, and name it in the render-perf skill.

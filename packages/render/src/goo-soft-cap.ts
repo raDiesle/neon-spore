@@ -1,6 +1,6 @@
-import { KEY } from "@neon-spore/content";
+import { KEY, type Point } from "@neon-spore/content";
 import { smoothstep } from "./ease.js";
-import { bodyPath, centre, type GooBody } from "./goo-body.js";
+import { centre, type GooBody, rimRing, ringPath } from "./goo-body.js";
 import { mix } from "./goo-noise.js";
 import { SHADE } from "./goo-press.js";
 import type { SoftScene } from "./goo-soft.js";
@@ -30,13 +30,21 @@ export function liftOf(b: GooBody, depth: number): number {
   return b.r * CAP_HEIGHT * (1 - smoothstep(depth * 2));
 }
 
-/** The cap's outline `up` pixels off the drop. */
-function capPath(s: SoftScene, up: number, grow = 1): Path2D {
-  const { b } = s;
+/** The cap's face, `up` pixels off the drop. */
+function faceOf(b: GooBody, up: number, grow: number): GooBody {
   const c = centre(b);
   const r = b.r * FACE * grow;
-  const face: GooBody = { ...b, r, at: { x: c.x, y: c.y - up - r * (1 - 1 / (b.squash ?? 1)) } };
-  return bodyPath(face, s.style, s.time);
+  return { ...b, r, at: { x: c.x, y: c.y - up - r * (1 - 1 / (b.squash ?? 1)) } };
+}
+
+/**
+ * The cap's outline `up` pixels off the drop, round `ring` — its face's rim,
+ * worked out once a draw. The wall's slices, its foot and its face are one
+ * outline stood at eleven heights, and building each from the noise was most
+ * of what a pull knob cost (`docs/queue.md`, 14 October 2026).
+ */
+function capPath(s: SoftScene, up: number, ring: readonly Point[], grow = 1): Path2D {
+  return ringPath(centre(faceOf(s.b, up, grow)), ring);
 }
 
 /** The cap, clipped to the drop by the caller, as tall as the press leaves it. */
@@ -45,28 +53,29 @@ export function paintCap(s: SoftScene): void {
   const h = liftOf(b, s.press.depth);
   if (h < 0.3) return;
   const k = (h / (b.r * CAP_HEIGHT)) * t.alpha;
+  const ring = rimRing(faceOf(b, 0, 1), style, s.time);
   ctx.save();
   // The shadow it throws on the drop, away from the light.
   ctx.save();
   ctx.translate(-KEY.x * h * 0.7, -KEY.y * h * 0.7);
   ctx.fillStyle = rgba(SHADE, 0.55 * k);
-  ctx.fill(capPath(s, 0, 1.06));
+  ctx.fill(capPath(s, 0, rimRing(faceOf(b, 0, 1.06), style, s.time), 1.06));
   ctx.restore();
   // The wall, from its dark foot up to just under the face, one slice over the next.
   for (let i = 0; i < SLICES; i++) {
     const u = i / SLICES;
     ctx.globalAlpha = t.alpha;
     ctx.fillStyle = t.tone(mix(mix(style.deep, style.body, 0.3), style.body, 0.9 * u));
-    ctx.fill(capPath(s, h * u));
+    ctx.fill(capPath(s, h * u, ring));
   }
   // The foot of the wall takes the neon, so the cap is stood on the drop, not floating.
   ctx.globalAlpha = 0.35 * k;
   ctx.strokeStyle = t.neon;
   ctx.lineWidth = b.r * 0.025;
-  ctx.stroke(capPath(s, 0));
+  ctx.stroke(capPath(s, 0, ring));
   // The face: lit from the top left, a crisp catchlight on its edge towards the light and
   // a shade on the edge away from it.
-  const top = capPath(s, h);
+  const top = capPath(s, h, ring);
   const c = centre(b);
   const g = ctx.createRadialGradient(
     c.x + KEY.x * b.r * 0.4,

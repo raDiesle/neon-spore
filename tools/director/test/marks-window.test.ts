@@ -53,8 +53,9 @@ import { ROWS_F } from "./marks-window-rows-f.js";
 // Every tick of a fight drawn on a stub canvas, with AUTO on both seats; the
 // slowest row idle is PINBALL's, about four and a half seconds, which sat on
 // the runner's five-second default and failed it whenever a shard was busy.
-// THE ANTIPHON's runs as long since its rail wears the PULL LAB's knob on each
-// candidate (13 October 2026; the knob's cost is `docs/queue.md`'s).
+// THE ANTIPHON's ran as long once its rail wore the PULL LAB's knob on each
+// candidate, until the knob stopped re-hashing its lumps (14 October 2026,
+// `goo-noise.ts`); it is under a second now.
 setDefaultTimeout(cpuTimeout(4_500));
 
 const VIEWPORT: Viewport = { width: 900, height: 1600, dpr: 2 };

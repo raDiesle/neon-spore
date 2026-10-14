@@ -40375,3 +40375,17 @@ Bottleneck: finding the URL and the selector that reach one card's TRY IT —
 the run that proves the flag cost more than the flag.
 
 *Measured: 9 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-14 — The FIZZ knob stops re-hashing its lumps
+
+- reading: 5 min. `goo-knob.ts` down to `rimAt`, and the render-perf skill.
+- writing: 10 min. The lobes worked out once per seed (`goo-noise.ts`), and
+  the cap's eleven outlines stood round one rim (`goo-soft-cap.ts`).
+- looking: 10 min. A CPU profile of 5000 knobs before and after each change,
+  and a 339 000-call log of knobs and channels compared byte for byte.
+- friction: 5 min. `bun test --cpu-prof` writes nothing; a plain script under
+  `bun --cpu-prof` does.
+- landing: 5 min.
+
+Bottleneck: none to speak of — the profile named one function at 86%, and
+it was the same five numbers hashed again on every sample.
