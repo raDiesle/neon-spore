@@ -328,14 +328,6 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/skipped.test.ts` holds the listing's count of the entries
 `next` stepped past and why.
 
-## The wave list's footnote still asks for a sentence no wave has
-
-- **Found:** 2026-10-11, claude/wave-grouping-organization-14abd6
-- **Taken:** 2026-10-14, claude/queue-the-wave-lists-footnote-still-asks-for-a-sentenc
-- **Files:** `tools/director/index.html`, `tools/director/src/rail-filter.ts`
-
-Under `#waveList` the director says *a wave without a sentence is padding and does not save*, and the filter's `title` still offers *sentence* as a term — but the owner took `sentence` off every wave on 25 September 2026 (`Wave` in `packages/content/src/wave-types.ts`), and the save no longer refuses on it. Drop the paragraph (or say what the save does refuse: a wave with no name), and take *sentence* out of the filter's tooltip and the `waveHaystack` comment. `bun test tools/director` stays green.
-
 ## The brush palette draws every brush's picture at startup, on any page
 
 - **Found:** 2026-10-11, claude/pull-lab-perf-routing-b551b5

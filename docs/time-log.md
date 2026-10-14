@@ -40152,3 +40152,13 @@ Bottleneck: `pullAt` sat in a file that builds DOM, so nothing outside a page
 could call it.
 
 *Measured: 4 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-14 — The wave list stops asking for a sentence
+
+- reading: 5 min. The footnote, the filter's tooltip and its comment.
+- writing: 0 min. Three lines out.
+- looking: 0 min. A note under a list, nothing drawn in the game.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, `land`.
+
+Bottleneck: none.

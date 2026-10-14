@@ -16,9 +16,9 @@ import { BRUSHES, brushOf, podBrushOf } from "./state.js";
  * **So the whole vocabulary is typed rather than clicked**, and it has to be
  * guessable without a legend beside it, because there is no room for one. The
  * rule is: a term matches if it is anywhere in what the wave *is* — its
- * number, its name, its sentence, its guide, the panel it is played on, the
- * boss it carries, the fault it is played under, and the name of every
- * creature and power-up that arrives in it. So `slick` finds the waves slicks
+ * number, its name, its guide, the panel it is played on, the boss it
+ * carries, the fault it is played under, and the name of every creature and
+ * power-up that arrives in it. So `slick` finds the waves slicks
  * arrive in, `boss` finds the four that carry one, `ladder` finds the waves on
  * that panel, and `ward` finds the waves that hang one. Nothing had to be
  * learnt to get any of those.
