@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-15 · 06bf8e82c — `land` reads a queue title its commit message wrapped across lines
+
+The guard that refuses a landing for queue entries it never closed now collapses whitespace in the lane's messages and in the title before comparing, so a `Closes:` title broken at 72 columns counts as named.
+
 ## 2026-10-15 · 4ebc74850 — One whole-number square root in sim, `isqrt.ts`
 
 THE PINBALL's Newton root and the pulls' bisection under a ceiling of 46340 are one function now, the one without the ceiling, and every length in the simulation — the pulls, THE GAUGE's tooth, THE BASTION's port, the ball — takes it from `isqrt.ts`. A `COPIES` row fails the next file that writes a third.

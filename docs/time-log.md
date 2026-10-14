@@ -41266,3 +41266,5 @@ two index pages, so one had to go without a name changing.
 
 Bottleneck: writing — the guard hook refuses a heredoc carrying a doubled
 backslash, so the regex went in through the editor instead.
+
+*Measured: 4 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
