@@ -18,7 +18,9 @@ import type { World } from "./world.js";
  *
  * **A swipe** is `trapezePushLeft` or `trapezePushRight`, by the half of the
  * field the finger went down on: `on: true` the finger down, the lift
- * carrying how far it went across on `fromMilli`. It is judged at the lift,
+ * carrying how far it went across on `fromMilli`; a move between keeps how
+ * far toward the middle it has come in `carryMilli`, which only the zone's
+ * knob reads (`render/trapeze-marks.ts`). It is judged at the lift,
  * and **it never does nothing silently** — the owner, 7 October 2026: *I
  * don't understand why nothing happens on tap.* A lift that pushes is a
  * `trapezePush`; one while the swing goes out on that side is a
@@ -42,11 +44,18 @@ export function trapezeHeard(world: World, player: 1 | 2, command: Command): voi
   const zone = zoneOf(command.target);
   if (zone === 0) return;
   if (command.on) {
+    if (s.down[seat] !== zone) s.carryMilli[seat] = 0;
+    else if (Number.isInteger(command.fromMilli))
+      s.carryMilli[seat] = Math.max(
+        0,
+        Math.min(world.cfg.trapezeSwipeMilli, -zone * command.fromMilli),
+      );
     s.down[seat] = zone;
     return;
   }
   if (s.down[seat] !== zone) return;
   s.down[seat] = 0;
+  s.carryMilli[seat] = 0;
   if (!Number.isInteger(command.fromMilli)) return;
   swiped(world, s, seat, zone, command.fromMilli);
 }

@@ -45,19 +45,19 @@ export const trapezeHand = (w: World): Press[] => {
   const s = trapezeBoss(w);
   const step = s === null ? null : trapezeLitStep(s);
   if (s === null) return [];
-  const lifts = lift(s);
+  const lifts = lift(w, s);
   if (step === null) return lifts;
   if (step.ask === "push" || step.ask === "call") return [...lifts, ...swipe(w, s)];
   if (step.ask === "shoot") return [...lifts, ...below(w, s)];
   return [...lifts, ...side(w, s)];
 };
 
-/** A finger down is lifted, a column toward the middle. */
-function lift(s: TrapezeState): Press[] {
+/** A finger down is lifted, a whole pull toward the middle. */
+function lift(w: World, s: TrapezeState): Press[] {
   const out: Press[] = [];
   for (const seat of [0, 1] as const) {
     const zone = s.down[seat];
-    if (zone !== 0) out.push(push(seat, zone, false, -zone * 1000));
+    if (zone !== 0) out.push(push(seat, zone, false, -zone * w.cfg.trapezeSwipeMilli));
   }
   return out;
 }

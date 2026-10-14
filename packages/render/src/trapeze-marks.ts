@@ -3,6 +3,8 @@ import { strokeGlow } from "./glow.js";
 import { rgba } from "./hex.js";
 import type { Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
+import { drawPullKnob } from "./pull-knob.js";
+import { drawPullTrack, PULL_TRACK_W } from "./pull-track.js";
 import { trapezeOnArc } from "./trapeze-shape.js";
 
 /**
@@ -16,9 +18,15 @@ import { trapezeOnArc } from "./trapeze-shape.js";
  * **Whose**: a badge in each, `P1` or `P2`, the seat that pushes there — a
  * call level changes it as the swing heads that way. **When**: a zone is dim
  * while the swing is anywhere else, and lights the moment the swing comes
- * back over it, with a chevron pointing down and in, toward the middle,
- * which is the swipe. On the screen of the seat whose zone it is not, a lit
- * zone is faint: the partner sees it and can say *now*.
+ * back over it. **What**: the pull every pull handle wears (`pull-knob.ts`,
+ * `pull-track.ts`) — the owner, 14 October 2026, on this card of CONTROLS ›
+ * ON THE FIELD: *should be changed to regular pull control visuals*. A knob
+ * in the zone with its arrow pointing in, on a channel `trapezeSwipeMilli`
+ * long toward the middle, the knob riding the finger's carry
+ * (`sim/trapeze-hand.ts`, `carryMilli`) and the channel filling green behind
+ * it. Shut, the pull is dim, as its frame is. On the screen of the seat whose
+ * zone it is not, a lit zone is faint and its knob wears no arrow: the
+ * partner sees it and can say *now*.
  *
  * `trapezeZone` is the one placement the drawing and the thumb share
  * (`trapeze-grip.ts`).
@@ -26,8 +34,8 @@ import { trapezeOnArc } from "./trapeze-shape.js";
 
 /** How much of a zone shows on the screen of the seat that does not push there. */
 const OTHER = 0.35;
-/** How steeply the chevrons point down, as rows per column in. */
-const DOWN = 0.55;
+/** How much of the pull shows while its zone is shut. */
+const SHUT = 0.4;
 /** Rows of the field the zones leave free above the hull, for the cannon. */
 const FREE_ROWS = 1.2;
 
@@ -53,10 +61,20 @@ export function inZone(z: Zone, x: number, y: number): boolean {
   return x >= z.x && x <= z.x + z.w && y >= z.y && y <= z.y + z.h;
 }
 
+/** The pull drawn in a zone: how far along the knob is, 0..1, whether a finger has it, the
+ * channel's length and the knob's radius in pixels, and the renderer's clock. */
+export interface ZonePull {
+  carry: number;
+  held: boolean;
+  length: number;
+  r: number;
+  time: number;
+}
+
 /**
- * One zone: its frame, its seat's badge, and — while `open` — its light and
- * the chevron pointing in. `mine` is whether this screen's seat pushes here;
- * `pulse` 0..1 breathes the light.
+ * One zone: its frame, its seat's badge, its pull, and — while `open` — its
+ * light. `mine` is whether this screen's seat pushes here; `pulse` 0..1
+ * breathes the light.
  */
 export function drawTrapezeZone(
   ctx: CanvasRenderingContext2D,
@@ -67,6 +85,7 @@ export function drawTrapezeZone(
   open: boolean,
   mine: boolean,
   pulse: number,
+  pull: ZonePull,
 ): void {
   const k = mine ? 1 : OTHER;
   const r = 0.3 * l.tile;
@@ -76,7 +95,6 @@ export function drawTrapezeZone(
     ctx.fillStyle = rgba(PALETTE.hullRim, (0.08 + 0.08 * pulse) * k);
     ctx.fill(frame);
     strokeGlow(ctx, frame, PALETTE.hullRim, STROKE.inner, k, 1);
-    drawChevrons(ctx, l, z, side, k, pulse);
   } else {
     ctx.lineWidth = STROKE.inner;
     ctx.setLineDash([0.18 * l.tile, 0.18 * l.tile]);
@@ -85,43 +103,38 @@ export function drawTrapezeZone(
     ctx.setLineDash([]);
   }
   drawBadge(ctx, l, z, side, seat, open ? k : 0.45 * k);
+  drawZonePull(ctx, z, side, mine, open || pull.held ? k : SHUT * k, pull);
 }
 
 /**
- * Three chevrons marching down and in toward the middle, the way the swipe
- * goes: each an arrowhead pointing along it, the lead one brightest, and the
- * three stepping forward with `pulse` so they read as moving.
+ * The zone's pull: a channel `length` long across the zone's middle toward
+ * the field's middle, the knob at its outer end until a finger carries it in.
+ * Keyed by side, so FIZZ plays its drop, its squish and its slurp home
+ * (`pull-memory.ts`) and a push's fizz (`pull-counts.ts`).
  */
-function drawChevrons(
+function drawZonePull(
   ctx: CanvasRenderingContext2D,
-  l: Layout,
   z: Zone,
   side: TrapezeSide,
+  mine: boolean,
   k: number,
-  pulse: number,
+  pull: ZonePull,
 ): void {
-  const len = Math.hypot(1, DOWN);
-  const dx = -side / len;
-  const dy = DOWN / len;
-  const cx = z.x + z.w / 2;
-  const cy = z.y + z.h / 2;
-  const size = 0.38 * l.tile;
-  const wing = 0.75;
-  ctx.lineCap = "round";
-  ctx.lineJoin = "round";
-  for (let i = 0; i < 3; i++) {
-    const t = (i - 1 + pulse * 0.5) * 0.8 * l.tile;
-    const x = cx + dx * t;
-    const y = cy + dy * t;
-    const head = new Path2D();
-    for (const w of [-wing, wing]) {
-      const c = Math.cos(Math.PI + w);
-      const sn = Math.sin(Math.PI + w);
-      head.moveTo(x + (dx * c - dy * sn) * size, y + (dx * sn + dy * c) * size);
-      head.lineTo(x, y);
-    }
-    strokeGlow(ctx, head, PALETTE.hullRim, STROKE.outline * 1.3, k * (0.35 + 0.3 * i), 1);
-  }
+  const y = z.y + z.h / 2;
+  const from = { x: z.x + z.w / 2 + (side * pull.length) / 2, y };
+  const to = { x: from.x - side * pull.length, y };
+  const key = `trapeze:${side}`;
+  const look = { hex: PALETTE.hullRim, rim: PALETTE.text, held: pull.held, time: pull.time, key };
+  ctx.save();
+  ctx.globalAlpha *= k;
+  drawPullTrack(
+    ctx,
+    { pts: [from, to], w: pull.r * PULL_TRACK_W },
+    { ...look, origin: 0, at: pull.carry },
+  );
+  const knob = { x: from.x - side * pull.length * pull.carry, y };
+  drawPullKnob(ctx, knob, pull.r, { ...look, way: mine ? { dx: -side, dy: 0 } : null });
+  ctx.restore();
 }
 
 /** The badge in the zone's top outer corner: the seat that pushes here. */

@@ -39142,3 +39142,19 @@ the viewport was given a size and a screenshot forced a frame.
 Bottleneck: none — the arm's knuckles were already drawn one at a time about a centre the grips share.
 
 *Measured: 11 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-14 — THE TRAPEZE's zones wear the pull knob
+
+- reading: 15 min. Whether THE STARE's lashes and THE TASTER's wipe are
+  pulls in the simulation (they are), the zone's drawing, the swipe's rule,
+  and THE BLISTER's swipe as the pull to copy.
+- writing: 15 min. `carryMilli` in the sim and its hash, the reach to 1500,
+  the knob and channel in the zone, the cards' words for both bosses.
+- looking: 10 min. The director's CONTROLS › ON THE FIELD cards, which draw
+  only when scrolled into view.
+- friction: 5 min. The director's cards are lazy, so a script could not find
+  their canvases until each was on screen.
+- landing: 10 min. `check:fast`, the commit, `land`.
+
+Bottleneck: a 300-thousandth swipe has no channel to draw, so the look
+needed a rule change first.

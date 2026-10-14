@@ -60,7 +60,7 @@ export const DRAG_LOOKS: Readonly<Record<string, UseLook>> = {
     move: "The bead jumps a beat down the cord, its count drops and it washes green. The haul's ring, lower on the taut cord, fills a dial that will not fill over a covered socket.",
   },
   "THE STARE'S LASHES": {
-    find: "The fan of lashes over the eye at the top of the field, with PULL beside it, while the eye charges — on both screens.",
+    find: "Only while the eye charges: short orange lashes over it with an arrow up, on both screens. The rest of the time the lashes there count the beats and take no thumb.",
     move: "Each rise of the thumb pulls one lash up; down and up again pulls the next. All up and the charge vents out to the sides.",
   },
   "THE FLEET'S WRECK": {
@@ -68,8 +68,8 @@ export const DRAG_LOOKS: Readonly<Record<string, UseLook>> = {
     move: "Pulled down while the pilot's thumb is still on the hull, the wreck sinks and the wound goes green.",
   },
   "THE TRAPEZE'S LEFT ZONE": {
-    find: "The left half of the field under the swing, badged P1 or P2, lit with chevrons while the swing comes back over it.",
-    move: "A swipe toward the middle pushes the swing higher, green; too early brakes it, and a wrong seat or way says why, red.",
+    find: "A pull knob in the left half of the field under the swing, its arrow toward the middle, badged P1 or P2, lit while the swing comes back over it.",
+    move: "The knob follows the thumb in and its channel fills green; let go past the end and the swing goes higher. Too early brakes it, and a wrong seat or a short pull says why, red.",
   },
   // LEVER — CARRY TO A DEPTH AND HOLD
   "THE LID'S CORD": {

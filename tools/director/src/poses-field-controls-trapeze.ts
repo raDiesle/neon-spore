@@ -35,8 +35,8 @@ const SWING =
 
 const TRAPEZE_LEFT: Pose = {
   name: "TRAPEZE · THE LEFT ZONE OPEN",
-  note: `${SWING} The first level is lit and the swing is coming back over the left zone. Player 1's screen, where the zone is drawn loud with its chevrons.`,
-  lookAt: "whether the lit zone reads as *swipe here, toward the middle, now*",
+  note: `${SWING} The first level is lit and the swing is coming back over the left zone. Player 1's screen, where the zone is drawn loud with its pull knob.`,
+  lookAt: "whether the lit zone reads as *pull here, toward the middle, now*",
   crop: "field",
   role: "p1",
   build: () => open(-1),

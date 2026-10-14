@@ -97,6 +97,29 @@ describe("a swipe", () => {
     expect(whys()).toEqual(["time"]);
   });
 
+  it("short of its pull does nothing, and the carry is kept while the finger moves", () => {
+    const world = install();
+    toLevel(world);
+    toWindow(world, -1);
+    expect(swipe(world, 1, -1, CFG.trapezeSwipeMilli - 1)).toContain("trapezeWhiff");
+    const move = (on: boolean, fromMilli: number) => [
+      {
+        tick: world.tick,
+        player: 1 as const,
+        command: { kind: "drag" as const, target: "trapezePushLeft" as const, on, fromMilli },
+      },
+    ];
+    tick(world, move(true, 0));
+    tick(world, move(true, 400));
+    expect(trapeze(world).carryMilli[0]).toBe(400);
+    tick(world, move(true, -400));
+    expect(trapeze(world).carryMilli[0]).toBe(0);
+    tick(world, move(true, 9000));
+    expect(trapeze(world).carryMilli[0]).toBe(CFG.trapezeSwipeMilli);
+    tick(world, move(false, 9000));
+    expect(trapeze(world).carryMilli[0]).toBe(0);
+  });
+
   it("does nothing before a level lights", () => {
     const world = install();
     expect(swipe(world, 1, -1)).not.toContain("trapezeWhiff");

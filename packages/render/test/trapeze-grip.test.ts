@@ -97,7 +97,7 @@ describe("the alien", () => {
 });
 
 describe("a thumb on the glass", () => {
-  it("pushes the swing higher, swiped toward the middle as it comes back", () => {
+  it("pushes the swing higher, pulled toward the middle as it comes back", () => {
     const world = stood();
     const s = posed(world, "push", BACK_LEFT - 1);
     const send = (command: Command) => step(world, [{ tick: world.tick, player: 1, command }]);
@@ -107,7 +107,7 @@ describe("a thumb on the glass", () => {
     const before = s.ampMilli;
     const down = touchDown(l, from.x, from.y, fieldOf(world, 1));
     send(down?.command as Command);
-    const lift = touchUp(l, down?.hold as Hold, { x: from.x + l.tile, y: from.y + l.tile });
+    const lift = touchUp(l, down?.hold as Hold, { x: from.x + 2 * l.tile, y: from.y + l.tile });
     send(lift?.command as Command);
     expect(world.events.some((e) => e.type === "trapezePush")).toBe(true);
     expect(s.ampMilli).toBeGreaterThan(before);

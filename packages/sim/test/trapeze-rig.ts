@@ -88,7 +88,12 @@ function drag(target: DragTarget, player: 1 | 2, on: boolean, fromMilli: number)
  * `across` thousandths of a column toward the middle (or away, negative).
  * The event types the lift raised.
  */
-export function swipe(world: World, player: 1 | 2, zone: TrapezeSide, across = 600): string[] {
+export function swipe(
+  world: World,
+  player: 1 | 2,
+  zone: TrapezeSide,
+  across = world.cfg.trapezeSwipeMilli,
+): string[] {
   const target: DragTarget = zone < 0 ? "trapezePushLeft" : "trapezePushRight";
   const down = drag(target, player, true, 0);
   tick(world, [{ ...down, tick: world.tick }]);

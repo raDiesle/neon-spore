@@ -8,7 +8,7 @@ import type { SimEvent } from "@neon-spore/sim";
  * must go on holding taut — THE WARDEN's, THE LID's, THE CURTAIN's hem — is
  * not here: its drop fizzing away under a hand still asked to hold would say
  * *let go*. Most of these are gone the tick they count (`count` finishes them
- * where they were); BASTION's and BLISTER's knob jumps home, and the fizz is
+ * where they were); BASTION's, BLISTER's and THE TRAPEZE's knob jumps home, and the fizz is
  * where it was counted.
  */
 export function pullCountsOf(e: SimEvent): readonly string[] {
@@ -27,6 +27,8 @@ export function pullCountsOf(e: SimEvent): readonly string[] {
       return [`latch:${e.grip}`];
     case "sinewPart":
       return ["sinew:-1", "sinew:1"];
+    case "trapezePush":
+      return [`trapeze:${e.zone}`];
     default:
       return [];
   }

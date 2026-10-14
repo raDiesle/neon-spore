@@ -9,6 +9,7 @@ import {
   type World,
 } from "@neon-spore/sim";
 import type { BoltStops } from "./bolt-stop.js";
+import { handleRadius } from "./handle-draw.js";
 import { rgba } from "./hex.js";
 import type { Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
@@ -16,7 +17,7 @@ import { drawTrapezeAlien } from "./trapeze-alien.js";
 import { drawTrapezeArc, drawTrapezeGong } from "./trapeze-arc.js";
 import type { TrapezeFx } from "./trapeze-fx.js";
 import { trapezeAlienCircle } from "./trapeze-grip.js";
-import { drawTrapezeZone, trapezeZone } from "./trapeze-marks.js";
+import { drawTrapezeZone, trapezeZone, type ZonePull } from "./trapeze-marks.js";
 import {
   drawTrapezeFlash,
   drawTrapezeGongRing,
@@ -84,7 +85,7 @@ export function drawTrapeze(
 
   ctx.save();
   ctx.globalAlpha = 1 - gone;
-  if (trapezeSwiping(s)) drawZones(ctx, l, world, s, fx, beatPhase);
+  if (trapezeSwiping(s)) drawZones(ctx, l, world, s, fx, beatPhase, time);
   const step = trapezeLitStep(s) ?? s.steps[s.cursor] ?? null;
   drawTrapezeArc(ctx, l, cfg, s, step, trapezeLitStep(s) !== null);
   if (step !== null) drawTrapezeGong(ctx, l, cfg, step, s, trapezeLitStep(s) !== null);
@@ -127,6 +128,7 @@ function drawZones(
   s: TrapezeState,
   fx: TrapezeFx,
   beatPhase: number,
+  time: number,
 ): void {
   const open = trapezeOpenZone(world.cfg, s);
   for (const side of [-1, 1] as const) {
@@ -136,8 +138,32 @@ function drawZones(
       0.5 + 0.5 * Math.cos(beatPhase * Math.PI * 2),
     );
     const z = trapezeZone(l, world.cfg, side);
-    drawTrapezeZone(ctx, l, z, side, seat, open === side, showsTrapezeHand(l.role, seat), pulse);
+    const mine = showsTrapezeHand(l.role, seat);
+    drawTrapezeZone(
+      ctx,
+      l,
+      z,
+      side,
+      seat,
+      open === side,
+      mine,
+      pulse,
+      zonePull(l, world, s, side, time),
+    );
   }
+}
+
+/** A zone's pull: the furthest any finger down on it has carried it, and whether one is. */
+function zonePull(l: Layout, world: World, s: TrapezeState, side: -1 | 1, time: number): ZonePull {
+  const reach = world.cfg.trapezeSwipeMilli;
+  let carry = 0;
+  let held = false;
+  for (const seat of [0, 1] as const) {
+    if (s.down[seat] !== side) continue;
+    held = true;
+    carry = Math.max(carry, s.carryMilli[seat] / reach);
+  }
+  return { carry, held, length: (reach * l.tile) / 1000, r: handleRadius(l, world.cfg), time };
 }
 
 /**

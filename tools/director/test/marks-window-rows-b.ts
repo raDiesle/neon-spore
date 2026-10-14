@@ -34,7 +34,7 @@ const fleet = (w: World) => w.boss as FleetState;
 export const ROWS_B: readonly Row[] = [
   {
     kind: "trapeze",
-    // A zone drawn open, its chevrons and its light, only while the swing comes back over a side in a swipe level.
+    // A zone drawn open, its pull and its light, only while the swing comes back over a side in a swipe level.
     marks: [
       mark(
         trapezeMarks,

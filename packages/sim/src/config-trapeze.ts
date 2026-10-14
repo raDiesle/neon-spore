@@ -33,7 +33,8 @@ export interface TrapezeConfig {
   trapezeDampMilli: number;
   /** How much of the swing is left after a gong, in thousandths of it. */
   trapezeKeepMilli: number;
-  /** How far a swipe must go sideways to count, thousandths of a column. */
+  /** How far a swipe must go sideways to count, thousandths of a column: the length of the
+   * zone's pull channel, a pull's reach since 14 October 2026 rather than a flick's. */
   trapezeSwipeMilli: number;
   /** How near the alien a bolt must pass to hit it, thousandths of a column or row. */
   trapezeHitMilli: number;
@@ -54,7 +55,7 @@ export const TRAPEZE_DEFAULTS: TrapezeConfig = {
   trapezeBrakeMilli: 2000,
   trapezeDampMilli: 250,
   trapezeKeepMilli: 500,
-  trapezeSwipeMilli: 300,
+  trapezeSwipeMilli: 1500,
   trapezeHitMilli: 600,
   trapezeLockBeats: 6,
 };

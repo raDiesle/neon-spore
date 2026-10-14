@@ -10186,10 +10186,14 @@ straight out, and the gong swings away on its cord as it rings
 side the alien turns round on the seat, through edge-on
 (`TrapezeFx.facing`).
 **Where and when** (`trapeze-marks.ts`): in a swipe level the field is cut
-into two zones, each badged with the seat that pushes there; a zone lights
-with three arrowheads marching down and in toward the middle, the swipe,
-while the swing comes back over it, loud on
-that seat's screen and faint on the partner's. **How high, and how high it
+into two zones, each badged with the seat that pushes there; in each, the
+pull every pull handle wears — a knob with its arrow toward the middle on a
+channel `trapezeSwipeMilli` long, the knob riding the finger's carry
+(`carryMilli`) — dim while shut and lit while the swing comes back over it,
+loud on that seat's screen and faint on the partner's. The owner, 14 October
+2026: the zones *should be changed to regular pull control visuals*; until
+then three arrowheads marched down and in, and the swipe counted at 300
+thousandths, too short a channel to draw, so it is 1500 now. **How high, and how high it
 has to go** (`trapeze-arc.ts`): under the plank's path an arc, filled in
 brass from the bottom as far as the swing goes now, dashed on to the gong;
 the gong dim until its level lights and bright once the swing is high

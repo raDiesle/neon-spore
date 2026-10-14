@@ -7,7 +7,7 @@ import { TRAPEZE_ASKS, TRAPEZE_PHASES, type TrapezeState } from "./trapeze.js";
  * with its length ahead of it. The swing goes in because it is the
  * simulation's own and decides whether a swipe pushes or brakes and where a
  * bolt meets the alien; the half swings and the last pushed, the callers, the
- * fingers down and the lock because they are heard on the tick — each seat's
+ * fingers down, how far each has come and the lock because they are heard on the tick — each seat's
  * pair with its length ahead of it, THE CAPSTAN's way (`capstan-hash.ts`).
  */
 export function trapezeHashParts(s: TrapezeState): number[] {
@@ -23,6 +23,8 @@ export function trapezeHashParts(s: TrapezeState): number[] {
     ...s.callers,
     s.down.length,
     ...s.down,
+    s.carryMilli.length,
+    ...s.carryMilli,
     s.lockBeats,
     s.gongs,
     s.steps.length,

@@ -81,6 +81,9 @@ export interface TrapezeState {
   callers: [0 | 1, 0 | 1];
   /** The zone each seat's finger went down on, nought when none is down. */
   down: [-1 | 0 | 1, -1 | 0 | 1];
+  /** How far each seat's finger has come toward the middle of its zone, thousandths of a
+   * column, cut to `trapezeSwipeMilli`: nought with none down. What the zone's knob rides. */
+  carryMilli: [number, number];
   /** Beats the cannon stays locked on the alien, nought when it is not. */
   lockBeats: number;
   /** Gongs kicked: the levels won. */
@@ -209,6 +212,7 @@ export function freshTrapeze(
     pushedHalf: -1,
     callers: [0, 1],
     down: [0, 0],
+    carryMilli: [0, 0],
     lockBeats: 0,
     gongs: 0,
   };

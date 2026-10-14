@@ -10,15 +10,16 @@ const SOURCE =
   "handles.ts — trapezePushUnder() and trapezeLockUnder() under handleUnder(); the swipe's run carried on the lift by touch.ts' swiped set";
 
 const ZONE_DOES =
-  "A **swipe toward the middle**, THE SLING's lift: the finger goes down in the " +
-  "zone and the lift carries its sideways run. It pushes the swing " +
+  "A **pull toward the middle**: the finger goes down in the zone, the knob " +
+  "follows it in along its channel, and the lift carries how far it came, " +
+  "which must be `trapezeSwipeMilli`. It pushes the swing " +
   "`trapezePushMilli` higher if the swing is coming back over this side and " +
   "this seat pushes here, once a half swing; while the swing goes out it " +
-  "brakes it `trapezeBrakeMilli` instead. Any other swipe does nothing and " +
+  "brakes it `trapezeBrakeMilli` instead. Any other pull does nothing and " +
   "says why in the zone — NOT YOUR SIDE, WAIT FOR IT, TOWARD THE MIDDLE " +
-  "(sim/trapeze-hand.ts, render/trapeze-fx.ts). The zone lights with chevrons " +
+  "(sim/trapeze-hand.ts, render/trapeze-fx.ts). The zone lights " +
   "while it is open, loud on its seat's screen and faint on the partner's; a " +
-  "push greens it, and a brake or a refused swipe reddens it.";
+  "push greens it, and a brake or a refused pull reddens it.";
 
 export const TRAPEZE_CONTROLS: readonly FieldControlDef[] = [
   {

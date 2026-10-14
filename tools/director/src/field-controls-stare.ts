@@ -16,7 +16,8 @@ export const STARE_CONTROLS: readonly FieldControlDef[] = [
     where:
       "the fan of lashes standing over the eye at the top of the field, with " +
       "PULL beside it, while the eye is charging — on both seats' screens and " +
-      "the test screen",
+      "the test screen. The rest of the fight the lashes there are the beat " +
+      "count (render/stare-lashes.ts) and nothing takes hold of them",
     seat: "both at once — the count is the pair's together",
     gesture: "grab and drag",
     does:
