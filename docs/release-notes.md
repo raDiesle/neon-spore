@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-14 · 821c976f5 — A test proves a wave dragged across acts in the editor carries its import
+
+The wave editor's save already rewrites each act file's imports from the waves it holds (`fixImports`); nothing proved it. A new test drags THE INSTAR from act one into the next act in a copy of `packages/content/src`, saves, and runs the real `tsc` with `noUnusedLocals` over the written act files — it fails on the save itself when the imports are not fixed.
+
 ## 2026-10-14 · ab6af9b40 — Six more blocks get their regular waves, THE LID to THE VEER
 
 Forty-eight waves composed by `bun run waves:compose`, eight after each of THE LID, THE RECOIL, THE CAROM, THE CRYSTAL, THE VOLLEY and THE VEER, each one cleared by AUTO with no breach at both charges. The first waves hold at 6.3 to 6.6 here, between two of the steps' growth notches, and the peaks climb from 10.9 to 12. A look the owner asked for by name.
