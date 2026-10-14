@@ -331,6 +331,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## `bun run frames <sha>` gave up on a build that was only slow
 
 - **Found:** 2026-10-14, claude/bastion-gameplay-enhancement-749629
+- **Taken:** 2026-10-14, main (claim: claude/queue-bun-run-frames-sha-gave-up-on-a-build-that-was-o)
 - **Files:** `tools/frames/serve.ts`
 
 The first `bun run frames 2bd47f41e --wave "THE BASTION" …` died with
