@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-14 · 5c7b91f75 — Each block's first wave starts a little above the block before's
+
+The composer aims a block's gentlest wave 0.1 over the gentlest composed wave of the block before, and every four blocks past the tutorial arc the steps grow so it can: wider by a column each side, then mixed with older things, then from block 24 more arrivals land with a twin across the field. Gaps stay as the table says. Composed in memory, the 33 blocks after the arc climb from 3.9 to 8.4 at their first wave and to about 13.7 at their peak; nothing in the game changes until a block is written.
+
 ## 2026-10-14 · be7d260a9 — THE HYDRA: a slime with many heads, each stopped its own way (simulation)
 
 A new boss after THE CHRYSALIS and THE INSTAR, where every level asks a different gesture. Necks swing down at the ship and each seat cuts its own with a swipe across, the way the arrow points; coils wind round the hull and each seat turns its own off, lap by lap; eyes open one at a time and each seat taps its own while it is open; and fire burns in the last mouths, crossed: the navigator sees which mouth opens, the pilot sees its colour. Each kind comes twice, the second harder, and a level run out is a head on the hull.

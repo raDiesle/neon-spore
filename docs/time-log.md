@@ -40777,3 +40777,5 @@ holds better than any page, so its diff was read file by file.
 
 Bottleneck: looking — every lever's ceiling only showed once a whole chain
 was composed, a few minutes a run.
+
+*Measured: 42 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
