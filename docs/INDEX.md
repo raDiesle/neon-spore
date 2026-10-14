@@ -1446,6 +1446,7 @@ by hand never moves.
 | `packages/render/src/sling-glance.ts` | **THE SLING glances**: the whole fork turns about its crotch, offered on VERSUS `sling:glance` |
 | `packages/render/src/sling-marks.ts` | One side's cord: cord-brown at rest, glowing white while this side is the one asked to draw it |
 | `packages/render/src/sling-pose.ts` | **The clock THE SLING is posed off** (§32) |
+| `packages/render/src/sling-pull.ts` | **THE SLING's cord once its hold has counted**: a pull knob comes in where the cord's mark was |
 | `packages/render/src/sling-shape.ts` | **THE SLING's geometry**: a forked bracket bolted over the middle column |
 | `packages/render/src/sling-stop.ts` | **Where a bolt meets THE SLING**: the rung cup, or the lowest of cup, tines and cords |
 | `packages/render/src/sling-blow.ts` | **THE SLING's own blow at the hull** (`boss-strike-look.ts`) |

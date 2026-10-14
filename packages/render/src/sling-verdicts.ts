@@ -70,6 +70,8 @@ export class SlingVerdicts {
       if (e.type === "slingLight") this.owed = OWES[e.ask];
       else if (e.type === "slingSlack" || e.type === "slingSnap")
         this.verdicts.mark(CORDS[e.side], false);
+      // A cord's pull let go short of the whole way (`sim/sling-hand.ts`).
+      else if (e.type === "pullShort") this.verdicts.mark(CORDS[e.player === 1 ? 0 : 1], false);
       // A loose answers its own cord; in a `both` step the other is still owed.
       else if (e.type === "slingLoose") {
         this.verdicts.mark(CORDS[e.side], true);
@@ -106,7 +108,9 @@ export interface SlingMarkPlaces {
 function asked(l: Layout, s: SlingState, mark: number): "own" | "theirs" | null {
   if (mark === SLING_CUP_MARK) return slingCupAsks(s) ? "own" : null;
   const seat = mark === SLING_LEFT_MARK ? 1 : 2;
-  if (!slingAsks(s, seat === 1 ? 0 : 1)) return null;
+  const side = seat === 1 ? 0 : 1;
+  // A cord whose hold has counted is its pull knob's to say (`sling-pull.ts`).
+  if (!slingAsks(s, side) || s.held[side]) return null;
   return l.role === "test" || seatOf(l.role) === seat ? "own" : "theirs";
 }
 

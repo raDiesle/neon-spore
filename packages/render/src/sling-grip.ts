@@ -16,10 +16,12 @@ import { bossOf } from "./touch-field.js";
  * own rule (`sim/sling-hand.ts`) — so the hit test here is the whole field
  * rather than a `hitCircle` the way every other grip's is. It is asked only
  * while the lit step wants this seat's draw (`slingAsks`), so a fire step's
- * cannon and trigger still answer underneath it. The lift is the gesture,
- * carrying the swipe's side on `fromMilli` the way THE WARDEN's hatch does
- * (`warden-grip.ts`), so `touch.ts`'s `swiped` set has to know this target
- * too or the sign never reaches the sim.
+ * cannon and trigger still answer underneath it. A draw is a hold, then a
+ * pull in its place: once the hold has counted, a fresh press carried toward
+ * the lit side looses it, its way on `fromMilli` and its lift carrying the
+ * last of it, so `touch.ts`'s `swiped` set has to know this target too. The
+ * knob that shows the pull is `sling-pull.ts`'s; the press is still the
+ * whole panel's.
  *
  * **The circle `slingDrawCircle` draws is the handle at rest**, where the
  * cord hangs slack — used only for the ghost hand and the resting picture,

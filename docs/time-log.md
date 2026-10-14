@@ -40293,3 +40293,18 @@ pull had to be a fresh press with its own state, or the hold's thumb would
 have pulled.
 
 *Measured: 12 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-14 — THE SLING's cords, the look: the pull knob in the mark's place
+
+- reading: 5 min. The pull knob and channel's API, and how THE LATCH dresses
+  its own on the partner's screen.
+- writing: 10 min. `sling-pull.ts`, its call in `sling-draw.ts`, the mark's
+  halo giving way to the knob, a short pull said red, and the tests.
+- looking: 15 min. The autopilot pulls two ticks after the knob comes in, so
+  its frames showed a knob with no channel grown yet; the picture is a posed
+  boss instead (`--boss`, `--boss-json`).
+- friction: 0 min.
+- landing: 5 min.
+
+Bottleneck: a picture of a state the autopilot passes through in two ticks
+has to be posed, and finding the flags that pose it took longer than the code.

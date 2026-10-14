@@ -17,6 +17,7 @@ import {
   slingTension,
   slingWindowLeft,
 } from "./sling-pose.js";
+import { drawSlingPulls } from "./sling-pull.js";
 import { slingCupRadius, slingHandle, slingHome, slingTinePath, slingTip } from "./sling-shape.js";
 import { slingStopper } from "./sling-stop.js";
 import { slingRung, slingTineTurn, slingTwang } from "./sling-twang.js";
@@ -93,6 +94,8 @@ export function drawSling(
   const at = { cup: { x: 0, y: -r * 0.2, r }, cords: [cords[0], cords[1]] as [Circle, Circle] };
   // Nothing asks through the cool, but a draw in it is a red still to see.
   drawSlingMarkFeedback(ctx, l, s, time, at, fx.marks.verdicts);
+  // A cord whose hold has counted is a pull knob where its mark was.
+  drawSlingPulls(ctx, l, cfg, s, time, at.cords);
   ctx.restore();
 }
 
