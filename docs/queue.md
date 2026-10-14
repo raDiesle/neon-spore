@@ -415,6 +415,14 @@ After the entry above lands: THE CURTAIN's hem and THE STARE's lashes (up), THE 
 
 After the first entry lands: THE LAMPREY's head (a curve), THE ANTIPHON's rail (down a vein), THE WARDEN's tether and THE BASTION's slabs (a rope, any way), THE GAUGE's tooth and PINBALL's plunger onto the one rule. A curve is a path the rule measures along, as the PULL LAB's CURVE and S-CURVE do. THE GUM is a pull by a body rather than a knob — say in the entry's commit whether it joins or why not (SNAKE's jaws were the other, until the owner took them out on 10 October 2026).
 
+## One generic PULL: the five rows moved over from the LEVER
+
+- **Found:** 2026-10-14, claude/lever-lab-depth-hold-6a9001
+- **Files:** `packages/sim/src/lid.ts`, `packages/sim/src/balloon-pull.ts`, `packages/sim/src/latch-hand.ts`, `packages/sim/src/instar-hand.ts`, `tools/director/src/field-actions-drag.ts`
+- **Asks:** THE LID's cord, THE BALLOON's handles, THE LATCH's grips and THE INSTAR's PULL DOWN / PULL UP now sit under PULL PAST A DISTANCE, but each still stands at the depth the thumb has it. Should they (a) keep their own rule and take only the generic knob and channel, or (b) move onto the one PULL rule, counted once at the reach — the lid's plates and the balloon's stretch then answering the count, not the depth?
+
+The owner moved these rows from LEVER — CARRY TO A DEPTH AND HOLD to PULL PAST A DISTANCE on 14 October 2026: *from user control perspective* each is a pull past a distance. None of the three generic-PULL entries above names them. After the first of those lands, and on the answer: with (b), each onto the one rule, a replay test unchanged or a sentence on why its behaviour moved; with (a), a line in `field-actions-drag.ts`'s `says` that these rows read their depth on the way.
+
 ## A lane's trunk step misses a local main that is ahead of origin
 
 - **Found:** 2026-10-10, claude/visual-helpers-docs-2773b1

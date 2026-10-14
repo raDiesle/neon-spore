@@ -46,9 +46,18 @@ export const DRAG_TYPES: readonly ControlType[] = [
       "THE INSTAR'S MARKS",
       "THE MIRROR'S LOBES",
       "THE GALL'S TAPS AND PULL",
+      // Moved from the LEVER by the owner, 14 October 2026: to the thumb each
+      // is a carry far enough, whatever the picture does on the way.
+      "THE LID'S CORD",
+      "THE BALLOON'S LEFT HANDLE",
+      "THE BALLOON'S RIGHT HANDLE",
+      "THE LATCH'S LEFT GRIP",
+      "THE LATCH'S RIGHT GRIP",
     ],
     steps: {
-      "THE INSTAR'S MARKS": "SWIPE DOWN — a carry past its distance and a lift is one egg off.",
+      "THE INSTAR'S MARKS":
+        "SWIPE DOWN · PULL DOWN · PULL UP — a carry past its distance; a swipe " +
+        "and a lift is one egg off.",
       "THE MIRROR'S LOBES":
         "THE LAST ROUND — its cannon carried left or right; the other seat's swiped for a colour.",
       "THE GALL'S TAPS AND PULL": "THE PULL — up toward the top throws it to the other half.",
@@ -63,11 +72,10 @@ export const DRAG_TYPES: readonly ControlType[] = [
     suggest:
       "Make it one generic LEVER: one drawn groove, one reach, one grip " +
       "threshold, one spring-back — today five names for it (handle, knob, " +
-      "latch, catch, brake) and three ways of summing a pair.",
+      "latch, catch, brake) and three ways of summing a pair. Try it in the " +
+      "LEVER LAB below.",
+    leverLab: "grip",
     rows: [
-      "THE LID'S CORD",
-      "THE BALLOON'S LEFT HANDLE",
-      "THE BALLOON'S RIGHT HANDLE",
       "THE SINEW'S LEFT HANDLE",
       "THE SINEW'S RIGHT HANDLE",
       "THE SPOOL'S BRAKE",
@@ -80,13 +88,7 @@ export const DRAG_TYPES: readonly ControlType[] = [
       "THE VISE'S LEFT LOBE",
       "THE VISE'S RIGHT LOBE",
       "THE CAPSTAN'S PULL",
-      "THE LATCH'S LEFT GRIP",
-      "THE LATCH'S RIGHT GRIP",
-      "THE INSTAR'S MARKS",
     ],
-    steps: {
-      "THE INSTAR'S MARKS": "PULL DOWN · PULL UP — the part stands at the depth the thumb has it.",
-    },
   },
   {
     key: "carry",

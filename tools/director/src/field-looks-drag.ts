@@ -71,7 +71,6 @@ export const DRAG_LOOKS: Readonly<Record<string, UseLook>> = {
     find: "A pull knob in the left half of the field under the swing, its arrow toward the middle on the screen of the seat that pulls there, lit while the swing comes back over it.",
     move: "The knob follows the thumb in and its channel fills green; let go past the end and the swing goes higher. Too early brakes it, and a wrong seat or a short pull says why, red.",
   },
-  // LEVER — CARRY TO A DEPTH AND HOLD
   "THE LID'S CORD": {
     find: "A resting circle on a cord under every armoured eye on the field.",
     move: "The plates over the lens part as far as the cord is pulled, and shut the moment the thumb lets go.",
@@ -80,6 +79,11 @@ export const DRAG_LOOKS: Readonly<Record<string, UseLook>> = {
     find: "A handle hanging off each side of every balloon, on both screens — left the pilot's, right the navigator's.",
     move: "Pulled outward the skin goes taut and visibly gives. Both taut together and the body sits at full stretch with its glow coming up, then splits.",
   },
+  "THE LATCH'S LEFT GRIP": {
+    find: "A knob a column either side of the tendril — left the pilot's, right the navigator's, swapped in a cross. The one to pull wears the arrow down.",
+    move: "The press holds the rope; the puller's knob carries it down after the thumb and a knot comes in past the grips. Both off at once and it slips back to the last knot.",
+  },
+  // LEVER — CARRY TO A DEPTH AND HOLD
   "THE SINEW'S LEFT HANDLE": {
     find: "A handle off each side of the mass at the end of the tendon — left the pilot's, right the navigator's. Halo on your own, ring and clock on your partner's.",
     move: "The cord under each hand stretches to the pull; the strain band at the collar shows the sum and the pips round it fill while it stays in the zone.",
@@ -111,10 +115,6 @@ export const DRAG_LOOKS: Readonly<Record<string, UseLook>> = {
   "THE CAPSTAN'S PULL": {
     find: "The drum's middle or its cradle, haloed on the screen of the seat that steers this step.",
     move: "Carried sideways, the cradle rocks and bares that side's face; on a lift it drifts back level.",
-  },
-  "THE LATCH'S LEFT GRIP": {
-    find: "A knob a column either side of the tendril — left the pilot's, right the navigator's, swapped in a cross. The one to pull wears the arrow down.",
-    move: "The press holds the rope; the puller's knob carries it down after the thumb and a knot comes in past the grips. Both off at once and it slips back to the last knot.",
   },
   // CARRY TO A PLACE
   "THE SCUTTLE'S PART": {

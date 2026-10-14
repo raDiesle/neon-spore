@@ -39654,3 +39654,18 @@ Bottleneck: the rehearsal is authored in ticks against the old landings, so ever
 Bottleneck: waiting for the previous landing's full check before this tree could change.
 
 *Measured: 7 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-14 — THE LEVER LAB, and five rows moved to PULL PAST A DISTANCE
+
+- reading: 15 min. The PULL, HOLD and COMBO labs, the lab shell, door and
+  URL plumbing, FIZZ's knob and track records, the LEVER rows' looks.
+- writing: 25 min. The rule, the setup, AUTO's thumb, the paint and readout,
+  the lab and its wiring; the test; the rows and the INSTAR step moved.
+- looking: 10 min. Five variants in the browser pane; the partner first drew
+  with FIZZ's own channel and goal and read as the hand's, so it became a
+  dim rail; DEPTH ONLY had no groove to see until a faint rail was added.
+- friction: 5 min. A BSD `sed` with `\b` renamed nothing and the lint error
+  came back after the split.
+- landing: 5 min. `bun run index`, `check:fast`, the commit, `land`.
+
+Bottleneck: FIZZ draws a pull's goal at the channel's end, which a lever's zone cannot move without changing the game's own drawing — found only by looking.

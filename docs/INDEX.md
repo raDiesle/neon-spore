@@ -3745,6 +3745,7 @@ by hand never moves.
 | `tools/director/src/field-looks-drag.ts` | FIND IT and WHILE YOU MOVE for every GRAB AND DRAG card, keyed by one row of the card |
 | `tools/director/src/field-looks-other.ts` | FIND IT and WHILE YOU MOVE for every card but GRAB AND DRAG's (`field-looks-drag.ts`) |
 | `tools/director/src/field-looks.ts` | What a card on CONTROLS › ON THE FIELD says under its picture |
+| `tools/director/src/field-lab-cards.ts` | Each lab, put up on its own key inside a card (`lab-shell.ts`) |
 | `tools/director/src/field-focus-art.ts` | A use card's picture on CONTROLS › ON THE FIELD |
 | `tools/director/src/field-focus.ts` | **Where on the phone a control answers a finger** |
 | `tools/director/src/field-try-bar.ts` | The bar over a TRY view (`field-try.ts`): what is being tried |
@@ -3920,9 +3921,15 @@ by hand never moves.
 | `tools/director/src/library/rind-stage.ts` | The game's own rind, losing its layers on a card, each one drawn coming off by a shed of the caller's choosing |
 | `tools/director/src/library/countdown-assets.ts` | THE COUNT's four counts — how a body says how many beats are left, on the one screen that is shown it |
 | `tools/director/src/library/countdown-stage.ts` | The game's own count, drawn on a card wearing a look of the caller's choosing |
-| `tools/director/src/labs.ts` | **The director's labs, PULL, HOLD, PRESS, RUB, COMBO and SHIELD**: each one's door in the topbar |
-| `tools/director/src/lab-shell.ts` | **Where a lab stands** — THE PULL LAB, THE HOLD LAB and THE COMBO LAB (`pull-lab.ts`, `hold-lab.ts` |
+| `tools/director/src/labs.ts` | **The director's labs, PULL, HOLD, PRESS, RUB, COMBO, SHIELD and LEVER**: each one's door in the topbar |
+| `tools/director/src/lab-shell.ts` | **Where a lab stands** — every lab (`labs.ts`) keeps its bar, its canvas and its rule; this is the rest |
 | `tools/director/src/lab-door.ts` | **A lab's door in the topbar opens its card** on CONTROLS › ON THE FIELD, scrolled to — the owner |
+| `tools/director/src/lever-lab-auto.ts` | **AUTO's thumb in THE LEVER LAB**, as `hold-lab-auto.ts` is the HOLD LAB's |
+| `tools/director/src/lever-lab-paint.ts` | One frame of THE LEVER LAB (`lever-lab.ts`): the PULL LAB's empty field and its FIZZ knob and channel |
+| `tools/director/src/lever-lab-readout.ts` | THE LEVER LAB's readout on its bar (`lever-lab.ts`): no word is drawn on the field |
+| `tools/director/src/lever-lab-rule.ts` | **The one generic LEVER, as THE LEVER LAB plays it** — LEVER |
+| `tools/director/src/lever-lab-setup.ts` | **What THE LEVER LAB can be set to** (`lever-lab.ts`): what the lever asks, its groove |
+| `tools/director/src/lever-lab.ts` | **THE LEVER LAB** — the one generic LEVER on an empty field, to be carried by hand |
 | `tools/director/src/autopilot-ghost.ts` | **The autopilot's finger, drawn where a thumb would be**, found by the game's own hit test run backwards |
 | `tools/director/src/antiphon-editor.ts` | THE ANTIPHON's levels, a tab each and one for the ship, with who explains and who chooses |
 | `tools/imports/classify.ts` | Which of a file's characters are code rather than a comment or a string |

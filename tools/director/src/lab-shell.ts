@@ -2,9 +2,8 @@ import { coverPage } from "./cover.js";
 import { placeLab } from "./session.js";
 
 /**
- * **Where a lab stands** — THE PULL LAB, THE HOLD LAB and THE COMBO LAB
- * (`pull-lab.ts`, `hold-lab.ts`, `combo-lab.ts`) keep their bar, their
- * canvas and their rule; this is the rest: putting one up, running its
+ * **Where a lab stands** — every lab (`labs.ts`) keeps its bar, its canvas
+ * and its rule; this is the rest: putting one up, running its
  * frames, and taking it down.
  *
  * A lab stands **on CONTROLS › ON THE FIELD**, a card in the gesture grid

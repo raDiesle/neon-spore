@@ -39,6 +39,8 @@ export interface ControlType {
   pressLab?: string;
   /** THE RUB LAB's turns and seats this type starts on (`rub-lab.ts`), `8-one`. */
   rubLab?: string;
+  /** THE LEVER LAB's setup this type starts on (`lever-lab-rule.ts`), `grip`. */
+  leverLab?: string;
   /** Which of THE COMBO LAB's combos this type is (`combo-lab-combos.ts`):
    * said under it, the lab itself standing once over its action. */
   comboLab?: string;

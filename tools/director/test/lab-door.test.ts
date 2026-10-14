@@ -12,7 +12,7 @@ const root = new URL("../", import.meta.url);
 const read = (path: string): Promise<string> =>
   Bun.file(Bun.fileURLToPath(new URL(path, root))).text();
 const html = await read("index.html");
-const cards = await read("src/field-action-cards.ts");
+const cards = await read("src/field-lab-cards.ts");
 
 describe("a lab's door", () => {
   it("is a button the topbar has, one for each lab", () => {

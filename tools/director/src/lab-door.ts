@@ -9,7 +9,7 @@
  */
 
 /** Which lab a card holds, as `field-action-cards.ts` marks it in `data-lab`. */
-export type LabKind = "pull" | "hold" | "press" | "rub" | "combo";
+export type LabKind = "pull" | "hold" | "press" | "rub" | "combo" | "lever";
 
 /** Each lab's door, by its id in `index.html`. */
 export const LAB_DOORS: readonly { door: string; kind: LabKind }[] = [
@@ -18,6 +18,7 @@ export const LAB_DOORS: readonly { door: string; kind: LabKind }[] = [
   { door: "pressLabOpen", kind: "press" },
   { door: "rubLabOpen", kind: "rub" },
   { door: "comboLabOpen", kind: "combo" },
+  { door: "leverLabOpen", kind: "lever" },
 ];
 
 /** The clicks that put CONTROLS › ON THE FIELD up, each by its own wiring. */

@@ -84,7 +84,7 @@ export const ROW_NOTES: Readonly<Record<string, string>> = {
     "the timed ring is worth borrowing for the both-seats mark.",
   "THE LID'S CORD":
     "THE WARDEN's tether made generic already — a creature's cord pulled " +
-    "as a level. The model for the LEVER.",
+    "far enough. A PULL, not a LEVER, to the thumb (the owner, 14 October 2026).",
   "THE CHOIR'S RUB":
     "The fallback for a phone with no motion: the one generic RUB, both seats " +
     "at once. Keep, and keep it for every sensor the game ever reads.",
