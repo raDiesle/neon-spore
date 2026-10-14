@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-14 · 4d349828a — HELPERS shows THE VERDICT, THE BATON'S WORDS and THE HANDOVER'S PLATE
+
+Three helpers that shipped with no frame showing them are on CONTROLS ›
+
 ## 2026-10-14 · 821c976f5 — A test proves a wave dragged across acts in the editor carries its import
 
 The wave editor's save already rewrites each act file's imports from the waves it holds (`fixImports`); nothing proved it. A new test drags THE INSTAR from act one into the next act in a copy of `packages/content/src`, saves, and runs the real `tsc` with `noUnusedLocals` over the written act files — it fails on the save itself when the imports are not fixed.
