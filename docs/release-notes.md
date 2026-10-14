@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-14 · c06089052 — CONTROLS › HELPERS in groups: the siren and its roster, and what one screen has and the other has not
+
+After THE SHIELD, the page now has THE SIREN and a table of everything that lights it: every creature and boss, who speaks, and each seat's chip word. The table is read from the renderer's own tables, so it cannot go stale. Next comes the split itself, in two halves: NOT ON THIS SCREEN — ASK and ONLY ON THIS SCREEN — TELL. THE SHIELD gains THE SKULL over a dome under a shut fence, and ONE LAST CHANCE names the red push that earns it. Twenty helpers the page did not list are added, each pictured in a real frame, and CONTENTS numbers every level.
+
 ## 2026-10-14 · 7fcc5c48d — THE LEVER LAB: the one generic lever, carried to a depth and held
 
 A sixth lab on CONTROLS › ON THE FIELD and in the topbar (⇳ LEVER LAB, `leverlab=` in the URL): the PULL LAB's FIZZ knob and channel, enhanced for what a lever asks — a graduated groove whose depth is the value, a zone on it (DEPTH ONLY · PAST A GRIP · IN A BAND) held for the HOLD LAB's beats with the handle dial and the waiting clock, a spring back on every lift, a sideways groove that counts either way, and a partner's lever beside it whose zone is asked of each (TWO · EACH) or of the two summed (TWO · SUMMED). THE LID's cord, THE BALLOON's handles, THE LATCH's grips and THE INSTAR's PULL DOWN / PULL UP move from LEVER to PULL PAST A DISTANCE, as the owner asked. Exemption: a look the owner asked for by name — the lab is the director's, and the game draws nothing new.

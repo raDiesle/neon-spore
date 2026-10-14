@@ -39692,3 +39692,5 @@ Bottleneck: FIZZ draws a pull's goal at the channel's end, which a lever's zone 
 
 Bottleneck: landing — two lanes rewrote one page at once, and the full check
 times out under the load of every lane checking together.
+
+*Measured: 39 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
