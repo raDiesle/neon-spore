@@ -15,6 +15,7 @@ import { GORGE_CONTROLS } from "./field-controls-gorge.js";
 import { GOVERNOR_CONTROLS } from "./field-controls-governor.js";
 import { HASP_CONTROLS } from "./field-controls-hasp.js";
 import { HIVE_CONTROLS } from "./field-controls-hive.js";
+import { HYDRA_CONTROLS } from "./field-controls-hydra.js";
 import { INSTAR_CONTROLS } from "./field-controls-instar.js";
 import { KEEL_CONTROLS } from "./field-controls-keel.js";
 import { LAMPREY_CONTROLS } from "./field-controls-lamprey.js";
@@ -187,4 +188,6 @@ export const BOSS_FIELD_CONTROLS: readonly FieldControlDef[] = [
   ...BASTION_CONTROLS,
   // THE CHRYSALIS's halves of slime and its quills a side, each lit by the skin it peels.
   ...CHRYSALIS_CONTROLS,
+  // THE HYDRA's necks, coils and heads of eyes a side, each lit by the level of heads it answers.
+  ...HYDRA_CONTROLS,
 ];

@@ -88,6 +88,10 @@ export const OTHER_LOOKS: Readonly<Record<string, UseLook>> = {
     find: "The one lit tooth of the ring.",
     move: "A tap with the tail held cracks it and the light jumps two teeth round; a wrong tap snaps the last cracked tooth back.",
   },
+  "THE HYDRA'S LEFT EYE": {
+    find: "The one eye awake on each head of eyes — left the pilot's, right the navigator's — haloed with TAP only while it is open.",
+    move: "Tapped open, the eye is seared shut, stitched, and the next one wakes; tapped shut, the head flinches red.",
+  },
   "THE UNDERTOW'S TAP": {
     find: "A tall lobe itself, on both screens — the one lobe taller than the rest.",
     move: "The lobe shrinks back to standing on the tap.",

@@ -12,6 +12,7 @@ import { mimicCues } from "./boss-cue-read-zt.js";
 import { latchCues } from "./boss-cue-read-zu.js";
 import { bastionCues } from "./boss-cue-read-zv.js";
 import { chrysalisCues } from "./boss-cue-read-zw.js";
+import { hydraCues } from "./boss-cue-read-zx.js";
 import type { BossCue } from "./boss-cue-shape.js";
 import type { Layout } from "./layout.js";
 import { plumbCues } from "./plumb-marks.js";
@@ -37,6 +38,7 @@ const CHOREO_KINDS: ReadonlySet<BossState["kind"]> = new Set([
   "latch",
   "bastion",
   "chrysalis",
+  "hydra",
 ]);
 
 /** Whether `boss` is one of the choreographed kinds whose page is in this file. */
@@ -102,6 +104,9 @@ export function choreoCues(
     // THE CHRYSALIS's, a rub on each half of the slime, a pull on each side's quill, a shield under the swelling sac, and the heart's colour to the seat that sees it and its shot to the other (`boss-cue-read-zw.ts`).
     case "chrysalis":
       return chrysalisCues(l, world, boss);
+    // THE HYDRA's, a swipe across each side's neck, a turn on each side's coil, a tap on each side's open eye, and the maw's colour to the seat that sees it and its shot to the other (`boss-cue-read-zx.ts`).
+    case "hydra":
+      return hydraCues(l, world, boss);
     default:
       return [];
   }

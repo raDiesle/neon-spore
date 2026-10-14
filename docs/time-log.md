@@ -40965,3 +40965,20 @@ before deciding the five paint one kind rather than five.
 Bottleneck: landing — the full check, for a forty-line move.
 
 *Measured: 8 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-14 — THE HYDRA's marks: a knob across each neck, a lever on each coil, a tap on the open eye
+
+- reading: 15 min. THE CHRYSALIS's marks commit for its eleven
+  registrations, THE BASTION's rim lever, `rimFrom`'s sign and the sim's
+  hand.
+- writing: 30 min. Grip, handles, verdicts, the cue page, the director's
+  six rows and three poses, two tests and the two spec pages.
+- looking: 5 min. Three frames: the neck knob sat against the body and came
+  down a little.
+- friction: 5 min. The neck knob rode down with its head and `boss-hush`
+  failed it; it rests where the head first hangs now. zsh did not split a
+  path list held in a variable for biome.
+- landing: 5 min.
+
+Bottleneck: writing — six marks of three kinds, each a row in eleven tables
+outside the boss's own files.

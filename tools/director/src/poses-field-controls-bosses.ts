@@ -6,6 +6,7 @@ import { CHRYSALIS_GRIPS } from "./poses-field-controls-chrysalis.js";
 import { GALL_GRIPS } from "./poses-field-controls-gall.js";
 import { GOVERNOR_GRIPS } from "./poses-field-controls-governor.js";
 import { HASP_GRIPS } from "./poses-field-controls-hasp.js";
+import { HYDRA_GRIPS } from "./poses-field-controls-hydra.js";
 import { KEEL_GRIPS } from "./poses-field-controls-keel.js";
 import { LAMPREY_GRIPS } from "./poses-field-controls-lamprey.js";
 import { LATCH_GRIPS } from "./poses-field-controls-latch.js";
@@ -41,5 +42,6 @@ export const BOSS_GRIPS: readonly Pose[] = [
   ...LATCH_GRIPS,
   ...BASTION_GRIPS,
   ...CHRYSALIS_GRIPS,
+  ...HYDRA_GRIPS,
   ...ASKING_GRIPS,
 ];

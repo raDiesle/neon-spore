@@ -12200,9 +12200,30 @@ screens: a cut going in and a stump left, a coil a ring fewer, an eye awake
 and put out, the maws crossed both ways, a quenched stump, the body smaller a
 level at a time with its crown a stump more, the rear, and the body beaten.
 
-**What is not built.** The marks, the cues and the verdicts; the bolt
-stopping on the body; the guide is prose. **Never watched at tempo** — the
-owner's eye.
+**The marks** (`render/src/hydra-grip.ts`, drawn by `hydra-handles.ts`,
+answered by `hydra-verdicts.ts`), six, a side for each kind of head a thumb
+takes, every one from the shared pieces. **A neck** wears the PULL LAB's
+knob over where its head first hangs, with the arrow the way the neck is cut
+and, on its own seat's screen, a channel straight across `hydraCutMilli`
+long; the knob stays put while the head comes down past it, on the neck run
+through it, because a mark holds still while it asks. **A coil** wears THE
+MAZE's lever bolted to its middle, its knob on the ring at the simulation's
+own radius (`hydraCoilRimMilli`), carried round the way the coil unwinds and
+filling a ring channel lap by lap. **An eye** wears no knob — the open eye is
+the mark, haloed only while it is open, and a tap anywhere on its head of
+eyes is sent, open or shut, so a shut eye is refused aloud (`hydraMiss`).
+**A thumb on the partner's mark** sends the partner's target, refused aloud
+(`hydraWrong`) and reddening that mark. The verdicts: a neck cut, a coil off
+and an eye put out green their mark; a glance and a miss redden it.
+
+**The words** (`render/src/boss-cue-read-zx.ts`): `SWIPE` on each neck's
+knob until a thumb is on it, `TURN` on each lever until it is turning, `TAP`
+on each open eye, and on the maws `COLOUR` at the throat to the pilot, who
+sees the fire, with `FIRE` at the hull under the open maw, aimed at it, to
+the navigator, who sees which maw is open.
+
+**What is not built.** The bolt stopping on the body; the guide is prose.
+**Never watched at tempo** — the owner's eye.
 
 ## Retired
 

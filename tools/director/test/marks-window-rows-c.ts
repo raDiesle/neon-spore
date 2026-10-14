@@ -5,6 +5,10 @@ import {
   chrysalisLitStep,
   type FlueState,
   flueLitLevel,
+  type HydraState,
+  hydraEyeOpen,
+  hydraHeadOf,
+  hydraLitStep,
   type LampreyState,
   type LatchState,
   lampreyAsks,
@@ -39,6 +43,7 @@ import { mark, type Row } from "./marks-window-kit.js";
 const bastion = (w: World) => w.boss as BastionState;
 const chrysalis = (w: World) => w.boss as ChrysalisState;
 const flue = (w: World) => w.boss as FlueState;
+const hydra = (w: World) => w.boss as HydraState;
 const lamprey = (w: World) => w.boss as LampreyState;
 const latch = (w: World) => w.boss as LatchState;
 const mimic = (w: World) => w.boss as MimicState;
@@ -150,7 +155,28 @@ export const ROWS_C: readonly Row[] = [
       mark(markFeedback, "drawMarkTheirs", (w) => chrysalisHandled(chrysalis(w))),
     ],
   },
+  {
+    // THE HYDRA's halos and the partner's ring (`hydra-verdicts.ts`): on the
+    // neck knobs while the bites are lit, on the coil levers while the coils
+    // are, on an eye only while it is open — never while the body comes in,
+    // rears or is beaten, and never on the maws, which the cannon answers.
+    kind: "hydra",
+    roles: ["p1", "p2"],
+    marks: [
+      mark(markFeedback, "drawMarkHalo", (w) => hydraHandled(hydra(w))),
+      mark(markFeedback, "drawMarkTheirs", (w) => hydraHandled(hydra(w))),
+    ],
+  },
 ];
+
+/** Whether a side's head of the lit level asks for a thumb: a neck, a coil, or an eye open. */
+function hydraHandled(s: HydraState): boolean {
+  const head = hydraLitStep(s)?.head;
+  if (head !== "bite" && head !== "coil" && head !== "eye") return false;
+  return ([0, 1] as const).some(
+    (side) => hydraHeadOf(s, side) >= 0 && (head !== "eye" || hydraEyeOpen(s, side)),
+  );
+}
 
 /** Whether the lit skin is one a thumb takes off: the slime or the quills. */
 function chrysalisHandled(s: ChrysalisState): boolean {

@@ -4,6 +4,7 @@ import { capstanRubStanding, capstanSteerStanding, capstanTakesHand } from "./ca
 import { chrysalisHandleStanding } from "./chrysalis-grip.js";
 import { gallPointCircle, gallTakesPress } from "./gall-grip.js";
 import { governorTapCircle } from "./governor-grip.js";
+import { hydraHandleStanding } from "./hydra-grip.js";
 import { lampreyHeadCircle, lampreyTailCircle, lampreyToothCircle } from "./lamprey-grip.js";
 import { latchKnobStanding, latchTakesHand } from "./latch-grip.js";
 import type { Circle, Layout } from "./layout.js";
@@ -131,6 +132,12 @@ export function laterBossHandleCircle(
     // of slime while the slime is (`chrysalis-grip.ts`).
     const b = world.boss?.kind === "chrysalis" ? world.boss : null;
     return b === null ? null : chrysalisHandleStanding(l, world, b, target);
+  }
+  if (target.startsWith("hydra")) {
+    // THE HYDRA's neck knobs, coil levers and heads of eyes, each while its
+    // kind of head is lit (`hydra-grip.ts`).
+    const b = world.boss?.kind === "hydra" ? world.boss : null;
+    return b === null ? null : hydraHandleStanding(l, world, b, target);
   }
   return undefined;
 }

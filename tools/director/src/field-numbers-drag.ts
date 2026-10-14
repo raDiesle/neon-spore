@@ -153,6 +153,10 @@ export const DRAG_NUMBERS: Readonly<Record<string, readonly (keyof SimConfig)[]>
   "THE HASP'S WHEEL": ["haspWindMilli", "haspWindStepMilli", "haspWindTravelMilli"],
   "THE VALVE'S WHEEL": ["valveNearMilli", "valveLapMilli", "valveFreezeBeats", "valveKickMilli"],
   "THE BASTION'S RIM": ["bastionRimMilli", "bastionFrontMilli"],
+  "THE HYDRA'S LEFT COIL": ["hydraCoilRimMilli"],
+  "THE HYDRA'S RIGHT COIL": ["hydraCoilRimMilli"],
+  "THE HYDRA'S LEFT NECK": ["hydraCutMilli"],
+  "THE HYDRA'S RIGHT NECK": ["hydraCutMilli"],
   "THE BLISTER'S TURN": ["blisterUpBeats", "blisterBlows"],
   // Traced along a line.
   "THE FILAMENT'S LINE": ["filamentGapTiles", "filamentStartBeats", "filamentStallBeats"],

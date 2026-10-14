@@ -40,6 +40,8 @@ export const OTHER_NUMBERS: Readonly<Record<string, readonly (keyof SimConfig)[]
   // A tap on the mark, in time.
   "THE VALVE'S PIN": ["valvePullMilli", "valvePullBeats", "valveJetBeats", "valveBraceBeats"],
   "THE GOVERNOR'S NEEDLE": ["governorMarkMilli"],
+  "THE HYDRA'S LEFT EYE": ["hydraStareBeats", "hydraBlinkBeats"],
+  "THE HYDRA'S RIGHT EYE": ["hydraStareBeats", "hydraBlinkBeats"],
   "THE TASTER'S PIN": ["tasterPinBeats"],
   "THE UNDERTOW'S TAP": ["undertowTallBeats", "undertowStandBeats"],
   // Pressed.

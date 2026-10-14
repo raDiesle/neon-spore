@@ -4,6 +4,7 @@ import type { Burst } from "./effects-boss.js";
 import { fieldX } from "./field-flip.js";
 import { HullShock } from "./hull-shock.js";
 import { type At, hydraCentre, hydraCoilAt, hydraEyeHeadAt } from "./hydra-shape.js";
+import { HydraVerdicts } from "./hydra-verdicts.js";
 import type { Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
 
@@ -60,6 +61,8 @@ export class HydraFx {
   readonly shock = new HullShock();
   /** The blow a head stopped and a level stopped deal. */
   readonly hurt = new BossHurt();
+  /** What the marks said back to the last touch on each (`hydra-verdicts.ts`). */
+  readonly marks = new HydraVerdicts();
 
   get heads(): readonly Fallen[] {
     return this.headsOf;
@@ -89,6 +92,7 @@ export class HydraFx {
     beatSeconds: number,
     burst: Burst,
   ): void {
+    this.marks.ingest(events);
     for (const e of events) {
       if (!e.type.startsWith("hydra")) continue;
       const c = hydraCentre(l, cfg);
@@ -183,6 +187,7 @@ export class HydraFx {
     if (this.steamOf.some((f) => f.now <= 0)) this.steamOf = this.steamOf.filter((f) => f.now > 0);
     this.shock.update(dt);
     this.hurt.update(dt);
+    this.marks.update(dt);
   }
 
   clear(): void {
@@ -193,5 +198,6 @@ export class HydraFx {
     this.lungeOf = null;
     this.shock.clear();
     this.hurt.clear();
+    this.marks.clear();
   }
 }

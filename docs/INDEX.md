@@ -1219,6 +1219,7 @@ by hand never moves.
 | `packages/render/src/boss-cue-read-zu.ts` | **What THE LATCH is asking for**, page forty-seven of the readings |
 | `packages/render/src/boss-cue-read-zv.ts` | **What THE BASTION is asking for**, page forty-eight of the readings, a word for each shell's job |
 | `packages/render/src/boss-cue-read-zw.ts` | **What THE CHRYSALIS is asking for**, page forty-nine of the readings, a word for each skin's job |
+| `packages/render/src/boss-cue-read-zx.ts` | **What THE HYDRA is asking for**, page fifty of the readings, a word for each kind of head |
 | `packages/render/src/boss-cue-read.ts` | **What THE GORGE, THE CURTAIN and BULB QUEEN are asking for** |
 | `packages/render/src/boss-cue-text.ts` | **A cue's two lines, drawn**: the verb under the mark, the kind of action over it |
 | `packages/render/src/boss-cue-field.ts` | **The one word the boss wants, drawn separately from `drawBodies` and after `drawShip`** (`canvas2d.ts`) |
@@ -2676,9 +2677,12 @@ by hand never moves.
 | `packages/render/src/hydra-fx.ts` | What THE HYDRA leaves behind a frame (§11.64, *The receipts*): **a head cut off** |
 | `packages/render/src/hydra-head.ts` | **THE HYDRA's heads, the piece every kind is drawn with** (§11.64) |
 | `packages/render/src/hydra-heads.ts` | **THE HYDRA's biting necks and its maws** (§11.64) |
+| `packages/render/src/hydra-handles.ts` | **THE HYDRA's knobs**, in the field's one look for a thumb's control (`pull-knob.ts`, `pull-track.ts`) |
 | `packages/render/src/hydra-neck.ts` | **THE HYDRA's flesh** (§11.64): a neck — a living tube, tapering from the body to the head |
 | `packages/render/src/hydra-pose.ts` | **THE HYDRA's pose**: where in its story the body is this frame |
 | `packages/render/src/hydra-receipts.ts` | THE HYDRA's receipts, drawn (§11.64): the heads cut off falling and tumbling |
+| `packages/render/src/hydra-grip.ts` | **The thumbs on THE HYDRA** (§11.64): a knob across each neck, a lever on each coil, a tap on each head of eyes |
+| `packages/render/src/hydra-verdicts.ts` | **THE HYDRA's marks answering a touch the way every mark does** (`mark-feedback.ts`, `grip-verdict.ts`) |
 | `packages/render/src/beatbox-count.ts` | **What the counter over a soundbox is saying**, as a shape rather than as a drawing — how many slots |
 | `packages/render/src/beatbox-silence.ts` | **A soundbox going quiet**, which is the one thing on this creature that goes right and until now was the… |
 | `packages/render/src/blister-tap.ts` | **A tap on THE BLISTER**, answered only where the simulation would count it: on a blister that is up |
@@ -3238,6 +3242,7 @@ by hand never moves.
 | `tools/director/src/poses-field-controls-gall.ts` | THE GALL's taps: the first leap lit with the alien on the seam's first point |
 | `tools/director/src/poses-field-controls-governor.ts` | THE GOVERNOR's tap, **photographed from the pilot's seat**: a step with a mark for each seat |
 | `tools/director/src/poses-field-controls-hasp.ts` | THE HASP's two hands, one under each seat's thumb |
+| `tools/director/src/poses-field-controls-hydra.ts` | THE HYDRA's thumbs: the biting heads lit with the pilot's thumb most of the way across his neck |
 | `tools/director/src/poses-field-controls-ratchet.ts` | THE RATCHET's two hands, one under each seat's thumb, and **two instants rather than one** |
 | `tools/director/src/poses-field-controls-dark.ts` | THE DARK with a thumb dragged across it: three squares lit along one row |
 | `tools/director/src/poses-field-controls-mantle.ts` | THE MANTLE's three hands: the two knobs under the two thumbs, and a tap on the bared core |
@@ -3840,6 +3845,7 @@ by hand never moves.
 | `tools/director/src/field-controls-chrysalis.ts` | THE CHRYSALIS's four thumbs, as four rows of the ON THE FIELD tab |
 | `tools/director/src/field-controls-hive.ts` | **THE HIVE's underside**, in a file of its own, the split every boss since THE INSTAR has made |
 | `tools/director/src/field-controls-hasp.ts` | THE HASP's latch and wheel, as rows of the ON THE FIELD tab |
+| `tools/director/src/field-controls-hydra.ts` | THE HYDRA's six thumbs, as six rows of the ON THE FIELD tab: a neck a side while the biting heads are lit |
 | `tools/director/src/field-controls-lead.ts` | **THE LEAD's stalk**, in a file of its own, the split every boss since THE INSTAR has made |
 | `tools/director/src/field-controls-ledger.ts` | **The navigator's two hands on THE LEDGER's root**, in a file of its own |
 | `tools/director/src/field-controls-lamprey.ts` | THE LAMPREY's tail, head and teeth, as rows of the ON THE FIELD tab: the holder's thumb on the tail |

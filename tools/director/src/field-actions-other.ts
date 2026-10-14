@@ -110,6 +110,8 @@ export const OTHER_ACTIONS: readonly FieldAction[] = [
           "THE TASTER'S PIN",
           "THE LAMPREY'S TEETH",
           "THE UNDERTOW'S TAP",
+          "THE HYDRA'S LEFT EYE",
+          "THE HYDRA'S RIGHT EYE",
         ],
       },
       {

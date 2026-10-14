@@ -18,6 +18,7 @@ import { balloonHandleUnder, choirRubUnder } from "./handles-pairs.js";
 import { haspHandleUnder, haspRimUnder } from "./hasp-grip.js";
 import { hiveLobeUnder } from "./hive-grip.js";
 import { hiveLockUnder } from "./hive-lock.js";
+import { hydraGripUnder } from "./hydra-grip.js";
 import { instarMarkUnder } from "./instar-mark-grip.js";
 import { keelJointUnder } from "./keel-grip.js";
 import { lampreyGripUnder } from "./lamprey-grip.js";
@@ -157,7 +158,8 @@ export function handleUnder(l: Layout, x: number, y: number, field: Field): Touc
     lampreyGripUnder(l, x, y, field) ?? // THE LAMPREY's mouth, the tapper's tap on a tooth, and the band round it, the pinner's thumb on the jaw (`lamprey-grip.ts`).
     latchGripUnder(l, x, y, field) ?? // THE LATCH's two grips on the tendril, this seat's taken and the partner's refused aloud (`latch-grip.ts`).
     bastionGripUnder(l, x, y, field) ?? // THE BASTION's slab knobs and its rim, this seat's taken and the partner's refused aloud (`bastion-grip.ts`).
-    chrysalisGripUnder(l, x, y, field) // THE CHRYSALIS's quill knobs and its halves of slime, this seat's taken and the partner's refused aloud (`chrysalis-grip.ts`).
+    chrysalisGripUnder(l, x, y, field) ?? // THE CHRYSALIS's quill knobs and its halves of slime, this seat's taken and the partner's refused aloud (`chrysalis-grip.ts`).
+    hydraGripUnder(l, x, y, field) // THE HYDRA's neck knobs, coil levers and heads of eyes, this seat's taken and the partner's refused aloud (`hydra-grip.ts`).
   );
 }
 

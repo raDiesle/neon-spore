@@ -4,9 +4,11 @@ import { drawHydraBody } from "./hydra-body.js";
 import { drawCoils } from "./hydra-coil.js";
 import { drawEyeHeads } from "./hydra-eyes.js";
 import type { HydraFx } from "./hydra-fx.js";
+import { drawHydraHandles } from "./hydra-handles.js";
 import { drawBites, drawMaws, type HeadsFrame } from "./hydra-heads.js";
 import { hydraPose } from "./hydra-pose.js";
 import { drawHydraReceipts } from "./hydra-receipts.js";
+import { drawHydraHalos, drawHydraVerdicts } from "./hydra-verdicts.js";
 import type { Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
 import { showsHydraFire, showsHydraMaw } from "./view-role-clocks-c.js";
@@ -83,6 +85,11 @@ export function drawHydra(
   drawHurt(ctx, body, fx.hurt.value);
   ctx.restore();
   drawHydraReceipts(ctx, l, fx, time);
+  // The marks, unshaken, where a thumb's hit test finds them (`hydra-grip.ts`).
+  fx.marks.note(s);
+  drawHydraHalos(ctx, l, world.cfg, s, time);
+  drawHydraHandles(ctx, l, world.cfg, s, time);
+  drawHydraVerdicts(ctx, l, world.cfg, s, time, fx.marks.verdicts);
 }
 
 /** The fire in the open maw's colour, while a maw is open. */

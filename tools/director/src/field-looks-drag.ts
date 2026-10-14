@@ -15,6 +15,10 @@ export const DRAG_LOOKS: Readonly<Record<string, UseLook>> = {
     find: "A rope hanging from the rim with a resting circle at its end, on the pilot's screen.",
     move: "The handle runs straight down its channel after the thumb, the one way the rope goes; pulled the whole channel, a hatch opens on the eye. Four looks of the rope are on its row.",
   },
+  "THE HYDRA'S LEFT NECK": {
+    find: "A knob on the neck just over the next biting head each side — left the pilot's, right the navigator's — with the arrow across the neck and SWIPE beside it, coming down with its head.",
+    move: "The knob runs across after the thumb, the channel fills and a gash opens in the neck; past the end the head is cut off and falls. Let go short and the head swings on red.",
+  },
   "THE BASTION'S LEFT SLAB": {
     find: "A knob in the middle of the next armour slab each side of the moon — left the pilot's, right the navigator's — with the arrow out along the slab's way.",
     move: "The slab comes off the moon after the thumb and its channel fills; past the pull it tears and flies off. Let go short and it snaps back red.",
@@ -179,6 +183,10 @@ export const DRAG_LOOKS: Readonly<Record<string, UseLook>> = {
   "THE BLISTER'S TURN": {
     find: "THE MAZE's knob at the top of a channel round a blister while it is up, its arrow the way the turn counts, on the seat its BY names. The other seat sees the waiting clock.",
     move: "The knob goes round after the thumb and the channel fills green behind it; a whole ring is one blow and one pip gone. The wrong way round counts nothing.",
+  },
+  "THE HYDRA'S LEFT COIL": {
+    find: "THE MAZE's knob on top of each coil's ring — left the pilot's, round anticlockwise; right the navigator's, round clockwise — with TURN beside it.",
+    move: "The coil turns round after the thumb and a ring of it comes off every lap; at the last the coil drops away. Round the other way it winds back on. Lifted, it keeps its laps.",
   },
   "THE BASTION'S RIM": {
     find: "THE MAZE's knob under the moon on the gun ring's rim, with a two-headed arrow, in a channel round the whole rim on the pilot's screen.",

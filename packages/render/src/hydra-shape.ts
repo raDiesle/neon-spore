@@ -99,6 +99,13 @@ export function hydraRoot(c: At, r: number, side: -1 | 1, slot: number, n: numbe
   };
 }
 
+/** How far the lit level's window has run, 0..1 at `now` in beats: how near its heads have come. */
+export function hydraThreat(s: HydraState, now: number): number {
+  const lit = s.steps[s.cursor];
+  if (s.phase !== "heads" || lit === undefined) return 0;
+  return Math.max(0, Math.min(1, (now - s.phaseBeat) / Math.max(1, lit.beats)));
+}
+
 /**
  * Bite head `i`'s jaw, fallen `fall` (0..1) of the way the window lets it. A
  * side's heads stand in a stair, the top one nearest the middle and each one

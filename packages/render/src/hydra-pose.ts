@@ -1,6 +1,6 @@
 import type { HydraHead, HydraState, SimConfig } from "@neon-spore/sim";
 import { smoothstep } from "./ease.js";
-import { type At, hydraCentre, hydraReach } from "./hydra-shape.js";
+import { type At, hydraCentre, hydraReach, hydraThreat } from "./hydra-shape.js";
 import type { Layout } from "./layout.js";
 
 /**
@@ -75,8 +75,7 @@ export function hydraPose(
   const grow = s.phase === "enter" ? near : e;
   const die = s.phase === "spent" ? Math.min(1, since / cfg.hydraSpentBeats) : 0;
   const lit = s.steps[s.cursor];
-  const threat =
-    s.phase === "heads" && lit !== undefined ? Math.min(1, since / Math.max(1, lit.beats)) : 0;
+  const threat = hydraThreat(s, now);
   // The stance: the level on now, eased from the one just stopped.
   const on = STANCE[lit?.head ?? s.steps[s.cursor - 1]?.head ?? "bite"];
   const gone = s.steps[s.cursor - 1]?.head;
