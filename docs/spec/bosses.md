@@ -6190,6 +6190,15 @@ shove off the end of the frame, which is not spent.
 
 **What is not built — a step seen from another side** (suggested 10 October 2026, after the owner on THE BASTION: *very 3 dimensional and even user action is 3d to rotate*). The hulk rolls over, and parts coming loose on its underside face the hull; the pilot turns it by a rim so the loosening part points away before it is thrown.
 
+**Offered (14 October 2026, VERSUS `scuttle:glance`).** The slab's sockets
+are the count and each stands over its throw's column, so the part that
+turns is each part hanging under it on its thread
+(`packages/render/src/scuttle-glance.ts`, which ships still): a tag on a
+string twisting **about its own middle**, where a thumb takes it and the
+thread meets it, the far end narrowing into the dark, each out of step with
+the others. **SWAY**, **LOOK** and **COCK** (`glance-styles.ts`), judged on
+`THE SCUTTLE · HELD`.
+
 
 ## 11.31 THE ANTIPHON — the boss that grows a thing nobody has a word for
 

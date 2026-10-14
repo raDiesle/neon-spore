@@ -39326,3 +39326,13 @@ Bottleneck: the head was too small to turn alone and the stalk may not tilt, so 
 Bottleneck: finding what still read the old ring (`maze-marks.ts` keeps it).
 
 *Measured: 25 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-14 — VERSUS offers THE SCUTTLE's hanging parts glancing
+
+- reading: 5 min. The entry, §11.30, `scuttle-draw.ts`, `scuttle-shape.ts`, the scuttle poses.
+- writing: 5 min. `scuttle-glance.ts`, the plates answering their outlines, two stale slot notes off the poses, the scaffold.
+- looking: 5 min. One VERSUS shot and two crops.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: none to speak of — the hanging plates were the obvious part, and HELD's notes named two slots long closed.

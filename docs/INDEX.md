@@ -1369,6 +1369,7 @@ by hand never moves.
 | `packages/render/src/scuttle-seat.ts` | THE SCUTTLE's parts where they sit in the frame: a part seated, and the socket one has left |
 | `packages/render/src/scuttle-seat-lobed.ts` | A lobe's half-width and half-height, and a wound's, in tiles |
 | `packages/render/src/scuttle-grip.ts` | **THE SCUTTLE's hanging parts as controls**: a ring on each one a thumb may still carry |
+| `packages/render/src/scuttle-glance.ts` | **THE SCUTTLE's hanging parts glance** — the owner, 9 and 10 October 2026 |
 | `packages/render/src/scuttle-metal.ts` | **What THE SCUTTLE is made of**: a slab of dark rock |
 | `packages/render/src/scuttle-marks.ts` | **THE SCUTTLE's hanging parts answering a touch the way every mark does** (`mark-feedback.ts` |
 | `packages/render/src/scuttle-plate.ts` | **THE SCUTTLE's parts** (`scuttle-metal.ts` has the slab they are seated in): a plate of rock |

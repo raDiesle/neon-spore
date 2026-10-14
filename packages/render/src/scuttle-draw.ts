@@ -11,6 +11,7 @@ import { drawHurt } from "./boss-hurt.js";
 import type { Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
 import type { ScuttleFx } from "./scuttle-fx.js";
+import { drawScuttleGlanced } from "./scuttle-glance.js";
 import { drawScuttleLock } from "./scuttle-lock.js";
 import { faded, paintSlab } from "./scuttle-metal.js";
 import { scuttlePlatePath, scuttleSlabPath } from "./scuttle-outline.js";
@@ -20,6 +21,7 @@ import {
   PLATE_HALF_H,
   type Point,
   SOCKET_HALF_H,
+  SOCKET_HALF_W,
   scuttleBox,
   scuttleFade,
   scuttleHangDrop,
@@ -102,10 +104,13 @@ export function drawScuttle(
       const shift = l.tile * (scuttlePartCol(s, cfg, i) - scuttleSocketCol(cfg, i));
       const at = { x: c.x + shift, y: c.y + hang };
       drawThread(ctx, l, c, at, fade);
-      if (live) {
-        fx.note(at.x, at.y);
-        drawLivePart(ctx, l, at, part.color, time, fade);
-      } else drawPlate(ctx, l, at, fade, PLATE_HALF_H);
+      if (live) fx.note(at.x, at.y);
+      // Each twists on its thread about its middle (`scuttle-glance.ts`).
+      drawScuttleGlanced(ctx, { ...at, r: l.tile * SOCKET_HALF_W }, i, time, (g) =>
+        live
+          ? drawLivePart(g, l, at, part.color, time, fade)
+          : drawPlate(g, l, at, fade, PLATE_HALF_H),
+      );
     }
   }
   if (lively) drawScuttleLock(ctx, l, cfg, s, time, fade);
@@ -149,9 +154,10 @@ function drawPlate(
   c: Point,
   fade: number,
   half = SOCKET_HALF_H,
-): void {
+): Path2D {
   const p = scuttlePlatePath(l, c, fade, half);
   paintPlate(ctx, p, c, l.tile, half, PALETTE.rock, 0.55, fade);
+  return p;
 }
 
 /** The thread a loose part hangs on, from its socket's floor to the plate. */
@@ -181,10 +187,11 @@ function drawLivePart(
   color: Color,
   time: number,
   fade: number,
-): void {
+): Path2D {
   const breath = Math.sin(time * 6);
   const p = scuttlePlatePath(l, at, fade * (1 + 0.06 * breath), PLATE_HALF_H);
   paintPlate(ctx, p, at, l.tile, PLATE_HALF_H, PALETTE[color], 0.85, fade);
   const rim = color === "red" ? PALETTE.redRim : PALETTE.cyanRim;
   paintLiveRim(ctx, p, at.x, at.y, l.tile, faded(rim, fade), 0.6 + 0.3 * breath);
+  return p;
 }

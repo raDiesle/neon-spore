@@ -23,6 +23,7 @@ import { PINBALL_GLANCE, PINBALL_GLANCE_SIZE } from "../src/pinball-glance.js";
 import { PULSE_GLANCE, PULSE_GLANCE_SIZE } from "../src/pulse-glance.js";
 import { QUEEN_GLANCE, QUEEN_GLANCE_HOLD, QUEEN_GLANCE_SIZE } from "../src/queen-glance.js";
 import { REPRISE_GLANCE, REPRISE_GLANCE_SIZE } from "../src/reprise-glance.js";
+import { SCUTTLE_GLANCE, SCUTTLE_GLANCE_SIZE } from "../src/scuttle-glance.js";
 import { SINEW_GLANCE, SINEW_GLANCE_SIZE } from "../src/sinew-glance.js";
 import { SPLICE_GLANCE, SPLICE_GLANCE_SIZE } from "../src/splice-glance.js";
 import { STARE_GLANCE, STARE_GLANCE_SIZE } from "../src/stare-glance.js";
@@ -82,6 +83,7 @@ const ROWS: readonly Row[] = [
   { name: "THE LEDGER", record: LEDGER_GLANCE, size: LEDGER_GLANCE_SIZE, hold: 0 },
   { name: "THE SURGE", record: SURGE_GLANCE, size: SURGE_GLANCE_SIZE, hold: 0 },
   { name: "THE LEAD", record: LEAD_GLANCE, size: LEAD_GLANCE_SIZE, hold: 0 },
+  { name: "THE SCUTTLE", record: SCUTTLE_GLANCE, size: SCUTTLE_GLANCE_SIZE, hold: 0 },
 ];
 
 const R = 100;
