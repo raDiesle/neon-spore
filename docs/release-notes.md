@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-14 · 605b304fb — A lane is told to come up to the local main, and `bun run here` warns when it has not
+
+The lane skill's open step now says `git merge --ff-only main` after the checkout: fetching `origin` says *already up to date* while the local `main` holds landings nobody has pushed, and two lanes on 10 October 2026 started behind their own trunk that way. `bun run here`, which every lane that previews runs, prints how many commits `HEAD` is behind the local `main` when it is (`behindMain`, tested on a real two-commit repository).
+
 ## 2026-10-14 · a69960fc7 — THE LID's cord and THE BALLOON's handles count once at the reach
 
 The last two of the five LEVER rows are on the one generic PULL, answered (b). A cord pulled taut stays counted until the hand lets go (`lidCounted`, hashed): the lens stays bare and the plates stand full open even if the hand eases. A balloon side pulled taut stays taut until its hand lets go (`balloonCounted`, a bit a seat, hashed), so easing inside the hold no longer gives it back; only a lift does. Either one let go short of taut says `pullShort`. THE LID's shot answer moved to `lid-struck.ts` at the size ceiling. Queued: a tap on a cord resting under the chrome's bound reads as a pull. Every replay hash still agrees between runs.
