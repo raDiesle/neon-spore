@@ -1,12 +1,16 @@
 import type { AntiphonState, World } from "@neon-spore/sim";
+import { antiphonMantleFrame } from "./antiphon-glance.js";
 import { antiphonBox } from "./antiphon-shape.js";
 import type { Stopper } from "./bolt-stop.js";
+import { glancedPoint, glanceSqueeze } from "./glance.js";
 import type { Layout } from "./layout.js";
 
-/** How the body is drawn this frame: shaken `shift` across and `fade` of its width. */
+/** How the body is drawn this frame: shaken `shift` across, `fade` of its width, turned at `time` unless `still`. */
 export interface AntiphonLook {
   shift: number;
   fade: number;
+  time: number;
+  still: boolean;
 }
 
 /**
@@ -25,7 +29,16 @@ export function antiphonStopper(
   look: AntiphonLook,
 ): Stopper {
   const box = antiphonBox(l, world.cfg);
-  const mid = (box.left + box.right) * 0.5 + look.shift;
+  const rest = (box.left + box.right) * 0.5;
+  const mid = rest + look.shift;
   const hw = (box.right - box.left) * 0.5 * look.fade;
-  return (_col, x) => (Math.abs(x - mid) < hw ? { y: box.bottom, hit: "body" } : null);
+  // Turned, the underside a bolt meets is the one drawn (`antiphon-glance.ts`).
+  const at = { x: rest, y: (box.top + box.bottom) * 0.5, r: Math.max(1, hw) };
+  const f = antiphonMantleFrame(at, look.time, look.still);
+  return (_col, x) => {
+    const along = f === null ? x - mid : (x - mid) / glanceSqueeze(f, x < mid ? -1 : 1);
+    if (Math.abs(along) >= hw) return null;
+    const y = f === null ? box.bottom : glancedPoint(f, { x: rest + along, y: box.bottom }).y;
+    return { y, hit: "body" };
+  };
 }

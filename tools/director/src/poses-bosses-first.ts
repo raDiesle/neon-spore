@@ -193,7 +193,11 @@ export const FIRST_BOSS_POSES: Pose[] = [
     "antiphon",
     "cycling",
     "The first organ grows, which only P1 sees, over a rail of three only P2 sees. P1 turns it; P2 names it.",
-    { crop: F, want: (w) => w.boss?.kind === "antiphon" && !antiphonDown(w.boss) && w.beat >= 4 },
+    {
+      crop: F,
+      want: (w) => w.boss?.kind === "antiphon" && !antiphonDown(w.boss) && w.beat >= 4,
+      lookAt: "the mantle — whether it turns about its middle, one end swelling, the far end dark",
+    },
   ),
   bossPose(
     "hive",

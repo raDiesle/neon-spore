@@ -6,6 +6,9 @@
 // `index.ts` next door says why it is generated at all.
 
 import type { Variant } from "../variant.js";
+import { ANTIPHON_COCK } from "./antiphon-glance/cock/index.js";
+import { ANTIPHON_LOOK_AROUND } from "./antiphon-glance/look/index.js";
+import { ANTIPHON_SWAY } from "./antiphon-glance/sway/index.js";
 import { BATON_COCK } from "./baton-glance/cock/index.js";
 import { BATON_LOOK_AROUND } from "./baton-glance/look/index.js";
 import { BATON_SWAY } from "./baton-glance/sway/index.js";
@@ -82,6 +85,9 @@ import { WELL_LOOK_AROUND } from "./well-glance/look/index.js";
 import { WELL_SWAY } from "./well-glance/sway/index.js";
 
 export const VARIANTS: Variant[] = [
+  ANTIPHON_COCK,
+  ANTIPHON_LOOK_AROUND,
+  ANTIPHON_SWAY,
   BATON_COCK,
   BATON_LOOK_AROUND,
   BATON_SWAY,

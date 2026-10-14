@@ -10,6 +10,7 @@ import {
 import { mantleTurn, paintMantleDepth, paintPitLip } from "./antiphon-depth.js";
 import { faded, paintMantle, paintPit } from "./antiphon-flesh.js";
 import type { AntiphonFx } from "./antiphon-fx.js";
+import { drawAntiphonGlanced } from "./antiphon-glance.js";
 import { drawAntiphonGrip } from "./antiphon-grip.js";
 import { drawAntiphonRailGrip, drawAntiphonVerdict } from "./antiphon-rail-grip.js";
 import {
@@ -86,7 +87,7 @@ export function drawAntiphon(
   fx.note(s.pits);
 
   const shift = fx.hurt.shakeX(time, l.tile);
-  stops?.aim(antiphonStopper(l, world, s, { shift, fade }));
+  stops?.aim(antiphonStopper(l, world, s, { shift, fade, time, still }));
   ctx.save();
   ctx.translate(shift, 0);
   drawBody(ctx, l, cfg, time, fade, still, fx.hurt.value);
@@ -160,9 +161,14 @@ function drawBody(
     lobes: antiphonHemLobes(cfg),
   };
   const turn = mantleTurn(time, still);
-  paintMantle(ctx, path, mantle, fade, still, turn);
-  paintMantleDepth(ctx, path, mantle, turn, fade);
-  drawHurt(ctx, path, hurt * fade);
+  // And it turns about its middle, the pits held at their spots (`antiphon-glance.ts`).
+  const at = { x: mid, y: (box.top + box.bottom) * 0.5, r: Math.max(1, hw) };
+  drawAntiphonGlanced(ctx, at, time, still, (g) => {
+    paintMantle(g, path, mantle, fade, still, turn);
+    paintMantleDepth(g, path, mantle, turn, fade);
+    drawHurt(g, path, hurt * fade);
+    return path;
+  });
 }
 
 /** A pit: the shape that made it, sunk into the body small and dark, a wet socket. */

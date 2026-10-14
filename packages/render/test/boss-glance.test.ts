@@ -1,4 +1,5 @@
 import { describe, expect, it } from "bun:test";
+import { ANTIPHON_GLANCE, ANTIPHON_GLANCE_SIZE } from "../src/antiphon-glance.js";
 import { BATON_GLANCE, BATON_GLANCE_SIZE } from "../src/baton-glance.js";
 import { CAIRN_GLANCE, CAIRN_GLANCE_SIZE } from "../src/cairn-glance.js";
 import { CURTAIN_GLANCE, CURTAIN_GLANCE_SIZE } from "../src/curtain-glance.js";
@@ -84,6 +85,7 @@ const ROWS: readonly Row[] = [
   { name: "THE SURGE", record: SURGE_GLANCE, size: SURGE_GLANCE_SIZE, hold: 0 },
   { name: "THE LEAD", record: LEAD_GLANCE, size: LEAD_GLANCE_SIZE, hold: 0 },
   { name: "THE SCUTTLE", record: SCUTTLE_GLANCE, size: SCUTTLE_GLANCE_SIZE, hold: 0 },
+  { name: "THE ANTIPHON", record: ANTIPHON_GLANCE, size: ANTIPHON_GLANCE_SIZE, hold: 0 },
 ];
 
 const R = 100;

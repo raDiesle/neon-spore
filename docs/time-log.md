@@ -39353,3 +39353,13 @@ Bottleneck: none to speak of — the hanging plates were the obvious part, and H
 Bottleneck: the readers of the old stroke spread over six packages.
 
 *Measured: 10 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-14 — VERSUS offers THE ANTIPHON's mantle glancing
+
+- reading: 10 min. The entry, §11.31, `antiphon-draw.ts`, `antiphon-depth.ts`, `antiphon-stop.ts`, the pit and box sizes.
+- writing: 15 min. `antiphon-glance.ts`, the mantle's paint wrapped and held while still, the stopper reading the turn and its test, the scaffold.
+- looking: 5 min. Two VERSUS shots and three crops.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: every part but the mantle was a read or too small, and a turn big enough to pass the glance test uncovered the outer column, so the stopper had to read the turn.

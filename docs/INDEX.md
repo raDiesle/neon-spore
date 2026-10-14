@@ -2405,6 +2405,7 @@ by hand never moves.
 | `packages/render/src/antiphon-shape.ts` | **Where THE ANTIPHON is**, in field pixels: the body hung over the top of the field above row 0 |
 | `packages/render/src/antiphon-stop.ts` | **Where a bolt meets THE ANTIPHON**, for `BoltStops` (`bolt-stop.ts`): what each screen draws over the column — a rail bud, the organ, the underside |
 | `packages/render/src/antiphon-grip.ts` | **THE ANTIPHON's first handle: the organ, on the screen it is shown on** |
+| `packages/render/src/antiphon-glance.ts` | **THE ANTIPHON's mantle glances** — the owner, 9 and 10 October 2026: *body parts of living things turn . |
 | `packages/render/src/antiphon-rail-grip.ts` | **THE ANTIPHON's second handle: the rail, on the one screen it hangs on** — a ring on every candidate… |
 | `packages/render/src/antiphon-reveal.ts` | THE ANTIPHON's reveal: the candidate carried home standing at the organ's place on every screen for a moment |
 | `packages/render/src/antiphon-marks.ts` | **THE ANTIPHON's two handles answering a touch the way every mark does** (`mark-feedback.ts` |

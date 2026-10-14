@@ -6405,6 +6405,17 @@ is a conversation or a wait — the owner's eye.
 
 **What is not built — a step seen from another side** (suggested 10 October 2026, after the owner on THE BASTION: *very 3 dimensional and even user action is 3d to rotate*). The organ turns its back to one screen only; the one who sees the back describes it, and the other turns the organ until the front matches — a thing nobody has a word for, seen from two sides at once.
 
+**Offered (14 October 2026, VERSUS `antiphon:glance`).** The organ and the
+candidates are read by outline and turn, and a pit is too small to be seen
+turning, so the part that turns is the mantle
+(`packages/render/src/antiphon-glance.ts`, which ships still): **about its
+middle**, one end coming forward and the other going back into the dark,
+stopping when the body is still. The pits keep their spots, inside the far
+end at its narrowest, and a bolt is stopped on the underside the turn draws
+(`antiphon-stop.ts`), so one up an outer column the far end has drawn back
+from goes on by. **SWAY**, **LOOK** and **COCK** (`glance-styles.ts`), judged
+on `THE ANTIPHON · CYCLING`.
+
 
 ## 11.32 THE INSTAR — the boss with no panel, marked where it will hurt you
 
