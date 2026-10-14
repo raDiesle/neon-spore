@@ -924,4 +924,13 @@ export const COPIES: Copy[] = [
     owner: "packages/sim/src/shot-charge.ts",
     pattern: /shotChargeBeats:\s*0\.5\b/,
   },
+  {
+    // **The whole-number square root.** THE PINBALL wrote one by Newton's
+    // step and the pulls a second by bisection under a ceiling, and THE
+    // GAUGE's tooth and THE BASTION's port took whichever was nearer (15
+    // October 2026). A third is a length two files round differently.
+    call: "isqrt",
+    owner: "packages/sim/src/isqrt.ts",
+    pattern: /\bfunction\s+\w*sqrt\w*\s*\(|\bmid\s*\*\s*mid\s*<=/i,
+  },
 ];

@@ -73,7 +73,6 @@ export {
 } from "./pinball-board.js";
 export {
   hitPiece,
-  isqrt,
   PIN_PIECE_KINDS,
   PIN_THIN_MILLI,
   type PinBall,

@@ -1,12 +1,7 @@
 import { describe, expect, it } from "bun:test";
 import { DEFAULT_CONFIG } from "../src/config.js";
-import {
-  hitPiece,
-  isqrt,
-  PIN_THIN_MILLI,
-  type PinBall,
-  type PinPiece,
-} from "../src/pinball-contact.js";
+import { isqrt } from "../src/isqrt.js";
+import { hitPiece, PIN_THIN_MILLI, type PinBall, type PinPiece } from "../src/pinball-contact.js";
 import { pinFunnels } from "../src/pinball-funnel.js";
 import { type PinPhysics, stepBall } from "../src/pinball-physics.js";
 
@@ -83,6 +78,16 @@ describe("isqrt", () => {
     // The diagonal of the table, squared, is the biggest thing ever passed in.
     const diag2 = PHYS.widthMilli * PHYS.widthMilli + PHYS.heightMilli * PHYS.heightMilli;
     for (const n of [diag2 - 1, diag2, 999_999, 1_000_000, 1_000_001]) {
+      const r = isqrt(n);
+      expect(r * r).toBeLessThanOrEqual(n);
+      expect((r + 1) * (r + 1)).toBeGreaterThan(n);
+    }
+  });
+
+  it("has no ceiling, where the pulls' bisection stopped at 46340", () => {
+    // The pulls took a second square root, capped at the largest root under
+    // 2^31, until 15 October 2026 (`isqrt.ts`).
+    for (const n of [46340 * 46340, 46341 * 46341, 46341 * 46341 - 1, 10 ** 12 + 7]) {
       const r = isqrt(n);
       expect(r * r).toBeLessThanOrEqual(n);
       expect((r + 1) * (r + 1)).toBeGreaterThan(n);

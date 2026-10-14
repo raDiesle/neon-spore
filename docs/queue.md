@@ -328,14 +328,6 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/skipped.test.ts` holds the listing's count of the entries
 `next` stepped past and why.
 
-## Two integer square roots in sim, `isqrt` written twice
-
-- **Found:** 2026-10-14, claude/queue-one-generic-pull-the-curved-and-rope-pulls-onto
-- **Taken:** 2026-10-14, main (claim: claude/queue-two-integer-square-roots-in-sim-isqrt-written-tw)
-- **Files:** `packages/sim/src/handle-pull.ts`, `packages/sim/src/pinball-contact.ts`, `packages/sim/test/copies-table.ts`
-
-Both export `isqrt`: `handle-pull.ts` by bisection up to 46340, `pinball-contact.ts` by Newton's step with no ceiling. Keep the one without a ceiling in a small `isqrt.ts`, import it in both places (and in `gauge-tooth.ts`, which takes `handle-pull.ts`'s now), and add a `COPIES` row so a third is not written.
-
 ## `land` misses a queue title wrapped across two lines of a commit message
 
 - **Found:** 2026-10-14, claude/queue-the-lids-cord-still-goes-any-direction-the-last

@@ -572,6 +572,7 @@ by hand never moves.
 | `packages/sim/src/instar-words.ts` | **The words THE INSTAR's script is written in**: whose thumb, which part, which gesture, which pose |
 | `packages/sim/src/instar-beat.ts` | **What the beat does to THE INSTAR's marks** while a step is acting — and THE NETTLE's, on the same engine |
 | `packages/sim/src/instar.ts` | THE INSTAR: a body over the field that will not move on until the pair has done what its own picture asks |
+| `packages/sim/src/isqrt.ts` | **The whole-number square root**, the one this package has |
 | `packages/sim/src/bullet-hit-lure.ts` | What a shot does when it meets THE LURE |
 | `packages/sim/src/bullet-hit-shut.ts` | **The bodies a bolt never kills**, and what each of them does with one instead |
 | `packages/sim/src/bullet-refused.ts` | **A body the cannon cannot answer still stops the bolt**, and what each of them does with it |

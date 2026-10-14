@@ -1,4 +1,4 @@
-import { isqrt } from "./handle-pull.js";
+import { isqrt } from "./isqrt.js";
 import { type PullHeard, pullHeard } from "./pull.js";
 
 /**

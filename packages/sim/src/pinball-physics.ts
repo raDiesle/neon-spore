@@ -1,4 +1,5 @@
-import { hitPiece, isqrt, type PinBall, type PinPiece } from "./pinball-contact.js";
+import { isqrt } from "./isqrt.js";
+import { hitPiece, type PinBall, type PinPiece } from "./pinball-contact.js";
 import { stepFunnels } from "./pinball-funnel.js";
 
 /**

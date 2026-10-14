@@ -7,13 +7,13 @@
  * which is one tick of motion made out of it. The dependency runs one way, so
  * a reader after the geometry never has to open the integrator.
  *
- * **`Math.sqrt` is not available here**, and that is the whole reason `isqrt`
- * exists rather than being an optimisation: IEEE-754 does not require it to be
- * correctly rounded, `packages/sim` rounds what it computes into stored
- * integers, and a last-bit difference between two phones lands on either side
- * of a `.5` — after which they are playing different tables from the third
- * bounce onwards (`test/purity.test.ts`).
+ * **`Math.sqrt` is not available here**: a corner's distance is `isqrt`
+ * (`isqrt.ts`), because a last-bit difference between two phones lands on
+ * either side of a `.5` — after which they are playing different tables from
+ * the third bounce onwards (`test/purity.test.ts`).
  */
+
+import { isqrt } from "./isqrt.js";
 
 /**
  * The thinnest half-thickness any authored piece may have, in thousandths of a
@@ -63,26 +63,6 @@ export interface PinBall {
   /** Ticks since it was fired, which is what says on which of them gravity
    * is applied (`SimConfig.pinballGravityTicks`). */
   ageTicks: number;
-}
-
-/**
- * Integer square root of a non-negative integer, by Newton's method.
- *
- * Exact — the largest `r` with `r * r <= n` — and therefore the same on every
- * engine, which is the entire reason it exists. `Math.floor` rather than `>>1`
- * throughout: the shift is right for every value this game reaches and wrong
- * the first time somebody squares a distance past a 32-bit integer.
- */
-export function isqrt(n: number): number {
-  if (n <= 0) return 0;
-  if (n < 4) return 1;
-  let x = n;
-  let next = Math.floor((x + 1) / 2);
-  while (next < x) {
-    x = next;
-    next = Math.floor((x + Math.floor(n / x)) / 2);
-  }
-  return x;
 }
 
 /** Truncating division, spelled once so no call site reaches for `Math.round`. */

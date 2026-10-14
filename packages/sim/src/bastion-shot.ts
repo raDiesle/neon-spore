@@ -13,8 +13,8 @@ import {
 import { bastionTakes } from "./bastion-step.js";
 import { midCol } from "./config.js";
 import { type CoreVerdict, coreTaken } from "./core-verdict.js";
-import { isqrt } from "./handle-pull.js";
 import { guardArmed } from "./hull-guard.js";
+import { isqrt } from "./isqrt.js";
 import type { Bullet, Color } from "./types.js";
 import type { World } from "./world.js";
 

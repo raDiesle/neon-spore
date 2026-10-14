@@ -41239,3 +41239,16 @@ Bottleneck: reading — whether ninety-seven tests on every wave save would
 undo the point of a fast check; timed, they are half a minute.
 
 *Measured: 10 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-15 — Two integer square roots in sim, `isqrt` written twice
+
+- reading: 5 min. Both roots, their seven importers and the two
+  re-exports into the package's index.
+- writing: 5 min. `isqrt.ts`, the imports, a no-ceiling case, the
+  `COPIES` row, proved against the old bisection copy.
+- looking: 0 min. Nothing drawn.
+- friction: 0 min.
+- landing: 5 min.
+
+Bottleneck: reading — both copies were re-exported from the package, from
+two index pages, so one had to go without a name changing.

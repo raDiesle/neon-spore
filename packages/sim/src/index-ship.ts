@@ -44,7 +44,6 @@ export { carryIsReady, carryPauseLeft, type GripPush, gripPushOf } from "./grip-
 export { type HandMeans, handMeans } from "./hand.js";
 export {
   handleBoundsMilli,
-  isqrt,
   pullIsTaut,
   tileCentreMilli,
 } from "./handle-pull.js";
@@ -55,6 +54,7 @@ export {
   shieldRow,
   ticksSinceGuard,
 } from "./hull.js";
+export { isqrt } from "./isqrt.js";
 export {
   beamTicks,
   type LanceBeam,

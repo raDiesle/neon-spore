@@ -30,32 +30,6 @@ import { pullTravelMilli } from "./pull.js";
  */
 
 /**
- * The whole-number square root of `n`, by bisection over the square — the
- * pattern `purity.test.ts` names when it bans `Math.hypot` and its family.
- *
- * A pull is a length, and a length is a square root; `Math.hypot` is not
- * required to be correctly rounded, so V8 on Android and JavaScriptCore on iOS
- * need not agree in the last bit — and this number is rounded into a stored
- * integer, where half an ulp lands on either side of a boundary and desyncs two
- * phones in a way that reproduces on neither. Bisection uses only `*`, `+`,
- * `>>` and a comparison, all of them exact on integers this size, so both
- * phones walk the same sixteen steps to the same answer.
- *
- * The ceiling is `46340`, the largest whole number whose square is under 2^31 —
- * far past the longest pull a field of tiles can hold.
- */
-export function isqrt(n: number): number {
-  let lo = 0;
-  let hi = 46340;
-  while (lo < hi) {
-    const mid = (lo + hi + 1) >> 1;
-    if (mid * mid <= n) lo = mid;
-    else hi = mid - 1;
-  }
-  return lo;
-}
-
-/**
  * How much of the top row is somebody else's, in thousandths of a tile.
  *
  * One whole tile, and it is the app's chrome rather than the field: the view

@@ -1,5 +1,5 @@
 import type { GaugeState } from "./gauge.js";
-import { isqrt } from "./handle-pull.js";
+import { isqrt } from "./isqrt.js";
 import { pullHeard } from "./pull.js";
 import { nextInt } from "./rng.js";
 import type { Command } from "./types.js";

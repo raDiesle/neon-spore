@@ -1,4 +1,5 @@
-import { isqrt, type PinBall } from "./pinball-contact.js";
+import { isqrt } from "./isqrt.js";
+import type { PinBall } from "./pinball-contact.js";
 import type { PinPhysics } from "./pinball-physics.js";
 
 /**
