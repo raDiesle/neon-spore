@@ -3509,6 +3509,7 @@ by hand never moves.
 | `tools/director/src/compose-place.ts` | **One step of a block, placed** — the table in `docs/spec/wave-curriculum.md` §6 turned into entries |
 | `tools/director/src/compose-ramp.ts` | **The pressures a block's steps land on, chosen together** |
 | `tools/director/src/compose-steps.ts` | **The steps of a block**, as data — `docs/spec/wave-curriculum.md` §3 |
+| `tools/director/src/compose-grow.ts` | **The steps grow with the game**: wider, then mixed, then twinned, every four blocks past the arc |
 | `tools/director/src/compose.ts` | **A block's regular waves, composed** — `docs/spec/wave-curriculum.md` §6 |
 | `tools/director/src/rail-marks.ts` | The small glyphs in front of a wave's name in the rail: a boss, a panel, a guide |
 | `tools/land/say.ts` | What a landing says about itself before and after it happens |

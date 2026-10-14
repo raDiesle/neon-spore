@@ -27,6 +27,9 @@ export interface Step {
   mix: StepMix;
   /** Whether the next arrival lands far from the last: R3 is *Reach*. */
   jump?: true;
+  /** Of every three arrivals, how many land with a twin across the field —
+   * R7's lever, and later blocks' (`compose-grow.ts`). */
+  twins?: number;
   /** How its pressure stands to the wave before it in the block (§5):
    * the gentlest draw, a small rise, or the dip. */
   ramp: "gentlest" | "rise" | "dip";
@@ -102,6 +105,7 @@ export const STEPS: readonly Step[] = [
     span: [40, 48],
     arrivals: [8, 12],
     mix: "xyLever",
+    twins: 1,
     ramp: "rise",
   },
   {
@@ -151,6 +155,12 @@ export function rampOf(
   if (step.ramp === "dip") return [before - DIP[1], Math.min(top, before - DIP[0])];
   return [before + RISE[0], Math.min(top, before + RISE[1] * back)];
 }
+
+/** How far a block's gentlest wave aims above the gentlest of the block
+ * before it — the owner, 14 October 2026: each tooth starts a little higher
+ * than the last. A tenth a block puts block 110, about the thousandth wave,
+ * eleven above the first, still under `PRESSURE_CEILING` once R8 has risen. */
+export const START_RISE = 0.1;
 
 /** Where the gentlest step aims among its draws: low, but not the flattest
  * one there is — a wave of nothing but even eight-beat gaps. */

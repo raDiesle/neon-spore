@@ -136,8 +136,10 @@ arrivals are slicks and bulbs**, in the tutorial and after it.
 3 + 0.1 × *b* could not be aimed at: a wave of slicks eight beats apart scores
 1.2, and a torch block sits higher at every step than a slick block. So a block
 holds its **ramp**, not a number: R1 is the lower quarter of what its draws
-reach, each step after rises 0.3 to 2 over the one before, R5 dips. The tooth
-still drops at the next intro. A rise *across* blocks is not held yet (§8).
+reach, each step after rises 0.3 to 2 over the one before, R5 dips. Across
+blocks (the owner, same day): R1 aims 0.1 above the block before's gentlest
+wave, and every four blocks past the arc the steps grow — **wider, then
+mixed**, then from block 24 **more twins** in R4 and R6–R8 (`compose-grow.ts`).
 
 ## 5. Pressure — the number that says *harder*
 
@@ -229,8 +231,8 @@ Bosses are the owner's to lengthen by hand. This plan only places them.
    end of every row of the director's wave list.
 2. **The composer** — built: `bun run waves:compose`; the arc's five short
    blocks are written. A pod never comes alone (two bodies after each), and
-   R7's lever is a twin across the field. Not held yet: the rise across
-   blocks, and eight later blocks that stall at R7–R8 (`docs/queue.md`).
+   R7's lever is a twin across the field; the rise across blocks is held
+   (§4). Not yet: eight later blocks that stall at R7–R8 (`docs/queue.md`).
 3. **Blocks**, about six per lane, in game order: compose, read, name, land,
    send the sheet.
 4. **The bosses moved** to the end of their blocks (§7), with the guide and

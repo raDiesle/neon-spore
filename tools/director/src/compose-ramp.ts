@@ -17,6 +17,9 @@ import { rampOf, STEPS, type Step } from "./compose-steps.js";
 const RISE_AIM = 1;
 const DIP_AIM = 1.5;
 
+/** Where a step stands in the table, by id: a grown step is a copy. */
+const at = (step: Step): number => STEPS.findIndex((s) => s.id === step.id);
+
 function ideal(step: Step, before: number, back: number): number {
   return step.ramp === "dip" ? before - DIP_AIM : before + RISE_AIM * back;
 }
@@ -45,7 +48,7 @@ export function chooseRamp(
         continue;
       }
       const prev = steps[i - 1];
-      const back = prev ? STEPS.indexOf(step) - STEPS.indexOf(prev) : 1;
+      const back = prev ? at(step) - at(prev) : 1;
       for (const [u, cell] of table[i - 1] ?? []) {
         const [lo, hi] = rampOf(step, u, last, back);
         if (v < lo || v > hi) continue;

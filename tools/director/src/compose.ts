@@ -2,9 +2,10 @@ import { isRegularWave, type Wave, wavePressure } from "@neon-spore/content";
 import { createRng } from "@neon-spore/sim";
 import type { Block } from "./compose-block.js";
 import { autoClears, paperFaults } from "./compose-check.js";
+import { grownStep, notchOf } from "./compose-grow.js";
 import { placeStep } from "./compose-place.js";
 import { chooseRamp } from "./compose-ramp.js";
-import { GENTLEST_QUANTILE, type Step, stepsToCompose } from "./compose-steps.js";
+import { GENTLEST_QUANTILE, START_RISE, type Step, stepsToCompose } from "./compose-steps.js";
 
 /**
  * **A block's regular waves, composed** — `docs/spec/wave-curriculum.md` §6.
@@ -79,7 +80,8 @@ export function composeBlock(
   introId: string,
   seed = 0,
 ): Composed[] {
-  const steps = stepsToCompose(block.tutorial, block.existing);
+  const notch = notchOf(block.sinceTutorial);
+  const steps = stepsToCompose(block.tutorial, block.existing).map((s) => grownStep(s, notch));
   const draws = steps.map((step) => drawsOf(block, step, introId, seed));
   for (const [i, d] of draws.entries()) {
     if (d.kept.length > 0) continue;
@@ -89,7 +91,10 @@ export function composeBlock(
   // A pressure whose every draw AUTO loses is struck off, and the ramp is
   // chosen again without it.
   const reach = draws.map((d) => [...new Set(d.kept.map((k) => k.pressure))]);
-  const start = gentlest(draws[0]?.kept.map((k) => k.pressure) ?? []);
+  // Low among the first step's draws, and a little above the block before's
+  // gentlest wave, so each tooth starts higher than the last.
+  const low = gentlest(draws[0]?.kept.map((k) => k.pressure) ?? []);
+  const start = block.floor === undefined ? low : Math.max(low, block.floor + START_RISE);
   const after = nextWritten(waves, block);
   for (;;) {
     const chosen = chooseRamp(steps, reach, start, after);

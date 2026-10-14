@@ -7,6 +7,7 @@ import {
   type WaveEntry,
   waveCols,
   waveIntroduces,
+  wavePressure,
 } from "@neon-spore/content";
 import type { PodEntry } from "@neon-spore/sim";
 import { TUTORIAL_LAST_ID } from "./compose-steps.js";
@@ -44,6 +45,12 @@ export interface Block {
   tutorial: boolean;
   /** The block's regular waves that are already written. */
   existing: number;
+  /** Blocks since the tutorial arc ended: 0 for the first after it, -1 in
+   * the arc. What the steps grow by (`compose-grow.ts`). */
+  sinceTutorial: number;
+  /** The gentlest composed regular wave of the nearest block before with one,
+   * which this block's first aims a little above (`START_RISE`). */
+  floor?: number;
   /** Where composed waves go in the list, and the panel they are played on. */
   insertAt: number;
   controls: Wave["controls"];
@@ -92,6 +99,19 @@ export function motifsIn(wave: Wave, id: string): Motif[] {
   return out;
 }
 
+/** The lowest pressure among the composed regular waves between two intros.
+ * A hand-made one stands for a block's last steps (`stepsToCompose`), so it
+ * is no block's gentlest. */
+function floorOf(waves: readonly Wave[], from: number, to: number): number | undefined {
+  let low: number | undefined;
+  for (let i = from + 1; i < to; i++) {
+    const wave = waves[i];
+    const p = wave?.variant && isRegularWave(waves, i) ? wavePressure(wave) : undefined;
+    if (p !== undefined && (low === undefined || p < low)) low = p;
+  }
+  return low;
+}
+
 /** The block a wave introduces, or a reason it is not one. */
 export function readBlock(waves: readonly Wave[], introId: string): Block | string {
   const intro = waves.findIndex((w) => w.id === introId);
@@ -107,6 +127,9 @@ export function readBlock(waves: readonly Wave[], introId: string): Block | stri
   const next = intros[number + 1]?.index ?? waves.length;
   const last = waves.findIndex((w) => w.id === TUTORIAL_LAST_ID);
   const tutorial = intro <= last;
+  const sinceTutorial = tutorial
+    ? -1
+    : intros.filter((b) => b.index > last && b.index < intro).length;
   let insertAt = intro + 1;
   while (insertAt < next && !waves[insertAt]?.boss && !isRegularWave(waves, insertAt)) insertAt++;
   let existing = 0;
@@ -114,6 +137,12 @@ export function readBlock(waves: readonly Wave[], introId: string): Block | stri
     if (isRegularWave(waves, i)) existing++;
   }
   const before = intros.slice(0, number);
+  // The nearest block before with a regular wave written: one the composer
+  // could not fill yet does not drop the next tooth back to the bottom.
+  let floor: number | undefined;
+  for (let j = number - 1; j >= 0 && floor === undefined; j--) {
+    floor = floorOf(waves, intros[j]?.index ?? 0, intros[j + 1]?.index ?? intro);
+  }
   const motifs = new Map<string, Motif[]>();
   for (const b of [...before, intros[number]]) {
     const wave = b && waves[b.index];
@@ -129,6 +158,8 @@ export function readBlock(waves: readonly Wave[], introId: string): Block | stri
     motifs,
     tutorial,
     existing,
+    sinceTutorial,
+    ...(floor === undefined ? {} : { floor }),
     insertAt,
     controls: waves[insertAt - 1]?.controls,
   };

@@ -101,8 +101,9 @@ export function placeStep(block: Block, step: Step, rng: Rng): Pick<Wave, "entri
     const placed = put(motif, beat, col);
     entries.push(...(placed.entries ?? []));
     pods.push(...(placed.pods ?? []));
-    // R7's lever: one arrival in three lands with a twin across the field.
-    if (step.mix === "xyLever" && k % 3 === 1 && motif.pods.length === 0) {
+    // R7's lever: one arrival in three lands with a twin across the field —
+    // the second of each three, then the third, then the first.
+    if ((k + 2) % 3 < (step.twins ?? 0) && motif.pods.length === 0) {
       entries.push(...(put(motif, beat, partner(col)).entries ?? []));
     }
     if (entries.length + pods.length >= step.arrivals[1]) break;

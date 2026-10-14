@@ -40763,3 +40763,17 @@ Bottleneck: reading — the registrations are a list THE CHRYSALIS's commit
 holds better than any page, so its diff was read file by file.
 
 *Measured: 26 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
+
+## 2026-10-14 — Each block's first wave starts a little above the block before's
+
+- reading: 5 min. The ramp, the step table, and what each step can reach.
+- writing: 20 min. The floor, the steps growing wider then mixed, the twins
+  for the harder half, and their tests.
+- looking: 15 min. Three composed chains of 33 blocks, in memory, read for
+  where the climb stopped.
+- friction: 5 min. A grown step is a copy, and the ramp found steps by
+  identity; found by id now.
+- landing: 5 min.
+
+Bottleneck: looking — every lever's ceiling only showed once a whole chain
+was composed, a few minutes a run.
