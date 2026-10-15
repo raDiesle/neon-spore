@@ -41659,3 +41659,5 @@ took a script, and the script took two tries.
 
 Bottleneck: friction — the save's cut trusted the serializer's line count,
 and only a real save of a moved boss showed it was a third short.
+
+*Measured: 18 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*

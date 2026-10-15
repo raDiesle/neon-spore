@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-15 · 55295bbd1 — The bosses close their blocks: one after each block's eighth regular wave
+
+`bun run waves:bosses --write` moves every boss past the tutorial arc to the end of the first block after which its panel, its buttons and every body it carries have been taught, one boss to a block, in the order they shipped. Thirty-four now close a block, about one every ten waves from BULB QUEEN at 41; the twenty-two with no block left wait after THE HUSK's, and the command places them as blocks are written. THE INSTAR and THE BASTION stay in the arc. A look the owner asked for by name (wave-curriculum §7).
+
 ## 2026-10-15 · e22d2acd1 — The op-count budgets count what a glancing part draws
 
 A glancing part is drawn on a scratch layer and laid on the screen as one drawImage, and the stub tallied each context on its own, so the budgets saw the blit and none of the part. glance-layer.ts now names its two canvases layer:..., and the stub counts a layer canvas's ops, log and calls as the frame's, as new Path2D already was. Eleven rows in five budget files rose and each has a dated sentence; THE INSTAR's head is back in its rows once, and THE FLEET's p1 strokes read 84 again. Seven colour tests no longer hold their boss still; glow-faded keeps the hold, since a layer is laid down at full alpha by design. Nothing is drawn differently: an id on an offscreen canvas is not a look.
