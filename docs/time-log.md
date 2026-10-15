@@ -42610,3 +42610,5 @@ Bottleneck: the perf runs — a pass and a flush could only be told apart by A/B
 
 Bottleneck: reading — five composer files decide one block, and the reorder
 has to respect all of them.
+
+*Measured: 8 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*

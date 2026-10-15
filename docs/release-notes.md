@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-15 · 2d1341b63 — The curriculum's order rule, and talk rising beside pressure in the composer
+
+New things are to be taught in rising cost — a thing's pressure weight plus the facts it asks to be said aloud — with bodies and levers (faults, panel lessons) taking turns, and the composer now aims each step's talk at a small rise beside its pressure, R5 dipping, R1 starting from the block before's gentlest talk. Written as decisions 9 and 10 in docs/spec/wave-curriculum.md §4.1 and §5.1; the reorder that applies the order is the next lane.
+
 ## 2026-10-15 · bebee951e — The glance layer costs its flushes, not its passes
 
 Measured on GYRES AGAIN at 4x, interleaved against the unchanged tree: one more drawImage of a canvas already read moved nothing, and one more read of a canvas drawn on since added 2 to 3 ms. A turned body is three flushes, and each stage is forced by lighter's clamp, so the queue entry now asks for a prepass that flushes once a frame rather than for a pass to be cut. No code changed.
