@@ -2210,12 +2210,11 @@
       "id": "theClaw",
       "wave": 218,
       "name": "THE CLAW",
-      "bodies": 2,
-      "arrivals": "6:5494c513",
-      "typical": 2.38,
-      "mean": 2.33,
-      "p90": 2.81,
-      "jitter": 0.284
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
     },
     {
       "id": "theScout",

@@ -41315,3 +41315,17 @@ Bottleneck: reading. The world does not know its panel, and THE CLAW's rocks
 turned out to have no answer on it, which only a probe with no commands showed.
 
 *Measured: 16 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-15 — THE CLAW's rocks have no answer on its panel
+
+- reading: 5 min. When each rock lands with nothing sent, and when the
+  pods could answer them.
+- writing: 15 min. Three rocks moved and one retimed, the hand's hold on a
+  caught pod, a whole-wave test on three seeds proved red without the hold,
+  the today table.
+- looking: 0 min. Nothing drawn.
+- friction: 0 min.
+- landing: 5 min.
+
+Bottleneck: writing. The rocks fall at two speeds, so the first timing
+missed, and the windows were set by probing beat by beat.

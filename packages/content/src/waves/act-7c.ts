@@ -32,6 +32,13 @@ import type { Wave } from "../wave-types.js";
  * same move `act-7e.ts` (as `act-7d.ts`, the day before) made for THE TASTER
  * and THE SINEW.
  *
+ * **THE CLAW's rocks are answered by its pods** since 15 October 2026. The
+ * panel has no shield and a breach loses the wave, and the rock in column 2
+ * landed before anything could clear it, so no pair could pass it. The owner
+ * chose to recompose the rocks rather than give the panel a shield. Two rocks
+ * now land in the shield's own column, each under a ward held on the arm until
+ * its rock is close. Every other rock is on the field when a purge goes in.
+ *
  * **THE STARE's wave has no arrivals** since 29 September 2026, when the
  * eye became a fight of its own — levels of beat patterns
  * (`stare-levels.ts`) and, since 2 October, an eye nothing hurts — and the owner took the rocks
@@ -68,11 +75,11 @@ export const WAVES_ACT_7C: Wave[] = [
     },
     entries: [
       { beat: 4, col: 5, kind: "meteor", color: null },
-      { beat: 14, col: 2, kind: "meteor", color: null },
-      { beat: 24, col: 8, kind: "meteorMedium", color: null },
-      { beat: 36, col: 3, kind: "meteor", color: null },
+      { beat: 14, col: 5, kind: "meteor", color: null },
+      { beat: 32, col: 8, kind: "meteorMedium", color: null },
       { beat: 44, col: 7, kind: "meteor", color: null },
-      { beat: 54, col: 10, kind: "meteorMedium", color: null },
+      { beat: 46, col: 3, kind: "meteor", color: null },
+      { beat: 52, col: 10, kind: "meteorMedium", color: null },
     ],
     pods: [
       { beat: 2, col: 0, row: 4, kind: "ward", cross: 1 },

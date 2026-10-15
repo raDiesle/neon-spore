@@ -1,6 +1,6 @@
 # The waves today, measured
 
-> **Status: a measurement of 2026-10-14**, the evidence for
+> **Status: a measurement of 2026-10-15**, the evidence for
 > `wave-curriculum.md`. Written by `bun run waves:measure`
 > (`tools/probe/measure-waves.ts`) — run it again rather than editing a
 > number here.
@@ -234,7 +234,7 @@ the wave. *Pressure* is `wavePressure`
 | 215 | THE LIMPET | intro | limpet | STANDARD | 6 | 50 | 64 b · 40 s | 8.2 |
 | 216 | THE LEECH | intro | leech | STANDARD | 7 | 48 | 51 b · 32 s | 11.4 |
 | 217 | THE TWITCH | **regular** | — | STANDARD | 10 | 62 | 70 b · 44 s | 8 |
-| 218 | THE CLAW | intro | panel | THE CLAW | 6 | 54 | AUTO fails | 2.9 |
+| 218 | THE CLAW | intro | panel | THE CLAW | 6 | 52 | 57 b · 36 s | 4.9 |
 | 219 | THE SCOUT | boss (special) | scout, panel | THE SCOUT | 0 | 0 | 73 b · 46 s | — |
 | 220 | THE HAUL | boss (special) | — | THE SCOUT | 0 | 0 | 22 b · 14 s | — |
 | 221 | THE STARE | boss | stare | STANDARD | 0 | 0 | 245 b · 153 s | — |

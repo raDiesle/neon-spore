@@ -667,27 +667,3 @@ empty field and no test says so. Export each as a named row from render
 (as `coreRowMilli` is from sim), aim the three zooms at them, and add a
 row to `COPIES` in `packages/sim/test/copies-table.ts`. Prove with
 `bun test tools/director` and `bun run check`.
-
-## THE CLAW's rocks have no answer on its panel
-
-- **Found:** 2026-10-15, claude/queue-auto-loses-the-count-and-the-claw
-- **Taken:** 2026-10-15, claude/queue-auto-loses-the-count-and-the-claw (claim: claude/queue-the-claws-rocks-have-no-answer-on-its-panel)
-- **Files:** `packages/content/src/waves/act-7c.ts`, `packages/hands/src/autopilot-claw.ts`, `docs/spec/wave-curriculum-today.md`
-- **Asks:** How should a pair stop THE CLAW's rocks — recompose the wave's rocks, put a shield on the panel, or let the arm crush a body again?
-
-AUTO now catches all four of THE CLAW's pods (`autopilot-claw.ts`,
-`claw-hand.test.ts`), and the wave is still lost, by anyone: the panel has
-no shield control, every breach fails a wave, and the rocks land on beats
-21, 32, 35, 55, 64 and 67 with no commands sent. The shield stands in
-column 5 for the whole wave, so a ward answers only the rock in column 5;
-the purges arrive on beats 34 and 50. The column-2 rock lands on beat 32,
-before anything could clear it. The options:
-**(a)** recompose the six rocks so each lands in column 5 under a ward, or
-on the field when a purge goes in. This is content only; then teach the
-hand to hold a caught pod on the arm until its rock is close.
-**(b)** add `shield` to the `claw` control set (player 2 has only the mouth),
-so the field hand's shield half plays as it does elsewhere.
-**(c)** have a body the arm closes on crushed rather than dropped, as before
-6 September (`reach.ts` `strikeReach`), without a breach.
-Then run `bun run waves:measure`, and prove the fix with a test that plays
-the whole wave to a clear in `packages/hands` and `bun run check`.
