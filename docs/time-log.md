@@ -42089,3 +42089,5 @@ Bottleneck: a fresh worktree's first read of 4,000 files, which no figure saw.
 - landing: 5 min. `check:fast`, `land`.
 
 Bottleneck: finding a frame with a TAP body up in it.
+
+*Measured: 10 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*

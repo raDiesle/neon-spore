@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-15 · b609c293d — THE BLISTER's TAP is drawn as MOLE, RIDER or CRADLE, one per blister
+
+The owner asked for all three `blister:tap` answers built into the game and taken off VERSUS, as LEVER's were. Each TAP blister now wears one of them under the yellow press, picked off its id so both screens draw the same one: MOLE, a round head with the press for its face and its paws on the lip; RIDER, the press a round pad with a small amber slime riding its shoulder; CRADLE, two tentacles up out of the pore curled over the press like a pearl. All three keep the 1.3 they were last offered at. No blister wears the clover now, so `drawCloverBody` went with it, and VERSUS has no slot open. Exemption: a look the owner asked for by name.
+
 ## 2026-10-15 · 419860f07 — The INDEX.md drift sweep reads its tree before the timed case
 
 `check:fast` in a new lane went red once on the drift sweep with a timeout and green alone straight after. The case read 4,000 files inside a 400 ms figure whose timeout floors at 5 s, and a fresh worktree's first read of them took 12 s; the second took 0.9 s and the check itself 0.15 s. The read now happens in `beforeAll` under the flat hang guard, as the doc-drift sweep already does, and the figure times only the check.
