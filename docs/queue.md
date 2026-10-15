@@ -331,6 +331,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## AUTO loses THE COIL and THE CROSSING in composed waves
 
 - **Found:** 2026-10-14, claude/queue-the-composer-stalls-eight-later-blocks-at-r7-r8
+- **Taken:** 2026-10-15, claude/queue-auto-loses-the-coil-and-the-crossing-in-composed
 - **Files:** `packages/hands/src/autopilot-field-hand.ts`, `tools/director/src/compose-check.ts`
 
 `bun run waves:compose` keeps only waves AUTO clears, and AUTO loses nearly
