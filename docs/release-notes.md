@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-15 · a40cd6a68 — The boss spec says each boss's glance as it ships
+
+Every boss took its glance on 14 October 2026, but forty-eight sections of docs/spec/bosses.md still read "Offered" and "which ships still". Each now reads "Taken (14 October 2026, VERSUS `x:glance`, STYLE)" and names what its packages/render/src/*-glance.ts ships: the style, its reach and roll, how many times it cocks a round and the length of its tempered round, read off the record and temperOf rather than written by hand. THE CAPSTAN's stale pointer to a queue question that is gone went with it.
+
 ## 2026-10-15 · 2e034cd37 — VERSUS offers THE BLISTER's TURN a body built round its knob
 
 `blister:turn` opens with three bodies that say which way round before a thumb is on them and go round with the knob: SNAIL, all shell, whose spiral winds the way the turn runs and turns as the lever winds it; WHEEL, six lobes hooked the way the turn runs like a turbine's blades, turned by the lever; and WORM, a mound whose worm lies curled just inside the channel, its head a little ahead of the knob facing the way to go, crawling round with it. They are judged on a new COMPARED LOOKS pose whose hand winds the knob clockwise a turn and most of another and lifts; anticlockwise is drawn from the same code and not pictured. Exemption: none — a look, offered on VERSUS.

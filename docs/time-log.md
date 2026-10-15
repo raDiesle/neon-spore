@@ -41735,3 +41735,5 @@ that put nothing past the pore patch `beyond` with the shipped nothing.
 
 Bottleneck: the forty-eight paragraphs were written by forty-odd lanes, each
 ending its style sentence its own way.
+
+*Measured: 5 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
