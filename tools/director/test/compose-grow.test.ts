@@ -88,8 +88,11 @@ describe("where a block's first wave aims", () => {
   });
 
   test("a hand-made wave does not set it: it stands for a block's last steps", () => {
-    // THE COIL's one regular wave is hand-made, and its block has no other.
-    expect(block("theCrossing").floor).toBe(block("theCoil").floor);
+    // THE COIL's one regular wave is hand-made, and its block, before its
+    // own were composed, had no other.
+    const { waves } = unwritten("theCoil");
+    const read = (id: string) => readBlock(waves, id) as Block;
+    expect(read("theCrossing").floor).toBe(read("theCoil").floor);
   });
 
   test("a composed block's first wave is not below that floor and a rise", () => {
@@ -156,5 +159,6 @@ test("a block's written waves can lead: the composed ones go after them", () => 
   ]);
   // Then they are the first steps, and the composed ones the rest.
   expect(stepsToCompose(false, 1, true)[0]?.id).toBe("R2");
-  expect(leadingBlock(WAVES, block("theCount"))).toBeUndefined();
+  const count = unwritten("theCount");
+  expect(leadingBlock(count.waves, count.b)).toBeUndefined();
 });

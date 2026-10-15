@@ -41580,3 +41580,18 @@ Bottleneck: writing; the test's own profile was wrong the first time, a
 sample too many for its deltas.
 
 *Measured: 5 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-15 — THE COUNT, THE COIL and THE CROSSING get their regular waves
+
+- reading: 10 min. Why THE COIL's ramp would not fit under THE TWITCH:
+  which pressures each step reaches cleanly at its notch.
+- writing: 20 min. The composer draws again on the next seed, and can let a
+  block's written waves lead; twenty-three waves composed and named; tests.
+- looking: 5 min. Every block's table read.
+- friction: 10 min. Two tests read the list as it now stands, after the
+  waves they asked about were written; the crossing's names ran past twenty
+  letters.
+- landing: 5 min.
+
+Bottleneck: reading — the stall was one unlucky seed, and finding that took
+a step-by-step table of reach built by hand.
