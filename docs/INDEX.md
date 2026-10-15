@@ -1031,6 +1031,7 @@ by hand never moves.
 | `packages/content/src/waves/act-14b-p15.ts` | Cut from `act-14b-p14.ts` by the director's save when that file passed the 250-line ceiling; it plays… |
 | `packages/content/src/waves/act-14b-p16.ts` | Cut from `act-14b-p15.ts` by the director's save when that file passed the 250-line ceiling; it plays… |
 | `packages/content/src/waves/act-14b-p17.ts` | Cut from `act-14b-p16.ts` by the director's save when that file passed the 250-line ceiling; it plays… |
+| `packages/content/src/waves/act-14b-p18.ts` | Cut from `act-14b-p17.ts` by the director's save when that file passed the 250-line ceiling; it plays… |
 | `packages/content/src/waves/act-14b-p5.ts` | Cut from `act-14b-p4.ts` by the director's save when that file passed the 250-line ceiling; it plays straight… |
 | `packages/content/src/waves/act-14b-p6.ts` | Cut from `act-14b-p5.ts` by the director's save when that file passed the 250-line ceiling; it plays straight… |
 | `packages/content/src/waves/act-14b-p7.ts` | Cut from `act-14b-p6.ts` by the director's save when that file passed the 250-line ceiling; it plays straight… |
@@ -3621,6 +3622,7 @@ by hand never moves.
 | `tools/director/src/combo-then-pull.ts` | **One gesture, then a pull in its place** — THE COMBO LAB's `chain` kind (`combo-kinds.ts`) |
 | `tools/director/src/compose-block.ts` | **A block, read off the wave list**: the wave that introduces a thing, what came before it |
 | `tools/director/src/compose-check.ts` | **Whether a composed wave is one to keep** — the checks of `docs/spec/wave-curriculum.md` §6, step 3 |
+| `tools/director/src/compose-control.ts` | **A wave for one on-screen control**: blisters of one gesture and half slicks and bulbs, composed as a block step is |
 | `tools/director/src/compose-place.ts` | **One step of a block, placed** — the table in `docs/spec/wave-curriculum.md` §6 turned into entries |
 | `tools/director/src/compose-ramp.ts` | **The pressures a block's steps land on, chosen together** |
 | `tools/director/src/compose-review.ts` | A review block: eight regular waves in front of a boss that has no block, themed on an old thing; its head counts as a block |
@@ -4223,6 +4225,7 @@ by hand never moves.
 | `tools/director/drop-sheet-paint.ts` | **The PULL LAB's own frames, painted through Skia into one PNG grid** |
 | `tools/director/drop-sheet.ts` | `bun run drop-sheet` — a moment of a PULL LAB pull, up close, with no browser |
 | `tools/director/waves-compose.ts` | `bun run waves:compose <intro id>` — a block's regular waves composed from its intro, checked, and with `--write` put into the act files |
+| `tools/director/waves-controls.ts` | `bun run waves:controls` — one wave per on-screen control, composed, and with `--write` put after FIVE BLISTERS |
 | `tools/director/waves-bosses.ts` | `bun run waves:bosses` — every boss moved to the end of the first block that has taught what it needs, and with `--write` saved |
 | `tools/director/waves-review.ts` | `bun run waves:review` — composes the next review blocks, one after another, and writes them |
 | `tools/director/waves-lessons.ts` | `bun run waves:lessons` — moves every lesson behind its block, composes its eight, places the bosses again |

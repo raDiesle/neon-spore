@@ -1,6 +1,7 @@
 import { describe, expect, test } from "bun:test";
 import { WAVES, type Wave } from "@neon-spore/content";
 import type { SimConfig, World } from "@neon-spore/sim";
+import { fileCosts } from "../../test/figure.js";
 import { playOut, standWave } from "../src/autopilot-play.js";
 import { CHARGES } from "./charges.js";
 
@@ -25,6 +26,10 @@ import { CHARGES } from "./charges.js";
  * hand could answer. FIVE BLISTERS was one while AUTO only tapped a blister;
  * it has all five gestures now (`autopilot-blister.ts`). */
 const HALF_PLAYED = new Set<string>([]);
+
+// Every ordinary wave of the game, played out, per charge: about two and a
+// half seconds idle at 571 waves (15 October 2026), and it grows with the list.
+fileCosts(2500);
 
 /** Wave `index` stood up the way the game starts it. */
 const waveWorld = (index: number, cfg: Partial<SimConfig>): World =>

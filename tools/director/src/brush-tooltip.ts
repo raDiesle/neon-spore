@@ -19,7 +19,8 @@ const GAP = 12;
 export function brushTooltip(brush: Brush): string | undefined {
   if (!BRUSH_MECHANIC[brush]) return undefined;
   const wave = firstWaveFor(brush);
-  return wave ? `First in WAVE ${wave.number} · ${wave.name}` : "No wave carries this yet";
+  if (!wave) return "No wave carries this yet";
+  return `${wave.own ? "Its own wave" : "First in"} WAVE ${wave.number} · ${wave.name}`;
 }
 
 function line(className: string, text: string): HTMLElement {

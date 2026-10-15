@@ -42434,3 +42434,18 @@ Bottleneck: reading — the waves were right; only their rows in the rail said
 otherwise.
 
 *Measured: 8 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
+
+## 2026-10-15 — a CONTROLS brush opens a wave of its own control
+
+- reading: 10 min. `brush-wave.ts`, the composer's block, placement and
+  checks, and where FIVE BLISTERS sits.
+- writing: 10 min. `compose-control.ts`, `waves:controls`, the jump by id,
+  two tests.
+- looking: 0 min. The waves were read as data; none was watched at tempo.
+- friction: 5 min. A heredoc with a doubled backslash refused by the guard;
+  AUTO's every-wave test over its flat 5 s under load 30.
+- landing: 10 min. `baseline:blank`, `bun run index`, the commands line,
+  `check:fast` twice.
+
+Bottleneck: the full-list tests that seven more waves move — the baseline's
+numbers, the index, AUTO's budget — each found by a red run, not beforehand.

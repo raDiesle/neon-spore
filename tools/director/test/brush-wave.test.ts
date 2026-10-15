@@ -1,7 +1,7 @@
 import { describe, expect, test } from "bun:test";
 import { WAVES } from "@neon-spore/content";
 import { firstWaveFor, jumpWaveIndex } from "../src/brush-wave.js";
-import { BRUSHES } from "../src/brushes.js";
+import { BRUSHES, CONTROL_BRUSHES, controlGestureOf } from "../src/brushes.js";
 
 /**
  * Where a Ctrl-click on a brush lands. The palette lights a brush only when
@@ -38,6 +38,24 @@ describe("jumpWaveIndex", () => {
       if (!first) continue;
       expect(WAVES[first.number - 1]?.name, brush).toBe(first.name);
       expect(jumpWaveIndex(WAVES, brush), brush).toBe(first.number - 1);
+    }
+  });
+
+  test("a CONTROLS brush lands on a wave of that control alone", () => {
+    for (const brush of CONTROL_BRUSHES) {
+      const gesture = controlGestureOf(brush) ?? "tap";
+      const wave = WAVES[jumpWaveIndex(WAVES, brush) ?? -1];
+      const blisters = wave?.entries.filter((e) => e.kind === "blister") ?? [];
+      expect(blisters.length, brush).toBeGreaterThanOrEqual(4);
+      for (const e of blisters) expect(e.gesture ?? "tap", brush).toBe(gesture);
+      expect(
+        wave?.entries.some((e) => e.kind === undefined && e.color === "red"),
+        brush,
+      ).toBe(true);
+      expect(
+        wave?.entries.some((e) => e.kind === undefined && e.color === "cyan"),
+        brush,
+      ).toBe(true);
     }
   });
 });

@@ -39,7 +39,8 @@ describe("brushTooltip", () => {
       const tooltip = brushTooltip(brush);
       expect(tooltip, brush).toBeDefined();
       expect(
-        tooltip === "No wave carries this yet" || /^First in WAVE \d+ · /.test(tooltip ?? ""),
+        tooltip === "No wave carries this yet" ||
+          /^(First in|Its own wave) WAVE \d+ · /.test(tooltip ?? ""),
         `${brush}: "${tooltip}"`,
       ).toBe(true);
     }

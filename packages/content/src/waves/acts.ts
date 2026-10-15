@@ -76,6 +76,7 @@ import { WAVES_ACT_14B_P14 } from "./act-14b-p14.js";
 import { WAVES_ACT_14B_P15 } from "./act-14b-p15.js";
 import { WAVES_ACT_14B_P16 } from "./act-14b-p16.js";
 import { WAVES_ACT_14B_P17 } from "./act-14b-p17.js";
+import { WAVES_ACT_14B_P18 } from "./act-14b-p18.js";
 
 /**
  * **The act files, in the order of the game** — the one list of them.
@@ -168,4 +169,5 @@ export const WAVE_ACTS: readonly (readonly Wave[])[] = [
   WAVES_ACT_14B_P15,
   WAVES_ACT_14B_P16,
   WAVES_ACT_14B_P17,
+  WAVES_ACT_14B_P18,
 ];

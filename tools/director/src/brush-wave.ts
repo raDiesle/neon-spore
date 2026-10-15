@@ -1,5 +1,7 @@
 import { type MechanicId, mechanicsInWave, WAVES, type Wave } from "@neon-spore/content";
+import type { BlisterGesture } from "@neon-spore/sim";
 import { BRUSH_KIND, type Brush, CONTROL_BRUSHES } from "./brushes.js";
+import { controlGestureOf, controlWaveId } from "./control-brushes.js";
 
 /**
  * Which wave a brush is first seen in, and how to get there.
@@ -47,6 +49,9 @@ export interface FirstWave {
   /** 1-based, the number the rail draws beside the name. */
   number: number;
   name: string;
+  /** A CONTROLS brush's own wave rather than the first to carry it
+   * (`controlWave`). */
+  own?: true;
 }
 
 /**
@@ -77,8 +82,35 @@ function firstWaveByMechanic(): Map<MechanicId, FirstWave> {
  * (`ERASE`) or no wave carries it yet, both of which are real answers.
  */
 export function firstWaveFor(brush: Brush): FirstWave | undefined {
+  const gesture = controlGestureOf(brush);
+  const own = gesture ? controlWave(gesture) : undefined;
+  if (own) return own;
   const id = BRUSH_MECHANIC[brush];
   return id ? firstWaveByMechanic().get(id) : undefined;
+}
+
+/** Blisters a wave needs, all wearing one gesture, to be that control's own. */
+const OWN_WAVE_BLISTERS = 4;
+
+/**
+ * **A CONTROLS brush lands on its control's own wave** (the owner, 15 October
+ * 2026: a Ctrl-click on TURN went to THE BLISTER, which has no turn in it) —
+ * the one `bun run waves:controls` composed for it, by id, or failing that the
+ * first with at least four blisters and every one of them wanting that
+ * gesture. Every control brush paints the same mechanic, so the first wave to
+ * carry it would answer all seven alike.
+ */
+function controlWave(gesture: BlisterGesture): FirstWave | undefined {
+  const id = controlWaveId(gesture);
+  const composed = WAVES.findIndex((w) => w.id === id);
+  const at = (i: number): FirstWave => ({ number: i + 1, name: WAVES[i]?.name ?? "", own: true });
+  if (composed !== -1) return at(composed);
+  for (const [i, wave] of WAVES.entries()) {
+    const blisters = wave.entries.filter((e) => e.kind === "blister");
+    if (blisters.length < OWN_WAVE_BLISTERS) continue;
+    if (blisters.every((e) => (e.gesture ?? "tap") === gesture)) return at(i);
+  }
+  return undefined;
 }
 
 /**

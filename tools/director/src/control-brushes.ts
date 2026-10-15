@@ -35,6 +35,12 @@ export function controlGestureOf(brush: string): BlisterGesture | null {
     : null;
 }
 
+/** The id of a control's own wave, which `bun run waves:controls` writes and
+ * a Ctrl-click on its brush opens (`brush-wave.ts`). */
+export function controlWaveId(gesture: BlisterGesture): string {
+  return `${gesture}Blisters`;
+}
+
 /** The brush a placed blister reads back as. */
 export function controlBrushOf(gesture: BlisterGesture | undefined): ControlBrush {
   return `control:${gesture ?? "tap"}`;
