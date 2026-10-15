@@ -13,9 +13,10 @@ waves into the act files once, the owner reads them, and from then on they are
 waves like any other — they open in the director, any arrival can be dragged,
 and the game does not know they were composed.
 
-Today: **396 waves**. 56 bring something new (an *intro*), 56 are bosses, and
-284 are *regular* — waves that bring nothing new and need no tutorial. Most of
-the regular ones are composed.
+Today: **564 waves**. 56 bring something new (an *intro*), 56 are bosses, and
+452 are *regular* — waves that bring nothing new and need no tutorial. Most of
+the regular ones are composed. AUTO plays the whole game in 4 h 35 min; a pair
+needs about 9 h.
 
 ## The shape: a block
 
@@ -105,10 +106,25 @@ Inside a block, pressure climbs in small steps:
 Each boss goes to **the end of the first block after which everything it needs
 has been taught** — its panel, every button on it, the hold, and every body it
 carries — one boss to a block, in the order they were made. The tutorial keeps
-THE INSTAR and THE BASTION where they are. There are more bosses than blocks
-today, so **22 bosses wait at the end**, in order; each new block written takes
-the next one. A boss's length is the owner's to adjust by hand: the boss table
+THE INSTAR and THE BASTION where they are. There are more bosses than things
+to teach, so the last 21 bosses each close a **review block** (below); every
+boss now has eight regular waves in front of it. A boss's length is the owner's to adjust by hand: the boss table
 in `wave-curriculum-today.md` marks each one short, in band or long.
+
+## Review blocks
+
+A **review block** is a block with no intro: eight regular waves in front of a
+boss that had no block of its own. Its **theme** is a thing the game already
+taught, in the order it was taught from THE LURE — LURES RETURN … LURES
+SUMMIT before THE HASP, THROBS RETURN … before THE RATCHET, and so on to the
+crawlers before THE HYDRA. It is composed with its theme block's own eight
+steps, one notch further on, on the panel the game has reached, and starts a
+little above the gentlest wave of the block before. Its first wave (RETURN)
+is not a variant, so the director folds the other seven under it.
+
+The names follow the steps: RETURN, WIDER, OUT WIDE, IN PAIRS, AT REST,
+RECALLED, DOUBLED, SUMMIT. A new boss written later gets one with
+`bun run waves:review --write`.
 
 ## Using it
 
@@ -116,6 +132,7 @@ in `wave-curriculum-today.md` marks each one short, in band or long.
 |---|---|
 | `bun run waves:compose <intro id>` | Composes a block's regular waves and prints the table: step, id, span, arrivals, pressure, AUTO's time. Writes nothing. |
 | `… --write --names "…"` | Writes them after the intro, named in order — one string, the names split by a vertical bar. `--seed N` draws again. |
+| `bun run waves:review [--count N] --write` | Composes the next review blocks, each in front of a boss waiting at the end, named from its theme. |
 | `bun run waves:bosses --write` | Moves every boss to its block. Run after a block is written. |
 | `bun run waves:measure` | Plays every wave with AUTO and rewrites `wave-curriculum-today.md`. |
 | `bun run briefings:renumber` | Puts today's wave numbers into `briefings.md`, which names waves by number. |
@@ -138,6 +155,7 @@ is missing.
 | `tools/director/src/compose-grow.ts` | how the steps grow every four blocks |
 | `tools/director/src/compose-place.ts` | placing arrivals for one step |
 | `tools/director/src/compose-check.ts` | the checks, AUTO included |
+| `tools/director/src/compose-review.ts` | review blocks: their theme, place and floor |
 | `tools/director/src/boss-slots.ts` | where each boss goes |
 | `tools/probe/measure-waves.ts` | the measured table |
 | `packages/content/src/wave-pressure.ts` | pressure |

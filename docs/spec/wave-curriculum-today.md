@@ -19,10 +19,10 @@ guess. *Pressure* is `wavePressure`
 
 | Kind | Waves | AUTO fails | Shortest (s) | Median (s) | Longest (s) | AUTO, all of them | A pair, about |
 |---|---|---|---|---|---|---|---|
-| regular | 284 | 0 | 4 | 26 | 61 | 2 h 11 min | 4 h 22 min |
+| regular | 452 | 0 | 4 | 26 | 61 | 3 h 28 min | 6 h 56 min |
 | intro | 56 | 0 | 3 | 21 | 48 | 20 min | 41 min |
 | boss | 56 | 0 | 9 | 28 | 343 | 46 min | 1 h 33 min |
-| every wave | 396 | 0 | 3 | 26 | 343 | 3 h 18 min | 6 h 36 min |
+| every wave | 564 | 0 | 3 | 26 | 343 | 4 h 35 min | 9 h 10 min |
 
 ## Every wave
 
@@ -371,7 +371,7 @@ guess. *Pressure* is `wavePressure`
 | 341 | MINES AND TWINS | **regular** | THE MINE | — | STANDARD | 12 | 44 | 48 | 30 | 60 | 11.8 |
 | 342 | MINE PEAK | **regular** | THE MINE | — | STANDARD | 18 | 48 | 52 | 33 | 66 | 12.8 |
 | 343 | THE REPRISE | boss | THE MINE | reprise | STANDARD | 7 | 21 | 41 | 26 | 52 | — |
-| 344 | THE BLISTER | intro | THE BLISTER | blister | STANDARD | 2 | 12 | 20 | 13 | 26 | 2.4 |
+| 344 | THE BLISTER | intro | THE BLISTER | blister | STANDARD | 2 | 12 | 16 | 10 | 20 | 2.4 |
 | 345 | BLISTERS AGAIN | **regular** | THE BLISTER | — | STANDARD | 5 | 29 | 31 | 19 | 38 | 8.4 |
 | 346 | BLISTERS SPREAD | **regular** | THE BLISTER | — | STANDARD | 6 | 32 | 36 | 23 | 46 | 9.3 |
 | 347 | BLISTERS FAR APART | **regular** | THE BLISTER | — | STANDARD | 6 | 29 | 37 | 23 | 46 | 10.3 |
@@ -401,29 +401,197 @@ guess. *Pressure* is `wavePressure`
 | 371 | EASY HUSKS | **regular** | THE HUSK | — | STANDARD | 6 | 40 | 47 | 29 | 58 | 10 |
 | 372 | HUSK RECALL | **regular** | THE HUSK | — | STANDARD | 8 | 38 | 46 | 29 | 58 | 11 |
 | 373 | HUSKS AND TWINS | **regular** | THE HUSK | — | STANDARD | 9 | 45 | 87 | 54 | 108 | 12 |
-| 374 | FIVE BLISTERS | **regular** | THE HUSK | — | STANDARD | 6 | 41 | 49 | 31 | 62 | 5.7 |
+| 374 | FIVE BLISTERS | **regular** | THE HUSK | — | STANDARD | 6 | 41 | 45 | 28 | 56 | 5.7 |
 | 375 | THE SPOOL | boss | THE HUSK | spool | STANDARD | 0 | 0 | 80 | 50 | 100 | — |
-| 376 | THE HASP | boss | THE HUSK | hasp | STANDARD | 0 | 0 | 21 | 13 | 26 | — |
-| 377 | THE RATCHET | boss | THE HUSK | ratchet | STANDARD | 0 | 0 | 23 | 14 | 28 | — |
-| 378 | THE NETTLE | boss | THE HUSK | nettle | STANDARD 5 | 0 | 0 | 106 | 66 | 132 | — |
-| 379 | THE MANTLE | boss | THE HUSK | mantle | STANDARD | 0 | 0 | 18 | 11 | 22 | — |
-| 380 | THE KEEL | boss | THE HUSK | keel | STANDARD | 0 | 0 | 28 | 18 | 36 | — |
-| 381 | THE VALVE | boss | THE HUSK | valve | STANDARD | 0 | 0 | 16 | 10 | 20 | — |
-| 382 | THE SEAM | boss | THE HUSK | seam | STANDARD | 0 | 0 | 31 | 19 | 38 | — |
-| 383 | THE OCULUS | boss | THE HUSK | oculus | STANDARD | 17 | 86 | 21 | 13 | 26 | — |
-| 384 | THE VISE | boss | THE HUSK | vise | STANDARD | 0 | 0 | 39 | 24 | 48 | — |
-| 385 | THE PLUMB | boss | THE HUSK | plumb | STANDARD | 0 | 0 | 42 | 26 | 52 | — |
-| 386 | THE SLING | boss | THE HUSK | sling | STANDARD | 0 | 0 | 40 | 25 | 50 | — |
-| 387 | THE CAPSTAN | boss | THE HUSK | capstan | STANDARD | 0 | 0 | 21 | 13 | 26 | — |
-| 388 | THE GALL | boss | THE HUSK | gall | STANDARD | 0 | 0 | 23 | 14 | 28 | — |
-| 389 | THE TRAPEZE | boss | THE HUSK | trapeze | STANDARD | 0 | 0 | 53 | 33 | 66 | — |
-| 390 | THE FLUE | boss | THE HUSK | flue, panel | SHOTS | 0 | 0 | 70 | 44 | 88 | — |
-| 391 | THE GOVERNOR | boss | THE HUSK | governor | STANDARD | 0 | 0 | 22 | 14 | 28 | — |
-| 392 | THE LAMPREY | boss | THE HUSK | lamprey | STANDARD | 0 | 0 | 130 | 81 | 162 | — |
-| 393 | THE MIMIC | boss | THE HUSK | mimic | THE SCENE | 0 | 0 | 75 | 47 | 94 | — |
-| 394 | THE LATCH | boss | THE HUSK | latch | THE SCENE | 0 | 0 | 23 | 14 | 28 | — |
-| 395 | THE CHRYSALIS | boss | THE HUSK | chrysalis | STANDARD 5 | 0 | 0 | 74 | 46 | 92 | — |
-| 396 | THE HYDRA | boss | THE HUSK | hydra | STANDARD 5 | 0 | 0 | 68 | 43 | 86 | — |
+| 376 | LURES RETURN | **regular** | LURES RETURN | — | STANDARD | 4 | 32 | 35 | 22 | 44 | 5.8 |
+| 377 | LURES WIDER | **regular** | LURES RETURN | — | STANDARD | 4 | 29 | 33 | 21 | 42 | 6.8 |
+| 378 | LURES OUT WIDE | **regular** | LURES RETURN | — | STANDARD | 4 | 28 | 42 | 26 | 52 | 7.8 |
+| 379 | LURES IN PAIRS | **regular** | LURES RETURN | — | STANDARD | 9 | 40 | 54 | 34 | 68 | 8.8 |
+| 380 | LURES AT REST | **regular** | LURES RETURN | — | STANDARD | 5 | 36 | 50 | 31 | 62 | 7.3 |
+| 381 | LURES RECALLED | **regular** | LURES RETURN | — | STANDARD | 9 | 39 | 53 | 33 | 66 | 8.3 |
+| 382 | LURES DOUBLED | **regular** | LURES RETURN | — | STANDARD | 10 | 41 | 49 | 31 | 62 | 9.3 |
+| 383 | LURES SUMMIT | **regular** | LURES RETURN | — | STANDARD | 15 | 46 | 54 | 34 | 68 | 10.3 |
+| 384 | THE HASP | boss | LURES RETURN | hasp | STANDARD | 0 | 0 | 21 | 13 | 26 | — |
+| 385 | THROBS RETURN | **regular** | THROBS RETURN | — | STANDARD | 4 | 29 | 43 | 27 | 54 | 7.5 |
+| 386 | THROBS WIDER | **regular** | THROBS RETURN | — | STANDARD | 6 | 29 | 37 | 23 | 46 | 8.5 |
+| 387 | THROBS OUT WIDE | **regular** | THROBS RETURN | — | STANDARD | 6 | 27 | 36 | 23 | 46 | 9.5 |
+| 388 | THROBS IN PAIRS | **regular** | THROBS RETURN | — | STANDARD | 11 | 40 | 54 | 34 | 68 | 10.5 |
+| 389 | THROBS AT REST | **regular** | THROBS RETURN | — | STANDARD | 6 | 34 | 36 | 23 | 46 | 9 |
+| 390 | THROBS RECALLED | **regular** | THROBS RETURN | — | STANDARD | 8 | 37 | 41 | 26 | 52 | 10 |
+| 391 | THROBS DOUBLED | **regular** | THROBS RETURN | — | STANDARD | 12 | 44 | 48 | 30 | 60 | 10.9 |
+| 392 | THROBS SUMMIT | **regular** | THROBS RETURN | — | STANDARD | 15 | 43 | 57 | 36 | 72 | 11.8 |
+| 393 | THE RATCHET | boss | THROBS RETURN | ratchet | STANDARD | 0 | 0 | 23 | 14 | 28 | — |
+| 394 | COUNTS RETURN | **regular** | COUNTS RETURN | — | STANDARD | 5 | 29 | 33 | 21 | 42 | 7.6 |
+| 395 | COUNTS WIDER | **regular** | COUNTS RETURN | — | STANDARD | 6 | 28 | 42 | 26 | 52 | 8.6 |
+| 396 | COUNTS OUT WIDE | **regular** | COUNTS RETURN | — | STANDARD | 6 | 27 | 41 | 26 | 52 | 9.6 |
+| 397 | COUNTS IN PAIRS | **regular** | COUNTS RETURN | — | STANDARD | 9 | 39 | 43 | 27 | 54 | 10.6 |
+| 398 | COUNTS AT REST | **regular** | COUNTS RETURN | — | STANDARD | 6 | 36 | 50 | 31 | 62 | 9.1 |
+| 399 | COUNTS RECALLED | **regular** | COUNTS RETURN | — | STANDARD | 10 | 38 | 42 | 26 | 52 | 10.1 |
+| 400 | COUNTS DOUBLED | **regular** | COUNTS RETURN | — | STANDARD | 13 | 47 | 51 | 32 | 64 | 11.1 |
+| 401 | COUNTS SUMMIT | **regular** | COUNTS RETURN | — | STANDARD | 15 | 44 | 48 | 30 | 60 | 12.1 |
+| 402 | THE NETTLE | boss | COUNTS RETURN | nettle | STANDARD 5 | 0 | 0 | 106 | 66 | 132 | — |
+| 403 | SHELLS RETURN | **regular** | SHELLS RETURN | — | STANDARD | 6 | 32 | 35 | 22 | 44 | 7.7 |
+| 404 | SHELLS WIDER | **regular** | SHELLS RETURN | — | STANDARD | 4 | 24 | 28 | 18 | 36 | 8.7 |
+| 405 | SHELLS OUT WIDE | **regular** | SHELLS RETURN | — | STANDARD | 6 | 28 | 31 | 19 | 38 | 9.6 |
+| 406 | SHELLS IN PAIRS | **regular** | SHELLS RETURN | — | STANDARD | 11 | 40 | 44 | 28 | 56 | 10.6 |
+| 407 | SHELLS AT REST | **regular** | SHELLS RETURN | — | STANDARD | 7 | 40 | 48 | 30 | 60 | 9.1 |
+| 408 | SHELLS RECALLED | **regular** | SHELLS RETURN | — | STANDARD | 8 | 39 | 43 | 27 | 54 | 10.1 |
+| 409 | SHELLS DOUBLED | **regular** | SHELLS RETURN | — | STANDARD | 12 | 44 | 48 | 30 | 60 | 11.1 |
+| 410 | SHELLS SUMMIT | **regular** | SHELLS RETURN | — | STANDARD | 17 | 48 | 52 | 33 | 66 | 12.1 |
+| 411 | THE MANTLE | boss | SHELLS RETURN | mantle | STANDARD | 0 | 0 | 18 | 11 | 22 | — |
+| 412 | CLASPS RETURN | **regular** | CLASPS RETURN | — | STANDARD | 6 | 32 | 35 | 22 | 44 | 7.8 |
+| 413 | CLASPS WIDER | **regular** | CLASPS RETURN | — | STANDARD | 6 | 30 | 44 | 28 | 56 | 8.8 |
+| 414 | CLASPS OUT WIDE | **regular** | CLASPS RETURN | — | STANDARD | 6 | 27 | 30 | 19 | 38 | 9.8 |
+| 415 | CLASPS IN PAIRS | **regular** | CLASPS RETURN | — | STANDARD | 11 | 37 | 40 | 25 | 50 | 10.8 |
+| 416 | CLASPS AT REST | **regular** | CLASPS RETURN | — | STANDARD | 7 | 40 | 43 | 27 | 54 | 9.3 |
+| 417 | CLASPS RECALLED | **regular** | CLASPS RETURN | — | STANDARD | 9 | 37 | 40 | 25 | 50 | 10.3 |
+| 418 | CLASPS DOUBLED | **regular** | CLASPS RETURN | — | STANDARD | 12 | 44 | 48 | 30 | 60 | 11.3 |
+| 419 | CLASPS SUMMIT | **regular** | CLASPS RETURN | — | STANDARD | 15 | 44 | 48 | 30 | 60 | 12.3 |
+| 420 | THE KEEL | boss | CLASPS RETURN | keel | STANDARD | 0 | 0 | 28 | 18 | 36 | — |
+| 421 | DARTS RETURN | **regular** | DARTS RETURN | — | STANDARD | 5 | 27 | 30 | 19 | 38 | 7.9 |
+| 422 | DARTS WIDER | **regular** | DARTS RETURN | — | STANDARD | 6 | 28 | 30 | 19 | 38 | 9 |
+| 423 | DARTS OUT WIDE | **regular** | DARTS RETURN | — | STANDARD | 6 | 28 | 31 | 19 | 38 | 10 |
+| 424 | DARTS IN PAIRS | **regular** | DARTS RETURN | — | STANDARD | 10 | 36 | 40 | 25 | 50 | 11 |
+| 425 | DARTS AT REST | **regular** | DARTS RETURN | — | STANDARD | 6 | 36 | 50 | 31 | 62 | 9.6 |
+| 426 | DARTS RECALLED | **regular** | DARTS RETURN | — | STANDARD | 9 | 36 | 39 | 24 | 48 | 10.6 |
+| 427 | DARTS DOUBLED | **regular** | DARTS RETURN | — | STANDARD | 13 | 48 | 51 | 32 | 64 | 11.6 |
+| 428 | DARTS SUMMIT | **regular** | DARTS RETURN | — | STANDARD | 17 | 48 | 52 | 33 | 66 | 12.6 |
+| 429 | THE VALVE | boss | DARTS RETURN | valve | STANDARD | 0 | 0 | 16 | 10 | 20 | — |
+| 430 | VEILS RETURN | **regular** | VEILS RETURN | — | STANDARD | 5 | 30 | 33 | 21 | 42 | 8 |
+| 431 | VEILS WIDER | **regular** | VEILS RETURN | — | STANDARD | 6 | 29 | 32 | 20 | 40 | 9 |
+| 432 | VEILS OUT WIDE | **regular** | VEILS RETURN | — | STANDARD | 6 | 29 | 33 | 21 | 42 | 9.9 |
+| 433 | VEILS IN PAIRS | **regular** | VEILS RETURN | — | STANDARD | 11 | 37 | 40 | 25 | 50 | 10.9 |
+| 434 | VEILS AT REST | **regular** | VEILS RETURN | — | STANDARD | 7 | 39 | 42 | 26 | 52 | 9.4 |
+| 435 | VEILS RECALLED | **regular** | VEILS RETURN | — | STANDARD | 9 | 40 | 43 | 27 | 54 | 10.4 |
+| 436 | VEILS DOUBLED | **regular** | VEILS RETURN | — | STANDARD | 12 | 45 | 49 | 31 | 62 | 11.4 |
+| 437 | VEILS SUMMIT | **regular** | VEILS RETURN | — | STANDARD | 17 | 46 | 49 | 31 | 62 | 12.3 |
+| 438 | THE SEAM | boss | VEILS RETURN | seam | STANDARD | 0 | 0 | 31 | 19 | 38 | — |
+| 439 | HEAVY ROCKS RETURN | **regular** | HEAVY ROCKS RETURN | — | STANDARD | 6 | 32 | 36 | 23 | 46 | 8.1 |
+| 440 | HEAVY ROCKS WIDER | **regular** | HEAVY ROCKS RETURN | — | STANDARD | 6 | 30 | 33 | 21 | 42 | 9.1 |
+| 441 | HEAVY ROCKS OUT WIDE | **regular** | HEAVY ROCKS RETURN | — | STANDARD | 6 | 29 | 32 | 20 | 40 | 10.1 |
+| 442 | HEAVY ROCKS IN PAIRS | **regular** | HEAVY ROCKS RETURN | — | STANDARD | 13 | 39 | 42 | 26 | 52 | 11.1 |
+| 443 | HEAVY ROCKS AT REST | **regular** | HEAVY ROCKS RETURN | — | STANDARD | 6 | 40 | 43 | 27 | 54 | 10 |
+| 444 | HEAVY ROCKS RECALLED | **regular** | HEAVY ROCKS RETURN | — | STANDARD | 10 | 35 | 38 | 24 | 48 | 11.8 |
+| 445 | HEAVY ROCKS DOUBLED | **regular** | HEAVY ROCKS RETURN | — | STANDARD | 18 | 47 | 51 | 32 | 64 | 13.8 |
+| 446 | HEAVY ROCKS SUMMIT | **regular** | HEAVY ROCKS RETURN | — | STANDARD | 20 | 48 | 53 | 33 | 66 | 15.3 |
+| 447 | THE OCULUS | boss | HEAVY ROCKS RETURN | oculus | STANDARD | 17 | 86 | 21 | 13 | 26 | — |
+| 448 | WISPS RETURN | **regular** | WISPS RETURN | — | STANDARD | 5 | 28 | 36 | 23 | 46 | 8.2 |
+| 449 | WISPS WIDER | **regular** | WISPS RETURN | — | STANDARD | 6 | 30 | 33 | 21 | 42 | 9.2 |
+| 450 | WISPS OUT WIDE | **regular** | WISPS RETURN | — | STANDARD | 6 | 28 | 31 | 19 | 38 | 10.2 |
+| 451 | WISPS IN PAIRS | **regular** | WISPS RETURN | — | STANDARD | 11 | 36 | 40 | 25 | 50 | 11.2 |
+| 452 | WISPS AT REST | **regular** | WISPS RETURN | — | STANDARD | 6 | 35 | 38 | 24 | 48 | 9.8 |
+| 453 | WISPS RECALLED | **regular** | WISPS RETURN | — | STANDARD | 10 | 38 | 41 | 26 | 52 | 11.8 |
+| 454 | WISPS DOUBLED | **regular** | WISPS RETURN | — | STANDARD | 15 | 45 | 48 | 30 | 60 | 13.8 |
+| 455 | WISPS SUMMIT | **regular** | WISPS RETURN | — | STANDARD | 21 | 46 | 52 | 33 | 66 | 15.8 |
+| 456 | THE VISE | boss | WISPS RETURN | vise | STANDARD | 0 | 0 | 39 | 24 | 48 | — |
+| 457 | GHOSTS RETURN | **regular** | GHOSTS RETURN | — | STANDARD | 5 | 28 | 31 | 19 | 38 | 8.4 |
+| 458 | GHOSTS WIDER | **regular** | GHOSTS RETURN | — | STANDARD | 5 | 26 | 29 | 18 | 36 | 9.5 |
+| 459 | GHOSTS OUT WIDE | **regular** | GHOSTS RETURN | — | STANDARD | 6 | 27 | 30 | 19 | 38 | 10.5 |
+| 460 | GHOSTS IN PAIRS | **regular** | GHOSTS RETURN | — | STANDARD | 12 | 36 | 40 | 25 | 50 | 11.5 |
+| 461 | GHOSTS AT REST | **regular** | GHOSTS RETURN | — | STANDARD | 6 | 33 | 37 | 23 | 46 | 10 |
+| 462 | GHOSTS RECALLED | **regular** | GHOSTS RETURN | — | STANDARD | 10 | 38 | 41 | 26 | 52 | 11 |
+| 463 | GHOSTS DOUBLED | **regular** | GHOSTS RETURN | — | STANDARD | 14 | 47 | 51 | 32 | 64 | 12 |
+| 464 | GHOSTS SUMMIT | **regular** | GHOSTS RETURN | — | STANDARD | 16 | 43 | 47 | 29 | 58 | 13 |
+| 465 | THE PLUMB | boss | GHOSTS RETURN | plumb | STANDARD | 0 | 0 | 42 | 26 | 52 | — |
+| 466 | ECHOES RETURN | **regular** | ECHOES RETURN | — | STANDARD | 5 | 30 | 33 | 21 | 42 | 8.6 |
+| 467 | ECHOES WIDER | **regular** | ECHOES RETURN | — | STANDARD | 5 | 27 | 30 | 19 | 38 | 9.6 |
+| 468 | ECHOES OUT WIDE | **regular** | ECHOES RETURN | — | STANDARD | 6 | 28 | 42 | 26 | 52 | 10.5 |
+| 469 | ECHOES IN PAIRS | **regular** | ECHOES RETURN | — | STANDARD | 12 | 39 | 42 | 26 | 52 | 11.5 |
+| 470 | ECHOES AT REST | **regular** | ECHOES RETURN | — | STANDARD | 7 | 40 | 48 | 30 | 60 | 10 |
+| 471 | ECHOES RECALLED | **regular** | ECHOES RETURN | — | STANDARD | 10 | 38 | 41 | 26 | 52 | 11 |
+| 472 | ECHOES DOUBLED | **regular** | ECHOES RETURN | — | STANDARD | 14 | 47 | 51 | 32 | 64 | 12 |
+| 473 | ECHOES SUMMIT | **regular** | ECHOES RETURN | — | STANDARD | 16 | 44 | 48 | 30 | 60 | 13 |
+| 474 | THE SLING | boss | ECHOES RETURN | sling | STANDARD | 0 | 0 | 40 | 25 | 50 | — |
+| 475 | RINDS RETURN | **regular** | RINDS RETURN | — | STANDARD | 6 | 32 | 35 | 22 | 44 | 8.7 |
+| 476 | RINDS WIDER | **regular** | RINDS RETURN | — | STANDARD | 6 | 32 | 35 | 22 | 44 | 9.6 |
+| 477 | RINDS OUT WIDE | **regular** | RINDS RETURN | — | STANDARD | 6 | 26 | 34 | 21 | 42 | 10.6 |
+| 478 | RINDS IN PAIRS | **regular** | RINDS RETURN | — | STANDARD | 12 | 37 | 41 | 26 | 52 | 11.6 |
+| 479 | RINDS AT REST | **regular** | RINDS RETURN | — | STANDARD | 7 | 39 | 42 | 26 | 52 | 10 |
+| 480 | RINDS RECALLED | **regular** | RINDS RETURN | — | STANDARD | 10 | 36 | 45 | 28 | 56 | 10.9 |
+| 481 | RINDS DOUBLED | **regular** | RINDS RETURN | — | STANDARD | 14 | 47 | 51 | 32 | 64 | 11.9 |
+| 482 | RINDS SUMMIT | **regular** | RINDS RETURN | — | STANDARD | 16 | 43 | 47 | 29 | 58 | 12.9 |
+| 483 | THE CAPSTAN | boss | RINDS RETURN | capstan | STANDARD | 0 | 0 | 21 | 13 | 26 | — |
+| 484 | GYRES RETURN | **regular** | GYRES RETURN | — | STANDARD | 5 | 28 | 32 | 20 | 40 | 8.7 |
+| 485 | GYRES WIDER | **regular** | GYRES RETURN | — | STANDARD | 6 | 30 | 44 | 28 | 56 | 9.6 |
+| 486 | GYRES OUT WIDE | **regular** | GYRES RETURN | — | STANDARD | 6 | 29 | 32 | 20 | 40 | 10.5 |
+| 487 | GYRES IN PAIRS | **regular** | GYRES RETURN | — | STANDARD | 9 | 38 | 44 | 28 | 56 | 11.5 |
+| 488 | GYRES AT REST | **regular** | GYRES RETURN | — | STANDARD | 7 | 39 | 42 | 26 | 52 | 10 |
+| 489 | GYRES RECALLED | **regular** | GYRES RETURN | — | STANDARD | 10 | 39 | 47 | 29 | 58 | 11 |
+| 490 | GYRES DOUBLED | **regular** | GYRES RETURN | — | STANDARD | 14 | 47 | 51 | 32 | 64 | 12 |
+| 491 | GYRES SUMMIT | **regular** | GYRES RETURN | — | STANDARD | 17 | 47 | 50 | 31 | 62 | 13 |
+| 492 | THE GALL | boss | GYRES RETURN | gall | STANDARD | 0 | 0 | 23 | 14 | 28 | — |
+| 493 | LIDS RETURN | **regular** | LIDS RETURN | — | STANDARD | 6 | 32 | 35 | 22 | 44 | 8.7 |
+| 494 | LIDS WIDER | **regular** | LIDS RETURN | — | STANDARD | 6 | 29 | 33 | 21 | 42 | 9.6 |
+| 495 | LIDS OUT WIDE | **regular** | LIDS RETURN | — | STANDARD | 6 | 30 | 33 | 21 | 42 | 10.5 |
+| 496 | LIDS IN PAIRS | **regular** | LIDS RETURN | — | STANDARD | 12 | 39 | 43 | 27 | 54 | 11.5 |
+| 497 | LIDS AT REST | **regular** | LIDS RETURN | — | STANDARD | 6 | 34 | 38 | 24 | 48 | 10 |
+| 498 | LIDS RECALLED | **regular** | LIDS RETURN | — | STANDARD | 10 | 40 | 43 | 27 | 54 | 11 |
+| 499 | LIDS DOUBLED | **regular** | LIDS RETURN | — | STANDARD | 14 | 48 | 53 | 33 | 66 | 12 |
+| 500 | LIDS SUMMIT | **regular** | LIDS RETURN | — | STANDARD | 19 | 48 | 51 | 32 | 64 | 13 |
+| 501 | THE TRAPEZE | boss | LIDS RETURN | trapeze | STANDARD | 0 | 0 | 53 | 33 | 66 | — |
+| 502 | RECOILS RETURN | **regular** | RECOILS RETURN | — | STANDARD | 5 | 31 | 34 | 21 | 42 | 8.7 |
+| 503 | RECOILS WIDER | **regular** | RECOILS RETURN | — | STANDARD | 6 | 27 | 30 | 19 | 38 | 9.6 |
+| 504 | RECOILS OUT WIDE | **regular** | RECOILS RETURN | — | STANDARD | 6 | 28 | 31 | 19 | 38 | 10.5 |
+| 505 | RECOILS IN PAIRS | **regular** | RECOILS RETURN | — | STANDARD | 11 | 38 | 42 | 26 | 52 | 11.5 |
+| 506 | RECOILS AT REST | **regular** | RECOILS RETURN | — | STANDARD | 6 | 35 | 49 | 31 | 62 | 10 |
+| 507 | RECOILS RECALLED | **regular** | RECOILS RETURN | — | STANDARD | 10 | 38 | 44 | 28 | 56 | 11 |
+| 508 | RECOILS DOUBLED | **regular** | RECOILS RETURN | — | STANDARD | 14 | 48 | 52 | 33 | 66 | 12 |
+| 509 | RECOILS SUMMIT | **regular** | RECOILS RETURN | — | STANDARD | 18 | 46 | 50 | 31 | 62 | 13 |
+| 510 | THE FLUE | boss | RECOILS RETURN | flue, panel | SHOTS | 0 | 0 | 70 | 44 | 88 | — |
+| 511 | CAROMS RETURN | **regular** | CAROMS RETURN | — | STANDARD | 5 | 29 | 40 | 25 | 50 | 8.7 |
+| 512 | CAROMS WIDER | **regular** | CAROMS RETURN | — | STANDARD | 5 | 27 | 38 | 24 | 48 | 9.6 |
+| 513 | CAROMS OUT WIDE | **regular** | CAROMS RETURN | — | STANDARD | 6 | 27 | 35 | 22 | 44 | 10.6 |
+| 514 | CAROMS IN PAIRS | **regular** | CAROMS RETURN | — | STANDARD | 12 | 37 | 46 | 29 | 58 | 11.6 |
+| 515 | CAROMS AT REST | **regular** | CAROMS RETURN | — | STANDARD | 7 | 36 | 39 | 24 | 48 | 10 |
+| 516 | CAROMS RECALLED | **regular** | CAROMS RETURN | — | STANDARD | 10 | 39 | 54 | 34 | 68 | 11 |
+| 517 | CAROMS DOUBLED | **regular** | CAROMS RETURN | — | STANDARD | 14 | 48 | 56 | 35 | 70 | 12 |
+| 518 | CAROMS SUMMIT | **regular** | CAROMS RETURN | — | STANDARD | 16 | 43 | 49 | 31 | 62 | 13 |
+| 519 | THE GOVERNOR | boss | CAROMS RETURN | governor | STANDARD | 0 | 0 | 22 | 14 | 28 | — |
+| 520 | CRYSTALS RETURN | **regular** | CRYSTALS RETURN | — | STANDARD | 4 | 28 | 43 | 27 | 54 | 8.7 |
+| 521 | CRYSTALS WIDER | **regular** | CRYSTALS RETURN | — | STANDARD | 6 | 28 | 38 | 24 | 48 | 9.6 |
+| 522 | CRYSTALS OUT WIDE | **regular** | CRYSTALS RETURN | — | STANDARD | 6 | 27 | 36 | 23 | 46 | 10.5 |
+| 523 | CRYSTALS IN PAIRS | **regular** | CRYSTALS RETURN | — | STANDARD | 10 | 36 | 51 | 32 | 64 | 11.5 |
+| 524 | CRYSTALS AT REST | **regular** | CRYSTALS RETURN | — | STANDARD | 6 | 37 | 44 | 28 | 56 | 10 |
+| 525 | CRYSTALS RECALLED | **regular** | CRYSTALS RETURN | — | STANDARD | 10 | 36 | 40 | 25 | 50 | 11 |
+| 526 | CRYSTALS DOUBLED | **regular** | CRYSTALS RETURN | — | STANDARD | 14 | 47 | 57 | 36 | 72 | 12 |
+| 527 | CRYSTALS SUMMIT | **regular** | CRYSTALS RETURN | — | STANDARD | 17 | 47 | 63 | 39 | 78 | 13 |
+| 528 | THE LAMPREY | boss | CRYSTALS RETURN | lamprey | STANDARD | 0 | 0 | 130 | 81 | 162 | — |
+| 529 | VOLLEYS RETURN | **regular** | VOLLEYS RETURN | — | STANDARD | 5 | 29 | 52 | 33 | 66 | 8.7 |
+| 530 | VOLLEYS WIDER | **regular** | VOLLEYS RETURN | — | STANDARD | 5 | 26 | 50 | 31 | 62 | 9.6 |
+| 531 | VOLLEYS OUT WIDE | **regular** | VOLLEYS RETURN | — | STANDARD | 6 | 27 | 46 | 29 | 58 | 10.5 |
+| 532 | VOLLEYS IN PAIRS | **regular** | VOLLEYS RETURN | — | STANDARD | 9 | 38 | 43 | 27 | 54 | 11.5 |
+| 533 | VOLLEYS AT REST | **regular** | VOLLEYS RETURN | — | STANDARD | 7 | 39 | 42 | 26 | 52 | 10 |
+| 534 | VOLLEYS RECALLED | **regular** | VOLLEYS RETURN | — | STANDARD | 10 | 40 | 70 | 44 | 88 | 11 |
+| 535 | VOLLEYS DOUBLED | **regular** | VOLLEYS RETURN | — | STANDARD | 14 | 48 | 68 | 43 | 86 | 12 |
+| 536 | VOLLEYS SUMMIT | **regular** | VOLLEYS RETURN | — | STANDARD | 19 | 45 | 66 | 41 | 82 | 13 |
+| 537 | THE MIMIC | boss | VOLLEYS RETURN | mimic | THE SCENE | 0 | 0 | 75 | 47 | 94 | — |
+| 538 | VEERS RETURN | **regular** | VEERS RETURN | — | STANDARD | 5 | 29 | 59 | 37 | 74 | 8.7 |
+| 539 | VEERS WIDER | **regular** | VEERS RETURN | — | STANDARD | 6 | 31 | 54 | 34 | 68 | 9.6 |
+| 540 | VEERS OUT WIDE | **regular** | VEERS RETURN | — | STANDARD | 6 | 29 | 53 | 33 | 66 | 10.5 |
+| 541 | VEERS IN PAIRS | **regular** | VEERS RETURN | — | STANDARD | 12 | 40 | 65 | 41 | 82 | 11.5 |
+| 542 | VEERS AT REST | **regular** | VEERS RETURN | — | STANDARD | 6 | 35 | 51 | 32 | 64 | 10 |
+| 543 | VEERS RECALLED | **regular** | VEERS RETURN | — | STANDARD | 10 | 40 | 54 | 34 | 68 | 11 |
+| 544 | VEERS DOUBLED | **regular** | VEERS RETURN | — | STANDARD | 14 | 48 | 73 | 46 | 92 | 12 |
+| 545 | VEERS SUMMIT | **regular** | VEERS RETURN | — | STANDARD | 19 | 48 | 70 | 44 | 88 | 13 |
+| 546 | THE LATCH | boss | VEERS RETURN | latch | THE SCENE | 0 | 0 | 23 | 14 | 28 | — |
+| 547 | STRANDS RETURN | **regular** | STRANDS RETURN | — | STANDARD | 5 | 30 | 44 | 28 | 56 | 8.7 |
+| 548 | STRANDS WIDER | **regular** | STRANDS RETURN | — | STANDARD | 6 | 27 | 35 | 22 | 44 | 9.6 |
+| 549 | STRANDS OUT WIDE | **regular** | STRANDS RETURN | — | STANDARD | 6 | 28 | 36 | 23 | 46 | 10.5 |
+| 550 | STRANDS IN PAIRS | **regular** | STRANDS RETURN | — | STANDARD | 13 | 40 | 45 | 28 | 56 | 11.5 |
+| 551 | STRANDS AT REST | **regular** | STRANDS RETURN | — | STANDARD | 6 | 35 | 38 | 24 | 48 | 10 |
+| 552 | STRANDS RECALLED | **regular** | STRANDS RETURN | — | STANDARD | 10 | 37 | 42 | 26 | 52 | 11 |
+| 553 | STRANDS DOUBLED | **regular** | STRANDS RETURN | — | STANDARD | 14 | 47 | 56 | 35 | 70 | 12 |
+| 554 | STRANDS SUMMIT | **regular** | STRANDS RETURN | — | STANDARD | 19 | 45 | 53 | 33 | 66 | 13 |
+| 555 | THE CHRYSALIS | boss | STRANDS RETURN | chrysalis | STANDARD 5 | 0 | 0 | 74 | 46 | 92 | — |
+| 556 | CRAWLERS RETURN | **regular** | CRAWLERS RETURN | — | STANDARD | 5 | 28 | 39 | 24 | 48 | 8.7 |
+| 557 | CRAWLERS WIDER | **regular** | CRAWLERS RETURN | — | STANDARD | 6 | 28 | 32 | 20 | 40 | 9.6 |
+| 558 | CRAWLERS OUT WIDE | **regular** | CRAWLERS RETURN | — | STANDARD | 6 | 29 | 59 | 37 | 74 | 10.5 |
+| 559 | CRAWLERS IN PAIRS | **regular** | CRAWLERS RETURN | — | STANDARD | 10 | 36 | 40 | 25 | 50 | 11.5 |
+| 560 | CRAWLERS AT REST | **regular** | CRAWLERS RETURN | — | STANDARD | 6 | 34 | 37 | 23 | 46 | 10 |
+| 561 | CRAWLERS RECALLED | **regular** | CRAWLERS RETURN | — | STANDARD | 10 | 37 | 50 | 31 | 62 | 10.9 |
+| 562 | CRAWLERS DOUBLED | **regular** | CRAWLERS RETURN | — | STANDARD | 14 | 48 | 56 | 35 | 70 | 11.9 |
+| 563 | CRAWLERS SUMMIT | **regular** | CRAWLERS RETURN | — | STANDARD | 16 | 44 | 62 | 39 | 78 | 12.9 |
+| 564 | THE HYDRA | boss | CRAWLERS RETURN | hydra | STANDARD 5 | 0 | 0 | 68 | 43 | 86 | — |
 
 ## The bosses against the bands
 
@@ -468,24 +636,24 @@ time × 2 — the owner's accepted guess, never measured.
 | 353 | THE FILAMENT | normal | 82 beats | 51 | 102 s | in band |
 | 365 | THE GIMBAL | normal | 23 beats | 14 | 28 s | short |
 | 375 | THE SPOOL | normal | 80 beats | 50 | 100 s | in band |
-| 376 | THE HASP | normal | 21 beats | 13 | 26 s | short |
-| 377 | THE RATCHET | normal | 23 beats | 14 | 28 s | short |
-| 378 | THE NETTLE | normal | 106 beats | 66 | 132 s | long |
-| 379 | THE MANTLE | normal | 18 beats | 11 | 22 s | short |
-| 380 | THE KEEL | normal | 28 beats | 18 | 36 s | short |
-| 381 | THE VALVE | normal | 16 beats | 10 | 20 s | short |
-| 382 | THE SEAM | normal | 31 beats | 19 | 38 s | short |
-| 383 | THE OCULUS | normal | 21 beats | 13 | 26 s | short |
-| 384 | THE VISE | normal | 39 beats | 24 | 48 s | short |
-| 385 | THE PLUMB | normal | 42 beats | 26 | 52 s | short |
-| 386 | THE SLING | normal | 40 beats | 25 | 50 s | short |
-| 387 | THE CAPSTAN | normal | 21 beats | 13 | 26 s | short |
-| 388 | THE GALL | normal | 23 beats | 14 | 28 s | short |
-| 389 | THE TRAPEZE | normal | 53 beats | 33 | 66 s | in band |
-| 390 | THE FLUE | normal | 70 beats | 44 | 88 s | in band |
-| 391 | THE GOVERNOR | normal | 22 beats | 14 | 28 s | short |
-| 392 | THE LAMPREY | normal | 130 beats | 81 | 162 s | long |
-| 393 | THE MIMIC | normal | 75 beats | 47 | 94 s | in band |
-| 394 | THE LATCH | normal | 23 beats | 14 | 28 s | short |
-| 395 | THE CHRYSALIS | normal | 74 beats | 46 | 92 s | in band |
-| 396 | THE HYDRA | normal | 68 beats | 43 | 86 s | in band |
+| 384 | THE HASP | normal | 21 beats | 13 | 26 s | short |
+| 393 | THE RATCHET | normal | 23 beats | 14 | 28 s | short |
+| 402 | THE NETTLE | normal | 106 beats | 66 | 132 s | long |
+| 411 | THE MANTLE | normal | 18 beats | 11 | 22 s | short |
+| 420 | THE KEEL | normal | 28 beats | 18 | 36 s | short |
+| 429 | THE VALVE | normal | 16 beats | 10 | 20 s | short |
+| 438 | THE SEAM | normal | 31 beats | 19 | 38 s | short |
+| 447 | THE OCULUS | normal | 21 beats | 13 | 26 s | short |
+| 456 | THE VISE | normal | 39 beats | 24 | 48 s | short |
+| 465 | THE PLUMB | normal | 42 beats | 26 | 52 s | short |
+| 474 | THE SLING | normal | 40 beats | 25 | 50 s | short |
+| 483 | THE CAPSTAN | normal | 21 beats | 13 | 26 s | short |
+| 492 | THE GALL | normal | 23 beats | 14 | 28 s | short |
+| 501 | THE TRAPEZE | normal | 53 beats | 33 | 66 s | in band |
+| 510 | THE FLUE | normal | 70 beats | 44 | 88 s | in band |
+| 519 | THE GOVERNOR | normal | 22 beats | 14 | 28 s | short |
+| 528 | THE LAMPREY | normal | 130 beats | 81 | 162 s | long |
+| 537 | THE MIMIC | normal | 75 beats | 47 | 94 s | in band |
+| 546 | THE LATCH | normal | 23 beats | 14 | 28 s | short |
+| 555 | THE CHRYSALIS | normal | 74 beats | 46 | 92 s | in band |
+| 564 | THE HYDRA | normal | 68 beats | 43 | 86 s | in band |

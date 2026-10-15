@@ -3788,8 +3788,88 @@
       "unmeasured": true
     },
     {
-      "id": "theHasp",
+      "id": "reviewLureAgain",
       "wave": 376,
+      "name": "LURES RETURN",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "reviewLureSpread",
+      "wave": 377,
+      "name": "LURES WIDER",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "reviewLureReach",
+      "wave": 378,
+      "name": "LURES OUT WIDE",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "reviewLurePair",
+      "wave": 379,
+      "name": "LURES IN PAIRS",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "reviewLureBreathe",
+      "wave": 380,
+      "name": "LURES AT REST",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "reviewLureRecall",
+      "wave": 381,
+      "name": "LURES RECALLED",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "reviewLureBend",
+      "wave": 382,
+      "name": "LURES DOUBLED",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "reviewLurePeak",
+      "wave": 383,
+      "name": "LURES SUMMIT",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "theHasp",
+      "wave": 384,
       "name": "THE HASP",
       "bodies": 0,
       "typical": 0,
@@ -3798,8 +3878,88 @@
       "unmeasured": true
     },
     {
+      "id": "reviewThrobAgain",
+      "wave": 385,
+      "name": "THROBS RETURN",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "reviewThrobSpread",
+      "wave": 386,
+      "name": "THROBS WIDER",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "reviewThrobReach",
+      "wave": 387,
+      "name": "THROBS OUT WIDE",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "reviewThrobPair",
+      "wave": 388,
+      "name": "THROBS IN PAIRS",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "reviewThrobBreathe",
+      "wave": 389,
+      "name": "THROBS AT REST",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "reviewThrobRecall",
+      "wave": 390,
+      "name": "THROBS RECALLED",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "reviewThrobBend",
+      "wave": 391,
+      "name": "THROBS DOUBLED",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "reviewThrobPeak",
+      "wave": 392,
+      "name": "THROBS SUMMIT",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
       "id": "theRatchet",
-      "wave": 377,
+      "wave": 393,
       "name": "THE RATCHET",
       "bodies": 0,
       "typical": 0,
@@ -3808,8 +3968,88 @@
       "unmeasured": true
     },
     {
+      "id": "reviewCountdownAgain",
+      "wave": 394,
+      "name": "COUNTS RETURN",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "reviewCountdownSpread",
+      "wave": 395,
+      "name": "COUNTS WIDER",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "reviewCountdownReach",
+      "wave": 396,
+      "name": "COUNTS OUT WIDE",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "reviewCountdownPair",
+      "wave": 397,
+      "name": "COUNTS IN PAIRS",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "reviewCountdownBreathe",
+      "wave": 398,
+      "name": "COUNTS AT REST",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "reviewCountdownRecall",
+      "wave": 399,
+      "name": "COUNTS RECALLED",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "reviewCountdownBend",
+      "wave": 400,
+      "name": "COUNTS DOUBLED",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "reviewCountdownPeak",
+      "wave": 401,
+      "name": "COUNTS SUMMIT",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
       "id": "theNettle",
-      "wave": 378,
+      "wave": 402,
       "name": "THE NETTLE",
       "bodies": 0,
       "typical": 0,
@@ -3818,8 +4058,88 @@
       "unmeasured": true
     },
     {
+      "id": "reviewShellAgain",
+      "wave": 403,
+      "name": "SHELLS RETURN",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "reviewShellSpread",
+      "wave": 404,
+      "name": "SHELLS WIDER",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "reviewShellReach",
+      "wave": 405,
+      "name": "SHELLS OUT WIDE",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "reviewShellPair",
+      "wave": 406,
+      "name": "SHELLS IN PAIRS",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "reviewShellBreathe",
+      "wave": 407,
+      "name": "SHELLS AT REST",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "reviewShellRecall",
+      "wave": 408,
+      "name": "SHELLS RECALLED",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "reviewShellBend",
+      "wave": 409,
+      "name": "SHELLS DOUBLED",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "reviewShellPeak",
+      "wave": 410,
+      "name": "SHELLS SUMMIT",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
       "id": "theMantle",
-      "wave": 379,
+      "wave": 411,
       "name": "THE MANTLE",
       "bodies": 0,
       "typical": 0,
@@ -3828,8 +4148,88 @@
       "unmeasured": true
     },
     {
+      "id": "reviewClaspAgain",
+      "wave": 412,
+      "name": "CLASPS RETURN",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "reviewClaspSpread",
+      "wave": 413,
+      "name": "CLASPS WIDER",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "reviewClaspReach",
+      "wave": 414,
+      "name": "CLASPS OUT WIDE",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "reviewClaspPair",
+      "wave": 415,
+      "name": "CLASPS IN PAIRS",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "reviewClaspBreathe",
+      "wave": 416,
+      "name": "CLASPS AT REST",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "reviewClaspRecall",
+      "wave": 417,
+      "name": "CLASPS RECALLED",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "reviewClaspBend",
+      "wave": 418,
+      "name": "CLASPS DOUBLED",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "reviewClaspPeak",
+      "wave": 419,
+      "name": "CLASPS SUMMIT",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
       "id": "theKeel",
-      "wave": 380,
+      "wave": 420,
       "name": "THE KEEL",
       "bodies": 0,
       "typical": 0,
@@ -3838,8 +4238,88 @@
       "unmeasured": true
     },
     {
+      "id": "reviewDartAgain",
+      "wave": 421,
+      "name": "DARTS RETURN",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "reviewDartSpread",
+      "wave": 422,
+      "name": "DARTS WIDER",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "reviewDartReach",
+      "wave": 423,
+      "name": "DARTS OUT WIDE",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "reviewDartPair",
+      "wave": 424,
+      "name": "DARTS IN PAIRS",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "reviewDartBreathe",
+      "wave": 425,
+      "name": "DARTS AT REST",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "reviewDartRecall",
+      "wave": 426,
+      "name": "DARTS RECALLED",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "reviewDartBend",
+      "wave": 427,
+      "name": "DARTS DOUBLED",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "reviewDartPeak",
+      "wave": 428,
+      "name": "DARTS SUMMIT",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
       "id": "theValve",
-      "wave": 381,
+      "wave": 429,
       "name": "THE VALVE",
       "bodies": 0,
       "typical": 0,
@@ -3848,8 +4328,88 @@
       "unmeasured": true
     },
     {
+      "id": "reviewVeilAgain",
+      "wave": 430,
+      "name": "VEILS RETURN",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "reviewVeilSpread",
+      "wave": 431,
+      "name": "VEILS WIDER",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "reviewVeilReach",
+      "wave": 432,
+      "name": "VEILS OUT WIDE",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "reviewVeilPair",
+      "wave": 433,
+      "name": "VEILS IN PAIRS",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "reviewVeilBreathe",
+      "wave": 434,
+      "name": "VEILS AT REST",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "reviewVeilRecall",
+      "wave": 435,
+      "name": "VEILS RECALLED",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "reviewVeilBend",
+      "wave": 436,
+      "name": "VEILS DOUBLED",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "reviewVeilPeak",
+      "wave": 437,
+      "name": "VEILS SUMMIT",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
       "id": "theSeam",
-      "wave": 382,
+      "wave": 438,
       "name": "THE SEAM",
       "bodies": 0,
       "typical": 0,
@@ -3858,8 +4418,88 @@
       "unmeasured": true
     },
     {
+      "id": "reviewMeteorMediumAgain",
+      "wave": 439,
+      "name": "HEAVY ROCKS RETURN",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "reviewMeteorMediumSpread",
+      "wave": 440,
+      "name": "HEAVY ROCKS WIDER",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "reviewMeteorMediumReach",
+      "wave": 441,
+      "name": "HEAVY ROCKS OUT WIDE",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "reviewMeteorMediumPair",
+      "wave": 442,
+      "name": "HEAVY ROCKS IN PAIRS",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "reviewMeteorMediumBreathe",
+      "wave": 443,
+      "name": "HEAVY ROCKS AT REST",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "reviewMeteorMediumRecall",
+      "wave": 444,
+      "name": "HEAVY ROCKS RECALLED",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "reviewMeteorMediumBend",
+      "wave": 445,
+      "name": "HEAVY ROCKS DOUBLED",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "reviewMeteorMediumPeak",
+      "wave": 446,
+      "name": "HEAVY ROCKS SUMMIT",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
       "id": "theOculus",
-      "wave": 383,
+      "wave": 447,
       "name": "THE OCULUS",
       "bodies": 0,
       "typical": 0,
@@ -3868,8 +4508,88 @@
       "unmeasured": true
     },
     {
+      "id": "reviewWispAgain",
+      "wave": 448,
+      "name": "WISPS RETURN",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "reviewWispSpread",
+      "wave": 449,
+      "name": "WISPS WIDER",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "reviewWispReach",
+      "wave": 450,
+      "name": "WISPS OUT WIDE",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "reviewWispPair",
+      "wave": 451,
+      "name": "WISPS IN PAIRS",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "reviewWispBreathe",
+      "wave": 452,
+      "name": "WISPS AT REST",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "reviewWispRecall",
+      "wave": 453,
+      "name": "WISPS RECALLED",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "reviewWispBend",
+      "wave": 454,
+      "name": "WISPS DOUBLED",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "reviewWispPeak",
+      "wave": 455,
+      "name": "WISPS SUMMIT",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
       "id": "theVise",
-      "wave": 384,
+      "wave": 456,
       "name": "THE VISE",
       "bodies": 0,
       "typical": 0,
@@ -3878,8 +4598,88 @@
       "unmeasured": true
     },
     {
+      "id": "reviewGhostAgain",
+      "wave": 457,
+      "name": "GHOSTS RETURN",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "reviewGhostSpread",
+      "wave": 458,
+      "name": "GHOSTS WIDER",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "reviewGhostReach",
+      "wave": 459,
+      "name": "GHOSTS OUT WIDE",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "reviewGhostPair",
+      "wave": 460,
+      "name": "GHOSTS IN PAIRS",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "reviewGhostBreathe",
+      "wave": 461,
+      "name": "GHOSTS AT REST",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "reviewGhostRecall",
+      "wave": 462,
+      "name": "GHOSTS RECALLED",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "reviewGhostBend",
+      "wave": 463,
+      "name": "GHOSTS DOUBLED",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "reviewGhostPeak",
+      "wave": 464,
+      "name": "GHOSTS SUMMIT",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
       "id": "thePlumb",
-      "wave": 385,
+      "wave": 465,
       "name": "THE PLUMB",
       "bodies": 0,
       "typical": 0,
@@ -3888,8 +4688,88 @@
       "unmeasured": true
     },
     {
+      "id": "reviewEchoAgain",
+      "wave": 466,
+      "name": "ECHOES RETURN",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "reviewEchoSpread",
+      "wave": 467,
+      "name": "ECHOES WIDER",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "reviewEchoReach",
+      "wave": 468,
+      "name": "ECHOES OUT WIDE",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "reviewEchoPair",
+      "wave": 469,
+      "name": "ECHOES IN PAIRS",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "reviewEchoBreathe",
+      "wave": 470,
+      "name": "ECHOES AT REST",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "reviewEchoRecall",
+      "wave": 471,
+      "name": "ECHOES RECALLED",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "reviewEchoBend",
+      "wave": 472,
+      "name": "ECHOES DOUBLED",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "reviewEchoPeak",
+      "wave": 473,
+      "name": "ECHOES SUMMIT",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
       "id": "theSling",
-      "wave": 386,
+      "wave": 474,
       "name": "THE SLING",
       "bodies": 0,
       "typical": 0,
@@ -3898,8 +4778,88 @@
       "unmeasured": true
     },
     {
+      "id": "reviewRindAgain",
+      "wave": 475,
+      "name": "RINDS RETURN",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "reviewRindSpread",
+      "wave": 476,
+      "name": "RINDS WIDER",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "reviewRindReach",
+      "wave": 477,
+      "name": "RINDS OUT WIDE",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "reviewRindPair",
+      "wave": 478,
+      "name": "RINDS IN PAIRS",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "reviewRindBreathe",
+      "wave": 479,
+      "name": "RINDS AT REST",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "reviewRindRecall",
+      "wave": 480,
+      "name": "RINDS RECALLED",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "reviewRindBend",
+      "wave": 481,
+      "name": "RINDS DOUBLED",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "reviewRindPeak",
+      "wave": 482,
+      "name": "RINDS SUMMIT",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
       "id": "theCapstan",
-      "wave": 387,
+      "wave": 483,
       "name": "THE CAPSTAN",
       "bodies": 0,
       "typical": 0,
@@ -3908,8 +4868,88 @@
       "unmeasured": true
     },
     {
+      "id": "reviewGyreAgain",
+      "wave": 484,
+      "name": "GYRES RETURN",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "reviewGyreSpread",
+      "wave": 485,
+      "name": "GYRES WIDER",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "reviewGyreReach",
+      "wave": 486,
+      "name": "GYRES OUT WIDE",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "reviewGyrePair",
+      "wave": 487,
+      "name": "GYRES IN PAIRS",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "reviewGyreBreathe",
+      "wave": 488,
+      "name": "GYRES AT REST",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "reviewGyreRecall",
+      "wave": 489,
+      "name": "GYRES RECALLED",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "reviewGyreBend",
+      "wave": 490,
+      "name": "GYRES DOUBLED",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "reviewGyrePeak",
+      "wave": 491,
+      "name": "GYRES SUMMIT",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
       "id": "theGall",
-      "wave": 388,
+      "wave": 492,
       "name": "THE GALL",
       "bodies": 0,
       "typical": 0,
@@ -3918,8 +4958,88 @@
       "unmeasured": true
     },
     {
+      "id": "reviewLidAgain",
+      "wave": 493,
+      "name": "LIDS RETURN",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "reviewLidSpread",
+      "wave": 494,
+      "name": "LIDS WIDER",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "reviewLidReach",
+      "wave": 495,
+      "name": "LIDS OUT WIDE",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "reviewLidPair",
+      "wave": 496,
+      "name": "LIDS IN PAIRS",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "reviewLidBreathe",
+      "wave": 497,
+      "name": "LIDS AT REST",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "reviewLidRecall",
+      "wave": 498,
+      "name": "LIDS RECALLED",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "reviewLidBend",
+      "wave": 499,
+      "name": "LIDS DOUBLED",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "reviewLidPeak",
+      "wave": 500,
+      "name": "LIDS SUMMIT",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
       "id": "theTrapeze",
-      "wave": 389,
+      "wave": 501,
       "name": "THE TRAPEZE",
       "bodies": 0,
       "typical": 0,
@@ -3928,8 +5048,88 @@
       "unmeasured": true
     },
     {
+      "id": "reviewRecoilAgain",
+      "wave": 502,
+      "name": "RECOILS RETURN",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "reviewRecoilSpread",
+      "wave": 503,
+      "name": "RECOILS WIDER",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "reviewRecoilReach",
+      "wave": 504,
+      "name": "RECOILS OUT WIDE",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "reviewRecoilPair",
+      "wave": 505,
+      "name": "RECOILS IN PAIRS",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "reviewRecoilBreathe",
+      "wave": 506,
+      "name": "RECOILS AT REST",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "reviewRecoilRecall",
+      "wave": 507,
+      "name": "RECOILS RECALLED",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "reviewRecoilBend",
+      "wave": 508,
+      "name": "RECOILS DOUBLED",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "reviewRecoilPeak",
+      "wave": 509,
+      "name": "RECOILS SUMMIT",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
       "id": "theFlue",
-      "wave": 390,
+      "wave": 510,
       "name": "THE FLUE",
       "bodies": 0,
       "typical": 0,
@@ -3938,8 +5138,88 @@
       "unmeasured": true
     },
     {
+      "id": "reviewCaromAgain",
+      "wave": 511,
+      "name": "CAROMS RETURN",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "reviewCaromSpread",
+      "wave": 512,
+      "name": "CAROMS WIDER",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "reviewCaromReach",
+      "wave": 513,
+      "name": "CAROMS OUT WIDE",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "reviewCaromPair",
+      "wave": 514,
+      "name": "CAROMS IN PAIRS",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "reviewCaromBreathe",
+      "wave": 515,
+      "name": "CAROMS AT REST",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "reviewCaromRecall",
+      "wave": 516,
+      "name": "CAROMS RECALLED",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "reviewCaromBend",
+      "wave": 517,
+      "name": "CAROMS DOUBLED",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "reviewCaromPeak",
+      "wave": 518,
+      "name": "CAROMS SUMMIT",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
       "id": "theGovernor",
-      "wave": 391,
+      "wave": 519,
       "name": "THE GOVERNOR",
       "bodies": 0,
       "typical": 0,
@@ -3948,8 +5228,88 @@
       "unmeasured": true
     },
     {
+      "id": "reviewCrystalAgain",
+      "wave": 520,
+      "name": "CRYSTALS RETURN",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "reviewCrystalSpread",
+      "wave": 521,
+      "name": "CRYSTALS WIDER",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "reviewCrystalReach",
+      "wave": 522,
+      "name": "CRYSTALS OUT WIDE",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "reviewCrystalPair",
+      "wave": 523,
+      "name": "CRYSTALS IN PAIRS",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "reviewCrystalBreathe",
+      "wave": 524,
+      "name": "CRYSTALS AT REST",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "reviewCrystalRecall",
+      "wave": 525,
+      "name": "CRYSTALS RECALLED",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "reviewCrystalBend",
+      "wave": 526,
+      "name": "CRYSTALS DOUBLED",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "reviewCrystalPeak",
+      "wave": 527,
+      "name": "CRYSTALS SUMMIT",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
       "id": "theLamprey",
-      "wave": 392,
+      "wave": 528,
       "name": "THE LAMPREY",
       "bodies": 0,
       "typical": 0,
@@ -3958,8 +5318,88 @@
       "unmeasured": true
     },
     {
+      "id": "reviewVolleyAgain",
+      "wave": 529,
+      "name": "VOLLEYS RETURN",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "reviewVolleySpread",
+      "wave": 530,
+      "name": "VOLLEYS WIDER",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "reviewVolleyReach",
+      "wave": 531,
+      "name": "VOLLEYS OUT WIDE",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "reviewVolleyPair",
+      "wave": 532,
+      "name": "VOLLEYS IN PAIRS",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "reviewVolleyBreathe",
+      "wave": 533,
+      "name": "VOLLEYS AT REST",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "reviewVolleyRecall",
+      "wave": 534,
+      "name": "VOLLEYS RECALLED",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "reviewVolleyBend",
+      "wave": 535,
+      "name": "VOLLEYS DOUBLED",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "reviewVolleyPeak",
+      "wave": 536,
+      "name": "VOLLEYS SUMMIT",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
       "id": "theMimic",
-      "wave": 393,
+      "wave": 537,
       "name": "THE MIMIC",
       "bodies": 0,
       "typical": 0,
@@ -3968,8 +5408,88 @@
       "unmeasured": true
     },
     {
+      "id": "reviewVeerAgain",
+      "wave": 538,
+      "name": "VEERS RETURN",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "reviewVeerSpread",
+      "wave": 539,
+      "name": "VEERS WIDER",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "reviewVeerReach",
+      "wave": 540,
+      "name": "VEERS OUT WIDE",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "reviewVeerPair",
+      "wave": 541,
+      "name": "VEERS IN PAIRS",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "reviewVeerBreathe",
+      "wave": 542,
+      "name": "VEERS AT REST",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "reviewVeerRecall",
+      "wave": 543,
+      "name": "VEERS RECALLED",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "reviewVeerBend",
+      "wave": 544,
+      "name": "VEERS DOUBLED",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "reviewVeerPeak",
+      "wave": 545,
+      "name": "VEERS SUMMIT",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
       "id": "theLatch",
-      "wave": 394,
+      "wave": 546,
       "name": "THE LATCH",
       "bodies": 0,
       "typical": 0,
@@ -3978,8 +5498,88 @@
       "unmeasured": true
     },
     {
+      "id": "reviewStrandAgain",
+      "wave": 547,
+      "name": "STRANDS RETURN",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "reviewStrandSpread",
+      "wave": 548,
+      "name": "STRANDS WIDER",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "reviewStrandReach",
+      "wave": 549,
+      "name": "STRANDS OUT WIDE",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "reviewStrandPair",
+      "wave": 550,
+      "name": "STRANDS IN PAIRS",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "reviewStrandBreathe",
+      "wave": 551,
+      "name": "STRANDS AT REST",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "reviewStrandRecall",
+      "wave": 552,
+      "name": "STRANDS RECALLED",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "reviewStrandBend",
+      "wave": 553,
+      "name": "STRANDS DOUBLED",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "reviewStrandPeak",
+      "wave": 554,
+      "name": "STRANDS SUMMIT",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
       "id": "theChrysalis",
-      "wave": 395,
+      "wave": 555,
       "name": "THE CHRYSALIS",
       "bodies": 0,
       "typical": 0,
@@ -3988,8 +5588,88 @@
       "unmeasured": true
     },
     {
+      "id": "reviewCrawlerAgain",
+      "wave": 556,
+      "name": "CRAWLERS RETURN",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "reviewCrawlerSpread",
+      "wave": 557,
+      "name": "CRAWLERS WIDER",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "reviewCrawlerReach",
+      "wave": 558,
+      "name": "CRAWLERS OUT WIDE",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "reviewCrawlerPair",
+      "wave": 559,
+      "name": "CRAWLERS IN PAIRS",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "reviewCrawlerBreathe",
+      "wave": 560,
+      "name": "CRAWLERS AT REST",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "reviewCrawlerRecall",
+      "wave": 561,
+      "name": "CRAWLERS RECALLED",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "reviewCrawlerBend",
+      "wave": 562,
+      "name": "CRAWLERS DOUBLED",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "reviewCrawlerPeak",
+      "wave": 563,
+      "name": "CRAWLERS SUMMIT",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
       "id": "theHydra",
-      "wave": 396,
+      "wave": 564,
       "name": "THE HYDRA",
       "bodies": 0,
       "typical": 0,

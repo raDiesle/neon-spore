@@ -42289,3 +42289,15 @@ Bottleneck: measuring under other sessions' load — one wave moved 6 ms between
 runs, and only an interleaved A/B in one browser could be trusted.
 
 *Measured: 32 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
+
+## 2026-10-15 — Every boss past the arc has eight regular waves in front of it
+
+- reading: 10 min. The composer's block, the boss placement, the wave list's
+  tail of 22 bosses in a row.
+- writing: 20 min. `compose-review.ts`, `waves:review`, review heads in
+  boss placement and the measured table, the tests, the two pages.
+- looking: 5 min. The 21 blocks' tables, before and after writing.
+- friction: 0 min.
+- landing: 15 min. `check:fast`, two commits, `land`.
+
+Bottleneck: landing — the full check runs once for 168 waves that composed in seconds.

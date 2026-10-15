@@ -12,9 +12,9 @@ describe("review blocks (wave-curriculum §7)", () => {
 
   test("every theme's names fit: at most 20 letters and four words", () => {
     const from = WAVES.findIndex((w) => w.id === REVIEW_FROM);
-    const plurals = WAVES.filter((w, i) => i > from && w.id.endsWith("Again")).map((w) =>
-      w.name.replace(/ AGAIN$/, ""),
-    );
+    const plurals = WAVES.filter(
+      (w, i) => i > from && w.id.endsWith("Again") && !w.id.startsWith("review"),
+    ).map((w) => w.name.replace(/ AGAIN$/, ""));
     expect(plurals.length).toBeGreaterThan(20);
     for (const p of plurals) {
       for (const name of REVIEW_NAMES.map((n) => n(p))) {

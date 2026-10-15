@@ -224,11 +224,19 @@ decided then while the owner was away:
 - **The bosses keep their order.** Each takes the first free block after the
   one the boss before it took, so THE HAUL still follows THE SCOUT and a
   panel two bosses share is met on the same one first.
-- **A boss with no block left waits at the end**, in order. There are 56
-  bosses and 39 blocks that place a body or a pod, 34 of them past the arc:
-  34 bosses close a block, about one every ten waves from wave 41, and 22
-  wait after THE HUSK's block. Run it again after a block is written, and
-  the first one waiting takes it.
+- **A boss with no block left waits at the end**, in order. Of the 56
+  bosses, two stay in the arc, 33 closed a block that a body or a pod opens,
+  and 21 waited after THE HUSK's block.
+- **Every waiting boss got a review block**, 15 October 2026 — the owner:
+  *create all other waves, so that waves are distributed also between all
+  the boss waves.* Eight regular waves with no intro, themed on the things
+  taught from THE LURE on, in that order, composed by `bun run waves:review`
+  (`tools/director/src/compose-review.ts`). Boss placement counts a review
+  block as a block, so every boss past the arc now closes one: about one
+  every ten waves from wave 41 to the end, 564 waves in all.
+- **The first wave of a review block stops rising at 8.7**, from the
+  thirteenth on: R1 alone cannot score higher, as §4 found for every first
+  step. Each block's peak still rises, from 10.3 to 13.
 
 The boss table — every boss's AUTO time against the band — is in
 `wave-curriculum-today.md`. AUTO plays perfectly and never talks, so the
@@ -250,6 +258,8 @@ Bosses are the owner's to lengthen by hand. This plan only places them.
 3. **Blocks** — done, 15 October 2026: every block after FINALE has its
    regular waves.
 4. **The bosses moved** — done: `bun run waves:bosses` (§7).
+   Review blocks in front of the 21 that waited — done the same day:
+   `bun run waves:review` (§7).
 5. **The today table** — built: `bun run waves:measure` rewrites it.
 
 ## 9. Answered by the owner, 14 October 2026

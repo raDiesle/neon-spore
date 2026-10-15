@@ -62,6 +62,19 @@ import { WAVES_ACT_14B } from "./act-14b.js";
 import { WAVES_ACT_14B_P2 } from "./act-14b-p2.js";
 import { WAVES_ACT_14B_P3 } from "./act-14b-p3.js";
 import { WAVES_ACT_14B_P4 } from "./act-14b-p4.js";
+import { WAVES_ACT_14B_P5 } from "./act-14b-p5.js";
+import { WAVES_ACT_14B_P6 } from "./act-14b-p6.js";
+import { WAVES_ACT_14B_P7 } from "./act-14b-p7.js";
+import { WAVES_ACT_14B_P8 } from "./act-14b-p8.js";
+import { WAVES_ACT_14B_P9 } from "./act-14b-p9.js";
+import { WAVES_ACT_14B_P10 } from "./act-14b-p10.js";
+import { WAVES_ACT_14B_P11 } from "./act-14b-p11.js";
+import { WAVES_ACT_14B_P12 } from "./act-14b-p12.js";
+import { WAVES_ACT_14B_P13 } from "./act-14b-p13.js";
+import { WAVES_ACT_14B_P14 } from "./act-14b-p14.js";
+import { WAVES_ACT_14B_P15 } from "./act-14b-p15.js";
+import { WAVES_ACT_14B_P16 } from "./act-14b-p16.js";
+import { WAVES_ACT_14B_P17 } from "./act-14b-p17.js";
 
 /**
  * **The act files, in the order of the game** — the one list of them.
@@ -140,4 +153,17 @@ export const WAVE_ACTS: readonly (readonly Wave[])[] = [
   WAVES_ACT_14B_P2,
   WAVES_ACT_14B_P3,
   WAVES_ACT_14B_P4,
+  WAVES_ACT_14B_P5,
+  WAVES_ACT_14B_P6,
+  WAVES_ACT_14B_P7,
+  WAVES_ACT_14B_P8,
+  WAVES_ACT_14B_P9,
+  WAVES_ACT_14B_P10,
+  WAVES_ACT_14B_P11,
+  WAVES_ACT_14B_P12,
+  WAVES_ACT_14B_P13,
+  WAVES_ACT_14B_P14,
+  WAVES_ACT_14B_P15,
+  WAVES_ACT_14B_P16,
+  WAVES_ACT_14B_P17,
 ];

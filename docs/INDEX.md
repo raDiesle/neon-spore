@@ -1022,6 +1022,19 @@ by hand never moves.
 | `packages/content/src/waves/act-14b-p2.ts` | Cut from `act-14b.ts` by the director's save when that file passed the 250-line ceiling; it plays straight… |
 | `packages/content/src/waves/act-14b-p3.ts` | Cut from `act-14b-p2.ts` by the director's save when that file passed the 250-line ceiling; it plays straight… |
 | `packages/content/src/waves/act-14b-p4.ts` | Cut from `act-14b-p3.ts` by the director's save when that file passed the 250-line ceiling; it plays straight… |
+| `packages/content/src/waves/act-14b-p10.ts` | Cut from `act-14b-p9.ts` by the director's save when that file passed the 250-line ceiling; it plays straight… |
+| `packages/content/src/waves/act-14b-p11.ts` | Cut from `act-14b-p10.ts` by the director's save when that file passed the 250-line ceiling; it plays… |
+| `packages/content/src/waves/act-14b-p12.ts` | Cut from `act-14b-p11.ts` by the director's save when that file passed the 250-line ceiling; it plays… |
+| `packages/content/src/waves/act-14b-p13.ts` | Cut from `act-14b-p12.ts` by the director's save when that file passed the 250-line ceiling; it plays… |
+| `packages/content/src/waves/act-14b-p14.ts` | Cut from `act-14b-p13.ts` by the director's save when that file passed the 250-line ceiling; it plays… |
+| `packages/content/src/waves/act-14b-p15.ts` | Cut from `act-14b-p14.ts` by the director's save when that file passed the 250-line ceiling; it plays… |
+| `packages/content/src/waves/act-14b-p16.ts` | Cut from `act-14b-p15.ts` by the director's save when that file passed the 250-line ceiling; it plays… |
+| `packages/content/src/waves/act-14b-p17.ts` | Cut from `act-14b-p16.ts` by the director's save when that file passed the 250-line ceiling; it plays… |
+| `packages/content/src/waves/act-14b-p5.ts` | Cut from `act-14b-p4.ts` by the director's save when that file passed the 250-line ceiling; it plays straight… |
+| `packages/content/src/waves/act-14b-p6.ts` | Cut from `act-14b-p5.ts` by the director's save when that file passed the 250-line ceiling; it plays straight… |
+| `packages/content/src/waves/act-14b-p7.ts` | Cut from `act-14b-p6.ts` by the director's save when that file passed the 250-line ceiling; it plays straight… |
+| `packages/content/src/waves/act-14b-p8.ts` | Cut from `act-14b-p7.ts` by the director's save when that file passed the 250-line ceiling; it plays straight… |
+| `packages/content/src/waves/act-14b-p9.ts` | Cut from `act-14b-p8.ts` by the director's save when that file passed the 250-line ceiling; it plays straight… |
 | `packages/content/src/waves/act-1-p2.ts` | Act one's second page — the arc's composed regular waves pushed it past the ceiling, and the save cut it (`acts.ts`) |
 | `packages/content/src/waves/act-1-p3.ts` | Act one's third page, cut the same way; plays straight after `act-1-p2.ts` |
 | `packages/content/src/maze-drawn.ts` | The four sheets THE MAZE plays after the owner's own, drawn by `bun run maze` and printed here |

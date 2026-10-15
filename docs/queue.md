@@ -379,3 +379,18 @@ after the timed window. Replacing it changes the picture, so it is a look:
 either it stays, or a VERSUS candidate draws the shadow without a blur — the
 body's path filled dark and offset, under two or three widened faint strokes
 the way `strokeGlow` fakes a glow — and the owner chooses by looking.
+
+## A review block's first wave rises past 8.7 again
+
+- **Found:** 2026-10-15, claude/review-blocks
+- **Files:** `tools/director/src/compose-grow.ts`, `tools/director/test/compose-grow.test.ts`
+
+From the thirteenth review block (RINDS RETURN) to the twenty-first (CRAWLERS
+RETURN), every R1 composes at 8.7, because R1 alone, as wide and as mixed as
+`grownStep` lets it get, scores no higher; `START_RISE` asks for 0.1 more
+each block and `chooseRamp` settles for the nearest it reaches. The peaks
+still rise (10.3 to 13). Let R1–R3 take one twin in three from a later notch,
+the way `TWINNED` grows R4–R8, so the first steps keep climbing — then
+`bun run waves:compose` on a late block and `bun run waves:review` on a fresh
+list show the R1 pressure above its floor. Composed waves already written do
+not change; the next ones written do.
