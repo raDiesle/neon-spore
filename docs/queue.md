@@ -415,6 +415,7 @@ still meets its handle where it is drawn. Send one PNG strip. Prove it with
 ## THE QUEEN's gap drop overlaps the marks it stands between
 
 - **Found:** 2026-10-14, claude/queue-holds-as-the-hold-labs-drop-the-queens-marks
+- **Taken:** 2026-10-15, claude/queue-three-integer-mixers-in-render-each-written-priv (claim: claude/queue-the-queens-gap-drop-overlaps-the-marks-it-stands)
 - **Files:** `packages/render/src/boss-cue-read.ts`, `packages/render/src/cue-helper.ts`, `packages/render/src/boss-cue-shape.ts`
 
 THE QUEEN's SCREAM `HOLD` cue draws the HOLD LAB's drop in the gap between
