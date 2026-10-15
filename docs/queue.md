@@ -415,6 +415,7 @@ still meets its handle where it is drawn. Send one PNG strip. Prove it with
 ## `docs/spec/bosses.md` still says every boss's glance ships still
 
 - **Found:** 2026-10-14, claude/creature-glance
+- **Taken:** 2026-10-15, main (claim: claude/queue-docs-spec-bosses-md-still-says-every-bosss-glanc)
 - **Files:** `docs/spec/bosses.md`, `docs/spec/bosses-choreographed.md`
 
 Every boss took its glance on 14 October 2026 (`tools/versus/DECIDED.md`),
