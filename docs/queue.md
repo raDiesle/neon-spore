@@ -331,6 +331,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## The glance layer's cost is its passes, not its pixels
 
 - **Found:** 2026-10-15, claude/queue-the-glance-layer-is-cut-to-the-plumes-furthest-r
+- **Taken:** 2026-10-15, main (claim: claude/queue-the-glance-layers-cost-is-its-passes-not-its-pix)
 - **Files:** `packages/render/src/glance-layer.ts`, `packages/render/src/glance-layer-scratch.ts`
 
 A lit body's layer box was cut by about a third on 15 October 2026 (a phantom
