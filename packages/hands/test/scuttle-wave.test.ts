@@ -11,18 +11,21 @@ import {
 import { autopilotHand } from "../src/autopilot-hands.js";
 
 /**
- * **AUTO plays THE SCUTTLE to the end on most seeds** (`autopilot-scuttle.ts`).
- * The frame's own hand alone cleared one seed in twelve: it let the pods the
- * frame throws fall to the skin, and the slimes it throws to the hull. A pod
- * is caught first now, a slime near the hull before the live part, and the
- * last part's fill before a pod that would land after the beam; and the beam
- * is filled in the colour of what stands in its column, so it burns through.
+ * **AUTO plays THE SCUTTLE to the end** (`autopilot-scuttle.ts`). The frame's
+ * own hand alone cleared one seed in twelve: it let the pods the frame throws
+ * fall to the skin, and the slimes it throws to the hull. A pod is caught
+ * first now, a slime near the hull before the live part, and the last part's
+ * fill before a pod that would land after the beam; and the beam is filled in
+ * the colour of what stands in its column, so it burns through.
  *
- * **Seeds 1, 3 and 9 still lose**, and are in `docs/queue.md`: on 1 and 3 a
- * rock the frame threw earlier stands in the last part's column through the
- * wind-up and stops the beam, and on 9 a pod lands before any fill could. Both
- * want a play several beats earlier — a part swung out of that column, a pod
- * not shot loose — and seed 1 is the one the curriculum table measures.
+ * Seeds 1, 3 and 9 were the last to fall, each to something standing in the
+ * last part's column through the wind-up: a rock thrown there earlier, or a
+ * pod hanging there, and the beam stops at either. The carry takes a rock or
+ * a pod off a column a part still hangs over (`scuttle-swing.ts`), a pod
+ * already hanging over one is shot loose before the wind-up, and no other is
+ * shot loose in the frame's last cycles, where it would land inside the fill.
+ * Over forty-eight seeds it loses three (34, 41, 46), each to a pod landing
+ * inside the wind-up some other way — one by a bolt already in flight.
  */
 
 /** Past this the fight is lost however it stands: it falls in about sixty beats. */
@@ -47,7 +50,7 @@ function played(seed: number): { cleared: boolean; lost: SimEvent["type"][] } {
 }
 
 describe("THE SCUTTLE, played by AUTO", () => {
-  it.each([2, 4, 5, 6, 7, 8, 10, 11, 12])(
+  it.each([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12])(
     "falls on seed %i with nothing on the hull and no pod lost",
     (seed) => {
       expect(played(seed)).toEqual({ cleared: true, lost: [] });

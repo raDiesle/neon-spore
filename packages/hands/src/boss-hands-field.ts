@@ -20,14 +20,13 @@ import {
   scuttleBoss,
   scuttlePartCol,
   scuttleShootable,
-  scuttleSwingable,
-  scuttleSwingCol,
   scuttleWinding,
   type TimedCommand,
   type World,
 } from "@neon-spore/sim";
 import { fieldHand } from "./autopilot-field-hand.js";
 import type { Hand } from "./hand.js";
+import { swingPart } from "./scuttle-swing.js";
 
 /**
  * **The pair's hands on the bosses of the field** — THE GORGE, THE CURTAIN,
@@ -172,28 +171,6 @@ function shoveDir(w: World, c: CurtainState, body: Creature): 1 | -1 {
   if (standing.some((col) => col < 0)) return 1;
   if (standing.some((col) => col >= w.cfg.cols)) return -1;
   return c.coreCol - body.col < c.lobes.length / 2 ? 1 : -1;
-}
-
-/** The pilot's thumb on hanging part `id`, carried `milli` along the frame. */
-const hangingPart = (id: number, milli: number): Press => ({
-  player: 1,
-  command: { kind: "drag", target: "scuttlePart", on: true, fromMilli: milli, id },
-});
-
-/**
- * The pilot takes hold of the oldest hanging part and carries it a column,
- * once a cycle (`sim/scuttle-hand.ts`). Two ticks on purpose: the grab is a
- * state of its own before any carry is worth anything, and a hand that sent
- * both at once would never put the world in it. The direction is whichever
- * one is not off the end of the frame, since a carry that cannot move is not
- * spent and would be sent again for ever.
- */
-function swingPart(w: World, s: ScuttleState): Press[] {
-  const id = s.loose[0];
-  if (id === undefined || !scuttleSwingable(s)) return [];
-  if (s.held !== id) return [hangingPart(id, 0)];
-  const dir = scuttleSwingCol(s, w.cfg, id, 1) === scuttlePartCol(s, w.cfg, id) ? -1 : 1;
-  return [hangingPart(id, dir * w.cfg.scuttleSwingMilli)];
 }
 
 /**

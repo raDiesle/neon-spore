@@ -296,7 +296,7 @@ the wave. *Pressure* is `wavePressure`
 | 277 | COILS AND TWINS | **regular** | — | STANDARD | 11 | 45 | 47 b · 29 s | 7.9 |
 | 278 | THE TWITCH | **regular** | — | STANDARD | 10 | 62 | 70 b · 44 s | 8 |
 | 279 | THE CLAW | intro | panel | THE CLAW | 6 | 52 | 57 b · 36 s | 4.9 |
-| 280 | THE SCUTTLE | boss | scuttle | STANDARD | 0 | 0 | AUTO fails | — |
+| 280 | THE SCUTTLE | boss | scuttle | STANDARD | 0 | 0 | 48 b · 30 s | — |
 | 281 | THE CROSSING | intro | rockCross | STANDARD | 8 | 34 | 41 b · 26 s | 9 |
 | 282 | CROSSINGS AGAIN | **regular** | — | STANDARD | 5 | 28 | 35 b · 22 s | 6.6 |
 | 283 | CROSSINGS SPREAD | **regular** | — | STANDARD | 6 | 27 | 30 b · 19 s | 7.6 |
@@ -447,7 +447,7 @@ time × 2 — the owner's accepted guess, never measured.
 | 243 | THE LEDGER | normal | 32 beats | 20 | 40 s | short |
 | 255 | THE SURGE | normal | 44 beats | 28 | 56 s | short |
 | 266 | THE LEAD | normal | 40 beats | 25 | 50 s | short |
-| 280 | THE SCUTTLE | normal | — | — | — | unknown — AUTO cannot finish it |
+| 280 | THE SCUTTLE | normal | 48 beats | 30 | 60 s | in band |
 | 290 | THE ANTIPHON | normal | 56 beats | 35 | 70 s | in band |
 | 300 | THE HIVE | normal | 74 beats | 46 | 92 s | in band |
 | 310 | THE CAIRN | normal | 24 beats | 15 | 30 s | short |

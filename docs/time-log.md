@@ -41864,3 +41864,15 @@ it cut — the flame's height was in `meteor-blaze.ts` all along.
 Bottleneck: each body's reach read out of its own file, one at a time.
 
 *Measured: 21 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-15 — AUTO plays THE SCUTTLE on every seed of the twelve
+
+- reading: 5 min. The entry, the frame's clock and shot, the beam's burn.
+- writing: 5 min. The carry moved to `scuttle-swing.ts` and given a reason,
+  the pod rules in `autopilot-scuttle.ts`, a twelve-seed probe beside it.
+- looking: 0 min. No picture: AUTO's play is measured, not drawn.
+- friction: 0 min.
+- landing: 5 min. `imports:sort`, `bun run index`, `waves:measure`, `land`.
+
+Bottleneck: each fix moved two other seeds, so every rule was judged on
+forty-eight seeds rather than the three it was written for.
