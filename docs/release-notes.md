@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-15 · ebf1f808a — ON THE FIELD says why THE SCOUT'S LINE has no card
+
+`bun run shot` found no card for THE SCOUT'S LINE because there is none: the owner took it off the page on 6 October, and the reason sat in OFF_THE_PAGE with nothing on the sheet saying so. Each row kept off now gets a line under the cards, KEPT OFF THE PAGE with its reason, and a test holds that every such row is said there. THE SCOUT'S PRIME had its card all along and shoots as it should. This is the director, not the game; nothing in a frame changes.
+
 ## 2026-10-15 · 55295bbd1 — The bosses close their blocks: one after each block's eighth regular wave
 
 `bun run waves:bosses --write` moves every boss past the tutorial arc to the end of the first block after which its panel, its buttons and every body it carries have been taught, one boss to a block, in the order they shipped. Thirty-four now close a block, about one every ten waves from BULB QUEEN at 41; the twenty-two with no block left wait after THE HUSK's, and the command places them as blocks are written. THE INSTAR and THE BASTION stay in the arc. A look the owner asked for by name (wave-curriculum §7).

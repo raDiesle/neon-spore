@@ -41673,3 +41673,5 @@ and only a real save of a moved boss showed it was a third short.
 
 Bottleneck: reading; the answer was a decision already in the code, just never
 said on the sheet.
+
+*Measured: 9 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
