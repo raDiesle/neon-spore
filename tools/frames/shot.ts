@@ -40,10 +40,11 @@ import { clipFor, onDocument } from "./crop.js";
 import { startDirector } from "./director-serve.js";
 import { elementOr, listen, refuseFailed, waitUntil } from "./page-said.js";
 import { readShotFlags } from "./shot-flags.js";
+import { inRow, reachRow } from "./shot-row.js";
 import { reachState, Unreachable } from "./shot-state.js";
 import { TALLEST, withHeightFor } from "./tall.js";
 
-const { selector, out, reach, settle, until, serve, port, path, viewport, scale, at } =
+const { selector, out, reach, settle, until, row, serve, port, path, viewport, scale, at } =
   readShotFlags(process.argv.slice(2));
 const { width: vw, height: vh } = viewport;
 
@@ -70,7 +71,8 @@ try {
     await reachState(page, reach);
     if (until) await waitUntil(page, until, said);
     await page.waitForTimeout(settle);
-    target = await elementOr(page, selector, said);
+    if (row) await reachRow(page, row);
+    target = await elementOr(page, row ? inRow(selector) : selector, said);
   } catch (error) {
     if (!(error instanceof Unreachable)) throw error;
     console.error(error.message);
@@ -81,7 +83,10 @@ try {
   // two consecutive animation frames — and a VERSUS pair on a tile crop is
   // refitted around the body it follows, so the wait timed out on echo shots
   // with the frozen frame sitting right there. Scrolling asks no questions.
-  await target.first().evaluate((el: Element) => el.scrollIntoView({ block: "start" }));
+  // To the middle, not the top: a documentation page's sticky heading stands
+  // over the top of its body, and a HELPERS row's canvas scrolled to `start`
+  // came back with THE SHIELD › DEFLECTED printed across its first 70 px.
+  await target.first().evaluate((el: Element) => el.scrollIntoView({ block: "center" }));
   // A second settle after scrolling: figures are only animated while in sight,
   // so one just scrolled to has had no frames yet and would photograph in its
   // rest pose. `shape-loop.ts`'s observer is what makes that true.

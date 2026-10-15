@@ -640,21 +640,6 @@ are done inside the time it is up. A `combo` gesture, the lab's paint,
 after it. Prove it with `bun test packages/sim tools/director` and
 `bun run check`.
 
-## `bun run shot` cannot reach a row on CONTROLS › HELPERS
-
-- **Found:** 2026-10-14, claude/queue-the-shield-on-helpers-six-rows-owed-a-pose
-- **Taken:** 2026-10-15, claude/queue-one-bosss-owns-close-cuts-copy-renders-private-r (claim: claude/queue-bun-run-shot-cannot-reach-a-row-on-controls-help)
-- **Files:** `tools/frames/shot.ts`, `tools/frames/shot-flags.ts`, `tools/director/src/helpers-page.ts`
-
-`bun run shot ".field-control:has(h3[data-label=\"DEFLECTED\"]) canvas" out.png
---port <director> --path "/?sheet=states&inner=controlsets&sub=helpers"`
-answered *no element matches* after a 404 in the page's console, while the
-same URL in the browser pane draws the row. The lane took its PNG off the
-browser pane instead. Find whether the sub tab is restored from `?sub=` on a
-cold load and whether the rows are built only once scrolled to; give `shot`
-a way to reach one HELPERS row by its name (as `--open`/`--inner` reach a
-sheet), and prove it with a test in `tools/frames/test/` and `bun run check`.
-
 ## `fastScopeFor`'s wave-moved test times out under `bun run check`
 
 - **Found:** 2026-10-15, claude/blocks-strand-to-balloon

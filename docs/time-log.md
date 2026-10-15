@@ -41374,3 +41374,16 @@ Bottleneck: reading. The test took 0.8 s alone and over 6 s under a full
 check on a loaded machine, so the failure showed only in `land`.
 
 *Measured: 5 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
+
+## 2026-10-15 — `bun run shot --row` reaches a HELPERS row by its name
+
+- reading: 5 min. `shot.ts`, its flags and state, `helpers-page.ts` and
+  `when-seen.ts`, where the missing canvas came from.
+- writing: 5 min. `shot-row.ts`, the flag, the usage line and a test.
+- looking: 5 min. Three shots off a served director: the row there with no
+  canvas, then drawn but under the sticky heading, then clean.
+- friction: 0 min.
+- landing: 5 min.
+
+Bottleneck: looking — the sticky heading over a scrolled-to canvas showed
+only in the picture.

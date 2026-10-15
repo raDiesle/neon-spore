@@ -29,6 +29,9 @@ export function usage(): never {
     "       --tab opens that sheet itself, so --open is for any other one and the pair is one press",
   );
   console.error("       --at is a rectangle inside it, x,y,w,h in its own CSS pixels");
+  console.error(
+    "       --row is a HELPERS, ON THE FIELD or GESTURES row by name, the selector inside it: canvas --row DEFLECTED",
+  );
   console.error('       --type fills a field first, e.g. "#waveFilter=boss"');
   console.error('       --select turns a <select> first, e.g. ".versus-rate=0.25"');
   console.error("       --wait is milliseconds to settle before the shot, for an animation");

@@ -31,6 +31,8 @@ export interface ShotFlags {
   settle: number;
   /** Something on the page that says it is ready, waited for before the settle. */
   until: string | undefined;
+  /** A documentation row by its name, scrolled to, with `selector` inside it (`shot-row.ts`). */
+  row: string | undefined;
   /** Start a director of this tree's own rather than using `port`. */
   serve: boolean;
   port: string;
@@ -102,6 +104,10 @@ export function readShotFlags(argv: readonly string[]): ShotFlags {
    * moment with nothing to say so.
    */
   const until = flag("until");
+  // A HELPERS, ON THE FIELD or GESTURES row by its name: its picture is only
+  // drawn once it is scrolled near, so a selector into it matched nothing on a
+  // page opened at its top (`shot-row.ts`).
+  const row = flag("row");
   /**
    * `--serve`: start a director of this tree's own, use its port, and stop it
    * again — for a caller who has no way to leave one running.
@@ -182,6 +188,7 @@ export function readShotFlags(argv: readonly string[]): ShotFlags {
     reach: { open, tab, inner, click, nth, type: typed, select, press, thenClick, hold },
     settle,
     until,
+    row,
     serve,
     port,
     path,
