@@ -331,6 +331,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## The glance layer flushes once a frame, not three times a body
 
 - **Found:** 2026-10-15, claude/queue-the-glance-layers-cost-is-its-passes-not-its-pix
+- **Taken:** 2026-10-15, main (claim: claude/queue-the-glance-layer-flushes-once-a-frame-not-three)
 - **Files:** `packages/render/src/glance-layer.ts`, `packages/render/src/glance-layer-scratch.ts`, `packages/render/src/creature-glance.ts`
 
 A layer costs its flushes, not its passes (`docs/performance.md`, measured
