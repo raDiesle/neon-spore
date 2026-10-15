@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-15 · 207040b46 — Render mixes an integer in one place, mix32 in hash.ts
+
+backdrop.ts and solid-motion.ts each wrote murmur3's finaliser out by hand, and nameHash a third time a shift apart. hash.ts now exports mix32, with the opening shift as an argument so all three keep every number they answered: 3930 outputs of hash01, noise1, nameHash and subSeed fingerprint the same before and after. idle-drift's subSeed has no opening shift and keeps its own, said in its doc and in the new COPIES row's `also`.
+
 ## 2026-10-15 · a40cd6a68 — The boss spec says each boss's glance as it ships
 
 Every boss took its glance on 14 October 2026, but forty-eight sections of docs/spec/bosses.md still read "Offered" and "which ships still". Each now reads "Taken (14 October 2026, VERSUS `x:glance`, STYLE)" and names what its packages/render/src/*-glance.ts ships: the style, its reach and roll, how many times it cocks a round and the length of its tempered round, read off the record and temperOf rather than written by hand. THE CAPSTAN's stale pointer to a queue question that is gone went with it.
