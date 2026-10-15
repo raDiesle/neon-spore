@@ -9,6 +9,14 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-15 · 932be1d26 — THE BLISTER takes a COMBO, and the CONTROLS group a COMBO brush
+
+A COMBO blister is THE COMBO LAB's PRESS, THEN PULL on the body: it wears the tap's help until it is pressed, and the press is counted and gone; then the knob every pull wears comes in where it was, its channel out to the right, and that pull carried the whole way is one blow. The next blow asks for the press again, and a sink between the two loses the press. AUTO plays it, the director offers COMBO under GESTURE and as a brush of its own, and ON THE FIELD shows it under PRESS, THEN PULL. Its body ships the clover, as every gesture's does; `blister:combo` on VERSUS is queued. Exemption: an addition where the game draws nothing.
+
+## 2026-10-15 · 028f83847 — `bun run shot --row` reaches an ON THE FIELD card by its row's name
+
+`--row "THE BLISTER'S COMBO"` found nothing on CONTROLS › ON THE FIELD: its cards are titled by the enemy, and the row names are the line under the title, which carries no `data-label`. A heading without one is now named by the words it ends with, the card's rows line among them, and its row is the section it is in. The landing before this said `--row` reached ON THE FIELD; it reached only the type headings there.
+
 ## 2026-10-15 · e9010464b — AUTO plays THE VANE's wave to the end
 
 The vane folds the wave's two arrivals into columns of its own, and its hand answered only the bearing, so the rock landed on beat 16 and AUTO lost the wave. The field hand plays first now and the bearing takes the thumbs when the field is quiet; THE VANE clears in 51 beats, and its row in wave-curriculum-today.md has a time. No look changed: nothing is drawn differently.
