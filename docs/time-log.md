@@ -41491,3 +41491,5 @@ FIELD names its cards by the enemy, not the row.
 - landing: 5 min.
 
 Bottleneck: none to speak of; both were the same miss as BULB QUEEN's.
+
+*Measured: 6 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*

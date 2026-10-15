@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-15 · 310251ddb — AUTO plays THE CURTAIN and THE TASTER to the end
+
+Each hand answered its boss and nothing that fell, so AUTO lost both: THE CURTAIN's torch landed under a parked shield, and THE TASTER's rocks and slimes fell past a cannon busy on the blades. THE CURTAIN plays the shield's half beside its own hand now, and THE TASTER plays the field hand first; they clear in 38 and 43 beats, and both rows in wave-curriculum-today.md have a time. No look changed: nothing is drawn differently.
+
 ## 2026-10-15 · 932be1d26 — THE BLISTER takes a COMBO, and the CONTROLS group a COMBO brush
 
 A COMBO blister is THE COMBO LAB's PRESS, THEN PULL on the body: it wears the tap's help until it is pressed, and the press is counted and gone; then the knob every pull wears comes in where it was, its channel out to the right, and that pull carried the whole way is one blow. The next blow asks for the press again, and a sink between the two loses the press. AUTO plays it, the director offers COMBO under GESTURE and as a brush of its own, and ON THE FIELD shows it under PRESS, THEN PULL. Its body ships the clover, as every gesture's does; `blister:combo` on VERSUS is queued. Exemption: an addition where the game draws nothing.
