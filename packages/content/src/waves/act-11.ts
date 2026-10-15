@@ -108,6 +108,46 @@ export const WAVES_ACT_11: Wave[] = [
     bossType: "normal",
   },
   {
+    id: "theFlip",
+    name: "THE FLIP",
+    guide: {
+      scene: "theFlip",
+    },
+    entries: [
+      { beat: 0, col: 5, color: "red" },
+      { beat: 4, col: 2, color: "cyan" },
+      { beat: 10, col: 8, color: "red" },
+      { beat: 14, col: 0, color: "cyan" },
+      { beat: 18, col: 10, color: "red" },
+      { beat: 24, col: 3, color: "cyan" },
+      { beat: 28, col: 7, color: "red" },
+      { beat: 34, col: 8, color: "cyan" },
+      { beat: 36, col: 0, color: "red" },
+      { beat: 40, col: 5, color: "cyan" },
+    ],
+    faults: [{ kind: "flip", seat: 1, at: 6 }],
+  },
+  {
+    id: "theDark",
+    name: "THE DARK",
+    guide: {
+      scene: "theDark",
+    },
+    entries: [
+      { beat: 0, col: 5, color: "red" },
+      { beat: 4, col: 2, color: "cyan" },
+      { beat: 8, col: 8, color: "red" },
+      { beat: 12, col: 3, color: "cyan" },
+      { beat: 16, col: 7, color: "red" },
+      { beat: 20, col: 0, color: "cyan" },
+      { beat: 24, col: 10, color: "red" },
+      { beat: 28, col: 5, color: "cyan" },
+      { beat: 32, col: 2, color: "red" },
+      { beat: 36, col: 8, color: "cyan" },
+    ],
+    faults: [{ kind: "dark", at: 4 }],
+  },
+  {
     id: "theHusk",
     name: "THE HUSK",
     guide: {
@@ -184,39 +224,6 @@ export const WAVES_ACT_11: Wave[] = [
     pods: [
       { beat: 6, col: 10, row: 4, kind: "purge", husk: true },
       { beat: 32, col: 5, row: 4, kind: "purge", husk: true },
-    ],
-  },
-  {
-    id: "theHuskBreathe",
-    name: "EASY HUSKS",
-    variant: true,
-    entries: [
-      { beat: 0, col: 3, color: "red" },
-      { beat: 13, col: 0, color: "cyan" },
-      { beat: 20, col: 10, kind: "moult", color: null, cargo: "ward" },
-      { beat: 26, col: 0, color: "cyan" },
-      { beat: 33, col: 7, kind: "fence", color: null },
-      { beat: 40, col: 8, color: "cyan" },
-    ],
-    pods: [{ beat: 7, col: 4, row: 4, kind: "purge", husk: true }],
-  },
-  {
-    id: "theHuskRecall",
-    name: "HUSK RECALL",
-    variant: true,
-    entries: [
-      { beat: 0, col: 9, color: "cyan" },
-      { beat: 10, col: 2, color: "red" },
-      { beat: 15, col: 1, kind: "lure", color: "cyan" },
-      { beat: 20, col: 0, color: "red" },
-      { beat: 20, col: 10, color: "red" },
-      { beat: 32, col: 5, kind: "lure", color: "cyan" },
-      { beat: 38, col: 0, color: "red" },
-      { beat: 38, col: 10, color: "red" },
-    ],
-    pods: [
-      { beat: 5, col: 8, row: 4, kind: "purge", husk: true },
-      { beat: 26, col: 0, row: 4, kind: "purge", husk: true },
     ],
   },
 ];

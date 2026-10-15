@@ -58,6 +58,7 @@ export const WAVES_ACT_14B: Wave[] = [
   {
     id: "fiveBlisters",
     name: "FIVE BLISTERS",
+    variant: true,
     entries: [
       { beat: 0, col: 5, kind: "blister", color: null, row: 2, by: 2 },
       { beat: 10, col: 8, kind: "blister", color: null, row: 2, by: 1, gesture: "hold" },

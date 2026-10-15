@@ -128,9 +128,9 @@ guess. *Pressure* is `wavePressure`
 | 98 | VEIL RECALL | **regular** | THE VEIL | — | STANDARD 5 | 8 | 39 | 43 | 27 | 54 | 7.9 |
 | 99 | VEILS AND TWINS | **regular** | THE VEIL | — | STANDARD 5 | 11 | 44 | 47 | 29 | 58 | 8.9 |
 | 100 | VEIL PEAK | **regular** | THE VEIL | — | STANDARD 5 | 16 | 48 | 51 | 32 | 64 | 9.9 |
-| 101 | THE LANCE | intro | THE VEIL | panel | STANDARD | 6 | 12 | 15 | 9 | 18 | 5 |
-| 102 | THE PURGE | intro | THE VEIL | — | STANDARD | 3 | 3 | 8 | 5 | 10 | 8.6 |
-| 103 | THE VANE | boss | THE VEIL | vane | STANDARD 5 | 2 | 3 | 51 | 32 | 64 | — |
+| 101 | THE VANE | boss | THE VEIL | vane | STANDARD 5 | 2 | 3 | 51 | 32 | 64 | — |
+| 102 | THE LANCE | intro | THE VEIL | panel | STANDARD | 6 | 12 | 15 | 9 | 18 | 5 |
+| 103 | THE PURGE | intro | THE VEIL | — | STANDARD | 3 | 3 | 8 | 5 | 10 | 8.6 |
 | 104 | THE WARD | intro | THE WARD | meteorMedium, meteorFast, meteorFaster, meteorFastest | STANDARD | 5 | 8 | 14 | 9 | 18 | 14.4 |
 | 105 | HEAVY ROCKS AGAIN | **regular** | THE WARD | — | STANDARD | 6 | 31 | 39 | 24 | 48 | 4.7 |
 | 106 | HEAVY ROCKS SPREAD | **regular** | THE WARD | — | STANDARD | 6 | 29 | 37 | 23 | 46 | 5.7 |
@@ -306,8 +306,8 @@ guess. *Pressure* is `wavePressure`
 | 276 | COIL RECALL | **regular** | THE COIL | — | STANDARD | 8 | 38 | 41 | 26 | 52 | 7.2 |
 | 277 | COILS AND TWINS | **regular** | THE COIL | — | STANDARD | 11 | 45 | 47 | 29 | 58 | 7.9 |
 | 278 | THE TWITCH | **regular** | THE COIL | — | STANDARD | 10 | 62 | 70 | 44 | 88 | 8 |
-| 279 | THE CLAW | intro | THE COIL | panel | THE CLAW | 6 | 52 | 57 | 36 | 72 | 4.9 |
-| 280 | THE SCUTTLE | boss | THE COIL | scuttle | STANDARD | 0 | 0 | 48 | 30 | 60 | — |
+| 279 | THE SCUTTLE | boss | THE COIL | scuttle | STANDARD | 0 | 0 | 48 | 30 | 60 | — |
+| 280 | THE CLAW | intro | THE COIL | panel | THE CLAW | 6 | 52 | 57 | 36 | 72 | 4.9 |
 | 281 | THE CROSSING | intro | THE CROSSING | rockCross | STANDARD | 8 | 34 | 41 | 26 | 52 | 9 |
 | 282 | CROSSINGS AGAIN | **regular** | THE CROSSING | — | STANDARD | 5 | 28 | 35 | 22 | 44 | 6.6 |
 | 283 | CROSSINGS SPREAD | **regular** | THE CROSSING | — | STANDARD | 6 | 27 | 30 | 19 | 38 | 7.6 |
@@ -357,10 +357,10 @@ guess. *Pressure* is `wavePressure`
 | 327 | WEIGHT RECALL | **regular** | THE WEIGHT | — | STANDARD | 9 | 39 | 41 | 26 | 52 | 10.7 |
 | 328 | WEIGHTS AND TWINS | **regular** | THE WEIGHT | — | STANDARD | 12 | 44 | 48 | 30 | 60 | 11.7 |
 | 329 | WEIGHT PEAK | **regular** | THE WEIGHT | — | STANDARD | 17 | 48 | 52 | 33 | 66 | 12.7 |
-| 330 | THE CODEX | intro | THE WEIGHT | codexFault | STANDARD | 8 | 36 | 39 | 24 | 48 | 8.4 |
-| 331 | THE HANDOVER | intro | THE WEIGHT | handoverFault | STANDARD | 7 | 24 | 27 | 17 | 34 | 11 |
-| 332 | THE LEAK | intro | THE WEIGHT | — | STANDARD 5 | 16 | 35 | 38 | 24 | 48 | 10.4 |
-| 333 | THE SPLICE | boss (special) | THE WEIGHT | splice, panel | THE SPLICE | 0 | 0 | 21 | 13 | 26 | — |
+| 330 | THE SPLICE | boss (special) | THE WEIGHT | splice, panel | THE SPLICE | 0 | 0 | 21 | 13 | 26 | — |
+| 331 | THE CODEX | intro | THE WEIGHT | codexFault | STANDARD | 8 | 36 | 39 | 24 | 48 | 8.4 |
+| 332 | THE HANDOVER | intro | THE WEIGHT | handoverFault | STANDARD | 7 | 24 | 27 | 17 | 34 | 11 |
+| 333 | THE LEAK | intro | THE WEIGHT | — | STANDARD 5 | 16 | 35 | 38 | 24 | 48 | 10.4 |
 | 334 | THE MINE | intro | THE MINE | mine | STANDARD | 6 | 30 | 33 | 21 | 42 | 12.5 |
 | 335 | MINES AGAIN | **regular** | THE MINE | — | STANDARD | 5 | 29 | 31 | 19 | 38 | 8.3 |
 | 336 | MINES SPREAD | **regular** | THE MINE | — | STANDARD | 6 | 26 | 41 | 26 | 52 | 9.3 |
@@ -390,9 +390,9 @@ guess. *Pressure* is `wavePressure`
 | 360 | MOULT RECALL | **regular** | THE MOULT | — | STANDARD | 10 | 36 | 97 | 61 | 122 | 11.1 |
 | 361 | MOULTS AND TWINS | **regular** | THE MOULT | — | STANDARD | 12 | 45 | 97 | 61 | 122 | 12.1 |
 | 362 | MOULT PEAK | **regular** | THE MOULT | — | STANDARD | 18 | 48 | 97 | 61 | 122 | 13.1 |
-| 363 | THE FLIP | intro | THE MOULT | flipFault | STANDARD | 10 | 40 | 43 | 27 | 54 | 10.8 |
-| 364 | THE DARK | intro | THE MOULT | darkFault | STANDARD | 10 | 36 | 39 | 24 | 48 | 9.4 |
-| 365 | THE GIMBAL | boss | THE MOULT | gimbal | STANDARD | 0 | 0 | 23 | 14 | 28 | — |
+| 363 | THE GIMBAL | boss | THE MOULT | gimbal | STANDARD | 0 | 0 | 23 | 14 | 28 | — |
+| 364 | THE FLIP | intro | THE MOULT | flipFault | STANDARD | 10 | 40 | 43 | 27 | 54 | 10.8 |
+| 365 | THE DARK | intro | THE MOULT | darkFault | STANDARD | 10 | 36 | 39 | 24 | 48 | 9.4 |
 | 366 | THE HUSK | intro | THE HUSK | husk | STANDARD | 2 | 9 | 16 | 10 | 20 | 6 |
 | 367 | HUSKS AGAIN | **regular** | THE HUSK | — | STANDARD | 3 | 27 | 87 | 54 | 108 | 8.7 |
 | 368 | HUSKS SPREAD | **regular** | THE HUSK | — | STANDARD | 4 | 30 | 97 | 61 | 122 | 9.6 |
@@ -609,7 +609,7 @@ time × 2 — the owner's accepted guess, never measured.
 | 71 | THE GAUGE | special | 62 beats | 39 | 78 s | short |
 | 81 | THE WARDEN | normal | 39 beats | 24 | 48 s | short |
 | 91 | THE FLEET | special | 14 beats | 9 | 18 s | short |
-| 103 | THE VANE | normal | 51 beats | 32 | 64 s | in band |
+| 101 | THE VANE | normal | 51 beats | 32 | 64 s | in band |
 | 113 | SNAKE | special | 124 beats | 78 | 156 s | in band |
 | 123 | PINBALL | special | 411 beats | 257 | 514 s | long |
 | 133 | THE SCOUT | special | 73 beats | 46 | 92 s | in band |
@@ -626,15 +626,15 @@ time × 2 — the owner's accepted guess, never measured.
 | 243 | THE LEDGER | normal | 32 beats | 20 | 40 s | short |
 | 255 | THE SURGE | normal | 44 beats | 28 | 56 s | short |
 | 266 | THE LEAD | normal | 40 beats | 25 | 50 s | short |
-| 280 | THE SCUTTLE | normal | 48 beats | 30 | 60 s | in band |
+| 279 | THE SCUTTLE | normal | 48 beats | 30 | 60 s | in band |
 | 290 | THE ANTIPHON | normal | 56 beats | 35 | 70 s | in band |
 | 300 | THE HIVE | normal | 74 beats | 46 | 92 s | in band |
 | 310 | THE CAIRN | normal | 24 beats | 15 | 30 s | short |
 | 320 | THE WELL | special | 61 beats | 38 | 76 s | short |
-| 333 | THE SPLICE | special | 21 beats | 13 | 26 s | short |
+| 330 | THE SPLICE | special | 21 beats | 13 | 26 s | short |
 | 343 | THE REPRISE | normal | 41 beats | 26 | 52 s | short |
 | 353 | THE FILAMENT | normal | 82 beats | 51 | 102 s | in band |
-| 365 | THE GIMBAL | normal | 23 beats | 14 | 28 s | short |
+| 363 | THE GIMBAL | normal | 23 beats | 14 | 28 s | short |
 | 375 | THE SPOOL | normal | 80 beats | 50 | 100 s | in band |
 | 384 | THE HASP | normal | 21 beats | 13 | 26 s | short |
 | 393 | THE RATCHET | normal | 23 beats | 14 | 28 s | short |

@@ -10,7 +10,7 @@ import {
   wavePressure,
 } from "@neon-spore/content";
 import type { PodEntry } from "@neon-spore/sim";
-import { TUTORIAL_LAST_ID } from "./compose-steps.js";
+import { STEPS, TUTORIAL_LAST_ID } from "./compose-steps.js";
 
 /**
  * **A block, read off the wave list**: the wave that introduces a thing, what
@@ -106,12 +106,15 @@ export function motifsIn(wave: Wave, id: string): Motif[] {
 
 /** The lowest pressure among the composed regular waves between two intros.
  * A hand-made one stands for a block's last steps (`stepsToCompose`), so it
- * is no block's gentlest. */
+ * is no block's gentlest — folded into the block or not: a composed wave is
+ * known by its id, the intro's and its step's (`compose.ts`). */
 function floorOf(waves: readonly Wave[], from: number, to: number): number | undefined {
+  const composed = new Set(STEPS.map((s) => `${waves[from]?.id}${s.name}`));
   let low: number | undefined;
   for (let i = from + 1; i < to; i++) {
     const wave = waves[i];
-    const p = wave?.variant && isRegularWave(waves, i) ? wavePressure(wave) : undefined;
+    const p =
+      wave && composed.has(wave.id) && isRegularWave(waves, i) ? wavePressure(wave) : undefined;
     if (p !== undefined && (low === undefined || p < low)) low = p;
   }
   return low;

@@ -1,5 +1,5 @@
 import { describe, expect, test } from "bun:test";
-import { controlSet, mechanicsInWave, WAVES } from "@neon-spore/content";
+import { controlSet, isRegularWave, mechanicsInWave, WAVES } from "@neon-spore/content";
 import { biomeLineCount, biomeLines } from "../src/biome-lines.js";
 import { bossOrder } from "../src/boss-slots.js";
 import { startsBlock } from "../src/compose-review.js";
@@ -44,6 +44,19 @@ describe("the bosses' places (wave-curriculum §7)", () => {
     });
     // After the last block, one boss closes it and any left wait for theirs.
     expect(WAVES.slice(last).filter((w) => w.boss).length).toBeGreaterThanOrEqual(1);
+  });
+
+  // The owner, 15 October 2026: *I expect to follow from top to bottom
+  // without spaces* — in the folded list, every boss under a block's waves.
+  test("each come straight after a regular wave folded into its block", () => {
+    WAVES.forEach((boss, at) => {
+      if (!boss.boss || at <= finale) return;
+      const before = WAVES[at - 1];
+      expect({
+        boss: boss.name,
+        folded: before?.variant === true && isRegularWave(WAVES, at - 1),
+      }).toEqual({ boss: boss.name, folded: true });
+    });
   });
 
   test("leave the tutorial arc's bosses where they were", () => {

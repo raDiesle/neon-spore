@@ -26,6 +26,7 @@ export const WAVES_ACT_7G_P5: Wave[] = [
   {
     id: "theTwitch",
     name: "THE TWITCH",
+    variant: true,
     entries: [
       { beat: 0, col: 5, kind: "meteor", color: null },
       { beat: 10, col: 10, kind: "coil", color: null },
@@ -39,6 +40,16 @@ export const WAVES_ACT_7G_P5: Wave[] = [
       { beat: 62, col: 0, kind: "meteorMedium", color: null },
     ],
     faults: [{ kind: "shield" }],
+  },
+  {
+    id: "theScuttle",
+    name: "THE SCUTTLE",
+    guide: {
+      scene: "theScuttle",
+    },
+    entries: [],
+    boss: { kind: "scuttle" },
+    bossType: "normal",
   },
   {
     id: "theClaw",
@@ -61,16 +72,6 @@ export const WAVES_ACT_7G_P5: Wave[] = [
       { beat: 50, col: 10, row: 5, kind: "purge", cross: -1 },
     ],
     controls: "claw",
-  },
-  {
-    id: "theScuttle",
-    name: "THE SCUTTLE",
-    guide: {
-      scene: "theScuttle",
-    },
-    entries: [],
-    boss: { kind: "scuttle" },
-    bossType: "normal",
   },
   {
     id: "theCrossing",

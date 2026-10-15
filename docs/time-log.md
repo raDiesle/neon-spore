@@ -42303,3 +42303,13 @@ runs, and only an interleaved A/B in one browser could be trusted.
 Bottleneck: landing — the full check runs once for 168 waves that composed in seconds.
 
 *Measured: 16 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
+
+## 2026-10-15 — Every boss comes straight after its block's waves
+
+- reading: 5 min. The folded wave list, head by head, for bosses after a lesson.
+- writing: 10 min. The lead-in rule in `boss-slots.ts`, its test, two folds, the pages.
+- looking: 5 min. The four moves `waves:bosses` printed, and the list's picture.
+- friction: 0 min.
+- landing: 10 min. `check:fast`, the commit, `land`.
+
+Bottleneck: landing — the full check for four moved bosses.

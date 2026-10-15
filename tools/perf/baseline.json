@@ -1032,8 +1032,18 @@
       "unmeasured": true
     },
     {
-      "id": "theLance",
+      "id": "theVane",
       "wave": 101,
+      "name": "THE VANE",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "theLance",
+      "wave": 102,
       "name": "THE LANCE",
       "bodies": 6,
       "arrivals": "6:68d65c00",
@@ -1044,18 +1054,8 @@
     },
     {
       "id": "thePurge",
-      "wave": 102,
-      "name": "THE PURGE",
-      "bodies": 0,
-      "typical": 0,
-      "mean": 0,
-      "p90": 0,
-      "unmeasured": true
-    },
-    {
-      "id": "theVane",
       "wave": 103,
-      "name": "THE VANE",
+      "name": "THE PURGE",
       "bodies": 0,
       "typical": 0,
       "mean": 0,
@@ -2818,9 +2818,9 @@
       "jitter": 0.233
     },
     {
-      "id": "theClaw",
+      "id": "theScuttle",
       "wave": 279,
-      "name": "THE CLAW",
+      "name": "THE SCUTTLE",
       "bodies": 0,
       "typical": 0,
       "mean": 0,
@@ -2828,9 +2828,9 @@
       "unmeasured": true
     },
     {
-      "id": "theScuttle",
+      "id": "theClaw",
       "wave": 280,
-      "name": "THE SCUTTLE",
+      "name": "THE CLAW",
       "bodies": 0,
       "typical": 0,
       "mean": 0,
@@ -3328,8 +3328,18 @@
       "unmeasured": true
     },
     {
-      "id": "theCodex",
+      "id": "theSplice",
       "wave": 330,
+      "name": "THE SPLICE",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "theCodex",
+      "wave": 331,
       "name": "THE CODEX",
       "bodies": 0,
       "typical": 0,
@@ -3339,7 +3349,7 @@
     },
     {
       "id": "theHandover",
-      "wave": 331,
+      "wave": 332,
       "name": "THE HANDOVER",
       "bodies": 0,
       "typical": 0,
@@ -3349,18 +3359,8 @@
     },
     {
       "id": "theLeak",
-      "wave": 332,
-      "name": "THE LEAK",
-      "bodies": 0,
-      "typical": 0,
-      "mean": 0,
-      "p90": 0,
-      "unmeasured": true
-    },
-    {
-      "id": "theSplice",
       "wave": 333,
-      "name": "THE SPLICE",
+      "name": "THE LEAK",
       "bodies": 0,
       "typical": 0,
       "mean": 0,
@@ -3658,8 +3658,18 @@
       "unmeasured": true
     },
     {
-      "id": "theFlip",
+      "id": "theGimbal",
       "wave": 363,
+      "name": "THE GIMBAL",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "theFlip",
+      "wave": 364,
       "name": "THE FLIP",
       "bodies": 0,
       "typical": 0,
@@ -3669,18 +3679,8 @@
     },
     {
       "id": "theDark",
-      "wave": 364,
-      "name": "THE DARK",
-      "bodies": 0,
-      "typical": 0,
-      "mean": 0,
-      "p90": 0,
-      "unmeasured": true
-    },
-    {
-      "id": "theGimbal",
       "wave": 365,
-      "name": "THE GIMBAL",
+      "name": "THE DARK",
       "bodies": 0,
       "typical": 0,
       "mean": 0,

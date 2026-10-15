@@ -155,6 +155,35 @@ import type { Wave } from "../wave-types.js";
  */
 export const WAVES_ACT_9: Wave[] = [
   {
+    id: "theSplice",
+    name: "THE SPLICE",
+    guide: {
+      scene: "theSplice",
+    },
+    entries: [],
+    boss: { kind: "splice", rounds: [{ beats: 18 }, { beats: 27 }, { beats: 36 }] },
+    bossType: "special",
+    controls: "splice",
+  },
+  {
+    id: "theCodex",
+    name: "THE CODEX",
+    guide: {
+      scene: "theCodex",
+    },
+    entries: [
+      { beat: 0, col: 3, color: "red" },
+      { beat: 6, col: 7, color: "cyan" },
+      { beat: 14, col: 2, color: "red" },
+      { beat: 16, col: 8, color: "red" },
+      { beat: 24, col: 5, color: "cyan" },
+      { beat: 26, col: 0, color: "red" },
+      { beat: 34, col: 10, color: "cyan" },
+      { beat: 36, col: 3, color: "cyan" },
+    ],
+    faults: [{ kind: "codex" }],
+  },
+  {
     id: "theHandover",
     name: "THE HANDOVER",
     guide: {
@@ -196,43 +225,5 @@ export const WAVES_ACT_9: Wave[] = [
       { beat: 35, col: 10, color: "cyan" },
     ],
     controls: "standard5",
-  },
-  {
-    id: "theSplice",
-    name: "THE SPLICE",
-    guide: {
-      scene: "theSplice",
-    },
-    entries: [],
-    boss: { kind: "splice", rounds: [{ beats: 18 }, { beats: 27 }, { beats: 36 }] },
-    bossType: "special",
-    controls: "splice",
-  },
-  {
-    id: "theMine",
-    name: "THE MINE",
-    guide: {
-      scene: "theMine",
-    },
-    entries: [
-      { beat: 0, col: 5, kind: "mine", color: "cyan", row: 6, sees: 2 },
-      { beat: 12, col: 2, kind: "mine", color: "red", row: 9, sees: 1 },
-      { beat: 24, col: 8, kind: "mine", color: "red", row: 3, sees: 2 },
-      { beat: 26, col: 3, kind: "mine", color: "cyan", row: 11, sees: 1 },
-      { beat: 28, col: 7, color: "cyan" },
-      { beat: 30, col: 0, color: "red" },
-    ],
-  },
-  {
-    id: "theMineAgain",
-    name: "MINES AGAIN",
-    variant: true,
-    entries: [
-      { beat: 0, col: 1, kind: "mine", color: "red", row: 3, sees: 2 },
-      { beat: 8, col: 8, kind: "weight", color: null },
-      { beat: 15, col: 2, kind: "meteor", color: null, cross: 1, row: 4 },
-      { beat: 21, col: 8, kind: "mine", color: "cyan", row: 6, sees: 2 },
-      { beat: 29, col: 9, kind: "weight", color: null },
-    ],
   },
 ];

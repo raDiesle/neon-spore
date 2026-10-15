@@ -6,6 +6,33 @@ import type { Wave } from "../wave-types.js";
  */
 export const WAVES_ACT_9_P2: Wave[] = [
   {
+    id: "theMine",
+    name: "THE MINE",
+    guide: {
+      scene: "theMine",
+    },
+    entries: [
+      { beat: 0, col: 5, kind: "mine", color: "cyan", row: 6, sees: 2 },
+      { beat: 12, col: 2, kind: "mine", color: "red", row: 9, sees: 1 },
+      { beat: 24, col: 8, kind: "mine", color: "red", row: 3, sees: 2 },
+      { beat: 26, col: 3, kind: "mine", color: "cyan", row: 11, sees: 1 },
+      { beat: 28, col: 7, color: "cyan" },
+      { beat: 30, col: 0, color: "red" },
+    ],
+  },
+  {
+    id: "theMineAgain",
+    name: "MINES AGAIN",
+    variant: true,
+    entries: [
+      { beat: 0, col: 1, kind: "mine", color: "red", row: 3, sees: 2 },
+      { beat: 8, col: 8, kind: "weight", color: null },
+      { beat: 15, col: 2, kind: "meteor", color: null, cross: 1, row: 4 },
+      { beat: 21, col: 8, kind: "mine", color: "cyan", row: 6, sees: 2 },
+      { beat: 29, col: 9, kind: "weight", color: null },
+    ],
+  },
+  {
     id: "theMineSpread",
     name: "MINES SPREAD",
     variant: true,

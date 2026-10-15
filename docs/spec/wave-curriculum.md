@@ -234,6 +234,14 @@ decided then while the owner was away:
   (`tools/director/src/compose-review.ts`). Boss placement counts a review
   block as a block, so every boss past the arc now closes one: about one
   every ten waves from wave 41 to the end, 564 waves in all.
+- **A boss comes straight after a regular wave**, 15 October 2026 — the
+  owner: *I expect to follow from top to bottom without spaces.* A panel's or
+  a fault's lesson that stood between a block's waves and its boss (THE
+  LANCE and THE PURGE, THE CLAW, THE CODEX to THE LEAK, THE FLIP and THE
+  DARK) now opens the next block, and the boss comes before it: THE VANE,
+  THE SCUTTLE, THE SPLICE and THE GIMBAL moved up. None needed what those
+  lessons teach; one that did would take the next block. THE TWITCH and
+  FIVE BLISTERS, hand-written regular waves, fold into their blocks.
 - **The first wave of a review block stops rising at 8.7**, from the
   thirteenth on: R1 alone cannot score higher, as §4 found for every first
   step. Each block's peak still rises, from 10.3 to 13.

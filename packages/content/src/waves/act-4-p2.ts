@@ -6,6 +6,21 @@ import type { Wave } from "../wave-types.js";
  */
 export const WAVES_ACT_4_P2: Wave[] = [
   {
+    id: "theWardRecall",
+    name: "HEAVY ROCK RECALL",
+    variant: true,
+    entries: [
+      { beat: 0, col: 10, color: "red" },
+      { beat: 5, col: 8, kind: "meteorMedium", color: null },
+      { beat: 10, col: 9, color: "red" },
+      { beat: 15, col: 7, kind: "torch", color: null },
+      { beat: 21, col: 9, color: "cyan" },
+      { beat: 27, col: 5, kind: "meteorMedium", color: null },
+      { beat: 32, col: 10, color: "red" },
+      { beat: 37, col: 6, kind: "torch", color: null },
+    ],
+  },
+  {
     id: "theWardBend",
     name: "HEAVY ROCKS, TWINS",
     variant: true,

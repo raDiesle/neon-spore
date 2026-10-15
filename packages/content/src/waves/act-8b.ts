@@ -204,22 +204,4 @@ export const WAVES_ACT_8B: Wave[] = [
       { beat: 44, col: 8, row: 3, kind: "ward" },
     ],
   },
-  {
-    id: "theCodex",
-    name: "THE CODEX",
-    guide: {
-      scene: "theCodex",
-    },
-    entries: [
-      { beat: 0, col: 3, color: "red" },
-      { beat: 6, col: 7, color: "cyan" },
-      { beat: 14, col: 2, color: "red" },
-      { beat: 16, col: 8, color: "red" },
-      { beat: 24, col: 5, color: "cyan" },
-      { beat: 26, col: 0, color: "red" },
-      { beat: 34, col: 10, color: "cyan" },
-      { beat: 36, col: 3, color: "cyan" },
-    ],
-    faults: [{ kind: "codex" }],
-  },
 ];

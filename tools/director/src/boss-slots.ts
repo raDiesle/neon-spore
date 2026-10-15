@@ -1,4 +1,11 @@
-import { controlSet, mechanic, mechanicsInWave, setLance, type Wave } from "@neon-spore/content";
+import {
+  controlSet,
+  isRegularWave,
+  mechanic,
+  mechanicsInWave,
+  setLance,
+  type Wave,
+} from "@neon-spore/content";
 import { startsBlock } from "./compose-review.js";
 import { TUTORIAL_LAST_ID } from "./compose-steps.js";
 
@@ -50,6 +57,20 @@ function keysOf(wave: Wave): string[] {
   return keys;
 }
 
+/**
+ * Where a block ends: at the next block's start, less the waves just before
+ * it that are neither regular nor a block of their own — a panel's or a
+ * fault's lesson (THE LANCE, THE CLAW, THE FLIP). Those open the next block,
+ * so its boss comes before them and straight after a regular wave — the
+ * owner, 15 October 2026: *I expect to follow from top to bottom without
+ * spaces.* A boss that needs what they teach takes a later block.
+ */
+function leadIn(rest: readonly Wave[], intro: number, next: number): number {
+  let end = next;
+  while (end - 1 > intro && end < rest.length && !isRegularWave(rest, end - 1)) end--;
+  return end;
+}
+
 /** The waves in boss order (decision 7), and where each boss went. */
 export function bossOrder(waves: readonly Wave[]): { order: Wave[]; slots: BossSlot[] } {
   const finale = waves.findIndex((w) => w.id === TUTORIAL_LAST_ID);
@@ -65,7 +86,7 @@ export function bossOrder(waves: readonly Wave[]): { order: Wave[]; slots: BossS
   const intros: number[] = [];
   for (let i = 0; i < rest.length; i++) if (startsBlock(rest, i)) intros.push(i);
   const blocks = intros
-    .map((at, k) => ({ intro: at, end: intros[k + 1] ?? rest.length }))
+    .map((at, k) => ({ intro: at, end: leadIn(rest, at, intros[k + 1] ?? rest.length) }))
     .filter((b) => b.intro > restFinale);
 
   const placed = new Map<number, Wave[]>();

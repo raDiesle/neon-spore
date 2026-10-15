@@ -115,6 +115,32 @@ import type { Wave } from "../wave-types.js";
  */
 export const WAVES_ACT_4: Wave[] = [
   {
+    id: "theVane",
+    name: "THE VANE",
+    entries: [
+      { beat: 0, col: 2, kind: "meteor", color: null },
+      { beat: 3, col: 8, color: "red" },
+    ],
+    boss: { kind: "vane" },
+    bossType: "normal",
+    controls: "standard5",
+  },
+  {
+    id: "theLance",
+    name: "THE LANCE",
+    guide: {
+      scene: "theLance",
+    },
+    entries: [
+      { beat: 0, col: 3, color: "cyan" },
+      { beat: 1, col: 3, color: "cyan" },
+      { beat: 2, col: 3, color: "cyan" },
+      { beat: 10, col: 8, color: "red" },
+      { beat: 11, col: 8, color: "red" },
+      { beat: 12, col: 8, color: "red" },
+    ],
+  },
+  {
     id: "thePurge",
     name: "THE PURGE",
     guide: {
@@ -126,17 +152,6 @@ export const WAVES_ACT_4: Wave[] = [
       { beat: 3, col: 7, color: "cyan" },
     ],
     pods: [{ beat: 0, col: 5, row: 2, kind: "purge" }],
-  },
-  {
-    id: "theVane",
-    name: "THE VANE",
-    entries: [
-      { beat: 0, col: 2, kind: "meteor", color: null },
-      { beat: 3, col: 8, color: "red" },
-    ],
-    boss: { kind: "vane" },
-    bossType: "normal",
-    controls: "standard5",
   },
   {
     id: "theWard",
@@ -218,21 +233,6 @@ export const WAVES_ACT_4: Wave[] = [
       { beat: 22, col: 2, kind: "meteorMedium", color: null },
       { beat: 28, col: 5, color: "red" },
       { beat: 36, col: 6, kind: "meteorMedium", color: null },
-    ],
-  },
-  {
-    id: "theWardRecall",
-    name: "HEAVY ROCK RECALL",
-    variant: true,
-    entries: [
-      { beat: 0, col: 10, color: "red" },
-      { beat: 5, col: 8, kind: "meteorMedium", color: null },
-      { beat: 10, col: 9, color: "red" },
-      { beat: 15, col: 7, kind: "torch", color: null },
-      { beat: 21, col: 9, color: "cyan" },
-      { beat: 27, col: 5, kind: "meteorMedium", color: null },
-      { beat: 32, col: 10, color: "red" },
-      { beat: 37, col: 6, kind: "torch", color: null },
     ],
   },
 ];

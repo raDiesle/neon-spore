@@ -108,7 +108,9 @@ has been taught** — its panel, every button on it, the hold, and every body it
 carries — one boss to a block, in the order they were made. The tutorial keeps
 THE INSTAR and THE BASTION where they are. There are more bosses than things
 to teach, so the last 21 bosses each close a **review block** (below); every
-boss now has eight regular waves in front of it. A boss's length is the owner's to adjust by hand: the boss table
+boss now has eight regular waves in front of it. A boss always comes straight after
+a regular wave: a panel's or a fault's lesson opens the next block rather
+than standing between a block and its boss. A boss's length is the owner's to adjust by hand: the boss table
 in `wave-curriculum-today.md` marks each one short, in band or long.
 
 ## Review blocks

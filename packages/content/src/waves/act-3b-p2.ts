@@ -108,19 +108,4 @@ export const WAVES_ACT_3B_P2: Wave[] = [
     ],
     controls: "standard5",
   },
-  {
-    id: "theLance",
-    name: "THE LANCE",
-    guide: {
-      scene: "theLance",
-    },
-    entries: [
-      { beat: 0, col: 3, color: "cyan" },
-      { beat: 1, col: 3, color: "cyan" },
-      { beat: 2, col: 3, color: "cyan" },
-      { beat: 10, col: 8, color: "red" },
-      { beat: 11, col: 8, color: "red" },
-      { beat: 12, col: 8, color: "red" },
-    ],
-  },
 ];
