@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-15 · 08a55d01f — The held bodies glance
+
+THE BALLOON and THE LID now cock and turn as every other enemy does. A balloon turns holding the two points its handles hang at, and does not roll, so both handles still meet its skin where they are drawn and where a thumb is answered; a lid's cord runs from the eye's centre, which its turn leaves where it is. THE WEIGHT already glanced as a living body, and its calipers still close round it. The ghost and the wisp do not glance: each is mostly not drawn.
+
 ## 2026-10-15 · 81d39fe02 — AUTO plays THE SCUTTLE on every seed of the twelve
 
 AUTO now clears THE SCUTTLE on seeds 1, 3 and 9 too, so the curriculum table measures it at 48 beats instead of "AUTO fails". The beam stopped on a rock or a pod standing in the last part's column: the pilot's one carry a cycle now takes a rock or a pod off a column a part still hangs over, and otherwise brings the live part a column nearer the cannon. In the frame's last cycles a pod hanging over a part still attached is shot loose before the wind-up, and no other pod is. Over forty-eight seeds it clears 45, up from 31, and the fight is about ten beats shorter.

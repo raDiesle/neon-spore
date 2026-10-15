@@ -41892,3 +41892,5 @@ forty-eight seeds rather than the three it was written for.
 
 Bottleneck: none to speak of — `glance.ts` already held two points still for
 the bosses, and the balloon only had to ask for it.
+
+*Measured: 30 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
