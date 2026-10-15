@@ -360,6 +360,7 @@ Prove with `bun test packages/hands` and `bun run check`.
 ## `mirror-grip.test.ts` is past the line ceiling
 
 - **Found:** 2026-10-14, claude/queue-holds-as-the-hold-labs-drop-the-baton-the-mirror
+- **Taken:** 2026-10-15, main (claim: claude/queue-mirror-grip-test-ts-is-past-the-line-ceiling)
 - **Files:** `packages/render/test/mirror-grip.test.ts`
 
 296 lines: the hit tests, the hand's readout, the rings and the drops, the pin
