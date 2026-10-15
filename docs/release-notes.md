@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-15 · 2e8e18296 — BLISTER:LEVER's three looks are drawn bigger, and TAFFY is pulled by its nose
+
+BELL, ROOT and TAFFY on VERSUS are drawn 1.4 times the clover, so each stands well clear of the knob. TAFFY's eyes sit high on its crown and a long soft nose hangs from between them, its tip out under the knob; the thumb draws the nose down the groove. All three fit inside the blister's 3.2-radius turning layer.
+
 ## 2026-10-15 · 3e5bbaebe — THE BLISTER's HOLD comes up as PALM or HUG
 
 A HOLD blister now rises out of its pore as one of two bodies the owner took from VERSUS: PALM, a slime hand with the drop cupped in it whose fingers curl in under a thumb, and HUG, a round slime hugging the drop with its eyes squeezed shut while it is held. Both are drawn bigger than offered — PALM at 1.3 with longer fingers fanned further apart so it reads as a hand, HUG at 1.25 — and which one comes up follows the blister and the tile it surfaced on, so one blister can show both over a wave. SPONGE was rejected.
