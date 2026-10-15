@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-15 · e83a6ac78 — The cannon's gunsight is a third fainter
+
+Its wash, its glow and its hairline, rails and ticks each lose about a third of their opacity; nothing changes shape. A look the owner asked for by name (15 October 2026).
+
 ## 2026-10-15 · ee559eb12 — Every tap on the field is THE PRESS LAB's yellow drop
 
 Every TAP on a boss now wears the same yellow drop THE BLISTER's tap took this morning: it calls *tap tap* until it is touched, has a terrace inside for each tap asked (TAP TAP is two), and says no word and has no scan box round it. THE GOVERNOR's dial marks lose their red thumbprint circle for it. THE INSTAR's and THE NETTLE's tap marks lose their red ring with flaring dots, and THE LAMPREY's lit tooth does too; on those, the drop fills a terrace for each tap taken, and the partner's is dimmed and does not call. A look the owner asked for by name.
