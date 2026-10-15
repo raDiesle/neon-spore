@@ -38,6 +38,7 @@ export * from "./boss-hands-scene.js";
 export * from "./boss-hands-scout.js";
 export * from "./boss-hands-seam.js";
 export * from "./boss-hands-shots.js";
+export * from "./boss-hands-sinew.js";
 export * from "./boss-hands-sling.js";
 export * from "./boss-hands-snake.js";
 export * from "./boss-hands-spool.js";

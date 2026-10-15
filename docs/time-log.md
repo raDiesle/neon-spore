@@ -41554,3 +41554,13 @@ play several beats before the loss, which a trace of the loss does not show.
 Bottleneck: landing; the move itself was mechanical.
 
 *Measured: 3 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-15 — THE SINEW's hands move to `boss-hands-sinew.ts`
+
+- reading: 2 min. The file's seams and its five importers.
+- writing: 3 min. The move, its header, the index and the table's import.
+- looking: 0 min. Nothing drawn.
+- friction: 0 min.
+- landing: 5 min.
+
+Bottleneck: landing; the move itself was mechanical.

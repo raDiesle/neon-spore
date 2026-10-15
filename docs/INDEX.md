@@ -2927,12 +2927,13 @@ by hand never moves.
 | `packages/hands/src/boss-hands-stare.ts` | **THE STARE played right**, for the STATES sheet and the autopilot: hands off the ship on every beat |
 | `packages/hands/src/boss-hands-seam.ts` | **THE SEAM played right**, for the autopilot: every answer is the standard shot or shield (§26) |
 | `packages/hands/src/boss-hands-sling.ts` | **THE SLING played right**, for the autopilot: each seat holds its own draw down while the lit step asks it |
+| `packages/hands/src/boss-hands-sinew.ts` | **The pair's hands on THE SINEW**: the hold in the zone, the snap and the catch |
 | `packages/hands/src/boss-hands-clocks.ts` | **The pair's hands on the bosses that keep a ledger of their own** — THE TASTER, THE LEDGER, THE LEAD |
 | `packages/hands/src/boss-hands-capstan.ts` | **THE CAPSTAN played right**, for the autopilot: the steering seat leans past the mark, the other rubs, the bared core shot |
 | `packages/hands/src/boss-hands-chrysalis.ts` | **THE CHRYSALIS played right**, for the autopilot: the slime rubbed, the quills pulled, the sacs shielded, the heart shot |
 | `packages/hands/src/boss-hands-field.ts` | **The pair's hands on the bosses of the field** — THE GORGE, THE CURTAIN, THE SCUTTLE |
 | `packages/hands/src/boss-hands-flue.ts` | **THE FLUE played right**, for the autopilot: the navigator's thumb sent on the lead the pilot would call |
-| `packages/hands/src/boss-hands-handles.ts` | **The pair's hands on the bosses a handle answers** — THE SINEW, THE SURGE, THE INSTAR |
+| `packages/hands/src/boss-hands-handles.ts` | **The pair's hands on the bosses a handle answers** — THE SURGE, THE INSTAR, THE FILAMENT |
 | `packages/hands/src/boss-hands-hasp.ts` | **THE HASP played right**, for the STATES sheet: the latch kept down and the wheel kept turning |
 | `packages/hands/src/boss-hands-hydra.ts` | **THE HYDRA played right**, for the autopilot, a level at a time: - **The bites** |
 | `packages/hands/src/boss-hands-takes.ts` | **The pair's hands on the bosses a taking answers** — THE CAIRN, THE SPLICE, THE UNDERTOW, THE ANTIPHON |

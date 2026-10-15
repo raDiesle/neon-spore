@@ -357,18 +357,6 @@ Probe with a twelve-seed loop over `startWave(world, 0, [], [], { kind:
 bodies in their column. Add each seed that clears to `scuttle-wave.test.ts`.
 Prove with `bun test packages/hands` and `bun run check`.
 
-## `boss-hands-handles.ts` is past 225 lines
-
-- **Found:** 2026-10-14, claude/queue-curved-pulls-the-sim-knows-only-straight-ones
-- **Taken:** 2026-10-15, main (claim: claude/queue-boss-hands-handles-ts-is-past-225-lines)
-- **Files:** `packages/hands/src/boss-hands-handles.ts`
-
-The autopilot's hands on the handled bosses are at 229 lines after THE SINEW's
-hands learned to follow the bow (`tendon(w, …)`, 14 October 2026). THE SINEW's
-three hands — `sinewHand`, `sinewSnapHand`, `sinewCatchHand` and `tendon` —
-are a seam: move them to `boss-hands-sinew.ts`, with the index re-exporting as
-it does now. Prove with `bun test packages/hands` and `bun run check`.
-
 ## No command profiles a render function by name
 
 - **Found:** 2026-10-14, claude/queue-the-pull-labs-fizz-knob-costs-400-rings-a-call
