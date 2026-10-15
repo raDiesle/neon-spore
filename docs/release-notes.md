@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-15 · c2aec8f28 — EVERY WAVE in the director is a live table: the rail's marks, the brushes' pictures, folds, and what is out of range
+
+DOCUMENTATION › WAVES draws every wave as rows that fold under their heads the way the wave list does, with ▸ open all and a press for only the waves out of range. Kind is the rail's own marks and ≡ for a regular wave; New is the brushes' pictures; the panel is S, S4 or its own name. The bosses are held to their bands in the same rows, so the second table is gone from the director, and a Notes column says what is out of `wave-curriculum.md` §3's ranges — AUTO losing a wave, a span or an arrival count outside its kind's, a boss short or long, a head with nothing under it. `waves:measure` now writes the beats as JSON beside its page, which the table reads. Not a look: the director is a tool.
+
 ## 2026-10-15 · 8a0db5124 — A blister or a mine about to come up is marked on the wall at its row, too
 
 The warning strip along the top marks a column, and read as a body that would fall from the top — which a blister or a mine never does: it comes up inside the field. So a second mark, the strip's own triangle turned on its side, stands against the nearer wall on the row it comes up on, and the body appears where the strip's column and the wall's row cross. Falling bodies keep the strip alone; nothing is drawn across the field between the marks.

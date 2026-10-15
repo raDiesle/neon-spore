@@ -42507,3 +42507,5 @@ before the owner was asked.
 - landing: 5 min.
 
 Bottleneck: writing — the table is new, with nothing in the director to copy.
+
+*Measured: 9 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
