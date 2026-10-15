@@ -626,6 +626,7 @@ and `bun run check`.
 ## THE BLISTER's COMBO gets bodies built round its press and pull, on VERSUS
 
 - **Found:** 2026-10-15, claude/queue-the-blister-takes-a-combo-and-the-controls-group
+- **Taken:** 2026-10-15, claude/queue-the-blisters-combo-gets-bodies-built-round-its-p
 - **Files:** `packages/render/src/blister-bodies.ts`, `packages/render/src/blister-help.ts`, `tools/director/src/poses-field-controls-blister.ts`, `tools/director/src/versus-pose.ts`
 
 The same ask as THE BLISTER's HOLD entry, for `blister:combo`, patching
