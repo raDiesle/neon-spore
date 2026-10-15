@@ -360,6 +360,7 @@ Prove with `bun test packages/hands` and `bun run check`.
 ## `keys.ts` is four lines under the line ceiling
 
 - **Found:** 2026-10-14, claude/queue-curved-pulls-the-sim-knows-only-straight-ones
+- **Taken:** 2026-10-15, main (claim: claude/queue-keys-ts-is-four-lines-under-the-line-ceiling)
 - **Files:** `apps/game/src/keys.ts`
 
 The desk rig's key file is at 246 lines after THE WARDEN's rope learned to
