@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-15 · 510766743 — `bun run shot --row` reaches a HELPERS row by its name
+
+`--row "DEFLECTED"` scrolls the documentation row under that heading to the screen, so its picture is drawn, and looks for the selector inside it: `bun run shot canvas out.png --row DEFLECTED` on CONTROLS › HELPERS. It works on ON THE FIELD and GESTURES too, and a name that matches nothing lists the rows that share a word with it. The tab was always restored from `?sub=` on a cold load; a row's picture is drawn only once it is scrolled near, and nothing scrolled. Every shot now scrolls its element to the middle, so a page's sticky heading no longer covers the top of it.
+
 ## 2026-10-15 · 7113cc5be — check:fast's scan for wave readers runs once a process and is given time
 
 The test that proves a moved wave reaches every test reading the list took 0.8 s alone and over 6 s under a full `bun run land` on a loaded machine, past bun's five-second default, and failed a landing. It reads every test file in the tree on each call. waveReaders now caches its scan per root, and the two tests that read the whole tree carry a named timeout.
