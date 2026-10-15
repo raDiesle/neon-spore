@@ -331,6 +331,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## SNAKE's body shadow is `shadowBlur`
 
 - **Found:** 2026-10-15, claude/glance-layer-cost
+- **Taken:** 2026-10-15, main (claim: claude/queue-snakes-body-shadow-is-shadowblur)
 - **Files:** `packages/render/src/snake-skin.ts`
 
 `castShadow` sets `shadowBlur` to a fifth of a tile under the snake's body —
