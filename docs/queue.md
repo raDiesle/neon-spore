@@ -631,6 +631,7 @@ after it. Prove it with `bun test packages/sim tools/director` and
 ## THE BLISTER takes a COMBO, and the CONTROLS group a COMBO brush
 
 - **Found:** 2026-10-14, claude/control-bodies
+- **Taken:** 2026-10-15, main (claim: claude/queue-the-blister-takes-a-combo-and-the-controls-group)
 - **Files:** `packages/sim/src/blister.ts`, `packages/sim/src/creature-state-blister.ts`, `tools/director/src/combo-lab-combos.ts`, `tools/director/src/entry-fields-blister.ts`, `tools/director/src/control-brushes.ts`
 
 As THE BLISTER's LEVER entry, for THE COMBO LAB's chain: a press, then a
