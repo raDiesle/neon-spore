@@ -1,5 +1,6 @@
 import { readdirSync, readFileSync } from "node:fs";
 import { join, sep } from "node:path";
+import { filesHolding } from "./grep-files.js";
 import { slotDir } from "./slots.js";
 
 /**
@@ -15,13 +16,17 @@ import { slotDir } from "./slots.js";
  *
  * The registry is not counted — closing the slot rewrites it — and nor is
  * anything inside the slot's own directory.
+ *
+ * **Only the files `git grep` names are read** (`grep-files.ts`): reading all
+ * 5,750 sources of a fresh worktree took two minutes of waiting on the disk.
  */
 
 /** Where an importer can live: what `tsconfig.json` typechecks. */
 const SEARCHED = ["apps", "packages", "tools"];
 const SKIPPED = new Set(["node_modules", "dist", ".git", ".wrangler"]);
 
-/** Every source file under `root/dir`, as a path relative to `root`. */
+/** Every source file under `root/dir`, as a path relative to `root` — the walk
+ * where git cannot say which files to read. */
 function sources(root: string, dir: string): string[] {
   let names: string[];
   try {
@@ -31,7 +36,7 @@ function sources(root: string, dir: string): string[] {
   }
   return names
     .filter((n) => /\.(ts|tsx)$/.test(n) && !n.split(sep).some((part) => SKIPPED.has(part)))
-    .map((n) => join(dir, n));
+    .map((n) => join(dir, n).split(sep).join("/"));
 }
 
 /**
@@ -41,23 +46,24 @@ function sources(root: string, dir: string): string[] {
  * pose map is not counted: closing the slot takes its row out (`pose-row.ts`).
  */
 export function importersOf(slot: string, root: string): string[] {
-  const own = join("tools", "versus", "candidates", slotDir(slot)) + sep;
+  const own = `tools/versus/candidates/${slotDir(slot)}/`;
   const skip = new Set([
-    join("tools", "versus", "candidates", "registry.ts"),
-    join("tools", "director", "src", "versus-pose.ts"),
+    "tools/versus/candidates/registry.ts",
+    "tools/director/src/versus-pose.ts",
   ]);
   const spec = new RegExp(
     `(?:from\\s*|import\\s*\\(\\s*)["'][^"']*candidates/${slotDir(slot)}/[^"']*["']`,
   );
   // A quoted string, not a backticked one: comments name slots in backticks.
   const named = new RegExp(`(["'])${slot.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}\\1`);
-  return SEARCHED.flatMap((d) => sources(root, d))
+  // Both regexes need one of these two strings, so a file holding neither is never read.
+  const listed = filesHolding(root, SEARCHED, [`candidates/${slotDir(slot)}/`, slot]);
+  return (listed ?? SEARCHED.flatMap((d) => sources(root, d)))
     .filter((f) => !skip.has(f) && !f.startsWith(own))
     .filter((f) => {
       const text = readFileSync(join(root, f), "utf8");
       return spec.test(text) || named.test(text);
     })
-    .map((f) => f.split(sep).join("/"))
     .sort();
 }
 

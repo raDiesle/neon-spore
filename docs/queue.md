@@ -328,24 +328,6 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/skipped.test.ts` holds the listing's count of the entries
 `next` stepped past and why.
 
-## `bun run versus drop` waits minutes on almost no CPU
-
-- **Found:** 2026-10-15, claude/blister-turn
-- **Taken:** 2026-10-15, main (claim: claude/queue-bun-run-versus-drop-waits-minutes-on-almost-no-c)
-- **Files:** `tools/versus/importers.ts`, `tools/versus/decide.ts`
-
-`bun run versus drop blister:turn "…"` in a fresh worktree ran three minutes
-with no output before it wrote anything, and a bare
-`bun -e 'importersOf("blister:tap", cwd)'` took 3:16 wall clock on 0.15 s user
-and 0.53 s system — waiting, not working — under a load average of 36 from
-other sessions' checks. Bare `bun -e` started in 77 ms on the same machine.
-Rewriting `sources` to never enter `node_modules` (each package's own holds
-workspace links back into `packages/`) did not change the time, so the walk's
-CPU is not it; find where the wait is — the first `readdirSync`/`readFileSync`
-over ~4000 files, or the module graph `decide.ts` pulls in — time it with
-`--cpu-prof` or by halves, make `drop` answer in seconds, and add a timing
-guard or a test that the importer scan never descends into `node_modules`.
-
 ## A TAP blister's body has no route to a photograph
 
 - **Found:** 2026-10-15, claude/blister-tap-take

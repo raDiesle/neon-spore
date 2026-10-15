@@ -11,8 +11,9 @@
  * place leaves the tree exactly as it found it.
  */
 
-import { existsSync, readdirSync, readFileSync, statSync } from "node:fs";
+import { existsSync, readdirSync, readFileSync } from "node:fs";
 import { join, posix } from "node:path";
+import { importersOf } from "./module-importers.js";
 import {
   destinationFor,
   fieldIdent,
@@ -188,38 +189,4 @@ export function slotHelpers(root: string, from: readonly string[], slot: string)
     }
   }
   return found.sort();
-}
-
-/** Every source file under `packages`, `apps` and `tools` that imports
- * `file`, other than `except` — repo-relative, forward slashes. */
-export function importersOf(root: string, file: string, except: string): string[] {
-  const hits: string[] = [];
-  for (const top of ["packages", "apps", "tools"]) walk(join(root, top), root, file, except, hits);
-  return hits;
-}
-
-function walk(dir: string, root: string, file: string, except: string, hits: string[]): void {
-  if (!existsSync(dir)) return;
-  for (const name of readdirSync(dir)) {
-    // `.claude` by name as well as by its dot: a lane's own checkout lives
-    // under `.claude/worktrees`, and a walk that descended into it would
-    // count another tree's readers as this one's.
-    if (name === "node_modules" || name === "dist" || name === ".claude") continue;
-    if (name.startsWith(".")) continue;
-    const abs = join(dir, name);
-    if (statSync(abs).isDirectory()) {
-      walk(abs, root, file, except, hits);
-      continue;
-    }
-    if (!name.endsWith(".ts")) continue;
-    const rel = posix.normalize(abs.slice(root.length).replace(/\\/g, "/").replace(/^\//, ""));
-    if (rel === except) continue;
-    const src = readFileSync(abs, "utf8");
-    for (const m of src.matchAll(/from\s*"(\.[^"]+)"/g)) {
-      if (resolveSpec(rel, m[1] ?? "") === file) {
-        hits.push(rel);
-        break;
-      }
-    }
-  }
 }

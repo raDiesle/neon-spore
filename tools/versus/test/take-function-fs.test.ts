@@ -2,7 +2,8 @@ import { afterAll, beforeAll, describe, expect, it } from "bun:test";
 import { mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
-import { importersOf, planFunctionTake } from "../take-function-fs.js";
+import { importersOf } from "../module-importers.js";
+import { planFunctionTake } from "../take-function-fs.js";
 import type { Patch, Variant } from "../variant.js";
 
 /**

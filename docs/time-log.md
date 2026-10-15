@@ -42192,3 +42192,17 @@ Bottleneck: the count was read in 45 files, and only the typecheck found them al
 Bottleneck: writing — the guide had to say the whole pipeline in a page.
 
 *Measured: 11 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
+
+## 2026-10-15 — `bun run versus drop` asks `git grep` which files to read
+
+- reading: 5 min. The queue entry, `importers.ts`, the second scan in
+  `take-function-fs.ts`.
+- writing: 5 min. `grep-files.ts`, both scans behind it, `module-importers.ts`
+  split out of a file at 240 lines, a test on a git tree and a plain one.
+- looking: 0 min. Nothing drawn.
+- friction: 5 min. Timing a cold tree: every first read of a file waits
+  about 17 ms on the disk, so each measurement took minutes.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: a fresh worktree's first read of each file — 128 s for the scan
+cold, against 0.2 s for `git grep` over the same tree.
