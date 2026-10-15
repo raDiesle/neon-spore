@@ -6,7 +6,7 @@ import { LIVING_SKIN } from "./living-skin.js";
 import { keyAxis, STONE_LOOK } from "./meteor-look.js";
 import { PALETTE } from "./palette.js";
 import { type Arena, arenaX, arenaY } from "./snake-draw.js";
-import { castShadow, clearShadow } from "./snake-skin.js";
+import { FLOOR_SHADOW } from "./snake-skin.js";
 import { splinePath } from "./spline.js";
 
 /**
@@ -43,7 +43,7 @@ import { splinePath } from "./spline.js";
  * borrowed is no longer a borrow — what it gains here is the one thing the
  * field cannot give it, which is a floor.
  *
- * **And all three are stood on that floor.** `castShadow` is the arena's own
+ * **And all three are stood on that floor.** `FLOOR_SHADOW` is the arena's own
  * light, the same call the body makes, and it is what was actually missing: a
  * shape with nothing under it reads as a hole in the grid however good its
  * skin is.
@@ -64,19 +64,12 @@ import { splinePath } from "./spline.js";
 const BODY = 0.34;
 
 /**
- * A soft shadow on the arena floor under whatever is filled next, and then the
- * shadow put away again.
- *
- * Wrapped rather than the two calls written out at each of the three sites,
- * because the thing that matters is that the shadow lands on **one fill and no
- * other pass**: left on, it follows the bevel stroke and the sheen inside
- * `LIVING_SKIN` and the body grows a second, blurred copy of itself.
+ * A shadow on the arena floor under `path`, filled `dark` — the one fill it is
+ * cast by: left on, it would follow the bevel stroke and the sheen inside
+ * `LIVING_SKIN` and the body would grow a second, blurred copy of itself.
  */
 function standing(ctx: CanvasRenderingContext2D, arena: Arena, path: Path2D, dark: string): void {
-  castShadow(ctx, arena);
-  ctx.fillStyle = dark;
-  ctx.fill(path);
-  clearShadow(ctx);
+  FLOOR_SHADOW.paint(ctx, arena, path, dark);
 }
 
 /** One enemy: a slick or a bulb, in the red the field spends on a thing to shoot. */

@@ -1,6 +1,6 @@
 import { PALETTE } from "./palette.js";
 import type { Arena } from "./snake-draw.js";
-import { castShadow, clearShadow } from "./snake-skin.js";
+import { FLOOR_SHADOW } from "./snake-skin.js";
 
 /**
  * What one of SNAKE's jaws is: its outline, what is marked on it, and the one
@@ -99,10 +99,7 @@ export function drawJaws(
   swing: number,
   skin: CanvasGradient,
 ): void {
-  castShadow(ctx, arena);
-  ctx.fillStyle = JAW_DARK;
-  eachJaw(ctx, r, swing, (_side, filled) => ctx.fill(filled));
-  clearShadow(ctx);
+  eachJaw(ctx, r, swing, (_side, filled) => FLOOR_SHADOW.paint(ctx, arena, filled, JAW_DARK));
 
   eachJaw(ctx, r, swing, (side, filled, edge) => {
     ctx.fillStyle = skin;

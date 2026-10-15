@@ -181,7 +181,13 @@ export const ROUND_BOSS_POSES: Pose[] = [
     "snake",
     "play",
     "The snake runs on the board. P2 turns it at the wall; P1 feeds it with the maw.",
-    { ...FULL, hold: 12 },
+    {
+      ...FULL,
+      hold: 12,
+      // `snake:shadow` is judged here: the body, its jaws and every item stand on the floor at once.
+      lookAt:
+        "the dark under the body, the head and each thing on a tile — whether it still reads as a soft shadow on the floor rather than a dark outline beside the shape",
+    },
   ),
   bossPose(
     "snake",

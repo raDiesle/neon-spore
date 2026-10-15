@@ -42404,3 +42404,18 @@ Bottleneck: friction — a save from a tab holding a stale draft wrote the old
 order, and its commit left out the files it created.
 
 *Measured: 5 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
+
+## 2026-10-15 — SNAKE's floor shadow offered without its blur
+
+- reading: 5 min. The shadow's four call sites, VERSUS's README and how a
+  round is posed.
+- writing: 5 min. `FLOOR_SHADOW`, the call sites through it, the candidate,
+  its pose row.
+- looking: 5 min. Skia hashes with and without the lift, both stills, a
+  4× crop and a pixel diff of them.
+- friction: 5 min. A `screenshot` candidate mounts only itself, so both
+  stills were the candidate and came out byte-identical.
+- landing: 5 min.
+
+Bottleneck: friction — `--only current` on a `screenshot` candidate still
+shows the candidate, and nothing says so.

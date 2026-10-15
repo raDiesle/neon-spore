@@ -328,22 +328,6 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/skipped.test.ts` holds the listing's count of the entries
 `next` stepped past and why.
 
-## SNAKE's body shadow is `shadowBlur`
-
-- **Found:** 2026-10-15, claude/glance-layer-cost
-- **Taken:** 2026-10-15, main (claim: claude/queue-snakes-body-shadow-is-shadowblur)
-- **Files:** `packages/render/src/snake-skin.ts`
-
-`castShadow` sets `shadowBlur` to a fifth of a tile under the snake's body —
-the one `shadowBlur` left in `packages/render`, against the rule in
-`glow.ts` that it is the dearest thing a mobile GPU is asked for. `bun run
-perf` cannot see it (2.1 ms on SNAKE), because the blur is GPU work done
-after the timed window. Replacing it changes the picture, so it is a look:
-the owner chose on 15 October 2026 to have it offered: a VERSUS candidate
-draws the shadow without a blur — the body's path filled dark and offset,
-under two or three widened faint strokes the way `strokeGlow` fakes a glow —
-beside the shipped one, and he chooses by looking (`docs/versus.md`).
-
 ## A review block's first wave rises past 8.7 again
 
 - **Found:** 2026-10-15, claude/review-blocks
@@ -404,3 +388,17 @@ that cannot clamp, or the far side's dark be laid in the same pass. Prove the
 pixels with the exact-geometry test in `packages/render/test/light-reach.test.ts`'s
 manner, and measure with `bun run perf --wave "GYRES AGAIN"` interleaved
 against a tree without the change.
+
+## `versus:shot --only current` shows the candidate on a `screenshot` candidate
+
+- **Found:** 2026-10-15, claude/queue-snakes-body-shadow-is-shadowblur
+- **Files:** `tools/director/src/versus-one.ts`, `tools/frames/versus-shot.ts`
+
+`renderScreen` mounts a `screenshot` candidate alone and never mounts
+`pair.left`, so `bun run versus:shot <slot> <name> --only current` on one
+writes the candidate's picture under the name of the current one. The two
+stills README's "Before it is offered" asks for come out byte-identical and
+read as "the candidate changes nothing", which is the opposite of the truth.
+Make `only=current` mount `pair.left` for a `screenshot` candidate too, or
+have `versus:shot` refuse `--only current` on one and say why. Test it in
+`tools/director/test/` beside `versus-freeze.test.ts`.

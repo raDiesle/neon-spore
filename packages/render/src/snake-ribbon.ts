@@ -3,9 +3,8 @@ import { ribbonPath, ribbonSides } from "./snake-contour.js";
 import type { Arena } from "./snake-draw.js";
 import {
   backGradient,
-  castShadow,
-  clearShadow,
   drawScales,
+  FLOOR_SHADOW,
   HEAD_HALF,
   litRibbon,
   rimStroke,
@@ -82,10 +81,7 @@ function paintSkin(
   half: (i: number) => number,
   path: Path2D,
 ): void {
-  castShadow(ctx, arena);
-  ctx.fillStyle = backGradient(ctx, arena);
-  ctx.fill(path);
-  clearShadow(ctx);
+  FLOOR_SHADOW.paint(ctx, arena, path, backGradient(ctx, arena));
 
   ctx.save();
   ctx.clip(path);

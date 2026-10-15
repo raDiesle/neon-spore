@@ -2,7 +2,7 @@ import type { SnakeState } from "@neon-spore/sim";
 import { PALETTE } from "./palette.js";
 import { type Point, ribbonPath, ribbonSides } from "./snake-contour.js";
 import { type Arena, arenaX, arenaY } from "./snake-draw.js";
-import { castShadow, clearShadow } from "./snake-skin.js";
+import { FLOOR_SHADOW } from "./snake-skin.js";
 import { acidEtch, wet } from "./snake-venom.js";
 
 /**
@@ -137,10 +137,7 @@ function stream(
   const mass = new Path2D(path);
   mass.moveTo(tipX + r, tipY);
   mass.arc(tipX, tipY, r, 0, Math.PI * 2);
-  castShadow(ctx, arena);
-  ctx.fillStyle = PALETTE.venomDeep;
-  ctx.fill(mass);
-  clearShadow(ctx);
+  FLOOR_SHADOW.paint(ctx, arena, mass, PALETTE.venomDeep);
 
   const g = ctx.createLinearGradient(from.x, from.y, tipX, tipY);
   g.addColorStop(0, PALETTE.venomDeep);
@@ -203,12 +200,9 @@ function beads(
     ctx.globalAlpha *= dim;
     // One each rather than one for the four: they never overlap, so there is
     // nothing to double-darken, and each carries its own fade.
-    castShadow(ctx, arena);
-    ctx.fillStyle = PALETTE.venom;
-    ctx.beginPath();
-    ctx.arc(x, y, r, 0, Math.PI * 2);
-    ctx.fill();
-    clearShadow(ctx);
+    const bead = new Path2D();
+    bead.arc(x, y, r, 0, Math.PI * 2);
+    FLOOR_SHADOW.paint(ctx, arena, bead, PALETTE.venom);
     wet(ctx, x, y, r);
     ctx.globalAlpha /= dim;
   }

@@ -58,21 +58,49 @@ export function backGradient(ctx: CanvasRenderingContext2D, arena: Arena): Canva
 }
 
 /**
- * A shadow on the floor under whatever is filled next.
+ * A shape stood on the floor: its shadow laid down, and the shape filled over
+ * it — `fill` into `path`, the one fill the shadow is cast by and no other
+ * pass. Left on, a shadow follows every stroke and sheen after it and the
+ * shape grows a second, blurred copy of itself.
  *
  * The single biggest thing the reference does that this round did not: the
  * body sat *in* the grid rather than over it, and a shape with nothing under
  * it reads as a hole. Offset down and right, matching the light this file
  * puts at the top of the arena.
+ *
+ * **A record and not a function** so VERSUS can offer a second answer to it
+ * (`tools/versus/README.md`): the body, the jaws, the venom and the arena's
+ * items all go through `FLOOR_SHADOW.paint`, so one patch reaches every
+ * shadow on the board.
  */
-export function castShadow(ctx: CanvasRenderingContext2D, arena: Arena): void {
+export interface FloorShadow {
+  paint(
+    ctx: CanvasRenderingContext2D,
+    arena: Arena,
+    path: Path2D,
+    fill: string | CanvasGradient,
+  ): void;
+}
+
+export const FLOOR_SHADOW: FloorShadow = { paint: blurredShadow };
+
+/**
+ * The shadow as the canvas casts it: `shadowBlur` a fifth of a tile wide.
+ * Every one of the canvas's shadow sizes is in the canvas's own pixels, under
+ * no transform, so on a phone it is a third the size it is at a scale of one.
+ */
+function blurredShadow(
+  ctx: CanvasRenderingContext2D,
+  arena: Arena,
+  path: Path2D,
+  fill: string | CanvasGradient,
+): void {
   ctx.shadowColor = "rgba(0,0,0,.55)";
   ctx.shadowBlur = arena.tile * 0.22;
   ctx.shadowOffsetX = arena.tile * 0.08;
   ctx.shadowOffsetY = arena.tile * 0.12;
-}
-
-export function clearShadow(ctx: CanvasRenderingContext2D): void {
+  ctx.fillStyle = fill;
+  ctx.fill(path);
   ctx.shadowColor = "rgba(0,0,0,0)";
   ctx.shadowBlur = 0;
   ctx.shadowOffsetX = 0;

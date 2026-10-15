@@ -6,5 +6,6 @@
 // `index.ts` next door says why it is generated at all.
 
 import type { Variant } from "../variant.js";
+import { SNAKE_FLAT } from "./snake-shadow/flat/index.js";
 
-export const VARIANTS: Variant[] = [];
+export const VARIANTS: Variant[] = [SNAKE_FLAT];
