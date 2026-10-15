@@ -41786,3 +41786,17 @@ Bottleneck: making the measurement cheap enough for a search and a test,
 without moving the numbers the gate already answers.
 
 *Measured: 9 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-15 — VERSUS offers THE BLISTER's SWIPE a body built round its pull
+
+- reading: 5 min. The swipe's track and knob, and the pore's clip, read
+  while the lane before landed.
+- writing: 5 min. SLUG, FROG and ZIP; one played pose per way, down for
+  the slot and up beside it on the sheet.
+- looking: 15 min. Four rounds: the held knob is drawn at twice its radius
+  and covered every first draft on player 2's screen.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, `land`.
+
+Bottleneck: the knob is as big as the body, so a body built round it only
+reads where it reaches past the knob.

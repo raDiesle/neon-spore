@@ -1,5 +1,6 @@
 import {
   type BlisterGesture,
+  type BlisterSwipeWay,
   blisterIsUp,
   NO_BEARING,
   type TimedCommand,
@@ -182,26 +183,36 @@ const LIFT_TURN = 115;
 const WIND = 22;
 
 /** One command from player 2, on the tick the world stands at. */
-function sent(w: World, command: TimedCommand["command"]): TimedCommand[] {
+export function sent(w: World, command: TimedCommand["command"]): TimedCommand[] {
   return [{ tick: w.tick, player: 2, command }];
 }
 
-/** The tick each gesture's blister comes up on, the same every build; found once, on first use. */
-const UP_AT = new Map<BlisterGesture, number>();
+/** The tick each gesture's blister comes up on, by gesture and way, the same every build; found once, on first use. */
+const UP_AT = new Map<string, number>();
 
 /** Ticks since the blister came up, counted from the tick `blisterUp` stops at. */
-function sinceUp(w: World, gesture: BlisterGesture): number {
-  let up = UP_AT.get(gesture);
+export function sinceUp(w: World, gesture: BlisterGesture, way?: BlisterSwipeWay): number {
+  const key = `${gesture}:${way ?? ""}`;
+  let up = UP_AT.get(key);
   if (up === undefined) {
-    up = blisterUp(gesture).tick;
-    UP_AT.set(gesture, up);
+    up = blisterUp(gesture, way).tick;
+    UP_AT.set(key, up);
   }
   return w.tick - up;
 }
 
-/** A blister of one gesture, just up out of its pore. */
-function blisterUp(gesture: BlisterGesture): World {
-  const w = fresh([{ beat: 0, col: 4, kind: "blister", color: null, row: 3, count: 3, gesture }]);
+/** A blister of one gesture, just up out of its pore, pointing its way if it has one. */
+export function blisterUp(gesture: BlisterGesture, way?: BlisterSwipeWay): World {
+  const spawn = {
+    beat: 0,
+    col: 4,
+    kind: "blister",
+    color: null,
+    row: 3,
+    count: 3,
+    gesture,
+  } as const;
+  const w = fresh([way ? { ...spawn, way } : spawn]);
   until(w, "a blister up", (x) => x.creatures.some(blisterIsUp));
   return w;
 }

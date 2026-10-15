@@ -415,22 +415,3 @@ to the COMPARED LOOKS group, its row in `SLOT_POSE`, and send one PNG of
 the current beside the three (`bun run versus:shot … --only candidate`,
 `bun run crop`, `bun run pair`). Prove it with `bun test tools/versus` and
 `bun run check`.
-
-## THE BLISTER's SWIPE gets bodies built round its pull, on VERSUS
-
-- **Found:** 2026-10-14, claude/control-bodies
-- **Taken:** 2026-10-15, claude/queue-the-blisters-swipe-gets-bodies-built-round-its-p
-- **Files:** `packages/render/src/blister-bodies.ts`, `packages/render/src/blister-help.ts`, `tools/director/src/poses-field-controls-blister.ts`, `tools/director/src/versus-pose.ts`
-
-The same ask as THE BLISTER's HOLD entry, for `blister:swipe`, patching
-`BLISTER_BODY.swipe`'s `draw` — and its `beyond` for anything a DOWN
-stroke takes past the pore's lip, which `draw` is clipped at (LEVER's
-slot does). The knob sits on the body and its channel
-runs a stroke long out its way (`drawSwipeTrack`), so a body built round it
-can run along the channel: a slug whose back is the channel and whose head
-is the knob; a frog-mouthed body with the channel as its tongue, the knob
-its tip; a seam or zip the knob opens down the body. A body must follow the
-way a SWIPE is authored to go — left, right, up or down — so build the
-pose `BLISTER · A STROKE HALF CARRIED` already gives you and one with
-another way. Send one PNG of the current beside the three. Prove it with
-`bun test tools/versus` and `bun run check`.

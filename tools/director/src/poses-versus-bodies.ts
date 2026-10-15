@@ -27,6 +27,10 @@ import {
   BLISTER_RUB_PLAYED,
   BLISTER_TURN_PLAYED,
 } from "./poses-versus-blister.js";
+import {
+  BLISTER_SWIPE_DOWN_PLAYED,
+  BLISTER_SWIPE_UP_PLAYED,
+} from "./poses-versus-blister-swipe.js";
 
 /**
  * The half of `poses-versus.ts` that shows a body: a creature doing what it
@@ -154,6 +158,8 @@ export const VERSUS_BODY_POSES: Pose[] = [
   BLISTER_LEVER_PLAYED,
   BLISTER_RUB_PLAYED,
   BLISTER_TURN_PLAYED,
+  BLISTER_SWIPE_DOWN_PLAYED,
+  BLISTER_SWIPE_UP_PLAYED,
   CRAWLER_POSE,
   MAGNET_POSE,
   STRAND_POSE,
