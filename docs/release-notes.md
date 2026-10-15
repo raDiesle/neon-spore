@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-15 · 5eccd87f8 — AUTO opens THE COIL's domes and lets a crossing rock go by
+
+AUTO lost nearly every wave the composer drew for THE COIL's block and THE CROSSING's block. The shield never stood under a coil, so on any wave without a shield fault to arm the plate by itself, a coil sank all the way to the hull. The shield also chased crossing rocks, which leave by the far wall and never land. Now the shield stands under the lowest coil and triggers once the lane below it is clear, but only while no rock is near and no chain is already alight. It ignores crossing rocks.
+
 ## 2026-10-15 · 2a2558b3f — `fastScopeFor`'s wave-moved timeout leaves the queue, answered by 7113cc5be
 
 The entry was filed three minutes before 7113cc5be landed, and that commit does what it asks: `waveReaders` caches its scan per root and the two tests that read the whole tree carry a named timeout. The landings since have run the test green under the full `bun run check`.

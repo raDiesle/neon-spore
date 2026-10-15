@@ -41417,3 +41417,5 @@ Bottleneck: reading — an entry filed while its fix was landing in another lane
 
 Bottleneck: reading. Both blocks lost to the coil, which only showed in a probe
 of one composed draw, and THE COIL's R7 turned out to be the ramp, not AUTO.
+
+*Measured: 74 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
