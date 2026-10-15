@@ -331,6 +331,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## `bun run shot --row` reaches no ON THE FIELD card by its row's name
 
 - **Found:** 2026-10-15, claude/combo-bud-curl
+- **Taken:** 2026-10-15, main (claim: claude/queue-bun-run-shot-row-reaches-no-on-the-field-card-by)
 - **Files:** `tools/frames/shot-row.ts`, `tools/frames/shot-state.ts`, `tools/frames/shot-usage.ts`
 
 `bun run shot canvas out.png --serve --path "/?sheet=states&inner=controlsets&ctlpage=field" --row "THE BLISTER'S COMBO"`
