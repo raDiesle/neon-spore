@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-15 · 3e5bbaebe — THE BLISTER's HOLD comes up as PALM or HUG
+
+A HOLD blister now rises out of its pore as one of two bodies the owner took from VERSUS: PALM, a slime hand with the drop cupped in it whose fingers curl in under a thumb, and HUG, a round slime hugging the drop with its eyes squeezed shut while it is held. Both are drawn bigger than offered — PALM at 1.3 with longer fingers fanned further apart so it reads as a hand, HUG at 1.25 — and which one comes up follows the blister and the tile it surfaced on, so one blister can show both over a wave. SPONGE was rejected.
+
 ## 2026-10-15 · 5291969ae — THE BLISTER's COMBO is drawn as BUD or CURL, one per blister
 
 The owner liked BUD and CURL most on `blister:combo` and asked for both, a little bigger, rotated at random. Each COMBO blister now wears one of the two, picked off its id so both screens draw the same one, at 1.15 times the size VERSUS offered: BUD, the flower the press shuts into a bud with a stalk out to the knob; CURL, the round slime whose wound tail the press frees to run out to the knob. CLAM went with the slot. Exemption: a look the owner asked for by name.

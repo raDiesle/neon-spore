@@ -41940,3 +41940,5 @@ one-command photograph once its VERSUS slot is gone.
 
 Bottleneck: finding a frame with the second body in it, because the wave's
 one blister was the one an id-only picker never changed.
+
+*Measured: 16 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
