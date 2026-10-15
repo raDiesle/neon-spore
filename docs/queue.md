@@ -615,6 +615,7 @@ the band. Send one PNG of the current beside the three. Prove it with
 ## THE COIL's block cannot compose R7 under its next written wave
 
 - **Found:** 2026-10-15, claude/queue-auto-loses-the-coil-and-the-crossing-in-composed
+- **Taken:** 2026-10-15, main (claim: claude/queue-the-coils-block-cannot-compose-r7-under-its-next)
 - **Files:** `tools/director/src/compose.ts`, `tools/director/src/compose-ramp.ts`, `tools/director/src/compose-steps.ts`
 
 `bun run waves:compose theCoil` stops at R7 with *no pressure in reach keeps
