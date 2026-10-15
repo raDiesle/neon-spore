@@ -42339,3 +42339,5 @@ Bottleneck: friction — the gate's spread overflowing, found only once a body w
 - landing: 15 min. `check:fast`, the commit, `land`.
 
 Bottleneck: friction — the land's check reads the working tree, so unfinished work must be set aside first.
+
+*Measured: 33 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*

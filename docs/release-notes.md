@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-15 · ab9dd425b — Every lesson after the tutorial has eight waves of its own
+
+THE LANCE, THE JAM, THE CHOKE, THE LIMPET, THE LEECH, THE CLAW, THE CODEX, THE HANDOVER, THE FLIP and THE DARK each open a block now: moved behind the regular waves of the block they came in, with eight composed after them — LIMPET AGAIN … DARK PEAK — every one carrying the lesson's fault, where AUTO can play it. A boss takes the first block still free once it is ready, so every one of the 54 blocks past the tutorial closes with exactly one boss; the ten review blocks no boss closed any more are gone. 564 waves. A look the owner asked for by name.
+
 ## 2026-10-15 · 8e6305618 — BULB, THROB, COUNTDOWN and MINE look up and down as well as across
 
 A glance can now nod: a part's middle swings up or down as well as left and right, turned as the same two planes split square to where the middle has gone. A new rhythm, ROVE, holds looks at the middle, up, left, down and right, cocked toward a look to the side and level on one up or down. BULB wears it, as the owner asked, and so do THROB, COUNTDOWN and MINE: the four kinds the naming gate lets turn every way at the enemies' glance size, each against every other kind as it ships. Every other enemy still cocks, so the field has two ways of glancing instead of one.
