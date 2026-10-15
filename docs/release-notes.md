@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-15 · 8032d0e3f — ONE BOSS'S OWN's close cuts call render's own rows
+
+THE HASP's, THE RATCHET's and THE SPOOL's close cuts on CONTROLS › HELPERS now aim at `haspRow`, `RATCHET_PAWL_ROW` and `SPOOL_ROW`, exported from render, instead of the figures written out by hand; a moved part takes its cut with it. Three `COPIES` rows fail the next file that writes the figure again. Nothing drawn moves: each cut lands where it did.
+
 ## 2026-10-15 · a9b68e8dc — THE CLAW can be cleared: its rocks are answered by its pods
 
 THE CLAW could not be passed by anyone. Its panel has no shield, a breach loses the wave, and the rock in column 2 landed before anything could clear it. As the owner chose, the rocks are recomposed rather than a shield put on the panel. Both early rocks now land in the shield's column, each under a ward held on the arm until the rock is close. The rest are on the field when a purge goes in: the column-8 rock moves from beat 24 to 32, the column-3 rock from 36 to 46, and the column-10 rock from 54 to 52.
