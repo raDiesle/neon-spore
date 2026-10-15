@@ -3,7 +3,6 @@ import {
   BEARING_TURN,
   type BlisterTurnWay,
   blisterIsUp,
-  blisterLeft,
   blisterTurnShare,
   type Creature,
   createWorld,
@@ -22,25 +21,23 @@ import {
 
 /**
  * THE BLISTER's TURN (`sim/blister-turn.ts`): a full turn round the body the
- * way its channel runs, one blow a turn. The hand is a `drag` on
+ * way its channel runs, the one blow that knocks it out. The hand is a `drag` on
  * `blisterTurn` read the crank's way — the press with no bearing, every move
  * a bearing round the body's centre, the step between two up to half a turn
- * progress. The wrong way round counts nothing; a sink loses the turn short
- * of whole and leaves the hand on it dead until it lifts.
+ * progress. The wrong way round counts nothing.
  */
 
 const CFG: SimConfig = DEFAULT_CONFIG;
 const TPB = ticksPerBeat(CFG);
 const EIGHTH = BEARING_TURN / 8;
 
-const turned = (count: number, way?: BlisterTurnWay, by: 1 | 2 | "both" = 2): SpawnEntry => ({
+const turned = (way?: BlisterTurnWay, by: 1 | 2 | "both" = 2): SpawnEntry => ({
   beat: 0,
   col: 3,
   kind: "blister",
   color: null,
   row: 3,
   by,
-  count,
   gesture: "turn",
   way,
 });
@@ -98,16 +95,17 @@ function stage(queue: SpawnEntry[]) {
 }
 
 describe("a TURN blister, turned round the way its channel runs", () => {
-  it("loses one blow to a full turn clockwise, its way when none is named", () => {
-    const s = stage([turned(3)]);
+  it("is knocked out by a full turn clockwise, its way when none is named", () => {
+    const s = stage([turned()]);
     s.untilUp();
     s.wind(2, 8);
     expect(s.blows()).toBe(1);
-    expect(blisterLeft(CFG, s.body()!)).toBe(2);
+    expect(s.body()).toBeUndefined();
+    expect(s.events.some((e) => e.type === "destroy" && e.kind === "blister")).toBe(true);
   });
 
   it("counts nothing for half a turn, and shows how far it has come", () => {
-    const s = stage([turned(3)]);
+    const s = stage([turned()]);
     const c = s.untilUp();
     s.press(2, c.id);
     s.through(2, c.id, round(4, 1));
@@ -116,7 +114,7 @@ describe("a TURN blister, turned round the way its channel runs", () => {
   });
 
   it("keeps the turn in progress across a lift, while it is up", () => {
-    const s = stage([turned(3)]);
+    const s = stage([turned()]);
     s.untilUp();
     s.wind(2, 4);
     s.wind(2, 4);
@@ -128,7 +126,7 @@ describe("a TURN blister, turned round the way its channel runs", () => {
       ["cw", -1],
       ["ccw", 1],
     ] as const) {
-      const s = stage([turned(3, way)]);
+      const s = stage([turned(way)]);
       s.untilUp();
       s.wind(2, 8, sign);
       expect(s.blows()).toBe(0);
@@ -137,39 +135,15 @@ describe("a TURN blister, turned round the way its channel runs", () => {
     }
   });
 
-  it("is knocked out by its count of turns, one hand going round and round", () => {
-    const s = stage([turned(2)]);
-    const c = s.untilUp();
-    s.press(2, c.id);
-    s.through(2, c.id, [...round(8, 1), ...round(8, 1).slice(1)]);
-    expect(s.body()).toBeUndefined();
-    expect(s.events.some((e) => e.type === "destroy" && e.kind === "blister")).toBe(true);
-  });
-
-  it("loses the turn short of whole on a sink, and a hand left on it is dead until it lifts", () => {
-    const s = stage([turned(3)]);
-    const c = s.untilUp();
-    s.press(2, c.id);
-    s.through(2, c.id, round(6, 1));
-    while (s.body() && blisterIsUp(s.body()!)) s.go(1);
-    expect(blisterTurnShare(s.body()!)).toBe(0);
-    s.untilUp();
-    s.through(2, c.id, round(8, 1));
-    expect(s.blows()).toBe(0);
-    s.lift(2, c.id);
-    s.wind(2, 8);
-    expect(s.blows()).toBe(1);
-  });
-
   it("counts nothing from the seat its `by` does not name", () => {
-    const s = stage([turned(3)]);
+    const s = stage([turned()]);
     s.untilUp();
     s.wind(1, 8);
     expect(s.blows()).toBe(0);
   });
 
   it("winds one turn between two hands on a BOTH blister", () => {
-    const s = stage([turned(3, "cw", "both")]);
+    const s = stage([turned("cw", "both")]);
     const c = s.untilUp();
     s.press(1, c.id);
     s.press(2, c.id);
@@ -179,7 +153,7 @@ describe("a TURN blister, turned round the way its channel runs", () => {
   });
 
   it("replays to the same world", () => {
-    const s = stage([turned(1)]);
+    const s = stage([turned()]);
     const c = s.untilUp();
     const at = s.world.tick;
     const inputs = [
@@ -189,7 +163,7 @@ describe("a TURN blister, turned round the way its channel runs", () => {
     const replay = record({
       name: "a TURN blister turned out",
       seed: 0,
-      queue: [turned(1)],
+      queue: [turned()],
       ticks: at + TPB,
       inputs,
     });

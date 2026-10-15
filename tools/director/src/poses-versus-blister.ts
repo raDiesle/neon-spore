@@ -10,8 +10,8 @@ import { fresh, type Pose, until } from "./pose-kit.js";
 
 /**
  * THE BLISTER's COMBO played through by a hand of its own: up out of its pore
- * untouched, pressed, its pull carried the whole stroke and lifted — one blow
- * — all inside the two beats it stays up. It is what `blister:combo` on
+ * untouched, pressed, its pull carried the whole stroke and lifted — the blow
+ * that knocks it out — all inside the four beats it stays up. It is what `blister:combo` on
  * VERSUS was judged on (BUD and CURL taken, 15 October 2026): a body that
  * changes between the press and the pull,
  * so both halves have to be on the page, and ON THE FIELD's `BLISTER ·
@@ -23,7 +23,7 @@ import { fresh, type Pose, until } from "./pose-kit.js";
  */
 export const BLISTER_COMBO_PLAYED: Pose = {
   name: "BLISTER · COMBO PRESSED, PULLED AND LIFTED",
-  note: "A COMBO blister is up out of its pore for its two beats, three blows owed. Player 2 lets it stand a moment, presses it — the tap's help goes and the pull comes in where it was — carries the knob the whole stroke to the right and lifts: one blow, and it asks for the press again. Player 2's screen, the seat its BY names.",
+  note: "A COMBO blister is up out of its pore, one blow from gone. Player 2 lets it stand a moment, presses it — the tap's help goes and the pull comes in where it was — carries the knob the whole stroke to the right and lifts: the blow, and it is gone. Player 2's screen, the seat its BY names.",
   lookAt: "whether the body says which half it is waiting for — the press, or the pull",
   crop: "tile",
   role: "p2",
@@ -60,8 +60,8 @@ const LIFT = 108;
 /**
  * THE BLISTER's LEVER played through by a hand of its own: up out of its pore
  * with the knob at rest on it, the knob carried down its groove into the
- * band, held there the whole hold — the dial going round, one blow — and
- * lifted, all inside the two beats it stays up. It is what `blister:lever`
+ * band, held there the whole hold — the dial going round, the blow that
+ * knocks it out — all inside the four beats it stays up. It is what `blister:lever`
  * on VERSUS was judged on (BELL, ROOT and TAFFY all taken, 15 October 2026): a body the knob is drawn out of, so the knob has to
  * travel on the page, and ON THE FIELD's `BLISTER · THE LEVER HELD IN ITS
  * BAND` holds it still. The band lies 0.6 to 1.05 tiles under the body,
@@ -69,7 +69,7 @@ const LIFT = 108;
  */
 export const BLISTER_LEVER_PLAYED: Pose = {
   name: "BLISTER · LEVER CARRIED INTO ITS BAND AND HELD",
-  note: "A LEVER blister is up out of its pore for its two beats, three blows owed, its knob at rest on it. Player 2 takes the knob, carries it down its groove into the band and holds it there until the dial has gone round — one blow — then lifts, and the knob springs back. Player 2's screen, the seat its BY names.",
+  note: "A LEVER blister is up out of its pore, one blow from gone, its knob at rest on it. Player 2 takes the knob, carries it down its groove into the band and holds it there until the dial has gone round — the blow, and it is gone. Player 2's screen, the seat its BY names.",
   lookAt: "whether the knob reads as drawn out of the body, and how far",
   crop: "tile",
   role: "p2",
@@ -108,16 +108,17 @@ const LET_GO = 130;
 /**
  * THE BLISTER's RUB played through by a hand of its own: up out of its pore
  * untouched and calling, then scrubbed — a thumb down on it and turned back
- * twice, two blows of its three — and lifted, all inside the two beats it
- * stays up. It is what `blister:rub` on VERSUS was judged on (URCHIN,
+ * once, the blow that knocks it out — all inside the four beats it stays up.
+ * It scrubbed twice of three until 15 October 2026, when one blow became the
+ * whole of a blister. It is what `blister:rub` on VERSUS was judged on (URCHIN,
  * WASHBOARD and PURR all taken, 15 October 2026): a body that
  * answers being scrubbed, so the scrub has to happen on the page, and ON THE
- * FIELD's `BLISTER · RUBBED ONCE` holds one moment of it.
+ * FIELD's `BLISTER · BEING RUBBED` holds one moment of it.
  */
 export const BLISTER_RUB_PLAYED: Pose = {
-  name: "BLISTER · RUB SCRUBBED TWICE AND LIFTED",
-  note: "A RUB blister is up out of its pore for its two beats, three blows owed, its drop wagging to call. Player 2 puts a thumb on it and scrubs, turning back twice — two of its three zigzag strokes lit, two pips gone — and lifts. Player 2's screen, the seat its BY names.",
-  lookAt: "whether the body says it is being scrubbed, and how much is left",
+  name: "BLISTER · RUB SCRUBBED AND KNOCKED OUT",
+  note: "A RUB blister is up out of its pore, one blow from gone, its drop wagging to call. Player 2 puts a thumb on it and scrubs, and the first turn back knocks it out. Player 2's screen, the seat its BY names.",
+  lookAt: "whether the body says it is being scrubbed",
   crop: "tile",
   role: "p2",
   span: 3,
@@ -134,27 +135,24 @@ export const BLISTER_RUB_PLAYED: Pose = {
     const rubbed = (on: boolean, turns: number) =>
       sent(w, { kind: "drag", target: "blisterRub", on, fromMilli: c.id, id: turns });
     const turn = SCRUB.indexOf(t);
-    if (turn !== -1) return rubbed(true, turn);
-    if (t === LIFTED) return rubbed(false, SCRUB.length - 1);
-    return [];
+    return turn === -1 ? [] : rubbed(true, turn);
   },
 };
 
-/** Ticks from the rub blister coming up: the thumb down, each turn back, and the lift. */
-const SCRUB = [40, 65, 90];
-const LIFTED = 120;
+/** Ticks from the rub blister coming up: the thumb down, and the turn back. */
+const SCRUB = [40, 65];
 
 /**
  * THE BLISTER's TURN played through by a hand of its own: up out of its pore
- * with the knob at the top, then wound clockwise — a whole turn, one blow,
- * and most of a second — and lifted, all inside the two beats it stays up.
+ * with the knob at the top, then wound clockwise a whole turn — the blow that
+ * knocks it out — all inside the four beats it stays up.
  * It is what `blister:turn` on VERSUS is judged on: a body that turns, so the
  * knob has to go round on the page, and ON THE FIELD's `BLISTER · A TURN HALF
  * ROUND` holds it still.
  */
 export const BLISTER_TURN_PLAYED: Pose = {
   name: "BLISTER · TURN WOUND ROUND AND LIFTED",
-  note: "A TURN blister is up out of its pore for its two beats, three blows owed, the knob at the top of its channel. Player 2 takes the knob and winds it clockwise, a whole turn — one blow — and most of a second, then lifts. Player 2's screen, the seat its BY names.",
+  note: "A TURN blister is up out of its pore, one blow from gone, the knob at the top of its channel. Player 2 takes the knob and winds it clockwise, a whole turn — the blow, and it is gone. Player 2's screen, the seat its BY names.",
   lookAt: "whether the body says which way round, and turns with the knob",
   crop: "tile",
   role: "p2",
@@ -211,7 +209,6 @@ export function blisterUp(gesture: BlisterGesture, way?: BlisterSwipeWay): World
     kind: "blister",
     color: null,
     row: 3,
-    count: 3,
     gesture,
   } as const;
   const w = fresh([way ? { ...spawn, way } : spawn]);

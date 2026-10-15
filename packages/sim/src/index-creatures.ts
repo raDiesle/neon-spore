@@ -23,12 +23,12 @@ export {
   blisterGestureOf,
   blisterHoldable,
   blisterIsUp,
-  blisterLeft,
   blisterMayTap,
   blisterSwelling,
+  blisterUpBeatsOf,
 } from "./blister.js";
 // THE BLISTER: what render and the director ask of one — whose blow counts,
-// whether it is up, whether its pore is swelling, how many blows are owed.
+// whether it is up, whether its pore is swelling, how long it stays up.
 // The cycle and the tap stay inside (`stepBlister`, `blisterTapped`); the
 // gesture, whether a hand on it holds, and how far a hold is through its beat.
 export { blisterHoldShare } from "./blister-hold.js";

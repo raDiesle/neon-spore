@@ -26,8 +26,8 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
 /**
  * THE BLISTER, drawn: the bulge on the seat that may not tap, the body coming
  * up out of its pore and going back in, the tap help over it on the seat that
- * may and the waiting clock on the one that may not, the pips, and the green
- * ring off every blow that counted (`blister.ts`, `blister-help.ts`,
+ * may and the waiting clock on the one that may not, and the green ring off
+ * the blow that knocked it out (`blister.ts`, `blister-help.ts`,
  * `blister-verdicts.ts`).
  *
  * **One of each `by`**, THE MINE's argument: whichever seat is drawing, one
@@ -36,8 +36,7 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
  * every blister set one way would draw half of this creature and pass.
  *
  * The tapping hand is the one each `by` names, twice a beat while it is up,
- * so the run goes through a blow landing, a body sinking with blows still
- * owed, a bulge before it comes up again, and the last blow taking it.
+ * so the run goes through a bulge, a body coming up, and the blow taking it.
  */
 
 beforeAll(installCanvasGlobals);
@@ -49,7 +48,6 @@ const blister = (col: number, by: BlisterBy): SpawnEntry => ({
   color: null,
   row: 3,
   by,
-  count: 3,
 });
 
 const QUEUE: SpawnEntry[] = [blister(2, 1), blister(5, 2), blister(8, "both")];
@@ -89,10 +87,11 @@ describe("the blister", () => {
   }
 
   it("really landed blows and knocked them out", () => {
-    // Without the first, no verdict ring was ever thrown and no pip went out;
-    // without the second, no last ring outlived its body.
+    // Without the first, no verdict ring was ever thrown; without the
+    // second, no last ring outlived its body. One blow each since 15 October
+    // 2026, so every blow is a body gone.
     const { blows, destroyed } = played("test");
-    expect(blows).toBe(9);
+    expect(blows).toBe(3);
     expect(destroyed).toBe(3);
   });
 });

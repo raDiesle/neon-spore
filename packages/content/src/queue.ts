@@ -195,10 +195,9 @@ export function queueFromWave(wave: Pick<Wave, "entries" | "cols">, cols: number
       // cargo and never goes through `mapCol`, for the seat's reason one line
       // up.
       ...(e.cargo === undefined ? {} : { cargo: e.cargo }),
-      // Whose hand knocks a blister down and how many blows it takes, on the
-      // same terms: absent is the default `blisterOnSpawn` reads.
+      // Whose hand knocks a blister down, on the same terms: absent is the
+      // default `blisterOnSpawn` reads.
       ...(e.by === undefined ? {} : { by: e.by }),
-      ...(e.count === undefined ? {} : { count: e.count }),
       ...(e.gesture === undefined ? {} : { gesture: e.gesture }),
       ...(e.way === undefined ? {} : { way: e.way }),
     });

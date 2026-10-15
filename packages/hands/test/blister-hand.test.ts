@@ -14,10 +14,8 @@ import { handBlisters } from "../src/autopilot-blister.js";
 
 /**
  * **AUTO knocks out a blister whichever gesture it wants**
- * (`autopilot-blister.ts`). One blister alone on the field, owing more blows
- * than a surfacing has beats, so the hand has to pick it up again after a
- * sink — a dead hand lifted, a stroke left open voided — and finish it before
- * it reaches the hull.
+ * (`autopilot-blister.ts`). One blister alone on the field, and the hand has
+ * to deal its one blow inside the beats it is up, before it breaks the hull.
  */
 
 const CFG = DEFAULT_CONFIG;
@@ -31,7 +29,6 @@ function played(gesture: BlisterGesture, by: BlisterBy = 2, way?: BlisterWay) {
     color: null,
     row: 2,
     by,
-    count: 4,
     gesture,
     ...(way ? { way } : {}),
   };
@@ -70,7 +67,7 @@ describe("AUTO's hand on a blister", () => {
   for (const [name, gesture, by, way] of CASES) {
     it(`knocks out ${name} before it reaches the hull`, () => {
       const out = played(gesture, by, way);
-      expect(out).toEqual({ blows: 4, knocked: true, breached: false });
+      expect(out).toEqual({ blows: 1, knocked: true, breached: false });
     });
   }
 });

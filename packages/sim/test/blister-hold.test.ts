@@ -1,7 +1,6 @@
 import { describe, expect, it } from "bun:test";
 import {
   blisterIsUp,
-  blisterLeft,
   type Creature,
   createWorld,
   DEFAULT_CONFIG,
@@ -20,8 +19,8 @@ import {
 
 /**
  * THE BLISTER's HOLD (`sim/blister-hold.ts`): a press kept on it while it is
- * up, one blow a beat held, the count kept across surfacings as a tap's is,
- * and the beat in progress lost on a release or a sink. The press is the
+ * up, a beat held is the one blow that knocks it out, and the beat in
+ * progress is lost on a release. The press is the
  * ordinary `grip`, which is a mouse's press exactly as it is a thumb's: one
  * pointer down, one pointer up.
  */
@@ -29,14 +28,13 @@ import {
 const CFG: SimConfig = DEFAULT_CONFIG;
 const TPB = ticksPerBeat(CFG);
 
-const held = (count: number, by: 1 | 2 | "both" = 2): SpawnEntry => ({
+const held = (by: 1 | 2 | "both" = 2): SpawnEntry => ({
   beat: 0,
   col: 3,
   kind: "blister",
   color: null,
   row: 3,
   by,
-  count,
   gesture: "hold",
 });
 
@@ -80,46 +78,25 @@ function stage(queue: SpawnEntry[]) {
 }
 
 describe("a HOLD blister, held by a press (a mouse's as a thumb's)", () => {
-  it("is knocked out by a press kept on it for its count of beats", () => {
-    const s = stage([held(2)]);
+  it("is knocked out by a press kept on it for a beat", () => {
+    const s = stage([held()]);
     s.untilUp();
-    s.hold(2, TPB * 2);
-    expect(s.blows()).toBe(2);
+    s.hold(2, TPB);
+    expect(s.blows()).toBe(1);
     expect(s.body()).toBeUndefined();
     expect(s.events.some((e) => e.type === "destroy" && e.kind === "blister")).toBe(true);
   });
 
-  it("is not, by one let go a beat early", () => {
-    const s = stage([held(2)]);
+  it("is not, by one let go short of the beat, and loses the beat in progress", () => {
+    const s = stage([held()]);
     s.untilUp();
-    s.hold(2, TPB * 2 - TPB);
-    expect(s.blows()).toBe(1);
-    expect(blisterLeft(CFG, s.body()!)).toBe(1);
-  });
-
-  it("loses the beat in progress on a release, and never a blow dealt", () => {
-    const s = stage([held(2)]);
-    s.untilUp();
-    s.hold(2, TPB + TPB / 2);
-    expect(s.blows()).toBe(1);
+    s.hold(2, TPB / 2);
+    expect(s.blows()).toBe(0);
     expect(s.body()?.blisterHeldTicks).toBeUndefined();
   });
 
-  it("keeps its count across a sink, and lets go of a hand left on it", () => {
-    const s = stage([held(3)]);
-    const c = s.untilUp();
-    s.go(1, [grip(s.world.tick, 2, c.id)]);
-    while (s.body() && blisterIsUp(s.body()!)) s.go(1);
-    // Up for its two beats, held through both: two blows, one owed, hand off.
-    expect(s.blows()).toBe(CFG.blisterUpBeats);
-    expect(gripsCreature(s.world, 2, c.id)).toBe(false);
-    s.untilUp();
-    s.hold(2, TPB);
-    expect(s.body()).toBeUndefined();
-  });
-
   it("refuses the hand its `by` does not name, and a tap counts nothing on it", () => {
-    const s = stage([held(2)]);
+    const s = stage([held()]);
     const c = s.untilUp();
     s.go(1, [grip(s.world.tick, 1, c.id)]);
     expect(gripsCreature(s.world, 1, c.id)).toBe(false);
@@ -129,7 +106,7 @@ describe("a HOLD blister, held by a press (a mouse's as a thumb's)", () => {
   });
 
   it("finishes twice as fast under two hands on a BOTH blister", () => {
-    const s = stage([held(2, "both")]);
+    const s = stage([held("both")]);
     const c = s.untilUp();
     s.go(1, [grip(s.world.tick, 1, c.id), grip(s.world.tick, 2, c.id)]);
     s.go(TPB - 1);
@@ -137,22 +114,22 @@ describe("a HOLD blister, held by a press (a mouse's as a thumb's)", () => {
   });
 
   it("refuses a hand on a TAP blister, so a tap that rests stays a tap", () => {
-    const s = stage([{ ...held(2), gesture: undefined }]);
+    const s = stage([{ ...held(), gesture: undefined }]);
     const c = s.untilUp();
     s.go(1, [grip(s.world.tick, 2, c.id)]);
     expect(gripsCreature(s.world, 2, c.id)).toBe(false);
   });
 
   it("replays to the same world", () => {
-    const s = stage([held(2)]);
+    const s = stage([held()]);
     const c = s.untilUp();
     const at = s.world.tick;
     const replay = record({
       name: "a HOLD blister held out",
       seed: 0,
-      queue: [held(2)],
+      queue: [held()],
       ticks: at + TPB * 3,
-      inputs: [grip(at, 2, c.id), grip(at + TPB * 2, 2, NO_GRIP)],
+      inputs: [grip(at, 2, c.id), grip(at + TPB, 2, NO_GRIP)],
     });
     expect(hashWorld(runReplay(replay))).toBe(replay.expectHash!);
     expect(runReplay(replay).creatures.some((x) => x.kind === "blister")).toBe(false);

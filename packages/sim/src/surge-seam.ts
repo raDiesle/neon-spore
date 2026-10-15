@@ -85,7 +85,7 @@ function throwBlister(world: World, s: SurgeState): void {
     petals: 0,
     dragMilli: 0,
     shell: NO_SHELL,
-    ...blisterOnSpawn(cfg, { by: "both", count: 1, gesture: "swipe" }),
+    ...blisterOnSpawn(cfg, { by: "both", gesture: "swipe" }),
   });
   world.events.push({ type: "surgeBlister", col, row });
 }

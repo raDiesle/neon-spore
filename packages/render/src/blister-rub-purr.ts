@@ -1,4 +1,4 @@
-import { blisterLeft, blisterRubbing } from "@neon-spore/sim";
+import { blisterRubbing } from "@neon-spore/sim";
 import type { BlisterFrame } from "./blister-bodies.js";
 import type { Body } from "./creature-body-in.js";
 import { rgba } from "./hex.js";
@@ -11,30 +11,27 @@ const TUFTS = 22;
 
 /**
  * PURR, one of RUB's three bodies (`blister-rub.ts`): a furry mound with two pointed ears comes up out of the pore, the
- * rub's drop on its back. Its fur lies smooth while nobody has touched it;
- * every blow makes it bristle a third more, the tufts standing out longer
- * round its whole outline, and while a thumb is on it its eyes close happy and
- * the fur ripples under the hand.
+ * rub's drop on its back. Its fur lies smooth, and while a thumb is on it its
+ * eyes close happy and the fur ripples under the hand. One blow and it is
+ * gone, so it never bristles (until 15 October 2026 a blow made it bristle a
+ * third more, `blister.ts`).
  */
 export function drawPurrBody(b: Body, f: BlisterFrame): void {
   const { ctx } = b;
   const r = f.r;
   const x = b.x;
   const y = b.y + (1 - f.rise) * r * 1.8;
-  const left = blisterLeft(b.world.cfg, b.c);
-  const turns = Math.max(b.world.cfg.blisterBlows, left);
-  const done = (turns - left) / Math.max(1, turns);
   const rubbing = blisterRubbing(b.c);
   const cy = y + r * 0.15;
   ctx.save();
   for (const side of [-1, 1] as const) ear(ctx, x + side * r * 0.8, cy - r * 1.0, r, side);
-  // The outline: a tuft every few degrees, longer the more it bristles.
+  // The outline: a tuft every few degrees.
   const fur = new Path2D();
   for (let i = 0; i <= TUFTS; i++) {
     const t = i / TUFTS;
     const a = Math.PI * (0.9 + t * 1.2);
     const ripple = rubbing ? Math.sin(b.time * 18 + i) * 0.06 : 0;
-    const out = 1.25 + (0.12 + 0.45 * done + ripple) * (i % 2 === 0 ? 1 : 0.3);
+    const out = 1.25 + (0.12 + ripple) * (i % 2 === 0 ? 1 : 0.3);
     const px = x + Math.cos(a) * r * out * 1.08;
     const py = cy + Math.sin(a) * r * out;
     if (i === 0) fur.moveTo(px, py);

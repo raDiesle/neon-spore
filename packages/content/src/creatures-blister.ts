@@ -20,5 +20,5 @@ export const BLISTER_CREATURE: CreatureDef = {
   // (`render/comms.ts`).
   radar: "p1",
   blurb:
-    "It comes up out of a pore in the field, stays up a beat or two, and sinks again — and comes up again nearer the ship, somewhere else, until it has been tapped out or comes up on the hull and breaks it. Only one seat's hand may tap it, and only while it is up, and the taps it has taken stay taken while it is under. The other seat sees the pore swell a beat before it comes up, so the hand is told where and when rather than waiting to see it.",
+    "It comes up out of a pore in the field and stays up for a few beats. One hit from the right seat's hand while it is up and it is gone; still up when its time runs out, it breaks the hull and the wave is lost. The other seat sees the pore swell a beat before it comes up, so the hand is told where and when rather than waiting to see it.",
 };

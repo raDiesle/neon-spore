@@ -44,7 +44,6 @@ const turned = (col: number, by: BlisterBy, way: BlisterTurnWay): SpawnEntry => 
   color: null,
   row: 3,
   by,
-  count: 3,
   gesture: "turn",
   way,
 });

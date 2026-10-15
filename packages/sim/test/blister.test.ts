@@ -1,10 +1,9 @@
 import { describe, expect, it } from "bun:test";
-import { blisterPlaceRow } from "../src/blister.js";
+import { blisterPlaceRow, blisterUpBeatsOf } from "../src/blister.js";
 import { refusesABolt } from "../src/bullet-refused.js";
 import {
   type BlisterBy,
   blisterIsUp,
-  blisterLeft,
   blisterSwelling,
   type Creature,
   createWorld,
@@ -25,23 +24,23 @@ import {
 /**
  * THE BLISTER: the cycle, the tap, and the hull (`sim/blister.ts`).
  *
- * The mole, in order: it arrives under its pore, comes up, stays, sinks and
- * comes up nearer; a tap from the hand its `by` names, while it is up, is one
- * off a count kept across surfacings; a tap from the other seat or on a pore
- * with nothing up counts nothing; and one nobody answers breaks the hull.
+ * In order: it arrives under its pore, swells, and comes up; one tap from the
+ * hand its `by` names, while it is up, knocks it out; a tap from the other
+ * seat or on a pore with nothing up counts nothing; and one still up when its
+ * beats run out breaks the hull, which loses the wave (the owner, 15 October
+ * 2026).
  */
 
 const CFG: SimConfig = DEFAULT_CONFIG;
 const TPB = ticksPerBeat(CFG);
 
-const blister = (col: number, row: number, by: BlisterBy, count = 3): SpawnEntry => ({
+const blister = (col: number, row: number, by: BlisterBy): SpawnEntry => ({
   beat: 0,
   col,
   kind: "blister",
   color: null,
   row,
   by,
-  count,
 });
 
 const tap = (tick: number, player: 1 | 2, id: number): TimedCommand => ({
@@ -90,16 +89,6 @@ function untilUp(s: ReturnType<typeof stage>, limit = TPB * 8): Creature {
   throw new Error("the blister never came up");
 }
 
-/** Steps until it has gone under again. */
-function untilDown(s: ReturnType<typeof stage>): void {
-  for (let t = 0; t < TPB * 8; t++) {
-    const c = only(s.world);
-    if (!c || !blisterIsUp(c)) return;
-    s.go(1);
-  }
-  throw new Error("the blister never went under");
-}
-
 /** Taps the blister now, from this seat, and steps the tick it lands on. */
 function blow(s: ReturnType<typeof stage>, player: 1 | 2): void {
   const c = only(s.world);
@@ -114,7 +103,7 @@ describe("where a blister comes up", () => {
     expect(blisterPlaceRow(CFG, 5)).toBe(5);
   });
 
-  it("arrives under, swells, comes up, stays up its beats and sinks nearer", () => {
+  it("arrives under, swells, comes up where it was put, and stays up its beats", () => {
     const s = stage([blister(3, 4, 2)]);
     const c = arrive(s);
     expect(c.col).toBe(3);
@@ -123,10 +112,20 @@ describe("where a blister comes up", () => {
     const upAt = untilUp(s);
     expect(upAt.row).toBe(4);
     const from = s.world.tick;
-    untilDown(s);
-    // Up for exactly its beats, and under again `blisterSinkRows` lower.
+    while (only(s.world) && blisterIsUp(only(s.world)!)) s.go(1);
+    // Up for exactly its beats, and then gone into the hull, not under again.
     expect(s.world.tick - from).toBe(CFG.blisterUpBeats * TPB);
-    expect(only(s.world)!.row).toBe(4 + CFG.blisterSinkRows);
+    expect(only(s.world)).toBeUndefined();
+  });
+
+  it("stays up a beat longer for a gesture a thumb has to carry", () => {
+    const tapUp = blisterUpBeatsOf(CFG, { kind: "blister" } as Creature);
+    const holdUp = blisterUpBeatsOf(CFG, { kind: "blister", blisterGesture: "hold" } as Creature);
+    expect(tapUp).toBe(3);
+    expect(holdUp).toBe(3);
+    for (const g of ["swipe", "turn", "rub", "combo", "lever"] as const) {
+      expect(blisterUpBeatsOf(CFG, { kind: "blister", blisterGesture: g } as Creature)).toBe(4);
+    }
   });
 
   it("swells only in its last beat under, which is the partner's beat to say it", () => {
@@ -140,19 +139,15 @@ describe("where a blister comes up", () => {
 });
 
 describe("knocking it down", () => {
-  it("three taps from the hand it names knock it out while it is up", () => {
+  it("one tap from the hand it names knocks it out while it is up", () => {
     const s = stage([blister(3, 4, 2)]);
     untilUp(s);
     blow(s, 2);
-    blow(s, 2);
-    expect(blisterLeft(CFG, only(s.world)!)).toBe(1);
-    blow(s, 2);
     expect(only(s.world)).toBeUndefined();
     expect(s.events.some((e) => e.type === "destroy" && e.kind === "blister")).toBe(true);
-    // One `blisterBlow` a blow that counted, counting down to nought — the
-    // verdict ring and the cue are thrown off these (`render/blister-verdicts.ts`).
-    const left = s.events.flatMap((e) => (e.type === "blisterBlow" ? [e.left] : []));
-    expect(left).toEqual([2, 1, 0]);
+    // One `blisterBlow`, the verdict ring and the cue are thrown off it
+    // (`render/blister-verdicts.ts`).
+    expect(s.events.filter((e) => e.type === "blisterBlow").length).toBe(1);
     expect(s.world.scars).toEqual([]);
   });
 
@@ -161,8 +156,7 @@ describe("knocking it down", () => {
     untilUp(s);
     blow(s, 1);
     blow(s, 1);
-    blow(s, 1);
-    expect(blisterLeft(CFG, only(s.world)!)).toBe(3);
+    expect(blisterIsUp(only(s.world)!)).toBe(true);
     expect(s.events.some((e) => e.type === "blisterBlow")).toBe(false);
   });
 
@@ -171,28 +165,16 @@ describe("knocking it down", () => {
     arrive(s);
     blow(s, 2);
     expect(blisterIsUp(only(s.world)!)).toBe(false);
-    expect(blisterLeft(CFG, only(s.world)!)).toBe(3);
+    expect(s.events.some((e) => e.type === "blisterBlow")).toBe(false);
   });
 
-  it("keeps the count across surfacings: one now, two the next time up", () => {
-    const s = stage([blister(3, 2, 2)]);
-    untilUp(s);
-    blow(s, 2);
-    untilDown(s);
-    expect(blisterLeft(CFG, only(s.world)!)).toBe(2);
-    untilUp(s);
-    blow(s, 2);
-    blow(s, 2);
-    expect(only(s.world)).toBeUndefined();
-  });
-
-  it("with both hands named, either seat's taps go on one count", () => {
-    const s = stage([blister(3, 4, "both")]);
-    untilUp(s);
-    blow(s, 1);
-    blow(s, 2);
-    blow(s, 1);
-    expect(only(s.world)).toBeUndefined();
+  it("with both hands named, either seat's tap knocks it out", () => {
+    for (const seat of [1, 2] as const) {
+      const s = stage([blister(3, 4, "both")]);
+      untilUp(s);
+      blow(s, seat);
+      expect(only(s.world)).toBeUndefined();
+    }
   });
 
   it("is not the cannon's: a bolt that meets one is spent on it", () => {
@@ -201,31 +183,21 @@ describe("knocking it down", () => {
 });
 
 describe("left alone", () => {
-  it("comes up nearer each time and breaks the hull when it comes up on it", () => {
+  it("breaks the hull in its own column the beat its time up runs out", () => {
     const s = stage([blister(3, 2, 2)]);
-    // The tick it sank onto the hull row, and the tick the hull broke: the
-    // whole of its time under, so nothing goes through a pore unseen.
-    let sankAt = -1;
+    untilUp(s);
+    const upAt = s.world.tick;
     let brokeAt = -1;
-    for (let t = 0; t < TPB * 40 && brokeAt < 0; t++) {
+    for (let t = 0; t < TPB * 10 && brokeAt < 0; t++) {
       s.go(1);
-      const c = only(s.world);
-      if (sankAt < 0 && c && c.row === hullRow(CFG)) sankAt = s.world.tick;
       if (s.world.scars.length > 0) brokeAt = s.world.tick;
     }
-    expect(brokeAt - sankAt).toBe(CFG.blisterDownBeats * TPB);
+    expect(brokeAt - upAt).toBe(CFG.blisterUpBeats * TPB);
     expect(only(s.world)).toBeUndefined();
-    expect(s.world.scars.map((x) => x.kind)).toEqual(["blister"]);
+    expect(s.world.scars.map((x) => [x.kind, x.col])).toEqual([["blister", 3]]);
     expect(s.events.some((e) => e.type === "destroy")).toBe(false);
-  });
-
-  it("gives at least four seconds from its first swell to the hull", () => {
-    const s = stage([blister(3, 2, 2)]);
-    arrive(s);
-    const start = s.world.tick;
-    while (only(s.world) && s.world.tick - start < TPB * 60) s.go(1);
-    const seconds = (s.world.tick - start) / CFG.tickHz;
-    expect(seconds).toBeGreaterThanOrEqual(4);
+    // And the wave is lost on that tick, not at a later surfacing.
+    expect(s.events.some((e) => e.type === "waveFailed")).toBe(true);
   });
 });
 

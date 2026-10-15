@@ -3,7 +3,6 @@ import {
   blisterGestureOf,
   blisterHoldShare,
   blisterIsUp,
-  blisterLeft,
   blisterMayTap,
   blisterRubbing,
   blisterStrokes,
@@ -23,7 +22,6 @@ import { type Layout, seatOf } from "./layout.js";
 import { drawMarkHalo, drawMarkWait } from "./mark-feedback.js";
 import { drawMarkHeld } from "./mark-progress.js";
 import { PALETTE } from "./palette.js";
-import { drawFuseRing } from "./pip-ring.js";
 import { drawPressDrop } from "./press-drop.js";
 import { drawPullKnob } from "./pull-knob.js";
 import { drawPullTrack, PULL_TRACK_W, type PullTrack } from "./pull-track.js";
@@ -37,14 +35,13 @@ import { drawSoakHold } from "./soak-hold.js";
  *
  * - On the seat that may knock it down: `drawMarkHalo` inside the body, THE
  *   PRESS LAB's drop every press wears (`press-drop.ts`) over it — yellow,
- *   calling *tap tap*, STEPS' water a terrace a blow — and one pip round it
- *   for each blow still owed (`pip-ring.ts`, THE MINE's ring). The owner, 15
+ *   calling *tap*, STEPS' water one terrace for its one blow. The owner, 15
  *   October 2026: *they should follow our standard tap control visuals*; it
- *   was the tap's flaring dots (`drawInstarGlyph`) until then.
- * - On the seat that may not: the waiting clock over it (`drawMarkWait`) and
- *   the same pips — never the gesture, which reads as *your next move*
- *   (`mark-feedback.ts`). How many are left is no secret; the seat with the
- *   hand counts them off and the other is better for hearing it.
+ *   was the tap's flaring dots (`drawInstarGlyph`) until then. No pips round
+ *   it since the same day: one blow knocks it out, so there is no count to
+ *   show (`blister.ts`).
+ * - On the seat that may not: the waiting clock over it (`drawMarkWait`) —
+ *   never the gesture, which reads as *your next move* (`mark-feedback.ts`).
  * - HOLD, on the seat that may: the HOLD LAB's drop every hold wears
  *   (`soak-hold.ts`) in the tap's place, its water welling out to the rim as
  *   the beat in progress fills, and the halo only while no hand is on it. On both screens, while a hand that counts is on it, the
@@ -60,12 +57,11 @@ import { drawSoakHold } from "./soak-hold.js";
  *   (`blister-turn-help.ts`). The partner, again, the waiting clock.
  * - RUB, on the seat that may: THE RUB LAB's drop every rub wears, ZIGZAG on
  *   it a stroke for every blow the blister asks, lit as they land
- *   (`rub-drop.ts`), and the halo while no hand is rubbing. The pips round it
- *   count the same blows, as every gesture's do.
+ *   (`rub-drop.ts`), and the halo while no hand is rubbing.
  * - COMBO, on the seat that may: the tap's help until its press is done, and
  *   then SWIPE's pull in the same place, to the right — THE COMBO LAB's
  *   PRESS, THEN PULL, the press counted and gone and a pull come in where it
- *   was. The pips count blows, and a blow is the two.
+ *   was. The blow is the two.
  * - LEVER, on the seat that may: THE LEVER LAB's lever down from the body —
  *   graduated groove, band, channel to the band's middle and knob, with the
  *   handle dial filling while it is held in the band (`blister-lever-help.ts`).
@@ -90,7 +86,6 @@ export function drawBlisterHelp(
     if (h <= 0) continue;
     const { x, y } = flatCenter(l, c, beatPhase);
     const r = flatRadius(l, world.cfg, c, beatPhase);
-    const left = blisterLeft(world.cfg, c);
     const mine = l.role === "test" || blisterMayTap(c, seatOf(l.role));
     ctx.save();
     ctx.globalAlpha *= h;
@@ -106,21 +101,18 @@ export function drawBlisterHelp(
     } else if (mine && gesture === "rub") {
       const held = blisterRubbing(c);
       if (!held) drawMarkHalo(ctx, x, y, r, time);
-      const turns = Math.max(world.cfg.blisterBlows, left);
-      drawRubDrop(ctx, { x, y }, r * HOLD_R, { time, turns, done: turns - left, held });
+      drawRubDrop(ctx, { x, y }, r * HOLD_R, { time, turns: 1, done: 0, held });
     } else if (mine && holding) {
       if (!held) drawMarkHalo(ctx, x, y, r, time);
       const fill = blisterHoldShare(world, c);
       drawSoakHold(ctx, { x, y }, r * HOLD_R, { time, held, fill });
     } else if (mine) {
       drawMarkHalo(ctx, x, y, r, time);
-      const times = Math.max(world.cfg.blisterBlows, left);
-      drawPressDrop(ctx, { x, y }, r * HOLD_R, { time, times, done: times - left });
+      drawPressDrop(ctx, { x, y }, r * HOLD_R, { time, times: 1, done: 0 });
     } else {
       drawMarkWait(ctx, x, y, r, time);
     }
     if (held) drawMarkHeld(ctx, x, y, r, time);
-    drawFuseRing(ctx, x, y, r * 1.45, { left, full: left }, c.color, time);
     ctx.restore();
   }
 }

@@ -54,7 +54,6 @@ const swiped = (col: number, by: BlisterBy, way: BlisterWay): SpawnEntry => ({
   color: null,
   row: 3,
   by,
-  count: 3,
   gesture: "swipe",
   way,
 });

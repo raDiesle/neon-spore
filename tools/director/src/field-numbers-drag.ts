@@ -10,8 +10,8 @@ import type { SimConfig } from "@neon-spore/sim";
  */
 export const DRAG_NUMBERS: Readonly<Record<string, readonly (keyof SimConfig)[]>> = {
   // Pull past a distance.
-  "THE BLISTER'S SWIPE": ["blisterSwipeMilli", "blisterUpBeats", "blisterBlows"],
-  "THE BLISTER'S COMBO": ["blisterSwipeMilli", "blisterUpBeats", "blisterBlows"],
+  "THE BLISTER'S SWIPE": ["blisterSwipeMilli", "blisterUpBeatsLong"],
+  "THE BLISTER'S COMBO": ["blisterSwipeMilli", "blisterUpBeatsLong"],
   "THE BLISTER'S LEVER": [
     "blisterLeverMilli",
     "blisterLeverFromMilli",
@@ -140,7 +140,7 @@ export const DRAG_NUMBERS: Readonly<Record<string, readonly (keyof SimConfig)[]>
     "throatMinRadiusMilli",
     "throatMaxRadiusMilli",
   ],
-  "THE BLISTER'S RUB": ["blisterUpBeats", "blisterBlows"],
+  "THE BLISTER'S RUB": ["blisterUpBeatsLong"],
   // Drawn, then swiped.
   "THE SLING'S LEFT CORD": [
     "slingGraceBeats",
@@ -164,7 +164,7 @@ export const DRAG_NUMBERS: Readonly<Record<string, readonly (keyof SimConfig)[]>
   "THE HYDRA'S RIGHT COIL": ["hydraCoilRimMilli"],
   "THE HYDRA'S LEFT NECK": ["hydraCutMilli"],
   "THE HYDRA'S RIGHT NECK": ["hydraCutMilli"],
-  "THE BLISTER'S TURN": ["blisterUpBeats", "blisterBlows"],
+  "THE BLISTER'S TURN": ["blisterUpBeatsLong"],
   // Traced along a line.
   "THE FILAMENT'S LINE": ["filamentGapTiles", "filamentStartBeats", "filamentStallBeats"],
   "THE FLEET'S RAKE": ["fleetRakeBeats", "fleetFloodBeats"],

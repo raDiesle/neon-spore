@@ -66,7 +66,6 @@ export const creature = (): Required<Creature> => ({
   mineFuse: 4,
   mineSees: 1,
   blisterBy: "both",
-  blisterLeft: 2,
   blisterUp: true,
   blisterClock: 1,
   blisterGesture: "hold",

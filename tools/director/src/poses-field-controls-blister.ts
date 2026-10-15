@@ -13,7 +13,7 @@ import { fresh, type Pose, run, until } from "./pose-kit.js";
  */
 export const BLISTER_SWIPE: Pose = {
   name: "BLISTER · A STROKE HALF CARRIED",
-  note: "A SWIPE blister is up out of its pore for its two beats, pointing up. Player 2 has pressed on it and carried the thumb half the way a stroke needs: the knob is half way down its channel. Lifted now it would count nothing; carried on and lifted, one of its three blows. Player 2's screen, the seat its BY names.",
+  note: "A SWIPE blister is up out of its pore, pointing up. Player 2 has pressed on it and carried the thumb half the way a stroke needs: the knob is half way down its channel. Lifted now it would count nothing; carried on and lifted, the blow that knocks it out. Player 2's screen, the seat its BY names.",
   lookAt: "whether the bar reads as which way to go, and whether half full reads as not yet",
   crop: "field",
   role: "p2",
@@ -25,7 +25,6 @@ export const BLISTER_SWIPE: Pose = {
         kind: "blister",
         color: null,
         row: 3,
-        count: 3,
         gesture: "swipe",
         way: "up",
       },
@@ -60,14 +59,12 @@ export const BLISTER_SWIPE: Pose = {
  */
 export const BLISTER_TURN: Pose = {
   name: "BLISTER · A TURN HALF ROUND",
-  note: "A TURN blister is up out of its pore for its two beats. Player 2 has pressed on it and taken the thumb half way round clockwise: the channel round it is green from the top to the bottom, and the knob stands at the bottom on its lever. Another half and it is one of its three blows. Player 2's screen, the seat its BY names.",
+  note: "A TURN blister is up out of its pore. Player 2 has pressed on it and taken the thumb half way round clockwise: the channel round it is green from the top to the bottom, and the knob stands at the bottom on its lever. Another half and it is the blow that knocks it out. Player 2's screen, the seat its BY names.",
   lookAt: "whether the knob and channel read as go round, and whether half green reads as not yet",
   crop: "field",
   role: "p2",
   build: () => {
-    const w = fresh([
-      { beat: 0, col: 4, kind: "blister", color: null, row: 3, count: 3, gesture: "turn" },
-    ]);
+    const w = fresh([{ beat: 0, col: 4, kind: "blister", color: null, row: 3, gesture: "turn" }]);
     until(w, "a blister up", (x) => x.creatures.some(blisterIsUp));
     const body = w.creatures.find(blisterIsUp);
     if (!body) throw new Error("no blister up");
@@ -83,21 +80,21 @@ export const BLISTER_TURN: Pose = {
 };
 
 /**
- * THE BLISTER's RUB with a thumb on it that has turned back once: the body
- * up, the rub's line and arrows on it, and one of its three pips gone
- * (`sim/blister-rub.ts`, `render/blister-help.ts`). The rub is the press's
- * nought and one reversal, as `rub-turns.ts` sends them.
+ * THE BLISTER's RUB with a thumb on it that has not turned back yet: the body
+ * up and the rub's line and arrows on it (`sim/blister-rub.ts`,
+ * `render/blister-help.ts`). The rub is the press's nought, as `rub-turns.ts`
+ * sends it; its first reversal is the blow that knocks it out, so the pose
+ * stops before it (it was RUBBED ONCE until 15 October 2026, when a blister
+ * took three).
  */
 export const BLISTER_RUB: Pose = {
-  name: "BLISTER · RUBBED ONCE",
-  note: "A RUB blister is up out of its pore for its two beats. Player 2 is scrubbing it and has turned back once: one of its three pips is gone and one of the three zigzag strokes on its drop is lit; the other two still ask. Player 2's screen, the seat its BY names.",
-  lookAt: "whether the line and arrows read as scrub here, and whether the pips say what is left",
+  name: "BLISTER · BEING RUBBED",
+  note: "A RUB blister is up out of its pore. Player 2 has a thumb on it and is about to scrub: the first turn back knocks it out. Player 2's screen, the seat its BY names.",
+  lookAt: "whether the line and arrows read as scrub here",
   crop: "field",
   role: "p2",
   build: () => {
-    const w = fresh([
-      { beat: 0, col: 4, kind: "blister", color: null, row: 3, count: 3, gesture: "rub" },
-    ]);
+    const w = fresh([{ beat: 0, col: 4, kind: "blister", color: null, row: 3, gesture: "rub" }]);
     until(w, "a blister up", (x) => x.creatures.some(blisterIsUp));
     const body = w.creatures.find(blisterIsUp);
     if (!body) throw new Error("no blister up");
@@ -106,7 +103,7 @@ export const BLISTER_RUB: Pose = {
       player: 2,
       command: { kind: "drag", target: "blisterRub", on: true, fromMilli: body.id, id: turns },
     });
-    run(w, 3, [rubbed(w.tick, 0), rubbed(w.tick + 1, 1)]);
+    run(w, 3, [rubbed(w.tick, 0)]);
     return w;
   },
 };
@@ -119,14 +116,12 @@ export const BLISTER_RUB: Pose = {
  */
 export const BLISTER_COMBO: Pose = {
   name: "BLISTER · PRESSED, THE PULL HALF CARRIED",
-  note: "A COMBO blister is up out of its pore for its two beats. Player 2 has pressed it once — the tap's halo and dots are gone — and the pull that came in where they were is half carried: the knob is half way along its channel to the right. Carried on and lifted, one of its three blows. Player 2's screen, the seat its BY names.",
+  note: "A COMBO blister is up out of its pore. Player 2 has pressed it once — the tap's halo and dots are gone — and the pull that came in where they were is half carried: the knob is half way along its channel to the right. Carried on and lifted, one of its three blows. Player 2's screen, the seat its BY names.",
   lookAt: "whether the pull reads as the second half of the press, and half full as not yet",
   crop: "field",
   role: "p2",
   build: () => {
-    const w = fresh([
-      { beat: 0, col: 4, kind: "blister", color: null, row: 3, count: 3, gesture: "combo" },
-    ]);
+    const w = fresh([{ beat: 0, col: 4, kind: "blister", color: null, row: 3, gesture: "combo" }]);
     until(w, "a blister up", (x) => x.creatures.some(blisterIsUp));
     const body = w.creatures.find(blisterIsUp);
     if (!body) throw new Error("no blister up");
@@ -157,14 +152,12 @@ export const BLISTER_COMBO: Pose = {
  */
 export const BLISTER_LEVER: Pose = {
   name: "BLISTER · THE LEVER HELD IN ITS BAND",
-  note: "A LEVER blister is up out of its pore for its two beats. Player 2 has taken the knob and carried it down its groove into the band, and has held it there half the hold it asks: the band is green and the dial is half way round the knob. Held on, one of its three blows. Player 2's screen, the seat its BY names.",
+  note: "A LEVER blister is up out of its pore. Player 2 has taken the knob and carried it down its groove into the band, and has held it there half the hold it asks: the band is green and the dial is half way round the knob. Held on, the blow that knocks it out. Player 2's screen, the seat its BY names.",
   lookAt: "whether the band reads as where to stop, and the dial as how long is left",
   crop: "field",
   role: "p2",
   build: () => {
-    const w = fresh([
-      { beat: 0, col: 4, kind: "blister", color: null, row: 3, count: 3, gesture: "lever" },
-    ]);
+    const w = fresh([{ beat: 0, col: 4, kind: "blister", color: null, row: 3, gesture: "lever" }]);
     until(w, "a blister up", (x) => x.creatures.some(blisterIsUp));
     const body = w.creatures.find(blisterIsUp);
     if (!body) throw new Error("no blister up");
@@ -189,17 +182,17 @@ export const BLISTER_LEVER: Pose = {
 
 /**
  * THE BLISTER's TAP up out of its pore with no hand on it yet: the press's
- * drop calling *tap tap* with its three terraces, on the seat that taps. It is what
+ * drop calling *tap* with its one terrace, on the seat that taps. It is what
  * `blister:tap` on VERSUS was judged on (MOLE, RIDER and CRADLE all taken,
  * 15 October 2026) — a body built round the button against the clover the
  * button covered — so it replays every second and a
- * half, inside the two beats the blister stays up. It is on the COMPARED
+ * half, inside the three beats the blister stays up. It is on the COMPARED
  * LOOKS sheet (`poses-versus-bodies.ts`), not ON THE FIELD's: no row there
  * names it, since TAP is the tap every body already answers.
  */
 export const BLISTER_TAP: Pose = {
   name: "BLISTER · UP FOR A TAP",
-  note: "A TAP blister is up out of its pore for its two beats, three blows owed, and no thumb on it yet. Player 2's screen, the seat its BY names: THE PRESS LAB's drop, calling, says tap here.",
+  note: "A TAP blister is up out of its pore, one blow from gone, and no thumb on it yet. Player 2's screen, the seat its BY names: THE PRESS LAB's drop, calling, says tap here.",
   lookAt: "whether a creature is seen round the button, or only the button",
   crop: "tile",
   role: "p2",
@@ -210,7 +203,7 @@ export const BLISTER_TAP: Pose = {
     return c ? { col: c.col, row: c.row } : { col: 4, row: 3 };
   },
   build: () => {
-    const w = fresh([{ beat: 0, col: 4, kind: "blister", color: null, row: 3, count: 3 }]);
+    const w = fresh([{ beat: 0, col: 4, kind: "blister", color: null, row: 3 }]);
     until(w, "a blister up", (x) => x.creatures.some(blisterIsUp));
     run(w, 12);
     return w;

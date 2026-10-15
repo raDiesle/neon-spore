@@ -14,16 +14,9 @@ import type { World } from "./world.js";
  * whose `by` names this seat (`blisterHoldable`), so a TAP blister still
  * refuses a hand and a tap that rests on it stays a tap.
  *
- * **A blow is a beat held, and the count is kept across surfacings**, as a
- * tap's is: a blister up for two beats with three owed is held for two,
- * sinks, and owes one when it comes up again. What a release or a sink
- * loses is the beat in progress, never a blow already dealt — the only
- * reading under which a count larger than `blisterUpBeats` can be won.
- * Two hands on a BOTH blister add a tick each, so they finish it twice as
- * fast, as two tapping hands do.
- *
- * A hand left on one that sinks is let go of, on the tick: the body comes up
- * again somewhere else, and a thumb resting where it was is not on it.
+ * **A blow is a beat held**, and the one blow knocks it out. A release loses
+ * the beat in progress. Two hands on a BOTH blister add a tick each, so they
+ * finish it twice as fast.
  */
 export function stepBlisterHolds(world: World): void {
   const beat = ticksPerBeat(world.cfg);

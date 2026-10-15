@@ -61,8 +61,8 @@ export const WAVES_ACT_14B: Wave[] = [
     id: "fiveBlisters",
     name: "FIVE BLISTERS",
     entries: [
-      { beat: 0, col: 5, kind: "blister", color: null, row: 2, by: 2, count: 3 },
-      { beat: 10, col: 8, kind: "blister", color: null, row: 2, by: 1, count: 2, gesture: "hold" },
+      { beat: 0, col: 5, kind: "blister", color: null, row: 2, by: 2 },
+      { beat: 10, col: 8, kind: "blister", color: null, row: 2, by: 1, gesture: "hold" },
       {
         beat: 20,
         col: 2,
@@ -70,12 +70,11 @@ export const WAVES_ACT_14B: Wave[] = [
         color: null,
         row: 3,
         by: 2,
-        count: 2,
         gesture: "swipe",
         way: "left",
       },
-      { beat: 30, col: 7, kind: "blister", color: null, row: 2, by: 1, count: 2, gesture: "turn" },
-      { beat: 40, col: 3, kind: "blister", color: null, row: 2, by: 2, count: 4, gesture: "rub" },
+      { beat: 30, col: 7, kind: "blister", color: null, row: 2, by: 1, gesture: "turn" },
+      { beat: 40, col: 3, kind: "blister", color: null, row: 2, by: 2, gesture: "rub" },
       {
         beat: 41,
         col: 8,
@@ -83,7 +82,6 @@ export const WAVES_ACT_14B: Wave[] = [
         color: null,
         row: 3,
         by: 1,
-        count: 2,
         gesture: "swipe",
         way: "up",
       },

@@ -45,12 +45,11 @@ export type StandingKind =
    */
   | "mine"
   /**
-   * A body that comes up out of a pore, stays up for `blisterUpBeats` and
-   * sinks again — and surfaces `blisterSinkRows` nearer the hull in a column
-   * the seeded rng picks, until a hand has knocked it down `count` times or it
-   * comes up on the hull row and breaks it. Only the seat its `by` names may
-   * knock it, and only while it is up; the other seat is the one shown where it
-   * will come up. `Creature.blisterBy`, `blisterLeft`, `blisterUp` and
-   * `blisterClock` are its state, and `blister.ts` is the whole of it.
+   * A body that comes up out of a pore and stays up for `blisterUpBeatsOf`:
+   * one blow and it is gone, and still up when those beats run out it breaks
+   * the hull in its column. Only the seat its `by` names may knock it, and
+   * only while it is up; the other seat is the one shown where it will come
+   * up. `Creature.blisterBy`, `blisterUp` and `blisterClock` are its state,
+   * and `blister.ts` is the whole of it.
    */
   | "blister";

@@ -42161,3 +42161,18 @@ Bottleneck: no flag says when a body is up or what its id is.
 Bottleneck: the second cut, the plume's, was only found by looking at a frame.
 
 *Measured: 28 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
+
+## 2026-10-15 — THE BLISTER: one blow, and a miss loses the wave
+
+- reading: 15 min. `sim/blister.ts` and its config to answer the owner, two
+  questions put to him, and every reader of the count across sim, render,
+  audio, director and content.
+- writing: 30 min. The rule, the per-gesture window, the count out of 40
+  wave entries, the director's COUNT row, the rub bodies and pips, the
+  tutorial film, seven sim tests rewritten, the spec.
+- looking: 5 min. One `frames` shot of a TAP blister up without its pips.
+- friction: 5 min. A scene test built on `queueFromWave` put the body in an
+  unmapped column and the tap missed; `sceneScript` is the one to call.
+- landing: 10 min. The full suite in the background, `check:fast`, `land`.
+
+Bottleneck: the count was read in 45 files, and only the typecheck found them all.

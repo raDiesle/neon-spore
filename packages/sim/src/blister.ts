@@ -7,25 +7,25 @@ import type {
 } from "./creature-state-blister.js";
 import { removeCreature } from "./field.js";
 import { breachHull } from "./hull-damage.js";
-import { nextInt } from "./rng.js";
 import type { Creature } from "./types.js";
 import type { World } from "./world.js";
 
 /**
  * THE BLISTER: a body you knock back down (`docs/spec/blister.md`).
  *
- * It does not fall. It comes up out of a pore — a tile of the field — stays up
- * for `blisterUpBeats`, and sinks; while it is under nothing touches it, and a
- * bolt passes over the pore (`shot-reach.ts`). Each time it sinks without
- * having been knocked out it comes up again `blisterSinkRows` nearer the hull,
- * in a column the seeded rng picks, and one that comes up on the hull row
- * breaks the hull there and is gone.
+ * It does not fall. It arrives under a pore — a tile of the field — where
+ * nothing touches it and a bolt passes over (`shot-reach.ts`), comes up, and
+ * stays up for `blisterUpBeatsOf`. **One blow and it is gone; still up when
+ * those beats run out and it breaks the hull in its column, and the wave is
+ * lost** — the owner, 15 October 2026: *once player executed correct, it
+ * should not appear again, and if time ran out, the wave is lost
+ * immediately.* Until then it sank, came up again nearer the hull and kept
+ * a count of blows across its surfacings.
  *
- * **Only the hand its `by` names counts**, and only while it is up. Every
- * blow that lands is one off a count that is kept across surfacings — the
- * mole: you wait for it, you hit it, it goes, you wait again. The other seat
- * is shown the pore swelling a beat before it comes up (`blisterSwelling`), so
- * a hand that waits to see it arrives late and the pair has to say *now*.
+ * **Only the hand its `by` names counts**, and only while it is up. The other
+ * seat is shown the pore swelling a beat before it comes up
+ * (`blisterSwelling`), so a hand that waits to see it arrives late and the
+ * pair has to say *now*.
  *
  * The tap is the soundbox's command, `tap {id}`, and whose tap it is belongs to
  * the creature rather than to the command (`beatboxTapped`'s arrangement).
@@ -36,26 +36,24 @@ import type { World } from "./world.js";
 const TOP_ROW = 2;
 
 /**
- * Where the first surfacing is: the authored row, pulled into the band from
- * the top row to the one above the hull — a blister placed on the hull row
- * would break it the beat it came up, with nothing ever seen.
+ * Where it surfaces: the authored row, pulled into the band from the top row
+ * to the one above the hull, where a body drawn on the hull would sit on it.
  */
 export function blisterPlaceRow(cfg: SimConfig, row: number | undefined): number {
   return Math.max(TOP_ROW, Math.min(hullRow(cfg) - 1, row ?? TOP_ROW));
 }
 
 /**
- * What a blister arrives with: its seat, its count, and the pore under it
+ * What a blister arrives with: its seat, its gesture, and the pore under it
  * already swelling. It arrives **under**, so the first thing on the field is
  * the bulge on the partner's screen — the arrival is a thing to say before it
  * is a thing to hit. The seat defaults to the navigator, the director's own
  * default (`docs/spec/blister.md`).
  */
 export function blisterOnSpawn(cfg: SimConfig, entry: BlisterSpawn): Partial<Creature> {
-  const { by, count, gesture, way } = entry;
+  const { by, gesture, way } = entry;
   return {
     blisterBy: by ?? 2,
-    blisterLeft: Math.max(1, count ?? cfg.blisterBlows),
     blisterUp: false,
     blisterClock: cfg.blisterDownBeats,
     // Absent a tap, so a tap blister is byte-for-byte the blister lane 1 built,
@@ -114,16 +112,19 @@ export function blisterSwelling(c: Creature): boolean {
   return c.kind === "blister" && c.blisterUp !== true && (c.blisterClock ?? 0) <= 1;
 }
 
-/** Blows still owed. */
-export function blisterLeft(cfg: SimConfig, c: Creature): number {
-  return c.blisterLeft ?? cfg.blisterBlows;
+/**
+ * Beats it stays up: a press's `blisterUpBeats`, or a beat more for the
+ * gestures a thumb has to carry somewhere once it is there.
+ */
+export function blisterUpBeatsOf(cfg: SimConfig, c: Creature): number {
+  const g = blisterGestureOf(c);
+  return g === "tap" || g === "hold" ? cfg.blisterUpBeats : cfg.blisterUpBeatsLong;
 }
 
 /**
  * One beat of a blister, in place of the fall: the clock comes down by one,
- * and at nought it either sinks — and the next pore is picked now, so the
- * bulge can be drawn where it will come up — or it comes up, which on the
- * hull row is the hull.
+ * and at nought one under comes up, and one up that nobody knocked down
+ * breaks the hull in its column — the wave lost — and is gone.
  */
 export function stepBlister(world: World, c: Creature): void {
   const { cfg } = world;
@@ -131,20 +132,12 @@ export function stepBlister(world: World, c: Creature): void {
   c.blisterClock = left;
   if (left > 0) return;
   if (c.blisterUp) {
-    c.blisterUp = false;
-    voidGestures(c);
-    c.blisterClock = cfg.blisterDownBeats;
-    c.col = nextInt(world.rng, cfg.cols);
-    c.row = Math.min(hullRow(cfg), c.row + cfg.blisterSinkRows);
-    return;
-  }
-  if (c.row >= hullRow(cfg)) {
     breachHull(world, c.col, "blister", c.row, "light", c.color);
     removeCreature(world, c.id);
     return;
   }
   c.blisterUp = true;
-  c.blisterClock = cfg.blisterUpBeats;
+  c.blisterClock = blisterUpBeatsOf(cfg, c);
 }
 
 /**
@@ -169,16 +162,10 @@ export function blisterTapped(world: World, player: 1 | 2, id: number): boolean 
 }
 
 /**
- * One blow landed, whichever gesture dealt it: one off the count, said, and
- * at nought the blister is gone.
+ * One blow landed, whichever gesture dealt it: said, and the blister is gone.
  */
 export function blisterBlow(world: World, c: Creature): void {
-  const left = blisterLeft(world.cfg, c) - 1;
-  c.blisterLeft = left;
-  // A COMBO's next blow asks for its press again.
-  c.blisterPressed = undefined;
-  world.events.push({ type: "blisterBlow", id: c.id, col: c.col, row: c.row, left });
-  if (left > 0) return;
+  world.events.push({ type: "blisterBlow", id: c.id, col: c.col, row: c.row });
   world.events.push({
     type: "destroy",
     col: c.col,
@@ -189,22 +176,4 @@ export function blisterBlow(world: World, c: Creature): void {
     kind: "blister",
   });
   removeCreature(world, c.id);
-}
-
-/**
- * A sink voids every SWIPE stroke, TURN, RUB and COMBO press in progress: the thumbs are
- * still down, and what they do next counts nothing until they lift — the body
- * they began on is under another pore by then (`blister-swipe.ts`,
- * `blister-turn.ts`, `blister-rub.ts`). A turn short of whole is lost.
- */
-function voidGestures(c: Creature): void {
-  const open = (c.blisterStrokes ?? 0) & 3;
-  if (open !== 0) c.blisterStrokes = ((c.blisterStrokes ?? 0) & 12) | (open << 2);
-  c.blisterAlongMilli = undefined;
-  if (c.blisterTurnAt1 !== undefined) c.blisterTurnAt1 = BLISTER_HAND_DEAD;
-  if (c.blisterTurnAt2 !== undefined) c.blisterTurnAt2 = BLISTER_HAND_DEAD;
-  c.blisterTurnedMilli = undefined;
-  if (c.blisterRubAt1 !== undefined) c.blisterRubAt1 = BLISTER_HAND_DEAD;
-  if (c.blisterRubAt2 !== undefined) c.blisterRubAt2 = BLISTER_HAND_DEAD;
-  c.blisterPressed = undefined;
 }

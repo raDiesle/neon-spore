@@ -1,7 +1,6 @@
 /**
- * THE BLISTER's numbers: how long it stays up, how long it is under, how much
- * nearer each surfacing comes, and how many blows it takes when a wave leaves
- * the count out (`blister.ts`).
+ * THE BLISTER's numbers: how long it stays up, how long it is under before it
+ * comes up, and the reach of the gestures that go somewhere (`blister.ts`).
  *
  * `SimConfig` extends this rather than nesting it, for `config-crystal.ts`' reason:
  * every call site still reads `cfg.blisterUpBeats`, and the split is only about
@@ -10,35 +9,31 @@
  */
 export interface BlisterConfig {
   /**
-   * Beats a blister stays up once it has surfaced — the only beats a blow
-   * counts on. Two in the draft (`docs/spec/blister.md`): one is too short for
-   * a hand that was told *now* to arrive, and three lets the hand that waited
-   * to see it arrive in time, which is the mistake the creature exists for.
+   * Beats a TAP or a HOLD blister stays up once it has surfaced — the only
+   * beats its one blow counts on, and the whole of the time the pair has: a
+   * blister still up when they run out breaks the hull (`stepBlister`). Three,
+   * the owner, 15 October 2026 (*slightly increase the time players have
+   * before lost, especially for tapping*): two left a hand told *now* and
+   * then *where* no time to arrive.
    */
   blisterUpBeats: number;
   /**
-   * Beats it is under between two surfacings, the last of which is the beat
-   * the pore swells on the partner's screen. Two, so there is one beat with
+   * The same for every gesture that takes longer than a press — SWIPE, TURN,
+   * RUB, COMBO and LEVER: four, a beat more than a tap, for the stroke or the
+   * turn the thumb has to make once it is there.
+   */
+  blisterUpBeatsLong: number;
+  /**
+   * Beats it is under before it surfaces, the last of which is the beat the
+   * pore swells on the partner's screen. Two, so there is one beat with
    * nothing to see and one with the bulge — the beat the partner says *now*.
    */
   blisterDownBeats: number;
   /**
-   * Rows lower each surfacing is than the last. Three in the draft: from the
-   * top of the band that is four surfacings before the hull row, a little under
-   * ten seconds at the shipped tempo, which keeps the four seconds a spoken
-   * answer needs on every one of them.
-   */
-  blisterSinkRows: number;
-  /**
-   * Blows it takes when the wave named no `count` — the director's own default
-   * for the setting (`docs/spec/blister.md`, *The director's settings*).
-   */
-  blisterBlows: number;
-  /**
    * How far a SWIPE has to carry along its way before its lift is a blow, in
    * thousandths of a tile: two tiles — the owner, 15 October 2026, found one
    * too short to read as a pull (*make sure the path length to pull is big
-   * enough*). Still a stroke a thumb lands inside the two beats it is up, and
+   * enough*). Still a stroke a thumb lands inside the four beats it is up, and
    * from FIVE BLISTERS' column 2 a stroke left ends on the field's first column.
    */
   blisterSwipeMilli: number;
@@ -55,16 +50,15 @@ export interface BlisterConfig {
   blisterLeverFromMilli: number;
   blisterLeverToMilli: number;
   /** Beats the knob has to stand in the band for a blow: one, which with the
-   * carry fits inside the two beats it is up. */
+   * carry fits inside the four beats it is up. */
   blisterLeverBeats: number;
 }
 
 /** The defaults, spread into `DEFAULT_CONFIG`. */
 export const BLISTER_DEFAULTS: BlisterConfig = {
-  blisterUpBeats: 2,
+  blisterUpBeats: 3,
+  blisterUpBeatsLong: 4,
   blisterDownBeats: 2,
-  blisterSinkRows: 3,
-  blisterBlows: 3,
   blisterSwipeMilli: 2000,
   blisterLeverMilli: 1500,
   blisterLeverFromMilli: 600,

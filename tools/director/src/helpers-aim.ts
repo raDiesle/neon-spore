@@ -121,9 +121,9 @@ export const BODY_GROUP: HelperGroup = {
     },
     {
       name: "THE PIPS",
-      where: "a ring round a mine, and round a blister",
+      where: "a ring round a mine",
       seat: "BOTH",
-      says: "How many are still owed: one pip a fuse, one pip a blow.",
+      says: "How many beats of fuse are left: one pip a beat.",
       source: "pip-ring.ts",
       pose: MINE_UP,
       role: "test",
@@ -149,7 +149,7 @@ export const BODY_GROUP: HelperGroup = {
         "Knock this one, and how: the halo inside, the tap's dots over it, a TURN's " +
         "channel and knob. The seat that may not is shown the clock, never the gesture.",
       source: "blister-help.ts, blister-turn-help.ts",
-      pose: "BLISTER · RUBBED ONCE",
+      pose: "BLISTER · BEING RUBBED",
       role: "p2",
       zoom: { at: firstOfKind("blister"), span: 4 },
       lookAt: "the halo and the gesture over the blister",

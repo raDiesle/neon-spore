@@ -13,35 +13,37 @@
 > picture for every variant, with only the help for the gesture it wants drawn
 > over and round it. The work was cut into eight lanes, each an entry in
 > `docs/queue.md`.
+>
+> **One blow since 15 October 2026.** The owner: *once player executed
+> correct, it should not appear again, and if time ran out, the wave is lost
+> immediately … slightly increase the time players have before lost,
+> especially for tapping.* The count, the sinking and the coming up nearer
+> are gone; TAP and HOLD stay up three beats, the rest four.
 
 ## In one sentence
 
-**A blister swells up out of a pore in the field, stays up for a beat or two,
-and sinks again — and only the hand allowed to knock it down can do it, while
-only the other seat sees where it will come up next.**
+**A blister swells up out of a pore in the field and stays up for a few beats
+— only the hand allowed to knock it down can do it, only the other seat sees
+where it will come up, and if nobody does it in time the wave is lost.**
 
 ## What it does
 
-- **It does not fall.** It surfaces at a pore — a tile of the field — stays up
-  for `blisterUpBeats`, and sinks. While it is down nothing can touch it; the
-  cannon's bolt passes over the pore. It is not the cannon's and not the
-  shield's: `controls: []`, a handle on the field is neither group
-  (`.claude/skills/new-creature`).
-- **Unanswered, it comes up nearer.** Each time it sinks without being knocked
-  out it surfaces again `blisterSinkRows` lower, in a column the seeded `Rng`
-  picks. A blister that surfaces on the hull row breaks the hull at its column,
-  a scar like any other arrival, and is gone. The first surfacing is high
-  enough to keep the four seconds from visible to impact.
-- **It takes several blows, and keeps count across surfacings.** `count` on the
-  wave entry is how many: taps for TAP, beats for HOLD, strokes for SWIPE and
-  RUB, turns for TURN. A tap that lands while it is up is one off the count,
-  and the count does not grow back while it is down — that is the mole: you
-  wait for it, you hit it, it goes, you wait again. A HOLD's blow is a whole
-  beat held: the beats already held are kept across a sink as taps are, and
-  the beat in progress is lost on a release or a sink — the only reading under
-  which a count larger than the up-time can be won (`sim/blister-hold.ts`).
-  A TURN started and not finished before it sinks starts again from nothing
-  next time.
+- **It does not fall.** It arrives under a pore — a tile of the field — for
+  `blisterDownBeats`, comes up, and stays up for `blisterUpBeats` (TAP and
+  HOLD, three) or `blisterUpBeatsLong` (SWIPE, TURN, RUB, COMBO and LEVER,
+  four: a beat more for a thumb that has to carry somewhere once it is
+  there). While it is under nothing can touch it; the cannon's bolt passes
+  over the pore. It is not the cannon's and not the shield's: `controls: []`,
+  a handle on the field is neither group (`.claude/skills/new-creature`).
+- **One blow knocks it out.** A tap for TAP, a beat held for HOLD, a stroke
+  for SWIPE, a whole turn for TURN, the first turn back for RUB, the knob
+  held in the band for LEVER, a press and then a pull for COMBO. It does not
+  come back.
+- **Unanswered, it loses the wave.** Still up when its beats run out, it
+  breaks the hull in its own column — a scar like any other arrival — and the
+  wave is lost on that tick (`sim/blister.ts` `stepBlister`). Until 15 October
+  2026 it sank instead, came up again `blisterSinkRows` nearer the hull and
+  kept a count of blows across its surfacings; four chances, ten seconds.
 - **Where it comes up next is the talking.** A beat before it surfaces the
   pore swells — a bulge in the membrane, on **one screen only**: the seat that
   is *not* the one knocking it down. The hand that can do it sees the blister
@@ -58,13 +60,13 @@ out on purpose — a desk with a mouse has none of them.
 
 | Gesture | The player reads | What the hand does | What the simulation counts | Its help, called and not redrawn |
 |---|---|---|---|---|
-| **TAP** (the plain mole) | `TAP` | taps the blister while it is up | taps; `tap {id}` routed to the blister as it is to the soundbox | THE PRESS LAB's yellow drop (`press-drop.ts`), STEPS' water a terrace a tap, and one pip round the body for each tap still owed |
+| **TAP** (the plain mole) | `TAP` | taps the blister while it is up | the tap; `tap {id}` routed to the blister as it is to the soundbox | THE PRESS LAB's yellow drop (`press-drop.ts`), STEPS' water one terrace |
 | **HOLD** | `HOLD` | presses and keeps the press | ticks held, from `grip` on to `grip` off; a release resets | `drawHoldMark`, with `drawGripDial` running round it |
 | **SWIPE** | `SWIPE` | drags across the body the way the arrow points | one stroke the moment the drag passes `blisterSwipeMilli` (two tiles) in that direction, or on the lift that got it there — the one generic PULL (`sim/pull.ts`); let go short, refused out loud (`pullShort`) | the PULL LAB's knob on its channel, never a ring (the owner, 24 September and 13 October 2026) |
 | **TURN** (the circle) | `TURN` | drags a full turn round the body, the way the channel points | thousandths of a turn, as the crank's bearing is | `drawMazeLever`, the one turn for every wave (the owner, 5 October 2026) |
 | **RUB** | `RUB` | scrubs back and forth over it | reversals, as `packages/render/src/rub-turns.ts` counts them | `drawRubDrop` |
-| **LEVER** | `LEVER` | carries the knob down its groove into the band, and holds it there | ticks in the band (`blisterLeverFromMilli`..`blisterLeverToMilli`) towards `blisterLeverBeats`; out of it the count starts again, a lift before it is done is refused (`pullShort`), and a hand counted once is spent until it lifts | THE LEVER LAB's groove and band (`render/lever-groove.ts`), the PULL LAB's knob, and the handle dial while it is held |
-| **COMBO** | `COMBO` | presses it, then pulls the knob that comes in its place, to the right | the press as a `tap` (`blisterPressed`), then SWIPE's stroke; the two are one blow, and a sink between them loses the press | the tap's help, then SWIPE's pull in the same place — THE COMBO LAB's PRESS, THEN PULL |
+| **LEVER** | `LEVER` | carries the knob down its groove into the band, and holds it there | ticks in the band (`blisterLeverFromMilli`..`blisterLeverToMilli`) towards `blisterLeverBeats`; out of it the count starts again, and a lift before it is done is refused (`pullShort`) | THE LEVER LAB's groove and band (`render/lever-groove.ts`), the PULL LAB's knob, and the handle dial while it is held |
+| **COMBO** | `COMBO` | presses it, then pulls the knob that comes in its place, to the right | the press as a `tap` (`blisterPressed`), then SWIPE's stroke; the two are the one blow | the tap's help, then SWIPE's pull in the same place — THE COMBO LAB's PRESS, THEN PULL |
 
 **The body is the same in all seven.** Only the help round it changes, so a
 wave can mix them and the pair reads *which* from the help, never from the
@@ -85,15 +87,15 @@ the pore's mouth, and goes back in the same way (`render/blister.ts`).
 
 On the screen of the seat that may not knock it down, the pore is drawn shut
 while it is under — *where* — and swells into a dome on the last beat —
-*when*; the hand that can do it is drawn neither. On the beat it sinks the
-pore glides to the next one, which the simulation picks on that beat.
+*when*; the hand that can do it is drawn neither. When its time runs out it
+goes back into the pore over the last third of a beat, and the hull breaks.
 
 The TAP help is the shared set (`render/blister-help.ts`): on the seat that may
-tap, `drawMarkHalo` and the tap glyph; on the other, `drawMarkWait`; on both,
-THE MINE's ring of pips, one per blow still owed (`render/pip-ring.ts`). Every
-blow that counts is a `blisterBlow` event, answered with the green verdict ring
-(`render/blister-verdicts.ts`) and THE GORGE's bubble-press cue pitched up a
-step a blow (`audio/bind-blister.ts`).
+tap, `drawMarkHalo` and the press drop; on the other, `drawMarkWait`. The ring
+of pips that counted blows owed went with the count. The blow is a
+`blisterBlow` event, answered with the green verdict ring
+(`render/blister-verdicts.ts`) and THE GORGE's bubble-press cue
+(`audio/bind-blister.ts`), and the ordinary kill on the same tick.
 
 The SWIPE help replaces the tap's on the seat that may stroke it: the PULL
 LAB's pull every pull wears (`render/pull-knob.ts`, `render/pull-track.ts`) —
@@ -108,20 +110,20 @@ The TURN help is THE MAZE's turn round the body (`render/blister-turn-help.ts`):
 a closed channel a lever's length out, the lever bolted to the body's rim and
 THE MAZE's knob on its end, resting at the top with a one-headed arrow the way
 the turn counts. The knob goes round with the turn in progress and the channel
-fills green behind it; a whole ring is a blow and the knob is back at the top.
+fills green behind it; a whole ring is the blow.
 The press is a `blisterTurn` drag about the body's centre, read the crank's way
 (`render/blister-tap.ts`, `touch-drag.ts` `turnAbout`), and
 `sim/blister-turn.ts` counts it.
 
 The RUB help is the game's one rub mark (`render/rub-drop.ts` `drawRubDrop`)
-on the body: THE RUB LAB's drop with ZIGZAG on it, a stroke for every blow,
-lit as they land, and the halo round it while nobody is rubbing. The pip ring
-counts the same blows. The press sends nothing; the host counts
+on the body: THE RUB LAB's drop with ZIGZAG on it, one stroke for its one
+blow, and the halo round it while nobody is rubbing. The press sends
+nothing; the host counts
 the reversals (`render/rub-turns.ts`) and every count is a `blisterRub` drag
 whose `id` is the count and whose `fromMilli` is the body (`render/rub.ts`) —
 the one target that rides it there, because the count already holds `id`.
-`sim/blister-rub.ts` deals a blow for every fresh reversal while it is up; a
-sink leaves a thumb still scrubbing dead until it lifts, as for TURN.
+`sim/blister-rub.ts` deals the blow on the first fresh reversal while it is
+up.
 
 The LEVER help is THE LEVER LAB's lever, called and not redrawn: the groove,
 its quarter notches and its band are `render/lever-groove.ts`, which the lab
@@ -137,24 +139,22 @@ the tap's help until the press lands — a `tap {id}`, which on a COMBO blister
 deals nothing and sets `blisterPressed` — and then SWIPE's pull in the same
 place, to the right, which is the lab's way (`render/blister-help.ts`). The
 pull is SWIPE's `blisterSwipe` stroke, judged by `sim/blister-swipe.ts` once
-`blisterStrokes` says the press is done; its blow takes the press away, so
-every blow is the two. A sink takes it away too: the two halves are one blow
-only inside one surfacing.
+`blisterStrokes` says the press is done, and the two are the one blow.
 
 ## The director's settings
 
-Under the selected cell, the way THE MINE's SEES row is (`tools/director/src/cell-config-mine.ts`). **BY, GESTURE and COUNT are built** (lane 3, 8 October 2026: `cell-config-blister.ts`, `entry-fields-blister.ts`): GESTURE offers TAP, HOLD and SWIPE (lane 4, the same day: `gesture: "hold"` on the entry, TAP written as no field; lane 5, 9 October 2026: `gesture: "swipe"`; lane 6, the same day: `gesture: "turn"`; lane 7, the same day: `gesture: "rub"`), and WAY is offered only for a gesture that has one — SWIPE's four arrows, `→` written as no field, and TURN's two, `⟳` written as no field. A way the new gesture does not go is dropped when the gesture changes. A HOLD is the ordinary `grip`, so a mouse's press is a thumb's, and a hand left on one that sinks is let go of on the tick.
+Under the selected cell, the way THE MINE's SEES row is (`tools/director/src/cell-config-mine.ts`). **BY and GESTURE are built** (lane 3, 8 October 2026: `cell-config-blister.ts`, `entry-fields-blister.ts`): GESTURE offers TAP, HOLD and SWIPE (lane 4, the same day: `gesture: "hold"` on the entry, TAP written as no field; lane 5, 9 October 2026: `gesture: "swipe"`; lane 6, the same day: `gesture: "turn"`; lane 7, the same day: `gesture: "rub"`), and WAY is offered only for a gesture that has one — SWIPE's four arrows, `→` written as no field, and TURN's two, `⟳` written as no field. A way the new gesture does not go is dropped when the gesture changes. A HOLD is the ordinary `grip`, so a mouse's press is a thumb's. COUNT, the blows it took, was a row too until 15 October 2026.
 
 
 | Row | Choices | Default |
 |---|---|---|
 | **BY** | `P1`, `P2`, `BOTH` | `P2` |
-| **GESTURE** | `TAP`, `HOLD`, `SWIPE`, `TURN`, `RUB` | `TAP` |
-| **COUNT** | 1–8 | 3 |
+| **GESTURE** | `TAP`, `HOLD`, `SWIPE`, `TURN`, `RUB`, `COMBO`, `LEVER` | `TAP` |
 | **WAY** | `←`, `→`, `↑`, `↓` for SWIPE; `⟳`, `⟲` for TURN; absent otherwise | `→`, `⟳` |
 
-**BY** is whose hand counts. `BOTH` means either seat may, and their blows go
-on one count: two hands on one blister finish it twice as fast. The bulge
+**BY** is whose hand counts. `BOTH` means either seat may, and the first to
+finish the gesture knocks it out; on HOLD two hands fill the beat twice as
+fast, and on TURN they wind the one turn between them. The bulge
 follows BY: P1 knocks down, P2 sees the bulge, and the other way round.
 With `BOTH` both screens show the bulge — the setting with the least to
 say, for a guide's first page or a crowded wave, never for the wave that
@@ -177,17 +177,12 @@ from end to end.
 
 - Whether a blow on an empty pore — a tap where it was, a beat late — costs
   anything. The draft says no: the late tap is its own punishment.
-- `blisterUpBeats` and `blisterSinkRows` stay at the draft's 2 beats and 3
-  rows; lane 8 measured them headless on THE BLISTER's wave, at its 96 bpm.
-  Up is 1.25 s; under is `blisterDownBeats` (2, the last the bulge's), so a
-  surfacing comes round every 2.5 s. Left alone, the first one is up from
-  beat 3 at row 2 and comes up again at rows 5, 8 and 11, breaking the hull
-  from row 14 on beat 19 — four chances and ten seconds from first sight to
-  the hull. Three taps fit one surfacing easily; a HOLD of 2 needs both beats
-  of one, or one of each of two; a TURN of 2 is two whole turns, which is
-  why FIVE BLISTERS asks for no more. Whether that is the right pressure *at
-  tempo*, two people talking, nobody has seen yet. `blisterBlows`, the count
-  when a wave names none, is 3.
+- Whether three beats for TAP and HOLD and four for the rest (1.9 s and
+  2.5 s at THE BLISTER's 96 bpm, after a swell beat on the partner's
+  screen) is the right pressure *at tempo*, two people talking — nobody has
+  seen it yet. It was two beats, 1.25 s, with four surfacings to fail on.
+  SURGE's bursts throw SWIPE blisters into its own columns, and a missed one
+  there now loses the wave too.
 - Whether a wave may carry several blisters up at once. The draft allows it;
   THE BLISTER does not use it, and FIVE BLISTERS ends on two a beat apart,
   one for each hand.
@@ -197,11 +192,10 @@ from end to end.
 **THE BLISTER** stands in act nine, straight after THE MINE
 (`content/waves/act-9.ts`): the mine's split — one seat sees it, the other's
 finger answers it on the field — with a clock put on it. Two blisters, the
-navigator's, three taps each. Its guide is a film of three pages
+navigator's, one tap each. Its guide is a film of two pages
 (`content/scenes/the-blister.ts`): the pilot sees the pore swell, *say
-where*; the navigator waits to see it and gets two taps in before it sinks;
-the pilot sees it swell again three rows nearer and calls it early, and the
-navigator's thumb is on it a beat after it is up.
+where*; the navigator, called early, taps it once a beat after it is up,
+and it is gone.
 
 **FIVE BLISTERS** stands where THE BLISTER first did, in act fourteen
 (`content/waves/act-14.ts`): one of each gesture in turn, by turns the

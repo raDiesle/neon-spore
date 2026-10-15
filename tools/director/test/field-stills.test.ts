@@ -14,6 +14,9 @@ const NOT_PLAYED = [
   "THE ANTIPHON'S ORGAN",
   "THE BALLOON'S LEFT HANDLE",
   "THE BALLOON'S RIGHT HANDLE",
+  // Its pose already holds the knob half way through the one blow, which
+  // finishes on its own and leaves AUTO nothing to press (15 October 2026).
+  "THE BLISTER'S LEVER",
   "THE CHOIR'S RUB",
   "THE GAUGE'S BAND",
   "THE LEAD'S STALK",

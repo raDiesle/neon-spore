@@ -49,7 +49,6 @@ const held = (col: number, by: BlisterBy): SpawnEntry => ({
   color: null,
   row: 3,
   by,
-  count: 3,
   gesture: "hold",
 });
 

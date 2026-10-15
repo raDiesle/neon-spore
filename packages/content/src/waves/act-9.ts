@@ -120,9 +120,9 @@ import type { Wave } from "../wave-types.js";
  * **THE BLISTER is the act's fourth, straight after THE MINE**
  * (`docs/spec/blister.md`): the mine's split — one seat sees it, the other's
  * finger answers it on the field — with a clock put on it. The pore swells
- * on the pilot's screen a beat before it comes up, and it is up two beats:
- * *the one where the hand that waits to see it is late.* Two of them, the
- * navigator's, three taps each.
+ * on the pilot's screen a beat before it comes up, and it is up three beats:
+ * a hand that waits to see it is late. Two of them, the navigator's, one tap
+ * each, and one left up too long loses the wave (15 October 2026).
  *
  * **THE MOULT is the act's fifth**, and the last wave in the file. One body
  * wearing both ends of the game by turns: a rock the dome answers for five

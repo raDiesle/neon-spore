@@ -21,7 +21,6 @@ function upBlister() {
       kind: "blister",
       color: null,
       row: 3,
-      count: 3,
       gesture: "swipe",
       way: "up",
     },

@@ -15,14 +15,13 @@ export const BLISTER_CONTROLS: readonly FieldControlDef[] = [
     seat: "the seat the blister's BY names — either, on a BOTH blister",
     gesture: "grab and drag",
     does:
-      "A blister comes up out of a pore in the hull for two beats and goes " +
-      "back under. A SWIPE one wears the knob every pull wears, with its " +
+      "A blister comes up out of a pore for blisterUpBeatsLong beats, and " +
+      "still up when they run out it breaks the hull. A SWIPE one wears the knob every pull wears, with its " +
       "way in it — left, right, up or down — and a channel a stroke long out " +
       "that way. Press on it and carry the finger " +
-      "blisterSwipeMilli that way, more along than across, and lift: one " +
-      "blow. A short stroke, a sideways one and one the wrong way count " +
-      "nothing and cost nothing. A stroke still open when it sinks counts " +
-      "nothing either (sim/blister-swipe.ts).",
+      "blisterSwipeMilli that way, more along than across, and lift: the " +
+      "one blow that knocks it out. A short stroke, a sideways one and one " +
+      "the wrong way count nothing and cost nothing (sim/blister-swipe.ts).",
     source: "blister-tap.ts — blisterTapAt() under touchDown(), judged on touchUp()",
     holdKind: "drag",
     dragTarget: "blisterSwipe",
@@ -39,9 +38,8 @@ export const BLISTER_CONTROLS: readonly FieldControlDef[] = [
       "and a knob at the top with its arrow clockwise, or anticlockwise " +
       "where the wave says so. Press on it and take the thumb round the " +
       "body the way the arrow points: the channel fills green behind the " +
-      "knob, and a whole turn is one blow. The wrong way round counts " +
-      "nothing; a turn short of whole when it sinks is lost, and a thumb " +
-      "left on it counts nothing more until it lifts (sim/blister-turn.ts).",
+      "knob, and a whole turn is the one blow that knocks it out. The wrong " +
+      "way round counts nothing (sim/blister-turn.ts).",
     source: "blister-tap.ts — blisterUnder() under touchDown(); turnAbout() on every move",
     holdKind: "drag",
     dragTarget: "blisterTurn",
@@ -54,16 +52,15 @@ export const BLISTER_CONTROLS: readonly FieldControlDef[] = [
     seat: "the seat the blister's BY names — either, on a BOTH blister",
     gesture: "grab and drag",
     does:
-      "A RUB blister wears THE RUB LAB's drop, a zigzag stroke on it for " +
-      "every blow, as every rub in the game does. Press on it and " +
-      "scrub back and forth: every time the thumb turns back is one blow. " +
-      "A thumb still rubbing when it sinks counts nothing more until it " +
-      "lifts (sim/blister-rub.ts; the reversals counted by render/rub-turns.ts).",
+      "A RUB blister wears THE RUB LAB's drop, one zigzag stroke on it for " +
+      "its one blow, as every rub in the game does. Press on it and " +
+      "scrub back and forth: the first time the thumb turns back knocks " +
+      "it out (sim/blister-rub.ts; the reversals counted by render/rub-turns.ts).",
     source: "blister-tap.ts — blisterUnder() under touchDown(); fingers.ts counts the turns",
     holdKind: "drag",
     dragTarget: "blisterRub",
     sends: ["drag"],
-    pose: "BLISTER · RUBBED ONCE",
+    pose: "BLISTER · BEING RUBBED",
   },
   {
     name: "THE BLISTER'S COMBO",
@@ -75,9 +72,8 @@ export const BLISTER_CONTROLS: readonly FieldControlDef[] = [
       "the tap's halo and dots first: press it once, and the press is " +
       "counted and gone, and the knob every pull wears comes in where it " +
       "was, its channel a stroke long out to the right. Carry it the whole " +
-      "way and lift: one blow, and the next blow asks for the press again. " +
-      "A pull with no press counts nothing, and a press the blister sinks " +
-      "on before its pull is lost (sim/blister.ts, sim/blister-swipe.ts).",
+      "way and lift: the one blow that knocks it out. A pull with no press " +
+      "counts nothing (sim/blister.ts, sim/blister-swipe.ts).",
     source: "blister-tap.ts — blisterUnder() under touchDown(): a tap, then a blisterSwipe drag",
     holdKind: "drag",
     dragTarget: "blisterSwipe",
@@ -94,10 +90,9 @@ export const BLISTER_CONTROLS: readonly FieldControlDef[] = [
       "from it, a band on the groove, and the knob every pull wears on the " +
       "body. Press the knob and carry it down: it stands where the thumb " +
       "puts it. In the band the band goes green and the dial sweeps round " +
-      "the knob; held there blisterLeverBeats, one blow, and the hand is " +
-      "spent until it lifts and carries again. Out of the band the hold " +
-      "starts again; let go before it is done, refused out loud; a hold " +
-      "still going when it sinks is lost (sim/blister-lever.ts).",
+      "the knob; held there blisterLeverBeats, the one blow that knocks it " +
+      "out. Out of the band the hold starts again; let go before it is " +
+      "done, refused out loud (sim/blister-lever.ts).",
     source: "blister-tap.ts — blisterUnder() under touchDown(); touchMove() carries the knob",
     holdKind: "drag",
     dragTarget: "blisterLever",

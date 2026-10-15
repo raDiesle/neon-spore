@@ -3,6 +3,7 @@ import {
   blisterGestureOf,
   blisterIsUp,
   blisterSwelling,
+  blisterUpBeatsOf,
   type Creature,
   type SimConfig,
 } from "@neon-spore/sim";
@@ -48,7 +49,7 @@ const RISE_BEATS = 0.3;
  * the help fades in on (`blister-help.ts`). */
 export function blisterRise(cfg: SimConfig, c: Creature, beatPhase: number): number {
   if (!blisterIsUp(c)) return 0;
-  const up = cfg.blisterUpBeats;
+  const up = blisterUpBeatsOf(cfg, c);
   const elapsed = up - (c.blisterClock ?? up) + beatPhase;
   return smoothstep(Math.min(elapsed, up - elapsed) / RISE_BEATS);
 }
