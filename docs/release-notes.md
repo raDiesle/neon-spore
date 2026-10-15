@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-15 · 0b8fe17a8 — The wave order back as it was before a stale save, and a save commits the act files it made
+
+A director tab holding a draft from before the lesson blocks saved at 20:25, and wrote the old order: every boss bunched between THE OCULUS and THE HYDRA, 262 waves folded under THE HYDRA. The order is back as it landed — a block between every two bosses — with the one edit that save made, THE BLISTER's first rock taking a swipe. Its commit had also left out the 31 act files it made, so `main` did not build from a fresh checkout: `commitWaves` now adds a file the save made new. Not a look: the order is the owner's, and the director is a tool.
+
 ## 2026-10-15 · d7c582f9c — A director draft keeps the files' order: a wave they gained stands where they put it
 
 An unsaved draft in the wave editor used to lay every wave the act files had gained since it was made after its own last wave — 262 new waves folded under THE HYDRA, and none between the bosses above it. Now the files' order holds, and only a wave the draft added or moved goes after its neighbour in the draft. Not a look: the director is a tool.

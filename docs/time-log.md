@@ -42402,3 +42402,5 @@ stored draft could put 262 waves under THE HYDRA.
 
 Bottleneck: friction — a save from a tab holding a stale draft wrote the old
 order, and its commit left out the files it created.
+
+*Measured: 5 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
