@@ -42462,3 +42462,5 @@ numbers, the index, AUTO's budget — each found by a red run, not beforehand.
 - landing: 5 min.
 
 Bottleneck: none — the adopt command did the move; what it left was prose.
+
+*Measured: 8 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*

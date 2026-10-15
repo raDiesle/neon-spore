@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-15 · 2e21b4e9f — SNAKE's floor shadow is FLAT: no blur, four plain passes
+
+The shadow under SNAKE's body, its jaws, the venom and every item on the board is no longer `shadowBlur`. It is the shape filled dark at the same offset under three widened faint strokes of its own path, as far and as dark as the blur was — the owner took it off VERSUS, where the two could not be told apart at four times their size. The candidate's paint moved to `packages/render/src/snake-skin-flat.ts` and the slot closed.
+
 ## 2026-10-15 · 6e7dcce00 — A Ctrl-click on a CONTROLS brush opens a wave of that control alone
 
 Seven waves after FIVE BLISTERS, one per on-screen control — BLISTERS TO TAP, HOLD, SWIPE, TURN, RUB, COMBO and LEVER: the one where every blister wants the same gesture, four of them among slicks and bulbs. They are composed by the wave generator's own placement and checks (`bun run waves:controls`), and AUTO clears each. TURN's Ctrl-click used to land on THE BLISTER, which has no turn in it; each control brush now opens its own wave, and its hover card says "Its own wave".
