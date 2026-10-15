@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-15 · 64057658f — bun run profile: which functions a script spends its time in
+
+Finding why a FIZZ knob cost 0.4 ms took two scratch scripts: one under bun --cpu-prof, one folding the profile by hand. `bun run profile <file.ts>` now runs a script under the profiler and prints the top functions by self time and by total time, keeping the .cpuprofile for DevTools. The fold is tested on a hand-written profile, and the render-perf skill and docs/commands.md name the command.
+
 ## 2026-10-15 · a6ba1166e — THE SINEW's hands move to their own file
 
 boss-hands-handles.ts was at 229 lines after THE SINEW's handles learned to follow their bow. Its three hands and the tendon they share are now boss-hands-sinew.ts, re-exported from the package index as before; the handles file is at 154 lines. No look changed.
