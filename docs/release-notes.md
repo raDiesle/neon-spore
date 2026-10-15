@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-15 · 6e7dcce00 — A Ctrl-click on a CONTROLS brush opens a wave of that control alone
+
+Seven waves after FIVE BLISTERS, one per on-screen control — BLISTERS TO TAP, HOLD, SWIPE, TURN, RUB, COMBO and LEVER: the one where every blister wants the same gesture, four of them among slicks and bulbs. They are composed by the wave generator's own placement and checks (`bun run waves:controls`), and AUTO clears each. TURN's Ctrl-click used to land on THE BLISTER, which has no turn in it; each control brush now opens its own wave, and its hover card says "Its own wave".
+
 ## 2026-10-15 · fb63b64ab — The tutorial's regular waves fold under the intro they use: CYAN holds three, TORCH six
 
 TWO COLOURS and ALTERNATING are CYAN's block, as ONLY CYAN already was, and ONE LAST CHANCE to CROWDED are TORCH's — but only ONLY CYAN was folded, so the director's list drew the rest as rows of their own with nothing under them. Nothing moves and the game reads none of it; `variant` is the director's list alone. Not a look.
