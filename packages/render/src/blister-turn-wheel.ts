@@ -1,8 +1,8 @@
-import type { BlisterFrame } from "../../../../../packages/render/src/blister-bodies.js";
-import type { Body } from "../../../../../packages/render/src/creature-body-in.js";
-import { rgba } from "../../../../../packages/render/src/hex.js";
-import { PALETTE } from "../../../../../packages/render/src/palette.js";
-import { blisterTurnShare, blisterTurnWayOf } from "../../../../../packages/sim/src/index.js";
+import { blisterTurnShare, blisterTurnWayOf } from "@neon-spore/sim";
+import type { BlisterFrame } from "./blister-bodies.js";
+import type { Body } from "./creature-body-in.js";
+import { rgba } from "./hex.js";
+import { PALETTE } from "./palette.js";
 
 const TAU = Math.PI * 2;
 
@@ -10,11 +10,11 @@ const TAU = Math.PI * 2;
 const LOBES = 6;
 
 /**
- * WHEEL: the body is a wheel of six lobes up out of the pore, each lobe
- * hooked over at its tip the way the turn runs, so a still wheel already says
- * clockwise or not, like the blades of a turbine. The lever turns it: the
- * wheel goes round with the knob, and the hub in its middle is the lever's
- * bolt.
+ * WHEEL, one of THE BLISTER's two TURN bodies (`drawTurnBody`): a wheel of
+ * six lobes up out of the pore, each lobe hooked over at its tip the way the
+ * turn runs, so a still wheel already says clockwise or not, like the blades
+ * of a turbine. The lever turns it: the wheel goes round with the knob, and
+ * the hub in its middle is the lever's bolt.
  */
 export function drawWheelBody(b: Body, f: BlisterFrame): void {
   const { ctx } = b;

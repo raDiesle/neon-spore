@@ -12,6 +12,8 @@ import {
   type TimedCommand,
   ticksPerBeat,
 } from "@neon-spore/sim";
+import { bodyOnTileOf } from "../src/blister-bodies.js";
+import type { Body } from "../src/creature-body-in.js";
 import type { ViewRole } from "../src/layout.js";
 import {
   CFG,
@@ -27,8 +29,8 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
 
 /**
  * THE BLISTER's TURN, drawn (`blister-turn-help.ts`): on every screen, THE
- * MAZE's channel, lever and knob round a body whose shape is the TAP
- * blister's, the channel filling as a thumb goes round it each way.
+ * MAZE's channel, lever and knob round WHEEL or SNAIL (`drawTurnBody`), the
+ * channel filling as a thumb goes round it each way.
  */
 
 beforeAll(installCanvasGlobals);
@@ -86,5 +88,14 @@ describe("the TURN blister", () => {
 
   it("really turned blows out of them", () => {
     expect(played("test").blows).toBeGreaterThan(0);
+  });
+});
+
+describe("the TURN blister's body", () => {
+  it("is WHEEL on some tiles and SNAIL on others, the same every time it is asked", () => {
+    const at = (i: number) => ({ c: { id: 7, col: i % 6, row: 3 + (i % 3) } }) as unknown as Body;
+    const picks = Array.from({ length: 12 }, (_, i) => bodyOnTileOf(at(i)));
+    expect(new Set(picks)).toEqual(new Set([0, 1]));
+    expect(picks).toEqual(Array.from({ length: 12 }, (_, i) => bodyOnTileOf(at(i))));
   });
 });

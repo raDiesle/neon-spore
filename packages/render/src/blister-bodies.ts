@@ -5,6 +5,8 @@ import { drawPalmBody } from "./blister-palm.js";
 import { blisterBodyOf } from "./blister-pick.js";
 import { drawRubBody } from "./blister-rub.js";
 import { drawSwipeBeyond, drawSwipeBody } from "./blister-swipe-body.js";
+import { drawSnailBody } from "./blister-turn-snail.js";
+import { drawWheelBody } from "./blister-turn-wheel.js";
 import type { Body } from "./creature-body-in.js";
 import { drawLivingBody } from "./creature-body-living.js";
 
@@ -26,8 +28,8 @@ import { drawLivingBody } from "./creature-body-living.js";
  * gesture's `draw` (`blister:tap` and the slots after it), and an adopted one
  * replaces that gesture's field alone: COMBO's took BUD and CURL
  * (`blister-combo.ts`), HOLD's PALM and HUG (`drawHoldBody`), RUB's URCHIN,
- * WASHBOARD and PURR (`blister-rub.ts`),
- * SWIPE's SLUG and ZIP (`blister-swipe-body.ts`).
+ * WASHBOARD and PURR (`blister-rub.ts`), SWIPE's SLUG and ZIP
+ * (`blister-swipe-body.ts`), TURN's WHEEL and SNAIL (`drawTurnBody`).
  */
 
 /** What `drawBlisterBody` has already worked out, handed to every body. */
@@ -67,9 +69,25 @@ export function drawCloverBody(b: Body, f: BlisterFrame): void {
  * wave.
  */
 export function drawHoldBody(b: Body, f: BlisterFrame): void {
-  const { id, col, row } = b.c;
-  if (blisterBodyOf(id * 1009 + col * 31 + row, 2) === 0) drawPalmBody(b, f);
+  if (bodyOnTileOf(b) === 0) drawPalmBody(b, f);
   else drawHugBody(b, f);
+}
+
+/**
+ * THE BLISTER's TURN comes up as WHEEL, six lobes hooked the way the turn
+ * runs, or SNAIL, whose shell's spiral winds that way — the owner took both
+ * from VERSUS on 15 October 2026 and rejected WORM. Both go round with the
+ * knob. Picked like HOLD's, by the blister and the tile it came up on.
+ */
+export function drawTurnBody(b: Body, f: BlisterFrame): void {
+  if (bodyOnTileOf(b) === 0) drawWheelBody(b, f);
+  else drawSnailBody(b, f);
+}
+
+/** Which of two bodies a blister wears: its id and the tile it came up on, mixed. */
+export function bodyOnTileOf(b: Body): number {
+  const { id, col, row } = b.c;
+  return blisterBodyOf(id * 1009 + col * 31 + row, 2);
 }
 
 /** Nothing past the pore: what every body ships with. */
@@ -80,7 +98,7 @@ export const BLISTER_BODY: Record<BlisterGesture, BlisterBodyLook> = {
   tap: { draw: drawCloverBody, beyond: drawNothingBeyond },
   hold: { draw: drawHoldBody, beyond: drawNothingBeyond },
   swipe: { draw: drawSwipeBody, beyond: drawSwipeBeyond },
-  turn: { draw: drawCloverBody, beyond: drawNothingBeyond },
+  turn: { draw: drawTurnBody, beyond: drawNothingBeyond },
   rub: { draw: drawRubBody, beyond: drawNothingBeyond },
   combo: { draw: drawComboBody, beyond: drawNothingBeyond },
   lever: { draw: drawCloverBody, beyond: drawNothingBeyond },

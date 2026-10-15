@@ -42012,3 +42012,17 @@ Bottleneck: looking — the stretched half of both bodies, the part the longer
 stroke changes, has no one-command photograph.
 
 *Measured: 34 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
+
+## 2026-10-15 — THE BLISTER's TURN comes up as WHEEL or SNAIL
+
+- reading: 5 min. The three TURN candidates and HOLD's landing, the
+  pattern this one follows.
+- writing: 5 min. Both bodies moved into `packages/render`, HOLD's picker
+  made one function both gestures call, a picker test.
+- looking: 5 min. One frame of FIVE BLISTERS at its TURN blister.
+- friction: 10 min. `bun run versus drop` sat three minutes silent; a walker
+  rewrite chased the wrong cause and was reverted, and the wait is queued.
+- landing: 15 min. `check:fast`, then a rebase over RUB's landing, which
+  had made the same picker shared (`blister-pick.ts`); TURN moved onto it.
+
+Bottleneck: a three-minute silent `versus drop`, taken for a hang.

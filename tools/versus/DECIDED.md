@@ -2251,4 +2251,14 @@ packages/render/src/blister-swipe-body.ts, which picks one per blister by its
 id; blisterSwipeMilli went from one tile to two. FROG went with the slot.
 
 The other answers offered were `frog`, `slug` and `zip`; they went with the
+
+## `blister:turn` — nothing taken, 2026-10-15
+
+taken by hand: the owner, 15 October 2026 — 'take Wheel and snake into game,
+reject the other', snake confirmed as SNAIL. Both moved to
+packages/render/src/blister-turn-wheel.ts and blister-turn-snail.ts;
+BLISTER_BODY.turn draws one or the other by the blister's id and the tile it
+came up on (drawTurnBody). WORM rejected.
+
+The other answers offered were `snail`, `wheel` and `worm`; they went with the
 slot.

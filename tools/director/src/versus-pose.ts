@@ -35,7 +35,6 @@ import { POSE_GROUPS } from "./poses.js";
  */
 const SLOT_POSE: Record<string, string> = {
   "blister:lever": "BLISTER · LEVER CARRIED INTO ITS BAND AND HELD",
-  "blister:turn": "BLISTER · TURN WOUND ROUND AND LIFTED",
   "blister:tap": "BLISTER · UP FOR A TAP",
 };
 

@@ -2724,6 +2724,8 @@ by hand never moves.
 | `packages/render/src/beatbox-silence.ts` | **A soundbox going quiet**, which is the one thing on this creature that goes right and until now was the… |
 | `packages/render/src/blister-tap.ts` | **A tap on THE BLISTER**, answered only where the simulation would count it: on a blister that is up |
 | `packages/render/src/blister-turn-help.ts` | **THE BLISTER's TURN help**: THE MAZE's turn, the one turn for every wave (the owner, 5 October 2026) |
+| `packages/render/src/blister-turn-snail.ts` | **SNAIL**, one of THE BLISTER's two TURN bodies: all shell, its spiral winding the way the turn runs and turning with the knob |
+| `packages/render/src/blister-turn-wheel.ts` | **WHEEL**, one of THE BLISTER's two TURN bodies: six lobes hooked the way the turn runs, going round with the knob |
 | `packages/render/src/blister-help.ts` | **THE BLISTER's help for all seven gestures**, called and not drawn anew (`docs/controls-catalogue.md`) |
 | `packages/render/src/blister-hug.ts` | **HUG**, one of THE BLISTER's two HOLD bodies: a round slime hugging the drop to its belly, eyes squeezed shut under a thumb |
 | `packages/render/src/blister-verdicts.ts` | Where a blister was last drawn, for the ring of the blow that finished it |
