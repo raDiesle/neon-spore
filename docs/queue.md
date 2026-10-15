@@ -360,6 +360,7 @@ Prove with `bun test packages/hands` and `bun run check`.
 ## No command profiles a render function by name
 
 - **Found:** 2026-10-14, claude/queue-the-pull-labs-fizz-knob-costs-400-rings-a-call
+- **Taken:** 2026-10-15, main (claim: claude/queue-no-command-profiles-a-render-function-by-name)
 - **Files:** `tools/perf/`, `package.json`
 
 Finding why a FIZZ knob cost 0.4 ms took a scratch script calling it 5000
