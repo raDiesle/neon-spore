@@ -42176,3 +42176,5 @@ Bottleneck: the second cut, the plume's, was only found by looking at a frame.
 - landing: 10 min. The full suite in the background, `check:fast`, `land`.
 
 Bottleneck: the count was read in 45 files, and only the typecheck found them all.
+
+*Measured: 38 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*

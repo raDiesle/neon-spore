@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-15 · efe1a65ee — THE BLISTER: one blow knocks it out, and a miss loses the wave
+
+Every on-screen control blister now goes with the one gesture it asks for — a tap, a beat held, a stroke, a whole turn, the first turn back of a rub, a press and a pull, the knob held in the band — and never comes back. Left up until its time runs out, it breaks the hull in its column and the wave is lost on that tick; it no longer sinks and surfaces nearer. TAP and HOLD now stay up three beats and the other gestures four, where every one was two. The owner asked for all three, 15 October 2026.
+
 ## 2026-10-15 · c06acdc3b — A turned enemy is no longer cut at its sides
 
 A glancing body was drawn onto a layer cut to a square of two radii round it, and two things passed that edge: the half its turn opens, stretched by up to a fifth and rolled, and the plume a falling body leaves above it. A slick showed both — a blunt tip on its near side and a hard-edged box round its plume. The layer's box is now fitted to the part's corners as turned (`glance-layer-box.ts`), and a living body's layer reaches as far up and out as its own light does (`ownLightReach`), rather than the plume's figures being copied.
