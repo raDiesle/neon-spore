@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-15 · c3bfe4b22 — A wave carries a written note, under NAME in WAVE SETTINGS and first in EVERY WAVE's Notes
+
+What to check on a wave, what is to do, what is unusual and should be fixed — the owner asked for it beside the measured numbers. It is `Wave.note`, saved with the wave under its name, read by the game nowhere, and drawn in cyan at the head of DOCUMENTATION › WAVES' Notes column, over the flags the table works out itself. `variant` and `note` are now `WaveAuthoring`, the director's own fields, and WAVE SETTINGS' fields left `rail.ts` for a file of their own. Not a look: the director is a tool.
+
 ## 2026-10-15 · 34100fa49 — AUTO plays THE JAM's cannon and THE CHOKE's steer on a composed wave
 
 THE JAM's runaway cannon stood under a magnet and fired up into its plate, so every composed wave with a magnet on it was lost under the jam. It now stands beside one, player 1's hand goes on it, and it waits for the beat that loads that pole's colour. Under THE CHOKE's walking cannon, AUTO fires at whatever the walk has it under rather than waiting for the walk to reach the lowest body, keeps the cannon free for a lower body in the column it steps into next, and holds a shot that would leave after the next step.
