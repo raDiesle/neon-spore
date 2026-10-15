@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-15 · d7c582f9c — A director draft keeps the files' order: a wave they gained stands where they put it
+
+An unsaved draft in the wave editor used to lay every wave the act files had gained since it was made after its own last wave — 262 new waves folded under THE HYDRA, and none between the bosses above it. Now the files' order holds, and only a wave the draft added or moved goes after its neighbour in the draft. Not a look: the director is a tool.
+
 ## 2026-10-15 · 5adf1736a — A lit body's glance layer is cut to the light it draws
 
 `ownLightReach` added the 0.7 radii a chipped shell pushes its light aside to every lit body, and to the shell with both plates on, which gives off no light at all. It now takes `plateLightShift`'s answer: the shift where there is one, nothing where the light is shut. A turned slick's or bulb's layer, cleared and copied every frame, is about a third smaller.
