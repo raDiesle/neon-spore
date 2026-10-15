@@ -1,5 +1,5 @@
 import { describe, expect, test } from "bun:test";
-import { isRegularWave, WAVES, wavePressure } from "@neon-spore/content";
+import { isRegularWave, WAVES, type Wave, wavePressure } from "@neon-spore/content";
 import { composeBlock } from "../src/compose.js";
 import { type Block, readBlock } from "../src/compose-block.js";
 import { autoClears, paperFaults } from "../src/compose-check.js";
@@ -121,8 +121,15 @@ describe("a composed block", () => {
 describe("the tutorial arc's composed waves", () => {
   // Up to FINALE: the arc's short blocks only rise. A full block dips at R5.
   const last = WAVES.findIndex((w) => w.id === TUTORIAL_LAST_ID);
+  // Known by id, as `floorOf` knows them: the intro's id and a step's name.
+  // The flag that folds a wave in the director's list is not it — the arc's
+  // written waves fold too.
+  const ids = new Set(WAVES.map((w) => w.id));
+  const isComposed = (w: Wave | undefined): boolean =>
+    w !== undefined &&
+    STEPS.some((s) => w.id.endsWith(s.name) && ids.has(w.id.slice(0, -s.name.length)));
   const composed = WAVES.map((w, i) => ({ w, i })).filter(
-    ({ w, i }) => w.variant && !w.boss && i <= last,
+    ({ w, i }) => isComposed(w) && !w.boss && i <= last,
   );
 
   test("are there, regular, and each block's rise on the one before it", () => {
@@ -130,7 +137,7 @@ describe("the tutorial arc's composed waves", () => {
     for (const { w, i } of composed) {
       expect(isRegularWave(WAVES, i), w.id).toBe(true);
       const prev = WAVES[i - 1];
-      if (prev?.variant)
+      if (prev && isComposed(prev))
         expect(wavePressure(w) ?? 0, w.id).toBeGreaterThan(wavePressure(prev) ?? 0);
     }
   });

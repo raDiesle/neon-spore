@@ -117,6 +117,7 @@ export const WAVES_ACT_1: Wave[] = [
   {
     id: "twoColours",
     name: "TWO COLOURS",
+    variant: true,
     entries: [
       { beat: 0, col: 3, color: "red" },
       { beat: 3, col: 7, color: "cyan" },
@@ -126,6 +127,7 @@ export const WAVES_ACT_1: Wave[] = [
   {
     id: "alternating",
     name: "ALTERNATING",
+    variant: true,
     entries: [
       { beat: 0, col: 2, color: "cyan" },
       { beat: 2, col: 5, color: "red" },

@@ -8,6 +8,7 @@ export const WAVES_ACT_1_P2: Wave[] = [
   {
     id: "oneLastChance",
     name: "ONE LAST CHANCE",
+    variant: true,
     guide: {
       scene: "oneLastChance",
     },
@@ -24,6 +25,7 @@ export const WAVES_ACT_1_P2: Wave[] = [
   {
     id: "shieldThenCannon",
     name: "SHIELD, THEN CANNON",
+    variant: true,
     entries: [
       { beat: 0, col: 5, kind: "meteor", color: null },
       { beat: 5, col: 5, color: "cyan" },
@@ -33,6 +35,7 @@ export const WAVES_ACT_1_P2: Wave[] = [
   {
     id: "theWall",
     name: "THE WALL",
+    variant: true,
     entries: [
       { beat: 0, col: 0, color: "cyan" },
       { beat: 1, col: 3, color: "red" },
@@ -44,6 +47,7 @@ export const WAVES_ACT_1_P2: Wave[] = [
   {
     id: "shootAndShield",
     name: "SHOOT AND SHIELD",
+    variant: true,
     entries: [
       { beat: 0, col: 3, color: "cyan" },
       { beat: 3, col: 7, kind: "meteor", color: null },

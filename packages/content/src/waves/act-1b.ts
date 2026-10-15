@@ -35,6 +35,7 @@ export const WAVES_ACT_1B: Wave[] = [
   {
     id: "crowded",
     name: "CROWDED",
+    variant: true,
     entries: [
       { beat: 0, col: 2, color: "red" },
       { beat: 1, col: 8, color: "cyan" },

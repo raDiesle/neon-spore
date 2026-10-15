@@ -42421,3 +42421,14 @@ Bottleneck: friction — `--only current` on a `screenshot` candidate still
 shows the candidate, and nothing says so.
 
 *Measured: 13 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-15 — The tutorial's regular waves fold under their intros
+
+- reading: 5 min. What each tutorial wave introduces, and the rail's heads.
+- writing: 5 min. Eight `variant` flags.
+- looking: 5 min. The heads listed again.
+- friction: 0 min.
+- landing: 5 min.
+
+Bottleneck: reading — the waves were right; only their rows in the rail said
+otherwise.
