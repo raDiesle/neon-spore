@@ -331,6 +331,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## AUTO loses THE LEAD and THE SCUTTLE
 
 - **Found:** 2026-10-14, claude/wave-plan
+- **Taken:** 2026-10-15, main (claim: claude/queue-auto-loses-the-lead-and-the-scuttle)
 - **Files:** `packages/sim/src/lead-hand.ts`, `packages/sim/src/scuttle-hand.ts`, `docs/spec/wave-curriculum-today.md`
 
 As above, for these two bosses. Fix the hands, add a play-to-the-end test for
