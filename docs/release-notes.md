@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-15 · c1c62d49c — THE BLISTER's SWIPE is drawn as SLUG or ZIP, its stroke two tiles long
+
+The owner liked every answer on `blister:swipe` but FROG and asked for a longer pull. Each SWIPE blister now wears SLUG or ZIP, picked off its id so both screens draw the same one: SLUG, humped in its pore and stretched along the channel to the knob; ZIP, a pod zipped shut along the channel with the knob as its pull. A stroke now has to carry two tiles instead of one, and COMBO's pull, which is the same stroke, is two tiles too — its BUD stalk and CURL tail now reach the knob at that length instead of stopping at one tile. FROG went with the slot. Exemption: a look the owner asked for by name.
+
 ## 2026-10-15 · fcdadf9ee — THE BLISTER's TAP wears the yellow press, and its three VERSUS bodies outgrow it
 
 THE BLISTER's TAP, and COMBO's press half, now draw THE PRESS LAB's yellow drop as their control: calling tap-tap while untouched, STEPS' water a terrace a blow. It was the tap's flaring dots. The drop and its call moved out of the director into packages/render (press-drop.ts, press-call.ts), and the lab paints through them. On VERSUS, MOLE, CRADLE and RIDER on blister:tap are drawn half again as big, so each body stands clear of the yellow press in its middle; MOLE's socket now hugs the drop. A look the owner asked for by name: "they should follow our standard tap control visuals … bigger than the tap (yellow) button".

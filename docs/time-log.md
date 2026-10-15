@@ -42010,3 +42010,5 @@ diff in four files of render and three candidates.
 
 Bottleneck: looking — the stretched half of both bodies, the part the longer
 stroke changes, has no one-command photograph.
+
+*Measured: 34 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
