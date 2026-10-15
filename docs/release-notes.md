@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-15 · dd4e16a5d — The desk rig's KeyBindings moves to its own file
+
+keys.ts sat four lines under the ceiling, and the next key would have failed limits.test.ts. The interface it is handed, every getter with its paragraph, is now keys-bindings.ts, re-exported from keys.ts so input.ts and the tests import it as before; keys.ts is at 219 lines. No look changed.
+
 ## 2026-10-15 · 651ba9729 — AUTO plays THE SCUTTLE to the end on nine seeds of twelve
 
 The frame's own hand alone cleared one seed in twelve: it let the pods the frame throws fall to the skin and the slimes it throws reach the hull. AUTO now catches a falling pod first, answers a slime near the hull before the live part, fills the wind-up's lance before a pod that would land after the beam, and fills it in the colour standing in its column so it burns through. Seeds 1, 3 and 9 still lose, a rock or a pod placed beats before the wind-up, and stay in the queue; seed 1 is the measured one, so its row still says AUTO fails. No look changed: nothing is drawn differently.
