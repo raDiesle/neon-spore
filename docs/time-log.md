@@ -41542,3 +41542,13 @@ Bottleneck: reading. Every seed lost its own way, and the three left need a
 play several beats before the loss, which a trace of the loss does not show.
 
 *Measured: 18 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-15 — `KeyBindings` moves to `keys-bindings.ts`
+
+- reading: 2 min. The interface and who imports it: only `keys.ts` itself.
+- writing: 3 min. The move, a re-export, the imports it freed.
+- looking: 0 min. Nothing drawn.
+- friction: 0 min.
+- landing: 5 min.
+
+Bottleneck: landing; the move itself was mechanical.

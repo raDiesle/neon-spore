@@ -357,19 +357,6 @@ Probe with a twelve-seed loop over `startWave(world, 0, [], [], { kind:
 bodies in their column. Add each seed that clears to `scuttle-wave.test.ts`.
 Prove with `bun test packages/hands` and `bun run check`.
 
-## `keys.ts` is four lines under the line ceiling
-
-- **Found:** 2026-10-14, claude/queue-curved-pulls-the-sim-knows-only-straight-ones
-- **Taken:** 2026-10-15, main (claim: claude/queue-keys-ts-is-four-lines-under-the-line-ceiling)
-- **Files:** `apps/game/src/keys.ts`
-
-The desk rig's key file is at 246 lines after THE WARDEN's rope learned to
-follow its bow from the keys (`boss` on `KeyBindings`, 14 October 2026), and
-the next key added fails `limits.test.ts`. The `KeyBindings` interface — every
-getter the rig is handed, each with its paragraph — is a subject of its own:
-move it to `keys-bindings.ts`, re-exported from `keys.ts` so `input.ts` and the
-tests import as they do. Prove with `bun test apps/game` and `bun run check`.
-
 ## `boss-hands-handles.ts` is past 225 lines
 
 - **Found:** 2026-10-14, claude/queue-curved-pulls-the-sim-knows-only-straight-ones
