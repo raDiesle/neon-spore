@@ -4061,6 +4061,7 @@ by hand never moves.
 | `tools/frames/shot-place.ts` | Where `bun run shot` points the browser: `--pose`, `--controls`, `--wave` or `--path` |
 | `tools/frames/shot-pose.ts` | `--pose "BLISTER · UP FOR A TAP"`: one STATES card by its pose's name, its group filled, the selector looked for inside it |
 | `tools/frames/shot-row.ts` | `--row "DEFLECTED"`: one named documentation row scrolled to and drawn, the selector looked for inside it |
+| `tools/frames/shot-inner.ts` | `--inner WAVES`: **which visible button is the inner tab** |
 | `tools/frames/sheet.ts` | **A STRIP OF FRAMES AS ONE PICTURE**, so a scene can be watched rather than read a frame at a time |
 | `tools/frames/tall.ts` | An element taller than the window, photographed whole rather than black below the fold |
 | `tools/frames/versus-shot.ts` | `bun run versus:shot` — one PNG of one VERSUS candidate |

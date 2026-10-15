@@ -1,4 +1,5 @@
 import type { Page } from "playwright-core";
+import { BARS, innerAt } from "./shot-inner.js";
 import { holdPress, type Press } from "./shot-press.js";
 
 /**
@@ -111,23 +112,22 @@ export async function reachState(page: Page, reach: Reach): Promise<void> {
     // inner tab lives in a sheet that was `display: none` a moment ago, and
     // both `click()` and `dispatchEvent()` on a role locator spent thirty
     // seconds waiting for that to settle and then timed out — twice, on a strip
-    // of plain buttons wired to `click`. The visible one with that label is
-    // unambiguous, and pressing it is one line.
-    const pressed = await page.evaluate((label: string) => {
-      for (const b of document.querySelectorAll("button")) {
-        if (b.textContent?.trim() === label && b.offsetParent !== null) {
-          b.click();
-          return true;
-        }
-      }
-      return false;
-    }, reach.inner);
-    if (!pressed) {
-      throw new Unreachable(
-        `no visible button reads ${reach.inner} — is --open the right sheet?`,
-        2,
+    // of plain buttons wired to `click`. Which visible one is the tab is
+    // `shot-inner.ts`'s question: a sheet's tab bar before the page behind it.
+    const shown = await page.evaluate(
+      (bars: string) =>
+        [...document.querySelectorAll<HTMLButtonElement>("button")]
+          .filter((b) => b.offsetParent !== null)
+          .map((b) => ({ label: b.textContent?.trim() ?? "", bar: b.closest(bars)?.id ?? null })),
+      BARS,
+    );
+    const at = innerAt(shown, reach.inner);
+    await page.evaluate((at: number) => {
+      const visible = [...document.querySelectorAll<HTMLButtonElement>("button")].filter(
+        (b) => b.offsetParent !== null,
       );
-    }
+      visible[at]?.click();
+    }, at);
     await page.waitForTimeout(BUILD_MS);
   }
   if (reach.click) await clickNth(page, reach.click, reach.nth ?? 1);

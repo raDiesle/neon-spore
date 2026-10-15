@@ -42256,3 +42256,15 @@ Bottleneck: writing — saying exactly when a red is the machine's: every
 failure a timeout, and no shard killed without a report.
 
 *Measured: 19 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-15 — `bun run shot --inner` presses the sheet's tab, not the menu behind it
+
+- reading: 5 min. The queue entry, `reachState`'s inner press, the
+  director's menu item WAVES sitting ahead of `#statesTabs` in the page.
+- writing: 5 min. `shot-inner.ts`, the press by index, the tests on
+  DOCUMENTATION's buttons.
+- looking: 5 min. Two `shot --serve` runs: WAVES opened, MAP refused.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: looking — each live proof is a director built and served.

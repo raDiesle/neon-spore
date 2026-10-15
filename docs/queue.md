@@ -327,15 +327,3 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/needs.test.ts` holds the wait, and
 `tools/queue/test/skipped.test.ts` holds the listing's count of the entries
 `next` stepped past and why.
-
-## `bun run shot --open DOCUMENTATION --inner WAVES` stays on WORDINGS
-
-- **Found:** 2026-10-15, claude/waves-doc-page
-- **Taken:** 2026-10-15, main (claim: claude/queue-bun-run-shot-open-documentation-inner-waves-stay)
-- **Files:** `tools/frames/shot.ts`, `tools/frames/shot-usage.ts`
-
-`--help` says `--inner` is *a tab inside the sheet --open just opened*, but on
-DOCUMENTATION it photographed WORDINGS, the default room, with no complaint;
-`--click '#statesTabs button[data-tab="waves"]'` opened it. Make `--inner`
-press a `#statesTabs` tab by its label, or refuse a label it cannot find, and
-test it on a DOCUMENTATION room.
