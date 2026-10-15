@@ -41848,3 +41848,5 @@ probe listing each wave's kinds settled it, and none exists as a command.
 
 Bottleneck: a layer's reach is a guess per body until a picture shows what
 it cut — the flame's height was in `meteor-blaze.ts` all along.
+
+*Measured: 13 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*

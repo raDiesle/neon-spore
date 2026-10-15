@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-15 · 668fbd5f2 — The rocks glance
+
+Every rock on the field — the falling tiers, the torch's stone, THE COIL and THE MOULT — now cocks and turns the way the living enemies do, on its own temper, at a rock's size: further than the naming gate lets a blob, since a stone is not a living word. A torch's streak stays flat behind its stone. The hazards and the held bodies are the next two landings.
+
 ## 2026-10-15 · 06be7d618 — Every living enemy glances
 
 Every living body on the field now cocks and turns the way the bosses do, each in a temper of its own read off its id, at the largest turn and roll the naming gate allows (`creature-glance.ts`). A turning body is drawn onto a layer and laid back in two halves; its far half is shaded only where the body is, so its own glow is not darkened round it. Rocks, hazards and held bodies are the next lane.
