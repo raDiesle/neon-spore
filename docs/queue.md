@@ -331,6 +331,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## A TAP blister's body has no route to a photograph
 
 - **Found:** 2026-10-15, claude/blister-tap-take
+- **Taken:** 2026-10-15, main (claim: claude/queue-a-tap-blisters-body-has-no-route-to-a-photograph)
 - **Files:** `tools/frames/shot.ts`, `tools/frames/shot-usage.ts`, `tools/director/src/poses-field-controls-blister.ts`
 
 With `blister:tap` taken off VERSUS, `versus:shot` no longer reaches the
