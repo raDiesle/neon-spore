@@ -360,6 +360,7 @@ Prove with `bun test packages/hands` and `bun run check`.
 ## The nameability gate measures an enemy turned by its glance
 
 - **Found:** 2026-10-14, claude/creature-glance
+- **Taken:** 2026-10-15, main (claim: claude/queue-the-nameability-gate-measures-an-enemy-turned-by)
 - **Files:** `tools/shape-sheet/src/nameability.ts`, `tools/shape-sheet/test/nameability.test.ts`
 
 The owner, 14 October 2026, wants every enemy to glance as the bosses do —
