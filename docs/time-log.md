@@ -42372,3 +42372,5 @@ interleaved A/B said so; a single run would have shipped it.
 Bottleneck: proving "unchanged" — any change to the box moved the seam's
 rounding, so whole-wave hashes could not say it and two real defects hid in
 the noise until an exact-geometry test was written.
+
+*Measured: 46 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*

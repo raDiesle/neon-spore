@@ -9,6 +9,18 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-15 · 5adf1736a — A lit body's glance layer is cut to the light it draws
+
+`ownLightReach` added the 0.7 radii a chipped shell pushes its light aside to every lit body, and to the shell with both plates on, which gives off no light at all. It now takes `plateLightShift`'s answer: the shift where there is one, nothing where the light is shut. A turned slick's or bulb's layer, cleared and copied every frame, is about a third smaller.
+
+## 2026-10-15 · 065a54127 — A turned body's layer no longer shows what a bigger one left behind
+
+The two scratch canvases a turning part is laid down on are shared and only ever grow, and each part wiped only its own box. A half is squeezed from the layer through a filter that reads a pixel past the box, so a part drawn after a bigger one could pick up that part's pixels along its edge, wherever its reach fell between two pixels. Each wipe now reaches two pixels past the box (`glance-layer-scratch.ts`, where the scratch canvases moved when `glance-layer.ts` neared its ceiling), and a test draws a part after a bigger one and asks for the picture it has on fresh canvases. Landed under the exemption for a fix to something wrong.
+
+## 2026-10-15 · 19dae7e75 — A turned body's far half is no longer cut short by its own layer
+
+A turning body is drawn whole onto a scratch layer and each half squeezed from there, but the layer was cut to the turned shape alone, so the far half reached the screen only to the squeeze of its reach — 0.78 at the widest swing — and whatever it drew past that was lost. The box now holds the part as drawn as well as as turned (`glance-layer-box.ts`), and a test shows the squeezed half keeping its whole width.
+
 ## 2026-10-15 · dc4d6c0ab — `bun run perf` waits for the screen's raster inside the timed window
 
 Every paint in both sweeps — the throttled desktop one and `?perf=1` on the phone — is now followed by the handle's `flush()`: one pixel of the screen copied onto a CPU canvas and read, which waits for the GPU to finish the frame. Before, a layer drawn into the screen was charged for its drawing and the same body drawn straight on the screen was not, and SNAKE's blur cost nothing. Every wave reads 2.5 to 4 ms higher; a run carries `measure: 2`, a baseline without one is a 1, and the two take no verdict against each other and do not merge. The next full sweep is the first measure-2 baseline.
