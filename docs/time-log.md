@@ -42206,3 +42206,5 @@ Bottleneck: writing — the guide had to say the whole pipeline in a page.
 
 Bottleneck: a fresh worktree's first read of each file — 128 s for the scan
 cold, against 0.2 s for `git grep` over the same tree.
+
+*Measured: 9 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
