@@ -2,6 +2,7 @@ import { isRegularWave, type Wave, wavePressure } from "@neon-spore/content";
 import { createRng } from "@neon-spore/sim";
 import { type Block, leadingBlock } from "./compose-block.js";
 import { autoClears, paperFaults, spanOf } from "./compose-check.js";
+import { clawStep, placeClaw } from "./compose-claw.js";
 import { grownStep, notchOf } from "./compose-grow.js";
 import { placeStep } from "./compose-place.js";
 import { chooseRamp } from "./compose-ramp.js";
@@ -52,7 +53,7 @@ function drawsOf(block: Block, step: Step, introId: string, seed: number) {
   const kept: { wave: Wave; pressure: number }[] = [];
   const misses = new Map<string, number>();
   for (let draw = 0; draw < DRAWS; draw++) {
-    const placed = placeStep(block, step, rng);
+    const placed = block.claw ? placeClaw(step, rng) : placeStep(block, step, rng);
     const span = spanOf(placed);
     const faults = block.faults?.filter((f) => (f.at ?? 0) <= span);
     // A lesson's draw comes twice, with its faults and without: the one with
@@ -134,7 +135,7 @@ function composeFor(
 ): Composed[] {
   const notch = notchOf(block.sinceTutorial);
   const steps = stepsToCompose(block.tutorial, block.existing, block.leads).map((s) =>
-    grownStep(s, notch),
+    block.claw ? clawStep(s) : grownStep(s, notch),
   );
   const draws = steps.map((step) => drawsOf(block, step, introId, seed));
   for (const [i, d] of draws.entries()) {

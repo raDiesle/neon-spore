@@ -50,9 +50,10 @@ function played(
   arm: boolean,
   rocks: SpawnEntry[] = [],
   seed = 1,
+  pods: PodEntry[] = THE_CLAW_PODS,
 ): { failed: boolean; taken: number; cleared: boolean } {
   const world = createWorld(DEFAULT_CONFIG, seed);
-  startWave(world, 0, rocks, THE_CLAW_PODS, null);
+  startWave(world, 0, rocks, pods, null);
   const stop = LIMIT_BEATS * ticksPerBeat(world.cfg);
   while (world.tick < stop && !failHolds(world) && (rocks.length === 0 || world.restBeat === 0)) {
     const hand = autopilotHand(world, arm);
@@ -79,5 +80,19 @@ describe("THE CLAW, played by AUTO", () => {
 
   it.each([1, 2, 3])("clears the whole wave on seed %i, every rock answered by a pod", (seed) => {
     expect(played(true, THE_CLAW, seed)).toEqual({ failed: false, taken: 4, cleared: true });
+  });
+
+  // A pod let go at the hull lands in the cannon's column or is lost: the arm
+  // went for the second pod as soon as the first was home, and dropped it.
+  it("waits under a pod falling home before it reaches for one from the other edge", () => {
+    const pods: PodEntry[] = [
+      { beat: 0, col: 0, row: 4, kind: "purge", cross: 1 },
+      { beat: 6, col: 10, row: 5, kind: "purge", cross: -1 },
+    ];
+    const rocks: SpawnEntry[] = [
+      { beat: 2, col: 3, kind: "meteor", color: null },
+      { beat: 8, col: 7, kind: "meteor", color: null },
+    ];
+    expect(played(true, rocks, 1, pods)).toEqual({ failed: false, taken: 2, cleared: true });
   });
 });

@@ -19,7 +19,7 @@ guess. *Pressure* is `wavePressure`
 
 | Kind | Waves | AUTO fails | Shortest (s) | Median (s) | Longest (s) | AUTO, all of them | A pair, about |
 |---|---|---|---|---|---|---|---|
-| regular | 459 | 0 | 4 | 27 | 67 | 3 h 35 min | 7 h 9 min |
+| regular | 459 | 0 | 4 | 26 | 67 | 3 h 34 min | 7 h 8 min |
 | intro | 56 | 0 | 3 | 21 | 48 | 20 min | 41 min |
 | boss | 56 | 0 | 9 | 28 | 343 | 46 min | 1 h 33 min |
 | every wave | 571 | 0 | 3 | 26 | 343 | 4 h 41 min | 9 h 22 min |
@@ -353,14 +353,14 @@ guess. *Pressure* is `wavePressure`
 | 323 | LEECH PEAK | **regular** | THE LEECH | — | STANDARD | 17 | 47 | 50 | 31 | 62 | 15.8 |
 | 324 | THE REPRISE | boss | THE LEECH | reprise | STANDARD | 7 | 21 | 41 | 26 | 52 | — |
 | 325 | THE CLAW | intro | THE CLAW | panel | THE CLAW | 6 | 52 | 57 | 36 | 72 | 4.9 |
-| 326 | CLAW AGAIN | **regular** | THE CLAW | — | STANDARD | 5 | 29 | 32 | 20 | 40 | 10.5 |
-| 327 | CLAW WIDE | **regular** | THE CLAW | — | STANDARD | 6 | 29 | 32 | 20 | 40 | 11.1 |
-| 328 | CLAW AT THE EDGE | **regular** | THE CLAW | — | STANDARD | 6 | 27 | 31 | 19 | 38 | 12 |
-| 329 | CLAW IN PAIRS | **regular** | THE CLAW | — | STANDARD | 11 | 37 | 40 | 25 | 50 | 13 |
-| 330 | CLAW AT EASE | **regular** | THE CLAW | — | STANDARD | 6 | 37 | 40 | 25 | 50 | 10 |
-| 331 | CLAW RECALLED | **regular** | THE CLAW | — | STANDARD | 9 | 40 | 42 | 26 | 52 | 11 |
-| 332 | CLAW TWICE | **regular** | THE CLAW | — | STANDARD | 13 | 47 | 50 | 31 | 62 | 12 |
-| 333 | CLAW PEAK | **regular** | THE CLAW | — | STANDARD | 19 | 47 | 51 | 32 | 64 | 13 |
+| 326 | CLAW AGAIN | **regular** | THE CLAW | — | THE CLAW | 4 | 26 | 42 | 26 | 52 | 1 |
+| 327 | CLAW WIDE | **regular** | THE CLAW | — | THE CLAW | 3 | 19 | 32 | 20 | 40 | 2 |
+| 328 | CLAW AT THE EDGE | **regular** | THE CLAW | — | THE CLAW | 3 | 17 | 23 | 14 | 28 | 3 |
+| 329 | CLAW IN PAIRS | **regular** | THE CLAW | — | THE CLAW | 6 | 20 | 34 | 21 | 42 | 4 |
+| 330 | CLAW AT EASE | **regular** | THE CLAW | — | THE CLAW | 4 | 21 | 25 | 16 | 32 | 2.5 |
+| 331 | CLAW RECALLED | **regular** | THE CLAW | — | THE CLAW | 7 | 31 | 35 | 22 | 44 | 3.5 |
+| 332 | CLAW TWICE | **regular** | THE CLAW | — | THE CLAW | 5 | 27 | 35 | 22 | 44 | 4.4 |
+| 333 | CLAW PEAK | **regular** | THE CLAW | — | THE CLAW | 10 | 43 | 51 | 32 | 64 | 5.4 |
 | 334 | THE SPLICE | boss (special) | THE CLAW | splice, panel | THE SPLICE | 0 | 0 | 21 | 13 | 26 | — |
 | 335 | THE CROSSING | intro | THE CROSSING | rockCross | STANDARD | 8 | 34 | 41 | 26 | 52 | 9 |
 | 336 | CROSSINGS AGAIN | **regular** | THE CROSSING | — | STANDARD | 5 | 28 | 35 | 22 | 44 | 6.6 |

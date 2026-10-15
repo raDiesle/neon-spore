@@ -7,6 +7,18 @@ import type { Wave } from "../wave-types.js";
  */
 export const WAVES_ACT_10_P3: Wave[] = [
   {
+    id: "theCrossingAgain",
+    name: "CROSSINGS AGAIN",
+    variant: true,
+    entries: [
+      { beat: 0, col: 1, kind: "meteor", color: null, cross: -1, row: 6 },
+      { beat: 7, col: 6, kind: "coil", color: null },
+      { beat: 15, col: 1, kind: "meteor", color: null, cross: 1, row: 4 },
+      { beat: 21, col: 3, kind: "coil", color: null },
+      { beat: 28, col: 4, kind: "meteor", color: null, cross: 1, row: 4 },
+    ],
+  },
+  {
     id: "theCrossingSpread",
     name: "CROSSINGS SPREAD",
     variant: true,

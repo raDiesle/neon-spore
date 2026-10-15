@@ -65,6 +65,9 @@ export interface Block {
   /** Whether every composed wave carries them, or a wave AUTO cannot play
    * with them may go without (`compose.ts` tries this first). */
   faultsOnly?: true;
+  /** Whether it is THE CLAW's block, placed as pods and the rocks they
+   * answer on the claw's panel rather than by the steps (`compose-claw.ts`). */
+  claw?: true;
 }
 
 const BASICS = ["slick", "bulb", "meteor"];

@@ -1,4 +1,4 @@
-import { controlSet, isRegularWave, type Wave } from "@neon-spore/content";
+import { controlSet, isRegularWave, setHas, type Wave } from "@neon-spore/content";
 import { type Block, placeable, readBlock } from "./compose-block.js";
 import {
   blocksBefore,
@@ -105,14 +105,16 @@ export function lessonsAfterBlocks(waves: readonly Wave[]): Wave[] {
 
 /**
  * The panel a lesson's waves are played on: the lesson's, unless it cannot
- * play the block's bodies — THE CLAW's has no shield and no colour shot, and
- * clears a rock only through a pod its arm takes, which the steps do not
- * place — and then the block's own.
+ * play the block's bodies, and then the block's own. THE CLAW's cannot — no
+ * shield and no colour shot — and is the one panel with a block of its own
+ * (`compose-claw.ts`), so its waves stay on it.
  */
-function panelOf(lesson: Wave, read: Block): Wave["controls"] {
+function panelOf(lesson: Wave, read: Block): Pick<Block, "controls" | "claw"> {
+  if (setHas(controlSet(lesson.controls), "reach"))
+    return { controls: lesson.controls, claw: true };
   const has = new Set(controlSet(lesson.controls).controls);
   const plays = controlSet(read.controls).controls.every((c) => has.has(c));
-  return plays ? lesson.controls : read.controls;
+  return { controls: plays ? lesson.controls : read.controls };
 }
 
 export interface Lesson {
@@ -139,7 +141,10 @@ export function nextLesson(waves: readonly Wave[]): Lesson | string {
     const read = readBlock(waves, waves[theme]?.id ?? "");
     if (typeof read === "string") return read;
     const { leads: _l, after: _a, floor: _f, ...rest } = read;
-    const floor = gentlestBefore(waves, at);
+    const panel = panelOf(lesson, read);
+    // A claw wave's pressure counts no pods, which are its whole difficulty:
+    // its block starts from its own gentlest draws, not the block before's.
+    const floor = panel.claw ? undefined : gentlestBefore(waves, at);
     const block: Block = {
       ...rest,
       tutorial: false,
@@ -147,7 +152,7 @@ export function nextLesson(waves: readonly Wave[]): Lesson | string {
       sinceTutorial: blocksBefore(waves, at),
       ...(floor === undefined ? {} : { floor }),
       insertAt,
-      controls: panelOf(lesson, read),
+      ...panel,
       ...(lesson.faults ? { faults: lesson.faults } : {}),
     };
     return { block, prefix: lesson.id, word: lessonWord(lesson) };

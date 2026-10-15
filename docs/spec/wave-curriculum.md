@@ -242,9 +242,10 @@ decided then while the owner was away:
   LIMPET, THE LEECH, THE CLAW, THE CODEX, THE HANDOVER, THE FLIP, THE DARK.
   Each moved behind the regular waves of the block it came in and has eight
   of its own, carrying its fault (`bun run waves:lessons`,
-  `tools/director/src/compose-lesson.ts`). THE JAM's go without the jam and
-  THE CHOKE's mostly without the steer fault, which AUTO cannot play; THE
-  CLAW's are on the block's panel, not the claw.
+  `tools/director/src/compose-lesson.ts`). THE CLAW's panel has no shield
+  and no colours, so its eight are placed by a table of their own — each
+  group a pod crossing in and the rocks it answers — and played on the claw
+  (`compose-claw.ts`).
 
 Past the arc that makes **54 blocks — 33 opened by a body or a pod, 10 by a
 lesson, 11 reviews — and 54 bosses, one closing each**: 564 waves in all.

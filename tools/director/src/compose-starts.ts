@@ -1,4 +1,11 @@
-import { isRegularWave, type Wave, waveIntroduces, wavePressure } from "@neon-spore/content";
+import {
+  controlSet,
+  isRegularWave,
+  setHas,
+  type Wave,
+  waveIntroduces,
+  wavePressure,
+} from "@neon-spore/content";
 import { placeable } from "./compose-block.js";
 import { TUTORIAL_LAST_ID } from "./compose-steps.js";
 
@@ -46,14 +53,19 @@ export function blocksBefore(waves: readonly Wave[], at: number): number {
 }
 
 /** The gentlest regular wave of the block that `at` follows — from its start
- * to `at` — which the next block's first wave aims a little above. */
+ * to `at` — which the next block's first wave aims a little above. A wave on
+ * THE CLAW's panel is passed over: its pressure counts no pods, which are its
+ * whole difficulty, and a block of them is read through to the one before. */
 export function gentlestBefore(waves: readonly Wave[], at: number): number | undefined {
   let start = at - 1;
   while (start > 0 && !startsBlock(waves, start)) start--;
   let floor: number | undefined;
   for (let i = start; i < at; i++) {
-    const p = isRegularWave(waves, i) ? wavePressure(waves[i] as Wave) : undefined;
+    const w = waves[i] as Wave;
+    if (setHas(controlSet(w.controls), "reach")) continue;
+    const p = isRegularWave(waves, i) ? wavePressure(w) : undefined;
     if (p !== undefined && (floor === undefined || p < floor)) floor = p;
   }
-  return floor;
+  const finale = waves.findIndex((w) => w.id === TUTORIAL_LAST_ID);
+  return floor === undefined && start > finale + 1 ? gentlestBefore(waves, start) : floor;
 }

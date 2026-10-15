@@ -99,6 +99,13 @@ function arm(w: World): Press[] {
     const at = w.crankAtMilli;
     return [crank(at === NO_BEARING ? 0 : (at + windPerTickMilli(w.cfg)) % BEARING_TURN)];
   }
+  // A pod let go at the hull lands in the cannon's column or is lost, so the
+  // arm waits under it before it goes for the next one crossing.
+  const falling = w.pods.find((p) => p.loose && !p.husk);
+  if (falling !== undefined) {
+    const under = Math.round(falling.colMilli / MILLI);
+    return w.cannonCol === under ? [] : [aim(under)];
+  }
   const pod = target(w);
   if (pod === undefined) return [];
   const t = climbTicks(w, pod.rowMilli);

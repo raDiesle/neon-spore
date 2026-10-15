@@ -3633,6 +3633,7 @@ by hand never moves.
 | `tools/director/src/compose-block.ts` | **A block, read off the wave list**: the wave that introduces a thing, what came before it |
 | `tools/director/src/compose-check.ts` | **Whether a composed wave is one to keep** — the checks of `docs/spec/wave-curriculum.md` §6, step 3 |
 | `tools/director/src/compose-control.ts` | **A wave for one on-screen control**: blisters of one gesture and half slicks and bulbs, composed as a block step is |
+| `tools/director/src/compose-claw.ts` | **THE CLAW's block, on THE CLAW's panel** |
 | `tools/director/src/compose-place.ts` | **One step of a block, placed** — the table in `docs/spec/wave-curriculum.md` §6 turned into entries |
 | `tools/director/src/compose-ramp.ts` | **The pressures a block's steps land on, chosen together** |
 | `tools/director/src/compose-review.ts` | A review block: eight regular waves in front of a boss that has no block, themed on an old thing; its head counts as a block |

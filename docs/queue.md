@@ -328,20 +328,6 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/skipped.test.ts` holds the listing's count of the entries
 `next` stepped past and why.
 
-## THE CLAW's block is composed on the block's panel, not the claw
-
-- **Found:** 2026-10-15, claude/lesson-blocks
-- **Taken:** 2026-10-15, main (claim: claude/queue-the-claws-block-is-composed-on-the-blocks-panel)
-- **Files:** `tools/director/src/compose-lesson.ts`, `tools/director/src/compose-place.ts`
-
-On the claw panel a rock is cleared only through a pod the arm takes: AUTO
-clears THE CLAW with its pods and loses it without them, and loses every wave
-of rocks alone at any gap from 6 to 14 beats. The steps place bodies with
-slicks and bulbs mixed in and a pod only as a lever, so `panelOf` plays THE
-CLAW's eight on THE COIL block's panel. A claw block needs a step table of
-its own — each rock a pod ahead of it, wider gaps — so CLAW AGAIN … CLAW PEAK
-can be composed on `controls: "claw"` and AUTO clears them.
-
 ## The glance layer's cost is its passes, not its pixels
 
 - **Found:** 2026-10-15, claude/queue-the-glance-layer-is-cut-to-the-plumes-furthest-r

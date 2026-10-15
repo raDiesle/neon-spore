@@ -42553,3 +42553,16 @@ Bottleneck: none worth the name — the brush's Ctrl-click already did the
 second half.
 
 *Measured: 4 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
+
+## 2026-10-15 — THE CLAW's block is placed on the claw
+
+- reading: 5 min. Probing which pod-and-rock waves AUTO clears, and a trace
+  of the ones it lost: the arm left a pod falling home for the next one.
+- writing: 5 min. `compose-claw.ts`'s table and placer, the claw flag through
+  lesson, composer and checker, the floor passing over claw waves, the arm
+  waiting under a falling pod, two tests; the eight recomposed.
+- looking: 0 min. No picture: what changed is which waves are played.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the spec's sentence, `land`.
+
+Bottleneck: the losses were AUTO's hand, not the waves, and only a trace said so.
