@@ -17,6 +17,18 @@ import { rampOf, STEPS, type Step } from "./compose-steps.js";
 const RISE_AIM = 1;
 const DIP_AIM = 1.5;
 
+/**
+ * What a first step below where it aims costs on top of its distance: more
+ * than any whole ramp's, so it is taken only when nothing at or above the aim
+ * fits. Pressures come in tenths with gaps between them, and a block aiming
+ * at 8.8 with 8.7 and 8.9 in reach tied and took 8.7 — so the next block's
+ * floor was 8.7 again, and every review block from the thirteenth started
+ * there (`docs/queue.md`, 15 October 2026).
+ */
+const BELOW_AIM = 1000;
+/** Half a tenth: a floor and a rise added in floating point land a hair off. */
+const TENTH_HALF = 0.05;
+
 /** Where a step stands in the table, by id: a grown step is a copy. */
 const at = (step: Step): number => STEPS.findIndex((s) => s.id === step.id);
 
@@ -27,7 +39,7 @@ function ideal(step: Step, before: number, back: number): number {
 /**
  * One pressure per step, out of the values each can reach (`reach[i]` for
  * `steps[i]`), or the index of the first step no path reaches. `start` is
- * where the first step aims; `after` is the block's next written wave, which
+ * where the first step aims, and it lands at or above it wherever it can; `after` is the block's next written wave, which
  * the last may not pass; `before` is a written wave the first step follows
  * and rises from, when the written ones lead.
  */
@@ -47,7 +59,8 @@ export function chooseRamp(
       if (i === 0) {
         const [lo, hi] = rampOf(step, before, last);
         const aim = before === undefined ? start : ideal(step, before, 1);
-        if (v >= lo && v <= hi) here.set(v, { cost: Math.abs(v - aim), from: Number.NaN });
+        const below = before === undefined && v + TENTH_HALF < aim ? BELOW_AIM : 0;
+        if (v >= lo && v <= hi) here.set(v, { cost: Math.abs(v - aim) + below, from: Number.NaN });
         continue;
       }
       const prev = steps[i - 1];

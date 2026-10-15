@@ -328,21 +328,6 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/skipped.test.ts` holds the listing's count of the entries
 `next` stepped past and why.
 
-## A review block's first wave rises past 8.7 again
-
-- **Found:** 2026-10-15, claude/review-blocks
-- **Taken:** 2026-10-15, main (claim: claude/queue-a-review-blocks-first-wave-rises-past-8-7-again)
-- **Files:** `tools/director/src/compose-grow.ts`, `tools/director/test/compose-grow.test.ts`
-
-R1 alone, as wide and as mixed as `grownStep` lets it get, scores no higher
-than about 8.7; `START_RISE` asks for 0.1 more each block and `chooseRamp`
-settles for the nearest it reaches. Review blocks 13 to 21 all started at 8.7
-before the lesson blocks took their bosses and they were dropped; the next
-review block written (`bun run waves:review`) starts there again. Let R1–R3
-take one twin in three from a later notch, the way `TWINNED` grows R4–R8, so
-the first steps keep climbing — `bun run waves:review` on today's list then
-shows an R1 above 8.7.
-
 ## AUTO plays THE JAM's cannon and THE CHOKE's steer on a composed wave
 
 - **Found:** 2026-10-15, claude/lesson-blocks

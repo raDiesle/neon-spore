@@ -42464,3 +42464,17 @@ numbers, the index, AUTO's budget — each found by a red run, not beforehand.
 Bottleneck: none — the adopt command did the move; what it left was prose.
 
 *Measured: 8 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
+
+## 2026-10-15 — a review block's first wave rises past 8.7 again
+
+- reading: 0 min. The grow rules, the review composer, the ramp choice.
+- writing: 5 min. The twins the entry asked for first, then the ramp's
+  tie-break and its test.
+- looking: 5 min. A scratch list with bosses waiting at the end, six review
+  blocks composed on it, R1's draws on paper and under AUTO.
+- friction: 0 min. `waves:review` stops on today's list — no boss waits at
+  the end — so the entry's own proof could not run.
+- landing: 5 min.
+
+Bottleneck: diagnosis — R1 was never capped at 8.7; it reached 9.9 under
+AUTO, and the stall was a tie between 8.7 and 8.9 that the lower side won.

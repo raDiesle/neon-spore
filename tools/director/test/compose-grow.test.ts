@@ -9,6 +9,7 @@ import {
   TWINS_EVERY,
   TWINS_FROM,
 } from "../src/compose-grow.js";
+import { chooseRamp } from "../src/compose-ramp.js";
 import { START_RISE, stepById, stepsToCompose } from "../src/compose-steps.js";
 
 /**
@@ -93,6 +94,18 @@ describe("where a block's first wave aims", () => {
     const { waves } = unwritten("theCoil");
     const read = (id: string) => readBlock(waves, id) as Block;
     expect(read("theCrossing").floor).toBe(read("theCoil").floor);
+  });
+
+  test("its first step lands at or above the aim where anything there fits", () => {
+    // Pressures come in tenths with gaps: 8.8 asked, 8.7 and 8.9 in reach.
+    // The tie went to 8.7, the next floor was 8.7 again, and every review
+    // block from the thirteenth started there.
+    const r1 = [stepById("R1")];
+    expect(chooseRamp(r1, [[8.7, 8.9]], 8.6 + START_RISE + START_RISE)).toEqual([8.9]);
+    // A floor and a rise added in floating point are a hair off a tenth.
+    expect(chooseRamp(r1, [[8.7, 8.9]], 8.6 + START_RISE)).toEqual([8.7]);
+    // Nothing at or above it: the nearest below, rather than no block.
+    expect(chooseRamp(r1, [[8.5, 8.7]], 8.8)).toEqual([8.7]);
   });
 
   test("a composed block's first wave is not below that floor and a rise", () => {
