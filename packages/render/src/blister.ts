@@ -8,6 +8,7 @@ import {
 } from "@neon-spore/sim";
 import { BLISTER_BODY, drawNothingBeyond } from "./blister-bodies.js";
 import type { Body } from "./creature-body-in.js";
+import { drawGlancedBody } from "./creature-glance.js";
 import { flatRadius } from "./creature-place.js";
 import { smoothstep } from "./ease.js";
 import { rgba } from "./hex.js";
@@ -89,7 +90,8 @@ export function drawBlisterBody(b: Body): void {
   ctx.globalAlpha *= Math.min(1, h * 2);
   const look = BLISTER_BODY[blisterGestureOf(c)];
   const frame = { r, rise: h, poreY: py };
-  look.draw(b, frame);
+  // The body turns as it comes up; the pore it comes out of stays flat.
+  drawGlancedBody(b, { r, reach: BLISTER_REACH }, (g) => look.draw({ ...b, ctx: g }, frame));
   ctx.restore();
   drawPore(ctx, b.x, py, r, "lip");
   if (look.beyond === drawNothingBeyond) return;
@@ -98,6 +100,9 @@ export function drawBlisterBody(b: Body): void {
   look.beyond(b, frame);
   ctx.restore();
 }
+
+/** How far out, in body radii, a rising body's layer reaches: its lobes, its glow and its roots. */
+const BLISTER_REACH = 2.4;
 
 /** The pore's half-width and half-height, in body radii. */
 const PORE_RX = 0.8;

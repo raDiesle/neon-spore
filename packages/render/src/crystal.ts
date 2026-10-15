@@ -1,5 +1,6 @@
 import { type Color, crystalHeld, crystalMiddleCol, crystalUnder, spanOf } from "@neon-spore/sim";
 import type { Body } from "./creature-body-in.js";
+import { drawGlancedBody } from "./creature-glance.js";
 import { contourClock } from "./creature-place.js";
 import { CANOPY_R, drawCanopy, drawCraftHull, drawEnginePod, HULL_RY } from "./crystal-craft.js";
 import { drawCrystalField } from "./crystal-field.js";
@@ -41,6 +42,8 @@ const FIELD_PAD = 0.22;
 /** The field's half-height, as a share of a tile: over the canopy and under
  * the pods. */
 const FIELD_RY = 0.66;
+/** How far out, in the hull's half-widths, a turned craft's layer reaches: its field and the pods' glow. */
+const CRAFT_REACH = 1.8;
 
 function joinColor(color: Color | null): { hex: string; rim: string } {
   return color === "cyan"
@@ -78,33 +81,38 @@ export function drawCrystalBody(b: Body): void {
   }
 
   const halfW = (span / 2 + HULL_PAD) * tile;
-  const metal = hazed(cfg, PALETTE.rock, near);
-  const dark = hazed(cfg, PALETTE.rockDark, near);
-  const rim = hazed(cfg, PALETTE.hullRim, near);
-  const red = { hex: hazed(cfg, PALETTE.red, near), rim: hazed(cfg, PALETTE.redRim, near) };
-  const cyan = { hex: hazed(cfg, PALETTE.cyan, near), rim: hazed(cfg, PALETTE.cyanRim, near) };
-  const podDark = hazed(cfg, PALETTE.rockDark, near);
-
-  // Pods behind the hull's edge, then the hull over their inner halves, then
-  // the canopy standing on the deck.
-  drawEnginePod(ctx, x, y, tile, -1, red.hex, red.rim, podDark, time, c.id * 2);
-  drawEnginePod(ctx, x, y, tile, 1, cyan.hex, cyan.rim, podDark, time, c.id * 2 + 1);
-  const t = contourClock(c.id, time);
-  drawCraftHull(ctx, x, y, halfW, tile, t, { metal, dark, rim }, heldMul);
   const jc = joinColor(c.color);
-  const jhex = hazed(cfg, jc.hex, near);
-  const jrim = hazed(cfg, jc.rim, near);
-  drawCanopy(ctx, x, y, tile, jhex, jrim, heldMul);
-  // And the same join under the middle, because that is the side the shot
-  // comes from (`crystal-keel.ts`). Before the field, so the arcs cross it.
-  drawKeelPort(ctx, x, y, tile, jhex, jrim, heldMul);
+  // The craft glances whole, over the shield's link and under the held light,
+  // which stay flat: the one is the shield's lane and the other the tile a
+  // bolt goes up (`creature-glance.ts`).
+  drawGlancedBody(b, { r: halfW, reach: CRAFT_REACH }, (g) => {
+    const metal = hazed(cfg, PALETTE.rock, near);
+    const dark = hazed(cfg, PALETTE.rockDark, near);
+    const rim = hazed(cfg, PALETTE.hullRim, near);
+    const red = { hex: hazed(cfg, PALETTE.red, near), rim: hazed(cfg, PALETTE.redRim, near) };
+    const cyan = { hex: hazed(cfg, PALETTE.cyan, near), rim: hazed(cfg, PALETTE.cyanRim, near) };
+    const podDark = hazed(cfg, PALETTE.rockDark, near);
 
-  // The field last, round all of it. The hole is as wide as the middle tile,
-  // measured on the ellipse's underside: the canopy's own width and a little.
-  const rx = halfW + FIELD_PAD * tile;
-  const ry = FIELD_RY * tile;
-  const gapHalf = Math.asin(Math.min(0.95, (tile * (CANOPY_R + 0.32)) / rx));
-  drawCrystalField(ctx, x, y, rx, ry, time, held, gapHalf, hazed(cfg, PALETTE.crystalField, near));
+    // Pods behind the hull's edge, then the hull over their inner halves, then
+    // the canopy standing on the deck.
+    drawEnginePod(g, x, y, tile, -1, red.hex, red.rim, podDark, time, c.id * 2);
+    drawEnginePod(g, x, y, tile, 1, cyan.hex, cyan.rim, podDark, time, c.id * 2 + 1);
+    const t = contourClock(c.id, time);
+    drawCraftHull(g, x, y, halfW, tile, t, { metal, dark, rim }, heldMul);
+    const jhex = hazed(cfg, jc.hex, near);
+    const jrim = hazed(cfg, jc.rim, near);
+    drawCanopy(g, x, y, tile, jhex, jrim, heldMul);
+    // And the same join under the middle, because that is the side the shot
+    // comes from (`crystal-keel.ts`). Before the field, so the arcs cross it.
+    drawKeelPort(g, x, y, tile, jhex, jrim, heldMul);
+
+    // The field last, round all of it. The hole is as wide as the middle tile,
+    // measured on the ellipse's underside: the canopy's own width and a little.
+    const rx = halfW + FIELD_PAD * tile;
+    const ry = FIELD_RY * tile;
+    const gapHalf = Math.asin(Math.min(0.95, (tile * (CANOPY_R + 0.32)) / rx));
+    drawCrystalField(g, x, y, rx, ry, time, held, gapHalf, hazed(cfg, PALETTE.crystalField, near));
+  });
   // A body over the middle lane wears a little more light there: the hole in
   // the field frames the tile a bolt goes up.
   if (held) halo(ctx, tileCX(l, middle), y + tile * HULL_RY, tile * 0.6, jc.hex, 0.3);

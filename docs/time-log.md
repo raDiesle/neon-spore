@@ -41850,3 +41850,15 @@ Bottleneck: a layer's reach is a guess per body until a picture shows what
 it cut — the flame's height was in `meteor-blaze.ts` all along.
 
 *Measured: 13 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-15 — The hazards glance (second of three)
+
+- reading: 5 min. Each hazard's draw: what it lays flat round its body (the
+  crystal's link, the mine's fuse, the blister's pore, the soundbox's air)
+  and how far out its arms, film or field reach.
+- writing: 5 min. Eight rows through `drawGlancedBody`, each with its reach.
+- looking: 5 min. Six waves photographed at once, four bodies cropped.
+- friction: 0 min.
+- landing: 5 min. The catalogue asked for `creature-glance.ts`; `check:fast`, `land`.
+
+Bottleneck: each body's reach read out of its own file, one at a time.

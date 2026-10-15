@@ -8,6 +8,7 @@ import {
 } from "@neon-spore/sim";
 import type { Body } from "./creature-body-in.js";
 import { drawLivingBody } from "./creature-body-living.js";
+import { drawGlancedBody, drawGlancedLiving } from "./creature-glance.js";
 import { contourClock, livingScale } from "./creature-place.js";
 import type { Wash } from "./creature-tint.js";
 import { hazed } from "./depth.js";
@@ -53,15 +54,18 @@ const HOOKS = 9;
 
 export function drawLimpetBody(b: Body): void {
   if (clingIsStuck(b.c)) return;
-  drawLivingBody(b, 1, undefined, ARC_WASH);
-  const { ctx, l, c, x, y, time, near, world } = b;
+  const { l, c, x, y, time, near, world } = b;
   const r = l.tile * 0.42;
-  hooklets(ctx, x, y, r, contourClock(c.id, time), 0, hazed(world.cfg, PALETTE.arcRim, near));
+  // The hooklets turn with the rim they stand on.
+  drawGlancedBody(b, { r }, (ctx) => {
+    drawLivingBody({ ...b, ctx }, 1, undefined, ARC_WASH);
+    hooklets(ctx, x, y, r, contourClock(c.id, time), 0, hazed(world.cfg, PALETTE.arcRim, near));
+  });
 }
 
 export function drawLeechBody(b: Body): void {
   if (clingIsStuck(b.c)) return;
-  drawLivingBody(b, 1, undefined, ARC_WASH);
+  drawGlancedLiving(b, 1, undefined, ARC_WASH);
 }
 
 /**

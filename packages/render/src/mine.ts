@@ -1,6 +1,6 @@
 import { type Creature, mineFuseLeft, mineSeenBy, type World } from "@neon-spore/sim";
 import type { Body } from "./creature-body-in.js";
-import { drawLivingBody } from "./creature-body-living.js";
+import { drawGlancedLiving } from "./creature-glance.js";
 import { flatRadius } from "./creature-place.js";
 import { type Layout, seatOf } from "./layout.js";
 import { drawFuseRing, pipRadius } from "./pip-ring.js";
@@ -62,7 +62,7 @@ export function mines(world: World): Creature[] {
  */
 export function drawMineBody(b: Body): void {
   if (!showsMine(b.l, b.c)) return;
-  drawLivingBody(b);
+  drawGlancedLiving(b);
   const r = flatRadius(b.l, b.world.cfg, b.c, b.beatPhase);
   drawFuseRing(b.ctx, b.x, b.y, r * 1.7, fuseOf(b.world, b.c), b.c.color, b.time);
 }

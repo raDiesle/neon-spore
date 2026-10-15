@@ -2,6 +2,7 @@ import { choirArmed, choirFusePhase } from "@neon-spore/sim";
 import { CHOIR_LOOK } from "./choir-look.js";
 import { choirMembranePath } from "./choir-shape.js";
 import type { Body } from "./creature-body.js";
+import { drawGlancedBody } from "./creature-glance.js";
 import { hazed } from "./depth.js";
 import { mixHex } from "./hex.js";
 import { PALETTE } from "./palette.js";
@@ -101,7 +102,7 @@ function choirGlow(b: Body, close: number): { lit: number; tint: string } {
 }
 
 export function drawChoir(b: Body): void {
-  const { ctx, l, world, near } = b;
+  const { l, world, near } = b;
   const haze = (h: string): string => hazed(world.cfg, h, near);
   // **The closing is read off the world, not off a clock this file keeps.**
   // `choirFuseTick` is on the body and in the fingerprint, so how far shut the
@@ -115,15 +116,22 @@ export function drawChoir(b: Body): void {
   // Through a record rather than by painting here, so a second answer to *what
   // a soap film with two bodies in it is made of* can be drawn beside this one
   // at the size it ships at (`choir-look.ts`, `docs/versus.md`).
-  CHOIR_LOOK.skin({
-    ctx,
-    l,
-    x: b.x,
-    y: b.y,
-    time: b.time,
-    close,
-    lit,
-    tint: haze(tint),
-    path: choirMembranePath(l, b.x, b.y, b.time, close),
-  });
+  // The film turns whole, both voices in it (`creature-glance.ts`).
+  const r = l.tile * 0.4;
+  drawGlancedBody(b, { r, reach: FILM_REACH }, (g) =>
+    CHOIR_LOOK.skin({
+      ctx: g,
+      l,
+      x: b.x,
+      y: b.y,
+      time: b.time,
+      close,
+      lit,
+      tint: haze(tint),
+      path: choirMembranePath(l, b.x, b.y, b.time, close),
+    }),
+  );
 }
+
+/** How far out, in body radii, a turned film's layer reaches: two voices apart and the film round them. */
+const FILM_REACH = 2.4;

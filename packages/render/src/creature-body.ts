@@ -13,7 +13,7 @@ import type { Body } from "./creature-body-in.js";
 import { drawLivingBody } from "./creature-body-living.js";
 import { drawCoilBody, drawMeteorBody, drawTorchBody } from "./creature-body-rock.js";
 import { drawMagnetBody, drawStrandBody } from "./creature-body-worn.js";
-import { drawGlancedLiving } from "./creature-glance.js";
+import { drawGlancedBody, drawGlancedLiving } from "./creature-glance.js";
 import { livingBodyMul } from "./creature-place.js";
 import { drawCrystalBody } from "./crystal.js";
 import { drawGhost, showsGhostBody } from "./ghost.js";
@@ -127,12 +127,19 @@ function drawLidBody({ ctx, l, world, c, x, y, time, beats, near }: Body): void 
  * The air goes down first and under everything, so the rings leave from behind
  * the body rather than across it (`beatbox-air.ts`).
  */
+/** How far out, in body radii, a turned soundbox's layer reaches: an arm stands 2.3 out (`beatboxArms`). */
+const ARMS_REACH = 2.6;
+
 function drawBeatboxBody(b: Body): void {
   const swell = beatboxSwell(b.c, b.world.beat, b.beatPhase);
   const r = b.l.tile * 0.4 * livingBodyMul(b.c) * swell;
   drawBeatboxAir(b.ctx, b.world, b.c, b.x, b.y, r, b.beatPhase);
   const shape = beatboxArms(beatboxHitsMade(b.c), beatboxArmGrown(b.world, b.c));
-  drawLivingBody(b, swell, shape, beatboxWash(b.world, b.c, b.beatPhase));
+  const wash = beatboxWash(b.world, b.c, b.beatPhase);
+  // The arms turn with the box they grow out of; the air stays where it is.
+  drawGlancedBody(b, { r, reach: ARMS_REACH }, (ctx) =>
+    drawLivingBody({ ...b, ctx }, swell, shape, wash),
+  );
 }
 
 /** The kinds whose body is not the ordinary blob and not a rock. */

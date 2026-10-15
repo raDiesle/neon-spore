@@ -1,6 +1,7 @@
 import { beadIsActive, beadIsSpent } from "@neon-spore/sim";
 import type { Body } from "./creature-body.js";
-import { drawLivingBody } from "./creature-body-living.js";
+import { drawGlancedBody, drawGlancedLiving } from "./creature-glance.js";
+import { magnetRadius } from "./magnet.js";
 import { MAGNET_LOOK } from "./magnet-look.js";
 import { showsBeadColor } from "./strand.js";
 import { STRAND_LOOK } from "./strand-bead.js";
@@ -28,8 +29,17 @@ import { drawStillBead } from "./strand-still.js";
  * about a magnet is hidden — so it has no gate, only a draw path of its own.
  */
 export function drawMagnetBody(b: Body): void {
+  drawGlancedBody(b, { r: magnetRadius(b.l, b.c), reach: MAGNET_REACH }, (ctx) =>
+    drawMagnet(b, ctx),
+  );
+}
+
+/** How far out, in body radii, a turned magnet's layer reaches: its poles and the plate under it. */
+const MAGNET_REACH = 2.4;
+
+function drawMagnet(b: Body, ctx: CanvasRenderingContext2D): void {
   MAGNET_LOOK.body({
-    ctx: b.ctx,
+    ctx,
     l: b.l,
     cfg: b.world.cfg,
     c: b.c,
@@ -77,5 +87,7 @@ export function drawStrandBody(b: Body): void {
     else drawStillBead(bead);
     return;
   }
-  drawLivingBody(b);
+  // The live bead the pilot sees is a body, and glances; a reel and a raisin
+  // are rolled on the thread, and stay on it.
+  drawGlancedLiving(b);
 }
