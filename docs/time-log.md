@@ -41832,3 +41832,5 @@ only reads out past it.
 
 Bottleneck: finding a wave with three living kinds on the field at once — a
 probe listing each wave's kinds settled it, and none exists as a command.
+
+*Measured: 18 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*

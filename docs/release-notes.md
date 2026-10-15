@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-15 · 06be7d618 — Every living enemy glances
+
+Every living body on the field now cocks and turns the way the bosses do, each in a temper of its own read off its id, at the largest turn and roll the naming gate allows (`creature-glance.ts`). A turning body is drawn onto a layer and laid back in two halves; its far half is shaded only where the body is, so its own glow is not darkened round it. Rocks, hazards and held bodies are the next lane.
+
 ## 2026-10-15 · 223cc73fa — VERSUS offers THE BLISTER's HOLD a body built round its drop
 
 Three bodies for the HOLD blister. Each holds the HOLD LAB's drop and changes while a thumb is on it, and each leaves the drop and its clock exactly as the help draws them. PALM is a slime hand whose fingers curl in over the drop. HUG is a slime hugging the drop to its belly with its eyes squeezed shut. SPONGE is a sponge that soaks up the wet as the hold fills. The new slot opens on a played pose: a thumb kept on the blister for a beat, then lifted.
