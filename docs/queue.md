@@ -331,6 +331,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## A review block's first wave rises past 8.7 again
 
 - **Found:** 2026-10-15, claude/review-blocks
+- **Taken:** 2026-10-15, main (claim: claude/queue-a-review-blocks-first-wave-rises-past-8-7-again)
 - **Files:** `tools/director/src/compose-grow.ts`, `tools/director/test/compose-grow.test.ts`
 
 R1 alone, as wide and as mixed as `grownStep` lets it get, scores no higher
