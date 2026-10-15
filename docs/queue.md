@@ -494,6 +494,7 @@ another way. Send one PNG of the current beside the three. Prove it with
 ## THE BLISTER's TURN gets bodies built round its knob, on VERSUS
 
 - **Found:** 2026-10-14, claude/control-bodies
+- **Taken:** 2026-10-15, claude/queue-the-blisters-turn-gets-bodies-built-round-its-kn
 - **Files:** `packages/render/src/blister-bodies.ts`, `packages/render/src/blister-turn-help.ts`, `tools/director/src/poses-field-controls-blister.ts`, `tools/director/src/versus-pose.ts`
 
 The same ask as THE BLISTER's HOLD entry, for `blister:turn`, patching
