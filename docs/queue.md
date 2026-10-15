@@ -398,6 +398,7 @@ still meets its handle where it is drawn. Send one PNG strip. Prove it with
 ## THE BLISTER's HOLD gets bodies built round its drop, on VERSUS
 
 - **Found:** 2026-10-14, claude/control-bodies
+- **Taken:** 2026-10-15, claude/queue-the-blisters-hold-gets-bodies-built-round-its-dr
 - **Files:** `packages/render/src/blister-bodies.ts`, `packages/render/src/soak-hold.ts`, `tools/director/src/poses-field-controls-blister.ts`, `tools/director/src/poses-versus-bodies.ts`, `tools/director/src/versus-pose.ts`
 
 The owner, 14 October 2026: *every control has its own visual related thing
