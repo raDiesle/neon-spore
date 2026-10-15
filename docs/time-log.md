@@ -41329,3 +41329,5 @@ turned out to have no answer on it, which only a probe with no commands showed.
 
 Bottleneck: writing. The rocks fall at two speeds, so the first timing
 missed, and the windows were set by probing beat by beat.
+
+*Measured: 10 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
