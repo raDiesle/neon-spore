@@ -331,6 +331,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## Every other tap still wears its own picture, not the press drop
 
 - **Found:** 2026-10-15, claude/blister-tap-press
+- **Taken:** 2026-10-15, main (claim: claude/queue-every-other-tap-still-wears-its-own-picture-not)
 - **Files:** `packages/render/src/press-drop.ts`, `packages/render/src/cue-helper.ts`, `packages/render/src/hold-mark.ts`, `packages/render/src/instar-ring.ts`, `packages/render/src/blister-tap.ts`
 
 THE BLISTER's TAP wears THE PRESS LAB's yellow drop since 15 October 2026
