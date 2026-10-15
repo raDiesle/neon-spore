@@ -670,6 +670,7 @@ row to `COPIES` in `packages/sim/test/copies-table.ts`. Prove with
 ## THE CLAW's rocks have no answer on its panel
 
 - **Found:** 2026-10-15, claude/queue-auto-loses-the-count-and-the-claw
+- **Taken:** 2026-10-15, claude/queue-auto-loses-the-count-and-the-claw (claim: claude/queue-the-claws-rocks-have-no-answer-on-its-panel)
 - **Files:** `packages/content/src/waves/act-7c.ts`, `packages/hands/src/autopilot-claw.ts`, `docs/spec/wave-curriculum-today.md`
 - **Asks:** How should a pair stop THE CLAW's rocks — recompose the wave's rocks, put a shield on the panel, or let the arm crush a body again?
 
