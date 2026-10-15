@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-15 · 34100fa49 — AUTO plays THE JAM's cannon and THE CHOKE's steer on a composed wave
+
+THE JAM's runaway cannon stood under a magnet and fired up into its plate, so every composed wave with a magnet on it was lost under the jam. It now stands beside one, player 1's hand goes on it, and it waits for the beat that loads that pole's colour. Under THE CHOKE's walking cannon, AUTO fires at whatever the walk has it under rather than waiting for the walk to reach the lowest body, keeps the cannon free for a lower body in the column it steps into next, and holds a shot that would leave after the next step.
+
 ## 2026-10-15 · c2aec8f28 — EVERY WAVE in the director is a live table: the rail's marks, the brushes' pictures, folds, and what is out of range
 
 DOCUMENTATION › WAVES draws every wave as rows that fold under their heads the way the wave list does, with ▸ open all and a press for only the waves out of range. Kind is the rail's own marks and ≡ for a regular wave; New is the brushes' pictures; the panel is S, S4 or its own name. The bosses are held to their bands in the same rows, so the second table is gone from the director, and a Notes column says what is out of `wave-curriculum.md` §3's ranges — AUTO losing a wave, a span or an arrival count outside its kind's, a boss short or long, a head with nothing under it. `waves:measure` now writes the beats as JSON beside its page, which the table reads. Not a look: the director is a tool.

@@ -42523,3 +42523,5 @@ Bottleneck: writing — the table is new, with nothing in the director to copy.
 
 Bottleneck: looking — each breach needed its own trace to tell a hand that
 was wrong from a walk that could not get there in time.
+
+*Measured: 10 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
