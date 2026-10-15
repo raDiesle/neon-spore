@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-15 · 35fa2d648 — VERSUS offers THE BLISTER's LEVER a body built round its groove
+
+`blister:lever` opens with three bodies the knob is drawn out of: BELL, a brass bell mouth down whose cord runs to the knob as its clapper, swinging and ringing while the knob is held in the band; ROOT, a turnip's shoulders and leaves with its root pulled down the groove to the knob, the leaves standing up in the band; and TAFFY, a slime that stretches a neck of itself down to a drop round the knob, sagging and squeezing its eyes shut. On the partner's screen, where no groove is drawn, the cord, root or neck says how far down the knob is. The groove leaves the pore, so every body record gains `beyond`, drawn after the pore's lip and unclipped — nothing, in every record the game ships. They are judged on a new COMPARED LOOKS pose whose hand carries the knob into the band, holds it to the blow and lets go. Exemption: none — a look, offered on VERSUS.
+
 ## 2026-10-15 · ebf1f808a — ON THE FIELD says why THE SCOUT'S LINE has no card
 
 `bun run shot` found no card for THE SCOUT'S LINE because there is none: the owner took it off the page on 6 October, and the reason sat in OFF_THE_PAGE with nothing on the sheet saying so. Each row kept off now gets a line under the cards, KEPT OFF THE PAGE with its reason, and a test holds that every such row is said there. THE SCOUT'S PRIME had its card all along and shoots as it should. This is the director, not the game; nothing in a frame changes.

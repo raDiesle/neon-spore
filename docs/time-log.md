@@ -41689,3 +41689,5 @@ said on the sheet.
 
 Bottleneck: the groove leaves the pore, so a body built round it needed a
 draw outside the pore's clip before any candidate could be.
+
+*Measured: 19 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
