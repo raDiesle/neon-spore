@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-15 · 223cc73fa — VERSUS offers THE BLISTER's HOLD a body built round its drop
+
+Three bodies for the HOLD blister. Each holds the HOLD LAB's drop and changes while a thumb is on it, and each leaves the drop and its clock exactly as the help draws them. PALM is a slime hand whose fingers curl in over the drop. HUG is a slime hugging the drop to its belly with its eyes squeezed shut. SPONGE is a sponge that soaks up the wet as the hold fills. The new slot opens on a played pose: a thumb kept on the blister for a beat, then lifted.
+
 ## 2026-10-15 · 46cc69ba9 — VERSUS offers THE BLISTER's SWIPE a body built round its pull
 
 Three bodies for the SWIPE blister, each built round its channel and knob and each following the way the stroke runs. SLUG is a slug whose back is the channel and whose head is the knob. FROG is a frog whose tongue runs out behind the knob. ZIP is a pod whose seam the knob unzips. A stroke down runs past the pore's lip, so each one draws that part in `beyond`. The slot opens on a new played pose stroked down, and the COMPARED LOOKS sheet carries the same pose stroked up beside it.
