@@ -1,7 +1,7 @@
 import { describe, expect, test } from "bun:test";
 import { isRegularWave, WAVES, type Wave, wavePressure } from "@neon-spore/content";
-import { composeBlock } from "../src/compose.js";
-import { type Block, readBlock } from "../src/compose-block.js";
+import { composeBlock, composeBlockAt } from "../src/compose.js";
+import { type Block, leadingBlock, readBlock } from "../src/compose-block.js";
 import {
   BLOCKS_PER_NOTCH,
   grownStep,
@@ -9,7 +9,7 @@ import {
   TWINS_EVERY,
   TWINS_FROM,
 } from "../src/compose-grow.js";
-import { START_RISE, stepById } from "../src/compose-steps.js";
+import { START_RISE, stepById, stepsToCompose } from "../src/compose-steps.js";
 
 /**
  * A rise across blocks (the owner, 14 October 2026): each block's gentlest
@@ -121,4 +121,40 @@ describe("blocks that used to stall", () => {
       ]);
     }, 120_000);
   }
+});
+
+/**
+ * THE COIL's block (`docs/queue.md`, 15 October 2026): its seven composed
+ * waves must fit under the written one, THE TWITCH at 8, and the first seed's
+ * ramp does not — the composer draws again rather than stopping.
+ */
+test("THE COIL composes the seven steps under its written wave", () => {
+  const { waves, b } = unwritten("theCoil");
+  const { block: used, composed } = composeBlockAt(waves, b, "theCoil");
+  expect(composed.map((c) => c.faults.join("; ") || c.step.id)).toEqual([
+    "R1",
+    "R2",
+    "R3",
+    "R4",
+    "R5",
+    "R6",
+    "R7",
+  ]);
+  const twitch = waves.find((w) => w.id === "theTwitch");
+  expect(used.leads).toBeUndefined();
+  expect(composed.at(-1)?.pressure ?? 99).toBeLessThanOrEqual(wavePressure(twitch as Wave) ?? 0);
+}, 300_000);
+
+test("a block's written waves can lead: the composed ones go after them", () => {
+  const { waves, b } = unwritten("theCoil");
+  const lead = leadingBlock(waves, b);
+  const twitch = waves.findIndex((w) => w.id === "theTwitch");
+  expect([lead?.leads, lead?.insertAt, lead?.after]).toEqual([
+    true,
+    twitch + 1,
+    wavePressure(waves[twitch] as Wave),
+  ]);
+  // Then they are the first steps, and the composed ones the rest.
+  expect(stepsToCompose(false, 1, true)[0]?.id).toBe("R2");
+  expect(leadingBlock(WAVES, block("theCount"))).toBeUndefined();
 });

@@ -28,13 +28,15 @@ function ideal(step: Step, before: number, back: number): number {
  * One pressure per step, out of the values each can reach (`reach[i]` for
  * `steps[i]`), or the index of the first step no path reaches. `start` is
  * where the first step aims; `after` is the block's next written wave, which
- * the last may not pass.
+ * the last may not pass; `before` is a written wave the first step follows
+ * and rises from, when the written ones lead.
  */
 export function chooseRamp(
   steps: readonly Step[],
   reach: readonly (readonly number[])[],
   start: number,
   after?: number,
+  before?: number,
 ): number[] | number {
   type Cell = { cost: number; from: number };
   const table: Map<number, Cell>[] = [];
@@ -43,8 +45,9 @@ export function chooseRamp(
     const last = i === steps.length - 1 ? after : undefined;
     for (const v of reach[i] ?? []) {
       if (i === 0) {
-        const [lo, hi] = rampOf(step, undefined, last);
-        if (v >= lo && v <= hi) here.set(v, { cost: Math.abs(v - start), from: Number.NaN });
+        const [lo, hi] = rampOf(step, before, last);
+        const aim = before === undefined ? start : ideal(step, before, 1);
+        if (v >= lo && v <= hi) here.set(v, { cost: Math.abs(v - aim), from: Number.NaN });
         continue;
       }
       const prev = steps[i - 1];

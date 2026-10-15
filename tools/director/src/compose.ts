@@ -1,6 +1,6 @@
 import { isRegularWave, type Wave, wavePressure } from "@neon-spore/content";
 import { createRng } from "@neon-spore/sim";
-import type { Block } from "./compose-block.js";
+import { type Block, leadingBlock } from "./compose-block.js";
 import { autoClears, paperFaults } from "./compose-check.js";
 import { grownStep, notchOf } from "./compose-grow.js";
 import { placeStep } from "./compose-place.js";
@@ -74,14 +74,56 @@ function nextWritten(waves: readonly Wave[], block: Block): number | undefined {
   return next && isRegularWave(waves, block.insertAt) ? wavePressure(next) : undefined;
 }
 
+/** A block's regular waves, composed: see `composeBlockAt`. */
 export function composeBlock(
   waves: readonly Wave[],
   block: Block,
   introId: string,
   seed = 0,
 ): Composed[] {
+  return composeBlockAt(waves, block, introId, seed).composed;
+}
+
+/** Seeds tried, from the one asked for, before the block's written waves are
+ * put first. THE COIL's seven fit under its written wave on the fourth. */
+const SEEDS = 4;
+
+/**
+ * A block's regular waves, the block they were composed for and the seed
+ * they were drawn with. A ramp that does not fit is drawn again on the next
+ * seed, a few times; then the same block is tried with its written regular
+ * waves leading (`leadingBlock`), whose `insertAt` is where the composed
+ * ones go.
+ */
+export function composeBlockAt(
+  waves: readonly Wave[],
+  block: Block,
+  introId: string,
+  seed = 0,
+): { block: Block; composed: Composed[]; seed: number } {
+  const whole = (c: readonly Composed[]) => c.length > 0 && c.every((x) => x.wave);
+  const lead = leadingBlock(waves, block);
+  let first: Composed[] | undefined;
+  for (const b of lead ? [block, lead] : [block]) {
+    for (let k = 0; k < SEEDS; k++) {
+      const composed = composeFor(waves, b, introId, seed + k);
+      first ??= composed;
+      if (whole(composed) || composed.length === 0) return { block: b, composed, seed: seed + k };
+    }
+  }
+  return { block, composed: first ?? [], seed };
+}
+
+function composeFor(
+  waves: readonly Wave[],
+  block: Block,
+  introId: string,
+  seed: number,
+): Composed[] {
   const notch = notchOf(block.sinceTutorial);
-  const steps = stepsToCompose(block.tutorial, block.existing).map((s) => grownStep(s, notch));
+  const steps = stepsToCompose(block.tutorial, block.existing, block.leads).map((s) =>
+    grownStep(s, notch),
+  );
   const draws = steps.map((step) => drawsOf(block, step, introId, seed));
   for (const [i, d] of draws.entries()) {
     if (d.kept.length > 0) continue;
@@ -95,9 +137,9 @@ export function composeBlock(
   // gentlest wave, so each tooth starts higher than the last.
   const low = gentlest(draws[0]?.kept.map((k) => k.pressure) ?? []);
   const start = block.floor === undefined ? low : Math.max(low, block.floor + START_RISE);
-  const after = nextWritten(waves, block);
+  const after = block.leads ? undefined : nextWritten(waves, block);
   for (;;) {
-    const chosen = chooseRamp(steps, reach, start, after);
+    const chosen = chooseRamp(steps, reach, start, after, block.after);
     if (typeof chosen === "number") {
       return failed(steps, chosen, "no pressure in reach keeps the ramp (decision 6)");
     }

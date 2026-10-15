@@ -186,7 +186,9 @@ export function needsBasics(step: Step): boolean {
  * Those count from the **end** — an old regular wave is the harder kind, so
  * the composed ones are the easy first steps that lead up to it.
  */
-export function stepsToCompose(tutorial: boolean, existing: number): Step[] {
+export function stepsToCompose(tutorial: boolean, existing: number, leads = false): Step[] {
   const ids = tutorial ? TUTORIAL_STEPS : STEPS.map((s) => s.id);
-  return ids.slice(0, Math.max(0, ids.length - existing)).map(stepById);
+  // Unless they lead: then the written ones are the first steps (`Block.leads`).
+  const left = leads ? ids.slice(existing) : ids.slice(0, Math.max(0, ids.length - existing));
+  return left.map(stepById);
 }

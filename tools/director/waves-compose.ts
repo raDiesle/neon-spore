@@ -1,7 +1,7 @@
 #!/usr/bin/env bun
 import { WAVES, type Wave } from "@neon-spore/content";
 import { beatSeconds, DEFAULT_CONFIG } from "@neon-spore/sim";
-import { type Composed, composeBlock } from "./src/compose.js";
+import { type Composed, composeBlockAt } from "./src/compose.js";
 import { readBlock } from "./src/compose-block.js";
 import { spanOf } from "./src/compose-check.js";
 import { writeWaves } from "./src/waves-acts.js";
@@ -31,12 +31,13 @@ if (!introId) {
   process.exit(2);
 }
 
-const block = readBlock(WAVES, introId);
-if (typeof block === "string") {
-  console.error(block);
+const read = readBlock(WAVES, introId);
+if (typeof read === "string") {
+  console.error(read);
   process.exit(1);
 }
-const composed = composeBlock(WAVES, block, introId, Number(flag("seed") ?? 0));
+const asked = Number(flag("seed") ?? 0);
+const { block, composed, seed } = composeBlockAt(WAVES, read, introId, asked);
 const names = flag("names")?.split("|") ?? [];
 const seconds = (beats: number) => (beats * beatSeconds(DEFAULT_CONFIG)).toFixed(0);
 
@@ -47,7 +48,9 @@ function named(c: Composed, i: number): Wave | undefined {
 
 console.log(
   `${introId} — block ${block.number}, new: ${block.x}, before it: ${block.y ?? "nothing"}` +
-    `${block.tutorial ? ", tutorial arc (three steps)" : ""}, ${block.existing} regular already`,
+    `${block.tutorial ? ", tutorial arc (three steps)" : ""}, ${block.existing} regular already` +
+    `${block.leads ? ", and they lead: too gentle for the ramp to fit under" : ""}` +
+    `${seed === asked ? "" : `, drawn with seed ${seed}`}`,
 );
 console.log("step  id                       span  arrivals  pressure  AUTO clears  name");
 for (const [i, c] of composed.entries()) {

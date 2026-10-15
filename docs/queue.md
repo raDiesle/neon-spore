@@ -576,22 +576,6 @@ siphon or a stem the knob slides down; a root pulled down into the soil to
 the band. Send one PNG of the current beside the three. Prove it with
 `bun test tools/versus` and `bun run check`.
 
-## THE COIL's block cannot compose R7 under its next written wave
-
-- **Found:** 2026-10-15, claude/queue-auto-loses-the-coil-and-the-crossing-in-composed
-- **Taken:** 2026-10-15, main (claim: claude/queue-the-coils-block-cannot-compose-r7-under-its-next)
-- **Files:** `tools/director/src/compose.ts`, `tools/director/src/compose-ramp.ts`, `tools/director/src/compose-steps.ts`
-
-`bun run waves:compose theCoil` stops at R7 with *no pressure in reach keeps
-the ramp (decision 6)*, on seeds 0, 1 and 2. AUTO is not the cause any more:
-every R7 draw clears, and nothing is struck. R7 is the block's last step, so
-`chooseRamp` caps it at the block's next written wave, which is pressure 8.
-All 52 of R7's pressures lie between 8.2 and 13.5. Find whether R7's grown
-step (`grownStep` at this notch) should draw fewer arrivals, or whether the
-cap should allow a small rise into the written wave. Then prove it with
-`bun run waves:compose theCoil` filling R2–R8, a test in `tools/director/test/`,
-and `bun run check`.
-
 ## THE BLISTER's COMBO gets bodies built round its press and pull, on VERSUS
 
 - **Found:** 2026-10-15, claude/queue-the-blister-takes-a-combo-and-the-controls-group

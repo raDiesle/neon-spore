@@ -51,6 +51,11 @@ export interface Block {
   /** The gentlest composed regular wave of the nearest block before with one,
    * which this block's first aims a little above (`START_RISE`). */
   floor?: number;
+  /** Whether the block's written regular waves stand for its first steps, so
+   * the composed ones follow them, rising from `after`, the last one's
+   * pressure (`leadingBlock`). */
+  leads?: true;
+  after?: number;
   /** Where composed waves go in the list, and the panel they are played on. */
   insertAt: number;
   controls: Wave["controls"];
@@ -110,6 +115,23 @@ function floorOf(waves: readonly Wave[], from: number, to: number): number | und
     if (p !== undefined && (low === undefined || p < low)) low = p;
   }
   return low;
+}
+
+/**
+ * The same block with its written regular waves standing for its **first**
+ * steps rather than its last, or `undefined` when it has none: the composed
+ * ones go after them and rise from the last one. For a written wave too
+ * gentle for the block's ramp to fit under — THE COIL's, at 8, where the
+ * tooth starts past 7 (`compose.ts` tries this when the usual order fails).
+ */
+export function leadingBlock(waves: readonly Wave[], block: Block): Block | undefined {
+  if (block.existing === 0 || block.leads) return undefined;
+  let past = block.insertAt;
+  while (isRegularWave(waves, past)) past++;
+  const last = waves[past - 1];
+  const after = last && wavePressure(last);
+  if (after === undefined) return undefined;
+  return { ...block, leads: true, insertAt: past, after };
 }
 
 /** The block a wave introduces, or a reason it is not one. */
