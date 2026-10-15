@@ -428,6 +428,7 @@ that the drop's rim stays clear of both mark rings.
 ## Three integer mixers in render, each written privately
 
 - **Found:** 2026-10-14, claude/glance-temper
+- **Taken:** 2026-10-15, claude/queue-docs-spec-bosses-md-still-says-every-bosss-glanc (claim: claude/queue-three-integer-mixers-in-render-each-written-priv)
 - **Files:** `packages/render/src/idle-drift.ts`, `packages/render/src/backdrop.ts`, `packages/render/src/solid-motion.ts`, `packages/render/src/hash.ts`, `packages/sim/test/copies-table.ts`
 
 Each of the three files mixes an integer with murmur3's `0x85ebca6b` by a
