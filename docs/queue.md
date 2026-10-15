@@ -369,16 +369,16 @@ flush was counted.
 
 - **Found:** 2026-10-15, claude/glance-layer-cost
 - **Files:** `packages/render/src/snake-skin.ts`
-- **Asks:** Keep SNAKE's blurred shadow, or offer a cheaper one in VERSUS?
 
 `castShadow` sets `shadowBlur` to a fifth of a tile under the snake's body —
 the one `shadowBlur` left in `packages/render`, against the rule in
 `glow.ts` that it is the dearest thing a mobile GPU is asked for. `bun run
 perf` cannot see it (2.1 ms on SNAKE), because the blur is GPU work done
 after the timed window. Replacing it changes the picture, so it is a look:
-either it stays, or a VERSUS candidate draws the shadow without a blur — the
-body's path filled dark and offset, under two or three widened faint strokes
-the way `strokeGlow` fakes a glow — and the owner chooses by looking.
+the owner chose on 15 October 2026 to have it offered: a VERSUS candidate
+draws the shadow without a blur — the body's path filled dark and offset,
+under two or three widened faint strokes the way `strokeGlow` fakes a glow —
+beside the shipped one, and he chooses by looking (`docs/versus.md`).
 
 ## A review block's first wave rises past 8.7 again
 
