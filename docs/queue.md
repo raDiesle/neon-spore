@@ -360,6 +360,7 @@ Prove with `bun test packages/hands` and `bun run check`.
 ## `bun run shot` finds no ON THE FIELD card for THE SCOUT's two holds
 
 - **Found:** 2026-10-14, claude/queue-holds-as-the-hold-labs-drop-the-scout-the-vane-t
+- **Taken:** 2026-10-15, main (claim: claude/queue-bun-run-shot-finds-no-on-the-field-card-for-the)
 - **Files:** `tools/director/src/field-controls-scout.ts`, `tools/director/src/field-action-cards.ts`, `tools/frames/shot.ts`
 
 `bun run shot` with the selector `section.field-use:has(p.rows:has-text(...))`
