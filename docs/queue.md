@@ -343,3 +343,18 @@ from a URL (or a flag that opens DOCUMENTATION › CONTROLS › ON THE FIELD),
 say the route in `shot-usage.ts`, and add the case to
 `tools/frames/test/shot-row.test.ts`. It cost a lane fifteen minutes and a
 hand-driven browser for one photograph of a body no wave carries.
+
+## The INDEX.md drift sweep times out under `check:fast`'s eight shards
+
+- **Found:** 2026-10-15, claude/lever-bigger
+- **Files:** `tools/index/test/drift.test.ts`
+
+`check:fast` went red once on *docs/INDEX.md rows still describe their files >
+no row names something its file does not have* with **test timed out**, and
+the same file passed alone in 9 s straight after, with no change between. The
+case runs under `itCosts(TREE_CASE_MS, …)` — 400 ms — and reads every indexed file through
+`treeText`; under eight shards at once it runs past its budget. Either make
+the sweep cheaper (read only the rows' files that changed since `main`, or
+cache `treeText` across the describe) or give it a budget measured under a
+full `bun run test`, saying the figure in the comment. Prove it with two
+`bun run check:fast` runs in a row, both green.

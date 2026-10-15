@@ -1,6 +1,6 @@
 import * as bodies from "../../../../../packages/render/src/blister-bodies.js";
 import { patch, type Variant } from "../../../variant.js";
-import { drawTaffyBody, drawTaffyNeck } from "./draw.js";
+import { drawTaffyBody, drawTaffyNose } from "./draw.js";
 
 /**
  * TAFFY — offered 15 October 2026, from the owner's ask of the 14th: *every
@@ -12,7 +12,7 @@ export const BLISTER_TAFFY: Variant = {
   slot: "blister:lever",
   name: "taffy",
   sentence:
-    "The slime is the lever — the thumb draws a neck of it down the groove to a drop round the knob, and the body above sags and squeezes its eyes shut as it goes.",
+    "The slime is the lever and its nose is the handle — the knob pinches the tip of a long soft nose, the thumb draws it out down the groove, and the body above sags and squeezes its eyes shut as it goes.",
   dir: "tools/versus/candidates/blister-lever/taffy",
   patches: [
     patch({
@@ -23,7 +23,7 @@ export const BLISTER_TAFFY: Variant = {
         symbol: "BLISTER_BODY.lever",
         type: "BlisterBodyLook",
       },
-      fields: { draw: drawTaffyBody, beyond: drawTaffyNeck },
+      fields: { draw: drawTaffyBody, beyond: drawTaffyNose },
     }),
   ],
 };

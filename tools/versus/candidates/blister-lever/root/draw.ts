@@ -10,6 +10,9 @@ import {
 
 const TAU = Math.PI * 2;
 
+/** How much bigger than the clover ROOT is drawn (the owner, 15 October 2026: *some bigger*). */
+const ROOT_SIZE = 1.4;
+
 /**
  * ROOT: a turnip's shoulders and its leaves are all that stand up out of the
  * pore; the thumb pulls its root down into the field. The root runs from the
@@ -20,7 +23,7 @@ const TAU = Math.PI * 2;
  */
 export function drawRootBody(b: Body, f: BlisterFrame): void {
   const { ctx } = b;
-  const r = f.r;
+  const r = f.r * ROOT_SIZE;
   const x = b.x;
   const y = b.y + (1 - f.rise) * r * 1.8;
   const up = blisterLeverHeld(b.c) && blisterLeverInBand(b.world, b.c);
@@ -44,7 +47,7 @@ export function drawRootBody(b: Body, f: BlisterFrame): void {
 /** The root, from the pore down the groove to its tip at the knob. */
 export function drawRootDown(b: Body, f: BlisterFrame): void {
   const { ctx } = b;
-  const r = f.r;
+  const r = f.r * ROOT_SIZE;
   const tip = knobY(b);
   const top = f.poreY - r * 0.1;
   const run = Math.max(r * 0.6, tip - top);

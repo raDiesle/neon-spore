@@ -10,6 +10,9 @@ import {
 
 const TAU = Math.PI * 2;
 
+/** How much bigger than the clover BELL is drawn (the owner, 15 October 2026: *some bigger*). */
+const BELL_SIZE = 1.4;
+
 /**
  * BELL: a brass bell comes up out of the pore mouth down, and the knob is its
  * clapper — a cord runs out of the bell's mouth, down the groove, to wherever
@@ -20,7 +23,7 @@ const TAU = Math.PI * 2;
  */
 export function drawBellBody(b: Body, f: BlisterFrame): void {
   const { ctx } = b;
-  const r = f.r;
+  const r = f.r * BELL_SIZE;
   const x = b.x;
   const y = b.y + (1 - f.rise) * r * 1.8;
   const ringing = blisterLeverHeld(b.c) && blisterLeverInBand(b.world, b.c);
@@ -86,7 +89,7 @@ export function drawBellBody(b: Body, f: BlisterFrame): void {
 /** The cord from the bell's mouth to the clapper, wherever the thumb put it. */
 export function drawBellCord(b: Body, f: BlisterFrame): void {
   const { ctx } = b;
-  const r = f.r;
+  const r = f.r * BELL_SIZE;
   const knob = knobY(b);
   if (knob < f.poreY) return;
   ctx.save();

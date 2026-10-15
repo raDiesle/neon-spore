@@ -41942,3 +41942,21 @@ Bottleneck: finding a frame with the second body in it, because the wave's
 one blister was the one an id-only picker never changed.
 
 *Measured: 16 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
+
+## 2026-10-15 — BLISTER:LEVER's three looks drawn bigger, TAFFY by its nose
+
+- reading: 10 min. The three candidates, the body record and how the pore
+  clips it and the glance cuts it off.
+- writing: 10 min. All three looks 1.4×, TAFFY's neck made a nose from
+  between its eyes.
+- looking: 15 min. A `versus:shot` that caught the body mid-rise, then a sweep
+  of six frozen moments to find it at rest and pulled.
+- friction: 5 min. The INDEX.md drift sweep timed out under `check:fast` and
+  passed alone; queued.
+- landing: 15 min. `check:fast` three times, for an import sort and two
+  timeouts under a load of 36; a rebase over HOLD's PALM and HUG, which had
+  raised the blister's reach to 3.2 and made this lane's own `reach` field
+  unneeded.
+
+Bottleneck: looking — an unfrozen `versus:shot` lands wherever the round is,
+so the first picture of a rising body showed it half in its pore.
