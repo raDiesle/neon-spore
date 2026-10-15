@@ -42118,3 +42118,13 @@ Bottleneck: the frame tests that counted a tap glyph's white as a word.
 Bottleneck: the frames run's two builds, 144 s of a five-minute lane.
 
 *Measured: 15 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
+
+## 2026-10-15 — OPEN ALL and FOLD ALL over the wave list
+
+- reading: 5 min. The rail's groups and folds, by a search.
+- writing: 10 min. The two presses, the fold set's `setAll`, a test.
+- looking: 5 min. The list shot opened.
+- friction: 0 min.
+- landing: 5 min.
+
+Bottleneck: reading — where the list's folds live, for a two-button change.

@@ -3781,6 +3781,7 @@ by hand never moves.
 | `tools/director/src/grid-cell-art.ts` | What one cell of the map draws: the creature that arrives on that beat, and the pod that hangs in that column |
 | `tools/director/src/rail-filter.ts` | The filter over the wave list: one field above it, matching a wave's prose and everything it sends |
 | `tools/director/src/rail-folds.ts` | which groups in the wave list are open — folded until opened, kept by wave id across a reload |
+| `tools/director/src/rail-fold-all.ts` | **OPEN ALL and FOLD ALL**, over the wave list: every group at once |
 | `tools/director/src/rail-steps.ts` | **The two arrows over the WAVE column**, and the two keys that are the same step without the mouse |
 | `tools/director/src/rail-symbols.ts` | **THE ROW OF SYMBOLS OVER THE FILTER**: the rail's own four marks, made pressable |
 | `tools/director/src/rail-list.ts` | ONE ROW OF THE WAVE LIST, AND WHAT IS ON IT |

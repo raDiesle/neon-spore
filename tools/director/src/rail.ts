@@ -9,6 +9,7 @@ import { renderControlSetNote } from "./control-set-note.js";
 import { bindRailArrival } from "./rail-arrive.js";
 import { moveWave, rowDrag } from "./rail-drag.js";
 import { bindRailFilter } from "./rail-filter.js";
+import { bindFoldAll } from "./rail-fold-all.js";
 import { bindRailFolds } from "./rail-folds.js";
 import { dropWave } from "./rail-groups.js";
 import { renderRows } from "./rail-list.js";
@@ -59,6 +60,7 @@ export function bindRail(store: Store, onSelect: () => void, onEdit: () => void)
   // (`rail-groups.ts`, `rail-folds.ts`). A filter opens every group: a match
   // folded out of sight would be a match the list did not show.
   const folds = bindRailFolds(() => renderList());
+  bindFoldAll(document.getElementById("waveFoldAll"), folds, () => store.waves);
   const folded = (head: number): boolean =>
     !filter.active() && !symbols.active() && !folds.open(store.waves[head]?.id ?? "");
 

@@ -17,19 +17,30 @@ export interface RailFolds {
   open(id: string): boolean;
   /** Opens a folded group, folds an open one, and redraws. */
   toggle(id: string): void;
+  /** Opens every group headed by one of `ids`, or folds every group, and
+   * redraws — the owner's *expand or minimize all waves*, 15 October 2026. */
+  setAll(ids: readonly string[], open: boolean): void;
 }
 
 const OPEN_KEY = "wave-groups-open";
 
 export function bindRailFolds(onChange: () => void): RailFolds {
   const open = new Set<string>(readIds());
+  const changed = (): void => {
+    writeRemembered(OPEN_KEY, open.size ? JSON.stringify([...open]) : null);
+    onChange();
+  };
   return {
     open: (id) => open.has(id),
     toggle(id) {
       if (open.has(id)) open.delete(id);
       else open.add(id);
-      writeRemembered(OPEN_KEY, open.size ? JSON.stringify([...open]) : null);
-      onChange();
+      changed();
+    },
+    setAll(ids, opening) {
+      open.clear();
+      if (opening) for (const id of ids) open.add(id);
+      changed();
     },
   };
 }

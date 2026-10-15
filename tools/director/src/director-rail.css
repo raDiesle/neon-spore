@@ -162,6 +162,26 @@
   border-color: var(--gold);
   background: rgba(255, 200, 80, 0.08);
 }
+#waveFoldAll {
+  display: flex;
+  gap: 2px;
+  margin-bottom: 4px;
+}
+#waveFoldAll .fold-all {
+  flex: 1 1 0;
+  padding: 3px 0;
+  font-size: 0.7rem;
+  letter-spacing: 0.06em;
+  color: var(--dim);
+  background: transparent;
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  cursor: pointer;
+}
+#waveFoldAll .fold-all:hover {
+  color: var(--ink);
+  border-color: var(--cyan);
+}
 .rail-actions {
   display: flex;
   flex-wrap: wrap;
