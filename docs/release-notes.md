@@ -9,6 +9,14 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-15 · ce295704d — THE COUNT, THE COIL and THE CROSSING get their regular waves
+
+Twenty-three waves composed by `bun run waves:compose`: eight after THE COUNT and THE CROSSING, and seven after THE COIL that lead up to THE TWITCH, its hand-made one, drawn on the composer's fourth seed. AUTO learned all three bodies since they were left out, and clears every wave with no breach at both charges. Every block after FINALE now has its regular waves. A look the owner asked for by name.
+
+## 2026-10-15 · c2026eb97 — The composer draws a block again rather than stopping, and can let its written waves lead
+
+A ramp that does not fit is drawn on the next seed, up to four, before the composer gives up: THE COIL's seven waves fit under its written one, THE TWITCH at 8, on the fourth. Past that, a block's written regular waves can stand for its first steps instead of its last, with the composed ones after them and rising from them, for a written wave too gentle for the block's ramp to fit under. `waves:compose` says which seed it used and whether the written waves lead.
+
 ## 2026-10-15 · 64057658f — bun run profile: which functions a script spends its time in
 
 Finding why a FIZZ knob cost 0.4 ms took two scratch scripts: one under bun --cpu-prof, one folding the profile by hand. `bun run profile <file.ts>` now runs a script under the profiler and prints the top functions by self time and by total time, keeping the .cpuprofile for DevTools. The fold is tested on a hand-written profile, and the render-perf skill and docs/commands.md name the command.
