@@ -328,22 +328,6 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/skipped.test.ts` holds the listing's count of the entries
 `next` stepped past and why.
 
-## AUTO loses THE VANE
-
-- **Found:** 2026-10-14, claude/wave-plan
-- **Taken:** 2026-10-15, claude/queue-auto-loses-bulb-queen-and-the-vane
-- **Files:** `packages/sim/src/vane-hand.ts`, `docs/spec/wave-curriculum-today.md`
-
-Half of "AUTO loses BULB QUEEN and THE VANE". BULB QUEEN is played since
-claude/queue-auto-loses-bulb-queen-and-the-vane: the shield's half plays beside
-her hand (`shieldHand`), a falling pod is caught first, and a purge spares a
-boss's own body (`queen-hand.test.ts`, `purge-boss.test.ts`). Left: THE VANE,
-which AUTO playing both seats still loses, so its row in
-`wave-curriculum-today.md` has no time. Find which press the hand misses (the
-probe's `playedBeat` and `field` print it beat by beat), fix it, add a
-play-to-the-end test, and fill in the row. Prove with
-`bun test packages/hands` and `bun run check`.
-
 ## AUTO loses THE CURTAIN and THE TASTER
 
 - **Found:** 2026-10-14, claude/wave-plan

@@ -130,7 +130,9 @@ export const AUTOPILOT_HANDS: Partial<Record<BossKind, Hand>> = {
   // only the lobes.
   undertow: (w) => [...undertowHand(w), ...fieldHand(w)],
   valve: valveHand,
-  vane: vaneHand,
+  // It folds the wave's arrivals into columns of its own and they fall like
+  // any others; the bearing hurts nobody, so it waits for a quiet field.
+  vane: either(fieldHand, vaneHand),
   vise: viseHand,
   warden: wardenHand,
   // The hold while the face slips, then the wind home once it has stopped —

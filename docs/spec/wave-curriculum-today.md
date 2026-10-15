@@ -109,7 +109,7 @@ the wave. *Pressure* is `wavePressure`
 | 90 | VEIL RECALL | **regular** | — | STANDARD 5 | 8 | 39 | 43 b · 27 s | 7.9 |
 | 91 | VEILS AND TWINS | **regular** | — | STANDARD 5 | 11 | 44 | 47 b · 29 s | 8.9 |
 | 92 | VEIL PEAK | **regular** | — | STANDARD 5 | 16 | 48 | 51 b · 32 s | 9.9 |
-| 93 | THE VANE | boss | vane | STANDARD 5 | 2 | 3 | AUTO fails | — |
+| 93 | THE VANE | boss | vane | STANDARD 5 | 2 | 3 | 51 b · 32 s | — |
 | 94 | THE LANCE | intro | panel | STANDARD | 6 | 12 | 15 b · 9 s | 5 |
 | 95 | THE PURGE | intro | — | STANDARD | 3 | 3 | 8 b · 5 s | 8.6 |
 | 96 | THE WARD | intro | meteorMedium, meteorFast, meteorFaster, meteorFastest | STANDARD | 5 | 8 | 14 b · 9 s | 14.4 |
@@ -304,14 +304,14 @@ the wave. *Pressure* is `wavePressure`
 | 285 | THE ANTIPHON | boss | antiphon | STANDARD | 0 | 0 | 56 b · 35 s | — |
 | 286 | THE HIVE | boss | hive | STANDARD | 0 | 0 | 74 b · 46 s | — |
 | 287 | THE BEATBOX | intro | beatbox | STANDARD | 5 | 42 | 47 b · 29 s | 5.7 |
-| 288 | BEATBOXES AGAIN | **regular** | — | STANDARD | 5 | 27 | 48 b · 30 s | 8.1 |
-| 289 | BEATBOXES SPREAD | **regular** | — | STANDARD | 6 | 31 | 51 b · 32 s | 9.2 |
-| 290 | BEATBOXES FAR APART | **regular** | — | STANDARD | 6 | 26 | 47 b · 29 s | 10.2 |
-| 291 | BEATBOX AND BALLOON | **regular** | — | STANDARD | 11 | 40 | 67 b · 42 s | 11.2 |
-| 292 | EASY BEATBOXES | **regular** | — | STANDARD | 6 | 34 | 48 b · 30 s | 9.7 |
+| 288 | BEATBOXES AGAIN | **regular** | — | STANDARD | 5 | 27 | 47 b · 29 s | 8.1 |
+| 289 | BEATBOXES SPREAD | **regular** | — | STANDARD | 6 | 31 | 50 b · 31 s | 9.2 |
+| 290 | BEATBOXES FAR APART | **regular** | — | STANDARD | 6 | 26 | 46 b · 29 s | 10.2 |
+| 291 | BEATBOX AND BALLOON | **regular** | — | STANDARD | 11 | 40 | 66 b · 41 s | 11.2 |
+| 292 | EASY BEATBOXES | **regular** | — | STANDARD | 6 | 34 | 47 b · 29 s | 9.7 |
 | 293 | BEATBOX RECALL | **regular** | — | STANDARD | 10 | 39 | 43 b · 27 s | 10.7 |
-| 294 | BEATBOXES AND TWINS | **regular** | — | STANDARD | 12 | 44 | 60 b · 38 s | 11.7 |
-| 295 | BEATBOX PEAK | **regular** | — | STANDARD | 20 | 47 | 69 b · 43 s | 12.7 |
+| 294 | BEATBOXES AND TWINS | **regular** | — | STANDARD | 12 | 44 | 59 b · 37 s | 11.7 |
+| 295 | BEATBOX PEAK | **regular** | — | STANDARD | 20 | 47 | 68 b · 43 s | 12.7 |
 | 296 | THE WEIGHT | intro | weight | STANDARD | 5 | 32 | 34 b · 21 s | 7.2 |
 | 297 | WEIGHTS AGAIN | **regular** | — | STANDARD | 5 | 26 | 30 b · 19 s | 8.2 |
 | 298 | WEIGHTS SPREAD | **regular** | — | STANDARD | 6 | 32 | 40 b · 25 s | 9.2 |
@@ -407,7 +407,7 @@ time × 2 — the owner's accepted guess, never measured.
 | 35 | THE GAUGE | special | 62 beats | 39 | 78 s | short |
 | 36 | THE WARDEN | normal | 39 beats | 24 | 48 s | short |
 | 37 | THE FLEET | special | 14 beats | 9 | 18 s | short |
-| 93 | THE VANE | normal | — | — | — | unknown — AUTO cannot finish it |
+| 93 | THE VANE | normal | 51 beats | 32 | 64 s | in band |
 | 123 | SNAKE | special | 124 beats | 78 | 156 s | in band |
 | 133 | PINBALL | special | 411 beats | 257 | 514 s | long |
 | 251 | THE SCOUT | special | 73 beats | 46 | 92 s | in band |

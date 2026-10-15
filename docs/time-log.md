@@ -41448,3 +41448,15 @@ Bottleneck: reading. Seed 3 lost a different way than seed 1, by a purge taking
 her body, which only showed once the first fix was in.
 
 *Measured: 9 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-15 — AUTO plays THE VANE's wave to the end
+
+- reading: 5 min. One probe: the rock it folds into column 4 lands on beat 16
+  while the hand waits on the bearing.
+- writing: 5 min. The field hand first, the bearing's after it, and a
+  play-to-the-end test over five seeds.
+- looking: 0 min. Nothing drawn.
+- friction: 0 min.
+- landing: 5 min.
+
+Bottleneck: none to speak of; the cause was the first thing the probe printed.
