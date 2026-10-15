@@ -41802,3 +41802,16 @@ Bottleneck: the knob is as big as the body, so a body built round it only
 reads where it reaches past the knob.
 
 *Measured: 36 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-15 — VERSUS offers THE BLISTER's HOLD a body built round its drop
+
+- reading: 5 min. The hold's drop and the sim's grip, read while the lane
+  before landed; the slot's three bodies drafted then too.
+- writing: 5 min. PALM, HUG and SPONGE; a pose whose hand puts a thumb on
+  it for a beat and lifts.
+- looking: 5 min. Two rounds: the fuse ring covered every first draft.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, `land`.
+
+Bottleneck: the fuse ring sits at one and a half radii, so a HOLD body
+only reads out past it.

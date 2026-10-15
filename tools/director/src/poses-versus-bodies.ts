@@ -27,6 +27,7 @@ import {
   BLISTER_RUB_PLAYED,
   BLISTER_TURN_PLAYED,
 } from "./poses-versus-blister.js";
+import { BLISTER_HOLD_PLAYED } from "./poses-versus-blister-hold.js";
 import {
   BLISTER_SWIPE_DOWN_PLAYED,
   BLISTER_SWIPE_UP_PLAYED,
@@ -160,6 +161,7 @@ export const VERSUS_BODY_POSES: Pose[] = [
   BLISTER_TURN_PLAYED,
   BLISTER_SWIPE_DOWN_PLAYED,
   BLISTER_SWIPE_UP_PLAYED,
+  BLISTER_HOLD_PLAYED,
   CRAWLER_POSE,
   MAGNET_POSE,
   STRAND_POSE,

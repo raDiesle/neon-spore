@@ -3660,6 +3660,7 @@ by hand never moves.
 | `tools/director/src/poses-versus-bodies.ts` | The half of `poses-versus.ts` that shows a body: a creature doing what it does, on its own or under a hand |
 | `tools/director/src/poses-versus-blister.ts` | THE BLISTER's COMBO pose `blister:combo` is judged on: pressed, pulled the whole stroke and lifted by a hand of its own |
 | `tools/director/src/poses-versus-blister-swipe.ts` | THE BLISTER's SWIPE poses `blister:swipe` is judged on: a stroke carried and lifted, then one half carried, stroked down and stroked up |
+| `tools/director/src/poses-versus-blister-hold.ts` | THE BLISTER's HOLD pose `blister:hold` is judged on: a thumb kept on it a beat, one blow, then lifted |
 | `tools/director/src/poses-versus-states.ts` | The half of `poses-versus.ts` that shows something other than a body: the panel, the ship taking damage |
 | `tools/director/src/poses-volley.ts` | THE VOLLEY, warded three times by a hand that never misses |
 | `tools/director/src/poses-bodies.ts` | The pose a candidate for a *body* is judged on, as opposed to one for a mechanism firing |

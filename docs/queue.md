@@ -394,25 +394,3 @@ which are mostly not drawn, and say so in creature-glance.ts. Check every
 body a thumb holds (`balloon-handles.ts`, `lid-string.ts`, `weight.ts`)
 still meets its handle where it is drawn. Send one PNG strip. Prove it with
 `bun test packages/render` and `bun run check`.
-
-## THE BLISTER's HOLD gets bodies built round its drop, on VERSUS
-
-- **Found:** 2026-10-14, claude/control-bodies
-- **Taken:** 2026-10-15, claude/queue-the-blisters-hold-gets-bodies-built-round-its-dr
-- **Files:** `packages/render/src/blister-bodies.ts`, `packages/render/src/soak-hold.ts`, `tools/director/src/poses-field-controls-blister.ts`, `tools/director/src/poses-versus-bodies.ts`, `tools/director/src/versus-pose.ts`
-
-The owner, 14 October 2026: *every control has its own visual related thing
-around the button visuals integrating it … one brush per on screen control
-type … several "versus" variants each*. TAP's are open as `blister:tap`
-(MOLE, RIDER, CRADLE in `tools/versus/candidates/blister-tap/`) — copy that
-slot's shape. Open `blister:hold`, patching `BLISTER_BODY.hold`'s `draw`:
-three bodies that come up out of the pore with the HOLD LAB's drop held in
-them rather than laid over them, the drop and its waiting clock left exactly
-as `blister-help.ts` draws them. Ideas to start from: a clam whose open
-shell holds the drop as its pearl; a body with a cupped hollow on top the
-drop sits in like water in a palm; a bud whose petals close round the drop
-while a thumb is on it. Add a pose of a HOLD blister up with a thumb on it
-to the COMPARED LOOKS group, its row in `SLOT_POSE`, and send one PNG of
-the current beside the three (`bun run versus:shot … --only candidate`,
-`bun run crop`, `bun run pair`). Prove it with `bun test tools/versus` and
-`bun run check`.
