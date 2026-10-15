@@ -12,7 +12,7 @@ const TAU = Math.PI * 2;
  * 2026: *make sure the graphics are visible to be bigger than the tap (yellow)
  * button*.
  */
-export const GROW = 1.5;
+export const GROW = 1.3;
 
 /** Discs along each arm: enough that they run together into one limb. */
 const STEPS = 22;

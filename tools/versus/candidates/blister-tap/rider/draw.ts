@@ -12,7 +12,7 @@ const TAU = Math.PI * 2;
  * 2026: *make sure the graphics are visible to be bigger than the tap (yellow)
  * button*.
  */
-export const GROW = 1.5;
+export const GROW = 1.3;
 
 /** Where the rider sits on the pad's rim, from the top, clear of the pips at
  * twelve, four and eight o'clock. */

@@ -12,14 +12,14 @@ const TAU = Math.PI * 2;
  * 2026: *make sure the graphics are visible to be bigger than the tap (yellow)
  * button*.
  */
-export const GROW = 1.5;
+export const GROW = 1.3;
 
 /** The socket's radius over the blister's: just outside the press's drop. */
 const SOCKET = 0.95;
 
 /**
  * MOLE: the button is the creature's face. A round head comes up out of the
- * pore, more than three times as wide as the yellow press, so the press sits
+ * pore, three times as wide as the yellow press, so the press sits
  * in the middle of it like a snout; two eyes look out over it, and two paws grip the lip.
  * The pip at twelve lands on its brow. Tapping it is hitting the mole.
  */

@@ -42028,3 +42028,13 @@ stroke changes, has no one-command photograph.
 Bottleneck: a three-minute silent `versus drop`, taken for a hang.
 
 *Measured: 28 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
+
+## 2026-10-15 — THE BLISTER's TAP bodies a little smaller
+
+- reading: 0 min. The owner's word, mid-turn, on the lane just landed.
+- writing: 5 min. `GROW` from 1.5 to 1.3 in the three candidates.
+- looking: 5 min. `versus:shot` of all three, cropped side by side.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, `land`.
+
+Bottleneck: none; the three shots are most of it.
