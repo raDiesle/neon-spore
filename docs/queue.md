@@ -508,6 +508,7 @@ the current beside the three. Prove it with `bun test tools/versus` and
 ## THE BLISTER's RUB gets bodies built round its zigzag, on VERSUS
 
 - **Found:** 2026-10-14, claude/control-bodies
+- **Taken:** 2026-10-15, claude/queue-the-blisters-rub-gets-bodies-built-round-its-zig
 - **Files:** `packages/render/src/blister-bodies.ts`, `packages/render/src/rub-drop.ts`, `tools/director/src/poses-field-controls-blister.ts`, `tools/director/src/versus-pose.ts`
 
 The same ask as THE BLISTER's HOLD entry, for `blister:rub`, patching
