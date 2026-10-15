@@ -14,7 +14,7 @@ import { soakWater } from "./soak-water.js";
  * CONTROLS › ON THE FIELD: *i can still see old "hold" visuals usages, it
  * should be our new standard button … and why it still stays text "hold" -
  * its not our standard control visual.* It is what the red circle with a
- * thumbprint in it was (`hold-mark.ts`), and a hold says no word, as a pull
+ * thumbprint in it was, and a hold says no word, as a pull
  * says none (`saysHold`, `handle-word.ts`).
  *
  * Waiting, the drop breathes and ripples call the thumb (`soakCall`); held, the
@@ -24,6 +24,10 @@ import { soakWater } from "./soak-water.js";
  * and not calling, as the pull's knob is on the other screen; the caller
  * lays the partner's ring and clock over it as over every partner's mark.
  */
+
+/** A hold's drop's radius, in the cue frame's shorter half-extent — the
+ * thumbprint circle's it took the place of, and every press's since. */
+export const HOLD_MARK_R = 0.9;
 
 /** How one hold is asked to be drawn — `drawSoakHold`'s last argument. */
 export interface SoakHoldDraw {

@@ -189,7 +189,7 @@ export const BLISTER_LEVER: Pose = {
 
 /**
  * THE BLISTER's TAP up out of its pore with no hand on it yet: the press's
- * halo, its flaring dots and its three pips, on the seat that taps. It is what
+ * drop calling *tap tap* with its three terraces, on the seat that taps. It is what
  * `blister:tap` on VERSUS was judged on (MOLE, RIDER and CRADLE all taken,
  * 15 October 2026) — a body built round the button against the clover the
  * button covered — so it replays every second and a
@@ -199,7 +199,7 @@ export const BLISTER_LEVER: Pose = {
  */
 export const BLISTER_TAP: Pose = {
   name: "BLISTER · UP FOR A TAP",
-  note: "A TAP blister is up out of its pore for its two beats, three blows owed, and no thumb on it yet. Player 2's screen, the seat its BY names: the halo and the flaring dots say tap here.",
+  note: "A TAP blister is up out of its pore for its two beats, three blows owed, and no thumb on it yet. Player 2's screen, the seat its BY names: THE PRESS LAB's drop, calling, says tap here.",
   lookAt: "whether a creature is seen round the button, or only the button",
   crop: "tile",
   role: "p2",

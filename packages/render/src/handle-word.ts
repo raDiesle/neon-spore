@@ -81,6 +81,21 @@ export function saysHold(word: string): boolean {
   return word.split(" ")[0] === "HOLD";
 }
 
+/**
+ * **Whether a word says TAP** — `TAP`, `TAP TAP`. Never drawn, since 15
+ * October 2026: THE PRESS LAB's drop says it (`press-drop.ts`), as the HOLD
+ * LAB's says a hold — the owner, of every tap: *they should follow our
+ * standard tap control visuals*. The readings still return the word.
+ */
+export function saysTap(word: string): boolean {
+  return word.split(" ")[0] === "TAP";
+}
+
+/** How many taps a word asks: `TAP TAP` is two, and anything else one. */
+export function tapsAsked(word: string): number {
+  return Math.max(1, word.split(" ").filter((w) => w === "TAP").length);
+}
+
 /** Whether this screen's thumb is the one the handle is for: the rig's always is. */
 export function handleIsMine(role: ViewRole, words: HandleWords = PILOT_HANDLE): boolean {
   return seatIsMine(role, words.seat);

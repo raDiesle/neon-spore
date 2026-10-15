@@ -10,6 +10,7 @@ import {
   type World,
 } from "@neon-spore/sim";
 import { bossCue } from "../src/boss-cue.js";
+import { markIsHere } from "../src/cue-helper.js";
 import {
   governorGripUnder,
   governorNeedleCircle,
@@ -162,9 +163,11 @@ describe("the words", () => {
     expect(ahead?.x).not.toBeCloseTo(now?.x ?? Number.NaN, 1);
   });
 
-  it("wear the thumbprint on a TAP, not the scan box", () => {
+  it("wear THE PRESS LAB's drop on a TAP, not the scan box", () => {
     const { world } = toLit();
     const l = layout("p1");
-    expect(bossCue(l, world, 0, () => l.hullY)?.print).toBe(true);
+    const cue = bossCue(l, world, 0, () => l.hullY);
+    expect(cue?.word).toBe("TAP");
+    expect(cue && markIsHere(cue)).toBe(true);
   });
 });

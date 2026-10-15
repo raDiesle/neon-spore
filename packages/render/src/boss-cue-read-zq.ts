@@ -24,8 +24,9 @@ import { stepShows } from "./step-colour.js";
  * would be the tap made for them. The mark stays where it is while the
  * needle sweeps, so the word holds still. On an ordered step only the next
  * mark is open, so only its seat is told, and the word moves on as each is
- * landed. Each mark gets its own seed. **It wears the thumbprint, not the
- * scan box** (`BossCue.print`) — the owner, 6 October 2026: *instead of tap
+ * landed. Each mark gets its own seed. **It wears THE PRESS LAB's drop, not
+ * the scan box**, as every `TAP` does (`cue-helper.ts`) — the thumbprint's
+ * circle until 15 October 2026, the owner's of 6 October: *instead of tap
  * scanner square box use the thumb control visual.*
  *
  * **`FIRE` at the hull under the middle column while the hub is lit**, to
@@ -59,7 +60,7 @@ export function governorCues(
     if (mark === null) continue;
     const seed = 190 + s.cursor * 2 + seat;
     const at = { x: mark.x, y: mark.y };
-    out.push({ seat, kind: "PRESS", word: "TAP", ...at, ...frame, print: true, seed });
+    out.push({ seat, kind: "PRESS", word: "TAP", ...at, ...frame, seed });
   }
   return out;
 }

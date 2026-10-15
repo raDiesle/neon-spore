@@ -6,8 +6,8 @@ import { drawWayArrow } from "./way-arrow.js";
 /**
  * **The gesture, drawn inside the ring** — one glyph per member of
  * `INSTAR_GESTURES`, so a mark says what it wants before the word over it
- * is read: an arrow down or up for the pulls, a ring of dots for the tap,
- * three chevrons for the swipe, a hooked arc for the turn — running
+ * is read: an arrow down or up for the pulls, nothing for the tap (it is
+ * THE PRESS LAB's drop, not a ring, since 15 October 2026), three chevrons for the swipe, a hooked arc for the turn — running
  * anticlockwise for `turnBack` — two thumbs for the hold, and the panel's
  * own button face for a shield or a suck. A shoot mark has none: its
  * crosshair is the mark. Each is drawn in the caller's stroke colour at the
@@ -34,7 +34,7 @@ export function drawInstarGlyph(
       drawWayArrow(ctx, x, y, r, 0, gesture === "pullDown" ? 1 : -1, time);
       break;
     case "tap":
-      tap(ctx, x, y, r, time);
+      // A tap is THE PRESS LAB's drop, drawn in the ring's place (`press-drop.ts`).
       break;
     case "swipeDown":
       chevrons(ctx, x, y, r, time);
@@ -81,18 +81,6 @@ function panelFace(
 ): void {
   const ink = typeof ctx.strokeStyle === "string" ? ctx.strokeStyle : PALETTE.text;
   emblem(ctx, x, y, r * FACE, ink, kind);
-}
-
-/** A dot with rings flaring out of it, the way a tap lands. */
-function tap(ctx: CanvasRenderingContext2D, x: number, y: number, r: number, time: number): void {
-  ctx.beginPath();
-  ctx.arc(x, y, r * 0.16, 0, Math.PI * 2);
-  ctx.fill();
-  const phase = (time * 1.5) % 1;
-  ctx.beginPath();
-  ctx.arc(x, y, r * (0.25 + 0.4 * phase), 0, Math.PI * 2);
-  ctx.globalAlpha *= 1 - phase;
-  ctx.stroke();
 }
 
 /** Three chevrons, running down. */

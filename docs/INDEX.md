@@ -1836,7 +1836,6 @@ by hand never moves.
 | `packages/render/src/seam-hold.ts` | **THE SEAM's two steps answered by sending nothing** (§26 rows 10 and 16, `sim/seam-step.ts`) |
 | `packages/render/src/seam-glance.ts` | **THE SEAM glances**: the whole ridge turns on its spine, offered on VERSUS `seam:glance` |
 | `packages/render/src/hover.ts` | WHAT A MOUSE IS RESTING ON, LIT |
-| `packages/render/src/hold-mark.ts` | **A red circle with a thumbprint in it**: the mark a hold asked with on every boss from 2 October 2026 |
 | `packages/render/src/recoil-cage-break.ts` | THE RECOIL's cage coming apart: the shot that spends the last bounce, drawn as the frame failing all at once |
 | `packages/render/src/recoil-calyx.ts` | CALYX — a kept look for THE RECOIL's cage, drawn only on the GRAPHICS page's LIBRARY |
 | `packages/render/src/radar-blip.ts` | Which arrivals this screen's warning strip is carrying, and where each one sits on it |
@@ -2411,7 +2410,7 @@ by hand never moves.
 | `packages/render/src/lamprey-draw.ts` | **THE LAMPREY** drawn: the eel, the sucker and its seven teeth, the scar, the gullet, both seats' marks |
 | `packages/render/src/lamprey-dung.ts` | **THE LAMPREY's dung** (the owner, 6 October 2026: *it could poop |
 | `packages/render/src/lamprey-disc.ts` | **THE LAMPREY's sucker, in detail**: the fleshy fringe of papillae round the lip, the gloss along its rim |
-| `packages/render/src/lamprey-marks.ts` | **THE LAMPREY's tooth mark**: the ring round the one lit tooth in a `teeth` |
+| `packages/render/src/lamprey-marks.ts` | **THE LAMPREY's tooth mark**: on the one lit tooth in a `teeth`, drawn the way every tap on the field is |
 | `packages/render/src/lamprey-pose.ts` | **The clock THE LAMPREY is posed off** (§41, *Animation*), six poses: crawling as a worm |
 | `packages/render/src/lamprey-plug-look.ts` | **THE LAMPREY's plug, inside the ship**: the bitten button out of its socket with its wires, left loose after, and the eel's body down through the ship to its jaw on the button |
 | `packages/render/src/lamprey-shape.ts` | **THE LAMPREY's shape** (§41, *The look*): two drafts combined, named on the shape sheet |

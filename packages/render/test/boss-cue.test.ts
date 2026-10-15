@@ -238,6 +238,8 @@ describe("the cue's kind line", () => {
   it("is not drawn over a gesture, which is the word said twice", () => {
     // A ring's shut bottom bubble, on the pilot's screen: `TAP` alone, since
     // 30 September 2026 — `PRESS` over it said the thumb's gesture twice.
+    // And no `TAP` either since 15 October 2026: THE PRESS LAB's drop says it
+    // (`saysTap`), so the cue is there and writes nothing.
     const world = createWorld(CFG, 5);
     const ring = { intakes: 5, ordered: false, ring: true, mixed: 0, needMin: 2, needMax: 3 };
     startWave(world, waveWith("gorge"), [], [], { kind: "gorge", levels: [ring] });
@@ -246,7 +248,8 @@ describe("the cue's kind line", () => {
     const l = computeLayout(VIEWPORT, CFG, "p1");
     drawBossCue(ctx as unknown as CanvasRenderingContext2D, l, world, 0, 0, () => l.hullY);
     const texts = ctx.texts.map((t) => t.text);
-    expect(texts).toContain("TAP");
+    expect(bossCue(l, world, 0, () => l.hullY)?.word).toBe("TAP");
+    expect(texts).not.toContain("TAP");
     expect(texts).not.toContain("PRESS");
   });
 });

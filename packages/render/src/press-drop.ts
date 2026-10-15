@@ -55,6 +55,8 @@ export interface PressDropView {
   readonly born: number;
   /** Seconds into a lapse, while it is shown; `null` otherwise. */
   readonly failure: number | null;
+  /** The partner's: it does not call. */
+  readonly quiet?: boolean;
 }
 
 /** How far a press has the drop popped up, `t` seconds after it: all the way at once,
@@ -83,7 +85,7 @@ export function paintPressDrop(v: PressDropView): void {
     red = 0.9 * (1 - smoothstep(k));
   } else {
     let hop = 0;
-    if (v.done === 0 && v.born >= SPAWN) hop = tapCall(v);
+    if (v.done === 0 && v.born >= SPAWN && v.quiet !== true) hop = tapCall(v);
     const pop = Math.max(popOf(v.pressed), 0.6 * hop);
     const up: Point = { x: at.x, y: at.y - r * 0.28 * Math.max(0, pop) };
     body = drop(up, r * g, { squash: 1 - 0.3 * pop, shake: 0.1 * v.near ** 2 });
@@ -136,12 +138,18 @@ export interface PressDropDraw {
   done: number;
   /** Seconds since the last press landed; long ago if not known. */
   pressed?: number;
+  /** The partner's: dimmed, and no call — as the HOLD LAB's drop is (`soak-hold.ts`). */
+  theirs?: boolean;
 }
 
 /**
  * A press as the game asks for one: no lapse, as THE BLISTER's blows never
  * lapse, and the call's rhythm running off the clock since nothing in the
- * world says when the mark came in.
+ * world says when the mark came in. Every tap on the field is this since 15
+ * October 2026 — a `TAP` cue (`cue-helper.ts`), THE INSTAR's and THE
+ * NETTLE's tap marks (`instar-marks.ts`), THE LAMPREY's tooth
+ * (`lamprey-marks.ts`) — the owner: *they should follow our standard tap
+ * control visuals*.
  */
 export function drawPressDrop(
   ctx: CanvasRenderingContext2D,
@@ -151,6 +159,8 @@ export function drawPressDrop(
 ): void {
   noteMark(ctx, at.x, at.y, r);
   const done = Math.max(0, Math.min(o.times, o.done));
+  ctx.save();
+  if (o.theirs) ctx.globalAlpha *= 0.4;
   paintPressDrop({
     ctx,
     at,
@@ -163,5 +173,7 @@ export function drawPressDrop(
     near: 0,
     born: SPAWN + o.time,
     failure: null,
+    quiet: o.theirs === true,
   });
+  ctx.restore();
 }

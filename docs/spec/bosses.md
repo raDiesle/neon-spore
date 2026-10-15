@@ -11006,9 +11006,10 @@ shears off and bites a notch in the skin.
 dial's face**, a quarter tile past its rim, from a seat with a mark left to
 land: the simulation judges the needle, never the thumb. The words
 (`boss-cue-read-zq.ts`): `TAP` on each seat's open mark to that seat for the
-whole step, wearing the thumbprint and not the scan box (`BossCue.print`,
-the owner: *instead of tap scanner square box use the thumb control
-visual*), and `FIRE` under the middle column while the hub is lit, **its
+whole step, wearing THE PRESS LAB's drop and not the scan box, as every
+`TAP` does since 15 October 2026 (the thumbprint's circle before it — the
+owner: *instead of tap scanner square box use the thumb control visual*),
+and `FIRE` under the middle column while the hub is lit, **its
 crosshair on the needle's tip** where the needle is drawn, the input delay
 ahead (`governorNeedleCircle`) — *the aim for cannon indicator must rotate
 with the needle* — so a shot fired as it crosses the cannon's column leaves

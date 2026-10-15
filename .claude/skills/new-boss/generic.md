@@ -151,12 +151,13 @@ item naming the rule, never a fix made in passing.
   themselves in `mark-spots.ts`) and its verdict by `drawVerdictRing`, so a
   boss that already uses them has the ring, and a new one gets it for
   nothing. A mark drawn some other way gets a small ring on the finger.
-- **A hold asks with a red circle and a thumbprint, never a scan box**,
-  generic, 2 October 2026, on THE OCULUS and *in general*: *is there no
-  standard visual we have already? i expect some red circle like, no scan
-  rectangle box. maybe as a symbol a thumb fingerprint in the middle.* Every
-  `HOLD` cue draws `drawHoldMark` (`render/src/hold-mark.ts`) through
-  `cue-helper.ts`, and `boss-cue-draw.ts` leaves the target lock off it.
+- **A hold asks with the HOLD LAB's drop and a tap with THE PRESS LAB's,
+  never a scan box and never a word** — generic, 2 October 2026, on THE
+  OCULUS and *in general*: *no scan rectangle box*; a red circle with a
+  thumbprint until the drops took its place (13 and 15 October 2026: *they
+  should follow our standard tap control visuals*). Every `HOLD` cue draws
+  `drawSoakHold` and every `TAP` cue `drawPressDrop` through `cue-helper.ts`,
+  and `boss-cue-draw.ts` leaves the target lock off both.
 - **Every mark shows its gesture: a pull its way, a shot its target, a
   shield or a suck its button**, 29 September 2026, for all bosses: *we use
   always the visualization we have of the direction, not just rounded red

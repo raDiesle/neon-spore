@@ -2,6 +2,7 @@ import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
 import { buildBoss, buildQueue, NETTLE_SCRIPT } from "@neon-spore/content";
 import {
   createWorld,
+  type InstarGesture,
   type NettleState,
   NO_BEARING,
   NOT_DONE,
@@ -12,6 +13,7 @@ import {
   type World,
 } from "@neon-spore/sim";
 import { asksGrab } from "../src/boss-cue-shape.js";
+import { saysTap } from "../src/handle-word.js";
 import { INSTAR_WORDS } from "../src/instar-marks.js";
 import type { ViewRole } from "../src/layout.js";
 import { PALETTE } from "../src/palette.js";
@@ -184,9 +186,10 @@ describe("THE NETTLE's body", () => {
     for (const cursor of STEPS) {
       const at = (role: ViewRole) => frame(role, (w) => acting(w, cursor));
       const marks = NETTLE_SCRIPT[cursor]?.marks ?? [];
-      // A pull, a swipe or a turn says no word on its own seat (`asksGrab`).
-      const ask = (seat: string) =>
-        marks.filter((m) => m.seat === seat && !asksGrab(INSTAR_WORDS[m.gesture])).length;
+      // A pull, a swipe or a turn says no word on its own seat (`asksGrab`), nor a tap (`saysTap`).
+      const says = (g: InstarGesture): boolean =>
+        !asksGrab(INSTAR_WORDS[g]) && !saysTap(INSTAR_WORDS[g].word);
+      const ask = (seat: string) => marks.filter((m) => m.seat === seat && says(m.gesture)).length;
       const bright = (role: ViewRole) => count(at(role).text, PALETTE.text);
       expect(count(at("p1").text, ROCK)).toBe(count(at("p2").text, ROCK));
       expect(Math.sign(bright("p1") - bright("p2"))).toBe(Math.sign(ask("p1") - ask("p2")));

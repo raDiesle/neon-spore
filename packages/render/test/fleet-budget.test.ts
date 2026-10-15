@@ -207,7 +207,7 @@ const BUDGETS: Readonly<Record<"p1" | "p2", Readonly<Record<"mid" | "hit", Budge
       // Nine fewer than the pilot's: five hulls, their spines and their scars
       // are the whole of what this seat is not shown (`fleet-hulls.ts`). Six
       // more since 2 October 2026: the navigator's `HOLD` wears a red circle
-      // with a thumbprint (`hold-mark.ts`) — the ring's glow, five ridges and
+      // with a thumbprint — the ring's glow, five ridges and
       // the loop, one fill and one path — in place of the scan box. Since 13
       // October 2026 that is the HOLD LAB's drop instead (`soak-hold.ts`): its
       // calling halo and two ripples, the slime's layers and its clip, so the

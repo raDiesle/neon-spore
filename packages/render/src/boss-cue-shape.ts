@@ -139,13 +139,6 @@ export interface BossCue {
    */
   rubs?: { turns: number; done: number; held?: boolean };
   /**
-   * **A `TAP` that wears the thumbprint** in place of the scan box: `HOLD`'s
-   * red circle (`hold-mark.ts`), drawn by `cue-helper.ts`. THE GOVERNOR's
-   * marks, the owner, 6 October 2026: *instead of tap scanner square box use
-   * the thumb control visual.*
-   */
-  print?: boolean;
-  /**
    * **A `HOLD` whose drop the boss draws itself** (`soak-hold.ts`), with the
    * simulation's thumb and fill and the partner's dimmed, so the cue draws
    * none — the cue's own drop knows nothing of the hold: it calls under a

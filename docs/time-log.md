@@ -42091,3 +42091,16 @@ Bottleneck: a fresh worktree's first read of 4,000 files, which no figure saw.
 Bottleneck: finding a frame with a TAP body up in it.
 
 *Measured: 10 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
+
+## 2026-10-15 — every tap on the field is THE PRESS LAB's drop
+
+- reading: 10 min. The queue entry, `cue-helper.ts`, how HOLD and RUB went
+  in, who still draws a tap: the cue, THE INSTAR's ring, THE LAMPREY's tooth.
+- writing: 15 min. The `press` helper, `saysTap`, the drop in the INSTAR
+  marks and the tooth, `print` and `hold-mark.ts` gone, the roll-out test.
+- looking: 5 min. One frame of THE GOVERNOR, cropped on its mark.
+- friction: 0 min.
+- landing: 10 min. Four tests that counted the old tap's white, the
+  catalogue, `check:fast`, `land`.
+
+Bottleneck: the frame tests that counted a tap glyph's white as a word.

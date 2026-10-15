@@ -88,8 +88,8 @@ export const MARK_GROUP: HelperGroup = {
       seat: "the seat asked to hold",
       says:
         "Keep your thumb here: the HOLD LAB's drop, the pull's sibling, and no " +
-        "word. The old red ring with a thumbprint is left only on a print TAP.",
-      source: "soak-hold.ts, rub-drop.ts, hold-mark.ts",
+        "word. The old red ring with a thumbprint is gone from every mark.",
+      source: "soak-hold.ts, rub-drop.ts, press-drop.ts",
       pose: "BULB QUEEN · HELD",
       role: "p1",
       lookAt: "the drop on the held mark",

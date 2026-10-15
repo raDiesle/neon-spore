@@ -1,6 +1,7 @@
 import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
 import { emberEither, emberHues, paintEmber, RING_MIN } from "../src/aim-ember.js";
 import type { BossCue } from "../src/boss-cue-shape.js";
+import { drawCueText } from "../src/boss-cue-text.js";
 import {
   AIM_LOOK,
   cueAim,
@@ -9,6 +10,7 @@ import {
   drawCueHelper,
   markIsHere,
 } from "../src/cue-helper.js";
+import { saysTap, tapsAsked } from "../src/handle-word.js";
 import { PALETTE } from "../src/palette.js";
 import { drawPullKnob } from "../src/pull-knob.js";
 import { drawRubZigzag, rubSway } from "../src/rub-zigzag.js";
@@ -180,12 +182,36 @@ describe("a hold's drop", () => {
     expect(calls.some((c) => c.startsWith("ellipse("))).toBe(false);
     expect(calls.some((c) => c.startsWith("strokeRect(") || c.startsWith("rect("))).toBe(false);
   });
+});
 
-  it("is still the thumbprint's circle on a tap that asks for a print", () => {
+describe("a tap's drop", () => {
+  it("stands in the scan frame's place: THE PRESS LAB's drop, and no box", () => {
+    expect(cueHelper("TAP")).toBe("press");
+    expect(cueHelper("TAP TAP")).toBe("press");
+    expect(markIsHere(cue("TAP", 100, 200, { kind: "PRESS" }))).toBe(true);
     const calls = log((ctx) =>
-      drawCueHelper(ctx, cue("TAP", 100, 200, { kind: "PRESS", print: true }), HULL, 0),
+      drawCueHelper(ctx, cue("TAP", 100, 200, { kind: "PRESS" }), HULL, 0.2),
     );
-    expect(calls.some((c) => c.startsWith("ellipse("))).toBe(true);
+    expect(calls.some((c) => c.startsWith("stroke("))).toBe(true);
+    expect(calls.some((c) => c.startsWith("ellipse("))).toBe(false);
+    expect(calls.some((c) => c.startsWith("strokeRect(") || c.startsWith("rect("))).toBe(false);
+  });
+
+  it("bands a terrace for every tap past the first: TAP TAP has one more than TAP", () => {
+    const strokes = (word: string) =>
+      log((ctx) => drawCueHelper(ctx, cue(word, 100, 200, { kind: "PRESS" }), HULL, 0.2)).filter(
+        (c) => c.startsWith("stroke("),
+      ).length;
+    expect(strokes("TAP TAP")).toBe(strokes("TAP") + 1);
+    expect(tapsAsked("TAP TAP")).toBe(2);
+    expect(tapsAsked("TAP")).toBe(1);
+  });
+
+  it("says no word, as a hold says none", () => {
+    const why = cue("TAP", 100, 200, { kind: "PRESS", why: "TO OPEN IT" });
+    expect(log((ctx) => drawCueText(ctx, why, 0))).toEqual([]);
+    expect(saysTap("TAP TAP")).toBe(true);
+    expect(saysTap("TAPE")).toBe(false);
   });
 });
 

@@ -38,11 +38,13 @@ function picture(gesture: InstarGesture): string {
 }
 
 describe("THE INSTAR's glyphs", () => {
-  const drawn = INSTAR_GESTURES.filter((g) => g !== "shoot");
+  // A shoot mark is its crosshair and a tap THE PRESS LAB's drop (`press-drop.ts`), never a ring.
+  const drawn = INSTAR_GESTURES.filter((g) => g !== "shoot" && g !== "tap");
 
-  it("draws something for every gesture but the shoot mark's", () => {
+  it("draws something for every gesture but the shoot mark's and the tap's", () => {
     for (const g of drawn) expect(picture(g), g).not.toBe("");
     expect(picture("shoot")).toBe("");
+    expect(picture("tap")).toBe("");
   });
 
   it("draws no gesture's glyph with another's branch", () => {

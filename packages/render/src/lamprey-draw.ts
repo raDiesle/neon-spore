@@ -132,8 +132,8 @@ function drawHead(
     const worker = lampreyWorker(s);
     if (worker !== null && lampreyAsks(s) === "teeth") {
       const full = showsLampreyHand(l.role, worker);
-      const along = s.toothTaps / lampreyTapsWanted(s);
-      drawLampreyToothMark(g, p, s.litTooth, full, along, time);
+      const taps = { done: s.toothTaps, times: lampreyTapsWanted(s) };
+      drawLampreyToothMark(g, p, s.litTooth, full, taps, time);
     }
     g.restore();
   }

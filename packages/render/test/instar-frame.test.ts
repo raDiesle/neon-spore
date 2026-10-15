@@ -3,7 +3,7 @@ import { INSTAR_SCRIPT } from "@neon-spore/content";
 import { type InstarGesture, type InstarState, step, type World } from "@neon-spore/sim";
 import { asksGrab } from "../src/boss-cue-shape.js";
 import { Effects } from "../src/effects.js";
-import { saysHold } from "../src/handle-word.js";
+import { saysHold, saysTap } from "../src/handle-word.js";
 import { rgba } from "../src/hex.js";
 import { INSTAR_WORDS } from "../src/instar-marks.js";
 import { INSTAR_FLIGHT_ENDS } from "../src/instar-shape.js";
@@ -159,9 +159,16 @@ describe("THE INSTAR's body", () => {
     for (const cursor of STEPS) {
       const at = (role: ViewRole) => frame(role, (w) => asking(w, cursor));
       const marks = INSTAR_SCRIPT[cursor]?.marks ?? [];
-      // A pull, a swipe or a turn says no word on its own seat (`asksGrab`), nor a hold (`saysHold`).
+      // A pull, a swipe or a turn says no word on its own seat (`asksGrab`), nor a hold
+      // (`saysHold`) or a tap (`saysTap`).
+      // A turn says none either, but its ring wears the hooked arc in the words' white
+      // (`instar-glyphs.ts`), so it is as bright as a word.
       const says = (g: InstarGesture): boolean =>
-        !asksGrab(INSTAR_WORDS[g]) && !saysHold(INSTAR_WORDS[g].word);
+        g === "turn" ||
+        g === "turnBack" ||
+        (!asksGrab(INSTAR_WORDS[g]) &&
+          !saysHold(INSTAR_WORDS[g].word) &&
+          !saysTap(INSTAR_WORDS[g].word));
       const ask = (seat: string) => marks.filter((m) => m.seat === seat && says(m.gesture)).length;
       const bright = (role: ViewRole) => count(at(role).text, PALETTE.text);
       expect(count(at("p1").text, PLATE)).toBe(count(at("p2").text, PLATE));

@@ -432,7 +432,7 @@ const EYE_BUDGETS: Readonly<Record<string, readonly Budget[]>> = {
       // path of its own (`tether-twist.ts`). `save` and `new Path2D` moved
       // with it and `fill` lost the old knot's dot.
       // **Six more on 2 October 2026**: the `HOLD` on the handle wears a red
-      // circle with a thumbprint (`hold-mark.ts`) in place of the scan box —
+      // circle with a thumbprint in place of the scan box —
       // the ring's glow, five ridges and the loop; `save` and `new Path2D`
       // one each.
       stroke: 181,

@@ -2,11 +2,12 @@ import type { Color } from "@neon-spore/sim";
 import { emblem } from "./action-face.js";
 import { EMBER_REACH, paintEmber } from "./aim-ember.js";
 import { type BossCue, cueShot } from "./boss-cue-shape.js";
-import { drawHoldMark, HOLD_MARK_R } from "./hold-mark.js";
+import { tapsAsked } from "./handle-word.js";
 import { PALETTE } from "./palette.js";
+import { drawPressDrop } from "./press-drop.js";
 import { drawRubDrop } from "./rub-drop.js";
 import { P1_SKIN, type SeatSkin } from "./seat-skin.js";
-import { drawSoakHold } from "./soak-hold.js";
+import { drawSoakHold, HOLD_MARK_R } from "./soak-hold.js";
 
 /**
  * **The helper a cue's word wears on the field**, the same on every boss —
@@ -31,7 +32,7 @@ import { drawSoakHold } from "./soak-hold.js";
  *   its target (THE WARDEN's eye, THE BATON's bead), and is its own aim
  *   (`cueAim`); one at the hull with no `aim` stays there and draws no
  *   crosshair, and `test/cue-aim.test.ts` lists the bosses still owed one.
- *   The red is the red of every mark asking a thumb (`hold-mark.ts`), the
+ *   The red is the red every mark asking a thumb wore (the hold's old circle), the
  *   owner's call over #34's *never an ammunition colour*: the colour the
  *   bolt wants is still never named.
  * - **`SHIELD`, `SUCK`**: the panel's own button face inside the scanner
@@ -40,24 +41,29 @@ import { drawSoakHold } from "./soak-hold.js";
  * - **`HOLD`**: the HOLD LAB's drop, SOAK (`soak-hold.ts`), and **no scanner
  *   box and no word** — the owner, 13 October 2026: *it should be our new
  *   standard button … and why it still stays text "hold"*. It was a red
- *   circle with a thumbprint in it until then (`hold-mark.ts`). The drop is
+ *   circle with a thumbprint in it until then. The drop is
  *   the frame there, as the crosshair is a shot's (`markIsHere`). A boss that
  *   draws the drop itself, with the hold's thumb and fill, says so
  *   (`BossCue.ownDrop`), and the cue draws none.
- *   A `TAP` with `BossCue.print` still wears the thumbprint's circle — THE
- *   GOVERNOR's marks, the owner, 6 October 2026: *instead of tap scanner
- *   square box use the thumb control visual.*
  * - **`RUB`**: THE RUB LAB's drop with ZIGZAG on it (`rub-drop.ts`), a stroke
  *   for every turn the cue's `rubs` asks, lit as they are made, and no scanner
  *   box and no word either — the owner, 14 October 2026: *apply "zigzag" …
  *   to all usages in game*. It was a red line with an arrow sliding in at it
  *   from each side until then (the owner's of 3 October 2026).
  *
+ * - **`TAP`**: THE PRESS LAB's drop (`press-drop.ts`), calling *tap tap*,
+ *   with a terrace in it for each tap the word asks (`TAP TAP` is two), and
+ *   no scanner box and no word — the owner, 15 October 2026, of every tap in
+ *   the game: *they should follow our standard tap control visuals*. THE
+ *   GOVERNOR's taps wore the HOLD's thumbprint circle until then
+ *   (`BossCue.print`, the owner's of 6 October 2026), and every other tap
+ *   only its word in the scan box.
+ *
  * Pulls are not here: a pull is a handle, and its arrow is the knob's
  * (`pull-knob.ts`, `way-arrow.ts`).
  */
 
-export type CueHelper = "aim" | "guard" | "intake" | "hold" | "rub";
+export type CueHelper = "aim" | "guard" | "intake" | "hold" | "rub" | "press";
 
 /** Which helper a word asks for, by its first word: `FIRE ON ZERO` still fires. */
 export function cueHelper(word: string): CueHelper | null {
@@ -67,12 +73,8 @@ export function cueHelper(word: string): CueHelper | null {
   if (verb === "SUCK") return "intake";
   if (verb === "HOLD") return "hold";
   if (verb === "RUB") return "rub";
+  if (verb === "TAP") return "press";
   return null;
-}
-
-/** The helper a cue wears: a `print` is the thumbprint whatever its word (`BossCue.print`). */
-function helperOf(cue: BossCue): CueHelper | null {
-  return cue.print === true ? "hold" : cueHelper(cue.word);
 }
 
 /** The crosshair's ring, in the cue frame's shorter half-extent. */
@@ -180,10 +182,10 @@ export function holdDropR(frame: { halfW: number; halfH: number; dropR?: number 
 /** A `RUB` cue that does not say its turns: THE RUB LAB's own first ask, none made. */
 const NO_RUBS: { turns: number; done: number; held?: boolean } = { turns: 8, done: 0 };
 
-/** Whether the cue wears a mark of its own that stands in the scan frame's place: a hold's drop or a rub's. */
+/** Whether the cue wears a mark of its own that stands in the scan frame's place: a hold's drop, a rub's or a press's. */
 export function markIsHere(cue: BossCue): boolean {
-  const helper = helperOf(cue);
-  return helper === "hold" || helper === "rub";
+  const helper = cueHelper(cue.word);
+  return helper === "hold" || helper === "rub" || helper === "press";
 }
 
 /**
@@ -204,7 +206,7 @@ export function drawCueHelper(
   skin: SeatSkin = P1_SKIN,
   from: { x: number; y: number } = { x: cue.x, y: hullY },
 ): void {
-  const helper = helperOf(cue);
+  const helper = cueHelper(cue.word);
   if (helper === null) return;
   const short = Math.min(cue.halfW, cue.halfH);
   const breath = cueBreath(time);
@@ -215,9 +217,11 @@ export function drawCueHelper(
     return;
   }
   if (helper === "hold") {
-    if (cue.ownDrop === true) return;
-    if (cueHelper(cue.word) === "hold") drawSoakHold(ctx, cue, holdDropR(cue), { time });
-    else drawHoldMark(ctx, cue.x, cue.y, short * HOLD_MARK_R, time, cue.tint);
+    if (cue.ownDrop !== true) drawSoakHold(ctx, cue, holdDropR(cue), { time });
+    return;
+  }
+  if (helper === "press") {
+    drawPressDrop(ctx, cue, holdDropR(cue), { time, times: tapsAsked(cue.word), done: 0 });
     return;
   }
   if (helper === "rub") {

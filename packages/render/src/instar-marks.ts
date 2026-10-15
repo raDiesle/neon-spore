@@ -13,7 +13,7 @@ import {
 import type { CueKind } from "./boss-cue.js";
 import { asksGrab } from "./boss-cue-shape.js";
 import { drawVerdictRing, type GripVerdict } from "./grip-verdict.js";
-import { saysHold } from "./handle-word.js";
+import { saysHold, saysTap } from "./handle-word.js";
 import { instarMarkPoint, instarMarkRadius } from "./instar-place.js";
 import { drawInstarPull, instarMarkPulls, instarPullSpan } from "./instar-pull.js";
 import { drawInstarRing } from "./instar-ring.js";
@@ -23,6 +23,7 @@ import { drawInstarDone, instarAwaited, instarTogetherLeft } from "./instar-toge
 import { drawInstarWord, type MarkRoom } from "./instar-word.js";
 import type { Layout, ViewRole } from "./layout.js";
 import { drawMarkHalo, drawMarkTheirs, drawMarkWait } from "./mark-feedback.js";
+import { drawPressDrop } from "./press-drop.js";
 import { drawSoakHold } from "./soak-hold.js";
 import { instarMarkIsMine } from "./view-role-clocks-b.js";
 
@@ -169,8 +170,8 @@ export function drawInstarMarks(
       const held = (s.thumbs[i] ?? 0) !== 0;
       const { kind, word } = instarMarkWord(mark, role);
       // A pull, a swipe or a turn of its own seat says nothing (`asksGrab`),
-      // nor a hold (`saysHold`); the partner's mark still names whose it is.
-      const says = (kind === undefined || !asksGrab({ kind })) && !saysHold(word);
+      // nor a hold (`saysHold`) or a tap (`saysTap`); the partner's mark still names whose it is.
+      const says = (kind === undefined || !asksGrab({ kind })) && !saysHold(word) && !saysTap(word);
       if (instarMarkPulls(mark.gesture)) {
         // The PULL LAB's knob and channel, and the window round where it is grabbed (`instar-pull.ts`).
         if (mine) drawMarkHalo(ctx, at.x, at.y, r, time);
@@ -184,12 +185,17 @@ export function drawInstarMarks(
       }
       // A shoot mark's light is the part's own red glow (`instar-weak.ts`), not a halo over it.
       if (mine && mark.gesture !== "shoot") drawMarkHalo(ctx, at.x, at.y, r, time);
-      // A hold is the HOLD LAB's drop, filling as the beats are held (`soak-hold.ts`).
+      // A hold is the HOLD LAB's drop, filling as the beats are held (`soak-hold.ts`),
+      // and a tap THE PRESS LAB's, a terrace a tap (`press-drop.ts`).
+      const drop = mark.gesture === "hold" || mark.gesture === "tap";
       if (mark.gesture === "hold") {
         drawSoakHold(ctx, at, r, { time, held, fill: along, theirs: !mine });
+      } else if (mark.gesture === "tap") {
+        const done = s.progress[i] ?? 0;
+        drawPressDrop(ctx, at, r, { time, times: mark.need, done, theirs: !mine });
       } else drawInstarRing(ctx, at.x, at.y, r, mark, mine, held, along, time, awaited);
       if (!mine) drawMarkTheirs(ctx, at.x, at.y, r, time);
-      if (mark.gesture === "hold" && !mine) drawMarkWait(ctx, at.x, at.y, r, time);
+      if (drop && !mine) drawMarkWait(ctx, at.x, at.y, r, time);
       if (says) drawInstarWord(ctx, l, word, at.x + side * off, at.y, side, mine, kind, room);
     }
     drawVerdict(ctx, verdicts, i, at.x, at.y, r);
