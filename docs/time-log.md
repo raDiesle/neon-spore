@@ -42106,3 +42106,13 @@ Bottleneck: finding a frame with a TAP body up in it.
 Bottleneck: the frame tests that counted a tap glyph's white as a word.
 
 *Measured: 24 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-15 — the cannon's gunsight a third fainter
+
+- reading: 0 min. `cannon-column.ts`, found by name.
+- writing: 0 min. Three gradients' stops lowered, the comment.
+- looking: 5 min. `bun run frames HEAD --wave 1 --seat p1` and a pair.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, `land`.
+
+Bottleneck: the frames run's two builds, 144 s of a five-minute lane.

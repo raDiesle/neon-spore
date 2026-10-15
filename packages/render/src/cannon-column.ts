@@ -21,6 +21,10 @@ import type { SeatSkin } from "./seat-skin.js";
  * what a bolt is, and the sight must never be mistaken for one. It brightens
  * on the beat and on nothing else.
  *
+ * **Quieter, not smaller.** The owner, 15 October 2026: *slightly reduce the
+ * visual of the vertical line thing above the cannon tile slot, so it does
+ * look some more subtle* — every layer about a third fainter, same shapes.
+ *
  * Three fills a frame and no `save`: the wash, the glow, then rails, line
  * and ticks as one path under one gradient. Every gradient depends on the
  * layout and the seat only.
@@ -67,8 +71,8 @@ export function drawCannonColumn(
     key,
     fade([
       [0, 0],
-      [0.6, 0.06],
-      [1, 0.18],
+      [0.6, 0.04],
+      [1, 0.12],
     ]),
   );
   ctx.fillRect(x - t / 2, top, t, l.gridHeight);
@@ -80,8 +84,8 @@ export function drawCannonColumn(
     fade(
       [
         [0, 0],
-        [0.55, 0.06],
-        [1, 0.22],
+        [0.55, 0.04],
+        [1, 0.15],
       ],
       lit,
     ),
@@ -108,8 +112,8 @@ export function drawCannonColumn(
     key,
     fade([
       [0, 0],
-      [0.45, 0.26],
-      [1, 0.8],
+      [0.45, 0.17],
+      [1, 0.55],
     ]),
   );
   ctx.fill();
