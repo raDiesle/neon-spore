@@ -42077,3 +42077,5 @@ Bottleneck: none; the row lookup was already fixed, only the route was missing.
 - landing: 10 min. Two `check:fast` runs in a row, the commit, `land`.
 
 Bottleneck: a fresh worktree's first read of 4,000 files, which no figure saw.
+
+*Measured: 5 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*

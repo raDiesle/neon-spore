@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-15 · 419860f07 — The INDEX.md drift sweep reads its tree before the timed case
+
+`check:fast` in a new lane went red once on the drift sweep with a timeout and green alone straight after. The case read 4,000 files inside a 400 ms figure whose timeout floors at 5 s, and a fresh worktree's first read of them took 12 s; the second took 0.9 s and the check itself 0.15 s. The read now happens in `beforeAll` under the flat hang guard, as the doc-drift sweep already does, and the figure times only the check.
+
 ## 2026-10-15 · efb24ceaa — `bun run shot --controls "ON THE FIELD"` opens a room of CONTROLS
 
 `--row "THE BLISTER'S COMBO"` already found an ON THE FIELD card, but nothing said how to get there: a lane asked for `ctlpage=field`, which is the tab bar's own name and not the URL's `sub=field`, and `--tab CONTROLS` looked for a top door that is really a room of DOCUMENTATION. `--controls` takes a room by its button's words — PANELS, ON THE FIELD, EVERY WAVE, HELPERS — and opens it by URL, the usage line says the route, and a missed row names it.
