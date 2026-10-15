@@ -9,6 +9,14 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-15 · 57e7373fe — 168 regular waves, eight in front of each boss that waited at the end
+
+The 21 bosses that stood in a row after THE HUSK's block each close a review block now: LURES RETURN … LURES SUMMIT before THE HASP, THROBS RETURN before THE RATCHET, and on through the things the game taught, to the crawlers before THE HYDRA. Every boss past the tutorial now has eight regular waves in front of it; the game is 564 waves, which AUTO plays in 4 h 35 min and a pair in about 9 h. The new waves went into the perf baseline unweighed. A look the owner asked for by name.
+
+## 2026-10-15 · 836c81359 — `bun run waves:review` composes a review block in front of each waiting boss
+
+There are more bosses than things to teach, so 21 bosses stood in a row at the end. A review block is eight regular waves with no intro, themed on a thing the game already taught — the lure first, then the throb, in the order they were taught — composed with that block's steps one notch further on, starting a little above the block before's gentlest wave. Its first wave is not a variant, so the director folds the rest under it, and boss placement counts it as a block: the boss behind it closes it.
+
 ## 2026-10-15 · 1b35912f3 — Every contour on the field is built without a throwaway array, and the hull's spline once a frame
 
 A performance review of every wave found the hull's 140 curves computed and handed to the canvas twice a frame, on every wave — once for the rim and once for the body it closes — and every organic contour building a flat array of its control points only to read it straight back off. The hull's body is now a copy of the rim's path, and `catmullRomEach` hands each curve to the path as it is worked out. Spline work in the render loop fell by about 70%, about a tenth of the frame's JavaScript; alternating Chrome runs put every measured wave 3-10% under main. Nothing drawn moved: 1,408 frames over 44 waves hash byte-identical through Skia, and `hull-outline.test.ts` keeps the hull's curves to one build.

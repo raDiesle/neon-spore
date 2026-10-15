@@ -42301,3 +42301,5 @@ runs, and only an interleaved A/B in one browser could be trusted.
 - landing: 15 min. `check:fast`, two commits, `land`.
 
 Bottleneck: landing — the full check runs once for 168 waves that composed in seconds.
+
+*Measured: 16 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
