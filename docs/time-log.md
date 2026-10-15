@@ -42525,3 +42525,15 @@ Bottleneck: looking — each breach needed its own trace to tell a hand that
 was wrong from a walk that could not get there in time.
 
 *Measured: 10 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-15 — A written note on every wave
+
+- reading: 5 min. The wave's type, the serializer, WAVE SETTINGS' fields.
+- writing: 15 min. `Wave.note` beside `variant` in a file of their own, the
+  field, its save, the table's Notes, two files cut out at their limits.
+- looking: 5 min. The field in a director served from this tree.
+- friction: 0 min.
+- landing: 5 min.
+
+Bottleneck: writing — two files at their length limit had to be cut before
+one field could be added to each.

@@ -146,6 +146,12 @@ export function waveTable(
     if (row.wave.bossType === "special") kind.title = "special boss";
     const notes = document.createElement("td");
     notes.className = "wt-notes";
+    if (row.wave.note) {
+      const n = document.createElement("span");
+      n.className = "wt-note wt-written";
+      n.textContent = `✎ ${row.wave.note}`;
+      notes.append(n);
+    }
     for (const f of row.flags) {
       const n = document.createElement("span");
       n.className = `wt-note wt-${f.level}`;

@@ -1,11 +1,3 @@
-import {
-  CONTROL_SETS,
-  type ControlSetId,
-  controlSet,
-  DEFAULT_CONTROL_SET_ID,
-} from "@neon-spore/content";
-import { bindBossTypeField } from "./boss-type-field.js";
-import { renderControlSetNote } from "./control-set-note.js";
 import { bindRailArrival } from "./rail-arrive.js";
 import { moveWave, rowDrag } from "./rail-drag.js";
 import { bindRailFilter } from "./rail-filter.js";
@@ -16,6 +8,7 @@ import { renderRows } from "./rail-list.js";
 import { bindWaveSteps } from "./rail-steps.js";
 import { bindRailSymbols } from "./rail-symbols.js";
 import { copyWave, currentWave, emptyWave, type Store } from "./state.js";
+import { bindWaveSettingsFields } from "./wave-settings-fields.js";
 
 /**
  * The wave list and the fields every wave must carry.
@@ -39,10 +32,6 @@ export interface RailPanel {
 
 export function bindRail(store: Store, onSelect: () => void, onEdit: () => void): RailPanel {
   const list = document.getElementById("waveList");
-  const name = document.getElementById("fName") as HTMLInputElement | null;
-  const controlsField = document.getElementById("fControlSet") as HTMLSelectElement | null;
-  const controlsWhy = document.getElementById("fControlSetWhy");
-  const controlsRoster = document.getElementById("fControlSetRoster");
   const waveCopyBtn = document.getElementById("waveCopy") as HTMLButtonElement | null;
   const waveDelBtn = document.getElementById("waveDel") as HTMLButtonElement | null;
   // The two arrows in the tab bar over this column, and the two keys that are
@@ -64,19 +53,12 @@ export function bindRail(store: Store, onSelect: () => void, onEdit: () => void)
   const folded = (head: number): boolean =>
     !filter.active() && !symbols.active() && !folds.open(store.waves[head]?.id ?? "");
 
-  // Over the control set, for the reason it is over it in the markup: which
-  // kind of boss this is, on the waves that have one (`boss-type-field.ts`).
-  const bossTypeField = bindBossTypeField(document.getElementById("bossTypeField"));
-
-  if (controlsField) {
-    controlsField.replaceChildren();
-    for (const set of CONTROL_SETS) {
-      const opt = document.createElement("option");
-      opt.value = set.id;
-      opt.textContent = set.name;
-      controlsField.appendChild(opt);
-    }
-  }
+  // NAME, NOTE, the kind of boss and the control set (`wave-settings-fields.ts`).
+  const fields = bindWaveSettingsFields(store, {
+    select: onSelect,
+    edit: onEdit,
+    rename: () => renderList(),
+  });
 
   /** The one way a row changes which wave is open, pressed or opened. */
   const select = (i: number): void => {
@@ -108,14 +90,7 @@ export function bindRail(store: Store, onSelect: () => void, onEdit: () => void)
 
   const renderFields = (): void => {
     const wave = currentWave(store);
-    if (name) name.value = wave?.name ?? "";
-    const active = controlSet(wave?.controls);
-    if (controlsField) controlsField.value = active.id;
-    if (controlsWhy) controlsWhy.textContent = active.why;
-    // What the choice puts in their hands, beside the choice itself.
-    renderControlSetNote(controlsRoster, active);
-
-    bossTypeField.render(wave);
+    fields.render();
 
     // A boss wave cannot be copied or deleted (see the two guards in
     // `bindAction`, the actual enforcement). `setBossGuard`, below, is the
@@ -130,40 +105,6 @@ export function bindRail(store: Store, onSelect: () => void, onEdit: () => void)
     renderFields();
     steps.render();
   };
-
-  // Typing a name changes the list but must not restart the stage — only the
-  // shape of a wave does that, never its prose.
-  name?.addEventListener("input", () => {
-    const wave = currentWave(store);
-    if (!wave || !name) return;
-    wave.name = name.value;
-    store.dirty = true;
-    renderList();
-    onEdit();
-  });
-
-  // A control set is a shape choice, the same weight as the boss: it changes
-  // what the band would draw, not just what a wave says about itself. So it
-  // goes through `onSelect` (the caller's full refresh) rather than `onEdit`
-  // the way `name` does.
-  controlsField?.addEventListener("change", () => {
-    const wave = currentWave(store);
-    if (!wave || !controlsField) return;
-    const picked = controlsField.value as ControlSetId;
-    wave.controls = picked === DEFAULT_CONTROL_SET_ID ? undefined : picked;
-    store.dirty = true;
-    onSelect();
-  });
-
-  // Through `onEdit`, unlike the panel: the kind of boss is what the wave says
-  // about itself and changes nothing the stage draws.
-  bossTypeField.onChange((type) => {
-    const wave = currentWave(store);
-    if (!wave?.boss) return;
-    wave.bossType = type;
-    store.dirty = true;
-    onEdit();
-  });
 
   bindAction("waveAdd", () => {
     store.waves.push(emptyWave(store.waves.map((w) => w.id)));

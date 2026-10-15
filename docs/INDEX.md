@@ -1054,6 +1054,7 @@ by hand never moves.
 | `packages/content/src/wave-marks.ts` | **Which of the four marks a wave carries** — a boss, a panel, a guide, a fault |
 | `packages/content/src/wave-regular.ts` | **Which waves are regular** — no boss, no guide, nothing new (`isRegularWave`), and what a wave is the first to carry (`waveIntroduces`); the director's ≡ press filters by it |
 | `packages/content/src/wave-pressure.ts` | **A wave's pressure** (`wavePressure`): the curriculum's difficulty score, the most an arrival costs inside eight beats — printed on every row of the director's wave list |
+| `packages/content/src/wave-authoring.ts` | **A wave's fields for the director alone** — the game never reads them |
 | `packages/content/src/creatures-hazards.ts` | **The arrivals with nothing alive in them**: the five speed tiers, THE VEER, the torch — and THE FENCE |
 | `packages/content/src/creatures-split.ts` | The three bodies **one seat cannot see whole** that wear nothing to do it — the dart, the wisp and the ghost |
 | `packages/content/src/mechanics-split.ts` | The five bestiary rows for bodies one seat cannot see whole — the lure, the dart, the veil, the wisp and the ghost |
@@ -3590,6 +3591,8 @@ by hand never moves.
 | `tools/director/src/waves-doc-page.ts` | DOCUMENTATION › WAVES: how the waves are generated, and every wave with its numbers in a row — the owner |
 | `tools/director/src/waves-table-rows.ts` | DOCUMENTATION › WAVES › EVERY WAVE, as rows: every number the measured page gives a wave |
 | `tools/director/src/waves-table.ts` | DOCUMENTATION › WAVES › EVERY WAVE, drawn live — the owner, 15 October 2026 |
+| `tools/director/src/wave-note-field.ts` | WAVE SETTINGS › NOTE: the author's note on a wave — the owner, 15 October 2026: *some note column |
+| `tools/director/src/wave-settings-fields.ts` | WAVE SETTINGS' fields over the open wave: NAME, NOTE, the kind of boss and the control set |
 | `tools/director/src/wordings-glossary.ts` | The words on the WORDINGS page that have no one place on the picture — the list under the two labelled screens |
 | `tools/director/src/wordings-page.ts` | DOCUMENTATION → WORDINGS: an ordinary screen with every part of it named |
 | `tools/director/src/wordings-world.ts` | The one ordinary screen the WORDINGS page names things on |

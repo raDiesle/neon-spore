@@ -89,6 +89,8 @@ function serializeWave(wave: Wave): string {
   // Under the name, where a reader of the act file sees it first: this wave
   // folds under the one above it in the director's list (`Wave.variant`).
   if (wave.variant) lines.push("    variant: true,");
+  // The author's own note, with the other field the game never reads.
+  if (wave.note) lines.push(...textField("note", wave.note));
   // Directly under `name`: a wave's prose is its name and what the pair has
   // to be told before it starts.
   if (wave.guide) lines.push(...serializeGuide(wave.guide));

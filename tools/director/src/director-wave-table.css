@@ -102,3 +102,7 @@
 .wave-table .wt-note.wt-info {
   color: var(--dim);
 }
+.wave-table .wt-note.wt-written {
+  color: var(--cyan);
+  white-space: pre-wrap;
+}

@@ -1,6 +1,7 @@
 import type { BossEntry, PodEntry } from "@neon-spore/sim";
 import type { ControlSetId } from "./control-sets.js";
 import type { SceneId } from "./scenes.js";
+import type { WaveAuthoring } from "./wave-authoring.js";
 import type { WaveEntry } from "./wave-entry.js";
 import type { WaveFault } from "./wave-faults.js";
 
@@ -95,7 +96,8 @@ export interface WordedGuide {
   p2: string;
 }
 
-export interface Wave {
+/** `variant` and `note` are the director's alone (`wave-authoring.ts`). */
+export interface Wave extends WaveAuthoring {
   /**
    * The wave's name in code, which never changes.
    *
@@ -114,16 +116,6 @@ export interface Wave {
   id: string;
   /** What a person reads, on the HUD and in the wave list. Renameable. */
   name: string;
-  /**
-   * **Grouped under the wave above it** in the director's wave list; the game
-   * never reads it. The owner, 11 October 2026: the waves that vary one which
-   * introduces something fold under it, so that one stays visible; a wave is
-   * made one by dragging it onto another. A variant belongs to the nearest
-   * wave above it that is not one; play order is list
-   * order. A boss and the first wave are never variants
-   * (`tools/director/src/rail-groups.ts`).
-   */
-  variant?: true;
   /**
    * The help this wave opens on, after its introduction, or nothing.
    *
