@@ -152,6 +152,8 @@ export interface BossCue {
    * thumb and never fills. Still no frame and no word, as every `HOLD`.
    */
   ownDrop?: boolean;
+  /** **The widest a `HOLD` drop may be drawn**, pixels, where less room than the frame (`queenGapR`). */
+  dropR?: number;
   /**
    * **The colour a shot's mark is drawn in**, where the colour is the ask:
    * THE FLUE's levels each want one colour, and a red crosshair or `HOLD`

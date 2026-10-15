@@ -1,5 +1,5 @@
 import { type Creature, type QueenState, queenAsks, type SimConfig } from "@neon-spore/sim";
-import { drawGripRing, drawThrownRing } from "./grip-rings.js";
+import { drawGripRing, drawThrownRing, gripRingReach } from "./grip-rings.js";
 import { handleRadius } from "./handle-draw.js";
 import { hitCircle, type Layout, showsQueenShape } from "./layout.js";
 import { queenMarkCenter } from "./queen-figure.js";
@@ -40,6 +40,33 @@ import { bossOf } from "./touch-field.js";
 
 /** Which mark to ring, relative to the mark's own radius: outside it, clear of the shell's lip. */
 const RING_MUL = 1.55;
+
+/** The farthest the ring asking for `mark` reaches, its breath and line included. */
+export function queenRingReach(mark: { r: number }): number {
+  return gripRingReach(mark.r * RING_MUL);
+}
+
+/** How far past its radius a waiting drop's rim swells, at the top of its squash (`soak-hold.ts`). */
+const DROP_SWELL = 1.1;
+
+/**
+ * The widest drop that stands at `at` clear of both marks' rings at her
+ * `turn`: the cue's drop in the gap between them (`boss-cue-read.ts`), whose
+ * frame-sized one reached over both rings on a 390-wide phone.
+ */
+export function queenGapR(
+  l: Layout,
+  queen: Creature,
+  at: { x: number; y: number },
+  turn: number,
+): number {
+  let room = Number.POSITIVE_INFINITY;
+  for (const side of [-1, 1] as const) {
+    const mark = queenMarkCenter(l, queen, side, turn);
+    room = Math.min(room, Math.hypot(mark.x - at.x, mark.y - at.y) - queenRingReach(mark));
+  }
+  return Math.max(0, room / DROP_SWELL);
+}
 
 /** The queen's body on the field, if she is the boss up. */
 function queenOf(field: Field): Creature | null {

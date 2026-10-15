@@ -12,6 +12,14 @@ import { PALETTE, STROKE } from "./palette.js";
  * is on: a centre, a radius, and whether a thumb is there.
  */
 
+/** How much wider than its radius an asking ring breathes. */
+const BREATHE = 0.08;
+
+/** The farthest an asking ring of radius `r` reaches, its line included. */
+export function gripRingReach(r: number): number {
+  return r * (1 + BREATHE) + STROKE.inner / 2;
+}
+
 /** The ring: breathing until a thumb lands, filled and steady once one has. */
 export function drawGripRing(
   ctx: CanvasRenderingContext2D,
@@ -22,7 +30,7 @@ export function drawGripRing(
   time: number,
 ): void {
   noteMark(ctx, x, y, r);
-  const breathe = held ? 1 : 1 + 0.08 * Math.sin(time * 4);
+  const breathe = held ? 1 : 1 + BREATHE * Math.sin(time * 4);
   const p = new Path2D(circleSubpath(x, y, r * breathe));
   if (held) {
     ctx.save();

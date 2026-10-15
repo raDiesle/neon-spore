@@ -114,6 +114,7 @@ Taught once, by the guide; **no helper on the field** (above).
 |---|---|---|---|
 | `drawGripRing` | `grip-rings.ts` | *put a thumb here*: breathes until a thumb lands, filled and steady once one has | THE QUEEN, THE MIRROR, THE WARDEN, THE MAZE, THE GAUGE and twelve more |
 | `drawGripDial` | `grip-rings.ts` | a hold's beats running out, from the top clockwise | the same |
+| `gripRingReach` | `grip-rings.ts` | how far an asking ring reaches, its breath and line included, for a drop kept clear of it | THE QUEEN |
 | `drawThrownRing` | `grip-rings.ts` | something came off: a ring running out and fading | THE QUEEN, THE MIRROR, THE FLEET |
 | `drawHandleRing`, `DIAL_RADII` | `handle-draw.ts` | the older handle: a ring with a gauge round it. **A pull no longer wears it** — see the knob | the grips that are not pulls |
 | `drawHandleDial` | `handle-draw.ts` | the ring's gauge on its own, round a knob: how much of a pull is in | THE SINEW, THE BALLOON, THE LEDGER |

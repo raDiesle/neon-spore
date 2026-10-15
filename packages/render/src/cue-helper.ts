@@ -166,9 +166,15 @@ export function cueBoxed(cue: BossCue, hullY: number): boolean {
   return AIM_LOOK.boxed || cueAim(cue, hullY) === null;
 }
 
-/** How big a `HOLD` cue's drop is in its frame — what a boss drawing its own (`BossCue.ownDrop`) draws it at. */
-export function holdDropR(frame: { halfW: number; halfH: number }): number {
-  return Math.min(frame.halfW, frame.halfH) * HOLD_MARK_R;
+/**
+ * How big a `HOLD` cue's drop is in its frame — what a boss drawing its own
+ * (`BossCue.ownDrop`) draws it at — never past the cue's own `dropR`.
+ */
+export function holdDropR(frame: { halfW: number; halfH: number; dropR?: number }): number {
+  return Math.min(
+    frame.dropR ?? Number.POSITIVE_INFINITY,
+    Math.min(frame.halfW, frame.halfH) * HOLD_MARK_R,
+  );
 }
 
 /** A `RUB` cue that does not say its turns: THE RUB LAB's own first ask, none made. */

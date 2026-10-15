@@ -16,6 +16,7 @@ import { creatureCenter } from "./creature-place.js";
 import { curtainCorePoints, curtainCoreRadius } from "./curtain-sheet.js";
 import { type Layout, tileCX, tileCY } from "./layout.js";
 import { queenMarkCenter } from "./queen-figure.js";
+import { queenGapR } from "./queen-grip.js";
 import { queenTurn } from "./queen-surface.js";
 
 /**
@@ -187,11 +188,15 @@ export function queenCues(
     out.push({ ...markAt(1, "PRESS", "TAP", tileCX(l, queen.col), y, l, 41), why: "TO OPEN IT" });
   } else if (gesture === "hold" && q.openBeat !== -1) {
     const y = queenMarkCenter(l, queen, 1).y;
+    const hold = markAt(1, "HOLD", "HOLD", tileCX(l, queen.col), y, l, 42);
+    const turn = queenTurn(world.cfg, world.beat, beatPhase);
     out.push({
-      ...markAt(1, "HOLD", "HOLD", tileCX(l, queen.col), y, l, 42),
+      ...hold,
       why: "TILL IT OPENS",
       // A thumb on a mark makes that mark the drop (`queen-grip.ts`).
       ownDrop: q.holdSide !== 0,
+      // Between her marks, so no wider than the gap their rings leave.
+      dropR: queenGapR(l, queen, hold, turn),
     });
   }
   if (queen.color !== null) {

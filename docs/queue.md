@@ -412,20 +412,6 @@ body a thumb holds (`balloon-handles.ts`, `lid-string.ts`, `weight.ts`)
 still meets its handle where it is drawn. Send one PNG strip. Prove it with
 `bun test packages/render` and `bun run check`.
 
-## THE QUEEN's gap drop overlaps the marks it stands between
-
-- **Found:** 2026-10-14, claude/queue-holds-as-the-hold-labs-drop-the-queens-marks
-- **Taken:** 2026-10-15, claude/queue-three-integer-mixers-in-render-each-written-priv (claim: claude/queue-the-queens-gap-drop-overlaps-the-marks-it-stands)
-- **Files:** `packages/render/src/boss-cue-read.ts`, `packages/render/src/cue-helper.ts`, `packages/render/src/boss-cue-shape.ts`
-
-THE QUEEN's SCREAM `HOLD` cue draws the HOLD LAB's drop in the gap between
-her two marks until a thumb lands (`queen-grip.ts`), at the cue frame's size
-(`holdDropR`). On a 390-wide phone that drop reaches over the inner edge of
-both marks, and the marks are what player 1 reads to say what is coming.
-Give `BossCue` a way to say a smaller drop (or size it to the gap,
-`queenMarkCenter` both sides less each mark's ring), and prove with a test
-that the drop's rim stays clear of both mark rings.
-
 ## THE BLISTER's HOLD gets bodies built round its drop, on VERSUS
 
 - **Found:** 2026-10-14, claude/control-bodies

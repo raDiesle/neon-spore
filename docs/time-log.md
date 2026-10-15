@@ -41752,3 +41752,18 @@ Bottleneck: none to speak of — finding the three were not one function
 took longer than making two of them one.
 
 *Measured: 5 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-15 — THE QUEEN's gap drop keeps out of her marks' rings
+
+- reading: 10 min. The cue reader, the HOLD helper, the grip ring's breath
+  and line, and how the drop's rim swells.
+- writing: 10 min. `BossCue.dropR`, `holdDropR` honouring it, `queenGapR`,
+  `gripRingReach`, and the test on a 390-wide phone at every turn.
+- looking: 10 min. Three captures before one stood her in SCREAM with a
+  bloom pending: `--creature petals=3` and `--boss openBeat=now+4`.
+- friction: 5 min. `bun run sheet` exited without a word, and the shape
+  file went one line past its limit.
+- landing: 5 min. `check:fast` twice, `land`.
+
+Bottleneck: finding the flags that photograph a phase the wave is a run
+of correct presses away from.
