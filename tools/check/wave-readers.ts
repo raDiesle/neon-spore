@@ -28,8 +28,14 @@ export function isWaveFile(path: string): boolean {
 /** What a test that reads the wave list says: the list, or an act page by its file. */
 const READS = /\bWAVES\b|waves\/act-/;
 
+/** The scan, once a root: it reads every test file in the tree, and one
+ * process asks for it as often as its paths name a wave. */
+const scanned = new Map<string, string[]>();
+
 /** Every test outside `packages/content` that reads the wave list, from the repository's root. */
 export function waveReaders(root: string): string[] {
+  const known = scanned.get(root);
+  if (known) return known;
   const found: string[] = [];
   for (const top of ["apps", "packages", "tools"]) {
     for (const path of new Bun.Glob(`${top}/*/test/**/*.test.ts`).scanSync({ cwd: root })) {
@@ -38,5 +44,7 @@ export function waveReaders(root: string): string[] {
       if (READS.test(readFileSync(join(root, file), "utf8"))) found.push(file);
     }
   }
-  return found.sort();
+  found.sort();
+  scanned.set(root, found);
+  return found;
 }

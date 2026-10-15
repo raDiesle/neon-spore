@@ -41360,3 +41360,15 @@ Bottleneck: friction — a composed wave AUTO clears can still fail a render
 test the composer does not run, and that only shows in the full check.
 
 *Measured: 19 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
+
+## 2026-10-15 — check:fast's wave-reader scan timed out under land's load
+
+- reading: 5 min. `bun run land`'s check log and the test's own timings.
+- writing: 5 min. The scan cached per root, and a named timeout on the
+  two tests that read the whole tree.
+- looking: 0 min. Nothing drawn.
+- friction: 0 min.
+- landing: 5 min.
+
+Bottleneck: reading. The test took 0.8 s alone and over 6 s under a full
+check on a loaded machine, so the failure showed only in `land`.

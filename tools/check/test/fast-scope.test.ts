@@ -12,6 +12,10 @@ import { changedSince, fastScopeFor, SWEEPS } from "../fast-scope.js";
 
 const ROOT = join(import.meta.dirname, "..", "..", "..");
 
+/** A test that reads every test file in the tree: under a second alone, six
+ * under `bun run land`'s full load, where bun's default five failed it. */
+const TREE_MS = 30_000;
+
 describe("fastScopeFor", () => {
   it("a narrow scope is the hook's answer plus the sweeps", () => {
     expect(fastScopeFor(["packages/net/src/wire.ts"])).toEqual([
@@ -73,31 +77,39 @@ describe("fastScopeFor", () => {
     ]);
   });
 
-  it("a wave's text reaches the words contract", () => {
-    // A guide line one word over its budget in `act-7f.ts` was green here on
-    // 24 September 2026; the words contract was in neither the content row
-    // nor the sweeps.
-    expect(fastScopeFor(["packages/content/src/waves/act-7f.ts"])).toContain(
-      "tools/words/test/words.test.ts",
-    );
-  });
+  it(
+    "a wave's text reaches the words contract",
+    () => {
+      // A guide line one word over its budget in `act-7f.ts` was green here on
+      // 24 September 2026; the words contract was in neither the content row
+      // nor the sweeps.
+      expect(fastScopeFor(["packages/content/src/waves/act-7f.ts"])).toContain(
+        "tools/words/test/words.test.ts",
+      );
+    },
+    TREE_MS,
+  );
 
-  it("a wave moved reaches every test that reads the list from another package", () => {
-    // The director's save that moved THE INSTAR to wave 5 and THE BASTION to
-    // 16 touched only act pages, was green here on 14 October 2026, and went
-    // red three times in `bun run land` — in these three.
-    const reached = fastScopeFor(["packages/content/src/waves/act-1.ts"]);
-    for (const test of [
-      "tools/perf/test/baseline.test.ts",
-      "tools/words/test/drawn.test.ts",
-      "packages/render/test/frame.test.ts",
-    ]) {
-      expect(reached, test).toContain(test);
-    }
-    expect(fastScopeFor(["packages/content/src/waves.ts"])).toContain(
-      "packages/render/test/frame.test.ts",
-    );
-  });
+  it(
+    "a wave moved reaches every test that reads the list from another package",
+    () => {
+      // The director's save that moved THE INSTAR to wave 5 and THE BASTION to
+      // 16 touched only act pages, was green here on 14 October 2026, and went
+      // red three times in `bun run land` — in these three.
+      const reached = fastScopeFor(["packages/content/src/waves/act-1.ts"]);
+      for (const test of [
+        "tools/perf/test/baseline.test.ts",
+        "tools/words/test/drawn.test.ts",
+        "packages/render/test/frame.test.ts",
+      ]) {
+        expect(reached, test).toContain(test);
+      }
+      expect(fastScopeFor(["packages/content/src/waves.ts"])).toContain(
+        "packages/render/test/frame.test.ts",
+      );
+    },
+    TREE_MS,
+  );
 
   it("a content change that is not a wave reaches none of the list's readers", () => {
     expect(fastScopeFor(["packages/content/src/creatures.ts"])).not.toContain(
