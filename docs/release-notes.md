@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-15 · 2d5e4c2fb — THE BLISTER's dead-hand and spent-hand code goes
+
+A blister never sinks now, and a blow removes it on the tick it lands, so no hand on one ever outlived its surfacing. `BLISTER_HAND_DEAD` and its checks in TURN and RUB went, the voided and spent bits (4 and 8) in `blisterStrokes` for SWIPE, COMBO and LEVER went, and so did AUTO's lifts for a dead or spent hand and the comments that still described a sink. No reachable world hashes differently: the fields keep their order and their values.
+
 ## 2026-10-15 · 61aa84d3b — `bun run shot --pose` photographs any STATES card by its pose's name
 
 `--pose "BLISTER · UP FOR A TAP"` opens DOCUMENTATION › STATES, presses the heading of the group that draws the pose, and photographs that card, the selector looked for inside it. THE BLISTER's TAP pose had no route since `blister:tap` left VERSUS: no ON THE FIELD row names it, and the STATES room draws no group until its own tab is pressed. `--row` now takes a heading that is the name over one that only ends with it. Where `shot` points the browser moved to `shot-place.ts`, out of a flags file `--pose` took past 250 lines.
