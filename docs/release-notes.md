@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-15 · 61aa84d3b — `bun run shot --pose` photographs any STATES card by its pose's name
+
+`--pose "BLISTER · UP FOR A TAP"` opens DOCUMENTATION › STATES, presses the heading of the group that draws the pose, and photographs that card, the selector looked for inside it. THE BLISTER's TAP pose had no route since `blister:tap` left VERSUS: no ON THE FIELD row names it, and the STATES room draws no group until its own tab is pressed. `--row` now takes a heading that is the name over one that only ends with it. Where `shot` points the browser moved to `shot-place.ts`, out of a flags file `--pose` took past 250 lines.
+
 ## 2026-10-15 · 140701825 — `bun run versus drop` asks git grep which files to read
 
 `drop` and `adopt` looked for importers by reading every one of the 5,750 sources in the tree. In a fresh worktree each first read waits about 17 ms on the disk, so the scan sat for two to three minutes on almost no CPU. Both scans now ask `git grep` first (0.2 s cold, untracked files included, node_modules left out) and read only the files it names. Outside a git checkout they walk the tree as before.
