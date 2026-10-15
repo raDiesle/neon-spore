@@ -41925,3 +41925,18 @@ Bottleneck: looking — a body that lives only on the director has no
 one-command photograph once its VERSUS slot is gone.
 
 *Measured: 12 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
+
+## 2026-10-15 — THE BLISTER's HOLD comes up as PALM or HUG
+
+- reading: 5 min. The three HOLD candidates, `BLISTER_BODY` and the layer
+  reach a glancing blister is cut to.
+- writing: 5 min. Both bodies moved into `packages/render`, scaled up, PALM's
+  fingers longer and further apart; one picker; the slot dropped.
+- looking: 10 min. Both candidates on VERSUS, then THE BLISTER over four
+  moments until a PALM came up beside a HUG.
+- friction: 5 min. Choosing by id alone showed one body all wave — THE
+  BLISTER sends one blister that hops — so the picker takes its tile too.
+- landing: 5 min. The index rows, `check:fast`, `land`.
+
+Bottleneck: finding a frame with the second body in it, because the wave's
+one blister was the one an id-only picker never changed.

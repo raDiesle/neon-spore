@@ -2218,3 +2218,16 @@ and draws it 1.15 times the size offered. CLAM went with the slot.
 
 The other answers offered were `bud`, `clam` and `curl`; they went with the
 slot.
+
+## `blister:hold` — nothing taken, 2026-10-15
+
+taken by hand: the owner, 15 October 2026, liked PALM and HUG both — 'use both
+in the game, reject spoon' — and asked each a little bigger. Both moved to
+packages/render/src/blister-palm.ts and blister-hug.ts, scaled 1.3 and 1.25,
+PALM's fingers longer and further apart so it reads as a hand;
+BLISTER_BODY.hold draws one or the other by the blister's id and the tile it
+came up on (drawHoldBody).
+SPONGE rejected.
+
+The other answers offered were `hug`, `palm` and `sponge`; they went with the
+slot.

@@ -1,16 +1,23 @@
-import type { BlisterFrame } from "../../../../../packages/render/src/blister-bodies.js";
-import type { Body } from "../../../../../packages/render/src/creature-body-in.js";
-import { rgba } from "../../../../../packages/render/src/hex.js";
-import { PALETTE } from "../../../../../packages/render/src/palette.js";
+import type { BlisterFrame } from "./blister-bodies.js";
+import type { Body } from "./creature-body-in.js";
+import { rgba } from "./hex.js";
+import { PALETTE } from "./palette.js";
 
 const TAU = Math.PI * 2;
 
 /**
- * HUG: a round slime comes up out of the pore with the HOLD's drop held to
+ * How much bigger than the drop the slime is drawn: the owner, 15 October
+ * 2026, *hug also little bit bigger*.
+ */
+const HUG_SCALE = 1.25;
+
+/**
+ * HUG, one of THE BLISTER's two HOLD bodies (`blister-bodies.ts`): a round slime comes up out of the pore with the HOLD's drop held to
  * its belly in both arms, its eyes over the top of it. Nobody on it, the arms
  * rest loose round the drop's sides and the eyes are open; under a thumb it
  * hugs — the arms wrap in under the drop, the body bulges round it and the
- * eyes squeeze shut — and lets go when the thumb does.
+ * eyes squeeze shut — and lets go when the thumb does. Taken from VERSUS,
+ * 15 October 2026.
  */
 export function drawHugBody(b: Body, f: BlisterFrame): void {
   const { ctx } = b;
@@ -20,6 +27,10 @@ export function drawHugBody(b: Body, f: BlisterFrame): void {
   const held = b.c.blisterHeldTicks !== undefined;
   const hug = held ? 1 : 0;
   ctx.save();
+  // Bigger round the drop's middle, so the head and the eyes stand higher.
+  ctx.translate(x, y);
+  ctx.scale(HUG_SCALE, HUG_SCALE);
+  ctx.translate(-x, -y);
   const body = new Path2D();
   body.ellipse(x, y - r * 0.25, r * (1.7 + 0.12 * hug), r * (1.6 - 0.06 * hug), 0, 0, TAU);
   const g = ctx.createRadialGradient(x - r * 0.3, y - r * 0.8, r * 0.1, x, y, r * 1.5);

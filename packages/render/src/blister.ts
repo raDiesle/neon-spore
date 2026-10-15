@@ -101,8 +101,11 @@ export function drawBlisterBody(b: Body): void {
   ctx.restore();
 }
 
-/** How far out, in body radii, a rising body's layer reaches: its lobes, its glow and its roots. */
-const BLISTER_REACH = 2.4;
+/**
+ * How far out, in body radii, a rising body's layer reaches: its lobes, its
+ * glow and its roots, and the HOLD's PALM fingertips (`blister-palm.ts`).
+ */
+const BLISTER_REACH = 3.2;
 
 /** The pore's half-width and half-height, in body radii. */
 const PORE_RX = 0.8;

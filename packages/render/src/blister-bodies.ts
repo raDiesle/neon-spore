@@ -1,5 +1,7 @@
 import type { BlisterGesture } from "@neon-spore/sim";
 import { drawComboBody } from "./blister-combo.js";
+import { drawHugBody } from "./blister-hug.js";
+import { drawPalmBody } from "./blister-palm.js";
 import type { Body } from "./creature-body-in.js";
 import { drawLivingBody } from "./creature-body-living.js";
 
@@ -20,7 +22,7 @@ import { drawLivingBody } from "./creature-body-living.js";
  * it did. A body built round a control is offered on VERSUS by patching its
  * gesture's `draw` (`blister:tap` and the slots after it), and an adopted one
  * replaces that gesture's field alone: COMBO's took BUD and CURL
- * (`blister-combo.ts`).
+ * (`blister-combo.ts`), HOLD's PALM and HUG (`drawHoldBody`).
  */
 
 /** What `drawBlisterBody` has already worked out, handed to every body. */
@@ -51,13 +53,27 @@ export function drawCloverBody(b: Body, f: BlisterFrame): void {
   drawLivingBody({ ...b, y: b.y + (1 - f.rise) * f.r * 1.5 });
 }
 
+/**
+ * THE BLISTER's HOLD comes up as one of two bodies: PALM, a hand with the
+ * drop cupped in it, and HUG, a slime hugging it to its belly — the owner took
+ * both from VERSUS on 15 October 2026. Which one follows the blister and the
+ * tile it came up on, so it holds while it is up and can change when it
+ * surfaces somewhere else; its id alone would show one blister one body all
+ * wave.
+ */
+export function drawHoldBody(b: Body, f: BlisterFrame): void {
+  const { id, col, row } = b.c;
+  if (Math.imul(id * 1009 + col * 31 + row, 0x9e3779b1) >>> 31 === 0) drawPalmBody(b, f);
+  else drawHugBody(b, f);
+}
+
 /** Nothing past the pore: what every body ships with. */
 export function drawNothingBeyond(_b: Body, _f: BlisterFrame): void {}
 
 /** One record per gesture, each its own object, so a slot patches one gesture. */
 export const BLISTER_BODY: Record<BlisterGesture, BlisterBodyLook> = {
   tap: { draw: drawCloverBody, beyond: drawNothingBeyond },
-  hold: { draw: drawCloverBody, beyond: drawNothingBeyond },
+  hold: { draw: drawHoldBody, beyond: drawNothingBeyond },
   swipe: { draw: drawCloverBody, beyond: drawNothingBeyond },
   turn: { draw: drawCloverBody, beyond: drawNothingBeyond },
   rub: { draw: drawCloverBody, beyond: drawNothingBeyond },
