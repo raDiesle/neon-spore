@@ -1,6 +1,6 @@
-import { bakedCache } from "./baked.js";
 import { type GlanceFrame, glanceSqueeze, middleShift, turnOf } from "./glance.js";
 import { halfRect, inverse, type Reach, screenBox, times } from "./glance-layer-box.js";
+import { layerOf, wipe } from "./glance-layer-scratch.js";
 import { rgba } from "./hex.js";
 import { SHADOW } from "./solid-tube-light.js";
 
@@ -40,29 +40,6 @@ import { SHADOW } from "./solid-tube-light.js";
  * are drawn one after another; it is cleared before each and holds nothing a
  * frame needs from the last.
  */
-
-/**
- * The one scratch canvas, held as baked work so whatever empties the sprite
- * caches empties it too: a test that swaps the stub canvas for Skia's
- * (`pixel-harness.ts`) must not be handed a stub's layer to blit, which is
- * what THE INSTAR's pixel test was handed once its head was laid down here.
- */
-const SCRATCH = bakedCache<"part" | "halves", HTMLCanvasElement>();
-
-/** A scratch canvas, at least `w` by `h`: the part drawn, or its two halves put together. */
-function layerOf(which: "part" | "halves", w: number, h: number): HTMLCanvasElement {
-  let scratch = SCRATCH.get(which);
-  if (scratch === undefined) {
-    scratch = document.createElement("canvas");
-    // Drawn into every frame, so a frame's cost is in it: the test stub counts
-    // a `layer:` canvas's ops as the screen's (`test/canvas-stub-layer.ts`).
-    scratch.id = `layer:glance-${which}`;
-    SCRATCH.set(which, scratch);
-  }
-  if (scratch.width < w) scratch.width = w;
-  if (scratch.height < h) scratch.height = h;
-  return scratch;
-}
 
 /**
  * Half `s`'s turn and clip on `c`, over whatever transform `c` already has;
@@ -162,8 +139,7 @@ export function drawGlancedLayer(
   const g = layer.getContext("2d");
   const h = halves.getContext("2d");
   if (g === null || h === null) return;
-  g.setTransform(1, 0, 0, 1, 0, 0);
-  g.clearRect(0, 0, box.w, box.h);
+  wipe(g, box);
   g.globalAlpha = ctx.globalAlpha;
   g.globalCompositeOperation = ctx.globalCompositeOperation;
   g.setTransform(m.a, m.b, m.c, m.d, m.e - box.ox, m.f - box.oy);
@@ -173,8 +149,7 @@ export function drawGlancedLayer(
 
   // The two halves, put together on their own layer in the same box.
   const back = times(inverse(m), { a: 1, b: 0, c: 0, d: 1, e: box.ox, f: box.oy });
-  h.setTransform(1, 0, 0, 1, 0, 0);
-  h.clearRect(0, 0, box.w, box.h);
+  wipe(h, box);
   h.globalAlpha = 0.5;
   h.globalCompositeOperation = "lighter";
   for (const s of [-1, 1] as const) {
@@ -189,8 +164,7 @@ export function drawGlancedLayer(
   h.globalCompositeOperation = "source-over";
 
   // Doubled back to full strength on the first layer, which is done with.
-  g.setTransform(1, 0, 0, 1, 0, 0);
-  g.clearRect(0, 0, box.w, box.h);
+  wipe(g, box);
   g.globalCompositeOperation = "lighter";
   g.drawImage(halves, 0, 0, box.w, box.h, 0, 0, box.w, box.h);
   g.drawImage(halves, 0, 0, box.w, box.h, 0, 0, box.w, box.h);

@@ -122,3 +122,31 @@ describe("a nodding body's layer", () => {
     expect(Math.abs(bottom - left[1])).toBeLessThanOrEqual(1);
   });
 });
+
+describe("a layer after a bigger one", () => {
+  /** A turned disc of `size` radii, alone on a canvas of its own. */
+  function turnedDisc(size: number): Uint8ClampedArray {
+    const ctx = createCanvas(200, 200).getContext("2d") as unknown as CanvasRenderingContext2D;
+    const f = { x: X, y: Y, r: R, hold: 0, swing: 0.25 * R, roll: 0 };
+    drawGlancedLayer(ctx, f, { dark: 0, full: 0.22, reach: size, atop: true }, (g) => {
+      g.fillStyle = "#fff";
+      g.beginPath();
+      g.arc(X, Y, size * R - 1, 0, Math.PI * 2);
+      g.fill();
+      return [];
+    });
+    return ctx.getImageData(0, 0, 200, 200).data;
+  }
+
+  test("shows nothing the bigger one left on the scratch canvases", () => {
+    installPixelGlobals();
+    clearBakedCaches();
+    // A reach off the pixel grid, as a body's light is: the box's edge then
+    // falls inside a pixel the squeeze's filter reads across.
+    const fresh = turnedDisc(1.23);
+    turnedDisc(4);
+    // The same small part, drawn on scratch a part bigger than it has used.
+    const after = turnedDisc(1.23);
+    expect(Buffer.from(after).equals(Buffer.from(fresh))).toBe(true);
+  });
+});

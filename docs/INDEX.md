@@ -1414,6 +1414,7 @@ by hand never moves.
 | `packages/render/src/glance-styles.ts` | **The three ways a part glances**, as the owner took them for THE INSTAR's head on 9 October 2026… |
 | `packages/render/src/glance-layer.ts` | **A glancing part laid down as one layer** (`glance.ts` has the turn) |
 | `packages/render/src/glance-layer-box.ts` | **Where a glancing layer is cut** (`glance-layer.ts` lays the part down) |
+| `packages/render/src/glance-layer-scratch.ts` | **The two scratch canvases a glancing part is laid down on** (`glance-layer.ts`): the part drawn |
 | `packages/render/src/glance-temper.ts` | **Every glancing thing its own temper** — the owner, 14 October 2026, the day every boss took its glance |
 | `packages/render/src/glance.ts` | **A part that glances** (`.claude/skills/depth`, "A part that glances"): a head, a claw |
 | `packages/render/src/handles.ts` | The handles: the things drawn **on the field** that a hand takes hold of and carries, as opposed to the |
