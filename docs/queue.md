@@ -331,6 +331,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## THE CLAW's block is composed on the block's panel, not the claw
 
 - **Found:** 2026-10-15, claude/lesson-blocks
+- **Taken:** 2026-10-15, main (claim: claude/queue-the-claws-block-is-composed-on-the-blocks-panel)
 - **Files:** `tools/director/src/compose-lesson.ts`, `tools/director/src/compose-place.ts`
 
 On the claw panel a rock is cleared only through a pod the arm takes: AUTO
