@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-15 · dc4d6c0ab — `bun run perf` waits for the screen's raster inside the timed window
+
+Every paint in both sweeps — the throttled desktop one and `?perf=1` on the phone — is now followed by the handle's `flush()`: one pixel of the screen copied onto a CPU canvas and read, which waits for the GPU to finish the frame. Before, a layer drawn into the screen was charged for its drawing and the same body drawn straight on the screen was not, and SNAKE's blur cost nothing. Every wave reads 2.5 to 4 ms higher; a run carries `measure: 2`, a baseline without one is a 1, and the two take no verdict against each other and do not merge. The next full sweep is the first measure-2 baseline.
+
 ## 2026-10-15 · ab9dd425b — Every lesson after the tutorial has eight waves of its own
 
 THE LANCE, THE JAM, THE CHOKE, THE LIMPET, THE LEECH, THE CLAW, THE CODEX, THE HANDOVER, THE FLIP and THE DARK each open a block now: moved behind the regular waves of the block they came in, with eight composed after them — LIMPET AGAIN … DARK PEAK — every one carrying the lesson's fault, where AUTO can play it. A boss takes the first block still free once it is ready, so every one of the 54 blocks past the tutorial closes with exactly one boss; the ten review blocks no boss closed any more are gone. 564 waves. A look the owner asked for by name.
