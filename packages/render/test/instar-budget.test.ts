@@ -87,6 +87,14 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
  * now (`solid-tube-light.ts`): emptied on every change of canvas, as it was,
  * the head drawn on the layer made the body bake its light again every frame.
  *
+ * On 15 October 2026 the stub began counting the layer's own draws as the
+ * frame's (`canvas-stub-layer.ts`), so the head is back in the rows — once,
+ * where before the layer it was twice: coil fills 375 → 459, strokes
+ * 313 → 411, radial gradients 25 → 37; dive 237 → 280, 184 → 220, 24 → 36;
+ * roar 376 → 462, 308 → 408, 24 → 36. The linear gradients rose with it
+ * (coil 76 → 81, dive 51 → 53, roar 104 → 141), and five more blits in each
+ * for the halves put together and laid down.
+ *
  * Each row is the worst of each op over one beat starting a third of the way
  * into the step's morph, on a phone. Set `MEASURE` to true and run this file
  * to print the rows as they are written below (`budget-row.ts`); never
@@ -104,31 +112,31 @@ const BUDGETS: Record<string, { cursor: number; budget: Budget }> = {
   "13 coil": {
     cursor: 13,
     budget: {
-      fill: 375,
-      stroke: 313,
-      drawImage: 34,
-      createLinearGradient: 76,
-      createRadialGradient: 25,
+      fill: 459,
+      stroke: 411,
+      drawImage: 39,
+      createLinearGradient: 81,
+      createRadialGradient: 37,
     },
   },
   "15 dive": {
     cursor: 15,
     budget: {
-      fill: 237,
-      stroke: 184,
-      drawImage: 34,
-      createLinearGradient: 51,
-      createRadialGradient: 24,
+      fill: 280,
+      stroke: 220,
+      drawImage: 39,
+      createLinearGradient: 53,
+      createRadialGradient: 36,
     },
   },
   "20 roar": {
     cursor: 20,
     budget: {
-      fill: 376,
-      stroke: 308,
-      drawImage: 34,
-      createLinearGradient: 104,
-      createRadialGradient: 24,
+      fill: 462,
+      stroke: 408,
+      drawImage: 39,
+      createLinearGradient: 141,
+      createRadialGradient: 36,
     },
   },
 };

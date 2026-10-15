@@ -3,7 +3,6 @@ import type { SimEvent, World } from "@neon-spore/sim";
 import { mixHex } from "../src/hex.js";
 import { FOLD_GAPE, FOLD_SHUT, LampreyChomp } from "../src/lamprey-chomp.js";
 import { LampreyFx } from "../src/lamprey-fx.js";
-import { LAMPREY_GLANCE } from "../src/lamprey-glance.js";
 import { lampreyPose } from "../src/lamprey-pose.js";
 import { computeLayout } from "../src/layout.js";
 import { PALETTE } from "../src/palette.js";
@@ -14,7 +13,6 @@ import {
   runFrames,
   VIEWPORT,
 } from "./frame-harness.js";
-import { holdGlancesStill } from "./glance-held.js";
 import { count, posed, stood } from "./lamprey-harness.js";
 
 setDefaultTimeout(FRAME_TIMEOUT_MS);
@@ -28,8 +26,6 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
  */
 
 beforeAll(installCanvasGlobals);
-// Read off the screen's log, so held still (`glance-held.ts`).
-holdGlancesStill(LAMPREY_GLANCE);
 
 const L = computeLayout(VIEWPORT, CFG, "test");
 const MOUTH = { x: 200, y: 400 };

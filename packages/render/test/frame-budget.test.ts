@@ -382,6 +382,10 @@ function rope(world: World, milli: number) {
 // 2026: the cannon's column is a gunsight in the seat's colour, a glow and a
 // path of rails and ticks under two more layout gradients (`cannon-column.ts`).
 const EYE_BUDGETS: Readonly<Record<string, readonly Budget[]>> = {
+  // **15 October 2026, the glance layer counted** (`canvas-stub-layer.ts`):
+  // the warden's glancing parts are drawn on a scratch layer, and its draws
+  // and the blits that lay it down are this frame's now — frame 1's `fill`,
+  // `clip`, `save` and `drawImage` rose by 1, 3, 4 and 4.
   "THE WARDEN's eye": [
     {
       // **13 October 2026, SOAK**: the `HOLD` on the handle is the HOLD LAB's
@@ -463,14 +467,14 @@ const EYE_BUDGETS: Readonly<Record<string, readonly Budget[]>> = {
       // The hold's circle, as in frame 0.
       stroke: 183,
       // The bow's two dots, as in frame 0.
-      fill: 105,
-      clip: 11,
-      save: 68,
+      fill: 106,
+      clip: 14,
+      save: 72,
       // One more, and a ramp more, on 14 October 2026: the body glances
       // (`warden-glance.ts`), laid on the screen as one picture with the far
       // side's dark ramped over it (`glance-layer.ts`). Frame 0 is the round's
       // level start and does not move.
-      drawImage: 30,
+      drawImage: 34,
       createLinearGradient: 25,
       createRadialGradient: 10,
       // One more on 25 September 2026, the rope's knob, as in frame 0; one

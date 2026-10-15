@@ -83,6 +83,9 @@ function layerOf(which: "part" | "halves", w: number, h: number): HTMLCanvasElem
   let scratch = SCRATCH.get(which);
   if (scratch === undefined) {
     scratch = document.createElement("canvas");
+    // Drawn into every frame, so a frame's cost is in it: the test stub counts
+    // a `layer:` canvas's ops as the screen's (`test/canvas-stub-layer.ts`).
+    scratch.id = `layer:glance-${which}`;
     SCRATCH.set(which, scratch);
   }
   if (scratch.width < w) scratch.width = w;

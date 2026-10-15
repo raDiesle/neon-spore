@@ -357,26 +357,6 @@ Probe with a twelve-seed loop over `startWave(world, 0, [], [], { kind:
 bodies in their column. Add each seed that clears to `scuttle-wave.test.ts`.
 Prove with `bun test packages/hands` and `bun run check`.
 
-## The op-count budgets do not count what a glancing part draws
-
-- **Found:** 2026-10-14, claude/glance-cock
-- **Taken:** 2026-10-15, main (claim: claude/queue-the-op-count-budgets-do-not-count-what-a-glancin)
-- **Files:** `packages/render/test/canvas-stub.ts`, `packages/render/src/glance-layer.ts`, `packages/render/test/fleet-budget.test.ts`, `packages/render/test/wave-budget.test.ts`, `packages/render/test/frame-budget.test.ts`
-
-Every boss but two now glances, and a glancing part is drawn onto a scratch
-canvas and laid on the screen as one `drawImage` (`glance-layer.ts`). The
-stub tallies each context on its own, so a budget sees the layer's blit, its
-clip and save, and none of the part's strokes, fills and gradients: THE
-FLEET's p1 `stroke` fell from 87 to 59 the day the hulls began to turn, and
-seven colour tests hold the boss still to read it at all
-(`glance-held.ts`). Count a scratch layer's ops against the primary
-context's tally — as `new Path2D` already is — for canvases `glance-layer.ts`
-makes, remeasure the rows that move with a sentence each, and see whether
-`holdGlancesStill` can go. Prove it with the three budget files and
-`bun run check`. **Work it before "Every living enemy glances"**: that lane
-puts every blob on the field through the same layer, and without this every
-creature colour test reads an empty log.
-
 ## `bun run shot` finds no ON THE FIELD card for THE SCOUT's two holds
 
 - **Found:** 2026-10-14, claude/queue-holds-as-the-hold-labs-drop-the-scout-the-vane-t

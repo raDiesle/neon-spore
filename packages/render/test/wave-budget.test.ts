@@ -333,6 +333,10 @@ const SCENES: readonly Scene[] = [
     // `save` one higher on frame 1 from 14 October 2026: the queen glances
     // (`queen-glance.ts`), and the far half's dark is laid under a save of its
     // own. Frame 0 is the round's level start and does not turn.
+    // Remeasured on 15 October 2026, when the stub began counting what a
+    // glancing part draws on its scratch layer as the frame's
+    // (`canvas-stub-layer.ts`): on frame 1 her glancing parts add a fill, a
+    // gradient, three clips, three saves and five blits on either seat.
     rows: {
       p1: [
         {
@@ -350,11 +354,11 @@ const SCENES: readonly Scene[] = [
         {
           fillRect: 66,
           stroke: 152,
-          fill: 92,
-          clip: 7,
-          save: 58,
-          drawImage: 113,
-          createLinearGradient: 22,
+          fill: 93,
+          clip: 10,
+          save: 61,
+          drawImage: 118,
+          createLinearGradient: 23,
           createRadialGradient: 8,
           "new Path2D": 54,
           fillText: 5,
@@ -376,11 +380,11 @@ const SCENES: readonly Scene[] = [
         {
           fillRect: 66,
           stroke: 143,
-          fill: 97,
-          clip: 7,
-          save: 56,
-          drawImage: 111,
-          createLinearGradient: 22,
+          fill: 98,
+          clip: 10,
+          save: 59,
+          drawImage: 116,
+          createLinearGradient: 23,
           createRadialGradient: 8,
           "new Path2D": 52,
           fillText: 4,
@@ -557,6 +561,9 @@ const SCENES: readonly Scene[] = [
     // `new Path2D` one higher on frame 1 from 14 October 2026: the pile glances
     // (`cairn-glance.ts`), and its outline is built once more for the far
     // side's dark. Frame 0 is the round's level start and does not turn.
+    // Remeasured on 15 October 2026, for the same reason as BULB QUEEN's
+    // rows (`canvas-stub-layer.ts`): on frame 1 the pile's glancing parts add
+    // a fill, a gradient, three clips, two saves and five blits on either seat.
     rows: {
       p1: [
         {
@@ -574,11 +581,11 @@ const SCENES: readonly Scene[] = [
         {
           fillRect: 65,
           stroke: 182,
-          fill: 301,
-          clip: 14,
-          save: 193,
-          drawImage: 49,
-          createLinearGradient: 122,
+          fill: 302,
+          clip: 17,
+          save: 195,
+          drawImage: 54,
+          createLinearGradient: 123,
           createRadialGradient: 60,
           "new Path2D": 55,
           fillText: 6,
@@ -600,11 +607,11 @@ const SCENES: readonly Scene[] = [
         {
           fillRect: 64,
           stroke: 185,
-          fill: 308,
-          clip: 14,
-          save: 194,
-          drawImage: 48,
-          createLinearGradient: 121,
+          fill: 309,
+          clip: 17,
+          save: 196,
+          drawImage: 53,
+          createLinearGradient: 122,
           createRadialGradient: 60,
           "new Path2D": 55,
           fillText: 6,

@@ -41627,3 +41627,18 @@ Bottleneck: the ON THE FIELD pose held only the pull half, so a look about
 the change between the halves needed a pose that plays both.
 
 *Measured: 25 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-15 — A glancing part's draws are counted as the frame's
+
+- reading: 10 min. The glance layer, the stub's tally and its `Path2D`
+  relay, and which budgets and colour tests read the screen's log.
+- writing: 20 min. The `layer:` canvas relay, eleven rows raised with a dated
+  sentence each, the hold taken out of seven files, and its helper's reason
+  for the one it stays in.
+- looking: 0 min. Nothing drawn differently.
+- friction: 5 min. A first paste of measured rows tightened rows nothing had
+  moved, and missed the tables with comments between keys.
+- landing: 5 min.
+
+Bottleneck: writing; pasting eleven rows by hand across five table shapes
+took a script, and the script took two tries.

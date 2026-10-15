@@ -32,6 +32,7 @@ import {
   setActiveLog,
   setActiveTally,
 } from "./canvas-stub-check.js";
+import { setLayerFrame } from "./canvas-stub-layer.js";
 import { StubText } from "./canvas-stub-text.js";
 
 export type { TextBox } from "./canvas-stub-text.js";
@@ -215,6 +216,7 @@ export function stubCanvas(primary = true): { canvas: HTMLCanvasElement; ctx: St
   const ctx = new StubContext();
   if (primary) {
     setActiveTally(ctx.tally);
+    setLayerFrame(ctx);
     // And the log with it, which a fresh context does not have. Left pointing
     // at an earlier test's array, every path coordinate of every later frame
     // in the process was appended to it: `surface-clear.test.ts` sharing a

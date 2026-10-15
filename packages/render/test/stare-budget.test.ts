@@ -49,6 +49,11 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
  * `fill` up one in every row on 5 October 2026: the cannon's column became a
  * gunsight in the seat's colour, its rails and ticks one path (`cannon-column.ts`).
  *
+ * `drawImage` up five and `fill` up one in both rows on 15 October 2026, when
+ * the stub began counting what a glancing part draws on its scratch layer as
+ * this frame's (`canvas-stub-layer.ts`): the blits that put the layer's
+ * halves together and lay it down were drawn all along, and are counted now.
+ *
  * Each row is the worst of each op over one beat, on a phone. Set `MEASURE`
  * to true and run this file to print the rows as they are written below
  * (`budget-row.ts`); never committed as `true`.
@@ -64,9 +69,9 @@ const BUDGETS: Record<string, { open: boolean; budget: Budget }> = {
   shut: {
     open: false,
     budget: {
-      fill: 55,
+      fill: 56,
       stroke: 133,
-      drawImage: 30,
+      drawImage: 35,
       createLinearGradient: 13,
       createRadialGradient: 7,
     },
@@ -74,9 +79,9 @@ const BUDGETS: Record<string, { open: boolean; budget: Budget }> = {
   open: {
     open: true,
     budget: {
-      fill: 56,
+      fill: 57,
       stroke: 136,
-      drawImage: 30,
+      drawImage: 35,
       createLinearGradient: 14,
       createRadialGradient: 7,
     },

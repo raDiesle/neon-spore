@@ -1,4 +1,5 @@
 import { color, fail, nums, round, setActiveLog } from "./canvas-stub-check.js";
+import { layerFrame } from "./canvas-stub-layer.js";
 
 /**
  * **What a stub context holds between calls**: its styles, its tally and log,
@@ -26,8 +27,17 @@ export class StubState {
   lineCap = "butt";
   lineJoin = "miter";
   shadowBlur = 0;
-  /** How many draw calls a frame made, so a test can tell a frame from nothing. */
-  calls = 0;
+  private _calls = 0;
+  /** How many draw calls a frame made, so a test can tell a frame from nothing;
+   * a layer's are the frame's too (`canvas-stub-layer.ts`). */
+  get calls(): number {
+    return this._calls;
+  }
+  set calls(v: number) {
+    const frame = layerFrame(this.canvas, this);
+    if (frame !== undefined && v > this._calls) frame.calls += v - this._calls;
+    this._calls = v;
+  }
   /** Per-method call counts, for a test that budgets op counts rather than
    * merely detecting a frame. Reset it (`ctx.tally.clear()`) between frames. */
   readonly tally = new Map<string, number>();
@@ -102,11 +112,14 @@ export class StubState {
    * `value` is a setter's new value (logged as `name=value`); `args` is a
    * method's argument list (logged as `name(args)`). At most one is given. */
   protected mark(name: string, value?: unknown, args?: unknown[]): void {
-    this.tally.set(name, (this.tally.get(name) ?? 0) + 1);
-    if (!this.log) return;
-    if (args) this.log.push(`${name}(${args.map(round).join(", ")})`);
-    else if (value !== undefined) this.log.push(`${name}=${round(value)}`);
-    else this.log.push(name);
+    const frame = layerFrame(this.canvas, this);
+    for (const books of frame === undefined ? [this] : [this, frame]) {
+      books.tally.set(name, (books.tally.get(name) ?? 0) + 1);
+      if (!books.log) continue;
+      if (args) books.log.push(`${name}(${args.map(round).join(", ")})`);
+      else if (value !== undefined) books.log.push(`${name}=${round(value)}`);
+      else books.log.push(name);
+    }
   }
 
   /**

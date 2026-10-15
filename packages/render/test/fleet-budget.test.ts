@@ -156,8 +156,11 @@ const BUDGETS: Readonly<Record<"p1" | "p2", Readonly<Record<"mid" | "hit", Budge
     // From 14 October 2026 every hull glances (`fleet-glance.ts`): on p1, where
     // the fleet is seen, each is laid down as one picture and its far side
     // darkened under a clip of its own, so `clip`, `save` and `new Path2D` rose
-    // by about one a hull; the strokes and fills drawn into the layer are not
-    // this context's and fell out of the count.
+    // by about one a hull; the strokes and fills drawn into the layer were not
+    // this context's and fell out of the count. From 15 October 2026 they are
+    // counted again (`canvas-stub-layer.ts`), with the layer's own clips,
+    // saves and blits: mid's `fill` 57 → 62, `clip` 12 → 22, `drawImage`
+    // 16 → 41, and the strokes back at 84 under a budget that never fell.
     mid: {
       fillRect: 64,
       // One more stroke and one more clip than before the hull's light became a
@@ -167,13 +170,13 @@ const BUDGETS: Readonly<Record<"p1" | "p2", Readonly<Record<"mid" | "hit", Budge
       // One more than before 2 October 2026: an asked mark's light is a
       // colour pass and a glow pass inside it (`part-light.ts`), where the old
       // halo was one red cloud over everything round it. Both rows carry it.
-      fill: 57,
-      clip: 12,
-      save: 54,
-      drawImage: 16,
+      fill: 62,
+      clip: 22,
+      save: 64,
+      drawImage: 41,
       // Five of these are the hulls' own: one ramp across the beam a vessel,
       // which is what the flat fill under an outline used to cost.
-      createLinearGradient: 18,
+      createLinearGradient: 23,
       createRadialGradient: 6,
       "new Path2D": 27,
       fillText: 28,
@@ -182,16 +185,16 @@ const BUDGETS: Readonly<Record<"p1" | "p2", Readonly<Record<"mid" | "hit", Budge
       fillRect: 87,
       // Two more than mid: the shockwave ring and the fireball's own contour.
       stroke: 89,
-      fill: 56,
-      clip: 12,
+      fill: 61,
+      clip: 22,
       // Nine more: the burst opens one per shard it turns, and the shards are
       // the only thing in this picture drawn in a frame of its own.
-      save: 63,
+      save: 73,
       // Three more: the flash and the fireball are `halo` blits, and the halo
       // the shell was carrying is gone.
-      drawImage: 20,
+      drawImage: 45,
       // One fewer: the shell's exhaust gradient goes with the shell.
-      createLinearGradient: 17,
+      createLinearGradient: 22,
       // The fireball, and the halo under the ring (the table's preamble).
       createRadialGradient: 7,
       "new Path2D": 27,
