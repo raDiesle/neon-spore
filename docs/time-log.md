@@ -41834,3 +41834,17 @@ Bottleneck: finding a wave with three living kinds on the field at once — a
 probe listing each wave's kinds settled it, and none exists as a command.
 
 *Measured: 18 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-15 — The rocks glance (first of three: rocks, hazards, held bodies)
+
+- reading: 5 min. Every row `EXCLUSIVE` routes, and each draw's radius and
+  reach — enough to cut the item into three landings.
+- writing: 5 min. `drawGlancedBody` for any body, `ROCK_GLANCE_SIZE`, the
+  torch's streak split from its stone, the moult's form turned.
+- looking: 5 min. The first strip showed a BLAZE's smoke cut flat by the
+  layer's edge; a before/after crop of one rock settled the reach at four radii.
+- friction: 0 min.
+- landing: 5 min. Two wave rows remeasured, `check:fast`, `land`.
+
+Bottleneck: a layer's reach is a guess per body until a picture shows what
+it cut — the flame's height was in `meteor-blaze.ts` all along.

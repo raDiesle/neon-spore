@@ -5,7 +5,7 @@ import type { Body } from "./creature-body-in.js";
 import { drawLivingBody } from "./creature-body-living.js";
 import { livingBodyMul } from "./creature-place.js";
 import type { Wash } from "./creature-tint.js";
-import { type Glance, glanceFrame, glanceStill } from "./glance.js";
+import { type Glance, type GlanceFrame, glanceFrame, glanceStill } from "./glance.js";
 import { drawGlancedLayer } from "./glance-layer.js";
 import { cock, type GlanceSize, glanceOf } from "./glance-styles.js";
 import { temperOf } from "./glance-temper.js";
@@ -25,13 +25,31 @@ import { temperOf } from "./glance-temper.js";
  * leech share a box. A hundredth under either is what ships, and
  * `tools/shape-sheet/test/nameability-glance.test.ts` holds both edges.
  *
- * Measured on the bodies the gate knows, the living ones. The ghost and the
- * wisp's trail are mostly not drawn, and a rock is not a living word; the
- * lanes that turn those say so where they do.
+ * Measured on the bodies the gate knows, the living ones. A rock is not a
+ * living word, and turns at `ROCK_GLANCE_SIZE` below. **The ghost and the wisp
+ * do not glance**: each is mostly not drawn — the ghost is nothing on player
+ * 1's field and the wisp nothing on player 2's — and where one is, it is a
+ * glow and a trail rather than a body with a side to turn.
  *
  * `tilt` is LOOK's, and an enemy cocks.
  */
 export const CREATURE_GLANCE_SIZE: GlanceSize = { reach: 0.22, cock: 0.14, tilt: 0 };
+
+/**
+ * **How far a rock may glance**: a stone is big and not a living word, so it
+ * turns further than the gate lets a blob — THE THROAT's turn and roll, with
+ * no tilt, since a rock cocks as an enemy does. A rock spins anyway; the roll
+ * rides on the spin.
+ */
+export const ROCK_GLANCE_SIZE: GlanceSize = { reach: 0.32, cock: 0.14, tilt: 0 };
+
+/** Which of the two sizes a body turns at. */
+export type GlanceSort = "living" | "rock";
+
+const SIZES: Readonly<Record<GlanceSort, GlanceSize>> = {
+  living: CREATURE_GLANCE_SIZE,
+  rock: ROCK_GLANCE_SIZE,
+};
 
 /** How dark the far side goes, reached at the widest turn: the bosses' own (`baton-glance.ts`). */
 const FAR_DARK = 0.6;
@@ -41,33 +59,82 @@ const LAYER_REACH = 2;
 const STAGGER = 1.7;
 
 /** One record a temper, read off the enemy's id and kept while it is on the field. */
-const GLANCES = bakedCache<number, Glance>();
+const GLANCES: Readonly<Record<GlanceSort, Map<number, Glance>>> = {
+  living: bakedCache<number, Glance>(),
+  rock: bakedCache<number, Glance>(),
+};
 
-/** The glance of the enemy `id`: COCK at `CREATURE_GLANCE_SIZE`, on a temper of its own. */
-export function creatureGlance(id: number): Glance {
-  let glance = GLANCES.get(id);
+/** The glance of the enemy `id`: COCK at its sort's size, on a temper of its own. */
+export function creatureGlance(id: number, sort: GlanceSort = "living"): Glance {
+  const held = GLANCES[sort];
+  let glance = held.get(id);
   if (glance === undefined) {
-    glance = glanceOf(cock, CREATURE_GLANCE_SIZE, temperOf(id));
-    GLANCES.set(id, glance);
+    glance = glanceOf(cock, SIZES[sort], temperOf(id));
+    held.set(id, glance);
   }
   return glance;
 }
 
 /** Drop the records of every enemy no longer on the field. */
 export function forgetGlances(creatures: readonly Creature[]): void {
-  if (GLANCES.size === 0) return;
+  if (GLANCES.living.size === 0 && GLANCES.rock.size === 0) return;
   const here = new Set(creatures.map((c) => c.id));
-  for (const id of GLANCES.keys()) if (!here.has(id)) GLANCES.delete(id);
+  for (const held of Object.values(GLANCES)) {
+    for (const id of held.keys()) if (!here.has(id)) held.delete(id);
+  }
+}
+
+/** One turning body: its radius, the unit its turn is counted in; its sort; and its layer's reach in radii. */
+export interface GlancedPart {
+  r: number;
+  sort?: GlanceSort;
+  reach?: number;
 }
 
 /**
- * **A living body, glancing** (the owner, 14 October 2026: *they should be not
- * exactly equal*). The body alone turns, about its centre with a `hold` of 0,
- * on its own temper and its own place in the round; whatever is laid over it
- * — `drawOverBody`, grips, marks and cords — stays flat. A body has no one
- * path for the far side's dark to fill, so it is laid on the layer
- * (`drawGlancedLayer`'s `atop`). Still, it is drawn once and exactly as before.
+ * Where body `b`'s glance stands this frame, about its centre with a `hold` of
+ * 0 — what a thumb asks `glancedPoint` against to meet a held body where it is
+ * drawn.
  */
+export function bodyGlanceFrame(
+  b: Pick<Body, "c" | "x" | "y" | "time">,
+  part: GlancedPart,
+): GlanceFrame {
+  const at = { x: b.x, y: b.y, r: part.r, hold: 0 };
+  return glanceFrame(creatureGlance(b.c.id, part.sort), b.time + b.c.id * STAGGER, at);
+}
+
+/**
+ * **A body, glancing** (the owner, 14 October 2026: *they should be not
+ * exactly equal*). What `draw` paints turns about the body's centre, on its
+ * own temper and its own place in the round; whatever the caller lays over it
+ * — grips, marks, cords, a streak — stays flat. A body has no one path for the
+ * far side's dark to fill, so it is laid on the layer (`drawGlancedLayer`'s
+ * `atop`). Still, `draw` paints straight onto the screen, exactly as before.
+ */
+export function drawGlancedBody(
+  b: Body,
+  part: GlancedPart,
+  draw: (ctx: CanvasRenderingContext2D) => void,
+): void {
+  const f = bodyGlanceFrame(b, part);
+  if (glanceStill(f)) {
+    draw(b.ctx);
+    return;
+  }
+  const shade = {
+    dark: FAR_DARK,
+    full: SIZES[part.sort ?? "living"].reach,
+    reach: part.reach ?? LAYER_REACH,
+    atop: true,
+  };
+  drawGlancedLayer(b.ctx, f, shade, (g) => {
+    draw(g);
+    return [];
+  });
+}
+
+/** The ordinary living blob, glancing: `drawLivingBody` through `drawGlancedBody`. */
 export function drawGlancedLiving(
   b: Body,
   swell = 1,
@@ -75,24 +142,5 @@ export function drawGlancedLiving(
   wash?: Wash,
 ): void {
   const r = b.l.tile * 0.4 * livingBodyMul(b.c);
-  const f = glanceFrame(creatureGlance(b.c.id), b.time + b.c.id * STAGGER, {
-    x: b.x,
-    y: b.y,
-    r,
-    hold: 0,
-  });
-  if (glanceStill(f)) {
-    drawLivingBody(b, swell, shape, wash);
-    return;
-  }
-  const shade = {
-    dark: FAR_DARK,
-    full: CREATURE_GLANCE_SIZE.reach,
-    reach: LAYER_REACH,
-    atop: true,
-  };
-  drawGlancedLayer(b.ctx, f, shade, (g) => {
-    drawLivingBody({ ...b, ctx: g }, swell, shape, wash);
-    return [];
-  });
+  drawGlancedBody(b, { r }, (ctx) => drawLivingBody({ ...b, ctx }, swell, shape, wash));
 }

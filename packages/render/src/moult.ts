@@ -1,6 +1,8 @@
 import { POD } from "@neon-spore/content";
 import { moultCargo, moultIsPod, type SimConfig, spanOf } from "@neon-spore/sim";
 import type { Body } from "./creature-body-in.js";
+import { STONE_REACH } from "./creature-body-rock.js";
+import { drawGlancedBody } from "./creature-glance.js";
 import { halo, strokeGlow } from "./glow.js";
 import { mixHex } from "./hex.js";
 import { drawMeteor } from "./meteor.js";
@@ -68,9 +70,13 @@ export function moultPodShare(cfg: SimConfig, waveBeat: number, beatPhase: numbe
 /** The body, at whatever it currently is. */
 export function drawMoultBody(b: Body): void {
   const k = moultPodShare(b.world.cfg, b.world.waveBeat, b.beatPhase);
-  if (k <= 0) drawMeteor(b.ctx, b.l, b.c, b.x, b.y, b.time);
-  else if (k >= 1) drawPodBody(b.ctx, b.x, b.y, b.l.tile * POD_TILES, b.time, moultCargo(b.c));
-  else drawBlend(b, k);
+  // The form glances as a rock whichever it is; what it turns into next stays flat.
+  const r = Math.max(rockRadius(b.l, spanOf(b.c)), b.l.tile * POD_TILES);
+  drawGlancedBody(b, { r, sort: "rock", reach: STONE_REACH }, (ctx) => {
+    if (k <= 0) drawMeteor(ctx, b.l, b.c, b.x, b.y, b.time);
+    else if (k >= 1) drawPodBody(ctx, b.x, b.y, b.l.tile * POD_TILES, b.time, moultCargo(b.c));
+    else drawBlend({ ...b, ctx }, k);
+  });
   drawMoultNext(b);
 }
 

@@ -153,6 +153,19 @@ export function drawTorch(
    * a rock out of THE COIL left (`coil-flight.ts`). */
   tailFrom?: { x: number; y: number },
 ): void {
+  drawTorchStreak(ctx, l, c, x, y, tailFrom);
+  drawTorchStone(ctx, l, c, x, y, time);
+}
+
+/** The torch's streak alone, behind the stone: what stays flat while the stone glances. */
+export function drawTorchStreak(
+  ctx: CanvasRenderingContext2D,
+  l: Layout,
+  c: Creature,
+  x: number,
+  y: number,
+  tailFrom?: { x: number; y: number },
+): void {
   const r = rockRadius(l, spanOf(c));
   // No travel this beat, no trail: the beat a torch breaks off the queen it
   // stands still in the socket it grew in (`spit`, sim/boss.ts), and a streak
@@ -160,8 +173,6 @@ export function drawTorch(
   // not started yet.
   if (tailFrom) drawTorchTail(ctx, l, x, y, r, 1, tailFrom);
   else if (c.row !== c.fromRow) drawTorchTail(ctx, l, x, y, r);
-
-  drawTorchStone(ctx, l, c, x, y, time);
 }
 
 /**
