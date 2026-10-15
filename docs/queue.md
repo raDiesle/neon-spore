@@ -375,3 +375,16 @@ its own: a `TAP` cue with `BossCue.print` the thumbprint's circle
 one pass each; (b) the cues only, enemies left; (c) leave them. On (a) or
 (b), `cue-helper.ts` gains a `press` helper beside `hold` and `rub`, and the
 roll-out test lists who is still owed one.
+
+## `bun run frames --hold` has no BLISTER stroke
+
+- **Found:** 2026-10-15, claude/blister-swipe-take
+- **Files:** `tools/frames/hold-targets.ts`, `tools/frames/hold.ts`, `tools/frames/test/`
+
+A SWIPE or COMBO blister carried part way — SLUG stretched to the knob, ZIP
+gaping behind it — cannot be photographed from a wave: `--hold` knows no
+`blisterSwipe`, so `frames . --wave "FIVE BLISTERS" --entry 0:gesture=swipe`
+shows the body only at rest. Add `blisterSwipe` to `hold-targets.ts` (an `id`,
+`fromMilli` across and `y=` down, as `balloonLeft` and `sinewLeft` take them),
+a recipe line in `--help`, and a test that a held stroke reaches the world as
+a `drag` on the body's id.

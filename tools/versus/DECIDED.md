@@ -2241,3 +2241,14 @@ which picks one per blister by its id (blister-pick.ts).
 
 The other answers offered were `purr`, `urchin` and `washboard`; they went
 with the slot.
+
+## `blister:swipe` — nothing taken, 2026-10-15
+
+taken by hand: the owner, 15 October 2026, liked every answer but FROG and
+asked for a longer pull. SLUG and ZIP both written into BLISTER_BODY.swipe
+through drawSwipeBody and drawSwipeBeyond in
+packages/render/src/blister-swipe-body.ts, which picks one per blister by its
+id; blisterSwipeMilli went from one tile to two. FROG went with the slot.
+
+The other answers offered were `frog`, `slug` and `zip`; they went with the
+slot.

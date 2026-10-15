@@ -5,7 +5,7 @@
 > October 2026: ROOTED CLOVER, the pore, the bulge and the tap help); HOLD
 > (lane 4) the same day; SWIPE (lane 5), TURN (lane 6), RUB (lane 7) and the
 > guide and waves (lane 8) on 9 October 2026; COMBO's and LEVER's simulation and
-> help on 15 October 2026, their bodies `blister:combo` and `blister:lever` slots after them — COMBO's took BUD and CURL, one per blister, the same day, and RUB's (`blister:rub`) URCHIN, WASHBOARD and PURR. Asked for by the owner on 7
+> help on 15 October 2026, their bodies `blister:combo` and `blister:lever` slots after them — COMBO's took BUD and CURL, one per blister, the same day, and RUB's (`blister:rub`) URCHIN, WASHBOARD and PURR, and SWIPE's SLUG and ZIP, its stroke two tiles long. Asked for by the owner on 7
 > October 2026: a creature on the principle of whack-a-mole, removed by
 > several taps on the screen, with variants removed by a hold, a swipe, a turn
 > round it and other gestures that also work with a mouse; the director's
@@ -60,7 +60,7 @@ out on purpose — a desk with a mouse has none of them.
 |---|---|---|---|---|
 | **TAP** (the plain mole) | `TAP` | taps the blister while it is up | taps; `tap {id}` routed to the blister as it is to the soundbox | THE PRESS LAB's yellow drop (`press-drop.ts`), STEPS' water a terrace a tap, and one pip round the body for each tap still owed |
 | **HOLD** | `HOLD` | presses and keeps the press | ticks held, from `grip` on to `grip` off; a release resets | `drawHoldMark`, with `drawGripDial` running round it |
-| **SWIPE** | `SWIPE` | drags across the body the way the arrow points | one stroke the moment the drag passes `blisterSwipeMilli` (one tile) in that direction, or on the lift that got it there — the one generic PULL (`sim/pull.ts`); let go short, refused out loud (`pullShort`) | the PULL LAB's knob on its channel, never a ring (the owner, 24 September and 13 October 2026) |
+| **SWIPE** | `SWIPE` | drags across the body the way the arrow points | one stroke the moment the drag passes `blisterSwipeMilli` (two tiles) in that direction, or on the lift that got it there — the one generic PULL (`sim/pull.ts`); let go short, refused out loud (`pullShort`) | the PULL LAB's knob on its channel, never a ring (the owner, 24 September and 13 October 2026) |
 | **TURN** (the circle) | `TURN` | drags a full turn round the body, the way the channel points | thousandths of a turn, as the crank's bearing is | `drawMazeLever`, the one turn for every wave (the owner, 5 October 2026) |
 | **RUB** | `RUB` | scrubs back and forth over it | reversals, as `packages/render/src/rub-turns.ts` counts them | `drawRubDrop` |
 | **LEVER** | `LEVER` | carries the knob down its groove into the band, and holds it there | ticks in the band (`blisterLeverFromMilli`..`blisterLeverToMilli`) towards `blisterLeverBeats`; out of it the count starts again, a lift before it is done is refused (`pullShort`), and a hand counted once is spent until it lifts | THE LEVER LAB's groove and band (`render/lever-groove.ts`), the PULL LAB's knob, and the handle dial while it is held |

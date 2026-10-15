@@ -1,13 +1,9 @@
-import type { BlisterFrame } from "../../../../../packages/render/src/blister-bodies.js";
-import type { Body } from "../../../../../packages/render/src/creature-body-in.js";
-import { rgba } from "../../../../../packages/render/src/hex.js";
-import { PALETTE } from "../../../../../packages/render/src/palette.js";
-import { PULL_SIZE } from "../../../../../packages/render/src/pull-knob.js";
-import {
-  type BlisterSwipeWay,
-  blisterSwipeShare,
-  blisterWayOf,
-} from "../../../../../packages/sim/src/index.js";
+import { type BlisterSwipeWay, blisterSwipeShare, blisterWayOf } from "@neon-spore/sim";
+import type { BlisterFrame } from "./blister-bodies.js";
+import type { Body } from "./creature-body-in.js";
+import { rgba } from "./hex.js";
+import { PALETTE } from "./palette.js";
+import { PULL_SIZE } from "./pull-knob.js";
 
 const TAU = Math.PI * 2;
 
@@ -23,7 +19,7 @@ const WAY: Record<BlisterSwipeWay, { dx: number; dy: number }> = {
 const STEPS = 14;
 
 /**
- * SLUG: a slug's back end humps up out of the pore, and the rest of it lies
+ * SLUG, one of SWIPE's two bodies (`blister-swipe-body.ts`): a slug's back end humps up out of the pore, and the rest of it lies
  * out along the swipe's channel, the channel down the middle of its back and
  * its head under the knob, two eye stalks reaching on ahead the way the stroke
  * runs. At rest it is all hump, stalks already pointing; carried, the head goes

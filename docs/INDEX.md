@@ -2738,6 +2738,9 @@ by hand never moves.
 | `packages/render/src/blister-rub-urchin.ts` | URCHIN, one of RUB's three bodies: a sea urchin whose spines lie flat a third per blow |
 | `packages/render/src/blister-rub-washboard.ts` | WASHBOARD, one of RUB's three bodies: a ridged board lit green a third per blow |
 | `packages/render/src/blister-rub.ts` | THE BLISTER's RUB body: URCHIN, WASHBOARD or PURR, one per blister by its id |
+| `packages/render/src/blister-swipe-body.ts` | **THE BLISTER's SWIPE body: SLUG or ZIP, one per blister** (the owner, 15 October 2026, on `blister:swipe` |
+| `packages/render/src/blister-swipe-slug.ts` | SLUG, one of SWIPE's two bodies: a slug humped in the pore, stretched along the channel to the knob |
+| `packages/render/src/blister-swipe-zip.ts` | ZIP, one of SWIPE's two bodies: a pod zipped shut along the channel, the knob its pull |
 | `packages/render/src/blister.ts` | THE BLISTER, drawn: |
 | `packages/render/src/canvas2d-stage.ts` | **The letterbox**: what is drawn in the window but outside the game — the paint either side of a phone-shaped stage, and the hairline saying where the phone ends |
 | `packages/render/src/canvas2d-held.ts` | **What a host may reach of the renderer's state**, as the class `Canvas2DRenderer` stands on |

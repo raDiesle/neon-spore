@@ -15,6 +15,7 @@ import {
   ticksPerBeat,
   type World,
 } from "@neon-spore/sim";
+import { swipeBodyOf } from "../src/blister-swipe-body.js";
 import { flatCenter } from "../src/creature-place.js";
 import { computeLayout, type ViewRole } from "../src/layout.js";
 import { touchDown, touchUp } from "../src/touch.js";
@@ -36,8 +37,9 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
 /**
  * THE BLISTER's SWIPE, pressed and drawn — and a TURN's press beside it (`blister-tap.ts`, `blister-help.ts`):
  * a press on one that is up is a `blisterSwipe` drag whose lift carries how
- * far the hand went, and on every screen the track is laid across a body
- * whose shape is the TAP blister's, filling as a stroke is carried.
+ * far the hand went, and on every screen the track is laid across SLUG or
+ * ZIP, one per blister by its id (`blister-swipe-body.ts`), filling as a stroke
+ * is carried.
  */
 
 beforeAll(installCanvasGlobals);
@@ -181,5 +183,13 @@ describe("the SWIPE blister", () => {
 
   it("really stroked blows out of them", () => {
     expect(played("test").blows).toBeGreaterThan(0);
+  });
+});
+
+describe("the SWIPE blister's body", () => {
+  it("is SLUG for some ids and ZIP for others, the same every time it is asked", () => {
+    const picks = Array.from({ length: 12 }, (_, i) => swipeBodyOf(i + 1));
+    expect(new Set(picks)).toEqual(new Set([0, 1]));
+    expect(picks).toEqual(Array.from({ length: 12 }, (_, i) => swipeBodyOf(i + 1)));
   });
 });

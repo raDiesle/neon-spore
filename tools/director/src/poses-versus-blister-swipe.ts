@@ -6,7 +6,8 @@ import { blisterUp, sent, sinceUp } from "./poses-versus-blister.js";
  * THE BLISTER's SWIPE played through by a hand of its own, once for each of
  * two ways: up out of its pore, a stroke carried the whole way and lifted —
  * one blow — and a second taken and held half way. It is what
- * `blister:swipe` on VERSUS is judged on: a body built round the channel has
+ * `blister:swipe` on VERSUS was judged on (SLUG and ZIP taken, 15 October
+ * 2026): a body built round the channel has
  * to follow the way the stroke is authored to go, so the slot opens on the
  * stroke DOWN, the one that runs past the pore's lip (`BlisterBodyLook.beyond`),
  * and the COMPARED LOOKS sheet carries the stroke UP beside it — the way ON
@@ -19,7 +20,7 @@ function swipePlayed(way: BlisterSwipeWay, name: string): Pose {
     lookAt: "whether the body says which way to stroke, and goes with the knob",
     crop: "tile",
     role: "p2",
-    span: 3,
+    span: 5,
     cadenceSeconds: 1.25,
     at: (w) => {
       const c = w.creatures.find(blisterIsUp);

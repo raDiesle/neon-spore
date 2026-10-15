@@ -1,13 +1,9 @@
-import type { BlisterFrame } from "../../../../../packages/render/src/blister-bodies.js";
-import type { Body } from "../../../../../packages/render/src/creature-body-in.js";
-import { rgba } from "../../../../../packages/render/src/hex.js";
-import { PALETTE } from "../../../../../packages/render/src/palette.js";
-import { PULL_SIZE } from "../../../../../packages/render/src/pull-knob.js";
-import {
-  type BlisterSwipeWay,
-  blisterSwipeShare,
-  blisterWayOf,
-} from "../../../../../packages/sim/src/index.js";
+import { type BlisterSwipeWay, blisterSwipeShare, blisterWayOf } from "@neon-spore/sim";
+import type { BlisterFrame } from "./blister-bodies.js";
+import type { Body } from "./creature-body-in.js";
+import { rgba } from "./hex.js";
+import { PALETTE } from "./palette.js";
+import { PULL_SIZE } from "./pull-knob.js";
 
 const TAU = Math.PI * 2;
 
@@ -23,7 +19,7 @@ const WAY: Record<BlisterSwipeWay, { dx: number; dy: number }> = {
 const TEETH = 9;
 
 /**
- * ZIP: a long pod comes up out of the pore and lies out along the swipe's
+ * ZIP, one of SWIPE's two bodies (`blister-swipe-body.ts`): a long pod comes up out of the pore and lies out along the swipe's
  * channel, zipped shut down its middle, the knob its zip's pull. Carried, the
  * knob opens the seam behind it and the pod gapes there, glowing inside; ahead
  * of the knob the teeth stay shut, so how far is left to open is how far is

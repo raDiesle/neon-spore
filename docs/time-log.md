@@ -41996,3 +41996,17 @@ Bottleneck: `check:fast` at nearly five minutes on a busy machine, for a
 diff in four files of render and three candidates.
 
 *Measured: 28 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
+
+## 2026-10-15 — THE BLISTER's SWIPE takes SLUG and ZIP, its stroke two tiles
+
+- reading: 10 min. The three candidates, COMBO's landing of the hour before
+  as the pattern, every reader of `blisterSwipeMilli`.
+- writing: 10 min. Both draws moved into render, a picker off the id, the
+  stroke doubled, COMBO's two bodies made to reach it, two pose crops widened.
+- looking: 10 min. A SWIPE blister in FIVE BLISTERS by `bun run frames --entry`.
+- friction: 5 min. No `--hold` for a blister stroke, so only the body at rest.
+- landing: 10 min. `check:fast` twice, for the import sort and a zero-width
+  stalk under the pore.
+
+Bottleneck: looking — the stretched half of both bodies, the part the longer
+stroke changes, has no one-command photograph.

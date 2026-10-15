@@ -27,7 +27,7 @@ export const BLISTER_COMBO_PLAYED: Pose = {
   lookAt: "whether the body says which half it is waiting for — the press, or the pull",
   crop: "tile",
   role: "p2",
-  span: 3,
+  span: 5,
   cadenceSeconds: 1.2,
   at: (w) => {
     const c = w.creatures.find(blisterIsUp);

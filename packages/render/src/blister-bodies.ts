@@ -4,6 +4,7 @@ import { drawHugBody } from "./blister-hug.js";
 import { drawPalmBody } from "./blister-palm.js";
 import { blisterBodyOf } from "./blister-pick.js";
 import { drawRubBody } from "./blister-rub.js";
+import { drawSwipeBeyond, drawSwipeBody } from "./blister-swipe-body.js";
 import type { Body } from "./creature-body-in.js";
 import { drawLivingBody } from "./creature-body-living.js";
 
@@ -25,7 +26,8 @@ import { drawLivingBody } from "./creature-body-living.js";
  * gesture's `draw` (`blister:tap` and the slots after it), and an adopted one
  * replaces that gesture's field alone: COMBO's took BUD and CURL
  * (`blister-combo.ts`), HOLD's PALM and HUG (`drawHoldBody`), RUB's URCHIN,
- * WASHBOARD and PURR (`blister-rub.ts`).
+ * WASHBOARD and PURR (`blister-rub.ts`),
+ * SWIPE's SLUG and ZIP (`blister-swipe-body.ts`).
  */
 
 /** What `drawBlisterBody` has already worked out, handed to every body. */
@@ -77,7 +79,7 @@ export function drawNothingBeyond(_b: Body, _f: BlisterFrame): void {}
 export const BLISTER_BODY: Record<BlisterGesture, BlisterBodyLook> = {
   tap: { draw: drawCloverBody, beyond: drawNothingBeyond },
   hold: { draw: drawHoldBody, beyond: drawNothingBeyond },
-  swipe: { draw: drawCloverBody, beyond: drawNothingBeyond },
+  swipe: { draw: drawSwipeBody, beyond: drawSwipeBeyond },
   turn: { draw: drawCloverBody, beyond: drawNothingBeyond },
   rub: { draw: drawRubBody, beyond: drawNothingBeyond },
   combo: { draw: drawComboBody, beyond: drawNothingBeyond },

@@ -90,7 +90,7 @@ function shut(ctx: CanvasRenderingContext2D, x: number, y: number, r: number): v
 function stalk(ctx: CanvasRenderingContext2D, b: Body, x: number, y: number, r: number): void {
   const way = WAY[blisterWayOf(b.c)];
   const along = blisterSwipeShare(b.world, b.c);
-  const reach = b.l.tile * along;
+  const reach = ((b.world.cfg.blisterSwipeMilli * b.l.tile) / 1000) * along;
   const fx = x + way.dx * r * 0.7;
   const fy = y + way.dy * r * 0.7;
   const tx = b.x + way.dx * reach;

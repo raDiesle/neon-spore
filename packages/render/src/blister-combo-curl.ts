@@ -60,7 +60,10 @@ function wound(x: number, y: number, r: number, way: Way, time: number): Pt[] {
 
 /** Drawn: out along the way to the knob, a little slack, tapering to its tip under it. */
 function drawn(b: Body, x: number, y: number, r: number, way: Way): Pt[] {
-  const reach = Math.max(r * 1.6, b.l.tile * blisterSwipeShare(b.world, b.c));
+  const reach = Math.max(
+    r * 1.6,
+    ((b.world.cfg.blisterSwipeMilli * b.l.tile) / 1000) * blisterSwipeShare(b.world, b.c),
+  );
   const tx = b.x + way.dx * reach;
   const ty = b.y + way.dy * reach;
   const fx = x + way.dx * r * 0.9;
