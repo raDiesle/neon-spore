@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-15 · 4bfd85c87 — The owner wants every tap in the game to wear the yellow press
+
+The queue entry for rolling THE PRESS LAB's drop out to every other tap now carries his answer, all of them, in place of the question.
+
 ## 2026-10-15 · 85c1e98b4 — THE BLISTER's TURN comes up as WHEEL or SNAIL
 
 A TURN blister now rises out of its pore as one of two bodies the owner took from VERSUS: WHEEL, six lobes hooked the way the turn runs like a turbine's blades, and SNAIL, all shell, whose spiral winds that way, with its foot and eye stalks on the lip. Both go round with the knob as the lever turns. Which one comes up follows the blister and the tile it surfaced on, picked the same way as HOLD's PALM or HUG, so one blister can show both over a wave. WORM was rejected.
