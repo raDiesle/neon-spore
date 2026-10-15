@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-15 · a7a2c4815 — A VERSUS tab takes the director's palette again
+
+A candidate opened in its own tab drew black on white: the 13 October split of director-shell.css moved every colour variable into director-tokens.css, and versus.css still imported only the old four sheets, so every var() on the page resolved to nothing. versus.css now imports the tokens sheet second, as director.css does, and the stylesheet-order test refuses a var() that none of the VERSUS sheets defines. A fix to something wrong rather than unlovely.
+
 ## 2026-10-15 · 08a55d01f — The held bodies glance
 
 THE BALLOON and THE LID now cock and turn as every other enemy does. A balloon turns holding the two points its handles hang at, and does not roll, so both handles still meet its skin where they are drawn and where a thumb is answered; a lid's cord runs from the eye's centre, which its turn leaves where it is. THE WEIGHT already glanced as a living body, and its calipers still close round it. The ghost and the wisp do not glance: each is mostly not drawn.

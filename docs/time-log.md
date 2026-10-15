@@ -41907,3 +41907,5 @@ the bosses, and the balloon only had to ask for it.
 
 Bottleneck: nothing tied the VERSUS list to the sheet it borrows from, so a
 split on the director's side broke a page nobody opened that day.
+
+*Measured: 5 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
