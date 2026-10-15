@@ -144,6 +144,12 @@ const MEASURE = false;
 // Frame 0's `createLinearGradient` up two in every row here on 5 October
 // 2026: the cannon's column is a gunsight in the seat's colour, a glow and a
 // path of rails and ticks under two more layout gradients (`cannon-column.ts`).
+// Every row remeasured on 15 October 2026, when every living enemy began to
+// glance (`creature-glance.ts`): a turning body is drawn onto an offscreen
+// layer and its two halves are laid back with `drawGlancedLayer`, so each one
+// on the field costs blits, clips and saves on this canvas, a `fillRect` and a
+// gradient for the far half's shade — and the fills of its body land on the
+// layer, which this tally does not count.
 const BUDGETS: Readonly<Record<"p1" | "p2", readonly Budget[]>> = {
   p1: [
     {
@@ -151,18 +157,18 @@ const BUDGETS: Readonly<Record<"p1" | "p2", readonly Budget[]>> = {
       // rect over the backdrop, one save for the composite mode it needs, and
       // one gradient on the first frame at a size and none after
       // (`ship-air.ts`).
-      fillRect: 55,
+      fillRect: 57,
       // Ten of these are the two action buttons' emblems: one membrane stroke
       // and `strokeGlow`'s four passes over the lit crest, twice
       // (`action-face.ts`). They replaced two `fillText` calls, which is the
       // whole of the trade the owner chose — the word cost almost nothing and
       // could not be drawn at a sequence glyph's size at all.
       stroke: 87,
-      fill: 64,
-      clip: 12,
-      save: 49,
-      drawImage: 47,
-      createLinearGradient: 21,
+      fill: 60,
+      clip: 21,
+      save: 60,
+      drawImage: 62,
+      createLinearGradient: 24,
       createRadialGradient: 11,
       // Fourteen of these are the panel's own sheet, painted here and only
       // here: it depends on the size of the band and nothing else, so the
@@ -172,28 +178,28 @@ const BUDGETS: Readonly<Record<"p1" | "p2", readonly Budget[]>> = {
       // mechanism (`action-face.ts`'s `bakedCache`). The row below is the
       // proof — same seat, same size, one frame later, and back down.
       "new Path2D": 47,
-      fillText: 2,
+      fillText: 0,
     },
     {
-      fillRect: 55,
+      fillRect: 57,
       stroke: 89,
-      fill: 64,
-      clip: 12,
-      save: 49,
-      drawImage: 47,
+      fill: 60,
+      clip: 21,
+      save: 60,
+      drawImage: 62,
       // Down from frame 0: the layout-only gradients (`gradient-slot.ts`'s
       // sites in field.ts and backdrop.ts, key-light.ts's own slot, and the
       // channels' three in band-control.ts) are cache hits from the second
       // frame on.
-      createLinearGradient: 12,
+      createLinearGradient: 15,
       createRadialGradient: 8,
       "new Path2D": 22,
-      fillText: 2,
+      fillText: 0,
     },
   ],
   p2: [
     {
-      fillRect: 55,
+      fillRect: 57,
       // The seam's rim off (five, as on p1) and the fire buttons rebuilt: each
       // one lost a crosshair's two strokes and gained the outline round its
       // contour plus `strokeGlow`'s four passes round the creature inside it,
@@ -203,34 +209,34 @@ const BUDGETS: Readonly<Record<"p1" | "p2", readonly Budget[]>> = {
       // Three more, and all three are `drawDetails`: the bulb's one core and
       // the slick's two, drawn on the buttons now that the silhouettes are
       // bodies rather than stencils.
-      fill: 71,
-      clip: 12,
+      fill: 67,
+      clip: 21,
       // Two fewer: a fire button's face is one `paintLobe` doing fill and
       // stroke together where it used to be a fill and then a crosshair.
-      save: 51,
-      drawImage: 46,
-      createLinearGradient: 21,
+      save: 62,
+      drawImage: 61,
+      createLinearGradient: 24,
       createRadialGradient: 11,
       // Two more than p1's frame 0: the sheet, and the fire buttons'
       // silhouettes, which are on this seat's panel alone.
       "new Path2D": 45,
-      fillText: 2,
+      fillText: 0,
     },
     {
-      fillRect: 55,
+      fillRect: 57,
       stroke: 93,
-      fill: 71,
-      clip: 12,
-      save: 51,
-      drawImage: 46,
-      createLinearGradient: 12,
+      fill: 67,
+      clip: 21,
+      save: 62,
+      drawImage: 61,
+      createLinearGradient: 15,
       createRadialGradient: 8,
       // Back level with p1's second frame, and the two it came down by are the
       // fire buttons' silhouettes: every argument to them is a constant of the
       // colour, so `controls.ts` keeps the two paths rather than rebuilding
       // both every frame.
       "new Path2D": 22,
-      fillText: 2,
+      fillText: 0,
     },
   ],
 };

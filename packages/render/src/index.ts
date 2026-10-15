@@ -36,7 +36,7 @@ export { irisCount, irisOver } from "./countdown-iris.js";
 export { COUNTDOWN_LOOK, type CountdownLook } from "./countdown-look.js";
 export type { Body } from "./creature-body-in.js";
 export { drawLivingBody } from "./creature-body-living.js";
-export { CREATURE_GLANCE, CREATURE_GLANCE_SIZE } from "./creature-glance.js";
+export { CREATURE_GLANCE_SIZE } from "./creature-glance.js";
 export {
   contourClock,
   creatureCenter,

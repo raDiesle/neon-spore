@@ -357,28 +357,6 @@ Probe with a twelve-seed loop over `startWave(world, 0, [], [], { kind:
 bodies in their column. Add each seed that clears to `scuttle-wave.test.ts`.
 Prove with `bun test packages/hands` and `bun run check`.
 
-## Every living enemy glances
-
-- **Found:** 2026-10-14, claude/creature-glance
-- **Taken:** 2026-10-15, claude/queue-the-nameability-gate-measures-an-enemy-turned-by (claim: claude/queue-every-living-enemy-glances)
-- **Files:** `packages/render/src/creatures.ts`, `packages/render/src/glance-layer.ts`
-
-Second of three, after "The nameability gate measures an enemy turned by its
-glance" and "The op-count budgets do not count what a glancing part draws".
-Every body the table draws with `drawLivingBody` (`creature-body.ts`) goes
-through `drawGlancedLayer` (`glance-layer.ts`) with a `hold` of 0, at
-`l.tile * 0.4` times its `sizeMul`, each creature on a temper of its own,
-`temperOf(c.id)` (`glance-temper.ts`): its own round length, cocks and cycle,
-so no two enemies turn alike (the owner, 14 October 2026: *they should be not
-exactly equal*). The record is `glanceOf(cock, CREATURE_GLANCE_SIZE)`; one
-`Glance` a temper, cached by id and dropped when the creature goes. The far side's dark has no contour to
-fill, so add a `source-atop` ramp on the layer to `drawGlancedLayer` rather
-than a disc that would smear past a blob's edge. Only the body turns:
-`drawOverBody`, grips, marks and cords stay flat. Remeasure the budget rows
-that move with a sentence each. Exemption: a look the owner asked for by
-name. Send one PNG strip of a wave with several kinds. Prove it with
-`bun test packages/render` and `bun run check`.
-
 ## The rest of the enemies glance: rocks, hazards and held bodies
 
 - **Found:** 2026-10-14, claude/creature-glance

@@ -2551,7 +2551,7 @@ by hand never moves.
 | `packages/render/src/creature-under.ts` | The creature under this seat's finger on the flat field — the touch layer's hit test, by the flat placement |
 | `packages/render/src/creature-over.ts` | what is laid over a body after the body is drawn — the veil's cloud, the veer's rider, the carom's crust, the chute, the volley's shell, the recoil's cage, the coil's dome, the clasp's shield — one `if` per covering |
 | `packages/render/src/creature-axes.ts` | **How wide and how tall a body is actually drawn** — the other half of `creatureRadius` |
-| `packages/render/src/creature-glance.ts` | **How far an enemy may glance** — the largest turn and roll the naming gate allows, searched |
+| `packages/render/src/creature-glance.ts` | **Every living enemy glances** — the largest turn and roll the naming gate allows, each body's own COCK temper read off its id, and `drawGlancedLiving`, which lays a turning body back from a layer of its own |
 | `packages/render/src/handle-place.ts` | **Where a handle is standing**, as against where a finger may grab it |
 | `packages/render/src/handle-place-boss.ts` | **Where a boss's handle is standing** — `handle-place.ts`' question |
 | `packages/render/src/handle-place-boss-b.ts` | **Where the later clock bosses' handles are standing** — the second page of `handle-place-boss.ts` |

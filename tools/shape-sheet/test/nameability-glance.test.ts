@@ -1,5 +1,5 @@
 import { describe, expect, it, setDefaultTimeout } from "bun:test";
-import { CREATURE_GLANCE, CREATURE_GLANCE_SIZE } from "@neon-spore/render";
+import { CREATURE_GLANCE_SIZE } from "@neon-spore/render";
 import { confusable, type Nameability, nameability } from "../src/nameability.js";
 import type { GlanceReach } from "../src/nameability-glance.js";
 import { livingKinds } from "../src/subjects.js";
@@ -64,13 +64,6 @@ describe("an enemy's glance, within the naming gate", () => {
   it("measures nothing new with no glance", () => {
     for (const kind of KINDS) {
       expect(nameability(kind, undefined, { reach: 0, cock: 0 })).toEqual(TODAY.get(kind)!);
-    }
-  });
-
-  it("ships still until the lane that turns the enemies", () => {
-    for (const t of [0, 1.3, 2.9, 4.4]) {
-      expect(CREATURE_GLANCE.swing(t)).toBe(0);
-      expect(CREATURE_GLANCE.roll(t)).toBe(0);
     }
   });
 });

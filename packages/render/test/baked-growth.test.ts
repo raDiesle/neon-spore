@@ -86,7 +86,11 @@ function entriesAfter(role: "p1" | "p2"): number {
 // grown body and its beads; a plate is a rounded rectangle, a gradient and a
 // crest, and none of that is a sprite. The one that is left is the halo under
 // RETRY's glow.
-const HELD = { p1: 40, p2: 49 } as const;
+// Four more on each seat from 15 October 2026, when every living enemy began
+// to glance: the glance layer's two scratch canvases (`glance-layer.ts`), and
+// one record for each of the two slicks on the field when the run ends, each
+// dropped as its body goes (`creature-glance.ts`).
+const HELD = { p1: 44, p2: 53 } as const;
 
 describe("what the renderer keeps between frames", () => {
   for (const role of ["p1", "p2"] as const) {

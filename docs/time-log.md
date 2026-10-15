@@ -41817,3 +41817,18 @@ Bottleneck: the fuse ring sits at one and a half radii, so a HOLD body
 only reads out past it.
 
 *Measured: 9 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-15 — Every living enemy glances
+
+- reading: 5 min. `glance-layer.ts`'s shade, the bosses' own glanced draw,
+  and every row `creature-body.ts` draws a living body from.
+- writing: 5 min. `drawGlancedLiving`, a source-atop far-half shade so a
+  body's own glow is not darkened round it, the records forgotten with the
+  body, and the budget rows remeasured with a sentence each.
+- looking: 5 min. Four waves photographed before one carried several living
+  kinds at once; DART AND CLASP did.
+- friction: 0 min.
+- landing: 5 min. `bun test packages/render` (165 s), `check:fast`, `land`.
+
+Bottleneck: finding a wave with three living kinds on the field at once — a
+probe listing each wave's kinds settled it, and none exists as a command.

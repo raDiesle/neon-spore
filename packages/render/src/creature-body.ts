@@ -13,6 +13,7 @@ import type { Body } from "./creature-body-in.js";
 import { drawLivingBody } from "./creature-body-living.js";
 import { drawCoilBody, drawMeteorBody, drawTorchBody } from "./creature-body-rock.js";
 import { drawMagnetBody, drawStrandBody } from "./creature-body-worn.js";
+import { drawGlancedLiving } from "./creature-glance.js";
 import { livingBodyMul } from "./creature-place.js";
 import { drawCrystalBody } from "./crystal.js";
 import { drawGhost, showsGhostBody } from "./ghost.js";
@@ -174,9 +175,9 @@ const EXCLUSIVE: ReadonlyMap<CreatureKind, BodyDraw> = new Map<CreatureKind, Bod
   // A skin two hands change the shape of, which is why `living-look.ts`
   // answers `null` for it and `drawLiving` cannot have it (`balloon.ts`).
   ["balloon", drawBalloon],
-  // A slick or a bulb on a wheel's rim, by `drawLivingBody` — with the contour
+  // A slick or a bulb on a wheel's rim, glancing as any body does — with the contour
   // left to `MOUNT_LOOK.shape`, `undefined` as it ships (`mount-look.ts`).
-  ["mount", (b) => drawLivingBody(b, 1, MOUNT_LOOK.shape(b))],
+  ["mount", (b) => drawGlancedLiving(b, 1, MOUNT_LOOK.shape(b))],
   // Two bodies in one shell: a slick and a bulb by `drawLiving`, each in its
   // own tile, and the shell and the join drawn over them (`crystal.ts`).
   ["crystal", drawCrystalBody],
@@ -192,7 +193,7 @@ const EXCLUSIVE: ReadonlyMap<CreatureKind, BodyDraw> = new Map<CreatureKind, Bod
   [
     "countdown",
     (b) => {
-      drawLivingBody(b);
+      drawGlancedLiving(b);
       COUNTDOWN_LOOK.over(b);
       if (showsCount(b.l)) COUNTDOWN_LOOK.count(b);
     },
@@ -210,5 +211,5 @@ const EXCLUSIVE: ReadonlyMap<CreatureKind, BodyDraw> = new Map<CreatureKind, Bod
  * top by the caller.
  */
 export function bodyDraw(kind: CreatureKind): BodyDraw {
-  return EXCLUSIVE.get(kind) ?? (isMeteorKind(kind) ? drawMeteorBody : drawLivingBody);
+  return EXCLUSIVE.get(kind) ?? (isMeteorKind(kind) ? drawMeteorBody : drawGlancedLiving);
 }

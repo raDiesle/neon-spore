@@ -3,6 +3,7 @@ import { drawBalloonHandles } from "./balloon-handles.js";
 import { drawBlisterHelp } from "./blister-help.js";
 import type { CoilFlightFx } from "./coil-flight.js";
 import { bodyDraw } from "./creature-body.js";
+import { forgetGlances } from "./creature-glance.js";
 import { drawOverBody } from "./creature-over.js";
 import { centerAt, creatureCenter } from "./creature-place.js";
 import { DART_LOOK } from "./dart-look.js";
@@ -175,6 +176,8 @@ export function drawCreatures(
   // last so that a handle is never behind the eye it hangs off or behind the
   // body in the next column (`lid-string.ts`).
   drawLidCords(ctx, l, world, beatPhase, time);
+  // A turned body's record goes with the body (`creature-glance.ts`).
+  forgetGlances(world.creatures);
   // And THE BALLOON's two handles, on exactly the same terms and last for the
   // same reason: they are flat, they are hit-tested against the circle they
   // are drawn at, and a handle behind the body in the next lane is a handle a

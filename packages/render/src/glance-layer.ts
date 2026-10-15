@@ -130,17 +130,46 @@ function screenBox(ctx: CanvasRenderingContext2D, m: Matrix, f: GlanceFrame, rea
 }
 
 /**
+ * The far half's dark on `c`, under the turn and clip `enterHalf` gives it, in
+ * the blend `blend` sets, over what `paint` fills.
+ */
+function farDark(
+  c: CanvasRenderingContext2D,
+  f: GlanceFrame,
+  far: -1 | 1,
+  reach: number,
+  ramp: { dark: number; span: number },
+  blend: (c: CanvasRenderingContext2D) => void,
+  paint: (c: CanvasRenderingContext2D) => void,
+): void {
+  enterHalf(c, f, far, reach);
+  blend(c);
+  const grad = c.createLinearGradient(f.x, 0, f.x + far * ramp.span * f.r, 0);
+  grad.addColorStop(0, rgba(SHADOW, 0));
+  grad.addColorStop(1, rgba(SHADOW, ramp.dark));
+  c.fillStyle = grad;
+  paint(c);
+  c.restore();
+}
+
+/**
  * `drawGlanced`'s turn, with the part `draw` draws on the context it is handed
  * laid down as one layer. `draw` is called once, and answers with the paths
- * the far half's dark is laid over.
+ * the far half's dark is laid over. **`atop`** is for a part with no such
+ * path — a living body, drawn by a dozen calls — and lays the dark on the
+ * layer itself, `source-atop`, so it falls only where the part was drawn and
+ * never as a disc past a blob's edge (`creature-glance.ts`).
  */
 export function drawGlancedLayer(
   ctx: CanvasRenderingContext2D,
   f: GlanceFrame,
-  shade: { dark: number; full: number; span?: number; reach?: number },
+  shade: { dark: number; full: number; span?: number; reach?: number; atop?: boolean },
   draw: (g: CanvasRenderingContext2D) => readonly Path2D[],
 ): void {
-  const { x, r, swing } = f;
+  const { x, y, r, swing } = f;
+  const far = swing > 0 ? 1 : -1;
+  const dark = shade.dark * Math.min(1, Math.abs(swing) / (shade.full * r));
+  const ramp = { dark, span: shade.span ?? 1 };
   const reach = (shade.reach ?? 4) * r;
   const m = ctx.getTransform();
   const box = screenBox(ctx, m, f, reach);
@@ -184,6 +213,16 @@ export function drawGlancedLayer(
   g.drawImage(halves, 0, 0, box.w, box.h, 0, 0, box.w, box.h);
   g.drawImage(halves, 0, 0, box.w, box.h, 0, 0, box.w, box.h);
   g.globalCompositeOperation = "source-over";
+  if (shade.atop === true && dark > 0) {
+    g.setTransform(m.a, m.b, m.c, m.d, m.e - box.ox, m.f - box.oy);
+    const atop = (c: CanvasRenderingContext2D) => {
+      c.globalCompositeOperation = "source-atop";
+    };
+    farDark(g, f, far, reach, ramp, atop, (c) =>
+      c.fillRect(far < 0 ? x - reach : x, y - reach, reach, 2 * reach),
+    );
+    g.setTransform(1, 0, 0, 1, 0, 0);
+  }
 
   // Laid on the screen once, in the screen's own blend.
   ctx.save();
@@ -193,16 +232,12 @@ export function drawGlancedLayer(
   ctx.restore();
 
   // The far half's dark, paint over it whatever the blend.
-  const far = swing > 0 ? 1 : -1;
-  const dark = shade.dark * Math.min(1, Math.abs(swing) / (shade.full * r));
-  if (dark <= 0) return;
-  enterHalf(ctx, f, far, reach);
-  ctx.globalCompositeOperation = "source-over";
-  ctx.globalAlpha = alpha;
-  const grad = ctx.createLinearGradient(x, 0, x + far * (shade.span ?? 1) * r, 0);
-  grad.addColorStop(0, rgba(SHADOW, 0));
-  grad.addColorStop(1, rgba(SHADOW, dark));
-  ctx.fillStyle = grad;
-  for (const p of paths) ctx.fill(p);
-  ctx.restore();
+  if (dark <= 0 || shade.atop === true) return;
+  const over = (c: CanvasRenderingContext2D) => {
+    c.globalCompositeOperation = "source-over";
+    c.globalAlpha = alpha;
+  };
+  farDark(ctx, f, far, reach, ramp, over, (c) => {
+    for (const p of paths) c.fill(p);
+  });
 }
