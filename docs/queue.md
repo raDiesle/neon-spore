@@ -656,6 +656,7 @@ sheet), and prove it with a test in `tools/frames/test/` and `bun run check`.
 ## ONE BOSS'S OWN's close cuts copy render's private rows
 
 - **Found:** 2026-10-15, claude/queue-helpers-bastion-to-trapeze
+- **Taken:** 2026-10-15, main (claim: claude/queue-one-bosss-owns-close-cuts-copy-renders-private-r)
 - **Files:** `tools/director/src/helpers-bosses-d.ts`, `packages/render/src/hasp-shape.ts`, `packages/render/src/ratchet-shape.ts`, `packages/render/src/spool-shape.ts`
 
 THE HASP's, THE RATCHET's and THE SPOOL's cuts on CONTROLS › HELPERS aim at
