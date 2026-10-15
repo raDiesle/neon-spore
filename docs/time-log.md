@@ -41506,3 +41506,5 @@ Bottleneck: none to speak of; both were the same miss as BULB QUEEN's.
 
 Bottleneck: reading. THE SCUTTLE lost a new way after each fix, and the last
 one only showed in a per-tick trace of the lance's fill.
+
+*Measured: 6 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*

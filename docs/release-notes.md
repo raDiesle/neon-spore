@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-15 · 3b8d0e5b4 — AUTO plays THE LEAD to the end
+
+Its lean throws torches at the hull from the first beats, and its hand never moved the shield, so AUTO lost on beat 6. The shield's half plays beside its hand now; THE LEAD clears in 40 beats, and its row in wave-curriculum-today.md has a time. THE SCUTTLE, the other half of the entry, is left in the queue with the three ways it still loses. No look changed: nothing is drawn differently.
+
 ## 2026-10-15 · 310251ddb — AUTO plays THE CURTAIN and THE TASTER to the end
 
 Each hand answered its boss and nothing that fell, so AUTO lost both: THE CURTAIN's torch landed under a parked shield, and THE TASTER's rocks and slimes fell past a cannon busy on the blades. THE CURTAIN plays the shield's half beside its own hand now, and THE TASTER plays the field hand first; they clear in 38 and 43 beats, and both rows in wave-curriculum-today.md have a time. No look changed: nothing is drawn differently.
