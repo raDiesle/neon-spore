@@ -42065,3 +42065,15 @@ Bottleneck: none; finding a row the shot tool would take was most of the looking
 Bottleneck: none; the row lookup was already fixed, only the route was missing.
 
 *Measured: 10 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-15 — the INDEX drift sweep reads its tree before the timed case
+
+- reading: 5 min. The queue entry, `drift.test.ts`, `figure.ts`'s timeout,
+  and doc-drift's `beforeAll` read, which is the pattern taken.
+- writing: 5 min. The read moved into `beforeAll` under `HANG_MS`, the comment.
+- looking: 5 min. Timing the read against the check: 12 s cold, 0.9 s warm,
+  0.15 s of checking.
+- friction: 0 min.
+- landing: 10 min. Two `check:fast` runs in a row, the commit, `land`.
+
+Bottleneck: a fresh worktree's first read of 4,000 files, which no figure saw.

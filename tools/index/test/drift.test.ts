@@ -1,21 +1,27 @@
-import { describe, expect, test } from "bun:test";
+import { beforeAll, describe, expect, test } from "bun:test";
 import { readdirSync, readFileSync, statSync } from "node:fs";
 import { join, relative } from "node:path";
+import { HANG_MS } from "../../test/cpu-time.js";
 import { itCosts } from "../../test/figure.js";
 import { treeText } from "../../test/tree-text.js";
 import { countsIn, driftInRow, headerCommentText, namesIn } from "../drift.js";
 import { parseRows } from "../index.js";
 
 /**
- * What the one case here that reads the tree costs alone, scaled to the load
- * by `itCosts` (`tools/test/figure.ts`); every other case is a string check
- * and bun's default is theirs. Until 30 September 2026 the whole file was
- * timed against 500 ms, and that case read its 3,300 files one
- * `readFileSync` at a time: 580 ms of reading warm on a busy Mac, and 40 s
- * under three lanes' checks at once, past its loaded timeout of 32 s.
- * `treeText` reads them sixty-four at a time, as the other tree guards do —
- * 100 ms of reading — and the case then took 353, 474, 639, 865 and 1228 ms
- * over five runs at a load average of fifteen. So 400.
+ * What the one case here that checks every row costs alone, scaled to the
+ * load by `itCosts` (`tools/test/figure.ts`); every other case is a string
+ * check and bun's default is theirs. The rows' 4,000 files are read before
+ * it, in `beforeAll`, and the figure is the check alone: 145 and 155 ms
+ * warm on 15 October 2026. So 400, as it was.
+ *
+ * **The read is a hang guard, not a cost** — `HANG_MS`, as
+ * `tools/test/doc-drift.test.ts` reads its tree. Until 30 September 2026
+ * the case read its files one `readFileSync` at a time, 40 s under three
+ * lanes' checks; `treeText` reads them sixty-four at a time. And until 15
+ * October it read them inside the case, under the 400 ms figure, whose
+ * timeout floors at 5 s: a fresh worktree's first read of those files took
+ * 12 s at a load of eighteen and 0.9 s the run after, so `check:fast` in a
+ * new lane went red on a timeout and green alone straight after.
  */
 const TREE_CASE_MS = 400;
 
@@ -46,6 +52,11 @@ describe("docs/INDEX.md rows still describe their files", () => {
   const committed = readFileSync(join(ROOT, "docs", "INDEX.md"), "utf8");
   const rows = parseRows(committed).filter((r) => r.path.endsWith(".ts") && names.has(r.path));
 
+  let sources: string[] = [];
+  beforeAll(async () => {
+    sources = await treeText(rows.map((row) => row.path));
+  }, HANG_MS);
+
   test("there are rows to check", () => {
     expect(rows.length).toBeGreaterThan(100);
   });
@@ -69,9 +80,8 @@ describe("docs/INDEX.md rows still describe their files", () => {
   itCosts(
     TREE_CASE_MS,
     "no row names something its file does not have, or counts it differently",
-    async () => {
+    () => {
       const complaints: string[] = [];
-      const sources = await treeText(rows.map((row) => row.path));
       for (const [i, row] of rows.entries()) {
         const text = row.line.split("|")[2]?.trim() ?? "";
         const source = sources[i] as string;

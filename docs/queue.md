@@ -328,22 +328,6 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/skipped.test.ts` holds the listing's count of the entries
 `next` stepped past and why.
 
-## The INDEX.md drift sweep times out under `check:fast`'s eight shards
-
-- **Found:** 2026-10-15, claude/lever-bigger
-- **Taken:** 2026-10-15, main (claim: claude/queue-the-index-md-drift-sweep-times-out-under-check-f)
-- **Files:** `tools/index/test/drift.test.ts`
-
-`check:fast` went red once on *docs/INDEX.md rows still describe their files >
-no row names something its file does not have* with **test timed out**, and
-the same file passed alone in 9 s straight after, with no change between. The
-case runs under `itCosts(TREE_CASE_MS, …)` — 400 ms — and reads every indexed file through
-`treeText`; under eight shards at once it runs past its budget. Either make
-the sweep cheaper (read only the rows' files that changed since `main`, or
-cache `treeText` across the describe) or give it a budget measured under a
-full `bun run test`, saying the figure in the comment. Prove it with two
-`bun run check:fast` runs in a row, both green.
-
 ## Every other tap still wears its own picture, not the press drop
 
 - **Found:** 2026-10-15, claude/blister-tap-press
