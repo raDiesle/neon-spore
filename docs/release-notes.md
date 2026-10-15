@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-15 · 1d3cf151b — DOCUMENTATION › WAVES: how waves are generated, and every wave's numbers in one table
+
+A new room in the director's DOCUMENTATION sheet. It holds a new guide to how the regular waves are composed and how to use the tool (`docs/spec/wave-generation.md`), and the measured table full width: the whole game's time by kind (3 h 18 min for AUTO, about 6 h 36 min for a pair), then a row per wave with its block, span, AUTO's beats and seconds, a pair's estimate and its pressure, with nothing to open. `bun run waves:measure` writes the new columns. A look the owner asked for by name.
+
 ## 2026-10-15 · efe1a65ee — THE BLISTER: one blow knocks it out, and a miss loses the wave
 
 Every on-screen control blister now goes with the one gesture it asks for — a tap, a beat held, a stroke, a whole turn, the first turn back of a rub, a press and a pull, the knob held in the band — and never comes back. Left up until its time runs out, it breaks the hull in its column and the wave is lost on that tick; it no longer sinks and surfaces nearer. TAP and HOLD now stay up three beats and the other gestures four, where every one was two. The owner asked for all three, 15 October 2026.

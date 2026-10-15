@@ -42190,3 +42190,5 @@ Bottleneck: the count was read in 45 files, and only the typecheck found them al
 - landing: 5 min.
 
 Bottleneck: writing — the guide had to say the whole pipeline in a page.
+
+*Measured: 11 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
