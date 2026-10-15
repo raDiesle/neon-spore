@@ -41642,3 +41642,5 @@ the change between the halves needed a pose that plays both.
 
 Bottleneck: writing; pasting eleven rows by hand across five table shapes
 took a script, and the script took two tries.
+
+*Measured: 9 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*

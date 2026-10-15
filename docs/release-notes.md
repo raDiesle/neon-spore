@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-15 · e22d2acd1 — The op-count budgets count what a glancing part draws
+
+A glancing part is drawn on a scratch layer and laid on the screen as one drawImage, and the stub tallied each context on its own, so the budgets saw the blit and none of the part. glance-layer.ts now names its two canvases layer:..., and the stub counts a layer canvas's ops, log and calls as the frame's, as new Path2D already was. Eleven rows in five budget files rose and each has a dated sentence; THE INSTAR's head is back in its rows once, and THE FLEET's p1 strokes read 84 again. Seven colour tests no longer hold their boss still; glow-faded keeps the hold, since a layer is laid down at full alpha by design. Nothing is drawn differently: an id on an offscreen canvas is not a look.
+
 ## 2026-10-15 · f07aaee28 — VERSUS offers THE BLISTER's COMBO a body built round its press and pull
 
 `blister:combo` opens with three bodies that change between COMBO's two halves, on both screens: BUD, a flower with the press as its heart that the press shuts into a bud, a green stalk running out of it to the knob; CLAM, gaping with the press lying in it like a pearl, snapped shut by the press, its red tongue sliding out to the knob; and CURL, a round slime whose tail, wound at its side, the press frees to run out to the knob. Each draws its link as far as the thumb has carried the pull. They are judged on a new COMPARED LOOKS pose whose own hand presses, pulls the whole stroke and lifts inside the two beats the blister is up. Exemption: none — a look, offered on VERSUS.
