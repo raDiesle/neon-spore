@@ -41446,3 +41446,5 @@ drew a wave the game refuses, and that only showed in the full check.
 
 Bottleneck: reading. Seed 3 lost a different way than seed 1, by a purge taking
 her body, which only showed once the first fix was in.
+
+*Measured: 9 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
