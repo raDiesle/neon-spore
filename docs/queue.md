@@ -328,26 +328,6 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/skipped.test.ts` holds the listing's count of the entries
 `next` stepped past and why.
 
-## `bun run perf` misses the screen's flush, so a layer reads twice its cost
-
-- **Found:** 2026-10-15, claude/glance-layer-cost
-- **Taken:** 2026-10-15, main (claim: claude/queue-bun-run-perf-misses-the-screens-flush-so-a-layer)
-- **Files:** `tools/perf/measure.ts`, `docs/performance.md`
-
-`timePaints` times `paint()` calls and nothing after them. Chrome records a 2D
-canvas's ops and sends them to the GPU at commit, outside that window — except
-for a canvas drawn into another one, whose ops are flushed at the `drawImage`,
-inside it. So a part drawn on an offscreen layer is charged for its flush and
-the same part drawn on the screen is not. On GYRES AGAIN (35 glancing bodies,
-4x throttle, one browser, variants interleaved) bypassing `drawGlancedLayer`
-read 6.3 ms against 15.7 ms shipped in the tool's window, and 15.7 ms against
-20.0 ms with a 1x1 `getImageData` on the screen after every paint. The layer
-costs about 4 ms, not 9; Chrome's own CPU profile over the same sweep put
-`drawImage` far above every other call. Time each paint with the screen's
-flush in it (a 1x1 readback per paint, or the frame's own timing), say in
-`docs/performance.md` what the figure now includes, and take the next full
-sweep against the new measure rather than mixing the two in one baseline.
-
 ## The glance layer is cut to the plume's furthest reach, not this frame's
 
 - **Found:** 2026-10-15, claude/glance-layer-cost
@@ -358,8 +338,8 @@ the layer is cleared, blitted and blitted again about seven box-areas a body a
 frame. The box's reach is `ownLightReach` — where the plume's last puff sits
 at its furthest curl — rather than where this frame's puffs are, so most
 frames clear and copy transparent pixels. Measured on 15 October 2026 the
-layer is about 4 ms of GYRES AGAIN's 20 at 4x with the flush counted (entry
-above). Cut the box to what this frame draws, prove the pixels unchanged with
+layer is about 4 ms of GYRES AGAIN's 20 at 4x with the flush counted
+(`bun run perf` counts it since, `MEASURE` 2 in `tools/perf/sweep-timing.ts`). Cut the box to what this frame draws, prove the pixels unchanged with
 Skia (`packages/render/test/pixel-harness.ts`, frames hashed before and after
 over the glancing waves), and measure it with the flush counted. Keeping the
 scratch canvases but drawing a fresh one per stage, `OffscreenCanvas`

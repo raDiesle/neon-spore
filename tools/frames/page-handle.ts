@@ -131,6 +131,10 @@ declare global {
        * `settleLaunch` paints a fixed count there rather than asking.
        */
       launching?(): boolean;
+      /** Make the screen rasterise the frame just painted, so a timer around
+       * `paint` counts it (`apps/game/src/screen-flush.ts`). `tools/perf` is
+       * the caller; missing on a build from before 15 October 2026. */
+      flush?(): void;
     };
   }
 }

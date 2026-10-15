@@ -255,6 +255,31 @@ other question, and the two are not substitutes for one another.
   harness. Eight at a time rather than singly because `performance.now()` is
   clamped to a tenth of a millisecond, and the cheapest waves paint in about
   that.
+- **With the screen's raster in the window**, from 15 October 2026 —
+  `MEASURE = 2` in `tools/perf/sweep-timing.ts`, written on every run. Chrome
+  records a 2D canvas's ops and the GPU rasterises them after `paint()` has
+  returned, so the old window counted the JavaScript and none of the drawing —
+  except on an offscreen layer, whose drawing is waited for at its `drawImage`.
+  A layered body was charged for its pixels and the same body drawn on the
+  screen was not, and SNAKE's `shadowBlur` cost nothing at all. Every paint is
+  now followed by the handle's `flush()` (`apps/game/src/screen-flush.ts`): one
+  pixel of the screen copied onto a CPU canvas and read, which waits for the
+  GPU to finish the frame. A plain `drawImage` onto a GPU canvas was tried
+  first and moved nothing — it hands the ops over and does not wait — and a
+  `getImageData` on the screen itself read the same as the copy but invites
+  Chrome to move the screen off the GPU after a couple of readbacks.
+
+  **What that did to the figures**, five interleaved runs on one Mac at 4x:
+  every wave rose by 2.5 to 4 ms, FIRST STEP from about 2.5 to 5.5. Most of
+  that is the GPU drawing the background and the hull, which the old window
+  never saw; about 0.8 ms is the round trip itself, measured by flushing a
+  frame twice and timing the second. GYRES AGAIN rose least in proportion
+  (13.5 to 16.5), its glance layer having been charged already. A figure is
+  therefore the main thread's work and the GPU's, end to end — an upper bound
+  on a phone, where the two overlap — and a baseline from before it is a
+  measure 1, which takes no verdict against a measure-2 run and refuses a
+  `--wave --save` into it. **The next full sweep is the first measure-2
+  baseline**; until it is taken, a run prints its figures and no verdicts.
 
 One thing it does **not** measure: the network and the two-device link, which
 have their own check in `bun run relay:check`.

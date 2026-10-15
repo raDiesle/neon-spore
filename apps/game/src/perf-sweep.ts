@@ -47,6 +47,8 @@ export interface PerfHandle {
   advanceOpening(seconds: number): void;
   advance(ticks: number): void;
   paint(): void;
+  /** The screen's raster, inside the timed window (`screen-flush.ts`). */
+  flush(): void;
 }
 
 /** One wave's row, as this page reports it. */
@@ -147,6 +149,7 @@ async function timePaints(ns: PerfHandle, startAt: number): Promise<Sample & { e
     for (let i = 0; i < WARMUP; i++) {
       posed += FRAME_STEP_MS;
       ns.paint();
+      ns.flush();
     }
     for (let i = 0; i < SAMPLES; i++) {
       // Between batches, never inside one: the pause lets the GPU queue drain,
@@ -158,6 +161,7 @@ async function timePaints(ns: PerfHandle, startAt: number): Promise<Sample & { e
         posed += FRAME_STEP_MS;
         ns.advance(TICKS_PER_FRAME);
         ns.paint();
+        ns.flush();
       }
       taken.push((realNow() - started) / BATCH);
     }

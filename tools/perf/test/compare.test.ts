@@ -10,7 +10,14 @@ import {
   verdictFor,
   type WaveCost,
 } from "../compare.js";
-import { comparable, DRIFT_MIN_WAVES, driftIsMeasurable, NOISE_PCT } from "../noise.js";
+import {
+  comparable,
+  DRIFT_MIN_WAVES,
+  driftIsMeasurable,
+  NOISE_PCT,
+  sameMeasure,
+} from "../noise.js";
+import { MEASURE } from "../sweep-timing.js";
 
 /**
  * The half of `bun run perf` that has no browser in it: what a run is, and what
@@ -161,6 +168,14 @@ describe("two runs side by side", () => {
     expect(comparable(before, run([[1, 4]], { calibration: 20_000 }))).toBe(false);
     // And one a few percent apart, which is the same machine on a busier day.
     expect(comparable(before, run([[1, 4]], { calibration: 41_000 }))).toBe(true);
+  });
+
+  it("takes no verdict across two measures, and reads a run with none as a 1", () => {
+    const old = run([[1, 4]]);
+    expect(sameMeasure(old, run([[1, 4]], { measure: 1 }))).toBe(true);
+    // Today's runs are not a 1, so they take no verdict against a file that is.
+    expect(sameMeasure(old, run([[1, 4]], { measure: MEASURE }))).toBe(false);
+    expect(sameMeasure(run([[1, 4]], { measure: 2 }), run([[1, 4]], { measure: 2 }))).toBe(true);
   });
 
   it("has a machine-independent fallback: each wave against its own median", () => {

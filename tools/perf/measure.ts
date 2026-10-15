@@ -98,6 +98,7 @@ export async function timePaints(page: Page, startAt = POSE_CLOCK_START): Promis
         for (let i = 0; i < warmup; i++) {
           posed += frameMs;
           ns.paint();
+          ns.flush?.();
         }
         for (let i = 0; i < samples; i++) {
           // Between batches, never inside one: the pause lets the GPU queue
@@ -110,6 +111,10 @@ export async function timePaints(page: Page, startAt = POSE_CLOCK_START): Promis
             posed += frameMs;
             ns.advance(ticks);
             ns.paint();
+            // The screen's raster, which Chrome would otherwise do at the
+            // commit, after this window — and which a layer drawn into it
+            // already paid inside it (`apps/game/src/screen-flush.ts`).
+            ns.flush?.();
           }
           taken.push((realNow() - started) / batch);
         }

@@ -42341,3 +42341,17 @@ Bottleneck: friction — the gate's spread overflowing, found only once a body w
 Bottleneck: friction — the land's check reads the working tree, so unfinished work must be set aside first.
 
 *Measured: 33 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
+
+## 2026-10-15 — `bun run perf` waits for the screen's raster
+
+- reading: 5 min. `measure.ts`, the phone sweep, the baseline's merge.
+- writing: 10 min. `screen-flush.ts`, the handle's `flush`, `MEASURE` on a
+  run, the refusal, `save.ts` cut out of `run.ts`, the doc.
+- looking: 15 min. Seven interleaved A/B rounds over GYRES AGAIN and its
+  reference waves: no flush, a GPU-to-GPU copy, a readback, a readback
+  through a CPU canvas, and an idle flush to find the round trip.
+- friction: 0 min.
+- landing: 5 min.
+
+Bottleneck: looking — the first flush tried measured nothing, and only an
+interleaved A/B said so; a single run would have shipped it.

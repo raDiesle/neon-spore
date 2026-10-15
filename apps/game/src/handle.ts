@@ -62,6 +62,9 @@ export interface HandleParts {
      * ticks can neither see nor wait out. */
     readonly launching: boolean;
   };
+  /** Rasterises the screen now rather than at the commit, so a sweep's timer
+   * counts it (`screen-flush.ts`). */
+  flush: () => void;
   /** AUTO, the same one the TEST panel switches (`autopilot.ts`), so a caller
    * stepping ticks gets the hands a thumb-less phone plays with. */
   auto: Pick<GameAutopilot, "setMode" | "press">;
@@ -212,6 +215,7 @@ export function installTestingHandle(parts: HandleParts): PerfHandle {
      * how a caller knows when to stop (`tools/frames/launch.ts`).
      */
     launching: () => parts.renderer.launching,
+    flush: parts.flush,
   };
   (window as unknown as { neonSpore: unknown }).neonSpore = handle;
   return handle;

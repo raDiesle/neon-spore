@@ -27,6 +27,22 @@
  * under the cheap end of the table.
  */
 export const SAMPLES = 30;
+
+/**
+ * Which measurement a figure is, written on every run so two kinds are never
+ * read against each other.
+ *
+ * **1** timed the `paint()` calls and nothing after them, which left out the
+ * screen's raster — Chrome does it at the commit — while charging a part drawn
+ * on an offscreen layer for its own, at the `drawImage`. **2**, from 15 October
+ * 2026, flushes the screen after every paint inside the timed window
+ * (`apps/game/src/screen-flush.ts`), so a layer and the screen pay alike.
+ * Every wave rose by 2.5 to 4 ms and the layered ones least in proportion;
+ * their shares of a run's median moved, so a verdict across the two would be
+ * about the change of measure (`docs/performance.md`). A baseline with no
+ * `measure` on it is a 1.
+ */
+export const MEASURE = 2;
 export const BATCH = 8;
 export const WARMUP = 25;
 

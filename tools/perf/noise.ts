@@ -103,6 +103,13 @@ export function driftIsMeasurable(run: Run): boolean {
  */
 export const CALIBRATION_TOLERANCE_PCT = 25;
 
+/** Whether two runs timed the same thing — a run with no `measure` is a 1
+ * (`MEASURE` in `sweep-timing.ts`). Unlike `comparable`, a no here voids the
+ * shares as well as the milliseconds. */
+export function sameMeasure(before: Run, after: Run): boolean {
+  return (before.measure ?? 1) === (after.measure ?? 1);
+}
+
 /** Whether two runs' milliseconds mean the same thing. */
 export function comparable(before: Run, after: Run): boolean {
   if (before.throttle !== after.throttle) return false;

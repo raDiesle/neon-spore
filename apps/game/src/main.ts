@@ -20,6 +20,7 @@ import { bindPressLag } from "./press-lag-page.js";
 import { pressQuit } from "./quit.js";
 import { bindRasterBurst, bindRasterClasp, bindRasterStrips } from "./raster.js";
 import { createRunState } from "./run-state.js";
+import { screenFlusher } from "./screen-flush.js";
 import { bossLife, readSettings } from "./settings.js";
 import { bindShell } from "./shell.js";
 import { bindTestControls } from "./testing.js";
@@ -206,6 +207,7 @@ bindTesting(
     frames,
     renderer,
     auto,
+    flush: screenFlusher(canvas),
   },
   location.href,
 );

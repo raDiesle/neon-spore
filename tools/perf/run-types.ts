@@ -107,6 +107,12 @@ export interface Run {
    * can say whether they are even comparable.
    */
   calibration: number;
+  /**
+   * How the paints were timed — `MEASURE` in `sweep-timing.ts`. Absent on a
+   * run from before the screen's flush was counted, which is a 1. Two runs
+   * under different measures take no verdict and do not merge.
+   */
+  measure?: number;
   waves: WaveCost[];
 }
 

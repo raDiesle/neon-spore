@@ -3150,6 +3150,7 @@ by hand never moves.
 | `apps/game/src/sign-in-standin.ts` | A signed-in person with no Google behind them, so a check can be one |
 | `apps/game/src/sign-in.ts` | Who is holding this phone, proved by Google or by an email link |
 | `apps/game/src/safe-area.ts` | The strips of the screen the phone keeps for itself, in numbers |
+| `apps/game/src/screen-flush.ts` | Make the screen pay for its frame **now**, inside a sweep's timed window |
 | `apps/game/src/tick-rate.ts` | **How long one tick is worth in the hand, right now** |
 | `apps/game/src/quit.ts` | Who pressed QUIT on the lost screen, for the menu to say |
 
@@ -3684,6 +3685,7 @@ by hand never moves.
 | `tools/perf/waves.ts` | which waves a run covers, from `--wave` to a list of indices |
 | `tools/director/src/entry-fields-fence.ts` | **Where a fence is open**, read and written on one arrival |
 | `tools/perf/say.ts` | what a run looks like when it is printed — the table, the summary, the comparison |
+| `tools/perf/save.ts` | `bun run perf --wave X --save`: a narrow run's rows put into the baseline |
 | `tools/perf/arrivals.ts` | WHAT A WAVE SENDS, in one short string a stale baseline row can be caught by |
 | `tools/perf/noise.ts` | WHEN A MEASUREMENT CAN BE TRUSTED, and by how much it has to move before anybody is told about it |
 | `tools/frames/browser.ts` | THE ONE PLACE A BROWSER IS OPENED, and the one place it is shut |

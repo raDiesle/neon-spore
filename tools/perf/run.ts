@@ -1,12 +1,13 @@
 import { WAVES } from "@neon-spore/content";
 import { closeBrowser, launchBrowser } from "../frames/browser.js";
 import { git, root, startPreview } from "../frames/serve.js";
-import { DEFAULT_THROTTLE, keyOf, mergeInto, type Run } from "./compare.js";
-import { calibrate, sweep, waveId } from "./measure.js";
+import { DEFAULT_THROTTLE, type Run } from "./compare.js";
+import { calibrate, sweep } from "./measure.js";
 import { DRIFT_MIN_WAVES } from "./noise.js";
-import { renumber } from "./renumber.js";
+import { mergeSave } from "./save.js";
 import { printComparison, printRun, printSummary } from "./say.js";
 import { assemble } from "./shape.js";
+import { MEASURE } from "./sweep-timing.js";
 import { wavesAsked, withReferences } from "./waves.js";
 
 /**
@@ -122,6 +123,8 @@ browser.on("disconnected", () => {
 /** Held rather than printed, because `process.exit` inside the `try` would skip
  * the `finally` and leave the preview server running. */
 let vanished = false;
+/** A `--wave --save` the baseline refused, printed once the browser is shut. */
+let refused: string[] | null = null;
 
 try {
   const page = await browser.newPage({
@@ -149,7 +152,14 @@ try {
   }
   const waves = await sweep(page, (w) => process.stdout.write(`  ${w.wave} ${w.name}\r`), only);
   const commit = await git(["rev-parse", "HEAD"]);
-  const now = assemble({ commit, throttle, viewport: VIEWPORT, calibration, waves });
+  const now = assemble({
+    commit,
+    throttle,
+    viewport: VIEWPORT,
+    calibration,
+    measure: MEASURE,
+    waves,
+  });
 
   printRun(waves, carried);
   printSummary(now);
@@ -161,51 +171,7 @@ try {
     await Bun.write(BASELINE, `${JSON.stringify(now, null, 2)}\n`);
     console.log(`\nbaseline written: tools/perf/baseline.json`);
   } else if (save) {
-    const taken = asked.map((i) => i + 1);
-    // Merging into nothing, or leaving the file short of the game afterwards,
-    // would leave a baseline no comparison can be taken off. What the check
-    // cannot be is "the baseline already covers every wave": a lane that adds
-    // one is exactly the lane whose baseline does not, and refusing there sent
-    // it to the full sweep this flag exists to spare. So the question is asked
-    // about the file this run is about to *write* — every wave covered, by the
-    // rows that are there plus the ones being merged in (`mergeInto`).
-    // By id rather than by number, for the same reason the merge is: an
-    // inserted wave moves every number after it, so a baseline's numbers are
-    // yesterday's and counting today's against them says nothing.
-    const covered = new Set([
-      ...(before?.waves ?? []).map((w) => keyOf(w)),
-      ...asked.map((i) => waveId(i)),
-    ]);
-    if (!before || covered.size !== WAVES.length) {
-      console.log("✗ --wave --save would leave the baseline short of the game");
-      console.log(
-        `  ${WAVES.length} waves, ${covered.size} covered — take the sweep first: bun run perf --save`,
-      );
-      process.exit(1);
-    }
-    const merged = mergeInto(before, now, taken);
-    if (!merged) {
-      console.log("✗ this run shares no untouched wave with the baseline — nothing to scale it by");
-      console.log(
-        "  the reference waves are what a merged row is put on the baseline's footing with",
-      );
-      process.exit(1);
-    }
-    const { run: written, dropped } = renumber(merged);
-    await Bun.write(BASELINE, `${JSON.stringify(written, null, 2)}\n`);
-    const rows = written.waves.filter((w) => taken.includes(w.wave));
-    const scale = rows[0]?.mergedFrom?.scale ?? 1;
-    console.log(
-      `\nbaseline merged: ${rows.map((w) => `${w.wave} ${w.name}`).join(", ")} — the other ` +
-        `${written.waves.length - rows.length} rows are untouched`,
-    );
-    console.log(
-      `  scaled by ${scale.toFixed(2)}x onto the baseline's footing, read off the reference waves ` +
-        `neither run changed`,
-    );
-    if (dropped.length > 0) {
-      console.log(`  dropped, no longer in the game: ${dropped.join(", ")}`);
-    }
+    refused = await mergeSave(BASELINE, before, now, asked);
   } else if (before) {
     console.log(
       narrow
@@ -221,6 +187,10 @@ try {
   await preview.stop();
 }
 
+if (refused) {
+  for (const line of refused) console.log(line);
+  process.exit(1);
+}
 if (vanished) {
   console.log("✗ the browser closed part-way through the run — nothing was measured");
   console.log("  not the code under test. Run it again; the teardown now waits for the last one.");

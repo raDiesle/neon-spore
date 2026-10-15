@@ -7,7 +7,7 @@ import {
   verdictFor,
   type WaveCost,
 } from "./compare.js";
-import { comparable, DRIFT_MIN_WAVES, driftIsMeasurable, NOISE_PCT } from "./noise.js";
+import { comparable, DRIFT_MIN_WAVES, driftIsMeasurable, NOISE_PCT, sameMeasure } from "./noise.js";
 
 /**
  * WHAT A RUN LOOKS LIKE WHEN IT IS PRINTED.
@@ -71,6 +71,14 @@ export function printRun(waves: WaveCost[], carried: ReadonlySet<number>): void 
 export function printComparison(before: Run, after: Run, carried: ReadonlySet<number>): void {
   console.log("");
   console.log(`against the baseline of ${before.measuredAt} (${before.commit.slice(0, 7)}):`);
+  if (!sameMeasure(before, after)) {
+    console.log(
+      `  the baseline was timed under measure ${before.measure ?? 1} and this run under ` +
+        `${after.measure ?? 1} (MEASURE in sweep-timing.ts) — no verdict. A full sweep with ` +
+        `--save puts the baseline on this one.`,
+    );
+    return;
+  }
 
   // Like for like, the same way `compareRuns` does it: a narrow run's median is
   // taken over six waves and the baseline's over forty-seven, so comparing them
