@@ -104,13 +104,18 @@ function leverFrames(role: ViewRole, ticks: number, sampling: { every?: number; 
       for (const c of w.creatures) {
         if (!blisterIsUp(c)) continue;
         const player = blisterMayTap(c, 1) ? 1 : 2;
-        const spent = ((c.blisterStrokes ?? 0) & (player << 2)) !== 0;
-        const on = !spent;
         const fromYMilli = (c.blisterStrokes ?? 0) & player ? band : 0;
         inputs.push({
           tick: w.tick,
           player,
-          command: { kind: "drag", target: "blisterLever", id: c.id, on, fromMilli: 0, fromYMilli },
+          command: {
+            kind: "drag",
+            target: "blisterLever",
+            id: c.id,
+            on: true,
+            fromMilli: 0,
+            fromYMilli,
+          },
         });
       }
       step(w, inputs);

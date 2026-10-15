@@ -1,11 +1,5 @@
 import { MAX_BEARING_STEP, NO_BEARING, TURN } from "./bearing.js";
-import {
-  BLISTER_HAND_DEAD,
-  blisterBlow,
-  blisterGestureOf,
-  blisterIsUp,
-  blisterMayTap,
-} from "./blister.js";
+import { blisterBlow, blisterGestureOf, blisterIsUp, blisterMayTap } from "./blister.js";
 import type { BlisterTurnWay } from "./creature-state-blister.js";
 import type { Command, Creature } from "./types.js";
 import type { World } from "./world.js";
@@ -23,11 +17,10 @@ import type { World } from "./world.js";
  * nothing, and nothing is taken back for it; THE INSTAR's turn mark reads its
  * thumb the same way (`instar-hand.ts`).
  *
- * **A turn belongs to the surfacing it began on**, as a SWIPE's stroke does:
- * a sink loses the turn short of whole and leaves every hand on it dead
- * (`blister.ts`), so a thumb still down when it comes up under another pore
- * counts nothing until it lifts. Two hands on a BOTH blister wind the one
- * turn between them, as two tapping hands share the one count.
+ * **A turn is one surfacing's**: the whole turn knocks the body out, and a
+ * body left up breaks the hull and is gone (`blister.ts`), so no hand on it
+ * outlives it. Two hands on a BOTH blister wind the one turn between them, as
+ * two tapping hands share the one count.
  */
 export function blisterTurnHeard(world: World, player: 1 | 2, command: Command): void {
   if (command.kind !== "drag" || command.target !== "blisterTurn") return;
@@ -38,7 +31,7 @@ export function blisterTurnHeard(world: World, player: 1 | 2, command: Command):
     setTurnAt(c, player, undefined);
     return;
   }
-  if (was === BLISTER_HAND_DEAD || !blisterIsUp(c) || !blisterMayTap(c, player)) return;
+  if (!blisterIsUp(c) || !blisterMayTap(c, player)) return;
   if (command.fromMilli < 0) {
     setTurnAt(c, player, NO_BEARING);
     return;
@@ -65,11 +58,9 @@ export function blisterTurnShare(c: Creature): number {
   return (c.blisterTurnedMilli ?? 0) / TURN;
 }
 
-/** Whether a hand that still counts is on it now — one the sink did not deaden. */
+/** Whether a hand is on it now. */
 export function blisterTurnHeld(c: Creature): boolean {
-  return [c.blisterTurnAt1, c.blisterTurnAt2].some(
-    (at) => at !== undefined && at !== BLISTER_HAND_DEAD,
-  );
+  return c.blisterTurnAt1 !== undefined || c.blisterTurnAt2 !== undefined;
 }
 
 function turnAt(c: Creature, player: 1 | 2): number | undefined {

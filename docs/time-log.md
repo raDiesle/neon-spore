@@ -42225,3 +42225,16 @@ Bottleneck: reading — the STATES room draws nothing until its own tab is
 pressed, and the queue entry's failing `--click` did not say so.
 
 *Measured: 8 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-15 — THE BLISTER's dead-hand and spent-hand code goes
+
+- reading: 5 min. The queue entry, every user of `BLISTER_HAND_DEAD` and of
+  the `<< 2` bits, and `blisterBlow` removing the body on the blow's tick.
+- writing: 5 min. Seven sim and hands files, a render test's hand, the
+  comments that still said *the sink*.
+- looking: 0 min. Nothing drawn moved.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: reading — proving the spent bits dead too, which the entry did
+not name: a blow removes the body, so no spent hand outlives it.

@@ -70,9 +70,6 @@ function gestureGoes(gesture: BlisterGesture | undefined, way: BlisterWay | unde
   return gesture === "swipe" && way !== undefined && way !== "cw" && way !== "ccw";
 }
 
-/** A TURN or RUB hand the sink left on the body: it counts nothing until it lifts. */
-export const BLISTER_HAND_DEAD = -2;
-
 /** The gesture it wants, with the default spelled once. */
 export function blisterGestureOf(c: Creature): BlisterGesture {
   return c.blisterGesture ?? "tap";

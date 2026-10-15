@@ -32,9 +32,7 @@ import { PALETTE, STROKE } from "./palette.js";
  * of the seat that may *not* knock it down is drawn its pore, shut — *where*;
  * on the last beat under the pore swells, a dome pushing up through the skin —
  * *when*. With `by` both, on both. The hand that can do it is drawn nothing
- * while it is under: where and when it comes up are the partner's to say. On
- * the beat it sinks the pore glides to the next one, the body moving under
- * the skin, because the simulation picks the next pore on that beat.
+ * while it is under: where and when it comes up are the partner's to say.
  *
  * The help for the gesture — the glyph, the pips, whose it is — is laid over
  * it flat after every body (`blister-help.ts`), and never changes this shape.

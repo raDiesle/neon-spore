@@ -18,11 +18,10 @@ import type { World } from "./world.js";
  * costs nothing; a sideways one and one the wrong way count nothing and say
  * nothing, the late tap's rule.
  *
- * **A stroke belongs to the surfacing it began on.** One is opened only on a
- * body that is up and from a seat its `by` allows; a sink voids every stroke
- * open on it (`blister.ts`), so a thumb still down when it comes up under
- * another pore is not a stroke on it, and its lift counts nothing. Two hands
- * on a BOTH blister stroke on their own bits and each lift is its own blow.
+ * **A stroke is one surfacing's.** One is opened only on a body that is up
+ * and from a seat its `by` allows, and the blow it deals is the body gone
+ * (`blister.ts`), so no stroke outlives it. Two hands on a BOTH blister
+ * stroke on their own bits, and whichever counts first is the blow.
  *
  * **COMBO's pull is this stroke**, to the right, the COMBO LAB's way, and only
  * once its press is done (`blisterTapped`): the press brings the pull in where
@@ -33,13 +32,12 @@ export function blisterSwipeHeard(world: World, player: 1 | 2, command: Command)
   const c = world.creatures.find((x) => x.id === command.id);
   if (c === undefined || !blisterStrokes(c)) return;
   const open = player;
-  const dead = player << 2;
   const strokes = c.blisterStrokes ?? 0;
   const pull = blisterPull(world, c);
   const along = pullAlong(blisterWayOf(c), command.fromMilli, command.fromYMilli ?? 0);
   if (!command.on) {
     const live = (strokes & open) !== 0 && blisterIsUp(c);
-    setStrokes(c, strokes & ~(open | dead));
+    setStrokes(c, strokes & ~open);
     if (!live) return;
     const { heard } = pullHeard(pull, false, false, along);
     if (heard === "short") world.events.push({ type: "pullShort", col: c.col, player });
@@ -48,14 +46,12 @@ export function blisterSwipeHeard(world: World, player: 1 | 2, command: Command)
     }
     return;
   }
-  if ((strokes & dead) !== 0 || !blisterIsUp(c) || !blisterMayTap(c, player)) return;
+  if (!blisterIsUp(c) || !blisterMayTap(c, player)) return;
   const { travelMilli, heard } = pullHeard(pull, false, true, along);
   setStrokes(c, strokes | open);
   c.blisterAlongMilli = Math.max(c.blisterAlongMilli ?? 0, travelMilli);
   if (heard !== "counted" || !straight(c, command.fromMilli, command.fromYMilli ?? 0)) return;
-  // Counted the moment it got there: the rest of this hold is spent, as a
-  // stroke voided by a sink is, and its lift says nothing.
-  setStrokes(c, (strokes & ~open) | dead);
+  // Counted the moment it got there, and the body is gone with the blow.
   blisterBlow(world, c);
 }
 
@@ -95,7 +91,7 @@ export function blisterSwipeShare(world: World, c: Creature): number {
 
 /** Whether a stroke is open on it, from either seat: a thumb down on it now. */
 export function blisterSwipeHeld(c: Creature): boolean {
-  return ((c.blisterStrokes ?? 0) & 3) !== 0;
+  return (c.blisterStrokes ?? 0) !== 0;
 }
 
 /** Whether a carry is a stroke: far enough along its way, and more along than across. */
@@ -115,5 +111,5 @@ function alongWay(way: BlisterSwipeWay, dx: number, dy: number): number {
 
 function setStrokes(c: Creature, bits: number): void {
   c.blisterStrokes = bits === 0 ? undefined : bits;
-  if ((bits & 3) === 0) c.blisterAlongMilli = undefined;
+  if (bits === 0) c.blisterAlongMilli = undefined;
 }

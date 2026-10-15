@@ -72,7 +72,7 @@ export interface BlisterState {
   /**
    * HOLD's beat in progress: ticks a hand that counts has been on it since the
    * last blow, every hand on it adding its own. A whole beat is a blow and
-   * starts it again; a release or a sink loses it (`blister-hold.ts`). A
+   * starts it again; a release loses it (`blister-hold.ts`). A
    * LEVER's hold in its band, the same way (`blister-lever.ts`).
    */
   blisterHeldTicks?: number;
@@ -81,10 +81,8 @@ export interface BlisterState {
   blisterWay?: BlisterWay;
   /**
    * SWIPE's strokes in progress, a bit a seat: 1 and 2 for a stroke open on
-   * a body that is up, 4 and 8 for one the sink voided — the thumb is still
-   * down, and its lift counts nothing (`blister-swipe.ts`). A LEVER's hands
-   * on its knob, the same way, 4 and 8 also for a hand spent by a blow
-   * (`blister-lever.ts`).
+   * a body that is up (`blister-swipe.ts`). A LEVER's hands on its knob, the
+   * same way (`blister-lever.ts`).
    */
   blisterStrokes?: number;
   /** How far along its way the furthest open stroke has come, in thousandths
@@ -94,25 +92,23 @@ export interface BlisterState {
   /**
    * TURN's hands, a field a seat: absent with no hand on it, `NO_BEARING`
    * for a hand on with no bearing yet, the last bearing it reported in
-   * thousandths of a turn, or `BLISTER_HAND_DEAD` for a hand the sink left
-   * on it — whose turning counts nothing until it lifts (`blister-turn.ts`).
+   * thousandths of a turn (`blister-turn.ts`).
    */
   blisterTurnAt1?: number;
   blisterTurnAt2?: number;
   /** How far round the turn in progress has come, in thousandths of a turn:
-   * a whole one is a blow, and a sink loses what is short of it. */
+   * a whole one is the blow. */
   blisterTurnedMilli?: number;
   /**
    * RUB's hands, a field a seat: absent with no hand on it, the reversal
-   * count the hand last sent, or `BLISTER_HAND_DEAD` for a hand the sink left
-   * on it — whose reversals count nothing until it lifts (`blister-rub.ts`).
+   * count the hand last sent (`blister-rub.ts`).
    */
   blisterRubAt1?: number;
   blisterRubAt2?: number;
   /**
    * COMBO's press, done: the tap counted and gone, and the pull it brings now
-   * the hand it wants. Absent until the press; a blow or a sink takes it away,
-   * so the two halves are one blow only inside one surfacing (`blister-swipe.ts`).
+   * the hand it wants. Absent until the press; the pull's blow is the body
+   * gone with it (`blister-swipe.ts`).
    */
   blisterPressed?: boolean;
 }

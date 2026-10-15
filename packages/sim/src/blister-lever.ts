@@ -21,29 +21,27 @@ import type { World } from "./world.js";
  * rest — a tap is never refused.
  *
  * It keeps SWIPE's fields (`blister-swipe.ts`): a bit a seat in
- * `blisterStrokes` for a hand on it, the same seat's bit shifted two up for a
- * hand spent or voided, and the depth in `blisterAlongMilli`; the hold in
- * progress is HOLD's `blisterHeldTicks`. A sink voids it as it voids a
- * stroke (`blister.ts`), so a hold in progress is lost with it.
+ * `blisterStrokes` for a hand on it and the depth in `blisterAlongMilli`; the
+ * hold in progress is HOLD's `blisterHeldTicks`. A whole hold is the blow
+ * that knocks the body out (`blister.ts`), so no hand on it outlives it.
  */
 export function blisterLeverHeard(world: World, player: 1 | 2, command: Command): void {
   if (command.kind !== "drag" || command.target !== "blisterLever") return;
   const c = world.creatures.find((x) => x.id === command.id);
   if (c === undefined || blisterGestureOf(c) !== "lever") return;
   const open = player;
-  const dead = player << 2;
   const hands = c.blisterStrokes ?? 0;
   if (!command.on) {
     const live = (hands & open) !== 0 && blisterIsUp(c);
     const moved = (c.blisterAlongMilli ?? 0) >= REST_MILLI;
-    setHands(c, hands & ~(open | dead));
+    setHands(c, hands & ~open);
     if (live && moved) {
       world.events.push({ type: "pullShort", col: c.col, player });
     }
     if ((c.blisterStrokes ?? 0) === 0) c.blisterHeldTicks = undefined;
     return;
   }
-  if ((hands & dead) !== 0 || !blisterIsUp(c) || !blisterMayTap(c, player)) return;
+  if (!blisterIsUp(c) || !blisterMayTap(c, player)) return;
   setHands(c, hands | open);
   const depth = Math.max(0, Math.min(world.cfg.blisterLeverMilli, command.fromYMilli ?? 0));
   c.blisterAlongMilli = depth;
@@ -60,8 +58,7 @@ export function stepBlisterLevers(world: World): void {
   const need = cfg.blisterLeverBeats * ticksPerBeat(cfg);
   for (const c of [...world.creatures]) {
     if (c.kind !== "blister" || blisterGestureOf(c) !== "lever") continue;
-    const open = (c.blisterStrokes ?? 0) & 3;
-    if (!blisterIsUp(c) || open === 0 || !blisterLeverInBand(world, c)) {
+    if (!blisterIsUp(c) || (c.blisterStrokes ?? 0) === 0 || !blisterLeverInBand(world, c)) {
       c.blisterHeldTicks = undefined;
       continue;
     }
@@ -70,9 +67,7 @@ export function stepBlisterLevers(world: World): void {
       c.blisterHeldTicks = held;
       continue;
     }
-    c.blisterHeldTicks = undefined;
-    // Counted: every hand on it is spent until it lifts, and the knob goes home.
-    setHands(c, ((c.blisterStrokes ?? 0) & 12) | (open << 2));
+    // Counted: the blow, and the body gone with it.
     blisterBlow(world, c);
   }
 }

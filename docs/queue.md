@@ -328,22 +328,6 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/skipped.test.ts` holds the listing's count of the entries
 `next` stepped past and why.
 
-## THE BLISTER's sink-voiding machinery is dead now that it never sinks
-
-- **Found:** 2026-10-15, claude/blister-one-blow
-- **Taken:** 2026-10-15, main (claim: claude/queue-the-blisters-sink-voiding-machinery-is-dead-now)
-- **Files:** `packages/sim/src/blister.ts`, `packages/sim/src/blister-turn.ts`, `packages/sim/src/blister-rub.ts`, `packages/sim/src/blister-swipe.ts`, `packages/sim/src/creature-state-blister.ts`, `packages/sim/src/hash-creature-tail.ts`, `packages/hands/src/autopilot-blister.ts`
-
-Since one blow knocks a blister out and a missed window breaks the hull, a
-blister never sinks while a thumb is on it, so `voidGestures` went and
-nothing assigns `BLISTER_HAND_DEAD` any more. Its checks in
-`blister-turn.ts` and `blister-rub.ts`, the dead-hand branches in
-`autopilot-blister.ts`, the voided-stroke bits (`& 12`, `<< 2`) in
-`blisterStrokes` and the comments in `creature-state-blister.ts` and
-`hash-creature-tail.ts` that describe *a hand the sink left on it* are all
-unreachable. Remove them, keep the hash's field order stable or re-record
-what moves, and prove it with `bun run check`.
-
 ## `bun run land` fails on test timeouts under other sessions' load
 
 - **Found:** 2026-10-15, claude/waves-fold-and-page

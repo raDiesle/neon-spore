@@ -1,6 +1,5 @@
 import {
   BEARING_TURN,
-  BLISTER_HAND_DEAD,
   beatPhaseTicks,
   blisterByOf,
   blisterGestureOf,
@@ -26,8 +25,7 @@ import {
  * bearing, a rub's last count are all on the creature. **A blow a beat**,
  * whichever gesture, which is the tap's pace and a HOLD's by definition — a
  * stroke and a rub's reversal land half a beat in, where the tap does, and a
- * turn is wound once round across the beat. A hand the sink left dead on the
- * body lifts, which is the only way it counts again.
+ * turn is wound once round across the beat.
  */
 
 type Press = Omit<TimedCommand, "tick">;
@@ -70,7 +68,7 @@ function tap(w: World, c: Creature, player: 1 | 2): Press | null {
   return { player, command: { kind: "tap", id: c.id } };
 }
 
-/** A grip kept on it while it is up; the sink lets go of it (`blister-hold.ts`). */
+/** A grip kept on it while it is up (`blister-hold.ts`). */
 function hold(w: World, c: Creature, player: 1 | 2): Press | null {
   if (!blisterIsUp(c) || gripsCreature(w, player, c.id)) return null;
   return { player, command: { kind: "grip", id: c.id } };
@@ -78,7 +76,7 @@ function hold(w: World, c: Creature, player: 1 | 2): Press | null {
 
 /** Pressed half a beat in, and lifted the next tick a whole stroke its way. */
 function swipe(w: World, c: Creature, player: 1 | 2): Press | null {
-  const mine = (c.blisterStrokes ?? 0) & (player | (player << 2));
+  const mine = (c.blisterStrokes ?? 0) & player;
   const drag = { kind: "drag", target: "blisterSwipe", id: c.id } as const;
   if (mine !== 0) {
     const reach = w.cfg.blisterSwipeMilli;
@@ -98,7 +96,7 @@ function swipe(w: World, c: Creature, player: 1 | 2): Press | null {
  */
 function combo(w: World, c: Creature, player: 1 | 2): Press | null {
   if (!blisterStrokes(c)) return tap(w, c, player);
-  const mine = (c.blisterStrokes ?? 0) & (player | (player << 2));
+  const mine = (c.blisterStrokes ?? 0) & player;
   const drag = { kind: "drag", target: "blisterSwipe", id: c.id } as const;
   if (mine !== 0) {
     return {
@@ -112,14 +110,11 @@ function combo(w: World, c: Creature, player: 1 | 2): Press | null {
 
 /**
  * LEVER: the knob taken half a beat in, carried to the band's middle the next
- * tick and held there; once the hold is a blow the hand is spent, and lifts
- * (`blister-lever.ts`).
+ * tick and held there; the whole hold is the blow (`blister-lever.ts`).
  */
 function lever(w: World, c: Creature, player: 1 | 2): Press | null {
   const hands = c.blisterStrokes ?? 0;
   const drag = { kind: "drag", target: "blisterLever", id: c.id, fromMilli: 0 } as const;
-  if ((hands & (player << 2)) !== 0)
-    return { player, command: { ...drag, on: false, fromYMilli: 0 } };
   if (!blisterIsUp(c)) return null;
   if ((hands & player) === 0) {
     if (!halfBeat(w)) return null;
@@ -134,7 +129,6 @@ function lever(w: World, c: Creature, player: 1 | 2): Press | null {
 function turn(w: World, c: Creature, player: 1 | 2): Press | null {
   const at = player === 1 ? c.blisterTurnAt1 : c.blisterTurnAt2;
   const drag = { kind: "drag", target: "blisterTurn", id: c.id } as const;
-  if (at === BLISTER_HAND_DEAD) return { player, command: { ...drag, on: false, fromMilli: 0 } };
   if (!blisterIsUp(c)) return null;
   if (at === undefined) return { player, command: { ...drag, on: true, fromMilli: NO_BEARING } };
   const step = Math.ceil(BEARING_TURN / (ticksPerBeat(w.cfg) - 1));
@@ -149,7 +143,6 @@ function rub(w: World, c: Creature, player: 1 | 2): Press | null {
   const at = player === 1 ? c.blisterRubAt1 : c.blisterRubAt2;
   // A `RubCount`: `id` is the reversals, so the body rides `fromMilli`.
   const drag = { kind: "drag", target: "blisterRub", fromMilli: c.id } as const;
-  if (at === BLISTER_HAND_DEAD) return { player, command: { ...drag, on: false, id: 0 } };
   if (!blisterIsUp(c)) return null;
   if (at === undefined) return { player, command: { ...drag, on: true, id: 0 } };
   if (!halfBeat(w)) return null;

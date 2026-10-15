@@ -1,10 +1,4 @@
-import {
-  BLISTER_HAND_DEAD,
-  blisterBlow,
-  blisterGestureOf,
-  blisterIsUp,
-  blisterMayTap,
-} from "./blister.js";
+import { blisterBlow, blisterGestureOf, blisterIsUp, blisterMayTap } from "./blister.js";
 import type { Command, Creature } from "./types.js";
 import type { World } from "./world.js";
 
@@ -19,10 +13,9 @@ import type { World } from "./world.js";
  * this hand sent is that many fresh reversals, and every one is a blow, as
  * THE CAPSTAN reads its own (`capstan-hand.ts`); the lift starts it again.
  *
- * **A rub belongs to the surfacing it began on**, as a stroke and a turn do:
- * a sink leaves every hand on it dead (`blister.ts`), so a thumb still
- * scrubbing when it comes up under another pore counts nothing until it
- * lifts. Two hands on a BOTH blister each count their own reversals.
+ * **A rub is one surfacing's**, as a stroke and a turn are: the first
+ * reversal knocks the body out (`blister.ts`), so no hand on it outlives it.
+ * Two hands on a BOTH blister each count their own reversals.
  */
 export function blisterRubHeard(world: World, player: 1 | 2, command: Command): void {
   if (command.kind !== "drag" || command.target !== "blisterRub") return;
@@ -33,18 +26,16 @@ export function blisterRubHeard(world: World, player: 1 | 2, command: Command): 
     setRubAt(c, player, undefined);
     return;
   }
-  if (was === BLISTER_HAND_DEAD || !blisterIsUp(c) || !blisterMayTap(c, player)) return;
+  if (!blisterIsUp(c) || !blisterMayTap(c, player)) return;
   const count = Math.max(0, command.id ?? 0);
   setRubAt(c, player, count);
   const fresh = was === undefined ? 0 : count - was;
   for (let i = 0; i < fresh && world.creatures.includes(c); i++) blisterBlow(world, c);
 }
 
-/** Whether a hand that still counts is rubbing it now — one the sink did not deaden. */
+/** Whether a hand is rubbing it now. */
 export function blisterRubbing(c: Creature): boolean {
-  return [c.blisterRubAt1, c.blisterRubAt2].some(
-    (at) => at !== undefined && at !== BLISTER_HAND_DEAD,
-  );
+  return c.blisterRubAt1 !== undefined || c.blisterRubAt2 !== undefined;
 }
 
 function rubAt(c: Creature, player: 1 | 2): number | undefined {

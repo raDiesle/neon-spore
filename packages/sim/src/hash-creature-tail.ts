@@ -98,17 +98,17 @@ export function tailHashParts(c: Creature): number[] {
   out.push(c.blisterGesture === undefined ? 0 : GESTURES.indexOf(c.blisterGesture));
   out.push(c.blisterHeldTicks ?? -1);
   // And SWIPE's: its way, the strokes open on it and how far the furthest has
-  // come — a stroke voided on one phone and not the other is a blow apart.
+  // come — a stroke counted on one phone and not the other is a blow apart.
   out.push(c.blisterWay === undefined ? -1 : WAYS.indexOf(c.blisterWay));
   out.push(c.blisterStrokes ?? -1);
   out.push(c.blisterAlongMilli ?? -1);
   // And TURN's: each seat's last bearing and the turn in progress — a step
   // counted on one phone and not the other is a blow apart. Absent is -3, as
-  // -1 and -2 are bearings' own (`NO_BEARING`, `BLISTER_HAND_DEAD`).
+  // it has always been: -1 is `NO_BEARING`, a bearing's own.
   out.push(c.blisterTurnAt1 ?? -3);
   out.push(c.blisterTurnAt2 ?? -3);
   out.push(c.blisterTurnedMilli ?? -1);
-  // And RUB's: each seat's last reversal count, or its dead hand.
+  // And RUB's: each seat's last reversal count.
   out.push(c.blisterRubAt1 ?? -3);
   out.push(c.blisterRubAt2 ?? -3);
   // And COMBO's: whether its press is done — a pull counted on one phone and
