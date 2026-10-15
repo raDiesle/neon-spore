@@ -1,6 +1,6 @@
 import { describe, expect, it } from "bun:test";
 import { readShotFlags } from "../shot-flags.js";
-import { inRow, rowMiss } from "../shot-row.js";
+import { headingName, inRow, rowMiss, rowNamed } from "../shot-row.js";
 
 /**
  * `--row`, the half that needs no browser: the flag read, the selector put
@@ -29,6 +29,29 @@ describe("--row", () => {
     const labels = ["DEFLECTED", "THE SHIELD GOING OUT", "EMBER", "THE SHIELD'S FACE"];
     expect(rowMiss("DEFLECT", labels)).toContain("Nearest: DEFLECTED");
     expect(rowMiss("THE SHIELD", labels)).toContain("THE SHIELD GOING OUT · THE SHIELD'S FACE");
+  });
+
+  it("finds a labelled heading by its label before any heading's words", () => {
+    const headings = [
+      { text: "P2'S SCREEN THE BLISTER'S COMBO" },
+      { label: "THE BLISTER'S COMBO", text: "BOTH THE BLISTER'S COMBO" },
+    ];
+    expect(rowNamed(headings, "THE BLISTER'S COMBO")).toBe(1);
+  });
+
+  it("finds an unlabelled heading by the words it ends with: an ON THE FIELD card's rows line", () => {
+    const headings = [
+      { label: "PRESS, THEN PULL", text: "PRESS, THEN PULL 2 USES" },
+      { text: "THE BLISTER" },
+      { text: "THE BLISTER'S COMBO" },
+    ];
+    expect(rowNamed(headings, "THE BLISTER'S COMBO")).toBe(2);
+    expect(rowNamed(headings, "THE BLISTER'S TURN")).toBe(-1);
+    expect(headings.map(headingName)).toEqual([
+      "PRESS, THEN PULL",
+      "THE BLISTER",
+      "THE BLISTER'S COMBO",
+    ]);
   });
 
   it("says only that no row has the name when nothing is near it", () => {
