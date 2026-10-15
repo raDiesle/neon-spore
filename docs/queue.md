@@ -360,6 +360,7 @@ Prove with `bun test packages/hands` and `bun run check`.
 ## The rest of the enemies glance: rocks, hazards and held bodies
 
 - **Found:** 2026-10-14, claude/creature-glance
+- **Taken:** 2026-10-15, claude/queue-every-living-enemy-glances (claim: claude/queue-the-rest-of-the-enemies-glance-rocks-hazards-and)
 - **Files:** `packages/render/src/creature-body.ts`, `packages/render/src/creature-body-rock.ts`, `packages/render/src/creature-body-worn.ts`, `packages/render/src/creatures.ts`
 
 Third of three, after "Every living enemy glances". The bodies `EXCLUSIVE`
