@@ -364,6 +364,7 @@ what moves, and prove it with `bun run check`.
 ## `bun run land` fails on test timeouts under other sessions' load
 
 - **Found:** 2026-10-15, claude/waves-fold-and-page
+- **Taken:** 2026-10-15, main (claim: claude/queue-bun-run-land-fails-on-test-timeouts-under-other)
 - **Files:** `tools/check/`, `tools/director/test/loop-once.test.ts`, `tools/versus/test/drop.test.ts`
 
 Landing a two-button change failed twice before it passed the third time, each
