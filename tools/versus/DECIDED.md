@@ -2231,3 +2231,13 @@ SPONGE rejected.
 
 The other answers offered were `hug`, `palm` and `sponge`; they went with the
 slot.
+
+## `blister:rub` — nothing taken, 2026-10-15
+
+taken by hand: the owner, 15 October 2026, liked all three and asked them
+built into the game and rotated at random. All three written into
+BLISTER_BODY.rub through drawRubBody in packages/render/src/blister-rub.ts,
+which picks one per blister by its id (blister-pick.ts).
+
+The other answers offered were `purr`, `urchin` and `washboard`; they went
+with the slot.

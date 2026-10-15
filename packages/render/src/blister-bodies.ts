@@ -2,6 +2,8 @@ import type { BlisterGesture } from "@neon-spore/sim";
 import { drawComboBody } from "./blister-combo.js";
 import { drawHugBody } from "./blister-hug.js";
 import { drawPalmBody } from "./blister-palm.js";
+import { blisterBodyOf } from "./blister-pick.js";
+import { drawRubBody } from "./blister-rub.js";
 import type { Body } from "./creature-body-in.js";
 import { drawLivingBody } from "./creature-body-living.js";
 
@@ -22,7 +24,8 @@ import { drawLivingBody } from "./creature-body-living.js";
  * it did. A body built round a control is offered on VERSUS by patching its
  * gesture's `draw` (`blister:tap` and the slots after it), and an adopted one
  * replaces that gesture's field alone: COMBO's took BUD and CURL
- * (`blister-combo.ts`), HOLD's PALM and HUG (`drawHoldBody`).
+ * (`blister-combo.ts`), HOLD's PALM and HUG (`drawHoldBody`), RUB's URCHIN,
+ * WASHBOARD and PURR (`blister-rub.ts`).
  */
 
 /** What `drawBlisterBody` has already worked out, handed to every body. */
@@ -63,7 +66,7 @@ export function drawCloverBody(b: Body, f: BlisterFrame): void {
  */
 export function drawHoldBody(b: Body, f: BlisterFrame): void {
   const { id, col, row } = b.c;
-  if (Math.imul(id * 1009 + col * 31 + row, 0x9e3779b1) >>> 31 === 0) drawPalmBody(b, f);
+  if (blisterBodyOf(id * 1009 + col * 31 + row, 2) === 0) drawPalmBody(b, f);
   else drawHugBody(b, f);
 }
 
@@ -76,7 +79,7 @@ export const BLISTER_BODY: Record<BlisterGesture, BlisterBodyLook> = {
   hold: { draw: drawHoldBody, beyond: drawNothingBeyond },
   swipe: { draw: drawCloverBody, beyond: drawNothingBeyond },
   turn: { draw: drawCloverBody, beyond: drawNothingBeyond },
-  rub: { draw: drawCloverBody, beyond: drawNothingBeyond },
+  rub: { draw: drawRubBody, beyond: drawNothingBeyond },
   combo: { draw: drawComboBody, beyond: drawNothingBeyond },
   lever: { draw: drawCloverBody, beyond: drawNothingBeyond },
 };

@@ -11,6 +11,7 @@ import {
   ticksPerBeat,
   type World,
 } from "@neon-spore/sim";
+import { rubBodyOf } from "../src/blister-rub.js";
 import { flatCenter } from "../src/creature-place.js";
 import { computeLayout, type ViewRole } from "../src/layout.js";
 import { Rubs } from "../src/rub-turns.js";
@@ -33,8 +34,8 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
  * THE BLISTER's RUB, pressed and drawn (`blister-tap.ts`, `blister-help.ts`):
  * a press on one that is up takes a rubbing hold and says nothing, the host's
  * count says the reversals with the body riding along, and on every screen
- * the rub's line and arrows are drawn over a body whose shape is the TAP
- * blister's.
+ * the rub's line and arrows are drawn over URCHIN, WASHBOARD or PURR, one
+ * per blister by its id (`blister-rub.ts`).
  */
 
 beforeAll(installCanvasGlobals);
@@ -145,5 +146,13 @@ describe("the RUB blister", () => {
 
   it("really rubbed blows out of them", () => {
     expect(played("test").blows).toBeGreaterThan(0);
+  });
+});
+
+describe("the RUB blister's body", () => {
+  it("is each of URCHIN, WASHBOARD and PURR for some ids, the same every time it is asked", () => {
+    const picks = Array.from({ length: 12 }, (_, i) => rubBodyOf(i + 1));
+    expect(new Set(picks)).toEqual(new Set([0, 1, 2]));
+    expect(picks).toEqual(Array.from({ length: 12 }, (_, i) => rubBodyOf(i + 1)));
   });
 });

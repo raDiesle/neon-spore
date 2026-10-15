@@ -1,8 +1,8 @@
-import type { BlisterFrame } from "../../../../../packages/render/src/blister-bodies.js";
-import type { Body } from "../../../../../packages/render/src/creature-body-in.js";
-import { rgba } from "../../../../../packages/render/src/hex.js";
-import { PALETTE } from "../../../../../packages/render/src/palette.js";
-import { blisterLeft, blisterRubbing } from "../../../../../packages/sim/src/index.js";
+import { blisterLeft, blisterRubbing } from "@neon-spore/sim";
+import type { BlisterFrame } from "./blister-bodies.js";
+import type { Body } from "./creature-body-in.js";
+import { rgba } from "./hex.js";
+import { PALETTE } from "./palette.js";
 
 const TAU = Math.PI * 2;
 
@@ -10,7 +10,7 @@ const TAU = Math.PI * 2;
 const SPINES = 15;
 
 /**
- * URCHIN: a sea urchin up out of the pore, the rub's drop in the middle of it,
+ * URCHIN, one of RUB's three bodies (`blister-rub.ts`): a sea urchin up out of the pore, the rub's drop in the middle of it,
  * its spines standing out all round. Every blow the rub lands lays another
  * third of them flat, from the top down, along the way the thumb scrubs, so
  * the spines left standing are the blows still owed; under a thumb they all

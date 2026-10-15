@@ -41962,3 +41962,18 @@ Bottleneck: looking — an unfrozen `versus:shot` lands wherever the round is,
 so the first picture of a rising body showed it half in its pore.
 
 *Measured: 27 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
+
+## 2026-10-15 — THE BLISTER's RUB takes URCHIN, WASHBOARD and PURR, one per blister
+
+- reading: 5 min. The COMBO landing an hour before, as the pattern, and the
+  three candidates.
+- writing: 5 min. Three draws moved into render, `blister-pick.ts` shared with
+  COMBO's picker, the slot dropped, a pick test, the index rows.
+- looking: 10 min. FIVE BLISTERS draws its RUB at row 2, too far off to see,
+  and the director's played card was shot while the blister was down; three
+  bodies painted through Skia from a throwaway script in the end.
+- friction: 0 min.
+- landing: 5 min. `check:fast` three times, for the import sort and the index.
+
+Bottleneck: looking — still no one-command photograph of a blister body up
+close, the same wall COMBO's lane hit.

@@ -1,8 +1,8 @@
-import type { BlisterFrame } from "../../../../../packages/render/src/blister-bodies.js";
-import type { Body } from "../../../../../packages/render/src/creature-body-in.js";
-import { rgba } from "../../../../../packages/render/src/hex.js";
-import { PALETTE } from "../../../../../packages/render/src/palette.js";
-import { blisterLeft, blisterRubbing } from "../../../../../packages/sim/src/index.js";
+import { blisterLeft, blisterRubbing } from "@neon-spore/sim";
+import type { BlisterFrame } from "./blister-bodies.js";
+import type { Body } from "./creature-body-in.js";
+import { rgba } from "./hex.js";
+import { PALETTE } from "./palette.js";
 
 const TAU = Math.PI * 2;
 
@@ -10,7 +10,7 @@ const TAU = Math.PI * 2;
 const TUFTS = 22;
 
 /**
- * PURR: a furry mound with two pointed ears comes up out of the pore, the
+ * PURR, one of RUB's three bodies (`blister-rub.ts`): a furry mound with two pointed ears comes up out of the pore, the
  * rub's drop on its back. Its fur lies smooth while nobody has touched it;
  * every blow makes it bristle a third more, the tufts standing out longer
  * round its whole outline, and while a thumb is on it its eyes close happy and

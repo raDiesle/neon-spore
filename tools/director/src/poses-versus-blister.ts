@@ -109,7 +109,8 @@ const LET_GO = 130;
  * THE BLISTER's RUB played through by a hand of its own: up out of its pore
  * untouched and calling, then scrubbed — a thumb down on it and turned back
  * twice, two blows of its three — and lifted, all inside the two beats it
- * stays up. It is what `blister:rub` on VERSUS is judged on: a body that
+ * stays up. It is what `blister:rub` on VERSUS was judged on (URCHIN,
+ * WASHBOARD and PURR all taken, 15 October 2026): a body that
  * answers being scrubbed, so the scrub has to happen on the page, and ON THE
  * FIELD's `BLISTER · RUBBED ONCE` holds one moment of it.
  */

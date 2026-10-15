@@ -2731,6 +2731,11 @@ by hand never moves.
 | `packages/render/src/blister-combo-curl.ts` | CURL, one of COMBO's two bodies: a round slime whose wound tail the press frees to run out to the knob |
 | `packages/render/src/blister-combo.ts` | THE BLISTER's COMBO body: BUD or CURL, picked per blister off its id and drawn 1.15× |
 | `packages/render/src/blister-palm.ts` | **PALM**, one of THE BLISTER's two HOLD bodies: a slime hand with the drop cupped in it, fingers curling in under a thumb |
+| `packages/render/src/blister-pick.ts` | Which of a gesture's bodies a blister wears, `0` to `count - 1` |
+| `packages/render/src/blister-rub-purr.ts` | PURR, one of RUB's three bodies: a furry mound that bristles a third more with every blow |
+| `packages/render/src/blister-rub-urchin.ts` | URCHIN, one of RUB's three bodies: a sea urchin whose spines lie flat a third per blow |
+| `packages/render/src/blister-rub-washboard.ts` | WASHBOARD, one of RUB's three bodies: a ridged board lit green a third per blow |
+| `packages/render/src/blister-rub.ts` | THE BLISTER's RUB body: URCHIN, WASHBOARD or PURR, one per blister by its id |
 | `packages/render/src/blister.ts` | THE BLISTER, drawn: |
 | `packages/render/src/canvas2d-stage.ts` | **The letterbox**: what is drawn in the window but outside the game — the paint either side of a phone-shaped stage, and the hairline saying where the phone ends |
 | `packages/render/src/canvas2d-held.ts` | **What a host may reach of the renderer's state**, as the class `Canvas2DRenderer` stands on |

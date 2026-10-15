@@ -1,6 +1,7 @@
 import type { BlisterFrame } from "./blister-bodies.js";
 import { drawBudBody } from "./blister-combo-bud.js";
 import { drawCurlBody } from "./blister-combo-curl.js";
+import { blisterBodyOf } from "./blister-pick.js";
 import type { Body } from "./creature-body-in.js";
 
 /**
@@ -22,7 +23,7 @@ export function drawComboBody(b: Body, f: BlisterFrame): void {
   BODIES[comboBodyOf(b.c.id)](b, { ...f, r: f.r * GROW });
 }
 
-/** 0 for BUD, 1 for CURL: the id mixed, so neighbours spawned in a row do not alternate. */
+/** 0 for BUD, 1 for CURL (`blister-pick.ts`). */
 export function comboBodyOf(id: number): 0 | 1 {
-  return (Math.imul(id, 0x9e3779b1) >>> 31) as 0 | 1;
+  return blisterBodyOf(id, BODIES.length) as 0 | 1;
 }

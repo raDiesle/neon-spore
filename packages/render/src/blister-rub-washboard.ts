@@ -1,8 +1,8 @@
-import type { BlisterFrame } from "../../../../../packages/render/src/blister-bodies.js";
-import type { Body } from "../../../../../packages/render/src/creature-body-in.js";
-import { rgba } from "../../../../../packages/render/src/hex.js";
-import { PALETTE } from "../../../../../packages/render/src/palette.js";
-import { blisterLeft, blisterRubbing } from "../../../../../packages/sim/src/index.js";
+import { blisterLeft, blisterRubbing } from "@neon-spore/sim";
+import type { BlisterFrame } from "./blister-bodies.js";
+import type { Body } from "./creature-body-in.js";
+import { rgba } from "./hex.js";
+import { PALETTE } from "./palette.js";
 
 const TAU = Math.PI * 2;
 
@@ -10,7 +10,7 @@ const TAU = Math.PI * 2;
 const RIDGES = 7;
 
 /**
- * WASHBOARD: a washboard stands up out of the pore — a square-shouldered frame
+ * WASHBOARD, one of RUB's three bodies (`blister-rub.ts`): a washboard stands up out of the pore — a square-shouldered frame
  * with a ridged face, the rub's drop in the middle of it to be scrubbed. Every
  * blow lights another third of the ridges green, from the bottom up, so the
  * dark ones left are the blows still owed; under a thumb, suds bubble off its

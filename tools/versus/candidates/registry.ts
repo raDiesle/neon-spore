@@ -9,9 +9,6 @@ import type { Variant } from "../variant.js";
 import { BLISTER_BELL } from "./blister-lever/bell/index.js";
 import { BLISTER_ROOT } from "./blister-lever/root/index.js";
 import { BLISTER_TAFFY } from "./blister-lever/taffy/index.js";
-import { BLISTER_PURR } from "./blister-rub/purr/index.js";
-import { BLISTER_URCHIN } from "./blister-rub/urchin/index.js";
-import { BLISTER_WASHBOARD } from "./blister-rub/washboard/index.js";
 import { BLISTER_FROG } from "./blister-swipe/frog/index.js";
 import { BLISTER_SLUG } from "./blister-swipe/slug/index.js";
 import { BLISTER_ZIP } from "./blister-swipe/zip/index.js";
@@ -26,9 +23,6 @@ export const VARIANTS: Variant[] = [
   BLISTER_BELL,
   BLISTER_ROOT,
   BLISTER_TAFFY,
-  BLISTER_PURR,
-  BLISTER_URCHIN,
-  BLISTER_WASHBOARD,
   BLISTER_FROG,
   BLISTER_SLUG,
   BLISTER_ZIP,
