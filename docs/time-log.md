@@ -42357,3 +42357,18 @@ Bottleneck: looking — the first flush tried measured nothing, and only an
 interleaved A/B said so; a single run would have shipped it.
 
 *Measured: 44 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-15 — a lit body's glance layer is cut to the light it draws
+
+- reading: 5 min. The layer, its box, the light's reach, the plume, the
+  pose offsets.
+- writing: 10 min. The reach, `bodyShade`, the exact seam, the scratch
+  file, three tests.
+- looking: 20 min. Skia hashes of every wave before and after, a classifier
+  of differing pixels against the seams, crops of the worst, and a perf A/B.
+- friction: 0 min.
+- landing: 5 min.
+
+Bottleneck: proving "unchanged" — any change to the box moved the seam's
+rounding, so whole-wave hashes could not say it and two real defects hid in
+the noise until an exact-geometry test was written.

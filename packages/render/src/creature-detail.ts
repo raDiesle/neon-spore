@@ -2,7 +2,7 @@ import type { Creature } from "@neon-spore/sim";
 import { type Interior, interiorFor } from "./body-interior.js";
 import { halo, haloSprite } from "./glow.js";
 import type { Layout } from "./layout.js";
-import { OPEN_SIDE, plateLightShift } from "./shell-draw.js";
+import { plateLightShift } from "./shell-draw.js";
 
 /**
  * What this body has inside it, through the record for its kind.
@@ -36,15 +36,26 @@ function puff(l: Layout, r: number, k: number) {
 /**
  * **How far a body's own light reaches** from its centre, in pixels: up, to
  * the top of the plume's last puff, and to either side, where that puff has
- * curled its furthest and a shell's open side has pushed it. A body drawn on a
- * layer of its own needs the layer this big, or the plume ends in a straight
- * edge (`creature-glance.ts`). The halo, at 1.9 radii, is inside both.
+ * curled its furthest and `open` — `plateLightShift`'s answer — has pushed it.
+ * A body drawn on a layer of its own needs the layer this big, or the plume
+ * ends in a straight edge (`creature-glance.ts`). The halo, at 1.9 radii from
+ * a centre its pose moves by at most 0.4, is inside both.
+ *
+ * Nothing at all for `null`, a shell with both plates on, which gives off no
+ * light. The shift used to be added to every body, 0.7 radii a side that only
+ * a chipped shell ever drew in — a third of a turned body's layer, cleared and
+ * copied every frame (`docs/queue.md`, 15 October 2026).
  */
-export function ownLightReach(l: Layout, r: number): { up: number; side: number } {
+export function ownLightReach(
+  l: Layout,
+  r: number,
+  open: number | null,
+): { up: number; side: number } {
+  if (open === null) return { up: 0, side: 0 };
   const last = puff(l, r, PUFFS);
   return {
     up: last.above + last.tall / 2,
-    side: r * (CURL * PUFFS + OPEN_SIDE) + last.wide / 2,
+    side: r * CURL * PUFFS + Math.abs(open) + last.wide / 2,
   };
 }
 

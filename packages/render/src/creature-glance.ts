@@ -10,6 +10,7 @@ import { type Glance, type GlanceFrame, glanceFrame, glanceStill } from "./glanc
 import { drawGlancedLayer } from "./glance-layer.js";
 import { cock, type GlanceSize, glanceOf, rove } from "./glance-styles.js";
 import { temperOf } from "./glance-temper.js";
+import { plateLightShift } from "./shell-draw.js";
 
 /**
  * **How far an enemy may glance** — the owner, 14 October 2026: every enemy
@@ -145,6 +146,24 @@ export function bodyGlanceFrame(
 }
 
 /**
+ * How dark a turned body's far side goes, and how far its layer reaches: its
+ * own `reach`, or as far as its light does when it wears one.
+ */
+export function bodyShade(b: Pick<Body, "l" | "c">, part: GlancedPart) {
+  const light =
+    part.lit === true
+      ? ownLightReach(b.l, part.r, plateLightShift(b.c, part.r))
+      : { up: 0, side: 0 };
+  return {
+    dark: FAR_DARK,
+    full: SIZES[part.sort ?? "living"].reach,
+    reach: Math.max(part.reach ?? LAYER_REACH, light.side / part.r),
+    up: light.up / part.r,
+    atop: true,
+  };
+}
+
+/**
  * **A body, glancing** (the owner, 14 October 2026: *they should be not
  * exactly equal*). What `draw` paints turns about the body's centre, on its
  * own temper and its own place in the round; whatever the caller lays over it
@@ -162,15 +181,7 @@ export function drawGlancedBody(
     draw(b.ctx);
     return;
   }
-  const light = part.lit === true ? ownLightReach(b.l, part.r) : { up: 0, side: 0 };
-  const shade = {
-    dark: FAR_DARK,
-    full: SIZES[part.sort ?? "living"].reach,
-    reach: Math.max(part.reach ?? LAYER_REACH, light.side / part.r),
-    up: light.up / part.r,
-    atop: true,
-  };
-  drawGlancedLayer(b.ctx, f, shade, (g) => {
+  drawGlancedLayer(b.ctx, f, bodyShade(b, part), (g) => {
     draw(g);
     return [];
   });

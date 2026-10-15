@@ -328,25 +328,6 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/skipped.test.ts` holds the listing's count of the entries
 `next` stepped past and why.
 
-## The glance layer is cut to the plume's furthest reach, not this frame's
-
-- **Found:** 2026-10-15, claude/glance-layer-cost
-- **Taken:** 2026-10-15, main (claim: claude/queue-the-glance-layer-is-cut-to-the-plumes-furthest-r)
-- **Files:** `packages/render/src/glance-layer.ts`, `packages/render/src/glance-layer-box.ts`, `packages/render/src/creature-glance.ts`, `packages/render/src/creature-detail.ts`
-
-Every turning body is drawn onto a scratch layer the size of `screenBox`, and
-the layer is cleared, blitted and blitted again about seven box-areas a body a
-frame. The box's reach is `ownLightReach` — where the plume's last puff sits
-at its furthest curl — rather than where this frame's puffs are, so most
-frames clear and copy transparent pixels. Measured on 15 October 2026 the
-layer is about 4 ms of GYRES AGAIN's 20 at 4x with the flush counted
-(`bun run perf` counts it since, `MEASURE` 2 in `tools/perf/sweep-timing.ts`). Cut the box to what this frame draws, prove the pixels unchanged with
-Skia (`packages/render/test/pixel-harness.ts`, frames hashed before and after
-over the glancing waves), and measure it with the flush counted. Keeping the
-scratch canvases but drawing a fresh one per stage, `OffscreenCanvas`
-transfers, and a pool were all tried and none beat the shipped layer once the
-flush was counted.
-
 ## SNAKE's body shadow is `shadowBlur`
 
 - **Found:** 2026-10-15, claude/glance-layer-cost
@@ -403,3 +384,22 @@ slicks and bulbs mixed in and a pod only as a lever, so `panelOf` plays THE
 CLAW's eight on THE COIL block's panel. A claw block needs a step table of
 its own — each rock a pod ahead of it, wider gaps — so CLAW AGAIN … CLAW PEAK
 can be composed on `controls: "claw"` and AUTO clears them.
+
+## The glance layer's cost is its passes, not its pixels
+
+- **Found:** 2026-10-15, claude/queue-the-glance-layer-is-cut-to-the-plumes-furthest-r
+- **Files:** `packages/render/src/glance-layer.ts`, `packages/render/src/glance-layer-scratch.ts`
+
+A lit body's layer box was cut by about a third on 15 October 2026 (a phantom
+0.7-radius shell shift taken out of `ownLightReach`) and GYRES AGAIN did not
+move: three interleaved A/B runs at 4x with the screen's raster counted read
+18.5 to 19.9 ms before and 18.3 to 21.5 after. So the layer's 4 ms is not
+area. Each turned body is three wipes and five `drawImage` passes — two
+halves, two to double them, one onto the screen — and every canvas drawn
+into another is flushed at the copy. Profile GYRES AGAIN in Chrome
+(`tools/perf/profile.ts`), say what one pass costs, and take one out: the
+doubling could go if the halves were added at full strength into a layer
+that cannot clamp, or the far side's dark be laid in the same pass. Prove the
+pixels with the exact-geometry test in `packages/render/test/light-reach.test.ts`'s
+manner, and measure with `bun run perf --wave "GYRES AGAIN"` interleaved
+against a tree without the change.

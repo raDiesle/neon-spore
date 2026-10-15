@@ -43,9 +43,15 @@ export interface Reach {
   down: number;
 }
 
-/** The rectangle `reach` stands for on half `s`, as `rect` takes it. */
+/**
+ * The rectangle `reach` stands for on half `s`, as `rect` takes it: from the
+ * middle outward, the left half with a negative width. Its middle edge is then
+ * `x` exactly — as `x - side` plus `side` it was `x` to within a rounding that
+ * moved with `side`, so a layer cut to another reach moved the seam's soft
+ * pixels by one or two of 255.
+ */
 export const halfRect = ({ x, y }: GlanceFrame, s: -1 | 1, reach: Reach) =>
-  [s < 0 ? x - reach.side : x, y - reach.up, reach.side, reach.up + reach.down] as const;
+  [x, y - reach.up, s * reach.side, reach.up + reach.down] as const;
 
 /**
  * The screen rectangle, whole pixels, that the part drawn within `reach` of its
