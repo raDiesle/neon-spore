@@ -3587,6 +3587,8 @@ by hand never moves.
 | `tools/director/src/waves-draft.ts` | Unsaved wave edits kept in localStorage across a reload, the count on SAVE, and what RESET goes back to |
 | `tools/director/src/waves-doc-api.ts` | `GET /api/waves-doc` — DOCUMENTATION › WAVES, on the server side |
 | `tools/director/src/waves-doc-page.ts` | DOCUMENTATION › WAVES: how the waves are generated, and every wave with its numbers in a row — the owner |
+| `tools/director/src/waves-table-rows.ts` | DOCUMENTATION › WAVES › EVERY WAVE, as rows: every number the measured page gives a wave |
+| `tools/director/src/waves-table.ts` | DOCUMENTATION › WAVES › EVERY WAVE, drawn live — the owner, 15 October 2026 |
 | `tools/director/src/wordings-glossary.ts` | The words on the WORDINGS page that have no one place on the picture — the list under the two labelled screens |
 | `tools/director/src/wordings-page.ts` | DOCUMENTATION → WORDINGS: an ordinary screen with every part of it named |
 | `tools/director/src/wordings-world.ts` | The one ordinary screen the WORDINGS page names things on |
@@ -3885,6 +3887,7 @@ by hand never moves.
 | `tools/probe/run.ts` | `bun run probe [file]` — run a script that needs a live world |
 | `tools/probe/world.ts` | A world, stood up and stepped, for a question that only a running one answers |
 | `tools/probe/measure-waves.ts` | `bun run waves:measure`: every wave played with AUTO, written to `docs/spec/wave-curriculum-today.md` |
+| `tools/probe/measure-waves-page.ts` | The page `bun run waves:measure` writes, from what it measured (`measure-waves.ts`): the whole game |
 | `tools/probe/briefings-numbers.ts` | `bun run briefings:renumber` — the wave numbers in `docs/spec/briefings.md` rewritten from today's wave order |
 | `tools/director/src/stage-panel.ts` | **What the stage panel is, as a contract**, and nothing about how it is driven |
 | `tools/director/src/stage-play.ts` | Everything that starts, stops and restarts the stage: the `⏸`/`▶` button and the label it wears |

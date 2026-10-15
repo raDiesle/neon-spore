@@ -1,0 +1,104 @@
+/* DOCUMENTATION › WAVES › EVERY WAVE, drawn live (`waves-table.ts`). */
+.wave-table .wt-bar {
+  display: flex;
+  gap: 8px;
+  margin: 6px 0 10px;
+}
+.wave-table .wt-bar button,
+.wave-table .wt-fold,
+.wave-table .wt-label {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: 2px 8px;
+  cursor: pointer;
+}
+.wave-table .wt-bar button.on {
+  border-color: var(--amber, #f0b030);
+  color: var(--amber, #f0b030);
+}
+.wave-table table {
+  border-collapse: collapse;
+  font-size: 0.8125rem;
+}
+.wave-table th {
+  position: sticky;
+  top: -12px;
+  background: #0a0719;
+  color: var(--cyan);
+  text-align: left;
+  font-weight: 600;
+  padding: 4px 8px;
+  white-space: nowrap;
+  cursor: help;
+}
+.wave-table td {
+  padding: 2px 8px;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  vertical-align: middle;
+}
+.wave-table tr.wt-boss td {
+  background: rgba(240, 176, 48, 0.08);
+}
+.wave-table tr.wt-intro .wt-label {
+  font-weight: 700;
+}
+.wave-table tr.wt-child .wt-name {
+  padding-left: 30px;
+}
+.wave-table .wt-fold {
+  border: none;
+  padding: 0 6px 0 0;
+  color: var(--dim);
+}
+.wave-table .wt-label {
+  border: none;
+  padding: 0;
+  text-align: left;
+}
+.wave-table button.wt-label:hover {
+  color: var(--cyan);
+  text-decoration: underline;
+}
+.wave-table .wt-kind {
+  color: var(--dim);
+}
+.wave-table .wt-thing {
+  display: inline-flex;
+  align-items: center;
+  margin-right: 4px;
+  color: var(--dim);
+  font-size: 0.75rem;
+}
+.wave-table .wt-thing img {
+  width: 22px;
+  height: 22px;
+}
+.wave-table td.wt-bad,
+.wave-table .wt-note.wt-bad {
+  color: #ff5a6a;
+}
+.wave-table td.wt-warn,
+.wave-table .wt-note.wt-warn {
+  color: #f0b030;
+}
+.wave-table td.wt-bad,
+.wave-table td.wt-warn {
+  font-weight: 700;
+  cursor: help;
+}
+.wave-table td.wt-notes {
+  white-space: normal;
+  min-width: 260px;
+}
+.wave-table .wt-note {
+  display: block;
+  font-size: 0.75rem;
+}
+.wave-table .wt-note.wt-info {
+  color: var(--dim);
+}

@@ -1,5 +1,6 @@
 import { renderMarkdown } from "./markdown.js";
 import type { WavesDoc } from "./waves-doc-api.js";
+import { waveTable } from "./waves-table.js";
 
 /**
  * DOCUMENTATION › WAVES: how the waves are generated, and every wave with its
@@ -32,6 +33,7 @@ async function renderWavesDoc(): Promise<void> {
   today.className = "waves-today";
   renderMarkdown(guide, doc.guide);
   renderMarkdown(today, doc.today);
+  liveTable(today, doc);
   // Both titles and every section under them in the contents menu, so EVERY
   // WAVE and the boss table are one click away (`contents-list.ts`).
   for (const [tag, depth] of [
@@ -43,6 +45,26 @@ async function renderWavesDoc(): Promise<void> {
     }
   }
   body.replaceChildren(guide, today);
+}
+
+/**
+ * EVERY WAVE and THE BOSSES AGAINST THE BANDS, as the markdown has them,
+ * replaced by the one live table under EVERY WAVE's own heading — the owner,
+ * 15 October 2026, asked for the two merged (`waves-table.ts`).
+ */
+function liveTable(today: HTMLElement, doc: WavesDoc): void {
+  const headings = Array.from(today.querySelectorAll("h2, h3, h4, h5"));
+  const every = headings.find((h) => h.textContent?.trim() === "Every wave");
+  if (!every) return;
+  while (every.nextSibling) every.nextSibling.remove();
+  // The heading stays where the markdown put it, but its parent may be a
+  // wrapper, so whatever follows that wrapper goes too.
+  let up: Element | null = every.parentElement;
+  while (up && up !== today) {
+    while (up.nextSibling) up.nextSibling.remove();
+    up = up.parentElement;
+  }
+  every.after(waveTable(doc.waves, doc.clear).element);
 }
 
 export function bindWavesDocTab(): void {

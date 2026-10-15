@@ -42495,3 +42495,15 @@ Bottleneck: looking — the frames had to answer which side mark was meant
 before the owner was asked.
 
 *Measured: 14 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
+
+## 2026-10-15 — EVERY WAVE is a live table in the director
+
+- reading: 10 min. The waves doc page, the rail's marks and groups, the
+  brushes' pictures, the curriculum's ranges.
+- writing: 25 min. The rows and their flags, the table, its CSS, the
+  measurement's JSON, a test.
+- looking: 10 min. The table in a director served from this tree.
+- friction: 5 min. Main moved under the lane; measured twice.
+- landing: 5 min.
+
+Bottleneck: writing — the table is new, with nothing in the director to copy.

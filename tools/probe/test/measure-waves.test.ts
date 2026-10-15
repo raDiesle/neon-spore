@@ -1,6 +1,7 @@
 import { describe, expect, it } from "bun:test";
 import { WAVES } from "@neon-spore/content";
-import { bossRows, measureWave, summaryRows, waveRows } from "../measure-waves.js";
+import { measureWave } from "../measure-waves.js";
+import { bossRows, summaryRows, waveRows } from "../measure-waves-page.js";
 
 /** `bun run waves:measure`, on two cheap waves rather than all of them. */
 describe("waves:measure", () => {
