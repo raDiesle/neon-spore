@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-15 · d360e4525 — THE BLISTER's TAP bodies on VERSUS a little smaller
+
+MOLE, CRADLE and RIDER on blister:tap are drawn 1.3 times the blister's radius where they were 1.5, still clear of the yellow press in their middle. A look the owner asked for by name: "make graphics a little bit smaller".
+
 ## 2026-10-15 · 4bfd85c87 — The owner wants every tap in the game to wear the yellow press
 
 The queue entry for rolling THE PRESS LAB's drop out to every other tap now carries his answer, all of them, in place of the question.
