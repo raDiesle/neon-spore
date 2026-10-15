@@ -42566,3 +42566,5 @@ second half.
 - landing: 5 min. `check:fast`, the spec's sentence, `land`.
 
 Bottleneck: the losses were AUTO's hand, not the waves, and only a trace said so.
+
+*Measured: 13 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*

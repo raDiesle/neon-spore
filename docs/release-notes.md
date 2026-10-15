@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-15 · 229bb2899 — THE CLAW's eight are composed and played on the claw
+
+CLAW AGAIN to CLAW PEAK were played on THE COIL block's panel, because the claw's has no shield and no colours and the steps placed rocks a pod could not answer. They are now placed by a table of their own: groups of a pod crossing in from an edge and the rocks it answers. The steps go from wards alone to purges, then both edges, rocks in pairs, quick pods and twin rocks. AUTO clears all eight on the claw, from 1 up to 5.4.
+
 ## 2026-10-15 · b8dab2ef4 — A wave's name in EVERY WAVE opens it on the director's screen and plays it, with a way back
 
 Pressed in DOCUMENTATION › WAVES' table, a wave's name shuts the sheet, opens that wave and lets it run, the way a Ctrl-click on a brush does. A press over the screen, ← EVERY WAVE, opens the table again scrolled to where it was left. The wave is found by id, so a draft in another order still opens the right one. Not a look: the director is a tool.
