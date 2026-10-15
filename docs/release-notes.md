@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-15 · 8c142d8d1 — SNAKE's unblurred shadow is to be offered in VERSUS, the owner decided
+
+The queue entry for the last `shadowBlur` in render/ asked whether to keep it or offer a cheaper shadow; the owner chose the offer, so the entry is decided work a session can take.
+
 ## 2026-10-15 · 57e7373fe — 168 regular waves, eight in front of each boss that waited at the end
 
 The 21 bosses that stood in a row after THE HUSK's block each close a review block now: LURES RETURN … LURES SUMMIT before THE HASP, THROBS RETURN before THE RATCHET, and on through the things the game taught, to the crawlers before THE HYDRA. Every boss past the tutorial now has eight regular waves in front of it; the game is 564 waves, which AUTO plays in 4 h 35 min and a pair in about 9 h. The new waves went into the perf baseline unweighed. A look the owner asked for by name.
