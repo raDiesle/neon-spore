@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-15 · 416eac81b — VERSUS offers THE BLISTER's RUB a body built round its zigzag
+
+`blister:rub` opens with three bodies that answer being scrubbed, each counting the blows still owed: URCHIN, a sea urchin whose spines are laid flat from the top down a third at a blow and shiver under a thumb; WASHBOARD, a ridged board whose ridges light green from the bottom a third at a blow, raising suds while it is scrubbed; and PURR, a furry mound with pointed ears whose fur bristles more with every blow and whose eyes close happy under a thumb. They are judged on a new COMPARED LOOKS pose whose hand puts a thumb down, turns back twice and lifts. Exemption: none — a look, offered on VERSUS.
+
 ## 2026-10-15 · 35fa2d648 — VERSUS offers THE BLISTER's LEVER a body built round its groove
 
 `blister:lever` opens with three bodies the knob is drawn out of: BELL, a brass bell mouth down whose cord runs to the knob as its clapper, swinging and ringing while the knob is held in the band; ROOT, a turnip's shoulders and leaves with its root pulled down the groove to the knob, the leaves standing up in the band; and TAFFY, a slime that stretches a neck of itself down to a drop round the knob, sagging and squeezing its eyes shut. On the partner's screen, where no groove is drawn, the cord, root or neck says how far down the knob is. The groove leaves the pore, so every body record gains `beyond`, drawn after the pore's lip and unclipped — nothing, in every record the game ships. They are judged on a new COMPARED LOOKS pose whose hand carries the knob into the band, holds it to the blow and lets go. Exemption: none — a look, offered on VERSUS.
