@@ -41994,3 +41994,5 @@ close, the same wall COMBO's lane hit.
 
 Bottleneck: `check:fast` at nearly five minutes on a busy machine, for a
 diff in four files of render and three candidates.
+
+*Measured: 28 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*

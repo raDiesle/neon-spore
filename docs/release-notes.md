@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-15 · fcdadf9ee — THE BLISTER's TAP wears the yellow press, and its three VERSUS bodies outgrow it
+
+THE BLISTER's TAP, and COMBO's press half, now draw THE PRESS LAB's yellow drop as their control: calling tap-tap while untouched, STEPS' water a terrace a blow. It was the tap's flaring dots. The drop and its call moved out of the director into packages/render (press-drop.ts, press-call.ts), and the lab paints through them. On VERSUS, MOLE, CRADLE and RIDER on blister:tap are drawn half again as big, so each body stands clear of the yellow press in its middle; MOLE's socket now hugs the drop. A look the owner asked for by name: "they should follow our standard tap control visuals … bigger than the tap (yellow) button".
+
 ## 2026-10-15 · 0dc84d51b — THE BLISTER's RUB is drawn as URCHIN, WASHBOARD or PURR, one per blister
 
 The owner liked all three on `blister:rub` and asked for them in the game, picked at random. Each RUB blister now wears one of them, picked off its id so both screens draw the same one: URCHIN, whose spines lie flat a third per blow and shiver under a thumb; WASHBOARD, whose ridges light green a third per blow and throw suds while scrubbed; PURR, a furry mound that bristles more with every blow and shuts its eyes happy under a thumb. COMBO's BUD-or-CURL picker and RUB's now share `blister-pick.ts`, and COMBO's pick is unchanged. Exemption: a look the owner asked for by name.
