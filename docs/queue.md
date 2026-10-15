@@ -331,6 +331,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## The glance layer is cut to the plume's furthest reach, not this frame's
 
 - **Found:** 2026-10-15, claude/glance-layer-cost
+- **Taken:** 2026-10-15, main (claim: claude/queue-the-glance-layer-is-cut-to-the-plumes-furthest-r)
 - **Files:** `packages/render/src/glance-layer.ts`, `packages/render/src/glance-layer-box.ts`, `packages/render/src/creature-glance.ts`, `packages/render/src/creature-detail.ts`
 
 Every turning body is drawn onto a scratch layer the size of `screenBox`, and
