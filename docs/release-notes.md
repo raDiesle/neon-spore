@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-15 · b8dab2ef4 — A wave's name in EVERY WAVE opens it on the director's screen and plays it, with a way back
+
+Pressed in DOCUMENTATION › WAVES' table, a wave's name shuts the sheet, opens that wave and lets it run, the way a Ctrl-click on a brush does. A press over the screen, ← EVERY WAVE, opens the table again scrolled to where it was left. The wave is found by id, so a draft in another order still opens the right one. Not a look: the director is a tool.
+
 ## 2026-10-15 · c3bfe4b22 — A wave carries a written note, under NAME in WAVE SETTINGS and first in EVERY WAVE's Notes
 
 What to check on a wave, what is to do, what is unusual and should be fixed — the owner asked for it beside the measured numbers. It is `Wave.note`, saved with the wave under its name, read by the game nowhere, and drawn in cyan at the head of DOCUMENTATION › WAVES' Notes column, over the flags the table works out itself. `variant` and `note` are now `WaveAuthoring`, the director's own fields, and WAVE SETTINGS' fields left `rail.ts` for a file of their own. Not a look: the director is a tool.
