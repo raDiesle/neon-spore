@@ -41540,3 +41540,5 @@ simulation, each found by the typecheck one at a time.
 
 Bottleneck: reading. Every seed lost its own way, and the three left need a
 play several beats before the loss, which a trace of the loss does not show.
+
+*Measured: 18 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*

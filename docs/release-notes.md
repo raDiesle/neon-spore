@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-15 · 651ba9729 — AUTO plays THE SCUTTLE to the end on nine seeds of twelve
+
+The frame's own hand alone cleared one seed in twelve: it let the pods the frame throws fall to the skin and the slimes it throws reach the hull. AUTO now catches a falling pod first, answers a slime near the hull before the live part, fills the wind-up's lance before a pod that would land after the beam, and fills it in the colour standing in its column so it burns through. Seeds 1, 3 and 9 still lose, a rock or a pod placed beats before the wind-up, and stay in the queue; seed 1 is the measured one, so its row still says AUTO fails. No look changed: nothing is drawn differently.
+
 ## 2026-10-15 · 7d5ece25b — THE BLISTER takes a LEVER, and the CONTROLS group a LEVER brush
 
 A LEVER blister is THE LEVER LAB's lever on the body: a graduated groove straight down from it with a band on the groove, and the knob every pull wears. The knob stands where the thumb puts it; held in the band for a beat, with the band green and the dial sweeping round the knob, it is one blow, and the hand is spent until it lifts and carries again. Out of the band the hold starts again, a lift before it is done is refused out loud, and a sink loses the hold. AUTO plays it, the director offers LEVER under GESTURE and as a brush, and ON THE FIELD shows it under LEVER — CARRY TO A DEPTH AND HOLD. The groove and band moved from the lab into render, and the lab draws from there, pixel for pixel as before. Its body ships the clover; `blister:lever` on VERSUS is queued. Exemption: an addition where the game draws nothing.
