@@ -348,6 +348,7 @@ line), and add the case to `tools/frames/test/shot-row.test.ts`.
 ## THE BLISTER's sink-voiding machinery is dead now that it never sinks
 
 - **Found:** 2026-10-15, claude/blister-one-blow
+- **Taken:** 2026-10-15, main (claim: claude/queue-the-blisters-sink-voiding-machinery-is-dead-now)
 - **Files:** `packages/sim/src/blister.ts`, `packages/sim/src/blister-turn.ts`, `packages/sim/src/blister-rub.ts`, `packages/sim/src/blister-swipe.ts`, `packages/sim/src/creature-state-blister.ts`, `packages/sim/src/hash-creature-tail.ts`, `packages/hands/src/autopilot-blister.ts`
 
 Since one blow knocks a blister out and a missed window breaks the hull, a
