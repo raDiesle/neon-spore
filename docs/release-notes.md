@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-15 · 4733b9258 — mirror-grip.test.ts splits into the press and the picture
+
+At 296 lines it held the hit tests, the hand's readout, the rings and drops, the pin landing and a field run. The press stays in mirror-grip.test.ts, the picture is mirror-grip-draw.test.ts, and the states both read are mirror-grip-states.ts; the same fourteen tests, each file under 150 lines.
+
 ## 2026-10-15 · ce295704d — THE COUNT, THE COIL and THE CROSSING get their regular waves
 
 Twenty-three waves composed by `bun run waves:compose`: eight after THE COUNT and THE CROSSING, and seven after THE COIL that lead up to THE TWITCH, its hand-made one, drawn on the composer's fourth seed. AUTO learned all three bodies since they were left out, and clears every wave with no breach at both charges. Every block after FINALE now has its regular waves. A look the owner asked for by name.
