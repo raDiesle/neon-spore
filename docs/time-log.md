@@ -41625,3 +41625,5 @@ Bottleneck: landing; the split followed the seam the entry named.
 
 Bottleneck: the ON THE FIELD pose held only the pull half, so a look about
 the change between the halves needed a pose that plays both.
+
+*Measured: 25 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*

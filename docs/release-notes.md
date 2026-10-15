@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-15 · f07aaee28 — VERSUS offers THE BLISTER's COMBO a body built round its press and pull
+
+`blister:combo` opens with three bodies that change between COMBO's two halves, on both screens: BUD, a flower with the press as its heart that the press shuts into a bud, a green stalk running out of it to the knob; CLAM, gaping with the press lying in it like a pearl, snapped shut by the press, its red tongue sliding out to the knob; and CURL, a round slime whose tail, wound at its side, the press frees to run out to the knob. Each draws its link as far as the thumb has carried the pull. They are judged on a new COMPARED LOOKS pose whose own hand presses, pulls the whole stroke and lifts inside the two beats the blister is up. Exemption: none — a look, offered on VERSUS.
+
 ## 2026-10-15 · 4733b9258 — mirror-grip.test.ts splits into the press and the picture
 
 At 296 lines it held the hit tests, the hand's readout, the rings and drops, the pin landing and a field run. The press stays in mirror-grip.test.ts, the picture is mirror-grip-draw.test.ts, and the states both read are mirror-grip-states.ts; the same fourteen tests, each file under 150 lines.
