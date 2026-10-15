@@ -42128,3 +42128,5 @@ Bottleneck: the frames run's two builds, 144 s of a five-minute lane.
 - landing: 5 min.
 
 Bottleneck: reading — where the list's folds live, for a two-button change.
+
+*Measured: 25 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*

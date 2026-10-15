@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-15 · f3cda062e — The wave list opens or folds every group at once: OPEN ALL and FOLD ALL
+
+Two presses over the director's wave list, under the marks. OPEN ALL shows every wave, the composed variants under their intros; FOLD ALL leaves the waves that bring something new and the bosses. Remembered across a reload like a single group's fold. A look the owner asked for by name.
+
 ## 2026-10-15 · e83a6ac78 — The cannon's gunsight is a third fainter
 
 Its wash, its glow and its hairline, rails and ticks each lose about a third of their opacity; nothing changes shape. A look the owner asked for by name (15 October 2026).
