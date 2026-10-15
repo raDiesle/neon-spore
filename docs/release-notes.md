@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-15 · 7113cc5be — check:fast's scan for wave readers runs once a process and is given time
+
+The test that proves a moved wave reaches every test reading the list took 0.8 s alone and over 6 s under a full `bun run land` on a loaded machine, past bun's five-second default, and failed a landing. It reads every test file in the tree on each call. waveReaders now caches its scan per root, and the two tests that read the whole tree carry a named timeout.
+
 ## 2026-10-15 · 92e97de6f — Six more blocks get their regular waves, THE STRAND to THE BALLOON
 
 Forty-eight waves composed by `bun run waves:compose`, eight after each of THE STRAND, THE CRAWLER, THE FENCE, THE MAGNET, THE CHOIR and THE BALLOON, each one cleared by AUTO with no breach at both charges. The first waves climb from 6.6 to 7.8 and the peaks from 10.9 to 12.2. CRAWLER PEAK's first crawler comes a beat earlier than drawn, so it is not under the cannon on the busiest frame. A look the owner asked for by name.

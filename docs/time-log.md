@@ -41372,3 +41372,5 @@ test the composer does not run, and that only shows in the full check.
 
 Bottleneck: reading. The test took 0.8 s alone and over 6 s under a full
 check on a loaded machine, so the failure showed only in `land`.
+
+*Measured: 5 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
