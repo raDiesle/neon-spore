@@ -1,3 +1,4 @@
+import { PINBALL_ROUNDS } from "../pinball-rounds.js";
 import type { Wave } from "../wave-types.js";
 
 /**
@@ -112,6 +113,17 @@ import type { Wave } from "../wave-types.js";
  */
 export const WAVES_ACT_5: Wave[] = [
   {
+    id: "pinball",
+    name: "PINBALL",
+    guide: {
+      scene: "pinball",
+    },
+    entries: [],
+    boss: { kind: "pinball", rounds: PINBALL_ROUNDS },
+    bossType: "special",
+    controls: "pinball",
+  },
+  {
     id: "theWisp",
     name: "THE WISP",
     guide: {
@@ -121,6 +133,106 @@ export const WAVES_ACT_5: Wave[] = [
       { beat: 0, col: 5, kind: "wisp", color: null },
       { beat: 14, col: 2, kind: "wisp", color: null },
       { beat: 28, col: 7, kind: "wisp", color: null },
+    ],
+  },
+  {
+    id: "theWispAgain",
+    name: "WISPS AGAIN",
+    variant: true,
+    entries: [
+      { beat: 0, col: 2, kind: "wisp", color: null },
+      { beat: 7, col: 4, kind: "wisp", color: null },
+      { beat: 15, col: 3, kind: "wisp", color: null },
+      { beat: 22, col: 8, kind: "wisp", color: null },
+      { beat: 30, col: 7, kind: "wisp", color: null },
+    ],
+  },
+  {
+    id: "theWispSpread",
+    name: "WISPS SPREAD",
+    variant: true,
+    entries: [
+      { beat: 0, col: 0, kind: "wisp", color: null },
+      { beat: 5, col: 5, kind: "wisp", color: null },
+      { beat: 10, col: 1, kind: "wisp", color: null },
+      { beat: 15, col: 0, kind: "wisp", color: null },
+      { beat: 20, col: 2, kind: "wisp", color: null },
+      { beat: 27, col: 8, kind: "wisp", color: null },
+    ],
+  },
+  {
+    id: "theWispReach",
+    name: "WISPS FAR APART",
+    variant: true,
+    entries: [
+      { beat: 0, col: 0, kind: "wisp", color: null },
+      { beat: 6, col: 4, kind: "meteorMedium", color: null },
+      { beat: 12, col: 8, kind: "wisp", color: null },
+      { beat: 17, col: 4, kind: "meteorMedium", color: null },
+      { beat: 22, col: 0, kind: "wisp", color: null },
+      { beat: 28, col: 4, kind: "meteorMedium", color: null },
+    ],
+  },
+  {
+    id: "theWispPair",
+    name: "WISP AND ROCK",
+    variant: true,
+    entries: [
+      { beat: 0, col: 4, color: "red" },
+      { beat: 6, col: 6, kind: "wisp", color: null },
+      { beat: 10, col: 7, color: "cyan" },
+      { beat: 16, col: 8, kind: "meteorMedium", color: null },
+      { beat: 21, col: 7, color: "red" },
+      { beat: 32, col: 0, color: "cyan" },
+      { beat: 38, col: 8, kind: "wisp", color: null },
+    ],
+    pods: [{ beat: 26, col: 4, row: 4, kind: "ward" }],
+  },
+  {
+    id: "theWispBreathe",
+    name: "EASY WISPS",
+    variant: true,
+    entries: [
+      { beat: 0, col: 2, color: "cyan" },
+      { beat: 7, col: 9, kind: "wisp", color: null },
+      { beat: 14, col: 10, color: "red" },
+      { beat: 20, col: 3, kind: "meteor", color: null },
+      { beat: 28, col: 5, color: "red" },
+      { beat: 34, col: 8, kind: "wisp", color: null },
+      { beat: 40, col: 10, color: "red" },
+    ],
+  },
+  {
+    id: "theWispRecall",
+    name: "WISP RECALL",
+    variant: true,
+    entries: [
+      { beat: 0, col: 10, color: "cyan" },
+      { beat: 6, col: 3, kind: "wisp", color: null },
+      { beat: 12, col: 9, color: "red" },
+      { beat: 17, col: 6, kind: "wisp", color: null },
+      { beat: 23, col: 8, color: "red" },
+      { beat: 28, col: 10, kind: "wisp", color: null },
+      { beat: 33, col: 8, color: "red" },
+      { beat: 38, col: 10, kind: "wisp", color: null },
+    ],
+  },
+  {
+    id: "theWispBend",
+    name: "WISPS AND TWINS",
+    variant: true,
+    entries: [
+      { beat: 0, col: 6, color: "cyan" },
+      { beat: 6, col: 1, kind: "wisp", color: null },
+      { beat: 11, col: 5, color: "red" },
+      { beat: 16, col: 1, kind: "meteorMedium", color: null },
+      { beat: 21, col: 3, color: "cyan" },
+      { beat: 21, col: 6, color: "cyan" },
+      { beat: 27, col: 0, kind: "wisp", color: null },
+      { beat: 32, col: 6, kind: "meteorMedium", color: null },
+      { beat: 38, col: 4, color: "red" },
+      { beat: 38, col: 7, color: "red" },
+      { beat: 44, col: 6, kind: "wisp", color: null },
     ],
   },
 ];

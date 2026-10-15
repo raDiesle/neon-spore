@@ -1,3 +1,4 @@
+import { SNAKE_ROUNDS } from "../snake-rounds.js";
 import type { Wave } from "../wave-types.js";
 
 /**
@@ -5,6 +6,17 @@ import type { Wave } from "../wave-types.js";
  * 250-line ceiling; it plays straight after it (`acts.ts`).
  */
 export const WAVES_ACT_4_P3: Wave[] = [
+  {
+    id: "snake",
+    name: "SNAKE",
+    guide: {
+      scene: "snake",
+    },
+    entries: [],
+    boss: { kind: "snake", rounds: SNAKE_ROUNDS },
+    bossType: "special",
+    controls: "snake",
+  },
   {
     id: "theWard",
     name: "THE WARD",
@@ -19,5 +31,128 @@ export const WAVES_ACT_4_P3: Wave[] = [
       { beat: 8, col: 10, kind: "meteorFastest", color: null },
     ],
     pods: [{ beat: 0, col: 5, row: 2, kind: "ward" }],
+  },
+  {
+    id: "theWardAgain",
+    name: "HEAVY ROCKS AGAIN",
+    variant: true,
+    entries: [
+      { beat: 0, col: 3, kind: "meteorMedium", color: null },
+      { beat: 6, col: 6, kind: "meteorMedium", color: null },
+      { beat: 13, col: 7, kind: "meteorMedium", color: null },
+      { beat: 19, col: 3, kind: "meteorMedium", color: null },
+      { beat: 25, col: 7, kind: "meteorMedium", color: null },
+      { beat: 31, col: 5, kind: "meteorMedium", color: null },
+    ],
+  },
+  {
+    id: "theWardSpread",
+    name: "HEAVY ROCKS SPREAD",
+    variant: true,
+    entries: [
+      { beat: 0, col: 8, kind: "meteorMedium", color: null },
+      { beat: 7, col: 2, kind: "meteorMedium", color: null },
+      { beat: 12, col: 8, kind: "meteorMedium", color: null },
+      { beat: 18, col: 9, kind: "meteorMedium", color: null },
+      { beat: 23, col: 4, kind: "meteorMedium", color: null },
+      { beat: 29, col: 3, kind: "meteorMedium", color: null },
+    ],
+  },
+  {
+    id: "theWardReach",
+    name: "HEAVY ROCKS APART",
+    variant: true,
+    entries: [
+      { beat: 0, col: 1, kind: "meteorMedium", color: null },
+      { beat: 5, col: 6, kind: "meteor", color: null },
+      { beat: 10, col: 1, kind: "meteorMedium", color: null },
+      { beat: 15, col: 10, kind: "meteor", color: null },
+      { beat: 20, col: 0, kind: "meteorMedium", color: null },
+      { beat: 26, col: 9, kind: "meteor", color: null },
+    ],
+  },
+  {
+    id: "theWardPair",
+    name: "HEAVY ROCK AND VEIL",
+    variant: true,
+    entries: [
+      { beat: 0, col: 9, color: "red" },
+      { beat: 4, col: 1, kind: "meteorMedium", color: null },
+      { beat: 8, col: 5, color: "red" },
+      { beat: 14, col: 0, kind: "veil", color: null },
+      { beat: 19, col: 6, color: "red" },
+      { beat: 24, col: 3, kind: "shell", color: "cyan" },
+      { beat: 29, col: 8, color: "red" },
+      { beat: 33, col: 10, kind: "meteorMedium", color: null },
+    ],
+  },
+  {
+    id: "theWardBreathe",
+    name: "EASY HEAVY ROCKS",
+    variant: true,
+    entries: [
+      { beat: 0, col: 9, color: "cyan" },
+      { beat: 6, col: 4, kind: "meteorMedium", color: null },
+      { beat: 14, col: 6, color: "red" },
+      { beat: 22, col: 2, kind: "meteorMedium", color: null },
+      { beat: 28, col: 5, color: "red" },
+      { beat: 36, col: 6, kind: "meteorMedium", color: null },
+    ],
+  },
+  {
+    id: "theWardRecall",
+    name: "HEAVY ROCK RECALL",
+    variant: true,
+    entries: [
+      { beat: 0, col: 10, color: "red" },
+      { beat: 5, col: 8, kind: "meteorMedium", color: null },
+      { beat: 10, col: 9, color: "red" },
+      { beat: 15, col: 7, kind: "torch", color: null },
+      { beat: 21, col: 9, color: "cyan" },
+      { beat: 27, col: 5, kind: "meteorMedium", color: null },
+      { beat: 32, col: 10, color: "red" },
+      { beat: 37, col: 6, kind: "torch", color: null },
+    ],
+  },
+  {
+    id: "theWardBend",
+    name: "HEAVY ROCKS, TWINS",
+    variant: true,
+    entries: [
+      { beat: 0, col: 6, color: "red" },
+      { beat: 5, col: 5, kind: "meteorMedium", color: null },
+      { beat: 5, col: 8, kind: "meteorMedium", color: null },
+      { beat: 10, col: 7, color: "cyan" },
+      { beat: 15, col: 3, color: "red" },
+      { beat: 21, col: 5, kind: "veil", color: null },
+      { beat: 27, col: 7, color: "red" },
+      { beat: 33, col: 6, kind: "meteorMedium", color: null },
+      { beat: 39, col: 3, color: "red" },
+      { beat: 39, col: 7, color: "red" },
+      { beat: 44, col: 8, kind: "veil", color: null },
+    ],
+  },
+  {
+    id: "theWardPeak",
+    name: "HEAVY ROCK PEAK",
+    variant: true,
+    entries: [
+      { beat: 0, col: 3, color: "red" },
+      { beat: 4, col: 2, kind: "meteorMedium", color: null },
+      { beat: 4, col: 8, kind: "meteorMedium", color: null },
+      { beat: 8, col: 8, color: "cyan" },
+      { beat: 12, col: 3, color: "cyan" },
+      { beat: 16, col: 10, kind: "veil", color: null },
+      { beat: 20, col: 6, color: "cyan" },
+      { beat: 24, col: 8, kind: "throb", color: "red" },
+      { beat: 28, col: 4, color: "cyan" },
+      { beat: 28, col: 7, color: "cyan" },
+      { beat: 32, col: 8, kind: "meteorMedium", color: null },
+      { beat: 36, col: 10, kind: "veil", color: null },
+      { beat: 40, col: 3, color: "red" },
+      { beat: 40, col: 6, color: "red" },
+      { beat: 44, col: 7, kind: "throb", color: "red" },
+      { beat: 48, col: 9, kind: "meteorMedium", color: null },
+    ],
   },
 ];

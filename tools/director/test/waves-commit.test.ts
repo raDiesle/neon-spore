@@ -141,3 +141,23 @@ test(
   },
   repoTimeout(11),
 );
+
+test(
+  "a file the save made new is in the commit",
+  async () => {
+    // The owner's save of 15 October 2026 committed `acts.ts` without the
+    // act files it had just made, and `main` no longer built.
+    const dir = await repo();
+    try {
+      await writeFile(join(dir, "act.ts"), "two\n");
+      await writeFile(join(dir, "act-2.ts"), "new\n");
+      expect(await commitWaves(["act.ts", "act-2.ts"], 7, dir)).toBeNull();
+      const names = await git(["show", "--name-only", "--format=", "HEAD"], dir);
+      expect(names.split("\n").sort()).toEqual(["act-2.ts", "act.ts"]);
+      expect(await git(["status", "--porcelain"], dir)).toBe("");
+    } finally {
+      await rm(dir, { recursive: true, force: true });
+    }
+  },
+  repoTimeout(16),
+);

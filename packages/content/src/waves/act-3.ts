@@ -88,4 +88,107 @@ import type { Wave } from "../wave-types.js";
  * the pilot's and is rolled, because a phase read off the arrival would be one
  * the navigator could keep unaided.
  */
-export const WAVES_ACT_3: Wave[] = [];
+export const WAVES_ACT_3: Wave[] = [
+  {
+    id: "theLure",
+    name: "THE LURE",
+    guide: {
+      scene: "theLure",
+    },
+    entries: [
+      { beat: 0, col: 3, kind: "lure", color: "cyan" },
+      { beat: 3, col: 8, color: "red" },
+      { beat: 8, col: 5, kind: "lure", color: "red" },
+      { beat: 9, col: 7, color: "red" },
+      { beat: 15, col: 3, kind: "lure", color: "cyan" },
+      { beat: 16, col: 7, color: "cyan" },
+    ],
+    controls: "standard5",
+  },
+  {
+    id: "theLureAgain",
+    name: "LURES AGAIN",
+    variant: true,
+    entries: [
+      { beat: 0, col: 6, kind: "lure", color: "cyan" },
+      { beat: 6, col: 5, kind: "lure", color: "cyan" },
+      { beat: 12, col: 4, kind: "lure", color: "cyan" },
+      { beat: 18, col: 5, kind: "lure", color: "cyan" },
+      { beat: 25, col: 4, kind: "lure", color: "red" },
+    ],
+    controls: "standard5",
+  },
+  {
+    id: "theLureSpread",
+    name: "LURES SPREAD",
+    variant: true,
+    entries: [
+      { beat: 0, col: 3, kind: "lure", color: "cyan" },
+      { beat: 5, col: 7, kind: "lure", color: "cyan" },
+      { beat: 11, col: 5, kind: "lure", color: "cyan" },
+      { beat: 18, col: 7, kind: "lure", color: "cyan" },
+      { beat: 23, col: 3, kind: "lure", color: "red" },
+      { beat: 30, col: 4, kind: "lure", color: "cyan" },
+    ],
+    controls: "standard5",
+  },
+  {
+    id: "theLureReach",
+    name: "LURES FAR APART",
+    variant: true,
+    entries: [
+      { beat: 0, col: 9, kind: "lure", color: "cyan" },
+      { beat: 5, col: 4, kind: "lure", color: "red" },
+      { beat: 11, col: 8, kind: "lure", color: "red" },
+      { beat: 17, col: 2, kind: "lure", color: "cyan" },
+      { beat: 23, col: 6, kind: "lure", color: "cyan" },
+      { beat: 28, col: 1, kind: "lure", color: "cyan" },
+    ],
+    controls: "standard5",
+  },
+  {
+    id: "theLurePair",
+    name: "LURE AND SHIELD",
+    variant: true,
+    entries: [
+      { beat: 0, col: 7, color: "cyan" },
+      { beat: 6, col: 1, kind: "lure", color: "cyan" },
+      { beat: 12, col: 2, color: "red" },
+      { beat: 24, col: 8, color: "cyan" },
+      { beat: 28, col: 7, kind: "lure", color: "red" },
+      { beat: 34, col: 5, color: "red" },
+    ],
+    pods: [{ beat: 18, col: 4, row: 3, kind: "ward" }],
+    controls: "standard5",
+  },
+  {
+    id: "theLureBreathe",
+    name: "EASY LURES",
+    variant: true,
+    entries: [
+      { beat: 0, col: 7, color: "red" },
+      { beat: 8, col: 8, kind: "lure", color: "red" },
+      { beat: 16, col: 7, color: "cyan" },
+      { beat: 23, col: 8, kind: "lure", color: "red" },
+      { beat: 30, col: 7, color: "cyan" },
+      { beat: 37, col: 8, kind: "lure", color: "red" },
+    ],
+    controls: "standard5",
+  },
+  {
+    id: "theLureRecall",
+    name: "LURE RECALL",
+    variant: true,
+    entries: [
+      { beat: 0, col: 2, color: "cyan" },
+      { beat: 5, col: 6, kind: "lure", color: "cyan" },
+      { beat: 10, col: 8, color: "cyan" },
+      { beat: 16, col: 6, kind: "meteor", color: null },
+      { beat: 22, col: 2, color: "cyan" },
+      { beat: 28, col: 3, kind: "lure", color: "cyan" },
+      { beat: 34, col: 8, color: "cyan" },
+      { beat: 39, col: 1, kind: "meteor", color: null },
+    ],
+    controls: "standard5",
+  },
+];

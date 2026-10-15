@@ -62,11 +62,24 @@ export async function commitWaves(
   // the wrong thing in the release note.
   const seen = await run(["diff", "--name-only", "HEAD", "--", ...rels], root);
   if (seen.code !== 0) return seen.err.trim() || "git diff failed";
-  const changed = seen.out
-    .split("\n")
-    .map((line) => line.trim())
-    .filter(Boolean);
+  // And which are new: `git diff HEAD` never names a file git has not seen,
+  // so a save that made a new act file committed the `acts.ts` that imports
+  // it without it — the owner's save of 15 October 2026 left `main` unable
+  // to build from a fresh checkout.
+  const fresh = await run(["ls-files", "--others", "--exclude-standard", "--", ...rels], root);
+  if (fresh.code !== 0) return fresh.err.trim() || "git ls-files failed";
+  const lines = (out: string): string[] =>
+    out
+      .split("\n")
+      .map((line) => line.trim())
+      .filter(Boolean);
+  const added = lines(fresh.out);
+  const changed = [...lines(seen.out), ...added];
   if (changed.length === 0) return null;
+  if (added.length > 0) {
+    const staged = await run(["add", "--", ...added], root);
+    if (staged.code !== 0) return staged.err.trim() || "git add failed";
+  }
 
   const done = await run(["commit", "-m", commitMessage(waves, changed), "--", ...changed], root);
   if (done.code !== 0) return done.err.trim() || "git commit failed";

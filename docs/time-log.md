@@ -42389,3 +42389,16 @@ Bottleneck: reading — the list on disk was right, and only the browser's
 stored draft could put 262 waves under THE HYDRA.
 
 *Measured: 12 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
+
+## 2026-10-15 — The wave order back, and a save commits the files it made
+
+- reading: 5 min. The save's commit against the list before it, wave by wave.
+- writing: 10 min. The order written back with THE BLISTER's one edit kept,
+  `commitWaves` taking new files, a test.
+- looking: 5 min. Every boss against the next.
+- friction: 10 min. The saved `main` did not build: its new act files were
+  never committed.
+- landing: 5 min.
+
+Bottleneck: friction — a save from a tab holding a stale draft wrote the old
+order, and its commit left out the files it created.

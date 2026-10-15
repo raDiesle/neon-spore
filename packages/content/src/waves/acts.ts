@@ -76,37 +76,6 @@ import { WAVES_ACT_14B_P14 } from "./act-14b-p14.js";
 import { WAVES_ACT_14B_P15 } from "./act-14b-p15.js";
 import { WAVES_ACT_14B_P16 } from "./act-14b-p16.js";
 import { WAVES_ACT_14B_P17 } from "./act-14b-p17.js";
-import { WAVES_ACT_14B_P18 } from "./act-14b-p18.js";
-import { WAVES_ACT_14B_P19 } from "./act-14b-p19.js";
-import { WAVES_ACT_14B_P20 } from "./act-14b-p20.js";
-import { WAVES_ACT_14B_P21 } from "./act-14b-p21.js";
-import { WAVES_ACT_14B_P22 } from "./act-14b-p22.js";
-import { WAVES_ACT_14B_P23 } from "./act-14b-p23.js";
-import { WAVES_ACT_14B_P24 } from "./act-14b-p24.js";
-import { WAVES_ACT_14B_P25 } from "./act-14b-p25.js";
-import { WAVES_ACT_14B_P26 } from "./act-14b-p26.js";
-import { WAVES_ACT_14B_P27 } from "./act-14b-p27.js";
-import { WAVES_ACT_14B_P28 } from "./act-14b-p28.js";
-import { WAVES_ACT_14B_P29 } from "./act-14b-p29.js";
-import { WAVES_ACT_14B_P30 } from "./act-14b-p30.js";
-import { WAVES_ACT_14B_P31 } from "./act-14b-p31.js";
-import { WAVES_ACT_14B_P32 } from "./act-14b-p32.js";
-import { WAVES_ACT_14B_P33 } from "./act-14b-p33.js";
-import { WAVES_ACT_14B_P34 } from "./act-14b-p34.js";
-import { WAVES_ACT_14B_P35 } from "./act-14b-p35.js";
-import { WAVES_ACT_14B_P36 } from "./act-14b-p36.js";
-import { WAVES_ACT_14B_P37 } from "./act-14b-p37.js";
-import { WAVES_ACT_14B_P38 } from "./act-14b-p38.js";
-import { WAVES_ACT_14B_P39 } from "./act-14b-p39.js";
-import { WAVES_ACT_14B_P40 } from "./act-14b-p40.js";
-import { WAVES_ACT_14B_P41 } from "./act-14b-p41.js";
-import { WAVES_ACT_14B_P42 } from "./act-14b-p42.js";
-import { WAVES_ACT_14B_P43 } from "./act-14b-p43.js";
-import { WAVES_ACT_14B_P44 } from "./act-14b-p44.js";
-import { WAVES_ACT_14B_P45 } from "./act-14b-p45.js";
-import { WAVES_ACT_14B_P46 } from "./act-14b-p46.js";
-import { WAVES_ACT_14B_P47 } from "./act-14b-p47.js";
-import { WAVES_ACT_14B_P48 } from "./act-14b-p48.js";
 
 /**
  * **The act files, in the order of the game** — the one list of them.
@@ -199,35 +168,4 @@ export const WAVE_ACTS: readonly (readonly Wave[])[] = [
   WAVES_ACT_14B_P15,
   WAVES_ACT_14B_P16,
   WAVES_ACT_14B_P17,
-  WAVES_ACT_14B_P18,
-  WAVES_ACT_14B_P19,
-  WAVES_ACT_14B_P20,
-  WAVES_ACT_14B_P21,
-  WAVES_ACT_14B_P22,
-  WAVES_ACT_14B_P23,
-  WAVES_ACT_14B_P24,
-  WAVES_ACT_14B_P25,
-  WAVES_ACT_14B_P26,
-  WAVES_ACT_14B_P27,
-  WAVES_ACT_14B_P28,
-  WAVES_ACT_14B_P29,
-  WAVES_ACT_14B_P30,
-  WAVES_ACT_14B_P31,
-  WAVES_ACT_14B_P32,
-  WAVES_ACT_14B_P33,
-  WAVES_ACT_14B_P34,
-  WAVES_ACT_14B_P35,
-  WAVES_ACT_14B_P36,
-  WAVES_ACT_14B_P37,
-  WAVES_ACT_14B_P38,
-  WAVES_ACT_14B_P39,
-  WAVES_ACT_14B_P40,
-  WAVES_ACT_14B_P41,
-  WAVES_ACT_14B_P42,
-  WAVES_ACT_14B_P43,
-  WAVES_ACT_14B_P44,
-  WAVES_ACT_14B_P45,
-  WAVES_ACT_14B_P46,
-  WAVES_ACT_14B_P47,
-  WAVES_ACT_14B_P48,
 ];
