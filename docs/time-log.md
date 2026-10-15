@@ -42254,3 +42254,5 @@ not name: a blow removes the body, so no spent hand outlives it.
 
 Bottleneck: writing — saying exactly when a red is the machine's: every
 failure a timeout, and no shard killed without a report.
+
+*Measured: 19 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*

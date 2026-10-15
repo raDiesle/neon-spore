@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-15 · d1f75057e — A check red only on timeouts says so, and `bun run land` runs it once more
+
+When every failure in a `bun run check` is bun's own timeout and no shard was killed, its last line now reads *timed out under load* with the load average, apart from a real failure; a run with some timeouts counts them. `bun run land` runs such a check once more by itself before reporting it, and only once. `loop-once.test.ts`, which went red at 27.7 s under another session's load, now reads only the files `git grep` names, and `drop.test.ts` declares its figure so it gets a timeout scaled to the load.
+
 ## 2026-10-15 · 2d5e4c2fb — THE BLISTER's dead-hand and spent-hand code goes
 
 A blister never sinks now, and a blow removes it on the tick it lands, so no hand on one ever outlived its surfacing. `BLISTER_HAND_DEAD` and its checks in TURN and RUB went, the voided and spent bits (4 and 8) in `blisterStrokes` for SWIPE, COMBO and LEVER went, and so did AUTO's lifts for a dead or spent hand and the comments that still described a sink. No reachable world hashes differently: the fields keep their order and their values.
