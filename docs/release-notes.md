@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-15 · 1b35912f3 — Every contour on the field is built without a throwaway array, and the hull's spline once a frame
+
+A performance review of every wave found the hull's 140 curves computed and handed to the canvas twice a frame, on every wave — once for the rim and once for the body it closes — and every organic contour building a flat array of its control points only to read it straight back off. The hull's body is now a copy of the rim's path, and `catmullRomEach` hands each curve to the path as it is worked out. Spline work in the render loop fell by about 70%, about a tenth of the frame's JavaScript; alternating Chrome runs put every measured wave 3-10% under main. Nothing drawn moved: 1,408 frames over 44 waves hash byte-identical through Skia, and `hull-outline.test.ts` keeps the hull's curves to one build.
+
 ## 2026-10-15 · 1dc64c121 — `bun run shot --inner` presses the sheet's tab, not the menu behind it
 
 `--open DOCUMENTATION --inner WAVES` photographed WORDINGS: the first visible button reading WAVES was the director's own menu item, ahead of the sheet's tab bar in the page. A tab in a bar on screen (an id ending `Tabs`) is now pressed first, in any case, and a label no bar has is refused with the labels it does have; a page with no bar showing still takes any visible button by its words.

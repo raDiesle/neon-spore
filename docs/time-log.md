@@ -42287,3 +42287,5 @@ Bottleneck: looking — each live proof is a director built and served.
 
 Bottleneck: measuring under other sessions' load — one wave moved 6 ms between
 runs, and only an interleaved A/B in one browser could be trusted.
+
+*Measured: 32 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
