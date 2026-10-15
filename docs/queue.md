@@ -554,6 +554,7 @@ three. Prove it with `bun test tools/versus` and `bun run check`.
 ## THE BLISTER's LEVER gets bodies built round its groove, on VERSUS
 
 - **Found:** 2026-10-15, claude/queue-the-blister-takes-a-lever-and-the-controls-group
+- **Taken:** 2026-10-15, claude/queue-the-blisters-lever-gets-bodies-built-round-its-g
 - **Files:** `packages/render/src/blister-bodies.ts`, `packages/render/src/blister-lever-help.ts`, `tools/director/src/poses-field-controls-blister.ts`, `tools/director/src/versus-pose.ts`
 
 The same ask as THE BLISTER's HOLD entry, for `blister:lever`, patching
