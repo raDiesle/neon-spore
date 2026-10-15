@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-15 · bebee951e — The glance layer costs its flushes, not its passes
+
+Measured on GYRES AGAIN at 4x, interleaved against the unchanged tree: one more drawImage of a canvas already read moved nothing, and one more read of a canvas drawn on since added 2 to 3 ms. A turned body is three flushes, and each stage is forced by lighter's clamp, so the queue entry now asks for a prepass that flushes once a frame rather than for a pass to be cut. No code changed.
+
 ## 2026-10-15 · 4caf5895c — A wave's talk: the facts the pair must say aloud, beside its pressure in EVERY WAVE
 
 Pressure counts what the hands do; `waveTalk` counts what the voices do. Each kind is scored by the facts one player must hand the other for each arrival — where it is, a colour or moment it does not wear plainly, something only one seat is drawn, a column that changes, two controls to agree — and a wave by the most of them inside eight beats, plus what each fault costs to say. It is a new column in DOCUMENTATION › WAVES. Read on today's waves it shows the hardest bodies to talk through taught early and the easiest late, and every fault after wave 270; the composer does not aim at it yet. Not a look: nothing the game draws changes.
