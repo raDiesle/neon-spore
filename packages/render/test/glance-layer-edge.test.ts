@@ -62,6 +62,20 @@ describe("a turned body's layer", () => {
     });
   }
 
+  for (const s of [-1, 1] as const) {
+    test(`keeps the whole of its squeezed half, the ${s < 0 ? "left" : "right"}`, () => {
+      // A swing toward one side squeezes that side, from the part drawn whole.
+      const swing = 0.22 * R * s;
+      const ctx = drawTurned({ x: X, y: Y, r: R, hold: 0, swing, roll: 0 });
+      const [lo, hi] = paintedSpan(ctx, Y);
+      const far = (1 - 0.22) * (REACH * R - 1);
+      // Cut to the turned box alone, the layer held the far half only to the
+      // squeeze of its reach, and the screen got the squeeze of that: 24 of 30.
+      if (s < 0) expect(lo).toBeLessThanOrEqual(Math.ceil(X - far) + 1);
+      else expect(hi).toBeGreaterThanOrEqual(Math.floor(X + far) - 1);
+    });
+  }
+
   test("keeps its corners when it rolls", () => {
     const ctx = drawTurned({ x: X, y: Y, r: R, hold: 0, swing: 0.22 * R, roll: 0.14 });
     // The disc's opened left half, rolled, still reaches well outside the square.

@@ -49,12 +49,15 @@ export const halfRect = ({ x, y }: GlanceFrame, s: -1 | 1, reach: Reach) =>
 
 /**
  * The screen rectangle, whole pixels, that the part drawn within `reach` of its
- * centre covers **as turned** under `m`: its opened half stretched past
- * `reach`, its middle shifted, and the whole of it rolled. The layers are cut
- * to this and not to `reach`, or the opened half loses its outer edge — a
- * slick at the widest swing lost a sliver off its near side (the owner, 15
- * October 2026). The middle's ends are in it for a held part, whose middle
- * moves.
+ * centre covers **as drawn and as turned** under `m`. As turned: its opened
+ * half stretched past `reach`, its middle shifted, and the whole of it rolled
+ * — cut to `reach` alone, the opened half lost its outer edge, a slick at the
+ * widest swing a sliver off its near side (the owner, 15 October 2026). As
+ * drawn: the part is drawn unturned onto the first layer and squeezed from
+ * there, so a box cut to the turned shape alone held the far half only to
+ * `glanceSqueeze` of its reach — 0.78 at the widest — and what it drew past
+ * that never reached the screen. The middle's ends are in it for a held part,
+ * whose middle moves.
  */
 export function screenBox(ctx: CanvasRenderingContext2D, m: Matrix, f: GlanceFrame, reach: Reach) {
   const xs: number[] = [];
@@ -69,9 +72,10 @@ export function screenBox(ctx: CanvasRenderingContext2D, m: Matrix, f: GlanceFra
         angle === 0
           ? { x: f.x + dx, y: f.y + dy }
           : { x: f.x + dx * c - dy * sn, y: f.y + dx * sn + dy * c };
-      const p = glancedPoint(f, at);
-      xs.push(m.a * p.x + m.c * p.y + m.e);
-      ys.push(m.b * p.x + m.d * p.y + m.f);
+      for (const p of [at, glancedPoint(f, at)]) {
+        xs.push(m.a * p.x + m.c * p.y + m.e);
+        ys.push(m.b * p.x + m.d * p.y + m.f);
+      }
     }
   }
   const ox = Math.max(0, Math.floor(Math.min(...xs)));
