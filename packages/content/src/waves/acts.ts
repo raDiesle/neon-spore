@@ -21,12 +21,17 @@ import { WAVES_ACT_5_P4 } from "./act-5-p4.js";
 import { WAVES_ACT_6 } from "./act-6.js";
 import { WAVES_ACT_6_P2 } from "./act-6-p2.js";
 import { WAVES_ACT_6_P3 } from "./act-6-p3.js";
+import { WAVES_ACT_6_P4 } from "./act-6-p4.js";
 import { WAVES_ACT_7 } from "./act-7.js";
+import { WAVES_ACT_7_P2 } from "./act-7-p2.js";
 import { WAVES_ACT_7A } from "./act-7a.js";
+import { WAVES_ACT_7A_P2 } from "./act-7a-p2.js";
 import { WAVES_ACT_7B } from "./act-7b.js";
 import { WAVES_ACT_7C } from "./act-7c.js";
+import { WAVES_ACT_7C_P2 } from "./act-7c-p2.js";
 import { WAVES_ACT_7D } from "./act-7d.js";
 import { WAVES_ACT_7E } from "./act-7e.js";
+import { WAVES_ACT_7E_P2 } from "./act-7e-p2.js";
 import { WAVES_ACT_7F } from "./act-7f.js";
 import { WAVES_ACT_7G } from "./act-7g.js";
 import { WAVES_ACT_8 } from "./act-8.js";
@@ -77,12 +82,17 @@ export const WAVE_ACTS: readonly (readonly Wave[])[] = [
   WAVES_ACT_6,
   WAVES_ACT_6_P2,
   WAVES_ACT_6_P3,
+  WAVES_ACT_6_P4,
   WAVES_ACT_7,
+  WAVES_ACT_7_P2,
   WAVES_ACT_7A,
+  WAVES_ACT_7A_P2,
   WAVES_ACT_7B,
   WAVES_ACT_7C,
+  WAVES_ACT_7C_P2,
   WAVES_ACT_7D,
   WAVES_ACT_7E,
+  WAVES_ACT_7E_P2,
   WAVES_ACT_7F,
   WAVES_ACT_7G,
   WAVES_ACT_8,

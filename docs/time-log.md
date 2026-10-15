@@ -41346,3 +41346,15 @@ missed, and the windows were set by probing beat by beat.
 Bottleneck: friction — the `COPIES` row's owner rule, learnt from a red test.
 
 *Measured: 11 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+## 2026-10-15 — Six more blocks, THE STRAND to THE BALLOON
+
+- reading: 5 min. The last lane's names, and which block each pairs with.
+- writing: 5 min. Six blocks composed and named, one command each.
+- looking: 5 min. Every block's table read; the 48 maps shot.
+- friction: 10 min. CRAWLER PEAK's first crawler stood under the cannon on
+  the pixel test's busiest frame, so it moved a beat earlier and the check ran
+  again; that run lost a test to a load timeout, queued.
+- landing: 5 min.
+
+Bottleneck: friction — a composed wave AUTO clears can still fail a render
+test the composer does not run, and that only shows in the full check.

@@ -223,78 +223,126 @@ the wave. *Pressure* is `wavePressure`
 | 204 | VEERS AND TWINS | **regular** | — | STANDARD | 11 | 45 | 65 b · 41 s | 10.3 |
 | 205 | VEER PEAK | **regular** | — | STANDARD | 14 | 45 | 75 b · 47 s | 11.3 |
 | 206 | THE STRAND | intro | strand | STANDARD | 3 | 36 | 42 b · 26 s | 2.4 |
-| 207 | THE CRAWLER | intro | crawler | STANDARD | 3 | 48 | 64 b · 40 s | 4.5 |
-| 208 | THE FENCE | intro | fence | STANDARD | 3 | 24 | 33 b · 21 s | 1.5 |
-| 209 | THE GAP | intro | — | STANDARD | 5 | 56 | 65 b · 41 s | 4.5 |
-| 210 | THE CUT | intro | — | STANDARD | 4 | 48 | 57 b · 36 s | 1.5 |
-| 211 | THE MAGNET | intro | magnet | STANDARD | 5 | 46 | 49 b · 31 s | 8.1 |
-| 212 | THE JAM | intro | cannonFault | STANDARD | 8 | 50 | 62 b · 39 s | 13.3 |
-| 213 | THE COIL | intro | coil, shieldFault | STANDARD | 6 | 46 | 58 b · 36 s | 9.9 |
-| 214 | THE CHOKE | intro | steerFault | STANDARD | 10 | 48 | 60 b · 38 s | 10.6 |
-| 215 | THE LIMPET | intro | limpet | STANDARD | 6 | 50 | 64 b · 40 s | 8.2 |
-| 216 | THE LEECH | intro | leech | STANDARD | 7 | 48 | 51 b · 32 s | 11.4 |
-| 217 | THE TWITCH | **regular** | — | STANDARD | 10 | 62 | 70 b · 44 s | 8 |
-| 218 | THE CLAW | intro | panel | THE CLAW | 6 | 52 | 57 b · 36 s | 4.9 |
-| 219 | THE SCOUT | boss (special) | scout, panel | THE SCOUT | 0 | 0 | 73 b · 46 s | — |
-| 220 | THE HAUL | boss (special) | — | THE SCOUT | 0 | 0 | 22 b · 14 s | — |
-| 221 | THE STARE | boss | stare | STANDARD | 0 | 0 | 245 b · 153 s | — |
-| 222 | THE CROSSING | intro | rockCross | STANDARD | 8 | 34 | 41 b · 26 s | 9 |
-| 223 | THE CHOIR | intro | choir | STANDARD | 4 | 34 | 38 b · 24 s | 3.6 |
-| 224 | THE PULSE | boss (special) | pulse, panel | THE PULSE | 0 | 0 | 137 b · 86 s | — |
-| 225 | THE BALLOON | intro | balloon | STANDARD | 6 | 36 | 65 b · 41 s | 8.1 |
-| 226 | THE BATON | boss | baton | STANDARD | 0 | 0 | 283 b · 177 s | — |
-| 227 | THE UNDERTOW | boss | undertow | STANDARD | 6 | 94 | 156 b · 98 s | — |
-| 228 | THE THROAT | boss | throat, panel | THE THROAT | 12 | 78 | 40 b · 25 s | — |
-| 229 | THE GORGE | boss | gorge | STANDARD | 10 | 82 | 236 b · 148 s | — |
-| 230 | THE CURTAIN | boss | curtain | STANDARD | 0 | 0 | AUTO fails | — |
-| 231 | THE TASTER | boss | taster | STANDARD | 10 | 80 | AUTO fails | — |
-| 232 | THE SINEW | boss | sinew | STANDARD | 0 | 0 | 44 b · 28 s | — |
-| 233 | THE LEDGER | boss | ledger | STANDARD | 8 | 82 | 32 b · 20 s | — |
-| 234 | THE SURGE | boss | surge | STANDARD | 8 | 76 | 44 b · 28 s | — |
-| 235 | THE LEAD | boss | lead | STANDARD | 8 | 84 | AUTO fails | — |
-| 236 | THE SCUTTLE | boss | scuttle | STANDARD | 0 | 0 | AUTO fails | — |
-| 237 | THE ANTIPHON | boss | antiphon | STANDARD | 0 | 0 | 56 b · 35 s | — |
-| 238 | THE HIVE | boss | hive | STANDARD | 0 | 0 | 74 b · 46 s | — |
-| 239 | THE BEATBOX | intro | beatbox | STANDARD | 5 | 42 | 47 b · 29 s | 5.7 |
-| 240 | THE WEIGHT | intro | weight | STANDARD | 5 | 32 | 34 b · 21 s | 7.2 |
-| 241 | THE CAIRN | boss | cairn | STANDARD | 0 | 0 | 24 b · 15 s | — |
-| 242 | THE CODEX | intro | codexFault | STANDARD | 8 | 36 | 39 b · 24 s | 8.4 |
-| 243 | THE WELL | boss (special) | well | STANDARD | 7 | 58 | 61 b · 38 s | — |
-| 244 | THE HANDOVER | intro | handoverFault | STANDARD | 7 | 24 | 27 b · 17 s | 11 |
-| 245 | THE LEAK | intro | — | STANDARD 5 | 16 | 35 | 38 b · 24 s | 10.4 |
-| 246 | THE SPLICE | boss (special) | splice, panel | THE SPLICE | 0 | 0 | 21 b · 13 s | — |
-| 247 | THE MINE | intro | mine | STANDARD | 6 | 30 | 33 b · 21 s | 12.5 |
-| 248 | THE BLISTER | intro | blister | STANDARD | 2 | 12 | 20 b · 13 s | 2.4 |
-| 249 | THE MOULT | intro | moult | STANDARD | 5 | 19 | 77 b · 48 s | 6.9 |
-| 250 | THE REPRISE | boss | reprise | STANDARD | 7 | 21 | 41 b · 26 s | — |
-| 251 | THE FLIP | intro | flipFault | STANDARD | 10 | 40 | 43 b · 27 s | 10.8 |
-| 252 | THE DARK | intro | darkFault | STANDARD | 10 | 36 | 39 b · 24 s | 9.4 |
-| 253 | THE HUSK | intro | husk | STANDARD | 2 | 9 | 16 b · 10 s | 6 |
-| 254 | THE FILAMENT | boss | filament, panel | THE SCENE | 0 | 0 | 82 b · 51 s | — |
-| 255 | THE GIMBAL | boss | gimbal | STANDARD | 0 | 0 | 23 b · 14 s | — |
-| 256 | THE SPOOL | boss | spool | STANDARD | 0 | 0 | 80 b · 50 s | — |
-| 257 | THE HASP | boss | hasp | STANDARD | 0 | 0 | 21 b · 13 s | — |
-| 258 | THE RATCHET | boss | ratchet | STANDARD | 0 | 0 | 23 b · 14 s | — |
-| 259 | THE NETTLE | boss | nettle | STANDARD 5 | 0 | 0 | 106 b · 66 s | — |
-| 260 | THE MANTLE | boss | mantle | STANDARD | 0 | 0 | 18 b · 11 s | — |
-| 261 | THE KEEL | boss | keel | STANDARD | 0 | 0 | 28 b · 18 s | — |
-| 262 | THE VALVE | boss | valve | STANDARD | 0 | 0 | 16 b · 10 s | — |
-| 263 | THE SEAM | boss | seam | STANDARD | 0 | 0 | 31 b · 19 s | — |
-| 264 | THE OCULUS | boss | oculus | STANDARD | 17 | 86 | 21 b · 13 s | — |
-| 265 | THE VISE | boss | vise | STANDARD | 0 | 0 | 39 b · 24 s | — |
-| 266 | THE PLUMB | boss | plumb | STANDARD | 0 | 0 | 42 b · 26 s | — |
-| 267 | THE SLING | boss | sling | STANDARD | 0 | 0 | 40 b · 25 s | — |
-| 268 | THE CAPSTAN | boss | capstan | STANDARD | 0 | 0 | 21 b · 13 s | — |
-| 269 | THE GALL | boss | gall | STANDARD | 0 | 0 | 23 b · 14 s | — |
-| 270 | THE TRAPEZE | boss | trapeze | STANDARD | 0 | 0 | 53 b · 33 s | — |
-| 271 | THE FLUE | boss | flue, panel | SHOTS | 0 | 0 | 70 b · 44 s | — |
-| 272 | THE GOVERNOR | boss | governor | STANDARD | 0 | 0 | 22 b · 14 s | — |
-| 273 | THE LAMPREY | boss | lamprey | STANDARD | 0 | 0 | 130 b · 81 s | — |
-| 274 | THE MIMIC | boss | mimic | THE SCENE | 0 | 0 | 75 b · 47 s | — |
-| 275 | THE LATCH | boss | latch | THE SCENE | 0 | 0 | 23 b · 14 s | — |
-| 276 | FIVE BLISTERS | **regular** | — | STANDARD | 6 | 41 | 49 b · 31 s | 5.7 |
-| 277 | THE CHRYSALIS | boss | chrysalis | STANDARD 5 | 0 | 0 | 74 b · 46 s | — |
-| 278 | THE HYDRA | boss | hydra | STANDARD 5 | 0 | 0 | 68 b · 43 s | — |
+| 207 | STRANDS AGAIN | **regular** | — | STANDARD | 6 | 32 | 36 b · 23 s | 6.6 |
+| 208 | STRANDS SPREAD | **regular** | — | STANDARD | 6 | 27 | 41 b · 26 s | 7.5 |
+| 209 | STRANDS FAR APART | **regular** | — | STANDARD | 6 | 26 | 35 b · 22 s | 8.4 |
+| 210 | STRAND AND VEER | **regular** | — | STANDARD | 8 | 33 | 39 b · 24 s | 9.4 |
+| 211 | EASY STRANDS | **regular** | — | STANDARD | 6 | 36 | 50 b · 31 s | 7.9 |
+| 212 | STRAND RECALL | **regular** | — | STANDARD | 8 | 38 | 42 b · 26 s | 8.9 |
+| 213 | STRANDS AND TWINS | **regular** | — | STANDARD | 11 | 45 | 49 b · 31 s | 9.9 |
+| 214 | STRAND PEAK | **regular** | — | STANDARD | 14 | 46 | 60 b · 38 s | 10.9 |
+| 215 | THE CRAWLER | intro | crawler | STANDARD | 3 | 48 | 64 b · 40 s | 4.5 |
+| 216 | CRAWLERS AGAIN | **regular** | — | STANDARD | 5 | 28 | 40 b · 25 s | 6.8 |
+| 217 | CRAWLERS SPREAD | **regular** | — | STANDARD | 6 | 30 | 33 b · 21 s | 7.8 |
+| 218 | CRAWLERS FAR APART | **regular** | — | STANDARD | 6 | 27 | 41 b · 26 s | 9 |
+| 219 | CRAWLER AND STRAND | **regular** | — | STANDARD | 8 | 39 | 56 b · 35 s | 10 |
+| 220 | EASY CRAWLERS | **regular** | — | STANDARD | 6 | 35 | 49 b · 31 s | 8.5 |
+| 221 | CRAWLER RECALL | **regular** | — | STANDARD | 8 | 38 | 44 b · 28 s | 9.5 |
+| 222 | CRAWLERS AND TWINS | **regular** | — | STANDARD | 11 | 44 | 60 b · 38 s | 10.5 |
+| 223 | CRAWLER PEAK | **regular** | — | STANDARD | 14 | 46 | 57 b · 36 s | 11.5 |
+| 224 | THE FENCE | intro | fence | STANDARD | 3 | 24 | 33 b · 21 s | 1.5 |
+| 225 | THE GAP | intro | — | STANDARD | 5 | 56 | 65 b · 41 s | 4.5 |
+| 226 | THE CUT | intro | — | STANDARD | 4 | 48 | 57 b · 36 s | 1.5 |
+| 227 | FENCES AGAIN | **regular** | — | STANDARD | 5 | 29 | 38 b · 24 s | 7 |
+| 228 | FENCES SPREAD | **regular** | — | STANDARD | 6 | 31 | 35 b · 22 s | 8 |
+| 229 | FENCES FAR APART | **regular** | — | STANDARD | 6 | 25 | 56 b · 35 s | 9 |
+| 230 | FENCE AND CRAWLER | **regular** | — | STANDARD | 8 | 36 | 44 b · 28 s | 10 |
+| 231 | EASY FENCES | **regular** | — | STANDARD | 7 | 39 | 46 b · 29 s | 8.6 |
+| 232 | FENCE RECALL | **regular** | — | STANDARD | 8 | 38 | 44 b · 28 s | 10 |
+| 233 | FENCES AND TWINS | **regular** | — | STANDARD | 11 | 43 | 52 b · 33 s | 11 |
+| 234 | FENCE PEAK | **regular** | — | STANDARD | 15 | 47 | 54 b · 34 s | 12.1 |
+| 235 | THE MAGNET | intro | magnet | STANDARD | 5 | 46 | 49 b · 31 s | 8.1 |
+| 236 | THE JAM | intro | cannonFault | STANDARD | 8 | 50 | 62 b · 39 s | 13.3 |
+| 237 | MAGNETS AGAIN | **regular** | — | STANDARD | 6 | 31 | 34 b · 21 s | 7.1 |
+| 238 | MAGNETS SPREAD | **regular** | — | STANDARD | 6 | 29 | 44 b · 28 s | 8.1 |
+| 239 | MAGNETS FAR APART | **regular** | — | STANDARD | 6 | 27 | 31 b · 19 s | 9 |
+| 240 | MAGNET AND FENCE | **regular** | — | STANDARD | 8 | 33 | 36 b · 23 s | 10 |
+| 241 | EASY MAGNETS | **regular** | — | STANDARD | 6 | 35 | 38 b · 24 s | 8.3 |
+| 242 | MAGNET RECALL | **regular** | — | STANDARD | 8 | 39 | 42 b · 26 s | 9.2 |
+| 243 | MAGNETS AND TWINS | **regular** | — | STANDARD | 11 | 44 | 47 b · 29 s | 10 |
+| 244 | MAGNET PEAK | **regular** | — | STANDARD | 15 | 47 | 53 b · 33 s | 11 |
+| 245 | THE COIL | intro | coil, shieldFault | STANDARD | 6 | 46 | 58 b · 36 s | 9.9 |
+| 246 | THE CHOKE | intro | steerFault | STANDARD | 10 | 48 | 60 b · 38 s | 10.6 |
+| 247 | THE LIMPET | intro | limpet | STANDARD | 6 | 50 | 64 b · 40 s | 8.2 |
+| 248 | THE LEECH | intro | leech | STANDARD | 7 | 48 | 51 b · 32 s | 11.4 |
+| 249 | THE TWITCH | **regular** | — | STANDARD | 10 | 62 | 70 b · 44 s | 8 |
+| 250 | THE CLAW | intro | panel | THE CLAW | 6 | 52 | 57 b · 36 s | 4.9 |
+| 251 | THE SCOUT | boss (special) | scout, panel | THE SCOUT | 0 | 0 | 73 b · 46 s | — |
+| 252 | THE HAUL | boss (special) | — | THE SCOUT | 0 | 0 | 22 b · 14 s | — |
+| 253 | THE STARE | boss | stare | STANDARD | 0 | 0 | 245 b · 153 s | — |
+| 254 | THE CROSSING | intro | rockCross | STANDARD | 8 | 34 | 41 b · 26 s | 9 |
+| 255 | THE CHOIR | intro | choir | STANDARD | 4 | 34 | 38 b · 24 s | 3.6 |
+| 256 | CHOIRS AGAIN | **regular** | — | STANDARD | 6 | 32 | 39 b · 24 s | 7.3 |
+| 257 | CHOIRS SPREAD | **regular** | — | STANDARD | 6 | 29 | 43 b · 27 s | 8.3 |
+| 258 | CHOIRS FAR APART | **regular** | — | STANDARD | 6 | 28 | 43 b · 27 s | 9.3 |
+| 259 | CHOIR AND CROSSING | **regular** | — | STANDARD | 11 | 40 | 47 b · 29 s | 10.3 |
+| 260 | EASY CHOIRS | **regular** | — | STANDARD | 7 | 39 | 42 b · 26 s | 8.8 |
+| 261 | CHOIR RECALL | **regular** | — | STANDARD | 10 | 39 | 43 b · 27 s | 9.8 |
+| 262 | CHOIRS AND TWINS | **regular** | — | STANDARD | 12 | 44 | 48 b · 30 s | 10.8 |
+| 263 | CHOIR PEAK | **regular** | — | STANDARD | 20 | 48 | 52 b · 33 s | 12.2 |
+| 264 | THE PULSE | boss (special) | pulse, panel | THE PULSE | 0 | 0 | 137 b · 86 s | — |
+| 265 | THE BALLOON | intro | balloon | STANDARD | 6 | 36 | 65 b · 41 s | 8.1 |
+| 266 | BALLOONS AGAIN | **regular** | — | STANDARD | 5 | 30 | 57 b · 36 s | 7.8 |
+| 267 | BALLOONS SPREAD | **regular** | — | STANDARD | 6 | 26 | 42 b · 26 s | 8.8 |
+| 268 | BALLOONS FAR APART | **regular** | — | STANDARD | 6 | 28 | 44 b · 28 s | 9.8 |
+| 269 | BALLOON AND CHOIR | **regular** | — | STANDARD | 10 | 36 | 57 b · 36 s | 10.8 |
+| 270 | EASY BALLOONS | **regular** | — | STANDARD | 6 | 37 | 43 b · 27 s | 9.3 |
+| 271 | BALLOON RECALL | **regular** | — | STANDARD | 10 | 38 | 55 b · 34 s | 10.3 |
+| 272 | BALLOONS AND TWINS | **regular** | — | STANDARD | 12 | 43 | 65 b · 41 s | 11.3 |
+| 273 | BALLOON PEAK | **regular** | — | STANDARD | 15 | 48 | 52 b · 33 s | 12.2 |
+| 274 | THE BATON | boss | baton | STANDARD | 0 | 0 | 283 b · 177 s | — |
+| 275 | THE UNDERTOW | boss | undertow | STANDARD | 6 | 94 | 156 b · 98 s | — |
+| 276 | THE THROAT | boss | throat, panel | THE THROAT | 12 | 78 | 40 b · 25 s | — |
+| 277 | THE GORGE | boss | gorge | STANDARD | 10 | 82 | 236 b · 148 s | — |
+| 278 | THE CURTAIN | boss | curtain | STANDARD | 0 | 0 | AUTO fails | — |
+| 279 | THE TASTER | boss | taster | STANDARD | 10 | 80 | AUTO fails | — |
+| 280 | THE SINEW | boss | sinew | STANDARD | 0 | 0 | 44 b · 28 s | — |
+| 281 | THE LEDGER | boss | ledger | STANDARD | 8 | 82 | 32 b · 20 s | — |
+| 282 | THE SURGE | boss | surge | STANDARD | 8 | 76 | 44 b · 28 s | — |
+| 283 | THE LEAD | boss | lead | STANDARD | 8 | 84 | AUTO fails | — |
+| 284 | THE SCUTTLE | boss | scuttle | STANDARD | 0 | 0 | AUTO fails | — |
+| 285 | THE ANTIPHON | boss | antiphon | STANDARD | 0 | 0 | 56 b · 35 s | — |
+| 286 | THE HIVE | boss | hive | STANDARD | 0 | 0 | 74 b · 46 s | — |
+| 287 | THE BEATBOX | intro | beatbox | STANDARD | 5 | 42 | 47 b · 29 s | 5.7 |
+| 288 | THE WEIGHT | intro | weight | STANDARD | 5 | 32 | 34 b · 21 s | 7.2 |
+| 289 | THE CAIRN | boss | cairn | STANDARD | 0 | 0 | 24 b · 15 s | — |
+| 290 | THE CODEX | intro | codexFault | STANDARD | 8 | 36 | 39 b · 24 s | 8.4 |
+| 291 | THE WELL | boss (special) | well | STANDARD | 7 | 58 | 61 b · 38 s | — |
+| 292 | THE HANDOVER | intro | handoverFault | STANDARD | 7 | 24 | 27 b · 17 s | 11 |
+| 293 | THE LEAK | intro | — | STANDARD 5 | 16 | 35 | 38 b · 24 s | 10.4 |
+| 294 | THE SPLICE | boss (special) | splice, panel | THE SPLICE | 0 | 0 | 21 b · 13 s | — |
+| 295 | THE MINE | intro | mine | STANDARD | 6 | 30 | 33 b · 21 s | 12.5 |
+| 296 | THE BLISTER | intro | blister | STANDARD | 2 | 12 | 20 b · 13 s | 2.4 |
+| 297 | THE MOULT | intro | moult | STANDARD | 5 | 19 | 77 b · 48 s | 6.9 |
+| 298 | THE REPRISE | boss | reprise | STANDARD | 7 | 21 | 41 b · 26 s | — |
+| 299 | THE FLIP | intro | flipFault | STANDARD | 10 | 40 | 43 b · 27 s | 10.8 |
+| 300 | THE DARK | intro | darkFault | STANDARD | 10 | 36 | 39 b · 24 s | 9.4 |
+| 301 | THE HUSK | intro | husk | STANDARD | 2 | 9 | 16 b · 10 s | 6 |
+| 302 | THE FILAMENT | boss | filament, panel | THE SCENE | 0 | 0 | 82 b · 51 s | — |
+| 303 | THE GIMBAL | boss | gimbal | STANDARD | 0 | 0 | 23 b · 14 s | — |
+| 304 | THE SPOOL | boss | spool | STANDARD | 0 | 0 | 80 b · 50 s | — |
+| 305 | THE HASP | boss | hasp | STANDARD | 0 | 0 | 21 b · 13 s | — |
+| 306 | THE RATCHET | boss | ratchet | STANDARD | 0 | 0 | 23 b · 14 s | — |
+| 307 | THE NETTLE | boss | nettle | STANDARD 5 | 0 | 0 | 106 b · 66 s | — |
+| 308 | THE MANTLE | boss | mantle | STANDARD | 0 | 0 | 18 b · 11 s | — |
+| 309 | THE KEEL | boss | keel | STANDARD | 0 | 0 | 28 b · 18 s | — |
+| 310 | THE VALVE | boss | valve | STANDARD | 0 | 0 | 16 b · 10 s | — |
+| 311 | THE SEAM | boss | seam | STANDARD | 0 | 0 | 31 b · 19 s | — |
+| 312 | THE OCULUS | boss | oculus | STANDARD | 17 | 86 | 21 b · 13 s | — |
+| 313 | THE VISE | boss | vise | STANDARD | 0 | 0 | 39 b · 24 s | — |
+| 314 | THE PLUMB | boss | plumb | STANDARD | 0 | 0 | 42 b · 26 s | — |
+| 315 | THE SLING | boss | sling | STANDARD | 0 | 0 | 40 b · 25 s | — |
+| 316 | THE CAPSTAN | boss | capstan | STANDARD | 0 | 0 | 21 b · 13 s | — |
+| 317 | THE GALL | boss | gall | STANDARD | 0 | 0 | 23 b · 14 s | — |
+| 318 | THE TRAPEZE | boss | trapeze | STANDARD | 0 | 0 | 53 b · 33 s | — |
+| 319 | THE FLUE | boss | flue, panel | SHOTS | 0 | 0 | 70 b · 44 s | — |
+| 320 | THE GOVERNOR | boss | governor | STANDARD | 0 | 0 | 22 b · 14 s | — |
+| 321 | THE LAMPREY | boss | lamprey | STANDARD | 0 | 0 | 130 b · 81 s | — |
+| 322 | THE MIMIC | boss | mimic | THE SCENE | 0 | 0 | 75 b · 47 s | — |
+| 323 | THE LATCH | boss | latch | THE SCENE | 0 | 0 | 23 b · 14 s | — |
+| 324 | FIVE BLISTERS | **regular** | — | STANDARD | 6 | 41 | 49 b · 31 s | 5.7 |
+| 325 | THE CHRYSALIS | boss | chrysalis | STANDARD 5 | 0 | 0 | 74 b · 46 s | — |
+| 326 | THE HYDRA | boss | hydra | STANDARD 5 | 0 | 0 | 68 b · 43 s | — |
 
 ## The bosses against the bands
 
@@ -315,48 +363,48 @@ time × 2 — the owner's accepted guess, never measured.
 | 93 | THE VANE | normal | — | — | — | unknown — AUTO cannot finish it |
 | 123 | SNAKE | special | 124 beats | 78 | 156 s | in band |
 | 133 | PINBALL | special | 411 beats | 257 | 514 s | long |
-| 219 | THE SCOUT | special | 73 beats | 46 | 92 s | in band |
-| 220 | THE HAUL | special | 22 beats | 14 | 28 s | short |
-| 221 | THE STARE | normal | 245 beats | 153 | 306 s | long |
-| 224 | THE PULSE | special | 137 beats | 86 | 172 s | in band |
-| 226 | THE BATON | normal | 283 beats | 177 | 354 s | long |
-| 227 | THE UNDERTOW | normal | 156 beats | 98 | 196 s | long |
-| 228 | THE THROAT | normal | 40 beats | 25 | 50 s | short |
-| 229 | THE GORGE | normal | 236 beats | 148 | 296 s | long |
-| 230 | THE CURTAIN | normal | — | — | — | unknown — AUTO cannot finish it |
-| 231 | THE TASTER | normal | — | — | — | unknown — AUTO cannot finish it |
-| 232 | THE SINEW | normal | 44 beats | 28 | 56 s | short |
-| 233 | THE LEDGER | normal | 32 beats | 20 | 40 s | short |
-| 234 | THE SURGE | normal | 44 beats | 28 | 56 s | short |
-| 235 | THE LEAD | normal | — | — | — | unknown — AUTO cannot finish it |
-| 236 | THE SCUTTLE | normal | — | — | — | unknown — AUTO cannot finish it |
-| 237 | THE ANTIPHON | normal | 56 beats | 35 | 70 s | in band |
-| 238 | THE HIVE | normal | 74 beats | 46 | 92 s | in band |
-| 241 | THE CAIRN | normal | 24 beats | 15 | 30 s | short |
-| 243 | THE WELL | special | 61 beats | 38 | 76 s | short |
-| 246 | THE SPLICE | special | 21 beats | 13 | 26 s | short |
-| 250 | THE REPRISE | normal | 41 beats | 26 | 52 s | short |
-| 254 | THE FILAMENT | normal | 82 beats | 51 | 102 s | in band |
-| 255 | THE GIMBAL | normal | 23 beats | 14 | 28 s | short |
-| 256 | THE SPOOL | normal | 80 beats | 50 | 100 s | in band |
-| 257 | THE HASP | normal | 21 beats | 13 | 26 s | short |
-| 258 | THE RATCHET | normal | 23 beats | 14 | 28 s | short |
-| 259 | THE NETTLE | normal | 106 beats | 66 | 132 s | long |
-| 260 | THE MANTLE | normal | 18 beats | 11 | 22 s | short |
-| 261 | THE KEEL | normal | 28 beats | 18 | 36 s | short |
-| 262 | THE VALVE | normal | 16 beats | 10 | 20 s | short |
-| 263 | THE SEAM | normal | 31 beats | 19 | 38 s | short |
-| 264 | THE OCULUS | normal | 21 beats | 13 | 26 s | short |
-| 265 | THE VISE | normal | 39 beats | 24 | 48 s | short |
-| 266 | THE PLUMB | normal | 42 beats | 26 | 52 s | short |
-| 267 | THE SLING | normal | 40 beats | 25 | 50 s | short |
-| 268 | THE CAPSTAN | normal | 21 beats | 13 | 26 s | short |
-| 269 | THE GALL | normal | 23 beats | 14 | 28 s | short |
-| 270 | THE TRAPEZE | normal | 53 beats | 33 | 66 s | in band |
-| 271 | THE FLUE | normal | 70 beats | 44 | 88 s | in band |
-| 272 | THE GOVERNOR | normal | 22 beats | 14 | 28 s | short |
-| 273 | THE LAMPREY | normal | 130 beats | 81 | 162 s | long |
-| 274 | THE MIMIC | normal | 75 beats | 47 | 94 s | in band |
-| 275 | THE LATCH | normal | 23 beats | 14 | 28 s | short |
-| 277 | THE CHRYSALIS | normal | 74 beats | 46 | 92 s | in band |
-| 278 | THE HYDRA | normal | 68 beats | 43 | 86 s | in band |
+| 251 | THE SCOUT | special | 73 beats | 46 | 92 s | in band |
+| 252 | THE HAUL | special | 22 beats | 14 | 28 s | short |
+| 253 | THE STARE | normal | 245 beats | 153 | 306 s | long |
+| 264 | THE PULSE | special | 137 beats | 86 | 172 s | in band |
+| 274 | THE BATON | normal | 283 beats | 177 | 354 s | long |
+| 275 | THE UNDERTOW | normal | 156 beats | 98 | 196 s | long |
+| 276 | THE THROAT | normal | 40 beats | 25 | 50 s | short |
+| 277 | THE GORGE | normal | 236 beats | 148 | 296 s | long |
+| 278 | THE CURTAIN | normal | — | — | — | unknown — AUTO cannot finish it |
+| 279 | THE TASTER | normal | — | — | — | unknown — AUTO cannot finish it |
+| 280 | THE SINEW | normal | 44 beats | 28 | 56 s | short |
+| 281 | THE LEDGER | normal | 32 beats | 20 | 40 s | short |
+| 282 | THE SURGE | normal | 44 beats | 28 | 56 s | short |
+| 283 | THE LEAD | normal | — | — | — | unknown — AUTO cannot finish it |
+| 284 | THE SCUTTLE | normal | — | — | — | unknown — AUTO cannot finish it |
+| 285 | THE ANTIPHON | normal | 56 beats | 35 | 70 s | in band |
+| 286 | THE HIVE | normal | 74 beats | 46 | 92 s | in band |
+| 289 | THE CAIRN | normal | 24 beats | 15 | 30 s | short |
+| 291 | THE WELL | special | 61 beats | 38 | 76 s | short |
+| 294 | THE SPLICE | special | 21 beats | 13 | 26 s | short |
+| 298 | THE REPRISE | normal | 41 beats | 26 | 52 s | short |
+| 302 | THE FILAMENT | normal | 82 beats | 51 | 102 s | in band |
+| 303 | THE GIMBAL | normal | 23 beats | 14 | 28 s | short |
+| 304 | THE SPOOL | normal | 80 beats | 50 | 100 s | in band |
+| 305 | THE HASP | normal | 21 beats | 13 | 26 s | short |
+| 306 | THE RATCHET | normal | 23 beats | 14 | 28 s | short |
+| 307 | THE NETTLE | normal | 106 beats | 66 | 132 s | long |
+| 308 | THE MANTLE | normal | 18 beats | 11 | 22 s | short |
+| 309 | THE KEEL | normal | 28 beats | 18 | 36 s | short |
+| 310 | THE VALVE | normal | 16 beats | 10 | 20 s | short |
+| 311 | THE SEAM | normal | 31 beats | 19 | 38 s | short |
+| 312 | THE OCULUS | normal | 21 beats | 13 | 26 s | short |
+| 313 | THE VISE | normal | 39 beats | 24 | 48 s | short |
+| 314 | THE PLUMB | normal | 42 beats | 26 | 52 s | short |
+| 315 | THE SLING | normal | 40 beats | 25 | 50 s | short |
+| 316 | THE CAPSTAN | normal | 21 beats | 13 | 26 s | short |
+| 317 | THE GALL | normal | 23 beats | 14 | 28 s | short |
+| 318 | THE TRAPEZE | normal | 53 beats | 33 | 66 s | in band |
+| 319 | THE FLUE | normal | 70 beats | 44 | 88 s | in band |
+| 320 | THE GOVERNOR | normal | 22 beats | 14 | 28 s | short |
+| 321 | THE LAMPREY | normal | 130 beats | 81 | 162 s | long |
+| 322 | THE MIMIC | normal | 75 beats | 47 | 94 s | in band |
+| 323 | THE LATCH | normal | 23 beats | 14 | 28 s | short |
+| 325 | THE CHRYSALIS | normal | 74 beats | 46 | 92 s | in band |
+| 326 | THE HYDRA | normal | 68 beats | 43 | 86 s | in band |
