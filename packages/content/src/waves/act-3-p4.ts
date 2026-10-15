@@ -6,6 +6,41 @@ import type { Wave } from "../wave-types.js";
  */
 export const WAVES_ACT_3_P4: Wave[] = [
   {
+    id: "theThirdShotRecall",
+    name: "SHELL RECALL",
+    variant: true,
+    entries: [
+      { beat: 0, col: 6, color: "cyan" },
+      { beat: 6, col: 9, kind: "shell", color: "cyan" },
+      { beat: 11, col: 2, color: "cyan" },
+      { beat: 17, col: 5, kind: "meteor", color: null },
+      { beat: 22, col: 2, color: "cyan" },
+      { beat: 28, col: 3, kind: "shell", color: "red" },
+      { beat: 34, col: 10, color: "cyan" },
+      { beat: 40, col: 9, kind: "meteor", color: null },
+    ],
+    controls: "standard5",
+  },
+  {
+    id: "theThirdShotBend",
+    name: "SHELLS AND TWINS",
+    variant: true,
+    entries: [
+      { beat: 0, col: 6, color: "red" },
+      { beat: 6, col: 0, kind: "shell", color: "red" },
+      { beat: 11, col: 2, color: "red" },
+      { beat: 17, col: 3, kind: "countdown", color: "cyan" },
+      { beat: 23, col: 5, color: "cyan" },
+      { beat: 23, col: 8, color: "cyan" },
+      { beat: 28, col: 8, kind: "shell", color: "cyan" },
+      { beat: 33, col: 5, kind: "countdown", color: "cyan" },
+      { beat: 38, col: 3, color: "red" },
+      { beat: 38, col: 6, color: "red" },
+      { beat: 44, col: 4, kind: "shell", color: "red" },
+    ],
+    controls: "standard5",
+  },
+  {
     id: "theThirdShotPeak",
     name: "SHELL PEAK",
     variant: true,
@@ -30,6 +65,17 @@ export const WAVES_ACT_3_P4: Wave[] = [
       { beat: 36, col: 9, row: 3, kind: "purge" },
     ],
     controls: "standard5",
+  },
+  {
+    id: "theGauge",
+    name: "THE GAUGE",
+    guide: {
+      scene: "theGauge",
+    },
+    entries: [],
+    boss: { kind: "gauge" },
+    bossType: "special",
+    controls: "gauge",
   },
   {
     id: "theClasp",
@@ -174,6 +220,17 @@ export const WAVES_ACT_3_P4: Wave[] = [
       { beat: 44, col: 5, kind: "clasp", color: "red" },
       { beat: 48, col: 8, kind: "shell", color: "cyan" },
     ],
+    controls: "standard5",
+  },
+  {
+    id: "theWarden",
+    name: "THE WARDEN",
+    guide: {
+      scene: "theWarden",
+    },
+    entries: [],
+    boss: { kind: "warden" },
+    bossType: "normal",
     controls: "standard5",
   },
 ];

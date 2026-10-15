@@ -65,7 +65,7 @@ const BASICS = ["slick", "bulb", "meteor"];
 
 /** The thing a wave introduces that a wave can place: a body or a pod, not a
  * panel, a fault or a boss. */
-function placeable(waves: readonly Wave[], index: number): string | undefined {
+export function placeable(waves: readonly Wave[], index: number): string | undefined {
   const wave = waves[index];
   if (!wave || wave.boss) return undefined;
   return waveIntroduces(waves, index).find((id) => motifsIn(wave, id).length > 0);

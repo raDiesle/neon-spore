@@ -128,6 +128,17 @@ export const WAVES_ACT_4: Wave[] = [
     pods: [{ beat: 0, col: 5, row: 2, kind: "purge" }],
   },
   {
+    id: "theVane",
+    name: "THE VANE",
+    entries: [
+      { beat: 0, col: 2, kind: "meteor", color: null },
+      { beat: 3, col: 8, color: "red" },
+    ],
+    boss: { kind: "vane" },
+    bossType: "normal",
+    controls: "standard5",
+  },
+  {
     id: "theWard",
     name: "THE WARD",
     guide: {

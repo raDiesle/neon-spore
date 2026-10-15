@@ -41644,3 +41644,18 @@ Bottleneck: writing; pasting eleven rows by hand across five table shapes
 took a script, and the script took two tries.
 
 *Measured: 9 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-15 — The bosses close their blocks
+
+- reading: 15 min. How the list is ordered and saved, what a boss carries,
+  which tests ask what is taught before what.
+- writing: 25 min. `waves:bosses`: each boss's needs, its block, the order
+  written; the save's cut counting Biome's lines; tests and the plan's §7.
+- looking: 5 min. The plan read row by row; the 23 maps of the last lane as
+  one sheet.
+- friction: 10 min. The first write cut two act files past the ceiling:
+  the serializer leaves a long line Biome later breaks into eighteen.
+- landing: 5 min.
+
+Bottleneck: friction — the save's cut trusted the serializer's line count,
+and only a real save of a moved boss showed it was a third short.

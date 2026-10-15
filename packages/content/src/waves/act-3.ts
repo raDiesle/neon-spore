@@ -90,37 +90,6 @@ import type { Wave } from "../wave-types.js";
  */
 export const WAVES_ACT_3: Wave[] = [
   {
-    id: "theWarden",
-    name: "THE WARDEN",
-    guide: {
-      scene: "theWarden",
-    },
-    entries: [],
-    boss: { kind: "warden" },
-    bossType: "normal",
-    controls: "standard5",
-  },
-  {
-    id: "theFleet",
-    name: "THE FLEET",
-    guide: {
-      scene: "theFleet",
-    },
-    entries: [],
-    boss: {
-      kind: "fleet",
-      ships: [
-        { col: 1, row: 1, len: 5, dir: "h" },
-        { col: 8, row: 0, len: 4, dir: "v" },
-        { col: 3, row: 5, len: 3, dir: "h" },
-        { col: 0, row: 6, len: 3, dir: "v" },
-        { col: 7, row: 8, len: 2, dir: "h" },
-      ],
-    },
-    bossType: "special",
-    controls: "fleet",
-  },
-  {
     id: "theLure",
     name: "THE LURE",
     guide: {

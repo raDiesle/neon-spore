@@ -174,6 +174,26 @@ export const WAVES_ACT_3B: Wave[] = [
     controls: "standard5",
   },
   {
+    id: "theFleet",
+    name: "THE FLEET",
+    guide: {
+      scene: "theFleet",
+    },
+    entries: [],
+    boss: {
+      kind: "fleet",
+      ships: [
+        { col: 1, row: 1, len: 5, dir: "h" },
+        { col: 8, row: 0, len: 4, dir: "v" },
+        { col: 3, row: 5, len: 3, dir: "h" },
+        { col: 0, row: 6, len: 3, dir: "v" },
+        { col: 7, row: 8, len: 2, dir: "h" },
+      ],
+    },
+    bossType: "special",
+    controls: "fleet",
+  },
+  {
     id: "theVeil",
     name: "THE VEIL",
     guide: {
@@ -212,20 +232,6 @@ export const WAVES_ACT_3B: Wave[] = [
       { beat: 19, col: 8, kind: "veil", color: null },
       { beat: 25, col: 2, kind: "veil", color: null },
       { beat: 30, col: 7, kind: "veil", color: null },
-    ],
-    controls: "standard5",
-  },
-  {
-    id: "theVeilReach",
-    name: "VEILS FAR APART",
-    variant: true,
-    entries: [
-      { beat: 0, col: 10, kind: "veil", color: null },
-      { beat: 5, col: 6, kind: "meteor", color: null },
-      { beat: 11, col: 1, kind: "veil", color: null },
-      { beat: 16, col: 5, kind: "meteor", color: null },
-      { beat: 22, col: 9, kind: "veil", color: null },
-      { beat: 27, col: 3, kind: "meteor", color: null },
     ],
     controls: "standard5",
   },

@@ -1,4 +1,3 @@
-import { MAZE_ROUNDS } from "../maze-rounds.js";
 import type { Wave } from "../wave-types.js";
 
 /**
@@ -74,57 +73,5 @@ export const WAVES_ACT_2: Wave[] = [
       { beat: 7, col: 8, kind: "meteor", color: null },
     ],
     controls: "standard5",
-  },
-  {
-    id: "bulbQueen",
-    name: "BULB QUEEN",
-    guide: {
-      scene: "bulbQueen",
-    },
-    entries: [],
-    pods: [{ beat: 2, col: 5, row: 4, kind: "purge" }],
-    boss: { kind: "queen", col: 5, petals: 9 },
-    bossType: "normal",
-    controls: "standard5",
-  },
-  {
-    id: "theMirror",
-    name: "THE MIRROR",
-    guide: {
-      scene: "theMirror",
-    },
-    entries: [],
-    boss: {
-      kind: "mirror",
-      rounds: [
-        ["fireRed", "guard"],
-        ["cannonLeft", "cannonRight", "cannonRight"],
-        ["intake", "fireRed", "intake", "fireCyan", "intake", "fireRed"],
-      ],
-    },
-    bossType: "special",
-    controls: "standard5",
-  },
-  {
-    id: "theMaze",
-    name: "THE MAZE",
-    guide: {
-      scene: "theMaze",
-    },
-    entries: [],
-    boss: { kind: "maze", rounds: MAZE_ROUNDS },
-    bossType: "special",
-    controls: "standard5",
-  },
-  {
-    id: "theGauge",
-    name: "THE GAUGE",
-    guide: {
-      scene: "theGauge",
-    },
-    entries: [],
-    boss: { kind: "gauge" },
-    bossType: "special",
-    controls: "gauge",
   },
 ];

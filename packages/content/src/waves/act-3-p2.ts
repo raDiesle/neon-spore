@@ -52,6 +52,18 @@ export const WAVES_ACT_3_P2: Wave[] = [
     controls: "standard5",
   },
   {
+    id: "bulbQueen",
+    name: "BULB QUEEN",
+    guide: {
+      scene: "bulbQueen",
+    },
+    entries: [],
+    pods: [{ beat: 2, col: 5, row: 4, kind: "purge" }],
+    boss: { kind: "queen", col: 5, petals: 9 },
+    bossType: "normal",
+    controls: "standard5",
+  },
+  {
     id: "theThrob",
     name: "THE THROB",
     guide: {
@@ -191,6 +203,24 @@ export const WAVES_ACT_3_P2: Wave[] = [
     controls: "standard5",
   },
   {
+    id: "theMirror",
+    name: "THE MIRROR",
+    guide: {
+      scene: "theMirror",
+    },
+    entries: [],
+    boss: {
+      kind: "mirror",
+      rounds: [
+        ["fireRed", "guard"],
+        ["cannonLeft", "cannonRight", "cannonRight"],
+        ["intake", "fireRed", "intake", "fireCyan", "intake", "fireRed"],
+      ],
+    },
+    bossType: "special",
+    controls: "standard5",
+  },
+  {
     id: "theCount",
     name: "THE COUNT",
     guide: {
@@ -201,33 +231,6 @@ export const WAVES_ACT_3_P2: Wave[] = [
       { beat: 8, col: 2, kind: "countdown", color: "cyan" },
       { beat: 18, col: 3, kind: "countdown", color: "red" },
       { beat: 19, col: 8, kind: "countdown", color: "cyan" },
-    ],
-    controls: "standard5",
-  },
-  {
-    id: "theCountAgain",
-    name: "COUNTS AGAIN",
-    variant: true,
-    entries: [
-      { beat: 0, col: 4, kind: "countdown", color: "cyan" },
-      { beat: 6, col: 6, kind: "countdown", color: "red" },
-      { beat: 13, col: 4, kind: "countdown", color: "cyan" },
-      { beat: 21, col: 6, kind: "countdown", color: "cyan" },
-      { beat: 29, col: 4, kind: "countdown", color: "red" },
-    ],
-    controls: "standard5",
-  },
-  {
-    id: "theCountSpread",
-    name: "COUNTS SPREAD",
-    variant: true,
-    entries: [
-      { beat: 0, col: 6, kind: "countdown", color: "red" },
-      { beat: 6, col: 3, kind: "countdown", color: "cyan" },
-      { beat: 13, col: 8, kind: "countdown", color: "red" },
-      { beat: 19, col: 5, kind: "countdown", color: "cyan" },
-      { beat: 24, col: 6, kind: "countdown", color: "red" },
-      { beat: 31, col: 3, kind: "countdown", color: "cyan" },
     ],
     controls: "standard5",
   },

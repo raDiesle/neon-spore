@@ -1010,13 +1010,18 @@ by hand never moves.
 | `packages/content/src/waves/act-1b.ts` | The last of act one, cut off `act-1.ts` when that file reached the 250-line ceiling on `CATCH AND AIM` |
 | `packages/content/src/waves/act-10.ts` | Act ten, opened for THE REPRISE — `act-9.ts` had twenty-odd lines left under the 250-line ceiling |
 | `packages/content/src/waves/act-10-p2.ts` | Cut from `act-10.ts` by the director's save when that file passed the 250-line ceiling; it plays straight… |
+| `packages/content/src/waves/act-10-p3.ts` | Cut from `act-10-p2.ts` by the director's save when that file passed the 250-line ceiling; it plays straight… |
 | `packages/content/src/waves/act-11.ts` | Act eleven, opened for THE SPOOL on 22 September 2026 |
 | `packages/content/src/waves/act-11b.ts` | Act eleven's second page, opened for THE OCULUS on 2 October 2026 |
+| `packages/content/src/waves/act-11-p2.ts` | Cut from `act-11.ts` by the director's save when that file passed the 250-line ceiling; it plays straight… |
 | `packages/content/src/waves/act-12.ts` | Act twelve, opened for THE VISE on 26 September 2026 |
 | `packages/content/src/waves/act-13.ts` | Act thirteen, opened for THE DAVIT on 26 September 2026 |
 | `packages/content/src/waves/act-13b.ts` | Act thirteen's second page, opened for THE GOVERNOR on 6 October 2026 |
 | `packages/content/src/waves/act-14.ts` | Act fourteen, opened for THE LAMPREY on 1 October 2026 |
 | `packages/content/src/waves/act-14b.ts` | Act fourteen, its second page, opened on 14 October 2026 when the director's save brought THE GOVERNOR into… |
+| `packages/content/src/waves/act-14b-p2.ts` | Cut from `act-14b.ts` by the director's save when that file passed the 250-line ceiling; it plays straight… |
+| `packages/content/src/waves/act-14b-p3.ts` | Cut from `act-14b-p2.ts` by the director's save when that file passed the 250-line ceiling; it plays straight… |
+| `packages/content/src/waves/act-14b-p4.ts` | Cut from `act-14b-p3.ts` by the director's save when that file passed the 250-line ceiling; it plays straight… |
 | `packages/content/src/waves/act-1-p2.ts` | Act one's second page — the arc's composed regular waves pushed it past the ceiling, and the save cut it (`acts.ts`) |
 | `packages/content/src/waves/act-1-p3.ts` | Act one's third page, cut the same way; plays straight after `act-1-p2.ts` |
 | `packages/content/src/maze-drawn.ts` | The four sheets THE MAZE plays after the owner's own, drawn by `bun run maze` and printed here |
@@ -1063,11 +1068,19 @@ by hand never moves.
 | `packages/content/src/waves/act-7a-p2.ts` | Cut from `act-7a.ts` by the director's save when that file passed the 250-line ceiling; it plays straight… |
 | `packages/content/src/waves/act-7c.ts` | The third page of act seven, cut off `act-7b.ts` when THE STARE took that file twenty-one lines over the… |
 | `packages/content/src/waves/act-7c-p2.ts` | Cut from `act-7c.ts` by the director's save when that file passed the 250-line ceiling; it plays straight… |
+| `packages/content/src/waves/act-7c-p3.ts` | Cut from `act-7c-p2.ts` by the director's save when that file passed the 250-line ceiling; it plays straight… |
 | `packages/content/src/waves/act-7d.ts` | The fourth page of act seven, cut off `act-7c.ts` on 20 September 2026 — THE BATON, when that page had no room left and no letter to give |
 | `packages/content/src/waves/act-7e.ts` | The fifth page of act seven, cut off `act-7c.ts` when THE THROAT and THE BATON landed on it within an hour… |
 | `packages/content/src/waves/act-7e-p2.ts` | Cut from `act-7e.ts` by the director's save when that file passed the 250-line ceiling; it plays straight… |
+| `packages/content/src/waves/act-7e-p3.ts` | Cut from `act-7e-p2.ts` by the director's save when that file passed the 250-line ceiling; it plays straight… |
 | `packages/content/src/waves/act-7f.ts` | The sixth page of act seven, cut off `act-7e.ts` on 19 September 2026 when THE TASTER and THE SINEW needed a page between it and the old `act-7e.ts` |
+| `packages/content/src/waves/act-7f-p2.ts` | Cut from `act-7f.ts` by the director's save when that file passed the 250-line ceiling; it plays straight… |
 | `packages/content/src/waves/act-7g.ts` | The seventh page of act seven, cut off `act-7e.ts` when THE LEAD would have taken it over the 250-line… |
+| `packages/content/src/waves/act-7g-p2.ts` | Cut from `act-7g.ts` by the director's save when that file passed the 250-line ceiling; it plays straight… |
+| `packages/content/src/waves/act-7g-p3.ts` | Cut from `act-7g-p2.ts` by the director's save when that file passed the 250-line ceiling; it plays straight… |
+| `packages/content/src/waves/act-7g-p4.ts` | Cut from `act-7g-p3.ts` by the director's save when that file passed the 250-line ceiling; it plays straight… |
+| `packages/content/src/waves/act-7g-p5.ts` | Cut from `act-7g-p4.ts` by the director's save when that file passed the 250-line ceiling; it plays straight… |
+| `packages/content/src/waves/act-7g-p6.ts` | Cut from `act-7g-p5.ts` by the director's save when that file passed the 250-line ceiling; it plays straight… |
 | `packages/content/src/waves/act-7-p2.ts` | Cut from `act-7.ts` by the director's save when that file passed the 250-line ceiling; it plays straight… |
 | `packages/content/src/scenes/the-coil.ts` | THE COIL's rehearsal: the shield is stuck open, and the plate is what opens the dome |
 | `packages/content/src/keys-desk.ts` | **The desk keyboard is a panel too**, and this is where a key finds out what it means |
@@ -3197,6 +3210,7 @@ by hand never moves.
 | `tools/director/src/boss-cycles.ts` | The two boss panels that are mostly a cycle, and the chrome all of them share |
 | `tools/director/src/boss-nothing.ts` | The kinds, one row each; the guard below narrows by exactly these |
 | `tools/director/src/boss-states.ts` | **Every state every boss can be in**, by name |
+| `tools/director/src/boss-slots.ts` | **Where each boss goes**: `docs/spec/wave-curriculum.md` §7, decision 7 |
 | `tools/director/src/boss-type-field.ts` | **Special or normal**, on the waves that carry a boss — the picker and the sentence saying what the pick means |
 | `tools/director/src/brush-art.ts` | A brush's own picture, kept: the body it paints, drawn by the shipping renderer, on nothing |
 | `tools/director/src/brush-category.ts` | Which brush categories (`BRUSH_GROUPS` in brush-groups.ts — CANNON, SHIELD, MIXED |
@@ -3798,6 +3812,7 @@ by hand never moves.
 | `tools/director/src/helpers-bosses-d.ts` | **ONE BOSS'S OWN, page four** — THE HASP to THE TRAPEZE, and THE GAUGE's marks |
 | `tools/director/src/brush-hints.ts` | SHOW DESCRIPTIONS: whether each brush in the palette carries its sentence |
 | `tools/director/src/brush-lists.ts` | which strings are brushes and which kind each one paints — the lists, not the palette's rows |
+| `tools/director/src/biome-lines.ts` | **How many lines a text will be once Biome has formatted it** |
 | `tools/director/src/scene-marks.ts` | The marks: everything a scene draws that is not a body |
 | `tools/director/src/scene-overlay.ts` | **Drawing a scene's bodies**, once the placing next door has said where each of them stands |
 | `tools/director/src/scout-editor-grid.ts` | THE SCOUT's arena as the editor paints it: the cells, what a press does to one |
@@ -4152,5 +4167,6 @@ by hand never moves.
 | `tools/director/drop-sheet-paint.ts` | **The PULL LAB's own frames, painted through Skia into one PNG grid** |
 | `tools/director/drop-sheet.ts` | `bun run drop-sheet` — a moment of a PULL LAB pull, up close, with no browser |
 | `tools/director/waves-compose.ts` | `bun run waves:compose <intro id>` — a block's regular waves composed from its intro, checked, and with `--write` put into the act files |
+| `tools/director/waves-bosses.ts` | `bun run waves:bosses` — every boss moved to the end of the first block that has taught what it needs, and with `--write` saved |
 
 <!-- index:code:end -->

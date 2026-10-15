@@ -6,6 +6,20 @@ import type { Wave } from "../wave-types.js";
  */
 export const WAVES_ACT_3B_P2: Wave[] = [
   {
+    id: "theVeilReach",
+    name: "VEILS FAR APART",
+    variant: true,
+    entries: [
+      { beat: 0, col: 10, kind: "veil", color: null },
+      { beat: 5, col: 6, kind: "meteor", color: null },
+      { beat: 11, col: 1, kind: "veil", color: null },
+      { beat: 16, col: 5, kind: "meteor", color: null },
+      { beat: 22, col: 9, kind: "veil", color: null },
+      { beat: 27, col: 3, kind: "meteor", color: null },
+    ],
+    controls: "standard5",
+  },
+  {
     id: "theVeilPair",
     name: "VEIL AND DART",
     variant: true,
@@ -92,17 +106,6 @@ export const WAVES_ACT_3B_P2: Wave[] = [
       { beat: 44, col: 1, kind: "veil", color: null },
       { beat: 48, col: 3, kind: "dart", color: "cyan" },
     ],
-    controls: "standard5",
-  },
-  {
-    id: "theVane",
-    name: "THE VANE",
-    entries: [
-      { beat: 0, col: 2, kind: "meteor", color: null },
-      { beat: 3, col: 8, color: "red" },
-    ],
-    boss: { kind: "vane" },
-    bossType: "normal",
     controls: "standard5",
   },
   {

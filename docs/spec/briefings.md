@@ -138,9 +138,9 @@ the two can be compared by opening the wave.
 | 5 | **The push** | the shield sends a creature back up once and never kills it; the rim goes red and the body carries ONE LAST CHANCE | p1 triggers, p2 shoots it on its second fall | 17 · ONE LAST CHANCE |
 | 6 | **The pod** | shooting it loose is half of getting it; then it sinks and drifts | p2 frees it, p1 chases and opens the maw | 24 · SALVAGE |
 | 7 | **The lock** | player 1's hand on a body steers every shot into it, from whatever column the cannon is in; it says nothing about the colour | p1 holds and keeps the cannon on the pod, p2 fires the colour | 28 · CATCH AND AIM |
-| 8 | **The queen** | two marks, one real; she opens for three beats; a torch drops every ten | p1 sees *what*, p2 sees *where* | 32 · BULB QUEEN |
-| 9 | **The bosses** | the mirror, the maze, the gauge, the warden and its line, the vane | one guide each, on their own wave | 33 · THE MIRROR, 34 · THE MAZE, 35 · THE GAUGE, 36 · THE WARDEN, 101 · THE VANE |
-| 10 | **The rest of the bestiary** | the lure that took the runt's place, the throb, the count, the shell, the pods, the rock speed tiers | one guide each | 38 · THE LURE, 47 · THE THROB, 56 · THE COUNT, 65 · THE SHELL, 103 · THE PURGE, 104 · THE WARD |
+| 8 | **The queen** | two marks, one real; she opens for three beats; a torch drops every ten | p1 sees *what*, p2 sees *where* | 41 · BULB QUEEN |
+| 9 | **The bosses** | the mirror, the maze, the gauge, the warden and its line, the vane | one guide each, on their own wave | 51 · THE MIRROR, 61 · THE MAZE, 71 · THE GAUGE, 81 · THE WARDEN, 103 · THE VANE |
+| 10 | **The rest of the bestiary** | the lure that took the runt's place, the throb, the count, the shell, the pods, the rock speed tiers | one guide each | 32 · THE LURE, 42 · THE THROB, 52 · THE COUNT, 62 · THE SHELL, 102 · THE PURGE, 104 · THE WARD |
 
 **The grip is still the odd one out**, and it has no guide. It is a control no
 wave *contains*, so no wave is the first to carry it and nothing places it.

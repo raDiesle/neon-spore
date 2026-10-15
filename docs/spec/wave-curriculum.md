@@ -208,13 +208,27 @@ is X, the previous block's is Y and an older one is Z:
 ## 7. Bosses
 
 **Decision 7 — a boss closes a block, and the bosses are spread out.** It
-comes after R8, at most one per block. There are 54 bosses and 56 blocks today,
-so nearly every block ends on one; a block without one goes straight on to the
-next intro. The owner chose on 14 October 2026 to move the bosses rather than
-leave the 22 at waves 98–119 together: each boss goes to the end of the first
-block after which everything it needs has been taught — its panel's buttons,
-and any body it sends. Moving a boss never moves an intro: the order new
-things are taught in stays the order they ship in today.
+comes after R8, at most one per block. The owner chose on 14 October 2026 to
+move the bosses rather than leave them together: each boss goes to the end of
+the first block after which everything it needs has been taught — its panel,
+every button on it and the hold, and every body, pod and fault it carries.
+Moving a boss never moves an intro: the order new things are taught in stays
+the order they ship in today.
+
+Done, 15 October 2026, by `bun run waves:bosses --write`
+(`tools/director/src/boss-slots.ts`). Three rules the decision left open,
+decided then while the owner was away:
+
+- **The tutorial arc keeps its bosses.** THE INSTAR and THE BASTION stay
+  where they are, and no boss moves into the arc.
+- **The bosses keep their order.** Each takes the first free block after the
+  one the boss before it took, so THE HAUL still follows THE SCOUT and a
+  panel two bosses share is met on the same one first.
+- **A boss with no block left waits at the end**, in order. There are 56
+  bosses and 39 blocks that place a body or a pod, 34 of them past the arc:
+  34 bosses close a block, about one every ten waves from wave 41, and 22
+  wait after THE HUSK's block. Run it again after a block is written, and
+  the first one waiting takes it.
 
 The boss table — every boss's AUTO time against the band — is in
 `wave-curriculum-today.md`. AUTO plays perfectly and never talks, so the
@@ -232,13 +246,10 @@ Bosses are the owner's to lengthen by hand. This plan only places them.
 2. **The composer** — built: `bun run waves:compose`; the arc's five short
    blocks are written. A pod never comes alone (two bodies after each), and
    R7's lever is a twin across the field, of a slick, bulb or rock only, and
-   R8 has one too; the rise across blocks is held (§4). THE COUNT, THE COIL
-   and THE CROSSING wait on AUTO (`docs/queue.md`).
-3. **Blocks**, about six per lane, in game order: compose, read, name, land,
-   send the sheet.
-4. **The bosses moved** to the end of their blocks (§7), with the guide and
-   panel tests green — its own lane, before the blocks around them are
-   composed.
+   R8 has one too; the rise across blocks is held (§4).
+3. **Blocks** — done, 15 October 2026: every block after FINALE has its
+   regular waves.
+4. **The bosses moved** — done: `bun run waves:bosses` (§7).
 5. **The today table** — built: `bun run waves:measure` rewrites it.
 
 ## 9. Answered by the owner, 14 October 2026

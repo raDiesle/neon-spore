@@ -1,3 +1,4 @@
+import { MAZE_ROUNDS } from "../maze-rounds.js";
 import type { Wave } from "../wave-types.js";
 
 /**
@@ -5,6 +6,33 @@ import type { Wave } from "../wave-types.js";
  * 250-line ceiling; it plays straight after it (`acts.ts`).
  */
 export const WAVES_ACT_3_P3: Wave[] = [
+  {
+    id: "theCountAgain",
+    name: "COUNTS AGAIN",
+    variant: true,
+    entries: [
+      { beat: 0, col: 4, kind: "countdown", color: "cyan" },
+      { beat: 6, col: 6, kind: "countdown", color: "red" },
+      { beat: 13, col: 4, kind: "countdown", color: "cyan" },
+      { beat: 21, col: 6, kind: "countdown", color: "cyan" },
+      { beat: 29, col: 4, kind: "countdown", color: "red" },
+    ],
+    controls: "standard5",
+  },
+  {
+    id: "theCountSpread",
+    name: "COUNTS SPREAD",
+    variant: true,
+    entries: [
+      { beat: 0, col: 6, kind: "countdown", color: "red" },
+      { beat: 6, col: 3, kind: "countdown", color: "cyan" },
+      { beat: 13, col: 8, kind: "countdown", color: "red" },
+      { beat: 19, col: 5, kind: "countdown", color: "cyan" },
+      { beat: 24, col: 6, kind: "countdown", color: "red" },
+      { beat: 31, col: 3, kind: "countdown", color: "cyan" },
+    ],
+    controls: "standard5",
+  },
   {
     id: "theCountReach",
     name: "COUNTS FAR APART",
@@ -111,6 +139,17 @@ export const WAVES_ACT_3_P3: Wave[] = [
     controls: "standard5",
   },
   {
+    id: "theMaze",
+    name: "THE MAZE",
+    guide: {
+      scene: "theMaze",
+    },
+    entries: [],
+    boss: { kind: "maze", rounds: MAZE_ROUNDS },
+    bossType: "special",
+    controls: "standard5",
+  },
+  {
     id: "theThirdShot",
     name: "THE SHELL",
     guide: {
@@ -189,41 +228,6 @@ export const WAVES_ACT_3_P3: Wave[] = [
       { beat: 21, col: 6, kind: "meteor", color: null },
       { beat: 27, col: 7, color: "cyan" },
       { beat: 35, col: 4, kind: "shell", color: "cyan" },
-    ],
-    controls: "standard5",
-  },
-  {
-    id: "theThirdShotRecall",
-    name: "SHELL RECALL",
-    variant: true,
-    entries: [
-      { beat: 0, col: 6, color: "cyan" },
-      { beat: 6, col: 9, kind: "shell", color: "cyan" },
-      { beat: 11, col: 2, color: "cyan" },
-      { beat: 17, col: 5, kind: "meteor", color: null },
-      { beat: 22, col: 2, color: "cyan" },
-      { beat: 28, col: 3, kind: "shell", color: "red" },
-      { beat: 34, col: 10, color: "cyan" },
-      { beat: 40, col: 9, kind: "meteor", color: null },
-    ],
-    controls: "standard5",
-  },
-  {
-    id: "theThirdShotBend",
-    name: "SHELLS AND TWINS",
-    variant: true,
-    entries: [
-      { beat: 0, col: 6, color: "red" },
-      { beat: 6, col: 0, kind: "shell", color: "red" },
-      { beat: 11, col: 2, color: "red" },
-      { beat: 17, col: 3, kind: "countdown", color: "cyan" },
-      { beat: 23, col: 5, color: "cyan" },
-      { beat: 23, col: 8, color: "cyan" },
-      { beat: 28, col: 8, kind: "shell", color: "cyan" },
-      { beat: 33, col: 5, kind: "countdown", color: "cyan" },
-      { beat: 38, col: 3, color: "red" },
-      { beat: 38, col: 6, color: "red" },
-      { beat: 44, col: 4, kind: "shell", color: "red" },
     ],
     controls: "standard5",
   },

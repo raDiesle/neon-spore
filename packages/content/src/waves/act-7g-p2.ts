@@ -1,0 +1,237 @@
+import type { Wave } from "../wave-types.js";
+
+/**
+ * Cut from `act-7g.ts` by the director's save when that file passed the
+ * 250-line ceiling; it plays straight after it (`acts.ts`).
+ */
+export const WAVES_ACT_7G_P2: Wave[] = [
+  {
+    id: "theSinew",
+    name: "THE SINEW",
+    guide: {
+      scene: "theSinew",
+    },
+    entries: [],
+    boss: { kind: "sinew" },
+    bossType: "normal",
+  },
+  {
+    id: "theCrawler",
+    name: "THE CRAWLER",
+    guide: {
+      scene: "theCrawler",
+    },
+    entries: [
+      { beat: 0, col: 0, kind: "crawler", color: null, segments: 3, side: "left" },
+      { beat: 24, col: 10, kind: "crawler", color: null, segments: 5, side: "right" },
+      { beat: 48, col: 0, kind: "crawler", color: null, segments: 7, side: "left" },
+    ],
+  },
+  {
+    id: "theCrawlerAgain",
+    name: "CRAWLERS AGAIN",
+    variant: true,
+    entries: [
+      { beat: 0, col: 4, kind: "crawler", color: null, segments: 7, side: "left" },
+      { beat: 7, col: 2, color: "red" },
+      { beat: 15, col: 4, kind: "crawler", color: null, segments: 7, side: "left" },
+      { beat: 22, col: 10, color: "red" },
+      { beat: 28, col: 8, kind: "crawler", color: null, segments: 5, side: "right" },
+    ],
+  },
+  {
+    id: "theCrawlerSpread",
+    name: "CRAWLERS SPREAD",
+    variant: true,
+    entries: [
+      { beat: 0, col: 7, kind: "crawler", color: null, segments: 3, side: "left" },
+      { beat: 7, col: 8, kind: "strand", color: "cyan", beads: 3 },
+      { beat: 12, col: 9, kind: "dart", color: "red" },
+      { beat: 17, col: 4, kind: "crawler", color: null, segments: 3, side: "left" },
+      { beat: 23, col: 5, kind: "strand", color: "red", beads: 5 },
+      { beat: 30, col: 4, kind: "dart", color: "cyan" },
+    ],
+  },
+  {
+    id: "theCrawlerReach",
+    name: "CRAWLERS FAR APART",
+    variant: true,
+    entries: [
+      { beat: 0, col: 1, kind: "crawler", color: null, segments: 3, side: "left" },
+      { beat: 6, col: 6, kind: "strand", color: "red", beads: 5 },
+      { beat: 12, col: 2, kind: "meteor", color: null },
+      { beat: 17, col: 8, kind: "crawler", color: null, segments: 5, side: "right" },
+      { beat: 22, col: 4, kind: "strand", color: "red", beads: 5 },
+      { beat: 27, col: 9, kind: "meteor", color: null },
+    ],
+  },
+  {
+    id: "theCrawlerPair",
+    name: "CRAWLER AND STRAND",
+    variant: true,
+    entries: [
+      { beat: 0, col: 4, color: "cyan" },
+      { beat: 6, col: 0, kind: "crawler", color: null, segments: 7, side: "left" },
+      { beat: 12, col: 10, color: "red" },
+      { beat: 17, col: 0, kind: "strand", color: "red", beads: 2 },
+      { beat: 23, col: 7, color: "red" },
+      { beat: 29, col: 3, kind: "clasp", color: "cyan" },
+      { beat: 34, col: 6, color: "cyan" },
+      { beat: 39, col: 10, kind: "crawler", color: null, segments: 7, side: "left" },
+    ],
+  },
+  {
+    id: "theCrawlerBreathe",
+    name: "EASY CRAWLERS",
+    variant: true,
+    entries: [
+      { beat: 0, col: 1, color: "cyan" },
+      { beat: 7, col: 6, kind: "crawler", color: null, segments: 5, side: "right" },
+      { beat: 13, col: 10, color: "red" },
+      { beat: 20, col: 1, kind: "strand", color: "red", beads: 5 },
+      { beat: 27, col: 2, color: "cyan" },
+      { beat: 35, col: 3, kind: "meteor", color: null },
+    ],
+  },
+  {
+    id: "theCrawlerRecall",
+    name: "CRAWLER RECALL",
+    variant: true,
+    entries: [
+      { beat: 0, col: 3, color: "cyan" },
+      { beat: 5, col: 5, kind: "crawler", color: null, segments: 3, side: "left" },
+      { beat: 10, col: 3, color: "red" },
+      { beat: 16, col: 7, kind: "countdown", color: "cyan" },
+      { beat: 22, col: 10, color: "red" },
+      { beat: 28, col: 1, kind: "crawler", color: null, segments: 3, side: "left" },
+      { beat: 33, col: 10, color: "red" },
+      { beat: 38, col: 5, kind: "countdown", color: "cyan" },
+    ],
+  },
+  {
+    id: "theCrawlerBend",
+    name: "CRAWLERS AND TWINS",
+    variant: true,
+    entries: [
+      { beat: 0, col: 3, color: "cyan" },
+      { beat: 5, col: 10, kind: "crawler", color: null, segments: 3, side: "left" },
+      { beat: 10, col: 1, color: "red" },
+      { beat: 16, col: 0, kind: "strand", color: "red", beads: 2 },
+      { beat: 22, col: 3, color: "red" },
+      { beat: 22, col: 6, color: "red" },
+      { beat: 27, col: 1, kind: "crawler", color: null, segments: 5, side: "right" },
+      { beat: 32, col: 0, kind: "strand", color: "red", beads: 5 },
+      { beat: 38, col: 2, color: "red" },
+      { beat: 38, col: 8, color: "red" },
+      { beat: 44, col: 0, kind: "crawler", color: null, segments: 7, side: "left" },
+    ],
+  },
+  {
+    id: "theCrawlerPeak",
+    name: "CRAWLER PEAK",
+    variant: true,
+    entries: [
+      { beat: 0, col: 1, color: "red" },
+      { beat: 2, col: 5, kind: "crawler", color: null, segments: 7, side: "left" },
+      { beat: 7, col: 6, color: "cyan" },
+      { beat: 11, col: 4, kind: "strand", color: "red", beads: 5 },
+      { beat: 15, col: 1, color: "cyan" },
+      { beat: 15, col: 9, color: "cyan" },
+      { beat: 23, col: 10, kind: "crawler", color: null, segments: 7, side: "left" },
+      { beat: 27, col: 5, color: "red" },
+      { beat: 27, col: 8, color: "red" },
+      { beat: 31, col: 1, kind: "strand", color: "red", beads: 2 },
+      { beat: 39, col: 5, color: "cyan" },
+      { beat: 39, col: 8, color: "cyan" },
+      { beat: 42, col: 7, kind: "crawler", color: null, segments: 3, side: "left" },
+      { beat: 46, col: 8, kind: "strand", color: "red", beads: 5 },
+    ],
+    pods: [
+      { beat: 19, col: 6, row: 4, kind: "ward" },
+      { beat: 35, col: 7, row: 3, kind: "ward" },
+    ],
+  },
+  {
+    id: "theLedger",
+    name: "THE LEDGER",
+    guide: {
+      scene: "theLedger",
+    },
+    entries: [
+      { beat: 18, col: 2, kind: "meteor", color: null },
+      { beat: 26, col: 8, color: "red" },
+      { beat: 34, col: 5, color: "cyan" },
+      { beat: 44, col: 0, kind: "meteor", color: null },
+      { beat: 52, col: 10, color: "red" },
+      { beat: 62, col: 3, color: "cyan" },
+      { beat: 72, col: 7, kind: "meteor", color: null },
+      { beat: 82, col: 8, color: "cyan" },
+    ],
+    boss: { kind: "ledger" },
+    bossType: "normal",
+  },
+  {
+    id: "theFence",
+    name: "THE FENCE",
+    guide: {
+      scene: "theFence",
+    },
+    entries: [
+      { beat: 0, col: 5, kind: "fence", color: null },
+      { beat: 12, col: 5, kind: "fence", color: null },
+      { beat: 24, col: 5, kind: "fence", color: null },
+    ],
+  },
+  {
+    id: "theGap",
+    name: "THE GAP",
+    guide: {
+      scene: "theGap",
+    },
+    entries: [
+      { beat: 0, col: 8, kind: "fence", color: null },
+      { beat: 12, col: 2, kind: "fence", color: null },
+      { beat: 26, col: 10, kind: "fence", color: null },
+      { beat: 40, col: 0, kind: "fence", color: null },
+      { beat: 56, col: 5, kind: "fence", color: null },
+    ],
+  },
+  {
+    id: "theCut",
+    name: "THE CUT",
+    guide: {
+      scene: "theCut",
+    },
+    entries: [
+      { beat: 0, col: 5, kind: "fence", color: null, gaps: [], cracksRed: [5] },
+      { beat: 16, col: 5, kind: "fence", color: null, gaps: [], cracksCyan: [8] },
+      { beat: 32, col: 5, kind: "fence", color: null, gaps: [], cracksRed: [2] },
+      { beat: 48, col: 5, kind: "fence", color: null, gaps: [], cracksCyan: [7] },
+    ],
+  },
+  {
+    id: "theFenceAgain",
+    name: "FENCES AGAIN",
+    variant: true,
+    entries: [
+      { beat: 0, col: 1, kind: "fence", color: null },
+      { beat: 6, col: 8, color: "cyan" },
+      { beat: 13, col: 6, kind: "fence", color: null },
+      { beat: 21, col: 10, color: "cyan" },
+      { beat: 29, col: 2, kind: "fence", color: null },
+    ],
+  },
+  {
+    id: "theFenceSpread",
+    name: "FENCES SPREAD",
+    variant: true,
+    entries: [
+      { beat: 0, col: 10, kind: "fence", color: null },
+      { beat: 5, col: 4, kind: "crawler", color: null, segments: 3, side: "left" },
+      { beat: 12, col: 10, color: "red" },
+      { beat: 18, col: 7, kind: "fence", color: null },
+      { beat: 24, col: 10, kind: "crawler", color: null, segments: 7, side: "left" },
+      { beat: 31, col: 5, color: "red" },
+    ],
+  },
+];

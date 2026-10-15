@@ -1,0 +1,200 @@
+import type { Wave } from "../wave-types.js";
+
+/**
+ * Cut from `act-14b.ts` by the director's save when that file passed the
+ * 250-line ceiling; it plays straight after it (`acts.ts`).
+ */
+export const WAVES_ACT_14B_P2: Wave[] = [
+  {
+    id: "theVise",
+    name: "THE VISE",
+    guide: {
+      both: "Pull your lobe shut until its seam cracks. Two seams each bare the kernel. Shoot it in its colour. When both light, pull together. Shield the bite. Shoot the seed.",
+      p1: "1. Pull the left lobe shut and say so.\n2. Keep it shut until the seam cracks.\n3. When the kernel shows a colour, fire it.",
+      p2: "1. Pull the right lobe shut and say so.\n2. Keep it shut until the seam cracks.\n3. White takes either colour. Pull with the other one when both light.",
+    },
+    entries: [],
+    boss: {
+      kind: "vise",
+      steps: [
+        { ask: "left", color: "either", beats: 5 },
+        { ask: "left", color: "either", beats: 4 },
+        { ask: "right", color: "either", beats: 5 },
+        { ask: "right", color: "either", beats: 4 },
+        { ask: "fire", color: "red", beats: 6 },
+        { ask: "both", color: "either", beats: 3 },
+        { ask: "bite", color: "either", beats: 3 },
+        { ask: "fire", color: "cyan", beats: 6 },
+        { ask: "spit", color: "red", beats: 4, offset: 2 },
+        { ask: "both", color: "either", beats: 3 },
+        { ask: "fire", color: "either", beats: 6 },
+      ],
+    },
+    bossType: "normal",
+  },
+  {
+    id: "thePlumb",
+    name: "THE PLUMB",
+    guide: {
+      both: "Each drags a stone. Pull away from the low side, together, until the bob hangs true. Both weights true light the core. Shoot it in its colour.",
+      p1: "1. When a weight lights, drag the left stone.\n2. Pull away from the low side. Say how far you are.\n3. One pull is not enough: hold it with the other until the bob is true.\n4. When the core shows a colour, fire it.",
+      p2: "1. When a weight lights, drag the right stone.\n2. Pull away from the low side. Say how far you are.\n3. One pull is not enough: hold it with the other until the bob is true.\n4. White takes either colour.",
+    },
+    entries: [],
+    boss: {
+      kind: "plumb",
+      steps: [
+        { ask: "left", skewMilli: -3000, rangeMilli: 600, color: "either", beats: 6 },
+        { ask: "left", skewMilli: 2800, rangeMilli: 400, color: "either", beats: 4 },
+        { ask: "right", skewMilli: 3200, rangeMilli: 600, color: "either", beats: 6 },
+        { ask: "right", skewMilli: -2800, rangeMilli: 400, color: "either", beats: 4 },
+        { ask: "fire", skewMilli: 0, rangeMilli: 0, color: "red", beats: 6 },
+        { ask: "both", skewMilli: -2800, rangeMilli: 500, color: "either", beats: 3 },
+        { ask: "fire", skewMilli: 0, rangeMilli: 0, color: "cyan", beats: 6 },
+        { ask: "both", skewMilli: 3000, rangeMilli: 450, color: "either", beats: 3 },
+        { ask: "fire", skewMilli: 0, rangeMilli: 0, color: "either", beats: 6 },
+      ],
+    },
+    bossType: "normal",
+  },
+  {
+    id: "theSling",
+    name: "THE SLING",
+    guide: {
+      both: "Hold until your arm is drawn home, then swipe toward the lit side. Both arms drawn light the yoke: shoot it in its colour. When both light, draw together.",
+      p1: "1. Hold a finger down when the left arm lights, and say which side is lit.\n2. Keep holding until the arm is home.\n3. Swipe toward the lit side as you let go.",
+      p2: "1. Hold a finger down when the right arm lights, and say which side is lit.\n2. Keep holding until the arm is home.\n3. White takes either colour. Draw with the other one when both light.",
+    },
+    entries: [],
+    boss: {
+      kind: "sling",
+      steps: [
+        { ask: "left", aim: "left", color: "either", beats: 5 },
+        { ask: "left", aim: "right", color: "either", beats: 4 },
+        { ask: "right", aim: "right", color: "either", beats: 5 },
+        { ask: "right", aim: "left", color: "either", beats: 4 },
+        { ask: "fire", aim: "left", color: "red", beats: 6 },
+        { ask: "both", aim: "left", color: "either", beats: 3 },
+        { ask: "fire", aim: "left", color: "cyan", beats: 6 },
+        { ask: "both", aim: "right", color: "either", beats: 3 },
+        { ask: "fire", aim: "left", color: "either", beats: 6 },
+      ],
+    },
+    bossType: "normal",
+  },
+  {
+    id: "theCapstan",
+    name: "THE CAPSTAN",
+    guide: {
+      both: "One of you drags the drum to turn a band toward the other, who rubs it bright. Both bands bright bare the core. Shoot it in its colour.",
+      p1: "1. Left mark: drag the drum left and hold it.\n2. Right mark: rub the band your partner turns to you.\n3. When rust creeps back, do it again, either way round.\n4. Shoot the core in its colour.",
+      p2: "1. Left mark: rub the band your partner turns to you.\n2. Right mark: drag the drum right and hold it.\n3. When rust creeps back, do it again, either way round.\n4. White takes either colour.",
+    },
+    entries: [],
+    boss: {
+      kind: "capstan",
+      steps: [
+        { ask: "left", color: "either", beats: 12 },
+        { ask: "right", color: "either", beats: 12 },
+        { ask: "fire", color: "red", beats: 6 },
+        { ask: "hold", color: "either", beats: 8 },
+        { ask: "fire", color: "cyan", beats: 6 },
+        { ask: "hold", color: "either", beats: 6 },
+        { ask: "fire", color: "either", beats: 6 },
+      ],
+    },
+    bossType: "normal",
+  },
+  {
+    id: "theGall",
+    name: "THE GALL",
+    guide: {
+      both: "Tap the alien on your half until it shakes. Then pull it up. It jumps to your partner's half. Shoot it when it glows.",
+      p1: "1. It starts on your half. Tap it, then pull it up.\n2. When it lands on your half, do it again.\n3. When it glows, move the cannon under it.",
+      p2: "1. When it lands on your half, tap it, then pull it up.\n2. Be fast. Every landing starts the clock.\n3. When it glows, shoot it in its colour.",
+    },
+    entries: [],
+    boss: {
+      kind: "gall",
+      steps: [
+        { ask: "leap", taps: 3, color: "either", beats: 6 },
+        { ask: "leap", taps: 3, color: "either", beats: 5 },
+        { ask: "fire", taps: 0, color: "red", beats: 6 },
+        { ask: "leap", taps: 4, color: "either", beats: 5 },
+        { ask: "leap", taps: 5, color: "either", beats: 5 },
+        { ask: "leap", taps: 5, color: "either", beats: 4 },
+        { ask: "fire", taps: 0, color: "cyan", beats: 6 },
+        { ask: "leap", taps: 6, color: "either", beats: 4 },
+        { ask: "leap", taps: 6, color: "either", beats: 4 },
+        { ask: "leap", taps: 7, color: "either", beats: 4 },
+        { ask: "fire", taps: 0, color: "either", beats: 6 },
+      ],
+    },
+    bossType: "normal",
+  },
+  {
+    id: "theTrapeze",
+    name: "THE TRAPEZE",
+    guide: {
+      scene: "theTrapeze",
+    },
+    entries: [],
+    boss: {
+      kind: "trapeze",
+      steps: [
+        { ask: "push", gongSide: 1, gongMilli: 10000, beats: 32 },
+        { ask: "call", gongSide: -1, gongMilli: 14000, beats: 40 },
+        { ask: "shoot", gongSide: 1, gongMilli: 16000, beats: 48 },
+        { ask: "lock", gongSide: -1, gongMilli: 18000, beats: 48 },
+      ],
+    },
+    bossType: "normal",
+  },
+  {
+    id: "theFlue",
+    name: "THE FLUE",
+    guide: {
+      scene: "theFlue",
+    },
+    entries: [],
+    boss: {
+      kind: "flue",
+      levels: [
+        { weapon: "bolt", color: "red", speedMilli: 1000, slowMilli: 1000, from: "left", needs: 1 },
+        {
+          weapon: "bolt",
+          color: "cyan",
+          speedMilli: 1000,
+          slowMilli: 1000,
+          from: "right",
+          needs: 1,
+        },
+        { weapon: "bolt", color: "red", speedMilli: 1500, slowMilli: 1000, from: "left", needs: 1 },
+        {
+          weapon: "beam",
+          color: "cyan",
+          speedMilli: 1000,
+          slowMilli: 1000,
+          from: "left",
+          needs: 1,
+        },
+        {
+          weapon: "bolt",
+          color: "cyan",
+          speedMilli: 1500,
+          slowMilli: 1000,
+          from: "left",
+          needs: 2,
+        },
+        { weapon: "beam", color: "red", speedMilli: 1500, slowMilli: 500, from: "right", needs: 1 },
+        { weapon: "bolt", color: "red", speedMilli: 2250, slowMilli: 750, from: "right", needs: 1 },
+        { weapon: "beam", color: "cyan", speedMilli: 2000, slowMilli: 500, from: "left", needs: 1 },
+        { weapon: "bolt", color: "cyan", speedMilli: 3000, slowMilli: 500, from: "left", needs: 2 },
+        { weapon: "bolt", color: "red", speedMilli: 3600, slowMilli: 250, from: "right", needs: 1 },
+        { weapon: "beam", color: "red", speedMilli: 2250, slowMilli: 250, from: "left", needs: 2 },
+      ],
+    },
+    bossType: "normal",
+    controls: "shots",
+  },
+];

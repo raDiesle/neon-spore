@@ -1,5 +1,6 @@
 import type { Wave } from "@neon-spore/content";
-import { LIMIT, lineCount } from "../../hooks/file-size.ts";
+import { LIMIT } from "../../hooks/file-size.ts";
+import { biomeLineCount } from "./biome-lines.js";
 import { serializeWaveArray } from "./serialize.js";
 
 /**
@@ -150,7 +151,7 @@ export function cutAct(
   let chunk: Wave[] = [];
   for (const wave of waves) {
     const tried = serializeWaveArray(base, [...chunk, wave], current.exportName);
-    if (chunk.length > 0 && lineCount(tried) > CUT_AT) {
+    if (chunk.length > 0 && biomeLineCount(tried) > CUT_AT) {
       out.push({
         act: current,
         text: serializeWaveArray(base, chunk, current.exportName),
