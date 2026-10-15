@@ -604,19 +604,6 @@ the simulation, the help and the brush; its body is a `blister:lever` slot
 after it. Prove it with `bun test packages/sim tools/director` and
 `bun run check`.
 
-## THE BLISTER takes a COMBO, and the CONTROLS group a COMBO brush
-
-- **Found:** 2026-10-14, claude/control-bodies
-- **Taken:** 2026-10-15, main (claim: claude/queue-the-blister-takes-a-combo-and-the-controls-group)
-- **Files:** `packages/sim/src/blister.ts`, `packages/sim/src/creature-state-blister.ts`, `tools/director/src/combo-lab-combos.ts`, `tools/director/src/entry-fields-blister.ts`, `tools/director/src/control-brushes.ts`
-
-As THE BLISTER's LEVER entry, for THE COMBO LAB's chain: a press, then a
-pull in its place (the lab's ONE, THEN ANOTHER group), one blow when both
-are done inside the time it is up. A `combo` gesture, the lab's paint,
-`BLISTER_GESTURES` and so a COMBO brush. Its body is a `blister:combo` slot
-after it. Prove it with `bun test packages/sim tools/director` and
-`bun run check`.
-
 ## THE COIL's block cannot compose R7 under its next written wave
 
 - **Found:** 2026-10-15, claude/queue-auto-loses-the-coil-and-the-crossing-in-composed
@@ -631,3 +618,18 @@ step (`grownStep` at this notch) should draw fewer arrivals, or whether the
 cap should allow a small rise into the written wave. Then prove it with
 `bun run waves:compose theCoil` filling R2–R8, a test in `tools/director/test/`,
 and `bun run check`.
+
+## THE BLISTER's COMBO gets bodies built round its press and pull, on VERSUS
+
+- **Found:** 2026-10-15, claude/queue-the-blister-takes-a-combo-and-the-controls-group
+- **Files:** `packages/render/src/blister-bodies.ts`, `packages/render/src/blister-help.ts`, `tools/director/src/poses-field-controls-blister.ts`, `tools/director/src/versus-pose.ts`
+
+The same ask as THE BLISTER's HOLD entry, for `blister:combo`, patching
+`BLISTER_BODY.combo`'s `draw`, judged on `BLISTER · PRESSED, THE PULL HALF
+CARRIED`. COMBO wears the tap's help and then SWIPE's knob come in where it
+was, out to the right (`blister-help.ts`), so the body can be the thing that
+changes between the two: a bud that is pressed shut and puts out a stalk to
+be drawn; a clam pressed closed whose tongue slides out to the right; a
+button with a tail coiled under it that the press frees. Send one PNG of the
+current beside the three. Prove it with `bun test tools/versus` and
+`bun run check`.

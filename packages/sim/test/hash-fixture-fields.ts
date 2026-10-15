@@ -79,6 +79,7 @@ export const creature = (): Required<Creature> => ({
   blisterTurnedMilli: 330,
   blisterRubAt1: 2,
   blisterRubAt2: 5,
+  blisterPressed: true,
   moultCargo: "purge",
   chuteOpen: true,
   veerDir: -1,

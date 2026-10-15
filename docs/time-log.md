@@ -41462,3 +41462,18 @@ her body, which only showed once the first fix was in.
 Bottleneck: none to speak of; the cause was the first thing the probe printed.
 
 *Measured: 14 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-15 — THE BLISTER takes a COMBO, and the CONTROLS group a COMBO brush
+
+- reading: 15 min. The five gestures' files, RUB's landing for the list of
+  registrations, THE COMBO LAB's PRESS, THEN PULL, and AUTO's hands.
+- writing: 15 min. The press as a tap that sets `blisterPressed`, the pull
+  as SWIPE's stroke once it is set, AUTO's hand, the help and the touch, the
+  ON THE FIELD row and pose, a sim test, a frame test, the spec.
+- looking: 10 min. The pose on ON THE FIELD by `bun run shot --row`, which
+  could not reach a row there until its cards' rows line was a heading.
+- friction: 5 min. A heredoc refused for its backslashes, again.
+- landing: 5 min.
+
+Bottleneck: looking — `--row` had only been tried on HELPERS, and ON THE
+FIELD names its cards by the enemy, not the row.

@@ -2706,7 +2706,7 @@ by hand never moves.
 | `packages/render/src/beatbox-silence.ts` | **A soundbox going quiet**, which is the one thing on this creature that goes right and until now was the… |
 | `packages/render/src/blister-tap.ts` | **A tap on THE BLISTER**, answered only where the simulation would count it: on a blister that is up |
 | `packages/render/src/blister-turn-help.ts` | **THE BLISTER's TURN help**: THE MAZE's turn, the one turn for every wave (the owner, 5 October 2026) |
-| `packages/render/src/blister-help.ts` | **THE BLISTER's help for all five gestures**, called and not drawn anew (`docs/controls-catalogue.md`) |
+| `packages/render/src/blister-help.ts` | **THE BLISTER's help for all six gestures**, called and not drawn anew (`docs/controls-catalogue.md`) |
 | `packages/render/src/blister-verdicts.ts` | Where a blister was last drawn, for the ring of the blow that finished it |
 | `packages/render/src/blister-bodies.ts` | **The body a blister is drawn as, one record per gesture** (the owner, 14 October 2026 |
 | `packages/render/src/blister.ts` | THE BLISTER, drawn: |

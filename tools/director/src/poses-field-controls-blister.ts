@@ -112,6 +112,44 @@ export const BLISTER_RUB: Pose = {
 };
 
 /**
+ * THE BLISTER's COMBO with its press done and its pull half carried: the tap's
+ * help gone, and SWIPE's knob half way along its channel to the right
+ * (`sim/blister-swipe.ts`, `render/blister-help.ts`). The press is a `tap`,
+ * then the stroke is a press and one move, as `touchMove` sends them.
+ */
+export const BLISTER_COMBO: Pose = {
+  name: "BLISTER · PRESSED, THE PULL HALF CARRIED",
+  note: "A COMBO blister is up out of its pore for its two beats. Player 2 has pressed it once — the tap's halo and dots are gone — and the pull that came in where they were is half carried: the knob is half way along its channel to the right. Carried on and lifted, one of its three blows. Player 2's screen, the seat its BY names.",
+  lookAt: "whether the pull reads as the second half of the press, and half full as not yet",
+  crop: "field",
+  role: "p2",
+  build: () => {
+    const w = fresh([
+      { beat: 0, col: 4, kind: "blister", color: null, row: 3, count: 3, gesture: "combo" },
+    ]);
+    until(w, "a blister up", (x) => x.creatures.some(blisterIsUp));
+    const body = w.creatures.find(blisterIsUp);
+    if (!body) throw new Error("no blister up");
+    const half = Math.round(w.cfg.blisterSwipeMilli / 2);
+    const stroke = (tick: number, reach: number): TimedCommand => ({
+      tick,
+      player: 2,
+      command: {
+        kind: "drag",
+        target: "blisterSwipe",
+        id: body.id,
+        on: true,
+        fromMilli: reach,
+        fromYMilli: 0,
+      },
+    });
+    const press: TimedCommand = { tick: w.tick, player: 2, command: { kind: "tap", id: body.id } };
+    run(w, 4, [press, stroke(w.tick + 1, 0), stroke(w.tick + 2, half)]);
+    return w;
+  },
+};
+
+/**
  * THE BLISTER's TAP up out of its pore with no hand on it yet: the press's
  * halo, its flaring dots and its three pips, on the seat that taps. It is what
  * `blister:tap` on VERSUS is judged on — a body built round the button

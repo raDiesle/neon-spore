@@ -3,6 +3,7 @@ import {
   blisterIsUp,
   blisterLeft,
   blisterRubbing,
+  blisterStrokes,
   blisterSwipeShare,
   blisterTurnShare,
   readyFraction,
@@ -68,6 +69,15 @@ describe("ON THE FIELD rows and their pictures", () => {
     expect(b).toBeDefined();
     expect(blisterLeft(w.cfg, b!)).toBe(2);
     expect(blisterRubbing(b!)).toBe(true);
+  });
+
+  test("the blister is up, pressed, and its pull half carried", () => {
+    const w = poseNamed("BLISTER · PRESSED, THE PULL HALF CARRIED").build();
+    const b = w.creatures.find(blisterIsUp);
+    expect(b).toBeDefined();
+    expect(blisterStrokes(b!)).toBe(true);
+    expect(blisterSwipeShare(w, b!)).toBe(0.5);
+    expect(blisterLeft(w.cfg, b!)).toBe(3);
   });
 
   test("one ready circle is part full and the other empty", () => {

@@ -5,6 +5,7 @@ import {
   blisterByOf,
   blisterGestureOf,
   blisterIsUp,
+  blisterStrokes,
   blisterTurnWayOf,
   blisterWayOf,
   type Creature,
@@ -16,7 +17,7 @@ import {
 } from "@neon-spore/sim";
 
 /**
- * **THE BLISTER on AUTO, all five gestures**, each the way a thumb does it
+ * **THE BLISTER on AUTO, all six gestures**, each the way a thumb does it
  * (`docs/spec/blister.md`, *The gestures*), from the seat its `by` names —
  * player 2 when both may, as the tap is.
  *
@@ -58,6 +59,7 @@ const HAND: Record<ReturnType<typeof blisterGestureOf>, Hand> = {
   swipe: swipe,
   turn: turn,
   rub: rub,
+  combo: combo,
 };
 
 type Hand = (w: World, c: Creature, seat: 1 | 2) => Press | null;
@@ -85,6 +87,25 @@ function swipe(w: World, c: Creature, player: 1 | 2): Press | null {
     return { player, command: { ...drag, on: false, fromMilli, fromYMilli } };
   }
   if (!blisterIsUp(c) || !halfBeat(w)) return null;
+  return { player, command: { ...drag, on: true, fromMilli: 0, fromYMilli: 0 } };
+}
+
+/**
+ * COMBO: the press half a beat in, as a tap; then the pull in its place at
+ * once, SWIPE's stroke to the right, pressed the next tick and lifted the one
+ * after (`blister-swipe.ts`) — both inside the surfacing, whatever is left of it.
+ */
+function combo(w: World, c: Creature, player: 1 | 2): Press | null {
+  if (!blisterStrokes(c)) return tap(w, c, player);
+  const mine = (c.blisterStrokes ?? 0) & (player | (player << 2));
+  const drag = { kind: "drag", target: "blisterSwipe", id: c.id } as const;
+  if (mine !== 0) {
+    return {
+      player,
+      command: { ...drag, on: false, fromMilli: w.cfg.blisterSwipeMilli, fromYMilli: 0 },
+    };
+  }
+  if (!blisterIsUp(c)) return null;
   return { player, command: { ...drag, on: true, fromMilli: 0, fromYMilli: 0 } };
 }
 

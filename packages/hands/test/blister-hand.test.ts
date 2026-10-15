@@ -62,6 +62,8 @@ describe("AUTO's hand on a blister", () => {
     ["a TURN one, clockwise", "turn", 2],
     ["a TURN one, anticlockwise", "turn", 1, "ccw"],
     ["a RUB one", "rub", 2],
+    ["a COMBO one, player 1's", "combo", 1],
+    ["a COMBO one, either seat's", "combo", "both"],
   ];
   for (const [name, gesture, by, way] of CASES) {
     it(`knocks out ${name} before it reaches the hull`, () => {

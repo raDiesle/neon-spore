@@ -157,10 +157,14 @@ export function stepBlister(world: World, c: Creature): void {
 export function blisterTapped(world: World, player: 1 | 2, id: number): boolean {
   const c = world.creatures.find((x) => x.id === id);
   if (c === undefined || c.kind !== "blister") return false;
+  const gesture = blisterGestureOf(c);
   // A tap on a HOLD blister is a press that did not stay, and counts nothing.
-  if (blisterGestureOf(c) !== "tap") return true;
+  if (gesture !== "tap" && gesture !== "combo") return true;
   if (!blisterIsUp(c) || !blisterMayTap(c, player)) return true;
-  blisterBlow(world, c);
+  // COMBO's press is its first half: counted and gone, and the pull in its
+  // place is the hand that deals the blow (`blister-swipe.ts`).
+  if (gesture === "combo") c.blisterPressed = true;
+  else blisterBlow(world, c);
   return true;
 }
 
@@ -171,6 +175,8 @@ export function blisterTapped(world: World, player: 1 | 2, id: number): boolean 
 export function blisterBlow(world: World, c: Creature): void {
   const left = blisterLeft(world.cfg, c) - 1;
   c.blisterLeft = left;
+  // A COMBO's next blow asks for its press again.
+  c.blisterPressed = undefined;
   world.events.push({ type: "blisterBlow", id: c.id, col: c.col, row: c.row, left });
   if (left > 0) return;
   world.events.push({
@@ -186,7 +192,7 @@ export function blisterBlow(world: World, c: Creature): void {
 }
 
 /**
- * A sink voids every SWIPE stroke, TURN and RUB in progress: the thumbs are
+ * A sink voids every SWIPE stroke, TURN, RUB and COMBO press in progress: the thumbs are
  * still down, and what they do next counts nothing until they lift — the body
  * they began on is under another pore by then (`blister-swipe.ts`,
  * `blister-turn.ts`, `blister-rub.ts`). A turn short of whole is lost.
@@ -200,4 +206,5 @@ function voidGestures(c: Creature): void {
   c.blisterTurnedMilli = undefined;
   if (c.blisterRubAt1 !== undefined) c.blisterRubAt1 = BLISTER_HAND_DEAD;
   if (c.blisterRubAt2 !== undefined) c.blisterRubAt2 = BLISTER_HAND_DEAD;
+  c.blisterPressed = undefined;
 }

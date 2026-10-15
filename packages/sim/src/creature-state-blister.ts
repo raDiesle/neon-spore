@@ -8,10 +8,11 @@ export type BlisterBy = 1 | 2 | "both";
  * The gesture a blister is knocked down by (`docs/spec/blister.md`, *The
  * gestures*): a tap for each blow, a press kept down a beat for each, a
  * stroke across it the way its arrow points, a full turn round it the way
- * its channel runs, or a scrub back and forth over it, a blow a reversal. One
- * body for all of them — only the help drawn round it says which.
+ * its channel runs, a scrub back and forth over it, a blow a reversal, or a
+ * COMBO — a press, then a pull in its place, the two a blow. One body for all
+ * of them — only the help drawn round it says which.
  */
-export type BlisterGesture = "tap" | "hold" | "swipe" | "turn" | "rub";
+export type BlisterGesture = "tap" | "hold" | "swipe" | "turn" | "rub" | "combo";
 
 /** Which way a SWIPE goes, as a screen reads it: `down` is towards the hull. */
 export type BlisterSwipeWay = "left" | "right" | "up" | "down";
@@ -112,4 +113,10 @@ export interface BlisterState {
    */
   blisterRubAt1?: number;
   blisterRubAt2?: number;
+  /**
+   * COMBO's press, done: the tap counted and gone, and the pull it brings now
+   * the hand it wants. Absent until the press; a blow or a sink takes it away,
+   * so the two halves are one blow only inside one surfacing (`blister-swipe.ts`).
+   */
+  blisterPressed?: boolean;
 }

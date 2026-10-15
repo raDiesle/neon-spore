@@ -1,4 +1,10 @@
-import { blisterGestureOf, blisterIsUp, blisterMayTap, NO_BEARING } from "@neon-spore/sim";
+import {
+  blisterGestureOf,
+  blisterIsUp,
+  blisterMayTap,
+  blisterStrokes,
+  NO_BEARING,
+} from "@neon-spore/sim";
 import { flatCenter, flatRadius } from "./creature-place.js";
 import type { Layout } from "./layout.js";
 import type { Field, Touch } from "./touch.js";
@@ -38,8 +44,9 @@ export function blisterUnder(l: Layout, field: Field, x: number, y: number): Tou
   const body = field.creatures.find((c) => c.id === best);
   // A SWIPE blister's press is a `drag` on `blisterSwipe`, carried from where
   // it landed; the lift says where it ended and the simulation judges the
-  // stroke (`touch.ts` `touchUp`, `sim/blister-swipe.ts`).
-  if (body !== undefined && blisterGestureOf(body) === "swipe") {
+  // stroke (`touch.ts` `touchUp`, `sim/blister-swipe.ts`). A COMBO's is the
+  // same once its press is done; before it, the press is a tap, below.
+  if (body !== undefined && blisterStrokes(body)) {
     const target = "blisterSwipe";
     return {
       player: field.seat,

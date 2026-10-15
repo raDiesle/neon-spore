@@ -5,7 +5,8 @@ import type { FieldControlDef } from "./field-control-def.js";
  * only by the line that spreads it. A creature's rows, so they sit after the
  * grip's rather than among the bosses':
  * its TAP and HOLD are the tap and the grip every body already answers, and
- * the stroke, the turn and the rub are the gestures of its own that need a target.
+ * the stroke, the turn and the rub are the gestures of its own that need a
+ * target, and COMBO is a tap and then the stroke.
  */
 export const BLISTER_CONTROLS: readonly FieldControlDef[] = [
   {
@@ -63,5 +64,24 @@ export const BLISTER_CONTROLS: readonly FieldControlDef[] = [
     dragTarget: "blisterRub",
     sends: ["drag"],
     pose: "BLISTER · RUBBED ONCE",
+  },
+  {
+    name: "THE BLISTER'S COMBO",
+    where: "on a COMBO blister while it is up, on the seat its BY names",
+    seat: "the seat the blister's BY names — either, on a BOTH blister",
+    gesture: "grab and drag",
+    does:
+      "THE COMBO LAB's PRESS, THEN PULL on the body. A COMBO blister wears " +
+      "the tap's halo and dots first: press it once, and the press is " +
+      "counted and gone, and the knob every pull wears comes in where it " +
+      "was, its channel a stroke long out to the right. Carry it the whole " +
+      "way and lift: one blow, and the next blow asks for the press again. " +
+      "A pull with no press counts nothing, and a press the blister sinks " +
+      "on before its pull is lost (sim/blister.ts, sim/blister-swipe.ts).",
+    source: "blister-tap.ts — blisterUnder() under touchDown(): a tap, then a blisterSwipe drag",
+    holdKind: "drag",
+    dragTarget: "blisterSwipe",
+    sends: ["tap", "drag"],
+    pose: "BLISTER · PRESSED, THE PULL HALF CARRIED",
   },
 ];

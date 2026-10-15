@@ -1,10 +1,11 @@
 # THE BLISTER — a body you knock back down
 
-> **Status: built** — the five gestures, their looks, the director's settings,
+> **Status: built** — the six gestures, their looks, the director's settings,
 > the guide and two waves. TAP's simulation (lane 1) and its look (lane 2, 8
 > October 2026: ROOTED CLOVER, the pore, the bulge and the tap help); HOLD
 > (lane 4) the same day; SWIPE (lane 5), TURN (lane 6), RUB (lane 7) and the
-> guide and waves (lane 8) on 9 October 2026. Asked for by the owner on 7
+> guide and waves (lane 8) on 9 October 2026; COMBO's simulation and help on
+> 15 October 2026, its body a `blister:combo` slot after it. Asked for by the owner on 7
 > October 2026: a creature on the principle of whack-a-mole, removed by
 > several taps on the screen, with variants removed by a hold, a swipe, a turn
 > round it and other gestures that also work with a mouse; the director's
@@ -62,8 +63,9 @@ out on purpose — a desk with a mouse has none of them.
 | **SWIPE** | `SWIPE` | drags across the body the way the arrow points | one stroke the moment the drag passes `blisterSwipeMilli` (one tile) in that direction, or on the lift that got it there — the one generic PULL (`sim/pull.ts`); let go short, refused out loud (`pullShort`) | the PULL LAB's knob on its channel, never a ring (the owner, 24 September and 13 October 2026) |
 | **TURN** (the circle) | `TURN` | drags a full turn round the body, the way the channel points | thousandths of a turn, as the crank's bearing is | `drawMazeLever`, the one turn for every wave (the owner, 5 October 2026) |
 | **RUB** | `RUB` | scrubs back and forth over it | reversals, as `packages/render/src/rub-turns.ts` counts them | `drawRubDrop` |
+| **COMBO** | `COMBO` | presses it, then pulls the knob that comes in its place, to the right | the press as a `tap` (`blisterPressed`), then SWIPE's stroke; the two are one blow, and a sink between them loses the press | the tap's help, then SWIPE's pull in the same place — THE COMBO LAB's PRESS, THEN PULL |
 
-**The body is the same in all five.** Only the help round it changes, so a
+**The body is the same in all six.** Only the help round it changes, so a
 wave can mix them and the pair reads *which* from the help, never from the
 shape. Whose it is, was it right and how far it has got are the shared pieces
 too: `drawMarkHalo` on the seat that may act, `drawMarkWait` on the seat that
@@ -119,6 +121,15 @@ whose `id` is the count and whose `fromMilli` is the body (`render/rub.ts`) —
 the one target that rides it there, because the count already holds `id`.
 `sim/blister-rub.ts` deals a blow for every fresh reversal while it is up; a
 sink leaves a thumb still scrubbing dead until it lifts, as for TURN.
+
+The COMBO help is THE COMBO LAB's PRESS, THEN PULL, called and not redrawn:
+the tap's help until the press lands — a `tap {id}`, which on a COMBO blister
+deals nothing and sets `blisterPressed` — and then SWIPE's pull in the same
+place, to the right, which is the lab's way (`render/blister-help.ts`). The
+pull is SWIPE's `blisterSwipe` stroke, judged by `sim/blister-swipe.ts` once
+`blisterStrokes` says the press is done; its blow takes the press away, so
+every blow is the two. A sink takes it away too: the two halves are one blow
+only inside one surfacing.
 
 ## The director's settings
 

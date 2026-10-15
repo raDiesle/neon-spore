@@ -49,4 +49,5 @@ export const BLISTER_BODY: Record<BlisterGesture, BlisterBodyLook> = {
   swipe: { draw: drawCloverBody },
   turn: { draw: drawCloverBody },
   rub: { draw: drawCloverBody },
+  combo: { draw: drawCloverBody },
 };

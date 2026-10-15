@@ -93,7 +93,7 @@ export const COMBO_ACTION: FieldAction = {
         "game the press is the worker's and brings the holder's pull; the " +
         "lab plays both on one seat.",
       comboLab: "presspull",
-      rows: ["THE LAMPREY'S TAIL, IN A PLUG"],
+      rows: ["THE LAMPREY'S TAIL, IN A PLUG", "THE BLISTER'S COMBO"],
     },
     {
       key: "loose",

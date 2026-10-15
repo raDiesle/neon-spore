@@ -11,6 +11,10 @@ export const DRAG_LOOKS: Readonly<Record<string, UseLook>> = {
     find: "A knob on a blister while it is up out of its pore, its arrow pointing its way down a channel, on the seat its BY names. The other seat sees the waiting clock.",
     move: "The knob follows the thumb and the channel fills green behind it; lifted past the end, one blow and one pip gone. Short, sideways or the wrong way counts nothing.",
   },
+  "THE BLISTER'S COMBO": {
+    find: "The tap's halo and dots on a blister while it is up, on the seat its BY names; once pressed, a knob where they were, its channel out to the right. The other seat sees the waiting clock.",
+    move: "The press is gone the moment it lands and the knob comes in; carried the whole channel and lifted, one blow and one pip gone, and the press is asked again.",
+  },
   "THE WARDEN'S TETHER": {
     find: "A rope hanging from the rim with a resting circle at its end, on the pilot's screen.",
     move: "The handle runs straight down its channel after the thumb, the one way the rope goes; pulled the whole channel, a hatch opens on the eye. Four looks of the rope are on its row.",

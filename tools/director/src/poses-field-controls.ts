@@ -17,7 +17,12 @@ import {
   until,
 } from "./pose-kit.js";
 import { ANTIPHON_CARRY, ANTIPHON_TURN } from "./poses-field-controls-antiphon.js";
-import { BLISTER_RUB, BLISTER_SWIPE, BLISTER_TURN } from "./poses-field-controls-blister.js";
+import {
+  BLISTER_COMBO,
+  BLISTER_RUB,
+  BLISTER_SWIPE,
+  BLISTER_TURN,
+} from "./poses-field-controls-blister.js";
 import { BOSS_GRIPS } from "./poses-field-controls-bosses.js";
 import { CHOIR_SWIPE } from "./poses-field-controls-choir.js";
 import { DARK_LIGHT } from "./poses-field-controls-dark.js";
@@ -145,6 +150,7 @@ export const FIELD_CONTROL_GROUP: PoseGroup = {
     BLISTER_SWIPE,
     BLISTER_TURN,
     BLISTER_RUB,
+    BLISTER_COMBO,
     SINEW_PULL,
     SURGE_HOLD,
     ANTIPHON_TURN,

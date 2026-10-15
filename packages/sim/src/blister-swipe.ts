@@ -23,11 +23,15 @@ import type { World } from "./world.js";
  * open on it (`blister.ts`), so a thumb still down when it comes up under
  * another pore is not a stroke on it, and its lift counts nothing. Two hands
  * on a BOTH blister stroke on their own bits and each lift is its own blow.
+ *
+ * **COMBO's pull is this stroke**, to the right, the COMBO LAB's way, and only
+ * once its press is done (`blisterTapped`): the press brings the pull in where
+ * it was, the pull deals the blow, and the next blow asks for the press again.
  */
 export function blisterSwipeHeard(world: World, player: 1 | 2, command: Command): void {
   if (command.kind !== "drag" || command.target !== "blisterSwipe") return;
   const c = world.creatures.find((x) => x.id === command.id);
-  if (c === undefined || blisterGestureOf(c) !== "swipe") return;
+  if (c === undefined || !blisterStrokes(c)) return;
   const open = player;
   const dead = player << 2;
   const strokes = c.blisterStrokes ?? 0;
@@ -76,6 +80,12 @@ function pullAlong(way: BlisterSwipeWay, dx: number, dy: number): number {
 export function blisterWayOf(c: Creature): BlisterSwipeWay {
   const way = c.blisterWay;
   return way === undefined || way === "cw" || way === "ccw" ? "right" : way;
+}
+
+/** Whether a stroke across it is a hand that counts now: a SWIPE, or a COMBO whose press is done. */
+export function blisterStrokes(c: Creature): boolean {
+  const gesture = blisterGestureOf(c);
+  return gesture === "swipe" || (gesture === "combo" && c.blisterPressed === true);
 }
 
 /** How far the furthest open stroke has come, 0..1: what the bar fills to. */

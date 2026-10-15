@@ -6,6 +6,7 @@ import {
   blisterLeft,
   blisterMayTap,
   blisterRubbing,
+  blisterStrokes,
   blisterSwipeHeld,
   blisterSwipeShare,
   blisterWayOf,
@@ -29,7 +30,7 @@ import { drawRubDrop } from "./rub-drop.js";
 import { drawSoakHold } from "./soak-hold.js";
 
 /**
- * **THE BLISTER's help for all five gestures**, called and not drawn anew
+ * **THE BLISTER's help for all six gestures**, called and not drawn anew
  * (`docs/controls-catalogue.md`): the same pieces every mark in the game
  * wears, laid over and round a body that is up.
  *
@@ -57,6 +58,10 @@ import { drawSoakHold } from "./soak-hold.js";
  *   it a stroke for every blow the blister asks, lit as they land
  *   (`rub-drop.ts`), and the halo while no hand is rubbing. The pips round it
  *   count the same blows, as every gesture's do.
+ * - COMBO, on the seat that may: the tap's help until its press is done, and
+ *   then SWIPE's pull in the same place, to the right — THE COMBO LAB's
+ *   PRESS, THEN PULL, the press counted and gone and a pull come in where it
+ *   was. The pips count blows, and a blow is the two.
  * - The verdict on each blow is a transient and is `blister-verdicts.ts`'.
  *
  * Flat, after every body, outside the perspective transform — the tap's
@@ -85,7 +90,7 @@ export function drawBlisterHelp(
     const gesture = blisterGestureOf(c);
     const holding = gesture === "hold";
     const held = holding && heldNow(world, c);
-    if (mine && gesture === "swipe") {
+    if (mine && blisterStrokes(c)) {
       drawSwipeTrack(ctx, l, world, c, { x, y, r }, time);
     } else if (mine && gesture === "turn") {
       drawBlisterTurn(ctx, l, world, c, { x, y, r }, time);
