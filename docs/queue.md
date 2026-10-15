@@ -331,6 +331,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## AUTO loses BULB QUEEN and THE VANE
 
 - **Found:** 2026-10-14, claude/wave-plan
+- **Taken:** 2026-10-15, claude/queue-auto-loses-bulb-queen-and-the-vane
 - **Files:** `packages/hands/src/boss-hands-queen.ts`, `packages/sim/src/vane-hand.ts`, `docs/spec/wave-curriculum-today.md`
 
 The same measurement: AUTO playing both seats loses both bosses, so the boss
