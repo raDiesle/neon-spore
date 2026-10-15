@@ -34,7 +34,6 @@ import { POSE_GROUPS } from "./poses.js";
  * so a slot showing it needs no dedicated one.
  */
 const SLOT_POSE: Record<string, string> = {
-  "blister:lever": "BLISTER · LEVER CARRIED INTO ITS BAND AND HELD",
   "blister:tap": "BLISTER · UP FOR A TAP",
 };
 

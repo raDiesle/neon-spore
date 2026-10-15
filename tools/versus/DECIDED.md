@@ -2262,3 +2262,15 @@ came up on (drawTurnBody). WORM rejected.
 
 The other answers offered were `snail`, `wheel` and `worm`; they went with the
 slot.
+
+## `blister:lever` — nothing taken, 2026-10-15
+
+taken by hand: the owner, 15 October 2026 — 'build all into game and remove
+from versus candidates'. BELL, ROOT and TAFFY moved to
+packages/render/src/blister-lever-bell.ts, -root.ts and -taffy.ts;
+BLISTER_BODY.lever draws one of them per blister by its id, its cord, root
+or nose past the pore included (drawLeverBody and drawLeverBeyond in
+blister-lever.ts).
+
+The other answers offered were `bell`, `root` and `taffy`; they went with the
+slot.

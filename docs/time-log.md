@@ -42040,3 +42040,13 @@ Bottleneck: a three-minute silent `versus drop`, taken for a hang.
 Bottleneck: none; the three shots are most of it.
 
 *Measured: 3 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
+
+## 2026-10-15 — THE BLISTER's LEVER drawn as BELL, ROOT or TAFFY
+
+- reading: 5 min. RUB's and SWIPE's take-in commits, the three candidates.
+- writing: 5 min. Three files moved into render, `blister-lever.ts` picking one per blister, the slot dropped.
+- looking: 5 min. One `shot` of ON THE FIELD's LEVER row, after a wrong row name.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, `land`.
+
+Bottleneck: none; finding a row the shot tool would take was most of the looking.

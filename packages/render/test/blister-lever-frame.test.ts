@@ -11,6 +11,7 @@ import {
   ticksPerBeat,
   type World,
 } from "@neon-spore/sim";
+import { leverBodyOf } from "../src/blister-lever.js";
 import { flatCenter } from "../src/creature-place.js";
 import { computeLayout, type ViewRole } from "../src/layout.js";
 import { touchDown } from "../src/touch.js";
@@ -33,7 +34,8 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
  * THE BLISTER's LEVER, pressed and drawn (`blister-tap.ts`,
  * `blister-lever-help.ts`): a press on one that is up takes its knob as a
  * `blisterLever` drag, every move carries it down the groove, and on every
- * screen the groove, its band and the knob are drawn over the TAP blister's body.
+ * screen the groove, its band and the knob are drawn over BELL, ROOT or
+ * TAFFY, one per blister by its id (`blister-lever.ts`).
  */
 
 beforeAll(installCanvasGlobals);
@@ -129,5 +131,13 @@ describe("the LEVER blister", () => {
 
   it("really held blows out of them", () => {
     expect(played("test").blows).toBeGreaterThan(0);
+  });
+});
+
+describe("the LEVER blister's body", () => {
+  it("is each of BELL, ROOT and TAFFY for some ids, the same every time it is asked", () => {
+    const picks = Array.from({ length: 12 }, (_, i) => leverBodyOf(i + 1));
+    expect(new Set(picks)).toEqual(new Set([0, 1, 2]));
+    expect(picks).toEqual(Array.from({ length: 12 }, (_, i) => leverBodyOf(i + 1)));
   });
 });

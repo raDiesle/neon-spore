@@ -2731,6 +2731,10 @@ by hand never moves.
 | `packages/render/src/blister-verdicts.ts` | Where a blister was last drawn, for the ring of the blow that finished it |
 | `packages/render/src/blister-bodies.ts` | **The body a blister is drawn as, one record per gesture** (the owner, 14 October 2026 |
 | `packages/render/src/blister-lever-help.ts` | **THE BLISTER's LEVER help**: THE LEVER LAB's groove, band and knob down from the body, the dial while it is held |
+| `packages/render/src/blister-lever-bell.ts` | BELL, one of LEVER's three bodies: a brass bell mouth down, the knob its clapper on a cord, swinging and ringing in the band |
+| `packages/render/src/blister-lever-root.ts` | ROOT, one of LEVER's three bodies: a turnip's shoulders and leaves, its root pulled down the groove to the knob |
+| `packages/render/src/blister-lever-taffy.ts` | TAFFY, one of LEVER's three bodies: a slime whose long nose the knob pinches and the thumb draws down the groove |
+| `packages/render/src/blister-lever.ts` | THE BLISTER's LEVER body: BELL, ROOT or TAFFY, one per blister by its id, its limb past the pore included |
 | `packages/render/src/blister-combo-bud.ts` | BUD, one of COMBO's two bodies: a flower with the press as its heart, shut into a bud by it, a stalk out to the knob |
 | `packages/render/src/blister-combo-curl.ts` | CURL, one of COMBO's two bodies: a round slime whose wound tail the press frees to run out to the knob |
 | `packages/render/src/blister-combo.ts` | THE BLISTER's COMBO body: BUD or CURL, picked per blister off its id and drawn 1.15× |

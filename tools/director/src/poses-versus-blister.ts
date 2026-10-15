@@ -62,7 +62,7 @@ const LIFT = 108;
  * with the knob at rest on it, the knob carried down its groove into the
  * band, held there the whole hold — the dial going round, one blow — and
  * lifted, all inside the two beats it stays up. It is what `blister:lever`
- * on VERSUS is judged on: a body the knob is drawn out of, so the knob has to
+ * on VERSUS was judged on (BELL, ROOT and TAFFY all taken, 15 October 2026): a body the knob is drawn out of, so the knob has to
  * travel on the page, and ON THE FIELD's `BLISTER · THE LEVER HELD IN ITS
  * BAND` holds it still. The band lies 0.6 to 1.05 tiles under the body,
  * inside the three tiles every blister pose crops to.

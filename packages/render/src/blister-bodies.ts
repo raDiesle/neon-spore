@@ -1,6 +1,7 @@
 import type { BlisterGesture } from "@neon-spore/sim";
 import { drawComboBody } from "./blister-combo.js";
 import { drawHugBody } from "./blister-hug.js";
+import { drawLeverBeyond, drawLeverBody } from "./blister-lever.js";
 import { drawPalmBody } from "./blister-palm.js";
 import { blisterBodyOf } from "./blister-pick.js";
 import { drawRubBody } from "./blister-rub.js";
@@ -29,7 +30,8 @@ import { drawLivingBody } from "./creature-body-living.js";
  * replaces that gesture's field alone: COMBO's took BUD and CURL
  * (`blister-combo.ts`), HOLD's PALM and HUG (`drawHoldBody`), RUB's URCHIN,
  * WASHBOARD and PURR (`blister-rub.ts`), SWIPE's SLUG and ZIP
- * (`blister-swipe-body.ts`), TURN's WHEEL and SNAIL (`drawTurnBody`).
+ * (`blister-swipe-body.ts`), TURN's WHEEL and SNAIL (`drawTurnBody`), LEVER's
+ * BELL, ROOT and TAFFY (`blister-lever.ts`).
  */
 
 /** What `drawBlisterBody` has already worked out, handed to every body. */
@@ -50,7 +52,7 @@ export interface BlisterBodyLook {
   /**
    * What the body puts out past its pore, drawn after the lip and unclipped —
    * a cord, a root or a neck run down a groove that leaves the pore behind
-   * (`blister:lever`). Every shipped record puts out nothing.
+   * (LEVER's BELL, ROOT and TAFFY, SWIPE's SLUG and ZIP).
    */
   beyond: BlisterBodyDraw;
 }
@@ -101,5 +103,5 @@ export const BLISTER_BODY: Record<BlisterGesture, BlisterBodyLook> = {
   turn: { draw: drawTurnBody, beyond: drawNothingBeyond },
   rub: { draw: drawRubBody, beyond: drawNothingBeyond },
   combo: { draw: drawComboBody, beyond: drawNothingBeyond },
-  lever: { draw: drawCloverBody, beyond: drawNothingBeyond },
+  lever: { draw: drawLeverBody, beyond: drawLeverBeyond },
 };
