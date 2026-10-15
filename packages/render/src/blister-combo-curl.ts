@@ -1,12 +1,8 @@
-import type { BlisterFrame } from "../../../../../packages/render/src/blister-bodies.js";
-import type { Body } from "../../../../../packages/render/src/creature-body-in.js";
-import { rgba } from "../../../../../packages/render/src/hex.js";
-import { PALETTE } from "../../../../../packages/render/src/palette.js";
-import {
-  blisterStrokes,
-  blisterSwipeShare,
-  blisterWayOf,
-} from "../../../../../packages/sim/src/index.js";
+import { blisterStrokes, blisterSwipeShare, blisterWayOf } from "@neon-spore/sim";
+import type { BlisterFrame } from "./blister-bodies.js";
+import type { Body } from "./creature-body-in.js";
+import { rgba } from "./hex.js";
+import { PALETTE } from "./palette.js";
 
 const TAU = Math.PI * 2;
 
@@ -14,9 +10,9 @@ const TAU = Math.PI * 2;
 const STEPS = 28;
 
 /**
- * CURL: a round slime up out of the pore with the press on its back and its
- * tail wound into a tight curl against its side, two eyes over the button.
- * The press frees the tail: it runs out along the pull's channel to the knob
+ * CURL, one of COMBO's two bodies (`blister-combo.ts`): a round slime up out
+ * of the pore with the press on its back and its tail wound into a tight
+ * curl against its side, two eyes over the button. The press frees the tail: it runs out along the pull's channel to the knob
  * as far as the thumb has drawn it, its tip under the knob — the creature's
  * own tail being pulled.
  */

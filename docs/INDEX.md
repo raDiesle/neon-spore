@@ -2726,6 +2726,9 @@ by hand never moves.
 | `packages/render/src/blister-verdicts.ts` | Where a blister was last drawn, for the ring of the blow that finished it |
 | `packages/render/src/blister-bodies.ts` | **The body a blister is drawn as, one record per gesture** (the owner, 14 October 2026 |
 | `packages/render/src/blister-lever-help.ts` | **THE BLISTER's LEVER help**: THE LEVER LAB's groove, band and knob down from the body, the dial while it is held |
+| `packages/render/src/blister-combo-bud.ts` | BUD, one of COMBO's two bodies: a flower with the press as its heart, shut into a bud by it, a stalk out to the knob |
+| `packages/render/src/blister-combo-curl.ts` | CURL, one of COMBO's two bodies: a round slime whose wound tail the press frees to run out to the knob |
+| `packages/render/src/blister-combo.ts` | THE BLISTER's COMBO body: BUD or CURL, picked per blister off its id and drawn 1.15× |
 | `packages/render/src/blister.ts` | THE BLISTER, drawn: |
 | `packages/render/src/canvas2d-stage.ts` | **The letterbox**: what is drawn in the window but outside the game — the paint either side of a phone-shaped stage, and the hairline saying where the phone ends |
 | `packages/render/src/canvas2d-held.ts` | **What a host may reach of the renderer's state**, as the class `Canvas2DRenderer` stands on |

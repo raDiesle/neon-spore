@@ -1,12 +1,8 @@
-import type { BlisterFrame } from "../../../../../packages/render/src/blister-bodies.js";
-import type { Body } from "../../../../../packages/render/src/creature-body-in.js";
-import { rgba } from "../../../../../packages/render/src/hex.js";
-import { PALETTE } from "../../../../../packages/render/src/palette.js";
-import {
-  blisterStrokes,
-  blisterSwipeShare,
-  blisterWayOf,
-} from "../../../../../packages/sim/src/index.js";
+import { blisterStrokes, blisterSwipeShare, blisterWayOf } from "@neon-spore/sim";
+import type { BlisterFrame } from "./blister-bodies.js";
+import type { Body } from "./creature-body-in.js";
+import { rgba } from "./hex.js";
+import { PALETTE } from "./palette.js";
 
 const TAU = Math.PI * 2;
 
@@ -14,11 +10,11 @@ const TAU = Math.PI * 2;
 const PETALS = 6;
 
 /**
- * BUD: a flower up out of the pore with the press as its heart, six petals
- * open round it. The press shuts it — the petals fold up over the heart into
- * a closed bud — and a green stalk comes out of its side and runs along the
- * pull's channel to the knob, as far as the thumb has drawn it, a leaf on it
- * half way. What the press did is on the body, on both screens.
+ * BUD, one of COMBO's two bodies (`blister-combo.ts`): a flower up out of
+ * the pore with the press as its heart, six petals open round it. The press
+ * shuts it — the petals fold up over the heart into a closed bud — and a
+ * green stalk comes out of its side and runs along the pull's channel to
+ * the knob, as far as the thumb has drawn it, a leaf on it half way. What the press did is on the body, on both screens.
  */
 export function drawBudBody(b: Body, f: BlisterFrame): void {
   const { ctx } = b;

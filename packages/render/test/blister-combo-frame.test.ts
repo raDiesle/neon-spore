@@ -12,6 +12,7 @@ import {
   ticksPerBeat,
   type World,
 } from "@neon-spore/sim";
+import { comboBodyOf } from "../src/blister-combo.js";
 import { flatCenter } from "../src/creature-place.js";
 import { computeLayout, type ViewRole } from "../src/layout.js";
 import { touchDown } from "../src/touch.js";
@@ -33,7 +34,8 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
  * THE BLISTER's COMBO, pressed and drawn (`blister-tap.ts`, `blister-help.ts`):
  * a press on one whose press is not yet done is a `tap`, and once it is, a
  * `blisterSwipe` drag — the pull come in where the tap's help was. On every
- * screen the help is drawn over a body whose shape is the TAP blister's.
+ * screen the help is drawn over BUD or CURL, one per blister by its id
+ * (`blister-combo.ts`).
  */
 
 beforeAll(installCanvasGlobals);
@@ -140,5 +142,13 @@ describe("the COMBO blister", () => {
 
   it("really pressed and pulled blows out of them", () => {
     expect(played("test").blows).toBeGreaterThan(0);
+  });
+});
+
+describe("the COMBO blister's body", () => {
+  it("is BUD for some ids and CURL for others, the same every time it is asked", () => {
+    const picks = Array.from({ length: 12 }, (_, i) => comboBodyOf(i + 1));
+    expect(new Set(picks)).toEqual(new Set([0, 1]));
+    expect(picks).toEqual(Array.from({ length: 12 }, (_, i) => comboBodyOf(i + 1)));
   });
 });

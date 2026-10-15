@@ -12,7 +12,8 @@ import { fresh, type Pose, until } from "./pose-kit.js";
  * THE BLISTER's COMBO played through by a hand of its own: up out of its pore
  * untouched, pressed, its pull carried the whole stroke and lifted — one blow
  * — all inside the two beats it stays up. It is what `blister:combo` on
- * VERSUS is judged on: a body that changes between the press and the pull,
+ * VERSUS was judged on (BUD and CURL taken, 15 October 2026): a body that
+ * changes between the press and the pull,
  * so both halves have to be on the page, and ON THE FIELD's `BLISTER ·
  * PRESSED, THE PULL HALF CARRIED` holds the second alone. On the COMPARED
  * LOOKS sheet (`poses-versus-bodies.ts`), cropped to the blister's tiles.

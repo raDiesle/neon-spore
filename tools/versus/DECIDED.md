@@ -2207,3 +2207,14 @@ CURTAIN_GLANCE in packages/render/src/curtain-glance.ts.
 
 The other answers offered were `cock`, `look` and `sway`; they went with the
 slot.
+
+## `blister:combo` — nothing taken, 2026-10-15
+
+taken by hand: the owner, 15 October 2026, liked BUD and CURL most, asked them
+a little bigger and both kept, rotated at random. Both written into
+BLISTER_BODY.combo through drawComboBody in
+packages/render/src/blister-combo.ts, which picks one per blister by its id
+and draws it 1.15 times the size offered. CLAM went with the slot.
+
+The other answers offered were `bud`, `clam` and `curl`; they went with the
+slot.

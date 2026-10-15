@@ -5,7 +5,7 @@
 > October 2026: ROOTED CLOVER, the pore, the bulge and the tap help); HOLD
 > (lane 4) the same day; SWIPE (lane 5), TURN (lane 6), RUB (lane 7) and the
 > guide and waves (lane 8) on 9 October 2026; COMBO's and LEVER's simulation and
-> help on 15 October 2026, their bodies `blister:combo` and `blister:lever` slots after them. Asked for by the owner on 7
+> help on 15 October 2026, their bodies `blister:combo` and `blister:lever` slots after them — COMBO's took BUD and CURL, one per blister, the same day. Asked for by the owner on 7
 > October 2026: a creature on the principle of whack-a-mole, removed by
 > several taps on the screen, with variants removed by a hold, a swipe, a turn
 > round it and other gestures that also work with a mouse; the director's

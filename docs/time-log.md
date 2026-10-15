@@ -41909,3 +41909,17 @@ Bottleneck: nothing tied the VERSUS list to the sheet it borrows from, so a
 split on the director's side broke a page nobody opened that day.
 
 *Measured: 5 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
+
+## 2026-10-15 — THE BLISTER's COMBO takes BUD and CURL, one per blister
+
+- reading: 10 min. VERSUS's adopt-by-hand path, the two candidates and the
+  body table they patched.
+- writing: 10 min. Both draws moved into render, a picker off the id at
+  1.15×, the slot dropped, a pick test, the index rows.
+- looking: 15 min. The COMBO blister in the director's TRY phone.
+- friction: 15 min. `bun run shot --row` reached no ON THE FIELD row by URL
+  or by `--tab CONTROLS`, and no wave carries a COMBO for `bun run frames`.
+- landing: 10 min. `check:fast` twice, for the import sort and the index.
+
+Bottleneck: looking — a body that lives only on the director has no
+one-command photograph once its VERSUS slot is gone.

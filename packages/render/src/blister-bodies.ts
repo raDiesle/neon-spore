@@ -1,4 +1,5 @@
 import type { BlisterGesture } from "@neon-spore/sim";
+import { drawComboBody } from "./blister-combo.js";
 import type { Body } from "./creature-body-in.js";
 import { drawLivingBody } from "./creature-body-living.js";
 
@@ -15,10 +16,11 @@ import { drawLivingBody } from "./creature-body-living.js";
  * round its control instead of under it — a ring with the button in its
  * mouth, a rider on the pad, arms holding the drop.
  *
- * Every record ships the clover, risen out of its pore, so the game draws what
+ * Every record shipped the clover, risen out of its pore, so the game drew what
  * it did. A body built round a control is offered on VERSUS by patching its
  * gesture's `draw` (`blister:tap` and the slots after it), and an adopted one
- * replaces that gesture's field alone.
+ * replaces that gesture's field alone: COMBO's took BUD and CURL
+ * (`blister-combo.ts`).
  */
 
 /** What `drawBlisterBody` has already worked out, handed to every body. */
@@ -59,6 +61,6 @@ export const BLISTER_BODY: Record<BlisterGesture, BlisterBodyLook> = {
   swipe: { draw: drawCloverBody, beyond: drawNothingBeyond },
   turn: { draw: drawCloverBody, beyond: drawNothingBeyond },
   rub: { draw: drawCloverBody, beyond: drawNothingBeyond },
-  combo: { draw: drawCloverBody, beyond: drawNothingBeyond },
+  combo: { draw: drawComboBody, beyond: drawNothingBeyond },
   lever: { draw: drawCloverBody, beyond: drawNothingBeyond },
 };
