@@ -41358,3 +41358,5 @@ Bottleneck: friction — the `COPIES` row's owner rule, learnt from a red test.
 
 Bottleneck: friction — a composed wave AUTO clears can still fail a render
 test the composer does not run, and that only shows in the full check.
+
+*Measured: 19 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
