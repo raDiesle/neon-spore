@@ -42419,3 +42419,5 @@ order, and its commit left out the files it created.
 
 Bottleneck: friction — `--only current` on a `screenshot` candidate still
 shows the candidate, and nothing says so.
+
+*Measured: 13 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
