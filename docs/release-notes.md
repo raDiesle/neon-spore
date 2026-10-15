@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-15 · 1dc64c121 — `bun run shot --inner` presses the sheet's tab, not the menu behind it
+
+`--open DOCUMENTATION --inner WAVES` photographed WORDINGS: the first visible button reading WAVES was the director's own menu item, ahead of the sheet's tab bar in the page. A tab in a bar on screen (an id ending `Tabs`) is now pressed first, in any case, and a label no bar has is refused with the labels it does have; a page with no bar showing still takes any visible button by its words.
+
 ## 2026-10-15 · d1f75057e — A check red only on timeouts says so, and `bun run land` runs it once more
 
 When every failure in a `bun run check` is bun's own timeout and no shard was killed, its last line now reads *timed out under load* with the load average, apart from a real failure; a run with some timeouts counts them. `bun run land` runs such a check once more by itself before reporting it, and only once. `loop-once.test.ts`, which went red at 27.7 s under another session's load, now reads only the files `git grep` names, and `drop.test.ts` declares its figure so it gets a timeout scaled to the load.
