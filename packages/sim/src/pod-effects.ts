@@ -1,7 +1,7 @@
 import { ticksPerBeat } from "./config.js";
 import { wornKind } from "./creature-rules.js";
 import { spanOf } from "./span.js";
-import { type Color, isMeteorKind } from "./types.js";
+import { type Color, isBossBody, isMeteorKind } from "./types.js";
 import type { World } from "./world.js";
 
 /**
@@ -24,9 +24,17 @@ import type { World } from "./world.js";
  * aside — a meteor cannot carry a `destroy` event, since that event names a
  * colour and a meteor has none — so it leaves a `hole` instead and pays
  * nothing. The field must be empty afterwards or the word "purge" is a lie.
+ *
+ * **Except a boss's own body.** A purge used to take that too, and the boss
+ * went on holding the wave with nothing left to finish, so the wave never
+ * ended — BULB QUEEN carries one, and a pair that caught it lost the fight
+ * that way. The owner, 15 October 2026: the purge spares the boss and clears
+ * everything else, her torches among them.
  */
 export function purge(world: World): void {
+  const spared = world.creatures.filter((c) => isBossBody(c.kind));
   for (const c of world.creatures) {
+    if (isBossBody(c.kind)) continue;
     if (isMeteorKind(c.kind)) {
       world.events.push({ type: "hole", col: c.col, row: c.row, kind: c.kind, span: spanOf(c) });
       continue;
@@ -39,7 +47,7 @@ export function purge(world: World): void {
       kind: wornKind(c),
     });
   }
-  world.creatures = [];
+  world.creatures = spared;
 }
 
 /** Hold the shield armed without a trigger for `wardBeats` beats. */

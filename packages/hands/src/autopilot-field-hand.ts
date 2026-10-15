@@ -3,6 +3,7 @@ import {
   beatPhaseTicks,
   type Color,
   type Creature,
+  fallTilesPerBeat,
   guardArmed,
   guardWindowTicks,
   isWardable,
@@ -161,10 +162,16 @@ function shield(w: World): Press[] {
   if (!occupiesCol(rock, w.shieldCol)) return [carry(rock.col)];
   // A clasp is broken at any row, the moment the dome comes up in its column.
   if (rock.kind === "clasp") return guardArmed(w) ? [] : [trigger];
-  if (rock.row < shieldRow(w.cfg) - 1 || guardArmed(w)) return [];
+  // Not until the beat it reaches the shield's row: the next for a meteor one
+  // row above, and for a torch, which falls thirteen, from almost anywhere.
+  if (rock.row + fallTilesPerBeat(rock.kind) < shieldRow(w.cfg) || guardArmed(w)) return [];
   const toBeat = ticksPerBeat(w.cfg) - beatPhaseTicks(w.cfg, w.tick);
   return toBeat <= guardWindowTicks(w.cfg) / 2 ? [trigger] : [];
 }
 
 /** Both halves, each seat's presses its own. */
 export const fieldHand: Hand = (w) => [...cannon(w), ...shield(w), ...touchBodies(w)];
+
+/** The shield's half alone, for a boss whose own hand has the cannon but who
+ * throws rocks at the hull as well — THE BULB QUEEN's torches. */
+export const shieldHand: Hand = shield;

@@ -41433,3 +41433,16 @@ Bottleneck: friction — a content rule only a test knew, so the composer
 drew a wave the game refuses, and that only showed in the full check.
 
 *Measured: 66 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
+
+## 2026-10-15 — AUTO loses BULB QUEEN and THE VANE (half one: BULB QUEEN)
+
+- reading: 10 min. Her torch clock, her hand, and probes of three seeds
+  tick by tick.
+- writing: 10 min. `shieldHand` beside hers, the shield's trigger by fall
+  speed, the pod caught first, the purge sparing a boss, two tests.
+- looking: 0 min. Nothing drawn.
+- friction: 0 min.
+- landing: 5 min.
+
+Bottleneck: reading. Seed 3 lost a different way than seed 1, by a purge taking
+her body, which only showed once the first fix was in.

@@ -32,7 +32,7 @@ the wave. *Pressure* is `wavePressure`
 | 13 | FIVE ROCKS | **regular** | — | STANDARD 4 | 5 | 28 | 42 b · 26 s | 2.4 |
 | 14 | WIDE ROCKS | **regular** | — | STANDARD 4 | 6 | 26 | 40 b · 25 s | 4.4 |
 | 15 | ROCKS BETWEEN | **regular** | — | STANDARD 4 | 8 | 34 | 48 b · 30 s | 5.4 |
-| 16 | TORCH | intro | torch | STANDARD 4 | 3 | 18 | 21 b · 13 s | 5.7 |
+| 16 | TORCH | intro | torch | STANDARD 4 | 3 | 18 | 20 b · 13 s | 5.7 |
 | 17 | ONE LAST CHANCE | intro | — | STANDARD 4 | 6 | 13 | 24 b · 15 s | 10.8 |
 | 18 | SHIELD, THEN CANNON | **regular** | — | STANDARD 4 | 2 | 5 | 15 b · 9 s | 3 |
 | 19 | THE WALL | **regular** | — | STANDARD 4 | 4 | 3 | 6 b · 4 s | 10 |
@@ -43,12 +43,12 @@ the wave. *Pressure* is `wavePressure`
 | 24 | SALVAGE | intro | purge | STANDARD 5 | 2 | 7 | 10 b · 6 s | 4.8 |
 | 25 | SAVE IT | **regular** | — | STANDARD 5 | 3 | 27 | 30 b · 19 s | 2.4 |
 | 26 | PURGE WIDE | **regular** | — | STANDARD 5 | 4 | 27 | 30 b · 19 s | 4.4 |
-| 27 | PURGE THE TORCH | **regular** | — | STANDARD 5 | 6 | 34 | 37 b · 23 s | 5.7 |
+| 27 | PURGE THE TORCH | **regular** | — | STANDARD 5 | 6 | 34 | 36 b · 23 s | 5.7 |
 | 28 | CATCH AND AIM | intro | ward | STANDARD 5 | 3 | 15 | 18 b · 11 s | 4.4 |
 | 29 | SHIELD HELD | **regular** | — | STANDARD 5 | 3 | 28 | 31 b · 19 s | 1.4 |
 | 30 | HELD WIDE | **regular** | — | STANDARD 5 | 4 | 28 | 31 b · 19 s | 3.4 |
 | 31 | FINALE | **regular** | — | STANDARD 5 | 7 | 7 | 22 b · 14 s | 20.9 |
-| 32 | BULB QUEEN | boss | queen | STANDARD 5 | 0 | 0 | AUTO fails | — |
+| 32 | BULB QUEEN | boss | queen | STANDARD 5 | 0 | 0 | 79 b · 49 s | — |
 | 33 | THE MIRROR | boss (special) | mirror | STANDARD 5 | 0 | 0 | 53 b · 33 s | — |
 | 34 | THE MAZE | boss (special) | maze | STANDARD 5 | 0 | 0 | 92 b · 58 s | — |
 | 35 | THE GAUGE | boss (special) | gauge, panel | THE GAUGE | 0 | 0 | 62 b · 39 s | — |
@@ -118,7 +118,7 @@ the wave. *Pressure* is `wavePressure`
 | 99 | HEAVY ROCKS APART | **regular** | — | STANDARD | 6 | 26 | 40 b · 25 s | 6.7 |
 | 100 | HEAVY ROCK AND VEIL | **regular** | — | STANDARD | 8 | 33 | 41 b · 26 s | 7.7 |
 | 101 | EASY HEAVY ROCKS | **regular** | — | STANDARD | 6 | 36 | 44 b · 28 s | 6.2 |
-| 102 | HEAVY ROCK RECALL | **regular** | — | STANDARD | 8 | 37 | 40 b · 25 s | 7.2 |
+| 102 | HEAVY ROCK RECALL | **regular** | — | STANDARD | 8 | 37 | 39 b · 24 s | 7.2 |
 | 103 | HEAVY ROCKS, TWINS | **regular** | — | STANDARD | 11 | 44 | 47 b · 29 s | 8.2 |
 | 104 | HEAVY ROCK PEAK | **regular** | — | STANDARD | 16 | 48 | 56 b · 35 s | 9.1 |
 | 105 | THE WISP | intro | wisp | STANDARD | 3 | 28 | 31 b · 19 s | 3 |
@@ -165,7 +165,7 @@ the wave. *Pressure* is `wavePressure`
 | 146 | GYRES FAR APART | **regular** | — | STANDARD | 6 | 28 | 36 b · 23 s | 8.4 |
 | 147 | GYRE AND RIND | **regular** | — | STANDARD | 8 | 36 | 40 b · 25 s | 9.4 |
 | 148 | EASY GYRES | **regular** | — | STANDARD | 6 | 35 | 43 b · 27 s | 7.9 |
-| 149 | GYRE RECALL | **regular** | — | STANDARD | 8 | 38 | 41 b · 26 s | 8.9 |
+| 149 | GYRE RECALL | **regular** | — | STANDARD | 8 | 38 | 40 b · 25 s | 8.9 |
 | 150 | GYRES AND TWINS | **regular** | — | STANDARD | 11 | 43 | 51 b · 32 s | 9.9 |
 | 151 | GYRE PEAK | **regular** | — | STANDARD | 16 | 48 | 54 b · 34 s | 10.9 |
 | 152 | THE LID | intro | lid | STANDARD | 3 | 24 | 27 b · 17 s | 3.3 |
@@ -281,14 +281,14 @@ the wave. *Pressure* is `wavePressure`
 | 262 | CHOIRS AND TWINS | **regular** | — | STANDARD | 12 | 44 | 48 b · 30 s | 10.8 |
 | 263 | CHOIR PEAK | **regular** | — | STANDARD | 20 | 48 | 52 b · 33 s | 12.2 |
 | 264 | THE PULSE | boss (special) | pulse, panel | THE PULSE | 0 | 0 | 137 b · 86 s | — |
-| 265 | THE BALLOON | intro | balloon | STANDARD | 6 | 36 | 65 b · 41 s | 8.1 |
-| 266 | BALLOONS AGAIN | **regular** | — | STANDARD | 5 | 30 | 57 b · 36 s | 7.8 |
-| 267 | BALLOONS SPREAD | **regular** | — | STANDARD | 6 | 26 | 42 b · 26 s | 8.8 |
-| 268 | BALLOONS FAR APART | **regular** | — | STANDARD | 6 | 28 | 44 b · 28 s | 9.8 |
-| 269 | BALLOON AND CHOIR | **regular** | — | STANDARD | 10 | 36 | 57 b · 36 s | 10.8 |
+| 265 | THE BALLOON | intro | balloon | STANDARD | 6 | 36 | 64 b · 40 s | 8.1 |
+| 266 | BALLOONS AGAIN | **regular** | — | STANDARD | 5 | 30 | 56 b · 35 s | 7.8 |
+| 267 | BALLOONS SPREAD | **regular** | — | STANDARD | 6 | 26 | 41 b · 26 s | 8.8 |
+| 268 | BALLOONS FAR APART | **regular** | — | STANDARD | 6 | 28 | 43 b · 27 s | 9.8 |
+| 269 | BALLOON AND CHOIR | **regular** | — | STANDARD | 10 | 36 | 56 b · 35 s | 10.8 |
 | 270 | EASY BALLOONS | **regular** | — | STANDARD | 6 | 37 | 43 b · 27 s | 9.3 |
-| 271 | BALLOON RECALL | **regular** | — | STANDARD | 10 | 38 | 55 b · 34 s | 10.3 |
-| 272 | BALLOONS AND TWINS | **regular** | — | STANDARD | 12 | 43 | 65 b · 41 s | 11.3 |
+| 271 | BALLOON RECALL | **regular** | — | STANDARD | 10 | 38 | 54 b · 34 s | 10.3 |
+| 272 | BALLOONS AND TWINS | **regular** | — | STANDARD | 12 | 43 | 64 b · 40 s | 11.3 |
 | 273 | BALLOON PEAK | **regular** | — | STANDARD | 15 | 48 | 52 b · 33 s | 12.2 |
 | 274 | THE BATON | boss | baton | STANDARD | 0 | 0 | 283 b · 177 s | — |
 | 275 | THE UNDERTOW | boss | undertow | STANDARD | 6 | 94 | 156 b · 98 s | — |
@@ -401,7 +401,7 @@ time × 2 — the owner's accepted guess, never measured.
 |---|---|---|---|---|---|---|
 | 9 | THE INSTAR | normal | 549 beats | 343 | 686 s | long |
 | 23 | THE BASTION | normal | 82 beats | 51 | 102 s | in band |
-| 32 | BULB QUEEN | normal | — | — | — | unknown — AUTO cannot finish it |
+| 32 | BULB QUEEN | normal | 79 beats | 49 | 98 s | in band |
 | 33 | THE MIRROR | special | 53 beats | 33 | 66 s | short |
 | 34 | THE MAZE | special | 92 beats | 58 | 116 s | in band |
 | 35 | THE GAUGE | special | 62 beats | 39 | 78 s | short |

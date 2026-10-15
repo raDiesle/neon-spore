@@ -1,6 +1,7 @@
 import type { World } from "@neon-spore/sim";
 import { clawHand } from "./autopilot-claw.js";
-import { fieldHand } from "./autopilot-field-hand.js";
+import { fieldHand, shieldHand } from "./autopilot-field-hand.js";
+import { catchPod } from "./autopilot-pod-hand.js";
 import { fleetHand } from "./boss-hand-fleet.js";
 import { hiveHand } from "./boss-hand-hive.js";
 import { pinballHand } from "./boss-hand-pinball.js";
@@ -106,7 +107,10 @@ export const AUTOPILOT_HANDS: Partial<Record<BossKind, Hand>> = {
   pinball: pinballHand,
   plumb: plumbHand,
   pulse: pulseHand,
-  queen: queenHand,
+  // Her torches break off on a clock of their own and fall to the hull in a
+  // beat, and nothing in her own hand moves the dome under them; and a shot at
+  // her can knock her pod loose, which is followed down before she is aimed at.
+  queen: (w) => [...(catchPod(w) ?? queenHand(w)), ...shieldHand(w)],
   ratchet: ratchetHand,
   reprise: repriseHand,
   scout: scoutHand,
