@@ -360,6 +360,7 @@ Prove with `bun test packages/hands` and `bun run check`.
 ## `boss-hands-handles.ts` is past 225 lines
 
 - **Found:** 2026-10-14, claude/queue-curved-pulls-the-sim-knows-only-straight-ones
+- **Taken:** 2026-10-15, main (claim: claude/queue-boss-hands-handles-ts-is-past-225-lines)
 - **Files:** `packages/hands/src/boss-hands-handles.ts`
 
 The autopilot's hands on the handled bosses are at 229 lines after THE SINEW's
