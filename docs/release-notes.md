@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-15 · e9010464b — AUTO plays THE VANE's wave to the end
+
+The vane folds the wave's two arrivals into columns of its own, and its hand answered only the bearing, so the rock landed on beat 16 and AUTO lost the wave. The field hand plays first now and the bearing takes the thumbs when the field is quiet; THE VANE clears in 51 beats, and its row in wave-curriculum-today.md has a time. No look changed: nothing is drawn differently.
+
 ## 2026-10-15 · f45307b27 — AUTO plays BULB QUEEN to the end, and a purge spares a boss's own body
 
 AUTO lost BULB QUEEN on beat 12. Her torches break off on a clock of their own and reach the hull in one beat, and her hand never moved the shield. The shield's half of the field hand now plays beside her hand, and it triggers on the beat a rock reaches the shield's row, however fast it falls. That rule is the same as before for a meteor one row up. A falling pod is caught before she is aimed at.

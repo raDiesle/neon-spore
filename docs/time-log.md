@@ -41460,3 +41460,5 @@ her body, which only showed once the first fix was in.
 - landing: 5 min.
 
 Bottleneck: none to speak of; the cause was the first thing the probe printed.
+
+*Measured: 14 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
