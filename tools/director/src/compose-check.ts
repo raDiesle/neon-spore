@@ -1,4 +1,4 @@
-import { arrivalJob, type Wave } from "@neon-spore/content";
+import { arrivalJob, tapsClash, type Wave } from "@neon-spore/content";
 import { clearBeat } from "../../probe/measure-waves.ts";
 import { worldOf } from "../../probe/world.ts";
 import { playsClean } from "./autopilot-play.js";
@@ -58,6 +58,7 @@ export function paperFaults(wave: Wave, step: Step, block: Block): string[] {
   }
   // A pod after the last body hangs over a wave that is already over.
   if (all[all.length - 1]?.pod) out.push("ends on a pod");
+  if (tapsClash(wave.entries)) out.push("a mine and a soundbox on one wave");
   if (needsBasics(step) && wave.entries.filter(isBasic).length * 2 < all.length) {
     out.push("fewer than half are slicks and bulbs");
   }

@@ -888,6 +888,7 @@ by hand never moves.
 | `packages/content/src/ship-silhouettes.ts` | the ship's own shapes: the hull it is drawn as, the two lobes that stand on it, and the maw one turns into |
 | `packages/content/src/warden-shape.ts` | THE WARDEN's body, and the only silhouette in the game with a hole in it |
 | `packages/content/src/wave-types.ts` | what a wave is made of |
+| `packages/content/src/wave-taps.ts` | **Whether a wave carries both creatures a bare finger answers** — a mine and a soundbox (THE BEATBOX) |
 | `packages/content/src/waves-demo.ts` | which wave to open to see each mechanic, and what the run has to be switched to before it shows |
 | `packages/content/src/waves-demo-bosses.ts` | where each boss from THE STARE on is watched, spread into `waves-demo.ts` |
 | `packages/content/src/waves/act-1.ts` | act one: the tutorial arc |
@@ -1007,6 +1008,7 @@ by hand never moves.
 | `packages/content/src/scenes/catch-and-aim.ts` | CATCH AND AIM's rehearsal: the hand aims, so the cannon does not have to |
 | `packages/content/src/waves/act-1b.ts` | The last of act one, cut off `act-1.ts` when that file reached the 250-line ceiling on `CATCH AND AIM` |
 | `packages/content/src/waves/act-10.ts` | Act ten, opened for THE REPRISE — `act-9.ts` had twenty-odd lines left under the 250-line ceiling |
+| `packages/content/src/waves/act-10-p2.ts` | Cut from `act-10.ts` by the director's save when that file passed the 250-line ceiling; it plays straight… |
 | `packages/content/src/waves/act-11.ts` | Act eleven, opened for THE SPOOL on 22 September 2026 |
 | `packages/content/src/waves/act-11b.ts` | Act eleven's second page, opened for THE OCULUS on 2 October 2026 |
 | `packages/content/src/waves/act-12.ts` | Act twelve, opened for THE VISE on 26 September 2026 |
@@ -1115,7 +1117,10 @@ by hand never moves.
 | `packages/content/src/silhouettes-mine.ts` | **THE MINE is REACHER**, off the shape sheet: *four soft arms |
 | `packages/content/src/waves/act-8.ts` | Act eight, opened for THE BEATBOX rather than for a chapter |
 | `packages/content/src/waves/act-8b.ts` | Act eight's second page: THE WELL and THE HANDOVER, cut off `act-8.ts` at the ceiling |
+| `packages/content/src/waves/act-8-p2.ts` | Cut from `act-8.ts` by the director's save when that file passed the 250-line ceiling; it plays straight… |
 | `packages/content/src/waves/act-9.ts` | Act nine: THE LEAK, the fault that takes the hold rather than a button, on the figure THE LANCE was taught on |
+| `packages/content/src/waves/act-9-p2.ts` | Cut from `act-9.ts` by the director's save when that file passed the 250-line ceiling; it plays straight… |
+| `packages/content/src/waves/act-9-p3.ts` | Cut from `act-9-p2.ts` by the director's save when that file passed the 250-line ceiling; it plays straight… |
 | `packages/content/src/waves/acts.ts` | **The act files, in the order of the game** — the one list of them, written by the director's save when it cuts a full act |
 | `packages/content/src/balloon-shape.ts` | THE BALLOON's contour: a skin with a knot under it, and the fifth family of contour in this package |
 | `packages/content/src/creatures-handed.ts` | **The bodies answered by hands alone**, and today there is one of them |

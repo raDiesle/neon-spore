@@ -97,6 +97,22 @@ describe("a composed block", () => {
     }
   });
 
+  test("never keeps a mine beside a soundbox, which `tap-waves.test.ts` refuses", () => {
+    // BLISTERS AGAIN, as first drawn on 15 October 2026, recalled a beatbox
+    // into THE MINE's stretch and passed every check but the game's own.
+    const b = block("theBlister");
+    const step = stepById("R1");
+    const wave = {
+      id: "clash",
+      name: "CLASH",
+      entries: [
+        { beat: 0, col: 2, kind: "mine" as const, color: null },
+        { beat: 8, col: 6, kind: "beatbox" as const, color: null },
+      ],
+    };
+    expect(paperFaults(wave, step, b)).toContain("a mine and a soundbox on one wave");
+  });
+
   test("names every step in the table it was read from", () => {
     expect(STEPS.map((s) => s.id)).toEqual(["R1", "R2", "R3", "R4", "R5", "R6", "R7", "R8"]);
   });

@@ -1,0 +1,233 @@
+import { FILAMENT_SCRIPT } from "../filament-script.js";
+import type { Wave } from "../wave-types.js";
+
+/**
+ * Cut from `act-10.ts` by the director's save when that file passed the
+ * 250-line ceiling; it plays straight after it (`acts.ts`).
+ */
+export const WAVES_ACT_10_P2: Wave[] = [
+  {
+    id: "theMoultPeak",
+    name: "MOULT PEAK",
+    variant: true,
+    entries: [
+      { beat: 0, col: 8, color: "cyan" },
+      { beat: 3, col: 7, kind: "moult", color: null, cargo: "purge" },
+      { beat: 6, col: 1, color: "cyan" },
+      { beat: 6, col: 9, color: "cyan" },
+      { beat: 10, col: 8, kind: "blister", color: null, row: 2, by: 2, count: 3 },
+      { beat: 14, col: 2, kind: "veil", color: null },
+      { beat: 18, col: 1, color: "red" },
+      { beat: 18, col: 9, color: "red" },
+      { beat: 22, col: 4, kind: "moult", color: null, cargo: "ward" },
+      { beat: 26, col: 5, kind: "blister", color: null, row: 2, by: 2, count: 3 },
+      { beat: 29, col: 2, color: "red" },
+      { beat: 29, col: 8, color: "red" },
+      { beat: 33, col: 3, kind: "veil", color: null },
+      { beat: 37, col: 10, kind: "moult", color: null, cargo: "ward" },
+      { beat: 41, col: 3, color: "red" },
+      { beat: 41, col: 7, color: "red" },
+      { beat: 45, col: 6, kind: "blister", color: null, row: 3, by: 2, count: 3 },
+      { beat: 48, col: 3, kind: "veil", color: null },
+    ],
+  },
+  {
+    id: "theReprise",
+    name: "THE REPRISE",
+    guide: {
+      scene: "theReprise",
+    },
+    entries: [
+      { beat: 0, col: 0, color: "red" },
+      { beat: 3, col: 5, color: "cyan" },
+      { beat: 6, col: 10, color: "red" },
+      { beat: 12, col: 3, color: "cyan" },
+      { beat: 14, col: 7, color: "red" },
+      { beat: 18, col: 0, color: "red" },
+      { beat: 21, col: 10, color: "cyan" },
+    ],
+    boss: { kind: "reprise", beat: 12 },
+    bossType: "normal",
+  },
+  {
+    id: "theFlip",
+    name: "THE FLIP",
+    guide: {
+      scene: "theFlip",
+    },
+    entries: [
+      { beat: 0, col: 5, color: "red" },
+      { beat: 4, col: 2, color: "cyan" },
+      { beat: 10, col: 8, color: "red" },
+      { beat: 14, col: 0, color: "cyan" },
+      { beat: 18, col: 10, color: "red" },
+      { beat: 24, col: 3, color: "cyan" },
+      { beat: 28, col: 7, color: "red" },
+      { beat: 34, col: 8, color: "cyan" },
+      { beat: 36, col: 0, color: "red" },
+      { beat: 40, col: 5, color: "cyan" },
+    ],
+    faults: [{ kind: "flip", seat: 1, at: 6 }],
+  },
+  {
+    id: "theDark",
+    name: "THE DARK",
+    guide: {
+      scene: "theDark",
+    },
+    entries: [
+      { beat: 0, col: 5, color: "red" },
+      { beat: 4, col: 2, color: "cyan" },
+      { beat: 8, col: 8, color: "red" },
+      { beat: 12, col: 3, color: "cyan" },
+      { beat: 16, col: 7, color: "red" },
+      { beat: 20, col: 0, color: "cyan" },
+      { beat: 24, col: 10, color: "red" },
+      { beat: 28, col: 5, color: "cyan" },
+      { beat: 32, col: 2, color: "red" },
+      { beat: 36, col: 8, color: "cyan" },
+    ],
+    faults: [{ kind: "dark", at: 4 }],
+  },
+  {
+    id: "theHusk",
+    name: "THE HUSK",
+    guide: {
+      scene: "theHusk",
+    },
+    entries: [
+      { beat: 3, col: 0, color: "red" },
+      { beat: 9, col: 10, color: "cyan" },
+    ],
+    pods: [
+      { beat: 0, col: 2, row: 3, kind: "ward" },
+      { beat: 0, col: 5, row: 4, kind: "purge", husk: true },
+      { beat: 6, col: 8, row: 3, kind: "purge" },
+    ],
+  },
+  {
+    id: "theHuskAgain",
+    name: "HUSKS AGAIN",
+    variant: true,
+    entries: [
+      { beat: 7, col: 0, kind: "moult", color: null, cargo: "ward" },
+      { beat: 14, col: 9, kind: "weight", color: null },
+      { beat: 27, col: 4, kind: "moult", color: null, cargo: "ward" },
+    ],
+    pods: [
+      { beat: 0, col: 3, row: 4, kind: "purge", husk: true },
+      { beat: 20, col: 7, row: 4, kind: "purge", husk: true },
+    ],
+  },
+  {
+    id: "theHuskSpread",
+    name: "HUSKS SPREAD",
+    variant: true,
+    entries: [
+      { beat: 7, col: 10, kind: "moult", color: null, cargo: "purge" },
+      { beat: 13, col: 8, kind: "carom", color: "cyan" },
+      { beat: 25, col: 1, kind: "moult", color: null, cargo: "ward" },
+      { beat: 30, col: 6, kind: "carom", color: "red" },
+    ],
+    pods: [
+      { beat: 0, col: 2, row: 4, kind: "purge", husk: true },
+      { beat: 19, col: 2, row: 4, kind: "purge", husk: true },
+    ],
+  },
+  {
+    id: "theHuskReach",
+    name: "HUSKS FAR APART",
+    variant: true,
+    entries: [
+      { beat: 6, col: 0, kind: "moult", color: null, cargo: "ward" },
+      { beat: 11, col: 8, kind: "shell", color: "cyan" },
+      { beat: 21, col: 0, kind: "moult", color: null, cargo: "ward" },
+      { beat: 26, col: 7, kind: "shell", color: "cyan" },
+    ],
+    pods: [
+      { beat: 0, col: 10, row: 4, kind: "purge", husk: true },
+      { beat: 16, col: 4, row: 4, kind: "purge", husk: true },
+    ],
+  },
+  {
+    id: "theHuskPair",
+    name: "HUSK AND MOULT",
+    variant: true,
+    entries: [
+      { beat: 0, col: 4, color: "red" },
+      { beat: 11, col: 1, color: "red" },
+      { beat: 15, col: 9, kind: "moult", color: null, cargo: "purge" },
+      { beat: 20, col: 2, color: "cyan" },
+      { beat: 20, col: 8, color: "cyan" },
+      { beat: 26, col: 7, kind: "meteor", color: null },
+      { beat: 38, col: 0, color: "red" },
+      { beat: 38, col: 10, color: "red" },
+    ],
+    pods: [
+      { beat: 6, col: 10, row: 4, kind: "purge", husk: true },
+      { beat: 32, col: 5, row: 4, kind: "purge", husk: true },
+    ],
+  },
+  {
+    id: "theHuskBreathe",
+    name: "EASY HUSKS",
+    variant: true,
+    entries: [
+      { beat: 0, col: 3, color: "red" },
+      { beat: 13, col: 0, color: "cyan" },
+      { beat: 20, col: 10, kind: "moult", color: null, cargo: "ward" },
+      { beat: 26, col: 0, color: "cyan" },
+      { beat: 33, col: 7, kind: "fence", color: null },
+      { beat: 40, col: 8, color: "cyan" },
+    ],
+    pods: [{ beat: 7, col: 4, row: 4, kind: "purge", husk: true }],
+  },
+  {
+    id: "theHuskRecall",
+    name: "HUSK RECALL",
+    variant: true,
+    entries: [
+      { beat: 0, col: 9, color: "cyan" },
+      { beat: 10, col: 2, color: "red" },
+      { beat: 15, col: 1, kind: "lure", color: "cyan" },
+      { beat: 20, col: 0, color: "red" },
+      { beat: 20, col: 10, color: "red" },
+      { beat: 32, col: 5, kind: "lure", color: "cyan" },
+      { beat: 38, col: 0, color: "red" },
+      { beat: 38, col: 10, color: "red" },
+    ],
+    pods: [
+      { beat: 5, col: 8, row: 4, kind: "purge", husk: true },
+      { beat: 26, col: 0, row: 4, kind: "purge", husk: true },
+    ],
+  },
+  {
+    id: "theHuskBend",
+    name: "HUSKS AND TWINS",
+    variant: true,
+    entries: [
+      { beat: 0, col: 9, color: "red" },
+      { beat: 11, col: 3, color: "red" },
+      { beat: 11, col: 7, color: "red" },
+      { beat: 16, col: 4, kind: "moult", color: null, cargo: "ward" },
+      { beat: 28, col: 0, color: "red" },
+      { beat: 28, col: 10, color: "red" },
+      { beat: 33, col: 1, kind: "moult", color: null, cargo: "purge" },
+      { beat: 45, col: 5, color: "red" },
+      { beat: 45, col: 8, color: "red" },
+    ],
+    pods: [
+      { beat: 6, col: 0, row: 4, kind: "purge", husk: true },
+      { beat: 22, col: 5, row: 4, kind: "purge", husk: true },
+      { beat: 39, col: 9, row: 4, kind: "purge", husk: true },
+    ],
+  },
+  {
+    id: "theFilament",
+    name: "THE FILAMENT",
+    entries: [],
+    boss: { kind: "filament", filaments: FILAMENT_SCRIPT },
+    bossType: "normal",
+    controls: "scene",
+  },
+];

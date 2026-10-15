@@ -41419,3 +41419,15 @@ Bottleneck: reading. Both blocks lost to the coil, which only showed in a probe
 of one composed draw, and THE COIL's R7 turned out to be the ramp, not AUTO.
 
 *Measured: 74 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+## 2026-10-15 — Six more blocks, THE BEATBOX to THE HUSK, and the composer keeps a mine from a soundbox
+
+- reading: 5 min. Why `tap-waves.test.ts` refused BLISTERS AGAIN.
+- writing: 15 min. Six blocks composed and named; the rule made one
+  function the test and the composer both call; three blocks composed again.
+- looking: 5 min. Every block's table read; the maps shot.
+- friction: 10 min. The first composition passed the composer and failed
+  the full check, and the Mac slept in the middle of the lane.
+- landing: 5 min.
+
+Bottleneck: friction — a content rule only a test knew, so the composer
+drew a wave the game refuses, and that only showed in the full check.

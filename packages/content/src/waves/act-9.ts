@@ -224,14 +224,15 @@ export const WAVES_ACT_9: Wave[] = [
     ],
   },
   {
-    id: "theBlister",
-    name: "THE BLISTER",
-    guide: {
-      scene: "theBlister",
-    },
+    id: "theMineAgain",
+    name: "MINES AGAIN",
+    variant: true,
     entries: [
-      { beat: 0, col: 5, kind: "blister", color: null, row: 2, by: 2, count: 3 },
-      { beat: 12, col: 2, kind: "blister", color: null, row: 3, by: 2, count: 3 },
+      { beat: 0, col: 1, kind: "mine", color: "red", row: 3, sees: 2 },
+      { beat: 8, col: 8, kind: "weight", color: null },
+      { beat: 15, col: 2, kind: "meteor", color: null, cross: 1, row: 4 },
+      { beat: 21, col: 8, kind: "mine", color: "cyan", row: 6, sees: 2 },
+      { beat: 29, col: 9, kind: "weight", color: null },
     ],
   },
 ];

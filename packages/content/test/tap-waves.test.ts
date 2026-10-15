@@ -1,5 +1,5 @@
 import { describe, expect, it } from "bun:test";
-import { WAVES } from "../src/index.js";
+import { tapsClash, WAVES } from "../src/index.js";
 
 /**
  * **The two creatures answered by a finger on the field, and why no wave may
@@ -25,15 +25,11 @@ import { WAVES } from "../src/index.js";
  * come back and change this file, which is the conversation it should be.
  */
 
-const holds = (kinds: readonly string[], kind: string): boolean => kinds.includes(kind);
-
 describe("the two creatures a bare finger answers", () => {
   it("never puts a mine and a soundbox on one wave", () => {
     for (const wave of WAVES) {
-      const kinds = wave.entries.map((e) => e.kind ?? "");
-      const both = holds(kinds, "mine") && holds(kinds, "beatbox");
       expect(
-        both,
+        tapsClash(wave.entries),
         `${wave.name} carries a mine and a soundbox: a blind tap that lands on a box is eaten by it`,
       ).toBe(false);
     }

@@ -35,9 +35,13 @@ import { WAVES_ACT_7E_P2 } from "./act-7e-p2.js";
 import { WAVES_ACT_7F } from "./act-7f.js";
 import { WAVES_ACT_7G } from "./act-7g.js";
 import { WAVES_ACT_8 } from "./act-8.js";
+import { WAVES_ACT_8_P2 } from "./act-8-p2.js";
 import { WAVES_ACT_8B } from "./act-8b.js";
 import { WAVES_ACT_9 } from "./act-9.js";
+import { WAVES_ACT_9_P2 } from "./act-9-p2.js";
+import { WAVES_ACT_9_P3 } from "./act-9-p3.js";
 import { WAVES_ACT_10 } from "./act-10.js";
+import { WAVES_ACT_10_P2 } from "./act-10-p2.js";
 import { WAVES_ACT_11 } from "./act-11.js";
 import { WAVES_ACT_11B } from "./act-11b.js";
 import { WAVES_ACT_12 } from "./act-12.js";
@@ -96,9 +100,13 @@ export const WAVE_ACTS: readonly (readonly Wave[])[] = [
   WAVES_ACT_7F,
   WAVES_ACT_7G,
   WAVES_ACT_8,
+  WAVES_ACT_8_P2,
   WAVES_ACT_8B,
   WAVES_ACT_9,
+  WAVES_ACT_9_P2,
+  WAVES_ACT_9_P3,
   WAVES_ACT_10,
+  WAVES_ACT_10_P2,
   WAVES_ACT_11,
   WAVES_ACT_11B,
   WAVES_ACT_12,

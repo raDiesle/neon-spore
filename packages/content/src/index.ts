@@ -193,6 +193,7 @@ export {
   wavePressure,
 } from "./wave-pressure.js";
 export { isRegularWave, waveIntroduces } from "./wave-regular.js";
+export { tapsClash } from "./wave-taps.js";
 export { freshWaveId } from "./wave-types.js";
 export {
   type BossType,
