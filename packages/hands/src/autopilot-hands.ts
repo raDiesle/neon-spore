@@ -94,7 +94,9 @@ export const AUTOPILOT_HANDS: Partial<Record<BossKind, Hand>> = {
   instar: instarHand,
   keel: keelHand,
   lamprey: lampreyHand,
-  lead: leadHand,
+  // Its lean throws torches and rocks at the hull, and nothing in its own
+  // hand moves the dome.
+  lead: (w) => [...leadHand(w), ...shieldHand(w)],
   ledger: ledgerHand,
   mantle: mantleHand,
   mimic: mimicHand,

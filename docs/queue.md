@@ -328,15 +328,31 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/skipped.test.ts` holds the listing's count of the entries
 `next` stepped past and why.
 
-## AUTO loses THE LEAD and THE SCUTTLE
+## AUTO loses THE SCUTTLE
 
 - **Found:** 2026-10-14, claude/wave-plan
 - **Taken:** 2026-10-15, main (claim: claude/queue-auto-loses-the-lead-and-the-scuttle)
-- **Files:** `packages/sim/src/lead-hand.ts`, `packages/sim/src/scuttle-hand.ts`, `docs/spec/wave-curriculum-today.md`
+- **Files:** `packages/hands/src/autopilot-hands.ts`, `packages/hands/src/boss-hands-field.ts`, `docs/spec/wave-curriculum-today.md`
 
-As above, for these two bosses. Fix the hands, add a play-to-the-end test for
-each, fill in the rows. Prove with `bun test packages/hands` and
-`bun run check`.
+Half of "AUTO loses THE LEAD and THE SCUTTLE". THE LEAD is played since
+claude/queue-auto-loses-the-lead-and-the-scuttle: the shield's half plays beside
+its hand (`lead-wave.test.ts`). Left: THE SCUTTLE, which AUTO loses three ways,
+each found with `tools/probe` tick by tick:
+
+- its hand alone lets a thrown pod (a hanging `ward`, `scuttle-step.ts`
+  `throwPart`) fall to the skin on beat 38 — `catchPod` first fixes that, but
+  `either(fieldHand, scuttleHand)` thrashes the cannon between the pod and the
+  live part, since the field hand says nothing while it waits under a pod;
+- the field hand first starves the frame: every part is thrown, the last one
+  wound up, and its beam is stopped by the rock and the wrong-coloured bulb
+  standing in the same column, so the last part goes through the hull at 53;
+- the frame first leaves the thrown slimes to reach the hull at 52.
+
+A first try that answers a coloured body within five rows of the hull before
+the frame, keeps the cannon on the wind-up, and catches pods first still loses
+at 53. What is missing is likely clearing the wind-up's column before the
+lance fills. Then a play-to-the-end test and the row. Prove with
+`bun test packages/hands` and `bun run check`.
 
 ## `keys.ts` is four lines under the line ceiling
 

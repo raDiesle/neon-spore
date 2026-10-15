@@ -41493,3 +41493,16 @@ FIELD names its cards by the enemy, not the row.
 Bottleneck: none to speak of; both were the same miss as BULB QUEEN's.
 
 *Measured: 6 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-15 — AUTO loses THE LEAD and THE SCUTTLE (half one: THE LEAD)
+
+- reading: 20 min. A probe of each, then THE SCUTTLE tick by tick through
+  three different losses before splitting it off.
+- writing: 10 min. The shield's half beside THE LEAD's hand, a test of five
+  seeds, and three tries at THE SCUTTLE, set aside.
+- looking: 0 min. Nothing drawn.
+- friction: 0 min.
+- landing: 5 min.
+
+Bottleneck: reading. THE SCUTTLE lost a new way after each fix, and the last
+one only showed in a per-tick trace of the lance's fill.

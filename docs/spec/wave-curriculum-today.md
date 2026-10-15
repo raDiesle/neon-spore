@@ -299,7 +299,7 @@ the wave. *Pressure* is `wavePressure`
 | 280 | THE SINEW | boss | sinew | STANDARD | 0 | 0 | 44 b · 28 s | — |
 | 281 | THE LEDGER | boss | ledger | STANDARD | 8 | 82 | 32 b · 20 s | — |
 | 282 | THE SURGE | boss | surge | STANDARD | 8 | 76 | 44 b · 28 s | — |
-| 283 | THE LEAD | boss | lead | STANDARD | 8 | 84 | AUTO fails | — |
+| 283 | THE LEAD | boss | lead | STANDARD | 8 | 84 | 40 b · 25 s | — |
 | 284 | THE SCUTTLE | boss | scuttle | STANDARD | 0 | 0 | AUTO fails | — |
 | 285 | THE ANTIPHON | boss | antiphon | STANDARD | 0 | 0 | 56 b · 35 s | — |
 | 286 | THE HIVE | boss | hive | STANDARD | 0 | 0 | 74 b · 46 s | — |
@@ -423,7 +423,7 @@ time × 2 — the owner's accepted guess, never measured.
 | 280 | THE SINEW | normal | 44 beats | 28 | 56 s | short |
 | 281 | THE LEDGER | normal | 32 beats | 20 | 40 s | short |
 | 282 | THE SURGE | normal | 44 beats | 28 | 56 s | short |
-| 283 | THE LEAD | normal | — | — | — | unknown — AUTO cannot finish it |
+| 283 | THE LEAD | normal | 40 beats | 25 | 50 s | short |
 | 284 | THE SCUTTLE | normal | — | — | — | unknown — AUTO cannot finish it |
 | 285 | THE ANTIPHON | normal | 56 beats | 35 | 70 s | in band |
 | 286 | THE HIVE | normal | 74 beats | 46 | 92 s | in band |
