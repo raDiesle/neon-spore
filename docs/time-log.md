@@ -41566,3 +41566,15 @@ Bottleneck: landing; the move itself was mechanical.
 Bottleneck: landing; the move itself was mechanical.
 
 *Measured: 3 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-15 — `bun run profile`: a script's time, function by function
+
+- reading: 5 min. What `bun --cpu-prof` writes, on a scratch script.
+- writing: 15 min. The fold, the command around it, a test on a hand-written
+  profile, and its line in the skill and in `docs/commands.md`.
+- looking: 0 min. Nothing drawn.
+- friction: 0 min.
+- landing: 5 min.
+
+Bottleneck: writing; the test's own profile was wrong the first time, a
+sample too many for its deltas.

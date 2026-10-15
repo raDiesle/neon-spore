@@ -32,6 +32,7 @@
     "orphans": "bun run tools/orphans/run.ts",
     "maze": "bun run tools/maze/run.ts",
     "perf": "bun run tools/perf/run.ts",
+    "profile": "bun run tools/perf/profile.ts",
     "baseline:blank": "bun run tools/perf/blank.ts",
     "port": "bun run tools/port.ts",
     "probe": "bun run tools/probe/run.ts",

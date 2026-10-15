@@ -3729,6 +3729,8 @@ by hand never moves.
 | `tools/perf/renumber.ts` | a merged baseline put back on today's wave numbers |
 | `tools/perf/held.ts` | WHAT A MEASUREMENT PRESSES, AND ON WHICH WAVE |
 | `tools/perf/peak.ts` | STANDING A WAVE WHERE IT IS MEASURED |
+| `tools/perf/profile-fold.ts` | **A `.cpuprofile` folded into time per function** — self, and total with everything it called |
+| `tools/perf/profile.ts` | `bun run profile <file.ts>` — which functions a script spends its time in |
 | `tools/perf/unmeasured.ts` | A BASELINE ROW FOR A WAVE NOBODY HAS MEASURED |
 | `tools/perf/blank.ts` | `bun run baseline:blank` — brings the baseline up to the waves the game ships today; opens no browser and measures nothing, so it is not spelled `perf` and any session may run it |
 | `tools/director/src/cell-config-rows.ts` | **How a row under the selected cell is drawn, and what each of its values is called** |

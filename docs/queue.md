@@ -357,20 +357,6 @@ Probe with a twelve-seed loop over `startWave(world, 0, [], [], { kind:
 bodies in their column. Add each seed that clears to `scuttle-wave.test.ts`.
 Prove with `bun test packages/hands` and `bun run check`.
 
-## No command profiles a render function by name
-
-- **Found:** 2026-10-14, claude/queue-the-pull-labs-fizz-knob-costs-400-rings-a-call
-- **Taken:** 2026-10-15, main (claim: claude/queue-no-command-profiles-a-render-function-by-name)
-- **Files:** `tools/perf/`, `package.json`
-
-Finding why a FIZZ knob cost 0.4 ms took a scratch script calling it 5000
-times on the stub canvas under `bun --cpu-prof` (`bun test --cpu-prof` writes
-no profile), and a second scratch script folding the `.cpuprofile` into self
-and total time per function. That fold named `rimAt` at 86% at once. Make it
-a command — `bun run profile <file.ts>` running a script and printing the top
-functions by self and total time — with a test of the fold on a small
-hand-written profile, and name it in the render-perf skill.
-
 ## `mirror-grip.test.ts` is past the line ceiling
 
 - **Found:** 2026-10-14, claude/queue-holds-as-the-hold-labs-drop-the-baton-the-mirror

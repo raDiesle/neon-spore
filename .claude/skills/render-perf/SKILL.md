@@ -24,6 +24,12 @@ with three or more creatures, and the other seat's role, thirty frames each.
 `packages/render/test/frame-budget.test.ts` builds exactly this; copy its setup
 rather than inventing one.
 
+The stub says *how many* calls; when the question is *which function* the time
+goes to, put the call in a loop a few thousand times in a scratch script and
+run `bun run profile <script.ts>`: the functions by self and by total time.
+That is how `rimAt` was found at 86% of a FIZZ knob. `bun test --cpu-prof`
+writes no profile, so copy the loop out of the test rather than profiling it.
+
 ## 2. Change one thing
 
 One at a time, re-running the log after each. The diff is the judge:
