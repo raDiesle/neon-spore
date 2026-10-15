@@ -4,6 +4,7 @@ import {
   type Wave,
   waveIntroduces,
   wavePressure,
+  waveTalk,
 } from "@neon-spore/content";
 import { beatSeconds, DEFAULT_CONFIG } from "@neon-spore/sim";
 import { TUTORIAL_LAST_ID } from "./compose-steps.js";
@@ -51,6 +52,8 @@ export interface WaveRow {
   clearBeat: number | undefined;
   autoSeconds: number | undefined;
   pressure: number | undefined;
+  /** What the pair has to say out loud, at its peak (`waveTalk`). */
+  talk: number | undefined;
   /** The rail's grouping: the head this row folds under (-1 for a head), and
    * how many fold under it (`rail-groups.ts`). */
   head: number;
@@ -96,6 +99,7 @@ export function waveRows(
       autoSeconds:
         clearBeat === undefined || clearBeat < 0 ? undefined : Math.round(clearBeat * seconds),
       pressure: wavePressure(wave),
+      talk: waveTalk(wave),
       head: groups.head[index] ?? -1,
       size: groups.size[index] ?? 0,
       flags: [],

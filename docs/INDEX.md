@@ -891,6 +891,7 @@ by hand never moves.
 | `packages/content/src/warden-shape.ts` | THE WARDEN's body, and the only silhouette in the game with a hole in it |
 | `packages/content/src/wave-types.ts` | what a wave is made of |
 | `packages/content/src/wave-taps.ts` | **Whether a wave carries both creatures a bare finger answers** — a mine and a soundbox (THE BEATBOX) |
+| `packages/content/src/wave-talk.ts` | **A wave's talk**: how much the pair has to say out loud to answer it — the owner, 15 October 2026 |
 | `packages/content/src/waves-demo.ts` | which wave to open to see each mechanic, and what the run has to be switched to before it shows |
 | `packages/content/src/waves-demo-bosses.ts` | where each boss from THE STARE on is watched, spread into `waves-demo.ts` |
 | `packages/content/src/waves/act-1.ts` | act one: the tutorial arc |

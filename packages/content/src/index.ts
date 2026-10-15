@@ -194,6 +194,15 @@ export {
   wavePressure,
 } from "./wave-pressure.js";
 export { isRegularWave, waveIntroduces } from "./wave-regular.js";
+export {
+  arrivalTalk,
+  FAULT_TALK,
+  KIND_TALK,
+  TALK_COST,
+  TALK_WINDOW_BEATS,
+  type TalkFact,
+  waveTalk,
+} from "./wave-talk.js";
 export { tapsClash } from "./wave-taps.js";
 export { freshWaveId } from "./wave-types.js";
 export {

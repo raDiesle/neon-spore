@@ -33,6 +33,7 @@ describe("flagsOf", () => {
     autoSeconds:
       clearBeat === undefined || clearBeat < 0 ? undefined : Math.round(clearBeat * 0.625),
     pressure: undefined,
+    talk: undefined,
     head: 39,
     size: 0,
     flags: [],

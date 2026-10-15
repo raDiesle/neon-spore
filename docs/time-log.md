@@ -42568,3 +42568,16 @@ second half.
 Bottleneck: the losses were AUTO's hand, not the waves, and only a trace said so.
 
 *Measured: 13 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-15 — A wave's talk: the facts said aloud, beside its pressure
+
+- reading: 10 min. Pressure, every kind's radar, controls and description,
+  the roles, the fault kinds.
+- writing: 15 min. The facts of every kind and fault, `waveTalk`, the Talk
+  column, tests, the doc's paragraph.
+- looking: 5 min. Talk against pressure, and where each talk cost is taught.
+- friction: 0 min.
+- landing: 5 min.
+
+Bottleneck: reading — each kind's facts were judged off its own description,
+forty-seven of them.

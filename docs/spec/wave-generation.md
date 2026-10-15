@@ -73,6 +73,20 @@ the job changes (a red after a cyan, a shield after a shot) and when two land
 together; every fault adds 2. It is the number at the end of each row of the
 director's wave list.
 
+Pressure counts what the hands do. **Talk** (`waveTalk`, in
+`packages/content/src/wave-talk.ts`) counts what the voices do: each kind is
+scored by the facts one player must hand the other per arrival — *where* (1),
+a colour or a moment it does not wear plainly (1), something only one seat is
+drawn at all (2), a column that changes on the way down (1), the cannon and
+the shield both answering it (1) — and a wave by the most facts inside any 8
+beats, plus what each fault costs to say (CODEX, HANDOVER and FLIP 3, the
+others 1–2). It is the **Talk** column of DOCUMENTATION › WAVES. Measured on
+15 October 2026 it follows pressure only loosely (correlation 0.56), and the
+order it reads is not the curriculum's yet: VEIL, WISP and GHOST (4 each) are
+taught before wave 140 while LIMPET, LEECH, BEATBOX and WEIGHT (1 each) come
+after 300, and every fault is taught after wave 270. The composer does not
+aim at talk yet.
+
 Inside a block, pressure climbs in small steps:
 
 - **R1** aims at the lower quarter of what the block's draws can reach, and

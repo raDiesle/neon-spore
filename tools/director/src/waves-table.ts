@@ -27,7 +27,8 @@ const COLUMNS = [
   ["Span", "Beat of the last arrival"],
   ["AUTO s", "Seconds to a clear field, AUTO on both seats"],
   ["Pair s", "A pair, about: AUTO × 2"],
-  ["Press.", "wavePressure"],
+  ["Press.", "wavePressure: what the hands do"],
+  ["Talk", "waveTalk: the facts said aloud in the busiest eight beats"],
   ["Notes", "What is out of range, worst first"],
 ] as const;
 
@@ -169,6 +170,7 @@ export function waveTable(
       cell(row.clearBeat === -1 ? "fails" : num(row.autoSeconds), "auto", row.flags),
       cell(num(pairSeconds(row)), "pair", row.flags),
       cell(num(row.pressure), "pressure", row.flags),
+      cell(num(row.talk), "talk", row.flags),
       notes,
     );
     trs.push(tr);
