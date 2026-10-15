@@ -38,6 +38,7 @@ import type { HoldSpec } from "./spec.js";
  *   --hold throatAim=0,y=-3000      THE THROAT: the navigator carrying the mouth three rows up
  *   --hold throatPump=0,id=4        and the pilot's thumb four turns into the pump's rub
  *   --hold scuttlePart=1000,id=10   THE SCUTTLE: the pilot carrying part 10 a column right
+ *   --hold blisterSwipe=0,y=-900,id=3  THE BLISTER: the navigator's stroke up, part way, on body 3
  *
  * The distance is in **thousandths of a tile**, which is what a `drag` carries
  * on the wire — two phones of different widths share no pixel and do share a

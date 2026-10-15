@@ -328,20 +328,6 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/skipped.test.ts` holds the listing's count of the entries
 `next` stepped past and why.
 
-## `bun run frames --hold` has no BLISTER stroke
-
-- **Found:** 2026-10-15, claude/blister-swipe-take
-- **Taken:** 2026-10-15, main (claim: claude/queue-bun-run-frames-hold-has-no-blister-stroke)
-- **Files:** `tools/frames/hold-targets.ts`, `tools/frames/hold.ts`, `tools/frames/test/`
-
-A SWIPE or COMBO blister carried part way — SLUG stretched to the knob, ZIP
-gaping behind it — cannot be photographed from a wave: `--hold` knows no
-`blisterSwipe`, so `frames . --wave "FIVE BLISTERS" --entry 0:gesture=swipe`
-shows the body only at rest. Add `blisterSwipe` to `hold-targets.ts` (an `id`,
-`fromMilli` across and `y=` down, as `balloonLeft` and `sinewLeft` take them),
-a recipe line in `--help`, and a test that a held stroke reaches the world as
-a `drag` on the body's id.
-
 ## `bun run versus drop` waits minutes on almost no CPU
 
 - **Found:** 2026-10-15, claude/blister-turn

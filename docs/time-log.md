@@ -42130,3 +42130,16 @@ Bottleneck: the frames run's two builds, 144 s of a five-minute lane.
 Bottleneck: reading — where the list's folds live, for a two-button change.
 
 *Measured: 25 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
+
+## 2026-10-15 — `bun run frames --hold blisterSwipe` holds the stroke part way
+
+- reading: 5 min. The queue entry, `hold.ts`, the row that already existed
+  and lifted, `blister-swipe.ts` counting a stroke while it is held.
+- writing: 5 min. The rows held, a recipe in `--help` and in `hold.ts`, a
+  test that drives a world.
+- looking: 5 min. One frame of FIVE BLISTERS with the knob part way up.
+- friction: 5 min. Finding the body's id and the tick it is up took a probe;
+  two frames at a tick it was down said only *unheard*.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: no flag says when a body is up or what its id is.

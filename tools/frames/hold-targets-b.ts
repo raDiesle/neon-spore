@@ -170,10 +170,14 @@ export const ROWS: Record<string, Row> = {
   hydraCoilRight: { seat: 2 },
   hydraEyeLeft: {},
   hydraEyeRight: { seat: 2 },
-  // `blister-swipe.ts`: a stroke across a SWIPE blister, judged on the lift's
-  // carry; the navigator's, the default `by`, and the pilot's for `by` 1.
-  blisterSwipe: { seat: 2, id: true, swipe: true },
-  blisterSwipe1: { as: "blisterSwipe", id: true, swipe: true },
+  // `blister-swipe.ts`: a stroke across a SWIPE or COMBO blister, `fromMilli`
+  // across and `y=` down; the navigator's, the default `by`, and the pilot's
+  // for `by` 1. **Held, not lifted**: a stroke counts the moment it is carried
+  // `blisterSwipeMilli`, so a full one still deals its blow, and one carried
+  // part way is the body stretched — SLUG to the knob, ZIP gaping — which a
+  // lifted stroke never shows (15 October 2026).
+  blisterSwipe: { seat: 2, id: true },
+  blisterSwipe1: { as: "blisterSwipe", id: true },
   // `blister-turn.ts`: a bearing round a TURN blister, the crank's reading;
   // the navigator's, the default `by`, and the pilot's for `by` 1.
   blisterTurn: { seat: 2, id: true },
