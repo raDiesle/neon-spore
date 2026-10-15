@@ -63,6 +63,7 @@ export {
   type Prime,
   primeChargeMilli,
   primeColor,
+  primeTicks,
   priming,
 } from "./lance.js";
 export { latchBowFromMilli, latchBowPath, latchBowPoint, latchBowShare } from "./latch-bow.js";
@@ -91,7 +92,7 @@ export {
   lidWayVec,
 } from "./lid-way.js";
 export { isLockedOn, lockedBody } from "./lock.js";
-export { mawOpen, podKindOf } from "./pods.js";
+export { mawOpen, podKindOf, podTicksToHull } from "./pods.js";
 export {
   PULL_TAP_MILLI,
   type Pull,

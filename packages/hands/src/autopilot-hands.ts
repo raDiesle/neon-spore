@@ -2,6 +2,7 @@ import type { World } from "@neon-spore/sim";
 import { clawHand } from "./autopilot-claw.js";
 import { fieldHand, shieldHand } from "./autopilot-field-hand.js";
 import { catchPod } from "./autopilot-pod-hand.js";
+import { scuttleWaveHand } from "./autopilot-scuttle.js";
 import { fleetHand } from "./boss-hand-fleet.js";
 import { hiveHand } from "./boss-hand-hive.js";
 import { pinballHand } from "./boss-hand-pinball.js";
@@ -10,7 +11,7 @@ import { batonHand, throatHand } from "./boss-hands-beats.js";
 import { capstanHand } from "./boss-hands-capstan.js";
 import { chrysalisHand } from "./boss-hands-chrysalis.js";
 import { leadHand, ledgerHand, tasterHand } from "./boss-hands-clocks.js";
-import { curtainHand, gorgeHand, scuttleHand } from "./boss-hands-field.js";
+import { curtainHand, gorgeHand } from "./boss-hands-field.js";
 import { flueHand } from "./boss-hands-flue.js";
 import { gallHand } from "./boss-hands-gall.js";
 import { gaugeHand } from "./boss-hands-gauge.js";
@@ -119,7 +120,7 @@ export const AUTOPILOT_HANDS: Partial<Record<BossKind, Hand>> = {
   reprise: repriseHand,
   scout: scoutHand,
   seam: seamHand,
-  scuttle: scuttleHand,
+  scuttle: scuttleWaveHand,
   sinew: sinewHand,
   snake: snakeHand,
   splice: spliceHand,

@@ -15,6 +15,7 @@ import {
   gorgeRowOf,
   gorgeSated,
   gorgeTapSeat,
+  occupiesCol,
   type ScuttleState,
   scuttleBoss,
   scuttlePartCol,
@@ -196,6 +197,20 @@ function swingPart(w: World, s: ScuttleState): Press[] {
 }
 
 /**
+ * The colour the last part's beam is filled in: the lowest coloured body
+ * standing in its column, because the beam burns through its own colour and
+ * stops at the other, and ends the frame in either (`sim/scuttle-shot.ts`).
+ * The part's own colour when the column is clear.
+ */
+function beamColor(w: World, col: number, s: ScuttleState): Color {
+  let low: Creature | undefined;
+  for (const c of w.creatures) {
+    if (occupiesCol(c, col) && c.color !== null && (low === undefined || c.row > low.row)) low = c;
+  }
+  return low?.color ?? s.parts[s.live]?.color ?? "red";
+}
+
+/**
  * THE SCUTTLE: the live part's colour up the column it hangs over while it
  * is there to shoot (`scuttleStruck`) — the column it was carried to, if the
  * pilot carried it (`scuttlePartCol`); winding the last one back, only the
@@ -209,7 +224,7 @@ export const scuttleHand: Hand = (w) => {
   if (w.cannonCol !== col) return [...out, aim(col)];
   if (scuttleWinding(s)) {
     if (w.prime?.spent) return [...out, thumb(false, w.prime.color)];
-    return w.prime === null ? [...out, thumb(true, s.parts[s.live]?.color ?? "red")] : out;
+    return w.prime === null ? [...out, thumb(true, beamColor(w, col, s))] : out;
   }
   if (!scuttleShootable(s)) return out;
   return free(w) ? [...out, fire(s.parts[s.live]?.color ?? "red")] : out;

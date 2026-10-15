@@ -175,3 +175,8 @@ export const fieldHand: Hand = (w) => [...cannon(w), ...shield(w), ...touchBodie
 /** The shield's half alone, for a boss whose own hand has the cannon but who
  * throws rocks at the hull as well — THE BULB QUEEN's torches. */
 export const shieldHand: Hand = shield;
+
+/** The cannon's half alone, for a boss whose own hand wants the cannon too
+ * and gives it up only to a body near the hull — THE SCUTTLE's
+ * (`autopilot-scuttle.ts`). */
+export const cannonHand: Hand = cannon;

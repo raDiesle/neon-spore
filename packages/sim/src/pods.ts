@@ -68,6 +68,13 @@ function fallMilli(world: World): number {
   return Math.round((world.cfg.podFallTilesPerBeat * MILLI) / ticksPerBeat(world.cfg));
 }
 
+/** Ticks before a loose pod reaches the mouth at the hull, at the rate
+ * `advancePods` drops it — for a hand that has to choose between it and
+ * something else on a clock. */
+export function podTicksToHull(world: World, pod: Pod): number {
+  return Math.max(0, Math.ceil((hullRow(world.cfg) * MILLI - pod.rowMilli) / fallMilli(world)));
+}
+
 function driftMilli(world: World): number {
   return Math.round((world.cfg.podDriftTilesPerBeat * MILLI) / ticksPerBeat(world.cfg));
 }

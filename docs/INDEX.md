@@ -2975,6 +2975,7 @@ by hand never moves.
 | `packages/hands/src/autopilot-claw.ts` | **THE CLAW, on AUTO** (`sim/reach.ts`, `sim/crank.ts`) |
 | `packages/hands/src/autopilot-jam.ts` | **THE JAM, on AUTO**: the runaway cannon under the next beat's colour, or an empty column |
 | `packages/hands/src/autopilot-blister.ts` | THE BLISTER on AUTO — tap, hold, swipe, turn and rub, a blow a beat from the seat its BY names |
+| `packages/hands/src/autopilot-scuttle.ts` | **THE SCUTTLE's wave, played by AUTO**: the frame throws its hanging parts down their columns on a clock |
 | `packages/hands/src/hand.ts` | **A hand on the controls, reading the field as it goes**: what the pair presses this tick |
 
 ### apps/game

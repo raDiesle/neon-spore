@@ -332,27 +332,30 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 
 - **Found:** 2026-10-14, claude/wave-plan
 - **Taken:** 2026-10-15, main (claim: claude/queue-auto-loses-the-lead-and-the-scuttle)
-- **Files:** `packages/hands/src/autopilot-hands.ts`, `packages/hands/src/boss-hands-field.ts`, `docs/spec/wave-curriculum-today.md`
+- **Files:** `packages/hands/src/autopilot-scuttle.ts`, `packages/hands/src/boss-hands-field.ts`, `packages/hands/test/scuttle-wave.test.ts`, `docs/spec/wave-curriculum-today.md`
 
 Half of "AUTO loses THE LEAD and THE SCUTTLE". THE LEAD is played since
-claude/queue-auto-loses-the-lead-and-the-scuttle: the shield's half plays beside
-its hand (`lead-wave.test.ts`). Left: THE SCUTTLE, which AUTO loses three ways,
-each found with `tools/probe` tick by tick:
+claude/queue-auto-loses-the-lead-and-the-scuttle, and THE SCUTTLE clears nine
+seeds in twelve since the same branch (`autopilot-scuttle.ts`: a pod first, a
+slime near the hull before the live part, the wind-up's fill before a pod that
+lands after it, the beam filled in its column's colour). Left: seeds 1, 3 and
+9, and seed 1 is the one `waves:measure` plays, so the row still says
+`AUTO fails`.
 
-- its hand alone lets a thrown pod (a hanging `ward`, `scuttle-step.ts`
-  `throwPart`) fall to the skin on beat 38 — `catchPod` first fixes that, but
-  `either(fieldHand, scuttleHand)` thrashes the cannon between the pod and the
-  live part, since the field hand says nothing while it waits under a pod;
-- the field hand first starves the frame: every part is thrown, the last one
-  wound up, and its beam is stopped by the rock and the wrong-coloured bulb
-  standing in the same column, so the last part goes through the hull at 53;
-- the frame first leaves the thrown slimes to reach the hull at 52.
+- **1 and 3**: a rock the frame threw some beats earlier stands in the last
+  part's column through the wind-up, and a rock stops the beam
+  (`lance-burn.ts`). On seed 1 it is the live part of beat 41, swung *into*
+  that column by `swingPart` and thrown unstruck while the cannon answered
+  slimes. Swinging away from the columns still attached, or striking a rock
+  part before a slime that is not yet near, may be the play.
+- **9**: the second-to-last throw is a pod, and it lands before any fill
+  started on the wind-up's beat could complete — the cannon cannot do both.
+  Not shooting a hanging pod loose in the frame's last cycles may be the play.
 
-A first try that answers a coloured body within five rows of the hull before
-the frame, keeps the cannon on the wind-up, and catches pods first still loses
-at 53. What is missing is likely clearing the wind-up's column before the
-lance fills. Then a play-to-the-end test and the row. Prove with
-`bun test packages/hands` and `bun run check`.
+Probe with a twelve-seed loop over `startWave(world, 0, [], [], { kind:
+"scuttle" })`, printing `scuttleWind`, `lanceFull` and `scuttleLast` with the
+bodies in their column. Add each seed that clears to `scuttle-wave.test.ts`.
+Prove with `bun test packages/hands` and `bun run check`.
 
 ## `keys.ts` is four lines under the line ceiling
 

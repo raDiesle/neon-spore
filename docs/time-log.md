@@ -41527,3 +41527,16 @@ Bottleneck: writing — a new drag target is six registrations outside the
 simulation, each found by the typecheck one at a time.
 
 *Measured: 17 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-15 — AUTO plays THE SCUTTLE on nine seeds of twelve (half two, in part)
+
+- reading: 25 min. Twelve seeds traced through the wind-up: the column's
+  bodies at the fill, the pod against the fill, the rock the pilot swung.
+- writing: 15 min. `autopilot-scuttle.ts`, the beam's colour, the pod's
+  ticks to the hull exported from `pods.ts`, and a test of nine seeds.
+- looking: 0 min. Nothing drawn.
+- friction: 0 min.
+- landing: 5 min.
+
+Bottleneck: reading. Every seed lost its own way, and the three left need a
+play several beats before the loss, which a trace of the loss does not show.
