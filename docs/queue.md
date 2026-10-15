@@ -376,3 +376,28 @@ nothing assigns `BLISTER_HAND_DEAD` any more. Its checks in
 `hash-creature-tail.ts` that describe *a hand the sink left on it* are all
 unreachable. Remove them, keep the hash's field order stable or re-record
 what moves, and prove it with `bun run check`.
+
+## `bun run land` fails on test timeouts under other sessions' load
+
+- **Found:** 2026-10-15, claude/waves-fold-and-page
+- **Files:** `tools/check/`, `tools/director/test/loop-once.test.ts`, `tools/versus/test/drop.test.ts`
+
+Landing a two-button change failed twice before it passed the third time, each
+time on a different test timing out under a load average of 30 from other
+sessions' checks: *only stage-loop.ts accumulates a fixed-timestep carry*
+(27.7 s, 3.4 s alone) and *drop › takes the slot's candidates…* (9.3 s against
+its 5 s limit). Neither touched the change. Find which tests spawn processes
+or read the whole tree, give them a timeout that holds under load or make them
+cheaper, and have `check` say *timed out under load* apart from a failure, so
+a landing is retried rather than read.
+
+## `bun run shot --open DOCUMENTATION --inner WAVES` stays on WORDINGS
+
+- **Found:** 2026-10-15, claude/waves-doc-page
+- **Files:** `tools/frames/shot.ts`, `tools/frames/shot-usage.ts`
+
+`--help` says `--inner` is *a tab inside the sheet --open just opened*, but on
+DOCUMENTATION it photographed WORDINGS, the default room, with no complaint;
+`--click '#statesTabs button[data-tab="waves"]'` opened it. Make `--inner`
+press a `#statesTabs` tab by its label, or refuse a label it cannot find, and
+test it on a DOCUMENTATION room.

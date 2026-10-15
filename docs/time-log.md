@@ -42178,3 +42178,15 @@ Bottleneck: the second cut, the plume's, was only found by looking at a frame.
 Bottleneck: the count was read in 45 files, and only the typecheck found them all.
 
 *Measured: 38 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
+
+## 2026-10-15 — DOCUMENTATION › WAVES: how waves are generated, and every wave's numbers
+
+- reading: 10 min. The documentation rooms, the backlog route, the contents
+  menu's heading rule.
+- writing: 25 min. `wave-generation.md`; the measured table's block, seconds
+  and pair columns and the whole-game sums; the room, its route, its bake.
+- looking: 10 min. Three shots of the room: the top, the summary, the bosses.
+- friction: 5 min. `shot --inner` did not open the tab; clicked it instead.
+- landing: 5 min.
+
+Bottleneck: writing — the guide had to say the whole pipeline in a page.

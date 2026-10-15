@@ -3563,6 +3563,8 @@ by hand never moves.
 | `tools/director/src/waves-act-list.ts` | The act list read and written, which act a saved wave goes to (the one it is in), cutting a full act into `act-N-pM`, and keeping each file's imports matched to its waves |
 | `tools/director/src/waves-baseline.ts` | A save runs `baseline:blank` in a fresh process before it commits, so a wave changed under its baseline row cannot land `main` red |
 | `tools/director/src/waves-draft.ts` | Unsaved wave edits kept in localStorage across a reload, the count on SAVE, and what RESET goes back to |
+| `tools/director/src/waves-doc-api.ts` | `GET /api/waves-doc` — DOCUMENTATION › WAVES, on the server side |
+| `tools/director/src/waves-doc-page.ts` | DOCUMENTATION › WAVES: how the waves are generated, and every wave with its numbers in a row — the owner |
 | `tools/director/src/wordings-glossary.ts` | The words on the WORDINGS page that have no one place on the picture — the list under the two labelled screens |
 | `tools/director/src/wordings-page.ts` | DOCUMENTATION → WORDINGS: an ordinary screen with every part of it named |
 | `tools/director/src/wordings-world.ts` | The one ordinary screen the WORDINGS page names things on |

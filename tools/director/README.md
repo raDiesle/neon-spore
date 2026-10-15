@@ -349,6 +349,14 @@ itself in the URL beside the sheet under it — `pulllab=<path>`, and
 `pullsheet=1` on EVERY LOOK, EVERY STATE — so a reload stays on it, and ✕ or
 Escape shuts only the lab.
 
+**WAVES** (15 October 2026) is the one room that is prose and tables: how the
+waves are generated, `docs/spec/wave-generation.md`, and every wave measured,
+`docs/spec/wave-curriculum-today.md` — the whole game's time by kind, then a
+row per wave with its block, span, AUTO's beats and seconds, a pair's estimate
+and its pressure, so nothing has to be opened to compare two. Both files come
+over `/api/waves-doc` (`src/waves-doc-api.ts`), read on every open; the table is
+rewritten by `bun run waves:measure`.
+
 ## RELEASE NOTES
 
 `≡ RELEASE NOTES` in the header is the other full-screen sheet: what landed on

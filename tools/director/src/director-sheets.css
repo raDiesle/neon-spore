@@ -68,6 +68,17 @@
 #statesBody section {
   margin-bottom: 26px;
 }
+/* DOCUMENTATION › WAVES: the measured table is 396 rows, so its head stays
+   in view while it scrolls, and a number reads down its column. */
+#wavesDocBody .waves-today table.md-table th {
+  position: sticky;
+  top: -12px;
+  background: #0a0719;
+}
+#wavesDocBody .waves-today table.md-table td {
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
 #tuningBody h2 {
   color: var(--cyan);
   letter-spacing: 0.04em;

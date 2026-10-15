@@ -4,6 +4,7 @@ import { WAVES } from "@neon-spore/content";
 import { buildDateToday } from "../build-stamp.js";
 import { backlogState } from "./src/backlog-api.js";
 import { notesState } from "./src/notes-api.js";
+import { wavesDocState } from "./src/waves-doc-api.js";
 
 /**
  * Builds the director the way `apps/game/preview.ts` builds the game: a
@@ -70,7 +71,11 @@ async function bake(relPath: string, body: string): Promise<void> {
   await Bun.write(join(distDir, relPath), body);
 }
 
-const [backlogRes, notesRes] = await Promise.all([backlogState(), notesState(repoRootPath)]);
+const [backlogRes, notesRes, wavesDocRes] = await Promise.all([
+  backlogState(),
+  notesState(repoRootPath),
+  wavesDocState(),
+]);
 
 await Promise.all([
   // The same `{ waves, token }` shape a live server answers with. The token is
@@ -79,6 +84,7 @@ await Promise.all([
   bake("api/waves", JSON.stringify({ waves: WAVES, token: "" })),
   bake("api/backlog", await backlogRes.text()),
   bake("api/notes", await notesRes.text()),
+  bake("api/waves-doc", await wavesDocRes.text()),
   // The whole-document routes were baked here too, from the table `server.ts`
   // served them from. There are none since 16 September 2026, when the owner
   // took the last study off the sheet.

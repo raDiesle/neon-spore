@@ -6,6 +6,7 @@ import { backlogState } from "./src/backlog-api.js";
 import { notFound } from "./src/not-found.js";
 import { notesState } from "./src/notes-api.js";
 import { saveWaves, wavesState } from "./src/waves-api.js";
+import { wavesDocState } from "./src/waves-doc-api.js";
 import versusHtml from "./versus.html";
 
 /**
@@ -193,6 +194,11 @@ const server = Bun.serve({
      */
     "/api/notes": {
       GET: withIdle(() => notesState(repoRootPath)),
+    },
+
+    /** DOCUMENTATION › WAVES: how waves are generated, and every wave measured. */
+    "/api/waves-doc": {
+      GET: withIdle(() => wavesDocState()),
     },
 
     // A route per study answered with a whole document — `/api/borrowed` and
