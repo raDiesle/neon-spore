@@ -1,6 +1,8 @@
 import { describe, expect, it } from "bun:test";
 import { parsePlace } from "../../director/src/place.js";
+import { POSE_GROUPS } from "../../director/src/poses.js";
 import { readShotFlags } from "../shot-flags.js";
+import { poseRoute, STATES_PATH } from "../shot-pose.js";
 import {
   CONTROLS_ROOMS,
   controlsPath,
@@ -62,6 +64,16 @@ describe("--row", () => {
     ]);
   });
 
+  it("takes a heading that is the name over one that only ends with it, wherever each stands", () => {
+    const headings = [
+      { text: "HOLD THE BLISTER" },
+      { text: "THE BLISTER'S SWIPE" },
+      { text: "THE BLISTER" },
+    ];
+    expect(rowNamed(headings, "THE BLISTER")).toBe(2);
+    expect(rowNamed(headings.slice(0, 2), "THE BLISTER")).toBe(0);
+  });
+
   it("says only that no row has the name when nothing is near it", () => {
     expect(rowMiss("NOTHING LIKE IT", ["EMBER"])).not.toContain("Nearest");
   });
@@ -91,5 +103,37 @@ describe("--controls", () => {
 
   it("is named when a row is missed, so the miss says the route", () => {
     expect(rowMiss("THE BLISTER'S COMBO", [])).toContain('--controls "ON THE FIELD"');
+  });
+});
+
+describe("--pose", () => {
+  it("finds THE BLISTER's TAP, which no ON THE FIELD row names, in the STATES group that draws it", () => {
+    const flags = readShotFlags(["canvas", "out.png", "--pose", "BLISTER · UP FOR A TAP"]);
+    expect(flags.pose).toEqual({ name: "BLISTER · UP FOR A TAP", group: "COMPARED LOOKS" });
+    expect(flags.path).toBe(STATES_PATH);
+    expect(parsePlace(flags.path.slice(1))).toMatchObject({ sheet: "states", inner: "states" });
+  });
+
+  it("reaches every pose on the sheet, so no other is left without a route", () => {
+    for (const group of POSE_GROUPS) {
+      for (const pose of group.poses) expect(poseRoute(pose.name).group).toBe(group.title);
+    }
+  });
+
+  it("refuses a pose nobody has, naming the nearest", () => {
+    expect(() => poseRoute("BLISTER · UP FOR A TAPS")).toThrow("Nearest: ");
+    expect(() => poseRoute("NOTHING LIKE IT")).toThrow('no pose is named "NOTHING LIKE IT"');
+  });
+
+  it("names a place of its own, so --row, --path, --wave or --controls beside it throws", () => {
+    for (const other of [
+      ["--row", "X"],
+      ["--path", "/"],
+      ["--controls", "HELPERS"],
+    ]) {
+      expect(() =>
+        readShotFlags(["canvas", "o.png", "--pose", "BLISTER · UP FOR A TAP", ...other]),
+      ).toThrow("--pose opens DOCUMENTATION › STATES");
+    }
   });
 });

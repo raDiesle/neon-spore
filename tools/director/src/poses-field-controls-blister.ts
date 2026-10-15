@@ -188,7 +188,8 @@ export const BLISTER_LEVER: Pose = {
  * button covered — so it replays every second and a
  * half, inside the three beats the blister stays up. It is on the COMPARED
  * LOOKS sheet (`poses-versus-bodies.ts`), not ON THE FIELD's: no row there
- * names it, since TAP is the tap every body already answers.
+ * names it, since TAP is the tap every body already answers. Photographed by
+ * `bun run shot canvas x.png --serve --pose "BLISTER · UP FOR A TAP"`.
  */
 export const BLISTER_TAP: Pose = {
   name: "BLISTER · UP FOR A TAP",

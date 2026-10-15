@@ -40,11 +40,12 @@ import { clipFor, onDocument } from "./crop.js";
 import { startDirector } from "./director-serve.js";
 import { elementOr, listen, refuseFailed, waitUntil } from "./page-said.js";
 import { readShotFlags } from "./shot-flags.js";
+import { reachPose } from "./shot-pose.js";
 import { inRow, reachRow } from "./shot-row.js";
 import { reachState, Unreachable } from "./shot-state.js";
 import { TALLEST, withHeightFor } from "./tall.js";
 
-const { selector, out, reach, settle, until, row, serve, port, path, viewport, scale, at } =
+const { selector, out, reach, settle, until, row, pose, serve, port, path, viewport, scale, at } =
   readShotFlags(process.argv.slice(2));
 const { width: vw, height: vh } = viewport;
 
@@ -72,7 +73,8 @@ try {
     if (until) await waitUntil(page, until, said);
     await page.waitForTimeout(settle);
     if (row) await reachRow(page, row);
-    target = await elementOr(page, row ? inRow(selector) : selector, said);
+    if (pose) await reachPose(page, pose);
+    target = await elementOr(page, row || pose ? inRow(selector) : selector, said);
   } catch (error) {
     if (!(error instanceof Unreachable)) throw error;
     console.error(error.message);

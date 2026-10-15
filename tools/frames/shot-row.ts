@@ -25,7 +25,7 @@ import { Unreachable } from "./shot-state.js";
  */
 
 /** The attribute the row is marked with while it is photographed. */
-const MARK = "data-shot-row";
+export const MARK = "data-shot-row";
 
 /** How long a row just scrolled to is given to draw its picture. */
 const DRAW_MS = 800;
@@ -50,11 +50,16 @@ export function headingName(h: Heading): string {
 }
 
 /** Which heading is the row named `name`: a label that is it, else words
- * that end with it; -1 for none. */
+ * that are it, else words that end with it; -1 for none. A heading that only
+ * ends with the name used to win whenever it stood first on the page. */
 export function rowNamed(headings: readonly Heading[], name: string): number {
   const labelled = headings.findIndex((h) => h.label === name);
   if (labelled >= 0) return labelled;
-  return headings.findIndex((h) => h.label === undefined && h.text.trim().endsWith(name));
+  const plain = (i: number): string | undefined =>
+    headings[i]?.label === undefined ? headings[i]?.text.trim() : undefined;
+  const exact = headings.findIndex((_, i) => plain(i) === name);
+  if (exact >= 0) return exact;
+  return headings.findIndex((_, i) => plain(i)?.endsWith(name));
 }
 
 /**
@@ -84,14 +89,19 @@ export function controlsPath(room: string): string {
   return `/?sheet=states&inner=controlsets&sub=${key}`;
 }
 
-/** What to say when no row is named `name`: the names nearest it, by a shared word. */
-export function rowMiss(name: string, labels: readonly string[]): string {
+/** The names in `labels` nearest `name`, by a shared word, at most six. */
+export function nearest(name: string, labels: readonly string[]): string[] {
   const words = name
     .toUpperCase()
     .split(/\s+/)
     .filter((w) => w.length > 2 && w !== "THE");
-  const near = labels.filter((l) => words.some((w) => l.toUpperCase().includes(w))).slice(0, 6);
-  const sentence = `no row is named ${JSON.stringify(name)} — is the tab right? --controls "ON THE FIELD" opens one`;
+  return labels.filter((l) => words.some((w) => l.toUpperCase().includes(w))).slice(0, 6);
+}
+
+/** What to say when no row is named `name`: the names nearest it, by a shared word. */
+export function rowMiss(name: string, labels: readonly string[]): string {
+  const near = nearest(name, labels);
+  const sentence = `no row is named ${JSON.stringify(name)} — is the tab right? --controls "ON THE FIELD" opens one, --pose a STATES card`;
   return near.length === 0 ? sentence : `${sentence} Nearest: ${near.join(" · ")}`;
 }
 

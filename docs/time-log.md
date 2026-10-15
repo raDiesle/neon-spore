@@ -42208,3 +42208,18 @@ Bottleneck: a fresh worktree's first read of each file — 128 s for the scan
 cold, against 0.2 s for `git grep` over the same tree.
 
 *Measured: 9 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-15 — `bun run shot --pose` photographs any STATES card by its name
+
+- reading: 5 min. The queue entry, `shot-row.ts`, why `?sheet=states`
+  shows no group (WORDINGS opens first, STATES draws on its own tab).
+- writing: 5 min. `shot-pose.ts`, `--row` taking an exact heading over a
+  suffix, `shot-place.ts` split out of a flags file pushed past 250 lines,
+  the tests.
+- looking: 5 min. One `shot --serve --pose "BLISTER · UP FOR A TAP"`.
+- friction: 0 min. Two edit scripts refused by the guard for a doubled
+  backslash, rewritten as files.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: reading — the STATES room draws nothing until its own tab is
+pressed, and the queue entry's failing `--click` did not say so.
