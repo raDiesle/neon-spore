@@ -88,6 +88,12 @@ export const OFF_THE_PAGE: Readonly<Record<string, string>> = {
     "the control set's suck reaches wider — it stays in THE SCOUT's wave.",
 };
 
+/** What ON THE FIELD says under its cards about each row in `OFF_THE_PAGE`,
+ * so a row looked for and not found is answered on the sheet itself — a lane
+ * once took THE SCOUT'S LINE's missing card for a broken selector. */
+export const offThePageLines = (): string[] =>
+  Object.entries(OFF_THE_PAGE).map(([row, why]) => `KEPT OFF THE PAGE · ${row} — ${why}`);
+
 export const FIELD_ACTIONS: readonly FieldAction[] = [
   {
     key: "drag",

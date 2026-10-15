@@ -357,22 +357,6 @@ Probe with a twelve-seed loop over `startWave(world, 0, [], [], { kind:
 bodies in their column. Add each seed that clears to `scuttle-wave.test.ts`.
 Prove with `bun test packages/hands` and `bun run check`.
 
-## `bun run shot` finds no ON THE FIELD card for THE SCOUT's two holds
-
-- **Found:** 2026-10-14, claude/queue-holds-as-the-hold-labs-drop-the-scout-the-vane-t
-- **Taken:** 2026-10-15, main (claim: claude/queue-bun-run-shot-finds-no-on-the-field-card-for-the)
-- **Files:** `tools/director/src/field-controls-scout.ts`, `tools/director/src/field-action-cards.ts`, `tools/frames/shot.ts`
-
-`bun run shot` with the selector `section.field-use:has(p.rows:has-text(...))`
-and the path `/?sheet=states&inner=controlsets&sub=field` says no element
-matches for THE SCOUT'S LINE, where the same selector finds THE VANE'S ARM
-and THE WELL'S SEAM. The lane worked round it by rendering the ship on a
-napi canvas. Find out whether THE SCOUT's two rows reach ON THE FIELD at all
-(their pose is `THE SCOUT · LADEN`, and `tools/frames/scout-press.ts` says
-the round never carries enough to offer them), and either show them or say
-on the sheet why not; a test that every row of the bosses' field controls
-has a card proves it.
-
 ## The nameability gate measures an enemy turned by its glance
 
 - **Found:** 2026-10-14, claude/creature-glance

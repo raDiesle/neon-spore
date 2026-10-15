@@ -1,5 +1,5 @@
 import { actionSection, suggested } from "./field-action-cards.js";
-import { EVERY_WAVE_ROWS, sortedActions } from "./field-actions.js";
+import { EVERY_WAVE_ROWS, offThePageLines, sortedActions } from "./field-actions.js";
 import type { FieldControlDef } from "./field-control-def.js";
 import { FIELD_CONTROLS } from "./field-controls-page.js";
 import { fieldControlRow } from "./field-controls-rows.js";
@@ -152,6 +152,7 @@ export function renderFieldPage(): void {
   for (const { action, uses, types } of sortedActions()) {
     body.appendChild(actionSection(action, uses, types, byName));
   }
+  for (const line of offThePageLines()) body.appendChild(text("p", line, "field-marks"));
 
   body.appendChild(
     partHead(PART.ideas, "gestures nothing reads yet, and controls the game had and set aside"),

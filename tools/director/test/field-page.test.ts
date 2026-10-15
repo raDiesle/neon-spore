@@ -5,6 +5,7 @@ import {
   EVERY_WAVE_ROWS,
   FIELD_ACTIONS,
   OFF_THE_PAGE,
+  offThePageLines,
   sortedActions,
   typeUses,
   usersOf,
@@ -84,6 +85,20 @@ describe("CONTROLS › ON THE FIELD", () => {
       ...DECISIONS.flatMap((d) => d.rows ?? []),
     ];
     expect(named.filter((n) => !ROWS.has(n))).toEqual([]);
+  });
+
+  test("a row with no card says why on the page, so it is not looked for", () => {
+    // THE SCOUT'S LINE was taken for a selector that failed (14 October 2026).
+    const said = offThePageLines();
+    const silent = Object.entries(OFF_THE_PAGE).filter(
+      ([row, why]) => !said.some((l) => l.includes(row) && l.includes(why)),
+    );
+    expect(silent).toEqual([]);
+    const carded = new Set(TYPES.flatMap((t) => t.rows));
+    expect(["THE SCOUT'S LINE", "THE SCOUT'S PRIME"].map((r) => carded.has(r))).toEqual([
+      false,
+      true,
+    ]);
   });
 
   test("every row on an action belongs to a wave that exists", () => {
