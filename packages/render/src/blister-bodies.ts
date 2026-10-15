@@ -34,7 +34,14 @@ export interface BlisterFrame {
 export type BlisterBodyDraw = (b: Body, f: BlisterFrame) => void;
 
 export interface BlisterBodyLook {
+  /** The body, clipped to what is above the pore's lip. */
   draw: BlisterBodyDraw;
+  /**
+   * What the body puts out past its pore, drawn after the lip and unclipped —
+   * a cord, a root or a neck run down a groove that leaves the pore behind
+   * (`blister:lever`). Every shipped record puts out nothing.
+   */
+  beyond: BlisterBodyDraw;
 }
 
 /** The clover, pushed down into its pore by what is left of the rise. */
@@ -42,13 +49,16 @@ export function drawCloverBody(b: Body, f: BlisterFrame): void {
   drawLivingBody({ ...b, y: b.y + (1 - f.rise) * f.r * 1.5 });
 }
 
+/** Nothing past the pore: what every body ships with. */
+export function drawNothingBeyond(_b: Body, _f: BlisterFrame): void {}
+
 /** One record per gesture, each its own object, so a slot patches one gesture. */
 export const BLISTER_BODY: Record<BlisterGesture, BlisterBodyLook> = {
-  tap: { draw: drawCloverBody },
-  hold: { draw: drawCloverBody },
-  swipe: { draw: drawCloverBody },
-  turn: { draw: drawCloverBody },
-  rub: { draw: drawCloverBody },
-  combo: { draw: drawCloverBody },
-  lever: { draw: drawCloverBody },
+  tap: { draw: drawCloverBody, beyond: drawNothingBeyond },
+  hold: { draw: drawCloverBody, beyond: drawNothingBeyond },
+  swipe: { draw: drawCloverBody, beyond: drawNothingBeyond },
+  turn: { draw: drawCloverBody, beyond: drawNothingBeyond },
+  rub: { draw: drawCloverBody, beyond: drawNothingBeyond },
+  combo: { draw: drawCloverBody, beyond: drawNothingBeyond },
+  lever: { draw: drawCloverBody, beyond: drawNothingBeyond },
 };

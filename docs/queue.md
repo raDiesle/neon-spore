@@ -479,7 +479,9 @@ the current beside the three (`bun run versus:shot … --only candidate`,
 - **Files:** `packages/render/src/blister-bodies.ts`, `packages/render/src/blister-help.ts`, `tools/director/src/poses-field-controls-blister.ts`, `tools/director/src/versus-pose.ts`
 
 The same ask as THE BLISTER's HOLD entry, for `blister:swipe`, patching
-`BLISTER_BODY.swipe`'s `draw`. The knob sits on the body and its channel
+`BLISTER_BODY.swipe`'s `draw` — and its `beyond` for anything a DOWN
+stroke takes past the pore's lip, which `draw` is clipped at (LEVER's
+slot does). The knob sits on the body and its channel
 runs a stroke long out its way (`drawSwipeTrack`), so a body built round it
 can run along the channel: a slug whose back is the channel and whose head
 is the knob; a frog-mouthed body with the channel as its tongue, the knob
@@ -515,18 +517,3 @@ body can be the thing scrubbed: an urchin or a hedgehog whose spines lie
 along the zigzag; a ridged belly like a washboard; a furred back that
 bristles where it has been rubbed. Send one PNG of the current beside the
 three. Prove it with `bun test tools/versus` and `bun run check`.
-
-## THE BLISTER's LEVER gets bodies built round its groove, on VERSUS
-
-- **Found:** 2026-10-15, claude/queue-the-blister-takes-a-lever-and-the-controls-group
-- **Taken:** 2026-10-15, claude/queue-the-blisters-lever-gets-bodies-built-round-its-g
-- **Files:** `packages/render/src/blister-bodies.ts`, `packages/render/src/blister-lever-help.ts`, `tools/director/src/poses-field-controls-blister.ts`, `tools/director/src/versus-pose.ts`
-
-The same ask as THE BLISTER's HOLD entry, for `blister:lever`, patching
-`BLISTER_BODY.lever`'s `draw`, judged on `BLISTER · THE LEVER HELD IN ITS
-BAND`. LEVER wears THE LEVER LAB's groove straight down from the body, its
-band, and the knob carried into it (`blister-lever-help.ts`), so the body
-can be the thing the knob is in: a bell whose clapper is the knob; a
-siphon or a stem the knob slides down; a root pulled down into the soil to
-the band. Send one PNG of the current beside the three. Prove it with
-`bun test tools/versus` and `bun run check`.

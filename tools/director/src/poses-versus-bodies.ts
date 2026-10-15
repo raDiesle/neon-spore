@@ -21,7 +21,7 @@ import { CAROM_POSE, CHUTE_POSE, VEER_POSE } from "./poses-crossing.js";
 import { BLISTER_TAP } from "./poses-field-controls-blister.js";
 import { HUSK_POSE } from "./poses-husk.js";
 import { COIL_POSE, TETHER_POSE } from "./poses-link.js";
-import { BLISTER_COMBO_PLAYED } from "./poses-versus-blister.js";
+import { BLISTER_COMBO_PLAYED, BLISTER_LEVER_PLAYED } from "./poses-versus-blister.js";
 
 /**
  * The half of `poses-versus.ts` that shows a body: a creature doing what it
@@ -146,6 +146,7 @@ const GRIP_POSE: Pose = {
 export const VERSUS_BODY_POSES: Pose[] = [
   BLISTER_TAP,
   BLISTER_COMBO_PLAYED,
+  BLISTER_LEVER_PLAYED,
   CRAWLER_POSE,
   MAGNET_POSE,
   STRAND_POSE,

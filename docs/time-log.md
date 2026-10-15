@@ -41675,3 +41675,17 @@ Bottleneck: reading; the answer was a decision already in the code, just never
 said on the sheet.
 
 *Measured: 9 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-15 — VERSUS offers THE BLISTER's LEVER a body built round its groove
+
+- reading: 5 min. The lever help's groove and band, and the clip that keeps
+  a body above its pore while the groove runs on below it.
+- writing: 10 min. `beyond` on every body record, drawn after the lip and
+  nothing in the game; BELL, ROOT and TAFFY; a pose whose hand carries the
+  knob into the band, holds it to the blow and lets go.
+- looking: 5 min. Two rounds: the first pose's crop sat a tile low.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, `land`.
+
+Bottleneck: the groove leaves the pore, so a body built round it needed a
+draw outside the pore's clip before any candidate could be.

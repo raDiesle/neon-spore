@@ -6,7 +6,7 @@ import {
   type Creature,
   type SimConfig,
 } from "@neon-spore/sim";
-import { BLISTER_BODY } from "./blister-bodies.js";
+import { BLISTER_BODY, drawNothingBeyond } from "./blister-bodies.js";
 import type { Body } from "./creature-body-in.js";
 import { flatRadius } from "./creature-place.js";
 import { smoothstep } from "./ease.js";
@@ -81,14 +81,22 @@ export function drawBlisterBody(b: Body): void {
   ctx.save();
   // Everything above the pore's middle, and the mouth of the pore itself: the
   // body is seen coming out of the hole and is never drawn below its lip.
+  // What it puts out past the pore is its `beyond`, drawn after the lip.
   const clip = new Path2D();
   clip.rect(b.x - r * 4, b.y - r * 4, r * 8, py - (b.y - r * 4));
   clip.ellipse(b.x, py, r * PORE_RX, r * PORE_RY, 0, 0, Math.PI * 2);
   ctx.clip(clip);
   ctx.globalAlpha *= Math.min(1, h * 2);
-  BLISTER_BODY[blisterGestureOf(c)].draw(b, { r, rise: h, poreY: py });
+  const look = BLISTER_BODY[blisterGestureOf(c)];
+  const frame = { r, rise: h, poreY: py };
+  look.draw(b, frame);
   ctx.restore();
   drawPore(ctx, b.x, py, r, "lip");
+  if (look.beyond === drawNothingBeyond) return;
+  ctx.save();
+  ctx.globalAlpha *= Math.min(1, h * 2);
+  look.beyond(b, frame);
+  ctx.restore();
 }
 
 /** The pore's half-width and half-height, in body radii. */
