@@ -643,6 +643,7 @@ after it. Prove it with `bun test packages/sim tools/director` and
 ## `fastScopeFor`'s wave-moved test times out under `bun run check`
 
 - **Found:** 2026-10-15, claude/blocks-strand-to-balloon
+- **Taken:** 2026-10-15, main (claim: claude/queue-fastscopefor-s-wave-moved-test-times-out-under-b)
 - **Files:** `tools/check/test/fast-scope.test.ts`, `tools/check/fast-scope.ts`
 
 "a wave moved reaches every test that reads the list from another package"
