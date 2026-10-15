@@ -3,6 +3,7 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { Glob } from "bun";
 import { fileCosts } from "../../test/figure.js";
+import { filesHolding } from "../../versus/grep-files.js";
 
 /**
  * The director's fixed-timestep loop exists once, in `stage-loop.ts`.
@@ -43,12 +44,27 @@ import { fileCosts } from "../../test/figure.js";
  */
 fileCosts(450);
 
+/**
+ * **And it reads only the files `git grep` names**, since 15 October 2026:
+ * the first case went red at 27.7 s under a load average of 30 from other
+ * sessions' checks, 3.4 s alone, every one of its four hundred awaited reads
+ * waiting its turn. `git grep` answers for the whole directory in a fraction
+ * of a second, the way `bun run versus drop` asks it (`grep-files.ts`), and the
+ * regex is then run over the handful it names. Outside a checkout, where git
+ * cannot answer, every file is read as before.
+ */
+function sources(dir: string, needle: string): string[] {
+  const named = filesHolding(SRC, [dir], [needle]);
+  if (named !== null) return named.map((f) => f.replaceAll("\\", "/"));
+  return [...new Glob(`${dir === "." ? "" : `${dir}/`}**/*.ts`).scanSync(SRC)];
+}
+
 const SRC = join(dirname(fileURLToPath(import.meta.url)), "..");
 const HOME = "src/stage-loop.ts";
 
 test("only stage-loop.ts accumulates a fixed-timestep carry", async () => {
   const carriers: string[] = [];
-  for (const file of new Glob("**/*.ts").scanSync(SRC)) {
+  for (const file of sources(".", "carry")) {
     const rel = file.replaceAll("\\", "/");
     if (rel === HOME || rel.startsWith("test/")) continue;
     const source = await Bun.file(join(SRC, file)).text();
@@ -67,9 +83,9 @@ test("the one that does is the one everything else calls", async () => {
   expect(home).toMatch(/\bcarry\s*\+=/);
 
   const callers: string[] = [];
-  for (const file of new Glob("src/*.ts").scanSync(SRC)) {
+  for (const file of sources("src", "runStageLoop")) {
     const rel = file.replaceAll("\\", "/");
-    if (rel === HOME) continue;
+    if (rel === HOME || rel.slice(4).includes("/")) continue;
     // Either door: `runStageLoopWhileSeen` is the same loop behind a
     // visibility gate, and a caller through it is still a caller.
     if (/\brunStageLoop(?:WhileSeen)?\(/.test(await Bun.file(join(SRC, file)).text()))

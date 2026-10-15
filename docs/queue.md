@@ -328,21 +328,6 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/skipped.test.ts` holds the listing's count of the entries
 `next` stepped past and why.
 
-## `bun run land` fails on test timeouts under other sessions' load
-
-- **Found:** 2026-10-15, claude/waves-fold-and-page
-- **Taken:** 2026-10-15, main (claim: claude/queue-bun-run-land-fails-on-test-timeouts-under-other)
-- **Files:** `tools/check/`, `tools/director/test/loop-once.test.ts`, `tools/versus/test/drop.test.ts`
-
-Landing a two-button change failed twice before it passed the third time, each
-time on a different test timing out under a load average of 30 from other
-sessions' checks: *only stage-loop.ts accumulates a fixed-timestep carry*
-(27.7 s, 3.4 s alone) and *drop › takes the slot's candidates…* (9.3 s against
-its 5 s limit). Neither touched the change. Find which tests spawn processes
-or read the whole tree, give them a timeout that holds under load or make them
-cheaper, and have `check` say *timed out under load* apart from a failure, so
-a landing is retried rather than read.
-
 ## `bun run shot --open DOCUMENTATION --inner WAVES` stays on WORDINGS
 
 - **Found:** 2026-10-15, claude/waves-doc-page

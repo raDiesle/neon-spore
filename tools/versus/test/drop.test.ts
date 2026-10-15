@@ -2,6 +2,7 @@ import { afterEach, beforeEach, describe, expect, it } from "bun:test";
 import { existsSync, mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
+import { fileCosts } from "../../test/figure.js";
 import { drop } from "../decide.js";
 
 /**
@@ -11,6 +12,15 @@ import { drop } from "../decide.js";
  * pose map with a row for each slot, and a `DECIDED.md`. `adopt` removes a
  * slot the same way (`removeSlot`), so this holds that half of it too.
  */
+
+/**
+ * Its figure, said: a first case 26 ms idle went red at 9.3 s against bun's
+ * five-second default on 15 October 2026, under a load average of 30 from
+ * other sessions' checks — `drop` starts a `git grep` before it reads, and a
+ * process started on a busy machine waits for one. Declared, it gets the
+ * timeout the load at the start of its shard allows (`tools/test/figure.ts`).
+ */
+fileCosts(100);
 
 let root = "";
 

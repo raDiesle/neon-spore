@@ -344,7 +344,10 @@ one thing to do:
 
 **`bun run land --keep`**, from the Bash tool. The *local* trunk takes the work
 and nothing else happens: no sweep, no push, the branch and the worktree
-exactly where they were. If the check goes red, that is fixed first; the hook
+exactly where they were. If the check goes red, that is fixed first — unless
+its last lines say *timed out under load*: every failure was a timeout, and
+`land` has already run it once more by itself (`tools/land/red-check.ts`); a
+second such red at a low load average is a test that hangs. The hook
 asks about the same commit only once, so a landing that failed is not re-run at
 the end of every turn with nothing new to say. Then the session says what
 landed and stops.

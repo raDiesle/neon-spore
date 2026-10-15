@@ -55,7 +55,7 @@
  */
 
 import { readdirSync, statSync } from "node:fs";
-import { cpus, tmpdir } from "node:os";
+import { cpus, loadavg, tmpdir } from "node:os";
 import { join, relative } from "node:path";
 import { closingReport } from "./closing.js";
 import { mergeJunit, tallyOf } from "./junit.js";
@@ -196,7 +196,8 @@ const results = await pool(bins.length, width, async (i) => {
 
 const wall = ((performance.now() - started) / 1000).toFixed(1);
 const merged = mergeJunit(results.map((r) => r.xml));
-for (const line of closingReport(merged, results, files.length, wall)) console.log(line);
+const load = { avg: loadavg()[0] ?? 0, cores: cpus().length };
+for (const line of closingReport(merged, results, files.length, wall, load)) console.log(line);
 if (junit) await Bun.write(junit, merged);
 for (let i = 0; i < bins.length; i++)
   await Bun.file(reportOf(i))

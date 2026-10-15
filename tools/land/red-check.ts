@@ -1,5 +1,6 @@
 import { tmpdir } from "node:os";
 import { join } from "node:path";
+import { LOAD_MARK } from "../check/closing.js";
 
 /**
  * What a landing says when `bun run check` comes back red.
@@ -39,11 +40,31 @@ export async function redCheckReport(
 }
 
 /**
+ * Whether a red check is worth one more run: it said every failure was a
+ * timeout and none an assertion (`tools/check/closing.ts`'s `loadLine`).
+ */
+export function onlyTimedOut(output: string): boolean {
+  return output.split("\n").some((l) => l.trimStart().startsWith(LOAD_MARK));
+}
+
+/**
  * `bun run <args>` in `root`, said green or not; a red one is reported here,
  * the same way for the full check and for the narrowed one a race asks for
  * (`race-retry.ts`).
+ *
+ * **A red that only timed out is run once more before it is reported.** On
+ * 15 October 2026 one two-button landing went red twice before it passed the
+ * third time, each time on a different test running out of time under other
+ * sessions' load, and each red was a session reading a test the diff never
+ * reached. Once, and only once: a second red is reported whatever it says,
+ * and the load average on its line tells a busy machine from a hung test.
  */
-export async function checkGreen(root: string, trunk: string, args: string[]): Promise<boolean> {
+export async function checkGreen(
+  root: string,
+  trunk: string,
+  args: string[],
+  again = true,
+): Promise<boolean> {
   const check = Bun.spawn(["bun", "run", ...args], { cwd: root, stdout: "pipe", stderr: "pipe" });
   const [out, err, code] = await Promise.all([
     new Response(check.stdout).text(),
@@ -51,6 +72,12 @@ export async function checkGreen(root: string, trunk: string, args: string[]): P
     check.exited,
   ]);
   if (code === 0) return true;
-  for (const line of await redCheckReport(`${out}${err}`, trunk, args[0])) console.log(line);
+  const said = `${out}${err}`;
+  if (again && onlyTimedOut(said)) {
+    const line = said.split("\n").find((l) => l.trimStart().startsWith(LOAD_MARK)) ?? "";
+    console.log(`  again    bun run ${args[0]} — ${line.trim()}`);
+    return checkGreen(root, trunk, args, false);
+  }
+  for (const line of await redCheckReport(said, trunk, args[0])) console.log(line);
   return false;
 }

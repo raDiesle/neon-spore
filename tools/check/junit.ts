@@ -77,6 +77,17 @@ export function firstFailure(
   };
 }
 
+/**
+ * **How many of the failures are bun's own timeouts**: a case that ran out of
+ * time, `type="TimeoutError"`, rather than one an `expect` refused. Under
+ * another session's load a test that reads the tree or starts a process can
+ * take a hundred times its idle cost, and that red is about the machine, not
+ * the diff (`closing.ts`'s `loadLine`).
+ */
+export function timeoutsOf(xml: string): number {
+  return (xml.match(/<failure\b[^>]*\btype="TimeoutError"/g) ?? []).length;
+}
+
 /** The five entities the reporter writes into an attribute, read back. */
 function readEntities(attr: string): string {
   return attr
