@@ -331,6 +331,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## The INDEX.md drift sweep times out under `check:fast`'s eight shards
 
 - **Found:** 2026-10-15, claude/lever-bigger
+- **Taken:** 2026-10-15, main (claim: claude/queue-the-index-md-drift-sweep-times-out-under-check-f)
 - **Files:** `tools/index/test/drift.test.ts`
 
 `check:fast` went red once on *docs/INDEX.md rows still describe their files >
