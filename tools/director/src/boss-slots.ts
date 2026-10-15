@@ -6,7 +6,7 @@ import {
   setLance,
   type Wave,
 } from "@neon-spore/content";
-import { startsBlock } from "./compose-review.js";
+import { startsBlock } from "./compose-starts.js";
 import { TUTORIAL_LAST_ID } from "./compose-steps.js";
 
 /**
@@ -24,9 +24,12 @@ import { TUTORIAL_LAST_ID } from "./compose-steps.js";
  * - **The tutorial arc keeps its bosses.** Up to FINALE nothing moves —
  *   THE INSTAR and THE BASTION teach the panel the arc ends on — and no boss
  *   moves into it.
- * - **The bosses keep their order.** Each takes the first free block after
- *   the one the boss before it took, so a boss that shares a panel or a body
- *   with an earlier one (THE HAUL after THE SCOUT) still meets it second.
+ * - **A boss takes the first free block** after its needs are taught, so a
+ *   block a boss skipped — THE SPLICE waits for THE CLAW's button — is taken
+ *   by the next boss ready for it, and no block goes without one (the owner,
+ *   15 October 2026: *rearrange boss waves however you want*). One order is
+ *   kept: a boss on an earlier boss's panel (THE HAUL on THE SCOUT's) comes
+ *   after it, on a panel only bosses carry.
  * - **A boss with no block left waits at the end**, in order, for the blocks
  *   still to be written; nothing is doubled up. A review block
  *   (`compose-review.ts`) is a block too, and takes the next one.
@@ -92,7 +95,9 @@ export function bossOrder(waves: readonly Wave[]): { order: Wave[]; slots: BossS
   const placed = new Map<number, Wave[]>();
   const waiting: Wave[] = [];
   const slots: BossSlot[] = [];
-  let prev = -1;
+  const taken = new Set<number>();
+  // The block each panel's last boss took, so the next on it comes later.
+  const panels = new Map<string, number>();
   waves.forEach((wave, from) => {
     if (!moves(from)) {
       if (wave.boss) slots.push({ id: wave.id, name: wave.name, from, to: -1, waited: [] });
@@ -101,14 +106,19 @@ export function bossOrder(waves: readonly Wave[]): { order: Wave[]; slots: BossS
     const needs = keysOf(wave).filter((k) => taught.has(k));
     const ready = Math.max(-1, ...needs.map((k) => taught.get(k) ?? -1));
     const waited = needs.filter((k) => taught.get(k) === ready);
-    const k = blocks.findIndex((b, j) => j > prev && b.end > ready);
+    // Only a panel no ordinary wave teaches — the bosses' own.
+    const panel = controlSet(wave.controls).id;
+    const own = !taught.has(`panel ${panel}`);
+    const after = own ? (panels.get(panel) ?? -1) : -1;
+    const k = blocks.findIndex((b, j) => j > after && !taken.has(j) && b.end > ready);
     const block = blocks[k];
     if (k === -1 || !block) {
       waiting.push(wave);
       slots.push({ id: wave.id, name: wave.name, from, to: -1, waited });
       return;
     }
-    prev = k;
+    taken.add(k);
+    if (own) panels.set(panel, k);
     placed.set(block.end, [wave]);
     const intro = rest[block.intro];
     slots.push({ id: wave.id, name: wave.name, from, to: -1, closes: intro?.id, waited });

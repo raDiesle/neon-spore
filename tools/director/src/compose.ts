@@ -1,7 +1,7 @@
 import { isRegularWave, type Wave, wavePressure } from "@neon-spore/content";
 import { createRng } from "@neon-spore/sim";
 import { type Block, leadingBlock } from "./compose-block.js";
-import { autoClears, paperFaults } from "./compose-check.js";
+import { autoClears, paperFaults, spanOf } from "./compose-check.js";
 import { grownStep, notchOf } from "./compose-grow.js";
 import { placeStep } from "./compose-place.js";
 import { chooseRamp } from "./compose-ramp.js";
@@ -52,16 +52,26 @@ function drawsOf(block: Block, step: Step, introId: string, seed: number) {
   const kept: { wave: Wave; pressure: number }[] = [];
   const misses = new Map<string, number>();
   for (let draw = 0; draw < DRAWS; draw++) {
-    const wave: Wave = {
-      id: `${introId}${step.name}`,
-      name: `${introId.toUpperCase()} ${step.name.toUpperCase()}`,
-      variant: true,
-      ...placeStep(block, step, rng),
-      ...(block.controls ? { controls: block.controls } : {}),
-    };
-    const faults = paperFaults(wave, step, block);
-    for (const f of faults) misses.set(f, (misses.get(f) ?? 0) + 1);
-    if (faults.length === 0) kept.push({ wave, pressure: wavePressure(wave) ?? 0 });
+    const placed = placeStep(block, step, rng);
+    const span = spanOf(placed);
+    const faults = block.faults?.filter((f) => (f.at ?? 0) <= span);
+    // A lesson's draw comes twice, with its faults and without: the one with
+    // is kept where AUTO can play it, and the other where it cannot
+    // (`autoFirst`) — AUTO has no hand for THE JAM's cannon.
+    const kinds = block.faultsOnly ? [faults] : [faults, undefined];
+    for (const with_ of faults?.length ? kinds : [undefined]) {
+      const wave: Wave = {
+        id: `${introId}${step.name}`,
+        name: `${introId.toUpperCase()} ${step.name.toUpperCase()}`,
+        variant: true,
+        ...placed,
+        ...(block.controls ? { controls: block.controls } : {}),
+        ...(with_ ? { faults: with_ } : {}),
+      };
+      const wrong = paperFaults(wave, step, block);
+      for (const f of wrong) misses.set(f, (misses.get(f) ?? 0) + 1);
+      if (wrong.length === 0) kept.push({ wave, pressure: wavePressure(wave) ?? 0 });
+    }
   }
   const worst = [...misses].sort((a, b) => b[1] - a[1])[0]?.[0];
   return { kept, worst };
@@ -104,7 +114,9 @@ export function composeBlockAt(
   const whole = (c: readonly Composed[]) => c.length > 0 && c.every((x) => x.wave);
   const lead = leadingBlock(waves, block);
   let first: Composed[] | undefined;
-  for (const b of lead ? [block, lead] : [block]) {
+  // A lesson's block is tried with its faults on every wave first.
+  const strict: Block[] = block.faults ? [{ ...block, faultsOnly: true }] : [];
+  for (const b of [...strict, ...(lead ? [block, lead] : [block])]) {
     for (let k = 0; k < SEEDS; k++) {
       const composed = composeFor(waves, b, introId, seed + k);
       first ??= composed;
@@ -147,7 +159,7 @@ function composeFor(
     for (const [i, step] of steps.entries()) {
       const pressure = chosen[i] ?? 0;
       const fits = draws[i]?.kept.filter((k) => k.pressure === pressure) ?? [];
-      const won = fits.slice(0, 10).find((k) => autoClears(k.wave, block) !== -1);
+      const won = autoFirst(fits).find((k) => autoClears(k.wave, block) !== -1);
       if (!won) {
         reach[i] = (reach[i] ?? []).filter((v) => v !== pressure);
         break;
@@ -162,6 +174,14 @@ function composeFor(
     }
     if (out.length === steps.length) return out;
   }
+}
+
+/** The draws at one pressure AUTO is asked about, in order: ten with a
+ * lesson's faults first, then ten without. */
+function autoFirst<T extends { wave: Wave }>(fits: readonly T[]): T[] {
+  const faulted = fits.filter((k) => k.wave.faults);
+  const bare = fits.filter((k) => !k.wave.faults);
+  return [...faulted.slice(0, 10), ...bare.slice(0, 10)];
 }
 
 function failed(steps: readonly Step[], at: number, why: string): Composed[] {

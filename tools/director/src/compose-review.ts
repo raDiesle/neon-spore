@@ -1,5 +1,6 @@
-import { isRegularWave, type Wave, wavePressure } from "@neon-spore/content";
+import type { Wave } from "@neon-spore/content";
 import { type Block, placeable, readBlock } from "./compose-block.js";
+import { blocksBefore, gentlestBefore, isReviewHead } from "./compose-starts.js";
 import { TUTORIAL_LAST_ID } from "./compose-steps.js";
 
 /**
@@ -25,23 +26,6 @@ import { TUTORIAL_LAST_ID } from "./compose-steps.js";
 
 /** The first theme: the first thing taught after the tutorial arc. */
 export const REVIEW_FROM = "theLure";
-
-/** Whether a wave starts a review block: a regular wave, not a variant,
- * with a regular variant after it. No hand-written wave is one. */
-export function isReviewHead(waves: readonly Wave[], index: number): boolean {
-  const next = waves[index + 1];
-  return (
-    waves[index]?.variant !== true &&
-    isRegularWave(waves, index) &&
-    next?.variant === true &&
-    isRegularWave(waves, index + 1)
-  );
-}
-
-/** Whether a wave starts a block of either kind: an intro or a review head. */
-export function startsBlock(waves: readonly Wave[], index: number): boolean {
-  return placeable(waves, index) !== undefined || isReviewHead(waves, index);
-}
 
 export interface Review {
   block: Block;
@@ -98,20 +82,14 @@ export function nextReview(waves: readonly Wave[]): Review | string {
   const again = waves.find((w) => w.id === `${theme.id}Again`);
   const plural = again?.name.replace(/ AGAIN$/, "");
   if (!plural || plural === again?.name) return `${theme.id} has no R1 named "… AGAIN"`;
-  let start = last;
-  while (start > 0 && !startsBlock(waves, start)) start--;
-  let floor: number | undefined;
-  for (let i = start; i <= last; i++) {
-    const p = isRegularWave(waves, i) ? wavePressure(waves[i] as Wave) : undefined;
-    if (p !== undefined && (floor === undefined || p < floor)) floor = p;
-  }
+  const floor = gentlestBefore(waves, last + 1);
   const { leads: _l, after: _a, floor: _f, ...rest } = read;
   const block: Block = {
     ...rest,
     number: arc + intros.length + k,
     tutorial: false,
     existing: 0,
-    sinceTutorial: intros.length + k,
+    sinceTutorial: blocksBefore(waves, insertAt),
     ...(floor === undefined ? {} : { floor }),
     insertAt,
     controls: waves[last]?.controls,

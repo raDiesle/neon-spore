@@ -8,7 +8,7 @@ import {
   wavePressure,
 } from "@neon-spore/content";
 import { beatSeconds, DEFAULT_CONFIG, failHolds, type World } from "@neon-spore/sim";
-import { startsBlock } from "../director/src/compose-review.js";
+import { startsBlock } from "../director/src/compose-starts.js";
 import { playedBeat, waveWorld } from "./world.js";
 
 /**

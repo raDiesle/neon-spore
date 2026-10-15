@@ -42327,3 +42327,15 @@ Bottleneck: landing — the full check for four moved bosses.
 Bottleneck: friction — the gate's spread overflowing, found only once a body was turned every way.
 
 *Measured: 15 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
+
+## 2026-10-15 — Every lesson after the tutorial opens a block of eight
+
+- reading: 15 min. The ten lessons' faults and panels, AUTO's arm, the folded list.
+- writing: 35 min. `compose-lesson.ts`, `compose-starts.ts`, `waves:lessons`,
+  faults on composed waves, first free block for bosses, the tests, the pages.
+- looking: 15 min. Each block's table, AUTO on the jam and the claw, the list twice.
+- friction: 15 min. A land that checked this lane's unfinished tree; a second
+  run of the tool that moved the lessons again.
+- landing: 15 min. `check:fast`, the commit, `land`.
+
+Bottleneck: friction — the land's check reads the working tree, so unfinished work must be set aside first.

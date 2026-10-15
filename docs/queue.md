@@ -386,12 +386,39 @@ beside the shipped one, and he chooses by looking (`docs/versus.md`).
 - **Found:** 2026-10-15, claude/review-blocks
 - **Files:** `tools/director/src/compose-grow.ts`, `tools/director/test/compose-grow.test.ts`
 
-From the thirteenth review block (RINDS RETURN) to the twenty-first (CRAWLERS
-RETURN), every R1 composes at 8.7, because R1 alone, as wide and as mixed as
-`grownStep` lets it get, scores no higher; `START_RISE` asks for 0.1 more
-each block and `chooseRamp` settles for the nearest it reaches. The peaks
-still rise (10.3 to 13). Let R1–R3 take one twin in three from a later notch,
-the way `TWINNED` grows R4–R8, so the first steps keep climbing — then
-`bun run waves:compose` on a late block and `bun run waves:review` on a fresh
-list show the R1 pressure above its floor. Composed waves already written do
-not change; the next ones written do.
+R1 alone, as wide and as mixed as `grownStep` lets it get, scores no higher
+than about 8.7; `START_RISE` asks for 0.1 more each block and `chooseRamp`
+settles for the nearest it reaches. Review blocks 13 to 21 all started at 8.7
+before the lesson blocks took their bosses and they were dropped; the next
+review block written (`bun run waves:review`) starts there again. Let R1–R3
+take one twin in three from a later notch, the way `TWINNED` grows R4–R8, so
+the first steps keep climbing — `bun run waves:review` on today's list then
+shows an R1 above 8.7.
+
+## AUTO plays THE JAM's cannon and THE CHOKE's steer on a composed wave
+
+- **Found:** 2026-10-15, claude/lesson-blocks
+- **Files:** `tools/director/src/autopilot-play.ts`, `tools/probe/world.ts`, `tools/director/src/compose-lesson.ts`
+
+AUTO clears THE JAM and THE CHOKE themselves, but put their fault on any
+composed wave — even THE MAGNET's own composed waves, which it clears bare —
+and it loses every one with the cannon jam (`{ kind: "cannon", color:
+"alternating", at: 7 }`, and red or cyan too) and five of eight with the
+steer fault. So `waves:lessons` composed JAM AGAIN … JAM PEAK without the
+jam and the CHOKE block with it on three waves (`compose.ts` keeps a draw
+without the lesson's faults where AUTO cannot play it with them). Once AUTO
+has a hand for both, drop the sixteen waves (`theJam*`, `theChoke*`
+variants) and run `bun run waves:lessons --write` — they come back faulted.
+
+## THE CLAW's block is composed on the block's panel, not the claw
+
+- **Found:** 2026-10-15, claude/lesson-blocks
+- **Files:** `tools/director/src/compose-lesson.ts`, `tools/director/src/compose-place.ts`
+
+On the claw panel a rock is cleared only through a pod the arm takes: AUTO
+clears THE CLAW with its pods and loses it without them, and loses every wave
+of rocks alone at any gap from 6 to 14 beats. The steps place bodies with
+slicks and bulbs mixed in and a pod only as a lever, so `panelOf` plays THE
+CLAW's eight on THE COIL block's panel. A claw block needs a step table of
+its own — each rock a pod ahead of it, wider gaps — so CLAW AGAIN … CLAW PEAK
+can be composed on `controls: "claw"` and AUTO clears them.

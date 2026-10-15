@@ -1,4 +1,4 @@
-import { arrivalJob, tapsClash, type Wave } from "@neon-spore/content";
+import { arrivalJob, controlSet, setHas, tapsClash, WAVES, type Wave } from "@neon-spore/content";
 import { clearBeat } from "../../probe/measure-waves.ts";
 import { worldOf } from "../../probe/world.ts";
 import { playsClean } from "./autopilot-play.js";
@@ -69,6 +69,23 @@ export function paperFaults(wave: Wave, step: Step, block: Block): string[] {
  * or -1 when AUTO loses it — or clears it with a breach, at either charge,
  * which `autopilot-field.test.ts` fails every ordinary wave of the game for. */
 export function autoClears(wave: Wave, block: Block): number {
-  const beat = clearBeat(worldOf(wave, block.insertAt));
-  return beat !== -1 && playsClean(wave, block.insertAt) ? beat : -1;
+  const at = armedAt(wave, block.insertAt);
+  const beat = clearBeat(worldOf(wave, at));
+  return beat !== -1 && playsClean(wave, at) ? beat : -1;
+}
+
+/**
+ * Where the wave is played from: AUTO reads whether its panel has THE CLAW's
+ * arm off the shipped list at the world's index (`tools/probe/world.ts`), and a
+ * composed wave is not on that list yet — a block composed into a list that
+ * has moved since (`waves:lessons`) would be played on its neighbour's panel.
+ * So the nearest index whose wave agrees with this one about the arm.
+ */
+function armedAt(wave: Wave, index: number): number {
+  const arm = (w: Wave | undefined) => setHas(controlSet(w?.controls), "reach");
+  const want = arm(wave);
+  for (let d = 0; d < WAVES.length; d++) {
+    for (const i of [index - d, index + d]) if (arm(WAVES[i]) === want && WAVES[i]) return i;
+  }
+  return index;
 }

@@ -59,6 +59,12 @@ export interface Block {
   /** Where composed waves go in the list, and the panel they are played on. */
   insertAt: number;
   controls: Wave["controls"];
+  /** A lesson's faults, which every composed wave carries as far as it
+   * lasts (`compose-lesson.ts`). */
+  faults?: Wave["faults"];
+  /** Whether every composed wave carries them, or a wave AUTO cannot play
+   * with them may go without (`compose.ts` tries this first). */
+  faultsOnly?: true;
 }
 
 const BASICS = ["slick", "bulb", "meteor"];
@@ -157,8 +163,10 @@ export function readBlock(waves: readonly Wave[], introId: string): Block | stri
     : intros.filter((b) => b.index > last && b.index < intro).length;
   let insertAt = intro + 1;
   while (insertAt < next && !waves[insertAt]?.boss && !isRegularWave(waves, insertAt)) insertAt++;
+  // Up to the boss that closes it: a lesson's block may follow, before the
+  // next intro (`compose-lesson.ts`).
   let existing = 0;
-  for (let i = intro + 1; i < next && (!tutorial || i <= last); i++) {
+  for (let i = intro + 1; i < next && (!tutorial || i <= last) && !waves[i]?.boss; i++) {
     if (isRegularWave(waves, i)) existing++;
   }
   const before = intros.slice(0, number);

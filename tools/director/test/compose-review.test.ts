@@ -1,7 +1,8 @@
 import { describe, expect, test } from "bun:test";
 import { isRegularWave, WAVES, type Wave } from "@neon-spore/content";
 import { bossOrder } from "../src/boss-slots.js";
-import { isReviewHead, nextReview, REVIEW_FROM, REVIEW_NAMES } from "../src/compose-review.js";
+import { nextReview, REVIEW_FROM, REVIEW_NAMES } from "../src/compose-review.js";
+import { isReviewHead } from "../src/compose-starts.js";
 
 describe("review blocks (wave-curriculum §7)", () => {
   test("only a review block's first wave is a review head", () => {

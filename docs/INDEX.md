@@ -1011,6 +1011,7 @@ by hand never moves.
 | `packages/content/src/waves/act-10.ts` | Act ten, opened for THE REPRISE — `act-9.ts` had twenty-odd lines left under the 250-line ceiling |
 | `packages/content/src/waves/act-10-p2.ts` | Cut from `act-10.ts` by the director's save when that file passed the 250-line ceiling; it plays straight… |
 | `packages/content/src/waves/act-10-p3.ts` | Cut from `act-10-p2.ts` by the director's save when that file passed the 250-line ceiling; it plays straight… |
+| `packages/content/src/waves/act-10-p4.ts` | Cut from `act-10-p3.ts` by the director's save when that file passed the 250-line ceiling; it plays straight… |
 | `packages/content/src/waves/act-11.ts` | Act eleven, opened for THE SPOOL on 22 September 2026 |
 | `packages/content/src/waves/act-11b.ts` | Act eleven's second page, opened for THE OCULUS on 2 October 2026 |
 | `packages/content/src/waves/act-11-p2.ts` | Cut from `act-11.ts` by the director's save when that file passed the 250-line ceiling; it plays straight… |
@@ -3622,7 +3623,9 @@ by hand never moves.
 | `tools/director/src/compose-ramp.ts` | **The pressures a block's steps land on, chosen together** |
 | `tools/director/src/compose-review.ts` | A review block: eight regular waves in front of a boss that has no block, themed on an old thing; its head counts as a block |
 | `tools/director/src/compose-steps.ts` | **The steps of a block**, as data — `docs/spec/wave-curriculum.md` §3 |
+| `tools/director/src/compose-starts.ts` | Where blocks start: an intro, a lesson (a panel or a fault), a review head; and the floor a block rises from |
 | `tools/director/src/compose-grow.ts` | **The steps grow with the game**: wider, then mixed, then twinned, every four blocks past the arc |
+| `tools/director/src/compose-lesson.ts` | A lesson's block: eight regular waves after THE LANCE, THE JAM, THE CLAW…; the lessons moved behind their block's waves |
 | `tools/director/src/compose.ts` | **A block's regular waves, composed** — `docs/spec/wave-curriculum.md` §6 |
 | `tools/director/src/rail-marks.ts` | The small glyphs in front of a wave's name in the rail: a boss, a panel, a guide |
 | `tools/land/say.ts` | What a landing says about itself before and after it happens |
@@ -4219,5 +4222,6 @@ by hand never moves.
 | `tools/director/waves-compose.ts` | `bun run waves:compose <intro id>` — a block's regular waves composed from its intro, checked, and with `--write` put into the act files |
 | `tools/director/waves-bosses.ts` | `bun run waves:bosses` — every boss moved to the end of the first block that has taught what it needs, and with `--write` saved |
 | `tools/director/waves-review.ts` | `bun run waves:review` — composes the next review blocks, one after another, and writes them |
+| `tools/director/waves-lessons.ts` | `bun run waves:lessons` — moves every lesson behind its block, composes its eight, places the bosses again |
 
 <!-- index:code:end -->

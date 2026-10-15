@@ -221,30 +221,33 @@ decided then while the owner was away:
 
 - **The tutorial arc keeps its bosses.** THE INSTAR and THE BASTION stay
   where they are, and no boss moves into the arc.
-- **The bosses keep their order.** Each takes the first free block after the
-  one the boss before it took, so THE HAUL still follows THE SCOUT and a
-  panel two bosses share is met on the same one first.
-- **A boss with no block left waits at the end**, in order. Of the 56
-  bosses, two stay in the arc, 33 closed a block that a body or a pod opens,
-  and 21 waited after THE HUSK's block.
-- **Every waiting boss got a review block**, 15 October 2026 — the owner:
-  *create all other waves, so that waves are distributed also between all
-  the boss waves.* Eight regular waves with no intro, themed on the things
-  taught from THE LURE on, in that order, composed by `bun run waves:review`
-  (`tools/director/src/compose-review.ts`). Boss placement counts a review
-  block as a block, so every boss past the arc now closes one: about one
-  every ten waves from wave 41 to the end, 564 waves in all.
-- **A boss comes straight after a regular wave**, 15 October 2026 — the
-  owner: *I expect to follow from top to bottom without spaces.* A panel's or
-  a fault's lesson that stood between a block's waves and its boss (THE
-  LANCE and THE PURGE, THE CLAW, THE CODEX to THE LEAK, THE FLIP and THE
-  DARK) now opens the next block, and the boss comes before it: THE VANE,
-  THE SCUTTLE, THE SPLICE and THE GIMBAL moved up. None needed what those
-  lessons teach; one that did would take the next block. THE TWITCH and
-  FIVE BLISTERS, hand-written regular waves, fold into their blocks.
-- **The first wave of a review block stops rising at 8.7**, from the
-  thirteenth on: R1 alone cannot score higher, as §4 found for every first
-  step. Each block's peak still rises, from 10.3 to 13.
+- **A boss takes the first free block** once everything it needs is taught.
+  First decided as *the bosses keep their order*; the owner, 15 October 2026,
+  *you can rearrange boss waves however you want*, so a block one boss skips
+  (THE SPLICE waits for THE CLAW's button) is taken by the next one ready,
+  and no block goes without a boss. A boss on a panel only bosses carry still
+  follows the boss before it on that panel: THE HAUL after THE SCOUT.
+- **A boss with no block left waits at the end**, in order — and gets a
+  review block: eight regular waves with no intro, themed on the things
+  taught from THE LURE on, composed by `bun run waves:review`
+  (`tools/director/src/compose-review.ts`; the owner: *create all other
+  waves, so that waves are distributed also between all the boss waves*).
+  21 were written; 11 remain since the lessons got blocks of their own.
+- **A boss comes straight after a regular wave** — the owner: *I expect to
+  follow from top to bottom without spaces.* THE TWITCH and FIVE BLISTERS,
+  hand-written regular waves, fold into their blocks.
+- **Every lesson opens a block** — the owner: *there are a lot of waves
+  introducing new concepts or enemies, which then should have waves.* A
+  lesson teaches a panel or a fault: THE LANCE, THE JAM, THE CHOKE, THE
+  LIMPET, THE LEECH, THE CLAW, THE CODEX, THE HANDOVER, THE FLIP, THE DARK.
+  Each moved behind the regular waves of the block it came in and has eight
+  of its own, carrying its fault (`bun run waves:lessons`,
+  `tools/director/src/compose-lesson.ts`). THE JAM's go without the jam and
+  THE CHOKE's mostly without the steer fault, which AUTO cannot play; THE
+  CLAW's are on the block's panel, not the claw.
+
+Past the arc that makes **54 blocks — 33 opened by a body or a pod, 10 by a
+lesson, 11 reviews — and 54 bosses, one closing each**: 564 waves in all.
 
 The boss table — every boss's AUTO time against the band — is in
 `wave-curriculum-today.md`. AUTO plays perfectly and never talks, so the

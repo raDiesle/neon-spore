@@ -2,7 +2,7 @@ import { describe, expect, test } from "bun:test";
 import { controlSet, isRegularWave, mechanicsInWave, WAVES } from "@neon-spore/content";
 import { biomeLineCount, biomeLines } from "../src/biome-lines.js";
 import { bossOrder } from "../src/boss-slots.js";
-import { startsBlock } from "../src/compose-review.js";
+import { startsBlock } from "../src/compose-starts.js";
 import { TUTORIAL_LAST_ID } from "../src/compose-steps.js";
 
 const finale = WAVES.findIndex((w) => w.id === TUTORIAL_LAST_ID);
@@ -31,19 +31,24 @@ describe("the bosses' places (wave-curriculum §7)", () => {
     });
   });
 
-  test("close a block each, at most one, until the blocks run out", () => {
+  // Every block past the arc — an intro's, a lesson's, a review — and one
+  // boss closing it, until the bosses run out.
+  test("close a block each, exactly one, while there are bosses left", () => {
     let between = 0;
-    let last = -1;
+    let started = false;
     WAVES.forEach((w, i) => {
       if (i <= finale) return;
       if (startsBlock(WAVES, i)) {
-        expect(between).toBeLessThanOrEqual(1);
+        if (started)
+          expect({ before: WAVES[i]?.name, bosses: between }).toEqual({
+            before: WAVES[i]?.name,
+            bosses: 1,
+          });
         between = 0;
-        last = i;
+        started = true;
       } else if (w.boss) between++;
     });
-    // After the last block, one boss closes it and any left wait for theirs.
-    expect(WAVES.slice(last).filter((w) => w.boss).length).toBeGreaterThanOrEqual(1);
+    expect(between).toBe(1);
   });
 
   // The owner, 15 October 2026: *I expect to follow from top to bottom
