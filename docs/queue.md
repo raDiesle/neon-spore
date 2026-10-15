@@ -590,6 +590,7 @@ three. Prove it with `bun test tools/versus` and `bun run check`.
 ## THE BLISTER takes a LEVER, and the CONTROLS group a LEVER brush
 
 - **Found:** 2026-10-14, claude/control-bodies
+- **Taken:** 2026-10-15, main (claim: claude/queue-the-blister-takes-a-lever-and-the-controls-group)
 - **Files:** `packages/sim/src/blister.ts`, `packages/sim/src/creature-state-blister.ts`, `tools/director/src/lever-lab-rule.ts`, `tools/director/src/entry-fields-blister.ts`, `tools/director/src/control-brushes.ts`
 
 The owner asked for one brush per on-screen control, and the CONTROLS group
