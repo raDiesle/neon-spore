@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-15 · 46cc69ba9 — VERSUS offers THE BLISTER's SWIPE a body built round its pull
+
+Three bodies for the SWIPE blister, each built round its channel and knob and each following the way the stroke runs. SLUG is a slug whose back is the channel and whose head is the knob. FROG is a frog whose tongue runs out behind the knob. ZIP is a pod whose seam the knob unzips. A stroke down runs past the pore's lip, so each one draws that part in `beyond`. The slot opens on a new played pose stroked down, and the COMPARED LOOKS sheet carries the same pose stroked up beside it.
+
 ## 2026-10-15 · a31cc22ff — The naming gate measures an enemy turned by its glance
 
 nameabilityOf takes an optional glance: each posed contour is turned about its centre as glance.ts does with a hold of 0, then rolled, through every swing and roll of a COCK round, taken as the round's envelope so it holds whatever temper a body is dealt. render/creature-glance.ts holds CREATURE_GLANCE (still) and CREATURE_GLANCE_SIZE, searched: a reach of 0.22, since at 0.23 the wisp's turned lobes cover the limpet's and the blister's, and a roll of 0.14 at that reach, since at 0.15 the beatbox and the leech share a box. nameability-glance.test.ts holds both edges. The measuring moved into nameability-glance.ts with a cached harmonic table, four times faster and every unglanced number the same. First of the three lanes that turn the enemies.
