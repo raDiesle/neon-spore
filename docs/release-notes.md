@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-15 · 2e034cd37 — VERSUS offers THE BLISTER's TURN a body built round its knob
+
+`blister:turn` opens with three bodies that say which way round before a thumb is on them and go round with the knob: SNAIL, all shell, whose spiral winds the way the turn runs and turns as the lever winds it; WHEEL, six lobes hooked the way the turn runs like a turbine's blades, turned by the lever; and WORM, a mound whose worm lies curled just inside the channel, its head a little ahead of the knob facing the way to go, crawling round with it. They are judged on a new COMPARED LOOKS pose whose hand winds the knob clockwise a turn and most of another and lifts; anticlockwise is drawn from the same code and not pictured. Exemption: none — a look, offered on VERSUS.
+
 ## 2026-10-15 · 416eac81b — VERSUS offers THE BLISTER's RUB a body built round its zigzag
 
 `blister:rub` opens with three bodies that answer being scrubbed, each counting the blows still owed: URCHIN, a sea urchin whose spines are laid flat from the top down a third at a blow and shiver under a thumb; WASHBOARD, a ridged board whose ridges light green from the bottom a third at a blow, raising suds while it is scrubbed; and PURR, a furry mound with pointed ears whose fur bristles more with every blow and whose eyes close happy under a thumb. They are judged on a new COMPARED LOOKS pose whose hand puts a thumb down, turns back twice and lifts. Exemption: none — a look, offered on VERSUS.

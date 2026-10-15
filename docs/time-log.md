@@ -41719,3 +41719,5 @@ claimed — the bodies were drafted in the scratchpad meanwhile.
 
 Bottleneck: a slot's candidates must patch the same fields, so the two
 that put nothing past the pore patch `beyond` with the shipped nothing.
+
+*Measured: 8 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
