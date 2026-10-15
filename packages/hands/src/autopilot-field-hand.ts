@@ -8,6 +8,7 @@ import {
   isWardable,
   MILLI,
   occupiesCol,
+  rockCrosses,
   shieldRow,
   type TimedCommand,
   ticksPerBeat,
@@ -15,6 +16,7 @@ import {
 } from "@neon-spore/sim";
 import { aimColumn, cannonAnswers } from "./autopilot-aim.js";
 import { shakeChoir } from "./autopilot-choir.js";
+import { wardCoil } from "./autopilot-coil.js";
 import { countReady } from "./autopilot-count.js";
 import { wardCrawler } from "./autopilot-crawler.js";
 import { crystalOpen, lowestCrystal, shieldCrystal } from "./autopilot-crystal.js";
@@ -53,6 +55,7 @@ import type { Hand } from "./hand.js";
  * (`autopilot-fence.ts`), THE MAGNET locked from beside it
  * (`autopilot-magnet.ts`), THE CRYSTAL opened in the middle
  * (`autopilot-crystal.ts`), THE COUNT shot on its zero (`autopilot-count.ts`),
+ * THE COIL's dome opened from under it (`autopilot-coil.ts`),
  * THE CHOIR shaken together (`autopilot-choir.ts`),
  * THE CRAWLER's plates turned by the dome (`autopilot-crawler.ts`), THE JAM's
  * runaway cannon steered (`autopilot-jam.ts`), and the bodies a finger answers
@@ -135,7 +138,11 @@ function cannon(w: World): Press[] {
 function shield(w: World): Press[] {
   const off = shake(w, "limpet", w.shieldCol);
   if (off !== null) return [carry(off)];
-  const rock = lowest(w, (c) => isWardable(c.kind) || c.kind === "moult" || c.kind === "clasp");
+  // A rock crossing the field leaves by the far wall and never reaches the hull.
+  const rock = lowest(
+    w,
+    (c) => (isWardable(c.kind) && !rockCrosses(c)) || c.kind === "moult" || c.kind === "clasp",
+  );
   const gap = fenceGap(w);
   if (gap !== null && (rock === undefined || gap.row >= rock.row)) {
     return w.shieldCol === gap.col ? [] : [carry(gap.col)];
@@ -147,6 +154,8 @@ function shield(w: World): Press[] {
   if (rock === undefined || rock.row < shieldRow(w.cfg) - 2) {
     const plate = wardCrawler(w);
     if (plate !== null) return plate;
+    const dome = wardCoil(w);
+    if (dome !== null) return dome;
   }
   if (rock === undefined) return [];
   if (!occupiesCol(rock, w.shieldCol)) return [carry(rock.col)];

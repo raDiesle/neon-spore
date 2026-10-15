@@ -261,7 +261,7 @@ the wave. *Pressure* is `wavePressure`
 | 242 | MAGNET RECALL | **regular** | — | STANDARD | 8 | 39 | 42 b · 26 s | 9.2 |
 | 243 | MAGNETS AND TWINS | **regular** | — | STANDARD | 11 | 44 | 47 b · 29 s | 10 |
 | 244 | MAGNET PEAK | **regular** | — | STANDARD | 15 | 47 | 53 b · 33 s | 11 |
-| 245 | THE COIL | intro | coil, shieldFault | STANDARD | 6 | 46 | 58 b · 36 s | 9.9 |
+| 245 | THE COIL | intro | coil, shieldFault | STANDARD | 6 | 46 | 48 b · 30 s | 9.9 |
 | 246 | THE CHOKE | intro | steerFault | STANDARD | 10 | 48 | 60 b · 38 s | 10.6 |
 | 247 | THE LIMPET | intro | limpet | STANDARD | 6 | 50 | 64 b · 40 s | 8.2 |
 | 248 | THE LEECH | intro | leech | STANDARD | 7 | 48 | 51 b · 32 s | 11.4 |

@@ -328,20 +328,6 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/skipped.test.ts` holds the listing's count of the entries
 `next` stepped past and why.
 
-## AUTO loses THE COIL and THE CROSSING in composed waves
-
-- **Found:** 2026-10-14, claude/queue-the-composer-stalls-eight-later-blocks-at-r7-r8
-- **Taken:** 2026-10-15, claude/queue-auto-loses-the-coil-and-the-crossing-in-composed
-- **Files:** `packages/hands/src/autopilot-field-hand.ts`, `tools/director/src/compose-check.ts`
-
-`bun run waves:compose` keeps only waves AUTO clears, and AUTO loses nearly
-every composed wave with a coil or a crossing rock in it — THE COIL's block
-at R7, THE CROSSING's at R2, with one draw in twelve or none clearing at most
-steps. Their own hand-made waves clear. Find what the field hand misses when a
-coil or a crossing comes among other bodies, teach it, and add a test in
-`packages/hands` that plays a composed wave of each to a clear. Prove with
-`bun run waves:compose theCoil` and `theCrossing` filling all their steps.
-
 ## AUTO loses BULB QUEEN and THE VANE
 
 - **Found:** 2026-10-14, claude/wave-plan
@@ -640,3 +626,18 @@ are done inside the time it is up. A `combo` gesture, the lab's paint,
 `BLISTER_GESTURES` and so a COMBO brush. Its body is a `blister:combo` slot
 after it. Prove it with `bun test packages/sim tools/director` and
 `bun run check`.
+
+## THE COIL's block cannot compose R7 under its next written wave
+
+- **Found:** 2026-10-15, claude/queue-auto-loses-the-coil-and-the-crossing-in-composed
+- **Files:** `tools/director/src/compose.ts`, `tools/director/src/compose-ramp.ts`, `tools/director/src/compose-steps.ts`
+
+`bun run waves:compose theCoil` stops at R7 with *no pressure in reach keeps
+the ramp (decision 6)*, on seeds 0, 1 and 2. AUTO is not the cause any more:
+every R7 draw clears, and nothing is struck. R7 is the block's last step, so
+`chooseRamp` caps it at the block's next written wave, which is pressure 8.
+All 52 of R7's pressures lie between 8.2 and 13.5. Find whether R7's grown
+step (`grownStep` at this notch) should draw fewer arrivals, or whether the
+cap should allow a small rise into the written wave. Then prove it with
+`bun run waves:compose theCoil` filling R2–R8, a test in `tools/director/test/`,
+and `bun run check`.

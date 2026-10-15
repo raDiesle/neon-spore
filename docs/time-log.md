@@ -41403,3 +41403,17 @@ only in the picture.
 Bottleneck: reading — an entry filed while its fix was landing in another lane.
 
 *Measured: 4 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-15 — AUTO loses THE COIL and THE CROSSING in composed waves
+
+- reading: 15 min. The composer's checks and ramp, THE COIL's dome and
+  chain, the crossing rock, and composed draws probed beat by beat.
+- writing: 10 min. `autopilot-coil.ts`, the shield letting a crossing rock
+  go, a test of two composed draws proved red on the old hand, the today table.
+- looking: 0 min. Nothing drawn.
+- friction: 5 min. `land`'s full check failed on this session's earlier
+  wave-reader test under load; fixed and landed on its own branch first.
+- landing: 5 min.
+
+Bottleneck: reading. Both blocks lost to the coil, which only showed in a probe
+of one composed draw, and THE COIL's R7 turned out to be the ramp, not AUTO.

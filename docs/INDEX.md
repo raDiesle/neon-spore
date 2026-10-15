@@ -2963,6 +2963,7 @@ by hand never moves.
 | `packages/hands/src/autopilot-crawler.ts` | **THE CRAWLER, on AUTO**: the dome under the plate's next column, on the beat |
 | `packages/hands/src/autopilot-crystal.ts` | **THE CRYSTAL, on AUTO**: shield and cannon both in the middle, the dome up, then the shot |
 | `packages/hands/src/autopilot-count.ts` | **THE COUNT, shot on its zero** (`sim/countdown.ts`) |
+| `packages/hands/src/autopilot-coil.ts` | **THE COIL, opened by the shield** (`sim/coil.ts`) |
 | `packages/hands/src/autopilot-claw.ts` | **THE CLAW, on AUTO** (`sim/reach.ts`, `sim/crank.ts`) |
 | `packages/hands/src/autopilot-jam.ts` | **THE JAM, on AUTO**: the runaway cannon under the next beat's colour, or an empty column |
 | `packages/hands/src/autopilot-blister.ts` | THE BLISTER on AUTO — tap, hold, swipe, turn and rub, a blow a beat from the seat its BY names |
