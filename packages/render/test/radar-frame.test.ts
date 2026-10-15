@@ -3,6 +3,7 @@ import { createWorld, type SpawnEntry } from "@neon-spore/sim";
 import { drawRadar } from "../src/field.js";
 import { computeLayout, tileCY, type ViewRole } from "../src/layout.js";
 import { radarBlips } from "../src/radar-blip.js";
+import { drawRadarWallMark } from "../src/radar-wall.js";
 import { CFG, FRAME_TIMEOUT_MS, installCanvasGlobals, stubCanvas } from "./frame-harness.js";
 
 // The cap this file runs under. Asked for here rather than inherited: bun
@@ -86,6 +87,62 @@ describe("the radar", () => {
     const plain = radarBlips(l, createWorld(CFG, 1, [fall]))[0];
     expect(plain?.cross).toBeUndefined();
     expect(plain?.y).toBeLessThan(l.gridTop);
+  });
+
+  /**
+   * **A body that comes up inside the field is marked twice**: on the strip,
+   * in its column, and against the nearer side wall, on the row it comes up
+   * on — so the two marks cross where it appears (the owner, 15 October
+   * 2026). A blister at column 2, row 4 is marked on the left wall at row 4; at
+   * column 9 on the right. A body that falls carries no wall mark.
+   */
+  it("marks a blister's row on the nearer wall, crossing its column", () => {
+    const blister = (col: number): SpawnEntry => ({
+      beat: 2,
+      col,
+      kind: "blister",
+      color: null,
+      row: 4,
+    });
+    const blipOf = (col: number) =>
+      (["p1", "p2"] as const)
+        .map((role) => ({
+          l: layout(role),
+          b: radarBlips(layout(role), createWorld(CFG, 1, [blister(col)]))[0],
+        }))
+        .find((x) => x.b);
+    const left = blipOf(2);
+    const right = blipOf(9);
+    expect(left?.b?.wall?.side).toBe(-1);
+    expect(right?.b?.wall?.side).toBe(1);
+    expect(left?.b?.wall?.y).toBeCloseTo(tileCY(left?.l ?? layout("p1"), 4));
+    expect(left?.b?.wall?.x).toBeLessThan(left?.b?.x ?? 0);
+    expect(right?.b?.wall?.x).toBeGreaterThan(right?.b?.x ?? 0);
+    // The strip's own mark still stands above the field, in the column.
+    expect(left?.b?.y).toBeLessThan(left?.l.gridTop ?? 0);
+    const fall = radarBlips(
+      layout("p2"),
+      createWorld(CFG, 1, [{ beat: 2, col: 2, color: "red", kind: "slick" }]),
+    )[0];
+    expect(fall?.wall).toBeUndefined();
+  });
+
+  it("draws the wall mark pointing into the field from its wall", () => {
+    const tips: number[][] = [];
+    const ctx = {
+      globalAlpha: 1,
+      fillStyle: "",
+      beginPath() {},
+      closePath() {},
+      fill() {},
+      moveTo: (x: number, y: number) => tips.push([x, y]),
+      lineTo() {},
+    } as unknown as CanvasRenderingContext2D;
+    drawRadarWallMark(ctx, { x: 10, y: 300, side: -1 }, 8, 1, "#fff");
+    drawRadarWallMark(ctx, { x: 890, y: 300, side: 1 }, 8, 1, "#fff");
+    expect(tips[0]?.[0]).toBeGreaterThan(10);
+    expect(tips[1]?.[0]).toBeLessThan(890);
+    expect(tips.every((t) => t[1] === 300)).toBe(true);
   });
 
   it("draws that blip rather than skipping it", () => {

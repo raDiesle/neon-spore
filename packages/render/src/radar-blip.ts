@@ -1,6 +1,7 @@
 import { showsRadar } from "@neon-spore/content";
 import {
   bodyCenterCol,
+  fieldRowFor,
   isMeteorKind,
   type RockCross,
   repriseHeld,
@@ -56,6 +57,16 @@ export interface RadarBlip {
    * and the alpha, which carried it on the strip too.
    */
   cross?: RockCross;
+  /**
+   * **The row, for an arrival that comes up inside the field** — a blister on
+   * its pore, a mine on its tile (`fieldRowFor`). The strip's mark alone said
+   * only the column, and read as a body that would fall from the top, which
+   * these never do. So a second mark stands against the nearer side wall on
+   * the row it comes up on, and the body appears where the strip's column and
+   * the wall's row cross (the owner, 15 October 2026). `side` is the wall:
+   * -1 the left, 1 the right, on the screen as drawn.
+   */
+  wall?: { x: number; y: number; side: -1 | 1 };
 }
 
 /** Every blip this screen carries, soonest first — the queue's own order. */
@@ -89,6 +100,9 @@ export function radarBlips(l: Layout, world: World): RadarBlip[] {
     // because those are the two things it has instead of a column.
     const entryCol = across === undefined ? q.col : rockEntryCol(world.cfg.cols, span, across);
     const row = across === undefined ? 0 : rockCrossRowFor(world.cfg, q.row);
+    const x = fieldX(l, bodyCenterCol(q, entryCol));
+    const s = 5 + 4 * (1 - inBeats / (lead + 1));
+    const comesUp = across === undefined ? fieldRowFor(world, q, entryCol) : undefined;
     out.push({
       entry: q,
       inBeats,
@@ -96,12 +110,12 @@ export function radarBlips(l: Layout, world: World): RadarBlip[] {
       // sim/types.ts) — the blip itself is drawn at the visual centre.
       // `fieldX`: the strip warns of a body, so it turns with the field the
       // body will arrive on under THE FLIP (`field-flip.ts`).
-      x: fieldX(l, bodyCenterCol(q, entryCol)),
+      x,
       y:
         across === undefined
           ? l.gridTop - 7 - inBeats * ((l.radarHeight - 12) / lead)
           : tileCY(l, row),
-      s: 5 + 4 * (1 - inBeats / (lead + 1)),
+      s,
       // How wide the thing being warned about actually is. Asked of the entry
       // rather than of its kind: the torch is no longer the only two-tile
       // rock, and a blip drawn one tile wide over a rock that covers two is a
@@ -109,9 +123,18 @@ export function radarBlips(l: Layout, world: World): RadarBlip[] {
       span,
       alpha: Math.max(0.18, 1 - inBeats / (lead + 1)),
       ...(across === undefined ? {} : { cross: across }),
+      ...(comesUp === undefined ? {} : { wall: wallMark(l, x, tileCY(l, comesUp), s) }),
     });
   }
   return out;
+}
+
+/** The wall mark's place: flush inside the side wall nearer the column, so
+ * it points across at the body rather than over the whole field. */
+function wallMark(l: Layout, x: number, y: number, s: number): NonNullable<RadarBlip["wall"]> {
+  const side = x < l.gridLeft + l.gridWidth / 2 ? -1 : 1;
+  const inset = s * 0.9;
+  return { x: side < 0 ? l.gridLeft + inset : l.gridLeft + l.gridWidth - inset, y, side };
 }
 
 /**

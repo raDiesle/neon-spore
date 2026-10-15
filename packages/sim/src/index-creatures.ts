@@ -166,6 +166,8 @@ export {
   shellPiecesLeft,
 } from "./shell.js";
 export { isPushable, pushIsClimbing, pushOffered, pushRiseLeft } from "./shield-push.js";
+// Where a mine or a blister comes up, for the warning strip's wall mark.
+export { fieldRowFor } from "./spawn-row.js";
 export {
   beadIsActive,
   beadIsLit,

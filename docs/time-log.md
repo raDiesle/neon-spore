@@ -42480,3 +42480,16 @@ Bottleneck: diagnosis — R1 was never capped at 8.7; it reached 9.9 under
 AUTO, and the stall was a tie between 8.7 and 8.9 that the lower side won.
 
 *Measured: 7 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-15 — a body that comes up in the field is marked on the wall too
+
+- reading: 5 min. `radar-blip.ts`, `drawRadar`, where `spawn.ts` decides a
+  mine's and a blister's row.
+- writing: 5 min. `fieldRowFor`, the wall mark, two tests.
+- looking: 5 min. Frames before and after on BLISTERS TO TURN, at three ticks,
+  to find the side mark the owner meant and then to see the new one.
+- friction: 0 min.
+- landing: 5 min. `bun run index`, `imports:sort`, `check:fast`, `land`.
+
+Bottleneck: looking — the frames had to answer which side mark was meant
+before the owner was asked.

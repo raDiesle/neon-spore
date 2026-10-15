@@ -10,6 +10,7 @@ import type { Layout, ViewRole } from "./layout.js";
 import { drawRadarLureMark } from "./lure-alarm.js";
 import { PALETTE } from "./palette.js";
 import { blipColor, radarBlips } from "./radar-blip.js";
+import { drawRadarWallMark } from "./radar-wall.js";
 import { seatSkin } from "./seat-skin.js";
 import { drawRadarVeilMark } from "./veil-marks.js";
 
@@ -215,6 +216,10 @@ export function drawRadar(ctx: CanvasRenderingContext2D, l: Layout, world: World
     // `comms.ts` owns the roster, so a creature joining it lights up here
     // without this file learning its name.
     if (needsComms(q.kind)) drawEyeGlyph(ctx, x, y - s - 7, 5.6, PALETTE.text, a * 0.9);
+
+    // The row, on the nearer wall, for a body that comes up inside the field:
+    // the strip's column and this mark's row cross where it appears.
+    if (blip.wall) drawRadarWallMark(ctx, blip.wall, s, a, hex);
 
     // About to enter: mark the edge of its column.
     if (inBeats <= 0) {

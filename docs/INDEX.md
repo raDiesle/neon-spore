@@ -250,6 +250,7 @@ by hand never moves.
 | `packages/sim/src/spawn.ts` | you are giving a new creature a field it is born with — one queue entry becoming a body, and the only place one does |
 | `packages/sim/src/spawn-companions.ts` | a creature is meant to bring bodies with it — the gyre's rim, the strand's beads, the crawler's links, built off the body just pushed |
 | `packages/sim/src/spawn-fields.ts` | you are giving a new creature a field it is born with — the per-kind spread, in the order the rolls come off `world.rng` |
+| `packages/sim/src/spawn-row.ts` | **The row an arrival comes up on inside the field** |
 | `packages/sim/src/spark-fall.ts` | **A spark falling down one column to the hull**, eased in and out, in the field's own thousandths of a row |
 | `packages/sim/src/splice-hash.ts` | What THE SPLICE puts into `hashWorld`, and nothing else |
 | `packages/sim/src/splice-round.ts` | THE SPLICE's clock, its one verb and what a feed costs |
@@ -1857,6 +1858,7 @@ by hand never moves.
 | `packages/render/src/recoil-cage-break.ts` | THE RECOIL's cage coming apart: the shot that spends the last bounce, drawn as the frame failing all at once |
 | `packages/render/src/recoil-calyx.ts` | CALYX — a kept look for THE RECOIL's cage, drawn only on the GRAPHICS page's LIBRARY |
 | `packages/render/src/radar-blip.ts` | Which arrivals this screen's warning strip is carrying, and where each one sits on it |
+| `packages/render/src/radar-wall.ts` | **The warning strip's second mark: the row, on a side wall** |
 | `packages/render/src/ratchet-draw.ts` | **THE RATCHET**: a strut down the middle of the field, a rack of seven plates climbing inside it past a pawl |
 | `packages/render/src/ratchet-fx.ts` | What THE RATCHET leaves behind a frame |
 | `packages/render/src/ratchet-fx-story.ts` | **What THE RATCHET's story throws** (`sim/ratchet-story.ts`): the burst each of its twelve events leaves, and whether it lands a step or strikes the hull |
