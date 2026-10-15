@@ -331,6 +331,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## `bun run frames --hold` has no BLISTER stroke
 
 - **Found:** 2026-10-15, claude/blister-swipe-take
+- **Taken:** 2026-10-15, main (claim: claude/queue-bun-run-frames-hold-has-no-blister-stroke)
 - **Files:** `tools/frames/hold-targets.ts`, `tools/frames/hold.ts`, `tools/frames/test/`
 
 A SWIPE or COMBO blister carried part way — SLUG stretched to the knob, ZIP
