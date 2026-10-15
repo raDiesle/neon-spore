@@ -2274,3 +2274,15 @@ blister-lever.ts).
 
 The other answers offered were `bell`, `root` and `taffy`; they went with the
 slot.
+
+## `blister:tap` — nothing taken, 2026-10-15
+
+taken by hand: the owner, 15 October 2026 — 'same for BLISTER:TAP', after
+LEVER's 'build all into game and remove from versus candidates'. MOLE, RIDER
+and CRADLE moved to packages/render/src/blister-tap-mole.ts, -rider.ts and
+-cradle.ts at the 1.3 they were last offered at; BLISTER_BODY.tap draws one
+of them per blister by its id (drawTapBody in blister-tap-body.ts), under the
+yellow press. The clover, which no gesture wears now, went with it.
+
+The other answers offered were `cradle`, `mole` and `rider`; they went with
+the slot.

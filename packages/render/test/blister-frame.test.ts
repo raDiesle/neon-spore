@@ -9,6 +9,7 @@ import {
   type TimedCommand,
   ticksPerBeat,
 } from "@neon-spore/sim";
+import { tapBodyOf } from "../src/blister-tap-body.js";
 import type { ViewRole } from "../src/layout.js";
 import {
   CFG,
@@ -93,5 +94,13 @@ describe("the blister", () => {
     const { blows, destroyed } = played("test");
     expect(blows).toBe(9);
     expect(destroyed).toBe(3);
+  });
+});
+
+describe("the TAP blister's body", () => {
+  it("is each of MOLE, RIDER and CRADLE for some ids, the same every time it is asked", () => {
+    const picks = Array.from({ length: 12 }, (_, i) => tapBodyOf(i + 1));
+    expect(new Set(picks)).toEqual(new Set([0, 1, 2]));
+    expect(picks).toEqual(Array.from({ length: 12 }, (_, i) => tapBodyOf(i + 1)));
   });
 });

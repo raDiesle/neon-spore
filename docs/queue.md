@@ -375,3 +375,19 @@ CPU is not it; find where the wait is — the first `readdirSync`/`readFileSync`
 over ~4000 files, or the module graph `decide.ts` pulls in — time it with
 `--cpu-prof` or by halves, make `drop` answer in seconds, and add a timing
 guard or a test that the importer scan never descends into `node_modules`.
+
+## A TAP blister's body has no route to a photograph
+
+- **Found:** 2026-10-15, claude/blister-tap-take
+- **Files:** `tools/frames/shot.ts`, `tools/frames/shot-usage.ts`, `tools/director/src/poses-field-controls-blister.ts`
+
+With `blister:tap` taken off VERSUS, `versus:shot` no longer reaches the
+`BLISTER · UP FOR A TAP` pose, and nothing else does: `bun run shot canvas
+x.png --serve --path "/?sheet=states&inner=controlsets&sub=field" --row "THE
+BLISTER"` photographs SWIPE's card (the first row whose name contains it),
+and `--path "/?sheet=states" --click '[data-group="COMPARED LOOKS"] h2'`
+answers *no element matches*. The lane fell back to `bun run frames . --wave
+"THE BLISTER" --seat p2` stepped by hand until a body was up, then `crop`.
+Make `--row` prefer an exact name over a substring, give the pose a route
+`shot` can name (an ON THE FIELD row, or the sheet and group in the usage
+line), and add the case to `tools/frames/test/shot-row.test.ts`.

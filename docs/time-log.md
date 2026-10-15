@@ -42079,3 +42079,13 @@ Bottleneck: none; the row lookup was already fixed, only the route was missing.
 Bottleneck: a fresh worktree's first read of 4,000 files, which no figure saw.
 
 *Measured: 5 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-15 — THE BLISTER's TAP drawn as MOLE, RIDER or CRADLE
+
+- reading: 0 min. LEVER's lane, just landed, is the pattern.
+- writing: 5 min. Three files moved into render, `blister-tap-body.ts`, the clover dropped.
+- looking: 15 min. No route photographs TAP's pose now; a frames strip stepped by hand found RIDER up.
+- friction: 5 min. `shot --row` matching SWIPE's card, `--click` matching nothing; queued.
+- landing: 5 min. `check:fast`, `land`.
+
+Bottleneck: finding a frame with a TAP body up in it.

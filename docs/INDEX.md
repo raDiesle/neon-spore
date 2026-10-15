@@ -2723,6 +2723,10 @@ by hand never moves.
 | `packages/render/src/beatbox-count.ts` | **What the counter over a soundbox is saying**, as a shape rather than as a drawing — how many slots |
 | `packages/render/src/beatbox-silence.ts` | **A soundbox going quiet**, which is the one thing on this creature that goes right and until now was the… |
 | `packages/render/src/blister-tap.ts` | **A tap on THE BLISTER**, answered only where the simulation would count it: on a blister that is up |
+| `packages/render/src/blister-tap-body.ts` | THE BLISTER's TAP body: MOLE, RIDER or CRADLE, one per blister by its id, under the yellow press |
+| `packages/render/src/blister-tap-cradle.ts` | CRADLE, one of TAP's three bodies: two tentacles up out of the pore, curled over the press like a pearl |
+| `packages/render/src/blister-tap-mole.ts` | MOLE, one of TAP's three bodies: a round head with the press for its face, two eyes over it, paws on the lip |
+| `packages/render/src/blister-tap-rider.ts` | RIDER, one of TAP's three bodies: the press a round pad, a small amber slime riding on its shoulder |
 | `packages/render/src/blister-turn-help.ts` | **THE BLISTER's TURN help**: THE MAZE's turn, the one turn for every wave (the owner, 5 October 2026) |
 | `packages/render/src/blister-turn-snail.ts` | **SNAIL**, one of THE BLISTER's two TURN bodies: all shell, its spiral winding the way the turn runs and turning with the knob |
 | `packages/render/src/blister-turn-wheel.ts` | **WHEEL**, one of THE BLISTER's two TURN bodies: six lobes hooked the way the turn runs, going round with the knob |

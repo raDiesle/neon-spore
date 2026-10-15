@@ -190,8 +190,9 @@ export const BLISTER_LEVER: Pose = {
 /**
  * THE BLISTER's TAP up out of its pore with no hand on it yet: the press's
  * halo, its flaring dots and its three pips, on the seat that taps. It is what
- * `blister:tap` on VERSUS is judged on — a body built round the button
- * against the clover the button covers — so it replays every second and a
+ * `blister:tap` on VERSUS was judged on (MOLE, RIDER and CRADLE all taken,
+ * 15 October 2026) — a body built round the button against the clover the
+ * button covered — so it replays every second and a
  * half, inside the two beats the blister stays up. It is on the COMPARED
  * LOOKS sheet (`poses-versus-bodies.ts`), not ON THE FIELD's: no row there
  * names it, since TAP is the tap every body already answers.

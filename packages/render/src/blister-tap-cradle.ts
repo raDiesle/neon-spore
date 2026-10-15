@@ -1,7 +1,7 @@
-import type { BlisterFrame } from "../../../../../packages/render/src/blister-bodies.js";
-import type { Body } from "../../../../../packages/render/src/creature-body-in.js";
-import { rgba } from "../../../../../packages/render/src/hex.js";
-import { PALETTE } from "../../../../../packages/render/src/palette.js";
+import type { BlisterFrame } from "./blister-bodies.js";
+import type { Body } from "./creature-body-in.js";
+import { rgba } from "./hex.js";
+import { PALETTE } from "./palette.js";
 
 const TAU = Math.PI * 2;
 
@@ -12,7 +12,7 @@ const TAU = Math.PI * 2;
  * 2026: *make sure the graphics are visible to be bigger than the tap (yellow)
  * button*.
  */
-export const GROW = 1.3;
+const GROW = 1.3;
 
 /** Discs along each arm: enough that they run together into one limb. */
 const STEPS = 22;

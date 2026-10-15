@@ -6,10 +6,10 @@ import { drawPalmBody } from "./blister-palm.js";
 import { blisterBodyOf } from "./blister-pick.js";
 import { drawRubBody } from "./blister-rub.js";
 import { drawSwipeBeyond, drawSwipeBody } from "./blister-swipe-body.js";
+import { drawTapBody } from "./blister-tap-body.js";
 import { drawSnailBody } from "./blister-turn-snail.js";
 import { drawWheelBody } from "./blister-turn-wheel.js";
 import type { Body } from "./creature-body-in.js";
-import { drawLivingBody } from "./creature-body-living.js";
 
 /**
  * **The body a blister is drawn as, one record per gesture** (the owner, 14
@@ -25,9 +25,10 @@ import { drawLivingBody } from "./creature-body-living.js";
  * mouth, a rider on the pad, arms holding the drop.
  *
  * Every record shipped the clover, risen out of its pore, so the game drew what
- * it did. A body built round a control is offered on VERSUS by patching its
- * gesture's `draw` (`blister:tap` and the slots after it), and an adopted one
- * replaces that gesture's field alone: COMBO's took BUD and CURL
+ * it did. A body built round a control was offered on VERSUS by patching its
+ * gesture's `draw` (`blister:tap` and the slots after it), and every gesture
+ * has since taken its own, so no blister wears the clover now: TAP's MOLE,
+ * RIDER and CRADLE (`blister-tap-body.ts`), COMBO's took BUD and CURL
  * (`blister-combo.ts`), HOLD's PALM and HUG (`drawHoldBody`), RUB's URCHIN,
  * WASHBOARD and PURR (`blister-rub.ts`), SWIPE's SLUG and ZIP
  * (`blister-swipe-body.ts`), TURN's WHEEL and SNAIL (`drawTurnBody`), LEVER's
@@ -55,11 +56,6 @@ export interface BlisterBodyLook {
    * (LEVER's BELL, ROOT and TAFFY, SWIPE's SLUG and ZIP).
    */
   beyond: BlisterBodyDraw;
-}
-
-/** The clover, pushed down into its pore by what is left of the rise. */
-export function drawCloverBody(b: Body, f: BlisterFrame): void {
-  drawLivingBody({ ...b, y: b.y + (1 - f.rise) * f.r * 1.5 });
 }
 
 /**
@@ -97,7 +93,7 @@ export function drawNothingBeyond(_b: Body, _f: BlisterFrame): void {}
 
 /** One record per gesture, each its own object, so a slot patches one gesture. */
 export const BLISTER_BODY: Record<BlisterGesture, BlisterBodyLook> = {
-  tap: { draw: drawCloverBody, beyond: drawNothingBeyond },
+  tap: { draw: drawTapBody, beyond: drawNothingBeyond },
   hold: { draw: drawHoldBody, beyond: drawNothingBeyond },
   swipe: { draw: drawSwipeBody, beyond: drawSwipeBeyond },
   turn: { draw: drawTurnBody, beyond: drawNothingBeyond },
