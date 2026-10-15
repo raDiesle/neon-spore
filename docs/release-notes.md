@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-15 · 3d1adf7fd — THE BLISTER's LEVER is drawn as BELL, ROOT or TAFFY, one per blister
+
+The owner asked for all three `blister:lever` answers built into the game and taken off VERSUS. Each LEVER blister now wears one of them, picked off its id so both screens draw the same one: BELL, a brass bell mouth down whose cord runs to the knob and which swings and rings held in the band; ROOT, a turnip's shoulders and leaves with its root pulled down the groove; TAFFY, a slime whose long nose the knob pinches and the thumb draws out. Each one's limb past the pore is drawn too (`blister-lever.ts`). The slot is gone from VERSUS. Exemption: a look the owner asked for by name.
+
 ## 2026-10-15 · d360e4525 — THE BLISTER's TAP bodies on VERSUS a little smaller
 
 MOLE, CRADLE and RIDER on blister:tap are drawn 1.3 times the blister's radius where they were 1.5, still clear of the yellow press in their middle. A look the owner asked for by name: "make graphics a little bit smaller".

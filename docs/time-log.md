@@ -42050,3 +42050,5 @@ Bottleneck: none; the three shots are most of it.
 - landing: 5 min. `check:fast`, `land`.
 
 Bottleneck: none; finding a row the shot tool would take was most of the looking.
+
+*Measured: 8 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
