@@ -331,6 +331,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## `bun run versus drop` waits minutes on almost no CPU
 
 - **Found:** 2026-10-15, claude/blister-turn
+- **Taken:** 2026-10-15, main (claim: claude/queue-bun-run-versus-drop-waits-minutes-on-almost-no-c)
 - **Files:** `tools/versus/importers.ts`, `tools/versus/decide.ts`
 
 `bun run versus drop blister:turn "…"` in a fresh worktree ran three minutes
