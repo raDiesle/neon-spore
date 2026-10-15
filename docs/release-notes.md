@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-15 · fb63b64ab — The tutorial's regular waves fold under the intro they use: CYAN holds three, TORCH six
+
+TWO COLOURS and ALTERNATING are CYAN's block, as ONLY CYAN already was, and ONE LAST CHANCE to CROWDED are TORCH's — but only ONLY CYAN was folded, so the director's list drew the rest as rows of their own with nothing under them. Nothing moves and the game reads none of it; `variant` is the director's list alone. Not a look.
+
 ## 2026-10-15 · 310957684 — SNAKE's floor shadow is offered without its blur, in VERSUS
 
 Every shadow on SNAKE's board — the body, its jaws, the venom and each item on a tile — now goes through one record, `FLOOR_SHADOW` in snake-skin.ts, and draws exactly what it drew before. A candidate on `snake:shadow`, FLAT, lays the same shadow with no `shadowBlur`: the shape filled dark at the same offset under three widened faint strokes of its own path, in the canvas's own pixels as the blur is. On `SNAKE · PLAY` the two cannot be told apart even magnified four times; the pixels differ by 6 of 255 on average where they differ at all.

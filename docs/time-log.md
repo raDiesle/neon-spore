@@ -42432,3 +42432,5 @@ shows the candidate, and nothing says so.
 
 Bottleneck: reading — the waves were right; only their rows in the rail said
 otherwise.
+
+*Measured: 8 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
