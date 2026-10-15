@@ -42325,3 +42325,5 @@ Bottleneck: landing — the full check for four moved bosses.
 - landing: 5 min. `check:fast`, an autopilot timeout under load average 32, `land`.
 
 Bottleneck: friction — the gate's spread overflowing, found only once a body was turned every way.
+
+*Measured: 15 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*

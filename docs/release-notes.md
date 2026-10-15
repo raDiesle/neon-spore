@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-15 · 8e6305618 — BULB, THROB, COUNTDOWN and MINE look up and down as well as across
+
+A glance can now nod: a part's middle swings up or down as well as left and right, turned as the same two planes split square to where the middle has gone. A new rhythm, ROVE, holds looks at the middle, up, left, down and right, cocked toward a look to the side and level on one up or down. BULB wears it, as the owner asked, and so do THROB, COUNTDOWN and MINE: the four kinds the naming gate lets turn every way at the enemies' glance size, each against every other kind as it ships. Every other enemy still cocks, so the field has two ways of glancing instead of one.
+
 ## 2026-10-15 · 7254b27c0 — Every boss comes straight after its block's regular waves
 
 A panel's or a fault's lesson that stood between a block's waves and its boss now opens the next block, and the boss comes before it: THE VANE, THE SCUTTLE, THE SPLICE and THE GIMBAL moved up a wave or three. THE TWITCH and FIVE BLISTERS fold into their blocks, so in the folded wave list every boss past the tutorial sits under a block's eight waves. A look the owner asked for by name.
