@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-15 · ae314bc54 — The hazards glance
+
+THE CRYSTAL's craft, THE MAGNET, THE CHOIR's film, THE BEATBOX with its arms, THE MINE, THE BLISTER rising from its pore, a falling limpet or leech and the pilot's live strand bead now cock and turn on tempers of their own, as the living enemies do. What is laid round a body stays flat: the crystal's link to the shield, the mine's fuse, the pore, the soundbox's air. The held bodies are the last landing.
+
 ## 2026-10-15 · 668fbd5f2 — The rocks glance
 
 Every rock on the field — the falling tiers, the torch's stone, THE COIL and THE MOULT — now cocks and turns the way the living enemies do, on its own temper, at a rock's size: further than the naming gate lets a blob, since a stone is not a living word. A torch's streak stays flat behind its stone. The hazards and the held bodies are the next two landings.

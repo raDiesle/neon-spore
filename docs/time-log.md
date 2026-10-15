@@ -41862,3 +41862,5 @@ it cut — the flame's height was in `meteor-blaze.ts` all along.
 - landing: 5 min. The catalogue asked for `creature-glance.ts`; `check:fast`, `land`.
 
 Bottleneck: each body's reach read out of its own file, one at a time.
+
+*Measured: 21 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
