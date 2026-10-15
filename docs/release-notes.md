@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-15 · 8a0db5124 — A blister or a mine about to come up is marked on the wall at its row, too
+
+The warning strip along the top marks a column, and read as a body that would fall from the top — which a blister or a mine never does: it comes up inside the field. So a second mark, the strip's own triangle turned on its side, stands against the nearer wall on the row it comes up on, and the body appears where the strip's column and the wall's row cross. Falling bodies keep the strip alone; nothing is drawn across the field between the marks.
+
 ## 2026-10-15 · c72040ace — A review block's first wave rises past 8.7 again
 
 Every review block from the thirteenth started at 8.7. R1 was never capped there: its draws reach 9.9 with AUTO clearing them. Pressures come in tenths with gaps, so a block aiming at 8.8 had 8.7 and 8.9 in reach, the tie went to 8.7, and the next block's floor was 8.7 again. The first step now lands at or above where it aims wherever anything there fits, and settles below only when nothing does. On today's list with bosses waiting at the end, reviews 13 to 17 start at 9, 9.2, 9.3, 9.5 and 9.6.

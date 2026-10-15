@@ -42493,3 +42493,5 @@ AUTO, and the stall was a tie between 8.7 and 8.9 that the lower side won.
 
 Bottleneck: looking — the frames had to answer which side mark was meant
 before the owner was asked.
+
+*Measured: 14 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
