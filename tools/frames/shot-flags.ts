@@ -1,6 +1,7 @@
 import { WAVES } from "@neon-spore/content";
 import { parseAt } from "./crop.js";
 import { parsePress } from "./shot-press.js";
+import { controlsPath } from "./shot-row.js";
 import type { Reach } from "./shot-state.js";
 import { usage } from "./shot-usage.js";
 import { resolveWaveFlag } from "./wave.js";
@@ -136,7 +137,7 @@ export function readShotFlags(argv: readonly string[]): ShotFlags {
    * game keeps its field behind `?play=1`, so a shot of it without this is a
    * picture of the main menu.
    */
-  const path = wavePath(flag("wave"), flag("path"));
+  const path = placePath(flag("controls"), flag("wave"), flag("path"));
   /**
    * `--at x,y,w,h`, a rectangle inside the element, in its own CSS pixels.
    *
@@ -217,4 +218,21 @@ function wavePath(wave: string | undefined, path: string | undefined): string {
   }
   const byId = WAVES.findIndex((w) => w.id === wave);
   return `/?wave=${byId >= 0 ? byId : resolveWaveFlag(wave, WAVES)}`;
+}
+
+/** `--controls "ON THE FIELD"`, a room of DOCUMENTATION › CONTROLS opened by
+ * its URL (`shot-row.ts`), else `--wave`, else `--path`; two of them name two
+ * places, so the pair throws. */
+function placePath(
+  controls: string | undefined,
+  wave: string | undefined,
+  path: string | undefined,
+): string {
+  if (controls === undefined) return wavePath(wave, path);
+  if (wave !== undefined || path !== undefined) {
+    throw new Error(
+      "--controls opens a room of CONTROLS, so it takes no --wave or --path beside it",
+    );
+  }
+  return controlsPath(controls);
 }

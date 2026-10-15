@@ -32,6 +32,9 @@ export function usage(): never {
   console.error(
     "       --row is a HELPERS, ON THE FIELD or GESTURES row by name, the selector inside it: canvas --row DEFLECTED",
   );
+  console.error(
+    '       --controls opens DOCUMENTATION › CONTROLS on a room: --controls "ON THE FIELD" --row "THE BLISTER\'S COMBO"',
+  );
   console.error('       --type fills a field first, e.g. "#waveFilter=boss"');
   console.error('       --select turns a <select> first, e.g. ".versus-rate=0.25"');
   console.error("       --wait is milliseconds to settle before the shot, for an animation");

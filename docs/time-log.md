@@ -42052,3 +42052,14 @@ Bottleneck: none; the three shots are most of it.
 Bottleneck: none; finding a row the shot tool would take was most of the looking.
 
 *Measured: 8 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
+
+## 2026-10-15 — `bun run shot --controls` opens a room of CONTROLS
+
+- reading: 5 min. The queue entry, `shot-row.ts`, `place.ts`'s `sub` key and
+  the earlier landing that taught `--row` the ON THE FIELD cards.
+- writing: 5 min. `controlsPath`, the flag, the usage line, four tests.
+- looking: 0 min. One `shot --serve` of THE BLISTER'S COMBO's card.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: none; the row lookup was already fixed, only the route was missing.

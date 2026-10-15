@@ -1,6 +1,14 @@
 import { describe, expect, it } from "bun:test";
+import { parsePlace } from "../../director/src/place.js";
 import { readShotFlags } from "../shot-flags.js";
-import { headingName, inRow, rowMiss, rowNamed } from "../shot-row.js";
+import {
+  CONTROLS_ROOMS,
+  controlsPath,
+  headingName,
+  inRow,
+  rowMiss,
+  rowNamed,
+} from "../shot-row.js";
 
 /**
  * `--row`, the half that needs no browser: the flag read, the selector put
@@ -55,8 +63,33 @@ describe("--row", () => {
   });
 
   it("says only that no row has the name when nothing is near it", () => {
-    expect(rowMiss("NOTHING LIKE IT", ["EMBER"])).toBe(
-      'no row is named "NOTHING LIKE IT" — is the tab right?',
-    );
+    expect(rowMiss("NOTHING LIKE IT", ["EMBER"])).not.toContain("Nearest");
+  });
+});
+
+describe("--controls", () => {
+  it("opens CONTROLS' room by its button's words, on the key the director's URL reads", () => {
+    const path = readShotFlags(["canvas", "out.png", "--controls", "ON THE FIELD"]).path;
+    expect(path).toBe(controlsPath("field"));
+    expect(parsePlace(path.slice(1))).toMatchObject({
+      sheet: "states",
+      inner: "controlsets",
+      sub: "field",
+    });
+  });
+
+  it("knows every room the bar has, and refuses one it has not", () => {
+    for (const room of Object.keys(CONTROLS_ROOMS)) expect(controlsPath(room)).toContain("sub=");
+    expect(() => controlsPath("CONTROLS")).toThrow("no room of CONTROLS");
+  });
+
+  it("takes no --path or --wave beside it, since the pair names two places", () => {
+    expect(() =>
+      readShotFlags(["canvas", "out.png", "--controls", "HELPERS", "--path", "/?play=1"]),
+    ).toThrow("takes no --wave or --path");
+  });
+
+  it("is named when a row is missed, so the miss says the route", () => {
+    expect(rowMiss("THE BLISTER'S COMBO", [])).toContain('--controls "ON THE FIELD"');
   });
 });

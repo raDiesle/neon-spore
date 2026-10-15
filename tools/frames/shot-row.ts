@@ -57,6 +57,33 @@ export function rowNamed(headings: readonly Heading[], name: string): number {
   return headings.findIndex((h) => h.label === undefined && h.text.trim().endsWith(name));
 }
 
+/**
+ * CONTROLS' rooms, by the words on their buttons, and the key each takes in
+ * the director's URL (`tools/director/src/place.ts`'s `sub`).
+ *
+ * A lane after THE BLISTER'S COMBO asked for `?…&ctlpage=field` — the name
+ * the tab bar is bound under, not the one the URL reads — and `--tab CONTROLS`
+ * looked for a top door CONTROLS is not: it is a room of DOCUMENTATION. Both
+ * opened somewhere else and `--row` said only that no row had the name
+ * (15 October 2026). `--controls "ON THE FIELD"` is the route, said once here.
+ */
+export const CONTROLS_ROOMS: Readonly<Record<string, string>> = {
+  PANELS: "panels",
+  "ON THE FIELD": "field",
+  "EVERY WAVE": "every",
+  HELPERS: "helpers",
+};
+
+/** The path that opens DOCUMENTATION › CONTROLS › `room`, by its button's words or its key. */
+export function controlsPath(room: string): string {
+  const key = CONTROLS_ROOMS[room.toUpperCase()] ?? room.toLowerCase();
+  if (!Object.values(CONTROLS_ROOMS).includes(key)) {
+    const rooms = Object.keys(CONTROLS_ROOMS).join(" · ");
+    throw new Error(`--controls ${JSON.stringify(room)} is no room of CONTROLS: ${rooms}`);
+  }
+  return `/?sheet=states&inner=controlsets&sub=${key}`;
+}
+
 /** What to say when no row is named `name`: the names nearest it, by a shared word. */
 export function rowMiss(name: string, labels: readonly string[]): string {
   const words = name
@@ -64,7 +91,7 @@ export function rowMiss(name: string, labels: readonly string[]): string {
     .split(/\s+/)
     .filter((w) => w.length > 2 && w !== "THE");
   const near = labels.filter((l) => words.some((w) => l.toUpperCase().includes(w))).slice(0, 6);
-  const sentence = `no row is named ${JSON.stringify(name)} — is the tab right?`;
+  const sentence = `no row is named ${JSON.stringify(name)} — is the tab right? --controls "ON THE FIELD" opens one`;
   return near.length === 0 ? sentence : `${sentence} Nearest: ${near.join(" · ")}`;
 }
 

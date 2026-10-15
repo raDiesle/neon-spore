@@ -328,23 +328,6 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/skipped.test.ts` holds the listing's count of the entries
 `next` stepped past and why.
 
-## `bun run shot --row` reaches no ON THE FIELD card by its row's name
-
-- **Found:** 2026-10-15, claude/combo-bud-curl
-- **Taken:** 2026-10-15, main (claim: claude/queue-bun-run-shot-row-reaches-no-on-the-field-card-by)
-- **Files:** `tools/frames/shot-row.ts`, `tools/frames/shot-state.ts`, `tools/frames/shot-usage.ts`
-
-`bun run shot canvas out.png --serve --path "/?sheet=states&inner=controlsets&ctlpage=field" --row "THE BLISTER'S COMBO"`
-answered *no row is named "THE BLISTER'S COMBO"*, and `--tab CONTROLS
---inner "ON THE FIELD"` timed out looking for a CONTROLS button, which is a
-room of DOCUMENTATION (`▣ DOCUMENTATION`), not a top door. The inner tab's
-query key is `sub=field`, not `ctlpage`. The usage line names ON THE FIELD as
-reachable and gives no route to it. Make `--row` reach an ON THE FIELD card
-from a URL (or a flag that opens DOCUMENTATION › CONTROLS › ON THE FIELD),
-say the route in `shot-usage.ts`, and add the case to
-`tools/frames/test/shot-row.test.ts`. It cost a lane fifteen minutes and a
-hand-driven browser for one photograph of a body no wave carries.
-
 ## The INDEX.md drift sweep times out under `check:fast`'s eight shards
 
 - **Found:** 2026-10-15, claude/lever-bigger
