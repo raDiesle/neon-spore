@@ -1,6 +1,7 @@
 import { renderMarkdown } from "./markdown.js";
 import type { WavesDoc } from "./waves-doc-api.js";
 import { waveTable } from "./waves-table.js";
+import { playFromTable } from "./waves-table-play.js";
 
 /**
  * DOCUMENTATION › WAVES: how the waves are generated, and every wave with its
@@ -15,6 +16,8 @@ import { waveTable } from "./waves-table.js";
  */
 
 let drawn = false;
+/** Opens a wave by id on the director's screen and plays it (`main.ts`). */
+let play: ((id: string) => void) | undefined;
 
 async function renderWavesDoc(): Promise<void> {
   if (drawn) return;
@@ -64,10 +67,17 @@ function liveTable(today: HTMLElement, doc: WavesDoc): void {
     while (up.nextSibling) up.nextSibling.remove();
     up = up.parentElement;
   }
-  every.after(waveTable(doc.waves, doc.clear).element);
+  const onWave = play
+    ? (index: number) => {
+        const id = doc.waves[index]?.id;
+        if (id && play) playFromTable(id, play);
+      }
+    : undefined;
+  every.after(waveTable(doc.waves, doc.clear, onWave).element);
 }
 
-export function bindWavesDocTab(): void {
+export function bindWavesDocTab(playWave?: (id: string) => void): void {
+  play = playWave;
   document
     .querySelector<HTMLButtonElement>('#statesTabs button[data-tab="waves"]')
     ?.addEventListener("click", () => void renderWavesDoc());

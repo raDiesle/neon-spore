@@ -23,11 +23,11 @@ import { bindWordingsTab } from "./wordings-page.js";
  * GUIDES and SPEC were two of the five and are gone — the owner took both
  * rooms off the sheet the same day.
  */
-export function bindDocumentationRooms(): void {
+export function bindDocumentationRooms(playWave?: (id: string) => void): void {
   bindStatesTab();
   bindStyleTab();
   bindWordingsTab();
   bindControlSetsTab();
   bindHelpersTab();
-  bindWavesDocTab();
+  bindWavesDocTab(playWave);
 }

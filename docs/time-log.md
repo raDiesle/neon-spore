@@ -42539,3 +42539,15 @@ Bottleneck: writing — two files at their length limit had to be cut before
 one field could be added to each.
 
 *Measured: 5 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
+
+## 2026-10-15 — A wave pressed in EVERY WAVE plays on the director's screen
+
+- reading: 5 min. The sheet's open and close, the brush's jump to a wave.
+- writing: 10 min. The press, the way back, `playWave` by id.
+- looking: 5 min. A wave opened from the table, played, and the table back
+  where it was.
+- friction: 0 min.
+- landing: 5 min.
+
+Bottleneck: none worth the name — the brush's Ctrl-click already did the
+second half.

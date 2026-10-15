@@ -94,7 +94,7 @@ const selection = makeSelection();
 // the map spends it (`held.ts`).
 const held = makeHeld();
 // What every panel does when the wave under it moves — see `main-refresh.ts`.
-const { onShape, refreshAll, jumpToBrushWave } = bindRefresh({
+const { onShape, refreshAll, jumpToBrushWave, playWave } = bindRefresh({
   store,
   cfg,
   place,
@@ -161,7 +161,9 @@ renderShip(cfg, currentWave(store));
 renderShipSheet(cfg);
 // DOCUMENTATION's lazy rooms, all bound before `bindStates` below — see
 // `documentation-rooms.ts` for why the order matters.
-bindDocumentationRooms();
+// A wave's name pressed in EVERY WAVE opens it here and plays it
+// (`waves-table-play.ts`).
+bindDocumentationRooms(playWave);
 
 // The palette's descriptions, on or off, remembered — see `brush-hints.ts`.
 bindBrushHints();

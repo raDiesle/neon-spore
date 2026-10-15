@@ -3590,6 +3590,7 @@ by hand never moves.
 | `tools/director/src/waves-doc-api.ts` | `GET /api/waves-doc` — DOCUMENTATION › WAVES, on the server side |
 | `tools/director/src/waves-doc-page.ts` | DOCUMENTATION › WAVES: how the waves are generated, and every wave with its numbers in a row — the owner |
 | `tools/director/src/waves-table-rows.ts` | DOCUMENTATION › WAVES › EVERY WAVE, as rows: every number the measured page gives a wave |
+| `tools/director/src/waves-table-play.ts` | A wave's name pressed in DOCUMENTATION › WAVES › EVERY WAVE opens it on the director's own screen and plays… |
 | `tools/director/src/waves-table.ts` | DOCUMENTATION › WAVES › EVERY WAVE, drawn live — the owner, 15 October 2026 |
 | `tools/director/src/wave-note-field.ts` | WAVE SETTINGS › NOTE: the author's note on a wave — the owner, 15 October 2026: *some note column |
 | `tools/director/src/wave-settings-fields.ts` | WAVE SETTINGS' fields over the open wave: NAME, NOTE, the kind of boss and the control set |

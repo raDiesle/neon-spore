@@ -42,6 +42,8 @@ export interface Refresh {
   refreshAll(): void;
   /** Open the wave that first puts `brush` on the field, and let it run. */
   jumpToBrushWave(brush: Brush): void;
+  /** Open the wave with this id and let it run — EVERY WAVE's press. */
+  playWave(id: string): void;
 }
 
 /**
@@ -103,6 +105,13 @@ export function bindRefresh({
     jumpToBrushWave: (brush) => {
       const index = jumpWaveIndex(store.waves, brush);
       if (index === undefined) return;
+      store.index = index;
+      refreshAll();
+      stage.play();
+    },
+    playWave: (id) => {
+      const index = store.waves.findIndex((w) => w.id === id);
+      if (index === -1) return;
       store.index = index;
       refreshAll();
       stage.play();
