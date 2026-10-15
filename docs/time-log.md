@@ -41479,3 +41479,15 @@ Bottleneck: looking — `--row` had only been tried on HELPERS, and ON THE
 FIELD names its cards by the enemy, not the row.
 
 *Measured: 19 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-15 — AUTO plays THE CURTAIN and THE TASTER to the end
+
+- reading: 5 min. A probe of each: THE CURTAIN's torch under a parked shield,
+  THE TASTER's rocks and slimes past a cannon busy on the blades.
+- writing: 5 min. The shield's half beside THE CURTAIN's hand, the field
+  hand before THE TASTER's, and one test of both over five seeds.
+- looking: 0 min. Nothing drawn.
+- friction: 0 min.
+- landing: 5 min.
+
+Bottleneck: none to speak of; both were the same miss as BULB QUEEN's.

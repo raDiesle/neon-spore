@@ -77,7 +77,9 @@ export const AUTOPILOT_HANDS: Partial<Record<BossKind, Hand>> = {
   // the pile — the shield under it is the field's.
   cairn: (w) => [...cairnHand(w), ...fieldHand(w)],
   capstan: capstanHand,
-  curtain: curtainHand,
+  // Its core fires torches down the column it hangs over, and nothing in its
+  // own hand moves the dome.
+  curtain: (w) => [...curtainHand(w), ...shieldHand(w)],
   filament: filamentHand,
   fleet: fleetHand,
   flue: flueHand,
@@ -124,7 +126,9 @@ export const AUTOPILOT_HANDS: Partial<Record<BossKind, Hand>> = {
   // The rocks it throws while both thumbs are on the bulb are the dome's,
   // and nothing in the bulb's hand moves it.
   surge: (w) => [...surgeHand(w), ...fieldHand(w)],
-  taster: tasterHand,
+  // The wave sends rocks and slimes under the blades, and the blades never
+  // reach the hull, so the field is answered first.
+  taster: either(fieldHand, tasterHand),
   throat: throatHand,
   // The wave sends six slimes under the lobes, and the lobes' hand answers
   // only the lobes.

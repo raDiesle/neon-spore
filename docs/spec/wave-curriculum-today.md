@@ -294,8 +294,8 @@ the wave. *Pressure* is `wavePressure`
 | 275 | THE UNDERTOW | boss | undertow | STANDARD | 6 | 94 | 156 b · 98 s | — |
 | 276 | THE THROAT | boss | throat, panel | THE THROAT | 12 | 78 | 40 b · 25 s | — |
 | 277 | THE GORGE | boss | gorge | STANDARD | 10 | 82 | 236 b · 148 s | — |
-| 278 | THE CURTAIN | boss | curtain | STANDARD | 0 | 0 | AUTO fails | — |
-| 279 | THE TASTER | boss | taster | STANDARD | 10 | 80 | AUTO fails | — |
+| 278 | THE CURTAIN | boss | curtain | STANDARD | 0 | 0 | 38 b · 24 s | — |
+| 279 | THE TASTER | boss | taster | STANDARD | 10 | 80 | 43 b · 27 s | — |
 | 280 | THE SINEW | boss | sinew | STANDARD | 0 | 0 | 44 b · 28 s | — |
 | 281 | THE LEDGER | boss | ledger | STANDARD | 8 | 82 | 32 b · 20 s | — |
 | 282 | THE SURGE | boss | surge | STANDARD | 8 | 76 | 44 b · 28 s | — |
@@ -418,8 +418,8 @@ time × 2 — the owner's accepted guess, never measured.
 | 275 | THE UNDERTOW | normal | 156 beats | 98 | 196 s | long |
 | 276 | THE THROAT | normal | 40 beats | 25 | 50 s | short |
 | 277 | THE GORGE | normal | 236 beats | 148 | 296 s | long |
-| 278 | THE CURTAIN | normal | — | — | — | unknown — AUTO cannot finish it |
-| 279 | THE TASTER | normal | — | — | — | unknown — AUTO cannot finish it |
+| 278 | THE CURTAIN | normal | 38 beats | 24 | 48 s | short |
+| 279 | THE TASTER | normal | 43 beats | 27 | 54 s | short |
 | 280 | THE SINEW | normal | 44 beats | 28 | 56 s | short |
 | 281 | THE LEDGER | normal | 32 beats | 20 | 40 s | short |
 | 282 | THE SURGE | normal | 44 beats | 28 | 56 s | short |

@@ -328,16 +328,6 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/skipped.test.ts` holds the listing's count of the entries
 `next` stepped past and why.
 
-## AUTO loses THE CURTAIN and THE TASTER
-
-- **Found:** 2026-10-14, claude/wave-plan
-- **Taken:** 2026-10-15, main (claim: claude/queue-auto-loses-the-curtain-and-the-taster)
-- **Files:** `packages/sim/src/curtain-hand.ts`, `packages/sim/src/taster-hand.ts`, `docs/spec/wave-curriculum-today.md`
-
-As above, for these two bosses: AUTO loses both, so the boss table cannot say
-how long either takes. Fix the hands, add a play-to-the-end test for each, fill
-in the rows. Prove with `bun test packages/hands` and `bun run check`.
-
 ## AUTO loses THE LEAD and THE SCUTTLE
 
 - **Found:** 2026-10-14, claude/wave-plan
