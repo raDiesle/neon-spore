@@ -331,6 +331,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## AUTO loses THE CURTAIN and THE TASTER
 
 - **Found:** 2026-10-14, claude/wave-plan
+- **Taken:** 2026-10-15, main (claim: claude/queue-auto-loses-the-curtain-and-the-taster)
 - **Files:** `packages/sim/src/curtain-hand.ts`, `packages/sim/src/taster-hand.ts`, `docs/spec/wave-curriculum-today.md`
 
 As above, for these two bosses: AUTO loses both, so the boss table cannot say
