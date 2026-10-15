@@ -360,6 +360,7 @@ Prove with `bun test packages/hands` and `bun run check`.
 ## The op-count budgets do not count what a glancing part draws
 
 - **Found:** 2026-10-14, claude/glance-cock
+- **Taken:** 2026-10-15, main (claim: claude/queue-the-op-count-budgets-do-not-count-what-a-glancin)
 - **Files:** `packages/render/test/canvas-stub.ts`, `packages/render/src/glance-layer.ts`, `packages/render/test/fleet-budget.test.ts`, `packages/render/test/wave-budget.test.ts`, `packages/render/test/frame-budget.test.ts`
 
 Every boss but two now glances, and a glancing part is drawn onto a scratch
