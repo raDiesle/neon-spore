@@ -89,6 +89,7 @@ export { type LongAxis, longAxis, poseOn } from "./long-axis.js";
 export { MANTLE_SCRIPT } from "./mantle-script.js";
 export { MAZE_ROUNDS } from "./maze-rounds.js";
 export {
+  faultMechanic,
   MECHANIC_IDS,
   MECHANICS,
   type Mechanic,

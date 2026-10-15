@@ -1,10 +1,11 @@
 # The wave curriculum
 
 > **Status: partly built.** The plan is answered (§9). Built: the ≡ press that
-> shows only the regular waves, the pressure score on every row of the wave
-> list (`wavePressure`), and `bun run waves:measure`, which writes today's game
-> measured to `wave-curriculum-today.md` beside this file. Not built: the
-> composer and the blocks.
+> shows only the regular waves, the pressure and talk scores on every row of
+> the wave list (`wavePressure`, `waveTalk`), `bun run waves:measure`, which
+> writes today's game measured to `wave-curriculum-today.md` beside this file,
+> the composer with its talk aim (§5.1), and every block. Not built: the
+> reorder of §4.1 (`waves:order`).
 
 The owner, 14 October 2026: *I want AI to generate regular waves, composed from
 the mechanics and enemies we already have … there should be an equal number of
@@ -141,6 +142,42 @@ blocks (the owner, same day): R1 aims 0.1 above the block before's gentlest
 wave, and every four blocks past the arc the steps grow — **wider, then
 mixed**, then from block 24 **more twins** in R4 and R6–R8 (`compose-grow.ts`).
 
+### 4.1 The order new things are taught in
+
+The owner, 15 October 2026: difficulty *should also include difficulty of each
+enemy, for example how often players need to talk to each other or if
+something is not visible for other but needs to tell other person*; *decide on
+right positions for introducing which new things*; *controls/malfunction
+brushes are also more difficult in general — it should somehow toggle between
+introducing which new brush category types.* Decided that day:
+
+**Decision 9 — new things are taught in rising cost, and the categories take
+turns.** A new thing's **cost** is what it adds to the two scores
+(`tools/director/src/curriculum-cost.ts`): a body, its pressure weight (§5) and
+the facts one arrival asks to be said (`KIND_TALK`, §5.1); a fault, the 2 it
+adds to pressure and the sentences it costs while it runs (`FAULT_TALK`); a
+panel, 2 and the sentences it adds to who does what (THE LANCE 1, THE CLAW 2).
+A block that brings two things costs its dearer one. Blocks are taught
+cheapest first, with four rules over that:
+
+- **Bodies and levers alternate.** A lever — a fault or a panel lesson — never
+  follows a lever, and once `ceil(bodies left ÷ (levers left + 1))` bodies have
+  come since the last one, the cheapest lever ready comes next. So levers are
+  spread through the game, about one in four blocks, never a stretch of them,
+  and none left over for the end.
+- **A block only after what it carries is taught**: every body, pod and fault
+  in its waves, and its panel, every button on it and the hold — what
+  `bossOrder` asks of a boss (§7). A body taught on STANDARD 5 that lands
+  after THE LANCE is played on the full panel, so the hold, once taught, is
+  never taken away again.
+- **The tutorial arc is fixed**, up to FINALE, with THE INSTAR and THE
+  BASTION; its last block counts as a body, so a lever may come first after it.
+- **Ties keep the order they shipped in.**
+
+Then the bosses are placed again (§7) and the review blocks written for the
+bosses left at the end, so every boss still closes a block of its own.
+`bun run waves:order` does all of it, and a second run changes nothing.
+
 ## 5. Pressure — the number that says *harder*
 
 One number per wave, from its entries alone, so a generator can aim at it and a
@@ -165,6 +202,22 @@ weights are guesses, to be tuned against a pair playing, not AUTO.
 **Decision 6 — a step may raise pressure by at most 2** over the wave before it
 in the block (two steps' worth where the tutorial skips R2). The composer picks
 a block's pressures together, nearest a rise of 1 a step (`compose-ramp.ts`).
+
+### 5.1 Talk — the number that says *more to say*
+
+`waveTalk` (`packages/content/src/wave-talk.ts`) counts what the voices do as
+pressure counts what the hands do: the facts one player must hand the other
+for each arrival — where, which, something only one seat sees, a body that
+moves, two jobs to agree — summed over the busiest eight beats, plus what each
+running fault costs. It is the Talk column in EVERY WAVE.
+
+**Decision 10 — a block's talk rises beside its pressure.** The composer
+chooses each step's talk with its pressure (`compose-talk.ts`): R1 aims at the
+block before's gentlest talk, each rising step half a fact above the step
+before, R5 a fact below. A talk under its aim costs twice one over it. Talk
+is an aim, not a bound: pressure's ramp (decision 6) decides which draws are
+allowed, and talk chooses among them, so no block that pressure alone composes
+is refused for its talk.
 
 ## 6. How the waves get made
 
@@ -212,8 +265,7 @@ comes after R8, at most one per block. The owner chose on 14 October 2026 to
 move the bosses rather than leave them together: each boss goes to the end of
 the first block after which everything it needs has been taught — its panel,
 every button on it and the hold, and every body, pod and fault it carries.
-Moving a boss never moves an intro: the order new things are taught in stays
-the order they ship in today.
+Moving a boss never moves an intro; the order intros are taught in is §4.1's.
 
 Done, 15 October 2026, by `bun run waves:bosses --write`
 (`tools/director/src/boss-slots.ts`). Three rules the decision left open,

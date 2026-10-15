@@ -8,6 +8,7 @@ import {
   waveCols,
   waveIntroduces,
   wavePressure,
+  waveTalk,
 } from "@neon-spore/content";
 import type { PodEntry } from "@neon-spore/sim";
 import { STEPS, TUTORIAL_LAST_ID } from "./compose-steps.js";
@@ -51,6 +52,9 @@ export interface Block {
   /** The gentlest composed regular wave of the nearest block before with one,
    * which this block's first aims a little above (`START_RISE`). */
   floor?: number;
+  /** The same block's gentlest talk (`waveTalk`), which this block's first
+   * aims not to fall under (`compose-talk.ts`). */
+  talkFloor?: number;
   /** Whether the block's written regular waves stand for its first steps, so
    * the composed ones follow them, rising from `after`, the last one's
    * pressure (`leadingBlock`). */
@@ -117,13 +121,17 @@ export function motifsIn(wave: Wave, id: string): Motif[] {
  * A hand-made one stands for a block's last steps (`stepsToCompose`), so it
  * is no block's gentlest — folded into the block or not: a composed wave is
  * known by its id, the intro's and its step's (`compose.ts`). */
-function floorOf(waves: readonly Wave[], from: number, to: number): number | undefined {
+function floorOf(
+  waves: readonly Wave[],
+  from: number,
+  to: number,
+  score: (wave: Wave) => number | undefined = wavePressure,
+): number | undefined {
   const composed = new Set(STEPS.map((s) => `${waves[from]?.id}${s.name}`));
   let low: number | undefined;
   for (let i = from + 1; i < to; i++) {
     const wave = waves[i];
-    const p =
-      wave && composed.has(wave.id) && isRegularWave(waves, i) ? wavePressure(wave) : undefined;
+    const p = wave && composed.has(wave.id) && isRegularWave(waves, i) ? score(wave) : undefined;
     if (p !== undefined && (low === undefined || p < low)) low = p;
   }
   return low;
@@ -176,8 +184,11 @@ export function readBlock(waves: readonly Wave[], introId: string): Block | stri
   // The nearest block before with a regular wave written: one the composer
   // could not fill yet does not drop the next tooth back to the bottom.
   let floor: number | undefined;
+  let talkFloor: number | undefined;
   for (let j = number - 1; j >= 0 && floor === undefined; j--) {
-    floor = floorOf(waves, intros[j]?.index ?? 0, intros[j + 1]?.index ?? intro);
+    const [from, to] = [intros[j]?.index ?? 0, intros[j + 1]?.index ?? intro];
+    floor = floorOf(waves, from, to);
+    talkFloor = floorOf(waves, from, to, waveTalk);
   }
   const motifs = new Map<string, Motif[]>();
   for (const b of [...before, intros[number]]) {
@@ -196,6 +207,7 @@ export function readBlock(waves: readonly Wave[], introId: string): Block | stri
     existing,
     sinceTutorial,
     ...(floor === undefined ? {} : { floor }),
+    ...(talkFloor === undefined ? {} : { talkFloor }),
     insertAt,
     controls: waves[insertAt - 1]?.controls,
   };

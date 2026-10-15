@@ -1,4 +1,4 @@
-import type { Wave } from "@neon-spore/content";
+import { type Wave, waveTalk } from "@neon-spore/content";
 import { type Block, placeable, readBlock } from "./compose-block.js";
 import { blocksBefore, gentlestBefore, isReviewHead } from "./compose-starts.js";
 import { TUTORIAL_LAST_ID } from "./compose-steps.js";
@@ -83,7 +83,8 @@ export function nextReview(waves: readonly Wave[]): Review | string {
   const plural = again?.name.replace(/ AGAIN$/, "");
   if (!plural || plural === again?.name) return `${theme.id} has no R1 named "… AGAIN"`;
   const floor = gentlestBefore(waves, last + 1);
-  const { leads: _l, after: _a, floor: _f, ...rest } = read;
+  const talkFloor = gentlestBefore(waves, last + 1, waveTalk);
+  const { leads: _l, after: _a, floor: _f, talkFloor: _t, ...rest } = read;
   const block: Block = {
     ...rest,
     number: arc + intros.length + k,
@@ -91,6 +92,7 @@ export function nextReview(waves: readonly Wave[]): Review | string {
     existing: 0,
     sinceTutorial: blocksBefore(waves, insertAt),
     ...(floor === undefined ? {} : { floor }),
+    ...(talkFloor === undefined ? {} : { talkFloor }),
     insertAt,
     controls: waves[last]?.controls,
   };

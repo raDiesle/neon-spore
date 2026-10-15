@@ -1,4 +1,5 @@
 import { rampOf, STEPS, type Step } from "./compose-steps.js";
+import { talkAim, talkCost } from "./compose-talk.js";
 
 /**
  * **The pressures a block's steps land on, chosen together.**
@@ -36,6 +37,20 @@ function ideal(step: Step, before: number, back: number): number {
   return step.ramp === "dip" ? before - DIP_AIM : before + RISE_AIM * back;
 }
 
+/** A draw's two scores: what the hands do and what the voices do. */
+export interface Point {
+  pressure: number;
+  talk: number;
+}
+
+/** Where the talk of a block's first step aims: the block before's gentlest
+ * talk, or the talk of the written wave it follows when the written ones
+ * lead. Neither, and talk is not chosen at all. */
+export interface TalkStart {
+  start?: number;
+  before?: number;
+}
+
 /**
  * One pressure per step, out of the values each can reach (`reach[i]` for
  * `steps[i]`), or the index of the first step no path reaches. `start` is
@@ -50,36 +65,68 @@ export function chooseRamp(
   after?: number,
   before?: number,
 ): number[] | number {
-  type Cell = { cost: number; from: number };
-  const table: Map<number, Cell>[] = [];
+  const points = reach.map((r) => r.map((pressure) => ({ pressure, talk: 0 })));
+  const chosen = choosePoints(steps, points, start, after, before);
+  return typeof chosen === "number" ? chosen : chosen.map((p) => p.pressure);
+}
+
+const keyOf = (p: Point) => `${p.pressure}|${p.talk}`;
+
+/**
+ * One point per step — a pressure and a talk — chosen as `chooseRamp`
+ * chooses pressures, with the talk's distance from its aim (`compose-talk.ts`)
+ * added to each step's cost. Pressure's bounds are the same; talk has none.
+ */
+export function choosePoints(
+  steps: readonly Step[],
+  reach: readonly (readonly Point[])[],
+  start: number,
+  after?: number,
+  before?: number,
+  talk: TalkStart = {},
+): Point[] | number {
+  type Cell = { cost: number; from?: Point; at: Point };
+  const table: Map<string, Cell>[] = [];
+  const talked = talk.start !== undefined || talk.before !== undefined;
   for (const [i, step] of steps.entries()) {
-    const here = new Map<number, Cell>();
+    const here = new Map<string, Cell>();
     const last = i === steps.length - 1 ? after : undefined;
     for (const v of reach[i] ?? []) {
       if (i === 0) {
         const [lo, hi] = rampOf(step, before, last);
         const aim = before === undefined ? start : ideal(step, before, 1);
-        const below = before === undefined && v + TENTH_HALF < aim ? BELOW_AIM : 0;
-        if (v >= lo && v <= hi) here.set(v, { cost: Math.abs(v - aim) + below, from: Number.NaN });
+        const below = before === undefined && v.pressure + TENTH_HALF < aim ? BELOW_AIM : 0;
+        const said =
+          talk.before !== undefined
+            ? talkCost(step, v.talk, talkAim(step, talk.before))
+            : talk.start !== undefined
+              ? talkCost(step, v.talk, talk.start)
+              : 0;
+        if (v.pressure >= lo && v.pressure <= hi)
+          here.set(keyOf(v), { cost: Math.abs(v.pressure - aim) + below + said, at: v });
         continue;
       }
       const prev = steps[i - 1];
       const back = prev ? at(step) - at(prev) : 1;
-      for (const [u, cell] of table[i - 1] ?? []) {
-        const [lo, hi] = rampOf(step, u, last, back);
-        if (v < lo || v > hi) continue;
-        const cost = cell.cost + Math.abs(v - ideal(step, u, back));
-        if (cost < (here.get(v)?.cost ?? Number.POSITIVE_INFINITY)) here.set(v, { cost, from: u });
+      for (const cell of (table[i - 1] ?? new Map<string, Cell>()).values()) {
+        const u = cell.at;
+        const [lo, hi] = rampOf(step, u.pressure, last, back);
+        if (v.pressure < lo || v.pressure > hi) continue;
+        const said = talked ? talkCost(step, v.talk, talkAim(step, u.talk, back)) : 0;
+        const cost = cell.cost + Math.abs(v.pressure - ideal(step, u.pressure, back)) + said;
+        if (cost < (here.get(keyOf(v))?.cost ?? Number.POSITIVE_INFINITY))
+          here.set(keyOf(v), { cost, from: u, at: v });
       }
     }
     if (here.size === 0) return i;
     table.push(here);
   }
-  const end = [...(table[table.length - 1] ?? [])].sort((a, b) => a[1].cost - b[1].cost)[0];
+  const end = [...(table[table.length - 1]?.values() ?? [])].sort((a, b) => a.cost - b.cost)[0];
   if (!end) return 0;
-  const out = [end[0]];
+  const out = [end.at];
   for (let i = table.length - 1; i > 0; i--) {
-    out.unshift(table[i]?.get(out[0] ?? 0)?.from ?? 0);
+    const from = table[i]?.get(keyOf(out[0] as Point))?.from;
+    if (from) out.unshift(from);
   }
   return out;
 }

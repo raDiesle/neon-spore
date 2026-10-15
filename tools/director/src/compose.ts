@@ -1,11 +1,11 @@
-import { isRegularWave, type Wave, wavePressure } from "@neon-spore/content";
+import { isRegularWave, type Wave, wavePressure, waveTalk } from "@neon-spore/content";
 import { createRng } from "@neon-spore/sim";
 import { type Block, leadingBlock } from "./compose-block.js";
 import { autoClears, paperFaults, spanOf } from "./compose-check.js";
 import { clawStep, placeClaw } from "./compose-claw.js";
 import { grownStep, notchOf } from "./compose-grow.js";
 import { placeStep } from "./compose-place.js";
-import { chooseRamp } from "./compose-ramp.js";
+import { choosePoints, type Point } from "./compose-ramp.js";
 import { GENTLEST_QUANTILE, START_RISE, type Step, stepsToCompose } from "./compose-steps.js";
 
 /**
@@ -14,8 +14,9 @@ import { GENTLEST_QUANTILE, START_RISE, type Step, stepsToCompose } from "./comp
  * Each step is drawn from the seeded `Rng` a few hundred times and the draws
  * that pass on paper are kept (`compose-check.ts`). Then the block's pressures
  * are chosen together (`compose-ramp.ts`) — low for R1, a small rise each
- * step after, a dip for R5 — and each step keeps a draw at its pressure that
- * AUTO clears.
+ * step after, a dip for R5 — with each step's talk nearest its own small rise
+ * (`compose-talk.ts`), and each step keeps a draw at its pressure and talk
+ * that AUTO clears.
  * The seed is the block's intro and the step, so the same block composes the
  * same way every time, and a re-roll is a new `seed`.
  */
@@ -27,6 +28,8 @@ export interface Composed {
   step: Step;
   wave?: Wave;
   pressure?: number;
+  /** Its `waveTalk`: the facts said aloud in its busiest eight beats. */
+  talk?: number;
   /** The beat AUTO cleared it on. */
   cleared?: number;
   /** Why no draw was kept, when none was. */
@@ -50,7 +53,7 @@ function gentlest(pressures: readonly number[]): number {
 /** Every draw of a step that passes on paper, with its pressure. */
 function drawsOf(block: Block, step: Step, introId: string, seed: number) {
   const rng = createRng(hashOf(`${introId}:${step.id}:${seed}`));
-  const kept: { wave: Wave; pressure: number }[] = [];
+  const kept: ({ wave: Wave } & Point)[] = [];
   const misses = new Map<string, number>();
   for (let draw = 0; draw < DRAWS; draw++) {
     const placed = block.claw ? placeClaw(step, rng) : placeStep(block, step, rng);
@@ -71,7 +74,8 @@ function drawsOf(block: Block, step: Step, introId: string, seed: number) {
       };
       const wrong = paperFaults(wave, step, block);
       for (const f of wrong) misses.set(f, (misses.get(f) ?? 0) + 1);
-      if (wrong.length === 0) kept.push({ wave, pressure: wavePressure(wave) ?? 0 });
+      if (wrong.length === 0)
+        kept.push({ wave, pressure: wavePressure(wave) ?? 0, talk: waveTalk(wave) ?? 0 });
     }
   }
   const worst = [...misses].sort((a, b) => b[1] - a[1])[0]?.[0];
@@ -83,6 +87,13 @@ function drawsOf(block: Block, step: Step, introId: string, seed: number) {
 function nextWritten(waves: readonly Wave[], block: Block): number | undefined {
   const next = waves[block.insertAt];
   return next && isRegularWave(waves, block.insertAt) ? wavePressure(next) : undefined;
+}
+
+/** The talk of the last written regular wave a leading block's composed
+ * ones follow. */
+function talkAfter(waves: readonly Wave[], block: Block): number | undefined {
+  const last = waves[block.insertAt - 1];
+  return last && isRegularWave(waves, block.insertAt - 1) ? waveTalk(last) : undefined;
 }
 
 /** A block's regular waves, composed: see `composeBlockAt`. */
@@ -143,32 +154,39 @@ function composeFor(
     const why = `no draw passed on paper — most often: ${d.worst ?? "nothing placed"}`;
     return failed(steps, i, why);
   }
-  // A pressure whose every draw AUTO loses is struck off, and the ramp is
-  // chosen again without it.
-  const reach = draws.map((d) => [...new Set(d.kept.map((k) => k.pressure))]);
+  // A pressure and talk whose every draw AUTO loses is struck off, and the
+  // ramp is chosen again without it.
+  const reach = draws.map((d) => {
+    const seen = new Map(d.kept.map((k) => [`${k.pressure}|${k.talk}`, k]));
+    return [...seen.values()].map(({ pressure, talk }) => ({ pressure, talk }));
+  });
   // Low among the first step's draws, and a little above the block before's
   // gentlest wave, so each tooth starts higher than the last.
   const low = gentlest(draws[0]?.kept.map((k) => k.pressure) ?? []);
   const start = block.floor === undefined ? low : Math.max(low, block.floor + START_RISE);
   const after = block.leads ? undefined : nextWritten(waves, block);
+  // Talk rises from the block before's gentlest, or from the written wave
+  // the composed ones follow (`compose-talk.ts`).
+  const talk = block.leads ? { before: talkAfter(waves, block) } : { start: block.talkFloor };
   for (;;) {
-    const chosen = chooseRamp(steps, reach, start, after, block.after);
+    const chosen = choosePoints(steps, reach, start, after, block.after, talk);
     if (typeof chosen === "number") {
       return failed(steps, chosen, "no pressure in reach keeps the ramp (decision 6)");
     }
     const out: Composed[] = [];
     for (const [i, step] of steps.entries()) {
-      const pressure = chosen[i] ?? 0;
-      const fits = draws[i]?.kept.filter((k) => k.pressure === pressure) ?? [];
+      const { pressure, talk } = chosen[i] ?? { pressure: 0, talk: 0 };
+      const fits = draws[i]?.kept.filter((k) => k.pressure === pressure && k.talk === talk) ?? [];
       const won = autoFirst(fits).find((k) => autoClears(k.wave, block) !== -1);
       if (!won) {
-        reach[i] = (reach[i] ?? []).filter((v) => v !== pressure);
+        reach[i] = (reach[i] ?? []).filter((v) => v.pressure !== pressure || v.talk !== talk);
         break;
       }
       out.push({
         step,
         wave: won.wave,
         pressure,
+        talk,
         cleared: autoClears(won.wave, block),
         faults: [],
       });

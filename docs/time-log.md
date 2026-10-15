@@ -42597,3 +42597,16 @@ forty-seven of them.
 Bottleneck: the perf runs — a pass and a flush could only be told apart by A/B.
 
 *Measured: 16 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-15 — The curriculum's order rule, and talk beside pressure in the composer
+
+- reading: 15 min. The composer, its ramp, blocks, lessons, reviews and boss
+  places, and what each new thing after FINALE needs taught first.
+- writing: 15 min. §4.1 and §5.1 of the curriculum, `curriculum-cost.ts`,
+  `compose-talk.ts`, the ramp chosen over pressure and talk, tests.
+- looking: 5 min. The order the rule gives, printed, before writing it down.
+- friction: 0 min.
+- landing: 5 min.
+
+Bottleneck: reading — five composer files decide one block, and the reorder
+has to respect all of them.

@@ -1,4 +1,4 @@
-import { controlSet, isRegularWave, setHas, type Wave } from "@neon-spore/content";
+import { controlSet, isRegularWave, setHas, type Wave, waveTalk } from "@neon-spore/content";
 import { type Block, placeable, readBlock } from "./compose-block.js";
 import {
   blocksBefore,
@@ -140,17 +140,19 @@ export function nextLesson(waves: readonly Wave[]): Lesson | string {
     while (theme > 0 && placeable(waves, theme) === undefined) theme--;
     const read = readBlock(waves, waves[theme]?.id ?? "");
     if (typeof read === "string") return read;
-    const { leads: _l, after: _a, floor: _f, ...rest } = read;
+    const { leads: _l, after: _a, floor: _f, talkFloor: _t, ...rest } = read;
     const panel = panelOf(lesson, read);
     // A claw wave's pressure counts no pods, which are its whole difficulty:
     // its block starts from its own gentlest draws, not the block before's.
     const floor = panel.claw ? undefined : gentlestBefore(waves, at);
+    const talkFloor = panel.claw ? undefined : gentlestBefore(waves, at, waveTalk);
     const block: Block = {
       ...rest,
       tutorial: false,
       existing: 0,
       sinceTutorial: blocksBefore(waves, at),
       ...(floor === undefined ? {} : { floor }),
+      ...(talkFloor === undefined ? {} : { talkFloor }),
       insertAt,
       ...panel,
       ...(lesson.faults ? { faults: lesson.faults } : {}),

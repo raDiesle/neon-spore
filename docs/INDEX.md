@@ -3642,6 +3642,7 @@ by hand never moves.
 | `tools/director/src/compose-starts.ts` | Where blocks start: an intro, a lesson (a panel or a fault), a review head; and the floor a block rises from |
 | `tools/director/src/compose-grow.ts` | **The steps grow with the game**: wider, then mixed, then twinned, every four blocks past the arc |
 | `tools/director/src/compose-lesson.ts` | A lesson's block: eight regular waves after THE LANCE, THE JAM, THE CLAW…; the lessons moved behind their block's waves |
+| `tools/director/src/compose-talk.ts` | **A block's talk, rising beside its pressure** — `docs/spec/wave-curriculum.md` §5.1 |
 | `tools/director/src/compose.ts` | **A block's regular waves, composed** — `docs/spec/wave-curriculum.md` §6 |
 | `tools/director/src/rail-marks.ts` | The small glyphs in front of a wave's name in the rail: a boss, a panel, a guide |
 | `tools/land/say.ts` | What a landing says about itself before and after it happens |
@@ -3834,6 +3835,7 @@ by hand never moves.
 | `tools/director/src/cell-config-mine.ts` | **THE MINE's two rows under the selected cell** |
 | `tools/director/src/cell-config-moult.ts` | **THE MOULT's one row under the selected cell** |
 | `tools/director/src/cell-config-blister.ts` | **THE BLISTER's rows under the selected cell** |
+| `tools/director/src/curriculum-cost.ts` | **What a new thing costs to learn**: pressure weight plus talk, the order blocks are taught in (`wave-curriculum.md` §4.1) |
 | `tools/director/src/grid-note.ts` | The line of arithmetic under the map: how many entries and pods the wave carries, how long it runs |
 | `tools/director/src/grid-gestures.ts` | **Everything a hand can do to one cell of the map**: point at it, paint it, drag a stroke across it |
 | `tools/director/src/grid-rows.ts` | The map's beat labels — a number that seeks — and the two row edits behind them, a beat opened and a span of beats taken out, without a question |

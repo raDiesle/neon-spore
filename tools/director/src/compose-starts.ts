@@ -53,19 +53,24 @@ export function blocksBefore(waves: readonly Wave[], at: number): number {
 }
 
 /** The gentlest regular wave of the block that `at` follows — from its start
- * to `at` — which the next block's first wave aims a little above. A wave on
+ * to `at` — which the next block's first wave aims a little above: by
+ * pressure, or by another score (`waveTalk`). A wave on
  * THE CLAW's panel is passed over: its pressure counts no pods, which are its
  * whole difficulty, and a block of them is read through to the one before. */
-export function gentlestBefore(waves: readonly Wave[], at: number): number | undefined {
+export function gentlestBefore(
+  waves: readonly Wave[],
+  at: number,
+  score: (wave: Wave) => number | undefined = wavePressure,
+): number | undefined {
   let start = at - 1;
   while (start > 0 && !startsBlock(waves, start)) start--;
   let floor: number | undefined;
   for (let i = start; i < at; i++) {
     const w = waves[i] as Wave;
     if (setHas(controlSet(w.controls), "reach")) continue;
-    const p = isRegularWave(waves, i) ? wavePressure(w) : undefined;
+    const p = isRegularWave(waves, i) ? score(w) : undefined;
     if (p !== undefined && (floor === undefined || p < floor)) floor = p;
   }
   const finale = waves.findIndex((w) => w.id === TUTORIAL_LAST_ID);
-  return floor === undefined && start > finale + 1 ? gentlestBefore(waves, start) : floor;
+  return floor === undefined && start > finale + 1 ? gentlestBefore(waves, start, score) : floor;
 }
