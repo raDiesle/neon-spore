@@ -41769,3 +41769,18 @@ Bottleneck: finding the flags that photograph a phase the wave is a run
 of correct presses away from.
 
 *Measured: 13 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-15 — the naming gate measures an enemy turned by its glance
+
+- reading: 10 min. The gate, `glance.ts`'s turn with a hold of 0, the
+  styles and the temper.
+- writing: 15 min. The turn and roll sampled as a COCK round's envelope,
+  the measuring split into `nameability-glance.ts`, the search, the record
+  and a test holding both edges.
+- looking: 0 min. Nothing the game draws moved: the record ships still.
+- friction: 5 min. The first glanced pass took 7.5 s; a table of the
+  harmonics' cosines brought it to 1.2 s with every unglanced number the same.
+- landing: 5 min. `bun run index`, `check:fast`, `land`.
+
+Bottleneck: making the measurement cheap enough for a search and a test,
+without moving the numbers the gate already answers.

@@ -2551,6 +2551,7 @@ by hand never moves.
 | `packages/render/src/creature-under.ts` | The creature under this seat's finger on the flat field — the touch layer's hit test, by the flat placement |
 | `packages/render/src/creature-over.ts` | what is laid over a body after the body is drawn — the veil's cloud, the veer's rider, the carom's crust, the chute, the volley's shell, the recoil's cage, the coil's dome, the clasp's shield — one `if` per covering |
 | `packages/render/src/creature-axes.ts` | **How wide and how tall a body is actually drawn** — the other half of `creatureRadius` |
+| `packages/render/src/creature-glance.ts` | **How far an enemy may glance** — the largest turn and roll the naming gate allows, searched |
 | `packages/render/src/handle-place.ts` | **Where a handle is standing**, as against where a finger may grab it |
 | `packages/render/src/handle-place-boss.ts` | **Where a boss's handle is standing** — `handle-place.ts`' question |
 | `packages/render/src/handle-place-boss-b.ts` | **Where the later clock bosses' handles are standing** — the second page of `handle-place-boss.ts` |
@@ -3483,6 +3484,7 @@ by hand never moves.
 | `tools/shape-sheet/src/motions/pulse.ts` | The four that pulse, as opposed to the one that breathes |
 | `tools/shape-sheet/src/motions/offered.ts` | GLIDE and FLOAT, the two motions offered against the slick on VERSUS and kept as pictures when BANK was taken |
 | `tools/shape-sheet/src/nameability.ts` | The three axes a silhouette is told apart on, and the rule that says when two kinds are the same word |
+| `tools/shape-sheet/src/nameability-glance.ts` | One posed contour measured on the three axes through every swing and roll of a COCK round — the gate's glance |
 | `tools/shape-sheet/src/parts-sheet.ts` | The parts sheet: every secondary form drawn on its own, grouped, labelled |
 | `tools/shape-sheet/src/parts/alien.ts` | ALIEN — the parts that are not biology |
 | `tools/shape-sheet/src/parts/base.ts` | Where the base body is, and where its rim is in any direction |

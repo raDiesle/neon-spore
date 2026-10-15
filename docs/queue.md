@@ -357,25 +357,6 @@ Probe with a twelve-seed loop over `startWave(world, 0, [], [], { kind:
 bodies in their column. Add each seed that clears to `scuttle-wave.test.ts`.
 Prove with `bun test packages/hands` and `bun run check`.
 
-## The nameability gate measures an enemy turned by its glance
-
-- **Found:** 2026-10-14, claude/creature-glance
-- **Taken:** 2026-10-15, claude/queue-the-queens-gap-drop-overlaps-the-marks-it-stands (claim: claude/queue-the-nameability-gate-measures-an-enemy-turned-by)
-- **Files:** `tools/shape-sheet/src/nameability.ts`, `tools/shape-sheet/test/nameability.test.ts`
-
-The owner, 14 October 2026, wants every enemy to glance as the bosses do —
-*within the naming gate*, so each kind stays its own word. First of three
-lanes. Give `nameabilityOf` an optional glance: at each pose sample, turn the
-contour as `glance.ts` does with a `hold` of 0 — each half's x times
-`1 ∓ swing` about the centre — then roll it, across a whole COCK round
-(`glance-styles.ts`) crossed with the pose window. A turn about the centre
-leaves width, height and size alone; the roll and the lobe profile are what
-can move. Write packages/render/src/creature-glance.ts with
-`CREATURE_GLANCE` still and `CREATURE_GLANCE_SIZE` as the largest reach and
-cock (searched, not guessed) at which no pair the gate keeps apart today
-becomes confusable, and a test that holds that line. Prove it with
-`bun test tools/shape-sheet` and `bun run check`.
-
 ## Every living enemy glances
 
 - **Found:** 2026-10-14, claude/creature-glance

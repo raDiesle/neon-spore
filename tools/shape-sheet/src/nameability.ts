@@ -7,6 +7,12 @@ import {
   type Pose,
 } from "@neon-spore/content";
 import { type CreatureKind, DEFAULT_CONFIG } from "@neon-spore/sim";
+import {
+  type AxisSamples,
+  type GlanceReach,
+  measurePosed,
+  NO_GLANCE,
+} from "./nameability-glance.js";
 import { blob } from "./subjects.js";
 
 /**
@@ -90,9 +96,6 @@ const POSE_STEP = 0.1;
 const CONTOUR_SAMPLES = 12;
 const CONTOUR_SPACING = 2.71;
 
-/** Harmonics searched for the lobe count. Nothing living has more than nine. */
-const MAX_HARMONIC = 12;
-
 function span(values: number[]): Span {
   return { lo: Math.min(...values), hi: Math.max(...values) };
 }
@@ -100,43 +103,6 @@ function span(values: number[]): Span {
 /** Two closed intervals share at least a point. */
 export function overlaps(a: Span, b: Span): boolean {
   return a.lo <= b.hi && b.lo <= a.hi;
-}
-
-/**
- * The lobe count a contour actually has, as drawn.
- *
- * Not `silhouette.lobes` — that is a number somebody typed, and the whole
- * question is whether it survives being drawn. The radius is read off the
- * posed points and decomposed by angle; the strongest harmonic at or above 2
- * is what the shape reads as. Below 2 is not a lobe count, it is a body
- * sitting off its own centre.
- *
- * This is why the axis answers to the pose at all. A non-uniform scale is a
- * second harmonic added to the profile, and a round body squashed far enough
- * holds more energy in "ellipse" than in "nine bumps" — at which point it has
- * stopped reading as the knobbly one whatever `silhouettes.ts` says. That is
- * the failure `docs/alive.md` refused `BULB.wobble` 0.075 for, arriving
- * through the pose instead of through the contour.
- */
-function dominantHarmonic(radii: number[]): number {
-  const n = radii.length;
-  let best = 2;
-  let bestEnergy = -1;
-  for (let k = 2; k <= MAX_HARMONIC; k++) {
-    let re = 0;
-    let im = 0;
-    for (let i = 0; i < n; i++) {
-      const a = (i / n) * Math.PI * 2 * k;
-      re += radii[i]! * Math.cos(a);
-      im += radii[i]! * Math.sin(a);
-    }
-    const energy = re * re + im * im;
-    if (energy > bestEnergy) {
-      bestEnergy = energy;
-      best = k;
-    }
-  }
-  return best;
 }
 
 /**
@@ -149,13 +115,19 @@ function dominantHarmonic(radii: number[]): number {
  *
  * `poseAt` overrides the kind's own motion, which is how the test proves the
  * gate has teeth: it widens one amplitude past its cap and watches a pair
- * collide. Nothing in the game passes it.
+ * collide. Nothing in the game passes it. `glance` turns the body through
+ * every swing and roll a glance of that size gives it (`nameability-glance.ts`).
  */
-export function nameability(kind: CreatureKind, poseAt?: (t: Beats) => Pose): Nameability {
+export function nameability(
+  kind: CreatureKind,
+  poseAt?: (t: Beats) => Pose,
+  glance: GlanceReach = NO_GLANCE,
+): Nameability {
   return nameabilityOf(
     kind.toUpperCase(),
     livingSilhouette(kind),
     poseAt ?? livingMotion(kind).poseAt,
+    glance,
   );
 }
 
@@ -173,47 +145,21 @@ export function nameabilityOf(
   name: string,
   shape: CreatureSilhouette,
   pose: (t: Beats) => Pose,
+  glance: GlanceReach = NO_GLANCE,
 ): Nameability {
   const subject = blob(name, shape);
   // The fixed footprint every living body is drawn at, times the one static
   // multiplier content owns: the Runt's `sizeMul`, its whole "tiny".
   const footprint = (REFERENCE_BODY_PX / Math.max(shape.rx, shape.ry)) * (shape.sizeMul ?? 1);
 
-  const aspects: number[] = [];
-  const lobes: number[] = [];
-  const sizes: number[] = [];
-
+  const out: AxisSamples = { aspects: [], lobes: [], sizes: [] };
   for (let c = 0; c < CONTOUR_SAMPLES; c++) {
     const pts = subject.pointsAt(c * CONTOUR_SPACING);
     for (let t = 0; t <= POSE_WINDOW; t += POSE_STEP) {
-      const { rot, sx, sy } = pose(beats(t));
-      const cos = Math.cos(rot);
-      const sin = Math.sin(rot);
-      const radii: number[] = [];
-      let x0 = Infinity;
-      let x1 = -Infinity;
-      let y0 = Infinity;
-      let y1 = -Infinity;
-      for (const p of pts) {
-        const px = p.x * sx;
-        const py = p.y * sy;
-        // A rotation cannot change a radius, so the lobe profile is read
-        // before it and the bounding box after it.
-        radii.push(Math.hypot(px, py));
-        const rx = px * cos - py * sin;
-        const ry = px * sin + py * cos;
-        if (rx < x0) x0 = rx;
-        if (rx > x1) x1 = rx;
-        if (ry < y0) y0 = ry;
-        if (ry > y1) y1 = ry;
-      }
-      const w = x1 - x0;
-      const h = y1 - y0;
-      aspects.push(w / h);
-      lobes.push(dominantHarmonic(radii));
-      sizes.push(Math.sqrt(w * h) * footprint);
+      measurePosed(pts, pose(beats(t)), glance, footprint, out);
     }
   }
+  const { aspects, lobes, sizes } = out;
 
   return { aspect: span(aspects), lobe: span(lobes), size: span(sizes) };
 }
