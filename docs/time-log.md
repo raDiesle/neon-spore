@@ -41977,3 +41977,5 @@ so the first picture of a rising body showed it half in its pore.
 
 Bottleneck: looking — still no one-command photograph of a blister body up
 close, the same wall COMBO's lane hit.
+
+*Measured: 36 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*

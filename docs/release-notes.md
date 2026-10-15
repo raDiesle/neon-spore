@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-15 · 0dc84d51b — THE BLISTER's RUB is drawn as URCHIN, WASHBOARD or PURR, one per blister
+
+The owner liked all three on `blister:rub` and asked for them in the game, picked at random. Each RUB blister now wears one of them, picked off its id so both screens draw the same one: URCHIN, whose spines lie flat a third per blow and shiver under a thumb; WASHBOARD, whose ridges light green a third per blow and throw suds while scrubbed; PURR, a furry mound that bristles more with every blow and shuts its eyes happy under a thumb. COMBO's BUD-or-CURL picker and RUB's now share `blister-pick.ts`, and COMBO's pick is unchanged. Exemption: a look the owner asked for by name.
+
 ## 2026-10-15 · 2e8e18296 — BLISTER:LEVER's three looks are drawn bigger, and TAFFY is pulled by its nose
 
 BELL, ROOT and TAFFY on VERSUS are drawn 1.4 times the clover, so each stands well clear of the knob. TAFFY's eyes sit high on its crown and a long soft nose hangs from between them, its tip out under the knob; the thumb draws the nose down the groove. All three fit inside the blister's 3.2-radius turning layer.
