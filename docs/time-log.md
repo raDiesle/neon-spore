@@ -41894,3 +41894,16 @@ Bottleneck: none to speak of — `glance.ts` already held two points still for
 the bosses, and the balloon only had to ask for it.
 
 *Measured: 30 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-15 — A VERSUS tab takes the director's palette again
+
+- reading: 5 min. The page's sheet, then the split that moved `--bg` and
+  `--ink` into `director-tokens.css` without telling `versus.css`.
+- writing: 5 min. One import, and a test that refuses a `var()` none of the
+  VERSUS sheets defines.
+- looking: 5 min. One candidate opened in a new tab on this tree's director.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, `land`.
+
+Bottleneck: nothing tied the VERSUS list to the sheet it borrows from, so a
+split on the director's side broke a page nobody opened that day.

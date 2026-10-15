@@ -51,14 +51,27 @@ describe("the director's stylesheet order", () => {
     expect([...list].sort()).toEqual(onDisk);
   });
 
-  it("versus.html takes its four sheets the same way, in director.css's order", async () => {
+  it("versus.html takes its sheets the same way, in director.css's order", async () => {
     const html = await Bun.file(join(DIRECTOR, "versus.html")).text();
     expect(links(html)).toEqual(["versus.css"]);
-    const four = await importsOf("versus.css");
+    const some = await importsOf("versus.css");
     const all = await importsOf("director.css");
-    const positions = four.map((s) => all.indexOf(s));
+    const positions = some.map((s) => all.indexOf(s));
     expect(positions.every((p) => p >= 0)).toBe(true);
     expect(positions).toEqual([...positions].sort((a, b) => a - b));
+  });
+
+  // A sheet cut in two can leave its variables in the half the VERSUS list
+  // does not name: on 13 October 2026 the palette moved to
+  // director-tokens.css and a VERSUS tab drew black on white.
+  it("every var() the VERSUS sheets read is defined by one of them", async () => {
+    let text = "";
+    for (const sheet of await importsOf("versus.css")) {
+      text += await Bun.file(join(SRC, sheet)).text();
+    }
+    const read = new Set([...text.matchAll(/var\((--[\w-]+)/g)].map((m) => m[1] as string));
+    const defined = new Set([...text.matchAll(/(--[\w-]+)\s*:/g)].map((m) => m[1] as string));
+    expect([...read].filter((name) => !defined.has(name))).toEqual([]);
   });
 
   it("no sheet imports another: the order is in one place", async () => {

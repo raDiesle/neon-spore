@@ -1,9 +1,15 @@
 /**
- * The VERSUS page's stylesheet: four of the director's sheets, in the order
+ * The VERSUS page's stylesheet: five of the director's sheets, in the order
  * the page's cascade was written in. One `@import` list for the reason
  * `director.css` gives — the dev route rewrites a page's `<link>`s in reverse.
+ *
+ * `director-tokens.css` holds the palette every other sheet reads. It was cut
+ * out of `director-shell.css` on 13 October 2026 and this list was not told,
+ * so a VERSUS tab drew black on white for two days; the stylesheet-order test
+ * now refuses a `var()` none of these sheets defines.
  */
 @import "./director-shell.css";
+@import "./director-tokens.css";
 @import "./director-markdown.css";
 @import "./director-sheets.css";
 @import "./director-versus.css";
