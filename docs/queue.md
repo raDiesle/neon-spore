@@ -476,6 +476,7 @@ the current beside the three (`bun run versus:shot … --only candidate`,
 ## THE BLISTER's SWIPE gets bodies built round its pull, on VERSUS
 
 - **Found:** 2026-10-14, claude/control-bodies
+- **Taken:** 2026-10-15, claude/queue-the-blisters-swipe-gets-bodies-built-round-its-p
 - **Files:** `packages/render/src/blister-bodies.ts`, `packages/render/src/blister-help.ts`, `tools/director/src/poses-field-controls-blister.ts`, `tools/director/src/versus-pose.ts`
 
 The same ask as THE BLISTER's HOLD entry, for `blister:swipe`, patching
