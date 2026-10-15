@@ -42374,3 +42374,16 @@ rounding, so whole-wave hashes could not say it and two real defects hid in
 the noise until an exact-geometry test was written.
 
 *Measured: 46 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-15 — A director draft keeps the files' order
+
+- reading: 10 min. The rail's groups, the wave list against the rail, the
+  draft and its overlay.
+- writing: 10 min. `overlayDraft` in the files' order, the moved-wave run,
+  two tests.
+- looking: 10 min. The rail in a fresh tab, a script over every boss.
+- friction: 0 min.
+- landing: 5 min.
+
+Bottleneck: reading — the list on disk was right, and only the browser's
+stored draft could put 262 waves under THE HYDRA.

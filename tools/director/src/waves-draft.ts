@@ -52,21 +52,75 @@ export function changedCount(
   return [...base.keys()].join() === waves.map((w) => w.id).join() ? 0 : 1;
 }
 
-/** The list a stored draft makes of the act files as they are now. */
+/**
+ * The list a stored draft makes of the act files as they are now.
+ *
+ * **The order is the files', except where the draft moved a wave.** A wave
+ * the files gained since stands where the files put it — the owner, 15
+ * October 2026, found 262 new waves folded under THE HYDRA, because a draft
+ * from before they were written laid them all after its last wave. A wave
+ * this page added, or moved (one outside the longest run the draft and its
+ * base share in order), goes after the wave in front of it in the draft.
+ */
 export function overlayDraft(draft: StoredDraft, disk: readonly Wave[], token: string): Wave[] {
   if (draft.token === token) return draft.waves;
   const fresh = new Map(disk.map((w) => [w.id, w]));
+  const mine = new Map(draft.waves.map((w) => [w.id, w]));
   const edited = new Set(draft.edited);
   const base = new Set(draft.base);
+  const kept = draft.waves.map((w) => w.id).filter((id) => base.has(id));
+  const stayed = inOrder(
+    draft.base.filter((id) => mine.has(id)),
+    kept,
+  );
+  // A wave the draft places itself: added here, or moved here — unless it is
+  // untouched here and deleted on disk since, when the disk is right.
+  const placed = (id: string): boolean =>
+    (!base.has(id) || !stayed.has(id)) && (fresh.has(id) || edited.has(id) || !base.has(id));
   const out: Wave[] = [];
-  for (const w of draft.waves) {
-    if (edited.has(w.id)) out.push(w);
-    else if (fresh.has(w.id)) out.push(fresh.get(w.id) as Wave);
-    // Untouched here and deleted on disk since: the disk is right.
-    else if (!base.has(w.id)) out.push(w);
+  for (const w of disk) {
+    if (base.has(w.id) && !mine.has(w.id)) continue; // deleted here
+    if (mine.has(w.id) && placed(w.id)) continue;
+    out.push(edited.has(w.id) ? (mine.get(w.id) as Wave) : w);
   }
-  const ids = new Set(out.map((w) => w.id));
-  for (const w of disk) if (!base.has(w.id) && !ids.has(w.id)) out.push(w);
+  // An edited wave deleted on disk since stays, where the draft had it.
+  const lost = (id: string): boolean => edited.has(id) && !fresh.has(id) && stayed.has(id);
+  for (const [i, w] of draft.waves.entries()) {
+    if (!placed(w.id) && !lost(w.id)) continue;
+    const version = edited.has(w.id) ? w : (fresh.get(w.id) ?? w);
+    let before = i - 1;
+    let at = -1;
+    while (before >= 0 && at === -1) {
+      const id = draft.waves[before]?.id;
+      at = out.findIndex((o) => o.id === id);
+      before--;
+    }
+    out.splice(at + 1, 0, version);
+  }
+  return out;
+}
+
+/** The ids of the longest run `a` and `b` share in the same order. */
+function inOrder(a: readonly string[], b: readonly string[]): Set<string> {
+  const w = b.length + 1;
+  const run = new Uint32Array((a.length + 1) * w);
+  for (let i = a.length - 1; i >= 0; i--)
+    for (let j = b.length - 1; j >= 0; j--)
+      run[i * w + j] =
+        a[i] === b[j]
+          ? (run[(i + 1) * w + j + 1] ?? 0) + 1
+          : Math.max(run[(i + 1) * w + j] ?? 0, run[i * w + j + 1] ?? 0);
+  const out = new Set<string>();
+  let i = 0;
+  let j = 0;
+  while (i < a.length && j < b.length) {
+    if (a[i] === b[j]) {
+      out.add(a[i] as string);
+      i++;
+      j++;
+    } else if ((run[(i + 1) * w + j] ?? 0) >= (run[i * w + j + 1] ?? 0)) i++;
+    else j++;
+  }
   return out;
 }
 

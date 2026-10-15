@@ -49,6 +49,41 @@ describe("overlayDraft", () => {
       "new",
     ]);
   });
+
+  test("files that moved: a wave they gained stands where they put it, not at the end", () => {
+    // The owner, 15 October 2026: 262 new waves folded under THE HYDRA.
+    const draft: StoredDraft = {
+      token: "old",
+      waves: [wave("a", "mine"), wave("b"), wave("boss")],
+      edited: ["a"],
+      base: ["a", "b", "boss"],
+    };
+    const disk = [wave("a"), wave("x"), wave("b"), wave("y"), wave("boss")];
+    expect(overlayDraft(draft, disk, "fresh").map((w) => w.name)).toEqual([
+      "mine",
+      "x",
+      "b",
+      "y",
+      "boss",
+    ]);
+  });
+
+  test("files that moved: a wave moved or added here keeps its place after its neighbour", () => {
+    const draft: StoredDraft = {
+      token: "old",
+      waves: [wave("c"), wave("a"), wave("added"), wave("b")],
+      edited: ["added"],
+      base: ["a", "b", "c"],
+    };
+    const disk = [wave("a"), wave("new"), wave("b"), wave("c")];
+    expect(overlayDraft(draft, disk, "fresh").map((w) => w.id)).toEqual([
+      "c",
+      "a",
+      "added",
+      "new",
+      "b",
+    ]);
+  });
 });
 
 describe("makeWaveDraft", () => {
