@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-15 · 4caf5895c — A wave's talk: the facts the pair must say aloud, beside its pressure in EVERY WAVE
+
+Pressure counts what the hands do; `waveTalk` counts what the voices do. Each kind is scored by the facts one player must hand the other for each arrival — where it is, a colour or moment it does not wear plainly, something only one seat is drawn, a column that changes, two controls to agree — and a wave by the most of them inside eight beats, plus what each fault costs to say. It is a new column in DOCUMENTATION › WAVES. Read on today's waves it shows the hardest bodies to talk through taught early and the easiest late, and every fault after wave 270; the composer does not aim at it yet. Not a look: nothing the game draws changes.
+
 ## 2026-10-15 · 229bb2899 — THE CLAW's eight are composed and played on the claw
 
 CLAW AGAIN to CLAW PEAK were played on THE COIL block's panel, because the claw's has no shield and no colours and the steps placed rocks a pod could not answer. They are now placed by a table of their own: groups of a pod crossing in from an edge and the rocks it answers. The steps go from wards alone to purges, then both edges, rocks in pairs, quick pods and twin rocks. AUTO clears all eight on the claw, from 1 up to 5.4.
