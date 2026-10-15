@@ -357,18 +357,6 @@ Probe with a twelve-seed loop over `startWave(world, 0, [], [], { kind:
 bodies in their column. Add each seed that clears to `scuttle-wave.test.ts`.
 Prove with `bun test packages/hands` and `bun run check`.
 
-## `mirror-grip.test.ts` is past the line ceiling
-
-- **Found:** 2026-10-14, claude/queue-holds-as-the-hold-labs-drop-the-baton-the-mirror
-- **Taken:** 2026-10-15, main (claim: claude/queue-mirror-grip-test-ts-is-past-the-line-ceiling)
-- **Files:** `packages/render/test/mirror-grip.test.ts`
-
-296 lines: the hit tests, the hand's readout, the rings and the drops, the pin
-landing's fx and a run on the field, in one file. Split by what each asks —
-the press (`mirrorLobeUnder`, `mirrorGripSeat`, the readout) in one, the
-picture (`drawMirrorGrip`'s rings and drops, `MirrorGripFx`, the field run) in
-another — each under ~250 lines, and `bun run check` green.
-
 ## The op-count budgets do not count what a glancing part draws
 
 - **Found:** 2026-10-14, claude/glance-cock

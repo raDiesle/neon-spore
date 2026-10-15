@@ -41597,3 +41597,14 @@ Bottleneck: reading — the stall was one unlucky seed, and finding that took
 a step-by-step table of reach built by hand.
 
 *Measured: 13 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-15 — `mirror-grip.test.ts` splits into the press and the picture
+
+- reading: 3 min. The file's six blocks and which helpers each uses.
+- writing: 5 min. A states helper, the press kept, the picture moved, two
+  headers.
+- looking: 0 min. Nothing drawn.
+- friction: 0 min.
+- landing: 5 min.
+
+Bottleneck: landing; the split followed the seam the entry named.
