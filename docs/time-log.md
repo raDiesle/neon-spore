@@ -41721,3 +41721,17 @@ Bottleneck: a slot's candidates must patch the same fields, so the two
 that put nothing past the pore patch `beyond` with the shipped nothing.
 
 *Measured: 8 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-15 — `docs/spec/bosses.md` says each boss's glance as it ships
+
+- reading: 5 min. DECIDED.md's glance verdicts and every `*-glance.ts`
+  record, its style, size and temper.
+- writing: 10 min. A script that rewrote forty-eight paragraphs from those
+  records, rather than forty-eight edits by hand.
+- looking: 0 min. A document.
+- friction: 5 min. The closing sentences came in a dozen shapes, and eight
+  said *it ships still* outside the parenthesis the first pass looked for.
+- landing: 5 min. `check:fast`, `land`.
+
+Bottleneck: the forty-eight paragraphs were written by forty-odd lanes, each
+ending its style sentence its own way.

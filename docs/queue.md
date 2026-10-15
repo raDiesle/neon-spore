@@ -412,20 +412,6 @@ body a thumb holds (`balloon-handles.ts`, `lid-string.ts`, `weight.ts`)
 still meets its handle where it is drawn. Send one PNG strip. Prove it with
 `bun test packages/render` and `bun run check`.
 
-## `docs/spec/bosses.md` still says every boss's glance ships still
-
-- **Found:** 2026-10-14, claude/creature-glance
-- **Taken:** 2026-10-15, main (claim: claude/queue-docs-spec-bosses-md-still-says-every-bosss-glanc)
-- **Files:** `docs/spec/bosses.md`, `docs/spec/bosses-choreographed.md`
-
-Every boss took its glance on 14 October 2026 (`tools/versus/DECIDED.md`),
-but each boss's section still reads *Offered (… VERSUS `x:glance`)* and *It
-ships still*. Rewrite each as *Taken (14 October 2026)* with the rhythm and
-size its `packages/render/src/*-glance.ts` now ships — THE ANTIPHON's is the
-pattern already written — and nothing else. Prove it with
-`grep -n "glance" docs/spec/bosses.md` showing no *ships still* and
-`bun run check`.
-
 ## THE QUEEN's gap drop overlaps the marks it stands between
 
 - **Found:** 2026-10-14, claude/queue-holds-as-the-hold-labs-drop-the-queens-marks

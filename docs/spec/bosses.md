@@ -388,16 +388,17 @@ the socket the last one broke off from — 1 is the whole beat, 0 is it simply
 being there again — and only the picture reads it. `queenHoldBeats` is how
 long a SCREAM bloom may be held open in all.
 
-**Offered (13 October 2026, VERSUS `queen:glance`).** Her part that turns
+**Taken (14 October 2026, VERSUS `queen:glance`, COCK).** Her part that turns
 is her whole shell — she has no head, and the owner's word for a machine is
-*the full boss shape*. `packages/render/src/queen-glance.ts`, which ships
-still: the middle of her shell swings toward one wing, that half squeezes
-and goes dark, the other opens, and the two points her crane arms' shoulders
-sit on are held, so neither arm comes off her and neither torch moves. Her
-marks hang under the shell, not on it, so they and their hit test do not
-move at all. **SWAY**, **LOOK** and **COCK** are the shared three
-(`packages/render/src/glance-styles.ts`), six seconds a round, judged on
-`BULB QUEEN · SHUT`.
+*the full boss shape*. `packages/render/src/queen-glance.ts`: the middle of her
+shell swings toward one wing, that half squeezes and goes dark, the other
+opens, and the two points her crane arms' shoulders sit on are held, so neither
+arm comes off her and neither torch moves. Her marks hang under the shell, not
+on it, so they and their hit test do not move at all. **SWAY**, **LOOK** and
+**COCK** (`glance-styles.ts`) were offered on `BULB QUEEN · SHUT`; the owner
+left the choice to the lane, and COCK ships (`QUEEN_GLANCE`): reaching 0.32
+part radii and rolling up to 0.05 rad, cocking three times a round, on rounds
+of about 5.8 seconds (`temperOf("queen")`, `glance-temper.ts`).
 
 ## 11.3 THE MIRROR — your own ship, asking for your moves back
 
@@ -550,13 +551,16 @@ Its number in `packages/sim/src/config-boss.ts` is `mirrorRow`, the row its
 own hull surface sits on — the ship's, upside down; the thumb's three are in
 `packages/sim/src/config-mirror.ts`.
 
-**Offered (13 October 2026, VERSUS `mirror:glance`).** Its hull is not the
+**Taken (14 October 2026, VERSUS `mirror:glance`, COCK).** Its hull is not the
 part that turns: it is *an exact copy of your ship* and carries both lobes a
 thumb is on. What turns is its chamber, the flesh, ribs and slime above the
-hull (`packages/render/src/mirror-glance.ts`, which ships still): the middle
-swings toward one side, that half squeezes into the dark, the other opens,
-and the two screen edges are held. **SWAY**, **LOOK** and **COCK**
-(`glance-styles.ts`), judged on `THE MIRROR · LEAD`.
+hull (`packages/render/src/mirror-glance.ts`): the middle swings toward one
+side, that half squeezes into the dark, the other opens, and the two screen
+edges are held. **SWAY**, **LOOK** and **COCK** (`glance-styles.ts`) were
+offered on `THE MIRROR · LEAD`; the owner left the choice to the lane, and COCK
+ships (`MIRROR_GLANCE`): reaching 0.26 part radii and rolling up to 0.03 rad,
+cocking three times a round, on rounds of about 6.1 seconds
+(`temperOf("mirror")`, `glance-temper.ts`).
 
 ## 11.4 The Warden — the gate one of you holds open
 
@@ -952,14 +956,16 @@ The owner chose the block-and-tackle instead —
 The two go together: hold-to-tear is the control, and the ceiling it puts on
 the window is the reason to reach for it.
 
-**Offered (13 October 2026, VERSUS `warden:glance`).** Its eye, the hatch
-and the rope do not move — they are what a thumb holds and a shot goes in
-at. What turns is the horseshoe round them
-(`packages/render/src/warden-glance.ts`, which ships still): two planes
-meeting at the eye, the hole's widest points held, so the body swings toward
-one side about an eye that stays put, that side bunching and going dark.
-**SWAY**, **LOOK** and **COCK** (`glance-styles.ts`), judged on
-`THE WARDEN · WATCH`.
+**Taken (14 October 2026, VERSUS `warden:glance`, COCK).** Its eye, the hatch
+and the rope do not move — they are what a thumb holds and a shot goes in at.
+What turns is the horseshoe round them
+(`packages/render/src/warden-glance.ts`): two planes meeting at the eye, the
+hole's widest points held, so the body swings toward one side about an eye that
+stays put, that side bunching and going dark. **SWAY**, **LOOK** and **COCK**
+(`glance-styles.ts`) were offered on `THE WARDEN · WATCH`; the owner left the
+choice to the lane, and COCK ships (`WARDEN_GLANCE`): reaching 0.13 part radii
+and rolling up to 0.06 rad, cocking four times a round, on rounds of about 6.8
+seconds (`temperOf("warden")`, `glance-temper.ts`).
 
 ## 11.5 THE VANE — the arm that decides where you are hit
 
@@ -1271,15 +1277,18 @@ touch keeps its radius.
 whether a spar at twelve beats a turn reads as covering a mouth before the shot
 leaves the hull.
 
-**Offered (13 October 2026, VERSUS `vane:glance`).** A made thing, so the
+**Taken (14 October 2026, VERSUS `vane:glance`, COCK).** A made thing, so the
 whole bearing turns — the mount, the bolt circle and the hub
-(`packages/render/src/vane-glance.ts`, which ships still) — **about its
-centre**, because the hub is what a shot reaches and a thumb presses: the
-near end of the mount grows, the far end shortens into the dark, the pins
-bunch on the far side. The split is drawn after it and never turns, since it
-stands on the column a shot goes up; the turn is kept small enough that the
-mount's far end never leaves it. The arm and its tip do not turn. **SWAY**,
-**LOOK** and **COCK** (`glance-styles.ts`), judged on `THE VANE · SWING`.
+(`packages/render/src/vane-glance.ts`) — **about its centre**, because the hub
+is what a shot reaches and a thumb presses: the near end of the mount grows,
+the far end shortens into the dark, the pins bunch on the far side. The split
+is drawn after it and never turns, since it stands on the column a shot goes
+up; the turn is kept small enough that the mount's far end never leaves it. The
+arm and its tip do not turn. **SWAY**, **LOOK** and **COCK**
+(`glance-styles.ts`) were offered on `THE VANE · SWING`; the owner left the
+choice to the lane, and COCK ships (`VANE_GLANCE`): reaching 0.13 part radii
+and rolling up to 0.06 rad, cocking three times a round, on rounds of about 5.5
+seconds (`temperOf("vane")`, `glance-temper.ts`).
 
 ## 11.6 THE FLEET — one of you has the map, the other has the sights
 
@@ -1520,15 +1529,18 @@ for free; a cross would read better under a thumb and would need a new panel
 form to place it. That is a question about a hand on glass, and no test can
 answer it.
 
-**Offered (13 October 2026, VERSUS `fleet:glance`).** A made thing, so each
-whole hull turns in its own frame (`packages/render/src/fleet-glance.ts`,
-which ships still) — **about its two ends**, so the bow stays on its first
-square and the transom on its last and the length the pilot counts is the
-same length: the middle swings toward the bow or the stern, that end opens
-and the other closes into the dark. Scars are drawn after, on the squares
-the simulation struck, and never turn. Each hull runs the round from its
-own place in it, so the chart does not turn as one. **SWAY**, **LOOK** and
-**COCK** (`glance-styles.ts`), judged on `THE FLEET · HUNT`.
+**Taken (14 October 2026, VERSUS `fleet:glance`, COCK).** A made thing, so each
+whole hull turns in its own frame (`packages/render/src/fleet-glance.ts`) —
+**about its two ends**, so the bow stays on its first square and the transom on
+its last and the length the pilot counts is the same length: the middle swings
+toward the bow or the stern, that end opens and the other closes into the dark.
+Scars are drawn after, on the squares the simulation struck, and never turn.
+Each hull runs the round from its own place in it, so the chart does not turn
+as one. **SWAY**, **LOOK** and **COCK** (`glance-styles.ts`) were offered on
+`THE FLEET · HUNT`; the owner left the choice to the lane, and COCK ships
+(`FLEET_GLANCE`): reaching 0.14 part radii and rolling up to 0.04 rad, cocking
+three times a round, on rounds of about 7.0 seconds (`temperOf("fleet")`,
+`glance-temper.ts`).
 
 ## 11.7 PINBALL — the thing you fire from is the thing you catch it with
 
@@ -1758,15 +1770,17 @@ thousandths of a degree — THE MAZE's angle unit, because the sine comes off
 `mazeSinMilli`. `pinballWallPermille` is how much of the speed survives a bounce
 off a wall, deader than a peg on purpose.
 
-**Offered (13 October 2026, VERSUS `pinball:glance`).** The round has no
+**Taken (14 October 2026, VERSUS `pinball:glance`, COCK).** The round has no
 body of its own, so what turns is the living thing on the table: each amber
 target pod, and a target block as one body with its chain of pods
-(`packages/render/src/pinball-glance.ts`, which ships still). The rocks do
-not turn — *boring* is their instruction. Each turns **about its centre**,
-because the centre and the radius are what the ball bounces off: the near
-side swells, the far side narrows into the dark. Each target runs the round
-from its own place in it. **SWAY**, **LOOK** and **COCK**
-(`glance-styles.ts`), judged on `PINBALL · AIM`.
+(`packages/render/src/pinball-glance.ts`). The rocks do not turn — *boring* is
+their instruction. Each turns **about its centre**, because the centre and the
+radius are what the ball bounces off: the near side swells, the far side
+narrows into the dark. Each target runs the round from its own place in it.
+**SWAY**, **LOOK** and **COCK** (`glance-styles.ts`) were offered on `PINBALL ·
+AIM`; the owner left the choice to the lane, and COCK ships (`PINBALL_GLANCE`):
+reaching 0.3 part radii and rolling up to 0.12 rad, cocking twice a round, on
+rounds of about 6.3 seconds (`temperOf("pinball")`, `glance-temper.ts`).
 
 ## 11.8 THE PULSE — the same song, and neither of you can read all of it
 
@@ -2109,14 +2123,17 @@ to 300, so there is room inside to shake in (`content/maze-rounds.ts`,
 `maze-drawn.ts`). Looks the owner asked for by name. *Never watched at
 tempo.*
 
-**Offered (13 October 2026, VERSUS `maze:glance`).** The drum already turns —
-that is the round — so what glances is the living thing in it: the heart's
+**Taken (14 October 2026, VERSUS `maze:glance`, COCK).** The drum already turns
+— that is the round — so what glances is the living thing in it: the heart's
 muscle, its chamber and the clock on its skin
-(`packages/render/src/maze-glance.ts`, which ships still), **about its
-centre**, where a shot arrives and both thumbs take hold. The near side
-swells, the far side narrows into the dark, and each vein stays rooted on
-the turned edge while its tip stays on the wall of the room. **SWAY**,
-**LOOK** and **COCK** (`glance-styles.ts`), judged on `THE MAZE · READ`.
+(`packages/render/src/maze-glance.ts`), **about its centre**, where a shot
+arrives and both thumbs take hold. The near side swells, the far side narrows
+into the dark, and each vein stays rooted on the turned edge while its tip
+stays on the wall of the room. **SWAY**, **LOOK** and **COCK**
+(`glance-styles.ts`) were offered on `THE MAZE · READ`; the owner left the
+choice to the lane, and COCK ships (`MAZE_GLANCE`): reaching 0.3 part radii and
+rolling up to 0.12 rad, cocking twice a round, on rounds of about 5.5 seconds
+(`temperOf("maze")`, `glance-temper.ts`).
 
 ## 11.11 THE CAIRN — the boss you take apart with your hands
 
@@ -2269,13 +2286,16 @@ hold buys off the clock (`cairnHeld`), so a resting thumb goes green once a
 beat while it is buying and stops the beat the hold runs out. One
 `GripVerdicts` in `BossBlows`, one key.
 
-**Offered (13 October 2026, VERSUS `cairn:glance`).** A pile of rocks has no
-head, so the whole stack turns (`packages/render/src/cairn-glance.ts`, which
-ships still) with **its two outer edges held** over the columns a pull drags
-a stone out of; the middle swings toward one side, whose stones open, while
-the far side's close into the dark. The hand, the lane mark and the verdict
-are drawn after it and do not turn. **SWAY**, **LOOK** and **COCK**
-(`glance-styles.ts`), judged on `THE CAIRN · STACKED`.
+**Taken (14 October 2026, VERSUS `cairn:glance`, COCK).** A pile of rocks has
+no head, so the whole stack turns (`packages/render/src/cairn-glance.ts`) with
+**its two outer edges held** over the columns a pull drags a stone out of; the
+middle swings toward one side, whose stones open, while the far side's close
+into the dark. The hand, the lane mark and the verdict are drawn after it and
+do not turn. **SWAY**, **LOOK** and **COCK** (`glance-styles.ts`) were offered
+on `THE CAIRN · STACKED`; the owner left the choice to the lane, and COCK ships
+half again the size offered (`CAIRN_GLANCE`): reaching 0.22 part radii and
+rolling up to 0.08 rad, cocking twice a round, on rounds of about 6.4 seconds
+(`temperOf("cairn")`, `glance-temper.ts`).
 
 ## 11.12 THE WELL — the field turned inside out, on one phone
 
@@ -2455,13 +2475,17 @@ warning marks, and that his rings crowd at the rim — and both went into the
 wave's own guide, because neither is a thing a thumb does and a rehearsal page is
 a thumb landing on something.
 
-**Offered (13 October 2026, VERSUS `well:glance`).** THE WELL has no body, so
-what turns is each body the wave stands on it (`packages/render/src/well-glance.ts`,
-which ships still), on its hour of the clock and **about its centre**, which
-is where a grip's ring, a lock's frame and a caption find it. The far side
-darkens over a disc inside the body, since the bodies are every kind the
-field has. Each runs the round from its own place in it. **SWAY**, **LOOK**
-and **COCK** (`glance-styles.ts`), judged on `THE WELL · STILL`.
+**Taken (14 October 2026, VERSUS `well:glance`, COCK).** THE WELL has no body,
+so what turns is each body the wave stands on it
+(`packages/render/src/well-glance.ts`), on its hour of the clock and **about
+its centre**, which is where a grip's ring, a lock's frame and a caption find
+it. The far side darkens over a disc inside the body, since the bodies are
+every kind the field has. Each runs the round from its own place in it.
+**SWAY**, **LOOK** and **COCK** (`glance-styles.ts`) were offered on `THE WELL
+· STILL`; the owner left the choice to the lane, and COCK ships
+(`WELL_GLANCE`): reaching 0.28 part radii and rolling up to 0.12 rad, cocking
+four times a round, on rounds of about 4.9 seconds (`temperOf("well")`,
+`glance-temper.ts`).
 
 ## 11.13 THE SPLICE — straws fed in the order the numbers say
 
@@ -2597,14 +2621,16 @@ the whole design rather than a gap the brief caught. `docs/queue.md`'s own
 entry (*THE SPLICE changes state more than once, and asks for more than one
 gesture*) closes here rather than adding a mark.
 
-**Offered (13 October 2026, VERSUS `splice:glance`).** The eater is the one
+**Taken (14 October 2026, VERSUS `splice:glance`, COCK).** The eater is the one
 living thing in the hold, and its head is the part
-(`packages/render/src/splice-glance.ts`, which ships still): cranium, jaw,
-eyes and mouth turn together **about the head's centre**, where the neck
-meets it, so the head never leaves its neck; the far side narrows into the
-dark, and the tongue still leaves the mouth where the turn has drawn it.
-**SWAY**, **LOOK** and **COCK** (`glance-styles.ts`), judged on
-`THE SPLICE · FEEDING`.
+(`packages/render/src/splice-glance.ts`): cranium, jaw, eyes and mouth turn
+together **about the head's centre**, where the neck meets it, so the head
+never leaves its neck; the far side narrows into the dark, and the tongue still
+leaves the mouth where the turn has drawn it. **SWAY**, **LOOK** and **COCK**
+(`glance-styles.ts`) were offered on `THE SPLICE · FEEDING`; the owner left the
+choice to the lane, and COCK ships (`SPLICE_GLANCE`): reaching 0.26 part radii
+and rolling up to 0.12 rad, cocking three times a round, on rounds of about 6.4
+seconds (`temperOf("splice")`, `glance-temper.ts`).
 
 ## 11.14 THE HIVE — the boss you seal, and every breach you have not sealed yet is spilling
 
@@ -2930,15 +2956,17 @@ clock and no refusal, since each ring is one seat's alone and a hand on the
 other is dropped without a sound. A thumb lifted early has no verdict: the
 lobe opens coloured, which the pilot's screen already says.
 
-**Offered (14 October 2026, VERSUS `hive:glance`).** The mass is the width
+**Taken (14 October 2026, VERSUS `hive:glance`, COCK).** The mass is the width
 of the field, and turning it would slide every column a shot is aimed up, so
-what turns is each lobe hung under it (`packages/render/src/hive-glance.ts`,
-which ships still): **about the point it hangs from**, like a drop on a
-thread, the far side narrowing into the dark and a roll swinging its tip, each
-lobe from its own place in the round so the row never turns as one. The
-site's centre — a grip's ring, a breach's socket — stays on the axis.
-**SWAY**, **LOOK** and **COCK** (`glance-styles.ts`), judged on
-`THE HIVE · HANG`.
+what turns is each lobe hung under it (`packages/render/src/hive-glance.ts`):
+**about the point it hangs from**, like a drop on a thread, the far side
+narrowing into the dark and a roll swinging its tip, each lobe from its own
+place in the round so the row never turns as one. The site's centre — a grip's
+ring, a breach's socket — stays on the axis. **SWAY**, **LOOK** and **COCK**
+(`glance-styles.ts`) were offered on `THE HIVE · HANG`; the owner left the
+choice to the lane, and COCK ships (`HIVE_GLANCE`): reaching 0.32 part radii
+and rolling up to 0.12 rad, cocking three times a round, on rounds of about 7.1
+seconds (`temperOf("hive")`, `glance-temper.ts`).
 
 ## 11.15 THE REPRISE — the wave you have just beaten, sent again unseen
 
@@ -3125,13 +3153,16 @@ own spec argues hardest for having none. `docs/queue.md`'s own entry (*THE
 REPRISE changes state more than once, and asks for more than one gesture*)
 closes here rather than adding a mark.
 
-**Offered (14 October 2026, VERSUS `reprise:glance`).** A camera grown into a
-sac has no head but itself, so the whole sac turns, and the lens, the eggs and
-the camera's word with it (`packages/render/src/reprise-glance.ts`, which ships
-still): **about the line down its middle**, where the lens comes home whenever
-an echo plays, rolling about the top where its cords take it; the cords do not
-turn. The far side narrows into the dark. **SWAY**, **LOOK** and **COCK**
-(`glance-styles.ts`), judged on `THE REPRISE · RUNNING`.
+**Taken (14 October 2026, VERSUS `reprise:glance`, COCK).** A camera grown into
+a sac has no head but itself, so the whole sac turns, and the lens, the eggs
+and the camera's word with it (`packages/render/src/reprise-glance.ts`):
+**about the line down its middle**, where the lens comes home whenever an echo
+plays, rolling about the top where its cords take it; the cords do not turn.
+The far side narrows into the dark. **SWAY**, **LOOK** and **COCK**
+(`glance-styles.ts`) were offered on `THE REPRISE · RUNNING`; the owner left
+the choice to the lane, and COCK ships (`REPRISE_GLANCE`): reaching 0.3 part
+radii and rolling up to 0.08 rad, cocking four times a round, on rounds of
+about 6.3 seconds (`temperOf("reprise")`, `glance-temper.ts`).
 
 ## 11.16 THE STARE — the thing that looks, and the hands that must not move
 
@@ -3634,13 +3665,16 @@ held drag repeats its press on every move. At a desk the press is signed with
 the ring's own seat (`baton-grip.ts` `batonGripSeat`). One `GripVerdicts` in
 `BossBlows`, keyed by socket.
 
-**Offered (14 October 2026, VERSUS `baton:glance`).** Turning the arm would
-bend the line the beads are passed down, so what turns is each socket's
-knuckle (`packages/render/src/baton-glance.ts`, which ships still), twisting
-on the arm like a vertebra **about its own centre** — where the bead sits and
-a grip's ring finds it — each a little after the one above it, the far side
-narrowing into the dark. The beads do not turn. **SWAY**, **LOOK** and
-**COCK** (`glance-styles.ts`), judged on `THE BATON · PASSING`.
+**Taken (14 October 2026, VERSUS `baton:glance`, COCK).** Turning the arm would
+bend the line the beads are passed down, so what turns is each socket's knuckle
+(`packages/render/src/baton-glance.ts`), twisting on the arm like a vertebra
+**about its own centre** — where the bead sits and a grip's ring finds it —
+each a little after the one above it, the far side narrowing into the dark. The
+beads do not turn. **SWAY**, **LOOK** and **COCK** (`glance-styles.ts`) were
+offered on `THE BATON · PASSING`; the owner liked COCK the most and asked for
+more of it, so it ships half again the size offered (`BATON_GLANCE`): reaching
+0.5 part radii and rolling up to 0.21 rad, cocking three times a round, on
+rounds of about 5.8 seconds (`temperOf("baton")`, `glance-temper.ts`).
 
 ## 11.19 THE THROAT — the boss you answer by feeding it
 
@@ -3798,13 +3832,15 @@ circle is bright enough to carry the mouth against.
 **What is not built — a step seen from another side** (suggested 10 October 2026, after the owner on THE BASTION: *very 3 dimensional and even user action is 3d to rotate*). It turns its head away, the mouth to one side; the pilot drags it back to the front by its jaw, and the side it faced last decides which seat feeds it next — the feeding read off which way it is looking.
 
 
-**Offered (14 October 2026, VERSUS `throat:glance`).** The mouth is the
+**Taken (14 October 2026, VERSUS `throat:glance`, COCK).** The mouth is the
 gullet's head: the lip and the colour's face in it turn together **about the
-mouth's centre** (`packages/render/src/throat-glance.ts`, which ships still),
-where the navigator carries it and the pump's ring sits, the far side
-narrowing into the dark. The pull's circle, the halo and a swallow's flare
-stay level. **SWAY**, **LOOK** and **COCK** (`glance-styles.ts`), judged on
-`THE THROAT · SUCKS`.
+mouth's centre** (`packages/render/src/throat-glance.ts`), where the navigator
+carries it and the pump's ring sits, the far side narrowing into the dark. The
+pull's circle, the halo and a swallow's flare stay level. **SWAY**, **LOOK**
+and **COCK** (`glance-styles.ts`) were offered on `THE THROAT · SUCKS`; the
+owner left the choice to the lane, and COCK ships (`THROAT_GLANCE`): reaching
+0.32 part radii and rolling up to 0.14 rad, cocking three times a round, on
+rounds of about 7.4 seconds (`temperOf("throat")`, `glance-temper.ts`).
 
 ## 11.20 THE UNDERTOW — the boss under the floor, answered downward
 
@@ -4041,13 +4077,15 @@ turn; `sim/test/gorge-hand.test.ts` the tap, the offers and the asks;
 **What is not built — a step seen from another side** (suggested 10 October 2026, after the owner on THE BASTION: *very 3 dimensional and even user action is 3d to rotate*). The cluster turns, and the bubbles at its back come round to the front one by one; a bubble is due only while it faces the pair, so the counter calls them as they come round rather than as they stand.
 
 
-**Offered (14 October 2026, VERSUS `gorge:glance`).** The sack already turns
-in depth, so what turns is each bubble in it, with its beads
-(`packages/render/src/gorge-glance.ts`, which ships still): **about the line
-up its middle**, rolling about its intake — the one point of it a shot is
-judged at — each from its own place in the round, the far side narrowing into
-the dark. **SWAY**, **LOOK** and **COCK** (`glance-styles.ts`), judged on
-`THE GORGE · ROW`.
+**Taken (14 October 2026, VERSUS `gorge:glance`, COCK).** The sack already
+turns in depth, so what turns is each bubble in it, with its beads
+(`packages/render/src/gorge-glance.ts`): **about the line up its middle**,
+rolling about its intake — the one point of it a shot is judged at — each from
+its own place in the round, the far side narrowing into the dark. **SWAY**,
+**LOOK** and **COCK** (`glance-styles.ts`) were offered on `THE GORGE · ROW`;
+the owner left the choice to the lane, and COCK ships (`GORGE_GLANCE`):
+reaching 0.3 part radii and rolling up to 0.1 rad, cocking three times a round,
+on rounds of about 6.5 seconds (`temperOf("gorge")`, `glance-temper.ts`).
 
 ## 11.24 THE CURTAIN — the boss that is in the way
 
@@ -4336,13 +4374,15 @@ and never at tempo.
 **What is not built — a step seen from another side** (suggested 10 October 2026, after the owner on THE BASTION: *very 3 dimensional and even user action is 3d to rotate*). The sheet swings edge-on like a door on its hinge, and for as long as one seat holds the hinge the body behind it is open to a shot; let go and it swings shut — the first time the curtain is seen side-on.
 
 
-**Offered (14 October 2026, VERSUS `curtain:glance`).** The cloth hangs on a
-rail and its beads are held over their columns, so the part that turns is the
-core behind it, once bare (`packages/render/src/curtain-glance.ts`, which
-ships still): **about its own centre**, where a bolt meets it, the far side
-narrowing into the dark — a thing behind a curtain turning to see who pulled
-it aside. **SWAY**, **LOOK** and **COCK** (`glance-styles.ts`), judged on
-`THE CURTAIN · TORN`.
+**Taken (14 October 2026, VERSUS `curtain:glance`, SWAY).** The cloth hangs on
+a rail and its beads are held over their columns, so the part that turns is the
+core behind it, once bare (`packages/render/src/curtain-glance.ts`): **about
+its own centre**, where a bolt meets it, the far side narrowing into the dark —
+a thing behind a curtain turning to see who pulled it aside. **SWAY**, **LOOK**
+and **COCK** (`glance-styles.ts`) were offered on `THE CURTAIN · TORN`; the
+owner left the choice to the lane, and SWAY ships (`CURTAIN_GLANCE`): reaching
+0.36 part radii, one turn a round, on rounds of about 5.7 seconds
+(`temperOf("curtain")`, `glance-temper.ts`).
 
 ## 11.25 THE TASTER — the boss that grows armour in the colour you spend
 
@@ -4671,13 +4711,16 @@ ask here with a clock on it. The first beam is said since the same day: a
 
 **What is not built — a step seen from another side** (suggested 10 October 2026, after the owner on THE BASTION: *very 3 dimensional and even user action is 3d to rotate*). The crest turns and shows its back, where the blades grown in an earlier step are still set; the pair spends so the back's colours flip before they come round to the front.
 
-**Offered (14 October 2026, VERSUS `taster:glance`).** The crest spans the
+**Taken (14 October 2026, VERSUS `taster:glance`, LOOK).** The crest spans the
 field and its notches are aimed up, so the part that turns is each blade
-standing out of it (`packages/render/src/taster-glance.ts`, which ships
-still): a knife twisted in its socket **about its root**, where the pin and
-the pry stand, the far flat narrowing into the dark, each out of step with
-its neighbours. **SWAY**, **LOOK** and **COCK** (`glance-styles.ts`), judged
-on `THE TASTER · FANNING`.
+standing out of it (`packages/render/src/taster-glance.ts`): a knife twisted in
+its socket **about its root**, where the pin and the pry stand, the far flat
+narrowing into the dark, each out of step with its neighbours. **SWAY**,
+**LOOK** and **COCK** (`glance-styles.ts`) were offered on `THE TASTER ·
+FANNING`; the owner left the choice to the lane, and LOOK ships
+(`TASTER_GLANCE`): reaching 0.4 part radii and tilting 0.3 rad a part radius
+toward each look, on rounds of about 7.1 seconds (`temperOf("taster")`,
+`glance-temper.ts`).
 
 
 ## 11.26 THE SINEW — the boss that asks how hard, not when
@@ -4989,13 +5032,16 @@ are drawn at the pull (`handle-draw.ts`).
 
 **What is not built — a step seen from another side** (suggested 10 October 2026, after the owner on THE BASTION: *very 3 dimensional and even user action is 3d to rotate*). The body twists, and each handle pulls along the twisted way, not straight down — THE BASTION's plate pulled along its own way — so how hard is asked at a slant that turns between steps.
 
-**Offered (14 October 2026, VERSUS `sinew:glance`).** The crown flies and the
-tendon is a rope, and the handles rest off the mass's centre rather than its
-outline, so the part that turns is the mass (`packages/render/src/
-sinew-glance.ts`, which ships still): **about its own centre**, its far side
-narrowing into the dark — a weight on a rope turning as it hangs. The handles
-are drawn after it and do not turn. **SWAY**, **LOOK** and **COCK**
-(`glance-styles.ts`), judged on `THE SINEW · HANGING`.
+**Taken (14 October 2026, VERSUS `sinew:glance`, COCK).** The crown flies and
+the tendon is a rope, and the handles rest off the mass's centre rather than
+its outline, so the part that turns is the mass (`packages/render/src/
+sinew-glance.ts`): **about its own centre**, its far side narrowing into the
+dark — a weight on a rope turning as it hangs. The handles are drawn after it
+and do not turn. **SWAY**, **LOOK** and **COCK** (`glance-styles.ts`) were
+offered on `THE SINEW · HANGING`; the owner left the choice to the lane, and
+COCK ships (`SINEW_GLANCE`): reaching 0.38 part radii and rolling up to 0.12
+rad, cocking twice a round, on rounds of about 6.7 seconds
+(`temperOf("sinew")`, `glance-temper.ts`).
 
 
 ## 11.27 THE LEDGER — the boss that bills your own hull for every shot
@@ -5321,14 +5367,16 @@ cord tears, and the tear is its answer (`ledger-fx.ts`).
 
 **What is not built — a step seen from another side** (suggested 10 October 2026, after the owner on THE BASTION: *very 3 dimensional and even user action is 3d to rotate*). The two halves swing round and show the seam on the far side, up another column; the pilot turns the body by the cord to bring the seam back over the cannon before the bill comes due.
 
-**Offered (14 October 2026, VERSUS `ledger:glance`).** THE LEDGER is metal,
+**Taken (14 October 2026, VERSUS `ledger:glance`, COCK).** THE LEDGER is metal,
 so the part that turns is the whole body (`packages/render/src/
-ledger-glance.ts`, which ships still): both halves and the seam between them,
-**about the seam**, which stays on the one column a bolt can hurt, the near
-half widening and the far half narrowing into the dark. The cord, whose foot
-is in the ship's plating, and the pilot's rings and beads do not turn.
-**SWAY**, **LOOK** and **COCK** (`glance-styles.ts`), judged on `THE LEDGER ·
-WHIPPING`.
+ledger-glance.ts`): both halves and the seam between them, **about the seam**,
+which stays on the one column a bolt can hurt, the near half widening and the
+far half narrowing into the dark. The cord, whose foot is in the ship's
+plating, and the pilot's rings and beads do not turn. **SWAY**, **LOOK** and
+**COCK** (`glance-styles.ts`) were offered on `THE LEDGER · WHIPPING`; the
+owner left the choice to the lane, and COCK ships (`LEDGER_GLANCE`): reaching
+0.34 part radii and rolling up to 0.08 rad, cocking four times a round, on
+rounds of about 6.5 seconds (`temperOf("ledger")`, `glance-temper.ts`).
 
 
 ## 11.28 THE SURGE — the boss beaten by letting go
@@ -5604,13 +5652,16 @@ with the mark's seat (`surgeMarkSeat`, `desk-grab.ts`).
 
 **What is not built — a step seen from another side** (suggested 10 October 2026, after the owner on THE BASTION: *very 3 dimensional and even user action is 3d to rotate*). The bulb rolls and its vent comes round to one side and then the other; letting go only vents while the vent faces the seat letting go, so who lets go first is read off the turn.
 
-**Offered (14 October 2026, VERSUS `surge:glance`).** THE SURGE is one bulb,
-so the bulb turns, its seam and gauge with it (`packages/render/src/
-surge-glance.ts`, which ships still): **about its own middle**, inside the
-rock it already has, the far side narrowing into the dark. The grip marks
-stay where the thumbs land, half-way out to each flank, and the turn is kept
-small enough that the far side still covers its mark. **SWAY**, **LOOK** and
-**COCK** (`glance-styles.ts`), judged on `THE SURGE · SHUT`.
+**Taken (14 October 2026, VERSUS `surge:glance`, COCK).** THE SURGE is one
+bulb, so the bulb turns, its seam and gauge with it (`packages/render/src/
+surge-glance.ts`): **about its own middle**, inside the rock it already has,
+the far side narrowing into the dark. The grip marks stay where the thumbs
+land, half-way out to each flank, and the turn is kept small enough that the
+far side still covers its mark. **SWAY**, **LOOK** and **COCK**
+(`glance-styles.ts`) were offered on `THE SURGE · SHUT`; the owner left the
+choice to the lane, and COCK ships (`SURGE_GLANCE`): reaching 0.22 part radii
+and rolling up to 0.1 rad, cocking twice a round, on rounds of about 7.8
+seconds (`temperOf("surge")`, `glance-temper.ts`).
 
 
 ## 11.29 THE LEAD — the boss you shoot where it will be
@@ -5909,14 +5960,17 @@ can buy, not a wrong touch, and the still passes in the same tick.
 
 **What is not built — a step seen from another side** (suggested 10 October 2026, after the owner on THE BASTION: *very 3 dimensional and even user action is 3d to rotate*). It flies an orbit in depth, toward the screen and away; a shot meets it only while it comes round in front of its own body, and passes behind it otherwise — leading it in time through a turn rather than across the field.
 
-**Offered (14 October 2026, VERSUS `lead:glance`).** The organ at the tip is
-a head, but too small turned on its own to be seen, so the part that turns is
-the body it stands on — the mound, the stalk and the head, as one
-(`packages/render/src/lead-glance.ts`, which ships still): **about the foot**,
-on the navigator's screen only, the far side narrowing into the dark. It
-**never rolls**: her stalk stands dead upright by design, and a lean there
-would read as the pilot's lean, so COCK would be SWAY and is not offered.
-**SWAY** and **LOOK** (`glance-styles.ts`), judged on `THE LEAD · PACING`.
+**Taken (14 October 2026, VERSUS `lead:glance`, SWAY).** The organ at the tip
+is a head, but too small turned on its own to be seen, so the part that turns
+is the body it stands on — the mound, the stalk and the head, as one
+(`packages/render/src/lead-glance.ts`): **about the foot**, on the navigator's
+screen only, the far side narrowing into the dark. It **never rolls**: her
+stalk stands dead upright by design, and a lean there would read as the pilot's
+lean, so COCK would be SWAY and is not offered. **SWAY** and **LOOK**
+(`glance-styles.ts`) were offered on `THE LEAD · PACING`; the owner left the
+choice to the lane, and SWAY ships (`LEAD_GLANCE`): reaching 0.4 part radii,
+one turn a round, on rounds of about 5.1 seconds (`temperOf("lead")`,
+`glance-temper.ts`).
 
 
 ## 11.30 THE SCUTTLE — the boss racing you to its own death
@@ -6204,14 +6258,16 @@ shove off the end of the frame, which is not spent.
 
 **What is not built — a step seen from another side** (suggested 10 October 2026, after the owner on THE BASTION: *very 3 dimensional and even user action is 3d to rotate*). The hulk rolls over, and parts coming loose on its underside face the hull; the pilot turns it by a rim so the loosening part points away before it is thrown.
 
-**Offered (14 October 2026, VERSUS `scuttle:glance`).** The slab's sockets
-are the count and each stands over its throw's column, so the part that
-turns is each part hanging under it on its thread
-(`packages/render/src/scuttle-glance.ts`, which ships still): a tag on a
-string twisting **about its own middle**, where a thumb takes it and the
-thread meets it, the far end narrowing into the dark, each out of step with
-the others. **SWAY**, **LOOK** and **COCK** (`glance-styles.ts`), judged on
-`THE SCUTTLE · HELD`.
+**Taken (14 October 2026, VERSUS `scuttle:glance`, COCK).** The slab's sockets
+are the count and each stands over its throw's column, so the part that turns
+is each part hanging under it on its thread
+(`packages/render/src/scuttle-glance.ts`): a tag on a string twisting **about
+its own middle**, where a thumb takes it and the thread meets it, the far end
+narrowing into the dark, each out of step with the others. **SWAY**, **LOOK**
+and **COCK** (`glance-styles.ts`) were offered on `THE SCUTTLE · HELD`; the
+owner left the choice to the lane, and COCK ships (`SCUTTLE_GLANCE`): reaching
+0.4 part radii and rolling up to 0.12 rad, cocking twice a round, on rounds of
+about 5.0 seconds (`temperOf("scuttle")`, `glance-temper.ts`).
 
 
 ## 11.31 THE ANTIPHON — the boss that grows a thing nobody has a word for
@@ -7127,14 +7183,16 @@ dark is both, and a line left standing is red on the thumb it waited on. The
 verdict is drawn where the ring is now, which after a strike is the free end
 both thumbs have to grab again.
 
-**Offered (14 October 2026, VERSUS `filament:glance`).** The heart already
+**Taken (14 October 2026, VERSUS `filament:glance`, COCK).** The heart already
 turns — a yaw there and back about its apex, in depth — so its turn became a
-record (`packages/render/src/filament-glance.ts`) that ships as that sway,
-and VERSUS offers it the two other ways: **LOOK**, holding a look either
-side, and **COCK**, cocking as it turns, each rolling **about the apex**
-where every vein goes in, so the leads and the tools riding them stay on it.
-SWAY is the turn it already has and is not offered. Judged on `THE FILAMENT
-· ARM`.
+record (`packages/render/src/filament-glance.ts`), and VERSUS offered it the
+two other ways: **LOOK**, holding a look either side, and **COCK**, cocking as
+it turns, each rolling **about the apex** where every vein goes in, so the
+leads and the tools riding them stay on it. SWAY was the turn it already had,
+and was not offered. Judged on `THE FILAMENT · ARM`; the owner left the choice
+to the lane, and COCK ships (`FILAMENT_GLANCE`): reaching 0.32 part radii and
+rolling up to 0.12 rad, cocking three times a round, on rounds of about 6.2
+seconds (`temperOf("filament")`, `glance-temper.ts`).
 
 
 ## 11.34 THE GIMBAL — the boss where the same turn is not the same turn
@@ -7380,15 +7438,18 @@ every screen, because both true is the one thing both seats are told.
 
 **What is not built — a step seen from another side** (suggested 10 October 2026, after the owner on THE BASTION: *very 3 dimensional and even user action is 3d to rotate*). The whole gimbal tips toward the screen, so a ring's mark is foreshortened on one seat's screen and face-on on the other's, and the same turn reads as a different amount to each.
 
-**Offered (14 October 2026, VERSUS `gimbal:glance`).** The whole cradle
+**Taken (14 October 2026, VERSUS `gimbal:glance`, SWAY).** The whole cradle
 already wanders in its yoke on the idle drift (`render/gimbal-tilt.ts`), so the
 full shape is the part that turns; what it never did was *look*. The turn is a
 record laid on top of that wander (`packages/render/src/gimbal-glance.ts`), a
 yaw of the whole cradle in radians and a roll about its middle, hushed by the
 drift's own table so it steadies for the hands as the wander does — rings,
 teeth and marks go through the same plane, and the bolt stopper reads the tilt
-that is drawn. It ships still, and VERSUS offers **SWAY**, **LOOK** and
-**COCK** at a reach of 0.45 rad on THE GIMBAL · STILL.
+that is drawn. **SWAY**, **LOOK** and **COCK** (`glance-styles.ts`) were
+offered on `THE GIMBAL · STILL`; the owner left the choice to the lane, and
+SWAY ships at a third the size offered, the most the grab allows
+(`GIMBAL_GLANCE`): reaching 0.16 part radii, one turn a round, on rounds of
+about 5.8 seconds (`temperOf("gimbal")`, `glance-temper.ts`).
 
 
 ## 11.36 THE SPOOL — the boss where the line runs out at the speed one of you reads
@@ -7593,14 +7654,17 @@ THE VALVE's open mid-beat and add one.
 
 **What is not built — a step seen from another side** (suggested 10 October 2026, after the owner on THE BASTION: *very 3 dimensional and even user action is 3d to rotate*). The spool turns end-on and shows its flange, where a rib sits under the lip; the brake is held at its speed only while it stays end-on.
 
-**Offered (14 October 2026, VERSUS `spool:glance`).** A machine, so the full
-shape turns: casing, winding, ribs and both flanges yaw together about the
+**Taken (14 October 2026, VERSUS `spool:glance`, COCK).** A machine, so the
+full shape turns: casing, winding, ribs and both flanges yaw together about the
 brake's flange (`packages/render/src/spool-glance.ts`), the pivot the barrel
 already rolls on, so the shoe, the rail and the knob a thumb holds do not move.
 The far flange swings away into the dark and back, and the line's top is
 carried with the winding's middle. The slack spool keeps its own turn and takes
-none of this. It ships still, and VERSUS offers **SWAY**, **LOOK** and **COCK**
-at a fifth of the barrel's length on THE SPOOL · TAUT.
+none of this. **SWAY**, **LOOK** and **COCK** (`glance-styles.ts`) were offered
+on `THE SPOOL · TAUT`; the owner left the choice to the lane, and COCK ships
+(`SPOOL_GLANCE`): reaching 0.2 part radii and rolling up to 0.05 rad, cocking
+four times a round, on rounds of about 6.6 seconds (`temperOf("spool")`,
+`glance-temper.ts`).
 
 ## 11.37 THE HASP — the boss where one hand holds what the other cannot see
 
@@ -7850,14 +7914,16 @@ four means no state is a beat shorter than another.
 
 **What is not built — a step seen from another side** (suggested 10 October 2026, after the owner on THE BASTION: *very 3 dimensional and even user action is 3d to rotate*). The door turns on its hinge and the latch goes round to the back, where only the holder's screen still shows it; the winder winds blind while the holder says it is still held.
 
-**Offered (14 October 2026, VERSUS `hasp:glance`).** A machine, so the full
+**Taken (14 October 2026, VERSUS `hasp:glance`, COCK).** A machine, so the full
 shape turns: the door's three shells yaw together, each about its own hub
 (`packages/render/src/hasp-glance.ts`), so her wheel, the cap and the latch's
 rail stay where a thumb has them. Each far half closes into the dark and back;
 the story's chatter and rust go with their shell, the latch's staple keeps hold
-of its edge, and a bolt meets the shell where it is drawn. It ships still, and
-VERSUS offers **SWAY**, **LOOK** and **COCK** at a fifth of the shell's radius
-on THE HASP · WORK.
+of its edge, and a bolt meets the shell where it is drawn. **SWAY**, **LOOK**
+and **COCK** (`glance-styles.ts`) were offered on `THE HASP · WORK`; the owner
+left the choice to the lane, and COCK ships (`HASP_GLANCE`): reaching 0.22 part
+radii and rolling up to 0.06 rad, cocking three times a round, on rounds of
+about 5.7 seconds (`temperOf("hasp")`, `glance-temper.ts`).
 
 
 ## 11.38 THE RATCHET — the boss where every step you take stays taken
@@ -7997,15 +8063,17 @@ to both seats.
 
 **What is not built.** The guide is prose. **And a step seen from another side** (suggested 10 October 2026, after the owner on THE BASTION: *very 3 dimensional and even user action is 3d to rotate*): The wheel tips over and the pawl swings to its other side, and for that step the seats swap — the one who set the catch presses the pawl.
 
-**Offered (14 October 2026, VERSUS `ratchet:glance`).** A machine, so what
+**Taken (14 October 2026, VERSUS `ratchet:glance`, COCK).** A machine, so what
 moves in it turns: the rack of plates and its spring yaw together about the
 rack's own column, centred on the seam the pawl bears on
 (`packages/render/src/ratchet-glance.ts`), inside a strut that stands still.
 The far halves close into the dark and back; the pawl's tip follows its
-shoulder, and a bolt meets the plates where they are drawn, while the lock,
-the catch and the pawl's pad stay where a thumb has them. It ships still, and
-VERSUS offers **SWAY**, **LOOK** and **COCK** at two fifths of the widest
-plate's half-width on THE RATCHET · WORK.
+shoulder, and a bolt meets the plates where they are drawn, while the lock, the
+catch and the pawl's pad stay where a thumb has them. **SWAY**, **LOOK** and
+**COCK** (`glance-styles.ts`) were offered on `THE RATCHET · WORK`; the owner
+left the choice to the lane, and COCK ships (`RATCHET_GLANCE`): reaching 0.4
+part radii and rolling up to 0.04 rad, cocking twice a round, on rounds of
+about 6.0 seconds (`temperOf("ratchet")`, `glance-temper.ts`).
 
 **Never watched at tempo.** What the tests say is the mechanism
 (`sim/test/ratchet.test.ts`): the rack comes in with seven teeth and lights
@@ -8133,14 +8201,17 @@ owner's eye.
 
 **What is not built — a step seen from another side** (suggested 10 October 2026, after the owner on THE BASTION: *very 3 dimensional and even user action is 3d to rotate*). The jellyfish rolls; rings on its far side face away and can only be answered with the panel, the cannon or the shield, as they come round to the front.
 
-**Offered (14 October 2026, VERSUS `nettle:glance`).** A jellyfish's head is
-its bell, so the bell turns, and everything hanging from it with it — crown or
-underside, arms, curtain, core — about its own middle
-(`packages/render/src/nettle-glance.ts`). The far side closes into the dark
-and back. The marks stay where the script planted them, as they do while the
-bell pulses and flinches, and a bolt meets the bell where it is drawn. It
-ships still, and VERSUS offers **SWAY**, **LOOK** and **COCK** at a sixth of
-the bell's radius on THE NETTLE · ACT.
+**Taken (14 October 2026, VERSUS `nettle:glance`, COCK).** A jellyfish's head
+is its bell, so the bell turns, and everything hanging from it with it — crown
+or underside, arms, curtain, core — about its own middle
+(`packages/render/src/nettle-glance.ts`). The far side closes into the dark and
+back. The marks stay where the script planted them, as they do while the bell
+pulses and flinches, and a bolt meets the bell where it is drawn. **SWAY**,
+**LOOK** and **COCK** (`glance-styles.ts`) were offered on `THE NETTLE · ACT`;
+the owner left the choice to the lane, and COCK ships (`NETTLE_GLANCE`):
+reaching 0.16 part radii and rolling up to 0.05 rad, cocking three times a
+round, on rounds of about 4.9 seconds (`temperOf("nettle")`,
+`glance-temper.ts`).
 
 
 ## 11.40 THE MANTLE — the boss both hands have to pull at once, or neither counts
@@ -8339,14 +8410,17 @@ test: `render/test/mantle-verdict.test.ts`.
 
 **What is not built — a step seen from another side** (suggested 10 October 2026, after the owner on THE BASTION: *very 3 dimensional and even user action is 3d to rotate*). The mantle turns so its plate-pair stands on one side; both pulls run along the turned plates, no longer straight down, and together is asked at an angle.
 
-**Offered (14 October 2026, VERSUS `mantle:glance`).** A hinged shell, so the
-full shape turns: both valves, their plates, the seam and the core yaw
+**Taken (14 October 2026, VERSUS `mantle:glance`, COCK).** A hinged shell, so
+the full shape turns: both valves, their plates, the seam and the core yaw
 together about the shell's middle at the height the straps are tied
-(`packages/render/src/mantle-glance.ts`), the height its lean turns about.
-The far valve closes into the dark and back. The knobs and grooves a thumb
-drags do not move; each strap keeps hold of its tie, and a bolt meets the
-shell where it is drawn. It ships still, and VERSUS offers **SWAY**, **LOOK**
-and **COCK** at under a fifth of the shell's half-width on THE MANTLE · PULL.
+(`packages/render/src/mantle-glance.ts`), the height its lean turns about. The
+far valve closes into the dark and back. The knobs and grooves a thumb drags do
+not move; each strap keeps hold of its tie, and a bolt meets the shell where it
+is drawn. **SWAY**, **LOOK** and **COCK** (`glance-styles.ts`) were offered on
+`THE MANTLE · PULL`; the owner left the choice to the lane, and COCK ships
+(`MANTLE_GLANCE`): reaching 0.18 part radii and rolling up to 0.04 rad, cocking
+four times a round, on rounds of about 7.0 seconds (`temperOf("mantle")`,
+`glance-temper.ts`).
 
 
 ## 11.41 THE KEEL — the boss whose next joint is whichever thumb is nearer
@@ -8593,14 +8667,17 @@ test: `render/test/keel-verdict.test.ts`.
 
 **What is not built — a step seen from another side** (suggested 10 October 2026, after the owner on THE BASTION: *very 3 dimensional and even user action is 3d to rotate*). The spine turns, carrying joints across the middle of the screen, so whose half a joint is on changes while it is lit, and the seat it calls on is the one it has turned toward.
 
-**Offered (14 October 2026, VERSUS `keel:glance`).** A spine, so every
+**Taken (14 October 2026, VERSUS `keel:glance`, COCK).** A spine, so every
 vertebra turns, all six in step, each about its own joint
 (`packages/render/src/keel-glance.ts`): the joint is what a thumb taps and
 which half it stands on is whose it is, so neither moves. Each plate's far end
 shortens into the dark and back, its ribs and seam with it; the tendons stay
 strung between the turned ends, and a bolt meets the plates where they are
-drawn. It ships still, and VERSUS offers **SWAY**, **LOOK** and **COCK** at a
-third of half a plate's length on THE KEEL · JOINT.
+drawn. **SWAY**, **LOOK** and **COCK** (`glance-styles.ts`) were offered on
+`THE KEEL · JOINT`; the owner left the choice to the lane, and COCK ships
+(`KEEL_GLANCE`): reaching 0.35 part radii and rolling up to 0.08 rad, cocking
+twice a round, on rounds of about 5.7 seconds (`temperOf("keel")`,
+`glance-temper.ts`).
 
 
 ## 11.42 THE VALVE — the boss one hand turns and the other hand stops
@@ -8804,14 +8881,17 @@ socket stays silent, as the hand says. Its test:
 
 **What is not built — a step seen from another side** (suggested 10 October 2026, after the owner on THE BASTION: *very 3 dimensional and even user action is 3d to rotate*). The wheel tips back edge-on and its mark goes out of sight; the freeze is timed to the tip back, when the mark comes round again.
 
-**Offered (14 October 2026, VERSUS `valve:glance`).** A machine, so the full
-shape turns: the drum, its notched rim, its face and everything on it yaw
+**Taken (14 October 2026, VERSUS `valve:glance`, COCK).** A machine, so the
+full shape turns: the drum, its notched rim, its face and everything on it yaw
 together (`packages/render/src/valve-glance.ts`), held at the two points a
 thumb is on — the wheel's hub and the socket — so each is squeezed about its
 own middle and neither moves. The drum's near end reaches out and its far end
 closes into the dark and back; the pins hang under it and do not turn, and a
-bolt meets the rim where it is drawn. It ships still, and VERSUS offers
-**SWAY**, **LOOK** and **COCK** on THE VALVE · TURN.
+bolt meets the rim where it is drawn. **SWAY**, **LOOK** and **COCK**
+(`glance-styles.ts`) were offered on `THE VALVE · TURN`; the owner left the
+choice to the lane, and COCK ships (`VALVE_GLANCE`): reaching 0.13 part radii
+and rolling up to 0.04 rad, cocking three times a round, on rounds of about 7.1
+seconds (`temperOf("valve")`, `glance-temper.ts`).
 
 
 ## 11.43 THE SEAM — the boss answered with the cannon and the shield, in order
@@ -9033,14 +9113,17 @@ yet. Its test: `render/test/seam-verdict.test.ts`.
 
 **What is not built — a step seen from another side** (suggested 10 October 2026, after the owner on THE BASTION: *very 3 dimensional and even user action is 3d to rotate*). The body turns and the lit point goes round to its side; the grit is thrown from the side it faces, so the shield moves with the turn.
 
-**Offered (14 October 2026, VERSUS `seam:glance`).** A shelled ridge, so the
-whole ridge turns, about its own spine (`packages/render/src/seam-glance.ts`):
-the crack stays on the middle column the cannon shoots up while the near flank
-opens and the far flank closes into the dark and back, on top of the story's
-own turn away. The grit and the rock are thrown in the field's frame and do
-not turn, and a bolt meets each flank as far out as it is drawn. It ships
-still, and VERSUS offers **SWAY**, **LOOK** and **COCK** at a quarter of the
-widest lobe's half-width on THE SEAM · LIT.
+**Taken (14 October 2026, VERSUS `seam:glance`, COCK).** A shelled ridge, so
+the whole ridge turns, about its own spine
+(`packages/render/src/seam-glance.ts`): the crack stays on the middle column
+the cannon shoots up while the near flank opens and the far flank closes into
+the dark and back, on top of the story's own turn away. The grit and the rock
+are thrown in the field's frame and do not turn, and a bolt meets each flank as
+far out as it is drawn. **SWAY**, **LOOK** and **COCK** (`glance-styles.ts`)
+were offered on `THE SEAM · LIT`; the owner left the choice to the lane, and
+COCK ships (`SEAM_GLANCE`): reaching 0.25 part radii and rolling up to 0.03
+rad, cocking three times a round, on rounds of about 7.8 seconds
+(`temperOf("seam")`, `glance-temper.ts`).
 
 
 ## 11.44 THE OCULUS — the boss both hands hold shut, then shoot into
@@ -9278,16 +9361,18 @@ simulation is.
 
 **What is not built — a step seen from another side** (suggested 10 October 2026, after the owner on THE BASTION: *very 3 dimensional and even user action is 3d to rotate*). The eye looks to one side, the far leaf foreshortened and dark; the pair turns it back to look ahead before both leaves can be held shut.
 
-**Offered (14 October 2026, VERSUS `oculus:glance`).** A machine, so the whole
-lens turns, about its middle (`packages/render/src/oculus-glance.ts`): the rim,
-the glass, the leaves, the socket and the core yaw together while the middle
-line that splits the two seats' halves stays put, the near half opening and the
-far half closing into the dark and back. The levers a thumb turns, the glare
-and the sight are drawn outside the turn, the sight leaving from where the turn
-carries the core, and a bolt meets each half of the rim as far out as it is
-drawn. It ships still, and VERSUS offers **SWAY**, **LOOK** and **COCK** at a
-fifth of the rim's radius on THE OCULUS · LIT. The pair turning it back to look
-ahead is not built.
+**Taken (14 October 2026, VERSUS `oculus:glance`, LOOK).** A machine, so the
+whole lens turns, about its middle (`packages/render/src/oculus-glance.ts`):
+the rim, the glass, the leaves, the socket and the core yaw together while the
+middle line that splits the two seats' halves stays put, the near half opening
+and the far half closing into the dark and back. The levers a thumb turns, the
+glare and the sight are drawn outside the turn, the sight leaving from where
+the turn carries the core, and a bolt meets each half of the rim as far out as
+it is drawn. **SWAY**, **LOOK** and **COCK** (`glance-styles.ts`) were offered
+on `THE OCULUS · LIT`; the owner left the choice to the lane, and LOOK ships
+(`OCULUS_GLANCE`): reaching 0.2 part radii and tilting 0.25 rad a part radius
+toward each look, on rounds of about 6.0 seconds (`temperOf("oculus")`,
+`glance-temper.ts`). The pair turning it back to look ahead is not built.
 
 
 ## 11.45 THE VISE — the boss two drags crack, then shoot into
@@ -9517,16 +9602,18 @@ silent, as the simulation is.
 
 **What is not built — a step seen from another side** (suggested 10 October 2026, after the owner on THE BASTION: *very 3 dimensional and even user action is 3d to rotate*). The vise turns a quarter round, and the lobes close up and down instead of left and right — the two drags change their way.
 
-**Offered (14 October 2026, VERSUS `vise:glance`).** A seed-case, so the whole
-case turns, about its spine (`packages/render/src/vise-glance.ts`), on top of
-its swing from the hinge: the hollow, the kernel, both lobes with their seams
-and the spine yaw together, the spine staying on the middle column while the
-near lobe opens and the far lobe closes into the dark and back. A lobe is
+**Taken (14 October 2026, VERSUS `vise:glance`, COCK).** A seed-case, so the
+whole case turns, about its spine (`packages/render/src/vise-glance.ts`), on
+top of its swing from the hinge: the hollow, the kernel, both lobes with their
+seams and the spine yaw together, the spine staying on the middle column while
+the near lobe opens and the far lobe closes into the dark and back. A lobe is
 dragged shut from anywhere on its seat's side, so nothing a thumb is on moves;
 the bite's bar and the spat seed do not turn, and a bolt meets each lobe where
-it is drawn. It ships still, and VERSUS offers **SWAY**, **LOOK** and **COCK**
-at three tenths of the case's half-width on THE VISE · LIT. The quarter turn
-that changes the drags' way is not built.
+it is drawn. **SWAY**, **LOOK** and **COCK** (`glance-styles.ts`) were offered
+on `THE VISE · LIT`; the owner left the choice to the lane, and COCK ships
+(`VISE_GLANCE`): reaching 0.3 part radii and rolling up to 0.05 rad, cocking
+three times a round, on rounds of about 7.2 seconds (`temperOf("vise")`,
+`glance-temper.ts`). The quarter turn that changes the drags' way is not built.
 
 
 ## 11.48 THE PLUMB — the boss two pulls hold level, then shoot into
@@ -9695,14 +9782,17 @@ shot of the wrong colour, stay silent, as the simulation is.
 
 **What is not built — a step seen from another side** (suggested 10 October 2026, after the owner on THE BASTION: *very 3 dimensional and even user action is 3d to rotate*). The frame tips toward the screen and the bob swings in depth; it hangs true only when both stones are level in the new tilt.
 
-**Offered (14 October 2026, VERSUS `plumb:glance`).** The bob is the part that
-turns: the sac and the core in its belly yaw together about the sac's middle
-(`packages/render/src/plumb-glance.ts`), on top of its own slow turn to show the
-core, the near flank opening and the far flank closing into the dark and back.
-The hook, the beam, the chains and the stones a thumb pulls stay where they
-hang, and a bolt meets the sac where it is drawn. It ships still, and VERSUS
-offers **SWAY**, **LOOK** and **COCK** at three tenths of the sac's half-width
-on THE PLUMB · STILL. The frame tipping toward the screen is not built.
+**Taken (14 October 2026, VERSUS `plumb:glance`, SWAY).** The bob is the part
+that turns: the sac and the core in its belly yaw together about the sac's
+middle (`packages/render/src/plumb-glance.ts`), on top of its own slow turn to
+show the core, the near flank opening and the far flank closing into the dark
+and back. The hook, the beam, the chains and the stones a thumb pulls stay
+where they hang, and a bolt meets the sac where it is drawn. **SWAY**, **LOOK**
+and **COCK** (`glance-styles.ts`) were offered on `THE PLUMB · STILL`. The
+frame tipping toward the screen is not built; the owner left the choice to the
+lane, and SWAY ships (`PLUMB_GLANCE`): reaching 0.3 part radii, one turn a
+round, on rounds of about 6.8 seconds (`temperOf("plumb")`,
+`glance-temper.ts`).
 
 
 ## 11.49 THE SLING — the boss two draws loose, then shoot into
@@ -9891,15 +9981,17 @@ simulation is.
 
 **What is not built — a step seen from another side** (suggested 10 October 2026, after the owner on THE BASTION: *very 3 dimensional and even user action is 3d to rotate*). The sling turns, and the side to loose toward is the one that will be lit after the turn, not the one lit now.
 
-**Offered (14 October 2026, VERSUS `sling:glance`).** A machine, so the whole
-fork turns, about its crotch (`packages/render/src/sling-glance.ts`): both
-tines, the cords off them and the cup yaw together, the near tine reaching out
-and the far one closing into the dark and back, each cord carried with its
+**Taken (14 October 2026, VERSUS `sling:glance`, SWAY).** A machine, so the
+whole fork turns, about its crotch (`packages/render/src/sling-glance.ts`):
+both tines, the cords off them and the cup yaw together, the near tine reaching
+out and the far one closing into the dark and back, each cord carried with its
 tine and the marks round the cords following them. A draw is a thumb anywhere
 on its seat's own panel, so nothing a thumb is on moves, and a bolt meets the
-tines and cords where they are drawn. It ships still, and VERSUS offers
-**SWAY**, **LOOK** and **COCK** at three tenths of the fork's half-span on THE
-SLING · STILL. The turn that changes which side to loose toward is not built.
+tines and cords where they are drawn. **SWAY**, **LOOK** and **COCK**
+(`glance-styles.ts`) were offered on `THE SLING · STILL`. The turn that changes
+which side to loose toward is not built; the owner left the choice to the lane,
+and SWAY ships (`SLING_GLANCE`): reaching 0.3 part radii, one turn a round, on
+rounds of about 6.7 seconds (`temperOf("sling")`, `glance-temper.ts`).
 
 
 ## 11.54 THE CAPSTAN — the boss one hand rocks for the other to wear
@@ -10136,18 +10228,20 @@ simulation is.
 
 **What is not built — a step seen from another side** (suggested 10 October 2026, after the owner on THE BASTION: *very 3 dimensional and even user action is 3d to rotate*). The drum tips its axle toward the screen and its bands are seen face-on, as rings; the rubbing runs round a band instead of across it.
 
-**Offered (14 October 2026, VERSUS `capstan:glance`).** A machine, so the
+**Taken (14 October 2026, VERSUS `capstan:glance`, COCK).** A machine, so the
 drum turns whole (`packages/render/src/capstan-glance.ts`), on top of the yaw
 its cradle's roll already gives it: the body, both end faces and the core
 between them yaw together, with the two faces a rubbing thumb is on **held**
 where they stand, so the near face swells, the far face shrinks into the dark,
 and what lies between is carried toward the near end. The cradle and its horns
-do not turn, and a bolt meets the drum where it is drawn. Held so near the
-ends the outline hardly changes, and the reach is kept to the core's radius so
-the core stays over the middle column: it ships still, and VERSUS offers
-**SWAY**, **LOOK** and **COCK** at an eighth of the drum's half-length on
-CAPSTAN · THE LEFT BAND RUBBED. Whether to make it larger is asked in
-`docs/queue.md`. The axle tipping toward the screen is not built.
+do not turn, and a bolt meets the drum where it is drawn. Held so near the ends
+the outline hardly changes, and the reach is kept to the core's radius so the
+core stays over the middle column. **SWAY**, **LOOK** and **COCK**
+(`glance-styles.ts`) were offered on `CAPSTAN · THE LEFT BAND RUBBED`; the
+owner left the choice to the lane, and COCK ships (`CAPSTAN_GLANCE`): reaching
+0.13 part radii and rolling up to 0.04 rad, cocking twice a round, on rounds of
+about 5.0 seconds (`temperOf("capstan")`, `glance-temper.ts`). The axle tipping
+toward the screen is not built.
 
 
 ## 11.55 THE GALL — the boss that moves the moment it is closed
@@ -10373,15 +10467,18 @@ as the simulation is.
 
 **What is not built — a step seen from another side** (suggested 10 October 2026, after the owner on THE BASTION: *very 3 dimensional and even user action is 3d to rotate*). The gall jumps round to the back of the body, out of sight; it is found by turning the body round by a rim, not by searching the field.
 
-**Offered (14 October 2026, VERSUS `gall:glance`).** The alien is small and
+**Taken (14 October 2026, VERSUS `gall:glance`, COCK).** The alien is small and
 all head, so its whole body is the part that turns: it yaws about its own
 middle where it stands on the seam (`packages/render/src/gall-glance.ts`), the
-lit core, the rim and the flash turning with it, the near flank opening and
-the far one closing into the dark and back. The seam, its four points and the
-knob stay where they are; a hand is taken in its point's share of the seam
-and a bolt is stopped by the seam, so nothing a thumb or a bolt meets moves.
-It ships still, and VERSUS offers **SWAY**, **LOOK** and **COCK** at 0.36 of
-the body's half-width on GALL · TAPS ON THE LEFT END.
+lit core, the rim and the flash turning with it, the near flank opening and the
+far one closing into the dark and back. The seam, its four points and the knob
+stay where they are; a hand is taken in its point's share of the seam and a
+bolt is stopped by the seam, so nothing a thumb or a bolt meets moves.
+**SWAY**, **LOOK** and **COCK** (`glance-styles.ts`) were offered on `GALL ·
+TAPS ON THE LEFT END`; the owner left the choice to the lane, and COCK ships
+(`GALL_GLANCE`): reaching 0.36 part radii and rolling up to 0.14 rad, cocking
+three times a round, on rounds of about 5.2 seconds (`temperOf("gall")`,
+`glance-temper.ts`).
 
 ## 11.56 THE TRAPEZE — an alien swung up to a gong
 > An alien sits on a swing hung from long ropes over the middle. Swipe
@@ -10496,15 +10593,17 @@ its middle, never a disc over half the field.
 
 **What is not built — a step seen from another side** (suggested 10 October 2026, after the owner on THE BASTION: *very 3 dimensional and even user action is 3d to rotate*). The swing turns into depth, toward the screen and away; a push counts as it comes toward the screen, and the gong is behind it.
 
-**Offered (14 October 2026, VERSUS `trapeze:glance`).** The alien's head is
-the part that turns: it yaws about its own middle on top of its lag behind
-the swing (`packages/render/src/trapeze-glance.ts`), its feelers and both
-eyes turning with it, the near cheek opening and the far one closing into
-the dark and back, in the seat's own frame so it faces the gong whichever way
-the alien sits. The swing, the seat, the torso and the limbs do not move, and
-the pilot's lock and a bolt both take the circle round the whole alien. It
-ships still, and VERSUS offers **SWAY**, **LOOK** and **COCK** at 0.36 of the
-head's radius on THE TRAPEZE · ENTER.
+**Taken (14 October 2026, VERSUS `trapeze:glance`, SWAY).** The alien's head is
+the part that turns: it yaws about its own middle on top of its lag behind the
+swing (`packages/render/src/trapeze-glance.ts`), its feelers and both eyes
+turning with it, the near cheek opening and the far one closing into the dark
+and back, in the seat's own frame so it faces the gong whichever way the alien
+sits. The swing, the seat, the torso and the limbs do not move, and the pilot's
+lock and a bolt both take the circle round the whole alien. **SWAY**, **LOOK**
+and **COCK** (`glance-styles.ts`) were offered on `THE TRAPEZE · ENTER`; the
+owner left the choice to the lane, and SWAY ships (`TRAPEZE_GLANCE`): reaching
+0.36 part radii, one turn a round, on rounds of about 7.1 seconds
+(`temperOf("trapeze")`, `glance-temper.ts`).
 
 
 ## 11.57 THE FLUE — an ember one seat sees and the other shoots
@@ -10720,16 +10819,19 @@ whether the beam's prime is learnable, is the owner's eye.
 
 **What is not built — a step seen from another side** (suggested 10 October 2026, after the owner on THE BASTION: *very 3 dimensional and even user action is 3d to rotate*). The vent turns and the ember runs round behind its curve; the one who sees it calls it as it comes round, the other fires as it crosses the front.
 
-**Offered (14 October 2026, VERSUS `flue:glance`).** The flue's flesh is the
-part that turns: every unit yaws about its own middle
+**Taken (14 October 2026, VERSUS `flue:glance`, COCK).** The flue's flesh is
+the part that turns: every unit yaws about its own middle
 (`packages/render/src/flue-glance.ts`), its level's lobe with it, the near
-flank opening and the far one closing into the dark and back, and the turn
-runs along the body a little behind from unit to unit, so the flue ripples end
-to end. The whole flue turned about the sight was tried first and dropped: it
-spans the field, so its near end ran off the screen. The gullet, the spore,
-the sight, the scale and the glass stay where they hang, so the call keeps its
-moment. It ships still, and VERSUS offers **SWAY**, **LOOK** and **COCK** at
-0.36 of a unit's radius on THE FLUE · LIT, posed for it.
+flank opening and the far one closing into the dark and back, and the turn runs
+along the body a little behind from unit to unit, so the flue ripples end to
+end. The whole flue turned about the sight was tried first and dropped: it
+spans the field, so its near end ran off the screen. The gullet, the spore, the
+sight, the scale and the glass stay where they hang, so the call keeps its
+moment. **SWAY**, **LOOK** and **COCK** (`glance-styles.ts`) were offered on
+`THE FLUE · LIT`, posed for it; the owner left the choice to the lane, and COCK
+ships (`FLUE_GLANCE`): reaching 0.36 part radii and rolling up to 0.12 rad,
+cocking twice a round, on rounds of about 5.6 seconds (`temperOf("flue")`,
+`glance-temper.ts`).
 
 
 ## 11.58 THE GOVERNOR — a needle each of you taps on your own mark
@@ -10917,15 +11019,18 @@ plays the script through (`tools/director/test/autopilot-governor.test.ts`).
 
 **What is not built — a step seen from another side** (suggested 10 October 2026, after the owner on THE BASTION: *very 3 dimensional and even user action is 3d to rotate*). The dial tips edge-on and the needle's tip goes behind it; a seat's mark can only be tapped while its side of the dial faces the screen.
 
-**Offered (14 October 2026, VERSUS `governor:glance`).** The works are the
+**Taken (14 October 2026, VERSUS `governor:glance`, COCK).** The works are the
 part that turns: the spindle behind the dial, its casing and crown, the drum
-and the yoke at its foot and the two flyweights yaw together about the
-spindle (`packages/render/src/governor-glance.ts`), pivoting on its foot so a
-roll tips the tower, the near side opening and the far one closing into the
-dark and back. The dial — the track, the marks a thumb taps, the needle, the
-tip and the gap a bolt goes up through — lies flat under it and does not
-move. It ships still, and VERSUS offers **SWAY**, **LOOK** and **COCK** at
-three tenths of a flyweight's reach on GOVERNOR · BOTH MARKS LIT.
+and the yoke at its foot and the two flyweights yaw together about the spindle
+(`packages/render/src/governor-glance.ts`), pivoting on its foot so a roll tips
+the tower, the near side opening and the far one closing into the dark and
+back. The dial — the track, the marks a thumb taps, the needle, the tip and the
+gap a bolt goes up through — lies flat under it and does not move. **SWAY**,
+**LOOK** and **COCK** (`glance-styles.ts`) were offered on `GOVERNOR · BOTH
+MARKS LIT`; the owner left the choice to the lane, and COCK ships
+(`GOVERNOR_GLANCE`): reaching 0.3 part radii and rolling up to 0.04 rad,
+cocking three times a round, on rounds of about 5.5 seconds
+(`temperOf("governor")`, `glance-temper.ts`).
 
 
 ## 11.59 THE LAMPREY — a mouth on the hull, one thumb pinning it and one knocking its teeth out
@@ -11224,17 +11329,20 @@ and leave punctures bleeding the hull's red. Its twelve sounds are bound
 
 **What is not built — a step seen from another side** (suggested 10 October 2026, after the owner on THE BASTION: *very 3 dimensional and even user action is 3d to rotate*). It rolls on the hull, head and tail changing sides, and the seat pinning the tail changes with the roll.
 
-**Offered (14 October 2026, VERSUS `lamprey:glance`).** The head is the part
-that turns: the sucker, its fringe, the mouth, the ring of teeth and their
+**Taken (14 October 2026, VERSUS `lamprey:glance`, COCK).** The head is the
+part that turns: the sucker, its fringe, the mouth, the ring of teeth and their
 marks — or the jaws while it hunts — yaw together about the mouth's middle
-(`packages/render/src/lamprey-glance.ts`), the near side of the lip opening
-and the far side closing into the dark and back. The body, the fin and the
-tail's knob stay as they lie, and a bolt meets the gullet's rim under the
-mouth's middle, which the turn holds. It is hushed while the eel bites: the
-tooth a press is judged against is read off the pose with no clock, so the
-head steadies to face-on over the bite's first beat and turns again after
-it. It ships still, and VERSUS offers **SWAY**, **LOOK** and **COCK** at
-about a third of the mouth's radius on THE LAMPREY · REARING.
+(`packages/render/src/lamprey-glance.ts`), the near side of the lip opening and
+the far side closing into the dark and back. The body, the fin and the tail's
+knob stay as they lie, and a bolt meets the gullet's rim under the mouth's
+middle, which the turn holds. It is hushed while the eel bites: the tooth a
+press is judged against is read off the pose with no clock, so the head
+steadies to face-on over the bite's first beat and turns again after it.
+**SWAY**, **LOOK** and **COCK** (`glance-styles.ts`) were offered on `THE
+LAMPREY · REARING`; the owner left the choice to the lane, and COCK ships
+(`LAMPREY_GLANCE`): reaching 0.32 part radii and rolling up to 0.12 rad,
+cocking three times a round, on rounds of about 6.3 seconds
+(`temperOf("lamprey")`, `glance-temper.ts`).
 
 
 ## 11.60 THE MIMIC — a skin only one of you can read, and only the other can answer
@@ -11440,16 +11548,19 @@ pair can say a picture square by square across a room inside its window —
 
 **What is not built — a step seen from another side** (suggested 10 October 2026, after the owner on THE BASTION: *very 3 dimensional and even user action is 3d to rotate*). The skin wraps a body that turns; the picture is said face-on, and painted onto the side that has turned toward the painter.
 
-**Offered (14 October 2026, VERSUS `mimic:glance`).** The mantle is the part
-that turns: its skin, its mottle, its arms and the rim of marks round its
-edge yaw together about its middle (`packages/render/src/mimic-glance.ts`),
-on top of its own roll to turn a face, the near side opening and the far side
-closing into the dark and back; split, each half turns inside its own cut.
-The crane's arms and grips, the reaching arm, the core and the board stay
-where they hang, the arms' roots carried with the turn so they still come out
-from under it, and a press is a square of the board, never the mantle. It
-ships still, and VERSUS offers **SWAY**, **LOOK** and **COCK** at 0.28 of the
-mantle's radius on THE MIMIC · ENTERING.
+**Taken (14 October 2026, VERSUS `mimic:glance`, COCK).** The mantle is the
+part that turns: its skin, its mottle, its arms and the rim of marks round its
+edge yaw together about its middle (`packages/render/src/mimic-glance.ts`), on
+top of its own roll to turn a face, the near side opening and the far side
+closing into the dark and back; split, each half turns inside its own cut. The
+crane's arms and grips, the reaching arm, the core and the board stay where
+they hang, the arms' roots carried with the turn so they still come out from
+under it, and a press is a square of the board, never the mantle. **SWAY**,
+**LOOK** and **COCK** (`glance-styles.ts`) were offered on `THE MIMIC ·
+ENTERING`; the owner left the choice to the lane, and COCK ships
+(`MIMIC_GLANCE`): reaching 0.28 part radii and rolling up to 0.08 rad, cocking
+three times a round, on rounds of about 5.4 seconds (`temperOf("mimic")`,
+`glance-temper.ts`).
 
 
 ## 11.61 THE LATCH — a rope you haul down in turns, never both letting go
@@ -11596,14 +11707,16 @@ comes. `content/test/scene-latch.test.ts` runs it.
 
 **What is not built.** Nothing. **And a step seen from another side** (suggested 10 October 2026, after the owner on THE BASTION: *very 3 dimensional and even user action is 3d to rotate*): The drum turns the rope round, and a knot on its back is out of reach until it is hauled round to the front.
 
-**Offered (14 October 2026, VERSUS `latch:glance`).** The colony is the part
-that turns: every body on the skin and its nucleus yaw together about the
+**Taken (14 October 2026, VERSUS `latch:glance`, COCK).** The colony is the
+part that turns: every body on the skin and its nucleus yaw together about the
 core (`packages/render/src/latch-glance.ts`), the near bodies opening and the
 far ones closing into the dark and back. The tendril, its rings, knots and
-coil, and both grips stay where they hang, so nothing a thumb is on moves,
-and the blow at the hull leaves from the colony at rest. It ships still, and
-VERSUS offers **SWAY**, **LOOK** and **COCK** at 0.32 of the colony's
-half-width on THE LATCH · LEVEL.
+coil, and both grips stay where they hang, so nothing a thumb is on moves, and
+the blow at the hull leaves from the colony at rest. **SWAY**, **LOOK** and
+**COCK** (`glance-styles.ts`) were offered on `THE LATCH · LEVEL`; the owner
+left the choice to the lane, and COCK ships (`LATCH_GLANCE`): reaching 0.32
+part radii and rolling up to 0.1 rad, cocking three times a round, on rounds of
+about 7.7 seconds (`temperOf("latch")`, `glance-temper.ts`).
 
 **What is proven, and what is not.** `sim/test/latch.test.ts` proves the
 rules: the install and the first level; whose grip is whose and the wrong
@@ -11816,16 +11929,19 @@ phone — the owner's eye — has never been watched.
 
 **What is not built — a step seen from another side** (suggested 10 October 2026, after the owner on THE BASTION: *very 3 dimensional and even user action is 3d to rotate*). The moon tips its pole toward the screen, not only turning on its axis; the pole's cap is a fifth shell, taken off with both rims turned together.
 
-**Offered (14 October 2026, VERSUS `bastion:glance`).** The sphere at the
+**Taken (14 October 2026, VERSUS `bastion:glance`, COCK).** The sphere at the
 moon's heart is the part that turns: the core, the hull and the cage yaw
-together about its middle (`packages/render/src/bastion-glance.ts`) inside
-the armour and the gun ring, which stay where they hang, the near side
-opening and the far side closing into the dark and back. The slabs, the rim
-and the gun a bolt stops on are on the armour and the ring, so none of them
-moves; the sphere steadies to face-on over the first beat of a lit lattice
-or port, whose nodes and port are judged with no clock, and turns again once
-the shell is off. It ships still, and VERSUS offers **SWAY**, **LOOK** and
-**COCK** at 0.3 of the cage's radius on THE BASTION · LAYER.
+together about its middle (`packages/render/src/bastion-glance.ts`) inside the
+armour and the gun ring, which stay where they hang, the near side opening and
+the far side closing into the dark and back. The slabs, the rim and the gun a
+bolt stops on are on the armour and the ring, so none of them moves; the sphere
+steadies to face-on over the first beat of a lit lattice or port, whose nodes
+and port are judged with no clock, and turns again once the shell is off.
+**SWAY**, **LOOK** and **COCK** (`glance-styles.ts`) were offered on `THE
+BASTION · LAYER`; the owner thought it probably the best, and COCK ships at the
+size offered (`BASTION_GLANCE`): reaching 0.3 part radii and rolling up to 0.04
+rad, cocking three times a round, on rounds of about 7.7 seconds
+(`temperOf("bastion")`, `glance-temper.ts`).
 
 
 ## 11.63 THE CHRYSALIS — a living cocoon you peel, one skin at a time
@@ -12236,15 +12352,18 @@ owner's eye.
 
 ## Retired
 
-**Offered (13 October 2026, VERSUS `pulse:glance`).** The round's boss is
-its chart, so what turns is the living bodies falling down it — the slick,
-the bulb and the pod (`packages/render/src/pulse-glance.ts`, which ships
-still) — each **about its centre**, so it still meets its socket where the
-socket is cut, its far side going dark over its own contour. The meteor does
-not, since a rock already spins, and a veiled arrival does not, since its
-cycling silhouette is the one thing on it to read. Each runs the round from
-its note's place in it. **SWAY**, **LOOK** and **COCK** (`glance-styles.ts`),
-judged on `THE PULSE · PLAY`.
+**Taken (14 October 2026, VERSUS `pulse:glance`, COCK).** The round's boss is
+its chart, so what turns is the living bodies falling down it — the slick, the
+bulb and the pod (`packages/render/src/pulse-glance.ts`) — each **about its
+centre**, so it still meets its socket where the socket is cut, its far side
+going dark over its own contour. The meteor does not, since a rock already
+spins, and a veiled arrival does not, since its cycling silhouette is the one
+thing on it to read. Each runs the round from its note's place in it. **SWAY**,
+**LOOK** and **COCK** (`glance-styles.ts`) were offered on `THE PULSE · PLAY`;
+the owner left the choice to the lane, and COCK ships (`PULSE_GLANCE`):
+reaching 0.3 part radii and rolling up to 0.14 rad, cocking three times a
+round, on rounds of about 6.8 seconds (`temperOf("pulse")`,
+`glance-temper.ts`).
 
 ## 11.9 THE TELL — rock, paper, scissors, and half the tell on each screen
 
@@ -12464,13 +12583,16 @@ bolt is the only arrow the game teaches by itself — and the tell has to be a
 thing the game already shows, not a lobe filling on a body built for the
 purpose.
 
-**Offered (14 October 2026, VERSUS `stare:glance`).** The eye already rolls
+**Taken (14 October 2026, VERSUS `stare:glance`, LOOK).** The eye already rolls
 in its socket as it opens, so what turns is the head it is set in — the cowl,
 its scars, the eye, the brow, the charge and the score's lashes, together
-(`packages/render/src/stare-glance.ts`, which ships still) — **about the eye's
-centre**, the far side narrowing into the dark. The lashes the charge asks to
-be pulled and the glass a bolt stops on do not turn. **SWAY**, **LOOK** and
-**COCK** (`glance-styles.ts`), judged on `THE STARE · LIVE`.
+(`packages/render/src/stare-glance.ts`) — **about the eye's centre**, the far
+side narrowing into the dark. The lashes the charge asks to be pulled and the
+glass a bolt stops on do not turn. **SWAY**, **LOOK** and **COCK**
+(`glance-styles.ts`) were offered on `THE STARE · LIVE`; the owner left the
+choice to the lane, and LOOK ships (`STARE_GLANCE`): reaching 0.3 part radii
+and tilting 0.35 rad a part radius toward each look, on rounds of about 4.8
+seconds (`temperOf("stare")`, `glance-temper.ts`).
 
 ## 11.17 THE DIASTOLE — two hearts on two cadences, one each
 
@@ -12650,13 +12772,16 @@ beam's own beat, with a clamp sent the beat before
 same kind of thing, and so is whether a ring that breathes on no count reads
 as a place to wait rather than a beat to follow.
 
-**Offered (14 October 2026, VERSUS `undertow:glance`).** All that is seen of
-THE UNDERTOW is its lobes, so each lobe turns (`packages/render/src/undertow-glance.ts`,
-which ships still) **about the line up its middle** — its column, which the
-answer and the tap are judged by — rolling about where it leaves the skin, so
-its foot stays in the parted plate; the far side narrows into the dark, and two
-standing never turn as one. **SWAY**, **LOOK** and **COCK**
-(`glance-styles.ts`), judged on `THE UNDERTOW · ONE`.
+**Taken (14 October 2026, VERSUS `undertow:glance`, SWAY).** All that is seen
+of THE UNDERTOW is its lobes, so each lobe turns
+(`packages/render/src/undertow-glance.ts`) **about the line up its middle** —
+its column, which the answer and the tap are judged by — rolling about where it
+leaves the skin, so its foot stays in the parted plate; the far side narrows
+into the dark, and two standing never turn as one. **SWAY**, **LOOK** and
+**COCK** (`glance-styles.ts`) were offered on `THE UNDERTOW · ONE`; the owner
+left the choice to the lane, and SWAY ships (`UNDERTOW_GLANCE`): reaching 0.3
+part radii, one turn a round, on rounds of about 7.8 seconds
+(`temperOf("undertow")`, `glance-temper.ts`).
 
 ## 11.21 THE ORRERY — three orbits, and neither of you can see all three
 
