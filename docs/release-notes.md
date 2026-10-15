@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-15 · efb24ceaa — `bun run shot --controls "ON THE FIELD"` opens a room of CONTROLS
+
+`--row "THE BLISTER'S COMBO"` already found an ON THE FIELD card, but nothing said how to get there: a lane asked for `ctlpage=field`, which is the tab bar's own name and not the URL's `sub=field`, and `--tab CONTROLS` looked for a top door that is really a room of DOCUMENTATION. `--controls` takes a room by its button's words — PANELS, ON THE FIELD, EVERY WAVE, HELPERS — and opens it by URL, the usage line says the route, and a missed row names it.
+
 ## 2026-10-15 · 3d1adf7fd — THE BLISTER's LEVER is drawn as BELL, ROOT or TAFFY, one per blister
 
 The owner asked for all three `blister:lever` answers built into the game and taken off VERSUS. Each LEVER blister now wears one of them, picked off its id so both screens draw the same one: BELL, a brass bell mouth down whose cord runs to the knob and which swings and rings held in the band; ROOT, a turnip's shoulders and leaves with its root pulled down the groove; TAFFY, a slime whose long nose the knob pinches and the thumb draws out. Each one's limb past the pore is drawn too (`blister-lever.ts`). The slot is gone from VERSUS. Exemption: a look the owner asked for by name.
