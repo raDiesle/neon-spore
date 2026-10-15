@@ -360,6 +360,7 @@ Prove with `bun test packages/hands` and `bun run check`.
 ## Every living enemy glances
 
 - **Found:** 2026-10-14, claude/creature-glance
+- **Taken:** 2026-10-15, claude/queue-the-nameability-gate-measures-an-enemy-turned-by (claim: claude/queue-every-living-enemy-glances)
 - **Files:** `packages/render/src/creatures.ts`, `packages/render/src/glance-layer.ts`
 
 Second of three, after "The nameability gate measures an enemy turned by its
