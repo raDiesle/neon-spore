@@ -17,6 +17,7 @@ import {
 } from "@neon-spore/sim";
 import { aimColumn, cannonAnswers } from "./autopilot-aim.js";
 import { shakeChoir } from "./autopilot-choir.js";
+import { leavesHere, nextStep, reachedFrom, walking } from "./autopilot-choke.js";
 import { wardCoil } from "./autopilot-coil.js";
 import { countReady } from "./autopilot-count.js";
 import { wardCrawler } from "./autopilot-crawler.js";
@@ -59,7 +60,8 @@ import type { Hand } from "./hand.js";
  * THE COIL's dome opened from under it (`autopilot-coil.ts`),
  * THE CHOIR shaken together (`autopilot-choir.ts`),
  * THE CRAWLER's plates turned by the dome (`autopilot-crawler.ts`), THE JAM's
- * runaway cannon steered (`autopilot-jam.ts`), and the bodies a finger answers
+ * runaway cannon steered (`autopilot-jam.ts`), THE CHOKE's walking cannon
+ * fired as it passes (`autopilot-choke.ts`), and the bodies a finger answers
  * — THE WEIGHT, THE MINE, THE BEATBOX and THE BLISTER (`autopilot-touch.ts`). Any
  * other creature with a verb of its own is not answered here, and the wave it
  * is on is one AUTO only half plays.
@@ -106,17 +108,25 @@ function cannon(w: World): Press[] {
   const wall = burnFence(w, free(w));
   if (wall !== null) return wall;
   // A count that is shut or off its zero waits behind a body answered now.
-  const body =
-    lowest(w, (c) => answersNow(w, c) && countReady(w, c)) ?? lowest(w, (c) => answersNow(w, c));
+  // Under THE CHOKE only what the walk has the cannon under is in reach.
+  const walked = walking(w);
+  const take = (c: Creature) => answersNow(w, c) && (!walked || reachedFrom(c, w.cannonCol));
+  const body = lowest(w, (c) => take(c) && countReady(w, c)) ?? lowest(w, take);
+  const coming = walked
+    ? lowest(w, (c) => answersNow(w, c) && reachedFrom(c, nextStep(w)))
+    : undefined;
+  if (body && coming && coming.row > body.row) return [];
   const pod = body ? undefined : hanging(w);
   const col =
-    body?.kind === "magnet"
-      ? magnetSide(w, body)
-      : body
-        ? aimColumn(body)
-        : pod
-          ? Math.round(pod.colMilli / MILLI)
-          : null;
+    walked && body
+      ? w.cannonCol
+      : body?.kind === "magnet"
+        ? magnetSide(w, body)
+        : body
+          ? aimColumn(body)
+          : pod
+            ? Math.round(pod.colMilli / MILLI)
+            : null;
   if (col === null) return [];
   const choir = shakeChoir(body);
   if (choir !== null) return choir;
@@ -127,7 +137,7 @@ function cannon(w: World): Press[] {
   if (body !== undefined && !countReady(w, body)) return [];
   const lock = lockMagnet(w, body);
   if (lock.length > 0) return lock;
-  return free(w) ? [fire(shotColor(w, body))] : [];
+  return free(w) && (!walked || leavesHere(w)) ? [fire(shotColor(w, body))] : [];
 }
 
 /**

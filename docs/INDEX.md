@@ -3027,6 +3027,7 @@ by hand never moves.
 | `packages/hands/src/autopilot-lid.ts` | **THE LID, on AUTO**: player 1 pulls the cord taut and holds the cannon's fire until the lens is bare |
 | `packages/hands/src/autopilot-touch.ts` | **THE WEIGHT, THE MINE, THE BEATBOX and THE BLISTER, on AUTO**: a finger on the body |
 | `packages/hands/src/autopilot-choir.ts` | **THE CHOIR, on AUTO**: the membrane shaken until it draws together |
+| `packages/hands/src/autopilot-choke.ts` | **THE CHOKE, on AUTO**: the cannon strip answers nobody and the cannon walks wall to wall on its own… |
 | `packages/hands/src/autopilot-crawler.ts` | **THE CRAWLER, on AUTO**: the dome under the plate's next column, on the beat |
 | `packages/hands/src/autopilot-crystal.ts` | **THE CRYSTAL, on AUTO**: shield and cannon both in the middle, the dome up, then the shot |
 | `packages/hands/src/autopilot-count.ts` | **THE COUNT, shot on its zero** (`sim/countdown.ts`) |

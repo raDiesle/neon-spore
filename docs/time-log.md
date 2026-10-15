@@ -42509,3 +42509,17 @@ before the owner was asked.
 Bottleneck: writing — the table is new, with nothing in the director to copy.
 
 *Measured: 9 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
+
+## 2026-10-15 — AUTO plays THE JAM's cannon and THE CHOKE's steer
+
+- reading: 0 min. The field hand, the jam's hand, the magnet's, THE CHOKE's
+  walk and the shot charge.
+- writing: 5 min. The runaway answering a magnet from beside it, the
+  walking cannon firing at what it passes, and its timing.
+- looking: 5 min. Every JAM and CHOKE wave played with its fault, each
+  breach traced to the body and the column the cannon stood in.
+- friction: 0 min.
+- landing: 5 min. The sixteen waves dropped and composed again, measured.
+
+Bottleneck: looking — each breach needed its own trace to tell a hand that
+was wrong from a walk that could not get there in time.

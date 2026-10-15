@@ -6,6 +6,19 @@ import type { Wave } from "../wave-types.js";
  */
 export const WAVES_ACT_7G_P6: Wave[] = [
   {
+    id: "theCoilReach",
+    name: "COILS FAR APART",
+    variant: true,
+    entries: [
+      { beat: 0, col: 1, kind: "coil", color: null },
+      { beat: 5, col: 6, kind: "magnet", color: "red" },
+      { beat: 11, col: 1, color: "cyan" },
+      { beat: 17, col: 5, kind: "coil", color: null },
+      { beat: 23, col: 9, kind: "magnet", color: "cyan" },
+      { beat: 28, col: 0, color: "cyan" },
+    ],
+  },
+  {
     id: "theCoilPair",
     name: "COIL AND MAGNET",
     variant: true,

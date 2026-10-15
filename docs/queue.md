@@ -328,22 +328,6 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/skipped.test.ts` holds the listing's count of the entries
 `next` stepped past and why.
 
-## AUTO plays THE JAM's cannon and THE CHOKE's steer on a composed wave
-
-- **Found:** 2026-10-15, claude/lesson-blocks
-- **Taken:** 2026-10-15, main (claim: claude/queue-auto-plays-the-jams-cannon-and-the-chokes-steer)
-- **Files:** `tools/director/src/autopilot-play.ts`, `tools/probe/world.ts`, `tools/director/src/compose-lesson.ts`
-
-AUTO clears THE JAM and THE CHOKE themselves, but put their fault on any
-composed wave — even THE MAGNET's own composed waves, which it clears bare —
-and it loses every one with the cannon jam (`{ kind: "cannon", color:
-"alternating", at: 7 }`, and red or cyan too) and five of eight with the
-steer fault. So `waves:lessons` composed JAM AGAIN … JAM PEAK without the
-jam and the CHOKE block with it on three waves (`compose.ts` keeps a draw
-without the lesson's faults where AUTO cannot play it with them). Once AUTO
-has a hand for both, drop the sixteen waves (`theJam*`, `theChoke*`
-variants) and run `bun run waves:lessons --write` — they come back faulted.
-
 ## THE CLAW's block is composed on the block's panel, not the claw
 
 - **Found:** 2026-10-15, claude/lesson-blocks

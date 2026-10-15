@@ -19,10 +19,10 @@ guess. *Pressure* is `wavePressure`
 
 | Kind | Waves | AUTO fails | Shortest (s) | Median (s) | Longest (s) | AUTO, all of them | A pair, about |
 |---|---|---|---|---|---|---|---|
-| regular | 459 | 0 | 4 | 26 | 67 | 3 h 34 min | 7 h 8 min |
+| regular | 459 | 0 | 4 | 27 | 67 | 3 h 35 min | 7 h 9 min |
 | intro | 56 | 0 | 3 | 21 | 48 | 20 min | 41 min |
 | boss | 56 | 0 | 9 | 28 | 343 | 46 min | 1 h 33 min |
-| every wave | 571 | 0 | 3 | 26 | 343 | 4 h 41 min | 9 h 21 min |
+| every wave | 571 | 0 | 3 | 26 | 343 | 4 h 41 min | 9 h 22 min |
 
 ## Every wave
 
@@ -303,14 +303,14 @@ guess. *Pressure* is `wavePressure`
 | 273 | MAGNET PEAK | **regular** | THE MAGNET | — | STANDARD | 15 | 47 | 53 | 33 | 66 | 11 |
 | 274 | THE SCUTTLE | boss | THE MAGNET | scuttle | STANDARD | 0 | 0 | 48 | 30 | 60 | — |
 | 275 | THE JAM | intro | THE JAM | cannonFault | STANDARD | 8 | 50 | 62 | 39 | 78 | 13.3 |
-| 276 | JAM AGAIN | **regular** | THE JAM | — | STANDARD | 5 | 29 | 32 | 20 | 40 | 8.7 |
-| 277 | JAM WIDE | **regular** | THE JAM | — | STANDARD | 6 | 32 | 37 | 23 | 46 | 9.6 |
-| 278 | JAM AT THE EDGE | **regular** | THE JAM | — | STANDARD | 6 | 29 | 37 | 23 | 46 | 10.7 |
-| 279 | JAM IN PAIRS | **regular** | THE JAM | — | STANDARD | 11 | 38 | 47 | 29 | 58 | 11.7 |
-| 280 | JAM AT EASE | **regular** | THE JAM | — | STANDARD | 6 | 34 | 48 | 30 | 60 | 10.2 |
-| 281 | JAM RECALLED | **regular** | THE JAM | — | STANDARD | 10 | 38 | 42 | 26 | 52 | 11.2 |
-| 282 | JAM TWICE | **regular** | THE JAM | — | STANDARD | 12 | 43 | 47 | 29 | 58 | 12.2 |
-| 283 | JAM PEAK | **regular** | THE JAM | — | STANDARD | 19 | 48 | 56 | 35 | 70 | 13.2 |
+| 276 | JAM AGAIN | **regular** | THE JAM | — | STANDARD | 6 | 32 | 41 | 26 | 52 | 10.1 |
+| 277 | JAM WIDE | **regular** | THE JAM | — | STANDARD | 6 | 30 | 38 | 24 | 48 | 11.1 |
+| 278 | JAM AT THE EDGE | **regular** | THE JAM | — | STANDARD | 6 | 29 | 33 | 21 | 42 | 12.2 |
+| 279 | JAM IN PAIRS | **regular** | THE JAM | — | STANDARD | 10 | 40 | 61 | 38 | 76 | 13.2 |
+| 280 | JAM AT EASE | **regular** | THE JAM | — | STANDARD | 7 | 40 | 44 | 28 | 56 | 11.7 |
+| 281 | JAM RECALLED | **regular** | THE JAM | — | STANDARD | 10 | 39 | 45 | 28 | 56 | 12.7 |
+| 282 | JAM TWICE | **regular** | THE JAM | — | STANDARD | 13 | 48 | 57 | 36 | 72 | 13.7 |
+| 283 | JAM PEAK | **regular** | THE JAM | — | STANDARD | 19 | 46 | 58 | 36 | 72 | 14.7 |
 | 284 | THE ANTIPHON | boss | THE JAM | antiphon | STANDARD | 0 | 0 | 56 | 35 | 70 | — |
 | 285 | THE COIL | intro | THE COIL | coil, shieldFault | STANDARD | 6 | 46 | 48 | 30 | 60 | 9.9 |
 | 286 | COILS AGAIN | **regular** | THE COIL | — | STANDARD | 5 | 28 | 30 | 19 | 38 | 7.1 |
@@ -322,15 +322,15 @@ guess. *Pressure* is `wavePressure`
 | 292 | COILS AND TWINS | **regular** | THE COIL | — | STANDARD | 11 | 45 | 47 | 29 | 58 | 7.9 |
 | 293 | THE TWITCH | **regular** | THE COIL | — | STANDARD | 10 | 62 | 70 | 44 | 88 | 8 |
 | 294 | THE HIVE | boss | THE COIL | hive | STANDARD | 0 | 0 | 74 | 46 | 92 | — |
-| 295 | THE CHOKE | intro | THE CHOKE | steerFault | STANDARD | 10 | 48 | 60 | 38 | 76 | 10.6 |
-| 296 | CHOKE AGAIN | **regular** | THE CHOKE | — | STANDARD | 5 | 28 | 30 | 19 | 38 | 8.7 |
-| 297 | CHOKE WIDE | **regular** | THE CHOKE | — | STANDARD | 6 | 31 | 45 | 28 | 56 | 9.8 |
-| 298 | CHOKE AT THE EDGE | **regular** | THE CHOKE | — | STANDARD | 6 | 28 | 42 | 26 | 52 | 10.8 |
-| 299 | CHOKE IN PAIRS | **regular** | THE CHOKE | — | STANDARD | 11 | 38 | 41 | 26 | 52 | 11.8 |
-| 300 | CHOKE AT EASE | **regular** | THE CHOKE | — | STANDARD | 6 | 35 | 37 | 23 | 46 | 10.3 |
-| 301 | CHOKE RECALLED | **regular** | THE CHOKE | — | STANDARD | 8 | 36 | 39 | 24 | 48 | 11.3 |
-| 302 | CHOKE TWICE | **regular** | THE CHOKE | — | STANDARD | 13 | 47 | 50 | 31 | 62 | 12.3 |
-| 303 | CHOKE PEAK | **regular** | THE CHOKE | — | STANDARD | 15 | 41 | 44 | 28 | 56 | 13.3 |
+| 295 | THE CHOKE | intro | THE CHOKE | steerFault | STANDARD | 10 | 48 | 57 | 36 | 72 | 10.6 |
+| 296 | CHOKE AGAIN | **regular** | THE CHOKE | — | STANDARD | 5 | 28 | 32 | 20 | 40 | 9.8 |
+| 297 | CHOKE WIDE | **regular** | THE CHOKE | — | STANDARD | 6 | 31 | 34 | 21 | 42 | 11 |
+| 298 | CHOKE AT THE EDGE | **regular** | THE CHOKE | — | STANDARD | 6 | 28 | 38 | 24 | 48 | 12.2 |
+| 299 | CHOKE IN PAIRS | **regular** | THE CHOKE | — | STANDARD | 10 | 37 | 45 | 28 | 56 | 13.3 |
+| 300 | CHOKE AT EASE | **regular** | THE CHOKE | — | STANDARD | 7 | 40 | 43 | 27 | 54 | 11.8 |
+| 301 | CHOKE RECALLED | **regular** | THE CHOKE | — | STANDARD | 10 | 39 | 44 | 28 | 56 | 12.9 |
+| 302 | CHOKE TWICE | **regular** | THE CHOKE | — | STANDARD | 13 | 47 | 57 | 36 | 72 | 14.3 |
+| 303 | CHOKE PEAK | **regular** | THE CHOKE | — | STANDARD | 18 | 47 | 56 | 35 | 70 | 16 |
 | 304 | THE CAIRN | boss | THE CHOKE | cairn | STANDARD | 0 | 0 | 24 | 15 | 30 | — |
 | 305 | THE LIMPET | intro | THE LIMPET | limpet | STANDARD | 6 | 50 | 64 | 40 | 80 | 8.2 |
 | 306 | LIMPET AGAIN | **regular** | THE LIMPET | — | STANDARD | 5 | 30 | 45 | 28 | 56 | 10.6 |
