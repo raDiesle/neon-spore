@@ -639,18 +639,3 @@ are done inside the time it is up. A `combo` gesture, the lab's paint,
 `BLISTER_GESTURES` and so a COMBO brush. Its body is a `blister:combo` slot
 after it. Prove it with `bun test packages/sim tools/director` and
 `bun run check`.
-
-## `fastScopeFor`'s wave-moved test times out under `bun run check`
-
-- **Found:** 2026-10-15, claude/blocks-strand-to-balloon
-- **Taken:** 2026-10-15, main (claim: claude/queue-fastscopefor-s-wave-moved-test-times-out-under-b)
-- **Files:** `tools/check/test/fast-scope.test.ts`, `tools/check/fast-scope.ts`
-
-"a wave moved reaches every test that reads the list from another package"
-calls `fastScopeFor` twice, and each walks the import graph from a wave
-file. Alone, the whole file runs in 4.7 s; in the eight-way `bun run check`
-on 15 October 2026 that one test took 6.8 s and failed on bun's 5 s default,
-and passed when run again by itself. Either give the test a timeout named for
-the graph walk it does, or memoise the graph across calls in one process so
-the second call is free. Prove it with `bun run check` on a tree with a wave
-file changed.

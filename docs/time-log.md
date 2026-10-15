@@ -41389,3 +41389,15 @@ Bottleneck: looking — the sticky heading over a scrolled-to canvas showed
 only in the picture.
 
 *Measured: 15 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-15 — `fastScopeFor`'s wave-moved timeout, already answered
+
+- reading: 5 min. The entry, and 7113cc5be, which landed three minutes after
+  it was filed and does what it asks: the scan cached per root, a named
+  timeout on the two tests that read the tree.
+- writing: 0 min.
+- looking: 0 min. Nothing drawn.
+- friction: 0 min.
+- landing: 5 min.
+
+Bottleneck: reading — an entry filed while its fix was landing in another lane.
