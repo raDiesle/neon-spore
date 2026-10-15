@@ -37,6 +37,7 @@
     "port": "bun run tools/port.ts",
     "probe": "bun run tools/probe/run.ts",
     "waves:compose": "bun run tools/director/waves-compose.ts",
+    "waves:review": "bun run tools/director/waves-review.ts",
     "waves:bosses": "bun run tools/director/waves-bosses.ts",
     "waves:measure": "bun run tools/probe/measure-waves.ts",
     "briefings:renumber": "bun run tools/probe/briefings-numbers.ts",

@@ -135,6 +135,7 @@ bun run sheet <prefix> <out.png>       # a strip of frames as one picture, so mo
                        #   --band 0.35,0.72 windows a slice of each frame instead of shrinking it
 bun run probe          # run a scratch script against a live world — tools/probe/
 bun run waves:compose <intro id>  # a block's regular waves, composed and checked; --write puts them after the intro, --names "A|B", --seed N draws again
+bun run waves:review   # the next review block: eight regular waves in front of a boss waiting at the end, themed on an old thing; --count N, --seed N, --write — tools/director/src/compose-review.ts
 bun run waves:bosses   # every boss to the end of the first block that has taught what it needs; --write saves the order — tools/director/src/boss-slots.ts
 bun run briefings:renumber  # §1 of docs/spec/briefings.md: every `N · NAME` and the guided count from today's order — after waves:compose --write
 bun run waves:measure  # play every wave with AUTO and rewrite docs/spec/wave-curriculum-today.md — length, novelty, pressure, boss times

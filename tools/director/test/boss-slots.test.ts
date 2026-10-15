@@ -2,7 +2,7 @@ import { describe, expect, test } from "bun:test";
 import { controlSet, mechanicsInWave, WAVES } from "@neon-spore/content";
 import { biomeLineCount, biomeLines } from "../src/biome-lines.js";
 import { bossOrder } from "../src/boss-slots.js";
-import { placeable } from "../src/compose-block.js";
+import { startsBlock } from "../src/compose-review.js";
 import { TUTORIAL_LAST_ID } from "../src/compose-steps.js";
 
 const finale = WAVES.findIndex((w) => w.id === TUTORIAL_LAST_ID);
@@ -36,14 +36,14 @@ describe("the bosses' places (wave-curriculum §7)", () => {
     let last = -1;
     WAVES.forEach((w, i) => {
       if (i <= finale) return;
-      if (placeable(WAVES, i) !== undefined) {
+      if (startsBlock(WAVES, i)) {
         expect(between).toBeLessThanOrEqual(1);
         between = 0;
         last = i;
       } else if (w.boss) between++;
     });
-    // After the last intro, one closes its block and the rest wait.
-    expect(WAVES.slice(last).filter((w) => w.boss).length).toBeGreaterThan(1);
+    // After the last block, one boss closes it and any left wait for theirs.
+    expect(WAVES.slice(last).filter((w) => w.boss).length).toBeGreaterThanOrEqual(1);
   });
 
   test("leave the tutorial arc's bosses where they were", () => {

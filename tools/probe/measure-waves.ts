@@ -8,7 +8,7 @@ import {
   wavePressure,
 } from "@neon-spore/content";
 import { beatSeconds, DEFAULT_CONFIG, failHolds, type World } from "@neon-spore/sim";
-import { placeable } from "../director/src/compose-block.js";
+import { startsBlock } from "../director/src/compose-review.js";
 import { playedBeat, waveWorld } from "./world.js";
 
 /**
@@ -76,11 +76,11 @@ function kindOf(m: Measured): string {
 }
 
 /** For every wave, the name of the block it is in: the nearest wave at or
- * before it that brings a body or a pod (`placeable`, the composer's rule). */
+ * before it that brings a body or a pod, or a review head (`startsBlock`). */
 function blockNames(): string[] {
   let current = "—";
   return WAVES.map((w, i) => {
-    if (placeable(WAVES, i) !== undefined) current = w.name;
+    if (startsBlock(WAVES, i)) current = w.name;
     return current;
   });
 }

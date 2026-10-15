@@ -3607,6 +3607,7 @@ by hand never moves.
 | `tools/director/src/compose-check.ts` | **Whether a composed wave is one to keep** — the checks of `docs/spec/wave-curriculum.md` §6, step 3 |
 | `tools/director/src/compose-place.ts` | **One step of a block, placed** — the table in `docs/spec/wave-curriculum.md` §6 turned into entries |
 | `tools/director/src/compose-ramp.ts` | **The pressures a block's steps land on, chosen together** |
+| `tools/director/src/compose-review.ts` | A review block: eight regular waves in front of a boss that has no block, themed on an old thing; its head counts as a block |
 | `tools/director/src/compose-steps.ts` | **The steps of a block**, as data — `docs/spec/wave-curriculum.md` §3 |
 | `tools/director/src/compose-grow.ts` | **The steps grow with the game**: wider, then mixed, then twinned, every four blocks past the arc |
 | `tools/director/src/compose.ts` | **A block's regular waves, composed** — `docs/spec/wave-curriculum.md` §6 |
@@ -4204,5 +4205,6 @@ by hand never moves.
 | `tools/director/drop-sheet.ts` | `bun run drop-sheet` — a moment of a PULL LAB pull, up close, with no browser |
 | `tools/director/waves-compose.ts` | `bun run waves:compose <intro id>` — a block's regular waves composed from its intro, checked, and with `--write` put into the act files |
 | `tools/director/waves-bosses.ts` | `bun run waves:bosses` — every boss moved to the end of the first block that has taught what it needs, and with `--write` saved |
+| `tools/director/waves-review.ts` | `bun run waves:review` — composes the next review blocks, one after another, and writes them |
 
 <!-- index:code:end -->

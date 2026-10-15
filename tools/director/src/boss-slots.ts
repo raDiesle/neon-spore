@@ -1,5 +1,5 @@
 import { controlSet, mechanic, mechanicsInWave, setLance, type Wave } from "@neon-spore/content";
-import { placeable } from "./compose-block.js";
+import { startsBlock } from "./compose-review.js";
 import { TUTORIAL_LAST_ID } from "./compose-steps.js";
 
 /**
@@ -21,7 +21,8 @@ import { TUTORIAL_LAST_ID } from "./compose-steps.js";
  *   the one the boss before it took, so a boss that shares a panel or a body
  *   with an earlier one (THE HAUL after THE SCOUT) still meets it second.
  * - **A boss with no block left waits at the end**, in order, for the blocks
- *   still to be written; nothing is doubled up.
+ *   still to be written; nothing is doubled up. A review block
+ *   (`compose-review.ts`) is a block too, and takes the next one.
  *
  * Moving a boss never moves an intro: the rest of the list keeps its order.
  */
@@ -58,10 +59,11 @@ export function bossOrder(waves: readonly Wave[]): { order: Wave[]; slots: BossS
   rest.forEach((w, i) => {
     for (const k of keysOf(w)) if (!taught.has(k)) taught.set(k, i);
   });
-  // Block ends after the arc: the index in `rest` of the next intro.
+  // Block ends after the arc: the index in `rest` of the next intro or
+  // review head (`compose-review.ts`).
   const restFinale = rest.findIndex((w) => w.id === TUTORIAL_LAST_ID);
   const intros: number[] = [];
-  for (let i = 0; i < rest.length; i++) if (placeable(rest, i) !== undefined) intros.push(i);
+  for (let i = 0; i < rest.length; i++) if (startsBlock(rest, i)) intros.push(i);
   const blocks = intros
     .map((at, k) => ({ intro: at, end: intros[k + 1] ?? rest.length }))
     .filter((b) => b.intro > restFinale);
