@@ -125,7 +125,7 @@ function drawOne(
  * a share of the body's drawn radius. Enough that the halo and the puffs sit
  * over the opened half rather than over the armour, and not so far that the
  * light reads as belonging to something standing next to the creature. */
-const OPEN_SIDE = 0.7;
+export const OPEN_SIDE = 0.7;
 
 /**
  * Where a body's own light may show, given what it is wearing: a sideways

@@ -42145,3 +42145,17 @@ Bottleneck: reading — where the list's folds live, for a two-button change.
 Bottleneck: no flag says when a body is up or what its id is.
 
 *Measured: 13 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-15 — a turned enemy is no longer cut at its sides
+
+- reading: 10 min. `glance-layer.ts`'s box, `glanceSqueeze`, and the plume in
+  `creature-detail.ts` once the frames showed a second cut.
+- writing: 15 min. The box fitted to the turned corners, `up` and
+  `ownLightReach`, the split into `glance-layer-box.ts`, the pixel test.
+- looking: 10 min. `bun run frames` before and after on FIRST STEP, cropped
+  at 4×.
+- friction: 5 min. `frames <sha>` compares a sha with its parent, so the fix
+  had to be committed before it could be photographed.
+- landing: 5 min. `check:fast`, `land`.
+
+Bottleneck: the second cut, the plume's, was only found by looking at a frame.

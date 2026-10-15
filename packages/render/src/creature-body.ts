@@ -142,7 +142,7 @@ function drawBeatboxBody(b: Body): void {
   const shape = beatboxArms(beatboxHitsMade(b.c), beatboxArmGrown(b.world, b.c));
   const wash = beatboxWash(b.world, b.c, b.beatPhase);
   // The arms turn with the box they grow out of; the air stays where it is.
-  drawGlancedBody(b, { r, reach: ARMS_REACH }, (ctx) =>
+  drawGlancedBody(b, { r, reach: ARMS_REACH, lit: true }, (ctx) =>
     drawLivingBody({ ...b, ctx }, swell, shape, wash),
   );
 }

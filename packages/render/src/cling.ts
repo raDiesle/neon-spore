@@ -57,7 +57,7 @@ export function drawLimpetBody(b: Body): void {
   const { l, c, x, y, time, near, world } = b;
   const r = l.tile * 0.42;
   // The hooklets turn with the rim they stand on.
-  drawGlancedBody(b, { r }, (ctx) => {
+  drawGlancedBody(b, { r, lit: true }, (ctx) => {
     drawLivingBody({ ...b, ctx }, 1, undefined, ARC_WASH);
     hooklets(ctx, x, y, r, contourClock(c.id, time), 0, hazed(world.cfg, PALETTE.arcRim, near));
   });

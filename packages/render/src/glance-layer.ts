@@ -1,5 +1,6 @@
 import { bakedCache } from "./baked.js";
 import { type GlanceFrame, glanceSqueeze, middleShift } from "./glance.js";
+import { halfRect, inverse, type Reach, screenBox, times } from "./glance-layer-box.js";
 import { rgba } from "./hex.js";
 import { SHADOW } from "./solid-tube-light.js";
 
@@ -40,36 +41,6 @@ import { SHADOW } from "./solid-tube-light.js";
  * frame needs from the last.
  */
 
-interface Matrix {
-  a: number;
-  b: number;
-  c: number;
-  d: number;
-  e: number;
-  f: number;
-}
-
-const times = (p: Matrix, q: Matrix): Matrix => ({
-  a: p.a * q.a + p.c * q.b,
-  b: p.b * q.a + p.d * q.b,
-  c: p.a * q.c + p.c * q.d,
-  d: p.b * q.c + p.d * q.d,
-  e: p.a * q.e + p.c * q.f + p.e,
-  f: p.b * q.e + p.d * q.f + p.f,
-});
-
-function inverse(m: Matrix): Matrix {
-  const det = m.a * m.d - m.b * m.c;
-  return {
-    a: m.d / det,
-    b: -m.b / det,
-    c: -m.c / det,
-    d: m.a / det,
-    e: (m.c * m.f - m.d * m.e) / det,
-    f: (m.b * m.e - m.a * m.f) / det,
-  };
-}
-
 /**
  * The one scratch canvas, held as baked work so whatever empties the sprite
  * caches empties it too: a test that swaps the stub canvas for Skia's
@@ -94,7 +65,7 @@ function layerOf(which: "part" | "halves", w: number, h: number): HTMLCanvasElem
 }
 
 /** Half `s`'s turn and clip on `c`, over whatever transform `c` already has; saved first. */
-function enterHalf(c: CanvasRenderingContext2D, f: GlanceFrame, s: -1 | 1, reach: number): void {
+function enterHalf(c: CanvasRenderingContext2D, f: GlanceFrame, s: -1 | 1, reach: Reach): void {
   const { x, y } = f;
   const k = glanceSqueeze(f, s);
   c.save();
@@ -103,30 +74,8 @@ function enterHalf(c: CanvasRenderingContext2D, f: GlanceFrame, s: -1 | 1, reach
   c.translate(-x, -y);
   c.transform(k, 0, 0, 1, x + middleShift(f) - k * x, 0);
   c.beginPath();
-  c.rect(s < 0 ? x - reach : x, y - reach, reach, 2 * reach);
+  c.rect(...halfRect(f, s, reach));
   c.clip();
-}
-
-/** The screen rectangle, whole pixels, that the part's square `reach` round its centre covers under `m`. */
-function screenBox(ctx: CanvasRenderingContext2D, m: Matrix, f: GlanceFrame, reach: number) {
-  const xs: number[] = [];
-  const ys: number[] = [];
-  for (const [px, py] of [
-    [f.x - reach, f.y - reach],
-    [f.x + reach, f.y - reach],
-    [f.x - reach, f.y + reach],
-    [f.x + reach, f.y + reach],
-  ] as const) {
-    xs.push(m.a * px + m.c * py + m.e);
-    ys.push(m.b * px + m.d * py + m.f);
-  }
-  const ox = Math.max(0, Math.floor(Math.min(...xs)));
-  const oy = Math.max(0, Math.floor(Math.min(...ys)));
-  // A canvas of no size bounds nothing: it draws nothing anyway, and a test's
-  // stand-in reports one, which would leave the part not drawn at all.
-  const ex = Math.ceil(Math.min(ctx.canvas?.width || Infinity, Math.max(...xs)));
-  const ey = Math.ceil(Math.min(ctx.canvas?.height || Infinity, Math.max(...ys)));
-  return { ox, oy, w: ex - ox, h: ey - oy };
 }
 
 /**
@@ -137,7 +86,7 @@ function farDark(
   c: CanvasRenderingContext2D,
   f: GlanceFrame,
   far: -1 | 1,
-  reach: number,
+  reach: Reach,
   ramp: { dark: number; span: number },
   blend: (c: CanvasRenderingContext2D) => void,
   paint: (c: CanvasRenderingContext2D) => void,
@@ -158,19 +107,22 @@ function farDark(
  * the far half's dark is laid over. **`atop`** is for a part with no such
  * path — a living body, drawn by a dozen calls — and lays the dark on the
  * layer itself, `source-atop`, so it falls only where the part was drawn and
- * never as a disc past a blob's edge (`creature-glance.ts`).
+ * never as a disc past a blob's edge (`creature-glance.ts`). **`reach`** is how
+ * far the part is drawn from its centre, in radii, and **`up`** how far above
+ * it, where that is further: a living body's plume (`creature-detail.ts`).
  */
 export function drawGlancedLayer(
   ctx: CanvasRenderingContext2D,
   f: GlanceFrame,
-  shade: { dark: number; full: number; span?: number; reach?: number; atop?: boolean },
+  shade: { dark: number; full: number; span?: number; reach?: number; up?: number; atop?: boolean },
   draw: (g: CanvasRenderingContext2D) => readonly Path2D[],
 ): void {
-  const { x, y, r, swing } = f;
+  const { r, swing } = f;
   const far = swing > 0 ? 1 : -1;
   const dark = shade.dark * Math.min(1, Math.abs(swing) / (shade.full * r));
   const ramp = { dark, span: shade.span ?? 1 };
-  const reach = (shade.reach ?? 4) * r;
+  const side = (shade.reach ?? 4) * r;
+  const reach: Reach = { side, up: Math.max(side, (shade.up ?? 0) * r), down: side };
   const m = ctx.getTransform();
   const box = screenBox(ctx, m, f, reach);
   if (box.w <= 0 || box.h <= 0) return;
@@ -218,9 +170,7 @@ export function drawGlancedLayer(
     const atop = (c: CanvasRenderingContext2D) => {
       c.globalCompositeOperation = "source-atop";
     };
-    farDark(g, f, far, reach, ramp, atop, (c) =>
-      c.fillRect(far < 0 ? x - reach : x, y - reach, reach, 2 * reach),
-    );
+    farDark(g, f, far, reach, ramp, atop, (c) => c.fillRect(...halfRect(f, far, reach)));
     g.setTransform(1, 0, 0, 1, 0, 0);
   }
 

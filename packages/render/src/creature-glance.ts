@@ -3,6 +3,7 @@ import type { Creature } from "@neon-spore/sim";
 import { bakedCache } from "./baked.js";
 import type { Body } from "./creature-body-in.js";
 import { drawLivingBody } from "./creature-body-living.js";
+import { ownLightReach } from "./creature-detail.js";
 import { livingBodyMul } from "./creature-place.js";
 import type { Wash } from "./creature-tint.js";
 import { type Glance, type GlanceFrame, glanceFrame, glanceStill } from "./glance.js";
@@ -96,14 +97,17 @@ export function forgetGlances(creatures: readonly Creature[]): void {
 
 /**
  * One turning body: its radius, the unit its turn is counted in; its sort; its
- * layer's reach in radii; and how far either side of its centre, in radii, the
- * points it holds still sit — 0, the centre, unless hands hang off it.
+ * layer's reach in radii; how far either side of its centre, in radii, the
+ * points it holds still sit — 0, the centre, unless hands hang off it; and
+ * whether it wears its own light, the plume and halo `drawLivingBody` ends
+ * with, which reach past the body and the layer must hold.
  */
 export interface GlancedPart {
   r: number;
   sort?: GlanceSort;
   reach?: number;
   hold?: number;
+  lit?: boolean;
 }
 
 /** Where body `b`'s glance stands this frame — what `glancedPoint` asks to find a point of it as drawn. */
@@ -133,10 +137,12 @@ export function drawGlancedBody(
     draw(b.ctx);
     return;
   }
+  const light = part.lit === true ? ownLightReach(b.l, part.r) : { up: 0, side: 0 };
   const shade = {
     dark: FAR_DARK,
     full: SIZES[part.sort ?? "living"].reach,
-    reach: part.reach ?? LAYER_REACH,
+    reach: Math.max(part.reach ?? LAYER_REACH, light.side / part.r),
+    up: light.up / part.r,
     atop: true,
   };
   drawGlancedLayer(b.ctx, f, shade, (g) => {
@@ -153,5 +159,7 @@ export function drawGlancedLiving(
   wash?: Wash,
 ): void {
   const r = b.l.tile * 0.4 * livingBodyMul(b.c);
-  drawGlancedBody(b, { r }, (ctx) => drawLivingBody({ ...b, ctx }, swell, shape, wash));
+  drawGlancedBody(b, { r: r * swell, lit: true }, (ctx) =>
+    drawLivingBody({ ...b, ctx }, swell, shape, wash),
+  );
 }

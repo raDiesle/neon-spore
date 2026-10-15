@@ -2,7 +2,7 @@ import type { Creature } from "@neon-spore/sim";
 import { type Interior, interiorFor } from "./body-interior.js";
 import { halo, haloSprite } from "./glow.js";
 import type { Layout } from "./layout.js";
-import { plateLightShift } from "./shell-draw.js";
+import { OPEN_SIDE, plateLightShift } from "./shell-draw.js";
 
 /**
  * What this body has inside it, through the record for its kind.
@@ -23,6 +23,30 @@ export function drawDetails(ctx: CanvasRenderingContext2D, kind: string, p: Inte
 const PUFFS = 3;
 const REACH = 1.8;
 const CURL = 0.3;
+
+/** Puff `k` of the plume: how far above the body it stands, and how wide and tall it is. */
+function puff(l: Layout, r: number, k: number) {
+  return {
+    above: l.tile * (k / PUFFS) * REACH * 0.5,
+    wide: r * (0.55 + k * 0.3) * 2,
+    tall: r * (0.5 + k * 0.22) * 2,
+  };
+}
+
+/**
+ * **How far a body's own light reaches** from its centre, in pixels: up, to
+ * the top of the plume's last puff, and to either side, where that puff has
+ * curled its furthest and a shell's open side has pushed it. A body drawn on a
+ * layer of its own needs the layer this big, or the plume ends in a straight
+ * edge (`creature-glance.ts`). The halo, at 1.9 radii, is inside both.
+ */
+export function ownLightReach(l: Layout, r: number): { up: number; side: number } {
+  const last = puff(l, r, PUFFS);
+  return {
+    up: last.above + last.tall / 2,
+    side: r * (CURL * PUFFS + OPEN_SIDE) + last.wide / 2,
+  };
+}
 
 /**
  * The trail a living body leaves as it falls: a plume that widens and
@@ -67,11 +91,9 @@ export function drawMotionTrail(
   ctx.save();
   ctx.globalCompositeOperation = "lighter";
   for (let k = 1; k <= PUFFS; k++) {
-    const up = (k / PUFFS) * REACH;
+    const { above, wide, tall } = puff(l, r, k);
     const px = x + Math.sin(t * 0.9 - k * 0.6) * r * CURL * k;
-    const py = y - l.tile * up * 0.5;
-    const wide = r * (0.55 + k * 0.3) * 2;
-    const tall = r * (0.5 + k * 0.22) * 2;
+    const py = y - above;
     ctx.globalAlpha = (1 - k / (PUFFS + 1)) * 0.22;
     ctx.drawImage(sprite, px - wide / 2, py - tall / 2, wide, tall);
   }
