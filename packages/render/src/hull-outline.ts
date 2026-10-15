@@ -35,9 +35,6 @@ export function hullOutline(l: Layout, f: HullFrame): HullOutline {
   const pts: Point[] = [];
   for (let i = 0; i <= STEPS; i++) pts.push(surface(f, from + (to - from) * (i / STEPS)));
   const bottom = hullBottom(l);
-  return {
-    pts,
-    body: splinePath(pts, false),
-    filled: splineSkirt(pts, l.width, bottom, 0, bottom),
-  };
+  const body = splinePath(pts, false);
+  return { pts, body, filled: splineSkirt(body, l.width, bottom, 0, bottom) };
 }

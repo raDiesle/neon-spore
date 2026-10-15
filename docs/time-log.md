@@ -42270,3 +42270,20 @@ failure a timeout, and no shard killed without a report.
 Bottleneck: looking — each live proof is a director built and served.
 
 *Measured: 24 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-15 — A performance review of every wave, and the hull's spline built once
+
+- reading: 25 min. A call-count and JS-time sweep of every wave on the stub,
+  `bun run perf` on the twenty dearest, Chrome's own CPU profile, a blit
+  micro-benchmark, and an interleaved A/B of four layer variants.
+- writing: 10 min. `catmullRomEach`, the hull's skirt as a copy, the pin
+  test; three layer variants written and thrown away.
+- looking: 0 min. Nothing on screen moved; 1,408 frames hashed identical
+  through Skia instead.
+- friction: 5 min. A scratch script could not resolve `@napi-rs/canvas` from
+  `tools/probe/scratch`, and one log comparison ran main's script against
+  itself before it was caught.
+- landing: 5 min.
+
+Bottleneck: measuring under other sessions' load — one wave moved 6 ms between
+runs, and only an interleaved A/B in one browser could be trusted.

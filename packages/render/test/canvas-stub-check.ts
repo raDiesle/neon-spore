@@ -119,7 +119,12 @@ export class StubPattern {}
 
 /** A path is a string of numbers; one NaN in it and the shape silently vanishes. */
 export class StubPath {
-  constructor(d?: string) {
+  /** A string to parse, or another path to copy — `splineSkirt`'s hull. */
+  constructor(d?: string | StubPath) {
+    if (d instanceof StubPath) {
+      hit("new Path2D");
+      return;
+    }
     if (d !== undefined && /NaN|Infinity|undefined/.test(d)) {
       fail("new Path2D", `path contains ${/NaN/.test(d) ? "NaN" : "a non-finite value"}`);
     }

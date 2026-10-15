@@ -327,3 +327,55 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/needs.test.ts` holds the wait, and
 `tools/queue/test/skipped.test.ts` holds the listing's count of the entries
 `next` stepped past and why.
+
+## `bun run perf` misses the screen's flush, so a layer reads twice its cost
+
+- **Found:** 2026-10-15, claude/glance-layer-cost
+- **Files:** `tools/perf/measure.ts`, `docs/performance.md`
+
+`timePaints` times `paint()` calls and nothing after them. Chrome records a 2D
+canvas's ops and sends them to the GPU at commit, outside that window — except
+for a canvas drawn into another one, whose ops are flushed at the `drawImage`,
+inside it. So a part drawn on an offscreen layer is charged for its flush and
+the same part drawn on the screen is not. On GYRES AGAIN (35 glancing bodies,
+4x throttle, one browser, variants interleaved) bypassing `drawGlancedLayer`
+read 6.3 ms against 15.7 ms shipped in the tool's window, and 15.7 ms against
+20.0 ms with a 1x1 `getImageData` on the screen after every paint. The layer
+costs about 4 ms, not 9; Chrome's own CPU profile over the same sweep put
+`drawImage` far above every other call. Time each paint with the screen's
+flush in it (a 1x1 readback per paint, or the frame's own timing), say in
+`docs/performance.md` what the figure now includes, and take the next full
+sweep against the new measure rather than mixing the two in one baseline.
+
+## The glance layer is cut to the plume's furthest reach, not this frame's
+
+- **Found:** 2026-10-15, claude/glance-layer-cost
+- **Files:** `packages/render/src/glance-layer.ts`, `packages/render/src/glance-layer-box.ts`, `packages/render/src/creature-glance.ts`, `packages/render/src/creature-detail.ts`
+
+Every turning body is drawn onto a scratch layer the size of `screenBox`, and
+the layer is cleared, blitted and blitted again about seven box-areas a body a
+frame. The box's reach is `ownLightReach` — where the plume's last puff sits
+at its furthest curl — rather than where this frame's puffs are, so most
+frames clear and copy transparent pixels. Measured on 15 October 2026 the
+layer is about 4 ms of GYRES AGAIN's 20 at 4x with the flush counted (entry
+above). Cut the box to what this frame draws, prove the pixels unchanged with
+Skia (`packages/render/test/pixel-harness.ts`, frames hashed before and after
+over the glancing waves), and measure it with the flush counted. Keeping the
+scratch canvases but drawing a fresh one per stage, `OffscreenCanvas`
+transfers, and a pool were all tried and none beat the shipped layer once the
+flush was counted.
+
+## SNAKE's body shadow is `shadowBlur`
+
+- **Found:** 2026-10-15, claude/glance-layer-cost
+- **Files:** `packages/render/src/snake-skin.ts`
+- **Asks:** Keep SNAKE's blurred shadow, or offer a cheaper one in VERSUS?
+
+`castShadow` sets `shadowBlur` to a fifth of a tile under the snake's body —
+the one `shadowBlur` left in `packages/render`, against the rule in
+`glow.ts` that it is the dearest thing a mobile GPU is asked for. `bun run
+perf` cannot see it (2.1 ms on SNAKE), because the blur is GPU work done
+after the timed window. Replacing it changes the picture, so it is a look:
+either it stays, or a VERSUS candidate draws the shadow without a blur — the
+body's path filled dark and offset, under two or three widened faint strokes
+the way `strokeGlow` fakes a glow — and the owner chooses by looking.

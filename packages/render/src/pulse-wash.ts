@@ -113,7 +113,8 @@ export function drawPulseWash(
   let top = Number.POSITIVE_INFINITY;
   for (const p of pts) if (p.y < top) top = p.y;
 
-  const body = splineSkirt(pts, right, bottom, left, bottom);
+  const edge = splinePath(pts, false);
+  const body = splineSkirt(edge, right, bottom, left, bottom);
   const light = ctx.createLinearGradient(0, top, 0, bottom);
   light.addColorStop(0, pulseLaneRim(wash.lane));
   light.addColorStop(0.3, pulseLaneColor(wash.lane));
@@ -134,6 +135,5 @@ export function drawPulseWash(
   // The skin itself, brightest of all: a hull lit from within still has an
   // edge, and without it the wash reads as fog over the ship rather than as
   // the ship being the thing that is lit.
-  const edge = splinePath(pts, false);
   strokeGlow(ctx, edge, pulseLaneRim(wash.lane), Math.max(1.2, l.tile * 0.05), 1, wash.force);
 }

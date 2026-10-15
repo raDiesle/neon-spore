@@ -22,14 +22,33 @@
  * wordmark, and every contour that reaches a real `<path>` element.
  */
 export function catmullRomSegments(pts: readonly Point[], closed: boolean): number[] {
-  const n = pts.length;
   const out: number[] = [];
+  catmullRomEach(pts, closed, (c1x, c1y, c2x, c2y, x, y) => {
+    out.push(c1x, c1y, c2x, c2y, x, y);
+  });
+  return out;
+}
+
+/**
+ * The same curves handed over one at a time instead of gathered into an
+ * array — what a caller that only walks them wants. Every organic contour on
+ * the field is built through this on every frame (`render/src/spline.ts`), and
+ * the array was garbage the moment the path had been read off it: on GYRES
+ * AGAIN, thirty-odd contours a frame and the hull's 141 points among them, it
+ * was the largest single allocation in the frame (15 October 2026).
+ */
+export function catmullRomEach(
+  pts: readonly Point[],
+  closed: boolean,
+  curve: (c1x: number, c1y: number, c2x: number, c2y: number, x: number, y: number) => void,
+): void {
+  const n = pts.length;
   for (let i = 0; i < (closed ? n : n - 1); i++) {
     const p0 = closed ? pts[(i - 1 + n) % n]! : pts[i === 0 ? 0 : i - 1]!;
     const p1 = pts[i]!;
     const p2 = closed ? pts[(i + 1) % n]! : pts[i + 1]!;
     const p3 = closed ? pts[(i + 2) % n]! : pts[i + 2 < n ? i + 2 : i + 1]!;
-    out.push(
+    curve(
       p1.x + (p2.x - p0.x) / 6,
       p1.y + (p2.y - p0.y) / 6,
       p2.x - (p3.x - p1.x) / 6,
@@ -38,7 +57,6 @@ export function catmullRomSegments(pts: readonly Point[], closed: boolean): numb
       p2.y,
     );
   }
-  return out;
 }
 
 /** The segments above written out as `C` commands, two decimals apiece. */

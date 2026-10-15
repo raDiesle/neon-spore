@@ -171,6 +171,7 @@ export {
   blobPath,
   blobPoints,
   blobRadiusMul,
+  catmullRomEach,
   catmullRomSegments,
   catmullRomToBezierPath,
   circleSubpath,

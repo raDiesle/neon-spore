@@ -1,4 +1,4 @@
-import { catmullRomSegments, type Point } from "@neon-spore/content";
+import { catmullRomEach, type Point } from "@neon-spore/content";
 
 /**
  * A contour, written into a `Path2D` as numbers.
@@ -11,9 +11,9 @@ import { catmullRomSegments, type Point } from "@neon-spore/content";
  * points — 840 `toFixed` calls and a five-thousand-character string — and it is
  * on screen in every frame of every wave.
  *
- * So the string is skipped where nobody wanted one. `catmullRomSegments` in
+ * So the string is skipped where nobody wanted one. `catmullRomEach` in
  * content is still the only place the control points are worked out, and this
- * walks the numbers it returns straight into `moveTo` and `bezierCurveTo`. The
+ * hands each curve it gives straight to `bezierCurveTo`, with no array between. The
  * SVG form stays for the things that really do take text — `tools/shape-sheet`
  * and the menu's `<path>` wordmark.
  *
@@ -24,11 +24,10 @@ import { catmullRomSegments, type Point } from "@neon-spore/content";
  */
 export function splineInto(path: Path2D, pts: readonly Point[], closed: boolean): void {
   if (pts.length < 2) return;
-  const seg = catmullRomSegments(pts as Point[], closed);
   path.moveTo(pts[0]!.x, pts[0]!.y);
-  for (let i = 0; i < seg.length; i += 6) {
-    path.bezierCurveTo(seg[i]!, seg[i + 1]!, seg[i + 2]!, seg[i + 3]!, seg[i + 4]!, seg[i + 5]!);
-  }
+  catmullRomEach(pts, closed, (c1x, c1y, c2x, c2y, x, y) => {
+    path.bezierCurveTo(c1x, c1y, c2x, c2y, x, y);
+  });
   if (closed) path.closePath();
 }
 
@@ -64,15 +63,23 @@ export function splinePath(pts: readonly Point[], closed: boolean): Path2D {
  * filled body, which is its skin taken down to the bottom of the field. It is
  * a second path rather than the first one continued, because the contour is
  * also stroked on its own and a `Path2D` cannot be un-closed.
+ *
+ * **It is a copy of that contour, not the spline worked out again.** The hull
+ * is 141 points and on every frame of every wave, and until 15 October 2026
+ * its 140 curves were computed and handed to the canvas twice a frame, once
+ * for the rim and once for this. `new Path2D(path)` is the same curves. A
+ * caller that strokes nothing along the contour hands over its points.
  */
 export function splineSkirt(
-  pts: readonly Point[],
+  contour: readonly Point[] | Path2D,
   x1: number,
   y1: number,
   x2: number,
   y2: number,
 ): Path2D {
-  const path = splinePath(pts, false);
+  const path = Array.isArray(contour)
+    ? splinePath(contour as readonly Point[], false)
+    : new Path2D(contour as Path2D);
   path.lineTo(x1, y1);
   path.lineTo(x2, y2);
   path.closePath();
