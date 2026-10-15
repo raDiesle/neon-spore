@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-15 · 432ef3e74 — `bun run frames --hold blisterSwipe` holds THE BLISTER's stroke part way
+
+A SWIPE or COMBO blister with a thumb carried part way across it — the body stretched to the knob — could not be photographed: the row lifted the thumb on the tick it carried, so a capture showed the body at rest or knocked down. The stroke is now held, from the navigator's seat (`blisterSwipe`) or the pilot's (`blisterSwipe1`), and a full one still deals its blow, since the round counts a stroke the moment it is carried far enough. `--help` has a recipe for FIVE BLISTERS.
+
 ## 2026-10-15 · f3cda062e — The wave list opens or folds every group at once: OPEN ALL and FOLD ALL
 
 Two presses over the director's wave list, under the marks. OPEN ALL shows every wave, the composed variants under their intros; FOLD ALL leaves the waves that bring something new and the bosses. Remembered across a reload like a single group's fold. A look the owner asked for by name.
