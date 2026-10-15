@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-15 · e264e757b — Six more blocks get their regular waves, THE BEATBOX to THE HUSK
+
+Forty-seven waves composed by `bun run waves:compose`, eight after each of THE BEATBOX, THE WEIGHT, THE MINE, THE BLISTER and THE MOULT and seven after THE HUSK, each one cleared by AUTO with no breach at both charges. The first waves climb from 8.1 to 8.7 and the peaks from 12.7 to 13.1. The composer now refuses a mine and a soundbox on one wave, through `tapsClash`, the same question `tap-waves.test.ts` asks; BLISTERS AGAIN had recalled a beatbox. A look the owner asked for by name.
+
 ## 2026-10-15 · 5eccd87f8 — AUTO opens THE COIL's domes and lets a crossing rock go by
 
 AUTO lost nearly every wave the composer drew for THE COIL's block and THE CROSSING's block. The shield never stood under a coil, so on any wave without a shield fault to arm the plate by itself, a coil sank all the way to the hull. The shield also chased crossing rocks, which leave by the far wall and never land. Now the shield stands under the lowest coil and triggers once the lane below it is clear, but only while no rock is near and no chain is already alight. It ignores crossing rocks.

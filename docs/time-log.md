@@ -41431,3 +41431,5 @@ of one composed draw, and THE COIL's R7 turned out to be the ramp, not AUTO.
 
 Bottleneck: friction — a content rule only a test knew, so the composer
 drew a wave the game refuses, and that only showed in the full check.
+
+*Measured: 66 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
