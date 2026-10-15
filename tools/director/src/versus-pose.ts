@@ -37,6 +37,7 @@ const SLOT_POSE: Record<string, string> = {
   "blister:combo": "BLISTER · COMBO PRESSED, PULLED AND LIFTED",
   "blister:lever": "BLISTER · LEVER CARRIED INTO ITS BAND AND HELD",
   "blister:rub": "BLISTER · RUB SCRUBBED TWICE AND LIFTED",
+  "blister:turn": "BLISTER · TURN WOUND ROUND AND LIFTED",
   "blister:tap": "BLISTER · UP FOR A TAP",
 };
 

@@ -41706,3 +41706,16 @@ Bottleneck: waiting on the lane before to land before this one could be
 claimed — the bodies were drafted in the scratchpad meanwhile.
 
 *Measured: 8 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-15 — VERSUS offers THE BLISTER's TURN a body built round its knob
+
+- reading: 0 min. The turn help's ring and the crank's bearings, read while
+  the lane before landed.
+- writing: 5 min. SNAIL, WHEEL and WORM; a pose whose hand winds the knob
+  round clockwise and lifts.
+- looking: 5 min. Two rounds: WORM lay under the channel the help draws.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, `land`.
+
+Bottleneck: a slot's candidates must patch the same fields, so the two
+that put nothing past the pore patch `beyond` with the shipped nothing.

@@ -1,4 +1,10 @@
-import { type BlisterGesture, blisterIsUp, type TimedCommand, type World } from "@neon-spore/sim";
+import {
+  type BlisterGesture,
+  blisterIsUp,
+  NO_BEARING,
+  type TimedCommand,
+  type World,
+} from "@neon-spore/sim";
 import { fresh, type Pose, until } from "./pose-kit.js";
 
 /**
@@ -134,6 +140,46 @@ export const BLISTER_RUB_PLAYED: Pose = {
 /** Ticks from the rub blister coming up: the thumb down, each turn back, and the lift. */
 const SCRUB = [40, 65, 90];
 const LIFTED = 120;
+
+/**
+ * THE BLISTER's TURN played through by a hand of its own: up out of its pore
+ * with the knob at the top, then wound clockwise — a whole turn, one blow,
+ * and most of a second — and lifted, all inside the two beats it stays up.
+ * It is what `blister:turn` on VERSUS is judged on: a body that turns, so the
+ * knob has to go round on the page, and ON THE FIELD's `BLISTER · A TURN HALF
+ * ROUND` holds it still.
+ */
+export const BLISTER_TURN_PLAYED: Pose = {
+  name: "BLISTER · TURN WOUND ROUND AND LIFTED",
+  note: "A TURN blister is up out of its pore for its two beats, three blows owed, the knob at the top of its channel. Player 2 takes the knob and winds it clockwise, a whole turn — one blow — and most of a second, then lifts. Player 2's screen, the seat its BY names.",
+  lookAt: "whether the body says which way round, and turns with the knob",
+  crop: "tile",
+  role: "p2",
+  span: 3,
+  cadenceSeconds: 1.25,
+  at: (w) => {
+    const c = w.creatures.find(blisterIsUp);
+    return c ? { col: c.col, row: c.row } : { col: 4, row: 3 };
+  },
+  build: () => blisterUp("turn"),
+  hand: (w) => {
+    const c = w.creatures.find(blisterIsUp);
+    if (!c) return [];
+    const t = sinceUp(w, "turn");
+    const crank = (on: boolean, at: number) =>
+      sent(w, { kind: "drag", target: "blisterTurn", id: c.id, on, fromMilli: at });
+    if (t === WOUND_FROM) return crank(true, NO_BEARING);
+    if (t > WOUND_FROM && t < LIFT_TURN) return crank(true, ((t - WOUND_FROM) * WIND) % 1000);
+    if (t === LIFT_TURN) return crank(false, 0);
+    return [];
+  },
+};
+
+/** Ticks from the turn blister coming up: the knob taken and let go, and
+ * thousandths of a turn wound each tick between. */
+const WOUND_FROM = 35;
+const LIFT_TURN = 115;
+const WIND = 22;
 
 /** One command from player 2, on the tick the world stands at. */
 function sent(w: World, command: TimedCommand["command"]): TimedCommand[] {

@@ -18,6 +18,9 @@ import { BLISTER_WASHBOARD } from "./blister-rub/washboard/index.js";
 import { BLISTER_CRADLE } from "./blister-tap/cradle/index.js";
 import { BLISTER_MOLE } from "./blister-tap/mole/index.js";
 import { BLISTER_RIDER } from "./blister-tap/rider/index.js";
+import { BLISTER_SNAIL } from "./blister-turn/snail/index.js";
+import { BLISTER_WHEEL } from "./blister-turn/wheel/index.js";
+import { BLISTER_WORM } from "./blister-turn/worm/index.js";
 
 export const VARIANTS: Variant[] = [
   BLISTER_BUD,
@@ -32,4 +35,7 @@ export const VARIANTS: Variant[] = [
   BLISTER_CRADLE,
   BLISTER_MOLE,
   BLISTER_RIDER,
+  BLISTER_SNAIL,
+  BLISTER_WHEEL,
+  BLISTER_WORM,
 ];

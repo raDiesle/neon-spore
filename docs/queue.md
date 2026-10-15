@@ -490,18 +490,3 @@ way a SWIPE is authored to go — left, right, up or down — so build the
 pose `BLISTER · A STROKE HALF CARRIED` already gives you and one with
 another way. Send one PNG of the current beside the three. Prove it with
 `bun test tools/versus` and `bun run check`.
-
-## THE BLISTER's TURN gets bodies built round its knob, on VERSUS
-
-- **Found:** 2026-10-14, claude/control-bodies
-- **Taken:** 2026-10-15, claude/queue-the-blisters-turn-gets-bodies-built-round-its-kn
-- **Files:** `packages/render/src/blister-bodies.ts`, `packages/render/src/blister-turn-help.ts`, `tools/director/src/poses-field-controls-blister.ts`, `tools/director/src/versus-pose.ts`
-
-The same ask as THE BLISTER's HOLD entry, for `blister:turn`, patching
-`BLISTER_BODY.turn`'s `draw`, judged on `BLISTER · A TURN HALF ROUND`.
-THE MAZE's channel goes round the body and the knob rides it on a lever, so
-the body can be what turns: a snail whose shell's spiral is the channel; a
-flower or a wheel of lobes the lever sweeps past; a coiled worm whose head
-is the knob. Clockwise and anticlockwise must both read. Send one PNG of
-the current beside the three. Prove it with `bun test tools/versus` and
-`bun run check`.
