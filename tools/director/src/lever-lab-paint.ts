@@ -1,5 +1,13 @@
 import type { Point } from "@neon-spore/content";
-import { drawPullKnob, drawPullTrack, PALETTE, pullTrackPoint, STROKE } from "@neon-spore/render";
+import {
+  drawLeverGroove,
+  drawPullKnob,
+  drawPullTrack,
+  type GrooveSide,
+  PALETTE,
+  pullTrackPoint,
+  STROKE,
+} from "@neon-spore/render";
 import { drawHandleDial } from "../../../packages/render/src/handle-draw.js";
 import { PULL_SIZE } from "../../../packages/render/src/pull-knob.js";
 import { drawHoldClock } from "./hold-goo/wait.js";
@@ -125,20 +133,8 @@ function span(
   ctx.lineTo(b.x, b.y);
 }
 
-/** Across the groove at `depth`: a notch `half` long either side of it. */
-function notch(
-  ctx: CanvasRenderingContext2D,
-  s: LabShape,
-  depth: number,
-  sign: 1 | -1,
-  half: number,
-): void {
-  const q = pullTrackPoint(s.track, atOf(s, depth, sign));
-  ctx.moveTo(q.x - q.dy * half, q.y + q.dx * half);
-  ctx.lineTo(q.x + q.dy * half, q.y - q.dx * half);
-}
-
-/** The groove's quarter notches, and its zone over them. */
+/** The groove, its quarter notches and its zone: the game's own drawing
+ * (`render/lever-groove.ts`), on each side a two-way groove has. */
 function paintGroove(
   ctx: CanvasRenderingContext2D,
   s: LabShape,
@@ -146,41 +142,12 @@ function paintGroove(
   lit: boolean,
 ): void {
   const signs: (1 | -1)[] = s.origin > 0 ? [1, -1] : [1];
-  ctx.save();
-  ctx.lineCap = "round";
-  // The groove the whole reach: faint, since the FIZZ channel is drawn only as the drop goes.
-  ctx.strokeStyle = PALETTE.dim;
-  ctx.globalAlpha = 0.28;
-  ctx.lineWidth = LAB_TILE * 0.3;
-  ctx.beginPath();
-  for (const sign of signs) span(ctx, s, 0, 1, sign);
-  ctx.stroke();
-  if (zone) {
-    ctx.strokeStyle = lit ? PALETTE.good : PALETTE.dim;
-    ctx.globalAlpha = lit ? 0.32 : 0.2;
-    ctx.lineWidth = LAB_TILE * 0.9;
-    ctx.beginPath();
-    for (const sign of signs) span(ctx, s, zone[0], zone[1], sign);
-    ctx.stroke();
-  }
-  ctx.globalAlpha = 0.55;
-  ctx.strokeStyle = PALETTE.dim;
-  ctx.lineWidth = STROKE.inner;
-  ctx.beginPath();
-  for (const sign of signs)
-    for (const d of [0.25, 0.5, 0.75, 1]) notch(ctx, s, d, sign, LAB_TILE * 0.22);
-  ctx.stroke();
-  if (zone) {
-    // The grip: the zone's edges drawn long, the threshold the thumb carries past.
-    ctx.globalAlpha = 0.95;
-    ctx.strokeStyle = lit ? PALETTE.good : PALETTE.text;
-    ctx.lineWidth = STROKE.outline;
-    ctx.beginPath();
-    for (const sign of signs)
-      for (const d of zone) if (d < 1) notch(ctx, s, d, sign, LAB_TILE * 0.62);
-    ctx.stroke();
-  }
-  ctx.restore();
+  const sides = signs.map((sign): GrooveSide => {
+    const a = pointAt(s, 0, sign);
+    const b = pointAt(s, 1, sign);
+    return { x0: a.x, y0: a.y, x1: b.x, y1: b.y };
+  });
+  drawLeverGroove(ctx, sides, { zone, lit, tile: LAB_TILE });
 }
 
 /** The partner's lever: its groove and channel dim, its knob dim and arrowless. */

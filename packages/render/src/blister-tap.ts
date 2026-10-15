@@ -54,6 +54,17 @@ export function blisterUnder(l: Layout, field: Field, x: number, y: number): Tou
       hold: { kind: "drag", target, player: field.seat, originX: x, originY: y, id: best },
     };
   }
+  // A LEVER blister's press takes its knob: a `drag` on `blisterLever` at no
+  // depth yet, every move after it the carry down the groove (`touch-move.ts`,
+  // `sim/blister-lever.ts`); the lift only lets go.
+  if (body !== undefined && blisterGestureOf(body) === "lever") {
+    const target = "blisterLever";
+    return {
+      player: field.seat,
+      command: { kind: "drag", target, on: true, fromMilli: 0, fromYMilli: 0, id: best },
+      hold: { kind: "drag", target, player: field.seat, originX: x, originY: y, id: best },
+    };
+  }
   // A TURN blister's press is a `drag` on `blisterTurn` with no bearing yet,
   // and its hold keeps the *body's centre* as its origin, flagged `turns`, so
   // every move reports a bearing round it — THE INSTAR's turn mark's reading

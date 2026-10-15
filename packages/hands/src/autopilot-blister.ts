@@ -17,7 +17,7 @@ import {
 } from "@neon-spore/sim";
 
 /**
- * **THE BLISTER on AUTO, all six gestures**, each the way a thumb does it
+ * **THE BLISTER on AUTO, all seven gestures**, each the way a thumb does it
  * (`docs/spec/blister.md`, *The gestures*), from the seat its `by` names —
  * player 2 when both may, as the tap is.
  *
@@ -60,6 +60,7 @@ const HAND: Record<ReturnType<typeof blisterGestureOf>, Hand> = {
   turn: turn,
   rub: rub,
   combo: combo,
+  lever: lever,
 };
 
 type Hand = (w: World, c: Creature, seat: 1 | 2) => Press | null;
@@ -107,6 +108,26 @@ function combo(w: World, c: Creature, player: 1 | 2): Press | null {
   }
   if (!blisterIsUp(c)) return null;
   return { player, command: { ...drag, on: true, fromMilli: 0, fromYMilli: 0 } };
+}
+
+/**
+ * LEVER: the knob taken half a beat in, carried to the band's middle the next
+ * tick and held there; once the hold is a blow the hand is spent, and lifts
+ * (`blister-lever.ts`).
+ */
+function lever(w: World, c: Creature, player: 1 | 2): Press | null {
+  const hands = c.blisterStrokes ?? 0;
+  const drag = { kind: "drag", target: "blisterLever", id: c.id, fromMilli: 0 } as const;
+  if ((hands & (player << 2)) !== 0)
+    return { player, command: { ...drag, on: false, fromYMilli: 0 } };
+  if (!blisterIsUp(c)) return null;
+  if ((hands & player) === 0) {
+    if (!halfBeat(w)) return null;
+    return { player, command: { ...drag, on: true, fromYMilli: 0 } };
+  }
+  const band = Math.round((w.cfg.blisterLeverFromMilli + w.cfg.blisterLeverToMilli) / 2);
+  if ((c.blisterAlongMilli ?? 0) === band) return null;
+  return { player, command: { ...drag, on: true, fromYMilli: band } };
 }
 
 /** Round the body its way, a whole turn across a beat (`blister-turn.ts`). */

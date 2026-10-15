@@ -439,6 +439,9 @@ const TARGET_PLACE: Record<DragTarget, TargetPlace> = {
   // THE BLISTER's RUB, a scrub over the body (`sim/blister-rub.ts`, answered
   // by `render/blister-tap.ts`, counted by `render/rub-turns.ts`).
   blisterRub: "field",
+  // THE BLISTER's LEVER, a knob held in a band down its groove
+  // (`sim/blister-lever.ts`, answered by `render/blister-tap.ts`).
+  blisterLever: "field",
 };
 
 describe("FIELD_CONTROLS against touch.ts's own types", () => {

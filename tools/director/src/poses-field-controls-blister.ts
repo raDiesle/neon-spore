@@ -1,4 +1,4 @@
-import { blisterIsUp, NO_BEARING, type TimedCommand } from "@neon-spore/sim";
+import { blisterIsUp, NO_BEARING, type TimedCommand, ticksPerBeat } from "@neon-spore/sim";
 import { fresh, type Pose, run, until } from "./pose-kit.js";
 
 /**
@@ -145,6 +145,44 @@ export const BLISTER_COMBO: Pose = {
     });
     const press: TimedCommand = { tick: w.tick, player: 2, command: { kind: "tap", id: body.id } };
     run(w, 4, [press, stroke(w.tick + 1, 0), stroke(w.tick + 2, half)]);
+    return w;
+  },
+};
+
+/**
+ * THE BLISTER's LEVER with its knob carried into the band and held half the
+ * hold: the band green, the dial half round the knob (`sim/blister-lever.ts`,
+ * `render/blister-lever-help.ts`). The press and one move, as `touchMove`
+ * sends them, then half a hold of ticks with the thumb still.
+ */
+export const BLISTER_LEVER: Pose = {
+  name: "BLISTER · THE LEVER HELD IN ITS BAND",
+  note: "A LEVER blister is up out of its pore for its two beats. Player 2 has taken the knob and carried it down its groove into the band, and has held it there half the hold it asks: the band is green and the dial is half way round the knob. Held on, one of its three blows. Player 2's screen, the seat its BY names.",
+  lookAt: "whether the band reads as where to stop, and the dial as how long is left",
+  crop: "field",
+  role: "p2",
+  build: () => {
+    const w = fresh([
+      { beat: 0, col: 4, kind: "blister", color: null, row: 3, count: 3, gesture: "lever" },
+    ]);
+    until(w, "a blister up", (x) => x.creatures.some(blisterIsUp));
+    const body = w.creatures.find(blisterIsUp);
+    if (!body) throw new Error("no blister up");
+    const band = Math.round((w.cfg.blisterLeverFromMilli + w.cfg.blisterLeverToMilli) / 2);
+    const knob = (tick: number, depth: number): TimedCommand => ({
+      tick,
+      player: 2,
+      command: {
+        kind: "drag",
+        target: "blisterLever",
+        id: body.id,
+        on: true,
+        fromMilli: 0,
+        fromYMilli: depth,
+      },
+    });
+    const half = Math.round((w.cfg.blisterLeverBeats * ticksPerBeat(w.cfg)) / 2);
+    run(w, 1 + half, [knob(w.tick, 0), knob(w.tick + 1, band)]);
     return w;
   },
 };

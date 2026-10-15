@@ -190,4 +190,7 @@ export const ROWS: Record<string, Row> = {
   // `blister-rub.ts`: a reversal count in `id`, the body riding `fromMilli`.
   blisterRub: { seat: 2, id: true },
   blisterRub1: { as: "blisterRub", id: true },
+  // `blister-lever.ts`: the knob carried down its groove, the depth on `fromYMilli`.
+  blisterLever: { seat: 2, id: true, swipe: true },
+  blisterLever1: { as: "blisterLever", id: true, swipe: true },
 };

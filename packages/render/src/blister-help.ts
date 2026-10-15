@@ -15,6 +15,7 @@ import {
   type World,
 } from "@neon-spore/sim";
 import { blisterRise } from "./blister.js";
+import { drawBlisterLever } from "./blister-lever-help.js";
 import { drawBlisterTurn } from "./blister-turn-help.js";
 import { flatCenter, flatRadius } from "./creature-place.js";
 import { handleRadius } from "./handle-draw.js";
@@ -30,7 +31,7 @@ import { drawRubDrop } from "./rub-drop.js";
 import { drawSoakHold } from "./soak-hold.js";
 
 /**
- * **THE BLISTER's help for all six gestures**, called and not drawn anew
+ * **THE BLISTER's help for all seven gestures**, called and not drawn anew
  * (`docs/controls-catalogue.md`): the same pieces every mark in the game
  * wears, laid over and round a body that is up.
  *
@@ -62,6 +63,9 @@ import { drawSoakHold } from "./soak-hold.js";
  *   then SWIPE's pull in the same place, to the right — THE COMBO LAB's
  *   PRESS, THEN PULL, the press counted and gone and a pull come in where it
  *   was. The pips count blows, and a blow is the two.
+ * - LEVER, on the seat that may: THE LEVER LAB's lever down from the body —
+ *   graduated groove, band, channel to the band's middle and knob, with the
+ *   handle dial filling while it is held in the band (`blister-lever-help.ts`).
  * - The verdict on each blow is a transient and is `blister-verdicts.ts`'.
  *
  * Flat, after every body, outside the perspective transform — the tap's
@@ -92,6 +96,8 @@ export function drawBlisterHelp(
     const held = holding && heldNow(world, c);
     if (mine && blisterStrokes(c)) {
       drawSwipeTrack(ctx, l, world, c, { x, y, r }, time);
+    } else if (mine && gesture === "lever") {
+      drawBlisterLever(ctx, l, world, c, { x, y, r }, time);
     } else if (mine && gesture === "turn") {
       drawBlisterTurn(ctx, l, world, c, { x, y, r }, time);
     } else if (mine && gesture === "rub") {

@@ -18,6 +18,7 @@ describe("the CONTROLS brushes", () => {
       "control:turn",
       "control:rub",
       "control:combo",
+      "control:lever",
     ]);
     const group = BRUSH_GROUPS.find((g) => g.label === "CONTROLS");
     expect(group?.brushes).toEqual([...CONTROL_BRUSHES]);

@@ -41508,3 +41508,20 @@ Bottleneck: reading. THE SCUTTLE lost a new way after each fix, and the last
 one only showed in a per-tick trace of the lance's fill.
 
 *Measured: 6 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-15 — THE BLISTER takes a LEVER, and the CONTROLS group a LEVER brush
+
+- reading: 10 min. THE LEVER LAB's rule and paint, RUB's drag-target
+  registrations, the touch path a drag's moves take.
+- writing: 25 min. `blister-lever.ts` and its four numbers, the
+  `blisterLever` target and its six registrations, the lab's groove moved to
+  `render/lever-groove.ts` and the lab drawing from it, the help, the touch,
+  AUTO's hand, the ON THE FIELD row and pose, a sim test, a frame test.
+- looking: 5 min. The lab before and after the move compared pixel for pixel
+  across its eighteen setups (identical), and the pose by `bun run shot --row`.
+- friction: 5 min. The first sim test ran past the two beats a blister is up,
+  and a lift read the depth after it had cleared it.
+- landing: 5 min.
+
+Bottleneck: writing — a new drag target is six registrations outside the
+simulation, each found by the typecheck one at a time.

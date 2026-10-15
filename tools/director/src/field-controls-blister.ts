@@ -6,7 +6,7 @@ import type { FieldControlDef } from "./field-control-def.js";
  * grip's rather than among the bosses':
  * its TAP and HOLD are the tap and the grip every body already answers, and
  * the stroke, the turn and the rub are the gestures of its own that need a
- * target, and COMBO is a tap and then the stroke.
+ * target, COMBO is a tap and then the stroke, and LEVER a knob held in a band.
  */
 export const BLISTER_CONTROLS: readonly FieldControlDef[] = [
   {
@@ -83,5 +83,25 @@ export const BLISTER_CONTROLS: readonly FieldControlDef[] = [
     dragTarget: "blisterSwipe",
     sends: ["tap", "drag"],
     pose: "BLISTER · PRESSED, THE PULL HALF CARRIED",
+  },
+  {
+    name: "THE BLISTER'S LEVER",
+    where: "the knob on a LEVER blister while it is up, on the seat its BY names",
+    seat: "the seat the blister's BY names — either, on a BOTH blister",
+    gesture: "grab and drag",
+    does:
+      "THE LEVER LAB's lever on the body: a graduated groove straight down " +
+      "from it, a band on the groove, and the knob every pull wears on the " +
+      "body. Press the knob and carry it down: it stands where the thumb " +
+      "puts it. In the band the band goes green and the dial sweeps round " +
+      "the knob; held there blisterLeverBeats, one blow, and the hand is " +
+      "spent until it lifts and carries again. Out of the band the hold " +
+      "starts again; let go before it is done, refused out loud; a hold " +
+      "still going when it sinks is lost (sim/blister-lever.ts).",
+    source: "blister-tap.ts — blisterUnder() under touchDown(); touchMove() carries the knob",
+    holdKind: "drag",
+    dragTarget: "blisterLever",
+    sends: ["drag"],
+    pose: "BLISTER · THE LEVER HELD IN ITS BAND",
   },
 ];

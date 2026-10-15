@@ -100,6 +100,7 @@ export const DRAG_TYPES: readonly ControlType[] = [
       "THE VISE'S LEFT LOBE",
       "THE VISE'S RIGHT LOBE",
       "THE CAPSTAN'S PULL",
+      "THE BLISTER'S LEVER",
     ],
   },
   {

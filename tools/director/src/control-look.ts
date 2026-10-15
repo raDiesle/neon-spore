@@ -22,6 +22,7 @@ const NOTE: Record<BlisterGesture, string> = {
   turn: "turn the knob round it while it is up",
   rub: "rub it back and forth while it is up",
   combo: "press it, then pull the knob that comes in its place",
+  lever: "carry its knob down into the band and hold it there",
 };
 
 export const CONTROL_LOOK: {

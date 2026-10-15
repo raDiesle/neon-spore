@@ -41,6 +41,21 @@ export interface BlisterConfig {
    * `instarSwipeMilli`, because this one has to land inside two beats.
    */
   blisterSwipeMilli: number;
+  /**
+   * A LEVER's groove, down from the body's centre, in thousandths of a tile:
+   * a tile and a half, so the band can stand clear of the body below it
+   * (`blister-lever.ts`).
+   */
+  blisterLeverMilli: number;
+  /**
+   * The band on that groove the knob is held in, in thousandths of a tile
+   * down it: THE LEVER LAB's IN A BAND, four to seven tenths of the reach.
+   */
+  blisterLeverFromMilli: number;
+  blisterLeverToMilli: number;
+  /** Beats the knob has to stand in the band for a blow: one, which with the
+   * carry fits inside the two beats it is up. */
+  blisterLeverBeats: number;
 }
 
 /** The defaults, spread into `DEFAULT_CONFIG`. */
@@ -50,4 +65,8 @@ export const BLISTER_DEFAULTS: BlisterConfig = {
   blisterSinkRows: 3,
   blisterBlows: 3,
   blisterSwipeMilli: 1000,
+  blisterLeverMilli: 1500,
+  blisterLeverFromMilli: 600,
+  blisterLeverToMilli: 1050,
+  blisterLeverBeats: 1,
 };

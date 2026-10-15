@@ -57,6 +57,7 @@ export const DRAG_TARGETS: readonly DragTarget[] = [
   "hydraNeckLeft", "hydraNeckRight", "hydraCoilLeft", "hydraCoilRight",
   "hydraEyeLeft", "hydraEyeRight",
   "blisterSwipe", "blisterTurn", "blisterRub",
+  "blisterLever",
 ];
 
 export const isColor = (x: unknown): x is Color =>

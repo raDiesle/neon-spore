@@ -126,5 +126,13 @@ const NO_BALLOON_HAND = -1_000_000;
 
 /** A blister's gesture and way as numbers, in the order they were added:
  * an index that moved would change every hash a recorded replay holds. */
-const GESTURES: readonly BlisterGesture[] = ["tap", "hold", "swipe", "turn", "rub", "combo"];
+const GESTURES: readonly BlisterGesture[] = [
+  "tap",
+  "hold",
+  "swipe",
+  "turn",
+  "rub",
+  "combo",
+  "lever",
+];
 const WAYS: readonly BlisterWay[] = ["left", "right", "up", "down", "cw", "ccw"];

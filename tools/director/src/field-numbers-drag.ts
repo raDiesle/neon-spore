@@ -12,6 +12,12 @@ export const DRAG_NUMBERS: Readonly<Record<string, readonly (keyof SimConfig)[]>
   // Pull past a distance.
   "THE BLISTER'S SWIPE": ["blisterSwipeMilli", "blisterUpBeats", "blisterBlows"],
   "THE BLISTER'S COMBO": ["blisterSwipeMilli", "blisterUpBeats", "blisterBlows"],
+  "THE BLISTER'S LEVER": [
+    "blisterLeverMilli",
+    "blisterLeverFromMilli",
+    "blisterLeverToMilli",
+    "blisterLeverBeats",
+  ],
   "THE WARDEN'S TETHER": ["wardenTautMilli", "wardenBowMilli", "wardenCycleBeats"],
   "THE WARDEN'S SWIPE": ["wardenThrowMilli", "wardenThrowBeats"],
   "THE ANTIPHON'S RAIL": [

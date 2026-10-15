@@ -594,23 +594,19 @@ along the zigzag; a ridged belly like a washboard; a furred back that
 bristles where it has been rubbed. Send one PNG of the current beside the
 three. Prove it with `bun test tools/versus` and `bun run check`.
 
-## THE BLISTER takes a LEVER, and the CONTROLS group a LEVER brush
+## THE BLISTER's LEVER gets bodies built round its groove, on VERSUS
 
-- **Found:** 2026-10-14, claude/control-bodies
-- **Taken:** 2026-10-15, main (claim: claude/queue-the-blister-takes-a-lever-and-the-controls-group)
-- **Files:** `packages/sim/src/blister.ts`, `packages/sim/src/creature-state-blister.ts`, `tools/director/src/lever-lab-rule.ts`, `tools/director/src/entry-fields-blister.ts`, `tools/director/src/control-brushes.ts`
+- **Found:** 2026-10-15, claude/queue-the-blister-takes-a-lever-and-the-controls-group
+- **Files:** `packages/render/src/blister-bodies.ts`, `packages/render/src/blister-lever-help.ts`, `tools/director/src/poses-field-controls-blister.ts`, `tools/director/src/versus-pose.ts`
 
-The owner asked for one brush per on-screen control, and the CONTROLS group
-has five: the five gestures THE BLISTER knows. THE LEVER LAB's lever —
-carried to a depth and held there — is a control the game has no body for.
-Give THE BLISTER a `lever` gesture on the lab's rule (the knob carried down
-its groove into the band and held for the beats it asks, a blow when it is
-held long enough, sprung back when let go), drawn with the lab's paint, and
-add it to `BLISTER_GESTURES`; `CONTROL_BRUSHES` then has a LEVER brush by
-construction. A creature is its simulation, then its look: this entry is
-the simulation, the help and the brush; its body is a `blister:lever` slot
-after it. Prove it with `bun test packages/sim tools/director` and
-`bun run check`.
+The same ask as THE BLISTER's HOLD entry, for `blister:lever`, patching
+`BLISTER_BODY.lever`'s `draw`, judged on `BLISTER · THE LEVER HELD IN ITS
+BAND`. LEVER wears THE LEVER LAB's groove straight down from the body, its
+band, and the knob carried into it (`blister-lever-help.ts`), so the body
+can be the thing the knob is in: a bell whose clapper is the knob; a
+siphon or a stem the knob slides down; a root pulled down into the soil to
+the band. Send one PNG of the current beside the three. Prove it with
+`bun test tools/versus` and `bun run check`.
 
 ## THE COIL's block cannot compose R7 under its next written wave
 

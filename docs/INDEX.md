@@ -845,6 +845,7 @@ by hand never moves.
 | `packages/sim/src/blister-swipe.ts` | **THE BLISTER's SWIPE** (`docs/spec/blister.md`, *The gestures*) |
 | `packages/sim/src/blister-turn.ts` | **THE BLISTER's TURN** (`docs/spec/blister.md`, *The gestures*): the owner's circle round the body |
 | `packages/sim/src/blister-rub.ts` | **THE BLISTER's RUB** (`docs/spec/blister.md`, *The gestures*): a scrub back and forth over the body |
+| `packages/sim/src/blister-lever.ts` | **THE BLISTER's LEVER** (`docs/spec/blister.md`, *The gestures*): THE LEVER LAB's lever on the body |
 | `packages/sim/src/undertow-hash.ts` | What THE UNDERTOW puts into `hashWorld`, and nothing else |
 | `packages/sim/src/undertow-press.ts` | THE UNDERTOW's answers, and the tap, all on the **tick** |
 | `packages/sim/src/undertow-step.ts` | THE UNDERTOW's clock: the bow, the lobe standing, the lobe growing, the burst |
@@ -2467,6 +2468,7 @@ by hand never moves.
 | `packages/render/src/lead-marks.ts` | **THE LEAD's ring answering a touch the way every mark does** (`mark-feedback.ts` |
 | `packages/render/src/lead-lean.ts` | THE LEAD's lean, past the stalk's own tilt: what a screen shown the lean draws to say it |
 | `packages/render/src/lead-lean-arrow.ts` | How far the arrow stands off the tip before it starts, and a chevron's half-height, in tiles |
+| `packages/render/src/lever-groove.ts` | **A lever's groove**, graduated, with its zone — the one drawing THE LEVER LAB and the game's LEVER share |
 | `packages/render/src/body-mark.ts` | One living body, at a size, with no world around it |
 | `packages/render/src/body-interior.ts` | **What a living body has inside it**: one record per kind, so the slick's two dots can be argued with |
 | `packages/render/src/body-inset.ts` | what is inside a living body is clipped to the body drawn a sixth smaller, so an interior borrowed from one contour never crosses another's rim |
@@ -2706,9 +2708,10 @@ by hand never moves.
 | `packages/render/src/beatbox-silence.ts` | **A soundbox going quiet**, which is the one thing on this creature that goes right and until now was the… |
 | `packages/render/src/blister-tap.ts` | **A tap on THE BLISTER**, answered only where the simulation would count it: on a blister that is up |
 | `packages/render/src/blister-turn-help.ts` | **THE BLISTER's TURN help**: THE MAZE's turn, the one turn for every wave (the owner, 5 October 2026) |
-| `packages/render/src/blister-help.ts` | **THE BLISTER's help for all six gestures**, called and not drawn anew (`docs/controls-catalogue.md`) |
+| `packages/render/src/blister-help.ts` | **THE BLISTER's help for all seven gestures**, called and not drawn anew (`docs/controls-catalogue.md`) |
 | `packages/render/src/blister-verdicts.ts` | Where a blister was last drawn, for the ring of the blow that finished it |
 | `packages/render/src/blister-bodies.ts` | **The body a blister is drawn as, one record per gesture** (the owner, 14 October 2026 |
+| `packages/render/src/blister-lever-help.ts` | **THE BLISTER's LEVER help**: THE LEVER LAB's groove, band and knob down from the body, the dial while it is held |
 | `packages/render/src/blister.ts` | THE BLISTER, drawn: |
 | `packages/render/src/canvas2d-stage.ts` | **The letterbox**: what is drawn in the window but outside the game — the paint either side of a phone-shaped stage, and the hairline saying where the phone ends |
 | `packages/render/src/canvas2d-held.ts` | **What a host may reach of the renderer's state**, as the class `Canvas2DRenderer` stands on |

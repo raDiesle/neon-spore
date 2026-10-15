@@ -122,6 +122,8 @@ export {
   type ViewRole,
   worldLayout,
 } from "./layout.js";
+// A lever's graduated groove and its zone, for THE LEVER LAB and the game (`lever-groove.ts`).
+export { drawLeverGroove, type GrooveSide, groovePoint } from "./lever-groove.js";
 export { drawLiving } from "./living-draw.js";
 export { LOST_LOOK, type LostLook, type LostPaint } from "./lost-look.js";
 export { drawLostScreen, lostButtons, lostHit } from "./lost-screen.js";

@@ -96,6 +96,10 @@ export const DRAG_LOOKS: Readonly<Record<string, UseLook>> = {
     move: "The press holds the rope; the puller's knob carries it down after the thumb and a knot comes in past the grips. Both off at once and it slips back to the last knot.",
   },
   // LEVER — CARRY TO A DEPTH AND HOLD
+  "THE BLISTER'S LEVER": {
+    find: "THE LEVER LAB's lever down from a blister while it is up: a graduated groove with its band, and the knob on the body, on the seat its BY names. The other seat sees the waiting clock.",
+    move: "The knob stands where the thumb puts it; in the band the band goes green and the dial sweeps round the knob, and a whole sweep is one blow. Let go first, refused; a lift after the blow springs it back for the next.",
+  },
   "THE SINEW'S LEFT HANDLE": {
     find: "A handle off each side of the mass at the end of the tendon — left the pilot's, right the navigator's. Halo on your own, ring and clock on your partner's.",
     move: "The cord under each hand stretches to the pull; the strain band at the collar shows the sum and the pips round it fill while it stays in the zone.",

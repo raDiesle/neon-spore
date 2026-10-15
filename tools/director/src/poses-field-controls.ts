@@ -19,6 +19,7 @@ import {
 import { ANTIPHON_CARRY, ANTIPHON_TURN } from "./poses-field-controls-antiphon.js";
 import {
   BLISTER_COMBO,
+  BLISTER_LEVER,
   BLISTER_RUB,
   BLISTER_SWIPE,
   BLISTER_TURN,
@@ -151,6 +152,7 @@ export const FIELD_CONTROL_GROUP: PoseGroup = {
     BLISTER_TURN,
     BLISTER_RUB,
     BLISTER_COMBO,
+    BLISTER_LEVER,
     SINEW_PULL,
     SURGE_HOLD,
     ANTIPHON_TURN,

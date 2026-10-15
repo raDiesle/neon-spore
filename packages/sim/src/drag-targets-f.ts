@@ -13,7 +13,8 @@ export type DragTargetF =
   | "hydraCoilLeft"
   | "hydraCoilRight"
   | "hydraEyeLeft"
-  | "hydraEyeRight";
+  | "hydraEyeRight"
+  | "blisterLever";
 
 /**
  * `hydraNeckLeft`, `hydraNeckRight`, `hydraCoilLeft`, `hydraCoilRight`,
@@ -26,4 +27,11 @@ export type DragTargetF =
  * points (`pull.ts`); a coil is THE MAZE's lever, `fromMilli` the way round
  * its ring since the press, clockwise positive (`rim-turn.ts`); an eye is
  * THE GOVERNOR's tap, an edge with nothing on `fromMilli`. `id` is unused.
+ */
+
+/**
+ * `blisterLever` is the hundred-and-thirty-first: THE BLISTER's LEVER, and
+ * `id` is which body. No new reading: `fromYMilli` is how far down its groove
+ * the thumb has carried the knob, and the depth is the value while the thumb
+ * stays — THE LEVER LAB's lever (`blister-lever.ts`).
  */

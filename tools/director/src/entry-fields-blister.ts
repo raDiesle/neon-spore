@@ -27,7 +27,7 @@ export const BLISTER_COUNTS: readonly number[] = [1, 2, 3, 4, 5, 6, 7, 8];
 
 export type { BlisterGesture, BlisterWay };
 
-/** The gestures a blister is knocked down by: all six of `docs/spec/blister.md`. */
+/** The gestures a blister is knocked down by: all seven of `docs/spec/blister.md`. */
 export const BLISTER_GESTURES: readonly BlisterGesture[] = [
   "tap",
   "hold",
@@ -35,6 +35,7 @@ export const BLISTER_GESTURES: readonly BlisterGesture[] = [
   "turn",
   "rub",
   "combo",
+  "lever",
 ];
 
 /** The ways a SWIPE and a TURN may be authored to go, in the order the chips

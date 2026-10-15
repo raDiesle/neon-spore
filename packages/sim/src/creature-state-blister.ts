@@ -8,11 +8,12 @@ export type BlisterBy = 1 | 2 | "both";
  * The gesture a blister is knocked down by (`docs/spec/blister.md`, *The
  * gestures*): a tap for each blow, a press kept down a beat for each, a
  * stroke across it the way its arrow points, a full turn round it the way
- * its channel runs, a scrub back and forth over it, a blow a reversal, or a
- * COMBO — a press, then a pull in its place, the two a blow. One body for all
- * of them — only the help drawn round it says which.
+ * its channel runs, a scrub back and forth over it, a blow a reversal, a
+ * COMBO — a press, then a pull in its place, the two a blow — or a LEVER, its
+ * knob carried down a groove into a band and held there. One body for all of
+ * them — only the help drawn round it says which.
  */
-export type BlisterGesture = "tap" | "hold" | "swipe" | "turn" | "rub" | "combo";
+export type BlisterGesture = "tap" | "hold" | "swipe" | "turn" | "rub" | "combo" | "lever";
 
 /** Which way a SWIPE goes, as a screen reads it: `down` is towards the hull. */
 export type BlisterSwipeWay = "left" | "right" | "up" | "down";
@@ -80,7 +81,8 @@ export interface BlisterState {
   /**
    * HOLD's beat in progress: ticks a hand that counts has been on it since the
    * last blow, every hand on it adding its own. A whole beat is a blow and
-   * starts it again; a release or a sink loses it (`blister-hold.ts`).
+   * starts it again; a release or a sink loses it (`blister-hold.ts`). A
+   * LEVER's hold in its band, the same way (`blister-lever.ts`).
    */
   blisterHeldTicks?: number;
   /** Which way a SWIPE or a TURN counts, absent `right` or `cw`
@@ -89,11 +91,14 @@ export interface BlisterState {
   /**
    * SWIPE's strokes in progress, a bit a seat: 1 and 2 for a stroke open on
    * a body that is up, 4 and 8 for one the sink voided — the thumb is still
-   * down, and its lift counts nothing (`blister-swipe.ts`).
+   * down, and its lift counts nothing (`blister-swipe.ts`). A LEVER's hands
+   * on its knob, the same way, 4 and 8 also for a hand spent by a blow
+   * (`blister-lever.ts`).
    */
   blisterStrokes?: number;
   /** How far along its way the furthest open stroke has come, in thousandths
-   * of a tile and no further than a stroke needs — what the bar fills to. */
+   * of a tile and no further than a stroke needs — what the bar fills to. A
+   * LEVER's knob, how far down its groove it stands now. */
   blisterAlongMilli?: number;
   /**
    * TURN's hands, a field a seat: absent with no hand on it, `NO_BEARING`
