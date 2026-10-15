@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-15 · 5291969ae — THE BLISTER's COMBO is drawn as BUD or CURL, one per blister
+
+The owner liked BUD and CURL most on `blister:combo` and asked for both, a little bigger, rotated at random. Each COMBO blister now wears one of the two, picked off its id so both screens draw the same one, at 1.15 times the size VERSUS offered: BUD, the flower the press shuts into a bud with a stalk out to the knob; CURL, the round slime whose wound tail the press frees to run out to the knob. CLAM went with the slot. Exemption: a look the owner asked for by name.
+
 ## 2026-10-15 · a7a2c4815 — A VERSUS tab takes the director's palette again
 
 A candidate opened in its own tab drew black on white: the 13 October split of director-shell.css moved every colour variable into director-tokens.css, and versus.css still imported only the old four sheets, so every var() on the page resolved to nothing. versus.css now imports the tokens sheet second, as director.css does, and the stylesheet-order test refuses a var() that none of the VERSUS sheets defines. A fix to something wrong rather than unlovely.

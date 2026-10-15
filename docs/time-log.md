@@ -41923,3 +41923,5 @@ split on the director's side broke a page nobody opened that day.
 
 Bottleneck: looking — a body that lives only on the director has no
 one-command photograph once its VERSUS slot is gone.
+
+*Measured: 12 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
