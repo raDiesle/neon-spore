@@ -42313,3 +42313,5 @@ Bottleneck: landing — the full check runs once for 168 waves that composed in 
 - landing: 10 min. `check:fast`, the commit, `land`.
 
 Bottleneck: landing — the full check for four moved bosses.
+
+*Measured: 11 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*

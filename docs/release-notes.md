@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-15 · 7254b27c0 — Every boss comes straight after its block's regular waves
+
+A panel's or a fault's lesson that stood between a block's waves and its boss now opens the next block, and the boss comes before it: THE VANE, THE SCUTTLE, THE SPLICE and THE GIMBAL moved up a wave or three. THE TWITCH and FIVE BLISTERS fold into their blocks, so in the folded wave list every boss past the tutorial sits under a block's eight waves. A look the owner asked for by name.
+
 ## 2026-10-15 · 8c142d8d1 — SNAKE's unblurred shadow is to be offered in VERSUS, the owner decided
 
 The queue entry for the last `shadowBlur` in render/ asked whether to keep it or offer a cheaper shadow; the owner chose the offer, so the entry is decided work a session can take.
