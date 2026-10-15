@@ -42583,3 +42583,15 @@ Bottleneck: reading — each kind's facts were judged off its own description,
 forty-seven of them.
 
 *Measured: 6 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
+
+## 2026-10-15 — The glance layer costs its flushes, not its passes
+
+- reading: 0 min. The layer's three stages and why each is there: `lighter`
+  clamps before it weighs by the clip's cover.
+- writing: 5 min. The finding in `docs/performance.md` and the queue entry
+  rewritten as the prepass it points at; no code landed.
+- looking: 10 min. Thirteen GYRES AGAIN runs, interleaved, at 40 s each.
+- friction: 0 min.
+- landing: 0 min. `check:fast` and `land`, docs only.
+
+Bottleneck: the perf runs — a pass and a flush could only be told apart by A/B.

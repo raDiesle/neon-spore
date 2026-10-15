@@ -498,6 +498,20 @@ Also checked and not a problem: 135 KB gzipped bundle, about 5 MB of heap, no
 measurable allocation per frame, and no `shadowBlur` anywhere (`render/glow.ts`
 says why that one is worth staying away from).
 
+### A layer costs its flushes, not its passes
+
+Measured on 15 October 2026, GYRES AGAIN at 4x, three interleaved runs each
+against the tree without the change (A 15.5 to 18.3 ms across the six). One
+more `drawImage` of the glance layer's halves, already read once that body,
+**moved nothing** (15.4 to 16.7). The same `drawImage` after one pixel had
+been drawn on the halves first added **2 to 3 ms** (19.4 to 20.1). So a canvas
+costs when it is read after being drawn on — Chrome flushes its recorded ops
+there — and not per copy or per pixel. A turned body is three such flushes
+(`glance-layer.ts`): the part read into the halves, the halves into the
+doubling, the doubled layer onto the screen. Each is forced by `lighter`'s
+clamp, so the saving is in flushing once a frame rather than once a body, not
+in cutting a pass (`docs/queue.md`).
+
 ## Where to look next
 
 `docs/queue.md` carries what this turned up and nobody has done yet — the path
