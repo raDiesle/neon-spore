@@ -331,6 +331,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## AUTO plays THE JAM's cannon and THE CHOKE's steer on a composed wave
 
 - **Found:** 2026-10-15, claude/lesson-blocks
+- **Taken:** 2026-10-15, main (claim: claude/queue-auto-plays-the-jams-cannon-and-the-chokes-steer)
 - **Files:** `tools/director/src/autopilot-play.ts`, `tools/probe/world.ts`, `tools/director/src/compose-lesson.ts`
 
 AUTO clears THE JAM and THE CHOKE themselves, but put their fault on any
