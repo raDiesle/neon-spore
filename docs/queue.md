@@ -379,6 +379,7 @@ a landing is retried rather than read.
 ## `bun run shot --open DOCUMENTATION --inner WAVES` stays on WORDINGS
 
 - **Found:** 2026-10-15, claude/waves-doc-page
+- **Taken:** 2026-10-15, main (claim: claude/queue-bun-run-shot-open-documentation-inner-waves-stay)
 - **Files:** `tools/frames/shot.ts`, `tools/frames/shot-usage.ts`
 
 `--help` says `--inner` is *a tab inside the sheet --open just opened*, but on
