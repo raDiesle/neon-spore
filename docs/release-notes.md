@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-15 · 7d5ece25b — THE BLISTER takes a LEVER, and the CONTROLS group a LEVER brush
+
+A LEVER blister is THE LEVER LAB's lever on the body: a graduated groove straight down from it with a band on the groove, and the knob every pull wears. The knob stands where the thumb puts it; held in the band for a beat, with the band green and the dial sweeping round the knob, it is one blow, and the hand is spent until it lifts and carries again. Out of the band the hold starts again, a lift before it is done is refused out loud, and a sink loses the hold. AUTO plays it, the director offers LEVER under GESTURE and as a brush, and ON THE FIELD shows it under LEVER — CARRY TO A DEPTH AND HOLD. The groove and band moved from the lab into render, and the lab draws from there, pixel for pixel as before. Its body ships the clover; `blister:lever` on VERSUS is queued. Exemption: an addition where the game draws nothing.
+
 ## 2026-10-15 · 3b8d0e5b4 — AUTO plays THE LEAD to the end
 
 Its lean throws torches at the hull from the first beats, and its hand never moved the shield, so AUTO lost on beat 6. The shield's half plays beside its hand now; THE LEAD clears in 40 beats, and its row in wave-curriculum-today.md has a time. THE SCUTTLE, the other half of the entry, is left in the queue with the three ways it still loses. No look changed: nothing is drawn differently.

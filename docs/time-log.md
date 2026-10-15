@@ -41525,3 +41525,5 @@ one only showed in a per-tick trace of the lance's fill.
 
 Bottleneck: writing — a new drag target is six registrations outside the
 simulation, each found by the typecheck one at a time.
+
+*Measured: 17 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
