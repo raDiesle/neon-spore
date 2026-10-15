@@ -42159,3 +42159,5 @@ Bottleneck: no flag says when a body is up or what its id is.
 - landing: 5 min. `check:fast`, `land`.
 
 Bottleneck: the second cut, the plume's, was only found by looking at a frame.
+
+*Measured: 28 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*

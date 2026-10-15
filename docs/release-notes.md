@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-15 · c06acdc3b — A turned enemy is no longer cut at its sides
+
+A glancing body was drawn onto a layer cut to a square of two radii round it, and two things passed that edge: the half its turn opens, stretched by up to a fifth and rolled, and the plume a falling body leaves above it. A slick showed both — a blunt tip on its near side and a hard-edged box round its plume. The layer's box is now fitted to the part's corners as turned (`glance-layer-box.ts`), and a living body's layer reaches as far up and out as its own light does (`ownLightReach`), rather than the plume's figures being copied.
+
 ## 2026-10-15 · 432ef3e74 — `bun run frames --hold blisterSwipe` holds THE BLISTER's stroke part way
 
 A SWIPE or COMBO blister with a thumb carried part way across it — the body stretched to the knob — could not be photographed: the row lifted the thumb on the tick it carried, so a capture showed the body at rest or knocked down. The stroke is now held, from the navigator's seat (`blisterSwipe`) or the pilot's (`blisterSwipe1`), and a full one still deals its blow, since the round counts a stroke the moment it is carried far enough. `--help` has a recipe for FIVE BLISTERS.
