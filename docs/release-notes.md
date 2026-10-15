@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-15 · ee559eb12 — Every tap on the field is THE PRESS LAB's yellow drop
+
+Every TAP on a boss now wears the same yellow drop THE BLISTER's tap took this morning: it calls *tap tap* until it is touched, has a terrace inside for each tap asked (TAP TAP is two), and says no word and has no scan box round it. THE GOVERNOR's dial marks lose their red thumbprint circle for it. THE INSTAR's and THE NETTLE's tap marks lose their red ring with flaring dots, and THE LAMPREY's lit tooth does too; on those, the drop fills a terrace for each tap taken, and the partner's is dimmed and does not call. A look the owner asked for by name.
+
 ## 2026-10-15 · b609c293d — THE BLISTER's TAP is drawn as MOLE, RIDER or CRADLE, one per blister
 
 The owner asked for all three `blister:tap` answers built into the game and taken off VERSUS, as LEVER's were. Each TAP blister now wears one of them under the yellow press, picked off its id so both screens draw the same one: MOLE, a round head with the press for its face and its paws on the lip; RIDER, the press a round pad with a small amber slime riding its shoulder; CRADLE, two tentacles up out of the pore curled over the press like a pearl. All three keep the 1.3 they were last offered at. No blister wears the clover now, so `drawCloverBody` went with it, and VERSUS has no slot open. Exemption: a look the owner asked for by name.

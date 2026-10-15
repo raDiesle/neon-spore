@@ -42104,3 +42104,5 @@ Bottleneck: finding a frame with a TAP body up in it.
   catalogue, `check:fast`, `land`.
 
 Bottleneck: the frame tests that counted a tap glyph's white as a word.
+
+*Measured: 24 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
