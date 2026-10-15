@@ -42026,3 +42026,5 @@ stroke changes, has no one-command photograph.
   had made the same picker shared (`blister-pick.ts`); TURN moved onto it.
 
 Bottleneck: a three-minute silent `versus drop`, taken for a hang.
+
+*Measured: 28 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*

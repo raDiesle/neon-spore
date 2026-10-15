@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-15 · 85c1e98b4 — THE BLISTER's TURN comes up as WHEEL or SNAIL
+
+A TURN blister now rises out of its pore as one of two bodies the owner took from VERSUS: WHEEL, six lobes hooked the way the turn runs like a turbine's blades, and SNAIL, all shell, whose spiral winds that way, with its foot and eye stalks on the lip. Both go round with the knob as the lever turns. Which one comes up follows the blister and the tile it surfaced on, picked the same way as HOLD's PALM or HUG, so one blister can show both over a wave. WORM was rejected.
+
 ## 2026-10-15 · c1c62d49c — THE BLISTER's SWIPE is drawn as SLUG or ZIP, its stroke two tiles long
 
 The owner liked every answer on `blister:swipe` but FROG and asked for a longer pull. Each SWIPE blister now wears SLUG or ZIP, picked off its id so both screens draw the same one: SLUG, humped in its pore and stretched along the channel to the knob; ZIP, a pod zipped shut along the channel with the knob as its pull. A stroke now has to carry two tiles instead of one, and COMBO's pull, which is the same stroke, is two tiles too — its BUD stalk and CURL tail now reach the knob at that length instead of stopping at one tile. FROG went with the slot. Exemption: a look the owner asked for by name.
