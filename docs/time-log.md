@@ -41610,3 +41610,18 @@ a step-by-step table of reach built by hand.
 Bottleneck: landing; the split followed the seam the entry named.
 
 *Measured: 6 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-15 — VERSUS offers THE BLISTER's COMBO a body built round its press and pull
+
+- reading: 5 min. The TAP slot's three candidates, `BLISTER_BODY`, the help's
+  swipe track, and the Pose `hand` that drives a gesture on its own clock.
+- writing: 5 min. BUD, CLAM and CURL, each reading the press and the knob's
+  reach off the creature; a pose whose hand presses, pulls and lifts.
+- looking: 10 min. Five rounds of shots: the knob covers half the body on
+  the seat that pulls, so the partner's screen went into the picture, and
+  the press moved later so the body is up before it.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, `land`.
+
+Bottleneck: the ON THE FIELD pose held only the pull half, so a look about
+the change between the halves needed a pose that plays both.

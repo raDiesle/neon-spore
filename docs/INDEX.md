@@ -3642,6 +3642,7 @@ by hand never moves.
 | `tools/shape-sheet/src/rock-subjects.ts` | Everything on this sheet that is faceted rather than grown: the builder that draws a crystal |
 | `tools/director/src/poses-versus.ts` | The states a candidate look is judged on — one per slot that had none |
 | `tools/director/src/poses-versus-bodies.ts` | The half of `poses-versus.ts` that shows a body: a creature doing what it does, on its own or under a hand |
+| `tools/director/src/poses-versus-blister.ts` | THE BLISTER's COMBO pose `blister:combo` is judged on: pressed, pulled the whole stroke and lifted by a hand of its own |
 | `tools/director/src/poses-versus-states.ts` | The half of `poses-versus.ts` that shows something other than a body: the panel, the ship taking damage |
 | `tools/director/src/poses-volley.ts` | THE VOLLEY, warded three times by a hand that never misses |
 | `tools/director/src/poses-bodies.ts` | The pose a candidate for a *body* is judged on, as opposed to one for a mechanism firing |

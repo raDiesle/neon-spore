@@ -6,8 +6,18 @@
 // `index.ts` next door says why it is generated at all.
 
 import type { Variant } from "../variant.js";
+import { BLISTER_BUD } from "./blister-combo/bud/index.js";
+import { BLISTER_CLAM } from "./blister-combo/clam/index.js";
+import { BLISTER_CURL } from "./blister-combo/curl/index.js";
 import { BLISTER_CRADLE } from "./blister-tap/cradle/index.js";
 import { BLISTER_MOLE } from "./blister-tap/mole/index.js";
 import { BLISTER_RIDER } from "./blister-tap/rider/index.js";
 
-export const VARIANTS: Variant[] = [BLISTER_CRADLE, BLISTER_MOLE, BLISTER_RIDER];
+export const VARIANTS: Variant[] = [
+  BLISTER_BUD,
+  BLISTER_CLAM,
+  BLISTER_CURL,
+  BLISTER_CRADLE,
+  BLISTER_MOLE,
+  BLISTER_RIDER,
+];

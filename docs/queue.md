@@ -564,19 +564,3 @@ can be the thing the knob is in: a bell whose clapper is the knob; a
 siphon or a stem the knob slides down; a root pulled down into the soil to
 the band. Send one PNG of the current beside the three. Prove it with
 `bun test tools/versus` and `bun run check`.
-
-## THE BLISTER's COMBO gets bodies built round its press and pull, on VERSUS
-
-- **Found:** 2026-10-15, claude/queue-the-blister-takes-a-combo-and-the-controls-group
-- **Taken:** 2026-10-15, claude/queue-the-blisters-combo-gets-bodies-built-round-its-p
-- **Files:** `packages/render/src/blister-bodies.ts`, `packages/render/src/blister-help.ts`, `tools/director/src/poses-field-controls-blister.ts`, `tools/director/src/versus-pose.ts`
-
-The same ask as THE BLISTER's HOLD entry, for `blister:combo`, patching
-`BLISTER_BODY.combo`'s `draw`, judged on `BLISTER · PRESSED, THE PULL HALF
-CARRIED`. COMBO wears the tap's help and then SWIPE's knob come in where it
-was, out to the right (`blister-help.ts`), so the body can be the thing that
-changes between the two: a bud that is pressed shut and puts out a stalk to
-be drawn; a clam pressed closed whose tongue slides out to the right; a
-button with a tail coiled under it that the press frees. Send one PNG of the
-current beside the three. Prove it with `bun test tools/versus` and
-`bun run check`.
