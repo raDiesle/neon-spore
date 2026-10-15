@@ -41767,3 +41767,5 @@ took longer than making two of them one.
 
 Bottleneck: finding the flags that photograph a phase the wave is a run
 of correct presses away from.
+
+*Measured: 13 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*

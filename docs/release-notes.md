@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-15 · 1757a657b — THE QUEEN's SCREAM drop waits in the gap clear of both her marks
+
+Until a thumb lands, the HOLD cue's drop stands in the gap between her two marks, and at the cue frame's size it reached over the inner edge of both rings on a 390-wide phone, where the marks are what player 1 reads to say what is coming. BossCue takes a dropR, holdDropR keeps to it, and the queen's reading sizes it with queenGapR: the distance to each mark at her turn, less that ring's farthest reach (gripRingReach, its breath and line included), less the drop's own swell. On a 390 phone the drop's radius goes from 21 px to about 8. queen-gap-drop.test.ts holds the rim clear of both rings at every turn across 48 beats. Exemption: a fix to something wrong rather than unlovely — a drop covering the marks it points between.
+
 ## 2026-10-15 · 207040b46 — Render mixes an integer in one place, mix32 in hash.ts
 
 backdrop.ts and solid-motion.ts each wrote murmur3's finaliser out by hand, and nameHash a third time a shift apart. hash.ts now exports mix32, with the opening shift as an argument so all three keep every number they answered: 3930 outputs of hash01, noise1, nameHash and subSeed fingerprint the same before and after. idle-drift's subSeed has no opening shift and keeps its own, said in its doc and in the new COPIES row's `also`.
