@@ -327,20 +327,3 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/needs.test.ts` holds the wait, and
 `tools/queue/test/skipped.test.ts` holds the listing's count of the entries
 `next` stepped past and why.
-
-## The rest of the enemies glance: rocks, hazards and held bodies
-
-- **Found:** 2026-10-14, claude/creature-glance
-- **Taken:** 2026-10-15, claude/queue-every-living-enemy-glances (claim: claude/queue-the-rest-of-the-enemies-glance-rocks-hazards-and)
-- **Files:** `packages/render/src/creature-body.ts`, `packages/render/src/creature-body-rock.ts`, `packages/render/src/creature-body-worn.ts`, `packages/render/src/creatures.ts`
-
-Third of three, after "Every living enemy glances". The bodies `EXCLUSIVE`
-routes away from `drawLivingBody` — the meteor, the torch (not its streak),
-THE COIL, the crystal, the mine, the lid, the balloon, the blister, the
-choir, the cling bodies, the magnet, the strand, the moult, the beatbox —
-glance on the same record. A rock is big and not a living word, so it may
-turn further than the gate allows a blob. Leave out the ghost and the wisp,
-which are mostly not drawn, and say so in creature-glance.ts. Check every
-body a thumb holds (`balloon-handles.ts`, `lid-string.ts`, `weight.ts`)
-still meets its handle where it is drawn. Send one PNG strip. Prove it with
-`bun test packages/render` and `bun run check`.

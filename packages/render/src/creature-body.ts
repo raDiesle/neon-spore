@@ -84,8 +84,13 @@ function drawWispBody({ ctx, l, world, c, x, y, time, beats, beatPhase, near }: 
  * nothing about a lid is split — so unlike the ghost and the wisp it has no
  * gate, only a draw path of its own (`lid.ts`).
  */
-function drawLidBody({ ctx, l, world, c, x, y, time, beats, near }: Body): void {
-  drawLid(ctx, l, world.cfg, c, x, y, time, beats, near);
+function drawLidBody(b: Body): void {
+  const { l, world, c, x, y, time, beats, near } = b;
+  // Its cord runs from the eye's centre, which a turn about the centre leaves
+  // where it is, so the eye glances as a living body does (`lid-string.ts`).
+  drawGlancedBody(b, { r: l.tile * 0.4 }, (ctx) =>
+    drawLid(ctx, l, world.cfg, c, x, y, time, beats, near),
+  );
 }
 
 /**

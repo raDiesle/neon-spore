@@ -43,12 +43,21 @@ export const CREATURE_GLANCE_SIZE: GlanceSize = { reach: 0.22, cock: 0.14, tilt:
  */
 export const ROCK_GLANCE_SIZE: GlanceSize = { reach: 0.32, cock: 0.14, tilt: 0 };
 
-/** Which of the two sizes a body turns at. */
-export type GlanceSort = "living" | "rock";
+/**
+ * **How far a body two hands hang off may glance**: a living body's turn with
+ * no roll. Such a body turns holding the two points its handles sit at
+ * (`GlancedPart.hold`), so the skin still meets them where they are drawn and
+ * answered; a roll about the centre would carry both off them (`balloon.ts`).
+ */
+export const HELD_GLANCE_SIZE: GlanceSize = { ...CREATURE_GLANCE_SIZE, cock: 0 };
+
+/** Which of the sizes a body turns at. */
+export type GlanceSort = "living" | "rock" | "held";
 
 const SIZES: Readonly<Record<GlanceSort, GlanceSize>> = {
   living: CREATURE_GLANCE_SIZE,
   rock: ROCK_GLANCE_SIZE,
+  held: HELD_GLANCE_SIZE,
 };
 
 /** How dark the far side goes, reached at the widest turn: the bosses' own (`baton-glance.ts`). */
@@ -62,6 +71,7 @@ const STAGGER = 1.7;
 const GLANCES: Readonly<Record<GlanceSort, Map<number, Glance>>> = {
   living: bakedCache<number, Glance>(),
   rock: bakedCache<number, Glance>(),
+  held: bakedCache<number, Glance>(),
 };
 
 /** The glance of the enemy `id`: COCK at its sort's size, on a temper of its own. */
@@ -77,30 +87,31 @@ export function creatureGlance(id: number, sort: GlanceSort = "living"): Glance 
 
 /** Drop the records of every enemy no longer on the field. */
 export function forgetGlances(creatures: readonly Creature[]): void {
-  if (GLANCES.living.size === 0 && GLANCES.rock.size === 0) return;
+  if (Object.values(GLANCES).every((held) => held.size === 0)) return;
   const here = new Set(creatures.map((c) => c.id));
   for (const held of Object.values(GLANCES)) {
     for (const id of held.keys()) if (!here.has(id)) held.delete(id);
   }
 }
 
-/** One turning body: its radius, the unit its turn is counted in; its sort; and its layer's reach in radii. */
+/**
+ * One turning body: its radius, the unit its turn is counted in; its sort; its
+ * layer's reach in radii; and how far either side of its centre, in radii, the
+ * points it holds still sit — 0, the centre, unless hands hang off it.
+ */
 export interface GlancedPart {
   r: number;
   sort?: GlanceSort;
   reach?: number;
+  hold?: number;
 }
 
-/**
- * Where body `b`'s glance stands this frame, about its centre with a `hold` of
- * 0 — what a thumb asks `glancedPoint` against to meet a held body where it is
- * drawn.
- */
+/** Where body `b`'s glance stands this frame — what `glancedPoint` asks to find a point of it as drawn. */
 export function bodyGlanceFrame(
   b: Pick<Body, "c" | "x" | "y" | "time">,
   part: GlancedPart,
 ): GlanceFrame {
-  const at = { x: b.x, y: b.y, r: part.r, hold: 0 };
+  const at = { x: b.x, y: b.y, r: part.r, hold: part.hold ?? 0 };
   return glanceFrame(creatureGlance(b.c.id, part.sort), b.time + b.c.id * STAGGER, at);
 }
 

@@ -511,10 +511,13 @@ const EYE_BUDGETS: Readonly<Record<string, readonly Budget[]>> = {
       fill: 99,
       // The one op this body's share of the new lens costs: the clip the lids
       // cut the pupil through (`eye-lens.ts`).
-      clip: 10,
-      save: 54,
-      drawImage: 29,
-      createLinearGradient: 31,
+      // Three, three and five more on 15 October 2026: the eye glances as any
+      // enemy does (`creature-glance.ts`), laid on the screen from a layer of
+      // its own, with the far side's dark ramped over it.
+      clip: 13,
+      save: 57,
+      drawImage: 34,
+      createLinearGradient: 32,
       createRadialGradient: 17,
       // Two more on 26 September 2026, when the cord's handle became the
       // pull channel every pulled handle wears (`lid-track.ts`): the channel,
@@ -529,10 +532,10 @@ const EYE_BUDGETS: Readonly<Record<string, readonly Budget[]>> = {
       // One more on 29 September 2026, the knob's arrow, as in frame 0.
       stroke: 138,
       fill: 99,
-      clip: 10,
-      save: 54,
-      drawImage: 29,
-      createLinearGradient: 22,
+      clip: 13,
+      save: 57,
+      drawImage: 34,
+      createLinearGradient: 23,
       // The eye builds none of its own: the wash around it is a `halo` sprite
       // cached by colour and radius, and the one left is `key-light.ts`'s
       // layout-only slot (`render/eye.ts`). The other six are the leaves'

@@ -9,6 +9,7 @@ import {
 } from "@neon-spore/sim";
 import { balloonRim, balloonSkinFill, drawBalloonParts } from "./balloon-alive.js";
 import type { Body } from "./creature-body.js";
+import { drawGlancedBody } from "./creature-glance.js";
 import { contourClock } from "./creature-place.js";
 import { halo, strokeGlow } from "./glow.js";
 import type { Layout } from "./layout.js";
@@ -80,6 +81,9 @@ const GIVE = 0.5;
  * read as a body being scaled rather than as one being worked on. */
 const SQUASH = 0.16;
 
+/** How far out, in its resting half-widths, a turned skin's layer reaches: both hands' full give and its rim. */
+const SKIN_REACH = 2;
+
 /** The height of this body, in pixels: its generation, times how far through
  * its swell it is. A fresh one and each half of a split both come up out of
  * nothing, which is the same picture and so is the same arithmetic. */
@@ -117,7 +121,8 @@ export function balloonPopSkin(tile: number): { rx: number; ry: number } {
 /** The body. `ctx` is expected to be inside the perspective transform
  * `drawCreatures` puts every body in, so nothing here scales for distance —
  * only the colour is hazed, which is where distance is spent everywhere else. */
-export function drawBalloon({ ctx, l, world, c, x, y, time, beats, near }: Body): void {
+export function drawBalloon(b: Body): void {
+  const { ctx, l, world, c, x, y, time, beats, near } = b;
   const cfg = world.cfg;
   const ry = balloonRy(l, cfg, c, beats);
   const left = balloonTension(cfg, c, 1) / 1000;
@@ -127,45 +132,59 @@ export function drawBalloon({ ctx, l, world, c, x, y, time, beats, near }: Body)
   const rxRight = base * (1 + GIVE * right);
   const squashed = ry * (1 - SQUASH * Math.max(left, right));
   const t = contourClock(c.id, time);
-
-  const skin = new Path2D(balloonPath(rxLeft, rxRight, squashed, BALLOON.wobble, t, c.id % 16));
-  const knot = splinePath(balloonKnot(squashed), false);
-
-  ctx.save();
-  ctx.translate(x, y);
   // The rim rides the film and brightens towards white with whichever side is
   // further on, so a body one hand is holding already looks different from one
   // nobody is.
   const lit = Math.max(left, right);
-  const rimHex = balloonRim(cfg, time, c.id, near, lit);
-  ctx.fillStyle = balloonSkinFill(ctx, cfg, Math.max(rxLeft, rxRight), squashed, time, c.id, near);
-  ctx.fill(skin);
-  drawBalloonParts(ctx, cfg, rxLeft, rxRight, squashed, time, c.id, near, lit);
-  strokeGlow(ctx, skin, rimHex, STROKE.outline, 0.5 + lit * 1.2);
-  strokeGlow(ctx, knot, rimHex, STROKE.inner, 0.4);
-  // A highlight up and to the left, which is the one mark that says *inflated*
-  // rather than *drawn*. It travels with the left half so it stretches with it.
-  const gloss = new Path2D();
-  gloss.ellipse(
-    -rxLeft * 0.42,
-    -squashed * 0.42,
-    rxLeft * 0.2,
-    squashed * 0.26,
-    -0.5,
-    0,
-    Math.PI * 2,
-  );
-  ctx.globalAlpha = 0.45;
-  ctx.fillStyle = PALETTE.sheenRim;
-  ctx.fill(gloss);
-  ctx.globalAlpha = 1;
-  ctx.restore();
+
+  const skin = new Path2D(balloonPath(rxLeft, rxRight, squashed, BALLOON.wobble, t, c.id % 16));
+  const knot = splinePath(balloonKnot(squashed), false);
+
+  // The skin turns holding the two points its handles hang at, so both meet
+  // it where they are drawn and answered (`balloon-handles.ts`), and with no
+  // roll, which would carry it off them (`HELD_GLANCE_SIZE`).
+  const hold = (l.tile * cfg.balloonHandleMilli) / 1000 / base;
+  drawGlancedBody(b, { r: base, sort: "held", hold, reach: SKIN_REACH }, (ctx) => {
+    ctx.save();
+    ctx.translate(x, y);
+    const rimHex = balloonRim(cfg, time, c.id, near, lit);
+    ctx.fillStyle = balloonSkinFill(
+      ctx,
+      cfg,
+      Math.max(rxLeft, rxRight),
+      squashed,
+      time,
+      c.id,
+      near,
+    );
+    ctx.fill(skin);
+    drawBalloonParts(ctx, cfg, rxLeft, rxRight, squashed, time, c.id, near, lit);
+    strokeGlow(ctx, skin, rimHex, STROKE.outline, 0.5 + lit * 1.2);
+    strokeGlow(ctx, knot, rimHex, STROKE.inner, 0.4);
+    // A highlight up and to the left, which is the one mark that says *inflated*
+    // rather than *drawn*. It travels with the left half so it stretches with it.
+    const gloss = new Path2D();
+    gloss.ellipse(
+      -rxLeft * 0.42,
+      -squashed * 0.42,
+      rxLeft * 0.2,
+      squashed * 0.26,
+      -0.5,
+      0,
+      Math.PI * 2,
+    );
+    ctx.globalAlpha = 0.45;
+    ctx.fillStyle = PALETTE.sheenRim;
+    ctx.fill(gloss);
+    ctx.globalAlpha = 1;
+    ctx.restore();
+  });
 
   // And the glow around it, brightening with the pull — and through the hold,
   // swelling out and up to full: at the end of the hold it is a frame away
   // from giving, and the field should say so.
-  const hold = balloonHoldPhase(cfg, world.tick, c);
+  const held = balloonHoldPhase(cfg, world.tick, c);
   if (lit > 0) {
-    halo(ctx, x, y, ry * (2.4 + hold * 1.2), PALETTE.sheenRim, 0.1 + lit * 0.22 + hold * 0.4);
+    halo(ctx, x, y, ry * (2.4 + held * 1.2), PALETTE.sheenRim, 0.1 + lit * 0.22 + held * 0.4);
   }
 }

@@ -41878,3 +41878,17 @@ Bottleneck: each fix moved two other seeds, so every rule was judged on
 forty-eight seeds rather than the three it was written for.
 
 *Measured: 156 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-15 — The held bodies glance (last of three)
+
+- reading: 5 min. Where each handle is placed and answered: the lid's cord
+  from the eye's centre, the balloon's handles at the skin's sides, the
+  weight's calipers round a body that already glanced.
+- writing: 5 min. A `held` size with no roll and a `hold` on the part, so a
+  balloon turns about its two handles; the lid as a living body.
+- looking: 5 min. THE BALLOON over three frames and THE LID once.
+- friction: 0 min.
+- landing: 5 min. THE LID's frame row remeasured, `check:fast`, `land`.
+
+Bottleneck: none to speak of — `glance.ts` already held two points still for
+the bosses, and the balloon only had to ask for it.
