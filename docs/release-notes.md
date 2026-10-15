@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-15 · 81d39fe02 — AUTO plays THE SCUTTLE on every seed of the twelve
+
+AUTO now clears THE SCUTTLE on seeds 1, 3 and 9 too, so the curriculum table measures it at 48 beats instead of "AUTO fails". The beam stopped on a rock or a pod standing in the last part's column: the pilot's one carry a cycle now takes a rock or a pod off a column a part still hangs over, and otherwise brings the live part a column nearer the cannon. In the frame's last cycles a pod hanging over a part still attached is shot loose before the wind-up, and no other pod is. Over forty-eight seeds it clears 45, up from 31, and the fight is about ten beats shorter.
+
 ## 2026-10-15 · ae314bc54 — The hazards glance
 
 THE CRYSTAL's craft, THE MAGNET, THE CHOIR's film, THE BEATBOX with its arms, THE MINE, THE BLISTER rising from its pore, a falling limpet or leech and the pilot's live strand bead now cock and turn on tempers of their own, as the living enemies do. What is laid round a body stays flat: the crystal's link to the shield, the mine's fuse, the pore, the soundbox's air. The held bodies are the last landing.

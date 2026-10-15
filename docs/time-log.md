@@ -41876,3 +41876,5 @@ Bottleneck: each body's reach read out of its own file, one at a time.
 
 Bottleneck: each fix moved two other seeds, so every rule was judged on
 forty-eight seeds rather than the three it was written for.
+
+*Measured: 156 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
