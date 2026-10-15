@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-15 · 2a2558b3f — `fastScopeFor`'s wave-moved timeout leaves the queue, answered by 7113cc5be
+
+The entry was filed three minutes before 7113cc5be landed, and that commit does what it asks: `waveReaders` caches its scan per root and the two tests that read the whole tree carry a named timeout. The landings since have run the test green under the full `bun run check`.
+
 ## 2026-10-15 · 510766743 — `bun run shot --row` reaches a HELPERS row by its name
 
 `--row "DEFLECTED"` scrolls the documentation row under that heading to the screen, so its picture is drawn, and looks for the selector inside it: `bun run shot canvas out.png --row DEFLECTED` on CONTROLS › HELPERS. It works on ON THE FIELD and GESTURES too, and a name that matches nothing lists the rows that share a word with it. The tab was always restored from `?sub=` on a cold load; a row's picture is drawn only once it is scrolled near, and nothing scrolled. Every shot now scrolls its element to the middle, so a page's sticky heading no longer covers the top of it.
