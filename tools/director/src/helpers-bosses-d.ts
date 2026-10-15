@@ -1,3 +1,4 @@
+import { haspRow, RATCHET_PAWL_ROW, SPOOL_ROW } from "@neon-spore/render";
 import { lampreyBoss, midCol, mimicBoss, mimicShapeSize } from "@neon-spore/sim";
 import type { HelperDef } from "./helpers-def.js";
 
@@ -8,7 +9,7 @@ import type { HelperDef } from "./helpers-def.js";
  */
 /** THE HASP's first clasp and the latch's rail beside it: on the whole field the latch is a hair. */
 const ON_THE_LATCH: HelperDef["zoom"] = {
-  at: (w) => ({ col: midCol(w.cfg) + 0.8, row: 8.3 }),
+  at: (w) => ({ col: midCol(w.cfg) + 0.8, row: haspRow(0) - 0.3 }),
   span: 5,
 };
 
@@ -38,13 +39,13 @@ const ON_THE_SIGN: HelperDef["zoom"] = {
 
 /** THE RATCHET's catch and the rack beside it, at the pawl's height (`ratchet-shape.ts`). */
 const ON_THE_CATCH: HelperDef["zoom"] = {
-  at: (w) => ({ col: midCol(w.cfg) - 0.9, row: 5.5 }),
+  at: (w) => ({ col: midCol(w.cfg) - 0.9, row: RATCHET_PAWL_ROW }),
   span: 4.5,
 };
 
 /** THE SPOOL across its barrel, the brake's rail at the end it drifts toward (`spool-shape.ts`). */
 const ON_THE_SPOOL: HelperDef["zoom"] = {
-  at: (w) => ({ col: midCol(w.cfg) - 0.9, row: 2.5 }),
+  at: (w) => ({ col: midCol(w.cfg) - 0.9, row: SPOOL_ROW }),
   span: 7,
 };
 

@@ -933,4 +933,24 @@ export const COPIES: Copy[] = [
     owner: "packages/sim/src/isqrt.ts",
     pattern: /\bfunction\s+\w*sqrt\w*\s*\(|\bmid\s*\*\s*mid\s*<=/i,
   },
+  {
+    // **The rows THE HASP, THE RATCHET and THE SPOOL hang on.** The close
+    // cuts on CONTROLS › HELPERS aimed at 8.3, 5.5 and 2.5 written out by
+    // hand until 15 October 2026, module constants in render the director
+    // could not import; a moved part left its cut on empty field. Each
+    // pattern is the definition or a zoom's `row:` at the same figure.
+    call: "haspRow",
+    owner: "packages/render/src/hasp-shape.ts",
+    pattern: /\brow:\s*8\.[36]\s*\}|\bROWS\b[^=]*=\s*\[8\.6\b/,
+  },
+  {
+    call: "RATCHET_PAWL_ROW",
+    owner: "packages/render/src/ratchet-shape.ts",
+    pattern: /\brow:\s*5\.5\s*\}|\bRATCHET_PAWL_ROW\s*=\s*5\.5\b/,
+  },
+  {
+    call: "SPOOL_ROW",
+    owner: "packages/render/src/spool-shape.ts",
+    pattern: /\brow:\s*2\.5\s*\}|\bSPOOL_ROW\s*=\s*2\.5\b/,
+  },
 ];

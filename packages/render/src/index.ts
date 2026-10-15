@@ -77,6 +77,9 @@ export { drawGuideWelcome } from "./guide-welcome.js";
 // is the panel the eye is looking at (`handover.ts`).
 export { handedLayout, handedRole } from "./handover.js";
 export { signedHash, sinHash } from "./hash.js";
+// THE HASP's clasp rows, THE RATCHET's pawl row and THE SPOOL's axle row, for
+// the director's close cuts on CONTROLS › HELPERS (`helpers-bosses-d.ts`).
+export { haspRow } from "./hasp-shape.js";
 export { mixHex, rgba } from "./hex.js";
 export { runLineBox } from "./hud.js";
 export {
@@ -139,6 +142,7 @@ export { drawPinballRound, showsPinPieces } from "./pinball-round.js";
 export { drawPinBall, drawPinWalls, pinAt, pinTable, type Table } from "./pinball-table.js";
 export { detectRasterCaps, type RasterCaps } from "./raster-caps.js";
 export { loadAtlas } from "./raster-load.js";
+export { RATCHET_PAWL_ROW } from "./ratchet-shape.js";
 export { drawReachArm } from "./reach-arm.js";
 export { readyCircles } from "./ready-page.js";
 export type { Insets, Renderer, Viewport, ViewState } from "./renderer.js";
@@ -157,6 +161,7 @@ export { sirenCentre, sirenWord } from "./siren.js";
 export { type Arena, snakeArena } from "./snake-draw.js";
 export { drawSnakeRound } from "./snake-round.js";
 export { splinters } from "./splinter.js";
+export { SPOOL_ROW } from "./spool-shape.js";
 export { BURST_SHEET, SpriteBursts, type SpriteSheet } from "./sprite-burst.js";
 export { clearSurface } from "./surface-clear.js";
 // THE WARDEN's four ropes and the switch between them, for the ON THE FIELD

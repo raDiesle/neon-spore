@@ -34,7 +34,7 @@ export interface SpoolPose {
 }
 
 /** The row the axle hangs on, in tiles below the top of the field. */
-const ROW = 2.5;
+export const SPOOL_ROW = 2.5;
 /** Half the barrel's length between its flanges, in tiles. */
 const BARREL_HALF = 2.6;
 /** The bare core's radius and the winding's at its fullest, in tiles. */
@@ -66,7 +66,7 @@ const GAUGE_HALF = 2.2;
 
 /** Where the axle hangs when nothing has moved it: over the middle column. */
 export function spoolHome(l: Layout, cfg: SimConfig): Point {
-  return { x: fieldX(l, midCol(cfg)), y: l.gridTop + ROW * l.tile };
+  return { x: fieldX(l, midCol(cfg)), y: l.gridTop + SPOOL_ROW * l.tile };
 }
 
 /**

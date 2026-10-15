@@ -34,6 +34,11 @@ const HUB = 0.62;
  * (`sim/hasp-shot.ts`).
  */
 const ROWS: readonly number[] = [8.6, HASP_BOLT_FROM_MILLI / 1000 + 0.5 - HUB, 2.2];
+
+/** One clasp's centre row, in tiles below the top of the grid. `i` counts up from the ship. */
+export function haspRow(i: number): number {
+  return ROWS[Math.max(0, Math.min(HASP_COUNT - 1, i))] ?? ROWS[0] ?? 0;
+}
 /** Half-width and half-length of a shut shell, in tiles. */
 const SHELL_RX = 1.5;
 const SHELL_RY = 1.35;
@@ -48,8 +53,7 @@ const BAR_HALF = 0.42;
 
 /** One clasp's centre. `i` counts up from the ship. */
 export function haspCentre(l: Layout, cfg: SimConfig, i: number): Point {
-  const row = ROWS[Math.max(0, Math.min(HASP_COUNT - 1, i))] ?? ROWS[0] ?? 0;
-  return { x: fieldX(l, midCol(cfg)), y: l.gridTop + row * l.tile };
+  return { x: fieldX(l, midCol(cfg)), y: l.gridTop + haspRow(i) * l.tile };
 }
 
 /** The hub's radius on this screen. */

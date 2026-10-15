@@ -41331,3 +41331,16 @@ Bottleneck: writing. The rocks fall at two speeds, so the first timing
 missed, and the windows were set by probing beat by beat.
 
 *Measured: 10 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-15 — ONE BOSS'S OWN's close cuts call render's rows
+
+- reading: 5 min. The three shape files, the helpers page and how a
+  `COPIES` row is tested.
+- writing: 5 min. `haspRow`, `RATCHET_PAWL_ROW`, `SPOOL_ROW` exported, the
+  three zooms aimed at them, three `COPIES` rows.
+- looking: 0 min. Nothing drawn moved: each cut lands where it did.
+- friction: 5 min. A heredoc with doubled backslashes was refused by the
+  guard, and an owner has to contain its own pattern, so one row became three.
+- landing: 5 min.
+
+Bottleneck: friction — the `COPIES` row's owner rule, learnt from a red test.

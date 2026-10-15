@@ -653,18 +653,3 @@ browser pane instead. Find whether the sub tab is restored from `?sub=` on a
 cold load and whether the rows are built only once scrolled to; give `shot`
 a way to reach one HELPERS row by its name (as `--open`/`--inner` reach a
 sheet), and prove it with a test in `tools/frames/test/` and `bun run check`.
-
-## ONE BOSS'S OWN's close cuts copy render's private rows
-
-- **Found:** 2026-10-15, claude/queue-helpers-bastion-to-trapeze
-- **Taken:** 2026-10-15, main (claim: claude/queue-one-bosss-owns-close-cuts-copy-renders-private-r)
-- **Files:** `tools/director/src/helpers-bosses-d.ts`, `packages/render/src/hasp-shape.ts`, `packages/render/src/ratchet-shape.ts`, `packages/render/src/spool-shape.ts`
-
-THE HASP's, THE RATCHET's and THE SPOOL's cuts on CONTROLS › HELPERS aim at
-`row: 8.6`, `5.5` and `2.5`, which are `ROWS[0]` in `hasp-shape.ts`,
-`PAWL_ROW` in `ratchet-shape.ts` and `ROW` in `spool-shape.ts` — module
-constants the director cannot import, so a moved part leaves its cut on
-empty field and no test says so. Export each as a named row from render
-(as `coreRowMilli` is from sim), aim the three zooms at them, and add a
-row to `COPIES` in `packages/sim/test/copies-table.ts`. Prove with
-`bun test tools/director` and `bun run check`.

@@ -37,7 +37,7 @@ const TAPER = 0.58;
 /** How far a plate's lower edge stands proud of the next plate down, in tiles — the tooth. */
 const LAP = 0.2;
 /** The pawl's row: the seam it bears on, in tiles below the top of the grid. */
-const PAWL_ROW = 5.5;
+export const RATCHET_PAWL_ROW = 5.5;
 /**
  * The lock at the top of the strut: its centre, and its half-size, in tiles —
  * its foot where the simulation throws the loose bolt from (`sim/ratchet-shot.ts`).
@@ -64,7 +64,7 @@ export function ratchetStep(l: Layout): number {
 
 /** The seam the pawl bears on: the rack's top stands here with no tooth spent. */
 export function ratchetPawlY(l: Layout): number {
-  return l.gridTop + PAWL_ROW * l.tile;
+  return l.gridTop + RATCHET_PAWL_ROW * l.tile;
 }
 
 /** The lock at the top of the strut, and its half-size. */
