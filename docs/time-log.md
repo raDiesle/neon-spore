@@ -41784,3 +41784,5 @@ of correct presses away from.
 
 Bottleneck: making the measurement cheap enough for a search and a test,
 without moving the numbers the gate already answers.
+
+*Measured: 9 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*

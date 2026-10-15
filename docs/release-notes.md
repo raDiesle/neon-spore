@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-15 · a31cc22ff — The naming gate measures an enemy turned by its glance
+
+nameabilityOf takes an optional glance: each posed contour is turned about its centre as glance.ts does with a hold of 0, then rolled, through every swing and roll of a COCK round, taken as the round's envelope so it holds whatever temper a body is dealt. render/creature-glance.ts holds CREATURE_GLANCE (still) and CREATURE_GLANCE_SIZE, searched: a reach of 0.22, since at 0.23 the wisp's turned lobes cover the limpet's and the blister's, and a roll of 0.14 at that reach, since at 0.15 the beatbox and the leech share a box. nameability-glance.test.ts holds both edges. The measuring moved into nameability-glance.ts with a cached harmonic table, four times faster and every unglanced number the same. First of the three lanes that turn the enemies.
+
 ## 2026-10-15 · 1757a657b — THE QUEEN's SCREAM drop waits in the gap clear of both her marks
 
 Until a thumb lands, the HOLD cue's drop stands in the gap between her two marks, and at the cue frame's size it reached over the inner edge of both rings on a 390-wide phone, where the marks are what player 1 reads to say what is coming. BossCue takes a dropR, holdDropR keeps to it, and the queen's reading sizes it with queenGapR: the distance to each mark at her turn, less that ring's farthest reach (gripRingReach, its breath and line included), less the drop's own swell. On a 390 phone the drop's radius goes from 21 px to about 8. queen-gap-drop.test.ts holds the rim clear of both rings at every turn across 48 beats. Exemption: a fix to something wrong rather than unlovely — a drop covering the marks it points between.
