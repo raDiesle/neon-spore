@@ -2286,3 +2286,17 @@ yellow press. The clover, which no gesture wears now, went with it.
 
 The other answers offered were `cradle`, `mole` and `rider`; they went with
 the slot.
+
+## `snake:shadow` / `flat` — taken, 2026-10-15
+
+the owner, 15 October 2026: take FLAT — it cannot be told apart from the blur
+at 4x, and it is four plain passes where the blur was a filter
+
+the floor shadow without a blur — the shape filled dark and offset under three
+widened faint strokes, as far and as dark as the blurred one
+
+`FLOOR_SHADOW.paint` is `paintFlat`, moved from
+`tools/versus/candidates/snake-shadow/flat/paint.ts` to
+`packages/render/src/snake-skin-flat.ts`.
+
+It was the only answer offered.

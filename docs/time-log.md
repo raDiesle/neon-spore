@@ -42451,3 +42451,14 @@ Bottleneck: the full-list tests that seven more waves move — the baseline's
 numbers, the index, AUTO's budget — each found by a red run, not beforehand.
 
 *Measured: 11 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
+
+## 2026-10-15 — SNAKE's floor shadow is FLAT, the owner's pick
+
+- reading: 0 min.
+- writing: 5 min. `bun run versus adopt`, the dead blur out, three
+  docstrings that still called the blur what ships.
+- looking: 0 min.
+- friction: 0 min.
+- landing: 5 min.
+
+Bottleneck: none — the adopt command did the move; what it left was prose.

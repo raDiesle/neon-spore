@@ -2,6 +2,7 @@ import { gradientSlot, slotGradient } from "./gradient-slot.js";
 import { PALETTE } from "./palette.js";
 import { type Point, ribbonPath, ribbonSides } from "./snake-contour.js";
 import type { Arena } from "./snake-draw.js";
+import { paintFlat } from "./snake-skin-flat.js";
 
 /**
  * What the body is made of: its contour, its light and its scales.
@@ -71,7 +72,8 @@ export function backGradient(ctx: CanvasRenderingContext2D, arena: Arena): Canva
  * **A record and not a function** so VERSUS can offer a second answer to it
  * (`tools/versus/README.md`): the body, the jaws, the venom and the arena's
  * items all go through `FLOOR_SHADOW.paint`, so one patch reaches every
- * shadow on the board.
+ * shadow on the board. The first answer, FLAT, replaced `shadowBlur` on 15
+ * October 2026 (`snake-skin-flat.ts`).
  */
 export interface FloorShadow {
   paint(
@@ -82,30 +84,7 @@ export interface FloorShadow {
   ): void;
 }
 
-export const FLOOR_SHADOW: FloorShadow = { paint: blurredShadow };
-
-/**
- * The shadow as the canvas casts it: `shadowBlur` a fifth of a tile wide.
- * Every one of the canvas's shadow sizes is in the canvas's own pixels, under
- * no transform, so on a phone it is a third the size it is at a scale of one.
- */
-function blurredShadow(
-  ctx: CanvasRenderingContext2D,
-  arena: Arena,
-  path: Path2D,
-  fill: string | CanvasGradient,
-): void {
-  ctx.shadowColor = "rgba(0,0,0,.55)";
-  ctx.shadowBlur = arena.tile * 0.22;
-  ctx.shadowOffsetX = arena.tile * 0.08;
-  ctx.shadowOffsetY = arena.tile * 0.12;
-  ctx.fillStyle = fill;
-  ctx.fill(path);
-  ctx.shadowColor = "rgba(0,0,0,0)";
-  ctx.shadowBlur = 0;
-  ctx.shadowOffsetX = 0;
-  ctx.shadowOffsetY = 0;
-}
+export const FLOOR_SHADOW: FloorShadow = { paint: paintFlat };
 
 /**
  * The lit side of the back: the same ribbon at a third of the width, pushed

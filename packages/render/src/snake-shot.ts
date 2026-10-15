@@ -132,7 +132,7 @@ function stream(
   // found in everything standing on a tile, and the same fix. Mass and
   // leading drop in one path and one fill, because two overlapping shadows
   // darken twice where they meet; the fill under it is covered by the drawing
-  // that follows, so only the offset blur is ever seen.
+  // that follows, so only the offset shadow is ever seen.
   const r = arena.tile * 0.2;
   const mass = new Path2D(path);
   mass.moveTo(tipX + r, tipY);
