@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-15 · c72040ace — A review block's first wave rises past 8.7 again
+
+Every review block from the thirteenth started at 8.7. R1 was never capped there: its draws reach 9.9 with AUTO clearing them. Pressures come in tenths with gaps, so a block aiming at 8.8 had 8.7 and 8.9 in reach, the tie went to 8.7, and the next block's floor was 8.7 again. The first step now lands at or above where it aims wherever anything there fits, and settles below only when nothing does. On today's list with bosses waiting at the end, reviews 13 to 17 start at 9, 9.2, 9.3, 9.5 and 9.6.
+
 ## 2026-10-15 · 2e21b4e9f — SNAKE's floor shadow is FLAT: no blur, four plain passes
 
 The shadow under SNAKE's body, its jaws, the venom and every item on the board is no longer `shadowBlur`. It is the shape filled dark at the same offset under three widened faint strokes of its own path, as far and as dark as the blur was — the owner took it off VERSUS, where the two could not be told apart at four times their size. The candidate's paint moved to `packages/render/src/snake-skin-flat.ts` and the slot closed.

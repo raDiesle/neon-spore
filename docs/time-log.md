@@ -42478,3 +42478,5 @@ Bottleneck: none — the adopt command did the move; what it left was prose.
 
 Bottleneck: diagnosis — R1 was never capped at 8.7; it reached 9.9 under
 AUTO, and the stall was a tie between 8.7 and 8.9 that the lower side won.
+
+*Measured: 7 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
