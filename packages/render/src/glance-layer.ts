@@ -1,5 +1,5 @@
 import { bakedCache } from "./baked.js";
-import { type GlanceFrame, glanceSqueeze, middleShift } from "./glance.js";
+import { type GlanceFrame, glanceSqueeze, middleShift, turnOf } from "./glance.js";
 import { halfRect, inverse, type Reach, screenBox, times } from "./glance-layer-box.js";
 import { rgba } from "./hex.js";
 import { SHADOW } from "./solid-tube-light.js";
@@ -7,9 +7,9 @@ import { SHADOW } from "./solid-tube-light.js";
 /**
  * **A glancing part laid down as one layer** (`glance.ts` has the turn).
  *
- * `drawGlanced` draws the part once for each half, each under its own clip,
- * and where the two clips meet at the middle their soft edges leave a
- * hairline: a part drawn in layers — an opaque under-fill, a translucent flesh
+ * A part drawn once for each half, each under its own clip, as the turn was
+ * first drawn, leaves a hairline where the two clips' soft edges meet at the
+ * middle: a part drawn in layers — an opaque under-fill, a translucent flesh
  * over it, a stroke — composites each at the seam pixel's partial cover, so
  * the under-fill shows through it. Running one clip past the other only turns
  * the line from dark to pale (`docs/queue.md`, 13 October 2026).
@@ -64,18 +64,29 @@ function layerOf(which: "part" | "halves", w: number, h: number): HTMLCanvasElem
   return scratch;
 }
 
-/** Half `s`'s turn and clip on `c`, over whatever transform `c` already has; saved first. */
+/**
+ * Half `s`'s turn and clip on `c`, over whatever transform `c` already has;
+ * saved first. A part that nods is turned seen along its turn (`turnOf`): its
+ * halves are split square to it and squeezed along it, then seen back, so
+ * `c` is left in the part's own frame either way.
+ */
 function enterHalf(c: CanvasRenderingContext2D, f: GlanceFrame, s: -1 | 1, reach: Reach): void {
   const { x, y } = f;
-  const k = glanceSqueeze(f, s);
+  const { angle, along } = turnOf(f);
+  const k = glanceSqueeze(along, s);
   c.save();
   c.translate(x, y);
-  c.rotate(f.roll);
+  c.rotate(f.roll + angle);
   c.translate(-x, -y);
-  c.transform(k, 0, 0, 1, x + middleShift(f) - k * x, 0);
+  c.transform(k, 0, 0, 1, x + middleShift(along) - k * x, 0);
   c.beginPath();
   c.rect(...halfRect(f, s, reach));
   c.clip();
+  if (angle === 0) return;
+  // Seen back: the transform `squeeze ∘ rotate(-angle)` the content is drawn under.
+  c.translate(x, y);
+  c.rotate(-angle);
+  c.translate(-x, -y);
 }
 
 /**
@@ -93,7 +104,13 @@ function farDark(
 ): void {
   enterHalf(c, f, far, reach);
   blend(c);
-  const grad = c.createLinearGradient(f.x, 0, f.x + far * ramp.span * f.r, 0);
+  // Along the turn: across, for a part that does not nod, exactly as it always was.
+  const { angle } = turnOf(f);
+  const run = far * ramp.span * f.r;
+  const grad =
+    angle === 0
+      ? c.createLinearGradient(f.x, 0, f.x + run, 0)
+      : c.createLinearGradient(f.x, f.y, f.x + run * Math.cos(angle), f.y + run * Math.sin(angle));
   grad.addColorStop(0, rgba(SHADOW, 0));
   grad.addColorStop(1, rgba(SHADOW, ramp.dark));
   c.fillStyle = grad;
@@ -102,7 +119,17 @@ function farDark(
 }
 
 /**
- * `drawGlanced`'s turn, with the part `draw` draws on the context it is handed
+ * A rectangle the far half's clip lies within in the part's own frame: the
+ * half itself, or, seen back from along a nod, the whole turned square.
+ */
+function wholeRect(f: GlanceFrame, reach: Reach, angle: number) {
+  if (angle === 0) return halfRect(f, f.swing > 0 ? 1 : -1, reach);
+  const w = Math.SQRT2 * reach.side;
+  return [f.x - w, f.y - w, 2 * w, 2 * w] as const;
+}
+
+/**
+ * The turn `glance.ts` describes, with the part `draw` draws on the context it is handed
  * laid down as one layer. `draw` is called once, and answers with the paths
  * the far half's dark is laid over. **`atop`** is for a part with no such
  * path — a living body, drawn by a dozen calls — and lays the dark on the
@@ -117,12 +144,15 @@ export function drawGlancedLayer(
   shade: { dark: number; full: number; span?: number; reach?: number; up?: number; atop?: boolean },
   draw: (g: CanvasRenderingContext2D) => readonly Path2D[],
 ): void {
-  const { r, swing } = f;
-  const far = swing > 0 ? 1 : -1;
-  const dark = shade.dark * Math.min(1, Math.abs(swing) / (shade.full * r));
+  const { r } = f;
+  const { angle, along } = turnOf(f);
+  const far = along.swing > 0 ? 1 : -1;
+  const dark = shade.dark * Math.min(1, Math.abs(along.swing) / (shade.full * r));
   const ramp = { dark, span: shade.span ?? 1 };
   const side = (shade.reach ?? 4) * r;
-  const reach: Reach = { side, up: Math.max(side, (shade.up ?? 0) * r), down: side };
+  const up = Math.max(side, (shade.up ?? 0) * r);
+  // Seen along a nod, the halves' clip is square to the turn, so it reaches as far every way.
+  const reach: Reach = angle === 0 ? { side, up, down: side } : { side: up, up, down: up };
   const m = ctx.getTransform();
   const box = screenBox(ctx, m, f, reach);
   if (box.w <= 0 || box.h <= 0) return;
@@ -170,7 +200,7 @@ export function drawGlancedLayer(
     const atop = (c: CanvasRenderingContext2D) => {
       c.globalCompositeOperation = "source-atop";
     };
-    farDark(g, f, far, reach, ramp, atop, (c) => c.fillRect(...halfRect(f, far, reach)));
+    farDark(g, f, far, reach, ramp, atop, (c) => c.fillRect(...wholeRect(f, reach, angle)));
     g.setTransform(1, 0, 0, 1, 0, 0);
   }
 

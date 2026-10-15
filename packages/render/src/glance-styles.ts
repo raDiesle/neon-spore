@@ -12,6 +12,10 @@ import { bodyLife } from "./motion-life.js";
  * - **COCK** turns the same way and cocks side to side three times as fast.
  * - **LOOK** holds a look at the middle, the left, the middle and the right,
  *   turning briskly between them, the part tilted toward where it looks.
+ * - **ROVE** holds looks as LOOK does, but up and down as well as across —
+ *   the middle, up, left, down, right — cocked toward a look to the side and
+ *   level on one up or down (the owner, 15 October 2026: *glance him not only
+ *   to left and right, but also to top and bottom*). It nods (`glance.ts`).
  *
  * A steady round is six seconds — each boss plays it its own way
  * (`glance-temper.ts`) — and every round begins and ends at the middle of the
@@ -35,6 +39,8 @@ export interface GlanceSize {
 export interface GlancePose {
   swing: number;
   roll: number;
+  /** How far the middle swings up or down, part radii, + down: only a style that nods has one. */
+  nod?: number;
 }
 
 /** How many times COCK cocks a steady round; a temper says how many its own rounds take. */
@@ -48,6 +54,19 @@ const LOOKS: readonly { at: number; hold: number }[] = [
 ];
 /** Seconds LOOK's turn from one look to the next takes. */
 const LOOK_TURN = 0.45;
+/**
+ * ROVE's looks — across and down, as shares of the reach — and how long each
+ * is held, seconds. With a turn of `ROVE_TURN` into each, one round.
+ */
+const ROVES: readonly { x: number; y: number; hold: number }[] = [
+  { x: 0, y: 0, hold: 0.5 },
+  { x: 0, y: -1, hold: 0.9 },
+  { x: -1, y: 0, hold: 0.8 },
+  { x: 0, y: 1, hold: 1 },
+  { x: 1, y: 0, hold: 0.8 },
+];
+/** Seconds ROVE's turn from one look to the next takes. */
+const ROVE_TURN = 0.4;
 
 /** A turn on one sine, `t` seconds into its round, as a share of the reach. */
 const turning = (t: number): number => Math.sin((2 * Math.PI * t) / GLANCE_ROUND);
@@ -65,6 +84,22 @@ function looking(t: number): number {
   return 0;
 }
 
+/** ROVE's look `t` seconds into its round, as shares of the reach: held, or turning to the next look. */
+function roving(t: number): { x: number; y: number } {
+  for (let i = 0; i < ROVES.length; i++) {
+    const here = ROVES[i] as (typeof ROVES)[number];
+    if (t < here.hold) return here;
+    t -= here.hold;
+    const next = ROVES[(i + 1) % ROVES.length] as (typeof ROVES)[number];
+    if (t < ROVE_TURN) {
+      const k = smoothstep(t / ROVE_TURN);
+      return { x: here.x + (next.x - here.x) * k, y: here.y + (next.y - here.y) * k };
+    }
+    t -= ROVE_TURN;
+  }
+  return { x: 0, y: 0 };
+}
+
 /** A style: where a part of size `z` is, `t` seconds into one of its rounds, cocking `cocks` times a round. */
 export type GlanceStyle = (t: number, z: GlanceSize, cocks?: number) => GlancePose;
 
@@ -76,6 +111,10 @@ export const cock: GlanceStyle = (t, z, cocks = COCKS) => ({
 export const look: GlanceStyle = (t, z) => {
   const swing = z.reach * looking(t);
   return { swing, roll: swing * z.tilt };
+};
+export const rove: GlanceStyle = (t, z) => {
+  const at = roving(t);
+  return { swing: z.reach * at.x, roll: z.cock * at.x, nod: z.reach * at.y };
 };
 
 /** `style` round after round, on any clock: where the part is `time` seconds in. */
@@ -93,10 +132,13 @@ export function glanceOf(style: GlanceStyle, z: GlanceSize, temper: GlanceTemper
   const at = (time: number): GlancePose => {
     const { t, gain } = temperedAt(temper, time);
     const p = style(t, z, temper.cocks);
-    return { swing: p.swing * gain, roll: p.roll * gain };
+    return { swing: p.swing * gain, roll: p.roll * gain, nod: (p.nod ?? 0) * gain };
   };
-  return {
+  const glance: Glance = {
     swing: (time) => at(time).swing * bodyLife(),
     roll: (time) => at(time).roll * bodyLife(),
   };
+  // Only a style that nods gives its record a nod, so every other part is drawn as it always was.
+  if (style(0, z).nod === undefined) return glance;
+  return { ...glance, nod: (time) => (at(time).nod ?? 0) * bodyLife() };
 }

@@ -1,5 +1,5 @@
 import { describe, expect, it, setDefaultTimeout } from "bun:test";
-import { CREATURE_GLANCE_SIZE } from "@neon-spore/render";
+import { CREATURE_GLANCE_SIZE, ROVERS } from "@neon-spore/render";
 import { confusable, type Nameability, nameability } from "../src/nameability.js";
 import type { GlanceReach } from "../src/nameability-glance.js";
 import { livingKinds } from "../src/subjects.js";
@@ -59,6 +59,32 @@ describe("an enemy's glance, within the naming gate", () => {
     expect(joined({ ...CREATURE_GLANCE_SIZE, cock: CREATURE_GLANCE_SIZE.cock + STEP })).not.toEqual(
       [],
     );
+  });
+
+  it("lets every kind that roves turn every way and still be its own word", () => {
+    // ROVE nods as well (`render/creature-glance.ts`): each rover measured
+    // turned up, down and over each shoulder, against every kind as it ships.
+    const shipped = new Map<string, Nameability>(
+      KINDS.map((kind) => [
+        kind,
+        nameability(kind, undefined, { ...CREATURE_GLANCE_SIZE, nods: ROVERS.has(kind) }),
+      ]),
+    );
+    const out: string[] = [];
+    for (const rover of KINDS.filter((kind) => ROVERS.has(kind))) {
+      for (const other of KINDS) {
+        if (other === rover || confusable(TODAY.get(rover)!, TODAY.get(other)!)) continue;
+        if (confusable(shipped.get(rover)!, shipped.get(other)!)) out.push(`${rover}/${other}`);
+      }
+    }
+    expect(ROVERS.size).toBeGreaterThan(0);
+    expect(out).toEqual([]);
+  });
+
+  it("would join a pair if the slick roved: ROVE is not for every kind", () => {
+    const slick = nameability("slick", undefined, { ...CREATURE_GLANCE_SIZE, nods: true });
+    const weight = nameability("weight", undefined, { ...CREATURE_GLANCE_SIZE, nods: true });
+    expect(confusable(slick, weight)).toBe(true);
   });
 
   it("measures nothing new with no glance", () => {

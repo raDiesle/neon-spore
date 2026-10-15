@@ -1,4 +1,4 @@
-import { type GlanceFrame, glancedPoint } from "./glance.js";
+import { type GlanceFrame, glancedPoint, turnOf } from "./glance.js";
 
 /**
  * **Where a glancing layer is cut** (`glance-layer.ts` lays the part down):
@@ -59,9 +59,17 @@ export const halfRect = ({ x, y }: GlanceFrame, s: -1 | 1, reach: Reach) =>
 export function screenBox(ctx: CanvasRenderingContext2D, m: Matrix, f: GlanceFrame, reach: Reach) {
   const xs: number[] = [];
   const ys: number[] = [];
-  for (const px of [f.x - reach.side, f.x, f.x + reach.side]) {
-    for (const py of [f.y - reach.up, f.y + reach.down]) {
-      const p = glancedPoint(f, { x: px, y: py });
+  // Seen along a nod the rectangle is turned with it (`glance-layer.ts`'s `enterHalf`).
+  const { angle } = turnOf(f);
+  const c = Math.cos(angle);
+  const sn = Math.sin(angle);
+  for (const dx of [-reach.side, 0, reach.side]) {
+    for (const dy of [-reach.up, reach.down]) {
+      const at =
+        angle === 0
+          ? { x: f.x + dx, y: f.y + dy }
+          : { x: f.x + dx * c - dy * sn, y: f.y + dx * sn + dy * c };
+      const p = glancedPoint(f, at);
       xs.push(m.a * p.x + m.c * p.y + m.e);
       ys.push(m.b * p.x + m.d * p.y + m.f);
     }

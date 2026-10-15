@@ -97,7 +97,14 @@ const CONTOUR_SAMPLES = 12;
 const CONTOUR_SPACING = 2.71;
 
 function span(values: number[]): Span {
-  return { lo: Math.min(...values), hi: Math.max(...values) };
+  // A loop, not a spread: a body turned every way gives more samples than a call takes arguments.
+  let lo = Infinity;
+  let hi = -Infinity;
+  for (const v of values) {
+    if (v < lo) lo = v;
+    if (v > hi) hi = v;
+  }
+  return { lo, hi };
 }
 
 /** Two closed intervals share at least a point. */

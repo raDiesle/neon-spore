@@ -1,5 +1,5 @@
 import type { CreatureSilhouette } from "@neon-spore/content";
-import type { Creature } from "@neon-spore/sim";
+import type { Creature, CreatureKind } from "@neon-spore/sim";
 import { bakedCache } from "./baked.js";
 import type { Body } from "./creature-body-in.js";
 import { drawLivingBody } from "./creature-body-living.js";
@@ -8,7 +8,7 @@ import { livingBodyMul } from "./creature-place.js";
 import type { Wash } from "./creature-tint.js";
 import { type Glance, type GlanceFrame, glanceFrame, glanceStill } from "./glance.js";
 import { drawGlancedLayer } from "./glance-layer.js";
-import { cock, type GlanceSize, glanceOf } from "./glance-styles.js";
+import { cock, type GlanceSize, glanceOf, rove } from "./glance-styles.js";
 import { temperOf } from "./glance-temper.js";
 
 /**
@@ -52,6 +52,23 @@ export const ROCK_GLANCE_SIZE: GlanceSize = { reach: 0.32, cock: 0.14, tilt: 0 }
  */
 export const HELD_GLANCE_SIZE: GlanceSize = { ...CREATURE_GLANCE_SIZE, cock: 0 };
 
+/**
+ * **The kinds that rove** (`glance-styles.ts`): they hold looks up and down as
+ * well as across, where every other enemy cocks — the owner, 15 October 2026:
+ * *"bulb" might look good if we also glance him not only to left and right,
+ * but also to top and bottom*. The four round bodies the naming gate lets
+ * turn every way at `CREATURE_GLANCE_SIZE`, each against every other kind
+ * cocking or roving (`tools/shape-sheet/test/nameability-glance.test.ts`). A
+ * slick roving joins the weight's word, and the dart, limpet and blister the
+ * wisp's, so those cock.
+ */
+export const ROVERS: ReadonlySet<CreatureKind> = new Set<CreatureKind>([
+  "bulb",
+  "throb",
+  "countdown",
+  "mine",
+]);
+
 /** Which of the sizes a body turns at. */
 export type GlanceSort = "living" | "rock" | "held";
 
@@ -75,12 +92,20 @@ const GLANCES: Readonly<Record<GlanceSort, Map<number, Glance>>> = {
   held: bakedCache<number, Glance>(),
 };
 
-/** The glance of the enemy `id`: COCK at its sort's size, on a temper of its own. */
-export function creatureGlance(id: number, sort: GlanceSort = "living"): Glance {
+/**
+ * The glance of the enemy `id`: COCK at its sort's size, on a temper of its
+ * own — or ROVE, for a living one of a kind that roves.
+ */
+export function creatureGlance(
+  id: number,
+  sort: GlanceSort = "living",
+  kind?: CreatureKind,
+): Glance {
   const held = GLANCES[sort];
   let glance = held.get(id);
   if (glance === undefined) {
-    glance = glanceOf(cock, SIZES[sort], temperOf(id));
+    const roves = sort === "living" && kind !== undefined && ROVERS.has(kind);
+    glance = glanceOf(roves ? rove : cock, SIZES[sort], temperOf(id));
     held.set(id, glance);
   }
   return glance;
@@ -116,7 +141,7 @@ export function bodyGlanceFrame(
   part: GlancedPart,
 ): GlanceFrame {
   const at = { x: b.x, y: b.y, r: part.r, hold: part.hold ?? 0 };
-  return glanceFrame(creatureGlance(b.c.id, part.sort), b.time + b.c.id * STAGGER, at);
+  return glanceFrame(creatureGlance(b.c.id, part.sort, b.c.kind), b.time + b.c.id * STAGGER, at);
 }
 
 /**

@@ -75,3 +75,36 @@ describe("a turned body's layer", () => {
     expect(paintedSpan(ctx, Y - 3.5 * R)[0]).toBeGreaterThan(0);
   });
 });
+
+describe("a nodding body's layer", () => {
+  for (const s of [-1, 1] as const) {
+    test(`keeps the whole of its opened half, the ${s < 0 ? "top" : "bottom"}`, () => {
+      // A nod down opens the top, as a swing right opens the left.
+      const nod = 0.22 * R * -s;
+      const ctx = drawTurned({ x: X, y: Y, r: R, hold: 0, swing: 0, roll: 0, nod });
+      const near = (1 + 0.22) * (REACH * R - 1);
+      const row = s < 0 ? Math.ceil(Y - near) + 1 : Math.floor(Y + near) - 1;
+      expect(paintedSpan(ctx, row)[0]).toBeGreaterThan(0);
+      // And the closed half is closed: nothing as far out the other way.
+      const shut = s < 0 ? Math.floor(Y + REACH * R - 4) : Math.ceil(Y - REACH * R + 4);
+      expect(paintedSpan(ctx, shut)[0]).toBe(-1);
+    });
+  }
+
+  test("is the across turn, seen a quarter round on", () => {
+    const across = drawTurned({ x: X, y: Y, r: R, hold: 0, swing: 0.22 * R, roll: 0 });
+    const left = paintedSpan(across, Y);
+    const down = drawTurned({ x: X, y: Y, r: R, hold: 0, swing: 0, roll: 0, nod: 0.22 * R });
+    const { data } = down.getImageData(X, 0, 1, 200);
+    let top = -1;
+    let bottom = -1;
+    for (let y = 0; y < 200; y++) {
+      if ((data[y * 4 + 3] ?? 0) > 0) {
+        if (top < 0) top = y;
+        bottom = y;
+      }
+    }
+    expect(Math.abs(top - left[0])).toBeLessThanOrEqual(1);
+    expect(Math.abs(bottom - left[1])).toBeLessThanOrEqual(1);
+  });
+});

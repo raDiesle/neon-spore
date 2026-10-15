@@ -164,9 +164,9 @@ What makes it read, all four or it is a squash:
   in four — COCK, SWAY, COCK, LOOK — at his word on 10 October 2026.
 
 **Call it, never write it again.** `packages/render/src/glance.ts` is the
-two-plane turn — `glanceFrame`, `drawGlanced`, and `glancedPoint` for the hit
-test — and `glance-styles.ts` is SWAY, LOOK and COCK as `glanceOf(style,
-size)`, which is what a candidate patches onto a boss's still record
+two-plane turn — `glanceFrame`, `drawGlancedLayer` (`glance-layer.ts`), and
+`glancedPoint` for the hit test — and `glance-styles.ts` is SWAY, LOOK, COCK
+and ROVE as `glanceOf(style, size)`, which is what a candidate patches onto a boss's still record
 (`STILL_GLANCE`). THE INSTAR's head and THE BULB QUEEN's shell
 (`queen-glance.ts`, the worked example for a body whose marks are not on the
 turning part) both stand on them, and so does THE MIRROR's chamber
@@ -181,7 +181,10 @@ without explicitly providing me versus candidates*; he took every boss's
 glance that day and left the choice of rhythm to the lane). **COCK is the
 default** — *in most cases the most realistic* — with SWAY for a thing that
 hangs or flows (THE PLUMB, THE SLING, THE CURTAIN) and LOOK for a thing that
-watches (THE OCULUS, THE STARE), at a size a still shows, as big as what a
+watches (THE OCULUS, THE STARE), ROVE for a round body with no held points
+that looks up and down as well (BULB, THROB, COUNTDOWN and MINE — the owner, 15
+October 2026; a part that nods is the same turn along where its middle has
+gone, `turnOf`), at a size a still shows, as big as what a
 thumb or a bolt meets allows (`gimbal-glance.ts` is the worked example of
 measuring that cap). The lane lands under **a look the owner asked for by
 name**. Its look of detail is `new-boss-more` §6.3; this is its movement.

@@ -20,12 +20,20 @@ import type { Pose } from "@neon-spore/content";
  * swing with nearly every roll. The grid below is that: every swing from one
  * side to the other crossed with every roll, which takes in whatever one
  * round shows and does not depend on which temper a body was dealt.
+ *
+ * **A body that nods** (ROVE, `render/glance-styles.ts`, 15 October 2026)
+ * turns up and down and over each shoulder as well as across: the same squeeze
+ * along whichever way its middle has gone. So it is measured along four ways
+ * — across, down, and the two diagonals — each from one side to the other,
+ * which takes in every look ROVE holds and every turn between them.
  */
 
 /** How big a body's glance is: its turn, in body radii, and its widest roll, radians (`GlanceSize`). */
 export interface GlanceReach {
   reach: number;
   cock: number;
+  /** Whether the body nods as well, and is turned every way rather than across only. */
+  nods?: boolean;
 }
 
 /** No glance at all: what every axis measured before 15 October 2026 and still measures by default. */
@@ -35,6 +43,8 @@ export const NO_GLANCE: GlanceReach = { reach: 0, cock: 0 };
 const SWINGS = 5;
 /** Steps from one side of the roll to the other, ends and middle included. */
 const ROLLS = 5;
+/** The ways a nodding body is turned, radians from across; each runs to both of its sides. */
+const WAYS = [0, Math.PI / 4, Math.PI / 2, (3 * Math.PI) / 4] as const;
 
 /** Harmonics searched for the lobe count. Nothing living has more than nine. */
 const MAX_HARMONIC = 12;
@@ -63,6 +73,17 @@ function harmonicTable(n: number): { cos: Float64Array; sin: Float64Array } {
 function across(x: number, n: number): number[] {
   if (x === 0) return [0];
   return Array.from({ length: n }, (_, i) => x * ((2 * i) / (n - 1) - 1));
+}
+
+/** Every turn a glance of `glance`'s size gives: the way, and how far along it. Unturned once only. */
+function turns(glance: GlanceReach): [number, number][] {
+  const out: [number, number][] = [];
+  for (const way of glance.nods === true ? WAYS : [0]) {
+    for (const swing of across(glance.reach, SWINGS)) {
+      if (swing !== 0 || way === 0) out.push([way, swing]);
+    }
+  }
+  return out;
 }
 
 /** The samples one posed contour adds to each axis. */
@@ -102,14 +123,23 @@ export function measurePosed(
   }
   const radii = new Array<number>(n);
   const gx = new Float64Array(n);
-  for (const swing of across(glance.reach, SWINGS)) {
+  const gy = new Float64Array(n);
+  for (const [way, swing] of turns(glance)) {
+    const wc = Math.cos(way);
+    const ws = Math.sin(way);
     for (let i = 0; i < n; i++) {
-      // The turn is on the screen, after the pose has rotated the body; a
-      // roll cannot change a radius, so the lobe profile is read before it.
-      const x = tx[i]! * (tx[i]! < 0 ? 1 + swing : 1 - swing);
+      // The turn is on the screen, after the pose has rotated the body, seen
+      // along the way it turns; a roll cannot change a radius, so the lobe
+      // profile is read before it. Across, `way` 0, this is exactly the turn.
+      const u = tx[i]! * wc + ty[i]! * ws;
+      const v = ty[i]! * wc - tx[i]! * ws;
+      const k = u * (u < 0 ? 1 + swing : 1 - swing);
+      const x = k * wc - v * ws;
+      const y = k * ws + v * wc;
       gx[i] = x;
+      gy[i] = y;
       // Unturned, read the radius off the unrotated point, as the gate always has.
-      radii[i] = swing === 0 ? Math.hypot(px[i]!, py[i]!) : Math.hypot(x, ty[i]!);
+      radii[i] = swing === 0 ? Math.hypot(px[i]!, py[i]!) : Math.hypot(x, y);
     }
     out.lobes.push(dominantHarmonic(radii));
     for (const roll of across(glance.cock, ROLLS)) {
@@ -128,8 +158,8 @@ export function measurePosed(
           x = px[i]! * c - py[i]! * s;
           y = px[i]! * s + py[i]! * c;
         } else {
-          x = gx[i]! * rc - ty[i]! * rs;
-          y = gx[i]! * rs + ty[i]! * rc;
+          x = gx[i]! * rc - gy[i]! * rs;
+          y = gx[i]! * rs + gy[i]! * rc;
         }
         if (x < x0) x0 = x;
         if (x > x1) x1 = x;

@@ -42315,3 +42315,13 @@ Bottleneck: landing — the full check runs once for 168 waves that composed in 
 Bottleneck: landing — the full check for four moved bosses.
 
 *Measured: 11 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
+
+## 2026-10-15 — BULB and three round kinds look up and down as well
+
+- reading: 5 min. `glance.ts`, the layer, the styles and the naming gate.
+- writing: 10 min. The nod in the turn and the layer, ROVE, the gate's four ways, tests.
+- looking: 5 min. A strip of ONLY CYAN, the bulb tracked and magnified.
+- friction: 5 min. The gate's `span` overflowed on four times the samples; the tracker latched onto the cannon's cyan.
+- landing: 5 min. `check:fast`, an autopilot timeout under load average 32, `land`.
+
+Bottleneck: friction — the gate's spread overflowing, found only once a body was turned every way.
