@@ -1,4 +1,5 @@
 import { gradientSlot, slotGradient } from "./gradient-slot.js";
+import { mix32 } from "./hash.js";
 import type { Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
 
@@ -34,13 +35,7 @@ const HORIZON_FRAC = 0.16;
  * the same value, on both screens, on every frame: mote positions are looked
  * up here, never rolled. */
 export function hash01(seed: number): number {
-  let h = (seed * 0x9e3779b1) >>> 0;
-  h ^= h >>> 15;
-  h = Math.imul(h, 0x85ebca6b) >>> 0;
-  h ^= h >>> 13;
-  h = Math.imul(h, 0xc2b2ae35) >>> 0;
-  h ^= h >>> 16;
-  return (h >>> 0) / 4294967296;
+  return mix32((seed * 0x9e3779b1) >>> 0, 15) / 4294967296;
 }
 
 export function withAlpha(hex: string, alpha: number): string {

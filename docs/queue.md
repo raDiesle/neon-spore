@@ -425,21 +425,6 @@ Give `BossCue` a way to say a smaller drop (or size it to the gap,
 `queenMarkCenter` both sides less each mark's ring), and prove with a test
 that the drop's rim stays clear of both mark rings.
 
-## Three integer mixers in render, each written privately
-
-- **Found:** 2026-10-14, claude/glance-temper
-- **Taken:** 2026-10-15, claude/queue-docs-spec-bosses-md-still-says-every-bosss-glanc (claim: claude/queue-three-integer-mixers-in-render-each-written-priv)
-- **Files:** `packages/render/src/idle-drift.ts`, `packages/render/src/backdrop.ts`, `packages/render/src/solid-motion.ts`, `packages/render/src/hash.ts`, `packages/sim/test/copies-table.ts`
-
-Each of the three files mixes an integer with murmur3's `0x85ebca6b` by a
-private few lines of its own, slightly differently. `hash.ts` holds render's
-shared hashes (`sinHash`, `stream`, and now `nameHash`, whose finaliser is the
-same murmur3 step). Give `hash.ts` one exported integer mixer, call it from
-the three, and add a COPIES row for the constant. Where a file's numbers
-would change what is drawn, keep its own and say why in the row's `also`, as
-the raster painters do. Prove it with `bun test packages/render` and
-`bun run check`.
-
 ## THE BLISTER's HOLD gets bodies built round its drop, on VERSUS
 
 - **Found:** 2026-10-14, claude/control-bodies

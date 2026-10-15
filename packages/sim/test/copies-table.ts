@@ -575,6 +575,20 @@ export const COPIES: Copy[] = [
     also: RASTER_PAINTERS,
   },
   {
+    // The third hash in the same file: an integer mixed until every bit
+    // reaches every other. `backdrop.ts` and `solid-motion.ts` each wrote
+    // murmur3's finaliser out privately, a shift apart from `nameHash`'s,
+    // before `mix32` took the shift as an argument. A fourth copy is a mixer
+    // a constant off, whose numbers look as random as the right ones.
+    call: "mix32",
+    owner: "packages/render/src/hash.ts",
+    pattern: /0x85ebca6b|0xc2b2ae35/i,
+    // Every body's drift seeds. Its finaliser has no opening shift, which
+    // `mix32` cannot leave out, and adopting it would turn every body a
+    // different way: a look rather than a refactor.
+    also: ["packages/render/src/idle-drift.ts"],
+  },
+  {
     // How near the poles a mark may sit. Three skins declared it privately —
     // `mounted.ts`, `turn.ts` and `crater.ts`, with the same comment copied
     // beside each — before the projection moved into `content` and gave it a

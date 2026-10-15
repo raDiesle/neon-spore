@@ -63,7 +63,11 @@ export interface BodyDrift {
   readonly headYaw: number;
 }
 
-/** A seed for one channel of one seed, so no two angles share a lattice. */
+/**
+ * A seed for one channel of one seed, so no two angles share a lattice.
+ * `mix32`'s finaliser without its opening shift, which is why it is not a
+ * call to it: every body's drift is already drawn from these seeds.
+ */
 export function subSeed(seed: number, k: number): number {
   let h = Math.imul(seed ^ Math.imul(k + 1, 0x9e3779b1), 0x85ebca6b);
   h = Math.imul(h ^ (h >>> 13), 0xc2b2ae35);

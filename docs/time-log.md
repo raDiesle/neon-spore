@@ -41737,3 +41737,16 @@ Bottleneck: the forty-eight paragraphs were written by forty-odd lanes, each
 ending its style sentence its own way.
 
 *Measured: 5 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-15 — render mixes an integer in one place
+
+- reading: 5 min. The three mixers side by side: two open with a shift of
+  15, `nameHash` with 16, and idle-drift's with none.
+- writing: 5 min. `mix32` with the opening shift as an argument, two calls,
+  the COPIES row and idle-drift's reason for keeping its own.
+- looking: 0 min. A fingerprint of 3930 outputs, identical before and after.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, `land`.
+
+Bottleneck: none to speak of — finding the three were not one function
+took longer than making two of them one.

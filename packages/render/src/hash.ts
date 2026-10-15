@@ -66,10 +66,19 @@ export function nameHash(name: string, n = 0): number {
     h ^= s.charCodeAt(i);
     h = Math.imul(h, 0x01000193) >>> 0;
   }
-  h ^= h >>> 16;
-  h = Math.imul(h, 0x85ebca6b) >>> 0;
+  return mix32(h) / 0x100000000;
+}
+
+/**
+ * murmur3's integer finaliser: every bit of `h` reaches every bit of the
+ * answer, an unsigned 32-bit integer. `first` is the opening shift. murmur3's
+ * own is 16; the backdrop's motes and `solid-motion.ts`'s lattice were written
+ * with 15, and every number they answer is already on the screen.
+ */
+export function mix32(h: number, first = 16): number {
+  h ^= h >>> first;
+  h = Math.imul(h, 0x85ebca6b);
   h ^= h >>> 13;
-  h = Math.imul(h, 0xc2b2ae35) >>> 0;
-  h ^= h >>> 16;
-  return (h >>> 0) / 0x100000000;
+  h = Math.imul(h, 0xc2b2ae35);
+  return (h ^ (h >>> 16)) >>> 0;
 }

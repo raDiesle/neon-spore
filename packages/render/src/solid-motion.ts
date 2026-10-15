@@ -1,4 +1,5 @@
 import { smoothstep } from "./ease.js";
+import { mix32 } from "./hash.js";
 
 /**
  * MOTION THAT A RIG HAS WITHOUT BEING TOLD: the always-on life of a body, as
@@ -25,10 +26,7 @@ import { smoothstep } from "./ease.js";
 
 /** A lattice hash to 0..1, seeded. Integer arithmetic only, so it is the same everywhere. */
 function hash(i: number, seed: number): number {
-  let h = (Math.imul(i | 0, 0x27d4eb2d) ^ Math.imul(seed | 0, 0x165667b1)) | 0;
-  h = Math.imul(h ^ (h >>> 15), 0x85ebca6b);
-  h = Math.imul(h ^ (h >>> 13), 0xc2b2ae35);
-  return ((h ^ (h >>> 16)) >>> 0) / 4294967296;
+  return mix32(Math.imul(i | 0, 0x27d4eb2d) ^ Math.imul(seed | 0, 0x165667b1), 15) / 4294967296;
 }
 
 /** Smooth noise, -1..1, one lattice cell per unit of `t`. */
