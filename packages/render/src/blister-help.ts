@@ -19,12 +19,12 @@ import { drawBlisterLever } from "./blister-lever-help.js";
 import { drawBlisterTurn } from "./blister-turn-help.js";
 import { flatCenter, flatRadius } from "./creature-place.js";
 import { handleRadius } from "./handle-draw.js";
-import { drawInstarGlyph } from "./instar-glyphs.js";
 import { type Layout, seatOf } from "./layout.js";
 import { drawMarkHalo, drawMarkWait } from "./mark-feedback.js";
 import { drawMarkHeld } from "./mark-progress.js";
 import { PALETTE } from "./palette.js";
 import { drawFuseRing } from "./pip-ring.js";
+import { drawPressDrop } from "./press-drop.js";
 import { drawPullKnob } from "./pull-knob.js";
 import { drawPullTrack, PULL_TRACK_W, type PullTrack } from "./pull-track.js";
 import { drawRubDrop } from "./rub-drop.js";
@@ -35,9 +35,12 @@ import { drawSoakHold } from "./soak-hold.js";
  * (`docs/controls-catalogue.md`): the same pieces every mark in the game
  * wears, laid over and round a body that is up.
  *
- * - On the seat that may knock it down: `drawMarkHalo` inside the body, the
- *   tap's flaring dots (`drawInstarGlyph`) over it, and one pip round it for
- *   each blow still owed (`pip-ring.ts`, THE MINE's ring).
+ * - On the seat that may knock it down: `drawMarkHalo` inside the body, THE
+ *   PRESS LAB's drop every press wears (`press-drop.ts`) over it — yellow,
+ *   calling *tap tap*, STEPS' water a terrace a blow — and one pip round it
+ *   for each blow still owed (`pip-ring.ts`, THE MINE's ring). The owner, 15
+ *   October 2026: *they should follow our standard tap control visuals*; it
+ *   was the tap's flaring dots (`drawInstarGlyph`) until then.
  * - On the seat that may not: the waiting clock over it (`drawMarkWait`) and
  *   the same pips — never the gesture, which reads as *your next move*
  *   (`mark-feedback.ts`). How many are left is no secret; the seat with the
@@ -111,9 +114,8 @@ export function drawBlisterHelp(
       drawSoakHold(ctx, { x, y }, r * HOLD_R, { time, held, fill });
     } else if (mine) {
       drawMarkHalo(ctx, x, y, r, time);
-      ctx.strokeStyle = PALETTE.text;
-      ctx.fillStyle = PALETTE.text;
-      drawInstarGlyph(ctx, "tap", x, y, r, time);
+      const times = Math.max(world.cfg.blisterBlows, left);
+      drawPressDrop(ctx, { x, y }, r * HOLD_R, { time, times, done: times - left });
     } else {
       drawMarkWait(ctx, x, y, r, time);
     }
@@ -123,7 +125,7 @@ export function drawBlisterHelp(
   }
 }
 
-/** The hold's drop, and the rub's, in the body's radius. */
+/** The hold's drop, the rub's and the press's, in the body's radius. */
 const HOLD_R = 0.7;
 
 /** Whether a hand that counts is on it now, on either seat — the sim's own question. */

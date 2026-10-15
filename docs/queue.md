@@ -358,3 +358,20 @@ the sweep cheaper (read only the rows' files that changed since `main`, or
 cache `treeText` across the describe) or give it a budget measured under a
 full `bun run test`, saying the figure in the comment. Prove it with two
 `bun run check:fast` runs in a row, both green.
+
+## Every other tap still wears its own picture, not the press drop
+
+- **Found:** 2026-10-15, claude/blister-tap-press
+- **Files:** `packages/render/src/press-drop.ts`, `packages/render/src/cue-helper.ts`, `packages/render/src/hold-mark.ts`, `packages/render/src/instar-ring.ts`, `packages/render/src/blister-tap.ts`
+- **Asks:** Should every tap in the game wear the yellow press drop, as every hold took SOAK and every rub ZIGZAG?
+
+THE BLISTER's TAP wears THE PRESS LAB's yellow drop since 15 October 2026
+(`press-drop.ts`, the owner: *they should follow our standard tap control
+visuals*), lifted out of the director for it. Every other tap still draws
+its own: a `TAP` cue with `BossCue.print` the thumbprint's circle
+(`hold-mark.ts`, through `cue-helper.ts`), THE INSTAR's tap the flaring dots
+(`instar-glyphs.ts`), and the enemies' taps theirs. The options: (a) every
+`TAP` cue and every enemy tap draws `drawPressDrop`, as HOLD and RUB went in
+one pass each; (b) the cues only, enemies left; (c) leave them. On (a) or
+(b), `cue-helper.ts` gains a `press` helper beside `hold` and `rub`, and the
+roll-out test lists who is still owed one.

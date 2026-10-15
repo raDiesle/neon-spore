@@ -1,107 +1,24 @@
-import type { Point } from "@neon-spore/content";
-import { smoothstep } from "@neon-spore/render";
-import { bodyPath, drop, type GooBody } from "../../../../packages/render/src/goo-body.js";
-import { paintGoo } from "../../../../packages/render/src/goo-drop-look.js";
-import { grown } from "../../../../packages/render/src/goo-enter.js";
-import { SPAWN } from "../../../../packages/render/src/goo-moment.js";
-import { clamp01, settle } from "../../../../packages/render/src/goo-noise.js";
-import { GOO } from "../../../../packages/render/src/goo-style.js";
-import type { Tone } from "../../../../packages/render/src/soak-water.js";
+import { paintPressDrop } from "../../../../packages/render/src/press-drop.js";
 import { fizzAway } from "../hold-goo/goo.js";
-import { tapCall } from "./call.js";
-import type { PressLook, PressView } from "./view.js";
+import type { PressLook } from "./view.js";
 
 /**
  * **The GOO press**: THE HOLD LAB's drop — the same RIPPLES · STILL drop, at
  * the same size in the same place, boiled away with the same FIZZ once
- * counted (`hold-goo/goo.ts`) — told apart from a hold by everything a finger
- * does to it (the owner, 13 October 2026: *visual should be same as decided
- * in "hold" but we need somehow to distinguish between them … likely there
- * should be no visual for pressing down, but the button pops up top again
- * fast*):
- *
- * - **nothing sinks**: no thumbprint, no dent, no water welling up under a
- *   resting thumb, no clock — a press is not waited through;
- * - **it pops up**: every press springs the drop up and taller at once and
- *   lets it settle, with a white ring off its rim;
- * - **it calls in a tap rhythm** rather than the hold's slow breathing
- *   (`call.ts`), so the two marks differ before either is touched;
- * - **a lapse** is the drop going red and shuddering where it is, the count
- *   draining out — the hold's refusal. As the gap nears it, the drop reddens.
- *
- * How many presses it asks, and how many are done, is a `Count` — STEPS, the
- * one a press wears (`steps.ts`).
+ * counted (`hold-goo/goo.ts`) — popping up where a hold sinks, calling in a
+ * tap rhythm, with STEPS' terraces in it. The drop itself is the game's now
+ * (`packages/render/src/press-drop.ts`), since THE BLISTER's TAP took it on
+ * 15 October 2026; the lab tells it what its rule says and adds the FIZZ.
  */
-
-export interface Count {
-  readonly key: string;
-  readonly name: string;
-  readonly sentence: string;
-  /** Inside the drop, clipped to it, over everything the drop paints. */
-  inside(v: PressView, drawn: GooBody, tone: Tone): void;
-}
-
-export function gooPress(c: Count): PressLook {
+export function gooPress(): PressLook {
   return {
-    key: c.key,
-    name: c.name,
-    sentence: c.sentence,
+    key: "steps",
+    name: "steps",
+    sentence:
+      "SOAK's water cut into presses: one terrace a press, each a jump; the terraces still to come are faint contours on the drop, none for one press and ten close bands for ten",
     paint(v) {
       if (v.ending !== null) fizzAway(v, v.ending);
-      if (v.mark) mark(v, c);
+      if (v.mark) paintPressDrop({ ...v, times: v.ask.times });
     },
   };
-}
-
-/** How far a press has the drop popped up, `t` seconds after it: all the way at once,
- * then springing back down through a wobble. */
-export const popOf = (t: number): number => (t < 1 ? settle(t, 10, 26) : 0);
-
-/** A drop never pressed has turned freely all along (`goo-soft.ts`'s `Turn`). */
-const FREE = { held: false, grabbed: 99, lifted: 99 };
-
-/** The tone a look draws its count in: red through a lapse, and blinking red as one nears. */
-export function toneOf(v: PressView): Tone {
-  if (v.failure !== null) return "red";
-  return v.near > 0.6 && Math.sin(v.time * 22) > 0 ? "red" : "good";
-}
-
-function mark(v: PressView, c: Count): void {
-  const { ctx, at, r, time } = v;
-  const g = grown(v.born);
-  if (g < 0.02) return;
-  let body: GooBody;
-  let red = 0;
-  if (v.failure !== null) {
-    const k = clamp01(v.failure / 0.9);
-    body = drop(at, r, { squash: 1 + 0.35 * settle(v.failure, 6, 18), shake: 0.3 * (1 - k) });
-    red = 0.9 * (1 - smoothstep(k));
-  } else {
-    let hop = 0;
-    if (v.done === 0 && v.born >= SPAWN) hop = tapCall(v);
-    const pop = Math.max(popOf(v.pressed), 0.6 * hop);
-    const up: Point = { x: at.x, y: at.y - r * 0.28 * Math.max(0, pop) };
-    body = drop(up, r * g, { squash: 1 - 0.3 * pop, shake: 0.1 * v.near ** 2 });
-    red = 0.6 * v.near ** 2;
-  }
-  const drawn = paintGoo(ctx, body, GOO, time, { red, green: 0 }, FREE);
-  ctx.save();
-  ctx.clip(bodyPath(drawn, GOO, time));
-  c.inside(v, drawn, toneOf(v));
-  ctx.restore();
-  popRing(v, drawn);
-}
-
-/** The white ring a press throws off the rim, wide and gone in a third of a second. */
-function popRing(v: PressView, b: GooBody): void {
-  const k = v.pressed / 0.32;
-  if (v.done === 0 || k >= 1) return;
-  const { ctx, time } = v;
-  ctx.save();
-  ctx.globalCompositeOperation = "lighter";
-  ctx.strokeStyle = "#FFFFFF";
-  ctx.globalAlpha = 0.85 * (1 - k) ** 2;
-  ctx.lineWidth = b.r * 0.1 * (1 - k) + 0.4;
-  ctx.stroke(bodyPath({ ...b, r: b.r * (1.08 + 0.55 * k) }, GOO, time));
-  ctx.restore();
 }

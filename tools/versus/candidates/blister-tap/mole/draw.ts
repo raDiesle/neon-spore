@@ -6,27 +6,39 @@ import { PALETTE } from "../../../../../packages/render/src/palette.js";
 const TAU = Math.PI * 2;
 
 /**
+ * How much bigger than the blister's radius the body is drawn, so it stands
+ * well clear of the yellow press in its middle (`press-drop.ts`, drawn at 0.7
+ * of the radius, its call's rings out to about 1.3) — the owner, 15 October
+ * 2026: *make sure the graphics are visible to be bigger than the tap (yellow)
+ * button*.
+ */
+export const GROW = 1.5;
+
+/** The socket's radius over the blister's: just outside the press's drop. */
+const SOCKET = 0.95;
+
+/**
  * MOLE: the button is the creature's face. A round head comes up out of the
- * pore, half again as wide as the press's halo, so the halo sits in the middle
- * of it like a snout; two eyes look out over it, and two paws grip the lip.
+ * pore, more than three times as wide as the yellow press, so the press sits
+ * in the middle of it like a snout; two eyes look out over it, and two paws grip the lip.
  * The pip at twelve lands on its brow. Tapping it is hitting the mole.
  */
 export function drawMoleBody(b: Body, f: BlisterFrame): void {
   const { ctx } = b;
-  const r = f.r;
+  const r = f.r * GROW;
   const x = b.x;
   const y = b.y + (1 - f.rise) * r * 1.8;
   const head = new Path2D();
   head.ellipse(x, y + r * 0.12, r * 1.62, r * 1.55, 0, 0, TAU);
   ctx.save();
   slime(ctx, head, x, y, r * 1.6, r);
-  // The socket the button sits in: a darker ring just outside the halo, so the
-  // halo reads as set into the face rather than laid on it.
+  // The socket the press sits in: a darker ring just outside the yellow drop,
+  // so the drop reads as set into the face rather than laid on it.
   ctx.beginPath();
-  ctx.arc(x, y, r * 1.1, 0, TAU);
+  ctx.arc(x, y, f.r * SOCKET, 0, TAU);
   ctx.fillStyle = rgba(PALETTE.background, 0.5);
   ctx.fill();
-  ctx.lineWidth = r * 0.16;
+  ctx.lineWidth = f.r * 0.12;
   ctx.strokeStyle = rgba(PALETTE.background, 0.55);
   ctx.stroke();
   for (const side of [-1, 1] as const) eye(ctx, x + side * r * 0.66, y - r * 1.12, r, side, b.time);

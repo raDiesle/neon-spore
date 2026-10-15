@@ -5,6 +5,15 @@ import { PALETTE } from "../../../../../packages/render/src/palette.js";
 
 const TAU = Math.PI * 2;
 
+/**
+ * How much bigger than the blister's radius the body is drawn, so it stands
+ * well clear of the yellow press in its middle (`press-drop.ts`, drawn at 0.7
+ * of the radius, its call's rings out to about 1.3) — the owner, 15 October
+ * 2026: *make sure the graphics are visible to be bigger than the tap (yellow)
+ * button*.
+ */
+export const GROW = 1.5;
+
 /** Discs along each arm: enough that they run together into one limb. */
 const STEPS = 22;
 
@@ -17,7 +26,7 @@ const STEPS = 22;
  */
 export function drawCradleBody(b: Body, f: BlisterFrame): void {
   const { ctx } = b;
-  const r = f.r;
+  const r = f.r * GROW;
   const x = b.x;
   const y = b.y + (1 - f.rise) * r * 1.8;
   ctx.save();

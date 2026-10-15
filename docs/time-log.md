@@ -41979,3 +41979,18 @@ Bottleneck: looking — still no one-command photograph of a blister body up
 close, the same wall COMBO's lane hit.
 
 *Measured: 36 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
+
+## 2026-10-15 — THE BLISTER's TAP wears the yellow press, and its bodies outgrow it
+
+- reading: 10 min. The three TAP candidates, the help every gesture wears,
+  and where THE PRESS LAB's drop lives — the director only.
+- writing: 10 min. The drop and its call lifted into `packages/render`, the
+  lab painting through them, TAP's help drawing it, the three bodies grown.
+- looking: 10 min. `versus:shot` of all three, cropped and set side by side,
+  twice.
+- friction: 5 min. The grown bodies came out cut square at the layer's reach
+  until the trunk's HOLD lane, landed meanwhile, had raised it to 3.2.
+- landing: 10 min. A queue title over 80 characters, `check:fast`, `land`.
+
+Bottleneck: `check:fast` at nearly five minutes on a busy machine, for a
+diff in four files of render and three candidates.

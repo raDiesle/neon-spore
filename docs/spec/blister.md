@@ -58,7 +58,7 @@ out on purpose — a desk with a mouse has none of them.
 
 | Gesture | The player reads | What the hand does | What the simulation counts | Its help, called and not redrawn |
 |---|---|---|---|---|
-| **TAP** (the plain mole) | `TAP` | taps the blister while it is up | taps; `tap {id}` routed to the blister as it is to the soundbox | `drawInstarGlyph`'s flaring dots, and one pip round the body for each tap still owed |
+| **TAP** (the plain mole) | `TAP` | taps the blister while it is up | taps; `tap {id}` routed to the blister as it is to the soundbox | THE PRESS LAB's yellow drop (`press-drop.ts`), STEPS' water a terrace a tap, and one pip round the body for each tap still owed |
 | **HOLD** | `HOLD` | presses and keeps the press | ticks held, from `grip` on to `grip` off; a release resets | `drawHoldMark`, with `drawGripDial` running round it |
 | **SWIPE** | `SWIPE` | drags across the body the way the arrow points | one stroke the moment the drag passes `blisterSwipeMilli` (one tile) in that direction, or on the lift that got it there — the one generic PULL (`sim/pull.ts`); let go short, refused out loud (`pullShort`) | the PULL LAB's knob on its channel, never a ring (the owner, 24 September and 13 October 2026) |
 | **TURN** (the circle) | `TURN` | drags a full turn round the body, the way the channel points | thousandths of a turn, as the crank's bearing is | `drawMazeLever`, the one turn for every wave (the owner, 5 October 2026) |

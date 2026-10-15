@@ -1,15 +1,15 @@
 import type { Point } from "@neon-spore/content";
-import { bodyPath } from "../../../../packages/render/src/goo-body.js";
-import { SPAWN } from "../../../../packages/render/src/goo-moment.js";
-import { GOO } from "../../../../packages/render/src/goo-style.js";
-import type { PressView } from "./view.js";
+import { bodyPath } from "./goo-body.js";
+import { SPAWN } from "./goo-moment.js";
+import { GOO } from "./goo-style.js";
 
 /**
  * **What calls a finger to a press no finger has touched yet** — the hold's
- * call (`hold-goo/call.ts`) in a tap rhythm: where the hold's halo breathes in
- * and out, slow, the press's flashes twice, quick — *tap tap* — then waits,
- * and each flash hops the drop and throws a ring. So a hold and a press differ
- * before either is touched, on the same drop.
+ * call (`soakCall`, `soak-hold.ts`) in a tap rhythm: where the hold's halo
+ * breathes in and out, slow, the press's flashes twice, quick — *tap tap* —
+ * then waits, and each flash hops the drop and throws a ring. So a hold and a
+ * press differ before either is touched, on the same drop. THE PRESS LAB's,
+ * lifted here when THE BLISTER's TAP took the press (`press-drop.ts`).
  */
 
 /** *Tap tap*, then a wait: the times of a round's hops, and how long a round lasts. */
@@ -20,8 +20,17 @@ const HOP = 14;
 /** Seconds a knock's ring takes to spread and fade. */
 const RING = 0.45;
 
+/** What the call is told: where, how big, and how long the mark has been in. */
+export interface CallAt {
+  readonly ctx: CanvasRenderingContext2D;
+  readonly at: Point;
+  readonly r: number;
+  readonly time: number;
+  readonly born: number;
+}
+
 /** Play the call round the mark; how high it hops the drop now, 0..1. */
-export function tapCall(v: PressView): number {
+export function tapCall(v: CallAt): number {
   const { ctx, at, r } = v;
   const k = TAP_TAP;
   const s = Math.max(0, v.born - SPAWN) % k.round;

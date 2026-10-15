@@ -2674,6 +2674,8 @@ by hand never moves.
 | `packages/render/src/plumb-weight.ts` | THE PLUMB's two weights, one at a time |
 | `packages/render/src/plumb-verdicts.ts` | **THE PLUMB's marks answering a touch the way every mark does** (`mark-feedback.ts` |
 | `packages/render/src/phase-into.ts` | **How far into its phase a choreographed boss is**, in beats, this beat's own fraction counted in |
+| `packages/render/src/press-call.ts` | **What calls a finger to a press no finger has touched yet** — the hold's call (`soakCall` |
+| `packages/render/src/press-drop.ts` | **Every press, drawn as THE PRESS LAB's** |
 | `packages/render/src/beatbox-air.ts` | **The air a soundbox is moving**, which is the half of this creature that has no number in it at all |
 | `packages/render/src/hull-light.ts` | who lights the ship, as a record — the seam a candidate light is patched onto, and the one that won |
 | `packages/render/src/hull-barrel.ts` | THE SHIP LIT BY ITS OWN NORMAL, instead of by a straight ramp across its box |
@@ -4162,10 +4164,8 @@ by hand never moves.
 | `tools/director/src/hold-lab-rule.ts` | **The one generic HOLD, as the HOLD LAB plays it** |
 | `tools/director/src/hold-lab-sheet.ts` | **EVERY STATE** — the HOLD LAB's sheet, as the PULL LAB's (`pull-lab-sheet.ts`): one row, SOAK |
 | `tools/director/src/hold-lab.ts` | **THE HOLD LAB** — the one generic HOLD on an empty field, to be held by hand |
-| `tools/director/src/press-goo/call.ts` | **What calls a finger to a press no finger has touched yet** |
 | `tools/director/src/press-goo/goo.ts` | **The GOO press**: THE HOLD LAB's drop — the same RIPPLES · STILL drop, at the same size in the same place |
 | `tools/director/src/press-goo/view.ts` | **What a PRESS LAB look is told**, read once a frame from the rule's state (`press-lab-rule.ts`) |
-| `tools/director/src/press-goo/steps.ts` | **STEPS** — THE HOLD LAB's SOAK, cut into the presses |
 | `tools/director/src/press-lab-auto.ts` | **AUTO's finger in THE PRESS LAB**, as `hold-lab-auto.ts` is THE HOLD LAB's: the presses a mark asks, quick |
 | `tools/director/src/press-lab-paint.ts` | One frame of THE PRESS LAB (`press-lab.ts`): the PULL LAB's empty field and STEPS' drop in its middle |
 | `tools/director/src/press-lab-rule.ts` | **The one generic PRESS, as THE PRESS LAB plays it** |
