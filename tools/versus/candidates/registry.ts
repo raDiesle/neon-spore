@@ -12,6 +12,9 @@ import { BLISTER_CURL } from "./blister-combo/curl/index.js";
 import { BLISTER_BELL } from "./blister-lever/bell/index.js";
 import { BLISTER_ROOT } from "./blister-lever/root/index.js";
 import { BLISTER_TAFFY } from "./blister-lever/taffy/index.js";
+import { BLISTER_PURR } from "./blister-rub/purr/index.js";
+import { BLISTER_URCHIN } from "./blister-rub/urchin/index.js";
+import { BLISTER_WASHBOARD } from "./blister-rub/washboard/index.js";
 import { BLISTER_CRADLE } from "./blister-tap/cradle/index.js";
 import { BLISTER_MOLE } from "./blister-tap/mole/index.js";
 import { BLISTER_RIDER } from "./blister-tap/rider/index.js";
@@ -23,6 +26,9 @@ export const VARIANTS: Variant[] = [
   BLISTER_BELL,
   BLISTER_ROOT,
   BLISTER_TAFFY,
+  BLISTER_PURR,
+  BLISTER_URCHIN,
+  BLISTER_WASHBOARD,
   BLISTER_CRADLE,
   BLISTER_MOLE,
   BLISTER_RIDER,

@@ -504,17 +504,3 @@ flower or a wheel of lobes the lever sweeps past; a coiled worm whose head
 is the knob. Clockwise and anticlockwise must both read. Send one PNG of
 the current beside the three. Prove it with `bun test tools/versus` and
 `bun run check`.
-
-## THE BLISTER's RUB gets bodies built round its zigzag, on VERSUS
-
-- **Found:** 2026-10-14, claude/control-bodies
-- **Taken:** 2026-10-15, claude/queue-the-blisters-rub-gets-bodies-built-round-its-zig
-- **Files:** `packages/render/src/blister-bodies.ts`, `packages/render/src/rub-drop.ts`, `tools/director/src/poses-field-controls-blister.ts`, `tools/director/src/versus-pose.ts`
-
-The same ask as THE BLISTER's HOLD entry, for `blister:rub`, patching
-`BLISTER_BODY.rub`'s `draw`, judged on `BLISTER · RUBBED ONCE`. The RUB
-LAB's drop wears a zigzag stroke for every blow (`rub-drop.ts`), so the
-body can be the thing scrubbed: an urchin or a hedgehog whose spines lie
-along the zigzag; a ridged belly like a washboard; a furred back that
-bristles where it has been rubbed. Send one PNG of the current beside the
-three. Prove it with `bun test tools/versus` and `bun run check`.

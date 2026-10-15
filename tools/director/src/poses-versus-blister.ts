@@ -97,6 +97,44 @@ const GRAB = 30;
 const INTO = 50;
 const LET_GO = 130;
 
+/**
+ * THE BLISTER's RUB played through by a hand of its own: up out of its pore
+ * untouched and calling, then scrubbed — a thumb down on it and turned back
+ * twice, two blows of its three — and lifted, all inside the two beats it
+ * stays up. It is what `blister:rub` on VERSUS is judged on: a body that
+ * answers being scrubbed, so the scrub has to happen on the page, and ON THE
+ * FIELD's `BLISTER · RUBBED ONCE` holds one moment of it.
+ */
+export const BLISTER_RUB_PLAYED: Pose = {
+  name: "BLISTER · RUB SCRUBBED TWICE AND LIFTED",
+  note: "A RUB blister is up out of its pore for its two beats, three blows owed, its drop wagging to call. Player 2 puts a thumb on it and scrubs, turning back twice — two of its three zigzag strokes lit, two pips gone — and lifts. Player 2's screen, the seat its BY names.",
+  lookAt: "whether the body says it is being scrubbed, and how much is left",
+  crop: "tile",
+  role: "p2",
+  span: 3,
+  cadenceSeconds: 1.25,
+  at: (w) => {
+    const c = w.creatures.find(blisterIsUp);
+    return c ? { col: c.col, row: c.row } : { col: 4, row: 3 };
+  },
+  build: () => blisterUp("rub"),
+  hand: (w) => {
+    const c = w.creatures.find(blisterIsUp);
+    if (!c) return [];
+    const t = sinceUp(w, "rub");
+    const rubbed = (on: boolean, turns: number) =>
+      sent(w, { kind: "drag", target: "blisterRub", on, fromMilli: c.id, id: turns });
+    const turn = SCRUB.indexOf(t);
+    if (turn !== -1) return rubbed(true, turn);
+    if (t === LIFTED) return rubbed(false, SCRUB.length - 1);
+    return [];
+  },
+};
+
+/** Ticks from the rub blister coming up: the thumb down, each turn back, and the lift. */
+const SCRUB = [40, 65, 90];
+const LIFTED = 120;
+
 /** One command from player 2, on the tick the world stands at. */
 function sent(w: World, command: TimedCommand["command"]): TimedCommand[] {
   return [{ tick: w.tick, player: 2, command }];

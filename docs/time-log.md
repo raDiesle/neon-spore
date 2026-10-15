@@ -41691,3 +41691,16 @@ Bottleneck: the groove leaves the pore, so a body built round it needed a
 draw outside the pore's clip before any candidate could be.
 
 *Measured: 19 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-15 — VERSUS offers THE BLISTER's RUB a body built round its zigzag
+
+- reading: 0 min. The rub drop's radius and the rub hand's fields, read
+  while the lane before landed.
+- writing: 5 min. URCHIN, WASHBOARD and PURR, each reading the blows left
+  and whether a thumb is rubbing; a pose whose hand scrubs twice and lifts.
+- looking: 5 min. Two rounds: URCHIN's laid spines hid under its shell.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, `land`.
+
+Bottleneck: waiting on the lane before to land before this one could be
+claimed — the bodies were drafted in the scratchpad meanwhile.
