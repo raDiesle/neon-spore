@@ -331,6 +331,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## `bun run perf` misses the screen's flush, so a layer reads twice its cost
 
 - **Found:** 2026-10-15, claude/glance-layer-cost
+- **Taken:** 2026-10-15, main (claim: claude/queue-bun-run-perf-misses-the-screens-flush-so-a-layer)
 - **Files:** `tools/perf/measure.ts`, `docs/performance.md`
 
 `timePaints` times `paint()` calls and nothing after them. Chrome records a 2D
