@@ -12,8 +12,14 @@ import { actTint, baked, lighter, skyGlow } from "./sky-kit.js";
  * behind the hole and the near half in front, and a thin bright ring of
  * bent light hugs the black. The stars nearest it are swallowed.
  *
+ * Out of both poles a thin jet of blue-white goes up and down the sky,
+ * flickering, knots of it running outward; the side of the disc turning
+ * toward us burns brighter than the side turning away, and that bright side
+ * breathes.
+ *
  * The disc is baked face-on once per size and tint; a frame turns and
- * squashes it twice, the far half and the near half, each under a clip.
+ * squashes it twice, the far half and the near half, each under a clip, and
+ * lays the jets and the bright side over it.
  */
 
 const AT = { x: 0.3, y: 0.3 } as const;
@@ -23,6 +29,55 @@ const DISC = 0.5;
 const SQUASH = 0.2;
 const LEAN = 0.18;
 const TURN = 0.25;
+const JET = "#C8D8FF";
+/** How many knots run up each jet. */
+const KNOTS = 4;
+
+/** One jet, pointing up from the bottom centre of its sheet: a narrow cone
+ * of light, brightest at the hole, fading as it goes. */
+function jetSheet(): HTMLCanvasElement {
+  return baked("hole-jet", 32, 256, (g, w, h) => {
+    const along = g.createLinearGradient(0, h, 0, 0);
+    along.addColorStop(0, withAlpha(JET, 0.9));
+    along.addColorStop(0.3, withAlpha(JET, 0.35));
+    along.addColorStop(1, withAlpha(JET, 0));
+    g.fillStyle = along;
+    g.beginPath();
+    g.moveTo(w / 2 - 1.5, h);
+    g.lineTo(w * 0.15, 0);
+    g.lineTo(w * 0.85, 0);
+    g.lineTo(w / 2 + 1.5, h);
+    g.closePath();
+    g.fill();
+  });
+}
+
+/** The jets and their knots, in the hole's frame leaned with the disc. */
+function drawJets(d: BackdropDraw, cx: number, cy: number, reach: number): void {
+  const { ctx, time } = d;
+  const jet = jetSheet();
+  const knot = skyGlow(JET, 64, [0, 0.25, 1]);
+  ctx.save();
+  ctx.translate(cx, cy);
+  ctx.rotate(LEAN);
+  // The up jet, then the frame flipped for the down one.
+  for (const dir of [0, 1]) {
+    if (dir === 1) ctx.scale(1, -1);
+    const flicker = 0.75 + 0.15 * Math.sin(time * 3.1 + dir) + 0.1 * Math.sin(time * 7.3);
+    const tall = reach * (0.92 + 0.08 * Math.sin(time * 0.8 + dir));
+    const wide = reach * 0.07;
+    ctx.globalAlpha = 0.42 * flicker;
+    ctx.drawImage(jet, -wide / 2, -tall, wide, tall);
+    for (let k = 0; k < KNOTS; k++) {
+      const p = time * 0.09 + k / KNOTS + dir * 0.13;
+      const u = p - Math.floor(p);
+      const size = reach * (0.05 - 0.025 * u);
+      ctx.globalAlpha = 0.7 * (1 - u) * Math.min(1, u * 8);
+      ctx.drawImage(knot, -size / 2, -u * tall - size / 2, size, size);
+    }
+  }
+  ctx.restore();
+}
 
 function discSheet(tint: string, size: number): HTMLCanvasElement {
   return baked(`hole-disc${tint}`, size, size, (g, w) => {
@@ -111,5 +166,17 @@ export function skyHole(d: BackdropDraw): void {
   lighter(ctx, () => {
     ctx.globalAlpha = 0.9;
     drawDisc(d, sheet, r, false);
+    // The side turning toward us, brighter: a glow on the disc's left.
+    const bright = r * 0.9;
+    const bx = cx - Math.cos(LEAN) * r * 0.42;
+    const by = cy - Math.sin(LEAN) * r * 0.42;
+    ctx.globalAlpha = 0.3 + 0.1 * Math.sin(time * 0.9);
+    ctx.save();
+    ctx.translate(bx, by);
+    ctx.rotate(LEAN);
+    ctx.scale(1, SQUASH * 1.6);
+    ctx.drawImage(skyGlow("#FFF0DC", 256, [0, 0.3, 1]), -bright / 2, -bright / 2, bright, bright);
+    ctx.restore();
+    drawJets(d, cx, cy, height * 0.55);
   });
 }

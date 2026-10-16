@@ -95,7 +95,10 @@ function entriesAfter(role: "p1" | "p2"): number {
 // canvas the pass is first run on, where the two scratch layers were.
 // Three more on each seat from 16 October 2026: the deep sky under every sky
 // (`sky-depth.ts`) bakes its haze, its near stars and one twinkle.
-const HELD = { p1: 49, p2: 58 } as const;
+// Three more again the same day: the first wave is under GIANT, whose ring
+// now throws a shadow, whose lit limb has a rim, and which has a moon
+// (`sky-giant.ts`) — one bake each.
+const HELD = { p1: 52, p2: 61 } as const;
 
 describe("what the renderer keeps between frames", () => {
   for (const role of ["p1", "p2"] as const) {

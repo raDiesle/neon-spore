@@ -2,18 +2,20 @@ import { hash01, withAlpha } from "./backdrop.js";
 import type { BackdropDraw } from "./backdrop-look.js";
 import { mixHex } from "./hex.js";
 import { drawDeepSky } from "./sky-depth.js";
-import { actTint, baked } from "./sky-kit.js";
+import { actTint, baked, lighter } from "./sky-kit.js";
 
 /**
  * MOONS — three moons over the field, one of them huge.
  *
  * A great cratered moon low on the right, a crescent lit from the upper
  * left with the rest of its face in earthshine, and two small ones higher on
- * the left at other phases. They hang still; the lit edge of the big one
- * breathes a little, as a light through thin air does.
+ * the left at other phases. A thin halo of air hangs round the big one and
+ * breathes; the two small ones bob a little, far off; and a pebble of a moon
+ * goes round the big one, in front of its face for half the orbit and behind
+ * it for the other.
  *
- * Each moon is baked once per size, tint and phase; a frame is the stars
- * and three blits.
+ * Each moon is baked once per size, tint and phase; a frame is the deep sky,
+ * the halo and five blits.
  */
 
 interface Moon {
@@ -74,16 +76,62 @@ function moonSheet(m: Moon, tint: string, size: number): HTMLCanvasElement {
   });
 }
 
+/** Thin air round the big moon: nothing over its face, a glow just past
+ * the limb, gone by a quarter of a radius out. Drawn 2.5 radii across. */
+function haloSheet(tint: string): HTMLCanvasElement {
+  return baked(`moon-halo${tint}`, 256, 256, (g, w) => {
+    const c = w / 2;
+    const limb = c / 1.25;
+    const grad = g.createRadialGradient(c, c, limb * 0.96, c, c, c);
+    grad.addColorStop(0, withAlpha(tint, 0));
+    grad.addColorStop(0.08, withAlpha(mixHex(tint, "#E8E0F8", 0.5), 1));
+    grad.addColorStop(1, withAlpha(tint, 0));
+    g.fillStyle = grad;
+    g.fillRect(0, 0, w, w);
+  });
+}
+
+/** The pebble going round the big moon: its orbit's radius and lean, in big
+ * moon radii, its period in seconds and its own radius. */
+const PEBBLE = { orbit: 1.35, lean: 0.25, period: 110, r: 0.07 } as const;
+
 export function skyMoons(d: BackdropDraw): void {
   const { ctx, l, time } = d;
   const height = l.bandTop;
   if (height <= 0 || l.width <= 0) return;
   drawDeepSky(d, { seed: 163_000, far: 170 });
   const tint = actTint(d, 0.3);
+  const big = MOONS[0]!;
+  const br = l.width * big.r;
+  const bx = l.width * big.x;
+  const by = height * big.y;
+  const orbit = (time / PEBBLE.period) * Math.PI * 2 + 2.4;
+  const front = Math.sin(orbit) > 0;
+  const pr = br * PEBBLE.r * (1 + 0.1 * Math.sin(orbit));
+  const px = bx + Math.cos(orbit) * br * PEBBLE.orbit;
+  const py = by + Math.sin(orbit) * br * PEBBLE.orbit * PEBBLE.lean - Math.cos(orbit) * br * 0.3;
+  const pebble = moonSheet(MOONS[2]!, tint, 64);
+
+  lighter(ctx, () => {
+    const halo = br * 2.5;
+    ctx.globalAlpha = 0.16 + 0.05 * Math.sin(time * 0.4);
+    ctx.drawImage(haloSheet(tint), bx - halo / 2, by - halo / 2, halo, halo);
+  });
+  ctx.globalAlpha = front ? 0 : 0.7;
+  ctx.drawImage(pebble, px - pr, py - pr, pr * 2, pr * 2);
   for (const [i, m] of MOONS.entries()) {
     const r = l.width * m.r;
+    const bob = i === 0 ? 0 : Math.sin(time * 0.11 + i * 2) * l.width * 0.006;
     ctx.globalAlpha = i === 0 ? 0.62 + 0.06 * Math.sin(time * 0.4) : 0.75;
-    ctx.drawImage(moonSheet(m, tint, r * 2), l.width * m.x - r, height * m.y - r, r * 2, r * 2);
+    ctx.drawImage(
+      moonSheet(m, tint, r * 2),
+      l.width * m.x - r + bob,
+      height * m.y - r + bob * 0.6,
+      r * 2,
+      r * 2,
+    );
   }
+  ctx.globalAlpha = front ? 0.85 : 0;
+  ctx.drawImage(pebble, px - pr, py - pr, pr * 2, pr * 2);
   ctx.globalAlpha = 1;
 }

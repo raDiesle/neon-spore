@@ -13,14 +13,51 @@ import { actTint, baked, lighter, skyGlow } from "./sky-kit.js";
  * glow of the act's colour falling from it down the sky. Everything that
  * comes down the field comes from under it.
  *
- * The corona is baked once per size and tint; a frame is the stars, the
- * glow, the turned corona, the bead and the black disc.
+ * It is alive the way a corona is: two layers of streamers turn against
+ * each other, so the light seems to stir rather than spin; loops of rose
+ * prominence stand on the limb and swell and fade; the bead breathes.
+ *
+ * The corona and the loops are baked once per size and tint; a frame is the
+ * deep sky, the glow, the corona twice, the loops, the bead and the black disc.
  */
 
 const AT = { x: 0.5, y: 0.23 } as const;
 /** The black disc's radius, as a share of the width. */
 const RADIUS = 0.2;
 const TURN = 0.02;
+/** The prominences' colour: a rose, well off a body's red. */
+const ROSE = "#F0A8D0";
+
+/** Arches of glowing gas standing on the limb, in the corona's own frame. */
+function loops(size: number): HTMLCanvasElement {
+  return baked("eclipse-loops", size, size, (g, w) => {
+    const c = w / 2;
+    const r = c * 0.32;
+    g.lineCap = "round";
+    for (let i = 0; i < 5; i++) {
+      const a = hash01(123_000 + i) * Math.PI * 2;
+      const span = 0.08 + hash01(124_000 + i) * 0.14;
+      const tall = r * (0.12 + hash01(125_000 + i) * 0.22);
+      const x0 = c + Math.cos(a - span) * r;
+      const y0 = c + Math.sin(a - span) * r;
+      const x1 = c + Math.cos(a + span) * r;
+      const y1 = c + Math.sin(a + span) * r;
+      const mx = c + Math.cos(a) * (r + tall * 2);
+      const my = c + Math.sin(a) * (r + tall * 2);
+      for (const [lw, al] of [
+        [6, 0.18],
+        [2.5, 0.55],
+      ] as const) {
+        g.strokeStyle = withAlpha(ROSE, al);
+        g.lineWidth = lw * (w / 512);
+        g.beginPath();
+        g.moveTo(x0, y0);
+        g.quadraticCurveTo(mx, my, x1, y1);
+        g.stroke();
+      }
+    }
+  });
+}
 
 function corona(colour: string, size: number): HTMLCanvasElement {
   return baked(`corona${colour}`, size, size, (g, w) => {
@@ -73,8 +110,18 @@ export function skyEclipse(d: BackdropDraw): void {
     ctx.save();
     ctx.translate(cx, cy);
     ctx.rotate(time * TURN);
+    const sheet = corona(light, size);
     ctx.globalAlpha = 0.8;
-    ctx.drawImage(corona(light, size), -size / 2, -size / 2, size, size);
+    ctx.drawImage(sheet, -size / 2, -size / 2, size, size);
+    // The outer layer, larger and turning the other way.
+    const outer = size * 1.3;
+    ctx.rotate(-time * TURN * 2.6 + 1.7);
+    ctx.globalAlpha = 0.32 + 0.08 * Math.sin(time * 0.35);
+    ctx.drawImage(sheet, -outer / 2, -outer / 2, outer, outer);
+    // The loops turn with neither, slower still, and breathe.
+    ctx.rotate(time * TURN * 2.1);
+    ctx.globalAlpha = 0.65 + 0.3 * Math.sin(time * 0.6);
+    ctx.drawImage(loops(512), -size / 2, -size / 2, size, size);
     ctx.restore();
   });
 

@@ -2,20 +2,23 @@ import { withAlpha } from "./backdrop.js";
 import type { BackdropDraw } from "./backdrop-look.js";
 import { mixHex } from "./hex.js";
 import { drawDeepSky } from "./sky-depth.js";
-import { actTint, baked, lighter } from "./sky-kit.js";
+import { actTint, baked, lighter, skyGlow } from "./sky-kit.js";
 
 /**
  * AURORA — curtains of light hang across the top of the sky and ripple.
  *
- * Two curtains, one far and one nearer, each a row of tall thin strips that
+ * Three curtains — a faint violet one high and far, a rose one, and the
+ * green nearest — each a row of tall thin strips that
  * are brightest along their lower hem and fade upward, the hem a slow wave
  * that travels sideways, the strips taller where the wave folds. A pale
  * green that is not the shield's cyan, warmed toward the act's colour, over
  * a starry black. The field's lower half is left to the stars, where the
  * bodies are thickest near the hull.
  *
- * One strip sprite baked per tint; a frame is the stars and about ninety
- * blits of it.
+ * Under them the sky itself glows green, breathing as the curtains brighten.
+ *
+ * One strip sprite baked per tint; a frame is the deep sky, the glow and
+ * about sixty strips.
  */
 
 interface Curtain {
@@ -34,8 +37,19 @@ interface Curtain {
 
 const GREEN = "#B4F08C";
 const ROSE = "#E08CF0";
+const VIOLET = "#A8A0F8";
 
 const CURTAINS: readonly Curtain[] = [
+  {
+    hem: 0.17,
+    reach: 0.16,
+    sway: 0.03,
+    speed: 0.13,
+    phase: 4.4,
+    alpha: 0.24,
+    strips: 14,
+    colour: VIOLET,
+  },
   {
     hem: 0.3,
     reach: 0.26,
@@ -85,6 +99,16 @@ export function skyAurora(d: BackdropDraw): void {
   drawDeepSky(d, { seed: 61_000, far: 190 });
 
   lighter(ctx, () => {
+    // The sky under the curtains, lit green and breathing.
+    const glow = l.width * 1.6;
+    ctx.globalAlpha = 0.14 + 0.05 * Math.sin(time * 0.3);
+    ctx.drawImage(
+      skyGlow(mixHex(GREEN, actTint(d), 0.3), 256, [0, 0.35, 1]),
+      l.width / 2 - glow / 2,
+      height * 0.4 - glow / 2,
+      glow,
+      glow,
+    );
     for (const c of CURTAINS) {
       const sheet = stripSheet(mixHex(c.colour, actTint(d), 0.25));
       const sw = (l.width / c.strips) * 2.2;

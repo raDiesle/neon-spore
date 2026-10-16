@@ -2,7 +2,7 @@ import { hash01, withAlpha } from "./backdrop.js";
 import type { BackdropDraw } from "./backdrop-look.js";
 import { mixHex } from "./hex.js";
 import { drawDeepSky } from "./sky-depth.js";
-import { actTint, baked, lighter } from "./sky-kit.js";
+import { actTint, baked, lighter, skyGlow } from "./sky-kit.js";
 
 /**
  * MILKY — the galaxy's own band crosses the sky corner to corner.
@@ -10,11 +10,16 @@ import { actTint, baked, lighter } from "./sky-kit.js";
  * A river of stars from the bottom left to the top right: thousands of
  * points packed toward its spine, a glow of the act's colour under them, and
  * dark lanes of dust breaking it up the way the real one is broken. Outside
- * the band the sky is black and sparse. A dozen bright stars across the whole
- * sky breathe on their own clocks; nothing else moves, because a band that
- * slides reads as the ship flying and the ship does not fly.
+ * the band the sky is black and sparse. Its heart bulges, a warm glow
+ * where the band is thickest, with knots of rose gas strung along it.
  *
- * Baked once per size and tint; a frame is one blit and twelve stars.
+ * It moves only as a sky does: the whole band turns a hair either way about
+ * the middle of the picture, very slowly, and the bulge breathes. It never
+ * slides, because a band that slides reads as the ship flying and the ship
+ * does not fly. A dozen bright stars breathe on their own clocks.
+ *
+ * Baked once per size and tint; a frame is the deep sky, the band turned,
+ * the bulge and twelve stars.
  */
 
 /** The band's spine runs from (0, 1) to (1, 0) of the sky, shifted by this. */
@@ -22,6 +27,12 @@ const SPINE_SHIFT = 0.04;
 /** Half its width, as a share of the sky's diagonal. */
 const HALF = 0.17;
 const BRIGHT = 12;
+/** How far the band turns either way, in radians, and its period in seconds. */
+const ROCK = 0.012;
+const ROCK_PERIOD = 90;
+/** The band drawn this much larger than the sky, so a turn shows no corner. */
+const OVER = 1.06;
+const KNOT = "#F0A0D0";
 
 /** How far (signed, in diagonals) a point is from the spine. */
 function across(x: number, y: number, w: number, h: number): number {
@@ -79,6 +90,20 @@ function bandSheet(tint: string, w: number, h: number): HTMLCanvasElement {
       g.fillStyle = dust;
       g.fillRect(x - r, y - r, r * 2, r * 2);
     }
+
+    // Knots of rose gas, where new stars are, strung along the spine.
+    for (let i = 0; i < 30; i++) {
+      const u = 0.1 + hash01(81_000 + i) * 0.8;
+      const off = (hash01(81_100 + i) - 0.5) * spread * 0.7;
+      const x = u * pw * (1 - SPINE_SHIFT) + (n.x / len) * off;
+      const y = (1 - u) * ph * (1 - SPINE_SHIFT) + (n.y / len) * off;
+      const r = spread * (0.012 + hash01(81_200 + i) * 0.022);
+      const knot = g.createRadialGradient(x, y, 0, x, y, r);
+      knot.addColorStop(0, withAlpha(KNOT, 0.3));
+      knot.addColorStop(1, withAlpha(KNOT, 0));
+      g.fillStyle = knot;
+      g.fillRect(x - r, y - r, r * 2, r * 2);
+    }
   });
 }
 
@@ -88,9 +113,25 @@ export function skyMilky(d: BackdropDraw): void {
   if (height <= 0 || l.width <= 0) return;
   drawDeepSky(d, { seed: 90_500, far: 120 });
   const tint = actTint(d, 0.4);
+  const w = l.width * OVER;
+  const h = height * OVER;
+  ctx.save();
+  ctx.translate(l.width / 2, height / 2);
+  ctx.rotate(ROCK * Math.sin((time / ROCK_PERIOD) * Math.PI * 2));
   ctx.globalAlpha = 0.9;
-  ctx.drawImage(bandSheet(tint, l.width, height), 0, 0, l.width, height);
+  ctx.drawImage(bandSheet(tint, l.width, height), -w / 2, -h / 2, w, h);
+  ctx.restore();
   lighter(ctx, () => {
+    // The bulge: a warm glow on the band's spine, a little below the middle.
+    const bulge = l.width * (0.95 + 0.05 * Math.sin(time * 0.25));
+    ctx.globalAlpha = 0.22;
+    ctx.drawImage(
+      skyGlow(mixHex(tint, "#FFE0C0", 0.55), 256, [0, 0.3, 1]),
+      l.width * 0.46 - bulge / 2,
+      height * 0.52 - bulge / 2,
+      bulge,
+      bulge,
+    );
     ctx.fillStyle = "#F4F0FF";
     for (let i = 0; i < BRIGHT; i++) {
       const s = 90_000 + i * 4;

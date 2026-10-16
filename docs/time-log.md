@@ -43509,3 +43509,13 @@ Bottleneck: none — the wreck asked `pods.ts` for `POD_TILES`, which would have
 been an import cycle, so the caller passes the radius it already has.
 
 *Measured: 7 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-16 — GIANT, MILKY, ECLIPSE, AURORA, HOLE and MOONS get detail and motion
+
+- reading: 5 min. The six skies.
+- writing: 20 min. Drafted in a scratchpad while part one landed, then copied in.
+- looking: 10 min. Two shots; three things started their orbits off screen.
+- friction: 5 min. The director server had exited and a shot came from an old file.
+- landing: 5 min. `check:fast`, one baked-growth row, `land`.
+
+Bottleneck: waiting on part one's landing, which the drafting filled.
