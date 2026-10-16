@@ -43151,3 +43151,5 @@ lobe measures as two or three, so only eight pleats were free.
 
 Bottleneck: the first limp body filled with the pod's own dark and read as a
 stone; only a frame showed it.
+
+*Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-16 · 823b438f6 — A limp morsel is drawn as a cargo: drained to amber, slumped, with the pod's mark and light
+
+Whole, THE MORSEL is the ordinary living body in its own colour. Once a hit turns it limp, it is washed almost all the way to the pod's amber, squashed wider and flatter about its bottom edge with a slow jelly wobble, and carries the pod's bright core and halo. The pilot reads "open the maw" off it from across the field. The look comes off `morselIsLimp` and the clock, and nothing is stored.
+
 ## 2026-10-16 · 3bdb8b74b — THE MORSEL: a body a hit turns limp, finished only by the maw (simulation)
 
 A new body with a colour of its own. A shot in its colour does not kill it but turns it limp, and from then on it steers at the cannon like a moult's cargo. At the hull it must be swallowed, inside the maw's reach with the maw open, or the wave is lost. Unshot, it breaks on the hull like a slick. A second shot at a limp one is spent. Its block — THE MORSEL and eight composed waves — sits after THE SWINDLE and before THE LANCE, with a film of its own, and the bosses were re-placed behind it.
