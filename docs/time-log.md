@@ -42948,3 +42948,5 @@ baseline and the measured table, three commands each time.
 
 Bottleneck: the first rule let a guided boss jump ahead — THE BROOD has a
 guide — and only the save test moving it showed it.
+
+*Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

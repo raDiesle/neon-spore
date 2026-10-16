@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-16 · 0a0f779b5 — Nothing is used before it is taught: every director save refuses a wave list that breaks it
+
+A wave's keys are every mechanic it carries, its panel, every button on that panel, and the hold (`waveKeys`, moved into content from the director's `keysOf`). The first wave in the list to carry a key introduces it, and only a guided wave that is not a boss may; a boss introduces only its own. `untaughtKeys` names whatever breaks that, a content test holds the list on disk to it, and `writeWaves` — the one save under every `waves:*` generator and the editor — refuses such a list before writing a byte. It found one on the day: THE BASTION was the first wave on STANDARD 5, handing the pair the maw a wave before SALVAGE teaches it and never asking for it, so it plays on STANDARD 4 now (a fix to something wrong, not a look).
+
 ## 2026-10-16 · 39db96f35 — BULB QUEEN closes SALVAGE's block, in the tutorial
 
 The owner's pick of the bosses that need nothing the tutorial does not already teach: BULB QUEEN — pods, torches and the panel, a boss of seeing with no shot — now comes straight after SALVAGE's waves, before CATCH AND AIM, which heads a group of its own. Every boss after the tutorial takes the block before the one it had, and the last review block, which no boss closed any more, is gone.
