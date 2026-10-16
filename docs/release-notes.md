@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-16 · 8d993d3e4 — waves:order composes past THE LANCE and THE CLAW again
+
+The wave composer stopped at THE LANCE and THE CLAW, and nothing after them could be composed. THE LANCE's eight waves were held under THE CAGE, which landed by hand after them, as if it were the next wave of their ramp. A lesson's composed waves are no longer capped by the set pieces written after them. THE CLAW's waves are pods and nothing else, and every draw scored 0 pressure because `wavePressure` reads only entries, so no step could rise. A claw draw is now scored on its pods (`clawPressure`): one per pod, more for a switch of edge, a quick crossing or a nearer pod. `waves:order` now runs to the end and says the list changes. Whether to write that is queued for the owner.
+
 ## 2026-10-16 · 4a244b6d3 — THE TWINS, THE LAST ROCK and THE NEIGHBOUR: three pod waves from parts the game has
 
 Three waves that need nothing new. In THE TWINS two pods hang three columns apart, so one press of the maw has to take both. In THE LAST ROCK a pod is freed while the last rocks fall, so the shield and the maw want the same beat. In THE NEIGHBOUR a hollow pod hangs beside every real one, and only player 2 can say which to leave.

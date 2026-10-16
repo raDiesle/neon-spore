@@ -43287,3 +43287,5 @@ files change, so a renumber that moves the sky passes it and fails `land`.
 
 Bottleneck: THE LANCE's cause had changed since the entry was filed — the
 pod sets landed after it an hour later — and only a printed ramp said so.
+
+*Measured: 14 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
