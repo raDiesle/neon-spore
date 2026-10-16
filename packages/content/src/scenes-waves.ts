@@ -27,6 +27,7 @@ import { THE_FLEET } from "./scenes/the-fleet.js";
 import { THE_GAP } from "./scenes/the-gap.js";
 import { THE_GAUGE } from "./scenes/the-gauge.js";
 import { THE_GHOST } from "./scenes/the-ghost.js";
+import { THE_GLUTTON } from "./scenes/the-glutton.js";
 import { THE_GYRE } from "./scenes/the-gyre.js";
 import { THE_HAND } from "./scenes/the-hand.js";
 import { THE_JAM } from "./scenes/the-jam.js";
@@ -128,6 +129,7 @@ export type WaveSceneId =
   | "theMoult"
   | "theMorsel"
   | "theSeeder"
+  | "theGlutton"
   | "theMine"
   | "theBlister";
 
@@ -189,6 +191,7 @@ export const SCENES_WAVES: Record<WaveSceneId, GuideScene> = {
   theMoult: THE_MOULT,
   theMorsel: THE_MORSEL,
   theSeeder: THE_SEEDER,
+  theGlutton: THE_GLUTTON,
   theMine: THE_MINE,
   theBlister: THE_BLISTER,
 };

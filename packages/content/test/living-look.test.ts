@@ -32,7 +32,7 @@ describe("the living-look table", () => {
    * wrong answer has to walk past this list, and the person adding it has to
    * say out loud that their creature is or is not a body of its own.
    */
-  it("counts exactly the fourteen bodies the field draws through drawLiving", () => {
+  it("counts exactly the fifteen bodies the field draws through drawLiving", () => {
     expect(livingBodyKinds()).toEqual([
       "slick",
       "bulb",
@@ -61,6 +61,8 @@ describe("the living-look table", () => {
       "morsel",
       // THE SEEDER: SEED HEAD (`content/silhouettes-seeder.ts`).
       "seeder",
+      // THE GLUTTON: GULLET (`content/silhouettes-glutton.ts`).
+      "glutton",
     ]);
   });
 

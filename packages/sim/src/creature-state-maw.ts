@@ -19,4 +19,11 @@ export interface MawState {
    * about whether the maw is owed.
    */
   morselLimp?: boolean;
+  /**
+   * How many hanging pods THE GLUTTON has eaten, and absent on every other
+   * kind. Each meal is one more matching shot it takes to kill, and one size
+   * and one lobe more on the picture; each such shot takes one back off.
+   * Read it through `gluttonFed`, for `morselLimp`'s reason.
+   */
+  gluttonFed?: number;
 }

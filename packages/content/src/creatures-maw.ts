@@ -34,3 +34,16 @@ export const SEEDER_CREATURE: CreatureDef = {
   blurb:
     "A body that dies to the matching colour like any slick — and leaves a pod hanging where it died, with the pod's clock running. So the kill is a debt: three shot in a hurry are three clocks at once, and every pod must be freed and swallowed or the wave is lost. Player 2 chooses *when* to kill, and says so: \"hold the left one, we've still got a pod up.\" Unshot, it breaks the hull like any slick.",
 };
+
+export const GLUTTON_CREATURE: CreatureDef = {
+  kind: "glutton",
+  // **Aim**: the matching shot kills it, or takes a meal back off a fed one,
+  // and the pod it is going for is freed by a shot too. No guard.
+  controls: ["aim"],
+  // Authored per arrival, the carom's way: the colour that kills it.
+  color: null,
+  radar: "p2",
+  authorsColor: true,
+  blurb:
+    'A slow body that comes down toward the nearest hanging pod and eats it if it gets there first. The pod is gone and so is its debt — but each meal makes it a size bigger, one more matching shot to kill. So it is a race and a trade, said out loud: "free the pod now, he\'s two rows off it", or "let him have it, I\'ll take the big shot." Unshot, it breaks the hull like any slick.',
+};

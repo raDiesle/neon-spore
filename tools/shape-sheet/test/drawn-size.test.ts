@@ -125,7 +125,8 @@ describe("drawn size against the 20-26 px floor", () => {
     // 106 on 16 October 2026: THE MORSEL, DUMPLING, a combination of two
     // cards that stay on the sheet (`content/silhouettes-morsel.ts`). 107 with
     // THE SEEDER, SEED HEAD, the same way (`content/silhouettes-seeder.ts`).
-    expect(SQUARE.length).toBe(107);
+    // 108 with THE GLUTTON, GULLET, the same way (`content/silhouettes-glutton.ts`).
+    expect(SQUARE.length).toBe(108);
   });
 
   it("clears the floor for every square card at the 92 px frame it actually gets", () => {
@@ -205,8 +206,9 @@ describe("drawn size against the 20-26 px floor", () => {
     // 68 with THE BLISTER, for the mine's reason: its `sizeMul` is the
     // field's, and at the card's own size the roots' reach shrinks the lobes.
     // 69 with THE MORSEL: eight shallow pleats lose to the card's own size,
-    // and 70 with THE SEEDER's twelve, for the same reason.
-    expect(under26).toBe(70);
+    // and 70 with THE SEEDER's twelve, for the same reason. 71 with THE
+    // GLUTTON: REVERB's flat 72 × 42 card puts four deep lobes under 26 px.
+    expect(under26).toBe(71);
     expect(under20).toBe(23);
   });
 

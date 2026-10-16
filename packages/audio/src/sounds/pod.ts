@@ -130,8 +130,8 @@ export const POD_SOUNDS: SoundDef[] = [
     id: "pod.chew",
     family: "pod",
     blurb: "The maw working: three soft closes, slower each time.",
-    status: "spare",
-    use: "The swallow's two-part clock. Needs the middle of the swallow, which only render/ tracks.",
+    status: "bound",
+    use: "THE GLUTTON eating a hanging pod: the debt gone, the body a size bigger.",
     level: 0.22,
     layers: [
       burst(

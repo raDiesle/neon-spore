@@ -157,6 +157,9 @@ const SCENES: readonly Scene[] = [
     // The one wave where the two seats draw genuinely different pictures: p2
     // has the body and its trail, p1 has a band across a row and no body at
     // all — which is why p2 carries seventeen more paths and twenty more fills.
+    // Moved 16 October 2026, when THE GLUTTON's block put THE GHOST ten waves
+    // later and so under another of the twelve skies (`skyFor`): thirty-three
+    // sprite draws more on both seats, every one of them the sky's.
     why: "a body only one seat can see, and a band on the other",
     rows: {
       p1: [
@@ -166,7 +169,7 @@ const SCENES: readonly Scene[] = [
           fill: 67,
           clip: 10,
           save: 51,
-          drawImage: 42,
+          drawImage: 75,
           createLinearGradient: 21,
           createRadialGradient: 11,
           "new Path2D": 46,
@@ -178,7 +181,7 @@ const SCENES: readonly Scene[] = [
           fill: 67,
           clip: 10,
           save: 51,
-          drawImage: 42,
+          drawImage: 75,
           createLinearGradient: 12,
           createRadialGradient: 8,
           "new Path2D": 21,
@@ -196,7 +199,7 @@ const SCENES: readonly Scene[] = [
           fill: 92,
           clip: 14,
           save: 118,
-          drawImage: 105,
+          drawImage: 138,
           createLinearGradient: 21,
           createRadialGradient: 13,
           "new Path2D": 70,
@@ -208,7 +211,7 @@ const SCENES: readonly Scene[] = [
           fill: 92,
           clip: 14,
           save: 118,
-          drawImage: 105,
+          drawImage: 138,
           createLinearGradient: 12,
           createRadialGradient: 10,
           "new Path2D": 47,
@@ -500,15 +503,16 @@ const SCENES: readonly Scene[] = [
     // saves and one shading `fillRect` and gradient a body instead. Moved 16
     // October 2026, when THE MORSEL's block put THE GYRE ten waves later and so
     // under another of the twelve skies (`skyFor`): a `fill`, two clips and a
-    // save more, all of them the sky's.
+    // save more, all of them the sky's. Moved again the same day by THE
+    // GLUTTON's block, ten waves on: six strokes and a save, the sky's again.
     rows: {
       p1: [
         {
           fillRect: 60,
-          stroke: 157,
+          stroke: 163,
           fill: 98,
           clip: 57,
-          save: 116,
+          save: 117,
           drawImage: 100,
           createLinearGradient: 28,
           createRadialGradient: 11,
@@ -517,10 +521,10 @@ const SCENES: readonly Scene[] = [
         },
         {
           fillRect: 60,
-          stroke: 159,
+          stroke: 165,
           fill: 98,
           clip: 57,
-          save: 116,
+          save: 117,
           drawImage: 100,
           createLinearGradient: 19,
           createRadialGradient: 8,
@@ -531,10 +535,10 @@ const SCENES: readonly Scene[] = [
       p2: [
         {
           fillRect: 60,
-          stroke: 161,
+          stroke: 167,
           fill: 105,
           clip: 57,
-          save: 118,
+          save: 119,
           drawImage: 99,
           createLinearGradient: 28,
           createRadialGradient: 11,
@@ -543,10 +547,10 @@ const SCENES: readonly Scene[] = [
         },
         {
           fillRect: 60,
-          stroke: 163,
+          stroke: 169,
           fill: 105,
           clip: 57,
-          save: 118,
+          save: 119,
           drawImage: 99,
           createLinearGradient: 19,
           createRadialGradient: 8,

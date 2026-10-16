@@ -61,7 +61,7 @@ table in a document cannot be wrong in a way a compiler notices.
 
 | Category | Answered by | Members today |
 |---|---|---|
-| `cannon` | `aim` only | `slick`, `bulb`, `lure`, `throb`, `shell`, `dart`, `veil`, `wisp`, `ghost`, `echo`, `rind`, `recoil`, `gyre`, `lid`, `strand`, `magnet`, `morsel`, `seeder`, `choir`, `countdown`, `leech` |
+| `cannon` | `aim` only | `slick`, `bulb`, `lure`, `throb`, `shell`, `dart`, `veil`, `wisp`, `ghost`, `echo`, `rind`, `recoil`, `gyre`, `lid`, `strand`, `magnet`, `morsel`, `seeder`, `glutton`, `choir`, `countdown`, `leech` |
 | `shield` | `guard` only | `meteor`, `meteorMedium`, `meteorFast`, `meteorFaster`, `meteorFastest`, `torch`, `veer`, `coil`, `limpet`, `cairn` `moult` |
 | `mixed` | `aim` and `guard` | `queen`, `warden`, `clasp`, `carom`, `volley`, `crawler`, `fence`, `crystal`, `curtain` |
 | `special` | neither | `tether`, `mount`, `chute`, `beatbox`, `balloon`, `weight`, `mine`, `blister` |
@@ -586,6 +586,23 @@ in a hurry are three clocks at once. So the seat that shoots spaces the kills
 off as it comes. Its contour is SEED HEAD, BULB · BURR's twelve on SLICK ·
 COMMA's proportion (`content/silhouettes-seeder.ts`). It has no state of its
 own (`sim/seeder.ts`).
+
+## THE GLUTTON
+
+**It eats your pods if you are slow.** Built 16 October 2026 off the same SUCK
+page. A slow body in one authored colour, a row every `gluttonFallBeats`, that
+steers a column a beat at the nearest real pod still hanging at or below it. If
+it gets there first it eats the pod: the pod is gone and so is its debt — no
+lost wave — and the body is one meal fatter, one more matching shot to kill. A
+shot loose pod is out of its reach, and a husk is never food.
+
+**It turns the pod into a trade, said out loud.** The navigator chooses which to
+shoot first — "free the pod, he's two rows off it" — and the pilot whether to
+stand under the pod or under the bigger shot ("let him have it, I'll take him
+fat"). Unshot, it breaks the hull like any slick. Its contour is GULLET,
+BULB · CLOVER's four deep lobes on SLICK · REVERB's flat proportion
+(`content/silhouettes-glutton.ts`); `gluttonFed` is the whole of its state
+(`sim/glutton.ts`).
 
 ## THE MAGNET
 

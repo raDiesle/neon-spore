@@ -43183,3 +43183,19 @@ that say nothing about the creature.
 Bottleneck: the first seed was too small to see, and only a crop showed it.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-16 — THE GLUTTON, its simulation
+
+- reading: 5 min. THE SEEDER's lane was the pattern; how a wave and a film
+  author pods.
+- writing: 25 min. `sim/glutton.ts`, its config field, events, sounds, the
+  content rows, GULLET, a film, a wave and its tests.
+- looking: 0 min. Nothing drawn of its own yet; the film checked by probe.
+- friction: 15 min. The block went before THE LANCE by the last lane's habit
+  and the rule wanted it after, without `standard5`; the film's columns are
+  authored on seven, so the first pod hung out of the glutton's reach.
+- landing: 15 min. Bosses re-placed, acts recut, renumbered, nine count tests,
+  THE GHOST's and THE GYRE's budget rows under their new skies.
+
+Bottleneck: placing the block — the rule for where a body goes is in a test,
+not in the composer, so it was found by moving it twice.

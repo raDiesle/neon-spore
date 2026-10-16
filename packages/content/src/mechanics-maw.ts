@@ -15,3 +15,11 @@ export const SEEDER_MECHANIC = {
   // A wave names the kind, the column and the colour that kills it.
   waveNames: true,
 } as const satisfies Mechanic;
+
+/** THE GLUTTON's row, beside its family's. */
+export const GLUTTON_MECHANIC = {
+  what: "It crawls toward a hanging pod and eats it if it gets there first. The pod's debt is gone, but each meal is one more shot to kill it.",
+  reach: "spawn",
+  // A wave names the kind, the column and the colour that kills it.
+  waveNames: true,
+} as const satisfies Mechanic;

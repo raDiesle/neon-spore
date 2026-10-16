@@ -25,6 +25,7 @@ export function caromCue(
         | "caromBounce"
         | "caromCrack"
         | "morselLimp"
+        | "gluttonShrinks"
         | "caromEject"
         | "chuteOpen"
         | "chuteCut"
@@ -83,6 +84,8 @@ export function caromCue(
     // that did not finish it, and must not sound like one that did — so the
     // canopy's covering sound below, not a kill (`events-maw.ts`).
     case "morselLimp":
+    // And a fed GLUTTON giving a meal back: hit, and not finished.
+    case "gluttonShrinks":
     case "chuteOpen":
       // The canopy. `creature.moult` is the sound of a covering coming off
       // with something under it, and this is that turned inside out — a

@@ -104,6 +104,10 @@ export const INGEST_SILENT = [
   // THE SEEDER's pod: the kill already burst on this tick (`destroy`), and the
   // pod it hangs is drawn as any pod is, off `world.pods`.
   "seederSeeds",
+  // THE GLUTTON's meal and the meal a shot takes back: the bursts are
+  // `burstFor`'s, and its size is read every frame off `gluttonFed`.
+  "gluttonFeeds",
+  "gluttonShrinks",
   "caromCrack",
   // THE CRYSTAL's three, for the carom's reason: the shell, the heading and
   // the light under the join are read every frame off the body and the world

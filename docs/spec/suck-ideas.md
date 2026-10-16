@@ -54,6 +54,9 @@ seeders shot in a hurry are three clocks running at once.
 
 ### THE GLUTTON — it eats your pods if you are slow
 
+Built on 16 October 2026: THE GLUTTON's block, after THE LANCE's and before THE
+CROSSING (`docs/spec/bestiary.md`). What is below is what it was asked to be.
+
 > *"That thing is going for the pod. Get it first."*
 
 A slow creature that walks down toward a hanging pod. If it reaches the pod,

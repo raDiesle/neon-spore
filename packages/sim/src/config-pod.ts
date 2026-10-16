@@ -67,6 +67,13 @@ export interface PodConfig {
    * lost (`Pod.dueTicks`).
    */
   podDueBeats: number;
+  /**
+   * Beats THE GLUTTON takes to come down one row: it falls on the beats this
+   * divides and steers on every one. Slow on purpose — the creature is a race
+   * between it and the shot that frees the pod, and the race has to be one a
+   * pair can see and call (`glutton.ts`).
+   */
+  gluttonFallBeats: number;
 }
 
 /** The defaults, spread into `DEFAULT_CONFIG`. */
@@ -87,4 +94,7 @@ export const POD_DEFAULTS: PodConfig = {
   // the shot, and the fall from the top row (under five beats) after it, with
   // a little left over. A pod that waits for ever is not owed at all.
   podDueBeats: 16,
+  // Half speed, THE ECHO's: a row every two beats is a body two rows off a pod
+  // for four beats, about two and a half seconds — one call and one shot.
+  gluttonFallBeats: 2,
 };

@@ -109,6 +109,8 @@ export {
 // inside it, the way `fenceMask`'s two neighbours do.
 export { fenceCrackAt, fenceCrackCols } from "./fence-crack.js";
 export { type GhostPath, ghostCrosses, ghostIsCharging, ghostLaps, ghostRage } from "./ghost.js";
+// THE GLUTTON: how many meals it carries, which is what its size is drawn off.
+export { gluttonFed } from "./glutton.js";
 export {
   gyreMountsLeft,
   gyreSpinPerBeat,
@@ -135,12 +137,12 @@ export { magnetPoleColor } from "./magnet.js";
 // stand in. The rules themselves (`mineTapped`, `stepMine`) are the
 // simulation's alone and are deliberately not out here.
 export { mineFuseLeft, mineOnField, mineRows, mineSeenBy } from "./mine.js";
+export { morselIsLimp } from "./morsel.js";
 // THE MOULT: the turn itself, and nothing else. What form it is wearing, what
 // it turns into, and how many beats until it does — three readings of one
 // number, which is what makes them safe to hand out. The arrival, the shot and
 // the steer stay inside, because a picture that could answer those would be a
 // second copy of the rule rather than a drawing of it.
-export { morselIsLimp } from "./morsel.js";
 export { moultBeatsToTurn, moultIsPod, moultNextIsPod } from "./moult.js";
 export { recoilBouncesLeft, recoilRow, recoilTurn } from "./recoil.js";
 export { rindLayersLeft } from "./rind.js";

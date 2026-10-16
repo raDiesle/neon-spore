@@ -177,6 +177,7 @@ export const SHORT_NOTE: Partial<Record<CreatureKind, string>> = {
   moult: "rock five beats, cargo five — it lands as one of them",
   morsel: "a shot makes it limp; the maw has to swallow it",
   seeder: "a kill hangs a pod with a clock where it died",
+  glutton: "eats a hanging pod it reaches; each meal is a shot more",
   ghost: "p1 cannot see it — say the column",
   echo: "splits",
   rind: "starts bigger, shrinks when shot",

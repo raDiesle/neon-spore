@@ -87,6 +87,7 @@ export const FIELD_GROUP: Record<keyof SimConfig, GroupName> = {
   podHomeTilesPerBeat: "POD — shot loose, then caught",
   podCatchCols: "POD — shot loose, then caught",
   podDueBeats: "POD — shot loose, then caught",
+  gluttonFallBeats: "POD — shot loose, then caught",
   gripSlowPermille: "GRIP — a hand on the field",
   gripPushMilli: "GRIP — a hand on the field",
   gripPushPauseBeats: "GRIP — a hand on the field",

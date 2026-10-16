@@ -1,8 +1,9 @@
+import { MAZE_ROUNDS } from "../maze-rounds.js";
 import type { Wave } from "../wave-types.js";
 
 /**
  * Waves 69 to 78 of the game, in the order they are played: THE LANCE's block
- * and the boss THE GEODE.
+ * and the boss THE MAZE.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act
  * after the tutorial arc again in play order. A save that fills it cuts a page
@@ -159,43 +160,14 @@ export const WAVES_ACT_6: Wave[] = [
     ],
   },
   {
-    id: "theGeode",
-    name: "THE GEODE",
+    id: "theMaze",
+    name: "THE MAZE",
     guide: {
-      both: "A stone falls on the ship, and only the lance cuts it. Burn each crack with a beam in its colour. Each cut breaks a piece in two.",
-      p1: "Only you see each crack's colour: say it. Slide the cannon under the crack named, and keep still.",
-      p2: "Only you see where each crack is: say where. Hold the colour you hear until the beam goes.",
+      scene: "theMaze",
     },
     entries: [],
-    boss: {
-      kind: "geode",
-      steps: [
-        { beats: 20, cracks: [{ at: 2, color: "red" }] },
-        {
-          beats: 24,
-          cracks: [
-            { at: -3, color: "cyan" },
-            { at: 3, color: "red" },
-          ],
-        },
-        {
-          beats: 28,
-          cracks: [
-            { at: -4, color: "red" },
-            { at: 0, color: "cyan" },
-            { at: 0, color: "cyan" },
-            { at: 4, color: "red" },
-          ],
-        },
-        {
-          beats: 22,
-          cracks: [
-            { at: -1, color: "red" },
-            { at: -1, color: "cyan" },
-          ],
-        },
-      ],
-    },
-    bossType: "normal",
+    boss: { kind: "maze", rounds: MAZE_ROUNDS },
+    bossType: "special",
+    controls: "standard5",
   },
 ];

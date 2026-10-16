@@ -18,4 +18,10 @@ export type MawEvent =
    * `destroy` its death already fires, not instead of it: the kill is real,
    * and this is the debt it leaves, which is a second thing to hear.
    */
-  | { type: "seederSeeds"; col: number; row: number };
+  | { type: "seederSeeds"; col: number; row: number }
+  /** THE GLUTTON reached a hanging pod and ate it: the pod and its debt are
+   * gone, and the body is a size bigger. */
+  | { type: "gluttonFeeds"; col: number; row: number }
+  /** A matching shot took one meal back off a fed glutton, which is still
+   * there: a hit that did not finish it, so not a `destroy`. */
+  | { type: "gluttonShrinks"; col: number; row: number; color: Color };

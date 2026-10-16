@@ -15,7 +15,14 @@ export function podCue(
   e: Extract<
     SimEvent,
     {
-      type: "podLoose" | "podTaken" | "podLost" | "huskRefused" | "huskSwallowed" | "seederSeeds";
+      type:
+        | "podLoose"
+        | "podTaken"
+        | "podLost"
+        | "huskRefused"
+        | "huskSwallowed"
+        | "seederSeeds"
+        | "gluttonFeeds";
     }
   >,
   cols: number,
@@ -27,6 +34,9 @@ export function podCue(
     // for "one is up there", heard after the kill (`sim/seeder.ts`).
     case "seederSeeds":
       return { id: "pod.blink", pan: panForCol(e.col, cols) };
+    // THE GLUTTON eating one: the maw's own chew, in somebody else's mouth.
+    case "gluttonFeeds":
+      return { id: "pod.chew", pan: panForCol(e.col, cols) };
     case "podTaken":
       // One pod and one answer: the warm rising fifth, the debt paid. The purge
       // and the ward had a sound each while there were cargoes (`sounds/pod.ts`).
