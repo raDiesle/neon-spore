@@ -1265,6 +1265,7 @@ by hand never moves.
 | `packages/render/src/maw.ts` | swallowing a pod: the skin coming apart, then the flash |
 | `packages/render/src/pods.ts` | the pod, hanging and as a burning wreck |
 | `packages/render/src/pod-due-ring.ts` | A pod's clock, drawn: the ring round every pod on the field since the owner made a real pod owed in time… |
+| `packages/render/src/pod-look.ts` | How a real pod hangs — the record VERSUS can offer a second answer through |
 | `packages/render/src/creatures.ts` | silhouettes and their own-motion |
 | `packages/render/src/creature-place.ts` | where a creature is on screen, and what a finger is pointing at |
 | `packages/render/src/touch.ts` | the control scheme: a point on the layout, and what the ship is told |

@@ -42708,3 +42708,17 @@ Bottleneck: the test fallout. Two pod kinds were read in every package, and
 each count, list and baseline that named them had to be found and moved.
 
 *Measured: 16 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-16 — Three new looks for the real pod and three for the hollow one, in VERSUS
+
+- reading: 15 min. VERSUS's README and design, the husk seam, the free drafts
+  (THE CAIRN, BULB · PEBBLE, THE SMART, THE HOOD and its broken half).
+- writing: 45 min. A `POD_LOOK` seam with the clock in it, six candidates
+  that turn in depth, a POD · OWED pose, and the husk pose kept open.
+- looking: 15 min. Eight pairs shot; the husk pose was hidden under the
+  cleared card, which a husk alone now brings down.
+- friction: 5 min. A pose read a pod's clock before the pod had hung.
+- landing: 10 min. INDEX row, the fast check, `land`.
+
+Bottleneck: the husk pose. A field holding only a husk counts as cleared now,
+so the cleared card covered the one thing that pose was meant to show.

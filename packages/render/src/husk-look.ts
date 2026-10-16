@@ -27,7 +27,9 @@ export interface HuskLook {
   /**
    * The body a husk is drawn as, at its place and on its clock, or nothing —
    * with nothing here a husk is drawn by `drawPods` exactly as a moored pod.
-   * `t` is the pod's own offset clock, the one the moored bob runs on.
+   * `t` is the pod's own offset clock, the one the moored bob runs on, and
+   * `beatsLeft` its deadline as `POD_LOOK.moored` gets it — a husk wears the
+   * real pod's clock, and player 1's copy has to be drawn with it.
    */
   body?: (
     ctx: CanvasRenderingContext2D,
@@ -36,6 +38,7 @@ export interface HuskLook {
     y: number,
     t: number,
     pod: Pod,
+    beatsLeft: number,
   ) => void;
   /** Whether player 2's frame and words go round it (`husk-mark.ts`). */
   marked: boolean;

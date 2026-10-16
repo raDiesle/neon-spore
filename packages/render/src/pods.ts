@@ -5,6 +5,7 @@ import { HUSK_LOOK } from "./husk-look.js";
 import { type Layout, tileCX, tileCY } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
 import { drawDueRing } from "./pod-due-ring.js";
+import { POD_LOOK } from "./pod-look.js";
 import { splinePath } from "./spline.js";
 
 /**
@@ -56,12 +57,13 @@ export function drawPods(
     const { x, y, r } = podCenter(l, p);
     // Deterministic variation: the id is the same on both devices.
     const t = time + (p.id % 7) * 0.83;
+    const beatsLeft = p.dueTicks > 0 ? p.dueTicks / ticksPerBeat : Number.POSITIVE_INFINITY;
     if (p.loose) drawWreck(ctx, l, x, y, t);
-    else if (p.kind === "husk" && HUSK_LOOK.body) HUSK_LOOK.body(ctx, l, x, y, t, p);
-    else drawMoored(ctx, l, x, y, t);
+    else if (p.kind === "husk" && HUSK_LOOK.body) HUSK_LOOK.body(ctx, l, x, y, t, p, beatsLeft);
+    else drawMoored(ctx, l, x, y, t, beatsLeft);
     // On a husk too, and the same ring: a clock only the real pod wore would
     // be the tell on the screen that must not have one (`PodKind`).
-    if (p.dueTicks > 0) drawDueRing(ctx, x, y, r, p.dueTicks / ticksPerBeat, time);
+    if (p.dueTicks > 0) drawDueRing(ctx, x, y, r, beatsLeft, time);
   }
 }
 
@@ -74,14 +76,21 @@ function podPath(t: number): Path2D {
 
 /** Hanging: a slow bob, a steady pulse, a wide calm halo. Exported so a
  * look offered for the husk (`husk-look.ts`) can draw the pod it claims to be
- * on the screen that must not be able to tell. */
+ * on the screen that must not be able to tell — and through `POD_LOOK`, so
+ * that is whatever a real pod is drawn as. */
 export function drawMoored(
   ctx: CanvasRenderingContext2D,
   l: Layout,
   x: number,
   y: number,
   t: number,
+  /** Beats left on its clock, `Infinity` for none (`POD_LOOK.moored`). */
+  beatsLeft: number,
 ): void {
+  if (POD_LOOK.moored) {
+    POD_LOOK.moored(ctx, l, x, y, t, beatsLeft);
+    return;
+  }
   const bob = Math.sin(t * 1.1) * l.tile * 0.07;
   drawPodBody(ctx, x, y + bob, l.tile * POD_TILES, t);
 }

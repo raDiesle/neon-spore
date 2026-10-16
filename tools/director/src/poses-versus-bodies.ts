@@ -19,7 +19,7 @@ import { CORES_POSE } from "./poses-cores.js";
 import { COUNT_EYE_POSE, COUNT_POSE } from "./poses-count.js";
 import { CAROM_POSE, CHUTE_POSE, VEER_POSE } from "./poses-crossing.js";
 import { BLISTER_TAP } from "./poses-field-controls-blister.js";
-import { HUSK_POSE } from "./poses-husk.js";
+import { HUSK_POSE, POD_OWED_POSE } from "./poses-husk.js";
 import { COIL_POSE, TETHER_POSE } from "./poses-link.js";
 import {
   BLISTER_COMBO_PLAYED,
@@ -181,4 +181,5 @@ export const VERSUS_BODY_POSES: Pose[] = [
   CORES_POSE,
   CAIRN_PILE_POSE,
   HUSK_POSE,
+  POD_OWED_POSE,
 ];
