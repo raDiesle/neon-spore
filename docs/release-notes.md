@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-16 · ce7dfb9a8 — THE SWINDLE gets a dealer's face, arms and depth
+
+THE SWINDLE now looks like a swindler: heavy-lidded eyes and a smirk, and her eyes follow the play — the pod falling, else the pod gliding, else the next she will let go — never by what a pod is. She blinks, winces when a real pod is swallowed, and shuts her eyes when beaten. Her belly sags, a gloss runs along her crown and bubbles rise through her. Each hood is a fuller cup on a tapering arm, with a bead running down it every beat. When two pods cross, the hood going right swells and dips in front while the other shrinks and rises behind, and she sways through the shuffle. The pilot's screen still shows nothing that tells a real pod from a fake.
+
 ## 2026-10-16 · e8f0819d1 — Bright bodies glow round their own contour: slick, bulb, every blob, the pod, the wreck and THE GHOST
 
 Every body drawn through the living skin — slick, bulb, throb, dart, mine, beatbox, a brood bud, every mount and crystal half — and the pod, the wreck and THE GHOST now throw a soft light of their own colour round their own outline, following every lobe rather than sitting in one round halo. It is the body's path stroked wide three times under its fill (`body-aura.ts`), so the light is outside the contour only, reaches three quarters of the body's radius on screen, and breathes slowly, out of step body to body. A body shot in the wrong colour still goes out to a grey line.
