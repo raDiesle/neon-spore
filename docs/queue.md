@@ -346,6 +346,7 @@ have `versus:shot` refuse `--only current` on one and say why. Test it in
 ## The act files are cut by the order the waves shipped in, not played in
 
 - **Found:** 2026-10-16, claude/talk-reorder
+- **Taken:** 2026-10-16, main (claim: claude/queue-the-act-files-are-cut-by-the-order-the-waves-shi)
 - **Files:** `tools/director/src/waves-acts.ts`, `packages/content/src/waves/acts.ts`, `tools/director/waves-order.ts`
 
 `bun run waves:order --write` moved most units, and `writeWaves`'s
