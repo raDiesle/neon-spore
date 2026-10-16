@@ -234,6 +234,9 @@ const SCENES: readonly Scene[] = [
     // nearly every one of them. Forty-two more fills, nineteen more saves,
     // nineteen linear and twenty-one radial gradients more, on both seats.
     why: "the lettered grid, on both screens at once",
+    // Remeasured 16 October 2026, after THE TWINS, THE LAST ROCK and THE
+    // NEIGHBOUR went in ahead of it: the sky is drawn off the wave number, and
+    // the one it lands on now costs thirty more `drawImage` on both seats.
     rows: {
       p1: [
         {
@@ -242,7 +245,7 @@ const SCENES: readonly Scene[] = [
           fill: 116,
           clip: 11,
           save: 75,
-          drawImage: 45,
+          drawImage: 75,
           createLinearGradient: 38,
           createRadialGradient: 32,
           "new Path2D": 51,
@@ -254,7 +257,7 @@ const SCENES: readonly Scene[] = [
           fill: 116,
           clip: 11,
           save: 75,
-          drawImage: 45,
+          drawImage: 75,
           createLinearGradient: 31,
           createRadialGradient: 29,
           "new Path2D": 26,
@@ -272,7 +275,7 @@ const SCENES: readonly Scene[] = [
           fill: 149,
           clip: 29,
           save: 107,
-          drawImage: 50,
+          drawImage: 80,
           createLinearGradient: 48,
           createRadialGradient: 34,
           "new Path2D": 50,
@@ -284,7 +287,7 @@ const SCENES: readonly Scene[] = [
           fill: 149,
           clip: 29,
           save: 107,
-          drawImage: 50,
+          drawImage: 80,
           createLinearGradient: 41,
           createRadialGradient: 31,
           "new Path2D": 27,
@@ -432,14 +435,17 @@ const SCENES: readonly Scene[] = [
     // block put it ten waves later, under another sky (`skyFor`): a `fill`,
     // two clips and a save more, all of them the sky's.
     why: "one body divided into fifteen",
+    // Remeasured 16 October 2026, after THE TWINS, THE LAST ROCK and THE
+    // NEIGHBOUR went in ahead of it: the sky is drawn off the wave number, and
+    // the one it lands on now costs five more strokes and a save on both seats.
     rows: {
       p1: [
         {
           fillRect: 69,
-          stroke: 175,
+          stroke: 180,
           fill: 110,
           clip: 128,
-          save: 231,
+          save: 232,
           drawImage: 206,
           createLinearGradient: 36,
           createRadialGradient: 21,
@@ -448,10 +454,10 @@ const SCENES: readonly Scene[] = [
         },
         {
           fillRect: 69,
-          stroke: 177,
+          stroke: 182,
           fill: 109,
           clip: 128,
-          save: 231,
+          save: 232,
           drawImage: 206,
           createLinearGradient: 27,
           createRadialGradient: 18,
@@ -462,10 +468,10 @@ const SCENES: readonly Scene[] = [
       p2: [
         {
           fillRect: 69,
-          stroke: 179,
+          stroke: 184,
           fill: 118,
           clip: 128,
-          save: 233,
+          save: 234,
           drawImage: 205,
           createLinearGradient: 36,
           createRadialGradient: 21,
@@ -474,10 +480,10 @@ const SCENES: readonly Scene[] = [
         },
         {
           fillRect: 69,
-          stroke: 181,
+          stroke: 186,
           fill: 117,
           clip: 128,
-          save: 233,
+          save: 234,
           drawImage: 205,
           createLinearGradient: 27,
           createRadialGradient: 18,
@@ -567,6 +573,9 @@ const SCENES: readonly Scene[] = [
     // a full BLAZE, COMET or SMOULDER under the pile's clip, which is where
     // the gradient rows come from.
     why: "seven burning rocks, five of them standing in one pile",
+    // Remeasured 16 October 2026, after THE TWINS, THE LAST ROCK and THE
+    // NEIGHBOUR went in ahead of it: the sky is drawn off the wave number, and
+    // the one it lands on now costs about forty-five more `drawImage` on both seats.
     // Remeasured 16 October 2026, when five pod waves went in ahead of it and
     // moved it five places: the sky is drawn off the wave number, and it took
     // six strokes, a clip and two saves on both seats.
@@ -616,7 +625,7 @@ const SCENES: readonly Scene[] = [
           fill: 378,
           clip: 28,
           save: 244,
-          drawImage: 67,
+          drawImage: 113,
           createLinearGradient: 171,
           createRadialGradient: 112,
           "new Path2D": 83,
@@ -628,7 +637,7 @@ const SCENES: readonly Scene[] = [
           fill: 302,
           clip: 30,
           save: 211,
-          drawImage: 64,
+          drawImage: 109,
           createLinearGradient: 125,
           createRadialGradient: 60,
           "new Path2D": 55,
@@ -642,7 +651,7 @@ const SCENES: readonly Scene[] = [
           fill: 310,
           clip: 27,
           save: 209,
-          drawImage: 58,
+          drawImage: 103,
           createLinearGradient: 138,
           createRadialGradient: 83,
           "new Path2D": 77,
@@ -654,7 +663,7 @@ const SCENES: readonly Scene[] = [
           fill: 309,
           clip: 30,
           save: 212,
-          drawImage: 63,
+          drawImage: 108,
           createLinearGradient: 124,
           createRadialGradient: 60,
           "new Path2D": 55,

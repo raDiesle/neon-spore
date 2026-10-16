@@ -1,14 +1,26 @@
+import { MAZE_ROUNDS } from "../maze-rounds.js";
 import type { Wave } from "../wave-types.js";
 
 /**
- * Waves 86 to 95 of the game, in the order they are played: THE GLUTTON's block
- * and the boss THE GEODE.
+ * Waves 88 to 98 of the game, in the order they are played: the boss THE MAZE,
+ * THE GLUTTON's block and the boss THE GEODE.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act
  * after the tutorial arc again in play order. A save that fills it cuts a page
  * after it (`acts.ts`).
  */
 export const WAVES_ACT_7: Wave[] = [
+  {
+    id: "theMaze",
+    name: "THE MAZE",
+    guide: {
+      scene: "theMaze",
+    },
+    entries: [],
+    boss: { kind: "maze", rounds: MAZE_ROUNDS },
+    bossType: "special",
+    controls: "standard5",
+  },
   {
     id: "theGlutton",
     name: "THE GLUTTON",

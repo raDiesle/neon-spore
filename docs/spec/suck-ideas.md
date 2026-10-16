@@ -194,7 +194,9 @@ hollow, and player 1 sees a pod falling toward him.
 
 ## Waves that only use what already exists
 
-Use these first, because they need nothing new built:
+Use these first, because they need nothing new built. All three were built on
+16 October 2026, as THE TWINS and THE LAST ROCK at the end of THE LANCE's
+block and THE NEIGHBOUR at the end of THE HUSK's:
 
 - **Two pods, one cannon.** Two pods freed a beat apart in columns three
   apart. The catch reaching two columns either side makes it possible, but

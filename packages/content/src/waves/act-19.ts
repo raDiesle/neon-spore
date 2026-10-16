@@ -1,7 +1,7 @@
 import type { Wave } from "../wave-types.js";
 
 /**
- * Waves 206 to 215 of the game, in the order they are played: THE VEER's block
+ * Waves 209 to 218 of the game, in the order they are played: THE VEER's block
  * and the boss THE UNDERTOW.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act

@@ -1,7 +1,7 @@
 import type { Wave } from "../wave-types.js";
 
 /**
- * Waves 399 to 408 of the game, in the order they are played: THE RECOIL's
+ * Waves 402 to 411 of the game, in the order they are played: THE RECOIL's
  * block and the boss THE HASP.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act

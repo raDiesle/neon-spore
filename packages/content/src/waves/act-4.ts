@@ -3,14 +3,32 @@ import { SWINDLE_SCRIPT } from "../swindle-script.js";
 import type { Wave } from "../wave-types.js";
 
 /**
- * Waves 52 to 62 of the game, in the order they are played: the boss THE
- * SWINDLE, THE MORSEL's block and the boss THE INSTAR.
+ * Waves 52 to 63 of the game, in the order they are played: the end of THE
+ * HUSK's block, the boss THE SWINDLE, THE MORSEL's block and the boss THE
+ * INSTAR.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act
  * after the tutorial arc again in play order. A save that fills it cuts a page
  * after it (`acts.ts`).
  */
 export const WAVES_ACT_4: Wave[] = [
+  {
+    id: "theNeighbour",
+    name: "THE NEIGHBOUR",
+    variant: true,
+    entries: [
+      { beat: 0, col: 1, color: "red" },
+      { beat: 12, col: 9, color: "cyan" },
+      { beat: 24, col: 5, color: "red" },
+    ],
+    pods: [
+      { beat: 2, col: 3, row: 3, kind: "pod", due: 24 },
+      { beat: 2, col: 4, row: 5, kind: "husk", due: 24 },
+      { beat: 16, col: 7, row: 5, kind: "pod", due: 24 },
+      { beat: 16, col: 6, row: 3, kind: "husk", due: 24 },
+    ],
+    controls: "standard5",
+  },
   {
     id: "theSwindle",
     name: "THE SWINDLE",

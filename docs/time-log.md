@@ -43260,3 +43260,16 @@ budgeted wave after it, and each budget file has to be remeasured by hand.
 Bottleneck: the op-count tables, again, which every wave added early moves.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-16 — THE TWINS, THE LAST ROCK and THE NEIGHBOUR
+
+- reading: 0 min. The parts were all in this session's hands.
+- writing: 5 min. Three waves from parts the game already has.
+- looking: 0 min. Nothing new is drawn; AUTO played each to the end.
+- friction: 15 min. Seven op-count tables moved under the renumber, two
+  of them only the whole check reaches.
+- landing: 15 min. Recut, renumbered, `check:fast`, the budget files by
+  hand, `land`.
+
+Bottleneck: `check:fast` does not reach the op-count tests when only wave
+files change, so a renumber that moves the sky passes it and fails `land`.

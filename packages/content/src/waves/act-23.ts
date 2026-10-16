@@ -1,7 +1,7 @@
 import type { Wave } from "../wave-types.js";
 
 /**
- * Waves 248 to 257 of the game, in the order they are played: THE MAGNET's
+ * Waves 251 to 260 of the game, in the order they are played: THE MAGNET's
  * block and the boss THE TASTER.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act

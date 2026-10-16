@@ -459,6 +459,13 @@ whichever sky it falls under. Pin the sky in the budget runs (one fixed sky for
 every row), or key `skyFor` to something placement does not move. Done when
 renumbering waves moves no budget row, and `bun run check` is green.
 
+Five more pod waves the same day moved eleven tables between them (THE STARE,
+THE FLEET, a worm, THE WARDEN's eye, THE LID, THE GIMBAL, THE INSTAR, and THE
+WISP, THE ECHO and THE CAIRN in the wave table), and `bun run check:fast` did
+not reach the INSTAR or wave-table tests when only wave files had changed, so
+it went green on a tree `land` would refuse. Whichever fix is taken, let the
+diff reach of `check:fast` count the budget tests as reached by `content/`.
+
 ## Split the maw's family out of packages/sim/src/index-creatures.ts
 
 - **Found:** 2026-10-16, claude/suck-brush-visuals-a917b1

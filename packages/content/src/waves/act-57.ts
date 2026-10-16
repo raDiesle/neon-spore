@@ -1,7 +1,7 @@
 import type { Wave } from "../wave-types.js";
 
 /**
- * Waves 580 to 588 of the game, in the order they are played: THE LID's review
+ * Waves 583 to 591 of the game, in the order they are played: THE LID's review
  * and the boss THE CHRYSALIS.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act

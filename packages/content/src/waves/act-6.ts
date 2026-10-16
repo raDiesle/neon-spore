@@ -1,9 +1,7 @@
-import { MAZE_ROUNDS } from "../maze-rounds.js";
 import type { Wave } from "../wave-types.js";
 
 /**
- * Waves 73 to 85 of the game, in the order they are played: THE LANCE's block
- * and the boss THE MAZE.
+ * Waves 74 to 87 of the game, in the order they are played: THE LANCE's block.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act
  * after the tutorial arc again in play order. A save that fills it cuts a page
@@ -202,14 +200,32 @@ export const WAVES_ACT_6: Wave[] = [
     ],
   },
   {
-    id: "theMaze",
-    name: "THE MAZE",
-    guide: {
-      scene: "theMaze",
-    },
-    entries: [],
-    boss: { kind: "maze", rounds: MAZE_ROUNDS },
-    bossType: "special",
-    controls: "standard5",
+    id: "theTwins",
+    name: "THE TWINS",
+    variant: true,
+    entries: [
+      { beat: 0, col: 9, color: "cyan" },
+      { beat: 10, col: 1, color: "red" },
+      { beat: 22, col: 8, color: "red" },
+    ],
+    pods: [
+      { beat: 2, col: 2, row: 3, kind: "pod", due: 20 },
+      { beat: 2, col: 5, row: 4, kind: "pod", due: 20 },
+      { beat: 16, col: 6, row: 3, kind: "pod", due: 20 },
+      { beat: 16, col: 9, row: 4, kind: "pod", due: 20 },
+    ],
+  },
+  {
+    id: "theLastRock",
+    name: "THE LAST ROCK",
+    variant: true,
+    entries: [
+      { beat: 4, col: 3, kind: "meteor", color: null },
+      { beat: 10, col: 7, kind: "meteor", color: null },
+      { beat: 16, col: 5, kind: "meteor", color: null },
+      { beat: 20, col: 2, kind: "meteor", color: null },
+      { beat: 24, col: 6, kind: "meteor", color: null },
+    ],
+    pods: [{ beat: 12, col: 5, row: 2, kind: "pod", due: 20 }],
   },
 ];

@@ -107,12 +107,14 @@ type Budget = Record<
   number
 >;
 
-/** Step index and name → the ceiling. */
+/** Step index and name → the ceiling. `fill` up one in every row on 16 October
+ * 2026: six pod waves went in ahead of THE INSTAR and moved it, and the sky is
+ * drawn off the wave number. */
 const BUDGETS: Record<string, { cursor: number; budget: Budget }> = {
   "13 coil": {
     cursor: 13,
     budget: {
-      fill: 459,
+      fill: 460,
       stroke: 411,
       drawImage: 39,
       createLinearGradient: 81,
@@ -122,7 +124,7 @@ const BUDGETS: Record<string, { cursor: number; budget: Budget }> = {
   "15 dive": {
     cursor: 15,
     budget: {
-      fill: 280,
+      fill: 281,
       stroke: 220,
       drawImage: 39,
       createLinearGradient: 53,
@@ -132,7 +134,7 @@ const BUDGETS: Record<string, { cursor: number; budget: Budget }> = {
   "20 roar": {
     cursor: 20,
     budget: {
-      fill: 462,
+      fill: 463,
       stroke: 408,
       drawImage: 39,
       createLinearGradient: 141,

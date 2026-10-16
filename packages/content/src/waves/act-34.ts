@@ -1,7 +1,7 @@
 import type { Wave } from "../wave-types.js";
 
 /**
- * Waves 358 to 367 of the game, in the order they are played: THE ECHO's block
+ * Waves 361 to 370 of the game, in the order they are played: THE ECHO's block
  * and the boss THE SPLICE.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act

@@ -1,7 +1,7 @@
 import type { Wave } from "../wave-types.js";
 
 /**
- * Waves 479 to 488 of the game, in the order they are played: THE GHOST's block
+ * Waves 482 to 491 of the game, in the order they are played: THE GHOST's block
  * and the boss THE VISE.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act

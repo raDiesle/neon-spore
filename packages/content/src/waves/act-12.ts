@@ -2,7 +2,7 @@ import { SNAKE_ROUNDS } from "../snake-rounds.js";
 import type { Wave } from "../wave-types.js";
 
 /**
- * Waves 136 to 145 of the game, in the order they are played: HEAVY ROCKS's
+ * Waves 139 to 148 of the game, in the order they are played: HEAVY ROCKS's
  * block and the boss SNAKE.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act

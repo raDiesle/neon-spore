@@ -1,7 +1,7 @@
 import type { Wave } from "../wave-types.js";
 
 /**
- * Waves 553 to 561 of the game, in the order they are played: THE VOLLEY's
+ * Waves 556 to 564 of the game, in the order they are played: THE VOLLEY's
  * review and the boss THE LAMPREY.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act

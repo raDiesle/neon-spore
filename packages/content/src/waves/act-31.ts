@@ -1,7 +1,7 @@
 import type { Wave } from "../wave-types.js";
 
 /**
- * Waves 328 to 337 of the game, in the order they are played: THE JAM's block
+ * Waves 331 to 340 of the game, in the order they are played: THE JAM's block
  * and the boss THE CAIRN.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act
