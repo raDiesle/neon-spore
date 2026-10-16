@@ -42660,3 +42660,5 @@ Bottleneck: the machine — sleeping between calls and loaded by other work, eve
 
 Bottleneck: friction — a pane holding another session's draft answered a
 different wave until its storage was set aside.
+
+*Measured: 8 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-16 · 3d9bc3422 — MAP's top stays put while the map scrolls, and a tile says what it holds
+
+In the director, the selected cell's panel and the row of column numbers now stick under the pause and restart bar while the map's rows scroll by, so a cell picked at beat forty can still be changed and its column read. Hovering a tile names what it holds: the brush, its colour, its one-line note, a pod's row (and a husk as a husk), then the beat and column. The map's follow keeps the beat playing below the stuck header.
+
 ## 2026-10-16 · febed87f3 — Turned bodies are laid down ahead of their pass, three flushes a frame
 
 A canvas costs when it is read after being drawn on, and every turned body was three such reads. The bodies pass now runs once onto a canvas nobody reads, drawing each turned part into a cell of a shared atlas; all the halves and all the doublings are then laid at once, and the second run places each body's cell on the screen. On GYRES AGAIN at 4x a first version of this ran 14.5 to 16.0 ms against 16.9 to 19.8 for the unchanged tree.
