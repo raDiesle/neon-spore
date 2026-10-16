@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-16 · 6a9fc54c3 — THE HUSK is taught straight after FINALE, on the arc's panel
+
+The hollow pod now comes right after FINALE, the real pods' exam: THE HUSK and its eight waves are wave 39 to 47, on STANDARD 5 like the rest of the tutorial, before THE LANCE teaches the hold. Its eight were composed again from the arc's bodies alone, so nothing in them is taught later. THE INSTAR closes the husk block for now, and every boss after it keeps its block, a few waves earlier.
+
 ## 2026-10-16 · a5ee5ae78 — THE GEODE: a stone only the lance cuts, broken a level of pieces at a time (simulation)
 
 A boss after THE LANCE's waves with the lance as its weapon. A stone as wide as the field sinks onto the ship, and a bolt only chips it. A crack is cut by a beam in its colour, and every piece cut breaks in two. The levels are the boulder, the halves, the quarters (two stacked in one column, so one beam takes both) and the heart (both colours in one column). Only the navigator sees where a crack runs and only the pilot sees its colour. A beam in the wrong colour loses the wave, and so does a level that runs out, which lands the stone on the hull. Wave 58, closing THE CROSSING's block, the first free block once the hold is taught, since THE INSTAR keeps THE LANCE's. One boss per block moved every boss after it one block on; THE HYDRA waits at the end for a block of its own. Nothing is drawn yet: the look is the next lane.
