@@ -14,17 +14,21 @@ import { waveGroups } from "../src/rail-groups.js";
  * opens a review (`isReviewHead`) — or is a boss, or is the first wave. Every
  * other wave is a variant of the head above it, guided or not.
  *
- * **THE HAND is the one head that brings nothing a block is cut by.** It
- * teaches the grip, a verb the whole run has, and the owner the same day:
- * *"the hand" is introducing new concept, so have it a separate after "the
- * rock".* So it stands after THE ROCK's regular waves, alone.
+ * **THE HAND and ONE LAST CHANCE are the two heads that bring nothing a
+ * block is cut by.** THE HAND teaches the grip, a verb the whole run has, and
+ * the owner the same day: *"the hand" is introducing new concept, so have it
+ * a separate after "the rock".* ONE LAST CHANCE teaches the shield's push,
+ * and the owner again: *"one last chance" is again something which is
+ * separate new introduction … it should come after meteors introduced
+ * parent … as shield was introduced there.* So both stand after THE ROCK's
+ * regular waves, alone, before TORCH.
  *
  * A wave dragged into another group in the director turns this red; the fix
  * is its `variant` flag in the act file, set or taken off.
  */
 
 /** Waves that head a group of their own without starting a block. */
-const STANDS_ALONE = new Set(["theHand"]);
+const STANDS_ALONE = new Set(["theHand", "oneLastChance"]);
 
 function headsBlock(i: number): boolean {
   const wave = WAVES[i];

@@ -42828,3 +42828,14 @@ Bottleneck: friction — the first namer read each block whole for its
 partner, half a second a block, and had to learn it off one pass instead.
 
 *Measured: 4 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-16 — ONE LAST CHANCE stands alone after THE HAND, before TORCH
+
+- reading: 15 min. What THE HAND, ONE LAST CHANCE and TORCH each teach, from their films.
+- writing: 5 min. The move, the group rule's second exception, HEAVY ROCK's word.
+- looking: 0 min. Nothing drawn moved.
+- friction: 5 min. A probe that guessed the wave's field names.
+- landing: 10 min. Briefings, baseline and the measured table, then `land`.
+
+Bottleneck: reading — the three films had to be read to know which of
+the arc's waves belong to which lesson.

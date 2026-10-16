@@ -45,7 +45,7 @@ const STEP_AT_END = new RegExp(`^(review)?(.+?)(${ORDER.join("|")})$`);
  * whose names are more than one thing. */
 const THING_WORD: Readonly<Record<string, string>> = {
   firstStep: "RED",
-  heavyRocks: "HEAVY ROCK",
+  theWard: "HEAVY ROCK",
   catchAndAim: "AIM",
 };
 

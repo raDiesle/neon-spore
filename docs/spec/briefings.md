@@ -134,8 +134,8 @@ the two can be compared by opening the wave.
 | 1 | **The opening** | two devices, one ship; the cannon; the colour | see §2 | 1 · FIRST STEP |
 | 2 | **The two colours** | red answers red, cyan answers cyan; a wrong colour is *spent*, not missed, and the body it was spent on refuses everything for `colourArmourMs` | p1 the column, p2 the colour | 5 · CYAN |
 | 3 | **The rock** | cannot be shot; shield in the column **and** triggered at contact | p2 slides, p1 triggers | 10 · THE ROCK |
-| 4 | **The torch** | two columns wide, the fastest thing in the field, and only on p1's strip | p1 sees it coming, p2 must cover both columns | 15 · TORCH |
-| 5 | **The push** | the shield sends a creature back up once and never kills it; the rim goes red and the body carries ONE LAST CHANCE | p1 triggers, p2 shoots it on its second fall | 16 · ONE LAST CHANCE |
+| 4 | **The torch** | two columns wide, the fastest thing in the field, and only on p1's strip | p1 sees it coming, p2 must cover both columns | 16 · TORCH |
+| 5 | **The push** | the shield sends a creature back up once and never kills it; the rim goes red and the body carries ONE LAST CHANCE | p1 triggers, p2 shoots it on its second fall | 15 · ONE LAST CHANCE |
 | 6 | **The pod** | shooting it loose is half of getting it; then it sinks and drifts | p2 frees it, p1 chases and opens the maw | 23 · SALVAGE |
 | 7 | **The lock** | player 1's hand on a body steers every shot into it, from whatever column the cannon is in; it says nothing about the colour | p1 holds and keeps the cannon on the pod, p2 fires the colour | 27 · CATCH AND AIM |
 | 8 | **The queen** | two marks, one real; she opens for three beats; a torch drops every ten | p1 sees *what*, p2 sees *where* | 40 · BULB QUEEN |

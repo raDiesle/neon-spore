@@ -19,22 +19,8 @@ export const WAVES_ACT_1_P2: Wave[] = [
     controls: "standard4",
   },
   {
-    id: "torch",
-    name: "TORCH",
-    guide: {
-      scene: "torch",
-    },
-    entries: [
-      { beat: 6, col: 2, kind: "torch", color: null },
-      { beat: 12, col: 8, kind: "torch", color: null },
-      { beat: 18, col: 5, kind: "torch", color: null },
-    ],
-    controls: "standard4",
-  },
-  {
     id: "oneLastChance",
     name: "ONE LAST CHANCE",
-    variant: true,
     guide: {
       scene: "oneLastChance",
     },
@@ -45,6 +31,19 @@ export const WAVES_ACT_1_P2: Wave[] = [
       { beat: 9, col: 8, kind: "meteor", color: null },
       { beat: 10, col: 8, color: "cyan" },
       { beat: 13, col: 3, color: "red" },
+    ],
+    controls: "standard4",
+  },
+  {
+    id: "torch",
+    name: "TORCH",
+    guide: {
+      scene: "torch",
+    },
+    entries: [
+      { beat: 6, col: 2, kind: "torch", color: null },
+      { beat: 12, col: 8, kind: "torch", color: null },
+      { beat: 18, col: 5, kind: "torch", color: null },
     ],
     controls: "standard4",
   },
