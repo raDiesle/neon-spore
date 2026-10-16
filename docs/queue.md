@@ -331,6 +331,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## bossOrder and nextReview read every block start off the list again for each wave
 
 - **Found:** 2026-10-16, claude/lance-boss-wave-e1f288
+- **Taken:** 2026-10-16, claude/queue-work-6b11c3 (claim: claude/queue-bossorder-and-nextreview-read-every-block-start)
 - **Files:** `tools/director/src/boss-slots.ts`, `tools/director/src/compose-starts.ts`, `tools/director/src/compose-review.ts`, `tools/director/test/compose-review.test.ts`, `tools/director/test/boss-slots.test.ts`
 
 `bossOrder(WAVES)` takes 1.6 s and `nextReview(WAVES)` 2.8 s at a load
