@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-16 · 4213d030a — THE BROOD lays bodies out of its hide and sways a column at a time; its cue and its guide are gone
+
+The owner's feedback of 16 October 2026: too easy, too few enemies, something special besides a bud falling, no helper text and no tutorial. From its second step the sac lays a slick or a bulb every few beats, seen inside it three beats first, over a column no bud hangs in; later steps shudder it two beats and then lurch it one column, left, middle, right, middle, its buds with it. The script is nine steps and twenty-four buds. Played with each seat held to one press a second it lasts about a minute and lays twenty to thirty bodies, where the old one lasted twenty seconds and laid none to a clean pair. FIRE / BEFORE IT DROPS and the three-line guide are removed. A look the owner asked for by name; the body's new look is the next lane.
+
 ## 2026-10-16 · 2b23a3e20 — The torch's arrow is big and knocks, and a lit siren throws its light round the screen
 
 Player 1's torch blip is now an ember-lit arrow as wide as both its columns, never fainter than 0.7, knocking down into its column with an echo of its outline leaving it on each knock. The siren's dial is a third larger, and while it is lit it throws two turning beams and a wash round itself — faster, wider and in ember while a torch is on its way. The torch's line now sits centred under the siren, a size larger, instead of right-aligned under a chip. The siren still draws nothing at all while no call is on.

@@ -43626,3 +43626,5 @@ lit frame, and eight budget rows had to move for it.
 Bottleneck: knowing how hard is hard enough — the autopilot is
 superhuman, so the script was tuned with a probe that holds each seat to
 one press a second.
+
+*Measured: 5 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
