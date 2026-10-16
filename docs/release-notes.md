@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-16 · edd5f7853 — `versus:shot --only current` shows the current side on a screenshot candidate
+
+A `screenshot` candidate mounted itself alone whatever was asked, so `--only current` wrote the candidate's picture under the current one's name, and the two stills read as a candidate that changes nothing. Which sides a screen mounts is one function now, `sidesShown`, and on a screenshot candidate it is the candidate alone unless the current side is named.
+
 ## 2026-10-16 · 3d9bc3422 — MAP's top stays put while the map scrolls, and a tile says what it holds
 
 In the director, the selected cell's panel and the row of column numbers now stick under the pause and restart bar while the map's rows scroll by, so a cell picked at beat forty can still be changed and its column read. Hovering a tile names what it holds: the brush, its colour, its one-line note, a pod's row (and a husk as a husk), then the beat and column. The map's follow keeps the beat playing below the stuck header.
