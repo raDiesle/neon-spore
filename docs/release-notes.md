@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-16 · 116329223 — Every sky has depth and moves; COMET's head is past the top edge
+
+Every sky now sits on a deep sky: still far stars, a haze in the act's colour drifting slowly sideways, nearer stars drifting faster, and ten twinkling stars. COMET's head is now above the top edge, so its light comes into the picture from outside. Its tail sways, dust grains stream along it, and the blue gas tail ripples. The owner asked for this look by name.
+
 ## 2026-10-16 · fa66e7d43 — THE BLISTER and the maw's bodies have barrels of their own in sim
 
 The creatures' barrel was at 229 lines, with more of the SUCK page's family on the way. THE MORSEL, THE GLUTTON and THE MOULT's readings now live in `index-maw.ts`, and THE BLISTER's gestures, the largest family in it, in `index-blister.ts`. Both are re-exported from `index.ts`, so no import moves. `index-creatures.ts` is down to 186 lines.

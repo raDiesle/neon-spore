@@ -43449,3 +43449,5 @@ under 220"; THE BLISTER, the largest family, went out with them.
 
 Bottleneck: the budget rows — a layer under every sky moved every row in
 seven files, and the lane that fixed that landed while this one was landing.
+
+*Measured: 34 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
