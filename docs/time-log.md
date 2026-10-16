@@ -42932,3 +42932,19 @@ Bottleneck: landing — every move of the arc reaches the briefings, the
 baseline and the measured table, three commands each time.
 
 *Measured: 10 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-16 — Nothing used before it is taught: `untaughtKeys`, and every director save refuses a list that breaks it
+
+- reading: 5 min. The director's `keysOf`, the guide tests in
+  `waves.test.ts`, and which of the `waves:*` scripts write through
+  `writeWaves` — all of them, and the editor's save too.
+- writing: 10 min. `wave-keys.ts` and its test, the gate in `writeWaves`,
+  `keysOf` replaced by the content's `waveKeys`, the barrel split for the
+  export, THE BASTION onto STANDARD 4, the curriculum's paragraph.
+- looking: 0 min. Nothing drawn moved but a boss's panel losing a button it
+  never asked for.
+- friction: 0 min.
+- landing: 5 min. `waves:measure`, `bun run index`, `check:fast`, `land`.
+
+Bottleneck: the first rule let a guided boss jump ahead — THE BROOD has a
+guide — and only the save test moving it showed it.

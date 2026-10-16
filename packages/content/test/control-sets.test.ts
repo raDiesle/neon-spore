@@ -299,6 +299,9 @@ describe("the standard ladder", () => {
       "standard4",
       "standard4",
       "standard4",
+      // THE BASTION, on the rung the arc has reached: it never asks for the
+      // maw, and SALVAGE is the wave that teaches it (`wave-keys.ts`).
+      "standard4",
     ]);
   });
 });

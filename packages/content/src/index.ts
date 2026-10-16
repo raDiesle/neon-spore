@@ -1,7 +1,7 @@
 /**
- * **`@neon-spore/content`'s whole surface**: the rules, waves, scenes and
- * controls named here, and every shape through `index-shapes.ts`, which
- * carries the argument for being a file of its own.
+ * **`@neon-spore/content`'s whole surface**: the rules, scenes and controls
+ * named here, every shape through `index-shapes.ts`, which carries the
+ * argument for being a file of its own, and every wave through `index-waves.ts`.
  */
 
 export { BROOD_SCRIPT } from "./brood-script.js";
@@ -58,6 +58,7 @@ export { FILAMENT_SCRIPT } from "./filament-script.js";
 export { GIMBAL_SCRIPT } from "./gimbal-script.js";
 export { GORGE_LEVELS } from "./gorge-levels.js";
 export * from "./index-shapes.js";
+export * from "./index-waves.js";
 export { INSTAR_SCRIPT } from "./instar-script.js";
 export {
   INTRO_ANSWER,
@@ -185,46 +186,3 @@ export {
 } from "./shapes.js";
 export { SNAKE_ROUNDS } from "./snake-rounds.js";
 export { STARE_LEVELS } from "./stare-levels.js";
-export { placedFaults, type WaveFault } from "./wave-faults.js";
-export { WAVE_MARK_IDS, type WaveMarkId, waveMarksOn } from "./wave-marks.js";
-export {
-  arrivalJob,
-  entriesPressure,
-  PRESSURE_DEFAULT_WEIGHT,
-  PRESSURE_PER_FAULT,
-  PRESSURE_WEIGHT,
-  PRESSURE_WINDOW_BEATS,
-  wavePressure,
-} from "./wave-pressure.js";
-export { isRegularWave, waveIntroduces } from "./wave-regular.js";
-export {
-  arrivalTalk,
-  FAULT_TALK,
-  KIND_TALK,
-  TALK_COST,
-  TALK_WINDOW_BEATS,
-  type TalkFact,
-  waveTalk,
-} from "./wave-talk.js";
-export { tapsClash } from "./wave-taps.js";
-export { freshWaveId } from "./wave-types.js";
-export {
-  type BossType,
-  type FilmedGuide,
-  guideSteps,
-  PROSE_PAGES,
-  WAVES,
-  type Wave,
-  type WaveEntry,
-  type WaveGuide,
-  type WordedGuide,
-  waveGuideSteps,
-  waveHasGuide,
-} from "./waves.js";
-export {
-  DEMONSTRATIONS,
-  type Demonstration,
-  demonstrationConfig,
-  demonstrationIndex,
-  demonstrationWave,
-} from "./waves-demo.js";

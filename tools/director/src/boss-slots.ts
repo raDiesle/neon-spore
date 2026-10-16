@@ -1,11 +1,4 @@
-import {
-  controlSet,
-  isRegularWave,
-  mechanic,
-  mechanicsInWave,
-  setLance,
-  type Wave,
-} from "@neon-spore/content";
+import { controlSet, isRegularWave, type Wave, waveKeys } from "@neon-spore/content";
 import { startsBlock } from "./compose-starts.js";
 import { TUTORIAL_LAST_ID } from "./compose-steps.js";
 
@@ -14,10 +7,11 @@ import { TUTORIAL_LAST_ID } from "./compose-steps.js";
  *
  * A boss closes a block, at most one per block, and each goes to the end of
  * the first block after which everything it needs has been taught. *Needs*
- * is read off the wave the way `waveIntroduces` reads it: every mechanic it
- * carries (its bodies, pods and faults, and what a boss brings along) and its
- * panel — the panel itself and every button on it, and the hold. Something
- * no wave but a boss ever carries is the boss's own, and it teaches it.
+ * is the wave's keys (`waveKeys`, `content/src/wave-keys.ts`): every mechanic
+ * it carries (its bodies, pods and faults, and what a boss brings along) and
+ * its panel — the panel itself and every button on it, and the hold.
+ * Something no wave but a boss ever carries is the boss's own, and it teaches
+ * it — the same rule `untaughtKeys` holds every list the director writes to.
  *
  * Three rules the decision leaves implicit, and decided here (the owner,
  * 15 October 2026: *take decisions for now and proceed*):
@@ -54,15 +48,6 @@ export interface BossSlot {
   waited: string[];
 }
 
-/** What a wave needs taught, by key: mechanics, the panel, its buttons. */
-export function keysOf(wave: Wave): string[] {
-  const keys: string[] = [...mechanicsInWave(wave)].filter((id) => mechanic(id).reach !== "run");
-  const set = controlSet(wave.controls);
-  keys.push(`panel ${set.id}`, ...set.controls.map((c) => `button ${c}`));
-  if (setLance(set)) keys.push("the hold");
-  return keys;
-}
-
 /**
  * Where a block ends: at the next block's start, less the waves just before
  * it that are neither regular nor a block of their own — a panel's or a
@@ -84,7 +69,7 @@ export function bossOrder(waves: readonly Wave[]): { order: Wave[]; slots: BossS
   const rest = waves.filter((_, i) => !moves(i));
   const taught = new Map<string, number>();
   rest.forEach((w, i) => {
-    for (const k of keysOf(w)) if (!taught.has(k)) taught.set(k, i);
+    for (const k of waveKeys(w)) if (!taught.has(k)) taught.set(k, i);
   });
   // Block ends after the arc: the index in `rest` of the next intro or
   // review head (`compose-review.ts`).
@@ -106,7 +91,7 @@ export function bossOrder(waves: readonly Wave[]): { order: Wave[]; slots: BossS
       if (wave.boss) slots.push({ id: wave.id, name: wave.name, from, to: -1, waited: [] });
       return;
     }
-    const needs = keysOf(wave).filter((k) => taught.has(k));
+    const needs = waveKeys(wave).filter((k) => taught.has(k));
     const ready = Math.max(-1, ...needs.map((k) => taught.get(k) ?? -1));
     const waited = needs.filter((k) => taught.get(k) === ready);
     // Only a panel no ordinary wave teaches — the bosses' own.

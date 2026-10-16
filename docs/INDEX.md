@@ -1012,6 +1012,7 @@ by hand never moves.
 | `packages/content/src/scenes/the-flue.ts` | THE FLUE's rehearsal: one level called and shot, then the seats swapped and the next called the other way round |
 | `packages/content/src/intro.ts` | WHAT THIS GAME IS, IN ONE SCENE |
 | `packages/content/src/index-shapes.ts` | Every shape on `@neon-spore/content`'s surface — contours, outlines and stacks — split off the barrel by subject |
+| `packages/content/src/index-waves.ts` | Every **wave** on `@neon-spore/content`'s surface: the list, its types and guides |
 | `packages/content/src/instar-script.ts` | THE INSTAR's script: twenty-eight steps over twenty-one poses, and what the pair does to each |
 | `packages/content/src/instar-script-breath.ts` | **THE INSTAR's opening scene, the breath's three bites** |
 | `packages/content/src/instar-script-second.ts` | **THE INSTAR's second act**: five poses the first thirteen steps never showed |
@@ -1070,6 +1071,7 @@ by hand never moves.
 | `packages/content/src/wave-regular.ts` | **Which waves are regular** — no boss, no guide, nothing new (`isRegularWave`), and what a wave is the first to carry (`waveIntroduces`); the director's ≡ press filters by it |
 | `packages/content/src/wave-pressure.ts` | **A wave's pressure** (`wavePressure`): the curriculum's difficulty score, the most an arrival costs inside eight beats — printed on every row of the director's wave list |
 | `packages/content/src/wave-authoring.ts` | **A wave's fields for the director alone** — the game never reads them |
+| `packages/content/src/wave-keys.ts` | **Nothing is used before it is taught**, in the order of the wave list |
 | `packages/content/src/creatures-hazards.ts` | **The arrivals with nothing alive in them**: the five speed tiers, THE VEER, the torch — and THE FENCE |
 | `packages/content/src/creatures-split.ts` | The three bodies **one seat cannot see whole** that wear nothing to do it — the dart, the wisp and the ghost |
 | `packages/content/src/mechanics-split.ts` | The five bestiary rows for bodies one seat cannot see whole — the lure, the dart, the veil, the wisp and the ghost |

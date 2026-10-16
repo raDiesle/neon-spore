@@ -1,5 +1,10 @@
-import { controlSet, isRegularWave, type Wave, waveIntroduces } from "@neon-spore/content";
-import { keysOf } from "./boss-slots.js";
+import {
+  controlSet,
+  isRegularWave,
+  type Wave,
+  waveIntroduces,
+  waveKeys,
+} from "@neon-spore/content";
 import { placeable } from "./compose-block.js";
 import { isLesson } from "./compose-starts.js";
 import { STEPS, TUTORIAL_LAST_ID } from "./compose-steps.js";
@@ -78,11 +83,11 @@ export function splitCurriculum(waves: readonly Wave[]): Curriculum {
   const bosses: Wave[] = [];
   // Who carries each key first: the arc, a boss, or a unit by its head.
   const teacher = new Map<string, string>();
-  const hold = waves.findIndex((w) => keysOf(w).includes("the hold"));
+  const hold = waves.findIndex((w) => waveKeys(w).includes("the hold"));
   const beforeHold = new Set(waves.slice(0, hold === -1 ? waves.length : hold).map((w) => w.id));
   for (const [i, w] of waves.entries()) {
     if (i > finale && (w.boss || isComposed(w.id, heads))) {
-      if (w.boss) for (const k of keysOf(w)) if (!teacher.has(k)) teacher.set(k, "");
+      if (w.boss) for (const k of waveKeys(w)) if (!teacher.has(k)) teacher.set(k, "");
       if (w.boss) bosses.push(w);
       continue;
     }
@@ -90,14 +95,14 @@ export function splitCurriculum(waves: readonly Wave[]): Curriculum {
       units.push({ head: w, waves: [], ...costOf(waves, i), needs: new Set() });
     const unit = units[units.length - 1];
     const owner = i <= finale || !unit ? "" : unit.head.id;
-    for (const k of keysOf(w)) if (!teacher.has(k)) teacher.set(k, owner);
+    for (const k of waveKeys(w)) if (!teacher.has(k)) teacher.set(k, owner);
     if (i <= finale || !unit) continue;
     if (isRegularWave(waves, i)) written.push({ wave: w, needs: new Set(), after: owner });
     else unit.waves.push(w);
   }
   const needsOf = (ws: readonly Wave[], self: string) =>
     new Set(
-      ws.flatMap(keysOf).flatMap((k) => {
+      ws.flatMap(waveKeys).flatMap((k) => {
         const by = teacher.get(k) ?? "";
         return by === "" || by === self ? [] : [by];
       }),
@@ -174,11 +179,11 @@ export function unitWaves(
       ? w.after === unit.head.id
       : w.needs.has(unit.head.id) && [...w.needs].every((n) => done.has(n)),
   );
-  let hold = list.some((w) => keysOf(w).includes("the hold"));
+  let hold = list.some((w) => waveKeys(w).includes("the hold"));
   const out: Wave[] = [];
   for (const w of [...unit.waves, ...behind.map((b) => b.wave)]) {
     out.push(hold && cur.beforeHold.has(w.id) ? fullPanel(w) : w);
-    hold ||= keysOf(w).includes("the hold");
+    hold ||= waveKeys(w).includes("the hold");
   }
   return out;
 }

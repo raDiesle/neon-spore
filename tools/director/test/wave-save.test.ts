@@ -189,6 +189,26 @@ test("a body that is not a wave list is refused before the token is even read", 
   expect(await actTexts(copy)).toEqual(before);
 });
 
+test("a list that uses something before it is taught is refused, and writes nothing", async () => {
+  // THE BROOD's slicks and bulbs, moved in front of CYAN, the wave that
+  // teaches the bulb (`content/src/wave-keys.ts`).
+  const before = await actTexts(copy);
+  const waves = await readWaves();
+  const brood = waves.find((w) => w.id === "theBrood")!;
+  const moved = waves.filter((w) => w !== brood);
+  moved.splice(
+    moved.findIndex((w) => w.id === "cyan"),
+    0,
+    brood,
+  );
+
+  const res = await saveWaves(put({ waves: moved, token: await wavesToken(copy) }), copy);
+
+  expect(res.status).toBe(500);
+  expect(((await res.json()) as { error: string }).error).toContain("THE BROOD: panel standard2");
+  expect(await actTexts(copy)).toEqual(before);
+});
+
 test("a save against unchanged files still writes, and hands back the new token", async () => {
   const before = await actTexts(copy);
   const waves = await readWaves();

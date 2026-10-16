@@ -100,6 +100,20 @@ get good at something before being taught again.
 A *new thing* is whatever `waveIntroduces` names: a body, a pod, a fault, a
 panel. A boss is not a block — it closes one (§7).
 
+**Nothing is used before it is taught** (the owner, 16 October 2026: *disallow
+to use something what was not introduced before in a wave in order of wave
+list*). A wave uses its keys (`waveKeys`, `packages/content/src/wave-keys.ts`):
+every mechanic it carries, its panel, every button on that panel, and the
+hold. The first wave in the list to carry a key introduces it, and only a
+guided wave that is not a boss may — a boss introduces only what no other
+wave carries, its own, guide or not. `untaughtKeys` names whatever breaks
+that; `test/wave-keys.test.ts` holds the list on disk to it, and the
+director's one save (`writeWaves`) refuses a list that breaks it, so no
+`waves:*` generator and no drag in the editor can write one. The day it
+landed it found one: THE BASTION was the first wave on STANDARD 5, handing
+the pair the intake a wave before SALVAGE teaches it, and asked nothing of
+it; it plays on STANDARD 4 now.
+
 Eight because it fits the owner's thousand: 56 introductions × 9 + 54 bosses
 is about 560 today, and the hundred-odd new things to come make a thousand.
 

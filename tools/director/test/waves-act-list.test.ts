@@ -121,11 +121,14 @@ describe("a save that fills an act", () => {
     if (!second) throw new Error("no second act");
     const before = await Bun.file(second.file).text();
 
-    // More than act one and every page it has can hold, whatever they hold now.
+    // More than act one and every page it has can hold, whatever they hold now
+    // — on the first wave's panel, so they use nothing it has not taught
+    // (`untaughtKeys`, which every save refuses a list for).
     const added = Array.from({ length: 120 }, (_, i) => ({
       id: `added${i}`,
       name: `ADDED ${i}`,
       entries: [{ beat: 0, col: 5, color: "red" as const }],
+      controls: WAVES[0]?.controls,
     }));
     const waves = [WAVES[0] as Wave, ...added, ...WAVES.slice(1)];
     const { complaint, rels } = await writeWaves(waves, copy);

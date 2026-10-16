@@ -363,3 +363,20 @@ the waves by hand, then cut the acts after the arc with
 moves a wave across the arc's end put it in the arc's act where it now plays.
 Done when a test moves a block from after the arc into it, saves, and every
 arc act file is non-empty and in play order.
+
+## A boss's keys miss the bodies it puts on the field
+
+- **Found:** 2026-10-16, claude/wave-8-boss-generator-237899
+- **Files:** `packages/content/src/wave-keys.ts`, `packages/content/src/mechanics.ts`, `packages/content/src/mechanics-bosses-b.ts`
+
+`waveKeys` reads a boss wave's mechanics through `mechanicsInWave`, which
+sees the boss's kind and nothing it spawns: THE BROOD's buds drop as slicks
+and bulbs, and its keys are `brood` and its panel only. `untaughtKeys` still
+catches THE BROOD moved ahead of CYAN, by the panel, but a boss on a panel
+taught early that spawns a body taught late would pass. `carriedBy` cannot
+say it — a slick is not carried by THE BROOD — so give a boss mechanic a
+list of the bodies it spawns (or read them off its script: THE BROOD's
+`steps[].buds` colours), add them in `waveKeys`, and audit the bosses that
+spawn bodies (THE BROOD, BULB QUEEN, THE HIVE among them). Done when a test
+moves a spawning boss ahead of the intro of a body it spawns and
+`untaughtKeys` names that body.

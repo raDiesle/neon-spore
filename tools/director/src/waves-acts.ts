@@ -8,7 +8,7 @@
  */
 
 import { join } from "node:path";
-import type { Wave } from "@neon-spore/content";
+import { untaughtComplaint, type Wave } from "@neon-spore/content";
 import { SCOUT_LISTS, type ScoutList } from "./scout-lists.js";
 import { serializeWaveArray } from "./serialize.js";
 import {
@@ -124,12 +124,19 @@ export interface Written {
  * them again in play order (`waves-recut.ts`), which is what a reorder wants.
  * Without it every wave stays in the act that holds it, which is what an edit
  * wants.
+ *
+ * **A list that uses something before it is taught is refused**, before a
+ * byte is written (`untaughtKeys`, `content/src/wave-keys.ts`): every
+ * generator and the editor's own save come through here, so none can put a
+ * wave ahead of the wave that teaches what it carries.
  */
 export async function writeWaves(
   waves: Wave[],
   files: WaveFiles = REAL_FILES,
   how: { recut?: true } = {},
 ): Promise<Written> {
+  const untaught = untaughtComplaint(waves);
+  if (untaught) return { complaint: untaught, rels: [], removed: [] };
   // The list is read again rather than trusted: the last save may have cut an
   // act this module has never heard of (`waves-act-list.ts`).
   const all = files.list ? actFilesIn(files.list) : [...files.acts];

@@ -59,7 +59,7 @@ export const WAVES_ACT_1B: Wave[] = [
       ],
     },
     bossType: "normal",
-    controls: "standard5",
+    controls: "standard4",
   },
   {
     id: "salvage",
