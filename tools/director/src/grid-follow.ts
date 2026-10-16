@@ -1,3 +1,5 @@
+import { stickyCoverPx } from "./map-sticky.js";
+
 /**
  * The map follows the beat that is playing.
  *
@@ -94,9 +96,16 @@ export function bindFollow(grid: HTMLElement, aheadPx: () => number): Following 
       const onScreen = rowRect.bottom > boxRect.top && rowRect.top < boxRect.bottom;
       if (away && onScreen) return;
       away = false;
+      // The stuck header over the top of the column (`map-sticky.ts`) is not
+      // somewhere a row can be seen, so the box is read as starting below it.
+      const cover = stickyCoverPx(grid);
       const next = followTop(
-        { scrollTop: box.scrollTop, viewH: box.clientHeight, contentH: box.scrollHeight },
-        { top: rowRect.top - boxRect.top + box.scrollTop, height: rowRect.height },
+        {
+          scrollTop: box.scrollTop,
+          viewH: box.clientHeight - cover,
+          contentH: box.scrollHeight - cover,
+        },
+        { top: rowRect.top - boxRect.top + box.scrollTop - cover, height: rowRect.height },
         aheadPx(),
       );
       if (next === null) return;

@@ -42645,3 +42645,18 @@ turned a fixed order into one picked a block at a time.
 Bottleneck: the machine — sleeping between calls and loaded by other work, every run took several times its length.
 
 *Measured: 590 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-16 — MAP's top sticks while it scrolls, and a tile says what it holds
+
+- reading: 15 min. The BRUSH & MAP column's scroll boxes, the transport's
+  sticky, the cell art and the cell panel's own words.
+- writing: 15 min. `map-sticky.ts`, its stylesheet, the follow reading the
+  box below the header, the tile's title.
+- looking: 15 min. The pane at 1800 wide, scrolled, measured, and the titles
+  read back; LURES WIDER probed headless for the owner's lost ward.
+- friction: 15 min. The director server exits after three idle minutes, and
+  the pane carried an old wave draft that put the wrong wave at 474.
+- landing: 5 min.
+
+Bottleneck: friction — a pane holding another session's draft answered a
+different wave until its storage was set aside.

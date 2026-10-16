@@ -1,0 +1,41 @@
+/**
+ * MAP's top stays while its rows scroll: the ⏸/↺ bar (already sticky, in
+ * director-brush.css), then the selected cell's panel, then the row of column
+ * numbers, each starting where the one above ends. The two offsets are
+ * measured by `map-sticky.ts`, because the cell's panel is as tall as the
+ * fields of whatever is selected.
+ *
+ * Desktop only, for #brushCol's reason: below 700px one section is the whole
+ * screen and #mapCol keeps its own sideways scroll (director-phone.css).
+ */
+@media (min-width: 701px) {
+  /* A box that scrolls either way is the box a sticky child sticks inside,
+     and the body did not scroll down — so nothing in it could stick to the
+     column that does. Nothing here needs the sideways scroll on a desktop:
+     the map's track is never narrower than `--map-w`, the grid's own width
+     (`director-brush.css`), so a wide wave widens the column and the column
+     scrolls. */
+  #mapCol > .subcol-body {
+    overflow-x: visible;
+  }
+  /* The gap under it is padding rather than margin, so the rows scrolling
+     up behind it are covered all the way down to the column numbers. A
+     panel taller than half the window scrolls inside itself rather than
+     covering the map it is about. */
+  #cellPanel {
+    position: sticky;
+    top: var(--map-cell-top, 0px);
+    z-index: 3;
+    background: var(--bg);
+    margin-bottom: 0;
+    padding-bottom: 12px;
+    max-height: 45vh;
+    overflow-y: auto;
+  }
+  #grid .head {
+    position: sticky;
+    top: var(--map-head-top, 0px);
+    z-index: 3;
+    background: var(--bg);
+  }
+}

@@ -1,4 +1,4 @@
-import type { Wave } from "@neon-spore/content";
+import type { Wave, WaveEntry } from "@neon-spore/content";
 import type { PodEntry } from "@neon-spore/sim";
 import { brushArtImage } from "./brush-art.js";
 import { silhouette } from "./silhouette.js";
@@ -39,6 +39,43 @@ export function fillCell(button: HTMLElement, wave: Wave, beat: number, col: num
   }
   const pod = podAt(wave, beat, col);
   if (pod) drawPod(button, pod, Boolean(entry));
+  const title = cellTitle(entry, pod, beat, col);
+  if (title) button.title = title;
+}
+
+/**
+ * **What a tile holds, in words, on hover** — the owner, 16 October 2026. A
+ * 26px picture tells a slick from a bulb but not a red one from a cyan one in
+ * a hurry, nor a WARD pod from a husk wearing one, and the row a pod hangs on
+ * is a digit in a corner. `undefined` for an empty tile, which says nothing.
+ */
+function cellTitle(
+  entry: WaveEntry | undefined,
+  pod: PodEntry | undefined,
+  beat: number,
+  col: number,
+): string | undefined {
+  const lines: string[] = [];
+  if (entry) {
+    const brush = brushOf(entry);
+    const spec = BRUSHES.find((x) => x.brush === brush);
+    const parts = [spec?.label ?? brush];
+    // A METEOR is five tiers under one brush, and the tier is the speed.
+    if (brush === "rock" && entry.kind) parts.push(entry.kind);
+    if (entry.color) parts.push(entry.color);
+    lines.push(parts.join(" · "));
+    if (spec?.note) lines.push(spec.note);
+  }
+  if (pod) {
+    const spec = BRUSHES.find((x) => x.brush === podBrushOf(pod));
+    const label = spec?.label ?? "POD";
+    const what = pod.husk ? `HUSK dressed as ${label}` : `${label} pod`;
+    lines.push(`${what} · hangs on row ${pod.row}`);
+    if (spec?.note && !pod.husk) lines.push(spec.note);
+  }
+  if (lines.length === 0) return undefined;
+  lines.push(`beat ${beat} · column ${col}`);
+  return lines.join("\n");
 }
 
 /** The creature's picture, the plain contour for a brush that has none, or

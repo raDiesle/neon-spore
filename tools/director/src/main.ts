@@ -14,6 +14,7 @@ import { bindLabs } from "./labs.js";
 import { bindRefresh } from "./main-refresh.js";
 import { bindTempoControls } from "./main-tempo.js";
 import { bindMapPause } from "./map-pause.js";
+import { bindMapSticky } from "./map-sticky.js";
 import { initMobileMenu } from "./mobile-menu.js";
 import { bindNotes } from "./notes-page.js";
 import { bindPairPanel } from "./pair-panel.js";
@@ -114,6 +115,8 @@ const palette = bindPalette({
 // Any press in BRUSH & MAP holds the field still, so a wave is never edited
 // under a run that goes on without the author (`map-pause.ts`).
 bindMapPause(stage);
+// The top of MAP stays put while its rows scroll by (`map-sticky.ts`).
+bindMapSticky();
 grid = bindGrid(
   store,
   () => cfg,
