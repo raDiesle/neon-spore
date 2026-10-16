@@ -331,6 +331,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## A boss's keys miss the bodies it puts on the field
 
 - **Found:** 2026-10-16, claude/wave-8-boss-generator-237899
+- **Taken:** 2026-10-16, claude/queue-work-6b11c3 (claim: claude/queue-a-bosss-keys-miss-the-bodies-it-puts-on-the-fiel)
 - **Files:** `packages/content/src/wave-keys.ts`, `packages/content/src/mechanics.ts`, `packages/content/src/mechanics-bosses-b.ts`
 
 `waveKeys` reads a boss wave's mechanics through `mechanicsInWave`, which
