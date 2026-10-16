@@ -67,7 +67,7 @@ export function podDueTicks(world: World, entry: PodEntry): number {
 // body that is *wearing* one when it lands, and writing the two conditions a
 // second time is how the mouth would come to mean two things. Re-exported, so
 // nothing that already asked the package index for `mawOpen` had to move.
-export { intakeWindowTicks, mawOpen } from "./pod-intake.js";
+export { inMawReach, intakeWindowTicks, mawOpen } from "./pod-intake.js";
 
 /** Position and speed in thousandths, all derived from the config. */
 function fallMilli(world: World): number {

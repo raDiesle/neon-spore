@@ -43,6 +43,16 @@ export function mawOpen(world: World): boolean {
 }
 
 /**
+ * Whether something reaching the hull in `col` is inside the maw's reach: the
+ * cannon's own column or within `podCatchCols` of it, since the owner widened
+ * the catch on 16 October 2026. Asked by a pod and a moult alike, and by the
+ * band that draws the reach, so the three cannot disagree about where it ends.
+ */
+export function inMawReach(world: World, col: number): boolean {
+  return Math.abs(world.cannonCol - col) <= world.cfg.podCatchCols;
+}
+
+/**
  * Swallowed. A pod gives nothing — the purge and the ward it used to carry
  * were rejected by the owner on 16 October 2026 — so what lands on the tick of
  * the catch is the receipt and the debt paid: the wave can end without it.

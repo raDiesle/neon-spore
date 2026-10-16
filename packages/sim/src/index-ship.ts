@@ -92,7 +92,7 @@ export {
   lidWayVec,
 } from "./lid-way.js";
 export { isLockedOn, lockedBody } from "./lock.js";
-export { mawOpen, podKindOf, podTicksToHull } from "./pods.js";
+export { inMawReach, mawOpen, podKindOf, podTicksToHull } from "./pods.js";
 export {
   PULL_TAP_MILLI,
   type Pull,

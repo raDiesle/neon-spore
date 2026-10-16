@@ -409,3 +409,21 @@ renumbered to §11.67, by THE SWINDLE's lane and THE GEODE's look lane both. Add
 `## 11.n` heading in `docs/spec/bosses.md` has a number no other heading has,
 and that every `§11.n` named in code or docs names a heading that exists. Done
 when a duplicated heading turns `bun run check` red.
+
+## The size hook measures the trunk's copy of a file a worktree edited
+
+- **Found:** 2026-10-16, claude/suck-brush-visuals-a917b1
+- **Files:** `tools/hooks/after-edit-size.ts`, `tools/hooks/written-paths.ts`
+
+A session whose project is the main checkout and whose shell works in a
+worktree got *frame-ship.ts is 244 lines, 6 under the ceiling* twice from
+`after-edit-size.ts`, after a `sed -i` on `packages/render/src/frame-ship.ts`
+inside the worktree, where the file was 227 lines. 244 is the main checkout's
+copy. The hook resolves a relative path out of the shell command against its
+own `ROOT` (the directory the hook file is in, two up), not against the
+directory the command ran in, so a worktree's edit is measured on the trunk's
+file and the warning blocks on a file nobody touched. Resolve a written path
+against the command's working directory (the payload's `cwd`, when the
+harness sends one, or a `cd <dir> &&` prefix the command itself carries), and
+add a case to the hook's test with a worktree path. Done when the same `sed`
+in a worktree reports the worktree's own line count.

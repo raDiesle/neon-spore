@@ -7,13 +7,12 @@ import { drawWaveOpening, openingOf } from "./briefing.js";
 import type { Effects } from "./effects.js";
 import { faultBeamEnds } from "./fault-beam-ends.js";
 import { drawFaultBeam } from "./fault-emitter.js";
-import { drawFenceArcs } from "./fence-arc.js";
 import type { FireShot } from "./fire-vein.js";
 import type { GuideStage } from "./guide-scene.js";
 import { HANDOVER_LOOK } from "./handover-look.js";
 import { drawControlHover } from "./hover.js";
 import { drawHud, drawOverlay } from "./hud.js";
-import { drawHull, type HullMood, hullSkinY, type LobePositions, surfaceSampler } from "./hull.js";
+import { drawHull, type HullMood, hullSkinY, type LobePositions } from "./hull.js";
 import { hullCrown } from "./hull-crown.js";
 import { frame, type HullFrame } from "./hull-frame.js";
 import { type Layout, tileCX } from "./layout.js";
@@ -21,14 +20,12 @@ import { drawMagnetAlarm } from "./magnet-alarm.js";
 import { drawMazeDrips } from "./maze-drips.js";
 import { drawMineFuses } from "./mine.js";
 import type { OpeningFx } from "./opening-fx.js";
-import { drawOtherHand } from "./other-hand.js";
 import { hullShake, torchTremor } from "./queen.js";
-import { drawReachArm } from "./reach-arm.js";
 import type { ViewState } from "./renderer.js";
 import { seatSkin } from "./seat-skin.js";
+import { drawShipGrowths } from "./ship-growths.js";
 import { drawShipHand } from "./ship-hand.js";
 import { drawCommsSiren } from "./siren.js";
-import { drawThroatGraft } from "./throat-graft.js";
 import { drawTorchAlarm } from "./torch-alarm.js";
 import type { ShipHand } from "./touch-hand.js";
 import { showsCannon, showsShield } from "./view-role.js";
@@ -106,22 +103,8 @@ export function drawShip(
     f,
     hullCrown(world, arm),
   );
-  // **THE FENCE's current, jumping between a wall on its way down and the dome
-  // under it** — here rather than in the field pass, because that pass runs
-  // under the hull and a bolt drawn there would be painted over at exactly the
-  // end that matters (`fence-arc.ts`). Off the same membrane the hull was drawn
-  // from, so it lands on the skin the eye is looking at.
-  drawFenceArcs(ctx, l, world, at, surfaceSampler(f), view.beatPhase, view.time);
-  // THE CLAW's arm, out of the swelling that was the gun and up its column. In
-  // the ship pass rather than the field one, and after the hull: it *is* the
-  // ship on this panel, and an arm drawn under the membrane would come out
-  // from behind the thing it is part of (`reach-arm.ts`).
-  drawReachArm(ctx, l, world, surfaceSampler(f), arm, f.cannonX);
-  // THE THROAT's root, grown out of the membrane round the gullet — after the
-  // hull for the same reason as the arm: it is the ship (`throat-graft.ts`).
-  drawThroatGraft(ctx, l, world, surfaceSampler(f), seatSkin(view.role), view.beatPhase, view.time);
-  // A hand on the lance, read straight off the world both devices share (other-hand.ts).
-  drawOtherHand(ctx, l, world, view.time, mood, at, f);
+  // What grows out of the membrane once it is drawn (`ship-growths.ts`).
+  drawShipGrowths(ctx, l, world, view, mood, at, f, arm);
   // In front of the hull, unlike the rest of Effects.draw(): a rock's last step, a ricochet.
   const skin = (x: number) => hullSkinY(l, view.time, mood, at, x, f);
   effects.rockImpact.draw(ctx, l, view.time, skin);

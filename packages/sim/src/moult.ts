@@ -2,7 +2,7 @@ import { markMoment } from "./balance.js";
 import { hullRow, type SimConfig } from "./config.js";
 import { damageSpan } from "./hull-damage.js";
 import { guardArmed, shieldRow } from "./hull-guard.js";
-import { cargoLost, mawOpen, takeCargo } from "./pod-intake.js";
+import { cargoLost, inMawReach, mawOpen, takeCargo } from "./pod-intake.js";
 import { spanOf } from "./span.js";
 import { type Creature, occupiesCol } from "./types.js";
 import { wardTurns } from "./ward.js";
@@ -193,7 +193,7 @@ export function moultArrives(world: World, c: Creature): boolean {
   if (c.fromRow < shipRow) return true;
 
   if (pod) {
-    if (world.cannonCol === c.col && mawOpen(world)) {
+    if (inMawReach(world, c.col) && mawOpen(world)) {
       takeCargo(world, c.col);
       return false;
     }

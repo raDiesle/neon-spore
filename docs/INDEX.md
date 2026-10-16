@@ -1304,6 +1304,7 @@ by hand never moves.
 | `packages/render/src/swindle-strand.ts` | **THE SWINDLE's arms**: a strand of her from her belly down to each hood's crown |
 | `packages/render/src/swindle-tint.ts` | THE SWINDLE's colours: a slime of the organ's green |
 | `packages/render/src/maw.ts` | swallowing a pod: the skin coming apart, then the flash |
+| `packages/render/src/maw-reach.ts` | How far the open maw reaches: a faint amber light over every column it would take a pod from |
 | `packages/render/src/pods.ts` | the pod, hanging and as a burning wreck |
 | `packages/render/src/pod-due-ring.ts` | A pod's clock, drawn: the ring round every pod on the field since the owner made a real pod owed in time… |
 | `packages/render/src/pod-look.ts` | How a real pod hangs — the record VERSUS can offer a second answer through |
@@ -1969,6 +1970,7 @@ by hand never moves.
 | `packages/render/src/ship-air.ts` | THE AIR THE SHIP IS SITTING IN |
 | `packages/render/src/ship-nerves.ts` | what runs from a control to the organ it drives, as a record — drawn under the controls and across the membrane; ships empty, a candidate ship wires it |
 | `packages/render/src/ship-gland.ts` | GLAND's parts: EMBEDDED's arrangement with everything the owner asked for laid over it |
+| `packages/render/src/ship-growths.ts` | What grows out of the ship, laid on the membrane after the hull pass: fence current, claw arm, maw reach, throat root |
 | `packages/render/src/ship-top-chrome.ts` | How far down the ship's own chrome reaches at the top of a screen |
 | `packages/render/src/ship-top-rows.ts` | The rows the two alarm bands are written on, stacked under the siren |
 | `packages/render/src/volley.ts` | THE VOLLEY's shell: the rock plating a slick or a bulb is sealed inside |

@@ -43084,3 +43084,16 @@ Bottleneck: looking — every change to a crossing needed a fresh 15-second run 
 Bottleneck: looking — finding each body on a full-field frame before it could be judged.
 
 *Measured: 14 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
+
+## 2026-10-16 — The maw's reach is drawn while SUCK is open
+
+- reading: 10 min. Where the maw is drawn, and every place a catch read the
+  cannon's column on its own.
+- writing: 20 min. `inMawReach` for pods and moults, the band, its tests,
+  and `ship-growths.ts` cut out of `frame-ship.ts`.
+- looking: 5 min. One frame.
+- friction: 5 min. The size hook measured the trunk's copy of the file; queued.
+- landing: 10 min. INDEX rows, a queue title too long, `land`.
+
+Bottleneck: the size hook, which blocked twice on a file this lane had made
+shorter.

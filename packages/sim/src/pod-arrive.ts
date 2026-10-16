@@ -1,6 +1,13 @@
 import { batonBeadTaken } from "./baton-press.js";
 import { matronPodTaken } from "./matron-step.js";
-import { cargoLost, huskRefused, huskSwallowed, mawOpen, takeCargo } from "./pod-intake.js";
+import {
+  cargoLost,
+  huskRefused,
+  huskSwallowed,
+  inMawReach,
+  mawOpen,
+  takeCargo,
+} from "./pod-intake.js";
 import { swindleHuskRefused, swindlePodTaken } from "./swindle-step.js";
 import type { Pod } from "./types.js";
 import { MILLI, type World } from "./world.js";
@@ -27,7 +34,7 @@ import { MILLI, type World } from "./world.js";
  */
 export function podArrived(world: World, pod: Pod): void {
   const col = Math.round(pod.colMilli / MILLI);
-  const inColumn = Math.abs(world.cannonCol - col) <= world.cfg.podCatchCols;
+  const inColumn = inMawReach(world, col);
   const inTime = mawOpen(world);
 
   // **A husk is the same two conditions, read the other way up.** Everything
