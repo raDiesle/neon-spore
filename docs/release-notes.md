@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-16 · 83bcb21bf — The drift on one screen, the clock on the other: THE WATCH and THE DROP
+
+A freed pod now shows which way it slides on player 2's screen only, as arrows running out from it; player 1 sees it start to fall and has to be told. A pod can wear its clock on player 1's screen only, so the seat that catches says which pod is nearly out. And a pod can let go by itself after some beats, with nobody shooting it, which is written for the hollow one: player 1 sees a pod falling straight at him, and only player 2 can say to keep the maw shut.
+
 ## 2026-10-16 · 1b9794c78 — Coloured, heavy and swinging pods: THE CAGE, THE ANCHOR and THE PENDULUM
 
 Three new things a pod can be, each with a wave of its own at the end of THE LANCE's block. A coloured pod is freed only by a shot of its colour, and the other colour bounces off; a cage of six bars in that colour turns round it. A heavy pod falls straight down, and the maw takes it in two presses: the first grips it in the mouth, and the second has two beats to come or the wave is lost. A swinging pod hangs on a thread and crosses a column either side, and the shot lets it go the way it was swinging.
