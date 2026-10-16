@@ -34,6 +34,7 @@ import { POSE_GROUPS } from "./poses.js";
  * so a slot showing it needs no dedicated one.
  */
 const SLOT_POSE: Record<string, string> = {
+  "field:backdrop": "BODIES · FOUR KINDS AT ONCE",
   "pod:real": "POD · OWED",
   "pod:hollow": "HUSK · HANGING ON PLAYER 2's SCREEN",
 };

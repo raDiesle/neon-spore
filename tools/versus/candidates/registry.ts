@@ -6,6 +6,12 @@
 // `index.ts` next door says why it is generated at all.
 
 import type { Variant } from "../variant.js";
+import { BACKDROP_AURORA } from "./field-backdrop/aurora/index.js";
+import { BACKDROP_CELLS } from "./field-backdrop/cells/index.js";
+import { BACKDROP_ECLIPSE } from "./field-backdrop/eclipse/index.js";
+import { BACKDROP_GALAXY } from "./field-backdrop/galaxy/index.js";
+import { BACKDROP_GIANT } from "./field-backdrop/giant/index.js";
+import { BACKDROP_MILKY } from "./field-backdrop/milky/index.js";
 import { POD_HOLLOW_BROKEN } from "./pod-hollow/broken/index.js";
 import { POD_HOLLOW_CUP } from "./pod-hollow/cup/index.js";
 import { POD_HOLLOW_GUTTED } from "./pod-hollow/gutted/index.js";
@@ -14,6 +20,12 @@ import { POD_REAL_LANTERN } from "./pod-real/lantern/index.js";
 import { POD_REAL_SMART } from "./pod-real/smart/index.js";
 
 export const VARIANTS: Variant[] = [
+  BACKDROP_AURORA,
+  BACKDROP_CELLS,
+  BACKDROP_ECLIPSE,
+  BACKDROP_GALAXY,
+  BACKDROP_GIANT,
+  BACKDROP_MILKY,
   POD_HOLLOW_BROKEN,
   POD_HOLLOW_CUP,
   POD_HOLLOW_GUTTED,

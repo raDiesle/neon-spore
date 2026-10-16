@@ -43036,3 +43036,13 @@ along a jagged line, each turned about its own foot.
 Bottleneck: looking — the defect was only visible in a frame of AUTO playing her, not in any test written from the rules.
 
 *Measured: 5 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-16 — Six backs for the field, offered in VERSUS
+
+- reading: 10 min. `backdrop-look.ts`, the first `field:backdrop` slot's three answers and how it was decided.
+- writing: 20 min. A shared sky kit and six paints — a world, a galaxy, curtains of light, the galaxy's band, a wall of cells, an eclipse.
+- looking: 15 min. Three rounds of `versus:shot` on all six; the world came out too pale, then too dark, the galaxy's arms as a ring, the eclipse's bead on the black.
+- friction: 0 min.
+- landing: 5 min. Format, a sentence the distinct test wanted dashed, `check:fast`, `land`.
+
+Bottleneck: looking — every one of the six needed a second picture before its brightness sat under the bodies.
