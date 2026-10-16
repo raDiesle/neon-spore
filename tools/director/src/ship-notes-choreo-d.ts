@@ -179,7 +179,8 @@ export const CHOREO_NOTES_D = {
   "THE SWINDLE — real pods and fake ones, shuffled":
     "THE HUSK's boss, the owner's shell game of 16 October 2026. Each hand hangs real " +
     "pods and fakes at swindlePodRow with no clock; pairs trade places on authored beats, " +
-    "gliding for swindleSwapBeats, and she lets each go on its beat. The level waits until " +
+    "gliding for swindleSwapBeats, and she lets each go on its beat; a shot at one she " +
+    "still holds stops on its hood. The level waits until " +
     "every pod has left the field. swindleEnterBeats to come in, swindleRearBeats between " +
     "hands, swindleSpentBeats to go. See sim/swindle.ts, sim/swindle-step.ts.",
 } satisfies Partial<Record<GroupName, string>>;

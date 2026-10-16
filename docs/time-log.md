@@ -43024,3 +43024,13 @@ Bottleneck: writing — a cut piece's two halves are one outline clipped twice
 along a jagged line, each turned about its own foot.
 
 *Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-16 — THE SWINDLE drawn, and a pod she holds cannot be shot loose
+
+- reading: 5 min. THE MATRON's look as the template, THE HOOD's card, and where a shot frees a pod.
+- writing: 20 min. Her body, the hoods and their strands, the drop's flight, the frame tests, then the hood that stops a shot and its ten registrations.
+- looking: 10 min. Two frames on the navigator's seat; the first showed AUTO shooting her real pod down before any swap.
+- friction: 5 min. A context compaction mid-lane, and a heredoc the guard refused.
+- landing: 5 min. Spec, choreographed row, the card marked taken, index, then `land`.
+
+Bottleneck: looking — the defect was only visible in a frame of AUTO playing her, not in any test written from the rules.

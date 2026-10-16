@@ -169,6 +169,24 @@ describe("THE SWINDLE", () => {
     for (const d of drops) expect(d.keys).toEqual(["col", "piece", "type"]);
   });
 
+  it("stops a shot on the hood of a pod she holds, so none is shot loose early", () => {
+    const world = install();
+    idleUntil(world, hung);
+    const [first] = swindle(world).hung;
+    const pod = () => world.pods.find((p) => p.id === first);
+    const col = Math.round((pod()?.colMilli ?? 0) / MILLI);
+    const seen = new Set<string>();
+    tick(world, [{ player: 1, command: { kind: "cannonCol", col } }]);
+    for (let i = 0; i < TPB; i++) {
+      const cmds: Omit<TimedCommand, "tick">[] =
+        i === 0 ? [{ player: 2, command: { kind: "fire", color: "red" } }] : [];
+      for (const t of tick(world, cmds)) seen.add(t);
+    }
+    expect(seen.has("swindleHood")).toBe(true);
+    expect(pod()?.loose).toBe(false);
+    expect(world.bullets.length).toBe(0);
+  });
+
   it("clears a hand once its real pod is swallowed and its fake refused", () => {
     const world = install();
     idleUntil(world, hung);

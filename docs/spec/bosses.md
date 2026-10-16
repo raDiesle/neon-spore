@@ -12778,7 +12778,7 @@ navigator calls them while they move, and the pilot opens the maw only for
 the real ones. A **field boss**, the second kind in `.claude/skills/new-boss`:
 the ordinary field, falling, and the arc's panel, STANDARD 5. It closes THE
 HUSK's block, the first after the arc (`boss-slots.ts`). **Built on 16
-October 2026 as its simulation**; her body is the next lane.
+October 2026**, the simulation and then her body.
 
 **The rule, in one sentence.** Swallow every real pod she lets go, and none
 of the fake ones.
@@ -12791,8 +12791,13 @@ draws a husk as a pod and the navigator's frames it (`render/husk-mark.ts`);
 nothing in the simulation, the events or the sound tells them apart before
 the receipt. So the navigator watches the marks while she shuffles and says
 *real* or *fake* as each pod falls; the pilot opens the maw for one and
-keeps it shut for the other. The navigator may shoot a pod loose early, in
-either colour, and it falls the same.
+keeps it shut for the other.
+
+**A pod she holds cannot be shot loose.** A shot that meets one stops on its
+hood (`swindleHoodStops`, `swindleHood`), in either colour, and the pod stays
+where it hangs: she lets every pod go herself, so the shuffle cannot be
+skipped by shooting the real one down before it moves. Found while drawing
+her, the day she was built — AUTO's field hand was doing exactly that.
 
 **A level is a hand** (`sim/swindle.ts`, its script
 `content/src/swindle-script.ts`, named on the wave for THE INSTAR's reason).
@@ -12837,22 +12842,36 @@ lost pod (`cargoLost`), and a husk swallowed the ordinary swallowed husk
 the maw for a real one and keeps it shut for a husk, as on THE HUSK.
 
 **The sound** (`audio/src/bind-swindle.ts`, `sounds/boss-swindle.ts`):
-nine. **The hang, the swap and the drop are one cue each whatever the pod
-is**, because both screens hear them; a real pod taken pops and glints,
+ten. **The hang, the swap, a shot on a hood and the drop are one cue each
+whatever the pod is**, because both screens hear them; a real pod taken pops and glints,
 climbing as her real pods run out, and a fake refused is a dull hollow
 knock — after the receipt, so it tells nothing the pair did not just do.
 
 **What is proven, and what is not.** `sim/test/swindle.test.ts` proves the
 rules: a hand is hung where the script says, both kinds, on no clock; a swap
 glides and stops each pod exactly on the other's column; each pod is let go
-on its beat, and the drop's event carries no kind; a real pod swallowed and a
+on its beat, and the drop's event carries no kind; a shot at a pod she holds
+stops on its hood and frees nothing; a real pod swallowed and a
 fake refused clear the hand; a fake swallowed loses the wave and so does a
 real pod let fall; her last hand cleared beats her and she goes; the same
 play hashes the same.
 
-**What is not built.** Her body: the pods are drawn, she is not. Her film:
-the guide is prose (`briefings.md` §3.2). **Never watched at tempo** —
-whether five beats between drops is a fair call is the owner's ear.
+**The look** (`render/src/swindle-draw.ts`, `swindle-shape.ts`,
+`swindle-place.ts`, `swindle-fx.ts`). Her body is the shape sheet's THE
+HOOD (`drafts/tower-defence.ts`): a three-lobed slime in the organ's
+flesh, hung a strand's length over her pods. Over each pod she still holds
+she keeps **a hood**, the card's detached arc, touching nothing, on a strand
+from her belly; it lifts while its pod glides and flies up into her when she
+lets the pod go, and she leans after it. **The hood is the same over a real
+pod and a fake**: the pilot's frame does not change when every pod's kind is
+swapped, and the navigator's does, by the husk's own mark and nothing else.
+She shrinks as her real pods run out, rears back between hands, and greys
+and sags once beaten. On every screen. `render/test/swindle-frame.test.ts`
+holds the pilot's frame to the same picture for a real pod and a fake.
+
+**What is not built.** Her film: the guide is prose (`briefings.md` §3.2).
+**Never watched at tempo** — whether five beats between drops is a fair call
+is the owner's ear.
 
 ## 11.9 THE TELL — rock, paper, scissors, and half the tell on each screen
 

@@ -15,6 +15,7 @@ import { MimicFx } from "./mimic-fx.js";
 import { PlumbFx } from "./plumb-fx.js";
 import { SeamFx } from "./seam-fx.js";
 import { SlingFx } from "./sling-fx.js";
+import { SwindleFx } from "./swindle-fx.js";
 import { TrapezeFx } from "./trapeze-fx.js";
 
 /**
@@ -102,4 +103,7 @@ export class LateRoster extends RoundMarks {
   /** THE GEODE's beam-heat down a crack it cut, the crystal shards off it,
    * the grit a bolt chips and the blow it takes (`geode-fx.ts`). */
   readonly geode = new GeodeFx();
+  /** THE SWINDLE's hood flying up off a pod she lets go, her lean after it
+   * and the blow she takes (`swindle-fx.ts`). */
+  readonly swindle = new SwindleFx();
 }

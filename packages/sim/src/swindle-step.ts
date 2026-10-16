@@ -20,8 +20,8 @@ import { MILLI, type World } from "./world.js";
  * **A swap glides on the pod's own crossing** (`Pod.crossMilli`, THE CLAW's):
  * set on the beat it begins, so `advancePods` carries both pods a tick at a
  * time, and stopped on the beat it ends with each pod set exactly on the
- * column it was going to. A pod shot loose on the way falls the ordinary way
- * and is left out of the stop.
+ * column it was going to. **A pod she holds cannot be shot loose**
+ * (`swindleHoodStops`): the shot stops on its hood.
  *
  * What takes a pod off her is not here: it is the ordinary receipt at the maw
  * (`pod-arrive.ts`), which tells her through `swindlePodTaken` and
@@ -162,4 +162,15 @@ export function swindleHuskRefused(world: World, pod: Pod): void {
   const i = s === null ? -1 : s.hung.indexOf(pod.id);
   if (s === null || i < 0) return;
   world.events.push({ type: "swindleRefused", col: colOf(pod), piece: i });
+}
+
+/** A shot met a pod. If it is one of hers she still holds, it stops on the
+ * hood and the pod stays where it hangs: she lets her pods go herself, so
+ * the shuffle cannot be skipped by shooting the real one loose before it
+ * moves. False for every pod a wave hung, and one she has let go. */
+export function swindleHoodStops(world: World, pod: Pod): boolean {
+  const s = swindleBoss(world);
+  if (s === null || pod.loose || !s.hung.includes(pod.id)) return false;
+  world.events.push({ type: "swindleHood", col: colOf(pod) });
+  return true;
 }

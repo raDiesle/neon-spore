@@ -156,10 +156,11 @@ export const NO_SUBJECT_E: Record<string, string> = {
   "boss.geodeStrike": "THE GEODE, the stone landing on the hull. Same argument.",
   "boss.geodeShatter": "THE GEODE, the heart shattered. Same argument.",
   "boss.geodeOut": "THE GEODE, the shards gone and the wave ending. Same argument, and an absence.",
-  // THE SWINDLE's nine (`sim/events-swindle.ts`): the same argument.
+  // THE SWINDLE's ten (`sim/events-swindle.ts`): the same argument.
   "boss.swindleEnter": "THE SWINDLE, the slime coming in. No shape-sheet subject yet.",
   "boss.swindleHang": "THE SWINDLE, a hand of pods hung. Same argument.",
   "boss.swindleSwap": "THE SWINDLE, two pods trading places. Same argument.",
+  "boss.swindleHood": "THE SWINDLE, a shot stopped on a hood. Same argument.",
   "boss.swindleDrop": "THE SWINDLE, a pod let go. Same argument.",
   "boss.swindleTaken": "THE SWINDLE, a real pod swallowed. Same argument.",
   "boss.swindleRefused": "THE SWINDLE, a fake pod refused. Same argument.",

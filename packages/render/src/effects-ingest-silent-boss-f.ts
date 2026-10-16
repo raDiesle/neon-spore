@@ -150,11 +150,13 @@ export const INGEST_SILENT_BOSS_F = [
   "geodeStrike",
   "geodeShatter",
   "geodeOut",
-  // THE SWINDLE's nine are drawn by nothing yet: her look is the second lane.
-  // The pods she hangs are the field's own and drawn as such.
+  // THE SWINDLE's ten are read above the loop by `swindle-fx.ts`
+  // (`Effects.boss.swindle`), THE MATRON's way: a hood flying off a pod she
+  // lets go, her lean and the blow. The pods are the field's own.
   "swindleEnter",
   "swindleHang",
   "swindleSwap",
+  "swindleHood",
   "swindleDrop",
   "swindleTaken",
   "swindleRefused",

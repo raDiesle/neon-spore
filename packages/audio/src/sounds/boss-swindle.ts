@@ -1,10 +1,10 @@
 /**
- * THE SWINDLE's nine, in a file of their own for `boss-gorge.ts`' reason.
+ * THE SWINDLE's ten, in a file of their own for `boss-gorge.ts`' reason.
  *
  * The boss is **a slime that deals real pods and fake ones and shuffles
  * them**, and everything here is a sleight of hand in wet: the enter a low
  * heave with a riffle over it; a hand hung soft sacs filling; a swap a quick
- * slide; a drop a wet release; a real pod taken a pop with a bright glint; a
+ * slide; a shot stopped on a hood a dull tick off wet; a drop a wet release; a real pod taken a pop with a bright glint; a
  * fake refused a dull hollow knock; a hand cleared a falling moan and a ring.
  * **The hang, the swap and the drop are one sound whatever the pod is**
  * (`bind-swindle.ts`). Low and soft under the band, or short and high above
@@ -41,6 +41,15 @@ export const BOSS_SWINDLE_SOUNDS: SoundDef[] = [
     use: "Two of THE SWINDLE's pods begin to trade places.",
     level: 0.28,
     layers: [air(900, 1800, 0.22, 0.1, 2)],
+  },
+  {
+    id: "boss.swindleHood",
+    family: "boss",
+    blurb: "A dull tick off wet: a shot stopped on a hood.",
+    status: "bound",
+    use: "A shot stopped on the hood of a pod THE SWINDLE still holds, real or fake alike.",
+    level: 0.3,
+    layers: [tick(0.12, 0, 1600), thud(360, 200, 0.03, 0.08)],
   },
   {
     id: "boss.swindleDrop",

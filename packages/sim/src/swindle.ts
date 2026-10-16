@@ -20,8 +20,8 @@ import type { World } from "./world.js";
  * time (`render/husk-mark.ts`) and calls each one as it comes. Then she lets
  * them go, one on each authored beat, and every pod falls the ordinary way and
  * homes to the cannon: the pilot opens the maw for a real one and keeps it
- * shut for a husk. The navigator may shoot one loose early, any colour, and
- * it falls the same.
+ * shut for a husk. **A pod she holds cannot be shot loose**: the shot stops
+ * on its hood (`swindleHoodStops`), so the shuffle has to be followed.
  *
  * **Every pod is the ordinary pod** (`pods.ts`) with no clock (`NO_DUE`): she
  * lets every one of them go, so a ring would only be a second clock on the

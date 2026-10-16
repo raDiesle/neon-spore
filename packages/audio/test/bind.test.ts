@@ -727,6 +727,7 @@ const SAMPLES: Record<string, SimEvent> = {
   swindleEnter: { type: "swindleEnter", col: 5, pods: 6 },
   swindleHang: { type: "swindleHang", col: 5, pods: 3 },
   swindleSwap: { type: "swindleSwap", col: 2, to: 8 },
+  swindleHood: { type: "swindleHood", col: 2 },
   swindleDrop: { type: "swindleDrop", col: 3, piece: 1 },
   swindleTaken: { type: "swindleTaken", col: 4, piece: 0, left: 5 },
   swindleRefused: { type: "swindleRefused", col: 6, piece: 1 },

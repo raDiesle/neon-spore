@@ -132,8 +132,8 @@ const STILL_PROSE = [
   // And THE GEODE (§11.67), 16 October 2026: the stone is undrawn, and the
   // guide says who sees where a crack runs and who sees its colour.
   "THE GEODE",
-  // And THE SWINDLE (§11.68), 16 October 2026: the body is undrawn, and the
-  // guide says who sees the fake pods and who keeps the maw shut for them.
+  // And THE SWINDLE (§11.68), 16 October 2026: the film is unwritten, and
+  // the guide says who sees the fake pods and who keeps the maw shut for them.
   "THE SWINDLE",
   // THE LATCH (cinematic §2) left this list on 8 October 2026: its film is
   // the tendril hauled hand over hand, the turn passed, and a yank braced.

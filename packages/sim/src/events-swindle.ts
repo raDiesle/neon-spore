@@ -21,6 +21,8 @@ export type SwindleEvent =
   | ({ type: "swindleHang"; pods: number } & SwindleColEvent)
   /** Two pods begin to trade places, from `col` to `to` and back. */
   | ({ type: "swindleSwap"; to: number } & SwindleColEvent)
+  /** A shot stopped on the hood of a pod she still holds. */
+  | ({ type: "swindleHood" } & SwindleColEvent)
   /** She lets a pod go. */
   | ({ type: "swindleDrop"; piece: number } & SwindleColEvent)
   /** A real pod of hers was swallowed; `left` real pods still to come. */

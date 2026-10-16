@@ -1296,6 +1296,11 @@ by hand never moves.
 | `packages/render/src/boss-strike-from.ts` | **Where a boss's blow at the hull leaves its body** (`boss-strike-look.ts` is what the blow looks like) |
 | `packages/render/src/boss-strike-look.ts` | **What a boss's own blow at the hull looks like** |
 | `packages/render/src/swallow.ts` | taking a pod in, as a two-part clock |
+| `packages/render/src/swindle-draw.ts` | THE SWINDLE, drawn: a green slime hung over the field, a hood over every pod she holds on a strand of her |
+| `packages/render/src/swindle-fx.ts` | What THE SWINDLE leaves behind a frame: a hood flying up off a pod she lets go, her lean toward it |
+| `packages/render/src/swindle-place.ts` | **Where THE SWINDLE is drawn**: her body over the middle and a hood over every pod she still holds |
+| `packages/render/src/swindle-shape.ts` | **THE SWINDLE's outlines: THE HOOD** (`tools/shape-sheet/src/drafts/ tower-defence.ts`) |
+| `packages/render/src/swindle-tint.ts` | THE SWINDLE's colours: a slime of the organ's green |
 | `packages/render/src/maw.ts` | swallowing a pod: the skin coming apart, then the flash |
 | `packages/render/src/pods.ts` | the pod, hanging and as a burning wreck |
 | `packages/render/src/pod-due-ring.ts` | A pod's clock, drawn: the ring round every pod on the field since the owner made a real pod owed in time… |
@@ -2996,7 +3001,7 @@ by hand never moves.
 | `packages/audio/src/bind-ship.ts` | **The ship's own six**: a bolt leaving the cannon, a lance filling or spilling |
 | `packages/audio/src/bind-seam.ts` | THE SEAM's nine, in a file of their own for `bind-gorge.ts`' reason |
 | `packages/audio/src/bind-sling.ts` | Whether an event is THE SLING's, so a page of the chain can hand it over whole |
-| `packages/audio/src/bind-swindle.ts` | THE SWINDLE's nine, routed by their prefix (`bind-prefixed.ts`) |
+| `packages/audio/src/bind-swindle.ts` | THE SWINDLE's ten, routed by their prefix (`bind-prefixed.ts`) |
 | `packages/audio/src/bind-impact.ts` | **What a shot meeting a body sounds like** — the six the whole game is made of |
 | `packages/audio/src/bind-instar.ts` | THE INSTAR's twelve, in a file of their own for `bind-gorge.ts`' reason |
 | `packages/audio/src/bind-warden.ts` | THE WARDEN's four, cut out of `bind.ts` when THE BATON took that file past its 250-line limit |

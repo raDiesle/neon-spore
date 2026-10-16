@@ -144,10 +144,10 @@ export const TOWER_DEFENCE_DRAFTS: CatalogueEntry[] = [
       seed: 9.2,
     }),
     motion: WIND,
-    status: "free",
+    status: "taken",
     slot: "creature",
     owner:
-      "nothing wears it: THE GRINDSTONE wore it from 26 September 2026, at its own numbers, as a caliper split at its crown into two jaws, and was taken out of the game on 8 October 2026. Before that, nothing carried it: converted from Nova Drift's enemy line-up, which is drawn as white silhouettes on dark and is therefore the strictest test of the only thing that matters here. Almost all of that line-up is already in this catalogue under other names; the one arrangement that is not is a body with a detached piece standing over it, touching nothing. It is the only way this catalogue can draw protection that is a separate object rather than a thickness — and the state worth judging is `held: 0`, where the arc is gone and the body has to read as exposed rather than merely as smaller",
+      "THE SWINDLE, taken 16 October 2026: her body is THE HOOD's, three lobes at its seed, and the arc is the hood she holds over each pod she has not let go, touching nothing, lifted while the pod glides and flown up into her when it drops (`render/swindle-shape.ts`). Before that, nothing wore it: THE GRINDSTONE wore it from 26 September 2026, at its own numbers, as a caliper split at its crown into two jaws, and was taken out of the game on 8 October 2026. Before that, nothing carried it: converted from Nova Drift's enemy line-up, which is drawn as white silhouettes on dark and is therefore the strictest test of the only thing that matters here. Almost all of that line-up is already in this catalogue under other names; the one arrangement that is not is a body with a detached piece standing over it, touching nothing. It is the only way this catalogue can draw protection that is a separate object rather than a thickness — and the state worth judging is `held: 0`, where the arc is gone and the body has to read as exposed rather than merely as smaller",
   },
   {
     subject: guarded("THE HOOD — BROKEN", "the same body with the arc gone", {

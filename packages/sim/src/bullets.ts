@@ -12,6 +12,7 @@ import { chargeDue, chargePartTicks, endCharge, laying, layShot } from "./shot-c
 import { shotLeaves } from "./shot-out.js";
 import { firstAlong } from "./shot-reach.js";
 import { spendShot } from "./spend.js";
+import { swindleHoodStops } from "./swindle-step.js";
 import type { Bullet, Color } from "./types.js";
 import { MILLI, type World } from "./world.js";
 
@@ -176,7 +177,7 @@ function sweep(world: World, b: Bullet): boolean {
       return false;
     }
     if (pod && (!hit || pod.rowMilli > creatureMilli(world, hit))) {
-      freePod(world, pod);
+      if (!swindleHoodStops(world, pod)) freePod(world, pod);
       return false;
     }
     if (!hit) break;

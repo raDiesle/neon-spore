@@ -14,6 +14,7 @@ import type { Layout } from "./layout.js";
 import { drawMatron } from "./matron-draw.js";
 import { drawMimic } from "./mimic-draw.js";
 import type { ViewState } from "./renderer.js";
+import { drawSwindle } from "./swindle-draw.js";
 
 /**
  * **The clock bosses, drawn — page five**: the pairs from THE FLUE on, each
@@ -44,6 +45,7 @@ export const LATEST_PAIR_KINDS = [
   "brood",
   "matron",
   "geode",
+  "swindle",
 ] as const;
 
 export type LatestPairBoss = Extract<Installed, { kind: (typeof LATEST_PAIR_KINDS)[number] }>;
@@ -167,6 +169,14 @@ export function drawLatestPairBoss(
   // it as grit (`geode-draw.ts`); its receipts are `geode-fx.ts`.
   if (boss.kind === "geode") {
     drawGeode(ctx, l, world, boss, beat, beatPhase, time, effects.boss.geode, effects.bolts);
+    return;
+  }
+
+  // THE SWINDLE: a slime over the middle and a hood over every pod she holds,
+  // the same over a real pod and a fake (`swindle-draw.ts`); her receipts are
+  // `swindle-fx.ts`.
+  if (boss.kind === "swindle") {
+    drawSwindle(ctx, l, world, boss, beat, beatPhase, time, effects.boss.swindle);
     return;
   }
 

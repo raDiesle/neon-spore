@@ -175,7 +175,7 @@ export const WAVES_ACT_3: Wave[] = [
     guide: {
       both: "A slime hangs real pods and fake ones, and swaps them round. Swallow every real pod she lets go, and none of the fake ones.",
       p1: "1. Open the maw when your partner says real.\n2. Keep it shut when your partner says fake.",
-      p2: "1. Watch the fake pods while she swaps them.\n2. Say real or fake as each one falls.\n3. Shoot a pod loose early if you like.",
+      p2: "1. Watch the fake pods while she swaps them.\n2. Say real or fake as each one falls.",
     },
     entries: [],
     boss: { kind: "swindle", steps: SWINDLE_SCRIPT },

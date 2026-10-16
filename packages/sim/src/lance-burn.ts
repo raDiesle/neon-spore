@@ -30,6 +30,7 @@ import { seamStruck } from "./seam-shot.js";
 import { firstAlong } from "./shot-reach.js";
 import { slingStruck } from "./sling-shot.js";
 import { spendShot } from "./spend.js";
+import { swindleHoodStops } from "./swindle-step.js";
 import { tasterStruck } from "./taster-shot.js";
 import type { Bullet, Color } from "./types.js";
 import { valveStruck } from "./valve-shot.js";
@@ -148,7 +149,7 @@ function burnColumn(world: World, col: number, color: Color): number {
       return mouth;
     }
     if (pod && (!hit || pod.rowMilli > creatureMilli(world, hit))) {
-      freePod(world, pod);
+      if (!swindleHoodStops(world, pod)) freePod(world, pod);
       return pod.rowMilli;
     }
     if (!hit) break;
