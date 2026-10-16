@@ -32,9 +32,9 @@ export const HUSK_POSE: Pose = {
     };
   },
   build: () => {
-    const w = fresh([], [{ beat: 0, col: 3, row: 5, kind: "ward", husk: true }]);
+    const w = fresh([], [{ beat: 0, col: 3, row: 5, kind: "husk" }]);
     run(w, TPB * 2);
-    if (!w.pods[0]?.husk) throw new Error("no husk is hanging");
+    if (w.pods[0]?.kind !== "husk") throw new Error("no husk is hanging");
     return w;
   },
 };

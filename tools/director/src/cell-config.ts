@@ -9,7 +9,6 @@ import {
 import { blisterRows } from "./cell-config-blister.js";
 import { fenceCracksRow, fenceGapsRow } from "./cell-config-gaps.js";
 import { mineRows } from "./cell-config-mine.js";
-import { moultRows } from "./cell-config-moult.js";
 import {
   beadLabel,
   bodyRow,
@@ -61,7 +60,6 @@ import {
 import { hasBlisterFields } from "./entry-fields-blister.js";
 import { hasFenceGaps } from "./entry-fields-fence.js";
 import { hasMineFields } from "./entry-fields-mine.js";
-import { hasMoultFields } from "./entry-fields-moult.js";
 
 /**
  * The rows under the selected cell that configure the arrival in it: how fast
@@ -219,9 +217,6 @@ export function cellConfig({ wave, entry, onEdit }: CellConfigOptions): HTMLElem
   // THE MINE's two, and the eighth and ninth per-arrival facts in the game:
   // the row it stands on and which seat is drawn it (`cell-config-mine.ts`).
   if (hasMineFields(e)) rows.push(...mineRows(e, onEdit));
-  // THE MOULT's one, and the tenth: what it is carrying for the half of its
-  // fall it spends as a cargo (`cell-config-moult.ts`).
-  if (hasMoultFields(e)) rows.push(...moultRows(e, onEdit));
   // THE BLISTER's, whose hand, how many blows and by which gesture (`cell-config-blister.ts`).
   if (hasBlisterFields(e)) rows.push(...blisterRows(e, onEdit));
   if (hasFenceGaps(e)) {

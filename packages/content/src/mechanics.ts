@@ -72,13 +72,13 @@ export type { WaveMechanicId } from "./mechanics-wave.js";
 /**
  * A mechanic a wave turns on **by a field on an arrival rather than by its
  * kind**: a plain rock sent across the field instead of down a column
- * (`WaveEntry.cross`, `sim/rock-cross.ts`), and the pod that is a lie
- * (`PodEntry.husk`, `sim/pod-types.ts`). Its own class rather than a third
- * `WaveMechanicId`, because those two are defined by putting *no body* on the
- * field and these do — they are `spawn`s, and what is unusual is only how
- * `mechanicsInWave` finds them.
+ * (`WaveEntry.cross`, `sim/rock-cross.ts`). Its own class rather than a third
+ * `WaveMechanicId`, because those are defined by putting *no body* on the
+ * field and this does — it is a `spawn`, and what is unusual is only how
+ * `mechanicsInWave` finds it. The hollow pod was the second until it became a
+ * pod kind of its own (`PodKind`, 16 October 2026).
  */
-export type RouteMechanicId = "rockCross" | "husk";
+export type RouteMechanicId = "rockCross";
 
 /**
  * The closed list. `queen` and `warden` are a `CreatureKind` and a boss kind at
@@ -207,9 +207,8 @@ export function mechanicsInWave(wave: Wave): Set<MechanicId> {
     if (e.cross !== undefined) found.add("rockCross");
   }
   for (const p of podsFromWave(wave, AUTHORED_COLS)) {
-    // The kind it claims — a husk's face is a real cargo's — and the lie too.
+    // Real or hollow — the two pod brushes are the two mechanics.
     found.add(podKindOf(p));
-    if (p.husk) found.add("husk");
   }
   const boss = bossFromWave(wave, AUTHORED_COLS);
   if (boss) found.add(boss.kind);

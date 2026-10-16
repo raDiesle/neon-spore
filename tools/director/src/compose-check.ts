@@ -56,8 +56,10 @@ export function paperFaults(wave: Wave, step: Step, block: Block): string[] {
     out.push(`${a.job} then ${b.job} ${b.beat - a.beat} beats apart, wants ${rule}`);
     break;
   }
-  // A pod after the last body hangs over a wave that is already over.
-  if (all[all.length - 1]?.pod) out.push("ends on a pod");
+  // A pod after the last body hangs over a wave that is otherwise over. Not on
+  // THE CLAW's panel, whose waves are pods and nothing else since 16 October
+  // 2026: there the last arrival is a pod because every arrival is.
+  if (!block.claw && all[all.length - 1]?.pod) out.push("ends on a pod");
   if (tapsClash(wave.entries)) out.push("a mine and a soundbox on one wave");
   if (!block.claw && needsBasics(step) && wave.entries.filter(isBasic).length * 2 < all.length) {
     out.push("fewer than half are slicks and bulbs");

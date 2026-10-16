@@ -68,10 +68,8 @@ function cellTitle(
   }
   if (pod) {
     const spec = BRUSHES.find((x) => x.brush === podBrushOf(pod));
-    const label = spec?.label ?? "POD";
-    const what = pod.husk ? `HUSK dressed as ${label}` : `${label} pod`;
-    lines.push(`${what} · hangs on row ${pod.row}`);
-    if (spec?.note && !pod.husk) lines.push(spec.note);
+    lines.push(`${spec?.label ?? "POD"} pod · hangs on row ${pod.row}`);
+    if (spec?.note) lines.push(spec.note);
   }
   if (lines.length === 0) return undefined;
   lines.push(`beat ${beat} · column ${col}`);
@@ -110,14 +108,10 @@ function drawPod(button: HTMLElement, pod: PodEntry, beside: boolean): void {
   } else {
     mark.textContent = husked(pod, `${podGlyph(brush)}${pod.row}`);
   }
+  // The HOLLOW brush's stroke is the white the field's own alarm is drawn in
+  // (`render/src/husk-mark.ts`), so a husk's mark says so without a rule here.
   const spec = BRUSHES.find((x) => x.brush === brush);
   if (spec) mark.style.color = spec.stroke;
-  // And a husk takes the colour off again. The picture above is the pod it is
-  // pretending to be — that is the creature, and the map must show the author
-  // the same lie the field will — so the only thing that may say otherwise is
-  // the mark, and it says it in the white the field's own alarm is drawn in
-  // (`render/src/husk-mark.ts`).
-  if (pod.husk) mark.style.color = "#FFFFFF";
   button.appendChild(mark);
 }
 
@@ -130,7 +124,7 @@ function drawPod(button: HTMLElement, pod: PodEntry, beside: boolean): void {
  * readable beside it.
  */
 function husked(pod: PodEntry, text: string): string {
-  return pod.husk ? `✗${text}` : text;
+  return pod.kind === "husk" ? `✗${text}` : text;
 }
 
 /**
@@ -141,12 +135,6 @@ function husked(pod: PodEntry, text: string): string {
  * where a pod is now both drawn and pointed at.
  */
 function podGlyph(brush: Brush): string {
-  switch (brush) {
-    case "purge":
-      return "✦";
-    case "ward":
-      return "◎";
-    default:
-      return "◇";
-  }
+  // The husk's cross is `husked`'s, so both kinds fall back to the one ring.
+  return brush === "pod" || brush === "husk" ? "◎" : "◇";
 }

@@ -19,7 +19,7 @@ import {
  * vocabulary: a wave's number, its name, its guide, its panel, its boss and
  * the boss's type (`normal`, `special`), and its faults.
  *
- * `ward` finds THE WARD and THE WARDEN and not a wave whose guide happens
+ * `ward` finds THE WARDEN and not a wave whose guide happens
  * to say *toward*, because a term has to start a word rather than
  * appear anywhere in one; `boss` finds every wave that carries one. Terms are
  * ANDed, so typing more narrows rather than widens.

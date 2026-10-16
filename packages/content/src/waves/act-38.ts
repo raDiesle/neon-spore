@@ -43,7 +43,7 @@ export const WAVES_ACT_38: Wave[] = [
       { beat: 19, col: 7, kind: "volley", color: "cyan" },
       { beat: 24, col: 1, kind: "crystal", color: "cyan" },
     ],
-    pods: [{ beat: 13, col: 2, row: 3, kind: "purge" }],
+    pods: [{ beat: 12, col: 2, row: 3, kind: "pod" }],
   },
   {
     id: "theVolleyReach",
@@ -146,8 +146,8 @@ export const WAVES_ACT_38: Wave[] = [
       { beat: 45, col: 6, kind: "crystal", color: "cyan" },
     ],
     pods: [
-      { beat: 14, col: 5, row: 3, kind: "purge" },
-      { beat: 34, col: 3, row: 3, kind: "purge" },
+      { beat: 0, col: 5, row: 3, kind: "pod" },
+      { beat: 28, col: 3, row: 3, kind: "pod" },
     ],
   },
   {

@@ -25,9 +25,8 @@ const THE_LESSON_KEEPS: Record<string, readonly WaveKind[]> = {
   // Two rocks on one beat, then three: the rock is the lesson, a wave on.
   "TWO ROCKS": ["meteor"],
   "THE HAND": ["meteor"],
-  // Four rocks answered untriggered and a fifth on its own — the rocks are
-  // what the ward is shown against, the plain one included.
-  "THE WARD": ["meteor"],
+  // The four faster rocks are measured against the plain one, which comes first.
+  "HEAVY ROCKS": ["meteor"],
   // A rock in the lane between plate and dome takes the whole reach; the
   // guide says so, and one rock is kept to show it.
   "THE COIL": ["meteor"],
@@ -36,8 +35,6 @@ const THE_LESSON_KEEPS: Record<string, readonly WaveKind[]> = {
   // The fence waves after THE FENCE: the wire is the material of both.
   "THE GAP": ["fence"],
   "THE CUT": ["fence"],
-  // The hand reaches for rocks, in two sizes.
-  "THE CLAW": ["meteor", "meteorMedium"],
   // A rock over a side wall is a rock; what is new is the `cross`.
   "THE CROSSING": ["meteor"],
   // A rock is what asks the plate to stand somewhere, and a plate that has

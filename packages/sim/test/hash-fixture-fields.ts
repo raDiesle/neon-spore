@@ -79,7 +79,6 @@ export const creature = (): Required<Creature> => ({
   blisterRubAt1: 2,
   blisterRubAt2: 5,
   blisterPressed: true,
-  moultCargo: "purge",
   chuteOpen: true,
   veerDir: -1,
   veerDist: 3,
@@ -140,9 +139,9 @@ export const pod = (): Required<Pod> => ({
   rowMilli: 2500,
   driftMilli: -30,
   loose: true,
-  kind: "ward",
   // The lie, since this fixture carries every field at its non-default value.
-  husk: true,
+  kind: "husk",
+  dueTicks: 140,
   crossMilli: 300,
 });
 

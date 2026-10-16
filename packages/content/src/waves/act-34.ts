@@ -73,10 +73,10 @@ export const WAVES_ACT_34: Wave[] = [
     entries: [
       { beat: 0, col: 9, kind: "gyre", color: null },
       { beat: 6, col: 3, kind: "echo", color: "red" },
-      { beat: 11, col: 7, kind: "moult", color: null, cargo: "purge" },
+      { beat: 11, col: 7, kind: "moult", color: null },
       { beat: 18, col: 5, kind: "gyre", color: null },
       { beat: 24, col: 4, kind: "echo", color: "cyan" },
-      { beat: 31, col: 10, kind: "moult", color: null, cargo: "ward" },
+      { beat: 31, col: 10, kind: "moult", color: null },
     ],
     faults: [{ kind: "handover", at: 9, beats: 8 }],
   },

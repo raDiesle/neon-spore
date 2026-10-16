@@ -84,7 +84,7 @@ export const WAVES_ACT_10: Wave[] = [
       { beat: 33, col: 2, color: "cyan" },
       { beat: 37, col: 5, kind: "meteorMedium", color: null },
     ],
-    pods: [{ beat: 27, col: 7, row: 3, kind: "purge" }],
+    pods: [{ beat: 27, col: 7, row: 3, kind: "pod" }],
     faults: [
       { kind: "leech", at: 8, beats: 12 },
       { kind: "leech", at: 34, beats: 14 },
@@ -116,7 +116,7 @@ export const WAVES_ACT_10: Wave[] = [
       { beat: 29, col: 2, kind: "meteorMedium", color: null },
       { beat: 35, col: 8, color: "cyan" },
     ],
-    pods: [{ beat: 17, col: 7, row: 3, kind: "purge" }],
+    pods: [{ beat: 17, col: 7, row: 3, kind: "pod" }],
     faults: [
       { kind: "leech", at: 8, beats: 12 },
       { kind: "leech", at: 34, beats: 14 },

@@ -84,7 +84,7 @@ export const WAVES_ACT_20: Wave[] = [
       { beat: 18, col: 7, kind: "fence", color: null },
       { beat: 24, col: 1, kind: "strand", color: "red", beads: 2 },
     ],
-    pods: [{ beat: 12, col: 2, row: 3, kind: "purge" }],
+    pods: [{ beat: 12, col: 2, row: 3, kind: "pod" }],
   },
   {
     id: "theFencePair",
@@ -170,8 +170,8 @@ export const WAVES_ACT_20: Wave[] = [
       { beat: 48, col: 10, kind: "strand", color: "red", beads: 5 },
     ],
     pods: [
-      { beat: 20, col: 0, row: 4, kind: "purge", husk: true },
-      { beat: 36, col: 4, row: 4, kind: "purge", husk: true },
+      { beat: 20, col: 0, row: 4, kind: "husk" },
+      { beat: 36, col: 4, row: 4, kind: "husk" },
     ],
   },
   {

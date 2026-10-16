@@ -15,16 +15,19 @@ import { VOCABULARY } from "../measure.js";
  * shrinks: a new hit fails, and so does a standing one that has gone, so the
  * line is struck in the same change that fixed it. The seat names went on 24
  * September 2026, when the owner chose `P1'S` / `P2'S` on a mark and a call
- * and `PLAYER 1` / `PLAYER 2` under `SCREEN` on the menu. `THE WARD` is a
- * wave's name and stays (`.claude/skills/game-words`, section 3).
+ * and `PLAYER 1` / `PLAYER 2` under `SCREEN` on the menu. `THE WARD` stood
+ * here as a wave's name until 16 October 2026, when the wave became HEAVY
+ * ROCKS with the ward pod rejected.
  */
 
 const ROOT = join(import.meta.dir, "../../..");
+// The wave pages, `waves/act-*.ts`, are among them: a wave's name is drawn,
+// so a save that moves one reaches this file (`tools/check/wave-readers.ts`).
 const DIRS = ["packages/render/src", "apps/game/src", "packages/content/src"];
 const LITERAL = /"([A-Z][A-Z0-9 ,.'!?·-]{1,})"/g;
 const COMMENT = /^\s*(?:\/\/|\/?\*)/;
 
-const STANDING: readonly string[] = ["packages/content/src/waves/act-9.ts: THE WARD"];
+const STANDING: readonly string[] = [];
 
 function drawnHits(): string[] {
   const hits = new Set<string>();

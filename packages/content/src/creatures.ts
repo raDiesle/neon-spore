@@ -164,7 +164,7 @@ export function categoryOf(kind: CreatureKind): CreatureCategory {
 }
 
 /**
- * Pods (`mend`/`purge`/`ward`) are not a `CreatureKind` and were never in
+ * Pods (real and hollow, `pod`/`husk`) are not a `CreatureKind` and were never in
  * `CREATURES` — they get their own constant rather than a `categoryOf` case
  * that would need a `PodKind` overload for one label.
  */

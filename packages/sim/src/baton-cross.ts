@@ -8,6 +8,7 @@ import {
 import { batonBeadSlot } from "./baton-arm.js";
 import { batonLandTick } from "./baton-bead.js";
 import { batonSlow } from "./baton-slow.js";
+import { NO_DUE } from "./pod-types.js";
 import { MILLI, type World } from "./world.js";
 
 /**
@@ -123,9 +124,10 @@ export function drop(world: World, b: BatonState, bead: BatonBead): void {
     rowMilli: (batonSocketRow(cfg, b, bead.socket) + 1) * MILLI,
     driftMilli: 0,
     loose: true,
-    kind: "purge",
-    // A bead is a real cargo. THE BATON's arm is beaten by taking it in.
-    husk: false,
+    // A bead is a real pod. THE BATON's arm is beaten by taking it in, and
+    // the arm's own fall is its clock, so it owes no other.
+    kind: "pod",
+    dueTicks: NO_DUE,
     crossMilli: 0,
   });
 }

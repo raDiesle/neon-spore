@@ -47,12 +47,7 @@ export function shipHashParts(world: World): number[] {
   // them, and not cosmetic any more: a call whose `need` is `guard` or
   // `fire(color)` is released by reading them, so a device that disagrees
   // about `guardTick` disagrees about whether the field advanced — a desync
-  // that reads like a network bug. `wardUntilTick` was already here, further
-  // down, for its own half of the same argument (a ward pod arms the shield
-  // with no command, so two devices could run the same inputs and the same
-  // tick count and still disagree about whether a rock is deflected); it
-  // moves up so the four read as the one group they are, in the order
-  // `World` declares them.
+  // that reads like a network bug.
   out.push(world.guardTick);
   out.push(world.intakeTick);
   // THE CLAW's arm. Two devices that disagree about where it is are two
@@ -77,7 +72,6 @@ export function shipHashParts(world: World): number[] {
   out.push(world.choirRubAt1, world.choirRubAt2);
   out.push(world.choirTurnTick1, world.choirTurnTick2);
   out.push(world.choirRubbed);
-  out.push(world.wardUntilTick);
   out.push(world.lastFireTick);
   return out;
 }

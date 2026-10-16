@@ -71,8 +71,8 @@ export type SceneAnchor =
    * the one anchor that follows a body chosen by the world rather than named
    * by the author. */
   | { at: "held" }
-  /** The pod hanging in the field — the subject of SALVAGE, THE PURGE and THE
-   * WARD, and the one thing on the field that is neither a body nor a shot. */
+  /** The pod hanging in the field — the subject of SALVAGE and THE
+   * HUSK, and the one thing on the field that is neither a body nor a shot. */
   | { at: "pod" }
   /**
    * Both of the queen's marks at once, in one ring around the pair.

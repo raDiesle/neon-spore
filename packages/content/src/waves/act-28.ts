@@ -145,8 +145,8 @@ export const WAVES_ACT_28: Wave[] = [
       { beat: 46, col: 4, color: "red" },
     ],
     pods: [
-      { beat: 18, col: 1, row: 3, kind: "purge" },
-      { beat: 32, col: 10, row: 3, kind: "purge" },
+      { beat: 18, col: 1, row: 3, kind: "pod" },
+      { beat: 32, col: 10, row: 3, kind: "pod" },
     ],
   },
   {

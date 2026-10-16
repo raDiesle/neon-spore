@@ -54,7 +54,7 @@ export function sceneWorld(scene: Scene): World {
   // about.
   const pods: PodEntry[] = spawns
     .filter((s) => s.what === "pod")
-    .map((s) => ({ beat: 0, col: s.col, row: s.row, kind: "ward" }));
+    .map((s) => ({ beat: 0, col: s.col, row: s.row, kind: "pod" }));
 
   const world = fresh(queue, pods);
   run(world, hold * POSE_TPB);

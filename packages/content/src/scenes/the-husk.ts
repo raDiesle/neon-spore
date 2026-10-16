@@ -5,7 +5,7 @@ import type { GuideScene } from "../scene-types.js";
  * and a thumb that must not land.
  *
  * **Shot twice, read as one lesson.** Three pods hang at the start, two of
- * them hollow (`PodEntry.husk`, `sim/pod-types.ts`), and the navigator's
+ * them hollow (`PodKind`, `sim/pod-types.ts`), and the navigator's
  * screen frames the hollow ones in white with the words on the frame
  * (`render/husk-mark.ts`) while the pilot's shows three pods alike. So the
  * first two pages are the same beat from each side: the navigator's, where
@@ -43,10 +43,12 @@ export const THE_HUSK: GuideScene = {
   ticks: 2640,
   bpm: 120,
   seed: 1,
+  // A clock long enough for the whole film: it is about which one to refuse,
+  // and the three are taken in turn over forty beats (`PodEntry.due`).
   pods: [
-    { beat: 0, col: 3, row: 3, kind: "purge", husk: true },
-    { beat: 0, col: 5, row: 4, kind: "ward" },
-    { beat: 0, col: 1, row: 5, kind: "ward", husk: true },
+    { beat: 0, col: 3, row: 3, kind: "husk", due: 48 },
+    { beat: 0, col: 5, row: 4, kind: "pod", due: 48 },
+    { beat: 0, col: 1, row: 5, kind: "husk", due: 48 },
   ],
   entries: [],
   acts: [

@@ -21,15 +21,11 @@ describe("THE CLAW's block", () => {
     for (let draw = 0; draw < 40; draw++) {
       const { entries, pods = [] } = placeClaw(step, rng);
       expect(pods.length).toBeGreaterThanOrEqual(1);
-      expect(Math.min(...pods.map((p) => p.beat))).toBeLessThan(
-        Math.min(...entries.map((e) => e.beat)),
-      );
-      // It never ends on a pod, and only the kinds the step allows cross.
-      expect(Math.max(...pods.map((p) => p.beat))).toBeLessThan(
-        Math.max(...entries.map((e) => e.beat)),
-      );
-      for (const p of pods) expect(CLAW_STEPS[id].kinds).toContain(p.kind);
-      for (const e of entries) expect(e.kind?.startsWith("meteor")).toBe(true);
+      // Pods and nothing else: the panel has no shield, and nothing answers a
+      // rock since the cargoes went (`compose-claw.ts`).
+      expect(entries).toEqual([]);
+      for (const p of pods) expect(p.kind).toBe("pod");
+      expect(pods.length).toBeLessThanOrEqual(CLAW_STEPS[id].groups[1]);
     }
   });
 

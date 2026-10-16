@@ -40,8 +40,8 @@ export const WAVES_ACT_15: Wave[] = [
       { beat: 28, col: 4, kind: "meteor", color: null },
     ],
     pods: [
-      { beat: 0, col: 4, row: 4, kind: "purge", husk: true },
-      { beat: 21, col: 8, row: 4, kind: "purge", husk: true },
+      { beat: 0, col: 4, row: 4, kind: "husk" },
+      { beat: 21, col: 8, row: 4, kind: "husk" },
     ],
   },
   {
@@ -54,9 +54,9 @@ export const WAVES_ACT_15: Wave[] = [
       { beat: 29, col: 6, color: "red" },
     ],
     pods: [
-      { beat: 0, col: 6, row: 4, kind: "purge", husk: true },
-      { beat: 12, col: 6, row: 4, kind: "purge", husk: true },
-      { beat: 24, col: 4, row: 4, kind: "purge", husk: true },
+      { beat: 0, col: 6, row: 4, kind: "husk" },
+      { beat: 12, col: 6, row: 4, kind: "husk" },
+      { beat: 24, col: 4, row: 4, kind: "husk" },
     ],
     faults: [{ kind: "steer" }],
   },
@@ -71,8 +71,8 @@ export const WAVES_ACT_15: Wave[] = [
       { beat: 27, col: 1, color: "cyan" },
     ],
     pods: [
-      { beat: 0, col: 0, row: 4, kind: "purge", husk: true },
-      { beat: 16, col: 0, row: 4, kind: "purge", husk: true },
+      { beat: 0, col: 0, row: 4, kind: "husk" },
+      { beat: 16, col: 0, row: 4, kind: "husk" },
     ],
   },
   {
@@ -88,8 +88,8 @@ export const WAVES_ACT_15: Wave[] = [
       { beat: 33, col: 10, kind: "shell", color: "red" },
     ],
     pods: [
-      { beat: 6, col: 8, row: 4, kind: "purge", husk: true },
-      { beat: 24, col: 8, row: 4, kind: "purge", husk: true },
+      { beat: 6, col: 8, row: 4, kind: "husk" },
+      { beat: 24, col: 8, row: 4, kind: "husk" },
     ],
   },
   {
@@ -102,7 +102,7 @@ export const WAVES_ACT_15: Wave[] = [
       { beat: 24, col: 10, kind: "shell", color: "cyan" },
       { beat: 32, col: 0, color: "red" },
     ],
-    pods: [{ beat: 8, col: 9, row: 4, kind: "purge", husk: true }],
+    pods: [{ beat: 8, col: 9, row: 4, kind: "husk" }],
   },
   {
     id: "theChokeRecall",
@@ -117,8 +117,8 @@ export const WAVES_ACT_15: Wave[] = [
       { beat: 38, col: 10, kind: "throb", color: "red" },
     ],
     pods: [
-      { beat: 6, col: 10, row: 4, kind: "purge", husk: true },
-      { beat: 26, col: 9, row: 4, kind: "purge", husk: true },
+      { beat: 6, col: 10, row: 4, kind: "husk" },
+      { beat: 26, col: 9, row: 4, kind: "husk" },
     ],
   },
   {
@@ -136,8 +136,8 @@ export const WAVES_ACT_15: Wave[] = [
       { beat: 40, col: 6, color: "red" },
     ],
     pods: [
-      { beat: 6, col: 2, row: 4, kind: "purge", husk: true },
-      { beat: 29, col: 3, row: 4, kind: "purge", husk: true },
+      { beat: 6, col: 2, row: 4, kind: "husk" },
+      { beat: 29, col: 3, row: 4, kind: "husk" },
     ],
   },
   {
@@ -160,9 +160,9 @@ export const WAVES_ACT_15: Wave[] = [
       { beat: 48, col: 5, kind: "shell", color: "red" },
     ],
     pods: [
-      { beat: 4, col: 3, row: 4, kind: "purge", husk: true },
-      { beat: 24, col: 1, row: 4, kind: "purge", husk: true },
-      { beat: 44, col: 2, row: 4, kind: "purge", husk: true },
+      { beat: 4, col: 3, row: 4, kind: "husk" },
+      { beat: 24, col: 1, row: 4, kind: "husk" },
+      { beat: 44, col: 2, row: 4, kind: "husk" },
     ],
   },
   {

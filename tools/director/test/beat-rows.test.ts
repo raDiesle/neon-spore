@@ -25,7 +25,7 @@ function threeBeats() {
   const wave = emptyWave();
   paint(wave, 0, 1, "slick");
   paint(wave, 2, 3, "slick");
-  paint(wave, 2, 5, "purge");
+  paint(wave, 2, 5, "pod");
   paint(wave, 4, 0, "slick");
   return wave;
 }

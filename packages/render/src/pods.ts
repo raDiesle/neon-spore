@@ -1,9 +1,10 @@
 import { blobPoints, POD } from "@neon-spore/content";
-import type { Pod, PodKind } from "@neon-spore/sim";
+import type { Pod } from "@neon-spore/sim";
 import { bodyGlowSpread, halo, strokeGlow } from "./glow.js";
 import { HUSK_LOOK } from "./husk-look.js";
 import { type Layout, tileCX, tileCY } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
+import { drawDueRing } from "./pod-due-ring.js";
 import { splinePath } from "./spline.js";
 
 /**
@@ -16,11 +17,10 @@ import { splinePath } from "./spline.js";
  * player 1 has to stop aiming and start catching.
  *
  * Its colour is amber, deliberately neither red nor cyan: a pod is not
- * ammunition and must never start an argument about which shot to load. Every
- * kind is the same amber, on purpose — the pod family itself never argues
- * about which shot to load, exactly as it never did about ammunition colour —
- * and the *mark* at the centre is what says which kind it is, close up, once
- * a pair has decided to chase it, see `glyph`.
+ * ammunition and must never start an argument about which shot to load. There
+ * is one real pod and it carries nothing (`PodKind`), so the core carries no
+ * mark: what a pair reads off a pod is the ring round it, which is how long
+ * they have (`drawDueRing`).
  */
 
 /**
@@ -48,14 +48,20 @@ export function drawPods(
   l: Layout,
   pods: readonly Pod[],
   time: number,
+  /** Ticks in a beat, which turns a pod's clock into the beats the ring
+   * counts (`drawDueRing`). */
+  ticksPerBeat: number,
 ): void {
   for (const p of pods) {
-    const { x, y } = podCenter(l, p);
+    const { x, y, r } = podCenter(l, p);
     // Deterministic variation: the id is the same on both devices.
     const t = time + (p.id % 7) * 0.83;
-    if (p.loose) drawWreck(ctx, l, x, y, t, p.kind);
-    else if (p.husk && HUSK_LOOK.body) HUSK_LOOK.body(ctx, l, x, y, t, p);
-    else drawMoored(ctx, l, x, y, t, p.kind);
+    if (p.loose) drawWreck(ctx, l, x, y, t);
+    else if (p.kind === "husk" && HUSK_LOOK.body) HUSK_LOOK.body(ctx, l, x, y, t, p);
+    else drawMoored(ctx, l, x, y, t);
+    // On a husk too, and the same ring: a clock only the real pod wore would
+    // be the tell on the screen that must not have one (`PodKind`).
+    if (p.dueTicks > 0) drawDueRing(ctx, x, y, r, p.dueTicks / ticksPerBeat, time);
   }
 }
 
@@ -75,10 +81,9 @@ export function drawMoored(
   x: number,
   y: number,
   t: number,
-  kind: PodKind,
 ): void {
   const bob = Math.sin(t * 1.1) * l.tile * 0.07;
-  drawPodBody(ctx, x, y + bob, l.tile * POD_TILES, t, kind);
+  drawPodBody(ctx, x, y + bob, l.tile * POD_TILES, t);
 }
 
 /**
@@ -96,7 +101,6 @@ export function drawPodBody(
   y: number,
   r: number,
   t: number,
-  kind: PodKind,
   /** How present the pod's glowed line and halo are, for the one caller that
    * fades it — THE PULSE's arrival (`drawLivingMark` says why it is a
    * parameter). */
@@ -123,7 +127,7 @@ export function drawPodBody(
     bodyGlowSpread(scale),
   );
   ctx.globalAlpha = was;
-  drawPodCore(ctx, 0.55 + 0.45 * pulse, kind);
+  drawPodCore(ctx, 0.55 + 0.45 * pulse);
   ctx.restore();
 
   halo(ctx, x, y, r * (2.1 + 0.3 * pulse), PALETTE.pod, (0.14 + 0.1 * pulse) * alpha);
@@ -136,7 +140,6 @@ function drawWreck(
   x: number,
   y: number,
   t: number,
-  kind: PodKind,
 ): void {
   const r = l.tile * POD_TILES;
   const scale = r / Math.max(POD.rx, POD.ry);
@@ -159,8 +162,7 @@ function drawWreck(
   ctx.scale(scale, scale);
   ctx.fillStyle = PALETTE.podDark;
   ctx.fill(path);
-  // The fire itself stays plain ember up close — that is the wreck, not the
-  // kind. The kind reads in the halo below, which is what carries at a glance.
+  // The fire itself stays plain ember up close — that is the wreck.
   strokeGlow(
     ctx,
     path,
@@ -170,27 +172,22 @@ function drawWreck(
     1,
     bodyGlowSpread(scale),
   );
-  drawPodCore(ctx, flicker, kind);
+  drawPodCore(ctx, flicker);
   ctx.restore();
 
   halo(ctx, x, y, r * 2.4, PALETTE.pod, 0.2 + 0.22 * flicker);
 }
 
 /**
- * The core, in the pod's own coordinates. Inner drawing stays thin.
+ * The core, in the pod's own coordinates: a lit disc inside a thin ring. Inner
+ * drawing stays thin.
  *
- * Exported because THE MOULT's blend has to be able to fade it in: a body
- * turning into a cargo is worth catching or worth standing clear of depending
- * on which cargo it is, and the mark is the only thing that says which
- * (`glyph` below). A morph that showed the amber shape arriving and the mark
- * only once it had is a morph that withholds the one fact the pair is deciding
- * on, for the beat they are deciding it in (`moult.ts`).
+ * It carried a mark per cargo — a bomb for the purge, a shield for the ward —
+ * until the owner rejected both on 16 October 2026; a pod that gives nothing
+ * has nothing to name. Exported because THE MOULT's blend fades it in with the
+ * pod it is turning into (`moult.ts`).
  */
-export function drawPodCore(
-  ctx: CanvasRenderingContext2D,
-  brightness: number,
-  kind: PodKind,
-): void {
+export function drawPodCore(ctx: CanvasRenderingContext2D, brightness: number): void {
   // Under the caller's own alpha rather than over it: THE MOULT fades this in
   // with the cargo and THE PULSE fades a far arrival, and until 24 September
   // 2026 both set a fade here that the core replaced with its own.
@@ -204,46 +201,6 @@ export function drawPodCore(
   ctx.strokeStyle = PALETTE.pod;
   ctx.lineWidth = STROKE.inner * 3;
   ctx.beginPath();
-  glyph(ctx, kind);
+  ctx.arc(0, 0, POD.rx * 0.48, 0, Math.PI * 2);
   ctx.stroke();
-}
-
-/**
- * The mark at the centre of every pod: what the shared amber shape cannot
- * say, this does. `mend` is a heart, `purge` is a bomb with a lit fuse,
- * `ward` is a shield — the three read at a glance and borrow nothing from
- * each other, because a pair chasing a pod down the field has to name the
- * kind before they decide whether it is worth chasing.
- *
- * Exported for a core drawn at its own brightness rather than this file's —
- * a husk look whose light has gone out still carries the mark (`husk-look.ts`).
- */
-export function glyph(ctx: CanvasRenderingContext2D, kind: PodKind): void {
-  const r = POD.rx;
-  if (kind === "purge") {
-    ctx.arc(0, r * 0.12, r * 0.4, 0, Math.PI * 2);
-    ctx.moveTo(r * 0.26, -r * 0.22);
-    ctx.quadraticCurveTo(r * 0.55, -r * 0.5, r * 0.34, -r * 0.72);
-    ctx.moveTo(r * 0.22, -r * 0.78);
-    ctx.lineTo(r * 0.42, -r * 0.78);
-    ctx.moveTo(r * 0.32, -r * 0.88);
-    ctx.lineTo(r * 0.32, -r * 0.68);
-    return;
-  }
-  if (kind === "ward") {
-    ctx.moveTo(0, -r * 0.5);
-    ctx.lineTo(r * 0.42, -r * 0.32);
-    ctx.lineTo(r * 0.42, r * 0.05);
-    ctx.quadraticCurveTo(r * 0.42, r * 0.4, 0, r * 0.55);
-    ctx.quadraticCurveTo(-r * 0.42, r * 0.4, -r * 0.42, r * 0.05);
-    ctx.lineTo(-r * 0.42, -r * 0.32);
-    ctx.closePath();
-    return;
-  }
-  ctx.moveTo(0, -r * 0.15);
-  ctx.quadraticCurveTo(-r * 0.3, -r * 0.5, -r * 0.55, -r * 0.1);
-  ctx.quadraticCurveTo(-r * 0.55, r * 0.3, 0, r * 0.55);
-  ctx.quadraticCurveTo(r * 0.55, r * 0.3, r * 0.55, -r * 0.1);
-  ctx.quadraticCurveTo(r * 0.3, -r * 0.5, 0, -r * 0.15);
-  return;
 }

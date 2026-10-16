@@ -104,7 +104,11 @@ describe("wave content", () => {
   it("gives a wave without a boss something to send", () => {
     for (const wave of WAVES) {
       if (wave.boss) continue;
-      expect(wave.entries.length, `${wave.name} has no boss and no entries`).toBeGreaterThan(0);
+      // Or pods: THE CLAW's waves are pods and nothing else since 16 October
+      // 2026, and a wave of pods holds itself open until they are taken
+      // (`sim/beat.ts`).
+      const sent = wave.entries.length + (wave.pods?.length ?? 0);
+      expect(sent, `${wave.name} has no boss, no entries and no pods`).toBeGreaterThan(0);
     }
   });
 

@@ -1,10 +1,10 @@
 /**
  * THE POD's numbers: how a capsule shot loose falls, how it steers itself into
- * the maw, and what swallowing one is worth to the ship (`pods.ts`).
+ * the maw, and how long the pair has to take one in (`pods.ts`).
  *
  * `SimConfig` extends this rather than nesting it, for the reason
  * `config-recoil.ts` and `config-carom.ts` already give: every call site still
- * reads `cfg.podRepair`, and the split is only about how much of one file a
+ * reads `cfg.podDueBeats`, and the split is only about how much of one file a
  * reader has to hold at once.
  *
  * **It is the first group cut out of `SimConfig`'s own body rather than out of
@@ -52,8 +52,13 @@ export interface PodConfig {
    * `podDriftTilesPerBeat` entirely — the two never apply on the same tick.
    */
   podHomeTilesPerBeat: number;
-  /** Beats a `ward` pod keeps the shield armed without a trigger. */
-  wardBeats: number;
+  /**
+   * Beats a real pod gives the pair to take it in, from the beat it appears,
+   * when the wave does not say (`PodEntry.due`). The clock runs while it hangs
+   * and while it falls; at nought with the pod still on the field the wave is
+   * lost (`Pod.dueTicks`).
+   */
+  podDueBeats: number;
 }
 
 /** The defaults, spread into `DEFAULT_CONFIG`. */
@@ -66,5 +71,8 @@ export const POD_DEFAULTS: PodConfig = {
   podCrossTilesPerBeat: 2,
   podHomeTiles: 2,
   podHomeTilesPerBeat: 2,
-  wardBeats: 6,
+  // Sixteen beats, ten seconds at 96 BPM: two spoken exchanges to agree on
+  // the shot, and the fall from the top row (under five beats) after it, with
+  // a little left over. A pod that waits for ever is not owed at all.
+  podDueBeats: 16,
 };

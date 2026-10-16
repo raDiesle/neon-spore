@@ -41,11 +41,6 @@ import { drawPodBody } from "./pods.js";
  * was, with the take's own light over it.
  */
 
-/** Which pod a target wears. One kind for the whole table: the mark at a pod's
- * centre says which of the two it is, and on this board there is nothing for
- * that distinction to mean. */
-const POD_KIND = "ward" as const;
-
 /** How much bigger a target is drawn than the box it collides with. A pod that
  * exactly filled its own radius read as smaller than the rock beside it. */
 const POD_MUL = 1.18;
@@ -128,7 +123,7 @@ function drawTarget(
   if (kind === "peg") {
     const r = halfW * POD_MUL;
     const at = { x, y, halfW: r, r, pods: [0] };
-    drawPinTargetGlanced(ctx, at, seed, time, (g) => drawPodBody(g, x, y, r, t, POD_KIND));
+    drawPinTargetGlanced(ctx, at, seed, time, (g) => drawPodBody(g, x, y, r, t));
     return;
   }
   // A target block: a chain of pods across it, spaced closer than their own
@@ -141,7 +136,7 @@ function drawTarget(
   );
   drawPinTargetGlanced(ctx, { x, y, halfW: halfW + r * 0.5, r, pods }, seed, time, (g) => {
     for (let i = 0; i < count; i++) {
-      drawPodBody(g, x + (pods[i] ?? 0), y, r, t + i * 0.4, POD_KIND);
+      drawPodBody(g, x + (pods[i] ?? 0), y, r, t + i * 0.4);
     }
   });
 }

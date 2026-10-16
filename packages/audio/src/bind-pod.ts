@@ -1,6 +1,5 @@
 import type { SimEvent } from "@neon-spore/sim";
 import { type Cue, panForCol } from "./bind.js";
-import { POD_TAKEN_SOUNDS } from "./bind-lookups.js";
 
 /**
  * **What the one thing on the field that is *taken* sounds like** — and what
@@ -23,7 +22,9 @@ export function podCue(
     case "podLoose":
       return { id: "pod.loose", pan: panForCol(e.col, cols) };
     case "podTaken":
-      return { id: POD_TAKEN_SOUNDS[e.kind] ?? "pod.takenMend", pan: panForCol(e.col, cols) };
+      // One pod and one answer: the warm rising fifth, the debt paid. The purge
+      // and the ward had a sound each while there were cargoes (`sounds/pod.ts`).
+      return { id: "pod.takenMend", pan: panForCol(e.col, cols) };
     case "podLost":
       return { id: "pod.lost", pan: panForCol(e.col, cols) };
     // **THE HUSK's two, and they are the loudest pair in the family.** A lie

@@ -90,7 +90,7 @@ export const WAVES_ACT_36: Wave[] = [
       { beat: 25, col: 5, color: "cyan" },
       { beat: 40, col: 0, color: "red" },
     ],
-    pods: [{ beat: 32, col: 4, row: 4, kind: "purge", husk: true }],
+    pods: [{ beat: 32, col: 4, row: 4, kind: "husk" }],
   },
   {
     id: "theRecoilRecall",

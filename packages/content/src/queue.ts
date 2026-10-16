@@ -190,11 +190,6 @@ export function queueFromWave(wave: Pick<Wave, "entries" | "cols">, cols: number
       // that default is read. A seat is a seat and never goes through
       // `mapCol`, for the row's reason one line up.
       ...(e.sees === undefined ? {} : { sees: e.sees }),
-      // What a moult is carrying, on the same terms: absent means a ward, and
-      // `moultOnSpawn` is the one place that default is read. A cargo is a
-      // cargo and never goes through `mapCol`, for the seat's reason one line
-      // up.
-      ...(e.cargo === undefined ? {} : { cargo: e.cargo }),
       // Whose hand knocks a blister down, on the same terms: absent is the
       // default `blisterOnSpawn` reads.
       ...(e.by === undefined ? {} : { by: e.by }),

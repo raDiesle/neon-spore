@@ -20,9 +20,3 @@ export const MIRROR_STEP_SOUNDS: Record<string, string> = {
   cannonLeft: "mirror.showCannonLeft",
   cannonRight: "mirror.showCannonRight",
 };
-
-/** A pod taken in, by what it gives. */
-export const POD_TAKEN_SOUNDS: Record<string, string> = {
-  purge: "pod.takenPurge",
-  ward: "pod.takenWard",
-};

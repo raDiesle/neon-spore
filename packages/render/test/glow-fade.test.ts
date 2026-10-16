@@ -68,7 +68,7 @@ describe("a pod's core", () => {
   it("is drawn under the caller's fade — THE MOULT's cargo mark coming in", () => {
     const at = alphas((ctx) => {
       ctx.globalAlpha = 0.4;
-      drawPodCore(ctx, 1, "ward");
+      drawPodCore(ctx, 1);
     });
     expect(at.length).toBeGreaterThan(0);
     expect(Math.max(...at)).toBeLessThanOrEqual(0.4 + 1e-9);

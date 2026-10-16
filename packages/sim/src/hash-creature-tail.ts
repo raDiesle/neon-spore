@@ -1,5 +1,4 @@
 import type { BlisterGesture, BlisterWay } from "./creature-state-blister.js";
-import { POD_KINDS } from "./pod-types.js";
 import type { Creature } from "./types.js";
 
 /**
@@ -65,13 +64,6 @@ export function tailHashParts(c: Creature): number[] {
   // mine, neither of which a live one can take.
   out.push(c.mineFuse ?? -1);
   out.push(c.mineSees ?? 0);
-  // THE MOULT's cargo, by its index in `POD_KINDS` rather than by a ternary,
-  // for that list's own reason: a third cargo added to the type and not to a
-  // chain would hash as the second, and two devices would agree about a ship
-  // they disagree about. `-1` for a body that is not a moult. Which *form* it
-  // is in is not here and must not be: it is a pure function of `beat`, which
-  // is hashed already, so a second copy could only ever be a way to disagree.
-  out.push(c.moultCargo === undefined ? -1 : POD_KINDS.indexOf(c.moultCargo));
   // Whether THE REPRISE sent this body back unseen. It decides *what the two
   // players are shown*, which is the whole of that fight: a device that drew a
   // body the other one has hidden would have one player calling a column and

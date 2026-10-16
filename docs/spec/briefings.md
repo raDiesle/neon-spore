@@ -30,7 +30,7 @@ first creature falling. It is one of two states, never both:
    prose (§3.2). Either way it ends on **the ready gate**: two circles, one per
    seat, each filling while that seat holds and saying READY when it is full.
    The guide passes when both say READY. Only a wave that introduces something
-   new carries one — one hundred and seven of the five hundred and sixty-four waves today, and a wave
+   new carries one — one hundred and six of the five hundred and sixty-three waves today, and a wave
    with no guide has no circles either.
 2. **The introduction**, if it has no guide. `WAVE 4`, the wave's name, its
    one sentence. Plain text on the field — no panel, no border, nothing to
@@ -138,9 +138,9 @@ the two can be compared by opening the wave.
 | 5 | **The push** | the shield sends a creature back up once and never kills it; the rim goes red and the body carries ONE LAST CHANCE | p1 triggers, p2 shoots it on its second fall | 17 · ONE LAST CHANCE |
 | 6 | **The pod** | shooting it loose is half of getting it; then it sinks and drifts | p2 frees it, p1 chases and opens the maw | 24 · SALVAGE |
 | 7 | **The lock** | player 1's hand on a body steers every shot into it, from whatever column the cannon is in; it says nothing about the colour | p1 holds and keeps the cannon on the pod, p2 fires the colour | 28 · CATCH AND AIM |
-| 8 | **The queen** | two marks, one real; she opens for three beats; a torch drops every ten | p1 sees *what*, p2 sees *where* | 42 · BULB QUEEN |
-| 9 | **The bosses** | the mirror, the maze, the gauge, the warden and its line, the vane | one guide each, on their own wave | 52 · THE MIRROR, 62 · THE MAZE, 72 · THE GAUGE, 82 · THE WARDEN, 102 · THE VANE |
-| 10 | **The rest of the bestiary** | the lure that took the runt's place, the throb, the count, the shell, the pods, the rock speed tiers | one guide each | 285 · THE LURE, 113 · THE THROB, 123 · THE COUNT, 133 · THE SHELL, 33 · THE PURGE, 93 · THE WARD |
+| 8 | **The queen** | two marks, one real; she opens for three beats; a torch drops every ten | p1 sees *what*, p2 sees *where* | 41 · BULB QUEEN |
+| 9 | **The bosses** | the mirror, the maze, the gauge, the warden and its line, the vane | one guide each, on their own wave | 51 · THE MIRROR, 61 · THE MAZE, 71 · THE GAUGE, 81 · THE WARDEN, 101 · THE VANE |
+| 10 | **The rest of the bestiary** | the lure that took the runt's place, the throb, the count, the shell, the rock speed tiers | one guide each | 284 · THE LURE, 112 · THE THROB, 122 · THE COUNT, 132 · THE SHELL, 92 · HEAVY ROCKS |
 
 **The grip is still the odd one out**, and it has no guide. It is a control no
 wave *contains*, so no wave is the first to carry it and nothing places it.
@@ -313,7 +313,7 @@ RED pressed, the shot taking it, and then a second slick nobody answers, so the
 last thing the pair is shown is the hull bar dropping. About five seconds,
 looping.
 
-**There are ninety-one of them now**, one per guided wave bar sixteen,
+**There are ninety of them now**, one per guided wave bar sixteen,
 and each is authored in `packages/content/src/scenes/` as a page of
 choreography rather than a page of prose. The sixteen that are still the
 three strings and the two circles are the bosses from THE NETTLE on, each

@@ -52,13 +52,13 @@ export function stepThroatSuck(world: World): void {
     if (b.phase !== "sucks") return;
   }
   for (const p of [...world.pods]) {
-    if (p.husk || !inside(b, p.colMilli, p.rowMilli, r2)) continue;
+    if (p.kind === "husk" || !inside(b, p.colMilli, p.rowMilli, r2)) continue;
     if (b.mode !== "suck") {
       refuse(world, b, p.id);
       continue;
     }
     world.pods = world.pods.filter((q) => q.id !== p.id);
-    takeCargo(world, throatMouthCol(b), p.kind);
+    takeCargo(world, throatMouthCol(b));
     swallowed(world, b);
     if (b.phase !== "sucks") return;
   }

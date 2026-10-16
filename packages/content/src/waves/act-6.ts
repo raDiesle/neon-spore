@@ -102,7 +102,7 @@ export const WAVES_ACT_6: Wave[] = [
       { beat: 29, col: 6, kind: "weight", color: null },
       { beat: 34, col: 5, color: "cyan" },
     ],
-    pods: [{ beat: 18, col: 7, row: 3, kind: "ward" }],
+    pods: [{ beat: 18, col: 7, row: 3, kind: "pod" }],
   },
   {
     id: "theWeightBend",

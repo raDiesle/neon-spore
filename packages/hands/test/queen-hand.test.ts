@@ -21,7 +21,7 @@ import { autopilotHand } from "../src/autopilot-hands.js";
  */
 
 /** BULB QUEEN's pod (in `content/waves/`), written out: this package has no content. */
-const PODS: PodEntry[] = [{ beat: 2, col: 5, row: 4, kind: "purge" }];
+const PODS: PodEntry[] = [{ beat: 2, col: 5, row: 4, kind: "pod" }];
 
 /** Past this the fight is lost however it stands: she falls in about eighty beats. */
 const LIMIT_BEATS = 200;

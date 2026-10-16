@@ -6,6 +6,7 @@ import {
   type BatonState,
   batonBoss,
   createWorld,
+  NO_DUE,
   startWave,
   step,
   ticksPerBeat,
@@ -205,8 +206,8 @@ describe("the drop, which is the fight", () => {
       rowMilli: 4000,
       driftMilli: 0,
       loose: true,
-      kind: "purge",
-      husk: false,
+      kind: "pod",
+      dueTicks: NO_DUE,
       crossMilli: 0,
     });
     return world;
@@ -259,8 +260,8 @@ describe("what the whole fight may say", () => {
                 rowMilli: 4000,
                 driftMilli: 0,
                 loose: true,
-                kind: "purge",
-                husk: false,
+                kind: "pod",
+                dueTicks: NO_DUE,
                 crossMilli: 0,
               });
             }

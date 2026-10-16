@@ -142,12 +142,8 @@ export const MECHANICS = {
     what: "Player 1 sees the field as a clock, with the ship in the middle. Column four is four o'clock. The two ends of the field meet at twelve.",
     reach: "spawn",
   },
-  purge: {
-    what: "A pod that hangs still. Shoot it loose, then take it in, or you lose the wave. Taking this one clears everything that is falling.",
-    reach: "spawn",
-  },
-  ward: {
-    what: "This one holds the shield armed for six beats with no trigger at all.",
+  pod: {
+    what: "A pod that hangs still, with a ring of time round it. Shoot it loose, then take it in before the ring runs out, or you lose the wave.",
     reach: "spawn",
   },
   husk: {

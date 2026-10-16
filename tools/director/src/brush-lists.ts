@@ -81,7 +81,7 @@ export function faultKindOf(brush: Brush): MalfunctionKind | null {
     : null;
 }
 
-export type Brush = CreatureKind | "rock" | "purge" | "ward" | "erase" | FaultBrush | ControlBrush;
+export type Brush = CreatureKind | "rock" | "pod" | "husk" | "erase" | FaultBrush | ControlBrush;
 
 /**
  * The rock brushes, paired with the kind each one paints *first*.

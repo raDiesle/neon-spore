@@ -164,7 +164,7 @@ describe("what it closes on", () => {
   });
 
   it("brings a pod home for the other seat's mouth", () => {
-    const world = open([], [{ beat: 0, col: 4, row: 5, kind: "ward" }]);
+    const world = open([], [{ beat: 0, col: 4, row: 5, kind: "pod" }]);
     ticks(world, TPB);
     expect(world.pods).toHaveLength(1);
     ticks(world, 1, [press(1, { kind: "cannonCol", col: 4 })]);
@@ -193,7 +193,7 @@ describe("what it closes on", () => {
   });
 
   it("lets the other seat take what it brought down", () => {
-    const world = open([], [{ beat: 0, col: 4, row: 5, kind: "ward" }]);
+    const world = open([], [{ beat: 0, col: 4, row: 5, kind: "pod" }]);
     ticks(world, TPB);
     ticks(world, 1, [press(1, { kind: "cannonCol", col: 4 })]);
     ticks(world, 1, [press(1, { kind: "reach" })]);
@@ -215,7 +215,7 @@ describe("what it closes on", () => {
 
 describe("a power-up that crosses the field", () => {
   it("travels its row and leaves at the far side", () => {
-    const world = open([], [{ beat: 0, col: 0, row: 4, kind: "ward", cross: 1 }]);
+    const world = open([], [{ beat: 0, col: 0, row: 4, kind: "pod", cross: 1 }]);
     ticks(world, TPB);
     const pod = world.pods[0];
     expect(pod, "the wave hung one").toBeDefined();
@@ -231,7 +231,7 @@ describe("a power-up that crosses the field", () => {
   });
 
   it("hangs exactly as it always did when the wave does not say", () => {
-    const world = open([], [{ beat: 0, col: 3, row: 4, kind: "ward" }]);
+    const world = open([], [{ beat: 0, col: 3, row: 4, kind: "pod" }]);
     ticks(world, TPB * 4);
     expect(world.pods[0]?.colMilli).toBe(3000);
     expect(world.pods[0]?.crossMilli).toBe(0);

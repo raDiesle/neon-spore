@@ -48,13 +48,7 @@ export function guardWindowTicks(cfg: SimConfig): number {
  */
 export function guardArmed(world: World): boolean {
   const windowTicks = guardWindowTicks(world.cfg);
-  // A ward frees player 1 from the *timing* only, not from the aiming — the
-  // shield still has to be in the meteor's column, so player 2's job is
-  // untouched.
-  return (
-    (world.tick - world.guardTick <= windowTicks && world.guardTick <= world.tick) ||
-    world.tick <= world.wardUntilTick
-  );
+  return world.tick - world.guardTick <= windowTicks && world.guardTick <= world.tick;
 }
 
 /**

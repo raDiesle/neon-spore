@@ -292,7 +292,7 @@ describe("the well's transients", () => {
     // jitter is the same hash sequence on both screens — so the ring the well
     // gets is the flat ring carried whole to the hub, and its mean sits off
     // the hub by exactly what the flat mean sits off the hull line.
-    const taken: SimEvent = { type: "podTaken", col: 2, kind: "ward" };
+    const taken: SimEvent = { type: "podTaken", col: 2 };
     const meanOf = (at: { x: number; y: number }[]) =>
       at.reduce((m, s) => ({ x: m.x + s.x / at.length, y: m.y + s.y / at.length }), { x: 0, y: 0 });
     const flat = meanOf(sparksOf(ingest([taken], FLAT, false)));

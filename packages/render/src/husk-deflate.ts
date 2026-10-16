@@ -1,4 +1,3 @@
-import type { PodKind } from "@neon-spore/sim";
 import { halo } from "./glow.js";
 import { bodyX, type Layout, tileCY } from "./layout.js";
 import { PALETTE } from "./palette.js";
@@ -52,7 +51,6 @@ interface Flight {
   x: number;
   y: number;
   r: number;
-  kind: PodKind;
   /** The same on both phones — a column (`castHuskFlight`). */
   seed: number;
   age: number;
@@ -62,8 +60,8 @@ export class HuskDeflates {
   private live: Flight[] = [];
 
   /** A husk was refused at this point on screen, at this drawn radius. */
-  cast(x: number, y: number, r: number, kind: PodKind, seed: number): void {
-    this.live.push({ x, y, r, kind, seed, age: 0 });
+  cast(x: number, y: number, r: number, seed: number): void {
+    this.live.push({ x, y, r, seed, age: 0 });
   }
 
   update(dt: number): void {
@@ -89,7 +87,7 @@ export class HuskDeflates {
       // The body's own clock is run fast, so the core flutters instead of
       // beating: the lamp that said *this is not coming for you* is the thing
       // losing its nerve.
-      drawPodBody(ctx, 0, 0, r, f.age * 5 + f.seed, f.kind);
+      drawPodBody(ctx, 0, 0, r, f.age * 5 + f.seed);
       ctx.restore();
     }
   }
@@ -147,10 +145,10 @@ function drawJet(ctx: CanvasRenderingContext2D, f: Flight, l: Layout, t: number)
  */
 export function castHuskFlight(
   fx: HuskDeflates,
-  e: { col: number; row: number; kind: PodKind },
+  e: { col: number; row: number },
   l: Layout,
   put: (x: number, y: number) => { x: number; y: number },
 ): void {
   const at = put(bodyX(l, e.col, e.row), tileCY(l, e.row));
-  fx.cast(at.x, at.y, l.tile * POD_TILES, e.kind, e.col);
+  fx.cast(at.x, at.y, l.tile * POD_TILES, e.col);
 }

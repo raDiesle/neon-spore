@@ -42688,3 +42688,21 @@ Bottleneck: nothing — the decision was one function, and the mount it fed was 
 Bottleneck: the references — forty comments and spec lines named act files by name, already wrong since the last reorder.
 
 *Measured: 24 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-16 — One real pod with a clock, the husk a brush of its own
+
+- reading: 40 min. Every place a pod's cargo or the husk flag was read: sim,
+  render, audio, hands, the director, and the waves that hung a purge or ward.
+- writing: 150 min. The clock in the sim and the ring round it, the cargoes
+  and the moult's cargo out, REAL and HOLLOW brushes, every wave's pods made
+  real, THE CLAW's rocks out, HEAVY ROCKS kept with a film of its own, tests.
+- looking: 0 min. No picture: the ring is an addition, and the looks are the
+  next lane.
+- friction: 20 min. A shell loop that zsh would not word-split, a sed pass
+  that mangled a helper, one bash call that hung.
+- landing: 35 min. Some forty red tests in docs, counts, baselines and the
+  composer, and two peaks AUTO could not clear once a pod stopped clearing
+  the field.
+
+Bottleneck: the test fallout. Two pod kinds were read in every package, and
+each count, list and baseline that named them had to be found and moved.

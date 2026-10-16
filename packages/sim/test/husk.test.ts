@@ -5,7 +5,9 @@ import {
   DEFAULT_CONFIG,
   failHolds,
   hullRow,
+  NO_DUE,
   type PodEntry,
+  type PodKind,
   type SimConfig,
   type SimEvent,
   step,
@@ -87,8 +89,8 @@ function chase(col: number, withIntake: boolean): TimedCommand[] {
   return inputs;
 }
 
-const husk: PodEntry = { beat: 0, col: COL, row: ROW, kind: "purge", husk: true };
-const pod: PodEntry = { beat: 0, col: COL, row: ROW, kind: "purge" };
+const husk: PodEntry = { beat: 0, col: COL, row: ROW, kind: "husk" };
+const pod: PodEntry = { beat: 0, col: COL, row: ROW, kind: "pod" };
 
 describe("a husk on the field", () => {
   it("hangs and comes loose exactly the way a pod does", () => {
@@ -102,12 +104,13 @@ describe("a husk on the field", () => {
     expect(a.world.balance.podsFreed).toBe(b.world.balance.podsFreed);
   });
 
-  it("is not held apart from a pod by anything the wave says", () => {
-    // The flag is the only difference in the entry, and `kind` goes on saying
-    // what the thing claims to give.
-    const { world } = run([husk], TPB * 2, []);
-    expect(world.pods[0]!.husk).toBe(true);
-    expect(world.pods[0]!.kind).toBe("purge");
+  it("is its own kind, and wears the same clock as a pod", () => {
+    // The kind is the only difference in the entry; the clock is the same, so
+    // the clock is never the tell (`PodKind`).
+    const a = run([husk], TPB * 2, []);
+    const b = run([pod], TPB * 2, []);
+    expect(a.world.pods[0]!.kind).toBe("husk");
+    expect(a.world.pods[0]!.dueTicks).toBe(b.world.pods[0]!.dueTicks);
   });
 });
 
@@ -165,6 +168,7 @@ describe("refusing one", () => {
  * would be three waves.
  */
 function clearsWith(over: { loose: boolean; husk: boolean }): boolean {
+  const kind: PodKind = over.husk ? "husk" : "pod";
   const world = createWorld({ ...STILL }, 0, [], []);
   world.pods.push({
     id: world.nextId++,
@@ -174,8 +178,8 @@ function clearsWith(over: { loose: boolean; husk: boolean }): boolean {
     rowMilli: 0,
     driftMilli: 0,
     loose: over.loose,
-    kind: "purge",
-    husk: over.husk,
+    kind,
+    dueTicks: NO_DUE,
     crossMilli: 0,
   });
   const events: SimEvent[] = [];
@@ -214,9 +218,9 @@ describe("the run itself", () => {
   });
 
   it("fingerprints differently from a pod that differs in nothing else", () => {
-    // **The flag itself is in the hash**, and this is the one pair of worlds
+    // **The kind itself is in the hash**, and this is the one pair of worlds
     // that proves it: nobody has touched either, nothing has been counted, and
-    // the only field between them that is not equal is `husk`. A wave played
+    // the only field between them that is not equal is `kind`. A wave played
     // out would have diverged for a dozen other reasons by the end and said
     // nothing about the field (`hash-coverage.test.ts` holds the rule; this
     // holds the reason).
@@ -228,8 +232,8 @@ describe("the run itself", () => {
         rowMilli: ROW * MILLI,
         driftMilli: 0,
         loose: false,
-        kind: "purge",
-        husk: flag,
+        kind: flag ? ("husk" as const) : ("pod" as const),
+        dueTicks: NO_DUE,
         crossMilli: 0,
       });
       return hashWorld(world);

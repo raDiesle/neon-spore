@@ -327,3 +327,21 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/needs.test.ts` holds the wait, and
 `tools/queue/test/skipped.test.ts` holds the listing's count of the entries
 `next` stepped past and why.
+
+## waves:order stops on THE LANCE's and THE CLAW's lesson blocks
+
+- **Found:** 2026-10-16, claude/suck-brush-visuals-a917b1
+- **Files:** `tools/director/src/compose.ts`, `tools/director/src/compose-lesson.ts`, `tools/director/src/compose-claw.ts`, `tools/director/waves-order.ts`
+
+`bun run waves:order` ran clean on `db180cc54` and now stops at its first
+block: `theLance` and `theClaw` both wait with *no pressure in reach keeps the
+ramp (decision 6)*, and nothing else can be composed after them. The landing
+that broke it made every pod a real pod with a clock (`podDueBeats`), retired
+THE PURGE (THE LANCE's lesson used to sit after it), and left THE CLAW's waves
+as pods and nothing else. So the lesson draws that hang a pod late now lose
+the wave on AUTO and get struck off, and a claw wave's pressure counts no pods
+(`compose-lesson.ts`), which leaves every claw draw at about the same
+pressure. Find which of the two causes it for each block: print the kept
+draws' pressures in `composeFor`. Then make the lesson place its pods early
+enough for the clock, and give a claw draw a pressure that rises with its pods.
+Done when `bun run waves:order` prints `nothing changes` again.

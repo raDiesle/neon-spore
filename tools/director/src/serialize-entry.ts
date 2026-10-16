@@ -65,13 +65,7 @@ export function serializeEntry(entry: WaveEntry): string {
   // to the pilot would hand it back to the navigator on the first save, which
   // is `wears` and `gaps` a third time.
   if (entry.sees !== undefined) parts.push(`sees: ${entry.sees}`);
-  // And what a moult is carrying, the fourth time the same sentence: a wave
-  // authored to send a bomb down would send a shield down after one save, and
-  // a pair deciding whether to be under one would be deciding on the wrong
-  // fact. Absent is a ward, which is the default the rule already reads
-  // (`sim/moult.ts`), so there is no "nothing" here to preserve either.
-  if (entry.cargo !== undefined) parts.push(`cargo: "${entry.cargo}"`);
-  // And whose hand knocks a blister down — the fifth time: dropped, a blister for the pilot's hand would come back the
+  // And whose hand knocks a blister down — the fourth time: dropped, a blister for the pilot's hand would come back the
   // navigator's after one save (`sim/blister.ts`).
   if (entry.by !== undefined) parts.push(`by: ${entry.by === "both" ? '"both"' : entry.by}`);
   if (entry.gesture !== undefined) parts.push(`gesture: "${entry.gesture}"`);
@@ -86,9 +80,7 @@ export function serializePod(pod: PodEntry): string {
   // whole of why a pod that hangs where it was left comes back out of the
   // editor as the same three fields it went in with — a saved `cross: 0` or
   // `cross: 0` would be a wave file that changed the day somebody opened it.
-  // The lie, right after the face it wears, because that is the order the pair
-  // reads them in and the order `pod-types.ts` declares them in.
-  if (pod.husk) parts.push("husk: true");
+  if (pod.due !== undefined) parts.push(`due: ${pod.due}`);
   if (pod.cross !== undefined) parts.push(`cross: ${pod.cross}`);
   if (pod.speed !== undefined) parts.push(`speed: ${pod.speed}`);
   return `{ ${parts.join(", ")} }`;

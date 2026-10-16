@@ -61,7 +61,6 @@ export function populatedWorld(bossKind: BossEntry["kind"]): World {
   world.shieldCol = 5;
   world.guardTick = 30;
   world.intakeTick = 28;
-  world.wardUntilTick = 33;
   world.lastFireTick = 26;
   world.gripP1 = 7;
   world.gripP2 = 3;

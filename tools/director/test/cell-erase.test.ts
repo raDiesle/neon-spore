@@ -35,8 +35,8 @@ describe("paint is idempotent", () => {
 
   test("a pod painted twice is still there — the same rule, on the other list", () => {
     const wave = emptyWave();
-    paint(wave, 1, 2, "ward");
-    paint(wave, 1, 2, "ward");
+    paint(wave, 1, 2, "pod");
+    paint(wave, 1, 2, "pod");
     expect(podAt(wave, 1, 2)).toBeDefined();
     expect(wave.pods ?? []).toHaveLength(1);
   });
@@ -53,7 +53,7 @@ describe("eraseAt is the one removal", () => {
   test("it empties a cell holding both an entry and a pod", () => {
     const wave = emptyWave();
     paint(wave, 2, 4, "slick");
-    paint(wave, 2, 4, "ward");
+    paint(wave, 2, 4, "pod");
     expect(cellIsEmpty(wave, 2, 4)).toBe(false);
     eraseAt(wave, 2, 4);
     expect(cellIsEmpty(wave, 2, 4)).toBe(true);
@@ -68,7 +68,7 @@ describe("eraseAt is the one removal", () => {
 
   test("a wave with its last pod erased carries no empty pods array", () => {
     const wave = emptyWave();
-    paint(wave, 1, 2, "ward");
+    paint(wave, 1, 2, "pod");
     eraseAt(wave, 1, 2);
     expect(wave.pods).toBeUndefined();
   });

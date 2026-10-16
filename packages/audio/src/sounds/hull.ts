@@ -156,7 +156,7 @@ export const HULL_SOUNDS: SoundDef[] = [
     family: "hull",
     blurb: "Everything docked being thrown off at once: a hard sheet of air outward.",
     status: "spare",
-    use: "The purge pod, if the answer should be the hull rather than the pod. `pod.takenPurge` carries it today.",
+    use: "The purge pod, if the answer should have been the hull rather than the pod; the cargo was rejected on 16 October 2026.",
     level: 0.42,
     layers: [
       air(700, 9000, 0.3, 0.28, 1.2),
@@ -169,7 +169,7 @@ export const HULL_SOUNDS: SoundDef[] = [
     family: "hull",
     blurb: "The shield staying up by itself: a body settling and refusing to decay.",
     status: "spare",
-    use: "The ward pod, likewise. `pod.takenWard` carries it today; this is the hull's half of the same moment.",
+    use: "The ward pod, likewise, while there was one; the cargo was rejected on 16 October 2026.",
     level: 0.38,
     layers: [
       { source: "sine", freq: 150, gain: 0.5, attack: 0.06, hold: 0.5, release: 0.4 },

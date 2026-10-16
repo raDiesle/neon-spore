@@ -13,15 +13,31 @@
  */
 
 /**
- * What a pod gives when it is swallowed. Every pod is one of exactly these:
- * `purge` sweeps the field, `ward` holds the shield armed without a trigger.
+ * **What a pod is: real or hollow.** The owner, 16 October 2026: there are two
+ * pods and only two, and they are two brushes rather than one brush and a
+ * flag on it.
  *
- * There was a third, `mend`, and it was the plain pod — the one a wave got
- * when it named no kind — giving hull points back. The hull has no points
- * since 12 September 2026 (`hull-damage.ts`), so on the owner's word the
- * plain pod went with them and every pod names its cargo.
+ * - `pod` is **the real one**. It gives nothing — there is no cargo any more —
+ *   and it is owed: from the beat it appears the pair has `podDueBeats` to
+ *   shoot it loose and swallow it, and when the clock runs out with it still
+ *   on the field the wave is lost (`Pod.dueTicks`).
+ * - `husk` is **the hollow one**, the owner's design of 15 September 2026. It
+ *   hangs, is freed and falls exactly as a pod does and shows player 1 a real
+ *   pod's face; swallowing it loses the wave and refusing it costs nothing.
+ *   It carries the same clock, because a clock only one of the two wore would
+ *   be the tell on player 1's screen — and when a husk's runs out it lets go
+ *   of the field as a refused one does, at no cost.
+ *
+ * There were two cargoes, `purge` and `ward`, and before them a plain `mend`.
+ * The owner rejected both on 16 October 2026: a pod is a thing to be caught in
+ * time, not a pickup. What they used to do is on `docs/spec/ideas.md`.
+ *
+ * A husk used to be a flag on a pod (`husk: true`) precisely because `kind`
+ * was its cargo and a fourth cargo would have been the tell. With no cargo
+ * left, `kind` says what a pod *is*, and the tell is the renderer's to keep:
+ * player 1's screen draws a husk as a pod (`render/pods.ts`).
  */
-export type PodKind = "purge" | "ward";
+export type PodKind = "pod" | "husk";
 
 /**
  * The two, as data. `hashWorld` folds a pod's kind in by its index here
@@ -29,7 +45,11 @@ export type PodKind = "purge" | "ward";
  * to the type and not to a chain would hash as the second, and two devices
  * would agree about a ship they disagree about.
  */
-export const POD_KINDS: readonly PodKind[] = ["purge", "ward"];
+export const POD_KINDS: readonly PodKind[] = ["pod", "husk"];
+
+/** `Pod.dueTicks` on a pod that owes no clock: the pods a boss hangs out or
+ * throws on terms of its own (bait, a bead, a plate). */
+export const NO_DUE = -1;
 
 /**
  * A supply pod. It is not a creature: it does not live, does not travel of its
@@ -53,27 +73,20 @@ export interface Pod {
   driftMilli: number;
   /** False while it hangs, true once it is falling. */
   loose: boolean;
-  /** What it gives when it is swallowed. Authored, never random. On a husk it
-   * is what the thing is **pretending** to give, and it gives nothing. */
+  /** Real or hollow (`PodKind`). Authored, never random. */
   kind: PodKind;
   /**
-   * **A husk: a pod that should be refused.**
+   * **Ticks left on its clock**, counted down by `advancePods` from the beat
+   * it appears. On the tick it reaches nought with a real pod still on the
+   * field the wave is lost, exactly as if it had broken on the skin; a husk
+   * that reaches nought is refused, and costs nothing. `NO_DUE` on a pod with
+   * no clock.
    *
-   * The owner's design of 15 September 2026. It hangs at a column and a row
-   * like a pod, is freed by a shot like a pod, sinks to the maw like a pod,
-   * and wears a real cargo's own face on player 1's screen — `kind` is what it
-   * shows, and it shows one of the two real ones. Taking it in loses the wave.
-   * Refusing it costs nothing at all: it goes the way of a balloon let go.
-   *
-   * **A flag and not a fourth `PodKind`,** which is what the queue entry
-   * proposed. `PodKind` is *what a cargo gives*: it is the receipt on the
-   * banner, the glyph on the core, the switch in `takeCargo` and the list a
-   * moult's cargo is chosen from. A fourth member would need an entry in every
-   * one of those, and every one of them would be the tell — a husk that can be
-   * named before it is swallowed is free to ignore, and free to ignore is not
-   * a decision.
+   * Ticks *left* rather than a tick it falls due, because `world.tick` is not
+   * monotonic (`CLAUDE.md`) and a countdown carries nothing that a restart
+   * could leave pointing at the wrong moment.
    */
-  husk: boolean;
+  dueTicks: number;
   /**
    * How fast it crosses the field while it is still moored, in thousandths of
    * a tile per tick, signed — negative leftwards. Nought is a pod that hangs

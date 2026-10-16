@@ -3,7 +3,6 @@ import { hullRow, type SimConfig } from "./config.js";
 import { damageSpan } from "./hull-damage.js";
 import { guardArmed, shieldRow } from "./hull-guard.js";
 import { cargoLost, mawOpen, takeCargo } from "./pod-intake.js";
-import type { PodKind } from "./pod-types.js";
 import { spanOf } from "./span.js";
 import { type Creature, occupiesCol } from "./types.js";
 import { wardTurns } from "./ward.js";
@@ -106,26 +105,6 @@ export function moultNextIsPod(cfg: SimConfig, beat: number): boolean {
 }
 
 /**
- * What this one gives if it is swallowed. Authored per arrival like every
- * pod's cargo and never rolled (`SpawnEntry.cargo`), because a pair that
- * watches one turn over has to be able to tell what catching it is worth
- * before it decides whether to be under it.
- *
- * A ward when the wave says nothing, and that is the useful default rather
- * than an arbitrary one: a ward holds the dome armed without a trigger, which
- * is exactly what the pair needs for the *other* half of this same body on its
- * next turn. Catching one pays for warding the next.
- */
-export function moultCargo(c: Creature): PodKind {
-  return c.moultCargo ?? "ward";
-}
-
-/** The fields a moult arrives with. Nothing rolled — the cargo is the wave's. */
-export function moultOnSpawn(cargo: PodKind | undefined): { moultCargo: PodKind } {
-  return { moultCargo: cargo ?? "ward" };
-}
-
-/**
  * The sideways half of a moult's beat, taken **beside** the fall rather than
  * instead of it — THE VEER's arrangement, and the only other body that steps
  * and falls on one beat.
@@ -215,7 +194,7 @@ export function moultArrives(world: World, c: Creature): boolean {
 
   if (pod) {
     if (world.cannonCol === c.col && mawOpen(world)) {
-      takeCargo(world, c.col, moultCargo(c));
+      takeCargo(world, c.col);
       return false;
     }
     // It broke on the skin. The pod rule exactly, the lost wave included —

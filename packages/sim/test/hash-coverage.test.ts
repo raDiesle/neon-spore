@@ -332,7 +332,6 @@ describe("the fingerprint covers the world", () => {
         "spawned",
         "spend",
         "tick",
-        "wardUntilTick",
         "wave",
         "waveBeat",
         "waveTries",

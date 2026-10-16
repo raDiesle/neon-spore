@@ -3,8 +3,6 @@ import {
   type Command,
   crankWinds,
   hullRow,
-  isMeteorKind,
-  isWardable,
   MILLI,
   mawOpen,
   NO_BEARING,
@@ -12,7 +10,6 @@ import {
   type Pod,
   reachMilliPerTick,
   reachOut,
-  shieldRow,
   type TimedCommand,
   type World,
   windPerTickMilli,
@@ -33,12 +30,10 @@ import type { Hand } from "./hand.js";
  * the last of the way. A column with a body under the pod's row is passed
  * over, since the arm would close on the body first and drop it on the hull.
  *
- * **A caught pod is held on the arm until it is wanted**, because the panel
- * has no shield and every rock is answered by a pod: a ward held until the
- * rock in the shield's column is close, so its beats cover the landing; a
- * purge held until the lowest rock is close, so every rock on the field by
- * then goes with it. It is wound in at once when another pod is crossing, since
- * the arm has to be home to reach for it, and when nothing more is coming.
+ * **A caught pod is wound home at once.** It used to be held on the arm until
+ * a rock was close — a ward for the shield's column, a purge for the rest —
+ * and the cargoes went on 16 October 2026, the claw's rocks with them, and a
+ * pod now has a clock that holding would only spend.
  *
  * The world does not know its panel, so this is chosen by whoever does
  * (`autopilotHand`'s `arm`); a pod on any other panel is the cannon's.
@@ -48,9 +43,6 @@ type Press = Omit<TimedCommand, "tick">;
 
 /** How far off a column's centre the pod may be predicted and still be met. */
 const MEET_MILLI = 300;
-
-/** Rows above the shield at which a held pod's rock is close enough to wind it in. */
-const HOLD_ROWS = 3;
 
 const aim = (col: number): Press => ({ player: 1, command: { kind: "cannonCol", col } });
 const reach: Press = { player: 1, command: { kind: "reach" } };
@@ -68,7 +60,7 @@ const climbTicks = (w: World, rowMilli: number): number =>
 function target(w: World): Pod | undefined {
   let best: Pod | undefined;
   for (const p of w.pods) {
-    if (p.loose || p.husk || p.id === w.reachHeld) continue;
+    if (p.loose || p.kind === "husk" || p.id === w.reachHeld) continue;
     if (best === undefined || Math.abs(p.crossMilli) > Math.abs(best.crossMilli)) best = p;
   }
   return best;
@@ -78,30 +70,16 @@ function target(w: World): Pod | undefined {
 const blocked = (w: World, col: number, rowMilli: number): boolean =>
   w.creatures.some((c) => occupiesCol(c, col) && c.row * MILLI >= rowMilli - MILLI);
 
-/** Whether the pod on the arm is held there a while yet, for a rock not close enough. */
-function holding(w: World): boolean {
-  const held = w.pods.find((p) => p.id === w.reachHeld);
-  if (held === undefined || target(w) !== undefined) return false;
-  const answers =
-    held.kind === "ward"
-      ? (c: World["creatures"][number]) => isWardable(c.kind) && occupiesCol(c, w.shieldCol)
-      : (c: World["creatures"][number]) => isMeteorKind(c.kind);
-  let lowest = -1;
-  for (const c of w.creatures) if (answers(c)) lowest = Math.max(lowest, c.row);
-  if (lowest < 0) return w.spawned < w.queue.length;
-  return shieldRow(w.cfg) - lowest > HOLD_ROWS;
-}
-
 /** Player 1: wind a hanging arm home, or stand under the pod's meeting column and press. */
 function arm(w: World): Press[] {
   if (reachOut(w)) {
-    if (!crankWinds(w) || holding(w)) return [];
+    if (!crankWinds(w)) return [];
     const at = w.crankAtMilli;
     return [crank(at === NO_BEARING ? 0 : (at + windPerTickMilli(w.cfg)) % BEARING_TURN)];
   }
   // A pod let go at the hull lands in the cannon's column or is lost, so the
   // arm waits under it before it goes for the next one crossing.
-  const falling = w.pods.find((p) => p.loose && !p.husk);
+  const falling = w.pods.find((p) => p.loose && p.kind !== "husk");
   if (falling !== undefined) {
     const under = Math.round(falling.colMilli / MILLI);
     return w.cannonCol === under ? [] : [aim(under)];
@@ -127,7 +105,7 @@ function arm(w: World): Press[] {
 function mouth(w: World): Press[] {
   const home = w.pods.some(
     (p) =>
-      !p.husk &&
+      p.kind !== "husk" &&
       (p.loose || p.id === w.reachHeld) &&
       hullRow(w.cfg) * MILLI - p.rowMilli <= w.cfg.podHomeTiles * MILLI,
   );

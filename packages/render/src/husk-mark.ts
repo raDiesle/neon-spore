@@ -50,7 +50,7 @@ const LABEL = "DO NOT TAKE";
 /** Every husk on the field. Exported so anything else that has to ask asks it
  * once, the way `lures` is. */
 export function husks(world: World): Pod[] {
-  return world.pods.filter((p) => p.husk);
+  return world.pods.filter((p) => p.kind === "husk");
 }
 
 /**

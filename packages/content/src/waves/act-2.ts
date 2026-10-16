@@ -21,8 +21,8 @@ export const WAVES_ACT_2: Wave[] = [
       { beat: 15, col: 10, color: "red" },
     ],
     pods: [
-      { beat: 0, col: 2, row: 3, kind: "ward" },
-      { beat: 11, col: 0, row: 4, kind: "ward" },
+      { beat: 0, col: 2, row: 3, kind: "pod" },
+      { beat: 11, col: 0, row: 4, kind: "pod" },
     ],
     controls: "standard5",
   },
@@ -36,8 +36,8 @@ export const WAVES_ACT_2: Wave[] = [
       { beat: 28, col: 6, color: "cyan" },
     ],
     pods: [
-      { beat: 0, col: 6, row: 4, kind: "ward" },
-      { beat: 21, col: 5, row: 4, kind: "ward" },
+      { beat: 0, col: 6, row: 4, kind: "pod" },
+      { beat: 21, col: 5, row: 4, kind: "pod" },
     ],
     controls: "standard5",
   },
@@ -52,8 +52,8 @@ export const WAVES_ACT_2: Wave[] = [
       { beat: 28, col: 8, color: "cyan" },
     ],
     pods: [
-      { beat: 0, col: 9, row: 3, kind: "ward" },
-      { beat: 16, col: 10, row: 4, kind: "ward" },
+      { beat: 0, col: 9, row: 3, kind: "pod" },
+      { beat: 16, col: 10, row: 4, kind: "pod" },
     ],
     controls: "standard5",
   },

@@ -33,7 +33,7 @@ export const POD_RADAR_POSES: Pose[] = [
       };
     },
     build: () => {
-      const w = fresh([], [{ beat: 0, col: COL, row: 5, kind: "ward" }]);
+      const w = fresh([], [{ beat: 0, col: COL, row: 5, kind: "pod" }]);
       run(w, TPB * 2);
       return w;
     },
@@ -50,7 +50,7 @@ export const POD_RADAR_POSES: Pose[] = [
       };
     },
     build: () => {
-      const w = fresh([], [{ beat: 0, col: COL, row: 5, kind: "ward" }]);
+      const w = fresh([], [{ beat: 0, col: COL, row: 5, kind: "pod" }]);
       // The pod is hung on a beat, so there is nothing in the column to shoot
       // loose until one has passed. Aim first, then fire at something there.
       run(w, TPB * 2, [aim(0, COL)]);

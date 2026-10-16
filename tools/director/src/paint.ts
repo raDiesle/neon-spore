@@ -51,7 +51,7 @@ export function paint(wave: Wave, beat: number, col: number, brush: Brush): void
     paintFault(wave, beat, fault);
     return;
   }
-  if (brush === "purge" || brush === "ward") {
+  if (brush === "pod" || brush === "husk") {
     paintPod(wave, beat, col, brush);
     return;
   }
@@ -161,8 +161,8 @@ export function removeBeat(wave: Wave, from: number, to = from): void {
  * The brushes that make an entry. `pod` and `erase` are the two that do not:
  * a pod is not an entry, and an erase is not a thing but the absence of one.
  */
-type EntryBrush = Exclude<Brush, "purge" | "ward" | "erase">;
-type PodBrush = Extract<Brush, "purge" | "ward">;
+type EntryBrush = Exclude<Brush, "pod" | "husk" | "erase">;
+type PodBrush = Extract<Brush, "pod" | "husk">;
 
 function makeEntry(beat: number, col: number, brush: EntryBrush): WaveEntry {
   const rock = ROCK_BRUSHES.find(([b]) => b === brush);
@@ -208,7 +208,7 @@ function removeEntry(wave: Wave, beat: number, col: number): void {
  * Idempotent for `paint`'s reason: a pod painted where that pod already hangs
  * stays. Painting a *different* pod kind over one changes the kind in place
  * rather than making a second — a cell holds one pod, and the row it hangs at
- * is worth keeping across a change of mind about what it gives.
+ * is worth keeping across a change of mind about whether it is real.
  */
 function paintPod(wave: Wave, beat: number, col: number, brush: PodBrush): void {
   const existing = podAt(wave, beat, col);

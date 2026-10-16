@@ -1,8 +1,7 @@
 import { markMoment } from "./balance.js";
 import { msToTicks, type SimConfig } from "./config.js";
 import { mirrorBaitTaken } from "./mirror-round.js";
-import { purge, ward } from "./pod-effects.js";
-import type { Pod, PodKind } from "./pod-types.js";
+import type { Pod } from "./pod-types.js";
 import { scuttlePodTaken } from "./scuttle-step.js";
 import { failWave } from "./wave-fail.js";
 import { MILLI, type World } from "./world.js";
@@ -44,43 +43,38 @@ export function mawOpen(world: World): boolean {
 }
 
 /**
- * Swallowed: the cargo lands, all at once, on the tick of the catch. There is
- * no pickup that waits to be spent.
+ * Swallowed. A pod gives nothing — the purge and the ward it used to carry
+ * were rejected by the owner on 16 October 2026 — so what lands on the tick of
+ * the catch is the receipt and the debt paid: the wave can end without it.
  *
  * `col` is where it went in, which is the cannon's column by construction —
  * both callers only reach this after checking that — and it is passed rather
  * than read off the world so the event says where the picture happened rather
  * than where the cannon has since slid to.
  */
-export function takeCargo(world: World, col: number, kind: PodKind): void {
+export function takeCargo(world: World, col: number): void {
   world.balance.podsTaken += 1;
   markMoment(world, true);
-  switch (kind) {
-    case "purge":
-      purge(world);
-      break;
-    case "ward":
-      ward(world);
-      break;
-  }
   // A boss may have been hanging this out as bait — see `mirrorBaitTaken`.
   mirrorBaitTaken(world);
   // Or throwing it as a part of itself — see `scuttlePodTaken`.
   scuttlePodTaken(world, col);
-  world.events.push({ type: "podTaken", col, kind });
+  world.events.push({ type: "podTaken", col });
 }
 
 /**
  * Not swallowed, at the hull or off the side: **the wave is lost.** The owner's
  * rule of 12 September 2026 lists *sucked* beside destroyed, evaded and
- * shielded as the ways a wave is passed, so a cargo that breaks on the skin or
- * gets away is a hit and not a missed gift.
+ * shielded as the ways a wave is passed, so a cargo that breaks on the skin,
+ * gets away, or is still on the field when its clock runs out is a hit and not
+ * a missed gift.
  */
-export function cargoLost(world: World, col: number): void {
+export function cargoLost(world: World, col: number, row?: number): void {
   world.balance.podsLost += 1;
   markMoment(world, false);
   failWave(world);
-  world.events.push({ type: "podLost", col: clampCol(world, col) });
+  const lost = { type: "podLost" as const, col: clampCol(world, col) };
+  world.events.push(row === undefined ? lost : { ...lost, row });
 }
 
 /**
@@ -115,13 +109,12 @@ export function huskRefused(world: World, pod: Pod): void {
   world.events.push({ type: "huskRefused", ...whereItWas(world, pod) });
 }
 
-/** Where a husk was standing and what it was wearing, for the two events that
- * are the only picture of it there will be. */
-function whereItWas(world: World, pod: Pod): { col: number; row: number; kind: PodKind } {
+/** Where a husk was standing, for the two events that are the only picture of
+ * it there will be. */
+function whereItWas(world: World, pod: Pod): { col: number; row: number } {
   return {
     col: clampCol(world, Math.round(pod.colMilli / MILLI)),
     row: Math.round(pod.rowMilli / MILLI),
-    kind: pod.kind,
   };
 }
 

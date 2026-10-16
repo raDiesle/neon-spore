@@ -33,7 +33,7 @@ export const THROAT_CONTROLS: readonly ControlDef[] = [
     player: 1,
     form: "lobe",
     label: "SUCK",
-    does: "Sets the mouth to the maw's colour. It swallows a pod, and its cargo is given as the maw gives it.",
+    does: "Sets the mouth to the maw's colour. It swallows a pod, and it counts as the maw's catch.",
   },
   {
     id: "throatRed",

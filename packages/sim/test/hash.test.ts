@@ -36,9 +36,6 @@ describe("the fingerprint", () => {
   noticed("intakeTick", (w) => {
     w.intakeTick = 12;
   });
-  noticed("wardUntilTick", (w) => {
-    w.wardUntilTick = 12;
-  });
   noticed("lastFireTick", (w) => {
     w.lastFireTick = 12;
   });

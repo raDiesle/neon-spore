@@ -127,9 +127,11 @@ lists the gestures. A new one goes in that list, and an effect never does.
 the small line over a mark is drawn only where it says what the word does
 not — `HOLD` over `SHIELD`, `CALL`, `STILL` (`saysKind`, `boss-cue-shape.ts`).
 
-**A `name` is a proper noun and no row in this table reaches it.** The wave
-`THE WARD` keeps its name: renaming one reaches the director, the perf rows and
-the baselines, and a title is not the word a player reads for the object.
+**A `name` is a proper noun and no row in this table reaches it.** A wave is
+not renamed for the vocabulary: renaming one reaches the director, the perf rows
+and the baselines, and a title is not the word a player reads for the object.
+(`THE WARD` was the case this was written for; it became HEAVY ROCKS on 16
+October 2026 because its pod left the game, not for the word.)
 
 ## 4 · The loop
 

@@ -21,7 +21,7 @@ describe("orphanReport", () => {
   it("points every spawn mechanic at a wave, THE GAUGE included", () => {
     // It used to point THE GAUGE at a table of gaps instead, and that class of
     // reach is gone: a round is a boss wave, so there is one place to put one.
-    const rows = orphanReport(["purge", "gauge"] as MechanicId[]);
+    const rows = orphanReport(["pod", "gauge"] as MechanicId[]);
     expect(rows).toHaveLength(2);
     for (const row of rows) {
       expect(row.reach).toBe("spawn");

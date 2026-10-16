@@ -58,7 +58,7 @@ export const WAVES_ACT_30: Wave[] = [
       { beat: 18, col: 0, kind: "clasp", color: "cyan" },
       { beat: 24, col: 6, kind: "lure", color: "red" },
     ],
-    pods: [{ beat: 12, col: 8, row: 4, kind: "purge", husk: true }],
+    pods: [{ beat: 12, col: 8, row: 4, kind: "husk" }],
   },
   {
     id: "theClaspPair",

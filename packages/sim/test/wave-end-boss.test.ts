@@ -32,7 +32,7 @@ const QUEUE: SpawnEntry[] = [
   { beat: LATE, col: 1, kind: "meteor", color: null },
   { beat: LATE + 4, col: 5, kind: "meteor", color: null },
 ];
-const PODS: PodEntry[] = [{ beat: LATE, col: 2, row: 2, kind: "purge" }];
+const PODS: PodEntry[] = [{ beat: LATE, col: 2, row: 2, kind: "pod" }];
 
 function stand(boss: boolean): World {
   const world = createWorld({ ...CFG }, 0);

@@ -37,7 +37,7 @@ export {
 } from "./kinds.js";
 // What a pod is: lifted out beside `hull-types.ts` when this file went over
 // its limit, and re-exported here so nothing reaching for one had to move.
-export { POD_KINDS, type Pod, type PodKind } from "./pod-types.js";
+export { NO_DUE, POD_KINDS, type Pod, type PodKind } from "./pod-types.js";
 // How wide a body is: `span.ts`, cut out of `kinds.ts` when THE GYRE arrived
 // and re-exported here so nothing reaching for `spanOf` through it had to move.
 export {

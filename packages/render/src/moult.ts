@@ -1,5 +1,5 @@
 import { POD } from "@neon-spore/content";
-import { moultCargo, moultIsPod, type SimConfig, spanOf } from "@neon-spore/sim";
+import { moultIsPod, type SimConfig, spanOf } from "@neon-spore/sim";
 import type { Body } from "./creature-body-in.js";
 import { STONE_REACH } from "./creature-body-rock.js";
 import { drawGlancedBody } from "./creature-glance.js";
@@ -74,7 +74,7 @@ export function drawMoultBody(b: Body): void {
   const r = Math.max(rockRadius(b.l, spanOf(b.c)), b.l.tile * POD_TILES);
   drawGlancedBody(b, { r, sort: "rock", reach: STONE_REACH }, (ctx) => {
     if (k <= 0) drawMeteor(ctx, b.l, b.c, b.x, b.y, b.time);
-    else if (k >= 1) drawPodBody(ctx, b.x, b.y, b.l.tile * POD_TILES, b.time, moultCargo(b.c));
+    else if (k >= 1) drawPodBody(ctx, b.x, b.y, b.l.tile * POD_TILES, b.time);
     else drawBlend({ ...b, ctx }, k);
   });
   drawMoultNext(b);
@@ -122,7 +122,7 @@ function drawBlend(b: Body, k: number): void {
   );
   ctx.scale(k / POD_NORM, k / POD_NORM);
   ctx.globalAlpha = k;
-  drawPodCore(ctx, 0.55 + 0.45 * pulse, moultCargo(c));
+  drawPodCore(ctx, 0.55 + 0.45 * pulse);
   ctx.globalAlpha = 1;
   ctx.restore();
 

@@ -1,4 +1,3 @@
-import type { PodKind } from "@neon-spore/sim";
 import { drawBanner } from "./banner.js";
 import { BossHurt } from "./boss-hurt.js";
 import { FireVein } from "./fire-vein.js";
@@ -60,8 +59,8 @@ export class ShipMoods {
   }
 
   /** A pod is going in; the receipt follows the chewing (`banner.ts`). */
-  swallowPod(kind: PodKind): void {
-    this.swallow.start(kind);
+  swallowPod(): void {
+    this.swallow.start();
   }
 
   /** A rock came back off the shield, or a volley did. */

@@ -1,5 +1,3 @@
-import type { PodKind } from "@neon-spore/sim";
-
 /**
  * Taking a pod in, as a piece of timing.
  *
@@ -17,8 +15,6 @@ const CHEW_SHARE = 0.55;
 export class SwallowFx {
   /** Counts down from `LIFE` while a pod is being taken in. */
   private left = 0;
-  /** Which kind the swallow currently running is for, for the receipt. */
-  private kind: PodKind | null = null;
 
   /** The share of the whole swallow the chewing takes. Read by the banner. */
   get chewShare(): number {
@@ -31,10 +27,6 @@ export class SwallowFx {
 
   get remaining(): number {
     return this.left;
-  }
-
-  get podKind(): PodKind | null {
-    return this.kind;
   }
 
   /** 0..1 while the membrane around the maw is coming apart. */
@@ -54,9 +46,8 @@ export class SwallowFx {
     return Math.max(0, 1 - after) ** 1.6;
   }
 
-  start(kind: PodKind): void {
+  start(): void {
     this.left = LIFE;
-    this.kind = kind;
   }
 
   update(dt: number): void {
@@ -65,6 +56,5 @@ export class SwallowFx {
 
   clear(): void {
     this.left = 0;
-    this.kind = null;
   }
 }

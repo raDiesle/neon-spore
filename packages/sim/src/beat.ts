@@ -230,8 +230,12 @@ export function onBeat(world: World): void {
   // meant wave 70 could not be passed at all: the field emptied and the
   // projection held the wave open for ever.
   const boss = world.boss;
+  // And a pod not yet hung holds it too, since 16 October 2026: THE CLAW's
+  // waves are pods and nothing else, and one that cleared on its first beat
+  // would have been passed before anything was owed.
   const cleared =
     world.spawned >= world.queue.length &&
+    world.podSpawned >= world.podQueue.length &&
     world.creatures.length === 0 &&
     world.pods.every(hangingHusk) &&
     (boss === null || !bossHoldsWave(boss.kind));

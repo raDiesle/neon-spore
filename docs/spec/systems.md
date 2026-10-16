@@ -281,13 +281,22 @@ than the muzzle was tall (`MAW`). Window: `intakeWindowMs`, 800 ms.
 **Taking it in.** The skin either side of the maw comes apart while the pod goes
 through, and then the whole ship lights from inside and goes out again. The
 flash is the receipt — player 1 knows the catch counted without reading a
-number. What the pod gives is what it was authored to carry, and every pod
-says: **PURGE** clears everything falling, **WARD** holds the shield armed
-for `wardBeats` without a trigger (`PodKind`, `pod-types.ts`). There was a
-third, the plain pod that gave hull points back, and it went with the hull's
-points; the `scorePod` every pod paid on top went with the score ([ideas](ideas.md),
-NOT BUILT YET → Mechanics). Slow motion and autopilot are still unbuilt and would be a third
-kind of pod rather than a second way of collecting one.
+number. A pod gives nothing else: since 16 October 2026 there is **one real
+pod** and its whole meaning is that it is owed. The cargoes it used to carry —
+**PURGE** clearing everything falling, **WARD** holding the shield armed
+without a trigger — were rejected by the owner on that date, and so earlier was
+the plain pod that gave hull points back, and the `scorePod` every pod paid on
+top ([ideas](ideas.md), NOT BUILT YET → Mechanics). The **husk** is the other
+kind, the hollow one, a brush of its own (`PodKind`, `pod-types.ts`).
+
+**The clock.** From the beat a pod appears the pair has `podDueBeats` (16
+beats, 10 s at 96 BPM; a wave may give one pod its own `due`) to shoot it loose
+and take it in. A ring round the pod drains a notch a beat and turns ember for
+the last five (`render/pod-due-ring.ts`). **A real pod still there when the ring
+runs out loses the wave**, exactly as one missed at the maw does. A husk wears
+the same ring, so the ring is never the tell, and when its ring runs out it is
+let go at no cost. Boss pods — the bait, the baton bead, the scuttle plate —
+carry no clock (`NO_DUE`): the boss is what decides when they are owed.
 
 **Missing it is a hit.** A pod that arrives with the cannon elsewhere, or with
 the maw shut, breaks on the skin — no scar, but the wave is lost and played

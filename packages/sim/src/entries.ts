@@ -2,7 +2,7 @@ import type { CrawlerSide } from "./crawler.js";
 import type { BlisterSpawn } from "./creature-state-blister.js";
 import type { GhostPath } from "./ghost.js";
 import type { RockSize } from "./span.js";
-import type { Color, CreatureKind, PodKind } from "./types.js";
+import type { Color, CreatureKind } from "./types.js";
 
 /**
  * What a wave hands the simulation. Every one of these is authored in
@@ -190,17 +190,6 @@ export interface SpawnEntry extends BlisterSpawn {
    * to look at has learned the wrong half of this creature.
    */
   sees?: 1 | 2;
-  /**
-   * What a **moult** gives if it is swallowed on a beat it is wearing its
-   * cargo, and absent on every other kind — absent on a moult too means a
-   * ward, which is the cargo that pays for the *other* half of the same body
-   * on its next turn (`moultCargo`).
-   *
-   * Authored and never rolled, on `PodEntry.kind`'s terms exactly: a pair that
-   * watches one turn over has to be able to tell what catching it is worth
-   * before it decides whether to stand under it.
-   */
-  cargo?: PodKind;
 }
 
 // **What a wave authors when it wants a boss** is `boss-entries.ts` next door,

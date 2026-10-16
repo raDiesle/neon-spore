@@ -1,7 +1,7 @@
 import { hullRow, ticksPerBeat } from "./config.js";
 import type { PodEntry } from "./entries.js";
 import { mirrorBaitTaken } from "./mirror-round.js";
-import { podArrived, podLost } from "./pod-arrive.js";
+import { podArrived, podDue, podLost } from "./pod-arrive.js";
 import { huskRefused } from "./pod-intake.js";
 import { nextInt } from "./rng.js";
 import type { Pod, PodKind } from "./types.js";
@@ -21,16 +21,16 @@ import { MILLI, type World } from "./world.js";
  * old design had player 1 fly to the power-up, and there is no flying any more.
  * Here the pod comes to the ship instead, and the ship has to open for it.
  *
- * What is taken is one of two things — purge or ward, see `PodKind` —
- * authored in the wave and never drawn at random: a pair that watches a pod
- * come loose has to be able to tell what it is before it decides how to
- * chase it. The effect lands all at once, on the tick of the catch; there is
- * no pickup that waits to be spent.
+ * A pod gives nothing. It is **owed**: from the beat it appears the clock in
+ * `Pod.dueTicks` runs, and a real pod still on the field when it reaches
+ * nought loses the wave (the owner, 16 October 2026, who rejected the purge
+ * and ward cargoes it used to carry — `PodKind`).
  *
  * **And one of them is a lie.** A husk hangs and falls and arrives exactly as
- * a pod does, wearing a real cargo's face, and swallowing it loses the wave
- * (`Pod.husk`, `pod-intake.ts`). Nothing in this file treats it as a separate
- * object: it is the receipt at the mouth that differs and nothing before it.
+ * a pod does, wearing a real pod's face, and swallowing it loses the wave
+ * (`PodKind`, `pod-intake.ts`). It carries no clock; past that, nothing in
+ * this file treats it as a separate object: it is the receipt at the mouth
+ * that differs and nothing before it.
  *
  * **And a pod is taken, or the wave is lost.** The owner's rule of 12
  * September 2026 lists *sucked* beside destroyed, evaded and shielded as the
@@ -46,13 +46,19 @@ import { MILLI, type World } from "./world.js";
  */
 
 /**
- * What a pod gives when it is swallowed. It was `entry.kind ?? "mend"` while a
- * wave could leave the kind unsaid, and the one `??` lived here so that
- * `mechanics.ts` could call it rather than write its own; every pod names its
- * kind now, and the function stays as the one place that reads it.
+ * Real or hollow. It was `entry.kind ?? "mend"` while a wave could leave the
+ * kind unsaid, and the one `??` lived here so that `mechanics.ts` could call it
+ * rather than write its own; every pod names its kind now, and the function
+ * stays as the one place that reads it.
  */
 export function podKindOf(entry: PodEntry): PodKind {
   return entry.kind;
+}
+
+/** The clock a pod enters with, in ticks. A husk wears the same one as the pod
+ * it pretends to be, so the clock is never the tell (`PodKind`). */
+export function podDueTicks(world: World, entry: PodEntry): number {
+  return (entry.due ?? world.cfg.podDueBeats) * ticksPerBeat(world.cfg);
 }
 
 // **The mouth is `pod-intake.ts`** — whether it is open, and what a cargo
@@ -100,7 +106,7 @@ export function spawnPods(world: World): void {
       driftMilli: 0,
       loose: false,
       kind: podKindOf(entry),
-      husk: entry.husk === true,
+      dueTicks: podDueTicks(world, entry),
       // Which way it crosses, and how fast. Absent is nought, which is a pod
       // that hangs exactly as every pod did before THE CLAW.
       crossMilli:
@@ -162,6 +168,17 @@ export function advancePods(world: World): void {
   const survivors: Pod[] = [];
 
   for (const p of world.pods) {
+    // The clock, before anything else moves: a pod that falls due this tick
+    // is lost where it stands, moored or falling, and a husk is let go
+    // (`Pod.dueTicks`).
+    if (p.dueTicks > 0) {
+      p.dueTicks -= 1;
+      if (p.dueTicks === 0) {
+        if (p.kind === "husk") huskRefused(world, p);
+        else podDue(world, p);
+        continue;
+      }
+    }
     if (!p.loose) {
       // A pod authored to cross travels its row until it leaves the far side.
       // It is removed rather than held at the wall, which is the opposite of
@@ -174,7 +191,7 @@ export function advancePods(world: World): void {
           // And a window that shut is a pod not taken: the wave is lost. A
           // husk that crossed and left is the opposite — the pair let a lie go
           // past, which is exactly what they were supposed to do.
-          if (p.husk) huskRefused(world, p);
+          if (p.kind === "husk") huskRefused(world, p);
           else podLost(world, p);
           continue;
         }

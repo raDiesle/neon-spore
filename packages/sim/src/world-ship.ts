@@ -84,8 +84,6 @@ export interface ShipState {
   choirTurnTick2: number;
   /** Turns made together in the window open now, towards `choirRubTurns`. */
   choirRubbed: number;
-  /** Last tick the shield still counts as armed without a trigger, set by a `ward` pod. */
-  wardUntilTick: number;
   lastFireTick: number;
   /**
    * The creature each player has a hand on, or `NO_GRIP`. Read them through
@@ -158,7 +156,6 @@ export function newShipState(cfg: SimConfig): ShipState {
     choirTurnTick1: -1_000_000,
     choirTurnTick2: -1_000_000,
     choirRubbed: 0,
-    wardUntilTick: -1_000_000,
     lastFireTick: -1_000_000,
     gripP1: NO_GRIP,
     gripP2: NO_GRIP,

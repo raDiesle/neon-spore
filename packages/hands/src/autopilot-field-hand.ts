@@ -28,7 +28,7 @@ import { steerRunaway } from "./autopilot-jam.js";
 import { holdLid, lidShut } from "./autopilot-lid.js";
 import { lockMagnet, magnetSide, shotColor } from "./autopilot-magnet.js";
 import { catchMoult } from "./autopilot-moult.js";
-import { catchPod, hanging } from "./autopilot-pod-hand.js";
+import { catchPod, freeDuePod, hanging } from "./autopilot-pod-hand.js";
 import { touchBodies } from "./autopilot-touch.js";
 import type { Hand } from "./hand.js";
 
@@ -92,7 +92,8 @@ const answersNow = (w: World, c: Creature): boolean =>
   cannonAnswers(c) && (c.kind !== "strand" || beadIsActive(w, c));
 
 /**
- * The cannon's half: a falling pod first, then a fence's crack, then under the
+ * The cannon's half: a falling pod first, then a hanging one whose clock is
+ * short, then a fence's crack, then under the
  * lowest coloured body and its colour when free — a lid held open first — then
  * a hanging pod shot loose (`autopilot-pod-hand.ts`). Any colour frees a pod.
  */
@@ -103,6 +104,8 @@ function cannon(w: World): Press[] {
   if (runaway !== null) return runaway;
   const chase = catchPod(w);
   if (chase !== null) return chase;
+  const due = freeDuePod(w);
+  if (due !== null) return due;
   const moult = catchMoult(w);
   if (moult !== null) return moult;
   const wall = burnFence(w, free(w));

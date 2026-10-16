@@ -156,8 +156,8 @@ export const WAVES_ACT_23: Wave[] = [
       { beat: 46, col: 0, kind: "magnet", color: "red" },
     ],
     pods: [
-      { beat: 18, col: 10, row: 3, kind: "purge" },
-      { beat: 34, col: 6, row: 3, kind: "purge" },
+      { beat: 18, col: 10, row: 3, kind: "pod" },
+      { beat: 34, col: 6, row: 3, kind: "pod" },
     ],
     faults: [{ kind: "dark", at: 4 }],
   },

@@ -4,7 +4,7 @@ import type { CreatureEvent } from "./events-creature.js";
 import type { FleetEvent } from "./events-fleet.js";
 import type { RoundEvent } from "./events-rounds.js";
 import type { BreachWeight } from "./hull-damage.js";
-import type { Color, Creature, PodKind } from "./types.js";
+import type { Color, Creature } from "./types.js";
 import type { FailCause } from "./wave-fail.js";
 
 /**
@@ -163,21 +163,26 @@ export type SimEvent =
    */
   | { type: "carry"; player: 1 | 2; col: number; row: number; dir: -1 | 1 }
   | { type: "podLoose"; col: number; row: number }
-  | { type: "podTaken"; col: number; kind: PodKind }
-  | { type: "podLost"; col: number }
+  | { type: "podTaken"; col: number }
+  /**
+   * A real pod not taken: broken on the skin, gone off the side, or still on
+   * the field when its clock ran out. `row` only on the last, which is the one
+   * that happens wherever the pod was rather than at the hull or the wall.
+   */
+  | { type: "podLost"; col: number; row?: number }
   /**
    * A husk went in, and the wave with it (`pod-intake.ts`).
    *
-   * It carries where it was and what it was wearing, which `podLost` does not:
+   * It carries where it was, which `podLost` does not always:
    * a husk's whole last second is a picture of the thing the pair refused, so
    * what is drawn has to be the body that was hanging there rather than a
    * generic one (`render/src/husk-deflate.ts`).
    */
-  | { type: "huskSwallowed"; col: number; row: number; kind: PodKind }
+  | { type: "huskSwallowed"; col: number; row: number }
   /** A husk reached the ship, or the far wall, and was refused: it lets its air
    * go and flies off. `row` for the wall — a husk that crossed the field and
    * left was never anywhere near the hull. */
-  | { type: "huskRefused"; col: number; row: number; kind: PodKind }
+  | { type: "huskRefused"; col: number; row: number }
   | {
       type: "breach";
       col: number;

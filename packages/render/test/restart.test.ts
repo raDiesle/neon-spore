@@ -64,7 +64,7 @@ const BUSY: SimEvent[] = [
     beat: 8,
   },
   { type: "deflect", col: 2, span: 1, kind: "meteorFast", fromRow: 11, seed: 0, holes: 0 },
-  { type: "podTaken", col: 4, kind: "ward" },
+  { type: "podTaken", col: 4 },
   { type: "reject", col: 1, row: 4 },
   { type: "fire", col: 3, color: "cyan", lance: false },
   {

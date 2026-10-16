@@ -60,7 +60,10 @@ export const BRUSH_GROUPS: BrushGroup[] = (() => {
   // (`control-brushes.ts`): a body is not in it for its category but for the
   // control it is put there to teach.
   groups.push({ label: "CONTROLS", brushes: [...CONTROL_BRUSHES] });
-  groups.push({ label: "SUCK", brushes: ["purge", "ward"] });
+  // The two pods and only two, the owner, 16 October 2026: the real one, owed
+  // in time, and the hollow one, refused — a brush each rather than a brush
+  // and a flag on it (`sim/pod-types.ts`).
+  groups.push({ label: "SUCK", brushes: ["pod", "husk"] });
   // Last, and its own group: a fault is not a body and does not arrive — it is
   // a pencil laid across a row of the map (`brushes.ts` `FAULT_BRUSHES`).
   groups.push({ label: "FAULT", brushes: [...FAULT_BRUSHES] });

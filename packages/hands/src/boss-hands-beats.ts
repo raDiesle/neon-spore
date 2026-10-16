@@ -197,6 +197,6 @@ function throatTarget(w: World, b: ThroatState): ThroatTarget | null {
     const mode = THROAT_MODES.find((m) => throatTakes(m, c));
     if (mode !== undefined) consider(c.col * MILLI, c.row * MILLI, mode);
   }
-  for (const p of w.pods) if (!p.husk) consider(p.colMilli, p.rowMilli, "suck");
+  for (const p of w.pods) if (p.kind !== "husk") consider(p.colMilli, p.rowMilli, "suck");
   return best;
 }

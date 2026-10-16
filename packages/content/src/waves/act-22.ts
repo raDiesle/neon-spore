@@ -73,7 +73,7 @@ export const WAVES_ACT_22: Wave[] = [
       { beat: 32, col: 3, color: "red" },
       { beat: 38, col: 10, kind: "choir", color: "cyan" },
     ],
-    pods: [{ beat: 26, col: 4, row: 3, kind: "ward" }],
+    pods: [{ beat: 26, col: 4, row: 3, kind: "pod" }],
   },
   {
     id: "theChoirBreathe",

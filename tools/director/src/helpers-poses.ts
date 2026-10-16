@@ -180,7 +180,7 @@ export const FENCE_SKULL: Pose = {
 
 /** A moult on the field: its next form beside it on player 2's screen. */
 export const MOULT_UP = close("HELPERS · A MOULT ON THE FIELD", "moult", () => {
-  const w = fresh([{ beat: 0, col: COL, kind: "moult", color: null, cargo: "ward" }]);
+  const w = fresh([{ beat: 0, col: COL, kind: "moult", color: null }]);
   run(w, POSE_TPB * 2);
   return w;
 });
@@ -207,7 +207,7 @@ export const HUSK_UP: Pose = {
     return { col: col + 1, row: p ? Math.round(p.rowMilli / 1000) : 5 };
   },
   build: () => {
-    const w = fresh([], [{ beat: 0, col: COL, row: 5, kind: "ward", husk: true }]);
+    const w = fresh([], [{ beat: 0, col: COL, row: 5, kind: "husk" }]);
     run(w, POSE_TPB * 8);
     return w;
   },

@@ -1,5 +1,6 @@
 import { breachHull } from "./hull-damage.js";
 import { livingKindForColor } from "./kinds.js";
+import { NO_DUE } from "./pod-types.js";
 import { nextInt } from "./rng.js";
 import {
   type ScuttlePart,
@@ -133,10 +134,10 @@ function throwPart(world: World, col: number, p: ScuttlePart): void {
       rowMilli: world.cfg.scuttlePodRow * MILLI,
       driftMilli: 0,
       loose: false,
-      // A piece of the frame's own plating, so what it gives is the shield
-      // held: the beat it buys is `scuttlePodTaken`'s.
-      kind: "ward",
-      husk: false,
+      // A piece of the frame's own plating: the beat it buys is
+      // `scuttlePodTaken`'s, and the frame's own throw is its clock.
+      kind: "pod",
+      dueTicks: NO_DUE,
       crossMilli: 0,
     });
     return;

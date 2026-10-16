@@ -62,7 +62,7 @@ export const POD_SOUNDS: SoundDef[] = [
     family: "pod",
     blurb: "Taken in and answered by a rising fifth. Warm, and over quickly.",
     status: "bound",
-    use: "A mend pod swallowed.",
+    use: "A pod swallowed in time — the one real pod since 16 October 2026.",
     level: 0.42,
     layers: [
       spore(180, 0.14, 0.4, 30),
@@ -75,8 +75,8 @@ export const POD_SOUNDS: SoundDef[] = [
     id: "pod.takenPurge",
     family: "pod",
     blurb: "Taken in and answered downward — relief, not reward.",
-    status: "bound",
-    use: "A purge pod swallowed.",
+    status: "spare",
+    use: "A purge pod swallowed, while there was one; the cargo was rejected on 16 October 2026.",
     level: 0.42,
     layers: [
       spore(180, 0.14, 0.4, 30),
@@ -89,8 +89,8 @@ export const POD_SOUNDS: SoundDef[] = [
     id: "pod.takenWard",
     family: "pod",
     blurb: "Taken in and held: the answer does not decay, it sits there.",
-    status: "bound",
-    use: "A ward pod swallowed.",
+    status: "spare",
+    use: "A ward pod swallowed, while there was one; the cargo was rejected on 16 October 2026.",
     level: 0.42,
     layers: [
       spore(180, 0.14, 0.4, 30),

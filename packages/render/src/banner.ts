@@ -1,12 +1,10 @@
-import type { PodKind } from "@neon-spore/sim";
 import type { Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
 
-/** The one-word receipt for what a pod just gave, and the colour it reads in. */
-const POD_RECEIPT: Record<PodKind, { text: string; hex: string }> = {
-  purge: { text: "SWEPT", hex: PALETTE.ember },
-  ward: { text: "ARMED", hex: PALETTE.shieldRim },
-};
+/** The one-word receipt for a pod taken in time. It said what the cargo did —
+ * SWEPT, ARMED — while there were cargoes (`sim/pod-types.ts`); what a pod is
+ * worth now is the debt paid. */
+const POD_RECEIPT = { text: "TAKEN", hex: PALETTE.pod };
 
 /**
  * The clock a pod's receipt reads from — the shape `Swallow` already has
@@ -20,7 +18,6 @@ export interface BannerState {
   life: number;
   /** Share of the swallow the chewing takes; the receipt waits for it. */
   chewShare: number;
-  podKind: PodKind | null;
 }
 
 /** DEFLECTED, or a pod's one-word receipt, over the hull. `guardHit` counts
@@ -34,13 +31,13 @@ export function drawBanner(
   if (guardHit > 0) {
     drawWord(ctx, l, "DEFLECTED", PALETTE.shieldRim, Math.min(1, guardHit / 0.6), 0.9);
   }
-  if (s.remaining <= 0 || !s.podKind) return;
+  if (s.remaining <= 0) return;
   const done = 1 - s.remaining / s.life;
   if (done < s.chewShare) return; // wait for the chewing to finish first
   const after = (done - s.chewShare) / (1 - s.chewShare);
   const a = Math.min(1, 1 - after);
   if (a <= 0) return;
-  const { text, hex } = POD_RECEIPT[s.podKind];
+  const { text, hex } = POD_RECEIPT;
   drawWord(ctx, l, text, hex, a, 0.55);
 }
 

@@ -88,17 +88,9 @@ function play(waveIndex: number, beats: number): number {
 describe("the three waves added for the demonstrations", () => {
   const index = (name: string): number => WAVES.findIndex((w) => w.name === name);
 
-  it("hangs a purge pod in THE PURGE and a ward pod in THE WARD", () => {
-    for (const [name, kind] of [
-      ["THE PURGE", "purge"],
-      ["THE WARD", "ward"],
-    ] as const) {
-      const pods = buildPods(index(name), DEFAULT_CONFIG.cols);
-      expect(
-        pods.map((p) => p.kind),
-        `${name} pod cargo`,
-      ).toEqual([kind]);
-    }
+  it("hangs one real pod in SALVAGE, the pod's own demonstration", () => {
+    const pods = buildPods(index("SALVAGE"), DEFAULT_CONFIG.cols);
+    expect(pods.map((p) => p.kind)).toEqual(["pod"]);
   });
 
   it("puts three of each colour in a column of its own for THE LANCE", () => {
@@ -120,22 +112,9 @@ describe("the three waves added for the demonstrations", () => {
   it("plays each of them to the same fingerprint twice", () => {
     // Two runs compared, never a number pinned — docs/decisions.md 19. What is
     // being proved is that the wave is deterministic, not what it hashes to.
-    for (const name of ["THE LANCE", "THE PURGE", "THE WARD"]) {
+    for (const name of ["THE LANCE", "SALVAGE"]) {
       const i = index(name);
       expect(play(i, 24), `${name} is not deterministic`).toBe(play(i, 24));
     }
-  });
-
-  it("lets THE WARD's rocks through to the hull when nobody answers them", () => {
-    // The wave only means something if the rocks would land: five arrive, and
-    // with no shield and no pod taken the hull is what stops them.
-    const cfg = DEFAULT_CONFIG;
-    const i = index("THE WARD");
-    const world = createWorld({ ...cfg }, i);
-    startWave(world, i, buildQueue(i, cfg.cols), buildPods(i, cfg.cols), null);
-    const ticks = Math.round((24 * cfg.tickHz * 60) / cfg.bpm);
-    for (let t = 0; t < ticks; t++) step(world, []);
-    expect(world.guard.deflected).toBe(0);
-    expect(world.scars.length).toBeGreaterThan(0);
   });
 });

@@ -149,7 +149,6 @@ describe("waveMatches", () => {
     // a plain substring made every one of them an answer to `ward`.
     for (const [i, wave] of WAVES.entries()) {
       if (!prose(wave).includes("toward")) continue;
-      if ((wave.pods ?? []).some((p) => p.kind === "ward")) continue;
       if (prose(wave).includes(" ward")) continue;
       expect(waveMatches(WAVES, i, "ward"), wave.name).toBe(false);
     }

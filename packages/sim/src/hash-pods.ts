@@ -5,7 +5,7 @@ import { POD_KINDS, type Pod } from "./types.js";
  *
  * `hash-faults.ts`'s file one mechanic along, and split for exactly its
  * reason: `hash.ts` was back at its 250-line ceiling, and the field that
- * pushed it over was THE HUSK's — a pod that is a lie wearing a cargo's face
+ * pushed it over was THE HUSK's — a pod that is a lie wearing a real one's face
  * (`pod-types.ts`). The next thing a pod carries is a line here rather than a
  * line in the middle of the world's own fields.
  *
@@ -18,14 +18,12 @@ export function podHashParts(pods: readonly Pod[]): number[] {
   const out: number[] = [pods.length];
   for (const p of pods) {
     out.push(p.id, p.colMilli, p.rowMilli, p.driftMilli, p.loose ? 1 : 0);
-    // What it gives when it is swallowed — `pods.ts` switches on it for hull,
-    // for a swept field or for an armed shield, so two devices that disagree
-    // here disagree about the state of the ship a beat later.
+    // Real or hollow. A husk is taken in on the same two conditions a pod is
+    // and pays the opposite way, so two devices that disagree here disagree
+    // about whether the wave has just been lost.
     out.push(POD_KINDS.indexOf(p.kind) + 1);
-    // And whether the face it is wearing is a lie. A husk is taken in on the
-    // same two conditions a pod is and pays the opposite way, so two devices
-    // that disagree here disagree about whether the wave has just been lost.
-    out.push(p.husk ? 1 : 0);
+    // And its clock. Two devices a tick apart here lose the wave a tick apart.
+    out.push(p.dueTicks);
     // How it crosses. A device that disagrees here is watching a power-up in a
     // different column from the one the other device has the arm over.
     out.push(p.crossMilli);

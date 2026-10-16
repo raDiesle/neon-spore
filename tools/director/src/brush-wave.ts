@@ -21,8 +21,8 @@ import { controlGestureOf, controlWaveId } from "./control-brushes.js";
  */
 export const BRUSH_MECHANIC: Partial<Record<Brush, MechanicId>> = {
   ...BRUSH_KIND,
-  purge: "purge",
-  ward: "ward",
+  pod: "pod",
+  husk: "husk",
   // The faults, which are mechanics like everything else in the palette —
   // `mechanics-wave.ts` has a row per kind and `FAULT_MECHANIC` is the pairing,
   // so Ctrl-clicking one lands on the wave it first appears in exactly as a

@@ -28,9 +28,9 @@ describe("the rehearsal for THE HUSK", () => {
       for (const e of events) {
         if (e.type === "fire") seen.push(`fire at ${w.cannonCol} @${w.beat}`);
         else if (e.type === "podLoose") seen.push(`loose ${e.col} @${w.beat}`);
-        else if (e.type === "podTaken") seen.push(`taken ${e.kind} ${maw} @${w.beat}`);
-        else if (e.type === "huskRefused") seen.push(`refused ${e.kind} ${maw} @${w.beat}`);
-        else if (e.type === "huskSwallowed") seen.push(`swallowed ${e.kind} ${maw} @${w.beat}`);
+        else if (e.type === "podTaken") seen.push(`taken ${maw} @${w.beat}`);
+        else if (e.type === "huskRefused") seen.push(`refused ${maw} @${w.beat}`);
+        else if (e.type === "huskSwallowed") seen.push(`swallowed ${maw} @${w.beat}`);
         else if (e.type === "podLost" || e.type === "waveFailed") seen.push(`${e.type} @${w.beat}`);
       }
     }
@@ -41,14 +41,14 @@ describe("the rehearsal for THE HUSK", () => {
     expect(seen).toEqual([
       "fire at 8 @10",
       "loose 8 @10",
-      "taken ward open @14",
+      "taken open @14",
       "fire at 5 @22",
       "loose 5 @22",
-      "refused purge shut @26",
+      "refused shut @26",
       "fire at 2 @34",
       "loose 2 @34",
       "waveFailed @37",
-      "swallowed ward open @37",
+      "swallowed open @37",
     ]);
   });
 });

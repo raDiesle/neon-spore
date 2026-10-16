@@ -76,7 +76,7 @@ export const WAVES_ACT_4: Wave[] = [
       { beat: 28, col: 6, kind: "meteor", color: null, cross: 1, row: 5 },
       { beat: 33, col: 4, color: "cyan" },
     ],
-    pods: [{ beat: 16, col: 6, row: 3, kind: "ward" }],
+    pods: [{ beat: 16, col: 6, row: 3, kind: "pod" }],
   },
   {
     id: "theCrossingBreathe",
@@ -121,7 +121,7 @@ export const WAVES_ACT_4: Wave[] = [
       { beat: 40, col: 5, color: "red" },
       { beat: 40, col: 8, color: "red" },
     ],
-    pods: [{ beat: 23, col: 0, row: 3, kind: "ward" }],
+    pods: [{ beat: 23, col: 0, row: 3, kind: "pod" }],
   },
   {
     id: "theCrossingPeak",
@@ -143,8 +143,8 @@ export const WAVES_ACT_4: Wave[] = [
       { beat: 44, col: 10, color: "cyan" },
     ],
     pods: [
-      { beat: 16, col: 10, row: 3, kind: "ward" },
-      { beat: 32, col: 6, row: 3, kind: "ward" },
+      { beat: 16, col: 10, row: 3, kind: "pod" },
+      { beat: 32, col: 6, row: 3, kind: "pod" },
     ],
   },
   {

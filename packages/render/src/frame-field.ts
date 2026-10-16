@@ -1,4 +1,4 @@
-import type { World } from "@neon-spore/sim";
+import { ticksPerBeat, type World } from "@neon-spore/sim";
 import { drawBeatboxMarks } from "./beatbox-marks.js";
 import { drawBoss } from "./boss-draw.js";
 import { drawBullets } from "./bullets.js";
@@ -234,7 +234,7 @@ export function drawBodies(
   // (`lock-mark.ts`).
   drawLockMarks(ctx, l, world, cannonCol, view.beatPhase, view.time);
   drawBoss(ctx, l, view, effects, skinY);
-  drawPods(ctx, l, world.pods, view.time);
+  drawPods(ctx, l, world.pods, view.time, ticksPerBeat(world.cfg));
   // And over one of them, on one screen: the frame that says this pod is a lie
   // (`husk-mark.ts`). It is drawn after the pods rather than inside them for
   // `drawLureAlarms`' reason — nothing that draws a body should have to know

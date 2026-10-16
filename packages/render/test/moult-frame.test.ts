@@ -46,8 +46,8 @@ beforeAll(installCanvasGlobals);
  * answer and the mouth's in it.
  */
 const QUEUE: SpawnEntry[] = [
-  { beat: 0, col: 3, kind: "moult", color: null, cargo: "ward" },
-  { beat: 4, col: 5, kind: "moult", color: null, cargo: "purge" },
+  { beat: 0, col: 3, kind: "moult", color: null },
+  { beat: 4, col: 5, kind: "moult", color: null },
 ];
 
 const TPB = ticksPerBeat(CFG);

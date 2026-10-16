@@ -49,6 +49,7 @@ export {
   isWardable,
   livingKindForColor,
   METEOR_TIER_KINDS,
+  NO_DUE,
   occupiesCol,
   otherColor,
   POD_KINDS,

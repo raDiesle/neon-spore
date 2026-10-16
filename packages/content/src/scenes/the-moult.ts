@@ -33,7 +33,7 @@ export const THE_MOULT: GuideScene = {
   // Column 3 of the seven a wave is authored in — the middle, so the steer at
   // the bottom can be seen going either way. One beat in, so the first page is
   // on the screen before anything falls.
-  entries: [{ beat: 1, col: 3, kind: "moult", color: null, cargo: "ward" }],
+  entries: [{ beat: 1, col: 3, kind: "moult", color: null }],
   acts: [
     // Parked one column over, well before the body is near the ship: the point
     // is that the pilot chooses a place and stays in it.

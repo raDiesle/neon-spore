@@ -150,5 +150,5 @@ export function endSpentRound(world: World): void {
  * race between two counters.
  */
 export function hangingHusk(p: Pod): boolean {
-  return p.husk && !p.loose;
+  return p.kind === "husk" && !p.loose;
 }

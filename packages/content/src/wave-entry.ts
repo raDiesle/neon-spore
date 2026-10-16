@@ -3,7 +3,6 @@ import type {
   Color,
   CrawlerSide,
   GhostPath,
-  PodKind,
   RockCross,
   RockSize,
 } from "@neon-spore/sim";
@@ -225,16 +224,4 @@ export interface WaveEntry extends FenceEntry, BlisterSpawn {
    * the wrong half of the creature (`sim/mine.ts`).
    */
   sees?: 1 | 2;
-  /**
-   * What THE MOULT is carrying — `purge` or `ward` — for the beats it is
-   * wearing its cargo rather than its shell. Absent means a ward, and it says
-   * nothing about any other kind.
-   *
-   * A brush setting for `PodEntry.kind`'s reason word for word: a pair that
-   * watches one turn over has to be able to tell what catching it is worth
-   * before it decides whether to stand under it. **When** it turns over is
-   * deliberately not here — that is one clock off the shared beat, so a field
-   * of them is one sentence to say rather than one per body (`sim/moult.ts`).
-   */
-  cargo?: PodKind;
 }

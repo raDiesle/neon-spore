@@ -101,7 +101,7 @@ export const WAVES_ACT_21: Wave[] = [
       { beat: 28, col: 10, kind: "magnet", color: "red" },
       { beat: 34, col: 4, color: "cyan" },
     ],
-    pods: [{ beat: 17, col: 9, row: 3, kind: "ward" }],
+    pods: [{ beat: 17, col: 9, row: 3, kind: "pod" }],
   },
   {
     id: "theMagnetBend",

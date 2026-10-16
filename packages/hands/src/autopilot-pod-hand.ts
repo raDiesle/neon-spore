@@ -1,4 +1,13 @@
-import { hullRow, MILLI, mawOpen, type Pod, type TimedCommand, type World } from "@neon-spore/sim";
+import {
+  hullRow,
+  MILLI,
+  mawOpen,
+  type Pod,
+  podTicksToHull,
+  type TimedCommand,
+  ticksPerBeat,
+  type World,
+} from "@neon-spore/sim";
 
 /**
  * **The pods, on an ordinary wave**: shot loose, followed down, swallowed —
@@ -7,8 +16,9 @@ import { hullRow, MILLI, mawOpen, type Pod, type TimedCommand, type World } from
  * The field hand's cannon half asks this first (`autopilot-field-hand.ts`).
  * A falling pod comes before any body, because a pod that reaches the skin is
  * a hit and nothing else on the field is waiting on the cannon's column; a
- * hanging one comes after every body, because it waits for as long as it is
- * left (`pods.ts`). The rule is the one the pair says out loud: player 2
+ * hanging one comes after every body until its clock is short (`duePod`),
+ * and then before them, because a pod left too long loses the wave
+ * (`Pod.dueTicks`). The rule is the one the pair says out loud: player 2
  * shoots it loose, player 1 stands under it and opens the maw as it arrives.
  *
  * The maw is held open by pressing it again whenever it has shut, over the
@@ -21,6 +31,11 @@ type Press = Omit<TimedCommand, "tick">;
 
 const aim = (col: number): Press => ({ player: 1, command: { kind: "cannonCol", col } });
 const intake: Press = { player: 1, command: { kind: "intake" } };
+const fire: Press = { player: 2, command: { kind: "fire", color: "red" } };
+
+/** Beats over the fall itself a hanging pod's clock is left before it is shot
+ * loose ahead of every body: the column to reach, the shot to land, a margin. */
+const DUE_MARGIN_BEATS = 5;
 
 const colOf = (p: Pod): number => Math.round(p.colMilli / MILLI);
 
@@ -49,7 +64,33 @@ export function catchPod(w: World): Press[] | null {
   if (pod === undefined) return null;
   const col = colOf(pod);
   if (w.cannonCol !== col) return [aim(col)];
-  if (pod.husk) return [];
+  if (pod.kind === "husk") return [];
   const near = hullRow(w.cfg) * MILLI - pod.rowMilli <= w.cfg.podHomeTiles * MILLI;
   return near && !mawOpen(w) ? [intake] : [];
+}
+
+/**
+ * A real pod still hanging whose clock is down to its fall and a margin: the
+ * one that has to be shot loose now, whatever else is on the field. A husk is
+ * never due — its clock running out costs nothing (`pods.ts`).
+ */
+export function duePod(w: World): Pod | undefined {
+  const margin = DUE_MARGIN_BEATS * ticksPerBeat(w.cfg);
+  let best: Pod | undefined;
+  for (const p of w.pods) {
+    if (p.loose || p.kind === "husk" || p.dueTicks <= 0) continue;
+    if (p.dueTicks > podTicksToHull(w, p) + margin) continue;
+    if (!best || p.dueTicks < best.dueTicks) best = p;
+  }
+  return best;
+}
+
+/** Both seats' presses for a due pod, or `null` when none is: the cannon under
+ * it and a shot up the column, in any colour, once nothing is in the air. */
+export function freeDuePod(w: World): Press[] | null {
+  const pod = duePod(w);
+  if (pod === undefined) return null;
+  const col = colOf(pod);
+  if (w.cannonCol !== col) return [aim(col)];
+  return w.bullets.length === 0 && w.beam === null ? [fire] : [];
 }

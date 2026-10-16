@@ -13,13 +13,11 @@ import { crossLabel } from "./cell-config-rows.js";
  * from every other field. The owner asked for all of it in one place, above the
  * map, and this is that: click the cell, and what is in it says what it is.
  *
- * **The fourth row is THE HUSK, and it is a row rather than a brush.** The
- * queue entry that asked for the creature asked for a brush in the palette,
- * and by the time it was built a husk was a *flag on a pod* and not a fourth
- * kind (`sim/pod-types.ts`) — so a brush would have been a second way to place
- * the same object, and the two would have disagreed the first time somebody
- * painted a purge over a husk. It is asked here, beside the row and the route,
- * where everything else about one pod is asked.
+ * **Real or hollow is the brush, not a row.** It was a REAL/HOLLOW row here
+ * while a husk was a flag on a pod; the owner made the hollow pod a brush of
+ * its own on 16 October 2026 (`sim/pod-types.ts`), so what a cell holds is
+ * painted, and this panel asks only where it hangs, how long it has, and how
+ * it crosses.
  *
  * The three questions are the pod's own and they are asked in the vocabulary a
  * rock's route already uses — `crossLabel` is called rather than restated, so
@@ -46,7 +44,7 @@ export function podConfig({ pod, cfg, onEdit, labelled }: PodConfigOptions): HTM
   box.className = "cell-config";
   box.append(
     rowRow(pod, cfg, onEdit, labelled),
-    cargoRow(pod, onEdit, labelled),
+    dueRow(pod, cfg, onEdit, labelled),
     crossRow(pod, onEdit, labelled),
   );
   // How fast it crosses says nothing at all about a pod that hangs, so it is
@@ -86,31 +84,31 @@ function rowRow(
 }
 
 /**
- * **Whether the cargo on its face is real.**
+ * **How long the pair has**, in beats from the beat it appears: the ring round
+ * the pod on the field (`Pod.dueTicks`). A real pod still there when it runs
+ * out loses the wave; a hollow one wears the same clock, so the clock is never
+ * the tell, and is let go at no cost.
  *
- * Directly under the row and above the route, because it is the one field on a
- * pod that changes what the wave *is about*: a husk is refused where a pod is
- * chased, and an author who has placed one has written a different sentence.
- * Two chips and not a tick box, for the panel's own reason — a state nobody
- * chose is a state nobody can see — and the words are the outcome rather than
- * the flag: REAL and HOLLOW, not `husk: true`.
- *
- * The kind chips above go on saying what it *claims* to carry, and a husk with
- * no claim would be a pod with no face. So the two rows are independent and
- * the wave file keeps both (`serialize-entry.ts`).
+ * Directly under the row, because it is the one number on a pod that changes
+ * what the wave is about: a short clock is a scramble and a long one is a
+ * conversation. The shipped default is a chip of its own with a star, as on
+ * SPEED below.
  */
-function cargoRow(
+function dueRow(
   pod: PodEntry,
+  cfg: SimConfig,
   onEdit: () => void,
   labelled: (label: string) => HTMLElement,
 ): HTMLElement {
-  const row = labelled("CARGO");
-  for (const hollow of [false, true]) {
+  const row = labelled("TIME");
+  const shipped = cfg.podDueBeats;
+  const beats = [...new Set([shipped, 8, 12, 16, 24, 32])].sort((a, b) => a - b);
+  for (const due of beats) {
     row.appendChild(
-      chip(hollow ? "HOLLOW" : "REAL", (pod.husk ?? false) === hollow, () => {
-        // Absent rather than `false`, so a wave nobody has touched serialises
-        // byte for byte as the wave it was.
-        pod.husk = hollow ? true : undefined;
+      chip(due === shipped ? `${due}*` : String(due), (pod.due ?? shipped) === due, () => {
+        // The shipped clock is written as no field, so a pod nobody timed
+        // serialises exactly as it always did.
+        pod.due = due === shipped ? undefined : due;
         onEdit();
       }),
     );

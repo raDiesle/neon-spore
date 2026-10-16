@@ -10,7 +10,6 @@ import type { MineState } from "./creature-state-mine.js";
 import type { PushState } from "./creature-state-push.js";
 import type { StrandState } from "./creature-state-strand.js";
 import type { VeerState } from "./creature-state-veer.js";
-import type { PodKind } from "./pod-types.js";
 
 /**
  * **The state one kind carries and no other does.** Every field here is
@@ -225,18 +224,4 @@ export interface CreatureState
    * can disagree about whether a rock may move yet.
    */
   pushBeat?: number;
-  /**
-   * What THE MOULT gives if it is swallowed while it is wearing its cargo,
-   * and absent on every other kind. Authored by the wave (`SpawnEntry.cargo`)
-   * and never rolled, exactly as a pod's own kind is: a pair that watches one
-   * turn over has to be able to tell what catching it is worth before it
-   * decides whether to stand under it.
-   *
-   * **Which form it is in is deliberately not here.** That is a fixed cycle
-   * read off `world.beat` (`moultIsPod`), THE VEIL's arrangement one creature
-   * on — the body, the ghost of the next form beside it and the count under
-   * both are three pictures of one number, and a phase stored on the body
-   * would be a fourth that could disagree with all three.
-   */
-  moultCargo?: PodKind;
 }

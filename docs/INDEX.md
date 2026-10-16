@@ -558,7 +558,6 @@ by hand never moves.
 | `packages/sim/src/oculus.ts` | THE OCULUS: a lens of six leaves over the middle column, shut two at a time by both seats at once |
 | `packages/sim/src/creature-state-gyre.ts` | **THE GYRE's four**: the two the hub carries and the two a body on its rim does |
 | `packages/sim/src/index-bodies.ts` | **The four bodies that wear something**, narrowed to what render/ and the tools actually ask of each |
-| `packages/sim/src/pod-effects.ts` | What a pod *gives*, once the mouth has closed on it |
 | `packages/sim/src/pod-entry.ts` | Where a pod is left hanging — the one thing a wave authors that is not a body |
 | `packages/sim/src/pod-intake.ts` | **The mouth**: whether it is open, and what happens to a cargo that reaches it either way |
 | `packages/sim/src/pod-arrive.ts` | **A pod arriving**: what happens on the tick a falling pod reaches the hull |
@@ -985,9 +984,7 @@ by hand never moves.
 | `packages/content/src/scenes/the-trapeze.ts` | THE TRAPEZE's rehearsal: the swing pushed up to its gong, player 1 on the left and player 2 on the right |
 | `packages/content/src/scenes/the-echo.ts` | THE ECHO's rehearsal: the slowest thing on the field is the one to take first |
 | `packages/content/src/scenes/the-ghost.ts` | THE GHOST's rehearsal: waiting to see it is the miss |
-| `packages/content/src/scenes/the-purge.ts` | THE PURGE's rehearsal: the field is cleared by swallowing, not by shooting |
 | `packages/content/src/scenes/the-pulse.ts` | THE PULSE's rehearsal: four buttons each, the same four |
-| `packages/content/src/scenes/the-ward.ts` | THE WARD's rehearsal: the shield answers a rock with nobody triggering it |
 | `packages/content/src/scenes/the-gyre.ts` | THE GYRE's rehearsal: the column you were told is the right one for a single beat |
 | `packages/content/src/scenes/the-recoil.ts` | THE RECOIL's rehearsal: your own shot is what makes the call wrong |
 | `packages/content/src/scenes/the-reprise.ts` | THE REPRISE's rehearsal: a stretch of wave falls seen, and then falls again with nothing drawn |
@@ -1020,6 +1017,7 @@ by hand never moves.
 | `packages/content/src/scenes/the-magnet.ts` | THE MAGNET's rehearsal: the column the body is in is the one place a shot cannot come from |
 | `packages/content/src/scenes/the-moult.ts` | THE MOULT's rehearsal: the answer you agreed on expires while it falls |
 | `packages/content/src/scenes/the-warden.ts` | THE WARDEN's rehearsal: he holds the door open and she has to be quick enough to shoot through it |
+| `packages/content/src/scenes/the-ward.ts` | HEAVY ROCKS' rehearsal: a rock that falls faster is the same rock, with less time to be under it |
 | `packages/content/src/scenes/the-weight.ts` | THE WEIGHT's rehearsal: a thumb held alone looks exactly like two thumbs held together |
 | `packages/content/src/scenes/the-well.ts` | THE WELL's rehearsal: the same field, drawn two ways, and the seam |
 | `packages/content/src/creatures-bare.ts` | The three bodies with **nothing laid over them at all**: a slick or a bulb drawn small, drawn large |
@@ -1133,7 +1131,7 @@ by hand never moves.
 | `packages/content/src/silhouettes-mine.ts` | **THE MINE is REACHER**, off the shape sheet: *four soft arms |
 | `packages/content/src/waves/act-8.ts` | Waves 83 to 92 of the game, in the order they are played: THE BLISTER's block and the boss THE FLEET |
 | `packages/content/src/waves/act-7.ts` | Waves 73 to 82 of the game, in the order they are played: THE LIMPET's block and the boss THE WARDEN |
-| `packages/content/src/waves/act-9.ts` | Waves 93 to 102 of the game, in the order they are played: THE WARD's block and the boss THE VANE |
+| `packages/content/src/waves/act-9.ts` | Waves 93 to 102 of the game, in the order they are played: HEAVY ROCKS' block and the boss THE VANE |
 | `packages/content/src/waves/acts.ts` | **The act files, in the order of the game** — the one list of them, written by the director's save when it cuts a full act |
 | `packages/content/src/balloon-shape.ts` | THE BALLOON's contour: a skin with a knot under it, and the fifth family of contour in this package |
 | `packages/content/src/creatures-handed.ts` | **The bodies answered by hands alone**, and today there is one of them |
@@ -1266,6 +1264,7 @@ by hand never moves.
 | `packages/render/src/swallow.ts` | taking a pod in, as a two-part clock |
 | `packages/render/src/maw.ts` | swallowing a pod: the skin coming apart, then the flash |
 | `packages/render/src/pods.ts` | the pod, hanging and as a burning wreck |
+| `packages/render/src/pod-due-ring.ts` | A pod's clock, drawn: the ring round every pod on the field since the owner made a real pod owed in time… |
 | `packages/render/src/creatures.ts` | silhouettes and their own-motion |
 | `packages/render/src/creature-place.ts` | where a creature is on screen, and what a finger is pointing at |
 | `packages/render/src/touch.ts` | the control scheme: a point on the layout, and what the ship is told |
@@ -1306,7 +1305,7 @@ by hand never moves.
 | `packages/render/src/assets.d.ts` | Bun's bundler emits an imported binary as a file and hands back its URL |
 | `packages/render/src/backdrop.ts` | The field's back: two depths of drifting motes, a slow wash, and the horizon they sit in front of |
 | `packages/render/src/backdrop-look.ts` | THE ONE RECORD A CANDIDATE **BACKDROP** PATCHES |
-| `packages/render/src/banner.ts` | The one-word receipt for what a pod just gave, and the colour it reads in |
+| `packages/render/src/banner.ts` | The one-word receipt for a pod taken in time |
 | `packages/render/src/briefing.ts` | How a wave opens, drawn: first its introduction, then its guide |
 | `packages/render/src/break-look.ts` | THE ONE RECORD A CANDIDATE **BREAK** PATCHES |
 | `packages/render/src/break-piece.ts` | How one piece of a broken body is painted |
@@ -3821,7 +3820,6 @@ by hand never moves.
 | `tools/director/src/remembered.ts` | The wave filter, its pressed marks and the sounds status, kept in localStorage across a reload |
 | `tools/director/src/cell-config-pod.ts` | The rows under the selected cell that configure the **pod** in it: the row it hangs at |
 | `tools/director/src/cell-config-mine.ts` | **THE MINE's two rows under the selected cell** |
-| `tools/director/src/cell-config-moult.ts` | **THE MOULT's one row under the selected cell** |
 | `tools/director/src/cell-config-blister.ts` | **THE BLISTER's rows under the selected cell** |
 | `tools/director/src/curriculum-cost.ts` | **What a new thing costs to learn**: pressure weight plus talk, the order blocks are taught in (`wave-curriculum.md` §4.1) |
 | `tools/director/src/curriculum-names.ts` | **A body block's names, written again** when the block moves (`waves:order`) |
@@ -3922,7 +3920,6 @@ by hand never moves.
 | `tools/director/src/entry-fields-balloon.ts` | **THE BALLOON's one authored fact**: how fast it climbs |
 | `tools/director/src/entry-fields-blister.ts` | **THE BLISTER's per-arrival facts**: whose hand knocks it down, how many blows it takes, by which gesture |
 | `tools/director/src/entry-fields-mine.ts` | **THE MINE's two per-arrival facts**, and the first pair in this game that are not about how a body moves or… |
-| `tools/director/src/entry-fields-moult.ts` | **THE MOULT's one per-arrival fact**: what it is carrying for the beats it is wearing its cargo rather than… |
 | `tools/director/src/effects-page.ts` | `versus.html?effect=…` — one kept effect, alone, live, at phone size |
 | `tools/director/src/effects-panel.ts` | The EFFECTS view on GRAPHICS: a list of doors, one per kept effect, grouped by the fight it belongs to |
 | `tools/director/src/field-controls-balloon.ts` | THE BALLOON's two handles, in a file of their own |

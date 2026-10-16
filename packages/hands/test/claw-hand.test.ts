@@ -4,7 +4,6 @@ import {
   DEFAULT_CONFIG,
   failHolds,
   type PodEntry,
-  type SpawnEntry,
   startWave,
   step,
   ticksPerBeat,
@@ -18,44 +17,31 @@ import { autopilotHand } from "../src/autopilot-hands.js";
  * and the first one crossed the field and the wave with it
  * (`docs/spec/wave-curriculum-today.md`, 14 October 2026).
  *
- * **And the whole wave**, whose rocks are answered by its pods since the panel
- * has no shield: a ward held on the arm until the rock in the shield's column
- * is close, a purge until the lowest rock is (the owner's answer, 15 October
- * 2026, recomposing the rocks rather than giving the panel a shield).
+ * **And the whole wave**, which is its pods alone since 16 October 2026: its
+ * rocks were answered by a ward or a purge held on the arm, and when the owner
+ * rejected both cargoes nothing on this panel could answer a rock at all.
  */
-
-/** THE CLAW's rocks (in `content/waves/`), written out beside its pods. */
-const THE_CLAW: SpawnEntry[] = [
-  { beat: 4, col: 5, kind: "meteor", color: null },
-  { beat: 14, col: 5, kind: "meteor", color: null },
-  { beat: 32, col: 8, kind: "meteorMedium", color: null },
-  { beat: 44, col: 7, kind: "meteor", color: null },
-  { beat: 46, col: 3, kind: "meteor", color: null },
-  { beat: 52, col: 10, kind: "meteorMedium", color: null },
-];
 
 /** THE CLAW's own pods (in `content/waves/`), written out: this package has no content. */
 const THE_CLAW_PODS: PodEntry[] = [
-  { beat: 2, col: 0, row: 4, kind: "ward", cross: 1 },
-  { beat: 18, col: 10, row: 6, kind: "ward", cross: -1 },
-  { beat: 34, col: 0, row: 3, kind: "purge", cross: 1, speed: 3 },
-  { beat: 50, col: 10, row: 5, kind: "purge", cross: -1 },
+  { beat: 2, col: 0, row: 4, kind: "pod", cross: 1 },
+  { beat: 18, col: 10, row: 6, kind: "pod", cross: -1 },
+  { beat: 34, col: 0, row: 3, kind: "pod", cross: 1, speed: 3 },
+  { beat: 50, col: 10, row: 5, kind: "pod", cross: -1 },
 ];
 
-/** Every pod is spawned and gone by about beat 60. Played on past a clear,
- * since a pod not yet spawned does not hold a wave open (`beat.ts`). */
+/** Every pod is spawned and gone by about beat 60. */
 const LIMIT_BEATS = 70;
 
 function played(
   arm: boolean,
-  rocks: SpawnEntry[] = [],
   seed = 1,
   pods: PodEntry[] = THE_CLAW_PODS,
 ): { failed: boolean; taken: number; cleared: boolean } {
   const world = createWorld(DEFAULT_CONFIG, seed);
-  startWave(world, 0, rocks, pods, null);
+  startWave(world, 0, [], pods, null);
   const stop = LIMIT_BEATS * ticksPerBeat(world.cfg);
-  while (world.tick < stop && !failHolds(world) && (rocks.length === 0 || world.restBeat === 0)) {
+  while (world.tick < stop && !failHolds(world) && world.restBeat === 0) {
     const hand = autopilotHand(world, arm);
     step(
       world,
@@ -71,28 +57,24 @@ function played(
 
 describe("THE CLAW, played by AUTO", () => {
   it("takes all four on the arm, and none crosses the field", () => {
-    expect(played(true)).toMatchObject({ failed: false, taken: 4 });
+    expect(played(true)).toEqual({ failed: false, taken: 4, cleared: true });
   });
 
   it("the arm is the panel's: without it the field hand plays, and the first pod is lost", () => {
     expect(played(false)).toMatchObject({ failed: true, taken: 0 });
   });
 
-  it.each([1, 2, 3])("clears the whole wave on seed %i, every rock answered by a pod", (seed) => {
-    expect(played(true, THE_CLAW, seed)).toEqual({ failed: false, taken: 4, cleared: true });
+  it.each([1, 2, 3])("clears the whole wave on seed %i", (seed) => {
+    expect(played(true, seed)).toEqual({ failed: false, taken: 4, cleared: true });
   });
 
   // A pod let go at the hull lands in the cannon's column or is lost: the arm
   // went for the second pod as soon as the first was home, and dropped it.
   it("waits under a pod falling home before it reaches for one from the other edge", () => {
     const pods: PodEntry[] = [
-      { beat: 0, col: 0, row: 4, kind: "purge", cross: 1 },
-      { beat: 6, col: 10, row: 5, kind: "purge", cross: -1 },
+      { beat: 0, col: 0, row: 4, kind: "pod", cross: 1 },
+      { beat: 6, col: 10, row: 5, kind: "pod", cross: -1 },
     ];
-    const rocks: SpawnEntry[] = [
-      { beat: 2, col: 3, kind: "meteor", color: null },
-      { beat: 8, col: 7, kind: "meteor", color: null },
-    ];
-    expect(played(true, rocks, 1, pods)).toEqual({ failed: false, taken: 2, cleared: true });
+    expect(played(true, 1, pods)).toEqual({ failed: false, taken: 2, cleared: true });
   });
 });

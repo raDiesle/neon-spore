@@ -1,17 +1,21 @@
 import type { Wave } from "../wave-types.js";
 
 /**
- * Waves 93 to 102 of the game, in the order they are played: THE WARD's block
+ * Waves 93 to 102 of the game, in the order they are played: HEAVY ROCKS' block
  * and the boss THE VANE.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act
  * after the tutorial arc again in play order. A save that fills it cuts a page
  * after it (`acts.ts`).
+ *
+ * HEAVY ROCKS was the ward pod's wave until 16 October 2026, when the owner
+ * rejected that pod: it stays for the four rock speeds it brought in, under a
+ * name that says what is left of it, and keeps its id because ids never change.
  */
 export const WAVES_ACT_9: Wave[] = [
   {
     id: "theWard",
-    name: "THE WARD",
+    name: "HEAVY ROCKS",
     guide: {
       scene: "theWard",
     },
@@ -22,7 +26,6 @@ export const WAVES_ACT_9: Wave[] = [
       { beat: 6, col: 2, kind: "meteorFaster", color: null },
       { beat: 8, col: 10, kind: "meteorFastest", color: null },
     ],
-    pods: [{ beat: 0, col: 5, row: 2, kind: "ward" }],
   },
   {
     id: "theWardAgain",
@@ -75,7 +78,7 @@ export const WAVES_ACT_9: Wave[] = [
       { beat: 30, col: 7, color: "red" },
       { beat: 34, col: 4, kind: "meteorMedium", color: null },
     ],
-    pods: [{ beat: 26, col: 10, row: 3, kind: "purge" }],
+    pods: [{ beat: 26, col: 10, row: 3, kind: "pod" }],
   },
   {
     id: "theWardBreathe",
@@ -102,7 +105,7 @@ export const WAVES_ACT_9: Wave[] = [
       { beat: 28, col: 7, kind: "meteorMedium", color: null },
       { beat: 34, col: 1, color: "red" },
     ],
-    pods: [{ beat: 18, col: 5, row: 3, kind: "purge" }],
+    pods: [{ beat: 18, col: 5, row: 3, kind: "pod" }],
   },
   {
     id: "theWardBend",

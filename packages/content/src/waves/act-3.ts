@@ -25,19 +25,6 @@ export const WAVES_ACT_3: Wave[] = [
     ],
   },
   {
-    id: "thePurge",
-    name: "THE PURGE",
-    guide: {
-      scene: "thePurge",
-    },
-    entries: [
-      { beat: 0, col: 0, color: "cyan" },
-      { beat: 1, col: 10, color: "red" },
-      { beat: 3, col: 7, color: "cyan" },
-    ],
-    pods: [{ beat: 0, col: 5, row: 2, kind: "purge" }],
-  },
-  {
     id: "theLanceAgain",
     name: "LANCE AGAIN",
     variant: true,
@@ -47,8 +34,8 @@ export const WAVES_ACT_3: Wave[] = [
       { beat: 30, col: 5, kind: "meteor", color: null },
     ],
     pods: [
-      { beat: 0, col: 4, row: 3, kind: "ward" },
-      { beat: 22, col: 4, row: 3, kind: "ward" },
+      { beat: 0, col: 4, row: 3, kind: "pod" },
+      { beat: 22, col: 4, row: 3, kind: "pod" },
     ],
   },
   {
@@ -62,8 +49,8 @@ export const WAVES_ACT_3: Wave[] = [
       { beat: 32, col: 5, color: "red" },
     ],
     pods: [
-      { beat: 0, col: 4, row: 4, kind: "ward" },
-      { beat: 19, col: 3, row: 4, kind: "ward" },
+      { beat: 0, col: 4, row: 4, kind: "pod" },
+      { beat: 19, col: 3, row: 4, kind: "pod" },
     ],
   },
   {
@@ -77,8 +64,8 @@ export const WAVES_ACT_3: Wave[] = [
       { beat: 27, col: 5, kind: "meteor", color: null },
     ],
     pods: [
-      { beat: 0, col: 10, row: 4, kind: "ward" },
-      { beat: 16, col: 3, row: 3, kind: "ward" },
+      { beat: 0, col: 10, row: 4, kind: "pod" },
+      { beat: 16, col: 3, row: 3, kind: "pod" },
     ],
   },
   {
@@ -92,9 +79,9 @@ export const WAVES_ACT_3: Wave[] = [
       { beat: 32, col: 4, color: "red" },
     ],
     pods: [
-      { beat: 4, col: 4, row: 4, kind: "ward" },
-      { beat: 15, col: 2, row: 3, kind: "purge" },
-      { beat: 26, col: 10, row: 3, kind: "ward" },
+      { beat: 4, col: 4, row: 4, kind: "pod" },
+      { beat: 15, col: 2, row: 3, kind: "pod" },
+      { beat: 26, col: 10, row: 3, kind: "pod" },
     ],
   },
   {
@@ -108,9 +95,9 @@ export const WAVES_ACT_3: Wave[] = [
       { beat: 39, col: 6, color: "red" },
     ],
     pods: [
-      { beat: 6, col: 7, row: 4, kind: "ward" },
-      { beat: 20, col: 2, row: 4, kind: "ward" },
-      { beat: 33, col: 7, row: 3, kind: "ward" },
+      { beat: 6, col: 7, row: 4, kind: "pod" },
+      { beat: 20, col: 2, row: 4, kind: "pod" },
+      { beat: 33, col: 7, row: 3, kind: "pod" },
     ],
   },
   {
@@ -124,9 +111,9 @@ export const WAVES_ACT_3: Wave[] = [
       { beat: 33, col: 8, color: "cyan" },
     ],
     pods: [
-      { beat: 6, col: 0, row: 4, kind: "ward" },
-      { beat: 16, col: 2, row: 3, kind: "ward" },
-      { beat: 28, col: 5, row: 4, kind: "ward" },
+      { beat: 6, col: 0, row: 4, kind: "pod" },
+      { beat: 16, col: 2, row: 3, kind: "pod" },
+      { beat: 28, col: 5, row: 4, kind: "pod" },
     ],
   },
   {
@@ -142,10 +129,10 @@ export const WAVES_ACT_3: Wave[] = [
       { beat: 40, col: 8, color: "red" },
     ],
     pods: [
-      { beat: 6, col: 10, row: 4, kind: "ward" },
-      { beat: 18, col: 7, row: 3, kind: "purge" },
-      { beat: 29, col: 5, row: 3, kind: "ward" },
-      { beat: 34, col: 10, row: 3, kind: "purge" },
+      { beat: 6, col: 10, row: 4, kind: "pod" },
+      { beat: 18, col: 7, row: 3, kind: "pod" },
+      { beat: 29, col: 5, row: 3, kind: "pod" },
+      { beat: 34, col: 10, row: 3, kind: "pod" },
     ],
   },
   {
@@ -163,12 +150,12 @@ export const WAVES_ACT_3: Wave[] = [
       { beat: 40, col: 9, color: "cyan" },
     ],
     pods: [
-      { beat: 4, col: 1, row: 4, kind: "ward" },
-      { beat: 12, col: 10, row: 3, kind: "purge" },
-      { beat: 20, col: 7, row: 3, kind: "ward" },
-      { beat: 24, col: 0, row: 3, kind: "purge" },
-      { beat: 32, col: 3, row: 4, kind: "ward" },
-      { beat: 36, col: 2, row: 3, kind: "purge" },
+      { beat: 4, col: 1, row: 4, kind: "pod" },
+      { beat: 12, col: 10, row: 3, kind: "pod" },
+      { beat: 20, col: 7, row: 3, kind: "pod" },
+      { beat: 24, col: 0, row: 3, kind: "pod" },
+      { beat: 32, col: 3, row: 4, kind: "pod" },
+      { beat: 36, col: 2, row: 3, kind: "pod" },
     ],
   },
   {
@@ -178,7 +165,7 @@ export const WAVES_ACT_3: Wave[] = [
       scene: "bulbQueen",
     },
     entries: [],
-    pods: [{ beat: 2, col: 5, row: 4, kind: "purge" }],
+    pods: [{ beat: 2, col: 5, row: 4, kind: "pod" }],
     boss: { kind: "queen", col: 5, petals: 9 },
     bossType: "normal",
     controls: "standard5",

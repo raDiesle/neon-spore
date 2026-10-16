@@ -32,11 +32,15 @@ describe("a block, read off the list", () => {
     expect([b.number, b.x, b.y, b.tutorial]).toEqual([0, "slick", undefined, true]);
   });
 
-  test("CATCH AND AIM's block has the purge before it, and its three regular waves", () => {
-    const b = block("catchAndAim");
-    expect([b.x, b.y]).toEqual(["ward", "purge"]);
-    // Two composed, and FINALE: the arc's short block is full.
-    expect(b.existing).toBe(3);
+  test("SALVAGE's block runs to FINALE, with CATCH AND AIM inside it", () => {
+    // CATCH AND AIM opened a block of its own on THE PURGE until the cargoes
+    // were rejected (16 October 2026): it introduces no body or pod now, so
+    // its waves are SALVAGE's, after the torch.
+    const b = block("salvage");
+    expect([b.x, b.y]).toEqual(["pod", "torch"]);
+    expect(typeof readBlock(WAVES, "catchAndAim")).toBe("string");
+    // Six written, and FINALE: the arc's short block is full.
+    expect(b.existing).toBe(6);
     expect(stepsToCompose(b.tutorial, b.existing)).toEqual([]);
   });
 

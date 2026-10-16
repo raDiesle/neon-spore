@@ -167,8 +167,8 @@ export const WAVES_ACT_7: Wave[] = [
       { beat: 48, col: 0, kind: "beatbox", color: null, beats: 4 },
     ],
     pods: [
-      { beat: 20, col: 0, row: 4, kind: "ward" },
-      { beat: 36, col: 5, row: 3, kind: "ward" },
+      { beat: 20, col: 0, row: 4, kind: "pod" },
+      { beat: 36, col: 5, row: 3, kind: "pod" },
     ],
     faults: [
       { kind: "limpet", at: 6, beats: 12 },

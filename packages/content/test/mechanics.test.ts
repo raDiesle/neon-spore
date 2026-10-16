@@ -12,7 +12,7 @@ import {
 } from "../src/mechanics.js";
 import { WAVES } from "../src/waves.js";
 
-const POD_KINDS = ["purge", "ward"] as const;
+const POD_KINDS = ["pod", "husk"] as const;
 
 describe("the registry is closed over what already exists", () => {
   it("has a row for every creature, pod and boss", () => {
@@ -123,9 +123,9 @@ describe("what a wave reaches", () => {
         { beat: 1, col: 2, color: "cyan" },
         { beat: 2, col: 3, kind: "meteorFast", color: null },
       ],
-      pods: [{ beat: 0, col: 1, row: 2, kind: "purge" }],
+      pods: [{ beat: 0, col: 1, row: 2, kind: "pod" }],
     });
-    expect([...found].sort()).toEqual(["bulb", "meteorFast", "purge", "slick"]);
+    expect([...found].sort()).toEqual(["bulb", "meteorFast", "pod", "slick"]);
   });
 
   it("follows what a boss brings with it", () => {

@@ -47,7 +47,7 @@ describe("what earns a buzz", () => {
       { type: "destroy", col: 1, row: 2, color: "red", kind: "slick" },
       { type: "hole", col: 1, row: 2, kind: "meteor", span: 1 },
       { type: "deflect", col: 1, span: 1, kind: "meteor", fromRow: 3, seed: 0, holes: 0 },
-      { type: "podTaken", col: 1, kind: "ward" },
+      { type: "podTaken", col: 1 },
       { type: "podLost", col: 1 },
     ];
     for (const event of others) {

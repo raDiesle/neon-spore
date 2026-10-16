@@ -247,10 +247,21 @@ filed rightly, and there is no second list to change.
   `hashWorld`, a `damage` per kind beside the weight in `breachHull`
   (`hull-damage.ts`), `regenerateHull` in `step`, `"mend"` back in
   `POD_KINDS` (append, never insert — the index is the wire value) with
-  `mend()` in `pod-effects.ts`, and the bar from `hud.ts`'s history at
+  a `mend()` beside `takeCargo` in `pod-intake.ts`, and the bar from `hud.ts`'s history at
   `6f902f6e`. It belongs, if anywhere, with a mode where a hit does *not*
   fail the wave, since that is the only game in which a second price means
   anything
+- **The pod's cargoes, PURGE and WARD** — rejected by the owner on 16 October
+  2026. A pod used to carry one of two gifts: a **purge** cleared everything
+  falling in one breath, and a **ward** held the shield armed for
+  `wardBeats` without a trigger. The owner's rule replaced both: there is one
+  real pod, it gives nothing, and it is *owed* — a ring of `podDueBeats` round
+  it, and a pod still there when the ring runs out loses the wave. THE PURGE
+  and THE WARD went with them, with their rehearsals; THE CLAW's rocks went
+  too, since a rock on that panel was answered only by a ward or a purge on the
+  arm. To restore: the kinds back in `POD_KINDS` (append — the index is the
+  wire value), the effects from `pod-effects.ts` and `wardUntilTick` from the
+  commit before this one, and the two waves from `act-4.ts` and `act-4-p3.ts`
 - **THE LIMPET's and THE LEECH's fall, and the shake that got them off** — for
   a day these two were creatures: a round body, hooks or four needles, falling
   straight down one lane at a slick's pace, unshootable and unwardable, that

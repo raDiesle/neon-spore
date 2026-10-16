@@ -65,7 +65,7 @@ table in a document cannot be wrong in a way a compiler notices.
 | `shield` | `guard` only | `meteor`, `meteorMedium`, `meteorFast`, `meteorFaster`, `meteorFastest`, `torch`, `veer`, `coil`, `limpet`, `cairn` `moult` |
 | `mixed` | `aim` and `guard` | `queen`, `warden`, `clasp`, `carom`, `volley`, `crawler`, `fence`, `crystal`, `curtain` |
 | `special` | neither | `tether`, `mount`, `chute`, `beatbox`, `balloon`, `weight`, `mine`, `blister` |
-| `suck` | — (pods, not `CreatureKind`) | mend, purge, ward |
+| `suck` | — (pods, not `CreatureKind`) | `pod` (real, owed before its ring runs out), `husk` (hollow, refused) |
 
 `special` was reserved and empty for a long time on the reasoning that nothing
 standard describes a creature answered by neither control. **The tether is what

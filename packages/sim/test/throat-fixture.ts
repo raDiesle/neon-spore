@@ -1,4 +1,5 @@
 import { DEFAULT_CONFIG, type SimConfig } from "../src/config.js";
+import { NO_DUE } from "../src/pod-types.js";
 import { type ThroatState, throatBoss } from "../src/throat.js";
 import { throatHeard } from "../src/throat-hand.js";
 import type { Color, Command, Creature, CreatureKind, Pod, PodKind } from "../src/types.js";
@@ -52,12 +53,7 @@ export function put(
 }
 
 /** A pod falling where a test wants it. */
-export function pod(
-  world: World,
-  colMilli: number,
-  rowMilli: number,
-  kind: PodKind = "purge",
-): Pod {
+export function pod(world: World, colMilli: number, rowMilli: number, kind: PodKind = "pod"): Pod {
   const p: Pod = {
     id: world.nextId++,
     colMilli,
@@ -65,7 +61,7 @@ export function pod(
     driftMilli: 0,
     loose: true,
     kind,
-    husk: false,
+    dueTicks: NO_DUE,
     crossMilli: 0,
   };
   world.pods.push(p);

@@ -84,7 +84,7 @@ export const WAVES_ACT_35: Wave[] = [
       { beat: 14, col: 4, color: "red" },
       { beat: 20, col: 10, kind: "gyre", color: null },
       { beat: 26, col: 2, color: "red" },
-      { beat: 33, col: 4, kind: "moult", color: null, cargo: "purge" },
+      { beat: 33, col: 4, kind: "moult", color: null },
     ],
   },
   {
@@ -99,7 +99,7 @@ export const WAVES_ACT_35: Wave[] = [
       { beat: 26, col: 10, kind: "lid", color: "cyan" },
       { beat: 32, col: 9, color: "cyan" },
     ],
-    pods: [{ beat: 15, col: 9, row: 3, kind: "purge" }],
+    pods: [{ beat: 15, col: 9, row: 3, kind: "pod" }],
   },
   {
     id: "theLidBend",

@@ -32,14 +32,14 @@ export function podArrived(world: World, pod: Pod): void {
   // about getting it here is a pod's — the column, the moment, the maw — and
   // only the receipt is inverted, which is the point: the pair cannot practise
   // a husk separately from a pod, because up to this tick it *is* one.
-  if (pod.husk) {
+  if (pod.kind === "husk") {
     if (inColumn && inTime) huskSwallowed(world, pod);
     else huskRefused(world, pod);
     return;
   }
 
   if (inColumn && inTime) {
-    takeCargo(world, col, pod.kind);
+    takeCargo(world, col);
     // And if it was THE BATON's bead, the arm is beaten. A no-op for every
     // pod a wave hung (`baton-press.ts`).
     batonBeadTaken(world, pod.id);
@@ -52,4 +52,10 @@ export function podArrived(world: World, pod: Pod): void {
  * (`cargoLost`, which is the half of this rule THE MOULT reads too). */
 export function podLost(world: World, pod: Pod): void {
   cargoLost(world, Math.round(pod.colMilli / MILLI));
+}
+
+/** A pod whose clock ran out before it was taken (`Pod.dueTicks`): the wave
+ * is lost, and the event says where it was hanging or falling. */
+export function podDue(world: World, pod: Pod): void {
+  cargoLost(world, Math.round(pod.colMilli / MILLI), Math.round(pod.rowMilli / MILLI));
 }

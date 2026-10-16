@@ -49,12 +49,11 @@ function run(queue: SpawnEntry[], ticks: number, inputs: TimedCommand[] = []): R
   return { world, events };
 }
 
-const moult = (beat: number, col: number, cargo: "purge" | "ward" = "ward"): SpawnEntry => ({
+const moult = (beat: number, col: number): SpawnEntry => ({
   beat,
   col,
   kind: "moult",
   color: null,
-  cargo,
 });
 
 const aim = (tick: number, col: number): TimedCommand => ({
@@ -233,7 +232,7 @@ describe("a moult wave replays", () => {
     const replay = record({
       name: "one landing a rock into the dome, one landing a cargo into the mouth",
       seed: 5,
-      queue: [moult(0, 3), moult(1, 5, "purge")],
+      queue: [moult(0, 3), moult(1, 5)],
       ticks: TPB * 20,
       inputs: [shieldAt(2, 3), aim(4, 5), guard(TPB * 14 - 2), intake(TPB * 15 + 4)],
     });

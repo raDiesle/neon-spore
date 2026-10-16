@@ -1,5 +1,6 @@
 import { roundStrikesHull } from "./boss-strike.js";
 import { hullRow } from "./config.js";
+import { NO_DUE } from "./pod-types.js";
 import { enterPhase, type MirrorState, type MirrorVerdictReason } from "./simon.js";
 import { MILLI, type World } from "./world.js";
 
@@ -119,12 +120,11 @@ export function releaseBait(world: World): void {
     rowMilli: (hullRow(world.cfg) - BAIT_TILES_ABOVE_HULL) * MILLI,
     driftMilli: 0,
     loose: false,
-    // A ward, since the plain pod went: what it says it holds is beside the
-    // point, because touching it at all is the mistake.
-    kind: "ward",
     // Bait, and still a real pod: the mistake it punishes is reaching for it
-    // at all, not swallowing something hollow.
-    husk: false,
+    // at all, not swallowing something hollow — which is why it owes no
+    // clock. A bait that lost the wave for being left would be no bait.
+    kind: "pod",
+    dueTicks: NO_DUE,
     crossMilli: 0,
   });
 }

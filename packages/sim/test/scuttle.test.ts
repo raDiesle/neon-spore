@@ -172,7 +172,7 @@ describe("the cadence and the throw", () => {
     beats(world, CFG.scuttleThrowBeats + 1);
     const pod = world.pods.find((p) => p.colMilli === second.col * MILLI);
     expect(pod?.rowMilli).toBe(CFG.scuttlePodRow * MILLI);
-    expect(pod?.kind).toBe("ward");
+    expect(pod?.kind).toBe("pod");
   });
 });
 
@@ -256,7 +256,7 @@ describe("the frame thinning", () => {
     untilLoose(world);
     const s = frame(world);
     const { col } = live(world);
-    takeCargo(world, col, "ward");
+    takeCargo(world, col);
     expect(s.slack).toBe(CFG.scuttlePodSlackBeats);
     expect(world.events.some((e) => e.type === "scuttleSlack")).toBe(true);
     expect(scuttleCadence(s, CFG)).toBe(CFG.scuttleThrowBeats + CFG.scuttlePodSlackBeats);

@@ -92,7 +92,7 @@ describe("the right colour", () => {
     const world = open();
     const b = tube(world);
     const p = pod(world, b.aimXMilli, b.aimYMilli);
-    p.husk = true;
+    p.kind = "husk";
     b.mode = "suck";
     full(world);
     stepThroatSuck(world);

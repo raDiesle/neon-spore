@@ -128,7 +128,7 @@ describe("the frames built for HELPERS reach their moment", () => {
     expect(kinds(FENCE_UP)).toContain("fence");
     expect(kinds(MOULT_UP)).toContain("moult");
     expect(kinds(BEATBOX_UP)).toContain("beatbox");
-    expect(HUSK_UP.build().pods[0]?.husk).toBe(true);
+    expect(HUSK_UP.build().pods[0]?.kind).toBe("husk");
   });
 
   test("the gunsight's field is empty and its wave still running", () => {

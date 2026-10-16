@@ -70,7 +70,7 @@ const SAMPLES: Record<string, SimEvent> = {
   grip: { type: "grip", player: 1, col: 1, row: 3 },
   carry: { type: "carry", player: 2, col: 1, row: 3, dir: 1 },
   podLoose: { type: "podLoose", col: 4, row: 2 },
-  podTaken: { type: "podTaken", col: 4, kind: "ward" },
+  podTaken: { type: "podTaken", col: 4 },
   podLost: { type: "podLost", col: 4 },
   breach: {
     type: "breach",
@@ -792,8 +792,8 @@ const SAMPLES: Record<string, SimEvent> = {
   cairnHeld: { type: "cairnHeld", col: 4, row: 2 },
   balloonTopped: { type: "balloonTopped", col: 4, row: 0 },
   bounce: { type: "bounce", col: 3, row: 6, color: "red" },
-  huskRefused: { type: "huskRefused", col: 2, row: 9, kind: "purge" },
-  huskSwallowed: { type: "huskSwallowed", col: 2, row: 11, kind: "ward" },
+  huskRefused: { type: "huskRefused", col: 2, row: 9 },
+  huskSwallowed: { type: "huskSwallowed", col: 2, row: 11 },
 };
 
 describe("bindings", () => {

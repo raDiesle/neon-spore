@@ -101,7 +101,7 @@ export function drawPulseBody(
     return;
   }
   if (lane === "pod") {
-    drawPodBody(ctx, x, y, r, time + (seed % 7) * 0.83, "ward", alpha);
+    drawPodBody(ctx, x, y, r, time + (seed % 7) * 0.83, alpha);
     return;
   }
   drawLivingMark(ctx, x, y, r, lane, TINT[lane], alpha);

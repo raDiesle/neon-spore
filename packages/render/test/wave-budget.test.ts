@@ -346,14 +346,18 @@ const SCENES: readonly Scene[] = [
     // glancing part draws on its scratch layer as the frame's
     // (`canvas-stub-layer.ts`): on frame 1 her glancing parts add a fill, a
     // gradient, three clips, three saves and five blits on either seat.
+    // Remeasured on 16 October 2026, when a pod began wearing its clock
+    // (`pod-due-ring.ts`): the ring round the pod hanging at this tick is a
+    // save and three strokes — its track, its arc and its notches — on either
+    // seat and in both frames, which says the cost is the ring.
     rows: {
       p1: [
         {
           fillRect: 68,
-          stroke: 151,
+          stroke: 154,
           fill: 95,
           clip: 13,
-          save: 69,
+          save: 70,
           drawImage: 158,
           createLinearGradient: 34,
           createRadialGradient: 15,
@@ -362,10 +366,10 @@ const SCENES: readonly Scene[] = [
         },
         {
           fillRect: 67,
-          stroke: 152,
+          stroke: 155,
           fill: 93,
           clip: 16,
-          save: 68,
+          save: 69,
           drawImage: 123,
           createLinearGradient: 24,
           createRadialGradient: 12,
@@ -376,10 +380,10 @@ const SCENES: readonly Scene[] = [
       p2: [
         {
           fillRect: 67,
-          stroke: 141,
+          stroke: 144,
           fill: 97,
           clip: 13,
-          save: 62,
+          save: 63,
           drawImage: 116,
           createLinearGradient: 32,
           createRadialGradient: 15,
@@ -388,10 +392,10 @@ const SCENES: readonly Scene[] = [
         },
         {
           fillRect: 67,
-          stroke: 143,
+          stroke: 146,
           fill: 98,
           clip: 16,
-          save: 66,
+          save: 67,
           drawImage: 121,
           createLinearGradient: 24,
           createRadialGradient: 12,

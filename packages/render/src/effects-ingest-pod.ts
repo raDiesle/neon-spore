@@ -30,7 +30,7 @@ export function ingestMouth(
     // takes something instead of losing it.
     const mouth = ctx.put(bodyX(ctx.l, e.col, ctx.l.rows - 1), ctx.l.hullY);
     ctx.sparks.implode(mouth.x, mouth.y, 22, PALETTE.pod, ctx.l.tile * 1.9);
-    ctx.ship.swallowPod(e.kind);
+    ctx.ship.swallowPod();
     return;
   }
   // And the one that was refused, going off like a balloon let go. Nothing

@@ -60,7 +60,7 @@ describe("the mark round a husk", () => {
     expect(husks(world)).toHaveLength(1);
     // And the ones beside it are not husks, which is the whole of why the mark
     // is information: a frame round everything says nothing.
-    expect(world.pods.filter((p) => !p.husk).length).toBeGreaterThan(0);
+    expect(world.pods.filter((p) => p.kind !== "husk").length).toBeGreaterThan(0);
   });
 
   it("is drawn on player 2's screen and never on player 1's", () => {
@@ -77,7 +77,7 @@ describe("the mark round a husk", () => {
 
 describe("the flight a refused husk goes off in", () => {
   const L = computeLayout(VIEWPORT, CFG, "test");
-  const REFUSED = { type: "huskRefused", col: 3, row: 9, kind: "purge" } as const;
+  const REFUSED = { type: "huskRefused", col: 3, row: 9 } as const;
   const flat = (x: number, y: number) => ({ x, y });
 
   function cast(): HuskDeflates {
