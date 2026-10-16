@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-16 · c9b8e5591 — GALAXY, PILLARS, BINARY, CELLS and REMNANT move and have more in them
+
+GALAXY has two small companion galaxies turning on their own, rose knots of new stars along its arms, and a core that breathes. PILLARS has a newborn star pulsing in each tip, and veils of lit dust drifting slowly in front. BINARY's stream carries knots of gas from one star into the other's disc, and the big star throws four slow-turning spikes that flare. CELLS lies over a deeper, dimmer wall of smaller cells that breathes on the other beat, and organelles wander in the near cells. REMNANT's shell turns against a fainter inner one, and its dead star is a pulsar sweeping two beams round. The owner asked for this look by name.
+
 ## 2026-10-16 · 3610f18c0 — bun run imports takes two unused names side by side out of a list cleanly
 
 Two unused names next to each other at the end of a list were cut separately, and both cuts claimed the comma between them. Applied one after the other, the second cut took the list's `}` instead, and biome then refused the file with "expected `,`". The deep sky's eleven files met this and were pruned by hand. Neighbouring unused names are now one cut, and any cuts that still overlap are merged before any is applied.

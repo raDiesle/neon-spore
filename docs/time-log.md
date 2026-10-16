@@ -43546,3 +43546,5 @@ was two cuts claiming the same comma.
 - landing: 5 min. `check:fast`, forty-one rows up by two, `land`.
 
 Bottleneck: landings — every one runs the whole check while main keeps moving.
+
+*Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
