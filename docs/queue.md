@@ -331,6 +331,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## waves:order stops on THE LANCE's and THE CLAW's lesson blocks
 
 - **Found:** 2026-10-16, claude/suck-brush-visuals-a917b1
+- **Taken:** 2026-10-16, claude/queue-work-6b11c3 (claim: claude/queue-waves-order-stops-on-the-lances-and-the-claws-le)
 - **Files:** `tools/director/src/compose.ts`, `tools/director/src/compose-lesson.ts`, `tools/director/src/compose-claw.ts`, `tools/director/waves-order.ts`
 
 `bun run waves:order` ran clean on `db180cc54` and now stops at its first
