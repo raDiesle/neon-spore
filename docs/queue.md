@@ -367,6 +367,7 @@ arc act file is non-empty and in play order.
 ## Which bosses come before THE INSTAR
 
 - **Found:** 2026-10-16, claude/wave-generation-feedback-8f39ba
+- **Taken:** 2026-10-16, claude/wave-generation-feedback-8f39ba (claim: claude/queue-which-bosses-come-before-the-instar)
 - **Files:** `tools/director/src/boss-slots.ts`, `packages/content/src/waves/act-1b.ts`, `packages/content/src/waves/act-2.ts`
 - **Asks:** Which bosses should move into the tutorial, and where?
 
