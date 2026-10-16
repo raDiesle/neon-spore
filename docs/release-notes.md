@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-16 · febed87f3 — Turned bodies are laid down ahead of their pass, three flushes a frame
+
+A canvas costs when it is read after being drawn on, and every turned body was three such reads. The bodies pass now runs once onto a canvas nobody reads, drawing each turned part into a cell of a shared atlas; all the halves and all the doublings are then laid at once, and the second run places each body's cell on the screen. On GYRES AGAIN at 4x a first version of this ran 14.5 to 16.0 ms against 16.9 to 19.8 for the unchanged tree.
+
 ## 2026-10-16 · e31fed924 — The curriculum taught in rising cost, bodies and levers taking turns
 
 Every new thing after the tutorial arc is taught again in the order of the curriculum's rule (wave-curriculum.md §4.1, decision 9): cheapest first by pressure and talk, never a fault or panel lesson straight after another, and each after whatever it needs. THE LANCE now comes first, so the hold is taught early and the waves that shipped on STANDARD 5 after it are played on the full panel. Every block's regular waves were composed again for their new neighbours, the bosses placed again, and the reviews are themed from the last thing taught backwards. The new `bun run waves:order` does it all, and a second run changes nothing. Wave data, not a look.

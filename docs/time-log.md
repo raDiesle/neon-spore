@@ -42643,3 +42643,5 @@ turned a fixed order into one picked a block at a time.
 - landing: 10 min. `check:fast` twice, the second green.
 
 Bottleneck: the machine — sleeping between calls and loaded by other work, every run took several times its length.
+
+*Measured: 590 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
