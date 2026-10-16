@@ -1,6 +1,7 @@
 import { ANTIPHON_DEFAULTS, type AntiphonConfig } from "./config-antiphon.js";
 import { BASTION_DEFAULTS, type BastionConfig } from "./config-bastion.js";
 import { BATON_DEFAULTS, type BatonConfig } from "./config-baton.js";
+import { BROOD_DEFAULTS, type BroodConfig } from "./config-brood.js";
 import { CAIRN_DEFAULTS, type CairnConfig } from "./config-cairn.js";
 import { CAPSTAN_DEFAULTS, type CapstanConfig } from "./config-capstan.js";
 import { CHRYSALIS_DEFAULTS, type ChrysalisConfig } from "./config-chrysalis.js";
@@ -111,6 +112,7 @@ export interface BossClockConfig
     BastionConfig,
     ChrysalisConfig,
     HydraConfig,
+    BroodConfig,
     SpoolConfig,
     HaspConfig,
     RatchetConfig,
@@ -159,6 +161,7 @@ export const BOSS_CLOCK_DEFAULTS: BossClockConfig = {
   ...BASTION_DEFAULTS,
   ...CHRYSALIS_DEFAULTS,
   ...HYDRA_DEFAULTS,
+  ...BROOD_DEFAULTS,
   ...SPOOL_DEFAULTS,
   ...HASP_DEFAULTS,
   ...RATCHET_DEFAULTS,

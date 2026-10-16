@@ -23,6 +23,7 @@ type BossIdB = Extract<
   | "bastion"
   | "chrysalis"
   | "hydra"
+  | "brood"
   | "capstan"
   | "gall"
   | "trapeze"
@@ -146,6 +147,10 @@ export const BOSS_MECHANICS_B = {
   },
   hydra: {
     what: "A slime with many heads. Stop each head before it reaches the ship. Cut necks, turn coils, tap eyes, shoot mouths.",
+    reach: "spawn",
+  },
+  brood: {
+    what: "A sac grows slicks and bulbs on its rim. Shoot each bud in its colour before it drops. A dropped bud falls, and grows again.",
     reach: "spawn",
   },
   vane: {

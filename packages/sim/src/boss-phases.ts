@@ -1,6 +1,7 @@
 import { BASTION_PHASES } from "./bastion.js";
 import { BATON_STAGES } from "./baton.js";
 import type { BossEntry } from "./boss-entries.js";
+import { BROOD_PHASES } from "./brood.js";
 import { CAPSTAN_PHASES } from "./capstan.js";
 import { CHRYSALIS_PHASES } from "./chrysalis.js";
 import { FILAMENT_PHASES } from "./filament.js";
@@ -144,5 +145,6 @@ export const BOSS_PHASES: Partial<Record<BossEntry["kind"], readonly string[]>> 
   bastion: BASTION_PHASES,
   chrysalis: CHRYSALIS_PHASES,
   hydra: HYDRA_PHASES,
+  brood: BROOD_PHASES,
   fleet: FLEET_PHASES,
 };

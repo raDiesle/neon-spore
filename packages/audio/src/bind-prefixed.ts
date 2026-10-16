@@ -1,4 +1,5 @@
 import type { SimEvent } from "@neon-spore/sim";
+import { broodCue } from "./bind-brood.js";
 import { chrysalisCue } from "./bind-chrysalis.js";
 import type { Cue } from "./bind-cue.js";
 import { gaugeCue } from "./bind-gauge.js";
@@ -28,7 +29,16 @@ import { throatCue } from "./bind-throat.js";
  * no other event starts with one of them; `ledger` and `lead` part at the
  * third letter.
  */
-const PREFIXES = ["taster", "ledger", "lead", "gauge", "throat", "chrysalis", "hydra"] as const;
+const PREFIXES = [
+  "taster",
+  "ledger",
+  "lead",
+  "gauge",
+  "throat",
+  "chrysalis",
+  "hydra",
+  "brood",
+] as const;
 
 type Prefix = (typeof PREFIXES)[number];
 
@@ -56,5 +66,7 @@ export function prefixedCue(e: PrefixedEvent, cols: number): Cue | null {
   if (of(e, "chrysalis")) return chrysalisCue(e, cols);
   // THE HYDRA, the same (`bind-hydra.ts`).
   if (of(e, "hydra")) return hydraCue(e, cols);
+  // THE BROOD, the same (`bind-brood.ts`).
+  if (of(e, "brood")) return broodCue(e, cols);
   return throatCue(e, cols);
 }

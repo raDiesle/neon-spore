@@ -165,4 +165,11 @@ export const CHOREO_FIELD_GROUP_D = {
   hydraCoilRimMilli: "THE HYDRA — a slime with many heads, each stopped its own way",
   hydraStareBeats: "THE HYDRA — a slime with many heads, each stopped its own way",
   hydraBlinkBeats: "THE HYDRA — a slime with many heads, each stopped its own way",
+  // BroodConfig — the bud row, the sac's span and the beats around the steps (`config-brood.ts`).
+  broodBudRow: "THE BROOD — a sac that grows slicks and bulbs, shot before they drop",
+  broodSpan: "THE BROOD — a sac that grows slicks and bulbs, shot before they drop",
+  broodEnterBeats: "THE BROOD — a sac that grows slicks and bulbs, shot before they drop",
+  broodRestBeats: "THE BROOD — a sac that grows slicks and bulbs, shot before they drop",
+  broodRegrowBeats: "THE BROOD — a sac that grows slicks and bulbs, shot before they drop",
+  broodSpentBeats: "THE BROOD — a sac that grows slicks and bulbs, shot before they drop",
 } satisfies Record<string, GroupName>;

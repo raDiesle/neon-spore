@@ -37,6 +37,8 @@ const OWED: Partial<Record<BossKind, readonly string[]>> = {
   trapeze: ["rest", "spent"],
   flue: ["slack", "rest", "spent"],
   governor: ["slack", "lit", "rest", "spent"],
+  // Lane one is the simulation alone; the look lane poses all four.
+  brood: ["enter", "grow", "rest", "spent"],
 };
 
 describe("the BOSSES category", () => {

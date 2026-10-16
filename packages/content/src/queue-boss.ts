@@ -207,13 +207,14 @@ export function bossFromWave(wave: Pick<Wave, "boss" | "cols">, cols: number): B
   // THE GOVERNOR the same: its dial is `midCol` and its marks are thousandths of a lap.
   if (boss.kind === "governor") return { ...boss };
   // THE MIMIC hangs over `midCol` and authors no column at all; THE LATCH's tendril the same,
-  // THE BASTION's moon, whose nodes and ports are offsets from the middle, and THE CHRYSALIS's cocoon and THE HYDRA's heads the same.
+  // THE BASTION's moon, whose nodes and ports are offsets from the middle, and THE CHRYSALIS's cocoon, THE HYDRA's heads and THE BROOD's buds the same.
   if (
     boss.kind === "mimic" ||
     boss.kind === "latch" ||
     boss.kind === "bastion" ||
     boss.kind === "chrysalis" ||
-    boss.kind === "hydra"
+    boss.kind === "hydra" ||
+    boss.kind === "brood"
   ) {
     return { ...boss };
   }

@@ -55,3 +55,18 @@ keeps it either way. Nothing here is ticked, and nothing here is counted — a
 count is a way of saying something is owed, and nothing here is.
 `tools/queue/test/queue.test.ts` fails on an entry a cold session could not act
 on.
+
+## THE BROOD's look: the simulation landed, the picture is the next lane
+
+- **Found:** 2026-10-16, claude/wave-8-boss-generator-237899
+- **Files:** `packages/render/src/effects-ingest-silent-boss-f.ts`, `packages/render/src/effects-spark-silent-boss-f.ts`, `tools/director/test/boss-states.test.ts`, `tools/director/test/marks-window-no-row.ts`, `docs/spec/bosses.md`
+
+THE BROOD (wave 9, after ALTERNATING) plays — `sim/brood.ts`, its hand, its
+sound — and draws nothing of its own. The look lane draws the sac over the
+middle with a lobe for every bud to come, each bud swelling on row
+`broodBudRow` in its colour as a small slick or bulb, a pop, a drop falling
+into the ordinary body, the hide taking a bolt; takes its eight events off
+both silent lists; poses its four states in the director (and empties its
+`OWED` row); writes `brood-marks.ts` and its marks-window row in place of the
+`NO_ROW` line; and draws it again in `render/test/frame.test.ts`. A new look
+with nothing shipped in its place, so it is built in, not put to VERSUS.

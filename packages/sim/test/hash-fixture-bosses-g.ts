@@ -31,6 +31,20 @@ export const BOSS_ENTRIES_G = {
       { head: "maw", offsets: [2, -1], colors: ["cyan", "red"], beats: 19 },
     ],
   },
+  // Two steps, the second of two colours, offsets and ripening apart (`brood-hash.ts`).
+  brood: {
+    kind: "brood",
+    steps: [
+      { buds: [{ offset: 0, color: "red" }], ripenBeats: 9 },
+      {
+        buds: [
+          { offset: -3, color: "cyan" },
+          { offset: 2, color: "red" },
+        ],
+        ripenBeats: 12,
+      },
+    ],
+  },
 } satisfies Partial<Record<BossEntry["kind"], BossEntry>>;
 
 /** THE CHRYSALIS on's share of `patchBoss`. */
@@ -70,5 +84,17 @@ export function patchBossG(boss: BossState): void {
     boss.unwoundMilli = [2400, 900];
     boss.lidOpen = [true, false];
     boss.blinkBeat = [9, 12];
+  }
+  if (boss.kind === "brood") {
+    // The second step growing, one bud popped and one regrowing after a
+    // drop — every field given a value (`brood-hash.ts`).
+    boss.phase = "grow";
+    boss.phaseBeat = 3;
+    boss.cursor = 1;
+    boss.dropped = 2;
+    boss.buds = [
+      { col: 2, color: "cyan", bornBeat: 3, popped: true },
+      { col: 7, color: "red", bornBeat: 11, popped: false },
+    ];
   }
 }

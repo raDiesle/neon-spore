@@ -1,5 +1,6 @@
 import { bastionHashParts } from "./bastion-hash.js";
 import type { BossState } from "./boss-union.js";
+import { broodHashParts } from "./brood-hash.js";
 import { capstanHashParts } from "./capstan-hash.js";
 import { chrysalisHashParts } from "./chrysalis-hash.js";
 import { flueHashParts } from "./flue-hash.js";
@@ -103,6 +104,10 @@ export function scriptedHashParts(boss: BossState): number[] {
   // THE HYDRA: the phase, the heads stopped, the cut, the coil, the lids and the script (`hydra-hash.ts`).
   if (boss.kind === "hydra") {
     for (const n of hydraHashParts(boss)) out.push(n);
+  }
+  // THE BROOD: the phase, the buds, what has dropped and the script (`brood-hash.ts`).
+  if (boss.kind === "brood") {
+    for (const n of broodHashParts(boss)) out.push(n);
   }
   return out;
 }

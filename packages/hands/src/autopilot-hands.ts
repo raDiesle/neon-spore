@@ -8,6 +8,7 @@ import { hiveHand } from "./boss-hand-hive.js";
 import { pinballHand } from "./boss-hand-pinball.js";
 import { bastionHand } from "./boss-hands-bastion.js";
 import { batonHand, throatHand } from "./boss-hands-beats.js";
+import { broodHand } from "./boss-hands-brood.js";
 import { capstanHand } from "./boss-hands-capstan.js";
 import { chrysalisHand } from "./boss-hands-chrysalis.js";
 import { leadHand, ledgerHand, tasterHand } from "./boss-hands-clocks.js";
@@ -106,6 +107,7 @@ export const AUTOPILOT_HANDS: Partial<Record<BossKind, Hand>> = {
   bastion: bastionHand,
   chrysalis: chrysalisHand,
   hydra: hydraHand,
+  brood: broodHand,
   maze: mazeHand,
   mirror: mirrorHand,
   nettle: nettleHand,

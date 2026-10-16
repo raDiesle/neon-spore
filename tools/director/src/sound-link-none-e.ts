@@ -128,4 +128,13 @@ export const NO_SUBJECT_E: Record<string, string> = {
   "boss.hydraStrike": "THE HYDRA, a head reaching the hull. Same argument.",
   "boss.hydraSpent": "THE HYDRA, beaten. Same argument.",
   "boss.hydraOut": "THE HYDRA, the body gone and the wave ending. Same argument, and an absence.",
+  // THE BROOD's eight (`sim/events-brood.ts`): the same argument.
+  "boss.broodEnter": "THE BROOD, the sac coming down. No shape-sheet subject yet.",
+  "boss.broodBud": "THE BROOD, a bud beginning to grow. Same argument.",
+  "boss.broodPop": "THE BROOD, a bud popped in its colour. Same argument.",
+  "boss.broodDrop": "THE BROOD, a ripe bud falling. Same argument.",
+  "boss.broodSpoil": "THE BROOD, a bud shot in the other colour. Same argument.",
+  "boss.broodHide": "THE BROOD, a bolt into the sac's hide. Same argument.",
+  "boss.broodSpent": "THE BROOD, beaten. Same argument.",
+  "boss.broodOut": "THE BROOD, the sac gone and the wave ending. Same argument, and an absence.",
 };

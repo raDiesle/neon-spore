@@ -12351,6 +12351,84 @@ drift.
 **What is not built.** The guide is prose. **Never watched at tempo** — the
 owner's eye.
 
+## 11.65 THE BROOD — a sac that grows slicks and bulbs, shot before they drop
+
+> A sac of slime hangs over the field and grows slicks and bulbs on its rim.
+> Shoot each bud in its colour before it drops.
+
+The owner's ask of 16 October 2026: *a new cool boss, after the waves of 8,
+which is only about "bulb" and "slick" of mechanics and enemies introduced
+so far.* A field boss, the second kind in `.claude/skills/new-boss`, played
+right after ALTERNATING on STANDARD 2 — the cannon slide, red and cyan, and
+nothing the first eight waves have not taught. **Built on 16 October 2026 as
+its simulation**; its look is the next lane.
+
+**The rule, in one sentence.** Shoot each bud in its colour before it drops.
+
+**It is the sac, and its buds are its health.** The state (`sim/brood.ts`,
+hashed in `sim/brood-hash.ts`) is the **phase** (`enter`, `grow`, `rest`,
+`spent`) and the beat it began, the **cursor** into the script, how many
+buds have **dropped** in all, and this step's **buds**: for each, its
+column, its colour, the beat it began to grow and whether it is popped. The
+script is the wave's (`BroodEntry.steps`, `content/src/brood-script.ts`),
+copied at install: each step names its buds as columns from the middle and a
+colour, and `ripenBeats`, how long they hang. Six steps and ten buds — one
+at a time three times, then two of different colours at once twice, then
+three across the sac. **Its health is its lobes**, one for every bud still
+to pop, and no bar.
+
+**The split is the panel's own.** Player 1 slides the cannon and player 2
+fires red or cyan, so every bud is a column said one way and a colour said
+the other; two or three ripening at once is *which first*, said by both.
+
+**The clock** (`sim/brood-step.ts`) runs on the beat. The sac comes down for
+`broodEnterBeats`; a step's buds all begin on one beat, on row
+`broodBudRow`, and a bolt up a column within `broodSpan` of the middle is met
+there in mid-field (`broodAlong`, from `boss-along.ts`), after any body
+standing lower. A bud met by its colour **pops** (`broodPop`); the hide,
+where no bud hangs, takes the bolt and nothing happens (`broodHide`). A bud
+left `ripenBeats` **drops** (`broodDrop`): it falls from its own row as the
+ordinary slick or bulb it was growing into, and its lobe grows it again
+`broodRegrowBeats` later. A step popped whole rests `broodRestBeats`; the
+last step popped beats it (`broodSpent`), and it goes after
+`broodSpentBeats`.
+
+**Where this departs from the other field bosses, and why.**
+- **No step opens THE SLOW.** The field round the sac is the ordinary field
+  and a dropped bud an ordinary body: slowing the buds would slow what they
+  drop, and the pair would learn a fall no other wave has. A bud's window is
+  its ripening, nine beats or more, which is the owner's *a shot gets time*
+  (6 October 2026) without the slow.
+- **A bud run out is not `bossStrikesHull`.** The threat carried out is the
+  body it drops, which the pair has eight waves of practice stopping; a body
+  that reaches the hull is the ordinary loss. So a miss is more of the fight,
+  never the end of it.
+- **A bud shot in the other colour loses the wave** — the default every boss
+  keeps (`bossColourMissed`), the owner's rule of 10 October 2026.
+
+**The hand.** AUTO (`hands/src/boss-hands-brood.ts`) plays the field first
+when a body is falling, and otherwise brings the cannon under the hanging bud
+nearest to dropping and fires its colour.
+
+**The sound** (`audio/src/bind-brood.ts`, `sounds/boss-brood.ts`): eight,
+wet and soft — a bud a small swelling, a pop a bright wet burst climbing as
+the lobes run out, a drop a sliding plop, the hide a soft thud and the wrong
+colour a dull smack — red pitched under cyan, and every one panned by its
+column.
+
+**What is proven, and what is not.** `sim/test/brood.test.ts` proves the
+rules: the install and the first bud once it is down; a bolt met on the bud's
+row under the sac and not past its edge; a pop, the lobe gone and the next
+step after the rest; the other colour losing the wave; the hide taking a bolt
+and changing nothing; a ripe bud dropping from its own row as the body it was
+and growing again; the last bud beating it; a real cannon bolt popping one;
+the same presses hashing the same.
+
+**What is not built.** The look — the sac, its buds swelling, a pop, a drop,
+and the marks — is lane two; until then the boss draws nothing of its own and
+its events stay on the silent lists. The guide is prose. **Never watched at
+tempo** — the owner's eye.
+
 ## Retired
 
 **Taken (14 October 2026, VERSUS `pulse:glance`, COCK).** The round's boss is

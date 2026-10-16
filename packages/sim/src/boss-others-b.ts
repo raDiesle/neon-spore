@@ -2,6 +2,7 @@ import { stepBastion } from "./bastion-step.js";
 import { offBeat } from "./boss-off-beat.js";
 import type { QueenState } from "./boss-state.js";
 import type { BossState } from "./boss-union.js";
+import { stepBrood } from "./brood-step.js";
 import { stepCairn } from "./cairn.js";
 import { stepCapstan } from "./capstan-step.js";
 import { stepChrysalis } from "./chrysalis-step.js";
@@ -73,6 +74,11 @@ export function stepLateBoss(world: World, boss: Exclude<BossState, QueenState>)
   // THE HYDRA: heads come, an eye blinks, a level runs out, the body sinks away (`hydra-step.ts`).
   if (boss.kind === "hydra") {
     stepHydra(world, boss);
+    return;
+  }
+  // THE BROOD: it comes down, buds grow and drop, a step rests, the sac is spent (`brood-step.ts`).
+  if (boss.kind === "brood") {
+    stepBrood(world, boss);
     return;
   }
   // THE MIMIC: the slap, a sign's window and its change, the mimicry and the reach, the core and the fall (`mimic-step.ts`).

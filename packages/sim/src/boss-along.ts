@@ -1,3 +1,4 @@
+import { broodAlong, broodStruck } from "./brood-step.js";
 import { flueAlong, flueStruckEmber } from "./flue-shot.js";
 import { gimbalBeadAlong } from "./gimbal-bead.js";
 import { gimbalStruck, gimbalVerdict } from "./gimbal-shot.js";
@@ -50,7 +51,9 @@ export function bossAlong(world: World, bullet: Bullet, from: number, to: number
   const rock = keelRockAlong(world, bullet, from, to);
   if (rock >= 0) return rock;
   const alien = trapezeAlong(world, bullet, from, to);
-  return alien >= 0 ? alien : gorgeAlong(world, bullet, from, to);
+  if (alien >= 0) return alien;
+  const bud = broodAlong(world, bullet, from, to);
+  return bud >= 0 ? bud : gorgeAlong(world, bullet, from, to);
 }
 
 /** The shot met what `bossAlong` found. */
@@ -65,5 +68,6 @@ export function bossAlongStruck(world: World, bullet: Bullet): void {
   else if (world.boss?.kind === "hasp") haspStruck(world, bullet);
   else if (world.boss?.kind === "keel") keelStruck(world, bullet);
   else if (world.boss?.kind === "trapeze") trapezeStruck(world, bullet);
+  else if (world.boss?.kind === "brood") broodStruck(world, bullet);
   else vaneMouthStruck(world, bullet);
 }

@@ -4,6 +4,7 @@
  * carries the argument for being a file of its own.
  */
 
+export { BROOD_SCRIPT } from "./brood-script.js";
 export {
   type ControlPress,
   controlHeld,

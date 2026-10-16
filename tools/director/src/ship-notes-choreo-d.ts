@@ -153,4 +153,12 @@ export const CHOREO_NOTES_D = {
     "own rate. Maw: the navigator sees where, the pilot the colour. A level run out " +
     "strikes the hull. THE SLOW on each but the eyes. See sim/hydra.ts, " +
     "sim/hydra-step.ts, sim/hydra-hand.ts, sim/hydra-shot.ts.",
+  "THE BROOD — a sac that grows slicks and bulbs, shot before they drop":
+    "The owner's ask of 16 October 2026: a boss after the first eight waves made only " +
+    "of slicks and bulbs, on STANDARD 2. Buds grow on the rim at broodBudRow, one, " +
+    "two, then three at once, each its step's ripenBeats. A bolt of its colour pops a " +
+    "bud and the sac loses a lobe; the other colour loses the wave. A ripe bud drops " +
+    "as the slick or bulb it was and grows again after broodRegrowBeats. The sac is " +
+    "broodSpan columns either side of the middle. No SLOW. See sim/brood.ts, " +
+    "sim/brood-step.ts.",
 } satisfies Partial<Record<GroupName, string>>;

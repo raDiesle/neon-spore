@@ -6,6 +6,35 @@ import type { Wave } from "../wave-types.js";
  */
 export const WAVES_ACT_1_P2: Wave[] = [
   {
+    id: "theRockReach",
+    name: "FAR ROCK",
+    variant: true,
+    entries: [
+      { beat: 0, col: 5, kind: "meteor", color: null },
+      { beat: 7, col: 8, kind: "meteor", color: null },
+      { beat: 13, col: 3, kind: "meteor", color: null },
+      { beat: 21, col: 7, kind: "meteor", color: null },
+      { beat: 28, col: 2, kind: "meteor", color: null },
+      { beat: 35, col: 6, kind: "meteor", color: null },
+    ],
+    controls: "standard4",
+  },
+  {
+    id: "theRockPair",
+    name: "ROCK AND CYAN",
+    variant: true,
+    entries: [
+      { beat: 0, col: 5, color: "red" },
+      { beat: 6, col: 5, kind: "meteor", color: null },
+      { beat: 12, col: 7, color: "cyan" },
+      { beat: 18, col: 4, kind: "meteor", color: null },
+      { beat: 24, col: 6, color: "red" },
+      { beat: 30, col: 3, kind: "meteor", color: null },
+      { beat: 36, col: 5, color: "cyan" },
+    ],
+    controls: "standard4",
+  },
+  {
     id: "theHand",
     name: "THE HAND",
     guide: {

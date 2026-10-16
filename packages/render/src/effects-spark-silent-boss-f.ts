@@ -120,4 +120,14 @@ export const SILENT_BOSS_F = [
   "hydraStrike",
   "hydraSpent",
   "hydraOut",
+  // THE BROOD's eight are silent until its look lane draws them: the sac's
+  // buds, pops and drops are read off `BroodState` there (`sim/brood.ts`).
+  "broodEnter",
+  "broodBud",
+  "broodPop",
+  "broodDrop",
+  "broodSpoil",
+  "broodHide",
+  "broodSpent",
+  "broodOut",
 ] as const satisfies readonly SimEvent["type"][];

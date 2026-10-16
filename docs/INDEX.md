@@ -138,6 +138,9 @@ by hand never moves.
 | `packages/sim/src/boss-state.ts` | everything the Bulb Queen encounter remembers between beats |
 | `packages/sim/src/boss-strike.ts` | **A boss breaking the hull itself** when its window runs out: the breach, with the boss named on it |
 | `packages/sim/src/briefing.ts` | how a wave opens, and the only part of it the simulation owns |
+| `packages/sim/src/brood-hash.ts` | What THE BROOD puts into `hashWorld`, and nothing else |
+| `packages/sim/src/brood-step.ts` | THE BROOD's clock — coming down, a step's buds growing and dropping, the rest between steps |
+| `packages/sim/src/brood.ts` | THE BROOD: a sac of slime hung over the field that grows the two enemies the pair has just learnt |
 | `packages/sim/src/clasp.ts` | THE CLASP: a slick or a bulb inside a shield of its own, becoming a different creature instead of dying |
 | `packages/sim/src/cling.ts` | **THE LIMPET and THE LEECH**: two bodies that fall straight down one lane, cannot be shot |
 | `packages/sim/src/command-types.ts` | what a press *is*, as a flat union — so that a replay is a list of these and nothing else |
@@ -301,6 +304,7 @@ by hand never moves.
 | `packages/sim/src/boss-surface-maze.ts` | **THE MAZE's names on `@neon-spore/sim`'s surface**, cut off `boss-surface.ts` on 29 September 2026 |
 | `packages/sim/src/boss-surface-verdicts.ts` | **Every boss's shot, asked rather than acted on** — the `…Verdict` each boss's `…Struck` acts on |
 | `packages/sim/src/boss-surface-bastion.ts` | **THE BASTION's names, on a page of their own** — the moon, its shells, the plates, the ring and the port |
+| `packages/sim/src/boss-surface-brood.ts` | **THE BROOD's names, on a page of their own** — the sac, its buds and what a bolt meets — for the picture |
 | `packages/sim/src/boss-surface-hydra.ts` | **THE HYDRA's names, on a page of their own** — the body, its heads, the cut, the coil, the eye and the maw |
 | `packages/sim/src/boss-script.ts` | **Where a choreographed boss is in its script**: which step is up, out of how many |
 | `packages/sim/src/handle-pull.ts` | a hand is carrying a handle and you need to know how far it may go — the taut length, the field it may not leave, and how taut is measured |
@@ -727,6 +731,7 @@ by hand never moves.
 | `packages/sim/src/config-baton.ts` | THE BATON's numbers — how many sockets the arm has, how long a bead is in the air |
 | `packages/sim/src/config-bastion.ts` | THE BASTION's tuning: the beats around its shells |
 | `packages/sim/src/config-blister.ts` | THE BLISTER's numbers: how long it stays up, how long it is under, how much nearer each surfacing comes |
+| `packages/sim/src/config-brood.ts` | THE BROOD's numbers — where its buds hang, how wide the sac is, and how long it comes down, rests |
 | `packages/sim/src/config-trapeze.ts` | THE TRAPEZE's tuning: where the swing hangs and how long its ropes are, how fast it swings |
 | `packages/sim/src/creature-state-balloon.ts` | **THE BALLOON's six**, and the seventh group carried out of `creature-state.ts` along the seam that file's… |
 | `packages/sim/src/creature-state-blister.ts` | **THE BLISTER's four fields**: whose blow counts, how many are owed, whether it is up, and how long it stays |
@@ -744,6 +749,7 @@ by hand never moves.
 | `packages/sim/src/events-bastion.ts` | What THE BASTION says as it happens, one line per thing the picture and the sound answer |
 | `packages/sim/src/events-bosses.ts` | **The choreographed bosses' arms of `SimEvent`**, as one union |
 | `packages/sim/src/events-blister.ts` | **THE BLISTER's one**: a blow that counted |
+| `packages/sim/src/events-brood.ts` | **Everything THE BROOD does that neither screen already says**, as events |
 | `packages/sim/src/events-trapeze.ts` | What THE TRAPEZE says as it happens, one line per thing the picture and the sound answer |
 | `packages/sim/src/events-undertow.ts` | **Everything THE UNDERTOW does that neither screen already says**, as events |
 | `packages/sim/src/events-taster.ts` | **Everything THE TASTER does that neither screen already says**, as events |
@@ -1144,6 +1150,7 @@ by hand never moves.
 | `packages/content/src/motions-retired.ts` | The motions nothing in the game carries any more |
 | `packages/content/src/motion-bank.ts` | BANK, the slick's own motion: two slow drifts on periods with no common multiple, the body leaning into its own travel — the answer the owner took on 9 September 2026 |
 | `packages/content/src/balloon-parts.ts` | **What is alive inside THE BALLOON**, and hanging under it: veins, a ring of lit beads |
+| `packages/content/src/brood-script.ts` | THE BROOD's script: six steps, ten buds, one more at a time as it goes |
 | `packages/content/src/surface.ts` | where a mark placed at a longitude and latitude lands, how the tangent plane foreshortens it, and its own normal against `KEY` |
 | `packages/content/src/studded.ts` | A body whose whole rim is broken by the same feature repeated: knobs, spines or hairs — the contour alone |
 | `packages/content/src/stare-levels.ts` | THE STARE's levels: four beat patterns, and the pattern is the level |
@@ -2884,6 +2891,7 @@ by hand never moves.
 | `packages/audio/src/bind-fleet.ts` | **What THE FLEET sounds like**: a salvo leaving the cannon, and the water |
 | `packages/audio/src/bind-flue.ts` | Whether an event is THE FLUE's, so a page of the chain can hand it over whole |
 | `packages/audio/src/bind-breach.ts` | What a hull breach sounds like, split by what it cost rather than by what hit |
+| `packages/audio/src/bind-brood.ts` | THE BROOD's eight, routed by their prefix (`bind-prefixed.ts`) |
 | `packages/audio/src/bind-crawler.ts` | THE CRAWLER's two endings, as sounds |
 | `packages/audio/src/bind-lookups.ts` | The two id-to-id tables `bind.ts` reads, and the only *data* in a file that is otherwise a switch |
 | `packages/audio/src/bind-ledger.ts` | THE LEDGER's eleven, in a file of their own for `bind-taster.ts`' reason |
@@ -2962,6 +2970,7 @@ by hand never moves.
 |---|---|
 | `packages/hands/src/boss-hands-beats.ts` | **The pair's hands on the bosses a beat answers** — THE BATON and THE THROAT |
 | `packages/hands/src/boss-hands-bastion.ts` | **THE BASTION played right**, for the autopilot: plates pulled, guns turned and shot, nodes shielded, ports shot |
+| `packages/hands/src/boss-hands-brood.ts` | **THE BROOD played right**, for the autopilot: the bud nearest to dropping first, the cannon under it |
 | `packages/hands/src/boss-hands-trapeze.ts` | **THE TRAPEZE played right**, for the autopilot |
 | `packages/hands/src/boss-hands-shots.ts` | **The pair's hands on the bosses a shot answers** — THE WARDEN and THE VANE |
 | `packages/hands/src/boss-hands-snake.ts` | **SNAKE's own hand** — the body has no bearing to steer by, THE MAZE's or THE SCOUT's kind |

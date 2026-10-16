@@ -273,6 +273,8 @@ describe("the standard ladder", () => {
       "standard2",
       "standard2",
       "standard2",
+      // THE BROOD, the boss that closes the second rung: slicks and bulbs only.
+      "standard2",
       // Twelve waves on the top rung, because the maw is held back until
       // SALVAGE — the one wave whose subject asks for it.
       "standard4",

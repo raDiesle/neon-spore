@@ -42841,3 +42841,14 @@ Bottleneck: reading — the three films had to be read to know which of
 the arc's waves belong to which lesson.
 
 *Measured: 5 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-16 — THE BROOD: a sac after ALTERNATING that grows slicks and bulbs, shot before they drop (the simulation)
+
+- reading: 10 min. THE GORGE's mid-field meet, the scripted-boss install, the twelve registrations outside the simulation.
+- writing: 15 min. The state, the clock, the hash, the hand, eight sounds, the wave and its guide, nine tests.
+- looking: 0 min. No look in this lane: the boss draws nothing of its own yet.
+- friction: 5 min. A script with lists inside its steps that the director could not write back byte for byte, moved to `brood-script.ts`.
+- landing: 5 min. The registrations the fast check found — INDEX, baseline, poses owed, words ceiling — then `land`.
+
+Bottleneck: the registrations outside the simulation, which only the fast
+check finds, one red at a time.

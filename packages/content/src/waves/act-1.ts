@@ -1,3 +1,4 @@
+import { BROOD_SCRIPT } from "../brood-script.js";
 import { INSTAR_SCRIPT } from "../instar-script.js";
 import type { Wave } from "../wave-types.js";
 
@@ -153,6 +154,19 @@ export const WAVES_ACT_1: Wave[] = [
     controls: "standard2",
   },
   {
+    id: "theBrood",
+    name: "THE BROOD",
+    guide: {
+      both: "A sac grows slicks and bulbs. Shoot each bud in its colour before it drops. A bud that drops falls at the ship, and grows again.",
+      p1: "You move the cannon. Say which bud you go under next.",
+      p2: "You fire. Red bud: red. Cyan bud: cyan. The other colour loses the wave.",
+    },
+    entries: [],
+    boss: { kind: "brood", steps: BROOD_SCRIPT },
+    bossType: "normal",
+    controls: "standard2",
+  },
+  {
     id: "theInstar",
     name: "THE INSTAR",
     entries: [],
@@ -183,35 +197,6 @@ export const WAVES_ACT_1: Wave[] = [
       { beat: 15, col: 4, kind: "meteor", color: null },
       { beat: 22, col: 6, kind: "meteor", color: null },
       { beat: 30, col: 5, kind: "meteor", color: null },
-    ],
-    controls: "standard4",
-  },
-  {
-    id: "theRockReach",
-    name: "FAR ROCK",
-    variant: true,
-    entries: [
-      { beat: 0, col: 5, kind: "meteor", color: null },
-      { beat: 7, col: 8, kind: "meteor", color: null },
-      { beat: 13, col: 3, kind: "meteor", color: null },
-      { beat: 21, col: 7, kind: "meteor", color: null },
-      { beat: 28, col: 2, kind: "meteor", color: null },
-      { beat: 35, col: 6, kind: "meteor", color: null },
-    ],
-    controls: "standard4",
-  },
-  {
-    id: "theRockPair",
-    name: "ROCK AND CYAN",
-    variant: true,
-    entries: [
-      { beat: 0, col: 5, color: "red" },
-      { beat: 6, col: 5, kind: "meteor", color: null },
-      { beat: 12, col: 7, color: "cyan" },
-      { beat: 18, col: 4, kind: "meteor", color: null },
-      { beat: 24, col: 6, color: "red" },
-      { beat: 30, col: 3, kind: "meteor", color: null },
-      { beat: 36, col: 5, color: "cyan" },
     ],
     controls: "standard4",
   },

@@ -17,12 +17,13 @@
 export * from "./boss-script.js";
 // THE BASTION's, the same way (`boss-surface-bastion.ts`).
 export * from "./boss-surface-bastion.js";
+// THE BROOD's and THE HYDRA's (`boss-surface-brood.ts`, `boss-surface-hydra.ts`).
+export * from "./boss-surface-brood.js";
 // THE CHRYSALIS's, the same way (`boss-surface-chrysalis.ts`).
 export * from "./boss-surface-chrysalis.js";
 // And the clock bosses' names, whole — a list of the same kind, cut for the
 // same reason `bosses.ts` was (`boss-surface-clocks.ts`).
 export * from "./boss-surface-clocks.js";
-// THE HYDRA's (`boss-surface-hydra.ts`).
 export * from "./boss-surface-hydra.js";
 // THE LATCH's, from the day it was written (`boss-surface-latch.ts`).
 export * from "./boss-surface-latch.js";

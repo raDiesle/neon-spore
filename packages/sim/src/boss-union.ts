@@ -2,6 +2,7 @@ import type { AntiphonState } from "./antiphon.js";
 import type { BastionState } from "./bastion.js";
 import type { BatonState } from "./baton.js";
 import type { FleetState, QueenState, VaneState, WardenState } from "./boss-state.js";
+import type { BroodState } from "./brood.js";
 import type { CairnState } from "./cairn.js";
 import type { CapstanState } from "./capstan.js";
 import type { ChrysalisState } from "./chrysalis.js";
@@ -133,4 +134,5 @@ export type BossState =
   | LatchState
   | BastionState
   | ChrysalisState
-  | HydraState;
+  | HydraState
+  | BroodState;

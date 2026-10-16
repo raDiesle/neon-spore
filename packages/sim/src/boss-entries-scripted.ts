@@ -1,4 +1,5 @@
 import type { BastionEntry } from "./bastion.js";
+import type { BroodEntry } from "./brood.js";
 import type { CapstanEntry } from "./capstan.js";
 import type { ChrysalisEntry } from "./chrysalis.js";
 import type { FlueEntry } from "./flue.js";
@@ -59,9 +60,12 @@ export type ScriptedBossEntry =
   // The living one peeled a skin at a time, each a different way (`chrysalis.ts`).
   | ChrysalisEntry
   // The heads stopped a kind at a time, each a different gesture (`hydra.ts`).
-  | HydraEntry;
+  | HydraEntry
+  // The sac that grows slicks and bulbs on its rim, each shot before it drops (`brood.ts`).
+  | BroodEntry;
 
 export type { BastionEntry, BastionStep } from "./bastion.js";
+export type { BroodEntry, BroodStep } from "./brood.js";
 export type { CapstanEntry, CapstanStep } from "./capstan.js";
 export type { ChrysalisEntry, ChrysalisStep } from "./chrysalis.js";
 export type { FlueEntry, FlueLevel } from "./flue.js";
