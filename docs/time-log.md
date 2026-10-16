@@ -43344,3 +43344,5 @@ borders" — the strip, the wall mark and the pore's swell are three.
 
 Bottleneck: the release notes still name a cut boss's number, so records had
 to be told apart from documents that must stay true.
+
+*Measured: 16 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*

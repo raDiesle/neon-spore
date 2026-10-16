@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-16 · 8ec5cd2fc — Two bosses given one section number in the boss spec turn the check red
+
+THE MATRON and THE GEODE were both written as §11.66 on the same day, and both landed: the rebase merged the two sections cleanly and nothing read the headings. A test now holds every `## 11.n` heading in `docs/spec/bosses.md` to a number of its own, and every `§11.n` named in code or docs to a heading that exists. The release notes and the time log are records, and are not held to today's numbers.
+
 ## 2026-10-16 · 2afb3aebf — A blister is marked on no border and stays up twice as long
 
 The "controls" blisters — TAP, HOLD, SWIPE, TURN, RUB, LEVER, COMBO — are no longer announced by the radar strip or the wall mark on either screen; the pore swelling on the partner's screen is the only warning. To pay for it, TAP and HOLD stay up six beats instead of three, and the rest eight instead of four. Asked for by the owner by name (the look exemption).
