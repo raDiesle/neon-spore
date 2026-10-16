@@ -43022,3 +43022,5 @@ Bottleneck: writing — a boss is some sixty registrations across seven packages
 
 Bottleneck: writing — a cut piece's two halves are one outline clipped twice
 along a jagged line, each turned about its own foot.
+
+*Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

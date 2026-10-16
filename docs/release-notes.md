@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-16 · a283d4750 — THE GEODE is drawn: faceted stone across the field, each piece broken in two along its crack by the lance
+
+The stone is THE CAIRN's faceted rocks laid across the whole field, one piece per crack, with the seams between them left to count. The navigator sees each crack as a white-hot line; the pilot sees the crystal's colour glowing through the pores. A beam down a crack splits that piece along its jagged line, and the two halves turn apart to show crystal cut faces in the beam's colour. When a level is done the halves fly off and the next, smaller layer comes up behind them, down to the crystal heart, which shatters. The stone sinks a tile over each window and lands on the hull if time runs out. The navigator gets HOLD on the crack the cannon is under. A new look with nothing shipped in its place: an addition where the game drew nothing, built in rather than put in VERSUS.
+
 ## 2026-10-16 · 5185f6a55 — THE SWINDLE: real pods and fake ones, shuffled (simulation)
 
 THE HUSK's block now ends on a boss about the real pod and the fake one together: a slime hangs a row of both, glides pairs of them across each other, then lets each go on its beat. Only the navigator sees which are fake and calls each one as it falls; the pilot opens the maw for a real pod and keeps it shut for a fake. Four hands, six real pods as her health; a fake swallowed or a real one let fall loses the wave. Nothing before the catch tells the two apart, sound included. Her body is not drawn yet — that is the next lane — and she has not been watched at tempo.
