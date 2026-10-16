@@ -42917,3 +42917,5 @@ on, and three shapes in a row read as a slab before one read as a sac.
 
 Bottleneck: friction — two lanes chose the same boss name the same day, and
 nothing tells a lane a name is taken until `land` refuses.
+
+*Measured: 19 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

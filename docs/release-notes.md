@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-16 · 6c349f5a3 — FINALE is THE MATRON: a mother slime whose pods are her health (simulation)
+
+FINALE, the tutorial arc's last wave, is now a boss about everything the arc taught, the pods most of all. A mother slime hangs real pods off her lobes a clutch at a time; the navigator shoots each loose, the pilot swallows it before its ring runs out, and she throws bodies of both colours, rocks and torches down while they hang. Each pod swallowed takes a lobe; the last beats her. Four clutches, nine pods, every throw authored. Her body is not drawn yet — that is the next lane — and she has not been watched at tempo.
+
 ## 2026-10-16 · c41fe6ca5 — THE BROOD is drawn: a slime sac over the field, its buds the slick and the bulb growing down out of its belly
 
 The sac is BULB · PEBBLE taken wide, with one round lobe along its top for every bud still to pop, and it turns half round between steps to show its other face. Each bud is a small slick or bulb that swells and shudders as it ripens, and a popped bud bursts in its colour. The navigator gets FIRE over the bud the cannon is under; the pilot gets no word, because choosing which bud is his. A new look with nothing shipped in its place: an addition where the game drew nothing, built in rather than put in VERSUS.
