@@ -42736,3 +42736,5 @@ so the cleared card covered the one thing that pose was meant to show.
 
 Bottleneck: working out what "two tiles more" meant against the steering
 that already pulled a pod most of a column and a half in.
+
+*Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

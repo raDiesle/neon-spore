@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-16 · 4349f9527 — The maw takes a pod from two columns either side of the cannon, and stays open 1100 ms
+
+Catching a pod is easier. The open maw now takes a pod that reaches the hull in the cannon's column or up to two columns either side of it (`podCatchCols`). Before, it had to be the cannon's own column. The last two rows already steer a pod most of a column and a half toward the cannon, so the catch reaches about two columns further each way than before. The maw also stays open 1100 ms after the press instead of 800. A hollow pod is read by the same rule, so the cannon has to be further away to let one pass.
+
 ## 2026-10-16 · 718006dfb — Three new looks for the real pod and three for the hollow one, side by side in VERSUS
 
 The real pod is offered as CAIRN, LANTERN and SMART. CAIRN is seven facets turning in depth that come loose as the clock runs out. LANTERN is a lantern swinging on a thread whose handle spins round it, and it thrashes when time is short. SMART is a studded seed tumbling, and it wakes on the beat near the end. The hollow pod is offered as GUTTED, BROKEN and CUP, drawn on player 2's screen only. GUTTED is a ring round a black socket. BROKEN is a dead shell with its handle snapped off. CUP is half a shell that keeps turning its empty inside to the viewer. Player 1 still sees a real pod.
