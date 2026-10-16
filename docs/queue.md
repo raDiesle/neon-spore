@@ -331,6 +331,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## `versus:shot --only current` shows the candidate on a `screenshot` candidate
 
 - **Found:** 2026-10-15, claude/queue-snakes-body-shadow-is-shadowblur
+- **Taken:** 2026-10-16, main (claim: claude/queue-versus-shot-only-current-shows-the-candidate-on)
 - **Files:** `tools/director/src/versus-one.ts`, `tools/frames/versus-shot.ts`
 
 `renderScreen` mounts a `screenshot` candidate alone and never mounts
