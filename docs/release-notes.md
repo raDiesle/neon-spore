@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-16 · 589e55a6d — DOCUMENTATION has a SKIES room: all twelve skies, drawn
+
+A new room in the director's DOCUMENTATION sheet shows every sky the field can sit in. Each card has the sky's name, a line on what it is, the first waves that open under it, and a real frame of the game started on the first of those waves, so the picture cannot drift from the game.
+
 ## 2026-10-16 · 8c19fbdbe — The bright bosses glow round their own contour: THE ANTIPHON, THE BROOD, THE SWINDLE, THE MATRON and THE SPLICE
 
 THE ANTIPHON's organ and candidates, THE BROOD's sac, THE SWINDLE's and THE MATRON's lobes and THE SPLICE's eater — head, neck and rear — now throw a soft light of their own colour round their own outline, as the creatures do. A boss is several tiles across, so `bossAura` reaches a third of a tile past the contour rather than a share of the body, and strokes every piece of a body as one path. A spent boss throws none. The other bosses are lit stone, metal, bark or the hull's purple, and keep their look.

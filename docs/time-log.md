@@ -43121,3 +43121,5 @@ Bottleneck: looking — sixty-four waves to shoot and read before a single boss 
 - landing: 10 min. Two budget rows moved, an export sorted, a stale file name in a comment, `check:fast` twice, `land`.
 
 Bottleneck: writing — twelve pictures, each baked once and checked in a frame before it sat under the bodies.
+
+*Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
