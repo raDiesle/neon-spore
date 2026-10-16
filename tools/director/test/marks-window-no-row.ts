@@ -46,7 +46,7 @@ export const NO_ROW: Partial<Record<BossKind, NoRowWhy>> = {
   // Its one mark was the ring on the neck, and the owner took it out on 10
   // October 2026: the round asks for nothing on the body now.
   snake: "no-marks-file",
-  // Lane one is the simulation alone: `brood-marks.ts` is the look lane's,
-  // and its row comes with it (`docs/parked.md`).
+  // It asks nothing of a thumb: its one ask is a shot, the navigator's `FIRE`
+  // over the bud the cannon is under (`boss-cue-read-zy.ts`).
   brood: "no-marks-file",
 };

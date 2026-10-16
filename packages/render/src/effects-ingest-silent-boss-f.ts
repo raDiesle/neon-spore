@@ -117,8 +117,9 @@ export const INGEST_SILENT_BOSS_F = [
   "hydraStrike",
   "hydraSpent",
   "hydraOut",
-  // THE BROOD's eight are silent until its look lane draws them: the sac's
-  // buds, pops and drops are read off `BroodState` there (`sim/brood.ts`).
+  // THE BROOD's eight are read above the loop by `brood-fx.ts`
+  // (`Effects.boss.brood`), THE GORGE's way: a pop's splash, a snapped
+  // stalk, the hide's grit, and the blow as it is beaten.
   "broodEnter",
   "broodBud",
   "broodPop",

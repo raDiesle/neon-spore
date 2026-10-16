@@ -1,5 +1,6 @@
 import type { World } from "@neon-spore/sim";
 import { drawBastion } from "./bastion-draw.js";
+import { drawBrood } from "./brood-draw.js";
 import { drawChrysalis } from "./chrysalis-draw.js";
 import type { Effects } from "./effects.js";
 import { drawFlue } from "./flue-draw.js";
@@ -38,6 +39,7 @@ export const LATEST_PAIR_KINDS = [
   "bastion",
   "chrysalis",
   "hydra",
+  "brood",
 ] as const;
 
 export type LatestPairBoss = Extract<Installed, { kind: (typeof LATEST_PAIR_KINDS)[number] }>;
@@ -137,6 +139,14 @@ export function drawLatestPairBoss(
       effects.boss.chrysalis,
       effects.bolts,
     );
+    return;
+  }
+
+  // THE BROOD: a sac of slime over the middle growing slicks and bulbs on
+  // stalks off its belly, each shot in its colour before it drops
+  // (`brood-draw.ts`); its receipts are `brood-fx.ts`.
+  if (boss.kind === "brood") {
+    drawBrood(ctx, l, world, boss, beat, beatPhase, time, effects.boss.brood);
     return;
   }
 

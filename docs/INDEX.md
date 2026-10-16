@@ -1256,6 +1256,7 @@ by hand never moves.
 | `packages/render/src/boss-cue-read-zv.ts` | **What THE BASTION is asking for**, page forty-eight of the readings, a word for each shell's job |
 | `packages/render/src/boss-cue-read-zw.ts` | **What THE CHRYSALIS is asking for**, page forty-nine of the readings, a word for each skin's job |
 | `packages/render/src/boss-cue-read-zx.ts` | **What THE HYDRA is asking for**, page fifty of the readings, a word for each kind of head |
+| `packages/render/src/boss-cue-read-zy.ts` | **What THE BROOD is asking for**, on a page of its own among the readings |
 | `packages/render/src/boss-cue-read.ts` | **What THE GORGE, THE CURTAIN and BULB QUEEN are asking for** |
 | `packages/render/src/boss-cue-text.ts` | **A cue's two lines, drawn**: the verb under the mark, the kind of action over it |
 | `packages/render/src/boss-cue-field.ts` | **The one word the boss wants, drawn separately from `drawBodies` and after `drawShip`** (`canvas2d.ts`) |
@@ -1323,6 +1324,11 @@ by hand never moves.
 | `packages/render/src/breach-strike.ts` | **The hit that loses the wave, seen happening.** One `breach` event |
 | `packages/render/src/breach-either.ts` | **Which of the two pictures this breach gets.** The owner took `rend` and `hammer` together out of the three… |
 | `packages/render/src/breach-rend.ts` | The plating giving way |
+| `packages/render/src/brood-bud.ts` | **One bud of THE BROOD**, on its stalk: the slick or the bulb it is growing into |
+| `packages/render/src/brood-draw.ts` | THE BROOD, drawn: a sac of green slime hung over the middle of the field, breathing on the beat |
+| `packages/render/src/brood-fx.ts` | What THE BROOD leaves behind a frame: the splash of a bud popped, the stalk whipping back up when one drops |
+| `packages/render/src/brood-place.ts` | **Where THE BROOD is drawn**: the sac over the middle and each bud on its column |
+| `packages/render/src/brood-shape.ts` | **THE BROOD's outline**: BULB · PEBBLE, from the shape sheet's drafts, a lobe on its top for every bud still to pop |
 | `packages/render/src/cannon-maw.ts` | Laying the shot: `maw.ts` run backwards |
 | `packages/render/src/cannon-column.ts` | **The cannon's own column, straight up** — spec 5.8's one path marker left in the field |
 | `packages/render/src/clasp-break.ts` | THE CLASP's shield failing |
@@ -3738,6 +3744,7 @@ by hand never moves.
 | `tools/director/src/poses-bosses-rounds-b.ts` | **The rounds' states, the second page** — PINBALL's and THE PULSE's |
 | `tools/director/src/poses-bosses-hands-beats.ts` | **The states a beat earns** — THE BATON's crossing, THE THROAT's suck |
 | `tools/director/src/poses-bosses-hands-bastion.ts` | **THE BASTION's states**, posed with a hand on the controls (`boss-hands-bastion.ts`) |
+| `tools/director/src/poses-bosses-hands-brood.ts` | **THE BROOD's states**, posed with a hand on the controls (`boss-hands-brood.ts`) |
 | `tools/director/src/poses-bosses-hands-shots.ts` | **The states a shot earns** on the clock bosses — THE WARDEN's plates, THE VANE's pins |
 | `tools/director/src/poses-bosses-hands-seam.ts` | **THE SEAM's states**, posed with a hand on the controls (`boss-hands-seam.ts`) |
 | `tools/director/src/poses-bosses-hands-spool.ts` | **THE SPOOL's six earned states**, posed with a hand on the brake (`boss-hands-spool.ts`): three of the fight and the story's three between the ribs |

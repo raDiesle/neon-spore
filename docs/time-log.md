@@ -42893,3 +42893,14 @@ Bottleneck: reading — a boss's needs are only readable through `keysOf`,
 one probe away.
 
 *Measured: 5 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-16 — THE BROOD: the sac, its buds and its cue (the look)
+
+- reading: 5 min. THE GORGE's and THE HYDRA's pages, the cue readings, the free drafts on the shape sheet.
+- writing: 10 min. Five pages of the picture, the cue, four state cards, the frame test.
+- looking: 10 min. Four frames: a sac off both edges with a bud too small to find, a slab of a belly, spiky sides, then the lobes along the top.
+- friction: 0 min.
+- landing: 5 min. The hush test, which samples only under THE SLOW, then `check:fast` and `land`.
+
+Bottleneck: looking — the belly had to be level with the row a bolt is met
+on, and three shapes in a row read as a slab before one read as a sac.

@@ -144,10 +144,11 @@ export const OFFERED_DRAFTS: CatalogueEntry[] = [
       "lobes so shallow they are barely there, under a wobble that blurs them",
     ),
     motion: BULB_MOTION,
-    status: "free",
+    // Taken 16 October 2026 by THE BROOD's sac.
+    status: "taken",
     slot: "creature",
     owner:
-      "nothing — THE RIME's lens from 26 September 2026, combined with THE CAIRN, until the owner took THE RIME out of the game on 9 October 2026. Before that, nothing wore it: `bulb:shape` / `pebble`, moved here with the other four on 9 September 2026. It argues that the bulb should be the body with *no feature at all* — lobes so shallow they are barely a departure from a circle, under a wobble larger than the lobes, so what a player sees is a soft round thing that breathes. Every other body on the field is trying to be recognised by a count or a point; this one would be recognised by having nothing to recognise. It is the opposite end of the slot from SPIKE and the two belong side by side, because the question underneath both is whether the first round body should be busy or plain. What it risks is that a circle is a rock: THE METEOR is the hard round thing at the same size, and with the lobes gone the difference rests entirely on the material and the colour",
+      "THE BROOD, taken 16 October 2026: its sac, taken wide over nine columns with its belly flattened over them, its six shallow lobes let go for a row of round swellings along its top, one for every bud still to pop (`render/brood-shape.ts`). Before that, THE RIME's lens from 26 September 2026, combined with THE CAIRN, until the owner took THE RIME out of the game on 9 October 2026. Before that, nothing wore it: `bulb:shape` / `pebble`, moved here with the other four on 9 September 2026. It argues that the bulb should be the body with *no feature at all* — lobes so shallow they are barely a departure from a circle, under a wobble larger than the lobes, so what a player sees is a soft round thing that breathes. Every other body on the field is trying to be recognised by a count or a point; this one would be recognised by having nothing to recognise. It is the opposite end of the slot from SPIKE and the two belong side by side, because the question underneath both is whether the first round body should be busy or plain. What it risks is that a circle is a rock: THE METEOR is the hard round thing at the same size, and with the lobes gone the difference rests entirely on the material and the colour",
   },
   {
     subject: blob(

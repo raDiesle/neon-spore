@@ -12361,7 +12361,7 @@ which is only about "bulb" and "slick" of mechanics and enemies introduced
 so far.* A field boss, the second kind in `.claude/skills/new-boss`, played
 right after ALTERNATING on STANDARD 2 — the cannon slide, red and cyan, and
 nothing the first eight waves have not taught. **Built on 16 October 2026 as
-its simulation**; its look is the next lane.
+its simulation, then its look.**
 
 **The rule, in one sentence.** Shoot each bud in its colour before it drops.
 
@@ -12424,10 +12424,48 @@ and changing nothing; a ripe bud dropping from its own row as the body it was
 and growing again; the last bud beating it; a real cannon bolt popping one;
 the same presses hashing the same.
 
-**What is not built.** The look — the sac, its buds swelling, a pop, a drop,
-and the marks — is lane two; until then the boss draws nothing of its own and
-its events stay on the silent lists. The guide is prose. **Never watched at
-tempo** — the owner's eye.
+**The look** (`render/src/brood-draw.ts` and the pages it calls). A sac of
+translucent green slime hung over the middle of the field, breathing on the
+beat, **BULB · PEBBLE** taken wide (`brood-shape.ts`): nine columns across,
+its belly flattened over them so it runs level with the bud row, where a bolt
+is met (`brood-place.ts`) — so a bolt up any column it covers ends on the
+skin or on a bud, never short of them in the air. **Its health is its
+outline**: one round lobe along its top for every bud still to pop, and the
+sac a little smaller each time, so the fight's length is read off the body.
+**It turns**: its skin carries two faces round a sphere, the front pocked
+with the pale rings of buds grown and the back netted with dark veins, and
+every rest turns it half round, so the face the pair was reading goes and the
+other comes. It comes down from above the frame, and beaten it greys, sags
+and fades.
+- **A bud** (`brood-bud.ts`) is the slick or the bulb it is growing into,
+  drawn with that body's own silhouette, skin and interior, small: it grows
+  down out of the belly as it ripens, from seven tenths of a body to a body
+  and a bit, and in its last quarter it shudders on its stalk, faster as it
+  goes, its own light coming up — ripeness read off the bud, never a bar. A
+  dropped bud leaves a stub with a nub on it until it grows again.
+- **The receipts** (`brood-fx.ts`): a pop bursts the bud in its colour with a
+  ring of its slime, and the sac takes a counted hit; a drop snaps the stalk
+  back up into the belly, and the body that falls is the field's own; the
+  hide is a scuff of grey grit; the wrong colour a grey burst on the bud,
+  which stays; beaten, the blow of a fight landed.
+- **No seat is shown anything the other is not.** The panel is the split:
+  the cannon is the pilot's and both colours the navigator's.
+- **The cue** (`render/src/boss-cue-read-zy.ts`): `FIRE` over `BEFORE IT
+  DROPS` to the navigator, aimed at the bud hanging in the cannon's column,
+  with that bud's colour's button lit, and nothing while the cannon is under
+  the hide. The pilot is told nothing: which bud to go under is his to choose
+  and say, the owner's *we do not need to show helper to "move"* (5 October
+  2026, on THE GORGE). It asks nothing of a thumb, so it has no grip and no
+  marks page (`tools/director/test/marks-window-no-row.ts`), and it never
+  slows, so `boss-hush.test.ts` has nothing to sample.
+
+`render/test/brood-frame.test.ts` draws it on all three screens: the sac, a
+bud in its colour and a dropped one's nub, a lobe on the rim for every bud
+still to pop, the belly level with the bud row across every column it covers,
+the half turn of a rest and none while a bud hangs, and the sac beaten.
+
+**What is not built.** The guide is prose. **Never watched at tempo** — the
+owner's eye.
 
 ## Retired
 

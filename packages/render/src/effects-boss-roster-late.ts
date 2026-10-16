@@ -1,4 +1,5 @@
 import { BastionFx } from "./bastion-fx.js";
+import { BroodFx } from "./brood-fx.js";
 import { CapstanFx } from "./capstan-fx.js";
 import { ChrysalisFx } from "./chrysalis-fx.js";
 import { RoundMarks } from "./effects-round-marks.js";
@@ -90,4 +91,7 @@ export class LateRoster extends RoundMarks {
    * comes in, as a level is stopped and as it is beaten, and the blow it takes
    * (`hydra-fx.ts`, `hydra-receipts.ts`). */
   readonly hydra = new HydraFx();
+  /** THE BROOD's splash off a bud popped, a dropped bud's stalk whipping
+   * back up, the hide's grit and the blow it takes (`brood-fx.ts`). */
+  readonly brood = new BroodFx();
 }

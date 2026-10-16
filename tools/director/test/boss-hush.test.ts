@@ -69,6 +69,11 @@ import { DRAWN } from "./boss-hush-drawn.js";
  * THE LATCH has none because it never slows: its levels are played at tempo,
  * and its grips stand at their rest and move only under the thumb carrying
  * them (`render/latch-shape.ts`).
+ *
+ * THE BROOD has none for THE LATCH's reason: it never slows. Its one mark is
+ * the navigator's `FIRE` on the bud the cannon is under, which hangs on its
+ * column and only grows down out of the belly as it ripens, a third of a tile
+ * over eight beats and more (`render/brood-bud.ts`).
  */
 
 const VIEWPORT: Viewport = { width: 900, height: 1600, dpr: 2 };
