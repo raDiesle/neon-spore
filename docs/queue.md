@@ -350,6 +350,7 @@ Done when `bun run waves:order` prints `nothing changes` again.
 ## A save that moves waves into the arc scatters it over empty act files
 
 - **Found:** 2026-10-16, claude/wave-generation-feedback-8f39ba
+- **Taken:** 2026-10-16, claude/queue-work-6b11c3 (claim: claude/queue-a-save-that-moves-waves-into-the-arc-scatters-it)
 - **Files:** `tools/director/src/waves-acts.ts`, `tools/director/src/waves-recut-write.ts`, `tools/director/waves-order.ts`
 
 Moving THE BLISTER's nine waves from act 8 into the tutorial arc with
