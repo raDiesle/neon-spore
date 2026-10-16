@@ -40,6 +40,24 @@ describe("pruneImports", () => {
     expect(text).toContain("import { beatPhase, type World }");
   });
 
+  it("takes neighbours out together, wherever in the list they stand", () => {
+    // The deep sky stranded three names in eleven sky files on 16 October
+    // 2026, and every list whose last two were stranded lost its `}`.
+    const use = "\nexport const a = [actTint, baked, lighter];\n";
+    const kit = (names: string) => `import { ${names} } from "./sky-kit.js";${use}`;
+    for (const names of [
+      "actTint, baked, drawStars, lighter, paintSpace, starSheet",
+      "drawStars, paintSpace, actTint, baked, lighter",
+      "actTint, drawStars, baked, paintSpace, starSheet, lighter",
+    ]) {
+      const { text, dropped } = pruneImports(kit(names));
+      expect(dropped.map((d) => d.name).sort(), names).toEqual(
+        ["drawStars", "paintSpace", "starSheet"].filter((n) => names.includes(n)),
+      );
+      expect(text, names).toBe(kit("actTint, baked, lighter"));
+    }
+  });
+
   it("leaves a statement whose every name is unused, and says which", () => {
     const source = [
       "/** Only here for the scars decision of 3 September. */",

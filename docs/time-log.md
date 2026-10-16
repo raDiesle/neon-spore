@@ -43521,3 +43521,16 @@ been an import cycle, so the caller passes the radius it already has.
 Bottleneck: waiting on part one's landing, which the drafting filled.
 
 *Measured: 13 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-16 — bun run imports takes neighbouring names out together
+
+- reading: 5 min. The entry, `imports.ts`, `scan.ts`; the error was biome's,
+  reading the list the cut had broken.
+- writing: 5 min. Runs of neighbours as one cut, overlapping cuts merged, a
+  test over three placements.
+- looking: 0 min. Nothing drawn changed.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, `land`.
+
+Bottleneck: the report — "expected `,`" pointed at the parser, and the fault
+was two cuts claiming the same comma.

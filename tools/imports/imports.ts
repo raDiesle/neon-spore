@@ -18,7 +18,7 @@
  */
 
 import { classify } from "./classify.js";
-import { type ImportDecl, importDecls } from "./scan.js";
+import { type Binding, type ImportDecl, importDecls } from "./scan.js";
 import { usedElsewhere } from "./uses.js";
 
 /** A statement every one of whose names is unused, under a comment: left alone, and reported. */
@@ -132,9 +132,11 @@ export function pruneImports(source: string): Pruned {
       unused.some((b) => b.kind === "named");
     for (const binding of unused) {
       dropped.push({ line: lineOf(source, binding.start), name: binding.local });
-      if (binding.kind === "named" && listGone) continue;
-      const listEnd = decl.listEnd ?? decl.end;
-      cuts.push(widen(source, binding.start, binding.end, listEnd));
+    }
+    const listEnd = decl.listEnd ?? decl.end;
+    for (const [from, to] of runsOf(source, decl.bindings, new Set(unused))) {
+      if (listGone && decl.bindings.some((b) => b.start === from && b.kind === "named")) continue;
+      cuts.push(widen(source, from, to, listEnd));
     }
     // An emptied `{ }` goes with the comma that held it on, never on its own.
     if (listGone && decl.listStart !== null && decl.listEnd !== null) {
@@ -143,8 +145,48 @@ export function pruneImports(source: string): Pruned {
   }
 
   let text = source;
-  for (const [from, to] of cuts.sort((a, b) => b[0] - a[0])) {
+  for (const [from, to] of merged(cuts).reverse()) {
     text = text.slice(0, from) + text.slice(to);
   }
   return { text, dropped, left };
+}
+
+/**
+ * The unused bindings as spans, neighbours joined: two unused names side by
+ * side are one cut, not two that each claim the comma between them. Cut one
+ * by one, `paintSpace` at the end of `{ actTint, drawStars, paintSpace }`
+ * reached back for the comma `drawStars` had already taken, and the list
+ * lost its `}` instead (`docs/queue.md`, 16 October 2026). A comment between
+ * two names keeps them apart, so it stays where it is.
+ */
+function runsOf(
+  text: string,
+  bindings: readonly Binding[],
+  unused: ReadonlySet<Binding>,
+): [number, number][] {
+  const runs: [number, number][] = [];
+  let run: [number, number] | null = null;
+  for (const b of bindings) {
+    if (!unused.has(b)) {
+      run = null;
+      continue;
+    }
+    if (run && b.kind === "named" && /^[\s,]*$/.test(text.slice(run[1], b.start))) run[1] = b.end;
+    else {
+      run = [b.start, b.end];
+      runs.push(run);
+    }
+  }
+  return runs;
+}
+
+/** The cuts in order, any that overlap made one, so no cut is applied to text another has moved. */
+function merged(cuts: readonly [number, number][]): [number, number][] {
+  const out: [number, number][] = [];
+  for (const [from, to] of [...cuts].sort((a, b) => a[0] - b[0])) {
+    const last = out[out.length - 1];
+    if (last && from < last[1]) last[1] = Math.max(last[1], to);
+    else out.push([from, to]);
+  }
+  return out;
 }
