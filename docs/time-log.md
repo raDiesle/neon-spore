@@ -43331,3 +43331,5 @@ simulation files by a background search while the mechanism was written.
 
 Bottleneck: finding which of the blister's warnings was "the indicator on the
 borders" — the strip, the wall mark and the pore's swell are three.
+
+*Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

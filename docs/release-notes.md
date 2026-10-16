@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-16 · 2afb3aebf — A blister is marked on no border and stays up twice as long
+
+The "controls" blisters — TAP, HOLD, SWIPE, TURN, RUB, LEVER, COMBO — are no longer announced by the radar strip or the wall mark on either screen; the pore swelling on the partner's screen is the only warning. To pay for it, TAP and HOLD stay up six beats instead of three, and the rest eight instead of four. Asked for by the owner by name (the look exemption).
+
 ## 2026-10-16 · 7f9bb50b3 — A boss's wave uses the bodies the boss puts on the field
 
 The check that nothing is used before it is taught now counts the bodies a boss puts on the field as things its wave uses. THE BROOD's buds drop as slicks and bulbs, so THE BROOD moved ahead of CYAN is refused for the bulb as well as for its panel. Before this, a boss on a panel taught early could hand the pair a body no wave had taught. A boss's mechanic row now lists what it spawns (`spawns`). Fifteen bosses are filled in from an audit of the simulation: THE BROOD, THE MATRON, THE HIVE, THE SCUTTLE, THE GORGE, THE LAMPREY, THE SWINDLE, THE CAIRN, THE MIRROR, THE BATON, THE CURTAIN, THE SINEW, THE SURGE, THE LEAD and THE SPOOL. The list on disk still passes, and no boss moves.
