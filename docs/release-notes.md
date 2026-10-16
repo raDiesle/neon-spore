@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-16 · 8f02f9a35 — The slick and the bulb die turning, a different way each kill
+
+A slick or a bulb shot down now comes apart in one of four spinning breaks, picked from its tile so both phones see the same one: VORTEX (the pieces spiral out), PINWHEEL (the body whirls whole for a fifth of a second, then flings them), WRING (core and rind twist opposite ways, then tear) and TUMBLE (thrown harder, every piece tumbling). The first three turn either way. The cut and the flash are the shipped ones; only the motion changed.
+
 ## 2026-10-16 · 09b987a99 — A wave heads a group in the wave list exactly when it starts a block
 
 The owner's rule: a wave that brings a new brush has the waves that use it folded under it. A wave now heads a group exactly when it brings a brush, a panel or a fault, opens a review, or is a boss; every other wave is a variant of the head above it. All 38 brush intros, THE ROCK among them, already held waves; CATCH AND AIM and FINALE, which bring no brush, now fold under SALVAGE. A test over every wave holds the rule.

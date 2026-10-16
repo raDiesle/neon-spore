@@ -42800,3 +42800,5 @@ every brush intro since the last lane; two waves outside it were left.
 
 Bottleneck: writing — a whirl had to stay a closed form of `t` so the bench
 could draw it, which ruled out the landing and decided the shape.
+
+*Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
