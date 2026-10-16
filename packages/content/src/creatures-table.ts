@@ -9,6 +9,7 @@ import { HANDED_CREATURES } from "./creatures-handed.js";
 import { HAZARD_CREATURES } from "./creatures-hazards.js";
 import { HELD_CREATURES } from "./creatures-held.js";
 import { JOINED_CREATURES } from "./creatures-joined.js";
+import { MORSEL_CREATURE } from "./creatures-maw.js";
 import { SPLIT_CREATURES } from "./creatures-split.js";
 import { WORN_CREATURES } from "./creatures-worn.js";
 
@@ -232,4 +233,6 @@ export const CREATURES: Record<CreatureKind, CreatureDef> = {
   },
   // THE BLISTER, named alone for THE BEATBOX's reason (`creatures-blister.ts`).
   blister: BLISTER_CREATURE,
+  // THE MORSEL, for the same reason (`creatures-maw.ts`).
+  morsel: MORSEL_CREATURE,
 };

@@ -140,6 +140,7 @@ export { mineFuseLeft, mineOnField, mineRows, mineSeenBy } from "./mine.js";
 // number, which is what makes them safe to hand out. The arrival, the shot and
 // the steer stay inside, because a picture that could answer those would be a
 // second copy of the rule rather than a drawing of it.
+export { morselIsLimp } from "./morsel.js";
 export { moultBeatsToTurn, moultIsPod, moultNextIsPod } from "./moult.js";
 export { recoilBouncesLeft, recoilRow, recoilTurn } from "./recoil.js";
 export { rindLayersLeft } from "./rind.js";

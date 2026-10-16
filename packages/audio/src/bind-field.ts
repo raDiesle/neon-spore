@@ -43,6 +43,7 @@ const FIELD_EVENTS = [
   "cairnHeld",
   "caromBounce",
   "caromCrack",
+  "morselLimp",
   "caromEject",
   "chuteOpen",
   "chuteCut",
@@ -93,6 +94,7 @@ export function fieldCue(e: FieldEvent, cols: number, rows: number): Cue | null 
       return handedCue(e, cols, rows);
     case "caromBounce":
     case "caromCrack":
+    case "morselLimp":
     case "caromEject":
     case "chuteOpen":
     case "chuteCut":

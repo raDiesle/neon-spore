@@ -10,6 +10,7 @@ import { carryGrips } from "./grip-push.js";
 import { breakSpentGyres, isMount } from "./gyre.js";
 import { resolveHull } from "./hull.js";
 import { removeSpentLures } from "./lure-exit.js";
+import { stepMorsel } from "./morsel.js";
 import { stepMoult } from "./moult.js";
 import { steppedInsteadOfFalling } from "./own-step.js";
 import { spawnPods } from "./pods.js";
@@ -180,6 +181,8 @@ export function onBeat(world: World): void {
     // here and never is — it is read off `world.beat`, so there is nothing to
     // keep in step.
     if (c.kind === "moult") stepMoult(world, c);
+    // And THE MORSEL, limp, by the same steer (`morsel.ts`).
+    if (c.kind === "morsel") stepMorsel(world, c);
   }
 
   // Every box whose run has stopped, judged on the count that stands. After

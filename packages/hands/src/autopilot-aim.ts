@@ -2,6 +2,7 @@ import {
   type Creature,
   crystalMiddleCol,
   isWardable,
+  morselIsLimp,
   SHELL_COLS,
   shellHasPiece,
 } from "@neon-spore/sim";
@@ -39,5 +40,7 @@ export function aimColumn(c: Creature): number {
  */
 export function cannonAnswers(c: Creature): boolean {
   if (c.kind === "wisp") return true;
+  // A limp morsel is the maw's, never the trigger's (`autopilot-moult.ts`).
+  if (c.kind === "morsel" && morselIsLimp(c)) return false;
   return c.color !== null && !isWardable(c.kind) && c.kind !== "lure" && c.kind !== "clasp";
 }

@@ -1,5 +1,6 @@
 import { markMoment } from "./balance.js";
-import { msToTicks, type SimConfig } from "./config.js";
+import { hullRow, msToTicks, type SimConfig } from "./config.js";
+import type { Creature } from "./creature-types.js";
 import { mirrorBaitTaken } from "./mirror-round.js";
 import type { Pod } from "./pod-types.js";
 import { scuttlePodTaken } from "./scuttle-step.js";
@@ -50,6 +51,18 @@ export function mawOpen(world: World): boolean {
  */
 export function inMawReach(world: World, col: number): boolean {
   return Math.abs(world.cannonCol - col) <= world.cfg.podCatchCols;
+}
+
+/**
+ * A body falling a tile a beat, steered at the mouth: inside `podHomeTiles` of
+ * the hull it takes one column a beat toward the cannon, a freed pod's last
+ * stretch at a whole tile instead of thousandths. The moult's steer, and THE
+ * MORSEL's once it is limp — one rule, so the two cannot drift apart.
+ */
+export function steerAtMaw(world: World, c: Creature): void {
+  if (hullRow(world.cfg) - c.row > world.cfg.podHomeTiles) return;
+  if (c.col === world.cannonCol) return;
+  c.col += c.col < world.cannonCol ? 1 : -1;
 }
 
 /**

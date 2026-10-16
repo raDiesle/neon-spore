@@ -19,6 +19,7 @@ import { removeCreature } from "./field.js";
 import { ghostStruck } from "./ghost.js";
 import { lidStruck } from "./lid-struck.js";
 import { magnetStruck } from "./magnet.js";
+import { morselGoesLimp } from "./morsel.js";
 import { recoilStruck } from "./recoil.js";
 import { rindStruck } from "./rind.js";
 import { shellIsBare } from "./shell.js";
@@ -173,6 +174,12 @@ export function resolve(world: World, b: Bullet, hit: Creature): boolean {
 
   // Matching ammunition resonates the light organ until it bursts.
   metColor(world);
+  // Except THE MORSEL, which the right colour turns limp rather than kills:
+  // the maw finishes it (`morsel.ts`).
+  if (hit.kind === "morsel") {
+    morselGoesLimp(world, hit, b.color);
+    return false;
+  }
   world.events.push({
     type: "destroy",
     col: hit.col,

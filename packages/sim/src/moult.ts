@@ -2,7 +2,7 @@ import { markMoment } from "./balance.js";
 import { hullRow, type SimConfig } from "./config.js";
 import { damageSpan } from "./hull-damage.js";
 import { guardArmed, shieldRow } from "./hull-guard.js";
-import { cargoLost, inMawReach, mawOpen, takeCargo } from "./pod-intake.js";
+import { cargoLost, inMawReach, mawOpen, steerAtMaw, takeCargo } from "./pod-intake.js";
 import { spanOf } from "./span.js";
 import { type Creature, occupiesCol } from "./types.js";
 import { wardTurns } from "./ward.js";
@@ -120,10 +120,7 @@ export function moultNextIsPod(cfg: SimConfig, beat: number): boolean {
  * no longer optional.
  */
 export function stepMoult(world: World, c: Creature): void {
-  const mouth = hullRow(world.cfg);
-  if (mouth - c.row > world.cfg.podHomeTiles) return;
-  if (c.col === world.cannonCol) return;
-  c.col += c.col < world.cannonCol ? 1 : -1;
+  steerAtMaw(world, c);
 }
 
 /**

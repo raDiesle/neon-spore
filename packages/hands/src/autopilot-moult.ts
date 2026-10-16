@@ -2,6 +2,7 @@ import {
   type Creature,
   hullRow,
   mawOpen,
+  morselIsLimp,
   moultIsPod,
   type TimedCommand,
   type World,
@@ -18,6 +19,9 @@ import {
  * cannon's column, so player 1 stands the cannon under it and holds the maw
  * open for as long as it wears its cargo, this beat or the next. Nothing is
  * fired at it: nothing kills it.
+ *
+ * And THE MORSEL once it is limp, which is a cargo all the way down by then:
+ * the same steer, the same maw, and nothing to wait for (`morsel.ts`).
  */
 
 type Press = Omit<TimedCommand, "tick">;
@@ -25,12 +29,16 @@ type Press = Omit<TimedCommand, "tick">;
 const aim = (col: number): Press => ({ player: 1, command: { kind: "cannonCol", col } });
 const intake: Press = { player: 1, command: { kind: "intake" } };
 
-/** The moult nearest the hull, once it is within its steering stretch. */
+/** Whether a body falls to the maw as a cargo: a moult, or a limp morsel. */
+const swallowed = (c: Creature): boolean =>
+  c.kind === "moult" || (c.kind === "morsel" && morselIsLimp(c));
+
+/** The one of those nearest the hull, once it is within its steering stretch. */
 function landing(w: World): Creature | undefined {
   const from = hullRow(w.cfg) - w.cfg.podHomeTiles - 1;
   let best: Creature | undefined;
   for (const c of w.creatures) {
-    if (c.kind === "moult" && c.row >= from && (!best || c.row > best.row)) best = c;
+    if (swallowed(c) && c.row >= from && (!best || c.row > best.row)) best = c;
   }
   return best;
 }
@@ -40,6 +48,7 @@ export function catchMoult(w: World): Press[] | null {
   const body = landing(w);
   if (body === undefined) return null;
   if (w.cannonCol !== body.col) return [aim(body.col)];
-  const cargo = moultIsPod(w.cfg, w.waveBeat) || moultIsPod(w.cfg, w.waveBeat + 1);
+  const cargo =
+    body.kind === "morsel" || moultIsPod(w.cfg, w.waveBeat) || moultIsPod(w.cfg, w.waveBeat + 1);
   return cargo && !mawOpen(w) ? [intake] : [];
 }

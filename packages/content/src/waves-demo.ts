@@ -84,6 +84,7 @@ export const DEMONSTRATIONS: Record<MechanicId, Demonstration> = {
   mine: { wave: "theMine" },
   blister: { wave: "theBlister" },
   moult: { wave: "theMoult" },
+  morsel: { wave: "theMorsel" },
   cannonFault: { wave: "theJam" },
   codexFault: { wave: "theCodex" },
   handoverFault: { wave: "theHandover" },

@@ -43123,3 +43123,18 @@ Bottleneck: looking — sixty-four waves to shoot and read before a single boss 
 Bottleneck: writing — twelve pictures, each baked once and checked in a frame before it sat under the bodies.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-16 — THE MORSEL, its simulation
+
+- reading: 5 min. The moult, the one body that already reaches the maw, and
+  the eight tables a new kind is named in.
+- writing: 20 min. `morsel.ts`, the shot and hull branches, the film, the
+  wave, the rows, the hands' two answers and the tests.
+- looking: 0 min. Nothing drawn yet; a probe read the film's ticks.
+- friction: 15 min. Three shapes before one passed nameability and the
+  glance test; the composer wanted the block somewhere the order rule refused.
+- landing: 10 min. Bosses re-placed, acts recut, briefings and baseline
+  renumbered, INDEX rows, `check:fast`.
+
+Bottleneck: finding a silhouette the nameability tests would accept — one
+lobe measures as two or three, so only eight pleats were free.

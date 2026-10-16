@@ -5,6 +5,7 @@ import { fenceIsOpen } from "./fence.js";
 import { breachHull, breachUnscarred, damageSpan } from "./hull-damage.js";
 import { guardArmed, shieldRow } from "./hull-guard.js";
 import { impactWeight } from "./impact.js";
+import { morselArrives, morselIsLimp } from "./morsel.js";
 import { moultArrives } from "./moult.js";
 import { pushOffered } from "./shield-push.js";
 import { beadIsSpent } from "./strand.js";
@@ -99,6 +100,12 @@ export function resolveHull(world: World): void {
     // (`moult.ts`).
     if (c.kind === "moult") {
       if (moultArrives(world, c)) survivors.push(c);
+      continue;
+    }
+    // And THE MORSEL once it is limp, which is a cargo by then: swallowed or a
+    // lost wave (`morsel.ts`). Whole, it falls through to the breach below.
+    if (c.kind === "morsel" && morselIsLimp(c)) {
+      if (morselArrives(world, c)) survivors.push(c);
       continue;
     }
 

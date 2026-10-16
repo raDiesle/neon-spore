@@ -38,6 +38,7 @@ import { THE_MAGNET } from "./scenes/the-magnet.js";
 import { THE_MAZE } from "./scenes/the-maze.js";
 import { THE_MINE } from "./scenes/the-mine.js";
 import { THE_MIRROR } from "./scenes/the-mirror.js";
+import { THE_MORSEL } from "./scenes/the-morsel.js";
 import { THE_MOULT } from "./scenes/the-moult.js";
 import { THE_PULSE } from "./scenes/the-pulse.js";
 import { THE_RECOIL } from "./scenes/the-recoil.js";
@@ -124,6 +125,7 @@ export type WaveSceneId =
   | "theWell"
   | "theSplice"
   | "theMoult"
+  | "theMorsel"
   | "theMine"
   | "theBlister";
 
@@ -183,6 +185,7 @@ export const SCENES_WAVES: Record<WaveSceneId, GuideScene> = {
   theWell: THE_WELL,
   theSplice: THE_SPLICE,
   theMoult: THE_MOULT,
+  theMorsel: THE_MORSEL,
   theMine: THE_MINE,
   theBlister: THE_BLISTER,
 };

@@ -168,4 +168,5 @@ export const DUTY_WORD = {
   // can see which one is standing there and cannot see when it stops being
   // that, which is the only half the pair has to move across the room.
   moult: { p1: "ROCK OR POD", p2: "CALL THE TURN" },
+  morsel: { p1: "SUCK IT", p2: "CALL IT DOWN" },
 } as const satisfies Record<CreatureKind, { p1?: string; p2?: string } | null>;

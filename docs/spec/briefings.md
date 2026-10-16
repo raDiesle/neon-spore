@@ -30,7 +30,7 @@ first creature falling. It is one of two states, never both:
    prose (§3.2). Either way it ends on **the ready gate**: two circles, one per
    seat, each filling while that seat holds and saying READY when it is full.
    The guide passes when both say READY. Only a wave that introduces something
-   new carries one — one hundred and nine of the five hundred and seventy-one waves today, and a wave
+   new carries one — one hundred and ten of the five hundred and eighty waves today, and a wave
    with no guide has no circles either.
 2. **The introduction**, if it has no guide. `WAVE 4`, the wave's name, its
    one sentence. Plain text on the field — no panel, no border, nothing to
@@ -140,7 +140,7 @@ the two can be compared by opening the wave.
 | 7 | **The lock** | player 1's hand on a body steers every shot into it, from whatever column the cannon is in; it says nothing about the colour | p1 holds and keeps the cannon on the pod, p2 fires the colour | 35 · CATCH AND AIM |
 | 8 | **The queen** | two marks, one real; she opens for three beats; a torch drops every ten | p1 sees *what*, p2 sees *where* | 34 · BULB QUEEN |
 | 9 | **The bosses** | the mirror, the maze, the gauge, the warden and its line, the vane | one guide each, on their own wave | 78 · THE MIRROR, 88 · THE MAZE, 98 · THE GAUGE, 108 · THE WARDEN, 128 · THE VANE |
-| 10 | **The rest of the bestiary** | the lure that took the runt's place, the throb, the count, the shell, the rock speed tiers | one guide each | 281 · THE LURE, 119 · THE THROB, 129 · THE COUNT, 139 · THE SHELL, 99 · HEAVY ROCKS |
+| 10 | **The rest of the bestiary** | the lure that took the runt's place, the throb, the count, the shell, the rock speed tiers | one guide each | 291 · THE LURE, 129 · THE THROB, 139 · THE COUNT, 149 · THE SHELL, 109 · HEAVY ROCKS |
 
 **The grip is still the odd one out**, and it has no guide. It is a control no
 wave *contains*, so no wave is the first to carry it and nothing places it.
@@ -313,7 +313,7 @@ RED pressed, the shot taking it, and then a second slick nobody answers, so the
 last thing the pair is shown is the hull bar dropping. About five seconds,
 looping.
 
-**There are eighty-nine of them now**, one per guided wave bar twenty,
+**There are ninety of them now**, one per guided wave bar twenty,
 and each is authored in `packages/content/src/scenes/` as a page of
 choreography rather than a page of prose. The twenty that are still the
 three strings and the two circles are the bosses from THE NETTLE on, THE BROOD,

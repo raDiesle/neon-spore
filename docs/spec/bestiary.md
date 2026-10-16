@@ -61,7 +61,7 @@ table in a document cannot be wrong in a way a compiler notices.
 
 | Category | Answered by | Members today |
 |---|---|---|
-| `cannon` | `aim` only | `slick`, `bulb`, `lure`, `throb`, `shell`, `dart`, `veil`, `wisp`, `ghost`, `echo`, `rind`, `recoil`, `gyre`, `lid`, `strand`, `magnet`, `choir`, `countdown`, `leech` |
+| `cannon` | `aim` only | `slick`, `bulb`, `lure`, `throb`, `shell`, `dart`, `veil`, `wisp`, `ghost`, `echo`, `rind`, `recoil`, `gyre`, `lid`, `strand`, `magnet`, `morsel`, `choir`, `countdown`, `leech` |
 | `shield` | `guard` only | `meteor`, `meteorMedium`, `meteorFast`, `meteorFaster`, `meteorFastest`, `torch`, `veer`, `coil`, `limpet`, `cairn` `moult` |
 | `mixed` | `aim` and `guard` | `queen`, `warden`, `clasp`, `carom`, `volley`, `crawler`, `fence`, `crystal`, `curtain` |
 | `special` | neither | `tether`, `mount`, `chute`, `beatbox`, `balloon`, `weight`, `mine`, `blister` |
@@ -551,6 +551,25 @@ both forms, because the body does not know yet what it will be wearing when it
 lands and so cannot steer by it. What that buys the pilot is one column to
 stand in for either answer; what it costs is that standing there stops being
 optional.
+
+## THE MORSEL
+
+**The body a hit does not finish.** Built 16 October 2026 off the owner's SUCK
+page (`docs/spec/suck-ideas.md`). It falls a tile a beat in one authored colour,
+and the matching shot turns it limp and amber instead of taking it off the
+field. Limp, it is a cargo: on the last `podHomeTiles` rows it steers a column a
+beat at the cannon (`steerAtMaw`, the moult's own steer), and at the hull the
+maw takes it within `podCatchCols` with SUCK open — or it is a lost wave, the
+pod rule exactly. Unshot, it breaks the hull like a slick, and a second shot at
+a limp one is spent on nothing.
+
+**It is the gentlest way to teach the maw outside a pod wave**, because it joins
+two things the pair already knows in the order they happen. The mistake it
+exists to punish is the reflex every other body rewards: a hit lands, the pilot
+hears "done" and stops watching. So the navigator says *it's down*, and the
+pilot opens on the landing. Its contour is DUMPLING, BULB · PEAR with BULB · SPIKE's eight
+(`content/silhouettes-morsel.ts`); `morselLimp` is the whole of its state
+(`sim/morsel.ts`).
 
 ## THE MAGNET
 

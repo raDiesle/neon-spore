@@ -124,6 +124,9 @@ export function burstFor(e: SimEvent, l: Layout, cfg: SimConfig, skinY?: Surface
     case "rindShed":
     case "strandBead":
       return at(l, e.col, e.row, 10, e.color === "red" ? PALETTE.red : PALETTE.cyan);
+    // THE MORSEL going limp: a cargo from this tick, so the pod's amber.
+    case "morselLimp":
+      return at(l, e.col, e.row, 10, PALETTE.pod);
 
     // A recoil bouncing, and the one hit in this table whose burst is **not**
     // a body's colour. Nothing living broke — the cage held and vented — so
@@ -235,7 +238,6 @@ export function burstFor(e: SimEvent, l: Layout, cfg: SimConfig, skinY?: Surface
     case "cairnShed":
     case "queenFlinch":
       return handedBurst(e, l);
-
     default:
       return assertNever(e);
   }

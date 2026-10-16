@@ -57,6 +57,10 @@ export function lateHashParts(c: Creature): number[] {
   // desync a single boolean can buy. Absent and false are one state here
   // (`chuteIsOpen`), so they fold to the same number on purpose.
   out.push(c.chuteOpen ? 1 : 0);
+  // Whether THE MORSEL is limp. It decides whether the hull breaks on it or
+  // the maw is owed it, so two devices that disagree about it disagree about
+  // whether the wave is lost. Absent and false are one state (`morselIsLimp`).
+  out.push(c.morselLimp ? 1 : 0);
   // THE VOLLEY's two. The plate count decides whether the next ward is the one
   // that opens it, and therefore whether the pair is holding a shield or a
   // trigger a beat later; and the climb decides whether the body is going up

@@ -24,6 +24,7 @@ export function caromCue(
       type:
         | "caromBounce"
         | "caromCrack"
+        | "morselLimp"
         | "caromEject"
         | "chuteOpen"
         | "chuteCut"
@@ -78,6 +79,10 @@ export function caromCue(
         pan: panForCol(e.col, cols),
         pitch: pitchForRow(e.row, rows),
       };
+    // A body changing what it is mid-fall: THE MORSEL going limp is a hit
+    // that did not finish it, and must not sound like one that did — so the
+    // canopy's covering sound below, not a kill (`events-maw.ts`).
+    case "morselLimp":
     case "chuteOpen":
       // The canopy. `creature.moult` is the sound of a covering coming off
       // with something under it, and this is that turned inside out — a

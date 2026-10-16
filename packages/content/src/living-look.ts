@@ -10,6 +10,7 @@ import { BLISTER } from "./silhouettes-blister.js";
 import { LEECH, LIMPET } from "./silhouettes-cling.js";
 import { COUNTDOWN } from "./silhouettes-countdown.js";
 import { MINE } from "./silhouettes-mine.js";
+import { MORSEL } from "./silhouettes-morsel.js";
 
 /**
  * Which kinds are drawn as a body of their own, and what that body looks like
@@ -160,6 +161,10 @@ const LIVING_LOOK = {
   // coming up and going down, which `render/blister.ts` draws off its clock;
   // a sway on top would be a second movement on a body being aimed at.
   blister: { shape: BLISTER, motion: HOLD },
+  // THE MORSEL: DUMPLING, breathing like a bulb — a soft body that swells
+  // rather than sways, so the limp it goes into is a breath stopping
+  // (`silhouettes-morsel.ts`).
+  morsel: { shape: MORSEL, motion: BLOOM },
 } as const satisfies Record<CreatureKind, { shape: CreatureSilhouette; motion: OwnMotion } | null>;
 
 /**

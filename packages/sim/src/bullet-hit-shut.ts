@@ -8,6 +8,7 @@ import { claspIsShielded, claspStruck } from "./clasp.js";
 import { coilStruck } from "./coil.js";
 import { coilIsDomed } from "./coil-state.js";
 import { fenceStruck } from "./fence.js";
+import { limpMorselStruck, morselIsLimp } from "./morsel.js";
 import { moultStruck } from "./moult.js";
 import { spanOf } from "./span.js";
 import { type Bullet, type Creature, isWardable } from "./types.js";
@@ -46,6 +47,12 @@ export function struckWithoutKilling(world: World, b: Bullet, hit: Creature): bo
   // otherwise would hand the shield's row to the half it cannot answer.
   if (hit.kind === "moult") {
     moultStruck(world, hit);
+    return true;
+  }
+  // **THE MORSEL**, limp: a body already down, finished by the maw and by
+  // nothing the cannon sends (`morsel.ts`).
+  if (hit.kind === "morsel" && morselIsLimp(hit)) {
+    limpMorselStruck(world, hit);
     return true;
   }
   if (isWardable(hit.kind)) {

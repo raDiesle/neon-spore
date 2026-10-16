@@ -9,6 +9,7 @@ import type { CrawlerEvent } from "./events-crawler.js";
 import type { CrystalEvent } from "./events-crystal.js";
 import type { FenceEvent } from "./events-fence.js";
 import type { MagnetEvent } from "./events-magnet.js";
+import type { MawEvent } from "./events-maw.js";
 import type { PushEvent } from "./events-push.js";
 import type { StrandEvent } from "./events-strand.js";
 import type { VolleyEvent } from "./events-volley.js";
@@ -52,6 +53,8 @@ export type CreatureGroupEvent =
   // And THE MAGNET's two — the plate turning a bolt away and the arch coming
   // apart when one got past it — are `events-magnet.ts`, on the same terms.
   | MagnetEvent
+  // And THE MORSEL going limp (`events-maw.ts`).
+  | MawEvent
   // And THE COIL's two, on the same terms as the six above (`events-coil.ts`).
   | CoilEvent
   // And THE CHOIR's three, on the same terms and cut out for the same reason

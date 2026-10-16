@@ -12,6 +12,7 @@
 import type { FixtureKind } from "./creature-kinds-fixtures.js";
 import type { HandedKind } from "./creature-kinds-handed.js";
 import type { ManyKind } from "./creature-kinds-many.js";
+import type { MawKind } from "./creature-kinds-maw.js";
 import type { StandingKind } from "./creature-kinds-standing.js";
 
 export type CreatureKind =
@@ -73,14 +74,10 @@ export type CreatureKind =
    */
   | "veil"
   /**
-   * One body wearing the two ends of this game by turns: a rock for
-   * `moultBeats`, then a cargo for `moultBeats`, then a rock again, the whole
-   * way down. Nothing kills it — a shot craters the rock half and is spent on
-   * the other — and what it **is** on the beat it reaches the ship is what
-   * happens: warded or a hull hit as a rock, swallowed or a lost wave as a
-   * cargo. `moultCargo` is the whole of its state, and the form is not state
-   * at all: it is read off the shared beat, so the two devices never store one
-   * (`moult.ts`).
+   * A rock for `moultBeats`, then a cargo for `moultBeats`, the whole way
+   * down. Nothing kills it, and what it **is** on the beat it reaches the ship
+   * is what happens: warded or a hull hit, swallowed or a lost wave. It stores
+   * no state — the form is read off the shared beat (`moult.ts`).
    */
   | "moult"
   // **The two that stand on a tile** — a wisp, which is somewhere else every
@@ -238,7 +235,9 @@ export type CreatureKind =
   // worm of links, a wire across the field, an arch with two poles, a chain of
   // domes. `creature-kinds-many.ts` next door, cut out on purpose so this file
   // has room for the next creature (`docs/queue.md`, 6 September 2026).
-  | ManyKind;
+  | ManyKind
+  // **The bodies the maw finishes** (`creature-kinds-maw.ts`).
+  | MawKind;
 
 // **The list those names are written in, and the order they hash in**, is
 // `creature-roster.ts` next door — cut out when THE FENCE took this file over

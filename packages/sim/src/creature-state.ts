@@ -6,6 +6,7 @@ import type { FenceState } from "./creature-state-fence.js";
 import type { GyreState } from "./creature-state-gyre.js";
 import type { HeadingState } from "./creature-state-heading.js";
 import type { HeldState } from "./creature-state-held.js";
+import type { MawState } from "./creature-state-maw.js";
 import type { MineState } from "./creature-state-mine.js";
 import type { PushState } from "./creature-state-push.js";
 import type { StrandState } from "./creature-state-strand.js";
@@ -55,6 +56,7 @@ export interface CreatureState
     GyreState,
     HeadingState,
     HeldState,
+    MawState,
     MineState,
     PushState,
     StrandState,

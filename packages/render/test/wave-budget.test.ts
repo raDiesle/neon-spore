@@ -495,15 +495,18 @@ const SCENES: readonly Scene[] = [
     // Remeasured 15 October 2026, when every living enemy began to glance
     // (`creature-glance.ts`): the six mounts turn on layers of their own, so
     // their strokes and fills land there and this canvas pays the blits, clips,
-    // saves and one shading `fillRect` and gradient a body instead.
+    // saves and one shading `fillRect` and gradient a body instead. Moved 16
+    // October 2026, when THE MORSEL's block put THE GYRE ten waves later and so
+    // under another of the twelve skies (`skyFor`): a `fill`, two clips and a
+    // save more, all of them the sky's.
     rows: {
       p1: [
         {
           fillRect: 60,
           stroke: 157,
-          fill: 97,
-          clip: 55,
-          save: 115,
+          fill: 98,
+          clip: 57,
+          save: 116,
           drawImage: 100,
           createLinearGradient: 28,
           createRadialGradient: 11,
@@ -513,9 +516,9 @@ const SCENES: readonly Scene[] = [
         {
           fillRect: 60,
           stroke: 159,
-          fill: 97,
-          clip: 55,
-          save: 115,
+          fill: 98,
+          clip: 57,
+          save: 116,
           drawImage: 100,
           createLinearGradient: 19,
           createRadialGradient: 8,
@@ -527,9 +530,9 @@ const SCENES: readonly Scene[] = [
         {
           fillRect: 60,
           stroke: 161,
-          fill: 104,
-          clip: 55,
-          save: 117,
+          fill: 105,
+          clip: 57,
+          save: 118,
           drawImage: 99,
           createLinearGradient: 28,
           createRadialGradient: 11,
@@ -539,9 +542,9 @@ const SCENES: readonly Scene[] = [
         {
           fillRect: 60,
           stroke: 163,
-          fill: 104,
-          clip: 55,
-          save: 117,
+          fill: 105,
+          clip: 57,
+          save: 118,
           drawImage: 99,
           createLinearGradient: 19,
           createRadialGradient: 8,

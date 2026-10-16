@@ -28,23 +28,11 @@ Every idea below had to pass the same tests:
 
 ## New enemies that are beaten with SUCK
 
-### THE MORSEL — shoot it once, then swallow it
+### THE MORSEL — built
 
-> *"It doesn't die when you shoot it. It falls. Eat it."*
-
-A soft creature that a shot does not kill. The first hit in its colour turns
-it amber and limp, and it drops like a pod shot loose. It counts as dead only
-when the maw takes it. If it reaches the hull unswallowed, it is a hit like
-any creature's.
-
-- **Player 2:** shoots it in its colour, as usual.
-- **Player 1:** has to be under it with the maw, not the trigger.
-- **What they say:** "Morsel's down, column four — suck it."
-- **Why it is easy:** it is two things players already know, shooting and
-  sucking, joined in the order they happen. It is the gentlest way to teach
-  the maw outside a pod wave.
-- **Variant:** a **MORSEL with a shell**, which needs both colours before it
-  falls (red, then cyan). That is one more line of talk, and no new control.
+Built on 16 October 2026: THE MORSEL's block, right after THE SWINDLE and before
+THE LANCE (`docs/spec/bestiary.md`). Its variant with a shell, which needs red and then
+cyan before it goes limp, is not built.
 
 ### THE SEEDER — killing it drops a debt
 

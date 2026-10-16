@@ -64,7 +64,7 @@ const axes = CATALOGUE.map((e) => ({
 }));
 
 describe("the catalogue's long axes", () => {
-  it("splits a hundred and twenty bodies into wide, round and tall", () => {
+  it("splits a hundred and twenty-one bodies into wide, round and tall", () => {
     const count = (a: "x" | "y" | null) => axes.filter((e) => e.long === a).length;
     // 104 until 8 September 2026, when THROB · CROWN was filed in
     // `drafts/offered.ts` — a round card, so it lands in the middle count.
@@ -117,7 +117,8 @@ describe("the catalogue's long axes", () => {
     // on a circle with the roots hanging under them by less than a body's
     // width, SINKER's finding again.
     // 120 on 10 October 2026: GUM, round, left with THE GUM.
-    expect(axes.length).toBe(120);
+    // 121 on 16 October 2026: THE MORSEL, DUMPLING.
+    expect(axes.length).toBe(121);
     // One ring of THE CRAWLER is the thirty-ninth wide card, and it is wide by
     // more than any other: a ring reaches nearly a full tile past its own
     // column at each end, which is what makes a run of them one animal with no
@@ -128,8 +129,9 @@ describe("the catalogue's long axes", () => {
     // the card crossed from round to wide with it, as the pile it is judged
     // against always was.
     expect(count("x")).toBe(43);
-    // 67 round with THE BLISTER (above), 66 without THE GUM.
-    expect(count(null)).toBe(66);
+    // 67 round with THE BLISTER (above), 66 without THE GUM, 67 with THE
+    // MORSEL: eight pleats on 46 × 56 are not tall enough to be tall.
+    expect(count(null)).toBe(67);
     // THE VEER is the last tall card and the only one made tall by
     // something *on* a body rather than by the body: the stone under it is
     // round, and the rider's hat carries the box half as far again above it.

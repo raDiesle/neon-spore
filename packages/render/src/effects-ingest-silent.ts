@@ -98,6 +98,9 @@ export const INGEST_SILENT = [
   // rock it is drawn by the same `drawMeteor` every other rock is — which is
   // the one thing that cannot go stale across a restart.
   "caromBounce",
+  // THE MORSEL going limp, on the carom's terms: the burst is `burstFor`'s,
+  // and how limp it is drawn is read every frame off `morselIsLimp`.
+  "morselLimp",
   "caromCrack",
   // THE CRYSTAL's three, for the carom's reason: the shell, the heading and
   // the light under the join are read every frame off the body and the world

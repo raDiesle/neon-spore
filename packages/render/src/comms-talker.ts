@@ -61,6 +61,10 @@ export const TALKER = {
   // fact about a body. The navigator talks, and the pilot, who holds every
   // control this creature answers to, listens and counts.
   moult: "p2",
+  // THE MORSEL: the seat that shot it says so. Both screens see it go limp,
+  // and the pilot is the one looking at the cannon rather than the body, so
+  // "it's down" is the timing for the maw (`sim/morsel.ts`).
+  morsel: "p2",
   // THE GYRE, both halves, and it is the loudest `null` in the table. Both
   // screens draw the whole wheel and every colour on it — nothing at all is
   // hidden — and the pair still cannot stop talking, because what has to be
