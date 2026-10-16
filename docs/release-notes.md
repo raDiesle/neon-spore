@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-16 · e31fed924 — The curriculum taught in rising cost, bodies and levers taking turns
+
+Every new thing after the tutorial arc is taught again in the order of the curriculum's rule (wave-curriculum.md §4.1, decision 9): cheapest first by pressure and talk, never a fault or panel lesson straight after another, and each after whatever it needs. THE LANCE now comes first, so the hold is taught early and the waves that shipped on STANDARD 5 after it are played on the full panel. Every block's regular waves were composed again for their new neighbours, the bosses placed again, and the reviews are themed from the last thing taught backwards. The new `bun run waves:order` does it all, and a second run changes nothing. Wave data, not a look.
+
 ## 2026-10-15 · 2d1341b63 — The curriculum's order rule, and talk rising beside pressure in the composer
 
 New things are to be taught in rising cost — a thing's pressure weight plus the facts it asks to be said aloud — with bodies and levers (faults, panel lessons) taking turns, and the composer now aims each step's talk at a small rise beside its pressure, R5 dipping, R1 starting from the block before's gentlest talk. Written as decisions 9 and 10 in docs/spec/wave-curriculum.md §4.1 and §5.1; the reorder that applies the order is the next lane.
