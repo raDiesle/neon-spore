@@ -65,8 +65,8 @@ export function paint(wave: Wave, beat: number, col: number, brush: Brush): void
   // rebuild either — replacing it with an identical entry would throw away the
   // per-entry configuration hanging off it the moment those fields exist.
   if (existing && brushOf(existing) === brush) return;
-  // A CONTROLS brush over a blister changes its gesture and keeps the rest —
-  // whose hand, how many blows — as the GESTURE row under the map does.
+  // A CONTROLS brush over a blister changes its gesture and keeps whose hand
+  // it is — the only way to, since the cell settings lost GESTURE (16 Oct).
   const gesture = controlGestureOf(brush);
   if (existing?.kind === CONTROL_KIND && gesture) {
     setBlisterGesture(existing, gesture);

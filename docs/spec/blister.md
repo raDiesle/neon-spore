@@ -152,11 +152,16 @@ pull is SWIPE's `blisterSwipe` stroke, judged by `sim/blister-swipe.ts` once
 
 Under the selected cell, the way THE MINE's SEES row is (`tools/director/src/cell-config-mine.ts`). **BY and GESTURE are built** (lane 3, 8 October 2026: `cell-config-blister.ts`, `entry-fields-blister.ts`): GESTURE offers TAP, HOLD and SWIPE (lane 4, the same day: `gesture: "hold"` on the entry, TAP written as no field; lane 5, 9 October 2026: `gesture: "swipe"`; lane 6, the same day: `gesture: "turn"`; lane 7, the same day: `gesture: "rub"`), and WAY is offered only for a gesture that has one — SWIPE's four arrows, `→` written as no field, and TURN's two, `⟳` written as no field. A way the new gesture does not go is dropped when the gesture changes. A HOLD is the ordinary `grip`, so a mouse's press is a thumb's. COUNT, the blows it took, was a row too until 15 October 2026.
 
+**No GESTURE row since 16 October 2026.** The owner: *from brush configs of
+e.g. "hold" remove that i can reconfigure it on the map editor to change the
+"gesture"*. The CONTROLS brush a blister was painted with is its gesture;
+painting another CONTROLS brush over it is the one way to change it, and it
+keeps BY.
+
 
 | Row | Choices | Default |
 |---|---|---|
 | **BY** | `P1`, `P2`, `BOTH` | `P2` |
-| **GESTURE** | `TAP`, `HOLD`, `SWIPE`, `TURN`, `RUB`, `COMBO`, `LEVER` | `TAP` |
 | **WAY** | `←`, `→`, `↑`, `↓` for SWIPE; `⟳`, `⟲` for TURN; absent otherwise | `→`, `⟳` |
 
 **BY** is whose hand counts. `BOTH` means either seat may, and the first to

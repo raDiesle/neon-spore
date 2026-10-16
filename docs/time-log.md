@@ -43393,3 +43393,14 @@ Bottleneck: the frame tests that count a ring by its colour, which a new
 mark in the same colour breaks without anything being wrong.
 
 *Measured: 5 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-16 — A blister's gesture is its brush's
+
+- reading: 5 min. `cell-config-blister.ts`, `paint.ts` and the rows' test.
+- writing: 5 min. The row out, its test and the spec's table.
+- looking: 0 min. A director row removed, proved by its test.
+- friction: 5 min. `paint.ts` sits seven lines under the ceiling; the comment
+  kept its line count.
+- landing: 5 min. `check:fast`, `land`.
+
+Bottleneck: none — the row was one call, and the brush already did its job.

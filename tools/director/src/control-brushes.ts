@@ -23,7 +23,7 @@ export const CONTROL_KIND: CreatureKind = "blister";
 
 export type ControlBrush = `control:${BlisterGesture}`;
 
-/** One brush per gesture, in the order the GESTURE row reads. */
+/** One brush per gesture, in `BLISTER_GESTURES` order. */
 export const CONTROL_BRUSHES: readonly ControlBrush[] = BLISTER_GESTURES.map(
   (g): ControlBrush => `control:${g}`,
 );

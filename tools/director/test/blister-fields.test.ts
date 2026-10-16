@@ -13,7 +13,7 @@ import {
 import { serializeEntry } from "../src/serialize-entry.js";
 
 /**
- * **THE BLISTER's BY, GESTURE and WAY rows** (`cell-config-blister.ts`):
+ * **THE BLISTER's BY and WAY rows, and the gesture its brush sets** (`cell-config-blister.ts`):
  * each default is written as no field, a set one survives a save, and WAY is
  * offered only for a gesture that has one — SWIPE, TAP and HOLD having none.
  */
@@ -105,10 +105,12 @@ describe("THE BLISTER's rows", () => {
   const said = (rows: unknown[]) =>
     (rows as Node[]).map((r) => r.children.map((c) => c.textContent).join(" "));
 
-  it("are BY and GESTURE, and no WAY for a gesture without one", () => {
-    expect(said(blisterRows(blister(), () => {}))).toEqual([
+  // No GESTURE row since 16 October 2026: the brush is the gesture, and a
+  // HOLD painted on the map stays a HOLD until another brush paints over it.
+  it("are BY alone, and no WAY for a gesture without one", () => {
+    expect(said(blisterRows(blister(), () => {}))).toEqual(["BY P1 P2 BOTH"]);
+    expect(said(blisterRows({ ...blister(), gesture: "hold" } as WaveEntry, () => {}))).toEqual([
       "BY P1 P2 BOTH",
-      "GESTURE TAP HOLD SWIPE TURN RUB COMBO LEVER",
     ]);
   });
 
@@ -118,8 +120,8 @@ describe("THE BLISTER's rows", () => {
     expect(e.way).toBeUndefined();
     expect(blisterWayOfEntry(e)).toBe("cw");
     const rows = blisterRows(e, () => {}) as unknown as Node[];
-    expect(said(rows)[2]).toBe("WAY ⟳ ⟲");
-    rows[2]?.children[2]?.click?.();
+    expect(said(rows)[1]).toBe("WAY ⟳ ⟲");
+    rows[1]?.children[2]?.click?.();
     expect(e.way).toBe("ccw");
     expect(blisterWayOfEntry(reread(e))).toBe("ccw");
     setBlisterWay(e, "cw");
@@ -130,8 +132,8 @@ describe("THE BLISTER's rows", () => {
     const e = { ...blister(), gesture: "swipe" } as WaveEntry;
     let edits = 0;
     const rows = blisterRows(e, () => edits++) as unknown as Node[];
-    expect(said(rows)[2]).toBe("WAY ← → ↑ ↓");
-    rows[2]?.children[4]?.click?.();
+    expect(said(rows)[1]).toBe("WAY ← → ↑ ↓");
+    rows[1]?.children[4]?.click?.();
     expect(e.way).toBe("down");
     expect(edits).toBe(1);
   });
@@ -139,11 +141,10 @@ describe("THE BLISTER's rows", () => {
   it("set the entry when a chip is pressed", () => {
     const e = blister();
     let edits = 0;
-    const [by, gesture] = blisterRows(e, () => edits++) as unknown as Node[];
+    const [by] = blisterRows(e, () => edits++) as unknown as Node[];
     by?.children[3]?.click?.();
-    gesture?.children[2]?.click?.();
     expect(e.by).toBe("both");
-    expect(e.gesture).toBe("hold");
-    expect(edits).toBe(2);
+    expect(e.gesture).toBeUndefined();
+    expect(edits).toBe(1);
   });
 });
