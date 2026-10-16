@@ -1,7 +1,7 @@
 import type { Wave } from "../wave-types.js";
 
 /**
- * Waves 537 to 545 of the game, in the order they are played: THE CRAWLER's
+ * Waves 539 to 547 of the game, in the order they are played: THE CRAWLER's
  * review and the boss THE GOVERNOR.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act

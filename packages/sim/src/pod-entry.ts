@@ -45,4 +45,12 @@ export interface PodEntry {
    * a speed its author does not know.
    */
   speed?: number;
+  /**
+   * A pod of a **roe**: strung with every other roe pod hanging in its
+   * column, so the one shot that frees one frees the string, and they all slide
+   * the same way (`freePod`). The owner's SUCK page, 16 October 2026: three
+   * pods one above the other, a beat apart on the way down, the first wave
+   * that tells a pair the maw has a length. Absent is a pod on its own.
+   */
+  roe?: true;
 }

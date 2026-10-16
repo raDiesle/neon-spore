@@ -2,7 +2,7 @@ import { SWINDLE_SCRIPT } from "../swindle-script.js";
 import type { Wave } from "../wave-types.js";
 
 /**
- * Waves 39 to 48 of the game, in the order they are played: THE HUSK's block
+ * Waves 39 to 50 of the game, in the order they are played: THE HUSK's block
  * and the boss THE SWINDLE.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act
@@ -166,6 +166,42 @@ export const WAVES_ACT_3: Wave[] = [
       { beat: 24, col: 4, row: 3, kind: "pod" },
       { beat: 32, col: 6, row: 4, kind: "husk" },
       { beat: 36, col: 3, row: 3, kind: "pod" },
+    ],
+    controls: "standard5",
+  },
+  {
+    id: "theRoe",
+    name: "THE ROE",
+    variant: true,
+    entries: [
+      { beat: 0, col: 2, color: "red" },
+      { beat: 8, col: 8, color: "cyan" },
+      { beat: 20, col: 3, color: "red" },
+    ],
+    pods: [
+      { beat: 2, col: 5, row: 1, kind: "pod", due: 24, roe: true },
+      { beat: 2, col: 5, row: 4, kind: "pod", due: 24, roe: true },
+      { beat: 2, col: 5, row: 7, kind: "pod", due: 24, roe: true },
+      { beat: 16, col: 8, row: 2, kind: "pod", due: 24, roe: true },
+      { beat: 16, col: 8, row: 5, kind: "pod", due: 24, roe: true },
+      { beat: 16, col: 8, row: 8, kind: "pod", due: 24, roe: true },
+    ],
+    controls: "standard5",
+  },
+  {
+    id: "theClutch",
+    name: "THE CLUTCH",
+    variant: true,
+    entries: [
+      { beat: 0, col: 9, color: "red" },
+      { beat: 10, col: 1, color: "cyan" },
+      { beat: 20, col: 5, color: "red" },
+    ],
+    pods: [
+      { beat: 2, col: 2, row: 3, kind: "pod", due: 32 },
+      { beat: 2, col: 4, row: 5, kind: "husk", due: 32 },
+      { beat: 2, col: 6, row: 3, kind: "pod", due: 32 },
+      { beat: 2, col: 8, row: 5, kind: "pod", due: 32 },
     ],
     controls: "standard5",
   },

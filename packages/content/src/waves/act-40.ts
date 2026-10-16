@@ -2,7 +2,7 @@ import { NETTLE_SCRIPT } from "../nettle-script.js";
 import type { Wave } from "../wave-types.js";
 
 /**
- * Waves 412 to 421 of the game, in the order they are played: THE VOLLEY's
+ * Waves 414 to 423 of the game, in the order they are played: THE VOLLEY's
  * block and the boss THE NETTLE.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act

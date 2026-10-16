@@ -2,7 +2,7 @@ import { MANTLE_SCRIPT } from "../mantle-script.js";
 import type { Wave } from "../wave-types.js";
 
 /**
- * Waves 422 to 431 of the game, in the order they are played: THE FLIP's block
+ * Waves 424 to 433 of the game, in the order they are played: THE FLIP's block
  * and the boss THE MANTLE.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act

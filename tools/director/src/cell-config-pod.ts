@@ -45,6 +45,7 @@ export function podConfig({ pod, cfg, onEdit, labelled }: PodConfigOptions): HTM
   box.append(
     rowRow(pod, cfg, onEdit, labelled),
     dueRow(pod, cfg, onEdit, labelled),
+    stringRow(pod, onEdit, labelled),
     crossRow(pod, onEdit, labelled),
   );
   // How fast it crosses says nothing at all about a pod that hangs, so it is
@@ -109,6 +110,29 @@ function dueRow(
         // The shipped clock is written as no field, so a pod nobody timed
         // serialises exactly as it always did.
         pod.due = due === shipped ? undefined : due;
+        onEdit();
+      }),
+    );
+  }
+  return row;
+}
+
+/**
+ * **On its own, or one of a roe**: strung with every other roe pod in its
+ * column, so one shot frees them all (`PodEntry.roe`). Absent in the wave file
+ * for a pod on its own, so a wave nobody strung is the wave it was.
+ */
+function stringRow(
+  pod: PodEntry,
+  onEdit: () => void,
+  labelled: (label: string) => HTMLElement,
+): HTMLElement {
+  const row = labelled("STRING");
+  for (const roe of [false, true]) {
+    row.appendChild(
+      chip(roe ? "ROE" : "ALONE", (pod.roe ?? false) === roe, () => {
+        if (roe) pod.roe = true;
+        else delete pod.roe;
         onEdit();
       }),
     );

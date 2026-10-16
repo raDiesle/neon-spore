@@ -74,6 +74,10 @@ a trade, a bigger enemy for less to catch.
 
 ### THE ROE — a string of pods that falls together
 
+Built on 16 October 2026: a wave, THE ROE, at the end of THE HUSK's block, and
+`roe` on a pod in the director's STRING row (`docs/spec/systems.md`). What is
+below is what it was asked to be.
+
 > *"One shot frees all three. Hold the maw open."*
 
 Three pods strung in a row across one column, one above the other. A single
@@ -88,6 +92,10 @@ the first two on one press, and the third needs a second press.
   *length*.
 
 ### THE CLUTCH — the hollow one is among them
+
+Built on 16 October 2026: a wave, THE CLUTCH, after THE ROE. It needed nothing
+new: the husk's tell was already player 2's alone. What is below is what it was
+asked to be.
 
 > *"Four pods. One is hollow. Only I can see which."*
 

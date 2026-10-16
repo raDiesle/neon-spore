@@ -2,7 +2,7 @@ import { FILAMENT_SCRIPT } from "../filament-script.js";
 import type { Wave } from "../wave-types.js";
 
 /**
- * Waves 361 to 370 of the game, in the order they are played: THE GYRE's block
+ * Waves 363 to 372 of the game, in the order they are played: THE GYRE's block
  * and the boss THE FILAMENT.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act

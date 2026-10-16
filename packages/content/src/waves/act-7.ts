@@ -1,7 +1,7 @@
 import type { Wave } from "../wave-types.js";
 
 /**
- * Waves 79 to 88 of the game, in the order they are played: THE GLUTTON's block
+ * Waves 81 to 90 of the game, in the order they are played: THE GLUTTON's block
  * and the boss THE GEODE.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act

@@ -2,7 +2,7 @@ import { INSTAR_SCRIPT } from "../instar-script.js";
 import type { Wave } from "../wave-types.js";
 
 /**
- * Waves 49 to 58 of the game, in the order they are played: THE MORSEL's block
+ * Waves 51 to 60 of the game, in the order they are played: THE MORSEL's block
  * and the boss THE INSTAR.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act

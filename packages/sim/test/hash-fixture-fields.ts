@@ -145,6 +145,7 @@ export const pod = (): Required<Pod> => ({
   kind: "husk",
   dueTicks: 140,
   crossMilli: 300,
+  roe: true,
 });
 
 export const scar = (): Required<Scar> => ({

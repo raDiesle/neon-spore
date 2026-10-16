@@ -113,6 +113,7 @@ export function spawnPods(world: World): void {
         entry.cross === undefined
           ? 0
           : entry.cross * crossMilli(world, entry.speed ?? world.cfg.podCrossTilesPerBeat),
+      ...(entry.roe ? { roe: true as const } : {}),
     });
     world.podSpawned += 1;
   }
@@ -125,11 +126,21 @@ export function spawnPods(world: World): void {
  */
 export function freePod(world: World, pod: Pod): void {
   if (pod.loose) return;
+  const dir = nextInt(world.rng, 2) === 0 ? -1 : 1;
+  loosen(world, pod, dir);
+  // THE ROE: the string goes with it, every pod the same way, so the catch
+  // stays one column and the beats between them are the rhythm the maw keeps.
+  if (!pod.roe) return;
+  for (const p of world.pods) {
+    if (p.roe && !p.loose && p.colMilli === pod.colMilli) loosen(world, p, dir);
+  }
+}
+
+function loosen(world: World, pod: Pod, dir: number): void {
   pod.loose = true;
   world.balance.podsFreed += 1;
   // A boss may be hanging this pod out as bait — see `mirrorBaitTaken`.
   mirrorBaitTaken(world);
-  const dir = nextInt(world.rng, 2) === 0 ? -1 : 1;
   pod.driftMilli = dir * driftMilli(world);
   world.events.push({
     type: "podLoose",

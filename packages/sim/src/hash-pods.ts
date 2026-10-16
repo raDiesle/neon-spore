@@ -27,6 +27,9 @@ export function podHashParts(pods: readonly Pod[]): number[] {
     // How it crosses. A device that disagrees here is watching a power-up in a
     // different column from the one the other device has the arm over.
     out.push(p.crossMilli);
+    // Strung or not. A device that disagrees here frees one pod where the
+    // other frees three.
+    out.push(p.roe ? 1 : 0);
   }
   return out;
 }

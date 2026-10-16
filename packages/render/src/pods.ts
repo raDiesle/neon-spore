@@ -7,6 +7,7 @@ import { type Layout, tileCX, tileCY } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
 import { drawDueRing } from "./pod-due-ring.js";
 import { POD_LOOK } from "./pod-look.js";
+import { drawRoeThreads } from "./roe-thread.js";
 import { splinePath } from "./spline.js";
 
 /**
@@ -54,6 +55,8 @@ export function drawPods(
    * counts (`drawDueRing`). */
   ticksPerBeat: number,
 ): void {
+  // Under the pods, so each strand runs into the shells rather than over them.
+  drawRoeThreads(ctx, l, pods, time);
   for (const p of pods) {
     const { x, y, r } = podCenter(l, p);
     // Deterministic variation: the id is the same on both devices.

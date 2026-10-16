@@ -1,7 +1,7 @@
 import type { Wave } from "../wave-types.js";
 
 /**
- * Waves 432 to 441 of the game, in the order they are played: THE CRAWLER's
+ * Waves 434 to 443 of the game, in the order they are played: THE CRAWLER's
  * block and the boss THE KEEL.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act

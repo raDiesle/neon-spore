@@ -301,6 +301,14 @@ the same ring, so the ring is never the tell, and when its ring runs out it is
 let go at no cost. Boss pods — the bait, the baton bead, the scuttle plate —
 carry no clock (`NO_DUE`): the boss is what decides when they are owed.
 
+**A roe.** A wave may string pods: every pod marked `roe` in one column is one
+string, drawn with an amber thread through them while they hang
+(`render/roe-thread.ts`). The shot that frees one frees them all, every one
+sliding the same way (`freePod`). Hung three rows apart, they land a beat
+apart, so one maw press takes two and the third needs another. THE ROE is the
+wave (16 October 2026); THE CLUTCH, beside it, hangs three real pods and a husk
+at once.
+
 **Missing it is a hit.** A pod that arrives with the cannon elsewhere, or with
 the maw shut, breaks on the skin — no scar, but the wave is lost and played
 again, exactly as a body reaching the hull loses it (`wave-fail.ts`). The

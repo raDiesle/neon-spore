@@ -1,7 +1,7 @@
 import type { Wave } from "../wave-types.js";
 
 /**
- * Waves 261 to 270 of the game, in the order they are played: THE DARK's block
+ * Waves 263 to 272 of the game, in the order they are played: THE DARK's block
  * and the boss THE LEDGER.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act

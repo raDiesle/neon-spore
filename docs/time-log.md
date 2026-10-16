@@ -43215,3 +43215,16 @@ Bottleneck: a depth step that looked right in numbers was invisible at 26 px,
 and only a crop showed it.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-16 — THE ROE and THE CLUTCH
+
+- reading: 5 min. How a pod is freed, and where a pod field travels.
+- writing: 15 min. `roe` on a pod and its hash, the string freed in
+  `freePod`, its thread, the director's STRING row, two waves and tests.
+- looking: 5 min. One frame: the thread reads.
+- friction: 5 min. A hand-made wave inside a block heads a group of its own
+  until it is marked a variant.
+- landing: 10 min. Recut, renumbered, `check:fast`, `land`.
+
+Bottleneck: the block rules a hand-made wave has to satisfy are spread over
+three tests, and only running them says which.

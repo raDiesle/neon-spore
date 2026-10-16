@@ -1,7 +1,7 @@
 import type { Wave } from "../wave-types.js";
 
 /**
- * Waves 452 to 461 of the game, in the order they are played: THE VEIL's block
+ * Waves 454 to 463 of the game, in the order they are played: THE VEIL's block
  * and the boss THE SEAM.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act

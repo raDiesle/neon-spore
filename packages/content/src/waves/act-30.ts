@@ -1,7 +1,7 @@
 import type { Wave } from "../wave-types.js";
 
 /**
- * Waves 311 to 320 of the game, in the order they are played: THE LURE's block
+ * Waves 313 to 322 of the game, in the order they are played: THE LURE's block
  * and the boss THE HIVE.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act

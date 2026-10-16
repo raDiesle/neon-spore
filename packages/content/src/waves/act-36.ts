@@ -2,7 +2,7 @@ import { GIMBAL_SCRIPT } from "../gimbal-script.js";
 import type { Wave } from "../wave-types.js";
 
 /**
- * Waves 371 to 381 of the game, in the order they are played: THE HANDOVER's
+ * Waves 373 to 383 of the game, in the order they are played: THE HANDOVER's
  * block and the boss THE GIMBAL.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act

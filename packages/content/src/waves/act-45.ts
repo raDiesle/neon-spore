@@ -1,7 +1,7 @@
 import type { Wave } from "../wave-types.js";
 
 /**
- * Waves 462 to 471 of the game, in the order they are played: THE WISP's block
+ * Waves 464 to 473 of the game, in the order they are played: THE WISP's block
  * and the boss THE OCULUS.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act

@@ -100,4 +100,7 @@ export interface Pod {
    * crossing halfway along a row nobody had reached yet.
    */
   crossMilli: number;
+  /** Strung with the other roe pods in its column (`PodEntry.roe`). Absent on
+   * a pod on its own, which is every pod a boss or a body hangs. */
+  roe?: true;
 }
