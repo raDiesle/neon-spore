@@ -12610,8 +12610,8 @@ cool and logical to use lance, with special cool graphics and animations, such
 as damage dealing model with the lance e.g. to break something in bigger
 pieces.* A field boss, the second kind in `.claude/skills/new-boss`, built on
 the scripted bosses' rails (`SCRIPTED_KINDS`): the field, the cannon and the
-two colours answer it and nothing else does. **Built on 16 October 2026 as its
-simulation**; its picture, its marks and its words are the next lane.
+two colours answer it and nothing else does. **Built on 16 October 2026 in two
+lanes**: its simulation, then its picture, its mark and its word.
 
 **The rule, in one sentence.** Burn each crack with the lance, in its colour,
 before the stone lands.
@@ -12669,7 +12669,8 @@ next; the heart's last says `geodeShatter`, and the shards scatter for
 stone landing**: the first piece still whole strikes the hull under its crack
 (`geodeStrike`, `bossStrikesHull`, blow `"stone"`) and the wave is lost.
 
-**The split** is the render's, and the next lane's: the crack's line on the
+**The split** is the render's (`showsGeodeCrack`, `showsGeodeCrystal` in
+`render/src/view-role-clocks-c.ts`): the crack's line on the
 navigator's screen only, the crystal's colour on the pilot's only, so the pilot
 slides where the navigator says and the navigator holds the colour the pilot
 says — the field's own crossing (`docs/spec/systems.md` 5.2). The simulation
@@ -12712,14 +12713,56 @@ losing the wave, a level run out on the hull, the real lance — a held colour
 over a still cannon — cutting through `lance-burn.ts`, the shatter and the
 out, and one hash for one play.
 
-**What is not built.** The picture: the stone, its cracks and the crystal
-under them, a piece breaking in two along the beam's line and the halves
-turning apart to show their crystal faces, the stone sinking on the hull over
-each window, and the heart's shatter — the look lane, with the split it
-carries (`render/src/geode-shape.ts` is only where it hangs, for THE SLOW's
-light). Its marks and its words (`HOLD` at the crack on the navigator's
-screen, the colour on the pilot's). The guide is prose. **Never watched at
-tempo** — the owner's eye.
+**The look** (`render/src/geode-draw.ts`, the second lane, 16 October 2026).
+A new look with nothing shipped in its place — an addition where the game
+drew nothing, built in rather than put in VERSUS.
+
+- **The shape is THE CAIRN** (`tools/shape-sheet/src/drafts/collected.ts`,
+  taken): a level is a row of faceted rocks across the whole field, each a
+  squared-off contour of flat facets lit from the upper left, inset from its
+  neighbours so the dark seams between them are the count of the fight
+  (`render/src/geode-shape.ts`, `geode-piece.ts`). The seams fall halfway
+  between two cracks' columns, so every column the simulation chips a bolt in
+  is stone on the picture too; two cracks down one column are two pieces
+  stacked one over the other (`geode-place.ts`). Each level stands a little
+  shorter than the last, the next layer in.
+- **The crossing, drawn.** On the navigator's screen each crack is a jagged
+  white-hot line down its piece, throbbing on the beat. On the pilot's the
+  crystal glows through pores spread over the whole piece, in the crack's
+  colour, so the pores say *which colour* and never *where*. The heart is
+  crystal itself, narrow in its column with the hollow grey-lined rind either
+  side, in its colour on the pilot's screen and a neutral grey on the
+  navigator's.
+- **A cut breaks a piece in two** along the crack's jagged line: the halves
+  part and turn out about their feet, narrowing as they turn, so the cut faces
+  of crystal come round to the pair in the beam's colour — on both screens,
+  since the beam has said it. The beam's heat stays in the crack a moment and
+  throws shards of the crystal (`geode-fx.ts`), and the stone takes a counted
+  hit.
+- **Between levels the halves fly apart and fall away**, turning and fading
+  over the split's four beats, and the next layer looms up out of them,
+  growing to its size. The heart's halves fly for three beats and the
+  shatter throws shards of both colours.
+- **Its clock is its sinking**: the stone comes down a tile over a level's
+  window and trembles as it runs out. Run out, it falls the rest of the way
+  onto the hull, and that is its blow (`boss-strike-look.ts`, `geode: () =>
+  {}`). It comes in by looming up where it hangs, grown and faded in, never
+  from above the frame where the seat switcher stands
+  (`render/test/boss-top.test.ts`).
+- **A bolt stops on it** at the foot of whatever piece stands over its column,
+  as grit — a bolt only chips stone.
+- **The mark and its word** (`render/src/boss-cue-read-zz.ts`): `HOLD` on the
+  crack the cannon is under, on the navigator's screen, aimed at the crack as
+  drawn, its colour never lit; the pilot gets no word. It is held still under
+  THE SLOW (`tools/director/test/boss-hush.test.ts`).
+
+`render/test/geode-frame.test.ts` draws it on all three screens and proves the
+crossing both ways: moving a crack changes the navigator's frame and leaves
+the pilot's the same to the byte, and changing a crack's colour changes the
+pilot's and leaves the navigator's the same.
+
+**What is not built.** The guide is prose. **Never watched at tempo** — the
+owner's eye.
 
 ## 11.68 THE SWINDLE — real pods and fake ones, shuffled
 

@@ -43007,3 +43007,18 @@ bodies, so it could not move as it was and had to be composed again.
 Bottleneck: writing — a boss is some sixty registrations across seven packages, every one copied from the last boss by hand.
 
 *Measured: 5 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-16 — THE GEODE is drawn: faceted stone across the field, each piece broken in two along its crack (the look)
+
+- reading: 10 min. THE BROOD's look commit as the pattern, the stoppers, the
+  cue pages and the strike look.
+- writing: 35 min. Five pages of the picture, the cue, the registrations, the
+  frame test and §11.67.
+- looking: 5 min. Two frames: a cut piece only just parted, then the split
+  with the halves flying.
+- friction: 10 min. The fx kept layout numbers past a reset, the stone dropped
+  in across the seat switcher, the cue leapt between cracks under one id.
+- landing: 5 min. `bun run index`, `check:fast`, `land`.
+
+Bottleneck: writing — a cut piece's two halves are one outline clipped twice
+along a jagged line, each turned about its own foot.

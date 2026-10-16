@@ -74,6 +74,10 @@ import { DRAWN } from "./boss-hush-drawn.js";
  * the navigator's `FIRE` on the bud the cannon is under, which hangs on its
  * column and only grows down out of the belly as it ripens, a third of a tile
  * over eight beats and more (`render/brood-bud.ts`).
+ *
+ * THE GEODE holds its row: its one mark is the navigator's `HOLD` on the
+ * crack the cannon is under, and the stone it stands on sinks a tile over a
+ * window of twenty beats and more (`render/geode-place.ts`).
  */
 
 const VIEWPORT: Viewport = { width: 900, height: 1600, dpr: 2 };
@@ -103,6 +107,7 @@ const STILL: readonly BossKind[] = [
   "bastion",
   "chrysalis",
   "hydra",
+  "geode",
 ];
 
 interface Reading {

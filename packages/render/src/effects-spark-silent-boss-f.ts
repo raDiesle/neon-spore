@@ -141,9 +141,9 @@ export const SILENT_BOSS_F = [
   "matronCleared",
   "matronSpent",
   "matronOut",
-  // THE GEODE's nine are drawn by nothing yet: its look is the second lane
-  // (`docs/spec/bosses.md` §11.67), and until it lands they leave nothing
-  // behind for the next frame and burst nowhere.
+  // THE GEODE's nine are read above the loop by `geode-fx.ts`
+  // (`Effects.boss.geode`), THE BROOD's way: the cleave's heat and shards,
+  // the chip's grit, the split's dust and the shatter's blow.
   "geodeEnter",
   "geodeCracks",
   "geodeCleave",

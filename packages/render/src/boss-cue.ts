@@ -29,6 +29,7 @@ import { mantleCues } from "./boss-cue-read-zc.js";
 import { keelCues } from "./boss-cue-read-zd.js";
 import { oculusCues } from "./boss-cue-read-ze.js";
 import { broodCues } from "./boss-cue-read-zy.js";
+import { geodeCues } from "./boss-cue-read-zz.js";
 import { type BossCue, cueSeen } from "./boss-cue-shape.js";
 import type { SurfaceY } from "./hull-frame.js";
 import type { Layout } from "./layout.js";
@@ -179,6 +180,9 @@ export function bossCues(
     // And THE BROOD's, one word to the navigator over the bud the cannon is under (`boss-cue-read-zy.ts`).
     case "brood":
       return broodCues(l, world, boss, beatPhase);
+    // And THE GEODE's, one word to the navigator on the crack the cannon is under (`boss-cue-read-zz.ts`).
+    case "geode":
+      return geodeCues(l, world, boss, beatPhase);
     // **THE WELL is read and silent, which is why it is a `case` and not a
     // fall-through.** Its answer is THE PULSE's below, but it gets a page of
     // its own (`boss-cue-read-r.ts`) because a boss sitting in the `default` is

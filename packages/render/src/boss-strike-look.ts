@@ -119,6 +119,9 @@ const LOOK: Partial<Record<BossKind, StrikeLook>> = {
   // to the column and is drawn back, by `hydra-receipts.ts` off its
   // `hydraStrike`.
   hydra: () => {},
+  // THE GEODE's blow is the stone itself: run out, it falls the rest of the
+  // way and lands on the hull, drawn by `geode-draw.ts` in its `struck` phase.
+  geode: () => {},
 };
 
 export function strikeLook(by: BossKind): StrikeLook {

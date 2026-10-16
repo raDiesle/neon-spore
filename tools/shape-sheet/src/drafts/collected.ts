@@ -112,11 +112,12 @@ export const COLLECTED_DRAFTS: CatalogueEntry[] = [
     // is still there to be wanted — a picture waiting for a boss, which is what
     // `free` means and how THE CODEX's card left the same list. Taken 26
     // September 2026 by THE RIME's frost, and free again on 9 October 2026
-    // when THE RIME was taken out of the game.
-    status: "free",
+    // when THE RIME was taken out of the game. Taken 16 October 2026 by THE
+    // GEODE's stone.
+    status: "taken",
     slot: "boss",
     owner:
-      "nothing — THE RIME's frost until 9 October 2026, when the owner took THE RIME out: its seven faceted units the frost's seven sheets over the lens, combined with BULB · PEBBLE, its heptagon unit the core. Before that, the first boss that is a pile rather than a body, and the first drawn with facets instead of lobes: each unit contributes its own polygon rather than a metaball, so the outline creases where two units meet instead of bulging, and the seams survive into the silhouette — which matters because counting the units is counting the fight",
+      "THE GEODE, taken 16 October 2026: its stone, a level of faceted pieces across the whole field with the seams between them left to count, one piece per crack still to burn, and each piece broken in two along its crack by the lance (`render/geode-shape.ts`, `render/geode-piece.ts`). Before that, THE RIME's frost until 9 October 2026, when the owner took THE RIME out: its seven faceted units the frost's seven sheets over the lens, combined with BULB · PEBBLE, its heptagon unit the core. Before that, the first boss that is a pile rather than a body, and the first drawn with facets instead of lobes: each unit contributes its own polygon rather than a metaball, so the outline creases where two units meet instead of bulging, and the seams survive into the silhouette — which matters because counting the units is counting the fight",
   },
   {
     subject: pile("THE CAIRN · PULLED", "one unit dragged clear — now it is only a rock", {

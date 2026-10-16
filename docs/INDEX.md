@@ -1282,6 +1282,7 @@ by hand never moves.
 | `packages/render/src/boss-cue-read-zw.ts` | **What THE CHRYSALIS is asking for**, page forty-nine of the readings, a word for each skin's job |
 | `packages/render/src/boss-cue-read-zx.ts` | **What THE HYDRA is asking for**, page fifty of the readings, a word for each kind of head |
 | `packages/render/src/boss-cue-read-zy.ts` | **What THE BROOD is asking for**, on a page of its own among the readings |
+| `packages/render/src/boss-cue-read-zz.ts` | **What THE GEODE is asking for**, on a page of its own among the readings |
 | `packages/render/src/boss-cue-read.ts` | **What THE GORGE, THE CURTAIN and BULB QUEEN are asking for** |
 | `packages/render/src/boss-cue-text.ts` | **A cue's two lines, drawn**: the verb under the mark, the kind of action over it |
 | `packages/render/src/boss-cue-field.ts` | **The one word the boss wants, drawn separately from `drawBodies` and after `drawShip`** (`canvas2d.ts`) |
@@ -2416,7 +2417,11 @@ by hand never moves.
 | `packages/render/src/gimbal-tilt.ts` | THE GIMBAL's idle drift, in the game (`gimbalTilt`): hush by phase, and the ring plane's affine |
 | `packages/render/src/gimbal-partner.ts` | **The partner's mark, on this seat's screen** |
 | `packages/render/src/gimbal-knob.ts` | **THE GIMBAL's ring turned the way THE MAZE's wheel is**: a knob on a lever bolted to the rim |
-| `packages/render/src/geode-shape.ts` | **THE GEODE's geometry**: where the stone hangs and how far it reaches |
+| `packages/render/src/geode-shape.ts` | **THE GEODE's geometry**: where the stone hangs, how far it reaches, and its pieces' facets and cracks |
+| `packages/render/src/geode-draw.ts` | THE GEODE, drawn: a slab of faceted stone as wide as the field, sinking on the ship |
+| `packages/render/src/geode-fx.ts` | What THE GEODE leaves behind a frame: the beam's white-hot line down a crack it cut |
+| `packages/render/src/geode-piece.ts` | **One piece of THE GEODE**: a faceted rock, its crack, its crystal pores, and the two halves a cut breaks it into |
+| `packages/render/src/geode-place.ts` | **Where THE GEODE's pieces stand on a frame**: how far the stone has sunk |
 | `packages/render/src/effects-ship.ts` | the ship's own clocks: the swallow, the fire opening, the deflection flash, the queen's shudder |
 | `packages/render/src/effects-round-marks.ts` | The rounds' mark verdicts (GAUGE, SNAKE, PINBALL), a base of the effects roster fed by the takeover because a round frame skips `Effects.ingest` |
 | `packages/render/src/strand-still.ts` | One live bead on the navigator's screen that **no shot can answer this instant**: the reel drawn as a grey outline |

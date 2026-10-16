@@ -396,3 +396,16 @@ rather than its five seconds. Compute what `placeable` and `waveIntroduces`
 need in one pass (what each wave is the first to bring) and answer each index
 from it. Done when `bossOrder` is under 100 ms idle, and the review test's
 `REVIEW_AND_ORDER_MS` comes down to match.
+
+## Nothing catches two bosses given the same section number in docs/spec/bosses.md
+
+- **Found:** 2026-10-16, claude/lance-boss-wave-e1f288
+- **Files:** `docs/spec/bosses.md`, `tools/test/doc-drift.test.ts`
+
+THE MATRON and THE GEODE were both written as §11.66 by two lanes on the same
+day, and both landed with it: the rebase merged the two sections cleanly, and
+every check passed, because nothing reads the headings. It was seen by eye and
+renumbered to §11.67, by THE SWINDLE's lane and THE GEODE's look lane both. Add a test that every
+`## 11.n` heading in `docs/spec/bosses.md` has a number no other heading has,
+and that every `§11.n` named in code or docs names a heading that exists. Done
+when a duplicated heading turns `bun run check` red.

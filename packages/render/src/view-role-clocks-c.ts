@@ -190,3 +190,15 @@ export const showsHydraMaw = (role: ViewRole): boolean => role !== "p1";
 
 /** The other half of THE HYDRA's crossing: the fire's colour, the pilot's. */
 export const showsHydraFire = (role: ViewRole): boolean => role !== "p2";
+
+/**
+ * THE GEODE's split (§11.67), crossed as THE HYDRA's is: **the navigator is
+ * shown each crack's line** — where the beam must go down — and **the pilot
+ * the crystal's colour** glowing through the pores of each piece. The pilot's
+ * hand is on the cannon and the navigator's on the colours, so each holds the
+ * other's word. A piece cut is the same on both screens. `test` is both.
+ */
+export const showsGeodeCrack = (role: ViewRole): boolean => role !== "p1";
+
+/** The other half of THE GEODE's crossing: the crystal's colour, the pilot's. */
+export const showsGeodeCrystal = (role: ViewRole): boolean => role !== "p2";

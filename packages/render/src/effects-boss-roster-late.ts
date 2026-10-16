@@ -5,6 +5,7 @@ import { ChrysalisFx } from "./chrysalis-fx.js";
 import { RoundMarks } from "./effects-round-marks.js";
 import { FlueFx } from "./flue-fx.js";
 import { GallFx } from "./gall-fx.js";
+import { GeodeFx } from "./geode-fx.js";
 import { GovernorFx } from "./governor-fx.js";
 import { HydraFx } from "./hydra-fx.js";
 import { LampreyFx } from "./lamprey-fx.js";
@@ -98,4 +99,7 @@ export class LateRoster extends RoundMarks {
   /** THE MATRON's lobe springing back up as its pod is shot loose, her lean
    * toward a throw and the blow she takes (`matron-fx.ts`). */
   readonly matron = new MatronFx();
+  /** THE GEODE's beam-heat down a crack it cut, the crystal shards off it,
+   * the grit a bolt chips and the blow it takes (`geode-fx.ts`). */
+  readonly geode = new GeodeFx();
 }

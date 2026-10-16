@@ -4,6 +4,7 @@ import { drawBrood } from "./brood-draw.js";
 import { drawChrysalis } from "./chrysalis-draw.js";
 import type { Effects } from "./effects.js";
 import { drawFlue } from "./flue-draw.js";
+import { drawGeode } from "./geode-draw.js";
 import { drawGovernor } from "./governor-draw.js";
 import { drawHydra } from "./hydra-draw.js";
 import { drawLamprey } from "./lamprey-draw.js";
@@ -42,6 +43,7 @@ export const LATEST_PAIR_KINDS = [
   "hydra",
   "brood",
   "matron",
+  "geode",
 ] as const;
 
 export type LatestPairBoss = Extract<Installed, { kind: (typeof LATEST_PAIR_KINDS)[number] }>;
@@ -157,6 +159,14 @@ export function drawLatestPairBoss(
   // her receipts are `matron-fx.ts`.
   if (boss.kind === "matron") {
     drawMatron(ctx, l, world, boss, beat, beatPhase, time, effects.boss.matron);
+    return;
+  }
+
+  // THE GEODE: a slab of stone as wide as the field, cut by the lance a
+  // level of pieces at a time down to its crystal heart, a bolt stopping on
+  // it as grit (`geode-draw.ts`); its receipts are `geode-fx.ts`.
+  if (boss.kind === "geode") {
+    drawGeode(ctx, l, world, boss, beat, beatPhase, time, effects.boss.geode, effects.bolts);
     return;
   }
 
