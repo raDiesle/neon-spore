@@ -43058,3 +43058,5 @@ Bottleneck: looking — every one of the six needed a second picture before its 
 - landing: 5 min. Fifteen bodies of strokes over THE ECHO's budget, answered by folding the edge's invisible passes into the aura; the pod's three moved BULB QUEEN's row.
 
 Bottleneck: landing — the op-count budgets, which turned a pure look into a question of where the strokes should be spent.
+
+*Measured: 4 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-16 · e8f0819d1 — Bright bodies glow round their own contour: slick, bulb, every blob, the pod, the wreck and THE GHOST
+
+Every body drawn through the living skin — slick, bulb, throb, dart, mine, beatbox, a brood bud, every mount and crystal half — and the pod, the wreck and THE GHOST now throw a soft light of their own colour round their own outline, following every lobe rather than sitting in one round halo. It is the body's path stroked wide three times under its fill (`body-aura.ts`), so the light is outside the contour only, reaches three quarters of the body's radius on screen, and breathes slowly, out of step body to body. A body shot in the wrong colour still goes out to a grey line.
+
 ## 2026-10-16 · 2ee6fdb3d — Six backs for the field, offered in VERSUS
 
 `field:backdrop` opens again with six answers beside the shipped sea, which the owner called boring and empty: GIANT, a banded gas giant in the act's colour hanging off the left edge, ringed and turning; GALAXY, a tilted spiral turning high on the right; AURORA, two curtains of light folding across the upper sky; MILKY, the galaxy's band of stars and dust crossing corner to corner; CELLS, a breathing wall of huge living cells; ECLIPSE, a black world in front of a star with a turning corona. Each patches `BACKDROP_LOOK.back`, is baked once per size and tint and blitted, and is judged as a still on `BODIES · FOUR KINDS AT ONCE`. The game draws nothing new: these are offered, not swapped in.
