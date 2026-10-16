@@ -1,12 +1,18 @@
 import { type CreatureSilhouette, livingPoints, livingSilhouette } from "@neon-spore/content";
 import {
+  type BreakLook,
   type Fall,
+  type Flight,
   type Fracture,
   livingScale,
   PALETTE,
+  PINWHEEL,
   type Shard,
   shatter,
   splinters,
+  TUMBLE,
+  VORTEX,
+  WRING,
 } from "@neon-spore/render";
 
 /**
@@ -38,6 +44,8 @@ export interface Subject {
   readonly outline: readonly { readonly x: number; readonly y: number }[];
   readonly cut: Fracture;
   readonly fall: Fall;
+  /** Where a piece is at `t`, when it is not `shardAt` — `spin-break.ts`. */
+  readonly flight?: Flight;
   /** How many slivers come off the faces the cut opened, and none by default —
    * `splinter.ts`, which is what the field does today. */
   readonly splinters?: number;
@@ -89,6 +97,19 @@ const FALL: Fall = { gravity: SPAN * 6, life: 1.2, fade: 0.35, floor: SPAN * 1, 
 // private copy of a colour keeps looking right after the field stops.
 const RED = { hex: PALETTE.red, dark: PALETTE.redDark };
 const CYAN = { hex: PALETTE.cyan, dark: PALETTE.cyanDark };
+
+/** The four ways a slick or a bulb dies now (`spin-break.ts`), read off the
+ * records the field uses so the sheet cannot drift from them. */
+const SPINS: readonly { name: string; note: string; look: BreakLook }[] = [
+  { name: "VORTEX", note: "the pieces leave on a spiral that slows as it opens", look: VORTEX },
+  {
+    name: "PINWHEEL",
+    note: "whole and whirling for a fifth of a second, then flung",
+    look: PINWHEEL,
+  },
+  { name: "WRING", note: "core and rind twist opposite ways, then come apart", look: WRING },
+  { name: "TUMBLE", note: "the shipped drift thrown harder, every piece tumbling", look: TUMBLE },
+];
 
 export const SUBJECTS: Subject[] = [
   {
@@ -157,6 +178,30 @@ export const SUBJECTS: Subject[] = [
     splinters: 6,
     ...RED,
   },
+  ...SPINS.map((spin) => ({
+    name: `SLICK · ${spin.name}`,
+    note: spin.note,
+    ...body("slick"),
+    cut: {
+      ox: 0,
+      oy: 0,
+      wedges: 9,
+      innerAt: 0.5,
+      speed: SPAN * spin.look.speedTiles,
+      spin: spin.look.spin,
+      seed: 41,
+    },
+    // No floor: a whirl never lands (`spin-break.ts`), and TUMBLE's pull at
+    // a body-width is past the bottom of the cell before it would.
+    fall: {
+      gravity: SPAN * spin.look.gravityTiles,
+      life: spin.look.life,
+      fade: spin.look.fade,
+      skid: spin.look.skid,
+    },
+    flight: spin.look.flight,
+    ...RED,
+  })),
   {
     name: "SLICK · TOO MANY PIECES",
     note: "sixteen wedges, twice over: what over-cutting looks like, kept on the sheet as the wrong end",

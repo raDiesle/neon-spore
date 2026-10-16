@@ -7,6 +7,7 @@ import { scatter } from "./body-hit-scatter.js";
 import { shock } from "./body-hit-shock.js";
 import { splash } from "./body-hit-splash.js";
 import { BREAK_LOOK, type BreakLook } from "./break-look.js";
+import { SPIN_BREAK } from "./spin-break.js";
 
 /**
  * What happens to a living body **when a shot lands on it**, as a record per
@@ -99,12 +100,15 @@ const STRIKE_LIFE = 0.9;
 /**
  * THE SLICK's own hit, and the record a `slick:hit` candidate patches. The
  * owner kept the shipped kill for it on 10 September 2026 — squares and
- * wedges, no strike — and sent the three offered strikes to other bodies.
+ * wedges, no strike — and sent the three offered strikes to other bodies. On
+ * 16 October 2026 he asked for its wedges to turn, a different way each kill
+ * (`spin-break.ts`).
  */
-export const SLICK_HIT: HitLook = { pieces: BREAK_LOOK, life: 0, strike: none };
+export const SLICK_HIT: HitLook = { pieces: SPIN_BREAK, life: 0, strike: none };
 
-/** THE BULB's own, and `bulb:hit`'s record: a bubble pops. */
-export const BULB_HIT: HitLook = { pieces: BREAK_LOOK, life: STRIKE_LIFE, strike: pop };
+/** THE BULB's own, and `bulb:hit`'s record: a bubble pops, and its pieces turn
+ * the slick's way (`spin-break.ts`). */
+export const BULB_HIT: HitLook = { pieces: SPIN_BREAK, life: STRIKE_LIFE, strike: pop };
 
 /** THE THROB's: half of it is plating, so a shot on it is a *blow* — the
  * contour pressed flat and rebounding, two rings running down the column to

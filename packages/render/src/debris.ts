@@ -1,7 +1,7 @@
 import { type BreakLook, fallFrom, fractureFrom } from "./break-look.js";
 import type { Shard } from "./shatter.js";
 import { shatter } from "./shatter.js";
-import type { Fall } from "./shatter-fall.js";
+import type { Fall, Flight } from "./shatter-fall.js";
 import { shardAt } from "./shatter-fall.js";
 import { splinters } from "./splinter.js";
 
@@ -34,6 +34,7 @@ interface Break {
   readonly look: BreakLook;
   readonly pieces: readonly Shard[];
   readonly fall: Fall;
+  readonly flight: Flight;
   /** Where the body stood, in pixels. */
   readonly x: number;
   readonly y: number;
@@ -79,7 +80,7 @@ export class Debris {
 
   /** Cut a body up, if the look asks for pieces at all. */
   break(b: BreakAt): void {
-    const look = b.look;
+    const look = b.look.pick?.(b.seed) ?? b.look;
     if (look.wedges < 3) return;
     const cut = fractureFrom(look, b.tile / b.scale, b.seed, b.ox, b.oy);
     const wedges = shatter(b.outline, cut);
@@ -105,6 +106,7 @@ export class Debris {
       look,
       pieces,
       fall: fallFrom(look, b.tile, floor),
+      flight: look.flight ?? shardAt,
       x: b.x,
       y: b.y,
       hex: b.hex,
@@ -128,7 +130,7 @@ export class Debris {
       for (const s of b.pieces) {
         b.look.paint(ctx, {
           shard: s,
-          pose: shardAt(s, b.age, b.fall),
+          pose: b.flight(s, b.age, b.fall),
           hex: b.hex,
           dark: b.dark,
           // The outline is already in pixels; the paint scales what it is

@@ -1,6 +1,6 @@
 import { facet, type PiecePaint } from "./break-piece.js";
 import type { Fracture } from "./shatter.js";
-import type { Fall } from "./shatter-fall.js";
+import type { Fall, Flight } from "./shatter-fall.js";
 
 /**
  * THE ONE RECORD A CANDIDATE **BREAK** PATCHES.
@@ -95,6 +95,15 @@ export interface BreakLook {
   readonly splinters: number;
   /** How one piece is painted. */
   readonly paint: (ctx: CanvasRenderingContext2D, p: PiecePaint) => void;
+  /** Where a piece is at `t`. Left out, it is `shardAt`: thrown, pulled,
+   * landed. `spin-break.ts` hands in a whirl instead. */
+  readonly flight?: Flight;
+  /**
+   * A look that is several, one per kill: handed the break's seed, it answers
+   * with the look this body comes apart by. Left out, the look is itself. The
+   * seed is the tile's (`tile-seed.ts`), so both phones pick the same one.
+   */
+  readonly pick?: (seed: number) => BreakLook;
 }
 
 export const BREAK_LOOK: BreakLook = {

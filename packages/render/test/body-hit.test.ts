@@ -16,6 +16,7 @@ import { BodyStrikeFx } from "../src/body-strike.js";
 import { BREAK_LOOK } from "../src/break-look.js";
 import { breakSparks } from "../src/effects-break.js";
 import { computeLayout } from "../src/layout.js";
+import { SPIN_BREAK } from "../src/spin-break.js";
 import {
   CFG,
   FRAME_TIMEOUT_MS,
@@ -87,8 +88,10 @@ describe("hitFor", () => {
   it("keeps the slick on the shipped kill, and shares the break with every body", () => {
     expect(SLICK_HIT.life).toBe(0);
     expect(BODY_HIT.life).toBe(0);
-    for (const { look } of STRUCK) {
-      expect(look.pieces).toBe(BREAK_LOOK);
+    for (const { kind, of, look } of STRUCK) {
+      // The bulb's pieces turn (`spin-break.ts`); every other body shares the
+      // shipped break.
+      expect(look.pieces).toBe(kind === "bulb" && !of ? SPIN_BREAK : BREAK_LOOK);
       expect(look.life).toBeGreaterThan(0);
     }
     // The kill burst is scaled off the kind's own record — the same number

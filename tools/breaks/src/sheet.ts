@@ -40,7 +40,7 @@ const ROW_H = 152;
 const SCALE = CELL * 0.2;
 
 function polygon(s: Shard, t: number, subject: Subject): string {
-  const pose = shardAt(s, t, subject.fall);
+  const pose = (subject.flight ?? shardAt)(s, t, subject.fall);
   if (pose.alpha <= 0.01) return "";
   const pts = s.points
     .map((p) => {

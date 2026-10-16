@@ -42785,3 +42785,18 @@ Bottleneck: none worth the name. The rule asked for was already true of
 every brush intro since the last lane; two waves outside it were left.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-16 — The slick and the bulb die turning, a different way each kill
+
+- reading: 10 min. The destruction skill, `break-look.ts`, `debris.ts`,
+  `shatter-fall.ts`, `body-hit.ts` and the break bench.
+- writing: 20 min. `spin-break.ts`'s four flights, the `flight` and `pick`
+  seams, ten tests, four bench rows.
+- looking: 10 min. `bun run breaks` once, then a kill on wave 1 through
+  `bun run frames`, cropped.
+- friction: 5 min. Two guessed test imports (`livingScale`, `computeLayout`'s
+  arguments), and `sheet` refused a prefix so the strip was made with `pair`.
+- landing: 10 min. `check:fast` twice — the index wanted a row — and `land`.
+
+Bottleneck: writing — a whirl had to stay a closed form of `t` so the bench
+could draw it, which ruled out the landing and decided the shape.

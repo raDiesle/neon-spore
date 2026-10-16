@@ -77,6 +77,20 @@ function landsAt(s: Shard, f: Fall): number {
 }
 
 /**
+ * How much of a piece is left at `t` seconds: whole until the last `fade` of
+ * its life, then down to nothing. Exported so a flight of another shape
+ * (`spin-break.ts`) fades on the same curve rather than on a copy of it.
+ */
+export function fadeAt(t: number, f: Fall): number {
+  const held = Math.max(0, Math.min(t, f.life));
+  const start = f.life * (1 - Math.max(0, Math.min(1, f.fade)));
+  return held <= start ? 1 : Math.max(0, 1 - (held - start) / Math.max(1e-3, f.life - start));
+}
+
+/** Where a piece is at `t` — `shardAt`'s shape, which a look may swap. */
+export type Flight = (s: Shard, t: number, f: Fall) => ShardPose;
+
+/**
  * Where one piece is at `t` seconds, and how much of it is left.
  *
  * Before the landing it is thrown and pulled. After it, it is on the floor
@@ -91,9 +105,7 @@ export function shardAt(s: Shard, t: number, f: Fall): ShardPose {
   const y = s.y + s.vy * air + 0.5 * f.gravity * air * air;
   const angle = s.spin * air;
 
-  const start = f.life * (1 - Math.max(0, Math.min(1, f.fade)));
-  const alpha =
-    held <= start ? 1 : Math.max(0, 1 - (held - start) / Math.max(1e-3, f.life - start));
+  const alpha = fadeAt(held, f);
 
   if (held <= land) return { x, y, angle, alpha, landed: false };
 
