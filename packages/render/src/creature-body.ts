@@ -22,6 +22,7 @@ import { drawMineBody } from "./mine.js";
 import { drawMorselBody } from "./morsel.js";
 import { drawMoultBody } from "./moult.js";
 import { MOUNT_LOOK } from "./mount-look.js";
+import { drawSeederBody } from "./seeder.js";
 import { drawVolleyCore } from "./volley-core.js";
 import { drawWisp, showsWisp, wispJump } from "./wisp.js";
 
@@ -173,6 +174,8 @@ const EXCLUSIVE: ReadonlyMap<CreatureKind, BodyDraw> = new Map<CreatureKind, Bod
   ["moult", drawMoultBody],
   // THE MORSEL: the living body until a hit turns it limp, then a cargo (`morsel.ts`).
   ["morsel", drawMorselBody],
+  // THE SEEDER: the living body with the pod it will leave glowing inside it.
+  ["seeder", drawSeederBody],
   ["lid", drawLidBody],
   ["strand", drawStrandBody],
   ["magnet", drawMagnetBody],

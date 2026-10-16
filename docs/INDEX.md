@@ -1899,6 +1899,7 @@ by hand never moves.
 | `packages/render/src/seam-fx.ts` | What THE SEAM leaves behind a frame (§26, *Presentation*) |
 | `packages/render/src/seam-hold.ts` | **THE SEAM's two steps answered by sending nothing** (§26 rows 10 and 16, `sim/seam-step.ts`) |
 | `packages/render/src/seam-glance.ts` | **THE SEAM glances**: the whole ridge turns on its spine, offered on VERSUS `seam:glance` |
+| `packages/render/src/seeder.ts` | THE SEEDER, drawn: the living body with the pod it will leave glowing inside it |
 | `packages/render/src/hover.ts` | WHAT A MOUSE IS RESTING ON, LIT |
 | `packages/render/src/recoil-cage-break.ts` | THE RECOIL's cage coming apart: the shot that spends the last bounce, drawn as the frame failing all at once |
 | `packages/render/src/recoil-calyx.ts` | CALYX — a kept look for THE RECOIL's cage, drawn only on the GRAPHICS page's LIBRARY |

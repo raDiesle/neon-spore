@@ -43170,3 +43170,14 @@ Bottleneck: the count tests and the budget row a new block moves — ten edits
 that say nothing about the creature.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-16 — THE SEEDER, its look
+
+- reading: 0 min. THE MORSEL's look, an hour old, was the pattern.
+- writing: 5 min. `render/seeder.ts`, its row and a frame test.
+- looking: 10 min. Three frames and a crop; the pod's core alone was a dot,
+  so the whole pod went in.
+- friction: 0 min.
+- landing: 5 min. INDEX, `check:fast`, `land`.
+
+Bottleneck: the first seed was too small to see, and only a crop showed it.
