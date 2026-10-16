@@ -120,11 +120,20 @@ const PLUG = 1;
 /** The seats either of his is drawn on: not hers (`showsLedgerBead`). */
 const HIS: ViewRole[] = ROLES.filter((r) => r !== "p2");
 
+/**
+ * A knob's arrow sets the field's colour as fill and stroke back to back
+ * (`goo-soft-arrow.ts`). Counted as the pair, not as the stroke alone: EMBER
+ * round SHIELD strokes its sleeve in that colour too, and punches nothing
+ * (`ship-button-mark.ts`, which lights it on `SHIELD`).
+ */
+const ARROW_EDGE = `fillStyle=${PALETTE.background}|set ${GOO_ARROW}`;
+
 function rings(world: World, role: ViewRole = "p1"): number {
   // A ring punches its disc; a pull knob is FIZZ's drop, which punches none and
   // whose arrow has an edge in the field's colour (`goo-needles.ts`).
   const frame = drawn(world, role);
-  const discs = count(frame, PALETTE.background) - HALVES - 2 * count(frame, GOO_ARROW);
+  const fills = count(frame, `fillStyle=${PALETTE.background}`);
+  const discs = fills - HALVES - count(frame, ARROW_EDGE);
   return discs + count(frame, GOO_KNOB);
 }
 

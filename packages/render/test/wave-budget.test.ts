@@ -303,6 +303,10 @@ const SCENES: readonly Scene[] = [
     // is armour, wings, two marks and a mouth, and almost none of it is a
     // creature the field counts.
     why: "one boss that is most of the picture",
+    // Raised on p1 on 16 October 2026, when SHIELD and SUCK began wearing
+    // EMBER (`ship-button-mark.ts`): her cue on p1 says `SHIELD` at this
+    // tick, so the button is ringed — twelve strokes, a fill and two paths,
+    // the ring and its arrows.
     // Remeasured 15 October 2026, when rocks began to glance
     // (`creature-body-rock.ts`): the torch in her socket turns on a layer of
     // its own, a few blits, clips and saves, a shading `fillRect` and gradient.
@@ -365,26 +369,26 @@ const SCENES: readonly Scene[] = [
       p1: [
         {
           fillRect: 68,
-          stroke: 157,
-          fill: 95,
+          stroke: 169,
+          fill: 96,
           clip: 13,
           save: 70,
           drawImage: 158,
           createLinearGradient: 34,
           createRadialGradient: 15,
-          "new Path2D": 84,
+          "new Path2D": 86,
           fillText: 4,
         },
         {
           fillRect: 67,
-          stroke: 158,
-          fill: 93,
+          stroke: 170,
+          fill: 94,
           clip: 16,
           save: 69,
           drawImage: 123,
           createLinearGradient: 24,
           createRadialGradient: 12,
-          "new Path2D": 54,
+          "new Path2D": 56,
           fillText: 4,
         },
       ],
@@ -573,6 +577,9 @@ const SCENES: readonly Scene[] = [
     // a full BLAZE, COMET or SMOULDER under the pile's clip, which is where
     // the gradient rows come from.
     why: "seven burning rocks, five of them standing in one pile",
+    // Raised on p1 on 16 October 2026: a falling rock stands in the shield's
+    // column, so SHIELD wears EMBER (`ship-button-mark.ts`) — six strokes,
+    // a fill and two paths for its ring and arrows, and two halo blits.
     // Remeasured 16 October 2026, after THE TWINS, THE LAST ROCK and THE
     // NEIGHBOUR went in ahead of it: the sky is drawn off the wave number, and
     // the one it lands on now costs about forty-five more `drawImage` on both seats.
@@ -621,26 +628,26 @@ const SCENES: readonly Scene[] = [
       p1: [
         {
           fillRect: 64,
-          stroke: 198,
-          fill: 378,
+          stroke: 204,
+          fill: 379,
           clip: 28,
           save: 244,
-          drawImage: 113,
+          drawImage: 115,
           createLinearGradient: 171,
           createRadialGradient: 112,
-          "new Path2D": 83,
+          "new Path2D": 85,
           fillText: 3,
         },
         {
           fillRect: 63,
-          stroke: 185,
-          fill: 302,
+          stroke: 191,
+          fill: 303,
           clip: 30,
           save: 211,
-          drawImage: 109,
+          drawImage: 111,
           createLinearGradient: 125,
           createRadialGradient: 60,
-          "new Path2D": 55,
+          "new Path2D": 57,
           fillText: 3,
         },
       ],

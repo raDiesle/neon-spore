@@ -6,6 +6,7 @@ import { drawLampreyInside } from "./lamprey-plug-look.js";
 import type { Layout } from "./layout.js";
 import type { RenderState } from "./render-state.js";
 import type { ViewState } from "./renderer.js";
+import { drawShipButtonMarks } from "./ship-button-mark.js";
 
 /**
  * **What goes over the finished band and HUD**, last in a field frame. Cut out
@@ -29,6 +30,8 @@ export function drawOverBand(
   drawLampreyInside(ctx, l, world, set, view.time, view.beatPhase);
   // The fire button the shot's mark asks for, ringed with the same mark.
   if (cue !== null) drawFireButtonMarks(ctx, l, world, cue, view.time, view.controls);
+  // And SHIELD and SUCK, when the boss says the word or the field asks (`ship-button-mark.ts`).
+  drawShipButtonMarks(ctx, l, world, cue, view.time, view.controls);
   // Over the ship too, because it is about the ship: a lure shot by mistake (`lure-blast.ts`).
   held.lureBlast.draw(ctx, l);
   // And THE STARE's catch, on the button the caught seat pressed

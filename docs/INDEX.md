@@ -719,6 +719,7 @@ by hand never moves.
 | `packages/sim/src/shot-out.ts` | A shot past the top row: every boss hook up there, then the `shotOut` event |
 | `packages/sim/src/shot-wasted.ts` | **HARD's rule: a shot that met nothing loses the wave** |
 | `packages/sim/src/ship-verbs.ts` | **Which commands are a seat talking to the ship**, as against the host talking to the run |
+| `packages/sim/src/ship-asks.ts` | **Whether something on the field is asking for the shield or the mouth this frame** — what lights SHIELD and SUCK |
 | `packages/sim/src/shield-push.ts` | **The shield pushes a creature back up the field, once** — the allow-list, the climb and the push |
 | `packages/sim/src/beatbox-round.ts` | **What happens to a soundbox**: the thumb that lands on it, the run being committed |
 | `packages/sim/src/beatbox.ts` | THE BEATBOX: a soundbox that swells on every beat |
@@ -1994,6 +1995,7 @@ by hand never moves.
 | `packages/render/src/ship-growths.ts` | What grows out of the ship, laid on the membrane after the hull pass: fence current, claw arm, maw reach, throat root |
 | `packages/render/src/ship-top-chrome.ts` | How far down the ship's own chrome reaches at the top of a screen |
 | `packages/render/src/ship-top-rows.ts` | The rows the two alarm bands are written on, stacked under the siren |
+| `packages/render/src/ship-button-mark.ts` | **The SHIELD and SUCK buttons, lit with the shot's mark when something is asking for them** |
 | `packages/render/src/volley.ts` | THE VOLLEY's shell: the rock plating a slick or a bulb is sealed inside |
 | `packages/render/src/band-lobes.ts` | Where the round buttons on the band stand, for one seat and one panel |
 | `packages/render/src/band-lock.ts` | The band, put out — the whole of it, or one seat's half |

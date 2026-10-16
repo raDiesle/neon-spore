@@ -228,7 +228,22 @@ function paintIn(
   t: number,
   shot: Color,
 ): void {
-  const { hex, rim } = emberHues(shot);
+  paintEmberIn(ctx, x, y, r, k, t, emberHues(shot));
+}
+
+/**
+ * EMBER in any button's own colour — the SHIELD's and the SUCK's wear it
+ * (`ship-button-mark.ts`), so a lit button is one mark, whichever it is.
+ */
+export function paintEmberIn(
+  ctx: CanvasRenderingContext2D,
+  x: number,
+  y: number,
+  r: number,
+  k: number,
+  t: number,
+  { hex, rim }: { hex: string; rim: string },
+): void {
   halo(ctx, x, y, r * RING * 2.2, hex, 0.18 * k);
   neon(ctx, emberRing(r, x, y, t), 2.4, k, hex, rim);
   glowFill(ctx, emberArrows(r, x, y, t), hex, rim, k);

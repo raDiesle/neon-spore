@@ -7,6 +7,7 @@ import { drawPinballRound } from "./pinball-round.js";
 import { drawPulseRound } from "./pulse-round.js";
 import type { ViewState } from "./renderer.js";
 import { drawScoutRound } from "./scout-round.js";
+import { drawShipButtonMarks } from "./ship-button-mark.js";
 import { drawSnakeRound } from "./snake-round.js";
 
 /**
@@ -64,5 +65,6 @@ export function drawRound(
   // A round draws its own band before this, so the fire button the shot asks
   // for is ringed here, as the field's is after its band (`canvas2d-over.ts`).
   if (cue !== null) drawFireButtonMarks(ctx, l, view.world, cue, view.time, view.controls);
+  drawShipButtonMarks(ctx, l, view.world, cue, view.time, view.controls);
   return true;
 }

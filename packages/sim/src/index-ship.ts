@@ -113,6 +113,7 @@ export {
   pullPathPoint,
 } from "./pull-path.js";
 export { ARM_HOME, reachMilliPerTick, reachOut, reachTipMilli } from "./reach.js";
+export { shieldAsked, suckAsked } from "./ship-asks.js";
 export {
   chargeDueTick,
   chargeMilli,
