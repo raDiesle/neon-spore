@@ -43495,3 +43495,15 @@ Bottleneck: TUNING moves the run and never ships — the game-wide defaults stay
 `sim/config-blister.ts`'s, which the report has to say.
 
 *Measured: 4 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-16 — The loose pod and its core leave pods.ts
+
+- reading: 5 min. `pods.ts` and the files that import from it.
+- writing: 5 min. `pod-wreck.ts`, the wreck given its radius by the caller,
+  the core re-exported.
+- looking: 0 min. A move; the op-count rows did not change.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, `land`.
+
+Bottleneck: none — the wreck asked `pods.ts` for `POD_TILES`, which would have
+been an import cycle, so the caller passes the radius it already has.

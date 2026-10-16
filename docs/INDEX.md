@@ -1332,6 +1332,7 @@ by hand never moves.
 | `packages/render/src/pod-dress.ts` | **What a pod's options look like** (`sim/pod-options.ts`) |
 | `packages/render/src/pod-look.ts` | How a real pod hangs — the record VERSUS can offer a second answer through |
 | `packages/render/src/pod-seat-marks.ts` | **What one seat is told about a pod and the other is not** |
+| `packages/render/src/pod-wreck.ts` | the pod loose — tumbling, flickering, trailing embers — and the core every pod wears |
 | `packages/render/src/creatures.ts` | silhouettes and their own-motion |
 | `packages/render/src/creature-place.ts` | where a creature is on screen, and what a finger is pointing at |
 | `packages/render/src/touch.ts` | the control scheme: a point on the layout, and what the ship is told |

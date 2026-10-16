@@ -328,21 +328,6 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/skipped.test.ts` holds the listing's count of the entries
 `next` stepped past and why.
 
-## render/pods.ts is at its 250-line limit
-
-- **Found:** 2026-10-16, claude/suck-brush-visuals-a917b1
-- **Taken:** 2026-10-16, claude/queue-work-6b11c3 (claim: claude/queue-render-pods-ts-is-at-its-250-line-limit)
-- **Files:** `packages/render/src/pods.ts`
-
-The pod options took `render/pods.ts` to exactly 250 lines: the cage, the
-bands, the thread, the grip and the seat marks went next door, but the calls
-and the gripped pass stayed. The next line added to it fails
-`limits.test.ts`. Cut `drawWreck` and `drawPodCore` (the loose pod and the
-core every pod wears) into `pod-wreck.ts`, re-exporting `drawPodCore` from
-`pods.ts` for THE MOULT's import. Done when `pods.ts` is well under the limit
-and `bun run check` is green.
-
-
 ## Write the order waves:order composes, which rewrites 328 waves
 
 - **Found:** 2026-10-16, claude/queue-work-6b11c3
