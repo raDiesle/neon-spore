@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-16 · 6c8fe1b54 — THE SWINDLE drawn, and a pod she holds cannot be shot loose
+
+THE SWINDLE now has a body: the shape sheet's THE HOOD, a three-lobed slime hung over her pods. Over every pod she still holds is a hood on a strand. It lifts while the pod glides and flies up into her when she lets it go. The hood looks the same over a real pod and a fake one, so the pilot's screen gives nothing away; only the navigator sees the husk's mark. A shot that meets a pod she still holds now stops on its hood with a dull tick, so a real pod can no longer be shot down before the shuffle — AUTO was doing exactly that. The guide's line inviting an early shot is gone.
+
 ## 2026-10-16 · a283d4750 — THE GEODE is drawn: faceted stone across the field, each piece broken in two along its crack by the lance
 
 The stone is THE CAIRN's faceted rocks laid across the whole field, one piece per crack, with the seams between them left to count. The navigator sees each crack as a white-hot line; the pilot sees the crystal's colour glowing through the pores. A beam down a crack splits that piece along its jagged line, and the two halves turn apart to show crystal cut faces in the beam's colour. When a level is done the halves fly off and the next, smaller layer comes up behind them, down to the crystal heart, which shatters. The stone sinks a tile over each window and lands on the hull if time runs out. The navigator gets HOLD on the crack the cannon is under. A new look with nothing shipped in its place: an addition where the game drew nothing, built in rather than put in VERSUS.

@@ -43034,3 +43034,5 @@ along a jagged line, each turned about its own foot.
 - landing: 5 min. Spec, choreographed row, the card marked taken, index, then `land`.
 
 Bottleneck: looking — the defect was only visible in a frame of AUTO playing her, not in any test written from the rules.
+
+*Measured: 5 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
