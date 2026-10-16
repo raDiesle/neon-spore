@@ -43420,3 +43420,5 @@ Bottleneck: none — the row was one call, and the brush already did its job.
 
 Bottleneck: pasting 290 measured numbers back into seven tables, two shapes of
 row, without a slip — done by script, then checked equal by a second run.
+
+*Measured: 16 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
