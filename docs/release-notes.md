@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-16 · 2b23a3e20 — The torch's arrow is big and knocks, and a lit siren throws its light round the screen
+
+Player 1's torch blip is now an ember-lit arrow as wide as both its columns, never fainter than 0.7, knocking down into its column with an echo of its outline leaving it on each knock. The siren's dial is a third larger, and while it is lit it throws two turning beams and a wash round itself — faster, wider and in ember while a torch is on its way. The torch's line now sits centred under the siren, a size larger, instead of right-aligned under a chip. The siren still draws nothing at all while no call is on.
+
 ## 2026-10-16 · 0f5f61f1f — ECLIPSE is small and quiet, AURORA is smooth, BINARY is gone
 
 The eclipse is a small dim disc high on the right instead of a big black one in a burning ring over the middle of the field, so it no longer reads as an enemy. The aurora's curtains are soft rays laid three deep with a fine grain and a bright hem going from green to rose, in place of strips that read as pixels. BINARY is out of the skies, which are eleven now.
