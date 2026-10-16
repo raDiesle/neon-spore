@@ -43478,3 +43478,5 @@ the old one-blow body never needed.
 
 Bottleneck: none — the one other teardown with the same shape was found by
 reading the four that launch or make something in a `beforeAll`.
+
+*Measured: 11 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*

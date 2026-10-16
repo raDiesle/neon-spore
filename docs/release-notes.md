@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-16 · bf8a7d53c — A browser test whose launch timed out now fails once, not twice
+
+`closeBrowser` takes a browser that never came and returns at once. Before, a `beforeAll` that ran out of time before its launch returned left the `afterAll` throwing on `undefined`, and the second failure hid the first. THE BUN overlay test's teardown had the same shape and now takes down only what its setup reached: browser, server and scratch directory.
+
 ## 2026-10-16 · 8eca1c3cb — Every blister gesture has its own up beats, blows and length
 
 Each of the seven gestures now has three numbers of its own in SimConfig: how many beats it stays up, how many blows it takes, and how long one blow is (a HOLD's or LEVER's time, a SWIPE's or COMBO's stroke, a TURN's way round). A wave can set any of the three on a single blister. Every blow lands inside the one surfacing: one short of the last says so and starts the gesture over, a COMBO asks for its press again, and a stroke or lever hand that dealt it is spent until it lifts. The defaults are what shipped, so nothing plays differently yet.
