@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-16 · 1d3aaea27 — THE BROOD is a machine's womb: hung in a pumping rig, its bodies seen inside and pushed out of its whole belly
+
+The owner's feedback of 16 October 2026: too simple, it should look like something producing enemies, a machine, and spawn from its whole body like pooping out. The sac now hangs on cables from a pump-head whose pistons strike on the beat; six feed tubes wrap it and carry lit pulses down, turning with its rest; a port sits in the belly over every column it covers. Through the skin a clutch of small bodies wheels, and every body it is about to lay sinks to the belly over its column, pushes it out, opens its port in its colour and tears free on a strand of slime as the sac squeezes. Before a lurch it shudders; a lurch swings it on its cables, tilted. It now drops in a short way, fading in, so nothing crosses the top of the screen. A look the owner asked for by name.
+
 ## 2026-10-16 · cfcd2c552 — Three answers for the siren in VERSUS: a roof beacon, a sonar ping, a light bar
 
 `siren:look` offers three alternatives for the lit siren, each drawing both of its states — a plain call to talk and a torch on its way: BEACON, a glass dome with a turning mirror throwing one cool beam, then two fast red ones and a white flash; SONAR, rings leaving a bright core, one slow cyan, then three fast ember; LIGHTBAR, a row of cells with one cyan light scanning, then red and white halves strobing and lighting a band of the screen. They are judged on a new pose, SIREN · A CALL, THEN A TORCH. What the game draws is unchanged: the record `SIREN_LOOK` patches nothing until one is adopted.
