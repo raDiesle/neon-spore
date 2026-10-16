@@ -43046,3 +43046,5 @@ Bottleneck: looking — the defect was only visible in a frame of AUTO playing h
 - landing: 5 min. Format, a sentence the distinct test wanted dashed, `check:fast`, `land`.
 
 Bottleneck: looking — every one of the six needed a second picture before its brightness sat under the bodies.
+
+*Measured: 4 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

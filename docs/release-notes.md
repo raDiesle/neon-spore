@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-16 · 2ee6fdb3d — Six backs for the field, offered in VERSUS
+
+`field:backdrop` opens again with six answers beside the shipped sea, which the owner called boring and empty: GIANT, a banded gas giant in the act's colour hanging off the left edge, ringed and turning; GALAXY, a tilted spiral turning high on the right; AURORA, two curtains of light folding across the upper sky; MILKY, the galaxy's band of stars and dust crossing corner to corner; CELLS, a breathing wall of huge living cells; ECLIPSE, a black world in front of a star with a turning corona. Each patches `BACKDROP_LOOK.back`, is baked once per size and tint and blitted, and is judged as a still on `BODIES · FOUR KINDS AT ONCE`. The game draws nothing new: these are offered, not swapped in.
+
 ## 2026-10-16 · 6c8fe1b54 — THE SWINDLE drawn, and a pod she holds cannot be shot loose
 
 THE SWINDLE now has a body: the shape sheet's THE HOOD, a three-lobed slime hung over her pods. Over every pod she still holds is a hood on a strand. It lifts while the pod glides and flies up into her when she lets it go. The hood looks the same over a real pod and a fake one, so the pilot's screen gives nothing away; only the navigator sees the husk's mark. A shot that meets a pod she still holds now stops on its hood with a dull tick, so a real pod can no longer be shot down before the shuffle — AUTO was doing exactly that. The guide's line inviting an early shot is gone.
