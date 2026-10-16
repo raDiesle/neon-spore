@@ -43346,3 +43346,15 @@ Bottleneck: the release notes still name a cut boss's number, so records had
 to be told apart from documents that must stay true.
 
 *Measured: 16 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-16 — The size hook measures the copy the shell edited
+
+- reading: 5 min. The hook, the path parser and the payload.
+- writing: 15 min. `payloadCwd`, `checkoutOf`, a leading `cd`, and a test
+  with a scratch checkout and a worktree inside it.
+- looking: 0 min. Nothing drawn changed.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, `land`.
+
+Bottleneck: none to speak of — a small hook with a test file that already
+said where each shape goes.

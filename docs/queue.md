@@ -344,25 +344,6 @@ need in one pass (what each wave is the first to bring) and answer each index
 from it. Done when `bossOrder` is under 100 ms idle, and the review test's
 `REVIEW_AND_ORDER_MS` comes down to match.
 
-## The size hook measures the trunk's copy of a file a worktree edited
-
-- **Found:** 2026-10-16, claude/suck-brush-visuals-a917b1
-- **Taken:** 2026-10-16, claude/queue-work-6b11c3 (claim: claude/queue-the-size-hook-measures-the-trunks-copy-of-a-file)
-- **Files:** `tools/hooks/after-edit-size.ts`, `tools/hooks/written-paths.ts`
-
-A session whose project is the main checkout and whose shell works in a
-worktree got *frame-ship.ts is 244 lines, 6 under the ceiling* twice from
-`after-edit-size.ts`, after a `sed -i` on `packages/render/src/frame-ship.ts`
-inside the worktree, where the file was 227 lines. 244 is the main checkout's
-copy. The hook resolves a relative path out of the shell command against its
-own `ROOT` (the directory the hook file is in, two up), not against the
-directory the command ran in, so a worktree's edit is measured on the trunk's
-file and the warning blocks on a file nobody touched. Resolve a written path
-against the command's working directory (the payload's `cwd`, when the
-harness sends one, or a `cd <dir> &&` prefix the command itself carries), and
-add a case to the hook's test with a worktree path. Done when the same `sed`
-in a worktree reports the worktree's own line count.
-
 ## The op-count rows still carry the sea's forty-four motes
 
 - **Found:** 2026-10-16, claude/background-versus-candidates-e2bfdb

@@ -34,11 +34,20 @@
  * sees twice is a hook nobody reads once.
  */
 
-import { dirname, join, relative } from "node:path";
+import { existsSync } from "node:fs";
+import { dirname, join, relative, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { counted, lineCount, notice } from "./file-size.ts";
 import { dialectFor } from "./guard.ts";
-import { editedPath, readPayload, shellCommand, toolName } from "./payload.ts";
+import {
+  editedPath,
+  type HookPayload,
+  payloadCwd,
+  readPayload,
+  shellCommand,
+  toolName,
+} from "./payload.ts";
+import { commandsIn } from "./shell-words.ts";
 import { writtenPaths } from "./written-paths.ts";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..", "..");
@@ -59,20 +68,66 @@ export function repoPath(root: string, path: string | null): string | null {
 }
 
 /**
- * Every path this payload touched, as the ceiling names them: the one an edit
- * tool declares, or the several a bash line can write in a single command.
+ * The checkout a file is in: the nearest directory above it holding a `.git`
+ * — a directory in the main checkout, a file in a worktree — or `fallback`.
  */
-export function touched(root: string, payload: Parameters<typeof editedPath>[0]): string[] {
+export function checkoutOf(file: string, fallback: string): string {
+  for (let dir = dirname(file); dir !== dirname(dir); dir = dirname(dir)) {
+    if (existsSync(join(dir, ".git"))) return dir;
+  }
+  return fallback;
+}
+
+/**
+ * Where a bash line's relative paths start: the payload's `cwd`, moved by a
+ * leading `cd <dir>`, or `root` when the payload names no directory.
+ *
+ * Against `root` alone, a session whose project is the main checkout and
+ * whose shell works in a worktree had its `sed -i` measured on the trunk's
+ * copy of the file — 244 lines, where the worktree's was 227 — and was warned
+ * about a file nobody touched (`docs/queue.md`, 16 October 2026).
+ */
+function startDir(root: string, payload: HookPayload | null, command: string): string {
+  const base = payloadCwd(payload) ?? root;
+  const [first] = commandsIn(command, dialectFor(toolName(payload)));
+  return first?.[0] === "cd" && first[1] ? resolve(base, first[1]) : base;
+}
+
+export interface Touched {
+  /** The path as the ceiling names it, relative to its own checkout. */
+  rel: string;
+  /** The file itself, to be measured. */
+  file: string;
+}
+
+/**
+ * Every file this payload touched, as the ceiling names them: the one an edit
+ * tool declares, or the several a bash line can write in a single command —
+ * each measured in the checkout it is in, a worktree's own copy for a worktree.
+ */
+export function touchedFiles(root: string, payload: HookPayload | null): Touched[] {
   const command = shellCommand(payload);
   const raw =
     command === null ? [editedPath(payload)] : writtenPaths(command, dialectFor(toolName(payload)));
-  const rels = raw.map((path) => repoPath(root, path));
-  return [...new Set(rels.filter((rel): rel is string => rel !== null && counted(rel)))];
+  const from = command === null ? root : startDir(root, payload, command);
+  const out = new Map<string, Touched>();
+  for (const path of raw) {
+    if (path === null) continue;
+    const file = resolve(from, path);
+    const rel = repoPath(checkoutOf(file, root), file);
+    if (rel !== null && counted(rel)) out.set(file, { rel, file });
+  }
+  return [...out.values()];
+}
+
+/** The paths of `touchedFiles`, as the ceiling names them. */
+export function touched(root: string, payload: HookPayload | null): string[] {
+  return [...new Set(touchedFiles(root, payload).map((t) => t.rel))];
 }
 
 /** The line this file earns, or null when it is short enough or is not there. */
-async function said(root: string, rel: string): Promise<string | null> {
-  const text = await Bun.file(join(root, rel))
+async function said({ rel, file }: Touched): Promise<string | null> {
+  const text = await Bun.file(file)
     .text()
     .catch(() => null);
   return text === null ? null : notice(rel, lineCount(text));
@@ -81,8 +136,8 @@ async function said(root: string, rel: string): Promise<string | null> {
 async function main(): Promise<void> {
   const payload = await readPayload();
   const lines: string[] = [];
-  for (const rel of touched(ROOT, payload)) {
-    const line = await said(ROOT, rel);
+  for (const t of touchedFiles(ROOT, payload)) {
+    const line = await said(t);
     if (line !== null) lines.push(line);
   }
   if (lines.length === 0) process.exit(0);

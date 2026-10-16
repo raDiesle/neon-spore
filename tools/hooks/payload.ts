@@ -25,6 +25,8 @@ export interface HookPayload {
   transcript_path?: unknown;
   /** `PreCompact` only: `auto` or `manual`. */
   trigger?: unknown;
+  /** The directory the tool ran in — a worktree's, when the shell is in one. */
+  cwd?: unknown;
 }
 
 /** The payload on stdin, or `null` when it is absent or not JSON. */
@@ -111,4 +113,16 @@ export function sessionId(payload: HookPayload | null): string {
 export function transcriptPath(payload: HookPayload | null): string | null {
   const raw = payload?.transcript_path;
   return typeof raw === "string" && raw !== "" ? raw : null;
+}
+
+/**
+ * The directory the tool ran in, or null when the payload names none.
+ *
+ * A session whose project is the main checkout can work in a worktree, and a
+ * path its shell wrote is relative to that, not to the checkout the hook file
+ * sits in (`after-edit-size.ts`).
+ */
+export function payloadCwd(payload: HookPayload | null): string | null {
+  const raw = payload?.cwd;
+  return typeof raw === "string" && raw !== "" ? raw.replaceAll("\\", "/") : null;
 }
