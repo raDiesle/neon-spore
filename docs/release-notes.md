@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-16 · b70b65c81 — A SUCK tab on NOT BUILT YET, with ideas for enemies and mechanics won with the maw
+
+NOT BUILT YET has a new SUCK tab, which reads docs/spec/suck-ideas.md whole, the way RESEARCH reads its file. It offers five enemies that are beaten with SUCK: - THE MORSEL: shoot it once, then swallow it. - THE SEEDER: killing it leaves a pod you then owe. - THE GLUTTON: it eats a hanging pod if you are slow. - THE ROE: three pods freed by one shot. - THE CLUTCH: four pods, one of them hollow.
+
 ## 2026-10-16 · 4349f9527 — The maw takes a pod from two columns either side of the cannon, and stays open 1100 ms
 
 Catching a pod is easier. The open maw now takes a pod that reaches the hull in the cannon's column or up to two columns either side of it (`podCatchCols`). Before, it had to be the cannon's own column. The last two rows already steer a pod most of a column and a half toward the cannon, so the catch reaches about two columns further each way than before. The maw also stays open 1100 ms after the press instead of 800. A hollow pod is read by the same rule, so the cannon has to be further away to let one pass.
