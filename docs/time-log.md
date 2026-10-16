@@ -42906,3 +42906,14 @@ Bottleneck: looking — the belly had to be level with the row a bolt is met
 on, and three shapes in a row read as a slab before one read as a sac.
 
 *Measured: 8 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-16 — FINALE is THE MATRON: a mother slime whose pods are her health (simulation)
+
+- reading: 20 min. The wave order, the pods, THE HYDRA's landing as the list of registrations, and the director's curriculum.
+- writing: 20 min. The state, the clock, the hash, the sounds, the script, the poses, the write-up.
+- looking: 0 min. Nothing drawn yet; the field hand plays her in tests.
+- friction: 25 min. Another session landed a boss named THE BROOD on the same files first; this one became THE MATRON and was replayed onto main, twenty-nine lists merged by hand.
+- landing: 10 min. Twenty tests a new boss turns red, read one by one, then `land`.
+
+Bottleneck: friction — two lanes chose the same boss name the same day, and
+nothing tells a lane a name is taken until `land` refuses.

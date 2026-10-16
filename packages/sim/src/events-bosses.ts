@@ -22,6 +22,7 @@ import type { LatchEvent } from "./events-latch.js";
 import type { LeadEvent } from "./events-lead.js";
 import type { LedgerEvent } from "./events-ledger.js";
 import type { MantleEvent } from "./events-mantle.js";
+import type { MatronEvent } from "./events-matron.js";
 import type { MimicEvent } from "./events-mimic.js";
 import type { OculusEvent } from "./events-oculus.js";
 import type { PinballEvent } from "./events-pinball.js";
@@ -107,6 +108,7 @@ export type BossEvent =
   | ChrysalisEvent
   | HydraEvent
   | BroodEvent
+  | MatronEvent
   | SpoolEvent
   | HaspEvent
   | RatchetEvent
@@ -145,6 +147,7 @@ export type { LatchEvent } from "./events-latch.js";
 export type { LeadEvent } from "./events-lead.js";
 export type { LedgerEvent } from "./events-ledger.js";
 export type { MantleEvent } from "./events-mantle.js";
+export type { MatronEvent } from "./events-matron.js";
 export type { MimicEvent } from "./events-mimic.js";
 export type { OculusEvent } from "./events-oculus.js";
 export type { PinballEvent } from "./events-pinball.js";

@@ -12467,6 +12467,97 @@ the half turn of a rest and none while a bud hangs, and the sac beaten.
 **What is not built.** The guide is prose. **Never watched at tempo** — the
 owner's eye.
 
+## 11.66 THE MATRON — a mother slime whose pods are her health
+
+> A mother slime with pods on her lobes. Take every pod off her before its
+> ring runs out. She throws bodies, rocks and torches at you.
+
+The owner's ask of 16 October 2026: *a new boss wave after SALVAGE —
+FINALE — which is about all mechanics so far, in particular the suck
+enemies* — the suck enemies being the pods (`POD_CATEGORY`). Asked which
+shape, he chose a mother slime with pods on her lobes over a level per
+lesson, and chose that **FINALE becomes the boss**: the arc's last wave,
+which was seven bodies and rocks with no guide, is THE MATRON, under its own
+name, still the last wave of the arc (`TUTORIAL_LAST_ID`). A **field boss**,
+the second kind in `.claude/skills/new-boss`: the ordinary field, falling,
+and the default panel, STANDARD 5. **Built on 16 October 2026 as its
+simulation**; her body, her marks and her film are the next lanes.
+
+**The rule, in one sentence.** Take every pod off her before its ring runs
+out.
+
+**Her pods are her health**, and no bar: each pod hangs off the tip of one
+lobe, and a pod swallowed takes its lobe with it (`matronLobe`). Nine lobes
+in the shipped script; when the last goes she is beaten.
+
+**The split is SALVAGE's.** Every pod is the ordinary pod (`sim/pods.ts`) on
+the ordinary clock: the navigator shoots it loose in either colour, the
+pilot moves the cannon under it as it falls and opens the maw. Around it,
+every other hand the arc taught is needed again — the navigator's colours
+for her bodies, the shield slid by the navigator and fired by the pilot for
+her rocks and torches.
+
+**A level is a clutch** (`sim/matron.ts`, its script
+`content/src/matron-script.ts`, named on the wave for THE INSTAR's reason).
+Each names the **beats** on every pod's ring, the **pods** — columns from
+the middle, one per lobe — and the **throws**: on which beat after the
+clutch is hung (`at`), down which column (`offset`), and what — `red` or
+`cyan` (a body in its colour), `rock` or `torch`. A clutch is hung all at
+once at `matronPodRow` (`matronHang`); her throws come on their beats
+(`matronThrow`), every one authored, never rolled. **The level waits** until
+every pod in it is swallowed (`matronCleared`) — the beat list that will not
+advance until it is performed (`owner.md`) — and whatever she had not
+thrown yet stays in her. The shipped four are the arc's lessons again: the
+two colours, then rocks, then torches, then all of it with a third pod, the
+rings growing 24, 24, 28, 32 beats as the field around each pod gets busier.
+
+**The clock** (`sim/matron-step.ts`) runs on the beat: she comes down for
+`matronEnterBeats`, rears back `matronRearBeats` between clutches growing the
+next, and sinks away `matronSpentBeats` after her last pod (`matronSpent`,
+`matronOut`) before the wave may end. A pod of hers is told apart from a pod
+the wave hung by its id: the catch at the maw (`pod-arrive.ts`) calls
+`matronPodTaken`, THE BATON's bead's way.
+
+**A ring run out is the threat carried out**, and it needs nothing of hers:
+it is the ordinary lost pod (`cargoLost`), so the wave is lost the way any
+pod loses it. There is no strike of her own and no phase for one.
+
+**Where this departs from the bosses before it, and why.**
+- **It asks nothing new.** Every other boss is one question no shipped boss
+  asks (§2, filter 8); this one is the arc's exam, by the owner's word — the
+  question is whether the pair can keep every lesson going at once around
+  the one thing that waits for them. It is placed where nothing new has been
+  taught yet, at the end of the arc, so it can only ask what was.
+- **No SLOW.** A field boss on the default panel, like THE CURTAIN: the
+  windows are the pods' own rings, long enough for a fall and a catch, and
+  nothing on her is a gesture to talk through.
+- **She fills her wave** (`bossFillsWave`), THE SCUTTLE's way: everything
+  that falls is hers, so every rock is one she threw — the owner's word on
+  THE STARE, *rocks falling is stupid because it doesn't relate to the boss*.
+
+**The hand.** AUTO plays her with the field's own hand
+(`hands/src/autopilot-field-hand.ts`): her pods are shot loose, followed
+down and swallowed, and her throws are answered, exactly as on SALVAGE.
+
+**The sound** (`audio/src/bind-matron.ts`, `sounds/boss-matron.ts`): seven,
+wet and heavy — a heave, sacs filling, a spit, a pop and a slap for a lobe
+climbing as she empties, and a clutch cleared falling lower each level.
+
+**What is proven, and what is not.** `sim/test/matron.test.ts` proves the
+rules: she comes in with every pod of the script and hangs the first clutch
+where and on the ring it says; her throws come on their beats, down their
+columns, in beat order whatever order they were written in; a pod of hers
+swallowed takes a lobe and the level waits for the whole clutch; a pod the
+wave hung is not hers; a ring run out loses the wave; the last pod beats her
+and she sinks away; the same play hashes the same.
+
+**What is not built.** Her body: nothing draws her yet, so the field shows
+her pods and her throws and no mother above them — the look lane, a
+contour with a lobe per pod that withers as it goes, read against THE
+INSTAR's five. Her film: the guide is prose (`briefings.md` §3.2). **Never
+watched at tempo** — whether 24 beats is a fair ring with a colour, a rock
+and a torch in the way is the owner's eye.
+
 ## Retired
 
 **Taken (14 October 2026, VERSUS `pulse:glance`, COCK).** The round's boss is

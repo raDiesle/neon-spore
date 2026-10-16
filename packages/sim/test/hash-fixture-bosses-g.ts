@@ -45,6 +45,28 @@ export const BOSS_ENTRIES_G = {
       },
     ],
   },
+  // Two clutches, every kind of throw once, the columns and beats apart (`matron-hash.ts`).
+  matron: {
+    kind: "matron",
+    steps: [
+      {
+        beats: 13,
+        pods: [-3, 2],
+        throws: [
+          { at: 1, offset: -1, what: "red" },
+          { at: 4, offset: 3, what: "cyan" },
+        ],
+      },
+      {
+        beats: 17,
+        pods: [1, -2, 4],
+        throws: [
+          { at: 2, offset: 0, what: "rock" },
+          { at: 6, offset: -4, what: "torch" },
+        ],
+      },
+    ],
+  },
 } satisfies Partial<Record<BossEntry["kind"], BossEntry>>;
 
 /** THE CHRYSALIS on's share of `patchBoss`. */
@@ -96,5 +118,16 @@ export function patchBossG(boss: BossState): void {
       { col: 2, color: "cyan", bornBeat: 3, popped: true },
       { col: 7, color: "red", bornBeat: 11, popped: false },
     ];
+  }
+  if (boss.kind === "matron") {
+    // The second clutch hung with one pod swallowed and one throw gone —
+    // every field given a value (`matron-hash.ts`).
+    boss.phase = "hang";
+    boss.phaseBeat = 3;
+    boss.cursor = 1;
+    boss.hung = [41, 42, 43];
+    boss.takenMask = 2;
+    boss.taken = 3;
+    boss.thrown = 1;
   }
 }

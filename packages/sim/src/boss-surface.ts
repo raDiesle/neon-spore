@@ -12,9 +12,10 @@
  * belong here, and `bun run typecheck` will say so either way.
  */
 
-// Where a choreographed boss is in its script — the director's step readout
-// and the HUD's both read it (`boss-script.ts`).
+// Where a choreographed boss is in its script, for the director and the HUD (`boss-script.ts`).
 export * from "./boss-script.js";
+// What a boss asks a hand for, which its rings read (`boss-surface-asks.ts`).
+export * from "./boss-surface-asks.js";
 // THE BASTION's, the same way (`boss-surface-bastion.ts`).
 export * from "./boss-surface-bastion.js";
 // THE BROOD's and THE HYDRA's (`boss-surface-brood.ts`, `boss-surface-hydra.ts`).
@@ -27,6 +28,7 @@ export * from "./boss-surface-clocks.js";
 export * from "./boss-surface-hydra.js";
 // THE LATCH's, from the day it was written (`boss-surface-latch.ts`).
 export * from "./boss-surface-latch.js";
+export * from "./boss-surface-matron.js";
 // THE MAZE's, since its lever's ring became the simulation's (`boss-surface-maze.ts`).
 export * from "./boss-surface-maze.js";
 // And PINBALL's, whole: the round whose state is a shot rather than a clock
@@ -234,17 +236,3 @@ export {
   wardenRopePath,
   wardenTether,
 } from "./bosses.js";
-// Whether THE FLEET's wound asks for both thumbs, which its rings read (`fleet-grip-marks.ts`).
-export { fleetWoundAsks } from "./fleet-hand.js";
-// Which parts THE GAUGE asks a hand for, which its rings read (`gauge-marks.ts`).
-export { gaugeBandAsks } from "./gauge-hand.js";
-// Which marks THE MIRROR and THE BULB QUEEN ask a thumb for, which their
-// rings read rather than re-derive (`render/mirror-grip.ts`, `queen-marks.ts`).
-export { mirrorAsks, mirrorLobesOf } from "./mirror-hand.js";
-export { queenAsks } from "./queen-hand.js";
-// And THE REPRISE's schedule and its clock, which the director and the
-// measure along the top of the screen read (`reprise-plan.ts`).
-export { type RepriseEcho, reprisePlan } from "./reprise-plan.js";
-export { type RepriseClock, repriseClock, repriseEvery } from "./reprise-state.js";
-// And THE VANE's two parts, which its rings read the same way (`vane-marks.ts`).
-export { vaneArmAsks, vaneHousingAsks } from "./vane-open.js";

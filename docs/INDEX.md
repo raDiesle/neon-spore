@@ -302,10 +302,12 @@ by hand never moves.
 | `packages/sim/src/boss-surface-latch.ts` | **THE LATCH's names, on a page of their own** — the tendril, the grips and the script, for the picture |
 | `packages/sim/src/boss-surface-instar.ts` | **THE INSTAR's names, on a page of their own** — the script and where the scene is in it |
 | `packages/sim/src/boss-surface-maze.ts` | **THE MAZE's names on `@neon-spore/sim`'s surface**, cut off `boss-surface.ts` on 29 September 2026 |
+| `packages/sim/src/boss-surface-matron.ts` | **THE MATRON's names, on a page of their own** — the body, her clutches, her lobes and her throws |
 | `packages/sim/src/boss-surface-verdicts.ts` | **Every boss's shot, asked rather than acted on** — the `…Verdict` each boss's `…Struck` acts on |
 | `packages/sim/src/boss-surface-bastion.ts` | **THE BASTION's names, on a page of their own** — the moon, its shells, the plates, the ring and the port |
 | `packages/sim/src/boss-surface-brood.ts` | **THE BROOD's names, on a page of their own** — the sac, its buds and what a bolt meets — for the picture |
 | `packages/sim/src/boss-surface-hydra.ts` | **THE HYDRA's names, on a page of their own** — the body, its heads, the cut, the coil, the eye and the maw |
+| `packages/sim/src/boss-surface-asks.ts` | What a boss asks a hand for, and the clocks drawn round it |
 | `packages/sim/src/boss-script.ts` | **Where a choreographed boss is in its script**: which step is up, out of how many |
 | `packages/sim/src/handle-pull.ts` | a hand is carrying a handle and you need to know how far it may go — the taut length, the field it may not leave, and how taut is measured |
 | `packages/sim/src/wave-end.ts` | How a wave ends, in one place, because two paths reach it |
@@ -498,6 +500,7 @@ by hand never moves.
 | `packages/sim/src/config-maze-grip.ts` | THE MAZE's grip: the heart holding the right shot until the pair rubs it loose (`maze-hand.ts` |
 | `packages/sim/src/config-maze-turn.ts` | THE MAZE's wheel under the hand: how fast it turns, how far a pull carries it, and how its click catches and lets go |
 | `packages/sim/src/config-mantle.ts` | THE MANTLE's tuning: how deep a floor either handle must clear before it counts toward the sum |
+| `packages/sim/src/config-matron.ts` | THE MATRON's tuning: the beats around her clutches and where a pod hangs |
 | `packages/sim/src/config-mirror.ts` | THE MIRROR's tuning: how far a carry goes before it is one, how long the pin is held |
 | `packages/sim/src/config-mimic.ts` | THE MIMIC's tuning: the beats around its pictures, how long the skin stays mottled after a window runs out |
 | `packages/sim/src/config-view.ts` | **The numbers only the picture reads.** Every field here is taken off `SimConfig` by `packages/render` |
@@ -516,9 +519,13 @@ by hand never moves.
 | `packages/sim/src/mantle-step.ts` | THE MANTLE's clock: the handles lighting, the sum judged every beat, the shear, the spark, the brace |
 | `packages/sim/src/mantle-story.ts` | **THE MANTLE fighting back** (§23 rows 7 to 12) |
 | `packages/sim/src/mantle.ts` | THE MANTLE: a hinged carapace shell, closed over a soft core, pried open by two hands pulling **together** |
+| `packages/sim/src/matron-hash.ts` | What THE MATRON puts into `hashWorld`, and nothing else |
+| `packages/sim/src/matron-step.ts` | THE MATRON's clock: she comes down, hangs a clutch, throws while it hangs |
+| `packages/sim/src/matron.ts` | THE MATRON: a mother slime hung over the field with her pods on her lobes, the boss of FINALE |
 | `packages/sim/src/moult.ts` | THE MOULT: one body that is a rock half the time and a cargo the other half |
 | `packages/sim/src/events-magnet.ts` | **What THE MAGNET does**, as events: a bolt turned away by the plate slung under the body |
 | `packages/sim/src/events-mantle.ts` | What THE MANTLE says as it happens, one line per thing the picture and the sound answer |
+| `packages/sim/src/events-matron.ts` | What THE MATRON says as it happens, one line per thing the picture and the sound answer |
 | `packages/sim/src/events-mimic.ts` | What THE MIMIC says as it happens, one line per thing the picture and the sound answer |
 | `packages/sim/src/grip-push.ts` | THE PUSH: the hand on a rock, carried sideways — one column, then a beat of quiet |
 | `packages/sim/src/grip-push-dir.ts` | **Which way a carried body has been earned a column** |
@@ -1073,6 +1080,7 @@ by hand never moves.
 | `packages/content/src/silhouettes-sac.ts` | **The sac**: the contour every hanging body is cut from, taken off the shape sheet whole |
 | `packages/content/src/magnet-shape.ts` | THE MAGNET's contour, as numbers rather than as drawing |
 | `packages/content/src/mantle-script.ts` | THE MANTLE's four pull-together thresholds: the summed depth of both handles, thousandths of a tile |
+| `packages/content/src/matron-script.ts` | **FINALE's script: THE MATRON's four clutches** (`sim/matron.ts`) |
 | `packages/content/src/veer-clown-shape.ts` | **THE VEER's rider, as geometry**: where every disc of the clown sits on the rock, and the loops it comes to |
 | `packages/content/src/veer-clown-figure.ts` | THE VEER's rider **placed**: where every disc of the clown falls on a rock of a given centre and radius |
 | `packages/content/src/scenes/the-claw.ts` | THE CLAW's rehearsal: one of you has every button and none of the map |
@@ -2944,6 +2952,7 @@ by hand never moves.
 | `packages/audio/src/bind-mirror.ts` | THE MIRROR's four and THE MAZE's four |
 | `packages/audio/src/bind-mimic.ts` | Whether an event is THE MIMIC's, so a page of the chain can hand it over whole |
 | `packages/audio/src/bind-mantle.ts` | THE MANTLE's twenty-two, in a file of their own for `bind-gorge.ts`' reason |
+| `packages/audio/src/bind-matron.ts` | THE MATRON's seven, routed by their prefix (`bind-prefixed.ts`) |
 | `packages/audio/src/bind-handed.ts` | The bodies a hand answers, heard: a weight giving between two thumbs and a pile losing a rock, pulled or shed |
 | `packages/audio/src/bind-hasp.ts` | Whether an event is THE HASP's, so a page of the chain can hand it over whole |
 | `packages/audio/src/bind-hive.ts` | THE HIVE's twelve, in a file of their own for `bind-gorge.ts`' reason |
@@ -3758,6 +3767,7 @@ by hand never moves.
 | `tools/director/src/poses-bosses-hands-ratchet.ts` | **THE RATCHET's nine states**, posed with a hand on the controls (`boss-hands-ratchet.ts`) |
 | `tools/director/src/poses-bosses-hands-nettle.ts` | **THE NETTLE's four states**, THE INSTAR's four (`poses-bosses-clocks.ts` |
 | `tools/director/src/poses-bosses-hands-mantle.ts` | **THE MANTLE's ten states**, posed with a hand on the controls (`boss-hands-mantle.ts`) |
+| `tools/director/src/poses-bosses-hands-matron.ts` | **THE MATRON's states**, posed with the field's own hand on the controls (`autopilot-field-hand.ts`) |
 | `tools/director/src/poses-bosses-hands-mechanisms.ts` | THE PLUMB's and THE SLING's stills: each machine arrived and standing, no step lit yet |
 | `tools/director/src/poses-bosses-hands-mimic.ts` | **THE MIMIC's states**: eight cards on AUTO's hand, the mimicking one with P2 drawing the wrong sign |
 | `tools/director/src/poses-bosses-hands-keel.ts` | **THE KEEL's twelve states**, posed with a hand on the controls (`boss-hands-keel.ts`) |

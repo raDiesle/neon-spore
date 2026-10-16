@@ -1,4 +1,5 @@
 import { batonBeadTaken } from "./baton-press.js";
+import { matronPodTaken } from "./matron-step.js";
 import { cargoLost, huskRefused, huskSwallowed, mawOpen, takeCargo } from "./pod-intake.js";
 import type { Pod } from "./types.js";
 import { MILLI, type World } from "./world.js";
@@ -43,6 +44,8 @@ export function podArrived(world: World, pod: Pod): void {
     // And if it was THE BATON's bead, the arm is beaten. A no-op for every
     // pod a wave hung (`baton-press.ts`).
     batonBeadTaken(world, pod.id);
+    // And if it was one of THE MATRON's, a lobe goes with it (`matron-step.ts`).
+    matronPodTaken(world, pod.id);
     return;
   }
   podLost(world, pod);

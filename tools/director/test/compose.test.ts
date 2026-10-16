@@ -40,8 +40,9 @@ describe("a block, read off the list", () => {
     const b = block("salvage");
     expect([b.x, b.y]).toEqual(["pod", "blister"]);
     expect(typeof readBlock(WAVES, "catchAndAim")).toBe("string");
-    // Six written, and FINALE: the arc's short block is full.
-    expect(b.existing).toBe(6);
+    // Five written — FINALE is THE MATRON since 16 October 2026, a boss and
+    // not one of them — and the arc's short block is full all the same.
+    expect(b.existing).toBe(5);
     expect(stepsToCompose(b.tutorial, b.existing)).toEqual([]);
   });
 

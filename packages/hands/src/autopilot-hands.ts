@@ -108,6 +108,9 @@ export const AUTOPILOT_HANDS: Partial<Record<BossKind, Hand>> = {
   chrysalis: chrysalisHand,
   hydra: hydraHand,
   brood: broodHand,
+  // Her pods are the ordinary pods and her throws the ordinary field: the
+  // field hand shoots, catches and shields all of it (`sim/matron.ts`).
+  matron: fieldHand,
   maze: mazeHand,
   mirror: mirrorHand,
   nettle: nettleHand,

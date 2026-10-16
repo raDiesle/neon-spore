@@ -376,13 +376,12 @@
     {
       "id": "finale",
       "wave": 37,
-      "name": "SALVAGE RAPTURE",
-      "bodies": 7,
-      "arrivals": "7:bfdd2f64",
-      "typical": 2.29,
-      "mean": 2.32,
-      "p90": 2.55,
-      "jitter": 0.12
+      "name": "FINALE",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
     },
     {
       "id": "theLance",

@@ -9,6 +9,7 @@ import { governorHashParts } from "./governor-hash.js";
 import { hydraHashParts } from "./hydra-hash.js";
 import { lampreyHashParts } from "./lamprey-hash.js";
 import { latchHashParts } from "./latch-hash.js";
+import { matronHashParts } from "./matron-hash.js";
 import { mimicHashParts } from "./mimic-hash.js";
 import { oculusHashParts } from "./oculus-hash.js";
 import { plumbHashParts } from "./plumb-hash.js";
@@ -108,6 +109,10 @@ export function scriptedHashParts(boss: BossState): number[] {
   // THE BROOD: the phase, the buds, what has dropped and the script (`brood-hash.ts`).
   if (boss.kind === "brood") {
     for (const n of broodHashParts(boss)) out.push(n);
+  }
+  // THE MATRON: the phase, the clutch hung and taken, the throws and the script (`matron-hash.ts`).
+  if (boss.kind === "matron") {
+    for (const n of matronHashParts(boss)) out.push(n);
   }
   return out;
 }

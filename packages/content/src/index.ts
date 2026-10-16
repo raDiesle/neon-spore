@@ -88,6 +88,7 @@ export { KEY, LIGHT_HALF, type LightHalf } from "./light.js";
 export { hasOwnBody, livingBodyKinds, livingSilhouette } from "./living-look.js";
 export { type LongAxis, longAxis, poseOn } from "./long-axis.js";
 export { MANTLE_SCRIPT } from "./mantle-script.js";
+export { MATRON_SCRIPT } from "./matron-script.js";
 export { MAZE_ROUNDS } from "./maze-rounds.js";
 export {
   faultMechanic,

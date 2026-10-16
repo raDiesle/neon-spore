@@ -6,6 +6,7 @@ import { gaugeCue } from "./bind-gauge.js";
 import { hydraCue } from "./bind-hydra.js";
 import { leadCue } from "./bind-lead.js";
 import { ledgerCue } from "./bind-ledger.js";
+import { matronCue } from "./bind-matron.js";
 import { tasterCue } from "./bind-taster.js";
 import { throatCue } from "./bind-throat.js";
 
@@ -38,6 +39,7 @@ const PREFIXES = [
   "chrysalis",
   "hydra",
   "brood",
+  "matron",
 ] as const;
 
 type Prefix = (typeof PREFIXES)[number];
@@ -68,5 +70,7 @@ export function prefixedCue(e: PrefixedEvent, cols: number): Cue | null {
   if (of(e, "hydra")) return hydraCue(e, cols);
   // THE BROOD, the same (`bind-brood.ts`).
   if (of(e, "brood")) return broodCue(e, cols);
+  // THE MATRON, the same (`bind-matron.ts`).
+  if (of(e, "matron")) return matronCue(e, cols);
   return throatCue(e, cols);
 }

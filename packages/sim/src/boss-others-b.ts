@@ -14,6 +14,7 @@ import { stepHasp } from "./hasp-step.js";
 import { stepHydra } from "./hydra-step.js";
 import { stepLamprey } from "./lamprey-step.js";
 import { stepLatch } from "./latch-step.js";
+import { stepMatron } from "./matron-step.js";
 import { stepMaze } from "./maze-round.js";
 import { stepMimic } from "./mimic-step.js";
 import { stepRatchet } from "./ratchet-step.js";
@@ -79,6 +80,11 @@ export function stepLateBoss(world: World, boss: Exclude<BossState, QueenState>)
   // THE BROOD: it comes down, buds grow and drop, a step rests, the sac is spent (`brood-step.ts`).
   if (boss.kind === "brood") {
     stepBrood(world, boss);
+    return;
+  }
+  // THE MATRON: a clutch hung, a throw, a rear, the sinking away (`matron-step.ts`).
+  if (boss.kind === "matron") {
+    stepMatron(world, boss);
     return;
   }
   // THE MIMIC: the slap, a sign's window and its change, the mimicry and the reach, the core and the fall (`mimic-step.ts`).

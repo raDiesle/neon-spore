@@ -1,8 +1,11 @@
+import { MATRON_SCRIPT } from "../matron-script.js";
 import type { Wave } from "../wave-types.js";
 
 /**
  * The end of the tutorial arc: CATCH AND AIM, the shield held twice, and
- * FINALE, the arc's last wave. It held the first six bosses, back to back,
+ * FINALE, the arc's last wave — THE MATRON since 16 October 2026, the owner's
+ * boss about everything the arc taught, the pods most of all (`sim/matron.ts`).
+ * It held the first six bosses, back to back,
  * until `waves:order` placed the bosses among the units they follow
  * (`bossOrder`) and the acts after this one were cut again in play order on
  * 16 October 2026 (`waves-recut.ts`). Nothing reorders the arc, so its files
@@ -60,17 +63,15 @@ export const WAVES_ACT_2: Wave[] = [
   },
   {
     id: "finale",
-    name: "SALVAGE RAPTURE",
-    variant: true,
-    entries: [
-      { beat: 0, col: 0, color: "cyan" },
-      { beat: 0, col: 10, color: "red" },
-      { beat: 2, col: 5, kind: "meteor", color: null },
-      { beat: 4, col: 3, color: "cyan" },
-      { beat: 4, col: 7, color: "red" },
-      { beat: 7, col: 2, kind: "meteor", color: null },
-      { beat: 7, col: 8, kind: "meteor", color: null },
-    ],
+    name: "FINALE",
+    guide: {
+      both: "A mother slime with pods on her lobes. Take every pod off her before its ring runs out. She throws bodies, rocks and torches at you.",
+      p1: "1. Move the cannon under a falling pod and open the maw.\n2. Fire the SHIELD under a rock or a torch.\n3. Move the cannon where your partner says.",
+      p2: "1. Shoot each pod loose, in either colour.\n2. Shoot each body in its colour.\n3. Slide the shield under a rock or a torch.",
+    },
+    entries: [],
+    boss: { kind: "matron", steps: MATRON_SCRIPT },
+    bossType: "normal",
     controls: "standard5",
   },
 ];

@@ -22,6 +22,7 @@ import { LATCH_DEFAULTS, type LatchConfig } from "./config-latch.js";
 import { LEAD_DEFAULTS, type LeadConfig } from "./config-lead.js";
 import { LEDGER_DEFAULTS, type LedgerConfig } from "./config-ledger.js";
 import { MANTLE_DEFAULTS, type MantleConfig } from "./config-mantle.js";
+import { MATRON_DEFAULTS, type MatronConfig } from "./config-matron.js";
 import { MAZE_GRIP_DEFAULTS, type MazeGripConfig } from "./config-maze-grip.js";
 import { MAZE_TURN_DEFAULTS, type MazeTurnConfig } from "./config-maze-turn.js";
 import { MIMIC_DEFAULTS, type MimicConfig } from "./config-mimic.js";
@@ -113,6 +114,7 @@ export interface BossClockConfig
     ChrysalisConfig,
     HydraConfig,
     BroodConfig,
+    MatronConfig,
     SpoolConfig,
     HaspConfig,
     RatchetConfig,
@@ -162,6 +164,7 @@ export const BOSS_CLOCK_DEFAULTS: BossClockConfig = {
   ...CHRYSALIS_DEFAULTS,
   ...HYDRA_DEFAULTS,
   ...BROOD_DEFAULTS,
+  ...MATRON_DEFAULTS,
   ...SPOOL_DEFAULTS,
   ...HASP_DEFAULTS,
   ...RATCHET_DEFAULTS,

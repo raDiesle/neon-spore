@@ -23,6 +23,7 @@ import { LAMPREY_PHASES } from "./lamprey.js";
 import { LATCH_PHASES } from "./latch.js";
 import { LEDGER_PHASES } from "./ledger.js";
 import { MANTLE_PHASES, MANTLE_SEAMS } from "./mantle.js";
+import { MATRON_PHASES } from "./matron.js";
 import { MAZE_PHASES } from "./maze.js";
 import { MIMIC_PHASES } from "./mimic.js";
 import { OCULUS_PHASES } from "./oculus.js";
@@ -146,5 +147,6 @@ export const BOSS_PHASES: Partial<Record<BossEntry["kind"], readonly string[]>> 
   chrysalis: CHRYSALIS_PHASES,
   hydra: HYDRA_PHASES,
   brood: BROOD_PHASES,
+  matron: MATRON_PHASES,
   fleet: FLEET_PHASES,
 };

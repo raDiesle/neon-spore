@@ -8,6 +8,7 @@ import type { GovernorEntry } from "./governor.js";
 import type { HydraEntry } from "./hydra.js";
 import type { LampreyEntry } from "./lamprey.js";
 import type { LatchEntry } from "./latch.js";
+import type { MatronEntry } from "./matron.js";
 import type { MimicEntry } from "./mimic.js";
 import type { OculusEntry } from "./oculus.js";
 import type { PlumbEntry } from "./plumb.js";
@@ -62,7 +63,9 @@ export type ScriptedBossEntry =
   // The heads stopped a kind at a time, each a different gesture (`hydra.ts`).
   | HydraEntry
   // The sac that grows slicks and bulbs on its rim, each shot before it drops (`brood.ts`).
-  | BroodEntry;
+  | BroodEntry
+  // The pods taken off her a clutch at a time, the arc's kit thrown round them (`matron.ts`).
+  | MatronEntry;
 
 export type { BastionEntry, BastionStep } from "./bastion.js";
 export type { BroodEntry, BroodStep } from "./brood.js";
@@ -74,6 +77,7 @@ export type { GovernorEntry, GovernorStep } from "./governor.js";
 export type { HydraEntry, HydraStep } from "./hydra.js";
 export type { LampreyEntry, LampreyStep } from "./lamprey.js";
 export type { LatchEntry, LatchStep } from "./latch.js";
+export type { MatronEntry, MatronStep, MatronThrow } from "./matron.js";
 export type { MimicEntry, MimicStep } from "./mimic.js";
 export type { OculusEntry, OculusStep } from "./oculus.js";
 export type { PlumbEntry, PlumbStep } from "./plumb.js";

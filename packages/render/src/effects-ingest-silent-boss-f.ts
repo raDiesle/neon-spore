@@ -128,4 +128,13 @@ export const INGEST_SILENT_BOSS_F = [
   "broodHide",
   "broodSpent",
   "broodOut",
+  // THE MATRON's seven, silent until her look lane draws them: the pods she
+  // hangs and the bodies she throws are the field's own and drawn as such.
+  "matronEnter",
+  "matronHang",
+  "matronThrow",
+  "matronLobe",
+  "matronCleared",
+  "matronSpent",
+  "matronOut",
 ] as const satisfies readonly SimEvent["type"][];

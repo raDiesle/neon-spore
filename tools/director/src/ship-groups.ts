@@ -61,6 +61,7 @@ export type GroupName =
   | "THE CHRYSALIS — a living cocoon you peel, one skin at a time"
   | "THE HYDRA — a slime with many heads, each stopped its own way"
   | "THE BROOD — a sac that grows slicks and bulbs, shot before they drop"
+  | "THE MATRON — a mother slime whose pods are her health"
   | "THE SPLICE — straws fed in the order the numbers say"
   | "THE REPRISE — the wave sent again unseen"
   | "AIM — colour and column"
@@ -172,6 +173,7 @@ export const GROUP_ORDER: GroupName[] = [
   "THE CHRYSALIS — a living cocoon you peel, one skin at a time",
   "THE HYDRA — a slime with many heads, each stopped its own way",
   "THE BROOD — a sac that grows slicks and bulbs, shot before they drop",
+  "THE MATRON — a mother slime whose pods are her health",
   "PINBALL — a table the ship's cannon fires up into",
   "THE PULSE — the same song on two screens",
   "THROB — red one side, cyan the other, turning",

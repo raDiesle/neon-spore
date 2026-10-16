@@ -161,4 +161,11 @@ export const CHOREO_NOTES_D = {
     "as the slick or bulb it was and grows again after broodRegrowBeats. The sac is " +
     "broodSpan columns either side of the middle. No SLOW. See sim/brood.ts, " +
     "sim/brood-step.ts.",
+  "THE MATRON — a mother slime whose pods are her health":
+    "FINALE, the owner's ask of 16 October 2026: the arc's last wave as a boss about " +
+    "everything taught so far, the pods most of all. Each clutch hangs its pods at " +
+    "matronPodRow, owed on the level's ring; she throws the level's bodies, rocks and " +
+    "torches while they hang, and the level waits until every pod is swallowed. " +
+    "matronEnterBeats to come in, matronRearBeats between clutches, matronSpentBeats to " +
+    "sink away. See sim/matron.ts, sim/matron-step.ts.",
 } satisfies Partial<Record<GroupName, string>>;

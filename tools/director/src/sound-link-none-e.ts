@@ -137,4 +137,13 @@ export const NO_SUBJECT_E: Record<string, string> = {
   "boss.broodHide": "THE BROOD, a bolt into the sac's hide. Same argument.",
   "boss.broodSpent": "THE BROOD, beaten. Same argument.",
   "boss.broodOut": "THE BROOD, the sac gone and the wave ending. Same argument, and an absence.",
+  // THE MATRON's seven (`sim/events-matron.ts`): the same argument.
+  "boss.matronEnter": "THE MATRON, the mother coming down. No shape-sheet subject yet.",
+  "boss.matronHang": "THE MATRON, a clutch of pods hung. Same argument.",
+  "boss.matronThrow": "THE MATRON, something thrown down a column. Same argument.",
+  "boss.matronLobe": "THE MATRON, a lobe gone with its pod. Same argument.",
+  "boss.matronCleared": "THE MATRON, a clutch all swallowed. Same argument.",
+  "boss.matronSpent": "THE MATRON, beaten. Same argument.",
+  "boss.matronOut":
+    "THE MATRON, the mother gone and the wave ending. Same argument, and an absence.",
 };

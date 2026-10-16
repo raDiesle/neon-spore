@@ -49,4 +49,7 @@ export const NO_ROW: Partial<Record<BossKind, NoRowWhy>> = {
   // It asks nothing of a thumb: its one ask is a shot, the navigator's `FIRE`
   // over the bud the cannon is under (`boss-cue-read-zy.ts`).
   brood: "no-marks-file",
+  // Her simulation landed first (16 October 2026); what she asks with is the
+  // ordinary pod and its ring, and her look lane says whether she adds a mark.
+  matron: "no-marks-file",
 };

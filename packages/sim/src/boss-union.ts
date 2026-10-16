@@ -24,6 +24,7 @@ import type { LatchState } from "./latch.js";
 import type { LeadState } from "./lead.js";
 import type { LedgerState } from "./ledger.js";
 import type { MantleState } from "./mantle.js";
+import type { MatronState } from "./matron.js";
 import type { MazeState } from "./maze-state.js";
 import type { MimicState } from "./mimic.js";
 import type { OculusState } from "./oculus.js";
@@ -135,4 +136,5 @@ export type BossState =
   | BastionState
   | ChrysalisState
   | HydraState
-  | BroodState;
+  | BroodState
+  | MatronState;

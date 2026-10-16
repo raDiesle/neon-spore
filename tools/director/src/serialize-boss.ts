@@ -138,7 +138,9 @@ export function serializeBoss(boss: BossEntry, waveId = ""): string {
   // reason: a beat list of poses, marks and clocks is authored to be read
   // down a page (`packages/content/src/instar-script.ts`).
   if (boss.kind === "instar") return '{ kind: "instar", steps: INSTAR_SCRIPT }';
-  // THE NETTLE's the same way (`packages/content/src/nettle-script.ts`).
+  // THE NETTLE's the same way (`packages/content/src/nettle-script.ts`), and THE
+  // MATRON's clutches (`packages/content/src/matron-script.ts`).
+  if (boss.kind === "matron") return '{ kind: "matron", steps: MATRON_SCRIPT }';
   if (boss.kind === "nettle") return '{ kind: "nettle", steps: NETTLE_SCRIPT }';
   // THE BROOD's the same way (`packages/content/src/brood-script.ts`).
   if (boss.kind === "brood") return '{ kind: "brood", steps: BROOD_SCRIPT }';

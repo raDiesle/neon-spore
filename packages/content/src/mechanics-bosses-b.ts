@@ -24,6 +24,7 @@ type BossIdB = Extract<
   | "chrysalis"
   | "hydra"
   | "brood"
+  | "matron"
   | "capstan"
   | "gall"
   | "trapeze"
@@ -151,6 +152,10 @@ export const BOSS_MECHANICS_B = {
   },
   brood: {
     what: "A sac grows slicks and bulbs on its rim. Shoot each bud in its colour before it drops. A dropped bud falls, and grows again.",
+    reach: "spawn",
+  },
+  matron: {
+    what: "A mother slime with pods on her lobes. Shoot each pod loose and swallow it before its ring runs out. She throws bodies, rocks and torches at you.",
     reach: "spawn",
   },
   vane: {

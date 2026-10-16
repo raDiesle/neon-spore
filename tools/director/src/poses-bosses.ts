@@ -17,6 +17,7 @@ import { KEEL_POSES } from "./poses-bosses-hands-keel.js";
 import { LAMPREY_POSES } from "./poses-bosses-hands-lamprey.js";
 import { LATCH_POSES } from "./poses-bosses-hands-latch.js";
 import { MANTLE_POSES } from "./poses-bosses-hands-mantle.js";
+import { MATRON_POSES } from "./poses-bosses-hands-matron.js";
 import { MECHANISM_POSES } from "./poses-bosses-hands-mechanisms.js";
 import { MIMIC_POSES } from "./poses-bosses-hands-mimic.js";
 import { NETTLE_POSES } from "./poses-bosses-hands-nettle.js";
@@ -81,6 +82,7 @@ export const BOSS_POSES: Pose[] = [
   ...CHRYSALIS_POSES,
   ...HYDRA_POSES,
   ...BROOD_POSES,
+  ...MATRON_POSES,
   ...MECHANISM_POSES,
 ];
 
