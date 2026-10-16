@@ -331,6 +331,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## A browser test's teardown throws when its launch timed out
 
 - **Found:** 2026-10-16, claude/suck-brush-visuals-a917b1
+- **Taken:** 2026-10-16, claude/queue-work-6b11c3 (claim: claude/queue-a-browser-tests-teardown-throws-when-its-launch)
 - **Files:** `tools/frames/browser.ts`, `tools/frames/test/page-said.test.ts`
 
 Under load (7 on 14 cores, a whole `check:fast` of renumbered waves) the
