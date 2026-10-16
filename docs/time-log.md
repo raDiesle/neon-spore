@@ -43558,3 +43558,5 @@ Bottleneck: landings — every one runs the whole check while main keeps moving.
 - landing: 5 min. `check:fast` red on one INDEX row, `index`, `land`.
 
 Bottleneck: the photograph — the wave's first body is a SWIPE, so TAP had to be forced with `--entry`.
+
+*Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-16 · 705fc46cc — A blister that owes more than one blow shows how many are left
+
+On the seat that may deal them, a body set to more than one blow wears THE MINE's ring of pips: one per blow, lit for the ones still owed. Each blow short of the last flashes its pip white and throws a ring off it. The TAP drop's terraces and the RUB drop's strokes count the same blows. A one-blow blister, which every shipped wave has, draws nothing new.
+
 ## 2026-10-16 · c9b8e5591 — GALAXY, PILLARS, BINARY, CELLS and REMNANT move and have more in them
 
 GALAXY has two small companion galaxies turning on their own, rose knots of new stars along its arms, and a core that breathes. PILLARS has a newborn star pulsing in each tip, and veils of lit dust drifting slowly in front. BINARY's stream carries knots of gas from one star into the other's disc, and the big star throws four slow-turning spikes that flare. CELLS lies over a deeper, dimmer wall of smaller cells that breathes on the other beat, and organelles wander in the near cells. REMNANT's shell turns against a fainter inner one, and its dead star is a pulsar sweeping two beams round. The owner asked for this look by name.
