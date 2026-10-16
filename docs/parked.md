@@ -59,6 +59,7 @@ on.
 ## THE BROOD's look: the simulation landed, the picture is the next lane
 
 - **Found:** 2026-10-16, claude/wave-8-boss-generator-237899
+- **Taken:** 2026-10-16, claude/wave-8-boss-generator-237899 (claim: claude/queue-the-broods-look-the-simulation-landed-the-pictur)
 - **Files:** `packages/render/src/effects-ingest-silent-boss-f.ts`, `packages/render/src/effects-spark-silent-boss-f.ts`, `tools/director/test/boss-states.test.ts`, `tools/director/test/marks-window-no-row.ts`, `docs/spec/bosses.md`
 
 THE BROOD (wave 9, after ALTERNATING) plays — `sim/brood.ts`, its hand, its
