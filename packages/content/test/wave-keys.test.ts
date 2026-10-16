@@ -43,7 +43,27 @@ describe("nothing used before it is taught", () => {
     // THE BROOD has a guide; it is about the sac, not about the cyan button.
     const found = untaughtKeys(moved("theBrood", "cyan"));
     expect(found.map((u) => u.name)).toEqual(["THE BROOD"]);
-    expect(found[0]?.keys).toEqual(["panel standard2", "button fireCyan"]);
+    expect(found[0]?.keys).toEqual(["bulb", "panel standard2", "button fireCyan"]);
+  });
+
+  it("reads the bodies a boss puts on the field as keys its wave uses", () => {
+    // THE BROOD's buds drop as slicks and bulbs. Its panel is taught early,
+    // but a bulb is not carried by THE BROOD: without `spawns` the wave's
+    // keys were `brood` and its panel, and a boss whose panel came first
+    // would hand the pair a body no wave had taught.
+    const keys = waveKeys(byId("theBrood"));
+    expect(keys).toContain("slick");
+    expect(keys).toContain("bulb");
+    // On the panel taught just before CYAN, ahead of CYAN: only the bulb.
+    const cyan = WAVES.findIndex((w) => w.id === "cyan");
+    const early = { ...byId("theBrood"), controls: WAVES[cyan - 1]?.controls };
+    const list = WAVES.filter((w) => w.id !== "theBrood");
+    list.splice(
+      list.findIndex((w) => w.id === "cyan"),
+      0,
+      early,
+    );
+    expect(untaughtKeys(list).find((u) => u.name === "THE BROOD")?.keys).toEqual(["bulb"]);
   });
 
   it("lets a boss introduce what is its own", () => {

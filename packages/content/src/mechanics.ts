@@ -107,11 +107,8 @@ export type MechanicId =
  *   that wants a warning about unused mechanics must leave these out rather
  *   than force an answer — `unreachedMechanics` does.
  *
- * There used to be a third, `gap`: a round that sat *between* two waves and
- * was reached from a table of its own rather than from any wave. Twelve of
- * those were designed and one was built, and all twelve are bosses now — so
- * the class went with the table, and THE GAUGE is a `spawn` like every other
- * boss. `docs/decisions.md` #20 has the argument.
+ * A fourth, `gap` — a round between two waves, reached from a table of its
+ * own — went with that table: all twelve are bosses now (`docs/decisions.md` #20).
  */
 export type Reach = "spawn" | "wave" | "run";
 
@@ -139,6 +136,10 @@ export interface Mechanic {
    * wave reaches both without naming either.
    */
   carriedBy?: MechanicId;
+  /** The ordinary bodies a boss puts on the field — THE BROOD's buds drop as
+   * slicks and bulbs. Not `carriedBy`, since a slick is not THE BROOD's: only
+   * `waveKeys` reads it, so no boss is first to hand the pair an untaught body. */
+  spawns?: readonly MechanicId[];
   switch?: MechanicSwitch;
   /**
    * Whether a `WaveEntry` may write this kind in its `kind` field — true for

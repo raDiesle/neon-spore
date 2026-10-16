@@ -79,10 +79,12 @@ export const BOSS_MECHANICS = {
   cairn: {
     what: "A pile of seven rocks that shots cannot reach. Drag a thumb sideways across it to pull one rock out. Wait too long and it drops one itself.",
     reach: "spawn",
+    spawns: ["meteor"],
   },
   mirror: {
     what: "The boss is your own ship. It performs a sequence of your own moves, then asks for the whole of it back.",
     reach: "spawn",
+    spawns: ["pod"],
   },
   maze: {
     what: "A maze of rings with a heart in the middle. Turn a gap onto the cannon's column and fire the heart's colour. Only one gap reaches the heart.",
@@ -107,14 +109,17 @@ export const BOSS_MECHANICS = {
   baton: {
     what: "A bead walks down an arm. Player 1 launches it. Player 2 shoots it in the air. Take turns down all eleven sockets.",
     reach: "spawn",
+    spawns: ["meteor", "pod"],
   },
   gorge: {
     what: "Bubbles want shots. Player 1 sees how many, and which goes first. Player 2 sees the colour. On the ring, player 1 taps the bottom one open.",
     reach: "spawn",
+    spawns: ["slick", "bulb"],
   },
   curtain: {
     what: "A curtain hides a core that fires torches. Drag the curtain aside by hand. Player 1 sees which lobes to shoot. Player 2 sees the core's colour.",
     reach: "spawn",
+    spawns: ["torch"],
   },
   taster: {
     what: "Its blades take the colour you have fired most. Only the other colour cuts a blade. Lean on one colour and the fan shuts you out.",
@@ -127,18 +132,22 @@ export const BOSS_MECHANICS = {
   sinew: {
     what: "A mass hangs on six fibres. You each pull a handle. Hold the sum in the band for four beats. Player 1 sees the band. Player 2 sees the sum.",
     reach: "spawn",
+    spawns: ["meteor"],
   },
   surge: {
     what: "A bulb charges while you hold it. Player 1 sees the band. Player 2 sees the pressure. Lift both thumbs together inside the band. Too high bursts it.",
     reach: "spawn",
+    spawns: ["meteor", "blister"],
   },
   lead: {
     what: "A body paces along the top, a column a beat. Fire where it will be, not where it is. Player 1 sees where it turns. Player 2 sees its column.",
     reach: "spawn",
+    spawns: ["torch", "meteor"],
   },
   scuttle: {
     what: "A frame throws a part down a column every three beats. Shoot the hanging part in its colour before it goes. Player 1 sees which one. Player 2 sees when.",
     reach: "spawn",
+    spawns: ["meteor", "slick", "bulb", "pod"],
   },
   antiphon: {
     what: "The body grows a shape with no name. Only Player 1 sees it and describes it. Player 2 picks it from three and fires that column and colour.",
@@ -147,6 +156,7 @@ export const BOSS_MECHANICS = {
   hive: {
     what: "Nine breaches open on a clock and spill rocks. Shoot each one in its colour to seal it. Player 1 sees the colours. Player 2 sees the next one.",
     reach: "spawn",
+    spawns: ["slick", "bulb"],
   },
   undertow: {
     what: "Lobes come up through the hull. Yellow wants the cannon under it and SUCK, shield-coloured the shield. Tap a tall one down before it bursts. Outlast the clock.",

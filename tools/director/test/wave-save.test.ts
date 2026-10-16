@@ -205,7 +205,9 @@ test("a list that uses something before it is taught is refused, and writes noth
   const res = await saveWaves(put({ waves: moved, token: await wavesToken(copy) }), copy);
 
   expect(res.status).toBe(500);
-  expect(((await res.json()) as { error: string }).error).toContain("THE BROOD: panel standard2");
+  expect(((await res.json()) as { error: string }).error).toContain(
+    "THE BROOD: bulb, panel standard2",
+  );
   expect(await actTexts(copy)).toEqual(before);
 });
 

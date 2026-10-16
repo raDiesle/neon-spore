@@ -67,6 +67,7 @@ export const BOSS_MECHANICS_B = {
   spool: {
     what: "A spool pays a line to the hull. One of you holds the brake. The other sees how fast it should run. Hold it right and a rib eases.",
     reach: "spawn",
+    spawns: ["meteor"],
   },
   hasp: {
     what: "He holds the latch down. She turns the wheel, and it only moves while he holds. His hand burns if he holds too long. Three hasps.",
@@ -131,6 +132,7 @@ export const BOSS_MECHANICS_B = {
   lamprey: {
     what: "The eel goes for the ship: pull it back. It jumps from tile to tile. One of you holds the tail. The other frees the head. Then shoot the gullet.",
     reach: "spawn",
+    spawns: ["meteor", "slick", "bulb"],
   },
   mimic: {
     what: "One of you sees a picture of tiles and says it. The other taps it into the frame. Too slow and an arm reaches down. Then tap the core.",
@@ -155,10 +157,12 @@ export const BOSS_MECHANICS_B = {
   brood: {
     what: "A sac grows slicks and bulbs on its rim. Shoot each bud in its colour before it drops. A dropped bud falls, and grows again.",
     reach: "spawn",
+    spawns: ["slick", "bulb"],
   },
   matron: {
     what: "A mother slime with pods on her lobes. Shoot each pod loose and swallow it before its ring runs out. She throws bodies, rocks and torches at you.",
     reach: "spawn",
+    spawns: ["pod", "meteor", "torch", "slick", "bulb"],
   },
   geode: {
     what: "A stone falls on the ship. Only the lance cuts it. Burn each crack in its colour, and every piece breaks in two.",
@@ -167,6 +171,7 @@ export const BOSS_MECHANICS_B = {
   swindle: {
     what: "A slime hangs real pods and fake ones and swaps them. Only Player 2 sees the fakes. Swallow every real pod she drops. Keep the maw shut for a fake.",
     reach: "spawn",
+    spawns: ["pod", "husk"],
   },
   vane: {
     what: "An arm sweeps the top of the field. It mirrors everything under it across the column it stands in.",

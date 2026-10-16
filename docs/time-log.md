@@ -43303,3 +43303,16 @@ Bottleneck: finding a block that may move into the arc without a wave using
 what it has not been taught yet — a probe over six acts.
 
 *Measured: 19 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-16 — A boss's keys read the bodies it spawns
+
+- reading: 10 min. `waveKeys`, `mechanicsInWave` and why `carriedBy` cannot
+  say it.
+- writing: 10 min. `Mechanic.spawns`, fifteen boss rows, two tests.
+- looking: 0 min. Nothing drawn changed.
+- friction: 5 min. `mechanics.ts` went past the ceiling; a paragraph of its
+  history became a line.
+- landing: 5 min. `check:fast`, `land`.
+
+Bottleneck: the audit — eighteen bosses spawn something, read out of thirty
+simulation files by a background search while the mechanism was written.
