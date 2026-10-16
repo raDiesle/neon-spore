@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-16 · edc5af279 — The composer makes up every regular wave's name, and 446 waves are named again
+
+A regular wave is now named for its block's thing and a word for its step's mood: STEADY is FIRST RED, TWO COLOURS is CYAN PICNIC, ALTERNATING is CYAN RAPTURE, LURES AGAIN is LURE RISING, LANCE PEAK is LANCE THUNDER, CROWDED is TORCH APOCALYPSE. Every name is unique, fits the HUD (20 letters, four words) and borrows no word the game already means something by. Intros and bosses keep theirs: they are the creature's, the lesson's or the boss's own.
+
 ## 2026-10-16 · c26d997b5 — CYAN's and THE ROCK's waves open in the middle and leave room; THE HAND stands alone after them
 
 CYAN is now four bulbs from the centre column, eight beats apart, and the easiest wave of its block (pressure 1.4, was 3.2 and harder than the wave after it). ONLY CYAN, TWO COLOURS and ALTERNATING open in the middle and run 36–42 beats instead of 3–4, climbing 2.6 → 3.4 → 4.6 (ALTERNATING was 6.8). THE ROCK gives ten beats before the second rock and the move to a new column (was four); FIVE ROCKS, WIDE ROCKS and ROCKS BETWEEN open in the middle and climb 2.6 → 3.8 → 5.0. THE HAND, which teaches the grip, no longer folds under THE ROCK: it heads its own row after the rock's waves, before TORCH.
