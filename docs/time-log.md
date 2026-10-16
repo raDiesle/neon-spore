@@ -42950,3 +42950,14 @@ Bottleneck: the first rule let a guided boss jump ahead — THE BROOD has a
 guide — and only the save test moving it showed it.
 
 *Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-16 — THE MATRON is drawn: a blue mother slime, a lobe down to every pod she holds, her eggs inside her (the look)
+
+- reading: 10 min. THE BROOD's look as the pattern, the pod's own drawing, and the free drafts on the shape sheet.
+- writing: 20 min. Five pages of the picture, the registrations, the frame test.
+- looking: 10 min. Two frames: eggs reading grey on the blue, then amber with a yolk and a lit crown.
+- friction: 5 min. A frame test counting the rim once per frame instead of once per lobe.
+- landing: 10 min. The seat switcher's test, which a body coming down from above the frame crosses, then `land`.
+
+Bottleneck: writing — the slime and her lobes had to be one outline to the
+eye while being separate paths to the canvas.

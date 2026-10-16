@@ -10,6 +10,7 @@ import { drawLamprey } from "./lamprey-draw.js";
 import { lampreyStopper } from "./lamprey-stop.js";
 import { drawLatch } from "./latch-draw.js";
 import type { Layout } from "./layout.js";
+import { drawMatron } from "./matron-draw.js";
 import { drawMimic } from "./mimic-draw.js";
 import type { ViewState } from "./renderer.js";
 
@@ -40,6 +41,7 @@ export const LATEST_PAIR_KINDS = [
   "chrysalis",
   "hydra",
   "brood",
+  "matron",
 ] as const;
 
 export type LatestPairBoss = Extract<Installed, { kind: (typeof LATEST_PAIR_KINDS)[number] }>;
@@ -147,6 +149,14 @@ export function drawLatestPairBoss(
   // (`brood-draw.ts`); its receipts are `brood-fx.ts`.
   if (boss.kind === "brood") {
     drawBrood(ctx, l, world, boss, beat, beatPhase, time, effects.boss.brood);
+    return;
+  }
+
+  // THE MATRON: a mother slime over the middle, a lobe down to every pod she
+  // holds and the eggs of the clutches to come inside her (`matron-draw.ts`);
+  // her receipts are `matron-fx.ts`.
+  if (boss.kind === "matron") {
+    drawMatron(ctx, l, world, boss, beat, beatPhase, time, effects.boss.matron);
     return;
   }
 

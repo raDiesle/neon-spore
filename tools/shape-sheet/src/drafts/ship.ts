@@ -75,9 +75,10 @@ export const SHIP_DRAFTS: CatalogueEntry[] = [
       lift: traded(8, COLUMN * 1.5, 5),
       gap: 0,
     }),
-    status: "free",
+    // Taken 16 October 2026 by THE MATRON's belly.
+    status: "taken",
     slot: "ship",
     owner:
-      "the swap has to be announced by the ship rather than agreed beforehand, and an exchange is the one thing a single mark cannot say: it takes two, and they have to cross. Three columns apart, complementary heights, five seconds a cycle — so there is a moment when they are equal and nobody owns anything, which is either the clearest instant on the card or the one that ruins it. **The idea it was drawn at was built on 13 September 2026** as THE HANDOVER, the fifth malfunction, and it is not what shipped: the announcement is a plate on the lip of the band counting the trade down and counting the panels back, over a band that comes up in the other seat's colours with the other seat's buttons in it. So this is no longer a shape offered to a concept — it is a second answer to a question the game has already answered on the screen, which is VERSUS's business and not this page's (`docs/looks.md`). Free until somebody carries it there; `docs/queue.md` has the entry",
+      "THE MATRON, taken 16 October 2026: hung upside down over the field it is her belly, a lobe standing down out of it to every pod she carries and springing back up as the pod is shot loose (`render/matron-shape.ts`). Before that, the swap has to be announced by the ship rather than agreed beforehand, and an exchange is the one thing a single mark cannot say: it takes two, and they have to cross. Three columns apart, complementary heights, five seconds a cycle — so there is a moment when they are equal and nobody owns anything, which is either the clearest instant on the card or the one that ruins it. **The idea it was drawn at was built on 13 September 2026** as THE HANDOVER, the fifth malfunction, and it is not what shipped: the announcement is a plate on the lip of the band counting the trade down and counting the panels back, over a band that comes up in the other seat's colours with the other seat's buttons in it. So this is no longer a shape offered to a concept — it is a second answer to a question the game has already answered on the screen, which is VERSUS's business and not this page's (`docs/looks.md`). Free until somebody carries it there; `docs/queue.md` has the entry",
   },
 ];

@@ -12551,10 +12551,34 @@ swallowed takes a lobe and the level waits for the whole clutch; a pod the
 wave hung is not hers; a ring run out loses the wave; the last pod beats her
 and she sinks away; the same play hashes the same.
 
-**What is not built.** Her body: nothing draws her yet, so the field shows
-her pods and her throws and no mother above them — the look lane, a
-contour with a lobe per pod that withers as it goes, read against THE
-INSTAR's five. Her film: the guide is prose (`briefings.md` §3.2). **Never
+**The look** (`render/src/matron-draw.ts` and the pages it calls). A mother
+slime of deep blue, seven columns across, hung over the middle with her
+belly a lobe's length over the pod row (`matron-place.ts`) — so nothing of
+her is red, cyan or the ship's violet, and the amber of her pods stands out
+of her. **HULL · TRADED** (`tools/shape-sheet/src/drafts/ship.ts`) hung upside
+down is her belly: **a lobe reaches down out of it to every pod she holds**,
+its tip under the pod, which `pods.ts` draws over it as any pod
+(`matron-shape.ts`). **Her health is what she carries**: the lobes of the
+clutch hanging, and **the eggs of the clutches to come**, amber, glowing
+inside her, so the fight's length is counted off her body. She shrinks a
+little with every lobe gone.
+- **She moves as a whole**: she breathes on the beat, **leans toward the
+  column she throws down** and rights herself, and the eggs inside slide
+  against the lean, so she has a depth; between clutches she **rears back**,
+  taller and narrower, and comes down again with the next.
+- **The receipts** (`matron-fx.ts`): a pod of hers shot loose snaps its lobe
+  back up into her belly; a throw spits off her; a pod swallowed is a
+  counted hit; beaten, the blow of a fight landed, and she greys, sags and
+  fades.
+- **She comes in fading up**, settling a little over the field, never from
+  above the frame, where the seat switcher stands (`boss-top.test.ts`).
+- **No cue of her own.** What a pair reads is the pod's ring, as on SALVAGE.
+
+`render/test/matron-frame.test.ts` draws her on all three screens: a lobe to
+every pod she holds and none to one shot loose, an egg for every pod still
+to come, her belly a lobe's length over the pod row, the rear, and beaten.
+
+**What is not built.** Her film: the guide is prose (`briefings.md` §3.2). **Never
 watched at tempo** — whether 24 beats is a fair ring with a colour, a rock
 and a torch in the way is the owner's eye.
 

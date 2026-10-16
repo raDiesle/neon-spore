@@ -131,8 +131,9 @@ export const SILENT_BOSS_F = [
   "broodHide",
   "broodSpent",
   "broodOut",
-  // THE MATRON's seven, silent until her look lane draws them: the pods she
-  // hangs and the bodies she throws are the field's own and drawn as such.
+  // THE MATRON's seven are read above the loop by `matron-fx.ts`
+  // (`Effects.boss.matron`), THE BROOD's way: a lobe springing back, her
+  // lean toward a throw, and the blow as a pod is swallowed and as she is beaten.
   "matronEnter",
   "matronHang",
   "matronThrow",

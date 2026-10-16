@@ -2627,6 +2627,11 @@ by hand never moves.
 | `packages/render/src/mark-feedback.ts` | **Which mark is wanted, and by whom**, on every boss with a mark: the halo on this seat's open mark, the turning ring and the waiting clock on the partner's |
 | `packages/render/src/mark-spots.ts` | **Where each boss's marks were drawn this frame, on the screen** |
 | `packages/render/src/mark-progress.ts` | **A held part is right, and how far the partner has got**, for any boss: the steady green ring on a mark held where it is wanted, and a mark's progress as a green arc or segments |
+| `packages/render/src/matron-draw.ts` | THE MATRON, drawn: a mother slime of deep blue hung over the field |
+| `packages/render/src/matron-fx.ts` | What THE MATRON leaves behind a frame: a lobe springing back up as its pod is shot loose |
+| `packages/render/src/matron-place.ts` | **Where THE MATRON is drawn**: her body over the middle, the lobes reaching down to the pods she hangs |
+| `packages/render/src/matron-shape.ts` | **THE MATRON's outline**: HULL · TRADED (`tools/shape-sheet/src/drafts/ship.ts`) hung upside down |
+| `packages/render/src/matron-tint.ts` | THE MATRON's colours: a deep blue slime |
 | `packages/render/src/mount-look.ts` | THE ONE RECORD A CANDIDATE **MOUNT** PATCHES |
 | `packages/render/src/mount-bearing.ts` | Where on its wheel a mount stands, for a look that turns with it |
 | `packages/render/src/mount-rasp.ts` | RASP — a kept look for THE GYRE's mounts, drawn only on the GRAPHICS page's LIBRARY |
