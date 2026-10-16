@@ -13,13 +13,22 @@
 }
 
 /* The press on a head that folds its group or opens it, and says how many are
-   under it. On the right, so the names down the left stay in one column. */
-#waveList .fold {
+   under it. On the left, before the name (the owner, 16 October 2026); every
+   other row holds the same width empty (`.fold-slot`), so the names down the
+   list still start in one column. `order` puts it there, because the name's
+   button stays the row's first child (`rail-list.ts`). */
+#waveList .fold,
+#waveList .fold-slot {
+  order: -1;
   flex: none;
+  width: 40px;
+  box-sizing: border-box;
+}
+#waveList .fold {
   color: var(--faint);
   font-variant-numeric: tabular-nums;
-  padding-left: 6px;
-  padding-right: 6px;
+  padding-left: 4px;
+  padding-right: 4px;
 }
 #waveList .fold:hover {
   color: var(--ink);

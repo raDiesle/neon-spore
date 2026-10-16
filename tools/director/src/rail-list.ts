@@ -79,14 +79,26 @@ export function renderRows(
     const row = document.createElement("div");
     row.className = ["wave-row", ...marks, head === -1 ? "" : "variant"].filter(Boolean).join(" ");
     row.append(button);
+    // The fold stands left of the name (the owner, 16 October 2026), and a
+    // row with nothing to fold holds the same width empty, so the names still
+    // start in one column. Laid out first by `order` rather than put first,
+    // because the name's button is the row's first child to everything that
+    // reads the list.
     const size = groups.size[i] ?? 0;
-    if (size > 0) row.append(foldButton(i, size, folds));
+    row.append(size > 0 ? foldButton(i, size, folds) : foldSlot());
     row.append(...openButtons(i, select));
     // Carried to a new place by dragging it (`rail-drag.ts`).
     drag?.bind(row, i);
     list.appendChild(row);
   }
   return matched;
+}
+
+/** The empty place a fold takes on a row that has none. */
+function foldSlot(): HTMLElement {
+  const slot = document.createElement("span");
+  slot.className = "fold-slot";
+  return slot;
 }
 
 /** The press on a head that folds its group away or opens it, with how many
