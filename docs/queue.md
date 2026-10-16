@@ -347,6 +347,7 @@ from it. Done when `bossOrder` is under 100 ms idle, and the review test's
 ## The size hook measures the trunk's copy of a file a worktree edited
 
 - **Found:** 2026-10-16, claude/suck-brush-visuals-a917b1
+- **Taken:** 2026-10-16, claude/queue-work-6b11c3 (claim: claude/queue-the-size-hook-measures-the-trunks-copy-of-a-file)
 - **Files:** `tools/hooks/after-edit-size.ts`, `tools/hooks/written-paths.ts`
 
 A session whose project is the main checkout and whose shell works in a
