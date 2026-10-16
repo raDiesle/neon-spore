@@ -3,7 +3,7 @@ import { slowing } from "@neon-spore/sim";
 import { SLOW_RUNS_OUT_POSE } from "../src/poses-slow.js";
 import { stageTickHz } from "../src/stage-loop.js";
 import { Freeze, freezeTick, type PairAt } from "../src/versus-pair-freeze.js";
-import { LIVE, shotParams } from "../src/versus-shot.js";
+import { LIVE, shotParams, sidesShown } from "../src/versus-shot.js";
 
 /**
  * The two flags that make a VERSUS pair photographable, and the one rule they
@@ -42,6 +42,22 @@ describe("only", () => {
   it("shows both when it is absent or unrecognised", () => {
     expect(read("").only).toBe("both");
     expect(read("only=left").only).toBe("both");
+  });
+});
+
+describe("the sides a screen mounts", () => {
+  it("is both for a pair, and one when one is named", () => {
+    expect(sidesShown(false, "both")).toEqual(["current", "candidate"]);
+    expect(sidesShown(false, "candidate")).toEqual(["candidate"]);
+    expect(sidesShown(false, "current")).toEqual(["current"]);
+  });
+
+  it("is the candidate alone on a screenshot candidate, and the current side asked by name", () => {
+    expect(sidesShown(true, "both")).toEqual(["candidate"]);
+    expect(sidesShown(true, "candidate")).toEqual(["candidate"]);
+    // It was the candidate here too, and `--only current` wrote its picture
+    // under the current one's name.
+    expect(sidesShown(true, "current")).toEqual(["current"]);
   });
 });
 

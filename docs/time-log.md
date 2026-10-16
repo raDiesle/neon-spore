@@ -42662,3 +42662,13 @@ Bottleneck: friction — a pane holding another session's draft answered a
 different wave until its storage was set aside.
 
 *Measured: 8 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-16 — `versus:shot --only current` on a `screenshot` candidate
+
+- reading: 5 min. `renderScreen`'s two branches and what `versus:shot` grabs.
+- writing: 5 min. `sidesShown` and the two cases beside the shot flags' test.
+- looking: 0 min. No candidate is open, so there was nothing to photograph.
+- friction: 5 min. A second `queue next` claimed the item after this one too.
+- landing: 5 min.
+
+Bottleneck: nothing — the decision was one function, and the mount it fed was already built.

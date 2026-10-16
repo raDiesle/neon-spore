@@ -7,7 +7,7 @@ import { SEEN_FLOOR } from "./versus-diff.js";
 import { startPair } from "./versus-pair.js";
 import { poseForSlot, slotPoseMissing } from "./versus-pose.js";
 import { seatPlan } from "./versus-seat.js";
-import { LIVE, type ShotParams } from "./versus-shot.js";
+import { LIVE, type ShotParams, sidesShown } from "./versus-shot.js";
 
 /**
  * One candidate, alone, on a page of its own — the live half of VERSUS.
@@ -183,27 +183,27 @@ function renderScreen(
   );
   rightBox.appendChild(pair.right);
 
-  if (candidate.screenshot) {
-    // No CURRENT side at all: `pair.left` is built but never mounted here —
-    // the whole point of a screenshot row is one picture documenting this
-    // answer, not a compare. The freeze is the pair's own, above: `freeze`
-    // and not `setRunning(false)`, so the frame it holds carries no `hud.ts`
-    // "PAUSED" caption.
-    stage.append(rightBox);
-    screen.append(stage, banner);
-    return screen;
-  }
-
   const leftBox = el("div", "versus-side");
-  leftBox.appendChild(el("div", "versus-name", "CURRENT — what the game draws today"));
-  rightBox.prepend(el("div", "versus-name", `${candidate.name.toUpperCase()} — the candidate`));
   leftBox.appendChild(pair.left);
   // `&only=…`: one side, at true size. Both are still *built* — the pair steps
   // two worlds and compares them, and the settled banner is that comparison —
   // so this changes what is mounted and nothing about what is measured.
-  if (shot.only === "candidate") stage.append(rightBox, tag);
-  else if (shot.only === "current") stage.append(leftBox, tag);
-  else stage.append(leftBox, rightBox, tag);
+  const sides = sidesShown(candidate.screenshot !== undefined, shot.only);
+  const boxes = sides.map((side) => (side === "current" ? leftBox : rightBox));
+
+  if (candidate.screenshot) {
+    // One picture documenting this answer, not a compare: the candidate
+    // alone, or the current side when it is asked for by name. The freeze is
+    // the pair's own, above: `freeze` and not `setRunning(false)`, so the
+    // frame it holds carries no `hud.ts` "PAUSED" caption.
+    stage.append(...boxes);
+    screen.append(stage, banner);
+    return screen;
+  }
+
+  leftBox.prepend(el("div", "versus-name", "CURRENT — what the game draws today"));
+  rightBox.prepend(el("div", "versus-name", `${candidate.name.toUpperCase()} — the candidate`));
+  stage.append(...boxes, tag);
   screen.append(stage, ...controlsBar(stage, pair), banner);
   return screen;
 }

@@ -54,3 +54,19 @@ export function shotParams(params: URLSearchParams): ShotParams {
     only: only === "candidate" || only === "current" ? only : "both",
   };
 }
+
+/**
+ * The sides a screen mounts, left to right. A `screenshot` candidate is one
+ * picture rather than a pair, so it shows the candidate alone — unless the
+ * current side is asked for by name. It used to show the candidate then too,
+ * and `versus:shot --only current` wrote the candidate's picture under the
+ * current one's name: the two stills came out identical and read as a
+ * candidate that changes nothing, the opposite of the truth.
+ */
+export function sidesShown(
+  screenshot: boolean,
+  only: OnlySide,
+): readonly ("current" | "candidate")[] {
+  if (only !== "both") return [only];
+  return screenshot ? ["candidate"] : ["current", "candidate"];
+}
