@@ -96,6 +96,9 @@ class Recorder {
   moveTo(x: number, y: number): void {
     this.log.push(`move ${x.toFixed(3)},${y.toFixed(3)}`);
   }
+  lineTo(x: number, y: number): void {
+    this.log.push(`line ${x.toFixed(3)},${y.toFixed(3)}`);
+  }
   quadraticCurveTo(cx: number, cy: number, x: number, y: number): void {
     this.log.push(`quad ${cx.toFixed(3)},${cy.toFixed(3)},${x.toFixed(3)},${y.toFixed(3)}`);
   }

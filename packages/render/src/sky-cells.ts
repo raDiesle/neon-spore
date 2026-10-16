@@ -1,7 +1,8 @@
 import { hash01, withAlpha } from "./backdrop.js";
 import type { BackdropDraw } from "./backdrop-look.js";
 import { mixHex } from "./hex.js";
-import { actTint, baked, paintSpace } from "./sky-kit.js";
+import { drawDeepSky } from "./sky-depth.js";
+import { actTint, baked } from "./sky-kit.js";
 
 /**
  * CELLS — the field is inside something alive.
@@ -99,7 +100,7 @@ export function skyCells(d: BackdropDraw): void {
   const { ctx, l, time } = d;
   const height = l.bandTop;
   if (height <= 0 || l.width <= 0) return;
-  paintSpace(d);
+  drawDeepSky(d, { seed: 110_000, far: 90, haze: 0.5 });
   const sheet = tissue(actTint(d, 0.25), l.width, height);
   const s = 1 + BREATH * (0.5 + 0.5 * Math.sin(time * 0.9));
   const w = l.width * s;

@@ -160,6 +160,10 @@ const MEASURE = false;
 // on the field at different heights, one `fill` dearer and four `drawImage`
 // cheaper on p2, four `drawImage` cheaper on p1.
 // Remeasured 16 October 2026 under the one sky every budget run is drawn under (`BUDGET_SKY`), so the wave's place in the list no longer moves a row.
+// From 16 October 2026 every sky stands on a deep sky (`sky-depth.ts`), CELLS
+// too: far stars, a drifting haze and near stars, the last two blitted twice
+// so they wrap, and ten twinkles of one baked cross — fifteen more
+// `drawImage` in every row. Remeasured, not padded.
 const BUDGETS: Readonly<Record<"p1" | "p2", readonly Budget[]>> = {
   p1: [
     {
@@ -177,7 +181,7 @@ const BUDGETS: Readonly<Record<"p1" | "p2", readonly Budget[]>> = {
       fill: 60,
       clip: 30,
       save: 68,
-      drawImage: 55,
+      drawImage: 70,
       createLinearGradient: 22,
       createRadialGradient: 11,
       // Fourteen of these are the panel's own sheet, painted here and only
@@ -196,7 +200,7 @@ const BUDGETS: Readonly<Record<"p1" | "p2", readonly Budget[]>> = {
       fill: 60,
       clip: 30,
       save: 68,
-      drawImage: 55,
+      drawImage: 70,
       // Down from frame 0: the layout-only gradients (`gradient-slot.ts`'s
       // sites in field.ts and backdrop.ts, key-light.ts's own slot, and the
       // channels' three in band-control.ts) are cache hits from the second
@@ -224,7 +228,7 @@ const BUDGETS: Readonly<Record<"p1" | "p2", readonly Budget[]>> = {
       // Two fewer: a fire button's face is one `paintLobe` doing fill and
       // stroke together where it used to be a fill and then a crosshair.
       save: 70,
-      drawImage: 54,
+      drawImage: 69,
       createLinearGradient: 22,
       createRadialGradient: 11,
       // Two more than p1's frame 0: the sheet, and the fire buttons'
@@ -238,7 +242,7 @@ const BUDGETS: Readonly<Record<"p1" | "p2", readonly Budget[]>> = {
       fill: 68,
       clip: 30,
       save: 70,
-      drawImage: 54,
+      drawImage: 69,
       createLinearGradient: 14,
       createRadialGradient: 8,
       // Back level with p1's second frame, and the two it came down by are the
@@ -468,7 +472,7 @@ const EYE_BUDGETS: Readonly<Record<string, readonly Budget[]>> = {
       // costs: the dome is a sprite baked once per colour and size, and the wet
       // point is `halo`'s. Neither builds a gradient, which is why the two
       // gradient rows below did not move at all.
-      drawImage: 26,
+      drawImage: 41,
       createLinearGradient: 31,
       createRadialGradient: 13,
       // Fourteen of them the panel's sheet, as on every frame 0 here. Four are
@@ -492,7 +496,7 @@ const EYE_BUDGETS: Readonly<Record<string, readonly Budget[]>> = {
       // (`warden-glance.ts`), laid on the screen as one picture with the far
       // side's dark ramped over it (`glance-layer.ts`). Frame 0 is the round's
       // level start and does not move.
-      drawImage: 31,
+      drawImage: 46,
       createLinearGradient: 24,
       createRadialGradient: 10,
       // One more on 25 September 2026, the rope's knob, as in frame 0; one
@@ -530,7 +534,7 @@ const EYE_BUDGETS: Readonly<Record<string, readonly Budget[]>> = {
       // its own, with the far side's dark ramped over it.
       clip: 16,
       save: 59,
-      drawImage: 31,
+      drawImage: 46,
       createLinearGradient: 30,
       createRadialGradient: 17,
       // Two more on 26 September 2026, when the cord's handle became the
@@ -549,7 +553,7 @@ const EYE_BUDGETS: Readonly<Record<string, readonly Budget[]>> = {
       clip: 16,
       save: 59,
       // AURORA's strips, as in frame 0.
-      drawImage: 31,
+      drawImage: 46,
       createLinearGradient: 22,
       // The eye builds none of its own: the wash around it is a `halo` sprite
       // cached by colour and radius, and the one left is `key-light.ts`'s

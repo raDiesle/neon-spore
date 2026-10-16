@@ -1,7 +1,8 @@
 import { hash01, withAlpha } from "./backdrop.js";
 import type { BackdropDraw } from "./backdrop-look.js";
 import { mixHex } from "./hex.js";
-import { actTint, baked, drawStars, lighter, paintSpace, skyGlow, starSheet } from "./sky-kit.js";
+import { drawDeepSky } from "./sky-depth.js";
+import { actTint, baked, lighter, skyGlow } from "./sky-kit.js";
 
 /**
  * HOLE — a black hole high on the left, its disc on fire.
@@ -75,13 +76,12 @@ export function skyHole(d: BackdropDraw): void {
   const { ctx, l, time } = d;
   const height = l.bandTop;
   if (height <= 0 || l.width <= 0) return;
-  paintSpace(d);
   const cx = l.width * AT.x;
   const cy = height * AT.y;
   // Fewer stars the nearer the hole: it has eaten its neighbours.
   const near = (x: number, y: number) =>
     Math.min(1, Math.hypot((x - AT.x) * 1, (y - AT.y) * (height / l.width)) / 0.35);
-  drawStars(d, starSheet(l.width, height, 190, 150_000, near, "hole"));
+  drawDeepSky(d, { seed: 150_000, far: 190, weight: near, key: "hole" });
 
   const tint = actTint(d, 0.45);
   const r = l.width * DISC;

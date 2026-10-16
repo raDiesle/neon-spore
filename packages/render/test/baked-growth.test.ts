@@ -93,7 +93,9 @@ function entriesAfter(role: "p1" | "p2"): number {
 // Two more on each seat from 15 October 2026, when a pass's turned bodies
 // began to be laid down ahead of it (`glance-batch.ts`): three atlases and the
 // canvas the pass is first run on, where the two scratch layers were.
-const HELD = { p1: 46, p2: 55 } as const;
+// Three more on each seat from 16 October 2026: the deep sky under every sky
+// (`sky-depth.ts`) bakes its haze, its near stars and one twinkle.
+const HELD = { p1: 49, p2: 58 } as const;
 
 describe("what the renderer keeps between frames", () => {
   for (const role of ["p1", "p2"] as const) {

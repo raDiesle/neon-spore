@@ -1,7 +1,8 @@
 import { withAlpha } from "./backdrop.js";
 import type { BackdropDraw } from "./backdrop-look.js";
 import { mixHex } from "./hex.js";
-import { actTint, baked, drawStars, lighter, paintSpace, starSheet } from "./sky-kit.js";
+import { drawDeepSky } from "./sky-depth.js";
+import { actTint, baked, lighter } from "./sky-kit.js";
 
 /**
  * AURORA — curtains of light hang across the top of the sky and ripple.
@@ -81,8 +82,7 @@ export function skyAurora(d: BackdropDraw): void {
   const { ctx, l, time } = d;
   const height = l.bandTop;
   if (height <= 0 || l.width <= 0) return;
-  paintSpace(d);
-  drawStars(d, starSheet(l.width, height, 190, 61_000));
+  drawDeepSky(d, { seed: 61_000, far: 190 });
 
   lighter(ctx, () => {
     for (const c of CURTAINS) {

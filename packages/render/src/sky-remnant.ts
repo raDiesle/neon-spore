@@ -1,7 +1,8 @@
 import { hash01, withAlpha } from "./backdrop.js";
 import type { BackdropDraw } from "./backdrop-look.js";
 import { mixHex } from "./hex.js";
-import { actTint, baked, drawStars, lighter, paintSpace, skyGlow, starSheet } from "./sky-kit.js";
+import { drawDeepSky } from "./sky-depth.js";
+import { actTint, baked, lighter, skyGlow } from "./sky-kit.js";
 
 /**
  * REMNANT — the shell of a star that blew up, filling the sky.
@@ -56,8 +57,7 @@ export function skyRemnant(d: BackdropDraw): void {
   const { ctx, l, time } = d;
   const height = l.bandTop;
   if (height <= 0 || l.width <= 0) return;
-  paintSpace(d);
-  drawStars(d, starSheet(l.width, height, 170, 210_000));
+  drawDeepSky(d, { seed: 210_000, far: 170 });
   const tint = actTint(d, 0.4);
   const cx = l.width * AT.x;
   const cy = height * AT.y;

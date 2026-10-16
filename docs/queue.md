@@ -376,3 +376,17 @@ THE CLUTCH; THE CAGE, THE ANCHOR, THE PENDULUM) stand outside its steps, as a
 lesson's already do, then write; **leave it** — the tool works, the list
 stays as shipped, and `waves:order` keeps saying the list changes. Done when
 `bun run waves:order` prints `nothing changes`.
+
+## bun run imports cannot read an import list it should be pruning
+
+- **Found:** 2026-10-16, claude/background-versus-candidates-e2bfdb
+- **Files:** `tools/imports/run.ts`, `packages/render/src/sky-aurora.ts`, `packages/render/src/sky-moons.ts`
+
+With `drawStars`, `paintSpace` and `starSheet` unused in eleven sky files after
+the deep sky went in, `bun run imports` reported
+``expected `,` but instead found `"./sky-kit.js"` `` and ``expected `as` but
+instead found `;` `` at line 5 of `sky-aurora.ts` and `sky-moons.ts`, both a
+plain `import { a, b, c } from "./sky-kit.js";`, and pruned none of the
+eleven. The specifiers were taken out by a scratch script instead. Reproduce by
+re-adding an unused name to one of those lists, find which parse step reads
+the statement wrongly, and add the case to the script's test.

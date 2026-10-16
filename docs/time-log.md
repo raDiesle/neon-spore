@@ -43436,3 +43436,16 @@ Bottleneck: the maw's three readings were nine lines, not enough for "well
 under 220"; THE BLISTER, the largest family, went out with them.
 
 *Measured: 5 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-16 — Every sky gets depth and motion; COMET's head goes past the top edge
+
+- reading: 10 min. The twelve skies, the kit, the budget files.
+- writing: 25 min. `sky-depth.ts`, COMET rewritten, eleven skies moved onto it.
+- looking: 10 min. Two shots of the SKIES room; the haze too faint the first time.
+- friction: 25 min. Thirty-five budget rows moved by hand, then thrown away
+  when the budgets went under one sky in another lane; `bun run imports`
+  failed to parse; a `bun test tools` hung for twenty minutes.
+- landing: 5 min. `check:fast`, `land`.
+
+Bottleneck: the budget rows — a layer under every sky moved every row in
+seven files, and the lane that fixed that landed while this one was landing.

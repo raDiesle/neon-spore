@@ -1,7 +1,8 @@
 import { hash01, withAlpha } from "./backdrop.js";
 import type { BackdropDraw } from "./backdrop-look.js";
 import { mixHex } from "./hex.js";
-import { actTint, baked, lighter, paintSpace } from "./sky-kit.js";
+import { drawDeepSky } from "./sky-depth.js";
+import { actTint, baked, lighter } from "./sky-kit.js";
 
 /**
  * MILKY — the galaxy's own band crosses the sky corner to corner.
@@ -85,7 +86,7 @@ export function skyMilky(d: BackdropDraw): void {
   const { ctx, l, time } = d;
   const height = l.bandTop;
   if (height <= 0 || l.width <= 0) return;
-  paintSpace(d);
+  drawDeepSky(d, { seed: 90_500, far: 120 });
   const tint = actTint(d, 0.4);
   ctx.globalAlpha = 0.9;
   ctx.drawImage(bandSheet(tint, l.width, height), 0, 0, l.width, height);

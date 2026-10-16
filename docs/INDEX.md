@@ -2924,6 +2924,7 @@ by hand never moves.
 | `packages/render/src/sky-moons.ts` | MOONS — three moons over the field, one of them huge |
 | `packages/render/src/sky-pillars.ts` | PILLARS — towers of dark dust stand up out of the bottom of the sky, lit from behind |
 | `packages/render/src/sky-remnant.ts` | REMNANT — the shell of a star that blew up, filling the sky |
+| `packages/render/src/sky-depth.ts` | The deep sky behind every sky's one big thing: three depths, each moving at its own pace |
 | `packages/render/src/unseen.ts` | **A frame with the bodies neither screen may draw taken out of it** — once, for every pass under it |
 | `packages/render/src/undertow-draw.ts` | THE UNDERTOW, on the ship: the plate bowing, its seams lit |
 | `packages/render/src/undertow-drift.ts` | **THE UNDERTOW leans where it comes up through the plating** |

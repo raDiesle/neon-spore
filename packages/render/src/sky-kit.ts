@@ -102,13 +102,6 @@ export function starSheet(
   });
 }
 
-/** A field of stars blitted over the whole sky above the band. */
-export function drawStars(d: BackdropDraw, sheet: HTMLCanvasElement, a = 1): void {
-  d.ctx.globalAlpha = a;
-  d.ctx.drawImage(sheet, 0, 0, d.l.width, d.l.bandTop);
-  d.ctx.globalAlpha = 1;
-}
-
 /** A soft round glow of one colour, baked. Bake it at a size that does not
  * move and scale it at the blit, or every frame is a new key. */
 export function skyGlow(colour: string, size: number, stops = [0, 0.35, 1]): HTMLCanvasElement {

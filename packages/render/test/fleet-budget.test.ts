@@ -152,6 +152,10 @@ type Budget = Partial<
 // frame the field is drawn, and two more layout gradients on a cold frame.
 // Remeasured, not padded.
 // Remeasured 16 October 2026 under the one sky every budget run is drawn under (`BUDGET_SKY`), so the wave's place in the list no longer moves a row.
+// From 16 October 2026 every sky stands on a deep sky (`sky-depth.ts`), CELLS
+// too: far stars, a drifting haze and near stars, the last two blitted twice
+// so they wrap, and ten twinkles of one baked cross — fifteen more
+// `drawImage` in every row. Remeasured, not padded.
 const BUDGETS: Readonly<Record<"p1" | "p2", Readonly<Record<"mid" | "hit", Budget>>>> = {
   p1: {
     // From 14 October 2026 every hull glances (`fleet-glance.ts`): on p1, where
@@ -174,7 +178,7 @@ const BUDGETS: Readonly<Record<"p1" | "p2", Readonly<Record<"mid" | "hit", Budge
       fill: 62,
       clip: 22,
       save: 63,
-      drawImage: 38,
+      drawImage: 53,
       // Five of these are the hulls' own: one ramp across the beam a vessel,
       // which is what the flat fill under an outline used to cost.
       createLinearGradient: 22,
@@ -193,7 +197,7 @@ const BUDGETS: Readonly<Record<"p1" | "p2", Readonly<Record<"mid" | "hit", Budge
       save: 72,
       // Three more: the flash and the fireball are `halo` blits, and the halo
       // the shell was carrying is gone.
-      drawImage: 42,
+      drawImage: 57,
       // One fewer: the shell's exhaust gradient goes with the shell.
       createLinearGradient: 21,
       // The fireball, and the halo under the ring (the table's preamble).
@@ -218,7 +222,7 @@ const BUDGETS: Readonly<Record<"p1" | "p2", Readonly<Record<"mid" | "hit", Budge
       fill: 82,
       clip: 8,
       save: 57,
-      drawImage: 20,
+      drawImage: 35,
       createLinearGradient: 18,
       createRadialGradient: 14,
       "new Path2D": 36,
@@ -231,7 +235,7 @@ const BUDGETS: Readonly<Record<"p1" | "p2", Readonly<Record<"mid" | "hit", Budge
       fill: 80,
       clip: 8,
       save: 65,
-      drawImage: 23,
+      drawImage: 38,
       createLinearGradient: 17,
       createRadialGradient: 15,
       "new Path2D": 36,

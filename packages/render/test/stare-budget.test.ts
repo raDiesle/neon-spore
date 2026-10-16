@@ -66,13 +66,17 @@ type Budget = Record<
 >;
 
 // Remeasured 16 October 2026 under the one sky every budget run is drawn under (`BUDGET_SKY`), so the wave's place in the list no longer moves a row.
+// From 16 October 2026 every sky stands on a deep sky (`sky-depth.ts`), CELLS
+// too: far stars, a drifting haze and near stars, the last two blitted twice
+// so they wrap, and ten twinkles of one baked cross — fifteen more
+// `drawImage` in every row. Remeasured, not padded.
 const BUDGETS: Record<string, { open: boolean; budget: Budget }> = {
   shut: {
     open: false,
     budget: {
       fill: 56,
       stroke: 133,
-      drawImage: 32,
+      drawImage: 47,
       createLinearGradient: 12,
       createRadialGradient: 7,
     },
@@ -82,7 +86,7 @@ const BUDGETS: Record<string, { open: boolean; budget: Budget }> = {
     budget: {
       fill: 57,
       stroke: 136,
-      drawImage: 32,
+      drawImage: 47,
       createLinearGradient: 13,
       createRadialGradient: 7,
     },

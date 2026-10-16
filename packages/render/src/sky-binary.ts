@@ -1,7 +1,8 @@
 import { withAlpha } from "./backdrop.js";
 import type { BackdropDraw } from "./backdrop-look.js";
 import { mixHex } from "./hex.js";
-import { actTint, baked, drawStars, lighter, paintSpace, skyGlow, starSheet } from "./sky-kit.js";
+import { drawDeepSky } from "./sky-depth.js";
+import { actTint, baked, lighter, skyGlow } from "./sky-kit.js";
 
 /**
  * BINARY — two suns turning round each other, one eating the other.
@@ -41,8 +42,7 @@ export function skyBinary(d: BackdropDraw): void {
   const { ctx, l, time } = d;
   const height = l.bandTop;
   if (height <= 0 || l.width <= 0) return;
-  paintSpace(d);
-  drawStars(d, starSheet(l.width, height, 180, 180_000));
+  drawDeepSky(d, { seed: 180_000, far: 180 });
   const tint = actTint(d, 0.35);
   const warm = mixHex(tint, "#FFC890", 0.65);
 

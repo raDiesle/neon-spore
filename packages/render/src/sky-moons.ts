@@ -1,7 +1,8 @@
 import { hash01, withAlpha } from "./backdrop.js";
 import type { BackdropDraw } from "./backdrop-look.js";
 import { mixHex } from "./hex.js";
-import { actTint, baked, drawStars, paintSpace, starSheet } from "./sky-kit.js";
+import { drawDeepSky } from "./sky-depth.js";
+import { actTint, baked } from "./sky-kit.js";
 
 /**
  * MOONS — three moons over the field, one of them huge.
@@ -77,8 +78,7 @@ export function skyMoons(d: BackdropDraw): void {
   const { ctx, l, time } = d;
   const height = l.bandTop;
   if (height <= 0 || l.width <= 0) return;
-  paintSpace(d);
-  drawStars(d, starSheet(l.width, height, 170, 163_000));
+  drawDeepSky(d, { seed: 163_000, far: 170 });
   const tint = actTint(d, 0.3);
   for (const [i, m] of MOONS.entries()) {
     const r = l.width * m.r;
