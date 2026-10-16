@@ -116,14 +116,17 @@ const MEASURE = false;
 // `fill` by nine: the spine's cord, its stations as one path and its node, and
 // each organ's bed, are held between frames the way the trough's channel was
 // (`gland-fluid.ts`, `gland-organ.ts`). Remeasured, not padded.
+// **16 October 2026, three pod waves** (THE CAGE, THE ANCHOR, THE PENDULUM)
+// went in ahead of this wave, which moved it three places, and the sky is drawn
+// off the wave number: `clip` up two in all four rows.
 const BUDGETS: Readonly<Record<"p1" | "p2", readonly Budget[]>> = {
   p1: [
-    { fillRect: 55, stroke: 98, fill: 99, clip: 11, save: 68, "new Path2D": 57, fillText: 2 },
-    { fillRect: 55, stroke: 100, fill: 96, clip: 11, save: 65, "new Path2D": 28, fillText: 2 },
+    { fillRect: 55, stroke: 98, fill: 99, clip: 13, save: 68, "new Path2D": 57, fillText: 2 },
+    { fillRect: 55, stroke: 100, fill: 96, clip: 13, save: 65, "new Path2D": 28, fillText: 2 },
   ],
   p2: [
-    { fillRect: 55, stroke: 102, fill: 107, clip: 11, save: 70, "new Path2D": 55, fillText: 2 },
-    { fillRect: 55, stroke: 104, fill: 104, clip: 11, save: 67, "new Path2D": 28, fillText: 2 },
+    { fillRect: 55, stroke: 102, fill: 107, clip: 13, save: 70, "new Path2D": 55, fillText: 2 },
+    { fillRect: 55, stroke: 104, fill: 104, clip: 13, save: 67, "new Path2D": 28, fillText: 2 },
   ],
 };
 

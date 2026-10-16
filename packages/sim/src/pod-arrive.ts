@@ -8,6 +8,7 @@ import {
   mawOpen,
   takeCargo,
 } from "./pod-intake.js";
+import { gripHeavy } from "./pod-options.js";
 import { swindleHuskRefused, swindlePodTaken } from "./swindle-step.js";
 import type { Pod } from "./types.js";
 import { MILLI, type World } from "./world.js";
@@ -31,8 +32,11 @@ import { MILLI, type World } from "./world.js";
  * wave is lost (`wave-fail.ts`). It used to be simply gone — a missed gift
  * and not a punishment — until taking every pod in became part of passing
  * the wave.
+ *
+ * True when the pod is still on the field after it: a heavy one the press has
+ * only gripped.
  */
-export function podArrived(world: World, pod: Pod): void {
+export function podArrived(world: World, pod: Pod): boolean {
   const col = Math.round(pod.colMilli / MILLI);
   const inColumn = inMawReach(world, col);
   const inTime = mawOpen(world);
@@ -48,10 +52,13 @@ export function podArrived(world: World, pod: Pod): void {
       // And if it was one of THE SWINDLE's, she says so (`swindle-step.ts`).
       swindleHuskRefused(world, pod);
     }
-    return;
+    return false;
   }
 
   if (inColumn && inTime) {
+    // A heavy pod is only gripped by this press, and stays in the mouth for
+    // the second (`pod-options.ts`).
+    if (gripHeavy(world, pod)) return true;
     takeCargo(world, col);
     // And if it was THE BATON's bead, the arm is beaten. A no-op for every
     // pod a wave hung (`baton-press.ts`).
@@ -60,9 +67,10 @@ export function podArrived(world: World, pod: Pod): void {
     matronPodTaken(world, pod.id);
     // And if it was one of THE SWINDLE's, she is down one (`swindle-step.ts`).
     swindlePodTaken(world, pod);
-    return;
+    return false;
   }
   podLost(world, pod);
+  return false;
 }
 
 /** A pod the pair did not take, at the hull or off the side: the wave is lost

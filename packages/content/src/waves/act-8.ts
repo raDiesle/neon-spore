@@ -1,7 +1,7 @@
 import type { Wave } from "../wave-types.js";
 
 /**
- * Waves 91 to 100 of the game, in the order they are played: THE CROSSING's
+ * Waves 94 to 103 of the game, in the order they are played: THE CROSSING's
  * block and the boss THE GAUGE.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act

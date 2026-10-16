@@ -108,6 +108,9 @@ export const INGEST_SILENT = [
   // `burstFor`'s, and its size is read every frame off `gluttonFed`.
   "gluttonFeeds",
   "gluttonShrinks",
+  // A heavy pod gripped: the burst is `burstFor`'s, and the pod held in the
+  // mouth is drawn off `Pod.gripTicks`.
+  "podGripped",
   "caromCrack",
   // THE CRYSTAL's three, for the carom's reason: the shell, the heading and
   // the light under the join are read every frame off the body and the world

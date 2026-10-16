@@ -1,4 +1,5 @@
 import type { PodKind } from "./pod-types.js";
+import type { Color } from "./types.js";
 
 /**
  * Where a pod is left hanging — the one thing a wave authors that is not a
@@ -53,4 +54,24 @@ export interface PodEntry {
    * that tells a pair the maw has a length. Absent is a pod on its own.
    */
   roe?: true;
+  /**
+   * **A coloured pod**: only a shot of this colour frees it, and the other one
+   * bounces off (`pod-options.ts`). The SUCK page, 16 October 2026: the pod
+   * brought back into the conversation every body already has, which is about
+   * colour. Absent is a pod any shot frees.
+   */
+  tint?: Color;
+  /**
+   * **A heavy pod**: it falls straight down with no slide, and the maw takes
+   * it in two presses — the first grips it at the hull, the second, inside
+   * `podGripBeats`, swallows it (`pod-options.ts`). Absent is a pod one press
+   * takes.
+   */
+  heavy?: true;
+  /**
+   * **A pod that swings** on a thread, a column either side of the one it is
+   * authored in, and is let go in the direction it was swinging when the shot
+   * met it — so player 2 chooses where it lands (`pod-options.ts`).
+   */
+  swing?: true;
 }

@@ -31,7 +31,8 @@ type Press = Omit<TimedCommand, "tick">;
 
 const aim = (col: number): Press => ({ player: 1, command: { kind: "cannonCol", col } });
 const intake: Press = { player: 1, command: { kind: "intake" } };
-const fire: Press = { player: 2, command: { kind: "fire", color: "red" } };
+// Any colour frees a pod but a coloured one, which only its own does.
+const fire = (p: Pod): Press => ({ player: 2, command: { kind: "fire", color: p.tint ?? "red" } });
 
 /** Beats over the fall itself a hanging pod's clock is left before it is shot
  * loose ahead of every body: the column to reach, the shot to land, a margin. */
@@ -65,6 +66,8 @@ export function catchPod(w: World): Press[] | null {
   const col = colOf(pod);
   if (w.cannonCol !== col) return [aim(col)];
   if (pod.kind === "husk") return [];
+  // A heavy pod in the grip: the second press, now (`sim/pod-options.ts`).
+  if (pod.gripTicks !== undefined) return [intake];
   const near = hullRow(w.cfg) * MILLI - pod.rowMilli <= w.cfg.podHomeTiles * MILLI;
   return near && !mawOpen(w) ? [intake] : [];
 }
@@ -92,5 +95,5 @@ export function freeDuePod(w: World): Press[] | null {
   if (pod === undefined) return null;
   const col = colOf(pod);
   if (w.cannonCol !== col) return [aim(col)];
-  return w.bullets.length === 0 && w.beam === null ? [fire] : [];
+  return w.bullets.length === 0 && w.beam === null ? [fire(pod)] : [];
 }

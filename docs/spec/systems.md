@@ -309,6 +309,21 @@ apart, so one maw press takes two and the third needs another. THE ROE is the
 wave (16 October 2026); THE CLUTCH, beside it, hangs three real pods and a husk
 at once.
 
+**Three options on a pod** (`sim/pod-options.ts`, 16 October 2026), each
+drawn over the pod rather than instead of it (`render/pod-dress.ts`):
+
+- **Coloured** (`tint`): only a shot of its colour frees it, and the other one
+  bounces off. A cage of six bars in its colour turns round it. THE CAGE.
+- **Heavy** (`heavy`): it falls straight down with no slide, and the maw takes
+  it in two presses. The first grips it at the hull, and the second has
+  `podGripBeats` (2) to come, or the pod slips and the wave is lost. It wears
+  a double rim and two iron bands, and in the grip it is squashed into the
+  mouth under the clock's own ring. THE ANCHOR.
+- **Swinging** (`swing`): it crosses a column either side of where it hangs,
+  at `podSwingTilesPerBeat` (half a tile a beat), on a thread to a knot above
+  it. The shot lets it go the way it was swinging, so player 2 chooses where
+  it lands. THE PENDULUM.
+
 **Missing it is a hit.** A pod that arrives with the cannon elsewhere, or with
 the maw shut, breaks on the skin — no scar, but the wave is lost and played
 again, exactly as a body reaching the hull loses it (`wave-fail.ts`). The

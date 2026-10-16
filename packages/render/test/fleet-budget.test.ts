@@ -151,6 +151,9 @@ type Budget = Partial<
 // (`cannon-column.ts`): one more `fillRect` and one more `fill` on every
 // frame the field is drawn, and two more layout gradients on a cold frame.
 // Remeasured, not padded.
+// **16 October 2026, three pod waves** (THE CAGE, THE ANCHOR, THE PENDULUM)
+// went in ahead of this wave, which moved it three places, and the sky is drawn
+// off the wave number: `fill` up one in all four rows.
 const BUDGETS: Readonly<Record<"p1" | "p2", Readonly<Record<"mid" | "hit", Budget>>>> = {
   p1: {
     // From 14 October 2026 every hull glances (`fleet-glance.ts`): on p1, where
@@ -170,7 +173,7 @@ const BUDGETS: Readonly<Record<"p1" | "p2", Readonly<Record<"mid" | "hit", Budge
       // One more than before 2 October 2026: an asked mark's light is a
       // colour pass and a glow pass inside it (`part-light.ts`), where the old
       // halo was one red cloud over everything round it. Both rows carry it.
-      fill: 62,
+      fill: 63,
       clip: 22,
       save: 64,
       drawImage: 41,
@@ -185,7 +188,7 @@ const BUDGETS: Readonly<Record<"p1" | "p2", Readonly<Record<"mid" | "hit", Budge
       fillRect: 87,
       // Two more than mid: the shockwave ring and the fireball's own contour.
       stroke: 89,
-      fill: 61,
+      fill: 62,
       clip: 22,
       // Nine more: the burst opens one per shard it turns, and the shards are
       // the only thing in this picture drawn in a frame of its own.
@@ -214,7 +217,7 @@ const BUDGETS: Readonly<Record<"p1" | "p2", Readonly<Record<"mid" | "hit", Budge
       // drop's rows rose with it — twelve strokes, eleven fills, one clip,
       // five saves, two radial gradients, fourteen paths.
       stroke: 96,
-      fill: 82,
+      fill: 83,
       clip: 8,
       save: 58,
       drawImage: 23,
@@ -227,7 +230,7 @@ const BUDGETS: Readonly<Record<"p1" | "p2", Readonly<Record<"mid" | "hit", Budge
       fillRect: 89,
       // The hold's drop, as at mid.
       stroke: 97,
-      fill: 80,
+      fill: 81,
       clip: 8,
       save: 66,
       drawImage: 26,

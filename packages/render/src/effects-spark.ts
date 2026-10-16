@@ -116,16 +116,16 @@ export function burstFor(e: SimEvent, l: Layout, cfg: SimConfig, skinY?: Surface
       return wornBurst(e, l, cfg, skinY);
 
     // A layer off THE RIND, a bead off THE STRAND, a meal off THE GLUTTON: the
-    // body's colour, for a shot that landed, at half a `destroy`'s particles,
-    // for a body still there. What each becomes is read off the body.
+    // body's colour at half a `destroy`'s particles, for a body still there.
     case "rindShed":
     case "strandBead":
     case "gluttonShrinks":
       return at(l, e.col, e.row, 10, e.color === "red" ? PALETTE.red : PALETTE.cyan);
-    // A morsel gone limp, a seeder's pod hung, a glutton's meal: pod amber.
+    // A morsel limp, a seeder's pod hung, a glutton's meal, a heavy pod gripped: amber.
     case "morselLimp":
     case "seederSeeds":
     case "gluttonFeeds":
+    case "podGripped":
       return at(l, e.col, e.row, 10, PALETTE.pod);
 
     // A recoil bouncing, and the one hit in this table whose burst is **not**

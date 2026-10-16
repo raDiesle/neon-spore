@@ -7,6 +7,7 @@ import { coreAlong } from "./core-along.js";
 import { ledgerBills } from "./ledger-shot.js";
 import { steerShot } from "./lock.js";
 import { bulletMilli, creatureMilli } from "./mid-beat.js";
+import { podRefusesShot } from "./pod-options.js";
 import { firstPodAlong, freePod } from "./pods.js";
 import { chargeDue, chargePartTicks, endCharge, laying, layShot } from "./shot-charge.js";
 import { shotLeaves } from "./shot-out.js";
@@ -177,7 +178,8 @@ function sweep(world: World, b: Bullet): boolean {
       return false;
     }
     if (pod && (!hit || pod.rowMilli > creatureMilli(world, hit))) {
-      if (!swindleHoodStops(world, pod)) freePod(world, pod);
+      if (!swindleHoodStops(world, pod) && !podRefusesShot(world, pod, b.color))
+        freePod(world, pod);
       return false;
     }
     if (!hit) break;

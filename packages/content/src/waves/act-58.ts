@@ -1,7 +1,7 @@
 import type { Wave } from "../wave-types.js";
 
 /**
- * Waves 584 to 592 of the game, in the order they are played: THE GYRE's review
+ * Waves 587 to 595 of the game, in the order they are played: THE GYRE's review
  * and the boss THE HYDRA.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act

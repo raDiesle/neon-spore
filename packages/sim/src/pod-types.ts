@@ -12,6 +12,8 @@
  * shape, and the shape must not import a world).
  */
 
+import type { Color } from "./types.js";
+
 /**
  * **What a pod is: real or hollow.** The owner, 16 October 2026: there are two
  * pods and only two, and they are two brushes rather than one brush and a
@@ -103,4 +105,23 @@ export interface Pod {
   /** Strung with the other roe pods in its column (`PodEntry.roe`). Absent on
    * a pod on its own, which is every pod a boss or a body hangs. */
   roe?: true;
+  /** The one colour of shot that frees it (`PodEntry.tint`); the other bounces
+   * off. Absent on a pod any shot frees. */
+  tint?: Color;
+  /** Falls straight and takes two presses (`PodEntry.heavy`). */
+  heavy?: true;
+  /**
+   * **Ticks left in the maw's grip**, on a heavy pod the first press has
+   * caught at the hull: it sits in the mouth until a second press takes it, or
+   * until this reaches nought and it is lost (`pod-options.ts`). Ticks *left*
+   * for `dueTicks`' reason. Absent on every pod not in the maw.
+   */
+  gripTicks?: number;
+  /**
+   * Where it swings from, in thousandths of a column, on a pod hung on a
+   * thread (`PodEntry.swing`): it crosses one column either side of this while
+   * it hangs, at `crossMilli`, turning at each end, and is let go in the way it
+   * was swinging. Absent on a pod that hangs still.
+   */
+  swingMilli?: number;
 }

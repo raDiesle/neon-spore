@@ -84,5 +84,8 @@ export function serializePod(pod: PodEntry): string {
   if (pod.cross !== undefined) parts.push(`cross: ${pod.cross}`);
   if (pod.speed !== undefined) parts.push(`speed: ${pod.speed}`);
   if (pod.roe) parts.push("roe: true");
+  if (pod.tint !== undefined) parts.push(`tint: "${pod.tint}"`);
+  if (pod.heavy) parts.push("heavy: true");
+  if (pod.swing) parts.push("swing: true");
   return `{ ${parts.join(", ")} }`;
 }

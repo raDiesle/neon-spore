@@ -1,7 +1,7 @@
 import type { Wave } from "../wave-types.js";
 
 /**
- * Waves 253 to 262 of the game, in the order they are played: THE CHOIR's block
+ * Waves 256 to 265 of the game, in the order they are played: THE CHOIR's block
  * and the boss THE SINEW.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act

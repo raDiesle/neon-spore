@@ -65,11 +65,14 @@ type Budget = Record<
   number
 >;
 
+// **16 October 2026, three pod waves** (THE CAGE, THE ANCHOR, THE PENDULUM)
+// went in ahead of this wave, which moved it three places, and the sky is drawn
+// off the wave number: `fill` up one in both rows.
 const BUDGETS: Record<string, { open: boolean; budget: Budget }> = {
   shut: {
     open: false,
     budget: {
-      fill: 56,
+      fill: 57,
       stroke: 133,
       drawImage: 35,
       createLinearGradient: 13,
@@ -79,7 +82,7 @@ const BUDGETS: Record<string, { open: boolean; budget: Budget }> = {
   open: {
     open: true,
     budget: {
-      fill: 57,
+      fill: 58,
       stroke: 136,
       drawImage: 35,
       createLinearGradient: 14,

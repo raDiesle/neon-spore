@@ -13,6 +13,7 @@ import { endPrime, primeChargeMilli, priming, spillPrime, startPrime } from "./l
 import { mazeHeard } from "./maze-controls.js";
 import { mineTapped } from "./mine.js";
 import { mirrorHeard } from "./mirror.js";
+import { heavyPressed } from "./pod-options.js";
 import { reachHeard, reachOut } from "./reach.js";
 import { sceneGuard, sceneSuck } from "./scene-panel.js";
 import { fireStep } from "./simon.js";
@@ -112,6 +113,8 @@ export function applyCommand(world: World, timed: TimedCommand): void {
       break;
     case "intake":
       world.intakeTick = world.tick;
+      // A heavy pod the last press gripped is taken by this one (`pod-options.ts`).
+      heavyPressed(world);
       mirrorHeard(world, "intake", "panel");
       // And THE SPLICE, whose whole fight is this one press: the entrance
       // under the cannon, if there is one, and the number at the far end of

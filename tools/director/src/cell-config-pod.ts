@@ -1,4 +1,5 @@
 import type { PodEntry, SimConfig } from "@neon-spore/sim";
+import { podOptionRows } from "./cell-config-pod-options.js";
 import { crossLabel } from "./cell-config-rows.js";
 
 /**
@@ -46,6 +47,7 @@ export function podConfig({ pod, cfg, onEdit, labelled }: PodConfigOptions): HTM
     rowRow(pod, cfg, onEdit, labelled),
     dueRow(pod, cfg, onEdit, labelled),
     stringRow(pod, onEdit, labelled),
+    ...podOptionRows(pod, onEdit, labelled, chip),
     crossRow(pod, onEdit, labelled),
   );
   // How fast it crosses says nothing at all about a pod that hangs, so it is
@@ -199,7 +201,7 @@ function speedRow(
   return row;
 }
 
-function chip(text: string, on: boolean, press: () => void): HTMLElement {
+export function chip(text: string, on: boolean, press: () => void): HTMLElement {
   const button = document.createElement("button");
   button.type = "button";
   button.className = on ? "chip on" : "chip";

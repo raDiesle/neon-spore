@@ -1,7 +1,7 @@
 import type { Wave } from "../wave-types.js";
 
 /**
- * Waves 494 to 502 of the game, in the order they are played: THE CAROM's
+ * Waves 497 to 505 of the game, in the order they are played: THE CAROM's
  * review and the boss THE SLING.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act

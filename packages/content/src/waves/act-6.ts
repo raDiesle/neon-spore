@@ -2,7 +2,7 @@ import { MAZE_ROUNDS } from "../maze-rounds.js";
 import type { Wave } from "../wave-types.js";
 
 /**
- * Waves 71 to 80 of the game, in the order they are played: THE LANCE's block
+ * Waves 71 to 83 of the game, in the order they are played: THE LANCE's block
  * and the boss THE MAZE.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act
@@ -157,6 +157,48 @@ export const WAVES_ACT_6: Wave[] = [
       { beat: 24, col: 0, row: 3, kind: "pod" },
       { beat: 32, col: 3, row: 4, kind: "pod" },
       { beat: 36, col: 2, row: 3, kind: "pod" },
+    ],
+  },
+  {
+    id: "theCage",
+    name: "THE CAGE",
+    variant: true,
+    entries: [
+      { beat: 0, col: 8, color: "red" },
+      { beat: 10, col: 2, color: "cyan" },
+      { beat: 22, col: 6, color: "red" },
+    ],
+    pods: [
+      { beat: 2, col: 3, row: 3, kind: "pod", due: 24, tint: "cyan" },
+      { beat: 14, col: 7, row: 4, kind: "pod", due: 24, tint: "red" },
+    ],
+  },
+  {
+    id: "theAnchor",
+    name: "THE ANCHOR",
+    variant: true,
+    entries: [
+      { beat: 0, col: 2, color: "cyan" },
+      { beat: 12, col: 8, color: "red" },
+      { beat: 24, col: 4, color: "cyan" },
+    ],
+    pods: [
+      { beat: 2, col: 5, row: 3, kind: "pod", due: 24, heavy: true },
+      { beat: 18, col: 8, row: 4, kind: "pod", due: 24, heavy: true },
+    ],
+  },
+  {
+    id: "thePendulum",
+    name: "THE PENDULUM",
+    variant: true,
+    entries: [
+      { beat: 0, col: 5, color: "red" },
+      { beat: 12, col: 1, color: "cyan" },
+      { beat: 24, col: 9, color: "red" },
+    ],
+    pods: [
+      { beat: 2, col: 3, row: 3, kind: "pod", due: 24, swing: true },
+      { beat: 16, col: 7, row: 3, kind: "pod", due: 24, swing: true },
     ],
   },
   {

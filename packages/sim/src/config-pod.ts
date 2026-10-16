@@ -74,6 +74,17 @@ export interface PodConfig {
    * pair can see and call (`glutton.ts`).
    */
   gluttonFallBeats: number;
+  /**
+   * Beats a heavy pod waits in the maw's grip for the second press, after the
+   * first has caught it at the hull; at nought it slips and the wave is lost
+   * (`PodEntry.heavy`, `pod-options.ts`).
+   */
+  podGripBeats: number;
+  /**
+   * How fast a swinging pod crosses its three columns while it hangs, in
+   * tiles per beat (`PodEntry.swing`).
+   */
+  podSwingTilesPerBeat: number;
 }
 
 /** The defaults, spread into `DEFAULT_CONFIG`. */
@@ -97,4 +108,10 @@ export const POD_DEFAULTS: PodConfig = {
   // Half speed, THE ECHO's: a row every two beats is a body two rows off a pod
   // for four beats, about two and a half seconds — one call and one shot.
   gluttonFallBeats: 2,
+  // Two beats, a second and a quarter at 96 BPM: "got it — again!" said and
+  // pressed, with the maw's own window still shut from the first press.
+  podGripBeats: 2,
+  // Half a tile a beat: one end to the other in four beats, so a turn comes
+  // round about every two and a half seconds — long enough to call "now".
+  podSwingTilesPerBeat: 0.5,
 };

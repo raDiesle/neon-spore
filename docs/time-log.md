@@ -43230,3 +43230,18 @@ Bottleneck: the block rules a hand-made wave has to satisfy are spread over
 three tests, and only running them says which.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-16 — Coloured, heavy and swinging pods
+
+- reading: 10 min. How a shot meets a pod, where a press is heard, and how
+  AUTO catches one.
+- writing: 30 min. Three options in `pod-options.ts`, the grip and the
+  second press, the cage, bands and thread, three director rows, three waves
+  and their tests.
+- looking: 5 min. One frame of the three together.
+- friction: 10 min. Four op-count tables moved because the sky follows the
+  wave number, and each keeps its rows in its own shape.
+- landing: 10 min. Recut, renumbered, `check:fast`, `land`.
+
+Bottleneck: a wave added early in the game moves the op-count rows of every
+budgeted wave after it, and each budget file has to be remeasured by hand.

@@ -586,6 +586,7 @@ by hand never moves.
 | `packages/sim/src/pod-entry.ts` | Where a pod is left hanging — the one thing a wave authors that is not a body |
 | `packages/sim/src/pod-intake.ts` | **The mouth**: whether it is open, and what happens to a cargo that reaches it either way |
 | `packages/sim/src/pod-arrive.ts` | **A pod arriving**: what happens on the tick a falling pod reaches the hull |
+| `packages/sim/src/pod-options.ts` | **Three ways a pod can be harder to take**, from the owner's SUCK page of 16 October 2026 |
 | `packages/sim/src/reach.ts` | THE CLAW's arm: the cannon's column, reached up instead of fired along |
 | `packages/sim/src/index-creatures.ts` | one creature's own rules, as the rest of the repository reads them |
 | `packages/sim/src/index-run.ts` | the world, the clock, a wave's start and end, and the fingerprint |
@@ -927,41 +928,41 @@ by hand never moves.
 | `packages/content/src/waves-demo.ts` | which wave to open to see each mechanic, and what the run has to be switched to before it shows |
 | `packages/content/src/waves-demo-bosses.ts` | where each boss from THE STARE on is watched, spread into `waves-demo.ts` |
 | `packages/content/src/waves/act-1.ts` | act one: the tutorial arc |
-| `packages/content/src/waves/act-20.ts` | Waves 211 to 220 of the game, in the order they are played: THE STRAND's block and the boss THE THROAT |
-| `packages/content/src/waves/act-21.ts` | Waves 221 to 230 of the game, in the order they are played: THE CLAW's block and the boss THE GORGE |
-| `packages/content/src/waves/act-22.ts` | Waves 231 to 242 of the game, in the order they are played: THE FENCE's block and the boss THE CURTAIN |
-| `packages/content/src/waves/act-23.ts` | Waves 243 to 252 of the game, in the order they are played: THE MAGNET's block and the boss THE TASTER |
-| `packages/content/src/waves/act-24.ts` | Waves 253 to 262 of the game, in the order they are played: THE CHOIR's block and the boss THE SINEW |
-| `packages/content/src/waves/act-25.ts` | Waves 263 to 272 of the game, in the order they are played: THE DARK's block and the boss THE LEDGER |
-| `packages/content/src/waves/act-26.ts` | Waves 273 to 282 of the game, in the order they are played: THE BALLOON's block and the boss THE SURGE |
-| `packages/content/src/waves/act-27.ts` | Waves 283 to 292 of the game, in the order they are played: THE MOULT's block and the boss THE LEAD |
-| `packages/content/src/waves/act-28.ts` | Waves 293 to 302 of the game, in the order they are played: THE COIL's block and the boss THE SCUTTLE |
-| `packages/content/src/waves/act-29.ts` | Waves 303 to 312 of the game, in the order they are played: THE CODEX's block and the boss THE ANTIPHON |
+| `packages/content/src/waves/act-20.ts` | Waves 214 to 223 of the game, in the order they are played: THE STRAND's block and the boss THE THROAT |
+| `packages/content/src/waves/act-21.ts` | Waves 224 to 233 of the game, in the order they are played: THE CLAW's block and the boss THE GORGE |
+| `packages/content/src/waves/act-22.ts` | Waves 234 to 245 of the game, in the order they are played: THE FENCE's block and the boss THE CURTAIN |
+| `packages/content/src/waves/act-23.ts` | Waves 246 to 255 of the game, in the order they are played: THE MAGNET's block and the boss THE TASTER |
+| `packages/content/src/waves/act-24.ts` | Waves 256 to 265 of the game, in the order they are played: THE CHOIR's block and the boss THE SINEW |
+| `packages/content/src/waves/act-25.ts` | Waves 266 to 275 of the game, in the order they are played: THE DARK's block and the boss THE LEDGER |
+| `packages/content/src/waves/act-26.ts` | Waves 276 to 285 of the game, in the order they are played: THE BALLOON's block and the boss THE SURGE |
+| `packages/content/src/waves/act-27.ts` | Waves 286 to 295 of the game, in the order they are played: THE MOULT's block and the boss THE LEAD |
+| `packages/content/src/waves/act-28.ts` | Waves 296 to 305 of the game, in the order they are played: THE COIL's block and the boss THE SCUTTLE |
+| `packages/content/src/waves/act-29.ts` | Waves 306 to 315 of the game, in the order they are played: THE CODEX's block and the boss THE ANTIPHON |
 | `packages/content/src/waves/act-2.ts` | The end of the tutorial arc: CATCH AND AIM, the shield held twice, and FINALE, the arc's last wave |
-| `packages/content/src/waves/act-30.ts` | Waves 313 to 322 of the game, in the order they are played: THE LURE's block and the boss THE HIVE |
-| `packages/content/src/waves/act-31.ts` | Waves 323 to 332 of the game, in the order they are played: THE JAM's block and the boss THE CAIRN |
-| `packages/content/src/waves/act-32.ts` | Waves 333 to 342 of the game, in the order they are played: THE CLASP's block and the boss THE WELL |
-| `packages/content/src/waves/act-33.ts` | Waves 343 to 352 of the game, in the order they are played: THE DART's block and the boss THE REPRISE |
-| `packages/content/src/waves/act-34.ts` | Waves 353 to 362 of the game, in the order they are played: THE ECHO's block and the boss THE SPLICE |
-| `packages/content/src/waves/act-35.ts` | Waves 363 to 372 of the game, in the order they are played: THE GYRE's block and the boss THE FILAMENT |
-| `packages/content/src/waves/act-36.ts` | Waves 373 to 383 of the game, in the order they are played: THE HANDOVER's block and the boss THE GIMBAL |
-| `packages/content/src/waves/act-37.ts` | Waves 384 to 393 of the game, in the order they are played: THE LID's block and the boss THE SPOOL |
-| `packages/content/src/waves/act-38.ts` | Waves 394 to 403 of the game, in the order they are played: THE RECOIL's block and the boss THE HASP |
-| `packages/content/src/waves/act-39.ts` | Waves 404 to 413 of the game, in the order they are played: THE CRYSTAL's block and the boss THE RATCHET |
+| `packages/content/src/waves/act-30.ts` | Waves 316 to 325 of the game, in the order they are played: THE LURE's block and the boss THE HIVE |
+| `packages/content/src/waves/act-31.ts` | Waves 326 to 335 of the game, in the order they are played: THE JAM's block and the boss THE CAIRN |
+| `packages/content/src/waves/act-32.ts` | Waves 336 to 345 of the game, in the order they are played: THE CLASP's block and the boss THE WELL |
+| `packages/content/src/waves/act-33.ts` | Waves 346 to 355 of the game, in the order they are played: THE DART's block and the boss THE REPRISE |
+| `packages/content/src/waves/act-34.ts` | Waves 356 to 365 of the game, in the order they are played: THE ECHO's block and the boss THE SPLICE |
+| `packages/content/src/waves/act-35.ts` | Waves 366 to 375 of the game, in the order they are played: THE GYRE's block and the boss THE FILAMENT |
+| `packages/content/src/waves/act-36.ts` | Waves 376 to 386 of the game, in the order they are played: THE HANDOVER's block and the boss THE GIMBAL |
+| `packages/content/src/waves/act-37.ts` | Waves 387 to 396 of the game, in the order they are played: THE LID's block and the boss THE SPOOL |
+| `packages/content/src/waves/act-38.ts` | Waves 397 to 406 of the game, in the order they are played: THE RECOIL's block and the boss THE HASP |
+| `packages/content/src/waves/act-39.ts` | Waves 407 to 416 of the game, in the order they are played: THE CRYSTAL's block and the boss THE RATCHET |
 | `packages/content/src/waves/act-3.ts` | Waves 39 to 50 of the game, in the order they are played: THE HUSK's block and the boss THE SWINDLE |
 | `packages/content/src/living-look.ts` | which kinds are drawn as a body of their own, and the contour and own-motion of each — one row per kind, so a forgotten one is a build error |
 | `packages/content/src/living-look-handed.ts` | **How the bodies answered by two hands are drawn** |
 | `packages/content/src/living-look-stroked.ts` | a creature is not a blob — the nine kinds a radial contour cannot describe, each `null` with the reason its shape needs a path of its own |
-| `packages/content/src/waves/act-40.ts` | Waves 414 to 423 of the game, in the order they are played: THE VOLLEY's block and the boss THE NETTLE |
-| `packages/content/src/waves/act-41.ts` | Waves 424 to 433 of the game, in the order they are played: THE FLIP's block and the boss THE MANTLE |
-| `packages/content/src/waves/act-42.ts` | Waves 434 to 443 of the game, in the order they are played: THE CRAWLER's block and the boss THE KEEL |
-| `packages/content/src/waves/act-43.ts` | Waves 444 to 453 of the game, in the order they are played: THE MINE's block and the boss THE VALVE |
-| `packages/content/src/waves/act-44.ts` | Waves 454 to 463 of the game, in the order they are played: THE VEIL's block and the boss THE SEAM |
-| `packages/content/src/waves/act-45.ts` | Waves 464 to 473 of the game, in the order they are played: THE WISP's block and the boss THE OCULUS |
-| `packages/content/src/waves/act-46.ts` | Waves 474 to 483 of the game, in the order they are played: THE GHOST's block and the boss THE VISE |
-| `packages/content/src/waves/act-47.ts` | Waves 484 to 493 of the game, in the order they are played: THE CAROM's block and the boss THE PLUMB |
-| `packages/content/src/waves/act-48.ts` | Waves 494 to 502 of the game, in the order they are played: THE CAROM's review and the boss THE SLING |
-| `packages/content/src/waves/act-49.ts` | Waves 503 to 511 of the game, in the order they are played: THE GHOST's review and the boss THE CAPSTAN |
+| `packages/content/src/waves/act-40.ts` | Waves 417 to 426 of the game, in the order they are played: THE VOLLEY's block and the boss THE NETTLE |
+| `packages/content/src/waves/act-41.ts` | Waves 427 to 436 of the game, in the order they are played: THE FLIP's block and the boss THE MANTLE |
+| `packages/content/src/waves/act-42.ts` | Waves 437 to 446 of the game, in the order they are played: THE CRAWLER's block and the boss THE KEEL |
+| `packages/content/src/waves/act-43.ts` | Waves 447 to 456 of the game, in the order they are played: THE MINE's block and the boss THE VALVE |
+| `packages/content/src/waves/act-44.ts` | Waves 457 to 466 of the game, in the order they are played: THE VEIL's block and the boss THE SEAM |
+| `packages/content/src/waves/act-45.ts` | Waves 467 to 476 of the game, in the order they are played: THE WISP's block and the boss THE OCULUS |
+| `packages/content/src/waves/act-46.ts` | Waves 477 to 486 of the game, in the order they are played: THE GHOST's block and the boss THE VISE |
+| `packages/content/src/waves/act-47.ts` | Waves 487 to 496 of the game, in the order they are played: THE CAROM's block and the boss THE PLUMB |
+| `packages/content/src/waves/act-48.ts` | Waves 497 to 505 of the game, in the order they are played: THE CAROM's review and the boss THE SLING |
+| `packages/content/src/waves/act-49.ts` | Waves 506 to 514 of the game, in the order they are played: THE GHOST's review and the boss THE CAPSTAN |
 | `packages/content/src/waves/act-4.ts` | Waves 51 to 60 of the game, in the order they are played: THE MORSEL's block and the boss THE INSTAR |
 | `packages/content/src/ghost-shape.ts` | THE GHOST's contour, which is the third family of them in this package |
 | `packages/content/src/gimbal-script.ts` | THE GIMBAL's six alignments: where each ring's mark sits on the true wheel, how far the marks creep a beat |
@@ -973,16 +974,16 @@ by hand never moves.
 | `packages/content/src/controls-fleet.ts` | **THE FLEET's five**: the salvo under the pilot's thumb |
 | `packages/content/src/controls-pulse.ts` | **THE PULSE's eight**: four lanes, a slick, a bulb, a meteor and a pod |
 | `packages/content/src/pinball-rounds.ts` | PINBALL's boards, one per round, **drawn rather than listed** |
-| `packages/content/src/waves/act-50.ts` | Waves 512 to 520 of the game, in the order they are played: THE WISP's review and the boss THE GALL |
-| `packages/content/src/waves/act-51.ts` | Waves 521 to 529 of the game, in the order they are played: THE VEIL's review and the boss THE TRAPEZE |
-| `packages/content/src/waves/act-52.ts` | Waves 530 to 538 of the game, in the order they are played: THE MINE's review and the boss THE FLUE |
-| `packages/content/src/waves/act-53.ts` | Waves 539 to 547 of the game, in the order they are played: THE CRAWLER's review and the boss THE GOVERNOR |
-| `packages/content/src/waves/act-54.ts` | Waves 548 to 556 of the game, in the order they are played: THE VOLLEY's review and the boss THE LAMPREY |
-| `packages/content/src/waves/act-55.ts` | Waves 557 to 565 of the game, in the order they are played: THE CRYSTAL's review and the boss THE MIMIC |
-| `packages/content/src/waves/act-56.ts` | Waves 566 to 574 of the game, in the order they are played: THE RECOIL's review and the boss THE LATCH |
+| `packages/content/src/waves/act-50.ts` | Waves 515 to 523 of the game, in the order they are played: THE WISP's review and the boss THE GALL |
+| `packages/content/src/waves/act-51.ts` | Waves 524 to 532 of the game, in the order they are played: THE VEIL's review and the boss THE TRAPEZE |
+| `packages/content/src/waves/act-52.ts` | Waves 533 to 541 of the game, in the order they are played: THE MINE's review and the boss THE FLUE |
+| `packages/content/src/waves/act-53.ts` | Waves 542 to 550 of the game, in the order they are played: THE CRAWLER's review and the boss THE GOVERNOR |
+| `packages/content/src/waves/act-54.ts` | Waves 551 to 559 of the game, in the order they are played: THE VOLLEY's review and the boss THE LAMPREY |
+| `packages/content/src/waves/act-55.ts` | Waves 560 to 568 of the game, in the order they are played: THE CRYSTAL's review and the boss THE MIMIC |
+| `packages/content/src/waves/act-56.ts` | Waves 569 to 577 of the game, in the order they are played: THE RECOIL's review and the boss THE LATCH |
 | `packages/content/src/waves/act-5.ts` | Waves 61 to 70 of the game, in the order they are played: THE SEEDER's block and the boss THE MIRROR |
-| `packages/content/src/waves/act-57.ts` | Waves 575 to 583 of the game, in the order they are played: THE LID's review and the boss THE CHRYSALIS |
-| `packages/content/src/waves/act-58.ts` | Waves 584 to 592 of the game, in the order they are played: THE GYRE's review and the boss THE HYDRA |
+| `packages/content/src/waves/act-57.ts` | Waves 578 to 586 of the game, in the order they are played: THE LID's review and the boss THE CHRYSALIS |
+| `packages/content/src/waves/act-58.ts` | Waves 587 to 595 of the game, in the order they are played: THE GYRE's review and the boss THE HYDRA |
 | `packages/content/src/lid-shape.ts` | you are tuning THE LID's outline — two arcs meeting at a corner, the fourth contour family here |
 | `packages/content/src/scenes.ts` | you are authoring or retiming the rehearsal a guide shows — arrivals, tempo and the acts a ghost thumb plays |
 | `packages/content/src/scene-script.ts` | A rehearsal turned into the two things the runner takes: a command track and a whole `SceneScript` |
@@ -1063,22 +1064,22 @@ by hand never moves.
 | `packages/content/src/scenes/the-cairn.ts` | THE CAIRN's rehearsal: the rock you did not pull is the one that lands |
 | `packages/content/src/control-sets-table.ts` | Every panel in the game, as a table |
 | `packages/content/src/scenes/cyan.ts` | CYAN's rehearsal: the second button, and the cost of the first one |
-| `packages/content/src/waves/act-6.ts` | Waves 71 to 80 of the game, in the order they are played: THE LANCE's block and the boss THE MAZE |
+| `packages/content/src/waves/act-6.ts` | Waves 71 to 83 of the game, in the order they are played: THE LANCE's block and the boss THE MAZE |
 | `packages/content/src/scenes/the-volley.ts` | THE VOLLEY's rehearsal: a ward that works is not a body that is gone |
 | `packages/content/src/scenes/catch-and-aim.ts` | CATCH AND AIM's rehearsal: the hand aims, so the cannon does not have to |
 | `packages/content/src/waves/act-1b.ts` | The last of act one, cut off `act-1.ts` when that file reached the 250-line ceiling on `CATCH AND AIM` |
-| `packages/content/src/waves/act-10.ts` | Waves 111 to 120 of the game, in the order they are played: THE LIMPET's block and the boss THE FLEET |
-| `packages/content/src/waves/act-11.ts` | Waves 121 to 130 of the game, in the order they are played: THE WEIGHT's block and the boss THE VANE |
-| `packages/content/src/waves/act-12.ts` | Waves 131 to 140 of the game, in the order they are played: HEAVY ROCKS's block and the boss SNAKE |
-| `packages/content/src/waves/act-13.ts` | Waves 141 to 150 of the game, in the order they are played: THE LEECH's block and the boss PINBALL |
-| `packages/content/src/waves/act-14.ts` | Waves 151 to 160 of the game, in the order they are played: THE THROB's block and the boss THE SCOUT |
+| `packages/content/src/waves/act-10.ts` | Waves 114 to 123 of the game, in the order they are played: THE LIMPET's block and the boss THE FLEET |
+| `packages/content/src/waves/act-11.ts` | Waves 124 to 133 of the game, in the order they are played: THE WEIGHT's block and the boss THE VANE |
+| `packages/content/src/waves/act-12.ts` | Waves 134 to 143 of the game, in the order they are played: HEAVY ROCKS's block and the boss SNAKE |
+| `packages/content/src/waves/act-13.ts` | Waves 144 to 153 of the game, in the order they are played: THE LEECH's block and the boss PINBALL |
+| `packages/content/src/waves/act-14.ts` | Waves 154 to 163 of the game, in the order they are played: THE THROB's block and the boss THE SCOUT |
 | `packages/content/src/waves/act-1-p2.ts` | Act one's second page — the arc's composed regular waves pushed it past the ceiling, and the save cut it (`acts.ts`) |
 | `packages/content/src/waves/act-1-p3.ts` | Act one's third page, cut the same way; plays straight after `act-1-p2.ts` |
-| `packages/content/src/waves/act-15.ts` | Waves 161 to 170 of the game, in the order they are played: THE COUNT's block and the boss THE HAUL |
-| `packages/content/src/waves/act-16.ts` | Waves 171 to 180 of the game, in the order they are played: THE SHELL's block and the boss THE STARE |
-| `packages/content/src/waves/act-17.ts` | Waves 181 to 190 of the game, in the order they are played: THE CHOKE's block and the boss THE PULSE |
-| `packages/content/src/waves/act-18.ts` | Waves 191 to 200 of the game, in the order they are played: THE RIND's block and the boss THE BATON |
-| `packages/content/src/waves/act-19.ts` | Waves 201 to 210 of the game, in the order they are played: THE VEER's block and the boss THE UNDERTOW |
+| `packages/content/src/waves/act-15.ts` | Waves 164 to 173 of the game, in the order they are played: THE COUNT's block and the boss THE HAUL |
+| `packages/content/src/waves/act-16.ts` | Waves 174 to 183 of the game, in the order they are played: THE SHELL's block and the boss THE STARE |
+| `packages/content/src/waves/act-17.ts` | Waves 184 to 193 of the game, in the order they are played: THE CHOKE's block and the boss THE PULSE |
+| `packages/content/src/waves/act-18.ts` | Waves 194 to 203 of the game, in the order they are played: THE RIND's block and the boss THE BATON |
+| `packages/content/src/waves/act-19.ts` | Waves 204 to 213 of the game, in the order they are played: THE VEER's block and the boss THE UNDERTOW |
 | `packages/content/src/maze-drawn.ts` | The four sheets THE MAZE plays after the owner's own, drawn by `bun run maze` and printed here |
 | `packages/content/src/body-path.ts` | one living body's contour — a blob, or the walk that puts clubs on its rim |
 | `packages/content/src/body-path-clubbed.ts` | a creature is not a blob — the walked rim of balls on stalks THE THROB and THE BEATBOX wear, and the four numbers it is sampled at |
@@ -1172,9 +1173,9 @@ by hand never moves.
 | `packages/content/src/silhouettes-mine.ts` | **THE MINE is REACHER**, off the shape sheet: *four soft arms |
 | `packages/content/src/silhouettes-morsel.ts` | **THE MORSEL is DUMPLING: BULB · PEAR and BULB · SPIKE** |
 | `packages/content/src/silhouettes-glutton.ts` | **THE GLUTTON is GULLET: BULB · CLOVER and SLICK · REVERB** |
-| `packages/content/src/waves/act-8.ts` | Waves 91 to 100 of the game, in the order they are played: THE CROSSING's block and the boss THE GAUGE |
-| `packages/content/src/waves/act-7.ts` | Waves 81 to 90 of the game, in the order they are played: THE GLUTTON's block and the boss THE GEODE |
-| `packages/content/src/waves/act-9.ts` | Waves 101 to 110 of the game, in the order they are played: THE BEATBOX's block and the boss THE WARDEN |
+| `packages/content/src/waves/act-8.ts` | Waves 94 to 103 of the game, in the order they are played: THE CROSSING's block and the boss THE GAUGE |
+| `packages/content/src/waves/act-7.ts` | Waves 84 to 93 of the game, in the order they are played: THE GLUTTON's block and the boss THE GEODE |
+| `packages/content/src/waves/act-9.ts` | Waves 104 to 113 of the game, in the order they are played: THE BEATBOX's block and the boss THE WARDEN |
 | `packages/content/src/waves/acts.ts` | **The act files, in the order of the game** — the one list of them, written by the director's save when it cuts a full act |
 | `packages/content/src/balloon-shape.ts` | THE BALLOON's contour: a skin with a knot under it, and the fifth family of contour in this package |
 | `packages/content/src/creatures-handed.ts` | **The bodies answered by hands alone**, and today there is one of them |
@@ -1323,6 +1324,7 @@ by hand never moves.
 | `packages/render/src/maw-reach.ts` | How far the open maw reaches: a faint amber light over every column it would take a pod from |
 | `packages/render/src/pods.ts` | the pod, hanging and as a burning wreck |
 | `packages/render/src/pod-due-ring.ts` | A pod's clock, drawn: the ring round every pod on the field since the owner made a real pod owed in time… |
+| `packages/render/src/pod-dress.ts` | **What a pod's options look like** (`sim/pod-options.ts`) |
 | `packages/render/src/pod-look.ts` | How a real pod hangs — the record VERSUS can offer a second answer through |
 | `packages/render/src/creatures.ts` | silhouettes and their own-motion |
 | `packages/render/src/creature-place.ts` | where a creature is on screen, and what a finger is pointing at |
@@ -3925,6 +3927,7 @@ by hand never moves.
 | `tools/director/src/reprise-editor.ts` | THE REPRISE's panel, which is one number |
 | `tools/director/src/remembered.ts` | The wave filter, its pressed marks and the sounds status, kept in localStorage across a reload |
 | `tools/director/src/cell-config-pod.ts` | The rows under the selected cell that configure the **pod** in it: the row it hangs at |
+| `tools/director/src/cell-config-pod-options.ts` | The three rows that make a pod harder to take (`sim/pod-options.ts`): which shot frees it |
 | `tools/director/src/cell-config-mine.ts` | **THE MINE's two rows under the selected cell** |
 | `tools/director/src/cell-config-blister.ts` | **THE BLISTER's rows under the selected cell** |
 | `tools/director/src/curriculum-cost.ts` | **What a new thing costs to learn**: pressure weight plus talk, the order blocks are taught in (`wave-curriculum.md` §4.1) |

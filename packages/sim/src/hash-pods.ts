@@ -30,6 +30,10 @@ export function podHashParts(pods: readonly Pod[]): number[] {
     // Strung or not. A device that disagrees here frees one pod where the
     // other frees three.
     out.push(p.roe ? 1 : 0);
+    // Coloured, heavy, held, swinging (`pod-options.ts`). A device that
+    // disagrees about any of them frees, takes or loses a different pod.
+    out.push(p.tint === undefined ? 0 : p.tint === "red" ? 1 : 2);
+    out.push(p.heavy ? 1 : 0, p.gripTicks ?? -1, p.swingMilli ?? -1);
   }
   return out;
 }

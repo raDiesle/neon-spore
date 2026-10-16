@@ -23,6 +23,7 @@ import { mantleStruck } from "./mantle-shot.js";
 import { bulletMilli, creatureMilli } from "./mid-beat.js";
 import { oculusStruck } from "./oculus-shot.js";
 import { plumbStruck } from "./plumb-shot.js";
+import { podRefusesShot } from "./pod-options.js";
 import { firstPodAlong, freePod } from "./pods.js";
 import { ratchetStruck } from "./ratchet-shot.js";
 import { scuttleStruck } from "./scuttle-shot.js";
@@ -149,7 +150,7 @@ function burnColumn(world: World, col: number, color: Color): number {
       return mouth;
     }
     if (pod && (!hit || pod.rowMilli > creatureMilli(world, hit))) {
-      if (!swindleHoodStops(world, pod)) freePod(world, pod);
+      if (!swindleHoodStops(world, pod) && !podRefusesShot(world, pod, color)) freePod(world, pod);
       return pod.rowMilli;
     }
     if (!hit) break;

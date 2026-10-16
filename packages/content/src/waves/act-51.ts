@@ -1,7 +1,7 @@
 import type { Wave } from "../wave-types.js";
 
 /**
- * Waves 521 to 529 of the game, in the order they are played: THE VEIL's review
+ * Waves 524 to 532 of the game, in the order they are played: THE VEIL's review
  * and the boss THE TRAPEZE.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act

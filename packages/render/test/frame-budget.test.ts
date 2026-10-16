@@ -401,6 +401,9 @@ const EYE_BUDGETS: Readonly<Record<string, readonly Budget[]>> = {
   // the warden's glancing parts are drawn on a scratch layer, and its draws
   // and the blits that lay it down are this frame's now — frame 1's `fill`,
   // `clip`, `save` and `drawImage` rose by 1, 3, 4 and 4.
+  // **16 October 2026, three pod waves** went in ahead of THE WARDEN, which
+  // moved it three places, and the sky is drawn off the wave number: `fill`,
+  // `clip`, `save` and `drawImage` up 1, 2, 1 and 1 in both frames.
   "THE WARDEN's eye": [
     {
       // **13 October 2026, SOAK**: the `HOLD` on the handle is the HOLD LAB's
@@ -450,22 +453,22 @@ const EYE_BUDGETS: Readonly<Record<string, readonly Budget[]>> = {
       // the rope's channel bows (`sim/warden-bow.ts`), and a bow is longer
       // than the straight drop it replaced, so it carries two more of the
       // path's dots (`goo-track.ts`).
-      fill: 105,
+      fill: 106,
       // Two more than the body's own: the film and the veins share a single
       // clip to it, and the lens opens one of its own so the lids can cut the
       // pupil instead of the pupil being sized to miss them (`eye-lens.ts`).
-      clip: 11,
+      clip: 13,
       // Three of these are the ball: the dome, the iris on its own tangent
       // plane, and the wet point, each in a frame of its own (`eye-ball.ts`).
       // **Two more on 27 September 2026, when the ring began to rock**: the
       // body and the grip are each drawn in the pose, a frame apiece, and the
       // rope between them is not (`warden-frame.ts`).
-      save: 68,
+      save: 69,
       // Two of these are the ball as well, and they are the whole of what it
       // costs: the dome is a sprite baked once per colour and size, and the wet
       // point is `halo`'s. Neither builds a gradient, which is why the two
       // gradient rows below did not move at all.
-      drawImage: 29,
+      drawImage: 30,
       createLinearGradient: 33,
       createRadialGradient: 13,
       // Fourteen of them the panel's sheet, as on every frame 0 here. Four are
@@ -482,14 +485,14 @@ const EYE_BUDGETS: Readonly<Record<string, readonly Budget[]>> = {
       // The hold's circle, as in frame 0.
       stroke: 183,
       // The bow's two dots, as in frame 0.
-      fill: 106,
-      clip: 14,
-      save: 72,
+      fill: 107,
+      clip: 16,
+      save: 73,
       // One more, and a ramp more, on 14 October 2026: the body glances
       // (`warden-glance.ts`), laid on the screen as one picture with the far
       // side's dark ramped over it (`glance-layer.ts`). Frame 0 is the round's
       // level start and does not move.
-      drawImage: 34,
+      drawImage: 35,
       createLinearGradient: 25,
       createRadialGradient: 10,
       // One more on 25 September 2026, the rope's knob, as in frame 0; one

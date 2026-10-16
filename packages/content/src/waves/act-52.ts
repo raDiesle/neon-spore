@@ -1,7 +1,7 @@
 import type { Wave } from "../wave-types.js";
 
 /**
- * Waves 530 to 538 of the game, in the order they are played: THE MINE's review
+ * Waves 533 to 541 of the game, in the order they are played: THE MINE's review
  * and the boss THE FLUE.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act

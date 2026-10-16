@@ -5,6 +5,7 @@ import { bodyGlowSpread, halo, strokeGlow } from "./glow.js";
 import { HUSK_LOOK } from "./husk-look.js";
 import { type Layout, tileCX, tileCY } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
+import { drawGripped, drawPodDress, drawSwingThreads } from "./pod-dress.js";
 import { drawDueRing } from "./pod-due-ring.js";
 import { POD_LOOK } from "./pod-look.js";
 import { drawRoeThreads } from "./roe-thread.js";
@@ -57,17 +58,41 @@ export function drawPods(
 ): void {
   // Under the pods, so each strand runs into the shells rather than over them.
   drawRoeThreads(ctx, l, pods, time);
+  drawSwingThreads(ctx, l, pods);
   for (const p of pods) {
     const { x, y, r } = podCenter(l, p);
     // Deterministic variation: the id is the same on both devices.
     const t = time + (p.id % 7) * 0.83;
     const beatsLeft = p.dueTicks > 0 ? p.dueTicks / ticksPerBeat : Number.POSITIVE_INFINITY;
+    // In the maw's grip it is the ship's, drawn over the hull (`drawGrippedPods`).
+    if (p.gripTicks !== undefined) continue;
     if (p.loose) drawWreck(ctx, l, x, y, t);
     else if (p.kind === "husk" && HUSK_LOOK.body) HUSK_LOOK.body(ctx, l, x, y, t, p, beatsLeft);
     else drawMoored(ctx, l, x, y, t, beatsLeft);
+    // Coloured, heavy (`pod-dress.ts`).
+    drawPodDress(ctx, l, p, x, y, r, t);
     // On a husk too, and the same ring: a clock only the real pod wore would
     // be the tell on the screen that must not have one (`PodKind`).
     if (p.dueTicks > 0) drawDueRing(ctx, x, y, r, beatsLeft, time);
+  }
+}
+
+/**
+ * The heavy pods the maw is gripping, drawn with the ship rather than the field
+ * (`ship-growths.ts`): the field pass is under the hull, and a pod held in the
+ * mouth drawn there would be painted over by the cannon holding it.
+ */
+export function drawGrippedPods(
+  ctx: CanvasRenderingContext2D,
+  l: Layout,
+  pods: readonly Pod[],
+  time: number,
+  ticksPerBeat: number,
+): void {
+  for (const p of pods) {
+    if (p.gripTicks === undefined) continue;
+    const { x, y, r } = podCenter(l, p);
+    drawGripped(ctx, l, x, y, r, time, p.gripTicks / ticksPerBeat, time, drawPodBody);
   }
 }
 

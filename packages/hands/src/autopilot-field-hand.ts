@@ -140,7 +140,7 @@ function cannon(w: World): Press[] {
   if (body !== undefined && !countReady(w, body)) return [];
   const lock = lockMagnet(w, body);
   if (lock.length > 0) return lock;
-  return free(w) && (!walked || leavesHere(w)) ? [fire(shotColor(w, body))] : [];
+  return free(w) && (!walked || leavesHere(w)) ? [fire(pod?.tint ?? shotColor(w, body))] : [];
 }
 
 /**

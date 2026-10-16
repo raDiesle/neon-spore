@@ -1,10 +1,11 @@
-import type { World } from "@neon-spore/sim";
+import { ticksPerBeat, type World } from "@neon-spore/sim";
 import { drawFenceArcs } from "./fence-arc.js";
 import { type HullMood, type LobePositions, surfaceSampler } from "./hull.js";
 import type { HullFrame } from "./hull-frame.js";
 import type { Layout } from "./layout.js";
 import { drawMawReach } from "./maw-reach.js";
 import { drawOtherHand } from "./other-hand.js";
+import { drawGrippedPods } from "./pods.js";
 import { drawReachArm } from "./reach-arm.js";
 import type { ViewState } from "./renderer.js";
 import { seatSkin } from "./seat-skin.js";
@@ -45,6 +46,8 @@ export function drawShipGrowths(
   drawReachArm(ctx, l, world, surfaceSampler(f), arm, f.cannonX);
   // How far the open maw reaches, on the gun and never on a hand (`maw-reach.ts`).
   if (!arm) drawMawReach(ctx, l, mood.intake, at.cannon, world.cfg.podCatchCols, surfaceSampler(f));
+  // And a heavy pod held in it, waiting for the second press (`pods.ts`).
+  drawGrippedPods(ctx, l, world.pods, view.time, ticksPerBeat(world.cfg));
   // THE THROAT's root, grown out of the membrane round the gullet — after the
   // hull for the same reason as the arm: it is the ship (`throat-graft.ts`).
   drawThroatGraft(ctx, l, world, surfaceSampler(f), seatSkin(view.role), view.beatPhase, view.time);

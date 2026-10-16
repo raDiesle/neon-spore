@@ -146,6 +146,10 @@ export const pod = (): Required<Pod> => ({
   dueTicks: 140,
   crossMilli: 300,
   roe: true,
+  tint: "cyan",
+  heavy: true,
+  gripTicks: 40,
+  swingMilli: 2000,
 });
 
 export const scar = (): Required<Scar> => ({

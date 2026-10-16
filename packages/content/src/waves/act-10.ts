@@ -1,7 +1,7 @@
 import type { Wave } from "../wave-types.js";
 
 /**
- * Waves 111 to 120 of the game, in the order they are played: THE LIMPET's
+ * Waves 114 to 123 of the game, in the order they are played: THE LIMPET's
  * block and the boss THE FLEET.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act

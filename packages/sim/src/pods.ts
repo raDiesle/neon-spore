@@ -3,7 +3,7 @@ import type { PodEntry } from "./entries.js";
 import { mirrorBaitTaken } from "./mirror-round.js";
 import { podArrived, podDue, podLost } from "./pod-arrive.js";
 import { huskRefused } from "./pod-intake.js";
-import { nextInt } from "./rng.js";
+import { gripHolds, podOptions, releaseDir, swingStep } from "./pod-options.js";
 import type { Pod, PodKind } from "./types.js";
 import { MILLI, type World } from "./world.js";
 
@@ -114,6 +114,8 @@ export function spawnPods(world: World): void {
           ? 0
           : entry.cross * crossMilli(world, entry.speed ?? world.cfg.podCrossTilesPerBeat),
       ...(entry.roe ? { roe: true as const } : {}),
+      // Coloured, heavy, swinging (`pod-options.ts`).
+      ...podOptions(world, entry),
     });
     world.podSpawned += 1;
   }
@@ -126,7 +128,7 @@ export function spawnPods(world: World): void {
  */
 export function freePod(world: World, pod: Pod): void {
   if (pod.loose) return;
-  const dir = nextInt(world.rng, 2) === 0 ? -1 : 1;
+  const dir = releaseDir(world, pod);
   loosen(world, pod, dir);
   // THE ROE: the string goes with it, every pod the same way, so the catch
   // stays one column and the beats between them are the rhythm the maw keeps.
@@ -190,13 +192,20 @@ export function advancePods(world: World): void {
         continue;
       }
     }
+    // A heavy pod in the maw's grip, waiting for the second press.
+    if (p.gripTicks !== undefined) {
+      if (gripHolds(p)) survivors.push(p);
+      else podLost(world, p);
+      continue;
+    }
     if (!p.loose) {
+      swingStep(p);
       // A pod authored to cross travels its row until it leaves the far side.
       // It is removed rather than held at the wall, which is the opposite of
       // what a *falling* pod does below: a wreck at the edge is still a thing
       // the ship could reach, and a power-up that has crossed the field is a
       // window that has shut.
-      if (p.crossMilli !== 0) {
+      if (p.crossMilli !== 0 && p.swingMilli === undefined) {
         p.colMilli += p.crossMilli;
         if (p.colMilli < -MILLI || p.colMilli > edge + MILLI) {
           // And a window that shut is a pod not taken: the wave is lost. A
@@ -234,7 +243,7 @@ export function advancePods(world: World): void {
       survivors.push(p);
       continue;
     }
-    podArrived(world, p);
+    if (podArrived(world, p)) survivors.push(p);
   }
   world.pods = survivors;
 }

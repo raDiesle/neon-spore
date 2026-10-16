@@ -134,6 +134,9 @@ pods loose without knowing how long each one has left.
 
 ### The coloured pod
 
+Built on 16 October 2026: a wave, THE CAGE, at the end of THE LANCE's block, and an option on any pod in
+the director (`docs/spec/systems.md`). What is below is what it was asked to be.
+
 A pod tinted red or cyan that only a shot of that colour frees. The other
 colour bounces off it.
 
@@ -142,6 +145,9 @@ colour bounces off it.
   already has, which is about colour, with no new rule to learn.
 
 ### The heavy pod
+
+Built on 16 October 2026: a wave, THE ANCHOR, after THE CAGE, and an option on any pod in
+the director (`docs/spec/systems.md`). What is below is what it was asked to be.
 
 A pod that falls straight down with no slide, but takes **two presses** of
 the maw, one beat apart, to swallow. The first press grips it, the second
@@ -152,6 +158,9 @@ takes it in.
   single tap.
 
 ### The pod that swings
+
+Built on 16 October 2026: a wave, THE PENDULUM, after THE ANCHOR, and an option on any pod in
+the director (`docs/spec/systems.md`). What is below is what it was asked to be.
 
 A pod that hangs on a thread and swings across three columns, like the
 LANTERN look in VERSUS. Shooting it loose at the end of the swing sends it

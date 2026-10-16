@@ -2,7 +2,7 @@ import { GORGE_LEVELS } from "../gorge-levels.js";
 import type { Wave } from "../wave-types.js";
 
 /**
- * Waves 221 to 230 of the game, in the order they are played: THE CLAW's block
+ * Waves 224 to 233 of the game, in the order they are played: THE CLAW's block
  * and the boss THE GORGE.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act
