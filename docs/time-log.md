@@ -42867,3 +42867,14 @@ Bottleneck: reading — THE WALL was a perf reference wave and a pressure
 test's yardstick, found only by searching for its id.
 
 *Measured: 9 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-16 — THE BLISTER's gestures before THE BASTION, THE INSTAR after the arc
+
+- reading: 15 min. What a blister needs of the panel, and how the boss tool pins the arc.
+- writing: 15 min. The move by hand, the bosses placed again, two review blocks.
+- looking: 5 min. AUTO on all nine blister waves on the arc's panel.
+- friction: 20 min. The director's save scattered the arc over empty act files; reset and placed by hand.
+- landing: 15 min. Four tests that named the old order, the recut, the fast check and `land`.
+
+Bottleneck: friction — a save over a list whose arc had grown put the
+moved waves back in their old act and emptied six files in between.

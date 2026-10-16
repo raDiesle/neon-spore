@@ -1,5 +1,4 @@
 import { BROOD_SCRIPT } from "../brood-script.js";
-import { INSTAR_SCRIPT } from "../instar-script.js";
 import type { Wave } from "../wave-types.js";
 
 /**
@@ -165,14 +164,6 @@ export const WAVES_ACT_1: Wave[] = [
     boss: { kind: "brood", steps: BROOD_SCRIPT },
     bossType: "normal",
     controls: "standard2",
-  },
-  {
-    id: "theInstar",
-    name: "THE INSTAR",
-    entries: [],
-    boss: { kind: "instar", steps: INSTAR_SCRIPT },
-    bossType: "normal",
-    controls: "standard5",
   },
   {
     id: "theRock",

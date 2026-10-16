@@ -17,7 +17,8 @@ import { REAL_FILES, repoRootPath, type WaveFiles, writeWaves } from "../src/wav
  * saved, and five act files came back red: each moved wave named a constant
  * — `INSTAR_SCRIPT`, a board list, a script — that only the file it left
  * imported, and the game died on `INSTAR_SCRIPT is not defined`. So this
- * moves THE INSTAR out of act one and into the act after it, then runs the
+ * moves a scripted boss out of act one and into the act after it — THE
+ * BROOD since THE INSTAR left the arc (16 October 2026) — then runs the
  * real `tsc` over the act files the save wrote, with `noUnusedLocals` so an
  * import left behind fails as surely as one not carried.
  *
@@ -83,30 +84,26 @@ async function typecheck(): Promise<string> {
  */
 const SAVE_AND_CHECK_MS = 800;
 
-itCosts(
-  SAVE_AND_CHECK_MS,
-  "THE INSTAR dragged into the next act carries INSTAR_SCRIPT",
-  async () => {
-    const first = copy.acts[0];
-    const next = copy.acts.find((a) => !/\/act-1(-p\d+)?\.ts$/.test(a.rel));
-    if (!first || !next) throw new Error("no act one, or no act after it");
-    const instar = WAVES.find((w) => w.boss?.kind === "instar");
-    const landing = idsInAct(await Bun.file(next.file).text(), next.exportName)[0];
-    if (!instar || !landing) throw new Error("no instar wave, or an empty second act");
-    expect(await Bun.file(first.file).text()).toContain("INSTAR_SCRIPT");
+itCosts(SAVE_AND_CHECK_MS, "THE BROOD dragged into the next act carries BROOD_SCRIPT", async () => {
+  const first = copy.acts[0];
+  const next = copy.acts.find((a) => !/\/act-1(-p\d+)?\.ts$/.test(a.rel));
+  if (!first || !next) throw new Error("no act one, or no act after it");
+  const brood = WAVES.find((w) => w.boss?.kind === "brood");
+  const landing = idsInAct(await Bun.file(next.file).text(), next.exportName)[0];
+  if (!brood || !landing) throw new Error("no brood wave, or an empty second act");
+  expect(await Bun.file(first.file).text()).toContain("BROOD_SCRIPT");
 
-    // Dropped just after the next act's first wave: it joins that act.
-    const rest = WAVES.filter((w) => w !== instar);
-    const at = rest.findIndex((w) => w.id === landing) + 1;
-    const waves: Wave[] = [...rest.slice(0, at), instar, ...rest.slice(at)];
-    const { complaint } = await writeWaves(waves, copy);
-    expect(complaint).toBeNull();
+  // Dropped just after the next act's first wave: it joins that act.
+  const rest = WAVES.filter((w) => w !== brood);
+  const at = rest.findIndex((w) => w.id === landing) + 1;
+  const waves: Wave[] = [...rest.slice(0, at), brood, ...rest.slice(at)];
+  const { complaint } = await writeWaves(waves, copy);
+  expect(complaint).toBeNull();
 
-    expect(idsInAct(await Bun.file(next.file).text(), next.exportName)).toContain(instar.id);
-    expect(await Bun.file(first.file).text()).not.toContain("INSTAR_SCRIPT");
-    expect(await Bun.file(next.file).text()).toContain(
-      'import { INSTAR_SCRIPT } from "../instar-script.js";',
-    );
-    expect(await typecheck()).toBe("");
-  },
-);
+  expect(idsInAct(await Bun.file(next.file).text(), next.exportName)).toContain(brood.id);
+  expect(await Bun.file(first.file).text()).not.toContain("BROOD_SCRIPT");
+  expect(await Bun.file(next.file).text()).toContain(
+    'import { BROOD_SCRIPT } from "../brood-script.js";',
+  );
+  expect(await typecheck()).toBe("");
+});

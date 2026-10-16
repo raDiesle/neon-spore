@@ -65,8 +65,17 @@ describe("the bosses' places (wave-curriculum §7)", () => {
   });
 
   test("leave the tutorial arc's bosses where they were", () => {
-    expect(WAVES.findIndex((w) => w.id === "theInstar")).toBeLessThan(finale);
+    expect(WAVES.findIndex((w) => w.id === "theBrood")).toBeLessThan(finale);
     expect(WAVES.findIndex((w) => w.id === "theBastion")).toBeLessThan(finale);
+  });
+
+  test("THE INSTAR comes after the arc, once every basic thing is taught", () => {
+    // The owner, 16 October 2026: *"the instar" is a boss, it should come
+    // as a separate new concept wave later when all basic concepts are
+    // introduced.* It takes the first block after FINALE.
+    const at = WAVES.findIndex((w) => w.id === "theInstar");
+    expect(at).toBeGreaterThan(finale);
+    expect(WAVES.slice(finale + 1, at).filter((w) => w.boss)).toEqual([]);
   });
 });
 

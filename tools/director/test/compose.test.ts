@@ -35,9 +35,10 @@ describe("a block, read off the list", () => {
   test("SALVAGE's block runs to FINALE, with CATCH AND AIM inside it", () => {
     // CATCH AND AIM opened a block of its own on THE PURGE until the cargoes
     // were rejected (16 October 2026): it introduces no body or pod now, so
-    // its waves are SALVAGE's, after the torch.
+    // its waves are SALVAGE's, after THE BLISTER's gestures (moved before
+    // THE BASTION the same day).
     const b = block("salvage");
-    expect([b.x, b.y]).toEqual(["pod", "torch"]);
+    expect([b.x, b.y]).toEqual(["pod", "blister"]);
     expect(typeof readBlock(WAVES, "catchAndAim")).toBe("string");
     // Six written, and FINALE: the arc's short block is full.
     expect(b.existing).toBe(6);

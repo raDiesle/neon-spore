@@ -1,8 +1,9 @@
+import { INSTAR_SCRIPT } from "../instar-script.js";
 import type { Wave } from "../wave-types.js";
 
 /**
- * Waves 32 to 42 of the game, in the order they are played: THE LANCE's block
- * and the boss BULB QUEEN.
+ * Waves 38 to 47 of the game, in the order they are played: THE LANCE's block
+ * and the boss THE INSTAR.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act
  * after the tutorial arc again in play order. A save that fills it cuts a page
@@ -159,14 +160,10 @@ export const WAVES_ACT_3: Wave[] = [
     ],
   },
   {
-    id: "bulbQueen",
-    name: "BULB QUEEN",
-    guide: {
-      scene: "bulbQueen",
-    },
+    id: "theInstar",
+    name: "THE INSTAR",
     entries: [],
-    pods: [{ beat: 2, col: 5, row: 4, kind: "pod" }],
-    boss: { kind: "queen", col: 5, petals: 9 },
+    boss: { kind: "instar", steps: INSTAR_SCRIPT },
     bossType: "normal",
     controls: "standard5",
   },

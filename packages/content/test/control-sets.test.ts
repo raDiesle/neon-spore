@@ -287,6 +287,18 @@ describe("the standard ladder", () => {
       "standard4",
       "standard4",
       "standard4",
+      // And THE BLISTER's nine before THE BASTION: the owner, 16 October
+      // 2026 — *before first boss to introduce by waves all the "controls"
+      // brush enemy waves* — on the panel the arc has reached.
+      "standard4",
+      "standard4",
+      "standard4",
+      "standard4",
+      "standard4",
+      "standard4",
+      "standard4",
+      "standard4",
+      "standard4",
     ]);
   });
 });

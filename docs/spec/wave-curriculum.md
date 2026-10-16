@@ -125,8 +125,8 @@ fault, a panel, speed). Never two. This is what keeps the steps small.
 
 **Decision 8 — the tutorial arc has short blocks.** Waves 1–19, up to
 FINALE, teach the basic panel and the basic mechanics: slick and bulb, the
-rock, the torch, the pods, and the bosses on screen there (THE INSTAR, THE
-BASTION). The owner, 14 October 2026: there, each basic thing gets **three**
+rock, the torch, THE BLISTER's gestures, the pods, and the bosses on screen
+there (THE BROOD, THE BASTION). The owner, 14 October 2026: there, each basic thing gets **three**
 regular waves, not eight — R1 *Again*, R3 *Reach*, R4 *Pair* — so the arc grows
 to about forty waves and is still a tutorial. Its old regular waves (TWO
 COLOURS to CROWDED, and FINALE) count among the three. TORCH's five old ones
@@ -283,8 +283,13 @@ Done, 15 October 2026, by `bun run waves:bosses --write`
 (`tools/director/src/boss-slots.ts`). Three rules the decision left open,
 decided then while the owner was away:
 
-- **The tutorial arc keeps its bosses.** THE INSTAR and THE BASTION stay
-  where they are, and no boss moves into the arc.
+- **The tutorial arc keeps its bosses.** THE BROOD and THE BASTION stay
+  where they are, and no boss moves into the arc. THE INSTAR left it on 16
+  October 2026 — the owner: *"the instar" is a boss, it should come as a
+  separate new concept wave later when all basic concepts are introduced …
+  before first boss to introduce by waves all the "controls" brush enemy
+  waves* — so THE BLISTER's block stands before THE BASTION and THE INSTAR
+  takes the first block after FINALE, like any other boss.
 - **A boss takes the first free block** once everything it needs is taught.
   First decided as *the bosses keep their order*; the owner, 15 October 2026,
   *you can rearrange boss waves however you want*, so a block one boss skips
