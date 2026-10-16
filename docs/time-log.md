@@ -43168,3 +43168,5 @@ stone; only a frame showed it.
 
 Bottleneck: the count tests and the budget row a new block moves — ten edits
 that say nothing about the creature.
+
+*Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

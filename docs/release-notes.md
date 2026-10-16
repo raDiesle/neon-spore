@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-16 · fc30ccfbb — THE SEEDER: a body whose kill hangs a pod with a clock where it died (simulation)
+
+A new body with a colour of its own. A shot in its colour kills it like any slick, and leaves a real pod hanging where it died, with the pod's own clock. From then on it is an ordinary pod: it holds the wave open, a shot frees it, the maw takes it, and a clock that runs out loses the wave. So the navigator has to space the kills. Unshot, it breaks the hull and leaves nothing. A spare sound, `pod.blink`, is bound to the pod it hangs. Its block — THE SEEDER and eight composed waves — sits after THE MORSEL's and before THE LANCE, with a film of its own, and the bosses are re-placed behind it.
+
 ## 2026-10-16 · 823b438f6 — A limp morsel is drawn as a cargo: drained to amber, slumped, with the pod's mark and light
 
 Whole, THE MORSEL is the ordinary living body in its own colour. Once a hit turns it limp, it is washed almost all the way to the pod's amber, squashed wider and flatter about its bottom edge with a slow jelly wobble, and carries the pod's bright core and halo. The pilot reads "open the maw" off it from across the field. The look comes off `morselIsLimp` and the clock, and nothing is stored.
