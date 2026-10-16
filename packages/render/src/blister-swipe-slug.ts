@@ -1,4 +1,9 @@
-import { type BlisterSwipeWay, blisterSwipeShare, blisterWayOf } from "@neon-spore/sim";
+import {
+  type BlisterSwipeWay,
+  blisterLengthMilliOf,
+  blisterSwipeShare,
+  blisterWayOf,
+} from "@neon-spore/sim";
 import type { BlisterFrame } from "./blister-bodies.js";
 import type { Body } from "./creature-body-in.js";
 import { rgba } from "./hex.js";
@@ -48,7 +53,7 @@ export function drawSlugStretched(b: Body, f: BlisterFrame): void {
   const r = knobRadius(b) * 1.4 * f.rise;
   const way = WAY[blisterWayOf(b.c)];
   const along = blisterSwipeShare(b.world, b.c);
-  const length = (b.world.cfg.blisterSwipeMilli * b.l.tile) / 1000;
+  const length = (blisterLengthMilliOf(b.world.cfg, b.c) * b.l.tile) / 1000;
   const head = { x: b.x + way.dx * length * along, y: b.y + way.dy * length * along };
   // Across the way: the slug's flanks lie either side of the channel.
   const nx = -way.dy;

@@ -1,9 +1,11 @@
 import {
   BEARING_TURN,
+  BLISTER_SPENT,
   beatPhaseTicks,
   blisterByOf,
   blisterGestureOf,
   blisterIsUp,
+  blisterLengthMilliOf,
   blisterStrokes,
   blisterTurnWayOf,
   blisterWayOf,
@@ -79,7 +81,7 @@ function swipe(w: World, c: Creature, player: 1 | 2): Press | null {
   const mine = (c.blisterStrokes ?? 0) & player;
   const drag = { kind: "drag", target: "blisterSwipe", id: c.id } as const;
   if (mine !== 0) {
-    const reach = w.cfg.blisterSwipeMilli;
+    const reach = blisterLengthMilliOf(w.cfg, c);
     const way = blisterWayOf(c);
     const fromMilli = way === "right" ? reach : way === "left" ? -reach : 0;
     const fromYMilli = way === "down" ? reach : way === "up" ? -reach : 0;
@@ -101,7 +103,7 @@ function combo(w: World, c: Creature, player: 1 | 2): Press | null {
   if (mine !== 0) {
     return {
       player,
-      command: { ...drag, on: false, fromMilli: w.cfg.blisterSwipeMilli, fromYMilli: 0 },
+      command: { ...drag, on: false, fromMilli: blisterLengthMilliOf(w.cfg, c), fromYMilli: 0 },
     };
   }
   if (!blisterIsUp(c)) return null;
@@ -116,6 +118,10 @@ function lever(w: World, c: Creature, player: 1 | 2): Press | null {
   const hands = c.blisterStrokes ?? 0;
   const drag = { kind: "drag", target: "blisterLever", id: c.id, fromMilli: 0 } as const;
   if (!blisterIsUp(c)) return null;
+  // A hand spent by a blow that was not the last lifts, and takes it again.
+  if ((hands & (player * BLISTER_SPENT)) !== 0) {
+    return { player, command: { ...drag, on: false, fromYMilli: 0 } };
+  }
   if ((hands & player) === 0) {
     if (!halfBeat(w)) return null;
     return { player, command: { ...drag, on: true, fromYMilli: 0 } };

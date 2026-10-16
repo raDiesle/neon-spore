@@ -39,6 +39,7 @@ export {
 } from "./ship-groups.js";
 
 import { BALLOON_FIELDS } from "./ship-fields-balloon.js";
+import { BLISTER_FIELDS } from "./ship-fields-blister.js";
 import { BOSS_FIELDS } from "./ship-fields-boss.js";
 import { CANNON_FIELDS } from "./ship-fields-cannon.js";
 import { ROUND_FIELD_GROUP } from "./ship-fields-round.js";
@@ -116,14 +117,6 @@ export const FIELD_GROUP: Record<keyof SimConfig, GroupName> = {
   veilArmourMs: "THE VEIL — a cloud only one of you can see into",
   wispDwellBeats: "THE WISP — a body only one of you can see at all",
   mineFuseBeats: "THE MINE — a tile one of you says and the other has to find",
-  blisterUpBeats: "THE BLISTER — a body one of you knocks down where the other says",
-  blisterUpBeatsLong: "THE BLISTER — a body one of you knocks down where the other says",
-  blisterDownBeats: "THE BLISTER — a body one of you knocks down where the other says",
-  blisterSwipeMilli: "THE BLISTER — a body one of you knocks down where the other says",
-  blisterLeverMilli: "THE BLISTER — a body one of you knocks down where the other says",
-  blisterLeverFromMilli: "THE BLISTER — a body one of you knocks down where the other says",
-  blisterLeverToMilli: "THE BLISTER — a body one of you knocks down where the other says",
-  blisterLeverBeats: "THE BLISTER — a body one of you knocks down where the other says",
   moultBeats: "THE MOULT — a rock and a cargo by turns, and the turn is the call",
   ghostCrossRow: "THE GHOST — a body with no column on one screen",
   ghostCrossCols: "THE GHOST — a body with no column on one screen",
@@ -174,6 +167,7 @@ export const FIELD_GROUP: Record<keyof SimConfig, GroupName> = {
   // rather than named one by one: this object is a lookup and nothing reads
   // its key order, unlike `MECHANICS` next door in content.
   ...BALLOON_FIELDS,
+  ...BLISTER_FIELDS,
   // THE WEIGHT's one dial: how long both thumbs have to be down together. It
   // is the only number the creature has, and the only thing between "two
   // thumbs, eventually" and "two thumbs, together".

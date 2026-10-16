@@ -22,7 +22,7 @@ export function drawWheelBody(b: Body, f: BlisterFrame): void {
   const x = b.x;
   const y = b.y + (1 - f.rise) * r * 1.8;
   const sign = blisterTurnWayOf(b.c) === "cw" ? 1 : -1;
-  const spin = -Math.PI / 2 + sign * blisterTurnShare(b.c) * TAU;
+  const spin = -Math.PI / 2 + sign * blisterTurnShare(b.world, b.c) * TAU;
   ctx.save();
   const wheel = new Path2D();
   for (let i = 0; i < LOBES; i++) {

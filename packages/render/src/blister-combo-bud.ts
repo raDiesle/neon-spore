@@ -1,4 +1,9 @@
-import { blisterStrokes, blisterSwipeShare, blisterWayOf } from "@neon-spore/sim";
+import {
+  blisterLengthMilliOf,
+  blisterStrokes,
+  blisterSwipeShare,
+  blisterWayOf,
+} from "@neon-spore/sim";
 import type { BlisterFrame } from "./blister-bodies.js";
 import type { Body } from "./creature-body-in.js";
 import { rgba } from "./hex.js";
@@ -90,7 +95,7 @@ function shut(ctx: CanvasRenderingContext2D, x: number, y: number, r: number): v
 function stalk(ctx: CanvasRenderingContext2D, b: Body, x: number, y: number, r: number): void {
   const way = WAY[blisterWayOf(b.c)];
   const along = blisterSwipeShare(b.world, b.c);
-  const reach = ((b.world.cfg.blisterSwipeMilli * b.l.tile) / 1000) * along;
+  const reach = ((blisterLengthMilliOf(b.world.cfg, b.c) * b.l.tile) / 1000) * along;
   const fx = x + way.dx * r * 0.7;
   const fy = y + way.dy * r * 0.7;
   const tx = b.x + way.dx * reach;

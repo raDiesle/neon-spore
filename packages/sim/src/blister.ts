@@ -1,3 +1,4 @@
+import { blisterBlowsOf, blisterNumbersOnSpawn, blisterUpBeatsOf } from "./blister-numbers.js";
 import { hullRow, type SimConfig } from "./config.js";
 import type {
   BlisterBy,
@@ -15,12 +16,14 @@ import type { World } from "./world.js";
  *
  * It does not fall. It arrives under a pore — a tile of the field — where
  * nothing touches it and a bolt passes over (`shot-reach.ts`), comes up, and
- * stays up for `blisterUpBeatsOf`. **One blow and it is gone; still up when
- * those beats run out and it breaks the hull in its column, and the wave is
- * lost** — the owner, 15 October 2026: *once player executed correct, it
+ * stays up for `blisterUpBeatsOf`. **Its blows landed and it is gone; still up
+ * when those beats run out and it breaks the hull in its column, and the wave
+ * is lost** — the owner, 15 October 2026: *once player executed correct, it
  * should not appear again, and if time ran out, the wave is lost
  * immediately.* Until then it sank, came up again nearer the hull and kept
- * a count of blows across its surfacings.
+ * a count of blows across its surfacings. One blow by default; a gesture's
+ * default or a wave may ask for more, all inside the one surfacing (the
+ * owner, 16 October 2026, `blister-numbers.ts`).
  *
  * **Only the hand its `by` names counts**, and only while it is up. The other
  * seat is shown the pore swelling a beat before it comes up
@@ -53,6 +56,7 @@ export function blisterPlaceRow(cfg: SimConfig, row: number | undefined): number
 export function blisterOnSpawn(cfg: SimConfig, entry: BlisterSpawn): Partial<Creature> {
   const { by, gesture, way } = entry;
   return {
+    ...blisterNumbersOnSpawn(gesture ?? "tap", entry),
     blisterBy: by ?? 2,
     blisterUp: false,
     blisterClock: cfg.blisterDownBeats,
@@ -110,15 +114,6 @@ export function blisterSwelling(c: Creature): boolean {
 }
 
 /**
- * Beats it stays up: a press's `blisterUpBeats`, or a beat more for the
- * gestures a thumb has to carry somewhere once it is there.
- */
-export function blisterUpBeatsOf(cfg: SimConfig, c: Creature): number {
-  const g = blisterGestureOf(c);
-  return g === "tap" || g === "hold" ? cfg.blisterUpBeats : cfg.blisterUpBeatsLong;
-}
-
-/**
  * One beat of a blister, in place of the fall: the clock comes down by one,
  * and at nought one under comes up, and one up that nobody knocked down
  * breaks the hull in its column — the wave lost — and is gone.
@@ -159,10 +154,20 @@ export function blisterTapped(world: World, player: 1 | 2, id: number): boolean 
 }
 
 /**
- * One blow landed, whichever gesture dealt it: said, and the blister is gone.
+ * One blow landed, whichever gesture dealt it: said, and counted. The last
+ * one owed is the blister gone; one short of it starts the gesture over —
+ * the stroke, turn or hold in progress spent, a COMBO asking for its press
+ * again — and the body stays up on the clock it already had.
  */
 export function blisterBlow(world: World, c: Creature): void {
-  world.events.push({ type: "blisterBlow", id: c.id, col: c.col, row: c.row });
+  const done = (c.blisterBlowsDone ?? 0) + 1;
+  const left = blisterBlowsOf(world.cfg, c) - done;
+  world.events.push({ type: "blisterBlow", id: c.id, col: c.col, row: c.row, left });
+  if (left > 0) {
+    c.blisterBlowsDone = done;
+    blisterGestureOver(c);
+    return;
+  }
   world.events.push({
     type: "destroy",
     col: c.col,
@@ -174,3 +179,24 @@ export function blisterBlow(world: World, c: Creature): void {
   });
   removeCreature(world, c.id);
 }
+
+/**
+ * The gesture in progress spent after a blow that was not the last: a hold's
+ * and a lever's ticks, a turn's way round and a COMBO's press start again,
+ * and every open stroke or lever hand is marked spent until it lifts
+ * (`BLISTER_SPENT`), so a thumb still past the reach is not a second blow.
+ */
+function blisterGestureOver(c: Creature): void {
+  c.blisterHeldTicks = undefined;
+  c.blisterTurnedMilli = undefined;
+  c.blisterPressed = undefined;
+  const open = (c.blisterStrokes ?? 0) & 3;
+  if (open !== 0) {
+    c.blisterStrokes = open * BLISTER_SPENT;
+    c.blisterAlongMilli = undefined;
+  }
+}
+
+/** A seat's stroke bit times this is that seat's hand spent: 4 and 8. A hand
+ * spent is not a hand on it (`& 3`), and its lift clears it. */
+export const BLISTER_SPENT = 4;

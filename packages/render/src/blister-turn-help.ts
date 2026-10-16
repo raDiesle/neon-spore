@@ -35,7 +35,7 @@ export function drawBlisterTurn(
   time: number,
 ): void {
   const sign = blisterTurnWayOf(c) === "cw" ? 1 : -1;
-  const share = blisterTurnShare(c);
+  const share = blisterTurnShare(world, c);
   const ring = at.r + l.tile * OUT_TILES;
   const knobR = handleRadius(l, world.cfg) * KNOB_SHARE;
   const held = blisterTurnHeld(c);

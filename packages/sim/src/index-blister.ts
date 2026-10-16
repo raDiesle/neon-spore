@@ -11,13 +11,13 @@
  */
 
 export {
+  BLISTER_SPENT,
   blisterByOf,
   blisterGestureOf,
   blisterHoldable,
   blisterIsUp,
   blisterMayTap,
   blisterSwelling,
-  blisterUpBeatsOf,
 } from "./blister.js";
 // THE BLISTER: what render and the director ask of one — whose blow counts,
 // whether it is up, whether its pore is swelling, how long it stays up.
@@ -30,6 +30,21 @@ export {
   blisterLeverInBand,
   blisterLeverShare,
 } from "./blister-lever.js";
+// And its three numbers, the gesture's default or the wave's for one body.
+export {
+  BLOWS as BLISTER_BLOWS_FIELDS,
+  type BlisterLength,
+  blisterBlowsLeft,
+  blisterBlowsOf,
+  blisterLengthMilliOf,
+  blisterLengthOf,
+  blisterUpBeatsOf,
+  gestureBlows,
+  gestureLengthMilli,
+  gestureUpBeats,
+  LENGTH as BLISTER_LENGTH_FIELDS,
+  UP_BEATS as BLISTER_UP_BEATS_FIELDS,
+} from "./blister-numbers.js";
 export { blisterRubbing } from "./blister-rub.js";
 export {
   blisterStrokes,

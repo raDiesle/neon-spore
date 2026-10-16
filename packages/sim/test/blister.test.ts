@@ -1,5 +1,6 @@
 import { describe, expect, it } from "bun:test";
-import { blisterPlaceRow, blisterUpBeatsOf } from "../src/blister.js";
+import { blisterPlaceRow } from "../src/blister.js";
+import { blisterUpBeatsOf } from "../src/blister-numbers.js";
 import { refusesABolt } from "../src/bullet-refused.js";
 import {
   type BlisterBy,
@@ -114,7 +115,7 @@ describe("where a blister comes up", () => {
     const from = s.world.tick;
     while (only(s.world) && blisterIsUp(only(s.world)!)) s.go(1);
     // Up for exactly its beats, and then gone into the hull, not under again.
-    expect(s.world.tick - from).toBe(CFG.blisterUpBeats * TPB);
+    expect(s.world.tick - from).toBe(CFG.blisterTapUpBeats * TPB);
     expect(only(s.world)).toBeUndefined();
   });
 
@@ -192,7 +193,7 @@ describe("left alone", () => {
       s.go(1);
       if (s.world.scars.length > 0) brokeAt = s.world.tick;
     }
-    expect(brokeAt - upAt).toBe(CFG.blisterUpBeats * TPB);
+    expect(brokeAt - upAt).toBe(CFG.blisterTapUpBeats * TPB);
     expect(only(s.world)).toBeUndefined();
     expect(s.world.scars.map((x) => [x.kind, x.col])).toEqual([["blister", 3]]);
     expect(s.events.some((e) => e.type === "destroy")).toBe(false);

@@ -106,6 +106,12 @@ export function tailHashParts(c: Creature): number[] {
   // And COMBO's: whether its press is done — a pull counted on one phone and
   // refused on the other is a blow apart.
   out.push(c.blisterPressed ? 1 : 0);
+  // And the wave's numbers for this body, and the blows it has taken — a
+  // blow counted on one phone and not the other is a body gone on one only.
+  out.push(c.blisterUpBeats ?? -1);
+  out.push(c.blisterBlows ?? -1);
+  out.push(c.blisterLengthMilli ?? -1);
+  out.push(c.blisterBlowsDone ?? -1);
   return out;
 }
 

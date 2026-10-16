@@ -1,4 +1,9 @@
-import { blisterStrokes, blisterSwipeShare, blisterWayOf } from "@neon-spore/sim";
+import {
+  blisterLengthMilliOf,
+  blisterStrokes,
+  blisterSwipeShare,
+  blisterWayOf,
+} from "@neon-spore/sim";
 import type { BlisterFrame } from "./blister-bodies.js";
 import type { Body } from "./creature-body-in.js";
 import { rgba } from "./hex.js";
@@ -62,7 +67,7 @@ function wound(x: number, y: number, r: number, way: Way, time: number): Pt[] {
 function drawn(b: Body, x: number, y: number, r: number, way: Way): Pt[] {
   const reach = Math.max(
     r * 1.6,
-    ((b.world.cfg.blisterSwipeMilli * b.l.tile) / 1000) * blisterSwipeShare(b.world, b.c),
+    ((blisterLengthMilliOf(b.world.cfg, b.c) * b.l.tile) / 1000) * blisterSwipeShare(b.world, b.c),
   );
   const tx = b.x + way.dx * reach;
   const ty = b.y + way.dy * reach;

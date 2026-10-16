@@ -174,7 +174,7 @@ export const BLISTER_LEVER: Pose = {
         fromYMilli: depth,
       },
     });
-    const half = Math.round((w.cfg.blisterLeverBeats * ticksPerBeat(w.cfg)) / 2);
+    const half = Math.round((w.cfg.blisterLeverHoldMilli * ticksPerBeat(w.cfg)) / 2000);
     run(w, 1 + half, [knob(w.tick, 0), knob(w.tick + 1, band)]);
     return w;
   },

@@ -21,7 +21,7 @@ export function drawSnailBody(b: Body, f: BlisterFrame): void {
   const x = b.x;
   const y = b.y + (1 - f.rise) * r * 1.8;
   const sign = blisterTurnWayOf(b.c) === "cw" ? 1 : -1;
-  const spin = sign * blisterTurnShare(b.c) * TAU;
+  const spin = sign * blisterTurnShare(b.world, b.c) * TAU;
   ctx.save();
   // The foot along the lip, and its eye stalks on the side it faces.
   const foot = new Path2D();

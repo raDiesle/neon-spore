@@ -1,5 +1,6 @@
 import { MAX_BEARING_STEP, NO_BEARING, TURN } from "./bearing.js";
 import { blisterBlow, blisterGestureOf, blisterIsUp, blisterMayTap } from "./blister.js";
+import { blisterLengthMilliOf } from "./blister-numbers.js";
 import type { BlisterTurnWay } from "./creature-state-blister.js";
 import type { Command, Creature } from "./types.js";
 import type { World } from "./world.js";
@@ -43,9 +44,12 @@ export function blisterTurnHeard(world: World, player: 1 | 2, command: Command):
   const step = (way * (at - was) + TURN) % TURN;
   if (step === 0 || step > MAX_BEARING_STEP) return;
   const turned = (c.blisterTurnedMilli ?? 0) + step;
-  c.blisterTurnedMilli = turned >= TURN ? turned - TURN : turned;
-  if (c.blisterTurnedMilli === 0) c.blisterTurnedMilli = undefined;
-  if (turned >= TURN) blisterBlow(world, c);
+  if (turned < blisterLengthMilliOf(world.cfg, c)) {
+    c.blisterTurnedMilli = turned;
+    return;
+  }
+  c.blisterTurnedMilli = undefined;
+  blisterBlow(world, c);
 }
 
 /** The way it counts, with the default spelled once. */
@@ -54,8 +58,8 @@ export function blisterTurnWayOf(c: Creature): BlisterTurnWay {
 }
 
 /** How far round the turn in progress has come, 0..1: what the channel fills to. */
-export function blisterTurnShare(c: Creature): number {
-  return (c.blisterTurnedMilli ?? 0) / TURN;
+export function blisterTurnShare(world: World, c: Creature): number {
+  return Math.min(1, (c.blisterTurnedMilli ?? 0) / Math.max(1, blisterLengthMilliOf(world.cfg, c)));
 }
 
 /** Whether a hand is on it now. */

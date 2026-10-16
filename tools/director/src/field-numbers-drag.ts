@@ -10,13 +10,15 @@ import type { SimConfig } from "@neon-spore/sim";
  */
 export const DRAG_NUMBERS: Readonly<Record<string, readonly (keyof SimConfig)[]>> = {
   // Pull past a distance.
-  "THE BLISTER'S SWIPE": ["blisterSwipeMilli", "blisterUpBeatsLong"],
-  "THE BLISTER'S COMBO": ["blisterSwipeMilli", "blisterUpBeatsLong"],
+  "THE BLISTER'S SWIPE": ["blisterSwipeMilli", "blisterSwipeUpBeats", "blisterSwipeBlows"],
+  "THE BLISTER'S COMBO": ["blisterComboMilli", "blisterComboUpBeats", "blisterComboBlows"],
   "THE BLISTER'S LEVER": [
     "blisterLeverMilli",
     "blisterLeverFromMilli",
     "blisterLeverToMilli",
-    "blisterLeverBeats",
+    "blisterLeverHoldMilli",
+    "blisterLeverUpBeats",
+    "blisterLeverBlows",
   ],
   "THE WARDEN'S TETHER": ["wardenTautMilli", "wardenBowMilli", "wardenCycleBeats"],
   "THE WARDEN'S SWIPE": ["wardenThrowMilli", "wardenThrowBeats"],
@@ -140,7 +142,7 @@ export const DRAG_NUMBERS: Readonly<Record<string, readonly (keyof SimConfig)[]>
     "throatMinRadiusMilli",
     "throatMaxRadiusMilli",
   ],
-  "THE BLISTER'S RUB": ["blisterUpBeatsLong"],
+  "THE BLISTER'S RUB": ["blisterRubUpBeats", "blisterRubBlows"],
   // Drawn, then swiped.
   "THE SLING'S LEFT CORD": [
     "slingGraceBeats",
@@ -164,7 +166,7 @@ export const DRAG_NUMBERS: Readonly<Record<string, readonly (keyof SimConfig)[]>
   "THE HYDRA'S RIGHT COIL": ["hydraCoilRimMilli"],
   "THE HYDRA'S LEFT NECK": ["hydraCutMilli"],
   "THE HYDRA'S RIGHT NECK": ["hydraCutMilli"],
-  "THE BLISTER'S TURN": ["blisterUpBeatsLong"],
+  "THE BLISTER'S TURN": ["blisterTurnMilli", "blisterTurnUpBeats", "blisterTurnBlows"],
   // Traced along a line.
   "THE FILAMENT'S LINE": ["filamentGapTiles", "filamentStartBeats", "filamentStallBeats"],
   "THE FLEET'S RAKE": ["fleetRakeBeats", "fleetFloodBeats"],

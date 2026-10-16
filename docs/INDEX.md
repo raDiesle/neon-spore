@@ -883,6 +883,7 @@ by hand never moves.
 | `packages/sim/src/blister-turn.ts` | **THE BLISTER's TURN** (`docs/spec/blister.md`, *The gestures*): the owner's circle round the body |
 | `packages/sim/src/blister-rub.ts` | **THE BLISTER's RUB** (`docs/spec/blister.md`, *The gestures*): a scrub back and forth over the body |
 | `packages/sim/src/blister-lever.ts` | **THE BLISTER's LEVER** (`docs/spec/blister.md`, *The gestures*): THE LEVER LAB's lever on the body |
+| `packages/sim/src/blister-numbers.ts` | **A blister's three numbers** — how many beats it stays up, how many blows it takes |
 | `packages/sim/src/undertow-hash.ts` | What THE UNDERTOW puts into `hashWorld`, and nothing else |
 | `packages/sim/src/undertow-press.ts` | THE UNDERTOW's answers, and the tap, all on the **tick** |
 | `packages/sim/src/undertow-step.ts` | THE UNDERTOW's clock: the bow, the lobe standing, the lobe growing, the burst |
@@ -1191,6 +1192,7 @@ by hand never moves.
 | `packages/content/src/mechanics-maw.ts` | THE MORSEL's row, next door for THE BEATBOX's reason (`creatures-maw.ts`) |
 | `packages/content/src/queue-boss.ts` | A wave's boss, remapped onto the field the pair is actually playing |
 | `packages/content/src/queue-boss-middle.ts` | **The bosses authored from the middle**, which `bossFromWave` passes through untouched: each names no column |
+| `packages/content/src/queue-blister.ts` | **A blister's fields, copied from the wave into the queue** — whose hand, which gesture, which way |
 | `packages/content/src/motions-event.ts` | The two motions that are events rather than idles |
 | `packages/content/src/motions-retired.ts` | The motions nothing in the game carries any more |
 | `packages/content/src/motion-bank.ts` | BANK, the slick's own motion: two slow drifts on periods with no common multiple, the body leaning into its own travel — the answer the owner took on 9 September 2026 |
@@ -4116,6 +4118,7 @@ by hand never moves.
 | `tools/director/src/field-use-shot.ts` | One picture on a use card of CONTROLS › ON THE FIELD (`field-action-cards.ts`) |
 | `tools/director/src/ship-fields-balloon.ts` | THE BALLOON's eight numbers, sorted into their card |
 | `tools/director/src/ship-fields-boss.ts` | The `BossConfig` fields of every boss that is not choreographed — the queen, the warden, the cairn |
+| `tools/director/src/ship-fields-blister.ts` | THE BLISTER's numbers, sorted into their card |
 | `tools/director/src/ship-fields-choreo.ts` | **The choreographed bosses' dials**, sorted into their cards |
 | `tools/director/src/ship-fields-choreo-b.ts` | **The choreographed bosses' dials, the second page** — THE LEDGER and every boss built after it |
 | `tools/director/src/ship-fields-choreo-c.ts` | **The choreographed bosses' dials, the third page** — THE SPOOL and every boss built after it |

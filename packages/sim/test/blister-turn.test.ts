@@ -110,7 +110,7 @@ describe("a TURN blister, turned round the way its channel runs", () => {
     s.press(2, c.id);
     s.through(2, c.id, round(4, 1));
     expect(s.blows()).toBe(0);
-    expect(blisterTurnShare(s.body()!)).toBe(0.5);
+    expect(blisterTurnShare(s.world, s.body()!)).toBe(0.5);
   });
 
   it("keeps the turn in progress across a lift, while it is up", () => {

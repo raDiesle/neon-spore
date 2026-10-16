@@ -61,7 +61,7 @@ describe("ON THE FIELD rows and their pictures", () => {
     const w = poseNamed("BLISTER · A TURN HALF ROUND").build();
     const b = w.creatures.find(blisterIsUp);
     expect(b).toBeDefined();
-    expect(blisterTurnShare(b!)).toBe(0.5);
+    expect(blisterTurnShare(w, b!)).toBe(0.5);
   });
 
   test("the blister is up with a thumb rubbing it", () => {

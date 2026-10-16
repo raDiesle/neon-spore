@@ -43451,3 +43451,17 @@ Bottleneck: the budget rows — a layer under every sky moved every row in
 seven files, and the lane that fixed that landed while this one was landing.
 
 *Measured: 34 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-16 — A blister's numbers, gesture by gesture
+
+- reading: 15 min. The five gesture files, the hash tail, the queue's copy
+  and every reader of `blisterSwipeMilli`.
+- writing: 30 min. `blister-numbers.ts`, a config row a gesture, the blow
+  count with the spent hand, ten tests, the spec's numbers table.
+- looking: 0 min. Defaults unchanged, so nothing drawn moved.
+- friction: 5 min. `queue.ts` and `ship-fields.ts` near the ceiling; the
+  blister's rows moved out of both.
+- landing: 5 min. `check:fast`, `land`.
+
+Bottleneck: a stroke that keeps going after a blow — the spent-until-lift bit
+the old one-blow body never needed.

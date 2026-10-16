@@ -39,6 +39,12 @@ export interface BlisterSpawn {
   /** Which way a SWIPE or a TURN goes; absent `right` or `cw`, and dropped
    * at the spawn on a gesture it is not a way of. */
   way?: BlisterWay;
+  /** Beats it stays up, blows it takes, and one blow's length in its
+   * gesture's thousandths — each absent for the gesture's default in
+   * `SimConfig` (`blister-numbers.ts`). */
+  upBeats?: number;
+  blows?: number;
+  lengthMilli?: number;
 }
 
 /**
@@ -111,4 +117,12 @@ export interface BlisterState {
    * gone with it (`blister-swipe.ts`).
    */
   blisterPressed?: boolean;
+  /** The wave's numbers for this one body, absent for the gesture's default
+   * (`blister-numbers.ts`): beats up, blows to take, one blow's length. */
+  blisterUpBeats?: number;
+  blisterBlows?: number;
+  blisterLengthMilli?: number;
+  /** Blows landed so far, absent before the first. The last one owed is the
+   * body gone (`blisterBlow`). */
+  blisterBlowsDone?: number;
 }

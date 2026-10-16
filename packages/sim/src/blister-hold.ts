@@ -1,5 +1,5 @@
 import { blisterBlow, blisterGestureOf, blisterHoldable, blisterIsUp } from "./blister.js";
-import { ticksPerBeat } from "./config-derived.js";
+import { blisterHoldTicksOf } from "./blister-numbers.js";
 import { gripsCreature, NO_GRIP, setGrip } from "./grip.js";
 import type { Creature } from "./types.js";
 import type { World } from "./world.js";
@@ -14,12 +14,12 @@ import type { World } from "./world.js";
  * whose `by` names this seat (`blisterHoldable`), so a TAP blister still
  * refuses a hand and a tap that rests on it stays a tap.
  *
- * **A blow is a beat held**, and the one blow knocks it out. A release loses
- * the beat in progress. Two hands on a BOTH blister add a tick each, so they
+ * **A blow is a hold as long as `blisterHoldTicksOf`** — a beat unless the
+ * wave or the gesture's default says otherwise — and the last blow owed knocks
+ * it out. A release loses the hold in progress. Two hands on a BOTH blister add a tick each, so they
  * finish it twice as fast.
  */
 export function stepBlisterHolds(world: World): void {
-  const beat = ticksPerBeat(world.cfg);
   for (const c of [...world.creatures]) {
     if (c.kind !== "blister" || blisterGestureOf(c) !== "hold") continue;
     if (!blisterIsUp(c)) {
@@ -37,18 +37,17 @@ export function stepBlisterHolds(world: World): void {
       continue;
     }
     const held = (c.blisterHeldTicks ?? 0) + hands;
-    if (held < beat) {
+    if (held < blisterHoldTicksOf(world.cfg, c)) {
       c.blisterHeldTicks = held;
       continue;
     }
-    c.blisterHeldTicks = held - beat;
     blisterBlow(world, c);
   }
 }
 
-/** How far through its beat the hold in progress is, 0..1: what the dial runs round. */
+/** How far through its blow the hold in progress is, 0..1: what the dial runs round. */
 export function blisterHoldShare(world: World, c: Creature): number {
-  return Math.min(1, (c.blisterHeldTicks ?? 0) / ticksPerBeat(world.cfg));
+  return Math.min(1, (c.blisterHeldTicks ?? 0) / blisterHoldTicksOf(world.cfg, c));
 }
 
 function letGo(world: World, c: Creature): void {

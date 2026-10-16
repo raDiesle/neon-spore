@@ -1,4 +1,9 @@
-import { type BlisterSwipeWay, blisterSwipeShare, blisterWayOf } from "@neon-spore/sim";
+import {
+  type BlisterSwipeWay,
+  blisterLengthMilliOf,
+  blisterSwipeShare,
+  blisterWayOf,
+} from "@neon-spore/sim";
 import type { BlisterFrame } from "./blister-bodies.js";
 import type { Body } from "./creature-body-in.js";
 import { rgba } from "./hex.js";
@@ -47,7 +52,7 @@ export function drawZipPod(b: Body, f: BlisterFrame): void {
   const r = f.r;
   const way = WAY[blisterWayOf(b.c)];
   const along = blisterSwipeShare(b.world, b.c);
-  const length = ((b.world.cfg.blisterSwipeMilli * b.l.tile) / 1000) * f.rise;
+  const length = ((blisterLengthMilliOf(b.world.cfg, b.c) * b.l.tile) / 1000) * f.rise;
   const nx = -way.dy;
   const ny = way.dx;
   const end = { x: b.x + way.dx * length, y: b.y + way.dy * length };

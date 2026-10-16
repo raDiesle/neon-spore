@@ -19,13 +19,13 @@ import {
 /**
  * THE BLISTER's LEVER (`sim/blister-lever.ts`): THE LEVER LAB's lever on the
  * body — its knob carried down a groove into a band and held there for
- * `blisterLeverBeats`, the one blow that knocks it out. Out of the band the
+ * `blisterLeverHoldMilli`, the one blow that knocks it out. Out of the band the
  * count starts again, and a lift before the hold is done is refused out loud.
  */
 
 const CFG: SimConfig = DEFAULT_CONFIG;
 const TPB = ticksPerBeat(CFG);
-const HOLD = CFG.blisterLeverBeats * TPB;
+const HOLD = (CFG.blisterLeverHoldMilli * TPB) / 1000;
 const BAND = Math.round((CFG.blisterLeverFromMilli + CFG.blisterLeverToMilli) / 2);
 
 const levered = (by: 1 | 2 | "both" = 2): SpawnEntry => ({

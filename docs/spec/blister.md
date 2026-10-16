@@ -35,17 +35,18 @@ where it will come up, and if nobody does it in time the wave is lost.**
 ## What it does
 
 - **It does not fall.** It arrives under a pore — a tile of the field — for
-  `blisterDownBeats`, comes up, and stays up for `blisterUpBeats` (TAP and
-  HOLD, six) or `blisterUpBeatsLong` (SWIPE, TURN, RUB, COMBO and LEVER,
-  eight: more for a thumb that has to carry somewhere once it is there).
+  `blisterDownBeats`, comes up, and stays up for its gesture's up beats (TAP
+  and HOLD, six; SWIPE, TURN, RUB, COMBO and LEVER, eight: more for a thumb
+  that has to carry somewhere once it is there — *The numbers*, below).
   Neither screen marks it on the strip or the wall before it comes up; the
   pore's swell is the only warning. While it is under nothing can touch it; the cannon's bolt passes
   over the pore. It is not the cannon's and not the shield's: `controls: []`,
   a handle on the field is neither group (`.claude/skills/new-creature`).
-- **One blow knocks it out.** A tap for TAP, a beat held for HOLD, a stroke
-  for SWIPE, a whole turn for TURN, the first turn back for RUB, the knob
-  held in the band for LEVER, a press and then a pull for COMBO. It does not
-  come back.
+- **Its blows knock it out — one, unless a wave asks for more.** A tap for
+  TAP, a beat held for HOLD, a stroke for SWIPE, a whole turn for TURN, the
+  first turn back for RUB, the knob held in the band for LEVER, a press and
+  then a pull for COMBO. Every blow lands inside the one surfacing; it does
+  not come back.
 - **Unanswered, it loses the wave.** Still up when its beats run out, it
   breaks the hull in its own column — a scar like any other arrival — and the
   wave is lost on that tick (`sim/blister.ts` `stepBlister`). Until 15 October
@@ -72,7 +73,7 @@ out on purpose — a desk with a mouse has none of them.
 | **SWIPE** | `SWIPE` | drags across the body the way the arrow points | one stroke the moment the drag passes `blisterSwipeMilli` (two tiles) in that direction, or on the lift that got it there — the one generic PULL (`sim/pull.ts`); let go short, refused out loud (`pullShort`) | the PULL LAB's knob on its channel, never a ring (the owner, 24 September and 13 October 2026) |
 | **TURN** (the circle) | `TURN` | drags a full turn round the body, the way the channel points | thousandths of a turn, as the crank's bearing is | `drawMazeLever`, the one turn for every wave (the owner, 5 October 2026) |
 | **RUB** | `RUB` | scrubs back and forth over it | reversals, as `packages/render/src/rub-turns.ts` counts them | `drawRubDrop` |
-| **LEVER** | `LEVER` | carries the knob down its groove into the band, and holds it there | ticks in the band (`blisterLeverFromMilli`..`blisterLeverToMilli`) towards `blisterLeverBeats`; out of it the count starts again, and a lift before it is done is refused (`pullShort`) | THE LEVER LAB's groove and band (`render/lever-groove.ts`), the PULL LAB's knob, and the handle dial while it is held |
+| **LEVER** | `LEVER` | carries the knob down its groove into the band, and holds it there | ticks in the band (`blisterLeverFromMilli`..`blisterLeverToMilli`) towards `blisterLeverHoldMilli`; out of it the count starts again, and a lift before it is done is refused (`pullShort`) | THE LEVER LAB's groove and band (`render/lever-groove.ts`), the PULL LAB's knob, and the handle dial while it is held |
 | **COMBO** | `COMBO` | presses it, then pulls the knob that comes in its place, to the right | the press as a `tap` (`blisterPressed`), then SWIPE's stroke; the two are the one blow | the tap's help, then SWIPE's pull in the same place — THE COMBO LAB's PRESS, THEN PULL |
 
 **The body is the same in all seven.** Only the help round it changes, so a
@@ -83,6 +84,32 @@ may not, `GripVerdicts` and `drawVerdictRing` on every stroke, the green
 progress ring a held mark wears. **The partner's screen never shows the
 gesture** (`docs/controls-catalogue.md`, *Not allowed*) — it shows the bulge
 before and the waiting clock during.
+
+## The numbers
+
+Since 16 October 2026 every gesture has its own three, the owner: *let me
+able to configure the timings/length/number of action required for each
+control.* Each is the game's default in `SimConfig` (`sim/config-blister.ts`),
+and a wave may set any of the three on one blister — `upBeats`, `blows`,
+`lengthMilli` on the entry, carried to the body as `blisterUpBeats`,
+`blisterBlows`, `blisterLengthMilli` and hashed. Everything reads them
+through `sim/blister-numbers.ts`.
+
+| Gesture | Up beats | Blows | One blow's length |
+|---|---|---|---|
+| **TAP** | `blisterTapUpBeats` 6 | `blisterTapBlows` 1 | none |
+| **HOLD** | `blisterHoldUpBeats` 6 | `blisterHoldBlows` 1 | `blisterHoldMilli` 1000, thousandths of a beat |
+| **SWIPE** | `blisterSwipeUpBeats` 8 | `blisterSwipeBlows` 1 | `blisterSwipeMilli` 2000, thousandths of a tile |
+| **TURN** | `blisterTurnUpBeats` 8 | `blisterTurnBlows` 1 | `blisterTurnMilli` 1000, thousandths of a turn |
+| **RUB** | `blisterRubUpBeats` 8 | `blisterRubBlows` 1 | none — a blow is a reversal |
+| **COMBO** | `blisterComboUpBeats` 8 | `blisterComboBlows` 1 | `blisterComboMilli` 2000, the pull's, thousandths of a tile |
+| **LEVER** | `blisterLeverUpBeats` 8 | `blisterLeverBlows` 1 | `blisterLeverHoldMilli` 1000, thousandths of a beat in the band |
+
+A blow that is not the last one owed says `blisterBlow` with `left` above
+nought, and the body stays up on the clock it had. The gesture starts over: a
+hold's, a lever's or a turn's progress is spent, a COMBO asks for its press
+again, and a stroke or a lever hand that dealt the blow is spent until it
+lifts — a thumb still past the reach is one stroke, not a blow a tick.
 
 ## The look, as built
 

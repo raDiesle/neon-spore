@@ -15,7 +15,7 @@ export const BLISTER_CONTROLS: readonly FieldControlDef[] = [
     seat: "the seat the blister's BY names — either, on a BOTH blister",
     gesture: "grab and drag",
     does:
-      "A blister comes up out of a pore for blisterUpBeatsLong beats, and " +
+      "A blister comes up out of a pore for blisterSwipeUpBeats beats, and " +
       "still up when they run out it breaks the hull. A SWIPE one wears the knob every pull wears, with its " +
       "way in it — left, right, up or down — and a channel a stroke long out " +
       "that way. Press on it and carry the finger " +
@@ -90,7 +90,7 @@ export const BLISTER_CONTROLS: readonly FieldControlDef[] = [
       "from it, a band on the groove, and the knob every pull wears on the " +
       "body. Press the knob and carry it down: it stands where the thumb " +
       "puts it. In the band the band goes green and the dial sweeps round " +
-      "the knob; held there blisterLeverBeats, the one blow that knocks it " +
+      "the knob; held there blisterLeverHoldMilli, the one blow that knocks it " +
       "out. Out of the band the hold starts again; let go before it is " +
       "done, refused out loud (sim/blister-lever.ts).",
     source: "blister-tap.ts — blisterUnder() under touchDown(); touchMove() carries the knob",

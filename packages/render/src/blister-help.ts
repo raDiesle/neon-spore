@@ -3,6 +3,7 @@ import {
   blisterGestureOf,
   blisterHoldShare,
   blisterIsUp,
+  blisterLengthMilliOf,
   blisterMayTap,
   blisterRubbing,
   blisterStrokes,
@@ -127,7 +128,7 @@ function heldNow(world: World, c: Creature): boolean {
 
 /**
  * SWIPE's pull: the knob on the body, where the stroke starts, and a channel
- * as long as the stroke the lift counts at (`blisterSwipeMilli`) out along its
+ * as long as the stroke the lift counts at (`blisterLengthMilliOf`) out along its
  * way. The knob rides the furthest open stroke, so it goes where the thumb has
  * taken it and no further than the stroke counts.
  */
@@ -139,7 +140,7 @@ function drawSwipeTrack(
   at: { x: number; y: number; r: number },
   time: number,
 ): void {
-  const length = (world.cfg.blisterSwipeMilli * l.tile) / 1000;
+  const length = (blisterLengthMilliOf(world.cfg, c) * l.tile) / 1000;
   const along = blisterSwipeShare(world, c);
   const held = blisterSwipeHeld(c);
   const way = WAY[blisterWayOf(c)];

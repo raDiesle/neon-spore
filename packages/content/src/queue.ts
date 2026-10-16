@@ -7,6 +7,7 @@ import { WAVES, type Wave } from "./waves.js";
 // for it had to move.
 export { bossFromWave } from "./queue-boss.js";
 
+import { blisterQueueFields } from "./queue-blister.js";
 import { bossFromWave } from "./queue-boss.js";
 
 /**
@@ -190,11 +191,9 @@ export function queueFromWave(wave: Pick<Wave, "entries" | "cols">, cols: number
       // that default is read. A seat is a seat and never goes through
       // `mapCol`, for the row's reason one line up.
       ...(e.sees === undefined ? {} : { sees: e.sees }),
-      // Whose hand knocks a blister down, on the same terms: absent is the
-      // default `blisterOnSpawn` reads.
-      ...(e.by === undefined ? {} : { by: e.by }),
-      ...(e.gesture === undefined ? {} : { gesture: e.gesture }),
-      ...(e.way === undefined ? {} : { way: e.way }),
+      // A blister's hand, gesture, way and numbers, on the same terms
+      // (`queue-blister.ts`).
+      ...blisterQueueFields(e),
     });
   }
   return queue.sort((a, b) => a.beat - b.beat);

@@ -1,5 +1,11 @@
-import { blisterBlow, blisterGestureOf, blisterIsUp, blisterMayTap } from "./blister.js";
-import { ticksPerBeat } from "./config-derived.js";
+import {
+  BLISTER_SPENT,
+  blisterBlow,
+  blisterGestureOf,
+  blisterIsUp,
+  blisterMayTap,
+} from "./blister.js";
+import { blisterHoldTicksOf } from "./blister-numbers.js";
 import type { Command, Creature } from "./types.js";
 import type { World } from "./world.js";
 
@@ -13,7 +19,7 @@ import type { World } from "./world.js";
  * (`fromYMilli`, in thousandths of a tile, from the body's centre), and the
  * knob stands where it is put — **the depth is the value**, for as long as the
  * thumb stays. Inside the band from `blisterLeverFromMilli` to
- * `blisterLeverToMilli`, every tick is one towards `blisterLeverBeats`; out
+ * `blisterLeverToMilli`, every tick is one towards `blisterHoldTicksOf`; out
  * of it, the count starts again. A whole hold is a blow, and the hand is spent
  * until it lifts: a lever counted once is let go and carried again, the lab's
  * spring-back. **A lift before the hold is done is refused out loud**
@@ -22,8 +28,9 @@ import type { World } from "./world.js";
  *
  * It keeps SWIPE's fields (`blister-swipe.ts`): a bit a seat in
  * `blisterStrokes` for a hand on it and the depth in `blisterAlongMilli`; the
- * hold in progress is HOLD's `blisterHeldTicks`. A whole hold is the blow
- * that knocks the body out (`blister.ts`), so no hand on it outlives it.
+ * hold in progress is HOLD's `blisterHeldTicks`. A whole hold is a blow; the
+ * last one owed knocks the body out (`blister.ts`), and any other springs the
+ * knob back and spends the hand until it lifts (`BLISTER_SPENT`).
  */
 export function blisterLeverHeard(world: World, player: 1 | 2, command: Command): void {
   if (command.kind !== "drag" || command.target !== "blisterLever") return;
@@ -34,13 +41,14 @@ export function blisterLeverHeard(world: World, player: 1 | 2, command: Command)
   if (!command.on) {
     const live = (hands & open) !== 0 && blisterIsUp(c);
     const moved = (c.blisterAlongMilli ?? 0) >= REST_MILLI;
-    setHands(c, hands & ~open);
+    setHands(c, hands & ~(open | (open * BLISTER_SPENT)));
     if (live && moved) {
       world.events.push({ type: "pullShort", col: c.col, player });
     }
-    if ((c.blisterStrokes ?? 0) === 0) c.blisterHeldTicks = undefined;
+    if (((c.blisterStrokes ?? 0) & 3) === 0) c.blisterHeldTicks = undefined;
     return;
   }
+  if ((hands & (open * BLISTER_SPENT)) !== 0) return;
   if (!blisterIsUp(c) || !blisterMayTap(c, player)) return;
   setHands(c, hands | open);
   const depth = Math.max(0, Math.min(world.cfg.blisterLeverMilli, command.fromYMilli ?? 0));
@@ -54,20 +62,18 @@ export function blisterLeverHeard(world: World, player: 1 | 2, command: Command)
  * setting its depth.
  */
 export function stepBlisterLevers(world: World): void {
-  const { cfg } = world;
-  const need = cfg.blisterLeverBeats * ticksPerBeat(cfg);
   for (const c of [...world.creatures]) {
     if (c.kind !== "blister" || blisterGestureOf(c) !== "lever") continue;
-    if (!blisterIsUp(c) || (c.blisterStrokes ?? 0) === 0 || !blisterLeverInBand(world, c)) {
+    if (!blisterIsUp(c) || ((c.blisterStrokes ?? 0) & 3) === 0 || !blisterLeverInBand(world, c)) {
       c.blisterHeldTicks = undefined;
       continue;
     }
     const held = (c.blisterHeldTicks ?? 0) + 1;
-    if (held < need) {
+    if (held < blisterHoldTicksOf(world.cfg, c)) {
       c.blisterHeldTicks = held;
       continue;
     }
-    // Counted: the blow, and the body gone with it.
+    // Counted: a blow, and the body gone with the last one owed.
     blisterBlow(world, c);
   }
 }
@@ -88,8 +94,7 @@ export function blisterLeverDepth(world: World, c: Creature): number {
 
 /** How much of the hold in the band is done, 0..1: what the dial runs round. */
 export function blisterLeverShare(world: World, c: Creature): number {
-  const need = world.cfg.blisterLeverBeats * ticksPerBeat(world.cfg);
-  return Math.min(1, (c.blisterHeldTicks ?? 0) / Math.max(1, need));
+  return Math.min(1, (c.blisterHeldTicks ?? 0) / blisterHoldTicksOf(world.cfg, c));
 }
 
 /** Whether a hand that still counts is on its knob now. */
