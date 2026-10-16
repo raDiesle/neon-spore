@@ -2,7 +2,7 @@ import { isRegularWave, type Wave, wavePressure, waveTalk } from "@neon-spore/co
 import { createRng } from "@neon-spore/sim";
 import { type Block, leadingBlock } from "./compose-block.js";
 import { autoClears, paperFaults, spanOf } from "./compose-check.js";
-import { clawStep, placeClaw } from "./compose-claw.js";
+import { clawPressure, clawStep, placeClaw } from "./compose-claw.js";
 import { grownStep, notchOf } from "./compose-grow.js";
 import { placeStep } from "./compose-place.js";
 import { choosePoints, type Point } from "./compose-ramp.js";
@@ -74,8 +74,10 @@ function drawsOf(block: Block, step: Step, introId: string, seed: number) {
       };
       const wrong = paperFaults(wave, step, block);
       for (const f of wrong) misses.set(f, (misses.get(f) ?? 0) + 1);
-      if (wrong.length === 0)
-        kept.push({ wave, pressure: wavePressure(wave) ?? 0, talk: waveTalk(wave) ?? 0 });
+      if (wrong.length > 0) continue;
+      // A claw wave is pods alone, which `wavePressure` does not read.
+      const pressure = block.claw ? clawPressure(wave) : (wavePressure(wave) ?? 0);
+      kept.push({ wave, pressure, talk: waveTalk(wave) ?? 0 });
     }
   }
   const worst = [...misses].sort((a, b) => b[1] - a[1])[0]?.[0];
@@ -164,7 +166,7 @@ function composeFor(
   // gentlest wave, so each tooth starts higher than the last.
   const low = gentlest(draws[0]?.kept.map((k) => k.pressure) ?? []);
   const start = block.floor === undefined ? low : Math.max(low, block.floor + START_RISE);
-  const after = block.leads ? undefined : nextWritten(waves, block);
+  const after = block.leads || block.lesson ? undefined : nextWritten(waves, block);
   // Talk rises from the block before's gentlest, or from the written wave
   // the composed ones follow (`compose-talk.ts`).
   const talk = block.leads ? { before: talkAfter(waves, block) } : { start: block.talkFloor };

@@ -137,6 +137,7 @@ export function nextLesson(waves: readonly Wave[]): Lesson | string {
       ...(floor === undefined ? {} : { floor }),
       ...(talkFloor === undefined ? {} : { talkFloor }),
       insertAt,
+      lesson: true,
       ...panel,
       ...(lesson.faults ? { faults: lesson.faults } : {}),
     };

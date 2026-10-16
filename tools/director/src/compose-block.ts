@@ -72,6 +72,10 @@ export interface Block {
   /** Whether it is THE CLAW's block, placed as pods and the rocks they
    * answer on the claw's panel rather than by the steps (`compose-claw.ts`). */
   claw?: true;
+  /** Whether it is a lesson's block, whose composed waves do not lead up to
+   * the written ones after them: those are the lesson's set pieces (THE CAGE,
+   * THE ANCHOR and THE PENDULUM after THE LANCE's), not the rest of a ramp. */
+  lesson?: true;
 }
 
 const BASICS = ["slick", "bulb", "meteor"];

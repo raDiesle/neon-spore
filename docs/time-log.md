@@ -43275,3 +43275,15 @@ Bottleneck: `check:fast` does not reach the op-count tests when only wave
 files change, so a renumber that moves the sky passes it and fails `land`.
 
 *Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-16 — waves:order composes past THE LANCE and THE CLAW
+
+- reading: 10 min. The composer, the ramp's bounds and the two blocks'
+  draws, printed step by step.
+- writing: 10 min. The lesson flag, `clawPressure`, two tests.
+- looking: 0 min. Nothing drawn changed.
+- friction: 5 min. Each `waves:order` run is a minute and a half.
+- landing: 5 min. `check:fast`, `land`.
+
+Bottleneck: THE LANCE's cause had changed since the entry was filed — the
+pod sets landed after it an hour later — and only a printed ramp said so.

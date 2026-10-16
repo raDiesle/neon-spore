@@ -1,5 +1,6 @@
 import { describe, expect, test } from "bun:test";
 import { WAVES } from "@neon-spore/content";
+import { composeBlock } from "../src/compose.js";
 import { hasWaves, lessonsAfterBlocks, nextLesson } from "../src/compose-lesson.js";
 import { isLesson } from "../src/compose-starts.js";
 import { TUTORIAL_LAST_ID } from "../src/compose-steps.js";
@@ -21,5 +22,22 @@ describe("lesson blocks (wave-curriculum §4)", () => {
 
   test("the lessons stand where `waves:lessons` puts them: a second run moves nothing", () => {
     expect(lessonsAfterBlocks(WAVES).map((w) => w.id)).toEqual(WAVES.map((w) => w.id));
+  });
+
+  test("a lesson's waves are not capped by the written ones after them", () => {
+    // THE CAGE (3.2) stands after THE LANCE's eight; read as the ramp's next
+    // wave it held R8 under 3.2 and `waves:order` stopped (16 October 2026).
+    const lance = WAVES.findIndex((w) => w.id === "theLance");
+    const own = (w: { id: string; variant?: boolean }) =>
+      w.variant === true && w.id.startsWith("theLance") && w.id !== "theLance";
+    const bare = WAVES.filter((w) => !own(w));
+    expect(WAVES[lance + 9]?.id).toBe("theCage");
+    const next = nextLesson(bare);
+    if (typeof next === "string") throw new Error(next);
+    expect(next.prefix).toBe("theLance");
+    expect(next.block.lesson).toBe(true);
+    const composed = composeBlock(bare, next.block, next.prefix);
+    expect(composed.flatMap((c) => c.faults)).toEqual([]);
+    expect(composed.length).toBe(8);
   });
 });

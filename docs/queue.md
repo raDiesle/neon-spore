@@ -328,25 +328,6 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/skipped.test.ts` holds the listing's count of the entries
 `next` stepped past and why.
 
-## waves:order stops on THE LANCE's and THE CLAW's lesson blocks
-
-- **Found:** 2026-10-16, claude/suck-brush-visuals-a917b1
-- **Taken:** 2026-10-16, claude/queue-work-6b11c3 (claim: claude/queue-waves-order-stops-on-the-lances-and-the-claws-le)
-- **Files:** `tools/director/src/compose.ts`, `tools/director/src/compose-lesson.ts`, `tools/director/src/compose-claw.ts`, `tools/director/waves-order.ts`
-
-`bun run waves:order` ran clean on `db180cc54` and now stops at its first
-block: `theLance` and `theClaw` both wait with *no pressure in reach keeps the
-ramp (decision 6)*, and nothing else can be composed after them. The landing
-that broke it made every pod a real pod with a clock (`podDueBeats`), retired
-THE PURGE (THE LANCE's lesson used to sit after it), and left THE CLAW's waves
-as pods and nothing else. So the lesson draws that hang a pod late now lose
-the wave on AUTO and get struck off, and a claw wave's pressure counts no pods
-(`compose-lesson.ts`), which leaves every claw draw at about the same
-pressure. Find which of the two causes it for each block: print the kept
-draws' pressures in `composeFor`. Then make the lesson place its pods early
-enough for the clock, and give a claw draw a pressure that rises with its pods.
-Done when `bun run waves:order` prints `nothing changes` again.
-
 ## A save that moves waves into the arc scatters it over empty act files
 
 - **Found:** 2026-10-16, claude/wave-generation-feedback-8f39ba
@@ -506,3 +487,23 @@ core every pod wears) into `pod-wreck.ts`, re-exporting `drawPodCore` from
 `pods.ts` for THE MOULT's import. Done when `pods.ts` is well under the limit
 and `bun run check` is green.
 
+
+## Write the order waves:order composes, which rewrites 328 waves
+
+- **Found:** 2026-10-16, claude/queue-work-6b11c3
+- **Files:** `packages/content/src/waves/`, `tools/director/waves-order.ts`, `tools/director/src/compose-block.ts`
+- **Asks:** Write the composed order as it stands, keep HUSK BEND and HUSK PEAK first, or leave the list as it is?
+
+`bun run waves:order` composes every block again since THE LANCE's lesson is
+no longer capped by THE CAGE after it and a claw draw is scored on its pods
+(`clawPressure`). It ends `593 waves; the list changes`: 328 waves change
+content, 221 move, and HUSK BEND and HUSK PEAK go, because THE ROE and THE
+CLUTCH, written by hand after THE HUSK's block, now count as two of its eight
+(`existing`). Every block after THE LANCE changes because its floor rose. The
+options: **write it** — `waves:order --write`, then `waves:measure`,
+`briefings:renumber`, `baseline:blank`, and the list holds again; **keep the
+husk's eight first** — make hand-written set pieces at a block's end (THE ROE,
+THE CLUTCH; THE CAGE, THE ANCHOR, THE PENDULUM) stand outside its steps, as a
+lesson's already do, then write; **leave it** — the tool works, the list
+stays as shipped, and `waves:order` keeps saying the list changes. Done when
+`bun run waves:order` prints `nothing changes`.

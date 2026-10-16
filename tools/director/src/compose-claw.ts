@@ -80,3 +80,32 @@ export function placeClaw(step: Step, rng: Rng): Pick<Wave, "entries" | "pods"> 
   }
   return { entries: [], pods };
 }
+
+/** The gap, in beats, under which a pod comes sooner than the arm is easily
+ * home, and how many beats under it cost one more. R1's widest gap is twelve. */
+const EASY_GAP = 12;
+const GAP_PER_POINT = 4;
+
+/**
+ * **A claw wave's pressure**, read off its pods. `wavePressure` reads entries
+ * and nothing else, and a claw wave has none since the cargoes went, so every
+ * draw scored 0 and no step could rise (`docs/queue.md`, 16 October 2026).
+ * Each pod costs one, one more when it comes from the other edge than the
+ * pod before (the arm crosses the field), one more when it crosses at the
+ * quick speed, and a quarter for every beat it comes sooner than `EASY_GAP`
+ * after the one before. More pods, closer, from both sides and quicker — the
+ * four levers `CLAW_STEPS` turns — each raise it. To one decimal, as
+ * `wavePressure` is.
+ */
+export function clawPressure(wave: Pick<Wave, "pods">): number {
+  const pods = [...(wave.pods ?? [])].sort((a, b) => a.beat - b.beat);
+  let sum = 0;
+  for (const [i, p] of pods.entries()) {
+    const prev = pods[i - 1];
+    const crossed = prev && prev.col !== p.col ? 1 : 0;
+    const quick = p.speed === QUICK ? 1 : 0;
+    const soon = prev ? Math.max(0, EASY_GAP - (p.beat - prev.beat)) / GAP_PER_POINT : 0;
+    sum += 1 + crossed + quick + soon;
+  }
+  return Math.round(sum * 10) / 10;
+}
