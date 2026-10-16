@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-16 · c6a8c6da2 — THE MATRON is drawn: a blue mother slime, a lobe down to every pod she holds, her eggs inside her
+
+FINALE's boss now has a body. She hangs over the middle of the field, a deep blue slime seven columns across, and a lobe reaches down out of her belly to every pod she holds; a pod shot loose snaps its lobe back up into her. The pods of the clutches still to come glow amber inside her, so how much fight is left is counted off her. She leans toward the column she throws down, rears back between clutches, fades in as she arrives and greys out when beaten.
+
 ## 2026-10-16 · 0a0f779b5 — Nothing is used before it is taught: every director save refuses a wave list that breaks it
 
 A wave's keys are every mechanic it carries, its panel, every button on that panel, and the hold (`waveKeys`, moved into content from the director's `keysOf`). The first wave in the list to carry a key introduces it, and only a guided wave that is not a boss may; a boss introduces only its own. `untaughtKeys` names whatever breaks that, a content test holds the list on disk to it, and `writeWaves` — the one save under every `waves:*` generator and the editor — refuses such a list before writing a byte. It found one on the day: THE BASTION was the first wave on STANDARD 5, handing the pair the maw a wave before SALVAGE teaches it and never asking for it, so it plays on STANDARD 4 now (a fix to something wrong, not a look).
