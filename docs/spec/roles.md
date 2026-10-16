@@ -74,10 +74,10 @@ across a voice delay, and 600 ms only ever fitted two of them. See
 `docs/decisions.md` #9.
 
 **Maw.** Player 1's second action. It turns the cannon lobe inside out, and a
-pod that reaches the hull is taken in only if the cannon is in its column and
-the maw is open — the one thing in the game player 1 finishes alone, and only
-because player 2 had to shoot the pod loose in the first place. Window: **800 ms**
-(`intakeWindowMs`). See [systems](systems.md) 5.7.
+pod that reaches the hull is taken in only if the cannon is in its column or
+within two of it (`podCatchCols`) and the maw is open — the one thing in the
+game player 1 finishes alone, and only because player 2 had to shoot the pod
+loose in the first place. Window: **1100 ms** (`intakeWindowMs`). See [systems](systems.md) 5.7.
 
 **Lance.** Not an action of its own and not a button: the two colours are
 *held* as well as tapped, and a thumb that stays on one fills the cannon lobe

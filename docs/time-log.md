@@ -42724,3 +42724,15 @@ Bottleneck: the husk pose. A field holding only a husk counts as cleared now,
 so the cleared card covered the one thing that pose was meant to show.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-16 — The maw takes a pod from two columns either side, and stays open 1100 ms
+
+- reading: 5 min. Where a pod arrives and how the last two rows steer it.
+- writing: 10 min. `podCatchCols`, the longer window, three tests moved
+  out of the new reach, two new ones for its edge, the specs.
+- looking: 0 min. A rule; nothing new is drawn.
+- friction: 0 min.
+- landing: 10 min. The fast check, `land`.
+
+Bottleneck: working out what "two tiles more" meant against the steering
+that already pulled a pod most of a column and a half in.

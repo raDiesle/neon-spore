@@ -17,7 +17,7 @@ import { MILLI, type World } from "./world.js";
 
 /**
  * The pod has arrived at the hull. Two conditions, both player 1's: the cannon
- * stands in its column, and the maw was opened recently enough to still be
+ * stands in its column or within `podCatchCols` of it, and the maw was opened recently enough to still be
  * open. Anything else and the pod breaks on the skin, and that is a hit: the
  * wave is lost (`wave-fail.ts`). It used to be simply gone — a missed gift
  * and not a punishment — until taking every pod in became part of passing
@@ -25,7 +25,7 @@ import { MILLI, type World } from "./world.js";
  */
 export function podArrived(world: World, pod: Pod): void {
   const col = Math.round(pod.colMilli / MILLI);
-  const inColumn = world.cannonCol === col;
+  const inColumn = Math.abs(world.cannonCol - col) <= world.cfg.podCatchCols;
   const inTime = mawOpen(world);
 
   // **A husk is the same two conditions, read the other way up.** Everything

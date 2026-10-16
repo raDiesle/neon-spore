@@ -182,7 +182,9 @@ describe("taking a pod in", () => {
   });
 
   it("is lost when the maw is open in the wrong column", () => {
-    const inputs = hold(0, true);
+    // Nine columns off: past the steering and the maw's own reach either side
+    // (`podCatchCols`), which together take a pod from nearly four out.
+    const inputs = hold(9, true);
     const { events } = run([{ beat: 0, col: 3, row: 4, kind: "pod" }], ARRIVAL, inputs, STILL);
     expect(events.some((e) => e.type === "podLost")).toBe(true);
   });
@@ -262,7 +264,8 @@ describe("the last stretch of the fall", () => {
   });
 
   it("without the assist, the same off-column hold misses", () => {
-    const NO_HOME: SimConfig = { ...STILL, podHomeTiles: 0 };
+    // And without the maw's reach either side, which would take it on its own.
+    const NO_HOME: SimConfig = { ...STILL, podHomeTiles: 0, podCatchCols: 0 };
     const { events } = run(
       [{ beat: 0, col: POD_COL, row: 4, kind: "pod" }],
       ARRIVAL,
@@ -271,5 +274,30 @@ describe("the last stretch of the fall", () => {
     );
     expect(events.some((e) => e.type === "podLost")).toBe(true);
     expect(events.some((e) => e.type === "podTaken")).toBe(false);
+  });
+});
+
+describe("the maw's reach either side", () => {
+  // Steering off, so what is measured is the maw alone (`podCatchCols`).
+  const MAW_ONLY: SimConfig = { ...STILL, podHomeTiles: 0 };
+
+  it("takes a pod that lands two columns from the cannon", () => {
+    const { events } = run(
+      [{ beat: 0, col: POD_COL, row: 4, kind: "pod" }],
+      ARRIVAL,
+      hold(POD_COL + MAW_ONLY.podCatchCols, true),
+      MAW_ONLY,
+    );
+    expect(events.some((e) => e.type === "podTaken")).toBe(true);
+  });
+
+  it("loses one that lands a column further out", () => {
+    const { events } = run(
+      [{ beat: 0, col: POD_COL, row: 4, kind: "pod" }],
+      ARRIVAL,
+      hold(POD_COL + MAW_ONLY.podCatchCols + 1, true),
+      MAW_ONLY,
+    );
+    expect(events.some((e) => e.type === "podLost")).toBe(true);
   });
 });

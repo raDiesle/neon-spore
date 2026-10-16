@@ -144,7 +144,9 @@ describe("refusing one", () => {
   });
 
   it("costs nothing when the cannon is somewhere else", () => {
-    const { world, events } = run([husk], ARRIVAL, chase(0, true));
+    // Far enough off that neither the steering nor the maw's reach either side
+    // (`podCatchCols`) brings it in.
+    const { world, events } = run([husk], ARRIVAL, chase(9, true));
     expect(events.some((e) => e.type === "huskRefused")).toBe(true);
     expect(failHolds(world)).toBe(false);
   });

@@ -53,6 +53,14 @@ export interface PodConfig {
    */
   podHomeTilesPerBeat: number;
   /**
+   * How many columns either side of the cannon's own the open maw still takes
+   * a pod from, on the tick it reaches the hull. Nought is the cannon's column
+   * alone, which is what it was until 16 October 2026; the steering in the
+   * last `podHomeTiles` already pulls a pod most of a column and a half in, so
+   * this is how much further the maw reaches beyond that.
+   */
+  podCatchCols: number;
+  /**
    * Beats a real pod gives the pair to take it in, from the beat it appears,
    * when the wave does not say (`PodEntry.due`). The clock runs while it hangs
    * and while it falls; at nought with the pod still on the field the wave is
@@ -71,6 +79,10 @@ export const POD_DEFAULTS: PodConfig = {
   podCrossTilesPerBeat: 2,
   podHomeTiles: 2,
   podHomeTilesPerBeat: 2,
+  // Two either side, five columns in all: the owner asked for the catch to be
+  // about two tiles wider each way to make taking a pod easier (16 October
+  // 2026). Pulled in from up to nearly four columns out, with the steering.
+  podCatchCols: 2,
   // Sixteen beats, ten seconds at 96 BPM: two spoken exchanges to agree on
   // the shot, and the fall from the top row (under five beats) after it, with
   // a little left over. A pod that waits for ever is not owed at all.

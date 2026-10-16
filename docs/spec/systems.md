@@ -262,7 +262,8 @@ of a wave" no longer holds.
    fires. Either colour frees it — a pod is not a creature and has no
    resonance.
 2. **Catching it** is player 1 alone, doing two things at once: the cannon in
-   the pod's column *and* the maw open at the moment it arrives.
+   the pod's column or within two of it (`podCatchCols`, since 16 October
+   2026) *and* the maw open at the moment it arrives.
 
 **The fall.** Once loose the pod sinks like a burning wreck — `podFallTilesPerBeat`
 (1.5, against a creature's 1) — and slides sideways at `podDriftTilesPerBeat`,
@@ -276,7 +277,9 @@ meant to be a scramble.
 **The maw.** Player 1's second action (`intake`), the sibling of the trigger.
 It does not add a part to the ship: it **inverts the cannon lobe**. The same
 swelling that fires passes through flat and keeps going, into a throat wider
-than the muzzle was tall (`MAW`). Window: `intakeWindowMs`, 800 ms.
+than the muzzle was tall (`MAW`). Window: `intakeWindowMs`, 1100 ms — 800
+until the owner asked for a little more room on 16 October 2026, when the
+maw's reach also grew to two columns either side of the cannon's own.
 
 **Taking it in.** The skin either side of the maw comes apart while the pod goes
 through, and then the whole ship lights from inside and goes out again. The

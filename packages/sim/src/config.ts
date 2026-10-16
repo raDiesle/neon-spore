@@ -113,7 +113,9 @@ export interface SimConfig
    * How long after player 1 opens the maw it stays open, in milliseconds. The
    * sibling of `guardWindowMs`, and deliberately not the same number: the pod
    * falls slowly and is caught by the cannon the player is already holding, so
-   * the window may be tighter than the one that answers a rock.
+   * the window may be tighter than the one that answers a rock. It was, at
+   * 800 against the guard's 900, until the owner asked for a little more
+   * room on 16 October 2026.
    */
   intakeWindowMs: number;
   /**
@@ -195,7 +197,7 @@ export const DEFAULT_CONFIG: SimConfig = {
   tickHz: 120,
   inputDelayTicks: 12,
   guardWindowMs: 900,
-  intakeWindowMs: 800,
+  intakeWindowMs: 1100,
   gripSlowPermille: 550,
   gripPushMilli: 1000,
   gripPushPauseBeats: 1,
