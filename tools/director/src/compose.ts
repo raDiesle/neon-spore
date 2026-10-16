@@ -89,7 +89,9 @@ function drawsOf(block: Block, step: Step, introId: string, seed: number) {
  * composed ones lead up to. */
 function nextWritten(waves: readonly Wave[], block: Block): number | undefined {
   const next = waves[block.insertAt];
-  return next && regularAt(waves, block.insertAt) ? wavePressure(next) : undefined;
+  return next && !next.setPiece && regularAt(waves, block.insertAt)
+    ? wavePressure(next)
+    : undefined;
 }
 
 /** The talk of the last written regular wave a leading block's composed

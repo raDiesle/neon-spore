@@ -180,8 +180,9 @@ export function readBlock(waves: readonly Wave[], introId: string): Block | stri
   // Up to the boss that closes it: a lesson's block may follow, before the
   // next intro (`compose-lesson.ts`).
   let existing = 0;
+  // A set piece written after the block is none of its steps (`Wave.setPiece`).
   for (let i = intro + 1; i < next && (!tutorial || i <= last) && !waves[i]?.boss; i++) {
-    if (regularAt(waves, i)) existing++;
+    if (regularAt(waves, i) && !waves[i]?.setPiece) existing++;
   }
   const before = intros.slice(0, number);
   // The nearest block before with a regular wave written: one the composer

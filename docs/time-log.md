@@ -43560,3 +43560,18 @@ Bottleneck: landings — every one runs the whole check while main keeps moving.
 Bottleneck: the photograph — the wave's first body is a SWIPE, so TAP had to be forced with `--entry`.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-16 — The composed wave order is written, THE HUSK's eight kept
+
+- reading: 10 min. How `waves:order` strips and recomposes, where a written
+  wave counts as a step, and which written waves stand where.
+- writing: 15 min. `Wave.setPiece`, the composer reading it, the five husk
+  set pieces marked, the serializer's strings cut into `serialize-text.ts`,
+  a test; then `--write`, `waves:measure`, `baseline:blank`.
+- looking: 0 min. Nothing drawn changed; the waves did.
+- friction: 5 min. Three full `waves:order` runs at half a minute each.
+- landing: 10 min. `check:fast`, `land`.
+
+Bottleneck: telling a set piece from a written step — five husk set pieces
+and COIL INFERNO look the same to the list, so the author's mark had to be
+written down rather than read off.

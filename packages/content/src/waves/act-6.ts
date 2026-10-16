@@ -1,7 +1,9 @@
+import { MAZE_ROUNDS } from "../maze-rounds.js";
 import type { Wave } from "../wave-types.js";
 
 /**
- * Waves 74 to 87 of the game, in the order they are played: THE LANCE's block.
+ * Waves 74 to 88 of the game, in the order they are played: THE LANCE's block
+ * and the boss THE MAZE.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act
  * after the tutorial arc again in play order. A save that fills it cuts a page
@@ -28,13 +30,11 @@ export const WAVES_ACT_6: Wave[] = [
     name: "FIRST LANCE",
     variant: true,
     entries: [
-      { beat: 7, col: 5, kind: "meteor", color: null },
-      { beat: 14, col: 6, kind: "meteor", color: null },
-      { beat: 30, col: 5, kind: "meteor", color: null },
-    ],
-    pods: [
-      { beat: 0, col: 4, row: 3, kind: "pod" },
-      { beat: 22, col: 4, row: 3, kind: "pod" },
+      { beat: 0, col: 4, kind: "seeder", color: "red" },
+      { beat: 8, col: 6, kind: "seeder", color: "red" },
+      { beat: 15, col: 4, kind: "seeder", color: "red" },
+      { beat: 22, col: 5, kind: "seeder", color: "red" },
+      { beat: 29, col: 4, kind: "seeder", color: "cyan" },
     ],
   },
   {
@@ -42,14 +42,12 @@ export const WAVES_ACT_6: Wave[] = [
     name: "LANCE SCATTER",
     variant: true,
     entries: [
-      { beat: 7, col: 5, color: "red" },
-      { beat: 14, col: 4, color: "red" },
-      { beat: 25, col: 6, color: "red" },
-      { beat: 32, col: 5, color: "red" },
-    ],
-    pods: [
-      { beat: 0, col: 4, row: 4, kind: "pod" },
-      { beat: 19, col: 3, row: 4, kind: "pod" },
+      { beat: 0, col: 2, kind: "seeder", color: "cyan" },
+      { beat: 6, col: 7, kind: "seeder", color: "red" },
+      { beat: 12, col: 4, kind: "seeder", color: "red" },
+      { beat: 17, col: 3, kind: "seeder", color: "red" },
+      { beat: 22, col: 7, kind: "seeder", color: "cyan" },
+      { beat: 29, col: 4, kind: "seeder", color: "cyan" },
     ],
   },
   {
@@ -57,14 +55,12 @@ export const WAVES_ACT_6: Wave[] = [
     name: "LANCE WANDERER",
     variant: true,
     entries: [
-      { beat: 6, col: 5, kind: "meteor", color: null },
-      { beat: 11, col: 9, kind: "meteor", color: null },
-      { beat: 22, col: 10, kind: "meteor", color: null },
-      { beat: 27, col: 5, kind: "meteor", color: null },
-    ],
-    pods: [
-      { beat: 0, col: 10, row: 4, kind: "pod" },
-      { beat: 16, col: 3, row: 3, kind: "pod" },
+      { beat: 0, col: 0, kind: "seeder", color: "cyan" },
+      { beat: 6, col: 6, kind: "seeder", color: "red" },
+      { beat: 12, col: 10, kind: "seeder", color: "red" },
+      { beat: 17, col: 3, kind: "seeder", color: "red" },
+      { beat: 22, col: 8, kind: "seeder", color: "red" },
+      { beat: 27, col: 1, kind: "seeder", color: "red" },
     ],
   },
   {
@@ -72,15 +68,14 @@ export const WAVES_ACT_6: Wave[] = [
     name: "LANCE TANGO",
     variant: true,
     entries: [
-      { beat: 0, col: 0, color: "cyan" },
-      { beat: 10, col: 10, color: "red" },
-      { beat: 21, col: 4, color: "cyan" },
-      { beat: 32, col: 4, color: "red" },
-    ],
-    pods: [
-      { beat: 4, col: 4, row: 4, kind: "pod" },
-      { beat: 15, col: 2, row: 3, kind: "pod" },
-      { beat: 26, col: 10, row: 3, kind: "pod" },
+      { beat: 0, col: 3, color: "red" },
+      { beat: 4, col: 4, kind: "seeder", color: "red" },
+      { beat: 9, col: 0, color: "cyan" },
+      { beat: 13, col: 6, kind: "morsel", color: "cyan" },
+      { beat: 19, col: 2, color: "red" },
+      { beat: 25, col: 5, kind: "seeder", color: "red" },
+      { beat: 29, col: 6, color: "cyan" },
+      { beat: 34, col: 3, kind: "morsel", color: "red" },
     ],
   },
   {
@@ -88,15 +83,13 @@ export const WAVES_ACT_6: Wave[] = [
     name: "LANCE LULLABY",
     variant: true,
     entries: [
-      { beat: 0, col: 6, color: "cyan" },
-      { beat: 12, col: 4, color: "red" },
-      { beat: 27, col: 8, color: "red" },
-      { beat: 39, col: 6, color: "red" },
-    ],
-    pods: [
-      { beat: 6, col: 7, row: 4, kind: "pod" },
-      { beat: 20, col: 2, row: 4, kind: "pod" },
-      { beat: 33, col: 7, row: 3, kind: "pod" },
+      { beat: 0, col: 3, color: "cyan" },
+      { beat: 6, col: 4, kind: "seeder", color: "red" },
+      { beat: 13, col: 5, color: "cyan" },
+      { beat: 19, col: 7, kind: "meteor", color: null },
+      { beat: 25, col: 3, color: "cyan" },
+      { beat: 32, col: 4, kind: "seeder", color: "red" },
+      { beat: 39, col: 7, color: "cyan" },
     ],
   },
   {
@@ -104,15 +97,14 @@ export const WAVES_ACT_6: Wave[] = [
     name: "ANCIENT LANCE",
     variant: true,
     entries: [
-      { beat: 0, col: 10, color: "red" },
-      { beat: 11, col: 3, color: "cyan" },
-      { beat: 22, col: 4, color: "cyan" },
-      { beat: 33, col: 8, color: "cyan" },
-    ],
-    pods: [
-      { beat: 6, col: 0, row: 4, kind: "pod" },
-      { beat: 16, col: 2, row: 3, kind: "pod" },
-      { beat: 28, col: 5, row: 4, kind: "pod" },
+      { beat: 0, col: 4, color: "cyan" },
+      { beat: 5, col: 2, kind: "seeder", color: "red" },
+      { beat: 11, col: 8, color: "red" },
+      { beat: 17, col: 5, kind: "seeder", color: "red" },
+      { beat: 22, col: 4, color: "red" },
+      { beat: 27, col: 3, kind: "seeder", color: "cyan" },
+      { beat: 32, col: 2, color: "red" },
+      { beat: 37, col: 1, kind: "seeder", color: "red" },
     ],
   },
   {
@@ -120,18 +112,17 @@ export const WAVES_ACT_6: Wave[] = [
     name: "LANCE MIRAGE",
     variant: true,
     entries: [
-      { beat: 0, col: 3, color: "cyan" },
-      { beat: 12, col: 6, color: "red" },
-      { beat: 24, col: 2, color: "red" },
-      { beat: 24, col: 8, color: "red" },
-      { beat: 40, col: 5, color: "red" },
-      { beat: 40, col: 8, color: "red" },
-    ],
-    pods: [
-      { beat: 6, col: 10, row: 4, kind: "pod" },
-      { beat: 18, col: 7, row: 3, kind: "pod" },
-      { beat: 29, col: 5, row: 3, kind: "pod" },
-      { beat: 34, col: 10, row: 3, kind: "pod" },
+      { beat: 0, col: 7, color: "cyan" },
+      { beat: 5, col: 5, kind: "seeder", color: "cyan" },
+      { beat: 11, col: 8, color: "cyan" },
+      { beat: 17, col: 5, kind: "morsel", color: "cyan" },
+      { beat: 22, col: 4, color: "red" },
+      { beat: 22, col: 7, color: "red" },
+      { beat: 27, col: 5, kind: "seeder", color: "red" },
+      { beat: 33, col: 3, kind: "morsel", color: "red" },
+      { beat: 39, col: 4, color: "red" },
+      { beat: 39, col: 7, color: "red" },
+      { beat: 44, col: 6, kind: "seeder", color: "red" },
     ],
   },
   {
@@ -139,22 +130,22 @@ export const WAVES_ACT_6: Wave[] = [
     name: "LANCE THUNDER",
     variant: true,
     entries: [
-      { beat: 0, col: 9, color: "cyan" },
-      { beat: 8, col: 5, color: "cyan" },
-      { beat: 16, col: 0, color: "cyan" },
-      { beat: 16, col: 10, color: "cyan" },
-      { beat: 28, col: 2, color: "cyan" },
-      { beat: 28, col: 8, color: "cyan" },
-      { beat: 40, col: 1, color: "cyan" },
-      { beat: 40, col: 9, color: "cyan" },
-    ],
-    pods: [
-      { beat: 4, col: 1, row: 4, kind: "pod" },
-      { beat: 12, col: 10, row: 3, kind: "pod" },
-      { beat: 20, col: 7, row: 3, kind: "pod" },
-      { beat: 24, col: 0, row: 3, kind: "pod" },
-      { beat: 32, col: 3, row: 4, kind: "pod" },
-      { beat: 36, col: 2, row: 3, kind: "pod" },
+      { beat: 0, col: 1, color: "cyan" },
+      { beat: 4, col: 9, kind: "seeder", color: "red" },
+      { beat: 8, col: 0, color: "cyan" },
+      { beat: 12, col: 1, kind: "morsel", color: "red" },
+      { beat: 16, col: 5, color: "red" },
+      { beat: 16, col: 8, color: "red" },
+      { beat: 20, col: 10, kind: "seeder", color: "red" },
+      { beat: 24, col: 3, kind: "morsel", color: "red" },
+      { beat: 28, col: 3, color: "red" },
+      { beat: 28, col: 6, color: "red" },
+      { beat: 32, col: 0, kind: "seeder", color: "red" },
+      { beat: 36, col: 3, kind: "morsel", color: "cyan" },
+      { beat: 40, col: 2, color: "red" },
+      { beat: 40, col: 8, color: "red" },
+      { beat: 44, col: 5, kind: "seeder", color: "cyan" },
+      { beat: 48, col: 2, kind: "morsel", color: "red" },
     ],
   },
   {
@@ -227,5 +218,16 @@ export const WAVES_ACT_6: Wave[] = [
       { beat: 24, col: 6, kind: "meteor", color: null },
     ],
     pods: [{ beat: 12, col: 5, row: 2, kind: "pod", due: 20 }],
+  },
+  {
+    id: "theMaze",
+    name: "THE MAZE",
+    guide: {
+      scene: "theMaze",
+    },
+    entries: [],
+    boss: { kind: "maze", rounds: MAZE_ROUNDS },
+    bossType: "special",
+    controls: "standard5",
   },
 ];

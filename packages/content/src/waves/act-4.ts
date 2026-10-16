@@ -3,7 +3,7 @@ import { SWINDLE_SCRIPT } from "../swindle-script.js";
 import type { Wave } from "../wave-types.js";
 
 /**
- * Waves 52 to 63 of the game, in the order they are played: the end of THE
+ * Waves 51 to 63 of the game, in the order they are played: the end of THE
  * HUSK's block, the boss THE SWINDLE, THE MORSEL's block and the boss THE
  * INSTAR.
  *
@@ -13,9 +13,27 @@ import type { Wave } from "../wave-types.js";
  */
 export const WAVES_ACT_4: Wave[] = [
   {
+    id: "theWatch",
+    name: "THE WATCH",
+    variant: true,
+    setPiece: true,
+    entries: [
+      { beat: 0, col: 9, color: "red" },
+      { beat: 12, col: 1, color: "cyan" },
+      { beat: 24, col: 6, color: "cyan" },
+    ],
+    pods: [
+      { beat: 2, col: 2, row: 3, kind: "pod", due: 14, clockP1: true },
+      { beat: 2, col: 5, row: 2, kind: "pod", due: 30, clockP1: true },
+      { beat: 2, col: 8, row: 4, kind: "pod", due: 22, clockP1: true },
+    ],
+    controls: "standard5",
+  },
+  {
     id: "theNeighbour",
     name: "THE NEIGHBOUR",
     variant: true,
+    setPiece: true,
     entries: [
       { beat: 0, col: 1, color: "red" },
       { beat: 12, col: 9, color: "cyan" },

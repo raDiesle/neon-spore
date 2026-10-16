@@ -1,7 +1,7 @@
 import type { Wave } from "../wave-types.js";
 
 /**
- * Waves 39 to 51 of the game, in the order they are played: the start of THE
+ * Waves 39 to 50 of the game, in the order they are played: the start of THE
  * HUSK's block.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act
@@ -172,6 +172,7 @@ export const WAVES_ACT_3: Wave[] = [
     id: "theRoe",
     name: "THE ROE",
     variant: true,
+    setPiece: true,
     entries: [
       { beat: 0, col: 2, color: "red" },
       { beat: 8, col: 8, color: "cyan" },
@@ -191,6 +192,7 @@ export const WAVES_ACT_3: Wave[] = [
     id: "theClutch",
     name: "THE CLUTCH",
     variant: true,
+    setPiece: true,
     entries: [
       { beat: 0, col: 9, color: "red" },
       { beat: 10, col: 1, color: "cyan" },
@@ -208,6 +210,7 @@ export const WAVES_ACT_3: Wave[] = [
     id: "theDrop",
     name: "THE DROP",
     variant: true,
+    setPiece: true,
     entries: [
       { beat: 0, col: 2, color: "cyan" },
       { beat: 12, col: 8, color: "red" },
@@ -218,22 +221,6 @@ export const WAVES_ACT_3: Wave[] = [
       { beat: 2, col: 7, row: 3, kind: "husk", due: 24, drop: 6 },
       { beat: 16, col: 2, row: 4, kind: "pod", due: 20 },
       { beat: 16, col: 6, row: 2, kind: "husk", due: 20, drop: 4 },
-    ],
-    controls: "standard5",
-  },
-  {
-    id: "theWatch",
-    name: "THE WATCH",
-    variant: true,
-    entries: [
-      { beat: 0, col: 9, color: "red" },
-      { beat: 12, col: 1, color: "cyan" },
-      { beat: 24, col: 6, color: "cyan" },
-    ],
-    pods: [
-      { beat: 2, col: 2, row: 3, kind: "pod", due: 14, clockP1: true },
-      { beat: 2, col: 5, row: 2, kind: "pod", due: 30, clockP1: true },
-      { beat: 2, col: 8, row: 4, kind: "pod", due: 22, clockP1: true },
     ],
     controls: "standard5",
   },

@@ -327,23 +327,3 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/needs.test.ts` holds the wait, and
 `tools/queue/test/skipped.test.ts` holds the listing's count of the entries
 `next` stepped past and why.
-
-## Write the order waves:order composes, which rewrites 328 waves
-
-- **Found:** 2026-10-16, claude/queue-work-6b11c3
-- **Files:** `packages/content/src/waves/`, `tools/director/waves-order.ts`, `tools/director/src/compose-block.ts`
-- **Asks:** Write the composed order as it stands, keep HUSK BEND and HUSK PEAK first, or leave the list as it is?
-
-`bun run waves:order` composes every block again since THE LANCE's lesson is
-no longer capped by THE CAGE after it and a claw draw is scored on its pods
-(`clawPressure`). It ends `593 waves; the list changes`: 328 waves change
-content, 221 move, and HUSK BEND and HUSK PEAK go, because THE ROE and THE
-CLUTCH, written by hand after THE HUSK's block, now count as two of its eight
-(`existing`). Every block after THE LANCE changes because its floor rose. The
-options: **write it** — `waves:order --write`, then `waves:measure`,
-`briefings:renumber`, `baseline:blank`, and the list holds again; **keep the
-husk's eight first** — make hand-written set pieces at a block's end (THE ROE,
-THE CLUTCH; THE CAGE, THE ANCHOR, THE PENDULUM) stand outside its steps, as a
-lesson's already do, then write; **leave it** — the tool works, the list
-stays as shipped, and `waves:order` keeps saying the list changes. Done when
-`bun run waves:order` prints `nothing changes`.

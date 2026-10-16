@@ -953,7 +953,7 @@ by hand never moves.
 | `packages/content/src/waves/act-37.ts` | Waves 392 to 401 of the game, in the order they are played: THE LID's block and the boss THE SPOOL |
 | `packages/content/src/waves/act-38.ts` | Waves 402 to 411 of the game, in the order they are played: THE RECOIL's block and the boss THE HASP |
 | `packages/content/src/waves/act-39.ts` | Waves 412 to 421 of the game, in the order they are played: THE CRYSTAL's block and the boss THE RATCHET |
-| `packages/content/src/waves/act-3.ts` | Waves 39 to 51 of the game, in the order they are played: the start of THE HUSK's block |
+| `packages/content/src/waves/act-3.ts` | Waves 39 to 50 of the game, in the order they are played: the start of THE HUSK's block |
 | `packages/content/src/living-look.ts` | which kinds are drawn as a body of their own, and the contour and own-motion of each — one row per kind, so a forgotten one is a build error |
 | `packages/content/src/living-look-handed.ts` | **How the bodies answered by two hands are drawn** |
 | `packages/content/src/living-look-stroked.ts` | a creature is not a blob — the nine kinds a radial contour cannot describe, each `null` with the reason its shape needs a path of its own |
@@ -967,7 +967,7 @@ by hand never moves.
 | `packages/content/src/waves/act-47.ts` | Waves 492 to 501 of the game, in the order they are played: THE CAROM's block and the boss THE PLUMB |
 | `packages/content/src/waves/act-48.ts` | Waves 502 to 510 of the game, in the order they are played: THE CAROM's review and the boss THE SLING |
 | `packages/content/src/waves/act-49.ts` | Waves 511 to 519 of the game, in the order they are played: THE GHOST's review and the boss THE CAPSTAN |
-| `packages/content/src/waves/act-4.ts` | Waves 52 to 63 of the game, in the order they are played: the end of THE HUSK's block, the boss THE SWINDLE |
+| `packages/content/src/waves/act-4.ts` | Waves 51 to 63 of the game, in the order they are played: the end of THE HUSK's block, the boss THE SWINDLE |
 | `packages/content/src/ghost-shape.ts` | THE GHOST's contour, which is the third family of them in this package |
 | `packages/content/src/gimbal-script.ts` | THE GIMBAL's six alignments: where each ring's mark sits on the true wheel, how far the marks creep a beat |
 | `packages/content/src/gorge-levels.ts` | THE GORGE's levels: five rows or rings of bubbles, and the layout is the level |
@@ -1068,7 +1068,7 @@ by hand never moves.
 | `packages/content/src/scenes/the-cairn.ts` | THE CAIRN's rehearsal: the rock you did not pull is the one that lands |
 | `packages/content/src/control-sets-table.ts` | Every panel in the game, as a table |
 | `packages/content/src/scenes/cyan.ts` | CYAN's rehearsal: the second button, and the cost of the first one |
-| `packages/content/src/waves/act-6.ts` | Waves 74 to 87 of the game, in the order they are played: THE LANCE's block |
+| `packages/content/src/waves/act-6.ts` | Waves 74 to 88 of the game, in the order they are played: THE LANCE's block and the boss THE MAZE |
 | `packages/content/src/scenes/the-volley.ts` | THE VOLLEY's rehearsal: a ward that works is not a body that is gone |
 | `packages/content/src/scenes/catch-and-aim.ts` | CATCH AND AIM's rehearsal: the hand aims, so the cannon does not have to |
 | `packages/content/src/waves/act-1b.ts` | The last of act one, cut off `act-1.ts` when that file reached the 250-line ceiling on `CATCH AND AIM` |
@@ -1178,7 +1178,7 @@ by hand never moves.
 | `packages/content/src/silhouettes-morsel.ts` | **THE MORSEL is DUMPLING: BULB · PEAR and BULB · SPIKE** |
 | `packages/content/src/silhouettes-glutton.ts` | **THE GLUTTON is GULLET: BULB · CLOVER and SLICK · REVERB** |
 | `packages/content/src/waves/act-8.ts` | Waves 99 to 108 of the game, in the order they are played: THE CROSSING's block and the boss THE GAUGE |
-| `packages/content/src/waves/act-7.ts` | Waves 88 to 98 of the game, in the order they are played: the boss THE MAZE |
+| `packages/content/src/waves/act-7.ts` | Waves 89 to 98 of the game, in the order they are played: THE GLUTTON's block and the boss THE GEODE |
 | `packages/content/src/waves/act-9.ts` | Waves 109 to 118 of the game, in the order they are played: THE BEATBOX's block and the boss THE WARDEN |
 | `packages/content/src/waves/acts.ts` | **The act files, in the order of the game** — the one list of them, written by the director's save when it cuts a full act |
 | `packages/content/src/balloon-shape.ts` | THE BALLOON's contour: a skin with a knot under it, and the fifth family of contour in this package |
@@ -3820,6 +3820,7 @@ by hand never moves.
 | `tools/director/src/serialize-entry.ts` | one arrival and one pod of a wave, written back out — every optional field only when it is there, so a saved wave never loses one |
 | `tools/director/src/serialize-fault.ts` | **A `Malfunction` as its own source, arm by arm**, and every field of the arm is written |
 | `tools/director/src/serialize-scout.ts` | THE SCOUT's arenas, written back into `packages/content/src/scout-arenas.ts` (or another scout wave's file |
+| `tools/director/src/serialize-text.ts` | a wave's strings as biome would leave them: a text field wrapped to the width, and the guide |
 | `tools/director/src/field-control-def.ts` | **What one row of the ON THE FIELD tab is**, and nothing that fills one in |
 | `tools/shape-sheet/src/veer-subject.ts` | **THE VEER**: the meteor with its rider on it, the one card made of a shape already on the sheet plus something over the top |
 | `tools/shape-sheet/src/rock-subjects.ts` | Everything on this sheet that is faceted rather than grown: the builder that draws a crystal |

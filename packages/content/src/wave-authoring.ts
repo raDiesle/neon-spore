@@ -23,4 +23,16 @@ export interface WaveAuthoring {
    * (`tools/director/src/waves-table.ts`).
    */
   note?: string;
+  /**
+   * **A set piece written after a block, which stands outside its steps.** A
+   * hand-written regular wave in a block otherwise stands for one of its
+   * eight (`tools/director/src/compose-block.ts`), as COIL INFERNO does for
+   * THE COIL's last. THE ROE, THE CLUTCH, THE DROP, THE WATCH and THE
+   * NEIGHBOUR were written after THE HUSK's eight as more of the husk, not in
+   * place of five of them, and `waves:order` had them take HUSK BEND to HUSK
+   * PEAK out of the list (`docs/queue.md`, 16 October 2026). A set piece
+   * follows the block's composed waves and caps none of them, as a lesson's
+   * set pieces already did.
+   */
+  setPiece?: true;
 }
