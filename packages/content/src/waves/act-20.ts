@@ -24,6 +24,7 @@ export const WAVES_ACT_20: Wave[] = [
   {
     id: "theGap",
     name: "THE GAP",
+    variant: true,
     guide: {
       scene: "theGap",
     },
@@ -38,6 +39,7 @@ export const WAVES_ACT_20: Wave[] = [
   {
     id: "theCut",
     name: "THE CUT",
+    variant: true,
     guide: {
       scene: "theCut",
     },

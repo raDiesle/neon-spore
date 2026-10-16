@@ -13,7 +13,7 @@ const wave = (id: string) => {
 
 describe("wave pressure", () => {
   it("ranks the shipped waves the way the plan reads them", () => {
-    const rocks = wavePressure(wave("twoRocks")) ?? 0;
+    const rocks = wavePressure(wave("theRock")) ?? 0;
     const wall = wavePressure(wave("theWall")) ?? 0;
     const finale = wavePressure(wave("finale")) ?? 0;
     expect(rocks).toBeLessThan(wall);

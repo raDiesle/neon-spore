@@ -74,7 +74,6 @@ export type ControlSetId =
   | "default"
   | "standard1"
   | "standard2"
-  | "standard3"
   | "standard4"
   | "standard5"
   | "gauge"

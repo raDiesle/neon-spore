@@ -37,7 +37,7 @@ export function controlSetForWave(waveIndex: number): ControlSet {
  *
  * A guide teaches the first wave to carry a creature, a pod, a boss or a
  * mechanic (`test/waves.test.ts`), and a panel was the one new thing that
- * arrived unannounced: a pair reaching STANDARD 3 is handed a button they have
+ * arrived unannounced: a pair reaching STANDARD 4 is handed a button they have
  * never seen, and the wave said nothing about it. The owner named the gap in
  * those terms — a first-time introduction not only for new enemies but for
  * control panels and for the modifications of one — so this is the question a

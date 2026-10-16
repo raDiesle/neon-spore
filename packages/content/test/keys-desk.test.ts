@@ -66,9 +66,9 @@ describe("the keys the desk already had", () => {
     expect(deskKey(one, "KeyE")).toBeUndefined();
     // And the trigger arrives on I, where the full panel keeps it, rather than
     // on the first free key of a shorter row.
-    const three = controlSet("standard3");
-    expect(deskKey(three, "KeyI")?.control).toBe("guard");
-    expect(deskKey(three, "KeyS")).toBeUndefined();
+    const four = controlSet("standard4");
+    expect(deskKey(four, "KeyI")?.control).toBe("guard");
+    expect(deskKey(four, "KeyS")).toBeUndefined();
   });
 });
 

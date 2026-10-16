@@ -22,8 +22,7 @@ import { WAVES, type WaveKind } from "../src/index.js";
 
 /** The kinds a guided wave keeps although it did not introduce them, and why. */
 const THE_LESSON_KEEPS: Record<string, readonly WaveKind[]> = {
-  // Two rocks on one beat, then three: the rock is the lesson, a wave on.
-  "TWO ROCKS": ["meteor"],
+  // Three rocks on one beat: the rock is the lesson, a wave on.
   "THE HAND": ["meteor"],
   // The four faster rocks are measured against the plain one, which comes first.
   "HEAVY ROCKS": ["meteor"],

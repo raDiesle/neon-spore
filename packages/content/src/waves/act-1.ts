@@ -149,15 +149,6 @@ export const WAVES_ACT_1: Wave[] = [
     guide: {
       scene: "theRock",
     },
-    entries: [{ beat: 0, col: 5, kind: "meteor", color: null }],
-    controls: "standard3",
-  },
-  {
-    id: "twoRocks",
-    name: "TWO ROCKS",
-    guide: {
-      scene: "twoRocks",
-    },
     entries: [
       { beat: 0, col: 5, kind: "meteor", color: null },
       { beat: 4, col: 3, kind: "meteor", color: null },
@@ -167,6 +158,7 @@ export const WAVES_ACT_1: Wave[] = [
   {
     id: "theHand",
     name: "THE HAND",
+    variant: true,
     guide: {
       scene: "theHand",
     },

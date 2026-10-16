@@ -18,7 +18,7 @@ import { cannonGrab } from "../src/touch-ship.js";
  */
 
 const CFG = DEFAULT_CONFIG;
-const LADDER: ControlSetId[] = ["standard1", "standard2", "standard3", "standard4"];
+const LADDER: ControlSetId[] = ["standard1", "standard2", "standard4"];
 const ROLES: ViewRole[] = ["p1", "p2", "test"];
 const STANDARD = controlSet("default");
 
@@ -150,7 +150,8 @@ describe("a rung of the standard ladder on the band", () => {
    * without one has to be refused by the hit test rather than moved. */
   it("refuses the strip a rung has not got, and keeps the one it has", () => {
     const l = layout("test");
-    const f = field(1, controlSet("standard3"));
+    // STANDARD 2 has the cannon's strip and not the shield's.
+    const f = field(1, controlSet("standard2"));
     expect(touchDown(l, l.width / 2, l.cannonStrip.y, f)?.command?.kind).toBe("cannonCol");
     expect(touchDown(l, l.width / 2, l.shieldStrip.y, { ...f, seat: 2 })).toBeNull();
     const four = field(2, controlSet("standard4"));

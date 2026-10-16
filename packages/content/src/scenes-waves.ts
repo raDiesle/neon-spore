@@ -56,7 +56,6 @@ import { THE_WARDEN } from "./scenes/the-warden.js";
 import { THE_WEIGHT } from "./scenes/the-weight.js";
 import { THE_WELL } from "./scenes/the-well.js";
 import { THE_WISP } from "./scenes/the-wisp.js";
-import { TWO_ROCKS } from "./scenes/two-rocks.js";
 
 /**
  * The films of the waves and bosses that are not a family of their own — one
@@ -73,7 +72,6 @@ export type WaveSceneId =
   | "firstStep"
   | "cyan"
   | "theRock"
-  | "twoRocks"
   | "theHand"
   | "torch"
   | "oneLastChance"
@@ -133,7 +131,6 @@ export const SCENES_WAVES: Record<WaveSceneId, GuideScene> = {
   firstStep: FIRST_STEP,
   cyan: CYAN,
   theRock: THE_ROCK,
-  twoRocks: TWO_ROCKS,
   theHand: THE_HAND,
   torch: THE_TORCH,
   oneLastChance: ONE_LAST_CHANCE,

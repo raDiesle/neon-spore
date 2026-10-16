@@ -1026,7 +1026,6 @@ by hand never moves.
 | `packages/content/src/scenes/the-cairn.ts` | THE CAIRN's rehearsal: the rock you did not pull is the one that lands |
 | `packages/content/src/control-sets-table.ts` | Every panel in the game, as a table |
 | `packages/content/src/scenes/cyan.ts` | CYAN's rehearsal: the second button, and the cost of the first one |
-| `packages/content/src/scenes/two-rocks.ts` | TWO ROCKS' rehearsal: the plate becomes something player 2 can carry |
 | `packages/content/src/waves/act-6.ts` | Waves 63 to 72 of the game, in the order they are played: THE WEIGHT's block and the boss THE GAUGE |
 | `packages/content/src/scenes/the-volley.ts` | THE VOLLEY's rehearsal: a ward that works is not a body that is gone |
 | `packages/content/src/scenes/catch-and-aim.ts` | CATCH AND AIM's rehearsal: the hand aims, so the cannon does not have to |
@@ -1869,6 +1868,7 @@ by hand never moves.
 | `packages/render/src/caption-anchor-box.ts` | **The ring round a boss's fixture** — the two shapes every line of `caption-anchor-boss*.ts` answers with |
 | `packages/render/src/caption-hull-room.ts` | A caption on a control stands above THE UNDERTOW's lobes rather than over the plating they come through |
 | `packages/render/src/caption-hold.ts` | a guide page about a body keeps the ring where it last stood, until the page is rebuilt |
+| `packages/render/src/caption-ship-room.ts` | **A caption never covers the cannon or the shield** |
 | `packages/render/src/capstan-draw.ts` | **THE CAPSTAN**: a rusted drum on its side in a rocking cradle, its two end faces and the core under a cap |
 | `packages/render/src/capstan-marks.ts` | **THE CAPSTAN's marks**: the lit horn, band and core, and a band's health as its marks |
 | `packages/render/src/capstan-pose.ts` | **The clock THE CAPSTAN is posed off**: the rock read off the lean, the cap, the rattle |
@@ -4020,7 +4020,7 @@ by hand never moves.
 | `tools/director/src/shield-lab-button.ts` | **THE SHIELD LAB's marks on the band** — the owner, 14 October 2026 |
 | `tools/director/src/shield-lab-looks.ts` | **THE SHIELD LAB's looks** — five answers to *when is the shield wanted*, the owner, 14 October 2026 |
 | `tools/director/src/shield-lab-looks-b.ts` | THE SHIELD LAB's last two looks, GHOST and CUE — the first three and the list are `shield-lab-looks.ts` |
-| `tools/director/src/shield-lab-run.ts` | **THE SHIELD LAB's run, without a canvas** (`shield-lab-scene.ts` draws it) |
+| `tools/director/src/shield-lab-run.ts` | **THE SHIELD LAB's run, without a canvas** (`shield-lab-scene.ts` draws it): THE ROCK with five rocks queued |
 | `tools/director/src/shield-lab-scene.ts` | **THE SHIELD LAB's field, drawn** (`shield-lab.ts`) |
 | `tools/director/src/shield-lab-ink.ts` | **What THE SHIELD LAB's looks are drawn with** (`shield-lab-looks.ts`, `shield-lab-looks-b.ts` |
 | `tools/director/src/shield-lab.ts` | **THE SHIELD LAB** — every look offered for *the shield is wanted here*, on a real field: the owner |

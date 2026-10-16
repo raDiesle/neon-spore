@@ -18,6 +18,14 @@ import type { Store } from "./state.js";
  * variant — its *head*. A boss wave is always a head, so a boss is never
  * folded out of sight, and the first wave has nothing above it to belong to.
  *
+ * **A block's later intros are variants of its first.** THE HAND, THE GAP,
+ * THE CUT and THE LEAK each carry a guide, and each stood as a head, so the
+ * block's regular waves folded under the last intro and the wave that brought
+ * the block stood alone — the owner, 16 October 2026: *why there are still
+ * waves introducing something new, but no waves below attached? such as "the
+ * rock".* Marked `variant`, they fold under the block's first intro with the
+ * regular waves, and the play order does not move.
+ *
  * Counting the waves between one boss and the next stood here for an hour of
  * the same day; the owner had not asked for it, and it went.
  */

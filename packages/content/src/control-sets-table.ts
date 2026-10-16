@@ -23,15 +23,18 @@ import type { ControlSet } from "./control-sets.js";
  * there, which is a thing a player can see and answer, where a button that was
  * not on the panel at all was not.
  *
- * **The four numbered STANDARDs are the ladder**, and they are the one place
+ * **The numbered STANDARDs are the ladder**, and they are the one place
  * in here where a set is written as *less* of another one (`ControlSet.reduces`).
  * The owner's instruction was that the first waves must not hand a pair six
  * buttons at once, and that the ones they do get have to stand exactly where
  * they will stand for the rest of the game — so a rung is the standard panel
  * with buttons held back, never a panel of its own with the survivors
- * rearranged. Each adds exactly one thing to the one above it: red, then cyan,
- * then the trigger, then the plate that trigger fires, then the maw — and last
- * the **hold**, which is STANDARD 5's one difference from STANDARD itself.
+ * rearranged. Each adds one thing to the one above it: red, then cyan, then
+ * the shield, then the maw — and last the **hold**, which is STANDARD 5's one
+ * difference from STANDARD itself. The shield is the trigger and the strip
+ * together, and there is no STANDARD 3: it was the trigger alone, for THE
+ * ROCK, until the owner merged THE ROCK with TWO ROCKS so that one film
+ * teaches both halves of the shield (16 October 2026).
  *
  * **STANDARD 5 is the rung that holds back a gesture rather than a button**,
  * and it is why `ControlSet` carries a `lance` field at all. The lance has no
@@ -74,17 +77,9 @@ export const CONTROL_SETS: readonly ControlSet[] = [
     controls: ["cannon", "fireRed", "fireCyan"],
   },
   {
-    id: "standard3",
-    name: "STANDARD 3",
-    why: "The trigger arrives, and it fires the plate where the plate already stands — nobody can move it yet.",
-    lance: false,
-    reduces: "default",
-    controls: ["cannon", "guard", "fireRed", "fireCyan"],
-  },
-  {
     id: "standard4",
     name: "STANDARD 4",
-    why: "Player 2 gets the plate itself, so a ward is two hands again. The maw is the last thing held back.",
+    why: "The shield arrives whole: player 2 carries it, player 1 fires it, so a ward is two hands. The maw is the last thing held back.",
     lance: false,
     reduces: "default",
     controls: ["cannon", "guard", "shield", "fireRed", "fireCyan"],

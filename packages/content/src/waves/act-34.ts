@@ -30,6 +30,7 @@ export const WAVES_ACT_34: Wave[] = [
   {
     id: "theLeak",
     name: "THE LEAK",
+    variant: true,
     guide: {
       scene: "theLeak",
     },

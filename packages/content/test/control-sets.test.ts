@@ -175,7 +175,7 @@ describe("control sets", () => {
  * ladder rather than something beside it.
  */
 describe("the standard ladder", () => {
-  const LADDER: ControlSetId[] = ["standard1", "standard2", "standard3", "standard4"];
+  const LADDER: ControlSetId[] = ["standard1", "standard2", "standard4"];
 
   it("only ever reduces a panel that exists, and never itself", () => {
     for (const set of CONTROL_SETS) {
@@ -200,7 +200,7 @@ describe("the standard ladder", () => {
     }
   });
 
-  it("adds exactly one button a rung, and ends one short of the full panel", () => {
+  it("adds exactly one thing a rung, and ends one short of the full panel", () => {
     const full = controlSet(DEFAULT_CONTROL_SET_ID);
     let previous: ControlSetId | null = null;
     for (const id of LADDER) {
@@ -213,10 +213,12 @@ describe("the standard ladder", () => {
         for (const had of below.controls) {
           expect(setHas(set, had), `${id} took ${had} back off ${previous}`).toBe(true);
         }
-        expect(
-          set.controls.length - below.controls.length,
-          `${id} adds more than one button to ${previous}`,
-        ).toBe(1);
+        // One thing a rung — and the shield is one thing in two halves, the
+        // trigger and the strip, which arrive together since THE ROCK took
+        // both (16 October 2026).
+        const added = set.controls.filter((c) => !setHas(below, c)).sort();
+        const one = added.length === 1 || added.join() === "guard,shield";
+        expect(one, `${id} adds ${added.join(", ")} to ${previous}`).toBe(true);
       }
       previous = id;
     }
@@ -238,14 +240,19 @@ describe("the standard ladder", () => {
   });
 
   /**
-   * The rung the coverage rule was rewritten for. STANDARD 3 has the trigger
-   * and no strip under the plate: the plate stands in the middle of the field
-   * whether or not anybody can carry it, so a rock in that column is answered
-   * and the group is covered. Without the trigger nothing raises it at all,
-   * and it is not.
+   * The panel the coverage rule was rewritten for — STANDARD 3 was it, until
+   * THE ROCK took the trigger and the strip in one wave (16 October 2026), so
+   * it is written here. The trigger and no strip under the plate: the plate
+   * stands in the middle of the field whether or not anybody can carry it, so
+   * a rock in that column is answered and the group is covered. Without the
+   * trigger nothing raises it at all, and it is not.
    */
   it("counts a panel as guarding when it has the trigger, strip or no strip", () => {
-    expect(groupsCoveredBy(controlSet("standard3"))).toContain("guard");
+    const triggerOnly = {
+      ...controlSet("standard4"),
+      controls: controlSet("standard4").controls.filter((id) => id !== "shield"),
+    };
+    expect(groupsCoveredBy(triggerOnly)).toContain("guard");
     expect(groupsCoveredBy(controlSet("standard2"))).not.toContain("guard");
   });
 
@@ -266,7 +273,6 @@ describe("the standard ladder", () => {
       "standard2",
       "standard2",
       "standard2",
-      "standard3",
       // Twelve waves on the top rung, because the maw is held back until
       // SALVAGE — the one wave whose subject asks for it.
       "standard4",

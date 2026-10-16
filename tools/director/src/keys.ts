@@ -175,7 +175,7 @@ export function bindKeys(
 
   window.addEventListener("keydown", (e) => {
     // A wave is named by typing, and the name field is two panels from the
-    // stage. Without this the letters of "TWO ROCKS" would fire the cannon.
+    // stage. Without this the letters of "THE ROCK" would fire the cannon.
     if (isTyping(e.target)) return;
     if (held.has(e.code)) return;
     held.add(e.code);

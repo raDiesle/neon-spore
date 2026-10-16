@@ -45,7 +45,7 @@ describe("a block, read off the list", () => {
   });
 
   test("a wave that introduces only a panel is not a block", () => {
-    expect(typeof readBlock(WAVES, "twoRocks")).toBe("string");
+    expect(typeof readBlock(WAVES, "theLance")).toBe("string");
   });
 });
 

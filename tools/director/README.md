@@ -325,7 +325,7 @@ every source file a row names. The pieces a builder picks from are
 **THE SHIELD** stands first on HELPERS — everything the field draws about
 the shield, THE TORCH ALARM and ONE LAST CHANCE among it — with **THE SHIELD
 LAB** at its head (`src/shield-lab.ts`, `?shieldlab=tether` over
-everything): TWO ROCKS on the real simulation, P1's phone and P2's side by
+everything): THE ROCK on the real simulation, P1's phone and P2's side by
 side, and five looks for *the shield is wanted here, now* — the column on
 P2's screen, the moment on P1's, the moment for the first of each kind only
 or for every rock, and the marks on SHIELD and the strip. AUTO plays both

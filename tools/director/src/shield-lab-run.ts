@@ -17,7 +17,7 @@ import { fresh, rock } from "./pose-kit.js";
 
 /**
  * **THE SHIELD LAB's run, without a canvas** (`shield-lab-scene.ts` draws
- * it): TWO ROCKS with five rocks queued, stepped by the real simulation,
+ * it): THE ROCK with five rocks queued, stepped by the real simulation,
  * AUTO's two hands, and which rock is the first of its kind.
  *
  * Two of the five are a kind already met, so FIRST OF A KIND has a second
@@ -47,9 +47,9 @@ const PRESS_AT = 0.45;
 /** Beats the empty field rests before it starts over, so the last rock's turn is seen. */
 const REST_BEATS = 2;
 
-function twoRocks(): number {
-  const i = WAVES.findIndex((w) => w.id === "twoRocks");
-  if (i < 0) throw new Error("TWO ROCKS is not in WAVES");
+function theRock(): number {
+  const i = WAVES.findIndex((w) => w.id === "theRock");
+  if (i < 0) throw new Error("THE ROCK is not in WAVES");
   return i;
 }
 
@@ -75,7 +75,7 @@ export function beatsLeft(w: World, c: Creature): number {
 export const windowBeats = (w: World): number => guardWindowTicks(w.cfg) / ticksPerBeat(w.cfg);
 
 export class ShieldRun {
-  readonly wave = twoRocks();
+  readonly wave = theRock();
   world: World = this.build();
   /** How many times the field has started over. */
   restarts = 0;

@@ -52,7 +52,7 @@ export interface Lobe {
  *
  * **A rung of the ladder is laid out against the panel it reduces, not
  * against itself** (`ControlSet.reduces`). The slots come from `layoutSet` and
- * the held-back ones are dropped afterwards, so STANDARD 3's single trigger
+ * the held-back ones are dropped afterwards, so STANDARD 4's trigger
  * stands on the pixel STANDARD's trigger stands on and the maw's place beside
  * it is simply empty. Laying the survivors out on their own would centre one
  * lobe in the seat's share, and a pair would learn an arrangement in the first

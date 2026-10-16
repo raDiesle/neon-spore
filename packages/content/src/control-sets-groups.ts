@@ -34,8 +34,8 @@ import type { ControlGroup } from "./creatures.js";
  *
  * **Guard is the trigger, and the strip that carries the plate is not part
  * of it.** It used to ask for both, on the argument that either half alone
- * was a group the pair could not use — and STANDARD 3 is the counter-example
- * the ladder was built around. The plate is on the hull whether or not
+ * was a group the pair could not use — and STANDARD 3, a rung until 16
+ * October 2026, was the counter-example the ladder was built around. The plate is on the hull whether or not
  * anybody can slide it; without the trigger nothing ever raises it, which is
  * a rock nobody can answer, but with the trigger and no strip a rock in the
  * plate's own column is answered exactly as the wave intends. So coverage is

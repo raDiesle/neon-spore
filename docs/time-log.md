@@ -42753,3 +42753,20 @@ Bottleneck: keeping every idea to one sentence a player could say back while
 staying clear of the cargoes the owner had just rejected.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-16 — THE ROCK and TWO ROCKS are one wave, and no tutorial caption covers the cannon or the shield
+
+- reading: 15 min. The wave list's rows and groups, act one's rock waves and
+  their films, the caption's anchor and box, the standard ladder.
+- writing: 25 min. The fold left of the name, the merged film, STANDARD 3
+  taken off the ladder, the caption's room over the two lobes and its test,
+  four later intros folded under their block's first.
+- looking: 10 min. Before and after frames of the rock's pages, and the
+  wave list twice: an empty slot measured in ems came out wider than the fold.
+- friction: 5 min. `timeout` is not on this Mac, and a stale typecheck
+  named a package that `bun install` then found already there.
+- landing: 10 min. The ladder's tests, the briefings count, the index, the
+  baseline row and the measured table.
+
+Bottleneck: the ladder. Merging two waves took the only wave off STANDARD 3,
+and the rung's tests, its fixtures and its comments all had to move with it.

@@ -124,7 +124,6 @@ export const CLEAN: readonly string[] = [
   "THE WISP",
   "TORCH",
   "TWO COLOURS",
-  "TWO ROCKS",
   "antiphon",
   "balloon",
   "baton",
