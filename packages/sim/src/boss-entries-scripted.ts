@@ -18,6 +18,7 @@ import type { OculusEntry } from "./oculus.js";
 import type { PlumbEntry } from "./plumb.js";
 import type { SeamEntry } from "./seam.js";
 import type { SlingEntry } from "./sling.js";
+import type { SwindleEntry } from "./swindle.js";
 import type { TrapezeEntry } from "./trapeze.js";
 import type { ViseEntry } from "./vise.js";
 
@@ -71,7 +72,9 @@ export type ScriptedBossEntry =
   // The pods taken off her a clutch at a time, the arc's kit thrown round them (`matron.ts`).
   | MatronEntry
   // The stone only the lance cuts, broken a level of pieces at a time (`geode.ts`).
-  | GeodeEntry;
+  | GeodeEntry
+  // A hand of real pods and husks shuffled and let go, the real ones swallowed (`swindle.ts`).
+  | SwindleEntry;
 
 export type { BastionEntry, BastionStep } from "./bastion.js";
 export type { BroodEntry, BroodStep } from "./brood.js";
@@ -89,5 +92,12 @@ export type { OculusEntry, OculusStep } from "./oculus.js";
 export type { PlumbEntry, PlumbStep } from "./plumb.js";
 export type { SeamEntry, SeamStep } from "./seam.js";
 export type { SlingEntry, SlingStep } from "./sling.js";
+export type {
+  SwindleDrop,
+  SwindleEntry,
+  SwindlePod,
+  SwindleStep,
+  SwindleSwap,
+} from "./swindle.js";
 export type { TrapezeEntry, TrapezeStep } from "./trapeze.js";
 export type { ViseEntry, ViseStep } from "./vise.js";

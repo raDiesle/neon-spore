@@ -181,4 +181,10 @@ export const CHOREO_FIELD_GROUP_D = {
   geodeEnterBeats: "THE GEODE — a stone only the lance cuts",
   geodeSplitBeats: "THE GEODE — a stone only the lance cuts",
   geodeSpentBeats: "THE GEODE — a stone only the lance cuts",
+  // SwindleConfig — the beats around her hands, a swap's glide and the row a pod hangs at (`config-swindle.ts`).
+  swindleEnterBeats: "THE SWINDLE — real pods and fake ones, shuffled",
+  swindleRearBeats: "THE SWINDLE — real pods and fake ones, shuffled",
+  swindleSpentBeats: "THE SWINDLE — real pods and fake ones, shuffled",
+  swindleSwapBeats: "THE SWINDLE — real pods and fake ones, shuffled",
+  swindlePodRow: "THE SWINDLE — real pods and fake ones, shuffled",
 } satisfies Record<string, GroupName>;

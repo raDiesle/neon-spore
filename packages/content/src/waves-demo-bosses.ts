@@ -53,5 +53,6 @@ export const BOSS_DEMONSTRATIONS = {
   hydra: { wave: "theHydra" },
   brood: { wave: "theBrood" },
   matron: { wave: "finale" },
+  swindle: { wave: "theSwindle" },
   geode: { wave: "theGeode" },
 } satisfies Partial<Record<MechanicId, Demonstration>>;

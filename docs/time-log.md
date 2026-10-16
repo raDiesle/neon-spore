@@ -42995,3 +42995,13 @@ Bottleneck: reading — the husk block carried the hold and three later
 bodies, so it could not move as it was and had to be composed again.
 
 *Measured: 4 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-16 — THE SWINDLE: real pods and fake ones, shuffled (simulation)
+
+- reading: 5 min. THE MATRON's lane as the template, the pod's fall and crossing, and the boss slots.
+- writing: 15 min. The hand, the glide on the crossing, the drops, the receipts, the sounds, every registration and §11.68.
+- looking: 0 min. No picture yet: the look is the next lane.
+- friction: 5 min. A half-run edit script that doubled two lines, a heredoc the guard refused, and the words list split at its ceiling.
+- landing: 5 min. The acts cut again with every boss after it one block on, briefings renumbered, then `land`.
+
+Bottleneck: writing — a boss is some sixty registrations across seven packages, every one copied from the last boss by hand.

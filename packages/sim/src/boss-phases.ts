@@ -39,6 +39,7 @@ import { SLING_PHASES } from "./sling.js";
 import { SNAKE_PHASES } from "./snake.js";
 import { SPOOL_PHASES } from "./spool.js";
 import { STARE_PHASES } from "./stare.js";
+import { SWINDLE_PHASES } from "./swindle.js";
 import { TASTER_PHASES } from "./taster.js";
 import { THROAT_PHASES } from "./throat.js";
 import { TRAPEZE_PHASES } from "./trapeze.js";
@@ -150,5 +151,6 @@ export const BOSS_PHASES: Partial<Record<BossEntry["kind"], readonly string[]>> 
   brood: BROOD_PHASES,
   matron: MATRON_PHASES,
   geode: GEODE_PHASES,
+  swindle: SWINDLE_PHASES,
   fleet: FLEET_PHASES,
 };

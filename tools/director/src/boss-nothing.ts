@@ -46,6 +46,7 @@ const AUTHORS_NOTHING = [
   "brood",
   "matron",
   "geode",
+  "swindle",
 ] as const satisfies readonly BossEntry["kind"][];
 
 const NOTHING: ReadonlySet<string> = new Set(AUTHORS_NOTHING);
@@ -198,6 +199,8 @@ const NOTHING: ReadonlySet<string> = new Set(AUTHORS_NOTHING);
  *   offsets from `midCol` (`sim/matron.ts`).
  * - **THE GEODE**'s the same: one list of levels, its cracks offsets from
  *   `midCol` (`sim/geode.ts`).
+ * - **THE SWINDLE**'s the same: one list of hands, its pods offsets from
+ *   `midCol` and its swaps and drops pods by index (`sim/swindle.ts`).
  *
  * A boss added to this list and given a form next door is a form nobody can
  * reach; one left off it and given no form falls through to the queen's, which

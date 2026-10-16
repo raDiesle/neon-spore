@@ -16,7 +16,8 @@
  * ```
  */
 
-import { CEILING, CLEAN } from "./clean.js";
+import { CEILING } from "./ceiling.js";
+import { CLEAN } from "./clean.js";
 import { type Finding, findings } from "./measure.js";
 import { playerText, type TextEntry } from "./text.js";
 

@@ -1,6 +1,7 @@
 import { batonBeadTaken } from "./baton-press.js";
 import { matronPodTaken } from "./matron-step.js";
 import { cargoLost, huskRefused, huskSwallowed, mawOpen, takeCargo } from "./pod-intake.js";
+import { swindleHuskRefused, swindlePodTaken } from "./swindle-step.js";
 import type { Pod } from "./types.js";
 import { MILLI, type World } from "./world.js";
 
@@ -35,7 +36,11 @@ export function podArrived(world: World, pod: Pod): void {
   // a husk separately from a pod, because up to this tick it *is* one.
   if (pod.kind === "husk") {
     if (inColumn && inTime) huskSwallowed(world, pod);
-    else huskRefused(world, pod);
+    else {
+      huskRefused(world, pod);
+      // And if it was one of THE SWINDLE's, she says so (`swindle-step.ts`).
+      swindleHuskRefused(world, pod);
+    }
     return;
   }
 
@@ -46,6 +51,8 @@ export function podArrived(world: World, pod: Pod): void {
     batonBeadTaken(world, pod.id);
     // And if it was one of THE MATRON's, a lobe goes with it (`matron-step.ts`).
     matronPodTaken(world, pod.id);
+    // And if it was one of THE SWINDLE's, she is down one (`swindle-step.ts`).
+    swindlePodTaken(world, pod);
     return;
   }
   podLost(world, pod);

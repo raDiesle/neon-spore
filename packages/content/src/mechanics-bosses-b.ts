@@ -25,6 +25,7 @@ type BossIdB = Extract<
   | "hydra"
   | "brood"
   | "matron"
+  | "swindle"
   | "geode"
   | "capstan"
   | "gall"
@@ -161,6 +162,10 @@ export const BOSS_MECHANICS_B = {
   },
   geode: {
     what: "A stone falls on the ship. Only the lance cuts it. Burn each crack in its colour, and every piece breaks in two.",
+    reach: "spawn",
+  },
+  swindle: {
+    what: "A slime hangs real pods and fake ones and swaps them. Only Player 2 sees the fakes. Swallow every real pod she drops. Keep the maw shut for a fake.",
     reach: "spawn",
   },
   vane: {

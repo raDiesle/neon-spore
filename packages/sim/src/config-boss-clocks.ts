@@ -38,6 +38,7 @@ import { SLING_DEFAULTS, type SlingConfig } from "./config-sling.js";
 import { SPOOL_DEFAULTS, type SpoolConfig } from "./config-spool.js";
 import { STARE_DEFAULTS, type StareConfig } from "./config-stare.js";
 import { SURGE_DEFAULTS, type SurgeConfig } from "./config-surge.js";
+import { SWINDLE_DEFAULTS, type SwindleConfig } from "./config-swindle.js";
 import { TASTER_DEFAULTS, type TasterConfig } from "./config-taster.js";
 import { THROAT_DEFAULTS, type ThroatConfig } from "./config-throat.js";
 import { TRAPEZE_DEFAULTS, type TrapezeConfig } from "./config-trapeze.js";
@@ -116,6 +117,7 @@ export interface BossClockConfig
     HydraConfig,
     BroodConfig,
     MatronConfig,
+    SwindleConfig,
     GeodeConfig,
     SpoolConfig,
     HaspConfig,
@@ -168,6 +170,7 @@ export const BOSS_CLOCK_DEFAULTS: BossClockConfig = {
   ...BROOD_DEFAULTS,
   ...MATRON_DEFAULTS,
   ...GEODE_DEFAULTS,
+  ...SWINDLE_DEFAULTS,
   ...SPOOL_DEFAULTS,
   ...HASP_DEFAULTS,
   ...RATCHET_DEFAULTS,

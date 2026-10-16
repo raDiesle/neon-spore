@@ -142,7 +142,7 @@ export const SILENT_BOSS_F = [
   "matronSpent",
   "matronOut",
   // THE GEODE's nine are drawn by nothing yet: its look is the second lane
-  // (`docs/spec/bosses.md` §11.66), and until it lands they leave nothing
+  // (`docs/spec/bosses.md` §11.67), and until it lands they leave nothing
   // behind for the next frame and burst nowhere.
   "geodeEnter",
   "geodeCracks",
@@ -153,4 +153,15 @@ export const SILENT_BOSS_F = [
   "geodeStrike",
   "geodeShatter",
   "geodeOut",
+  // THE SWINDLE's nine are drawn by nothing yet: her look is the second lane.
+  // The pods she hangs are the field's own and drawn as such.
+  "swindleEnter",
+  "swindleHang",
+  "swindleSwap",
+  "swindleDrop",
+  "swindleTaken",
+  "swindleRefused",
+  "swindleCleared",
+  "swindleSpent",
+  "swindleOut",
 ] as const satisfies readonly SimEvent["type"][];

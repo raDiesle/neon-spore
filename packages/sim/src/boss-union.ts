@@ -45,6 +45,7 @@ import type { SpliceState } from "./splice.js";
 import type { SpoolState } from "./spool.js";
 import type { StareState } from "./stare.js";
 import type { SurgeState } from "./surge.js";
+import type { SwindleState } from "./swindle.js";
 import type { TasterState } from "./taster.js";
 import type { ThroatState } from "./throat.js";
 import type { TrapezeState } from "./trapeze.js";
@@ -139,4 +140,5 @@ export type BossState =
   | HydraState
   | BroodState
   | MatronState
-  | GeodeState;
+  | GeodeState
+  | SwindleState;

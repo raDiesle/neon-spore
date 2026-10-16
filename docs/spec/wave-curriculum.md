@@ -310,8 +310,11 @@ decided then while the owner was away:
   separate new concept wave later when all basic concepts are introduced …
   before first boss to introduce by waves all the "controls" brush enemy
   waves* — so THE BLISTER's block stands before THE BASTION and THE INSTAR
-  takes the first block after FINALE, like any other boss — THE HUSK's, since
-  that block moved there the same day.
+  takes the first free block after FINALE, like any other boss. That was THE
+  HUSK's until THE SWINDLE, the husk's own boss (the owner's shell game, 16
+  October 2026), was listed ahead of it and took it; THE INSTAR closes THE
+  LANCE's, every boss after it moved one block on, and the last waits at the
+  end for a block still to be written.
 - **A boss takes the first free block** once everything it needs is taught.
   First decided as *the bosses keep their order*; the owner, 15 October 2026,
   *you can rearrange boss waves however you want*, so a block one boss skips

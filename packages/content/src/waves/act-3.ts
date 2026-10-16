@@ -1,9 +1,9 @@
-import { INSTAR_SCRIPT } from "../instar-script.js";
+import { SWINDLE_SCRIPT } from "../swindle-script.js";
 import type { Wave } from "../wave-types.js";
 
 /**
  * Waves 39 to 48 of the game, in the order they are played: THE HUSK's block
- * and the boss THE INSTAR.
+ * and the boss THE SWINDLE.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act
  * after the tutorial arc again in play order. A save that fills it cuts a page
@@ -170,10 +170,15 @@ export const WAVES_ACT_3: Wave[] = [
     controls: "standard5",
   },
   {
-    id: "theInstar",
-    name: "THE INSTAR",
+    id: "theSwindle",
+    name: "THE SWINDLE",
+    guide: {
+      both: "A slime hangs real pods and fake ones, and swaps them round. Swallow every real pod she lets go, and none of the fake ones.",
+      p1: "1. Open the maw when your partner says real.\n2. Keep it shut when your partner says fake.",
+      p2: "1. Watch the fake pods while she swaps them.\n2. Say real or fake as each one falls.\n3. Shoot a pod loose early if you like.",
+    },
     entries: [],
-    boss: { kind: "instar", steps: INSTAR_SCRIPT },
+    boss: { kind: "swindle", steps: SWINDLE_SCRIPT },
     bossType: "normal",
     controls: "standard5",
   },

@@ -176,4 +176,10 @@ export const CHOREO_NOTES_D = {
     "column at once. Boulder, halves, quarters, heart. Only the navigator sees " +
     "where, only the pilot the colour. A level run out lands on the hull. THE SLOW " +
     "on each. See sim/geode.ts, sim/geode-step.ts, sim/geode-shot.ts.",
+  "THE SWINDLE — real pods and fake ones, shuffled":
+    "THE HUSK's boss, the owner's shell game of 16 October 2026. Each hand hangs real " +
+    "pods and fakes at swindlePodRow with no clock; pairs trade places on authored beats, " +
+    "gliding for swindleSwapBeats, and she lets each go on its beat. The level waits until " +
+    "every pod has left the field. swindleEnterBeats to come in, swindleRearBeats between " +
+    "hands, swindleSpentBeats to go. See sim/swindle.ts, sim/swindle-step.ts.",
 } satisfies Partial<Record<GroupName, string>>;

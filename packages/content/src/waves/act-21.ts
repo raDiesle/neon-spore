@@ -1,8 +1,9 @@
+import { GORGE_LEVELS } from "../gorge-levels.js";
 import type { Wave } from "../wave-types.js";
 
 /**
  * Waves 221 to 230 of the game, in the order they are played: THE CHOIR's block
- * and the boss THE CURTAIN.
+ * and the boss THE GORGE.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act
  * after the tutorial arc again in play order. A save that fills it cuts a page
@@ -146,13 +147,24 @@ export const WAVES_ACT_21: Wave[] = [
     ],
   },
   {
-    id: "theCurtain",
-    name: "THE CURTAIN",
+    id: "theGorge",
+    name: "THE GORGE",
     guide: {
-      scene: "theCurtain",
+      scene: "theGorge",
     },
-    entries: [],
-    boss: { kind: "curtain" },
+    entries: [
+      { beat: 20, col: 2, kind: "meteor", color: null },
+      { beat: 28, col: 8, kind: "meteor", color: null },
+      { beat: 34, col: 5, color: "red" },
+      { beat: 40, col: 0, color: "cyan" },
+      { beat: 46, col: 10, kind: "meteor", color: null },
+      { beat: 52, col: 5, color: "cyan" },
+      { beat: 60, col: 3, kind: "meteor", color: null },
+      { beat: 66, col: 7, color: "red" },
+      { beat: 74, col: 5, kind: "meteor", color: null },
+      { beat: 82, col: 2, color: "cyan" },
+    ],
+    boss: { kind: "gorge", levels: GORGE_LEVELS },
     bossType: "normal",
   },
 ];

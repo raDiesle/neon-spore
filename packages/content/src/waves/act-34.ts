@@ -1,9 +1,8 @@
-import { FILAMENT_SCRIPT } from "../filament-script.js";
 import type { Wave } from "../wave-types.js";
 
 /**
  * Waves 352 to 361 of the game, in the order they are played: THE LID's block
- * and the boss THE FILAMENT.
+ * and the boss THE SPLICE.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act
  * after the tutorial arc again in play order. A save that fills it cuts a page
@@ -145,11 +144,14 @@ export const WAVES_ACT_34: Wave[] = [
     ],
   },
   {
-    id: "theFilament",
-    name: "THE FILAMENT",
+    id: "theSplice",
+    name: "THE SPLICE",
+    guide: {
+      scene: "theSplice",
+    },
     entries: [],
-    boss: { kind: "filament", filaments: FILAMENT_SCRIPT },
-    bossType: "normal",
-    controls: "scene",
+    boss: { kind: "splice", rounds: [{ beats: 18 }, { beats: 27 }, { beats: 36 }] },
+    bossType: "special",
+    controls: "splice",
   },
 ];

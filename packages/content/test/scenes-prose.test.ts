@@ -129,9 +129,12 @@ const STILL_PROSE = [
   // And FINALE, THE MATRON since 16 October 2026: the body is undrawn, and
   // the guide says who shoots the pods loose and who swallows them.
   "FINALE",
-  // And THE GEODE (§11.66), 16 October 2026: the stone is undrawn, and the
+  // And THE GEODE (§11.67), 16 October 2026: the stone is undrawn, and the
   // guide says who sees where a crack runs and who sees its colour.
   "THE GEODE",
+  // And THE SWINDLE (§11.68), 16 October 2026: the body is undrawn, and the
+  // guide says who sees the fake pods and who keeps the maw shut for them.
+  "THE SWINDLE",
   // THE LATCH (cinematic §2) left this list on 8 October 2026: its film is
   // the tendril hauled hand over hand, the turn passed, and a yank braced.
 ];

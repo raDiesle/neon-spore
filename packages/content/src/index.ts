@@ -186,3 +186,4 @@ export {
 } from "./shapes.js";
 export { SNAKE_ROUNDS } from "./snake-rounds.js";
 export { STARE_LEVELS } from "./stare-levels.js";
+export { SWINDLE_SCRIPT } from "./swindle-script.js";

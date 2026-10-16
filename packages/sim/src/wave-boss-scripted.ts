@@ -16,6 +16,7 @@ import { installOculus } from "./oculus-step.js";
 import { installPlumb } from "./plumb-step.js";
 import { installSeam } from "./seam-step.js";
 import { installSling } from "./sling-step.js";
+import { installSwindle } from "./swindle-step.js";
 import { installTrapeze } from "./trapeze-step.js";
 import { installVise } from "./vise-step.js";
 import type { BossEntry, World } from "./world.js";
@@ -53,6 +54,7 @@ export const SCRIPTED_KINDS = [
   "brood",
   "matron",
   "geode",
+  "swindle",
 ] as const;
 
 export type ScriptedEntry = Extract<BossEntry, { kind: (typeof SCRIPTED_KINDS)[number] }>;
@@ -80,5 +82,6 @@ export function installScripted(world: World, boss: ScriptedEntry): BossState {
   if (boss.kind === "brood") return installBrood(world, boss.steps);
   if (boss.kind === "matron") return installMatron(world, boss.steps);
   if (boss.kind === "geode") return installGeode(world, boss.steps);
+  if (boss.kind === "swindle") return installSwindle(world, boss.steps);
   return installMimic(world, boss.steps);
 }

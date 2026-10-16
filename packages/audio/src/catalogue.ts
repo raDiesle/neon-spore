@@ -55,6 +55,7 @@ import { BOSS_SLING_SOUNDS } from "./sounds/boss-sling.js";
 import { BOSS_SPOOL_SOUNDS } from "./sounds/boss-spool.js";
 import { BOSS_STARE_SOUNDS } from "./sounds/boss-stare.js";
 import { BOSS_SURGE_SOUNDS } from "./sounds/boss-surge.js";
+import { BOSS_SWINDLE_SOUNDS } from "./sounds/boss-swindle.js";
 import { BOSS_TASTER_SOUNDS } from "./sounds/boss-taster.js";
 import { BOSS_THROAT_SOUNDS } from "./sounds/boss-throat.js";
 import { BOSS_TRAPEZE_SOUNDS } from "./sounds/boss-trapeze.js";
@@ -135,6 +136,7 @@ export const CATALOGUE: readonly SoundDef[] = [
   ...BOSS_BROOD_SOUNDS,
   ...BOSS_MATRON_SOUNDS,
   ...BOSS_GEODE_SOUNDS,
+  ...BOSS_SWINDLE_SOUNDS,
   ...BOSS_WARDEN_SOUNDS,
   ...BOSS_VANE_SOUNDS,
   ...BOSS_THROAT_SOUNDS,

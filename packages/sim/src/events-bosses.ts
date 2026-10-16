@@ -41,6 +41,7 @@ import type { SpliceEvent } from "./events-splice.js";
 import type { SpoolEvent } from "./events-spool.js";
 import type { StareEvent } from "./events-stare.js";
 import type { SurgeEvent } from "./events-surge.js";
+import type { SwindleEvent } from "./events-swindle.js";
 import type { TasterEvent } from "./events-taster.js";
 import type { ThroatEvent } from "./events-throat.js";
 import type { TrapezeEvent } from "./events-trapeze.js";
@@ -111,6 +112,7 @@ export type BossEvent =
   | BroodEvent
   | MatronEvent
   | GeodeEvent
+  | SwindleEvent
   | SpoolEvent
   | HaspEvent
   | RatchetEvent
@@ -168,6 +170,7 @@ export type { SpliceEvent } from "./events-splice.js";
 export type { SpoolEvent } from "./events-spool.js";
 export type { StareEvent } from "./events-stare.js";
 export type { SurgeEvent } from "./events-surge.js";
+export type { SwindleEvent } from "./events-swindle.js";
 export type { TasterEvent } from "./events-taster.js";
 export type { ThroatEvent } from "./events-throat.js";
 export type { TrapezeEvent } from "./events-trapeze.js";

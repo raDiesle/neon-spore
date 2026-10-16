@@ -32,3 +32,5 @@ export * from "./boss-surface-pinball.js";
 export * from "./boss-surface-snake.js";
 // THE SPLICE's, since its flights became a list (`boss-surface-splice.ts`).
 export * from "./boss-surface-splice.js";
+// THE SWINDLE's (`boss-surface-swindle.ts`).
+export * from "./boss-surface-swindle.js";

@@ -2,7 +2,7 @@ import type { Wave } from "../wave-types.js";
 
 /**
  * Waves 321 to 330 of the game, in the order they are played: THE ECHO's block
- * and the boss THE WELL.
+ * and the boss THE CAIRN.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act
  * after the tutorial arc again in play order. A save that fills it cuts a page
@@ -150,21 +150,13 @@ export const WAVES_ACT_31: Wave[] = [
     ],
   },
   {
-    id: "theWell",
-    name: "THE WELL",
+    id: "theCairn",
+    name: "THE CAIRN",
     guide: {
-      scene: "theWell",
+      scene: "theCairn",
     },
-    entries: [
-      { beat: 0, col: 5, color: "red" },
-      { beat: 8, col: 7, color: "cyan" },
-      { beat: 18, col: 0, color: "cyan" },
-      { beat: 26, col: 10, color: "red" },
-      { beat: 38, col: 10, color: "cyan" },
-      { beat: 46, col: 0, color: "red" },
-      { beat: 58, col: 5, color: "cyan" },
-    ],
-    boss: { kind: "well" },
-    bossType: "special",
+    entries: [],
+    boss: { kind: "cairn" },
+    bossType: "normal",
   },
 ];

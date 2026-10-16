@@ -12597,7 +12597,7 @@ reaching 0.3 part radii and rolling up to 0.14 rad, cocking three times a
 round, on rounds of about 6.8 seconds (`temperOf("pulse")`,
 `glance-temper.ts`).
 
-## 11.66 THE GEODE — a stone only the lance cuts, broken a level of pieces at a time
+## 11.67 THE GEODE — a stone only the lance cuts, broken a level of pieces at a time
 
 > A stone as wide as the field sinks on the ship, and a bolt only chips it.
 > Burn each crack with the lance in its colour, and every piece breaks in
@@ -12720,6 +12720,96 @@ carries (`render/src/geode-shape.ts` is only where it hangs, for THE SLOW's
 light). Its marks and its words (`HOLD` at the crack on the navigator's
 screen, the colour on the pilot's). The guide is prose. **Never watched at
 tempo** — the owner's eye.
+
+## 11.68 THE SWINDLE — real pods and fake ones, shuffled
+
+> A slime hangs real pods and fake ones, and swaps them round. Swallow every
+> real pod she lets go, and none of the fake ones.
+
+The owner's ask of 16 October 2026, the third part of the one that made
+FINALE THE MATRON: *after root wave of "real" i suggest after to have
+"hollow" then again some boss for it focusing of concept to iterate both*.
+Asked which shape, he chose **the shell game** — she carries real pods and
+husks, keeps swapping them, only the navigator sees which are hollow, the
+navigator calls them while they move, and the pilot opens the maw only for
+the real ones. A **field boss**, the second kind in `.claude/skills/new-boss`:
+the ordinary field, falling, and the arc's panel, STANDARD 5. It closes THE
+HUSK's block, the first after the arc (`boss-slots.ts`). **Built on 16
+October 2026 as its simulation**; her body is the next lane.
+
+**The rule, in one sentence.** Swallow every real pod she lets go, and none
+of the fake ones.
+
+**Her health is her real pods**, and no bar: six in the shipped script.
+When her last hand is cleared she is beaten.
+
+**The split is THE HUSK's, made into the whole fight.** The pilot's screen
+draws a husk as a pod and the navigator's frames it (`render/husk-mark.ts`);
+nothing in the simulation, the events or the sound tells them apart before
+the receipt. So the navigator watches the marks while she shuffles and says
+*real* or *fake* as each pod falls; the pilot opens the maw for one and
+keeps it shut for the other. The navigator may shoot a pod loose early, in
+either colour, and it falls the same.
+
+**A level is a hand** (`sim/swindle.ts`, its script
+`content/src/swindle-script.ts`, named on the wave for THE INSTAR's reason).
+Each names its **pods** — columns from the middle, and `pod` or `husk` — its
+**swaps** — two pods by index trading places from beat `at` — and its
+**drops** — a pod by index let go on beat `at`. A hand is hung all at once
+at `swindlePodRow` (`swindleHang`). A swap **glides** for `swindleSwapBeats`
+on the pod's own crossing (`Pod.crossMilli`, THE CLAW's), one at a time, and
+is stopped on the beat it ends with each pod set exactly on the other's
+column (`swindleSwap`). A drop frees the pod the ordinary way (`freePod`,
+`swindleDrop`): it falls, drifts and homes to the cannon like any pod.
+**The level waits** until nothing of it is left on the field
+(`swindleCleared`), then she rears back `swindleRearBeats` and deals the
+next. The shipped four add a pod or a swap each: one of each traded once;
+two real and a fake traded three times; a real one between two fakes traded
+four times; two of each traded five times. Every pod is let go after the
+last swap has stopped, five beats apart, so one is ever falling at a time
+and the maw's window from the last has shut before the next arrives.
+
+**The clock** (`sim/swindle-step.ts`) runs on the beat: she comes in for
+`swindleEnterBeats`, and goes `swindleSpentBeats` after her last hand
+(`swindleSpent`, `swindleOut`) before the wave may end. A pod of hers is
+told apart from a pod the wave hung by its id: the receipt at the maw
+(`pod-arrive.ts`) calls `swindlePodTaken` and `swindleHuskRefused`.
+
+**The threat needs nothing of hers**: a real pod let fall is the ordinary
+lost pod (`cargoLost`), and a husk swallowed the ordinary swallowed husk
+(`huskSwallowed`) — either loses the wave.
+
+**Where this departs from the bosses before it, and why.**
+- **Her pods carry no clock** (`NO_DUE`). She lets every one go herself, on
+  its beat, so a ring would be a second clock on the same catch; THE
+  MATRON's pods wait for the navigator, and hers do not.
+- **A swap is a glide, not a jump.** A pod that jumped columns would be a
+  cut the pilot cannot follow by eye either, and the shell game is that the
+  pilot *can* follow the pods and still cannot know which is which.
+- **No SLOW.** A field boss on the arc's panel: a pod falls in a little over
+  three beats, and the call is one word.
+
+**The hand.** AUTO plays her with the field's own hand
+(`hands/src/autopilot-field-hand.ts`), which follows a falling pod, opens
+the maw for a real one and keeps it shut for a husk, as on THE HUSK.
+
+**The sound** (`audio/src/bind-swindle.ts`, `sounds/boss-swindle.ts`):
+nine. **The hang, the swap and the drop are one cue each whatever the pod
+is**, because both screens hear them; a real pod taken pops and glints,
+climbing as her real pods run out, and a fake refused is a dull hollow
+knock — after the receipt, so it tells nothing the pair did not just do.
+
+**What is proven, and what is not.** `sim/test/swindle.test.ts` proves the
+rules: a hand is hung where the script says, both kinds, on no clock; a swap
+glides and stops each pod exactly on the other's column; each pod is let go
+on its beat, and the drop's event carries no kind; a real pod swallowed and a
+fake refused clear the hand; a fake swallowed loses the wave and so does a
+real pod let fall; her last hand cleared beats her and she goes; the same
+play hashes the same.
+
+**What is not built.** Her body: the pods are drawn, she is not. Her film:
+the guide is prose (`briefings.md` §3.2). **Never watched at tempo** —
+whether five beats between drops is a fair call is the owner's ear.
 
 ## 11.9 THE TELL — rock, paper, scissors, and half the tell on each screen
 

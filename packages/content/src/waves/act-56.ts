@@ -1,8 +1,8 @@
 import type { Wave } from "../wave-types.js";
 
 /**
- * Waves 561 to 570 of the game, in the order they are played: THE ECHO's
- * review, the boss THE CHRYSALIS and the boss THE HYDRA.
+ * Waves 561 to 571 of the game, in the order they are played: THE ECHO's
+ * review, the boss THE LATCH, the boss THE CHRYSALIS and the boss THE HYDRA.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act
  * after the tutorial arc again in play order. A save that fills it cuts a page
@@ -144,6 +144,24 @@ export const WAVES_ACT_56: Wave[] = [
       { beat: 16, col: 0, row: 3, kind: "pod" },
       { beat: 31, col: 0, row: 3, kind: "pod" },
     ],
+  },
+  {
+    id: "theLatch",
+    name: "THE LATCH",
+    guide: {
+      scene: "theLatch",
+    },
+    entries: [],
+    boss: {
+      kind: "latch",
+      steps: [
+        { ask: "haul", knots: 2, beats: 28 },
+        { ask: "yank", knots: 2, beats: 32 },
+        { ask: "cross", knots: 2, beats: 32 },
+      ],
+    },
+    bossType: "normal",
+    controls: "scene",
   },
   {
     id: "theChrysalis",

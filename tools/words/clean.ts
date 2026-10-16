@@ -15,6 +15,8 @@
  * `CEILING` catches a *new* wave authored in the old register, which `CLEAN`
  * cannot see because a new name was never on it.
  *
+ * `CEILING` is its own page beside this one (`ceiling.ts`).
+ *
  * Nothing here is generated. `bun run words --clean` prints the two values as
  * they stand, and a lane pastes them in with the rewrite that earned them.
  */
@@ -107,6 +109,7 @@ export const CLEAN: readonly string[] = [
   "THE STARE",
   "THE STRAND",
   "THE SURGE",
+  "THE SWINDLE",
   "THE TASTER",
   "THE THROAT",
   "THE THROB",
@@ -209,23 +212,3 @@ export const CLEAN: readonly string[] = [
   "well",
   "wisp",
 ];
-
-/**
- * How many lines may still fail. 290 of 717 on 21 September 2026, the day the
- * rules were written; the rewrite lanes bring it down.
- *
- * **It went up once, the same day, and only a new rule may do that.** The
- * owner settled ward against plate against guard against shield, that became
- * a sixth vocabulary row, and sixty-six lines the checker had never asked
- * about started failing — sixteen of them for the first time. A number that
- * may never rise would have meant the answer could not be enforced until the
- * whole corpus was rewritten, which is the rewrite the number exists to
- * pace. So: a rule added, remeasured, and a sentence here saying which rule
- * and how much. A lane that has written no rule may still only lower it.
- *
- * 290 to 305: sixteen newly failing, less the one wave *named* THE WARD, which
- * the row does not reach (`measure.ts` — a name is a proper noun). The
- * sixty-six lines that row found were swept by 23 September 2026, the last of
- * them `tether`'s.
- */
-export const CEILING = 4;

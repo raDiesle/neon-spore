@@ -141,6 +141,8 @@ export function serializeBoss(boss: BossEntry, waveId = ""): string {
   // THE NETTLE's the same way (`packages/content/src/nettle-script.ts`), and THE
   // MATRON's clutches (`packages/content/src/matron-script.ts`).
   if (boss.kind === "matron") return '{ kind: "matron", steps: MATRON_SCRIPT }';
+  // And THE SWINDLE's hands (`packages/content/src/swindle-script.ts`).
+  if (boss.kind === "swindle") return '{ kind: "swindle", steps: SWINDLE_SCRIPT }';
   if (boss.kind === "nettle") return '{ kind: "nettle", steps: NETTLE_SCRIPT }';
   // THE BROOD's the same way (`packages/content/src/brood-script.ts`).
   if (boss.kind === "brood") return '{ kind: "brood", steps: BROOD_SCRIPT }';

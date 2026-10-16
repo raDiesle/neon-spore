@@ -41,6 +41,7 @@ const FROM_THE_MIDDLE = [
   "brood",
   "matron",
   "geode",
+  "swindle",
 ] as const satisfies readonly BossEntry["kind"][];
 
 type MiddleKind = (typeof FROM_THE_MIDDLE)[number];

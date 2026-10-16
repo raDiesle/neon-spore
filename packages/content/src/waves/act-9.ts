@@ -2,7 +2,7 @@ import type { Wave } from "../wave-types.js";
 
 /**
  * Waves 99 to 108 of the game, in the order they are played: HEAVY ROCKS's
- * block and the boss THE FLEET.
+ * block and the boss THE WARDEN.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act
  * after the tutorial arc again in play order. A save that fills it cuts a page
@@ -145,23 +145,14 @@ export const WAVES_ACT_9: Wave[] = [
     ],
   },
   {
-    id: "theFleet",
-    name: "THE FLEET",
+    id: "theWarden",
+    name: "THE WARDEN",
     guide: {
-      scene: "theFleet",
+      scene: "theWarden",
     },
     entries: [],
-    boss: {
-      kind: "fleet",
-      ships: [
-        { col: 1, row: 1, len: 5, dir: "h" },
-        { col: 8, row: 0, len: 4, dir: "v" },
-        { col: 3, row: 5, len: 3, dir: "h" },
-        { col: 0, row: 6, len: 3, dir: "v" },
-        { col: 7, row: 8, len: 2, dir: "h" },
-      ],
-    },
-    bossType: "special",
-    controls: "fleet",
+    boss: { kind: "warden" },
+    bossType: "normal",
+    controls: "standard5",
   },
 ];

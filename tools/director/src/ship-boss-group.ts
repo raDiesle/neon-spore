@@ -73,6 +73,7 @@ export const BOSS_GROUP: Record<BossEntry["kind"], GroupName> = {
   brood: "THE BROOD — a sac that grows slicks and bulbs, shot before they drop",
   matron: "THE MATRON — a mother slime whose pods are her health",
   geode: "THE GEODE — a stone only the lance cuts",
+  swindle: "THE SWINDLE — real pods and fake ones, shuffled",
   // The one group with no dial in it, and deliberately: everything about THE
   // WELL is the shape of a picture, and a number that changed how a picture
   // reads belongs in a VERSUS candidate rather than on a slider

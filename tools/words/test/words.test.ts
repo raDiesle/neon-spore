@@ -1,6 +1,7 @@
 import { describe, expect, it } from "bun:test";
 import { WAVES, type WordedGuide } from "@neon-spore/content";
-import { CEILING, CLEAN } from "../clean.js";
+import { CEILING } from "../ceiling.js";
+import { CLEAN } from "../clean.js";
 import { BUDGET, findings, sentences, words } from "../measure.js";
 import { playerText, type TextEntry } from "../text.js";
 

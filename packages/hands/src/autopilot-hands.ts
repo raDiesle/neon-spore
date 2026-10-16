@@ -113,6 +113,9 @@ export const AUTOPILOT_HANDS: Partial<Record<BossKind, Hand>> = {
   // field hand shoots, catches and shields all of it (`sim/matron.ts`).
   matron: fieldHand,
   geode: geodeHand,
+  // Her pods are the ordinary pods: the field hand frees and swallows a real
+  // one and keeps the maw shut for a fake (`sim/swindle.ts`).
+  swindle: fieldHand,
   maze: mazeHand,
   mirror: mirrorHand,
   nettle: nettleHand,

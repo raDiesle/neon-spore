@@ -21,6 +21,7 @@ import { stepMimic } from "./mimic-step.js";
 import { stepRatchet } from "./ratchet-step.js";
 import { stepSplice } from "./splice-round.js";
 import { stepSpool } from "./spool-step.js";
+import { stepSwindle } from "./swindle-step.js";
 import { stepTrapeze } from "./trapeze-step.js";
 import { stepVane } from "./vane.js";
 import { stepWell } from "./well-step.js";
@@ -91,6 +92,11 @@ export function stepLateBoss(world: World, boss: Exclude<BossState, QueenState>)
   // THE GEODE: cracks light, a level runs out, the heart scatters (`geode-step.ts`).
   if (boss.kind === "geode") {
     stepGeode(world, boss);
+    return;
+  }
+  // THE SWINDLE: a hand hung, a swap glided, a pod let go, a hand cleared (`swindle-step.ts`).
+  if (boss.kind === "swindle") {
+    stepSwindle(world, boss);
     return;
   }
   // THE MIMIC: the slap, a sign's window and its change, the mimicry and the reach, the core and the fall (`mimic-step.ts`).

@@ -18,8 +18,8 @@ import { TUTORIAL_LAST_ID } from "./compose-steps.js";
  * - **The tutorial arc keeps its bosses.** Up to FINALE nothing moves —
  *   THE BROOD, THE BASTION and BULB QUEEN — and no boss moves into it.
  *   THE INSTAR stood there until 16 October 2026; the owner moved it past
- *   the basics, and it takes the first block after the arc like any other
- *   boss. BULB QUEEN moved in the same day, the owner's pick of the bosses
+ *   the basics, and it takes the first free block after the arc like any
+ *   other boss — the second, since THE SWINDLE closes THE HUSK's. BULB QUEEN moved in the same day, the owner's pick of the bosses
  *   that need nothing the arc does not teach: it closes SALVAGE's block.
  * - **A boss takes the first free block** after its needs are taught, so a
  *   block a boss skipped — THE SPLICE waits for THE CLAW's button — is taken

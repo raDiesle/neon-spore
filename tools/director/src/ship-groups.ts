@@ -63,6 +63,7 @@ export type GroupName =
   | "THE BROOD — a sac that grows slicks and bulbs, shot before they drop"
   | "THE MATRON — a mother slime whose pods are her health"
   | "THE GEODE — a stone only the lance cuts"
+  | "THE SWINDLE — real pods and fake ones, shuffled"
   | "THE SPLICE — straws fed in the order the numbers say"
   | "THE REPRISE — the wave sent again unseen"
   | "AIM — colour and column"
@@ -176,6 +177,7 @@ export const GROUP_ORDER: GroupName[] = [
   "THE BROOD — a sac that grows slicks and bulbs, shot before they drop",
   "THE MATRON — a mother slime whose pods are her health",
   "THE GEODE — a stone only the lance cuts",
+  "THE SWINDLE — real pods and fake ones, shuffled",
   "PINBALL — a table the ship's cannon fires up into",
   "THE PULSE — the same song on two screens",
   "THROB — red one side, cyan the other, turning",

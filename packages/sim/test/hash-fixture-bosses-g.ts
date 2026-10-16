@@ -81,6 +81,29 @@ export const BOSS_ENTRIES_G = {
       },
     ],
   },
+  // Two hands, both kinds of pod, a swap and a drop each, the columns and beats apart (`swindle-hash.ts`).
+  swindle: {
+    kind: "swindle",
+    steps: [
+      {
+        pods: [
+          { offset: -2, kind: "pod" },
+          { offset: 3, kind: "husk" },
+        ],
+        swaps: [{ at: 1, a: 0, b: 1 }],
+        drops: [{ at: 5, pod: 1 }],
+      },
+      {
+        pods: [
+          { offset: 1, kind: "husk" },
+          { offset: -4, kind: "pod" },
+          { offset: 4, kind: "pod" },
+        ],
+        swaps: [{ at: 2, a: 2, b: 0 }],
+        drops: [{ at: 7, pod: 2 }],
+      },
+    ],
+  },
 } satisfies Partial<Record<BossEntry["kind"], BossEntry>>;
 
 /** THE CHRYSALIS on's share of `patchBoss`. */
@@ -152,5 +175,19 @@ export function patchBossG(boss: BossState): void {
     boss.cursor = 1;
     boss.pieces = 2;
     boss.cutTick = [41, -1];
+  }
+  if (boss.kind === "swindle") {
+    // The second hand hung, a swap gliding and a drop gone, one real pod
+    // already swallowed — every field given a value (`swindle-hash.ts`).
+    boss.phase = "hang";
+    boss.phaseBeat = 3;
+    boss.cursor = 1;
+    boss.hung = [41, 42, 43];
+    boss.swapped = 1;
+    boss.dropped = 1;
+    boss.glide = [41, 43];
+    boss.glideTo = [9000, 6000];
+    boss.glideEnd = 4;
+    boss.taken = 1;
   }
 }

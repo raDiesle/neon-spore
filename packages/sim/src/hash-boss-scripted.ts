@@ -16,6 +16,7 @@ import { oculusHashParts } from "./oculus-hash.js";
 import { plumbHashParts } from "./plumb-hash.js";
 import { seamHashParts } from "./seam-hash.js";
 import { slingHashParts } from "./sling-hash.js";
+import { swindleHashParts } from "./swindle-hash.js";
 import { trapezeHashParts } from "./trapeze-hash.js";
 import { viseHashParts } from "./vise-hash.js";
 
@@ -118,6 +119,10 @@ export function scriptedHashParts(boss: BossState): number[] {
   // THE GEODE: the phase, the pieces cut and when, and the script (`geode-hash.ts`).
   if (boss.kind === "geode") {
     for (const n of geodeHashParts(boss)) out.push(n);
+  }
+  // THE SWINDLE: the phase, the hand hung, the glide, the swaps and drops done, and the script (`swindle-hash.ts`).
+  if (boss.kind === "swindle") {
+    for (const n of swindleHashParts(boss)) out.push(n);
   }
   return out;
 }

@@ -2,7 +2,7 @@ import type { Wave } from "../wave-types.js";
 
 /**
  * Waves 59 to 68 of the game, in the order they are played: THE CROSSING's
- * block and the boss THE MIRROR.
+ * block and the boss THE GEODE.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act
  * after the tutorial arc again in play order. A save that fills it cuts a page
@@ -148,21 +148,43 @@ export const WAVES_ACT_5: Wave[] = [
     ],
   },
   {
-    id: "theMirror",
-    name: "THE MIRROR",
+    id: "theGeode",
+    name: "THE GEODE",
     guide: {
-      scene: "theMirror",
+      both: "A stone falls on the ship, and only the lance cuts it. Burn each crack with a beam in its colour. Each cut breaks a piece in two.",
+      p1: "Only you see each crack's colour: say it. Slide the cannon under the crack named, and keep still.",
+      p2: "Only you see where each crack is: say where. Hold the colour you hear until the beam goes.",
     },
     entries: [],
     boss: {
-      kind: "mirror",
-      rounds: [
-        ["fireRed", "guard"],
-        ["cannonLeft", "cannonRight", "cannonRight"],
-        ["intake", "fireRed", "intake", "fireCyan", "intake", "fireRed"],
+      kind: "geode",
+      steps: [
+        { beats: 20, cracks: [{ at: 2, color: "red" }] },
+        {
+          beats: 24,
+          cracks: [
+            { at: -3, color: "cyan" },
+            { at: 3, color: "red" },
+          ],
+        },
+        {
+          beats: 28,
+          cracks: [
+            { at: -4, color: "red" },
+            { at: 0, color: "cyan" },
+            { at: 0, color: "cyan" },
+            { at: 4, color: "red" },
+          ],
+        },
+        {
+          beats: 22,
+          cracks: [
+            { at: -1, color: "red" },
+            { at: -1, color: "cyan" },
+          ],
+        },
       ],
     },
-    bossType: "special",
-    controls: "standard5",
+    bossType: "normal",
   },
 ];

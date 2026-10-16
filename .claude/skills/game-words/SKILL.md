@@ -141,9 +141,9 @@ October 2026 because its pod left the game, not for the word.)
    already do and it is why they pass.
 3. `bun run words "<WAVE NAME>"` again, until every line is `✓`.
 4. Add the subject to `CLEAN` in `tools/words/clean.ts`, **in sort order**, and
-   lower `CEILING` to what `bun run words --clean` now prints. A lane that has
-   added a *rule* remeasures it instead, and says in `clean.ts` which rule and
-   how much.
+   lower `CEILING` in `tools/words/ceiling.ts` to what `bun run words --clean`
+   now prints. A lane that has added a *rule* remeasures it instead, and says
+   in `ceiling.ts` which rule and how much.
 5. `bun test tools/words`.
 
 `CLEAN` only grows, and `CEILING` only falls unless a new rule went in with it. `CLEAN` catches a rewritten wave

@@ -80,10 +80,20 @@ describe("the bosses' places (wave-curriculum §7)", () => {
   test("THE INSTAR comes after the arc, once every basic thing is taught", () => {
     // The owner, 16 October 2026: *"the instar" is a boss, it should come
     // as a separate new concept wave later when all basic concepts are
-    // introduced.* It takes the first block after FINALE.
+    // introduced.* It takes the first block after FINALE that THE SWINDLE
+    // has not: the husk's boss closes the husk's block, which comes first.
     const at = WAVES.findIndex((w) => w.id === "theInstar");
     expect(at).toBeGreaterThan(finale);
-    expect(WAVES.slice(finale + 1, at).filter((w) => w.boss)).toEqual([]);
+    expect(WAVES.slice(finale + 1, at).flatMap((w) => (w.boss ? [w.id] : []))).toEqual([
+      "theSwindle",
+    ]);
+  });
+
+  test("THE SWINDLE closes THE HUSK's block, the first after the arc", () => {
+    // The owner, 16 October 2026: *after root wave of "real" … "hollow", then
+    // again some boss for it*. FINALE is the real pod's exam; this is both's.
+    const slot = bossOrder(WAVES).slots.find((s) => s.id === "theSwindle");
+    expect(slot?.closes).toBe("theHusk");
   });
 });
 

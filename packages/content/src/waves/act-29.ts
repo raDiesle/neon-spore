@@ -2,7 +2,7 @@ import type { Wave } from "../wave-types.js";
 
 /**
  * Waves 301 to 310 of the game, in the order they are played: THE CLASP's block
- * and the boss THE HIVE.
+ * and the boss THE ANTIPHON.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act
  * after the tutorial arc again in play order. A save that fills it cuts a page
@@ -145,13 +145,13 @@ export const WAVES_ACT_29: Wave[] = [
     ],
   },
   {
-    id: "theHive",
-    name: "THE HIVE",
+    id: "theAntiphon",
+    name: "THE ANTIPHON",
     guide: {
-      scene: "theHive",
+      scene: "theAntiphon",
     },
     entries: [],
-    boss: { kind: "hive" },
+    boss: { kind: "antiphon" },
     bossType: "normal",
   },
 ];

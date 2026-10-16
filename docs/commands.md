@@ -77,7 +77,7 @@ bun run baseline:blank     # a row for every unweighed wave, a blank for every r
 bun run orphans        # what is built and reached by nothing — a creature no wave spawns
 bun run words          # every line a player reads, measured against `.claude/skills/game-words`: guides, wave sentences, the DEMOS buttons
 bun run words "THE SHELL"  # one wave or mechanic, every line, the passing ones too
-bun run words --clean  # the CLEAN list and the CEILING that `tools/words/clean.ts` should now hold
+bun run words --clean  # the CLEAN list and the CEILING that `tools/words/clean.ts` and `ceiling.ts` should now hold
 ```
 
 ## Landing and the queue
