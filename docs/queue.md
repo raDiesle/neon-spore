@@ -331,6 +331,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## The op-count rows still carry the sea's forty-four motes
 
 - **Found:** 2026-10-16, claude/background-versus-candidates-e2bfdb
+- **Taken:** 2026-10-16, claude/queue-work-6b11c3 (claim: claude/queue-the-op-count-rows-still-carry-the-seas-forty-fou)
 - **Files:** `packages/render/test/frame-budget.test.ts`, `packages/render/test/wave-budget.test.ts`, `packages/render/test/fleet-budget.test.ts`
 
 The field's back stopped being a sea and became the wave's sky (`skies.ts`).
