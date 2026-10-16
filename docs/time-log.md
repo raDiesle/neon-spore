@@ -43375,3 +43375,19 @@ Bottleneck: proving it changed nothing — two full `waves:order` runs, cheap
 only because the change itself made them fast.
 
 *Measured: 9 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-16 — SHIELD and SUCK light up when something is asking for them
+
+- reading: 10 min. The fire button's mark, and which rules answer a body
+  for the dome and the mouth (`hull.ts`, `pod-intake.ts`, `moult.ts`).
+- writing: 10 min. `ship-asks.ts`, `ship-button-mark.ts`, `paintEmberIn`,
+  two tests.
+- looking: 5 min. Three `bun run frames` runs to find a rock visible in the
+  shield's column; THE CAIRN's first one hid it in the pile.
+- friction: 0 min.
+- landing: 10 min. Five reds from `check:fast`: two budget rows, the
+  catalogue, the index, and THE LEDGER's ring count reading EMBER's dark
+  sleeve as a ring.
+
+Bottleneck: the frame tests that count a ring by its colour, which a new
+mark in the same colour breaks without anything being wrong.
