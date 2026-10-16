@@ -43301,3 +43301,5 @@ pod sets landed after it an hour later — and only a printed ramp said so.
 
 Bottleneck: finding a block that may move into the arc without a wave using
 what it has not been taught yet — a probe over six acts.
+
+*Measured: 19 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
