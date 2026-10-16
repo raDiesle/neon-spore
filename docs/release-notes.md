@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-16 · 0f5f61f1f — ECLIPSE is small and quiet, AURORA is smooth, BINARY is gone
+
+The eclipse is a small dim disc high on the right instead of a big black one in a burning ring over the middle of the field, so it no longer reads as an enemy. The aurora's curtains are soft rays laid three deep with a fine grain and a bright hem going from green to rose, in place of strips that read as pixels. BINARY is out of the skies, which are eleven now.
+
 ## 2026-10-16 · 23f397556 — The composed wave order is written, and THE HUSK keeps all eight of its waves
 
 `bun run waves:order` composes the whole list again since THE LANCE's lesson stopped being capped by THE CAGE. Its order is now the list, 600 waves, and running it again prints "nothing changes". THE ROE, THE CLUTCH, THE DROP, THE WATCH and THE NEIGHBOUR are marked as set pieces (`Wave.setPiece`, a director-only field). They follow THE HUSK's eight composed waves instead of standing for five of them, which would have cut the husk to three. Wave measurements and the perf baseline's numbering are refreshed to match. The owner left the choice to the session.
