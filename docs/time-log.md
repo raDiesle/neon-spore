@@ -43140,3 +43140,14 @@ Bottleneck: finding a silhouette the nameability tests would accept — one
 lobe measures as two or three, so only eight pleats were free.
 
 *Measured: 5 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-16 — THE MORSEL, its look
+
+- reading: 5 min. How the moult's cargo is drawn, and the body-draw table.
+- writing: 10 min. `render/morsel.ts`, its row and a frame test.
+- looking: 10 min. Two frames and two crops; the first fill read as a rock.
+- friction: 0 min.
+- landing: 5 min. A queue entry, INDEX, `check:fast`.
+
+Bottleneck: the first limp body filled with the pod's own dark and read as a
+stone; only a frame showed it.

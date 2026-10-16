@@ -442,3 +442,17 @@ above all — and a regression up to that slack would pass unseen. Remeasure
 every row in the three files at its sky and write the measured numbers in.
 Done when each row equals what its frame draws today, and `bun run check` is
 green.
+
+## An op-count row moves whenever its wave changes number
+
+- **Found:** 2026-10-16, claude/suck-brush-visuals-a917b1
+- **Files:** `packages/render/src/skies.ts`, `packages/render/test/wave-budget.test.ts`
+
+`skyFor` picks the sky by the wave's number mod twelve, so a block put in
+early in the game moves every later wave under another sky. THE MORSEL's block
+did this, and THE GYRE's row went red by a fill, two clips and a save that
+belong to the sky, not the wheel. Main was already red on that row by eleven
+strokes after the SKIES landing. A budget row measures its subject plus
+whichever sky it falls under. Pin the sky in the budget runs (one fixed sky for
+every row), or key `skyFor` to something placement does not move. Done when
+renumbering waves moves no budget row, and `bun run check` is green.

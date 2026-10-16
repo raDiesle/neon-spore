@@ -19,6 +19,7 @@ import { drawCrystalBody } from "./crystal.js";
 import { drawGhost, showsGhostBody } from "./ghost.js";
 import { drawLid } from "./lid.js";
 import { drawMineBody } from "./mine.js";
+import { drawMorselBody } from "./morsel.js";
 import { drawMoultBody } from "./moult.js";
 import { MOUNT_LOOK } from "./mount-look.js";
 import { drawVolleyCore } from "./volley-core.js";
@@ -170,6 +171,8 @@ const EXCLUSIVE: ReadonlyMap<CreatureKind, BodyDraw> = new Map<CreatureKind, Bod
   // with no contour of its own for one. What it draws is the rock, the cargo,
   // or the single blended outline between them (`moult.ts`).
   ["moult", drawMoultBody],
+  // THE MORSEL: the living body until a hit turns it limp, then a cargo (`morsel.ts`).
+  ["morsel", drawMorselBody],
   ["lid", drawLidBody],
   ["strand", drawStrandBody],
   ["magnet", drawMagnetBody],
