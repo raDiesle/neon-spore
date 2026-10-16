@@ -43333,3 +43333,14 @@ Bottleneck: finding which of the blister's warnings was "the indicator on the
 borders" — the strip, the wall mark and the pore's swell are three.
 
 *Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-16 — Two bosses given one section number turn the check red
+
+- reading: 5 min. The headings, and every `§11.n` the tree names.
+- writing: 5 min. One test file of three tests.
+- looking: 0 min. Nothing drawn changed.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, `land`.
+
+Bottleneck: the release notes still name a cut boss's number, so records had
+to be told apart from documents that must stay true.
