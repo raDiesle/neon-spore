@@ -18,8 +18,9 @@ export const TICK = "#5B5486";
 
 /** Outer radius of the dial. Fixed pixels like the rest of the HUD (`hud.ts`
  * writes the run's line at 11), because it is furniture on the screen rather
- * than anything sized to a tile. */
-export const DIAL_R = 15;
+ * than anything sized to a tile. 15 until 16 October 2026, when the owner asked
+ * for the siren much more visible. */
+export const DIAL_R = 20;
 
 /**
  * The dial: a dark disc, four ticks, a dashed ring that breathes, two side

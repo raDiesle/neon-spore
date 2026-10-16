@@ -10,6 +10,7 @@ import type { Layout, ViewRole } from "./layout.js";
 import { drawRadarLureMark } from "./lure-alarm.js";
 import { PALETTE } from "./palette.js";
 import { blipColor, radarBlips } from "./radar-blip.js";
+import { drawTorchArrow, torchArrowTop } from "./radar-torch.js";
 import { drawRadarWallMark } from "./radar-wall.js";
 import { seatSkin } from "./seat-skin.js";
 import { drawRadarVeilMark } from "./veil-marks.js";
@@ -170,6 +171,10 @@ export function drawRadar(ctx: CanvasRenderingContext2D, l: Layout, world: World
       ctx.globalAlpha = a * pulse * 0.5;
       const tailBack = x - cross * long * 1.5;
       ctx.fillRect(Math.min(back, tailBack), y - s * 0.3, Math.abs(back - tailBack), s * 0.6);
+    } else if (q.kind === "torch") {
+      // The one rock the pair cannot answer late gets an arrow of its own,
+      // bigger and moving (`radar-torch.ts`).
+      drawTorchArrow(ctx, l, x, y, span, a, time);
     } else if (span > 1) {
       // As wide as the shape it warns about, and pulsing — the blip on the
       // strip that is never mistaken for a single-tile rock.
@@ -215,7 +220,8 @@ export function drawRadar(ctx: CanvasRenderingContext2D, l: Layout, world: World
     // blip it is about, which is the half a corner instrument cannot carry.
     // `comms.ts` owns the roster, so a creature joining it lights up here
     // without this file learning its name.
-    if (needsComms(q.kind)) drawEyeGlyph(ctx, x, y - s - 7, 5.6, PALETTE.text, a * 0.9);
+    const over = q.kind === "torch" && cross === undefined ? torchArrowTop(l, y, span) : y - s;
+    if (needsComms(q.kind)) drawEyeGlyph(ctx, x, over - 7, 5.6, PALETTE.text, a * 0.9);
 
     // The row, on the nearer wall, for a body that comes up inside the field:
     // the strip's column and this mark's row cross where it appears.

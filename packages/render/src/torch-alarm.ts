@@ -2,11 +2,15 @@ import { spanOf, type World } from "@neon-spore/sim";
 import type { Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
 import { ALARM_HEIGHT, alarmRows } from "./ship-top-rows.js";
+import { sirenCentre } from "./siren.js";
 import { SIREN_PAD } from "./siren-seats.js";
 
 /** `PALETTE.rock` (#C7CBD6) as an rgb triple, for alpha-graded fills — the
  * same literal the meteor's own crater rim already uses in `creatures.ts`. */
 const ROCK_RGB = "199,203,214";
+/** The call's own line: a size up from the 10 px it was written at, for the
+ * same reason the siren grew (`siren-dial.ts`'s `DIAL_R`). */
+const ALARM_FONT = '700 11px "Courier New",monospace';
 
 /**
  * The torch alarm. It is the one piece of the HUD that reads differently
@@ -95,16 +99,23 @@ export function drawTorchAlarm(
   ctx.fillRect(0, 0, edge, l.height);
   ctx.restore();
 
-  // Right-aligned to the siren's own right edge, directly under it. The line
-  // is the sentence the siren's chips are asking for — *this is the call, and
-  // here is what to say* — so it hangs off that cluster rather than floating
-  // at the middle of a screen with nothing else on that axis. Centring it made
-  // it a caption for the band; the band already says where.
-  ctx.font = '600 10px "Courier New",monospace';
-  ctx.textAlign = "right";
+  // Centred under the siren, on the row under its duty word. The line is the
+  // sentence the siren's chips are asking for — *this is the call, and here is
+  // what to say* — so it hangs off the dial rather than off the band or the
+  // torch: the owner, 16 October 2026, *the text should go below the siren*.
+  // It stood right-aligned to the cluster's right edge until then, which put
+  // it under a chip rather than under the light that had just gone up.
+  ctx.font = ALARM_FONT;
+  ctx.textAlign = "center";
   ctx.fillStyle = PALETTE.rock;
-  ctx.globalAlpha = 0.6 + 0.4 * pulse;
-  ctx.fillText(alarmText(l.role, warning), l.width - SIREN_PAD, top + ALARM_HEIGHT - 2);
+  ctx.globalAlpha = 0.8 + 0.2 * pulse;
+  const text = alarmText(l.role, warning);
+  // Pulled back inside the screen when too wide to be centred, as the duty
+  // word above it is (`siren.ts`).
+  const half = ctx.measureText(text).width / 2;
+  const mid = sirenCentre(l).x;
+  const x = Math.min(Math.max(mid, SIREN_PAD / 2 + half), l.width - SIREN_PAD / 2 - half);
+  ctx.fillText(text, x, top + ALARM_HEIGHT - 1);
   ctx.globalAlpha = 1;
   ctx.textAlign = "left";
 

@@ -43592,3 +43592,18 @@ Bottleneck: looking — the aurora's grain took four shots to land between a
 smear and a grating.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-16 — The torch arrow and the siren, louder
+
+- reading: 15 min. The siren, its dial, the torch alarm, the radar strip and
+  the rows stacked under the siren.
+- writing: 15 min. The torch arrow, the siren's beams and wash, the larger
+  dial, the torch line centred under it.
+- looking: 10 min. Four rounds of `frames`, `crop` and `sheet`: torch, a
+  quiet moment, a plain call, and the knock in motion.
+- friction: 0 min.
+- landing: 10 min. Eight wave-budget rows remeasured for the siren's two
+  blits, `index`, `check:fast`, `land`.
+
+Bottleneck: landing — the light the owner asked for costs two blits on every
+lit frame, and eight budget rows had to move for it.

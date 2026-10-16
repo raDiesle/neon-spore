@@ -1557,6 +1557,7 @@ by hand never moves.
 | `packages/render/src/shield-spark.ts` | The shield's ambient arcs: a few thin discharges thrown outward from the rim, gone almost as soon as they |
 | `packages/render/src/shield.ts` | The shield, as a body rather than a plate |
 | `packages/render/src/siren-seats.ts` | The two chips that flank the siren: which seat, and what that seat has to do about the thing on the field |
+| `packages/render/src/siren-shine.ts` | The wash and two turning beams round a lit siren; faster, wider and ember while a torch is on its way |
 | `packages/render/src/siren-dial.ts` | the siren's dial — housing, ticks, the ring that breathes, two bars and the turning core — beside `siren-seats.ts` |
 | `packages/render/src/siren.ts` | The warning siren, top right of the field beside the strip, and the two seats' jobs under it |
 | `packages/render/src/sinew-band.ts` | **The strain band**: a tube hung in the middle of the tendon |
@@ -1919,6 +1920,7 @@ by hand never moves.
 | `packages/render/src/recoil-calyx.ts` | CALYX — a kept look for THE RECOIL's cage, drawn only on the GRAPHICS page's LIBRARY |
 | `packages/render/src/radar-blip.ts` | Which arrivals this screen's warning strip is carrying, and where each one sits on it |
 | `packages/render/src/radar-wall.ts` | **The warning strip's second mark: the row, on a side wall** |
+| `packages/render/src/radar-torch.ts` | The torch's big ember arrow on player 1's strip, knocking down into its columns with an echo |
 | `packages/render/src/ratchet-draw.ts` | **THE RATCHET**: a strut down the middle of the field, a rack of seven plates climbing inside it past a pawl |
 | `packages/render/src/ratchet-fx.ts` | What THE RATCHET leaves behind a frame |
 | `packages/render/src/ratchet-fx-story.ts` | **What THE RATCHET's story throws** (`sim/ratchet-story.ts`): the burst each of its twelve events leaves, and whether it lands a step or strikes the hull |

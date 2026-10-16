@@ -7,6 +7,8 @@ import type { Layout } from "./layout.js";
 import type { SeatNames } from "./seat-name.js";
 import { DIAL_R, drawDial, TICK } from "./siren-dial.js";
 import { drawSeat, pillWidth, SIREN_PAD, seatChip } from "./siren-seats.js";
+import { drawSirenShine } from "./siren-shine.js";
+import { torchWarning } from "./torch-alarm.js";
 import type { ViewRole } from "./view-role.js";
 
 /**
@@ -137,9 +139,13 @@ export function drawCommsSiren(
   // (`handover.ts`). Without it the pilot holding the navigator's panel was
   // circled on the navigator's name.
   const x = bossSirenRight(world) ? sirenRightX(l, names) : undefined;
+  // A torch on its way is the alarm at its loudest (`siren-shine.ts`), and the
+  // same window `commsCall` lit the dial for.
+  const torch = torchWarning(world, world.cfg.radarLead) !== null;
   if (handedOver(world)) {
-    drawSiren(ctx, handedLayout(l, world), { p1: call.p2, p2: call.p1 }, word, time, names, x);
-  } else drawSiren(ctx, l, call, word, time, names, x);
+    const swapped = { p1: call.p2, p2: call.p1 };
+    drawSiren(ctx, handedLayout(l, world), swapped, word, time, names, x, torch);
+  } else drawSiren(ctx, l, call, word, time, names, x, torch);
 }
 
 /**
@@ -158,6 +164,8 @@ export function drawSiren(
   /** The dial's middle across, where a boss pins the cluster right; the
    * middle of the screen otherwise. */
   atX?: number,
+  /** Whether a torch is on its way: the beams turn faster, wider and in ember. */
+  torch = false,
 ): void {
   // P1 on the left of the dial and P2 on its right, which is the order the
   // band already reads in — the cannon strip above the shield strip, player 1
@@ -173,6 +181,7 @@ export function drawSiren(
   const right = DIAL_R + GAP + pillWidth(seatChip("p2", names)) / 2;
 
   ctx.save();
+  drawSirenShine(ctx, cx, cy, time, torch);
   drawDial(ctx, cx, cy, time);
   drawSeat(ctx, l, "p1", call.p1, cx - left, cy, time, names);
   drawSeat(ctx, l, "p2", call.p2, cx + right, cy, time, names);
