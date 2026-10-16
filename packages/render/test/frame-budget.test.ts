@@ -150,6 +150,11 @@ const MEASURE = false;
 // on the field costs blits, clips and saves on this canvas, a `fillRect` and a
 // gradient for the far half's shade — and the fills of its body land on the
 // layer, which this tally does not count.
+// From 15 October 2026 a pass's turned bodies are laid down ahead of it
+// (`glance-batch.ts`): each costs three more clips and saves — its cell clipped
+// on each of the three atlases — and about two fewer blits, and the pass's own
+// paths are made twice, once on the canvas nobody reads. Only the rows that
+// rose were moved, to what they measured.
 const BUDGETS: Readonly<Record<"p1" | "p2", readonly Budget[]>> = {
   p1: [
     {
@@ -165,8 +170,8 @@ const BUDGETS: Readonly<Record<"p1" | "p2", readonly Budget[]>> = {
       // could not be drawn at a sequence glyph's size at all.
       stroke: 87,
       fill: 60,
-      clip: 21,
-      save: 60,
+      clip: 30,
+      save: 69,
       drawImage: 62,
       createLinearGradient: 24,
       createRadialGradient: 11,
@@ -184,8 +189,8 @@ const BUDGETS: Readonly<Record<"p1" | "p2", readonly Budget[]>> = {
       fillRect: 57,
       stroke: 89,
       fill: 60,
-      clip: 21,
-      save: 60,
+      clip: 30,
+      save: 69,
       drawImage: 62,
       // Down from frame 0: the layout-only gradients (`gradient-slot.ts`'s
       // sites in field.ts and backdrop.ts, key-light.ts's own slot, and the
@@ -210,10 +215,10 @@ const BUDGETS: Readonly<Record<"p1" | "p2", readonly Budget[]>> = {
       // the slick's two, drawn on the buttons now that the silhouettes are
       // bodies rather than stencils.
       fill: 67,
-      clip: 21,
+      clip: 30,
       // Two fewer: a fire button's face is one `paintLobe` doing fill and
       // stroke together where it used to be a fill and then a crosshair.
-      save: 62,
+      save: 71,
       drawImage: 61,
       createLinearGradient: 24,
       createRadialGradient: 11,
@@ -226,8 +231,8 @@ const BUDGETS: Readonly<Record<"p1" | "p2", readonly Budget[]>> = {
       fillRect: 57,
       stroke: 93,
       fill: 67,
-      clip: 21,
-      save: 62,
+      clip: 30,
+      save: 71,
       drawImage: 61,
       createLinearGradient: 15,
       createRadialGradient: 8,
@@ -514,8 +519,8 @@ const EYE_BUDGETS: Readonly<Record<string, readonly Budget[]>> = {
       // Three, three and five more on 15 October 2026: the eye glances as any
       // enemy does (`creature-glance.ts`), laid on the screen from a layer of
       // its own, with the far side's dark ramped over it.
-      clip: 13,
-      save: 57,
+      clip: 16,
+      save: 60,
       drawImage: 34,
       createLinearGradient: 32,
       createRadialGradient: 17,
@@ -532,8 +537,8 @@ const EYE_BUDGETS: Readonly<Record<string, readonly Budget[]>> = {
       // One more on 29 September 2026, the knob's arrow, as in frame 0.
       stroke: 138,
       fill: 99,
-      clip: 13,
-      save: 57,
+      clip: 16,
+      save: 60,
       drawImage: 34,
       createLinearGradient: 23,
       // The eye builds none of its own: the wash around it is a `halo` sprite

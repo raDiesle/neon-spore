@@ -9,6 +9,7 @@ import { centerAt, creatureCenter } from "./creature-place.js";
 import { DART_LOOK } from "./dart-look.js";
 import { byDepth, depthScale, drawnRow, glidePhase, nearness } from "./depth.js";
 import { drawProjected } from "./flip-reveal.js";
+import { layGlancesAhead } from "./glance-batch.js";
 import { mountPlace } from "./gyre-place.js";
 import type { SurfaceY } from "./hull-frame.js";
 import { landingY } from "./landing.js";
@@ -70,108 +71,112 @@ export function drawCreatures(
     if (showsWisp(l)) drawWispGround(ctx, l, world, beatPhase);
     if (showsWispSearch(l)) drawWispSearch(ctx, l, world.cfg, time);
   }
-  // Farthest first: which of two overlapping bodies is in front used to be
-  // decided by spawn order, which is not a fact about the picture. See
-  // `byDepth` — it copies rather than sorting the simulation's own array.
-  for (const c of byDepth(world.creatures, beatPhase)) {
-    // A boss body is drawn by `boss-draw.ts`, because its picture depends on
-    // `world.boss` and not on the creature alone — and so is the tether, which
-    // is a line down a column rather than a thing standing on a tile.
-    if (isBossBody(c.kind) || c.kind === "tether") continue;
-    // And THE GYRE's hub, which is an armature spanning five rows rather
-    // than a body on a tile. `gyre.ts` draws every wheel in one pass before
-    // this one, because `byDepth` sorts body by body and a hub taking its
-    // turn in that order would have its spokes over the mounts above it and
-    // under the ones below. The six on its rim are `mount`s and go through
-    // the ordinary living draw below, which is the whole creature.
-    if (c.kind === "gyre") continue;
-    // And every link of a worm, for the hub's reason with a sharper edge: the
-    // rings of a crawler *overlap*, each leading dome over the tucked tail of
-    // the one behind it, so the run has to be painted back to front — and
-    // `byDepth` sorts on the row, which every link of a worm shares.
-    // `drawCrawlers` above has already drawn the whole of it (`crawler.ts`).
-    if (c.kind === "crawler") continue;
-    // And a wall, for the crawler's reason with nothing left over: it is not a
-    // body on a tile at all, and `drawFences` above has already drawn the
-    // whole of it. One that fell through here would be handed to `drawLiving`
-    // and drawn as a blob standing in column zero.
-    if (c.kind === "fence") continue;
-    // A body on a rim is placed by the wheel that carries it, not by the walk
-    // every falling body takes: it turns rather than crosses, and the arc is
-    // written down once in `gyre-place.ts` so the rim, the spokes and the six
-    // contours cannot come apart. Null for everything else, which is what keeps
-    // this a line rather than a branch.
-    const onRim = mountPlace(l, world, c, beatPhase, time);
-    // A balloon's step is spread over several beats, and `glidePhase` is the
-    // one place that is asked (`depth.ts`); everything else glides by the beat.
-    const glide = glidePhase(world.cfg, world.beat, c, beatPhase);
-    // A struck recoil is on a throw of its own for a beat, placed by the
-    // transient that remembers where it left from; every other frame of a
-    // recoil, and every other body, is where the simulation's glide puts it.
-    const leap = c.kind === "recoil" ? leaps?.place(c, beats, beatPhase) : undefined;
-    // And a torch out of a dome is on a throw of its own to the far wall,
-    // placed by the transient that saw the dome go, landing where the sim's
-    // glide would have — so the impact takes it over in the same place.
-    const flown = c.kind === "torch" ? flights?.place(c, l, beats, skinY) : undefined;
-    const placed =
-      onRim ??
-      flown ??
-      (leap ? centerAt(l, c, leap.row, leap.col) : creatureCenter(l, world, c, glide));
-    // A body THE THROAT refused shudders where it is (`throat-refuse-shake.ts`).
-    const x = placed.x + throatRefuseShake(l, world, c, beatPhase);
-    // A landing beat ends half-sunk in the skin and not under the membrane at
-    // the hull row's centre: a rock so that `RockImpactFx` takes it over where
-    // it stands, everything else so that the beat it is seen to touch the ship
-    // is the beat the ship answers (`landing.ts`).
-    const y = onRim || flown ? placed.y : landingY(l, world.cfg, c, x, placed.y, glide, skinY);
-    const row = onRim ? onRim.row : flown ? flown.row : leap ? leap.row : drawnRow(c, glide);
-    const turn = leap ? leap.turn : recoilTurn(c, beatPhase);
-    const near = nearness(l, row);
-    // Perspective as one transform about the body's own centre, rather than a
-    // radius threaded through three drawing files: it takes the rock and the
-    // torch with it, and it scales their line weights by the same factor, so
-    // the style guide's "1.2–1.8 px at 26 px object size" survives the growth.
-    const k = depthScale(world.cfg, l, row);
-    ctx.save();
-    ctx.translate(x, y);
-    ctx.scale(k, k);
-    ctx.translate(-x, -y);
-    // Under THE FLIP, the whole body — jet, contour and whatever covers it —
-    // goes through the projection's tear near the hull (`flip-reveal.ts`).
-    drawProjected(ctx, l, c.id, row, x, y, time, () => {
-      // Under the body it is pushing, so the contour sits on its own exhaust
-      // rather than inside it. Inside the perspective transform with everything
-      // else, so a jet at the bottom of the field grows the way its body does.
-      if (c.kind === "dart") DART_LOOK.jet(ctx, l, c, x, y, beatPhase);
-      // **The one body draw, chosen by a table** (`creature-body.ts`). It used to
-      // be an `if / else if` chain here, and adding THE VEER put a plain `if`
-      // between two of its rungs: every kind after the cut fell through to
-      // `drawLiving`, and a torch was asked for a silhouette it has not got. A
-      // lookup cannot be severed by a statement landing in the middle of it,
-      // which is why the choice moved out and the things laid *over* a body
-      // stayed here as the separate `if`s they already were.
-      bodyDraw(c.kind)({
-        ctx,
-        l,
-        world,
-        c,
-        x,
-        y,
-        time,
-        beats,
-        beatPhase,
-        near,
-        blocked,
-        turn,
-        tailFrom: flown?.from,
+  // Every turned body among them is laid down ahead of the pass, so it costs
+  // three flushes a frame rather than three a body (`glance-batch.ts`).
+  layGlancesAhead(ctx, (ctx) => {
+    // Farthest first: which of two overlapping bodies is in front used to be
+    // decided by spawn order, which is not a fact about the picture. See
+    // `byDepth` — it copies rather than sorting the simulation's own array.
+    for (const c of byDepth(world.creatures, beatPhase)) {
+      // A boss body is drawn by `boss-draw.ts`, because its picture depends on
+      // `world.boss` and not on the creature alone — and so is the tether, which
+      // is a line down a column rather than a thing standing on a tile.
+      if (isBossBody(c.kind) || c.kind === "tether") continue;
+      // And THE GYRE's hub, which is an armature spanning five rows rather
+      // than a body on a tile. `gyre.ts` draws every wheel in one pass before
+      // this one, because `byDepth` sorts body by body and a hub taking its
+      // turn in that order would have its spokes over the mounts above it and
+      // under the ones below. The six on its rim are `mount`s and go through
+      // the ordinary living draw below, which is the whole creature.
+      if (c.kind === "gyre") continue;
+      // And every link of a worm, for the hub's reason with a sharper edge: the
+      // rings of a crawler *overlap*, each leading dome over the tucked tail of
+      // the one behind it, so the run has to be painted back to front — and
+      // `byDepth` sorts on the row, which every link of a worm shares.
+      // `drawCrawlers` above has already drawn the whole of it (`crawler.ts`).
+      if (c.kind === "crawler") continue;
+      // And a wall, for the crawler's reason with nothing left over: it is not a
+      // body on a tile at all, and `drawFences` above has already drawn the
+      // whole of it. One that fell through here would be handed to `drawLiving`
+      // and drawn as a blob standing in column zero.
+      if (c.kind === "fence") continue;
+      // A body on a rim is placed by the wheel that carries it, not by the walk
+      // every falling body takes: it turns rather than crosses, and the arc is
+      // written down once in `gyre-place.ts` so the rim, the spokes and the six
+      // contours cannot come apart. Null for everything else, which is what keeps
+      // this a line rather than a branch.
+      const onRim = mountPlace(l, world, c, beatPhase, time);
+      // A balloon's step is spread over several beats, and `glidePhase` is the
+      // one place that is asked (`depth.ts`); everything else glides by the beat.
+      const glide = glidePhase(world.cfg, world.beat, c, beatPhase);
+      // A struck recoil is on a throw of its own for a beat, placed by the
+      // transient that remembers where it left from; every other frame of a
+      // recoil, and every other body, is where the simulation's glide puts it.
+      const leap = c.kind === "recoil" ? leaps?.place(c, beats, beatPhase) : undefined;
+      // And a torch out of a dome is on a throw of its own to the far wall,
+      // placed by the transient that saw the dome go, landing where the sim's
+      // glide would have — so the impact takes it over in the same place.
+      const flown = c.kind === "torch" ? flights?.place(c, l, beats, skinY) : undefined;
+      const placed =
+        onRim ??
+        flown ??
+        (leap ? centerAt(l, c, leap.row, leap.col) : creatureCenter(l, world, c, glide));
+      // A body THE THROAT refused shudders where it is (`throat-refuse-shake.ts`).
+      const x = placed.x + throatRefuseShake(l, world, c, beatPhase);
+      // A landing beat ends half-sunk in the skin and not under the membrane at
+      // the hull row's centre: a rock so that `RockImpactFx` takes it over where
+      // it stands, everything else so that the beat it is seen to touch the ship
+      // is the beat the ship answers (`landing.ts`).
+      const y = onRim || flown ? placed.y : landingY(l, world.cfg, c, x, placed.y, glide, skinY);
+      const row = onRim ? onRim.row : flown ? flown.row : leap ? leap.row : drawnRow(c, glide);
+      const turn = leap ? leap.turn : recoilTurn(c, beatPhase);
+      const near = nearness(l, row);
+      // Perspective as one transform about the body's own centre, rather than a
+      // radius threaded through three drawing files: it takes the rock and the
+      // torch with it, and it scales their line weights by the same factor, so
+      // the style guide's "1.2–1.8 px at 26 px object size" survives the growth.
+      const k = depthScale(world.cfg, l, row);
+      ctx.save();
+      ctx.translate(x, y);
+      ctx.scale(k, k);
+      ctx.translate(-x, -y);
+      // Under THE FLIP, the whole body — jet, contour and whatever covers it —
+      // goes through the projection's tear near the hull (`flip-reveal.ts`).
+      drawProjected(ctx, l, c.id, row, x, y, time, () => {
+        // Under the body it is pushing, so the contour sits on its own exhaust
+        // rather than inside it. Inside the perspective transform with everything
+        // else, so a jet at the bottom of the field grows the way its body does.
+        if (c.kind === "dart") DART_LOOK.jet(ctx, l, c, x, y, beatPhase);
+        // **The one body draw, chosen by a table** (`creature-body.ts`). It used to
+        // be an `if / else if` chain here, and adding THE VEER put a plain `if`
+        // between two of its rungs: every kind after the cut fell through to
+        // `drawLiving`, and a torch was asked for a silhouette it has not got. A
+        // lookup cannot be severed by a statement landing in the middle of it,
+        // which is why the choice moved out and the things laid *over* a body
+        // stayed here as the separate `if`s they already were.
+        bodyDraw(c.kind)({
+          ctx,
+          l,
+          world,
+          c,
+          x,
+          y,
+          time,
+          beats,
+          beatPhase,
+          near,
+          blocked,
+          turn,
+          tailFrom: flown?.from,
+        });
+        // Everything laid *over* that body — the veil's cloud, the carom's crust,
+        // the coil's dome, the clasp's shield — is `creature-over.ts`: one `if` per
+        // covering, each an addition to what the table drew, inside this transform.
+        drawOverBody(ctx, l, world, c, x, y, time, beats, beatPhase, near, turn, claspImage);
       });
-      // Everything laid *over* that body — the veil's cloud, the carom's crust,
-      // the coil's dome, the clasp's shield — is `creature-over.ts`: one `if` per
-      // covering, each an addition to what the table drew, inside this transform.
-      drawOverBody(ctx, l, world, c, x, y, time, beats, beatPhase, near, turn, claspImage);
-    });
-    ctx.restore();
-  }
+      ctx.restore();
+    }
+  });
   // The cords, after every body: flat, outside the perspective transform, and
   // last so that a handle is never behind the eye it hangs off or behind the
   // body in the next column (`lid-string.ts`).

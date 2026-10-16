@@ -42629,3 +42629,17 @@ Bottleneck: THE HUSK could not be composed where the rule first put it, which
 turned a fixed order into one picked a block at a time.
 
 *Measured: 574 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
+
+## 2026-10-16 — The glance layer flushes once a pass, not three times a body
+
+- reading: 10 min. The bodies pass and what in it writes state: two
+  transients that memoise within a frame, and nothing else.
+- writing: 30 min. The batch and its atlases, the halves helpers moved out,
+  the body loop wrapped, the pixel test, five budget rows moved with a reason.
+- looking: 20 min. The spike interleaved against the unchanged tree at 4x,
+  and three frames of GYRES AGAIN diffed.
+- friction: 25 min. A test geometry that hid the bleed it was for, and whole
+  test runs stalled by the machine sleeping under a load of 40 to 85.
+- landing: 10 min. `check:fast` twice, the second green.
+
+Bottleneck: the machine — sleeping between calls and loaded by other work, every run took several times its length.

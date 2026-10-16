@@ -85,7 +85,10 @@ const MEASURE = false;
 // (`goo-knob.ts`), a soft body with a cap and an arrow, where a disc was.
 // `turn` up five on 12 October 2026: a waiting knob's call is WHITE RINGS · FLASH
 // (`goo-call.ts`), each ring a white core inside a neon glow, two strokes where one was.
-const CALLS = { still: 369, turn: 506, shear: 377, open: 383 } as const;
+// Three up in every phase on 15 October 2026: the turned body on the test
+// screen is laid down ahead of its pass (`glance-batch.ts`), its cell clipped
+// on each of the three atlases. `turn` had room for them.
+const CALLS = { still: 372, turn: 506, shear: 380, open: 386 } as const;
 
 /** The canvas calls one frame of `world` costs on `role`'s screen. */
 function cost(world: World, role: (typeof ROLES)[number]): number {

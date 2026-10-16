@@ -510,7 +510,12 @@ there — and not per copy or per pixel. A turned body is three such flushes
 (`glance-layer.ts`): the part read into the halves, the halves into the
 doubling, the doubled layer onto the screen. Each is forced by `lighter`'s
 clamp, so the saving is in flushing once a frame rather than once a body, not
-in cutting a pass (`docs/queue.md`).
+in cutting a pass. **That is what the bodies pass does now**
+(`glance-batch.ts`): it is run once onto a canvas nobody reads, every turned
+part drawn into a cell of one atlas, then all the halves and all the doublings
+are laid at once, and the pass is run again onto the screen with each part a
+cell of the last atlas — three flushes a pass, and the pass's own drawing paid
+twice.
 
 ## Where to look next
 

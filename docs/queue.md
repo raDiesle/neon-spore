@@ -328,26 +328,6 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/skipped.test.ts` holds the listing's count of the entries
 `next` stepped past and why.
 
-## The glance layer flushes once a frame, not three times a body
-
-- **Found:** 2026-10-15, claude/queue-the-glance-layers-cost-is-its-passes-not-its-pix
-- **Taken:** 2026-10-15, main (claim: claude/queue-the-glance-layer-flushes-once-a-frame-not-three)
-- **Files:** `packages/render/src/glance-layer.ts`, `packages/render/src/glance-layer-scratch.ts`, `packages/render/src/creature-glance.ts`
-
-A layer costs its flushes, not its passes (`docs/performance.md`, measured
-on GYRES AGAIN at 4x): one more `drawImage` of a canvas already read moved
-nothing, and one more read of a canvas drawn on since added 2 to 3 ms. Each
-turned body is three flushes — the part read into the halves, the halves into
-the doubling, the doubled layer onto the screen — and each stage is forced by
-`lighter`'s clamp, so no single pass can go. What can: lay every turned body
-of a frame down in a prepass, each in its own cell of shared atlases — all
-the parts, then all the halves, then all the doublings — and draw each body's
-cell onto the screen in its own place in the order. Three flushes a frame
-instead of three a body. Prove the pixels against today's one-body path with
-the exact-geometry test in `packages/render/test/light-reach.test.ts`'s
-manner, and measure with `bun run perf --wave "GYRES AGAIN"` interleaved
-against a tree without the change.
-
 ## `versus:shot --only current` shows the candidate on a `screenshot` candidate
 
 - **Found:** 2026-10-15, claude/queue-snakes-body-shadow-is-shadowblur

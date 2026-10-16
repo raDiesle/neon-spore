@@ -90,7 +90,10 @@ function entriesAfter(role: "p1" | "p2"): number {
 // to glance: the glance layer's two scratch canvases (`glance-layer.ts`), and
 // one record for each of the two slicks on the field when the run ends, each
 // dropped as its body goes (`creature-glance.ts`).
-const HELD = { p1: 44, p2: 53 } as const;
+// Two more on each seat from 15 October 2026, when a pass's turned bodies
+// began to be laid down ahead of it (`glance-batch.ts`): three atlases and the
+// canvas the pass is first run on, where the two scratch layers were.
+const HELD = { p1: 46, p2: 55 } as const;
 
 describe("what the renderer keeps between frames", () => {
   for (const role of ["p1", "p2"] as const) {
