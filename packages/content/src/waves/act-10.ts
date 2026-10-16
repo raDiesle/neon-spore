@@ -1,8 +1,9 @@
+import { SNAKE_ROUNDS } from "../snake-rounds.js";
 import type { Wave } from "../wave-types.js";
 
 /**
- * Waves 108 to 117 of the game, in the order they are played: THE THROB's block
- * and the boss THE VANE.
+ * Waves 109 to 118 of the game, in the order they are played: THE THROB's block
+ * and the boss SNAKE.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act
  * after the tutorial arc again in play order. A save that fills it cuts a page
@@ -140,14 +141,14 @@ export const WAVES_ACT_10: Wave[] = [
     ],
   },
   {
-    id: "theVane",
-    name: "THE VANE",
-    entries: [
-      { beat: 0, col: 2, kind: "meteor", color: null },
-      { beat: 3, col: 8, color: "red" },
-    ],
-    boss: { kind: "vane" },
-    bossType: "normal",
-    controls: "standard5",
+    id: "snake",
+    name: "SNAKE",
+    guide: {
+      scene: "snake",
+    },
+    entries: [],
+    boss: { kind: "snake", rounds: SNAKE_ROUNDS },
+    bossType: "special",
+    controls: "snake",
   },
 ];

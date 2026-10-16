@@ -15,7 +15,6 @@ export const WAVES_ACT_2: Wave[] = [
   {
     id: "catchAndAim",
     name: "CATCH AND AIM",
-    variant: true,
     guide: {
       scene: "catchAndAim",
     },

@@ -13,11 +13,11 @@ waves into the act files once, the owner reads them, and from then on they are
 waves like any other — they open in the director, any arrival can be dragged,
 and the game does not know they were composed.
 
-Today: **577 waves**. 54 bring something new (an *intro*), 57 are bosses, and
-466 are *regular* — waves that bring nothing new and need no tutorial. Most of
-the regular ones are composed. AUTO plays the whole game in 4 h 48 min; a pair
-needs about 9 h 36 min. Past the tutorial there are **55 blocks and 55
-bosses**: 32 opened by a body or a pod, 10 by a lesson, 13 reviews.
+Today: **569 waves**. 54 bring something new (an *intro*), 58 are bosses, and
+457 are *regular* — waves that bring nothing new and need no tutorial. Most of
+the regular ones are composed. AUTO plays the whole game in 4 h 45 min; a pair
+needs about 9 h 29 min. Past the tutorial there are **54 blocks and 54
+bosses**: 32 opened by a body or a pod, 10 by a lesson, 12 reviews.
 
 ## The shape: a block
 
@@ -130,9 +130,10 @@ has been taught** — its panel, every button on it, the hold, and every body it
 carries — one boss to a block, each taking the first block still free once it
 is ready, so no block goes without one. A boss on a panel only bosses carry
 comes after the boss before it on that panel (THE HAUL after THE SCOUT). The
-tutorial keeps THE BROOD and THE BASTION where they are, and THE BLISTER's
+tutorial keeps THE BROOD, THE BASTION and BULB QUEEN (after SALVAGE's block)
+where they are, and THE BLISTER's
 gestures stand before THE BASTION; THE INSTAR closes the first block after
-it. The last 13 bosses
+it. The last 12 bosses
 close a **review block** (below). Every boss has eight regular waves in front
 of it and comes straight after one. A boss's length is the owner's to adjust by hand: the boss table
 in `wave-curriculum-today.md` marks each one short, in band or long.

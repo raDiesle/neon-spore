@@ -1,8 +1,8 @@
 import type { Wave } from "../wave-types.js";
 
 /**
- * Waves 441 to 450 of the game, in the order they are played: THE GHOST's block
- * and the boss THE SEAM.
+ * Waves 442 to 451 of the game, in the order they are played: THE GHOST's block
+ * and the boss THE OCULUS.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act
  * after the tutorial arc again in play order. A save that fills it cuts a page
@@ -152,30 +152,42 @@ export const WAVES_ACT_43: Wave[] = [
     ],
   },
   {
-    id: "theSeam",
-    name: "THE SEAM",
+    id: "theOculus",
+    name: "THE OCULUS",
     guide: {
-      both: "A point on the crack lights in a colour. Shoot it in that colour. When grit flies, raise the shield under it. Three points close the crack. Never shoot grey.",
-      p1: "1. Move the cannon under the lit point.\n2. When grit flies, press the shield.\n3. A rock falls to one side. Slide the cannon under it.",
-      p2: "1. Fire the lit point in its colour. White takes either.\n2. Slide the shield under the ridge when grit flies.\n3. At the end one of you shields while the other fires.",
+      both: "Shut the eye's leaves together, three times: hold, then tap, then turn. After each, shoot the eye in its colour. Shoot what falls in between.",
+      p1: "1. Hold the left half with the other one.\n2. Then tap it. Then turn it round.\n3. When the eye shows a colour, fire it.",
+      p2: "1. Hold the right half with the other one.\n2. Then tap it. Then turn it round.\n3. White takes either colour.",
     },
-    entries: [],
+    entries: [
+      { beat: 6, col: 0, color: "red" },
+      { beat: 11, col: 10, color: "cyan" },
+      { beat: 16, col: 2, color: "red" },
+      { beat: 21, col: 8, color: "cyan" },
+      { beat: 26, col: 0, color: "red" },
+      { beat: 31, col: 10, color: "cyan" },
+      { beat: 36, col: 2, color: "red" },
+      { beat: 41, col: 8, color: "cyan" },
+      { beat: 46, col: 0, color: "red" },
+      { beat: 51, col: 10, color: "cyan" },
+      { beat: 56, col: 2, color: "red" },
+      { beat: 61, col: 8, color: "cyan" },
+      { beat: 66, col: 0, color: "red" },
+      { beat: 71, col: 10, color: "cyan" },
+      { beat: 76, col: 2, color: "red" },
+      { beat: 81, col: 8, color: "cyan" },
+      { beat: 86, col: 0, color: "red" },
+    ],
     boss: {
-      kind: "seam",
+      kind: "oculus",
       steps: [
-        { ask: "point", color: "red", offset: 0, seals: false },
-        { ask: "grit", color: "either", offset: 0, seals: false },
-        { ask: "point", color: "cyan", offset: 0, seals: true },
-        { ask: "blind", color: "either", offset: 0, seals: false },
-        { ask: "point", color: "red", offset: 0, seals: false },
-        { ask: "point", color: "cyan", offset: 0, seals: true },
-        { ask: "grit", color: "either", offset: 0, seals: false },
-        { ask: "decoy", color: "either", offset: 0, seals: false },
-        { ask: "rock", color: "cyan", offset: 2, seals: false },
-        { ask: "glow", color: "either", offset: 0, seals: false },
-        { ask: "point", color: "either", offset: 0, seals: true },
-        { ask: "both", color: "either", offset: -2, seals: false },
-        { ask: "dark", color: "either", offset: 0, seals: false },
+        { ask: "shut", color: "either", beats: 6, fuse: 32 },
+        { ask: "break", color: "either", beats: 2 },
+        { ask: "fire", color: "red", beats: 0 },
+        { ask: "tap", color: "either", beats: 32, need: 12 },
+        { ask: "fire", color: "cyan", beats: 0 },
+        { ask: "turn", color: "either", beats: 32, need: 8 },
+        { ask: "fire", color: "either", beats: 0 },
       ],
     },
     bossType: "normal",

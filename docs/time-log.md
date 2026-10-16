@@ -42919,3 +42919,14 @@ Bottleneck: friction — two lanes chose the same boss name the same day, and
 nothing tells a lane a name is taken until `land` refuses.
 
 *Measured: 19 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-16 — BULB QUEEN closes SALVAGE's block, in the tutorial
+
+- reading: 5 min. Where the arc's boss pin holds a boss placed by hand.
+- writing: 10 min. The move, CATCH AND AIM standing alone, the spare review dropped.
+- looking: 0 min. Nothing drawn moved.
+- friction: 0 min.
+- landing: 10 min. The block test, the measured table, the fast check and `land`.
+
+Bottleneck: landing — every move of the arc reaches the briefings, the
+baseline and the measured table, three commands each time.

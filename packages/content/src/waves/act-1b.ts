@@ -123,4 +123,16 @@ export const WAVES_ACT_1B: Wave[] = [
     ],
     controls: "standard5",
   },
+  {
+    id: "bulbQueen",
+    name: "BULB QUEEN",
+    guide: {
+      scene: "bulbQueen",
+    },
+    entries: [],
+    pods: [{ beat: 2, col: 5, row: 4, kind: "pod" }],
+    boss: { kind: "queen", col: 5, petals: 9 },
+    bossType: "normal",
+    controls: "standard5",
+  },
 ];

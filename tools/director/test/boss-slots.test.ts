@@ -66,6 +66,7 @@ describe("the bosses' places (wave-curriculum §7)", () => {
 
   test("leave the tutorial arc's bosses where they were", () => {
     expect(WAVES.findIndex((w) => w.id === "theBrood")).toBeLessThan(finale);
+    expect(WAVES.findIndex((w) => w.id === "bulbQueen")).toBeLessThan(finale);
     expect(WAVES.findIndex((w) => w.id === "theBastion")).toBeLessThan(finale);
   });
 

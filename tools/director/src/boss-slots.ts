@@ -22,9 +22,11 @@ import { TUTORIAL_LAST_ID } from "./compose-steps.js";
  * Three rules the decision leaves implicit, and decided here (the owner,
  * 15 October 2026: *take decisions for now and proceed*):
  * - **The tutorial arc keeps its bosses.** Up to FINALE nothing moves —
- *   THE BROOD and THE BASTION — and no boss moves into it. THE INSTAR
- *   stood there until 16 October 2026; the owner moved it past the basics,
- *   and it takes the first block after the arc like any other boss.
+ *   THE BROOD, THE BASTION and BULB QUEEN — and no boss moves into it.
+ *   THE INSTAR stood there until 16 October 2026; the owner moved it past
+ *   the basics, and it takes the first block after the arc like any other
+ *   boss. BULB QUEEN moved in the same day, the owner's pick of the bosses
+ *   that need nothing the arc does not teach: it closes SALVAGE's block.
  * - **A boss takes the first free block** after its needs are taught, so a
  *   block a boss skipped — THE SPLICE waits for THE CLAW's button — is taken
  *   by the next boss ready for it, and no block goes without one (the owner,

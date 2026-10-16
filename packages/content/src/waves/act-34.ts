@@ -1,9 +1,9 @@
-import { FILAMENT_SCRIPT } from "../filament-script.js";
+import { GIMBAL_SCRIPT } from "../gimbal-script.js";
 import type { Wave } from "../wave-types.js";
 
 /**
- * Waves 351 to 360 of the game, in the order they are played: THE LID's block
- * and the boss THE FILAMENT.
+ * Waves 352 to 361 of the game, in the order they are played: THE LID's block
+ * and the boss THE GIMBAL.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act
  * after the tutorial arc again in play order. A save that fills it cuts a page
@@ -145,11 +145,13 @@ export const WAVES_ACT_34: Wave[] = [
     ],
   },
   {
-    id: "theFilament",
-    name: "THE FILAMENT",
+    id: "theGimbal",
+    name: "THE GIMBAL",
+    guide: {
+      scene: "theGimbal",
+    },
     entries: [],
-    boss: { kind: "filament", filaments: FILAMENT_SCRIPT },
+    boss: { kind: "gimbal", marks: GIMBAL_SCRIPT },
     bossType: "normal",
-    controls: "scene",
   },
 ];

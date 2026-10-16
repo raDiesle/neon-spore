@@ -1,9 +1,9 @@
-import { NETTLE_SCRIPT } from "../nettle-script.js";
+import { MANTLE_SCRIPT } from "../mantle-script.js";
 import type { Wave } from "../wave-types.js";
 
 /**
- * Waves 401 to 410 of the game, in the order they are played: THE CRAWLER's
- * block and the boss THE NETTLE.
+ * Waves 402 to 411 of the game, in the order they are played: THE CRAWLER's
+ * block and the boss THE MANTLE.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act
  * after the tutorial arc again in play order. A save that fills it cuts a page
@@ -158,16 +158,15 @@ export const WAVES_ACT_39: Wave[] = [
     ],
   },
   {
-    id: "theNettle",
-    name: "THE NETTLE",
+    id: "theMantle",
+    name: "THE MANTLE",
     guide: {
-      both: "A jellyfish over the ship. Its rings say what to do. A hand is your thumb on it. SHOOT, SHIELD or SUCK is the panel, under the ring.",
-      p1: "1. Pull, tap, turn or hold the rings on the left, and the shared ones.\n2. Move the cannon under SHOOT or SUCK. Hold SUCK yourself.\n3. When the shield is under SHIELD, press your shield button.",
-      p2: "1. Pull, tap, turn or hold the rings on the right, and the shared ones.\n2. Fire when the cannon is under SHOOT.\n3. Move the shield under SHIELD, and say when.",
+      both: "Two handles, one each. Pull both down together, hard enough, to open one of its four joints. Letting go costs the whole pull. Then tap the bare core, turn about.",
+      p1: "1. Drag the left handle down and hold it with the other screen's pull.\n2. Both must pull hard enough at once, or nothing shears.\n3. Once the core is bare, tap it only when it is your turn.",
+      p2: "1. Drag the right handle down and hold it with the other screen's pull.\n2. Letting go costs the whole pull. Start again together.\n3. A spark leaks partway through. Shoot it before it reaches the hull.",
     },
     entries: [],
-    boss: { kind: "nettle", steps: NETTLE_SCRIPT },
+    boss: { kind: "mantle", thresholds: MANTLE_SCRIPT },
     bossType: "normal",
-    controls: "standard5",
   },
 ];

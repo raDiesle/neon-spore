@@ -2,7 +2,7 @@ import { INSTAR_SCRIPT } from "../instar-script.js";
 import type { Wave } from "../wave-types.js";
 
 /**
- * Waves 38 to 47 of the game, in the order they are played: THE LANCE's block
+ * Waves 39 to 48 of the game, in the order they are played: THE LANCE's block
  * and the boss THE INSTAR.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act

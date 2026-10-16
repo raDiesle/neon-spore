@@ -1,8 +1,8 @@
 import type { Wave } from "../wave-types.js";
 
 /**
- * Waves 250 to 259 of the game, in the order they are played: THE MOULT's block
- * and the boss THE LEDGER.
+ * Waves 251 to 260 of the game, in the order they are played: THE MOULT's block
+ * and the boss THE SURGE.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act
  * after the tutorial arc again in play order. A save that fills it cuts a page
@@ -149,22 +149,22 @@ export const WAVES_ACT_24: Wave[] = [
     ],
   },
   {
-    id: "theLedger",
-    name: "THE LEDGER",
+    id: "theSurge",
+    name: "THE SURGE",
     guide: {
-      scene: "theLedger",
+      scene: "theSurge",
     },
     entries: [
-      { beat: 18, col: 2, kind: "meteor", color: null },
-      { beat: 26, col: 8, color: "red" },
-      { beat: 34, col: 5, color: "cyan" },
-      { beat: 44, col: 0, kind: "meteor", color: null },
-      { beat: 52, col: 10, color: "red" },
-      { beat: 62, col: 3, color: "cyan" },
-      { beat: 72, col: 7, kind: "meteor", color: null },
-      { beat: 82, col: 8, color: "cyan" },
+      { beat: 14, col: 2, kind: "meteor", color: null },
+      { beat: 22, col: 8, color: "red" },
+      { beat: 30, col: 5, kind: "meteor", color: null },
+      { beat: 40, col: 0, color: "cyan" },
+      { beat: 48, col: 7, kind: "meteor", color: null },
+      { beat: 58, col: 10, color: "red" },
+      { beat: 66, col: 3, color: "cyan" },
+      { beat: 76, col: 5, kind: "meteor", color: null },
     ],
-    boss: { kind: "ledger" },
+    boss: { kind: "surge" },
     bossType: "normal",
   },
 ];

@@ -1,8 +1,9 @@
+import { MAZE_ROUNDS } from "../maze-rounds.js";
 import type { Wave } from "../wave-types.js";
 
 /**
- * Waves 58 to 67 of the game, in the order they are played: THE BEATBOX's block
- * and the boss THE MIRROR.
+ * Waves 59 to 68 of the game, in the order they are played: THE BEATBOX's block
+ * and the boss THE MAZE.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act
  * after the tutorial arc again in play order. A save that fills it cuts a page
@@ -146,20 +147,13 @@ export const WAVES_ACT_5: Wave[] = [
     ],
   },
   {
-    id: "theMirror",
-    name: "THE MIRROR",
+    id: "theMaze",
+    name: "THE MAZE",
     guide: {
-      scene: "theMirror",
+      scene: "theMaze",
     },
     entries: [],
-    boss: {
-      kind: "mirror",
-      rounds: [
-        ["fireRed", "guard"],
-        ["cannonLeft", "cannonRight", "cannonRight"],
-        ["intake", "fireRed", "intake", "fireCyan", "intake", "fireRed"],
-      ],
-    },
+    boss: { kind: "maze", rounds: MAZE_ROUNDS },
     bossType: "special",
     controls: "standard5",
   },

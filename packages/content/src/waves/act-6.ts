@@ -1,9 +1,8 @@
-import { MAZE_ROUNDS } from "../maze-rounds.js";
 import type { Wave } from "../wave-types.js";
 
 /**
- * Waves 68 to 77 of the game, in the order they are played: THE WEIGHT's block
- * and the boss THE MAZE.
+ * Waves 69 to 78 of the game, in the order they are played: THE WEIGHT's block
+ * and the boss THE GAUGE.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act
  * after the tutorial arc again in play order. A save that fills it cuts a page
@@ -147,14 +146,14 @@ export const WAVES_ACT_6: Wave[] = [
     ],
   },
   {
-    id: "theMaze",
-    name: "THE MAZE",
+    id: "theGauge",
+    name: "THE GAUGE",
     guide: {
-      scene: "theMaze",
+      scene: "theGauge",
     },
     entries: [],
-    boss: { kind: "maze", rounds: MAZE_ROUNDS },
+    boss: { kind: "gauge" },
     bossType: "special",
-    controls: "standard5",
+    controls: "gauge",
   },
 ];

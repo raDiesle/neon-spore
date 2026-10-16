@@ -1,9 +1,9 @@
-import { SNAKE_ROUNDS } from "../snake-rounds.js";
+import { PINBALL_ROUNDS } from "../pinball-rounds.js";
 import type { Wave } from "../wave-types.js";
 
 /**
- * Waves 118 to 127 of the game, in the order they are played: THE COUNT's block
- * and the boss SNAKE.
+ * Waves 119 to 128 of the game, in the order they are played: THE COUNT's block
+ * and the boss PINBALL.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act
  * after the tutorial arc again in play order. A save that fills it cuts a page
@@ -148,14 +148,14 @@ export const WAVES_ACT_11: Wave[] = [
     ],
   },
   {
-    id: "snake",
-    name: "SNAKE",
+    id: "pinball",
+    name: "PINBALL",
     guide: {
-      scene: "snake",
+      scene: "pinball",
     },
     entries: [],
-    boss: { kind: "snake", rounds: SNAKE_ROUNDS },
+    boss: { kind: "pinball", rounds: PINBALL_ROUNDS },
     bossType: "special",
-    controls: "snake",
+    controls: "pinball",
   },
 ];

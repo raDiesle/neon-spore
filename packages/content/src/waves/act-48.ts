@@ -1,8 +1,8 @@
 import type { Wave } from "../wave-types.js";
 
 /**
- * Waves 488 to 496 of the game, in the order they are played: THE VEIL's review
- * and the boss THE CAPSTAN.
+ * Waves 489 to 497 of the game, in the order they are played: THE VEIL's review
+ * and the boss THE GALL.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act
  * after the tutorial arc again in play order. A save that fills it cuts a page
@@ -140,24 +140,28 @@ export const WAVES_ACT_48: Wave[] = [
     ],
   },
   {
-    id: "theCapstan",
-    name: "THE CAPSTAN",
+    id: "theGall",
+    name: "THE GALL",
     guide: {
-      both: "One of you drags the drum to turn a band toward the other, who rubs it bright. Both bands bright bare the core. Shoot it in its colour.",
-      p1: "1. Left mark: drag the drum left and hold it.\n2. Right mark: rub the band your partner turns to you.\n3. When rust creeps back, do it again, either way round.\n4. Shoot the core in its colour.",
-      p2: "1. Left mark: rub the band your partner turns to you.\n2. Right mark: drag the drum right and hold it.\n3. When rust creeps back, do it again, either way round.\n4. White takes either colour.",
+      both: "Tap the alien on your half until it shakes. Then pull it up. It jumps to your partner's half. Shoot it when it glows.",
+      p1: "1. It starts on your half. Tap it, then pull it up.\n2. When it lands on your half, do it again.\n3. When it glows, move the cannon under it.",
+      p2: "1. When it lands on your half, tap it, then pull it up.\n2. Be fast. Every landing starts the clock.\n3. When it glows, shoot it in its colour.",
     },
     entries: [],
     boss: {
-      kind: "capstan",
+      kind: "gall",
       steps: [
-        { ask: "left", color: "either", beats: 12 },
-        { ask: "right", color: "either", beats: 12 },
-        { ask: "fire", color: "red", beats: 6 },
-        { ask: "hold", color: "either", beats: 8 },
-        { ask: "fire", color: "cyan", beats: 6 },
-        { ask: "hold", color: "either", beats: 6 },
-        { ask: "fire", color: "either", beats: 6 },
+        { ask: "leap", taps: 3, color: "either", beats: 6 },
+        { ask: "leap", taps: 3, color: "either", beats: 5 },
+        { ask: "fire", taps: 0, color: "red", beats: 6 },
+        { ask: "leap", taps: 4, color: "either", beats: 5 },
+        { ask: "leap", taps: 5, color: "either", beats: 5 },
+        { ask: "leap", taps: 5, color: "either", beats: 4 },
+        { ask: "fire", taps: 0, color: "cyan", beats: 6 },
+        { ask: "leap", taps: 6, color: "either", beats: 4 },
+        { ask: "leap", taps: 6, color: "either", beats: 4 },
+        { ask: "leap", taps: 7, color: "either", beats: 4 },
+        { ask: "fire", taps: 0, color: "either", beats: 6 },
       ],
     },
     bossType: "normal",

@@ -1,9 +1,9 @@
-import { SCOUT_HAUL_ARENAS } from "../scout-haul-arenas.js";
+import { STARE_LEVELS } from "../stare-levels.js";
 import type { Wave } from "../wave-types.js";
 
 /**
- * Waves 148 to 157 of the game, in the order they are played: THE CHOKE's block
- * and the boss THE HAUL.
+ * Waves 149 to 158 of the game, in the order they are played: THE CHOKE's block
+ * and the boss THE STARE.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act
  * after the tutorial arc again in play order. A save that fills it cuts a page
@@ -166,14 +166,10 @@ export const WAVES_ACT_14: Wave[] = [
     ],
   },
   {
-    id: "theHaul",
-    name: "THE HAUL",
-    guide: {
-      scene: "theHaul",
-    },
+    id: "theStare",
+    name: "THE STARE",
     entries: [],
-    boss: { kind: "scout", arenas: SCOUT_HAUL_ARENAS },
-    bossType: "special",
-    controls: "scout",
+    boss: { kind: "stare", levels: STARE_LEVELS },
+    bossType: "normal",
   },
 ];

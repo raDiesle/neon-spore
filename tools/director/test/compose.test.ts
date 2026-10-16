@@ -32,17 +32,16 @@ describe("a block, read off the list", () => {
     expect([b.number, b.x, b.y, b.tutorial]).toEqual([0, "slick", undefined, true]);
   });
 
-  test("SALVAGE's block runs to FINALE, with CATCH AND AIM inside it", () => {
+  test("SALVAGE's block runs to BULB QUEEN, and CATCH AND AIM is no block", () => {
     // CATCH AND AIM opened a block of its own on THE PURGE until the cargoes
-    // were rejected (16 October 2026): it introduces no body or pod now, so
-    // its waves are SALVAGE's, after THE BLISTER's gestures (moved before
-    // THE BASTION the same day).
+    // were rejected (16 October 2026): it introduces no body or pod now.
+    // SALVAGE's block comes after THE BLISTER's gestures (moved before THE
+    // BASTION the same day), and BULB QUEEN closes it.
     const b = block("salvage");
     expect([b.x, b.y]).toEqual(["pod", "blister"]);
     expect(typeof readBlock(WAVES, "catchAndAim")).toBe("string");
-    // Five written — FINALE is THE MATRON since 16 October 2026, a boss and
-    // not one of them — and the arc's short block is full all the same.
-    expect(b.existing).toBe(5);
+    // Three written, up to BULB QUEEN: the arc's short block is full.
+    expect(b.existing).toBe(3);
     expect(stepsToCompose(b.tutorial, b.existing)).toEqual([]);
   });
 

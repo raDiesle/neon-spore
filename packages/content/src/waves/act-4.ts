@@ -1,8 +1,8 @@
 import type { Wave } from "../wave-types.js";
 
 /**
- * Waves 48 to 57 of the game, in the order they are played: THE CROSSING's
- * block and the boss BULB QUEEN.
+ * Waves 49 to 58 of the game, in the order they are played: THE CROSSING's
+ * block and the boss THE MIRROR.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act
  * after the tutorial arc again in play order. A save that fills it cuts a page
@@ -148,15 +148,21 @@ export const WAVES_ACT_4: Wave[] = [
     ],
   },
   {
-    id: "bulbQueen",
-    name: "BULB QUEEN",
+    id: "theMirror",
+    name: "THE MIRROR",
     guide: {
-      scene: "bulbQueen",
+      scene: "theMirror",
     },
     entries: [],
-    pods: [{ beat: 2, col: 5, row: 4, kind: "pod" }],
-    boss: { kind: "queen", col: 5, petals: 9 },
-    bossType: "normal",
+    boss: {
+      kind: "mirror",
+      rounds: [
+        ["fireRed", "guard"],
+        ["cannonLeft", "cannonRight", "cannonRight"],
+        ["intake", "fireRed", "intake", "fireCyan", "intake", "fireRed"],
+      ],
+    },
+    bossType: "special",
     controls: "standard5",
   },
 ];

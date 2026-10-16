@@ -1,8 +1,8 @@
 import type { Wave } from "../wave-types.js";
 
 /**
- * Waves 178 to 187 of the game, in the order they are played: THE STRAND's
- * block and the boss THE BATON.
+ * Waves 179 to 188 of the game, in the order they are played: THE STRAND's
+ * block and the boss THE UNDERTOW.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act
  * after the tutorial arc again in play order. A save that fills it cuts a page
@@ -145,13 +145,20 @@ export const WAVES_ACT_17: Wave[] = [
     ],
   },
   {
-    id: "theBaton",
-    name: "THE BATON",
+    id: "theUndertow",
+    name: "THE UNDERTOW",
     guide: {
-      scene: "theBaton",
+      scene: "theUndertow",
     },
-    entries: [],
-    boss: { kind: "baton" },
+    entries: [
+      { beat: 54, col: 2, color: "red" },
+      { beat: 62, col: 8, color: "cyan" },
+      { beat: 70, col: 0, color: "cyan" },
+      { beat: 78, col: 10, color: "red" },
+      { beat: 86, col: 3, color: "red" },
+      { beat: 94, col: 7, color: "cyan" },
+    ],
+    boss: { kind: "undertow" },
     bossType: "normal",
   },
 ];

@@ -1,8 +1,8 @@
 import type { Wave } from "../wave-types.js";
 
 /**
- * Waves 280 to 289 of the game, in the order they are played: THE LURE's block
- * and the boss THE SCUTTLE.
+ * Waves 281 to 290 of the game, in the order they are played: THE LURE's block
+ * and the boss THE ANTIPHON.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act
  * after the tutorial arc again in play order. A save that fills it cuts a page
@@ -150,13 +150,13 @@ export const WAVES_ACT_27: Wave[] = [
     ],
   },
   {
-    id: "theScuttle",
-    name: "THE SCUTTLE",
+    id: "theAntiphon",
+    name: "THE ANTIPHON",
     guide: {
-      scene: "theScuttle",
+      scene: "theAntiphon",
     },
     entries: [],
-    boss: { kind: "scuttle" },
+    boss: { kind: "antiphon" },
     bossType: "normal",
   },
 ];

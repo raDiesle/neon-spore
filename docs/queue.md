@@ -363,28 +363,3 @@ the waves by hand, then cut the acts after the arc with
 moves a wave across the arc's end put it in the arc's act where it now plays.
 Done when a test moves a block from after the arc into it, saves, and every
 arc act file is non-empty and in play order.
-
-## Which bosses come before THE INSTAR
-
-- **Found:** 2026-10-16, claude/wave-generation-feedback-8f39ba
-- **Taken:** 2026-10-16, claude/wave-generation-feedback-8f39ba (claim: claude/queue-which-bosses-come-before-the-instar)
-- **Files:** `tools/director/src/boss-slots.ts`, `packages/content/src/waves/act-1b.ts`, `packages/content/src/waves/act-2.ts`
-- **Asks:** Which bosses should move into the tutorial, and where?
-
-The owner, 16 October 2026: *maybe you can suggest bosses to have earlier,
-which have reduced number of mechanics … (e.g. "bulb queen") does not require
-touch, only cannons and torch and telling player what he will see concept.*
-Today the arc holds THE BROOD (after CYAN) and THE BASTION (after THE
-BLISTER), and no boss moves into it (`boss-slots.ts`). Every boss below needs
-nothing the arc does not already teach but its own body:
-- **BULB QUEEN** — pods, torches, the STANDARD 5 panel; a seeing boss, no
-  shot. Earliest after SALVAGE (the pod), before CATCH AND AIM.
-- **THE VANE** — rocks and slicks on STANDARD 5. Earliest after THE BASTION.
-- **THE MIRROR** (Simon Says on the pair's own controls), **THE MAZE** (one
-  turns, one fires), **THE WARDEN** (a door held open to shoot through) —
-  STANDARD 5 only, but each is a new game of its own (*special* or a new
-  idea), so they read as new concepts rather than reviews.
-Options: (a) BULB QUEEN closes SALVAGE's block in the arc; (b) also THE VANE
-after THE BASTION; (c) keep the arc as it is. Whichever is picked is a pin
-in `boss-slots.ts` beside THE BROOD and THE BASTION, then `waves:bosses
---write` and `waves:review` for the block that goes without a boss.

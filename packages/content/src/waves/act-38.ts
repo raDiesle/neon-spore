@@ -1,8 +1,9 @@
+import { NETTLE_SCRIPT } from "../nettle-script.js";
 import type { Wave } from "../wave-types.js";
 
 /**
- * Waves 391 to 400 of the game, in the order they are played: THE FLIP's block
- * and the boss THE RATCHET.
+ * Waves 392 to 401 of the game, in the order they are played: THE FLIP's block
+ * and the boss THE NETTLE.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act
  * after the tutorial arc again in play order. A save that fills it cuts a page
@@ -168,13 +169,16 @@ export const WAVES_ACT_38: Wave[] = [
     faults: [{ kind: "flip", seat: 1, at: 6 }],
   },
   {
-    id: "theRatchet",
-    name: "THE RATCHET",
+    id: "theNettle",
+    name: "THE NETTLE",
     guide: {
-      scene: "theRatchet",
+      both: "A jellyfish over the ship. Its rings say what to do. A hand is your thumb on it. SHOOT, SHIELD or SUCK is the panel, under the ring.",
+      p1: "1. Pull, tap, turn or hold the rings on the left, and the shared ones.\n2. Move the cannon under SHOOT or SUCK. Hold SUCK yourself.\n3. When the shield is under SHIELD, press your shield button.",
+      p2: "1. Pull, tap, turn or hold the rings on the right, and the shared ones.\n2. Fire when the cannon is under SHOOT.\n3. Move the shield under SHIELD, and say when.",
     },
     entries: [],
-    boss: { kind: "ratchet" },
+    boss: { kind: "nettle", steps: NETTLE_SCRIPT },
     bossType: "normal",
+    controls: "standard5",
   },
 ];

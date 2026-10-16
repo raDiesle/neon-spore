@@ -1,9 +1,9 @@
-import { SCOUT_ARENAS } from "../scout-arenas.js";
+import { SCOUT_HAUL_ARENAS } from "../scout-haul-arenas.js";
 import type { Wave } from "../wave-types.js";
 
 /**
- * Waves 138 to 147 of the game, in the order they are played: THE HUSK's block
- * and the boss THE SCOUT.
+ * Waves 139 to 148 of the game, in the order they are played: THE HUSK's block
+ * and the boss THE HAUL.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act
  * after the tutorial arc again in play order. A save that fills it cuts a page
@@ -164,13 +164,13 @@ export const WAVES_ACT_13: Wave[] = [
     ],
   },
   {
-    id: "theScout",
-    name: "THE SCOUT",
+    id: "theHaul",
+    name: "THE HAUL",
     guide: {
-      scene: "theScout",
+      scene: "theHaul",
     },
     entries: [],
-    boss: { kind: "scout", arenas: SCOUT_ARENAS },
+    boss: { kind: "scout", arenas: SCOUT_HAUL_ARENAS },
     bossType: "special",
     controls: "scout",
   },

@@ -21,14 +21,16 @@ import { waveGroups } from "../src/rail-groups.js";
  * and the owner again: *"one last chance" is again something which is
  * separate new introduction … it should come after meteors introduced
  * parent … as shield was introduced there.* So both stand after THE ROCK's
- * regular waves, alone, before TORCH.
+ * regular waves, alone, before TORCH. CATCH AND AIM heads its own since
+ * BULB QUEEN closed SALVAGE's block in front of it (the owner's pick, the
+ * same day): folded under a boss, it would read as the boss's.
  *
  * A wave dragged into another group in the director turns this red; the fix
  * is its `variant` flag in the act file, set or taken off.
  */
 
 /** Waves that head a group of their own without starting a block. */
-const STANDS_ALONE = new Set(["theHand", "oneLastChance"]);
+const STANDS_ALONE = new Set(["theHand", "oneLastChance", "catchAndAim"]);
 
 function headsBlock(i: number): boolean {
   const wave = WAVES[i];

@@ -1,8 +1,8 @@
 import type { Wave } from "../wave-types.js";
 
 /**
- * Waves 330 to 339 of the game, in the order they are played: THE GYRE's block
- * and the boss THE REPRISE.
+ * Waves 331 to 340 of the game, in the order they are played: THE GYRE's block
+ * and the boss THE SPLICE.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act
  * after the tutorial arc again in play order. A save that fills it cuts a page
@@ -139,21 +139,14 @@ export const WAVES_ACT_32: Wave[] = [
     ],
   },
   {
-    id: "theReprise",
-    name: "THE REPRISE",
+    id: "theSplice",
+    name: "THE SPLICE",
     guide: {
-      scene: "theReprise",
+      scene: "theSplice",
     },
-    entries: [
-      { beat: 0, col: 0, color: "red" },
-      { beat: 3, col: 5, color: "cyan" },
-      { beat: 6, col: 10, color: "red" },
-      { beat: 12, col: 3, color: "cyan" },
-      { beat: 14, col: 7, color: "red" },
-      { beat: 18, col: 0, color: "red" },
-      { beat: 21, col: 10, color: "cyan" },
-    ],
-    boss: { kind: "reprise", beat: 12 },
-    bossType: "normal",
+    entries: [],
+    boss: { kind: "splice", rounds: [{ beats: 18 }, { beats: 27 }, { beats: 36 }] },
+    bossType: "special",
+    controls: "splice",
   },
 ];

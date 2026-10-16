@@ -1,8 +1,8 @@
 import type { Wave } from "../wave-types.js";
 
 /**
- * Waves 497 to 505 of the game, in the order they are played: THE MINE's review
- * and the boss THE GALL.
+ * Waves 498 to 506 of the game, in the order they are played: THE MINE's review
+ * and the boss THE TRAPEZE.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act
  * after the tutorial arc again in play order. A save that fills it cuts a page
@@ -141,28 +141,19 @@ export const WAVES_ACT_49: Wave[] = [
     ],
   },
   {
-    id: "theGall",
-    name: "THE GALL",
+    id: "theTrapeze",
+    name: "THE TRAPEZE",
     guide: {
-      both: "Tap the alien on your half until it shakes. Then pull it up. It jumps to your partner's half. Shoot it when it glows.",
-      p1: "1. It starts on your half. Tap it, then pull it up.\n2. When it lands on your half, do it again.\n3. When it glows, move the cannon under it.",
-      p2: "1. When it lands on your half, tap it, then pull it up.\n2. Be fast. Every landing starts the clock.\n3. When it glows, shoot it in its colour.",
+      scene: "theTrapeze",
     },
     entries: [],
     boss: {
-      kind: "gall",
+      kind: "trapeze",
       steps: [
-        { ask: "leap", taps: 3, color: "either", beats: 6 },
-        { ask: "leap", taps: 3, color: "either", beats: 5 },
-        { ask: "fire", taps: 0, color: "red", beats: 6 },
-        { ask: "leap", taps: 4, color: "either", beats: 5 },
-        { ask: "leap", taps: 5, color: "either", beats: 5 },
-        { ask: "leap", taps: 5, color: "either", beats: 4 },
-        { ask: "fire", taps: 0, color: "cyan", beats: 6 },
-        { ask: "leap", taps: 6, color: "either", beats: 4 },
-        { ask: "leap", taps: 6, color: "either", beats: 4 },
-        { ask: "leap", taps: 7, color: "either", beats: 4 },
-        { ask: "fire", taps: 0, color: "either", beats: 6 },
+        { ask: "push", gongSide: 1, gongMilli: 10000, beats: 32 },
+        { ask: "call", gongSide: -1, gongMilli: 14000, beats: 40 },
+        { ask: "shoot", gongSide: 1, gongMilli: 16000, beats: 48 },
+        { ask: "lock", gongSide: -1, gongMilli: 18000, beats: 48 },
       ],
     },
     bossType: "normal",
