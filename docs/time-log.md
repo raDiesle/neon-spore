@@ -42783,3 +42783,5 @@ and the rung's tests, its fixtures and its comments all had to move with it.
 
 Bottleneck: none worth the name. The rule asked for was already true of
 every brush intro since the last lane; two waves outside it were left.
+
+*Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

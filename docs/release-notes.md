@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-16 · 09b987a99 — A wave heads a group in the wave list exactly when it starts a block
+
+The owner's rule: a wave that brings a new brush has the waves that use it folded under it. A wave now heads a group exactly when it brings a brush, a panel or a fault, opens a review, or is a boss; every other wave is a variant of the head above it. All 38 brush intros, THE ROCK among them, already held waves; CATCH AND AIM and FINALE, which bring no brush, now fold under SALVAGE. A test over every wave holds the rule.
+
 ## 2026-10-16 · 5c0fd773c — THE ROCK and TWO ROCKS are one wave, and each block folds under its first intro
 
 THE ROCK now teaches the whole shield in one film: the rock cannot be shot, player 2 moves the shield into its column, player 1 fires it as it lands. The wave carries TWO ROCKS' two rocks and is played on STANDARD 4, so STANDARD 3, the trigger alone, has no wave any more and is off the ladder. Every wave after it is one number earlier.
