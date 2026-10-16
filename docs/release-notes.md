@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-16 · a5ee5ae78 — THE GEODE: a stone only the lance cuts, broken a level of pieces at a time (simulation)
+
+A boss after THE LANCE's waves with the lance as its weapon. A stone as wide as the field sinks onto the ship, and a bolt only chips it. A crack is cut by a beam in its colour, and every piece cut breaks in two. The levels are the boulder, the halves, the quarters (two stacked in one column, so one beam takes both) and the heart (both colours in one column). Only the navigator sees where a crack runs and only the pilot sees its colour. A beam in the wrong colour loses the wave, and so does a level that runs out, which lands the stone on the hull. Wave 58, closing THE CROSSING's block, the first free block once the hold is taught, since THE INSTAR keeps THE LANCE's. One boss per block moved every boss after it one block on; THE HYDRA waits at the end for a block of its own. Nothing is drawn yet: the look is the next lane.
+
 ## 2026-10-16 · c6a8c6da2 — THE MATRON is drawn: a blue mother slime, a lobe down to every pod she holds, her eggs inside her
 
 FINALE's boss now has a body. She hangs over the middle of the field, a deep blue slime seven columns across, and a lobe reaches down out of her belly to every pod she holds; a pod shot loose snaps its lobe back up into her. The pods of the clutches still to come glow amber inside her, so how much fight is left is counted off her. She leans toward the column she throws down, rears back between clutches, fades in as she arrives and greys out when beaten.
