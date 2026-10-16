@@ -2552,6 +2552,7 @@ by hand never moves.
 | `packages/render/src/body-hit-shock.ts` | THE THROB's strike: pressed flat by the blow, then rings run down the column |
 | `packages/render/src/body-hit-splash.ts` | THE ECHO's strike: a crown of drops thrown up and a puddle on the skin |
 | `packages/render/src/body-hit-defuse.ts` | DEFUSE — THE MINE's, and the one kill in this game that is not a kill |
+| `packages/render/src/body-aura.ts` | **The light a bright body throws round its own contour**: its path stroked wide and soft under its fill, so the glow follows every lobe |
 | `packages/render/src/pulse-body.ts` | One arrival falling down a lane, and the two ways of drawing one that cannot be read |
 | `packages/render/src/choir-shape.ts` | where THE CHOIR's two bodies stand and the skin traced over them — the shape half, with no light or colour in it |
 | `packages/render/src/choir-skin.ts` | **The light THE CHOIR throws and the film it wears** — the surface half of this creature |

@@ -7,7 +7,7 @@ import {
   type SimConfig,
   type World,
 } from "@neon-spore/sim";
-
+import { bodyAura } from "./body-aura.js";
 import { contourClock } from "./creature-place.js";
 import { hazed } from "./depth.js";
 import { drawGhostEyes } from "./ghost-eyes.js";
@@ -109,6 +109,10 @@ export function drawGhost(
   ctx.save();
   ctx.translate(x, y);
   ctx.scale(scale, scale);
+
+  // Its light round its own contour, before the interior covers the inner
+  // half (`body-aura.ts`); it grows with the temper, as the outline does.
+  bodyAura(ctx, body, haze(rim), r, scale, t, 0.7 + rage * 0.6);
 
   // The interior, through the record rather than inline, so a second answer
   // to what is inside this body can be drawn beside the nebula it ships with

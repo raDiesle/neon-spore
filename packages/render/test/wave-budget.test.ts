@@ -350,11 +350,16 @@ const SCENES: readonly Scene[] = [
     // (`pod-due-ring.ts`): the ring round the pod hanging at this tick is a
     // save and three strokes — its track, its arc and its notches — on either
     // seat and in both frames, which says the cost is the ring.
+    // Remeasured on 16 October 2026, when bright bodies began throwing light
+    // round their own contour (`body-aura.ts`; the owner, by name): the pod
+    // hanging at this tick strokes its aura three times under its fill, on
+    // either seat and in both frames. The blobs cost nothing more — their
+    // edge's own glow passes were folded into the aura (`living-skin.ts`).
     rows: {
       p1: [
         {
           fillRect: 68,
-          stroke: 154,
+          stroke: 157,
           fill: 95,
           clip: 13,
           save: 70,
@@ -366,7 +371,7 @@ const SCENES: readonly Scene[] = [
         },
         {
           fillRect: 67,
-          stroke: 155,
+          stroke: 158,
           fill: 93,
           clip: 16,
           save: 69,
@@ -380,7 +385,7 @@ const SCENES: readonly Scene[] = [
       p2: [
         {
           fillRect: 67,
-          stroke: 144,
+          stroke: 147,
           fill: 97,
           clip: 13,
           save: 63,
@@ -392,7 +397,7 @@ const SCENES: readonly Scene[] = [
         },
         {
           fillRect: 67,
-          stroke: 146,
+          stroke: 149,
           fill: 98,
           clip: 16,
           save: 67,

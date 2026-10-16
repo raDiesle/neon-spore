@@ -1,4 +1,5 @@
-import { bodyGlowSpread, haloSprite, strokeGlowFaded } from "./glow.js";
+import { bodyAura } from "./body-aura.js";
+import { haloSprite } from "./glow.js";
 import { mixHex } from "./hex.js";
 import { litRound } from "./key-light.js";
 
@@ -137,6 +138,10 @@ export function litSkin(
 ): void {
   const reach = Math.max(p.rx, p.ry);
 
+  // The light the body throws round itself, following its lobes. Before the
+  // flesh, which covers the inner half of it (`body-aura.ts`).
+  bodyAura(ctx, path, p.hex, p.r, p.scale, p.t);
+
   // The flesh. A body has to have a body before it can have a terminator on
   // it, and the deep is very nearly the field behind it.
   ctx.fillStyle = mixHex(p.dark, p.hex, FLESH);
@@ -166,16 +171,14 @@ export function litSkin(
 
   // The neon edge. The line weight is a tenth of the body radius with a
   // one-pixel floor, divided by the scale because the contour is drawn in the
-  // silhouette's units and a stroke must not grow with the body.
-  strokeGlowFaded(
-    ctx,
-    path,
-    p.hex,
-    Math.max(1, p.r * 0.1) / p.scale,
-    1,
-    1,
-    bodyGlowSpread(p.scale),
-  );
+  // silhouette's units and a stroke must not grow with the body. The crisp
+  // line only: the glow passes `strokeGlow` laid round it reached under a
+  // pixel past it (`bodyGlowSpread`), and the aura under the flesh is that
+  // light now, at a reach a phone shows — the same strokes spent where they
+  // can be seen. At the caller's own alpha, as `strokeGlowFaded` drew it.
+  ctx.strokeStyle = p.hex;
+  ctx.lineWidth = Math.max(1, p.r * 0.1) / p.scale;
+  ctx.stroke(path);
 }
 
 /** The one record a candidate skin patches. */

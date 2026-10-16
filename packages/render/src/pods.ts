@@ -1,5 +1,6 @@
 import { blobPoints, POD } from "@neon-spore/content";
 import type { Pod } from "@neon-spore/sim";
+import { bodyAura } from "./body-aura.js";
 import { bodyGlowSpread, halo, strokeGlow } from "./glow.js";
 import { HUSK_LOOK } from "./husk-look.js";
 import { type Layout, tileCX, tileCY } from "./layout.js";
@@ -124,6 +125,9 @@ export function drawPodBody(
   ctx.rotate(Math.sin(t * 0.6) * 0.08);
   ctx.scale(scale, scale);
   const was = ctx.globalAlpha;
+  ctx.globalAlpha = was * alpha;
+  bodyAura(ctx, path, PALETTE.pod, r, scale, t, 0.8 + 0.4 * pulse);
+  ctx.globalAlpha = was;
   ctx.fillStyle = PALETTE.podDark;
   ctx.fill(path);
   strokeGlow(
@@ -169,6 +173,7 @@ function drawWreck(
   ctx.translate(x, y);
   ctx.rotate(t * 2.6);
   ctx.scale(scale, scale);
+  bodyAura(ctx, path, PALETTE.ember, r, scale, t, 0.7 + 0.9 * flicker);
   ctx.fillStyle = PALETTE.podDark;
   ctx.fill(path);
   // The fire itself stays plain ember up close — that is the wreck.

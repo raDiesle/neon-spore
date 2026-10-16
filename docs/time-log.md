@@ -43048,3 +43048,13 @@ Bottleneck: looking — the defect was only visible in a frame of AUTO playing h
 Bottleneck: looking — every one of the six needed a second picture before its brightness sat under the bodies.
 
 *Measured: 4 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-16 — Bright bodies glow round their own contour
+
+- reading: 5 min. `glow.ts`, the living skin, `shipped-looks.md` and VERSUS's `body:glow` verdict, to see why the shipped glow could not be seen.
+- writing: 5 min. `body-aura.ts`, its three callers, the test.
+- looking: 5 min. Wave 4 and THE ECHO with the aura off and on, and the reach widened once.
+- friction: 0 min.
+- landing: 5 min. Fifteen bodies of strokes over THE ECHO's budget, answered by folding the edge's invisible passes into the aura; the pod's three moved BULB QUEEN's row.
+
+Bottleneck: landing — the op-count budgets, which turned a pure look into a question of where the strokes should be spent.

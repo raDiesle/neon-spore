@@ -37,8 +37,9 @@ looking at a number.
 
 | Pass | What | Numbers |
 |---|---|---|
+| **aura** | `bodyAura` (`body-aura.ts`) — the body's own path stroked wide and soft **before** the flesh, so the light stands outside the contour and follows every lobe | 3 passes (`BODY_AURA`), the widest reaching `0.75r` past the line on screen, alpha `0.2 / i`, `lighter`, breathing `22%` at `1.9` rad/s on the body's contour clock |
 | **skin** | `LIVING_SKIN.paint` (`living-skin.ts`) — flesh, a bevel inside the contour, the key light over both, a sheen | fill is `mixHex(dark, hex, 0.42)`; bevel is `rim` at alpha `0.32`, width `0.15` of the contour's reach, stroked **before** the light; `litRound` at the shipped `KEY` with the transform's rotation undone; sheen is `haloSprite(hex, 0.8·reach)` at alpha `0.2`, `lighter`, `0.34·reach` above centre |
-| **glow** | `strokeGlow` — the same path stroked repeatedly, widest and faintest first, additively | 3 passes (`STROKE.glowPasses`), spread 5 (`STROKE.glowSpread`), alpha `0.1 / i`, composite `lighter`, then the crisp outline at `max(1, r * 0.1)` |
+| **edge** | the crisp outline, in the body's own colour | `max(1, r * 0.1)`; its `strokeGlow` passes, which reached under a pixel past it, became the aura's on 16 October 2026 |
 | detail | `drawDetails` — see below | inner drawing thinner than the outline |
 | **tail** | `drawMotionTrail` — three halo sprites strung *upward*, widening and fading | at `(0.55 + 0.3k)r` wide by `(0.5 + 0.22k)r` tall for k = 1, 2, 3, `0.6k/3` tiles apart, alpha `(1 - k/4) * 0.22`, `lighter`, slid sideways by `sin(t*0.9 - 0.6k) * 0.3kr` |
 | **glow** | one halo around the whole body | `1.9r`, alpha `0.16` |
@@ -53,6 +54,11 @@ have to come from a small fixed set or it grows a canvas per frame.
 else.** A slick gets two dots at `(±0.12rx, 0.2ry)`, radius `0.07ry`. A bulb
 gets one core dot at `(0, 0.3ry)`, radius `0.09ry`, and nothing else. Same
 glow, same halo, same trail.
+
+**The aura arrived on 16 October 2026**, asked for by the owner by name:
+every bright body throws a soft light round its own contour rather than only
+the round halo. The pod, the wreck and THE GHOST wear it too, under their own
+fills (`pods.ts`, `ghost.ts`), in addition to the glowed edge they keep.
 
 **Two of these changed on 8 September 2026**, and both came off a page that
 had been arguing about them. The skin was a flat fill of the body's own deep —
