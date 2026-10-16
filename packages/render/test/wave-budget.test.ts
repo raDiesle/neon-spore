@@ -425,16 +425,18 @@ const SCENES: readonly Scene[] = [
     // about five, four and three a body, and its fills land on the layer.
     // One `stroke` more on 16 October 2026, when the field's back became the
     // wave's sky (`skies.ts`): this wave's is BINARY, and the gas pulled from
-    // one sun to the other is one stroked curve.
+    // one sun to the other is one stroked curve. The same day THE SEEDER's
+    // block put it ten waves later, under another sky (`skyFor`): a `fill`,
+    // two clips and a save more, all of them the sky's.
     why: "one body divided into fifteen",
     rows: {
       p1: [
         {
           fillRect: 69,
           stroke: 175,
-          fill: 109,
-          clip: 126,
-          save: 230,
+          fill: 110,
+          clip: 128,
+          save: 231,
           drawImage: 206,
           createLinearGradient: 36,
           createRadialGradient: 21,
@@ -444,9 +446,9 @@ const SCENES: readonly Scene[] = [
         {
           fillRect: 69,
           stroke: 177,
-          fill: 108,
-          clip: 126,
-          save: 230,
+          fill: 109,
+          clip: 128,
+          save: 231,
           drawImage: 206,
           createLinearGradient: 27,
           createRadialGradient: 18,
@@ -458,9 +460,9 @@ const SCENES: readonly Scene[] = [
         {
           fillRect: 69,
           stroke: 179,
-          fill: 117,
-          clip: 126,
-          save: 232,
+          fill: 118,
+          clip: 128,
+          save: 233,
           drawImage: 205,
           createLinearGradient: 36,
           createRadialGradient: 21,
@@ -470,9 +472,9 @@ const SCENES: readonly Scene[] = [
         {
           fillRect: 69,
           stroke: 181,
-          fill: 116,
-          clip: 126,
-          save: 232,
+          fill: 117,
+          clip: 128,
+          save: 233,
           drawImage: 205,
           createLinearGradient: 27,
           createRadialGradient: 18,

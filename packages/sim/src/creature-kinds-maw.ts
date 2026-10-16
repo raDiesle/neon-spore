@@ -20,4 +20,13 @@ export type MawKind =
    * the wave is lost. Unshot, it breaks the hull like any slick. `morselLimp`
    * is the whole of its state (`morsel.ts`).
    */
-  "morsel";
+  | "morsel"
+  /**
+   * A body in one colour that dies like a slick and **leaves its debt behind**:
+   * killed by a shot, it hangs a real pod where it died, with the pod's own
+   * clock round it. So the shot is a choice of *when* — three shot in a hurry
+   * are three clocks running at once — and the maw pays each one off as any
+   * pod. Unshot, it breaks the hull like any slick. No state of its own: the
+   * pod it leaves is an ordinary pod (`seeder.ts`).
+   */
+  | "seeder";

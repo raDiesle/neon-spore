@@ -61,7 +61,7 @@ table in a document cannot be wrong in a way a compiler notices.
 
 | Category | Answered by | Members today |
 |---|---|---|
-| `cannon` | `aim` only | `slick`, `bulb`, `lure`, `throb`, `shell`, `dart`, `veil`, `wisp`, `ghost`, `echo`, `rind`, `recoil`, `gyre`, `lid`, `strand`, `magnet`, `morsel`, `choir`, `countdown`, `leech` |
+| `cannon` | `aim` only | `slick`, `bulb`, `lure`, `throb`, `shell`, `dart`, `veil`, `wisp`, `ghost`, `echo`, `rind`, `recoil`, `gyre`, `lid`, `strand`, `magnet`, `morsel`, `seeder`, `choir`, `countdown`, `leech` |
 | `shield` | `guard` only | `meteor`, `meteorMedium`, `meteorFast`, `meteorFaster`, `meteorFastest`, `torch`, `veer`, `coil`, `limpet`, `cairn` `moult` |
 | `mixed` | `aim` and `guard` | `queen`, `warden`, `clasp`, `carom`, `volley`, `crawler`, `fence`, `crystal`, `curtain` |
 | `special` | neither | `tether`, `mount`, `chute`, `beatbox`, `balloon`, `weight`, `mine`, `blister` |
@@ -570,6 +570,22 @@ hears "done" and stops watching. So the navigator says *it's down*, and the
 pilot opens on the landing. Its contour is DUMPLING, BULB · PEAR with BULB · SPIKE's eight
 (`content/silhouettes-morsel.ts`); `morselLimp` is the whole of its state
 (`sim/morsel.ts`).
+
+## THE SEEDER
+
+**The kill is a debt.** Built 16 October 2026 off the same SUCK page. It falls a
+tile a beat in one authored colour and dies to the matching shot like any slick,
+and where it died a real pod is left hanging, with the pod's own clock
+(`podDueBeats`). From there it is an ordinary pod: it holds the wave open, a
+shot frees it, the maw takes it, and a clock run out loses the wave. Unshot, it
+breaks the hull and leaves nothing.
+
+**The navigator's question becomes *when*.** Killing it is easy, but three shot
+in a hurry are three clocks at once. So the seat that shoots spaces the kills
+("hold the left one, we've still got a pod up"), and the pilot pays each pod
+off as it comes. Its contour is SEED HEAD, BULB · BURR's twelve on SLICK ·
+COMMA's proportion (`content/silhouettes-seeder.ts`). It has no state of its
+own (`sim/seeder.ts`).
 
 ## THE MAGNET
 

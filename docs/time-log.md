@@ -43153,3 +43153,18 @@ Bottleneck: the first limp body filled with the pod's own dark and read as a
 stone; only a frame showed it.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-16 — THE SEEDER, its simulation
+
+- reading: 5 min. The pod's spawn, clock and wave-hold, and where a shot kills.
+- writing: 20 min. `seeder.ts` and its hook, the film and its test, the
+  wave, the rows, the bound pip and the sim tests.
+- looking: 0 min. A probe read the film's ticks.
+- friction: 10 min. The composer counts THE LANCE's waves as the block's, so
+  the block was composed after THE LANCE and moved ahead of it by hand; two
+  drafts mixed up and renamed.
+- landing: 15 min. Bosses re-placed, acts recut, renumbered, ten count tests,
+  THE ECHO's budget row under its new sky.
+
+Bottleneck: the count tests and the budget row a new block moves — ten edits
+that say nothing about the creature.

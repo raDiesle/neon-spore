@@ -74,7 +74,7 @@ import { drawnSize, FLOOR_HI, FLOOR_LO, isWide } from "../src/drawn-size.js";
 const SQUARE = CATALOGUE.filter((e) => !isWide(e));
 
 describe("drawn size against the 20-26 px floor", () => {
-  it("has the 106 square cards the catalogue now holds", () => {
+  it("has the 107 square cards the catalogue now holds", () => {
     // Two changes on 8 September 2026 that cancelled out. SLICK left: its
     // lobes went onto its long axis, and `depth` 0.52 with an apex at 0° and
     // another at 180° stretches the contour to 209 x 60 where the bean it drew
@@ -123,8 +123,9 @@ describe("drawn size against the 20-26 px floor", () => {
     // (`content/silhouettes-blister.ts`), so nothing left with it.
     // 105 on 10 October 2026: GUM left with THE GUM, taken out of the game.
     // 106 on 16 October 2026: THE MORSEL, DUMPLING, a combination of two
-    // cards that stay on the sheet (`content/silhouettes-morsel.ts`).
-    expect(SQUARE.length).toBe(106);
+    // cards that stay on the sheet (`content/silhouettes-morsel.ts`). 107 with
+    // THE SEEDER, SEED HEAD, the same way (`content/silhouettes-seeder.ts`).
+    expect(SQUARE.length).toBe(107);
   });
 
   it("clears the floor for every square card at the 92 px frame it actually gets", () => {
@@ -203,8 +204,9 @@ describe("drawn size against the 20-26 px floor", () => {
     // replaced did, and the draft is gone.
     // 68 with THE BLISTER, for the mine's reason: its `sizeMul` is the
     // field's, and at the card's own size the roots' reach shrinks the lobes.
-    // 69 with THE MORSEL: eight shallow pleats lose to the card's own size.
-    expect(under26).toBe(69);
+    // 69 with THE MORSEL: eight shallow pleats lose to the card's own size,
+    // and 70 with THE SEEDER's twelve, for the same reason.
+    expect(under26).toBe(70);
     expect(under20).toBe(23);
   });
 

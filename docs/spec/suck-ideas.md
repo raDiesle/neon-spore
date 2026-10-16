@@ -36,6 +36,9 @@ cyan before it goes limp, is not built.
 
 ### THE SEEDER — killing it drops a debt
 
+Built on 16 October 2026: THE SEEDER's block, after THE MORSEL's and before THE
+LANCE (`docs/spec/bestiary.md`). What is below is what it was asked to be.
+
 > *"Shoot it and it leaves a pod behind. You owe that pod now."*
 
 A creature that drops a hanging pod in its column when it dies, with the

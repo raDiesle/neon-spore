@@ -65,6 +65,9 @@ export const TALKER = {
   // and the pilot is the one looking at the cannon rather than the body, so
   // "it's down" is the timing for the maw (`sim/morsel.ts`).
   morsel: "p2",
+  // THE SEEDER: the seat that shoots decides *when* each one dies, and the
+  // clocks it starts are the pilot's to pay off — so it is said (`sim/seeder.ts`).
+  seeder: "p2",
   // THE GYRE, both halves, and it is the loudest `null` in the table. Both
   // screens draw the whole wheel and every colour on it — nothing at all is
   // hidden — and the pair still cannot stop talking, because what has to be

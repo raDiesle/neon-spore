@@ -20,3 +20,17 @@ export const MORSEL_CREATURE: CreatureDef = {
   blurb:
     'A soft body a shot does not kill. The matching colour turns it limp and amber, and it goes on falling; only the maw finishes it, with the cannon within two columns and SUCK open as it lands, and a limp one nobody swallows loses the wave. So the shot is only the first half, and the sentence after it — "it\'s down, suck" — is a timing the pilot has to hear, not a kill to stop watching. Unshot, it breaks the hull like any slick.',
 };
+
+export const SEEDER_CREATURE: CreatureDef = {
+  kind: "seeder",
+  // **Aim**: a shot kills it, and the pod it leaves is freed by a shot too.
+  // The maw that takes the pod is on every panel that has one (`MORSEL`'s
+  // argument). No guard.
+  controls: ["aim"],
+  // Authored per arrival, the carom's way: the colour that kills it.
+  color: null,
+  radar: "p2",
+  authorsColor: true,
+  blurb:
+    "A body that dies to the matching colour like any slick — and leaves a pod hanging where it died, with the pod's clock running. So the kill is a debt: three shot in a hurry are three clocks at once, and every pod must be freed and swallowed or the wave is lost. Player 2 chooses *when* to kill, and says so: \"hold the left one, we've still got a pod up.\" Unshot, it breaks the hull like any slick.",
+};

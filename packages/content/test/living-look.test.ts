@@ -32,7 +32,7 @@ describe("the living-look table", () => {
    * wrong answer has to walk past this list, and the person adding it has to
    * say out loud that their creature is or is not a body of its own.
    */
-  it("counts exactly the thirteen bodies the field draws through drawLiving", () => {
+  it("counts exactly the fourteen bodies the field draws through drawLiving", () => {
     expect(livingBodyKinds()).toEqual([
       "slick",
       "bulb",
@@ -59,6 +59,8 @@ describe("the living-look table", () => {
       // THE MORSEL: DUMPLING, and limp it is the same contour gone slack
       // (`content/silhouettes-morsel.ts`).
       "morsel",
+      // THE SEEDER: SEED HEAD (`content/silhouettes-seeder.ts`).
+      "seeder",
     ]);
   });
 

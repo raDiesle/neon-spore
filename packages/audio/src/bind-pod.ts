@@ -14,13 +14,19 @@ import { type Cue, panForCol } from "./bind.js";
 export function podCue(
   e: Extract<
     SimEvent,
-    { type: "podLoose" | "podTaken" | "podLost" | "huskRefused" | "huskSwallowed" }
+    {
+      type: "podLoose" | "podTaken" | "podLost" | "huskRefused" | "huskSwallowed" | "seederSeeds";
+    }
   >,
   cols: number,
 ): Cue | null {
   switch (e.type) {
     case "podLoose":
       return { id: "pod.loose", pan: panForCol(e.col, cols) };
+    // THE SEEDER's pod, hung where it died: the pip the pod family kept spare
+    // for "one is up there", heard after the kill (`sim/seeder.ts`).
+    case "seederSeeds":
+      return { id: "pod.blink", pan: panForCol(e.col, cols) };
     case "podTaken":
       // One pod and one answer: the warm rising fifth, the debt paid. The purge
       // and the ward had a sound each while there were cargoes (`sounds/pod.ts`).

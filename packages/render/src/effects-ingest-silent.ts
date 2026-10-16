@@ -101,6 +101,9 @@ export const INGEST_SILENT = [
   // THE MORSEL going limp, on the carom's terms: the burst is `burstFor`'s,
   // and how limp it is drawn is read every frame off `morselIsLimp`.
   "morselLimp",
+  // THE SEEDER's pod: the kill already burst on this tick (`destroy`), and the
+  // pod it hangs is drawn as any pod is, off `world.pods`.
+  "seederSeeds",
   "caromCrack",
   // THE CRYSTAL's three, for the carom's reason: the shell, the heading and
   // the light under the join are read every frame off the body and the world

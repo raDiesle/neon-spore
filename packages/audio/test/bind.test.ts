@@ -775,6 +775,7 @@ const SAMPLES: Record<string, SimEvent> = {
   caromEject: { type: "caromEject", id: 9, col: 3, row: 5, color: "red" },
   chuteOpen: { type: "chuteOpen", col: 3, row: 0, color: "red" },
   morselLimp: { type: "morselLimp", col: 3, row: 6, color: "red" },
+  seederSeeds: { type: "seederSeeds", col: 3, row: 4 },
   chuteCut: { type: "chuteCut", col: 3, row: 6, color: "red", kind: "slick" },
   crystalBounce: { type: "crystalBounce", col: 0, row: 5, dir: 1 },
   crystalCatch: { type: "crystalCatch", col: 4, row: 6 },

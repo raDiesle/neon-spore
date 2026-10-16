@@ -57,7 +57,7 @@ export function podKindOf(entry: PodEntry): PodKind {
 
 /** The clock a pod enters with, in ticks. A husk wears the same one as the pod
  * it pretends to be, so the clock is never the tell (`PodKind`). */
-export function podDueTicks(world: World, entry: PodEntry): number {
+export function podDueTicks(world: World, entry: Pick<PodEntry, "due">): number {
   return (entry.due ?? world.cfg.podDueBeats) * ticksPerBeat(world.cfg);
 }
 

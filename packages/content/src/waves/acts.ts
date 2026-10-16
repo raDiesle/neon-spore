@@ -59,6 +59,7 @@ import { WAVES_ACT_54 } from "./act-54.js";
 import { WAVES_ACT_55 } from "./act-55.js";
 import { WAVES_ACT_56 } from "./act-56.js";
 import { WAVES_ACT_57 } from "./act-57.js";
+import { WAVES_ACT_58 } from "./act-58.js";
 
 /**
  * **The act files, in the order of the game** — the one list of them.
@@ -136,4 +137,5 @@ export const WAVE_ACTS: readonly (readonly Wave[])[] = [
   WAVES_ACT_55,
   WAVES_ACT_56,
   WAVES_ACT_57,
+  WAVES_ACT_58,
 ];

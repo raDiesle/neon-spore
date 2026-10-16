@@ -11,6 +11,7 @@ import { LEECH, LIMPET } from "./silhouettes-cling.js";
 import { COUNTDOWN } from "./silhouettes-countdown.js";
 import { MINE } from "./silhouettes-mine.js";
 import { MORSEL } from "./silhouettes-morsel.js";
+import { SEEDER } from "./silhouettes-seeder.js";
 
 /**
  * Which kinds are drawn as a body of their own, and what that body looks like
@@ -165,6 +166,8 @@ const LIVING_LOOK = {
   // rather than sways, so the limp it goes into is a breath stopping
   // (`silhouettes-morsel.ts`).
   morsel: { shape: MORSEL, motion: BLOOM },
+  // THE SEEDER: SEED HEAD, breathing like a bulb (`silhouettes-seeder.ts`).
+  seeder: { shape: SEEDER, motion: BLOOM },
 } as const satisfies Record<CreatureKind, { shape: CreatureSilhouette; motion: OwnMotion } | null>;
 
 /**

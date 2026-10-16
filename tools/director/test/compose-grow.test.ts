@@ -78,19 +78,21 @@ describe("where a block's first wave aims", () => {
   test("a block counts from the tutorial's end", () => {
     expect(block("firstStep").sinceTutorial).toBe(-1);
     // THE HUSK is the first body after the arc, the owner's pick
-    // (`FIRST_AFTER_ARC`, `curriculum-order.ts`); THE MORSEL is the body
-    // after it, then THE LANCE, a lesson, and THE CROSSING the body after.
+    // (`FIRST_AFTER_ARC`, `curriculum-order.ts`); THE MORSEL and THE SEEDER
+    // are the bodies after it, then THE LANCE, a lesson, and THE CROSSING the
+    // body after.
     expect(block("theHusk").sinceTutorial).toBe(0);
     expect(block("theMorsel").sinceTutorial).toBe(1);
-    expect(block("theCrossing").sinceTutorial).toBe(2);
+    expect(block("theSeeder").sinceTutorial).toBe(2);
+    expect(block("theCrossing").sinceTutorial).toBe(3);
   });
 
   test("its floor is the gentlest composed regular wave of the block before", () => {
-    const [from, to] = [block("theMorsel").intro, block("theCrossing").intro];
+    const [from, to] = [block("theSeeder").intro, block("theCrossing").intro];
     // THE LANCE's block stands between them, and is not the block before's:
-    // THE MORSEL's is, since it came after THE HUSK on 16 October 2026.
+    // THE SEEDER's is, since it came after THE MORSEL on 16 October 2026.
     const regular = WAVES.slice(from + 1, to).filter(
-      (w, k) => w.variant && w.id.startsWith("theMorsel") && isRegularWave(WAVES, from + 1 + k),
+      (w, k) => w.variant && w.id.startsWith("theSeeder") && isRegularWave(WAVES, from + 1 + k),
     );
     expect(block("theCrossing").floor).toBe(Math.min(...regular.map((w) => wavePressure(w) ?? 0)));
   });

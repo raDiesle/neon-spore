@@ -119,13 +119,13 @@ export function burstFor(e: SimEvent, l: Layout, cfg: SimConfig, skinY?: Surface
     // own colour, because the shot landed and the pair should feel that it did
     // — and half the particles of a `destroy`, because the thing is still
     // there and the burst must not read as the end of it. What each becomes is
-    // not drawn here at all: both are read fresh every frame off the body,
-    // which is the one thing that cannot go stale across a restart.
+    // read fresh every frame off the body, which cannot go stale on a restart.
     case "rindShed":
     case "strandBead":
       return at(l, e.col, e.row, 10, e.color === "red" ? PALETTE.red : PALETTE.cyan);
-    // THE MORSEL going limp: a cargo from this tick, so the pod's amber.
+    // THE MORSEL gone limp, THE SEEDER's pod hung: cargo, so the pod's amber.
     case "morselLimp":
+    case "seederSeeds":
       return at(l, e.col, e.row, 10, PALETTE.pod);
 
     // A recoil bouncing, and the one hit in this table whose burst is **not**

@@ -44,6 +44,7 @@ import { THE_PULSE } from "./scenes/the-pulse.js";
 import { THE_RECOIL } from "./scenes/the-recoil.js";
 import { THE_RIND } from "./scenes/the-rind.js";
 import { THE_ROCK } from "./scenes/the-rock.js";
+import { THE_SEEDER } from "./scenes/the-seeder.js";
 import { THE_SPLICE } from "./scenes/the-splice.js";
 import { THE_STRAND } from "./scenes/the-strand.js";
 import { THE_THIRD_SHOT } from "./scenes/the-third-shot.js";
@@ -126,6 +127,7 @@ export type WaveSceneId =
   | "theSplice"
   | "theMoult"
   | "theMorsel"
+  | "theSeeder"
   | "theMine"
   | "theBlister";
 
@@ -186,6 +188,7 @@ export const SCENES_WAVES: Record<WaveSceneId, GuideScene> = {
   theSplice: THE_SPLICE,
   theMoult: THE_MOULT,
   theMorsel: THE_MORSEL,
+  theSeeder: THE_SEEDER,
   theMine: THE_MINE,
   theBlister: THE_BLISTER,
 };

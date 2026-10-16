@@ -22,6 +22,7 @@ import { magnetStruck } from "./magnet.js";
 import { morselGoesLimp } from "./morsel.js";
 import { recoilStruck } from "./recoil.js";
 import { rindStruck } from "./rind.js";
+import { seederSeeds } from "./seeder.js";
 import { shellIsBare } from "./shell.js";
 import { shellStruck } from "./shell-round.js";
 import { beadStruck } from "./strand-round.js";
@@ -188,5 +189,7 @@ export function resolve(world: World, b: Bullet, hit: Creature): boolean {
     kind: wornKind(hit),
   });
   removeCreature(world, hit.id);
+  // THE SEEDER leaves its debt where it died (`seeder.ts`).
+  if (hit.kind === "seeder") seederSeeds(world, hit);
   return b.lance;
 }
