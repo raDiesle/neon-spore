@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-16 · 39db96f35 — BULB QUEEN closes SALVAGE's block, in the tutorial
+
+The owner's pick of the bosses that need nothing the tutorial does not already teach: BULB QUEEN — pods, torches and the panel, a boss of seeing with no shot — now comes straight after SALVAGE's waves, before CATCH AND AIM, which heads a group of its own. Every boss after the tutorial takes the block before the one it had, and the last review block, which no boss closed any more, is gone.
+
 ## 2026-10-16 · 6c349f5a3 — FINALE is THE MATRON: a mother slime whose pods are her health (simulation)
 
 FINALE, the tutorial arc's last wave, is now a boss about everything the arc taught, the pods most of all. A mother slime hangs real pods off her lobes a clutch at a time; the navigator shoots each loose, the pilot swallows it before its ring runs out, and she throws bodies of both colours, rocks and torches down while they hang. Each pod swallowed takes a lobe; the last beats her. Four clutches, nine pods, every throw authored. Her body is not drawn yet — that is the next lane — and she has not been watched at tempo.
