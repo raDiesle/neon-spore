@@ -12,7 +12,12 @@ import {
 import { rgba } from "../src/hex.js";
 import { computeLayout, tileCY, type ViewRole } from "../src/layout.js";
 import { PALETTE } from "../src/palette.js";
-import { SWINDLE_STRAND_TILES, swindleBodyAt, swindleHolding } from "../src/swindle-place.js";
+import {
+  SWINDLE_SAG,
+  SWINDLE_STRAND_TILES,
+  swindleBodyAt,
+  swindleHolding,
+} from "../src/swindle-place.js";
 import { SWINDLE_RIM } from "../src/swindle-tint.js";
 import {
   CFG,
@@ -121,7 +126,7 @@ describe("THE SWINDLE", () => {
     const s = swindle(hung());
     const b = swindleBodyAt(L, CFG, s, s.phaseBeat, 0);
     const row = tileCY(L, CFG.swindlePodRow);
-    expect(b.y + b.ry).toBeCloseTo(row - SWINDLE_STRAND_TILES * L.tile, 0);
+    expect(b.y + b.ry * (1 + SWINDLE_SAG)).toBeCloseTo(row - SWINDLE_STRAND_TILES * L.tile, 0);
   });
 
   it("rears back between hands, and comes down again", () => {

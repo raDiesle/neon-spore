@@ -29,10 +29,13 @@ import { type Layout, tileCX, tileCY } from "./layout.js";
 
 /** Her half-width, in tiles: seven columns across. */
 const HALF_TILES = 3.4;
-/** Her height, in tiles, crown to belly. */
-const TALL_TILES = 1.8;
+/** Her height, in tiles, crown to belly: a mass rather than a lens. */
+const TALL_TILES = 2.4;
 /** How far above the pod row's middle her belly hangs, in tiles: a strand's length. */
 export const SWINDLE_STRAND_TILES = 1.45;
+/** How much lower her belly hangs than an ellipse's, in her radii
+ * (`swindle-shape.ts`): she is raised by as much, so the strand keeps its length. */
+export const SWINDLE_SAG = 0.3;
 /** How much of her size she keeps with one real pod left. */
 const SPENT_SIZE = 0.78;
 /** Tiles she settles down through as she comes in, fading up: never from above
@@ -75,7 +78,7 @@ export function swindleBodyAt(
   const rx = HALF_TILES * l.tile * (0.85 + 0.15 * size);
   const ry = (TALL_TILES / 2) * l.tile * size;
   const belly = tileCY(l, cfg.swindlePodRow) - SWINDLE_STRAND_TILES * l.tile;
-  let y = belly - ry;
+  let y = belly - ry * (1 + SWINDLE_SAG);
   let alpha = 1;
   let rear = 0;
   const t = since(s, beat, beatPhase);
@@ -116,4 +119,35 @@ export function swindleHolding(world: World, s: SwindleState): Held[] {
 /** How far up a hood is lifted, in pixels, at `lift`. */
 export function hoodLift(l: Layout, lift: number): number {
   return lift * LIFT_TILES * l.tile;
+}
+
+/** Two of her pods trading places this frame: which passes in front, which
+ * behind, and how far through the glide they are (0..1). */
+export interface Crossing {
+  front: number;
+  back: number;
+  progress: number;
+}
+
+/**
+ * The glide under way, read off the pods' own columns: the pod going right
+ * passes in front, the other behind, so the pilot can follow two pods that
+ * cross the same row by eye. The same whichever is real.
+ */
+export function swindleCrossing(world: World, s: SwindleState): Crossing | null {
+  const [a, b] = s.glide;
+  const to = s.glideTo[0];
+  const from = s.glideTo[1];
+  const pa = world.pods.find((p) => p.id === a);
+  if (a === undefined || b === undefined || to === undefined || from === undefined) return null;
+  if (pa === undefined || pa.loose || to === from) return null;
+  const progress = Math.max(0, Math.min(1, (pa.colMilli - from) / (to - from)));
+  return to > from ? { front: a, back: b, progress } : { front: b, back: a, progress };
+}
+
+/** How far a crossing pod is in front (+1) or behind (-1) this frame. */
+export function crossingDepth(c: Crossing | null, id: number): number {
+  if (c === null) return 0;
+  const d = Math.sin(Math.PI * c.progress);
+  return id === c.front ? d : id === c.back ? -d : 0;
 }

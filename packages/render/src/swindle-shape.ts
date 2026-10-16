@@ -1,5 +1,5 @@
 import { blobRadiusMul } from "@neon-spore/content";
-import type { DealerBox } from "./swindle-place.js";
+import { type DealerBox, SWINDLE_SAG } from "./swindle-place.js";
 
 /**
  * **THE SWINDLE's outlines: THE HOOD** (`tools/shape-sheet/src/drafts/
@@ -20,10 +20,11 @@ const DEPTH = 0.07;
 const WOBBLE = 0.04;
 const SEED = 9.2;
 /** THE HOOD's arc, in pod radii and radians: how far it stands clear of the
- * pod, how thick it is, and how much of a circle it covers. */
+ * pod, how thick it is, and how much of a circle it covers — the card's
+ * sweep opened and its band thickened, so it reads as a cup at pod size. */
 const SPAN = 1.55;
-const THICK = 0.45;
-const SWEEP = 2.5;
+const THICK = 0.58;
+const SWEEP = 2.9;
 /** Points round her body, and along a hood. */
 const N = 72;
 const ARC_N = 18;
@@ -50,7 +51,11 @@ export function swindleOutline(b: DealerBox, time: number): Point[] {
   for (let i = 0; i < N; i++) {
     const a = (i / N) * Math.PI * 2;
     const m = blobRadiusMul(a, LOBES, DEPTH, WOBBLE, time * 0.7, SEED);
-    pts.push(turned(b, b.x + Math.cos(a) * rx * m, b.y + Math.sin(a) * ry * m));
+    // Her weight hangs: the belly sags fuller than the crown is high, most
+    // of all in the middle, so she reads as a hanging slime, not a leaf.
+    const down = Math.sin(a);
+    const sag = down > 0 ? 1 + SWINDLE_SAG * down ** 3 : 1 - 0.12 * -down;
+    pts.push(turned(b, b.x + Math.cos(a) * rx * m, b.y + down * ry * m * sag));
   }
   return pts;
 }
@@ -58,7 +63,8 @@ export function swindleOutline(b: DealerBox, time: number): Point[] {
 /** Where a strand leaves her belly toward `x`. */
 export function swindleStrandRoot(b: DealerBox, x: number): Point {
   const u = Math.max(-0.8, Math.min(0.8, (x - b.x) / b.rx));
-  return turned(b, b.x + u * b.rx, b.y + Math.sqrt(1 - u * u) * b.ry * 0.85);
+  const down = Math.sqrt(1 - u * u);
+  return turned(b, b.x + u * b.rx, b.y + down * b.ry * (1 + SWINDLE_SAG * down ** 3) * 0.85);
 }
 
 /**
@@ -87,4 +93,9 @@ export function swindleHood(x: number, y: number, r: number, time: number, seed:
 /** The top of a hood over a pod at `y` of radius `r`: where its strand ends. */
 export function swindleHoodCrown(y: number, r: number): number {
   return y - r * SPAN;
+}
+
+/** The radius along a hood's top where its gloss runs, for a pod of radius `r`. */
+export function swindleHoodGloss(r: number): number {
+  return r * (SPAN - THICK * 0.3);
 }

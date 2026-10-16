@@ -12859,10 +12859,18 @@ play hashes the same.
 **The look** (`render/src/swindle-draw.ts`, `swindle-shape.ts`,
 `swindle-place.ts`, `swindle-fx.ts`). Her body is the shape sheet's THE
 HOOD (`drafts/tower-defence.ts`): a three-lobed slime in the organ's
-flesh, hung a strand's length over her pods. Over each pod she still holds
-she keeps **a hood**, the card's detached arc, touching nothing, on a strand
-from her belly; it lifts while its pod glides and flies up into her when she
-lets the pod go, and she leans after it. **The hood is the same over a real
+flesh, her belly sagging, hung a strand's length over her pods, with a gloss
+along her crown and bubbles rising through her. **She has a dealer's face**
+(`swindle-face.ts`): heavy-lidded eyes and a smirk; the eyes follow the pod
+falling, else the pod gliding, else the next she will let go — by the
+script's order, never by kind — she blinks, winces when a real pod is
+swallowed, and shuts her eyes beaten. Over each pod she still holds she keeps
+**a hood**, the card's detached arc opened into a cup, touching nothing, on a
+tapering arm of her down which a bead runs every beat
+(`swindle-strand.ts`); it lifts while its pod glides and flies up into her
+when she lets the pod go, and she leans after it. **Two pods crossing pass
+one in front of the other**: the hood going right swells and dips, the
+other shrinks and rises, and she sways through the shuffle. **The hood is the same over a real
 pod and a fake**: the pilot's frame does not change when every pod's kind is
 swapped, and the navigator's does, by the husk's own mark and nothing else.
 She shrinks as her real pods run out, rears back between hands, and greys

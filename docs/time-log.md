@@ -43060,3 +43060,13 @@ Bottleneck: looking — every one of the six needed a second picture before its 
 Bottleneck: landing — the op-count budgets, which turned a pure look into a question of where the strokes should be spent.
 
 *Measured: 4 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-16 — THE SWINDLE gets a dealer's face, arms and depth
+
+- reading: 5 min. Her five render files and two frames of her as she was.
+- writing: 15 min. The face and its gaze, the tapered arms, the cup, the crossing's depth, her sag and volume.
+- looking: 15 min. Seven frames: mid-crossing three times, a drop on the navigator's seat, and beaten twice.
+- friction: 0 min. Nothing failed.
+- landing: 5 min. Spec, index, `check:fast`, `land`.
+
+Bottleneck: looking — every change to a crossing needed a fresh 15-second run of AUTO to the same swap.

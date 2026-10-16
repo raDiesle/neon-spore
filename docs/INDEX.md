@@ -1296,10 +1296,12 @@ by hand never moves.
 | `packages/render/src/boss-strike-from.ts` | **Where a boss's blow at the hull leaves its body** (`boss-strike-look.ts` is what the blow looks like) |
 | `packages/render/src/boss-strike-look.ts` | **What a boss's own blow at the hull looks like** |
 | `packages/render/src/swallow.ts` | taking a pod in, as a two-part clock |
-| `packages/render/src/swindle-draw.ts` | THE SWINDLE, drawn: a green slime hung over the field, a hood over every pod she holds on a strand of her |
+| `packages/render/src/swindle-draw.ts` | THE SWINDLE, drawn: a green slime with a dealer's face hung over the field |
 | `packages/render/src/swindle-fx.ts` | What THE SWINDLE leaves behind a frame: a hood flying up off a pod she lets go, her lean toward it |
+| `packages/render/src/swindle-face.ts` | **THE SWINDLE's face: a dealer's** |
 | `packages/render/src/swindle-place.ts` | **Where THE SWINDLE is drawn**: her body over the middle and a hood over every pod she still holds |
 | `packages/render/src/swindle-shape.ts` | **THE SWINDLE's outlines: THE HOOD** (`tools/shape-sheet/src/drafts/ tower-defence.ts`) |
+| `packages/render/src/swindle-strand.ts` | **THE SWINDLE's arms**: a strand of her from her belly down to each hood's crown |
 | `packages/render/src/swindle-tint.ts` | THE SWINDLE's colours: a slime of the organ's green |
 | `packages/render/src/maw.ts` | swallowing a pod: the skin coming apart, then the flash |
 | `packages/render/src/pods.ts` | the pod, hanging and as a burning wreck |
