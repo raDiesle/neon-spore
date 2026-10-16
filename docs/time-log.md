@@ -43201,3 +43201,15 @@ Bottleneck: placing the block — the rule for where a body goes is in a test,
 not in the composer, so it was found by moving it twice.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-16 — THE GLUTTON, its look
+
+- reading: 0 min. THE SEEDER's look was the pattern.
+- writing: 5 min. `render/glutton.ts`, its row and a frame test.
+- looking: 15 min. Four frames and crops; a lobe more read as a starfish
+  until the lobes went shallow with every meal.
+- friction: 0 min.
+- landing: 5 min. INDEX, `check:fast`, `land`.
+
+Bottleneck: a depth step that looked right in numbers was invisible at 26 px,
+and only a crop showed it.

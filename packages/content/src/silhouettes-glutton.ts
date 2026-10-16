@@ -8,7 +8,8 @@ import type { CreatureSilhouette } from "./silhouettes.js";
  * player reads at a glance without counting. REVERB gives the proportion, 72
  * by 42, the widest body in its family — a belly stretched across its lane,
  * which is what a thing that eats looks like before it has eaten. Each meal
- * is drawn on top of this; the contour here is the hungry one.
+ * is drawn on top of this (`render/glutton.ts`); the contour here is the
+ * hungry one.
  *
  * Neither draft is worn this way today: THE BLISTER wears CLOVER round, with
  * roots under it, and THE TRAPEZE took REVERB as its spindle.

@@ -602,7 +602,8 @@ stand under the pod or under the bigger shot ("let him have it, I'll take him
 fat"). Unshot, it breaks the hull like any slick. Its contour is GULLET,
 BULB · CLOVER's four deep lobes on SLICK · REVERB's flat proportion
 (`content/silhouettes-glutton.ts`); `gluttonFed` is the whole of its state
-(`sim/glutton.ts`).
+(`sim/glutton.ts`). Fed, it is drawn a size bigger, a lobe more and rounder for
+every meal, with each pod it ate glowing inside it (`render/glutton.ts`).
 
 ## THE MAGNET
 
