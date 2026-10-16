@@ -35,6 +35,8 @@ interface Backlog {
   bosses: BacklogGroup[];
   /** RESEARCH's spec file, whole — `backlog.ts`. */
   research: string;
+  /** SUCK's spec file, whole — `backlog.ts`. */
+  suck: string;
 }
 
 /**
@@ -96,10 +98,14 @@ async function load(): Promise<void> {
   const backlog = (await res.json()) as Backlog;
 
   fill("backlogBosses", backlog.bosses);
-  const research = document.getElementById("backlogResearch");
-  if (research) {
-    research.replaceChildren();
-    renderMarkdown(research, backlog.research);
+  for (const [id, text] of [
+    ["backlogResearch", backlog.research],
+    ["backlogSuck", backlog.suck],
+  ] as const) {
+    const el = document.getElementById(id);
+    if (!el) continue;
+    el.replaceChildren();
+    renderMarkdown(el, text);
   }
   loaded = true;
 }

@@ -42738,3 +42738,16 @@ Bottleneck: working out what "two tiles more" meant against the steering
 that already pulled a pod most of a column and a half in.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-16 — A SUCK tab on NOT BUILT YET, with ideas for the maw
+
+- reading: 10 min. How RESEARCH is read whole onto the sheet, the pod ideas
+  already filed and refused, and which names are free.
+- writing: 25 min. Five enemies, six pod variations and three waves from
+  parts that exist, and the tab that reads them.
+- looking: 0 min. The tab was not opened in a browser.
+- friction: 0 min.
+- landing: 10 min. The fast check, `land`.
+
+Bottleneck: keeping every idea to one sentence a player could say back while
+staying clear of the cargoes the owner had just rejected.

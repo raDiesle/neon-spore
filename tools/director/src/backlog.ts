@@ -77,6 +77,13 @@ export interface Backlog {
    * so nothing here parses it — the page is the file.
    */
   research: string;
+  /**
+   * SUCK — `docs/spec/suck-ideas.md`, rendered whole like RESEARCH. Asked for
+   * by name on 16 October 2026: enemies and mechanics won with the maw, and
+   * ways the two pod brushes could go further, because the pods are rarely
+   * used. Ideas, not entries, so nothing here parses it.
+   */
+  suck: string;
   // MECHANICS was the other page until 17 September 2026 — see the file's own
   // note above. DESIGNS was a third until 12 September 2026: `docs/versus.md`,
   // `teaching.md` and `alive.md` read section by section as backlog. The owner
@@ -85,6 +92,11 @@ export interface Backlog {
   // overtaken.
 }
 
-export function buildBacklog(bosses: string, choreo: string, research: string): Backlog {
-  return { bosses: fromBosses(bosses, choreo), research };
+export function buildBacklog(
+  bosses: string,
+  choreo: string,
+  research: string,
+  suck: string,
+): Backlog {
+  return { bosses: fromBosses(bosses, choreo), research, suck };
 }
