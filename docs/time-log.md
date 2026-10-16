@@ -43109,3 +43109,5 @@ shorter.
 - landing: 5 min. `check:fast` green first time.
 
 Bottleneck: looking — sixty-four waves to shoot and read before a single boss could be chosen.
+
+*Measured: 28 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*

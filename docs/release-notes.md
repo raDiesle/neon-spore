@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-16 · 8c19fbdbe — The bright bosses glow round their own contour: THE ANTIPHON, THE BROOD, THE SWINDLE, THE MATRON and THE SPLICE
+
+THE ANTIPHON's organ and candidates, THE BROOD's sac, THE SWINDLE's and THE MATRON's lobes and THE SPLICE's eater — head, neck and rear — now throw a soft light of their own colour round their own outline, as the creatures do. A boss is several tiles across, so `bossAura` reaches a third of a tile past the contour rather than a share of the body, and strokes every piece of a body as one path. A spent boss throws none. The other bosses are lit stone, metal, bark or the hull's purple, and keep their look.
+
 ## 2026-10-16 · 75447b00c — The maw's reach is drawn: a faint amber light over the five columns SUCK takes a pod from
 
 While SUCK is open, a faint amber light stands on the hull over the cannon's column and two columns either side, brightest in the middle, with a thin edge where the reach stops. The owner asked for it by name. It is also an addition where the game drew nothing, so it goes straight into the game rather than to VERSUS. The rule it draws is now one function, `inMawReach`, which a falling pod, a moult and the light all ask. The moult had been reading the cannon's own column alone, so a moult is now taken anywhere in the same reach a pod is.
