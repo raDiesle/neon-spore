@@ -12468,8 +12468,25 @@ sac a little smaller each time, so the fight's length is read off the body.
 **It turns**: its skin carries two faces round a sphere, the front pocked
 with the pale rings of buds grown and the back netted with dark veins, and
 every rest turns it half round, so the face the pair was reading goes and the
-other comes. It comes down from above the frame, and beaten it greys, sags
-and fades.
+other comes. It comes down a little way, fading in, and beaten it greys,
+sags and fades.
+
+**It is a machine's womb** (16 October 2026, the owner: *it should look like
+something what is producing enemies … like a producing machine … they also
+spawn in the whole body … like pooping out*). It hangs on cables that fade
+into the dark above it from a pump-head whose two pistons strike in turn on
+the beat (`brood-rig.ts`, behind the flesh, so the lobes stay in front); six
+feed tubes wrap it as longitudes of its own outline, carrying lit pulses
+down, so a rest's half turn is seen as the tubes coming round; a port sits
+in the belly over every column it covers. Through the skin the pair sees a
+clutch of small curled bodies wheeling inside it, and every body it is
+about to lay (`brood-eggs.ts`) sinking from high in the sac to the belly
+over its column, swelling, pushing the belly out and opening its port in
+its colour, then tearing free on a strand of slime as the sac squeezes
+(`brood-fx.ts`). Before a lurch it shudders on its hook, and a lurch swings
+it over on its cables, its belly trailing (`slideX`, `tilt`). The cables
+stop short and the drop is short because no boss touches the top of the
+screen (`boss-top.test.ts`).
 - **A bud** (`brood-bud.ts`) is the slick or the bulb it is growing into,
   drawn with that body's own silhouette, skin and interior, small: it grows
   down out of the belly as it ripens, from seven tenths of a body to a body

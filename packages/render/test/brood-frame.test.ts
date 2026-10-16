@@ -29,8 +29,8 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
 
 /**
  * THE BROOD, drawn (`render/src/brood-draw.ts`): the sac on all three
- * screens, a bud hanging in its colour and a dropped one's nub, a lobe on the
- * rim for every bud still to pop, the half turn of a rest, the belly level
+ * screens, a bud hanging in its colour and a dropped one's nub, its rig and a
+ * body about to be laid seen inside it, a lobe on the rim for every bud still to pop, the half turn of a rest, the belly level
  * with the row a bolt is met on, and the sac beaten — set rather than played
  * to; `sim/test/brood.test.ts` proves the rules.
  */
@@ -95,6 +95,24 @@ describe("THE BROOD's sac", () => {
     expect(count(regrowing, nub)).toBeGreaterThan(count(none, nub));
     expect(count(regrowing, PALETTE.red)).toBeLessThan(count(red, PALETTE.red));
   });
+
+  it.each(ROLES)(
+    "hangs in its rig, and shows a body it is about to lay inside it, on %s",
+    (role) => {
+      const none = frame(role, (_, s) => {
+        s.buds = [];
+        s.eggs = [];
+      });
+      const egg = frame(role, (w, s) => {
+        s.buds = [];
+        s.eggs = [{ col: midCol(CFG) - 2, color: "cyan", layBeat: w.beat + 1 }];
+      });
+      const metal = rgba(PALETTE.rock, 0.75);
+      expect(count(none, metal)).toBeGreaterThan(0);
+      expect(count(egg, PALETTE.cyan)).toBeGreaterThan(count(none, PALETTE.cyan));
+      expect(count(egg, rgba(PALETTE.cyanDark, 0.95))).toBeGreaterThan(0);
+    },
+  );
 
   it("carries a lobe on its rim for every bud still to pop", () => {
     const s = brood(hung());

@@ -43658,3 +43658,19 @@ Bottleneck: friction — a screenshot flag that waits forever on a busy
 machine, and nothing saying so.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-16 — THE BROOD is a machine's womb that lays from its whole belly
+
+- reading: 5 min. The depth skill's projection rule, the frame test, the
+  palette.
+- writing: 15 min. `brood-rig.ts` (harness, pistons, feed tubes),
+  `brood-eggs.ts` (the clutch, bodies sinking inside, belly ports), the
+  birth strand, squeeze and tilt in `brood-fx.ts`, a frame test.
+- looking: 10 min. Four frames and crops: the tubes too thin, the head
+  floating, the ports hidden under the tubes.
+- friction: 10 min. `boss-top.test.ts` caught the cables and the entrance
+  crossing the top of the screen; one `check:fast` was killed and rerun.
+- landing: 10 min. Two `check:fast` rounds, `land`.
+
+Bottleneck: the top-of-screen rule — a hung machine wants cables to the
+sky, and the rule wanted them to fade two tiles up.

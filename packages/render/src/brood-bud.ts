@@ -102,27 +102,44 @@ export function drawBroodBud(ctx: CanvasRenderingContext2D, p: BudPaint): void {
   const k = Math.min(1, p.ripe);
   const late = Math.max(0, (k - SHUDDER_FROM) / (1 - SHUDDER_FROM));
   const shake = late * p.tile * 0.08 * Math.sin(p.time * (18 + 22 * late) + p.seed);
-  const kind = livingKindForColor(p.color);
-  const shape = livingSilhouette(kind);
   const at = broodBudCircle(p.rimY, p.x, k, p.tile);
   const r = at.r;
-  const scale = livingScale(shape, r);
   const x = at.x + shake;
   const y = at.y;
   drawStalk(ctx, p, x, y - r * 0.8);
 
-  const tint = colorTrio(p.color);
-  const t = p.time + p.seed * 5.4;
+  if (late > 0) halo(ctx, x, y, r * (2 + late), colorTrio(p.color).hex, 0.25 + 0.45 * late);
+  paintBroodBody(ctx, p.color, x, y, r, p.time + p.seed * 5.4, 0);
+}
+
+/**
+ * The slick or the bulb of `color`, drawn as the field draws it, `r` across
+ * at (`x`, `y`) and turned `rot` — a bud on its stalk, or a body still inside
+ * the sac (`brood-eggs.ts`).
+ */
+export function paintBroodBody(
+  ctx: CanvasRenderingContext2D,
+  color: Color,
+  x: number,
+  y: number,
+  r: number,
+  t: number,
+  rot: number,
+): void {
+  const kind = livingKindForColor(color);
+  const shape = livingSilhouette(kind);
+  const scale = livingScale(shape, r);
+  const tint = colorTrio(color);
   const path = splinePath(livingPoints(shape, t, 28), true);
-  if (late > 0) halo(ctx, x, y, r * (2 + late), tint.hex, 0.25 + 0.45 * late);
   ctx.save();
   ctx.translate(x, y);
+  ctx.rotate(rot);
   ctx.scale(scale, scale);
   const paint = { hex: tint.hex, rim: tint.rim, dark: tint.dark, rx: shape.rx, ry: shape.ry };
-  LIVING_SKIN.paint(ctx, path, "nonzero", { ...paint, r, scale, rot: 0, t });
+  LIVING_SKIN.paint(ctx, path, "nonzero", { ...paint, r, scale, rot, t });
   ctx.save();
   clipInside(ctx, path, "nonzero");
-  drawDetails(ctx, kind, { ...paint, rot: 0, t });
+  drawDetails(ctx, kind, { ...paint, rot, t });
   ctx.restore();
   ctx.restore();
 }

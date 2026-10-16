@@ -1389,6 +1389,8 @@ by hand never moves.
 | `packages/render/src/brood-fx.ts` | What THE BROOD leaves behind a frame: the splash of a bud popped, the stalk whipping back up when one drops |
 | `packages/render/src/brood-place.ts` | **Where THE BROOD is drawn**: the sac over the middle and each bud on its column |
 | `packages/render/src/brood-shape.ts` | **THE BROOD's outline**: BULB · PEBBLE, from the shape sheet's drafts, a lobe on its top for every bud still to pop |
+| `packages/render/src/brood-eggs.ts` | **What THE BROOD is growing inside**, seen through its skin — the owner, 16 October 2026 |
+| `packages/render/src/brood-rig.ts` | **The machine THE BROOD hangs in** — the owner, 16 October 2026 |
 | `packages/render/src/cannon-maw.ts` | Laying the shot: `maw.ts` run backwards |
 | `packages/render/src/cannon-column.ts` | **The cannon's own column, straight up** — spec 5.8's one path marker left in the field |
 | `packages/render/src/clasp-break.ts` | THE CLASP's shield failing |

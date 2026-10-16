@@ -9,6 +9,7 @@ import {
 import { bossAura } from "./body-aura.js";
 import { drawHurt } from "./boss-hurt.js";
 import { drawBroodBud } from "./brood-bud.js";
+import { broodEggBulges, drawBroodInside, drawBroodPorts } from "./brood-eggs.js";
 import type { BroodFx } from "./brood-fx.js";
 import {
   broodBudX,
@@ -18,6 +19,7 @@ import {
   broodShudder,
   type SacBox,
 } from "./brood-place.js";
+import { drawBroodHarness, drawBroodTubes } from "./brood-rig.js";
 import { broodOutline } from "./brood-shape.js";
 import { halo } from "./glow.js";
 import { mixHex, rgba } from "./hex.js";
@@ -44,7 +46,17 @@ import { splinePath } from "./spline.js";
  * pair was reading goes and the other comes, and the next step's buds grow
  * on the face that came round.
  *
- * Comes down from above the frame; beaten, it sags, greys and goes.
+ * **It is a machine's womb** — the owner, 16 October 2026: *it should look
+ * like something what is producing enemies … like a producing machine … they
+ * also spawn in the whole body … like pooping out*. It hangs on cables from a
+ * pump-head working on the beat, feed tubes wrapped round it carry lit pulses
+ * down into it (`brood-rig.ts`), and through its skin the pair sees what it is
+ * making: a clutch of small bodies drifting inside, and every body it is about
+ * to lay sinking to the belly over its column, pushing the belly out and
+ * tearing free on a strand of slime (`brood-eggs.ts`, `brood-fx.ts`). A lurch
+ * swings it on its cables, tilted, and before one it shudders.
+ *
+ * Comes down a little way, fading in; beaten, it sags, greys and goes.
  */
 
 /** Spots round the sphere of its skin, half of each face. */
@@ -67,21 +79,39 @@ export function drawBrood(
 ): void {
   const cfg = world.cfg;
   const box = broodSacAt(l, cfg, s, beat, beatPhase);
-  const breath = s.phase === "spent" ? 0 : breathOf(beatPhase);
-  const sac = { ...box, rx: box.rx * (1 + 0.015 * breath), ry: box.ry * (1 + 0.04 * breath) };
   const spent = s.phase === "spent";
+  const breath = spent ? 0 : breathOf(beatPhase);
+  // It squeezes after a body it lays: narrower and taller for a moment.
+  const squeeze = fx.squeeze();
+  const sac = {
+    ...box,
+    rx: box.rx * (1 + 0.015 * breath - 0.04 * squeeze),
+    ry: box.ry * (1 + 0.04 * breath + 0.05 * squeeze),
+  };
   const lobes = s.phase === "enter" ? broodLobesAll(s) : broodLobes(s);
-  const body = splinePath(broodOutline(sac, lobes, l.tile, time), true);
-
-  // A lurch swings it over, and the beats before one it shudders on its hook.
+  const bulges = broodEggBulges(l, cfg, sac, s, beat, beatPhase);
+  const body = splinePath(broodOutline(sac, lobes, l.tile, time, bulges), true);
+  // How hard the machine is working: laying, or about to lurch.
   const shudder = broodShudder(world, s, beatPhase);
-  const tremble = shudder * l.tile * 0.12 * Math.sin(time * 46);
+  const work = Math.max(shudder, squeeze, bulges.length > 0 ? 0.6 : 0);
+
+  // It hangs from its cables: a lurch swings it over, its belly trailing,
+  // and the beats before one it shudders on its hook.
+  const tremble = shudder * Math.sin(time * 46);
+  const pivotY = sac.y - sac.ry;
   ctx.save();
-  ctx.translate(fx.hurt.shakeX(time, l.tile) + fx.slideX(l.tile) + tremble, 0);
+  ctx.translate(fx.hurt.shakeX(time, l.tile) + fx.slideX(l.tile) + tremble * l.tile * 0.12, 0);
+  ctx.translate(sac.x, pivotY);
+  ctx.rotate(fx.tilt(l.tile) + tremble * 0.025);
+  ctx.translate(-sac.x, -pivotY);
   ctx.globalAlpha = sac.alpha;
 
+  drawBroodHarness(ctx, sac, l.tile, beatPhase, work, spent);
   paintFlesh(ctx, body, sac, l.tile, spent);
   drawFaces(ctx, body, sac, l.tile, spent);
+  if (!spent) drawBroodInside(ctx, l, cfg, body, sac, s, beat, beatPhase, time);
+  drawBroodTubes(ctx, body, sac, l.tile, time, work, spent);
+  if (!spent) drawBroodPorts(ctx, l, cfg, sac, s, beat, beatPhase);
   drawHurt(ctx, body, fx.hurt.value);
 
   // The buds over the belly they grow out of.

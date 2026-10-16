@@ -21,8 +21,12 @@ import { PALETTE } from "./palette.js";
  * - the **hide** taking a bolt is a scuff of grey grit and nothing more —
  *   `bolt-stop.ts`'s *some damage visual but without any effect on the boss*;
  * - the **wrong colour** bursts red-grey on the bud, which stays;
+ * - a **lay** tears the body out of the belly on a strand of slime that
+ *   stretches after it and lets go, the belly's valve rings in its colour,
+ *   and the sac squeezes (`squeeze`);
  * - a **lurch** swings the sac over the column the simulation has already
- *   moved it, so it is seen to go rather than to jump (`slideX`);
+ *   moved it, so it is seen to go rather than to jump (`slideX`), its belly
+ *   trailing the swing (`tilt`);
  * - **beaten**, the sac takes the blow of a fight landed.
  */
 
@@ -31,8 +35,17 @@ const SPLASH_LIFE = 0.45;
 const SNAP_LIFE = 0.4;
 /** Seconds a lurch takes to swing the sac over a column. */
 const LURCH_LIFE = 0.35;
+/** Seconds a body takes to tear free of the belly, and the sac to squeeze after it. */
+const BIRTH_LIFE = 0.45;
 
 interface Splash {
+  x: number;
+  y: number;
+  hex: string;
+  age: number;
+}
+
+interface Birth {
   x: number;
   y: number;
   hex: string;
@@ -50,6 +63,7 @@ type Burst = (x: number, y: number, n: number, hex: string) => void;
 export class BroodFx {
   private splashes: Splash[] = [];
   private snaps: Snap[] = [];
+  private births: Birth[] = [];
   /** The last lurch: columns it went, and seconds since; the sim has it there already. */
   private lurchBy = 0;
   private lurchAge = LURCH_LIFE;
@@ -77,6 +91,12 @@ export class BroodFx {
         case "broodSpoil":
           burst(tileCX(l, e.col), y, 8, PALETTE.sparkDim);
           break;
+        case "broodLay": {
+          const x = tileCX(l, e.col);
+          this.births.push({ x, y, hex: colorTrio(e.color).hex, age: 0 });
+          burst(x, y + l.tile * 0.2, 6, PALETTE.organRim);
+          break;
+        }
         case "broodLurch":
           this.lurchBy = e.by;
           this.lurchAge = 0;
@@ -103,8 +123,22 @@ export class BroodFx {
     return -this.lurchBy * tile * swing;
   }
 
+  /** The tilt a swing gives the sac, radians: its belly trailing the way it goes. */
+  tilt(tile: number): number {
+    return (-this.slideX(tile) / tile) * 0.16;
+  }
+
+  /** How hard the sac is squeezing after a body it has just laid, 0..1. */
+  squeeze(): number {
+    let k = 0;
+    for (const b of this.births) k = Math.max(k, Math.sin((b.age / BIRTH_LIFE) * Math.PI));
+    return k;
+  }
+
   update(dt: number): void {
     this.lurchAge += dt;
+    for (const b of this.births) b.age += dt;
+    this.births = this.births.filter((b) => b.age < BIRTH_LIFE);
     for (const s of this.splashes) s.age += dt;
     for (const s of this.snaps) s.age += dt;
     this.splashes = this.splashes.filter((s) => s.age < SPLASH_LIFE);
@@ -121,6 +155,31 @@ export class BroodFx {
       ctx.lineWidth = Math.max(1, l.tile * 0.1 * (1 - k));
       ctx.beginPath();
       ctx.arc(s.x, s.y, l.tile * (0.3 + 0.6 * k), 0, Math.PI * 2);
+      ctx.stroke();
+    }
+    for (const b of this.births) {
+      // The strand of slime the body tears out of the belly on, stretching
+      // down after it and thinning until it lets go.
+      const k = b.age / BIRTH_LIFE;
+      const end = b.y + l.tile * (0.2 + 1.1 * k);
+      ctx.strokeStyle = rgba(PALETTE.organ, 0.85 * (1 - k));
+      ctx.lineWidth = l.tile * 0.22 * (1 - k);
+      ctx.beginPath();
+      ctx.moveTo(b.x, b.y - l.tile * 0.1);
+      ctx.quadraticCurveTo(b.x + Math.sin(k * 9) * l.tile * 0.08, (b.y + end) / 2, b.x, end);
+      ctx.stroke();
+      ctx.strokeStyle = rgba(b.hex, 0.7 * (1 - k));
+      ctx.lineWidth = Math.max(1, l.tile * 0.07);
+      ctx.beginPath();
+      ctx.ellipse(
+        b.x,
+        b.y,
+        l.tile * (0.25 + 0.5 * k),
+        l.tile * (0.08 + 0.12 * k),
+        0,
+        0,
+        Math.PI * 2,
+      );
       ctx.stroke();
     }
     for (const s of this.snaps) {
@@ -142,6 +201,7 @@ export class BroodFx {
   clear(): void {
     this.lurchBy = 0;
     this.lurchAge = LURCH_LIFE;
+    this.births = [];
     this.splashes = [];
     this.snaps = [];
     this.hurt.clear();

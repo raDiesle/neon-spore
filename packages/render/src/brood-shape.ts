@@ -60,9 +60,19 @@ function rayOut(c: Point, dir: Point, q: Point & { r: number }): number {
   return d < 0 ? 0 : along + Math.sqrt(d);
 }
 
-export function broodOutline(sac: SacBox, lobes: number, tile: number, time: number): Point[] {
+/**
+ * The outline. `bulges` are circles fused into it the same way as the lobes —
+ * the belly pushed out where a body is about to be laid (`brood-eggs.ts`).
+ */
+export function broodOutline(
+  sac: SacBox,
+  lobes: number,
+  tile: number,
+  time: number,
+  bulges: readonly (Point & { r: number })[] = [],
+): Point[] {
   const c = { x: sac.x, y: sac.y };
-  const swell = lobesOf(sac, lobes, tile, time);
+  const swell = [...lobesOf(sac, lobes, tile, time), ...bulges];
   const pts: Point[] = [];
   for (let i = 0; i < N; i++) {
     const a = (i / N) * Math.PI * 2;

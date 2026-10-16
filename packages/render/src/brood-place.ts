@@ -27,14 +27,18 @@ import { type Layout, tileCX, tileCY } from "./layout.js";
 /** The sac's half-width past the columns it covers, in tiles. */
 const SIDE_TILES = 0.1;
 /** How tall the sac is, in tiles, from the belly up. */
-const TALL_TILES = 3.4;
+const TALL_TILES = 4.1;
 /** How far above the bud row's middle the belly hangs, in tiles: a hair, so a
  * bolt met on the row is drawn ending on the skin. */
 const BELLY_LIFT = 0.05;
 /** How much of its size a sac with one lobe left keeps. */
 const SPENT_SIZE = 0.72;
-/** Tiles above the frame the sac comes down from. */
-const DROP_TILES = 6;
+/**
+ * Tiles above its place the sac comes down from, fading in as it comes: a
+ * short drop, so its rig never crosses the top of the screen (the owner, 29
+ * September 2026; `render/test/boss-top.test.ts`).
+ */
+const DROP_TILES = 1.2;
 
 export interface SacBox {
   x: number;
@@ -70,7 +74,9 @@ export function broodSacAt(
   let alpha = 1;
   const t = since(s, beat, beatPhase);
   if (s.phase === "enter") {
-    y -= (1 - smoothstep(Math.min(1, t / Math.max(1, cfg.broodEnterBeats)))) * DROP_TILES * l.tile;
+    const k = smoothstep(Math.min(1, t / Math.max(1, cfg.broodEnterBeats)));
+    y -= (1 - k) * DROP_TILES * l.tile;
+    alpha = k;
   } else if (s.phase === "spent") {
     const k = Math.min(1, t / Math.max(1, cfg.broodSpentBeats));
     y += k * 0.8 * l.tile;
