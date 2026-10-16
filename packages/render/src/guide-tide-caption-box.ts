@@ -2,6 +2,7 @@ import type { ControlSet, SceneStep } from "@neon-spore/content";
 import type { World } from "@neon-spore/sim";
 import { type AnchorPoint, anchorPoint } from "./caption-anchor.js";
 import type { CaptionHold } from "./caption-hold.js";
+import { clearOfShip } from "./caption-ship-room.js";
 import { BAND_FOOT, CAPTION_FONT } from "./guide-tide.js";
 import { handoverPlateBox } from "./handover-look.js";
 import { LABEL_LINE } from "./label-box.js";
@@ -111,7 +112,10 @@ export function captionBox(
   // of the files that draw them, because the row they end on depends on
   // which seat is looking (`ship-top-chrome.ts`).
   const floor = Math.max(BAND_FOOT, shipTopFoot(l, world) ?? 0);
-  const below = above < floor || covered;
-  const y = below ? Math.max(floor, point.y + ringY + point.clear + LEAD) : above;
+  const under = above < floor || covered;
+  const placed = under ? Math.max(floor, point.y + ringY + point.clear + LEAD) : above;
+  // And it never stands on the cannon or the shield (`caption-ship-room.ts`).
+  const y = clearOfShip(l, world, { x, y: placed, w, h }, floor);
+  const below = y > point.y;
   return { point, ringX, ringY, below, lines, x, y, w, h };
 }
