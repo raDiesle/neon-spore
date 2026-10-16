@@ -43536,3 +43536,13 @@ Bottleneck: the report — "expected `,`" pointed at the parser, and the fault
 was two cuts claiming the same comma.
 
 *Measured: 4 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-16 — GALAXY, PILLARS, BINARY, CELLS and REMNANT get detail and motion
+
+- reading: 5 min. The five skies.
+- writing: 20 min. Drafted while part two landed, then copied in.
+- looking: 10 min. Two shots; the stream's knots read as beads, the far wall too loud.
+- friction: 10 min. Part two's first landing lost a race with main and ran again.
+- landing: 5 min. `check:fast`, forty-one rows up by two, `land`.
+
+Bottleneck: landings — every one runs the whole check while main keeps moving.

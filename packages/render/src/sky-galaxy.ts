@@ -12,8 +12,13 @@ import { actTint, baked, lighter, skyGlow } from "./sky-kit.js";
  * once every few minutes. It sits high and to the right, half of it off the
  * edge, so the middle columns get its quiet outer arms and not its core.
  *
+ * Rose knots of new stars are strung along its arms, its core breathes, and
+ * two small companions hang beside it — one round, one a smudge — turning
+ * slowly on their own.
+ *
  * Baked face-on once per size and tint; a frame turns and squashes it in one
- * transform and blits it — the stars, the galaxy and its core glow.
+ * transform and blits it — the deep sky, the galaxy, its core glow and the
+ * two companions.
  */
 
 const AT = { x: 0.78, y: 0.24 } as const;
@@ -24,6 +29,27 @@ const SQUASH = 0.42;
 const LEAN = -0.45;
 /** Radians a second. */
 const TURN = 0.012;
+const KNOT = "#F0A0D0";
+
+/** The companions: where, how big as a share of the width, how flat, and
+ * how fast each turns. */
+const COMPANIONS = [
+  { x: 0.2, y: 0.12, r: 0.07, squash: 0.85, turn: 0.03 },
+  { x: 0.34, y: 0.5, r: 0.05, squash: 0.45, turn: -0.05 },
+] as const;
+
+/** A small galaxy with no arms: a soft lit ellipse with a bright middle. */
+function companion(tint: string): HTMLCanvasElement {
+  return baked(`galaxy-companion${tint}`, 64, 64, (g, w) => {
+    const r = w / 2;
+    const grad = g.createRadialGradient(r, r, 0, r, r, r);
+    grad.addColorStop(0, withAlpha(mixHex(tint, "#FFE6C8", 0.7), 0.9));
+    grad.addColorStop(0.25, withAlpha(mixHex(tint, "#C8D4FF", 0.4), 0.4));
+    grad.addColorStop(1, withAlpha(tint, 0));
+    g.fillStyle = grad;
+    g.fillRect(0, 0, w, w);
+  });
+}
 
 function galaxySheet(tint: string, size: number): HTMLCanvasElement {
   return baked(`galaxy${tint}`, size, size, (g, w) => {
@@ -69,6 +95,22 @@ function galaxySheet(tint: string, size: number): HTMLCanvasElement {
         }
       }
     }
+    // Knots of new stars along the arms, rose and small.
+    for (let i = 0; i < 26; i++) {
+      const s = 49_000 + i * 4;
+      const along = (0.25 + hash01(s + 1) * 0.65) * turns;
+      const theta = along + (i % 2) * Math.PI + (hash01(s + 2) - 0.5) * 0.2;
+      const rad = r * 0.08 * Math.exp(pitch * along);
+      if (rad > r * 0.9) continue;
+      const x = r + Math.cos(theta) * rad;
+      const y = r + Math.sin(theta) * rad;
+      const k = r * (0.012 + hash01(s + 3) * 0.018);
+      const knot = g.createRadialGradient(x, y, 0, x, y, k);
+      knot.addColorStop(0, withAlpha(KNOT, 0.55));
+      knot.addColorStop(1, withAlpha(KNOT, 0));
+      g.fillStyle = knot;
+      g.fillRect(x - k, y - k, k * 2, k * 2);
+    }
     // Dust lanes on the inner edge of each arm.
     g.strokeStyle = "rgba(4,3,10,0.28)";
     g.lineWidth = r * 0.04;
@@ -108,8 +150,8 @@ export function skyGalaxy(d: BackdropDraw): void {
     ctx.globalAlpha = 0.72;
     ctx.drawImage(sheet, -r, -r, r * 2, r * 2);
     ctx.restore();
-    const core = r * 0.55;
-    ctx.globalAlpha = 0.55;
+    const core = r * (0.55 + 0.04 * Math.sin(time * 0.5));
+    ctx.globalAlpha = 0.5 + 0.08 * Math.sin(time * 0.5);
     ctx.drawImage(
       skyGlow(mixHex(tint, "#FFE6C8", 0.6), core),
       cx - core / 2,
@@ -117,5 +159,16 @@ export function skyGalaxy(d: BackdropDraw): void {
       core,
       core,
     );
+    const small = companion(tint);
+    for (const c of COMPANIONS) {
+      const cr = l.width * c.r;
+      ctx.save();
+      ctx.translate(l.width * c.x, height * c.y);
+      ctx.rotate(0.6 + time * c.turn);
+      ctx.scale(1, c.squash);
+      ctx.globalAlpha = 0.6;
+      ctx.drawImage(small, -cr, -cr, cr * 2, cr * 2);
+      ctx.restore();
+    }
   });
 }

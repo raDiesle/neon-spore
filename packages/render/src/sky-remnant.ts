@@ -12,13 +12,41 @@ import { actTint, baked, lighter, skyGlow } from "./sky-kit.js";
  * dead star that is left, flashing. The shell is still growing, too slowly
  * for anyone to see — it swells by a hair and settles on a slow breath.
  *
- * The shell is baked once per size and tint; a frame is the stars, one
- * scaled blit and the flash.
+ * Two shells turn very slowly against each other, the outer one way and a
+ * fainter inner one the other, so the threads seem to slide over one another;
+ * and the dead star is a pulsar, two thin beams of light sweeping round it
+ * like a lighthouse's, flashing as they pass.
+ *
+ * The shell and the beams are baked once per size and tint; a frame is the
+ * deep sky, the shell twice, the beams and the flash.
  */
 
 const AT = { x: 0.45, y: 0.36 } as const;
 /** The shell's radius as a share of the width. */
 const RADIUS = 0.62;
+/** Radians a second for the two shells, and for the beams. */
+const TURN = 0.006;
+const SWEEP = 0.5;
+
+/** Two opposite beams from the middle of the sheet, along +x and −x. */
+function beams(): HTMLCanvasElement {
+  return baked("remnant-beams", 512, 64, (g, w, h) => {
+    for (const dir of [-1, 1]) {
+      const ray = g.createLinearGradient(w / 2, 0, w / 2 + (dir * w) / 2, 0);
+      ray.addColorStop(0, "rgba(232,240,255,0.9)");
+      ray.addColorStop(0.4, "rgba(232,240,255,0.25)");
+      ray.addColorStop(1, "rgba(232,240,255,0)");
+      g.fillStyle = ray;
+      g.beginPath();
+      g.moveTo(w / 2, h / 2 - 1);
+      g.lineTo(w / 2 + (dir * w) / 2, 0);
+      g.lineTo(w / 2 + (dir * w) / 2, h);
+      g.lineTo(w / 2, h / 2 + 1);
+      g.closePath();
+      g.fill();
+    }
+  });
+}
 
 function shell(tint: string, size: number): HTMLCanvasElement {
   return baked(`remnant${tint}`, size, size, (g, w) => {
@@ -64,11 +92,27 @@ export function skyRemnant(d: BackdropDraw): void {
   const size = (l.width * RADIUS * 2) / 0.82;
   const swell = 1 + 0.015 * Math.sin(time * 0.3);
   lighter(ctx, () => {
-    ctx.globalAlpha = 0.9;
+    const sheet = shell(tint, size);
     const s = size * swell;
-    ctx.drawImage(shell(tint, size), cx - s / 2, cy - s / 2, s, s);
-    // The dead star: a flash a little faster than a heartbeat.
-    const beat = (time * 1.4) % 1;
+    ctx.save();
+    ctx.translate(cx, cy);
+    ctx.rotate(time * TURN);
+    ctx.globalAlpha = 0.9;
+    ctx.drawImage(sheet, -s / 2, -s / 2, s, s);
+    // The inner shell, smaller, fainter and turning the other way.
+    const inner = s * 0.72;
+    ctx.rotate(-time * TURN * 2.5 + 2.4);
+    ctx.globalAlpha = 0.4;
+    ctx.drawImage(sheet, -inner / 2, -inner / 2, inner, inner);
+    // The beams, sweeping round; a wide sheet tilted toward the eye.
+    const sweep = time * SWEEP;
+    ctx.rotate(time * TURN * 1.5 - 2.4 + sweep);
+    const reach = l.width * 0.9;
+    ctx.globalAlpha = 0.3 + 0.2 * Math.abs(Math.cos(sweep));
+    ctx.drawImage(beams(), -reach, -reach * 0.045, reach * 2, reach * 0.09);
+    ctx.restore();
+    // The dead star: a flash each time a beam faces us, twice a turn.
+    const beat = (((sweep / Math.PI) % 1) + 1) % 1;
     const star = l.width * 0.07;
     ctx.globalAlpha = 0.35 + 0.6 * Math.exp(-beat * 9);
     ctx.drawImage(skyGlow("#E8F0FF", star, [0, 0.1, 1]), cx - star / 2, cy - star / 2, star, star);

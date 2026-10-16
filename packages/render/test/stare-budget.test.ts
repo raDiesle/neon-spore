@@ -69,14 +69,15 @@ type Budget = Record<
 // From 16 October 2026 every sky stands on a deep sky (`sky-depth.ts`), CELLS
 // too: far stars, a drifting haze and near stars, the last two blitted twice
 // so they wrap, and ten twinkles of one baked cross — fifteen more
-// `drawImage` in every row. Remeasured, not padded.
+// `drawImage` in every row; and two more the same day for CELLS's own far
+// wall and its organelles (`sky-cells.ts`). Remeasured, not padded.
 const BUDGETS: Record<string, { open: boolean; budget: Budget }> = {
   shut: {
     open: false,
     budget: {
       fill: 56,
       stroke: 133,
-      drawImage: 47,
+      drawImage: 49,
       createLinearGradient: 12,
       createRadialGradient: 7,
     },
@@ -86,7 +87,7 @@ const BUDGETS: Record<string, { open: boolean; budget: Budget }> = {
     budget: {
       fill: 57,
       stroke: 136,
-      drawImage: 47,
+      drawImage: 49,
       createLinearGradient: 13,
       createRadialGradient: 7,
     },

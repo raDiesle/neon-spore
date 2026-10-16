@@ -11,10 +11,12 @@ import { actTint, baked, lighter, skyGlow } from "./sky-kit.js";
  * Three columns of cloud, each a stack of soft lumps narrowing upward, black
  * against a bright glow of the act's colour, their right-hand edges caught by
  * the light and their tips glowing where new stars are being made. The glow
- * behind them breathes slowly; the pillars do not move.
+ * behind them breathes slowly; the pillars do not move. Their tips do: each
+ * holds a newborn star that brightens and dims on its own clock, and thin
+ * veils of lit dust drift sideways in front of them, very slowly.
  *
- * The pillars are baked once per size and tint; a frame is the stars, the
- * glow and one blit.
+ * The pillars and the veils are baked once per size and tint; a frame is the
+ * deep sky, the glow, the pillars, three newborn stars and the veils twice.
  */
 
 interface Pillar {
@@ -81,6 +83,34 @@ function pillarSheet(tint: string, w: number, h: number): HTMLCanvasElement {
   });
 }
 
+/** Veils of dust across a sheet two widths wide, tiling sideways. */
+function veilSheet(tint: string, w: number, h: number): HTMLCanvasElement {
+  return baked(`pillar-veils${tint}`, w * 2, h, (g, pw, ph) => {
+    const lit = mixHex(tint, "#FFE0C0", 0.35);
+    for (let i = 0; i < 14; i++) {
+      const s = 173_000 + i * 5;
+      const x = hash01(s + 1) * pw;
+      const y = ph * (0.35 + hash01(s + 2) * 0.6);
+      const rx = pw * (0.08 + hash01(s + 3) * 0.12);
+      const ry = rx * (0.18 + hash01(s + 4) * 0.2);
+      for (const dx of [-pw, 0, pw]) {
+        g.save();
+        g.translate(x + dx, y);
+        g.scale(1, ry / rx);
+        const veil = g.createRadialGradient(0, 0, 0, 0, 0, rx);
+        veil.addColorStop(0, withAlpha(lit, 0.12 + hash01(s + 5) * 0.1));
+        veil.addColorStop(1, withAlpha(lit, 0));
+        g.fillStyle = veil;
+        g.fillRect(-rx, -rx, rx * 2, rx * 2);
+        g.restore();
+      }
+    }
+  });
+}
+
+/** Widths a second the veils drift. */
+const VEIL_DRIFT = 0.004;
+
 export function skyPillars(d: BackdropDraw): void {
   const { ctx, l, time } = d;
   const height = l.bandTop;
@@ -100,5 +130,24 @@ export function skyPillars(d: BackdropDraw): void {
   });
   ctx.globalAlpha = 0.95;
   ctx.drawImage(pillarSheet(tint, l.width, height), 0, 0, l.width, height);
+  lighter(ctx, () => {
+    // The newborn stars in the tips, each on its own clock.
+    const born = skyGlow("#FFF4E4", 64, [0, 0.15, 1]);
+    PILLARS.forEach((p, i) => {
+      const x = l.width * (p.x + p.lean);
+      const y = height * p.top;
+      const k = 0.5 + 0.5 * Math.sin(time * (0.5 + i * 0.17) + i * 2.3);
+      const size = l.width * (0.05 + 0.03 * k);
+      ctx.globalAlpha = 0.4 + 0.5 * k;
+      ctx.drawImage(born, x - size / 2, y - size / 2, size, size);
+    });
+    // The veils, drifting in front.
+    const veils = veilSheet(tint, l.width, height);
+    const f = time * VEIL_DRIFT * 0.5;
+    const x = -(f - Math.floor(f)) * l.width * 2;
+    ctx.globalAlpha = 0.8;
+    ctx.drawImage(veils, x, 0, l.width * 2, height);
+    ctx.drawImage(veils, x + l.width * 2, 0, l.width * 2, height);
+  });
   ctx.globalAlpha = 1;
 }

@@ -13,11 +13,20 @@ import { actTint, baked } from "./sky-kit.js";
  * swells and settles on a slow clock, a few per cent, so the whole back reads
  * as tissue rather than as a pattern. The slimes come out of it.
  *
- * Baked once per size and tint; a frame is one scaled blit.
+ * It has depth: behind it a second wall of smaller cells, dimmer, breathing
+ * on the other beat, so the near wall seems to lie over a deeper one; and
+ * small bright organelles float in the near cells, wandering a little on
+ * their own.
+ *
+ * Baked once per size and tint; a frame is the deep sky, the far wall, the
+ * near wall and the organelles — three scaled blits.
  */
 
 /** Cells across the sky's width. */
 const ACROSS = 3.4;
+/** The far wall's cells across, and how far the organelles wander, in px. */
+const FAR_ACROSS = 6;
+const WANDER = 3;
 const BREATH = 0.025;
 
 interface Cell {
@@ -28,16 +37,16 @@ interface Cell {
 
 /** A jittered grid of seeds, each cell's radius the distance to its nearest
  * neighbour, so they touch and do not stack. */
-function seeds(w: number, h: number): Cell[] {
-  const step = w / ACROSS;
+function seeds(w: number, h: number, across: number, seed: number): Cell[] {
+  const step = w / across;
   const out: Cell[] = [];
   let k = 0;
   for (let gy = -0.5; gy * step < h + step; gy++) {
     for (let gx = -0.5; gx * step < w + step; gx++) {
       const odd = Math.round(gy + 0.5) % 2 === 1 ? 0.5 : 0;
       out.push({
-        x: (gx + odd + (hash01(110_000 + k) - 0.5) * 0.55) * step,
-        y: (gy + (hash01(111_000 + k) - 0.5) * 0.55) * step * 0.9,
+        x: (gx + odd + (hash01(seed + k) - 0.5) * 0.55) * step,
+        y: (gy + (hash01(seed + 1000 + k) - 0.5) * 0.55) * step * 0.9,
         r: 0,
       });
       k++;
@@ -51,13 +60,13 @@ function seeds(w: number, h: number): Cell[] {
   return out;
 }
 
-function tissue(tint: string, w: number, h: number): HTMLCanvasElement {
-  return baked(`cells${tint}`, w, h, (g, pw, ph) => {
+function tissue(tint: string, w: number, h: number, across = ACROSS): HTMLCanvasElement {
+  return baked(`cells${tint},${across}`, w, h, (g, pw, ph) => {
     const wall = mixHex(tint, "#E0C8F0", 0.35);
     const deep = mixHex(tint, "#000000", 0.55);
     g.fillStyle = deep;
     g.fillRect(0, 0, pw, ph);
-    const cells = seeds(pw, ph);
+    const cells = seeds(pw, ph, across, across === ACROSS ? 110_000 : 115_000);
     cells.forEach((c, i) => {
       // The cytoplasm: darker at the heart, lit toward the membrane.
       const body = g.createRadialGradient(c.x, c.y, c.r * 0.1, c.x, c.y, c.r);
@@ -96,16 +105,61 @@ function tissue(tint: string, w: number, h: number): HTMLCanvasElement {
   });
 }
 
+/** Organelles: specks of light inside the near wall's cells. */
+function organelles(tint: string, w: number, h: number): HTMLCanvasElement {
+  return baked(`cells-organelles${tint}`, w, h, (g, pw, ph) => {
+    const lit = mixHex(tint, "#F0E0FF", 0.6);
+    for (const [i, c] of seeds(pw, ph, ACROSS, 110_000).entries()) {
+      for (let k = 0; k < 5; k++) {
+        const s = 116_000 + i * 20 + k * 3;
+        const a = hash01(s + 1) * Math.PI * 2;
+        const rad = c.r * (0.2 + hash01(s + 2) * 0.55);
+        const x = c.x + Math.cos(a) * rad;
+        const y = c.y + Math.sin(a) * rad;
+        const r = 1.5 + hash01(s + 3) * 3.5;
+        const glow = g.createRadialGradient(x, y, 0, x, y, r);
+        glow.addColorStop(0, withAlpha(lit, 0.55));
+        glow.addColorStop(1, withAlpha(lit, 0));
+        g.fillStyle = glow;
+        g.fillRect(x - r, y - r, r * 2, r * 2);
+      }
+    }
+  });
+}
+
 export function skyCells(d: BackdropDraw): void {
   const { ctx, l, time } = d;
   const height = l.bandTop;
   if (height <= 0 || l.width <= 0) return;
   drawDeepSky(d, { seed: 110_000, far: 90, haze: 0.5 });
-  const sheet = tissue(actTint(d, 0.25), l.width, height);
+  const tint = actTint(d, 0.25);
+  // The far wall, breathing on the other beat.
+  const fs = 1 + BREATH * (0.5 - 0.5 * Math.sin(time * 0.9));
+  const fw = l.width * fs;
+  const fh = height * fs;
+  ctx.globalAlpha = 0.2;
+  ctx.drawImage(
+    tissue(tint, l.width, height, FAR_ACROSS),
+    (l.width - fw) / 2,
+    (height - fh) / 2,
+    fw,
+    fh,
+  );
   const s = 1 + BREATH * (0.5 + 0.5 * Math.sin(time * 0.9));
   const w = l.width * s;
   const h = height * s;
-  ctx.globalAlpha = 0.6;
-  ctx.drawImage(sheet, (l.width - w) / 2, (height - h) / 2, w, h);
+  const x = (l.width - w) / 2;
+  const y = (height - h) / 2;
+  ctx.globalAlpha = 0.58;
+  ctx.drawImage(tissue(tint, l.width, height), x, y, w, h);
+  // The organelles breathe with the near wall and wander off it a little.
+  ctx.globalAlpha = 0.5 + 0.2 * Math.sin(time * 0.6);
+  ctx.drawImage(
+    organelles(tint, l.width, height),
+    x + Math.sin(time * 0.37) * WANDER,
+    y + Math.cos(time * 0.29) * WANDER,
+    w,
+    h,
+  );
   ctx.globalAlpha = 1;
 }
