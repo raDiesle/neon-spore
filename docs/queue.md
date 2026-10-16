@@ -346,6 +346,7 @@ green.
 ## An op-count row moves whenever its wave changes number
 
 - **Found:** 2026-10-16, claude/suck-brush-visuals-a917b1
+- **Taken:** 2026-10-16, claude/queue-work-6b11c3 (claim: claude/queue-an-op-count-row-moves-whenever-its-wave-changes)
 - **Files:** `packages/render/src/skies.ts`, `packages/render/test/wave-budget.test.ts`
 
 `skyFor` picks the sky by the wave's number mod twelve, so a block put in
