@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-16 · c26d997b5 — CYAN's and THE ROCK's waves open in the middle and leave room; THE HAND stands alone after them
+
+CYAN is now four bulbs from the centre column, eight beats apart, and the easiest wave of its block (pressure 1.4, was 3.2 and harder than the wave after it). ONLY CYAN, TWO COLOURS and ALTERNATING open in the middle and run 36–42 beats instead of 3–4, climbing 2.6 → 3.4 → 4.6 (ALTERNATING was 6.8). THE ROCK gives ten beats before the second rock and the move to a new column (was four); FIVE ROCKS, WIDE ROCKS and ROCKS BETWEEN open in the middle and climb 2.6 → 3.8 → 5.0. THE HAND, which teaches the grip, no longer folds under THE ROCK: it heads its own row after the rock's waves, before TORCH.
+
 ## 2026-10-16 · 8f02f9a35 — The slick and the bulb die turning, a different way each kill
 
 A slick or a bulb shot down now comes apart in one of four spinning breaks, picked from its tile so both phones see the same one: VORTEX (the pieces spiral out), PINWHEEL (the body whirls whole for a fifth of a second, then flings them), WRING (core and rind twist opposite ways, then tear) and TUMBLE (thrown harder, every piece tumbling). The first three turn either way. The cut and the flash are the shipped ones; only the motion changed.
