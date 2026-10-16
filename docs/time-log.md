@@ -43575,3 +43575,5 @@ Bottleneck: the photograph — the wave's first body is a SWIPE, so TAP had to b
 Bottleneck: telling a set piece from a written step — five husk set pieces
 and COIL INFERNO look the same to the list, so the author's mark had to be
 written down rather than read off.
+
+*Measured: 35 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
