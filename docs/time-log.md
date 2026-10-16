@@ -43005,3 +43005,5 @@ bodies, so it could not move as it was and had to be composed again.
 - landing: 5 min. The acts cut again with every boss after it one block on, briefings renumbered, then `land`.
 
 Bottleneck: writing — a boss is some sixty registrations across seven packages, every one copied from the last boss by hand.
+
+*Measured: 5 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

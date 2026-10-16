@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-16 · 5185f6a55 — THE SWINDLE: real pods and fake ones, shuffled (simulation)
+
+THE HUSK's block now ends on a boss about the real pod and the fake one together: a slime hangs a row of both, glides pairs of them across each other, then lets each go on its beat. Only the navigator sees which are fake and calls each one as it falls; the pilot opens the maw for a real pod and keeps it shut for a fake. Four hands, six real pods as her health; a fake swallowed or a real one let fall loses the wave. Nothing before the catch tells the two apart, sound included. Her body is not drawn yet — that is the next lane — and she has not been watched at tempo.
+
 ## 2026-10-16 · 6a9fc54c3 — THE HUSK is taught straight after FINALE, on the arc's panel
 
 The hollow pod now comes right after FINALE, the real pods' exam: THE HUSK and its eight waves are wave 39 to 47, on STANDARD 5 like the rest of the tutorial, before THE LANCE teaches the hold. Its eight were composed again from the arc's bodies alone, so nothing in them is taught later. THE INSTAR closes the husk block for now, and every boss after it keeps its block, a few waves earlier.
