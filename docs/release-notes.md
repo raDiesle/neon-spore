@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-16 · 962ff4b97 — The real pod's SMART family in VERSUS; the hollows, CAIRN and LANTERN go
+
+The owner took SMART as the basis for the real pod and rejected the rest: `pod:hollow` is dropped with all three of its answers, CAIRN and LANTERN are struck from `pod:real`. Beside SMART stand four of its own family, each the same amber tumbling seed with seven spikes and a seam, with its own spikes and skin and a pickup's tell: BLINK (mushroom caps, spots, flashing white on the count — once a beat, then twice, then four times), GLINT (crystal shards, facets, a light sweep and twinkling stars), HOP (curled thorns, stripes, bouncing and squashing on the beat), ORBIT (cones, panels, three sparks circling it). The body lives once in `pod-real/seed.ts` and `seed-parts.ts`. Offered, not swapped in: the game draws what it drew. The hollow comes next, built from whichever one is chosen.
+
 ## 2026-10-16 · 4213d030a — THE BROOD lays bodies out of its hide and sways a column at a time; its cue and its guide are gone
 
 The owner's feedback of 16 October 2026: too easy, too few enemies, something special besides a bud falling, no helper text and no tutorial. From its second step the sac lays a slick or a bulb every few beats, seen inside it three beats first, over a column no bud hangs in; later steps shudder it two beats and then lurch it one column, left, middle, right, middle, its buds with it. The script is nine steps and twenty-four buds. Played with each seat held to one press a second it lasts about a minute and lays twenty to thirty bodies, where the old one lasted twenty seconds and laid none to a clean pair. FIRE / BEFORE IT DROPS and the three-line guide are removed. A look the owner asked for by name; the body's new look is the next lane.
