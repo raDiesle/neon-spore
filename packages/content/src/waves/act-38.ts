@@ -23,7 +23,7 @@ export const WAVES_ACT_38: Wave[] = [
   },
   {
     id: "theVolleyAgain",
-    name: "VOLLEYS AGAIN",
+    name: "HELLO VOLLEY",
     variant: true,
     entries: [
       { beat: 0, col: 4, kind: "volley", color: "red" },
@@ -35,7 +35,7 @@ export const WAVES_ACT_38: Wave[] = [
   },
   {
     id: "theVolleySpread",
-    name: "VOLLEYS SPREAD",
+    name: "VOLLEY DRIFT",
     variant: true,
     entries: [
       { beat: 0, col: 10, kind: "volley", color: "cyan" },
@@ -47,7 +47,7 @@ export const WAVES_ACT_38: Wave[] = [
   },
   {
     id: "theVolleyReach",
-    name: "VOLLEYS FAR APART",
+    name: "VOLLEY AT WORLD END",
     variant: true,
     entries: [
       { beat: 0, col: 1, kind: "volley", color: "red" },
@@ -60,7 +60,7 @@ export const WAVES_ACT_38: Wave[] = [
   },
   {
     id: "theVolleyPair",
-    name: "VOLLEY AND CRYSTAL",
+    name: "VOLLEY ALLIANCE",
     variant: true,
     entries: [
       { beat: 0, col: 10, color: "red" },
@@ -77,7 +77,7 @@ export const WAVES_ACT_38: Wave[] = [
   },
   {
     id: "theVolleyBreathe",
-    name: "EASY VOLLEYS",
+    name: "SLEEPY VOLLEY",
     variant: true,
     entries: [
       { beat: 0, col: 8, color: "red" },
@@ -90,7 +90,7 @@ export const WAVES_ACT_38: Wave[] = [
   },
   {
     id: "theVolleyRecall",
-    name: "VOLLEY RECALL",
+    name: "OLD VOLLEY SONG",
     variant: true,
     entries: [
       { beat: 0, col: 4, color: "red" },
@@ -107,7 +107,7 @@ export const WAVES_ACT_38: Wave[] = [
   },
   {
     id: "theVolleyBend",
-    name: "VOLLEYS AND TWINS",
+    name: "VOLLEY SPELL",
     variant: true,
     entries: [
       { beat: 0, col: 6, color: "cyan" },
@@ -126,7 +126,7 @@ export const WAVES_ACT_38: Wave[] = [
   },
   {
     id: "theVolleyPeak",
-    name: "VOLLEY PEAK",
+    name: "VOLLEY RAPTURE",
     variant: true,
     entries: [
       { beat: 0, col: 8, color: "cyan" },

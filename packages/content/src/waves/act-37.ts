@@ -24,7 +24,7 @@ export const WAVES_ACT_37: Wave[] = [
   },
   {
     id: "theCrystalAgain",
-    name: "CRYSTALS AGAIN",
+    name: "CRYSTAL RISING",
     variant: true,
     entries: [
       { beat: 0, col: 9, kind: "crystal", color: "cyan" },
@@ -36,7 +36,7 @@ export const WAVES_ACT_37: Wave[] = [
   },
   {
     id: "theCrystalSpread",
-    name: "CRYSTALS SPREAD",
+    name: "CRYSTAL CONFETTI",
     variant: true,
     entries: [
       { beat: 0, col: 1, kind: "crystal", color: "red" },
@@ -48,7 +48,7 @@ export const WAVES_ACT_37: Wave[] = [
   },
   {
     id: "theCrystalReach",
-    name: "CRYSTALS FAR APART",
+    name: "LONG CRYSTAL ROAD",
     variant: true,
     entries: [
       { beat: 0, col: 0, kind: "crystal", color: "cyan" },
@@ -61,7 +61,7 @@ export const WAVES_ACT_37: Wave[] = [
   },
   {
     id: "theCrystalPair",
-    name: "CRYSTAL AND RECOIL",
+    name: "CRYSTAL PARTY",
     variant: true,
     entries: [
       { beat: 0, col: 0, color: "red" },
@@ -79,7 +79,7 @@ export const WAVES_ACT_37: Wave[] = [
   },
   {
     id: "theCrystalBreathe",
-    name: "EASY CRYSTALS",
+    name: "LAZY CRYSTAL",
     variant: true,
     entries: [
       { beat: 0, col: 7, color: "cyan" },
@@ -92,7 +92,7 @@ export const WAVES_ACT_37: Wave[] = [
   },
   {
     id: "theCrystalRecall",
-    name: "CRYSTAL RECALL",
+    name: "CRYSTAL REUNION",
     variant: true,
     entries: [
       { beat: 0, col: 9, color: "red" },
@@ -107,7 +107,7 @@ export const WAVES_ACT_37: Wave[] = [
   },
   {
     id: "theCrystalBend",
-    name: "CRYSTALS AND TWINS",
+    name: "CRYSTAL RIDDLE",
     variant: true,
     entries: [
       { beat: 0, col: 0, color: "cyan" },
@@ -126,7 +126,7 @@ export const WAVES_ACT_37: Wave[] = [
   },
   {
     id: "theCrystalPeak",
-    name: "CRYSTAL PEAK",
+    name: "CRYSTAL OVERDRIVE",
     variant: true,
     entries: [
       { beat: 0, col: 8, color: "red" },

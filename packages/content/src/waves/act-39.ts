@@ -32,7 +32,7 @@ export const WAVES_ACT_39: Wave[] = [
   },
   {
     id: "theFlipAgain",
-    name: "FLIP AGAIN",
+    name: "LITTLE FLIP",
     variant: true,
     entries: [
       { beat: 0, col: 10, kind: "volley", color: "red" },
@@ -45,7 +45,7 @@ export const WAVES_ACT_39: Wave[] = [
   },
   {
     id: "theFlipSpread",
-    name: "FLIP WIDE",
+    name: "FLIP BLOOM",
     variant: true,
     entries: [
       { beat: 0, col: 8, kind: "volley", color: "cyan" },
@@ -59,7 +59,7 @@ export const WAVES_ACT_39: Wave[] = [
   },
   {
     id: "theFlipReach",
-    name: "FLIP AT THE EDGE",
+    name: "FLIP PILGRIM",
     variant: true,
     entries: [
       { beat: 0, col: 0, kind: "volley", color: "red" },
@@ -73,7 +73,7 @@ export const WAVES_ACT_39: Wave[] = [
   },
   {
     id: "theFlipPair",
-    name: "FLIP IN PAIRS",
+    name: "FLIP ALLIANCE",
     variant: true,
     entries: [
       { beat: 0, col: 2, color: "cyan" },
@@ -91,7 +91,7 @@ export const WAVES_ACT_39: Wave[] = [
   },
   {
     id: "theFlipBreathe",
-    name: "FLIP AT EASE",
+    name: "FLIP SIESTA",
     variant: true,
     entries: [
       { beat: 0, col: 3, color: "red" },
@@ -106,7 +106,7 @@ export const WAVES_ACT_39: Wave[] = [
   },
   {
     id: "theFlipRecall",
-    name: "FLIP RECALLED",
+    name: "FLIP RELIC",
     variant: true,
     entries: [
       { beat: 0, col: 0, color: "cyan" },
@@ -124,7 +124,7 @@ export const WAVES_ACT_39: Wave[] = [
   },
   {
     id: "theFlipBend",
-    name: "FLIP TWICE",
+    name: "FLIP ILLUSION",
     variant: true,
     entries: [
       { beat: 0, col: 6, color: "cyan" },
@@ -144,7 +144,7 @@ export const WAVES_ACT_39: Wave[] = [
   },
   {
     id: "theFlipPeak",
-    name: "FLIP PEAK",
+    name: "FLIP STORM",
     variant: true,
     entries: [
       { beat: 0, col: 0, color: "cyan" },

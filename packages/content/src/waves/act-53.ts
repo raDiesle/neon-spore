@@ -11,7 +11,7 @@ import type { Wave } from "../wave-types.js";
 export const WAVES_ACT_53: Wave[] = [
   {
     id: "reviewCrystalAgain",
-    name: "CRYSTALS RETURN",
+    name: "NEW CRYSTAL MOON",
     entries: [
       { beat: 0, col: 8, kind: "crystal", color: "cyan" },
       { beat: 8, col: 1, kind: "recoil", color: "red" },
@@ -22,7 +22,7 @@ export const WAVES_ACT_53: Wave[] = [
   },
   {
     id: "reviewCrystalSpread",
-    name: "CRYSTALS WIDER",
+    name: "CRYSTAL SPRINKLE",
     variant: true,
     entries: [
       { beat: 0, col: 4, kind: "crystal", color: "cyan" },
@@ -35,7 +35,7 @@ export const WAVES_ACT_53: Wave[] = [
   },
   {
     id: "reviewCrystalReach",
-    name: "CRYSTALS OUT WIDE",
+    name: "FAR CRYSTAL",
     variant: true,
     entries: [
       { beat: 0, col: 1, kind: "crystal", color: "red" },
@@ -48,7 +48,7 @@ export const WAVES_ACT_53: Wave[] = [
   },
   {
     id: "reviewCrystalPair",
-    name: "CRYSTALS IN PAIRS",
+    name: "CRYSTAL AND RECOIL",
     variant: true,
     entries: [
       { beat: 0, col: 9, color: "cyan" },
@@ -67,7 +67,7 @@ export const WAVES_ACT_53: Wave[] = [
   },
   {
     id: "reviewCrystalBreathe",
-    name: "CRYSTALS AT REST",
+    name: "CRYSTAL PICNIC",
     variant: true,
     entries: [
       { beat: 0, col: 0, color: "cyan" },
@@ -80,7 +80,7 @@ export const WAVES_ACT_53: Wave[] = [
   },
   {
     id: "reviewCrystalRecall",
-    name: "CRYSTALS RECALLED",
+    name: "CRYSTAL MEMORY",
     variant: true,
     entries: [
       { beat: 0, col: 3, color: "cyan" },
@@ -97,7 +97,7 @@ export const WAVES_ACT_53: Wave[] = [
   },
   {
     id: "reviewCrystalBend",
-    name: "CRYSTALS DOUBLED",
+    name: "CRYSTAL TRICK",
     variant: true,
     entries: [
       { beat: 0, col: 0, color: "cyan" },
@@ -118,7 +118,7 @@ export const WAVES_ACT_53: Wave[] = [
   },
   {
     id: "reviewCrystalPeak",
-    name: "CRYSTALS SUMMIT",
+    name: "CRYSTAL ECLIPSE",
     variant: true,
     entries: [
       { beat: 0, col: 1, color: "red" },

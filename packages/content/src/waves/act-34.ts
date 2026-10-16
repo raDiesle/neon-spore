@@ -56,7 +56,7 @@ export const WAVES_ACT_34: Wave[] = [
   },
   {
     id: "theHandoverAgain",
-    name: "HANDOVER AGAIN",
+    name: "LITTLE HANDOVER",
     variant: true,
     entries: [
       { beat: 0, col: 6, kind: "gyre", color: null },
@@ -69,7 +69,7 @@ export const WAVES_ACT_34: Wave[] = [
   },
   {
     id: "theHandoverSpread",
-    name: "HANDOVER WIDE",
+    name: "HANDOVER BLOOM",
     variant: true,
     entries: [
       { beat: 0, col: 9, kind: "gyre", color: null },
@@ -83,7 +83,7 @@ export const WAVES_ACT_34: Wave[] = [
   },
   {
     id: "theHandoverReach",
-    name: "HANDOVER AT THE EDGE",
+    name: "HANDOVER PILGRIM",
     variant: true,
     entries: [
       { beat: 0, col: 1, kind: "gyre", color: null },
@@ -97,7 +97,7 @@ export const WAVES_ACT_34: Wave[] = [
   },
   {
     id: "theHandoverPair",
-    name: "HANDOVER IN PAIRS",
+    name: "HANDOVER TANGO",
     variant: true,
     entries: [
       { beat: 0, col: 0, color: "cyan" },
@@ -116,7 +116,7 @@ export const WAVES_ACT_34: Wave[] = [
   },
   {
     id: "theHandoverBreathe",
-    name: "HANDOVER AT EASE",
+    name: "HANDOVER SIESTA",
     variant: true,
     entries: [
       { beat: 0, col: 7, color: "red" },
@@ -130,7 +130,7 @@ export const WAVES_ACT_34: Wave[] = [
   },
   {
     id: "theHandoverRecall",
-    name: "HANDOVER RECALLED",
+    name: "HANDOVER RELIC",
     variant: true,
     entries: [
       { beat: 0, col: 1, color: "red" },
@@ -148,7 +148,7 @@ export const WAVES_ACT_34: Wave[] = [
   },
   {
     id: "theHandoverBend",
-    name: "HANDOVER TWICE",
+    name: "HANDOVER ILLUSION",
     variant: true,
     entries: [
       { beat: 0, col: 6, color: "red" },
@@ -169,7 +169,7 @@ export const WAVES_ACT_34: Wave[] = [
   },
   {
     id: "theHandoverPeak",
-    name: "HANDOVER PEAK",
+    name: "HANDOVER STORM",
     variant: true,
     entries: [
       { beat: 0, col: 10, color: "cyan" },

@@ -24,7 +24,7 @@ export const WAVES_ACT_16: Wave[] = [
   },
   {
     id: "theRindAgain",
-    name: "RINDS AGAIN",
+    name: "FIRST RIND",
     variant: true,
     entries: [
       { beat: 0, col: 7, kind: "rind", color: "red" },
@@ -36,7 +36,7 @@ export const WAVES_ACT_16: Wave[] = [
   },
   {
     id: "theRindSpread",
-    name: "RINDS SPREAD",
+    name: "RIND SCATTER",
     variant: true,
     entries: [
       { beat: 0, col: 6, kind: "rind", color: "red" },
@@ -49,7 +49,7 @@ export const WAVES_ACT_16: Wave[] = [
   },
   {
     id: "theRindReach",
-    name: "RINDS FAR APART",
+    name: "RIND WANDERER",
     variant: true,
     entries: [
       { beat: 0, col: 10, kind: "rind", color: "red" },
@@ -63,7 +63,7 @@ export const WAVES_ACT_16: Wave[] = [
   },
   {
     id: "theRindPair",
-    name: "RIND AND HUSK",
+    name: "RIND TANGO",
     variant: true,
     entries: [
       { beat: 0, col: 9, color: "cyan" },
@@ -80,7 +80,7 @@ export const WAVES_ACT_16: Wave[] = [
   },
   {
     id: "theRindBreathe",
-    name: "EASY RINDS",
+    name: "RIND LULLABY",
     variant: true,
     entries: [
       { beat: 0, col: 0, color: "cyan" },
@@ -93,7 +93,7 @@ export const WAVES_ACT_16: Wave[] = [
   },
   {
     id: "theRindRecall",
-    name: "RIND RECALL",
+    name: "ANCIENT RIND",
     variant: true,
     entries: [
       { beat: 0, col: 0, color: "cyan" },
@@ -108,7 +108,7 @@ export const WAVES_ACT_16: Wave[] = [
   },
   {
     id: "theRindBend",
-    name: "RINDS AND TWINS",
+    name: "RIND MIRAGE",
     variant: true,
     entries: [
       { beat: 0, col: 3, color: "cyan" },
@@ -128,7 +128,7 @@ export const WAVES_ACT_16: Wave[] = [
   },
   {
     id: "theRindPeak",
-    name: "RIND PEAK",
+    name: "RIND THUNDER",
     variant: true,
     entries: [
       { beat: 0, col: 0, color: "cyan" },

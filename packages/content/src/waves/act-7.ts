@@ -30,7 +30,7 @@ export const WAVES_ACT_7: Wave[] = [
   },
   {
     id: "theLimpetAgain",
-    name: "LIMPET AGAIN",
+    name: "LITTLE LIMPET",
     variant: true,
     entries: [
       { beat: 0, col: 7, kind: "weight", color: null },
@@ -43,7 +43,7 @@ export const WAVES_ACT_7: Wave[] = [
   },
   {
     id: "theLimpetSpread",
-    name: "LIMPET WIDE",
+    name: "LIMPET BLOOM",
     variant: true,
     entries: [
       { beat: 0, col: 3, kind: "weight", color: null },
@@ -57,7 +57,7 @@ export const WAVES_ACT_7: Wave[] = [
   },
   {
     id: "theLimpetReach",
-    name: "LIMPET AT THE EDGE",
+    name: "LIMPET PILGRIM",
     variant: true,
     entries: [
       { beat: 0, col: 10, kind: "weight", color: null },
@@ -71,7 +71,7 @@ export const WAVES_ACT_7: Wave[] = [
   },
   {
     id: "theLimpetPair",
-    name: "LIMPET IN PAIRS",
+    name: "LIMPET TOGETHER",
     variant: true,
     entries: [
       { beat: 0, col: 4, color: "red" },
@@ -90,7 +90,7 @@ export const WAVES_ACT_7: Wave[] = [
   },
   {
     id: "theLimpetBreathe",
-    name: "LIMPET AT EASE",
+    name: "LIMPET SIESTA",
     variant: true,
     entries: [
       { beat: 0, col: 7, color: "red" },
@@ -107,7 +107,7 @@ export const WAVES_ACT_7: Wave[] = [
   },
   {
     id: "theLimpetRecall",
-    name: "LIMPET RECALLED",
+    name: "LIMPET RELIC",
     variant: true,
     entries: [
       { beat: 0, col: 4, color: "cyan" },
@@ -126,7 +126,7 @@ export const WAVES_ACT_7: Wave[] = [
   },
   {
     id: "theLimpetBend",
-    name: "LIMPET TWICE",
+    name: "LIMPET ILLUSION",
     variant: true,
     entries: [
       { beat: 0, col: 1, color: "cyan" },
@@ -148,7 +148,7 @@ export const WAVES_ACT_7: Wave[] = [
   },
   {
     id: "theLimpetPeak",
-    name: "LIMPET PEAK",
+    name: "LIMPET STORM",
     variant: true,
     entries: [
       { beat: 0, col: 1, color: "cyan" },

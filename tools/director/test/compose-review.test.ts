@@ -1,31 +1,14 @@
 import { describe, expect, test } from "bun:test";
 import { isRegularWave, WAVES, type Wave } from "@neon-spore/content";
 import { bossOrder } from "../src/boss-slots.js";
-import { nextReview, REVIEW_NAMES } from "../src/compose-review.js";
+import { nextReview } from "../src/compose-review.js";
 import { isReviewHead } from "../src/compose-starts.js";
-import { TUTORIAL_LAST_ID } from "../src/compose-steps.js";
 
 describe("review blocks (wave-curriculum §7)", () => {
   test("only a review block's first wave is a review head", () => {
     WAVES.forEach((w, i) => {
       if (isReviewHead(WAVES, i)) expect(w.id).toStartWith("review");
     });
-  });
-
-  test("every theme's names fit: at most 20 letters and four words", () => {
-    const from = WAVES.findIndex((w) => w.id === TUTORIAL_LAST_ID);
-    const plurals = WAVES.filter(
-      (w, i) => i > from && w.id.endsWith("Again") && !w.id.startsWith("review"),
-    ).map((w) => w.name.replace(/ AGAIN$/, ""));
-    expect(plurals.length).toBeGreaterThan(20);
-    for (const p of plurals) {
-      for (const name of REVIEW_NAMES.map((n) => n(p))) {
-        expect({ name, fits: name.length <= 20 && name.split(" ").length <= 4 }).toEqual({
-          name,
-          fits: true,
-        });
-      }
-    }
   });
 
   test("goes in front of a waiting boss, eight steps, a little above the block before", () => {

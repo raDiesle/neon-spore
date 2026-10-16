@@ -29,7 +29,7 @@ export const WAVES_ACT_27: Wave[] = [
   },
   {
     id: "theCodexAgain",
-    name: "CODEX AGAIN",
+    name: "FIRST CODEX",
     variant: true,
     entries: [
       { beat: 0, col: 0, kind: "coil", color: null },
@@ -42,7 +42,7 @@ export const WAVES_ACT_27: Wave[] = [
   },
   {
     id: "theCodexSpread",
-    name: "CODEX WIDE",
+    name: "CODEX SCATTER",
     variant: true,
     entries: [
       { beat: 0, col: 8, kind: "coil", color: null },
@@ -56,7 +56,7 @@ export const WAVES_ACT_27: Wave[] = [
   },
   {
     id: "theCodexReach",
-    name: "CODEX AT THE EDGE",
+    name: "CODEX WANDERER",
     variant: true,
     entries: [
       { beat: 0, col: 10, kind: "coil", color: null },
@@ -70,7 +70,7 @@ export const WAVES_ACT_27: Wave[] = [
   },
   {
     id: "theCodexPair",
-    name: "CODEX IN PAIRS",
+    name: "CODEX TOGETHER",
     variant: true,
     entries: [
       { beat: 0, col: 10, color: "cyan" },
@@ -88,7 +88,7 @@ export const WAVES_ACT_27: Wave[] = [
   },
   {
     id: "theCodexBreathe",
-    name: "CODEX AT EASE",
+    name: "CODEX LULLABY",
     variant: true,
     entries: [
       { beat: 0, col: 2, color: "cyan" },
@@ -102,7 +102,7 @@ export const WAVES_ACT_27: Wave[] = [
   },
   {
     id: "theCodexRecall",
-    name: "CODEX RECALLED",
+    name: "ANCIENT CODEX",
     variant: true,
     entries: [
       { beat: 0, col: 8, color: "red" },
@@ -120,7 +120,7 @@ export const WAVES_ACT_27: Wave[] = [
   },
   {
     id: "theCodexBend",
-    name: "CODEX TWICE",
+    name: "CODEX MIRAGE",
     variant: true,
     entries: [
       { beat: 0, col: 2, color: "red" },
@@ -140,7 +140,7 @@ export const WAVES_ACT_27: Wave[] = [
   },
   {
     id: "theCodexPeak",
-    name: "CODEX PEAK",
+    name: "CODEX THUNDER",
     variant: true,
     entries: [
       { beat: 0, col: 8, color: "red" },

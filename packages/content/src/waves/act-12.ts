@@ -25,7 +25,7 @@ export const WAVES_ACT_12: Wave[] = [
   },
   {
     id: "theCountAgain",
-    name: "COUNTS AGAIN",
+    name: "FIRST COUNT",
     variant: true,
     entries: [
       { beat: 0, col: 4, kind: "countdown", color: "cyan" },
@@ -37,7 +37,7 @@ export const WAVES_ACT_12: Wave[] = [
   },
   {
     id: "theCountSpread",
-    name: "COUNTS SPREAD",
+    name: "COUNT SCATTER",
     variant: true,
     entries: [
       { beat: 0, col: 6, kind: "countdown", color: "red" },
@@ -50,7 +50,7 @@ export const WAVES_ACT_12: Wave[] = [
   },
   {
     id: "theCountReach",
-    name: "COUNTS FAR APART",
+    name: "COUNT WANDERER",
     variant: true,
     entries: [
       { beat: 0, col: 0, kind: "countdown", color: "red" },
@@ -63,7 +63,7 @@ export const WAVES_ACT_12: Wave[] = [
   },
   {
     id: "theCountPair",
-    name: "COUNT AND THROB",
+    name: "COUNT TANGO",
     variant: true,
     entries: [
       { beat: 0, col: 6, color: "red" },
@@ -78,7 +78,7 @@ export const WAVES_ACT_12: Wave[] = [
   },
   {
     id: "theCountBreathe",
-    name: "EASY COUNTS",
+    name: "COUNT LULLABY",
     variant: true,
     entries: [
       { beat: 0, col: 9, color: "red" },
@@ -91,7 +91,7 @@ export const WAVES_ACT_12: Wave[] = [
   },
   {
     id: "theCountRecall",
-    name: "COUNT RECALL",
+    name: "ANCIENT COUNT",
     variant: true,
     entries: [
       { beat: 0, col: 10, color: "cyan" },
@@ -105,7 +105,7 @@ export const WAVES_ACT_12: Wave[] = [
   },
   {
     id: "theCountBend",
-    name: "COUNTS AND TWINS",
+    name: "COUNT MIRAGE",
     variant: true,
     entries: [
       { beat: 0, col: 3, color: "red" },
@@ -124,7 +124,7 @@ export const WAVES_ACT_12: Wave[] = [
   },
   {
     id: "theCountPeak",
-    name: "COUNT PEAK",
+    name: "COUNT THUNDER",
     variant: true,
     entries: [
       { beat: 0, col: 1, color: "cyan" },

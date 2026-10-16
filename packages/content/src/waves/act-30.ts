@@ -25,7 +25,7 @@ export const WAVES_ACT_30: Wave[] = [
   },
   {
     id: "theClaspAgain",
-    name: "CLASPS AGAIN",
+    name: "NEW CLASP MOON",
     variant: true,
     entries: [
       { beat: 0, col: 10, kind: "clasp", color: "red" },
@@ -37,7 +37,7 @@ export const WAVES_ACT_30: Wave[] = [
   },
   {
     id: "theClaspSpread",
-    name: "CLASPS SPREAD",
+    name: "CLASP SPRINKLE",
     variant: true,
     entries: [
       { beat: 0, col: 2, kind: "clasp", color: "cyan" },
@@ -50,7 +50,7 @@ export const WAVES_ACT_30: Wave[] = [
   },
   {
     id: "theClaspReach",
-    name: "CLASPS FAR APART",
+    name: "FAR CLASP",
     variant: true,
     entries: [
       { beat: 0, col: 9, kind: "clasp", color: "cyan" },
@@ -77,7 +77,7 @@ export const WAVES_ACT_30: Wave[] = [
   },
   {
     id: "theClaspBreathe",
-    name: "EASY CLASPS",
+    name: "CLASP PICNIC",
     variant: true,
     entries: [
       { beat: 0, col: 2, color: "cyan" },
@@ -90,7 +90,7 @@ export const WAVES_ACT_30: Wave[] = [
   },
   {
     id: "theClaspRecall",
-    name: "CLASP RECALL",
+    name: "CLASP MEMORY",
     variant: true,
     entries: [
       { beat: 0, col: 8, color: "cyan" },
@@ -105,7 +105,7 @@ export const WAVES_ACT_30: Wave[] = [
   },
   {
     id: "theClaspBend",
-    name: "CLASPS AND TWINS",
+    name: "CLASP TRICK",
     variant: true,
     entries: [
       { beat: 0, col: 1, color: "red" },
@@ -123,7 +123,7 @@ export const WAVES_ACT_30: Wave[] = [
   },
   {
     id: "theClaspPeak",
-    name: "CLASP PEAK",
+    name: "CLASP ECLIPSE",
     variant: true,
     entries: [
       { beat: 0, col: 4, color: "red" },

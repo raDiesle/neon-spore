@@ -23,7 +23,7 @@ export const WAVES_ACT_18: Wave[] = [
   },
   {
     id: "theStrandAgain",
-    name: "STRANDS AGAIN",
+    name: "STRAND DAWN",
     variant: true,
     entries: [
       { beat: 0, col: 4, kind: "strand", color: "cyan", beads: 3 },
@@ -35,7 +35,7 @@ export const WAVES_ACT_18: Wave[] = [
   },
   {
     id: "theStrandSpread",
-    name: "STRANDS SPREAD",
+    name: "STRAND SEEDS",
     variant: true,
     entries: [
       { beat: 0, col: 3, kind: "strand", color: "red", beads: 5 },
@@ -48,7 +48,7 @@ export const WAVES_ACT_18: Wave[] = [
   },
   {
     id: "theStrandReach",
-    name: "STRANDS FAR APART",
+    name: "OUTER STRAND",
     variant: true,
     entries: [
       { beat: 0, col: 0, kind: "strand", color: "red", beads: 5 },
@@ -61,7 +61,7 @@ export const WAVES_ACT_18: Wave[] = [
   },
   {
     id: "theStrandPair",
-    name: "STRAND AND VEER",
+    name: "STRAND MEETS VEER",
     variant: true,
     entries: [
       { beat: 0, col: 10, color: "red" },
@@ -76,7 +76,7 @@ export const WAVES_ACT_18: Wave[] = [
   },
   {
     id: "theStrandBreathe",
-    name: "EASY STRANDS",
+    name: "STRAND DREAM",
     variant: true,
     entries: [
       { beat: 0, col: 7, color: "red" },
@@ -89,7 +89,7 @@ export const WAVES_ACT_18: Wave[] = [
   },
   {
     id: "theStrandRecall",
-    name: "STRAND RECALL",
+    name: "STRAND LEGEND",
     variant: true,
     entries: [
       { beat: 0, col: 8, color: "red" },
@@ -104,7 +104,7 @@ export const WAVES_ACT_18: Wave[] = [
   },
   {
     id: "theStrandBend",
-    name: "STRANDS AND TWINS",
+    name: "TWISTED STRAND",
     variant: true,
     entries: [
       { beat: 0, col: 1, color: "cyan" },
@@ -123,7 +123,7 @@ export const WAVES_ACT_18: Wave[] = [
   },
   {
     id: "theStrandPeak",
-    name: "STRAND PEAK",
+    name: "STRAND APOCALYPSE",
     variant: true,
     entries: [
       { beat: 0, col: 0, color: "red" },

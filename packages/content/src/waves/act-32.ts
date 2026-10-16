@@ -26,7 +26,7 @@ export const WAVES_ACT_32: Wave[] = [
   },
   {
     id: "theEchoAgain",
-    name: "ECHOES AGAIN",
+    name: "NEW ECHO MOON",
     variant: true,
     entries: [
       { beat: 0, col: 0, kind: "echo", color: "red" },
@@ -38,7 +38,7 @@ export const WAVES_ACT_32: Wave[] = [
   },
   {
     id: "theEchoSpread",
-    name: "ECHOES SPREAD",
+    name: "ECHO SPRINKLE",
     variant: true,
     entries: [
       { beat: 0, col: 8, kind: "echo", color: "cyan" },
@@ -51,7 +51,7 @@ export const WAVES_ACT_32: Wave[] = [
   },
   {
     id: "theEchoReach",
-    name: "ECHOES FAR APART",
+    name: "FAR ECHO",
     variant: true,
     entries: [
       { beat: 0, col: 10, kind: "echo", color: "red" },
@@ -79,7 +79,7 @@ export const WAVES_ACT_32: Wave[] = [
   },
   {
     id: "theEchoBreathe",
-    name: "EASY ECHOES",
+    name: "ECHO PICNIC",
     variant: true,
     entries: [
       { beat: 0, col: 8, color: "cyan" },
@@ -92,7 +92,7 @@ export const WAVES_ACT_32: Wave[] = [
   },
   {
     id: "theEchoRecall",
-    name: "ECHO RECALL",
+    name: "ECHO MEMORY",
     variant: true,
     entries: [
       { beat: 0, col: 9, color: "red" },
@@ -107,7 +107,7 @@ export const WAVES_ACT_32: Wave[] = [
   },
   {
     id: "theEchoBend",
-    name: "ECHOES AND TWINS",
+    name: "ECHO TRICK",
     variant: true,
     entries: [
       { beat: 0, col: 10, color: "cyan" },
@@ -125,7 +125,7 @@ export const WAVES_ACT_32: Wave[] = [
   },
   {
     id: "theEchoPeak",
-    name: "ECHO PEAK",
+    name: "ECHO ECLIPSE",
     variant: true,
     entries: [
       { beat: 0, col: 6, color: "red" },

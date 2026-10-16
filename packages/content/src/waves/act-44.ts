@@ -23,7 +23,7 @@ export const WAVES_ACT_44: Wave[] = [
   },
   {
     id: "theGhostAgain",
-    name: "GHOSTS AGAIN",
+    name: "FIRST GHOST",
     variant: true,
     entries: [
       { beat: 0, col: 6, kind: "ghost", color: "red" },
@@ -35,7 +35,7 @@ export const WAVES_ACT_44: Wave[] = [
   },
   {
     id: "theGhostSpread",
-    name: "GHOSTS SPREAD",
+    name: "GHOST SCATTER",
     variant: true,
     entries: [
       { beat: 0, col: 0, kind: "ghost", color: "red" },
@@ -48,7 +48,7 @@ export const WAVES_ACT_44: Wave[] = [
   },
   {
     id: "theGhostReach",
-    name: "GHOSTS FAR APART",
+    name: "GHOST WANDERER",
     variant: true,
     entries: [
       { beat: 0, col: 10, kind: "ghost", color: "red" },
@@ -61,7 +61,7 @@ export const WAVES_ACT_44: Wave[] = [
   },
   {
     id: "theGhostPair",
-    name: "GHOST AND WISP",
+    name: "GHOST TANGO",
     variant: true,
     entries: [
       { beat: 0, col: 1, color: "cyan" },
@@ -78,7 +78,7 @@ export const WAVES_ACT_44: Wave[] = [
   },
   {
     id: "theGhostBreathe",
-    name: "EASY GHOSTS",
+    name: "GHOST LULLABY",
     variant: true,
     entries: [
       { beat: 0, col: 0, color: "red" },
@@ -91,7 +91,7 @@ export const WAVES_ACT_44: Wave[] = [
   },
   {
     id: "theGhostRecall",
-    name: "GHOST RECALL",
+    name: "ANCIENT GHOST",
     variant: true,
     entries: [
       { beat: 0, col: 2, color: "cyan" },
@@ -108,7 +108,7 @@ export const WAVES_ACT_44: Wave[] = [
   },
   {
     id: "theGhostBend",
-    name: "GHOSTS AND TWINS",
+    name: "GHOST MIRAGE",
     variant: true,
     entries: [
       { beat: 0, col: 10, color: "red" },
@@ -127,7 +127,7 @@ export const WAVES_ACT_44: Wave[] = [
   },
   {
     id: "theGhostPeak",
-    name: "GHOST PEAK",
+    name: "GHOST THUNDER",
     variant: true,
     entries: [
       { beat: 0, col: 3, color: "cyan" },

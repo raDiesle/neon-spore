@@ -11,7 +11,7 @@ import type { Wave } from "../wave-types.js";
 export const WAVES_ACT_46: Wave[] = [
   {
     id: "reviewCaromAgain",
-    name: "CAROMS RETURN",
+    name: "HELLO CAROM",
     entries: [
       { beat: 0, col: 6, kind: "carom", color: "red" },
       { beat: 8, col: 10, kind: "ghost", color: "red" },
@@ -22,7 +22,7 @@ export const WAVES_ACT_46: Wave[] = [
   },
   {
     id: "reviewCaromSpread",
-    name: "CAROMS WIDER",
+    name: "CAROM DRIFT",
     variant: true,
     entries: [
       { beat: 0, col: 10, kind: "carom", color: "red" },
@@ -35,7 +35,7 @@ export const WAVES_ACT_46: Wave[] = [
   },
   {
     id: "reviewCaromReach",
-    name: "CAROMS OUT WIDE",
+    name: "CAROM AT WORLD END",
     variant: true,
     entries: [
       { beat: 0, col: 1, kind: "carom", color: "cyan" },
@@ -48,7 +48,7 @@ export const WAVES_ACT_46: Wave[] = [
   },
   {
     id: "reviewCaromPair",
-    name: "CAROMS IN PAIRS",
+    name: "CAROM ALLIANCE",
     variant: true,
     entries: [
       { beat: 0, col: 7, color: "cyan" },
@@ -65,7 +65,7 @@ export const WAVES_ACT_46: Wave[] = [
   },
   {
     id: "reviewCaromBreathe",
-    name: "CAROMS AT REST",
+    name: "SLEEPY CAROM",
     variant: true,
     entries: [
       { beat: 0, col: 0, color: "red" },
@@ -79,7 +79,7 @@ export const WAVES_ACT_46: Wave[] = [
   },
   {
     id: "reviewCaromRecall",
-    name: "CAROMS RECALLED",
+    name: "OLD CAROM SONG",
     variant: true,
     entries: [
       { beat: 0, col: 4, color: "red" },
@@ -96,7 +96,7 @@ export const WAVES_ACT_46: Wave[] = [
   },
   {
     id: "reviewCaromBend",
-    name: "CAROMS DOUBLED",
+    name: "CAROM SPELL",
     variant: true,
     entries: [
       { beat: 0, col: 0, color: "cyan" },
@@ -117,7 +117,7 @@ export const WAVES_ACT_46: Wave[] = [
   },
   {
     id: "reviewCaromPeak",
-    name: "CAROMS SUMMIT",
+    name: "CAROM RAPTURE",
     variant: true,
     entries: [
       { beat: 0, col: 2, color: "cyan" },

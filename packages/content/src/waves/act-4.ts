@@ -28,7 +28,7 @@ export const WAVES_ACT_4: Wave[] = [
   },
   {
     id: "theCrossingAgain",
-    name: "CROSSINGS AGAIN",
+    name: "CROSSING DAWN",
     variant: true,
     entries: [
       { beat: 0, col: 4, kind: "meteor", color: null, cross: 1, row: 4 },
@@ -40,7 +40,7 @@ export const WAVES_ACT_4: Wave[] = [
   },
   {
     id: "theCrossingSpread",
-    name: "CROSSINGS SPREAD",
+    name: "CROSSING SEEDS",
     variant: true,
     entries: [
       { beat: 0, col: 3, kind: "meteor", color: null, cross: -1, row: 6 },
@@ -53,7 +53,7 @@ export const WAVES_ACT_4: Wave[] = [
   },
   {
     id: "theCrossingReach",
-    name: "CROSSINGS FAR APART",
+    name: "OUTER CROSSING",
     variant: true,
     entries: [
       { beat: 0, col: 9, kind: "meteor", color: null, cross: -1, row: 7 },
@@ -66,7 +66,7 @@ export const WAVES_ACT_4: Wave[] = [
   },
   {
     id: "theCrossingPair",
-    name: "CROSSING AND SHIELD",
+    name: "CROSSING AND SALVAGE",
     variant: true,
     entries: [
       { beat: 0, col: 7, color: "cyan" },
@@ -80,7 +80,7 @@ export const WAVES_ACT_4: Wave[] = [
   },
   {
     id: "theCrossingBreathe",
-    name: "EASY CROSSINGS",
+    name: "CROSSING DREAM",
     variant: true,
     entries: [
       { beat: 0, col: 2, color: "cyan" },
@@ -93,7 +93,7 @@ export const WAVES_ACT_4: Wave[] = [
   },
   {
     id: "theCrossingRecall",
-    name: "CROSSING RECALL",
+    name: "CROSSING LEGEND",
     variant: true,
     entries: [
       { beat: 0, col: 6, color: "cyan" },
@@ -108,7 +108,7 @@ export const WAVES_ACT_4: Wave[] = [
   },
   {
     id: "theCrossingBend",
-    name: "CROSSINGS AND TWINS",
+    name: "TWISTED CROSSING",
     variant: true,
     entries: [
       { beat: 0, col: 1, color: "red" },
@@ -125,7 +125,7 @@ export const WAVES_ACT_4: Wave[] = [
   },
   {
     id: "theCrossingPeak",
-    name: "CROSSING PEAK",
+    name: "CROSSING APOCALYPSE",
     variant: true,
     entries: [
       { beat: 0, col: 10, color: "red" },

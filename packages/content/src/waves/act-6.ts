@@ -25,7 +25,7 @@ export const WAVES_ACT_6: Wave[] = [
   },
   {
     id: "theWeightAgain",
-    name: "WEIGHTS AGAIN",
+    name: "WEIGHT DAWN",
     variant: true,
     entries: [
       { beat: 0, col: 4, kind: "weight", color: null },
@@ -37,7 +37,7 @@ export const WAVES_ACT_6: Wave[] = [
   },
   {
     id: "theWeightSpread",
-    name: "WEIGHTS SPREAD",
+    name: "WEIGHT SEEDS",
     variant: true,
     entries: [
       { beat: 0, col: 3, kind: "weight", color: null },
@@ -50,7 +50,7 @@ export const WAVES_ACT_6: Wave[] = [
   },
   {
     id: "theWeightReach",
-    name: "WEIGHTS FAR APART",
+    name: "OUTER WEIGHT",
     variant: true,
     entries: [
       { beat: 0, col: 0, kind: "weight", color: null },
@@ -63,7 +63,7 @@ export const WAVES_ACT_6: Wave[] = [
   },
   {
     id: "theWeightPair",
-    name: "WEIGHT AND BEATBOX",
+    name: "WEIGHT MEETS BEATBOX",
     variant: true,
     entries: [
       { beat: 0, col: 2, color: "red" },
@@ -78,7 +78,7 @@ export const WAVES_ACT_6: Wave[] = [
   },
   {
     id: "theWeightBreathe",
-    name: "EASY WEIGHTS",
+    name: "WEIGHT DREAM",
     variant: true,
     entries: [
       { beat: 0, col: 3, color: "cyan" },
@@ -92,7 +92,7 @@ export const WAVES_ACT_6: Wave[] = [
   },
   {
     id: "theWeightRecall",
-    name: "WEIGHT RECALL",
+    name: "WEIGHT LEGEND",
     variant: true,
     entries: [
       { beat: 0, col: 4, color: "red" },
@@ -106,7 +106,7 @@ export const WAVES_ACT_6: Wave[] = [
   },
   {
     id: "theWeightBend",
-    name: "WEIGHTS AND TWINS",
+    name: "TWISTED WEIGHT",
     variant: true,
     entries: [
       { beat: 0, col: 6, color: "red" },
@@ -124,7 +124,7 @@ export const WAVES_ACT_6: Wave[] = [
   },
   {
     id: "theWeightPeak",
-    name: "WEIGHT PEAK",
+    name: "WEIGHT APOCALYPSE",
     variant: true,
     entries: [
       { beat: 0, col: 3, color: "red" },

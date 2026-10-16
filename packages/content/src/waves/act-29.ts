@@ -29,7 +29,7 @@ export const WAVES_ACT_29: Wave[] = [
   },
   {
     id: "theJamAgain",
-    name: "JAM AGAIN",
+    name: "JAM DAWN",
     variant: true,
     entries: [
       { beat: 0, col: 8, kind: "lure", color: "cyan" },
@@ -42,7 +42,7 @@ export const WAVES_ACT_29: Wave[] = [
   },
   {
     id: "theJamSpread",
-    name: "JAM WIDE",
+    name: "JAM SEEDS",
     variant: true,
     entries: [
       { beat: 0, col: 9, kind: "lure", color: "red" },
@@ -56,7 +56,7 @@ export const WAVES_ACT_29: Wave[] = [
   },
   {
     id: "theJamReach",
-    name: "JAM AT THE EDGE",
+    name: "OUTER JAM",
     variant: true,
     entries: [
       { beat: 0, col: 10, kind: "lure", color: "cyan" },
@@ -70,7 +70,7 @@ export const WAVES_ACT_29: Wave[] = [
   },
   {
     id: "theJamPair",
-    name: "JAM IN PAIRS",
+    name: "JAM WALTZ",
     variant: true,
     entries: [
       { beat: 0, col: 0, color: "red" },
@@ -88,7 +88,7 @@ export const WAVES_ACT_29: Wave[] = [
   },
   {
     id: "theJamBreathe",
-    name: "JAM AT EASE",
+    name: "JAM DREAM",
     variant: true,
     entries: [
       { beat: 0, col: 10, color: "red" },
@@ -102,7 +102,7 @@ export const WAVES_ACT_29: Wave[] = [
   },
   {
     id: "theJamRecall",
-    name: "JAM RECALLED",
+    name: "JAM LEGEND",
     variant: true,
     entries: [
       { beat: 0, col: 9, color: "red" },
@@ -120,7 +120,7 @@ export const WAVES_ACT_29: Wave[] = [
   },
   {
     id: "theJamBend",
-    name: "JAM TWICE",
+    name: "TWISTED JAM",
     variant: true,
     entries: [
       { beat: 0, col: 1, color: "cyan" },
@@ -140,7 +140,7 @@ export const WAVES_ACT_29: Wave[] = [
   },
   {
     id: "theJamPeak",
-    name: "JAM PEAK",
+    name: "JAM APOCALYPSE",
     variant: true,
     entries: [
       { beat: 0, col: 9, color: "cyan" },

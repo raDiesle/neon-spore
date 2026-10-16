@@ -23,7 +23,7 @@ export const WAVES_ACT_35: Wave[] = [
   },
   {
     id: "theLidAgain",
-    name: "LIDS AGAIN",
+    name: "NEW LID MOON",
     variant: true,
     entries: [
       { beat: 0, col: 2, kind: "lid", color: "red" },
@@ -35,7 +35,7 @@ export const WAVES_ACT_35: Wave[] = [
   },
   {
     id: "theLidSpread",
-    name: "LIDS SPREAD",
+    name: "LID SPRINKLE",
     variant: true,
     entries: [
       { beat: 0, col: 1, kind: "lid", color: "red" },
@@ -48,7 +48,7 @@ export const WAVES_ACT_35: Wave[] = [
   },
   {
     id: "theLidReach",
-    name: "LIDS FAR APART",
+    name: "FAR LID",
     variant: true,
     entries: [
       { beat: 0, col: 9, kind: "lid", color: "red" },
@@ -76,7 +76,7 @@ export const WAVES_ACT_35: Wave[] = [
   },
   {
     id: "theLidBreathe",
-    name: "EASY LIDS",
+    name: "LID PICNIC",
     variant: true,
     entries: [
       { beat: 0, col: 9, color: "cyan" },
@@ -89,7 +89,7 @@ export const WAVES_ACT_35: Wave[] = [
   },
   {
     id: "theLidRecall",
-    name: "LID RECALL",
+    name: "LID MEMORY",
     variant: true,
     entries: [
       { beat: 0, col: 10, color: "red" },
@@ -103,7 +103,7 @@ export const WAVES_ACT_35: Wave[] = [
   },
   {
     id: "theLidBend",
-    name: "LIDS AND TWINS",
+    name: "LID TRICK",
     variant: true,
     entries: [
       { beat: 0, col: 10, color: "red" },
@@ -122,7 +122,7 @@ export const WAVES_ACT_35: Wave[] = [
   },
   {
     id: "theLidPeak",
-    name: "LID PEAK",
+    name: "LID ECLIPSE",
     variant: true,
     entries: [
       { beat: 0, col: 6, color: "red" },

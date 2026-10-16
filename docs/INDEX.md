@@ -3631,6 +3631,8 @@ by hand never moves.
 | `tools/director/src/compose-grow.ts` | **The steps grow with the game**: wider, then mixed, then twinned, every four blocks past the arc |
 | `tools/director/src/compose-lesson.ts` | A lesson's block: eight regular waves after THE LANCE, THE JAM, THE CLAW…; the lessons moved behind their block's waves |
 | `tools/director/src/compose-talk.ts` | **A block's talk, rising beside its pressure** — `docs/spec/wave-curriculum.md` §5.1 |
+| `tools/director/src/compose-names-moods.ts` | **The words the composer names a wave with**, by the mood of its step (`compose-names.ts`, which reads them) |
+| `tools/director/src/compose-names.ts` | **Every regular wave's name, made up by the composer** |
 | `tools/director/src/compose.ts` | **A block's regular waves, composed** — `docs/spec/wave-curriculum.md` §6 |
 | `tools/director/src/rail-marks.ts` | The small glyphs in front of a wave's name in the rail: a boss, a panel, a guide |
 | `tools/land/say.ts` | What a landing says about itself before and after it happens |
@@ -3824,7 +3826,6 @@ by hand never moves.
 | `tools/director/src/cell-config-mine.ts` | **THE MINE's two rows under the selected cell** |
 | `tools/director/src/cell-config-blister.ts` | **THE BLISTER's rows under the selected cell** |
 | `tools/director/src/curriculum-cost.ts` | **What a new thing costs to learn**: pressure weight plus talk, the order blocks are taught in (`wave-curriculum.md` §4.1) |
-| `tools/director/src/curriculum-names.ts` | **A body block's names, written again** when the block moves (`waves:order`) |
 | `tools/director/src/curriculum-order.ts` | **The order new things are taught in**: units after the arc, rising cost, bodies and levers taking turns (`wave-curriculum.md` §4.1) |
 | `tools/director/src/grid-note.ts` | The line of arithmetic under the map: how many entries and pods the wave carries, how long it runs |
 | `tools/director/src/grid-gestures.ts` | **Everything a hand can do to one cell of the map**: point at it, paint it, drag a stroke across it |
@@ -4234,5 +4235,6 @@ by hand never moves.
 | `tools/director/waves-review.ts` | `bun run waves:review` — composes the next review blocks, one after another, and writes them |
 | `tools/director/waves-lessons.ts` | `bun run waves:lessons` — moves every lesson behind its block, composes its eight, places the bosses again |
 | `tools/director/waves-order.ts` | `bun run waves:order [--write]`: every new thing after the arc taught again in rising cost, its blocks composed again, bosses and reviews placed |
+| `tools/director/waves-names.ts` | `bun run waves:names [id …] [--write]` Every regular wave named again by the composer… |
 
 <!-- index:code:end -->

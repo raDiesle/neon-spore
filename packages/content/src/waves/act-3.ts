@@ -26,7 +26,7 @@ export const WAVES_ACT_3: Wave[] = [
   },
   {
     id: "theLanceAgain",
-    name: "LANCE AGAIN",
+    name: "FIRST LANCE",
     variant: true,
     entries: [
       { beat: 7, col: 5, kind: "meteor", color: null },
@@ -40,7 +40,7 @@ export const WAVES_ACT_3: Wave[] = [
   },
   {
     id: "theLanceSpread",
-    name: "LANCE WIDE",
+    name: "LANCE SCATTER",
     variant: true,
     entries: [
       { beat: 7, col: 5, color: "red" },
@@ -55,7 +55,7 @@ export const WAVES_ACT_3: Wave[] = [
   },
   {
     id: "theLanceReach",
-    name: "LANCE AT THE EDGE",
+    name: "LANCE WANDERER",
     variant: true,
     entries: [
       { beat: 6, col: 5, kind: "meteor", color: null },
@@ -70,7 +70,7 @@ export const WAVES_ACT_3: Wave[] = [
   },
   {
     id: "theLancePair",
-    name: "LANCE IN PAIRS",
+    name: "LANCE TANGO",
     variant: true,
     entries: [
       { beat: 0, col: 0, color: "cyan" },
@@ -86,7 +86,7 @@ export const WAVES_ACT_3: Wave[] = [
   },
   {
     id: "theLanceBreathe",
-    name: "LANCE AT EASE",
+    name: "LANCE LULLABY",
     variant: true,
     entries: [
       { beat: 0, col: 6, color: "cyan" },
@@ -102,7 +102,7 @@ export const WAVES_ACT_3: Wave[] = [
   },
   {
     id: "theLanceRecall",
-    name: "LANCE RECALLED",
+    name: "ANCIENT LANCE",
     variant: true,
     entries: [
       { beat: 0, col: 10, color: "red" },
@@ -118,7 +118,7 @@ export const WAVES_ACT_3: Wave[] = [
   },
   {
     id: "theLanceBend",
-    name: "LANCE TWICE",
+    name: "LANCE MIRAGE",
     variant: true,
     entries: [
       { beat: 0, col: 3, color: "cyan" },
@@ -137,7 +137,7 @@ export const WAVES_ACT_3: Wave[] = [
   },
   {
     id: "theLancePeak",
-    name: "LANCE PEAK",
+    name: "LANCE THUNDER",
     variant: true,
     entries: [
       { beat: 0, col: 9, color: "cyan" },

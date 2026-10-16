@@ -27,7 +27,7 @@ export const WAVES_ACT_19: Wave[] = [
   },
   {
     id: "theClawAgain",
-    name: "CLAW AGAIN",
+    name: "FIRST CLAW",
     variant: true,
     entries: [],
     pods: [
@@ -40,7 +40,7 @@ export const WAVES_ACT_19: Wave[] = [
   },
   {
     id: "theClawSpread",
-    name: "CLAW WIDE",
+    name: "CLAW SCATTER",
     variant: true,
     entries: [],
     pods: [
@@ -52,7 +52,7 @@ export const WAVES_ACT_19: Wave[] = [
   },
   {
     id: "theClawReach",
-    name: "CLAW AT THE EDGE",
+    name: "CLAW WANDERER",
     variant: true,
     entries: [],
     pods: [
@@ -64,7 +64,7 @@ export const WAVES_ACT_19: Wave[] = [
   },
   {
     id: "theClawPair",
-    name: "CLAW IN PAIRS",
+    name: "CLAW ALLIANCE",
     variant: true,
     entries: [],
     pods: [
@@ -76,7 +76,7 @@ export const WAVES_ACT_19: Wave[] = [
   },
   {
     id: "theClawBreathe",
-    name: "CLAW AT EASE",
+    name: "CLAW LULLABY",
     variant: true,
     entries: [],
     pods: [
@@ -88,7 +88,7 @@ export const WAVES_ACT_19: Wave[] = [
   },
   {
     id: "theClawRecall",
-    name: "CLAW RECALLED",
+    name: "ANCIENT CLAW",
     variant: true,
     entries: [],
     pods: [
@@ -101,7 +101,7 @@ export const WAVES_ACT_19: Wave[] = [
   },
   {
     id: "theClawBend",
-    name: "CLAW TWICE",
+    name: "CLAW MIRAGE",
     variant: true,
     entries: [],
     pods: [
@@ -114,7 +114,7 @@ export const WAVES_ACT_19: Wave[] = [
   },
   {
     id: "theClawPeak",
-    name: "CLAW PEAK",
+    name: "CLAW THUNDER",
     variant: true,
     entries: [],
     pods: [

@@ -11,7 +11,7 @@ import type { Wave } from "../wave-types.js";
 export const WAVES_ACT_52: Wave[] = [
   {
     id: "reviewVolleyAgain",
-    name: "VOLLEYS RETURN",
+    name: "VOLLEY MORNING",
     entries: [
       { beat: 0, col: 2, kind: "volley", color: "cyan" },
       { beat: 8, col: 9, kind: "crystal", color: "cyan" },
@@ -22,7 +22,7 @@ export const WAVES_ACT_52: Wave[] = [
   },
   {
     id: "reviewVolleySpread",
-    name: "VOLLEYS WIDER",
+    name: "SPRING OF VOLLEY",
     variant: true,
     entries: [
       { beat: 0, col: 3, kind: "volley", color: "red" },
@@ -35,7 +35,7 @@ export const WAVES_ACT_52: Wave[] = [
   },
   {
     id: "reviewVolleyReach",
-    name: "VOLLEYS OUT WIDE",
+    name: "VOLLEY VOYAGE",
     variant: true,
     entries: [
       { beat: 0, col: 9, kind: "volley", color: "red" },
@@ -48,7 +48,7 @@ export const WAVES_ACT_52: Wave[] = [
   },
   {
     id: "reviewVolleyPair",
-    name: "VOLLEYS IN PAIRS",
+    name: "VOLLEY WALTZ",
     variant: true,
     entries: [
       { beat: 0, col: 8, color: "cyan" },
@@ -67,7 +67,7 @@ export const WAVES_ACT_52: Wave[] = [
   },
   {
     id: "reviewVolleyBreathe",
-    name: "VOLLEYS AT REST",
+    name: "SOFT VOLLEY",
     variant: true,
     entries: [
       { beat: 0, col: 6, color: "red" },
@@ -81,7 +81,7 @@ export const WAVES_ACT_52: Wave[] = [
   },
   {
     id: "reviewVolleyRecall",
-    name: "VOLLEYS RECALLED",
+    name: "VOLLEY SAGA",
     variant: true,
     entries: [
       { beat: 0, col: 8, color: "cyan" },
@@ -98,7 +98,7 @@ export const WAVES_ACT_52: Wave[] = [
   },
   {
     id: "reviewVolleyBend",
-    name: "VOLLEYS DOUBLED",
+    name: "CROOKED VOLLEY",
     variant: true,
     entries: [
       { beat: 0, col: 0, color: "red" },
@@ -119,7 +119,7 @@ export const WAVES_ACT_52: Wave[] = [
   },
   {
     id: "reviewVolleyPeak",
-    name: "VOLLEYS SUMMIT",
+    name: "VOLLEY INFERNO",
     variant: true,
     entries: [
       { beat: 0, col: 3, color: "red" },

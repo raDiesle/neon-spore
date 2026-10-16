@@ -26,22 +26,6 @@ import { TUTORIAL_LAST_ID } from "./compose-steps.js";
  * panel, every wave carrying the lesson's faults that fall inside it.
  */
 
-/** A lesson's step names, from its one word: at most 20 letters for every
- * lesson the game has (`compose-lesson.test.ts`). */
-export const LESSON_NAMES: readonly ((word: string) => string)[] = [
-  (w) => `${w} AGAIN`,
-  (w) => `${w} WIDE`,
-  (w) => `${w} AT THE EDGE`,
-  (w) => `${w} IN PAIRS`,
-  (w) => `${w} AT EASE`,
-  (w) => `${w} RECALLED`,
-  (w) => `${w} TWICE`,
-  (w) => `${w} PEAK`,
-];
-
-/** A lesson's one word: THE JAM is JAM. */
-export const lessonWord = (wave: Wave): string => wave.name.replace(/^THE /, "");
-
 /** Where a lesson's own waves would start: past it and the guided waves
  * after it (THE PURGE after THE LANCE). */
 function pastGuides(waves: readonly Wave[], at: number): number {
@@ -119,9 +103,8 @@ function panelOf(lesson: Wave, read: Block): Pick<Block, "controls" | "claw"> {
 
 export interface Lesson {
   block: Block;
-  /** The lesson's id, which every composed id starts with, and its word. */
+  /** The lesson's id, which every composed id starts with. */
   prefix: string;
-  word: string;
 }
 
 /**
@@ -157,7 +140,7 @@ export function nextLesson(waves: readonly Wave[]): Lesson | string {
       ...panel,
       ...(lesson.faults ? { faults: lesson.faults } : {}),
     };
-    return { block, prefix: lesson.id, word: lessonWord(lesson) };
+    return { block, prefix: lesson.id };
   }
   return "every lesson has its waves";
 }

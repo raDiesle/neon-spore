@@ -11,7 +11,7 @@ import type { Wave } from "../wave-types.js";
 export const WAVES_ACT_49: Wave[] = [
   {
     id: "reviewVeilAgain",
-    name: "VEILS RETURN",
+    name: "NEW VEIL MOON",
     entries: [
       { beat: 0, col: 0, kind: "veil", color: null },
       { beat: 8, col: 7, kind: "mine", color: "red", row: 9, sees: 1 },
@@ -22,7 +22,7 @@ export const WAVES_ACT_49: Wave[] = [
   },
   {
     id: "reviewVeilSpread",
-    name: "VEILS WIDER",
+    name: "VEIL SPRINKLE",
     variant: true,
     entries: [
       { beat: 0, col: 4, kind: "veil", color: null },
@@ -35,7 +35,7 @@ export const WAVES_ACT_49: Wave[] = [
   },
   {
     id: "reviewVeilReach",
-    name: "VEILS OUT WIDE",
+    name: "FAR VEIL",
     variant: true,
     entries: [
       { beat: 0, col: 1, kind: "veil", color: null },
@@ -48,7 +48,7 @@ export const WAVES_ACT_49: Wave[] = [
   },
   {
     id: "reviewVeilPair",
-    name: "VEILS IN PAIRS",
+    name: "VEIL AND MINE",
     variant: true,
     entries: [
       { beat: 0, col: 6, color: "red" },
@@ -65,7 +65,7 @@ export const WAVES_ACT_49: Wave[] = [
   },
   {
     id: "reviewVeilBreathe",
-    name: "VEILS AT REST",
+    name: "VEIL PICNIC",
     variant: true,
     entries: [
       { beat: 0, col: 2, color: "red" },
@@ -78,7 +78,7 @@ export const WAVES_ACT_49: Wave[] = [
   },
   {
     id: "reviewVeilRecall",
-    name: "VEILS RECALLED",
+    name: "VEIL MEMORY",
     variant: true,
     entries: [
       { beat: 0, col: 3, color: "cyan" },
@@ -95,7 +95,7 @@ export const WAVES_ACT_49: Wave[] = [
   },
   {
     id: "reviewVeilBend",
-    name: "VEILS DOUBLED",
+    name: "VEIL TRICK",
     variant: true,
     entries: [
       { beat: 0, col: 3, color: "red" },
@@ -116,7 +116,7 @@ export const WAVES_ACT_49: Wave[] = [
   },
   {
     id: "reviewVeilPeak",
-    name: "VEILS SUMMIT",
+    name: "VEIL ECLIPSE",
     variant: true,
     entries: [
       { beat: 0, col: 0, color: "cyan" },

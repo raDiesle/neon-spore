@@ -52,7 +52,7 @@ export const WAVES_ACT_20: Wave[] = [
   },
   {
     id: "theFenceAgain",
-    name: "FENCES AGAIN",
+    name: "NEW FENCE MOON",
     variant: true,
     entries: [
       { beat: 0, col: 2, kind: "fence", color: null },
@@ -65,7 +65,7 @@ export const WAVES_ACT_20: Wave[] = [
   },
   {
     id: "theFenceSpread",
-    name: "FENCES SPREAD",
+    name: "FENCE SPRINKLE",
     variant: true,
     entries: [
       { beat: 0, col: 6, kind: "fence", color: null },
@@ -78,7 +78,7 @@ export const WAVES_ACT_20: Wave[] = [
   },
   {
     id: "theFenceReach",
-    name: "FENCES FAR APART",
+    name: "FAR FENCE",
     variant: true,
     entries: [
       { beat: 0, col: 1, kind: "fence", color: null },
@@ -105,7 +105,7 @@ export const WAVES_ACT_20: Wave[] = [
   },
   {
     id: "theFenceBreathe",
-    name: "EASY FENCES",
+    name: "FENCE PICNIC",
     variant: true,
     entries: [
       { beat: 0, col: 10, color: "cyan" },
@@ -119,7 +119,7 @@ export const WAVES_ACT_20: Wave[] = [
   },
   {
     id: "theFenceRecall",
-    name: "FENCE RECALL",
+    name: "FENCE MEMORY",
     variant: true,
     entries: [
       { beat: 0, col: 1, color: "cyan" },
@@ -134,7 +134,7 @@ export const WAVES_ACT_20: Wave[] = [
   },
   {
     id: "theFenceBend",
-    name: "FENCES AND TWINS",
+    name: "FENCE TRICK",
     variant: true,
     entries: [
       { beat: 0, col: 6, color: "red" },
@@ -153,7 +153,7 @@ export const WAVES_ACT_20: Wave[] = [
   },
   {
     id: "theFencePeak",
-    name: "FENCE PEAK",
+    name: "FENCE ECLIPSE",
     variant: true,
     entries: [
       { beat: 0, col: 2, color: "red" },

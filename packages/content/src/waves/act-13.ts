@@ -23,7 +23,7 @@ export const WAVES_ACT_13: Wave[] = [
   },
   {
     id: "theThirdShotAgain",
-    name: "SHELLS AGAIN",
+    name: "NEW SHELL MOON",
     variant: true,
     entries: [
       { beat: 0, col: 7, kind: "shell", color: "red" },
@@ -35,7 +35,7 @@ export const WAVES_ACT_13: Wave[] = [
   },
   {
     id: "theThirdShotSpread",
-    name: "SHELLS SPREAD",
+    name: "SHELL SPRINKLE",
     variant: true,
     entries: [
       { beat: 0, col: 9, kind: "shell", color: "red" },
@@ -47,7 +47,7 @@ export const WAVES_ACT_13: Wave[] = [
   },
   {
     id: "theThirdShotReach",
-    name: "SHELLS FAR APART",
+    name: "FAR SHELL",
     variant: true,
     entries: [
       { beat: 0, col: 1, kind: "shell", color: "cyan" },
@@ -75,7 +75,7 @@ export const WAVES_ACT_13: Wave[] = [
   },
   {
     id: "theThirdShotBreathe",
-    name: "EASY SHELLS",
+    name: "SHELL PICNIC",
     variant: true,
     entries: [
       { beat: 0, col: 9, color: "cyan" },
@@ -88,7 +88,7 @@ export const WAVES_ACT_13: Wave[] = [
   },
   {
     id: "theThirdShotRecall",
-    name: "SHELL RECALL",
+    name: "SHELL MEMORY",
     variant: true,
     entries: [
       { beat: 0, col: 8, color: "red" },
@@ -102,7 +102,7 @@ export const WAVES_ACT_13: Wave[] = [
   },
   {
     id: "theThirdShotBend",
-    name: "SHELLS AND TWINS",
+    name: "SHELL TRICK",
     variant: true,
     entries: [
       { beat: 0, col: 10, color: "cyan" },
@@ -121,7 +121,7 @@ export const WAVES_ACT_13: Wave[] = [
   },
   {
     id: "theThirdShotPeak",
-    name: "SHELL PEAK",
+    name: "SHELL ECLIPSE",
     variant: true,
     entries: [
       { beat: 0, col: 10, color: "cyan" },

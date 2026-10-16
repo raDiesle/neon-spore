@@ -22,7 +22,7 @@ export const WAVES_ACT_8: Wave[] = [
   },
   {
     id: "fiveBlisters",
-    name: "FIVE BLISTERS",
+    name: "HELLO BLISTER",
     variant: true,
     entries: [
       { beat: 0, col: 5, kind: "blister", color: null, row: 2, by: 2 },
@@ -53,7 +53,7 @@ export const WAVES_ACT_8: Wave[] = [
   },
   {
     id: "tapBlisters",
-    name: "BLISTERS TO TAP",
+    name: "TAP SCATTER",
     variant: true,
     entries: [
       { beat: 0, col: 1, color: "cyan" },
@@ -69,7 +69,7 @@ export const WAVES_ACT_8: Wave[] = [
   },
   {
     id: "holdBlisters",
-    name: "BLISTERS TO HOLD",
+    name: "HOLD WANDERER",
     variant: true,
     entries: [
       { beat: 0, col: 8, color: "cyan" },
@@ -85,7 +85,7 @@ export const WAVES_ACT_8: Wave[] = [
   },
   {
     id: "swipeBlisters",
-    name: "BLISTERS TO SWIPE",
+    name: "SWIPE TOGETHER",
     variant: true,
     entries: [
       { beat: 0, col: 6, color: "cyan" },
@@ -128,7 +128,7 @@ export const WAVES_ACT_8: Wave[] = [
   },
   {
     id: "turnBlisters",
-    name: "BLISTERS TO TURN",
+    name: "TURN SIESTA",
     variant: true,
     entries: [
       { beat: 0, col: 7, color: "red" },
@@ -144,7 +144,7 @@ export const WAVES_ACT_8: Wave[] = [
   },
   {
     id: "rubBlisters",
-    name: "BLISTERS TO RUB",
+    name: "RUB MEMORY",
     variant: true,
     entries: [
       { beat: 0, col: 2, color: "cyan" },
@@ -160,7 +160,7 @@ export const WAVES_ACT_8: Wave[] = [
   },
   {
     id: "comboBlisters",
-    name: "BLISTERS TO COMBO",
+    name: "TWISTED COMBO",
     variant: true,
     entries: [
       { beat: 0, col: 9, color: "red" },
@@ -176,7 +176,7 @@ export const WAVES_ACT_8: Wave[] = [
   },
   {
     id: "leverBlisters",
-    name: "BLISTERS TO LEVER",
+    name: "LEVER FURY",
     variant: true,
     entries: [
       { beat: 0, col: 9, color: "red" },

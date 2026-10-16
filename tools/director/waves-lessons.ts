@@ -4,7 +4,8 @@ import { beatSeconds, DEFAULT_CONFIG } from "@neon-spore/sim";
 import { bossOrder } from "./src/boss-slots.js";
 import { composeBlockAt } from "./src/compose.js";
 import { spanOf } from "./src/compose-check.js";
-import { LESSON_NAMES, lessonsAfterBlocks, nextLesson } from "./src/compose-lesson.js";
+import { lessonsAfterBlocks, nextLesson } from "./src/compose-lesson.js";
+import { nameWaves } from "./src/compose-names.js";
 import { isReviewHead } from "./src/compose-starts.js";
 import { writeWaves } from "./src/waves-acts.js";
 
@@ -37,12 +38,12 @@ for (;;) {
       `floor ${block.floor ?? "none"}${seed === asked ? "" : `, drawn with seed ${seed}`}`,
   );
   const out: Wave[] = [];
-  for (const [i, c] of composed.entries()) {
+  for (const c of composed) {
     if (!c.wave) {
       console.log(`${c.step.id}    — ${c.faults.join("; ")}`);
       continue;
     }
-    const wave: Wave = { ...c.wave, name: LESSON_NAMES[i]?.(lesson.word) ?? c.wave.name };
+    const wave: Wave = c.wave;
     out.push(wave);
     console.log(
       `${c.step.id.padEnd(6)}${wave.id.padEnd(26)}${String(spanOf(wave)).padEnd(6)}` +
@@ -52,15 +53,13 @@ for (;;) {
     );
   }
   const ids = new Set(waves.map((w) => w.id));
-  const names = new Set(waves.map((w) => w.name));
-  const clash = out.find((w) => ids.has(w.id) || names.has(w.name) || w.name.length > 20);
+  const clash = out.find((w) => ids.has(w.id));
   if (out.length !== 8 || clash) {
-    console.error(
-      `stopped: ${clash ? `${clash.name} is taken or too long` : "a step found no wave"}`,
-    );
+    console.error(`stopped: ${clash ? `${clash.id} is already a wave` : "a step found no wave"}`);
     process.exit(1);
   }
   waves = [...waves.slice(0, block.insertAt), ...out, ...waves.slice(block.insertAt)];
+  waves = nameWaves(waves, new Set(out.map((w) => w.id)));
   written++;
 }
 

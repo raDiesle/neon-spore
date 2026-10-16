@@ -52,7 +52,7 @@ export const WAVES_ACT_1: Wave[] = [
   },
   {
     id: "firstStepAgain",
-    name: "STEADY",
+    name: "FIRST RED",
     variant: true,
     entries: [
       { beat: 0, col: 4, color: "red" },
@@ -65,7 +65,7 @@ export const WAVES_ACT_1: Wave[] = [
   },
   {
     id: "firstStepReach",
-    name: "SIDE TO SIDE",
+    name: "RED WANDERER",
     variant: true,
     entries: [
       { beat: 0, col: 1, color: "red" },
@@ -79,7 +79,7 @@ export const WAVES_ACT_1: Wave[] = [
   },
   {
     id: "firstStepPair",
-    name: "QUICKER",
+    name: "RED TANGO",
     variant: true,
     entries: [
       { beat: 0, col: 8, color: "red" },
@@ -109,7 +109,7 @@ export const WAVES_ACT_1: Wave[] = [
   },
   {
     id: "cyanAgain",
-    name: "ONLY CYAN",
+    name: "CYAN AWAKENS",
     variant: true,
     entries: [
       { beat: 0, col: 5, color: "cyan" },
@@ -123,7 +123,7 @@ export const WAVES_ACT_1: Wave[] = [
   },
   {
     id: "twoColours",
-    name: "TWO COLOURS",
+    name: "CYAN PICNIC",
     variant: true,
     entries: [
       { beat: 0, col: 5, color: "red" },
@@ -138,7 +138,7 @@ export const WAVES_ACT_1: Wave[] = [
   },
   {
     id: "alternating",
-    name: "ALTERNATING",
+    name: "CYAN RAPTURE",
     variant: true,
     entries: [
       { beat: 0, col: 5, color: "cyan" },
@@ -175,7 +175,7 @@ export const WAVES_ACT_1: Wave[] = [
   },
   {
     id: "theRockAgain",
-    name: "FIVE ROCKS",
+    name: "NEW ROCK MOON",
     variant: true,
     entries: [
       { beat: 0, col: 5, kind: "meteor", color: null },
@@ -188,7 +188,7 @@ export const WAVES_ACT_1: Wave[] = [
   },
   {
     id: "theRockReach",
-    name: "WIDE ROCKS",
+    name: "FAR ROCK",
     variant: true,
     entries: [
       { beat: 0, col: 5, kind: "meteor", color: null },
@@ -202,7 +202,7 @@ export const WAVES_ACT_1: Wave[] = [
   },
   {
     id: "theRockPair",
-    name: "ROCKS BETWEEN",
+    name: "ROCK AND CYAN",
     variant: true,
     entries: [
       { beat: 0, col: 5, color: "red" },

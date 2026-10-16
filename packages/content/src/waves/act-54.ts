@@ -11,7 +11,7 @@ import type { Wave } from "../wave-types.js";
 export const WAVES_ACT_54: Wave[] = [
   {
     id: "reviewRecoilAgain",
-    name: "RECOILS RETURN",
+    name: "FIRST RECOIL",
     entries: [
       { beat: 0, col: 10, kind: "recoil", color: "cyan" },
       { beat: 8, col: 4, kind: "lid", color: "red" },
@@ -22,7 +22,7 @@ export const WAVES_ACT_54: Wave[] = [
   },
   {
     id: "reviewRecoilSpread",
-    name: "RECOILS WIDER",
+    name: "RECOIL SCATTER",
     variant: true,
     entries: [
       { beat: 0, col: 4, kind: "recoil", color: "red" },
@@ -35,7 +35,7 @@ export const WAVES_ACT_54: Wave[] = [
   },
   {
     id: "reviewRecoilReach",
-    name: "RECOILS OUT WIDE",
+    name: "RECOIL WANDERER",
     variant: true,
     entries: [
       { beat: 0, col: 1, kind: "recoil", color: "red" },
@@ -48,7 +48,7 @@ export const WAVES_ACT_54: Wave[] = [
   },
   {
     id: "reviewRecoilPair",
-    name: "RECOILS IN PAIRS",
+    name: "RECOIL TANGO",
     variant: true,
     entries: [
       { beat: 0, col: 6, color: "red" },
@@ -65,7 +65,7 @@ export const WAVES_ACT_54: Wave[] = [
   },
   {
     id: "reviewRecoilBreathe",
-    name: "RECOILS AT REST",
+    name: "RECOIL LULLABY",
     variant: true,
     entries: [
       { beat: 0, col: 2, color: "cyan" },
@@ -78,7 +78,7 @@ export const WAVES_ACT_54: Wave[] = [
   },
   {
     id: "reviewRecoilRecall",
-    name: "RECOILS RECALLED",
+    name: "ANCIENT RECOIL",
     variant: true,
     entries: [
       { beat: 0, col: 1, color: "cyan" },
@@ -95,7 +95,7 @@ export const WAVES_ACT_54: Wave[] = [
   },
   {
     id: "reviewRecoilBend",
-    name: "RECOILS DOUBLED",
+    name: "RECOIL MIRAGE",
     variant: true,
     entries: [
       { beat: 0, col: 1, color: "cyan" },
@@ -116,7 +116,7 @@ export const WAVES_ACT_54: Wave[] = [
   },
   {
     id: "reviewRecoilPeak",
-    name: "RECOILS SUMMIT",
+    name: "RECOIL THUNDER",
     variant: true,
     entries: [
       { beat: 0, col: 1, color: "red" },

@@ -7,7 +7,7 @@ import type { Wave } from "../wave-types.js";
 export const WAVES_ACT_1_P3: Wave[] = [
   {
     id: "inItsShadow",
-    name: "IN ITS SHADOW",
+    name: "OLD TORCH SONG",
     variant: true,
     entries: [
       { beat: 0, col: 5, kind: "meteor", color: null },

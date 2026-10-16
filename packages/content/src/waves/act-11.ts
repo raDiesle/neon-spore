@@ -20,7 +20,7 @@ export const WAVES_ACT_11: Wave[] = [
   },
   {
     id: "theThrobAgain",
-    name: "THROBS AGAIN",
+    name: "FIRST THROB",
     variant: true,
     entries: [
       { beat: 0, col: 3, kind: "throb", color: "red" },
@@ -32,7 +32,7 @@ export const WAVES_ACT_11: Wave[] = [
   },
   {
     id: "theThrobSpread",
-    name: "THROBS SPREAD",
+    name: "THROB SCATTER",
     variant: true,
     entries: [
       { beat: 0, col: 1, kind: "throb", color: "red" },
@@ -45,7 +45,7 @@ export const WAVES_ACT_11: Wave[] = [
   },
   {
     id: "theThrobReach",
-    name: "THROBS FAR APART",
+    name: "THROB WANDERER",
     variant: true,
     entries: [
       { beat: 0, col: 10, kind: "throb", color: "red" },
@@ -58,7 +58,7 @@ export const WAVES_ACT_11: Wave[] = [
   },
   {
     id: "theThrobPair",
-    name: "THROB AND HEAVY ROCK",
+    name: "THROB TANGO",
     variant: true,
     entries: [
       { beat: 0, col: 1, color: "cyan" },
@@ -73,7 +73,7 @@ export const WAVES_ACT_11: Wave[] = [
   },
   {
     id: "theThrobBreathe",
-    name: "EASY THROBS",
+    name: "THROB LULLABY",
     variant: true,
     entries: [
       { beat: 0, col: 3, color: "red" },
@@ -86,7 +86,7 @@ export const WAVES_ACT_11: Wave[] = [
   },
   {
     id: "theThrobRecall",
-    name: "THROB RECALL",
+    name: "ANCIENT THROB",
     variant: true,
     entries: [
       { beat: 0, col: 0, color: "cyan" },
@@ -100,7 +100,7 @@ export const WAVES_ACT_11: Wave[] = [
   },
   {
     id: "theThrobBend",
-    name: "THROBS AND TWINS",
+    name: "THROB MIRAGE",
     variant: true,
     entries: [
       { beat: 0, col: 1, color: "red" },
@@ -119,7 +119,7 @@ export const WAVES_ACT_11: Wave[] = [
   },
   {
     id: "theThrobPeak",
-    name: "THROB PEAK",
+    name: "THROB THUNDER",
     variant: true,
     entries: [
       { beat: 0, col: 6, color: "red" },

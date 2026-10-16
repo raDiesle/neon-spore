@@ -11,7 +11,7 @@ import type { Wave } from "../wave-types.js";
 export const WAVES_ACT_56: Wave[] = [
   {
     id: "reviewGyreAgain",
-    name: "GYRES RETURN",
+    name: "GYRE DAWN",
     entries: [
       { beat: 0, col: 10, kind: "gyre", color: null },
       { beat: 8, col: 2, kind: "echo", color: "cyan" },
@@ -22,7 +22,7 @@ export const WAVES_ACT_56: Wave[] = [
   },
   {
     id: "reviewGyreSpread",
-    name: "GYRES WIDER",
+    name: "GYRE SEEDS",
     variant: true,
     entries: [
       { beat: 0, col: 8, kind: "gyre", color: null },
@@ -35,7 +35,7 @@ export const WAVES_ACT_56: Wave[] = [
   },
   {
     id: "reviewGyreReach",
-    name: "GYRES OUT WIDE",
+    name: "OUTER GYRE",
     variant: true,
     entries: [
       { beat: 0, col: 10, kind: "gyre", color: null },
@@ -48,7 +48,7 @@ export const WAVES_ACT_56: Wave[] = [
   },
   {
     id: "reviewGyrePair",
-    name: "GYRES IN PAIRS",
+    name: "GYRE MEETS ECHO",
     variant: true,
     entries: [
       { beat: 0, col: 2, color: "cyan" },
@@ -65,7 +65,7 @@ export const WAVES_ACT_56: Wave[] = [
   },
   {
     id: "reviewGyreBreathe",
-    name: "GYRES AT REST",
+    name: "GYRE DREAM",
     variant: true,
     entries: [
       { beat: 0, col: 8, color: "cyan" },
@@ -78,7 +78,7 @@ export const WAVES_ACT_56: Wave[] = [
   },
   {
     id: "reviewGyreRecall",
-    name: "GYRES RECALLED",
+    name: "GYRE LEGEND",
     variant: true,
     entries: [
       { beat: 0, col: 3, color: "cyan" },
@@ -97,7 +97,7 @@ export const WAVES_ACT_56: Wave[] = [
   },
   {
     id: "reviewGyreBend",
-    name: "GYRES DOUBLED",
+    name: "TWISTED GYRE",
     variant: true,
     entries: [
       { beat: 0, col: 3, color: "cyan" },
@@ -118,7 +118,7 @@ export const WAVES_ACT_56: Wave[] = [
   },
   {
     id: "reviewGyrePeak",
-    name: "GYRES SUMMIT",
+    name: "GYRE APOCALYPSE",
     variant: true,
     entries: [
       { beat: 0, col: 4, color: "red" },

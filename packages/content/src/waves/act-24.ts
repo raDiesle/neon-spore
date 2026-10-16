@@ -26,7 +26,7 @@ export const WAVES_ACT_24: Wave[] = [
   },
   {
     id: "theBalloonAgain",
-    name: "BALLOONS AGAIN",
+    name: "FIRST BALLOON",
     variant: true,
     entries: [
       { beat: 0, col: 2, kind: "balloon", color: null },
@@ -39,7 +39,7 @@ export const WAVES_ACT_24: Wave[] = [
   },
   {
     id: "theBalloonSpread",
-    name: "BALLOONS SPREAD",
+    name: "BALLOON SCATTER",
     variant: true,
     entries: [
       { beat: 0, col: 0, kind: "balloon", color: null },
@@ -52,7 +52,7 @@ export const WAVES_ACT_24: Wave[] = [
   },
   {
     id: "theBalloonReach",
-    name: "BALLOONS FAR APART",
+    name: "BALLOON WANDERER",
     variant: true,
     entries: [
       { beat: 0, col: 9, kind: "balloon", color: null },
@@ -65,7 +65,7 @@ export const WAVES_ACT_24: Wave[] = [
   },
   {
     id: "theBalloonPair",
-    name: "BALLOON AND CHOIR",
+    name: "BALLOON TANGO",
     variant: true,
     entries: [
       { beat: 0, col: 1, color: "cyan" },
@@ -80,7 +80,7 @@ export const WAVES_ACT_24: Wave[] = [
   },
   {
     id: "theBalloonBreathe",
-    name: "EASY BALLOONS",
+    name: "BALLOON LULLABY",
     variant: true,
     entries: [
       { beat: 0, col: 2, color: "cyan" },
@@ -94,7 +94,7 @@ export const WAVES_ACT_24: Wave[] = [
   },
   {
     id: "theBalloonRecall",
-    name: "BALLOON RECALL",
+    name: "ANCIENT BALLOON",
     variant: true,
     entries: [
       { beat: 0, col: 1, color: "cyan" },
@@ -109,7 +109,7 @@ export const WAVES_ACT_24: Wave[] = [
   },
   {
     id: "theBalloonBend",
-    name: "BALLOONS AND TWINS",
+    name: "BALLOON MIRAGE",
     variant: true,
     entries: [
       { beat: 0, col: 2, color: "cyan" },
@@ -127,7 +127,7 @@ export const WAVES_ACT_24: Wave[] = [
   },
   {
     id: "theBalloonPeak",
-    name: "BALLOON PEAK",
+    name: "BALLOON THUNDER",
     variant: true,
     entries: [
       { beat: 0, col: 0, color: "cyan" },

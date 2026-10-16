@@ -20,7 +20,7 @@ export const WAVES_ACT_33: Wave[] = [
   },
   {
     id: "theGyreAgain",
-    name: "GYRES AGAIN",
+    name: "HELLO GYRE",
     variant: true,
     entries: [
       { beat: 0, col: 6, kind: "gyre", color: null },
@@ -32,7 +32,7 @@ export const WAVES_ACT_33: Wave[] = [
   },
   {
     id: "theGyreSpread",
-    name: "GYRES SPREAD",
+    name: "GYRE DRIFT",
     variant: true,
     entries: [
       { beat: 0, col: 2, kind: "gyre", color: null },
@@ -44,7 +44,7 @@ export const WAVES_ACT_33: Wave[] = [
   },
   {
     id: "theGyreReach",
-    name: "GYRES FAR APART",
+    name: "GYRE AT WORLD END",
     variant: true,
     entries: [
       { beat: 0, col: 10, kind: "gyre", color: null },
@@ -57,7 +57,7 @@ export const WAVES_ACT_33: Wave[] = [
   },
   {
     id: "theGyrePair",
-    name: "GYRE AND ECHO",
+    name: "GYRE ALLIANCE",
     variant: true,
     entries: [
       { beat: 0, col: 0, color: "cyan" },
@@ -72,7 +72,7 @@ export const WAVES_ACT_33: Wave[] = [
   },
   {
     id: "theGyreBreathe",
-    name: "EASY GYRES",
+    name: "SLEEPY GYRE",
     variant: true,
     entries: [
       { beat: 0, col: 8, color: "red" },
@@ -85,7 +85,7 @@ export const WAVES_ACT_33: Wave[] = [
   },
   {
     id: "theGyreRecall",
-    name: "GYRE RECALL",
+    name: "OLD GYRE SONG",
     variant: true,
     entries: [
       { beat: 0, col: 3, color: "red" },
@@ -100,7 +100,7 @@ export const WAVES_ACT_33: Wave[] = [
   },
   {
     id: "theGyreBend",
-    name: "GYRES AND TWINS",
+    name: "GYRE SPELL",
     variant: true,
     entries: [
       { beat: 0, col: 4, color: "red" },
@@ -118,7 +118,7 @@ export const WAVES_ACT_33: Wave[] = [
   },
   {
     id: "theGyrePeak",
-    name: "GYRE PEAK",
+    name: "GYRE RAPTURE",
     variant: true,
     entries: [
       { beat: 0, col: 10, color: "cyan" },

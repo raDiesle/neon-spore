@@ -3,6 +3,7 @@ import { WAVES, type Wave } from "@neon-spore/content";
 import { beatSeconds, DEFAULT_CONFIG } from "@neon-spore/sim";
 import { spanOf } from "./src/compose-check.js";
 import { composeControlWave } from "./src/compose-control.js";
+import { nameWaves } from "./src/compose-names.js";
 import { controlWaveId } from "./src/control-brushes.js";
 import { BLISTER_GESTURES, type BlisterGesture } from "./src/entry-fields-blister.js";
 import { writeWaves } from "./src/waves-acts.js";
@@ -68,7 +69,7 @@ for (const gesture of gestures) {
 if (gestures.length === 0) console.log("nothing to compose: every control has its wave");
 if (!args.includes("--write")) process.exit(failed ? 1 : 0);
 if (made.length === 0) process.exit(failed ? 1 : 0);
-const { complaint, rels } = await writeWaves(list);
+const { complaint, rels } = await writeWaves(nameWaves(list, new Set(made.map((w) => w.id))));
 if (complaint) {
   console.error(complaint);
   process.exit(1);

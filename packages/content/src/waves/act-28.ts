@@ -26,7 +26,7 @@ export const WAVES_ACT_28: Wave[] = [
   },
   {
     id: "theLureAgain",
-    name: "LURES AGAIN",
+    name: "LURE RISING",
     variant: true,
     entries: [
       { beat: 0, col: 0, kind: "lure", color: "cyan" },
@@ -38,7 +38,7 @@ export const WAVES_ACT_28: Wave[] = [
   },
   {
     id: "theLureSpread",
-    name: "LURES SPREAD",
+    name: "LURE CONFETTI",
     variant: true,
     entries: [
       { beat: 0, col: 1, kind: "lure", color: "cyan" },
@@ -51,7 +51,7 @@ export const WAVES_ACT_28: Wave[] = [
   },
   {
     id: "theLureReach",
-    name: "LURES FAR APART",
+    name: "LONG LURE ROAD",
     variant: true,
     entries: [
       { beat: 0, col: 0, kind: "lure", color: "red" },
@@ -64,7 +64,7 @@ export const WAVES_ACT_28: Wave[] = [
   },
   {
     id: "theLurePair",
-    name: "LURE AND COIL",
+    name: "LURE PARTY",
     variant: true,
     entries: [
       { beat: 0, col: 8, color: "cyan" },
@@ -79,7 +79,7 @@ export const WAVES_ACT_28: Wave[] = [
   },
   {
     id: "theLureBreathe",
-    name: "EASY LURES",
+    name: "LAZY LURE",
     variant: true,
     entries: [
       { beat: 0, col: 7, color: "cyan" },
@@ -92,7 +92,7 @@ export const WAVES_ACT_28: Wave[] = [
   },
   {
     id: "theLureRecall",
-    name: "LURE RECALL",
+    name: "LURE REUNION",
     variant: true,
     entries: [
       { beat: 0, col: 10, color: "cyan" },
@@ -107,7 +107,7 @@ export const WAVES_ACT_28: Wave[] = [
   },
   {
     id: "theLureBend",
-    name: "LURES AND TWINS",
+    name: "LURE RIDDLE",
     variant: true,
     entries: [
       { beat: 0, col: 2, color: "red" },
@@ -125,7 +125,7 @@ export const WAVES_ACT_28: Wave[] = [
   },
   {
     id: "theLurePeak",
-    name: "LURE PEAK",
+    name: "LURE OVERDRIVE",
     variant: true,
     entries: [
       { beat: 0, col: 2, color: "cyan" },

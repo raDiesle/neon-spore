@@ -24,7 +24,7 @@ export const WAVES_ACT_22: Wave[] = [
   },
   {
     id: "theChoirAgain",
-    name: "CHOIRS AGAIN",
+    name: "FIRST CHOIR",
     variant: true,
     entries: [
       { beat: 0, col: 9, kind: "choir", color: "cyan" },
@@ -36,7 +36,7 @@ export const WAVES_ACT_22: Wave[] = [
   },
   {
     id: "theChoirSpread",
-    name: "CHOIRS SPREAD",
+    name: "CHOIR SCATTER",
     variant: true,
     entries: [
       { beat: 0, col: 10, kind: "choir", color: "red" },
@@ -49,7 +49,7 @@ export const WAVES_ACT_22: Wave[] = [
   },
   {
     id: "theChoirReach",
-    name: "CHOIRS FAR APART",
+    name: "CHOIR WANDERER",
     variant: true,
     entries: [
       { beat: 0, col: 9, kind: "choir", color: "red" },
@@ -62,7 +62,7 @@ export const WAVES_ACT_22: Wave[] = [
   },
   {
     id: "theChoirPair",
-    name: "CHOIR AND MAGNET",
+    name: "CHOIR TANGO",
     variant: true,
     entries: [
       { beat: 0, col: 8, color: "red" },
@@ -77,7 +77,7 @@ export const WAVES_ACT_22: Wave[] = [
   },
   {
     id: "theChoirBreathe",
-    name: "EASY CHOIRS",
+    name: "CHOIR LULLABY",
     variant: true,
     entries: [
       { beat: 0, col: 8, color: "red" },
@@ -90,7 +90,7 @@ export const WAVES_ACT_22: Wave[] = [
   },
   {
     id: "theChoirRecall",
-    name: "CHOIR RECALL",
+    name: "ANCIENT CHOIR",
     variant: true,
     entries: [
       { beat: 0, col: 7, color: "cyan" },
@@ -105,7 +105,7 @@ export const WAVES_ACT_22: Wave[] = [
   },
   {
     id: "theChoirBend",
-    name: "CHOIRS AND TWINS",
+    name: "CHOIR MIRAGE",
     variant: true,
     entries: [
       { beat: 0, col: 10, color: "cyan" },
@@ -123,7 +123,7 @@ export const WAVES_ACT_22: Wave[] = [
   },
   {
     id: "theChoirPeak",
-    name: "CHOIR PEAK",
+    name: "CHOIR THUNDER",
     variant: true,
     entries: [
       { beat: 0, col: 6, color: "cyan" },

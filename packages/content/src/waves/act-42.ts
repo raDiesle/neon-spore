@@ -25,7 +25,7 @@ export const WAVES_ACT_42: Wave[] = [
   },
   {
     id: "theVeilAgain",
-    name: "VEILS AGAIN",
+    name: "VEIL DAWN",
     variant: true,
     entries: [
       { beat: 0, col: 7, kind: "veil", color: null },
@@ -37,7 +37,7 @@ export const WAVES_ACT_42: Wave[] = [
   },
   {
     id: "theVeilSpread",
-    name: "VEILS SPREAD",
+    name: "VEIL SEEDS",
     variant: true,
     entries: [
       { beat: 0, col: 6, kind: "veil", color: null },
@@ -50,7 +50,7 @@ export const WAVES_ACT_42: Wave[] = [
   },
   {
     id: "theVeilReach",
-    name: "VEILS FAR APART",
+    name: "OUTER VEIL",
     variant: true,
     entries: [
       { beat: 0, col: 0, kind: "veil", color: null },
@@ -63,7 +63,7 @@ export const WAVES_ACT_42: Wave[] = [
   },
   {
     id: "theVeilPair",
-    name: "VEIL AND MINE",
+    name: "VEIL MEETS MINE",
     variant: true,
     entries: [
       { beat: 0, col: 10, color: "red" },
@@ -81,7 +81,7 @@ export const WAVES_ACT_42: Wave[] = [
   },
   {
     id: "theVeilBreathe",
-    name: "EASY VEILS",
+    name: "VEIL DREAM",
     variant: true,
     entries: [
       { beat: 0, col: 0, color: "red" },
@@ -94,7 +94,7 @@ export const WAVES_ACT_42: Wave[] = [
   },
   {
     id: "theVeilRecall",
-    name: "VEIL RECALL",
+    name: "VEIL LEGEND",
     variant: true,
     entries: [
       { beat: 0, col: 3, color: "red" },
@@ -111,7 +111,7 @@ export const WAVES_ACT_42: Wave[] = [
   },
   {
     id: "theVeilBend",
-    name: "VEILS AND TWINS",
+    name: "TWISTED VEIL",
     variant: true,
     entries: [
       { beat: 0, col: 3, color: "red" },
@@ -131,7 +131,7 @@ export const WAVES_ACT_42: Wave[] = [
   },
   {
     id: "theVeilPeak",
-    name: "VEIL PEAK",
+    name: "VEIL APOCALYPSE",
     variant: true,
     entries: [
       { beat: 0, col: 0, color: "cyan" },

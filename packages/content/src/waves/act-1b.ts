@@ -34,7 +34,7 @@ import type { Wave } from "../wave-types.js";
 export const WAVES_ACT_1B: Wave[] = [
   {
     id: "crowded",
-    name: "CROWDED",
+    name: "TORCH APOCALYPSE",
     variant: true,
     entries: [
       { beat: 0, col: 2, color: "red" },
@@ -89,7 +89,7 @@ export const WAVES_ACT_1B: Wave[] = [
   },
   {
     id: "salvageAgain",
-    name: "SAVE IT",
+    name: "SALVAGE AWAKENS",
     variant: true,
     entries: [
       { beat: 7, col: 6, color: "red" },
@@ -104,7 +104,7 @@ export const WAVES_ACT_1B: Wave[] = [
   },
   {
     id: "salvageReach",
-    name: "SALVAGE WIDE",
+    name: "SALVAGE HORIZON",
     variant: true,
     entries: [
       { beat: 6, col: 6, color: "red" },
@@ -120,7 +120,7 @@ export const WAVES_ACT_1B: Wave[] = [
   },
   {
     id: "salvagePair",
-    name: "SALVAGE THE TORCH",
+    name: "SALVAGE DUET",
     variant: true,
     entries: [
       { beat: 0, col: 6, color: "red" },

@@ -24,7 +24,7 @@ export const WAVES_ACT_36: Wave[] = [
   },
   {
     id: "theRecoilAgain",
-    name: "RECOILS AGAIN",
+    name: "RECOIL AWAKENS",
     variant: true,
     entries: [
       { beat: 0, col: 0, kind: "recoil", color: "red" },
@@ -36,7 +36,7 @@ export const WAVES_ACT_36: Wave[] = [
   },
   {
     id: "theRecoilSpread",
-    name: "RECOILS SPREAD",
+    name: "RECOIL RAIN",
     variant: true,
     entries: [
       { beat: 0, col: 2, kind: "recoil", color: "cyan" },
@@ -49,7 +49,7 @@ export const WAVES_ACT_36: Wave[] = [
   },
   {
     id: "theRecoilReach",
-    name: "RECOILS FAR APART",
+    name: "RECOIL HORIZON",
     variant: true,
     entries: [
       { beat: 0, col: 10, kind: "recoil", color: "red" },
@@ -62,7 +62,7 @@ export const WAVES_ACT_36: Wave[] = [
   },
   {
     id: "theRecoilPair",
-    name: "RECOIL AND LID",
+    name: "RECOIL DUET",
     variant: true,
     entries: [
       { beat: 0, col: 7, color: "red" },
@@ -80,7 +80,7 @@ export const WAVES_ACT_36: Wave[] = [
   },
   {
     id: "theRecoilBreathe",
-    name: "EASY RECOILS",
+    name: "RECOIL HUSH",
     variant: true,
     entries: [
       { beat: 0, col: 4, color: "cyan" },
@@ -94,7 +94,7 @@ export const WAVES_ACT_36: Wave[] = [
   },
   {
     id: "theRecoilRecall",
-    name: "RECOIL RECALL",
+    name: "RECOIL HOMECOMING",
     variant: true,
     entries: [
       { beat: 0, col: 0, color: "cyan" },
@@ -111,7 +111,7 @@ export const WAVES_ACT_36: Wave[] = [
   },
   {
     id: "theRecoilBend",
-    name: "RECOILS AND TWINS",
+    name: "RECOIL PARADOX",
     variant: true,
     entries: [
       { beat: 0, col: 1, color: "cyan" },
@@ -130,7 +130,7 @@ export const WAVES_ACT_36: Wave[] = [
   },
   {
     id: "theRecoilPeak",
-    name: "RECOIL PEAK",
+    name: "RECOIL FURY",
     variant: true,
     entries: [
       { beat: 0, col: 6, color: "cyan" },

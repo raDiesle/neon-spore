@@ -11,7 +11,7 @@ import type { Wave } from "../wave-types.js";
 export const WAVES_ACT_47: Wave[] = [
   {
     id: "reviewGhostAgain",
-    name: "GHOSTS RETURN",
+    name: "GHOST DAWN",
     entries: [
       { beat: 0, col: 0, kind: "ghost", color: "cyan", path: "across" },
       { beat: 8, col: 8, kind: "wisp", color: null },
@@ -22,7 +22,7 @@ export const WAVES_ACT_47: Wave[] = [
   },
   {
     id: "reviewGhostSpread",
-    name: "GHOSTS WIDER",
+    name: "GHOST SEEDS",
     variant: true,
     entries: [
       { beat: 0, col: 2, kind: "ghost", color: "cyan" },
@@ -35,7 +35,7 @@ export const WAVES_ACT_47: Wave[] = [
   },
   {
     id: "reviewGhostReach",
-    name: "GHOSTS OUT WIDE",
+    name: "OUTER GHOST",
     variant: true,
     entries: [
       { beat: 0, col: 0, kind: "ghost", color: "cyan" },
@@ -48,7 +48,7 @@ export const WAVES_ACT_47: Wave[] = [
   },
   {
     id: "reviewGhostPair",
-    name: "GHOSTS IN PAIRS",
+    name: "GHOST MEETS WISP",
     variant: true,
     entries: [
       { beat: 0, col: 8, color: "red" },
@@ -67,7 +67,7 @@ export const WAVES_ACT_47: Wave[] = [
   },
   {
     id: "reviewGhostBreathe",
-    name: "GHOSTS AT REST",
+    name: "GHOST DREAM",
     variant: true,
     entries: [
       { beat: 0, col: 2, color: "cyan" },
@@ -80,7 +80,7 @@ export const WAVES_ACT_47: Wave[] = [
   },
   {
     id: "reviewGhostRecall",
-    name: "GHOSTS RECALLED",
+    name: "GHOST LEGEND",
     variant: true,
     entries: [
       { beat: 0, col: 8, color: "cyan" },
@@ -97,7 +97,7 @@ export const WAVES_ACT_47: Wave[] = [
   },
   {
     id: "reviewGhostBend",
-    name: "GHOSTS DOUBLED",
+    name: "TWISTED GHOST",
     variant: true,
     entries: [
       { beat: 0, col: 0, color: "red" },
@@ -118,7 +118,7 @@ export const WAVES_ACT_47: Wave[] = [
   },
   {
     id: "reviewGhostPeak",
-    name: "GHOSTS SUMMIT",
+    name: "GHOST APOCALYPSE",
     variant: true,
     entries: [
       { beat: 0, col: 0, color: "red" },

@@ -42815,3 +42815,14 @@ Bottleneck: reading — the trunk moved between the first look and the edit,
 so the rock waves were read twice.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-16 — The composer makes up every regular wave's name, and 446 waves are named again
+
+- reading: 15 min. The four commands that named waves, and the review block reading its theme off "… AGAIN".
+- writing: 30 min. The namer, its word lists, `waves:names`, and the four commands calling it.
+- looking: 5 min. The whole list of new names, read once.
+- friction: 15 min. A namer at 30 s from reading every block whole, and heredocs the guard refused.
+- landing: 10 min. Index, CLEAN's renamed subjects, the fast check and `land`.
+
+Bottleneck: friction — the first namer read each block whole for its
+partner, half a second a block, and had to learn it off one pass instead.

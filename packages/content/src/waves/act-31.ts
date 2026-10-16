@@ -25,7 +25,7 @@ export const WAVES_ACT_31: Wave[] = [
   },
   {
     id: "theDartAgain",
-    name: "DARTS AGAIN",
+    name: "NEW DART MOON",
     variant: true,
     entries: [
       { beat: 0, col: 4, kind: "dart", color: "cyan" },
@@ -37,7 +37,7 @@ export const WAVES_ACT_31: Wave[] = [
   },
   {
     id: "theDartSpread",
-    name: "DARTS SPREAD",
+    name: "DART SPRINKLE",
     variant: true,
     entries: [
       { beat: 0, col: 2, kind: "dart", color: "cyan" },
@@ -50,7 +50,7 @@ export const WAVES_ACT_31: Wave[] = [
   },
   {
     id: "theDartReach",
-    name: "DARTS FAR APART",
+    name: "FAR DART",
     variant: true,
     entries: [
       { beat: 0, col: 9, kind: "dart", color: "cyan" },
@@ -78,7 +78,7 @@ export const WAVES_ACT_31: Wave[] = [
   },
   {
     id: "theDartBreathe",
-    name: "EASY DARTS",
+    name: "DART PICNIC",
     variant: true,
     entries: [
       { beat: 0, col: 0, color: "cyan" },
@@ -91,7 +91,7 @@ export const WAVES_ACT_31: Wave[] = [
   },
   {
     id: "theDartRecall",
-    name: "DART RECALL",
+    name: "DART MEMORY",
     variant: true,
     entries: [
       { beat: 0, col: 0, color: "red" },
@@ -106,7 +106,7 @@ export const WAVES_ACT_31: Wave[] = [
   },
   {
     id: "theDartBend",
-    name: "DARTS AND TWINS",
+    name: "DART TRICK",
     variant: true,
     entries: [
       { beat: 0, col: 3, color: "red" },
@@ -125,7 +125,7 @@ export const WAVES_ACT_31: Wave[] = [
   },
   {
     id: "theDartPeak",
-    name: "DART PEAK",
+    name: "DART ECLIPSE",
     variant: true,
     entries: [
       { beat: 0, col: 10, color: "cyan" },

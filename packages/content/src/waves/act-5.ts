@@ -26,7 +26,7 @@ export const WAVES_ACT_5: Wave[] = [
   },
   {
     id: "theBeatboxAgain",
-    name: "BEATBOXES AGAIN",
+    name: "HELLO BEATBOX",
     variant: true,
     entries: [
       { beat: 0, col: 6, kind: "beatbox", color: null, beats: 2 },
@@ -38,7 +38,7 @@ export const WAVES_ACT_5: Wave[] = [
   },
   {
     id: "theBeatboxSpread",
-    name: "BEATBOXES SPREAD",
+    name: "BEATBOX DRIFT",
     variant: true,
     entries: [
       { beat: 0, col: 3, kind: "beatbox", color: null, beats: 3 },
@@ -51,7 +51,7 @@ export const WAVES_ACT_5: Wave[] = [
   },
   {
     id: "theBeatboxReach",
-    name: "BEATBOXES FAR APART",
+    name: "BEATBOX AT WORLD END",
     variant: true,
     entries: [
       { beat: 0, col: 9, kind: "beatbox", color: null, beats: 4 },
@@ -64,7 +64,7 @@ export const WAVES_ACT_5: Wave[] = [
   },
   {
     id: "theBeatboxPair",
-    name: "BEATBOX AND CROSSING",
+    name: "BEATBOX ALLIANCE",
     variant: true,
     entries: [
       { beat: 0, col: 2, color: "cyan" },
@@ -79,7 +79,7 @@ export const WAVES_ACT_5: Wave[] = [
   },
   {
     id: "theBeatboxBreathe",
-    name: "EASY BEATBOXES",
+    name: "SLEEPY BEATBOX",
     variant: true,
     entries: [
       { beat: 0, col: 8, color: "cyan" },
@@ -92,7 +92,7 @@ export const WAVES_ACT_5: Wave[] = [
   },
   {
     id: "theBeatboxRecall",
-    name: "BEATBOX RECALL",
+    name: "OLD BEATBOX SONG",
     variant: true,
     entries: [
       { beat: 0, col: 7, color: "red" },
@@ -107,7 +107,7 @@ export const WAVES_ACT_5: Wave[] = [
   },
   {
     id: "theBeatboxBend",
-    name: "BEATBOXES AND TWINS",
+    name: "BEATBOX SPELL",
     variant: true,
     entries: [
       { beat: 0, col: 9, color: "cyan" },
@@ -125,7 +125,7 @@ export const WAVES_ACT_5: Wave[] = [
   },
   {
     id: "theBeatboxPeak",
-    name: "BEATBOX PEAK",
+    name: "BEATBOX RAPTURE",
     variant: true,
     entries: [
       { beat: 0, col: 9, color: "cyan" },

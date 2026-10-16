@@ -42,10 +42,9 @@ export const CONTROL_STEP: Step = {
   ramp: "rise",
 };
 
-/** The name a control's wave is written with; its id is `controlWaveId`. */
-export function controlWaveName(gesture: BlisterGesture): string {
-  return `BLISTERS TO ${gesture.toUpperCase()}`;
-}
+/** The name a control's wave is composed with, until `compose-names.ts`
+ * names it; its id is `controlWaveId`. */
+const controlWaveName = (gesture: BlisterGesture): string => `BLISTERS TO ${gesture.toUpperCase()}`;
 
 /** THE BLISTER's arrivals, each worn with this gesture by either hand and
  * every way the gesture goes. */

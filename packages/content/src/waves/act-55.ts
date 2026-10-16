@@ -11,7 +11,7 @@ import type { Wave } from "../wave-types.js";
 export const WAVES_ACT_55: Wave[] = [
   {
     id: "reviewLidAgain",
-    name: "LIDS RETURN",
+    name: "LID AWAKENS",
     entries: [
       { beat: 0, col: 1, kind: "lid", color: "red" },
       { beat: 8, col: 9, kind: "gyre", color: null },
@@ -22,7 +22,7 @@ export const WAVES_ACT_55: Wave[] = [
   },
   {
     id: "reviewLidSpread",
-    name: "LIDS WIDER",
+    name: "LID RAIN",
     variant: true,
     entries: [
       { beat: 0, col: 6, kind: "lid", color: "red" },
@@ -35,7 +35,7 @@ export const WAVES_ACT_55: Wave[] = [
   },
   {
     id: "reviewLidReach",
-    name: "LIDS OUT WIDE",
+    name: "LID HORIZON",
     variant: true,
     entries: [
       { beat: 0, col: 0, kind: "lid", color: "cyan" },
@@ -48,7 +48,7 @@ export const WAVES_ACT_55: Wave[] = [
   },
   {
     id: "reviewLidPair",
-    name: "LIDS IN PAIRS",
+    name: "LID DUET",
     variant: true,
     entries: [
       { beat: 0, col: 10, color: "cyan" },
@@ -67,7 +67,7 @@ export const WAVES_ACT_55: Wave[] = [
   },
   {
     id: "reviewLidBreathe",
-    name: "LIDS AT REST",
+    name: "LID HUSH",
     variant: true,
     entries: [
       { beat: 0, col: 0, color: "cyan" },
@@ -80,7 +80,7 @@ export const WAVES_ACT_55: Wave[] = [
   },
   {
     id: "reviewLidRecall",
-    name: "LIDS RECALLED",
+    name: "LID HOMECOMING",
     variant: true,
     entries: [
       { beat: 0, col: 4, color: "cyan" },
@@ -97,7 +97,7 @@ export const WAVES_ACT_55: Wave[] = [
   },
   {
     id: "reviewLidBend",
-    name: "LIDS DOUBLED",
+    name: "LID PARADOX",
     variant: true,
     entries: [
       { beat: 0, col: 2, color: "red" },
@@ -118,7 +118,7 @@ export const WAVES_ACT_55: Wave[] = [
   },
   {
     id: "reviewLidPeak",
-    name: "LIDS SUMMIT",
+    name: "LID FURY",
     variant: true,
     entries: [
       { beat: 0, col: 2, color: "cyan" },

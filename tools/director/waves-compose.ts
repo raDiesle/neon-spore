@@ -4,6 +4,7 @@ import { beatSeconds, DEFAULT_CONFIG } from "@neon-spore/sim";
 import { type Composed, composeBlockAt } from "./src/compose.js";
 import { readBlock } from "./src/compose-block.js";
 import { spanOf } from "./src/compose-check.js";
+import { nameWaves } from "./src/compose-names.js";
 import { writeWaves } from "./src/waves-acts.js";
 
 /**
@@ -15,9 +16,10 @@ import { writeWaves } from "./src/waves-acts.js";
  * after the block's intro and its guided waves, as variants, through the same
  * save the director uses — so they open in the wave editor like any other.
  *
- * `--names` gives them their names, in step order: the composer cannot pass a
- * wave's one-sentence test (`.claude/skills/new-wave`), so whoever reads the
- * block names it. `--seed` draws the block again.
+ * Their names are made up by the composer (`src/compose-names.ts`) — the
+ * block's thing and a word for each step's mood — and `--names` overrides
+ * them, in step order, for a block whoever reads it would rather name by
+ * hand. `--seed` draws the block again.
  */
 
 const args = process.argv.slice(2);
@@ -41,8 +43,20 @@ const { block, composed, seed } = composeBlockAt(WAVES, read, introId, asked);
 const names = flag("names")?.split("|") ?? [];
 const seconds = (beats: number) => (beats * beatSeconds(DEFAULT_CONFIG)).toFixed(0);
 
+/** The names the composer makes up for the block where it would stand. */
+const madeUp = new Map(
+  nameWaves(
+    [
+      ...WAVES.slice(0, block.insertAt),
+      ...composed.flatMap((c) => (c.wave ? [c.wave] : [])),
+      ...WAVES.slice(block.insertAt),
+    ],
+    new Set(composed.flatMap((c) => (c.wave ? [c.wave.id] : []))),
+  ).map((w) => [w.id, w.name]),
+);
+
 function named(c: Composed, i: number): Wave | undefined {
-  const name = names[i]?.trim();
+  const name = names[i]?.trim() || (c.wave && madeUp.get(c.wave.id));
   return c.wave && (name ? { ...c.wave, name } : c.wave);
 }
 

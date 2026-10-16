@@ -11,7 +11,7 @@ import type { Wave } from "../wave-types.js";
 export const WAVES_ACT_50: Wave[] = [
   {
     id: "reviewMineAgain",
-    name: "MINES RETURN",
+    name: "MINE AWAKENS",
     entries: [
       { beat: 0, col: 9, kind: "mine", color: "red", row: 3, sees: 2 },
       { beat: 7, col: 10, kind: "crawler", color: null, segments: 5, side: "right" },
@@ -22,7 +22,7 @@ export const WAVES_ACT_50: Wave[] = [
   },
   {
     id: "reviewMineSpread",
-    name: "MINES WIDER",
+    name: "MINE RAIN",
     variant: true,
     entries: [
       { beat: 0, col: 3, kind: "mine", color: "red", row: 3, sees: 2 },
@@ -35,7 +35,7 @@ export const WAVES_ACT_50: Wave[] = [
   },
   {
     id: "reviewMineReach",
-    name: "MINES OUT WIDE",
+    name: "MINE HORIZON",
     variant: true,
     entries: [
       { beat: 0, col: 10, kind: "mine", color: "red", row: 3, sees: 2 },
@@ -48,7 +48,7 @@ export const WAVES_ACT_50: Wave[] = [
   },
   {
     id: "reviewMinePair",
-    name: "MINES IN PAIRS",
+    name: "MINE DUET",
     variant: true,
     entries: [
       { beat: 0, col: 3, color: "red" },
@@ -65,7 +65,7 @@ export const WAVES_ACT_50: Wave[] = [
   },
   {
     id: "reviewMineBreathe",
-    name: "MINES AT REST",
+    name: "MINE HUSH",
     variant: true,
     entries: [
       { beat: 0, col: 0, color: "red" },
@@ -78,7 +78,7 @@ export const WAVES_ACT_50: Wave[] = [
   },
   {
     id: "reviewMineRecall",
-    name: "MINES RECALLED",
+    name: "MINE HOMECOMING",
     variant: true,
     entries: [
       { beat: 0, col: 1, color: "red" },
@@ -95,7 +95,7 @@ export const WAVES_ACT_50: Wave[] = [
   },
   {
     id: "reviewMineBend",
-    name: "MINES DOUBLED",
+    name: "MINE PARADOX",
     variant: true,
     entries: [
       { beat: 0, col: 3, color: "cyan" },
@@ -116,7 +116,7 @@ export const WAVES_ACT_50: Wave[] = [
   },
   {
     id: "reviewMinePeak",
-    name: "MINES SUMMIT",
+    name: "MINE FURY",
     variant: true,
     entries: [
       { beat: 0, col: 3, color: "cyan" },

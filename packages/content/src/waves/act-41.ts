@@ -26,7 +26,7 @@ export const WAVES_ACT_41: Wave[] = [
   },
   {
     id: "theMineAgain",
-    name: "MINES AGAIN",
+    name: "LITTLE MINE",
     variant: true,
     entries: [
       { beat: 0, col: 6, kind: "mine", color: "cyan", row: 6, sees: 2 },
@@ -38,7 +38,7 @@ export const WAVES_ACT_41: Wave[] = [
   },
   {
     id: "theMineSpread",
-    name: "MINES SPREAD",
+    name: "MINE BLOOM",
     variant: true,
     entries: [
       { beat: 0, col: 6, kind: "mine", color: "cyan", row: 6, sees: 2 },
@@ -51,7 +51,7 @@ export const WAVES_ACT_41: Wave[] = [
   },
   {
     id: "theMineReach",
-    name: "MINES FAR APART",
+    name: "MINE PILGRIM",
     variant: true,
     entries: [
       { beat: 0, col: 9, kind: "mine", color: "red", row: 3, sees: 2 },
@@ -64,7 +64,7 @@ export const WAVES_ACT_41: Wave[] = [
   },
   {
     id: "theMinePair",
-    name: "MINE AND CRAWLER",
+    name: "MINE TOGETHER",
     variant: true,
     entries: [
       { beat: 0, col: 1, color: "cyan" },
@@ -81,7 +81,7 @@ export const WAVES_ACT_41: Wave[] = [
   },
   {
     id: "theMineBreathe",
-    name: "EASY MINES",
+    name: "MINE SIESTA",
     variant: true,
     entries: [
       { beat: 0, col: 2, color: "cyan" },
@@ -94,7 +94,7 @@ export const WAVES_ACT_41: Wave[] = [
   },
   {
     id: "theMineRecall",
-    name: "MINE RECALL",
+    name: "MINE RELIC",
     variant: true,
     entries: [
       { beat: 0, col: 0, color: "red" },
@@ -113,7 +113,7 @@ export const WAVES_ACT_41: Wave[] = [
   },
   {
     id: "theMineBend",
-    name: "MINES AND TWINS",
+    name: "MINE ILLUSION",
     variant: true,
     entries: [
       { beat: 0, col: 3, color: "red" },
@@ -132,7 +132,7 @@ export const WAVES_ACT_41: Wave[] = [
   },
   {
     id: "theMinePeak",
-    name: "MINE PEAK",
+    name: "MINE STORM",
     variant: true,
     entries: [
       { beat: 0, col: 4, color: "red" },

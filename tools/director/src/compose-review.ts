@@ -30,24 +30,9 @@ export interface Review {
   /** The theme's intro, and the prefix every composed id starts with. */
   theme: string;
   prefix: string;
-  /** The theme's plural, read off its R1 ("LURES AGAIN"), for the names. */
-  plural: string;
   /** Which review this is, from 0. */
   k: number;
 }
-
-/** The step names a review block's waves take, from its theme's plural:
- * at most 20 letters for every theme the game has (`compose-review.test.ts`). */
-export const REVIEW_NAMES: readonly ((plural: string) => string)[] = [
-  (p) => `${p} RETURN`,
-  (p) => `${p} WIDER`,
-  (p) => `${p} OUT WIDE`,
-  (p) => `${p} IN PAIRS`,
-  (p) => `${p} AT REST`,
-  (p) => `${p} RECALLED`,
-  (p) => `${p} DOUBLED`,
-  (p) => `${p} SUMMIT`,
-];
 
 const capital = (id: string) => id.charAt(0).toUpperCase() + id.slice(1);
 
@@ -72,16 +57,13 @@ export function nextReview(waves: readonly Wave[]): Review | string {
   }
   // The last taught first: the dearest things (§4.1), so the talk at the
   // end of the game does not fall back to its first blocks'. A block an
-  // author wrote whole (THE BLISTER's) has no R1 to name a theme by.
+  // author wrote whole (THE BLISTER's) has no R1 to review.
   const themes = intros.filter((i) => waves.some((w) => w.id === `${waves[i]?.id}Again`)).reverse();
   const themeAt = themes[k % themes.length];
   const theme = themeAt === undefined ? undefined : waves[themeAt];
   if (!theme) return "no theme to review";
   const read = readBlock(waves, theme.id);
   if (typeof read === "string") return read;
-  const again = waves.find((w) => w.id === `${theme.id}Again`);
-  const plural = again?.name.replace(/ AGAIN$/, "");
-  if (!plural || plural === again?.name) return `${theme.id} has no R1 named "… AGAIN"`;
   const floor = gentlestBefore(waves, last + 1);
   const talkFloor = gentlestBefore(waves, last + 1, waveTalk);
   const { leads: _l, after: _a, floor: _f, talkFloor: _t, ...rest } = read;
@@ -96,5 +78,5 @@ export function nextReview(waves: readonly Wave[]): Review | string {
     insertAt,
     controls: waves[last]?.controls,
   };
-  return { block, theme: theme.id, prefix: `review${capital(read.x)}`, plural, k };
+  return { block, theme: theme.id, prefix: `review${capital(read.x)}`, k };
 }

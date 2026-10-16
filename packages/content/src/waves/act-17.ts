@@ -24,7 +24,7 @@ export const WAVES_ACT_17: Wave[] = [
   },
   {
     id: "theVeerAgain",
-    name: "VEERS AGAIN",
+    name: "VEER AWAKENS",
     variant: true,
     entries: [
       { beat: 0, col: 4, kind: "veer", color: null },
@@ -36,7 +36,7 @@ export const WAVES_ACT_17: Wave[] = [
   },
   {
     id: "theVeerSpread",
-    name: "VEERS SPREAD",
+    name: "VEER RAIN",
     variant: true,
     entries: [
       { beat: 0, col: 1, kind: "veer", color: null },
@@ -49,7 +49,7 @@ export const WAVES_ACT_17: Wave[] = [
   },
   {
     id: "theVeerReach",
-    name: "VEERS FAR APART",
+    name: "VEER HORIZON",
     variant: true,
     entries: [
       { beat: 0, col: 1, kind: "veer", color: null },
@@ -62,7 +62,7 @@ export const WAVES_ACT_17: Wave[] = [
   },
   {
     id: "theVeerPair",
-    name: "VEER AND RIND",
+    name: "VEER DUET",
     variant: true,
     entries: [
       { beat: 0, col: 2, color: "red" },
@@ -77,7 +77,7 @@ export const WAVES_ACT_17: Wave[] = [
   },
   {
     id: "theVeerBreathe",
-    name: "EASY VEERS",
+    name: "VEER HUSH",
     variant: true,
     entries: [
       { beat: 0, col: 7, color: "cyan" },
@@ -90,7 +90,7 @@ export const WAVES_ACT_17: Wave[] = [
   },
   {
     id: "theVeerRecall",
-    name: "VEER RECALL",
+    name: "VEER HOMECOMING",
     variant: true,
     entries: [
       { beat: 0, col: 0, color: "red" },
@@ -105,7 +105,7 @@ export const WAVES_ACT_17: Wave[] = [
   },
   {
     id: "theVeerBend",
-    name: "VEERS AND TWINS",
+    name: "VEER PARADOX",
     variant: true,
     entries: [
       { beat: 0, col: 9, color: "cyan" },
@@ -123,7 +123,7 @@ export const WAVES_ACT_17: Wave[] = [
   },
   {
     id: "theVeerPeak",
-    name: "VEER PEAK",
+    name: "VEER FURY",
     variant: true,
     entries: [
       { beat: 0, col: 9, color: "red" },

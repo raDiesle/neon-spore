@@ -29,7 +29,7 @@ export const WAVES_ACT_9: Wave[] = [
   },
   {
     id: "theWardAgain",
-    name: "HEAVY ROCKS AGAIN",
+    name: "HEAVY ROCKS RISING",
     variant: true,
     entries: [
       { beat: 0, col: 4, kind: "meteorMedium", color: null },
@@ -41,7 +41,7 @@ export const WAVES_ACT_9: Wave[] = [
   },
   {
     id: "theWardSpread",
-    name: "HEAVY ROCKS SPREAD",
+    name: "HEAVY ROCKS CONFETTI",
     variant: true,
     entries: [
       { beat: 0, col: 6, kind: "meteorMedium", color: null },
@@ -54,7 +54,7 @@ export const WAVES_ACT_9: Wave[] = [
   },
   {
     id: "theWardReach",
-    name: "HEAVY ROCKS APART",
+    name: "HEAVY ROCKS PILGRIM",
     variant: true,
     entries: [
       { beat: 0, col: 1, kind: "meteorMedium", color: null },
@@ -67,7 +67,7 @@ export const WAVES_ACT_9: Wave[] = [
   },
   {
     id: "theWardPair",
-    name: "HEAVY ROCK IN PAIRS",
+    name: "HEAVY ROCKS PARTY",
     variant: true,
     entries: [
       { beat: 0, col: 8, color: "cyan" },
@@ -82,7 +82,7 @@ export const WAVES_ACT_9: Wave[] = [
   },
   {
     id: "theWardBreathe",
-    name: "EASY HEAVY ROCKS",
+    name: "LAZY HEAVY ROCKS",
     variant: true,
     entries: [
       { beat: 0, col: 2, color: "red" },
@@ -95,7 +95,7 @@ export const WAVES_ACT_9: Wave[] = [
   },
   {
     id: "theWardRecall",
-    name: "HEAVY ROCK RECALL",
+    name: "HEAVY ROCKS REUNION",
     variant: true,
     entries: [
       { beat: 0, col: 6, color: "cyan" },
@@ -109,7 +109,7 @@ export const WAVES_ACT_9: Wave[] = [
   },
   {
     id: "theWardBend",
-    name: "HEAVY ROCKS, TWINS",
+    name: "HEAVY ROCKS RIDDLE",
     variant: true,
     entries: [
       { beat: 0, col: 6, color: "red" },
@@ -127,7 +127,7 @@ export const WAVES_ACT_9: Wave[] = [
   },
   {
     id: "theWardPeak",
-    name: "HEAVY ROCK PEAK",
+    name: "HEAVY ROCKS RAPTURE",
     variant: true,
     entries: [
       { beat: 0, col: 1, color: "red" },

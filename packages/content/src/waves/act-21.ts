@@ -25,7 +25,7 @@ export const WAVES_ACT_21: Wave[] = [
   },
   {
     id: "theMagnetAgain",
-    name: "MAGNETS AGAIN",
+    name: "MAGNET RISING",
     variant: true,
     entries: [
       { beat: 0, col: 8, kind: "magnet", color: "cyan" },
@@ -37,7 +37,7 @@ export const WAVES_ACT_21: Wave[] = [
   },
   {
     id: "theMagnetSpread",
-    name: "MAGNETS SPREAD",
+    name: "MAGNET CONFETTI",
     variant: true,
     entries: [
       { beat: 0, col: 9, kind: "magnet", color: "red" },
@@ -50,7 +50,7 @@ export const WAVES_ACT_21: Wave[] = [
   },
   {
     id: "theMagnetReach",
-    name: "MAGNETS FAR APART",
+    name: "LONG MAGNET ROAD",
     variant: true,
     entries: [
       { beat: 0, col: 0, kind: "magnet", color: "red" },
@@ -63,7 +63,7 @@ export const WAVES_ACT_21: Wave[] = [
   },
   {
     id: "theMagnetPair",
-    name: "MAGNET AND FENCE",
+    name: "MAGNET PARTY",
     variant: true,
     entries: [
       { beat: 0, col: 0, color: "red" },
@@ -78,7 +78,7 @@ export const WAVES_ACT_21: Wave[] = [
   },
   {
     id: "theMagnetBreathe",
-    name: "EASY MAGNETS",
+    name: "LAZY MAGNET",
     variant: true,
     entries: [
       { beat: 0, col: 7, color: "cyan" },
@@ -91,7 +91,7 @@ export const WAVES_ACT_21: Wave[] = [
   },
   {
     id: "theMagnetRecall",
-    name: "MAGNET RECALL",
+    name: "MAGNET REUNION",
     variant: true,
     entries: [
       { beat: 0, col: 10, color: "red" },
@@ -105,7 +105,7 @@ export const WAVES_ACT_21: Wave[] = [
   },
   {
     id: "theMagnetBend",
-    name: "MAGNETS AND TWINS",
+    name: "MAGNET RIDDLE",
     variant: true,
     entries: [
       { beat: 0, col: 2, color: "cyan" },
@@ -124,7 +124,7 @@ export const WAVES_ACT_21: Wave[] = [
   },
   {
     id: "theMagnetPeak",
-    name: "MAGNET PEAK",
+    name: "MAGNET OVERDRIVE",
     variant: true,
     entries: [
       { beat: 0, col: 7, color: "cyan" },

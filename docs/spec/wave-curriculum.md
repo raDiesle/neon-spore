@@ -181,8 +181,8 @@ cheapest first, with four rules over that:
 
 Every composed wave is written again for its new neighbours — R4 pairs with
 the block before, R6 recalls three back, R1 rises from the block before's
-gentlest — and a moved block's R4 is renamed for its partner
-(`curriculum-names.ts`). Then the bosses are placed again (§7) and the review
+gentlest — and every composed wave is named again where it now stands
+(`compose-names.ts`). Then the bosses are placed again (§7) and the review
 blocks written for the bosses left at the end, so every boss still closes a
 block of its own. `bun run waves:order --write` does all of it, and a second
 run changes nothing (`curriculum-order.test.ts` holds the order).

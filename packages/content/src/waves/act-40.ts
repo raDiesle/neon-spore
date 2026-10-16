@@ -23,7 +23,7 @@ export const WAVES_ACT_40: Wave[] = [
   },
   {
     id: "theCrawlerAgain",
-    name: "CRAWLERS AGAIN",
+    name: "CRAWLER DAWN",
     variant: true,
     entries: [
       { beat: 0, col: 6, kind: "crawler", color: null, segments: 7, side: "left" },
@@ -35,7 +35,7 @@ export const WAVES_ACT_40: Wave[] = [
   },
   {
     id: "theCrawlerSpread",
-    name: "CRAWLERS SPREAD",
+    name: "CRAWLER SEEDS",
     variant: true,
     entries: [
       { beat: 0, col: 0, kind: "crawler", color: null, segments: 3, side: "left" },
@@ -48,7 +48,7 @@ export const WAVES_ACT_40: Wave[] = [
   },
   {
     id: "theCrawlerReach",
-    name: "CRAWLERS FAR APART",
+    name: "OUTER CRAWLER",
     variant: true,
     entries: [
       { beat: 0, col: 9, kind: "crawler", color: null, segments: 3, side: "left" },
@@ -61,7 +61,7 @@ export const WAVES_ACT_40: Wave[] = [
   },
   {
     id: "theCrawlerPair",
-    name: "CRAWLER AND VOLLEY",
+    name: "CRAWLER MEETS VOLLEY",
     variant: true,
     entries: [
       { beat: 0, col: 4, color: "red" },
@@ -79,7 +79,7 @@ export const WAVES_ACT_40: Wave[] = [
   },
   {
     id: "theCrawlerBreathe",
-    name: "EASY CRAWLERS",
+    name: "CRAWLER DREAM",
     variant: true,
     entries: [
       { beat: 0, col: 7, color: "red" },
@@ -93,7 +93,7 @@ export const WAVES_ACT_40: Wave[] = [
   },
   {
     id: "theCrawlerRecall",
-    name: "CRAWLER RECALL",
+    name: "CRAWLER LEGEND",
     variant: true,
     entries: [
       { beat: 0, col: 4, color: "cyan" },
@@ -110,7 +110,7 @@ export const WAVES_ACT_40: Wave[] = [
   },
   {
     id: "theCrawlerBend",
-    name: "CRAWLERS AND TWINS",
+    name: "TWISTED CRAWLER",
     variant: true,
     entries: [
       { beat: 0, col: 9, color: "red" },
@@ -129,7 +129,7 @@ export const WAVES_ACT_40: Wave[] = [
   },
   {
     id: "theCrawlerPeak",
-    name: "CRAWLER PEAK",
+    name: "CRAWLER APOCALYPSE",
     variant: true,
     entries: [
       { beat: 0, col: 0, color: "red" },

@@ -28,7 +28,7 @@ export const WAVES_ACT_14: Wave[] = [
   },
   {
     id: "theHuskAgain",
-    name: "HUSKS AGAIN",
+    name: "HELLO HUSK",
     variant: true,
     entries: [
       { beat: 8, col: 2, color: "red" },
@@ -42,7 +42,7 @@ export const WAVES_ACT_14: Wave[] = [
   },
   {
     id: "theHuskSpread",
-    name: "HUSKS SPREAD",
+    name: "HUSK DRIFT",
     variant: true,
     entries: [
       { beat: 7, col: 6, color: "red" },
@@ -57,7 +57,7 @@ export const WAVES_ACT_14: Wave[] = [
   },
   {
     id: "theHuskReach",
-    name: "HUSKS FAR APART",
+    name: "HUSK AT WORLD END",
     variant: true,
     entries: [
       { beat: 6, col: 1, kind: "shell", color: "red" },
@@ -72,7 +72,7 @@ export const WAVES_ACT_14: Wave[] = [
   },
   {
     id: "theHuskPair",
-    name: "HUSK AND SHELL",
+    name: "HUSK ALLIANCE",
     variant: true,
     entries: [
       { beat: 0, col: 4, color: "red" },
@@ -86,7 +86,7 @@ export const WAVES_ACT_14: Wave[] = [
   },
   {
     id: "theHuskBreathe",
-    name: "EASY HUSKS",
+    name: "SLEEPY HUSK",
     variant: true,
     entries: [
       { beat: 0, col: 9, color: "cyan" },
@@ -102,7 +102,7 @@ export const WAVES_ACT_14: Wave[] = [
   },
   {
     id: "theHuskRecall",
-    name: "HUSK RECALL",
+    name: "OLD HUSK SONG",
     variant: true,
     entries: [
       { beat: 0, col: 10, color: "red" },
@@ -119,7 +119,7 @@ export const WAVES_ACT_14: Wave[] = [
   },
   {
     id: "theHuskBend",
-    name: "HUSKS AND TWINS",
+    name: "HUSK SPELL",
     variant: true,
     entries: [
       { beat: 0, col: 7, color: "red" },
@@ -140,7 +140,7 @@ export const WAVES_ACT_14: Wave[] = [
   },
   {
     id: "theHuskPeak",
-    name: "HUSK PEAK",
+    name: "HUSK RAPTURE",
     variant: true,
     entries: [
       { beat: 0, col: 3, color: "cyan" },

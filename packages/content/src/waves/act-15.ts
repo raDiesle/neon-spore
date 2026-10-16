@@ -32,7 +32,7 @@ export const WAVES_ACT_15: Wave[] = [
   },
   {
     id: "theChokeAgain",
-    name: "CHOKE AGAIN",
+    name: "CHOKE DAWN",
     variant: true,
     entries: [
       { beat: 6, col: 1, kind: "meteor", color: null },
@@ -46,7 +46,7 @@ export const WAVES_ACT_15: Wave[] = [
   },
   {
     id: "theChokeSpread",
-    name: "CHOKE WIDE",
+    name: "CHOKE SEEDS",
     variant: true,
     entries: [
       { beat: 6, col: 0, color: "red" },
@@ -62,7 +62,7 @@ export const WAVES_ACT_15: Wave[] = [
   },
   {
     id: "theChokeReach",
-    name: "CHOKE AT THE EDGE",
+    name: "OUTER CHOKE",
     variant: true,
     entries: [
       { beat: 6, col: 9, kind: "shell", color: "red" },
@@ -77,7 +77,7 @@ export const WAVES_ACT_15: Wave[] = [
   },
   {
     id: "theChokePair",
-    name: "CHOKE IN PAIRS",
+    name: "CHOKE DUET",
     variant: true,
     entries: [
       { beat: 0, col: 9, color: "cyan" },
@@ -94,7 +94,7 @@ export const WAVES_ACT_15: Wave[] = [
   },
   {
     id: "theChokeBreathe",
-    name: "CHOKE AT EASE",
+    name: "CHOKE DREAM",
     variant: true,
     entries: [
       { beat: 0, col: 4, color: "red" },
@@ -106,7 +106,7 @@ export const WAVES_ACT_15: Wave[] = [
   },
   {
     id: "theChokeRecall",
-    name: "CHOKE RECALLED",
+    name: "CHOKE LEGEND",
     variant: true,
     entries: [
       { beat: 0, col: 2, color: "cyan" },
@@ -123,7 +123,7 @@ export const WAVES_ACT_15: Wave[] = [
   },
   {
     id: "theChokeBend",
-    name: "CHOKE TWICE",
+    name: "TWISTED CHOKE",
     variant: true,
     entries: [
       { beat: 0, col: 9, color: "red" },
@@ -142,7 +142,7 @@ export const WAVES_ACT_15: Wave[] = [
   },
   {
     id: "theChokePeak",
-    name: "CHOKE PEAK",
+    name: "CHOKE APOCALYPSE",
     variant: true,
     entries: [
       { beat: 0, col: 4, color: "cyan" },

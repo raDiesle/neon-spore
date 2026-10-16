@@ -3,7 +3,8 @@ import { WAVES, type Wave } from "@neon-spore/content";
 import { beatSeconds, DEFAULT_CONFIG } from "@neon-spore/sim";
 import { composeBlockAt } from "./src/compose.js";
 import { spanOf } from "./src/compose-check.js";
-import { nextReview, REVIEW_NAMES } from "./src/compose-review.js";
+import { nameWaves } from "./src/compose-names.js";
+import { nextReview } from "./src/compose-review.js";
 import { writeWaves } from "./src/waves-acts.js";
 
 /**
@@ -47,8 +48,7 @@ for (let n = 0; n < count; n++) {
       continue;
     }
     const { variant: _v, ...head } = c.wave;
-    const name = REVIEW_NAMES[i]?.(review.plural) ?? c.wave.name;
-    const wave: Wave = i === 0 ? { ...head, name } : { ...c.wave, name };
+    const wave: Wave = i === 0 ? head : c.wave;
     out.push(wave);
     console.log(
       `${c.step.id.padEnd(6)}${wave.id.padEnd(30)}${String(spanOf(wave)).padEnd(6)}` +
@@ -62,13 +62,13 @@ for (let n = 0; n < count; n++) {
     break;
   }
   const ids = new Set(waves.map((w) => w.id));
-  const names = new Set(waves.map((w) => w.name));
-  const clash = out.find((w) => ids.has(w.id) || names.has(w.name) || w.name.length > 20);
+  const clash = out.find((w) => ids.has(w.id));
   if (clash) {
-    console.error(`stopped: ${clash.id} "${clash.name}" is taken or longer than 20 letters`);
+    console.error(`stopped: ${clash.id} is already a wave`);
     break;
   }
   waves = [...waves.slice(0, block.insertAt), ...out, ...waves.slice(block.insertAt)];
+  waves = nameWaves(waves, new Set(out.map((w) => w.id)));
   written++;
 }
 

@@ -11,7 +11,7 @@ import type { Wave } from "../wave-types.js";
 export const WAVES_ACT_51: Wave[] = [
   {
     id: "reviewCrawlerAgain",
-    name: "CRAWLERS RETURN",
+    name: "FIRST CRAWLER",
     entries: [
       { beat: 0, col: 9, kind: "crawler", color: null, segments: 5, side: "right" },
       { beat: 8, col: 1, kind: "volley", color: "red" },
@@ -22,7 +22,7 @@ export const WAVES_ACT_51: Wave[] = [
   },
   {
     id: "reviewCrawlerSpread",
-    name: "CRAWLERS WIDER",
+    name: "CRAWLER SCATTER",
     variant: true,
     entries: [
       { beat: 0, col: 1, kind: "crawler", color: null, segments: 3, side: "left" },
@@ -35,7 +35,7 @@ export const WAVES_ACT_51: Wave[] = [
   },
   {
     id: "reviewCrawlerReach",
-    name: "CRAWLERS OUT WIDE",
+    name: "CRAWLER WANDERER",
     variant: true,
     entries: [
       { beat: 0, col: 1, kind: "crawler", color: null, segments: 7, side: "left" },
@@ -48,7 +48,7 @@ export const WAVES_ACT_51: Wave[] = [
   },
   {
     id: "reviewCrawlerPair",
-    name: "CRAWLERS IN PAIRS",
+    name: "CRAWLER TANGO",
     variant: true,
     entries: [
       { beat: 0, col: 2, color: "red" },
@@ -65,7 +65,7 @@ export const WAVES_ACT_51: Wave[] = [
   },
   {
     id: "reviewCrawlerBreathe",
-    name: "CRAWLERS AT REST",
+    name: "CRAWLER LULLABY",
     variant: true,
     entries: [
       { beat: 0, col: 8, color: "cyan" },
@@ -78,7 +78,7 @@ export const WAVES_ACT_51: Wave[] = [
   },
   {
     id: "reviewCrawlerRecall",
-    name: "CRAWLERS RECALLED",
+    name: "ANCIENT CRAWLER",
     variant: true,
     entries: [
       { beat: 0, col: 8, color: "red" },
@@ -95,7 +95,7 @@ export const WAVES_ACT_51: Wave[] = [
   },
   {
     id: "reviewCrawlerBend",
-    name: "CRAWLERS DOUBLED",
+    name: "CRAWLER MIRAGE",
     variant: true,
     entries: [
       { beat: 0, col: 2, color: "red" },
@@ -116,7 +116,7 @@ export const WAVES_ACT_51: Wave[] = [
   },
   {
     id: "reviewCrawlerPeak",
-    name: "CRAWLERS SUMMIT",
+    name: "CRAWLER THUNDER",
     variant: true,
     entries: [
       { beat: 0, col: 3, color: "red" },

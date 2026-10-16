@@ -32,7 +32,7 @@ export const WAVES_ACT_10: Wave[] = [
   },
   {
     id: "theLeechAgain",
-    name: "LEECH AGAIN",
+    name: "NEW LEECH MOON",
     variant: true,
     entries: [
       { beat: 0, col: 3, kind: "meteorMedium", color: null },
@@ -45,7 +45,7 @@ export const WAVES_ACT_10: Wave[] = [
   },
   {
     id: "theLeechSpread",
-    name: "LEECH WIDE",
+    name: "LEECH SPRINKLE",
     variant: true,
     entries: [
       { beat: 0, col: 2, kind: "meteorMedium", color: null },
@@ -59,7 +59,7 @@ export const WAVES_ACT_10: Wave[] = [
   },
   {
     id: "theLeechReach",
-    name: "LEECH AT THE EDGE",
+    name: "FAR LEECH",
     variant: true,
     entries: [
       { beat: 0, col: 10, kind: "meteorMedium", color: null },
@@ -73,7 +73,7 @@ export const WAVES_ACT_10: Wave[] = [
   },
   {
     id: "theLeechPair",
-    name: "LEECH IN PAIRS",
+    name: "LEECH ALLIANCE",
     variant: true,
     entries: [
       { beat: 0, col: 7, color: "red" },
@@ -92,7 +92,7 @@ export const WAVES_ACT_10: Wave[] = [
   },
   {
     id: "theLeechBreathe",
-    name: "LEECH AT EASE",
+    name: "LEECH PICNIC",
     variant: true,
     entries: [
       { beat: 0, col: 6, color: "cyan" },
@@ -106,7 +106,7 @@ export const WAVES_ACT_10: Wave[] = [
   },
   {
     id: "theLeechRecall",
-    name: "LEECH RECALLED",
+    name: "LEECH MEMORY",
     variant: true,
     entries: [
       { beat: 0, col: 4, color: "red" },
@@ -124,7 +124,7 @@ export const WAVES_ACT_10: Wave[] = [
   },
   {
     id: "theLeechBend",
-    name: "LEECH TWICE",
+    name: "LEECH TRICK",
     variant: true,
     entries: [
       { beat: 0, col: 2, color: "cyan" },
@@ -146,7 +146,7 @@ export const WAVES_ACT_10: Wave[] = [
   },
   {
     id: "theLeechPeak",
-    name: "LEECH PEAK",
+    name: "LEECH ECLIPSE",
     variant: true,
     entries: [
       { beat: 0, col: 1, color: "red" },

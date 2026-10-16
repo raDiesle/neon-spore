@@ -29,7 +29,7 @@ export const WAVES_ACT_2: Wave[] = [
   },
   {
     id: "catchAndAimAgain",
-    name: "SHIELD HELD",
+    name: "AIM RISING",
     variant: true,
     entries: [
       { beat: 6, col: 4, color: "cyan" },
@@ -44,7 +44,7 @@ export const WAVES_ACT_2: Wave[] = [
   },
   {
     id: "catchAndAimReach",
-    name: "HELD WIDE",
+    name: "LONG AIM ROAD",
     variant: true,
     entries: [
       { beat: 5, col: 5, color: "cyan" },
@@ -60,7 +60,7 @@ export const WAVES_ACT_2: Wave[] = [
   },
   {
     id: "finale",
-    name: "FINALE",
+    name: "SALVAGE RAPTURE",
     variant: true,
     entries: [
       { beat: 0, col: 0, color: "cyan" },

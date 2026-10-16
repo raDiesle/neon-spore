@@ -27,7 +27,7 @@ export const WAVES_ACT_26: Wave[] = [
   },
   {
     id: "theCoilAgain",
-    name: "COILS AGAIN",
+    name: "FIRST COIL",
     variant: true,
     entries: [
       { beat: 0, col: 8, kind: "coil", color: null },
@@ -40,7 +40,7 @@ export const WAVES_ACT_26: Wave[] = [
   },
   {
     id: "theCoilSpread",
-    name: "COILS SPREAD",
+    name: "COIL SCATTER",
     variant: true,
     entries: [
       { beat: 0, col: 7, kind: "coil", color: null },
@@ -53,7 +53,7 @@ export const WAVES_ACT_26: Wave[] = [
   },
   {
     id: "theCoilReach",
-    name: "COILS FAR APART",
+    name: "COIL WANDERER",
     variant: true,
     entries: [
       { beat: 0, col: 10, kind: "coil", color: null },
@@ -66,7 +66,7 @@ export const WAVES_ACT_26: Wave[] = [
   },
   {
     id: "theCoilPair",
-    name: "COIL AND MOULT",
+    name: "COIL TANGO",
     variant: true,
     entries: [
       { beat: 0, col: 3, color: "cyan" },
@@ -81,7 +81,7 @@ export const WAVES_ACT_26: Wave[] = [
   },
   {
     id: "theCoilBreathe",
-    name: "EASY COILS",
+    name: "COIL LULLABY",
     variant: true,
     entries: [
       { beat: 0, col: 0, color: "cyan" },
@@ -94,7 +94,7 @@ export const WAVES_ACT_26: Wave[] = [
   },
   {
     id: "theCoilRecall",
-    name: "COIL RECALL",
+    name: "ANCIENT COIL",
     variant: true,
     entries: [
       { beat: 0, col: 6, color: "red" },
@@ -109,7 +109,7 @@ export const WAVES_ACT_26: Wave[] = [
   },
   {
     id: "theCoilBend",
-    name: "COILS AND TWINS",
+    name: "COIL MIRAGE",
     variant: true,
     entries: [
       { beat: 0, col: 4, color: "cyan" },
@@ -127,7 +127,7 @@ export const WAVES_ACT_26: Wave[] = [
   },
   {
     id: "theTwitch",
-    name: "THE TWITCH",
+    name: "COIL INFERNO",
     variant: true,
     entries: [
       { beat: 0, col: 5, kind: "meteor", color: null },

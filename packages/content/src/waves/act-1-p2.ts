@@ -50,7 +50,7 @@ export const WAVES_ACT_1_P2: Wave[] = [
   },
   {
     id: "shieldThenCannon",
-    name: "SHIELD, THEN CANNON",
+    name: "TORCH AWAKENS",
     variant: true,
     entries: [
       { beat: 0, col: 5, kind: "meteor", color: null },
@@ -60,7 +60,7 @@ export const WAVES_ACT_1_P2: Wave[] = [
   },
   {
     id: "theWall",
-    name: "THE WALL",
+    name: "FAR TORCH",
     variant: true,
     entries: [
       { beat: 0, col: 0, color: "cyan" },
@@ -72,7 +72,7 @@ export const WAVES_ACT_1_P2: Wave[] = [
   },
   {
     id: "shootAndShield",
-    name: "SHOOT AND SHIELD",
+    name: "TORCH SIESTA",
     variant: true,
     entries: [
       { beat: 0, col: 3, color: "cyan" },

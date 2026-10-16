@@ -25,7 +25,7 @@ export const WAVES_ACT_25: Wave[] = [
   },
   {
     id: "theMoultAgain",
-    name: "MOULTS AGAIN",
+    name: "FIRST MOULT",
     variant: true,
     entries: [
       { beat: 0, col: 0, kind: "moult", color: null },
@@ -37,7 +37,7 @@ export const WAVES_ACT_25: Wave[] = [
   },
   {
     id: "theMoultSpread",
-    name: "MOULTS SPREAD",
+    name: "MOULT SCATTER",
     variant: true,
     entries: [
       { beat: 0, col: 10, kind: "moult", color: null },
@@ -50,7 +50,7 @@ export const WAVES_ACT_25: Wave[] = [
   },
   {
     id: "theMoultReach",
-    name: "MOULTS FAR APART",
+    name: "MOULT WANDERER",
     variant: true,
     entries: [
       { beat: 0, col: 9, kind: "moult", color: null },
@@ -63,7 +63,7 @@ export const WAVES_ACT_25: Wave[] = [
   },
   {
     id: "theMoultPair",
-    name: "MOULT AND BALLOON",
+    name: "MOULT TANGO",
     variant: true,
     entries: [
       { beat: 0, col: 9, color: "cyan" },
@@ -78,7 +78,7 @@ export const WAVES_ACT_25: Wave[] = [
   },
   {
     id: "theMoultBreathe",
-    name: "EASY MOULTS",
+    name: "MOULT LULLABY",
     variant: true,
     entries: [
       { beat: 0, col: 7, color: "cyan" },
@@ -91,7 +91,7 @@ export const WAVES_ACT_25: Wave[] = [
   },
   {
     id: "theMoultRecall",
-    name: "MOULT RECALL",
+    name: "ANCIENT MOULT",
     variant: true,
     entries: [
       { beat: 0, col: 1, color: "red" },
@@ -106,7 +106,7 @@ export const WAVES_ACT_25: Wave[] = [
   },
   {
     id: "theMoultBend",
-    name: "MOULTS AND TWINS",
+    name: "MOULT MIRAGE",
     variant: true,
     entries: [
       { beat: 0, col: 4, color: "cyan" },
@@ -124,7 +124,7 @@ export const WAVES_ACT_25: Wave[] = [
   },
   {
     id: "theMoultPeak",
-    name: "MOULT PEAK",
+    name: "MOULT THUNDER",
     variant: true,
     entries: [
       { beat: 0, col: 6, color: "red" },

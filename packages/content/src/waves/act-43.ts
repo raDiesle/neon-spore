@@ -23,7 +23,7 @@ export const WAVES_ACT_43: Wave[] = [
   },
   {
     id: "theWispAgain",
-    name: "WISPS AGAIN",
+    name: "FIRST WISP",
     variant: true,
     entries: [
       { beat: 0, col: 1, kind: "wisp", color: null },
@@ -35,7 +35,7 @@ export const WAVES_ACT_43: Wave[] = [
   },
   {
     id: "theWispSpread",
-    name: "WISPS SPREAD",
+    name: "WISP SCATTER",
     variant: true,
     entries: [
       { beat: 0, col: 9, kind: "wisp", color: null },
@@ -48,7 +48,7 @@ export const WAVES_ACT_43: Wave[] = [
   },
   {
     id: "theWispReach",
-    name: "WISPS FAR APART",
+    name: "WISP WANDERER",
     variant: true,
     entries: [
       { beat: 0, col: 1, kind: "wisp", color: null },
@@ -61,7 +61,7 @@ export const WAVES_ACT_43: Wave[] = [
   },
   {
     id: "theWispPair",
-    name: "WISP AND VEIL",
+    name: "WISP TANGO",
     variant: true,
     entries: [
       { beat: 0, col: 4, color: "cyan" },
@@ -79,7 +79,7 @@ export const WAVES_ACT_43: Wave[] = [
   },
   {
     id: "theWispBreathe",
-    name: "EASY WISPS",
+    name: "WISP LULLABY",
     variant: true,
     entries: [
       { beat: 0, col: 3, color: "cyan" },
@@ -93,7 +93,7 @@ export const WAVES_ACT_43: Wave[] = [
   },
   {
     id: "theWispRecall",
-    name: "WISP RECALL",
+    name: "ANCIENT WISP",
     variant: true,
     entries: [
       { beat: 0, col: 0, color: "red" },
@@ -112,7 +112,7 @@ export const WAVES_ACT_43: Wave[] = [
   },
   {
     id: "theWispBend",
-    name: "WISPS AND TWINS",
+    name: "WISP MIRAGE",
     variant: true,
     entries: [
       { beat: 0, col: 9, color: "cyan" },
@@ -132,7 +132,7 @@ export const WAVES_ACT_43: Wave[] = [
   },
   {
     id: "theWispPeak",
-    name: "WISP PEAK",
+    name: "WISP THUNDER",
     variant: true,
     entries: [
       { beat: 0, col: 4, color: "cyan" },

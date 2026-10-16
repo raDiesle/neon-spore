@@ -24,7 +24,7 @@ export const WAVES_ACT_45: Wave[] = [
   },
   {
     id: "theCaromAgain",
-    name: "CAROMS AGAIN",
+    name: "CAROM RISING",
     variant: true,
     entries: [
       { beat: 0, col: 6, kind: "carom", color: "red" },
@@ -36,7 +36,7 @@ export const WAVES_ACT_45: Wave[] = [
   },
   {
     id: "theCaromSpread",
-    name: "CAROMS SPREAD",
+    name: "CAROM CONFETTI",
     variant: true,
     entries: [
       { beat: 0, col: 1, kind: "carom", color: "red" },
@@ -49,7 +49,7 @@ export const WAVES_ACT_45: Wave[] = [
   },
   {
     id: "theCaromReach",
-    name: "CAROMS FAR APART",
+    name: "LONG CAROM ROAD",
     variant: true,
     entries: [
       { beat: 0, col: 0, kind: "carom", color: "red" },
@@ -62,7 +62,7 @@ export const WAVES_ACT_45: Wave[] = [
   },
   {
     id: "theCaromPair",
-    name: "CAROM AND GHOST",
+    name: "CAROM PARTY",
     variant: true,
     entries: [
       { beat: 0, col: 6, color: "red" },
@@ -80,7 +80,7 @@ export const WAVES_ACT_45: Wave[] = [
   },
   {
     id: "theCaromBreathe",
-    name: "EASY CAROMS",
+    name: "LAZY CAROM",
     variant: true,
     entries: [
       { beat: 0, col: 10, color: "cyan" },
@@ -94,7 +94,7 @@ export const WAVES_ACT_45: Wave[] = [
   },
   {
     id: "theCaromRecall",
-    name: "CAROM RECALL",
+    name: "CAROM REUNION",
     variant: true,
     entries: [
       { beat: 0, col: 1, color: "cyan" },
@@ -111,7 +111,7 @@ export const WAVES_ACT_45: Wave[] = [
   },
   {
     id: "theCaromBend",
-    name: "CAROMS AND TWINS",
+    name: "CAROM RIDDLE",
     variant: true,
     entries: [
       { beat: 0, col: 6, color: "cyan" },
@@ -130,7 +130,7 @@ export const WAVES_ACT_45: Wave[] = [
   },
   {
     id: "theCaromPeak",
-    name: "CAROM PEAK",
+    name: "CAROM OVERDRIVE",
     variant: true,
     entries: [
       { beat: 0, col: 3, color: "cyan" },

@@ -31,7 +31,7 @@ export const WAVES_ACT_23: Wave[] = [
   },
   {
     id: "theDarkAgain",
-    name: "DARK AGAIN",
+    name: "DARK MORNING",
     variant: true,
     entries: [
       { beat: 0, col: 6, kind: "choir", color: "cyan" },
@@ -44,7 +44,7 @@ export const WAVES_ACT_23: Wave[] = [
   },
   {
     id: "theDarkSpread",
-    name: "DARK WIDE",
+    name: "SPRING OF DARK",
     variant: true,
     entries: [
       { beat: 0, col: 4, kind: "choir", color: "cyan" },
@@ -58,7 +58,7 @@ export const WAVES_ACT_23: Wave[] = [
   },
   {
     id: "theDarkReach",
-    name: "DARK AT THE EDGE",
+    name: "DARK VOYAGE",
     variant: true,
     entries: [
       { beat: 0, col: 10, kind: "choir", color: "red" },
@@ -72,7 +72,7 @@ export const WAVES_ACT_23: Wave[] = [
   },
   {
     id: "theDarkPair",
-    name: "DARK IN PAIRS",
+    name: "DARK PARTY",
     variant: true,
     entries: [
       { beat: 0, col: 2, color: "cyan" },
@@ -88,7 +88,7 @@ export const WAVES_ACT_23: Wave[] = [
   },
   {
     id: "theDarkBreathe",
-    name: "DARK AT EASE",
+    name: "SOFT DARK",
     variant: true,
     entries: [
       { beat: 0, col: 7, color: "cyan" },
@@ -102,7 +102,7 @@ export const WAVES_ACT_23: Wave[] = [
   },
   {
     id: "theDarkRecall",
-    name: "DARK RECALLED",
+    name: "DARK SAGA",
     variant: true,
     entries: [
       { beat: 0, col: 0, color: "red" },
@@ -118,7 +118,7 @@ export const WAVES_ACT_23: Wave[] = [
   },
   {
     id: "theDarkBend",
-    name: "DARK TWICE",
+    name: "CROOKED DARK",
     variant: true,
     entries: [
       { beat: 0, col: 0, color: "red" },
@@ -137,7 +137,7 @@ export const WAVES_ACT_23: Wave[] = [
   },
   {
     id: "theDarkPeak",
-    name: "DARK PEAK",
+    name: "DARK INFERNO",
     variant: true,
     entries: [
       { beat: 0, col: 9, color: "cyan" },

@@ -113,8 +113,15 @@ Inside a block, pressure climbs in small steps:
 4. **Tried again on another seed** when a block will not fit under the
    hand-written waves that follow it, and failing that, the block's own
    written waves lead and the composed ones follow them.
-5. **Read before it lands.** Claude reads every block's table, names each
-   wave (at most 20 letters) and sends the owner one picture of its maps.
+5. **Named.** The composer makes up every regular wave's name: the block's
+   thing, read off its intro (THE LURE is LURE), and a word for its step's
+   mood — R1 a dawn, R5 a lullaby, R8 a storm — so LURE RISING, LAZY LURE,
+   LURE OVERDRIVE. Which word of the mood is a hash of the wave's id, so
+   the same list names the same way every time; no two waves share a name,
+   every one fits the HUD (20 letters, four words), and none borrows a word
+   the game already means something by (`compose-names.ts`).
+6. **Read before it lands.** Claude reads every block's table and sends the
+   owner one picture of its maps.
 
 ## Bosses
 
@@ -143,8 +150,8 @@ without the cannon jam, and **THE CHOKE's** carry the steer fault on three of
 eight. **THE CLAW's** are on the block's own panel, not the claw: on the claw a
 rock is cleared only through a pod the arm takes, which the steps do not place.
 
-The names follow the steps: AGAIN, WIDE, AT THE EDGE, IN PAIRS, AT EASE,
-RECALLED, TWICE, PEAK — JAM AGAIN … DARK PEAK. `bun run waves:lessons --write`
+Their names are made up like every other (step 5): JAM DAWN … DARK INFERNO.
+`bun run waves:lessons --write`
 does all of it, places the bosses again and drops a review block at the end
 that no boss closes any more; run a second time it changes nothing.
 
@@ -159,8 +166,8 @@ steps, one notch further on, on the panel the game has reached, and starts a
 little above the gentlest wave of the block before. Its first wave (RETURN)
 is not a variant, so the director folds the other seven under it.
 
-The names follow the steps: RETURN, WIDER, OUT WIDE, IN PAIRS, AT REST,
-RECALLED, DOUBLED, SUMMIT. A new boss written later gets one with
+Their names are made up from the theme's word (step 5) — a review of the
+ghosts is OUTER GHOST, GHOST LEGEND. A new boss written later gets one with
 `bun run waves:review --write`.
 
 ## Using it
@@ -168,7 +175,8 @@ RECALLED, DOUBLED, SUMMIT. A new boss written later gets one with
 | Command | What it does |
 |---|---|
 | `bun run waves:compose <intro id>` | Composes a block's regular waves and prints the table: step, id, span, arrivals, pressure, AUTO's time. Writes nothing. |
-| `… --write --names "…"` | Writes them after the intro, named in order — one string, the names split by a vertical bar. `--seed N` draws again. |
+| `… --write` | Writes them after the intro, with the names the composer made up. `--names "…"` names them by hand instead, in order — one string, the names split by a vertical bar; `--seed N` draws again. |
+| `bun run waves:names [id …] [--write]` | Names every regular wave again, or only the ids given, and prints each name that changes. A name chosen by hand is overwritten by a run over every wave. |
 | `bun run waves:review [--count N] --write` | Composes the next review blocks, each in front of a boss waiting at the end, named from its theme. |
 | `bun run waves:lessons --write` | Moves every lesson behind its block's waves, composes its eight, places the bosses again. |
 | `bun run waves:bosses --write` | Moves every boss to its block. Run after a block is written. |
@@ -176,7 +184,7 @@ RECALLED, DOUBLED, SUMMIT. A new boss written later gets one with
 | `bun run briefings:renumber` | Puts today's wave numbers into `briefings.md`, which names waves by number. |
 
 **A new creature, start to finish:** write its intro wave by hand in the
-director → `waves:compose <its id>` → read the table → `--write --names …` →
+director → `waves:compose <its id>` → read the table → `--write` →
 `waves:bosses --write` → `waves:measure` → `briefings:renumber` → commit.
 
 **Changing a composed wave:** open it in the director and edit it like any
@@ -195,6 +203,7 @@ is missing.
 | `tools/director/src/compose-check.ts` | the checks, AUTO included |
 | `tools/director/src/compose-review.ts` | review blocks: their theme, place and floor |
 | `tools/director/src/compose-lesson.ts` | lesson blocks: the move, the panel, the faults |
+| `tools/director/src/compose-names.ts` | every regular wave's name, and its words in `compose-names-moods.ts` |
 | `tools/director/src/compose-starts.ts` | where a block starts, of every kind |
 | `tools/director/src/boss-slots.ts` | where each boss goes |
 | `tools/probe/measure-waves.ts` | the measured table |

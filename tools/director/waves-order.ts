@@ -3,9 +3,9 @@ import { WAVES, type Wave } from "@neon-spore/content";
 import { bossOrder } from "./src/boss-slots.js";
 import { type Composed, composeBlockAt } from "./src/compose.js";
 import { type Block, readBlock } from "./src/compose-block.js";
-import { LESSON_NAMES, nextLesson } from "./src/compose-lesson.js";
-import { nextReview, REVIEW_NAMES } from "./src/compose-review.js";
-import { stepName, thingWords } from "./src/curriculum-names.js";
+import { nextLesson } from "./src/compose-lesson.js";
+import { nameWaves } from "./src/compose-names.js";
+import { nextReview } from "./src/compose-review.js";
 import { pickNext, splitCurriculum, type Unit, unitWaves } from "./src/curriculum-order.js";
 import { writeWaves } from "./src/waves-acts.js";
 
@@ -27,9 +27,9 @@ import { writeWaves } from "./src/waves-acts.js";
 const SEEDS = [0, 4, 8, 12, 16, 20];
 
 const cur = splitCurriculum(WAVES);
-const bodies = cur.units.filter((u) => u.kind === "body").map((u) => u.head.id);
-const words = thingWords(WAVES, bodies);
 let waves: Wave[] = [...cur.arc];
+/** Every wave composed here, named once the list stands (`compose-names.ts`). */
+const composedIds = new Set<string>();
 
 const whole = (c: readonly Composed[]) => c.every((x) => x.wave);
 function compose(block: Block, prefix: string) {
@@ -52,35 +52,27 @@ const row = (head: string, c: readonly Composed[]) =>
 
 function insert(at: number, out: readonly Wave[]) {
   const ids = new Set(waves.map((w) => w.id));
-  const names = new Set(waves.map((w) => w.name));
-  const clash = out.find((w) => ids.has(w.id) || names.has(w.name) || w.name.length > 20);
-  if (clash) stop(`${clash.id} "${clash.name}" is taken or longer than 20 letters`);
+  const clash = out.find((w) => ids.has(w.id));
+  if (clash) stop(`${clash.id} is already a wave`);
+  for (const w of out) composedIds.add(w.id);
   waves = [...waves.slice(0, at), ...out, ...waves.slice(at)];
 }
 
-/** A block's composed waves, named, or why there are none. */
+/** A block's composed waves, or why there are none. */
 function composeUnit(u: Unit): { at: number; out: Wave[]; composed: Composed[] } | string {
   if (u.kind === "body") {
     const read = readBlock(waves, u.head.id);
     if (typeof read === "string") return read;
     const { block, composed } = compose(read, u.head.id);
     if (!whole(composed)) return composed.flatMap((c) => c.faults).join("; ");
-    const out = composed.map((c) => {
-      const wave = c.wave as Wave;
-      return { ...wave, name: stepName(words, u.head.id, c.step, block.y) ?? wave.name };
-    });
-    return { at: block.insertAt, out, composed };
+    return { at: block.insertAt, out: composed.map((c) => c.wave as Wave), composed };
   }
   const lesson = nextLesson(waves);
   if (typeof lesson === "string") return lesson;
   if (lesson.prefix !== u.head.id) return `the next lesson is ${lesson.prefix}`;
   const { block, composed } = compose(lesson.block, lesson.prefix);
   if (!whole(composed)) return composed.flatMap((c) => c.faults).join("; ");
-  const out = composed.map((c, i) => ({
-    ...(c.wave as Wave),
-    name: LESSON_NAMES[i]?.(lesson.word) ?? (c.wave as Wave).name,
-  }));
-  return { at: block.insertAt, out, composed };
+  return { at: block.insertAt, out: composed.map((c) => c.wave as Wave), composed };
 }
 
 console.log("block                   pressure/talk, step by step");
@@ -115,14 +107,14 @@ for (;;) {
   if (!whole(composed)) stop(`${review.prefix}: ${composed.flatMap((c) => c.faults).join("; ")}`);
   const out = composed.map((c, i) => {
     const { variant: _v, ...head } = c.wave as Wave;
-    const name = REVIEW_NAMES[i]?.(review.plural) ?? head.name;
-    return i === 0 ? { ...head, name } : { ...(c.wave as Wave), name };
+    return i === 0 ? head : (c.wave as Wave);
   });
   insert(block.insertAt, out);
   console.log(`${row(review.prefix, composed)}  review`);
 }
 const settled = bossOrder(waves).order;
 if (settled.some((w, i) => w.id !== waves[i]?.id)) stop("the bosses move again after the reviews");
+waves = nameWaves(waves, composedIds);
 
 const same = waves.length === WAVES.length && Bun.deepEquals(waves, [...WAVES]);
 console.log(`\n${waves.length} waves; ${same ? "nothing changes" : "the list changes"}`);

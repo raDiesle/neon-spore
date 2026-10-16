@@ -11,7 +11,7 @@ import type { Wave } from "../wave-types.js";
 export const WAVES_ACT_48: Wave[] = [
   {
     id: "reviewWispAgain",
-    name: "WISPS RETURN",
+    name: "WISP AWAKENS",
     entries: [
       { beat: 0, col: 3, kind: "wisp", color: null },
       { beat: 8, col: 10, kind: "veil", color: null },
@@ -22,7 +22,7 @@ export const WAVES_ACT_48: Wave[] = [
   },
   {
     id: "reviewWispSpread",
-    name: "WISPS WIDER",
+    name: "WISP RAIN",
     variant: true,
     entries: [
       { beat: 0, col: 2, kind: "wisp", color: null },
@@ -35,7 +35,7 @@ export const WAVES_ACT_48: Wave[] = [
   },
   {
     id: "reviewWispReach",
-    name: "WISPS OUT WIDE",
+    name: "WISP HORIZON",
     variant: true,
     entries: [
       { beat: 0, col: 10, kind: "wisp", color: null },
@@ -48,7 +48,7 @@ export const WAVES_ACT_48: Wave[] = [
   },
   {
     id: "reviewWispPair",
-    name: "WISPS IN PAIRS",
+    name: "WISP DUET",
     variant: true,
     entries: [
       { beat: 0, col: 1, color: "cyan" },
@@ -66,7 +66,7 @@ export const WAVES_ACT_48: Wave[] = [
   },
   {
     id: "reviewWispBreathe",
-    name: "WISPS AT REST",
+    name: "WISP HUSH",
     variant: true,
     entries: [
       { beat: 0, col: 0, color: "cyan" },
@@ -80,7 +80,7 @@ export const WAVES_ACT_48: Wave[] = [
   },
   {
     id: "reviewWispRecall",
-    name: "WISPS RECALLED",
+    name: "WISP HOMECOMING",
     variant: true,
     entries: [
       { beat: 0, col: 8, color: "cyan" },
@@ -97,7 +97,7 @@ export const WAVES_ACT_48: Wave[] = [
   },
   {
     id: "reviewWispBend",
-    name: "WISPS DOUBLED",
+    name: "WISP PARADOX",
     variant: true,
     entries: [
       { beat: 0, col: 1, color: "red" },
@@ -118,7 +118,7 @@ export const WAVES_ACT_48: Wave[] = [
   },
   {
     id: "reviewWispPeak",
-    name: "WISPS SUMMIT",
+    name: "WISP FURY",
     variant: true,
     entries: [
       { beat: 0, col: 1, color: "red" },

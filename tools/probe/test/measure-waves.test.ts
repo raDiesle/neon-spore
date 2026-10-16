@@ -12,7 +12,7 @@ describe("waves:measure", () => {
     const m = measureWave(two);
     expect(m.clearBeat).toBeGreaterThan(0);
     const row = waveRows([m])[2] ?? "";
-    expect(row).toContain("TWO COLOURS");
+    expect(row).toContain(WAVES[two]?.name ?? "—");
     expect(row).toContain("**regular**");
   });
 

@@ -1,7 +1,5 @@
 import { describe, expect, test } from "bun:test";
 import { controlSet, isRegularWave, WAVES, type Wave, waveTalk } from "@neon-spore/content";
-import { stepById } from "../src/compose-steps.js";
-import { stepName, thingWords } from "../src/curriculum-names.js";
 import {
   splitCurriculum,
   teachingList,
@@ -126,24 +124,5 @@ describe("the game's list", () => {
     const third = Math.floor(floors.length / 3);
     const mean = (xs: number[]) => xs.reduce((a, b) => a + b, 0) / xs.length;
     expect(mean(floors.slice(-third))).toBeGreaterThan(mean(floors.slice(0, third)));
-  });
-});
-
-describe("a moved block's names", () => {
-  const words = thingWords(
-    WAVES,
-    splitCurriculum(WAVES)
-      .units.filter((u) => u.kind === "body")
-      .map((u) => u.head.id),
-  );
-
-  test("pair the thing with its new partner, and fit", () => {
-    expect(stepName(words, "theLure", stepById("R4"), "ghost")).toBe("LURE AND GHOST");
-    expect(stepName(words, "theLure", stepById("R1"), "ghost")).toBe("LURES AGAIN");
-    for (const [id] of words.plural)
-      for (const step of ["R1", "R4", "R8"] as const) {
-        const name = stepName(words, id, stepById(step), "meteorMedium") ?? "";
-        expect({ name, fits: name.length <= 20 }).toEqual({ name, fits: true });
-      }
   });
 });
