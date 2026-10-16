@@ -128,7 +128,7 @@ export const NO_SUBJECT_E: Record<string, string> = {
   "boss.hydraStrike": "THE HYDRA, a head reaching the hull. Same argument.",
   "boss.hydraSpent": "THE HYDRA, beaten. Same argument.",
   "boss.hydraOut": "THE HYDRA, the body gone and the wave ending. Same argument, and an absence.",
-  // THE BROOD's eight (`sim/events-brood.ts`): the same argument.
+  // THE BROOD's eleven sounds (`sim/events-brood.ts`): the same argument.
   "boss.broodEnter": "THE BROOD, the sac coming down. No shape-sheet subject yet.",
   "boss.broodBud": "THE BROOD, a bud beginning to grow. Same argument.",
   "boss.broodPop": "THE BROOD, a bud popped in its colour. Same argument.",
@@ -137,6 +137,9 @@ export const NO_SUBJECT_E: Record<string, string> = {
   "boss.broodHide": "THE BROOD, a bolt into the sac's hide. Same argument.",
   "boss.broodSpent": "THE BROOD, beaten. Same argument.",
   "boss.broodOut": "THE BROOD, the sac gone and the wave ending. Same argument, and an absence.",
+  "boss.broodLay": "THE BROOD, a body pushed out of its belly. Same argument.",
+  "boss.broodShudder": "THE BROOD, trembling before a lurch. Same argument.",
+  "boss.broodLurch": "THE BROOD, swinging a column over. Same argument.",
   // THE MATRON's seven (`sim/events-matron.ts`): the same argument.
   "boss.matronEnter": "THE MATRON, the mother coming down. No shape-sheet subject yet.",
   "boss.matronHang": "THE MATRON, a clutch of pods hung. Same argument.",

@@ -177,9 +177,9 @@ export function bossCues(
     // And THE OCULUS's, a word to each seat not yet on its half of a lit pair and one under the lit core (`boss-cue-read-ze.ts`).
     case "oculus":
       return oculusCues(l, world, boss, beatPhase);
-    // And THE BROOD's, one word to the navigator over the bud the cannon is under (`boss-cue-read-zy.ts`).
+    // And THE BROOD's, none: the buds say it (`boss-cue-read-zy.ts`).
     case "brood":
-      return broodCues(l, world, boss, beatPhase);
+      return broodCues();
     // And THE GEODE's, one word to the navigator on the crack the cannon is under (`boss-cue-read-zz.ts`).
     case "geode":
       return geodeCues(l, world, boss, beatPhase);

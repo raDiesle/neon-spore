@@ -172,6 +172,8 @@ export const CHOREO_FIELD_GROUP_D = {
   broodRestBeats: "THE BROOD — a sac that grows slicks and bulbs, shot before they drop",
   broodRegrowBeats: "THE BROOD — a sac that grows slicks and bulbs, shot before they drop",
   broodSpentBeats: "THE BROOD — a sac that grows slicks and bulbs, shot before they drop",
+  broodLayLeadBeats: "THE BROOD — a sac that grows slicks and bulbs, shot before they drop",
+  broodShudderBeats: "THE BROOD — a sac that grows slicks and bulbs, shot before they drop",
   // MatronConfig — the beats around her clutches and the row a pod hangs at (`config-matron.ts`).
   matronEnterBeats: "THE MATRON — a mother slime whose pods are her health",
   matronRearBeats: "THE MATRON — a mother slime whose pods are her health",

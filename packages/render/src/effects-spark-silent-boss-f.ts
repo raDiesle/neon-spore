@@ -120,7 +120,7 @@ export const SILENT_BOSS_F = [
   "hydraStrike",
   "hydraSpent",
   "hydraOut",
-  // THE BROOD's eight are read above the loop by `brood-fx.ts`
+  // THE BROOD's twelve are read above the loop by `brood-fx.ts`
   // (`Effects.boss.brood`), THE GORGE's way: a pop's splash, a snapped
   // stalk, the hide's grit, and the blow as it is beaten.
   "broodEnter",
@@ -131,6 +131,10 @@ export const SILENT_BOSS_F = [
   "broodHide",
   "broodSpent",
   "broodOut",
+  "broodEgg",
+  "broodLay",
+  "broodShudder",
+  "broodLurch",
   // THE MATRON's seven are read above the loop by `matron-fx.ts`
   // (`Effects.boss.matron`), THE BROOD's way: a lobe springing back, her
   // lean toward a throw, and the blow as a pod is swallowed and as she is beaten.

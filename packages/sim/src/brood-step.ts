@@ -6,6 +6,7 @@ import {
   type BroodStep,
   broodBoss,
   broodBudIn,
+  broodCentre,
   broodColOf,
   broodCovers,
   broodHangs,
@@ -13,15 +14,15 @@ import {
   broodLobes,
   freshBrood,
 } from "./brood.js";
+import { broodLay, broodLayDue, broodSpawnBody, broodSway } from "./brood-lay.js";
 import { midCol } from "./config.js";
-import { livingKindForColor } from "./kinds.js";
-import { spawnOne } from "./spawn.js";
 import type { Bullet } from "./types.js";
 import { MILLI, type World } from "./world.js";
 
 /**
  * THE BROOD's clock — coming down, a step's buds growing and dropping, the
- * rest between steps, and the beats after the last — and the one moment a
+ * rest between steps, and the beats after the last; its laying and swaying
+ * are `brood-lay.ts`, called from here — and the one moment a
  * bolt meets it: a bud on the rim, or the sac's hide, met in mid-field as a
  * body would be (`broodAlong`, from `boss-along.ts`).
  *
@@ -47,14 +48,23 @@ export function stepBrood(world: World, s: BroodState): void {
   const since = world.beat - s.phaseBeat;
   if (s.phase === "spent") {
     if (since >= cfg.broodSpentBeats) {
-      world.events.push({ type: "broodOut", col: midCol(cfg) });
+      world.events.push({ type: "broodOut", col: broodCentre(cfg, s) });
       world.boss = null;
     }
     return;
   }
-  if (s.phase === "enter" && since >= cfg.broodEnterBeats) grow(world, s);
-  else if (s.phase === "rest" && since >= cfg.broodRestBeats) grow(world, s);
-  else if (s.phase === "grow") ripen(world, s);
+  broodLayDue(world, s);
+  if (s.phase === "enter") {
+    if (since >= cfg.broodEnterBeats) grow(world, s);
+    return;
+  }
+  if (s.phase === "rest" && since >= cfg.broodRestBeats) grow(world, s);
+  else if (s.phase === "grow") {
+    const step = broodLitStep(s);
+    if (step !== null) broodSway(world, s, step);
+    ripen(world, s);
+  }
+  broodLay(world, s);
 }
 
 /** The next step's buds begin, all on this beat. */
@@ -64,7 +74,7 @@ function grow(world: World, s: BroodState): void {
   s.phase = "grow";
   s.phaseBeat = world.beat;
   s.buds = step.buds.map((plan) => ({
-    col: broodColOf(world.cfg, plan),
+    col: broodColOf(world.cfg, plan, s.sway),
     color: plan.color,
     bornBeat: world.beat,
     popped: false,
@@ -90,20 +100,7 @@ function ripen(world: World, s: BroodState): void {
  * bud's own row rather than the top of the field, and its lobe grows it again.
  */
 function drop(world: World, s: BroodState, b: BroodBud): void {
-  const row = world.cfg.broodBudRow;
-  const before = world.creatures.length;
-  spawnOne(world, {
-    beat: world.beat,
-    col: b.col,
-    kind: livingKindForColor(b.color),
-    color: b.color,
-  });
-  for (let i = before; i < world.creatures.length; i++) {
-    const c = world.creatures[i];
-    if (c === undefined) continue;
-    c.row = row;
-    c.fromRow = row;
-  }
+  broodSpawnBody(world, b.col, b.color);
   s.dropped += 1;
   b.bornBeat = world.beat + world.cfg.broodRegrowBeats;
   world.events.push({ type: "broodDrop", col: b.col, color: b.color });
@@ -117,7 +114,7 @@ function drop(world: World, s: BroodState, b: BroodBud): void {
 export function broodAlong(world: World, bullet: Bullet, from: number, to: number): number {
   const s = broodBoss(world);
   if (s === null || s.phase === "enter" || s.phase === "spent") return -1;
-  if (!broodCovers(world.cfg, bullet.col)) return -1;
+  if (!broodCovers(world.cfg, bullet.col, s.sway)) return -1;
   const at = world.cfg.broodBudRow * MILLI;
   return from < at || at < to ? -1 : at;
 }
@@ -155,7 +152,9 @@ function beaten(world: World, s: BroodState): void {
   s.buds = [];
   if (s.cursor >= s.steps.length) {
     s.phase = "spent";
-    world.events.push({ type: "broodSpent", col: midCol(world.cfg) });
+    // Beaten, it lays nothing more: what was growing inside it dies with it.
+    s.eggs = [];
+    world.events.push({ type: "broodSpent", col: broodCentre(world.cfg, s) });
     return;
   }
   s.phase = "rest";

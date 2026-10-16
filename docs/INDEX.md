@@ -140,6 +140,7 @@ by hand never moves.
 | `packages/sim/src/briefing.ts` | how a wave opens, and the only part of it the simulation owns |
 | `packages/sim/src/brood-hash.ts` | What THE BROOD puts into `hashWorld`, and nothing else |
 | `packages/sim/src/brood-step.ts` | THE BROOD's clock — coming down, a step's buds growing and dropping, the rest between steps |
+| `packages/sim/src/brood-lay.ts` | **What THE BROOD does besides its buds**: it lays bodies out of its hide |
 | `packages/sim/src/brood.ts` | THE BROOD: a sac of slime hung over the field that grows the two enemies the pair has just learnt |
 | `packages/sim/src/clasp.ts` | THE CLASP: a slick or a bulb inside a shield of its own, becoming a different creature instead of dying |
 | `packages/sim/src/cling.ts` | **THE LIMPET and THE LEECH**: two bodies that fall straight down one lane, cannot be shot |
@@ -1197,7 +1198,7 @@ by hand never moves.
 | `packages/content/src/motions-retired.ts` | The motions nothing in the game carries any more |
 | `packages/content/src/motion-bank.ts` | BANK, the slick's own motion: two slow drifts on periods with no common multiple, the body leaning into its own travel — the answer the owner took on 9 September 2026 |
 | `packages/content/src/balloon-parts.ts` | **What is alive inside THE BALLOON**, and hanging under it: veins, a ring of lit beads |
-| `packages/content/src/brood-script.ts` | THE BROOD's script: six steps, ten buds, one more at a time as it goes |
+| `packages/content/src/brood-script.ts` | THE BROOD's script: nine steps, twenty-four buds |
 | `packages/content/src/surface.ts` | where a mark placed at a longitude and latitude lands, how the tangent plane foreshortens it, and its own normal against `KEY` |
 | `packages/content/src/studded.ts` | A body whose whole rim is broken by the same feature repeated: knobs, spines or hairs — the contour alone |
 | `packages/content/src/stare-levels.ts` | THE STARE's levels: four beat patterns, and the pattern is the level |
@@ -1303,7 +1304,7 @@ by hand never moves.
 | `packages/render/src/boss-cue-read-zv.ts` | **What THE BASTION is asking for**, page forty-eight of the readings, a word for each shell's job |
 | `packages/render/src/boss-cue-read-zw.ts` | **What THE CHRYSALIS is asking for**, page forty-nine of the readings, a word for each skin's job |
 | `packages/render/src/boss-cue-read-zx.ts` | **What THE HYDRA is asking for**, page fifty of the readings, a word for each kind of head |
-| `packages/render/src/boss-cue-read-zy.ts` | **What THE BROOD is asking for**, on a page of its own among the readings |
+| `packages/render/src/boss-cue-read-zy.ts` | **What THE BROOD is asking for: nothing written** |
 | `packages/render/src/boss-cue-read-zz.ts` | **What THE GEODE is asking for**, on a page of its own among the readings |
 | `packages/render/src/boss-cue-read.ts` | **What THE GORGE, THE CURTAIN and BULB QUEEN are asking for** |
 | `packages/render/src/boss-cue-text.ts` | **A cue's two lines, drawn**: the verb under the mark, the kind of action over it |
@@ -2989,7 +2990,7 @@ by hand never moves.
 | `packages/audio/src/bind-fleet.ts` | **What THE FLEET sounds like**: a salvo leaving the cannon, and the water |
 | `packages/audio/src/bind-flue.ts` | Whether an event is THE FLUE's, so a page of the chain can hand it over whole |
 | `packages/audio/src/bind-breach.ts` | What a hull breach sounds like, split by what it cost rather than by what hit |
-| `packages/audio/src/bind-brood.ts` | THE BROOD's eight, routed by their prefix (`bind-prefixed.ts`) |
+| `packages/audio/src/bind-brood.ts` | THE BROOD's twelve, routed by their prefix (`bind-prefixed.ts`) |
 | `packages/audio/src/bind-crawler.ts` | THE CRAWLER's two endings, as sounds |
 | `packages/audio/src/bind-lookups.ts` | The two id-to-id tables `bind.ts` reads, and the only *data* in a file that is otherwise a switch |
 | `packages/audio/src/bind-ledger.ts` | THE LEDGER's eleven, in a file of their own for `bind-taster.ts`' reason |

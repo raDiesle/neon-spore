@@ -6,14 +6,17 @@
 
 export {
   BROOD_PHASES,
+  BROOD_SWAY,
   type BroodBud,
   type BroodBudPlan,
+  type BroodEgg,
   type BroodEntry,
   type BroodPhase,
   type BroodState,
   type BroodStep,
   broodBoss,
   broodBudIn,
+  broodCentre,
   broodColOf,
   broodCovers,
   broodDone,
@@ -21,6 +24,7 @@ export {
   broodLitStep,
   broodLobes,
   broodLobesAll,
+  broodNextLurch,
   broodRipeIn,
   freshBrood,
 } from "./brood.js";

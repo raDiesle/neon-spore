@@ -155,11 +155,6 @@ export const WAVES_ACT_1: Wave[] = [
   {
     id: "theBrood",
     name: "THE BROOD",
-    guide: {
-      both: "A sac grows slicks and bulbs. Shoot each bud in its colour before it drops. A bud that drops falls at the ship, and grows again.",
-      p1: "You move the cannon. Say which bud you go under next.",
-      p2: "You fire. Red bud: red. Cyan bud: cyan. The other colour loses the wave.",
-    },
     entries: [],
     boss: { kind: "brood", steps: BROOD_SCRIPT },
     bossType: "normal",

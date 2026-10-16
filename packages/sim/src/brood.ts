@@ -30,6 +30,16 @@ import type { World } from "./world.js";
  * at a time, then two of different colours at once, then three. Between two
  * steps it rests `broodRestBeats`, and after the last it is spent.
  *
+ * **It lays, and it sways** — the owner's ask of 16 October 2026, *it should
+ * look like something what is producing enemies … increase it a lot*, and
+ * *the boss is shaking and moving the enemies one tile left middle right*.
+ * A step may lay a body out of the hide every `layEvery` beats: a slick or a
+ * bulb seen growing inside the sac for `broodLayLeadBeats`, then pushed out
+ * of the belly over a column no bud hangs in, to fall like any other. And a
+ * step may sway it every `swayEvery` beats: it shudders `broodShudderBeats`,
+ * then lurches one column — left, back to the middle, right, back — and its
+ * buds and the bodies inside it go with it, so the cannon goes after them.
+ *
  * **Its health is its lobes**: one for every bud still to pop, and no bar.
  *
  * The clock is `brood-step.ts`, the fingerprint `brood-hash.ts`, the numbers
@@ -52,6 +62,10 @@ export interface BroodStep {
   buds: readonly BroodBudPlan[];
   /** Beats a bud hangs before it drops. */
   ripenBeats: number;
+  /** Beats between two bodies it lays out of its hide while this step grows; none if absent. */
+  layEvery?: number;
+  /** Beats between two lurches while this step grows; it stands still if absent. */
+  swayEvery?: number;
 }
 
 /** What a wave authors: the whole script, in order. */
@@ -70,6 +84,17 @@ export interface BroodBud {
   popped: boolean;
 }
 
+/** A body growing inside the sac, to be laid out of its belly over `col`. */
+export interface BroodEgg {
+  col: number;
+  color: Color;
+  /** `world.beat` it is laid on. */
+  layBeat: number;
+}
+
+/** Where each lurch takes the sac, in columns off the middle: left, middle, right, middle. */
+export const BROOD_SWAY = [-1, 0, 1, 0] as const;
+
 /** Everything THE BROOD remembers between beats. */
 export interface BroodState {
   kind: "brood";
@@ -84,6 +109,14 @@ export interface BroodState {
   buds: BroodBud[];
   /** Buds that have dropped so far, all steps together. */
   dropped: number;
+  /** Columns the sac stands off the middle, one of `BROOD_SWAY`. */
+  sway: number;
+  /** Lurches so far; the next goes to `BROOD_SWAY[lurches % 4]`. */
+  lurches: number;
+  /** Bodies growing inside it, oldest first. */
+  eggs: BroodEgg[];
+  /** Bodies laid so far, all steps together. */
+  laid: number;
 }
 
 /** THE BROOD when it is the boss, or `null`. */
@@ -134,14 +167,35 @@ export function broodLobesAll(s: BroodState): number {
   return s.steps.reduce((n, step) => n + step.buds.length, 0);
 }
 
-/** The column a planned bud hangs over, kept on the field. */
-export function broodColOf(cfg: SimConfig, plan: BroodBudPlan): number {
-  return Math.max(0, Math.min(cfg.cols - 1, midCol(cfg) + plan.offset));
+/** The column the sac hangs over the middle of, swayed. */
+export function broodCentre(cfg: SimConfig, s: BroodState): number {
+  return midCol(cfg) + s.sway;
+}
+
+/** A column kept on the field. */
+export function broodClampCol(cfg: SimConfig, col: number): number {
+  return Math.max(0, Math.min(cfg.cols - 1, col));
+}
+
+/** The column a planned bud hangs over, from where the sac stands, kept on the field. */
+export function broodColOf(cfg: SimConfig, plan: BroodBudPlan, sway = 0): number {
+  return broodClampCol(cfg, midCol(cfg) + sway + plan.offset);
 }
 
 /** Whether `col` is under the sac, where a bolt is met by its hide if no bud hangs there. */
-export function broodCovers(cfg: SimConfig, col: number): boolean {
-  return Math.abs(col - midCol(cfg)) <= cfg.broodSpan;
+export function broodCovers(cfg: SimConfig, col: number, sway = 0): boolean {
+  return Math.abs(col - midCol(cfg) - sway) <= cfg.broodSpan;
+}
+
+/**
+ * The beat of the next lurch while a step grows, or -1 when none is coming —
+ * what the shudder before it is drawn and heard from (`brood-lay.ts`).
+ */
+export function broodNextLurch(world: World, s: BroodState): number {
+  const every = broodLitStep(s)?.swayEvery ?? 0;
+  if (every <= 0) return -1;
+  const since = world.beat - s.phaseBeat;
+  return s.phaseBeat + (Math.floor(since / every) + 1) * every;
 }
 
 export function broodDone(s: BroodState): boolean {
@@ -153,11 +207,15 @@ export function freshBrood(beat: number, steps: readonly BroodStep[]): BroodStat
     kind: "brood",
     // Copied, never shared: the state is the world's, and a content list
     // edited in place would change a fight already under way.
-    steps: steps.map((st) => ({ ripenBeats: st.ripenBeats, buds: st.buds.map((b) => ({ ...b })) })),
+    steps: steps.map((st) => ({ ...st, buds: st.buds.map((b) => ({ ...b })) })),
     phase: "enter",
     phaseBeat: beat,
     cursor: 0,
     buds: [],
     dropped: 0,
+    sway: 0,
+    lurches: 0,
+    eggs: [],
+    laid: 0,
   };
 }

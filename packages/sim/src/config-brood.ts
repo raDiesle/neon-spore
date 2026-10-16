@@ -20,6 +20,10 @@ export interface BroodConfig {
   broodRegrowBeats: number;
   /** Beats it stands beaten before it goes, so the wave cannot end on the same beat. */
   broodSpentBeats: number;
+  /** Beats a body is seen growing inside the sac before it is laid. */
+  broodLayLeadBeats: number;
+  /** Beats it shudders before a lurch. */
+  broodShudderBeats: number;
 }
 
 /**
@@ -27,7 +31,8 @@ export interface BroodConfig {
  *
  * Read as one fight: buds on row four of the field, under a sac nine columns
  * wide; four beats to come down, three between steps, two to regrow a bud
- * and three after the last.
+ * and three after the last; a body seen inside it three beats before it is
+ * laid, and two beats of shudder before every lurch.
  */
 export const BROOD_DEFAULTS: BroodConfig = {
   broodBudRow: 4,
@@ -36,4 +41,6 @@ export const BROOD_DEFAULTS: BroodConfig = {
   broodRestBeats: 3,
   broodRegrowBeats: 2,
   broodSpentBeats: 3,
+  broodLayLeadBeats: 3,
+  broodShudderBeats: 2,
 };

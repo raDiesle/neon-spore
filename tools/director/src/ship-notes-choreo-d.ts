@@ -159,8 +159,11 @@ export const CHOREO_NOTES_D = {
     "two, then three at once, each its step's ripenBeats. A bolt of its colour pops a " +
     "bud and the sac loses a lobe; the other colour loses the wave. A ripe bud drops " +
     "as the slick or bulb it was and grows again after broodRegrowBeats. The sac is " +
-    "broodSpan columns either side of the middle. No SLOW. See sim/brood.ts, " +
-    "sim/brood-step.ts.",
+    "broodSpan columns either side of the middle. Later steps lay a body out of the hide " +
+    "every layEvery beats, seen inside it for broodLayLeadBeats, and sway it a column " +
+    "every swayEvery beats after broodShudderBeats of shudder: left, middle, right, " +
+    "middle, its buds with it. No SLOW. See sim/brood.ts, sim/brood-step.ts, " +
+    "sim/brood-lay.ts.",
   "THE MATRON — a mother slime whose pods are her health":
     "FINALE, the owner's ask of 16 October 2026: the arc's last wave as a boss about " +
     "everything taught so far, the pods most of all. Each clutch hangs its pods at " +

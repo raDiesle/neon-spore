@@ -10,7 +10,14 @@ import { bossAura } from "./body-aura.js";
 import { drawHurt } from "./boss-hurt.js";
 import { drawBroodBud } from "./brood-bud.js";
 import type { BroodFx } from "./brood-fx.js";
-import { broodBudX, broodRimOver, broodRipe, broodSacAt, type SacBox } from "./brood-place.js";
+import {
+  broodBudX,
+  broodRimOver,
+  broodRipe,
+  broodSacAt,
+  broodShudder,
+  type SacBox,
+} from "./brood-place.js";
 import { broodOutline } from "./brood-shape.js";
 import { halo } from "./glow.js";
 import { mixHex, rgba } from "./hex.js";
@@ -66,8 +73,11 @@ export function drawBrood(
   const lobes = s.phase === "enter" ? broodLobesAll(s) : broodLobes(s);
   const body = splinePath(broodOutline(sac, lobes, l.tile, time), true);
 
+  // A lurch swings it over, and the beats before one it shudders on its hook.
+  const shudder = broodShudder(world, s, beatPhase);
+  const tremble = shudder * l.tile * 0.12 * Math.sin(time * 46);
   ctx.save();
-  ctx.translate(fx.hurt.shakeX(time, l.tile), 0);
+  ctx.translate(fx.hurt.shakeX(time, l.tile) + fx.slideX(l.tile) + tremble, 0);
   ctx.globalAlpha = sac.alpha;
 
   paintFlesh(ctx, body, sac, l.tile, spent);

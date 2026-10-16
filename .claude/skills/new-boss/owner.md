@@ -176,6 +176,17 @@ bosses* — are `generic.md`, next to this page.**
   column, a half to each seat, then shoot — that THE VISE, THE PLUMB and
   THE SLING still share; its rub stays, on THE CAPSTAN and THE VALVE
   (`bosses.md` §11.46, *Retired*).
+- **A boss that makes enemies is seen making them, and makes a lot**,
+  16 October 2026, on THE BROOD the day it shipped: *it looks too simple …
+  it should look like something what is producing enemies. can also be like
+  a producing machine*; *too easy, because its too less count of generated
+  enemies, so increase it a lot*; *they also spawn in the whole body … like
+  pooping out animation*; *remove the helper text "fire before it drops" it
+  is self explaining*; *remove tutorial it is not required*; and *something
+  special and cool, other than just it falls down after some time … shaking
+  and moving the enemies one tile left middle right*. A spawner lays at its
+  own rate whatever the pair does, from all over its body, and a pair that
+  never misses still has a field to clear.
 - **Open, for his feedback:** which of the three kinds the next one should be;
   how many gestures a scene may ask for in a row; whether a scene's gesture
   may be a swipe or a turn the default set does not have yet; and every boss

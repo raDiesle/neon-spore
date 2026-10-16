@@ -231,8 +231,9 @@ describe("wave content", () => {
    * *remove the tutorial, not required*. THE MIMIC's went on 5 October
    * 2026 and came back on the 6th, at the owner's word both times. THE
    * CHRYSALIS's went on 14 October 2026, each skin's mark saying its word:
-   * *it does not need tutorial, it is self explanatory*. A name goes here
-   * only on the owner's word.
+   * *it does not need tutorial, it is self explanatory*. THE BROOD's went
+   * on 16 October 2026, the day it shipped: *remove tutorial it is not
+   * required*. A name goes here only on the owner's word.
    */
   const SAYS_ITSELF = new Set([
     "THE INSTAR",
@@ -240,6 +241,7 @@ describe("wave content", () => {
     "THE STARE",
     "THE VANE",
     "THE CHRYSALIS",
+    "THE BROOD",
   ]);
 
   it("gives the first wave that carries anything new a guide", () => {

@@ -11,8 +11,10 @@ import { BROOD_PHASES, type BroodState } from "./brood.js";
  */
 export function broodHashParts(s: BroodState): number[] {
   const out = [BROOD_PHASES.indexOf(s.phase), s.phaseBeat, s.cursor, s.dropped, s.steps.length];
+  out.push(s.sway, s.lurches, s.laid, s.eggs.length);
+  for (const e of s.eggs) out.push(e.col, e.color === "red" ? 0 : 1, e.layBeat);
   for (const st of s.steps) {
-    out.push(st.ripenBeats, st.buds.length);
+    out.push(st.ripenBeats, st.layEvery ?? 0, st.swayEvery ?? 0, st.buds.length);
     for (const b of st.buds) out.push(b.offset, b.color === "red" ? 0 : 1);
   }
   out.push(s.buds.length);

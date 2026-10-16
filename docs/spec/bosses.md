@@ -12353,8 +12353,8 @@ owner's eye.
 
 ## 11.65 THE BROOD — a sac that grows slicks and bulbs, shot before they drop
 
-> A sac of slime hangs over the field and grows slicks and bulbs on its rim.
-> Shoot each bud in its colour before it drops.
+> A sac of slime hangs over the field, grows slicks and bulbs on its rim and
+> lays more. Shoot each bud in its colour before it drops.
 
 The owner's ask of 16 October 2026: *a new cool boss, after the waves of 8,
 which is only about "bulb" and "slick" of mechanics and enemies introduced
@@ -12372,10 +12372,38 @@ buds have **dropped** in all, and this step's **buds**: for each, its
 column, its colour, the beat it began to grow and whether it is popped. The
 script is the wave's (`BroodEntry.steps`, `content/src/brood-script.ts`),
 copied at install: each step names its buds as columns from the middle and a
-colour, and `ripenBeats`, how long they hang. Six steps and ten buds — one
-at a time three times, then two of different colours at once twice, then
-three across the sac. **Its health is its lobes**, one for every bud still
-to pop, and no bar.
+colour, and `ripenBeats`, how long they hang; and, from the second step,
+`layEvery` and `swayEvery`. Nine steps and twenty-four buds (rewritten on
+16 October 2026, below). **Its health is its lobes**, one for every bud
+still to pop, and no bar.
+
+**It lays and it sways** — the owner's feedback of 16 October 2026, the day
+it shipped: *it is too easy, because its too less count of generated
+enemies, so increase it a lot*, and *introduce something special and cool …
+the boss is shaking and moving the enemies one tile left middle right*.
+`sim/brood-lay.ts`, with the state's `eggs`, `laid`, `sway` and `lurches`:
+- **A body is laid** every `layEvery` beats of the field's own beat, while a
+  step that names it grows or rests before it, so a pair that pops quickly
+  is laid at all the same. It is begun inside the sac (`broodEgg`) over a
+  column under it with no bud, no other egg and no body just under the
+  belly, picked by the seeded rng with its colour, and laid
+  `broodLayLeadBeats` later (`broodLay`) as an ordinary slick or bulb
+  falling from the bud row. Beaten, it lays nothing more.
+- **It sways** every `swayEvery` beats of the step: it shudders
+  `broodShudderBeats` first (`broodShudder`), then lurches one column
+  (`broodLurch`) — left, back to the middle, right, back (`BROOD_SWAY`) —
+  and its buds and the bodies inside it go with it. A bolt is met under
+  where it stands now (`broodCovers` with the sway).
+- **The script climbs**: one bud to learn it; one with bodies laid round it;
+  two; the first sway with one bud, so the lurch is learnt alone; two that
+  sway and are laid round; three; three that do both; and four and four.
+  Played by AUTO with each seat held to one press a second, it lasts about a
+  minute and lays twenty to thirty bodies; at one press each per 1.25
+  seconds it still clears; the old script lasted twenty seconds and laid
+  none to a pair that missed nothing.
+- **The guide and the cue went the same day**: *remove the helper text "fire
+  before it drops" it is self explaining* and *remove tutorial it is not
+  required*. The wave has no guide, and `broodCues` answers nothing.
 
 **The split is the panel's own.** Player 1 slides the cannon and player 2
 fires red or cyan, so every bud is a column said one way and a colour said
@@ -12410,8 +12438,9 @@ last step popped beats it (`broodSpent`), and it goes after
 when a body is falling, and otherwise brings the cannon under the hanging bud
 nearest to dropping and fires its colour.
 
-**The sound** (`audio/src/bind-brood.ts`, `sounds/boss-brood.ts`): eight,
-wet and soft — a bud a small swelling, a pop a bright wet burst climbing as
+**The sound** (`audio/src/bind-brood.ts`, `sounds/boss-brood.ts`): eleven,
+wet and soft — a body laid a squeezing squelch, the shudder a low tremble,
+the lurch a heavy slosh, a body begun inside a bud's swelling pitched low — a bud a small swelling, a pop a bright wet burst climbing as
 the lobes run out, a drop a sliding plop, the hide a soft thud and the wrong
 colour a dull smack — red pitched under cyan, and every one panned by its
 column.
@@ -12422,7 +12451,11 @@ row under the sac and not past its edge; a pop, the lobe gone and the next
 step after the rest; the other colour losing the wave; the hide taking a bolt
 and changing nothing; a ripe bud dropping from its own row as the body it was
 and growing again; the last bud beating it; a real cannon bolt popping one;
-the same presses hashing the same.
+the same presses hashing the same. `sim/test/brood-lay.test.ts` proves a
+body seen inside before it is laid, over a column with no bud, falling from
+the bud row as its colour's body; the same seed laying the same; nothing laid
+once beaten; the shudder before the lurch, the bud carried with it and a
+bolt met under where it stands; and the sway's order.
 
 **The look** (`render/src/brood-draw.ts` and the pages it calls). A sac of
 translucent green slime hung over the middle of the field, breathing on the
@@ -12450,11 +12483,10 @@ and fades.
   which stays; beaten, the blow of a fight landed.
 - **No seat is shown anything the other is not.** The panel is the split:
   the cannon is the pilot's and both colours the navigator's.
-- **The cue** (`render/src/boss-cue-read-zy.ts`): `FIRE` over `BEFORE IT
-  DROPS` to the navigator, aimed at the bud hanging in the cannon's column,
-  with that bud's colour's button lit, and nothing while the cannon is under
-  the hide. The pilot is told nothing: which bud to go under is his to choose
-  and say, the owner's *we do not need to show helper to "move"* (5 October
+- **The cue** (`render/src/boss-cue-read-zy.ts`): none, since 16 October
+  2026 — *self explaining*. It was `FIRE` over `BEFORE IT DROPS` to the
+  navigator, over the bud in the cannon's column; the pilot was never told
+  anything, the owner's *we do not need to show helper to "move"* (5 October
   2026, on THE GORGE). It asks nothing of a thumb, so it has no grip and no
   marks page (`tools/director/test/marks-window-no-row.ts`), and it never
   slows, so `boss-hush.test.ts` has nothing to sample.

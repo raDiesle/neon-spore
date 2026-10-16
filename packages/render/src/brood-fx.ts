@@ -1,6 +1,7 @@
 import type { SimConfig, SimEvent } from "@neon-spore/sim";
 import { BossHurt } from "./boss-hurt.js";
 import { colorTrio } from "./creature-tint.js";
+import { smoothstep } from "./ease.js";
 import { rgba } from "./hex.js";
 import { type Layout, tileCX, tileCY } from "./layout.js";
 import { PALETTE } from "./palette.js";
@@ -10,7 +11,7 @@ import { PALETTE } from "./palette.js";
  * stalk whipping back up when one drops, and the blow every boss takes.
  *
  * Everything else is drawn off the boss every frame (`brood-draw.ts`). Its
- * eight events are one family, read here above the loop the way THE GORGE's
+ * twelve events are one family, read here above the loop the way THE GORGE's
  * are (`gorge-fx.ts`), each on the column it names and the bud row the
  * simulation meets a bolt on:
  * - a **pop** bursts the bud in its colour and splashes a ring of its slime,
@@ -20,12 +21,16 @@ import { PALETTE } from "./palette.js";
  * - the **hide** taking a bolt is a scuff of grey grit and nothing more —
  *   `bolt-stop.ts`'s *some damage visual but without any effect on the boss*;
  * - the **wrong colour** bursts red-grey on the bud, which stays;
+ * - a **lurch** swings the sac over the column the simulation has already
+ *   moved it, so it is seen to go rather than to jump (`slideX`);
  * - **beaten**, the sac takes the blow of a fight landed.
  */
 
 /** Seconds a splash ring and a snapped stalk last. */
 const SPLASH_LIFE = 0.45;
 const SNAP_LIFE = 0.4;
+/** Seconds a lurch takes to swing the sac over a column. */
+const LURCH_LIFE = 0.35;
 
 interface Splash {
   x: number;
@@ -45,6 +50,9 @@ type Burst = (x: number, y: number, n: number, hex: string) => void;
 export class BroodFx {
   private splashes: Splash[] = [];
   private snaps: Snap[] = [];
+  /** The last lurch: columns it went, and seconds since; the sim has it there already. */
+  private lurchBy = 0;
+  private lurchAge = LURCH_LIFE;
   /** The blow a bud popped deals the sac, and the last one more. */
   readonly hurt = new BossHurt();
 
@@ -69,6 +77,10 @@ export class BroodFx {
         case "broodSpoil":
           burst(tileCX(l, e.col), y, 8, PALETTE.sparkDim);
           break;
+        case "broodLurch":
+          this.lurchBy = e.by;
+          this.lurchAge = 0;
+          break;
         case "broodSpent":
           burst(tileCX(l, e.col), y - l.tile * 1.5, 24, PALETTE.organRim);
           this.hurt.hit();
@@ -79,7 +91,20 @@ export class BroodFx {
     }
   }
 
+  /**
+   * Pixels the sac still lags behind where the simulation already has it: a
+   * lurch moves it a whole column at once, and the picture swings it over,
+   * overshooting a little the way a hung weight does.
+   */
+  slideX(tile: number): number {
+    const k = Math.min(1, this.lurchAge / LURCH_LIFE);
+    if (k >= 1) return 0;
+    const swing = 1 - smoothstep(k) - Math.sin(k * Math.PI) * 0.18;
+    return -this.lurchBy * tile * swing;
+  }
+
   update(dt: number): void {
+    this.lurchAge += dt;
     for (const s of this.splashes) s.age += dt;
     for (const s of this.snaps) s.age += dt;
     this.splashes = this.splashes.filter((s) => s.age < SPLASH_LIFE);
@@ -115,6 +140,8 @@ export class BroodFx {
   }
 
   clear(): void {
+    this.lurchBy = 0;
+    this.lurchAge = LURCH_LIFE;
     this.splashes = [];
     this.snaps = [];
     this.hurt.clear();

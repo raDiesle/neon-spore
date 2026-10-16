@@ -155,7 +155,7 @@ export const BOSS_MECHANICS_B = {
     reach: "spawn",
   },
   brood: {
-    what: "A sac grows slicks and bulbs on its rim. Shoot each bud in its colour before it drops. A dropped bud falls, and grows again.",
+    what: "A sac grows slicks and bulbs on its rim, and lays more. Shoot each bud in its colour before it drops. It shakes, and moves its buds one column.",
     reach: "spawn",
     spawns: ["slick", "bulb"],
   },

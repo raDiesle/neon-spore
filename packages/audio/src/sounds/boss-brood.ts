@@ -1,16 +1,18 @@
 /**
- * THE BROOD's eight, in a file of their own for `boss-gorge.ts`' reason.
+ * THE BROOD's eleven, in a file of their own for `boss-gorge.ts`' reason.
  *
  * The boss is **a sac of slime that grows the ordinary enemies**, so
  * everything here is wet and soft: the sac coming down a slow heave; a bud
  * beginning a small swelling spore; a pop a bright wet burst; a bud dropping
  * a sliding plop; the wrong colour a dull smack; a bolt into the hide a soft
  * thud; the sac beaten a long sag with a ring over it — the fight won — and
- * gone a breath. Low and soft under the band, or short and high above it, as
+ * gone a breath. What it lays and how it sways (16 October 2026): a body
+ * pushed out of its belly a squeezing squelch; the shudder before a lurch a
+ * low tremble; the lurch itself a heavy slosh, panned to where it lands. Low and soft under the band, or short and high above it, as
  * ever (`docs/spec/audio.md` §1).
  */
 
-import { after, air, glint, spore, sub, thud, tick } from "../grain.js";
+import { after, air, burst, glint, spore, sub, thud, tick } from "../grain.js";
 import type { SoundDef } from "../types.js";
 
 export const BOSS_BROOD_SOUNDS: SoundDef[] = [
@@ -85,5 +87,32 @@ export const BOSS_BROOD_SOUNDS: SoundDef[] = [
     use: "THE BROOD gone and the wave ending.",
     level: 0.3,
     layers: [air(700, 500, 0.18, 0.1, 2)],
+  },
+  {
+    id: "boss.broodLay",
+    family: "boss",
+    blurb: "A squeezing squelch: a body pushed out of the sac's belly.",
+    status: "bound",
+    use: "THE BROOD lays a slick or a bulb out of its hide; red a step lower than cyan.",
+    level: 0.36,
+    layers: [spore(380, 0.2, 0.14, 40), after(0.1, air(900, 380, 0.16, 0.12, 1.4))],
+  },
+  {
+    id: "boss.broodShudder",
+    family: "boss",
+    blurb: "A low tremble: the sac about to lurch.",
+    status: "bound",
+    use: "THE BROOD shudders two beats before it lurches a column.",
+    level: 0.34,
+    layers: [burst(sub(48, 0.12, 0.22), 5, 0.07, 0.85)],
+  },
+  {
+    id: "boss.broodLurch",
+    family: "boss",
+    blurb: "A heavy slosh: the sac swinging a column over.",
+    status: "bound",
+    use: "THE BROOD lurches one column, its buds and bodies with it.",
+    level: 0.4,
+    layers: [thud(200, 90, 0.14, 0.3), after(0.05, air(600, 300, 0.22, 0.12, 1.2))],
   },
 ];

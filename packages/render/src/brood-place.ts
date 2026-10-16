@@ -1,11 +1,13 @@
 import {
   type BroodBud,
   type BroodState,
+  broodCentre,
   broodLitStep,
   broodLobes,
   broodLobesAll,
-  midCol,
+  broodNextLurch,
   type SimConfig,
+  type World,
 } from "@neon-spore/sim";
 import { smoothstep } from "./ease.js";
 import { type Layout, tileCX, tileCY } from "./layout.js";
@@ -74,7 +76,19 @@ export function broodSacAt(
     y += k * 0.8 * l.tile;
     alpha = 1 - smoothstep(k);
   }
-  return { x: tileCX(l, midCol(cfg)), y, rx, ry, alpha, turn: broodTurn(cfg, s, t) };
+  return { x: tileCX(l, broodCentre(cfg, s)), y, rx, ry, alpha, turn: broodTurn(cfg, s, t) };
+}
+
+/**
+ * How hard the sac shudders this frame, 0..1: rising over the beats before a
+ * lurch (`broodShudderBeats`), so the pair sees it about to go before it does.
+ */
+export function broodShudder(world: World, s: BroodState, beatPhase: number): number {
+  const next = broodNextLurch(world, s);
+  if (next < 0) return 0;
+  const left = next - (world.beat + beatPhase);
+  const span = Math.max(1, world.cfg.broodShudderBeats);
+  return left > span ? 0 : 1 - Math.max(0, left) / span;
 }
 
 /**

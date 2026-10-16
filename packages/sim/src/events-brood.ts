@@ -22,6 +22,14 @@ export type BroodEvent =
   | { type: "broodSpoil"; col: number; color: Color }
   /** A bolt met the sac's hide over `col`, where no bud hangs: nothing. */
   | { type: "broodHide"; col: number }
+  /** A body began inside the sac over `col`, to be laid `broodLayLeadBeats` on. */
+  | { type: "broodEgg"; col: number; color: Color }
+  /** A body was pushed out of the belly over `col`, and falls. */
+  | { type: "broodLay"; col: number; color: Color }
+  /** The sac began to shudder: it lurches `broodShudderBeats` from now. */
+  | { type: "broodShudder"; col: number }
+  /** The sac lurched `by` columns to stand over `col`, its buds and bodies with it. */
+  | { type: "broodLurch"; col: number; by: number }
   /** The last bud is popped: the sac is beaten. */
   | { type: "broodSpent"; col: number }
   /** It is gone, and the wave may end. */

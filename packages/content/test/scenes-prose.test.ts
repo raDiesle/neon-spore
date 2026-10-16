@@ -123,9 +123,8 @@ const STILL_PROSE = [
   // And THE HYDRA (§11.64), 14 October 2026: the body is undrawn, and the
   // guide says which seat does what to each of its four kinds of head.
   "THE HYDRA",
-  // And THE BROOD, 16 October 2026: the sac is undrawn, and the guide says
-  // who moves the cannon and who picks the colour.
-  "THE BROOD",
+  // THE BROOD left this list the day it came, 16 October 2026: *remove
+  // tutorial it is not required* (`waves.test.ts`).
   // And FINALE, THE MATRON since 16 October 2026: the body is undrawn, and
   // the guide says who shoots the pods loose and who swallows them.
   "FINALE",

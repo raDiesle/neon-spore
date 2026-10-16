@@ -43609,3 +43609,20 @@ Bottleneck: landing — the light the owner asked for costs two blits on every
 lit frame, and eight budget rows had to move for it.
 
 *Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-16 — THE BROOD lays and sways; its cue and guide gone
+
+- reading: 10 min. The sac's sim, script, cue and draw; `new-boss-state`'s
+  fourteen rows; the owner's record.
+- writing: 15 min. `brood-lay.ts`, the state's eggs and sway, the new
+  script, four events through sound, effects and the director, two tests.
+- looking: 0 min. The look is the next lane; this one moved what is drawn
+  only to follow the sway.
+- friction: 10 min. The director's autopilot rig ran past two minutes and
+  was killed; a probe read the wrong argument and played nothing.
+- landing: 10 min. Two `check:fast` rounds for the counts a removed guide
+  moves (briefings, the prose list, the audio spare count, two copies).
+
+Bottleneck: knowing how hard is hard enough — the autopilot is
+superhuman, so the script was tuned with a probe that holds each seat to
+one press a second.
