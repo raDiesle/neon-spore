@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-16 · d4ed75241 — THE BROOD: after ALTERNATING, a sac grows slicks and bulbs on its rim, and each is shot in its colour before it drops
+
+A field boss on STANDARD 2, wave 9, using nothing the first eight waves have not taught: player 1 slides the cannon under a bud, player 2 fires its colour. A bud left too long drops as the ordinary slick or bulb and grows again, so a miss is more of the fight; the wrong colour loses the wave. Six steps, one bud at a time up to three at once. This lane is the simulation, the hand, the sound and the guide; the sac draws nothing of its own until the look lane (docs/parked.md).
+
 ## 2026-10-16 · 36974f392 — ONE LAST CHANCE stands alone after THE HAND, before TORCH
 
 The shield's push is its own lesson, not a wave of TORCH's: it now heads a group of its own straight after THE HAND, where the shield was just taught, and TORCH follows it. HEAVY ROCKS' eight waves read HEAVY ROCK … like every other block's.
