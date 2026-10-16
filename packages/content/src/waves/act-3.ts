@@ -1,91 +1,186 @@
 import type { Wave } from "../wave-types.js";
 
 /**
- * Act three: new mechanics after the first five bosses.
+ * Waves 32 to 42 of the game, in the order they are played: THE LANCE's block
+ * and the boss BULB QUEEN.
  *
- * It ends on `THE VEIL` because it filled up there — `THE VANE` and the three
- * waves after it are in `act-3b.ts`, in the same order, and `waves.ts`
- * concatenates the acts so nothing about the game moved. Adding one `scene:`
- * line here had cost two rounds of shaving a sentence out of a comment to stay
- * under the 250-line ceiling, which is the warning the limits test exists to
- * give. `waves.ts` says why acts at all.
+ * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act
+ * after the tutorial arc again in play order. A save that fills it cuts a page
+ * after it (`acts.ts`).
  */
-/**
- * **THE LURE, in three figures.** Written here rather than beside the entries
- * because the director rewrites the array and keeps only what stands above it
- * (`serialize.ts`) — and this is the half of that wave no test can check. A
- * lure costs nothing if it is ignored, so what has to bite is the
- * *column-seconds*: player 1 standing over a body that will never pay while a
- * real one falls somewhere they are not.
- *
- * 1. Beats 0–3, the shape, cheaply. One lure alone, then a real body of the
- *    other colour across the field. There is time to be told and time to
- *    cross, and the pair learns the sentence they will need.
- * 2. Beats 8–9, the twin. A lure wearing a slick and a real slick two columns
- *    apart, one beat apart, the same red. Nothing but the ring tells them
- *    apart, so player 1 cannot guess and has to be told *which* — the moment
- *    the disguise stops being a trick and becomes the mechanic.
- * 3. Beats 14–20, the squeeze. Three cyan bulbs across the left half with the
- *    middle one a lie, then two reds at the far edges. Every beat spent on the
- *    lie is a beat of the run either side, and the field is busy by then.
- *
- * A lure entry names its kind and its colour and nothing else: the body it
- * wears follows from the colour, the way every real arrival's does
- * (`queueFromWave`). Not a shortcut — a lure has to be a correct body in a
- * correct colour or it is not wearing anything, and a cyan slick would be the
- * one tell in this wave that nothing else in the game could produce.
- */
-/**
- * **THE VEIL, in three figures.** Here for the reason the block above is: the
- * director rewrites the array and keeps only what stands over it, so a note
- * written between two entries is a note that survives until the next time
- * somebody saves a wave in the editor.
- *
- * What has to bite is not the colour — either colour is one tap — but the
- * *staleness* of it. A veil is easy while the pair has nothing else to say and
- * impossible the moment saying it costs a beat they needed elsewhere.
- *
- * 1. Beats 0–4, the sentence. One cloud alone, then a real cyan body across
- *    the field. The whole descent is available, so the pair finds the two
- *    halves of the call — the body and the beats left — with nothing pressing
- *    them; and the second arrival is there so that *which one* is already a
- *    question the first time it is asked.
- * 2. Beats 10–11, the pair. Two clouds four columns apart. They turn over on
- *    the same beat, because the morph is read off the shared clock rather than
- *    a phase of each body's own — so one count serves both, and what player 1
- *    has to say is two colours and one number rather than two of each.
- * 3. Beats 18–24, the squeeze. A third cloud, a rock in the middle of it and a
- *    red body after that. The rock is the point: the shield's column is player
- *    2's hand and the trigger is player 1's, so the two of them are already
- *    talking about something else when a call expires. A rebuff here costs two
- *    seconds of a body that goes on turning over while it is shut.
- *
- * A veil entry names its kind and *no* colour, and that is not the lure's
- * arrangement with a field left out: what is inside a cloud is rolled when it
- * enters the field (`veilOnSpawn`), because the only thing this game leaves
- * random is what one player knows and the other does not.
- */
-/**
- * **THE COUNT, in three figures.** Here for the reason the two blocks above
- * are. The mistake it punishes is firing on sight, and three shut beats are
- * what a shot off zero costs (`sim/countdown.ts`) — so what has to bite is a
- * navigator with a matching colour loaded, a body in the lane, and no
- * permission to pull yet.
- *
- * 1. Beat 0, one body alone, red. Fifteen rows is two zeros, sometimes three,
- *    and the whole descent is there to find the sentence: the pilot counting
- *    down out loud and the navigator firing on the word.
- * 2. Beats 8–10, the cover. A cyan count on the left and an ordinary red slick
- *    on the right two beats later. The slick is the point: it is shot on
- *    sight like every body before this wave, and the count is not — the same
- *    thumb has to do both, and the pilot has to say which lane is which kind.
- * 3. Beats 18–19, two counts a beat apart. Each has a phase of its own
- *    (`countdownOnSpawn`), so the two zeros do not fall together and the
- *    pilot is holding two counts at once — and the navigator two colours.
- *
- * A count entry names its kind and a colour, the throb's arrangement: the
- * colour is the navigator's half of the sentence and is authored; the phase is
- * the pilot's and is rolled, because a phase read off the arrival would be one
- * the navigator could keep unaided.
- */
-export const WAVES_ACT_3: Wave[] = [];
+export const WAVES_ACT_3: Wave[] = [
+  {
+    id: "theLance",
+    name: "THE LANCE",
+    guide: {
+      scene: "theLance",
+    },
+    entries: [
+      { beat: 0, col: 3, color: "cyan" },
+      { beat: 1, col: 3, color: "cyan" },
+      { beat: 2, col: 3, color: "cyan" },
+      { beat: 10, col: 8, color: "red" },
+      { beat: 11, col: 8, color: "red" },
+      { beat: 12, col: 8, color: "red" },
+    ],
+  },
+  {
+    id: "thePurge",
+    name: "THE PURGE",
+    guide: {
+      scene: "thePurge",
+    },
+    entries: [
+      { beat: 0, col: 0, color: "cyan" },
+      { beat: 1, col: 10, color: "red" },
+      { beat: 3, col: 7, color: "cyan" },
+    ],
+    pods: [{ beat: 0, col: 5, row: 2, kind: "purge" }],
+  },
+  {
+    id: "theLanceAgain",
+    name: "LANCE AGAIN",
+    variant: true,
+    entries: [
+      { beat: 7, col: 5, kind: "meteor", color: null },
+      { beat: 14, col: 6, kind: "meteor", color: null },
+      { beat: 30, col: 5, kind: "meteor", color: null },
+    ],
+    pods: [
+      { beat: 0, col: 4, row: 3, kind: "ward" },
+      { beat: 22, col: 4, row: 3, kind: "ward" },
+    ],
+  },
+  {
+    id: "theLanceSpread",
+    name: "LANCE WIDE",
+    variant: true,
+    entries: [
+      { beat: 7, col: 5, color: "red" },
+      { beat: 14, col: 4, color: "red" },
+      { beat: 25, col: 6, color: "red" },
+      { beat: 32, col: 5, color: "red" },
+    ],
+    pods: [
+      { beat: 0, col: 4, row: 4, kind: "ward" },
+      { beat: 19, col: 3, row: 4, kind: "ward" },
+    ],
+  },
+  {
+    id: "theLanceReach",
+    name: "LANCE AT THE EDGE",
+    variant: true,
+    entries: [
+      { beat: 6, col: 5, kind: "meteor", color: null },
+      { beat: 11, col: 9, kind: "meteor", color: null },
+      { beat: 22, col: 10, kind: "meteor", color: null },
+      { beat: 27, col: 5, kind: "meteor", color: null },
+    ],
+    pods: [
+      { beat: 0, col: 10, row: 4, kind: "ward" },
+      { beat: 16, col: 3, row: 3, kind: "ward" },
+    ],
+  },
+  {
+    id: "theLancePair",
+    name: "LANCE IN PAIRS",
+    variant: true,
+    entries: [
+      { beat: 0, col: 0, color: "cyan" },
+      { beat: 10, col: 10, color: "red" },
+      { beat: 21, col: 4, color: "cyan" },
+      { beat: 32, col: 4, color: "red" },
+    ],
+    pods: [
+      { beat: 4, col: 4, row: 4, kind: "ward" },
+      { beat: 15, col: 2, row: 3, kind: "purge" },
+      { beat: 26, col: 10, row: 3, kind: "ward" },
+    ],
+  },
+  {
+    id: "theLanceBreathe",
+    name: "LANCE AT EASE",
+    variant: true,
+    entries: [
+      { beat: 0, col: 6, color: "cyan" },
+      { beat: 12, col: 4, color: "red" },
+      { beat: 27, col: 8, color: "red" },
+      { beat: 39, col: 6, color: "red" },
+    ],
+    pods: [
+      { beat: 6, col: 7, row: 4, kind: "ward" },
+      { beat: 20, col: 2, row: 4, kind: "ward" },
+      { beat: 33, col: 7, row: 3, kind: "ward" },
+    ],
+  },
+  {
+    id: "theLanceRecall",
+    name: "LANCE RECALLED",
+    variant: true,
+    entries: [
+      { beat: 0, col: 10, color: "red" },
+      { beat: 11, col: 3, color: "cyan" },
+      { beat: 22, col: 4, color: "cyan" },
+      { beat: 33, col: 8, color: "cyan" },
+    ],
+    pods: [
+      { beat: 6, col: 0, row: 4, kind: "ward" },
+      { beat: 16, col: 2, row: 3, kind: "ward" },
+      { beat: 28, col: 5, row: 4, kind: "ward" },
+    ],
+  },
+  {
+    id: "theLanceBend",
+    name: "LANCE TWICE",
+    variant: true,
+    entries: [
+      { beat: 0, col: 3, color: "cyan" },
+      { beat: 12, col: 6, color: "red" },
+      { beat: 24, col: 2, color: "red" },
+      { beat: 24, col: 8, color: "red" },
+      { beat: 40, col: 5, color: "red" },
+      { beat: 40, col: 8, color: "red" },
+    ],
+    pods: [
+      { beat: 6, col: 10, row: 4, kind: "ward" },
+      { beat: 18, col: 7, row: 3, kind: "purge" },
+      { beat: 29, col: 5, row: 3, kind: "ward" },
+      { beat: 34, col: 10, row: 3, kind: "purge" },
+    ],
+  },
+  {
+    id: "theLancePeak",
+    name: "LANCE PEAK",
+    variant: true,
+    entries: [
+      { beat: 0, col: 9, color: "cyan" },
+      { beat: 8, col: 5, color: "cyan" },
+      { beat: 16, col: 0, color: "cyan" },
+      { beat: 16, col: 10, color: "cyan" },
+      { beat: 28, col: 2, color: "cyan" },
+      { beat: 28, col: 8, color: "cyan" },
+      { beat: 40, col: 1, color: "cyan" },
+      { beat: 40, col: 9, color: "cyan" },
+    ],
+    pods: [
+      { beat: 4, col: 1, row: 4, kind: "ward" },
+      { beat: 12, col: 10, row: 3, kind: "purge" },
+      { beat: 20, col: 7, row: 3, kind: "ward" },
+      { beat: 24, col: 0, row: 3, kind: "purge" },
+      { beat: 32, col: 3, row: 4, kind: "ward" },
+      { beat: 36, col: 2, row: 3, kind: "purge" },
+    ],
+  },
+  {
+    id: "bulbQueen",
+    name: "BULB QUEEN",
+    guide: {
+      scene: "bulbQueen",
+    },
+    entries: [],
+    pods: [{ beat: 2, col: 5, row: 4, kind: "purge" }],
+    boss: { kind: "queen", col: 5, petals: 9 },
+    bossType: "normal",
+    controls: "standard5",
+  },
+];

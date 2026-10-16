@@ -7,7 +7,7 @@
  *
  * **The shot windows were not doubled** when acts twelve and thirteen's were,
  * on the owner's *more time to shoot and hit* (7 October 2026,
- * `content/src/waves/act-13.ts`). Every step but the dark lights under THE
+ * THE SEAM in `content/src/waves/`). Every step but the dark lights under THE
  * SLOW, at a quarter of the tempo (`slowRateMilli`, `seam-step.ts`), so at
  * 96 bpm a point's three beats are 7.5 seconds, a rock's two are 5 and the
  * glow's four are 10, against those acts' 3.75.

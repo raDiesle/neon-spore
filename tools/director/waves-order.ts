@@ -10,7 +10,7 @@ import { pickNext, splitCurriculum, type Unit, unitWaves } from "./src/curriculu
 import { writeWaves } from "./src/waves-acts.js";
 
 /**
- * `bun run waves:order [--write]`
+ * `bun run waves:order [--write [--recut]]`
  *
  * Every new thing after the tutorial arc taught again in the order of
  * `docs/spec/wave-curriculum.md` §4.1 (`src/curriculum-order.ts`): the
@@ -19,7 +19,9 @@ import { writeWaves } from "./src/waves-acts.js";
  * neighbours — a body's, then a lesson's — the bosses placed again
  * (`bossOrder`) and the review blocks written for those left at the end.
  * Without `--write` it prints the order and says whether anything would
- * change; a second run after `--write` changes nothing.
+ * change; a second run after `--write` changes nothing. A write cuts the act
+ * files after the arc again in play order (`src/waves-recut.ts`), and
+ * `--recut` does that alone, for an order that already holds.
  */
 
 const SEEDS = [0, 4, 8, 12, 16, 20];
@@ -124,7 +126,11 @@ if (settled.some((w, i) => w.id !== waves[i]?.id)) stop("the bosses move again a
 
 const same = waves.length === WAVES.length && Bun.deepEquals(waves, [...WAVES]);
 console.log(`\n${waves.length} waves; ${same ? "nothing changes" : "the list changes"}`);
-if (!process.argv.includes("--write") || same) process.exit(0);
-const { complaint, rels } = await writeWaves(waves);
+// `--recut` cuts the act files again in play order when the order itself
+// holds — the cut a reorder before 16 October 2026 left behind.
+const recut = process.argv.includes("--recut");
+if (!process.argv.includes("--write") || (same && !recut)) process.exit(0);
+const { complaint, rels, removed } = await writeWaves(waves, undefined, { recut: true });
 if (complaint) stop(complaint);
-console.log(`wrote ${rels.length} files; then: waves:measure, briefings:renumber, baseline:blank`);
+console.log(`wrote ${rels.length} files, deleted ${removed.length}`);
+if (!same) console.log("then: waves:measure, briefings:renumber, baseline:blank");

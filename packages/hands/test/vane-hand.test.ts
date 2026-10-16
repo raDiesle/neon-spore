@@ -49,7 +49,7 @@ describe("THE VANE, played by AUTO", () => {
   });
 });
 
-/** THE VANE's two arrivals (`content/waves/act-3b-p2.ts`), written out: this package has no content. */
+/** THE VANE's two arrivals (in `content/waves/`), written out: this package has no content. */
 const ARRIVALS: SpawnEntry[] = [
   { beat: 0, col: 2, kind: "meteor", color: null },
   { beat: 3, col: 8, kind: "slick", color: "red" },

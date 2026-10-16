@@ -1,15 +1,12 @@
 import type { Wave } from "../wave-types.js";
 
 /**
- * Act two: the first six bosses, back to back, nothing else. `waves.ts` is
- * the barrel that concatenates this with the other acts — see it for why the
- * list was split by act in the first place.
- *
- * THE FLEET is the sixth and it arrived here rather than in act three, where
- * THE VANE sits among the mechanics: act three was full (`limits.test.ts`),
- * and this is the act whose whole content is bosses back to back. A seventh
- * that does not fit gets a fourth act beside act three, not a line in the
- * limits table.
+ * The end of the tutorial arc: CATCH AND AIM, the shield held twice, and
+ * FINALE, the arc's last wave. It held the first six bosses, back to back,
+ * until `waves:order` placed the bosses among the units they follow
+ * (`bossOrder`) and the acts after this one were cut again in play order on
+ * 16 October 2026 (`waves-recut.ts`). Nothing reorders the arc, so its files
+ * keep the prose written over them.
  */
 export const WAVES_ACT_2: Wave[] = [
   {

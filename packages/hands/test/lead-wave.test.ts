@@ -18,7 +18,7 @@ import { autopilotHand } from "../src/autopilot-hands.js";
  * plays beside the lead's own hand now.
  */
 
-/** THE LEAD's arrivals (`content/waves/act-7g.ts`), written out: this package has no content. */
+/** THE LEAD's arrivals (in `content/waves/`), written out: this package has no content. */
 const ARRIVALS: SpawnEntry[] = [
   { beat: 10, col: 3, kind: "meteor", color: null },
   { beat: 18, col: 0, kind: "slick", color: "red" },

@@ -24,7 +24,7 @@ import { autopilotHand } from "../src/autopilot-hands.js";
  * 2026, recomposing the rocks rather than giving the panel a shield).
  */
 
-/** THE CLAW's rocks (`content/waves/act-7c.ts`), written out beside its pods. */
+/** THE CLAW's rocks (in `content/waves/`), written out beside its pods. */
 const THE_CLAW: SpawnEntry[] = [
   { beat: 4, col: 5, kind: "meteor", color: null },
   { beat: 14, col: 5, kind: "meteor", color: null },
@@ -34,7 +34,7 @@ const THE_CLAW: SpawnEntry[] = [
   { beat: 52, col: 10, kind: "meteorMedium", color: null },
 ];
 
-/** THE CLAW's own pods (`content/waves/act-7c.ts`), written out: this package has no content. */
+/** THE CLAW's own pods (in `content/waves/`), written out: this package has no content. */
 const THE_CLAW_PODS: PodEntry[] = [
   { beat: 2, col: 0, row: 4, kind: "ward", cross: 1 },
   { beat: 18, col: 10, row: 6, kind: "ward", cross: -1 },

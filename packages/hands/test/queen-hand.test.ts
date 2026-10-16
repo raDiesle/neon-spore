@@ -20,7 +20,7 @@ import { autopilotHand } from "../src/autopilot-hands.js";
  * her pod loose and it fell past a shut maw, so a falling pod is caught first.
  */
 
-/** BULB QUEEN's pod (`content/waves/act-2.ts`), written out: this package has no content. */
+/** BULB QUEEN's pod (in `content/waves/`), written out: this package has no content. */
 const PODS: PodEntry[] = [{ beat: 2, col: 5, row: 4, kind: "purge" }];
 
 /** Past this the fight is lost however it stands: she falls in about eighty beats. */

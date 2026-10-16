@@ -20,7 +20,7 @@ import { fieldHand } from "../src/autopilot-field-hand.js";
  * wave is played on several seeds.
  */
 
-/** THE COUNT's own arrivals (`content/waves/act-3-p2.ts`), written out: this package has no content. */
+/** THE COUNT's own arrivals (in `content/waves/`), written out: this package has no content. */
 const THE_COUNT: SpawnEntry[] = [
   { beat: 0, col: 5, kind: "countdown", color: "red" },
   { beat: 8, col: 2, kind: "countdown", color: "cyan" },

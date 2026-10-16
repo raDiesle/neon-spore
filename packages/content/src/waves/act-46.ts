@@ -1,0 +1,172 @@
+import type { Wave } from "../wave-types.js";
+
+/**
+ * Waves 466 to 474 of the game, in the order they are played: THE CAROM's
+ * review and the boss THE SLING.
+ *
+ * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act
+ * after the tutorial arc again in play order. A save that fills it cuts a page
+ * after it (`acts.ts`).
+ */
+export const WAVES_ACT_46: Wave[] = [
+  {
+    id: "reviewCaromAgain",
+    name: "CAROMS RETURN",
+    entries: [
+      { beat: 0, col: 6, kind: "carom", color: "red" },
+      { beat: 8, col: 10, kind: "ghost", color: "red" },
+      { beat: 15, col: 0, kind: "fence", color: null },
+      { beat: 23, col: 4, kind: "carom", color: "red" },
+      { beat: 31, col: 9, kind: "ghost", color: "cyan" },
+    ],
+  },
+  {
+    id: "reviewCaromSpread",
+    name: "CAROMS WIDER",
+    variant: true,
+    entries: [
+      { beat: 0, col: 10, kind: "carom", color: "red" },
+      { beat: 5, col: 9, kind: "ghost", color: "red" },
+      { beat: 10, col: 7, kind: "mine", color: "red", row: 9, sees: 1 },
+      { beat: 15, col: 9, kind: "carom", color: "red" },
+      { beat: 20, col: 0, kind: "ghost", color: "cyan" },
+      { beat: 26, col: 6, kind: "mine", color: "red", row: 3, sees: 2 },
+    ],
+  },
+  {
+    id: "reviewCaromReach",
+    name: "CAROMS OUT WIDE",
+    variant: true,
+    entries: [
+      { beat: 0, col: 1, kind: "carom", color: "cyan" },
+      { beat: 6, col: 9, kind: "ghost", color: "cyan", path: "across" },
+      { beat: 12, col: 1, kind: "lid", color: "red" },
+      { beat: 18, col: 5, kind: "carom", color: "red" },
+      { beat: 24, col: 1, kind: "ghost", color: "cyan" },
+      { beat: 29, col: 6, kind: "lid", color: "red" },
+    ],
+  },
+  {
+    id: "reviewCaromPair",
+    name: "CAROMS IN PAIRS",
+    variant: true,
+    entries: [
+      { beat: 0, col: 7, color: "cyan" },
+      { beat: 5, col: 10, kind: "carom", color: "cyan" },
+      { beat: 11, col: 2, color: "cyan" },
+      { beat: 11, col: 8, color: "cyan" },
+      { beat: 15, col: 0, kind: "ghost", color: "red" },
+      { beat: 20, col: 4, kind: "dart", color: "cyan" },
+      { beat: 26, col: 2, color: "red" },
+      { beat: 26, col: 8, color: "red" },
+      { beat: 30, col: 4, kind: "carom", color: "red" },
+      { beat: 36, col: 8, kind: "ghost", color: "cyan", path: "across" },
+    ],
+  },
+  {
+    id: "reviewCaromBreathe",
+    name: "CAROMS AT REST",
+    variant: true,
+    entries: [
+      { beat: 0, col: 0, color: "red" },
+      { beat: 6, col: 1, kind: "carom", color: "cyan" },
+      { beat: 12, col: 4, color: "red" },
+      { beat: 18, col: 0, kind: "ghost", color: "cyan" },
+      { beat: 24, col: 10, color: "cyan" },
+      { beat: 30, col: 0, kind: "lure", color: "red" },
+      { beat: 36, col: 1, color: "red" },
+    ],
+  },
+  {
+    id: "reviewCaromRecall",
+    name: "CAROMS RECALLED",
+    variant: true,
+    entries: [
+      { beat: 0, col: 4, color: "red" },
+      { beat: 6, col: 8, kind: "carom", color: "red" },
+      { beat: 11, col: 1, color: "cyan" },
+      { beat: 11, col: 9, color: "cyan" },
+      { beat: 16, col: 4, kind: "blister", color: null, row: 2, by: 2, gesture: "swipe" },
+      { beat: 21, col: 2, kind: "carom", color: "cyan" },
+      { beat: 26, col: 1, color: "cyan" },
+      { beat: 26, col: 9, color: "cyan" },
+      { beat: 32, col: 10, kind: "blister", color: null, row: 2, by: 2, gesture: "swipe" },
+      { beat: 38, col: 9, kind: "carom", color: "cyan" },
+    ],
+  },
+  {
+    id: "reviewCaromBend",
+    name: "CAROMS DOUBLED",
+    variant: true,
+    entries: [
+      { beat: 0, col: 0, color: "cyan" },
+      { beat: 0, col: 10, color: "cyan" },
+      { beat: 5, col: 0, kind: "carom", color: "cyan" },
+      { beat: 10, col: 10, kind: "ghost", color: "red" },
+      { beat: 16, col: 4, color: "red" },
+      { beat: 16, col: 7, color: "red" },
+      { beat: 21, col: 5, kind: "carom", color: "cyan" },
+      { beat: 27, col: 4, kind: "ghost", color: "red" },
+      { beat: 32, col: 2, color: "red" },
+      { beat: 32, col: 8, color: "red" },
+      { beat: 37, col: 1, kind: "carom", color: "cyan" },
+      { beat: 43, col: 4, kind: "ghost", color: "cyan", path: "across" },
+      { beat: 48, col: 1, color: "red" },
+      { beat: 48, col: 9, color: "red" },
+    ],
+  },
+  {
+    id: "reviewCaromPeak",
+    name: "CAROMS SUMMIT",
+    variant: true,
+    entries: [
+      { beat: 0, col: 2, color: "cyan" },
+      { beat: 0, col: 8, color: "cyan" },
+      { beat: 3, col: 4, kind: "carom", color: "red" },
+      { beat: 7, col: 3, kind: "ghost", color: "cyan", path: "across" },
+      { beat: 10, col: 1, color: "red" },
+      { beat: 10, col: 9, color: "red" },
+      { beat: 17, col: 8, kind: "carom", color: "cyan" },
+      { beat: 21, col: 0, color: "red" },
+      { beat: 21, col: 10, color: "red" },
+      { beat: 25, col: 1, kind: "ghost", color: "red" },
+      { beat: 33, col: 2, color: "red" },
+      { beat: 33, col: 8, color: "red" },
+      { beat: 36, col: 5, kind: "carom", color: "cyan" },
+      { beat: 39, col: 7, kind: "ghost", color: "cyan" },
+      { beat: 42, col: 4, color: "red" },
+      { beat: 42, col: 7, color: "red" },
+      { beat: 48, col: 1, kind: "carom", color: "cyan" },
+    ],
+    pods: [
+      { beat: 14, col: 3, row: 3, kind: "ward" },
+      { beat: 29, col: 7, row: 4, kind: "ward" },
+      { beat: 45, col: 3, row: 4, kind: "ward" },
+    ],
+  },
+  {
+    id: "theSling",
+    name: "THE SLING",
+    guide: {
+      both: "Hold until your arm is drawn home, then swipe toward the lit side. Both arms drawn light the yoke: shoot it in its colour. When both light, draw together.",
+      p1: "1. Hold a finger down when the left arm lights, and say which side is lit.\n2. Keep holding until the arm is home.\n3. Swipe toward the lit side as you let go.",
+      p2: "1. Hold a finger down when the right arm lights, and say which side is lit.\n2. Keep holding until the arm is home.\n3. White takes either colour. Draw with the other one when both light.",
+    },
+    entries: [],
+    boss: {
+      kind: "sling",
+      steps: [
+        { ask: "left", aim: "left", color: "either", beats: 5 },
+        { ask: "left", aim: "right", color: "either", beats: 4 },
+        { ask: "right", aim: "right", color: "either", beats: 5 },
+        { ask: "right", aim: "left", color: "either", beats: 4 },
+        { ask: "fire", aim: "left", color: "red", beats: 6 },
+        { ask: "both", aim: "left", color: "either", beats: 3 },
+        { ask: "fire", aim: "left", color: "cyan", beats: 6 },
+        { ask: "both", aim: "right", color: "either", beats: 3 },
+        { ask: "fire", aim: "left", color: "either", beats: 6 },
+      ],
+    },
+    bossType: "normal",
+  },
+];

@@ -53,7 +53,7 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
  * navigator's strip and on nothing the pilot is shown, so his clock carries no
  * warning marks. That is `showsRadar` meeting `showsWell`, two predicates that
  * have never been asked about each other, and it is the fact the pilot's half
- * of `waves/act-8.ts` opens on. A lane that moved a `radar` owner would take
+ * of THE WELL's guide opens on. A lane that moved a `radar` owner would take
  * the guide's first sentence away without touching it.
  */
 
@@ -102,7 +102,7 @@ describe("THE WELL", () => {
   it("says nothing on either seat, on every beat of its own wave", () => {
     const world = opened();
     // The whole script, so no beat of it is the one that speaks: the seven
-    // arrivals are authored out to beat 58 (`waves/act-8.ts`).
+    // arrivals are authored out to beat 58 (THE WELL, in `content/waves/`).
     for (let beat = 0; beat < 70; beat++) {
       silent(world);
       for (let i = 0; i < TPB; i++) step(world, []);

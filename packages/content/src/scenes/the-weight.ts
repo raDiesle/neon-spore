@@ -9,7 +9,7 @@ import type { GuideScene } from "../scene-types.js";
  * (`render/weight.ts`), so a player pressing one has nothing to tell them
  * whether the other thumb is down too — and prose can only assert that, where
  * a page can show it. What the wave itself does is charge a retry for it
- * (`waves/act-8.ts`); this shows the same three steps for nothing.
+ * (THE WEIGHT, in `waves/`); this shows the same three steps for nothing.
  *
  * So the first two pages are the *same page twice*, once per seat: a thumb goes
  * down alone, the sac brightens under it, and nothing gives. That repetition is

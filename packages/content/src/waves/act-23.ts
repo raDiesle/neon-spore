@@ -1,0 +1,183 @@
+import type { Wave } from "../wave-types.js";
+
+/**
+ * Waves 235 to 244 of the game, in the order they are played: THE DARK's block
+ * and the boss THE LEDGER.
+ *
+ * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act
+ * after the tutorial arc again in play order. A save that fills it cuts a page
+ * after it (`acts.ts`).
+ */
+export const WAVES_ACT_23: Wave[] = [
+  {
+    id: "theDark",
+    name: "THE DARK",
+    guide: {
+      scene: "theDark",
+    },
+    entries: [
+      { beat: 0, col: 5, color: "red" },
+      { beat: 4, col: 2, color: "cyan" },
+      { beat: 8, col: 8, color: "red" },
+      { beat: 12, col: 3, color: "cyan" },
+      { beat: 16, col: 7, color: "red" },
+      { beat: 20, col: 0, color: "cyan" },
+      { beat: 24, col: 10, color: "red" },
+      { beat: 28, col: 5, color: "cyan" },
+      { beat: 32, col: 2, color: "red" },
+      { beat: 36, col: 8, color: "cyan" },
+    ],
+    faults: [{ kind: "dark", at: 4 }],
+  },
+  {
+    id: "theDarkAgain",
+    name: "DARK AGAIN",
+    variant: true,
+    entries: [
+      { beat: 0, col: 6, kind: "choir", color: "cyan" },
+      { beat: 7, col: 2, color: "red" },
+      { beat: 14, col: 5, kind: "choir", color: "red" },
+      { beat: 22, col: 1, color: "red" },
+      { beat: 30, col: 3, kind: "choir", color: "cyan" },
+    ],
+    faults: [{ kind: "dark", at: 4 }],
+  },
+  {
+    id: "theDarkSpread",
+    name: "DARK WIDE",
+    variant: true,
+    entries: [
+      { beat: 0, col: 4, kind: "choir", color: "cyan" },
+      { beat: 7, col: 9, kind: "magnet", color: "red" },
+      { beat: 14, col: 3, color: "cyan" },
+      { beat: 20, col: 1, kind: "choir", color: "cyan" },
+      { beat: 26, col: 2, kind: "magnet", color: "red" },
+      { beat: 32, col: 5, color: "cyan" },
+    ],
+    faults: [{ kind: "dark", at: 4 }],
+  },
+  {
+    id: "theDarkReach",
+    name: "DARK AT THE EDGE",
+    variant: true,
+    entries: [
+      { beat: 0, col: 10, kind: "choir", color: "red" },
+      { beat: 6, col: 3, kind: "magnet", color: "cyan" },
+      { beat: 11, col: 9, kind: "meteor", color: null },
+      { beat: 17, col: 4, kind: "choir", color: "red" },
+      { beat: 22, col: 8, kind: "magnet", color: "red" },
+      { beat: 27, col: 1, kind: "meteor", color: null },
+    ],
+    faults: [{ kind: "dark", at: 4 }],
+  },
+  {
+    id: "theDarkPair",
+    name: "DARK IN PAIRS",
+    variant: true,
+    entries: [
+      { beat: 0, col: 2, color: "cyan" },
+      { beat: 4, col: 4, kind: "choir", color: "cyan" },
+      { beat: 10, col: 6, color: "cyan" },
+      { beat: 16, col: 0, kind: "magnet", color: "red" },
+      { beat: 22, col: 10, color: "red" },
+      { beat: 26, col: 1, kind: "choir", color: "cyan" },
+      { beat: 31, col: 8, color: "cyan" },
+      { beat: 36, col: 6, kind: "magnet", color: "red" },
+    ],
+    faults: [{ kind: "dark", at: 4 }],
+  },
+  {
+    id: "theDarkBreathe",
+    name: "DARK AT EASE",
+    variant: true,
+    entries: [
+      { beat: 0, col: 7, color: "cyan" },
+      { beat: 6, col: 0, kind: "choir", color: "red" },
+      { beat: 12, col: 7, color: "cyan" },
+      { beat: 20, col: 9, kind: "magnet", color: "cyan" },
+      { beat: 28, col: 7, color: "red" },
+      { beat: 36, col: 9, kind: "meteor", color: null },
+    ],
+    faults: [{ kind: "dark", at: 4 }],
+  },
+  {
+    id: "theDarkRecall",
+    name: "DARK RECALLED",
+    variant: true,
+    entries: [
+      { beat: 0, col: 0, color: "red" },
+      { beat: 5, col: 7, kind: "choir", color: "cyan" },
+      { beat: 10, col: 2, color: "cyan" },
+      { beat: 16, col: 9, kind: "choir", color: "cyan" },
+      { beat: 21, col: 10, color: "cyan" },
+      { beat: 26, col: 1, kind: "choir", color: "cyan" },
+      { beat: 31, col: 10, color: "cyan" },
+      { beat: 37, col: 6, kind: "choir", color: "cyan" },
+    ],
+    faults: [{ kind: "dark", at: 4 }],
+  },
+  {
+    id: "theDarkBend",
+    name: "DARK TWICE",
+    variant: true,
+    entries: [
+      { beat: 0, col: 0, color: "red" },
+      { beat: 6, col: 1, kind: "choir", color: "red" },
+      { beat: 11, col: 2, color: "red" },
+      { beat: 17, col: 9, kind: "magnet", color: "red" },
+      { beat: 23, col: 3, color: "cyan" },
+      { beat: 23, col: 7, color: "cyan" },
+      { beat: 28, col: 4, kind: "choir", color: "red" },
+      { beat: 33, col: 3, kind: "magnet", color: "cyan" },
+      { beat: 39, col: 2, color: "red" },
+      { beat: 39, col: 8, color: "red" },
+      { beat: 44, col: 6, kind: "choir", color: "cyan" },
+    ],
+    faults: [{ kind: "dark", at: 4 }],
+  },
+  {
+    id: "theDarkPeak",
+    name: "DARK PEAK",
+    variant: true,
+    entries: [
+      { beat: 0, col: 9, color: "cyan" },
+      { beat: 4, col: 5, kind: "choir", color: "cyan" },
+      { beat: 8, col: 3, color: "red" },
+      { beat: 12, col: 1, kind: "magnet", color: "red" },
+      { beat: 15, col: 0, color: "cyan" },
+      { beat: 15, col: 10, color: "cyan" },
+      { beat: 22, col: 5, kind: "choir", color: "cyan" },
+      { beat: 26, col: 3, color: "red" },
+      { beat: 26, col: 7, color: "red" },
+      { beat: 30, col: 1, kind: "magnet", color: "cyan" },
+      { beat: 38, col: 2, color: "cyan" },
+      { beat: 38, col: 8, color: "cyan" },
+      { beat: 42, col: 9, kind: "choir", color: "red" },
+      { beat: 46, col: 0, kind: "magnet", color: "red" },
+    ],
+    pods: [
+      { beat: 18, col: 10, row: 3, kind: "purge" },
+      { beat: 34, col: 6, row: 3, kind: "purge" },
+    ],
+    faults: [{ kind: "dark", at: 4 }],
+  },
+  {
+    id: "theLedger",
+    name: "THE LEDGER",
+    guide: {
+      scene: "theLedger",
+    },
+    entries: [
+      { beat: 18, col: 2, kind: "meteor", color: null },
+      { beat: 26, col: 8, color: "red" },
+      { beat: 34, col: 5, color: "cyan" },
+      { beat: 44, col: 0, kind: "meteor", color: null },
+      { beat: 52, col: 10, color: "red" },
+      { beat: 62, col: 3, color: "cyan" },
+      { beat: 72, col: 7, kind: "meteor", color: null },
+      { beat: 82, col: 8, color: "cyan" },
+    ],
+    boss: { kind: "ledger" },
+    bossType: "normal",
+  },
+];

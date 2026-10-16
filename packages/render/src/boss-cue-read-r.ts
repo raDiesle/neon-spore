@@ -97,7 +97,7 @@ const SILENT: readonly BossCue[] = [];
  * crowd at the rim, four beats of a fall covering a third of a tile where the
  * last beat before the hull covers that much by itself (`BEND` in `well.ts`).
  * Neither is a thing a thumb does, so neither is a cue; both are sentences one
- * seat has to say to the other, which is the wave (`waves/act-8.ts`).
+ * seat has to say to the other, which is the wave (THE WELL, in `content/waves/`).
  */
 export function wellCues(_l: Layout, _world: World): readonly BossCue[] {
   return SILENT;

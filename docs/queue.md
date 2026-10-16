@@ -327,21 +327,3 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/needs.test.ts` holds the wait, and
 `tools/queue/test/skipped.test.ts` holds the listing's count of the entries
 `next` stepped past and why.
-
-## The act files are cut by the order the waves shipped in, not played in
-
-- **Found:** 2026-10-16, claude/talk-reorder
-- **Taken:** 2026-10-16, main (claim: claude/queue-the-act-files-are-cut-by-the-order-the-waves-shi)
-- **Files:** `tools/director/src/waves-acts.ts`, `packages/content/src/waves/acts.ts`, `tools/director/waves-order.ts`
-
-`bun run waves:order --write` moved most units, and `writeWaves`'s
-`assignToActs` never moves a wave back into an earlier act: the moved waves
-piled into the new act-14b-p19 to act-14b-p44, and 55 act files were left
-holding an empty array under a header that still describes the waves they
-used to hold. Nothing plays differently (`WAVES` is the acts flattened), but
-a reader opening an act file reads a header about waves that are elsewhere.
-Re-cut the act files by play order — one file per run of about 15 waves,
-its header naming the units it holds — delete the empty ones, and have
-`waves:order --write` re-cut rather than append, so a second reorder does not
-pile up again. `serialize.ts` is at 245 lines; the re-cut belongs in
-`waves-acts.ts`, not there.

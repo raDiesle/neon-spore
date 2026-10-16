@@ -182,7 +182,7 @@ export function pinPicture(pieces: readonly PinPiece[]): string {
  * it.** The director regenerates this array on every save
  * (`tools/director/src/serialize-pinball.ts`), exactly as it regenerates an
  * act file, so a comment inside it survives until the first time somebody
- * paints a peg. `act-4.ts` keeps its prose above its array for the same
+ * paints a peg. An act file keeps its prose above its array for the same
  * reason, and `tools/director/test/wave-save.test.ts` is what holds the
  * regeneration to being a no-op on a board nobody touched.
  */

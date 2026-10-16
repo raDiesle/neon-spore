@@ -7,7 +7,7 @@ import type { PinballRound } from "@neon-spore/sim";
  * The one authored boss whose content does not live in an act file. Every
  * other one is a handful of numbers `serialize.ts` puts inline beside the
  * wave; a peg board is forty pieces, and forty rows of coordinates inside
- * `act-4.ts` would be exactly the unreadable thing `pinball-rounds.ts` exists
+ * an act file would be exactly the unreadable thing `pinball-rounds.ts` exists
  * to avoid. So the wave names the list — `rounds: PINBALL_ROUNDS` — and this
  * regenerates the list where it lives.
  *

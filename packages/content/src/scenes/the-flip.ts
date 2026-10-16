@@ -38,7 +38,7 @@ export const THE_FLIP: GuideScene = {
   bpm: 120,
   seed: 1,
   // The pilot's screen, from the sixth beat to the end of the loop — the wave's
-  // own seat and beat (`waves/act-10.ts`).
+  // own seat and beat (THE FLIP, in `waves/`).
   faults: [{ kind: "flip", seat: 1, at: 6 }],
   entries: [
     { beat: 2, col: 1, color: "cyan" },

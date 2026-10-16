@@ -2656,7 +2656,7 @@ every site and a coin per site) — with which of them are **sealed**,
 how many have **opened** (the sites open in the seed's order, so *opened*
 is a count), the beat of the last opening, the beat of the last spill and
 the beat the last seal was made. It **fills its wave** (`bossFillsWave`, not
-on the exclusion list, THE SCUTTLE's case): `act-7g.ts`'s "THE HIVE" has no
+on the exclusion list, THE SCUTTLE's case): the wave "THE HIVE" has no
 entries at all, because every arrival in the fight is a body a breach
 spilled, and a body authored beside it would be a spill nobody could seal.
 
@@ -3320,7 +3320,7 @@ only thing left to do.
 column from the top row, one socket a row, with a bead in the topmost. It is a
 fixture, not a body (`bossFillsWave === false`): the fall loop, the hull and a
 hand find nothing of it, and since 6 October 2026 the wave has no arrivals
-of its own at all (`content/src/waves/act-7d.ts`; the owner: *remove every
+of its own at all (`content/src/waves/`; the owner: *remove every
 other enemy from the wave*). It unfolds, top socket to bottom, over
 `batonUnfoldBeats` (6) — it took eleven, one a socket, until the owner found
 it slow to sit through.
@@ -3872,7 +3872,7 @@ its **answer** (`maw` or `shield`), and the list of them, with the level and
 its clock, is the whole of the state (`sim/undertow.ts`, hashed in
 `sim/undertow-hash.ts`). It is a fixture, not a body (`bossFillsWave ===
 false`), and the arrivals around it are the wave's own
-(`content/src/waves/act-7e.ts`).
+(`content/src/waves/`).
 
 **The rule, in one sentence.** A plate bows for `undertowBowBeats` (4) and a
 lobe stands through it in its answer's colour; the answer under it takes it —
@@ -3985,7 +3985,7 @@ same bubble.* It replaced the pinch, the pry, the mouth and the vent, which
 were the sack's first design (§3 of [bosses-choreographed](bosses-choreographed.md)).
 
 **It is a fixture, not a body.** `bossFillsWave === false`, so the wave's own
-arrivals fall around it (`content/src/waves/act-7e.ts`, "THE GORGE"). What
+arrivals fall around it (`content/src/waves/`, "THE GORGE"). What
 `packages/sim` holds is the sack (`sim/gorge.ts`, hashed in
 `sim/gorge-hash.ts`): the levels as authored, the level being fought, its
 bubbles — each with the red and cyan shots it wants, the ones it has, its
@@ -4110,7 +4110,7 @@ along the hem, the indexes of the `soft` ones this cycle, the hits taken,
 three beat stamps — soft set drawn, last fire, last moved or held — and the
 **phase**: one of `CURTAIN_PHASES` (`hung`, `pinned`, `torn`, `out`) with the
 beat it was entered on and how far the hem has been carried up in it.
-It fills its wave (`bossFillsWave`): `act-7e.ts`'s "THE CURTAIN" has no
+It fills its wave (`bossFillsWave`): the wave "THE CURTAIN" has no
 arrivals and nothing falls but what the core fires.
 
 **The rule, in one sentence.** A hand carried across the fabric moves the
@@ -4410,7 +4410,7 @@ A slot is stale by the beat it carries, which is also what makes it safe
 across `resetClock`.
 
 **It is a fixture, not a body.** `bossFillsWave === false`, so the wave's own
-arrivals fall under it (`content/src/waves/act-7f.ts`, "THE TASTER") — rocks
+arrivals fall under it (`content/src/waves/`, "THE TASTER") — rocks
 for the shield, and three slicks and three bulbs evenly split, because on this
 boss a body answered *with a shot* is a colour the fan will then grow in.
 What `packages/sim` holds is the fan (`sim/taster.ts`, hashed in
@@ -4741,7 +4741,7 @@ tile (a pull of −1 is a hand off), the slack the rope has crept, where this
 fibre's zone sits, and five beat stamps — the hold began, the last snap, the
 last catch, the fall began, out. There are `sinewFibres` (6) to part. The mass hangs at `sinewMassRow` (5) plus one row per fibre
 gone, `sinewMassCols` (3) wide, and hurts nothing until it falls. It does not
-fill its wave (`bossFillsWave`): `act-7f.ts`'s "THE SINEW" carries its own
+fill its wave (`bossFillsWave`): the wave "THE SINEW" carries its own
 arrivals, because step 7 — *let go, shoot, take hold again* — is a decision
 only if something arrives while both hands are on the rope.
 
@@ -5057,7 +5057,7 @@ game is pointed, for the first time, at something they caused.
 
 **It is a fixture, not a body.** Nothing of it is in `world.creatures`
 (`bossFillsWave === false`), and wave 77, "THE LEDGER" in
-`content/src/waves/act-7g.ts`, carries its own eight arrivals — three rocks and
+`content/src/waves/`, carries its own eight arrivals — three rocks and
 five colours — because from the second hit the cord bills every shot the cannon
 takes, and *what to shoot at all* is a decision only if something is arriving.
 What `packages/sim` holds is the cord (`sim/ledger.ts`, hashed in
@@ -5400,7 +5400,7 @@ into the band, the last burst, the eversion began, out. There are
 `surgeNotches` (5) to open. The bulb hangs at `surgeBulbRow` (3) plus one row
 per notch open, never as low as the hull, `surgeBulbCols` (3) wide over
 `midCol`, and hurts nothing itself. It does not fill its wave
-(`bossFillsWave`): `act-7g.ts`'s "THE SURGE" carries its own arrivals,
+(`bossFillsWave`): the wave "THE SURGE" carries its own arrivals,
 because from its second notch it eats what falls into its columns, and a
 bulb with nothing to eat would be a bulb whose third phase never happens.
 
@@ -5470,7 +5470,7 @@ the bulb is out on the field — so the pilot wards with his **other** thumb,
 neither hand comes off the glass, and the charge climbs through the whole
 fall. That is the shipped fight rather than a concession: wave 78 already
 sends four ordinary rocks of its own while the pair is holding
-(`content/waves/act-7g.ts`), and the bulb's is the same rock arriving on the
+(`content/src/waves/`), and the bulb's is the same rock arriving on the
 boss's clock. Both thumbs rather than one, because the beats counted are the
 beats **held**: letting go stops the spitting as well as the charging, so a
 pair that never takes hold is never asked. The field says it in one word, and
@@ -5688,7 +5688,7 @@ went on the stalk, the stalk came free. It paces
 along the top of the field, above row 0, at `leadPaceCols` (1) a beat and
 turns at the walls (`leadWalk`: stop at the wall, face away from it), and
 enters at `midCol` facing right. It does not fill its wave
-(`bossFillsWave`): `act-7g.ts`'s "THE LEAD" carries its own arrivals, thin
+(`bossFillsWave`): the wave "THE LEAD" carries its own arrivals, thin
 and never in the body's own column, because every body under it costs a
 shot fired at where something *is*.
 
@@ -5998,7 +5998,7 @@ stamps — the wind-up began, the beam took it — and the three fields the
 pilot's one gesture writes: the hanging socket his thumb is on, the socket he
 has carried this cycle, and the column he carried it to. Unlike every clock boss
 before it except THE ORRERY it **fills its wave** (`bossFillsWave`, not on
-the exclusion list): `act-7g.ts`'s "THE SCUTTLE" has no entries at all,
+the exclusion list): the wave "THE SCUTTLE" has no entries at all,
 because every arrival in the fight is a part the frame threw, and an author
 cannot write a column the seed decides.
 
@@ -6310,7 +6310,7 @@ far, which are the health and the record; the candidate in hand
 (`carried`, -1 for none) and how far down its vein (`carryMilli`); the two
 thumbs on the organ and the turn under them; and three beat stamps — the
 level began, the surface went still, the ship was burst. Like THE SCUTTLE
-it **fills its wave** (`bossFillsWave`): `act-7g.ts`'s "THE ANTIPHON" has
+it **fills its wave** (`bossFillsWave`): the wave "THE ANTIPHON" has
 no entries at all.
 
 **The rule, in one sentence.** After `antiphonRestBeats` (2) with nothing
@@ -6646,7 +6646,7 @@ pulled *open*, a club slapped from a hand, a tongue wound in, a tail
 pulled up, a lunge held with both thumbs — is in git; the engine still
 reads all six gestures (`sim/test/instar.test.ts` pins them on scripts of
 its own). The guide says the rule in two halves and no more
-(`waves/act-7g.ts`), and the wave's control set is `scene` — no cannon, no
+(`content/src/waves/`), and the wave's control set is `scene` — no cannon, no
 shield, no colours, nothing on the band.
 
 **Where this departs from the owner's sequence, and why.** Four places,
@@ -9332,7 +9332,7 @@ THE SLOW and both run out a hull hit (`bossStrikesHull`):
   a hit on the core.
 
 The script is eleven steps now: the glare after the first fire, the look
-after the first reseal (`content/waves/act-11.ts`). AUTO answers both
+after the first reseal (`content/src/waves/`). AUTO answers both
 (`hands/boss-hands-oculus.ts`); `sim/test/oculus-story.test.ts` proves the
 rules.
 
@@ -10270,7 +10270,7 @@ player.* What the game does now:
 - **Any step run out strikes the hull**, which is the wave.
 - **Nothing round the alien counts down**: the press ring and its chevrons
   are gone, the owner's *we already have generic timer*.
-- **Three levels in the wave** (`act-13.ts`): three taps and long windows,
+- **Three levels in the wave** (its act file): three taps and long windows,
   then more taps and shorter ones, then up to seven taps in four beats, each
   closed by a fire step (red, cyan, either).
 
@@ -10728,7 +10728,7 @@ goes off a whole prime after it is held (`sim/flue-lead.ts`,
 `flueShotTicks`, and `flueEmberMet`, where the ember will be when a shot
 pressed now arrives).
 
-**The levels, as authored** (`content/src/waves/act-13.ts`): eleven, one for
+**The levels, as authored** (`content/src/waves/`): eleven, one for
 each lobe of the flue (the owner, 7 October 2026: *the ball should start
 moving slower … the number of levels is equal to the visual bumps of the
 pipe*). A red bolt at one column a beat, a cyan one from the right at the
@@ -10870,7 +10870,7 @@ the **cursor** into the script, the **needle** in thousandths of a lap, the
 lit step's marks **landed** as a mask, each seat's **taps** over the fight,
 the **hits**, whether the **hub** is lit, and each seat's **thumb** on the
 tap. The script is the wave's (`GovernorEntry.steps`,
-`content/src/waves/act-13b.ts`), copied at install: each step asks
+`content/src/waves/`), copied at install: each step asks
 `tap`, `retap` or `fire`, lists its **marks** — each a seat and a place on
 the dial — says whether they are **ordered**, gives the needle's **pace** a
 tick, a colour or `either`, and its own beats.
@@ -10920,7 +10920,7 @@ there. The picture asks the same verdict for a bolt still climbing, with the
 ticks it has left (`governorDownIn`, `governorTicksToTip`). Until 7 October
 the hub took a bolt judged at the press, the needle far round by its arrival.
 
-**The script** (`act-13b.ts`): three steps of a mark each, the shot
+**The script** (its act file): three steps of a mark each, the shot
 earned; a red shot; three marks in order; a cyan shot; four in order; the
 white shot. The tap paces are seven to nine thousandths a tick — a lap in
 about a second and a half — and every tap window holds three laps or more,
@@ -12680,7 +12680,7 @@ is cost enough without a charge on top.
 
 **It is fed by its wave, not by itself** (`bossFillsWave === false`, THE VANE's
 family), against the design page's own late phase where the boss spawned rocks.
-The arrivals are authored in `content/src/waves/act-7d.ts`, spread evenly and
+The arrivals are authored in `content/src/waves/`, spread evenly and
 deliberately *not* laid against the chambers' counts: a wave whose rocks landed
 on the coincidences would be teaching the count twice, once honestly and once
 by accident.
@@ -13325,7 +13325,7 @@ it stands in, a column it faces, a phase — `dark`, `full`, `eating`, `last`,
 `smoking`, `out` — and how far down the wick the pilot's thumb has come,
 `pinchMilli` (sim/candle.ts, hashed in sim/candle-hash.ts). It is a
 fixture, not a body (`bossFillsWave === false`), and the arrivals around it
-are the wave's own (`content/src/waves/act-7e.ts`, "THE CANDLE").
+are the wave's own (`content/src/waves/`, "THE CANDLE").
 
 **The rule, in one sentence.** Any colour up its own column dims it a step —
 a bullet reaching the top of the field (`bullets.ts`) or the beam burning the

@@ -1,0 +1,179 @@
+import { PULSE_STAGES } from "../pulse-stages.js";
+import type { Wave } from "../wave-types.js";
+
+/**
+ * Waves 153 to 162 of the game, in the order they are played: THE CHOKE's block
+ * and the boss THE PULSE.
+ *
+ * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act
+ * after the tutorial arc again in play order. A save that fills it cuts a page
+ * after it (`acts.ts`).
+ */
+export const WAVES_ACT_15: Wave[] = [
+  {
+    id: "theChoke",
+    name: "THE CHOKE",
+    guide: {
+      scene: "theChoke",
+    },
+    entries: [
+      { beat: 0, col: 7, color: "red" },
+      { beat: 4, col: 8, color: "cyan" },
+      { beat: 8, col: 3, color: "red" },
+      { beat: 14, col: 2, color: "cyan" },
+      { beat: 20, col: 10, color: "red" },
+      { beat: 26, col: 5, color: "cyan" },
+      { beat: 30, col: 0, color: "red" },
+      { beat: 42, col: 10, color: "red" },
+      { beat: 44, col: 0, color: "cyan" },
+      { beat: 48, col: 3, color: "cyan" },
+    ],
+    faults: [{ kind: "steer" }],
+  },
+  {
+    id: "theChokeAgain",
+    name: "CHOKE AGAIN",
+    variant: true,
+    entries: [
+      { beat: 6, col: 1, kind: "meteor", color: null },
+      { beat: 13, col: 4, kind: "meteor", color: null },
+      { beat: 28, col: 4, kind: "meteor", color: null },
+    ],
+    pods: [
+      { beat: 0, col: 4, row: 4, kind: "purge", husk: true },
+      { beat: 21, col: 8, row: 4, kind: "purge", husk: true },
+    ],
+  },
+  {
+    id: "theChokeSpread",
+    name: "CHOKE WIDE",
+    variant: true,
+    entries: [
+      { beat: 6, col: 0, color: "red" },
+      { beat: 19, col: 8, color: "red" },
+      { beat: 29, col: 6, color: "red" },
+    ],
+    pods: [
+      { beat: 0, col: 6, row: 4, kind: "purge", husk: true },
+      { beat: 12, col: 6, row: 4, kind: "purge", husk: true },
+      { beat: 24, col: 4, row: 4, kind: "purge", husk: true },
+    ],
+    faults: [{ kind: "steer" }],
+  },
+  {
+    id: "theChokeReach",
+    name: "CHOKE AT THE EDGE",
+    variant: true,
+    entries: [
+      { beat: 6, col: 9, kind: "shell", color: "red" },
+      { beat: 11, col: 5, color: "cyan" },
+      { beat: 21, col: 5, kind: "shell", color: "cyan" },
+      { beat: 27, col: 1, color: "cyan" },
+    ],
+    pods: [
+      { beat: 0, col: 0, row: 4, kind: "purge", husk: true },
+      { beat: 16, col: 0, row: 4, kind: "purge", husk: true },
+    ],
+  },
+  {
+    id: "theChokePair",
+    name: "CHOKE IN PAIRS",
+    variant: true,
+    entries: [
+      { beat: 0, col: 9, color: "cyan" },
+      { beat: 11, col: 6, color: "cyan" },
+      { beat: 15, col: 2, kind: "shell", color: "red" },
+      { beat: 20, col: 5, color: "cyan" },
+      { beat: 29, col: 9, color: "cyan" },
+      { beat: 33, col: 10, kind: "shell", color: "red" },
+    ],
+    pods: [
+      { beat: 6, col: 8, row: 4, kind: "purge", husk: true },
+      { beat: 24, col: 8, row: 4, kind: "purge", husk: true },
+    ],
+  },
+  {
+    id: "theChokeBreathe",
+    name: "CHOKE AT EASE",
+    variant: true,
+    entries: [
+      { beat: 0, col: 4, color: "red" },
+      { beat: 16, col: 1, color: "cyan" },
+      { beat: 24, col: 10, kind: "shell", color: "cyan" },
+      { beat: 32, col: 0, color: "red" },
+    ],
+    pods: [{ beat: 8, col: 9, row: 4, kind: "purge", husk: true }],
+  },
+  {
+    id: "theChokeRecall",
+    name: "CHOKE RECALLED",
+    variant: true,
+    entries: [
+      { beat: 0, col: 2, color: "cyan" },
+      { beat: 11, col: 6, color: "cyan" },
+      { beat: 16, col: 4, kind: "throb", color: "red" },
+      { beat: 21, col: 1, color: "cyan" },
+      { beat: 32, col: 8, color: "red" },
+      { beat: 38, col: 10, kind: "throb", color: "red" },
+    ],
+    pods: [
+      { beat: 6, col: 10, row: 4, kind: "purge", husk: true },
+      { beat: 26, col: 9, row: 4, kind: "purge", husk: true },
+    ],
+  },
+  {
+    id: "theChokeBend",
+    name: "CHOKE TWICE",
+    variant: true,
+    entries: [
+      { beat: 0, col: 9, color: "red" },
+      { beat: 12, col: 7, color: "cyan" },
+      { beat: 18, col: 5, kind: "shell", color: "cyan" },
+      { beat: 24, col: 4, color: "red" },
+      { beat: 24, col: 7, color: "red" },
+      { beat: 34, col: 5, kind: "shell", color: "cyan" },
+      { beat: 40, col: 3, color: "red" },
+      { beat: 40, col: 6, color: "red" },
+    ],
+    pods: [
+      { beat: 6, col: 2, row: 4, kind: "purge", husk: true },
+      { beat: 29, col: 3, row: 4, kind: "purge", husk: true },
+    ],
+  },
+  {
+    id: "theChokePeak",
+    name: "CHOKE PEAK",
+    variant: true,
+    entries: [
+      { beat: 0, col: 4, color: "cyan" },
+      { beat: 8, col: 9, color: "cyan" },
+      { beat: 12, col: 3, kind: "shell", color: "cyan" },
+      { beat: 16, col: 3, color: "red" },
+      { beat: 16, col: 7, color: "red" },
+      { beat: 20, col: 3, kind: "meteor", color: null, cross: 1, row: 4 },
+      { beat: 28, col: 5, color: "red" },
+      { beat: 28, col: 8, color: "red" },
+      { beat: 32, col: 3, kind: "shell", color: "cyan" },
+      { beat: 36, col: 6, kind: "meteor", color: null, cross: 1, row: 9 },
+      { beat: 40, col: 3, color: "red" },
+      { beat: 40, col: 7, color: "red" },
+      { beat: 48, col: 5, kind: "shell", color: "red" },
+    ],
+    pods: [
+      { beat: 4, col: 3, row: 4, kind: "purge", husk: true },
+      { beat: 24, col: 1, row: 4, kind: "purge", husk: true },
+      { beat: 44, col: 2, row: 4, kind: "purge", husk: true },
+    ],
+  },
+  {
+    id: "pulse",
+    name: "THE PULSE",
+    guide: {
+      scene: "thePulse",
+    },
+    entries: [],
+    boss: { kind: "pulse", stages: PULSE_STAGES },
+    bossType: "special",
+    controls: "pulse",
+  },
+];

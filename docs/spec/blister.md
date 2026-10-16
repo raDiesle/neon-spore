@@ -190,7 +190,7 @@ from end to end.
 ## Its guide and its waves
 
 **THE BLISTER** stands in act nine, straight after THE MINE
-(`content/waves/act-9.ts`): the mine's split — one seat sees it, the other's
+(`content/src/waves/`): the mine's split — one seat sees it, the other's
 finger answers it on the field — with a clock put on it. Two blisters, the
 navigator's, one tap each. Its guide is a film of two pages
 (`content/scenes/the-blister.ts`): the pilot sees the pore swell, *say
@@ -198,7 +198,7 @@ where*; the navigator, called early, taps it once a beat after it is up,
 and it is gone.
 
 **FIVE BLISTERS** stands where THE BLISTER first did, in act fourteen
-(`content/waves/act-14.ts`): one of each gesture in turn, by turns the
+(`content/src/waves/`): one of each gesture in turn, by turns the
 navigator's and the pilot's, and a SWIPE up for the pilot a beat after the
 RUB goes up for the navigator. No guide: the help round each body says which
 gesture, which is the point of drawing them all on one body.

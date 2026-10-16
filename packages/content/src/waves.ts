@@ -14,15 +14,14 @@ export type {
 /**
  * Every wave in the game, in order. This file used to be the list itself, and
  * it grew a dozen lines a wave until it could not — `packages/sim/test/limits.test.ts`
- * carried the receipt. The list is now split by act into `waves/act-*.ts`, one
- * file per chapter of the game (`act-1.ts` is the tutorial arc ending on
- * `FINALE`, `act-2.ts` is the first five bosses back to back, `act-3.ts` and
- * `act-3b.ts` are everything after them, and the newest act is where new waves
- * land — a file is cut when it reaches the 250-line limit rather than when a
- * chapter ends, which is why act three takes two of them and why the order
- * here is the order of the game rather than the order of the names); this
- * file only concatenates them in order, so what stands here stays short no matter
- * how many waves the acts hold.
+ * carried the receipt. The list is now split into `waves/act-*.ts`: `act-1.ts`
+ * to `act-2.ts` are the tutorial arc ending on `FINALE`, and every act after it
+ * holds one block in the order it is played, cut again by each reorder
+ * (`tools/director/src/waves-recut.ts`) — a file is cut when it reaches the
+ * 250-line limit rather than when a chapter ends, which is why the order here
+ * is the order of the game rather than the order of the names; this file only
+ * concatenates them in order, so what stands here stays short no matter how
+ * many waves the acts hold.
  *
  * `tools/director/src/serialize.ts` regenerates one act file at a time —
  * `serializeWaveArray` takes the export name (`WAVES_ACT_1`, `WAVES_ACT_2`,

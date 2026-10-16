@@ -895,15 +895,42 @@ by hand never moves.
 | `packages/content/src/waves-demo.ts` | which wave to open to see each mechanic, and what the run has to be switched to before it shows |
 | `packages/content/src/waves-demo-bosses.ts` | where each boss from THE STARE on is watched, spread into `waves-demo.ts` |
 | `packages/content/src/waves/act-1.ts` | act one: the tutorial arc |
-| `packages/content/src/waves/act-2.ts` | act two: the first six bosses, back to back, nothing else |
-| `packages/content/src/waves/act-3.ts` | act three: new mechanics after the first five bosses, one more boss among them (THE VANE) |
+| `packages/content/src/waves/act-20.ts` | Waves 203 to 214 of the game, in the order they are played: THE FENCE's block and the boss THE CURTAIN |
+| `packages/content/src/waves/act-21.ts` | Waves 215 to 224 of the game, in the order they are played: THE MAGNET's block and the boss THE TASTER |
+| `packages/content/src/waves/act-22.ts` | Waves 225 to 234 of the game, in the order they are played: THE CHOIR's block and the boss THE SINEW |
+| `packages/content/src/waves/act-23.ts` | Waves 235 to 244 of the game, in the order they are played: THE DARK's block and the boss THE LEDGER |
+| `packages/content/src/waves/act-24.ts` | Waves 245 to 254 of the game, in the order they are played: THE BALLOON's block and the boss THE SURGE |
+| `packages/content/src/waves/act-25.ts` | Waves 255 to 264 of the game, in the order they are played: THE MOULT's block and the boss THE LEAD |
+| `packages/content/src/waves/act-26.ts` | Waves 265 to 274 of the game, in the order they are played: THE COIL's block and the boss THE SCUTTLE |
+| `packages/content/src/waves/act-27.ts` | Waves 275 to 284 of the game, in the order they are played: THE CODEX's block and the boss THE ANTIPHON |
+| `packages/content/src/waves/act-28.ts` | Waves 285 to 294 of the game, in the order they are played: THE LURE's block and the boss THE HIVE |
+| `packages/content/src/waves/act-29.ts` | Waves 295 to 304 of the game, in the order they are played: THE JAM's block and the boss THE CAIRN |
+| `packages/content/src/waves/act-2.ts` | The end of the tutorial arc: CATCH AND AIM, the shield held twice, and FINALE, the arc's last wave |
+| `packages/content/src/waves/act-30.ts` | Waves 305 to 314 of the game, in the order they are played: THE CLASP's block and the boss THE WELL |
+| `packages/content/src/waves/act-31.ts` | Waves 315 to 324 of the game, in the order they are played: THE DART's block and the boss THE REPRISE |
+| `packages/content/src/waves/act-32.ts` | Waves 325 to 334 of the game, in the order they are played: THE ECHO's block and the boss THE SPLICE |
+| `packages/content/src/waves/act-33.ts` | Waves 335 to 344 of the game, in the order they are played: THE GYRE's block and the boss THE FILAMENT |
+| `packages/content/src/waves/act-34.ts` | Waves 345 to 355 of the game, in the order they are played: THE HANDOVER's block and the boss THE GIMBAL |
+| `packages/content/src/waves/act-35.ts` | Waves 356 to 365 of the game, in the order they are played: THE LID's block and the boss THE SPOOL |
+| `packages/content/src/waves/act-36.ts` | Waves 366 to 375 of the game, in the order they are played: THE RECOIL's block and the boss THE HASP |
+| `packages/content/src/waves/act-37.ts` | Waves 376 to 385 of the game, in the order they are played: THE CRYSTAL's block and the boss THE RATCHET |
+| `packages/content/src/waves/act-38.ts` | Waves 386 to 395 of the game, in the order they are played: THE VOLLEY's block and the boss THE NETTLE |
+| `packages/content/src/waves/act-39.ts` | Waves 396 to 405 of the game, in the order they are played: THE FLIP's block and the boss THE MANTLE |
+| `packages/content/src/waves/act-3.ts` | Waves 32 to 42 of the game, in the order they are played: THE LANCE's block and the boss BULB QUEEN |
 | `packages/content/src/living-look.ts` | which kinds are drawn as a body of their own, and the contour and own-motion of each — one row per kind, so a forgotten one is a build error |
 | `packages/content/src/living-look-handed.ts` | **How the bodies answered by two hands are drawn** |
 | `packages/content/src/living-look-stroked.ts` | a creature is not a blob — the nine kinds a radial contour cannot describe, each `null` with the reason its shape needs a path of its own |
-| `packages/content/src/waves/act-4.ts` | act four, opening on THE WISP; filled the day THE GYRE was written |
-| `packages/content/src/waves/act-4b.ts` | The tail of act four, cut off `act-4.ts` at ten lines under the 250-line ceiling rather than at it |
-| `packages/content/src/waves/act-4-p2.ts` | Cut from `act-4.ts` by the director's save when that file passed the 250-line ceiling; it plays straight… |
-| `packages/content/src/waves/act-4-p3.ts` | Cut from `act-4-p2.ts` by the director's save when that file passed the 250-line ceiling; it plays straight… |
+| `packages/content/src/waves/act-40.ts` | Waves 406 to 415 of the game, in the order they are played: THE CRAWLER's block and the boss THE KEEL |
+| `packages/content/src/waves/act-41.ts` | Waves 416 to 425 of the game, in the order they are played: THE MINE's block and the boss THE VALVE |
+| `packages/content/src/waves/act-42.ts` | Waves 426 to 435 of the game, in the order they are played: THE VEIL's block and the boss THE SEAM |
+| `packages/content/src/waves/act-43.ts` | Waves 436 to 445 of the game, in the order they are played: THE WISP's block and the boss THE OCULUS |
+| `packages/content/src/waves/act-44.ts` | Waves 446 to 455 of the game, in the order they are played: THE GHOST's block and the boss THE VISE |
+| `packages/content/src/waves/act-45.ts` | Waves 456 to 465 of the game, in the order they are played: THE CAROM's block and the boss THE PLUMB |
+| `packages/content/src/waves/act-46.ts` | Waves 466 to 474 of the game, in the order they are played: THE CAROM's review and the boss THE SLING |
+| `packages/content/src/waves/act-47.ts` | Waves 475 to 483 of the game, in the order they are played: THE GHOST's review and the boss THE CAPSTAN |
+| `packages/content/src/waves/act-48.ts` | Waves 484 to 492 of the game, in the order they are played: THE WISP's review and the boss THE GALL |
+| `packages/content/src/waves/act-49.ts` | Waves 493 to 501 of the game, in the order they are played: THE VEIL's review and the boss THE TRAPEZE |
+| `packages/content/src/waves/act-4.ts` | Waves 43 to 52 of the game, in the order they are played: THE CROSSING's block and the boss THE MIRROR |
 | `packages/content/src/ghost-shape.ts` | THE GHOST's contour, which is the third family of them in this package |
 | `packages/content/src/gimbal-script.ts` | THE GIMBAL's six alignments: where each ring's mark sits on the true wheel, how far the marks creep a beat |
 | `packages/content/src/gorge-levels.ts` | THE GORGE's levels: five rows or rings of bubbles, and the layout is the level |
@@ -914,10 +941,14 @@ by hand never moves.
 | `packages/content/src/controls-fleet.ts` | **THE FLEET's five**: the salvo under the pilot's thumb |
 | `packages/content/src/controls-pulse.ts` | **THE PULSE's eight**: four lanes, a slick, a bulb, a meteor and a pod |
 | `packages/content/src/pinball-rounds.ts` | PINBALL's boards, one per round, **drawn rather than listed** |
-| `packages/content/src/waves/act-5.ts` | you are adding a wave — this is the act new ones land in, act four having filled |
-| `packages/content/src/waves/act-5-p2.ts` | Cut from `act-5.ts` by the director's save when that file passed the 250-line ceiling; it plays straight… |
-| `packages/content/src/waves/act-5-p3.ts` | Cut from `act-5-p2.ts` by the director's save when that file passed the 250-line ceiling; it plays straight… |
-| `packages/content/src/waves/act-5-p4.ts` | Cut from `act-5-p3.ts` by the director's save when that file passed the 250-line ceiling; it plays straight… |
+| `packages/content/src/waves/act-50.ts` | Waves 502 to 510 of the game, in the order they are played: THE MINE's review and the boss THE FLUE |
+| `packages/content/src/waves/act-51.ts` | Waves 511 to 519 of the game, in the order they are played: THE CRAWLER's review and the boss THE GOVERNOR |
+| `packages/content/src/waves/act-52.ts` | Waves 520 to 528 of the game, in the order they are played: THE VOLLEY's review and the boss THE LAMPREY |
+| `packages/content/src/waves/act-53.ts` | Waves 529 to 537 of the game, in the order they are played: THE CRYSTAL's review and the boss THE MIMIC |
+| `packages/content/src/waves/act-54.ts` | Waves 538 to 546 of the game, in the order they are played: THE RECOIL's review and the boss THE LATCH |
+| `packages/content/src/waves/act-55.ts` | Waves 547 to 555 of the game, in the order they are played: THE LID's review and the boss THE CHRYSALIS |
+| `packages/content/src/waves/act-56.ts` | Waves 556 to 564 of the game, in the order they are played: THE GYRE's review and the boss THE HYDRA |
+| `packages/content/src/waves/act-5.ts` | Waves 53 to 62 of the game, in the order they are played: THE BEATBOX's block and the boss THE MAZE |
 | `packages/content/src/lid-shape.ts` | you are tuning THE LID's outline — two arcs meeting at a corner, the fourth contour family here |
 | `packages/content/src/scenes.ts` | you are authoring or retiming the rehearsal a guide shows — arrivals, tempo and the acts a ghost thumb plays |
 | `packages/content/src/scene-script.ts` | A rehearsal turned into the two things the runner takes: a command track and a whole `SceneScript` |
@@ -969,11 +1000,6 @@ by hand never moves.
 | `packages/content/src/scenes/the-fleet.ts` | THE FLEET's rehearsal: the only one who can see the ships is the one who cannot move the sights |
 | `packages/content/src/scenes/the-flip.ts` | THE FLIP's rehearsal: a screen that turns, shown by turning and then by being believed |
 | `packages/content/src/scenes/the-flue.ts` | THE FLUE's rehearsal: one level called and shot, then the seats swapped and the next called the other way round |
-| `packages/content/src/waves/act-3b.ts` | The second half of act three, cut off `act-3.ts` when that file reached the 250-line ceiling on `THE VEIL` |
-| `packages/content/src/waves/act-3b-p2.ts` | Cut from `act-3b.ts` by the director's save when that file passed the 250-line ceiling; it plays straight… |
-| `packages/content/src/waves/act-3-p2.ts` | Cut from `act-3.ts` by the director's save when that file passed the 250-line ceiling; it plays straight… |
-| `packages/content/src/waves/act-3-p3.ts` | Cut from `act-3-p2.ts` by the director's save when that file passed the 250-line ceiling; it plays straight… |
-| `packages/content/src/waves/act-3-p4.ts` | Cut from `act-3-p3.ts` by the director's save when that file passed the 250-line ceiling; it plays straight… |
 | `packages/content/src/intro.ts` | WHAT THIS GAME IS, IN ONE SCENE |
 | `packages/content/src/index-shapes.ts` | Every shape on `@neon-spore/content`'s surface — contours, outlines and stacks — split off the barrel by subject |
 | `packages/content/src/instar-script.ts` | THE INSTAR's script: twenty-eight steps over twenty-one poses, and what the pair does to each |
@@ -1003,70 +1029,22 @@ by hand never moves.
 | `packages/content/src/control-sets-table.ts` | Every panel in the game, as a table |
 | `packages/content/src/scenes/cyan.ts` | CYAN's rehearsal: the second button, and the cost of the first one |
 | `packages/content/src/scenes/two-rocks.ts` | TWO ROCKS' rehearsal: the plate becomes something player 2 can carry |
-| `packages/content/src/waves/act-6.ts` | Act six, and it opens with a rock that will not hold its lane |
-| `packages/content/src/waves/act-6-p2.ts` | Cut from `act-6.ts` by the director's save when that file passed the 250-line ceiling; it plays straight… |
-| `packages/content/src/waves/act-6-p3.ts` | Cut from `act-6-p2.ts` by the director's save when that file passed the 250-line ceiling; it plays straight… |
-| `packages/content/src/waves/act-6-p4.ts` | Cut from `act-6-p3.ts` by the director's save when that file passed the 250-line ceiling; it plays straight… |
+| `packages/content/src/waves/act-6.ts` | Waves 63 to 72 of the game, in the order they are played: THE WEIGHT's block and the boss THE GAUGE |
 | `packages/content/src/scenes/the-volley.ts` | THE VOLLEY's rehearsal: a ward that works is not a body that is gone |
 | `packages/content/src/scenes/catch-and-aim.ts` | CATCH AND AIM's rehearsal: the hand aims, so the cannon does not have to |
 | `packages/content/src/waves/act-1b.ts` | The last of act one, cut off `act-1.ts` when that file reached the 250-line ceiling on `CATCH AND AIM` |
-| `packages/content/src/waves/act-10.ts` | Act ten, opened for THE REPRISE — `act-9.ts` had twenty-odd lines left under the 250-line ceiling |
-| `packages/content/src/waves/act-10-p2.ts` | Cut from `act-10.ts` by the director's save when that file passed the 250-line ceiling; it plays straight… |
-| `packages/content/src/waves/act-10-p3.ts` | Cut from `act-10-p2.ts` by the director's save when that file passed the 250-line ceiling; it plays straight… |
-| `packages/content/src/waves/act-10-p4.ts` | Cut from `act-10-p3.ts` by the director's save when that file passed the 250-line ceiling; it plays straight… |
-| `packages/content/src/waves/act-11.ts` | Act eleven, opened for THE SPOOL on 22 September 2026 |
-| `packages/content/src/waves/act-11b.ts` | Act eleven's second page, opened for THE OCULUS on 2 October 2026 |
-| `packages/content/src/waves/act-11-p2.ts` | Cut from `act-11.ts` by the director's save when that file passed the 250-line ceiling; it plays straight… |
-| `packages/content/src/waves/act-12.ts` | Act twelve, opened for THE VISE on 26 September 2026 |
-| `packages/content/src/waves/act-13.ts` | Act thirteen, opened for THE DAVIT on 26 September 2026 |
-| `packages/content/src/waves/act-13b.ts` | Act thirteen's second page, opened for THE GOVERNOR on 6 October 2026 |
-| `packages/content/src/waves/act-14.ts` | Act fourteen, opened for THE LAMPREY on 1 October 2026 |
-| `packages/content/src/waves/act-14b.ts` | Act fourteen, its second page, opened on 14 October 2026 when the director's save brought THE GOVERNOR into… |
-| `packages/content/src/waves/act-14b-p2.ts` | Cut from `act-14b.ts` by the director's save when that file passed the 250-line ceiling; it plays straight… |
-| `packages/content/src/waves/act-14b-p20.ts` | Cut from `act-14b-p19.ts` by the director's save when that file passed the 250-line ceiling; it plays… |
-| `packages/content/src/waves/act-14b-p21.ts` | Cut from `act-14b-p20.ts` by the director's save when that file passed the 250-line ceiling; it plays… |
-| `packages/content/src/waves/act-14b-p22.ts` | Cut from `act-14b-p21.ts` by the director's save when that file passed the 250-line ceiling; it plays… |
-| `packages/content/src/waves/act-14b-p23.ts` | Cut from `act-14b-p22.ts` by the director's save when that file passed the 250-line ceiling; it plays… |
-| `packages/content/src/waves/act-14b-p24.ts` | Cut from `act-14b-p23.ts` by the director's save when that file passed the 250-line ceiling; it plays… |
-| `packages/content/src/waves/act-14b-p25.ts` | Cut from `act-14b-p24.ts` by the director's save when that file passed the 250-line ceiling; it plays… |
-| `packages/content/src/waves/act-14b-p26.ts` | Cut from `act-14b-p25.ts` by the director's save when that file passed the 250-line ceiling; it plays… |
-| `packages/content/src/waves/act-14b-p27.ts` | Cut from `act-14b-p26.ts` by the director's save when that file passed the 250-line ceiling; it plays… |
-| `packages/content/src/waves/act-14b-p28.ts` | Cut from `act-14b-p27.ts` by the director's save when that file passed the 250-line ceiling; it plays… |
-| `packages/content/src/waves/act-14b-p29.ts` | Cut from `act-14b-p28.ts` by the director's save when that file passed the 250-line ceiling; it plays… |
-| `packages/content/src/waves/act-14b-p3.ts` | Cut from `act-14b-p2.ts` by the director's save when that file passed the 250-line ceiling; it plays straight… |
-| `packages/content/src/waves/act-14b-p30.ts` | Cut from `act-14b-p29.ts` by the director's save when that file passed the 250-line ceiling; it plays… |
-| `packages/content/src/waves/act-14b-p31.ts` | Cut from `act-14b-p30.ts` by the director's save when that file passed the 250-line ceiling; it plays… |
-| `packages/content/src/waves/act-14b-p32.ts` | Cut from `act-14b-p31.ts` by the director's save when that file passed the 250-line ceiling; it plays… |
-| `packages/content/src/waves/act-14b-p33.ts` | Cut from `act-14b-p32.ts` by the director's save when that file passed the 250-line ceiling; it plays… |
-| `packages/content/src/waves/act-14b-p34.ts` | Cut from `act-14b-p33.ts` by the director's save when that file passed the 250-line ceiling; it plays… |
-| `packages/content/src/waves/act-14b-p35.ts` | Cut from `act-14b-p34.ts` by the director's save when that file passed the 250-line ceiling; it plays… |
-| `packages/content/src/waves/act-14b-p36.ts` | Cut from `act-14b-p35.ts` by the director's save when that file passed the 250-line ceiling; it plays… |
-| `packages/content/src/waves/act-14b-p37.ts` | Cut from `act-14b-p36.ts` by the director's save when that file passed the 250-line ceiling; it plays… |
-| `packages/content/src/waves/act-14b-p38.ts` | Cut from `act-14b-p37.ts` by the director's save when that file passed the 250-line ceiling; it plays… |
-| `packages/content/src/waves/act-14b-p39.ts` | Cut from `act-14b-p38.ts` by the director's save when that file passed the 250-line ceiling; it plays… |
-| `packages/content/src/waves/act-14b-p4.ts` | Cut from `act-14b-p3.ts` by the director's save when that file passed the 250-line ceiling; it plays straight… |
-| `packages/content/src/waves/act-14b-p40.ts` | Cut from `act-14b-p39.ts` by the director's save when that file passed the 250-line ceiling; it plays… |
-| `packages/content/src/waves/act-14b-p41.ts` | Cut from `act-14b-p40.ts` by the director's save when that file passed the 250-line ceiling; it plays… |
-| `packages/content/src/waves/act-14b-p42.ts` | Cut from `act-14b-p41.ts` by the director's save when that file passed the 250-line ceiling; it plays… |
-| `packages/content/src/waves/act-14b-p43.ts` | Cut from `act-14b-p42.ts` by the director's save when that file passed the 250-line ceiling; it plays… |
-| `packages/content/src/waves/act-14b-p44.ts` | Cut from `act-14b-p43.ts` by the director's save when that file passed the 250-line ceiling; it plays… |
-| `packages/content/src/waves/act-14b-p10.ts` | Cut from `act-14b-p9.ts` by the director's save when that file passed the 250-line ceiling; it plays straight… |
-| `packages/content/src/waves/act-14b-p11.ts` | Cut from `act-14b-p10.ts` by the director's save when that file passed the 250-line ceiling; it plays… |
-| `packages/content/src/waves/act-14b-p12.ts` | Cut from `act-14b-p11.ts` by the director's save when that file passed the 250-line ceiling; it plays… |
-| `packages/content/src/waves/act-14b-p13.ts` | Cut from `act-14b-p12.ts` by the director's save when that file passed the 250-line ceiling; it plays… |
-| `packages/content/src/waves/act-14b-p14.ts` | Cut from `act-14b-p13.ts` by the director's save when that file passed the 250-line ceiling; it plays… |
-| `packages/content/src/waves/act-14b-p15.ts` | Cut from `act-14b-p14.ts` by the director's save when that file passed the 250-line ceiling; it plays… |
-| `packages/content/src/waves/act-14b-p16.ts` | Cut from `act-14b-p15.ts` by the director's save when that file passed the 250-line ceiling; it plays… |
-| `packages/content/src/waves/act-14b-p17.ts` | Cut from `act-14b-p16.ts` by the director's save when that file passed the 250-line ceiling; it plays… |
-| `packages/content/src/waves/act-14b-p18.ts` | Cut from `act-14b-p17.ts` by the director's save when that file passed the 250-line ceiling; it plays… |
-| `packages/content/src/waves/act-14b-p19.ts` | Cut from `act-14b-p18.ts` by the director's save when that file passed the 250-line ceiling; it plays… |
-| `packages/content/src/waves/act-14b-p5.ts` | Cut from `act-14b-p4.ts` by the director's save when that file passed the 250-line ceiling; it plays straight… |
-| `packages/content/src/waves/act-14b-p6.ts` | Cut from `act-14b-p5.ts` by the director's save when that file passed the 250-line ceiling; it plays straight… |
-| `packages/content/src/waves/act-14b-p7.ts` | Cut from `act-14b-p6.ts` by the director's save when that file passed the 250-line ceiling; it plays straight… |
-| `packages/content/src/waves/act-14b-p8.ts` | Cut from `act-14b-p7.ts` by the director's save when that file passed the 250-line ceiling; it plays straight… |
-| `packages/content/src/waves/act-14b-p9.ts` | Cut from `act-14b-p8.ts` by the director's save when that file passed the 250-line ceiling; it plays straight… |
+| `packages/content/src/waves/act-10.ts` | Waves 103 to 112 of the game, in the order they are played: THE LEECH's block and the boss SNAKE |
+| `packages/content/src/waves/act-11.ts` | Waves 113 to 122 of the game, in the order they are played: THE THROB's block and the boss PINBALL |
+| `packages/content/src/waves/act-12.ts` | Waves 123 to 132 of the game, in the order they are played: THE COUNT's block and the boss THE SCOUT |
+| `packages/content/src/waves/act-13.ts` | Waves 133 to 142 of the game, in the order they are played: THE SHELL's block and the boss THE HAUL |
+| `packages/content/src/waves/act-14.ts` | Waves 143 to 152 of the game, in the order they are played: THE HUSK's block and the boss THE STARE |
 | `packages/content/src/waves/act-1-p2.ts` | Act one's second page — the arc's composed regular waves pushed it past the ceiling, and the save cut it (`acts.ts`) |
 | `packages/content/src/waves/act-1-p3.ts` | Act one's third page, cut the same way; plays straight after `act-1-p2.ts` |
+| `packages/content/src/waves/act-15.ts` | Waves 153 to 162 of the game, in the order they are played: THE CHOKE's block and the boss THE PULSE |
+| `packages/content/src/waves/act-16.ts` | Waves 163 to 172 of the game, in the order they are played: THE RIND's block and the boss THE BATON |
+| `packages/content/src/waves/act-17.ts` | Waves 173 to 182 of the game, in the order they are played: THE VEER's block and the boss THE UNDERTOW |
+| `packages/content/src/waves/act-18.ts` | Waves 183 to 192 of the game, in the order they are played: THE STRAND's block and the boss THE THROAT |
+| `packages/content/src/waves/act-19.ts` | Waves 193 to 202 of the game, in the order they are played: THE CLAW's block and the boss THE GORGE |
 | `packages/content/src/maze-drawn.ts` | The four sheets THE MAZE plays after the owner's own, drawn by `bun run maze` and printed here |
 | `packages/content/src/body-path.ts` | one living body's contour — a blob, or the walk that puts clubs on its rim |
 | `packages/content/src/body-path-clubbed.ts` | a creature is not a blob — the walked rim of balls on stalks THE THROB and THE BEATBOX wear, and the four numbers it is sampled at |
@@ -1089,7 +1067,6 @@ by hand never moves.
 | `packages/content/src/mechanics-wave.ts` | **The two mechanics a wave turns on without putting a body on the field**, and the whole of `reach: "wave"` |
 | `packages/content/src/silhouettes-spare.ts` | **The two contours next door that are not a body on the roster**: one retired, one a capsule |
 | `packages/content/src/silhouettes-sac.ts` | **The sac**: the contour every hanging body is cut from, taken off the shape sheet whole |
-| `packages/content/src/waves/act-7.ts` | Act seven, and it opens on the first body in this game that cannot be answered from the column it is standing in |
 | `packages/content/src/magnet-shape.ts` | THE MAGNET's contour, as numbers rather than as drawing |
 | `packages/content/src/mantle-script.ts` | THE MANTLE's four pull-together thresholds: the summed depth of both handles, thousandths of a tile |
 | `packages/content/src/veer-clown-shape.ts` | **THE VEER's rider, as geometry**: where every disc of the clown sits on the rock, and the loops it comes to |
@@ -1107,25 +1084,6 @@ by hand never moves.
 | `packages/content/src/control-sets-groups.ts` | **The panel half of the coverage rule**, and nothing else |
 | `packages/content/src/control-sender.ts` | **Which control sent this command** — the table next door read backwards |
 | `packages/content/src/control-seats.ts` | **The panel as it is seated on this tick**: the wave's own set, or that set with the seats exchanged |
-| `packages/content/src/waves/act-7b.ts` | The second half of act seven, cut off `act-7.ts` when THE COIL was split into two waves and that file reached… |
-| `packages/content/src/waves/act-7a.ts` | Three waves between the two halves of act seven: THE CHOKE (the steer fault), THE LIMPET and THE LEECH |
-| `packages/content/src/waves/act-7a-p2.ts` | Cut from `act-7a.ts` by the director's save when that file passed the 250-line ceiling; it plays straight… |
-| `packages/content/src/waves/act-7c.ts` | The third page of act seven, cut off `act-7b.ts` when THE STARE took that file twenty-one lines over the… |
-| `packages/content/src/waves/act-7c-p2.ts` | Cut from `act-7c.ts` by the director's save when that file passed the 250-line ceiling; it plays straight… |
-| `packages/content/src/waves/act-7c-p3.ts` | Cut from `act-7c-p2.ts` by the director's save when that file passed the 250-line ceiling; it plays straight… |
-| `packages/content/src/waves/act-7d.ts` | The fourth page of act seven, cut off `act-7c.ts` on 20 September 2026 — THE BATON, when that page had no room left and no letter to give |
-| `packages/content/src/waves/act-7e.ts` | The fifth page of act seven, cut off `act-7c.ts` when THE THROAT and THE BATON landed on it within an hour… |
-| `packages/content/src/waves/act-7e-p2.ts` | Cut from `act-7e.ts` by the director's save when that file passed the 250-line ceiling; it plays straight… |
-| `packages/content/src/waves/act-7e-p3.ts` | Cut from `act-7e-p2.ts` by the director's save when that file passed the 250-line ceiling; it plays straight… |
-| `packages/content/src/waves/act-7f.ts` | The sixth page of act seven, cut off `act-7e.ts` on 19 September 2026 when THE TASTER and THE SINEW needed a page between it and the old `act-7e.ts` |
-| `packages/content/src/waves/act-7f-p2.ts` | Cut from `act-7f.ts` by the director's save when that file passed the 250-line ceiling; it plays straight… |
-| `packages/content/src/waves/act-7g.ts` | The seventh page of act seven, cut off `act-7e.ts` when THE LEAD would have taken it over the 250-line… |
-| `packages/content/src/waves/act-7g-p2.ts` | Cut from `act-7g.ts` by the director's save when that file passed the 250-line ceiling; it plays straight… |
-| `packages/content/src/waves/act-7g-p3.ts` | Cut from `act-7g-p2.ts` by the director's save when that file passed the 250-line ceiling; it plays straight… |
-| `packages/content/src/waves/act-7g-p4.ts` | Cut from `act-7g-p3.ts` by the director's save when that file passed the 250-line ceiling; it plays straight… |
-| `packages/content/src/waves/act-7g-p5.ts` | Cut from `act-7g-p4.ts` by the director's save when that file passed the 250-line ceiling; it plays straight… |
-| `packages/content/src/waves/act-7g-p6.ts` | Cut from `act-7g-p5.ts` by the director's save when that file passed the 250-line ceiling; it plays straight… |
-| `packages/content/src/waves/act-7-p2.ts` | Cut from `act-7.ts` by the director's save when that file passed the 250-line ceiling; it plays straight… |
 | `packages/content/src/scenes/the-coil.ts` | THE COIL's rehearsal: the shield is stuck open, and the plate is what opens the dome |
 | `packages/content/src/keys-desk.ts` | **The desk keyboard is a panel too**, and this is where a key finds out what it means |
 | `packages/content/src/control-aim.ts` | Which way a control points, and which rig of keys answers it |
@@ -1173,12 +1131,9 @@ by hand never moves.
 | `packages/content/src/silhouettes-blister.ts` | **THE BLISTER is ROOTED CLOVER**: two drafts off the shape sheet, combined and named |
 | `packages/content/src/silhouettes-weight.ts` | **THE WEIGHT: the slumped sac**, the louder of the two hanging drafts, taken off the shape sheet whole |
 | `packages/content/src/silhouettes-mine.ts` | **THE MINE is REACHER**, off the shape sheet: *four soft arms |
-| `packages/content/src/waves/act-8.ts` | Act eight, opened for THE BEATBOX rather than for a chapter |
-| `packages/content/src/waves/act-8b.ts` | Act eight's second page: THE WELL and THE HANDOVER, cut off `act-8.ts` at the ceiling |
-| `packages/content/src/waves/act-8-p2.ts` | Cut from `act-8.ts` by the director's save when that file passed the 250-line ceiling; it plays straight… |
-| `packages/content/src/waves/act-9.ts` | Act nine: THE LEAK, the fault that takes the hold rather than a button, on the figure THE LANCE was taught on |
-| `packages/content/src/waves/act-9-p2.ts` | Cut from `act-9.ts` by the director's save when that file passed the 250-line ceiling; it plays straight… |
-| `packages/content/src/waves/act-9-p3.ts` | Cut from `act-9-p2.ts` by the director's save when that file passed the 250-line ceiling; it plays straight… |
+| `packages/content/src/waves/act-8.ts` | Waves 83 to 92 of the game, in the order they are played: THE BLISTER's block and the boss THE FLEET |
+| `packages/content/src/waves/act-7.ts` | Waves 73 to 82 of the game, in the order they are played: THE LIMPET's block and the boss THE WARDEN |
+| `packages/content/src/waves/act-9.ts` | Waves 93 to 102 of the game, in the order they are played: THE WARD's block and the boss THE VANE |
 | `packages/content/src/waves/acts.ts` | **The act files, in the order of the game** — the one list of them, written by the director's save when it cuts a full act |
 | `packages/content/src/balloon-shape.ts` | THE BALLOON's contour: a skin with a knot under it, and the fifth family of contour in this package |
 | `packages/content/src/creatures-handed.ts` | **The bodies answered by hands alone**, and today there is one of them |
@@ -3613,6 +3568,7 @@ by hand never moves.
 | `tools/index/base.ts` | the files this checkout changed, as they were at its merge base with `main` and at `HEAD` — what `refresh.ts` measures against |
 | `tools/land/claims.ts` | Which of the branches a landing finds merged are really queue claims |
 | `tools/director/src/waves-acts.ts` | The act files, and the save that writes a wave list back across them |
+| `tools/director/src/waves-acts-scripts.ts` | The two pieces of authored boss content a save writes beside the acts: PINBALL's boards and THE SCOUT's arenas |
 | `tools/director/src/waves-act-files.ts` | **Where the waves live on disk**, and nothing about writing them |
 | `tools/director/src/waves-act-list.ts` | The act list read and written, which act a saved wave goes to (the one it is in), cutting a full act into `act-N-pM`, and keeping each file's imports matched to its waves |
 | `tools/director/src/waves-baseline.ts` | A save runs `baseline:blank` in a fresh process before it commits, so a wave changed under its baseline row cannot land `main` red |
@@ -3622,6 +3578,8 @@ by hand never moves.
 | `tools/director/src/waves-table-rows.ts` | DOCUMENTATION › WAVES › EVERY WAVE, as rows: every number the measured page gives a wave |
 | `tools/director/src/waves-table-play.ts` | A wave's name pressed in DOCUMENTATION › WAVES › EVERY WAVE opens it on the director's own screen and plays… |
 | `tools/director/src/waves-table.ts` | DOCUMENTATION › WAVES › EVERY WAVE, drawn live — the owner, 15 October 2026 |
+| `tools/director/src/waves-recut-write.ts` | The files side of a re-cut (`waves-recut.ts`): which acts the tutorial arc keeps |
+| `tools/director/src/waves-recut.ts` | **The act files after the tutorial arc, cut again in the order the waves are played** |
 | `tools/director/src/wave-note-field.ts` | WAVE SETTINGS › NOTE: the author's note on a wave — the owner, 15 October 2026: *some note column |
 | `tools/director/src/wave-settings-fields.ts` | WAVE SETTINGS' fields over the open wave: NAME, NOTE, the kind of boss and the control set |
 | `tools/director/src/wordings-glossary.ts` | The words on the WORDINGS page that have no one place on the picture — the list under the two labelled screens |

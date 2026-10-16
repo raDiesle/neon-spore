@@ -1,0 +1,187 @@
+import type { Wave } from "../wave-types.js";
+
+/**
+ * Waves 426 to 435 of the game, in the order they are played: THE VEIL's block
+ * and the boss THE SEAM.
+ *
+ * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act
+ * after the tutorial arc again in play order. A save that fills it cuts a page
+ * after it (`acts.ts`).
+ */
+export const WAVES_ACT_42: Wave[] = [
+  {
+    id: "theVeil",
+    name: "THE VEIL",
+    guide: {
+      scene: "theVeil",
+    },
+    entries: [
+      { beat: 0, col: 5, kind: "veil", color: null },
+      { beat: 10, col: 2, kind: "veil", color: null },
+      { beat: 11, col: 8, kind: "veil", color: null },
+      { beat: 18, col: 3, kind: "veil", color: null },
+      { beat: 24, col: 0, kind: "veil", color: null },
+    ],
+  },
+  {
+    id: "theVeilAgain",
+    name: "VEILS AGAIN",
+    variant: true,
+    entries: [
+      { beat: 0, col: 7, kind: "veil", color: null },
+      { beat: 8, col: 2, kind: "mine", color: "cyan", row: 11, sees: 1 },
+      { beat: 16, col: 8, kind: "weight", color: null },
+      { beat: 23, col: 1, kind: "veil", color: null },
+      { beat: 31, col: 8, kind: "mine", color: "red", row: 3, sees: 2 },
+    ],
+  },
+  {
+    id: "theVeilSpread",
+    name: "VEILS SPREAD",
+    variant: true,
+    entries: [
+      { beat: 0, col: 6, kind: "veil", color: null },
+      { beat: 7, col: 7, kind: "mine", color: "cyan", row: 11, sees: 1 },
+      { beat: 12, col: 9, kind: "meteor", color: null },
+      { beat: 17, col: 2, kind: "veil", color: null },
+      { beat: 24, col: 10, kind: "mine", color: "cyan", row: 6, sees: 2 },
+      { beat: 30, col: 3, kind: "meteor", color: null },
+    ],
+  },
+  {
+    id: "theVeilReach",
+    name: "VEILS FAR APART",
+    variant: true,
+    entries: [
+      { beat: 0, col: 0, kind: "veil", color: null },
+      { beat: 5, col: 10, kind: "mine", color: "red", row: 9, sees: 1 },
+      { beat: 11, col: 3, kind: "weight", color: null },
+      { beat: 17, col: 10, kind: "veil", color: null },
+      { beat: 23, col: 4, kind: "mine", color: "cyan", row: 11, sees: 1 },
+      { beat: 28, col: 8, kind: "weight", color: null },
+    ],
+  },
+  {
+    id: "theVeilPair",
+    name: "VEIL AND MINE",
+    variant: true,
+    entries: [
+      { beat: 0, col: 10, color: "red" },
+      { beat: 4, col: 2, kind: "veil", color: null },
+      { beat: 9, col: 7, color: "red" },
+      { beat: 15, col: 2, kind: "mine", color: "red", row: 9, sees: 1 },
+      { beat: 20, col: 5, color: "cyan" },
+      { beat: 20, col: 8, color: "cyan" },
+      { beat: 26, col: 2, kind: "gyre", color: null },
+      { beat: 30, col: 7, kind: "veil", color: null },
+      { beat: 34, col: 1, color: "red" },
+      { beat: 34, col: 9, color: "red" },
+      { beat: 39, col: 1, kind: "mine", color: "cyan", row: 11, sees: 1 },
+    ],
+  },
+  {
+    id: "theVeilBreathe",
+    name: "EASY VEILS",
+    variant: true,
+    entries: [
+      { beat: 0, col: 0, color: "red" },
+      { beat: 6, col: 10, kind: "veil", color: null },
+      { beat: 12, col: 0, color: "red" },
+      { beat: 19, col: 2, kind: "mine", color: "cyan", row: 6, sees: 2 },
+      { beat: 27, col: 6, color: "red" },
+      { beat: 35, col: 7, kind: "choir", color: "red" },
+    ],
+  },
+  {
+    id: "theVeilRecall",
+    name: "VEIL RECALL",
+    variant: true,
+    entries: [
+      { beat: 0, col: 3, color: "red" },
+      { beat: 5, col: 8, kind: "veil", color: null },
+      { beat: 11, col: 5, color: "red" },
+      { beat: 16, col: 8, kind: "weight", color: null },
+      { beat: 22, col: 0, color: "red" },
+      { beat: 22, col: 10, color: "red" },
+      { beat: 27, col: 8, kind: "veil", color: null },
+      { beat: 32, col: 3, kind: "weight", color: null },
+      { beat: 37, col: 0, color: "red" },
+      { beat: 37, col: 10, color: "red" },
+    ],
+  },
+  {
+    id: "theVeilBend",
+    name: "VEILS AND TWINS",
+    variant: true,
+    entries: [
+      { beat: 0, col: 3, color: "red" },
+      { beat: 6, col: 0, kind: "veil", color: null },
+      { beat: 11, col: 0, color: "red" },
+      { beat: 11, col: 10, color: "red" },
+      { beat: 16, col: 0, kind: "mine", color: "cyan", row: 6, sees: 2 },
+      { beat: 21, col: 7, kind: "veil", color: null },
+      { beat: 26, col: 0, color: "cyan" },
+      { beat: 26, col: 10, color: "cyan" },
+      { beat: 31, col: 8, kind: "mine", color: "red", row: 3, sees: 2 },
+      { beat: 37, col: 2, kind: "veil", color: null },
+      { beat: 42, col: 3, color: "cyan" },
+      { beat: 42, col: 7, color: "cyan" },
+      { beat: 47, col: 9, kind: "mine", color: "cyan", row: 11, sees: 1 },
+    ],
+  },
+  {
+    id: "theVeilPeak",
+    name: "VEIL PEAK",
+    variant: true,
+    entries: [
+      { beat: 0, col: 0, color: "cyan" },
+      { beat: 3, col: 5, kind: "veil", color: null },
+      { beat: 7, col: 2, color: "cyan" },
+      { beat: 7, col: 8, color: "cyan" },
+      { beat: 11, col: 3, kind: "mine", color: "red", row: 9, sees: 1 },
+      { beat: 18, col: 4, color: "cyan" },
+      { beat: 18, col: 7, color: "cyan" },
+      { beat: 22, col: 9, kind: "veil", color: null },
+      { beat: 26, col: 2, kind: "mine", color: "cyan", row: 11, sees: 1 },
+      { beat: 30, col: 4, color: "red" },
+      { beat: 30, col: 7, color: "red" },
+      { beat: 37, col: 6, kind: "veil", color: null },
+      { beat: 41, col: 0, color: "cyan" },
+      { beat: 41, col: 10, color: "cyan" },
+      { beat: 44, col: 10, kind: "mine", color: "red", row: 3, sees: 2 },
+    ],
+    pods: [
+      { beat: 14, col: 0, row: 3, kind: "purge" },
+      { beat: 34, col: 1, row: 3, kind: "purge" },
+    ],
+  },
+  {
+    id: "theSeam",
+    name: "THE SEAM",
+    guide: {
+      both: "A point on the crack lights in a colour. Shoot it in that colour. When grit flies, raise the shield under it. Three points close the crack. Never shoot grey.",
+      p1: "1. Move the cannon under the lit point.\n2. When grit flies, press the shield.\n3. A rock falls to one side. Slide the cannon under it.",
+      p2: "1. Fire the lit point in its colour. White takes either.\n2. Slide the shield under the ridge when grit flies.\n3. At the end one of you shields while the other fires.",
+    },
+    entries: [],
+    boss: {
+      kind: "seam",
+      steps: [
+        { ask: "point", color: "red", offset: 0, seals: false },
+        { ask: "grit", color: "either", offset: 0, seals: false },
+        { ask: "point", color: "cyan", offset: 0, seals: true },
+        { ask: "blind", color: "either", offset: 0, seals: false },
+        { ask: "point", color: "red", offset: 0, seals: false },
+        { ask: "point", color: "cyan", offset: 0, seals: true },
+        { ask: "grit", color: "either", offset: 0, seals: false },
+        { ask: "decoy", color: "either", offset: 0, seals: false },
+        { ask: "rock", color: "cyan", offset: 2, seals: false },
+        { ask: "glow", color: "either", offset: 0, seals: false },
+        { ask: "point", color: "either", offset: 0, seals: true },
+        { ask: "both", color: "either", offset: -2, seals: false },
+        { ask: "dark", color: "either", offset: 0, seals: false },
+      ],
+    },
+    bossType: "normal",
+  },
+];

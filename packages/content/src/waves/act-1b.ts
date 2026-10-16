@@ -4,7 +4,7 @@ import type { Wave } from "../wave-types.js";
  * The last of act one, cut off `act-1.ts` when that file reached the 250-line
  * ceiling on `CATCH AND AIM`.
  *
- * **`1b` and not `7`, for the reason `act-3b.ts` gives at length**: an act file
+ * **`1b` and not `7`, for the reason `acts.ts` gives**: an act file
  * is a page rather than a chapter, so the cut is where the file filled up and
  * the name has to sort where the waves stand. These three are the end of the
  * tutorial arc and they read in one breath — the pod arrives, the hand learns

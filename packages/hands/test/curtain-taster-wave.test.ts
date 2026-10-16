@@ -21,7 +21,7 @@ import { autopilotHand } from "../src/autopilot-hands.js";
  * first and the blades when the field is quiet.
  */
 
-/** THE TASTER's arrivals (`content/waves/act-7g.ts`), written out: this package has no content. */
+/** THE TASTER's arrivals (in `content/waves/`), written out: this package has no content. */
 const TASTER_ARRIVALS: SpawnEntry[] = [
   { beat: 16, col: 2, kind: "meteor", color: null },
   { beat: 24, col: 8, kind: "meteor", color: null },

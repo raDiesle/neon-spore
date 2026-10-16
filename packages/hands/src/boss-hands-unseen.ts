@@ -63,7 +63,7 @@ function lowest(w: World): Creature | undefined {
  * THE REPRISE: the cannon under the body nearest the hull and a bolt of its
  * colour when the cannon is free, seen or echoed alike. The boss has no move
  * of its own — every body is a slick or a bulb, and a bolt of the right colour
- * takes it (`content/waves/act-10.ts`) — so playing it right is the field
+ * takes it (THE REPRISE, in `content/waves/`) — so playing it right is the field
  * played straight, including the half of it nobody can see.
  */
 export const repriseHand: Hand = (w) => {

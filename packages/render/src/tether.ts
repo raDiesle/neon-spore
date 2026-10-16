@@ -75,7 +75,7 @@ export function tetherHandleCircle(l: Layout, cfg: SimConfig, pupilCol: number):
  * the same column. The other half is size: the owner asked twice for the area
  * to be bigger than the circle drawn, the second time for every pull handle
  * (`PULL_GRAB`, `pull-knob.ts`). It costs nothing to be generous here: the wave
- * THE WARDEN owns has no entries at all (`content/waves/act-2.ts`), so the rope
+ * THE WARDEN owns has no entries at all (in `content/waves/`), so the rope
  * is the only thing on the field a press could have meant.
  */
 /** The circle a press is answered in — the resting one, widened by `PULL_GRAB`. */

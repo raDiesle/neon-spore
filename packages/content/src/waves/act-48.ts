@@ -1,0 +1,173 @@
+import type { Wave } from "../wave-types.js";
+
+/**
+ * Waves 484 to 492 of the game, in the order they are played: THE WISP's review
+ * and the boss THE GALL.
+ *
+ * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act
+ * after the tutorial arc again in play order. A save that fills it cuts a page
+ * after it (`acts.ts`).
+ */
+export const WAVES_ACT_48: Wave[] = [
+  {
+    id: "reviewWispAgain",
+    name: "WISPS RETURN",
+    entries: [
+      { beat: 0, col: 3, kind: "wisp", color: null },
+      { beat: 8, col: 10, kind: "veil", color: null },
+      { beat: 15, col: 3, kind: "clasp", color: "cyan" },
+      { beat: 23, col: 8, kind: "wisp", color: null },
+      { beat: 31, col: 2, kind: "veil", color: null },
+    ],
+  },
+  {
+    id: "reviewWispSpread",
+    name: "WISPS WIDER",
+    variant: true,
+    entries: [
+      { beat: 0, col: 2, kind: "wisp", color: null },
+      { beat: 7, col: 10, kind: "veil", color: null },
+      { beat: 14, col: 3, kind: "weight", color: null },
+      { beat: 20, col: 5, kind: "wisp", color: null },
+      { beat: 27, col: 1, kind: "veil", color: null },
+      { beat: 32, col: 9, kind: "weight", color: null },
+    ],
+  },
+  {
+    id: "reviewWispReach",
+    name: "WISPS OUT WIDE",
+    variant: true,
+    entries: [
+      { beat: 0, col: 10, kind: "wisp", color: null },
+      { beat: 6, col: 0, kind: "veil", color: null },
+      { beat: 11, col: 7, kind: "clasp", color: "cyan" },
+      { beat: 16, col: 3, kind: "wisp", color: null },
+      { beat: 22, col: 8, kind: "veil", color: null },
+      { beat: 27, col: 1, kind: "clasp", color: "cyan" },
+    ],
+  },
+  {
+    id: "reviewWispPair",
+    name: "WISPS IN PAIRS",
+    variant: true,
+    entries: [
+      { beat: 0, col: 1, color: "cyan" },
+      { beat: 5, col: 4, kind: "wisp", color: null },
+      { beat: 9, col: 3, color: "cyan" },
+      { beat: 9, col: 7, color: "cyan" },
+      { beat: 15, col: 5, kind: "veil", color: null },
+      { beat: 21, col: 4, color: "red" },
+      { beat: 21, col: 7, color: "red" },
+      { beat: 25, col: 1, kind: "wisp", color: null },
+      { beat: 31, col: 10, kind: "veil", color: null },
+      { beat: 36, col: 2, color: "red" },
+      { beat: 36, col: 8, color: "red" },
+    ],
+  },
+  {
+    id: "reviewWispBreathe",
+    name: "WISPS AT REST",
+    variant: true,
+    entries: [
+      { beat: 0, col: 0, color: "cyan" },
+      { beat: 7, col: 3, kind: "wisp", color: null },
+      { beat: 13, col: 8, color: "red" },
+      { beat: 20, col: 2, kind: "veil", color: null },
+      { beat: 27, col: 0, color: "red" },
+      { beat: 33, col: 10, kind: "volley", color: "red" },
+      { beat: 40, col: 0, color: "cyan" },
+    ],
+  },
+  {
+    id: "reviewWispRecall",
+    name: "WISPS RECALLED",
+    variant: true,
+    entries: [
+      { beat: 0, col: 8, color: "cyan" },
+      { beat: 6, col: 5, kind: "wisp", color: null },
+      { beat: 11, col: 0, color: "red" },
+      { beat: 11, col: 10, color: "red" },
+      { beat: 17, col: 5, kind: "fence", color: null },
+      { beat: 22, col: 1, kind: "wisp", color: null },
+      { beat: 27, col: 3, color: "cyan" },
+      { beat: 27, col: 6, color: "cyan" },
+      { beat: 32, col: 1, kind: "fence", color: null },
+      { beat: 38, col: 0, kind: "wisp", color: null },
+    ],
+  },
+  {
+    id: "reviewWispBend",
+    name: "WISPS DOUBLED",
+    variant: true,
+    entries: [
+      { beat: 0, col: 1, color: "red" },
+      { beat: 0, col: 9, color: "red" },
+      { beat: 6, col: 6, kind: "wisp", color: null },
+      { beat: 11, col: 0, kind: "veil", color: null },
+      { beat: 16, col: 1, color: "cyan" },
+      { beat: 16, col: 9, color: "cyan" },
+      { beat: 21, col: 3, kind: "wisp", color: null },
+      { beat: 27, col: 4, kind: "veil", color: null },
+      { beat: 32, col: 3, color: "red" },
+      { beat: 32, col: 7, color: "red" },
+      { beat: 37, col: 5, kind: "wisp", color: null },
+      { beat: 42, col: 10, kind: "veil", color: null },
+      { beat: 47, col: 0, color: "red" },
+      { beat: 47, col: 10, color: "red" },
+    ],
+  },
+  {
+    id: "reviewWispPeak",
+    name: "WISPS SUMMIT",
+    variant: true,
+    entries: [
+      { beat: 0, col: 1, color: "red" },
+      { beat: 0, col: 9, color: "red" },
+      { beat: 3, col: 8, kind: "wisp", color: null },
+      { beat: 7, col: 2, kind: "veil", color: null },
+      { beat: 11, col: 1, color: "red" },
+      { beat: 11, col: 9, color: "red" },
+      { beat: 19, col: 2, kind: "wisp", color: null },
+      { beat: 23, col: 1, color: "cyan" },
+      { beat: 23, col: 9, color: "cyan" },
+      { beat: 27, col: 9, kind: "veil", color: null },
+      { beat: 35, col: 0, color: "cyan" },
+      { beat: 35, col: 10, color: "cyan" },
+      { beat: 39, col: 7, kind: "wisp", color: null },
+      { beat: 43, col: 10, kind: "veil", color: null },
+      { beat: 47, col: 4, color: "cyan" },
+      { beat: 47, col: 7, color: "cyan" },
+    ],
+    pods: [
+      { beat: 15, col: 8, row: 4, kind: "purge", husk: true },
+      { beat: 31, col: 5, row: 4, kind: "purge", husk: true },
+    ],
+  },
+  {
+    id: "theGall",
+    name: "THE GALL",
+    guide: {
+      both: "Tap the alien on your half until it shakes. Then pull it up. It jumps to your partner's half. Shoot it when it glows.",
+      p1: "1. It starts on your half. Tap it, then pull it up.\n2. When it lands on your half, do it again.\n3. When it glows, move the cannon under it.",
+      p2: "1. When it lands on your half, tap it, then pull it up.\n2. Be fast. Every landing starts the clock.\n3. When it glows, shoot it in its colour.",
+    },
+    entries: [],
+    boss: {
+      kind: "gall",
+      steps: [
+        { ask: "leap", taps: 3, color: "either", beats: 6 },
+        { ask: "leap", taps: 3, color: "either", beats: 5 },
+        { ask: "fire", taps: 0, color: "red", beats: 6 },
+        { ask: "leap", taps: 4, color: "either", beats: 5 },
+        { ask: "leap", taps: 5, color: "either", beats: 5 },
+        { ask: "leap", taps: 5, color: "either", beats: 4 },
+        { ask: "fire", taps: 0, color: "cyan", beats: 6 },
+        { ask: "leap", taps: 6, color: "either", beats: 4 },
+        { ask: "leap", taps: 6, color: "either", beats: 4 },
+        { ask: "leap", taps: 7, color: "either", beats: 4 },
+        { ask: "fire", taps: 0, color: "either", beats: 6 },
+      ],
+    },
+    bossType: "normal",
+  },
+];

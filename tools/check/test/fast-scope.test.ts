@@ -82,8 +82,9 @@ describe("fastScopeFor", () => {
     () => {
       // A guide line one word over its budget in `act-7f.ts` was green here on
       // 24 September 2026; the words contract was in neither the content row
-      // nor the sweeps.
-      expect(fastScopeFor(["packages/content/src/waves/act-7f.ts"])).toContain(
+      // nor the sweeps. Any act after the arc stands for it since the acts were
+      // cut again in play order.
+      expect(fastScopeFor(["packages/content/src/waves/act-3.ts"])).toContain(
         "tools/words/test/words.test.ts",
       );
     },

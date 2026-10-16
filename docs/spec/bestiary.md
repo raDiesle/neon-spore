@@ -954,7 +954,7 @@ lasts, two, so a ward carries it six rows to the middle of the field.
 
 **Merged:** brood fibre and root are absorbed into the **Colony** · the
 Splitter is the **Crystal** · the Inverter is the **Choke**, built as THE
-CHOKE, the steer fault (`packages/content/src/waves/act-7a.ts`) · the runt cloud is
+CHOKE, the steer fault (`content/src/waves/`) · the runt cloud is
 a later stage of the retired **Runt**, whose slot THE LURE now holds
 
 **Name clash:** *Echo* used to be the name of a creature that appears one

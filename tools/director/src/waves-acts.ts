@@ -9,11 +9,8 @@
 
 import { join } from "node:path";
 import type { Wave } from "@neon-spore/content";
-import type { PinballRound } from "@neon-spore/sim";
 import { SCOUT_LISTS, type ScoutList } from "./scout-lists.js";
 import { serializeWaveArray } from "./serialize.js";
-import { serializePinballRounds } from "./serialize-pinball.js";
-import { serializeScoutArenas } from "./serialize-scout.js";
 import {
   ACT_FILES,
   ACT_LIST,
@@ -33,6 +30,8 @@ import {
   knownImports,
   pageRoot,
 } from "./waves-act-list.js";
+import { writeArenas, writeBoards } from "./waves-acts-scripts.js";
+import { arcActs, arcLength, recutAfter } from "./waves-recut-write.js";
 
 export { ACT_FILES, ACT_LIST, type ActFile, type ActList };
 
@@ -116,15 +115,30 @@ export interface Written {
   complaint: string | null;
   /** The files this save touched, repository-relative — what gets committed. */
   rels: string[];
+  /** The act files a re-cut left empty, and deleted — repository-relative. */
+  removed: string[];
 }
 
-export async function writeWaves(waves: Wave[], files: WaveFiles = REAL_FILES): Promise<Written> {
+/**
+ * `recut` throws away how the acts after the tutorial arc are cut and cuts
+ * them again in play order (`waves-recut.ts`), which is what a reorder wants.
+ * Without it every wave stays in the act that holds it, which is what an edit
+ * wants.
+ */
+export async function writeWaves(
+  waves: Wave[],
+  files: WaveFiles = REAL_FILES,
+  how: { recut?: true } = {},
+): Promise<Written> {
   // The list is read again rather than trusted: the last save may have cut an
   // act this module has never heard of (`waves-act-list.ts`).
-  const acts = files.list ? actFilesIn(files.list) : [...files.acts];
-  const sources = await Promise.all(acts.map((act) => Bun.file(act.file).text()));
+  const all = files.list ? actFilesIn(files.list) : [...files.acts];
+  const sources = await Promise.all(all.map((act) => Bun.file(act.file).text()));
+  const keep = how.recut && files.list ? arcActs(sources, all) : all.length;
+  const acts = all.slice(0, keep);
+  const arc = keep === all.length ? waves.length : arcLength(waves);
   const homes = assignToActs(
-    waves,
+    waves.slice(0, arc),
     acts.map((act, i) => idsInAct(sources[i] ?? "", act.exportName)),
   );
   const taken = new Set(acts.map(nameOf));
@@ -160,8 +174,9 @@ export async function writeWaves(waves: Wave[], files: WaveFiles = REAL_FILES): 
       order.push(piece.act);
     }
   }
+  const removed = await recutAfter(waves, arc, all, keep, known, { written, order });
   const listed: string[] = [];
-  if (files.list && order.length !== acts.length) {
+  if (files.list && order.map((a) => a.name).join() !== all.map(nameOf).join()) {
     const source = await Bun.file(files.list.file).text();
     await Bun.write(files.list.file, actListSource(source, order));
     listed.push(files.list.rel);
@@ -182,57 +197,6 @@ export async function writeWaves(waves: Wave[], files: WaveFiles = REAL_FILES): 
     stderr: "pipe",
   });
   const code = await proc.exited;
-  if (code === 0) return { complaint: null, rels };
-  return { complaint: await new Response(proc.stderr).text(), rels };
-}
-
-/**
- * PINBALL's boards, if the list holds a pinball wave. Returns the files it
- * wrote, so the caller's Biome pass covers them.
- *
- * **Exactly one pinball wave may own the list.** Two would both be serialized
- * into `PINBALL_ROUNDS` and the second would win silently, which is the
- * failure mode this whole route was rewritten to make impossible — so a second
- * one is left alone and says so in the log rather than being written. A
- * second pinball wave wants a second list, and that is an authoring decision
- * rather than something a save should make on its own.
- */
-async function writeBoards(waves: readonly Wave[], files: WaveFiles): Promise<string[]> {
-  const owners = waves.filter((w) => w.boss?.kind === "pinball");
-  if (owners.length === 0) return [];
-  if (owners.length > 1) {
-    console.log(`${owners.length} pinball waves share one board list — none written`);
-    return [];
-  }
-  const boss = owners[0]?.boss;
-  if (boss === undefined || boss.kind !== "pinball") return [];
-  const rounds: readonly PinballRound[] = boss.rounds;
-  const source = await Bun.file(files.boards.file).text();
-  await Bun.write(files.boards.file, serializePinballRounds(source, rounds));
-  return [files.boards.rel];
-}
-
-/**
- * THE SCOUT's arenas: each scout wave's levels into its own list, under
- * `writeBoards`' rule — exactly one wave may own a list, so a second wave of
- * the same id, or a scout wave with no list in `scout-lists.ts`, is left alone
- * and says so.
- */
-async function writeArenas(waves: readonly Wave[], files: WaveFiles): Promise<string[]> {
-  const rels: string[] = [];
-  const scouts = waves.filter((w) => w.boss?.kind === "scout");
-  for (const w of scouts) {
-    if (!files.arenas.some((a) => a.wave === w.id))
-      console.log(`scout wave ${w.id} has no arena list — its levels not written`);
-  }
-  for (const list of files.arenas) {
-    const owners = scouts.filter((w) => w.id === list.wave);
-    if (owners.length > 1) console.log(`${owners.length} waves own ${list.name} — none written`);
-    const boss = owners.length === 1 ? owners[0]?.boss : undefined;
-    if (boss === undefined || boss.kind !== "scout") continue;
-    const source = await Bun.file(list.file).text();
-    await Bun.write(list.file, serializeScoutArenas(source, boss.arenas, list.name));
-    rels.push(list.rel);
-  }
-  return rels;
+  if (code === 0) return { complaint: null, rels, removed };
+  return { complaint: await new Response(proc.stderr).text(), rels, removed };
 }

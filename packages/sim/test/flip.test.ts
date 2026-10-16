@@ -77,7 +77,7 @@ describe("whose screen is turned", () => {
 
   it("is nobody's until the pencil's own beat, and nobody's after it", () => {
     // The wave ships with `at: 6`: two bodies come down an honest field, and
-    // the turn is a thing the pair watch happen (`content/waves/act-10.ts`).
+    // the turn is a thing the pair watch happen (THE FLIP, in `content/waves/`).
     const before = play(flipWorld(1, 6, 4), TPB * 3);
     expect(flipSeat(before)).toBe(null);
     const during = play(flipWorld(1, 6, 4), TPB * 8);

@@ -42674,3 +42674,15 @@ different wave until its storage was set aside.
 Bottleneck: nothing — the decision was one function, and the mount it fed was already built.
 
 *Measured: 4 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-16 — The act files are cut by the order the waves are played in
+
+- reading: 15 min. The save's keep-in-place cut, the act list, the units a
+  header could name, and every comment and spec line that names an act file.
+- writing: 35 min. `waves-recut.ts` and its writer, the `--recut` path, the
+  boss writers moved out to make room, the test, sixty act files re-cut.
+- looking: 10 min. The new cut file by file, and a second re-cut diffed.
+- friction: 10 min. The shell guard refusing a doubled backslash twice.
+- landing: 10 min.
+
+Bottleneck: the references — forty comments and spec lines named act files by name, already wrong since the last reorder.

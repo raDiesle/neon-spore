@@ -18,7 +18,7 @@ import { wellAngle, wellAt, wellCenter, wellRadius, wellRim, wellSectorAngle } f
  *
  * **The ring this draws is empty on the one wave that ships THE WELL.**
  * `radarBlips` gates every entry on `showsRadar`, and the shipped "well" wave
- * (`act-8.ts`) sends nothing but a `slick` and a `bulb` — both the
+ * (in `content/waves/`) sends nothing but a `slick` and a `bulb` — both the
  * navigator's kinds — so nothing ever reaches the pilot's side of the gate.
  * The wave's own briefing says as much to his face ("Your clock carries no
  * warning marks: every arrival is on their strip alone."), and

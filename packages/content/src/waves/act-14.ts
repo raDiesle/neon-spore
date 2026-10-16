@@ -1,34 +1,173 @@
+import { STARE_LEVELS } from "../stare-levels.js";
 import type { Wave } from "../wave-types.js";
 
 /**
- * Act fourteen, opened for THE LAMPREY on 1 October 2026 — `act-13.ts` had
- * six lines left under the 250-line ceiling, which is less than one wave with
- * its argument written above it (`waves.ts`).
+ * Waves 143 to 152 of the game, in the order they are played: THE HUSK's block
+ * and the boss THE STARE.
  *
- * **THE LAMPREY is the first boss that leaps about the field.** An eel that
- * jumps from tile to tile and bites into each, every leap a tile longer than
- * the last (`docs/spec/bosses-choreographed.md` §41, `sim/lamprey.ts`, the
- * owner's rework of 5 October 2026). One seat holds the tail and the other
- * frees the head — pulled up, or its lit tooth tapped out twice — or the two
- * pull it apart at once; a stay the fuse runs out on bites through to the
- * hull. Then the gullet rears on its tile and is shot in its colour.
- *
- * **It arrives hungry and crawls between levels** (the owner, 6 October
- * 2026, `sim/lamprey-roam.ts`): it crawls in and eats two rocks, a slick and
- * a bulb as they fall — each caught on its own row, the gaps between them
- * uneven and the head after them at one, two or three tiles a beat (the
- * owner, 9 October 2026, `sim/lamprey-meal.ts`) — **comes down the middle
- * of the field at the ship, and both seats pull it back off**, the head
- * along a curve, the eel losing its temper two thirds of the way (the owner,
- * 9 October 2026, `sim/lamprey-tow.ts`) — and then leaps through three levels of three, four and five stays, every leap in a
- * level a tile longer than the last and each level ended on a gullet. Before
- * the second and third it crawls the field side to side like a worm, eats
- * what falls for it and drops dung the shield has to turn. A lit tooth takes
- * three taps, and four in the third level. Each stay's window is THE SLOW.
- * **In the fourth level it bites into the ship** (the owner, 10 October
- * 2026, `sim/lamprey-plug.ts`): twice down the middle into the hull, its
- * teeth pulling a button out of a panel — the pilot's SUCK, then the
- * navigator's RED — which that seat presses back in before the other pulls
- * the tail.
+ * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act
+ * after the tutorial arc again in play order. A save that fills it cuts a page
+ * after it (`acts.ts`).
  */
-export const WAVES_ACT_14: Wave[] = [];
+export const WAVES_ACT_14: Wave[] = [
+  {
+    id: "theHusk",
+    name: "THE HUSK",
+    guide: {
+      scene: "theHusk",
+    },
+    entries: [
+      { beat: 3, col: 0, color: "red" },
+      { beat: 9, col: 10, color: "cyan" },
+    ],
+    pods: [
+      { beat: 0, col: 2, row: 3, kind: "ward" },
+      { beat: 0, col: 5, row: 4, kind: "purge", husk: true },
+      { beat: 6, col: 8, row: 3, kind: "purge" },
+    ],
+  },
+  {
+    id: "theHuskAgain",
+    name: "HUSKS AGAIN",
+    variant: true,
+    entries: [
+      { beat: 8, col: 2, color: "red" },
+      { beat: 15, col: 5, color: "red" },
+      { beat: 30, col: 2, color: "red" },
+    ],
+    pods: [
+      { beat: 0, col: 7, row: 4, kind: "purge", husk: true },
+      { beat: 22, col: 3, row: 4, kind: "purge", husk: true },
+    ],
+  },
+  {
+    id: "theHuskSpread",
+    name: "HUSKS SPREAD",
+    variant: true,
+    entries: [
+      { beat: 7, col: 6, color: "red" },
+      { beat: 14, col: 9, color: "red" },
+      { beat: 26, col: 7, color: "red" },
+      { beat: 32, col: 0, color: "red" },
+    ],
+    pods: [
+      { beat: 0, col: 0, row: 4, kind: "purge", husk: true },
+      { beat: 19, col: 8, row: 4, kind: "purge", husk: true },
+    ],
+  },
+  {
+    id: "theHuskReach",
+    name: "HUSKS FAR APART",
+    variant: true,
+    entries: [
+      { beat: 6, col: 1, kind: "shell", color: "red" },
+      { beat: 16, col: 0, kind: "shell", color: "cyan" },
+      { beat: 27, col: 10, kind: "shell", color: "red" },
+    ],
+    pods: [
+      { beat: 0, col: 9, row: 4, kind: "purge", husk: true },
+      { beat: 11, col: 8, row: 4, kind: "purge", husk: true },
+      { beat: 22, col: 5, row: 4, kind: "purge", husk: true },
+    ],
+  },
+  {
+    id: "theHuskPair",
+    name: "HUSK AND SHELL",
+    variant: true,
+    entries: [
+      { beat: 0, col: 4, color: "red" },
+      { beat: 11, col: 6, color: "cyan" },
+      { beat: 17, col: 3, kind: "shell", color: "cyan" },
+      { beat: 22, col: 2, color: "red" },
+      { beat: 28, col: 5, kind: "beatbox", color: null, beats: 4 },
+      { beat: 32, col: 7, color: "cyan" },
+    ],
+    pods: [{ beat: 5, col: 0, row: 4, kind: "purge", husk: true }],
+  },
+  {
+    id: "theHuskBreathe",
+    name: "EASY HUSKS",
+    variant: true,
+    entries: [
+      { beat: 0, col: 9, color: "cyan" },
+      { beat: 12, col: 9, color: "red" },
+      { beat: 19, col: 4, kind: "meteor", color: null },
+      { beat: 26, col: 7, color: "red" },
+      { beat: 39, col: 6, color: "cyan" },
+    ],
+    pods: [
+      { beat: 6, col: 3, row: 4, kind: "purge", husk: true },
+      { beat: 33, col: 4, row: 4, kind: "purge", husk: true },
+    ],
+  },
+  {
+    id: "theHuskRecall",
+    name: "HUSK RECALL",
+    variant: true,
+    entries: [
+      { beat: 0, col: 10, color: "red" },
+      { beat: 11, col: 8, color: "cyan" },
+      { beat: 16, col: 5, kind: "throb", color: "red" },
+      { beat: 22, col: 10, color: "cyan" },
+      { beat: 33, col: 2, color: "cyan" },
+      { beat: 38, col: 6, kind: "throb", color: "red" },
+    ],
+    pods: [
+      { beat: 5, col: 2, row: 4, kind: "purge", husk: true },
+      { beat: 27, col: 6, row: 4, kind: "purge", husk: true },
+    ],
+  },
+  {
+    id: "theHuskBend",
+    name: "HUSKS AND TWINS",
+    variant: true,
+    entries: [
+      { beat: 0, col: 7, color: "red" },
+      { beat: 10, col: 0, color: "red" },
+      { beat: 15, col: 2, kind: "shell", color: "red" },
+      { beat: 21, col: 4, color: "red" },
+      { beat: 21, col: 7, color: "red" },
+      { beat: 31, col: 6, kind: "shell", color: "red" },
+      { beat: 36, col: 3, color: "red" },
+      { beat: 36, col: 7, color: "red" },
+      { beat: 48, col: 7, kind: "shell", color: "red" },
+    ],
+    pods: [
+      { beat: 5, col: 5, row: 4, kind: "purge", husk: true },
+      { beat: 26, col: 1, row: 4, kind: "purge", husk: true },
+      { beat: 42, col: 9, row: 4, kind: "purge", husk: true },
+    ],
+  },
+  {
+    id: "theHuskPeak",
+    name: "HUSK PEAK",
+    variant: true,
+    entries: [
+      { beat: 0, col: 3, color: "cyan" },
+      { beat: 8, col: 6, color: "cyan" },
+      { beat: 12, col: 1, kind: "shell", color: "red" },
+      { beat: 16, col: 3, color: "red" },
+      { beat: 16, col: 7, color: "red" },
+      { beat: 20, col: 4, kind: "meteorMedium", color: null },
+      { beat: 28, col: 3, color: "cyan" },
+      { beat: 28, col: 7, color: "cyan" },
+      { beat: 32, col: 8, kind: "shell", color: "red" },
+      { beat: 36, col: 7, kind: "meteorMedium", color: null },
+      { beat: 40, col: 5, color: "red" },
+      { beat: 40, col: 8, color: "red" },
+      { beat: 48, col: 6, kind: "shell", color: "red" },
+    ],
+    pods: [
+      { beat: 4, col: 0, row: 4, kind: "purge", husk: true },
+      { beat: 24, col: 3, row: 4, kind: "purge", husk: true },
+      { beat: 44, col: 7, row: 4, kind: "purge", husk: true },
+    ],
+  },
+  {
+    id: "theStare",
+    name: "THE STARE",
+    entries: [],
+    boss: { kind: "stare", levels: STARE_LEVELS },
+    bossType: "normal",
+  },
+];

@@ -49,13 +49,13 @@ export const MARK_SHARE = 0.88;
  * everything after it, so an array spread across two files would have been
  * flattened back into one the next time anybody saved a wave in the editor.
  *
- * It is split now, by act, into `packages/content/src/waves/act-*.ts` —
- * `act-1.ts` is the tutorial arc, `act-2.ts` is the first five bosses,
- * `act-3.ts` is everything after them. `waves.ts` itself is only the barrel
- * that concatenates the three, so it stays short no matter how many waves the
- * acts hold; `tools/director/src/serialize.ts` regenerates one act file at a
- * time. There is currently nothing left in `KNOWN_LONG` — an act file that
- * fills up in its own turn gets a fourth act beside it, not an entry here.
+ * It is split now, by act, into `packages/content/src/waves/act-*.ts` — the
+ * tutorial arc, then one block of the game to a file in the order it is
+ * played (`packages/content/src/waves/acts.ts`). `waves.ts` itself is only the
+ * barrel that concatenates them, so it stays short no matter how many waves
+ * the acts hold; `tools/director/src/serialize.ts` regenerates one act file at
+ * a time. There is currently nothing left in `KNOWN_LONG` — an act file that
+ * fills up is cut into a page after it by the save, not an entry here.
  */
 /**
  * Files over the limit that the ratchet did not use to reach, at the length

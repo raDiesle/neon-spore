@@ -1,0 +1,178 @@
+import type { Wave } from "../wave-types.js";
+
+/**
+ * Waves 275 to 284 of the game, in the order they are played: THE CODEX's block
+ * and the boss THE ANTIPHON.
+ *
+ * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act
+ * after the tutorial arc again in play order. A save that fills it cuts a page
+ * after it (`acts.ts`).
+ */
+export const WAVES_ACT_27: Wave[] = [
+  {
+    id: "theCodex",
+    name: "THE CODEX",
+    guide: {
+      scene: "theCodex",
+    },
+    entries: [
+      { beat: 0, col: 3, color: "red" },
+      { beat: 6, col: 7, color: "cyan" },
+      { beat: 14, col: 2, color: "red" },
+      { beat: 16, col: 8, color: "red" },
+      { beat: 24, col: 5, color: "cyan" },
+      { beat: 26, col: 0, color: "red" },
+      { beat: 34, col: 10, color: "cyan" },
+      { beat: 36, col: 3, color: "cyan" },
+    ],
+    faults: [{ kind: "codex" }],
+  },
+  {
+    id: "theCodexAgain",
+    name: "CODEX AGAIN",
+    variant: true,
+    entries: [
+      { beat: 0, col: 0, kind: "coil", color: null },
+      { beat: 6, col: 4, kind: "moult", color: null, cargo: "purge" },
+      { beat: 13, col: 1, kind: "coil", color: null },
+      { beat: 19, col: 4, kind: "moult", color: null, cargo: "purge" },
+      { beat: 26, col: 7, kind: "coil", color: null },
+    ],
+    faults: [{ kind: "codex" }],
+  },
+  {
+    id: "theCodexSpread",
+    name: "CODEX WIDE",
+    variant: true,
+    entries: [
+      { beat: 0, col: 8, kind: "coil", color: null },
+      { beat: 6, col: 1, kind: "moult", color: null, cargo: "ward" },
+      { beat: 11, col: 4, kind: "choir", color: "red" },
+      { beat: 16, col: 5, kind: "coil", color: null },
+      { beat: 21, col: 0, kind: "moult", color: null, cargo: "purge" },
+      { beat: 26, col: 2, kind: "choir", color: "red" },
+    ],
+    faults: [{ kind: "codex" }],
+  },
+  {
+    id: "theCodexReach",
+    name: "CODEX AT THE EDGE",
+    variant: true,
+    entries: [
+      { beat: 0, col: 10, kind: "coil", color: null },
+      { beat: 5, col: 0, kind: "moult", color: null, cargo: "ward" },
+      { beat: 11, col: 10, kind: "meteor", color: null, cross: -1, row: 6 },
+      { beat: 17, col: 2, kind: "coil", color: null },
+      { beat: 23, col: 6, kind: "moult", color: null, cargo: "purge" },
+      { beat: 29, col: 10, kind: "meteor", color: null, cross: 1, row: 4 },
+    ],
+    faults: [{ kind: "codex" }],
+  },
+  {
+    id: "theCodexPair",
+    name: "CODEX IN PAIRS",
+    variant: true,
+    entries: [
+      { beat: 0, col: 10, color: "cyan" },
+      { beat: 6, col: 1, kind: "coil", color: null },
+      { beat: 12, col: 7, color: "red" },
+      { beat: 17, col: 8, kind: "moult", color: null, cargo: "purge" },
+      { beat: 21, col: 2, color: "red" },
+      { beat: 21, col: 8, color: "red" },
+      { beat: 27, col: 1, kind: "beatbox", color: null, beats: 2 },
+      { beat: 33, col: 3, kind: "coil", color: null },
+      { beat: 37, col: 0, color: "red" },
+      { beat: 37, col: 10, color: "red" },
+    ],
+    faults: [{ kind: "codex" }],
+  },
+  {
+    id: "theCodexBreathe",
+    name: "CODEX AT EASE",
+    variant: true,
+    entries: [
+      { beat: 0, col: 2, color: "cyan" },
+      { beat: 6, col: 10, kind: "coil", color: null },
+      { beat: 14, col: 1, color: "cyan" },
+      { beat: 20, col: 10, kind: "moult", color: null, cargo: "purge" },
+      { beat: 28, col: 0, color: "cyan" },
+      { beat: 36, col: 1, kind: "countdown", color: "red" },
+    ],
+    faults: [{ kind: "codex" }],
+  },
+  {
+    id: "theCodexRecall",
+    name: "CODEX RECALLED",
+    variant: true,
+    entries: [
+      { beat: 0, col: 8, color: "red" },
+      { beat: 5, col: 9, kind: "coil", color: null },
+      { beat: 11, col: 0, color: "cyan" },
+      { beat: 17, col: 4, kind: "throb", color: "red" },
+      { beat: 22, col: 1, color: "red" },
+      { beat: 22, col: 9, color: "red" },
+      { beat: 27, col: 3, kind: "coil", color: null },
+      { beat: 33, col: 4, kind: "throb", color: "red" },
+      { beat: 39, col: 5, color: "cyan" },
+      { beat: 39, col: 8, color: "cyan" },
+    ],
+    faults: [{ kind: "codex" }],
+  },
+  {
+    id: "theCodexBend",
+    name: "CODEX TWICE",
+    variant: true,
+    entries: [
+      { beat: 0, col: 2, color: "red" },
+      { beat: 5, col: 1, kind: "coil", color: null },
+      { beat: 10, col: 1, color: "red" },
+      { beat: 10, col: 9, color: "red" },
+      { beat: 16, col: 8, kind: "moult", color: null, cargo: "purge" },
+      { beat: 21, col: 5, kind: "coil", color: null },
+      { beat: 26, col: 3, color: "cyan" },
+      { beat: 26, col: 6, color: "cyan" },
+      { beat: 32, col: 1, kind: "moult", color: null, cargo: "ward" },
+      { beat: 38, col: 9, kind: "coil", color: null },
+      { beat: 44, col: 2, color: "cyan" },
+      { beat: 44, col: 8, color: "cyan" },
+    ],
+    faults: [{ kind: "codex" }],
+  },
+  {
+    id: "theCodexPeak",
+    name: "CODEX PEAK",
+    variant: true,
+    entries: [
+      { beat: 0, col: 8, color: "red" },
+      { beat: 4, col: 5, kind: "coil", color: null },
+      { beat: 7, col: 3, color: "red" },
+      { beat: 7, col: 6, color: "red" },
+      { beat: 11, col: 2, kind: "moult", color: null, cargo: "ward" },
+      { beat: 18, col: 3, color: "red" },
+      { beat: 18, col: 7, color: "red" },
+      { beat: 22, col: 8, kind: "coil", color: null },
+      { beat: 25, col: 4, kind: "moult", color: null, cargo: "ward" },
+      { beat: 28, col: 3, color: "red" },
+      { beat: 28, col: 7, color: "red" },
+      { beat: 36, col: 4, kind: "coil", color: null },
+      { beat: 39, col: 3, color: "red" },
+      { beat: 39, col: 7, color: "red" },
+      { beat: 43, col: 4, kind: "moult", color: null, cargo: "ward" },
+    ],
+    pods: [
+      { beat: 15, col: 5, row: 3, kind: "purge" },
+      { beat: 32, col: 9, row: 3, kind: "purge" },
+    ],
+    faults: [{ kind: "codex" }],
+  },
+  {
+    id: "theAntiphon",
+    name: "THE ANTIPHON",
+    guide: {
+      scene: "theAntiphon",
+    },
+    entries: [],
+    boss: { kind: "antiphon" },
+    bossType: "normal",
+  },
+];

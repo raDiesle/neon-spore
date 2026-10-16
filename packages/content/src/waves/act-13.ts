@@ -1,48 +1,158 @@
+import { SCOUT_HAUL_ARENAS } from "../scout-haul-arenas.js";
 import type { Wave } from "../wave-types.js";
 
 /**
- * Act thirteen, opened for THE DAVIT on 26 September 2026 — `act-12.ts` had
- * fourteen lines left under the 250-line ceiling, which is less than one
- * wave with its argument written above it (`waves.ts`). THE DAVIT itself
- * left the game on 8 October 2026: the owner did not like it, and it was
- * short to play (`docs/spec/bosses.md` §11.52).
+ * Waves 133 to 142 of the game, in the order they are played: THE SHELL's block
+ * and the boss THE HAUL.
  *
- * **THE CAPSTAN is the first boss one seat turns for the other to work.** A
- * rusted drum on a cradle: one seat drags the drum to rock a face toward the
- * pair, the other wipes that face's band bright, and only the bared face
- * wears (§37, `sim/capstan.ts`). The left mark is the pilot's pull and the
- * right the navigator's; after the bare, a hold takes either way round. Three
- * shots at the core, the last one white.
- *
- * **THE GALL is the first boss the pair throw to each other.** A small
- * alien sits on one seat's half of the hull: that seat taps it until it is
- * charged and pulls it up, and it leaps to a point on the other half, where
- * the clock starts again (§38, `sim/gall.ts`, the owner's rework of 8
- * October 2026). Three levels, each more taps on a shorter clock, each ended
- * by a shot at the alien where it landed: red, cyan, then either.
- *
- * **THE TRAPEZE is the first boss the pair swings up.** An alien sits on a
- * swing hung from long ropes over the middle; the pair push it as it comes
- * back toward the middle until it is high enough to kick the gong (§39,
- * `sim/trapeze.ts`, the owner's rework of 7 October 2026). Four levels, one
- * new thing each: P1 left and P2 right; who pushes a side called by chance;
- * shots from below; the pilot's tap locking the cannon for a shot from the
- * side. Every gong a little higher than the last.
- *
- * **THE FLUE is the first boss only one seat can see.** An ember runs along
- * a flue across the top of the field, end to end and back, over the cannon
- * held still under the middle (§11.57, `sim/flue.ts`). The pilot sees it and
- * the navigator does not, so the pilot says when, early by the shot's own
- * delay: a bolt climbs for most of a beat, a beam fills for three. Six
- * levels, each one weapon in one colour, the ember at its own speed and THE
- * SLOW at its own strength; three shots a level, and the third one missed is
- * the wave. The levels climb from a slow bolt to a fast beam, and the slow
- * comes in as the ember speeds up.
- *
- * **Every shot in this act waits six beats**, 3.75 seconds at 96 bpm. It was
- * three, which left little over a second once the cannon was under the core
- * and the bolt had climbed, and a shot run out is the wave; the owner, 7
- * October 2026: *when in boss sequences player needs to shoot cannon, we must
- * give players more time to shoot and hit.*
+ * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act
+ * after the tutorial arc again in play order. A save that fills it cuts a page
+ * after it (`acts.ts`).
  */
-export const WAVES_ACT_13: Wave[] = [];
+export const WAVES_ACT_13: Wave[] = [
+  {
+    id: "theThirdShot",
+    name: "THE SHELL",
+    guide: {
+      scene: "theThirdShot",
+    },
+    entries: [
+      { beat: 0, col: 2, kind: "shell", color: "cyan" },
+      { beat: 10, col: 7, kind: "shell", color: "red" },
+    ],
+  },
+  {
+    id: "theThirdShotAgain",
+    name: "SHELLS AGAIN",
+    variant: true,
+    entries: [
+      { beat: 0, col: 7, kind: "shell", color: "red" },
+      { beat: 7, col: 3, kind: "shell", color: "red" },
+      { beat: 14, col: 6, kind: "shell", color: "cyan" },
+      { beat: 21, col: 5, kind: "shell", color: "red" },
+      { beat: 27, col: 6, kind: "shell", color: "red" },
+    ],
+  },
+  {
+    id: "theThirdShotSpread",
+    name: "SHELLS SPREAD",
+    variant: true,
+    entries: [
+      { beat: 0, col: 9, kind: "shell", color: "red" },
+      { beat: 7, col: 5, kind: "shell", color: "red" },
+      { beat: 13, col: 7, kind: "shell", color: "red" },
+      { beat: 20, col: 2, kind: "shell", color: "cyan" },
+      { beat: 27, col: 7, kind: "shell", color: "cyan" },
+    ],
+  },
+  {
+    id: "theThirdShotReach",
+    name: "SHELLS FAR APART",
+    variant: true,
+    entries: [
+      { beat: 0, col: 1, kind: "shell", color: "cyan" },
+      { beat: 6, col: 6, color: "red" },
+      { beat: 11, col: 2, kind: "shell", color: "cyan" },
+      { beat: 16, col: 6, color: "red" },
+      { beat: 21, col: 2, kind: "shell", color: "red" },
+      { beat: 26, col: 6, color: "red" },
+    ],
+  },
+  {
+    id: "theThirdShotPair",
+    name: "SHELL AND COUNT",
+    variant: true,
+    entries: [
+      { beat: 0, col: 6, color: "cyan" },
+      { beat: 4, col: 10, kind: "shell", color: "cyan" },
+      { beat: 10, col: 7, color: "red" },
+      { beat: 14, col: 3, kind: "countdown", color: "red" },
+      { beat: 20, col: 5, color: "cyan" },
+      { beat: 24, col: 9, kind: "torch", color: null },
+      { beat: 28, col: 2, color: "cyan" },
+      { beat: 34, col: 8, kind: "shell", color: "red" },
+    ],
+  },
+  {
+    id: "theThirdShotBreathe",
+    name: "EASY SHELLS",
+    variant: true,
+    entries: [
+      { beat: 0, col: 9, color: "cyan" },
+      { beat: 8, col: 4, kind: "shell", color: "cyan" },
+      { beat: 16, col: 7, color: "red" },
+      { beat: 24, col: 2, kind: "meteor", color: null },
+      { beat: 31, col: 9, color: "red" },
+      { beat: 39, col: 7, kind: "shell", color: "cyan" },
+    ],
+  },
+  {
+    id: "theThirdShotRecall",
+    name: "SHELL RECALL",
+    variant: true,
+    entries: [
+      { beat: 0, col: 8, color: "red" },
+      { beat: 6, col: 2, kind: "shell", color: "cyan" },
+      { beat: 12, col: 5, color: "cyan" },
+      { beat: 18, col: 6, kind: "blister", color: null, row: 2, by: 2, gesture: "swipe" },
+      { beat: 24, col: 10, color: "red" },
+      { beat: 30, col: 5, kind: "shell", color: "red" },
+      { beat: 35, col: 9, color: "cyan" },
+    ],
+  },
+  {
+    id: "theThirdShotBend",
+    name: "SHELLS AND TWINS",
+    variant: true,
+    entries: [
+      { beat: 0, col: 10, color: "cyan" },
+      { beat: 5, col: 4, kind: "shell", color: "red" },
+      { beat: 10, col: 8, color: "red" },
+      { beat: 16, col: 5, kind: "countdown", color: "red" },
+      { beat: 21, col: 3, color: "cyan" },
+      { beat: 21, col: 6, color: "cyan" },
+      { beat: 26, col: 3, kind: "shell", color: "cyan" },
+      { beat: 32, col: 1, kind: "countdown", color: "cyan" },
+      { beat: 37, col: 4, color: "red" },
+      { beat: 37, col: 7, color: "red" },
+      { beat: 42, col: 7, kind: "shell", color: "red" },
+      { beat: 48, col: 3, kind: "countdown", color: "red" },
+    ],
+  },
+  {
+    id: "theThirdShotPeak",
+    name: "SHELL PEAK",
+    variant: true,
+    entries: [
+      { beat: 0, col: 10, color: "cyan" },
+      { beat: 4, col: 5, kind: "shell", color: "cyan" },
+      { beat: 8, col: 7, color: "cyan" },
+      { beat: 12, col: 2, kind: "countdown", color: "cyan" },
+      { beat: 16, col: 2, color: "red" },
+      { beat: 16, col: 8, color: "red" },
+      { beat: 24, col: 3, kind: "shell", color: "red" },
+      { beat: 28, col: 2, color: "cyan" },
+      { beat: 28, col: 8, color: "cyan" },
+      { beat: 32, col: 7, kind: "countdown", color: "cyan" },
+      { beat: 40, col: 4, color: "red" },
+      { beat: 40, col: 7, color: "red" },
+      { beat: 44, col: 9, kind: "shell", color: "red" },
+      { beat: 48, col: 3, kind: "countdown", color: "cyan" },
+    ],
+    pods: [
+      { beat: 20, col: 10, row: 3, kind: "ward" },
+      { beat: 36, col: 2, row: 4, kind: "ward" },
+    ],
+  },
+  {
+    id: "theHaul",
+    name: "THE HAUL",
+    guide: {
+      scene: "theHaul",
+    },
+    entries: [],
+    boss: { kind: "scout", arenas: SCOUT_HAUL_ARENAS },
+    bossType: "special",
+    controls: "scout",
+  },
+];

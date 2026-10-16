@@ -1,0 +1,167 @@
+import type { Wave } from "../wave-types.js";
+
+/**
+ * Waves 475 to 483 of the game, in the order they are played: THE GHOST's
+ * review and the boss THE CAPSTAN.
+ *
+ * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act
+ * after the tutorial arc again in play order. A save that fills it cuts a page
+ * after it (`acts.ts`).
+ */
+export const WAVES_ACT_47: Wave[] = [
+  {
+    id: "reviewGhostAgain",
+    name: "GHOSTS RETURN",
+    entries: [
+      { beat: 0, col: 0, kind: "ghost", color: "cyan", path: "across" },
+      { beat: 8, col: 8, kind: "wisp", color: null },
+      { beat: 14, col: 1, kind: "clasp", color: "cyan" },
+      { beat: 20, col: 3, kind: "ghost", color: "cyan" },
+      { beat: 28, col: 8, kind: "wisp", color: null },
+    ],
+  },
+  {
+    id: "reviewGhostSpread",
+    name: "GHOSTS WIDER",
+    variant: true,
+    entries: [
+      { beat: 0, col: 2, kind: "ghost", color: "cyan" },
+      { beat: 6, col: 7, kind: "wisp", color: null },
+      { beat: 12, col: 10, kind: "echo", color: "red" },
+      { beat: 19, col: 1, kind: "ghost", color: "cyan" },
+      { beat: 25, col: 9, kind: "wisp", color: null },
+      { beat: 32, col: 2, kind: "echo", color: "cyan" },
+    ],
+  },
+  {
+    id: "reviewGhostReach",
+    name: "GHOSTS OUT WIDE",
+    variant: true,
+    entries: [
+      { beat: 0, col: 0, kind: "ghost", color: "cyan" },
+      { beat: 5, col: 10, kind: "wisp", color: null },
+      { beat: 10, col: 2, kind: "magnet", color: "red" },
+      { beat: 16, col: 6, kind: "ghost", color: "cyan" },
+      { beat: 22, col: 0, kind: "wisp", color: null },
+      { beat: 28, col: 6, kind: "magnet", color: "red" },
+    ],
+  },
+  {
+    id: "reviewGhostPair",
+    name: "GHOSTS IN PAIRS",
+    variant: true,
+    entries: [
+      { beat: 0, col: 8, color: "red" },
+      { beat: 4, col: 9, kind: "ghost", color: "cyan" },
+      { beat: 8, col: 1, color: "red" },
+      { beat: 8, col: 9, color: "red" },
+      { beat: 14, col: 9, kind: "wisp", color: null },
+      { beat: 18, col: 1, kind: "strand", color: "red", beads: 5 },
+      { beat: 23, col: 2, color: "red" },
+      { beat: 23, col: 8, color: "red" },
+      { beat: 27, col: 2, kind: "ghost", color: "cyan", path: "across" },
+      { beat: 32, col: 9, kind: "wisp", color: null },
+      { beat: 37, col: 1, color: "cyan" },
+      { beat: 37, col: 9, color: "cyan" },
+    ],
+  },
+  {
+    id: "reviewGhostBreathe",
+    name: "GHOSTS AT REST",
+    variant: true,
+    entries: [
+      { beat: 0, col: 2, color: "cyan" },
+      { beat: 6, col: 10, kind: "ghost", color: "cyan", path: "across" },
+      { beat: 12, col: 9, color: "red" },
+      { beat: 19, col: 10, kind: "wisp", color: null },
+      { beat: 26, col: 0, color: "red" },
+      { beat: 33, col: 10, kind: "gyre", color: null },
+    ],
+  },
+  {
+    id: "reviewGhostRecall",
+    name: "GHOSTS RECALLED",
+    variant: true,
+    entries: [
+      { beat: 0, col: 8, color: "cyan" },
+      { beat: 6, col: 6, kind: "ghost", color: "cyan", path: "across" },
+      { beat: 12, col: 3, color: "cyan" },
+      { beat: 12, col: 7, color: "cyan" },
+      { beat: 18, col: 9, kind: "balloon", color: null },
+      { beat: 23, col: 8, kind: "ghost", color: "cyan", path: "across" },
+      { beat: 29, col: 0, color: "cyan" },
+      { beat: 29, col: 10, color: "cyan" },
+      { beat: 35, col: 7, kind: "balloon", color: null },
+      { beat: 40, col: 4, kind: "ghost", color: "cyan", path: "across" },
+    ],
+  },
+  {
+    id: "reviewGhostBend",
+    name: "GHOSTS DOUBLED",
+    variant: true,
+    entries: [
+      { beat: 0, col: 0, color: "red" },
+      { beat: 0, col: 10, color: "red" },
+      { beat: 6, col: 0, kind: "ghost", color: "red" },
+      { beat: 11, col: 10, kind: "wisp", color: null },
+      { beat: 16, col: 3, color: "red" },
+      { beat: 16, col: 6, color: "red" },
+      { beat: 21, col: 9, kind: "ghost", color: "cyan", path: "across" },
+      { beat: 26, col: 6, kind: "wisp", color: null },
+      { beat: 31, col: 5, color: "cyan" },
+      { beat: 31, col: 8, color: "cyan" },
+      { beat: 36, col: 10, kind: "ghost", color: "cyan" },
+      { beat: 41, col: 8, kind: "wisp", color: null },
+      { beat: 47, col: 1, color: "cyan" },
+      { beat: 47, col: 9, color: "cyan" },
+    ],
+  },
+  {
+    id: "reviewGhostPeak",
+    name: "GHOSTS SUMMIT",
+    variant: true,
+    entries: [
+      { beat: 0, col: 0, color: "red" },
+      { beat: 0, col: 10, color: "red" },
+      { beat: 4, col: 2, kind: "ghost", color: "cyan" },
+      { beat: 8, col: 3, kind: "wisp", color: null },
+      { beat: 11, col: 4, color: "red" },
+      { beat: 11, col: 7, color: "red" },
+      { beat: 14, col: 3, kind: "choir", color: "red" },
+      { beat: 18, col: 4, kind: "ghost", color: "red" },
+      { beat: 22, col: 3, color: "red" },
+      { beat: 22, col: 7, color: "red" },
+      { beat: 26, col: 3, kind: "wisp", color: null },
+      { beat: 30, col: 9, kind: "choir", color: "red" },
+      { beat: 34, col: 0, color: "cyan" },
+      { beat: 34, col: 10, color: "cyan" },
+      { beat: 38, col: 6, kind: "ghost", color: "red" },
+      { beat: 42, col: 5, kind: "wisp", color: null },
+      { beat: 46, col: 3, color: "red" },
+      { beat: 46, col: 7, color: "red" },
+    ],
+  },
+  {
+    id: "theCapstan",
+    name: "THE CAPSTAN",
+    guide: {
+      both: "One of you drags the drum to turn a band toward the other, who rubs it bright. Both bands bright bare the core. Shoot it in its colour.",
+      p1: "1. Left mark: drag the drum left and hold it.\n2. Right mark: rub the band your partner turns to you.\n3. When rust creeps back, do it again, either way round.\n4. Shoot the core in its colour.",
+      p2: "1. Left mark: rub the band your partner turns to you.\n2. Right mark: drag the drum right and hold it.\n3. When rust creeps back, do it again, either way round.\n4. White takes either colour.",
+    },
+    entries: [],
+    boss: {
+      kind: "capstan",
+      steps: [
+        { ask: "left", color: "either", beats: 12 },
+        { ask: "right", color: "either", beats: 12 },
+        { ask: "fire", color: "red", beats: 6 },
+        { ask: "hold", color: "either", beats: 8 },
+        { ask: "fire", color: "cyan", beats: 6 },
+        { ask: "hold", color: "either", beats: 6 },
+        { ask: "fire", color: "either", beats: 6 },
+      ],
+    },
+    bossType: "normal",
+  },
+];

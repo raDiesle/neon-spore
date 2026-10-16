@@ -65,7 +65,7 @@ export function balloonHandleSeat(side: -1 | 1): 1 | 2 {
  * **And it never rests off the glass.** On the phones the game ships on the
  * field is the full width of the screen, and a balloon stands in a wall
  * column for one step of every crossing — a wave sends them in from both
- * (`act-7b.ts`). Its outer handle would rest two thirds of a tile past the
+ * (THE BALLOON's block, in `content/waves/`). Its outer handle would rest two thirds of a tile past the
  * edge there, a ring drawn where no finger can go, which is the defect class
  * `CLAUDE.md` names by example (*a control under the status bar*). So the
  * rest is held inside the screen by its own radius: the ring on that side

@@ -32,8 +32,8 @@ export const ACT_LIST: ActList = {
 
 /**
  * The act files a list names, **in the order of the game** — the order of its
- * array, not of the names: `act-3b.ts` is the second half of act three and
- * stands between act three and act four. Read fresh on every call, because a
+ * array, not of the names: `act-1b.ts` is the last of act one and stands
+ * after act one's pages. Read fresh on every call, because a
  * save may have cut a new act since the last one.
  */
 export function actFilesIn(list: ActList): ActFile[] {

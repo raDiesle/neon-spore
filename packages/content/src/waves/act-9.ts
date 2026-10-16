@@ -1,156 +1,159 @@
 import type { Wave } from "../wave-types.js";
 
 /**
- * Act nine, opened for THE LEAK — `act-8.ts` had six lines left under the
- * 250-line ceiling, which is less than one wave with its argument written
- * above it (`waves.ts`).
+ * Waves 93 to 102 of the game, in the order they are played: THE WARD's block
+ * and the boss THE VANE.
  *
- * **THE LEAK was the sixth fault, and on 15 September 2026 the owner made it a
- * rung instead.** The five faults take a control and say so on the panel: a
- * button is drawn dead, or a strip is, and the seat that still has one has to
- * aim the fault somewhere harmless. There is nothing to draw dead here, and
- * nothing to aim. Both colours answer the thumb, a tap is the bolt it has
- * always been, and every button on both panels works — what is gone is the
- * **hold**. So the wave is simply played on the panel whose hold fills
- * nothing, STANDARD 5 (`content/control-sets-table.ts`, `sim/lance.ts`), and
- * nothing hangs over the field.
- *
- * **It is a panel the pair has played on before, and that is the wave.** Every
- * wave between the top of the ladder and THE LANCE is on STANDARD 5 now, so
- * the hold is a thing they were given at wave 31 and have had for nine waves
- * when this one takes it back. The wave is written against the one figure the
- * lance was taught on:
- * **three of a colour standing in one column**. That is one shot and three
- * beats of a still cannon in THE LANCE, and it is three shots here, which is
- * the whole lesson — the pair meets the shape they know and finds out what it
- * costs without the weapon. Quoting the teaching wave is deliberate: a new
- * figure would have made this a wave about a new problem rather than a wave
- * about a missing answer.
- *
- * Four figures, and each one takes the lesson somewhere it hurts more:
- *
- * 1. Beats 0–2, **three cyan in column two** — THE LANCE's own opening column,
- *    to the beat. A pair that reaches for the hold gets nothing at all out of
- *    it, and the bodies go on falling while the thumb waits for a ring that
- *    never closes. The first thing this wave has to teach is that the hold is
- *    not slow, it is *gone*, and it teaches it on the figure where they are
- *    most certain of the answer.
- * 2. Beats 10–12, **three red in column five**, the other half of that same
- *    wave. The second telling, with the cannon having to cross the field to
- *    reach it first: three taps at one end, a slide, three taps at the other,
- *    and the pilot has to say the column early because the navigator's thumb
- *    has nothing to charge while they wait.
- * 3. Beats 20–23, **a column of four that is not one colour** — cyan, cyan,
- *    red, cyan in column one. A lance could never have taken this one whole
- *    anyway, so nothing is being withheld; what it does is put the two seats
- *    back on the colour they were spending the wave not thinking about, at the
- *    moment the tapping is fastest.
- * 4. Beats 30–35, **two columns of three at once**, red in column zero and
- *    cyan in column six, at opposite walls. Six taps and one crossing, and the
- *    pair has to agree *which wall first* — the one question in the wave that
- *    a lance would have made cheap and that six ordinary shots make expensive.
- *
- * Nothing is aimed at anything and nothing can be: the panel is the panel, the
- * only answer is the thumb going up and down, and the wave's guide is what says
- * so. The field is empty of emitters, which is the plainest reading of the
- * lesson — there is no thing to blame, and the pair is not waiting for one to
- * be dealt with.
- *
- * **THE SPLICE is the act's second wave and has nothing to do with the first.**
- * It is here because `act-8.ts` has six lines left and this file had room, and
- * that is the whole of the reason (`waves.ts` says an act is a file, not an
- * argument). What it is, is the thirteenth boss: a row of mouths over the
- * plating, a straw out of each running the height of the field, and a number
- * at the far end of every one. Three rounds, two straws then three then four
- * (`spliceStraws`), and the only thing authored is how long the pair has —
- * eighteen beats, then twenty-seven, then thirty-six. Against two straws, then
- * three, then four, that is **nine beats a feed throughout**, three of which are
- * the number's own shake and travel — and they are spent from the same clock, which
- * `stepSplice` only stops *checking* while something is in the air — so what
- * the count really buys is six beats a straw to trace one and say it. The
- * figures are written here rather than beside the entry because the director
- * rewrites that line whenever anybody saves the wave (`tools/director/src/serialize-boss.ts`)
- * and a comment inside it would not survive.
- *
- * It is played on a panel of its own with **two buttons, one a seat**
- * (`control-sets-table.ts`): the cannon is player 1's and the mouth is player
- * 2's, which is THE CLAW's arrangement reached from the other end. Player 2
- * can read the tangle and cannot see the cannon; player 1 can move the cannon
- * and cannot see past the first hand's width of any straw. So a feed is a
- * sentence each way — *the third mouth from the left*, *I am on it* — and
- * neither seat is sitting with nothing to press.
- *
- * **The field says no word on it** (`render/boss-cue-read-d.ts`): the `WAIT`
- * that rode the number down its straw went on 25 September 2026, because the
- * number in the air already says it. Neither gesture can be named — a mark on the mouth the cannon is under would be player 1's half of
- * the sentence handed to player 2, who is shown no cannon — so the guide's two
- * halves are the counting and the clock rather than the slide and the press.
- *
- * **THE MINE is the act's third wave**, and it is here for THE SPLICE's reason
- * exactly: this file had room and no other did. It is a wisp that never hops,
- * answered by a thumb instead of a bolt — one seat is drawn a body standing on
- * a tile, the other is looking at an empty field, and the only thing that
- * answers it is that seat's finger on that exact square. The four tiles beside
- * it break the hull; anywhere else costs a beat off a fuse of six.
- *
- * **The wave is written round the one setting no other creature has**: which
- * seat sees it is the arrival's (`WaveEntry.sees`), so the same three figures
- * are the same problem handed to each seat in turn and then to both at once.
- * A pair that spends the first figure learning *whose screen this is on* has
- * learned the thing the second figure takes away.
- *
- * 1. Beat 0, **the navigator's tile and the pilot's finger**, in the middle of
- *    an otherwise empty field. Nothing else to do for six beats, which is what
- *    a pair needs to find out that the cannon is not in this at all: a bolt
- *    bounces off one, and the strip under the pilot's thumb slides past the
- *    answer without touching it.
- * 2. Beat 12, **the same thing the other way round**. The pilot is drawn the
- *    body and the navigator has to find it, and the column is at the edge
- *    rather than the middle, where a letter said quickly is most easily heard
- *    as the one next to it. This is the wave: everything the pair agreed about
- *    who says and who presses expires on the beat the second one appears.
- * 3. Beats 24–30, **one of each at once, and two ordinary bodies under them**.
- *    Each seat is now saying a square and hunting for one at the same time,
- *    with two fuses running at different offsets — and the slick and the bulb
- *    falling through it are there so that neither seat can give the whole
- *    thirty seconds to the tile. Two mines are placed clear of one another by
- *    the simulation (`minePlaceRow`), so the tiles beside one are never the
- *    answer to the other.
- *
- * **THE BLISTER is the act's fourth, straight after THE MINE**
- * (`docs/spec/blister.md`): the mine's split — one seat sees it, the other's
- * finger answers it on the field — with a clock put on it. The pore swells
- * on the pilot's screen a beat before it comes up, and it is up three beats:
- * a hand that waits to see it is late. Two of them, the navigator's, one tap
- * each, and one left up too long loses the wave (15 October 2026).
- *
- * **THE MOULT is the act's fifth**, and the last wave in the file. One body
- * wearing both ends of the game by turns: a rock the dome answers for five
- * beats, then a cargo the mouth answers for five, all the way down. Nothing
- * kills it either way, so the cannon's job on this wave is to *stand
- * somewhere* — and what it is on the beat it lands is the whole of what
- * happens.
- *
- * **The wave is four figures and the plain rock at the top is one of them.** A
- * body defined by an answer that expires teaches nothing on an empty field:
- * the meteor in the first column is there so the pair has something whose
- * answer keeps — said once and still true a fall later — to measure the others
- * against. Then a moult authored to land as a **rock**, which is the half they
- * already know; one authored to land as a **cargo**, which is the same picture
- * and the other hand; and last **two of them a beat apart in different
- * columns, one of each** — both steered into the cannon's own lane by the
- * homing, so the pilot triggers the dome on one beat and opens the mouth on
- * the next, in one place, off one count the navigator is reading out.
- *
- * Every arrival's landing form is composed rather than hoped for: the turn is
- * `waveBeat` against `moultBeats` and nothing else (`sim/moult.ts`), so an
- * entry beat *is* an answer, and `sim/test/moult.test.ts` holds the four to
- * the forms this paragraph claims for them.
- *
- * It carries **no rehearsal**. Every act in a guide's film is a thumb on a
- * named control (`scene-script.ts`, `controlPress`), and this creature's whole
- * answer is a finger on a bare square of the field, which is not one — the film
- * is queued rather than faked, and the guide's three parts carry it in the
- * meantime.
+ * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act
+ * after the tutorial arc again in play order. A save that fills it cuts a page
+ * after it (`acts.ts`).
  */
-export const WAVES_ACT_9: Wave[] = [];
+export const WAVES_ACT_9: Wave[] = [
+  {
+    id: "theWard",
+    name: "THE WARD",
+    guide: {
+      scene: "theWard",
+    },
+    entries: [
+      { beat: 0, col: 0, kind: "meteor", color: null },
+      { beat: 2, col: 3, kind: "meteorMedium", color: null },
+      { beat: 4, col: 8, kind: "meteorFast", color: null },
+      { beat: 6, col: 2, kind: "meteorFaster", color: null },
+      { beat: 8, col: 10, kind: "meteorFastest", color: null },
+    ],
+    pods: [{ beat: 0, col: 5, row: 2, kind: "ward" }],
+  },
+  {
+    id: "theWardAgain",
+    name: "HEAVY ROCKS AGAIN",
+    variant: true,
+    entries: [
+      { beat: 0, col: 4, kind: "meteorMedium", color: null },
+      { beat: 8, col: 3, kind: "meteorMedium", color: null },
+      { beat: 16, col: 6, kind: "meteorMedium", color: null },
+      { beat: 23, col: 3, kind: "meteorMedium", color: null },
+      { beat: 31, col: 7, kind: "meteorMedium", color: null },
+    ],
+  },
+  {
+    id: "theWardSpread",
+    name: "HEAVY ROCKS SPREAD",
+    variant: true,
+    entries: [
+      { beat: 0, col: 6, kind: "meteorMedium", color: null },
+      { beat: 5, col: 5, kind: "meteorMedium", color: null },
+      { beat: 12, col: 1, kind: "meteorMedium", color: null },
+      { beat: 18, col: 7, kind: "meteorMedium", color: null },
+      { beat: 25, col: 6, kind: "meteorMedium", color: null },
+      { beat: 31, col: 9, kind: "meteorMedium", color: null },
+    ],
+  },
+  {
+    id: "theWardReach",
+    name: "HEAVY ROCKS APART",
+    variant: true,
+    entries: [
+      { beat: 0, col: 1, kind: "meteorMedium", color: null },
+      { beat: 5, col: 8, kind: "meteor", color: null },
+      { beat: 11, col: 1, kind: "meteorMedium", color: null },
+      { beat: 16, col: 10, kind: "meteor", color: null },
+      { beat: 22, col: 2, kind: "meteorMedium", color: null },
+      { beat: 28, col: 6, kind: "meteor", color: null },
+    ],
+  },
+  {
+    id: "theWardPair",
+    name: "HEAVY ROCK IN PAIRS",
+    variant: true,
+    entries: [
+      { beat: 0, col: 8, color: "cyan" },
+      { beat: 4, col: 10, kind: "meteorMedium", color: null },
+      { beat: 10, col: 5, color: "red" },
+      { beat: 16, col: 9, kind: "blister", color: null, row: 2, by: 2, gesture: "swipe" },
+      { beat: 21, col: 5, color: "cyan" },
+      { beat: 30, col: 7, color: "red" },
+      { beat: 34, col: 4, kind: "meteorMedium", color: null },
+    ],
+    pods: [{ beat: 26, col: 10, row: 3, kind: "purge" }],
+  },
+  {
+    id: "theWardBreathe",
+    name: "EASY HEAVY ROCKS",
+    variant: true,
+    entries: [
+      { beat: 0, col: 2, color: "red" },
+      { beat: 8, col: 4, kind: "meteorMedium", color: null },
+      { beat: 16, col: 7, color: "red" },
+      { beat: 23, col: 5, kind: "meteorMedium", color: null },
+      { beat: 30, col: 4, color: "red" },
+      { beat: 37, col: 2, kind: "meteorMedium", color: null },
+    ],
+  },
+  {
+    id: "theWardRecall",
+    name: "HEAVY ROCK RECALL",
+    variant: true,
+    entries: [
+      { beat: 0, col: 6, color: "cyan" },
+      { beat: 6, col: 8, kind: "meteorMedium", color: null },
+      { beat: 12, col: 0, color: "red" },
+      { beat: 23, col: 8, color: "cyan" },
+      { beat: 28, col: 7, kind: "meteorMedium", color: null },
+      { beat: 34, col: 1, color: "red" },
+    ],
+    pods: [{ beat: 18, col: 5, row: 3, kind: "purge" }],
+  },
+  {
+    id: "theWardBend",
+    name: "HEAVY ROCKS, TWINS",
+    variant: true,
+    entries: [
+      { beat: 0, col: 6, color: "red" },
+      { beat: 5, col: 5, kind: "meteorMedium", color: null },
+      { beat: 5, col: 8, kind: "meteorMedium", color: null },
+      { beat: 10, col: 7, color: "cyan" },
+      { beat: 15, col: 3, color: "red" },
+      { beat: 21, col: 5, kind: "blister", color: null, row: 3, by: 2 },
+      { beat: 27, col: 7, color: "red" },
+      { beat: 33, col: 6, kind: "meteorMedium", color: null },
+      { beat: 39, col: 3, color: "red" },
+      { beat: 39, col: 7, color: "red" },
+      { beat: 44, col: 8, kind: "blister", color: null, row: 2, by: 2, gesture: "swipe" },
+    ],
+  },
+  {
+    id: "theWardPeak",
+    name: "HEAVY ROCK PEAK",
+    variant: true,
+    entries: [
+      { beat: 0, col: 1, color: "red" },
+      { beat: 4, col: 2, kind: "meteorMedium", color: null },
+      { beat: 4, col: 8, kind: "meteorMedium", color: null },
+      { beat: 8, col: 4, color: "red" },
+      { beat: 12, col: 6, color: "red" },
+      { beat: 16, col: 7, kind: "blister", color: null, row: 2, by: 2, gesture: "swipe" },
+      { beat: 20, col: 3, color: "cyan" },
+      { beat: 24, col: 4, kind: "torch", color: null },
+      { beat: 28, col: 3, color: "red" },
+      { beat: 28, col: 7, color: "red" },
+      { beat: 32, col: 9, kind: "meteorMedium", color: null },
+      { beat: 36, col: 7, kind: "blister", color: null, row: 3, by: 2 },
+      { beat: 40, col: 3, color: "red" },
+      { beat: 40, col: 6, color: "red" },
+      { beat: 44, col: 8, kind: "torch", color: null },
+      { beat: 48, col: 2, kind: "meteorMedium", color: null },
+    ],
+  },
+  {
+    id: "theVane",
+    name: "THE VANE",
+    entries: [
+      { beat: 0, col: 2, kind: "meteor", color: null },
+      { beat: 3, col: 8, color: "red" },
+    ],
+    boss: { kind: "vane" },
+    bossType: "normal",
+    controls: "standard5",
+  },
+];

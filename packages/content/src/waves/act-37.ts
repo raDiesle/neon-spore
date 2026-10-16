@@ -1,0 +1,162 @@
+import type { Wave } from "../wave-types.js";
+
+/**
+ * Waves 376 to 385 of the game, in the order they are played: THE CRYSTAL's
+ * block and the boss THE RATCHET.
+ *
+ * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act
+ * after the tutorial arc again in play order. A save that fills it cuts a page
+ * after it (`acts.ts`).
+ */
+export const WAVES_ACT_37: Wave[] = [
+  {
+    id: "theCrystal",
+    name: "THE CRYSTAL",
+    guide: {
+      scene: "theCrystal",
+    },
+    entries: [
+      { beat: 0, col: 0, kind: "crystal", color: "red" },
+      { beat: 20, col: 10, kind: "crystal", color: "cyan" },
+      { beat: 40, col: 2, kind: "crystal", color: "cyan" },
+      { beat: 46, col: 8, kind: "crystal", color: "red" },
+    ],
+  },
+  {
+    id: "theCrystalAgain",
+    name: "CRYSTALS AGAIN",
+    variant: true,
+    entries: [
+      { beat: 0, col: 9, kind: "crystal", color: "cyan" },
+      { beat: 8, col: 7, kind: "recoil", color: "cyan" },
+      { beat: 15, col: 4, kind: "crystal", color: "cyan" },
+      { beat: 23, col: 0, kind: "recoil", color: "cyan" },
+      { beat: 30, col: 4, kind: "crystal", color: "red" },
+    ],
+  },
+  {
+    id: "theCrystalSpread",
+    name: "CRYSTALS SPREAD",
+    variant: true,
+    entries: [
+      { beat: 0, col: 1, kind: "crystal", color: "red" },
+      { beat: 7, col: 2, kind: "recoil", color: "cyan" },
+      { beat: 13, col: 1, kind: "beatbox", color: null, beats: 2 },
+      { beat: 20, col: 10, kind: "crystal", color: "cyan" },
+      { beat: 27, col: 7, kind: "recoil", color: "red" },
+    ],
+  },
+  {
+    id: "theCrystalReach",
+    name: "CRYSTALS FAR APART",
+    variant: true,
+    entries: [
+      { beat: 0, col: 0, kind: "crystal", color: "cyan" },
+      { beat: 5, col: 9, kind: "recoil", color: "cyan" },
+      { beat: 11, col: 0, kind: "meteorMedium", color: null },
+      { beat: 17, col: 4, kind: "crystal", color: "red" },
+      { beat: 23, col: 8, kind: "recoil", color: "cyan" },
+      { beat: 29, col: 1, kind: "meteorMedium", color: null },
+    ],
+  },
+  {
+    id: "theCrystalPair",
+    name: "CRYSTAL AND RECOIL",
+    variant: true,
+    entries: [
+      { beat: 0, col: 0, color: "red" },
+      { beat: 4, col: 7, kind: "crystal", color: "cyan" },
+      { beat: 9, col: 10, color: "red" },
+      { beat: 14, col: 0, kind: "recoil", color: "cyan" },
+      { beat: 19, col: 3, color: "red" },
+      { beat: 19, col: 6, color: "red" },
+      { beat: 23, col: 3, kind: "echo", color: "red" },
+      { beat: 28, col: 5, kind: "crystal", color: "red" },
+      { beat: 32, col: 1, color: "cyan" },
+      { beat: 32, col: 9, color: "cyan" },
+      { beat: 37, col: 0, kind: "recoil", color: "red" },
+    ],
+  },
+  {
+    id: "theCrystalBreathe",
+    name: "EASY CRYSTALS",
+    variant: true,
+    entries: [
+      { beat: 0, col: 7, color: "cyan" },
+      { beat: 6, col: 9, kind: "crystal", color: "red" },
+      { beat: 12, col: 3, color: "cyan" },
+      { beat: 20, col: 10, kind: "recoil", color: "red" },
+      { beat: 28, col: 0, color: "cyan" },
+      { beat: 35, col: 10, kind: "balloon", color: null },
+    ],
+  },
+  {
+    id: "theCrystalRecall",
+    name: "CRYSTAL RECALL",
+    variant: true,
+    entries: [
+      { beat: 0, col: 9, color: "red" },
+      { beat: 6, col: 0, kind: "crystal", color: "cyan" },
+      { beat: 12, col: 4, color: "red" },
+      { beat: 18, col: 5, kind: "veer", color: null },
+      { beat: 23, col: 0, color: "red" },
+      { beat: 23, col: 10, color: "red" },
+      { beat: 29, col: 5, kind: "crystal", color: "red" },
+      { beat: 35, col: 8, kind: "veer", color: null },
+    ],
+  },
+  {
+    id: "theCrystalBend",
+    name: "CRYSTALS AND TWINS",
+    variant: true,
+    entries: [
+      { beat: 0, col: 0, color: "cyan" },
+      { beat: 6, col: 8, kind: "crystal", color: "red" },
+      { beat: 11, col: 1, color: "red" },
+      { beat: 11, col: 9, color: "red" },
+      { beat: 16, col: 1, kind: "recoil", color: "cyan" },
+      { beat: 21, col: 8, kind: "crystal", color: "cyan" },
+      { beat: 27, col: 0, color: "cyan" },
+      { beat: 27, col: 10, color: "cyan" },
+      { beat: 33, col: 3, kind: "recoil", color: "cyan" },
+      { beat: 38, col: 4, kind: "crystal", color: "cyan" },
+      { beat: 44, col: 0, color: "red" },
+      { beat: 44, col: 10, color: "red" },
+    ],
+  },
+  {
+    id: "theCrystalPeak",
+    name: "CRYSTAL PEAK",
+    variant: true,
+    entries: [
+      { beat: 0, col: 8, color: "red" },
+      { beat: 3, col: 4, kind: "crystal", color: "cyan" },
+      { beat: 7, col: 0, color: "cyan" },
+      { beat: 7, col: 10, color: "cyan" },
+      { beat: 11, col: 8, kind: "recoil", color: "cyan" },
+      { beat: 15, col: 1, kind: "meteor", color: null },
+      { beat: 15, col: 9, kind: "meteor", color: null },
+      { beat: 19, col: 2, color: "cyan" },
+      { beat: 19, col: 8, color: "cyan" },
+      { beat: 23, col: 2, kind: "crystal", color: "red" },
+      { beat: 27, col: 1, color: "red" },
+      { beat: 27, col: 9, color: "red" },
+      { beat: 31, col: 0, kind: "recoil", color: "red" },
+      { beat: 34, col: 1, kind: "meteor", color: null },
+      { beat: 38, col: 3, color: "cyan" },
+      { beat: 38, col: 7, color: "cyan" },
+      { beat: 42, col: 2, kind: "crystal", color: "red" },
+      { beat: 46, col: 5, kind: "recoil", color: "red" },
+    ],
+  },
+  {
+    id: "theRatchet",
+    name: "THE RATCHET",
+    guide: {
+      scene: "theRatchet",
+    },
+    entries: [],
+    boss: { kind: "ratchet" },
+    bossType: "normal",
+  },
+];

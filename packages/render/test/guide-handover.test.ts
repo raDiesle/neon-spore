@@ -51,7 +51,7 @@ function traded(): World {
   // all, and what this wants is the wave's own clock (`sim/step.ts`).
   const world = createWorld({ ...CFG, briefings: false }, 3);
   startWave(world, WAVE, [], [], null, false, 0, placedFaults(WAVES[WAVE]?.faults));
-  // The wave trades on its tenth beat and holds for eight (`act-8.ts`), so a
+  // The wave trades on its tenth beat and holds for eight (THE HANDOVER, in `content/waves/`), so a
   // dozen beats in is inside the window on any tempo the config carries.
   const ticks = (DEFAULT_CONFIG.tickHz * 60 * 12) / DEFAULT_CONFIG.bpm;
   for (let t = 0; t < ticks; t++) step(world, []);

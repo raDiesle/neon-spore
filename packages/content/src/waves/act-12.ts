@@ -1,35 +1,161 @@
+import { SCOUT_ARENAS } from "../scout-arenas.js";
 import type { Wave } from "../wave-types.js";
 
 /**
- * Act twelve, opened for THE VISE on 26 September 2026 — `act-11.ts` had
- * seventeen lines left under the 250-line ceiling, which is less than one
- * wave with its argument written above it (`waves.ts`).
+ * Waves 123 to 132 of the game, in the order they are played: THE COUNT's block
+ * and the boss THE SCOUT.
  *
- * **THE VISE's lobes are dragged shut.** A case of two lobes clamps a kernel
- * over the middle column; each seat has one lobe, and a seam cracks when its
- * lobe is carried shut by one thumb and kept shut for the count
- * (`docs/spec/bosses-choreographed.md` §28, `sim/vise.ts`). Two seams a lobe
- * bare the kernel, which is shot in its colour; between the shots both lobes
- * are dragged shut at once to hold the case off it. It was a two-finger pinch
- * until the owner ruled one finger a player on 8 October 2026.
- *
- * It authors the whole script, and nothing that falls: the pilot's two seams,
- * the navigator's two, then fire and hold in turn up to the white last hit.
- *
- * **THE PLUMB is the first boss answered by the phone itself**, the same
- * shape a second time: a bob over the middle column, each seat's weight hung
- * true by holding its own phone level, inside a range that narrows on the
- * second settle (`docs/spec/bosses-choreographed.md` §31, `sim/plumb.ts`).
- * Both weights true light the core, which is shot in its colour; between the
- * shots both seats hold level at once to keep the weights true under it.
- *
- * **THE SLING is the first boss answered at the lift**, the same shape a
- * third time: a fork over the middle column, each seat's arm drawn by
- * holding a finger down for the count and loosed by swiping toward the lit
- * side as it leaves (`docs/spec/bosses-choreographed.md` §32,
- * `sim/sling.ts`). Both arms drawn light the yoke, which is shot in its
- * colour; between the shots both seats draw and loose at once to keep it lit.
- *
- * Every shot in this act waits six beats, as in act thirteen (`act-13.ts`).
+ * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act
+ * after the tutorial arc again in play order. A save that fills it cuts a page
+ * after it (`acts.ts`).
  */
-export const WAVES_ACT_12: Wave[] = [];
+export const WAVES_ACT_12: Wave[] = [
+  {
+    id: "theCount",
+    name: "THE COUNT",
+    guide: {
+      scene: "theCount",
+    },
+    entries: [
+      { beat: 0, col: 5, kind: "countdown", color: "red" },
+      { beat: 8, col: 2, kind: "countdown", color: "cyan" },
+      { beat: 18, col: 3, kind: "countdown", color: "red" },
+      { beat: 19, col: 8, kind: "countdown", color: "cyan" },
+    ],
+  },
+  {
+    id: "theCountAgain",
+    name: "COUNTS AGAIN",
+    variant: true,
+    entries: [
+      { beat: 0, col: 4, kind: "countdown", color: "cyan" },
+      { beat: 8, col: 7, kind: "countdown", color: "red" },
+      { beat: 16, col: 3, kind: "countdown", color: "cyan" },
+      { beat: 23, col: 5, kind: "countdown", color: "cyan" },
+      { beat: 30, col: 4, kind: "countdown", color: "red" },
+    ],
+  },
+  {
+    id: "theCountSpread",
+    name: "COUNTS SPREAD",
+    variant: true,
+    entries: [
+      { beat: 0, col: 6, kind: "countdown", color: "red" },
+      { beat: 6, col: 3, kind: "countdown", color: "cyan" },
+      { beat: 13, col: 9, kind: "countdown", color: "red" },
+      { beat: 19, col: 5, kind: "countdown", color: "cyan" },
+      { beat: 24, col: 7, kind: "countdown", color: "red" },
+      { beat: 31, col: 3, kind: "countdown", color: "cyan" },
+    ],
+  },
+  {
+    id: "theCountReach",
+    name: "COUNTS FAR APART",
+    variant: true,
+    entries: [
+      { beat: 0, col: 0, kind: "countdown", color: "red" },
+      { beat: 5, col: 4, color: "red" },
+      { beat: 10, col: 0, kind: "countdown", color: "cyan" },
+      { beat: 15, col: 4, color: "red" },
+      { beat: 21, col: 8, kind: "countdown", color: "red" },
+      { beat: 26, col: 3, color: "red" },
+    ],
+  },
+  {
+    id: "theCountPair",
+    name: "COUNT AND THROB",
+    variant: true,
+    entries: [
+      { beat: 0, col: 6, color: "red" },
+      { beat: 4, col: 10, kind: "countdown", color: "cyan" },
+      { beat: 10, col: 4, color: "red" },
+      { beat: 15, col: 9, kind: "throb", color: "red" },
+      { beat: 20, col: 5, color: "cyan" },
+      { beat: 25, col: 0, kind: "torch", color: null },
+      { beat: 30, col: 8, color: "cyan" },
+      { beat: 34, col: 9, kind: "countdown", color: "red" },
+    ],
+  },
+  {
+    id: "theCountBreathe",
+    name: "EASY COUNTS",
+    variant: true,
+    entries: [
+      { beat: 0, col: 9, color: "red" },
+      { beat: 8, col: 1, kind: "countdown", color: "red" },
+      { beat: 16, col: 6, color: "red" },
+      { beat: 22, col: 1, kind: "meteor", color: null },
+      { beat: 29, col: 9, color: "cyan" },
+      { beat: 37, col: 5, kind: "countdown", color: "red" },
+    ],
+  },
+  {
+    id: "theCountRecall",
+    name: "COUNT RECALL",
+    variant: true,
+    entries: [
+      { beat: 0, col: 10, color: "cyan" },
+      { beat: 6, col: 7, kind: "countdown", color: "red" },
+      { beat: 11, col: 10, color: "red" },
+      { beat: 17, col: 9, kind: "countdown", color: "cyan" },
+      { beat: 23, col: 6, color: "red" },
+      { beat: 29, col: 0, kind: "countdown", color: "red" },
+      { beat: 35, col: 4, color: "red" },
+    ],
+  },
+  {
+    id: "theCountBend",
+    name: "COUNTS AND TWINS",
+    variant: true,
+    entries: [
+      { beat: 0, col: 3, color: "red" },
+      { beat: 6, col: 6, kind: "countdown", color: "cyan" },
+      { beat: 11, col: 5, color: "cyan" },
+      { beat: 16, col: 4, kind: "throb", color: "red" },
+      { beat: 21, col: 2, color: "red" },
+      { beat: 21, col: 8, color: "red" },
+      { beat: 27, col: 8, kind: "countdown", color: "red" },
+      { beat: 32, col: 5, kind: "throb", color: "red" },
+      { beat: 37, col: 3, color: "red" },
+      { beat: 37, col: 7, color: "red" },
+      { beat: 42, col: 6, kind: "countdown", color: "red" },
+      { beat: 47, col: 2, kind: "throb", color: "red" },
+    ],
+  },
+  {
+    id: "theCountPeak",
+    name: "COUNT PEAK",
+    variant: true,
+    entries: [
+      { beat: 0, col: 1, color: "cyan" },
+      { beat: 4, col: 8, kind: "countdown", color: "red" },
+      { beat: 8, col: 9, color: "cyan" },
+      { beat: 12, col: 2, kind: "throb", color: "red" },
+      { beat: 16, col: 3, color: "cyan" },
+      { beat: 16, col: 7, color: "cyan" },
+      { beat: 24, col: 1, kind: "countdown", color: "red" },
+      { beat: 28, col: 3, color: "red" },
+      { beat: 28, col: 6, color: "red" },
+      { beat: 32, col: 2, kind: "throb", color: "red" },
+      { beat: 40, col: 0, color: "cyan" },
+      { beat: 40, col: 10, color: "cyan" },
+      { beat: 44, col: 9, kind: "countdown", color: "red" },
+      { beat: 48, col: 0, kind: "throb", color: "red" },
+    ],
+    pods: [
+      { beat: 20, col: 6, row: 3, kind: "purge" },
+      { beat: 36, col: 4, row: 3, kind: "purge" },
+    ],
+  },
+  {
+    id: "theScout",
+    name: "THE SCOUT",
+    guide: {
+      scene: "theScout",
+    },
+    entries: [],
+    boss: { kind: "scout", arenas: SCOUT_ARENAS },
+    bossType: "special",
+    controls: "scout",
+  },
+];

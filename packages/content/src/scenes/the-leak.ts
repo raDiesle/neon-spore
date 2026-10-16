@@ -20,7 +20,7 @@ import type { GuideScene } from "../scene-types.js";
  * the pair is being shown is an absence, and an absence is only visible
  * against the shape it is missing from — a new figure here would have made
  * this a rehearsal about a new problem rather than about a missing answer,
- * which is the argument `waves/act-9.ts` already makes about the wave itself.
+ * which is the argument THE LEAK's wave (`waves/`) already makes about the wave itself.
  *
  * Four pages, and the middle two are the whole of it. She holds from beat six,
  * and the page stands until beat nine and a half — past beat nine, which is
@@ -34,7 +34,7 @@ import type { GuideScene } from "../scene-types.js";
  * The last page is his, and it is the arithmetic the first three add up to —
  * three bodies is three taps now, so the column he is standing in is one he
  * will be standing in for a while, and the next one has to be said early. That
- * is the pilot's half of the wave (`waves/act-9.ts`'s `p1` string), and the
+ * is the pilot's half of the wave (its `p1` string, in `waves/`), and the
  * two taps under it are what it costs.
  */
 export const THE_LEAK: GuideScene = {

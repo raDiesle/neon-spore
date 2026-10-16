@@ -23,7 +23,7 @@ export const THE_DARK: GuideScene = {
   bpm: 120,
   seed: 1,
   // From the second beat to the end of the loop, as the wave's own
-  // placement is from its fourth (`waves/act-10.ts`).
+  // placement is from its fourth (THE DARK, in `waves/`).
   faults: [{ kind: "dark", at: 2 }],
   entries: [
     { beat: 1, col: 3, color: "cyan" },

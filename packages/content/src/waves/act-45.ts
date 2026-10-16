@@ -1,0 +1,181 @@
+import type { Wave } from "../wave-types.js";
+
+/**
+ * Waves 456 to 465 of the game, in the order they are played: THE CAROM's block
+ * and the boss THE PLUMB.
+ *
+ * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act
+ * after the tutorial arc again in play order. A save that fills it cuts a page
+ * after it (`acts.ts`).
+ */
+export const WAVES_ACT_45: Wave[] = [
+  {
+    id: "theCarom",
+    name: "THE CAROM",
+    guide: {
+      scene: "theCarom",
+    },
+    entries: [
+      { beat: 0, col: 0, kind: "carom", color: "red" },
+      { beat: 12, col: 10, kind: "carom", color: "cyan" },
+      { beat: 24, col: 2, kind: "carom", color: "cyan" },
+      { beat: 28, col: 8, kind: "carom", color: "red" },
+    ],
+  },
+  {
+    id: "theCaromAgain",
+    name: "CAROMS AGAIN",
+    variant: true,
+    entries: [
+      { beat: 0, col: 6, kind: "carom", color: "red" },
+      { beat: 8, col: 9, kind: "ghost", color: "cyan" },
+      { beat: 15, col: 2, kind: "clasp", color: "red" },
+      { beat: 21, col: 9, kind: "carom", color: "cyan" },
+      { beat: 29, col: 3, kind: "ghost", color: "red" },
+    ],
+  },
+  {
+    id: "theCaromSpread",
+    name: "CAROMS SPREAD",
+    variant: true,
+    entries: [
+      { beat: 0, col: 1, kind: "carom", color: "red" },
+      { beat: 6, col: 7, kind: "ghost", color: "cyan" },
+      { beat: 12, col: 1, kind: "crawler", color: null, segments: 3, side: "left" },
+      { beat: 17, col: 10, kind: "carom", color: "red" },
+      { beat: 22, col: 4, kind: "ghost", color: "red" },
+      { beat: 27, col: 8, kind: "crawler", color: null, segments: 3, side: "left" },
+    ],
+  },
+  {
+    id: "theCaromReach",
+    name: "CAROMS FAR APART",
+    variant: true,
+    entries: [
+      { beat: 0, col: 0, kind: "carom", color: "red" },
+      { beat: 5, col: 10, kind: "ghost", color: "red" },
+      { beat: 10, col: 3, kind: "weight", color: null },
+      { beat: 15, col: 8, kind: "carom", color: "cyan" },
+      { beat: 20, col: 4, kind: "ghost", color: "cyan", path: "across" },
+      { beat: 25, col: 9, kind: "weight", color: null },
+    ],
+  },
+  {
+    id: "theCaromPair",
+    name: "CAROM AND GHOST",
+    variant: true,
+    entries: [
+      { beat: 0, col: 6, color: "red" },
+      { beat: 5, col: 7, kind: "carom", color: "red" },
+      { beat: 10, col: 2, color: "red" },
+      { beat: 16, col: 5, kind: "ghost", color: "cyan" },
+      { beat: 22, col: 3, color: "cyan" },
+      { beat: 22, col: 6, color: "cyan" },
+      { beat: 26, col: 1, kind: "carom", color: "cyan" },
+      { beat: 31, col: 2, kind: "ghost", color: "red" },
+      { beat: 35, col: 0, color: "cyan" },
+      { beat: 35, col: 10, color: "cyan" },
+      { beat: 40, col: 0, kind: "carom", color: "red" },
+    ],
+  },
+  {
+    id: "theCaromBreathe",
+    name: "EASY CAROMS",
+    variant: true,
+    entries: [
+      { beat: 0, col: 10, color: "cyan" },
+      { beat: 6, col: 2, kind: "carom", color: "cyan" },
+      { beat: 13, col: 8, color: "red" },
+      { beat: 19, col: 3, kind: "ghost", color: "cyan", path: "across" },
+      { beat: 25, col: 10, color: "cyan" },
+      { beat: 31, col: 0, kind: "choir", color: "red" },
+      { beat: 37, col: 10, color: "cyan" },
+    ],
+  },
+  {
+    id: "theCaromRecall",
+    name: "CAROM RECALL",
+    variant: true,
+    entries: [
+      { beat: 0, col: 1, color: "cyan" },
+      { beat: 6, col: 9, kind: "carom", color: "cyan" },
+      { beat: 12, col: 2, color: "cyan" },
+      { beat: 17, col: 8, kind: "meteor", color: null },
+      { beat: 22, col: 1, color: "red" },
+      { beat: 22, col: 9, color: "red" },
+      { beat: 28, col: 4, kind: "carom", color: "cyan" },
+      { beat: 34, col: 1, kind: "meteor", color: null },
+      { beat: 40, col: 2, color: "red" },
+      { beat: 40, col: 8, color: "red" },
+    ],
+  },
+  {
+    id: "theCaromBend",
+    name: "CAROMS AND TWINS",
+    variant: true,
+    entries: [
+      { beat: 0, col: 6, color: "cyan" },
+      { beat: 6, col: 3, kind: "carom", color: "cyan" },
+      { beat: 12, col: 2, color: "red" },
+      { beat: 12, col: 8, color: "red" },
+      { beat: 17, col: 6, kind: "ghost", color: "cyan" },
+      { beat: 22, col: 7, kind: "carom", color: "cyan" },
+      { beat: 28, col: 1, color: "cyan" },
+      { beat: 28, col: 9, color: "cyan" },
+      { beat: 34, col: 0, kind: "ghost", color: "red" },
+      { beat: 40, col: 9, kind: "carom", color: "red" },
+      { beat: 45, col: 3, color: "cyan" },
+      { beat: 45, col: 7, color: "cyan" },
+    ],
+  },
+  {
+    id: "theCaromPeak",
+    name: "CAROM PEAK",
+    variant: true,
+    entries: [
+      { beat: 0, col: 3, color: "cyan" },
+      { beat: 3, col: 2, kind: "carom", color: "red" },
+      { beat: 7, col: 1, color: "cyan" },
+      { beat: 7, col: 9, color: "cyan" },
+      { beat: 10, col: 10, kind: "ghost", color: "red" },
+      { beat: 14, col: 5, kind: "throb", color: "red" },
+      { beat: 17, col: 3, color: "red" },
+      { beat: 17, col: 7, color: "red" },
+      { beat: 20, col: 8, kind: "carom", color: "red" },
+      { beat: 24, col: 9, kind: "ghost", color: "red" },
+      { beat: 28, col: 5, color: "red" },
+      { beat: 28, col: 8, color: "red" },
+      { beat: 31, col: 2, kind: "throb", color: "red" },
+      { beat: 34, col: 1, kind: "carom", color: "red" },
+      { beat: 38, col: 2, color: "red" },
+      { beat: 38, col: 8, color: "red" },
+      { beat: 42, col: 1, kind: "ghost", color: "cyan" },
+      { beat: 46, col: 9, kind: "throb", color: "red" },
+    ],
+  },
+  {
+    id: "thePlumb",
+    name: "THE PLUMB",
+    guide: {
+      both: "Each drags a stone. Pull away from the low side, together, until the bob hangs true. Both weights true light the core. Shoot it in its colour.",
+      p1: "1. When a weight lights, drag the left stone.\n2. Pull away from the low side. Say how far you are.\n3. One pull is not enough: hold it with the other until the bob is true.\n4. When the core shows a colour, fire it.",
+      p2: "1. When a weight lights, drag the right stone.\n2. Pull away from the low side. Say how far you are.\n3. One pull is not enough: hold it with the other until the bob is true.\n4. White takes either colour.",
+    },
+    entries: [],
+    boss: {
+      kind: "plumb",
+      steps: [
+        { ask: "left", skewMilli: -3000, rangeMilli: 600, color: "either", beats: 6 },
+        { ask: "left", skewMilli: 2800, rangeMilli: 400, color: "either", beats: 4 },
+        { ask: "right", skewMilli: 3200, rangeMilli: 600, color: "either", beats: 6 },
+        { ask: "right", skewMilli: -2800, rangeMilli: 400, color: "either", beats: 4 },
+        { ask: "fire", skewMilli: 0, rangeMilli: 0, color: "red", beats: 6 },
+        { ask: "both", skewMilli: -2800, rangeMilli: 500, color: "either", beats: 3 },
+        { ask: "fire", skewMilli: 0, rangeMilli: 0, color: "cyan", beats: 6 },
+        { ask: "both", skewMilli: 3000, rangeMilli: 450, color: "either", beats: 3 },
+        { ask: "fire", skewMilli: 0, rangeMilli: 0, color: "either", beats: 6 },
+      ],
+    },
+    bossType: "normal",
+  },
+];

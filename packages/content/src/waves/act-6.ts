@@ -1,110 +1,159 @@
 import type { Wave } from "../wave-types.js";
 
 /**
- * Act six, and it opens with a rock that will not hold its lane.
+ * Waves 63 to 72 of the game, in the order they are played: THE WEIGHT's block
+ * and the boss THE GAUGE.
  *
- * The acts are not a design unit — `waves.ts` says so at length: they exist
- * because a list that grows a dozen lines a wave has to be cut somewhere, and
- * a chapter of the game is the least arbitrary place to cut it. `act-5.ts`
- * reached the 250-line limit the day THE VEER was written, exactly as
- * `act-4.ts`, `act-3.ts` and `act-2.ts` did before it, so this is where new
- * waves land now.
+ * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act
+ * after the tutorial arc again in play order. A save that fills it cuts a page
+ * after it (`acts.ts`).
  */
-/**
- * **THE VEER, in three figures**, and what has to bite is the one habit every
- * rock so far has rewarded: *say the column once, put the shield there, stop
- * looking*. Five speed tiers, a torch, a volley and a carom have all been
- * answered that way — the number a pilot reads off the strip has never gone
- * stale before it landed. This rock's number expires every three rows, and it
- * goes on expiring right down to the row the shield answers at.
- *
- * The split is the sharp end of it. A rock is the pilot's on the radar and the
- * navigator's on the field, so the seat that can see which way the next step
- * goes is the seat that cannot move the shield an inch. Everything the pair
- * does here has to cross the room twice: a side, then a column.
- *
- * 1. Beat 0, one alone, dead centre. Nothing else on the field for eighteen
- *    beats, so the pair can spend the whole fall discovering that it steps at
- *    all, that it steps every third row and never stops, and that only one of
- *    them is being told which way. It reaches the ship if they give up on it,
- *    and it costs exactly what a rock costs.
- * 2. Beats 18–20, a veer and an ordinary slick beside it. This is the wave:
- *    the pilot is reading an arrow and calling sides while the cannon is
- *    wanted in another lane, and the thumb on GUARD is the same thumb.
- * 3. Beats 34–38, two veers with a plain rock between them. Three things the
- *    shield owes and only one of them stays where it was put — which is where
- *    "call it every time it re-aims" stops being advice and becomes the only
- *    way through.
- *
- * A veer entry names its kind and no colour, the way every rock does: nothing
- * about it can be shot, so there is nothing on the arrival to author.
- */
-/**
- * **THE STRAND, in three threads**, and the habit it has to break is the one
- * every aim target so far has rewarded: *look at your own screen and act on
- * what is there*. A slick is a colour and a column on both phones. A veil
- * hides one fact from one seat, a wisp hides a body from one seat, a dart
- * hides a side — and in every one of them the seat that can see is the seat
- * that speaks, while the other simply does as it is told.
- *
- * Here neither of them can do anything alone. The navigator is shown which
- * bead is lit and no colours at all; the pilot is shown the colours and no
- * mark. So the sentence is two halves in two mouths — *third from the left*
- * against *that one is cyan* — and it has to be said again for every bead,
- * because the lit end is rolled again after every one of them.
- *
- * 1. Beat 0, a thread of two, dead centre and alone. Two beads is one exchange
- *    and then the last one, which is the smallest version of the creature
- *    there is: enough to discover that only one of them answers, and short
- *    enough that discovering it costs nothing.
- * 2. Beats 18-22, a thread of three with an ordinary slick beside it. This is
- *    the wave. The slick is what a strand is defined *against* — a body either
- *    of them could have answered without saying a word — and it is on the
- *    field while the pair spends three exchanges on the thread.
- * 3. Beats 36-40, a thread of five and a plain rock. Five beads is five
- *    exchanges under one fall, and the rock is the shield's, which is the
- *    other thumb on the other phone.
- *
- * A strand entry names its kind, one colour and a length. The colour is the
- * **leftmost** bead's and every other one alternates from it along the thread.
- * Which end has to be shot is not authored at all: it is rolled when the
- * thread arrives and rolled again after every bead, which is the one thing
- * about this creature nobody may compose against — and the reason a raisin
- * tells neither seat what is coming (`lightStrandEnd`).
- */
-/**
- * **THE CRAWLER, in three worms**, and the habit it has to break is older than
- * any creature in the bestiary: *the field comes to you*. Every arrival since
- * the first slick has fallen out of the top of the screen at the ship, and
- * everything the pair has learned is a way of meeting one — a column held, a
- * colour loaded, a trigger on the beat. Nothing has ever had to be *chased*.
- *
- * A crawler is already landed. It cannot hurt the hull while it walks and
- * doing nothing about it is the only way to lose to it, which is the exact
- * inversion of every wave before this one.
- *
- * The other half is that it is the first body **both controls have to take
- * apart together**. The order along it is red, cyan, plate and round again,
- * and it is in plain sight on both screens from the moment the head comes over
- * the wall — so what the pair has to say is not a secret, it is a *plan*: who
- * has the next link, and therefore which of them is about to be holding a
- * column and which a trigger.
- *
- * 1. Beat 0, three segments off the left wall, alone. Three is one full turn
- *    of the cycle: red, cyan, plate, and then the two ends and the beam. The
- *    smallest worm at which the pair meets every answer this creature has, and
- *    short enough that meeting them the wrong way round costs nothing.
- * 2. Beat 24, five off the right, with a slick beside it. This is the wave. A
- *    slick is what a crawler is defined *against* — a body that falls, that
- *    threatens the hull, and that has to be answered *now* — and it is on the
- *    field while the pair is halfway down a worm's back.
- * 3. Beat 48, seven off the left, with a plain rock. The longest body the field
- *    holds, and the rock is the other thumb on the other phone: the shield is
- *    already owed to two plates on the worm when a rock arrives wanting it.
- *
- * A crawler entry names its kind, no colour and a length. The colour is not
- * authored at all — the order along the body is a rule (`segmentColor`) — and
- * the side is written out here rather than left to the column, so the wave
- * reads as what it is on the page.
- */
-export const WAVES_ACT_6: Wave[] = [];
+export const WAVES_ACT_6: Wave[] = [
+  {
+    id: "theWeight",
+    name: "THE WEIGHT",
+    guide: {
+      scene: "theWeight",
+    },
+    entries: [
+      { beat: 0, col: 5, kind: "weight", color: null },
+      { beat: 14, col: 8, kind: "weight", color: null },
+      { beat: 18, col: 3, color: "red" },
+      { beat: 30, col: 2, kind: "weight", color: null },
+      { beat: 32, col: 10, kind: "weight", color: null },
+    ],
+  },
+  {
+    id: "theWeightAgain",
+    name: "WEIGHTS AGAIN",
+    variant: true,
+    entries: [
+      { beat: 0, col: 4, kind: "weight", color: null },
+      { beat: 8, col: 6, kind: "weight", color: null },
+      { beat: 16, col: 5, kind: "weight", color: null },
+      { beat: 23, col: 4, kind: "weight", color: null },
+      { beat: 30, col: 6, kind: "weight", color: null },
+    ],
+  },
+  {
+    id: "theWeightSpread",
+    name: "WEIGHTS SPREAD",
+    variant: true,
+    entries: [
+      { beat: 0, col: 3, kind: "weight", color: null },
+      { beat: 6, col: 4, kind: "weight", color: null },
+      { beat: 11, col: 6, kind: "weight", color: null },
+      { beat: 18, col: 7, kind: "weight", color: null },
+      { beat: 24, col: 4, kind: "weight", color: null },
+      { beat: 29, col: 8, kind: "weight", color: null },
+    ],
+  },
+  {
+    id: "theWeightReach",
+    name: "WEIGHTS FAR APART",
+    variant: true,
+    entries: [
+      { beat: 0, col: 0, kind: "weight", color: null },
+      { beat: 5, col: 4, kind: "weight", color: null },
+      { beat: 11, col: 9, kind: "weight", color: null },
+      { beat: 17, col: 3, kind: "weight", color: null },
+      { beat: 22, col: 8, kind: "weight", color: null },
+      { beat: 28, col: 4, kind: "weight", color: null },
+    ],
+  },
+  {
+    id: "theWeightPair",
+    name: "WEIGHT AND BEATBOX",
+    variant: true,
+    entries: [
+      { beat: 0, col: 2, color: "red" },
+      { beat: 5, col: 7, kind: "weight", color: null },
+      { beat: 11, col: 10, color: "red" },
+      { beat: 17, col: 8, kind: "beatbox", color: null, beats: 3 },
+      { beat: 22, col: 2, color: "cyan" },
+      { beat: 26, col: 1, kind: "weight", color: null },
+      { beat: 30, col: 4, color: "red" },
+      { beat: 35, col: 10, kind: "beatbox", color: null, beats: 4 },
+    ],
+  },
+  {
+    id: "theWeightBreathe",
+    name: "EASY WEIGHTS",
+    variant: true,
+    entries: [
+      { beat: 0, col: 3, color: "cyan" },
+      { beat: 7, col: 2, kind: "weight", color: null },
+      { beat: 13, col: 5, color: "red" },
+      { beat: 20, col: 3, kind: "meteor", color: null },
+      { beat: 27, col: 5, color: "cyan" },
+      { beat: 33, col: 4, kind: "weight", color: null },
+      { beat: 39, col: 6, color: "red" },
+    ],
+  },
+  {
+    id: "theWeightRecall",
+    name: "WEIGHT RECALL",
+    variant: true,
+    entries: [
+      { beat: 0, col: 4, color: "red" },
+      { beat: 6, col: 7, kind: "weight", color: null },
+      { beat: 12, col: 2, color: "cyan" },
+      { beat: 23, col: 0, color: "cyan" },
+      { beat: 29, col: 6, kind: "weight", color: null },
+      { beat: 34, col: 5, color: "cyan" },
+    ],
+    pods: [{ beat: 18, col: 7, row: 3, kind: "ward" }],
+  },
+  {
+    id: "theWeightBend",
+    name: "WEIGHTS AND TWINS",
+    variant: true,
+    entries: [
+      { beat: 0, col: 6, color: "red" },
+      { beat: 6, col: 5, kind: "weight", color: null },
+      { beat: 12, col: 1, color: "cyan" },
+      { beat: 17, col: 2, kind: "beatbox", color: null, beats: 2 },
+      { beat: 23, col: 3, color: "red" },
+      { beat: 23, col: 7, color: "red" },
+      { beat: 29, col: 9, kind: "weight", color: null },
+      { beat: 34, col: 6, kind: "beatbox", color: null, beats: 2 },
+      { beat: 40, col: 5, color: "cyan" },
+      { beat: 40, col: 8, color: "cyan" },
+      { beat: 45, col: 9, kind: "weight", color: null },
+    ],
+  },
+  {
+    id: "theWeightPeak",
+    name: "WEIGHT PEAK",
+    variant: true,
+    entries: [
+      { beat: 0, col: 3, color: "red" },
+      { beat: 4, col: 1, kind: "weight", color: null },
+      { beat: 8, col: 10, color: "red" },
+      { beat: 12, col: 5, kind: "beatbox", color: null, beats: 3 },
+      { beat: 16, col: 3, color: "red" },
+      { beat: 16, col: 7, color: "red" },
+      { beat: 20, col: 5, kind: "weight", color: null },
+      { beat: 24, col: 8, kind: "beatbox", color: null, beats: 2 },
+      { beat: 28, col: 4, color: "red" },
+      { beat: 28, col: 7, color: "red" },
+      { beat: 32, col: 8, kind: "weight", color: null },
+      { beat: 36, col: 6, kind: "beatbox", color: null, beats: 3 },
+      { beat: 40, col: 4, color: "red" },
+      { beat: 40, col: 7, color: "red" },
+      { beat: 44, col: 8, kind: "weight", color: null },
+      { beat: 48, col: 4, kind: "beatbox", color: null, beats: 3 },
+    ],
+  },
+  {
+    id: "theGauge",
+    name: "THE GAUGE",
+    guide: {
+      scene: "theGauge",
+    },
+    entries: [],
+    boss: { kind: "gauge" },
+    bossType: "special",
+    controls: "gauge",
+  },
+];
