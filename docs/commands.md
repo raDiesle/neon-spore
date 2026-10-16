@@ -139,7 +139,7 @@ bun run waves:controls # one wave per on-screen control: four or more blisters a
 bun run waves:review   # the next review block: eight regular waves in front of a boss waiting at the end, themed on an old thing; --count N, --seed N, --write — tools/director/src/compose-review.ts
 bun run waves:lessons  # every panel or fault lesson behind its block's waves, eight of its own composed, bosses placed again, review blocks no boss closes dropped; --write — tools/director/src/compose-lesson.ts
 bun run waves:bosses   # every boss to the end of the first block that has taught what it needs; --write saves the order — tools/director/src/boss-slots.ts
-bun run waves:order    # every new thing after the arc taught again in rising cost, bodies and levers taking turns; every block, boss and review placed again; --write — tools/director/src/curriculum-order.ts
+bun run waves:order    # every new thing after the arc taught again in rising cost, bodies and levers taking turns; every block, boss and review placed again; --write, or --recut to cut the act files after the arc again composing nothing — tools/director/src/curriculum-order.ts
 bun run briefings:renumber  # §1 of docs/spec/briefings.md: every `N · NAME` and the guided count from today's order — after waves:compose --write
 bun run waves:names    # every regular wave named again by the composer — the block's thing and a word for the step's mood; ids to name only those, --write — tools/director/src/compose-names.ts
 bun run waves:measure  # play every wave with AUTO and rewrite docs/spec/wave-curriculum-today.md and its .json — length, novelty, pressure, boss times; the .json feeds the director's live EVERY WAVE table

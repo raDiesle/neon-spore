@@ -10,7 +10,7 @@ import { pickNext, splitCurriculum, type Unit, unitWaves } from "./src/curriculu
 import { writeWaves } from "./src/waves-acts.js";
 
 /**
- * `bun run waves:order [--write [--recut]]`
+ * `bun run waves:order [--write | --recut]`
  *
  * Every new thing after the tutorial arc taught again in the order of
  * `docs/spec/wave-curriculum.md` §4.1 (`src/curriculum-order.ts`): the
@@ -21,10 +21,23 @@ import { writeWaves } from "./src/waves-acts.js";
  * Without `--write` it prints the order and says whether anything would
  * change; a second run after `--write` changes nothing. A write cuts the act
  * files after the arc again in play order (`src/waves-recut.ts`), and
- * `--recut` does that alone, for an order that already holds.
+ * `--recut` does that alone to the list as it stands, composing nothing — so
+ * it works on a day the composer stops (`docs/queue.md`, 16 October 2026).
  */
 
 const SEEDS = [0, 4, 8, 12, 16, 20];
+
+if (process.argv.includes("--recut") && !process.argv.includes("--write")) {
+  const { complaint, rels, removed } = await writeWaves([...WAVES], undefined, { recut: true });
+  if (complaint) {
+    console.error(`stopped: ${complaint}`);
+    process.exit(1);
+  }
+  console.log(
+    `cut the acts after the arc again: wrote ${rels.length} files, deleted ${removed.length}`,
+  );
+  process.exit(0);
+}
 
 const cur = splitCurriculum(WAVES);
 let waves: Wave[] = [...cur.arc];
@@ -118,10 +131,7 @@ waves = nameWaves(waves, composedIds);
 
 const same = waves.length === WAVES.length && Bun.deepEquals(waves, [...WAVES]);
 console.log(`\n${waves.length} waves; ${same ? "nothing changes" : "the list changes"}`);
-// `--recut` cuts the act files again in play order when the order itself
-// holds — the cut a reorder before 16 October 2026 left behind.
-const recut = process.argv.includes("--recut");
-if (!process.argv.includes("--write") || (same && !recut)) process.exit(0);
+if (!process.argv.includes("--write") || same) process.exit(0);
 const { complaint, rels, removed } = await writeWaves(waves, undefined, { recut: true });
 if (complaint) stop(complaint);
 console.log(`wrote ${rels.length} files, deleted ${removed.length}`);

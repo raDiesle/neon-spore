@@ -43289,3 +43289,15 @@ Bottleneck: THE LANCE's cause had changed since the entry was filed — the
 pod sets landed after it an hour later — and only a printed ramp said so.
 
 *Measured: 14 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-16 — A save into the arc keeps the arc's acts whole
+
+- reading: 10 min. The save's act assignment, the recut and the two tests
+  that copy the tree.
+- writing: 10 min. `ArcEnd`, `--recut` alone, a unit case and a save test.
+- looking: 0 min. Nothing drawn changed.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, `land`.
+
+Bottleneck: finding a block that may move into the arc without a wave using
+what it has not been taught yet — a probe over six acts.

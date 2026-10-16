@@ -31,7 +31,7 @@ import {
   pageRoot,
 } from "./waves-act-list.js";
 import { writeArenas, writeBoards } from "./waves-acts-scripts.js";
-import { arcActs, arcLength, recutAfter } from "./waves-recut-write.js";
+import { arcActs, arcEndOf, arcLength, recutAfter } from "./waves-recut-write.js";
 
 export { ACT_FILES, ACT_LIST, type ActFile, type ActList };
 
@@ -147,6 +147,7 @@ export async function writeWaves(
   const homes = assignToActs(
     waves.slice(0, arc),
     acts.map((act, i) => idsInAct(sources[i] ?? "", act.exportName)),
+    arcEndOf(waves, sources, all),
   );
   const taken = new Set(acts.map(nameOf));
   const known = knownImports(sources);

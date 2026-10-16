@@ -2,7 +2,7 @@ import { unlink } from "node:fs/promises";
 import type { Wave } from "@neon-spore/content";
 import { TUTORIAL_LAST_ID } from "./compose-steps.js";
 import { type ActFile, beside, nameOf } from "./waves-act-files.js";
-import { type ActName, idsInAct } from "./waves-act-list.js";
+import { type ActName, type ArcEnd, idsInAct } from "./waves-act-list.js";
 import { recutActs } from "./waves-recut.js";
 
 /**
@@ -26,6 +26,18 @@ export function numberAfter(last: ActFile): number {
 /** How many of `waves` are the arc's: up to and with its last. */
 export function arcLength(waves: readonly Wave[]): number {
   return waves.findIndex((w) => w.id === TUTORIAL_LAST_ID) + 1;
+}
+
+/** Where the arc ends in `waves` and in `acts` (`ArcEnd`), or `undefined`
+ * when either has no arc's last wave, or no act comes after the arc's. */
+export function arcEndOf(
+  waves: readonly Wave[],
+  sources: readonly string[],
+  acts: readonly ActFile[],
+): ArcEnd | undefined {
+  const inActs = arcActs(sources, acts);
+  const inWaves = arcLength(waves);
+  return inWaves > 0 && inActs < acts.length ? { waves: inWaves, acts: inActs } : undefined;
 }
 
 /**

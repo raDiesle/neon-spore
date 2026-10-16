@@ -78,6 +78,16 @@ describe("which act a saved wave goes to", () => {
     const out = assignToActs(["a", "d", "b", "c"].map(plain), ids);
     expect(out.map((act) => act.map((w) => w.id))).toEqual([["a"], ["d", "b", "c"]]);
   });
+
+  test("stops at the arc's end: a wave moved across it plays on its own side", () => {
+    // The arc is the first two waves, in the first act: `d` moved into it
+    // stays there, and `b` moved out of it goes after.
+    const out = assignToActs(["a", "d", "b", "c"].map(plain), ids, { waves: 2, acts: 1 });
+    expect(out.map((act) => act.map((w) => w.id))).toEqual([
+      ["a", "d"],
+      ["b", "c"],
+    ]);
+  });
 });
 
 /** A save into a copy of the real acts and their list, in a directory of its

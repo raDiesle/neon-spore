@@ -84,6 +84,7 @@ export function idsInAct(source: string, exportName: string): string[] {
 export function assignToActs(
   waves: readonly Wave[],
   ids: readonly (readonly string[])[],
+  arc?: ArcEnd,
 ): Wave[][] {
   const owner = new Map<string, number>();
   ids.forEach((list, act) => {
@@ -91,12 +92,28 @@ export function assignToActs(
   });
   const out: Wave[][] = ids.map(() => []);
   let act = 0;
-  for (const wave of waves) {
-    const home = owner.get(wave.id);
+  for (const [i, wave] of waves.entries()) {
+    let home = owner.get(wave.id);
+    if (arc && i < arc.waves && home !== undefined && home >= arc.acts) home = undefined;
+    if (arc && i >= arc.waves) act = Math.max(act, arc.acts);
     if (home !== undefined && home > act) act = home;
     out[act]?.push(wave);
   }
   return out;
+}
+
+/**
+ * **Where the tutorial arc ends**, in waves and in acts: its first `waves`
+ * play in the first `acts` files. Never going back stops at it. A wave moved
+ * into the arc joins the arc's act it was dropped in, not the act after the
+ * arc it came from, and a wave moved out of the arc goes into the acts after
+ * it. Without it, moving THE BLISTER's nine from act 8 into the arc on
+ * 16 October 2026 took every arc wave after them into act 8 too, and acts 1b
+ * to 7 were saved empty.
+ */
+export interface ArcEnd {
+  waves: number;
+  acts: number;
 }
 
 /** An act file's text is cut when it would pass this, leaving Biome room to

@@ -328,25 +328,6 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/skipped.test.ts` holds the listing's count of the entries
 `next` stepped past and why.
 
-## A save that moves waves into the arc scatters it over empty act files
-
-- **Found:** 2026-10-16, claude/wave-generation-feedback-8f39ba
-- **Taken:** 2026-10-16, claude/queue-work-6b11c3 (claim: claude/queue-a-save-that-moves-waves-into-the-arc-scatters-it)
-- **Files:** `tools/director/src/waves-acts.ts`, `tools/director/src/waves-recut-write.ts`, `tools/director/waves-order.ts`
-
-Moving THE BLISTER's nine waves from act 8 into the tutorial arc with
-`writeWaves(list)` kept them in act 8 (`assignToActs` keeps a wave in the
-file it was in), so every arc wave between TORCH and them followed them there
-and acts 1b to 7 came back empty. `waves:order --recut --write` could not
-tidy it either: it composes the whole curriculum before it cuts, and that
-stops on THE LANCE (the entry above). The lane reset the act files and placed
-the waves by hand, then cut the acts after the arc with
-`writeWaves(WAVES, undefined, { recut: true })` from a probe. Make
-`--recut` cut the act files without composing anything, and make a save that
-moves a wave across the arc's end put it in the arc's act where it now plays.
-Done when a test moves a block from after the arc into it, saves, and every
-arc act file is non-empty and in play order.
-
 ## A boss's keys miss the bodies it puts on the field
 
 - **Found:** 2026-10-16, claude/wave-8-boss-generator-237899
