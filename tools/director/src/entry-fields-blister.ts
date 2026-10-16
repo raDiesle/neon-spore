@@ -1,5 +1,10 @@
 import type { WaveEntry } from "@neon-spore/content";
-import type { BlisterBy, BlisterGesture, BlisterWay } from "@neon-spore/sim";
+import {
+  type BlisterBy,
+  type BlisterGesture,
+  type BlisterWay,
+  blisterLengthOf,
+} from "@neon-spore/sim";
 
 /**
  * **THE BLISTER's per-arrival facts**: whose hand knocks it down, by which
@@ -56,10 +61,13 @@ export function blisterGestureOf(entry: WaveEntry): BlisterGesture {
 }
 
 /** Set the gesture, TAP written as no field — and a way the new gesture
- * does not go dropped, so a SWIPE's arrow is not saved on a TURN. */
+ * does not go dropped, so a SWIPE's arrow is not saved on a TURN, and a
+ * length dropped when the new gesture measures in another unit or none. */
 export function setBlisterGesture(entry: WaveEntry, gesture: BlisterGesture): void {
+  const unit = blisterLengthOf(blisterGestureOf(entry));
   entry.gesture = gesture === "tap" ? undefined : gesture;
   if (entry.way !== undefined && !blisterWaysOf(gesture).includes(entry.way)) entry.way = undefined;
+  if (blisterLengthOf(gesture) !== unit) entry.lengthMilli = undefined;
 }
 
 /** The ways a gesture may go: SWIPE's four, TURN's two, none for TAP, HOLD or RUB, so the row is not offered. */

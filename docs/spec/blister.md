@@ -185,11 +185,21 @@ e.g. "hold" remove that i can reconfigure it on the map editor to change the
 painting another CONTROLS brush over it is the one way to change it, and it
 keeps BY.
 
+**UP, BLOWS and LENGTH since 16 October 2026** — a blister's numbers on its
+own cell (*The numbers*, above), `DEFAULT` written as no field
+(`entry-fields-blister-numbers.ts`). A brush that paints a gesture measuring
+in another unit drops the cell's LENGTH. The gesture's own defaults are
+TUNING's sliders, three a gesture (`tuning-blister.ts`); like every slider
+there they move the run, and what ships is `sim/config-blister.ts`.
+
 
 | Row | Choices | Default |
 |---|---|---|
 | **BY** | `P1`, `P2`, `BOTH` | `P2` |
 | **WAY** | `←`, `→`, `↑`, `↓` for SWIPE; `⟳`, `⟲` for TURN; absent otherwise | `→`, `⟳` |
+| **UP** | `DEFAULT`, 2–16 beats | the gesture's up beats |
+| **BLOWS** | `DEFAULT`, 1–8 | the gesture's blows |
+| **LENGTH** | `DEFAULT`, halves of a tile (SWIPE, COMBO), a beat (HOLD, LEVER) or a turn (TURN); absent for TAP and RUB | the gesture's length |
 
 **BY** is whose hand counts. `BOTH` means either seat may, and the first to
 finish the gesture knocks it out; on HOLD two hands fill the beat twice as

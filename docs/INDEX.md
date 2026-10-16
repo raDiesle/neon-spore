@@ -3536,6 +3536,7 @@ by hand never moves.
 | `tools/director/src/tails/types.ts` | What a body leaves behind it as it falls |
 | `tools/director/src/tails/wedge.ts` | A tapering gradient wedge running away above the body — **what a torch wears in the game today** |
 | `tools/director/src/tuning.ts` | The numbers a wave is judged against, movable while it plays |
+| `tools/director/src/tuning-blister.ts` | **THE BLISTER's sliders**, three a gesture: beats up, blows, and one blow's length where it has one |
 | `tools/director/src/versus-controls.ts` | The generic widgets a live ALTERNATIVES screen runs on — a toggle button and a rate picker |
 | `tools/director/src/versus-hash.ts` | FNV-1a over every byte — not a cryptographic claim, only "did two renders match" |
 | `tools/director/src/versus-page.ts` | The ALTERNATIVES list: every open candidate as a door, and nothing drawn |
@@ -4036,6 +4037,7 @@ by hand never moves.
 | `tools/director/src/skies-page.ts` | DOCUMENTATION → SKIES: every sky the field can sit in, drawn |
 | `tools/director/src/entry-fields-balloon.ts` | **THE BALLOON's one authored fact**: how fast it climbs |
 | `tools/director/src/entry-fields-blister.ts` | **THE BLISTER's per-arrival facts**: whose hand knocks it down, how many blows it takes, by which gesture |
+| `tools/director/src/entry-fields-blister-numbers.ts` | **A blister's three numbers on one cell** — beats up, blows, one blow's length |
 | `tools/director/src/entry-fields-mine.ts` | **THE MINE's two per-arrival facts**, and the first pair in this game that are not about how a body moves or… |
 | `tools/director/src/effects-page.ts` | `versus.html?effect=…` — one kept effect, alone, live, at phone size |
 | `tools/director/src/effects-panel.ts` | The EFFECTS view on GRAPHICS: a list of doors, one per kept effect, grouped by the fight it belongs to |

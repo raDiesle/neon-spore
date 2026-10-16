@@ -43480,3 +43480,16 @@ Bottleneck: none — the one other teardown with the same shape was found by
 reading the four that launch or make something in a `beforeAll`.
 
 *Measured: 11 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-16 — A blister's numbers on its cell and in TUNING
+
+- reading: 5 min. `choiceRow`, the serialiser and TUNING's sliders.
+- writing: 15 min. UP, BLOWS and LENGTH rows, nineteen sliders from the
+  simulation's tables, the save, two tests, the spec.
+- looking: 5 min. The rows on THE BLISTER's SWIPE cell and the sliders, in
+  the director.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, `land`.
+
+Bottleneck: TUNING moves the run and never ships — the game-wide defaults stay
+`sim/config-blister.ts`'s, which the report has to say.

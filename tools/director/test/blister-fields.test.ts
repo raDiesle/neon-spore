@@ -107,11 +107,15 @@ describe("THE BLISTER's rows", () => {
 
   // No GESTURE row since 16 October 2026: the brush is the gesture, and a
   // HOLD painted on the map stays a HOLD until another brush paints over it.
-  it("are BY alone, and no WAY for a gesture without one", () => {
-    expect(said(blisterRows(blister(), () => {}))).toEqual(["BY P1 P2 BOTH"]);
-    expect(said(blisterRows({ ...blister(), gesture: "hold" } as WaveEntry, () => {}))).toEqual([
+  // UP and BLOWS follow BY on every gesture (`blister-numbers-fields.test.ts`).
+  it("are BY, UP and BLOWS, and no WAY or LENGTH for a TAP", () => {
+    expect(said(blisterRows(blister(), () => {}))).toEqual([
       "BY P1 P2 BOTH",
+      "UP DEFAULT 6 2 3 4 5 6 8 10 12 16",
+      "BLOWS DEFAULT 1 1 2 3 4 5 6 8",
     ]);
+    const hold = said(blisterRows({ ...blister(), gesture: "hold" } as WaveEntry, () => {}));
+    expect(hold.some((r) => r.startsWith("GESTURE"))).toBe(false);
   });
 
   it("offer a TURN its two ways, clockwise unset, and drop a SWIPE's arrow on the change", () => {

@@ -70,6 +70,10 @@ export function serializeEntry(entry: WaveEntry): string {
   if (entry.by !== undefined) parts.push(`by: ${entry.by === "both" ? '"both"' : entry.by}`);
   if (entry.gesture !== undefined) parts.push(`gesture: "${entry.gesture}"`);
   if (entry.way !== undefined) parts.push(`way: "${entry.way}"`);
+  // And its numbers (`sim/blister-numbers.ts`), each only when set.
+  if (entry.upBeats !== undefined) parts.push(`upBeats: ${entry.upBeats}`);
+  if (entry.blows !== undefined) parts.push(`blows: ${entry.blows}`);
+  if (entry.lengthMilli !== undefined) parts.push(`lengthMilli: ${entry.lengthMilli}`);
   return `{ ${parts.join(", ")} }`;
 }
 

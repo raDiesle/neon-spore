@@ -217,7 +217,7 @@ export function cellConfig({ wave, entry, onEdit }: CellConfigOptions): HTMLElem
   // THE MINE's two, and the eighth and ninth per-arrival facts in the game:
   // the row it stands on and which seat is drawn it (`cell-config-mine.ts`).
   if (hasMineFields(e)) rows.push(...mineRows(e, onEdit));
-  // THE BLISTER's, whose hand, how many blows and by which gesture (`cell-config-blister.ts`).
+  // THE BLISTER's: whose hand, its way, and its numbers (`cell-config-blister.ts`).
   if (hasBlisterFields(e)) rows.push(...blisterRows(e, onEdit));
   if (hasFenceGaps(e)) {
     // THE FENCE's own row, and the sixth per-arrival fact in the game — the

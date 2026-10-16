@@ -1,5 +1,6 @@
 import { DEFAULT_CONFIG, type SimConfig } from "@neon-spore/sim";
 import { mountSheet } from "./session.js";
+import { BLISTER_SLIDERS } from "./tuning-blister.js";
 
 /**
  * The numbers a wave is judged against, movable while it plays.
@@ -23,11 +24,11 @@ import { mountSheet } from "./session.js";
  * they are the reference for the numbers being moved rather than a room of
  * their own a floor away.
  */
-type NumericKey = {
+export type NumericKey = {
   [K in keyof SimConfig]: SimConfig[K] extends number ? K : never;
 }[keyof SimConfig];
 
-interface SliderSpec {
+export interface SliderSpec {
   key: NumericKey;
   label: string;
   min: number;
@@ -62,6 +63,8 @@ const SLIDERS: SliderSpec[] = [
     step: 0.05,
     unit: " × beat",
   },
+  // A blister's three numbers, gesture by gesture (`tuning-blister.ts`).
+  ...BLISTER_SLIDERS,
 ];
 
 type Preset = Partial<Record<NumericKey, number>>;
