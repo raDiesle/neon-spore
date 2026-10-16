@@ -43097,3 +43097,5 @@ Bottleneck: looking — finding each body on a full-field frame before it could 
 
 Bottleneck: the size hook, which blocked twice on a file this lane had made
 shorter.
+
+*Measured: 7 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
