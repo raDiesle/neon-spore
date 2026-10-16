@@ -52,7 +52,7 @@ export interface BossSlot {
 }
 
 /** What a wave needs taught, by key: mechanics, the panel, its buttons. */
-function keysOf(wave: Wave): string[] {
+export function keysOf(wave: Wave): string[] {
   const keys: string[] = [...mechanicsInWave(wave)].filter((id) => mechanic(id).reach !== "run");
   const set = controlSet(wave.controls);
   keys.push(`panel ${set.id}`, ...set.controls.map((c) => `button ${c}`));

@@ -1023,8 +1023,33 @@ by hand never moves.
 | `packages/content/src/waves/act-14.ts` | Act fourteen, opened for THE LAMPREY on 1 October 2026 |
 | `packages/content/src/waves/act-14b.ts` | Act fourteen, its second page, opened on 14 October 2026 when the director's save brought THE GOVERNOR into… |
 | `packages/content/src/waves/act-14b-p2.ts` | Cut from `act-14b.ts` by the director's save when that file passed the 250-line ceiling; it plays straight… |
+| `packages/content/src/waves/act-14b-p20.ts` | Cut from `act-14b-p19.ts` by the director's save when that file passed the 250-line ceiling; it plays… |
+| `packages/content/src/waves/act-14b-p21.ts` | Cut from `act-14b-p20.ts` by the director's save when that file passed the 250-line ceiling; it plays… |
+| `packages/content/src/waves/act-14b-p22.ts` | Cut from `act-14b-p21.ts` by the director's save when that file passed the 250-line ceiling; it plays… |
+| `packages/content/src/waves/act-14b-p23.ts` | Cut from `act-14b-p22.ts` by the director's save when that file passed the 250-line ceiling; it plays… |
+| `packages/content/src/waves/act-14b-p24.ts` | Cut from `act-14b-p23.ts` by the director's save when that file passed the 250-line ceiling; it plays… |
+| `packages/content/src/waves/act-14b-p25.ts` | Cut from `act-14b-p24.ts` by the director's save when that file passed the 250-line ceiling; it plays… |
+| `packages/content/src/waves/act-14b-p26.ts` | Cut from `act-14b-p25.ts` by the director's save when that file passed the 250-line ceiling; it plays… |
+| `packages/content/src/waves/act-14b-p27.ts` | Cut from `act-14b-p26.ts` by the director's save when that file passed the 250-line ceiling; it plays… |
+| `packages/content/src/waves/act-14b-p28.ts` | Cut from `act-14b-p27.ts` by the director's save when that file passed the 250-line ceiling; it plays… |
+| `packages/content/src/waves/act-14b-p29.ts` | Cut from `act-14b-p28.ts` by the director's save when that file passed the 250-line ceiling; it plays… |
 | `packages/content/src/waves/act-14b-p3.ts` | Cut from `act-14b-p2.ts` by the director's save when that file passed the 250-line ceiling; it plays straight… |
+| `packages/content/src/waves/act-14b-p30.ts` | Cut from `act-14b-p29.ts` by the director's save when that file passed the 250-line ceiling; it plays… |
+| `packages/content/src/waves/act-14b-p31.ts` | Cut from `act-14b-p30.ts` by the director's save when that file passed the 250-line ceiling; it plays… |
+| `packages/content/src/waves/act-14b-p32.ts` | Cut from `act-14b-p31.ts` by the director's save when that file passed the 250-line ceiling; it plays… |
+| `packages/content/src/waves/act-14b-p33.ts` | Cut from `act-14b-p32.ts` by the director's save when that file passed the 250-line ceiling; it plays… |
+| `packages/content/src/waves/act-14b-p34.ts` | Cut from `act-14b-p33.ts` by the director's save when that file passed the 250-line ceiling; it plays… |
+| `packages/content/src/waves/act-14b-p35.ts` | Cut from `act-14b-p34.ts` by the director's save when that file passed the 250-line ceiling; it plays… |
+| `packages/content/src/waves/act-14b-p36.ts` | Cut from `act-14b-p35.ts` by the director's save when that file passed the 250-line ceiling; it plays… |
+| `packages/content/src/waves/act-14b-p37.ts` | Cut from `act-14b-p36.ts` by the director's save when that file passed the 250-line ceiling; it plays… |
+| `packages/content/src/waves/act-14b-p38.ts` | Cut from `act-14b-p37.ts` by the director's save when that file passed the 250-line ceiling; it plays… |
+| `packages/content/src/waves/act-14b-p39.ts` | Cut from `act-14b-p38.ts` by the director's save when that file passed the 250-line ceiling; it plays… |
 | `packages/content/src/waves/act-14b-p4.ts` | Cut from `act-14b-p3.ts` by the director's save when that file passed the 250-line ceiling; it plays straight… |
+| `packages/content/src/waves/act-14b-p40.ts` | Cut from `act-14b-p39.ts` by the director's save when that file passed the 250-line ceiling; it plays… |
+| `packages/content/src/waves/act-14b-p41.ts` | Cut from `act-14b-p40.ts` by the director's save when that file passed the 250-line ceiling; it plays… |
+| `packages/content/src/waves/act-14b-p42.ts` | Cut from `act-14b-p41.ts` by the director's save when that file passed the 250-line ceiling; it plays… |
+| `packages/content/src/waves/act-14b-p43.ts` | Cut from `act-14b-p42.ts` by the director's save when that file passed the 250-line ceiling; it plays… |
+| `packages/content/src/waves/act-14b-p44.ts` | Cut from `act-14b-p43.ts` by the director's save when that file passed the 250-line ceiling; it plays… |
 | `packages/content/src/waves/act-14b-p10.ts` | Cut from `act-14b-p9.ts` by the director's save when that file passed the 250-line ceiling; it plays straight… |
 | `packages/content/src/waves/act-14b-p11.ts` | Cut from `act-14b-p10.ts` by the director's save when that file passed the 250-line ceiling; it plays… |
 | `packages/content/src/waves/act-14b-p12.ts` | Cut from `act-14b-p11.ts` by the director's save when that file passed the 250-line ceiling; it plays… |
@@ -1034,6 +1059,7 @@ by hand never moves.
 | `packages/content/src/waves/act-14b-p16.ts` | Cut from `act-14b-p15.ts` by the director's save when that file passed the 250-line ceiling; it plays… |
 | `packages/content/src/waves/act-14b-p17.ts` | Cut from `act-14b-p16.ts` by the director's save when that file passed the 250-line ceiling; it plays… |
 | `packages/content/src/waves/act-14b-p18.ts` | Cut from `act-14b-p17.ts` by the director's save when that file passed the 250-line ceiling; it plays… |
+| `packages/content/src/waves/act-14b-p19.ts` | Cut from `act-14b-p18.ts` by the director's save when that file passed the 250-line ceiling; it plays… |
 | `packages/content/src/waves/act-14b-p5.ts` | Cut from `act-14b-p4.ts` by the director's save when that file passed the 250-line ceiling; it plays straight… |
 | `packages/content/src/waves/act-14b-p6.ts` | Cut from `act-14b-p5.ts` by the director's save when that file passed the 250-line ceiling; it plays straight… |
 | `packages/content/src/waves/act-14b-p7.ts` | Cut from `act-14b-p6.ts` by the director's save when that file passed the 250-line ceiling; it plays straight… |
@@ -3836,6 +3862,8 @@ by hand never moves.
 | `tools/director/src/cell-config-moult.ts` | **THE MOULT's one row under the selected cell** |
 | `tools/director/src/cell-config-blister.ts` | **THE BLISTER's rows under the selected cell** |
 | `tools/director/src/curriculum-cost.ts` | **What a new thing costs to learn**: pressure weight plus talk, the order blocks are taught in (`wave-curriculum.md` §4.1) |
+| `tools/director/src/curriculum-names.ts` | **A body block's names, written again** when the block moves (`waves:order`) |
+| `tools/director/src/curriculum-order.ts` | **The order new things are taught in**: units after the arc, rising cost, bodies and levers taking turns (`wave-curriculum.md` §4.1) |
 | `tools/director/src/grid-note.ts` | The line of arithmetic under the map: how many entries and pods the wave carries, how long it runs |
 | `tools/director/src/grid-gestures.ts` | **Everything a hand can do to one cell of the map**: point at it, paint it, drag a stroke across it |
 | `tools/director/src/grid-rows.ts` | The map's beat labels — a number that seeks — and the two row edits behind them, a beat opened and a span of beats taken out, without a question |
@@ -4244,5 +4272,6 @@ by hand never moves.
 | `tools/director/waves-bosses.ts` | `bun run waves:bosses` — every boss moved to the end of the first block that has taught what it needs, and with `--write` saved |
 | `tools/director/waves-review.ts` | `bun run waves:review` — composes the next review blocks, one after another, and writes them |
 | `tools/director/waves-lessons.ts` | `bun run waves:lessons` — moves every lesson behind its block, composes its eight, places the bosses again |
+| `tools/director/waves-order.ts` | `bun run waves:order [--write]`: every new thing after the arc taught again in rising cost, its blocks composed again, bosses and reviews placed |
 
 <!-- index:code:end -->

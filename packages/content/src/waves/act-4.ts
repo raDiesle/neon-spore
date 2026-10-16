@@ -115,17 +115,6 @@ import type { Wave } from "../wave-types.js";
  */
 export const WAVES_ACT_4: Wave[] = [
   {
-    id: "theVane",
-    name: "THE VANE",
-    entries: [
-      { beat: 0, col: 2, kind: "meteor", color: null },
-      { beat: 3, col: 8, color: "red" },
-    ],
-    boss: { kind: "vane" },
-    bossType: "normal",
-    controls: "standard5",
-  },
-  {
     id: "theLance",
     name: "THE LANCE",
     guide: {
@@ -158,11 +147,13 @@ export const WAVES_ACT_4: Wave[] = [
     name: "LANCE AGAIN",
     variant: true,
     entries: [
-      { beat: 0, col: 4, kind: "veil", color: null },
-      { beat: 8, col: 7, kind: "veil", color: null },
-      { beat: 15, col: 3, kind: "veil", color: null },
-      { beat: 22, col: 6, kind: "veil", color: null },
-      { beat: 29, col: 5, kind: "veil", color: null },
+      { beat: 7, col: 5, kind: "meteor", color: null },
+      { beat: 14, col: 6, kind: "meteor", color: null },
+      { beat: 30, col: 5, kind: "meteor", color: null },
+    ],
+    pods: [
+      { beat: 0, col: 4, row: 3, kind: "ward" },
+      { beat: 22, col: 4, row: 3, kind: "ward" },
     ],
   },
   {
@@ -170,12 +161,14 @@ export const WAVES_ACT_4: Wave[] = [
     name: "LANCE WIDE",
     variant: true,
     entries: [
-      { beat: 0, col: 3, kind: "veil", color: null },
-      { beat: 5, col: 6, kind: "veil", color: null },
-      { beat: 11, col: 4, kind: "veil", color: null },
-      { beat: 16, col: 7, kind: "veil", color: null },
-      { beat: 22, col: 2, kind: "veil", color: null },
-      { beat: 27, col: 8, kind: "veil", color: null },
+      { beat: 7, col: 5, color: "red" },
+      { beat: 14, col: 4, color: "red" },
+      { beat: 25, col: 6, color: "red" },
+      { beat: 32, col: 5, color: "red" },
+    ],
+    pods: [
+      { beat: 0, col: 4, row: 4, kind: "ward" },
+      { beat: 19, col: 3, row: 4, kind: "ward" },
     ],
   },
   {
@@ -183,12 +176,14 @@ export const WAVES_ACT_4: Wave[] = [
     name: "LANCE AT THE EDGE",
     variant: true,
     entries: [
-      { beat: 0, col: 1, kind: "veil", color: null },
-      { beat: 5, col: 5, color: "red" },
-      { beat: 11, col: 0, kind: "veil", color: null },
-      { beat: 17, col: 4, color: "red" },
-      { beat: 23, col: 8, kind: "veil", color: null },
-      { beat: 28, col: 4, color: "red" },
+      { beat: 6, col: 5, kind: "meteor", color: null },
+      { beat: 11, col: 9, kind: "meteor", color: null },
+      { beat: 22, col: 10, kind: "meteor", color: null },
+      { beat: 27, col: 5, kind: "meteor", color: null },
+    ],
+    pods: [
+      { beat: 0, col: 10, row: 4, kind: "ward" },
+      { beat: 16, col: 3, row: 3, kind: "ward" },
     ],
   },
   {
@@ -196,14 +191,15 @@ export const WAVES_ACT_4: Wave[] = [
     name: "LANCE IN PAIRS",
     variant: true,
     entries: [
-      { beat: 0, col: 2, color: "cyan" },
-      { beat: 6, col: 9, kind: "veil", color: null },
-      { beat: 10, col: 3, color: "cyan" },
-      { beat: 14, col: 9, kind: "dart", color: "cyan" },
-      { beat: 18, col: 6, color: "red" },
-      { beat: 23, col: 5, kind: "torch", color: null },
-      { beat: 27, col: 10, color: "cyan" },
-      { beat: 32, col: 4, kind: "veil", color: null },
+      { beat: 0, col: 0, color: "cyan" },
+      { beat: 10, col: 10, color: "red" },
+      { beat: 21, col: 4, color: "cyan" },
+      { beat: 32, col: 4, color: "red" },
+    ],
+    pods: [
+      { beat: 4, col: 4, row: 4, kind: "ward" },
+      { beat: 15, col: 2, row: 3, kind: "purge" },
+      { beat: 26, col: 10, row: 3, kind: "ward" },
     ],
   },
   {
@@ -211,13 +207,15 @@ export const WAVES_ACT_4: Wave[] = [
     name: "LANCE AT EASE",
     variant: true,
     entries: [
-      { beat: 0, col: 1, color: "cyan" },
-      { beat: 6, col: 3, kind: "veil", color: null },
-      { beat: 12, col: 9, color: "red" },
-      { beat: 18, col: 7, kind: "meteor", color: null },
-      { beat: 25, col: 5, color: "cyan" },
-      { beat: 33, col: 4, kind: "veil", color: null },
-      { beat: 39, col: 3, color: "cyan" },
+      { beat: 0, col: 6, color: "cyan" },
+      { beat: 12, col: 4, color: "red" },
+      { beat: 27, col: 8, color: "red" },
+      { beat: 39, col: 6, color: "red" },
+    ],
+    pods: [
+      { beat: 6, col: 7, row: 4, kind: "ward" },
+      { beat: 20, col: 2, row: 4, kind: "ward" },
+      { beat: 33, col: 7, row: 3, kind: "ward" },
     ],
   },
   {
@@ -225,14 +223,15 @@ export const WAVES_ACT_4: Wave[] = [
     name: "LANCE RECALLED",
     variant: true,
     entries: [
-      { beat: 0, col: 7, color: "cyan" },
-      { beat: 6, col: 2, kind: "veil", color: null },
-      { beat: 12, col: 4, color: "red" },
-      { beat: 18, col: 9, kind: "countdown", color: "cyan" },
-      { beat: 23, col: 4, color: "cyan" },
-      { beat: 28, col: 10, kind: "veil", color: null },
+      { beat: 0, col: 10, color: "red" },
+      { beat: 11, col: 3, color: "cyan" },
+      { beat: 22, col: 4, color: "cyan" },
       { beat: 33, col: 8, color: "cyan" },
-      { beat: 38, col: 6, kind: "countdown", color: "red" },
+    ],
+    pods: [
+      { beat: 6, col: 0, row: 4, kind: "ward" },
+      { beat: 16, col: 2, row: 3, kind: "ward" },
+      { beat: 28, col: 5, row: 4, kind: "ward" },
     ],
   },
 ];

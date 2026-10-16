@@ -12,8 +12,9 @@ import { TUTORIAL_LAST_ID } from "./compose-steps.js";
  * end; a review block gives each its eight waves.
  *
  * A review block has no intro. Its **theme** is a thing the game already
- * taught, taken in the order the game taught them from THE LURE — the first
- * review revisits the lure, the second the throb — and its eight steps are
+ * taught, taken from the last taught back — the first review revisits the
+ * last body taught, the second the one before, so the talk at the end of the
+ * game stays with its dearest things (§4.1) — and its eight steps are
  * the theme block's own, composed afresh one notch further on: the same jobs
  * (Again … Peak), the same Y and Z, the panel the game has reached by then,
  * and a first wave a little above the gentlest of the block before
@@ -23,9 +24,6 @@ import { TUTORIAL_LAST_ID } from "./compose-steps.js";
  * other seven under it as it folds a block under its intro, and boss
  * placement counts it as a block (`boss-slots.ts`).
  */
-
-/** The first theme: the first thing taught after the tutorial arc. */
-export const REVIEW_FROM = "theLure";
 
 export interface Review {
   block: Block;
@@ -72,8 +70,10 @@ export function nextReview(waves: readonly Wave[]): Review | string {
     else if (i > finale) intros.push(i);
     else arc++;
   }
-  const from = waves.findIndex((w) => w.id === REVIEW_FROM);
-  const themes = intros.filter((i) => i >= from);
+  // The last taught first: the dearest things (§4.1), so the talk at the
+  // end of the game does not fall back to its first blocks'. A block an
+  // author wrote whole (THE BLISTER's) has no R1 to name a theme by.
+  const themes = intros.filter((i) => waves.some((w) => w.id === `${waves[i]?.id}Again`)).reverse();
   const themeAt = themes[k % themes.length];
   const theme = themeAt === undefined ? undefined : waves[themeAt];
   if (!theme) return "no theme to review";

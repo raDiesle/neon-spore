@@ -77,15 +77,18 @@ describe("a step, grown", () => {
 describe("where a block's first wave aims", () => {
   test("a block counts from the tutorial's end", () => {
     expect(block("firstStep").sinceTutorial).toBe(-1);
-    expect(block("theLure").sinceTutorial).toBe(0);
+    // THE LANCE, a lesson, comes first after the arc; THE CROSSING is the
+    // first body (`curriculum-order.ts`).
+    expect(block("theCrossing").sinceTutorial).toBe(0);
   });
 
   test("its floor is the gentlest composed regular wave of the block before", () => {
-    const [from, to] = [block("catchAndAim").intro, block("theLure").intro];
+    const [from, to] = [block("catchAndAim").intro, block("theCrossing").intro];
+    // THE LANCE's block stands between them, and is not the block before's.
     const regular = WAVES.slice(from + 1, to).filter(
-      (w, k) => w.variant && isRegularWave(WAVES, from + 1 + k),
+      (w, k) => w.variant && w.id.startsWith("catchAndAim") && isRegularWave(WAVES, from + 1 + k),
     );
-    expect(block("theLure").floor).toBe(Math.min(...regular.map((w) => wavePressure(w) ?? 0)));
+    expect(block("theCrossing").floor).toBe(Math.min(...regular.map((w) => wavePressure(w) ?? 0)));
   });
 
   test("a hand-made wave does not set it: it stands for a block's last steps", () => {
@@ -93,7 +96,7 @@ describe("where a block's first wave aims", () => {
     // own were composed, had no other.
     const { waves } = unwritten("theCoil");
     const read = (id: string) => readBlock(waves, id) as Block;
-    expect(read("theCrossing").floor).toBe(read("theCoil").floor);
+    expect(read("theLure").floor).toBe(read("theCoil").floor);
   });
 
   test("its first step lands at or above the aim where anything there fits", () => {

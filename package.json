@@ -41,6 +41,7 @@
     "waves:controls": "bun run tools/director/waves-controls.ts",
     "waves:lessons": "bun run tools/director/waves-lessons.ts",
     "waves:bosses": "bun run tools/director/waves-bosses.ts",
+    "waves:order": "bun run tools/director/waves-order.ts",
     "waves:measure": "bun run tools/probe/measure-waves.ts",
     "briefings:renumber": "bun run tools/probe/briefings-numbers.ts",
     "queue": "bun run tools/queue/run.ts",

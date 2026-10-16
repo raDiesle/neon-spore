@@ -37,6 +37,12 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
  * meteor crossing in from beyond a column — which is not on the picture to be
  * seen. The owner chose to have this on 17 September 2026 (`docs/queue.md`,
  * the pixel-harness entry).
+ *
+ * **Covered is not invisible.** A worm's link on the crawl row under the
+ * cannon is behind the ship, which the bare frame keeps; such a body is asked
+ * again with the cannon and the dome slid to the far side of the field, and
+ * counts as seen if it marks that picture. THE CRAWLER's peak met it on
+ * 15 October 2026, when the reorder paired it with THE VOLLEY.
  */
 
 const SEATS: ViewRole[] = ["p1", "p2"];
@@ -110,6 +116,23 @@ describe("every body standing on the peak frame's field can be seen", () => {
             continue;
           }
           if (windowDiffers(full.picture, bare.picture, at.x, at.y, l.tile * 0.45)) seen.add(b.id);
+        }
+      }
+      // Asked again with the ship away from them (above): covered, not unseen.
+      const away = { ...world, cannonCol: 0, shieldCol: 0 };
+      const far = { ...world, cannonCol: world.cfg.cols - 1, shieldCol: world.cfg.cols - 1 };
+      for (const w of [away, far]) {
+        const left = bodies.filter((b) => !seen.has(b.id) && !offField.has(b.id));
+        if (left.length === 0) break;
+        for (const role of SEATS) {
+          const full = drawPixels(w, role);
+          const bare = drawPixels(withoutBodies(w), role);
+          const l = computeLayout(PIXEL_VIEWPORT, w.cfg, role);
+          for (const b of left) {
+            const at = b.at(l, full.beatPhase);
+            if (windowDiffers(full.picture, bare.picture, at.x, at.y, l.tile * 0.45))
+              seen.add(b.id);
+          }
         }
       }
       const onPicture = bodies.filter((b) => !offField.has(b.id));

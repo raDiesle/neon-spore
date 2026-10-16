@@ -42612,3 +42612,18 @@ Bottleneck: reading — five composer files decide one block, and the reorder
 has to respect all of them.
 
 *Measured: 8 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
+
+## 2026-10-15 — The curriculum reordered: new things in rising cost, levers between bodies
+
+- reading: 5 min. What a unit carries and needs, the names every block
+  shipped with, which written waves belong to which block.
+- writing: 15 min. `curriculum-order.ts`, `curriculum-names.ts`,
+  `waves:order`, its tests, the doc's fallback paragraph.
+- looking: 10 min. Two dry runs and the written one, eighty seconds each, and
+  the talk of every block read off the list.
+- friction: 0 min.
+- landing: 10 min. `waves:measure`, `briefings:renumber`, `baseline:blank`,
+  `index`, the full check.
+
+Bottleneck: THE HUSK could not be composed where the rule first put it, which
+turned a fixed order into one picked a block at a time.

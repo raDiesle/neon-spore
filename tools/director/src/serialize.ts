@@ -237,6 +237,8 @@ export function serializeWaveArray(source: string, waves: Wave[], exportName: st
   }
 
   const prefix = source.slice(0, idx + marker.length);
+  // An act a reorder emptied is written as Biome writes it (`waves:order`).
+  if (waves.length === 0) return `${prefix}];\n`;
   const serialized = waves.map((w) => serializeWave(w)).join("\n");
 
   return `${prefix}\n${serialized}\n];\n`;

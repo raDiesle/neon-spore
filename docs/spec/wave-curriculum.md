@@ -4,8 +4,8 @@
 > shows only the regular waves, the pressure and talk scores on every row of
 > the wave list (`wavePressure`, `waveTalk`), `bun run waves:measure`, which
 > writes today's game measured to `wave-curriculum-today.md` beside this file,
-> the composer with its talk aim (§5.1), and every block. Not built: the
-> reorder of §4.1 (`waves:order`).
+> the composer with its talk aim (§5.1), every block, and the order of §4.1
+> (`bun run waves:order`).
 
 The owner, 14 October 2026: *I want AI to generate regular waves, composed from
 the mechanics and enemies we already have … there should be an equal number of
@@ -173,10 +173,19 @@ cheapest first, with four rules over that:
 - **The tutorial arc is fixed**, up to FINALE, with THE INSTAR and THE
   BASTION; its last block counts as a body, so a lever may come first after it.
 - **Ties keep the order they shipped in.**
+- **A block the composer cannot fill where it falls waits** for the next
+  place the rule would give it. THE HUSK's eight found no ramp behind THE
+  BLISTER, and were composed after THE SHELL. A hand-written regular wave goes
+  behind the block that teaches the last thing it needs: FIVE BLISTERS and the
+  seven single-control blister waves are THE BLISTER's whole block.
 
-Then the bosses are placed again (§7) and the review blocks written for the
-bosses left at the end, so every boss still closes a block of its own.
-`bun run waves:order` does all of it, and a second run changes nothing.
+Every composed wave is written again for its new neighbours — R4 pairs with
+the block before, R6 recalls three back, R1 rises from the block before's
+gentlest — and a moved block's R4 is renamed for its partner
+(`curriculum-names.ts`). Then the bosses are placed again (§7) and the review
+blocks written for the bosses left at the end, so every boss still closes a
+block of its own. `bun run waves:order --write` does all of it, and a second
+run changes nothing (`curriculum-order.test.ts` holds the order).
 
 ## 5. Pressure — the number that says *harder*
 
@@ -280,8 +289,8 @@ decided then while the owner was away:
   and no block goes without a boss. A boss on a panel only bosses carry still
   follows the boss before it on that panel: THE HAUL after THE SCOUT.
 - **A boss with no block left waits at the end**, in order — and gets a
-  review block: eight regular waves with no intro, themed on the things
-  taught from THE LURE on, composed by `bun run waves:review`
+  review block: eight regular waves with no intro, themed on the bodies from
+  the last taught back, composed by `bun run waves:review`
   (`tools/director/src/compose-review.ts`; the owner: *create all other
   waves, so that waves are distributed also between all the boss waves*).
   21 were written; 11 remain since the lessons got blocks of their own.

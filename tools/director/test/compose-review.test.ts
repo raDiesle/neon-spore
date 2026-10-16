@@ -1,8 +1,9 @@
 import { describe, expect, test } from "bun:test";
 import { isRegularWave, WAVES, type Wave } from "@neon-spore/content";
 import { bossOrder } from "../src/boss-slots.js";
-import { nextReview, REVIEW_FROM, REVIEW_NAMES } from "../src/compose-review.js";
+import { nextReview, REVIEW_NAMES } from "../src/compose-review.js";
 import { isReviewHead } from "../src/compose-starts.js";
+import { TUTORIAL_LAST_ID } from "../src/compose-steps.js";
 
 describe("review blocks (wave-curriculum §7)", () => {
   test("only a review block's first wave is a review head", () => {
@@ -12,7 +13,7 @@ describe("review blocks (wave-curriculum §7)", () => {
   });
 
   test("every theme's names fit: at most 20 letters and four words", () => {
-    const from = WAVES.findIndex((w) => w.id === REVIEW_FROM);
+    const from = WAVES.findIndex((w) => w.id === TUTORIAL_LAST_ID);
     const plurals = WAVES.filter(
       (w, i) => i > from && w.id.endsWith("Again") && !w.id.startsWith("review"),
     ).map((w) => w.name.replace(/ AGAIN$/, ""));
