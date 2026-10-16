@@ -43507,3 +43507,5 @@ Bottleneck: TUNING moves the run and never ships — the game-wide defaults stay
 
 Bottleneck: none — the wreck asked `pods.ts` for `POD_TILES`, which would have
 been an import cycle, so the caller passes the radius it already has.
+
+*Measured: 7 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*

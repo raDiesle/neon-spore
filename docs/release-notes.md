@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-16 · 45deaf3d4 — The loose pod and the core every pod wears move out of render/pods.ts
+
+`pods.ts` was at exactly 250 lines. The wreck (the loose pod: tumbling, flickering, trailing embers), the pod's outline and the core move to `pod-wreck.ts`. `drawPodCore` is still re-exported from `pods.ts` for THE MORSEL and THE MOULT. `pods.ts` is down to 172 lines, and nothing drawn moved.
+
 ## 2026-10-16 · 72c28b2dd — A blister's cell and TUNING set its up beats, blows and length
 
 The director's cell settings for a blister now have UP, BLOWS and LENGTH rows next to BY and WAY. LENGTH only shows where the gesture has one, in tiles, beats or turns. Each row starts with a DEFAULT chip that names the gesture's own value and writes no field. The numbers are saved with the wave. A brush that paints a gesture measured in another unit drops the cell's length. TUNING gains three sliders for each gesture's defaults; like every slider there, they change the run and not the game. A director tool, not a look.
