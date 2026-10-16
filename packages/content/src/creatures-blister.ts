@@ -14,11 +14,13 @@ export const BLISTER_CREATURE: CreatureDef = {
   // None, for the box's reason: a colour says which trigger kills it, and no
   // trigger does.
   color: null,
-  // The pilot's strip, because the wave's default hand is the navigator's and
-  // the seat warned is the seat that has to say *now* — the one shown the
-  // pore swelling. A wave that turns `by` over turns the talking over with it
-  // (`render/comms.ts`).
-  radar: "p1",
+  // **No strip and no wall mark, on either screen** — the owner, 16 October
+  // 2026: *for "controls" brushes to not show the early indicator on the
+  // borders of screen … but increase … the time players have to succeed it,
+  // at least double.* The warning is the pore swelling on the partner's
+  // screen, and only that; the time the marks bought is in the up beats now
+  // (`sim/config-blister.ts`).
+  radar: "none",
   blurb:
     "It comes up out of a pore in the field and stays up for a few beats. One hit from the right seat's hand while it is up and it is gone; still up when its time runs out, it breaks the hull and the wave is lost. The other seat sees the pore swell a beat before it comes up, so the hand is told where and when rather than waiting to see it.",
 };

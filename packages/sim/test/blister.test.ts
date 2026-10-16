@@ -121,10 +121,10 @@ describe("where a blister comes up", () => {
   it("stays up a beat longer for a gesture a thumb has to carry", () => {
     const tapUp = blisterUpBeatsOf(CFG, { kind: "blister" } as Creature);
     const holdUp = blisterUpBeatsOf(CFG, { kind: "blister", blisterGesture: "hold" } as Creature);
-    expect(tapUp).toBe(3);
-    expect(holdUp).toBe(3);
+    expect(tapUp).toBe(6);
+    expect(holdUp).toBe(6);
     for (const g of ["swipe", "turn", "rub", "combo", "lever"] as const) {
-      expect(blisterUpBeatsOf(CFG, { kind: "blister", blisterGesture: g } as Creature)).toBe(4);
+      expect(blisterUpBeatsOf(CFG, { kind: "blister", blisterGesture: g } as Creature)).toBe(8);
     }
   });
 

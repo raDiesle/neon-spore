@@ -1,5 +1,5 @@
 import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
-import { createWorld, type SpawnEntry } from "@neon-spore/sim";
+import { createWorld, fieldRowFor, type SpawnEntry } from "@neon-spore/sim";
 import { drawRadar } from "../src/field.js";
 import { computeLayout, tileCY, type ViewRole } from "../src/layout.js";
 import { radarBlips } from "../src/radar-blip.js";
@@ -93,29 +93,33 @@ describe("the radar", () => {
    * **A body that comes up inside the field is marked twice**: on the strip,
    * in its column, and against the nearer side wall, on the row it comes up
    * on — so the two marks cross where it appears (the owner, 15 October
-   * 2026). A blister at column 2, row 4 is marked on the left wall at row 4; at
-   * column 9 on the right. A body that falls carries no wall mark.
+   * 2026). A mine at column 2 is marked on the left wall at the row it will
+   * stand on; at column 9 on the right. A body that falls carries no wall mark.
    */
-  it("marks a blister's row on the nearer wall, crossing its column", () => {
-    const blister = (col: number): SpawnEntry => ({
+  it("marks a mine's row on the nearer wall, crossing its column", () => {
+    const mine = (col: number): SpawnEntry => ({
       beat: 2,
       col,
-      kind: "blister",
-      color: null,
+      kind: "mine",
+      color: "red",
       row: 4,
     });
     const blipOf = (col: number) =>
       (["p1", "p2"] as const)
-        .map((role) => ({
-          l: layout(role),
-          b: radarBlips(layout(role), createWorld(CFG, 1, [blister(col)]))[0],
-        }))
+        .map((role) => {
+          const world = createWorld(CFG, 1, [mine(col)]);
+          return {
+            l: layout(role),
+            row: fieldRowFor(world, mine(col), col) ?? -1,
+            b: radarBlips(layout(role), world)[0],
+          };
+        })
         .find((x) => x.b);
     const left = blipOf(2);
     const right = blipOf(9);
     expect(left?.b?.wall?.side).toBe(-1);
     expect(right?.b?.wall?.side).toBe(1);
-    expect(left?.b?.wall?.y).toBeCloseTo(tileCY(left?.l ?? layout("p1"), 4));
+    expect(left?.b?.wall?.y).toBeCloseTo(tileCY(left?.l ?? layout("p1"), left?.row ?? -1));
     expect(left?.b?.wall?.x).toBeLessThan(left?.b?.x ?? 0);
     expect(right?.b?.wall?.x).toBeGreaterThan(right?.b?.x ?? 0);
     // The strip's own mark still stands above the field, in the column.
@@ -125,6 +129,21 @@ describe("the radar", () => {
       createWorld(CFG, 1, [{ beat: 2, col: 2, color: "red", kind: "slick" }]),
     )[0];
     expect(fall?.wall).toBeUndefined();
+  });
+
+  /**
+   * **A blister is announced by no mark at all** — not on the strip, not on a
+   * wall, on neither screen (the owner, 16 October 2026). The pore swelling on
+   * the partner's screen is its only warning, and its up beats were doubled to
+   * pay for the marks.
+   */
+  it("marks no blister on either screen", () => {
+    for (const role of ["p1", "p2"] as const) {
+      const world = createWorld(CFG, 1, [
+        { beat: 2, col: 2, kind: "blister", color: null, row: 4 },
+      ]);
+      expect(radarBlips(layout(role), world)).toHaveLength(0);
+    }
   });
 
   it("draws the wall mark pointing into the field from its wall", () => {

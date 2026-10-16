@@ -19,6 +19,12 @@
 > immediately … slightly increase the time players have before lost,
 > especially for tapping.* The count, the sinking and the coming up nearer
 > are gone; TAP and HOLD stay up three beats, the rest four.
+>
+> **No border marks since 16 October 2026, and twice the time.** The owner:
+> *for "controls" brushes to not show the early indicator on the borders of
+> screen … but increase for all "controls" brushes the time players have to
+> succeed it, at least double.* `radar: "none"` — no strip mark, no wall
+> mark, on either screen; TAP and HOLD stay up six beats, the rest eight.
 
 ## In one sentence
 
@@ -30,9 +36,10 @@ where it will come up, and if nobody does it in time the wave is lost.**
 
 - **It does not fall.** It arrives under a pore — a tile of the field — for
   `blisterDownBeats`, comes up, and stays up for `blisterUpBeats` (TAP and
-  HOLD, three) or `blisterUpBeatsLong` (SWIPE, TURN, RUB, COMBO and LEVER,
-  four: a beat more for a thumb that has to carry somewhere once it is
-  there). While it is under nothing can touch it; the cannon's bolt passes
+  HOLD, six) or `blisterUpBeatsLong` (SWIPE, TURN, RUB, COMBO and LEVER,
+  eight: more for a thumb that has to carry somewhere once it is there).
+  Neither screen marks it on the strip or the wall before it comes up; the
+  pore's swell is the only warning. While it is under nothing can touch it; the cannon's bolt passes
   over the pore. It is not the cannon's and not the shield's: `controls: []`,
   a handle on the field is neither group (`.claude/skills/new-creature`).
 - **One blow knocks it out.** A tap for TAP, a beat held for HOLD, a stroke
@@ -177,10 +184,11 @@ from end to end.
 
 - Whether a blow on an empty pore — a tap where it was, a beat late — costs
   anything. The draft says no: the late tap is its own punishment.
-- Whether three beats for TAP and HOLD and four for the rest (1.9 s and
-  2.5 s at THE BLISTER's 96 bpm, after a swell beat on the partner's
-  screen) is the right pressure *at tempo*, two people talking — nobody has
-  seen it yet. It was two beats, 1.25 s, with four surfacings to fail on.
+- Whether six beats for TAP and HOLD and eight for the rest (3.75 s and
+  5 s at THE BLISTER's 96 bpm, after a swell beat on the partner's
+  screen, and with no border mark) is the right pressure *at tempo*, two
+  people talking — nobody has seen it yet. It was three and four until 16
+  October 2026, and two beats, 1.25 s, with four surfacings before that.
   SURGE's bursts throw SWIPE blisters into its own columns, and a missed one
   there now loses the wave too.
 - Whether a wave may carry several blisters up at once. The draft allows it;

@@ -16,7 +16,7 @@ import type { GuideScene } from "../scene-types.js";
  * wave, and no page shows that — the film would end on a lost wave.
  *
  * The tap names the body by its column (`SceneAct.tap`), and lands inside
- * the three beats it is up (`scene-blister.test.ts`).
+ * the six beats it is up (`scene-blister.test.ts`).
  */
 export const THE_BLISTER: GuideScene = {
   ticks: 420,

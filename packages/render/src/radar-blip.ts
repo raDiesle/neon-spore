@@ -58,8 +58,9 @@ export interface RadarBlip {
    */
   cross?: RockCross;
   /**
-   * **The row, for an arrival that comes up inside the field** — a blister on
-   * its pore, a mine on its tile (`fieldRowFor`). The strip's mark alone said
+   * **The row, for an arrival that comes up inside the field** — a mine on
+   * its tile (`fieldRowFor`); a blister would be too, but it is `radar:
+   * "none"` and no screen marks it (the owner, 16 October 2026). The strip's mark alone said
    * only the column, and read as a body that would fall from the top, which
    * these never do. So a second mark stands against the nearer side wall on
    * the row it comes up on, and the body appears where the strip's column and

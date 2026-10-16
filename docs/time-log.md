@@ -43318,3 +43318,16 @@ Bottleneck: the audit — eighteen bosses spawn something, read out of thirty
 simulation files by a background search while the mechanism was written.
 
 *Measured: 9 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-16 — A blister has no border mark and twice the time
+
+- reading: 10 min. Which blister draws on the borders: the strip and the
+  wall marks of `radarBlips`, gated on `radar`.
+- writing: 5 min. `radar: "none"`, the up beats 3/4 → 6/8, the wall-mark test
+  moved to a mine, the spec.
+- looking: 0 min. A removed mark, proved by a test rather than a frame.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, `land`.
+
+Bottleneck: finding which of the blister's warnings was "the indicator on the
+borders" — the strip, the wall mark and the pore's swell are three.
