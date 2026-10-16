@@ -33,6 +33,9 @@ export function drawFuseRing(
   fuse: { left: number; full: number },
   color: Creature["color"],
   time: number,
+  /** The alpha the whole ring is drawn under — a body fading in or out. THE
+   * MINE draws it at full; a blister passes the alpha its rise has set. */
+  alpha = 1,
 ): void {
   const hex = color === "red" ? PALETTE.red : color === "cyan" ? PALETTE.cyan : PALETTE.wisp;
   const dim = PALETTE.sparkDim;
@@ -47,11 +50,11 @@ export function drawFuseRing(
     const a = -Math.PI / 2 + (i / fuse.full) * Math.PI * 2;
     const lit = i < fuse.left;
     const next = i === fuse.left - 1;
-    ctx.globalAlpha = lit ? (next ? 0.55 + 0.45 * beat : 1) : 0.35;
+    ctx.globalAlpha = alpha * (lit ? (next ? 0.55 + 0.45 * beat : 1) : 0.35);
     ctx.fillStyle = lit ? hex : dim;
     ctx.beginPath();
     ctx.arc(x + Math.cos(a) * r, y + Math.sin(a) * r, pip, 0, Math.PI * 2);
     ctx.fill();
   }
-  ctx.globalAlpha = 1;
+  ctx.globalAlpha = alpha;
 }

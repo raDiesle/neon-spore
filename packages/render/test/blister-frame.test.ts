@@ -41,24 +41,30 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
 
 beforeAll(installCanvasGlobals);
 
-const blister = (col: number, by: BlisterBy): SpawnEntry => ({
+const blister = (col: number, by: BlisterBy, blows?: number): SpawnEntry => ({
   beat: 0,
   col,
   kind: "blister",
   color: null,
   row: 3,
   by,
+  ...(blows === undefined ? {} : { blows }),
 });
 
 const QUEUE: SpawnEntry[] = [blister(2, 1), blister(5, 2), blister(8, "both")];
+
+/** The same three asking three blows each: the count round them, and the pip a
+ * blow that was not the last throws off it (`blister-blows.ts`). */
+const OWING: SpawnEntry[] = [blister(2, 1, 3), blister(5, 2, 3), blister(8, "both", 3)];
 
 function blisterFrames(
   role: ViewRole,
   ticks: number,
   sampling: { every?: number; phase?: number },
+  queue: SpawnEntry[] = QUEUE,
 ) {
   const tpb = ticksPerBeat(CFG);
-  const { ctx, events } = runFrames(createWorld(CFG, 3, QUEUE), role, ticks, {
+  const { ctx, events } = runFrames(createWorld(CFG, 3, queue), role, ticks, {
     ...sampling,
     onTick: (tick, w) => {
       const inputs: TimedCommand[] = [];
@@ -73,7 +79,8 @@ function blisterFrames(
     },
   });
   const count = (type: string) => events.filter((e) => e.type === type).length;
-  return { ctx, blows: count("blisterBlow"), destroyed: count("destroy") };
+  const owed = events.filter((e) => e.type === "blisterBlow" && e.left > 0).length;
+  return { ctx, blows: count("blisterBlow"), destroyed: count("destroy"), owed };
 }
 
 describe("the blister", () => {
@@ -92,6 +99,27 @@ describe("the blister", () => {
     // 2026, so every blow is a body gone.
     const { blows, destroyed } = played("test");
     expect(blows).toBe(3);
+    expect(destroyed).toBe(3);
+  });
+});
+
+describe("a blister that owes three blows", () => {
+  const TICKS = ticksPerBeat(CFG) * 10;
+  const played = remembered((role) =>
+    blisterFrames(role, TICKS, thirdOf(4, ROLES.indexOf(role)), OWING),
+  );
+
+  for (const role of ROLES) {
+    it(`draws the count and the spent pips for ${role}`, () => {
+      expect(played(role).ctx.calls).toBeGreaterThan(1000);
+    });
+  }
+
+  it("really landed blows short of the last, and then the last", () => {
+    // Without the first, no pip was ever thrown off a ring still standing.
+    const { blows, destroyed, owed } = played("test");
+    expect(owed).toBe(6);
+    expect(blows).toBe(9);
     expect(destroyed).toBe(3);
   });
 });

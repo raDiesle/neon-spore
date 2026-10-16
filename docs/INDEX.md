@@ -2827,6 +2827,7 @@ by hand never moves.
 | `packages/render/src/blister-hug.ts` | **HUG**, one of THE BLISTER's two HOLD bodies: a round slime hugging the drop to its belly, eyes squeezed shut under a thumb |
 | `packages/render/src/blister-verdicts.ts` | Where a blister was last drawn, for the ring of the blow that finished it |
 | `packages/render/src/blister-bodies.ts` | **The body a blister is drawn as, one record per gesture** (the owner, 14 October 2026 |
+| `packages/render/src/blister-blows.ts` | **How many blows a blister still owes**: THE MINE's pip ring round a body that takes more than one, on the seat that may deal them, and the pip each blow short of the last throws off it |
 | `packages/render/src/blister-lever-help.ts` | **THE BLISTER's LEVER help**: THE LEVER LAB's groove, band and knob down from the body, the dial while it is held |
 | `packages/render/src/blister-lever-bell.ts` | BELL, one of LEVER's three bodies: a brass bell mouth down, the knob its clapper on a cord, swinging and ringing in the band |
 | `packages/render/src/blister-lever-root.ts` | ROOT, one of LEVER's three bodies: a turnip's shoulders and leaves, its root pulled down the groove to the knob |

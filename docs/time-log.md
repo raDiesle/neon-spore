@@ -43548,3 +43548,13 @@ was two cuts claiming the same comma.
 Bottleneck: landings — every one runs the whole check while main keeps moving.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-16 — a blister owing more than one blow shows the count
+
+- reading: 5 min. The blister's help, the verdict ring, and the pip ring it wore until 15 October.
+- writing: 5 min. `blister-blows.ts`, the help's call, the flash in the verdicts, a frame run at three blows.
+- looking: 5 min. Two frames; the first was a SWIPE, the second forced to TAP.
+- friction: 0 min.
+- landing: 5 min. `check:fast` red on one INDEX row, `index`, `land`.
+
+Bottleneck: the photograph — the wave's first body is a SWIPE, so TAP had to be forced with `--entry`.

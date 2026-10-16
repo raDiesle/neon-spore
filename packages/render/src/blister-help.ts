@@ -1,5 +1,7 @@
 import {
   type BlisterSwipeWay,
+  blisterBlowsLeft,
+  blisterBlowsOf,
   blisterGestureOf,
   blisterHoldShare,
   blisterIsUp,
@@ -15,6 +17,7 @@ import {
   type World,
 } from "@neon-spore/sim";
 import { blisterRise } from "./blister.js";
+import { drawBlisterBlows } from "./blister-blows.js";
 import { drawBlisterLever } from "./blister-lever-help.js";
 import { drawBlisterTurn } from "./blister-turn-help.js";
 import { flatCenter, flatRadius } from "./creature-place.js";
@@ -36,11 +39,12 @@ import { drawSoakHold } from "./soak-hold.js";
  *
  * - On the seat that may knock it down: `drawMarkHalo` inside the body, THE
  *   PRESS LAB's drop every press wears (`press-drop.ts`) over it — yellow,
- *   calling *tap*, STEPS' water one terrace for its one blow. The owner, 15
- *   October 2026: *they should follow our standard tap control visuals*; it
- *   was the tap's flaring dots (`drawInstarGlyph`) until then. No pips round
- *   it since the same day: one blow knocks it out, so there is no count to
- *   show (`blister.ts`).
+ *   calling *tap*, STEPS' water a terrace a blow. The owner, 15 October
+ *   2026: *they should follow our standard tap control visuals*; it was the
+ *   tap's flaring dots (`drawInstarGlyph`) until then.
+ * - **The count**, on the seat that may, round every gesture's help: one pip
+ *   a blow still owed (`blister-blows.ts`), only on a body that takes more
+ *   than one — one blow is every default, and a one-blow body wears none.
  * - On the seat that may not: the waiting clock over it (`drawMarkWait`) —
  *   never the gesture, which reads as *your next move* (`mark-feedback.ts`).
  * - HOLD, on the seat that may: the HOLD LAB's drop every hold wears
@@ -102,18 +106,23 @@ export function drawBlisterHelp(
     } else if (mine && gesture === "rub") {
       const held = blisterRubbing(c);
       if (!held) drawMarkHalo(ctx, x, y, r, time);
-      drawRubDrop(ctx, { x, y }, r * HOLD_R, { time, turns: 1, done: 0, held });
+      const turns = blisterBlowsOf(world.cfg, c);
+      const done = turns - blisterBlowsLeft(world.cfg, c);
+      drawRubDrop(ctx, { x, y }, r * HOLD_R, { time, turns, done, held });
     } else if (mine && holding) {
       if (!held) drawMarkHalo(ctx, x, y, r, time);
       const fill = blisterHoldShare(world, c);
       drawSoakHold(ctx, { x, y }, r * HOLD_R, { time, held, fill });
     } else if (mine) {
       drawMarkHalo(ctx, x, y, r, time);
-      drawPressDrop(ctx, { x, y }, r * HOLD_R, { time, times: 1, done: 0 });
+      const times = blisterBlowsOf(world.cfg, c);
+      const done = times - blisterBlowsLeft(world.cfg, c);
+      drawPressDrop(ctx, { x, y }, r * HOLD_R, { time, times, done });
     } else {
       drawMarkWait(ctx, x, y, r, time);
     }
     if (held) drawMarkHeld(ctx, x, y, r, time);
+    if (mine) drawBlisterBlows(ctx, world.cfg, c, { x, y, r }, time);
     ctx.restore();
   }
 }
