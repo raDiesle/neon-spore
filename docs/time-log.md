@@ -43373,3 +43373,5 @@ said where each shape goes.
 
 Bottleneck: proving it changed nothing — two full `waves:order` runs, cheap
 only because the change itself made them fast.
+
+*Measured: 9 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*

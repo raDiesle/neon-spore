@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-16 · 00d8d5b1b — The wave composers read a wave list once, not once a wave
+
+`bossOrder` and `nextReview` asked every block start what its wave brings and whether it is regular, and each answer read the list from its start, so a loop over the starts was quadratic. `bossOrder` took 2.6 s over the list and now takes 14 ms. `waves:order` runs in 26 s instead of a minute and a half, and composes exactly the same order. Content gains one-pass `waveIntroductions` and `regularWaves` beside the per-index rules, which now share them. The composers answer each index from a reading kept per list. The review test's budget comes down from 1200 ms to 100.
+
 ## 2026-10-16 · 9447695c6 — The size hook measures the worktree's copy of a file the shell edited there
 
 A session whose project is the main checkout can have its shell in a worktree. The line-ceiling notice read a relative path from a bash line against the hook's own checkout. So a `sed -i` in a worktree was measured on the trunk's copy of the file, and the session was warned about a file nobody had touched. A path is now resolved against the directory the command ran in: the payload's `cwd`, moved by a leading `cd`. The file is then measured in the checkout it lives in.
