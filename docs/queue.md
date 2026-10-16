@@ -351,6 +351,7 @@ stays as shipped, and `waves:order` keeps saying the list changes. Done when
 ## bun run imports cannot read an import list it should be pruning
 
 - **Found:** 2026-10-16, claude/background-versus-candidates-e2bfdb
+- **Taken:** 2026-10-16, claude/queue-work-6b11c3 (claim: claude/queue-bun-run-imports-cannot-read-an-import-list-it-sh)
 - **Files:** `tools/imports/run.ts`, `packages/render/src/sky-aurora.ts`, `packages/render/src/sky-moons.ts`
 
 With `drawStars`, `paintSpace` and `starSheet` unused in eleven sky files after
