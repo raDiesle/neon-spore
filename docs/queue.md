@@ -345,3 +345,45 @@ pressure. Find which of the two causes it for each block: print the kept
 draws' pressures in `composeFor`. Then make the lesson place its pods early
 enough for the clock, and give a claw draw a pressure that rises with its pods.
 Done when `bun run waves:order` prints `nothing changes` again.
+
+## A save that moves waves into the arc scatters it over empty act files
+
+- **Found:** 2026-10-16, claude/wave-generation-feedback-8f39ba
+- **Files:** `tools/director/src/waves-acts.ts`, `tools/director/src/waves-recut-write.ts`, `tools/director/waves-order.ts`
+
+Moving THE BLISTER's nine waves from act 8 into the tutorial arc with
+`writeWaves(list)` kept them in act 8 (`assignToActs` keeps a wave in the
+file it was in), so every arc wave between TORCH and them followed them there
+and acts 1b to 7 came back empty. `waves:order --recut --write` could not
+tidy it either: it composes the whole curriculum before it cuts, and that
+stops on THE LANCE (the entry above). The lane reset the act files and placed
+the waves by hand, then cut the acts after the arc with
+`writeWaves(WAVES, undefined, { recut: true })` from a probe. Make
+`--recut` cut the act files without composing anything, and make a save that
+moves a wave across the arc's end put it in the arc's act where it now plays.
+Done when a test moves a block from after the arc into it, saves, and every
+arc act file is non-empty and in play order.
+
+## Which bosses come before THE INSTAR
+
+- **Found:** 2026-10-16, claude/wave-generation-feedback-8f39ba
+- **Files:** `tools/director/src/boss-slots.ts`, `packages/content/src/waves/act-1b.ts`, `packages/content/src/waves/act-2.ts`
+- **Asks:** Which bosses should move into the tutorial, and where?
+
+The owner, 16 October 2026: *maybe you can suggest bosses to have earlier,
+which have reduced number of mechanics … (e.g. "bulb queen") does not require
+touch, only cannons and torch and telling player what he will see concept.*
+Today the arc holds THE BROOD (after CYAN) and THE BASTION (after THE
+BLISTER), and no boss moves into it (`boss-slots.ts`). Every boss below needs
+nothing the arc does not already teach but its own body:
+- **BULB QUEEN** — pods, torches, the STANDARD 5 panel; a seeing boss, no
+  shot. Earliest after SALVAGE (the pod), before CATCH AND AIM.
+- **THE VANE** — rocks and slicks on STANDARD 5. Earliest after THE BASTION.
+- **THE MIRROR** (Simon Says on the pair's own controls), **THE MAZE** (one
+  turns, one fires), **THE WARDEN** (a door held open to shoot through) —
+  STANDARD 5 only, but each is a new game of its own (*special* or a new
+  idea), so they read as new concepts rather than reviews.
+Options: (a) BULB QUEEN closes SALVAGE's block in the arc; (b) also THE VANE
+after THE BASTION; (c) keep the arc as it is. Whichever is picked is a pin
+in `boss-slots.ts` beside THE BROOD and THE BASTION, then `waves:bosses
+--write` and `waves:review` for the block that goes without a boss.

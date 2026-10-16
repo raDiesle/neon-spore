@@ -42880,3 +42880,14 @@ Bottleneck: friction — a save over a list whose arc had grown put the
 moved waves back in their old act and emptied six files in between.
 
 *Measured: 5 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-16 — Queue: the arc-scattering save, and which bosses come before THE INSTAR
+
+- reading: 10 min. Every boss's needs against what the arc teaches.
+- writing: 5 min. Two queue entries.
+- looking: 0 min. Nothing drawn moved.
+- friction: 0 min.
+- landing: 5 min. `land`.
+
+Bottleneck: reading — a boss's needs are only readable through `keysOf`,
+one probe away.
