@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-16 · 4a244b6d3 — THE TWINS, THE LAST ROCK and THE NEIGHBOUR: three pod waves from parts the game has
+
+Three waves that need nothing new. In THE TWINS two pods hang three columns apart, so one press of the maw has to take both. In THE LAST ROCK a pod is freed while the last rocks fall, so the shield and the maw want the same beat. In THE NEIGHBOUR a hollow pod hangs beside every real one, and only player 2 can say which to leave.
+
 ## 2026-10-16 · 83bcb21bf — The drift on one screen, the clock on the other: THE WATCH and THE DROP
 
 A freed pod now shows which way it slides on player 2's screen only, as arrows running out from it; player 1 sees it start to fall and has to be told. A pod can wear its clock on player 1's screen only, so the seat that catches says which pod is nearly out. And a pod can let go by itself after some beats, with nobody shooting it, which is written for the hollow one: player 1 sees a pod falling straight at him, and only player 2 can say to keep the maw shut.

@@ -43273,3 +43273,5 @@ Bottleneck: the op-count tables, again, which every wave added early moves.
 
 Bottleneck: `check:fast` does not reach the op-count tests when only wave
 files change, so a renumber that moves the sky passes it and fails `land`.
+
+*Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
