@@ -18,7 +18,7 @@ import { skyFor } from "./skies.js";
  * band, two depths of dust and one light in the corner. The owner called it
  * *boring and empty*, liked all six skies VERSUS offered for it, and asked for
  * more and for the game to go round them: the back is now the wave's sky
- * (`skies.ts`), one of twelve.
+ * (`skies.ts`), one of eleven.
  */
 
 /** Everything the back is drawn from, in the phone's own pixels. */

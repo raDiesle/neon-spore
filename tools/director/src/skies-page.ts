@@ -1,8 +1,8 @@
 /**
  * DOCUMENTATION → SKIES: every sky the field can sit in, drawn.
  *
- * The back of the field is one of twelve pictures and the wave picks it
- * (`packages/render/src/skies.ts`): wave `n` gets sky `n % 12`. This room is
+ * The back of the field is one of eleven pictures and the wave picks it
+ * (`packages/render/src/skies.ts`): wave `n` gets sky `n % 11`. This room is
  * the list — each sky's name, its line, which waves open under it, and a real
  * frame of the game started on the first of those waves, so the picture is
  * the shipping renderer against a `World` and cannot drift from the game.
@@ -20,7 +20,7 @@ import { whenSeen } from "./when-seen.js";
 const CFG: SimConfig = { ...DEFAULT_CONFIG, hullInvulnerable: true };
 /** Small enough that four fit across a desk, big enough to read the sky. */
 const CARD_WIDTH = 240;
-/** How many of a sky's waves to name before "and every twelfth after". */
+/** How many of a sky's waves to name before "and every eleventh after". */
 const NAMED = 3;
 
 let drawn = false;

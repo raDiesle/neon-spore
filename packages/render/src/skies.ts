@@ -1,6 +1,5 @@
 import type { BackdropDraw } from "./backdrop-look.js";
 import { skyAurora } from "./sky-aurora.js";
-import { skyBinary } from "./sky-binary.js";
 import { skyCells } from "./sky-cells.js";
 import { skyComet } from "./sky-comet.js";
 import { skyEclipse } from "./sky-eclipse.js";
@@ -17,7 +16,7 @@ import { skyRemnant } from "./sky-remnant.js";
  *
  * The owner called the sea the field used to sit in *boring and empty* on
  * 16 October 2026, liked all six skies VERSUS offered in its place, and asked
- * for more and for the game to go round them. So the back is one of twelve
+ * for more and for the game to go round them. So the back is one of eleven
  * pictures, each with one large thing in it, and **the wave picks it**: wave
  * `n` gets `SKIES[n % SKIES.length]`. The wave is world state, already the
  * same on both screens, so the two players always look at the same sky, and
@@ -25,7 +24,10 @@ import { skyRemnant } from "./sky-remnant.js";
  * bright thing in it and a quieter one, so two loud ones never follow.
  *
  * Every sky still takes its colour from the act (`tintFor`), and the
- * director's SKIES room draws all twelve side by side.
+ * director's SKIES room draws all eleven side by side.
+ *
+ * There were twelve until the same day, when the owner found BINARY, two suns
+ * circling, strange to look at and asked for it gone.
  */
 
 export interface Sky {
@@ -76,11 +78,6 @@ export const SKIES: readonly Sky[] = [
     name: "PILLARS",
     sentence: "towers of dark dust rising out of the bottom, lit from behind",
     draw: skyPillars,
-  },
-  {
-    name: "BINARY",
-    sentence: "two suns circling each other, one pulling gas off the other",
-    draw: skyBinary,
   },
   {
     name: "CELLS",

@@ -43577,3 +43577,16 @@ and COIL INFERNO look the same to the list, so the author's mark had to be
 written down rather than read off.
 
 *Measured: 35 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-16 — ECLIPSE quieter, AURORA smooth, BINARY gone
+
+- reading: 5 min. The three skies, the sky list and who counts it.
+- writing: 10 min. The eclipse's place, size and alphas; the aurora's rays
+  rebuilt; BINARY out of the list and the "twelve" wording.
+- looking: 15 min. Six rounds of `frames` and `crop`; the aurora went smooth
+  but dull, then barcoded, then gapped, before it sat right.
+- friction: 0 min.
+- landing: 5 min. `index`, `check:fast`, `land`.
+
+Bottleneck: looking — the aurora's grain took four shots to land between a
+smear and a grating.

@@ -159,7 +159,7 @@ describe("hash01", () => {
 });
 
 describe("the backdrop", () => {
-  it("is the wave's sky, round the twelve and back", () => {
+  it("is the wave's sky, round them all and back", () => {
     expect(skyFor(0)).toBe(SKIES[0]!);
     expect(skyFor(SKIES.length + 3)).toBe(SKIES[3]!);
     expect(skyFor(-1)).toBe(SKIES[SKIES.length - 1]!);
@@ -192,7 +192,7 @@ describe("the backdrop", () => {
     expect(record(0, 5)).not.toEqual(record(1, 5));
   });
 
-  it("gives the same sky a different act's colour twelve waves on", () => {
+  it("gives the same sky a different act's colour a round of skies on", () => {
     expect(record(0, 5)).not.toEqual(record(SKIES.length, 5));
   });
 

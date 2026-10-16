@@ -59,7 +59,7 @@ function asWritten(key: string): string {
  * followed the wave's number, so THE MORSEL's block put in early moved THE
  * GYRE's row by a fill, two clips and a save that were the sky's, not the
  * wheel's (`docs/queue.md`, 16 October 2026). One fixed sky, and renumbering
- * waves moves no row. CELLS, the cheapest of the twelve over a busy field on
+ * waves moves no row. CELLS, the cheapest of the twelve skies then over a busy field on
  * 16 October 2026 — 774 ops to GIANT's 823 and AURORA's 877 — so a row is
  * as nearly its subject as a frame with a sky can be.
  */

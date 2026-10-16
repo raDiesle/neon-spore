@@ -2916,10 +2916,9 @@ by hand never moves.
 | `packages/render/src/soak-water.ts` | **SOAK's water**: green water welling up under the thumb and spreading out to the rim of the drop |
 | `packages/render/src/skies.ts` | Every sky the field can sit in, and which one a wave gets |
 | `packages/render/src/sky-aurora.ts` | AURORA — curtains of light hang across the top of the sky and ripple |
-| `packages/render/src/sky-binary.ts` | BINARY — two suns turning round each other, one eating the other |
 | `packages/render/src/sky-cells.ts` | CELLS — the field is inside something alive |
 | `packages/render/src/sky-comet.ts` | COMET — a great comet hangs across the sky |
-| `packages/render/src/sky-eclipse.ts` | ECLIPSE — a black world stands in front of a star, high over the field |
+| `packages/render/src/sky-eclipse.ts` | ECLIPSE — a dark world stands in front of a star, far off in the sky |
 | `packages/render/src/sky-galaxy.ts` | GALAXY — a spiral galaxy, tilted, turning behind the field |
 | `packages/render/src/sky-giant.ts` | GIANT — a gas giant hangs over the field, a third of it off the left edge |
 | `packages/render/src/sky-hole.ts` | HOLE — a black hole high on the left, its disc on fire |

@@ -5,13 +5,18 @@ import { drawDeepSky } from "./sky-depth.js";
 import { actTint, baked, lighter, skyGlow } from "./sky-kit.js";
 
 /**
- * ECLIPSE — a black world stands in front of a star, high over the field.
+ * ECLIPSE — a dark world stands in front of a star, far off in the sky.
  *
- * A disc of pure black near the top of the sky, its edge burning: a tight
- * ring of light, a corona of long uneven streamers turning very slowly
- * around it, one bead of the star breaking past the limb, and a wide soft
- * glow of the act's colour falling from it down the sky. Everything that
- * comes down the field comes from under it.
+ * A small disc a shade darker than space, high on the right, its edge lit:
+ * a thin ring of light, a faint corona of long uneven streamers turning very
+ * slowly around it, one small bead of the star breaking past the limb, and a
+ * soft glow of the act's colour around it.
+ *
+ * It was a big black disc in a burning ring at the top of the field until
+ * 16 October 2026, and the owner said players would take it for an enemy.
+ * So it is smaller, off the middle where the bodies come down, and quiet:
+ * the corona is a haze and the disc is the sky with the stars taken out,
+ * not a hole.
  *
  * It is alive the way a corona is: two layers of streamers turn against
  * each other, so the light seems to stir rather than spin; loops of rose
@@ -21,9 +26,9 @@ import { actTint, baked, lighter, skyGlow } from "./sky-kit.js";
  * deep sky, the glow, the corona twice, the loops, the bead and the black disc.
  */
 
-const AT = { x: 0.5, y: 0.23 } as const;
+const AT = { x: 0.8, y: 0.16 } as const;
 /** The black disc's radius, as a share of the width. */
-const RADIUS = 0.2;
+const RADIUS = 0.06;
 const TURN = 0.02;
 /** The prominences' colour: a rose, well off a body's red. */
 const ROSE = "#F0A8D0";
@@ -81,7 +86,7 @@ function corona(colour: string, size: number): HTMLCanvasElement {
     }
     // The inner corona, hugging the limb.
     const inner = g.createRadialGradient(c, c, r * 0.95, c, c, r * 1.6);
-    inner.addColorStop(0, withAlpha("#FFF6E8", 0.95));
+    inner.addColorStop(0, withAlpha("#FFF6E8", 0.6));
     inner.addColorStop(0.15, withAlpha(colour, 0.6));
     inner.addColorStop(1, withAlpha(colour, 0));
     g.fillStyle = inner;
@@ -103,24 +108,24 @@ export function skyEclipse(d: BackdropDraw): void {
 
   lighter(ctx, () => {
     // The light falling down the sky from it.
-    const fall = l.width * 2.2;
-    ctx.globalAlpha = 0.28;
+    const fall = l.width * 1.1;
+    ctx.globalAlpha = 0.1;
     ctx.drawImage(skyGlow(tint, fall, [0, 0.3, 1]), cx - fall / 2, cy - fall / 2, fall, fall);
     const size = (r / 0.32) * 2;
     ctx.save();
     ctx.translate(cx, cy);
     ctx.rotate(time * TURN);
     const sheet = corona(light, size);
-    ctx.globalAlpha = 0.8;
+    ctx.globalAlpha = 0.2;
     ctx.drawImage(sheet, -size / 2, -size / 2, size, size);
     // The outer layer, larger and turning the other way.
     const outer = size * 1.3;
     ctx.rotate(-time * TURN * 2.6 + 1.7);
-    ctx.globalAlpha = 0.32 + 0.08 * Math.sin(time * 0.35);
+    ctx.globalAlpha = 0.12 + 0.04 * Math.sin(time * 0.35);
     ctx.drawImage(sheet, -outer / 2, -outer / 2, outer, outer);
     // The loops turn with neither, slower still, and breathe.
     ctx.rotate(time * TURN * 2.1);
-    ctx.globalAlpha = 0.65 + 0.3 * Math.sin(time * 0.6);
+    ctx.globalAlpha = 0.22 + 0.1 * Math.sin(time * 0.6);
     ctx.drawImage(loops(512), -size / 2, -size / 2, size, size);
     ctx.restore();
   });
@@ -130,14 +135,17 @@ export function skyEclipse(d: BackdropDraw): void {
     const a = 0.75;
     const bx = cx + Math.cos(a) * r;
     const by = cy + Math.sin(a) * r;
-    const bead = r * (0.95 + 0.1 * Math.sin(time * 1.3));
-    ctx.globalAlpha = 0.9;
+    const bead = r * (0.7 + 0.08 * Math.sin(time * 1.3));
+    ctx.globalAlpha = 0.3;
     ctx.drawImage(skyGlow("#FFF6E8", r, [0, 0.1, 1]), bx - bead / 2, by - bead / 2, bead, bead);
   });
 
   // The disc last, so the bead shows only past the limb.
-  ctx.fillStyle = "#020106";
+  // Not quite opaque: the haze behind still shows a little through it.
+  ctx.globalAlpha = 0.85;
+  ctx.fillStyle = "#06050D";
   ctx.beginPath();
   ctx.arc(cx, cy, r, 0, Math.PI * 2);
   ctx.fill();
+  ctx.globalAlpha = 1;
 }

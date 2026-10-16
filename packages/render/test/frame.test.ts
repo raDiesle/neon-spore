@@ -70,7 +70,7 @@ describe("a frame", () => {
 
 describe("every sky", () => {
   // The back is the wave's sky (`skies.ts`), so the plain wave above only
-  // ever draws the first of them; each of the twelve is drawn here once.
+  // ever draws the first of them; each of them is drawn here once.
   for (const [i, sky] of SKIES.entries()) {
     it(`draws ${sky.name} without the canvas refusing a value`, () => {
       const world = createWorld(CFG, 7, buildQueue(i, CFG.cols));
