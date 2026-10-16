@@ -9,6 +9,18 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-16 · 5c0fd773c — THE ROCK and TWO ROCKS are one wave, and each block folds under its first intro
+
+THE ROCK now teaches the whole shield in one film: the rock cannot be shot, player 2 moves the shield into its column, player 1 fires it as it lands. The wave carries TWO ROCKS' two rocks and is played on STANDARD 4, so STANDARD 3, the trigger alone, has no wave any more and is off the ladder. Every wave after it is one number earlier.
+
+## 2026-10-16 · a83683524 — No tutorial caption covers the cannon or the shield
+
+A caption anchored on a strip or a band button stood its plate just over it, which is the hull, where the cannon and the shield are; on TWO ROCKS "PLAYER 2 CARRIES THE SHIELD" hid the shield it was about. A plate that would cover either lobe now goes up over both, and under them only when there is no room above. A test steps every page of every film and holds it: before the fix, about fifty pages broke it.
+
+## 2026-10-16 · db2187568 — The wave list's fold stands left of the wave's name
+
+The press that opens or folds a group, and says how many waves are under it, moved from the right end of the row to the left, before the number and the name, as the owner asked. A row with nothing to fold holds the same width empty, so the names down the list still start in one column. Laid out by CSS order, so the name's button stays the row's first child for everything that reads the list.
+
 ## 2026-10-16 · b70b65c81 — A SUCK tab on NOT BUILT YET, with ideas for enemies and mechanics won with the maw
 
 NOT BUILT YET has a new SUCK tab, which reads docs/spec/suck-ideas.md whole, the way RESEARCH reads its file. It offers five enemies that are beaten with SUCK: - THE MORSEL: shoot it once, then swallow it. - THE SEEDER: killing it leaves a pod you then owe. - THE GLUTTON: it eats a hanging pod if you are slow. - THE ROE: three pods freed by one shot. - THE CLUTCH: four pods, one of them hollow.

@@ -42770,3 +42770,5 @@ staying clear of the cargoes the owner had just rejected.
 
 Bottleneck: the ladder. Merging two waves took the only wave off STANDARD 3,
 and the rung's tests, its fixtures and its comments all had to move with it.
+
+*Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
