@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-16 · 7f9bb50b3 — A boss's wave uses the bodies the boss puts on the field
+
+The check that nothing is used before it is taught now counts the bodies a boss puts on the field as things its wave uses. THE BROOD's buds drop as slicks and bulbs, so THE BROOD moved ahead of CYAN is refused for the bulb as well as for its panel. Before this, a boss on a panel taught early could hand the pair a body no wave had taught. A boss's mechanic row now lists what it spawns (`spawns`). Fifteen bosses are filled in from an audit of the simulation: THE BROOD, THE MATRON, THE HIVE, THE SCUTTLE, THE GORGE, THE LAMPREY, THE SWINDLE, THE CAIRN, THE MIRROR, THE BATON, THE CURTAIN, THE SINEW, THE SURGE, THE LEAD and THE SPOOL. The list on disk still passes, and no boss moves.
+
 ## 2026-10-16 · 120569ce7 — A save that moves waves into the tutorial arc keeps the arc's act files whole
 
 A director save used to keep each wave in the act file it was already in. Moving a block from after the tutorial arc into it therefore pulled every arc wave after it into that later act, and the arc's acts in between were saved empty. A wave moved into the arc now joins the arc's act it was dropped in, and a wave moved out of the arc goes after it. `waves:order --recut` now cuts the act files after the arc without composing anything, so it works on a day the composer stops.

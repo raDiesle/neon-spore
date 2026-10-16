@@ -43316,3 +43316,5 @@ what it has not been taught yet — a probe over six acts.
 
 Bottleneck: the audit — eighteen bosses spawn something, read out of thirty
 simulation files by a background search while the mechanism was written.
+
+*Measured: 9 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
