@@ -43628,3 +43628,13 @@ superhuman, so the script was tuned with a probe that holds each seat to
 one press a second.
 
 *Measured: 5 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-16 — the real pod's SMART family in VERSUS; the hollows and two others go
+
+- reading: 10 min. The pod slots, SMART, the hollows, `drop`.
+- writing: 25 min. The seed kit, its spikes and skins, four candidates.
+- looking: 15 min. Three sheets of thirty frames; ORBIT's sparks and the pointed spikes were too small to see.
+- friction: 5 min. zsh does not split a string into ffmpeg's arguments.
+- landing: 5 min. `check:fast`, one sentence without a dash, `land`.
+
+Bottleneck: looking — every frame is its own browser, thirty a sheet.

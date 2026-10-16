@@ -6,18 +6,16 @@
 // `index.ts` next door says why it is generated at all.
 
 import type { Variant } from "../variant.js";
-import { POD_HOLLOW_BROKEN } from "./pod-hollow/broken/index.js";
-import { POD_HOLLOW_CUP } from "./pod-hollow/cup/index.js";
-import { POD_HOLLOW_GUTTED } from "./pod-hollow/gutted/index.js";
-import { POD_REAL_CAIRN } from "./pod-real/cairn/index.js";
-import { POD_REAL_LANTERN } from "./pod-real/lantern/index.js";
+import { POD_REAL_BLINK } from "./pod-real/blink/index.js";
+import { POD_REAL_GLINT } from "./pod-real/glint/index.js";
+import { POD_REAL_HOP } from "./pod-real/hop/index.js";
+import { POD_REAL_ORBIT } from "./pod-real/orbit/index.js";
 import { POD_REAL_SMART } from "./pod-real/smart/index.js";
 
 export const VARIANTS: Variant[] = [
-  POD_HOLLOW_BROKEN,
-  POD_HOLLOW_CUP,
-  POD_HOLLOW_GUTTED,
-  POD_REAL_CAIRN,
-  POD_REAL_LANTERN,
+  POD_REAL_BLINK,
+  POD_REAL_GLINT,
+  POD_REAL_HOP,
+  POD_REAL_ORBIT,
   POD_REAL_SMART,
 ];

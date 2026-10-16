@@ -2315,3 +2315,26 @@ twelve.
 
 The answers offered were `giant`, `galaxy`, `aurora`, `milky`, `cells` and
 `eclipse`; every one was taken.
+
+## `pod:hollow` — nothing taken, 2026-10-16
+
+the owner, 16 October 2026: reject all hollows — a new hollow is built after
+the real pod is chosen, from the SMART family, looking like the pod the
+players have learned but telling player 2 it is a trap
+
+The other answers offered were `broken`, `cup` and `gutted`; they went with
+the slot.
+
+## `pod:real` — `cairn` and `lantern` struck, 2026-10-16
+
+the owner, 16 October 2026: *take as a basis the visual ball "POD:REAL · SMART"
+and reject the others … build me again some variants similar looking so
+players can always associate it is the SMART … make the pod appear more like a
+bonus they have to collect, maybe some blinking*
+
+CAIRN and LANTERN were deleted and the slot stayed open: SMART stands, and
+beside it four of its own family — BLINK, GLINT, HOP and ORBIT — each the same
+tumbling seed (`pod-real/seed.ts`) with a pickup's tell on top, and — asked for
+mid-lane — its own spikes and skin (`seed-parts.ts`): caps and spots, crystals
+and facets, thorns and stripes, cones and panels. The hollow is built once one
+of these is chosen, from that one.
