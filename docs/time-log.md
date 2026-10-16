@@ -42802,3 +42802,14 @@ Bottleneck: writing — a whirl had to stay a closed form of `t` so the bench
 could draw it, which ruled out the landing and decided the shape.
 
 *Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-16 — CYAN's and THE ROCK's waves open in the middle and leave room; THE HAND stands alone
+
+- reading: 20 min. The composer's guide, the curriculum table, and the trunk having moved under the first read (THE ROCK and TWO ROCKS made one).
+- writing: 15 min. Eight waves re-authored, THE HAND moved, the group rule's one exception.
+- looking: 0 min. Pressure and AUTO read by a probe, not watched at tempo.
+- friction: 5 min. A two-device test that needed a bulb and a slick on TWO COLOURS's field.
+- landing: 10 min. The fast check and `land`.
+
+Bottleneck: reading — the trunk moved between the first look and the edit,
+so the rock waves were read twice.

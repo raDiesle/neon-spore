@@ -28,7 +28,10 @@ import type { Store } from "./state.js";
  * after it, the same day — *because it introduces new brush (enemy). apply
  * accordingly across waves*: a wave heads a group exactly when it starts a
  * block (a brush, a panel or fault, a review) or is a boss, so CATCH AND AIM
- * and FINALE fold under SALVAGE. `test/wave-heads.test.ts` holds it.
+ * and FINALE fold under SALVAGE. `test/wave-heads.test.ts` holds it. THE
+ * HAND is the exception the owner made later that day — *"the hand" is
+ * introducing new concept, so have it a separate after "the rock"* — and
+ * stands alone after THE ROCK's regular waves.
  *
  * Counting the waves between one boss and the next stood here for an hour of
  * the same day; the owner had not asked for it, and it went.

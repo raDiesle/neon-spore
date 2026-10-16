@@ -6,6 +6,32 @@ import type { Wave } from "../wave-types.js";
  */
 export const WAVES_ACT_1_P2: Wave[] = [
   {
+    id: "theHand",
+    name: "THE HAND",
+    guide: {
+      scene: "theHand",
+    },
+    entries: [
+      { beat: 0, col: 2, kind: "meteor", color: null },
+      { beat: 0, col: 5, kind: "meteor", color: null },
+      { beat: 0, col: 8, kind: "meteor", color: null },
+    ],
+    controls: "standard4",
+  },
+  {
+    id: "torch",
+    name: "TORCH",
+    guide: {
+      scene: "torch",
+    },
+    entries: [
+      { beat: 6, col: 2, kind: "torch", color: null },
+      { beat: 12, col: 8, kind: "torch", color: null },
+      { beat: 18, col: 5, kind: "torch", color: null },
+    ],
+    controls: "standard4",
+  },
+  {
     id: "oneLastChance",
     name: "ONE LAST CHANCE",
     variant: true,

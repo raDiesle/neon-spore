@@ -155,6 +155,10 @@ const MEASURE = false;
 // on each of the three atlases — and about two fewer blits, and the pass's own
 // paths are made twice, once on the canvas nobody reads. Only the rows that
 // rose were moved, to what they measured.
+// Every p1 and p2 row measured again on 16 October 2026, when ALTERNATING
+// was spread over 42 beats from the middle: its first three bodies now stand
+// on the field at different heights, one `fill` dearer and four `drawImage`
+// cheaper on p2, four `drawImage` cheaper on p1.
 const BUDGETS: Readonly<Record<"p1" | "p2", readonly Budget[]>> = {
   p1: [
     {
@@ -172,7 +176,7 @@ const BUDGETS: Readonly<Record<"p1" | "p2", readonly Budget[]>> = {
       fill: 60,
       clip: 30,
       save: 69,
-      drawImage: 62,
+      drawImage: 58,
       createLinearGradient: 24,
       createRadialGradient: 11,
       // Fourteen of these are the panel's own sheet, painted here and only
@@ -191,7 +195,7 @@ const BUDGETS: Readonly<Record<"p1" | "p2", readonly Budget[]>> = {
       fill: 60,
       clip: 30,
       save: 69,
-      drawImage: 62,
+      drawImage: 58,
       // Down from frame 0: the layout-only gradients (`gradient-slot.ts`'s
       // sites in field.ts and backdrop.ts, key-light.ts's own slot, and the
       // channels' three in band-control.ts) are cache hits from the second
@@ -214,12 +218,12 @@ const BUDGETS: Readonly<Record<"p1" | "p2", readonly Budget[]>> = {
       // Three more, and all three are `drawDetails`: the bulb's one core and
       // the slick's two, drawn on the buttons now that the silhouettes are
       // bodies rather than stencils.
-      fill: 67,
+      fill: 68,
       clip: 30,
       // Two fewer: a fire button's face is one `paintLobe` doing fill and
       // stroke together where it used to be a fill and then a crosshair.
       save: 71,
-      drawImage: 61,
+      drawImage: 57,
       createLinearGradient: 24,
       createRadialGradient: 11,
       // Two more than p1's frame 0: the sheet, and the fire buttons'
@@ -230,10 +234,10 @@ const BUDGETS: Readonly<Record<"p1" | "p2", readonly Budget[]>> = {
     {
       fillRect: 57,
       stroke: 93,
-      fill: 67,
+      fill: 68,
       clip: 30,
       save: 71,
-      drawImage: 61,
+      drawImage: 57,
       createLinearGradient: 15,
       createRadialGradient: 8,
       // Back level with p1's second frame, and the two it came down by are the

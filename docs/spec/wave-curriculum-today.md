@@ -19,10 +19,10 @@ guess. *Pressure* is `wavePressure`
 
 | Kind | Waves | AUTO fails | Shortest (s) | Median (s) | Longest (s) | AUTO, all of them | A pair, about |
 |---|---|---|---|---|---|---|---|
-| regular | 452 | 0 | 4 | 26 | 73 | 3 h 32 min | 7 h 4 min |
-| intro | 54 | 0 | 3 | 21 | 48 | 20 min | 40 min |
+| regular | 452 | 0 | 4 | 27 | 73 | 3 h 33 min | 7 h 6 min |
+| intro | 54 | 0 | 3 | 21 | 48 | 20 min | 41 min |
 | boss | 56 | 0 | 9 | 28 | 343 | 46 min | 1 h 33 min |
-| every wave | 562 | 0 | 3 | 26 | 343 | 4 h 39 min | 9 h 17 min |
+| every wave | 562 | 0 | 3 | 26 | 343 | 4 h 40 min | 9 h 20 min |
 
 ## Every wave
 
@@ -32,16 +32,16 @@ guess. *Pressure* is `wavePressure`
 | 2 | STEADY | **regular** | FIRST STEP | — | STANDARD 1 | 5 | 29 | 32 | 20 | 40 | 2.4 |
 | 3 | SIDE TO SIDE | **regular** | FIRST STEP | — | STANDARD 1 | 6 | 29 | 32 | 20 | 40 | 4.4 |
 | 4 | QUICKER | **regular** | FIRST STEP | — | STANDARD 1 | 8 | 36 | 39 | 24 | 48 | 5.4 |
-| 5 | CYAN | intro | CYAN | bulb, panel | STANDARD 2 | 2 | 3 | 6 | 4 | 8 | 3.2 |
-| 6 | ONLY CYAN | **regular** | CYAN | — | STANDARD 2 | 5 | 30 | 33 | 21 | 42 | 2.4 |
-| 7 | TWO COLOURS | **regular** | CYAN | — | STANDARD 2 | 2 | 3 | 6 | 4 | 8 | 4.2 |
-| 8 | ALTERNATING | **regular** | CYAN | — | STANDARD 2 | 3 | 4 | 7 | 4 | 8 | 6.8 |
+| 5 | CYAN | intro | CYAN | bulb, panel | STANDARD 2 | 4 | 24 | 27 | 17 | 34 | 1.4 |
+| 6 | ONLY CYAN | **regular** | CYAN | — | STANDARD 2 | 6 | 38 | 41 | 26 | 52 | 2.6 |
+| 7 | TWO COLOURS | **regular** | CYAN | — | STANDARD 2 | 7 | 36 | 39 | 24 | 48 | 3.4 |
+| 8 | ALTERNATING | **regular** | CYAN | — | STANDARD 2 | 8 | 42 | 45 | 28 | 56 | 4.6 |
 | 9 | THE INSTAR | boss | CYAN | instar, panel | STANDARD 5 | 0 | 0 | 549 | 343 | 686 | — |
-| 10 | THE ROCK | intro | THE ROCK | meteor, panel | STANDARD 4 | 2 | 4 | 18 | 11 | 22 | 2.4 |
-| 11 | THE HAND | intro | THE ROCK | — | STANDARD 4 | 3 | 0 | 16 | 10 | 20 | 5.8 |
-| 12 | FIVE ROCKS | **regular** | THE ROCK | — | STANDARD 4 | 5 | 28 | 42 | 26 | 52 | 2.4 |
-| 13 | WIDE ROCKS | **regular** | THE ROCK | — | STANDARD 4 | 6 | 26 | 40 | 25 | 50 | 4.4 |
-| 14 | ROCKS BETWEEN | **regular** | THE ROCK | — | STANDARD 4 | 8 | 34 | 48 | 30 | 60 | 5.4 |
+| 10 | THE ROCK | intro | THE ROCK | meteor, panel | STANDARD 4 | 3 | 20 | 34 | 21 | 42 | 1.4 |
+| 11 | FIVE ROCKS | **regular** | THE ROCK | — | STANDARD 4 | 5 | 30 | 44 | 28 | 56 | 2.6 |
+| 12 | WIDE ROCKS | **regular** | THE ROCK | — | STANDARD 4 | 6 | 35 | 49 | 31 | 62 | 3.8 |
+| 13 | ROCKS BETWEEN | **regular** | THE ROCK | — | STANDARD 4 | 7 | 36 | 44 | 28 | 56 | 5 |
+| 14 | THE HAND | intro | THE ROCK | — | STANDARD 4 | 3 | 0 | 16 | 10 | 20 | 5.8 |
 | 15 | TORCH | intro | TORCH | torch | STANDARD 4 | 3 | 18 | 20 | 13 | 26 | 5.7 |
 | 16 | ONE LAST CHANCE | intro | TORCH | — | STANDARD 4 | 6 | 13 | 24 | 15 | 30 | 10.8 |
 | 17 | SHIELD, THEN CANNON | **regular** | TORCH | — | STANDARD 4 | 2 | 5 | 15 | 9 | 18 | 3 |

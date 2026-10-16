@@ -53,12 +53,11 @@
       "id": "cyan",
       "wave": 5,
       "name": "CYAN",
-      "bodies": 2,
-      "arrivals": "2:8b9b604",
-      "typical": 2.9,
-      "mean": 3.01,
-      "p90": 3.94,
-      "jitter": 0.241
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
     },
     {
       "id": "cyanAgain",
@@ -74,23 +73,21 @@
       "id": "twoColours",
       "wave": 7,
       "name": "TWO COLOURS",
-      "bodies": 2,
-      "arrivals": "2:4c63cdb1",
-      "typical": 2.01,
-      "mean": 2.15,
-      "p90": 2.78,
-      "jitter": 0.168
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
     },
     {
       "id": "alternating",
       "wave": 8,
       "name": "ALTERNATING",
-      "bodies": 3,
-      "arrivals": "3:dc76010a",
-      "typical": 2.04,
-      "mean": 2.14,
-      "p90": 2.6,
-      "jitter": 0.147
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
     },
     {
       "id": "theInstar",
@@ -113,19 +110,8 @@
       "unmeasured": true
     },
     {
-      "id": "theHand",
-      "wave": 11,
-      "name": "THE HAND",
-      "bodies": 3,
-      "arrivals": "3:b222b0e2",
-      "typical": 1.94,
-      "mean": 1.98,
-      "p90": 2.15,
-      "jitter": 0.09
-    },
-    {
       "id": "theRockAgain",
-      "wave": 12,
+      "wave": 11,
       "name": "FIVE ROCKS",
       "bodies": 0,
       "typical": 0,
@@ -135,7 +121,7 @@
     },
     {
       "id": "theRockReach",
-      "wave": 13,
+      "wave": 12,
       "name": "WIDE ROCKS",
       "bodies": 0,
       "typical": 0,
@@ -145,13 +131,24 @@
     },
     {
       "id": "theRockPair",
-      "wave": 14,
+      "wave": 13,
       "name": "ROCKS BETWEEN",
       "bodies": 0,
       "typical": 0,
       "mean": 0,
       "p90": 0,
       "unmeasured": true
+    },
+    {
+      "id": "theHand",
+      "wave": 14,
+      "name": "THE HAND",
+      "bodies": 3,
+      "arrivals": "3:b222b0e2",
+      "typical": 1.94,
+      "mean": 1.98,
+      "p90": 2.15,
+      "jitter": 0.09
     },
     {
       "id": "torch",

@@ -179,13 +179,13 @@ describe("a body's phase", () => {
  */
 describe("two devices", () => {
   const cfg = DEFAULT_CONFIG;
-  // TWO COLOURS puts a slick and a bulb on the field a few hundred ticks in,
+  // ALTERNATING puts a bulb and a slick on the field six hundred ticks in,
   // which is the case where a phase collision would have been visible and a
-  // wall clock catastrophic. By id: it was index 2 until twelve waves were
-  // composed into the arc ahead of it, and an index is a claim about the
-  // whole list. The seed stays the 2 it always was — the ids it deals decide
+  // wall clock catastrophic. It was TWO COLOURS until that wave opened on two
+  // slicks in the middle (16 October 2026). By id: an index is a claim about
+  // the whole list. The seed stays the 2 it always was — the ids it deals decide
   // the phases, and the neighbours test below is about those phases.
-  const WAVE = WAVES.findIndex((w) => w.id === "twoColours");
+  const WAVE = WAVES.findIndex((w) => w.id === "alternating");
   const SEED = 2;
 
   /** One phone: its own `World`, stepped in its own frame-sized chunks. */
@@ -215,9 +215,9 @@ describe("two devices", () => {
 
   it("draw every body at the same point in its cycle", () => {
     // Different chunk sizes stand in for two phones running at different frame
-    // rates: the same 400 ticks, reached by different numbers of frames.
-    const a = device(400, 7);
-    const b = device(400, 3);
+    // rates: the same 600 ticks, reached by different numbers of frames.
+    const a = device(600, 7);
+    const b = device(600, 3);
     expect(hashWorld(a)).toBe(hashWorld(b));
 
     const clockA = renderClock(a);
@@ -245,7 +245,7 @@ describe("two devices", () => {
     // `view.time` that was two different poses; the assertion here is that a
     // quarter second is enough to matter, so that the agreement proved above
     // is a property of the beat clock and not of the numbers being small.
-    const a = device(400, 7);
+    const a = device(600, 7);
     const c = a.creatures.find((x) => x.kind === "bulb" || x.kind === "slick");
     expect(c).toBeDefined();
     if (!c) return;
@@ -256,7 +256,7 @@ describe("two devices", () => {
   });
 
   it("do not draw a row of neighbours in step", () => {
-    const a = device(400, 7);
+    const a = device(600, 7);
     const clock = renderClock(a);
     const poses = a.creatures
       .filter((c) => c.kind === "bulb" || c.kind === "slick")
