@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-16 · 07936d544 — The act files are cut by the order the waves are played in
+
+A reorder moved most units and the save never moves a wave back an act, so the moved waves piled into thirty pages at the end and fifty-five act files were left empty under headers about waves that had gone. `waves:order --write` now cuts every act after the tutorial arc again in play order (`waves-recut.ts`): one block and the boss after it to a file, `act-3` to `act-56`, each header saying which waves of the game it holds and whose. A second reorder re-cuts rather than appending, and `--recut` does it alone; nothing plays differently. Comments and spec lines that named an act file name the wave now, since a reorder renames the files.
+
 ## 2026-10-16 · edd5f7853 — `versus:shot --only current` shows the current side on a screenshot candidate
 
 A `screenshot` candidate mounted itself alone whatever was asked, so `--only current` wrote the candidate's picture under the current one's name, and the two stills read as a candidate that changes nothing. Which sides a screen mounts is one function now, `sidesShown`, and on a screenshot candidate it is the candidate alone unless the current side is named.
