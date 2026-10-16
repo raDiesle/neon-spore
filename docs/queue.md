@@ -347,6 +347,7 @@ from it. Done when `bossOrder` is under 100 ms idle, and the review test's
 ## Nothing catches two bosses given the same section number in docs/spec/bosses.md
 
 - **Found:** 2026-10-16, claude/lance-boss-wave-e1f288
+- **Taken:** 2026-10-16, claude/queue-work-6b11c3 (claim: claude/queue-nothing-catches-two-bosses-given-the-same-sectio)
 - **Files:** `docs/spec/bosses.md`, `tools/test/doc-drift.test.ts`
 
 THE MATRON and THE GEODE were both written as §11.66 by two lanes on the same
