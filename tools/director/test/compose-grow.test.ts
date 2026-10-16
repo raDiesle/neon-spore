@@ -77,9 +77,11 @@ describe("a step, grown", () => {
 describe("where a block's first wave aims", () => {
   test("a block counts from the tutorial's end", () => {
     expect(block("firstStep").sinceTutorial).toBe(-1);
-    // THE LANCE, a lesson, comes first after the arc; THE CROSSING is the
-    // first body (`curriculum-order.ts`).
-    expect(block("theCrossing").sinceTutorial).toBe(0);
+    // THE HUSK is the first body after the arc, the owner's pick
+    // (`FIRST_AFTER_ARC`, `curriculum-order.ts`); THE LANCE, a lesson,
+    // comes next, and THE CROSSING is the body after it.
+    expect(block("theHusk").sinceTutorial).toBe(0);
+    expect(block("theCrossing").sinceTutorial).toBe(1);
   });
 
   test("its floor is the gentlest composed regular wave of the block before", () => {

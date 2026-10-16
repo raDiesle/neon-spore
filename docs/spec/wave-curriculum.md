@@ -190,9 +190,14 @@ cheapest first, with four rules over that:
 - **The tutorial arc is fixed**, up to FINALE, with THE INSTAR and THE
   BASTION; its last block counts as a body, so a lever may come first after it.
 - **Ties keep the order they shipped in.**
+- **THE HUSK comes first after FINALE**, whatever it costs
+  (`FIRST_AFTER_ARC`, `curriculum-order.ts`) — the owner, 16 October 2026:
+  *after root wave of "real" i suggest after to have "hollow"*. FINALE is
+  the real pods' exam, so the pod that is a lie follows it, on the arc's own
+  panel (STANDARD 5) and composed from the arc's bodies alone, before THE
+  LANCE teaches the hold.
 - **A block the composer cannot fill where it falls waits** for the next
-  place the rule would give it. THE HUSK's eight found no ramp behind THE
-  BLISTER, and were composed after THE SHELL. A hand-written regular wave goes
+  place the rule would give it. A hand-written regular wave goes
   behind the block that teaches the last thing it needs: FIVE BLISTERS and the
   seven single-control blister waves are THE BLISTER's whole block.
 
@@ -305,7 +310,8 @@ decided then while the owner was away:
   separate new concept wave later when all basic concepts are introduced …
   before first boss to introduce by waves all the "controls" brush enemy
   waves* — so THE BLISTER's block stands before THE BASTION and THE INSTAR
-  takes the first block after FINALE, like any other boss.
+  takes the first block after FINALE, like any other boss — THE HUSK's, since
+  that block moved there the same day.
 - **A boss takes the first free block** once everything it needs is taught.
   First decided as *the bosses keep their order*; the owner, 15 October 2026,
   *you can rearrange boss waves however you want*, so a block one boss skips

@@ -936,7 +936,7 @@ by hand never moves.
 | `packages/content/src/waves/act-37.ts` | Waves 382 to 391 of the game, in the order they are played: THE VOLLEY's block and the boss THE HASP |
 | `packages/content/src/waves/act-38.ts` | Waves 392 to 401 of the game, in the order they are played: THE FLIP's block and the boss THE RATCHET |
 | `packages/content/src/waves/act-39.ts` | Waves 402 to 411 of the game, in the order they are played: THE CRAWLER's block and the boss THE NETTLE |
-| `packages/content/src/waves/act-3.ts` | Waves 39 to 48 of the game, in the order they are played: THE LANCE's block and the boss THE INSTAR |
+| `packages/content/src/waves/act-3.ts` | Waves 39 to 48 of the game, in the order they are played: THE HUSK's block and the boss THE INSTAR |
 | `packages/content/src/living-look.ts` | which kinds are drawn as a body of their own, and the contour and own-motion of each — one row per kind, so a forgotten one is a build error |
 | `packages/content/src/living-look-handed.ts` | **How the bodies answered by two hands are drawn** |
 | `packages/content/src/living-look-stroked.ts` | a creature is not a blob — the nine kinds a radial contour cannot describe, each `null` with the reason its shape needs a path of its own |
@@ -950,7 +950,7 @@ by hand never moves.
 | `packages/content/src/waves/act-47.ts` | Waves 480 to 488 of the game, in the order they are played: THE WISP's review and the boss THE SLING |
 | `packages/content/src/waves/act-48.ts` | Waves 489 to 497 of the game, in the order they are played: THE VEIL's review and the boss THE CAPSTAN |
 | `packages/content/src/waves/act-49.ts` | Waves 498 to 506 of the game, in the order they are played: THE MINE's review and the boss THE GALL |
-| `packages/content/src/waves/act-4.ts` | Waves 49 to 58 of the game, in the order they are played: THE CROSSING's block and the boss THE GEODE |
+| `packages/content/src/waves/act-4.ts` | Waves 49 to 58 of the game, in the order they are played: THE LANCE's block and the boss THE GEODE |
 | `packages/content/src/ghost-shape.ts` | THE GHOST's contour, which is the third family of them in this package |
 | `packages/content/src/gimbal-script.ts` | THE GIMBAL's six alignments: where each ring's mark sits on the true wheel, how far the marks creep a beat |
 | `packages/content/src/gorge-levels.ts` | THE GORGE's levels: five rows or rings of bubbles, and the layout is the level |
@@ -967,8 +967,8 @@ by hand never moves.
 | `packages/content/src/waves/act-53.ts` | Waves 534 to 542 of the game, in the order they are played: THE RECOIL's review and the boss THE LAMPREY |
 | `packages/content/src/waves/act-54.ts` | Waves 543 to 551 of the game, in the order they are played: THE LID's review and the boss THE MIMIC |
 | `packages/content/src/waves/act-55.ts` | Waves 552 to 560 of the game, in the order they are played: THE GYRE's review and the boss THE LATCH |
-| `packages/content/src/waves/act-56.ts` | Waves 561 to 570 of the game, in the order they are played: THE ECHO's review, the boss THE CHRYSALIS |
-| `packages/content/src/waves/act-5.ts` | Waves 59 to 68 of the game, in the order they are played: THE BEATBOX's block and the boss THE MIRROR |
+| `packages/content/src/waves/act-56.ts` | Waves 561 to 570 of the game, in the order they are played: THE ECHO's review |
+| `packages/content/src/waves/act-5.ts` | Waves 59 to 68 of the game, in the order they are played: THE CROSSING's block and the boss THE MIRROR |
 | `packages/content/src/lid-shape.ts` | you are tuning THE LID's outline — two arcs meeting at a corner, the fourth contour family here |
 | `packages/content/src/scenes.ts` | you are authoring or retiming the rehearsal a guide shows — arrivals, tempo and the acts a ghost thumb plays |
 | `packages/content/src/scene-script.ts` | A rehearsal turned into the two things the runner takes: a command track and a whole `SceneScript` |
@@ -1048,14 +1048,14 @@ by hand never moves.
 | `packages/content/src/scenes/the-cairn.ts` | THE CAIRN's rehearsal: the rock you did not pull is the one that lands |
 | `packages/content/src/control-sets-table.ts` | Every panel in the game, as a table |
 | `packages/content/src/scenes/cyan.ts` | CYAN's rehearsal: the second button, and the cost of the first one |
-| `packages/content/src/waves/act-6.ts` | Waves 69 to 78 of the game, in the order they are played: THE WEIGHT's block and the boss THE MAZE |
+| `packages/content/src/waves/act-6.ts` | Waves 69 to 78 of the game, in the order they are played: THE BEATBOX's block and the boss THE MAZE |
 | `packages/content/src/scenes/the-volley.ts` | THE VOLLEY's rehearsal: a ward that works is not a body that is gone |
 | `packages/content/src/scenes/catch-and-aim.ts` | CATCH AND AIM's rehearsal: the hand aims, so the cannon does not have to |
 | `packages/content/src/waves/act-1b.ts` | The last of act one, cut off `act-1.ts` when that file reached the 250-line ceiling on `CATCH AND AIM` |
-| `packages/content/src/waves/act-10.ts` | Waves 109 to 118 of the game, in the order they are played: THE THROB's block and the boss THE VANE |
-| `packages/content/src/waves/act-11.ts` | Waves 119 to 128 of the game, in the order they are played: THE COUNT's block and the boss SNAKE |
-| `packages/content/src/waves/act-12.ts` | Waves 129 to 138 of the game, in the order they are played: THE SHELL's block and the boss PINBALL |
-| `packages/content/src/waves/act-13.ts` | Waves 139 to 148 of the game, in the order they are played: THE HUSK's block and the boss THE SCOUT |
+| `packages/content/src/waves/act-10.ts` | Waves 109 to 118 of the game, in the order they are played: THE LEECH's block and the boss THE VANE |
+| `packages/content/src/waves/act-11.ts` | Waves 119 to 128 of the game, in the order they are played: THE THROB's block and the boss SNAKE |
+| `packages/content/src/waves/act-12.ts` | Waves 129 to 138 of the game, in the order they are played: THE COUNT's block and the boss PINBALL |
+| `packages/content/src/waves/act-13.ts` | Waves 139 to 148 of the game, in the order they are played: THE SHELL's block and the boss THE SCOUT |
 | `packages/content/src/waves/act-14.ts` | Waves 149 to 158 of the game, in the order they are played: THE CHOKE's block and the boss THE HAUL |
 | `packages/content/src/waves/act-1-p2.ts` | Act one's second page — the arc's composed regular waves pushed it past the ceiling, and the save cut it (`acts.ts`) |
 | `packages/content/src/waves/act-1-p3.ts` | Act one's third page, cut the same way; plays straight after `act-1-p2.ts` |
@@ -1152,9 +1152,9 @@ by hand never moves.
 | `packages/content/src/silhouettes-blister.ts` | **THE BLISTER is ROOTED CLOVER**: two drafts off the shape sheet, combined and named |
 | `packages/content/src/silhouettes-weight.ts` | **THE WEIGHT: the slumped sac**, the louder of the two hanging drafts, taken off the shape sheet whole |
 | `packages/content/src/silhouettes-mine.ts` | **THE MINE is REACHER**, off the shape sheet: *four soft arms |
-| `packages/content/src/waves/act-8.ts` | Waves 89 to 98 of the game, in the order they are played: HEAVY ROCKS's block and the boss THE WARDEN |
-| `packages/content/src/waves/act-7.ts` | Waves 79 to 88 of the game, in the order they are played: THE LIMPET's block and the boss THE GAUGE |
-| `packages/content/src/waves/act-9.ts` | Waves 99 to 108 of the game, in the order they are played: THE LEECH's block and the boss THE FLEET |
+| `packages/content/src/waves/act-8.ts` | Waves 89 to 98 of the game, in the order they are played: THE LIMPET's block and the boss THE WARDEN |
+| `packages/content/src/waves/act-7.ts` | Waves 79 to 88 of the game, in the order they are played: THE WEIGHT's block and the boss THE GAUGE |
+| `packages/content/src/waves/act-9.ts` | Waves 99 to 108 of the game, in the order they are played: HEAVY ROCKS's block and the boss THE FLEET |
 | `packages/content/src/waves/acts.ts` | **The act files, in the order of the game** — the one list of them, written by the director's save when it cuts a full act |
 | `packages/content/src/balloon-shape.ts` | THE BALLOON's contour: a skin with a knot under it, and the fifth family of contour in this package |
 | `packages/content/src/creatures-handed.ts` | **The bodies answered by hands alone**, and today there is one of them |

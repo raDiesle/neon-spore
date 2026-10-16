@@ -55,9 +55,10 @@ describe("the game's list", () => {
   const order = teachingOrder(cur.units);
 
   // A block the composer cannot fill where the rule puts it waits for the
-  // next place (`waves:order` says so as it runs): THE HUSK's eight found no
-  // ramp behind THE BLISTER. Everything else stands where the rule puts it.
-  const WAITED = ["theHusk"];
+  // next place (`waves:order` says so as it runs). None waits today: THE
+  // HUSK, which found no ramp behind THE BLISTER, is first after FINALE
+  // since 16 October 2026 (`FIRST_AFTER_ARC`).
+  const WAITED: string[] = [];
 
   test("teaches its new things in the rule's order, but for the blocks that waited", () => {
     const rest = (us: readonly Unit[]) => ids(us).filter((id) => !WAITED.includes(id));
@@ -124,5 +125,16 @@ describe("the game's list", () => {
     const third = Math.floor(floors.length / 3);
     const mean = (xs: number[]) => xs.reduce((a, b) => a + b, 0) / xs.length;
     expect(mean(floors.slice(-third))).toBeGreaterThan(mean(floors.slice(0, third)));
+  });
+});
+
+describe("the units the owner put first", () => {
+  test("THE HUSK is taught straight after FINALE, on the arc's own panel", () => {
+    // The owner, 16 October 2026: the hollow pod after the real pods' exam.
+    const finale = WAVES.findIndex((w) => w.id === "finale");
+    expect(WAVES[finale + 1]?.id).toBe("theHusk");
+    const block = WAVES.slice(finale + 1).filter((w) => w.id.startsWith("theHusk"));
+    expect(block.length).toBe(9);
+    for (const w of block) expect(controlSet(w.controls).id).toBe("standard5");
   });
 });

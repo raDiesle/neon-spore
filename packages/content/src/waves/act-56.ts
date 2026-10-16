@@ -1,9 +1,8 @@
 import type { Wave } from "../wave-types.js";
 
 /**
- * Waves 561 to 570 of the game, in the order they are played: THE ECHO's review,
- * the boss THE CHRYSALIS, and THE HYDRA waiting at the end for a block of its
- * own.
+ * Waves 561 to 570 of the game, in the order they are played: THE ECHO's
+ * review, the boss THE CHRYSALIS and the boss THE HYDRA.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act
  * after the tutorial arc again in play order. A save that fills it cuts a page

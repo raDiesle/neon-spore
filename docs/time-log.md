@@ -42982,3 +42982,14 @@ Bottleneck: landing — a new boss rewrites all fifty-odd act files, so every
 other lane that lands first conflicts with all of them.
 
 *Measured: 49 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-16 — THE HUSK is taught straight after FINALE, on the arc's panel
+
+- reading: 15 min. The curriculum's units and costs, why THE HUSK waited, and what its waves carried.
+- writing: 10 min. The pin, the move, its eight composed again from the arc's bodies, two tests.
+- looking: 5 min. The new order and the bosses each moving with their blocks.
+- friction: 5 min. The composer counting THE LANCE's waves as THE HUSK's until the list was cut after its head.
+- landing: 10 min. Briefings, baseline, the measured table, then `land`.
+
+Bottleneck: reading — the husk block carried the hold and three later
+bodies, so it could not move as it was and had to be composed again.

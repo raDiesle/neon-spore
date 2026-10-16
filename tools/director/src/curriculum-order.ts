@@ -113,7 +113,16 @@ export function splitCurriculum(waves: readonly Wave[]): Curriculum {
 }
 
 /**
- * The unit decision 9 teaches next, after `placed`, out of `left`: cheapest
+ * Units taught first after the arc, in this order, whatever they cost: the
+ * owner, 16 October 2026 — *after root wave of "real" i suggest after to have
+ * "hollow"*. FINALE is the real pods' exam, so the husk, the pod that is a
+ * lie, comes straight after it.
+ */
+export const FIRST_AFTER_ARC: readonly string[] = ["theHusk"];
+
+/**
+ * The unit decision 9 teaches next, after `placed`, out of `left`: one of
+ * `FIRST_AFTER_ARC` while any is ready, otherwise cheapest
  * first, never a lever after a lever, a lever once enough bodies have come
  * since the last one to spread the rest evenly, and only once every unit it
  * needs is placed. Ties keep the order they came in; the arc ends on a body.
@@ -130,6 +139,8 @@ export function pickNext(
   const ready = [...left]
     .sort((a, b) => a.cost - b.cost)
     .filter((u) => !refused.has(u.head.id) && [...u.needs].every((n) => done.has(n)));
+  const first = FIRST_AFTER_ARC.flatMap((id) => ready.filter((u) => u.head.id === id))[0];
+  if (first) return first;
   const lever = (placed[placed.length - 1]?.kind ?? "body") !== "body";
   let since = 0;
   while (since < placed.length && placed[placed.length - 1 - since]?.kind === "body") since++;
