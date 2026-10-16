@@ -17,9 +17,11 @@ import {
   ticksPerBeat,
   type World,
 } from "@neon-spore/sim";
+import { BACKDROP_LOOK } from "../src/backdrop-look.js";
 import { Canvas2DRenderer } from "../src/canvas2d.js";
 import type { ViewRole } from "../src/layout.js";
 import type { Viewport } from "../src/renderer.js";
+import { skyFor } from "../src/skies.js";
 import { STRIP_LOOK } from "../src/strip-look.js";
 import type { Thumb } from "../src/thumb-aura.js";
 import type { ShipHand } from "../src/touch-ship.js";
@@ -208,6 +210,13 @@ export interface FramesOptions {
   hand?: ShipHand;
   /** This device's fingers on a boss's mark, for the glow round each (`thumb-aura.ts`). */
   thumbs?: readonly Thumb[];
+  /**
+   * One sky behind every frame, whatever the wave's number: the budget runs
+   * pass `BUDGET_SKY` (`budget-row.ts`). The sky follows the wave's number
+   * (`skyFor`), so a block put in early in the game moved every later
+   * budgeted wave under another sky and its row went red by the sky's ops.
+   */
+  sky?: number;
 }
 
 /**
@@ -224,6 +233,16 @@ export function runFrames(
   ticks: number,
   options: FramesOptions = {},
 ): { world: World; ctx: StubContext; renderer: Canvas2DRenderer; events: SimEvent[] } {
+  if (options.sky !== undefined) {
+    const back = BACKDROP_LOOK.back;
+    const sky = skyFor(options.sky);
+    (BACKDROP_LOOK as { back: typeof back }).back = (d) => sky.draw(d);
+    try {
+      return runFrames(world, role, ticks, { ...options, sky: undefined });
+    } finally {
+      (BACKDROP_LOOK as { back: typeof back }).back = back;
+    }
+  }
   const { canvas, ctx } = stubCanvas();
   const renderer = new Canvas2DRenderer(canvas);
   renderer.resize(options.viewport ?? VIEWPORT);

@@ -76,6 +76,19 @@ export const SWEEPS: readonly string[] = [
 ];
 
 /**
+ * **The op-count budgets, which anything in `packages/content` can move.** A
+ * budget test picks its wave by what is on it and draws it, so a wave put in
+ * ahead, a creature's parts or a boss's spawns change its rows, and few of
+ * them name the list: on 16 October 2026 five pod waves moved eleven tables
+ * and this check, reaching only `content`'s own tests, went green on a tree
+ * `bun run land` refused. Two seconds for all of them.
+ */
+function budgetTests(root: string): string[] {
+  const found = [...new Bun.Glob("packages/render/test/*-budget.test.ts").scanSync({ cwd: root })];
+  return found.map((f) => f.replaceAll("\\", "/")).sort();
+}
+
+/**
  * The workspace member a path sits in — `packages/render`, `tools/queue` —
  * which is where its tests are; or nothing, for a file outside every member.
  */
@@ -92,11 +105,15 @@ function memberOf(path: string): string | undefined {
  * `package.json` in a diff of ten would otherwise silence the nine narrow
  * answers beside it. A sweep already under a listed directory is not named
  * twice, and neither is a test the wave list reaches (`wave-readers.ts`),
- * which every wave file adds wherever it lives.
+ * which every wave file adds wherever it lives, nor an op-count budget, which
+ * every content file adds.
  */
 export function fastScopeFor(paths: readonly string[], root: string = ROOT): string[] {
   const dirs = new Set<string>();
-  const extra = paths.some(isWaveFile) ? waveReaders(root) : [];
+  const extra = [
+    ...(paths.some(isWaveFile) ? waveReaders(root) : []),
+    ...(paths.some((p) => p.startsWith("packages/content/")) ? budgetTests(root) : []),
+  ];
   for (const path of paths) {
     const scoped = scopeFor([path]);
     if (scoped.length > 0) for (const d of scoped) dirs.add(d);

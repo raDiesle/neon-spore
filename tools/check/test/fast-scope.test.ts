@@ -43,9 +43,9 @@ describe("fastScopeFor", () => {
   });
 
   it("a change the hook would run everything for runs its own package instead", () => {
-    expect(fastScopeFor(["packages/content/src/creatures.ts"])).toEqual([
-      "packages/content",
-      ...SWEEPS,
+    expect(fastScopeFor(["packages/sim/src/step.ts"])).toEqual([
+      "packages/sim",
+      ...SWEEPS.filter((s) => !s.startsWith("packages/sim/")),
     ]);
   });
 
@@ -111,6 +111,20 @@ describe("fastScopeFor", () => {
     },
     TREE_MS,
   );
+
+  it("any content change reaches the op-count budgets, which draw what content says", () => {
+    for (const path of [
+      "packages/content/src/waves/act-1.ts",
+      "packages/content/src/creatures.ts",
+    ]) {
+      const reached = fastScopeFor([path]);
+      expect(reached, path).toContain("packages/render/test/instar-budget.test.ts");
+      expect(reached, path).toContain("packages/render/test/wave-budget.test.ts");
+    }
+    expect(fastScopeFor(["tools/queue/src/queue.ts"])).not.toContain(
+      "packages/render/test/wave-budget.test.ts",
+    );
+  });
 
   it("a content change that is not a wave reaches none of the list's readers", () => {
     expect(fastScopeFor(["packages/content/src/creatures.ts"])).not.toContain(

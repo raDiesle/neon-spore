@@ -43406,3 +43406,17 @@ mark in the same colour breaks without anything being wrong.
 Bottleneck: none — the row was one call, and the brush already did its job.
 
 *Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-16 — The budget runs are drawn under one sky
+
+- reading: 5 min. The two entries, `skyFor`, the seven budget files and how
+  each prints its rows.
+- writing: 15 min. The sky pin in the harness, `BUDGET_SKY`, the pin's test,
+  the budget tests reached by content in `check:fast`, the stale sky notes.
+- looking: 0 min. Nothing drawn in the game changed; only the tests' sky.
+- friction: 10 min. Rows that hold comments and rows on one line, each
+  remeasured by a script that maps printed rows back onto source numbers.
+- landing: 5 min. `check:fast`, `land`.
+
+Bottleneck: pasting 290 measured numbers back into seven tables, two shapes of
+row, without a slip — done by script, then checked equal by a second run.

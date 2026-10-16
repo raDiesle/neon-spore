@@ -1,5 +1,5 @@
 import { describe, expect, it, setDefaultTimeout } from "bun:test";
-import { budgetRow } from "./budget-row.js";
+import { BUDGET_SKY, budgetRow } from "./budget-row.js";
 import { FRAME_TIMEOUT_MS, installCanvasGlobals, runFrames } from "./frame-harness.js";
 import { acting, hung, TPB } from "./instar-kit.js";
 
@@ -107,37 +107,35 @@ type Budget = Record<
   number
 >;
 
-/** Step index and name → the ceiling. `fill` up one in every row on 16 October
- * 2026: six pod waves went in ahead of THE INSTAR and moved it, and the sky is
- * drawn off the wave number. */
+/** Step index and name → the ceiling. Remeasured 16 October 2026 under the one sky every budget run is drawn under (`BUDGET_SKY`), so the wave's place in the list no longer moves a row. */
 const BUDGETS: Record<string, { cursor: number; budget: Budget }> = {
   "13 coil": {
     cursor: 13,
     budget: {
-      fill: 460,
+      fill: 459,
       stroke: 411,
-      drawImage: 39,
-      createLinearGradient: 81,
+      drawImage: 36,
+      createLinearGradient: 80,
       createRadialGradient: 37,
     },
   },
   "15 dive": {
     cursor: 15,
     budget: {
-      fill: 281,
+      fill: 280,
       stroke: 220,
-      drawImage: 39,
-      createLinearGradient: 53,
+      drawImage: 36,
+      createLinearGradient: 52,
       createRadialGradient: 36,
     },
   },
   "20 roar": {
     cursor: 20,
     budget: {
-      fill: 463,
+      fill: 462,
       stroke: 408,
-      drawImage: 39,
-      createLinearGradient: 141,
+      drawImage: 36,
+      createLinearGradient: 140,
       createRadialGradient: 36,
     },
   },
@@ -152,6 +150,7 @@ function worst(cursor: number): Map<string, number> {
   s.phaseBeat = world.beat - (s.steps[cursor]?.morphBeats ?? 0) * 0.3;
   const most = new Map<string, number>();
   runFrames(world, "p1", TPB, {
+    sky: BUDGET_SKY,
     viewport: { width: 390, height: 844, dpr: 3 },
     onDrawn: (ctx, frame) => {
       if (frame >= 2) for (const [k, v] of ctx.tally) most.set(k, Math.max(most.get(k) ?? 0, v));

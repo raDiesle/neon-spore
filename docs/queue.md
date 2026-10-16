@@ -328,44 +328,6 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/skipped.test.ts` holds the listing's count of the entries
 `next` stepped past and why.
 
-## The op-count rows still carry the sea's forty-four motes
-
-- **Found:** 2026-10-16, claude/background-versus-candidates-e2bfdb
-- **Taken:** 2026-10-16, claude/queue-work-6b11c3 (claim: claude/queue-the-op-count-rows-still-carry-the-seas-forty-fou)
-- **Files:** `packages/render/test/frame-budget.test.ts`, `packages/render/test/wave-budget.test.ts`, `packages/render/test/fleet-budget.test.ts`
-
-The field's back stopped being a sea and became the wave's sky (`skies.ts`).
-The sea filled forty-four rects a frame for its dust and drew a wash, a horizon
-and three shafts; the skies fill one rect and blit a few baked pictures. The
-lane moved only the rows that went red (THE LID's `drawImage`, THE ECHO's
-`stroke`), so every other row is now looser than it measures — `fillRect`
-above all — and a regression up to that slack would pass unseen. Remeasure
-every row in the three files at its sky and write the measured numbers in.
-Done when each row equals what its frame draws today, and `bun run check` is
-green.
-
-## An op-count row moves whenever its wave changes number
-
-- **Found:** 2026-10-16, claude/suck-brush-visuals-a917b1
-- **Taken:** 2026-10-16, claude/queue-work-6b11c3 (claim: claude/queue-an-op-count-row-moves-whenever-its-wave-changes)
-- **Files:** `packages/render/src/skies.ts`, `packages/render/test/wave-budget.test.ts`
-
-`skyFor` picks the sky by the wave's number mod twelve, so a block put in
-early in the game moves every later wave under another sky. THE MORSEL's block
-did this, and THE GYRE's row went red by a fill, two clips and a save that
-belong to the sky, not the wheel. Main was already red on that row by eleven
-strokes after the SKIES landing. A budget row measures its subject plus
-whichever sky it falls under. Pin the sky in the budget runs (one fixed sky for
-every row), or key `skyFor` to something placement does not move. Done when
-renumbering waves moves no budget row, and `bun run check` is green.
-
-Five more pod waves the same day moved eleven tables between them (THE STARE,
-THE FLEET, a worm, THE WARDEN's eye, THE LID, THE GIMBAL, THE INSTAR, and THE
-WISP, THE ECHO and THE CAIRN in the wave table), and `bun run check:fast` did
-not reach the INSTAR or wave-table tests when only wave files had changed, so
-it went green on a tree `land` would refuse. Whichever fix is taken, let the
-diff reach of `check:fast` count the budget tests as reached by `content/`.
-
 ## Split the maw's family out of packages/sim/src/index-creatures.ts
 
 - **Found:** 2026-10-16, claude/suck-brush-visuals-a917b1

@@ -1,6 +1,6 @@
 import { describe, expect, it, setDefaultTimeout } from "bun:test";
 import type { ViewRole } from "../src/layout.js";
-import { budgetRow } from "./budget-row.js";
+import { BUDGET_SKY, budgetRow } from "./budget-row.js";
 import { FRAME_TIMEOUT_MS, installCanvasGlobals, peakWorld, runFrames } from "./frame-harness.js";
 
 // The cap this file runs under. Asked for here rather than inherited: bun
@@ -150,6 +150,7 @@ interface Scene {
 // paths are made twice, once on the canvas nobody reads. A scene's cold first
 // frame pays that canvas's own gradients and bakes too. Only the rows that
 // rose were moved, to what they measured.
+// Remeasured 16 October 2026 under the one sky every budget run is drawn under (`BUDGET_SKY`), so the wave's place in the list no longer moves a row.
 const SCENES: readonly Scene[] = [
   {
     id: "theGhost",
@@ -157,35 +158,32 @@ const SCENES: readonly Scene[] = [
     // The one wave where the two seats draw genuinely different pictures: p2
     // has the body and its trail, p1 has a band across a row and no body at
     // all — which is why p2 carries seventeen more paths and twenty more fills.
-    // Moved 16 October 2026, when THE GLUTTON's block put THE GHOST ten waves
-    // later and so under another of the twelve skies (`skyFor`): thirty-three
-    // sprite draws more on both seats, every one of them the sky's.
     why: "a body only one seat can see, and a band on the other",
     rows: {
       p1: [
         {
-          fillRect: 63,
-          stroke: 101,
-          fill: 67,
-          clip: 10,
-          save: 51,
-          drawImage: 75,
-          createLinearGradient: 21,
+          fillRect: 13,
+          stroke: 82,
+          fill: 58,
+          clip: 6,
+          save: 36,
+          drawImage: 25,
+          createLinearGradient: 19,
           createRadialGradient: 11,
-          "new Path2D": 46,
-          fillText: 4,
+          "new Path2D": 44,
+          fillText: 2,
         },
         {
-          fillRect: 63,
-          stroke: 103,
-          fill: 67,
-          clip: 10,
-          save: 51,
-          drawImage: 75,
-          createLinearGradient: 12,
+          fillRect: 17,
+          stroke: 87,
+          fill: 58,
+          clip: 6,
+          save: 37,
+          drawImage: 25,
+          createLinearGradient: 11,
           createRadialGradient: 8,
-          "new Path2D": 21,
-          fillText: 4,
+          "new Path2D": 19,
+          fillText: 2,
         },
       ],
       // SWARM (11 September 2026) is fourteen motes and their wakes, each a
@@ -194,28 +192,28 @@ const SCENES: readonly Scene[] = [
       // `save`, `drawImage` and `clip` rows moved by that and nothing else.
       p2: [
         {
-          fillRect: 69,
-          stroke: 111,
-          fill: 92,
-          clip: 14,
-          save: 118,
-          drawImage: 138,
-          createLinearGradient: 21,
+          fillRect: 23,
+          stroke: 101,
+          fill: 79,
+          clip: 10,
+          save: 103,
+          drawImage: 88,
+          createLinearGradient: 19,
           createRadialGradient: 13,
           "new Path2D": 70,
-          fillText: 5,
+          fillText: 3,
         },
         {
-          fillRect: 69,
-          stroke: 113,
-          fill: 92,
-          clip: 14,
-          save: 118,
-          drawImage: 138,
-          createLinearGradient: 12,
+          fillRect: 23,
+          stroke: 103,
+          fill: 79,
+          clip: 10,
+          save: 103,
+          drawImage: 88,
+          createLinearGradient: 11,
           createRadialGradient: 10,
           "new Path2D": 47,
-          fillText: 5,
+          fillText: 3,
         },
       ],
     },
@@ -234,34 +232,31 @@ const SCENES: readonly Scene[] = [
     // nearly every one of them. Forty-two more fills, nineteen more saves,
     // nineteen linear and twenty-one radial gradients more, on both seats.
     why: "the lettered grid, on both screens at once",
-    // Remeasured 16 October 2026, after THE TWINS, THE LAST ROCK and THE
-    // NEIGHBOUR went in ahead of it: the sky is drawn off the wave number, and
-    // the one it lands on now costs thirty more `drawImage` on both seats.
     rows: {
       p1: [
         {
-          fillRect: 252,
-          stroke: 113,
-          fill: 116,
-          clip: 11,
-          save: 75,
-          drawImage: 75,
-          createLinearGradient: 38,
-          createRadialGradient: 32,
-          "new Path2D": 51,
-          fillText: 30,
+          fillRect: 205,
+          stroke: 83,
+          fill: 58,
+          clip: 6,
+          save: 37,
+          drawImage: 25,
+          createLinearGradient: 19,
+          createRadialGradient: 11,
+          "new Path2D": 44,
+          fillText: 28,
         },
         {
-          fillRect: 252,
-          stroke: 115,
-          fill: 116,
-          clip: 11,
-          save: 75,
-          drawImage: 75,
-          createLinearGradient: 31,
-          createRadialGradient: 29,
-          "new Path2D": 26,
-          fillText: 30,
+          fillRect: 205,
+          stroke: 85,
+          fill: 58,
+          clip: 6,
+          save: 37,
+          drawImage: 25,
+          createLinearGradient: 11,
+          createRadialGradient: 8,
+          "new Path2D": 19,
+          fillText: 28,
         },
       ],
       // ARMS (11 September 2026): the fringe is four filled ribbons with a
@@ -270,28 +265,28 @@ const SCENES: readonly Scene[] = [
       // twelve fewer strokes. Only the seat that sees the wisp moved.
       p2: [
         {
-          fillRect: 248,
-          stroke: 150,
-          fill: 149,
-          clip: 29,
-          save: 107,
-          drawImage: 80,
-          createLinearGradient: 48,
-          createRadialGradient: 34,
-          "new Path2D": 50,
-          fillText: 31,
+          fillRect: 201,
+          stroke: 126,
+          fill: 95,
+          clip: 24,
+          save: 70,
+          drawImage: 30,
+          createLinearGradient: 29,
+          createRadialGradient: 13,
+          "new Path2D": 46,
+          fillText: 29,
         },
         {
-          fillRect: 248,
-          stroke: 152,
-          fill: 149,
-          clip: 29,
-          save: 107,
-          drawImage: 80,
-          createLinearGradient: 41,
-          createRadialGradient: 31,
-          "new Path2D": 27,
-          fillText: 31,
+          fillRect: 201,
+          stroke: 128,
+          fill: 95,
+          clip: 24,
+          save: 70,
+          drawImage: 30,
+          createLinearGradient: 21,
+          createRadialGradient: 10,
+          "new Path2D": 23,
+          fillText: 29,
         },
       ],
     },
@@ -368,25 +363,25 @@ const SCENES: readonly Scene[] = [
     rows: {
       p1: [
         {
-          fillRect: 68,
+          fillRect: 23,
           stroke: 169,
           fill: 96,
           clip: 13,
-          save: 70,
-          drawImage: 158,
-          createLinearGradient: 34,
+          save: 69,
+          drawImage: 157,
+          createLinearGradient: 32,
           createRadialGradient: 15,
           "new Path2D": 86,
           fillText: 4,
         },
         {
-          fillRect: 67,
+          fillRect: 22,
           stroke: 170,
           fill: 94,
           clip: 16,
-          save: 69,
-          drawImage: 123,
-          createLinearGradient: 24,
+          save: 68,
+          drawImage: 122,
+          createLinearGradient: 23,
           createRadialGradient: 12,
           "new Path2D": 56,
           fillText: 4,
@@ -394,25 +389,25 @@ const SCENES: readonly Scene[] = [
       ],
       p2: [
         {
-          fillRect: 67,
+          fillRect: 22,
           stroke: 147,
           fill: 97,
           clip: 13,
-          save: 63,
-          drawImage: 116,
-          createLinearGradient: 32,
+          save: 62,
+          drawImage: 113,
+          createLinearGradient: 30,
           createRadialGradient: 15,
           "new Path2D": 77,
           fillText: 4,
         },
         {
-          fillRect: 67,
+          fillRect: 22,
           stroke: 149,
           fill: 98,
           clip: 16,
-          save: 67,
-          drawImage: 121,
-          createLinearGradient: 24,
+          save: 66,
+          drawImage: 118,
+          createLinearGradient: 23,
           createRadialGradient: 12,
           "new Path2D": 52,
           fillText: 4,
@@ -433,37 +428,29 @@ const SCENES: readonly Scene[] = [
     // (`creature-glance.ts`): each of the fifteen turns on a layer of its own
     // and is laid back in two halves, so `drawImage`, `save` and `clip` rose by
     // about five, four and three a body, and its fills land on the layer.
-    // One `stroke` more on 16 October 2026, when the field's back became the
-    // wave's sky (`skies.ts`): this wave's is BINARY, and the gas pulled from
-    // one sun to the other is one stroked curve. The same day THE SEEDER's
-    // block put it ten waves later, under another sky (`skyFor`): a `fill`,
-    // two clips and a save more, all of them the sky's.
     why: "one body divided into fifteen",
-    // Remeasured 16 October 2026, after THE TWINS, THE LAST ROCK and THE
-    // NEIGHBOUR went in ahead of it: the sky is drawn off the wave number, and
-    // the one it lands on now costs five more strokes and a save on both seats.
     rows: {
       p1: [
         {
-          fillRect: 69,
-          stroke: 180,
-          fill: 110,
-          clip: 128,
-          save: 232,
-          drawImage: 206,
-          createLinearGradient: 36,
+          fillRect: 24,
+          stroke: 174,
+          fill: 109,
+          clip: 126,
+          save: 229,
+          drawImage: 175,
+          createLinearGradient: 34,
           createRadialGradient: 21,
           "new Path2D": 59,
           fillText: 0,
         },
         {
-          fillRect: 69,
-          stroke: 182,
-          fill: 109,
-          clip: 128,
-          save: 232,
-          drawImage: 206,
-          createLinearGradient: 27,
+          fillRect: 24,
+          stroke: 176,
+          fill: 108,
+          clip: 126,
+          save: 229,
+          drawImage: 175,
+          createLinearGradient: 26,
           createRadialGradient: 18,
           "new Path2D": 34,
           fillText: 0,
@@ -471,25 +458,25 @@ const SCENES: readonly Scene[] = [
       ],
       p2: [
         {
-          fillRect: 69,
-          stroke: 184,
-          fill: 118,
-          clip: 128,
-          save: 234,
-          drawImage: 205,
-          createLinearGradient: 36,
+          fillRect: 24,
+          stroke: 178,
+          fill: 117,
+          clip: 126,
+          save: 231,
+          drawImage: 174,
+          createLinearGradient: 34,
           createRadialGradient: 21,
           "new Path2D": 57,
           fillText: 0,
         },
         {
-          fillRect: 69,
-          stroke: 186,
-          fill: 117,
-          clip: 128,
-          save: 234,
-          drawImage: 205,
-          createLinearGradient: 27,
+          fillRect: 24,
+          stroke: 180,
+          fill: 116,
+          clip: 126,
+          save: 231,
+          drawImage: 174,
+          createLinearGradient: 26,
           createRadialGradient: 18,
           "new Path2D": 34,
           fillText: 0,
@@ -510,33 +497,29 @@ const SCENES: readonly Scene[] = [
     // Remeasured 15 October 2026, when every living enemy began to glance
     // (`creature-glance.ts`): the six mounts turn on layers of their own, so
     // their strokes and fills land there and this canvas pays the blits, clips,
-    // saves and one shading `fillRect` and gradient a body instead. Moved 16
-    // October 2026, when THE MORSEL's block put THE GYRE ten waves later and so
-    // under another of the twelve skies (`skyFor`): a `fill`, two clips and a
-    // save more, all of them the sky's. Moved again the same day by THE
-    // GLUTTON's block, ten waves on: six strokes and a save, the sky's again.
+    // saves and one shading `fillRect` and gradient a body instead.
     rows: {
       p1: [
         {
-          fillRect: 60,
-          stroke: 163,
-          fill: 98,
-          clip: 57,
-          save: 117,
-          drawImage: 100,
-          createLinearGradient: 28,
+          fillRect: 15,
+          stroke: 157,
+          fill: 97,
+          clip: 55,
+          save: 114,
+          drawImage: 87,
+          createLinearGradient: 26,
           createRadialGradient: 11,
           "new Path2D": 62,
           fillText: 0,
         },
         {
-          fillRect: 60,
-          stroke: 165,
-          fill: 98,
-          clip: 57,
-          save: 117,
-          drawImage: 100,
-          createLinearGradient: 19,
+          fillRect: 15,
+          stroke: 159,
+          fill: 97,
+          clip: 55,
+          save: 114,
+          drawImage: 87,
+          createLinearGradient: 18,
           createRadialGradient: 8,
           "new Path2D": 37,
           fillText: 0,
@@ -544,25 +527,25 @@ const SCENES: readonly Scene[] = [
       ],
       p2: [
         {
-          fillRect: 60,
-          stroke: 167,
-          fill: 105,
-          clip: 57,
-          save: 119,
-          drawImage: 99,
-          createLinearGradient: 28,
+          fillRect: 15,
+          stroke: 161,
+          fill: 104,
+          clip: 55,
+          save: 116,
+          drawImage: 86,
+          createLinearGradient: 26,
           createRadialGradient: 11,
           "new Path2D": 60,
           fillText: 0,
         },
         {
-          fillRect: 60,
-          stroke: 169,
-          fill: 105,
-          clip: 57,
-          save: 119,
-          drawImage: 99,
-          createLinearGradient: 19,
+          fillRect: 15,
+          stroke: 163,
+          fill: 104,
+          clip: 55,
+          save: 116,
+          drawImage: 86,
+          createLinearGradient: 18,
           createRadialGradient: 8,
           "new Path2D": 37,
           fillText: 0,
@@ -580,12 +563,6 @@ const SCENES: readonly Scene[] = [
     // Raised on p1 on 16 October 2026: a falling rock stands in the shield's
     // column, so SHIELD wears EMBER (`ship-button-mark.ts`) — six strokes,
     // a fill and two paths for its ring and arrows, and two halo blits.
-    // Remeasured 16 October 2026, after THE TWINS, THE LAST ROCK and THE
-    // NEIGHBOUR went in ahead of it: the sky is drawn off the wave number, and
-    // the one it lands on now costs about forty-five more `drawImage` on both seats.
-    // Remeasured 16 October 2026, when five pod waves went in ahead of it and
-    // moved it five places: the sky is drawn off the wave number, and it took
-    // six strokes, a clip and two saves on both seats.
     // Remeasured 15 October 2026, when rocks began to glance
     // (`creature-body-rock.ts`): the two falling rocks turn on layers of their
     // own, which is the blits, clips, saves and shading `fillRect`s added.
@@ -627,25 +604,25 @@ const SCENES: readonly Scene[] = [
     rows: {
       p1: [
         {
-          fillRect: 64,
+          fillRect: 19,
           stroke: 204,
           fill: 379,
-          clip: 28,
-          save: 244,
-          drawImage: 115,
-          createLinearGradient: 171,
+          clip: 27,
+          save: 241,
+          drawImage: 65,
+          createLinearGradient: 169,
           createRadialGradient: 112,
           "new Path2D": 85,
           fillText: 3,
         },
         {
-          fillRect: 63,
+          fillRect: 18,
           stroke: 191,
           fill: 303,
-          clip: 30,
-          save: 211,
-          drawImage: 111,
-          createLinearGradient: 125,
+          clip: 29,
+          save: 208,
+          drawImage: 61,
+          createLinearGradient: 124,
           createRadialGradient: 60,
           "new Path2D": 57,
           fillText: 3,
@@ -653,25 +630,25 @@ const SCENES: readonly Scene[] = [
       ],
       p2: [
         {
-          fillRect: 62,
-          stroke: 186,
+          fillRect: 17,
+          stroke: 180,
           fill: 310,
-          clip: 27,
-          save: 209,
-          drawImage: 103,
-          createLinearGradient: 138,
+          clip: 26,
+          save: 206,
+          drawImage: 53,
+          createLinearGradient: 136,
           createRadialGradient: 83,
           "new Path2D": 77,
           fillText: 3,
         },
         {
-          fillRect: 62,
-          stroke: 188,
+          fillRect: 17,
+          stroke: 182,
           fill: 309,
-          clip: 30,
-          save: 212,
-          drawImage: 108,
-          createLinearGradient: 124,
+          clip: 29,
+          save: 209,
+          drawImage: 58,
+          createLinearGradient: 123,
           createRadialGradient: 60,
           "new Path2D": 55,
           fillText: 3,
@@ -690,6 +667,7 @@ describe("the dearest frames' op counts", () => {
         const rows = scene.rows[role];
         let measured = 0;
         runFrames(world, role as ViewRole, rows.length * 4, {
+          sky: BUDGET_SKY,
           viewport: { width: 390, height: 844, dpr: 3 },
           onDrawn: (ctx, frame) => {
             const budget = rows[frame];

@@ -9,7 +9,7 @@ import {
   ticksPerBeat,
   type World,
 } from "@neon-spore/sim";
-import { budgetRow } from "./budget-row.js";
+import { BUDGET_SKY, budgetRow } from "./budget-row.js";
 import {
   CFG,
   FRAME_TIMEOUT_MS,
@@ -65,27 +65,25 @@ type Budget = Record<
   number
 >;
 
-// **16 October 2026, five pod waves** (THE DROP, THE WATCH, THE CAGE, THE
-// ANCHOR, THE PENDULUM) went in ahead of this wave and moved it five places,
-// and the sky is drawn off the wave number: `fill` and `drawImage` up one in both rows.
+// Remeasured 16 October 2026 under the one sky every budget run is drawn under (`BUDGET_SKY`), so the wave's place in the list no longer moves a row.
 const BUDGETS: Record<string, { open: boolean; budget: Budget }> = {
   shut: {
     open: false,
     budget: {
-      fill: 57,
+      fill: 56,
       stroke: 133,
-      drawImage: 36,
-      createLinearGradient: 13,
+      drawImage: 32,
+      createLinearGradient: 12,
       createRadialGradient: 7,
     },
   },
   open: {
     open: true,
     budget: {
-      fill: 58,
+      fill: 57,
       stroke: 136,
-      drawImage: 36,
-      createLinearGradient: 14,
+      drawImage: 32,
+      createLinearGradient: 13,
       createRadialGradient: 7,
     },
   },
@@ -110,6 +108,7 @@ function hung(open: boolean): World {
 function worst(open: boolean): Map<string, number> {
   const most = new Map<string, number>();
   runFrames(hung(open), "p1", TPB, {
+    sky: BUDGET_SKY,
     viewport: { width: 390, height: 844, dpr: 3 },
     onDrawn: (ctx, frame) => {
       if (frame >= 2) for (const [k, v] of ctx.tally) most.set(k, Math.max(most.get(k) ?? 0, v));

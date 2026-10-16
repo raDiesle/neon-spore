@@ -10,7 +10,7 @@ import {
   type World,
 } from "@neon-spore/sim";
 import type { ViewRole } from "../src/layout.js";
-import { budgetRow } from "./budget-row.js";
+import { BUDGET_SKY, budgetRow } from "./budget-row.js";
 import {
   CFG,
   FRAME_TIMEOUT_MS,
@@ -151,9 +151,7 @@ type Budget = Partial<
 // (`cannon-column.ts`): one more `fillRect` and one more `fill` on every
 // frame the field is drawn, and two more layout gradients on a cold frame.
 // Remeasured, not padded.
-// **16 October 2026, five pod waves** (THE DROP, THE WATCH, THE CAGE, THE
-// ANCHOR, THE PENDULUM) went in ahead of this wave and moved it five places,
-// and the sky is drawn off the wave number: `fill`, `save` and `drawImage` up one and `clip` up two in all four rows.
+// Remeasured 16 October 2026 under the one sky every budget run is drawn under (`BUDGET_SKY`), so the wave's place in the list no longer moves a row.
 const BUDGETS: Readonly<Record<"p1" | "p2", Readonly<Record<"mid" | "hit", Budget>>>> = {
   p1: {
     // From 14 October 2026 every hull glances (`fleet-glance.ts`): on p1, where
@@ -165,48 +163,48 @@ const BUDGETS: Readonly<Record<"p1" | "p2", Readonly<Record<"mid" | "hit", Budge
     // saves and blits: mid's `fill` 57 → 62, `clip` 12 → 22, `drawImage`
     // 16 → 41, and the strokes back at 84 under a budget that never fell.
     mid: {
-      fillRect: 64,
+      fillRect: 15,
       // One more stroke and one more clip than before the hull's light became a
       // barrel: `hull-barrel.ts` strokes the contour with a crown ramp, clipped
       // to the body. Every row in this file carries the same two.
-      stroke: 87,
+      stroke: 84,
       // One more than before 2 October 2026: an asked mark's light is a
       // colour pass and a glow pass inside it (`part-light.ts`), where the old
       // halo was one red cloud over everything round it. Both rows carry it.
-      fill: 63,
-      clip: 24,
-      save: 65,
-      drawImage: 42,
+      fill: 62,
+      clip: 22,
+      save: 63,
+      drawImage: 38,
       // Five of these are the hulls' own: one ramp across the beam a vessel,
       // which is what the flat fill under an outline used to cost.
-      createLinearGradient: 23,
+      createLinearGradient: 22,
       createRadialGradient: 6,
       "new Path2D": 27,
-      fillText: 28,
+      fillText: 25,
     },
     hit: {
-      fillRect: 87,
+      fillRect: 38,
       // Two more than mid: the shockwave ring and the fireball's own contour.
-      stroke: 89,
-      fill: 62,
-      clip: 24,
+      stroke: 86,
+      fill: 61,
+      clip: 22,
       // Nine more: the burst opens one per shard it turns, and the shards are
       // the only thing in this picture drawn in a frame of its own.
-      save: 74,
+      save: 72,
       // Three more: the flash and the fireball are `halo` blits, and the halo
       // the shell was carrying is gone.
-      drawImage: 46,
+      drawImage: 42,
       // One fewer: the shell's exhaust gradient goes with the shell.
-      createLinearGradient: 22,
+      createLinearGradient: 21,
       // The fireball, and the halo under the ring (the table's preamble).
       createRadialGradient: 7,
       "new Path2D": 27,
-      fillText: 28,
+      fillText: 25,
     },
   },
   p2: {
     mid: {
-      fillRect: 66,
+      fillRect: 18,
       // Nine fewer than the pilot's: five hulls, their spines and their scars
       // are the whole of what this seat is not shown (`fleet-hulls.ts`). Six
       // more since 2 October 2026: the navigator's `HOLD` wears a red circle
@@ -216,30 +214,30 @@ const BUDGETS: Readonly<Record<"p1" | "p2", Readonly<Record<"mid" | "hit", Budge
       // calling halo and two ripples, the slime's layers and its clip, so the
       // drop's rows rose with it — twelve strokes, eleven fills, one clip,
       // five saves, two radial gradients, fourteen paths.
-      stroke: 96,
-      fill: 83,
-      clip: 10,
-      save: 59,
-      drawImage: 24,
-      createLinearGradient: 19,
+      stroke: 92,
+      fill: 82,
+      clip: 8,
+      save: 57,
+      drawImage: 20,
+      createLinearGradient: 18,
       createRadialGradient: 14,
-      "new Path2D": 37,
-      fillText: 26,
+      "new Path2D": 36,
+      fillText: 23,
     },
     hit: {
-      fillRect: 89,
+      fillRect: 41,
       // The hold's drop, as at mid.
-      stroke: 97,
-      fill: 81,
-      clip: 10,
-      save: 67,
-      drawImage: 27,
-      createLinearGradient: 18,
+      stroke: 93,
+      fill: 80,
+      clip: 8,
+      save: 65,
+      drawImage: 23,
+      createLinearGradient: 17,
       createRadialGradient: 15,
-      "new Path2D": 37,
+      "new Path2D": 36,
       // One fewer than the pilot's, every frame: the square's own name is on
       // both screens and the wave's own readouts are not all of them.
-      fillText: 26,
+      fillText: 23,
     },
   },
 };
@@ -272,6 +270,7 @@ describe("THE FLEET's op count", () => {
       const worst: Record<string, Map<string, number>> = { mid: new Map(), hit: new Map() };
 
       runFrames(world, role as ViewRole, hit + 4, {
+        sky: BUDGET_SKY,
         every: 1,
         controls: controlSet("fleet"),
         viewport: VIEWPORT,

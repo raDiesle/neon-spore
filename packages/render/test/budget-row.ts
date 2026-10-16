@@ -1,3 +1,5 @@
+import { SKIES } from "../src/skies.js";
+
 /**
  * One measured frame, written as the object literal a budget table holds.
  *
@@ -50,3 +52,15 @@ export function budgetRow(
 function asWritten(key: string): string {
   return /^[A-Za-z_$][A-Za-z0-9_$]*$/.test(key) ? key : JSON.stringify(key);
 }
+
+/**
+ * **The sky every budget run is drawn under** (`FramesOptions.sky`). A row
+ * measures its subject plus whichever sky the wave fell under, and the sky
+ * followed the wave's number, so THE MORSEL's block put in early moved THE
+ * GYRE's row by a fill, two clips and a save that were the sky's, not the
+ * wheel's (`docs/queue.md`, 16 October 2026). One fixed sky, and renumbering
+ * waves moves no row. CELLS, the cheapest of the twelve over a busy field on
+ * 16 October 2026 — 774 ops to GIANT's 823 and AURORA's 877 — so a row is
+ * as nearly its subject as a frame with a sky can be.
+ */
+export const BUDGET_SKY = SKIES.findIndex((s) => s.name === "CELLS");

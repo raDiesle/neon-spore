@@ -2,7 +2,7 @@ import { describe, expect, it, setDefaultTimeout } from "bun:test";
 import { buildBoss, buildQueue, controlSet, WAVES } from "@neon-spore/content";
 import { createWorld, startWave, step, ticksPerBeat, type World } from "@neon-spore/sim";
 import type { ViewRole } from "../src/layout.js";
-import { budgetRow } from "./budget-row.js";
+import { BUDGET_SKY, budgetRow } from "./budget-row.js";
 import { CFG, FRAME_TIMEOUT_MS, installCanvasGlobals, runFrames } from "./frame-harness.js";
 
 // The cap this file runs under. Asked for here rather than inherited: bun
@@ -116,17 +116,15 @@ const MEASURE = false;
 // `fill` by nine: the spine's cord, its stations as one path and its node, and
 // each organ's bed, are held between frames the way the trough's channel was
 // (`gland-fluid.ts`, `gland-organ.ts`). Remeasured, not padded.
-// **16 October 2026, three pod waves** (THE CAGE, THE ANCHOR, THE PENDULUM)
-// went in ahead of this wave, which moved it three places, and the sky is drawn
-// off the wave number: `clip` up two in all four rows.
+// Remeasured 16 October 2026 under the one sky every budget run is drawn under (`BUDGET_SKY`), so the wave's place in the list no longer moves a row.
 const BUDGETS: Readonly<Record<"p1" | "p2", readonly Budget[]>> = {
   p1: [
-    { fillRect: 55, stroke: 98, fill: 99, clip: 13, save: 68, "new Path2D": 57, fillText: 2 },
-    { fillRect: 55, stroke: 100, fill: 96, clip: 13, save: 65, "new Path2D": 28, fillText: 2 },
+    { fillRect: 9, stroke: 98, fill: 95, clip: 11, save: 66, "new Path2D": 57, fillText: 0 },
+    { fillRect: 9, stroke: 100, fill: 92, clip: 11, save: 63, "new Path2D": 28, fillText: 0 },
   ],
   p2: [
-    { fillRect: 55, stroke: 102, fill: 107, clip: 13, save: 70, "new Path2D": 55, fillText: 2 },
-    { fillRect: 55, stroke: 104, fill: 104, clip: 13, save: 67, "new Path2D": 28, fillText: 2 },
+    { fillRect: 9, stroke: 102, fill: 103, clip: 11, save: 68, "new Path2D": 55, fillText: 0 },
+    { fillRect: 9, stroke: 104, fill: 100, clip: 11, save: 65, "new Path2D": 28, fillText: 0 },
   ],
 };
 
@@ -163,6 +161,7 @@ describe("a whole worm's op count", () => {
       const rows = BUDGETS[role];
       let measured = 0;
       runFrames(world, role as ViewRole, rows.length * 4, {
+        sky: BUDGET_SKY,
         viewport: { width: 390, height: 844, dpr: 3 },
         controls: controlSet("default"),
         onDrawn: (ctx, frame) => {
