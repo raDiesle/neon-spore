@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-16 · cfcd2c552 — Three answers for the siren in VERSUS: a roof beacon, a sonar ping, a light bar
+
+`siren:look` offers three alternatives for the lit siren, each drawing both of its states — a plain call to talk and a torch on its way: BEACON, a glass dome with a turning mirror throwing one cool beam, then two fast red ones and a white flash; SONAR, rings leaving a bright core, one slow cyan, then three fast ember; LIGHTBAR, a row of cells with one cyan light scanning, then red and white halves strobing and lighting a band of the screen. They are judged on a new pose, SIREN · A CALL, THEN A TORCH. What the game draws is unchanged: the record `SIREN_LOOK` patches nothing until one is adopted.
+
 ## 2026-10-16 · 962ff4b97 — The real pod's SMART family in VERSUS; the hollows, CAIRN and LANTERN go
 
 The owner took SMART as the basis for the real pod and rejected the rest: `pod:hollow` is dropped with all three of its answers, CAIRN and LANTERN are struck from `pod:real`. Beside SMART stand four of its own family, each the same amber tumbling seed with seven spikes and a seam, with its own spikes and skin and a pickup's tell: BLINK (mushroom caps, spots, flashing white on the count — once a beat, then twice, then four times), GLINT (crystal shards, facets, a light sweep and twinkling stars), HOP (curled thorns, stripes, bouncing and squashing on the beat), ORBIT (cones, panels, three sparks circling it). The body lives once in `pod-real/seed.ts` and `seed-parts.ts`. Offered, not swapped in: the game draws what it drew. The hollow comes next, built from whichever one is chosen.
