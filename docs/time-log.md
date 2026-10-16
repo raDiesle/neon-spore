@@ -43181,3 +43181,5 @@ that say nothing about the creature.
 - landing: 5 min. INDEX, `check:fast`, `land`.
 
 Bottleneck: the first seed was too small to see, and only a crop showed it.
+
+*Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
