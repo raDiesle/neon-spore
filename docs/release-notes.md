@@ -9,6 +9,12 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-16 · 1ea2f9344 — Time log: SHIELD and SUCK light up
+
+## 2026-10-16 · 8f508599f — SHIELD and SUCK light up when something is asking for them
+
+The SHIELD and SUCK buttons now wear the same EMBER ring as the fire buttons, each in its own colour. SHIELD lights when a boss's cue says SHIELD, or on any wave when a rock, a volley, a clasp, a moult in its rock phase or a crystal stands in the shield's column. SUCK lights when a boss's cue says SUCK, or when a loose pod, a husk, a moult in its pod phase or a limp morsel falls inside the mouth's reach. A husk lights it too, because player 1 sees a husk as a real pod.
+
 ## 2026-10-16 · 00d8d5b1b — The wave composers read a wave list once, not once a wave
 
 `bossOrder` and `nextReview` asked every block start what its wave brings and whether it is regular, and each answer read the list from its start, so a loop over the starts was quadratic. `bossOrder` took 2.6 s over the list and now takes 14 ms. `waves:order` runs in 26 s instead of a minute and a half, and composes exactly the same order. Content gains one-pass `waveIntroductions` and `regularWaves` beside the per-index rules, which now share them. The composers answer each index from a reading kept per list. The review test's budget comes down from 1200 ms to 100.
