@@ -150,6 +150,8 @@ export const pod = (): Required<Pod> => ({
   heavy: true,
   gripTicks: 40,
   swingMilli: 2000,
+  clockP1: true,
+  dropTicks: 90,
 });
 
 export const scar = (): Required<Scar> => ({

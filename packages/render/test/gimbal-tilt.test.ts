@@ -88,7 +88,10 @@ const MEASURE = false;
 // Three up in every phase on 15 October 2026: the turned body on the test
 // screen is laid down ahead of its pass (`glance-batch.ts`), its cell clipped
 // on each of the three atlases. `turn` had room for them.
-const CALLS = { still: 372, turn: 506, shear: 380, open: 386 } as const;
+// `still`, `shear` and `open` up two on 16 October 2026: five pod waves went
+// in ahead of THE GIMBAL and moved it five places, and the sky is drawn off the
+// wave number.
+const CALLS = { still: 374, turn: 506, shear: 382, open: 388 } as const;
 
 /** The canvas calls one frame of `world` costs on `role`'s screen. */
 function cost(world: World, role: (typeof ROLES)[number]): number {

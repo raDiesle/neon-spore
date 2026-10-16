@@ -43247,3 +43247,14 @@ Bottleneck: a wave added early in the game moves the op-count rows of every
 budgeted wave after it, and each budget file has to be remeasured by hand.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-16 — The drift on one screen, the clock on the other, and the drop
+
+- reading: 5 min. How the husk's mark knows its seat.
+- writing: 20 min. `clockP1` and `drop` on a pod, the drift arrows and the
+  one-screen ring, two director rows, two waves and their tests.
+- looking: 5 min. One frame of each seat.
+- friction: 10 min. The op-count tables again, after the renumber.
+- landing: 10 min. Recut, renumbered, `check:fast`, `land`.
+
+Bottleneck: the op-count tables, again, which every wave added early moves.

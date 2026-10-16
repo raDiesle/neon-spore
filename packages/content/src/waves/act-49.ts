@@ -1,7 +1,7 @@
 import type { Wave } from "../wave-types.js";
 
 /**
- * Waves 506 to 514 of the game, in the order they are played: THE GHOST's
+ * Waves 508 to 516 of the game, in the order they are played: THE GHOST's
  * review and the boss THE CAPSTAN.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act

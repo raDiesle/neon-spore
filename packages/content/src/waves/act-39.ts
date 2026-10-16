@@ -1,7 +1,7 @@
 import type { Wave } from "../wave-types.js";
 
 /**
- * Waves 407 to 416 of the game, in the order they are played: THE CRYSTAL's
+ * Waves 409 to 418 of the game, in the order they are played: THE CRYSTAL's
  * block and the boss THE RATCHET.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act

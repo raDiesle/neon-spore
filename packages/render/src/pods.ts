@@ -8,6 +8,7 @@ import { PALETTE, STROKE } from "./palette.js";
 import { drawGripped, drawPodDress, drawSwingThreads } from "./pod-dress.js";
 import { drawDueRing } from "./pod-due-ring.js";
 import { POD_LOOK } from "./pod-look.js";
+import { drawDriftArrows, showsPodClock } from "./pod-seat-marks.js";
 import { drawRoeThreads } from "./roe-thread.js";
 import { splinePath } from "./spline.js";
 
@@ -73,8 +74,9 @@ export function drawPods(
     drawPodDress(ctx, l, p, x, y, r, t);
     // On a husk too, and the same ring: a clock only the real pod wore would
     // be the tell on the screen that must not have one (`PodKind`).
-    if (p.dueTicks > 0) drawDueRing(ctx, x, y, r, beatsLeft, time);
+    if (p.dueTicks > 0 && showsPodClock(l, p)) drawDueRing(ctx, x, y, r, beatsLeft, time);
   }
+  drawDriftArrows(ctx, l, pods, l.tile * POD_TILES, time);
 }
 
 /**

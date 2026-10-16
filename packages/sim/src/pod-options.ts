@@ -6,14 +6,17 @@ import type { Color, Pod } from "./types.js";
 import { MILLI, type World } from "./world.js";
 
 /**
- * **Three ways a pod can be harder to take**, from the owner's SUCK page of 16
+ * **Five ways a pod can be harder to take**, from the owner's SUCK page of 16
  * October 2026, each one sentence a player can say back:
  *
  * - a **coloured** pod is freed only by a shot of its colour — "that one's
  *   cyan, load cyan";
  * - a **heavy** pod falls straight and needs two presses — "got it — again!";
  * - a **swinging** pod is let go the way it was swinging — "wait for it to
- *   swing left — now".
+ *   swing left — now";
+ * - a pod whose **clock is on one screen**, player 1's — "free the top one
+ *   first, it's nearly out" (drawn by `render/pods.ts`, nothing here);
+ * - a pod that **drops on its own**, for the husk — "leave it! don't suck".
  *
  * Its own file rather than three more branches in `pods.ts`, which was at its
  * limit when THE ROE was strung: each is a small rule at one moment of a pod's
@@ -27,6 +30,8 @@ export function podOptions(world: World, entry: PodEntry): Partial<Pod> {
     ...(entry.tint ? { tint: entry.tint } : {}),
     ...(entry.heavy ? { heavy: true as const } : {}),
     ...(entry.swing ? { swingMilli: entry.col * MILLI, crossMilli: swingStepMilli(world) } : {}),
+    ...(entry.clockP1 ? { clockP1: true as const } : {}),
+    ...(entry.drop !== undefined ? { dropTicks: entry.drop * ticksPerBeat(world.cfg) } : {}),
   };
 }
 
@@ -62,8 +67,19 @@ export function releaseDir(world: World, pod: Pod): number {
   return nextInt(world.rng, 2) === 0 ? -1 : 1;
 }
 
+/**
+ * A moored pod's tick of its options: a swing, and the countdown on one that
+ * lets go by itself. True on the tick it does, and the caller frees it.
+ */
+export function mooredStep(pod: Pod): boolean {
+  swingStep(pod);
+  if (pod.dropTicks === undefined) return false;
+  pod.dropTicks -= 1;
+  return pod.dropTicks <= 0;
+}
+
 /** A moored swinging pod's tick: across, and turned at a column either side. */
-export function swingStep(pod: Pod): void {
+function swingStep(pod: Pod): void {
   if (pod.swingMilli === undefined) return;
   pod.colMilli += pod.crossMilli;
   const lo = pod.swingMilli - MILLI;

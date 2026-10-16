@@ -34,6 +34,8 @@ export function podHashParts(pods: readonly Pod[]): number[] {
     // disagrees about any of them frees, takes or loses a different pod.
     out.push(p.tint === undefined ? 0 : p.tint === "red" ? 1 : 2);
     out.push(p.heavy ? 1 : 0, p.gripTicks ?? -1, p.swingMilli ?? -1);
+    // Whose screen its clock is on, and when it lets go by itself.
+    out.push(p.clockP1 ? 1 : 0, p.dropTicks ?? -1);
   }
   return out;
 }

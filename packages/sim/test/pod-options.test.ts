@@ -167,3 +167,25 @@ describe("the options replay", () => {
     expect(hashWorld(runReplay(replay))).toBe(hashWorld(runReplay(replay)));
   });
 });
+
+describe("a pod that drops on its own", () => {
+  it("lets go after its beats with nobody shooting, and a husk refused costs nothing", () => {
+    const husk: PodEntry = { beat: 0, col: 5, row: 3, kind: "husk", drop: 4 };
+    const r = run([husk], TPB * 12, [aim(2, 5)]);
+    const loose = of(r, "podLoose");
+    expect(loose).toHaveLength(1);
+    expect(loose[0]!.tick).toBeGreaterThanOrEqual(TPB * 4);
+    expect(loose[0]!.tick).toBeLessThan(TPB * 5);
+    expect(of(r, "huskRefused")).toHaveLength(1);
+    expect(failHolds(r.world)).toBe(false);
+    // And taken in, with the maw held open under it, it loses the wave.
+    const taken = run([husk], TPB * 12, [aim(2, 5), ...held(TPB * 5, TPB * 12)]);
+    expect(of(taken, "huskSwallowed")).toHaveLength(1);
+    expect(failHolds(taken.world)).toBe(true);
+  });
+
+  it("keeps the clock running on one screen's pod as on any other", () => {
+    const r = run([pod({ clockP1: true, due: 4 })], TPB * 5, []);
+    expect(of(r, "podLost")).toHaveLength(1);
+  });
+});

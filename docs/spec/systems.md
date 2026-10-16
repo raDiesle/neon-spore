@@ -323,6 +323,16 @@ drawn over the pod rather than instead of it (`render/pod-dress.ts`):
   at `podSwingTilesPerBeat` (half a tile a beat), on a thread to a knot above
   it. The shot lets it go the way it was swinging, so player 2 chooses where
   it lands. THE PENDULUM.
+- **Clock on player 1's screen** (`clockP1`): the ring is drawn on player 1's
+  screen only, so the seat that catches knows which pod is nearly out and the
+  seat that shoots has to be told. THE WATCH.
+- **Drops on its own** (`drop`): it lets go that many beats after it appears,
+  with nobody shooting it. Written for the husk, so player 1 has to keep the
+  maw shut on a pod falling straight at him. THE DROP.
+
+And on every pod, with no option: once one is freed, the arrows saying which
+way it slides are drawn on player 2's screen alone (`render/pod-seat-marks.ts`).
+Player 1 sees it start to fall and has to be told which way.
 
 **Missing it is a hit.** A pod that arrives with the cannon elsewhere, or with
 the maw shut, breaks on the skin — no scar, but the wave is lost and played

@@ -2,7 +2,7 @@ import { MAZE_ROUNDS } from "../maze-rounds.js";
 import type { Wave } from "../wave-types.js";
 
 /**
- * Waves 71 to 83 of the game, in the order they are played: THE LANCE's block
+ * Waves 73 to 85 of the game, in the order they are played: THE LANCE's block
  * and the boss THE MAZE.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act

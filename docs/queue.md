@@ -485,3 +485,17 @@ reads as two failures, and the second hides the first. Alone, the file passes.
 Let `closeBrowser` take `Browser | undefined` and return early, and check the
 other `tools/frames` tests that launch in a `beforeAll` for the same shape.
 Done when a launch that never finished fails once, and `bun run check` is green.
+
+## render/pods.ts is at its 250-line limit
+
+- **Found:** 2026-10-16, claude/suck-brush-visuals-a917b1
+- **Files:** `packages/render/src/pods.ts`
+
+The pod options took `render/pods.ts` to exactly 250 lines: the cage, the
+bands, the thread, the grip and the seat marks went next door, but the calls
+and the gripped pass stayed. The next line added to it fails
+`limits.test.ts`. Cut `drawWreck` and `drawPodCore` (the loose pod and the
+core every pod wears) into `pod-wreck.ts`, re-exporting `drawPodCore` from
+`pods.ts` for THE MOULT's import. Done when `pods.ts` is well under the limit
+and `bun run check` is green.
+

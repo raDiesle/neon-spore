@@ -1,7 +1,7 @@
 import type { Wave } from "../wave-types.js";
 
 /**
- * Waves 306 to 315 of the game, in the order they are played: THE CODEX's block
+ * Waves 308 to 317 of the game, in the order they are played: THE CODEX's block
  * and the boss THE ANTIPHON.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act

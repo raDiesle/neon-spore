@@ -151,9 +151,9 @@ type Budget = Partial<
 // (`cannon-column.ts`): one more `fillRect` and one more `fill` on every
 // frame the field is drawn, and two more layout gradients on a cold frame.
 // Remeasured, not padded.
-// **16 October 2026, three pod waves** (THE CAGE, THE ANCHOR, THE PENDULUM)
-// went in ahead of this wave, which moved it three places, and the sky is drawn
-// off the wave number: `fill` up one in all four rows.
+// **16 October 2026, five pod waves** (THE DROP, THE WATCH, THE CAGE, THE
+// ANCHOR, THE PENDULUM) went in ahead of this wave and moved it five places,
+// and the sky is drawn off the wave number: `fill`, `save` and `drawImage` up one and `clip` up two in all four rows.
 const BUDGETS: Readonly<Record<"p1" | "p2", Readonly<Record<"mid" | "hit", Budget>>>> = {
   p1: {
     // From 14 October 2026 every hull glances (`fleet-glance.ts`): on p1, where
@@ -174,9 +174,9 @@ const BUDGETS: Readonly<Record<"p1" | "p2", Readonly<Record<"mid" | "hit", Budge
       // colour pass and a glow pass inside it (`part-light.ts`), where the old
       // halo was one red cloud over everything round it. Both rows carry it.
       fill: 63,
-      clip: 22,
-      save: 64,
-      drawImage: 41,
+      clip: 24,
+      save: 65,
+      drawImage: 42,
       // Five of these are the hulls' own: one ramp across the beam a vessel,
       // which is what the flat fill under an outline used to cost.
       createLinearGradient: 23,
@@ -189,13 +189,13 @@ const BUDGETS: Readonly<Record<"p1" | "p2", Readonly<Record<"mid" | "hit", Budge
       // Two more than mid: the shockwave ring and the fireball's own contour.
       stroke: 89,
       fill: 62,
-      clip: 22,
+      clip: 24,
       // Nine more: the burst opens one per shard it turns, and the shards are
       // the only thing in this picture drawn in a frame of its own.
-      save: 73,
+      save: 74,
       // Three more: the flash and the fireball are `halo` blits, and the halo
       // the shell was carrying is gone.
-      drawImage: 45,
+      drawImage: 46,
       // One fewer: the shell's exhaust gradient goes with the shell.
       createLinearGradient: 22,
       // The fireball, and the halo under the ring (the table's preamble).
@@ -218,9 +218,9 @@ const BUDGETS: Readonly<Record<"p1" | "p2", Readonly<Record<"mid" | "hit", Budge
       // five saves, two radial gradients, fourteen paths.
       stroke: 96,
       fill: 83,
-      clip: 8,
-      save: 58,
-      drawImage: 23,
+      clip: 10,
+      save: 59,
+      drawImage: 24,
       createLinearGradient: 19,
       createRadialGradient: 14,
       "new Path2D": 37,
@@ -231,9 +231,9 @@ const BUDGETS: Readonly<Record<"p1" | "p2", Readonly<Record<"mid" | "hit", Budge
       // The hold's drop, as at mid.
       stroke: 97,
       fill: 81,
-      clip: 8,
-      save: 66,
-      drawImage: 26,
+      clip: 10,
+      save: 67,
+      drawImage: 27,
       createLinearGradient: 18,
       createRadialGradient: 15,
       "new Path2D": 37,

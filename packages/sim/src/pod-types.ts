@@ -124,4 +124,12 @@ export interface Pod {
    * was swinging. Absent on a pod that hangs still.
    */
   swingMilli?: number;
+  /** Its clock's ring is drawn on player 1's screen only (`PodEntry.clockP1`). */
+  clockP1?: true;
+  /**
+   * **Ticks until it lets go by itself** (`PodEntry.drop`), counted down while
+   * it hangs; at nought it is freed as a shot would free it. Absent on a pod
+   * that waits for a shot.
+   */
+  dropTicks?: number;
 }

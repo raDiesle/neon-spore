@@ -1,7 +1,7 @@
 import type { Wave } from "../wave-types.js";
 
 /**
- * Waves 104 to 113 of the game, in the order they are played: THE BEATBOX's
+ * Waves 106 to 115 of the game, in the order they are played: THE BEATBOX's
  * block and the boss THE WARDEN.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act

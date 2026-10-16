@@ -115,6 +115,9 @@ hollow one must not be.
 
 ### The drift is called, not seen
 
+Built on 16 October 2026, on every pod: the arrows are drawn on player 2's
+screen alone (`render/pod-seat-marks.ts`). What is below is what it was asked to be.
+
 When a pod is shot loose, **only player 2** sees the little arrow showing
 which way it will slide. Player 1 sees the pod start to fall and nothing else.
 
@@ -124,6 +127,9 @@ which way it will slide. Player 1 sees the pod start to fall and nothing else.
   is for.
 
 ### The clock on one screen
+
+Built on 16 October 2026: `clockP1` on a pod, and a wave, THE WATCH, at the
+end of THE HUSK's block. What is below is what it was asked to be.
 
 The ring round a pod is drawn **only on player 1's screen**. Player 2 shoots
 pods loose without knowing how long each one has left.
@@ -171,6 +177,10 @@ off in that direction.
   already is. The cannon never has to chase it.
 
 ### Hollow pods that break loose on their own
+
+Built on 16 October 2026: `drop` on a pod, and a wave, THE DROP, at the end
+of THE HUSK's block. The beat is authored rather than random, for every
+pod's reason: how long the pair has is the difficulty. What is below is what it was asked to be.
 
 A hollow pod that drops on its own at a random beat, with nobody shooting it,
 so player 1 has to *not* press SUCK while it falls past. Player 2 sees it is

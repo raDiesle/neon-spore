@@ -501,6 +501,8 @@ const EYE_BUDGETS: Readonly<Record<string, readonly Budget[]>> = {
       fillText: 0,
     },
   ],
+  // **16 October 2026, five pod waves** went in ahead of THE LID, and the sky is
+  // drawn off the wave number: `clip` and `save` up 2 and 1 in both frames.
   "THE LID": [
     {
       // **11 October 2026, FIZZ**: the cord's knob and channel are the PULL LAB's
@@ -528,8 +530,8 @@ const EYE_BUDGETS: Readonly<Record<string, readonly Budget[]>> = {
       // Three, three and five more on 15 October 2026: the eye glances as any
       // enemy does (`creature-glance.ts`), laid on the screen from a layer of
       // its own, with the far side's dark ramped over it.
-      clip: 16,
-      save: 60,
+      clip: 18,
+      save: 61,
       // Forty-seven more on 16 October 2026, when the field's back became the
       // wave's sky (`skies.ts`): this wave's is AURORA, two curtains of light
       // drawn as forty-eight strips of one baked sprite, and two stars.
@@ -549,8 +551,8 @@ const EYE_BUDGETS: Readonly<Record<string, readonly Budget[]>> = {
       // One more on 29 September 2026, the knob's arrow, as in frame 0.
       stroke: 140,
       fill: 99,
-      clip: 16,
-      save: 60,
+      clip: 18,
+      save: 61,
       // AURORA's strips, as in frame 0.
       drawImage: 81,
       createLinearGradient: 23,

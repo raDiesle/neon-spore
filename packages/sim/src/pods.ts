@@ -3,7 +3,7 @@ import type { PodEntry } from "./entries.js";
 import { mirrorBaitTaken } from "./mirror-round.js";
 import { podArrived, podDue, podLost } from "./pod-arrive.js";
 import { huskRefused } from "./pod-intake.js";
-import { gripHolds, podOptions, releaseDir, swingStep } from "./pod-options.js";
+import { gripHolds, mooredStep, podOptions, releaseDir } from "./pod-options.js";
 import type { Pod, PodKind } from "./types.js";
 import { MILLI, type World } from "./world.js";
 
@@ -199,7 +199,7 @@ export function advancePods(world: World): void {
       continue;
     }
     if (!p.loose) {
-      swingStep(p);
+      if (mooredStep(p)) freePod(world, p);
       // A pod authored to cross travels its row until it leaves the far side.
       // It is removed rather than held at the wall, which is the opposite of
       // what a *falling* pod does below: a wreck at the edge is still a thing

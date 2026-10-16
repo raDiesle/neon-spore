@@ -567,6 +567,9 @@ const SCENES: readonly Scene[] = [
     // a full BLAZE, COMET or SMOULDER under the pile's clip, which is where
     // the gradient rows come from.
     why: "seven burning rocks, five of them standing in one pile",
+    // Remeasured 16 October 2026, when five pod waves went in ahead of it and
+    // moved it five places: the sky is drawn off the wave number, and it took
+    // six strokes, a clip and two saves on both seats.
     // Remeasured 15 October 2026, when rocks began to glance
     // (`creature-body-rock.ts`): the two falling rocks turn on layers of their
     // own, which is the blits, clips, saves and shading `fillRect`s added.
@@ -609,11 +612,11 @@ const SCENES: readonly Scene[] = [
       p1: [
         {
           fillRect: 64,
-          stroke: 192,
+          stroke: 198,
           fill: 378,
-          clip: 27,
-          save: 242,
-          drawImage: 66,
+          clip: 28,
+          save: 244,
+          drawImage: 67,
           createLinearGradient: 171,
           createRadialGradient: 112,
           "new Path2D": 83,
@@ -621,10 +624,10 @@ const SCENES: readonly Scene[] = [
         },
         {
           fillRect: 63,
-          stroke: 179,
+          stroke: 185,
           fill: 302,
-          clip: 29,
-          save: 209,
+          clip: 30,
+          save: 211,
           drawImage: 64,
           createLinearGradient: 125,
           createRadialGradient: 60,
@@ -635,10 +638,10 @@ const SCENES: readonly Scene[] = [
       p2: [
         {
           fillRect: 62,
-          stroke: 180,
+          stroke: 186,
           fill: 310,
-          clip: 26,
-          save: 207,
+          clip: 27,
+          save: 209,
           drawImage: 58,
           createLinearGradient: 138,
           createRadialGradient: 83,
@@ -647,10 +650,10 @@ const SCENES: readonly Scene[] = [
         },
         {
           fillRect: 62,
-          stroke: 182,
+          stroke: 188,
           fill: 309,
-          clip: 29,
-          save: 210,
+          clip: 30,
+          save: 212,
           drawImage: 63,
           createLinearGradient: 124,
           createRadialGradient: 60,

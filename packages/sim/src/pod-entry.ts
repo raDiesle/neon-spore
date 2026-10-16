@@ -74,4 +74,17 @@ export interface PodEntry {
    * met it — so player 2 chooses where it lands (`pod-options.ts`).
    */
   swing?: true;
+  /**
+   * **The clock on one screen**: the ring round it is drawn on player 1's
+   * screen only, so the seat that catches knows how long each pod has and the
+   * seat that shoots does not — "free the top one first, it's nearly out".
+   * The clock itself runs as every pod's does; only who sees it changes.
+   */
+  clockP1?: true;
+  /**
+   * **It lets go on its own**, this many beats after it appears, with nobody
+   * shooting it. Written for the hollow pod: player 1 sees a pod falling at
+   * him and only player 2 can say "leave it, don't suck" (`pod-options.ts`).
+   */
+  drop?: number;
 }

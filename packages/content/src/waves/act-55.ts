@@ -1,7 +1,7 @@
 import type { Wave } from "../wave-types.js";
 
 /**
- * Waves 560 to 568 of the game, in the order they are played: THE CRYSTAL's
+ * Waves 562 to 570 of the game, in the order they are played: THE CRYSTAL's
  * review and the boss THE MIMIC.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act
