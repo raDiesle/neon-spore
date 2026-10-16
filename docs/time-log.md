@@ -42904,3 +42904,5 @@ one probe away.
 
 Bottleneck: looking — the belly had to be level with the row a bolt is met
 on, and three shapes in a row read as a slab before one read as a sac.
+
+*Measured: 8 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

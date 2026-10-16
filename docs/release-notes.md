@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-16 · c41fe6ca5 — THE BROOD is drawn: a slime sac over the field, its buds the slick and the bulb growing down out of its belly
+
+The sac is BULB · PEBBLE taken wide, with one round lobe along its top for every bud still to pop, and it turns half round between steps to show its other face. Each bud is a small slick or bulb that swells and shudders as it ripens, and a popped bud bursts in its colour. The navigator gets FIRE over the bud the cannon is under; the pilot gets no word, because choosing which bud is his. A new look with nothing shipped in its place: an addition where the game drew nothing, built in rather than put in VERSUS.
+
 ## 2026-10-16 · 56df2d2d0 — Queue: the arc-scattering save, and which bosses come before THE INSTAR
 
 ## 2026-10-16 · 554154330 — THE BLISTER's gestures come before THE BASTION, and THE INSTAR after the tutorial
