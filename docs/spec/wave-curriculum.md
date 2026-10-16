@@ -129,7 +129,10 @@ rock, the torch, the pods, and the bosses on screen there (THE INSTAR, THE
 BASTION). The owner, 14 October 2026: there, each basic thing gets **three**
 regular waves, not eight — R1 *Again*, R3 *Reach*, R4 *Pair* — so the arc grows
 to about forty waves and is still a tutorial. Its old regular waves (TWO
-COLOURS to CROWDED, and FINALE) count among the three. Slick and bulb are the
+COLOURS to CROWDED, and FINALE) count among the three. TORCH's five old ones
+(SHIELD THEN CANNON to CROWDED) carried no torch and ran 3 to 9 beats at up
+to 14.4; the owner, 16 October 2026 — *waves below should be torch related*
+— and they gave way to three composed torch waves. Slick and bulb are the
 game's ordinary enemy, so **from R4 on, at least half of every regular wave's
 arrivals are slicks and bulbs**, in the tutorial and after it.
 

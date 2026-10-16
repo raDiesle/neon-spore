@@ -67,7 +67,7 @@ export function wavesAsked(asked: readonly string[]): number[] {
  */
 export const REFERENCE_WAVE_IDS = [
   "firstStep",
-  "theWall",
+  "torchPair",
   "theDart",
   "theWisp",
   "theEcho",

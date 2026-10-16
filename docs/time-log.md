@@ -42854,3 +42854,14 @@ Bottleneck: the registrations outside the simulation, which only the fast
 check finds, one red at a time.
 
 *Measured: 8 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-16 — TORCH's block is three torch waves
+
+- reading: 10 min. The five old waves, what still pointed at THE WALL.
+- writing: 10 min. The drop, the composed block, the perf reference swapped.
+- looking: 5 min. The arc's pressures and spans read side by side.
+- friction: 0 min.
+- landing: 10 min. The ladder test, CLEAN's subjects, the fast check and `land`.
+
+Bottleneck: reading — THE WALL was a perf reference wave and a pressure
+test's yardstick, found only by searching for its id.

@@ -162,7 +162,7 @@ attempts to take one were spoiled by other sessions.
 A verdict is a wave's share of its own run's median, so a run of one wave has no
 median to speak of — it *is* that wave, and dividing by it cancels the change the
 run was taken to see. So a narrow run carries five waves it was not asked about:
-FIRST STEP, THE WALL, THE DART, THE WISP and THE ECHO, spanning the range from
+FIRST STEP, TORCH ALLIANCE, THE DART, THE WISP and THE ECHO, spanning the range from
 the cheapest wave with a field to one carrying nineteen bodies. They are named by
 **id** in `tools/perf/waves.ts`, because a wave inserted in act one shifts every
 number after it and a rename is a thing the owner does by eye.

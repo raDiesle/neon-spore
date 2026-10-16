@@ -33,19 +33,6 @@ import type { Wave } from "../wave-types.js";
  */
 export const WAVES_ACT_1B: Wave[] = [
   {
-    id: "crowded",
-    name: "TORCH APOCALYPSE",
-    variant: true,
-    entries: [
-      { beat: 0, col: 2, color: "red" },
-      { beat: 1, col: 8, color: "cyan" },
-      { beat: 3, col: 5, kind: "meteor", color: null },
-      { beat: 5, col: 0, color: "red" },
-      { beat: 6, col: 10, color: "cyan" },
-    ],
-    controls: "standard4",
-  },
-  {
     id: "theBastion",
     name: "THE BASTION",
     guide: {

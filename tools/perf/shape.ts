@@ -91,7 +91,7 @@ function round(v: number): number {
  * on, read off the waves both of them measured and neither of them changed.
  *
  * This is what the reference waves are carried for (`waves.ts`). No lane touches
- * one, so the whole of the difference between the baseline's figure for THE WALL
+ * one, so the whole of the difference between the baseline's figure for THE DART
  * and today's is the machine and the weather — and the median of five such
  * ratios is a robust estimate of it, unbothered by the one that happened to be
  * interrupted. `null` when the two runs share no untouched wave, which is a
