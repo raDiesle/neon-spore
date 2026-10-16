@@ -2,7 +2,7 @@ import type { Wave } from "../wave-types.js";
 
 /**
  * Waves 291 to 300 of the game, in the order they are played: THE JAM's block
- * and the boss THE HIVE.
+ * and the boss THE ANTIPHON.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act
  * after the tutorial arc again in play order. A save that fills it cuts a page
@@ -165,13 +165,13 @@ export const WAVES_ACT_28: Wave[] = [
     faults: [{ kind: "cannon", color: "alternating", at: 7 }],
   },
   {
-    id: "theHive",
-    name: "THE HIVE",
+    id: "theAntiphon",
+    name: "THE ANTIPHON",
     guide: {
-      scene: "theHive",
+      scene: "theAntiphon",
     },
     entries: [],
-    boss: { kind: "hive" },
+    boss: { kind: "antiphon" },
     bossType: "normal",
   },
 ];

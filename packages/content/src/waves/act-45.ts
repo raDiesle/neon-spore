@@ -2,7 +2,7 @@ import type { Wave } from "../wave-types.js";
 
 /**
  * Waves 462 to 470 of the game, in the order they are played: THE CAROM's
- * review and the boss THE PLUMB.
+ * review and the boss THE VISE.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act
  * after the tutorial arc again in play order. A save that fills it cuts a page
@@ -145,26 +145,28 @@ export const WAVES_ACT_45: Wave[] = [
     ],
   },
   {
-    id: "thePlumb",
-    name: "THE PLUMB",
+    id: "theVise",
+    name: "THE VISE",
     guide: {
-      both: "Each drags a stone. Pull away from the low side, together, until the bob hangs true. Both weights true light the core. Shoot it in its colour.",
-      p1: "1. When a weight lights, drag the left stone.\n2. Pull away from the low side. Say how far you are.\n3. One pull is not enough: hold it with the other until the bob is true.\n4. When the core shows a colour, fire it.",
-      p2: "1. When a weight lights, drag the right stone.\n2. Pull away from the low side. Say how far you are.\n3. One pull is not enough: hold it with the other until the bob is true.\n4. White takes either colour.",
+      both: "Pull your lobe shut until its seam cracks. Two seams each bare the kernel. Shoot it in its colour. When both light, pull together. Shield the bite. Shoot the seed.",
+      p1: "1. Pull the left lobe shut and say so.\n2. Keep it shut until the seam cracks.\n3. When the kernel shows a colour, fire it.",
+      p2: "1. Pull the right lobe shut and say so.\n2. Keep it shut until the seam cracks.\n3. White takes either colour. Pull with the other one when both light.",
     },
     entries: [],
     boss: {
-      kind: "plumb",
+      kind: "vise",
       steps: [
-        { ask: "left", skewMilli: -3000, rangeMilli: 600, color: "either", beats: 6 },
-        { ask: "left", skewMilli: 2800, rangeMilli: 400, color: "either", beats: 4 },
-        { ask: "right", skewMilli: 3200, rangeMilli: 600, color: "either", beats: 6 },
-        { ask: "right", skewMilli: -2800, rangeMilli: 400, color: "either", beats: 4 },
-        { ask: "fire", skewMilli: 0, rangeMilli: 0, color: "red", beats: 6 },
-        { ask: "both", skewMilli: -2800, rangeMilli: 500, color: "either", beats: 3 },
-        { ask: "fire", skewMilli: 0, rangeMilli: 0, color: "cyan", beats: 6 },
-        { ask: "both", skewMilli: 3000, rangeMilli: 450, color: "either", beats: 3 },
-        { ask: "fire", skewMilli: 0, rangeMilli: 0, color: "either", beats: 6 },
+        { ask: "left", color: "either", beats: 5 },
+        { ask: "left", color: "either", beats: 4 },
+        { ask: "right", color: "either", beats: 5 },
+        { ask: "right", color: "either", beats: 4 },
+        { ask: "fire", color: "red", beats: 6 },
+        { ask: "both", color: "either", beats: 3 },
+        { ask: "bite", color: "either", beats: 3 },
+        { ask: "fire", color: "cyan", beats: 6 },
+        { ask: "spit", color: "red", beats: 4, offset: 2 },
+        { ask: "both", color: "either", beats: 3 },
+        { ask: "fire", color: "either", beats: 6 },
       ],
     },
     bossType: "normal",

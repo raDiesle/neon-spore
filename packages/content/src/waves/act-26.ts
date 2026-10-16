@@ -2,7 +2,7 @@ import type { Wave } from "../wave-types.js";
 
 /**
  * Waves 271 to 280 of the game, in the order they are played: THE CODEX's block
- * and the boss THE SCUTTLE.
+ * and the boss THE LEAD.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act
  * after the tutorial arc again in play order. A save that fills it cuts a page
@@ -166,13 +166,22 @@ export const WAVES_ACT_26: Wave[] = [
     faults: [{ kind: "codex" }],
   },
   {
-    id: "theScuttle",
-    name: "THE SCUTTLE",
+    id: "theLead",
+    name: "THE LEAD",
     guide: {
-      scene: "theScuttle",
+      scene: "theLead",
     },
-    entries: [],
-    boss: { kind: "scuttle" },
+    entries: [
+      { beat: 10, col: 3, kind: "meteor", color: null },
+      { beat: 18, col: 0, color: "red" },
+      { beat: 26, col: 7, kind: "meteor", color: null },
+      { beat: 36, col: 10, color: "cyan" },
+      { beat: 46, col: 2, kind: "meteor", color: null },
+      { beat: 58, col: 0, color: "cyan" },
+      { beat: 70, col: 8, kind: "meteor", color: null },
+      { beat: 84, col: 10, color: "red" },
+    ],
+    boss: { kind: "lead" },
     bossType: "normal",
   },
 ];

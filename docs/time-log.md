@@ -42963,3 +42963,20 @@ Bottleneck: writing — the slime and her lobes had to be one outline to the
 eye while being separate paths to the canvas.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-16 — THE GEODE, lane one: the simulation
+
+- reading: 10 min. THE HYDRA's files to copy the scripted boss's seams, the
+  lance's burn and the boss-slot tool.
+- writing: 35 min. The stone, its levels, the verdict, the hand, the sounds,
+  every registration and §11.66.
+- looking: 0 min. No picture yet: the look is lane two.
+- friction: 10 min. A worktree with no `node_modules`, `failCause` that is
+  never null, a split glint inside the speech band.
+- landing: 55 min. One boss per block moves every boss after it a block on,
+  so the lane rewrote every act file, and four lanes that landed meanwhile
+  (THE BROOD, THE MATRON, two boss moves) each made the replay conflict in
+  every act file and every registration list: four rebases by hand.
+
+Bottleneck: landing — a new boss rewrites all fifty-odd act files, so every
+other lane that lands first conflicts with all of them.

@@ -9,6 +9,7 @@ import { stepChrysalis } from "./chrysalis-step.js";
 import { stepFleet } from "./fleet.js";
 import { stepFlue } from "./flue-step.js";
 import { stepGall } from "./gall-step.js";
+import { stepGeode } from "./geode-step.js";
 import { stepGovernor } from "./governor-step.js";
 import { stepHasp } from "./hasp-step.js";
 import { stepHydra } from "./hydra-step.js";
@@ -85,6 +86,11 @@ export function stepLateBoss(world: World, boss: Exclude<BossState, QueenState>)
   // THE MATRON: a clutch hung, a throw, a rear, the sinking away (`matron-step.ts`).
   if (boss.kind === "matron") {
     stepMatron(world, boss);
+    return;
+  }
+  // THE GEODE: cracks light, a level runs out, the heart scatters (`geode-step.ts`).
+  if (boss.kind === "geode") {
+    stepGeode(world, boss);
     return;
   }
   // THE MIMIC: the slap, a sign's window and its change, the mimicry and the reach, the core and the fall (`mimic-step.ts`).

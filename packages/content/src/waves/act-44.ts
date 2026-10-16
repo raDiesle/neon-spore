@@ -2,7 +2,7 @@ import type { Wave } from "../wave-types.js";
 
 /**
  * Waves 452 to 461 of the game, in the order they are played: THE CAROM's block
- * and the boss THE VISE.
+ * and the boss THE OCULUS.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act
  * after the tutorial arc again in play order. A save that fills it cuts a page
@@ -154,28 +154,42 @@ export const WAVES_ACT_44: Wave[] = [
     ],
   },
   {
-    id: "theVise",
-    name: "THE VISE",
+    id: "theOculus",
+    name: "THE OCULUS",
     guide: {
-      both: "Pull your lobe shut until its seam cracks. Two seams each bare the kernel. Shoot it in its colour. When both light, pull together. Shield the bite. Shoot the seed.",
-      p1: "1. Pull the left lobe shut and say so.\n2. Keep it shut until the seam cracks.\n3. When the kernel shows a colour, fire it.",
-      p2: "1. Pull the right lobe shut and say so.\n2. Keep it shut until the seam cracks.\n3. White takes either colour. Pull with the other one when both light.",
+      both: "Shut the eye's leaves together, three times: hold, then tap, then turn. After each, shoot the eye in its colour. Shoot what falls in between.",
+      p1: "1. Hold the left half with the other one.\n2. Then tap it. Then turn it round.\n3. When the eye shows a colour, fire it.",
+      p2: "1. Hold the right half with the other one.\n2. Then tap it. Then turn it round.\n3. White takes either colour.",
     },
-    entries: [],
+    entries: [
+      { beat: 6, col: 0, color: "red" },
+      { beat: 11, col: 10, color: "cyan" },
+      { beat: 16, col: 2, color: "red" },
+      { beat: 21, col: 8, color: "cyan" },
+      { beat: 26, col: 0, color: "red" },
+      { beat: 31, col: 10, color: "cyan" },
+      { beat: 36, col: 2, color: "red" },
+      { beat: 41, col: 8, color: "cyan" },
+      { beat: 46, col: 0, color: "red" },
+      { beat: 51, col: 10, color: "cyan" },
+      { beat: 56, col: 2, color: "red" },
+      { beat: 61, col: 8, color: "cyan" },
+      { beat: 66, col: 0, color: "red" },
+      { beat: 71, col: 10, color: "cyan" },
+      { beat: 76, col: 2, color: "red" },
+      { beat: 81, col: 8, color: "cyan" },
+      { beat: 86, col: 0, color: "red" },
+    ],
     boss: {
-      kind: "vise",
+      kind: "oculus",
       steps: [
-        { ask: "left", color: "either", beats: 5 },
-        { ask: "left", color: "either", beats: 4 },
-        { ask: "right", color: "either", beats: 5 },
-        { ask: "right", color: "either", beats: 4 },
-        { ask: "fire", color: "red", beats: 6 },
-        { ask: "both", color: "either", beats: 3 },
-        { ask: "bite", color: "either", beats: 3 },
-        { ask: "fire", color: "cyan", beats: 6 },
-        { ask: "spit", color: "red", beats: 4, offset: 2 },
-        { ask: "both", color: "either", beats: 3 },
-        { ask: "fire", color: "either", beats: 6 },
+        { ask: "shut", color: "either", beats: 6, fuse: 32 },
+        { ask: "break", color: "either", beats: 2 },
+        { ask: "fire", color: "red", beats: 0 },
+        { ask: "tap", color: "either", beats: 32, need: 12 },
+        { ask: "fire", color: "cyan", beats: 0 },
+        { ask: "turn", color: "either", beats: 32, need: 8 },
+        { ask: "fire", color: "either", beats: 0 },
       ],
     },
     bossType: "normal",

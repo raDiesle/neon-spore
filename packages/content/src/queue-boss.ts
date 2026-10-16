@@ -1,5 +1,6 @@
 import type { BossEntry } from "@neon-spore/sim";
 import { mapCol, mapColMilli, waveCols } from "./queue.js";
+import { authoredFromTheMiddle } from "./queue-boss-middle.js";
 import type { Wave } from "./waves.js";
 
 /**
@@ -185,40 +186,9 @@ export function bossFromWave(wave: Pick<Wave, "boss" | "cols">, cols: number): B
   if (boss.kind === "keel") return { ...boss };
   // THE VALVE the same: its marks are bearings, and its drum is `midCol`.
   if (boss.kind === "valve") return { ...boss };
-  // THE SEAM the same: its ridge is `midCol` and a rock is authored as an
-  // offset from it, clamped to whatever width the field has.
-  if (boss.kind === "seam") return { ...boss };
-  // THE OCULUS the same: its eye is `midCol` and nothing else has a place.
-  if (boss.kind === "oculus") return { ...boss };
-  // THE VISE the same: its kernel is `midCol` and nothing else has a place.
-  if (boss.kind === "vise") return { ...boss };
-  // THE PLUMB the same: its core is `midCol` and its levels are the phones.
-  if (boss.kind === "plumb") return { ...boss };
-  // THE SLING the same: its yoke is `midCol` and its aims are sides, not columns.
-  if (boss.kind === "sling") return { ...boss };
-  // THE CAPSTAN the same: its drum is `midCol` and its faces are sides.
-  if (boss.kind === "capstan") return { ...boss };
-  // THE GALL the same: its points are the seam's own, spread across the hull.
-  if (boss.kind === "gall") return { ...boss };
-  // THE TRAPEZE the same: its gongs are angles off the middle.
-  if (boss.kind === "trapeze") return { ...boss };
-  // THE FLUE the same: its cannon is `midCol` and its ember's span is tuning.
-  if (boss.kind === "flue") return { ...boss };
-  // THE GOVERNOR the same: its dial is `midCol` and its marks are thousandths of a lap.
-  if (boss.kind === "governor") return { ...boss };
-  // THE MIMIC hangs over `midCol` and authors no column at all; THE LATCH's tendril the same,
-  // THE BASTION's moon, whose nodes and ports are offsets from the middle, and THE CHRYSALIS's cocoon, THE HYDRA's heads and THE BROOD's buds the same, and THE MATRON's lobes.
-  if (
-    boss.kind === "mimic" ||
-    boss.kind === "latch" ||
-    boss.kind === "bastion" ||
-    boss.kind === "chrysalis" ||
-    boss.kind === "hydra" ||
-    boss.kind === "brood" ||
-    boss.kind === "matron"
-  ) {
-    return { ...boss };
-  }
+  // THE SEAM and every boss after it that is authored as offsets from the
+  // middle, THE GEODE's cracks the latest (`queue-boss-middle.ts`).
+  if (authoredFromTheMiddle(boss)) return { ...boss };
   // THE LAMPREY authors no column: it picks its tiles off the `Rng`, inside the field.
   if (boss.kind === "lamprey") return { ...boss };
   // THE SCOUT is authored in the arena's own thousandths of a tile, which is

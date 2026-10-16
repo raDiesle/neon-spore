@@ -52,4 +52,7 @@ export const NO_ROW: Partial<Record<BossKind, NoRowWhy>> = {
   // Her simulation landed first (16 October 2026); what she asks with is the
   // ordinary pod and its ring, and her look lane says whether she adds a mark.
   matron: "no-marks-file",
+  // Nothing drawn yet: its picture and its marks are the look lane
+  // (`docs/spec/bosses.md` §11.66), which writes its row.
+  geode: "no-marks-file",
 };

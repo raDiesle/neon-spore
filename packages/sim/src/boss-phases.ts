@@ -10,6 +10,7 @@ import { FLUE_PHASES } from "./flue.js";
 import { GALL_PHASES } from "./gall.js";
 import { GAUGE_PHASES } from "./gauge.js";
 import { GAUGE_GRIPS } from "./gauge-hand.js";
+import { GEODE_PHASES } from "./geode.js";
 import { GIMBAL_PHASES } from "./gimbal.js";
 import { GORGE_PHASES } from "./gorge.js";
 import { GOVERNOR_PHASES } from "./governor.js";
@@ -148,5 +149,6 @@ export const BOSS_PHASES: Partial<Record<BossEntry["kind"], readonly string[]>> 
   hydra: HYDRA_PHASES,
   brood: BROOD_PHASES,
   matron: MATRON_PHASES,
+  geode: GEODE_PHASES,
   fleet: FLEET_PHASES,
 };

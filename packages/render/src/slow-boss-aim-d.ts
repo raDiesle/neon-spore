@@ -4,6 +4,7 @@ import {
   chrysalisBoss,
   flueBoss,
   gallBoss,
+  geodeBoss,
   governorBoss,
   hydraBoss,
   lampreyBoss,
@@ -20,6 +21,7 @@ import { flueCentre, flueUnitR } from "./flue-shape.js";
 import { gallPointCircle } from "./gall-grip.js";
 import { gallFlight } from "./gall-pose.js";
 import { gallArcAt, gallSize } from "./gall-shape.js";
+import { GEODE_TALL, geodeCentre, geodeReach } from "./geode-shape.js";
 import { governorStanding, governorSwing } from "./governor-pose.js";
 import { ballR, flyweightAt, headAt, rimDepth } from "./governor-shape.js";
 import { HYDRA_TALL, hydraCentre, hydraReach } from "./hydra-shape.js";
@@ -184,6 +186,13 @@ export function lastBossAim(world: World, l: Layout, beat: number, beatPhase: nu
       const c = hydraCentre(l, cfg);
       const r = hydraReach(l, s);
       return capsule(sides(c.x - r, c.x + r, c.y - r * HYDRA_TALL, c.y + r * HYDRA_TALL));
+    }
+    // The stone as wide as the field, wider than tall.
+    case "geode": {
+      if (geodeBoss(world) === null) return null;
+      const c = geodeCentre(l, cfg);
+      const r = geodeReach(l);
+      return capsule(sides(c.x - r, c.x + r, c.y - r * GEODE_TALL, c.y + r * GEODE_TALL));
     }
     default:
       return null;

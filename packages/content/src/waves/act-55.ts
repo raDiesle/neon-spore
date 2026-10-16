@@ -2,7 +2,7 @@ import type { Wave } from "../wave-types.js";
 
 /**
  * Waves 552 to 560 of the game, in the order they are played: THE GYRE's review
- * and the boss THE CHRYSALIS.
+ * and the boss THE LATCH.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act
  * after the tutorial arc again in play order. A save that fills it cuts a page
@@ -142,28 +142,21 @@ export const WAVES_ACT_55: Wave[] = [
     ],
   },
   {
-    id: "theChrysalis",
-    name: "THE CHRYSALIS",
+    id: "theLatch",
+    name: "THE LATCH",
+    guide: {
+      scene: "theLatch",
+    },
     entries: [],
     boss: {
-      kind: "chrysalis",
+      kind: "latch",
       steps: [
-        { skin: "slime", rubs: 6, beats: 32 },
-        { skin: "slime", rubs: 10, beats: 40 },
-        { skin: "quills", beats: 36 },
-        { skin: "quills", tracks: ["sweep", "sweep", "snake", "climb"], beats: 48 },
-        { skin: "sacs", offsets: [-2, 1, 0, 2], beats: 40 },
-        { skin: "sacs", offsets: [1, -1, 2, -2, 0], beats: 48 },
-        { skin: "heart", offsets: [-1, 2, 0], colors: ["red", "cyan", "red"], beats: 32 },
-        {
-          skin: "heart",
-          offsets: [2, -2, 1, -1],
-          colors: ["cyan", "red", "red", "cyan"],
-          beats: 40,
-        },
+        { ask: "haul", knots: 2, beats: 28 },
+        { ask: "yank", knots: 2, beats: 32 },
+        { ask: "cross", knots: 2, beats: 32 },
       ],
     },
     bossType: "normal",
-    controls: "standard5",
+    controls: "scene",
   },
 ];

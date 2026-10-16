@@ -138,4 +138,16 @@ export const INGEST_SILENT_BOSS_F = [
   "matronCleared",
   "matronSpent",
   "matronOut",
+  // THE GEODE's nine are drawn by nothing yet: its look is the second lane
+  // (`docs/spec/bosses.md` §11.66), and until it lands they leave nothing
+  // behind for the next frame and burst nowhere.
+  "geodeEnter",
+  "geodeCracks",
+  "geodeCleave",
+  "geodeChip",
+  "geodeWrong",
+  "geodeSplit",
+  "geodeStrike",
+  "geodeShatter",
+  "geodeOut",
 ] as const satisfies readonly SimEvent["type"][];

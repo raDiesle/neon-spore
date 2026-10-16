@@ -1,9 +1,9 @@
-import { SCOUT_ARENAS } from "../scout-arenas.js";
+import { PINBALL_ROUNDS } from "../pinball-rounds.js";
 import type { Wave } from "../wave-types.js";
 
 /**
  * Waves 129 to 138 of the game, in the order they are played: THE SHELL's block
- * and the boss THE SCOUT.
+ * and the boss PINBALL.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act
  * after the tutorial arc again in play order. A save that fills it cuts a page
@@ -145,14 +145,14 @@ export const WAVES_ACT_12: Wave[] = [
     ],
   },
   {
-    id: "theScout",
-    name: "THE SCOUT",
+    id: "pinball",
+    name: "PINBALL",
     guide: {
-      scene: "theScout",
+      scene: "pinball",
     },
     entries: [],
-    boss: { kind: "scout", arenas: SCOUT_ARENAS },
+    boss: { kind: "pinball", rounds: PINBALL_ROUNDS },
     bossType: "special",
-    controls: "scout",
+    controls: "pinball",
   },
 ];

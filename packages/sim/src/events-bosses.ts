@@ -9,6 +9,7 @@ import type { FilamentEvent } from "./events-filament.js";
 import type { FlueEvent } from "./events-flue.js";
 import type { GallEvent } from "./events-gall.js";
 import type { GaugeEvent } from "./events-gauge.js";
+import type { GeodeEvent } from "./events-geode.js";
 import type { GimbalEvent } from "./events-gimbal.js";
 import type { GorgeEvent } from "./events-gorge.js";
 import type { GovernorEvent } from "./events-governor.js";
@@ -109,6 +110,7 @@ export type BossEvent =
   | HydraEvent
   | BroodEvent
   | MatronEvent
+  | GeodeEvent
   | SpoolEvent
   | HaspEvent
   | RatchetEvent
@@ -134,6 +136,7 @@ export type { FilamentEvent } from "./events-filament.js";
 export type { FlueEvent } from "./events-flue.js";
 export type { GallEvent } from "./events-gall.js";
 export type { GaugeEvent } from "./events-gauge.js";
+export type { GeodeEvent } from "./events-geode.js";
 export type { GimbalEvent } from "./events-gimbal.js";
 export type { GorgeEvent } from "./events-gorge.js";
 export type { GovernorEvent } from "./events-governor.js";

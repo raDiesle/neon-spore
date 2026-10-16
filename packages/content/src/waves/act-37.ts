@@ -2,7 +2,7 @@ import type { Wave } from "../wave-types.js";
 
 /**
  * Waves 382 to 391 of the game, in the order they are played: THE VOLLEY's
- * block and the boss THE RATCHET.
+ * block and the boss THE HASP.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act
  * after the tutorial arc again in play order. A save that fills it cuts a page
@@ -150,13 +150,13 @@ export const WAVES_ACT_37: Wave[] = [
     ],
   },
   {
-    id: "theRatchet",
-    name: "THE RATCHET",
+    id: "theHasp",
+    name: "THE HASP",
     guide: {
-      scene: "theRatchet",
+      scene: "theHasp",
     },
     entries: [],
-    boss: { kind: "ratchet" },
+    boss: { kind: "hasp" },
     bossType: "normal",
   },
 ];

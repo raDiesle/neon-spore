@@ -67,6 +67,20 @@ export const BOSS_ENTRIES_G = {
       },
     ],
   },
+  // Two levels, a stacked pair in one, the columns and colours apart (`geode-hash.ts`).
+  geode: {
+    kind: "geode",
+    steps: [
+      { beats: 11, cracks: [{ at: 2, color: "red" }] },
+      {
+        beats: 13,
+        cracks: [
+          { at: -1, color: "cyan" },
+          { at: -1, color: "red" },
+        ],
+      },
+    ],
+  },
 } satisfies Partial<Record<BossEntry["kind"], BossEntry>>;
 
 /** THE CHRYSALIS on's share of `patchBoss`. */
@@ -129,5 +143,14 @@ export function patchBossG(boss: BossState): void {
     boss.takenMask = 2;
     boss.taken = 3;
     boss.thrown = 1;
+  }
+  if (boss.kind === "geode") {
+    // The second level lit with its first piece cut and the second whole —
+    // every field given a value (`geode-hash.ts`).
+    boss.phase = "crack";
+    boss.phaseBeat = 3;
+    boss.cursor = 1;
+    boss.pieces = 2;
+    boss.cutTick = [41, -1];
   }
 }

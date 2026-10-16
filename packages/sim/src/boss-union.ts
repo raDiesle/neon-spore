@@ -11,6 +11,7 @@ import type { FilamentState } from "./filament.js";
 import type { FlueState } from "./flue.js";
 import type { GallState } from "./gall.js";
 import type { GaugeState } from "./gauge.js";
+import type { GeodeState } from "./geode.js";
 import type { GimbalState } from "./gimbal.js";
 import type { GorgeState } from "./gorge.js";
 import type { GovernorState } from "./governor.js";
@@ -137,4 +138,5 @@ export type BossState =
   | ChrysalisState
   | HydraState
   | BroodState
-  | MatronState;
+  | MatronState
+  | GeodeState;

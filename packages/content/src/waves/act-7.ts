@@ -2,7 +2,7 @@ import type { Wave } from "../wave-types.js";
 
 /**
  * Waves 79 to 88 of the game, in the order they are played: THE LIMPET's block
- * and the boss THE WARDEN.
+ * and the boss THE GAUGE.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act
  * after the tutorial arc again in play order. A save that fills it cuts a page
@@ -176,14 +176,14 @@ export const WAVES_ACT_7: Wave[] = [
     ],
   },
   {
-    id: "theWarden",
-    name: "THE WARDEN",
+    id: "theGauge",
+    name: "THE GAUGE",
     guide: {
-      scene: "theWarden",
+      scene: "theGauge",
     },
     entries: [],
-    boss: { kind: "warden" },
-    bossType: "normal",
-    controls: "standard5",
+    boss: { kind: "gauge" },
+    bossType: "special",
+    controls: "gauge",
   },
 ];

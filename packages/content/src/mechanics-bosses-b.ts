@@ -25,6 +25,7 @@ type BossIdB = Extract<
   | "hydra"
   | "brood"
   | "matron"
+  | "geode"
   | "capstan"
   | "gall"
   | "trapeze"
@@ -156,6 +157,10 @@ export const BOSS_MECHANICS_B = {
   },
   matron: {
     what: "A mother slime with pods on her lobes. Shoot each pod loose and swallow it before its ring runs out. She throws bodies, rocks and torches at you.",
+    reach: "spawn",
+  },
+  geode: {
+    what: "A stone falls on the ship. Only the lance cuts it. Burn each crack in its colour, and every piece breaks in two.",
     reach: "spawn",
   },
   vane: {

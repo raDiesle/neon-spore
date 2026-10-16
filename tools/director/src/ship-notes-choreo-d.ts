@@ -168,4 +168,12 @@ export const CHOREO_NOTES_D = {
     "torches while they hang, and the level waits until every pod is swallowed. " +
     "matronEnterBeats to come in, matronRearBeats between clutches, matronSpentBeats to " +
     "sink away. See sim/matron.ts, sim/matron-step.ts.",
+  "THE GEODE — a stone only the lance cuts":
+    "The owner's ask of 16 October 2026: a boss after THE LANCE's waves, the lance " +
+    "its weapon. A stone as wide as the field; a bolt only chips it. Each level's " +
+    "cracks are the step's offsets from the middle, each with its crystal's colour; " +
+    "a beam down a crack in its colour breaks that piece in two, two stacked in one " +
+    "column at once. Boulder, halves, quarters, heart. Only the navigator sees " +
+    "where, only the pilot the colour. A level run out lands on the hull. THE SLOW " +
+    "on each. See sim/geode.ts, sim/geode-step.ts, sim/geode-shot.ts.",
 } satisfies Partial<Record<GroupName, string>>;

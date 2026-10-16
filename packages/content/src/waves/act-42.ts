@@ -2,7 +2,7 @@ import type { Wave } from "../wave-types.js";
 
 /**
  * Waves 432 to 441 of the game, in the order they are played: THE WISP's block
- * and the boss THE SEAM.
+ * and the boss THE VALVE.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act
  * after the tutorial arc again in play order. A save that fills it cuts a page
@@ -156,32 +156,15 @@ export const WAVES_ACT_42: Wave[] = [
     ],
   },
   {
-    id: "theSeam",
-    name: "THE SEAM",
+    id: "theValve",
+    name: "THE VALVE",
     guide: {
-      both: "A point on the crack lights in a colour. Shoot it in that colour. When grit flies, raise the shield under it. Three points close the crack. Never shoot grey.",
-      p1: "1. Move the cannon under the lit point.\n2. When grit flies, press the shield.\n3. A rock falls to one side. Slide the cannon under it.",
-      p2: "1. Fire the lit point in its colour. White takes either.\n2. Slide the shield under the ridge when grit flies.\n3. At the end one of you shields while the other fires.",
+      both: "One turns the wheel onto the mark. The other taps the pin to stop it. Then pull the pin down. Three pins. The last wants a full turn first.",
+      p1: "1. Turn the wheel with your thumb until it sits on the mark.\n2. Hold it still. The other screen taps the pin.\n3. A spark falls after the first pin. Move the cannon under it.",
+      p2: "1. When the wheel is on the mark, tap the pin once.\n2. Then drag the pin down before it thaws. Either of you may.\n3. Fire at the spark before it lands.",
     },
     entries: [],
-    boss: {
-      kind: "seam",
-      steps: [
-        { ask: "point", color: "red", offset: 0, seals: false },
-        { ask: "grit", color: "either", offset: 0, seals: false },
-        { ask: "point", color: "cyan", offset: 0, seals: true },
-        { ask: "blind", color: "either", offset: 0, seals: false },
-        { ask: "point", color: "red", offset: 0, seals: false },
-        { ask: "point", color: "cyan", offset: 0, seals: true },
-        { ask: "grit", color: "either", offset: 0, seals: false },
-        { ask: "decoy", color: "either", offset: 0, seals: false },
-        { ask: "rock", color: "cyan", offset: 2, seals: false },
-        { ask: "glow", color: "either", offset: 0, seals: false },
-        { ask: "point", color: "either", offset: 0, seals: true },
-        { ask: "both", color: "either", offset: -2, seals: false },
-        { ask: "dark", color: "either", offset: 0, seals: false },
-      ],
-    },
+    boss: { kind: "valve", marks: [250, 600, 850] },
     bossType: "normal",
   },
 ];

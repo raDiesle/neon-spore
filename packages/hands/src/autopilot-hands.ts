@@ -16,6 +16,7 @@ import { curtainHand, gorgeHand } from "./boss-hands-field.js";
 import { flueHand } from "./boss-hands-flue.js";
 import { gallHand } from "./boss-hands-gall.js";
 import { gaugeHand } from "./boss-hands-gauge.js";
+import { geodeHand } from "./boss-hands-geode.js";
 import { gimbalHand } from "./boss-hands-gimbal.js";
 import { governorHand } from "./boss-hands-governor.js";
 import { filamentHand, surgeHand } from "./boss-hands-handles.js";
@@ -111,6 +112,7 @@ export const AUTOPILOT_HANDS: Partial<Record<BossKind, Hand>> = {
   // Her pods are the ordinary pods and her throws the ordinary field: the
   // field hand shoots, catches and shields all of it (`sim/matron.ts`).
   matron: fieldHand,
+  geode: geodeHand,
   maze: mazeHand,
   mirror: mirrorHand,
   nettle: nettleHand,

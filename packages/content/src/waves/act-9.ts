@@ -2,7 +2,7 @@ import type { Wave } from "../wave-types.js";
 
 /**
  * Waves 99 to 108 of the game, in the order they are played: THE LEECH's block
- * and the boss THE VANE.
+ * and the boss THE FLEET.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act
  * after the tutorial arc again in play order. A save that fills it cuts a page
@@ -171,14 +171,23 @@ export const WAVES_ACT_9: Wave[] = [
     ],
   },
   {
-    id: "theVane",
-    name: "THE VANE",
-    entries: [
-      { beat: 0, col: 2, kind: "meteor", color: null },
-      { beat: 3, col: 8, color: "red" },
-    ],
-    boss: { kind: "vane" },
-    bossType: "normal",
-    controls: "standard5",
+    id: "theFleet",
+    name: "THE FLEET",
+    guide: {
+      scene: "theFleet",
+    },
+    entries: [],
+    boss: {
+      kind: "fleet",
+      ships: [
+        { col: 1, row: 1, len: 5, dir: "h" },
+        { col: 8, row: 0, len: 4, dir: "v" },
+        { col: 3, row: 5, len: 3, dir: "h" },
+        { col: 0, row: 6, len: 3, dir: "v" },
+        { col: 7, row: 8, len: 2, dir: "h" },
+      ],
+    },
+    bossType: "special",
+    controls: "fleet",
   },
 ];

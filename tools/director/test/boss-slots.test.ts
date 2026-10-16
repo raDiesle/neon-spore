@@ -6,6 +6,12 @@ import { startsBlock } from "../src/compose-starts.js";
 import { TUTORIAL_LAST_ID } from "../src/compose-steps.js";
 
 const finale = WAVES.findIndex((w) => w.id === TUTORIAL_LAST_ID);
+/** The bosses with no block left, waiting at the end in order (`boss-slots.ts`). */
+const waiting = new Set(
+  bossOrder(WAVES)
+    .slots.filter((s) => s.closes === undefined && s.from > finale)
+    .map((s) => s.id),
+);
 
 describe("the bosses' places (wave-curriculum §7)", () => {
   test("are the ones the game ships: `waves:bosses` would move nothing", () => {
@@ -32,7 +38,8 @@ describe("the bosses' places (wave-curriculum §7)", () => {
   });
 
   // Every block past the arc — an intro's, a lesson's, a review — and one
-  // boss closing it, until the bosses run out.
+  // boss closing it, until the bosses run out; then the ones with no block
+  // left, waiting after the last.
   test("close a block each, exactly one, while there are bosses left", () => {
     let between = 0;
     let started = false;
@@ -46,7 +53,7 @@ describe("the bosses' places (wave-curriculum §7)", () => {
           });
         between = 0;
         started = true;
-      } else if (w.boss) between++;
+      } else if (w.boss && !waiting.has(w.id)) between++;
     });
     expect(between).toBe(1);
   });
@@ -55,7 +62,7 @@ describe("the bosses' places (wave-curriculum §7)", () => {
   // without spaces* — in the folded list, every boss under a block's waves.
   test("each come straight after a regular wave folded into its block", () => {
     WAVES.forEach((boss, at) => {
-      if (!boss.boss || at <= finale) return;
+      if (!boss.boss || at <= finale || waiting.has(boss.id)) return;
       const before = WAVES[at - 1];
       expect({
         boss: boss.name,

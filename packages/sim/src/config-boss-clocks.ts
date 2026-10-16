@@ -9,6 +9,7 @@ import { CURTAIN_DEFAULTS, type CurtainConfig } from "./config-curtain.js";
 import { FILAMENT_DEFAULTS, type FilamentConfig } from "./config-filament.js";
 import { FLUE_DEFAULTS, type FlueConfig } from "./config-flue.js";
 import { GALL_DEFAULTS, type GallConfig } from "./config-gall.js";
+import { GEODE_DEFAULTS, type GeodeConfig } from "./config-geode.js";
 import { GIMBAL_DEFAULTS, type GimbalConfig } from "./config-gimbal.js";
 import { GORGE_DEFAULTS, type GorgeConfig } from "./config-gorge.js";
 import { GOVERNOR_DEFAULTS, type GovernorConfig } from "./config-governor.js";
@@ -115,6 +116,7 @@ export interface BossClockConfig
     HydraConfig,
     BroodConfig,
     MatronConfig,
+    GeodeConfig,
     SpoolConfig,
     HaspConfig,
     RatchetConfig,
@@ -165,6 +167,7 @@ export const BOSS_CLOCK_DEFAULTS: BossClockConfig = {
   ...HYDRA_DEFAULTS,
   ...BROOD_DEFAULTS,
   ...MATRON_DEFAULTS,
+  ...GEODE_DEFAULTS,
   ...SPOOL_DEFAULTS,
   ...HASP_DEFAULTS,
   ...RATCHET_DEFAULTS,

@@ -2,7 +2,7 @@ import type { Wave } from "../wave-types.js";
 
 /**
  * Waves 543 to 551 of the game, in the order they are played: THE LID's review
- * and the boss THE LATCH.
+ * and the boss THE MIMIC.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act
  * after the tutorial arc again in play order. A save that fills it cuts a page
@@ -143,18 +143,32 @@ export const WAVES_ACT_54: Wave[] = [
     ],
   },
   {
-    id: "theLatch",
-    name: "THE LATCH",
+    id: "theMimic",
+    name: "THE MIMIC",
     guide: {
-      scene: "theLatch",
+      both: "One of you sees a picture of tiles. The other taps it into the frame. The siren top right says whose turn it is.",
+      p1: "1. First you see the picture: tell the other which tiles.\n2. Then tap the tiles the other tells you.\n3. Last, each of you sees one half and taps the other half.",
+      p2: "1. First tap the tiles the other tells you.\n2. Then you see the picture: tell the other which tiles.\n3. Last, each of you sees one half and taps the other half.",
     },
     entries: [],
     boss: {
-      kind: "latch",
+      kind: "mimic",
       steps: [
-        { ask: "haul", knots: 2, beats: 28 },
-        { ask: "yank", knots: 2, beats: 32 },
-        { ask: "cross", knots: 2, beats: 32 },
+        { ask: "sign", reader: 1, changes: false, size: 3, beats: 24 },
+        { ask: "sign", reader: 1, changes: false, size: 4, beats: 30 },
+        { ask: "sign", reader: 1, changes: true, size: 4, beats: 30 },
+        { ask: "roll", reader: 1, changes: false, size: 0, beats: 2 },
+        { ask: "sign", reader: 2, changes: false, size: 5, beats: 37 },
+        { ask: "sign", reader: 2, changes: true, size: 5, beats: 37 },
+        { ask: "sign", reader: 2, changes: false, size: 6, beats: 44 },
+        { ask: "roll", reader: 2, changes: false, size: 0, beats: 2 },
+        { ask: "sign", reader: 1, changes: false, size: 6, beats: 44 },
+        { ask: "sign", reader: 2, changes: false, size: 7, beats: 50 },
+        { ask: "roll", reader: 1, changes: false, size: 0, beats: 2 },
+        { ask: "split", reader: 1, changes: false, size: 3, beats: 29 },
+        { ask: "core", reader: 1, changes: false, size: 0, beats: 7 },
+        { ask: "split", reader: 1, changes: false, size: 4, beats: 37 },
+        { ask: "core", reader: 1, changes: false, size: 0, beats: 7 },
       ],
     },
     bossType: "normal",

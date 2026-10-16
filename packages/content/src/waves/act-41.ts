@@ -2,7 +2,7 @@ import type { Wave } from "../wave-types.js";
 
 /**
  * Waves 422 to 431 of the game, in the order they are played: THE VEIL's block
- * and the boss THE VALVE.
+ * and the boss THE KEEL.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act
  * after the tutorial arc again in play order. A save that fills it cuts a page
@@ -156,15 +156,15 @@ export const WAVES_ACT_41: Wave[] = [
     ],
   },
   {
-    id: "theValve",
-    name: "THE VALVE",
+    id: "theKeel",
+    name: "THE KEEL",
     guide: {
-      both: "One turns the wheel onto the mark. The other taps the pin to stop it. Then pull the pin down. Three pins. The last wants a full turn first.",
-      p1: "1. Turn the wheel with your thumb until it sits on the mark.\n2. Hold it still. The other screen taps the pin.\n3. A spark falls after the first pin. Move the cannon under it.",
-      p2: "1. When the wheel is on the mark, tap the pin once.\n2. Then drag the pin down before it thaws. Either of you may.\n3. Fire at the spark before it lands.",
+      both: "Six joints. When one lights, tap it if it is on your half. The middle opens: shoot it in its colour. Then the joints light fast. Shoot the rock.",
+      p1: "1. Tap a lit joint on the left half of the spine.\n2. Move the cannon under the open middle, then under the rock.\n3. The joints light fast at the end. Watch which half.",
+      p2: "1. Tap a lit joint on the right half of the spine.\n2. Fire the open middle in the colour it shows.\n3. Fire the rock the tail throws before it lands.",
     },
     entries: [],
-    boss: { kind: "valve", marks: [250, 600, 850] },
+    boss: { kind: "keel", socket: "red", reprise: [4, 3, 0] },
     bossType: "normal",
   },
 ];

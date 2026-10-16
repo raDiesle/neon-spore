@@ -1,8 +1,9 @@
 import type { Wave } from "../wave-types.js";
 
 /**
- * Waves 561 to 569 of the game, in the order they are played: THE ECHO's review
- * and the boss THE HYDRA.
+ * Waves 561 to 570 of the game, in the order they are played: THE ECHO's review,
+ * the boss THE CHRYSALIS, and THE HYDRA waiting at the end for a block of its
+ * own.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act
  * after the tutorial arc again in play order. A save that fills it cuts a page
@@ -144,6 +145,31 @@ export const WAVES_ACT_56: Wave[] = [
       { beat: 16, col: 0, row: 3, kind: "pod" },
       { beat: 31, col: 0, row: 3, kind: "pod" },
     ],
+  },
+  {
+    id: "theChrysalis",
+    name: "THE CHRYSALIS",
+    entries: [],
+    boss: {
+      kind: "chrysalis",
+      steps: [
+        { skin: "slime", rubs: 6, beats: 32 },
+        { skin: "slime", rubs: 10, beats: 40 },
+        { skin: "quills", beats: 36 },
+        { skin: "quills", tracks: ["sweep", "sweep", "snake", "climb"], beats: 48 },
+        { skin: "sacs", offsets: [-2, 1, 0, 2], beats: 40 },
+        { skin: "sacs", offsets: [1, -1, 2, -2, 0], beats: 48 },
+        { skin: "heart", offsets: [-1, 2, 0], colors: ["red", "cyan", "red"], beats: 32 },
+        {
+          skin: "heart",
+          offsets: [2, -2, 1, -1],
+          colors: ["cyan", "red", "red", "cyan"],
+          beats: 40,
+        },
+      ],
+    },
+    bossType: "normal",
+    controls: "standard5",
   },
   {
     id: "theHydra",

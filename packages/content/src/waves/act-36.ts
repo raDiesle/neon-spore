@@ -2,7 +2,7 @@ import type { Wave } from "../wave-types.js";
 
 /**
  * Waves 372 to 381 of the game, in the order they are played: THE CRYSTAL's
- * block and the boss THE HASP.
+ * block and the boss THE SPOOL.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act
  * after the tutorial arc again in play order. A save that fills it cuts a page
@@ -150,13 +150,13 @@ export const WAVES_ACT_36: Wave[] = [
     ],
   },
   {
-    id: "theHasp",
-    name: "THE HASP",
+    id: "theSpool",
+    name: "THE SPOOL",
     guide: {
-      scene: "theHasp",
+      scene: "theSpool",
     },
     entries: [],
-    boss: { kind: "hasp" },
+    boss: { kind: "spool" },
     bossType: "normal",
   },
 ];

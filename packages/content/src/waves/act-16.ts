@@ -1,8 +1,9 @@
+import { PULSE_STAGES } from "../pulse-stages.js";
 import type { Wave } from "../wave-types.js";
 
 /**
  * Waves 169 to 178 of the game, in the order they are played: THE VEER's block
- * and the boss THE BATON.
+ * and the boss THE PULSE.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act
  * after the tutorial arc again in play order. A save that fills it cuts a page
@@ -145,13 +146,14 @@ export const WAVES_ACT_16: Wave[] = [
     ],
   },
   {
-    id: "theBaton",
-    name: "THE BATON",
+    id: "pulse",
+    name: "THE PULSE",
     guide: {
-      scene: "theBaton",
+      scene: "thePulse",
     },
     entries: [],
-    boss: { kind: "baton" },
-    bossType: "normal",
+    boss: { kind: "pulse", stages: PULSE_STAGES },
+    bossType: "special",
+    controls: "pulse",
   },
 ];

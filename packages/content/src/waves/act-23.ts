@@ -2,7 +2,7 @@ import type { Wave } from "../wave-types.js";
 
 /**
  * Waves 241 to 250 of the game, in the order they are played: THE BALLOON's
- * block and the boss THE LEDGER.
+ * block and the boss THE SINEW.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act
  * after the tutorial arc again in play order. A save that fills it cuts a page
@@ -149,22 +149,13 @@ export const WAVES_ACT_23: Wave[] = [
     ],
   },
   {
-    id: "theLedger",
-    name: "THE LEDGER",
+    id: "theSinew",
+    name: "THE SINEW",
     guide: {
-      scene: "theLedger",
+      scene: "theSinew",
     },
-    entries: [
-      { beat: 18, col: 2, kind: "meteor", color: null },
-      { beat: 26, col: 8, color: "red" },
-      { beat: 34, col: 5, color: "cyan" },
-      { beat: 44, col: 0, kind: "meteor", color: null },
-      { beat: 52, col: 10, color: "red" },
-      { beat: 62, col: 3, color: "cyan" },
-      { beat: 72, col: 7, kind: "meteor", color: null },
-      { beat: 82, col: 8, color: "cyan" },
-    ],
-    boss: { kind: "ledger" },
+    entries: [],
+    boss: { kind: "sinew" },
     bossType: "normal",
   },
 ];

@@ -12597,6 +12597,130 @@ reaching 0.3 part radii and rolling up to 0.14 rad, cocking three times a
 round, on rounds of about 6.8 seconds (`temperOf("pulse")`,
 `glance-temper.ts`).
 
+## 11.66 THE GEODE — a stone only the lance cuts, broken a level of pieces at a time
+
+> A stone as wide as the field sinks on the ship, and a bolt only chips it.
+> Burn each crack with the lance in its colour, and every piece breaks in
+> two — boulder, halves, quarters, then the crystal heart. The navigator sees
+> where a crack runs, the pilot sees its colour.
+
+The owner's ask of 16 October 2026: *create a new boss wave, which we can use
+after "the lance" waves and will primary focus on using lance. it should be
+cool and logical to use lance, with special cool graphics and animations, such
+as damage dealing model with the lance e.g. to break something in bigger
+pieces.* A field boss, the second kind in `.claude/skills/new-boss`, built on
+the scripted bosses' rails (`SCRIPTED_KINDS`): the field, the cannon and the
+two colours answer it and nothing else does. **Built on 16 October 2026 as its
+simulation**; its picture, its marks and its words are the next lane.
+
+**The rule, in one sentence.** Burn each crack with the lance, in its colour,
+before the stone lands.
+
+**Why the lance is logical here.** Everything else in the game is answered by
+a bolt; this is the one thing a bolt cannot hurt. A bolt anywhere on the stone
+is met and chips it (`geodeChip`), so the shot that counts is the one THE
+LANCE taught — the colour held, the cannon still, three beats, and the whole
+column burnt at once (`sim/lance-burn.ts`). And the beam's own property, that
+it takes everything in its column, is a level of its own: two pieces stacked
+in one column fall to one beam.
+
+**It is the stone, and its pieces are its health.** No bar: the stone is one
+boulder, then two halves, then four quarters, then the heart, and how many
+pieces it is in is how far the pair has got. The state (`sim/geode.ts`, hashed
+in `sim/geode-hash.ts`) is the **phase** (`enter`, `crack`, `split`, `struck`,
+`spent`) and the beat it began, the **cursor** into the script, the **tick
+each piece of the lit level was cut on** (-1 while whole — the picture's clock
+for a piece breaking, so it keeps nothing), and the **pieces** cut in all. The
+script is the wave's (`GeodeEntry.steps`), copied at install: each level names
+its **beats** and its **cracks**, one per piece, each a column **at** from the
+middle and the crystal's **colour** under it; two cracks at the same `at` are
+two pieces stacked in one column.
+
+**Four levels, each asking the lance something different** — the owner on THE
+GRINDSTONE, *levels that change what is asked*:
+1. **The boulder** (20 beats): one crack, red, two columns right of the
+   middle. Slide, hold, burn.
+2. **The halves** (24): one cyan crack left, one red right. Slide again, and
+   change the colour.
+3. **The quarters** (28): a red crack at each wall and two cyan in the middle
+   column, stacked. **One beam takes both** — THE LANCE's *three cyan, one
+   column* as a boss. Nine pieces, eight beams.
+4. **The heart** (22): two cracks in one column, one red and one cyan. **The
+   cannon stays still and the colour changes under it**: a hold, a lift, a
+   hold in the other colour.
+
+**What a shot meets** (`sim/geode-shot.ts`, `geodeVerdict`, from
+`shot-out.ts` for a bolt and `lance-burn.ts` for a beam; `GEODE_SPAN` is the
+whole field): a beam down a crack in its colour cuts every whole piece of that
+colour whose crack runs down that column (`geodeCleave` each, through
+`coreTaken`); a beam down a crack of the other colour **only** is a colour
+missed and the wave lost (`geodeWrong`, `boss-wrong-colour.ts`, the owner's
+default of 10 October 2026) — a column holding both colours is never wrong,
+the beam takes its own; a bolt anywhere, or a beam where no crack runs, is
+`geodeChip` and nothing.
+
+**The clock** (`sim/geode-step.ts`) runs on the beat: the stone sinks in for
+`geodeEnterBeats` (6), lights a level's cracks (`geodeCracks`) and opens THE
+SLOW for the level's beats (`"ask"`, the owner's rule of 22 September 2026, and
+a shot gets time, 6 October 2026); the level's last cut shuts it, says
+`geodeSplit`, and the pieces fly apart for `geodeSplitBeats` (4) before the
+next; the heart's last says `geodeShatter`, and the shards scatter for
+`geodeSpentBeats` (6) before `geodeOut` ends the wave. **A level run out is the
+stone landing**: the first piece still whole strikes the hull under its crack
+(`geodeStrike`, `bossStrikesHull`, blow `"stone"`) and the wave is lost.
+
+**The split** is the render's, and the next lane's: the crack's line on the
+navigator's screen only, the crystal's colour on the pilot's only, so the pilot
+slides where the navigator says and the navigator holds the colour the pilot
+says — the field's own crossing (`docs/spec/systems.md` 5.2). The simulation
+sees both, and so does AUTO.
+
+**Where this departs from THE HYDRA, and why.** No `DragTarget`, no hand on
+the body and nothing on the wire: every gesture is the lance, which the panel
+already has (`net/` untouched). The whole field is stone, where THE HYDRA's
+body covers five columns, so no bolt in this fight reaches the top of the
+field — a chip is the answer the picture gives to *does a bolt do anything?*
+A column with both colours is never wrong, where THE HYDRA's maw has one
+colour to be wrong against: the heart asks for both down one column.
+
+**The hand.** AUTO (`hands/src/boss-hands-geode.ts`) slides the cannon under
+the first crack still whole, holds its colour until the beam goes, and lifts;
+a thumb on the wrong colour, or down while the cannon slides, is lifted first.
+`hands/test/geode-hand.test.ts` plays the shipped script on both grids: nine
+cleaves, four splits, eight beams, no strike, no wrong colour.
+
+**The sound** (`audio/src/bind-geode.ts`, `sounds/boss-geode.ts`): nine cues,
+each panned to its column — a grinding rumble in, a dry crackle as cracks
+light, a crack and a heavy split with a glint of crystal on a cleave, a small
+knock on a chip, a dull scrape on the wrong colour, a falling groan and a ring
+on a level broken, a rock on the hull, and glass bursting over a deep fall for
+the heart. Each level a step higher, the stone breaking towards its crystal.
+
+**Its place.** It closes THE CROSSING's block, wave 58, straight after
+CROSSING APOCALYPSE — the first free block after the hold is taught, because
+THE INSTAR takes THE LANCE's, the first after the arc (the owner, 16 October
+2026). `bun run waves:bosses` put it there. One boss a block
+(`docs/spec/wave-curriculum.md` §7), so BULB QUEEN and every boss after it
+closed the next block along, and THE HYDRA waits at the end for a block of
+its own.
+
+**What is proven, and what is not.** `sim/test/geode.test.ts` proves the
+enter and the lit cracks under THE SLOW, the bolt's chip even down a crack, a
+beam's chip where none runs, a boulder broken and the pieces flying apart, the
+stacked pair to one beam, the both-colour column never wrong, the wrong colour
+losing the wave, a level run out on the hull, the real lance — a held colour
+over a still cannon — cutting through `lance-burn.ts`, the shatter and the
+out, and one hash for one play.
+
+**What is not built.** The picture: the stone, its cracks and the crystal
+under them, a piece breaking in two along the beam's line and the halves
+turning apart to show their crystal faces, the stone sinking on the hull over
+each window, and the heart's shatter — the look lane, with the split it
+carries (`render/src/geode-shape.ts` is only where it hangs, for THE SLOW's
+light). Its marks and its words (`HOLD` at the crack on the navigator's
+screen, the colour on the pilot's). The guide is prose. **Never watched at
+tempo** — the owner's eye.
+
 ## 11.9 THE TELL — rock, paper, scissors, and half the tell on each screen
 
 > The one where the boss shows you what it is about to throw, and only one of

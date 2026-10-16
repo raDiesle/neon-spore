@@ -380,3 +380,19 @@ list of the bodies it spawns (or read them off its script: THE BROOD's
 spawn bodies (THE BROOD, BULB QUEEN, THE HIVE among them). Done when a test
 moves a spawning boss ahead of the intro of a body it spawns and
 `untaughtKeys` names that body.
+
+## bossOrder and nextReview read every block start off the list again for each wave
+
+- **Found:** 2026-10-16, claude/lance-boss-wave-e1f288
+- **Files:** `tools/director/src/boss-slots.ts`, `tools/director/src/compose-starts.ts`, `tools/director/src/compose-review.ts`, `tools/director/test/compose-review.test.ts`, `tools/director/test/boss-slots.test.ts`
+
+`bossOrder(WAVES)` takes 1.6 s and `nextReview(WAVES)` 2.8 s at a load
+average of sixty, over 578 waves. `startsBlock` asks `placeable` and
+`waveIntroduces` for each index, and each of those reads the list from the
+start, so a loop over `startsBlock` is quadratic in the waves. The review test
+was free while no boss waited at the end; since THE GEODE's landing THE HYDRA
+waits, the test does the work, and it was given 1200 ms through `itCosts`
+rather than its five seconds. Compute what `placeable` and `waveIntroduces`
+need in one pass (what each wave is the first to bring) and answer each index
+from it. Done when `bossOrder` is under 100 ms idle, and the review test's
+`REVIEW_AND_ORDER_MS` comes down to match.

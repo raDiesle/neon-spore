@@ -10,6 +10,7 @@ import { BROOD_POSES } from "./poses-bosses-hands-brood.js";
 import { CHRYSALIS_POSES } from "./poses-bosses-hands-chrysalis.js";
 import { CLOCK_HAND_POSES } from "./poses-bosses-hands-clocks.js";
 import { FIELD_HAND_POSES } from "./poses-bosses-hands-field.js";
+import { GEODE_POSES } from "./poses-bosses-hands-geode.js";
 import { HANDLE_HAND_POSES } from "./poses-bosses-hands-handles.js";
 import { HASP_STORY_POSES } from "./poses-bosses-hands-hasp.js";
 import { HYDRA_POSES } from "./poses-bosses-hands-hydra.js";
@@ -83,6 +84,7 @@ export const BOSS_POSES: Pose[] = [
   ...HYDRA_POSES,
   ...BROOD_POSES,
   ...MATRON_POSES,
+  ...GEODE_POSES,
   ...MECHANISM_POSES,
 ];
 

@@ -1,3 +1,7 @@
+import type { GeodeEntry } from "./geode.js";
+
+export type { GeodeCrack, GeodeEntry, GeodeStep } from "./geode.js";
+
 import type { BastionEntry } from "./bastion.js";
 import type { BroodEntry } from "./brood.js";
 import type { CapstanEntry } from "./capstan.js";
@@ -65,7 +69,9 @@ export type ScriptedBossEntry =
   // The sac that grows slicks and bulbs on its rim, each shot before it drops (`brood.ts`).
   | BroodEntry
   // The pods taken off her a clutch at a time, the arc's kit thrown round them (`matron.ts`).
-  | MatronEntry;
+  | MatronEntry
+  // The stone only the lance cuts, broken a level of pieces at a time (`geode.ts`).
+  | GeodeEntry;
 
 export type { BastionEntry, BastionStep } from "./bastion.js";
 export type { BroodEntry, BroodStep } from "./brood.js";

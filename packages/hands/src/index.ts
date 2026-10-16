@@ -20,6 +20,7 @@ export * from "./boss-hands-field.js";
 export * from "./boss-hands-flue.js";
 export * from "./boss-hands-gall.js";
 export * from "./boss-hands-gauge.js";
+export * from "./boss-hands-geode.js";
 export * from "./boss-hands-gimbal.js";
 export * from "./boss-hands-governor.js";
 export * from "./boss-hands-handles.js";

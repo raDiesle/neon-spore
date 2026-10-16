@@ -1,8 +1,9 @@
+import { MANTLE_SCRIPT } from "../mantle-script.js";
 import type { Wave } from "../wave-types.js";
 
 /**
  * Waves 412 to 421 of the game, in the order they are played: THE MINE's block
- * and the boss THE KEEL.
+ * and the boss THE MANTLE.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act
  * after the tutorial arc again in play order. A save that fills it cuts a page
@@ -156,15 +157,15 @@ export const WAVES_ACT_40: Wave[] = [
     ],
   },
   {
-    id: "theKeel",
-    name: "THE KEEL",
+    id: "theMantle",
+    name: "THE MANTLE",
     guide: {
-      both: "Six joints. When one lights, tap it if it is on your half. The middle opens: shoot it in its colour. Then the joints light fast. Shoot the rock.",
-      p1: "1. Tap a lit joint on the left half of the spine.\n2. Move the cannon under the open middle, then under the rock.\n3. The joints light fast at the end. Watch which half.",
-      p2: "1. Tap a lit joint on the right half of the spine.\n2. Fire the open middle in the colour it shows.\n3. Fire the rock the tail throws before it lands.",
+      both: "Two handles, one each. Pull both down together, hard enough, to open one of its four joints. Letting go costs the whole pull. Then tap the bare core, turn about.",
+      p1: "1. Drag the left handle down and hold it with the other screen's pull.\n2. Both must pull hard enough at once, or nothing shears.\n3. Once the core is bare, tap it only when it is your turn.",
+      p2: "1. Drag the right handle down and hold it with the other screen's pull.\n2. Letting go costs the whole pull. Start again together.\n3. A spark leaks partway through. Shoot it before it reaches the hull.",
     },
     entries: [],
-    boss: { kind: "keel", socket: "red", reprise: [4, 3, 0] },
+    boss: { kind: "mantle", thresholds: MANTLE_SCRIPT },
     bossType: "normal",
   },
 ];

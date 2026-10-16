@@ -5,6 +5,7 @@ import { capstanHashParts } from "./capstan-hash.js";
 import { chrysalisHashParts } from "./chrysalis-hash.js";
 import { flueHashParts } from "./flue-hash.js";
 import { gallHashParts } from "./gall-hash.js";
+import { geodeHashParts } from "./geode-hash.js";
 import { governorHashParts } from "./governor-hash.js";
 import { hydraHashParts } from "./hydra-hash.js";
 import { lampreyHashParts } from "./lamprey-hash.js";
@@ -113,6 +114,10 @@ export function scriptedHashParts(boss: BossState): number[] {
   // THE MATRON: the phase, the clutch hung and taken, the throws and the script (`matron-hash.ts`).
   if (boss.kind === "matron") {
     for (const n of matronHashParts(boss)) out.push(n);
+  }
+  // THE GEODE: the phase, the pieces cut and when, and the script (`geode-hash.ts`).
+  if (boss.kind === "geode") {
+    for (const n of geodeHashParts(boss)) out.push(n);
   }
   return out;
 }

@@ -146,4 +146,14 @@ export const NO_SUBJECT_E: Record<string, string> = {
   "boss.matronSpent": "THE MATRON, beaten. Same argument.",
   "boss.matronOut":
     "THE MATRON, the mother gone and the wave ending. Same argument, and an absence.",
+  // THE GEODE's nine (`sim/events-geode.ts`): the same argument.
+  "boss.geodeEnter": "THE GEODE, the stone sinking in. No shape-sheet subject yet.",
+  "boss.geodeCracks": "THE GEODE, a level's cracks lighting. Same argument.",
+  "boss.geodeCleave": "THE GEODE, a piece broken in two by the beam. Same argument.",
+  "boss.geodeChip": "THE GEODE, a shot chipping the stone. Same argument.",
+  "boss.geodeWrong": "THE GEODE, a beam down a crack of the other colour. Same argument.",
+  "boss.geodeSplit": "THE GEODE, a level of pieces flying apart. Same argument.",
+  "boss.geodeStrike": "THE GEODE, the stone landing on the hull. Same argument.",
+  "boss.geodeShatter": "THE GEODE, the heart shattered. Same argument.",
+  "boss.geodeOut": "THE GEODE, the shards gone and the wave ending. Same argument, and an absence.",
 };

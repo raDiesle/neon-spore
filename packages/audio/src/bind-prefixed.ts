@@ -3,6 +3,7 @@ import { broodCue } from "./bind-brood.js";
 import { chrysalisCue } from "./bind-chrysalis.js";
 import type { Cue } from "./bind-cue.js";
 import { gaugeCue } from "./bind-gauge.js";
+import { geodeCue } from "./bind-geode.js";
 import { hydraCue } from "./bind-hydra.js";
 import { leadCue } from "./bind-lead.js";
 import { ledgerCue } from "./bind-ledger.js";
@@ -40,6 +41,7 @@ const PREFIXES = [
   "hydra",
   "brood",
   "matron",
+  "geode",
 ] as const;
 
 type Prefix = (typeof PREFIXES)[number];
@@ -72,5 +74,7 @@ export function prefixedCue(e: PrefixedEvent, cols: number): Cue | null {
   if (of(e, "brood")) return broodCue(e, cols);
   // THE MATRON, the same (`bind-matron.ts`).
   if (of(e, "matron")) return matronCue(e, cols);
+  // THE GEODE, the same (`bind-geode.ts`).
+  if (of(e, "geode")) return geodeCue(e, cols);
   return throatCue(e, cols);
 }

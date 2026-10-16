@@ -24,6 +24,7 @@ import { BOSS_FILAMENT_SOUNDS } from "./sounds/boss-filament.js";
 import { BOSS_FLUE_SOUNDS } from "./sounds/boss-flue.js";
 import { BOSS_GALL_SOUNDS } from "./sounds/boss-gall.js";
 import { BOSS_GAUGE_SOUNDS } from "./sounds/boss-gauge.js";
+import { BOSS_GEODE_SOUNDS } from "./sounds/boss-geode.js";
 import { BOSS_GIMBAL_SOUNDS } from "./sounds/boss-gimbal.js";
 import { BOSS_GORGE_SOUNDS } from "./sounds/boss-gorge.js";
 import { BOSS_GOVERNOR_SOUNDS } from "./sounds/boss-governor.js";
@@ -133,6 +134,7 @@ export const CATALOGUE: readonly SoundDef[] = [
   ...BOSS_HYDRA_SOUNDS,
   ...BOSS_BROOD_SOUNDS,
   ...BOSS_MATRON_SOUNDS,
+  ...BOSS_GEODE_SOUNDS,
   ...BOSS_WARDEN_SOUNDS,
   ...BOSS_VANE_SOUNDS,
   ...BOSS_THROAT_SOUNDS,

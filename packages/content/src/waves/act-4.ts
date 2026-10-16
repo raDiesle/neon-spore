@@ -2,11 +2,24 @@ import type { Wave } from "../wave-types.js";
 
 /**
  * Waves 49 to 58 of the game, in the order they are played: THE CROSSING's
- * block and the boss THE MIRROR.
+ * block and the boss THE GEODE.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act
  * after the tutorial arc again in play order. A save that fills it cuts a page
  * after it (`acts.ts`).
+ *
+ * **THE GEODE is the lance's own boss** (the owner, 16 October 2026: *a boss
+ * after THE LANCE's waves, the lance its weapon … breaking something into
+ * bigger pieces*; `sim/geode.ts`), and it closes THE CROSSING's block:
+ * THE INSTAR takes THE LANCE's, the first after the arc (the owner, the same
+ * day). A stone as wide as the field sinks on the ship and a bolt only chips
+ * it: every crack is burnt by a beam in its colour, and every piece cut breaks
+ * in two. The boulder's one crack, off the middle; the halves', one of each
+ * colour; the quarters', two stacked in the middle column for one beam to take
+ * both; and the heart's two in one column, one of each colour, for the cannon
+ * to stay still while the colour changes. Only the navigator sees where a
+ * crack runs and only the pilot its colour. A level run out is the stone on
+ * the hull, and the wave is lost.
  */
 export const WAVES_ACT_4: Wave[] = [
   {
@@ -148,21 +161,43 @@ export const WAVES_ACT_4: Wave[] = [
     ],
   },
   {
-    id: "theMirror",
-    name: "THE MIRROR",
+    id: "theGeode",
+    name: "THE GEODE",
     guide: {
-      scene: "theMirror",
+      both: "A stone falls on the ship, and only the lance cuts it. Burn each crack with a beam in its colour. Each cut breaks a piece in two.",
+      p1: "Only you see each crack's colour: say it. Slide the cannon under the crack named, and keep still.",
+      p2: "Only you see where each crack is: say where. Hold the colour you hear until the beam goes.",
     },
     entries: [],
     boss: {
-      kind: "mirror",
-      rounds: [
-        ["fireRed", "guard"],
-        ["cannonLeft", "cannonRight", "cannonRight"],
-        ["intake", "fireRed", "intake", "fireCyan", "intake", "fireRed"],
+      kind: "geode",
+      steps: [
+        { beats: 20, cracks: [{ at: 2, color: "red" }] },
+        {
+          beats: 24,
+          cracks: [
+            { at: -3, color: "cyan" },
+            { at: 3, color: "red" },
+          ],
+        },
+        {
+          beats: 28,
+          cracks: [
+            { at: -4, color: "red" },
+            { at: 0, color: "cyan" },
+            { at: 0, color: "cyan" },
+            { at: 4, color: "red" },
+          ],
+        },
+        {
+          beats: 22,
+          cracks: [
+            { at: -1, color: "red" },
+            { at: -1, color: "cyan" },
+          ],
+        },
       ],
     },
-    bossType: "special",
-    controls: "standard5",
+    bossType: "normal",
   },
 ];

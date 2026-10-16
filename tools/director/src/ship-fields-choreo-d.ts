@@ -177,4 +177,8 @@ export const CHOREO_FIELD_GROUP_D = {
   matronRearBeats: "THE MATRON — a mother slime whose pods are her health",
   matronSpentBeats: "THE MATRON — a mother slime whose pods are her health",
   matronPodRow: "THE MATRON — a mother slime whose pods are her health",
+  // GeodeConfig — the beats around the levels (`config-geode.ts`).
+  geodeEnterBeats: "THE GEODE — a stone only the lance cuts",
+  geodeSplitBeats: "THE GEODE — a stone only the lance cuts",
+  geodeSpentBeats: "THE GEODE — a stone only the lance cuts",
 } satisfies Record<string, GroupName>;

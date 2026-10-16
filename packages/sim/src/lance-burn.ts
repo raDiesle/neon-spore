@@ -8,6 +8,7 @@ import { hullRow } from "./config.js";
 import { curtainStruck } from "./curtain-shot.js";
 import { flueStruck } from "./flue-shot.js";
 import { gallStruck } from "./gall-shot.js";
+import { geodeStruck } from "./geode-shot.js";
 import { gimbalStruck } from "./gimbal-shot.js";
 import { governorStruck } from "./governor-shot.js";
 import { haspStruck } from "./hasp-shot.js";
@@ -208,6 +209,8 @@ function burnColumn(world: World, col: number, color: Color): number {
   chrysalisStruck(world, b);
   // And THE HYDRA's open maw (`hydra-shot.ts`).
   hydraStruck(world, b);
+  // And THE GEODE's cracks, which nothing but a beam cuts (`geode-shot.ts`).
+  geodeStruck(world, b);
   // And THE HASP's loose bolt, the same shape and the same either colour
   // (`hasp-shot.ts`).
   haspStruck(world, b);
