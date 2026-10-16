@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-16 · 718006dfb — Three new looks for the real pod and three for the hollow one, side by side in VERSUS
+
+The real pod is offered as CAIRN, LANTERN and SMART. CAIRN is seven facets turning in depth that come loose as the clock runs out. LANTERN is a lantern swinging on a thread whose handle spins round it, and it thrashes when time is short. SMART is a studded seed tumbling, and it wakes on the beat near the end. The hollow pod is offered as GUTTED, BROKEN and CUP, drawn on player 2's screen only. GUTTED is a ring round a black socket. BROKEN is a dead shell with its handle snapped off. CUP is half a shell that keeps turning its empty inside to the viewer. Player 1 still sees a real pod.
+
 ## 2026-10-16 · b06a93739 — One real pod with a clock, and the hollow pod a brush of its own
 
 A pod now has a deadline. From the beat it appears, the pair has 16 beats (podDueBeats) to shoot it loose and swallow it. A real pod still hanging when that time runs out loses the wave. A ring around the pod drains one notch per beat and turns ember for the last five. A husk wears the same ring, so the ring never gives it away. When a husk's ring runs out, it is let go at no cost. The owner rejected the PURGE and WARD cargoes, so every pod in every wave is the one real pod. THE PURGE is retired. THE WARD is now HEAVY ROCKS, kept for the four rock speeds it introduced, with a film of its own. The director's SUCK group has two brushes, REAL and HOLLOW, and a TIME row for how long a pod has.

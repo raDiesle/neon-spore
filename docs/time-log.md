@@ -42722,3 +42722,5 @@ each count, list and baseline that named them had to be found and moved.
 
 Bottleneck: the husk pose. A field holding only a husk counts as cleared now,
 so the cleared card covered the one thing that pose was meant to show.
+
+*Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
