@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-16 · b2822d17d — A blister's gesture is the brush it was painted with
+
+The director's cell settings no longer offer a GESTURE row: a HOLD blister stays a HOLD unless another CONTROLS brush is painted over it, which keeps whose hand it is. BY and WAY stay. A director tool, not a look.
+
 ## 2026-10-16 · 1ea2f9344 — Time log: SHIELD and SUCK light up
 
 ## 2026-10-16 · 8f508599f — SHIELD and SUCK light up when something is asking for them
