@@ -152,8 +152,14 @@ async function profileDir(): Promise<string> {
  * Nothing here throws. A tool that produced its pictures or its numbers has done
  * what it was asked, and a directory that will not go is worth a line on stderr
  * — the next launch sweeps it by age.
+ *
+ * Not even for a browser that never came: a test's `beforeAll` that ran out of
+ * time before its launch returned leaves its `afterAll` holding `undefined`,
+ * and a throw here was a second failure that hid the first (`docs/queue.md`,
+ * 16 October 2026).
  */
-export async function closeBrowser(browser: Browser): Promise<void> {
+export async function closeBrowser(browser: Browser | undefined): Promise<void> {
+  if (browser === undefined) return;
   const stop = stoppers.get(browser);
   stoppers.delete(browser);
   if (stop) await stop().catch(() => {});

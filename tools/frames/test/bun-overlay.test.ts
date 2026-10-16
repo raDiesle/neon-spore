@@ -29,10 +29,13 @@ const APPS: Record<string, string> = {
 };
 
 describe("Bun's error screen", () => {
+  // Any of these may be missing in `afterAll`: a `beforeAll` that ran out of
+  // time stopped wherever it was, and the teardown takes down what it got to
+  // (`closeBrowser` returns at once for a browser that never came).
   let browser: Browser;
-  let dir: string;
-  let server: ReturnType<typeof Bun.serve>;
-  const url = (name: string) => `http://127.0.0.1:${server.port}/${name}`;
+  let dir: string | undefined;
+  let server: ReturnType<typeof Bun.serve> | undefined;
+  const url = (name: string) => `http://127.0.0.1:${server?.port}/${name}`;
 
   beforeAll(async () => {
     dir = await scratchDir("bun-overlay-");
@@ -56,8 +59,8 @@ describe("Bun's error screen", () => {
 
   afterAll(async () => {
     await closeBrowser(browser);
-    await server.stop(true);
-    await rm(dir, { recursive: true, force: true });
+    await server?.stop(true);
+    if (dir) await rm(dir, { recursive: true, force: true });
   }, STARVED_MS);
 
   it(

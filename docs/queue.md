@@ -328,21 +328,6 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/skipped.test.ts` holds the listing's count of the entries
 `next` stepped past and why.
 
-## A browser test's teardown throws when its launch timed out
-
-- **Found:** 2026-10-16, claude/suck-brush-visuals-a917b1
-- **Taken:** 2026-10-16, claude/queue-work-6b11c3 (claim: claude/queue-a-browser-tests-teardown-throws-when-its-launch)
-- **Files:** `tools/frames/browser.ts`, `tools/frames/test/page-said.test.ts`
-
-Under load (7 on 14 cores, a whole `check:fast` of renumbered waves) the
-`beforeAll` in `page-said.test.ts` hit its 120 s limit before the browser came
-up. Then `afterAll` called `closeBrowser(undefined)`, which throws
-`undefined is not an object (evaluating 'browser.close')`, so one timeout
-reads as two failures, and the second hides the first. Alone, the file passes.
-Let `closeBrowser` take `Browser | undefined` and return early, and check the
-other `tools/frames` tests that launch in a `beforeAll` for the same shape.
-Done when a launch that never finished fails once, and `bun run check` is green.
-
 ## render/pods.ts is at its 250-line limit
 
 - **Found:** 2026-10-16, claude/suck-brush-visuals-a917b1
