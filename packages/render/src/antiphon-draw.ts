@@ -31,6 +31,7 @@ import {
 } from "./antiphon-shape.js";
 import { antiphonStopper } from "./antiphon-stop.js";
 import { drawAntiphonUnknown, drawAntiphonVeins } from "./antiphon-veins.js";
+import { bossAura } from "./body-aura.js";
 import type { BoltStops } from "./bolt-stop.js";
 import { drawHurt } from "./boss-hurt.js";
 import type { Layout } from "./layout.js";
@@ -209,6 +210,8 @@ function drawContour(
   const r = antiphonBudR(l, rTiles, time);
   const p = antiphonContourPath(shape, at, r, time * 0.3, lobes, turn);
   ctx.save();
+  // Its light round its own lobes, before the fill (`body-aura.ts`).
+  bossAura(ctx, p, PALETTE.organ, l.tile, time, fade);
   ctx.fillStyle = faded(PALETTE.organ, fade);
   ctx.fill(p);
   ctx.strokeStyle = faded(PALETTE.organRim, fade);

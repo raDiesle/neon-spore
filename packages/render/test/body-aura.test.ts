@@ -1,5 +1,5 @@
 import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
-import { BODY_AURA, bodyAura } from "../src/body-aura.js";
+import { BODY_AURA, BOSS_AURA_TILES, bodyAura, bossAura } from "../src/body-aura.js";
 import { LIVING_SKIN } from "../src/living-skin.js";
 import { PALETTE } from "../src/palette.js";
 import { FRAME_TIMEOUT_MS, installCanvasGlobals, stubCanvas } from "./canvas-stub.js";
@@ -97,5 +97,12 @@ describe("a body's aura", () => {
     const firstFill = at.findIndex((o) => o.op === "fill");
     expect(firstFill).toBe(BODY_AURA.passes);
     for (const o of at.slice(0, firstFill)) expect(o.mode).toBe("lighter");
+  });
+
+  it("on a boss, strokes every piece as one path and reaches a share of a tile", () => {
+    const pieces = [new Path2D(), new Path2D(), new Path2D(), new Path2D()];
+    const at = ops((ctx) => bossAura(ctx, pieces, PALETTE.organ, 40, 0));
+    expect(at.length).toBe(BODY_AURA.passes);
+    expect((at[0]?.width ?? 0) / 2).toBeCloseTo(40 * BOSS_AURA_TILES);
   });
 });

@@ -104,3 +104,34 @@ const SUM = Array.from({ length: BODY_AURA.passes }, (_, i) => 1 / (i + 1)).redu
   (s, v) => s + v,
   0,
 );
+
+/**
+ * How far a boss's aura reaches past its contour, in tiles. A boss is a body
+ * several tiles across, and a reach that grew with it as a creature's does
+ * would stand a whole tile of light off the slab: the light is the same soft
+ * rim a body wears, whatever the size of what wears it.
+ */
+export const BOSS_AURA_TILES = 0.32;
+
+/**
+ * `bodyAura` for a boss's body, drawn in screen pixels: one path, or every
+ * piece of a body that is several, stroked together as one so the cost stays
+ * the passes and two pieces that meet do not double their light where they do.
+ * Before the body's fill, as `bodyAura` is.
+ */
+export function bossAura(
+  ctx: CanvasRenderingContext2D,
+  body: Path2D | readonly Path2D[],
+  color: string,
+  tile: number,
+  t: number,
+  intensity = 1,
+): void {
+  let path: Path2D;
+  if (body instanceof Path2D) path = body;
+  else {
+    path = new Path2D();
+    for (const p of body) path.addPath(p);
+  }
+  bodyAura(ctx, path, color, (tile * BOSS_AURA_TILES) / BODY_AURA.reach, 1, t, intensity);
+}

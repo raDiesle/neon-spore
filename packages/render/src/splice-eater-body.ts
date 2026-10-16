@@ -1,4 +1,5 @@
 import { SAC_SKIN, sacPoints } from "@neon-spore/content";
+import { bossAura } from "./body-aura.js";
 import { rgba } from "./hex.js";
 import { PALETTE } from "./palette.js";
 import { drawEaterHead } from "./splice-eater-head.js";
@@ -114,6 +115,8 @@ export function drawEaterBody(
 ): { x: number; y: number } {
   const { len, wide, sag } = pose;
   const neck = tendril(x, y, len, wide * 0.5, sag, b);
+  // Its light along the neck, under it (`body-aura.ts`); `wide` is a tile's worth of head.
+  bossAura(ctx, neck.path, PALETTE.red, wide, b);
   ctx.fillStyle = skin(ctx, x, len, PALETTE.red);
   ctx.fill(neck.path);
   // Folds across the neck, where it bends.
@@ -151,6 +154,7 @@ export function drawEaterRear(
   const len = t * (1.6 + 0.2 * swell);
   const thick = t * (0.95 + 0.35 * swell);
   const body = tendril(x, y, len, thick, t * 0.15 + swing, b);
+  bossAura(ctx, body.path, PALETTE.red, t, b);
   ctx.fillStyle = skin(ctx, x, len, rgba(PALETTE.red, 0.9));
   ctx.fill(body.path);
   ctx.strokeStyle = rgba(PALETTE.redRim, 0.4);

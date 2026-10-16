@@ -1,4 +1,5 @@
 import type { MatronState, World } from "@neon-spore/sim";
+import { bossAura } from "./body-aura.js";
 import { drawHurt } from "./boss-hurt.js";
 import { halo } from "./glow.js";
 import { rgba } from "./hex.js";
@@ -85,6 +86,8 @@ function paintFlesh(
   tile: number,
   spent: boolean,
 ): void {
+  // Her light round every lobe she has out, under them; spent, none (`body-aura.ts`).
+  if (!spent) bossAura(ctx, pieces, MATRON_RIM, tile, 0);
   ctx.save();
   ctx.lineJoin = "round";
   ctx.lineWidth = Math.max(3, tile * 0.14);

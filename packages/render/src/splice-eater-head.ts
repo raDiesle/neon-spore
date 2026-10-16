@@ -1,4 +1,5 @@
 import { blobPoints } from "@neon-spore/content";
+import { bossAura } from "./body-aura.js";
 import { rgba } from "./hex.js";
 import { PALETTE } from "./palette.js";
 import { splinePath } from "./spline.js";
@@ -145,6 +146,8 @@ export function drawEaterHead(
     ),
     true,
   );
+  // Its light round the pair, under them (`body-aura.ts`).
+  bossAura(ctx, [cranium, jaw], PALETTE.red, wide, b);
   // Each part is stroked first and both are filled after, so the outline is
   // round the pair and not between them.
   ctx.strokeStyle = rgba(PALETTE.redRim, 0.6);

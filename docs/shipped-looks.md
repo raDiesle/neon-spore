@@ -64,6 +64,14 @@ bell, an open LID's socket and a stuck limpet or leech. The round bodies — the
 volley's core, the clasp, the choir's dots — already wear a round halo, which
 is the same answer for a circle, and kept it.
 
+Five bosses wear it too, through `bossAura`, whose reach is a third of a tile
+rather than a share of the body (a boss is several tiles across): THE
+ANTIPHON's organ and candidates, THE BROOD's sac, THE SWINDLE's and THE
+MATRON's lobes, and THE SPLICE's eater — head, neck and rear. A spent boss
+throws none. The rest are lit materials — stone, metal, bark, the hull's own
+purple — and a light of their own would make them lamps; THE HIVE's comb is
+the frame of the field rather than a body in it.
+
 **Two of these changed on 8 September 2026**, and both came off a page that
 had been arguing about them. The skin was a flat fill of the body's own deep —
 `#190F2C` against a `#07060F` field, so a creature was materially a hole in

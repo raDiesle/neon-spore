@@ -6,6 +6,7 @@ import {
   broodLobesAll,
   type World,
 } from "@neon-spore/sim";
+import { bossAura } from "./body-aura.js";
 import { drawHurt } from "./boss-hurt.js";
 import { drawBroodBud } from "./brood-bud.js";
 import type { BroodFx } from "./brood-fx.js";
@@ -109,6 +110,8 @@ function paintFlesh(
   g.addColorStop(0, rgba(mixHex(edge, PALETTE.text, 0.25), 0.85));
   g.addColorStop(0.55, rgba(core, 0.82));
   g.addColorStop(1, rgba(mixHex(core, PALETTE.background, 0.5), 0.92));
+  // Its light round the sac, under it; a spent sac is out (`body-aura.ts`).
+  if (!spent) bossAura(ctx, body, PALETTE.organ, tile, 0);
   ctx.fillStyle = g;
   ctx.fill(body);
   ctx.save();

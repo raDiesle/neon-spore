@@ -43099,3 +43099,13 @@ Bottleneck: the size hook, which blocked twice on a file this lane had made
 shorter.
 
 *Measured: 7 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-16 — The aura on the bright bosses
+
+- reading: 10 min. Finding each bright boss's body fill — THE ANTIPHON's flowers are `drawContour`, not its mantle.
+- writing: 5 min. `bossAura`, six call sites, a test.
+- looking: 20 min. Sixty-four boss waves shot into three contact sheets, seven picked out close up, then before and after; THE ANTIPHON's reach corrected once.
+- friction: 0 min.
+- landing: 5 min. `check:fast` green first time.
+
+Bottleneck: looking — sixty-four waves to shoot and read before a single boss could be chosen.
