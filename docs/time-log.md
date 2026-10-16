@@ -43111,3 +43111,13 @@ shorter.
 Bottleneck: looking — sixty-four waves to shoot and read before a single boss could be chosen.
 
 *Measured: 28 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
+
+## 2026-10-16 — The field's back is the wave's sky, one of twelve
+
+- reading: 10 min. Every reader of the sea's pieces, the backdrop and budget tests, and how a DOCUMENTATION room is bound.
+- writing: 35 min. The six skies moved into render, six more beside them, the rotation table, the sea taken out, the recorder taught paths, and the SKIES room.
+- looking: 10 min. Two shots of the SKIES room; the first hid its top row under the sticky header and sent the crop the wrong way.
+- friction: 5 min. The first edit to THE LID's budget row landed on another eye's row, the same number one section up.
+- landing: 10 min. Two budget rows moved, an export sorted, a stale file name in a comment, `check:fast` twice, `land`.
+
+Bottleneck: writing — twelve pictures, each baked once and checked in a frame before it sat under the bodies.

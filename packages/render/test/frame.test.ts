@@ -6,6 +6,7 @@ import { bandLobes } from "../src/band-lobes.js";
 import { Canvas2DRenderer } from "../src/canvas2d.js";
 import { computeLayout, computeStage, type ViewRole } from "../src/layout.js";
 import type { Viewport } from "../src/renderer.js";
+import { SKIES } from "../src/skies.js";
 import {
   CFG,
   FRAME_TIMEOUT_MS,
@@ -65,6 +66,19 @@ describe("a frame", () => {
       expect(() => frames("test", 8, viewport)).not.toThrow();
     }
   });
+});
+
+describe("every sky", () => {
+  // The back is the wave's sky (`skies.ts`), so the plain wave above only
+  // ever draws the first of them; each of the twelve is drawn here once.
+  for (const [i, sky] of SKIES.entries()) {
+    it(`draws ${sky.name} without the canvas refusing a value`, () => {
+      const world = createWorld(CFG, 7, buildQueue(i, CFG.cols));
+      world.wave = i;
+      const { ctx } = runFrames(world, "p1", 8);
+      expect(ctx.calls).toBeGreaterThan(0);
+    });
+  }
 });
 
 describe("the guard lapsing", () => {

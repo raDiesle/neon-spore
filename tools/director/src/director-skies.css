@@ -1,0 +1,31 @@
+/* DOCUMENTATION → SKIES (`skies-page.ts`): one card per sky. */
+.sky-cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.sky-card {
+  margin: 0;
+  width: 240px;
+}
+
+.sky-shot {
+  min-height: 360px;
+}
+
+.sky-shot canvas {
+  display: block;
+  border-radius: 6px;
+}
+
+.sky-card figcaption {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-top: 6px;
+}
+
+.sky-card figcaption small {
+  opacity: 0.6;
+}

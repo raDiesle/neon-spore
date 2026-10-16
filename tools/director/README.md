@@ -357,6 +357,12 @@ and its pressure, so nothing has to be opened to compare two. Both files come
 over `/api/waves-doc` (`src/waves-doc-api.ts`), read on every open; the table is
 rewritten by `bun run waves:measure`.
 
+**SKIES** (16 October 2026, `src/skies-page.ts`) is every sky the field can sit
+in — twelve pictures, each with one large thing in it, and the wave picks one:
+wave `n` opens under sky `n % 12` (`packages/render/src/skies.ts`). A card per
+sky with its name, its line and the first waves that get it, over a real frame
+of the game started on the first of those waves.
+
 ## RELEASE NOTES
 
 `≡ RELEASE NOTES` in the header is the other full-screen sheet: what landed on

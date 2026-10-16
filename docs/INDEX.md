@@ -1346,7 +1346,7 @@ by hand never moves.
 | `packages/render/src/arrivals.ts` | Which impacts have actually landed, as far as the picture is concerned |
 | `packages/render/src/arc-from-top.ts` | `arcFromTop`: a share of a circle from twelve o'clock, clockwise — every countdown ring, filling ring and dial |
 | `packages/render/src/assets.d.ts` | Bun's bundler emits an imported binary as a file and hands back its URL |
-| `packages/render/src/backdrop.ts` | The field's back: two depths of drifting motes, a slow wash, and the horizon they sit in front of |
+| `packages/render/src/backdrop.ts` | What every sky behind the field is drawn from (`skies.ts`): a hash in place of `Math.random` |
 | `packages/render/src/backdrop-look.ts` | THE ONE RECORD A CANDIDATE **BACKDROP** PATCHES |
 | `packages/render/src/banner.ts` | The one-word receipt for a pod taken in time |
 | `packages/render/src/briefing.ts` | How a wave opens, drawn: first its introduction, then its guide |
@@ -1475,7 +1475,6 @@ by hand never moves.
 | `packages/render/src/keel-fx.ts` | What THE KEEL leaves behind a frame: the **snap** of a segment as it locks |
 | `packages/render/src/keel-verdicts.ts` | **THE KEEL's joints answering a touch the way every mark does** (`mark-feedback.ts` |
 | `packages/render/src/keel-rock.ts` | **THE KEEL's rock**, the lump of iron the tail throws |
-| `packages/render/src/light-shafts.ts` | SUN FALLING INTO DEEP WATER |
 | `packages/render/src/lobe.ts` | One lobe of the membrane, as a bump on the contour |
 | `packages/render/src/lure-alarm.ts` | The alarm player 2 sees over a lure, and player 1 never does |
 | `packages/render/src/lure-vanish.ts` | A lure going, and the one moment of this creature both screens show identically |
@@ -2330,7 +2329,6 @@ by hand never moves.
 | `packages/render/src/comms-talker.ts` | one row per creature: which seat has to say something about it |
 | `packages/render/src/comms-boss.ts` | The siren for a boss whose split is the whole fight: THE ANTIPHON's explainer lit, EXPLAIN SHAPE and CHOOSE SHAPE swapping every level |
 | `packages/render/src/comms-mimic.ts` | THE MIMIC's siren, top right: the reader's chip lit and each seat's job under the dial |
-| `packages/render/src/corner-light.ts` | One rounded light in the bottom-right corner of the sky |
 | `packages/render/src/core-hurt.ts` | **A core's hurt**: a little smaller and brighter for every hit it has taken |
 | `packages/render/src/core-stop.ts` | **Where a bolt meets a core over the middle column**: `coreStopper`, and a body's `Foot` |
 | `packages/render/src/countdown.ts` | THE COUNT: the disc, `showsCount`, and the notches it wore — NOTCHES on the LIBRARY |
@@ -2885,6 +2883,20 @@ by hand never moves.
 | `packages/render/src/solid-verlet.ts` | A TRAILING PART THAT IS DRAGGED: a verlet chain, for the one case `chainAt` (`solid-motion.ts`) is not |
 | `packages/render/src/soak-hold.ts` | **Every hold on the field, drawn as the HOLD LAB's**: SOAK on the PULL LAB's drop |
 | `packages/render/src/soak-water.ts` | **SOAK's water**: green water welling up under the thumb and spreading out to the rim of the drop |
+| `packages/render/src/skies.ts` | Every sky the field can sit in, and which one a wave gets |
+| `packages/render/src/sky-aurora.ts` | AURORA — curtains of light hang across the top of the sky and ripple |
+| `packages/render/src/sky-binary.ts` | BINARY — two suns turning round each other, one eating the other |
+| `packages/render/src/sky-cells.ts` | CELLS — the field is inside something alive |
+| `packages/render/src/sky-comet.ts` | COMET — a great comet hangs across the sky |
+| `packages/render/src/sky-eclipse.ts` | ECLIPSE — a black world stands in front of a star, high over the field |
+| `packages/render/src/sky-galaxy.ts` | GALAXY — a spiral galaxy, tilted, turning behind the field |
+| `packages/render/src/sky-giant.ts` | GIANT — a gas giant hangs over the field, a third of it off the left edge |
+| `packages/render/src/sky-hole.ts` | HOLE — a black hole high on the left, its disc on fire |
+| `packages/render/src/sky-kit.ts` | What the skies share (`skies.ts`): a bake, the act's colour lifted far enough off black to be seen |
+| `packages/render/src/sky-milky.ts` | MILKY — the galaxy's own band crosses the sky corner to corner |
+| `packages/render/src/sky-moons.ts` | MOONS — three moons over the field, one of them huge |
+| `packages/render/src/sky-pillars.ts` | PILLARS — towers of dark dust stand up out of the bottom of the sky, lit from behind |
+| `packages/render/src/sky-remnant.ts` | REMNANT — the shell of a star that blew up, filling the sky |
 | `packages/render/src/unseen.ts` | **A frame with the bodies neither screen may draw taken out of it** — once, for every pass under it |
 | `packages/render/src/undertow-draw.ts` | THE UNDERTOW, on the ship: the plate bowing, its seams lit |
 | `packages/render/src/undertow-drift.ts` | **THE UNDERTOW leans where it comes up through the plating** |
@@ -3990,6 +4002,7 @@ by hand never moves.
 | `tools/director/src/versus-diff.ts` | How two pictures of the same frame are compared — the pixel arithmetic behind `versus-seat.ts` |
 | `tools/hooks/after-svg-edit.ts` | A drawn picture is the one thing a session cannot check by reading it back |
 | `tools/director/src/skins/glass.ts` | GLASS — a body you see *into*, rather than one with things drawn on it |
+| `tools/director/src/skies-page.ts` | DOCUMENTATION → SKIES: every sky the field can sit in, drawn |
 | `tools/director/src/entry-fields-balloon.ts` | **THE BALLOON's one authored fact**: how fast it climbs |
 | `tools/director/src/entry-fields-blister.ts` | **THE BLISTER's per-arrival facts**: whose hand knocks it down, how many blows it takes, by which gesture |
 | `tools/director/src/entry-fields-mine.ts` | **THE MINE's two per-arrival facts**, and the first pair in this game that are not about how a body moves or… |

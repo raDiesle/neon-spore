@@ -423,12 +423,15 @@ const SCENES: readonly Scene[] = [
     // (`creature-glance.ts`): each of the fifteen turns on a layer of its own
     // and is laid back in two halves, so `drawImage`, `save` and `clip` rose by
     // about five, four and three a body, and its fills land on the layer.
+    // One `stroke` more on 16 October 2026, when the field's back became the
+    // wave's sky (`skies.ts`): this wave's is BINARY, and the gas pulled from
+    // one sun to the other is one stroked curve.
     why: "one body divided into fifteen",
     rows: {
       p1: [
         {
           fillRect: 69,
-          stroke: 174,
+          stroke: 175,
           fill: 109,
           clip: 126,
           save: 230,
@@ -440,7 +443,7 @@ const SCENES: readonly Scene[] = [
         },
         {
           fillRect: 69,
-          stroke: 176,
+          stroke: 177,
           fill: 108,
           clip: 126,
           save: 230,
@@ -454,7 +457,7 @@ const SCENES: readonly Scene[] = [
       p2: [
         {
           fillRect: 69,
-          stroke: 178,
+          stroke: 179,
           fill: 117,
           clip: 126,
           save: 232,
@@ -466,7 +469,7 @@ const SCENES: readonly Scene[] = [
         },
         {
           fillRect: 69,
-          stroke: 180,
+          stroke: 181,
           fill: 116,
           clip: 126,
           save: 232,

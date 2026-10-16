@@ -1,0 +1,73 @@
+/**
+ * DOCUMENTATION → SKIES: every sky the field can sit in, drawn.
+ *
+ * The back of the field is one of twelve pictures and the wave picks it
+ * (`packages/render/src/skies.ts`): wave `n` gets sky `n % 12`. This room is
+ * the list — each sky's name, its line, which waves open under it, and a real
+ * frame of the game started on the first of those waves, so the picture is
+ * the shipping renderer against a `World` and cannot drift from the game.
+ *
+ * Lazy, like every other room in this sheet: nothing is drawn until the tab is
+ * clicked, and each card's frame waits until the card is on screen.
+ */
+
+import { WAVES } from "@neon-spore/content";
+import { SKIES, type Sky } from "@neon-spore/render";
+import { createWorld, DEFAULT_CONFIG, type SimConfig, startWave } from "@neon-spore/sim";
+import { frameWorld } from "./pose-art.js";
+import { whenSeen } from "./when-seen.js";
+
+const CFG: SimConfig = { ...DEFAULT_CONFIG, hullInvulnerable: true };
+/** Small enough that four fit across a desk, big enough to read the sky. */
+const CARD_WIDTH = 240;
+/** How many of a sky's waves to name before "and every twelfth after". */
+const NAMED = 3;
+
+let drawn = false;
+
+/** The first few waves that open under sky `i`, by name. */
+function wavesUnder(i: number): string {
+  const names: string[] = [];
+  for (let w = i; w < WAVES.length && names.length < NAMED; w += SKIES.length) {
+    names.push(`${w} ${WAVES[w]?.name ?? ""}`.trim());
+  }
+  return `${names.join(" · ")} — and every ${SKIES.length}th wave after`;
+}
+
+function skyFrame(i: number): HTMLCanvasElement {
+  const world = createWorld({ ...CFG }, 11);
+  startWave(world, Math.min(i, WAVES.length - 1), [], [], null);
+  return frameWorld(world, "p1", "field", CARD_WIDTH).canvas;
+}
+
+function skyCard(sky: Sky, i: number): HTMLElement {
+  const card = document.createElement("figure");
+  card.className = "sky-card";
+  const shot = document.createElement("div");
+  shot.className = "sky-shot";
+  whenSeen(shot, () => shot.appendChild(skyFrame(i)));
+  const cap = document.createElement("figcaption");
+  const name = document.createElement("b");
+  name.textContent = sky.name;
+  const line = document.createElement("span");
+  line.textContent = sky.sentence;
+  const waves = document.createElement("small");
+  waves.textContent = wavesUnder(i);
+  cap.append(name, line, waves);
+  card.append(shot, cap);
+  return card;
+}
+
+function renderSkies(): void {
+  if (drawn) return;
+  const body = document.getElementById("skiesBody");
+  if (!body) return;
+  drawn = true;
+  body.replaceChildren(...SKIES.map(skyCard));
+}
+
+export function bindSkiesTab(): void {
+  document
+    .querySelector<HTMLButtonElement>('#statesTabs button[data-tab="skies"]')
+    ?.addEventListener("click", renderSkies);
+}

@@ -1,7 +1,7 @@
-import { hash01 } from "../../../../../packages/render/src/backdrop.js";
-import type { BackdropDraw } from "../../../../../packages/render/src/backdrop-look.js";
-import { mixHex } from "../../../../../packages/render/src/hex.js";
-import { actTint, alpha, baked, paintSpace } from "../sky.js";
+import { hash01, withAlpha } from "./backdrop.js";
+import type { BackdropDraw } from "./backdrop-look.js";
+import { mixHex } from "./hex.js";
+import { actTint, baked, paintSpace } from "./sky-kit.js";
 
 /**
  * CELLS — the field is inside something alive.
@@ -60,10 +60,10 @@ function tissue(tint: string, w: number, h: number): HTMLCanvasElement {
     cells.forEach((c, i) => {
       // The cytoplasm: darker at the heart, lit toward the membrane.
       const body = g.createRadialGradient(c.x, c.y, c.r * 0.1, c.x, c.y, c.r);
-      body.addColorStop(0, alpha(deep, 1));
-      body.addColorStop(0.75, alpha(tint, 0.9));
-      body.addColorStop(0.93, alpha(wall, 0.55));
-      body.addColorStop(1, alpha(wall, 0));
+      body.addColorStop(0, withAlpha(deep, 1));
+      body.addColorStop(0.75, withAlpha(tint, 0.9));
+      body.addColorStop(0.93, withAlpha(wall, 0.55));
+      body.addColorStop(1, withAlpha(wall, 0));
       g.fillStyle = body;
       g.beginPath();
       // A wobbled outline, so no cell is a circle.
@@ -77,7 +77,7 @@ function tissue(tint: string, w: number, h: number): HTMLCanvasElement {
         else g.lineTo(x, y);
       }
       g.fill();
-      g.strokeStyle = alpha(wall, 0.4);
+      g.strokeStyle = withAlpha(wall, 0.4);
       g.lineWidth = Math.max(1, c.r * 0.025);
       g.stroke();
       // The nucleus, off centre.
@@ -86,16 +86,16 @@ function tissue(tint: string, w: number, h: number): HTMLCanvasElement {
       const ny = c.y + Math.sin(na) * c.r * 0.3;
       const nr = c.r * (0.16 + hash01(114_000 + i) * 0.08);
       const nuc = g.createRadialGradient(nx, ny, 0, nx, ny, nr);
-      nuc.addColorStop(0, alpha(wall, 0.4));
-      nuc.addColorStop(0.7, alpha(wall, 0.18));
-      nuc.addColorStop(1, alpha(wall, 0));
+      nuc.addColorStop(0, withAlpha(wall, 0.4));
+      nuc.addColorStop(0.7, withAlpha(wall, 0.18));
+      nuc.addColorStop(1, withAlpha(wall, 0));
       g.fillStyle = nuc;
       g.fillRect(nx - nr, ny - nr, nr * 2, nr * 2);
     });
   });
 }
 
-export function cells(d: BackdropDraw): void {
+export function skyCells(d: BackdropDraw): void {
   const { ctx, l, time } = d;
   const height = l.bandTop;
   if (height <= 0 || l.width <= 0) return;

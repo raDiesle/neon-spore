@@ -527,7 +527,10 @@ const EYE_BUDGETS: Readonly<Record<string, readonly Budget[]>> = {
       // its own, with the far side's dark ramped over it.
       clip: 16,
       save: 60,
-      drawImage: 34,
+      // Forty-seven more on 16 October 2026, when the field's back became the
+      // wave's sky (`skies.ts`): this wave's is AURORA, two curtains of light
+      // drawn as forty-eight strips of one baked sprite, and two stars.
+      drawImage: 81,
       createLinearGradient: 32,
       createRadialGradient: 17,
       // Two more on 26 September 2026, when the cord's handle became the
@@ -545,7 +548,8 @@ const EYE_BUDGETS: Readonly<Record<string, readonly Budget[]>> = {
       fill: 99,
       clip: 16,
       save: 60,
-      drawImage: 34,
+      // AURORA's strips, as in frame 0.
+      drawImage: 81,
       createLinearGradient: 23,
       // The eye builds none of its own: the wash around it is a `halo` sprite
       // cached by colour and radius, and the one left is `key-light.ts`'s

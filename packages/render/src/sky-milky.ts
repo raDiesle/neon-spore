@@ -1,7 +1,7 @@
-import { hash01 } from "../../../../../packages/render/src/backdrop.js";
-import type { BackdropDraw } from "../../../../../packages/render/src/backdrop-look.js";
-import { mixHex } from "../../../../../packages/render/src/hex.js";
-import { actTint, alpha, baked, lighter, paintSpace } from "../sky.js";
+import { hash01, withAlpha } from "./backdrop.js";
+import type { BackdropDraw } from "./backdrop-look.js";
+import { mixHex } from "./hex.js";
+import { actTint, baked, lighter, paintSpace } from "./sky-kit.js";
 
 /**
  * MILKY — the galaxy's own band crosses the sky corner to corner.
@@ -44,9 +44,9 @@ function bandSheet(tint: string, w: number, h: number): HTMLCanvasElement {
       mx + (n.x / len) * spread * 1.4,
       my + (n.y / len) * spread * 1.4,
     );
-    grad.addColorStop(0, alpha(glowColour, 0));
-    grad.addColorStop(0.5, alpha(glowColour, 0.32));
-    grad.addColorStop(1, alpha(glowColour, 0));
+    grad.addColorStop(0, withAlpha(glowColour, 0));
+    grad.addColorStop(0.5, withAlpha(glowColour, 0.32));
+    grad.addColorStop(1, withAlpha(glowColour, 0));
     g.fillStyle = grad;
     g.fillRect(0, 0, pw, ph);
 
@@ -60,7 +60,7 @@ function bandSheet(tint: string, w: number, h: number): HTMLCanvasElement {
       if (hash01(s + 3) > p) continue;
       const a = 0.15 + hash01(s + 4) * 0.55;
       const tone = hash01(s + 5);
-      g.fillStyle = alpha(tone < 0.2 ? "#FFD9B0" : tone > 0.8 ? "#B8D8FF" : "#ECE8FF", a);
+      g.fillStyle = withAlpha(tone < 0.2 ? "#FFD9B0" : tone > 0.8 ? "#B8D8FF" : "#ECE8FF", a);
       const dot = tone > 0.97 ? 1.8 : 0.9;
       g.fillRect(x, y, dot, dot);
     }
@@ -81,7 +81,7 @@ function bandSheet(tint: string, w: number, h: number): HTMLCanvasElement {
   });
 }
 
-export function milky(d: BackdropDraw): void {
+export function skyMilky(d: BackdropDraw): void {
   const { ctx, l, time } = d;
   const height = l.bandTop;
   if (height <= 0 || l.width <= 0) return;

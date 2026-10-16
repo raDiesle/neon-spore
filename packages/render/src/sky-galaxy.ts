@@ -1,7 +1,7 @@
-import { hash01 } from "../../../../../packages/render/src/backdrop.js";
-import type { BackdropDraw } from "../../../../../packages/render/src/backdrop-look.js";
-import { mixHex } from "../../../../../packages/render/src/hex.js";
-import { actTint, alpha, baked, drawStars, glow, lighter, paintSpace, starSheet } from "../sky.js";
+import { hash01, withAlpha } from "./backdrop.js";
+import type { BackdropDraw } from "./backdrop-look.js";
+import { mixHex } from "./hex.js";
+import { actTint, baked, drawStars, lighter, paintSpace, skyGlow, starSheet } from "./sky-kit.js";
 
 /**
  * GALAXY — a spiral galaxy, tilted, turning behind the field.
@@ -31,9 +31,9 @@ function galaxySheet(tint: string, size: number): HTMLCanvasElement {
     const hot = mixHex(tint, "#FFE6C8", 0.7);
     // A haze along the whole disc, under the arms.
     const haze = g.createRadialGradient(r, r, 0, r, r, r);
-    haze.addColorStop(0, alpha(hot, 0.5));
-    haze.addColorStop(0.25, alpha(tint, 0.35));
-    haze.addColorStop(1, alpha(tint, 0));
+    haze.addColorStop(0, withAlpha(hot, 0.5));
+    haze.addColorStop(0.25, withAlpha(tint, 0.35));
+    haze.addColorStop(1, withAlpha(tint, 0));
     g.fillStyle = haze;
     g.fillRect(0, 0, w, w);
     // Two logarithmic arms, each a cloud of points scattered about its line.
@@ -54,15 +54,15 @@ function galaxySheet(tint: string, size: number): HTMLCanvasElement {
         const y = r + Math.sin(ang) * (rad + spread);
         const fade = 1 - rad / r;
         const dot = 0.6 + hash01(s + 4) * 1.4;
-        g.fillStyle = alpha(hash01(s + 4) < 0.15 ? hot : arm, 0.18 + fade * 0.5);
+        g.fillStyle = withAlpha(hash01(s + 4) < 0.15 ? hot : arm, 0.18 + fade * 0.5);
         g.fillRect(x - dot / 2, y - dot / 2, dot, dot);
         // A soft puff under every few points, so an arm is a cloud and not a
         // string of beads.
         if (i % 3 === 0) {
           const puff = r * (0.03 + fade * 0.05);
           const p = g.createRadialGradient(x, y, 0, x, y, puff);
-          p.addColorStop(0, alpha(arm, 0.08 + fade * 0.08));
-          p.addColorStop(1, alpha(arm, 0));
+          p.addColorStop(0, withAlpha(arm, 0.08 + fade * 0.08));
+          p.addColorStop(1, withAlpha(arm, 0));
           g.fillStyle = p;
           g.fillRect(x - puff, y - puff, puff * 2, puff * 2);
         }
@@ -87,7 +87,7 @@ function galaxySheet(tint: string, size: number): HTMLCanvasElement {
   });
 }
 
-export function galaxy(d: BackdropDraw): void {
+export function skyGalaxy(d: BackdropDraw): void {
   const { ctx, l, time } = d;
   const height = l.bandTop;
   if (height <= 0 || l.width <= 0) return;
@@ -111,7 +111,7 @@ export function galaxy(d: BackdropDraw): void {
     const core = r * 0.55;
     ctx.globalAlpha = 0.55;
     ctx.drawImage(
-      glow(mixHex(tint, "#FFE6C8", 0.6), core),
+      skyGlow(mixHex(tint, "#FFE6C8", 0.6), core),
       cx - core / 2,
       cy - core / 2,
       core,

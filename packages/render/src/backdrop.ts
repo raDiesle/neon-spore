@@ -1,38 +1,19 @@
-import { gradientSlot, slotGradient } from "./gradient-slot.js";
 import { mix32 } from "./hash.js";
-import type { Layout } from "./layout.js";
-import { PALETTE } from "./palette.js";
 
 /**
- * The field's back: two depths of drifting motes, a slow wash, and the
- * horizon they sit in front of. The owner asked for a field that has a
- * back instead of reading as a test rig — this is render only, it decides
- * nothing, and none of it is stored anywhere: every value below is a pure
- * function of `time` (wall-clock, own-motion — see `renderer.ts`'s `ViewState`)
- * or of `wave` (world state, already identical on both screens), so there is
- * nothing here for `Effects.reset()` to ever have to forget.
+ * What every sky behind the field is drawn from (`skies.ts`): a hash in
+ * place of `Math.random`, a hex colour with an alpha, and the act's tint.
+ * None of it is stored anywhere — every value is a pure function of an
+ * index or of `wave` (world state, already identical on both screens), so
+ * there is nothing here for `Effects.reset()` to ever have to forget.
  *
- * Deliberately dim throughout. The creatures are the brightest thing on the
- * field; a backdrop bright enough to compete with them breaks the one thing
- * that has to read at 26 px on a phone — see `bun run shapes`.
- *
- * **The layers, not the picture.** Each pass here is exported on its own, and
- * the order they are laid down in — and whether they are laid down at all —
- * is `backdrop-look.ts`'s, the one record a candidate backdrop patches. A
- * candidate keeps a layer by calling it and drops one by not.
+ * The sea the field used to sit in — a wash, light shafts, a horizon band,
+ * two depths of dust and a light in the corner — went on 16 October 2026,
+ * when the owner called it *boring and empty* and asked for the skies.
  */
-
-/**
- * Where the horizon sits, as a fraction down the grid — near the top, where
- * everything the field shows first arrives from. `drawGrid`'s beat pulse
- * starts at the very top of the grid and travels down across this band on its
- * way to the hull, which is what makes the horizon read as *behind* the field
- * rather than printed on it.
- */
-const HORIZON_FRAC = 0.16;
 
 /** A pure bit-mixing hash — not `Math.random`. The same index always gives
- * the same value, on both screens, on every frame: mote positions are looked
+ * the same value, on both screens, on every frame: a star's place is looked
  * up here, never rolled. */
 export function hash01(seed: number): number {
   return mix32((seed * 0x9e3779b1) >>> 0, 15) / 4294967296;
@@ -54,133 +35,4 @@ const WASH_TINTS = ["#241B4F", "#152A45", "#3A1B45", "#123B2E", "#402313"] as co
 export function tintFor(wave: number): string {
   const i = ((wave % WASH_TINTS.length) + WASH_TINTS.length) % WASH_TINTS.length;
   return WASH_TINTS[i]!;
-}
-
-export interface MoteStyle {
-  count: number;
-  /** Keeps this depth's hashes out of the other depth's — otherwise both
-   * layers would draw the same dust in the same places. */
-  seedBase: number;
-  /** Sideways drift, screen widths per second. */
-  speed: number;
-  size: readonly [number, number];
-  alpha: readonly [number, number];
-}
-
-/** Farther, smaller, slower, dimmer. */
-export const FAR: MoteStyle = {
-  count: 30,
-  seedBase: 0,
-  speed: 0.007,
-  size: [0.8, 1.5],
-  alpha: [0.04, 0.1],
-};
-
-/** Nearer, a touch bigger and brighter, drifting faster — parallax between
- * the two is the whole of what reads as depth. */
-export const NEAR: MoteStyle = {
-  count: 14,
-  seedBase: 10_000,
-  speed: 0.021,
-  size: [1.5, 2.6],
-  alpha: [0.07, 0.16],
-};
-
-/**
- * One mote's four fixed numbers. Every one of them is `hash01` of `seedBase + i`
- * and nothing else — not of `time`, not of the layout — so the whole table is
- * built once at module load rather than 176 hashes a frame. Only `x` moves,
- * and it moves by a drift computed from `time` at the draw site, in the order
- * the table is in, which is the order the motes were always drawn in.
- */
-export interface Mote {
-  bx: number;
-  by: number;
-  size: number;
-  alpha: number;
-}
-
-export function motesOf(style: MoteStyle): Mote[] {
-  const out: Mote[] = [];
-  for (let i = 0; i < style.count; i++) {
-    const s = style.seedBase + i;
-    out.push({
-      bx: hash01(s * 4 + 1),
-      by: hash01(s * 4 + 2),
-      size: style.size[0] + hash01(s * 4 + 3) * (style.size[1] - style.size[0]),
-      alpha: style.alpha[0] + hash01(s * 4 + 4) * (style.alpha[1] - style.alpha[0]),
-    });
-  }
-  return out;
-}
-
-export const FAR_MOTES = motesOf(FAR);
-export const NEAR_MOTES = motesOf(NEAR);
-
-export function drawMotes(
-  ctx: CanvasRenderingContext2D,
-  l: Layout,
-  time: number,
-  style: MoteStyle,
-  motes: readonly Mote[],
-): void {
-  const height = l.bandTop;
-  if (height <= 0 || l.width <= 0) return;
-  ctx.fillStyle = PALETTE.sparkDim;
-  for (const m of motes) {
-    // Wraps forever without ever going negative into `%`.
-    const frac = m.bx + time * style.speed;
-    const x = (frac - Math.floor(frac)) * l.width;
-    const y = m.by * height;
-    ctx.globalAlpha = m.alpha;
-    ctx.fillRect(x - m.size / 2, y - m.size / 2, m.size, m.size);
-  }
-  ctx.globalAlpha = 1;
-}
-
-/** A soft horizontal band, fixed at `HORIZON_FRAC`, tinted per act. Static in
- * position — only the beat pulse in `drawGrid` moves — so it reads as a
- * distant skyline rather than another thing competing for attention. */
-/** Depends only on `l` (gridTop, gridHeight, width) and `wave` — never on
- * time, so the same gradient serves every frame between two waves. */
-const horizonSlot = gradientSlot<CanvasGradient>();
-
-export function drawHorizon(ctx: CanvasRenderingContext2D, l: Layout, wave: number): void {
-  if (l.gridHeight <= 0 || l.width <= 0) return;
-  const y = l.gridTop + l.gridHeight * HORIZON_FRAC;
-  const band = Math.max(1, l.gridHeight * 0.1);
-  const tint = tintFor(wave);
-  const g = slotGradient(ctx, horizonSlot, `${y},${band},${tint}`, () => {
-    const grad = ctx.createLinearGradient(0, y - band, 0, y + band);
-    grad.addColorStop(0, withAlpha(tint, 0));
-    grad.addColorStop(0.5, withAlpha(tint, 0.55));
-    grad.addColorStop(1, withAlpha(tint, 0));
-    return grad;
-  });
-  ctx.fillStyle = g;
-  ctx.fillRect(0, y - band, l.width, band * 2);
-}
-
-/** A very slow, very faint wash over the whole sky, breathing rather than
- * static — the one part of the backdrop that moves without anything crossing
- * it, so the field never looks quite like a still. */
-export function drawWash(
-  ctx: CanvasRenderingContext2D,
-  l: Layout,
-  wave: number,
-  time: number,
-): void {
-  const height = l.bandTop;
-  if (height <= 0 || l.width <= 0) return;
-  const tint = tintFor(wave);
-  // A different, wave-offset phase per act, so two acts sharing a tint (the
-  // palette is shorter than the wave list) still don't breathe in lockstep.
-  const breathe = 0.5 + 0.5 * Math.sin(time * 0.11 + wave * 1.7);
-  const alpha = 0.03 + 0.035 * breathe;
-  const g = ctx.createLinearGradient(0, 0, 0, height);
-  g.addColorStop(0, withAlpha(tint, 0));
-  g.addColorStop(0.55, withAlpha(tint, alpha));
-  g.addColorStop(1, withAlpha(tint, 0));
-  ctx.fillStyle = g;
-  ctx.fillRect(0, 0, l.width, height);
 }

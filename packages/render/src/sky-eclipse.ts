@@ -1,7 +1,7 @@
-import { hash01 } from "../../../../../packages/render/src/backdrop.js";
-import type { BackdropDraw } from "../../../../../packages/render/src/backdrop-look.js";
-import { mixHex } from "../../../../../packages/render/src/hex.js";
-import { actTint, alpha, baked, drawStars, glow, lighter, paintSpace, starSheet } from "../sky.js";
+import { hash01, withAlpha } from "./backdrop.js";
+import type { BackdropDraw } from "./backdrop-look.js";
+import { mixHex } from "./hex.js";
+import { actTint, baked, drawStars, lighter, paintSpace, skyGlow, starSheet } from "./sky-kit.js";
 
 /**
  * ECLIPSE — a black world stands in front of a star, high over the field.
@@ -31,8 +31,8 @@ function corona(colour: string, size: number): HTMLCanvasElement {
       const len = r * (1.25 + hash01(121_000 + i) ** 2 * 1.9);
       const wid = 0.02 + hash01(122_000 + i) ** 2 * 0.11;
       const grad = g.createRadialGradient(c, c, r * 0.9, c, c, len);
-      grad.addColorStop(0, alpha(colour, 0.38));
-      grad.addColorStop(1, alpha(colour, 0));
+      grad.addColorStop(0, withAlpha(colour, 0.38));
+      grad.addColorStop(1, withAlpha(colour, 0));
       g.fillStyle = grad;
       g.beginPath();
       g.moveTo(c + Math.cos(a - wid) * r, c + Math.sin(a - wid) * r);
@@ -43,15 +43,15 @@ function corona(colour: string, size: number): HTMLCanvasElement {
     }
     // The inner corona, hugging the limb.
     const inner = g.createRadialGradient(c, c, r * 0.95, c, c, r * 1.6);
-    inner.addColorStop(0, alpha("#FFF6E8", 0.95));
-    inner.addColorStop(0.15, alpha(colour, 0.6));
-    inner.addColorStop(1, alpha(colour, 0));
+    inner.addColorStop(0, withAlpha("#FFF6E8", 0.95));
+    inner.addColorStop(0.15, withAlpha(colour, 0.6));
+    inner.addColorStop(1, withAlpha(colour, 0));
     g.fillStyle = inner;
     g.fillRect(0, 0, w, w);
   });
 }
 
-export function eclipse(d: BackdropDraw): void {
+export function skyEclipse(d: BackdropDraw): void {
   const { ctx, l, time } = d;
   const height = l.bandTop;
   if (height <= 0 || l.width <= 0) return;
@@ -68,7 +68,7 @@ export function eclipse(d: BackdropDraw): void {
     // The light falling down the sky from it.
     const fall = l.width * 2.2;
     ctx.globalAlpha = 0.28;
-    ctx.drawImage(glow(tint, fall, [0, 0.3, 1]), cx - fall / 2, cy - fall / 2, fall, fall);
+    ctx.drawImage(skyGlow(tint, fall, [0, 0.3, 1]), cx - fall / 2, cy - fall / 2, fall, fall);
     const size = (r / 0.32) * 2;
     ctx.save();
     ctx.translate(cx, cy);
@@ -85,7 +85,7 @@ export function eclipse(d: BackdropDraw): void {
     const by = cy + Math.sin(a) * r;
     const bead = r * (0.95 + 0.1 * Math.sin(time * 1.3));
     ctx.globalAlpha = 0.9;
-    ctx.drawImage(glow("#FFF6E8", r, [0, 0.1, 1]), bx - bead / 2, by - bead / 2, bead, bead);
+    ctx.drawImage(skyGlow("#FFF6E8", r, [0, 0.1, 1]), bx - bead / 2, by - bead / 2, bead, bead);
   });
 
   // The disc last, so the bead shows only past the limb.

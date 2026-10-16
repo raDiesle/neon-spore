@@ -3,14 +3,15 @@ import { DEFAULT_CONFIG } from "@neon-spore/sim";
 import { hash01 } from "../src/backdrop.js";
 import { drawBackdrop } from "../src/backdrop-look.js";
 import { computeLayout } from "../src/layout.js";
+import { SKIES, skyFor } from "../src/skies.js";
 import { FRAME_TIMEOUT_MS, installCanvasGlobals } from "./canvas-stub.js";
 
 // The cap, applied per file because bun applies it to the file it is in
 // (`canvas-stub.ts`).
 setDefaultTimeout(FRAME_TIMEOUT_MS);
 
-// `light-shafts.ts` reaches for `document.createElement("canvas")` for its
-// sprite cache, same as `glow.ts` — the global `frame.test.ts` and
+// Every sky reaches for `document.createElement("canvas")` for its baked
+// pictures (`sky-kit.ts`), same as `glow.ts` — the global `frame.test.ts` and
 // `restart.test.ts` already install for that reason.
 beforeAll(installCanvasGlobals);
 
@@ -54,8 +55,8 @@ class Recorder {
     );
   }
 
-  // `light-shafts.ts` rotates the canvas to `KEY`'s angle and blits a cached
-  // sprite rather than filling rects — this records the same shape of thing
+  // A sky rotates the canvas and blits a cached sprite rather than filling
+  // rects — this records the same shape of thing
   // frame.test.ts's real canvas accepts, so the determinism checks below see
   // it too.
   save(): void {
@@ -74,6 +75,51 @@ class Recorder {
     this.log.push(
       `image a=${this._globalAlpha} ${dx.toFixed(3)},${dy.toFixed(3)},${dw.toFixed(3)},${dh.toFixed(3)}`,
     );
+  }
+
+  // The skies (`skies.ts`) turn, squash and clip their baked pictures, and
+  // draw a ring or a stream with a path: recorded as text like the rest.
+  scale(x: number, y: number): void {
+    this.log.push(`scale ${x.toFixed(3)},${y.toFixed(3)}`);
+  }
+  beginPath(): void {
+    this.log.push("path");
+  }
+  arc(x: number, y: number, r: number, a0: number, a1: number): void {
+    this.log.push(
+      `arc ${x.toFixed(3)},${y.toFixed(3)},${r.toFixed(3)},${a0.toFixed(4)},${a1.toFixed(4)}`,
+    );
+  }
+  rect(x: number, y: number, w: number, h: number): void {
+    this.log.push(`rectpath ${x.toFixed(3)},${y.toFixed(3)},${w.toFixed(3)},${h.toFixed(3)}`);
+  }
+  moveTo(x: number, y: number): void {
+    this.log.push(`move ${x.toFixed(3)},${y.toFixed(3)}`);
+  }
+  quadraticCurveTo(cx: number, cy: number, x: number, y: number): void {
+    this.log.push(`quad ${cx.toFixed(3)},${cy.toFixed(3)},${x.toFixed(3)},${y.toFixed(3)}`);
+  }
+  ellipse(x: number, y: number, rx: number, ry: number, rot: number, a0: number, a1: number): void {
+    this.log.push(
+      `ellipse ${x.toFixed(3)},${y.toFixed(3)},${rx.toFixed(3)},${ry.toFixed(3)},${rot},${a0.toFixed(4)},${a1.toFixed(4)}`,
+    );
+  }
+  clip(): void {
+    this.log.push("clip");
+  }
+  fill(): void {
+    this.log.push(`fill ${String(this._fillStyle)} a=${this._globalAlpha}`);
+  }
+  stroke(): void {
+    this.log.push(`stroke ${String(this.strokeStyle)} w=${this.lineWidth}`);
+  }
+  strokeStyle: unknown = "";
+  lineWidth = 1;
+  lineCap = "butt";
+  globalCompositeOperation = "source-over";
+
+  createRadialGradient(x0: number, y0: number, r0: number, x1: number, y1: number, r1: number) {
+    return this.createLinearGradient(x0, y0 + r0, x1, y1 + r1);
   }
 
   createLinearGradient(x0: number, y0: number, x1: number, y1: number) {
@@ -110,34 +156,49 @@ describe("hash01", () => {
 });
 
 describe("the backdrop", () => {
-  it("draws something", () => {
-    expect(record(0, 0).length).toBeGreaterThan(0);
+  it("is the wave's sky, round the twelve and back", () => {
+    expect(skyFor(0)).toBe(SKIES[0]!);
+    expect(skyFor(SKIES.length + 3)).toBe(SKIES[3]!);
+    expect(skyFor(-1)).toBe(SKIES[SKIES.length - 1]!);
+    expect(new Set(SKIES.map((s) => s.name)).size).toBe(SKIES.length);
   });
 
-  it("draws byte-for-byte the same field for the same wave and time, every time", () => {
-    // The whole point: two devices holding the same tick must never disagree
-    // about what is behind the field, and nothing here may read a clock or a
-    // random source to find out.
-    expect(record(2, 12.5)).toEqual(record(2, 12.5));
+  for (const [i, sky] of SKIES.entries()) {
+    describe(sky.name, () => {
+      it("draws something", () => {
+        expect(record(i, 0).length).toBeGreaterThan(0);
+      });
+
+      it("draws byte-for-byte the same sky for the same wave and time, every time", () => {
+        // The whole point: two devices holding the same tick must never
+        // disagree about what is behind the field, and nothing here may read a
+        // clock or a random source to find out.
+        expect(record(i, 12.5)).toEqual(record(i, 12.5));
+      });
+
+      it("moves as time passes, without changing how many things are drawn", () => {
+        const a = record(i, 0);
+        const b = record(i, 7.3);
+        expect(a).not.toEqual(b);
+        expect(a.length).toBe(b.length);
+      });
+    });
+  }
+
+  it("gives two waves two different skies, same time", () => {
+    expect(record(0, 5)).not.toEqual(record(1, 5));
   });
 
-  it("moves the motes as time passes, without changing how many things are drawn", () => {
-    const a = record(2, 0);
-    const b = record(2, 30);
-    expect(a).not.toEqual(b);
-    expect(a.length).toBe(b.length);
-  });
-
-  it("gives different acts a different wash and horizon, same time", () => {
-    const a = record(0, 5);
-    const b = record(1, 5);
-    expect(a).not.toEqual(b);
+  it("gives the same sky a different act's colour twelve waves on", () => {
+    expect(record(0, 5)).not.toEqual(record(SKIES.length, 5));
   });
 
   it("never throws on a field with nothing to draw into", () => {
     const empty = computeLayout({ width: 0, height: 0, dpr: 1 }, CFG, "test");
-    expect(() =>
-      drawBackdrop(new Recorder() as unknown as CanvasRenderingContext2D, empty, 0, 0),
-    ).not.toThrow();
+    for (const [i] of SKIES.entries()) {
+      expect(() =>
+        drawBackdrop(new Recorder() as unknown as CanvasRenderingContext2D, empty, i, 0),
+      ).not.toThrow();
+    }
   });
 });

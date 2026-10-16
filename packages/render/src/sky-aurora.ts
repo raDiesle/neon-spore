@@ -1,6 +1,7 @@
-import type { BackdropDraw } from "../../../../../packages/render/src/backdrop-look.js";
-import { mixHex } from "../../../../../packages/render/src/hex.js";
-import { actTint, alpha, baked, drawStars, lighter, paintSpace, starSheet } from "../sky.js";
+import { withAlpha } from "./backdrop.js";
+import type { BackdropDraw } from "./backdrop-look.js";
+import { mixHex } from "./hex.js";
+import { actTint, baked, drawStars, lighter, paintSpace, starSheet } from "./sky-kit.js";
 
 /**
  * AURORA — curtains of light hang across the top of the sky and ripple.
@@ -41,7 +42,7 @@ const CURTAINS: readonly Curtain[] = [
     speed: 0.22,
     phase: 0,
     alpha: 0.38,
-    strips: 40,
+    strips: 22,
     colour: ROSE,
   },
   {
@@ -51,7 +52,7 @@ const CURTAINS: readonly Curtain[] = [
     speed: -0.17,
     phase: 2.1,
     alpha: 0.6,
-    strips: 50,
+    strips: 26,
     colour: GREEN,
   },
 ];
@@ -59,10 +60,10 @@ const CURTAINS: readonly Curtain[] = [
 function stripSheet(colour: string): HTMLCanvasElement {
   return baked(`aurora-strip${colour}`, 16, 256, (g, w, h) => {
     const grad = g.createLinearGradient(0, h, 0, 0);
-    grad.addColorStop(0, alpha(colour, 0));
-    grad.addColorStop(0.04, alpha(colour, 1));
-    grad.addColorStop(0.25, alpha(colour, 0.5));
-    grad.addColorStop(1, alpha(colour, 0));
+    grad.addColorStop(0, withAlpha(colour, 0));
+    grad.addColorStop(0.04, withAlpha(colour, 1));
+    grad.addColorStop(0.25, withAlpha(colour, 0.5));
+    grad.addColorStop(1, withAlpha(colour, 0));
     g.fillStyle = grad;
     // Soft sides, so neighbouring strips blend into a sheet.
     const side = g.createLinearGradient(0, 0, w, 0);
@@ -76,7 +77,7 @@ function stripSheet(colour: string): HTMLCanvasElement {
   });
 }
 
-export function aurora(d: BackdropDraw): void {
+export function skyAurora(d: BackdropDraw): void {
   const { ctx, l, time } = d;
   const height = l.bandTop;
   if (height <= 0 || l.width <= 0) return;

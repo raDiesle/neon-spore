@@ -1,5 +1,6 @@
 import { bindControlSetsTab } from "./controlsets-page.js";
 import { bindHelpersTab } from "./helpers-page.js";
+import { bindSkiesTab } from "./skies-page.js";
 import { bindStatesTab } from "./states-page.js";
 import { bindStyleTab } from "./style-page.js";
 import { bindWavesDocTab } from "./waves-doc-page.js";
@@ -26,6 +27,7 @@ import { bindWordingsTab } from "./wordings-page.js";
 export function bindDocumentationRooms(playWave?: (id: string) => void): void {
   bindStatesTab();
   bindStyleTab();
+  bindSkiesTab();
   bindWordingsTab();
   bindControlSetsTab();
   bindHelpersTab();

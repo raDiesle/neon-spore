@@ -1,7 +1,7 @@
-import { hash01 } from "../../../../../packages/render/src/backdrop.js";
-import type { BackdropDraw } from "../../../../../packages/render/src/backdrop-look.js";
-import { mixHex } from "../../../../../packages/render/src/hex.js";
-import { actTint, alpha, baked, drawStars, glow, lighter, paintSpace, starSheet } from "../sky.js";
+import { hash01, withAlpha } from "./backdrop.js";
+import type { BackdropDraw } from "./backdrop-look.js";
+import { mixHex } from "./hex.js";
+import { actTint, baked, drawStars, lighter, paintSpace, skyGlow, starSheet } from "./sky-kit.js";
 
 /**
  * GIANT — a gas giant hangs over the field, a third of it off the left edge.
@@ -39,13 +39,13 @@ function bandSheet(tint: string, size: number): HTMLCanvasElement {
       const y = hash01(1300 + i) * h;
       const rx = (0.02 + hash01(1400 + i) * 0.06) * w;
       const ry = rx * 0.1;
-      g.fillStyle = alpha(hash01(1500 + i) < 0.5 ? light : dark, 0.3);
+      g.fillStyle = withAlpha(hash01(1500 + i) < 0.5 ? light : dark, 0.3);
       g.beginPath();
       g.ellipse(x, y, rx, ry, 0, 0, Math.PI * 2);
       g.fill();
     }
     // One storm, a shade of the bands and never a body's red.
-    g.fillStyle = alpha(light, 0.5);
+    g.fillStyle = withAlpha(light, 0.5);
     g.beginPath();
     g.ellipse(w * 0.3, h * 0.3, w * 0.035, h * 0.03, 0, 0, Math.PI * 2);
     g.fill();
@@ -76,12 +76,12 @@ function nightSheet(size: number): HTMLCanvasElement {
 
 const STARS = (x: number, _y: number) => (x < 0.55 ? 0.35 : 1);
 
-export function giant(d: BackdropDraw): void {
+export function skyGiant(d: BackdropDraw): void {
   const { ctx, l, time } = d;
   const height = l.bandTop;
   if (height <= 0 || l.width <= 0) return;
   paintSpace(d);
-  drawStars(d, starSheet(l.width, height, 160, 31_000, STARS));
+  drawStars(d, starSheet(l.width, height, 160, 31_000, STARS, "giant"));
 
   const tint = actTint(d, 0.35);
   const r = l.width * RADIUS;
@@ -92,7 +92,7 @@ export function giant(d: BackdropDraw): void {
   lighter(ctx, () => {
     ctx.globalAlpha = 0.35;
     const halo = r * 2.5;
-    ctx.drawImage(glow(tint, halo, [0.38, 0.45, 1]), cx - halo / 2, cy - halo / 2, halo, halo);
+    ctx.drawImage(skyGlow(tint, halo, [0.38, 0.45, 1]), cx - halo / 2, cy - halo / 2, halo, halo);
   });
 
   const tilt = -0.32;
@@ -141,7 +141,7 @@ function drawRing(
     [1.72, 2.5, 0.38],
     [1.86, 1.2, 0.28],
   ] as const) {
-    ctx.strokeStyle = alpha(colour, half === "back" ? a * 0.6 : a);
+    ctx.strokeStyle = withAlpha(colour, half === "back" ? a * 0.6 : a);
     ctx.lineWidth = w;
     ctx.beginPath();
     ctx.ellipse(0, 0, r * k, r * k * 0.16, 0, a0, a1);

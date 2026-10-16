@@ -427,3 +427,18 @@ against the command's working directory (the payload's `cwd`, when the
 harness sends one, or a `cd <dir> &&` prefix the command itself carries), and
 add a case to the hook's test with a worktree path. Done when the same `sed`
 in a worktree reports the worktree's own line count.
+
+## The op-count rows still carry the sea's forty-four motes
+
+- **Found:** 2026-10-16, claude/background-versus-candidates-e2bfdb
+- **Files:** `packages/render/test/frame-budget.test.ts`, `packages/render/test/wave-budget.test.ts`, `packages/render/test/fleet-budget.test.ts`
+
+The field's back stopped being a sea and became the wave's sky (`skies.ts`).
+The sea filled forty-four rects a frame for its dust and drew a wash, a horizon
+and three shafts; the skies fill one rect and blit a few baked pictures. The
+lane moved only the rows that went red (THE LID's `drawImage`, THE ECHO's
+`stroke`), so every other row is now looser than it measures — `fillRect`
+above all — and a regression up to that slack would pass unseen. Remeasure
+every row in the three files at its sky and write the measured numbers in.
+Done when each row equals what its frame draws today, and `bun run check` is
+green.

@@ -2300,3 +2300,18 @@ widened faint strokes, as far and as dark as the blurred one
 `packages/render/src/snake-skin-flat.ts`.
 
 It was the only answer offered.
+
+## `field:backdrop` — taken by hand, 2026-10-16
+
+the owner, 16 October 2026: *I like them all. Create more and build them all
+directly into game. Iterate somehow between them in game* — the sea goes, and
+the back is the wave's sky, one of twelve
+
+All six answers moved into `packages/render/src/` as `sky-<name>.ts`, their
+shared kit as `sky-kit.ts`, and six more were written beside them — HOLE,
+MOONS, PILLARS, BINARY, COMET, REMNANT. `BACKDROP_LOOK.back` draws
+`skyFor(wave)` (`skies.ts`); DOCUMENTATION → SKIES in the director shows all
+twelve.
+
+The answers offered were `giant`, `galaxy`, `aurora`, `milky`, `cells` and
+`eclipse`; every one was taken.
