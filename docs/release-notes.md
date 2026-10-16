@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-16 · 508dede3b — THE ROE and THE CLUTCH: three pods one shot frees, and four pods with a hollow one among them
+
+Two new waves at the end of THE HUSK's block, before THE SWINDLE. In THE ROE three pods hang on one amber thread down a column, and the shot that frees one frees the string: they land a beat apart, so one maw press takes two and the third needs a second. In THE CLUTCH three real pods and a husk hang at once, and only the navigator can see which one is hollow.
+
 ## 2026-10-16 · a2248e4eb — THE GLUTTON shows what it has eaten: a size bigger, rounder, and a pod glowing inside it for every meal
 
 A glutton that has eaten a pod now looks fed. It is drawn a size bigger, with one lobe more and every lobe shallower, a belly stretched round instead of a mouth. Each pod it ate glows inside it in the pod's own shell and core. The picture tells the pair the count they need, how many matching shots it will take, and shooting one meal back out takes one pod away. A hungry glutton is drawn as before.
