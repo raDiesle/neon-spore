@@ -12,6 +12,7 @@ export const WAVES_ACT_2: Wave[] = [
   {
     id: "catchAndAim",
     name: "CATCH AND AIM",
+    variant: true,
     guide: {
       scene: "catchAndAim",
     },
@@ -60,6 +61,7 @@ export const WAVES_ACT_2: Wave[] = [
   {
     id: "finale",
     name: "FINALE",
+    variant: true,
     entries: [
       { beat: 0, col: 0, color: "cyan" },
       { beat: 0, col: 10, color: "red" },

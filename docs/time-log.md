@@ -42772,3 +42772,14 @@ Bottleneck: the ladder. Merging two waves took the only wave off STANDARD 3,
 and the rung's tests, its fixtures and its comments all had to move with it.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-16 — A wave heads a group in the wave list exactly when it starts a block
+
+- reading: 5 min. What the composer already calls the start of a block.
+- writing: 5 min. Two variant flags and a test over every wave.
+- looking: 0 min. The list's grouping is read by the test, not by eye.
+- friction: 0 min.
+- landing: 10 min. The fast check and `land`.
+
+Bottleneck: none worth the name. The rule asked for was already true of
+every brush intro since the last lane; two waves outside it were left.
