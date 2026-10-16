@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-16 · fa66e7d43 — THE BLISTER and the maw's bodies have barrels of their own in sim
+
+The creatures' barrel was at 229 lines, with more of the SUCK page's family on the way. THE MORSEL, THE GLUTTON and THE MOULT's readings now live in `index-maw.ts`, and THE BLISTER's gestures, the largest family in it, in `index-blister.ts`. Both are re-exported from `index.ts`, so no import moves. `index-creatures.ts` is down to 186 lines.
+
 ## 2026-10-16 · b3428e731 — The op-count budgets are drawn under one sky, and every row is remeasured
 
 Every budget run now draws its field under one fixed sky, CELLS, the cheapest of the twelve (`BUDGET_SKY`), rather than whichever sky the wave's number fell under. Putting a block in early no longer moves a later wave's row, and every row in the six tables that draw a field is remeasured and written in as measured. The sea's forty-four dust rects, still in every `fillRect` budget since the skies replaced it, are out. `check:fast` now runs the budget tests for any change under `packages/content`, which is what moved eleven tables the day five pod waves went in.

@@ -43434,3 +43434,5 @@ row, without a slip — done by script, then checked equal by a second run.
 
 Bottleneck: the maw's three readings were nine lines, not enough for "well
 under 220"; THE BLISTER, the largest family, went out with them.
+
+*Measured: 5 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
