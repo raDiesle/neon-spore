@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-16 · 9d6379846 — TORCH's block is three torch waves: HELLO TORCH, TORCH AT WORLD END, TORCH ALLIANCE
+
+The five waves under TORCH carried no torch at all, lasted 3 to 9 beats and jumped from 3 to 14.4 in pressure. They are gone, and the composer wrote TORCH's three like every other block of the arc: 25 to 34 beats, pressure 3.6, 5.7 and 6.7, each cleared by AUTO.
+
 ## 2026-10-16 · d4ed75241 — THE BROOD: after ALTERNATING, a sac grows slicks and bulbs on its rim, and each is shot in its colour before it drops
 
 A field boss on STANDARD 2, wave 9, using nothing the first eight waves have not taught: player 1 slides the cannon under a bud, player 2 fires its colour. A bud left too long drops as the ordinary slick or bulb and grows again, so a miss is more of the fight; the wrong colour loses the wave. Six steps, one bud at a time up to three at once. This lane is the simulation, the hand, the sound and the guide; the sac draws nothing of its own until the look lane (docs/parked.md).

@@ -42865,3 +42865,5 @@ check finds, one red at a time.
 
 Bottleneck: reading — THE WALL was a perf reference wave and a pressure
 test's yardstick, found only by searching for its id.
+
+*Measured: 9 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
