@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-16 · 7e1239204 — GIANT, MILKY, ECLIPSE, AURORA, HOLE and MOONS move and have more in them
+
+GIANT has a small moon going round on its ring's plane, behind the world and then in front of it, the ring's shadow across its face, and a lit rim that breathes. MILKY has a warm bulge, rose knots of gas, and turns a hair either way. ECLIPSE has a second corona turning against the first, and prominence loops on the limb. AURORA has a third, violet curtain high up and a green glow under the curtains. HOLE throws two flickering jets with knots running out along them, and the near side of its disc is brighter. MOONS has a halo round the great moon, a pebble moon going round it, and the small moons bobbing. The owner asked for this look by name.
+
 ## 2026-10-16 · 05c04ef13 — Release note: pods.ts is 174 lines, not 172
 
 ## 2026-10-16 · 45deaf3d4 — The loose pod and the core every pod wears move out of render/pods.ts

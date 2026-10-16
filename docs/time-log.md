@@ -43519,3 +43519,5 @@ been an import cycle, so the caller passes the radius it already has.
 - landing: 5 min. `check:fast`, one baked-growth row, `land`.
 
 Bottleneck: waiting on part one's landing, which the drafting filled.
+
+*Measured: 13 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
