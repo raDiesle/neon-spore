@@ -331,6 +331,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## Split the maw's family out of packages/sim/src/index-creatures.ts
 
 - **Found:** 2026-10-16, claude/suck-brush-visuals-a917b1
+- **Taken:** 2026-10-16, claude/queue-work-6b11c3 (claim: claude/queue-split-the-maws-family-out-of-packages-sim-src-in)
 - **Files:** `packages/sim/src/index-creatures.ts`, `packages/sim/src/index.ts`
 
 The creatures' index is at 227 lines, and the size hook asks for the seam
