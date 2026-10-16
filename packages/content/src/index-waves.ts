@@ -20,7 +20,12 @@ export {
   PRESSURE_WINDOW_BEATS,
   wavePressure,
 } from "./wave-pressure.js";
-export { isRegularWave, waveIntroduces } from "./wave-regular.js";
+export {
+  isRegularWave,
+  regularWaves,
+  waveIntroduces,
+  waveIntroductions,
+} from "./wave-regular.js";
 export {
   arrivalTalk,
   FAULT_TALK,

@@ -1,4 +1,4 @@
-import { controlSet, isRegularWave, setHas, type Wave, waveTalk } from "@neon-spore/content";
+import { controlSet, setHas, type Wave, waveTalk } from "@neon-spore/content";
 import { type Block, placeable, readBlock } from "./compose-block.js";
 import {
   blocksBefore,
@@ -8,6 +8,7 @@ import {
   startsBlock,
 } from "./compose-starts.js";
 import { TUTORIAL_LAST_ID } from "./compose-steps.js";
+import { regularAt } from "./list-reading.js";
 
 /**
  * **A lesson's block**: eight regular waves after a wave that teaches a panel
@@ -30,8 +31,7 @@ import { TUTORIAL_LAST_ID } from "./compose-steps.js";
  * after it (THE PURGE after THE LANCE). */
 function pastGuides(waves: readonly Wave[], at: number): number {
   let i = at + 1;
-  while (i < waves.length && !waves[i]?.boss && !isRegularWave(waves, i) && !startsBlock(waves, i))
-    i++;
+  while (i < waves.length && !waves[i]?.boss && !regularAt(waves, i) && !startsBlock(waves, i)) i++;
   return i;
 }
 
@@ -41,7 +41,7 @@ function pastGuides(waves: readonly Wave[], at: number): number {
 export function hasWaves(waves: readonly Wave[], at: number): boolean {
   const next = pastGuides(waves, at);
   const id = waves[at]?.id ?? "";
-  return isRegularWave(waves, next) && (waves[next]?.id.startsWith(id) ?? false);
+  return regularAt(waves, next) && (waves[next]?.id.startsWith(id) ?? false);
 }
 
 /** What a group of waves is, for the reorder. */
@@ -74,7 +74,7 @@ export function lessonsAfterBlocks(waves: readonly Wave[]): Wave[] {
     for (let j = i; j < end; j++) {
       const w = waves[j] as Wave;
       if (w.boss) parts.boss.push(w);
-      else if (isRegularWave(waves, j)) parts.regular.push(w);
+      else if (regularAt(waves, j)) parts.regular.push(w);
       else {
         // The wave that opens the block is its head, a settled lesson too.
         if (j > i && isLesson(waves, j)) into = "lesson";

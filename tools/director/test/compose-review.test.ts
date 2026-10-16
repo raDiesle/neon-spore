@@ -7,13 +7,13 @@ import { isReviewHead } from "../src/compose-starts.js";
 
 /**
  * The composed review and the boss order over it: `nextReview` and two
- * `bossOrder`s over the whole list, each of which reads every block start off
- * the list before it. Free while no boss waited; since THE GEODE's landing of
- * 16 October 2026 THE HYDRA waits, and the test does the work — 4.4 s at a
- * load average of sixty on fourteen cores, about 1000 ms of it the machine's
- * own. So 1200, scaled by `itCosts` (`tools/test/figure.ts`).
+ * `bossOrder`s over the whole list. Each read every block start off the list
+ * again for each wave until 16 October 2026 — 4.4 s at a load average of
+ * sixty, and 1200 was allowed. Read once per list now (`list-reading.ts`):
+ * 30 ms with two bosses waiting at the end, at a load of thirty-five. So 100,
+ * scaled by `itCosts` (`tools/test/figure.ts`).
  */
-const REVIEW_AND_ORDER_MS = 1200;
+const REVIEW_AND_ORDER_MS = 100;
 
 describe("review blocks (wave-curriculum §7)", () => {
   test("only a review block's first wave is a review head", () => {

@@ -43360,3 +43360,16 @@ Bottleneck: none to speak of — a small hook with a test file that already
 said where each shape goes.
 
 *Measured: 4 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-16 — The composers read a wave list once
+
+- reading: 5 min. Which calls loop over the block starts, and which of the
+  callers are the page's.
+- writing: 15 min. `waveIntroductions` and `regularWaves` in content, the
+  director's per-list reading, seven files moved onto it, two tests.
+- looking: 0 min. Nothing drawn changed.
+- friction: 5 min. `waves:order` before and after, to prove the same order.
+- landing: 5 min. `check:fast`, `land`.
+
+Bottleneck: proving it changed nothing — two full `waves:order` runs, cheap
+only because the change itself made them fast.

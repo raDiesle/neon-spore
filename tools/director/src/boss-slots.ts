@@ -1,6 +1,7 @@
-import { controlSet, isRegularWave, type Wave, waveKeys } from "@neon-spore/content";
+import { controlSet, type Wave, waveKeys } from "@neon-spore/content";
 import { startsBlock } from "./compose-starts.js";
 import { TUTORIAL_LAST_ID } from "./compose-steps.js";
+import { regularAt } from "./list-reading.js";
 
 /**
  * **Where each boss goes**: `docs/spec/wave-curriculum.md` §7, decision 7.
@@ -58,7 +59,7 @@ export interface BossSlot {
  */
 function leadIn(rest: readonly Wave[], intro: number, next: number): number {
   let end = next;
-  while (end - 1 > intro && end < rest.length && !isRegularWave(rest, end - 1)) end--;
+  while (end - 1 > intro && end < rest.length && !regularAt(rest, end - 1)) end--;
   return end;
 }
 

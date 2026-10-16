@@ -4279,6 +4279,7 @@ by hand never moves.
 | `tools/director/src/library/rind-stage.ts` | The game's own rind, losing its layers on a card, each one drawn coming off by a shed of the caller's choosing |
 | `tools/director/src/library/countdown-assets.ts` | THE COUNT's four counts — how a body says how many beats are left, on the one screen that is shown it |
 | `tools/director/src/library/countdown-stage.ts` | The game's own count, drawn on a card wearing a look of the caller's choosing |
+| `tools/director/src/list-reading.ts` | **What each wave of a list brings, read once per list** — for the composers and boss placement |
 | `tools/director/src/labs.ts` | **The director's labs, PULL, HOLD, PRESS, RUB, COMBO, SHIELD and LEVER**: the one the URL left open |
 | `tools/director/src/lab-shell.ts` | **Where a lab stands** — every lab (`labs.ts`) keeps its bar, its canvas and its rule; this is the rest |
 | `tools/director/src/lever-lab-auto.ts` | **AUTO's thumb in THE LEVER LAB**, as `hold-lab-auto.ts` is the HOLD LAB's |

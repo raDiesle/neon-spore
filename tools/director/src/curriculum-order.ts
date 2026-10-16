@@ -1,14 +1,9 @@
-import {
-  controlSet,
-  isRegularWave,
-  type Wave,
-  waveIntroduces,
-  waveKeys,
-} from "@neon-spore/content";
+import { controlSet, type Wave, waveKeys } from "@neon-spore/content";
 import { placeable } from "./compose-block.js";
 import { isLesson } from "./compose-starts.js";
 import { STEPS, TUTORIAL_LAST_ID } from "./compose-steps.js";
 import { isFault, panelCost, thingCost } from "./curriculum-cost.js";
+import { introducesAt, regularAt } from "./list-reading.js";
 
 /**
  * **The order new things are taught in** — `docs/spec/wave-curriculum.md`
@@ -64,7 +59,7 @@ export function isComposed(id: string, heads: ReadonlySet<string>): boolean {
 
 /** What a unit's head costs: its dearest new thing. */
 function costOf(waves: readonly Wave[], at: number): { kind: UnitKind; cost: number } {
-  const things = waveIntroduces(waves, at);
+  const things = introducesAt(waves, at);
   const panel = controlSet(waves[at]?.controls).id;
   const cost = Math.max(...things.map((t) => (t === "panel" ? panelCost(panel) : thingCost(t))));
   if (placeable(waves, at) !== undefined) return { kind: "body", cost };
@@ -97,7 +92,7 @@ export function splitCurriculum(waves: readonly Wave[]): Curriculum {
     const owner = i <= finale || !unit ? "" : unit.head.id;
     for (const k of waveKeys(w)) if (!teacher.has(k)) teacher.set(k, owner);
     if (i <= finale || !unit) continue;
-    if (isRegularWave(waves, i)) written.push({ wave: w, needs: new Set(), after: owner });
+    if (regularAt(waves, i)) written.push({ wave: w, needs: new Set(), after: owner });
     else unit.waves.push(w);
   }
   const needsOf = (ws: readonly Wave[], self: string) =>

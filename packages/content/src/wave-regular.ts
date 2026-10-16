@@ -23,31 +23,51 @@ import type { Wave } from "./wave-types.js";
  * of a list that is not on disk yet.
  */
 
-/** What the wave at `index` is the first in `waves` to carry: the mechanics
- * met for the first time, by id, and `panel` when it is the first wave on its
- * panel. Empty for a wave that brings nothing new. */
-export function waveIntroduces(waves: readonly Wave[], index: number): string[] {
-  const wave = waves[index];
-  if (!wave) return [];
+/** What each wave of `waves` is the first in it to carry: the mechanics met
+ * for the first time, by id, and `panel` when it is the first wave on its
+ * panel. Empty for a wave that brings nothing new. One pass over the list —
+ * a caller asking of every index uses this, not `waveIntroduces` in a loop,
+ * which reads the list from the start each time (`docs/queue.md`, 16
+ * October 2026: `bossOrder` took two seconds over 578 waves that way). */
+export function waveIntroductions(waves: readonly Wave[]): string[][] {
   const before = new Set<string>();
-  for (let i = 0; i < index; i++) {
-    const w = waves[i];
-    if (w) for (const id of mechanicsInWave(w)) before.add(id);
-  }
-  const out: string[] = [];
-  for (const id of mechanicsInWave(wave)) {
-    // A `run` mechanic is on for the whole game or none of it, so no wave
-    // introduces one (the same exception the guide test makes).
-    if (mechanic(id).reach === "run" || before.has(id)) continue;
-    out.push(id);
-  }
-  if (firstOnPanel(waves, index)) out.push("panel");
-  return out;
+  return waves.map((wave, index) => {
+    const found = mechanicsInWave(wave);
+    const out: string[] = [];
+    for (const id of found) {
+      // A `run` mechanic is on for the whole game or none of it, so no wave
+      // introduces one (the same exception the guide test makes).
+      if (mechanic(id).reach === "run" || before.has(id)) continue;
+      out.push(id);
+    }
+    for (const id of found) before.add(id);
+    if (firstOnPanel(waves, index)) out.push("panel");
+    return out;
+  });
+}
+
+/** What the wave at `index` is the first in `waves` to carry
+ * (`waveIntroductions`). */
+export function waveIntroduces(waves: readonly Wave[], index: number): string[] {
+  if (!waves[index]) return [];
+  return waveIntroductions(waves.slice(0, index + 1))[index] ?? [];
+}
+
+/** Whether a wave that brings `fresh` is regular: no boss, no guide, nothing new. */
+function regular(wave: Wave | undefined, fresh: () => readonly string[]): boolean {
+  if (!wave || wave.boss || wave.guide) return false;
+  return fresh().length === 0;
 }
 
 /** Whether the wave at `index` is regular: no boss, no guide, nothing new. */
 export function isRegularWave(waves: readonly Wave[], index: number): boolean {
-  const wave = waves[index];
-  if (!wave || wave.boss || wave.guide) return false;
-  return waveIntroduces(waves, index).length === 0;
+  return regular(waves[index], () => waveIntroduces(waves, index));
+}
+
+/** `isRegularWave` of every index, in one pass (`waveIntroductions`). */
+export function regularWaves(
+  waves: readonly Wave[],
+  introductions = waveIntroductions(waves),
+): boolean[] {
+  return waves.map((wave, i) => regular(wave, () => introductions[i] ?? []));
 }

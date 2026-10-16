@@ -1,7 +1,8 @@
-import { isRegularWave, type Wave } from "@neon-spore/content";
+import type { Wave } from "@neon-spore/content";
 import { placeable } from "./compose-block.js";
 import { MOODS, type Mood, SPARE_WORDS } from "./compose-names-moods.js";
 import { BLISTER_GESTURES } from "./entry-fields-blister.js";
+import { regularAt } from "./list-reading.js";
 import { headOf, type WaveGroups, waveGroups } from "./rail-groups.js";
 
 /**
@@ -143,7 +144,7 @@ export function nameWaves(waves: readonly Wave[], only?: ReadonlySet<string>): W
   const list: List = {
     waves,
     groups: waveGroups(waves),
-    regular: waves.map((_, i) => isRegularWave(waves, i)),
+    regular: waves.map((_, i) => regularAt(waves, i)),
   };
   const partnerOf = partners(waves);
   const renamed = (i: number) =>

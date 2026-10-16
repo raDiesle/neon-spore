@@ -1,17 +1,16 @@
 import {
-  isRegularWave,
   mapCol,
   mechanicsInWave,
   WAVE_COLS,
   type Wave,
   type WaveEntry,
   waveCols,
-  waveIntroduces,
   wavePressure,
   waveTalk,
 } from "@neon-spore/content";
 import type { PodEntry } from "@neon-spore/sim";
 import { STEPS, TUTORIAL_LAST_ID } from "./compose-steps.js";
+import { introducesAt, regularAt } from "./list-reading.js";
 
 /**
  * **A block, read off the wave list**: the wave that introduces a thing, what
@@ -85,7 +84,7 @@ const BASICS = ["slick", "bulb", "meteor"];
 export function placeable(waves: readonly Wave[], index: number): string | undefined {
   const wave = waves[index];
   if (!wave || wave.boss) return undefined;
-  return waveIntroduces(waves, index).find((id) => motifsIn(wave, id).length > 0);
+  return introducesAt(waves, index).find((id) => motifsIn(wave, id).length > 0);
 }
 
 const one = (wave: Wave, part: Partial<Wave>): Wave => ({
@@ -135,7 +134,7 @@ function floorOf(
   let low: number | undefined;
   for (let i = from + 1; i < to; i++) {
     const wave = waves[i];
-    const p = wave && composed.has(wave.id) && isRegularWave(waves, i) ? score(wave) : undefined;
+    const p = wave && composed.has(wave.id) && regularAt(waves, i) ? score(wave) : undefined;
     if (p !== undefined && (low === undefined || p < low)) low = p;
   }
   return low;
@@ -151,7 +150,7 @@ function floorOf(
 export function leadingBlock(waves: readonly Wave[], block: Block): Block | undefined {
   if (block.existing === 0 || block.leads) return undefined;
   let past = block.insertAt;
-  while (isRegularWave(waves, past)) past++;
+  while (regularAt(waves, past)) past++;
   const last = waves[past - 1];
   const after = last && wavePressure(last);
   if (after === undefined) return undefined;
@@ -177,12 +176,12 @@ export function readBlock(waves: readonly Wave[], introId: string): Block | stri
     ? -1
     : intros.filter((b) => b.index > last && b.index < intro).length;
   let insertAt = intro + 1;
-  while (insertAt < next && !waves[insertAt]?.boss && !isRegularWave(waves, insertAt)) insertAt++;
+  while (insertAt < next && !waves[insertAt]?.boss && !regularAt(waves, insertAt)) insertAt++;
   // Up to the boss that closes it: a lesson's block may follow, before the
   // next intro (`compose-lesson.ts`).
   let existing = 0;
   for (let i = intro + 1; i < next && (!tutorial || i <= last) && !waves[i]?.boss; i++) {
-    if (isRegularWave(waves, i)) existing++;
+    if (regularAt(waves, i)) existing++;
   }
   const before = intros.slice(0, number);
   // The nearest block before with a regular wave written: one the composer

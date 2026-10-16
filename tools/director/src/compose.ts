@@ -1,4 +1,4 @@
-import { isRegularWave, type Wave, wavePressure, waveTalk } from "@neon-spore/content";
+import { type Wave, wavePressure, waveTalk } from "@neon-spore/content";
 import { createRng } from "@neon-spore/sim";
 import { type Block, leadingBlock } from "./compose-block.js";
 import { autoClears, paperFaults, spanOf } from "./compose-check.js";
@@ -7,6 +7,7 @@ import { grownStep, notchOf } from "./compose-grow.js";
 import { placeStep } from "./compose-place.js";
 import { choosePoints, type Point } from "./compose-ramp.js";
 import { GENTLEST_QUANTILE, START_RISE, type Step, stepsToCompose } from "./compose-steps.js";
+import { regularAt } from "./list-reading.js";
 
 /**
  * **A block's regular waves, composed** — `docs/spec/wave-curriculum.md` §6.
@@ -88,14 +89,14 @@ function drawsOf(block: Block, step: Step, introId: string, seed: number) {
  * composed ones lead up to. */
 function nextWritten(waves: readonly Wave[], block: Block): number | undefined {
   const next = waves[block.insertAt];
-  return next && isRegularWave(waves, block.insertAt) ? wavePressure(next) : undefined;
+  return next && regularAt(waves, block.insertAt) ? wavePressure(next) : undefined;
 }
 
 /** The talk of the last written regular wave a leading block's composed
  * ones follow. */
 function talkAfter(waves: readonly Wave[], block: Block): number | undefined {
   const last = waves[block.insertAt - 1];
-  return last && isRegularWave(waves, block.insertAt - 1) ? waveTalk(last) : undefined;
+  return last && regularAt(waves, block.insertAt - 1) ? waveTalk(last) : undefined;
 }
 
 /** A block's regular waves, composed: see `composeBlockAt`. */

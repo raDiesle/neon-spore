@@ -1,13 +1,7 @@
-import {
-  controlSet,
-  isRegularWave,
-  setHas,
-  type Wave,
-  waveIntroduces,
-  wavePressure,
-} from "@neon-spore/content";
+import { controlSet, setHas, type Wave, wavePressure } from "@neon-spore/content";
 import { placeable } from "./compose-block.js";
 import { TUTORIAL_LAST_ID } from "./compose-steps.js";
+import { introducesAt, regularAt } from "./list-reading.js";
 
 /**
  * **Where blocks start**, of the three kinds there are: an intro that brings
@@ -22,9 +16,9 @@ export function isReviewHead(waves: readonly Wave[], index: number): boolean {
   const next = waves[index + 1];
   return (
     waves[index]?.variant !== true &&
-    isRegularWave(waves, index) &&
+    regularAt(waves, index) &&
     next?.variant === true &&
-    isRegularWave(waves, index + 1)
+    regularAt(waves, index + 1)
   );
 }
 
@@ -33,7 +27,7 @@ export function isReviewHead(waves: readonly Wave[], index: number): boolean {
 export function isLesson(waves: readonly Wave[], index: number): boolean {
   const wave = waves[index];
   if (!wave || wave.boss || placeable(waves, index) !== undefined) return false;
-  return waveIntroduces(waves, index).length > 0;
+  return introducesAt(waves, index).length > 0;
 }
 
 /** Whether a wave starts a block of any kind. */
@@ -68,7 +62,7 @@ export function gentlestBefore(
   for (let i = start; i < at; i++) {
     const w = waves[i] as Wave;
     if (setHas(controlSet(w.controls), "reach")) continue;
-    const p = isRegularWave(waves, i) ? score(w) : undefined;
+    const p = regularAt(waves, i) ? score(w) : undefined;
     if (p !== undefined && (floor === undefined || p < floor)) floor = p;
   }
   const finale = waves.findIndex((w) => w.id === TUTORIAL_LAST_ID);
