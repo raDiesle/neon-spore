@@ -42706,3 +42706,5 @@ Bottleneck: the references — forty comments and spec lines named act files by 
 
 Bottleneck: the test fallout. Two pod kinds were read in every package, and
 each count, list and baseline that named them had to be found and moved.
+
+*Measured: 16 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

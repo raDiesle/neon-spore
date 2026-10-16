@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-16 · b06a93739 — One real pod with a clock, and the hollow pod a brush of its own
+
+A pod now has a deadline. From the beat it appears, the pair has 16 beats (podDueBeats) to shoot it loose and swallow it. A real pod still hanging when that time runs out loses the wave. A ring around the pod drains one notch per beat and turns ember for the last five. A husk wears the same ring, so the ring never gives it away. When a husk's ring runs out, it is let go at no cost. The owner rejected the PURGE and WARD cargoes, so every pod in every wave is the one real pod. THE PURGE is retired. THE WARD is now HEAVY ROCKS, kept for the four rock speeds it introduced, with a film of its own. The director's SUCK group has two brushes, REAL and HOLLOW, and a TIME row for how long a pod has.
+
 ## 2026-10-16 · 07936d544 — The act files are cut by the order the waves are played in
 
 A reorder moved most units and the save never moves a wave back an act, so the moved waves piled into thirty pages at the end and fifty-five act files were left empty under headers about waves that had gone. `waves:order --write` now cuts every act after the tutorial arc again in play order (`waves-recut.ts`): one block and the boss after it to a file, `act-3` to `act-56`, each header saying which waves of the game it holds and whose. A second reorder re-cuts rather than appending, and `--recut` does it alone; nothing plays differently. Comments and spec lines that named an act file name the wave now, since a reorder renames the files.
