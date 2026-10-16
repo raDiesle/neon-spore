@@ -6,6 +6,7 @@ import { handedLayout } from "./handover.js";
 import type { Layout } from "./layout.js";
 import type { SeatNames } from "./seat-name.js";
 import { DIAL_R, drawDial, TICK } from "./siren-dial.js";
+import { SIREN_LOOK } from "./siren-look.js";
 import { drawSeat, pillWidth, SIREN_PAD, seatChip } from "./siren-seats.js";
 import { drawSirenShine } from "./siren-shine.js";
 import { torchWarning } from "./torch-alarm.js";
@@ -181,8 +182,13 @@ export function drawSiren(
   const right = DIAL_R + GAP + pillWidth(seatChip("p2", names)) / 2;
 
   ctx.save();
-  drawSirenShine(ctx, cx, cy, time, torch);
-  drawDial(ctx, cx, cy, time);
+  // A VERSUS answer draws the dial and its light together (`siren-look.ts`).
+  const paint = SIREN_LOOK.paint;
+  if (paint) paint(ctx, cx, cy, time, torch);
+  else {
+    drawSirenShine(ctx, cx, cy, time, torch);
+    drawDial(ctx, cx, cy, time);
+  }
   drawSeat(ctx, l, "p1", call.p1, cx - left, cy, time, names);
   drawSeat(ctx, l, "p2", call.p2, cx + right, cy, time, names);
   if (word !== null) drawDuty(ctx, l, word, cx, cy + DIAL_R + DUTY_DROP);

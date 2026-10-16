@@ -327,3 +327,16 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/needs.test.ts` holds the wait, and
 `tools/queue/test/skipped.test.ts` holds the listing's count of the entries
 `next` stepped past and why.
+
+## `versus:shot --at` never finishes
+
+- **Found:** 2026-10-16, claude/siren-torch-visibility-923ccf
+- **Files:** `tools/frames/versus-shot.ts`, `tools/frames/shot.ts`
+- **Where:** local
+
+`bun run versus:shot siren:look beacon out.png --freeze 0.6 --only candidate
+--at 0,0,380,190` ran for ten minutes with no line of output and was stopped;
+the same command without `--at` wrote its PNG in under a minute, and the
+crop was taken afterwards with `bun run crop`. Find where `--at` waits —
+likely the frozen-frame wait and the clip disagreeing about which element to
+measure — and add a test that a frozen shot with `--at` returns.

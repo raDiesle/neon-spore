@@ -35,6 +35,7 @@ import { POSE_GROUPS } from "./poses.js";
  */
 const SLOT_POSE: Record<string, string> = {
   "pod:real": "POD · OWED",
+  "siren:look": "SIREN · A CALL, THEN A TORCH",
 };
 
 /** The pose a slot gets when nothing in `SLOT_POSE` names it. */

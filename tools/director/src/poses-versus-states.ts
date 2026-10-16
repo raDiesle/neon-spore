@@ -14,6 +14,7 @@ import { LEAD_DROPPING_POSE } from "./poses-lead-dropping.js";
 import { LEDGER_BILLED_POSE } from "./poses-ledger-billed.js";
 import { ROUND_TIMEOUT_POSE } from "./poses-round-timeout.js";
 import { SINEW_PARTING_POSE } from "./poses-sinew-parting.js";
+import { SIREN_STATES_POSE } from "./poses-siren.js";
 import { SLOW_RUNS_OUT_POSE, SLOW_WINDOW_POSE } from "./poses-slow.js";
 import { BREAK_POSE, BULB_STRUCK_POSE } from "./poses-struck.js";
 import { SURGE_BURST_POSE } from "./poses-surge-burst.js";
@@ -87,4 +88,5 @@ export const VERSUS_STATE_POSES: Pose[] = [
   LEDGER_BILLED_POSE,
   SURGE_BURST_POSE,
   LEAD_DROPPING_POSE,
+  SIREN_STATES_POSE,
 ];

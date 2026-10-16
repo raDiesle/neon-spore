@@ -43640,3 +43640,19 @@ one press a second.
 Bottleneck: looking — every frame is its own browser, thirty a sheet.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-16 — Three siren looks in VERSUS
+
+- reading: 10 min. `docs/versus.md`, the README, the pod slot as a model,
+  how a pose is mapped and which seat the pair draws.
+- writing: 15 min. `SIREN_LOOK`, the pose, three candidates each drawing
+  both lit states.
+- looking: 15 min. Eight `versus:shot` stills cropped into one sheet; the
+  light bar's alarm was caught dark between strobes and was made to burn.
+- friction: 20 min. `versus:shot --at` hung for ten minutes with no output,
+  and a looped run of shots stalled again; taken one at a time without
+  `--at` and cropped after (queued).
+- landing: 10 min. `index`, an import sort, `check:fast`, `land`.
+
+Bottleneck: friction — a screenshot flag that waits forever on a busy
+machine, and nothing saying so.

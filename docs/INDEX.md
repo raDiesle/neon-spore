@@ -1560,6 +1560,7 @@ by hand never moves.
 | `packages/render/src/siren-seats.ts` | The two chips that flank the siren: which seat, and what that seat has to do about the thing on the field |
 | `packages/render/src/siren-shine.ts` | The wash and two turning beams round a lit siren; faster, wider and ember while a torch is on its way |
 | `packages/render/src/siren-dial.ts` | the siren's dial — housing, ticks, the ring that breathes, two bars and the turning core — beside `siren-seats.ts` |
+| `packages/render/src/siren-look.ts` | The record `siren:look` candidates patch: the dial and its light, in a call and in a torch's alarm |
 | `packages/render/src/siren.ts` | The warning siren, top right of the field beside the strip, and the two seats' jobs under it |
 | `packages/render/src/sinew-band.ts` | **The strain band**: a tube hung in the middle of the tendon |
 | `packages/render/src/sinew-draw.ts` | **THE SINEW**: a tendon hung from a body flying over the field — the crown — down to a mass |
@@ -3458,6 +3459,7 @@ by hand never moves.
 | `tools/director/src/poses-struck.ts` | A living body over the ship with a matching bolt still climbing at it: the kill itself, replayed |
 | `tools/director/src/poses-slow.ts` | THE INSTAR's wave run until THE SLOW opens a window — the `slow:window` slot's pose, and the only card where `slowing` is true |
 | `tools/director/src/poses-sinew-parting.ts` | THE SINEW just after a hold parts a fibre, THE SLOW open: `sinew:fibres`'s pose |
+| `tools/director/src/poses-siren.ts` | SIREN · A CALL, THEN A TORCH — a veil lights the siren, then a torch's warning turns it to the alarm |
 | `tools/director/src/poses.ts` | Every state the STATES sheet draws, in reading order |
 | `tools/director/src/query.ts` | What is in a wave: the questions, with no answer that changes anything |
 | `tools/director/src/rail.ts` | The wave list and the fields every wave must carry |
