@@ -43358,3 +43358,5 @@ to be told apart from documents that must stay true.
 
 Bottleneck: none to speak of — a small hook with a test file that already
 said where each shape goes.
+
+*Measured: 4 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*

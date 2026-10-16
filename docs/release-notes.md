@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-16 · 9447695c6 — The size hook measures the worktree's copy of a file the shell edited there
+
+A session whose project is the main checkout can have its shell in a worktree. The line-ceiling notice read a relative path from a bash line against the hook's own checkout. So a `sed -i` in a worktree was measured on the trunk's copy of the file, and the session was warned about a file nobody had touched. A path is now resolved against the directory the command ran in: the payload's `cwd`, moved by a leading `cd`. The file is then measured in the checkout it lives in.
+
 ## 2026-10-16 · 8ec5cd2fc — Two bosses given one section number in the boss spec turn the check red
 
 THE MATRON and THE GEODE were both written as §11.66 on the same day, and both landed: the rebase merged the two sections cleanly and nothing read the headings. A test now holds every `## 11.n` heading in `docs/spec/bosses.md` to a number of its own, and every `§11.n` named in code or docs to a heading that exists. The release notes and the time log are records, and are not held to today's numbers.
