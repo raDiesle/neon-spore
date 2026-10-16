@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-16 · 1b9794c78 — Coloured, heavy and swinging pods: THE CAGE, THE ANCHOR and THE PENDULUM
+
+Three new things a pod can be, each with a wave of its own at the end of THE LANCE's block. A coloured pod is freed only by a shot of its colour, and the other colour bounces off; a cage of six bars in that colour turns round it. A heavy pod falls straight down, and the maw takes it in two presses: the first grips it in the mouth, and the second has two beats to come or the wave is lost. A swinging pod hangs on a thread and crosses a column either side, and the shot lets it go the way it was swinging.
+
 ## 2026-10-16 · 508dede3b — THE ROE and THE CLUTCH: three pods one shot frees, and four pods with a hollow one among them
 
 Two new waves at the end of THE HUSK's block, before THE SWINDLE. In THE ROE three pods hang on one amber thread down a column, and the shot that frees one frees the string: they land a beat apart, so one maw press takes two and the third needs a second. In THE CLUTCH three real pods and a husk hang at once, and only the navigator can see which one is hollow.
