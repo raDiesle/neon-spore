@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-16 · 554154330 — THE BLISTER's gestures come before THE BASTION, and THE INSTAR after the tutorial
+
+Every gesture a blister asks for — tap, hold, swipe, turn, rub, combo, lever — is now taught in the tutorial, after TORCH and before THE BASTION, on the arc's own panel; AUTO clears all nine there. THE INSTAR leaves the arc and closes the first block after FINALE (THE LANCE's), so THE BASTION is the first big boss and every boss after it moves one block on. Two review blocks, ECHO and DART, give THE CHRYSALIS and THE HYDRA a block each.
+
 ## 2026-10-16 · 9d6379846 — TORCH's block is three torch waves: HELLO TORCH, TORCH AT WORLD END, TORCH ALLIANCE
 
 The five waves under TORCH carried no torch at all, lasted 3 to 9 beats and jumped from 3 to 14.4 in pressure. They are gone, and the composer wrote TORCH's three like every other block of the arc: 25 to 34 beats, pressure 3.6, 5.7 and 6.7, each cleared by AUTO.

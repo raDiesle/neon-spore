@@ -42878,3 +42878,5 @@ test's yardstick, found only by searching for its id.
 
 Bottleneck: friction — a save over a list whose arc had grown put the
 moved waves back in their old act and emptied six files in between.
+
+*Measured: 5 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
