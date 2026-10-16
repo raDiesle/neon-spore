@@ -583,6 +583,7 @@ by hand never moves.
 | `packages/sim/src/oculus.ts` | THE OCULUS: a lens of six leaves over the middle column, shut two at a time by both seats at once |
 | `packages/sim/src/creature-state-gyre.ts` | **THE GYRE's four**: the two the hub carries and the two a body on its rim does |
 | `packages/sim/src/index-bodies.ts` | **The four bodies that wear something**, narrowed to what render/ and the tools actually ask of each |
+| `packages/sim/src/index-blister.ts` | THE BLISTER as the rest of the repository reads it: whose blow counts, whether it is up, each gesture's progress |
 | `packages/sim/src/pod-entry.ts` | Where a pod is left hanging — the one thing a wave authors that is not a body |
 | `packages/sim/src/pod-intake.ts` | **The mouth**: whether it is open, and what happens to a cargo that reaches it either way |
 | `packages/sim/src/pod-arrive.ts` | **A pod arriving**: what happens on the tick a falling pod reaches the hull |
@@ -591,6 +592,7 @@ by hand never moves.
 | `packages/sim/src/index-creatures.ts` | one creature's own rules, as the rest of the repository reads them |
 | `packages/sim/src/index-run.ts` | the world, the clock, a wave's start and end, and the fingerprint |
 | `packages/sim/src/index-ship.ts` | the ship and what a thumb does to it, as a reading |
+| `packages/sim/src/index-maw.ts` | the bodies the maw finishes, as the rest of the repository reads them: limp, fed, moulting |
 | `packages/sim/src/instar-hand.ts` | A thumb on one of THE INSTAR's marks — or THE NETTLE's, on the same engine |
 | `packages/sim/src/instar-hash.ts` | What THE INSTAR puts into `hashWorld`, and nothing else |
 | `packages/sim/src/instar-marks.ts` | What happens to one mark: armed, answered, done, slipped |

@@ -328,20 +328,6 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/skipped.test.ts` holds the listing's count of the entries
 `next` stepped past and why.
 
-## Split the maw's family out of packages/sim/src/index-creatures.ts
-
-- **Found:** 2026-10-16, claude/suck-brush-visuals-a917b1
-- **Taken:** 2026-10-16, claude/queue-work-6b11c3 (claim: claude/queue-split-the-maws-family-out-of-packages-sim-src-in)
-- **Files:** `packages/sim/src/index-creatures.ts`, `packages/sim/src/index.ts`
-
-The creatures' index is at 227 lines, and the size hook asks for the seam
-now. THE MORSEL, THE SEEDER and THE GLUTTON (`creature-kinds-maw.ts`) arrived
-in one day, and more of the SUCK page's family is coming. Cut their readings
-(`morselIsLimp`, `gluttonFed`) and the moult's into an `index-maw.ts`,
-re-exported from `index.ts` the way `index-ship.ts` is, so no import moves.
-Done when `index-creatures.ts` is well under 220 lines, and `bun run check` is
-green.
-
 ## A browser test's teardown throws when its launch timed out
 
 - **Found:** 2026-10-16, claude/suck-brush-visuals-a917b1

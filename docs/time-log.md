@@ -43422,3 +43422,15 @@ Bottleneck: pasting 290 measured numbers back into seven tables, two shapes of
 row, without a slip — done by script, then checked equal by a second run.
 
 *Measured: 16 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-16 — THE BLISTER and the maw's bodies have barrels of their own
+
+- reading: 5 min. The creatures' barrel, the maw's kinds, `index-ship.ts`.
+- writing: 5 min. Two barrels cut out by subject, the parent's notes, the
+  file map's rows.
+- looking: 0 min. Nothing drawn changed.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, `land`.
+
+Bottleneck: the maw's three readings were nine lines, not enough for "well
+under 220"; THE BLISTER, the largest family, went out with them.

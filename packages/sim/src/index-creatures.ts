@@ -2,7 +2,9 @@
  * **What one creature's own rules look like from outside**, one group of
  * exports per kind: the armour a colour wears, a crawler's links, a dart's
  * heading, a fence burning, a ghost's laps, a rim's mounts, a shell's pieces, a
- * strand's beads, a veil's morph, a volley's plates.
+ * strand's beads, a veil's morph, a volley's plates. Two families grew past a
+ * group each and have barrels of their own: THE BLISTER's gestures
+ * (`index-blister.ts`) and the bodies the maw finishes (`index-maw.ts`).
  *
  * Cut out of `index.ts` when a lane that wanted two more fence rules found the
  * barrel a line under its 250-line limit and shipped `export * from
@@ -17,34 +19,6 @@
  * and the shot are the simulation's alone.
  */
 
-export {
-  blisterByOf,
-  blisterGestureOf,
-  blisterHoldable,
-  blisterIsUp,
-  blisterMayTap,
-  blisterSwelling,
-  blisterUpBeatsOf,
-} from "./blister.js";
-// THE BLISTER: what render and the director ask of one — whose blow counts,
-// whether it is up, whether its pore is swelling, how long it stays up.
-// The cycle and the tap stay inside (`stepBlister`, `blisterTapped`); the
-// gesture, whether a hand on it holds, and how far a hold is through its beat.
-export { blisterHoldShare } from "./blister-hold.js";
-export {
-  blisterLeverDepth,
-  blisterLeverHeld,
-  blisterLeverInBand,
-  blisterLeverShare,
-} from "./blister-lever.js";
-export { blisterRubbing } from "./blister-rub.js";
-export {
-  blisterStrokes,
-  blisterSwipeHeld,
-  blisterSwipeShare,
-  blisterWayOf,
-} from "./blister-swipe.js";
-export { blisterTurnHeld, blisterTurnShare, blisterTurnWayOf } from "./blister-turn.js";
 export {
   COLOUR_UNSTRUCK,
   colourArmourLeft,
@@ -68,14 +42,6 @@ export {
   linkOrder,
 } from "./crawler.js";
 export { lureVanishRow, wornKind } from "./creature-rules.js";
-export type {
-  BlisterBy,
-  BlisterGesture,
-  BlisterSpawn,
-  BlisterSwipeWay,
-  BlisterTurnWay,
-  BlisterWay,
-} from "./creature-state-blister.js";
 export {
   DART_COLS,
   DART_ROWS,
@@ -109,8 +75,6 @@ export {
 // inside it, the way `fenceMask`'s two neighbours do.
 export { fenceCrackAt, fenceCrackCols } from "./fence-crack.js";
 export { type GhostPath, ghostCrosses, ghostIsCharging, ghostLaps, ghostRage } from "./ghost.js";
-// THE GLUTTON: how many meals it carries, which is what its size is drawn off.
-export { gluttonFed } from "./glutton.js";
 export {
   gyreMountsLeft,
   gyreSpinPerBeat,
@@ -137,13 +101,6 @@ export { magnetPoleColor } from "./magnet.js";
 // stand in. The rules themselves (`mineTapped`, `stepMine`) are the
 // simulation's alone and are deliberately not out here.
 export { mineFuseLeft, mineOnField, mineRows, mineSeenBy } from "./mine.js";
-export { morselIsLimp } from "./morsel.js";
-// THE MOULT: the turn itself, and nothing else. What form it is wearing, what
-// it turns into, and how many beats until it does — three readings of one
-// number, which is what makes them safe to hand out. The arrival, the shot and
-// the steer stay inside, because a picture that could answer those would be a
-// second copy of the rule rather than a drawing of it.
-export { moultBeatsToTurn, moultIsPod, moultNextIsPod } from "./moult.js";
 export { recoilBouncesLeft, recoilRow, recoilTurn } from "./recoil.js";
 export { rindLayersLeft } from "./rind.js";
 // A crossing rock: a *path* a wave puts a plain rock on rather than a kind
