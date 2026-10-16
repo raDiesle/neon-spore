@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-16 · 3610f18c0 — bun run imports takes two unused names side by side out of a list cleanly
+
+Two unused names next to each other at the end of a list were cut separately, and both cuts claimed the comma between them. Applied one after the other, the second cut took the list's `}` instead, and biome then refused the file with "expected `,`". The deep sky's eleven files met this and were pruned by hand. Neighbouring unused names are now one cut, and any cuts that still overlap are merged before any is applied.
+
 ## 2026-10-16 · 7e1239204 — GIANT, MILKY, ECLIPSE, AURORA, HOLE and MOONS move and have more in them
 
 GIANT has a small moon going round on its ring's plane, behind the world and then in front of it, the ring's shadow across its face, and a lit rim that breathes. MILKY has a warm bulge, rose knots of gas, and turns a hair either way. ECLIPSE has a second corona turning against the first, and prominence loops on the limb. AURORA has a third, violet curtain high up and a green glow under the curtains. HOLE throws two flickering jets with knots running out along them, and the near side of its disc is brighter. MOONS has a halo round the great moon, a pebble moon going round it, and the small moons bobbing. The owner asked for this look by name.
