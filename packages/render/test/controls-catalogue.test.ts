@@ -33,6 +33,7 @@ const NOT_MARKS: Readonly<Record<string, string>> = {
   "creature-glance.ts": "an enemy's body turning, on its own temper",
   "hex.ts": "colour arithmetic",
   "glow.ts": "light on a stroke",
+  "body-aura.ts": "a body's light round its own contour",
   "touch.ts": "where a press lands, not what is drawn",
   "touch-field.ts": "the same",
   "desk-seat.ts": "whose hand a desk's one mouse is, not what is drawn",

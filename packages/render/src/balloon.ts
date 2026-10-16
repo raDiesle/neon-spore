@@ -8,6 +8,7 @@ import {
   type SimConfig,
 } from "@neon-spore/sim";
 import { balloonRim, balloonSkinFill, drawBalloonParts } from "./balloon-alive.js";
+import { bodyAura } from "./body-aura.js";
 import type { Body } from "./creature-body.js";
 import { drawGlancedBody } from "./creature-glance.js";
 import { contourClock } from "./creature-place.js";
@@ -157,6 +158,9 @@ export function drawBalloon(b: Body): void {
       c.id,
       near,
     );
+    // Its light round its own skin, under it (`body-aura.ts`), brightening
+    // with the hand on it as the rim does.
+    bodyAura(ctx, skin, rimHex, Math.max(rxLeft, rxRight, squashed), 1, t, 0.6 + lit * 0.8);
     ctx.fill(skin);
     drawBalloonParts(ctx, cfg, rxLeft, rxRight, squashed, time, c.id, near, lit);
     strokeGlow(ctx, skin, rimHex, STROKE.outline, 0.5 + lit * 1.2);

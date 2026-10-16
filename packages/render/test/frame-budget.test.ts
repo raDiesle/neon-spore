@@ -515,8 +515,10 @@ const EYE_BUDGETS: Readonly<Record<string, readonly Budget[]>> = {
       // into one path stroked once, so this row does not move when the spoke
       // count does (`eye-iris.ts`). One more on 29 September 2026: the lid
       // string's knob carries the way it pulls, an arrow stroked once
-      // (`pull-knob.ts`, `way-arrow.ts`).
-      stroke: 136,
+      // (`pull-knob.ts`, `way-arrow.ts`). Two more on 16 October 2026: the
+      // open eye's light round its socket (`body-aura.ts`), its passes at this
+      // size and opening.
+      stroke: 138,
       fill: 99,
       // The one op this body's share of the new lens costs: the clip the lids
       // cut the pupil through (`eye-lens.ts`).
@@ -539,7 +541,7 @@ const EYE_BUDGETS: Readonly<Record<string, readonly Budget[]>> = {
       // FIZZ, as in frame 0.
       fillRect: 55,
       // One more on 29 September 2026, the knob's arrow, as in frame 0.
-      stroke: 138,
+      stroke: 140,
       fill: 99,
       clip: 16,
       save: 60,

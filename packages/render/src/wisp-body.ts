@@ -1,5 +1,6 @@
 import { blobPoints, livingMotion, livingSilhouette, poseClock } from "@neon-spore/content";
 import type { Creature } from "@neon-spore/sim";
+import { bodyAura } from "./body-aura.js";
 import { contourClock } from "./creature-place.js";
 import { halo, strokeGlow } from "./glow.js";
 import type { Layout } from "./layout.js";
@@ -130,6 +131,10 @@ export function drawWispBody(
     ),
     true,
   );
+
+  // The bell's light round its own contour, the steadier the signal the
+  // brighter (`body-aura.ts`).
+  bodyAura(ctx, bell, haze(PALETTE.wispRim), r, scale, t, 0.8 * (1 - noise * 0.6));
 
   // The rim, once, continuous and soft — under the bands rather than over
   // them. This is the line that keeps the body nameable while the inside of it

@@ -1,5 +1,6 @@
 import { LID, lidPath } from "@neon-spore/content";
 import { type Color, type Creature, lidOpenMilli, type SimConfig } from "@neon-spore/sim";
+import { bodyAura } from "./body-aura.js";
 import { contourClock } from "./creature-place.js";
 import { hazed } from "./depth.js";
 import { drawEyeFluid, drawEyeFringe, drawEyeLens, type EyeInk } from "./eye.js";
@@ -94,6 +95,9 @@ export function drawLid(
   ctx.translate(x, y);
   ctx.scale(scale, scale);
 
+  // The eye's light round its socket, as far as it is open: a shut lid is
+  // plating and throws none (`body-aura.ts`).
+  if (open > 0) bodyAura(ctx, socket, ink.rim, r, scale, t, open);
   // The film first, because it stands *outside* the socket and everything else
   // stands inside it. Unclipped for that reason — a wet edge cut off at the
   // rim would be a rim with a colour on it, which the body already has.

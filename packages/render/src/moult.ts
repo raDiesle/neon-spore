@@ -1,5 +1,6 @@
 import { POD } from "@neon-spore/content";
 import { moultIsPod, type SimConfig, spanOf } from "@neon-spore/sim";
+import { bodyAura } from "./body-aura.js";
 import type { Body } from "./creature-body-in.js";
 import { STONE_REACH } from "./creature-body-rock.js";
 import { drawGlancedBody } from "./creature-glance.js";
@@ -111,6 +112,9 @@ function drawBlend(b: Body, k: number): void {
   ctx.translate(x, y);
   ctx.rotate(mix(spin, Math.sin(time * 0.6) * 0.08, k));
   ctx.scale(r, r);
+  // The cargo's light, coming up as the stone gives way to it: a rock throws
+  // none (`body-aura.ts`).
+  bodyAura(ctx, path, PALETTE.pod, podR, r, time, k * (0.8 + 0.4 * pulse));
   ctx.fillStyle = mixHex(PALETTE.rockDark, PALETTE.podDark, k);
   ctx.fill(path);
   strokeGlow(

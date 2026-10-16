@@ -58,7 +58,11 @@ glow, same halo, same trail.
 **The aura arrived on 16 October 2026**, asked for by the owner by name:
 every bright body throws a soft light round its own contour rather than only
 the round halo. The pod, the wreck and THE GHOST wear it too, under their own
-fills (`pods.ts`, `ghost.ts`), in addition to the glowed edge they keep.
+fills (`pods.ts`, `ghost.ts`), in addition to the glowed edge they keep; so do
+THE BALLOON's skin, THE MOULT's cargo as the stone gives way to it, THE WISP's
+bell, an open LID's socket and a stuck limpet or leech. The round bodies — the
+volley's core, the clasp, the choir's dots — already wear a round halo, which
+is the same answer for a circle, and kept it.
 
 **Two of these changed on 8 September 2026**, and both came off a page that
 had been arguing about them. The skin was a flat fill of the body's own deep —

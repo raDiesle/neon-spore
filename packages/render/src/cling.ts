@@ -6,6 +6,7 @@ import {
   isClingKind,
   type World,
 } from "@neon-spore/sim";
+import { bodyAura } from "./body-aura.js";
 import type { Body } from "./creature-body-in.js";
 import { drawLivingBody } from "./creature-body-living.js";
 import { drawGlancedBody, drawGlancedLiving } from "./creature-glance.js";
@@ -184,6 +185,7 @@ export function drawStuckClingers(
     ctx.save();
     ctx.translate(x, y);
     ctx.scale(s, s * squat);
+    bodyAura(ctx, path, PALETTE.arc, r, s, t);
     ctx.fillStyle = ARC_WASH.dark;
     ctx.fill(path);
     ctx.fillStyle = PALETTE.arc;

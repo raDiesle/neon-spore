@@ -43072,3 +43072,13 @@ Bottleneck: landing — the op-count budgets, which turned a pure look into a qu
 Bottleneck: looking — every change to a crossing needed a fresh 15-second run of AUTO to the same swap.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-16 — The aura on the creatures with draw paths of their own
+
+- reading: 5 min. `creature-body.ts`'s table, and the fill of each bright body outside the living skin.
+- writing: 5 min. Five callers, before each one's own fill.
+- looking: 10 min. A contact sheet of eighteen waves, then the veil and the carom up close — a cover must not show the colour under it — and the four changed bodies.
+- friction: 5 min. `bun run frames` takes a wave's name and not its id, and a sheet's cell coordinates are not the frame's.
+- landing: 5 min. The lid's budget rows, and the controls catalogue asking what `body-aura.ts` is.
+
+Bottleneck: looking — finding each body on a full-field frame before it could be judged.
