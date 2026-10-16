@@ -9,6 +9,8 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-16 · 56df2d2d0 — Queue: the arc-scattering save, and which bosses come before THE INSTAR
+
 ## 2026-10-16 · 554154330 — THE BLISTER's gestures come before THE BASTION, and THE INSTAR after the tutorial
 
 Every gesture a blister asks for — tap, hold, swipe, turn, rub, combo, lever — is now taught in the tutorial, after TORCH and before THE BASTION, on the arc's own panel; AUTO clears all nine there. THE INSTAR leaves the arc and closes the first block after FINALE (THE LANCE's), so THE BASTION is the first big boss and every boss after it moves one block on. Two review blocks, ECHO and DART, give THE CHRYSALIS and THE HYDRA a block each.

@@ -42891,3 +42891,5 @@ moved waves back in their old act and emptied six files in between.
 
 Bottleneck: reading — a boss's needs are only readable through `keysOf`,
 one probe away.
+
+*Measured: 5 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
