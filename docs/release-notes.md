@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-16 · 073540ba2 — THE GLUTTON: a slow body that eats a hanging pod if it gets there first (simulation)
+
+A new enemy from the SUCK page. THE GLUTTON comes down a row every two beats and steers a column a beat at the nearest real pod still hanging below it. If it reaches the pod first it eats it: the pod and its debt are gone, so the wave is not lost, but the glutton is one meal fatter and needs one more matching shot to kill. A pod already shot loose is out of its reach. The navigator chooses which to shoot first, the pod or the glutton, and the pilot whether to stand under the pod or under the bigger shot. It has a wave of its own, THE GLUTTON, with a film, and its block of eight comes after THE LANCE and before THE CROSSING.
+
 ## 2026-10-16 · 28550e3a2 — THE SEEDER carries its pod: an amber pod glowing inside the burr until the shot leaves it hanging
 
 Whole, THE SEEDER is the living body in its own colour, with the pod it will leave drawn inside it — shell, core and halo, the pod's own drawing — turning with the body. When the shot kills it, that pod is left hanging where it was, so the thing the pair has to pay off is the thing they could already see.
