@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-16 · 36974f392 — ONE LAST CHANCE stands alone after THE HAND, before TORCH
+
+The shield's push is its own lesson, not a wave of TORCH's: it now heads a group of its own straight after THE HAND, where the shield was just taught, and TORCH follows it. HEAVY ROCKS' eight waves read HEAVY ROCK … like every other block's.
+
 ## 2026-10-16 · edc5af279 — The composer makes up every regular wave's name, and 446 waves are named again
 
 A regular wave is now named for its block's thing and a word for its step's mood: STEADY is FIRST RED, TWO COLOURS is CYAN PICNIC, ALTERNATING is CYAN RAPTURE, LURES AGAIN is LURE RISING, LANCE PEAK is LANCE THUNDER, CROWDED is TORCH APOCALYPSE. Every name is unique, fits the HUD (20 letters, four words) and borrows no word the game already means something by. Intros and bosses keep theirs: they are the creature's, the lesson's or the boss's own.

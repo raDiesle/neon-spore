@@ -42839,3 +42839,5 @@ partner, half a second a block, and had to learn it off one pass instead.
 
 Bottleneck: reading — the three films had to be read to know which of
 the arc's waves belong to which lesson.
+
+*Measured: 5 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
