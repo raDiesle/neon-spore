@@ -43493,3 +43493,5 @@ reading the four that launch or make something in a `beforeAll`.
 
 Bottleneck: TUNING moves the run and never ships — the game-wide defaults stay
 `sim/config-blister.ts`'s, which the report has to say.
+
+*Measured: 4 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
