@@ -11,7 +11,7 @@ commit message that read wrong, and the history is where that lives.
 
 ## 2026-10-16 · 45deaf3d4 — The loose pod and the core every pod wears move out of render/pods.ts
 
-`pods.ts` was at exactly 250 lines. The wreck (the loose pod: tumbling, flickering, trailing embers), the pod's outline and the core move to `pod-wreck.ts`. `drawPodCore` is still re-exported from `pods.ts` for THE MORSEL and THE MOULT. `pods.ts` is down to 172 lines, and nothing drawn moved.
+`pods.ts` was at exactly 250 lines. The wreck (the loose pod: tumbling, flickering, trailing embers), the pod's outline and the core move to `pod-wreck.ts`. `drawPodCore` is still re-exported from `pods.ts` for THE MORSEL and THE MOULT. `pods.ts` is down to 174 lines, and nothing drawn moved.
 
 ## 2026-10-16 · 72c28b2dd — A blister's cell and TUNING set its up beats, blows and length
 
