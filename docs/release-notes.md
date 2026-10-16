@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-16 · 8555b226d — The balloon, the moult's cargo, the wisp, an open lid and a stuck limpet or leech glow round their own contour
+
+The creatures drawn outside the living skin now wear the same aura the blobs got: THE BALLOON's skin, brightening with the hand on it; THE MOULT's cargo, coming up as the stone gives way (a rock throws none); THE WISP's bell, dimmer while its signal breaks up; THE LID's socket as far as the eye is open; and a limpet or leech stuck on a control. Round bodies that already wear a round halo — the volley's core, the clasp, the choir's dots — keep it.
+
 ## 2026-10-16 · ce7dfb9a8 — THE SWINDLE gets a dealer's face, arms and depth
 
 THE SWINDLE now looks like a swindler: heavy-lidded eyes and a smirk, and her eyes follow the play — the pod falling, else the pod gliding, else the next she will let go — never by what a pod is. She blinks, winces when a real pod is swallowed, and shuts her eyes when beaten. Her belly sags, a gloss runs along her crown and bubbles rise through her. Each hood is a fuller cup on a tapering arm, with a bead running down it every beat. When two pods cross, the hood going right swells and dips in front while the other shrinks and rises behind, and she sways through the shuffle. The pilot's screen still shows nothing that tells a real pod from a fake.

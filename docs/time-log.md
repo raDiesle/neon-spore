@@ -43082,3 +43082,5 @@ Bottleneck: looking — every change to a crossing needed a fresh 15-second run 
 - landing: 5 min. The lid's budget rows, and the controls catalogue asking what `body-aura.ts` is.
 
 Bottleneck: looking — finding each body on a full-field frame before it could be judged.
+
+*Measured: 14 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
