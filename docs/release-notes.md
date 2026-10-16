@@ -9,6 +9,8 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-16 · 05c04ef13 — Release note: pods.ts is 174 lines, not 172
+
 ## 2026-10-16 · 45deaf3d4 — The loose pod and the core every pod wears move out of render/pods.ts
 
 `pods.ts` was at exactly 250 lines. The wreck (the loose pod: tumbling, flickering, trailing embers), the pod's outline and the core move to `pod-wreck.ts`. `drawPodCore` is still re-exported from `pods.ts` for THE MORSEL and THE MOULT. `pods.ts` is down to 174 lines, and nothing drawn moved.
