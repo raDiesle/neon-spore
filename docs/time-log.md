@@ -43872,3 +43872,17 @@ Bottleneck: the husk's flight was seeded by column, so it could not pick
 its form until the event carried the husk's id.
 
 *Measured: 14 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-17 — THE BROOD is eased: a tile higher, eight steps, slower laying
+
+- reading: 10 min. `brood.ts`, `brood-lay.ts`, the script, the config and
+  the render placement that hangs the sac off `broodBudRow`.
+- writing: 10 min. The script, the row, the spec and the file map's row.
+- looking: 15 min. A probe playing AUTO with each seat held to one press per
+  1 to 2 seconds over twenty seeds, before and after; one frame pair.
+- friction: 5 min. The probe's throttle first read the press's kind rather
+  than its seat, and every seed came out the same.
+- landing: 5 min. `check:fast`, `land`.
+
+Bottleneck: having no throttled-AUTO measure to hand — the numbers the spec
+quoted were from a probe nobody kept, so it was written again.

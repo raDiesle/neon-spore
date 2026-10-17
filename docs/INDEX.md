@@ -1201,7 +1201,7 @@ by hand never moves.
 | `packages/content/src/motions-retired.ts` | The motions nothing in the game carries any more |
 | `packages/content/src/motion-bank.ts` | BANK, the slick's own motion: two slow drifts on periods with no common multiple, the body leaning into its own travel — the answer the owner took on 9 September 2026 |
 | `packages/content/src/balloon-parts.ts` | **What is alive inside THE BALLOON**, and hanging under it: veins, a ring of lit beads |
-| `packages/content/src/brood-script.ts` | THE BROOD's script: nine steps, twenty-four buds |
+| `packages/content/src/brood-script.ts` | THE BROOD's script: eight steps, seventeen buds |
 | `packages/content/src/surface.ts` | where a mark placed at a longitude and latitude lands, how the tangent plane foreshortens it, and its own normal against `KEY` |
 | `packages/content/src/studded.ts` | A body whose whole rim is broken by the same feature repeated: knobs, spines or hairs — the contour alone |
 | `packages/content/src/stare-levels.ts` | THE STARE's levels: four beat patterns, and the pattern is the level |

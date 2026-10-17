@@ -12373,8 +12373,8 @@ column, its colour, the beat it began to grow and whether it is popped. The
 script is the wave's (`BroodEntry.steps`, `content/src/brood-script.ts`),
 copied at install: each step names its buds as columns from the middle and a
 colour, and `ripenBeats`, how long they hang; and, from the second step,
-`layEvery` and `swayEvery`. Nine steps and twenty-four buds (rewritten on
-16 October 2026, below). **Its health is its lobes**, one for every bud
+`layEvery` and `swayEvery`. Eight steps and seventeen buds (rewritten on
+16 October 2026 and eased on 17 October, below). **Its health is its lobes**, one for every bud
 still to pop, and no bar.
 
 **It lays and it sways** — the owner's feedback of 16 October 2026, the day
@@ -12401,6 +12401,16 @@ the boss is shaking and moving the enemies one tile left middle right*.
   minute and lays twenty to thirty bodies; at one press each per 1.25
   seconds it still clears; the old script lasted twenty seconds and laid
   none to a pair that missed nothing.
+- **Then eased**, the owner's of 17 October 2026: *now too difficult …
+  reduce number of sequence falling down enemies releasing*, and *make boss
+  1 tile less height, so also players have 1 tile more time to catch*. The
+  last of the two four-bud steps is gone (eight steps, seventeen buds), a
+  body is laid every five or six beats rather than three or four, and
+  `broodBudRow` is three rather than four, so the whole sac hangs a tile
+  higher and everything it drops falls a tile further. At one press a
+  second AUTO now clears in about forty seconds and lays about ten; it
+  clears at one press each per 1.75 seconds, where the script before lost
+  at 1.5.
 - **The guide and the cue went the same day**: *remove the helper text "fire
   before it drops" it is self explaining* and *remove tutorial it is not
   required*. The wave has no guide, and `broodCues` answers nothing.

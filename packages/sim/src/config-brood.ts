@@ -29,13 +29,14 @@ export interface BroodConfig {
 /**
  * The defaults, spread into `DEFAULT_CONFIG`.
  *
- * Read as one fight: buds on row four of the field, under a sac nine columns
- * wide; four beats to come down, three between steps, two to regrow a bud
+ * Read as one fight: buds on row three of the field — a row higher since 17
+ * October 2026, so a dropped bud or a laid body falls a tile further — under
+ * a sac nine columns wide; four beats to come down, three between steps, two to regrow a bud
  * and three after the last; a body seen inside it three beats before it is
  * laid, and two beats of shudder before every lurch.
  */
 export const BROOD_DEFAULTS: BroodConfig = {
-  broodBudRow: 4,
+  broodBudRow: 3,
   broodSpan: 4,
   broodEnterBeats: 4,
   broodRestBeats: 3,
