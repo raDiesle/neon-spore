@@ -73,7 +73,8 @@ describe("waveRows", () => {
     expect(rows).toHaveLength(WAVES.length);
     for (const r of rows) {
       if (r.head !== -1) expect(rows[r.head]?.size ?? 0).toBeGreaterThan(0);
-      if (r.wave.boss) expect(r.head).toBe(-1);
+      // A boss closes the group above it (the owner, 17 October 2026).
+      if (r.wave.boss && r.index > 0) expect(r.head).not.toBe(-1);
     }
   });
 

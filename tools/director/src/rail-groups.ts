@@ -15,8 +15,13 @@ import type { Store } from "./state.js";
  * list order, and a group that could hold waves from elsewhere would draw the
  * campaign in an order it is not played in. So a wave carries one flag,
  * `Wave.variant`, and belongs to the nearest wave above it that is not a
- * variant — its *head*. A boss wave is always a head, so a boss is never
- * folded out of sight, and the first wave has nothing above it to belong to.
+ * variant — its *head*. The first wave has nothing above it to belong to.
+ *
+ * **A boss closes the group above it**, without a flag: the owner, 17 October
+ * 2026 — *a boss is logically related to a list of waves, rather than
+ * separately, so a boss should fit the previous waves played.* It was a head
+ * of its own until then, so that a fold never hid one; the ♛ filter opens
+ * every group, and finds them still.
  *
  * **A block's later intros are variants of its first.** THE HAND, THE GAP,
  * THE CUT and THE LEAK each carry a guide, and each stood as a head, so the
@@ -46,10 +51,11 @@ export interface WaveGroups {
   size: number[];
 }
 
-/** Whether the wave at `i` is folded under the one above it. */
+/** Whether the wave at `i` is folded under the one above it: a variant, or a
+ * boss. */
 export function isVariant(waves: readonly Wave[], i: number): boolean {
   const wave = waves[i];
-  return i > 0 && wave?.variant === true && !wave.boss;
+  return i > 0 && (wave?.variant === true || wave?.boss !== undefined);
 }
 
 /** Every wave's head and every head's size, in one pass down the list. */
@@ -104,8 +110,8 @@ export type DropZone = "before" | "after" | "into";
  *
  * **A head travels with its group; a child travels alone.** The lower edge of
  * a folded head means after the group it stands for, since its children are
- * not on screen. A boss is never a child: dropped into a group it is refused,
- * and dropped on an edge inside one it lands after that group.
+ * not on screen. A boss is a child wherever it lands below the first row, and
+ * carries no flag to say so (`isVariant`).
  *
  * The wave that was open stays open, wherever the move pushed it.
  */
@@ -129,7 +135,7 @@ export function dropWave(
   let child: boolean;
   if (zone === "into") {
     const head = headOf(groups, to);
-    if (lead.boss || (head >= from && head < from + length)) return;
+    if (head >= from && head < from + length) return;
     at = groupEnd(groups, head) + 1;
     child = true;
   } else {
@@ -139,18 +145,13 @@ export function dropWave(
     // The row that will stand below the gap once the block has left it.
     const below = at >= from && at <= from + length ? from + length : at;
     child = below < n && groups.head[below] !== -1;
-    // A boss would take the children below it as its own: after the group.
-    if (child && lead.boss) {
-      at = groupEnd(groups, below) + 1;
-      child = false;
-    }
   }
 
   const open = store.waves[store.index];
   const block = store.waves.splice(from, length);
   if (at > from) at -= length;
   for (const wave of block) {
-    if (child || wave !== lead) wave.variant = true;
+    if ((child || wave !== lead) && !wave.boss) wave.variant = true;
     else delete wave.variant;
   }
   store.waves.splice(at, 0, ...block);

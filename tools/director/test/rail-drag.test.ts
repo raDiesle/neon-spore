@@ -78,9 +78,10 @@ describe("the list's rows", () => {
   test("a row dropped on another carries its wave there and marks the list unsaved", () => {
     const { list, restore } = page();
     try {
-      // One row, one wave: a head carries its folded variants along with it
-      // (`rail-groups.ts`), and the arc's first wave has three of them now.
-      const s: Store = { ...store(0), waves: store(0).waves.filter((w) => !w.variant) };
+      // One row, one wave: a head carries its folded variants and its boss
+      // along with it (`rail-groups.ts`), and the arc's first wave has three.
+      const heads = store(0).waves.filter((w) => !w.variant && !w.boss);
+      const s: Store = { ...store(0), waves: heads };
       const [a, b, c] = names(s) as [string, string, string];
       let selected = 0;
       bindRail(

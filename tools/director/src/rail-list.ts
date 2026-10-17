@@ -1,4 +1,3 @@
-import { wavePressure } from "@neon-spore/content";
 import type { RowDrag } from "./rail-drag.js";
 import { waveGroups } from "./rail-groups.js";
 import { waveMarks } from "./rail-marks.js";
@@ -35,6 +34,10 @@ export function renderRows(
   list.replaceChildren();
   let matched = 0;
   const groups = waveGroups(store.waves);
+  // Every row drawn, with the head it hangs from (-1 for a head), so the tree's
+  // lines can be told where a group ends once the filter and the folds have had
+  // their say (`treeEnds`).
+  const drawn: { row: HTMLElement; head: number; i: number }[] = [];
   for (const [i, wave] of store.waves.entries()) {
     const hit = passes(store.waves, i);
     if (hit) matched++;
@@ -62,16 +65,9 @@ export function renderRows(
     name.className = "name";
     name.textContent = wave.name || "— unnamed —";
     button.append(name);
-    // Its pressure, at the end of the row, so a block reads as a rising
-    // number down the list (`docs/spec/wave-curriculum.md` §5). Nothing on a
-    // boss, or on a wave with nothing placed yet.
-    const pressure = wavePressure(wave);
-    if (pressure !== undefined && wave.entries.length > 0) {
-      const p = document.createElement("span");
-      p.className = "pressure";
-      p.textContent = pressure.toFixed(1);
-      button.append(p);
-    }
+    // No pressure at the end of the row: the owner, 17 October 2026, *do not
+    // show the difficulty number in the wave list*. DOCUMENTATION › WAVES
+    // still has it, in its own column.
     button.addEventListener("click", () => select(i));
     // A row is the name and the two ways out of it, and the wrapper carries
     // the row's own marks so that everything which reads the list still finds
@@ -79,37 +75,54 @@ export function renderRows(
     const row = document.createElement("div");
     row.className = ["wave-row", ...marks, head === -1 ? "" : "variant"].filter(Boolean).join(" ");
     row.append(button);
-    // The fold stands left of the name (the owner, 16 October 2026), and a
-    // row with nothing to fold holds the same width empty, so the names still
-    // start in one column. Laid out first by `order` rather than put first,
-    // because the name's button is the row's first child to everything that
-    // reads the list.
+    // The tree's own column, left of the number: a head's fold, or the line a
+    // child hangs from (`director-groups.css`). Laid out first by `order`
+    // rather than put first, because the name's button is the row's first
+    // child to everything that reads the list. No count beside the fold: the
+    // owner, 17 October 2026, and the lines say how big an open group is.
     const size = groups.size[i] ?? 0;
-    row.append(size > 0 ? foldButton(i, size, folds) : foldSlot());
+    row.append(
+      head !== -1 ? treeSlot("branch") : size > 0 ? foldButton(i, folds) : treeSlot("leaf"),
+    );
     row.append(...openButtons(i, select));
     // Carried to a new place by dragging it (`rail-drag.ts`).
     drag?.bind(row, i);
     list.appendChild(row);
+    drawn.push({ row, head, i });
   }
+  treeEnds(drawn);
   return matched;
 }
 
-/** The empty place a fold takes on a row that has none. */
-function foldSlot(): HTMLElement {
+/**
+ * Where each drawn group's lines stop: its last drawn child is `last` (the
+ * line turns into it and goes no further), and a head with a child drawn under
+ * it is `open` (a line leaves its fold downwards). Read off the rows drawn,
+ * not off the groups, because a filter or a fold leaves some out.
+ */
+function treeEnds(drawn: readonly { row: HTMLElement; head: number; i: number }[]): void {
+  for (const [k, { row, head, i }] of drawn.entries()) {
+    const next = drawn[k + 1];
+    if (head !== -1 && next?.head !== head) row.classList.add("last");
+    if (head === -1 && next?.head === i) row.classList.add("open");
+  }
+}
+
+/** The tree's column on a row with no fold: a child's line, or nothing. */
+function treeSlot(kind: "branch" | "leaf"): HTMLElement {
   const slot = document.createElement("span");
-  slot.className = "fold-slot";
+  slot.className = `tree ${kind}`;
   return slot;
 }
 
-/** The press on a head that folds its group away or opens it, with how many
- * waves are under it — so a folded group still says how big it is. */
-function foldButton(i: number, size: number, folds: RowFolds | undefined): HTMLButtonElement {
+/** The press on a head that folds its group away or opens it. */
+function foldButton(i: number, folds: RowFolds | undefined): HTMLButtonElement {
   const button = document.createElement("button");
   button.type = "button";
-  button.className = "fold";
+  button.className = "tree fold";
   const folded = folds?.folded(i) ?? false;
-  button.textContent = `${folded ? "▸" : "▾"} ${size}`;
-  button.setAttribute("aria-label", `${folded ? "Open" : "Fold"} the ${size} waves under this one`);
+  button.textContent = folded ? "▸" : "▾";
+  button.setAttribute("aria-label", `${folded ? "Open" : "Fold"} the waves under this one`);
   button.addEventListener("click", (e) => {
     e.stopPropagation?.();
     folds?.toggle(i);

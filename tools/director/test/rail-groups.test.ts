@@ -34,15 +34,21 @@ const order = (s: Store): string => s.waves.map((w) => w.id.slice(1)).join(",");
 
 describe("waveGroups", () => {
   test("a variant belongs to the nearest wave above it that is not one", () => {
-    const g = waveGroups(waves("HvvHvB"));
+    const g = waveGroups(waves("HvvHvH"));
     expect(g.head).toEqual([-1, 0, 0, -1, 3, -1]);
     expect(g.size).toEqual([2, 0, 0, 1, 0, 0]);
   });
 
-  test("a boss and the first wave are heads whatever they say", () => {
-    const list = waves("vHB");
-    list[2]!.variant = true;
-    expect(waveGroups(list).head).toEqual([-1, -1, -1]);
+  test("a boss closes the group above it, with no flag to say so", () => {
+    const g = waveGroups(waves("HvvBHB"));
+    expect(g.head).toEqual([-1, 0, 0, 0, -1, 4]);
+    expect(g.size).toEqual([3, 0, 0, 0, 1, 0]);
+  });
+
+  test("the first wave is a head whatever it says, a boss too", () => {
+    const list = waves("BvH");
+    list[0]!.variant = true;
+    expect(waveGroups(list).head).toEqual([-1, 0, -1]);
   });
 
   test("the shipped campaign holds no variant the rail would ignore", () => {
@@ -83,12 +89,19 @@ describe("dropWave", () => {
     expect(pattern(s)).toBe("HHvv");
   });
 
-  test("a boss is never a child, and a wave is never put into itself", () => {
-    const s = store("HBHv");
-    dropWave(s, 1, 0, "into", shut);
-    dropWave(s, 2, 3, "into", open);
-    expect(order(s)).toBe("0,1,2,3");
-    expect(pattern(s)).toBe("HHHv");
+  test("a boss dropped into a group closes it, and carries no flag", () => {
+    const s = store("HvHB");
+    dropWave(s, 3, 0, "into", shut);
+    expect(order(s)).toBe("0,1,3,2");
+    expect(pattern(s)).toBe("HvvH");
+    expect(s.waves[2]?.variant).toBeUndefined();
+  });
+
+  test("a wave is never put into itself", () => {
+    const s = store("HHv");
+    dropWave(s, 1, 2, "into", open);
+    expect(order(s)).toBe("0,1,2");
+    expect(pattern(s)).toBe("HHv");
   });
 
   test("dropped on an edge between two groups, a child stands on its own", () => {
@@ -112,11 +125,12 @@ describe("dropWave", () => {
     expect(pattern(s)).toBe("HvvHvH");
   });
 
-  test("a boss dropped on an edge inside a group lands after the group", () => {
+  test("a boss dropped on an edge inside a group stays in it", () => {
     const s = store("BHvv");
     dropWave(s, 0, 2, "after", open);
-    expect(order(s)).toBe("1,2,3,0");
-    expect(pattern(s)).toBe("HvvH");
+    expect(order(s)).toBe("1,2,0,3");
+    expect(pattern(s)).toBe("Hvvv");
+    expect(s.waves[2]?.variant).toBeUndefined();
   });
 
   test("carried to the top, a child stops being one", () => {
@@ -151,22 +165,39 @@ describe("the list", () => {
     return list;
   }
 
-  test("a folded group draws its head alone, with how many it hides", () => {
+  test("a folded group draws its head alone, and no count beside the fold", () => {
     const list = draw(store("HvvHB"), true);
-    expect(list.children.length).toBe(3);
+    expect(list.children.length).toBe(2);
     const fold = list.children[0]!.children.find((c) => c.classList.contains("fold"));
-    expect(fold?.textContent).toBe("▸ 2");
+    expect(fold?.textContent).toBe("▸");
   });
 
   test("the wave being edited is drawn though its group is folded", () => {
     const list = draw(store("HvvHB", 2), true);
-    expect(list.children.length).toBe(4);
+    expect(list.children.length).toBe(3);
     expect(list.children[1]!.classList.contains("variant")).toBe(true);
   });
 
-  test("an open group draws every variant stepped in", () => {
+  test("an open group draws every variant stepped in, and its boss", () => {
     const list = draw(store("HvvHB"), false);
     expect(list.children.length).toBe(5);
     expect(list.children[2]!.classList.contains("variant")).toBe(true);
+    expect(list.children[4]!.classList.contains("variant")).toBe(true);
+  });
+
+  test("the lines leave an open head and stop at its last child drawn", () => {
+    const list = draw(store("HvvHBH"), false);
+    const marked = (c: string) =>
+      list.children.flatMap((row, i) => (row.classList.contains(c) ? [i] : []));
+    expect(marked("open")).toEqual([0, 3]);
+    expect(marked("last")).toEqual([2, 4]);
+  });
+
+  test("no row carries a pressure", () => {
+    const list = draw(store("HvvHB"), false);
+    for (const row of list.children) {
+      const button = row.children[0]!;
+      expect(button.children.some((c) => c.classList.contains("pressure"))).toBe(false);
+    }
   });
 });

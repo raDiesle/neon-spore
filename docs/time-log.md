@@ -43745,3 +43745,13 @@ Bottleneck: the op-count budgets — one look on every frame touches every table
 - landing: 5 min. `check:fast`, `land`.
 
 Bottleneck: the one shared section was named by class in four files and three sheets.
+
+## 2026-10-17 — the wave list as a tree, bosses closing the group they follow
+
+- reading: 10 min. `rail-list.ts`, `rail-groups.ts`, the groups sheet, the eight tests that name a fold or a boss head.
+- writing: 15 min. The tree's column and lines, the boss rule in `isVariant` and `dropWave`, the pressure off the row.
+- looking: 5 min. The list open and folded, in the browser pane.
+- friction: 10 min. The first landing ran its check over this piece half-written and went red.
+- landing: 5 min. `check:fast`, `land`.
+
+Bottleneck: the boss-is-a-head rule was written into eight tests and one stylesheet's comments.

@@ -34,10 +34,6 @@ export function bindFoldAll(
   };
   host.replaceChildren(
     press("▾ OPEN ALL", "Open every group: every wave in the list", true),
-    press(
-      "▸ FOLD ALL",
-      "Fold every group: only the waves that bring something new, and the bosses",
-      false,
-    ),
+    press("▸ FOLD ALL", "Fold every group: only the waves that bring something new", false),
   );
 }

@@ -11,8 +11,9 @@ import { waveGroups } from "../src/rail-groups.js";
  * because it introduces new brush (enemy). apply accordingly across waves.*
  * So a wave heads a group exactly when it starts a block — it brings a brush
  * (a body or a pod, `placeable`), a panel or a fault (`isLesson`), or it
- * opens a review (`isReviewHead`) — or is a boss, or is the first wave. Every
- * other wave is a variant of the head above it, guided or not.
+ * opens a review (`isReviewHead`) — or is the first wave. Every other wave is
+ * a variant of the head above it, guided or not, and so is a boss, which
+ * closes the group it follows (the owner, 17 October 2026).
  *
  * **THE HAND and ONE LAST CHANCE are the two heads that bring nothing a
  * block is cut by.** THE HAND teaches the grip, a verb the whole run has, and
@@ -35,7 +36,8 @@ const STANDS_ALONE = new Set(["theHand", "oneLastChance", "catchAndAim"]);
 function headsBlock(i: number): boolean {
   const wave = WAVES[i];
   if (!wave) return false;
-  if (i === 0 || wave.boss || STANDS_ALONE.has(wave.id)) return true;
+  if (i === 0 || STANDS_ALONE.has(wave.id)) return true;
+  if (wave.boss) return false;
   return placeable(WAVES, i) !== undefined || isLesson(WAVES, i) || isReviewHead(WAVES, i);
 }
 

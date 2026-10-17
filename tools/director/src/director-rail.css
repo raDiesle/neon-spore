@@ -89,9 +89,7 @@
   color: var(--faint);
   margin-right: 6px;
 }
-/* A wave's pressure (`rail-list.ts`), right-aligned and faint: a number to
-   read down a block, not a mark to find a wave by. The row is a flex line so
-   a long name is cut short rather than pushing the number onto a second line. */
+/* The row is a flex line so a long name is cut short rather than wrapping. */
 .wave-row > button:first-child {
   display: flex;
   align-items: baseline;
@@ -106,11 +104,6 @@
   min-width: 0;
   overflow: hidden;
   text-overflow: ellipsis;
-}
-#waveList .pressure {
-  color: var(--faint);
-  margin-left: 6px;
-  font-variant-numeric: tabular-nums;
 }
 #waveList .boss-mark {
   color: var(--gold);

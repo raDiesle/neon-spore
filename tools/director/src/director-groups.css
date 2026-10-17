@@ -1,38 +1,76 @@
 /* **WAVES GROUPED UNDER THE WAVE ABOVE THEM** (`rail-groups.ts`). Its own file because `director-columns.css` was past its
    length already; the rest of the rail is `director-rail.css` since. */
 
-/* A variant: stepped in under its head, with a rule down its left edge so a
-   run of them reads as one block hanging off the wave that introduced it. */
-#waveList .wave-row.variant {
-  margin-left: 12px;
-  padding-left: 4px;
-  border-left: 1px solid var(--line);
-}
-#waveList .wave-row.variant > button:first-child {
-  opacity: 0.8;
-}
+/* **THE LIST IS A TREE** (the owner, 17 October 2026: *easier identify what
+   is parent and what is child — a typical connection view with lines from
+   parent to children, and the expander icon nearer the parent*). Every row
+   starts with the tree's own column (`rail-list.ts`), laid out first by
+   `order` because the name's button stays the row's first child:
 
-/* The press on a head that folds its group or opens it, and says how many are
-   under it. On the left, before the name (the owner, 16 October 2026); every
-   other row holds the same width empty (`.fold-slot`), so the names down the
-   list still start in one column. `order` puts it there, because the name's
-   button stays the row's first child (`rail-list.ts`). */
-#waveList .fold,
-#waveList .fold-slot {
+   - a head with a group: its fold, ▾ or ▸, right against its number;
+   - a head without one: the same width, empty, so heads' numbers align;
+   - a child: a line down from its head's fold, and a branch into its own
+     number, a step further in than the head's. The last child drawn is where
+     the line turns and stops (`.last`), and a head with a child drawn under
+     it sends the line down (`.open`).
+
+   The lines run into the 2px between rows (`#waveList`'s gap), so a group
+   reads as one shape rather than a stack of dashes. */
+#waveList .tree {
   order: -1;
   flex: none;
-  width: 40px;
+  position: relative;
   box-sizing: border-box;
+  width: 16px;
 }
-#waveList .fold {
-  color: var(--faint);
-  font-variant-numeric: tabular-nums;
-  padding-left: 4px;
-  padding-right: 4px;
+#waveList .tree.branch {
+  width: 24px;
 }
-#waveList .fold:hover {
+#waveList .tree.fold {
+  padding: 0;
+  text-align: center;
+  color: var(--dim);
+  overflow: visible;
+}
+#waveList .tree.fold:hover {
   color: var(--ink);
   border-color: var(--line);
+}
+/* The line, at the fold's centre. */
+#waveList .tree.branch::before,
+#waveList .wave-row.open > .tree.fold::after {
+  content: "";
+  position: absolute;
+  left: 7px;
+  width: 1px;
+  background: var(--faint);
+}
+#waveList .tree.branch::before {
+  top: -2px;
+  bottom: -2px;
+}
+#waveList .wave-row.last > .tree.branch::before {
+  bottom: 50%;
+}
+/* From under the ▾ to the row's foot. */
+#waveList .wave-row.open > .tree.fold::after {
+  top: calc(50% + 7px);
+  bottom: -2px;
+}
+/* The branch into the child's own number. */
+#waveList .tree.branch::after {
+  content: "";
+  position: absolute;
+  left: 7px;
+  right: 2px;
+  top: 50%;
+  height: 1px;
+  background: var(--faint);
+}
+/* A head that has a group reads as the parent: in bold, where its children
+   are in the list's own weight. */
+#waveList .wave-row:has(> .tree.fold) .name {
+  font-weight: 700;
 }
 
 /* A wave dragged over the middle of a row goes into it, as a child

@@ -22,7 +22,7 @@ test("OPEN ALL opens every group and FOLD ALL folds them", () => {
       () => {},
     );
     const [open, fold] = host.children;
-    const heads = WAVES.filter((w) => !w.variant).length;
+    const heads = WAVES.filter((w, i) => i === 0 || (!w.variant && !w.boss)).length;
     expect(heads).toBeLessThan(WAVES.length);
     expect(list.children.length).toBe(heads);
     open?.click();
