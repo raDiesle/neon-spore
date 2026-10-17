@@ -20,24 +20,33 @@
 }
 /* The sideways scroll is the body's, not #mapCol's: a box that scrolls
    either way is the box a sticky child sticks inside, and #mapCol is as
-   tall as the map, so `.map-transport` would have scrolled away with it. */
+   tall as the map. Relative, because the selected cell's popover
+   (`cell-popover.ts`) is placed in its coordinates. */
 #mapCol > .map-body {
   overflow-x: auto;
+  position: relative;
 }
-/* ⏸ and ↺ over the map, stuck to the top of the scrolling column. */
-.map-transport {
+/* MAP's head stays at the top of the scrolling column, and carries ⏸ and
+   ↺ WAVE beside the title (`data-in-head`, columns.ts). Its top is minus
+   the section's padding, so it sits flush with the column's edge. */
+section.map-col > .column-head {
   position: sticky;
-  top: 0;
-  z-index: 2;
-  display: flex;
-  gap: 6px;
-  padding: 4px 0 6px;
-  margin-bottom: 6px;
+  top: -10px;
+  z-index: 4;
+  margin-top: -10px;
+  padding-top: 10px;
   background: var(--bg);
 }
+.map-transport {
+  display: flex;
+  gap: 4px;
+}
+.map-transport button {
+  padding: 1px 8px;
+  font-size: 0.8rem;
+}
 .map-transport #playMap {
-  min-width: 44px;
-  font-size: 1rem;
+  min-width: 34px;
 }
 /* #gridNote must not force #mapCol wider than the grid — a block child
    with no width cap contributes its own unwrapped line length to the

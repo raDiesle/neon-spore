@@ -164,6 +164,11 @@ function wrapOne(section: HTMLElement, forced: Forced, main: HTMLElement): void 
   toggle.className = "column-toggle";
   toggle.textContent = title;
   head.appendChild(toggle);
+  // Anything a column marks `data-in-head` stands beside its title instead of
+  // taking a line under it: MAP's ⏸ and ↺ WAVE, so the map starts one row
+  // higher (the owner, 17 October 2026).
+  for (const extra of section.querySelectorAll<HTMLElement>("[data-in-head]"))
+    head.appendChild(extra);
 
   const body = document.createElement("div");
   body.className = "column-body";

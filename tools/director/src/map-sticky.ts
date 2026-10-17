@@ -1,29 +1,28 @@
 /**
  * **The top of MAP stays while the map scrolls.** The owner, 16 October 2026:
  * *make "map editor" top controls sticky when I scroll the tiles down.* The
- * ⏸/↺ bar already stuck; the selected cell's panel and the row of column
- * numbers went off the top with the first rows, so an author painting beat
- * forty could neither read which column a tile was in nor change the cell
- * they had just picked without scrolling back for it.
+ * row of column numbers went off the top with the first rows, so an author
+ * painting beat forty could not read which column a tile was in.
  *
- * Three things stack, each `position: sticky` (`director-map-sticky.css`), and
- * each has to start where the one above it ends. The heights are not fixed —
- * the cell's panel grows with the fields of whatever is selected — so they
- * are measured here and handed to the CSS as two properties on `#mapCol`
- * rather than written into it as numbers.
+ * Two things stack, each `position: sticky`: MAP's own column head, which
+ * carries ⏸/↺ since 17 October 2026 (`director-brush.css`), and the column
+ * numbers (`director-map-sticky.css`), which start where the head ends. The
+ * head's height is the font's, not a number written anywhere, so it is
+ * measured here and handed to the CSS as a property on `#mapCol`. The
+ * selected cell's panel is a popover now (`cell-popover.ts`) and takes no
+ * place in the stack.
  */
 export function bindMapSticky(doc: Document = document): void {
   const col = doc.getElementById("mapCol");
-  const transport = col?.querySelector<HTMLElement>(".map-transport");
-  const panel = doc.getElementById("cellPanel");
-  if (!col || !transport || !panel) return;
+  const head = col?.closest("section")?.querySelector<HTMLElement>(":scope > .column-head");
+  if (!col || !head) return;
   const measure = (): void => {
-    const cellTop = transport.offsetHeight;
-    col.style.setProperty("--map-cell-top", `${cellTop}px`);
-    col.style.setProperty("--map-head-top", `${cellTop + panel.offsetHeight}px`);
+    // The head sticks at minus the section's padding (`top` is negative), so
+    // what it covers ends that much short of its own height.
+    const top = Number.parseFloat(getComputedStyle(head).top) || 0;
+    col.style.setProperty("--map-head-top", `${head.offsetHeight + top}px`);
   };
-  new ResizeObserver(measure).observe(transport);
-  new ResizeObserver(measure).observe(panel);
+  new ResizeObserver(measure).observe(head);
   measure();
 }
 

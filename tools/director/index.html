@@ -121,23 +121,22 @@
            grid; each is a column of its own now, and closes as one. -->
       <section class="map-col" data-view="map" data-column="map" data-column-title="MAP">
         <div id="mapCol">
-          <!-- RUN's ⏸/▶ and ↺ again, beside the map and stuck to the top of
-               the column however far down it is scrolled: an author painting
-               a wave stops it and starts it here, without crossing to RUN
-               (the owner, 11 October 2026). Bound in stage-play.ts and
-               stage-transport.ts beside the RUN copies. -->
-          <div class="map-transport">
+          <!-- RUN's ⏸/▶ and ↺ again, beside the map: an author painting a
+               wave stops it and starts it here, without crossing to RUN (the
+               owner, 11 October 2026). `data-in-head` puts them in MAP's own
+               head, next to the title, which stays at the top of the column
+               however far down it is scrolled (17 October 2026). Bound in
+               stage-play.ts and stage-transport.ts beside the RUN copies. -->
+          <div class="map-transport" data-in-head>
             <button type="button" id="playMap" class="stage-play" title="Pause or play the wave">⏸</button>
             <button type="button" id="restartMap" title="Run this wave again">↺ WAVE</button>
           </div>
           <div class="map-body">
-            <!-- What the selected cell holds, and the two buttons that take it
-                 back. This is where per-entry configuration lands — a meteor's
-                 speed and size, how long a body stays armoured — so that a new
-                 number is a field here rather than another brush in a palette
-                 that is already scrolled. Above the grid rather than below it:
-                 a fourteen-beat map pushed it off the bottom of the column.
-                 See `cell-panel.ts`. -->
+            <!-- What can be done to the selected cell — a meteor's speed and
+                 size, the pod in it, the row's faults, DELETE — in a popover
+                 over the tile while the pointer is on it, so that it costs the
+                 map no lines above its rows (the owner, 17 October 2026). See
+                 `cell-panel.ts` and `cell-popover.ts`. -->
             <div id="cellPanel"></div>
             <div id="grid"></div>
             <p class="note" id="gridNote"></p>

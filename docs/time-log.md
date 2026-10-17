@@ -43919,3 +43919,18 @@ Bottleneck: the words `waveIntroduces` says are not brush names, and the
 old mapping guessed three of them wrong without anything saying so.
 
 *Measured: 4 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-17 — The director's MAP is compact: ⏸/↺ in its head, the cell's fields in a popover
+
+- reading: 10 min. `cell-panel.ts`, `columns.ts`, `map-sticky.ts` and the
+  three stylesheets the sticky stack and the column heads live in.
+- writing: 15 min. `cell-popover.ts`, the panel trimmed to its fields, the
+  head slot (`data-in-head`), the sticky head, the phone rule, the test.
+- looking: 15 min. The browser pane: a tile selected, a field changed inside
+  the popover, the pointer away and back, the column scrolled.
+- friction: 5 min. The popover never opened at first: a tile selects itself
+  on `click`, after the `pointerup` it was listening for.
+- landing: 5 min. `bun run index` for the new file, `check:fast`, `land`.
+
+Bottleneck: finding which event a tile selects itself on — nothing names it,
+and the first test click looked like the popover simply was not there.

@@ -3388,7 +3388,8 @@ by hand never moves.
 | `tools/director/src/brush-tooltip.ts` | How big the hover card's picture is |
 | `tools/director/src/brush-trim.ts` | Cutting a drawn body out of the black it was drawn on |
 | `tools/director/src/brush-wave.ts` | Which wave a brush is first seen in, and how to get there |
-| `tools/director/src/cell-panel.ts` | The panel under the map: what the selected cell holds, and what can be done to it |
+| `tools/director/src/cell-panel.ts` | The selected cell's panel: what can be done to what it holds |
+| `tools/director/src/cell-popover.ts` | Places the selected cell's panel under its tile and shows it while the pointer is on either |
 | `tools/director/src/column-resize.ts` | Every top-level column of `<main>` can be dragged wider or narrower by its right-hand edge |
 | `tools/director/src/column-width.ts` | A column's dragged width, in pixels |
 | `tools/director/src/columns.ts` | Every top-level column in the director's `<main>` can be put away as one unit |

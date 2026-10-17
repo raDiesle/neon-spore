@@ -1,14 +1,14 @@
 /**
- * MAP: the beat-by-column grid, the hover card over a brush, the panel for the
- * selected cell and the pod list under it.
+ * MAP: the beat-by-column grid, the hover card over a brush, the popover for
+ * the selected cell and the pod list under it.
  */
 
 /* What the map comes to across: the beat numbers, the eleven tiles a wave is
    authored on, the strip of row buttons, and the twelve gaps between the
    thirteen tracks — 40 + 11*32 + 22 + 12*2. `grid-metrics.ts` builds exactly those tracks and
-   `test/map-width.test.ts` checks this number against it, because everything
-   stacked above and below the map is capped at it and a stale cap is a column
-   that is quietly wider than its own grid. */
+   `test/map-width.test.ts` checks this number against it, because what is
+   stacked under the map is capped at it and a stale cap is a column that is
+   quietly wider than its own grid. */
 :root {
   --map-w: 438px;
 }
@@ -394,39 +394,33 @@
   margin-top: 6px;
 }
 
-/* Capped for #gridNote's reason, one line above: a block child with no
-   width cap contributes its unwrapped line length to the column's
-   auto-sizing pass and pushes the map column wider than its grid. */
-/* Above the grid now, not below it, so the rule and the spacing that
-   separated it from the map are on its bottom edge rather than its top. */
+/* The selected cell's panel, as a popover over the map under its tile
+   (`cell-popover.ts`, which places it). Out of the flow, so it costs the
+   map no height whether it is up or not, and over the sticky column
+   numbers. */
 #cellPanel {
-  margin-bottom: 12px;
-  max-width: var(--map-w);
-  border-bottom: 1px solid var(--line-soft);
-  padding-bottom: 10px;
+  display: none;
+  position: absolute;
+  z-index: 6;
+  width: max-content;
+  min-width: 180px;
+  max-width: min(var(--map-w), 340px);
+  max-height: 60vh;
+  overflow-y: auto;
+  padding: 6px 8px;
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  box-shadow: 0 6px 18px rgb(0 0 0 / 0.55);
 }
-#cellPanel:empty {
-  margin: 0;
-  padding: 0;
-  border: 0;
+#cellPanel.open {
+  display: block;
 }
-#cellPanel h2 {
-  margin: 0 0 6px;
+#cellPanel > :first-child {
+  margin-top: 0;
 }
-.cell-holds {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  min-height: 28px;
-  font-size: 0.875rem;
-  color: var(--dim);
-  letter-spacing: 0.03em;
-}
-.cell-holds svg,
-.cell-holds img.brush-art {
-  flex: 0 0 26px;
-  background: #0a0719;
-  border-radius: 5px;
+#cellPanel > :last-child {
+  margin-bottom: 0;
 }
 .cell-config {
   display: flex;

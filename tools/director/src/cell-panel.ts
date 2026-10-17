@@ -1,27 +1,19 @@
 import type { Wave } from "@neon-spore/content";
 import type { SimConfig } from "@neon-spore/sim";
-import { brushArtImage } from "./brush-art.js";
 import { cellConfig } from "./cell-config.js";
 import { podConfig } from "./cell-config-pod.js";
 import { labelled } from "./cell-config-rows.js";
+import { bindCellPopover } from "./cell-popover.js";
 import { faultConfig } from "./fault-config.js";
 import type { Selection } from "./selection.js";
-import { silhouette } from "./silhouette.js";
-import {
-  BRUSHES,
-  brushOf,
-  cellIsEmpty,
-  currentWave,
-  entryAt,
-  eraseAt,
-  podAt,
-  podBrushOf,
-  type Store,
-} from "./state.js";
+import { cellIsEmpty, currentWave, entryAt, eraseAt, podAt, type Store } from "./state.js";
 
 /**
- * The panel under the map: what the selected cell holds, and what can be done
- * to it.
+ * The selected cell's panel: what can be done to what it holds. It floats
+ * over the map beside the tile, and only while the pointer is on one or the
+ * other (`cell-popover.ts`). It does not name the cell or draw what is in it:
+ * the tile already draws it, its tooltip already names it, and the ring
+ * already says which tile it is (the owner, 17 October 2026).
  *
  * **It is where per-entry configuration lives.** Everything a wave could say
  * about an arrival used to be said by *which brush* placed it — five meteor
@@ -49,9 +41,9 @@ import {
  *
  * **Selecting is how an author reaches this panel at all.** A cell no longer
  * paints when it is clicked — clicking only selects it (`grid.ts`) — so a
- * click on whatever is already there is the whole way in: the panel below
- * names it and offers its own fields, and painting over it with a different
- * brush is one click on the palette away.
+ * click on whatever is already there is the whole way in: the panel offers
+ * its own fields, and painting over it with a different brush is one click on
+ * the palette away.
  */
 export interface CellPanel {
   render(): void;
@@ -67,126 +59,55 @@ export interface CellPanelOptions {
   onEdit(): void;
 }
 
-/** How big the picture in WHAT IS HERE is drawn — the same 26px the map's
- * cells and the palette's chips use, so one brush is one size everywhere it is
- * shown at a glance. */
-const HOLDS_PX = 26;
-
 export function bindCellPanel({ store, selection, cfg, onEdit }: CellPanelOptions): CellPanel {
   const root = document.getElementById("cellPanel");
+  const grid = document.getElementById("grid");
+  const popover = root && grid ? bindCellPopover(root, grid, selection) : null;
 
   const render = (): void => {
     if (!root) return;
     root.replaceChildren();
     const wave = currentWave(store);
     const at = selection.at();
-
-    root.appendChild(heading(at));
-    if (wave && at) root.appendChild(contents(wave, at.beat, at.col));
+    if (!wave || !at) {
+      popover?.place();
+      return;
+    }
+    const edited = (): void => {
+      store.dirty = true;
+      onEdit();
+      render();
+    };
     // What the arrival in this cell *is* — a rock's speed and width, the body
     // behind a shell (`cell-config.ts`). Nothing at all when the cell is empty
     // or holds something with nothing to say about itself.
-    const config =
-      wave && at
-        ? cellConfig({
-            wave,
-            entry: () => entryAt(wave, at.beat, at.col),
-            onEdit: () => {
-              store.dirty = true;
-              onEdit();
-              render();
-            },
-          })
-        : null;
+    const config = cellConfig({
+      wave,
+      entry: () => entryAt(wave, at.beat, at.col),
+      onEdit: edited,
+    });
     if (config) root.appendChild(config);
     // And what the *pod* in this cell is: the row it hangs at, whether it
     // crosses, and how fast. Its three fields used to be a line in a list under
     // the map — the one thing in this editor configured by finding it in a list
-    // rather than by pointing at it — and the owner asked for them up here with
+    // rather than by pointing at it — and the owner asked for them in this panel with
     // everything else (`cell-config-pod.ts`).
-    const pod = wave && at ? podAt(wave, at.beat, at.col) : undefined;
-    if (pod) {
-      root.appendChild(
-        podConfig({
-          pod,
-          cfg: cfg(),
-          labelled,
-          onEdit: () => {
-            store.dirty = true;
-            onEdit();
-            render();
-          },
-        }),
-      );
-    }
-    // And what the *row* carries, which is the one thing under this panel that
+    const pod = podAt(wave, at.beat, at.col);
+    if (pod) root.appendChild(podConfig({ pod, cfg: cfg(), labelled, onEdit: edited }));
+    // And what the *row* carries, which is the one thing in this panel that
     // is not about a cell at all: a malfunction has no column, so it belongs to
     // the beat the selection is on rather than to the tile (`fault-config.ts`).
     // It is last because it is the widest in scope — the cell, then the pod in
     // it, then the row all three are on.
-    const faults =
-      wave && at
-        ? faultConfig({
-            wave,
-            beat: at.beat,
-            onEdit: () => {
-              store.dirty = true;
-              onEdit();
-              render();
-            },
-          })
-        : null;
+    const faults = faultConfig({ wave, beat: at.beat, onEdit: edited });
     if (faults) root.appendChild(faults);
-    root.appendChild(actions(wave, at));
+    // DELETE only where there is something to take away; an empty cell with
+    // no fault on its row has no panel at all.
+    if (!cellIsEmpty(wave, at.beat, at.col)) root.appendChild(actions(wave, at));
+    popover?.place();
   };
 
-  const heading = (at: { beat: number; col: number } | null): HTMLElement => {
-    const h = document.createElement("h2");
-    h.textContent = at ? `CELL — BEAT ${at.beat} · COL ${at.col}` : "CELL";
-    return h;
-  };
-
-  /** What is in the cell, drawn the way the grid draws it so the two cannot
-   * come to disagree about what a cell holds — the brush's own picture where
-   * there is one (`brush-art.ts`), the plain contour where there is not.
-   *
-   * The pod half used to be a bare label beside a creature that had a picture,
-   * which is the same complaint `grid.ts` answers: a power-up is placed from a
-   * palette that draws it, and every place it lands afterwards should be the
-   * one drawing. */
-  const contents = (wave: Wave, beat: number, col: number): HTMLElement => {
-    const row = document.createElement("div");
-    row.className = "cell-holds";
-
-    const entry = entryAt(wave, beat, col);
-    if (entry) {
-      const brush = brushOf(entry);
-      const spec = BRUSHES.find((x) => x.brush === brush);
-      const art = brushArtImage(brush, HOLDS_PX);
-      if (art) row.appendChild(art);
-      else if (spec?.subjects.length) {
-        row.appendChild(silhouette(spec.subjects[0]!, spec.stroke, HOLDS_PX));
-      }
-      row.appendChild(labelSpan(spec?.label ?? brush));
-    }
-
-    const pod = podAt(wave, beat, col);
-    if (pod) {
-      const brush = podBrushOf(pod);
-      const spec = BRUSHES.find((x) => x.brush === brush);
-      const art = brushArtImage(brush, HOLDS_PX);
-      if (art) row.appendChild(art);
-      row.appendChild(labelSpan(`${spec?.label ?? "POD"} · row ${pod.row}`));
-    }
-
-    if (!entry && !pod) row.appendChild(labelSpan("empty"));
-    return row;
-  };
-
-  const actions = (
-    wave: Wave | undefined,
-    at: { beat: number; col: number } | null,
-  ): HTMLElement => {
+  const actions = (wave: Wave, at: { beat: number; col: number }): HTMLElement => {
     const row = document.createElement("div");
     row.className = "cell-actions";
 
@@ -194,12 +115,7 @@ export function bindCellPanel({ store, selection, cfg, onEdit }: CellPanelOption
     del.type = "button";
     del.id = "cellDelete";
     del.textContent = "DELETE";
-    // Nothing selected, or nothing in what is selected: the button would do
-    // nothing, and a button that does nothing teaches that the ones beside it
-    // might not either.
-    del.disabled = !wave || !at || cellIsEmpty(wave, at.beat, at.col);
     del.addEventListener("click", () => {
-      if (!wave || !at) return;
       eraseAt(wave, at.beat, at.col);
       store.dirty = true;
       onEdit();
@@ -212,10 +128,4 @@ export function bindCellPanel({ store, selection, cfg, onEdit }: CellPanelOption
   selection.watch(render);
   render();
   return { render };
-}
-
-function labelSpan(text: string): HTMLElement {
-  const span = document.createElement("span");
-  span.textContent = text;
-  return span;
 }

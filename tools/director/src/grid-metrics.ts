@@ -8,7 +8,7 @@ import { WAVE_COLS } from "@neon-spore/content";
  * Its own module because four places need the same numbers and used to hold
  * their own copies. `grid.ts` writes the track list from them, the rails in
  * `grid-row-acts.ts` sit against them, and `director-brush.css` caps
- * `#cellPanel` and `#gridNote` at the width they add up to — a block child
+ * `#gridNote` at the width they add up to — a block child
  * with no cap contributes its unwrapped line length to the column's
  * auto-sizing pass and pushes the map column wider than the map.
  *

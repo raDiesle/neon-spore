@@ -316,6 +316,13 @@
   .column-head {
     display: none;
   }
+  /* Except MAP's, without its title: it carries ⏸ and ↺ WAVE. */
+  section.map-col > .column-head {
+    display: flex;
+  }
+  section.map-col > .column-head > .column-toggle {
+    display: none;
+  }
   section.collapsed .column-body {
     display: block;
   }
