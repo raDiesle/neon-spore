@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-17 · 914a4c78b — The wave list's brush icons open the BRUSH card on hover, at 26 px
+
+Hovering a brush picture at the end of a wave list head now opens the same card the BRUSH palette shows — picture, name, first wave, description — in place of a plain title, and Ctrl/⌘-click on it opens the wave the card names. The pictures are 26 px instead of 18, and the rows keep their height. Owner asked for it by name.
+
 ## 2026-10-17 · 09706a115 — A wave crosses the field fast once at most, and slows down after
 
 Sliding the cannon a long way between two actions with too little time is the hardest thing a wave asks, so a composed wave now does it at most once — never in the tutorial or a block's first wave — and rests at least 8 beats after. Two arrivals three columns or more apart need 2 + half the columns in beats (`wave-pace.ts`); where the composer would rush, the next enemy waits instead, and a draw that still rushes is thrown away. Every composed wave was drawn again under the rule; RED TANGO, TORCH ALLIANCE, SCRAP RAIN and SCRAP AND TORCH, which the composer does not redraw, were stretched by the new `bun run waves:pace` — later arrivals, the same columns. Hand-written intros are unchanged.

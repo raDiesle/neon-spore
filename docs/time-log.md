@@ -44133,3 +44133,5 @@ recomposes, needed a tool of their own to follow the rule.
 
 Bottleneck: starting `director-here` before `bun run here`, so the first look
 was at another lane's tree.
+
+*Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
