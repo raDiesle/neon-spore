@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-17 · d1299ff4b — The wave list shows, at the right end of each head, the brush it brings new
+
+A wave that heads a group in the director's wave list ends on the picture of each brush it is the first to carry — the owner asked for it by name. The mapping from `waveIntroduces` to a brush is now one function shared with EVERY WAVE's NEW column, and finds a blister's CONTROLS brush and a limpet's or leech's fault brush, which it used to miss. A fault with no body shows nothing there; its ⚠ already says it.
+
 ## 2026-10-17 · 4776cfedc — THE THROB is two colour halves that turn with it, and the half facing the cannon is lit
 
 THE THROB is cut in two now, red on one side and cyan on the other. The two colours stay on their halves and turn with the body, so you can watch them go round. The colour at the bottom, pointing at the cannon, is the trigger that kills it. That half is lit brighter, and the glow around the body changes to its colour the moment the edge passes the bottom. The grey middle with black and white dots is gone.
