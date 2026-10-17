@@ -1,10 +1,19 @@
-import { arrivalJob, controlSet, setHas, tapsClash, WAVES, type Wave } from "@neon-spore/content";
+import {
+  arrivalJob,
+  controlSet,
+  fastSlides,
+  PACE_REST_BEATS,
+  setHas,
+  tapsClash,
+  WAVES,
+  type Wave,
+} from "@neon-spore/content";
 import { clearBeat } from "../../probe/measure-waves.ts";
 import { worldOf } from "../../probe/world.ts";
 import { playsClean } from "./autopilot-play.js";
 import type { Block } from "./compose-block.js";
 import { isBasic } from "./compose-place.js";
-import { gapRule, needsBasics, type Step } from "./compose-steps.js";
+import { fastSlidesAllowed, gapRule, needsBasics, type Step } from "./compose-steps.js";
 
 /**
  * **Whether a composed wave is one to keep** — the checks of
@@ -61,9 +70,23 @@ export function paperFaults(wave: Wave, step: Step, block: Block): string[] {
   // 2026: there the last arrival is a pod because every arrival is.
   if (!block.claw && all[all.length - 1]?.pod) out.push("ends on a pod");
   if (tapsClash(wave.entries)) out.push("a mine and a soundbox on one wave");
+  out.push(...paceFaults(wave, step, block));
   if (!block.claw && needsBasics(step) && wave.entries.filter(isBasic).length * 2 < all.length) {
     out.push("fewer than half are slicks and bulbs");
   }
+  return out;
+}
+
+/** Fast slides past the one a step may hold, and one with no rest after it
+ * (`wave-pace.ts`). A pod's own bodies are its author's, as for the gap rule,
+ * so they are not counted. */
+function paceFaults(wave: Wave, step: Step, block: Block): string[] {
+  const slides = fastSlides(wave.entries);
+  const allowed = fastSlidesAllowed(step, block.tutorial);
+  const out: string[] = [];
+  if (slides.length > allowed) out.push(`${slides.length} fast slides, wants at most ${allowed}`);
+  const tired = slides.find((s) => s.rest !== undefined && s.rest < PACE_REST_BEATS);
+  if (tired) out.push(`${tired.rest} beats after a fast slide, wants ${PACE_REST_BEATS}`);
   return out;
 }
 

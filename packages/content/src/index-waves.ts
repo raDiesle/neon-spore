@@ -12,6 +12,16 @@ export { placedFaults, type WaveFault } from "./wave-faults.js";
 export { type Untaught, untaughtComplaint, untaughtKeys, waveKeys } from "./wave-keys.js";
 export { WAVE_MARK_IDS, type WaveMarkId, waveMarksOn } from "./wave-marks.js";
 export {
+  type FastSlide,
+  fastSlides,
+  PACE_COLS_PER_BEAT,
+  PACE_FAR_COLS,
+  PACE_READY_BEATS,
+  PACE_REST_BEATS,
+  paceBeats,
+  waveFastSlides,
+} from "./wave-pace.js";
+export {
   arrivalJob,
   entriesPressure,
   PRESSURE_DEFAULT_WEIGHT,

@@ -142,18 +142,18 @@ describe("blocks that used to stall", () => {
 
 /**
  * THE COIL's block (`docs/queue.md`, 15 October 2026): its composed waves
- * once had to fit under the written one, THE TWITCH at 8, and the first
- * seed's ramp did not — the composer draws again rather than stopping. Since
- * a block is five (17 October 2026) four steps cannot climb under 8 in small
- * rises, so the written wave leads and the four rise from it.
+ * must fit under the written one, THE TWITCH at 8, or — when four steps
+ * cannot climb under it in small rises — follow it, the written wave leading
+ * (`leadingBlock`). Either way the composer draws again rather than stopping.
  */
-test("THE COIL composes the four steps after its written wave", () => {
+test("THE COIL composes its four steps under its written wave, or after it", () => {
   const { waves, b } = unwritten("theCoil");
   const { block: used, composed } = composeBlockAt(waves, b, "theCoil");
-  expect(composed.map((c) => c.faults.join("; ") || c.step.id)).toEqual(BLOCK_STEPS.slice(1));
-  const twitch = waves.find((w) => w.id === "theTwitch");
-  expect(used.leads).toBe(true);
-  expect(composed[0]?.pressure ?? 0).toBeGreaterThan(wavePressure(twitch as Wave) ?? 99);
+  const steps = used.leads ? BLOCK_STEPS.slice(1) : BLOCK_STEPS.slice(0, -1);
+  expect(composed.map((c) => c.faults.join("; ") || c.step.id)).toEqual(steps);
+  const twitch = wavePressure(waves.find((w) => w.id === "theTwitch") as Wave) ?? 0;
+  if (used.leads) expect(composed[0]?.pressure ?? 0).toBeGreaterThan(twitch);
+  else expect(composed.at(-1)?.pressure ?? 99).toBeLessThanOrEqual(twitch);
 }, 300_000);
 
 test("a block's written waves can lead: the composed ones go after them", () => {

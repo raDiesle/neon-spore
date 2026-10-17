@@ -262,6 +262,32 @@ is an aim, not a bound: pressure's ramp (decision 6) decides which draws are
 allowed, and talk chooses among them, so no block that pressure alone composes
 is refused for its talk.
 
+### 5.2 Pace — the cannon crossing the field
+
+**Decision 11 — a fast slide is rare, and the pace slows after it.** The
+owner, 17 October 2026: *one of the hardest situations is action — move fast
+a long distance — action again, because the next enemy is too close behind
+the other … a wave should not have this often, better rare like a special
+difficulty situation, then slow down pace*; and *when unsure, wait longer for
+the next enemy.* Two arrivals `d` columns apart need 2 + ⌈d ÷ 2⌉ beats
+between them — the slide at two columns a beat, and two to see, say and act
+(`paceBeats`, `packages/content/src/wave-pace.ts`). Three columns or more
+apart and sooner than that is a **fast slide**; a twin's two arrivals are one
+moment, measured from whichever is nearer the next.
+
+- A composed wave holds **at most one**, and none in a block's Again or
+  anywhere in the tutorial arc (`fastSlidesAllowed`).
+- The gap after it is a **rest** of at least 8 beats.
+- Where a draw would make one it may not, the next arrival **waits** until
+  the slide fits (`compose-place.ts`); the paper check drops any draw that
+  still breaks it (`compose-check.ts`), and `test/compose-pace.test.ts` holds
+  the list on disk to it.
+
+`bun run waves:pace <id>…` stretches a wave written before the rule — later
+arrivals, the same columns. The tutorial's composed waves (RED TANGO, TORCH
+ALLIANCE, SCRAP RAIN, SCRAP AND TORCH) were stretched so; hand-written intros
+are their author's and were left.
+
 ## 6. How the waves get made
 
 **Composed once, at author time, into the act files** — never at run time.

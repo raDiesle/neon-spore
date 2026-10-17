@@ -184,6 +184,13 @@ export function gapRule(block: number): number {
   return block < 20 ? 4 : 3;
 }
 
+/** How many fast slides a step's wave may hold (`wave-pace.ts`): none in a
+ * block's first step or anywhere in the tutorial, one elsewhere — the owner,
+ * 17 October 2026: *better rare, like a special difficulty situation*. */
+export function fastSlidesAllowed(step: Step, tutorial: boolean): number {
+  return tutorial || step.id === "R1" ? 0 : 1;
+}
+
 /** From R4 on, at least half of the arrivals are slicks and bulbs (§4). */
 export function needsBasics(step: Step): boolean {
   return step.id >= "R4";

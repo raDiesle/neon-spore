@@ -1,7 +1,7 @@
-import type { Wave, WaveEntry } from "@neon-spore/content";
-import { nextInt, type Rng } from "@neon-spore/sim";
+import { PACE_REST_BEATS, paceBeats, type Wave, type WaveEntry } from "@neon-spore/content";
+import { next, nextInt, type Rng } from "@neon-spore/sim";
 import type { Block, Motif } from "./compose-block.js";
-import { gapRule, needsBasics, type Step } from "./compose-steps.js";
+import { fastSlidesAllowed, gapRule, needsBasics, type Step } from "./compose-steps.js";
 
 /**
  * **One step of a block, placed** — the table in
@@ -85,6 +85,34 @@ function partner(col: number): number {
   return Math.abs(mirror - col) >= 3 ? mirror : col <= 5 ? col + 3 : col - 3;
 }
 
+/** How often a step that may still make its fast slide takes one when the
+ * gap it drew is too short for the columns: otherwise the arrival waits. */
+const SLIDE_CHANCE = 0.5;
+
+/**
+ * The beat the next arrival lands on, `cols` columns from the last one which
+ * ended at `end`, given the beat it drew: later when the gap is too short to
+ * slide across (`paceBeats`) — the owner: *when unsure, wait for the next
+ * enemy* — unless the wave takes its one fast slide here, and never sooner
+ * than a rest after a fast slide (`wave-pace.ts`).
+ */
+function paced(
+  rng: Rng,
+  pace: { slides: number; rest: boolean },
+  end: number,
+  drawn: number,
+  cols: number,
+): number {
+  let beat = pace.rest ? Math.max(drawn, end + PACE_REST_BEATS) : drawn;
+  pace.rest = false;
+  if (beat - end >= paceBeats(cols)) return beat;
+  if (pace.slides > 0 && next(rng) < SLIDE_CHANCE) {
+    pace.slides--;
+    pace.rest = true;
+  } else beat = end + paceBeats(cols);
+  return beat;
+}
+
 /** The step's wave, drawn once from `rng`. */
 export function placeStep(block: Block, step: Step, rng: Rng): Pick<Wave, "entries" | "pods"> {
   const kinds = cycle(block, step, rng);
@@ -93,7 +121,9 @@ export function placeStep(block: Block, step: Step, rng: Rng): Pick<Wave, "entri
   const pods: NonNullable<Wave["pods"]> = [];
   const lo = step.id === "R8" ? gapRule(block.number) : step.gaps[0];
   let beat = 0;
+  let end = 0;
   let prev = 5;
+  const pace = { slides: fastSlidesAllowed(step, block.tutorial), rest: false };
   // `k` counts what is placed; `c` walks the cycle, and stands still while a
   // slick or a bulb is put in to keep them half of the wave — so the cycle's
   // own kinds all still come, only further apart.
@@ -106,8 +136,9 @@ export function placeStep(block: Block, step: Step, rng: Rng): Pick<Wave, "entri
     } else c++;
     const motif = pick(rng, block.motifs.get(kind) ?? []);
     if (!motif) break;
-    if (beat + motif.length > step.span[1]) break;
     const col = column(rng, step, prev);
+    if (k > 0) beat = paced(rng, pace, end, beat, Math.abs(col - prev));
+    if (beat + motif.length > step.span[1]) break;
     const placed = put(motif, beat, col);
     entries.push(...(placed.entries ?? []));
     pods.push(...(placed.pods ?? []));
@@ -119,12 +150,13 @@ export function placeStep(block: Block, step: Step, rng: Rng): Pick<Wave, "entri
     }
     if (entries.length + pods.length >= step.arrivals[1]) break;
     prev = col;
-    beat += motif.length + between(rng, [lo, Math.max(lo, step.gaps[1])]);
+    end = beat + motif.length;
+    beat = end + between(rng, [lo, Math.max(lo, step.gaps[1])]);
   }
   entries.sort((a, b) => a.beat - b.beat || a.col - b.col);
   // A pod after the last body hangs over a wave that is already over: drop it,
   // and let the checks say whether what is left still fits.
-  const end = Math.max(-1, ...entries.map((e) => e.beat));
-  for (let i = pods.length - 1; i >= 0; i--) if ((pods[i]?.beat ?? 0) >= end) pods.splice(i, 1);
+  const last = Math.max(-1, ...entries.map((e) => e.beat));
+  for (let i = pods.length - 1; i >= 0; i--) if ((pods[i]?.beat ?? 0) >= last) pods.splice(i, 1);
   return pods.length > 0 ? { entries, pods } : { entries };
 }

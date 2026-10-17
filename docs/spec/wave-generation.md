@@ -78,6 +78,13 @@ the job changes (a red after a cyan, a shield after a shot) and when two land
 together; every fault adds 2. It is the number at the end of each row of the
 director's wave list.
 
+**Pace** (`fastSlides`, `packages/content/src/wave-pace.ts`) is the one
+rule that is a bound, not a score: two arrivals three columns or more apart
+need 2 + ⌈columns ÷ 2⌉ beats between them, or the cannon has to cross the
+field fast between two actions. A composed wave does that at most once — never
+in the tutorial or a block's Again — and rests at least 8 beats after it;
+where it would, the composer waits instead. `wave-curriculum.md` §5.2.
+
 Pressure counts what the hands do. **Talk** (`waveTalk`, in
 `packages/content/src/wave-talk.ts`) counts what the voices do: each kind is
 scored by the facts one player must hand the other per arrival — *where* (1),

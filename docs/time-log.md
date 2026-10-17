@@ -44104,3 +44104,17 @@ name words the director's namer may no longer use — that surfaced only in a
 director test.
 
 *Measured: 5 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-17 — A fast slide across the field is rare, and the pace slows after it
+
+- reading: 5 min. How the composer places a step and where a draw is judged.
+- writing: 15 min. `wave-pace.ts`, the placement that waits, the paper
+  check, `waves:pace` and its stretch, the tests and §5.2.
+- looking: 0 min.
+- friction: 10 min. THE SPLICE's move landed on `main` mid-lane, and the
+  waves were made again on top of it.
+- landing: 10 min. `waves:order --write` and `waves:pace` on the four
+  composed tutorial waves, measure, `check:fast`.
+
+Bottleneck: the tutorial's composed waves, which `waves:order` never
+recomposes, needed a tool of their own to follow the rule.

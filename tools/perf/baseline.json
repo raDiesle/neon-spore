@@ -3063,15 +3063,14 @@
       "unmeasured": true
     },
     {
-      "id": "theTwitch",
+      "id": "theCoilAgain",
       "wave": 305,
-      "name": "COIL INFERNO",
-      "bodies": 3,
-      "arrivals": "10:23c99a32",
-      "typical": 2.69,
-      "mean": 2.73,
-      "p90": 3.64,
-      "jitter": 0.233
+      "name": "FIRST COIL",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
     },
     {
       "id": "theCoilReach",
@@ -3104,14 +3103,15 @@
       "unmeasured": true
     },
     {
-      "id": "theCoilPeak",
+      "id": "theTwitch",
       "wave": 309,
-      "name": "COIL THUNDER",
-      "bodies": 0,
-      "typical": 0,
-      "mean": 0,
-      "p90": 0,
-      "unmeasured": true
+      "name": "COIL INFERNO",
+      "bodies": 3,
+      "arrivals": "10:23c99a32",
+      "typical": 2.69,
+      "mean": 2.73,
+      "p90": 3.64,
+      "jitter": 0.233
     },
     {
       "id": "fillerScuttleBreathe",
