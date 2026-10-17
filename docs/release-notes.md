@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-17 · c622ca967 — A block is five regular waves after its new thing, not eight
+
+The owner found eight waves after each new thing too many and too samey, so every block past the tutorial now keeps Again, Reach, Pair, Recall and Peak (`BLOCK_STEPS`) and drops Spread, Breathe and Bend: 735 waves become 567, reviews, lessons and the fillers in front of bosses included. THE COIL's written wave now leads its block, since four composed steps cannot climb under it in small rises; THE LEECH, THE LURE and THE DART were softened to sit under their new gentlest child.
+
 ## 2026-10-17 · d5099b157 — No boss folds under a wave that teaches: 44 fillers of three known-thing waves stand in front of them
 
 Past the tutorial arc, every boss whose block opens with an intro or a lesson now has a filler in front of it — three regular waves, Breathe, Recall and Bend, that reuse the last body taught on the panel the game has reached and rise from the block's gentlest into the boss. The filler's first wave heads a group of its own in the wave list and the boss folds under it, so the next group is the next new thing. Bosses behind a review block and the arc's own bosses are unchanged. 132 waves added, 735 in all.
