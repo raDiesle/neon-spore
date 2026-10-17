@@ -331,6 +331,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## The gripped pod and THE PULSE's pod still wear the old lobed body
 
 - **Found:** 2026-10-17, claude/pod-real-smart-variants-ef232e
+- **Taken:** 2026-10-17, claude/the-brood-feedback-b6be33 (claim: claude/queue-the-gripped-pod-and-the-pulses-pod-still-wear-th)
 - **Files:** `packages/render/src/pods.ts`, `packages/render/src/pod-dress.ts`, `packages/render/src/pod-forms.ts`
 
 The moored pod became BLINK on 17 October 2026 (`drawMoored` → `podFormFor`, five forms since,
