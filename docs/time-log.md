@@ -43686,3 +43686,5 @@ sky, and the rule wanted them to fade two tiles up.
 - landing: 20 min. BULB QUEEN's row four times over — strokes, fills, clip, save — batched down, then moved by two fills and a gradient.
 
 Bottleneck: a machine shared with other sessions — every test run waited on the load.
+
+*Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-17 · 6944a8c5a — The real pod is BLINK: a tumbling seed that blinks like a pickup
+
+The moored pod is no longer the lobed amber blob. It is THE SMART's seed — a sphere tumbling about a tilted axis, a seam round its middle — capped with seven round mushroom studs over a spotted skin, and on the count it flashes white and swells like a bonus in a game: once a beat, twice as the clock runs down, four times in the last beat. The owner took BLINK from VERSUS by name (`pod:real`, closed; the other four went with it). Player 1's husk is drawn the same way, since it is drawn as the real pod. The pod in the maw's grip and THE PULSE's lane still wear the old body; that is queued.
+
 ## 2026-10-16 · 1d3aaea27 — THE BROOD is a machine's womb: hung in a pumping rig, its bodies seen inside and pushed out of its whole belly
 
 The owner's feedback of 16 October 2026: too simple, it should look like something producing enemies, a machine, and spawn from its whole body like pooping out. The sac now hangs on cables from a pump-head whose pistons strike on the beat; six feed tubes wrap it and carry lit pulses down, turning with its rest; a port sits in the belly over every column it covers. Through the skin a clutch of small bodies wheels, and every body it is about to lay sinks to the belly over its column, pushes it out, opens its port in its colour and tears free on a strand of slime as the sac squeezes. Before a lurch it shudders; a lurch swings it on its cables, tilted. It now drops in a short way, fading in, so nothing crosses the top of the screen. A look the owner asked for by name.
