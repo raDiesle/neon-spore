@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-17 · 14c2a5037 — No group's head is harder than its gentlest child
+
+37 heads were — FIRST STEP at 4.6 over FIRST RED at 2.4, HEAVY ROCKS at 14.4 over 4.7 — each the wave that teaches a thing, written with a climax at its end. `bun run waves:soften` pulls a head's arrivals toward the middle column and spreads them apart, as little as it takes to reach its gentlest child and only as far as AUTO still clears it clean: same bodies, colours, order and guide, its faults and pods moved with it. CATCH AND AIM stays as it was: its red and cyan in turn cost a switch each wherever they stand. TORCH, SALVAGE and THE LANCE went in unweighed (`baseline:blank`).
+
 ## 2026-10-17 · eb3504340 — The slick and the bulb die seven ways, dealt in turn so no two kills in a row match
 
 Every slick and bulb now dies by one of seven kills — the shipped turning break alone, or with POP, SHOCK, SCATTER, RUPTURE, AFTERGLOW or SPLASH laid over it — dealt round a deck by the body's own id, so two bodies killed one after the other never share one. The turning break under it is still drawn at random from its seven, so a kill that comes round again comes apart a different way. Until now only the pieces' motion varied, the bulb popped every time, and the seed was the tile alone: the auto-played FIRST STEP kills nine slicks on one tile and all nine died identically.

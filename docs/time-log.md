@@ -43796,3 +43796,5 @@ only a run of real frames showed.
 - landing: 10 min. `waves:measure`, `baseline:blank`, `check:fast`, `land`.
 
 Bottleneck: tests that read a shipped wave's timing off something other than the wave.
+
+*Measured: 4 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
