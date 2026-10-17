@@ -1,10 +1,7 @@
-import {
-  type BlisterDying,
-  bendAbout,
-  during,
-} from "../../../../../packages/render/src/blister-death.js";
-import { rgba } from "../../../../../packages/render/src/hex.js";
-import { PALETTE } from "../../../../../packages/render/src/palette.js";
+import { bendAbout, during } from "./blister-bend.js";
+import type { BlisterDying } from "./blister-death.js";
+import { rgba } from "./hex.js";
+import { PALETTE } from "./palette.js";
 
 /**
  * SMEAR: wiped off the field the way it was stroked. The body is dragged out

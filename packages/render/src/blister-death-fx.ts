@@ -7,7 +7,7 @@ import {
   type World,
 } from "@neon-spore/sim";
 import { drawBlisterRisen, poreY } from "./blister.js";
-import { BLISTER_DEATH, type BlisterDeathPlay, type BlisterDying } from "./blister-death.js";
+import { type BlisterDeathPlay, type BlisterDying, blisterDeathOf } from "./blister-death.js";
 import { BLISTER_WAY, drawBlisterHelpOf } from "./blister-help.js";
 import type { Body } from "./creature-body-in.js";
 import { flatCenter, flatRadius } from "./creature-place.js";
@@ -22,13 +22,11 @@ import { killSeed } from "./tile-seed.js";
  * so on the frame the `destroy` arrives there is no body left to draw. Every
  * frame therefore keeps each blister that is up — the creature itself, which
  * the simulation lets go of and never touches again, and where it stood — and
- * a kill whose control has a death of its own takes that record and draws it
- * through the death for its `life`. Keyed by id and emptied with every other
+ * a kill whose control has deaths of its own takes that record and draws it
+ * through the one the kill picks (`blisterDeathOf`) for its `life`. Keyed by id and emptied with every other
  * transient on a restart, when ids start again (`restart.test.ts`).
  *
- * On the shipped field every record's `play` is null, so nothing is kept
- * playing and this draws nothing: what it costs there is one map entry per
- * blister up.
+ * What it costs while no blister is dying is one map entry per blister up.
  */
 export class BlisterDeathFx {
   private readonly seen = new Map<number, Seen>();
@@ -40,11 +38,12 @@ export class BlisterDeathFx {
   ingest(events: readonly SimEvent[]): void {
     for (const e of events) {
       if (e.type !== "destroy" || e.kind !== "blister" || e.id === undefined) continue;
-      const play = e.gesture ? BLISTER_DEATH[e.gesture].play : null;
+      const seed = killSeed(e);
+      const play = e.gesture ? blisterDeathOf(e.gesture, seed) : null;
       const seen = this.seen.get(e.id);
       if (!play || !seen) continue;
       this.seen.delete(e.id);
-      this.dying.push({ ...seen, play, age: 0, seed: killSeed(e) });
+      this.dying.push({ ...seen, play, age: 0, seed });
     }
   }
 

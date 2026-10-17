@@ -44169,3 +44169,16 @@ twenty matches were read off sixty sentences by hand.
 Bottleneck: none; the move itself was the whole lane.
 
 *Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-17 — Every blister control dies both of its VERSUS deaths
+
+- reading: 5 min. The death seam, the fourteen candidates and how `adopt`
+  and `drop` close a slot.
+- writing: 5 min. The draws moved into render, the record made a list with
+  a seeded pick, the test rewritten for it.
+- looking: 0 min. One `bun run frames` strip of a TAP kill.
+- friction: 0 min.
+- landing: 5 min. `imports:sort`, `bun run index`, `check:fast`, `land`.
+
+Bottleneck: `adopt` takes one answer per slot, so fourteen were taken by
+hand and the seven slots closed with `drop`.

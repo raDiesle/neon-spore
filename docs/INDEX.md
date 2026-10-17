@@ -2857,6 +2857,7 @@ by hand never moves.
 | `packages/render/src/blister-verdicts.ts` | Where a blister was last drawn, for the ring of the blow that finished it |
 | `packages/render/src/blister-bodies.ts` | **The body a blister is drawn as, one record per gesture** (the owner, 14 October 2026 |
 | `packages/render/src/blister-blows.ts` | **How many blows a blister still owes**: THE MINE's pip ring round a body that takes more than one, on the seat that may deal them, and the pip each blow short of the last throws off it |
+| `packages/render/src/blister-bend.ts` | A bend about a point: moved by `dx, dy`, turned by `turn` radians and scaled by `sx, sy`, all about `(x |
 | `packages/render/src/blister-lever-help.ts` | **THE BLISTER's LEVER help**: THE LEVER LAB's groove, band and knob down from the body, the dial while it is held |
 | `packages/render/src/blister-lever-bell.ts` | BELL, one of LEVER's three bodies: a brass bell mouth down, the knob its clapper on a cord, swinging and ringing in the band |
 | `packages/render/src/blister-lever-root.ts` | ROOT, one of LEVER's three bodies: a turnip's shoulders and leaves, its root pulled down the groove to the knob |
@@ -2875,7 +2876,21 @@ by hand never moves.
 | `packages/render/src/blister-swipe-slug.ts` | SLUG, one of SWIPE's two bodies: a slug humped in the pore, stretched along the channel to the knob |
 | `packages/render/src/blister-swipe-zip.ts` | ZIP, one of SWIPE's two bodies: a pod zipped shut along the channel, the knob its pull |
 | `packages/render/src/blister-death-fx.ts` | **A blister's death, played out on the body it was** (`blister-death.ts`) |
-| `packages/render/src/blister-death.ts` | **THE ONE RECORD A CANDIDATE BLISTER DEATH PATCHES**, one per control |
+| `packages/render/src/blister-death-combo-slide.ts` | SLIDE: pressed flat, then pulled off |
+| `packages/render/src/blister-death-combo-snap.ts` | SNAP: press, then pull, then gone |
+| `packages/render/src/blister-death-hold-drain.ts` | DRAIN: held until it ran dry |
+| `packages/render/src/blister-death-hold-spill.ts` | SPILL: held so long the drop bursts |
+| `packages/render/src/blister-death-lever-snap.ts` | SNAP: the lever breaks |
+| `packages/render/src/blister-death-lever-yank.ts` | YANK: the lever pulls it under |
+| `packages/render/src/blister-death-rub-erase.ts` | ERASE: rubbed out like pencil |
+| `packages/render/src/blister-death-rub-foam.ts` | FOAM: scrubbed to suds |
+| `packages/render/src/blister-death-swipe-smear.ts` | SMEAR: wiped off the field the way it was stroked |
+| `packages/render/src/blister-death-swipe-unzip.ts` | UNZIP: the stroke was a zip |
+| `packages/render/src/blister-death-tap-plunge.ts` | PLUNGE: the tap goes all the way in |
+| `packages/render/src/blister-death-tap-popcap.ts` | POPCAP: the button comes off |
+| `packages/render/src/blister-death-turn-screw.ts` | SCREW: wound all the way in |
+| `packages/render/src/blister-death-turn-spring.ts` | SPRING: wound too far, and let go |
+| `packages/render/src/blister-death.ts` | **A BLISTER'S DEATH, ONE RECORD PER CONTROL** |
 | `packages/render/src/blister.ts` | THE BLISTER, drawn: |
 | `packages/render/src/canvas2d-stage.ts` | **The letterbox**: what is drawn in the window but outside the game — the paint either side of a phone-shaped stage, and the hairline saying where the phone ends |
 | `packages/render/src/canvas2d-held.ts` | **What a host may reach of the renderer's state**, as the class `Canvas2DRenderer` stands on |

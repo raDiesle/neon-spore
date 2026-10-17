@@ -8,17 +8,29 @@ import {
   type TimedCommand,
   ticksPerBeat,
 } from "@neon-spore/sim";
-import { BLISTER_DEATH, type BlisterDying } from "../src/blister-death.js";
+import {
+  BLISTER_DEATH,
+  BLISTER_DEATH_HIT,
+  type BlisterDeathPlay,
+  type BlisterDying,
+  blisterDeathOf,
+} from "../src/blister-death.js";
 import { BODY_HIT, hitFor } from "../src/body-hit.js";
-import { CFG, FRAME_TIMEOUT_MS, installCanvasGlobals, runFrames } from "./frame-harness.js";
+import {
+  CFG,
+  FRAME_TIMEOUT_MS,
+  installCanvasGlobals,
+  runFrames,
+  stubCanvas,
+} from "./frame-harness.js";
 
 setDefaultTimeout(FRAME_TIMEOUT_MS);
 
 /**
- * A blister's death (`blister-death.ts`, `blister-death-fx.ts`): the seam
- * every `blister:death-*` candidate on VERSUS fills. Shipped, every record is
- * empty and the kill is every body's; filled, the body that was up is kept
- * past the blow and handed to the death, which redraws it by its own code.
+ * A blister's death (`blister-death.ts`, `blister-death-fx.ts`): every
+ * control has two, a kill plays one picked by its seed, and the body that was
+ * up is kept past the blow and handed to the death, which redraws it by its
+ * own code. An empty list is every body's kill, the clover's.
  */
 
 beforeAll(installCanvasGlobals);
@@ -53,16 +65,65 @@ function played() {
   });
 }
 
+const SHIPPED_TAP = BLISTER_DEATH.tap.plays;
+const HOLD_PLAYS = BLISTER_DEATH.hold.plays;
+const setPlays = (g: BlisterGesture, plays: readonly BlisterDeathPlay[]) => {
+  (BLISTER_DEATH[g] as { plays: readonly BlisterDeathPlay[] }).plays = plays;
+};
+
 afterEach(() => {
-  (BLISTER_DEATH.tap as { play: unknown }).play = null;
+  setPlays("tap", SHIPPED_TAP);
+  setPlays("hold", HOLD_PLAYS);
 });
 
 describe("a blister's death", () => {
-  it("ships empty for every control, and the kill is every body's", () => {
+  it("ships two deaths for every control, and the kill stands its wedges down", () => {
     for (const g of Object.keys(BLISTER_DEATH) as BlisterGesture[]) {
-      expect(BLISTER_DEATH[g].play).toBeNull();
-      expect(hitFor("blister", undefined, g)).toBe(BODY_HIT);
+      expect(BLISTER_DEATH[g].plays.length).toBe(2);
+      expect(hitFor("blister", undefined, g)).toBe(BLISTER_DEATH_HIT);
     }
+  });
+
+  it("picks either of a control's two, the same for the same kill", () => {
+    for (const g of Object.keys(BLISTER_DEATH) as BlisterGesture[]) {
+      const picked = new Set<BlisterDeathPlay | null>();
+      for (let seed = 0; seed < 64; seed++) {
+        expect(blisterDeathOf(g, seed)).toBe(blisterDeathOf(g, seed));
+        picked.add(blisterDeathOf(g, seed * 7919 + 13));
+      }
+      expect(picked).toEqual(new Set(BLISTER_DEATH[g].plays));
+    }
+  });
+
+  it("draws every one of the fourteen, through the body and its control, start to end", () => {
+    const { ctx } = stubCanvas();
+    for (const g of Object.keys(BLISTER_DEATH) as BlisterGesture[]) {
+      for (const play of BLISTER_DEATH[g].plays) {
+        let bodies = 0;
+        for (const at of [0, 0.1, 0.3, 0.5, 0.7, 0.9, 1]) {
+          play.draw({
+            ctx: ctx as unknown as CanvasRenderingContext2D,
+            ...{ x: 200, y: 300, r: 20, poreY: 316, gesture: g, spin: 1, seed: 1234 },
+            way: { dx: 1, dy: 0 },
+            ...{ age: at * play.life, at, tile: 40, time: 3 },
+            body: (h, bend) => {
+              expect(h).toBeGreaterThanOrEqual(0);
+              expect(h).toBeLessThanOrEqual(1);
+              bend?.(ctx as unknown as CanvasRenderingContext2D);
+              bodies++;
+            },
+            control: (_alpha, bend) => bend?.(ctx as unknown as CanvasRenderingContext2D),
+          });
+        }
+        expect(bodies).toBeGreaterThan(0);
+      }
+    }
+  });
+
+  it("emptied, is every body's kill", () => {
+    setPlays("tap", []);
+    expect(blisterDeathOf("tap", 5)).toBeNull();
+    expect(hitFor("blister", undefined, "tap")).toBe(BODY_HIT);
   });
 
   it("names its control on the kill", () => {
@@ -73,16 +134,19 @@ describe("a blister's death", () => {
     ]);
   });
 
-  it("filled, draws the body that was knocked out — for its own control only", () => {
+  it("draws the body that was knocked out — for its own control only", () => {
     const seen: BlisterDying[] = [];
-    (BLISTER_DEATH.tap as { play: unknown }).play = {
-      life: 0.5,
-      draw: (d: BlisterDying) => {
-        seen.push(d);
-        d.body(1 - d.at);
-        d.control(1 - d.at);
+    setPlays("tap", [
+      {
+        life: 0.5,
+        draw: (d: BlisterDying) => {
+          seen.push(d);
+          d.body(1 - d.at);
+          d.control(1 - d.at);
+        },
       },
-    };
+    ]);
+    setPlays("hold", []);
     // The clover's wedges stand down for the control that goes its own way.
     expect(hitFor("blister", undefined, "tap").pieces.wedges).toBeLessThan(3);
     expect(hitFor("blister", undefined, "hold")).toBe(BODY_HIT);

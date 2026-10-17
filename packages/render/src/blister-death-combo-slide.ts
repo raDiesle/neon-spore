@@ -1,9 +1,6 @@
-import {
-  type BlisterDying,
-  bendAbout,
-  during,
-} from "../../../../../packages/render/src/blister-death.js";
-import { smoothstep } from "../../../../../packages/render/src/ease.js";
+import { bendAbout, during } from "./blister-bend.js";
+import type { BlisterDying } from "./blister-death.js";
+import { smoothstep } from "./ease.js";
 
 /**
  * SLIDE: pressed flat, then pulled off. The press squashes the body down to a

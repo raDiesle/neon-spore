@@ -1,11 +1,8 @@
-import {
-  type BlisterDying,
-  bendAbout,
-  during,
-} from "../../../../../packages/render/src/blister-death.js";
-import { smoothstep } from "../../../../../packages/render/src/ease.js";
-import { rgba } from "../../../../../packages/render/src/hex.js";
-import { PALETTE } from "../../../../../packages/render/src/palette.js";
+import { bendAbout, during } from "./blister-bend.js";
+import type { BlisterDying } from "./blister-death.js";
+import { smoothstep } from "./ease.js";
+import { rgba } from "./hex.js";
+import { PALETTE } from "./palette.js";
 
 /**
  * SNAP: press, then pull, then gone. The body is pushed down once with a

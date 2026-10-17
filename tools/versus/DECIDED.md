@@ -2377,3 +2377,16 @@ every field, a call, a torch — plus the outline a player who tapped it away is
 left with (`ViewState.sirenOff`, the menu's SIREN switch).
 
 The other answers offered were `beacon` and `sonar`; they went with the slot.
+
+## The seven `blister:death-*` slots — every candidate taken, 2026-10-17
+
+Each control was offered two deaths, and the owner took all fourteen: *apply
+them to game and iterate randomly over them for variety — i like all.* So
+every slot closed with both of its answers shipped, and each kill plays one of
+its control's two, picked by the kill's seed so both phones agree
+(`blisterDeathOf`, `packages/render/src/blister-death.ts`). The drawings are
+`packages/render/src/blister-death-<control>-<name>.ts`: TAP `plunge` and
+`popcap`, HOLD `drain` and `spill`, SWIPE `smear` and `unzip`, TURN `screw`
+and `spring`, RUB `erase` and `foam`, COMBO `slide` and `snap`, LEVER `snap`
+and `yank`. They were taken by hand, because `adopt` takes one answer per
+slot, and each slot was then closed with `drop`.

@@ -6,40 +6,8 @@
 // `index.ts` next door says why it is generated at all.
 
 import type { Variant } from "../variant.js";
-import { BLISTER_DEATH_COMBO_SLIDE } from "./blister-death-combo/slide/index.js";
-import { BLISTER_DEATH_COMBO_SNAP } from "./blister-death-combo/snap/index.js";
-import { BLISTER_DEATH_HOLD_DRAIN } from "./blister-death-hold/drain/index.js";
-import { BLISTER_DEATH_HOLD_SPILL } from "./blister-death-hold/spill/index.js";
-import { BLISTER_DEATH_LEVER_SNAP } from "./blister-death-lever/snap/index.js";
-import { BLISTER_DEATH_LEVER_YANK } from "./blister-death-lever/yank/index.js";
-import { BLISTER_DEATH_RUB_ERASE } from "./blister-death-rub/erase/index.js";
-import { BLISTER_DEATH_RUB_FOAM } from "./blister-death-rub/foam/index.js";
-import { BLISTER_DEATH_SWIPE_SMEAR } from "./blister-death-swipe/smear/index.js";
-import { BLISTER_DEATH_SWIPE_UNZIP } from "./blister-death-swipe/unzip/index.js";
-import { BLISTER_DEATH_TAP_PLUNGE } from "./blister-death-tap/plunge/index.js";
-import { BLISTER_DEATH_TAP_POPCAP } from "./blister-death-tap/popcap/index.js";
-import { BLISTER_DEATH_TURN_SCREW } from "./blister-death-turn/screw/index.js";
-import { BLISTER_DEATH_TURN_SPRING } from "./blister-death-turn/spring/index.js";
 import { SIREN_WORDS_BESIDE } from "./siren-words/beside/index.js";
 import { SIREN_WORDS_TAG } from "./siren-words/tag/index.js";
 import { SIREN_WORDS_UNDER } from "./siren-words/under/index.js";
 
-export const VARIANTS: Variant[] = [
-  BLISTER_DEATH_COMBO_SLIDE,
-  BLISTER_DEATH_COMBO_SNAP,
-  BLISTER_DEATH_HOLD_DRAIN,
-  BLISTER_DEATH_HOLD_SPILL,
-  BLISTER_DEATH_LEVER_SNAP,
-  BLISTER_DEATH_LEVER_YANK,
-  BLISTER_DEATH_RUB_ERASE,
-  BLISTER_DEATH_RUB_FOAM,
-  BLISTER_DEATH_SWIPE_SMEAR,
-  BLISTER_DEATH_SWIPE_UNZIP,
-  BLISTER_DEATH_TAP_PLUNGE,
-  BLISTER_DEATH_TAP_POPCAP,
-  BLISTER_DEATH_TURN_SCREW,
-  BLISTER_DEATH_TURN_SPRING,
-  SIREN_WORDS_BESIDE,
-  SIREN_WORDS_TAG,
-  SIREN_WORDS_UNDER,
-];
+export const VARIANTS: Variant[] = [SIREN_WORDS_BESIDE, SIREN_WORDS_TAG, SIREN_WORDS_UNDER];

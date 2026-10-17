@@ -1,7 +1,8 @@
-import { type BlisterDying, during } from "../../../../../packages/render/src/blister-death.js";
-import { signedHash, sinHash } from "../../../../../packages/render/src/hash.js";
-import { rgba } from "../../../../../packages/render/src/hex.js";
-import { PALETTE } from "../../../../../packages/render/src/palette.js";
+import { during } from "./blister-bend.js";
+import type { BlisterDying } from "./blister-death.js";
+import { signedHash, sinHash } from "./hash.js";
+import { rgba } from "./hex.js";
+import { PALETTE } from "./palette.js";
 
 /**
  * FOAM: scrubbed to suds. Bubbles break out all over the body as it is rubbed

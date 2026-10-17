@@ -1,9 +1,24 @@
 import type { BlisterGesture } from "@neon-spore/sim";
+import { drawSlide } from "./blister-death-combo-slide.js";
+import { drawSnap } from "./blister-death-combo-snap.js";
+import { drawDrain } from "./blister-death-hold-drain.js";
+import { drawSpill } from "./blister-death-hold-spill.js";
+import { drawLeverSnap } from "./blister-death-lever-snap.js";
+import { drawYank } from "./blister-death-lever-yank.js";
+import { drawErase } from "./blister-death-rub-erase.js";
+import { drawFoam } from "./blister-death-rub-foam.js";
+import { drawSmear } from "./blister-death-swipe-smear.js";
+import { drawUnzip } from "./blister-death-swipe-unzip.js";
+import { drawPlunge } from "./blister-death-tap-plunge.js";
+import { drawPopcap } from "./blister-death-tap-popcap.js";
+import { drawScrew } from "./blister-death-turn-screw.js";
+import { drawSpring } from "./blister-death-turn-spring.js";
 import type { HitLook } from "./body-hit.js";
 import { BREAK_LOOK } from "./break-look.js";
+import { sinHash } from "./hash.js";
 
 /**
- * **THE ONE RECORD A CANDIDATE BLISTER DEATH PATCHES**, one per control.
+ * **A BLISTER'S DEATH, ONE RECORD PER CONTROL.**
  *
  * Every control a blister wears has had a body of its own since 15 October
  * 2026 — MOLE round the press, PALM holding the drop, WHEEL turning with the
@@ -14,19 +29,21 @@ import { BREAK_LOOK } from "./break-look.js";
  * animation, which looks like a "bulb" is destroyed.*
  *
  * So the kill names its gesture (`sim/events-body.ts`), and each gesture has a
- * record here. **`play` is null for all seven, and null is what ships**: the
- * clover's wedges and their sparks, to the pixel. A candidate fills it, and
- * then the body that was up is kept on the frame after the blow and handed to
- * `play.draw` for `play.life` seconds (`blister-death-fx.ts`), while the
- * clover's pieces and most of its sparks stand down (`hitFor`, `body-hit.ts`).
+ * record here: the deaths it may die, of which a kill plays one
+ * (`blisterDeathOf`). The body that was up is kept on the frame after the
+ * blow and handed to that death's `draw` for its `life` seconds
+ * (`blister-death-fx.ts`), while the clover's pieces and most of its sparks
+ * stand down (`hitFor`, `body-hit.ts`). An empty list is the clover's wedges
+ * and their sparks, to the pixel.
  *
- * One field and not three because VERSUS asks two answers to one question to
- * differ in half of what they touch: a death is its length and its drawing
- * together, and splitting them would make every pair of candidates agree on
- * the one and argue only over the other.
+ * Two each, both of each pair VERSUS offered for the control on 17 October
+ * 2026 and both taken, picked between at random for variety — the owner the
+ * same day: *apply them to game and iterate randomly over them for variety —
+ * i like all.* A death is its length and its drawing together, so a new one
+ * is one more `play(life, draw)` in its control's list.
  */
 export interface BlisterDeath {
-  readonly play: BlisterDeathPlay | null;
+  readonly plays: readonly BlisterDeathPlay[];
 }
 
 export interface BlisterDeathPlay {
@@ -72,39 +89,34 @@ export interface BlisterDying {
   control(alpha: number, bend?: (ctx: CanvasRenderingContext2D) => void): void;
 }
 
-/**
- * A bend about a point: moved by `dx, dy`, turned by `turn` radians and
- * scaled by `sx, sy`, all about `(x, y)` — the one transform nearly every
- * death lays on a body, so none of them spells it out.
- */
-export function bendAbout(
-  x: number,
-  y: number,
-  b: { sx?: number; sy?: number; turn?: number; dx?: number; dy?: number },
-): (ctx: CanvasRenderingContext2D) => void {
-  return (ctx) => {
-    ctx.translate(x + (b.dx ?? 0), y + (b.dy ?? 0));
-    if (b.turn) ctx.rotate(b.turn);
-    ctx.scale(b.sx ?? 1, b.sy ?? 1);
-    ctx.translate(-x, -y);
-  };
-}
-
-/** How much of the window `from..to` a death at `at` has covered, 0..1. */
-export function during(at: number, from: number, to: number): number {
-  return Math.max(0, Math.min(1, (at - from) / (to - from)));
-}
-
 /** Seven records, each its own object, so a slot patches one control. */
 export const BLISTER_DEATH: Record<BlisterGesture, BlisterDeath> = {
-  tap: { play: null },
-  hold: { play: null },
-  swipe: { play: null },
-  turn: { play: null },
-  rub: { play: null },
-  combo: { play: null },
-  lever: { play: null },
+  tap: { plays: [play(0.85, drawPlunge), play(1.0, drawPopcap)] },
+  hold: { plays: [play(1.1, drawDrain), play(0.95, drawSpill)] },
+  swipe: { plays: [play(0.8, drawSmear), play(1.0, drawUnzip)] },
+  turn: { plays: [play(1.0, drawScrew), play(0.9, drawSpring)] },
+  rub: { plays: [play(1.0, drawErase), play(1.1, drawFoam)] },
+  combo: { plays: [play(1.0, drawSlide), play(1.0, drawSnap)] },
+  lever: { plays: [play(1.0, drawLeverSnap), play(0.9, drawYank)] },
 };
+
+function play(life: number, draw: (d: BlisterDying) => void): BlisterDeathPlay {
+  return { life, draw };
+}
+
+/**
+ * The death a kill plays: one of its control's, picked by the kill's seed so
+ * both phones pick the same one, and on a salt of its own so the pick does not
+ * follow the side a death throws its pieces to (most read `sinHash(seed)`).
+ * Null where the control has none, which is the clover's.
+ */
+export function blisterDeathOf(gesture: BlisterGesture, seed: number): BlisterDeathPlay | null {
+  const { plays } = BLISTER_DEATH[gesture];
+  if (plays.length === 0) return null;
+  return plays[Math.floor(sinHash(seed, PICK_SALT) * plays.length)] ?? plays[0] ?? null;
+}
+
+const PICK_SALT = 41;
 
 /**
  * The kill under a death that draws its own: no clover wedges, and the squares
@@ -120,5 +132,5 @@ export const BLISTER_DEATH_HIT: HitLook = {
 /** The hit a blister's kill takes instead of every body's, or null where its
  * control's death is the shipped one. */
 export function blisterDeathHit(gesture: BlisterGesture | undefined): HitLook | null {
-  return gesture && BLISTER_DEATH[gesture].play ? BLISTER_DEATH_HIT : null;
+  return gesture && BLISTER_DEATH[gesture].plays.length > 0 ? BLISTER_DEATH_HIT : null;
 }

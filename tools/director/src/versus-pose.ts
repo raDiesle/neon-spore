@@ -34,13 +34,6 @@ import { POSE_GROUPS } from "./poses.js";
  * so a slot showing it needs no dedicated one.
  */
 const SLOT_POSE: Record<string, string> = {
-  "blister:death-tap": "BLISTER · TAP KNOCKED OUT, AND GOING",
-  "blister:death-hold": "BLISTER · HOLD KNOCKED OUT, AND GOING",
-  "blister:death-swipe": "BLISTER · SWIPE KNOCKED OUT, AND GOING",
-  "blister:death-turn": "BLISTER · TURN KNOCKED OUT, AND GOING",
-  "blister:death-rub": "BLISTER · RUB KNOCKED OUT, AND GOING",
-  "blister:death-combo": "BLISTER · COMBO KNOCKED OUT, AND GOING",
-  "blister:death-lever": "BLISTER · LEVER KNOCKED OUT, AND GOING",
   "siren:words": "SIREN · A WORD EACH",
 };
 
