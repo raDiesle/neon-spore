@@ -1,5 +1,6 @@
 import type { DragTarget } from "@neon-spore/sim";
 import type { ControlId } from "./controls.js";
+import type { BlisterAct } from "./scene-act-blister.js";
 
 /**
  * **One moment of a rehearsal**, cut out of `scene-types.ts` the way the step
@@ -23,7 +24,7 @@ import type { ControlId } from "./controls.js";
  * down (`sim/scene.ts`). Exactly one gesture is ever set on an act;
  * `test/scenes.test.ts` holds that.
  */
-export interface SceneAct {
+export interface SceneAct extends BlisterAct {
   /** Tick within the loop. Ordered, and the first one places the hand. */
   tick: number;
   control?: ControlId;
@@ -67,8 +68,7 @@ export interface SceneAct {
    * falls back to. Only the two strips take it, as `atBody`.
    */
   atBoss?: true;
-  /** A hand on the field instead of on the panel: which seat's. The column is
-   * `col`, which a grip always carries. */
+  /** A hand on the field instead of on the panel: which seat's; `col` is where. */
   grip?: 1 | 2;
   /**
    * **The device was shaken** — THE CHOIR's own gesture, and the only act here

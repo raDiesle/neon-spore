@@ -17,6 +17,7 @@ export {
   blisterHoldable,
   blisterIsUp,
   blisterMayTap,
+  blisterPlaceRow,
   blisterSwelling,
 } from "./blister.js";
 // THE BLISTER: what render and the director ask of one — whose blow counts,

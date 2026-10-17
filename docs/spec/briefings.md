@@ -30,7 +30,7 @@ first creature falling. It is one of two states, never both:
    prose (§3.2). Either way it ends on **the ready gate**: two circles, one per
    seat, each filling while that seat holds and saying READY when it is full.
    The guide passes when both say READY. Only a wave that introduces something
-   new carries one — one hundred and eleven of the five hundred and seventy waves today, and a wave
+   new carries one — one hundred and eighteen of the five hundred and seventy waves today, and a wave
    with no guide has no circles either.
 2. **The introduction**, if it has no guide. `WAVE 4`, the wave's name, its
    one sentence. Plain text on the field — no panel, no border, nothing to
@@ -313,7 +313,7 @@ RED pressed, the shot taking it, and then a second slick nobody answers, so the
 last thing the pair is shown is the hull bar dropping. About five seconds,
 looping.
 
-**There are ninety-two of them now**, one per guided wave bar nineteen,
+**There are ninety-nine of them now**, one per guided wave bar nineteen,
 and each is authored in `packages/content/src/scenes/` as a page of
 choreography rather than a page of prose. The nineteen that are still the
 three strings and the two circles are the bosses from THE NETTLE on,
@@ -322,6 +322,14 @@ test holds that list rather than this paragraph, and it reads both numbers
 here out of this section in words: a film written or a boss landed fails a
 test instead of leaving a sentence quietly wrong, which is what happened to
 the line this one replaced, twice.
+
+**The seven controls' films** (17 October 2026, `scenes-controls.ts`) are
+one per on-screen control, on the wave built for it, and they are the first
+whose hand is drawn as a hand: `SceneAct.blister` names a seat and a column,
+the gesture is the blister's, and the fingertip walks the gesture's own path
+(`content/scene-blister.ts`, `render/guide-finger.ts`) — the path the
+commands were sampled from. Every body each control is drawn as, and every
+way its stroke or turn points, comes up in one of the four pages.
 
 **All nineteen of those are films nobody has written, and since THE
 HIVE's they are owed by the lanes that draw them.** THE GORGE's was the

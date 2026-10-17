@@ -1034,6 +1034,7 @@ by hand never moves.
 | `packages/content/src/scenes/the-mine.ts` | THE MINE's rehearsal: the square crosses the room as words, and a finger finds it |
 | `packages/content/src/control-command.ts` | What pressing a control *says*, for every control on every panel — one copy, here |
 | `packages/content/src/scenes/snake.ts` | SNAKE's rehearsal: the ship is the body, and the one who can see it cannot steer it |
+| `packages/content/src/scenes/swipe-blisters.ts` | SWIPE TOGETHER's rehearsal: all four ways a SWIPE blister's arrow points — up and right for the pilot |
 | `packages/content/src/scenes/the-fleet.ts` | THE FLEET's rehearsal: the only one who can see the ships is the one who cannot move the sights |
 | `packages/content/src/scenes/the-flip.ts` | THE FLIP's rehearsal: a screen that turns, shown by turning and then by being believed |
 | `packages/content/src/scenes/the-flue.ts` | THE FLUE's rehearsal: one level called and shot, then the seats swapped and the next called the other way round |
@@ -1071,6 +1072,7 @@ by hand never moves.
 | `packages/content/src/waves/act-6.ts` | Waves 77 to 91 of the game, in the order they are played: THE LANCE's block, the filler before THE MAZE and the boss THE MAZE |
 | `packages/content/src/scenes/the-volley.ts` | THE VOLLEY's rehearsal: a ward that works is not a body that is gone |
 | `packages/content/src/scenes/catch-and-aim.ts` | CATCH AND AIM's rehearsal: the hand aims, so the cannon does not have to |
+| `packages/content/src/scenes/combo-blisters.ts` | TWISTED COMBO's rehearsal: a COMBO blister in each of its two bodies |
 | `packages/content/src/waves/act-1b.ts` | The last of act one, cut off `act-1.ts` when that file reached the 250-line ceiling on `CATCH AND AIM` |
 | `packages/content/src/waves/act-10.ts` | Waves 122 to 131 of the game, in the order they are played: THE LIMPET's block, the filler before THE FLEET and the boss THE FLEET |
 | `packages/content/src/waves/act-11.ts` | Waves 132 to 141 of the game, in the order they are played: THE WEIGHT's block, the filler before THE VANE and the boss THE VANE |
@@ -1149,8 +1151,14 @@ by hand never moves.
 | `packages/content/src/scenes/the-blister.ts` | THE BLISTER's rehearsal: the talking it is for, in three pages (`docs/spec/blister.md`, *In one sentence*) |
 | `packages/content/src/scenes/the-undertow.ts` | THE UNDERTOW's rehearsal: the floor bows, a lobe stands, and its colour says who answers it |
 | `packages/content/src/scenes/the-antiphon.ts` | THE ANTIPHON's rehearsal: six organs described across the two seats, the seats swapping every level |
+| `packages/content/src/scenes/tap-blisters.ts` | TAP SCATTER's rehearsal: a TAP blister in each of its three bodies — RIDER, MOLE and CRADLE |
+| `packages/content/src/scenes/turn-blisters.ts` | TURN SIESTA's rehearsal: a TURN blister in each of its bodies and each way round |
 | `packages/content/src/scenes/one-last-chance.ts` | ONE LAST CHANCE's rehearsal: the shield pushes a slick back up once, and only the cannon kills it |
+| `packages/content/src/scenes/hold-blisters.ts` | HOLD WANDERER's rehearsal: a HOLD blister in each of its two bodies |
+| `packages/content/src/scenes/lever-blisters.ts` | LEVER FURY's rehearsal: a LEVER blister in each of its three bodies — ROOT and BELL for the navigator |
+| `packages/content/src/scenes/rub-blisters.ts` | RUB MEMORY's rehearsal: a RUB blister in each of its three bodies — WASHBOARD and URCHIN for the pilot |
 | `packages/content/src/scenes-choreographed.ts` | The rehearsals of the bosses designed on `docs/spec/bosses-choreographed.md` |
+| `packages/content/src/scenes-controls.ts` | **The controls' films**: one per on-screen control, for the wave that brings it — the owner, 17 October 2026 |
 | `packages/content/src/scenes-faults.ts` | The rehearsals of the malfunctions — the waves whose lesson is a fault placed on the beat map rather than a… |
 | `packages/content/src/scenes-owed.ts` | The rehearsals that were owed: the films `docs/spec/briefings.md` §3.2 listed as *a film nobody has written* |
 | `packages/content/src/scenes-waves.ts` | The films of the waves and bosses that are not a family of their own — one per `scenes/` file |
@@ -1162,8 +1170,11 @@ by hand never moves.
 | `packages/content/src/scene-drag.ts` | **A hand carrying a handle**, turned into the stream of `drag` messages a rehearsal's runner sends — how far |
 | `packages/content/src/scene-drag-taut.ts` | **How far each handle is carried** when a film does not say |
 | `packages/content/src/scene-act-types.ts` | one moment of a rehearsal — a thumb on a control or a hand on the field, and a field for every gesture the film can show |
+| `packages/content/src/scene-act-blister.ts` | **A hand on a blister**, the field `SceneAct` takes for THE BLISTER's seven gestures |
 | `packages/content/src/scene-pump.ts` | **A hand working a pump**: THE THROAT's handle |
 | `packages/content/src/scene-rub.ts` | **A thumb rubbing a mark**: THE CHOIR's rub |
+| `packages/content/src/scene-blister-commands.ts` | **What a hand on a blister sends**: `scene-blister.ts`' path |
+| `packages/content/src/scene-blister.ts` | **A hand on a blister**: THE BLISTER's seven gestures |
 | `packages/content/src/scout-arenas.ts` | THE SCOUT's arenas: four levels, one mote more on each, and the arena is the fight |
 | `packages/content/src/scout-haul-arenas.ts` | THE HAUL's arenas: THE SCOUT again, with a hold that takes every mote on the level at once |
 | `packages/content/src/screen-words.ts` | The sentences a player reads outside a wave: the card a bad line puts up |
@@ -1975,6 +1986,8 @@ by hand never moves.
 | `packages/render/src/guide-hand.ts` | The hands that are **not** on the panel: one held on something falling |
 | `packages/render/src/guide-boss-hand.ts` | The ghost hand on a clock boss's own handle, on either seat |
 | `packages/render/src/guide-film.ts` | Where a rehearsal's film stands on its stage — phone-shaped and centred, less the nav bar — and the hands drawn on it |
+| `packages/render/src/guide-finger.ts` | **The ghost hand on a blister**: a drawn hand, its fingertip on the body |
+| `packages/render/src/guide-finger-hand.ts` | **The ghost hand's drawing**, cut out of `guide-finger.ts`, which decides where the fingertip is |
 | `packages/render/src/guide-welcome.ts` | The page before a device's first tutorial: what the stepper is |
 | `packages/render/src/guide-look.ts` | The tutorial's furniture, as one record: the band across the top that says TUTORIAL and whose screen this is |
 | `packages/render/src/guide-keycaps.ts` | A keycap on each control a guide shows, at a desk only: a strip's two step keys at its ends, a lobe's key on its shoulder |

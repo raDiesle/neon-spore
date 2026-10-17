@@ -4,8 +4,10 @@ import { controlSetForWave, setLance } from "./control-sets.js";
 import { type ControlId, control } from "./controls.js";
 import { AUTHORED_COLS, bossFromWave, mapCol, podsFromWave, queueFromWave } from "./queue.js";
 import type { SceneAct } from "./scene-act-types.js";
+import { blisterCommands } from "./scene-blister-commands.js";
 import { dragCommands } from "./scene-drag.js";
 import { crankCommands } from "./scene-turn.js";
+import type { GuideScene } from "./scene-types.js";
 import { guideScene, type SceneId } from "./scenes.js";
 import { placedFaults } from "./wave-faults.js";
 
@@ -32,8 +34,11 @@ import { placedFaults } from "./wave-faults.js";
 /** A film's tap on a held control, in ticks — a thumb, not a hold. */
 const TAP_TICKS = 6;
 
-export function sceneCommands(act: SceneAct, cfg: SimConfig): SceneCommand[] {
+export function sceneCommands(act: SceneAct, cfg: SimConfig, scene?: GuideScene): SceneCommand[] {
   if (act.grip !== undefined) return gripCommands(act, cfg.cols);
+  // A hand on a blister: the gesture is the arrival's, so the film is needed
+  // to read it (`scene-blister.ts`).
+  if (act.blister !== undefined) return scene ? blisterCommands(act, scene, cfg) : [];
   // A thumb on a box: instant and complete on the press, so there is nothing
   // to release. The navigator's, unauthored — `beatboxTapped` refuses any
   // other seat — and the id is filled in by the runner from the column, the
@@ -203,7 +208,9 @@ export function sceneScript(id: SceneId, wave: number, cfg: SimConfig): SceneScr
     // drag a whole run of carries — and any of those can fall after the act
     // written under it. `SceneRun` walks
     // the list once, in order, and would drop anything out of place.
-    commands: scene.acts.flatMap((a) => sceneCommands(a, sceneCfg)).sort((a, b) => a.tick - b.tick),
+    commands: scene.acts
+      .flatMap((a) => sceneCommands(a, sceneCfg, scene))
+      .sort((a, b) => a.tick - b.tick),
     ticks: scene.ticks,
   };
 }

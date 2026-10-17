@@ -44085,3 +44085,20 @@ Bottleneck: two lanes rewriting every act file in the same hour; each rebase
 is a regeneration, not a merge.
 
 *Measured: 14 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-17 — A tutorial with a drawn hand for each of the seven control waves
+
+- reading: 5 min. How a film's acts become commands (`scene-script.ts`,
+  `scene-aim.ts`) and what each gesture's command looks like in `sim/blister-*`.
+- writing: 15 min. One fingertip path that both the commands and the hand are
+  read from, seven films, the hand, and the tests.
+- looking: 10 min. Frame strips of each gesture; the hand made bigger and
+  outlined, and the rub's scrub made wider.
+- friction: 5 min. The guided-entries and briefings tests, a namer whose
+  words became intro names, and a guide written on one line where the
+  director writes three.
+- landing: 5 min. `check:fast`, `land`.
+
+Bottleneck: nothing said that giving a wave a guide makes it an intro, whose
+name words the director's namer may no longer use — that surfaced only in a
+director test.

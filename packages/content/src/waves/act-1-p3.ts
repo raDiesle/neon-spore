@@ -57,6 +57,9 @@ export const WAVES_ACT_1_P3: Wave[] = [
     id: "tapBlisters",
     name: "TAP SCATTER",
     variant: true,
+    guide: {
+      scene: "tapBlisters",
+    },
     entries: [
       { beat: 0, col: 1, color: "cyan" },
       { beat: 6, col: 3, kind: "blister", color: null, row: 2 },
@@ -74,6 +77,9 @@ export const WAVES_ACT_1_P3: Wave[] = [
     id: "holdBlisters",
     name: "HOLD WANDERER",
     variant: true,
+    guide: {
+      scene: "holdBlisters",
+    },
     entries: [
       { beat: 0, col: 8, color: "cyan" },
       { beat: 5, col: 3, kind: "blister", color: null, row: 2, by: 1, gesture: "hold" },
@@ -91,6 +97,9 @@ export const WAVES_ACT_1_P3: Wave[] = [
     id: "swipeBlisters",
     name: "SWIPE TOGETHER",
     variant: true,
+    guide: {
+      scene: "swipeBlisters",
+    },
     entries: [
       { beat: 0, col: 6, color: "cyan" },
       { beat: 4, col: 4, kind: "blister", color: null, row: 2, gesture: "swipe", way: "up" },
@@ -135,6 +144,9 @@ export const WAVES_ACT_1_P3: Wave[] = [
     id: "turnBlisters",
     name: "TURN SIESTA",
     variant: true,
+    guide: {
+      scene: "turnBlisters",
+    },
     entries: [
       { beat: 0, col: 7, color: "red" },
       { beat: 6, col: 2, kind: "blister", color: null, row: 3, gesture: "turn", way: "ccw" },
@@ -152,6 +164,9 @@ export const WAVES_ACT_1_P3: Wave[] = [
     id: "rubBlisters",
     name: "RUB MEMORY",
     variant: true,
+    guide: {
+      scene: "rubBlisters",
+    },
     entries: [
       { beat: 0, col: 2, color: "cyan" },
       { beat: 6, col: 6, kind: "blister", color: null, row: 3, by: 1, gesture: "rub" },
@@ -169,6 +184,9 @@ export const WAVES_ACT_1_P3: Wave[] = [
     id: "comboBlisters",
     name: "TWISTED COMBO",
     variant: true,
+    guide: {
+      scene: "comboBlisters",
+    },
     entries: [
       { beat: 0, col: 9, color: "red" },
       { beat: 4, col: 6, kind: "blister", color: null, row: 2, by: 1, gesture: "combo" },
@@ -186,6 +204,9 @@ export const WAVES_ACT_1_P3: Wave[] = [
     id: "leverBlisters",
     name: "LEVER FURY",
     variant: true,
+    guide: {
+      scene: "leverBlisters",
+    },
     entries: [
       { beat: 0, col: 9, color: "red" },
       { beat: 5, col: 3, kind: "blister", color: null, row: 2, by: 1, gesture: "lever" },

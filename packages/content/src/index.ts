@@ -149,6 +149,13 @@ export {
   WAVE_COLS,
   waveCols,
 } from "./queue.js";
+export {
+  type BlisterHand,
+  type BlisterTarget,
+  blisterHandAt,
+  blisterLift,
+  blisterTarget,
+} from "./scene-blister.js";
 export { actCol, sceneCommands, sceneScript } from "./scene-script.js";
 export {
   type BossPart,

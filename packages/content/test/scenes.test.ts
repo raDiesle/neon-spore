@@ -75,10 +75,31 @@ describe("the rehearsals a guide can show", () => {
     // dropping it silently, and this is what keeps it from being thrown.
     for (const id of SCENE_IDS) {
       for (const act of SCENES[id].acts) {
-        const gestures = [act.control, act.grip, act.drag, act.shake, act.tap, act.tile].filter(
-          (g) => g !== undefined,
-        ).length;
+        const gestures = [
+          act.control,
+          act.grip,
+          act.drag,
+          act.shake,
+          act.tap,
+          act.tile,
+          act.blister,
+        ].filter((g) => g !== undefined).length;
         expect(gestures, `${id} has an act at tick ${act.tick} with ${gestures} gestures`).toBe(1);
+        // A hand on a blister says whose and which column, and nothing else:
+        // the gesture, its way and when it lifts are the arrival's
+        // (`scene-blister.ts`), and `scene-controls.test.ts` holds that there
+        // is one to read them off.
+        if (act.blister !== undefined) {
+          expect(
+            namedCol(act),
+            `${id}: a blister hand at ${act.tick} has no column`,
+          ).toBeGreaterThanOrEqual(0);
+          expect(
+            act.until,
+            `${id}: a blister hand at ${act.tick} says when it lifts`,
+          ).toBeUndefined();
+          continue;
+        }
         // A shake names nothing and holds nothing: no column to be in, no
         // handle to let go of, and no seat to author — it is the pilot's, the
         // way a drag is. An act that wrote one of those down would be an act
@@ -331,6 +352,7 @@ describe("the rehearsals a guide can show", () => {
         // holds — except THE SURGE's bulb, which both hold and the act says
         // whose thumb it is (`scene-drag.ts`).
         const seat =
+          act.blister ??
           act.grip ??
           (act.drag
             ? dragSeat(act.drag, act.hand)

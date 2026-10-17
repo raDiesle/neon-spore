@@ -1,6 +1,7 @@
 import type { ControlSet, GuideScene } from "@neon-spore/content";
 import type { SceneRun, SimConfig, World } from "@neon-spore/sim";
 import { flippedLayout } from "./field-flip.js";
+import { drawBlisterHands } from "./guide-finger.js";
 import {
   drawGripThumb,
   fieldThumb,
@@ -152,4 +153,7 @@ export function drawHands(
   // from the act: the seat pressing is the seat with nothing drawn to press.
   const onTile = tileThumb(l, scene, run.tick, seat);
   if (onTile) drawGripThumb(ctx, onTile, l.lobeR);
+  // And the hand on a blister (`SceneAct.blister`): a drawn hand doing the
+  // gesture, since the gesture is the whole of what that film teaches.
+  drawBlisterHands(ctx, l, run.world, scene, run.tick, seat, phase);
 }

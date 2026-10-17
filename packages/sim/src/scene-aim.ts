@@ -168,6 +168,9 @@ export function aimed(world: World, c: SceneCommand): Command {
     // which is exactly what a film that mistimed its grab should look like.
     const on = lowestIn(world, c.dragCol);
     if (on === null) return c.command;
+    // THE BLISTER's rub names its body in `fromMilli`, because its `id` is the
+    // count of reversals (`blister-rub.ts`).
+    if (c.command.target === "blisterRub") return { ...c.command, fromMilli: on.id };
     if (on.kind !== "lid" || c.command.target !== "lidString") return { ...c.command, id: on.id };
     // THE LID's cord bows to one side of whichever way the grab takes: the
     // film writes how far, and the world lays it along the bow (`lid-bow.ts`).

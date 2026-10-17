@@ -53,7 +53,8 @@ export function gripThumb(
   beatPhase: number,
 ): { x: number; y: number; r: number } | null {
   for (const c of world.creatures) {
-    if (!gripsCreature(world, seat, c.id)) continue;
+    // A blister held is held by the drawn hand (`guide-finger.ts`).
+    if (!gripsCreature(world, seat, c.id) || c.kind === "blister") continue;
     const at = creatureCenter(l, world, c, beatPhase);
     return { x: at.x, y: at.y, r: creatureRadius(l, world, c, beatPhase) };
   }

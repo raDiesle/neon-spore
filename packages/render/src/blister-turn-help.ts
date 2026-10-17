@@ -36,7 +36,7 @@ export function drawBlisterTurn(
 ): void {
   const sign = blisterTurnWayOf(c) === "cw" ? 1 : -1;
   const share = blisterTurnShare(world, c);
-  const ring = at.r + l.tile * OUT_TILES;
+  const ring = blisterTurnRing(l, at.r);
   const knobR = handleRadius(l, world.cfg) * KNOB_SHARE;
   const held = blisterTurnHeld(c);
   const a = REST + sign * share * Math.PI * 2;
@@ -55,6 +55,12 @@ export function drawBlisterTurn(
 
 /** Where the knob rests: straight up, where a clock's turn starts. */
 const REST = -Math.PI / 2;
+
+/** The radius of the ring the turn goes round, for a body of radius `r` —
+ * the ghost hand's finger goes round the same one (`guide-finger.ts`). */
+export function blisterTurnRing(l: Layout, r: number): number {
+  return r + l.tile * OUT_TILES;
+}
 
 /** How far the channel stands out of the body's rim, in tiles: THE HASP's lever. */
 const OUT_TILES = 0.45;
