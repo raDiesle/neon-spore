@@ -331,6 +331,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## Five bodies still draw the old lobed pod through `drawPodBody`
 
 - **Found:** 2026-10-17, claude/the-brood-feedback-b6be33
+- **Taken:** 2026-10-17, claude/the-brood-feedback-b6be33 (claim: claude/queue-five-bodies-still-draw-the-old-lobed-pod-through)
 - **Files:** `packages/render/src/pods.ts`, `packages/render/src/scout-draw.ts`, `packages/render/src/glutton.ts`, `packages/render/src/moult.ts`, `packages/render/src/seeder.ts`, `packages/render/src/pinball-piece.ts`
 - **Asks:** Should the pods these five carry wear the pod's form too, or keep the lobed lamp as their own?
 
