@@ -43798,3 +43798,15 @@ only a run of real frames showed.
 Bottleneck: tests that read a shipped wave's timing off something other than the wave.
 
 *Measured: 4 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-17 — `bun run shot --at` puts every step on a clock
+
+- reading: 10 min. `versus-shot.ts`, `shot.ts`, `deadline.ts`, `browser.ts`.
+- writing: 10 min. `shot-at.ts` out of `shot.ts`, and its browser test.
+- looking: 15 min. The stall run three times — today's tree, the filing
+  commit, and again after — and it finished in twenty seconds every time.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, `land`.
+
+Bottleneck: the stall would not come back, so the fix is to the silence —
+a stuck step now says which it was — and not to a cause nobody could see.

@@ -36,14 +36,14 @@
  */
 
 import { closeBrowser, launchBrowser } from "./capture.js";
-import { clipFor, onDocument } from "./crop.js";
 import { startDirector } from "./director-serve.js";
 import { elementOr, listen, refuseFailed, waitUntil } from "./page-said.js";
+import { shootAt } from "./shot-at.js";
 import { readShotFlags } from "./shot-flags.js";
 import { reachPose } from "./shot-pose.js";
 import { inRow, reachRow } from "./shot-row.js";
 import { reachState, Unreachable } from "./shot-state.js";
-import { TALLEST, withHeightFor } from "./tall.js";
+import { withHeightFor } from "./tall.js";
 
 const { selector, out, reach, settle, until, row, pose, serve, port, path, viewport, scale, at } =
   readShotFlags(process.argv.slice(2));
@@ -95,43 +95,15 @@ try {
   await page.waitForTimeout(Math.min(settle, 1200));
   // A crop clips in *page* coordinates, so the rectangle the caller measured
   // inside the element has to be moved onto where the element sits — the same
-  // step, and the same helper, `capture.ts` uses for `#stage`.
+  // step, and the same helper, `capture.ts` uses for `#stage`. Every step of
+  // it on a clock (`shot-at.ts`).
   if (at) {
-    // The rectangle has to be *on screen* before it can be clipped out of a
-    // screenshot, and it used to be brought there by scrolling — the nearest
-    // scrolling ancestor by the crop's own offset, or the window. That mixed
-    // two coordinate systems: Playwright measures a `boundingBox` against the
-    // viewport and takes a clip against the document, and the two agree only
-    // while nothing has scrolled (`crop.ts`, `onDocument`). So nothing scrolls
-    // now: the window is grown until the crop is inside it (`tall.ts`'s move),
-    // the page is put back at its top, and a box measured then is the same
-    // box in either system.
-    await page.evaluate(() => window.scrollTo(0, 0));
-    const first = await target.first().boundingBox();
-    if (!first) throw new Error(`${selector} has no box to crop out of`);
-    const needed = Math.ceil(first.y + at.y + at.height) + 40;
-    const grown = needed > vh ? Math.min(needed, TALLEST) : null;
-    if (grown !== null) {
-      await page.setViewportSize({ width: vw, height: grown });
-      await page.evaluate(() => window.scrollTo(0, 0));
-      await page.waitForTimeout(600);
-    }
     try {
-      const box = await target.first().boundingBox();
-      if (!box) throw new Error(`${selector} has no box to crop out of`);
-      const scroll = await page.evaluate(() => ({ x: window.scrollX, y: window.scrollY }));
-      await page.screenshot({ path: out, clip: clipFor(onDocument(box, scroll), at) });
-      // Said aloud, because the rectangle is in the element's own pixels and
-      // an element is not always the size a caller pictured: a VERSUS window
-      // on a three-tile pose is 104 px square, not the 172 a five-tile one
-      // is, and a crop written for the second overran the first and came
-      // back as the prose under the phones — which a lane read as a bug in
-      // the clip and queued (`docs/queue.md`, 10 September 2026).
-      console.log(
-        `clip ${at.x},${at.y},${at.width},${at.height} of ${selector} at ${Math.round(box.width)}x${Math.round(box.height)}`,
-      );
-    } finally {
-      if (grown !== null) await page.setViewportSize({ width: vw, height: vh });
+      console.log(await shootAt({ page, target, selector, at, viewport, out }));
+    } catch (error) {
+      if (!(error instanceof Unreachable)) throw error;
+      console.error(error.message);
+      process.exitCode = error.code;
     }
   } else {
     // The whole of it, however tall: an element past the fold is painted black
@@ -149,7 +121,7 @@ try {
       await page.screenshot({ path: out, clip: box });
     });
   }
-  console.log(`wrote ${out}`);
+  if (!process.exitCode) console.log(`wrote ${out}`);
 } finally {
   await closeBrowser(browser);
   await director?.stop();

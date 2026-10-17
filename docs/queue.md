@@ -328,20 +328,6 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/skipped.test.ts` holds the listing's count of the entries
 `next` stepped past and why.
 
-## `versus:shot --at` never finishes
-
-- **Found:** 2026-10-16, claude/siren-torch-visibility-923ccf
-- **Taken:** 2026-10-17, claude/the-brood-feedback-b6be33 (claim: claude/queue-versus-shot-at-never-finishes)
-- **Files:** `tools/frames/versus-shot.ts`, `tools/frames/shot.ts`
-- **Where:** local
-
-`bun run versus:shot siren:look beacon out.png --freeze 0.6 --only candidate
---at 0,0,380,190` ran for ten minutes with no line of output and was stopped;
-the same command without `--at` wrote its PNG in under a minute, and the
-crop was taken afterwards with `bun run crop`. Find where `--at` waits —
-likely the frozen-frame wait and the clip disagreeing about which element to
-measure — and add a test that a frozen shot with `--at` returns.
-
 ## The gripped pod and THE PULSE's pod still wear the old lobed body
 
 - **Found:** 2026-10-17, claude/pod-real-smart-variants-ef232e
