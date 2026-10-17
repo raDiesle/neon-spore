@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-17 · 17d92302b — Every blister control dies both of its VERSUS deaths, one picked at random per kill
+
+The owner took all fourteen blister:death candidates — "apply them to game and iterate randomly over them for variety, i like all". Each control now holds its pair (TAP plunge/popcap, HOLD drain/spill, SWIPE smear/unzip, TURN screw/spring, RUB erase/foam, COMBO slide/snap, LEVER snap/yank) and a kill plays one, picked from the kill's seed so both phones see the same death. The clover's wedges no longer go up under any blister.
+
 ## 2026-10-17 · 1f1873b04 — HELLO BLISTER plays after the seven control waves, so every gesture is taught before it is mixed
 
 HELLO BLISTER asks for a tap, a hold, a swipe, a turn and a rub in one wave. It played right after THE BLISTER, before any of those gestures had its own tutorial. Now it is wave 28: after LEVER FURY and just before THE BASTION, which still closes the group. The seven control waves each move up one number.

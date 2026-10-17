@@ -44182,3 +44182,5 @@ Bottleneck: none; the move itself was the whole lane.
 
 Bottleneck: `adopt` takes one answer per slot, so fourteen were taken by
 hand and the seven slots closed with `drop`.
+
+*Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
