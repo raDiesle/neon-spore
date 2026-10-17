@@ -43688,3 +43688,13 @@ sky, and the rule wanted them to fade two tiles up.
 Bottleneck: a machine shared with other sessions — every test run waited on the load.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-17 — five pod forms by id, each with a coin's shine and a red fake twin
+
+- reading: 5 min. `pods.ts`'s loop, the husk's seat test, the forms from history.
+- writing: 35 min. A paint record, the shine kit, five forms and five fakes, the seat test moved beside `HUSK_LOOK`.
+- looking: 10 min. A sheet of all ten drawn by the shipping code, and THE HUSK on both seats.
+- friction: 5 min. Three owner messages mid-lane, asked and folded in.
+- landing: 15 min. BULB QUEEN's row: the pod at its tick turned GLINT, so every spike kind, the facets and the sparks were batched before the row moved.
+
+Bottleneck: the budget row — every new piece of a pod is counted on the one frame with a pod in it.

@@ -370,19 +370,25 @@ const SCENES: readonly Scene[] = [
     // either seat and in both frames. The blobs cost nothing more — their
     // edge's own glow passes were folded into the aura (`living-skin.ts`).
     // Raised on 17 October 2026, when the moored pod became BLINK
-    // (`pod-blink.ts`; the owner, by name): the pod hanging at this tick is a
+    // (`pod-form-blink.ts`; the owner, by name): the pod hanging at this tick is a
     // tumbling seed — halo, far caps, body, spots, near caps — and its aura
     // strokes went with the old body, so both frames have two more fills and
     // one more radial gradient, the sphere's own light, on either seat, and no
     // more strokes, clips or saves: the spikes and spots are batched for it.
+    // Raised again on 17 October 2026, when a pod began wearing one of five
+    // forms by its id and every real one a coin's shine (`pod-forms.ts`,
+    // `pod-pickup.ts`; the owner, by name): the pod at this tick is GLINT —
+    // its shine and its facets each clip under a save, two of each, a
+    // rectangle for the shine's bar, and a fill or two for its shards, which
+    // are batched a side with every other spike kind.
     rows: {
       p1: [
         {
-          fillRect: 23,
+          fillRect: 24,
           stroke: 169,
-          fill: 98,
-          clip: 13,
-          save: 69,
+          fill: 99,
+          clip: 15,
+          save: 71,
           drawImage: 176,
           createLinearGradient: 32,
           createRadialGradient: 16,
@@ -390,11 +396,11 @@ const SCENES: readonly Scene[] = [
           fillText: 4,
         },
         {
-          fillRect: 22,
+          fillRect: 23,
           stroke: 170,
-          fill: 96,
-          clip: 16,
-          save: 68,
+          fill: 98,
+          clip: 18,
+          save: 70,
           drawImage: 141,
           createLinearGradient: 23,
           createRadialGradient: 13,
@@ -404,11 +410,11 @@ const SCENES: readonly Scene[] = [
       ],
       p2: [
         {
-          fillRect: 22,
+          fillRect: 23,
           stroke: 147,
-          fill: 99,
-          clip: 13,
-          save: 62,
+          fill: 100,
+          clip: 15,
+          save: 64,
           drawImage: 132,
           createLinearGradient: 30,
           createRadialGradient: 16,
@@ -416,11 +422,11 @@ const SCENES: readonly Scene[] = [
           fillText: 4,
         },
         {
-          fillRect: 22,
+          fillRect: 23,
           stroke: 149,
-          fill: 100,
-          clip: 16,
-          save: 66,
+          fill: 102,
+          clip: 18,
+          save: 68,
           drawImage: 137,
           createLinearGradient: 23,
           createRadialGradient: 13,

@@ -1335,9 +1335,17 @@ by hand never moves.
 | `packages/render/src/pod-seat-marks.ts` | **What one seat is told about a pod and the other is not** |
 | `packages/render/src/pod-seed-skins.ts` | **The seed's skins** — the surface over the body and under the seam |
 | `packages/render/src/pod-seed-spikes.ts` | **The seed's spikes** — what a pod drawn on the seed (`pod-seed.ts`) may change and still be the pod |
+| `packages/render/src/pod-seed-draw.ts` | **The seed, painted** — `pod-seed.ts` is the shape at a moment; this is the halo, the far spikes |
+| `packages/render/src/pod-seed-paint.ts` | **The two coats a seed is painted in** — the real pod's amber |
 | `packages/render/src/pod-seed.ts` | **The real pod's body: a tumbling seed** — the shape and the clock, with no drawing in it |
 | `packages/render/src/pod-wreck.ts` | the pod loose — tumbling, flickering, trailing embers — and the core every pod wears |
-| `packages/render/src/pod-blink.ts` | **The real pod, blinking like a pickup** — the tumbling seed (`pod-seed.ts`) |
+| `packages/render/src/pod-form-blink.ts` | **BLINK** — the seed capped with round mushroom studs over a spotted skin; on the count the whole sphere… |
+| `packages/render/src/pod-form-glint.ts` | **GLINT** — the seed cut into facets and set with crystal shards, like a gem to pick up |
+| `packages/render/src/pod-form-hop.ts` | **HOP** — the seed striped like a sweet and curled with thorns, bouncing in place like a pickup |
+| `packages/render/src/pod-form-orbit.ts` | **ORBIT** — the seed panelled like a ball and spiked with cones |
+| `packages/render/src/pod-form-smart.ts` | **SMART** — THE SMART's seven studs on a smooth tumbling sphere |
+| `packages/render/src/pod-forms.ts` | **The five forms a pod is drawn as, one per pod** — the owner, 17 October 2026 |
+| `packages/render/src/pod-pickup.ts` | **What makes a pod read as something to collect** — the owner, 17 October 2026 |
 | `packages/render/src/creatures.ts` | silhouettes and their own-motion |
 | `packages/render/src/creature-place.ts` | where a creature is on screen, and what a finger is pointing at |
 | `packages/render/src/touch.ts` | the control scheme: a point on the layout, and what the ship is told |

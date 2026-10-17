@@ -1,5 +1,5 @@
-import { PALETTE } from "./palette.js";
 import { type Seed, turn, type V } from "./pod-seed.js";
+import type { SeedPaint } from "./pod-seed-paint.js";
 
 /**
  * **The seed's skins** — the surface over the body and under the seam, and
@@ -76,7 +76,7 @@ for (let i = 0; i < ICO.length; i++)
   }
 
 /** The surface, over the body and under the seam. */
-export function drawSkin(ctx: CanvasRenderingContext2D, s: Seed, kind: SkinKind) {
+export function drawSkin(ctx: CanvasRenderingContext2D, s: Seed, kind: SkinKind, paint: SeedPaint) {
   if (kind === "smooth") return;
   if (kind === "spots") {
     // A spot needs no clip and no save: at the limb it is squashed along the
@@ -84,7 +84,7 @@ export function drawSkin(ctx: CanvasRenderingContext2D, s: Seed, kind: SkinKind)
     // uses. The real pod wears spots, in the frame's op budget
     // (`wave-budget.test.ts`).
     // One fill for every spot in front: the limb's foreshortening says depth.
-    ctx.fillStyle = PALETTE.podRim;
+    ctx.fillStyle = paint.seam;
     ctx.globalAlpha = 0.5;
     ctx.beginPath();
     for (const p0 of SPOTS) {
@@ -107,24 +107,25 @@ export function drawSkin(ctx: CanvasRenderingContext2D, s: Seed, kind: SkinKind)
   ctx.clip();
   if (kind === "facets") {
     const pts = ICO.map((p) => turn(p, s.roll));
-    ctx.strokeStyle = PALETTE.podRim;
+    ctx.strokeStyle = paint.seam;
     ctx.lineWidth = s.R * 0.05;
+    // Every near edge in one stroke: the clip at the limb says depth.
+    ctx.globalAlpha = 0.55;
+    ctx.beginPath();
     for (const [i, j] of EDGES) {
       const a = pts[i];
       const b = pts[j];
       if (!a || !b || a.z + b.z <= 0) continue;
-      ctx.globalAlpha = 0.25 + 0.5 * ((a.z + b.z) / 2);
-      ctx.beginPath();
       ctx.moveTo(s.x + a.x * s.R, s.y + a.y * s.R);
       ctx.lineTo(s.x + b.x * s.R, s.y + b.y * s.R);
-      ctx.stroke();
     }
+    ctx.stroke();
   } else if (kind === "panels") {
-    ctx.strokeStyle = PALETTE.podRim;
+    ctx.strokeStyle = paint.seam;
     ringOn(ctx, s, (a) => ({ x: 0, y: Math.cos(a), z: Math.sin(a) }), s.R * 0.12, 1.2);
     ringOn(ctx, s, (a) => ({ x: Math.cos(a), y: Math.sin(a), z: 0 }), s.R * 0.12, 1.2);
   } else {
-    ctx.strokeStyle = PALETTE.podRim;
+    ctx.strokeStyle = paint.seam;
     for (const h of [-0.5, 0.5]) {
       const rr = Math.sqrt(1 - h * h);
       ringOn(ctx, s, (a) => ({ x: Math.cos(a) * rr, y: h, z: Math.sin(a) * rr }), s.R * 0.18, 0.55);

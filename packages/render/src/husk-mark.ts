@@ -1,5 +1,5 @@
 import type { Pod, World } from "@neon-spore/sim";
-import { HUSK_LOOK } from "./husk-look.js";
+import { HUSK_LOOK, showsHuskMark } from "./husk-look.js";
 import type { Layout } from "./layout.js";
 import { podCenter } from "./pods.js";
 import { drawTargetLock } from "./target-lock.js";
@@ -53,14 +53,9 @@ export function husks(world: World): Pod[] {
   return world.pods.filter((p) => p.kind === "husk");
 }
 
-/**
- * Whether this screen carries the mark. `p1` never does — that is the whole
- * creature — and `test` does, because it is both halves at once on one screen
- * and a rig that hid half the picture would be no rig.
- */
-export function showsHuskMark(l: Layout): boolean {
-  return l.role !== "p1";
-}
+// Asked by `pods.ts` too, which draws the fake twin where this frame goes;
+// it lives beside `HUSK_LOOK` so both can ask it without a cycle.
+export { showsHuskMark };
 
 export function drawHuskMarks(
   ctx: CanvasRenderingContext2D,

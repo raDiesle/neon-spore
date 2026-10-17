@@ -45,3 +45,13 @@ export interface HuskLook {
 }
 
 export const HUSK_LOOK: HuskLook = { body: undefined, marked: true };
+
+/**
+ * Whether this screen sees a husk for what it is — its frame
+ * (`husk-mark.ts`) and its fake twin (`pods.ts`). `p1` never does — that is the whole
+ * creature — and `test` does, because it is both halves at once on one screen
+ * and a rig that hid half the picture would be no rig.
+ */
+export function showsHuskMark(l: Layout): boolean {
+  return l.role !== "p1";
+}

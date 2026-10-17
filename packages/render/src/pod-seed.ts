@@ -1,6 +1,6 @@
 /**
  * **The real pod's body: a tumbling seed** — the shape and the clock, with
- * no drawing in it. `pod-blink.ts` paints it; `pod-seed-spikes.ts` and
+ * no drawing in it. `pod-seed-draw.ts` paints it; `pod-seed-spikes.ts` and
  * `pod-seed-skins.ts` hold its spikes and skins.
  *
  * THE SMART's seven studs on a round body, tumbling about a tilted axis. From

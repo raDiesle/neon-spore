@@ -2344,7 +2344,8 @@ of these is chosen, from that one.
 taken by hand: the owner, 16 October 2026 — 'Take BLINK for the real pod and
 build the hollow from it.' The seed moved to packages/render/src/pod-seed.ts,
 its spikes and skins to pod-seed-spikes.ts and pod-seed-skins.ts, BLINK itself
-to pod-blink.ts; drawMoored draws drawBlinkPod, and POD_LOOK stays as the
+to pod-blink.ts (since pod-form-blink.ts, one of five forms in
+pod-forms.ts); drawMoored draws it, and POD_LOOK stays as the
 seam, empty.
 
 The other answers offered were `glint`, `hop`, `orbit` and `smart`; they

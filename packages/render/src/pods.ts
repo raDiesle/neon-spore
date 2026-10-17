@@ -2,13 +2,15 @@ import { POD } from "@neon-spore/content";
 import type { Pod } from "@neon-spore/sim";
 import { bodyAura } from "./body-aura.js";
 import { bodyGlowSpread, halo, strokeGlow } from "./glow.js";
-import { HUSK_LOOK } from "./husk-look.js";
+import { HUSK_LOOK, showsHuskMark } from "./husk-look.js";
 import { type Layout, tileCX, tileCY } from "./layout.js";
 import { PALETTE } from "./palette.js";
-import { drawBlinkPod } from "./pod-blink.js";
 import { drawGripped, drawPodDress, drawSwingThreads } from "./pod-dress.js";
 import { drawDueRing } from "./pod-due-ring.js";
+import { drawBlinkForm } from "./pod-form-blink.js";
+import { podFormFor } from "./pod-forms.js";
 import { POD_LOOK } from "./pod-look.js";
+import type { PodDraw } from "./pod-pickup.js";
 import { drawDriftArrows, showsPodClock } from "./pod-seat-marks.js";
 import { drawPodCore, drawWreck, podPath } from "./pod-wreck.js";
 import { drawRoeThreads } from "./roe-thread.js";
@@ -74,7 +76,10 @@ export function drawPods(
     if (p.gripTicks !== undefined) continue;
     if (p.loose) drawWreck(ctx, l, x, y, r, t);
     else if (p.kind === "husk" && HUSK_LOOK.body) HUSK_LOOK.body(ctx, l, x, y, t, p, beatsLeft);
-    else drawMoored(ctx, l, x, y, t, beatsLeft);
+    else if (p.kind === "husk" && showsHuskMark(l))
+      // The fake twin of the form it copies, on the seat that can tell.
+      podFormFor(p.id)(ctx, x, y, r, t, beatsLeft, true);
+    else drawMoored(ctx, l, x, y, t, beatsLeft, podFormFor(p.id));
     // Coloured, heavy (`pod-dress.ts`).
     drawPodDress(ctx, l, p, x, y, r, t);
     // On a husk too, and the same ring: a clock only the real pod wore would
@@ -103,8 +108,8 @@ export function drawGrippedPods(
   }
 }
 
-/** Hanging: the tumbling seed that blinks like a pickup (`pod-blink.ts`,
- * BLINK, taken 16 October 2026). Exported so a look offered for the husk
+/** Hanging: one of the five forms of the tumbling seed, chosen by the pod's
+ * id, each blinking and shining like a pickup (`pod-forms.ts`). Exported so a look offered for the husk
  * (`husk-look.ts`) can draw the pod it claims to be on the screen that must
  * not be able to tell — and through `POD_LOOK`, so that is whatever a real
  * pod is drawn as. */
@@ -116,12 +121,14 @@ export function drawMoored(
   t: number,
   /** Beats left on its clock, `Infinity` for none (`POD_LOOK.moored`). */
   beatsLeft: number,
+  /** Its form (`podFormFor` of its id); a caller with no pod gets BLINK. */
+  form: PodDraw = drawBlinkForm,
 ): void {
   if (POD_LOOK.moored) {
     POD_LOOK.moored(ctx, l, x, y, t, beatsLeft);
     return;
   }
-  drawBlinkPod(ctx, x, y, l.tile * POD_TILES, t, beatsLeft);
+  form(ctx, x, y, l.tile * POD_TILES, t, beatsLeft, false);
 }
 
 /**
