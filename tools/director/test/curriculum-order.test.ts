@@ -1,5 +1,6 @@
 import { describe, expect, test } from "bun:test";
 import { controlSet, isRegularWave, WAVES, type Wave, waveTalk } from "@neon-spore/content";
+import { BLOCK_STEPS } from "../src/compose-steps.js";
 import {
   splitCurriculum,
   teachingList,
@@ -134,7 +135,7 @@ describe("the units the owner put first", () => {
     const finale = WAVES.findIndex((w) => w.id === "finale");
     expect(WAVES[finale + 1]?.id).toBe("theHusk");
     const block = WAVES.slice(finale + 1).filter((w) => w.id.startsWith("theHusk"));
-    expect(block.length).toBe(9);
+    expect(block.length).toBe(1 + BLOCK_STEPS.length);
     for (const w of block) expect(controlSet(w.controls).id).toBe("standard5");
   });
 });

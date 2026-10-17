@@ -13,35 +13,38 @@ waves into the act files once, the owner reads them, and from then on they are
 waves like any other — they open in the director, any arrival can be dragged,
 and the game does not know they were composed.
 
-Today: **735 waves**. 57 bring something new (an *intro*), 60 are bosses, and
-618 are *regular* — waves that bring nothing new and need no tutorial. Most of
-the regular ones are composed. AUTO plays the whole game in 6 h 10 min; a pair
-needs about 12 h 20 min. Past the tutorial there are **54 blocks and 55
+Today: **567 waves**. 57 bring something new (an *intro*), 60 are bosses, and
+450 are *regular* — waves that bring nothing new and need no tutorial. Most of
+the regular ones are composed. AUTO plays the whole game in 4 h 48 min; a pair
+needs about 9 h 37 min. Past the tutorial there are **54 blocks and 55
 bosses**: 33 opened by a body or a pod, 10 by a lesson, 11 reviews — and 44
 fillers, one in front of each boss whose block teaches.
 
 ## The shape: a block
 
 Every new thing — a body, a pod, a panel, a fault — opens a **block**: its intro wave, then
-**eight regular waves** that use it, each with one job. Only then does the next
+**five regular waves** that use it, each with one job (eight until 17 October
+2026 — the owner: *too boring to variation*). Only then does the next
 new thing arrive. Up to FINALE (the tutorial) a block has three regular waves,
-not eight. A boss closes a block — past the tutorial, behind a **filler**
+not five. A boss closes a block — past the tutorial, behind a **filler**
 (below), so it never folds under a wave that teaches.
 
 | Step | Name | What it does |
 |---|---|---|
 | I | the intro | the new thing alone, centre column — written by hand |
 | R1 | Again | alone, centre and its neighbours, one at a time |
-| R2 | Spread | alone, columns 2–8 |
+| R2 | Spread | alone, columns 2–8 — no block uses it since 17 October 2026 |
 | R3 | Reach | alone, to the edges, long jumps |
 | R4 | Pair | with the previous block's thing |
-| R5 | Breathe | with slicks, bulbs and slow rocks, wide gaps — the dip |
+| R5 | Breathe | with slicks, bulbs and slow rocks, wide gaps — the dip; a filler's, not a block's |
 | R6 | Recall | with a thing from three or more blocks back |
-| R7 | Bend | one known lever on top: a twin across the field, a fault, a faster rock |
+| R7 | Bend | one known lever on top: a twin across the field, a fault, a faster rock; a filler's, not a block's |
 | R8 | Peak | two known things, the tightest gaps, and a twin |
 | ♛ | boss | the first boss whose panel and bodies the pair has now been taught |
 
-In the director a block is **one row that opens into nine**: the composed waves
+A block is Again, Reach, Pair, Recall and Peak (`BLOCK_STEPS`).
+
+In the director a block is **one row that opens into six**: the composed waves
 are variants folded under their intro. OPEN ALL and FOLD ALL over the wave list
 open or fold every block at once.
 
@@ -138,7 +141,7 @@ tutorial keeps THE BROOD, THE BASTION, THE SPLICE (after SALVAGE's block)
 and BULB QUEEN (after the review block that follows it) where they are, and THE BLISTER's
 gestures stand before THE BASTION; THE INSTAR closes the first block after
 it. The last 12 bosses
-close a **review block** (below). Every boss has eight regular waves in front
+close a **review block** (below). Every boss has five regular waves in front
 of it and comes straight after one. A boss's length is the owner's to adjust by hand: the boss table
 in `wave-curriculum-today.md` marks each one short, in band or long.
 
@@ -149,7 +152,7 @@ THE LANCE (the hold), THE JAM, THE CHOKE, THE LIMPET, THE LEECH, THE CLAW,
 THE CODEX, THE HANDOVER, THE FLIP, THE DARK. Each opens a block of its own:
 it stands after the regular waves of the block it came in, with the guided
 waves that follow it (THE PURGE after THE LANCE, THE LEAK after THE
-HANDOVER), and eight regular waves are composed after it from the bodies of
+HANDOVER), and five regular waves are composed after it from the bodies of
 that block, on the lesson's panel, **every wave carrying the lesson's fault**.
 
 Two exceptions, both because AUTO cannot play them: **THE JAM's** waves go
@@ -164,14 +167,14 @@ that no boss closes any more; run a second time it changes nothing.
 
 ## Review blocks
 
-A **review block** is a block with no intro: eight regular waves in front of a
+A **review block** is a block with no intro: five regular waves in front of a
 boss that had no block of its own. Its **theme** is a thing the game already
 taught, in the order it was taught from THE LURE — LURES RETURN … LURES
 SUMMIT before THE HASP, THROBS RETURN … before THE RATCHET, and so on to the
-crawlers before THE HYDRA. It is composed with its theme block's own eight
+crawlers before THE HYDRA. It is composed with its theme block's own five
 steps, one notch further on, on the panel the game has reached, and starts a
 little above the gentlest wave of the block before. Its first wave (RETURN)
-is not a variant, so the director folds the other seven under it.
+is not a variant, so the director folds the other four under it.
 
 Their names are made up from the theme's word (step 5) — a review of the
 ghosts is OUTER GHOST, GHOST LEGEND. A new boss written later gets one with
@@ -199,7 +202,7 @@ the tutorial's bosses have none. Ids start `filler` and the boss's name
 | `bun run waves:names [id …] [--write]` | Names every regular wave again, or only the ids given, and prints each name that changes. A name chosen by hand is overwritten by a run over every wave. |
 | `bun run waves:review [--count N] --write` | Composes the next review blocks, each in front of a boss waiting at the end, named from its theme. |
 | `bun run waves:fillers [--write]` | Composes a filler in front of every boss that still closes a block which teaches. Nothing else moves; `waves:order` writes them too. |
-| `bun run waves:lessons --write` | Moves every lesson behind its block's waves, composes its eight, places the bosses again. |
+| `bun run waves:lessons --write` | Moves every lesson behind its block's waves, composes its five, places the bosses again. |
 | `bun run waves:bosses --write` | Moves every boss to its block. Run after a block is written. |
 | `bun run waves:measure` | Plays every wave with AUTO and rewrites `wave-curriculum-today.md`. |
 | `bun run briefings:renumber` | Puts today's wave numbers into `briefings.md`, which names waves by number. |
@@ -217,7 +220,7 @@ is missing.
 
 | File | What it holds |
 |---|---|
-| `tools/director/src/compose-steps.ts` | the eight steps and their rules |
+| `tools/director/src/compose-steps.ts` | the eight steps, the five a block uses, and their rules |
 | `tools/director/src/compose-block.ts` | reading a block off the wave list |
 | `tools/director/src/compose-ramp.ts` | choosing a block's pressures together |
 | `tools/director/src/compose-grow.ts` | how the steps grow every four blocks |

@@ -3,6 +3,7 @@ import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { WAVES, type Wave } from "@neon-spore/content";
 import { readBlock } from "../src/compose-block.js";
+import { BLOCK_STEPS } from "../src/compose-steps.js";
 import { serializeWaveArray } from "../src/serialize.js";
 
 /**
@@ -16,18 +17,18 @@ import { serializeWaveArray } from "../src/serialize.js";
 const SET_PIECES = ["theRoe", "theClutch", "theDrop", "theWatch", "theNeighbour"];
 
 describe("THE HUSK's set pieces", () => {
-  test("are marked, and none of the block's eight", () => {
+  test("are marked, and none of the block's five", () => {
     for (const id of SET_PIECES) expect(WAVES.find((w) => w.id === id)?.setPiece, id).toBe(true);
     const block = readBlock(WAVES, "theHusk");
     if (typeof block === "string") throw new Error(block);
-    expect(block.existing).toBe(8);
+    expect(block.existing).toBe(BLOCK_STEPS.length);
   });
 
   test("would be five of its steps unmarked", () => {
     const bare = WAVES.map(({ setPiece: _s, ...w }) => w as Wave);
     const block = readBlock(bare, "theHusk");
     if (typeof block === "string") throw new Error(block);
-    expect(block.existing).toBe(8 + SET_PIECES.length);
+    expect(block.existing).toBe(BLOCK_STEPS.length + SET_PIECES.length);
   });
 
   test("keep the mark through a save", () => {

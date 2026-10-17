@@ -54,7 +54,7 @@ describe("the steps", () => {
   test("a tutorial block is three steps and its written regular waves stand for the last", () => {
     expect(stepsToCompose(true, 0).map((s) => s.id)).toEqual(["R1", "R3", "R4"]);
     expect(stepsToCompose(true, 2).map((s) => s.id)).toEqual(["R1"]);
-    expect(stepsToCompose(false, 1)).toHaveLength(7);
+    expect(stepsToCompose(false, 1)).toHaveLength(4);
   });
 
   test("a rise is at most two over the wave before it, and R5 dips", () => {

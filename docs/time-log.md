@@ -44032,3 +44032,17 @@ Bottleneck: `waves:order` was not safe to run on `main`, so the fillers got a
 pass of their own instead of riding the full reorder.
 
 *Measured: 6 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-17 — A block is five regular waves, not eight
+
+- reading: 10 min. The step table, `stepsToCompose`, `waves:order` and how
+  it tells a composed wave from a written one.
+- writing: 5 min. `BLOCK_STEPS`, the specs and the skill that said eight.
+- looking: 0 min.
+- friction: 15 min. Nine tests counted eight steps by hand; then the fillers
+  landed on `main` mid-lane, and the generated act files were made again on
+  top of them rather than merged.
+- landing: 5 min. `waves:order --write`, `waves:soften --write`, measure,
+  `check:fast`.
+
+Bottleneck: the fillers lane landing on the same act files while this one ran.

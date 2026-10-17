@@ -3,7 +3,7 @@ import { mkdir, mkdtemp, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { dirname, join } from "node:path";
 import { pathToFileURL } from "node:url";
-import { WAVES } from "@neon-spore/content";
+import { untaughtKeys, WAVES } from "@neon-spore/content";
 import { TUTORIAL_LAST_ID } from "../src/compose-steps.js";
 import { ACT_LIST, actFilesIn, nameOf } from "../src/waves-act-files.js";
 import { idsInAct } from "../src/waves-act-list.js";
@@ -54,15 +54,20 @@ afterAll(async () => {
 test("a block moved from after the arc into it leaves every arc act full and in play order", async () => {
   if (!copy.list) throw new Error("the copy has no list");
   const sources = await Promise.all(copy.acts.map((a) => Bun.file(a.file).text()));
-  // The first act after the arc's, moved in after the arc's fifth wave: the
-  // first that passes `untaughtKeys` there, and far enough up that four arc
-  // acts stand between where it lands and where it came from.
+  // The first act after the arc's, moved into the arc at the first place from
+  // its fifth wave on that passes `untaughtKeys` — since blocks are five
+  // (17 October 2026) that act's Recall needs the rock and the torch — and
+  // far enough up that arc acts stand between where it lands and where it
+  // came from.
   const from = copy.acts[arcActs(sources, copy.acts)];
   if (!from) throw new Error("no act after the arc");
   const ids = new Set(idsInAct(sources[copy.acts.indexOf(from)] ?? "", from.exportName));
   const moved = WAVES.filter((w) => ids.has(w.id));
   const rest = WAVES.filter((w) => !ids.has(w.id));
-  const waves = [...rest.slice(0, 5), ...moved, ...rest.slice(5)];
+  const at = (k: number) => [...rest.slice(0, k), ...moved, ...rest.slice(k)];
+  let k = 5;
+  while (untaughtKeys(at(k)).length > 0) k++;
+  const waves = at(k);
   expect(moved.length).toBeGreaterThan(5);
 
   const { complaint } = await writeWaves(waves, copy);

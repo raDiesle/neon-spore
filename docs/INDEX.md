@@ -936,42 +936,42 @@ by hand never moves.
 | `packages/content/src/waves-demo.ts` | which wave to open to see each mechanic, and what the run has to be switched to before it shows |
 | `packages/content/src/waves-demo-bosses.ts` | where each boss from THE STARE on is watched, spread into `waves-demo.ts` |
 | `packages/content/src/waves/act-1.ts` | act one: the tutorial arc |
-| `packages/content/src/waves/act-20.ts` | Waves 257 to 269 of the game, in the order they are played: the filler before THE BATON, the boss THE BATON and THE VEER's block |
-| `packages/content/src/waves/act-21.ts` | Waves 270 to 282 of the game, in the order they are played: the filler before THE UNDERTOW, the boss THE UNDERTOW and THE STRAND's block |
-| `packages/content/src/waves/act-22.ts` | Waves 283 to 295 of the game, in the order they are played: the filler before THE THROAT, the boss THE THROAT and THE CLAW's block |
-| `packages/content/src/waves/act-23.ts` | Waves 296 to 299 of the game, in the order they are played: the filler before THE GORGE and the boss THE GORGE |
-| `packages/content/src/waves/act-24.ts` | Waves 300 to 314 of the game, in the order they are played: THE FENCE's block, the filler before THE CURTAIN and the boss THE CURTAIN |
-| `packages/content/src/waves/act-25.ts` | Waves 315 to 327 of the game, in the order they are played: THE MAGNET's block, the filler before THE TASTER and the boss THE TASTER |
-| `packages/content/src/waves/act-26.ts` | Waves 328 to 340 of the game, in the order they are played: THE CHOIR's block, the filler before THE SINEW and the boss THE SINEW |
-| `packages/content/src/waves/act-27.ts` | Waves 341 to 353 of the game, in the order they are played: THE DARK's block, the filler before THE LEDGER and the boss THE LEDGER |
-| `packages/content/src/waves/act-28.ts` | Waves 354 to 366 of the game, in the order they are played: THE BALLOON's block, the filler before THE SURGE and the boss THE SURGE |
-| `packages/content/src/waves/act-29.ts` | Waves 367 to 379 of the game, in the order they are played: THE MOULT's block, the filler before THE LEAD and the boss THE LEAD |
+| `packages/content/src/waves/act-20.ts` | Waves 223 to 232 of the game, in the order they are played: THE STRAND's block, the filler before THE THROAT and the boss THE THROAT |
+| `packages/content/src/waves/act-21.ts` | Waves 233 to 242 of the game, in the order they are played: THE CLAW's block, the filler before THE GORGE and the boss THE GORGE |
+| `packages/content/src/waves/act-22.ts` | Waves 243 to 254 of the game, in the order they are played: THE FENCE's block, the filler before THE CURTAIN and the boss THE CURTAIN |
+| `packages/content/src/waves/act-23.ts` | Waves 255 to 264 of the game, in the order they are played: THE MAGNET's block, the filler before THE TASTER and the boss THE TASTER |
+| `packages/content/src/waves/act-24.ts` | Waves 265 to 274 of the game, in the order they are played: THE CHOIR's block, the filler before THE SINEW and the boss THE SINEW |
+| `packages/content/src/waves/act-25.ts` | Waves 275 to 284 of the game, in the order they are played: THE DARK's block, the filler before THE LEDGER and the boss THE LEDGER |
+| `packages/content/src/waves/act-26.ts` | Waves 285 to 294 of the game, in the order they are played: THE BALLOON's block, the filler before THE SURGE and the boss THE SURGE |
+| `packages/content/src/waves/act-27.ts` | Waves 295 to 304 of the game, in the order they are played: THE MOULT's block, the filler before THE LEAD and the boss THE LEAD |
+| `packages/content/src/waves/act-28.ts` | Waves 305 to 314 of the game, in the order they are played: THE COIL's block, the filler before THE SCUTTLE and the boss THE SCUTTLE |
+| `packages/content/src/waves/act-29.ts` | Waves 315 to 324 of the game, in the order they are played: THE CODEX's block, the filler before THE ANTIPHON and the boss THE ANTIPHON |
 | `packages/content/src/waves/act-2.ts` | The end of the tutorial arc: CATCH AND AIM, the shield held twice, and FINALE, the arc's last wave |
-| `packages/content/src/waves/act-30.ts` | Waves 380 to 392 of the game, in the order they are played: THE COIL's block, the filler before THE SCUTTLE and the boss THE SCUTTLE |
-| `packages/content/src/waves/act-31.ts` | Waves 393 to 405 of the game, in the order they are played: THE CODEX's block, the filler before THE ANTIPHON and the boss THE ANTIPHON |
-| `packages/content/src/waves/act-32.ts` | Waves 406 to 418 of the game, in the order they are played: THE LURE's block, the filler before THE HIVE and the boss THE HIVE |
-| `packages/content/src/waves/act-33.ts` | Waves 419 to 431 of the game, in the order they are played: THE JAM's block, the filler before THE CAIRN and the boss THE CAIRN |
-| `packages/content/src/waves/act-34.ts` | Waves 432 to 444 of the game, in the order they are played: THE CLASP's block, the filler before THE WELL and the boss THE WELL |
-| `packages/content/src/waves/act-35.ts` | Waves 445 to 457 of the game, in the order they are played: THE DART's block, the filler before THE REPRISE and the boss THE REPRISE |
-| `packages/content/src/waves/act-36.ts` | Waves 458 to 466 of the game, in the order they are played: THE ECHO's block |
-| `packages/content/src/waves/act-37.ts` | Waves 467 to 479 of the game, in the order they are played: THE GYRE's block, the filler before THE FILAMENT and the boss THE FILAMENT |
-| `packages/content/src/waves/act-38.ts` | Waves 480 to 489 of the game, in the order they are played: THE HANDOVER's block |
-| `packages/content/src/waves/act-39.ts` | Waves 490 to 502 of the game, in the order they are played: the filler before THE GIMBAL, the boss THE GIMBAL and THE LID's block |
-| `packages/content/src/waves/act-3.ts` | Waves 43 to 54 of the game, in the order they are played: the start of THE HUSK's block |
+| `packages/content/src/waves/act-30.ts` | Waves 325 to 334 of the game, in the order they are played: THE LURE's block, the filler before THE HIVE and the boss THE HIVE |
+| `packages/content/src/waves/act-31.ts` | Waves 335 to 344 of the game, in the order they are played: THE JAM's block, the filler before THE CAIRN and the boss THE CAIRN |
+| `packages/content/src/waves/act-32.ts` | Waves 345 to 354 of the game, in the order they are played: THE CLASP's block, the filler before THE WELL and the boss THE WELL |
+| `packages/content/src/waves/act-33.ts` | Waves 355 to 364 of the game, in the order they are played: THE DART's block, the filler before THE REPRISE and the boss THE REPRISE |
+| `packages/content/src/waves/act-34.ts` | Waves 365 to 376 of the game, in the order they are played: THE ECHO's block and THE GYRE's block |
+| `packages/content/src/waves/act-35.ts` | Waves 377 to 387 of the game, in the order they are played: the filler before THE FILAMENT, the boss THE FILAMENT and THE HANDOVER's block |
+| `packages/content/src/waves/act-36.ts` | Waves 388 to 401 of the game, in the order they are played: the filler before THE GIMBAL, the boss THE GIMBAL, THE LID's block, the filler before THE SPOOL and the boss THE SPOOL |
+| `packages/content/src/waves/act-37.ts` | Waves 402 to 411 of the game, in the order they are played: THE RECOIL's block, the filler before THE HASP and the boss THE HASP |
+| `packages/content/src/waves/act-38.ts` | Waves 412 to 421 of the game, in the order they are played: THE CRYSTAL's block, the filler before THE RATCHET and the boss THE RATCHET |
+| `packages/content/src/waves/act-39.ts` | Waves 422 to 431 of the game, in the order they are played: THE VOLLEY's block, the filler before THE NETTLE and the boss THE NETTLE |
+| `packages/content/src/waves/act-3.ts` | Waves 43 to 53 of the game, in the order they are played: THE HUSK's block |
 | `packages/content/src/living-look.ts` | which kinds are drawn as a body of their own, and the contour and own-motion of each — one row per kind, so a forgotten one is a build error |
 | `packages/content/src/living-look-handed.ts` | **How the bodies answered by two hands are drawn** |
 | `packages/content/src/living-look-stroked.ts` | a creature is not a blob — the nine kinds a radial contour cannot describe, each `null` with the reason its shape needs a path of its own |
-| `packages/content/src/waves/act-40.ts` | Waves 503 to 515 of the game, in the order they are played: the filler before THE SPOOL, the boss THE SPOOL and THE RECOIL's block |
-| `packages/content/src/waves/act-41.ts` | Waves 516 to 528 of the game, in the order they are played: the filler before THE HASP, the boss THE HASP and THE CRYSTAL's block |
-| `packages/content/src/waves/act-42.ts` | Waves 529 to 541 of the game, in the order they are played: the filler before THE RATCHET, the boss THE RATCHET and THE VOLLEY's block |
-| `packages/content/src/waves/act-43.ts` | Waves 542 to 554 of the game, in the order they are played: the filler before THE NETTLE, the boss THE NETTLE and THE FLIP's block |
-| `packages/content/src/waves/act-44.ts` | Waves 555 to 567 of the game, in the order they are played: the filler before THE MANTLE, the boss THE MANTLE and THE CRAWLER's block |
-| `packages/content/src/waves/act-45.ts` | Waves 568 to 580 of the game, in the order they are played: the filler before THE KEEL, the boss THE KEEL and THE MINE's block |
-| `packages/content/src/waves/act-46.ts` | Waves 581 to 593 of the game, in the order they are played: the filler before THE VALVE, the boss THE VALVE and THE VEIL's block |
-| `packages/content/src/waves/act-47.ts` | Waves 594 to 606 of the game, in the order they are played: the filler before THE SEAM, the boss THE SEAM and THE WISP's block |
-| `packages/content/src/waves/act-48.ts` | Waves 607 to 610 of the game, in the order they are played: the filler before THE OCULUS and the boss THE OCULUS |
-| `packages/content/src/waves/act-49.ts` | Waves 611 to 623 of the game, in the order they are played: THE GHOST's block, the filler before THE VISE and the boss THE VISE |
-| `packages/content/src/waves/act-4.ts` | Waves 55 to 60 of the game, in the order they are played: the end of THE HUSK's block, the filler before THE SWINDLE and the boss THE SWINDLE |
+| `packages/content/src/waves/act-40.ts` | Waves 432 to 441 of the game, in the order they are played: THE FLIP's block, the filler before THE MANTLE and the boss THE MANTLE |
+| `packages/content/src/waves/act-41.ts` | Waves 442 to 451 of the game, in the order they are played: THE CRAWLER's block, the filler before THE KEEL and the boss THE KEEL |
+| `packages/content/src/waves/act-42.ts` | Waves 452 to 461 of the game, in the order they are played: THE MINE's block, the filler before THE VALVE and the boss THE VALVE |
+| `packages/content/src/waves/act-43.ts` | Waves 462 to 471 of the game, in the order they are played: THE VEIL's block, the filler before THE SEAM and the boss THE SEAM |
+| `packages/content/src/waves/act-44.ts` | Waves 472 to 481 of the game, in the order they are played: THE WISP's block, the filler before THE OCULUS and the boss THE OCULUS |
+| `packages/content/src/waves/act-45.ts` | Waves 482 to 491 of the game, in the order they are played: THE GHOST's block, the filler before THE VISE and the boss THE VISE |
+| `packages/content/src/waves/act-46.ts` | Waves 492 to 501 of the game, in the order they are played: THE CAROM's block, the filler before THE PLUMB and the boss THE PLUMB |
+| `packages/content/src/waves/act-47.ts` | Waves 502 to 513 of the game, in the order they are played: THE CAROM's review, the boss THE SLING, THE GHOST's review and the boss THE CAPSTAN |
+| `packages/content/src/waves/act-48.ts` | Waves 514 to 525 of the game, in the order they are played: THE WISP's review, the boss THE GALL, THE VEIL's review and the boss THE TRAPEZE |
+| `packages/content/src/waves/act-49.ts` | Waves 526 to 536 of the game, in the order they are played: THE MINE's review, the boss THE FLUE and THE CRAWLER's review |
+| `packages/content/src/waves/act-4.ts` | Waves 54 to 67 of the game, in the order they are played: the filler before THE SWINDLE, the boss THE SWINDLE, THE MORSEL's block, the filler before THE INSTAR and the boss THE INSTAR |
 | `packages/content/src/ghost-shape.ts` | THE GHOST's contour, which is the third family of them in this package |
 | `packages/content/src/gimbal-script.ts` | THE GIMBAL's six alignments: where each ring's mark sits on the true wheel, how far the marks creep a beat |
 | `packages/content/src/gorge-levels.ts` | THE GORGE's levels: five rows or rings of bubbles, and the layout is the level |
@@ -982,17 +982,11 @@ by hand never moves.
 | `packages/content/src/controls-fleet.ts` | **THE FLEET's five**: the salvo under the pilot's thumb |
 | `packages/content/src/controls-pulse.ts` | **THE PULSE's eight**: four lanes, a slick, a bulb, a meteor and a pod |
 | `packages/content/src/pinball-rounds.ts` | PINBALL's boards, one per round, **drawn rather than listed** |
-| `packages/content/src/waves/act-50.ts` | Waves 624 to 636 of the game, in the order they are played: THE CAROM's block, the filler before THE PLUMB and the boss THE PLUMB |
-| `packages/content/src/waves/act-51.ts` | Waves 637 to 645 of the game, in the order they are played: THE CAROM's review and the boss THE SLING |
-| `packages/content/src/waves/act-52.ts` | Waves 646 to 654 of the game, in the order they are played: THE GHOST's review and the boss THE CAPSTAN |
-| `packages/content/src/waves/act-53.ts` | Waves 655 to 663 of the game, in the order they are played: THE WISP's review and the boss THE GALL |
-| `packages/content/src/waves/act-54.ts` | Waves 664 to 672 of the game, in the order they are played: THE VEIL's review and the boss THE TRAPEZE |
-| `packages/content/src/waves/act-55.ts` | Waves 673 to 681 of the game, in the order they are played: THE MINE's review and the boss THE FLUE |
-| `packages/content/src/waves/act-56.ts` | Waves 682 to 690 of the game, in the order they are played: THE CRAWLER's review and the boss THE GOVERNOR |
-| `packages/content/src/waves/act-5.ts` | Waves 61 to 73 of the game, in the order they are played: THE MORSEL's block, the filler before THE INSTAR and the boss THE INSTAR |
-| `packages/content/src/waves/act-57.ts` | Waves 691 to 699 of the game, in the order they are played: THE VOLLEY's review and the boss THE LAMPREY |
-| `packages/content/src/waves/act-58.ts` | Waves 700 to 708 of the game, in the order they are played: THE CRYSTAL's review and the boss THE MIMIC |
-| `packages/content/src/waves/act-59.ts` | Waves 709 to 717 of the game, in the order they are played: THE RECOIL's review and the boss THE LATCH |
+| `packages/content/src/waves/act-50.ts` | Waves 537 to 542 of the game, in the order they are played: the boss THE GOVERNOR and THE VOLLEY's review |
+| `packages/content/src/waves/act-51.ts` | Waves 543 to 549 of the game, in the order they are played: the boss THE LAMPREY, THE CRYSTAL's review and the boss THE MIMIC |
+| `packages/content/src/waves/act-52.ts` | Waves 550 to 561 of the game, in the order they are played: THE RECOIL's review, the boss THE LATCH, THE LID's review and the boss THE CHRYSALIS |
+| `packages/content/src/waves/act-5.ts` | Waves 68 to 77 of the game, in the order they are played: THE SEEDER's block, the filler before THE MIRROR and the boss THE MIRROR |
+| `packages/content/src/waves/act-53.ts` | Waves 562 to 567 of the game, in the order they are played: THE GYRE's review and the boss THE HYDRA |
 | `packages/content/src/lid-shape.ts` | you are tuning THE LID's outline — two arcs meeting at a corner, the fourth contour family here |
 | `packages/content/src/scenes.ts` | you are authoring or retiming the rehearsal a guide shows — arrivals, tempo and the acts a ghost thumb plays |
 | `packages/content/src/scene-script.ts` | A rehearsal turned into the two things the runner takes: a command track and a whole `SceneScript` |
@@ -1073,24 +1067,22 @@ by hand never moves.
 | `packages/content/src/scenes/the-cairn.ts` | THE CAIRN's rehearsal: the rock you did not pull is the one that lands |
 | `packages/content/src/control-sets-table.ts` | Every panel in the game, as a table |
 | `packages/content/src/scenes/cyan.ts` | CYAN's rehearsal: the second button, and the cost of the first one |
-| `packages/content/src/waves/act-6.ts` | Waves 74 to 86 of the game, in the order they are played: THE SEEDER's block, the filler before THE MIRROR and the boss THE MIRROR |
-| `packages/content/src/waves/act-60.ts` | Waves 718 to 726 of the game, in the order they are played: THE LID's review and the boss THE CHRYSALIS |
-| `packages/content/src/waves/act-61.ts` | Waves 727 to 735 of the game, in the order they are played: THE GYRE's review and the boss THE HYDRA |
+| `packages/content/src/waves/act-6.ts` | Waves 78 to 92 of the game, in the order they are played: THE LANCE's block, the filler before THE MAZE and the boss THE MAZE |
 | `packages/content/src/scenes/the-volley.ts` | THE VOLLEY's rehearsal: a ward that works is not a body that is gone |
 | `packages/content/src/scenes/catch-and-aim.ts` | CATCH AND AIM's rehearsal: the hand aims, so the cannon does not have to |
 | `packages/content/src/waves/act-1b.ts` | The last of act one, cut off `act-1.ts` when that file reached the 250-line ceiling on `CATCH AND AIM` |
-| `packages/content/src/waves/act-10.ts` | Waves 127 to 139 of the game, in the order they are played: the filler before THE GAUGE, the boss THE GAUGE and THE BEATBOX's block |
-| `packages/content/src/waves/act-11.ts` | Waves 140 to 152 of the game, in the order they are played: the filler before THE WARDEN, the boss THE WARDEN and THE LIMPET's block |
-| `packages/content/src/waves/act-12.ts` | Waves 153 to 165 of the game, in the order they are played: the filler before THE FLEET, the boss THE FLEET and THE WEIGHT's block |
-| `packages/content/src/waves/act-13.ts` | Waves 166 to 178 of the game, in the order they are played: the filler before THE VANE, the boss THE VANE and HEAVY ROCKS's block |
-| `packages/content/src/waves/act-14.ts` | Waves 179 to 191 of the game, in the order they are played: the filler before SNAKE, the boss SNAKE and THE LEECH's block |
+| `packages/content/src/waves/act-10.ts` | Waves 123 to 132 of the game, in the order they are played: THE LIMPET's block, the filler before THE FLEET and the boss THE FLEET |
+| `packages/content/src/waves/act-11.ts` | Waves 133 to 142 of the game, in the order they are played: THE WEIGHT's block, the filler before THE VANE and the boss THE VANE |
+| `packages/content/src/waves/act-12.ts` | Waves 143 to 152 of the game, in the order they are played: HEAVY ROCKS's block, the filler before SNAKE and the boss SNAKE |
+| `packages/content/src/waves/act-13.ts` | Waves 153 to 162 of the game, in the order they are played: THE LEECH's block, the filler before PINBALL and the boss PINBALL |
+| `packages/content/src/waves/act-14.ts` | Waves 163 to 172 of the game, in the order they are played: THE THROB's block, the filler before THE SCOUT and the boss THE SCOUT |
 | `packages/content/src/waves/act-1-p2.ts` | Act one's second page — the arc's composed regular waves pushed it past the ceiling, and the save cut it (`acts.ts`) |
 | `packages/content/src/waves/act-1-p3.ts` | Act one's third page, cut the same way; plays straight after `act-1-p2.ts` |
-| `packages/content/src/waves/act-15.ts` | Waves 192 to 204 of the game, in the order they are played: the filler before PINBALL, the boss PINBALL and THE THROB's block |
-| `packages/content/src/waves/act-16.ts` | Waves 205 to 217 of the game, in the order they are played: the filler before THE SCOUT, the boss THE SCOUT and THE COUNT's block |
-| `packages/content/src/waves/act-17.ts` | Waves 218 to 230 of the game, in the order they are played: the filler before THE HAUL, the boss THE HAUL and THE SHELL's block |
-| `packages/content/src/waves/act-18.ts` | Waves 231 to 243 of the game, in the order they are played: the filler before THE STARE, the boss THE STARE and THE CHOKE's block |
-| `packages/content/src/waves/act-19.ts` | Waves 244 to 256 of the game, in the order they are played: the filler before THE PULSE, the boss THE PULSE and THE RIND's block |
+| `packages/content/src/waves/act-15.ts` | Waves 173 to 182 of the game, in the order they are played: THE COUNT's block, the filler before THE HAUL and the boss THE HAUL |
+| `packages/content/src/waves/act-16.ts` | Waves 183 to 192 of the game, in the order they are played: THE SHELL's block, the filler before THE STARE and the boss THE STARE |
+| `packages/content/src/waves/act-17.ts` | Waves 193 to 202 of the game, in the order they are played: THE CHOKE's block, the filler before THE PULSE and the boss THE PULSE |
+| `packages/content/src/waves/act-18.ts` | Waves 203 to 212 of the game, in the order they are played: THE RIND's block, the filler before THE BATON and the boss THE BATON |
+| `packages/content/src/waves/act-19.ts` | Waves 213 to 222 of the game, in the order they are played: THE VEER's block, the filler before THE UNDERTOW and the boss THE UNDERTOW |
 | `packages/content/src/maze-drawn.ts` | The four sheets THE MAZE plays after the owner's own, drawn by `bun run maze` and printed here |
 | `packages/content/src/body-path.ts` | one living body's contour — a blob, or the walk that puts clubs on its rim |
 | `packages/content/src/body-path-clubbed.ts` | a creature is not a blob — the walked rim of balls on stalks THE THROB and THE BEATBOX wear, and the four numbers it is sampled at |
@@ -1184,9 +1176,9 @@ by hand never moves.
 | `packages/content/src/silhouettes-mine.ts` | **THE MINE is REACHER**, off the shape sheet: *four soft arms |
 | `packages/content/src/silhouettes-morsel.ts` | **THE MORSEL is DUMPLING: BULB · PEAR and BULB · SPIKE** |
 | `packages/content/src/silhouettes-glutton.ts` | **THE GLUTTON is GULLET: BULB · CLOVER and SLICK · REVERB** |
-| `packages/content/src/waves/act-8.ts` | Waves 101 to 113 of the game, in the order they are played: the filler before THE MAZE, the boss THE MAZE and THE GLUTTON's block |
-| `packages/content/src/waves/act-7.ts` | Waves 87 to 100 of the game, in the order they are played: THE LANCE's block |
-| `packages/content/src/waves/act-9.ts` | Waves 114 to 126 of the game, in the order they are played: the filler before THE GEODE, the boss THE GEODE and THE CROSSING's block |
+| `packages/content/src/waves/act-8.ts` | Waves 103 to 112 of the game, in the order they are played: THE CROSSING's block, the filler before THE GAUGE and the boss THE GAUGE |
+| `packages/content/src/waves/act-7.ts` | Waves 93 to 102 of the game, in the order they are played: THE GLUTTON's block, the filler before THE GEODE and the boss THE GEODE |
+| `packages/content/src/waves/act-9.ts` | Waves 113 to 122 of the game, in the order they are played: THE BEATBOX's block, the filler before THE WARDEN and the boss THE WARDEN |
 | `packages/content/src/waves/acts.ts` | **The act files, in the order of the game** — the one list of them, written by the director's save when it cuts a full act |
 | `packages/content/src/balloon-shape.ts` | THE BALLOON's contour: a skin with a knot under it, and the fifth family of contour in this package |
 | `packages/content/src/creatures-handed.ts` | **The bodies answered by hands alone**, and today there is one of them |

@@ -90,11 +90,15 @@ and a cyan, a shot and a shield, a body and a rock) are at least **4 beats**
 apart — one spoken exchange — in the first 20 blocks, and at least **3** after.
 The same job in the same column may follow on the next beat.
 
-## 4. The block: one new thing, then eight regular waves
+## 4. The block: one new thing, then five regular waves
 
-**Decision 3 — every new thing opens a block of 1 + 8 waves.** The intro wave
-teaches it, eight regular waves use it, and only then does the next new thing
-arrive. Equal for every block, so the pair always has the same eight waves to
+**Decision 3 — every new thing opens a block of 1 + 5 waves.** Eight until
+the owner, 17 October 2026: *8 waves are too much when something new is
+introduced, too boring to variation and we have a lot — change it to 5.* The
+block keeps Again, Reach, Pair, Recall and Peak (`BLOCK_STEPS`); Spread is
+unused, and Breathe and Bend are a filler's (§7). The intro wave
+teaches it, five regular waves use it, and only then does the next new thing
+arrive. Equal for every block, so the pair always has the same five waves to
 get good at something before being taught again.
 
 A *new thing* is whatever `waveIntroduces` names: a body, a pod, a fault, a
@@ -114,10 +118,10 @@ landed it found one: THE BASTION was the first wave on STANDARD 5, handing
 the pair the intake a wave before SALVAGE teaches it, and asked nothing of
 it; it plays on STANDARD 4 now.
 
-Eight because it fits the owner's thousand: 56 introductions × 9 + 54 bosses
+Eight was chosen to fit the owner's thousand: 56 introductions × 9 + 54 bosses
 is about 560 today, and the hundred-odd new things to come make a thousand.
 
-Each of the eight has a job, and the order is the owner's FIRST STEP rule
+Each step has a job, and the order is the owner's FIRST STEP rule
 generalised — *first in the middle, then a second in the same wave, then
 another lane, then further*:
 
@@ -338,7 +342,7 @@ decided then while the owner was away:
   is the first. The rest of the bosses are still where *first free block*
   put them.
 - **A boss with no block left waits at the end**, in order — and gets a
-  review block: eight regular waves with no intro, themed on the bodies from
+  review block: five regular waves with no intro, themed on the bodies from
   the last taught back, composed by `bun run waves:review`
   (`tools/director/src/compose-review.ts`; the owner: *create all other
   waves, so that waves are distributed also between all the boss waves*).
@@ -350,10 +354,10 @@ decided then while the owner was away:
   introducing new concepts or enemies, which then should have waves.* A
   lesson teaches a panel or a fault: THE LANCE, THE JAM, THE CHOKE, THE
   LIMPET, THE LEECH, THE CLAW, THE CODEX, THE HANDOVER, THE FLIP, THE DARK.
-  Each moved behind the regular waves of the block it came in and has eight
+  Each moved behind the regular waves of the block it came in and has five
   of its own, carrying its fault (`bun run waves:lessons`,
   `tools/director/src/compose-lesson.ts`). THE CLAW's panel has no shield
-  and no colours, so its eight are placed by a table of their own — each
+  and no colours, so its five are placed by a table of their own — each
   group a pod crossing in and the rocks it answers — and played on the claw
   (`compose-claw.ts`).
 
@@ -375,7 +379,7 @@ decided then while the owner was away:
 Past the arc that makes **54 blocks — 33 opened by a body or a pod, 10 by a
 lesson, 11 reviews — 44 fillers, and 55 bosses**: one closing every block
 but THE ECHO's, which waits for its own, and two waiting at the end. 735
-waves in all.
+waves in all, and 567 once blocks were five (17 October 2026).
 
 The boss table — every boss's AUTO time against the band — is in
 `wave-curriculum-today.md`. AUTO plays perfectly and never talks, so the
@@ -403,7 +407,8 @@ Bosses are the owner's to lengthen by hand. This plan only places them.
 
 ## 9. Answered by the owner, 14 October 2026
 
-1. **Eight** regular waves per new thing (over six and twelve).
+1. **Eight** regular waves per new thing (over six and twelve) — **five** since
+   17 October 2026 (§4, decision 3).
 2. **The bosses are spread out**, one closing a block (§7), rather than the
    existing order kept with 22 bosses in a row.
 3. **The 10 old regular waves count** as the first of their block's eight; the

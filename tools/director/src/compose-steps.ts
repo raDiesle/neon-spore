@@ -123,7 +123,16 @@ export const STEPS: readonly Step[] = [
   },
 ];
 
-/** The tutorial arc's short block (decision 8): three steps, not eight. */
+/** The steps a block after the arc is composed in: five of the eight (the
+ * owner, 17 October 2026: *8 waves are too much when something new is
+ * introduced … too boring to variation, change it to 5*). Spread is gone
+ * because Reach goes as wide, Breathe because the rest now comes inside a
+ * wave, and Bend because Peak already carries a twin. The table keeps all
+ * eight: their names are how a composed wave from before is still known
+ * (`isComposed`). */
+export const BLOCK_STEPS: readonly Step["id"][] = ["R1", "R3", "R4", "R6", "R8"];
+
+/** The tutorial arc's short block (decision 8): three steps. */
 export const TUTORIAL_STEPS: readonly Step["id"][] = ["R1", "R3", "R4"];
 
 /** The waves up to and including FINALE are the tutorial arc. */
@@ -181,13 +190,13 @@ export function needsBasics(step: Step): boolean {
 }
 
 /**
- * Which steps a block still needs composed: the tutorial's three or all
- * eight, less the ones the block's existing regular waves already stand for.
+ * Which steps a block still needs composed: the tutorial's three or the
+ * block's five, less the ones the block's existing regular waves already stand for.
  * Those count from the **end** — an old regular wave is the harder kind, so
  * the composed ones are the easy first steps that lead up to it.
  */
 export function stepsToCompose(tutorial: boolean, existing: number, leads = false): Step[] {
-  const ids = tutorial ? TUTORIAL_STEPS : STEPS.map((s) => s.id);
+  const ids = tutorial ? TUTORIAL_STEPS : BLOCK_STEPS;
   // Unless they lead: then the written ones are the first steps (`Block.leads`).
   const left = leads ? ids.slice(existing) : ids.slice(0, Math.max(0, ids.length - existing));
   return left.map(stepById);

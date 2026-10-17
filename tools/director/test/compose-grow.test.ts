@@ -10,7 +10,7 @@ import {
   TWINS_FROM,
 } from "../src/compose-grow.js";
 import { chooseRamp } from "../src/compose-ramp.js";
-import { START_RISE, stepById, stepsToCompose } from "../src/compose-steps.js";
+import { BLOCK_STEPS, START_RISE, stepById, stepsToCompose } from "../src/compose-steps.js";
 
 /**
  * A rise across blocks (the owner, 14 October 2026): each block's gentlest
@@ -132,43 +132,28 @@ describe("where a block's first wave aims", () => {
  */
 describe("blocks that used to stall", () => {
   for (const id of ["theClasp", "theFence"]) {
-    test(`${id} composes all eight steps`, () => {
+    test(`${id} composes all five steps`, () => {
       const { waves, b } = unwritten(id);
       const out = composeBlock(waves, b, id);
-      expect(out.map((c) => c.faults.join("; ") || c.step.id)).toEqual([
-        "R1",
-        "R2",
-        "R3",
-        "R4",
-        "R5",
-        "R6",
-        "R7",
-        "R8",
-      ]);
+      expect(out.map((c) => c.faults.join("; ") || c.step.id)).toEqual([...BLOCK_STEPS]);
     }, 120_000);
   }
 });
 
 /**
- * THE COIL's block (`docs/queue.md`, 15 October 2026): its seven composed
- * waves must fit under the written one, THE TWITCH at 8, and the first seed's
- * ramp does not — the composer draws again rather than stopping.
+ * THE COIL's block (`docs/queue.md`, 15 October 2026): its composed waves
+ * once had to fit under the written one, THE TWITCH at 8, and the first
+ * seed's ramp did not — the composer draws again rather than stopping. Since
+ * a block is five (17 October 2026) four steps cannot climb under 8 in small
+ * rises, so the written wave leads and the four rise from it.
  */
-test("THE COIL composes the seven steps under its written wave", () => {
+test("THE COIL composes the four steps after its written wave", () => {
   const { waves, b } = unwritten("theCoil");
   const { block: used, composed } = composeBlockAt(waves, b, "theCoil");
-  expect(composed.map((c) => c.faults.join("; ") || c.step.id)).toEqual([
-    "R1",
-    "R2",
-    "R3",
-    "R4",
-    "R5",
-    "R6",
-    "R7",
-  ]);
+  expect(composed.map((c) => c.faults.join("; ") || c.step.id)).toEqual(BLOCK_STEPS.slice(1));
   const twitch = waves.find((w) => w.id === "theTwitch");
-  expect(used.leads).toBeUndefined();
-  expect(composed.at(-1)?.pressure ?? 99).toBeLessThanOrEqual(wavePressure(twitch as Wave) ?? 0);
+  expect(used.leads).toBe(true);
+  expect(composed[0]?.pressure ?? 0).toBeGreaterThan(wavePressure(twitch as Wave) ?? 99);
 }, 300_000);
 
 test("a block's written waves can lead: the composed ones go after them", () => {
@@ -181,7 +166,7 @@ test("a block's written waves can lead: the composed ones go after them", () => 
     wavePressure(waves[twitch] as Wave),
   ]);
   // Then they are the first steps, and the composed ones the rest.
-  expect(stepsToCompose(false, 1, true)[0]?.id).toBe("R2");
+  expect(stepsToCompose(false, 1, true)[0]?.id).toBe("R3");
   const count = unwritten("theCount");
   expect(leadingBlock(count.waves, count.b)).toBeUndefined();
 });

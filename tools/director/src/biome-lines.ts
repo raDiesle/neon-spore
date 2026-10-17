@@ -57,9 +57,38 @@ function items(inside: string): string[] {
     .filter((s) => s.length > 0);
 }
 
+/**
+ * Whether an item is one Biome never keeps beside another in an array: an
+ * object of two fields or more, or an array of two items or more.
+ */
+function bulky(item: string): boolean {
+  const pair = item.startsWith("{") ? "}" : item.startsWith("[") ? "]" : "";
+  if (!pair || !item.endsWith(pair)) return false;
+  return items(item.slice(1, -1)).length > 1;
+}
+
+/**
+ * Whether a line holds an array Biome breaks however short it is — two or
+ * more items, every one bulky (THE GOVERNOR's `marks`, 17 October 2026: an
+ * act the cut judged at 238 lines landed at 251). A line that holds one is
+ * broken at its outermost bracket too, as Biome breaks every group round a
+ * group that must break.
+ */
+function mustBreak(line: string): boolean {
+  let found = false;
+  walk(line, 0, (c, i) => {
+    if (c !== "[") return false;
+    const close = closing(line, i);
+    const inner = close < 0 ? [] : items(line.slice(i + 1, close));
+    found = inner.length > 1 && inner.every(bulky);
+    return found;
+  });
+  return found;
+}
+
 /** The lines Biome makes of one line. */
 export function biomeLines(line: string, width = WIDTH): number {
-  if (line.length <= width) return 1;
+  if (line.length <= width && !mustBreak(line)) return 1;
   let open = -1;
   walk(line, 0, (c, i) => {
     if ("[{(".includes(c)) open = i;
