@@ -43967,3 +43967,5 @@ moving two budget rows.
 
 Bottleneck: checking that THE SWINDLE's hood leaves the red twin visible,
 since the frame was described there as the only tell.
+
+*Measured: 26 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

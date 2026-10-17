@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-17 · 04d8eef0a — A husk lights the siren, and its white frame and DO NOT TAKE are gone
+
+The hollow pod no longer wears a target-lock frame and words on the seat that can tell; that seat still draws it as its red fake twin. While a husk is on the field the siren lights that seat's mouth with SAY THE HOLLOW ONE, and the fooled seat reads ASK BEFORE YOU TAKE (`render/comms-husk.ts`). THE HUSK's guide now says THE RED ONE IS HOLLOW. A look the owner asked for by name.
+
 ## 2026-10-17 · 1cfa10982 — Time log: every on-screen control is one size
 
 ## 2026-10-17 · 0293cfb81 — Every on-screen control is one size: hold, press and rub drawn as big as the pull, and the pull a little smaller
