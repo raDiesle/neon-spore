@@ -43901,3 +43901,5 @@ quoted were from a probe nobody kept, so it was written again.
 
 Bottleneck: the first strip was too short to show the cyan half answering,
 so the glow looked wrong until a whole turn was photographed.
+
+*Measured: 7 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

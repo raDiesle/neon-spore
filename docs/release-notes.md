@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-17 · 4776cfedc — THE THROB is two colour halves that turn with it, and the half facing the cannon is lit
+
+THE THROB is cut in two now, red on one side and cyan on the other. The two colours stay on their halves and turn with the body, so you can watch them go round. The colour at the bottom, pointing at the cannon, is the trigger that kills it. That half is lit brighter, and the glow around the body changes to its colour the moment the edge passes the bottom. The grey middle with black and white dots is gone.
+
 ## 2026-10-17 · 5ee73236d — Queue: a kept measure of a boss's difficulty, AUTO held to a human's press rate
 
 THE BROOD's two retunings each rewrote the same throttled-AUTO probe in an ignored scratch file; the queue now asks for it beside `playedBeat`.
