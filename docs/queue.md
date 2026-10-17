@@ -348,6 +348,7 @@ per 1.75 seconds* names a command that reproduces it.
 ## Every boss closes the group whose new thing it is about
 
 - **Found:** 2026-10-17, claude/salvage-wave-boss-reassign-e5734a
+- **Taken:** 2026-10-17, claude/salvage-wave-boss-reassign-e5734a (claim: claude/queue-every-boss-closes-the-group-whose-new-thing-it-i)
 - **Files:** `tools/director/src/boss-slots.ts`, `tools/director/test/boss-slots.test.ts`, `docs/spec/wave-curriculum.md`
 - **Asks:** what happens to a boss that fits no group's new thing — it stays where *first free block* put it, the unfitted ones wait together at the end, or they leave the campaign until a group for them is written?
 
