@@ -44154,3 +44154,5 @@ was at another lane's tree.
 
 Bottleneck: the draft itself — keys cannot say what a boss is about, so
 twenty matches were read off sixty sentences by hand.
+
+*Measured: 55 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*

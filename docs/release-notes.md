@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-17 · 02ca44a03 — Every boss closes the group whose new thing it is about
+
+Nineteen bosses moved to the group their fight fits, the owner's pick of the draft: THE GEODE after THE LANCE, THE STARE after THE COUNT, THE WARDEN after THE CHOKE, THE VISE after THE SHELL, THE PLUMB after THE WEIGHT, THE SINEW after THE BALLOON, THE LAMPREY after THE LEECH, THE CURTAIN after THE DARK, THE CHRYSALIS after THE MOULT, THE VANE after THE FLIP, THE GIMBAL after THE HANDOVER, THE OCULUS after THE LID, THE MIMIC after THE MINE, THE FLUE after THE GHOST, THE HIVE after HEAVY ROCKS, THE BATON after THE STRAND, THE UNDERTOW after THE CRAWLER and THE THROAT after THE CLAW; THE SWINDLE stays after THE HUSK, and THE SPLICE after THE ECHO, where the owner put it back this evening (THE REPRISE was drafted there, and now closes THE RECOIL). Every other boss closes the next group left free, in its old order. Each boss still stands behind its own filler of three known-thing waves, composed again for its new place.
+
 ## 2026-10-17 · 914a4c78b — The wave list's brush icons open the BRUSH card on hover, at 26 px
 
 Hovering a brush picture at the end of a wave list head now opens the same card the BRUSH palette shows — picture, name, first wave, description — in place of a plain title, and Ctrl/⌘-click on it opens the wave the card names. The pictures are 26 px instead of 18, and the rows keep their height. Owner asked for it by name.
