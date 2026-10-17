@@ -82,6 +82,14 @@ export interface PodEntry {
    */
   clockP1?: true;
   /**
+   * **A hollow pod whose truth is on player 1's screen**: the red twin and the
+   * DO NOT TAKE frame are drawn there, and player 2 sees a real pod. Absent is
+   * the husk as it was made — player 2 sees the lie, player 1 is fooled. The
+   * owner asked on 17 October 2026 to choose the fooled seat per husk; the
+   * rules do not change, only who must say "leave it".
+   */
+  truthP1?: true;
+  /**
    * **It lets go on its own**, this many beats after it appears, with nobody
    * shooting it. Written for the hollow pod: player 1 sees a pod falling at
    * him and only player 2 can say "leave it, don't suck" (`pod-options.ts`).

@@ -31,6 +31,7 @@ export function podOptions(world: World, entry: PodEntry): Partial<Pod> {
     ...(entry.heavy ? { heavy: true as const } : {}),
     ...(entry.swing ? { swingMilli: entry.col * MILLI, crossMilli: swingStepMilli(world) } : {}),
     ...(entry.clockP1 ? { clockP1: true as const } : {}),
+    ...(entry.truthP1 ? { truthP1: true as const } : {}),
     ...(entry.drop !== undefined ? { dropTicks: entry.drop * ticksPerBeat(world.cfg) } : {}),
   };
 }

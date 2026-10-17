@@ -36,6 +36,9 @@ export function podHashParts(pods: readonly Pod[]): number[] {
     out.push(p.heavy ? 1 : 0, p.gripTicks ?? -1, p.swingMilli ?? -1);
     // Whose screen its clock is on, and when it lets go by itself.
     out.push(p.clockP1 ? 1 : 0, p.dropTicks ?? -1);
+    // Which screen a husk tells the truth on. Two devices that disagree each
+    // think the other is the one to warn.
+    out.push(p.truthP1 ? 1 : 0);
   }
   return out;
 }

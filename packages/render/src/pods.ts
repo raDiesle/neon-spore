@@ -76,7 +76,7 @@ export function drawPods(
     if (p.gripTicks !== undefined) continue;
     if (p.loose) drawWreck(ctx, l, x, y, r, t);
     else if (p.kind === "husk" && HUSK_LOOK.body) HUSK_LOOK.body(ctx, l, x, y, t, p, beatsLeft);
-    else if (p.kind === "husk" && showsHuskMark(l))
+    else if (p.kind === "husk" && showsHuskMark(l, p))
       // The fake twin of the form it copies, on the seat that can tell.
       podFormFor(p.id)(ctx, x, y, r, t, beatsLeft, true);
     else drawMoored(ctx, l, x, y, t, beatsLeft, podFormFor(p.id));

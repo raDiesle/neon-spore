@@ -5,7 +5,8 @@ type Chip = (text: string, on: boolean, press: () => void) => HTMLElement;
 /**
  * The rows that make a pod harder to take (`sim/pod-options.ts`): which shot
  * frees it, how many presses take it, whether it swings, whose screen its
- * clock is on, and whether it lets go by itself. Each is absent in the wave
+ * clock is on, whether it lets go by itself, and — on a husk — which seat it
+ * fools. Each is absent in the wave
  * file until an author sets it, so a wave nobody touched is the wave it was.
  *
  * Next door to `cell-config-pod.ts` rather than in it because that file was at
@@ -24,6 +25,8 @@ export function podOptionRows(
     hangRow(pod, onEdit, labelled, chip),
     clockRow(pod, onEdit, labelled, chip),
     dropRow(pod, onEdit, labelled, chip),
+    // Only a hollow pod fools anyone, so only a hollow pod asks whom.
+    ...(pod.kind === "husk" ? [fooledRow(pod, onEdit, labelled, chip)] : []),
   ];
 }
 
@@ -122,6 +125,30 @@ function dropRow(
       chip(drop === undefined ? "NEVER" : `AFTER ${drop}`, pod.drop === drop, () => {
         if (drop === undefined) delete pod.drop;
         else pod.drop = drop;
+        onEdit();
+      }),
+    );
+  }
+  return row;
+}
+
+/**
+ * Which seat a husk fools (`PodEntry.truthP1`): player 1 by default, as THE
+ * HUSK was made, with the red twin and the frame on player 2's screen; or
+ * player 2, with the truth on player 1's.
+ */
+function fooledRow(
+  pod: PodEntry,
+  onEdit: () => void,
+  labelled: (label: string) => HTMLElement,
+  chip: Chip,
+): HTMLElement {
+  const row = labelled("FOOLS");
+  for (const p1Sees of [false, true]) {
+    row.appendChild(
+      chip(p1Sees ? "P2" : "P1", (pod.truthP1 ?? false) === p1Sees, () => {
+        if (p1Sees) pod.truthP1 = true;
+        else delete pod.truthP1;
         onEdit();
       }),
     );

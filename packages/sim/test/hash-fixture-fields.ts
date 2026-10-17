@@ -155,6 +155,7 @@ export const pod = (): Required<Pod> => ({
   gripTicks: 40,
   swingMilli: 2000,
   clockP1: true,
+  truthP1: true,
   dropTicks: 90,
 });
 

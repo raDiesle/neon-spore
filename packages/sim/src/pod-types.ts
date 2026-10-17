@@ -126,6 +126,9 @@ export interface Pod {
   swingMilli?: number;
   /** Its clock's ring is drawn on player 1's screen only (`PodEntry.clockP1`). */
   clockP1?: true;
+  /** A husk seen for what it is on player 1's screen, not player 2's
+   * (`PodEntry.truthP1`). */
+  truthP1?: true;
   /**
    * **Ticks until it lets go by itself** (`PodEntry.drop`), counted down while
    * it hangs; at nought it is freed as a shot would free it. Absent on a pod

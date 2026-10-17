@@ -92,6 +92,7 @@ export function serializePod(pod: PodEntry): string {
   if (pod.heavy) parts.push("heavy: true");
   if (pod.swing) parts.push("swing: true");
   if (pod.clockP1) parts.push("clockP1: true");
+  if (pod.truthP1) parts.push("truthP1: true");
   if (pod.drop !== undefined) parts.push(`drop: ${pod.drop}`);
   return `{ ${parts.join(", ")} }`;
 }

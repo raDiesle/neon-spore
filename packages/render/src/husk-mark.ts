@@ -68,8 +68,9 @@ export function drawHuskMarks(
    * out against the screen's own edge and arrive torn in half in a crop. */
   bare = false,
 ): void {
-  if (!showsHuskMark(l) || !HUSK_LOOK.marked) return;
+  if (!HUSK_LOOK.marked) return;
   for (const p of husks(world)) {
+    if (!showsHuskMark(l, p)) continue;
     const { x, y, r } = podCenter(l, p);
     const half = r * BOX_MUL;
     drawTargetLock(ctx, x, y, half, half, ALARM, time, 0.95, p.id);

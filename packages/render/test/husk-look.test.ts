@@ -45,9 +45,10 @@ beforeAll(installCanvasGlobals);
  */
 const huskWorld = () => peakWorld("theHusk");
 
-function drawn(role: (typeof ROLES)[number]): number {
+function drawn(role: (typeof ROLES)[number], truthP1 = false): number {
   const l = computeLayout(VIEWPORT, CFG, role);
   const world = huskWorld();
+  if (truthP1) for (const p of husks(world)) p.truthP1 = true;
   const { ctx } = stubCanvas();
   drawHuskMarks(ctx as unknown as CanvasRenderingContext2D, l, world, 1.4);
   return ctx.calls;
@@ -64,10 +65,19 @@ describe("the mark round a husk", () => {
   });
 
   it("is drawn on player 2's screen and never on player 1's", () => {
-    expect(showsHuskMark(computeLayout(VIEWPORT, CFG, "p2"))).toBe(true);
-    expect(showsHuskMark(computeLayout(VIEWPORT, CFG, "p1"))).toBe(false);
+    expect(showsHuskMark(computeLayout(VIEWPORT, CFG, "p2"), {})).toBe(true);
+    expect(showsHuskMark(computeLayout(VIEWPORT, CFG, "p1"), {})).toBe(false);
     expect(drawn("p2")).toBeGreaterThan(0);
     expect(drawn("p1")).toBe(0);
+  });
+
+  it("changes seats on a husk authored `truthP1`, and still fools exactly one", () => {
+    const husk = { truthP1: true as const };
+    expect(showsHuskMark(computeLayout(VIEWPORT, CFG, "p1"), husk)).toBe(true);
+    expect(showsHuskMark(computeLayout(VIEWPORT, CFG, "p2"), husk)).toBe(false);
+    expect(drawn("p1", true)).toBeGreaterThan(0);
+    expect(drawn("p2", true)).toBe(0);
+    expect(drawn("test", true)).toBeGreaterThan(0);
   });
 
   it("is drawn on the rig, which is both halves of the pair at once", () => {

@@ -43712,3 +43712,13 @@ Bottleneck: the budget row — every new piece of a pod is counted on the one fr
 Bottleneck: a stale tree — main had moved the very file being changed.
 
 *Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-17 — the husk's fooled seat, chosen per husk in the director
+
+- reading: 10 min. `clockP1` end to end — entry, pod, options, hash, serializer, the director's rows.
+- writing: 10 min. `truthP1` along the same path, a FOOLS row on a husk's cell, `showsHuskMark` asked per pod.
+- looking: 0 min. Nothing drawn changed on a wave as authored; the seat swap is held by `husk-look.test.ts`.
+- friction: 5 min. The compaction mid-lane.
+- landing: 10 min. A shared machine under load; tests run in the background.
+
+Bottleneck: the shared machine's load — every test waits its turn.

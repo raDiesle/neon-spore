@@ -188,4 +188,13 @@ describe("a pod that drops on its own", () => {
     const r = run([pod({ clockP1: true, due: 4 })], TPB * 5, []);
     expect(of(r, "podLost")).toHaveLength(1);
   });
+
+  it("carries which seat a husk fools onto the field, and into the hash", () => {
+    const fools = (truthP1: boolean) =>
+      run([pod({ kind: "husk", ...(truthP1 ? { truthP1: true as const } : {}) })], TPB * 2, [])
+        .world;
+    expect(fools(true).pods[0]?.truthP1).toBe(true);
+    expect(fools(false).pods[0]?.truthP1).toBeUndefined();
+    expect(hashWorld(fools(true))).not.toBe(hashWorld(fools(false)));
+  });
 });
