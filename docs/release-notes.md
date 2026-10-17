@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-17 · 33e9a519d — The SKIES cards move, at phone size, and REMNANT is quieter
+
+DOCUMENTATION › SKIES draws each sky live, the game's own renderer every frame with its clock running, at the phone's own 380 px instead of a 240 px still — so the giant turns and the remnant's beams sweep in the room. Only cards on screen are drawn. REMNANT's threads are thinner and dimmer, its beams a pale sweep, its core flash smaller and softer; the owner asked for that by name, which is the exemption this look change uses.
+
 ## 2026-10-17 · faa0646fc — A pod wears one of five forms, shines like a coin, and a husk shows its fake twin in red
 
 Every pod on the field is now one of the five forms of THE SMART's tumbling seed — SMART, BLINK, GLINT, HOP or ORBIT — chosen by its id, so both phones agree. Every real one reads as a pickup: it flashes white and swells on the count, and a bar of light sweeps across it like a coin. A husk is that same form on the fooled seat; on the seat that can tell it is its fake twin, in dark blood-red with a red blink, and on the count it shows a tell no bonus would — SMART's opens an eye, BLINK's a jaw of teeth, GLINT's goes hollow with a crack, HOP's springs long barbs, ORBIT's goes black inside a red corona. A look the owner asked for by name. Swallowing a husk still loses the wave; which seat is fooled is still player 1, and becomes a setting on the husk brush next.
