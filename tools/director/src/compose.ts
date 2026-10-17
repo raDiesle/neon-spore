@@ -1,12 +1,18 @@
 import { type Wave, wavePressure, waveTalk } from "@neon-spore/content";
 import { createRng } from "@neon-spore/sim";
-import { type Block, leadingBlock } from "./compose-block.js";
+import { type Block, isFiller, leadingBlock } from "./compose-block.js";
 import { autoClears, paperFaults, spanOf } from "./compose-check.js";
 import { clawPressure, clawStep, placeClaw } from "./compose-claw.js";
 import { grownStep, notchOf } from "./compose-grow.js";
 import { placeStep } from "./compose-place.js";
 import { choosePoints, type Point } from "./compose-ramp.js";
-import { GENTLEST_QUANTILE, START_RISE, type Step, stepsToCompose } from "./compose-steps.js";
+import {
+  GENTLEST_QUANTILE,
+  START_RISE,
+  type Step,
+  stepById,
+  stepsToCompose,
+} from "./compose-steps.js";
 import { regularAt } from "./list-reading.js";
 
 /**
@@ -86,10 +92,10 @@ function drawsOf(block: Block, step: Step, introId: string, seed: number) {
 }
 
 /** The pressure of the block's first regular wave already written, which the
- * composed ones lead up to. */
+ * composed ones lead up to. A filler's comes after the block, not in it. */
 function nextWritten(waves: readonly Wave[], block: Block): number | undefined {
   const next = waves[block.insertAt];
-  return next && !next.setPiece && regularAt(waves, block.insertAt)
+  return next && !next.setPiece && !isFiller(next.id) && regularAt(waves, block.insertAt)
     ? wavePressure(next)
     : undefined;
 }
@@ -150,7 +156,8 @@ function composeFor(
   seed: number,
 ): Composed[] {
   const notch = notchOf(block.sinceTutorial);
-  const steps = stepsToCompose(block.tutorial, block.existing, block.leads).map((s) =>
+  const ids = block.only?.map(stepById);
+  const steps = (ids ?? stepsToCompose(block.tutorial, block.existing, block.leads)).map((s) =>
     block.claw ? clawStep(s) : grownStep(s, notch),
   );
   const draws = steps.map((step) => drawsOf(block, step, introId, seed));

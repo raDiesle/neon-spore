@@ -9,7 +9,7 @@ import {
   waveTalk,
 } from "@neon-spore/content";
 import type { PodEntry } from "@neon-spore/sim";
-import { STEPS, TUTORIAL_LAST_ID } from "./compose-steps.js";
+import { STEPS, type Step, TUTORIAL_LAST_ID } from "./compose-steps.js";
 import { introducesAt, regularAt } from "./list-reading.js";
 
 /**
@@ -75,9 +75,18 @@ export interface Block {
    * the written ones after them: those are the lesson's set pieces (THE CAGE,
    * THE ANCHOR and THE PENDULUM after THE LANCE's), not the rest of a ramp. */
   lesson?: true;
+  /** The steps composed, when not the block's own: a filler's three
+   * (`compose-filler.ts`). */
+  only?: readonly Step["id"][];
 }
 
 const BASICS = ["slick", "bulb", "meteor"];
+
+/** Whether a wave is a filler's (`compose-filler.ts`): its id is `filler`, the
+ * boss's name and a step's. Never one of the block's own waves. */
+export function isFiller(id: string | undefined): boolean {
+  return id !== undefined && /^filler[A-Z]/.test(id);
+}
 
 /** The thing a wave introduces that a wave can place: a body or a pod, not a
  * panel, a fault or a boss. */
@@ -150,7 +159,7 @@ function floorOf(
 export function leadingBlock(waves: readonly Wave[], block: Block): Block | undefined {
   if (block.existing === 0 || block.leads) return undefined;
   let past = block.insertAt;
-  while (regularAt(waves, past)) past++;
+  while (regularAt(waves, past) && !isFiller(waves[past]?.id)) past++;
   const last = waves[past - 1];
   const after = last && wavePressure(last);
   if (after === undefined) return undefined;
@@ -182,7 +191,7 @@ export function readBlock(waves: readonly Wave[], introId: string): Block | stri
   let existing = 0;
   // A set piece written after the block is none of its steps (`Wave.setPiece`).
   for (let i = intro + 1; i < next && (!tutorial || i <= last) && !waves[i]?.boss; i++) {
-    if (regularAt(waves, i) && !waves[i]?.setPiece) existing++;
+    if (regularAt(waves, i) && !waves[i]?.setPiece && !isFiller(waves[i]?.id)) existing++;
   }
   const before = intros.slice(0, number);
   // The nearest block before with a regular wave written: one the composer

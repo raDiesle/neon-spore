@@ -357,8 +357,25 @@ decided then while the owner was away:
   group a pod crossing in and the rocks it answers — and played on the claw
   (`compose-claw.ts`).
 
+- **A boss never folds under a group that teaches** — the owner, 17
+  October 2026: *boss waves … should not be associated with a parent wave
+  list, which parent introduces something new. instead create some new
+  parent wave with maybe 3 number of waves, which just reuse what we have so
+  far then the boss.* Past the arc, every boss whose block opens with an
+  intro or a lesson has a **filler** in front of it: three regular waves,
+  Breathe, Recall and Bend, themed on the last body taught, on the panel the
+  game has reached — the sawtooth's next tooth, short, rising into the boss.
+  The filler's first wave heads a group of its own and the boss folds under
+  it. A boss behind a review block needs none; the arc keeps its bosses as
+  they are, since its blocks are the basics. `bun run waves:fillers`
+  (`tools/director/src/compose-filler.ts`) writes them and moves nothing
+  else, and `waves:order` writes them last; `test/compose-filler.test.ts`
+  holds the rule.
+
 Past the arc that makes **54 blocks — 33 opened by a body or a pod, 10 by a
-lesson, 11 reviews — and 54 bosses, one closing each**: 564 waves in all.
+lesson, 11 reviews — 44 fillers, and 55 bosses**: one closing every block
+but THE ECHO's, which waits for its own, and two waiting at the end. 735
+waves in all.
 
 The boss table — every boss's AUTO time against the band — is in
 `wave-curriculum-today.md`. AUTO plays perfectly and never talks, so the

@@ -44014,3 +44014,19 @@ Bottleneck: no recipe puts a chosen body of a gesture on the field, so the
 pick had to be forced by hand for the picture.
 
 *Measured: 8 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-17 — every boss past the arc stands behind a filler
+
+- reading: 15 min. The curriculum page, `boss-slots.ts`, `compose-review.ts`,
+  `rail-groups.ts`, and a dry `waves:order` that found the list drifts on
+  `main` without any change.
+- writing: 15 min. `compose-filler.ts`, `waves:fillers`, `Block.only`, the
+  filler's name and act header, two tests, the curriculum and generation docs.
+- looking: 0 min. Nothing on the field changes; the list was read as text.
+- friction: 5 min. Two heredocs the guard refused for a doubled backslash,
+  and seven INDEX rows that did not follow act headers changed twice.
+- landing: 10 min. `check:fast` twice — the first found `readBlock` counting
+  a filler as its block's own written waves.
+
+Bottleneck: `waves:order` was not safe to run on `main`, so the fillers got a
+pass of their own instead of riding the full reorder.

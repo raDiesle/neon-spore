@@ -39,7 +39,7 @@ const ORDER: readonly Mood[] = [
   "Bend",
   "Peak",
 ];
-const STEP_AT_END = new RegExp(`^(review)?(.+?)(${ORDER.join("|")})$`);
+const STEP_AT_END = new RegExp(`^(review|filler)?(.+?)(${ORDER.join("|")})$`);
 
 /** The two words the tutorial's firsts are known by: the slick is a red
  * one there, and its name is not taught until later — and the two intros
@@ -102,8 +102,11 @@ function themeOf(
   const byId = (id: string) => waves.find((w) => w.id === id);
   const step = STEP_AT_END.exec(wave.id);
   if (step) {
-    const [, review, rest = "", mood] = step;
-    const intro = review ? (byId(`the${rest}`) ?? byId(lower(rest))) : byId(rest);
+    const [, kind, rest = "", mood] = step;
+    // A filler is named for the block it follows, not the boss it leads to.
+    if (kind === "filler")
+      return { intro: blockAbove({ waves, groups, regular }, i), mood: mood as Mood };
+    const intro = kind ? (byId(`the${rest}`) ?? byId(lower(rest))) : byId(rest);
     if (intro) return { intro, mood: mood as Mood };
   }
   const said = /^(\w+)Blisters$/.exec(wave.id)?.[1];
@@ -112,12 +115,22 @@ function themeOf(
   // thing of the first head above it that is not regular itself: a review's
   // head is a regular wave, and so is FIVE BLISTERS.
   const own = headOf(groups, i);
-  let h = own;
-  while (h > 0 && regular[h]) h = headOf(groups, h - 1);
   const mates = waves.flatMap((_, j) => (headOf(groups, j) === own && regular[j] ? [j] : []));
   const k = Math.max(0, mates.indexOf(i));
   const at = mates.length < 2 ? 0 : Math.round((k * (ORDER.length - 1)) / (mates.length - 1));
-  return { intro: waves[h] as Wave, word: gesture?.toUpperCase(), mood: ORDER[at] ?? "Again" };
+  return {
+    intro: blockAbove({ waves, groups, regular }, i),
+    word: gesture?.toUpperCase(),
+    mood: ORDER[at] ?? "Again",
+  };
+}
+
+/** The first head at or above a wave that is not a regular wave itself: the
+ * intro or lesson of the block it belongs to, or follows. */
+function blockAbove({ waves, groups, regular }: List, i: number): Wave {
+  let h = headOf(groups, i);
+  while (h > 0 && regular[h]) h = headOf(groups, h - 1);
+  return waves[h] as Wave;
 }
 
 const lower = (id: string) => id.charAt(0).toLowerCase() + id.slice(1);

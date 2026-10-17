@@ -1,7 +1,7 @@
 import { describe, expect, test } from "bun:test";
 import { WAVES } from "@neon-spore/content";
 import { placeable } from "../src/compose-block.js";
-import { isLesson, isReviewHead } from "../src/compose-starts.js";
+import { isFillerHead, isLesson, isReviewHead } from "../src/compose-starts.js";
 import { waveGroups } from "../src/rail-groups.js";
 
 /**
@@ -11,9 +11,10 @@ import { waveGroups } from "../src/rail-groups.js";
  * because it introduces new brush (enemy). apply accordingly across waves.*
  * So a wave heads a group exactly when it starts a block — it brings a brush
  * (a body or a pod, `placeable`), a panel or a fault (`isLesson`), or it
- * opens a review (`isReviewHead`) — or is the first wave. Every other wave is
- * a variant of the head above it, guided or not, and so is a boss, which
- * closes the group it follows (the owner, 17 October 2026).
+ * opens a review (`isReviewHead`) or a filler (`isFillerHead`) — or is the
+ * first wave. Every other wave is a variant of the head above it, guided or
+ * not, and so is a boss, which closes the group it follows (the owner, 17
+ * October 2026) — past the arc, a filler's, never a group that teaches.
  *
  * **THE HAND and ONE LAST CHANCE are the two heads that bring nothing a
  * block is cut by.** THE HAND teaches the grip, a verb the whole run has, and
@@ -38,7 +39,12 @@ function headsBlock(i: number): boolean {
   if (!wave) return false;
   if (i === 0 || STANDS_ALONE.has(wave.id)) return true;
   if (wave.boss) return false;
-  return placeable(WAVES, i) !== undefined || isLesson(WAVES, i) || isReviewHead(WAVES, i);
+  return (
+    placeable(WAVES, i) !== undefined ||
+    isLesson(WAVES, i) ||
+    isReviewHead(WAVES, i) ||
+    isFillerHead(WAVES, i)
+  );
 }
 
 describe("the wave list's groups", () => {

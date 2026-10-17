@@ -23,7 +23,8 @@ import { type ActName, CUT_AT, exportNameFor, fixImports } from "./waves-act-lis
  * Pure: waves and sources in, texts out. `waves-acts.ts` writes them.
  */
 
-/** Whose a wave is, for the header: a block's head, a boss, or a review. */
+/** Whose a wave is, for the header: a block's head, a boss, a review or a
+ * filler. */
 interface Owner {
   id: string;
   label: string;
@@ -52,6 +53,12 @@ function owners(all: readonly Wave[], from: number): Owner[] {
     if (prefix?.startsWith("review")) {
       const head = `the${prefix.slice("review".length)}`;
       return { id: prefix, label: `${named.get(head) ?? prefix}'s review` };
+    }
+    if (prefix?.startsWith("filler")) {
+      const boss = prefix.slice("filler".length);
+      const name =
+        named.get(`the${boss}`) ?? named.get(boss.charAt(0).toLowerCase() + boss.slice(1));
+      return { id: prefix, label: `the filler before ${name ?? prefix}` };
     }
     return current;
   });

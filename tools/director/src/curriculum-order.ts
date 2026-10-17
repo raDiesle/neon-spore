@@ -49,11 +49,12 @@ export interface Curriculum {
 }
 
 /** Whether a wave is one the composer wrote: a head's id and a step's name,
- * or a review block's. */
+ * or a review block's or a filler's. */
 export function isComposed(id: string, heads: ReadonlySet<string>): boolean {
   return STEPS.some(
     (s) =>
-      id.endsWith(s.name) && (heads.has(id.slice(0, -s.name.length)) || /^review[A-Z]/.test(id)),
+      id.endsWith(s.name) &&
+      (heads.has(id.slice(0, -s.name.length)) || /^(review|filler)[A-Z]/.test(id)),
   );
 }
 

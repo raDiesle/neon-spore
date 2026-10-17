@@ -54,7 +54,8 @@ describe("the acts after the arc, cut in play order", () => {
       at += g.ids.length;
     }
     const lance = got.find((g) => g.ids.includes("theLance"));
-    expect(lance?.text).toContain("THE LANCE's block");
+    // The header wraps at eighty columns, so it is read as one line.
+    expect(lance?.text.replace(/\n \* /g, " ")).toContain("THE LANCE's block");
   });
 
   test("are what the tree holds: every act after the arc", () => {

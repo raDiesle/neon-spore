@@ -1,5 +1,5 @@
 import { controlSet, setHas, type Wave, wavePressure } from "@neon-spore/content";
-import { placeable } from "./compose-block.js";
+import { isFiller, placeable } from "./compose-block.js";
 import { TUTORIAL_LAST_ID } from "./compose-steps.js";
 import { introducesAt, regularAt } from "./list-reading.js";
 
@@ -8,14 +8,29 @@ import { introducesAt, regularAt } from "./list-reading.js";
  * a body or a pod (`placeable`), a lesson that brings a panel or a fault
  * (`compose-lesson.ts`), and a review head (`compose-review.ts`). Boss
  * placement and the composers read blocks off the list through these.
+ *
+ * **A filler is not a block** (`compose-filler.ts`): it is the short run of
+ * known things between a block and its boss, so boss placement reads it as
+ * the end of the block it follows. It heads a group in the wave list all the
+ * same, and the boss folds under it, not under the block that taught.
  */
 
+export { isFiller };
+
+/** Whether a wave starts a filler: its first wave, which is not a variant. */
+export function isFillerHead(waves: readonly Wave[], index: number): boolean {
+  const wave = waves[index];
+  return wave?.variant !== true && isFiller(wave?.id);
+}
+
 /** Whether a wave starts a review block: a regular wave, not a variant,
- * with a regular variant after it. No hand-written wave is one. */
+ * with a regular variant after it, and no filler's. No hand-written wave is
+ * one. */
 export function isReviewHead(waves: readonly Wave[], index: number): boolean {
   const next = waves[index + 1];
   return (
     waves[index]?.variant !== true &&
+    !isFiller(waves[index]?.id) &&
     regularAt(waves, index) &&
     next?.variant === true &&
     regularAt(waves, index + 1)

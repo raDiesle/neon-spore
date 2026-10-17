@@ -3,6 +3,7 @@ import { WAVES, type Wave } from "@neon-spore/content";
 import { bossOrder } from "./src/boss-slots.js";
 import { type Composed, composeBlockAt } from "./src/compose.js";
 import { type Block, readBlock } from "./src/compose-block.js";
+import { addFillers } from "./src/compose-filler.js";
 import { nextLesson } from "./src/compose-lesson.js";
 import { nameWaves } from "./src/compose-names.js";
 import { nextReview } from "./src/compose-review.js";
@@ -17,7 +18,9 @@ import { writeWaves } from "./src/waves-acts.js";
  * composed waves taken out, the units put in rising cost with bodies and
  * levers taking turns, each block's regular waves composed again for its new
  * neighbours — a body's, then a lesson's — the bosses placed again
- * (`bossOrder`) and the review blocks written for those left at the end.
+ * (`bossOrder`), the review blocks written for those left at the end, and a
+ * filler in front of every boss that closes a block which teaches
+ * (`src/compose-filler.ts`).
  * Without `--write` it prints the order and says whether anything would
  * change; a second run after `--write` changes nothing. A write cuts the act
  * files after the arc again in play order (`src/waves-recut.ts`), and
@@ -127,6 +130,12 @@ for (;;) {
 }
 const settled = bossOrder(waves).order;
 if (settled.some((w, i) => w.id !== waves[i]?.id)) stop("the bosses move again after the reviews");
+const filled = addFillers(waves, composedIds);
+if (typeof filled === "string") stop(filled);
+waves = filled;
+if (bossOrder(waves).order.some((w, i) => w.id !== waves[i]?.id)) {
+  stop("the bosses move once the fillers are in");
+}
 waves = nameWaves(waves, composedIds);
 
 const same = waves.length === WAVES.length && Bun.deepEquals(waves, [...WAVES]);

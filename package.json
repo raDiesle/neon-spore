@@ -39,6 +39,7 @@
     "probe": "bun run tools/probe/run.ts",
     "waves:compose": "bun run tools/director/waves-compose.ts",
     "waves:review": "bun run tools/director/waves-review.ts",
+    "waves:fillers": "bun run tools/director/waves-fillers.ts",
     "waves:controls": "bun run tools/director/waves-controls.ts",
     "waves:lessons": "bun run tools/director/waves-lessons.ts",
     "waves:bosses": "bun run tools/director/waves-bosses.ts",

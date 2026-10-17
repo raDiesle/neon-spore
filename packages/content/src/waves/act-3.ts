@@ -1,7 +1,7 @@
 import type { Wave } from "../wave-types.js";
 
 /**
- * Waves 39 to 50 of the game, in the order they are played: the start of THE
+ * Waves 43 to 54 of the game, in the order they are played: the start of THE
  * HUSK's block.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act

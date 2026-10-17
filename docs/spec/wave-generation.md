@@ -13,18 +13,20 @@ waves into the act files once, the owner reads them, and from then on they are
 waves like any other — they open in the director, any arrival can be dragged,
 and the game does not know they were composed.
 
-Today: **569 waves**. 54 bring something new (an *intro*), 58 are bosses, and
-457 are *regular* — waves that bring nothing new and need no tutorial. Most of
-the regular ones are composed. AUTO plays the whole game in 4 h 45 min; a pair
-needs about 9 h 29 min. Past the tutorial there are **54 blocks and 54
-bosses**: 32 opened by a body or a pod, 10 by a lesson, 12 reviews.
+Today: **735 waves**. 57 bring something new (an *intro*), 60 are bosses, and
+618 are *regular* — waves that bring nothing new and need no tutorial. Most of
+the regular ones are composed. AUTO plays the whole game in 6 h 10 min; a pair
+needs about 12 h 20 min. Past the tutorial there are **54 blocks and 55
+bosses**: 33 opened by a body or a pod, 10 by a lesson, 11 reviews — and 44
+fillers, one in front of each boss whose block teaches.
 
 ## The shape: a block
 
 Every new thing — a body, a pod, a panel, a fault — opens a **block**: its intro wave, then
 **eight regular waves** that use it, each with one job. Only then does the next
 new thing arrive. Up to FINALE (the tutorial) a block has three regular waves,
-not eight. A boss closes a block.
+not eight. A boss closes a block — past the tutorial, behind a **filler**
+(below), so it never folds under a wave that teaches.
 
 | Step | Name | What it does |
 |---|---|---|
@@ -175,7 +177,20 @@ Their names are made up from the theme's word (step 5) — a review of the
 ghosts is OUTER GHOST, GHOST LEGEND. A new boss written later gets one with
 `bun run waves:review --write`.
 
-## Using it
+## Fillers
+
+A **filler** is three regular waves between a block and its boss — the
+owner, 17 October 2026: a boss should not sit in a group that *introduces
+something new*, but in a short group *which just reuses what we have so far,
+then the boss*. Its steps are Breathe, Recall and Bend: down from the block's
+Peak to the oldest basics, something from far back, then one known lever into
+the boss. Its theme is the last body taught, on the panel the game has
+reached. Its first wave is a head and the other two variants, so the director
+folds them and the boss under it; boss placement reads it as the end of the
+block before, not a block of its own. A boss behind a review needs none, and
+the tutorial's bosses have none. Ids start `filler` and the boss's name
+(`fillerGaugeBreathe`); names are the block's word, like a review's.
+
 
 | Command | What it does |
 |---|---|
@@ -183,6 +198,7 @@ ghosts is OUTER GHOST, GHOST LEGEND. A new boss written later gets one with
 | `… --write` | Writes them after the intro, with the names the composer made up. `--names "…"` names them by hand instead, in order — one string, the names split by a vertical bar; `--seed N` draws again. |
 | `bun run waves:names [id …] [--write]` | Names every regular wave again, or only the ids given, and prints each name that changes. A name chosen by hand is overwritten by a run over every wave. |
 | `bun run waves:review [--count N] --write` | Composes the next review blocks, each in front of a boss waiting at the end, named from its theme. |
+| `bun run waves:fillers [--write]` | Composes a filler in front of every boss that still closes a block which teaches. Nothing else moves; `waves:order` writes them too. |
 | `bun run waves:lessons --write` | Moves every lesson behind its block's waves, composes its eight, places the bosses again. |
 | `bun run waves:bosses --write` | Moves every boss to its block. Run after a block is written. |
 | `bun run waves:measure` | Plays every wave with AUTO and rewrites `wave-curriculum-today.md`. |
@@ -190,7 +206,8 @@ ghosts is OUTER GHOST, GHOST LEGEND. A new boss written later gets one with
 
 **A new creature, start to finish:** write its intro wave by hand in the
 director → `waves:compose <its id>` → read the table → `--write` →
-`waves:bosses --write` → `waves:measure` → `briefings:renumber` → commit.
+`waves:bosses --write` → `waves:fillers --write` → `waves:measure` →
+`briefings:renumber` → commit.
 
 **Changing a composed wave:** open it in the director and edit it like any
 other. Nothing composes over it: the composer only writes the steps a block
@@ -207,6 +224,7 @@ is missing.
 | `tools/director/src/compose-place.ts` | placing arrivals for one step |
 | `tools/director/src/compose-check.ts` | the checks, AUTO included |
 | `tools/director/src/compose-review.ts` | review blocks: their theme, place and floor |
+| `tools/director/src/compose-filler.ts` | fillers: the three waves between a block and its boss |
 | `tools/director/src/compose-lesson.ts` | lesson blocks: the move, the panel, the faults |
 | `tools/director/src/compose-names.ts` | every regular wave's name, and its words in `compose-names-moods.ts` |
 | `tools/director/src/compose-starts.ts` | where a block starts, of every kind |
