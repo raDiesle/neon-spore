@@ -7,8 +7,8 @@ import type { Color } from "./types.js";
  * Its own file on `events-gorge.ts`' terms: one boss, one arm of
  * `SimEvent`. The rope's four — the line coming down, the eye opening, a
  * plate off, the ring gone — are older than the rest; three of them came
- * here from `events.ts` when that file was full, and the eye opening stays
- * there, because THE LID's plates open it too. The rest are the moments the
+ * here from `events.ts` when that file was full, and the eye opening is in
+ * `events-hands.ts`, because THE LID's plates open it too. The rest are the moments the
  * other two phases add that are not states a frame later: a thumb landing on the
  * eye, which player 1 has to hear because it is the thumb their pull is
  * waiting on; the hatch thrown, which player 2 has to hear because it is the

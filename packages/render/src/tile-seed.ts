@@ -25,7 +25,7 @@ export function tileSeed(a: number, b: number): number {
 
 /**
  * The seed a kill is drawn from: its tile, and the body's id when the event
- * carries one (`sim/events.ts`). The id is not a clock — it is simulation
+ * carries one (`sim/events-body.ts`). The id is not a clock — it is simulation
  * state, in `hashWorld`, and the same number on both phones — and without it
  * every slick shot at the same height in the same column came apart the same
  * way, because the tile was all a kill had to tell it from the last one.

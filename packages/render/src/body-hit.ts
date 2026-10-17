@@ -206,7 +206,7 @@ export const BODY_HIT: HitLook = { pieces: BREAK_LOOK, life: 0, strike: none };
  * carries the kind the body was *drawn* as — a lure arrives here as the slick
  * or the bulb it was wearing, and a crawler's ring is named at the call site.
  *
- * `of` is the creature it *was*, where the kill says so (`sim/events.ts`):
+ * `of` is the creature it *was*, where the kill says so (`sim/events-body.ts`):
  * an echo and a rind die as the slick or the bulb they wore, and the strike
  * is the one place the game tells them apart. It is asked first, and a body
  * without one falls through to what it wore.

@@ -328,19 +328,6 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/skipped.test.ts` holds the listing's count of the entries
 `next` stepped past and why.
 
-## `sim/events.ts` is at 249 lines — split the union by family
-
-- **Found:** 2026-10-17, claude/destroy-animations-bulb-slick-2a2410
-- **Taken:** 2026-10-17, claude/the-brood-feedback-b6be33 (claim: claude/queue-sim-events-ts-is-at-249-lines-split-the-union-by)
-- **Files:** `packages/sim/src/events.ts`
-
-`destroy` gained an `id` and the file is one line under the ceiling, so the
-next event added anywhere turns `limits.test.ts` red mid-lane. Cut the
-`SimEvent` union into families in their own files — the boss gestures, the
-body kills and holes, the wave and round bookkeeping — each exporting its
-member types, with `events.ts` keeping the union and its doc. No behaviour
-changes; `bunx tsc --noEmit` and `bun run check` prove it.
-
 ## Five bodies still draw the old lobed pod through `drawPodBody`
 
 - **Found:** 2026-10-17, claude/the-brood-feedback-b6be33

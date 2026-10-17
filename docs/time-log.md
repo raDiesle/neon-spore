@@ -43842,3 +43842,16 @@ Bottleneck: telling a row literal from a viewport and from a row quoted in a
 comment, which is what the key-set match and the comment skip are for.
 
 *Measured: 6 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-17 — `SimEvent`'s hands, bodies and pods in files of their own
+
+- reading: 5 min. `events.ts`, the audio bind test's glob, the comments that
+  name the file.
+- writing: 10 min. Three families cut by line, the union's three arms, four
+  comments pointed at where things went.
+- looking: 0 min.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, `land`.
+
+Bottleneck: none — the bind test already globbed `events-*.ts`, so a new
+family file needed nothing registered.

@@ -776,6 +776,7 @@ by hand never moves.
 | `packages/sim/src/events-baton.ts` | **Everything THE BATON does that neither screen already says**, as events |
 | `packages/sim/src/events-bastion.ts` | What THE BASTION says as it happens, one line per thing the picture and the sound answer |
 | `packages/sim/src/events-bosses.ts` | **The choreographed bosses' arms of `SimEvent`**, as one union |
+| `packages/sim/src/events-body.ts` | **What became of a body that fell**, as `SimEvent` arms: a kill, a crater, a refusal, a bolt turned away |
 | `packages/sim/src/events-blister.ts` | **THE BLISTER's one**: a blow that counted |
 | `packages/sim/src/events-brood.ts` | **Everything THE BROOD does that neither screen already says**, as events |
 | `packages/sim/src/events-trapeze.ts` | What THE TRAPEZE says as it happens, one line per thing the picture and the sound answer |
@@ -789,6 +790,7 @@ by hand never moves.
 | `packages/sim/src/events-antiphon.ts` | **Everything THE ANTIPHON does that neither screen already says**, as events |
 | `packages/sim/src/events-hive.ts` | **Everything THE HIVE does that neither screen already says**, as events |
 | `packages/sim/src/events-hasp.ts` | What THE HASP says as it happens, one line per thing the picture and the sound answer |
+| `packages/sim/src/events-hands.ts` | **What a hand did to a body**, as `SimEvent` arms: a hold landing, a push spent |
 | `packages/sim/src/events-hydra.ts` | What THE HYDRA says as it happens, one line per thing the picture and the sound answer |
 | `packages/sim/src/events-instar.ts` | What THE INSTAR says as it happens, one line per thing the picture and the sound answer — and THE NETTLE |
 | `packages/sim/src/events-queen.ts` | **What THE BULB QUEEN reports**, off the beat and the thumb |
@@ -799,6 +801,7 @@ by hand never moves.
 | `packages/sim/src/events-pull.ts` | `pullShort`, the one event every pull on the generic rule says when it is let go short |
 | `packages/sim/src/events-push.ts` | **The shield pushing a creature back up the field** (`shield-push.ts`) |
 | `packages/sim/src/events-plumb.ts` | What THE PLUMB says as it happens, one line per thing the picture and the sound answer |
+| `packages/sim/src/events-pod.ts` | **A pod's and a husk's ends**, as `SimEvent` arms: let loose, taken, lost, and a husk swallowed or refused |
 | `packages/sim/src/events-rounds.ts` | **THE MIRROR's seven and THE MAZE's five** |
 | `packages/sim/src/events-ratchet.ts` | What THE RATCHET says as it happens, one line per thing the picture and the sound answer |
 | `packages/sim/src/events-keel.ts` | What THE KEEL says as it happens, one line per thing the picture and the sound answer |
