@@ -7,16 +7,20 @@
 
 .sky-card {
   margin: 0;
-  width: 240px;
+  width: 380px;
 }
 
 .sky-shot {
-  min-height: 360px;
+  min-height: 560px;
 }
 
-.sky-shot canvas {
-  display: block;
+.sky-live {
+  overflow: hidden;
   border-radius: 6px;
+}
+
+.sky-live canvas {
+  display: block;
 }
 
 .sky-card figcaption {

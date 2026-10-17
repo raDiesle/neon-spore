@@ -4056,6 +4056,7 @@ by hand never moves.
 | `tools/hooks/after-svg-edit.ts` | A drawn picture is the one thing a session cannot check by reading it back |
 | `tools/director/src/skins/glass.ts` | GLASS — a body you see *into*, rather than one with things drawn on it |
 | `tools/director/src/skies-page.ts` | DOCUMENTATION → SKIES: every sky the field can sit in, drawn |
+| `tools/director/src/sky-live.ts` | A sky card that moves: the field of a world, drawn live at phone size |
 | `tools/director/src/entry-fields-balloon.ts` | **THE BALLOON's one authored fact**: how fast it climbs |
 | `tools/director/src/entry-fields-blister.ts` | **THE BLISTER's per-arrival facts**: whose hand knocks it down, how many blows it takes, by which gesture |
 | `tools/director/src/entry-fields-blister-numbers.ts` | **A blister's three numbers on one cell** — beats up, blows, one blow's length |

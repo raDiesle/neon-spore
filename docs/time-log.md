@@ -43700,3 +43700,13 @@ Bottleneck: a machine shared with other sessions — every test run waited on th
 Bottleneck: the budget row — every new piece of a pod is counted on the one frame with a pod in it.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-17 — the SKIES cards move, at phone size, and REMNANT is quieter
+
+- reading: 5 min. `skies-page.ts`, `pose-frame.ts`, `sky-remnant.ts`.
+- writing: 10 min. `sky-live.ts`, the card size, REMNANT's alphas.
+- looking: 5 min. The room live, and one shot of REMNANT.
+- friction: 10 min. Main had rewritten REMNANT since the tree was cut, so the rebase conflicted; `shot` wanted `--path` rather than `--tab`.
+- landing: 5 min. `check:fast`, `land`.
+
+Bottleneck: a stale tree — main had moved the very file being changed.

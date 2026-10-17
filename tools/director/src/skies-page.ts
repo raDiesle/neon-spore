@@ -3,9 +3,11 @@
  *
  * The back of the field is one of eleven pictures and the wave picks it
  * (`packages/render/src/skies.ts`): wave `n` gets sky `n % 11`. This room is
- * the list — each sky's name, its line, which waves open under it, and a real
- * frame of the game started on the first of those waves, so the picture is
+ * the list — each sky's name, its line, which waves open under it, and the
+ * field of the game started on the first of those waves, so the picture is
  * the shipping renderer against a `World` and cannot drift from the game.
+ * The cards are live and at the phone's own size (`sky-live.ts`): a sky is
+ * mostly its motion, and a still at two thirds size showed neither.
  *
  * Lazy, like every other room in this sheet: nothing is drawn until the tab is
  * clicked, and each card's frame waits until the card is on screen.
@@ -14,12 +16,10 @@
 import { WAVES } from "@neon-spore/content";
 import { SKIES, type Sky } from "@neon-spore/render";
 import { createWorld, DEFAULT_CONFIG, type SimConfig, startWave } from "@neon-spore/sim";
-import { frameWorld } from "./pose-art.js";
+import { liveField } from "./sky-live.js";
 import { whenSeen } from "./when-seen.js";
 
 const CFG: SimConfig = { ...DEFAULT_CONFIG, hullInvulnerable: true };
-/** Small enough that four fit across a desk, big enough to read the sky. */
-const CARD_WIDTH = 240;
 /** How many of a sky's waves to name before "and every eleventh after". */
 const NAMED = 3;
 
@@ -34,10 +34,10 @@ function wavesUnder(i: number): string {
   return `${names.join(" · ")} — and every ${SKIES.length}th wave after`;
 }
 
-function skyFrame(i: number): HTMLCanvasElement {
+function skyFrame(i: number): HTMLElement {
   const world = createWorld({ ...CFG }, 11);
   startWave(world, Math.min(i, WAVES.length - 1), [], [], null);
-  return frameWorld(world, "p1", "field", CARD_WIDTH).canvas;
+  return liveField(world, "p1");
 }
 
 function skyCard(sky: Sky, i: number): HTMLElement {

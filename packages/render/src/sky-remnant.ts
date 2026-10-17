@@ -17,6 +17,10 @@ import { actTint, baked, lighter, skyGlow } from "./sky-kit.js";
  * and the dead star is a pulsar, two thin beams of light sweeping round it
  * like a lighthouse's, flashing as they pass.
  *
+ * Kept faint: the owner asked for REMNANT *more subtle* on 17 October 2026,
+ * so the threads are thinner and dimmer, the beams a pale sweep, and the
+ * flash small and soft.
+ *
  * The shell and the beams are baked once per size and tint; a frame is the
  * deep sky, the shell twice, the beams and the flash.
  */
@@ -65,16 +69,16 @@ function shell(tint: string, size: number): HTMLCanvasElement {
       const out = hash01(s + 3);
       const rad = r * (0.72 + out * 0.3 + Math.sin(a0 * 7 + i) * 0.03);
       const span = 0.08 + hash01(s + 4) * 0.35;
-      g.strokeStyle = withAlpha(out > 0.6 ? amber : inner, 0.25 + hash01(s + 5) * 0.45);
-      g.lineWidth = 0.8 + hash01(s + 6) * 2.4;
+      g.strokeStyle = withAlpha(out > 0.6 ? amber : inner, 0.15 + hash01(s + 5) * 0.3);
+      g.lineWidth = 0.6 + hash01(s + 6) * 1.6;
       g.beginPath();
       g.arc(c, c, rad, a0, a0 + span);
       g.stroke();
     }
     // A faint fill inside the shell, so it reads as a bubble and not a hoop.
     const fill = g.createRadialGradient(c, c, 0, c, c, r);
-    fill.addColorStop(0, withAlpha(inner, 0.08));
-    fill.addColorStop(0.8, withAlpha(inner, 0.22));
+    fill.addColorStop(0, withAlpha(inner, 0.04));
+    fill.addColorStop(0.8, withAlpha(inner, 0.12));
     fill.addColorStop(1, withAlpha(inner, 0));
     g.fillStyle = fill;
     g.fillRect(0, 0, w, w);
@@ -97,24 +101,24 @@ export function skyRemnant(d: BackdropDraw): void {
     ctx.save();
     ctx.translate(cx, cy);
     ctx.rotate(time * TURN);
-    ctx.globalAlpha = 0.9;
+    ctx.globalAlpha = 0.55;
     ctx.drawImage(sheet, -s / 2, -s / 2, s, s);
     // The inner shell, smaller, fainter and turning the other way.
     const inner = s * 0.72;
     ctx.rotate(-time * TURN * 2.5 + 2.4);
-    ctx.globalAlpha = 0.4;
+    ctx.globalAlpha = 0.25;
     ctx.drawImage(sheet, -inner / 2, -inner / 2, inner, inner);
     // The beams, sweeping round; a wide sheet tilted toward the eye.
     const sweep = time * SWEEP;
     ctx.rotate(time * TURN * 1.5 - 2.4 + sweep);
     const reach = l.width * 0.9;
-    ctx.globalAlpha = 0.3 + 0.2 * Math.abs(Math.cos(sweep));
+    ctx.globalAlpha = 0.12 + 0.1 * Math.abs(Math.cos(sweep));
     ctx.drawImage(beams(), -reach, -reach * 0.045, reach * 2, reach * 0.09);
     ctx.restore();
     // The dead star: a flash each time a beam faces us, twice a turn.
     const beat = (((sweep / Math.PI) % 1) + 1) % 1;
-    const star = l.width * 0.07;
-    ctx.globalAlpha = 0.35 + 0.6 * Math.exp(-beat * 9);
+    const star = l.width * 0.05;
+    ctx.globalAlpha = 0.25 + 0.35 * Math.exp(-beat * 9);
     ctx.drawImage(skyGlow("#E8F0FF", star, [0, 0.1, 1]), cx - star / 2, cy - star / 2, star, star);
   });
 }
