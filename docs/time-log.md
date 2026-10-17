@@ -43733,3 +43733,5 @@ Bottleneck: the shared machine's load — every test waits its turn.
 - landing: 10 min. `check:fast`, `land`.
 
 Bottleneck: the op-count budgets — one look on every frame touches every table, and they are pasted back by hand.
+
+*Measured: 5 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

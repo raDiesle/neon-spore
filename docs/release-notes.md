@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-17 · 5c48d6d37 — The siren is LIGHTBAR: shorter, quiet at rest, and a tap hides it
+
+The owner took `siren:look` / `lightbar` out of VERSUS and rejected the beacon and the sonar. The bar is 8 pixels tall where the candidate was 18, and the chips and the duty word sit right under it, so the cluster ends about twenty pixels higher than the dial did. It has three states now: at rest on every field, barely there; a call, one cyan light scanning, with the two chips; a torch on its way, red and white halves strobing. Tapping the bar hides it, so only a faint outline is left, and tapping the same place brings it back. The menu has the same thing as a SIREN switch.
+
 ## 2026-10-17 · 31196f528 — A husk can fool either seat, chosen on its cell in the director
 
 A hollow pod now carries `truthP1`: authored on the husk, it puts the red twin and the DO NOT TAKE frame on player 1's screen and shows player 2 a real pod. Absent, the husk is as it was — player 1 is fooled. The director's husk cell has a FOOLS row (P1 / P2) for it, the field is hashed, and the rules are unchanged: swallowing a husk still loses the wave. No look changed on any wave as authored.
