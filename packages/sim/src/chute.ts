@@ -141,6 +141,7 @@ export function chuteStruck(world: World, b: Bullet, hit: Creature): boolean {
   });
   world.events.push({
     type: "destroy",
+    id: hit.id,
     col: hit.col,
     row: hit.row,
     color: b.color,

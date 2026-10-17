@@ -176,6 +176,7 @@ export function mineTapped(world: World, player: 1 | 2, col: number, row: number
   if (exact) {
     world.events.push({
       type: "destroy",
+      id: exact.id,
       col: exact.col,
       row: exact.row,
       // A mine's colour is the wave's and it may have left it out; cyan is

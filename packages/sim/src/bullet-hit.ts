@@ -186,6 +186,7 @@ export function resolve(world: World, b: Bullet, hit: Creature): boolean {
   if (hit.kind === "glutton" && gluttonShrinks(world, hit, b.color)) return false;
   world.events.push({
     type: "destroy",
+    id: hit.id,
     col: hit.col,
     row: hit.row,
     color: hit.color,

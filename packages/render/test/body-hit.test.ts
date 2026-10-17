@@ -5,7 +5,10 @@ import {
   BULB_HIT,
   DART_HIT,
   ECHO_HIT,
+  hitAt,
   hitFor,
+  KILL_STRIKES,
+  killDeckFor,
   RIND_HIT,
   SLICK_HIT,
   type Strike,
@@ -17,6 +20,7 @@ import { BREAK_LOOK } from "../src/break-look.js";
 import { breakSparks } from "../src/effects-break.js";
 import { computeLayout } from "../src/layout.js";
 import { SPIN_BREAK } from "../src/spin-break.js";
+import { killSeed, tileSeed } from "../src/tile-seed.js";
 import {
   CFG,
   FRAME_TIMEOUT_MS,
@@ -54,7 +58,6 @@ const kill = (kind: Kind, color: "red" | "cyan" = "red", of?: "echo" | "rind"): 
 });
 
 const STRUCK: readonly { kind: Kind; of?: "echo" | "rind"; look: typeof BULB_HIT }[] = [
-  { kind: "bulb", look: BULB_HIT },
   { kind: "throb", look: THROB_HIT },
   { kind: "dart", look: DART_HIT },
   { kind: "wisp", look: WISP_HIT },
@@ -85,13 +88,15 @@ describe("hitFor", () => {
     expect(hitFor("bulb", "chute")).toBe(BULB_HIT);
   });
 
-  it("keeps the slick on the shipped kill, and shares the break with every body", () => {
+  it("deals the slick and the bulb from a deck, and shares the break with every other body", () => {
+    expect(SLICK_HIT.pick).toBe(killDeckFor);
+    expect(BULB_HIT.pick).toBe(killDeckFor);
     expect(SLICK_HIT.life).toBe(0);
     expect(BODY_HIT.life).toBe(0);
-    for (const { kind, of, look } of STRUCK) {
-      // The bulb's pieces turn (`spin-break.ts`); every other body shares the
+    for (const { look } of STRUCK) {
+      // Every body but the slick and the bulb (a deck each) shares the
       // shipped break.
-      expect(look.pieces).toBe(kind === "bulb" && !of ? SPIN_BREAK : BREAK_LOOK);
+      expect(look.pieces).toBe(BREAK_LOOK);
       expect(look.life).toBeGreaterThan(0);
     }
     // The kill burst is scaled off the kind's own record — the same number
@@ -104,13 +109,44 @@ describe("hitFor", () => {
 });
 
 describe("BodyStrikeFx", () => {
-  it("draws nothing for the slick", () => {
+  it("deals the slick and the bulb every strike there is, the same card for the same body", () => {
+    for (const kind of ["slick", "bulb"] as const) {
+      const dealt = new Set<unknown>();
+      for (let id = 0; id < 14; id++) {
+        const e = { col: 5, row: 9, id };
+        const look = hitAt(kind, undefined, killSeed(e), id);
+        expect(hitAt(kind, undefined, killSeed(e), id)).toBe(look);
+        expect(look.pieces).toBe(SPIN_BREAK);
+        dealt.add(look.strike);
+      }
+      expect(dealt).toEqual(new Set(KILL_STRIKES));
+    }
+  });
+
+  it("never deals two bodies in a row the same card, whatever the step between their ids", () => {
+    for (let step = 1; step < 7; step++) {
+      for (let id = 0; id < 70; id += step) {
+        const now = hitAt("slick", undefined, 0, id + step).strike;
+        expect(now).not.toBe(hitAt("slick", undefined, 0, id).strike);
+      }
+    }
+  });
+
+  it("tells two bodies killed on the same tile apart by their ids", () => {
+    const seeds = new Set<number>();
+    for (let id = 0; id < 20; id++) seeds.add(killSeed({ col: 5, row: 9, id }));
+    expect(seeds.size).toBe(20);
+    expect(killSeed({ col: 5, row: 9 })).toBe(tileSeed(5, 9));
+  });
+
+  it("draws a slick's strike through the strict canvas", () => {
     const fx = new BodyStrikeFx();
-    fx.ingest([kill("slick")], L, 1);
-    fx.update(0.05);
+    // Body 3 is dealt the third card along the rotation, a shock.
+    fx.ingest([{ type: "destroy", id: 3, col: 5, row: 9, color: "red", kind: "slick" }], L, 1);
+    fx.update(0.2);
     const { ctx } = stubCanvas();
     fx.draw(ctx as unknown as CanvasRenderingContext2D, L);
-    expect(ctx.calls).toBe(0);
+    expect(ctx.calls).toBeGreaterThan(0);
   });
 
   it("draws every other body's strike, start to end, through the strict canvas", () => {
@@ -140,11 +176,12 @@ describe("BodyStrikeFx", () => {
       life: 0.5,
       strike: (_ctx: CanvasRenderingContext2D, s: Strike) => seen.push(s),
     };
-    const was = { life: SLICK_HIT.life, strike: SLICK_HIT.strike };
-    Object.assign(SLICK_HIT, patched);
+    // A candidate on the slick replaces the deck, or the deck answers for it.
+    const was = { life: SLICK_HIT.life, strike: SLICK_HIT.strike, pick: SLICK_HIT.pick };
+    Object.assign(SLICK_HIT, patched, { pick: undefined });
     try {
       const fx = new BodyStrikeFx();
-      fx.ingest([kill("slick"), kill("bulb", "cyan")], L, 1);
+      fx.ingest([kill("slick"), kill("throb", "cyan")], L, 1);
       fx.update(0.1);
       const { ctx } = stubCanvas();
       fx.draw(ctx as unknown as CanvasRenderingContext2D, L);

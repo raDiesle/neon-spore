@@ -85,6 +85,7 @@ export function countdownStruck(world: World, b: Bullet, hit: Creature): boolean
     metColor(world);
     world.events.push({
       type: "destroy",
+      id: hit.id,
       col: hit.col,
       row: hit.row,
       color: hit.color,

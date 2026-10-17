@@ -1,11 +1,11 @@
 import { hasOwnBody, livingPoints, livingSilhouette } from "@neon-spore/content";
 import type { SimEvent } from "@neon-spore/sim";
-import { type HitLook, hitFor } from "./body-hit.js";
+import { type HitLook, hitAt } from "./body-hit.js";
 import { contourClock, livingRadius, livingScale } from "./creature-place.js";
 import { colorTrio } from "./creature-tint.js";
 import type { SurfaceY } from "./hull-frame.js";
 import { type Layout, tileCX, tileCY } from "./layout.js";
-import { tileSeed } from "./tile-seed.js";
+import { killSeed } from "./tile-seed.js";
 
 /**
  * A body on the beat it is struck, drawn where it stood after it is gone.
@@ -54,14 +54,14 @@ export class BodyStrikeFx {
   ingest(events: readonly SimEvent[], l: Layout, time: number): void {
     for (const e of events) {
       if (e.type !== "destroy") continue;
-      const look = hitFor(e.kind, e.of);
+      const seed = killSeed(e);
+      const look = hitAt(e.kind, e.of, seed, e.id);
       if (look.life <= 0 || !hasOwnBody(e.kind)) continue;
       const shape = livingSilhouette(e.kind);
       // The plain footprint, as `effects-break.ts` cuts it: there is no
       // creature left to ask how big it was.
       const r = livingRadius(l.tile, 1);
       const scale = livingScale(shape, r);
-      const seed = tileSeed(e.col, e.row);
       const t = contourClock(seed, time);
       const trio = colorTrio(e.color);
       this.live.push({

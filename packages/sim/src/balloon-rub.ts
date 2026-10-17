@@ -93,6 +93,7 @@ function rubBalloon(world: World, c: Creature): void {
     // (`render/effects-break.ts`).
     world.events.push({
       type: "destroy",
+      id: c.id,
       col: c.col,
       row: c.row,
       color: "cyan",

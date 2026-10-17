@@ -10,7 +10,7 @@ import { type Flight, fadeAt } from "./shatter-fall.js";
  * animations for slick and bulb when they are destroyed". The two bodies on
  * more waves than anything else were coming apart the same way every time:
  * nine wedges opening slowly where they stood. Now each kill is one of four,
- * picked from the tile's seed so both phones watch the same one:
+ * picked from the kill's seed (`killSeed`) so both phones watch the same one:
  *
  * - **VORTEX** — the pieces leave on a spiral, the whole break wheeling round
  *   where the body stood and slowing as it opens.

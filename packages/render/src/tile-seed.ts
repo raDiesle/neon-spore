@@ -5,9 +5,9 @@
  * strike or a scar jitters has to jitter identically on the two screens, and
  * the only state the pair certainly shares at the moment an event arrives is
  * the tile it names — a column and a row, or a column and a beat. A seed taken
- * off a creature id, a tick or a frame clock is a seed that drifts the moment
- * one phone is a frame behind, and two players looking at two different
- * pictures of the same break have no way to find out that they are.
+ * off a tick or a frame clock is a seed that drifts the moment one phone is a
+ * frame behind, and two players looking at two different pictures of the same
+ * break have no way to find out that they are.
  *
  * It was written out four times — `effects-break.ts`, `body-strike.ts`,
  * `scars.ts` and, on 15 September 2026, nearly a fifth for THE BALLOON's
@@ -21,4 +21,20 @@
  */
 export function tileSeed(a: number, b: number): number {
   return Math.imul(a + 1, 73856093) ^ Math.imul(b + 1, 19349663);
+}
+
+/**
+ * The seed a kill is drawn from: its tile, and the body's id when the event
+ * carries one (`sim/events.ts`). The id is not a clock — it is simulation
+ * state, in `hashWorld`, and the same number on both phones — and without it
+ * every slick shot at the same height in the same column came apart the same
+ * way, because the tile was all a kill had to tell it from the last one.
+ */
+export function killSeed(e: {
+  readonly col: number;
+  readonly row: number;
+  readonly id?: number;
+}): number {
+  const tile = tileSeed(e.col, e.row);
+  return e.id === undefined ? tile : tile ^ Math.imul(e.id + 1, 83492791);
 }

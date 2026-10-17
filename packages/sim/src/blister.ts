@@ -170,6 +170,7 @@ export function blisterBlow(world: World, c: Creature): void {
   }
   world.events.push({
     type: "destroy",
+    id: c.id,
     col: c.col,
     row: c.row,
     // A blister's colour is the wave's and it may have left it out; cyan is

@@ -184,6 +184,7 @@ function tileIndex(cfg: SimConfig, t: { col: number; row: number }): number {
 export function wispStruck(world: World, b: Bullet, hit: Creature): void {
   world.events.push({
     type: "destroy",
+    id: hit.id,
     col: hit.col,
     row: hit.row,
     color: b.color,

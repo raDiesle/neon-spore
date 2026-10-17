@@ -7,6 +7,7 @@ import { scatter } from "./body-hit-scatter.js";
 import { shock } from "./body-hit-shock.js";
 import { splash } from "./body-hit-splash.js";
 import { BREAK_LOOK, type BreakLook } from "./break-look.js";
+import { mix32 } from "./hash.js";
 import { SPIN_BREAK } from "./spin-break.js";
 
 /**
@@ -87,6 +88,10 @@ export interface HitLook {
   readonly life: number;
   /** What the body does on the beat it is struck, and what it leaves behind. */
   readonly strike: (ctx: CanvasRenderingContext2D, s: Strike) => void;
+  /** A record that is a deck rather than one answer: the look this one kill
+   * comes out as, from the kill's seed (`killSeed`) and the body's id.
+   * Absent, the record is the look. Read through `hitAt`, never by hand. */
+  readonly pick?: (seed: number, id?: number) => HitLook;
 }
 
 /** A strike that draws nothing: the sparks and the pieces are the whole of
@@ -98,17 +103,54 @@ function none(): void {}
 const STRIKE_LIFE = 0.9;
 
 /**
- * THE SLICK's own hit, and the record a `slick:hit` candidate patches. The
- * owner kept the shipped kill for it on 10 September 2026 — squares and
- * wedges, no strike — and sent the three offered strikes to other bodies. On
- * 16 October 2026 he asked for its wedges to turn, a different way each kill
- * (`spin-break.ts`).
+ * Every strike the owner took on 10 September 2026, and the shipped kill he
+ * kept beside them: the seven ways a slick or a bulb dies. On 16 October he
+ * asked for its wedges to turn a different way each kill (`spin-break.ts`);
+ * on 17 October that was not enough — *why all "bulb" and "slick"?* — because
+ * only the pieces' motion changed, the bulb popped every time, and the seed was
+ * the tile, so every slick shot at the same height in a column died alike.
+ *
+ * **Dealt in rotation, not drawn.** A fair draw from six gave three shock
+ * rings in eight kills on FIRST STEP, which reads as the same again. Seven is
+ * prime, so stepping the deck by three per body id reaches every card, and two
+ * bodies dealt one after the other never share one — whatever the step
+ * between their ids, short of seven. The pieces are still drawn
+ * (`spinBreakFor`), so a card comes round with a different break each time.
+ * `none` is the shipped kill: the turning pieces and nothing laid over them.
  */
-export const SLICK_HIT: HitLook = { pieces: SPIN_BREAK, life: 0, strike: none };
+export const KILL_STRIKES = [none, pop, shock, scatter, rupture, afterglow, splash] as const;
 
-/** THE BULB's own, and `bulb:hit`'s record: a bubble pops, and its pieces turn
- * the slick's way (`spin-break.ts`). */
-export const BULB_HIT: HitLook = { pieces: SPIN_BREAK, life: STRIKE_LIFE, strike: pop };
+const KILL_DECK: readonly HitLook[] = KILL_STRIKES.map((strike) => ({
+  pieces: SPIN_BREAK,
+  life: strike === none ? 0 : STRIKE_LIFE,
+  strike,
+}));
+
+/** Which card one kill is dealt: by the body's id where the kill names one,
+ * and off the seed where it does not (a test's kill, built without an id). */
+export function killDeckFor(seed: number, id?: number): HitLook {
+  const n = KILL_DECK.length;
+  const at = id === undefined ? mix32(seed ^ 0x5bd1e995) : (((id * 3) % n) + n) % n;
+  return KILL_DECK[at % n] as HitLook;
+}
+
+/**
+ * THE SLICK's own hit, and the record a `slick:hit` candidate patches — but
+ * its own `life` and `strike` are what a kill with no seed would draw, and a
+ * candidate patching them patches nothing a real kill reads: it replaces
+ * `pick`, the way `SPIN_BREAK` says of its own fields.
+ */
+export const SLICK_HIT: HitLook = { pieces: SPIN_BREAK, life: 0, strike: none, pick: killDeckFor };
+
+/** THE BULB's own, and `bulb:hit`'s record: the same deck as the slick's. It
+ * popped every time from 10 September to 17 October 2026, and pop is one card
+ * of the seven. */
+export const BULB_HIT: HitLook = {
+  pieces: SPIN_BREAK,
+  life: STRIKE_LIFE,
+  strike: pop,
+  pick: killDeckFor,
+};
 
 /** THE THROB's: half of it is plating, so a shot on it is a *blow* — the
  * contour pressed flat and rebounding, two rings running down the column to
@@ -180,4 +222,11 @@ export function hitFor(kind: string, of?: string): HitLook {
   if (kind === "mine") return MINE_HIT;
   if (kind === "balloon") return BALLOON_HIT;
   return BODY_HIT;
+}
+
+/** The look one kill comes out as: the kind's record, or the card its deck
+ * deals for `seed`. What the pieces, the strike and the sparks all ask. */
+export function hitAt(kind: string, of: string | undefined, seed: number, id?: number): HitLook {
+  const look = hitFor(kind, of);
+  return look.pick?.(seed, id) ?? look;
 }

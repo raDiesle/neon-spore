@@ -1,11 +1,11 @@
 import { hasOwnBody, livingPoints, livingSilhouette } from "@neon-spore/content";
 import type { Color, CreatureKind, SimEvent } from "@neon-spore/sim";
-import { hitFor } from "./body-hit.js";
+import { hitAt } from "./body-hit.js";
 import { contourClock, livingRadius, livingScale } from "./creature-place.js";
 import { colorTrio } from "./creature-tint.js";
 import type { Debris } from "./debris.js";
 import { type Layout, tileCX, tileCY } from "./layout.js";
-import { tileSeed } from "./tile-seed.js";
+import { killSeed } from "./tile-seed.js";
 
 /**
  * Turning a `destroy` into a body coming apart.
@@ -43,7 +43,7 @@ export function breakBody(
   debris: Debris,
   l: Layout,
   time: number,
-  e: { col: number; row: number; color: Color; kind: CreatureKind; of?: CreatureKind },
+  e: { id?: number; col: number; row: number; color: Color; kind: CreatureKind; of?: CreatureKind },
 ): void {
   if (!hasOwnBody(e.kind)) return;
   const shape = livingSilhouette(e.kind);
@@ -52,11 +52,11 @@ export function breakBody(
   // the ordinary kill and both are still the right *shape*.
   const r = livingRadius(l.tile, 1);
   const trio = colorTrio(e.color);
-  // A break must look identical on both phones, and a column and a row are the
-  // only two numbers both of them agree about (`tile-seed.ts`).
-  const seed = tileSeed(e.col, e.row);
+  // A break must look identical on both phones: the tile and the body's id are
+  // numbers both of them agree about (`tile-seed.ts`).
+  const seed = killSeed(e);
   debris.break({
-    look: hitFor(e.kind, e.of).pieces,
+    look: hitAt(e.kind, e.of, seed, e.id).pieces,
     outline: livingPoints(shape, contourClock(seed, time)),
     scale: livingScale(shape, r),
     x: tileCX(l, e.col),
@@ -83,5 +83,6 @@ export function breakBody(
  * quietened by a break look.
  */
 export function breakSparks(e: SimEvent, n: number): number {
-  return e.type === "destroy" ? Math.round(n * hitFor(e.kind, e.of).pieces.sparkScale) : n;
+  if (e.type !== "destroy") return n;
+  return Math.round(n * hitAt(e.kind, e.of, killSeed(e), e.id).pieces.sparkScale);
 }

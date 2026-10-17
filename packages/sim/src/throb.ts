@@ -130,6 +130,7 @@ export function throbStruck(world: World, b: Bullet, hit: Creature): void {
   metColor(world);
   world.events.push({
     type: "destroy",
+    id: hit.id,
     col: hit.col,
     row: hit.row,
     color: b.color,

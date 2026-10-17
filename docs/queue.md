@@ -369,3 +369,15 @@ scratch script: flip `MEASURE`, run the file, match each printed row to the
 next source literal with the same key set, raise only the values that rose,
 restore the switch. Make that a command (`bun run budgets:measure <file…>`),
 with a test that it raises and never lowers a row and leaves `MEASURE` false.
+
+## `sim/events.ts` is at 249 lines — split the union by family
+
+- **Found:** 2026-10-17, claude/destroy-animations-bulb-slick-2a2410
+- **Files:** `packages/sim/src/events.ts`
+
+`destroy` gained an `id` and the file is one line under the ceiling, so the
+next event added anywhere turns `limits.test.ts` red mid-lane. Cut the
+`SimEvent` union into families in their own files — the boss gestures, the
+body kills and holes, the wave and round bookkeeping — each exporting its
+member types, with `events.ts` keeping the union and its doc. No behaviour
+changes; `bunx tsc --noEmit` and `bun run check` prove it.

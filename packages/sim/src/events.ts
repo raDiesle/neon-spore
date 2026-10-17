@@ -108,9 +108,12 @@ export type SimEvent =
    * a secret: both seats watch an echo divide and a rind shed. A lure never
    * sets it, for the reason above, and a kind whose strike is the worn body's
    * has no cause to.
+   * `id` is the body's own — hashed, so both phones agree on it — and every
+   * kill in `sim` sets it: a slick dies a different way each body.
    */
   | {
       type: "destroy";
+      id?: number;
       col: number;
       row: number;
       color: Color;

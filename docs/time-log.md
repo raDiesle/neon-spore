@@ -43769,3 +43769,18 @@ Bottleneck: the boss-is-a-head rule was written into eight tests and one stylesh
 Bottleneck: none worth naming — the record and the pose were the only new seams.
 
 *Measured: 5 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-17 — The slick and the bulb die seven ways, dealt in turn
+
+- reading: 15 min. Yesterday's spin breaks, the hit records and the six
+  strikes in history, the tile seed and every site that builds a kill.
+- writing: 15 min. `id` on `destroy` at fifteen sites, `killSeed`, the deck
+  and `hitAt`, the tests.
+- looking: 15 min. Eight kills off FIRST STEP twice — which showed every kill
+  on the same tile, and then three shock rings in eight from a fair draw.
+- friction: 5 min. `--until-on` is not "the Nth", and `--events` collapses
+  repeats; `destroy:id=N` was the way to a given kill.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: finding that the auto-play kills every slick on one tile, which
+only a run of real frames showed.

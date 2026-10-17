@@ -189,6 +189,7 @@ export function ghostStruck(world: World, b: Bullet, hit: Creature): boolean {
   world.events.push({ type: "ghostRelease", col: hit.col, row: hit.row, color: b.color });
   world.events.push({
     type: "destroy",
+    id: hit.id,
     col: hit.col,
     row: hit.row,
     color: b.color,

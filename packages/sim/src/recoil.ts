@@ -208,6 +208,7 @@ export function recoilStruck(world: World, b: Bullet, hit: Creature): boolean {
   // to be able to feel that it is finally over.
   world.events.push({
     type: "destroy",
+    id: hit.id,
     col: hit.col,
     row: hit.row,
     color: b.color,
