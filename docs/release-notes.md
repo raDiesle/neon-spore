@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-17 · 31196f528 — A husk can fool either seat, chosen on its cell in the director
+
+A hollow pod now carries `truthP1`: authored on the husk, it puts the red twin and the DO NOT TAKE frame on player 1's screen and shows player 2 a real pod. Absent, the husk is as it was — player 1 is fooled. The director's husk cell has a FOOLS row (P1 / P2) for it, the field is hashed, and the rules are unchanged: swallowing a husk still loses the wave. No look changed on any wave as authored.
+
 ## 2026-10-17 · 33e9a519d — The SKIES cards move, at phone size, and REMNANT is quieter
 
 DOCUMENTATION › SKIES draws each sky live, the game's own renderer every frame with its clock running, at the phone's own 380 px instead of a 240 px still — so the giant turns and the remnant's beams sweep in the room. Only cards on screen are drawn. REMNANT's threads are thinner and dimmer, its beams a pale sweep, its core flash smaller and softer; the owner asked for that by name, which is the exemption this look change uses.

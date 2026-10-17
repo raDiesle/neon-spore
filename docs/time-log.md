@@ -43722,3 +43722,5 @@ Bottleneck: a stale tree — main had moved the very file being changed.
 - landing: 10 min. A shared machine under load; tests run in the background.
 
 Bottleneck: the shared machine's load — every test waits its turn.
+
+*Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
