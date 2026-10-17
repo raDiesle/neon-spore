@@ -230,6 +230,14 @@ arrival's travel is counted from the centre column.
 A prototype: it ranks TWO ROCKS 2.4 < THE WALL 10 < FINALE 20.9, but the
 weights are guesses, to be tuned against a pair playing, not AUTO.
 
+**A block's intro is no harder than its gentlest regular wave** (the owner,
+17 October 2026). 37 intros were, each written by hand with a climax at its
+end; `bun run waves:soften` pulls such an intro toward the middle column and
+spreads its arrivals, as little as that takes, and
+`tools/director/test/soften-intro.test.ts` holds the list to it. CATCH AND AIM
+is the one exception: its red and cyan in turn cost a switch each wherever
+they stand.
+
 **Decision 6 — a step may raise pressure by at most 2** over the wave before it
 in the block (two steps' worth where the tutorial skips R2). The composer picks
 a block's pressures together, nearest a rise of 1 a step (`compose-ramp.ts`).

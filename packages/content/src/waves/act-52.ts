@@ -14,10 +14,10 @@ export const WAVES_ACT_52: Wave[] = [
     name: "MINE AWAKENS",
     entries: [
       { beat: 0, col: 9, kind: "mine", color: "red", row: 3, sees: 2 },
-      { beat: 7, col: 10, kind: "crawler", color: null, segments: 5, side: "right" },
-      { beat: 14, col: 3, kind: "coil", color: null },
-      { beat: 21, col: 10, kind: "mine", color: "red", row: 3, sees: 2 },
-      { beat: 29, col: 1, kind: "crawler", color: null, segments: 3, side: "left" },
+      { beat: 8, col: 10, kind: "crawler", color: null, segments: 5, side: "right" },
+      { beat: 16, col: 3, kind: "coil", color: null },
+      { beat: 24, col: 10, kind: "mine", color: "red", row: 3, sees: 2 },
+      { beat: 32, col: 1, kind: "crawler", color: null, segments: 3, side: "left" },
     ],
   },
   {

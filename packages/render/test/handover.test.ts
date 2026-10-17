@@ -30,8 +30,6 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
  */
 
 const TPB = ticksPerBeat(CFG);
-const AT = CFG.handoverAtBeat;
-const HOLD = CFG.handoverHoldBeats;
 const WARN = CFG.handoverWarnBeats;
 /** Invulnerable for the reason the simulation's own test gives: nobody is
  * pressing anything here, so a mortal ship is over before the window shuts and
@@ -48,6 +46,11 @@ beforeAll(installCanvasGlobals);
  */
 const INDEX = WAVES.findIndex((w) => w.faults?.some((f) => f.kind === "handover"));
 if (INDEX === -1) throw new Error("no wave carries THE HANDOVER");
+/** Its window, as the wave places it: the beat row it enters on and how many
+ * it holds — not the config's, which is only what a fault with no row takes. */
+const FAULT = WAVES[INDEX]?.faults?.find((f) => f.kind === "handover");
+const AT = FAULT?.at ?? CFG.handoverAtBeat;
+const HOLD = FAULT?.beats ?? CFG.handoverHoldBeats;
 
 function handWorld(fault = true): World {
   const world = createWorld(CONFIG, 3);

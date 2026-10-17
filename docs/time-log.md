@@ -43786,3 +43786,13 @@ Bottleneck: finding that the auto-play kills every slick on one tile, which
 only a run of real frames showed.
 
 *Measured: 7 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-17 — no group's head harder than its gentlest child
+
+- reading: 15 min. `wave-pressure.ts`, the curriculum spec's §4–§6, the 38 heads and what drives each one's peak.
+- writing: 20 min. `soften-intro.ts`, `waves:soften`, its test, the spec's line; 37 heads written through the director's save.
+- looking: 0 min. The numbers are the result; AUTO plays every softened head in the pass itself.
+- friction: 10 min. THE CHOKE spread too far for AUTO, THE HANDOVER's test read the fault's beat off the config, the probe test's coil left by beat 13.
+- landing: 10 min. `waves:measure`, `baseline:blank`, `check:fast`, `land`.
+
+Bottleneck: tests that read a shipped wave's timing off something other than the wave.

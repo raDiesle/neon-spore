@@ -16,13 +16,13 @@ export const WAVES_ACT_3: Wave[] = [
       scene: "theHusk",
     },
     entries: [
-      { beat: 3, col: 0, color: "red" },
-      { beat: 9, col: 10, color: "cyan" },
+      { beat: 3, col: 4, color: "red" },
+      { beat: 11, col: 6, color: "cyan" },
     ],
     pods: [
-      { beat: 0, col: 2, row: 3, kind: "pod" },
+      { beat: 0, col: 4, row: 3, kind: "pod" },
       { beat: 0, col: 5, row: 4, kind: "husk" },
-      { beat: 6, col: 8, row: 3, kind: "pod" },
+      { beat: 6, col: 6, row: 3, kind: "pod" },
     ],
     controls: "standard5",
   },

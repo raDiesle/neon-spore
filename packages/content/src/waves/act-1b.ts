@@ -68,8 +68,8 @@ export const WAVES_ACT_1B: Wave[] = [
       scene: "salvage",
     },
     entries: [
-      { beat: 2, col: 2, color: "cyan" },
-      { beat: 7, col: 8, color: "red" },
+      { beat: 2, col: 4, color: "cyan" },
+      { beat: 10, col: 6, color: "red" },
     ],
     pods: [{ beat: 0, col: 5, row: 3, kind: "pod" }],
     controls: "standard5",

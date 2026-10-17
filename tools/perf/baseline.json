@@ -164,12 +164,11 @@
       "id": "torch",
       "wave": 16,
       "name": "TORCH",
-      "bodies": 1,
-      "arrivals": "3:627a6e9c",
-      "typical": 2.63,
-      "mean": 2.81,
-      "p90": 3.74,
-      "jitter": 0.143
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
     },
     {
       "id": "torchAgain",
@@ -305,12 +304,11 @@
       "id": "salvage",
       "wave": 30,
       "name": "SALVAGE",
-      "bodies": 2,
-      "arrivals": "2:5bbd3a41",
-      "typical": 2.09,
-      "mean": 2.13,
-      "p90": 2.35,
-      "jitter": 0.048
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
     },
     {
       "id": "salvageAgain",
@@ -749,12 +747,11 @@
       "id": "theLance",
       "wave": 74,
       "name": "THE LANCE",
-      "bodies": 6,
-      "arrivals": "6:68d65c00",
-      "typical": 2.25,
-      "mean": 2.6,
-      "p90": 3.84,
-      "jitter": 0.428
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
     },
     {
       "id": "theLanceAgain",

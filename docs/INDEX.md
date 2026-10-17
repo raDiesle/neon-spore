@@ -4036,6 +4036,7 @@ by hand never moves.
 | `tools/director/src/sound-link-none-d.ts` | The sounds wired up with nothing to draw, the fourth page — from THE SEAM on |
 | `tools/director/src/sound-link-none-e.ts` | The sounds wired up with nothing to draw, the fifth page — THE VALVE's, THE LAMPREY's |
 | `tools/director/src/sound-row.ts` | **One sound, as a row of the catalogue sheet.** Its own file beside `sound-page.ts` |
+| `tools/director/src/soften-intro.ts` | **A GROUP'S HEAD IS NO HARDER THAN ITS GENTLEST CHILD** |
 | `tools/director/src/pose-type.ts` | What a pose *is* — the shape of one, and the two things a caller can ask of one without building it |
 | `tools/director/src/pose-commands.ts` | the commands a pose presses, spelled short — `aim`, `ward`, `guard`, `suck`, `prime`, `shoot`, `pullCord`, `hold` — one builder per verb, re-exported by the kit |
 | `tools/director/src/pose-frame.ts` | **The two halves of a posed picture**: the whole phone drawn once by the shipping renderer |
@@ -4378,5 +4379,6 @@ by hand never moves.
 | `tools/director/waves-lessons.ts` | `bun run waves:lessons` — moves every lesson behind its block, composes its eight, places the bosses again |
 | `tools/director/waves-order.ts` | `bun run waves:order [--write]`: every new thing after the arc taught again in rising cost, its blocks composed again, bosses and reviews placed |
 | `tools/director/waves-names.ts` | `bun run waves:names [id …] [--write]` Every regular wave named again by the composer… |
+| `tools/director/waves-soften.ts` | `bun run waves:soften [--write]` Every group's head that is harder than its gentlest child |
 
 <!-- index:code:end -->

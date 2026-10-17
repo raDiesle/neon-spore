@@ -71,8 +71,8 @@ export const WAVES_ACT_1_P2: Wave[] = [
     },
     entries: [
       { beat: 6, col: 2, kind: "torch", color: null },
-      { beat: 12, col: 8, kind: "torch", color: null },
-      { beat: 18, col: 5, kind: "torch", color: null },
+      { beat: 14, col: 8, kind: "torch", color: null },
+      { beat: 22, col: 5, kind: "torch", color: null },
     ],
     controls: "standard4",
   },

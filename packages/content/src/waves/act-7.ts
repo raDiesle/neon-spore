@@ -17,12 +17,12 @@ export const WAVES_ACT_7: Wave[] = [
     },
     entries: [
       { beat: 0, col: 6, color: "red" },
-      { beat: 2, col: 1, kind: "glutton", color: "red" },
-      { beat: 12, col: 10, kind: "glutton", color: "cyan" },
+      { beat: 8, col: 2, kind: "glutton", color: "red" },
+      { beat: 18, col: 9, kind: "glutton", color: "cyan" },
     ],
     pods: [
-      { beat: 4, col: 3, row: 5, kind: "pod" },
-      { beat: 14, col: 8, row: 6, kind: "pod" },
+      { beat: 10, col: 4, row: 5, kind: "pod" },
+      { beat: 20, col: 7, row: 6, kind: "pod" },
     ],
   },
   {

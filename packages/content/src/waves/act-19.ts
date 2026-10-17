@@ -19,7 +19,7 @@ export const WAVES_ACT_19: Wave[] = [
       { beat: 0, col: 5, kind: "veer", color: null },
       { beat: 18, col: 8, kind: "veer", color: null },
       { beat: 34, col: 3, kind: "veer", color: null },
-      { beat: 38, col: 10, kind: "veer", color: null },
+      { beat: 42, col: 10, kind: "veer", color: null },
     ],
   },
   {

@@ -17,11 +17,11 @@ export const WAVES_ACT_26: Wave[] = [
     },
     entries: [
       { beat: 0, col: 3, kind: "balloon", color: null },
-      { beat: 6, col: 8, kind: "balloon", color: null },
-      { beat: 16, col: 7, kind: "balloon", color: null },
-      { beat: 24, col: 0, kind: "balloon", color: null },
-      { beat: 26, col: 10, kind: "balloon", color: null },
-      { beat: 36, col: 3, kind: "balloon", color: null },
+      { beat: 8, col: 8, kind: "balloon", color: null },
+      { beat: 18, col: 7, kind: "balloon", color: null },
+      { beat: 26, col: 0, kind: "balloon", color: null },
+      { beat: 34, col: 10, kind: "balloon", color: null },
+      { beat: 44, col: 3, kind: "balloon", color: null },
     ],
   },
   {

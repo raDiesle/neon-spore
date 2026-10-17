@@ -17,11 +17,11 @@ export const WAVES_ACT_12: Wave[] = [
       scene: "theWard",
     },
     entries: [
-      { beat: 0, col: 0, kind: "meteor", color: null },
-      { beat: 2, col: 3, kind: "meteorMedium", color: null },
-      { beat: 4, col: 8, kind: "meteorFast", color: null },
-      { beat: 6, col: 2, kind: "meteorFaster", color: null },
-      { beat: 8, col: 10, kind: "meteorFastest", color: null },
+      { beat: 0, col: 1, kind: "meteor", color: null },
+      { beat: 8, col: 4, kind: "meteorMedium", color: null },
+      { beat: 16, col: 7, kind: "meteorFast", color: null },
+      { beat: 24, col: 3, kind: "meteorFaster", color: null },
+      { beat: 32, col: 9, kind: "meteorFastest", color: null },
     ],
   },
   {

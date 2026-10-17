@@ -67,9 +67,9 @@ export const WAVES_ACT_4: Wave[] = [
       scene: "theMorsel",
     },
     entries: [
-      { beat: 0, col: 2, color: "red" },
-      { beat: 6, col: 5, kind: "morsel", color: "red" },
-      { beat: 16, col: 8, kind: "morsel", color: "cyan" },
+      { beat: 0, col: 3, color: "red" },
+      { beat: 8, col: 5, kind: "morsel", color: "red" },
+      { beat: 18, col: 7, kind: "morsel", color: "cyan" },
     ],
     controls: "standard5",
   },

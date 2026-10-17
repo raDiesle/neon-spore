@@ -18,9 +18,9 @@ export const WAVES_ACT_11: Wave[] = [
     entries: [
       { beat: 0, col: 5, kind: "weight", color: null },
       { beat: 14, col: 8, kind: "weight", color: null },
-      { beat: 18, col: 3, color: "red" },
-      { beat: 30, col: 2, kind: "weight", color: null },
-      { beat: 32, col: 10, kind: "weight", color: null },
+      { beat: 22, col: 3, color: "red" },
+      { beat: 34, col: 2, kind: "weight", color: null },
+      { beat: 42, col: 10, kind: "weight", color: null },
     ],
   },
   {

@@ -18,12 +18,12 @@ export const WAVES_ACT_8: Wave[] = [
     entries: [
       { beat: 0, col: 0, kind: "meteor", color: null, cross: 1, row: 5 },
       { beat: 8, col: 5, color: "red" },
-      { beat: 10, col: 10, kind: "meteor", color: null, cross: -1, row: 7 },
-      { beat: 18, col: 8, color: "cyan" },
-      { beat: 20, col: 0, kind: "meteor", color: null, cross: 1, row: 4 },
-      { beat: 28, col: 2, color: "red" },
-      { beat: 31, col: 10, kind: "meteor", color: null, cross: -1, row: 6 },
-      { beat: 34, col: 0, kind: "meteor", color: null, cross: 1, row: 9 },
+      { beat: 16, col: 10, kind: "meteor", color: null, cross: -1, row: 7 },
+      { beat: 24, col: 8, color: "cyan" },
+      { beat: 32, col: 0, kind: "meteor", color: null, cross: 1, row: 4 },
+      { beat: 40, col: 2, color: "red" },
+      { beat: 48, col: 10, kind: "meteor", color: null, cross: -1, row: 6 },
+      { beat: 56, col: 0, kind: "meteor", color: null, cross: 1, row: 9 },
     ],
   },
   {

@@ -1,6 +1,6 @@
 # The waves today, measured
 
-> **Status: a measurement of 2026-10-16**, the evidence for
+> **Status: a measurement of 2026-10-17**, the evidence for
 > `wave-curriculum.md`. Written by `bun run waves:measure`
 > (`tools/probe/measure-waves.ts`) — run it again rather than editing a
 > number here.
@@ -19,16 +19,16 @@ guess. *Pressure* is `wavePressure`
 
 | Kind | Waves | AUTO fails | Shortest (s) | Median (s) | Longest (s) | AUTO, all of them | A pair, about |
 |---|---|---|---|---|---|---|---|
-| regular | 483 | 0 | 14 | 27 | 73 | 3 h 48 min | 7 h 36 min |
-| intro | 57 | 0 | 3 | 21 | 48 | 21 min | 42 min |
-| boss | 60 | 0 | 9 | 30 | 343 | 49 min | 1 h 38 min |
-| every wave | 600 | 0 | 3 | 26 | 343 | 4 h 59 min | 9 h 57 min |
+| regular | 483 | 0 | 14 | 27 | 73 | 3 h 48 min | 7 h 37 min |
+| intro | 57 | 0 | 3 | 23 | 51 | 24 min | 48 min |
+| boss | 60 | 0 | 9 | 30 | 343 | 49 min | 1 h 39 min |
+| every wave | 600 | 0 | 3 | 27 | 343 | 5 h 2 min | 10 h 4 min |
 
 ## Every wave
 
 | # | Wave | Kind | Block | New | Panel | Arrivals | Span (beats) | AUTO beats | AUTO s | A pair, about (s) | Pressure |
 |---|---|---|---|---|---|---|---|---|---|---|---|
-| 1 | FIRST STEP | intro | FIRST STEP | slick, panel | STANDARD 1 | 9 | 48 | 51 | 32 | 64 | 4.6 |
+| 1 | FIRST STEP | intro | FIRST STEP | slick, panel | STANDARD 1 | 9 | 64 | 67 | 42 | 84 | 2.4 |
 | 2 | FIRST RED | **regular** | FIRST STEP | — | STANDARD 1 | 5 | 29 | 32 | 20 | 40 | 2.4 |
 | 3 | RED WANDERER | **regular** | FIRST STEP | — | STANDARD 1 | 6 | 29 | 32 | 20 | 40 | 4.4 |
 | 4 | RED TANGO | **regular** | FIRST STEP | — | STANDARD 1 | 8 | 36 | 39 | 24 | 48 | 5.4 |
@@ -36,14 +36,14 @@ guess. *Pressure* is `wavePressure`
 | 6 | CYAN AWAKENS | **regular** | CYAN | — | STANDARD 2 | 6 | 38 | 41 | 26 | 52 | 2.6 |
 | 7 | CYAN PICNIC | **regular** | CYAN | — | STANDARD 2 | 7 | 36 | 39 | 24 | 48 | 3.4 |
 | 8 | CYAN RAPTURE | **regular** | CYAN | — | STANDARD 2 | 8 | 42 | 45 | 28 | 56 | 4.6 |
-| 9 | THE BROOD | boss | CYAN | brood | STANDARD 2 | 0 | 0 | 26 | 16 | 32 | — |
+| 9 | THE BROOD | boss | CYAN | brood | STANDARD 2 | 0 | 0 | 44 | 28 | 56 | — |
 | 10 | THE ROCK | intro | THE ROCK | meteor, panel | STANDARD 4 | 3 | 20 | 34 | 21 | 42 | 1.4 |
 | 11 | NEW ROCK MOON | **regular** | THE ROCK | — | STANDARD 4 | 5 | 30 | 44 | 28 | 56 | 2.6 |
 | 12 | FAR ROCK | **regular** | THE ROCK | — | STANDARD 4 | 6 | 35 | 49 | 31 | 62 | 3.8 |
 | 13 | ROCK AND CYAN | **regular** | THE ROCK | — | STANDARD 4 | 7 | 36 | 44 | 28 | 56 | 5 |
 | 14 | THE HAND | intro | THE ROCK | — | STANDARD 4 | 3 | 0 | 16 | 10 | 20 | 5.8 |
 | 15 | ONE LAST CHANCE | intro | THE ROCK | — | STANDARD 4 | 6 | 13 | 24 | 15 | 30 | 10.8 |
-| 16 | TORCH | intro | TORCH | torch | STANDARD 4 | 3 | 18 | 20 | 13 | 26 | 5.7 |
+| 16 | TORCH | intro | TORCH | torch | STANDARD 4 | 3 | 22 | 24 | 15 | 30 | 3.3 |
 | 17 | HELLO TORCH | **regular** | TORCH | — | STANDARD 4 | 5 | 25 | 27 | 17 | 34 | 3.6 |
 | 18 | TORCH AT WORLD END | **regular** | TORCH | — | STANDARD 4 | 6 | 28 | 30 | 19 | 38 | 5.7 |
 | 19 | TORCH ALLIANCE | **regular** | TORCH | — | STANDARD 4 | 8 | 34 | 48 | 30 | 60 | 6.7 |
@@ -57,7 +57,7 @@ guess. *Pressure* is `wavePressure`
 | 27 | TWISTED COMBO | **regular** | THE BLISTER | — | STANDARD 4 | 9 | 41 | 44 | 28 | 56 | 7.6 |
 | 28 | LEVER FURY | **regular** | THE BLISTER | — | STANDARD 4 | 9 | 40 | 43 | 27 | 54 | 7.6 |
 | 29 | THE BASTION | boss | THE BLISTER | bastion | STANDARD 4 | 0 | 0 | 82 | 51 | 102 | — |
-| 30 | SALVAGE | intro | SALVAGE | pod, panel | STANDARD 5 | 2 | 7 | 10 | 6 | 12 | 4.8 |
+| 30 | SALVAGE | intro | SALVAGE | pod, panel | STANDARD 5 | 2 | 10 | 13 | 8 | 16 | 2.4 |
 | 31 | SALVAGE AWAKENS | **regular** | SALVAGE | — | STANDARD 5 | 3 | 27 | 30 | 19 | 38 | 2.4 |
 | 32 | SALVAGE HORIZON | **regular** | SALVAGE | — | STANDARD 5 | 4 | 27 | 30 | 19 | 38 | 4.4 |
 | 33 | SALVAGE DUET | **regular** | SALVAGE | — | STANDARD 5 | 6 | 34 | 36 | 23 | 46 | 5.7 |
@@ -66,7 +66,7 @@ guess. *Pressure* is `wavePressure`
 | 36 | AIM RISING | **regular** | SALVAGE | — | STANDARD 5 | 3 | 28 | 31 | 19 | 38 | 1.4 |
 | 37 | LONG AIM ROAD | **regular** | SALVAGE | — | STANDARD 5 | 4 | 28 | 31 | 19 | 38 | 3.4 |
 | 38 | FINALE | boss | SALVAGE | matron | STANDARD 5 | 0 | 0 | 67 | 42 | 84 | — |
-| 39 | THE HUSK | intro | THE HUSK | husk | STANDARD 5 | 2 | 9 | 16 | 10 | 20 | 6 |
+| 39 | THE HUSK | intro | THE HUSK | husk | STANDARD 5 | 2 | 11 | 16 | 10 | 20 | 2.4 |
 | 40 | HELLO HUSK | **regular** | THE HUSK | — | STANDARD 5 | 3 | 27 | 30 | 19 | 38 | 2.6 |
 | 41 | HUSK DRIFT | **regular** | THE HUSK | — | STANDARD 5 | 4 | 29 | 32 | 20 | 40 | 3 |
 | 42 | HUSK AT WORLD END | **regular** | THE HUSK | — | STANDARD 5 | 4 | 27 | 30 | 19 | 38 | 3.6 |
@@ -81,7 +81,7 @@ guess. *Pressure* is `wavePressure`
 | 51 | THE WATCH | **regular** | THE HUSK | — | STANDARD 5 | 3 | 24 | 27 | 17 | 34 | 3.6 |
 | 52 | THE NEIGHBOUR | **regular** | THE HUSK | — | STANDARD 5 | 3 | 24 | 27 | 17 | 34 | 3.6 |
 | 53 | THE SWINDLE | boss | THE HUSK | swindle | STANDARD 5 | 0 | 0 | 128 | 80 | 160 | — |
-| 54 | THE MORSEL | intro | THE MORSEL | morsel | STANDARD 5 | 3 | 16 | 32 | 20 | 40 | 5.5 |
+| 54 | THE MORSEL | intro | THE MORSEL | morsel | STANDARD 5 | 3 | 18 | 34 | 21 | 42 | 3.6 |
 | 55 | MORSEL AWAKENS | **regular** | THE MORSEL | — | STANDARD 5 | 5 | 29 | 45 | 28 | 56 | 3.6 |
 | 56 | MORSEL RAIN | **regular** | THE MORSEL | — | STANDARD 5 | 6 | 30 | 46 | 29 | 58 | 4.8 |
 | 57 | MORSEL HORIZON | **regular** | THE MORSEL | — | STANDARD 5 | 6 | 27 | 43 | 27 | 54 | 6 |
@@ -91,7 +91,7 @@ guess. *Pressure* is `wavePressure`
 | 61 | MORSEL PARADOX | **regular** | THE MORSEL | — | STANDARD 5 | 9 | 43 | 59 | 37 | 74 | 7.6 |
 | 62 | MORSEL FURY | **regular** | THE MORSEL | — | STANDARD 5 | 13 | 44 | 60 | 38 | 76 | 8.6 |
 | 63 | THE INSTAR | boss | THE MORSEL | instar | STANDARD 5 | 0 | 0 | 549 | 343 | 686 | — |
-| 64 | THE SEEDER | intro | THE SEEDER | seeder | STANDARD 5 | 4 | 14 | 23 | 14 | 28 | 7.9 |
+| 64 | THE SEEDER | intro | THE SEEDER | seeder | STANDARD 5 | 4 | 24 | 32 | 20 | 40 | 3.9 |
 | 65 | SEEDER AWAKENS | **regular** | THE SEEDER | — | STANDARD 5 | 5 | 29 | 37 | 23 | 46 | 3.9 |
 | 66 | SEEDER RAIN | **regular** | THE SEEDER | — | STANDARD 5 | 6 | 32 | 40 | 25 | 50 | 5.1 |
 | 67 | SEEDER HORIZON | **regular** | THE SEEDER | — | STANDARD 5 | 6 | 28 | 37 | 23 | 46 | 6.3 |
@@ -101,7 +101,7 @@ guess. *Pressure* is `wavePressure`
 | 71 | SEEDER PARADOX | **regular** | THE SEEDER | — | STANDARD 5 | 12 | 48 | 64 | 40 | 80 | 8.5 |
 | 72 | SEEDER FURY | **regular** | THE SEEDER | — | STANDARD 5 | 16 | 48 | 64 | 40 | 80 | 9.5 |
 | 73 | THE MIRROR | boss (special) | THE SEEDER | mirror | STANDARD 5 | 0 | 0 | 53 | 33 | 66 | — |
-| 74 | THE LANCE | intro | THE LANCE | panel | STANDARD | 6 | 12 | 15 | 9 | 18 | 5 |
+| 74 | THE LANCE | intro | THE LANCE | panel | STANDARD | 6 | 40 | 43 | 27 | 54 | 3 |
 | 75 | FIRST LANCE | **regular** | THE LANCE | — | STANDARD | 5 | 29 | 37 | 23 | 46 | 4.2 |
 | 76 | LANCE SCATTER | **regular** | THE LANCE | — | STANDARD | 6 | 29 | 38 | 24 | 48 | 5.4 |
 | 77 | LANCE WANDERER | **regular** | THE LANCE | — | STANDARD | 6 | 27 | 37 | 23 | 46 | 6.6 |
@@ -116,7 +116,7 @@ guess. *Pressure* is `wavePressure`
 | 86 | THE TWINS | **regular** | THE LANCE | — | STANDARD | 3 | 22 | 27 | 17 | 34 | 3.6 |
 | 87 | THE LAST ROCK | **regular** | THE LANCE | — | STANDARD | 5 | 24 | 38 | 24 | 48 | 3.4 |
 | 88 | THE MAZE | boss (special) | THE LANCE | maze | STANDARD 5 | 0 | 0 | 92 | 58 | 116 | — |
-| 89 | THE GLUTTON | intro | THE GLUTTON | glutton | STANDARD | 3 | 12 | 19 | 12 | 24 | 5.7 |
+| 89 | THE GLUTTON | intro | THE GLUTTON | glutton | STANDARD | 3 | 18 | 25 | 16 | 32 | 4.2 |
 | 90 | LITTLE GLUTTON | **regular** | THE GLUTTON | — | STANDARD | 6 | 31 | 34 | 21 | 42 | 4.2 |
 | 91 | GLUTTON BLOOM | **regular** | THE GLUTTON | — | STANDARD | 6 | 28 | 31 | 19 | 38 | 5.4 |
 | 92 | GLUTTON PILGRIM | **regular** | THE GLUTTON | — | STANDARD | 6 | 29 | 32 | 20 | 40 | 6.6 |
@@ -126,7 +126,7 @@ guess. *Pressure* is `wavePressure`
 | 96 | GLUTTON ILLUSION | **regular** | THE GLUTTON | — | STANDARD | 11 | 46 | 49 | 31 | 62 | 8.1 |
 | 97 | GLUTTON STORM | **regular** | THE GLUTTON | — | STANDARD | 14 | 48 | 56 | 35 | 70 | 9.1 |
 | 98 | THE GEODE | boss | THE GLUTTON | geode | STANDARD | 0 | 0 | 52 | 33 | 66 | — |
-| 99 | THE CROSSING | intro | THE CROSSING | rockCross | STANDARD | 8 | 34 | 41 | 26 | 52 | 9 |
+| 99 | THE CROSSING | intro | THE CROSSING | rockCross | STANDARD | 8 | 56 | 63 | 39 | 78 | 3.6 |
 | 100 | CROSSING DAWN | **regular** | THE CROSSING | — | STANDARD | 6 | 31 | 38 | 24 | 48 | 3.6 |
 | 101 | CROSSING SEEDS | **regular** | THE CROSSING | — | STANDARD | 6 | 31 | 38 | 24 | 48 | 4.6 |
 | 102 | OUTER CROSSING | **regular** | THE CROSSING | — | STANDARD | 6 | 27 | 41 | 26 | 52 | 5.6 |
@@ -136,7 +136,7 @@ guess. *Pressure* is `wavePressure`
 | 106 | TWISTED CROSSING | **regular** | THE CROSSING | — | STANDARD | 11 | 45 | 48 | 30 | 60 | 7.5 |
 | 107 | CROSSING APOCALYPSE | **regular** | THE CROSSING | — | STANDARD | 16 | 48 | 51 | 32 | 64 | 8.5 |
 | 108 | THE GAUGE | boss (special) | THE CROSSING | gauge, panel | THE GAUGE | 0 | 0 | 62 | 39 | 78 | — |
-| 109 | THE BEATBOX | intro | THE BEATBOX | beatbox | STANDARD | 5 | 42 | 47 | 29 | 58 | 5.7 |
+| 109 | THE BEATBOX | intro | THE BEATBOX | beatbox | STANDARD | 5 | 48 | 53 | 33 | 66 | 3.6 |
 | 110 | HELLO BEATBOX | **regular** | THE BEATBOX | — | STANDARD | 5 | 27 | 33 | 21 | 42 | 4.2 |
 | 111 | BEATBOX DRIFT | **regular** | THE BEATBOX | — | STANDARD | 6 | 27 | 31 | 19 | 38 | 5.4 |
 | 112 | BEATBOX AT WORLD END | **regular** | THE BEATBOX | — | STANDARD | 6 | 29 | 43 | 27 | 54 | 7 |
@@ -146,7 +146,7 @@ guess. *Pressure* is `wavePressure`
 | 116 | BEATBOX SPELL | **regular** | THE BEATBOX | — | STANDARD | 11 | 43 | 47 | 29 | 58 | 8.5 |
 | 117 | BEATBOX RAPTURE | **regular** | THE BEATBOX | — | STANDARD | 16 | 48 | 55 | 34 | 68 | 9.5 |
 | 118 | THE WARDEN | boss | THE BEATBOX | warden, tether | STANDARD 5 | 0 | 0 | 39 | 24 | 48 | — |
-| 119 | THE LIMPET | intro | THE LIMPET | limpet | STANDARD | 6 | 50 | 64 | 40 | 80 | 8.2 |
+| 119 | THE LIMPET | intro | THE LIMPET | limpet | STANDARD | 6 | 54 | 68 | 43 | 86 | 6.6 |
 | 120 | LITTLE LIMPET | **regular** | THE LIMPET | — | STANDARD | 5 | 28 | 32 | 20 | 40 | 6.8 |
 | 121 | LIMPET BLOOM | **regular** | THE LIMPET | — | STANDARD | 6 | 28 | 32 | 20 | 40 | 8 |
 | 122 | LIMPET PILGRIM | **regular** | THE LIMPET | — | STANDARD | 6 | 27 | 30 | 19 | 38 | 9 |
@@ -156,7 +156,7 @@ guess. *Pressure* is `wavePressure`
 | 126 | LIMPET ILLUSION | **regular** | THE LIMPET | — | STANDARD | 11 | 46 | 50 | 31 | 62 | 11.8 |
 | 127 | LIMPET STORM | **regular** | THE LIMPET | — | STANDARD | 16 | 48 | 55 | 34 | 68 | 12.8 |
 | 128 | THE FLEET | boss (special) | THE LIMPET | fleet, panel | THE FLEET | 0 | 0 | 14 | 9 | 18 | — |
-| 129 | THE WEIGHT | intro | THE WEIGHT | weight | STANDARD | 5 | 32 | 34 | 21 | 42 | 7.2 |
+| 129 | THE WEIGHT | intro | THE WEIGHT | weight | STANDARD | 5 | 42 | 44 | 28 | 56 | 3.9 |
 | 130 | WEIGHT DAWN | **regular** | THE WEIGHT | — | STANDARD | 5 | 28 | 30 | 19 | 38 | 4.5 |
 | 131 | WEIGHT SEEDS | **regular** | THE WEIGHT | — | STANDARD | 6 | 28 | 30 | 19 | 38 | 5.7 |
 | 132 | OUTER WEIGHT | **regular** | THE WEIGHT | — | STANDARD | 6 | 30 | 33 | 21 | 42 | 7 |
@@ -166,7 +166,7 @@ guess. *Pressure* is `wavePressure`
 | 136 | TWISTED WEIGHT | **regular** | THE WEIGHT | — | STANDARD | 12 | 48 | 52 | 33 | 66 | 8.6 |
 | 137 | WEIGHT APOCALYPSE | **regular** | THE WEIGHT | — | STANDARD | 16 | 48 | 52 | 33 | 66 | 9.6 |
 | 138 | THE VANE | boss | THE WEIGHT | vane | STANDARD 5 | 2 | 3 | 51 | 32 | 64 | — |
-| 139 | HEAVY ROCKS | intro | HEAVY ROCKS | meteorMedium, meteorFast, meteorFaster, meteorFastest | STANDARD | 5 | 8 | 14 | 9 | 18 | 14.4 |
+| 139 | HEAVY ROCKS | intro | HEAVY ROCKS | meteorMedium, meteorFast, meteorFaster, meteorFastest | STANDARD | 5 | 32 | 36 | 23 | 46 | 4.4 |
 | 140 | HEAVY ROCK RISING | **regular** | HEAVY ROCKS | — | STANDARD | 6 | 31 | 39 | 24 | 48 | 4.7 |
 | 141 | HEAVY ROCK CONFETTI | **regular** | HEAVY ROCKS | — | STANDARD | 6 | 29 | 37 | 23 | 46 | 5.7 |
 | 142 | LONG HEAVY ROCK ROAD | **regular** | HEAVY ROCKS | — | STANDARD | 6 | 26 | 40 | 25 | 50 | 6.7 |
@@ -176,7 +176,7 @@ guess. *Pressure* is `wavePressure`
 | 146 | HEAVY ROCK RIDDLE | **regular** | HEAVY ROCKS | — | STANDARD | 11 | 44 | 46 | 29 | 58 | 8.2 |
 | 147 | HEAVY ROCK OVERDRIVE | **regular** | HEAVY ROCKS | — | STANDARD | 14 | 48 | 56 | 35 | 70 | 9.2 |
 | 148 | SNAKE | boss (special) | HEAVY ROCKS | snake, panel | SNAKE | 0 | 0 | 124 | 78 | 156 | — |
-| 149 | THE LEECH | intro | THE LEECH | leech | STANDARD | 7 | 48 | 51 | 32 | 64 | 11.4 |
+| 149 | THE LEECH | intro | THE LEECH | leech | STANDARD | 7 | 60 | 63 | 39 | 78 | 7 |
 | 150 | NEW LEECH MOON | **regular** | THE LEECH | — | STANDARD | 5 | 28 | 36 | 23 | 46 | 7.5 |
 | 151 | LEECH SPRINKLE | **regular** | THE LEECH | — | STANDARD | 6 | 31 | 39 | 24 | 48 | 8.8 |
 | 152 | FAR LEECH | **regular** | THE LEECH | — | STANDARD | 6 | 27 | 29 | 18 | 36 | 10.1 |
@@ -216,7 +216,7 @@ guess. *Pressure* is `wavePressure`
 | 186 | SHELL TRICK | **regular** | THE SHELL | — | STANDARD | 11 | 46 | 50 | 31 | 62 | 10.2 |
 | 187 | SHELL ECLIPSE | **regular** | THE SHELL | — | STANDARD | 16 | 48 | 58 | 36 | 72 | 11.2 |
 | 188 | THE STARE | boss | THE SHELL | stare | STANDARD | 0 | 0 | 245 | 153 | 306 | — |
-| 189 | THE CHOKE | intro | THE CHOKE | steerFault | STANDARD | 10 | 48 | 57 | 36 | 72 | 10.6 |
+| 189 | THE CHOKE | intro | THE CHOKE | steerFault | STANDARD | 10 | 76 | 81 | 51 | 102 | 5.6 |
 | 190 | CHOKE DAWN | **regular** | THE CHOKE | — | STANDARD | 5 | 29 | 33 | 21 | 42 | 6 |
 | 191 | CHOKE SEEDS | **regular** | THE CHOKE | — | STANDARD | 6 | 31 | 34 | 21 | 42 | 7.1 |
 | 192 | OUTER CHOKE | **regular** | THE CHOKE | — | STANDARD | 4 | 24 | 28 | 18 | 36 | 8.1 |
@@ -236,7 +236,7 @@ guess. *Pressure* is `wavePressure`
 | 206 | RIND MIRAGE | **regular** | THE RIND | — | STANDARD | 12 | 48 | 52 | 33 | 66 | 9.4 |
 | 207 | RIND THUNDER | **regular** | THE RIND | — | STANDARD | 16 | 48 | 52 | 33 | 66 | 10.4 |
 | 208 | THE BATON | boss | THE RIND | baton | STANDARD | 0 | 0 | 283 | 177 | 354 | — |
-| 209 | THE VEER | intro | THE VEER | veer | STANDARD | 4 | 38 | 52 | 33 | 66 | 6.6 |
+| 209 | THE VEER | intro | THE VEER | veer | STANDARD | 4 | 42 | 56 | 35 | 70 | 3.6 |
 | 210 | VEER AWAKENS | **regular** | THE VEER | — | STANDARD | 6 | 32 | 46 | 29 | 58 | 6.3 |
 | 211 | VEER RAIN | **regular** | THE VEER | — | STANDARD | 6 | 30 | 39 | 24 | 48 | 7.3 |
 | 212 | VEER HORIZON | **regular** | THE VEER | — | STANDARD | 6 | 29 | 32 | 20 | 40 | 8.4 |
@@ -278,7 +278,7 @@ guess. *Pressure* is `wavePressure`
 | 248 | FENCE TRICK | **regular** | THE FENCE | — | STANDARD | 11 | 44 | 53 | 33 | 66 | 10.2 |
 | 249 | FENCE ECLIPSE | **regular** | THE FENCE | — | STANDARD | 14 | 45 | 52 | 33 | 66 | 11.2 |
 | 250 | THE CURTAIN | boss | THE FENCE | curtain | STANDARD | 0 | 0 | 38 | 24 | 48 | — |
-| 251 | THE MAGNET | intro | THE MAGNET | magnet | STANDARD | 5 | 46 | 49 | 31 | 62 | 8.1 |
+| 251 | THE MAGNET | intro | THE MAGNET | magnet | STANDARD | 5 | 52 | 55 | 34 | 68 | 4.5 |
 | 252 | MAGNET RISING | **regular** | THE MAGNET | — | STANDARD | 5 | 27 | 30 | 19 | 38 | 7.2 |
 | 253 | MAGNET CONFETTI | **regular** | THE MAGNET | — | STANDARD | 6 | 27 | 30 | 19 | 38 | 8 |
 | 254 | LONG MAGNET ROAD | **regular** | THE MAGNET | — | STANDARD | 6 | 27 | 31 | 19 | 38 | 9 |
@@ -298,7 +298,7 @@ guess. *Pressure* is `wavePressure`
 | 268 | CHOIR MIRAGE | **regular** | THE CHOIR | — | STANDARD | 11 | 46 | 50 | 31 | 62 | 10.8 |
 | 269 | CHOIR THUNDER | **regular** | THE CHOIR | — | STANDARD | 15 | 45 | 48 | 30 | 60 | 11.8 |
 | 270 | THE SINEW | boss | THE CHOIR | sinew | STANDARD | 0 | 0 | 44 | 28 | 56 | — |
-| 271 | THE DARK | intro | THE DARK | darkFault | STANDARD | 10 | 36 | 39 | 24 | 48 | 9.4 |
+| 271 | THE DARK | intro | THE DARK | darkFault | STANDARD | 10 | 72 | 75 | 47 | 94 | 6 |
 | 272 | DARK MORNING | **regular** | THE DARK | — | STANDARD | 5 | 30 | 34 | 21 | 42 | 8.7 |
 | 273 | SPRING OF DARK | **regular** | THE DARK | — | STANDARD | 6 | 32 | 35 | 22 | 44 | 9.7 |
 | 274 | DARK VOYAGE | **regular** | THE DARK | — | STANDARD | 6 | 27 | 41 | 26 | 52 | 10.7 |
@@ -308,7 +308,7 @@ guess. *Pressure* is `wavePressure`
 | 278 | CROOKED DARK | **regular** | THE DARK | — | STANDARD | 11 | 44 | 48 | 30 | 60 | 12.6 |
 | 279 | DARK INFERNO | **regular** | THE DARK | — | STANDARD | 14 | 46 | 49 | 31 | 62 | 13.7 |
 | 280 | THE LEDGER | boss | THE DARK | ledger | STANDARD | 8 | 82 | 32 | 20 | 40 | — |
-| 281 | THE BALLOON | intro | THE BALLOON | balloon | STANDARD | 6 | 36 | 64 | 40 | 80 | 8.1 |
+| 281 | THE BALLOON | intro | THE BALLOON | balloon | STANDARD | 6 | 44 | 72 | 45 | 90 | 4.5 |
 | 282 | FIRST BALLOON | **regular** | THE BALLOON | — | STANDARD | 6 | 31 | 59 | 37 | 74 | 7.8 |
 | 283 | BALLOON SCATTER | **regular** | THE BALLOON | — | STANDARD | 6 | 31 | 51 | 32 | 64 | 8.7 |
 | 284 | BALLOON WANDERER | **regular** | THE BALLOON | — | STANDARD | 6 | 27 | 41 | 26 | 52 | 9.6 |
@@ -328,7 +328,7 @@ guess. *Pressure* is `wavePressure`
 | 298 | MOULT MIRAGE | **regular** | THE MOULT | — | STANDARD | 11 | 44 | 117 | 73 | 146 | 10.5 |
 | 299 | MOULT THUNDER | **regular** | THE MOULT | — | STANDARD | 16 | 46 | 72 | 45 | 90 | 11.7 |
 | 300 | THE LEAD | boss | THE MOULT | lead | STANDARD | 8 | 84 | 40 | 25 | 50 | — |
-| 301 | THE COIL | intro | THE COIL | coil, shieldFault | STANDARD | 6 | 46 | 48 | 30 | 60 | 9.9 |
+| 301 | THE COIL | intro | THE COIL | coil, shieldFault | STANDARD | 6 | 61 | 63 | 39 | 78 | 6.5 |
 | 302 | FIRST COIL | **regular** | THE COIL | — | STANDARD | 6 | 31 | 33 | 21 | 42 | 8.4 |
 | 303 | COIL SCATTER | **regular** | THE COIL | — | STANDARD | 6 | 30 | 77 | 48 | 96 | 9 |
 | 304 | COIL WANDERER | **regular** | THE COIL | — | STANDARD | 6 | 27 | 77 | 48 | 96 | 9.3 |
@@ -348,7 +348,7 @@ guess. *Pressure* is `wavePressure`
 | 318 | CODEX MIRAGE | **regular** | THE CODEX | — | STANDARD | 12 | 46 | 107 | 67 | 134 | 13.7 |
 | 319 | CODEX THUNDER | **regular** | THE CODEX | — | STANDARD | 20 | 48 | 97 | 61 | 122 | 14.7 |
 | 320 | THE ANTIPHON | boss | THE CODEX | antiphon | STANDARD | 0 | 0 | 56 | 35 | 70 | — |
-| 321 | THE LURE | intro | THE LURE | lure | STANDARD | 6 | 16 | 29 | 18 | 36 | 10.5 |
+| 321 | THE LURE | intro | THE LURE | lure | STANDARD | 6 | 20 | 31 | 19 | 38 | 7 |
 | 322 | LURE RISING | **regular** | THE LURE | — | STANDARD | 5 | 28 | 42 | 26 | 52 | 7 |
 | 323 | LURE CONFETTI | **regular** | THE LURE | — | STANDARD | 6 | 28 | 32 | 20 | 40 | 8 |
 | 324 | LONG LURE ROAD | **regular** | THE LURE | — | STANDARD | 6 | 26 | 32 | 20 | 40 | 9 |
@@ -358,7 +358,7 @@ guess. *Pressure* is `wavePressure`
 | 328 | LURE RIDDLE | **regular** | THE LURE | — | STANDARD | 11 | 46 | 60 | 38 | 76 | 10.7 |
 | 329 | LURE OVERDRIVE | **regular** | THE LURE | — | STANDARD | 17 | 47 | 53 | 33 | 66 | 11.7 |
 | 330 | THE HIVE | boss | THE LURE | hive | STANDARD | 0 | 0 | 74 | 46 | 92 | — |
-| 331 | THE JAM | intro | THE JAM | cannonFault | STANDARD | 8 | 50 | 62 | 39 | 78 | 13.3 |
+| 331 | THE JAM | intro | THE JAM | cannonFault | STANDARD | 8 | 70 | 76 | 48 | 96 | 6.8 |
 | 332 | JAM DAWN | **regular** | THE JAM | — | STANDARD | 5 | 31 | 37 | 23 | 46 | 9.8 |
 | 333 | JAM SEEDS | **regular** | THE JAM | — | STANDARD | 6 | 30 | 33 | 21 | 42 | 10.9 |
 | 334 | OUTER JAM | **regular** | THE JAM | — | STANDARD | 6 | 26 | 33 | 21 | 42 | 11.9 |
@@ -388,7 +388,7 @@ guess. *Pressure* is `wavePressure`
 | 358 | DART TRICK | **regular** | THE DART | — | STANDARD | 12 | 47 | 50 | 31 | 62 | 10.5 |
 | 359 | DART ECLIPSE | **regular** | THE DART | — | STANDARD | 15 | 48 | 51 | 32 | 64 | 11.3 |
 | 360 | THE REPRISE | boss | THE DART | reprise | STANDARD | 7 | 21 | 41 | 26 | 52 | — |
-| 361 | THE ECHO | intro | THE ECHO | echo | STANDARD | 6 | 24 | 27 | 17 | 34 | 10.9 |
+| 361 | THE ECHO | intro | THE ECHO | echo | STANDARD | 6 | 44 | 47 | 29 | 58 | 4 |
 | 362 | NEW ECHO MOON | **regular** | THE ECHO | — | STANDARD | 5 | 29 | 32 | 20 | 40 | 7.3 |
 | 363 | ECHO SPRINKLE | **regular** | THE ECHO | — | STANDARD | 6 | 32 | 36 | 23 | 46 | 8.1 |
 | 364 | FAR ECHO | **regular** | THE ECHO | — | STANDARD | 6 | 28 | 31 | 19 | 38 | 9 |
@@ -408,7 +408,7 @@ guess. *Pressure* is `wavePressure`
 | 378 | GYRE SPELL | **regular** | THE GYRE | — | STANDARD | 13 | 47 | 50 | 31 | 62 | 11.6 |
 | 379 | GYRE RAPTURE | **regular** | THE GYRE | — | STANDARD | 18 | 46 | 50 | 31 | 62 | 12.6 |
 | 380 | THE FILAMENT | boss | THE GYRE | filament, panel | THE SCENE | 0 | 0 | 82 | 51 | 102 | — |
-| 381 | THE HANDOVER | intro | THE HANDOVER | handoverFault | STANDARD | 7 | 24 | 27 | 17 | 34 | 11 |
+| 381 | THE HANDOVER | intro | THE HANDOVER | handoverFault | STANDARD | 7 | 28 | 31 | 19 | 38 | 9.4 |
 | 382 | THE LEAK | intro | THE HANDOVER | — | STANDARD 5 | 16 | 35 | 38 | 24 | 48 | 10.4 |
 | 383 | LITTLE HANDOVER | **regular** | THE HANDOVER | — | STANDARD | 5 | 30 | 33 | 21 | 42 | 9.8 |
 | 384 | HANDOVER BLOOM | **regular** | THE HANDOVER | — | STANDARD | 6 | 30 | 37 | 23 | 46 | 10.8 |
@@ -459,7 +459,7 @@ guess. *Pressure* is `wavePressure`
 | 429 | VOLLEY SPELL | **regular** | THE VOLLEY | — | STANDARD | 12 | 46 | 70 | 44 | 88 | 12 |
 | 430 | VOLLEY RAPTURE | **regular** | THE VOLLEY | — | STANDARD | 18 | 48 | 74 | 46 | 92 | 13 |
 | 431 | THE NETTLE | boss | THE VOLLEY | nettle | STANDARD 5 | 0 | 0 | 106 | 66 | 132 | — |
-| 432 | THE FLIP | intro | THE FLIP | flipFault | STANDARD | 10 | 40 | 43 | 27 | 54 | 10.8 |
+| 432 | THE FLIP | intro | THE FLIP | flipFault | STANDARD | 10 | 42 | 45 | 28 | 56 | 9.6 |
 | 433 | LITTLE FLIP | **regular** | THE FLIP | — | STANDARD | 5 | 29 | 51 | 32 | 64 | 9.8 |
 | 434 | FLIP BLOOM | **regular** | THE FLIP | — | STANDARD | 6 | 30 | 46 | 29 | 58 | 11 |
 | 435 | FLIP PILGRIM | **regular** | THE FLIP | — | STANDARD | 6 | 28 | 47 | 29 | 58 | 12.2 |
@@ -479,7 +479,7 @@ guess. *Pressure* is `wavePressure`
 | 449 | TWISTED CRAWLER | **regular** | THE CRAWLER | — | STANDARD | 12 | 44 | 62 | 39 | 78 | 12 |
 | 450 | CRAWLER APOCALYPSE | **regular** | THE CRAWLER | — | STANDARD | 18 | 48 | 74 | 46 | 92 | 13 |
 | 451 | THE KEEL | boss | THE CRAWLER | keel | STANDARD | 0 | 0 | 28 | 18 | 36 | — |
-| 452 | THE MINE | intro | THE MINE | mine | STANDARD | 6 | 30 | 33 | 21 | 42 | 12.5 |
+| 452 | THE MINE | intro | THE MINE | mine | STANDARD | 6 | 33 | 36 | 23 | 46 | 9.2 |
 | 453 | LITTLE MINE | **regular** | THE MINE | — | STANDARD | 5 | 27 | 44 | 28 | 56 | 9.4 |
 | 454 | MINE BLOOM | **regular** | THE MINE | — | STANDARD | 6 | 30 | 32 | 20 | 40 | 9.9 |
 | 455 | MINE PILGRIM | **regular** | THE MINE | — | STANDARD | 6 | 28 | 38 | 24 | 48 | 10.5 |
@@ -529,7 +529,7 @@ guess. *Pressure* is `wavePressure`
 | 499 | CAROM RIDDLE | **regular** | THE CAROM | — | STANDARD | 12 | 45 | 56 | 35 | 70 | 12 |
 | 500 | CAROM OVERDRIVE | **regular** | THE CAROM | — | STANDARD | 20 | 46 | 50 | 31 | 62 | 12.9 |
 | 501 | THE PLUMB | boss | THE CAROM | plumb | STANDARD | 0 | 0 | 42 | 26 | 52 | — |
-| 502 | HELLO CAROM | **regular** | HELLO CAROM | — | STANDARD | 5 | 31 | 39 | 24 | 48 | 10.2 |
+| 502 | HELLO CAROM | **regular** | HELLO CAROM | — | STANDARD | 5 | 32 | 40 | 25 | 50 | 6 |
 | 503 | CAROM DRIFT | **regular** | HELLO CAROM | — | STANDARD | 6 | 26 | 30 | 19 | 38 | 10.5 |
 | 504 | CAROM AT WORLD END | **regular** | HELLO CAROM | — | STANDARD | 6 | 29 | 34 | 21 | 42 | 10.8 |
 | 505 | CAROM ALLIANCE | **regular** | HELLO CAROM | — | STANDARD | 10 | 36 | 46 | 29 | 58 | 11.7 |
@@ -538,7 +538,7 @@ guess. *Pressure* is `wavePressure`
 | 508 | CAROM SPELL | **regular** | HELLO CAROM | — | STANDARD | 14 | 48 | 56 | 35 | 70 | 12 |
 | 509 | CAROM RAPTURE | **regular** | HELLO CAROM | — | STANDARD | 16 | 44 | 54 | 34 | 68 | 13 |
 | 510 | THE SLING | boss | HELLO CAROM | sling | STANDARD | 0 | 0 | 40 | 25 | 50 | — |
-| 511 | GHOST DAWN | **regular** | GHOST DAWN | — | STANDARD | 5 | 28 | 31 | 19 | 38 | 10.5 |
+| 511 | GHOST DAWN | **regular** | GHOST DAWN | — | STANDARD | 5 | 32 | 35 | 22 | 44 | 5.4 |
 | 512 | GHOST SEEDS | **regular** | GHOST DAWN | — | STANDARD | 6 | 32 | 35 | 22 | 44 | 11.1 |
 | 513 | OUTER GHOST | **regular** | GHOST DAWN | — | STANDARD | 6 | 27 | 41 | 26 | 52 | 12 |
 | 514 | GHOST MEETS WISP | **regular** | GHOST DAWN | — | STANDARD | 11 | 39 | 43 | 27 | 54 | 12.3 |
@@ -547,7 +547,7 @@ guess. *Pressure* is `wavePressure`
 | 517 | TWISTED GHOST | **regular** | GHOST DAWN | — | STANDARD | 14 | 47 | 51 | 32 | 64 | 12 |
 | 518 | GHOST APOCALYPSE | **regular** | GHOST DAWN | — | STANDARD | 16 | 45 | 49 | 31 | 62 | 13 |
 | 519 | THE CAPSTAN | boss | GHOST DAWN | capstan | STANDARD | 0 | 0 | 21 | 13 | 26 | — |
-| 520 | WISP AWAKENS | **regular** | WISP AWAKENS | — | STANDARD | 5 | 31 | 34 | 21 | 42 | 10.2 |
+| 520 | WISP AWAKENS | **regular** | WISP AWAKENS | — | STANDARD | 5 | 32 | 35 | 22 | 44 | 5.1 |
 | 521 | WISP RAIN | **regular** | WISP AWAKENS | — | STANDARD | 6 | 32 | 35 | 22 | 44 | 10.5 |
 | 522 | WISP HORIZON | **regular** | WISP AWAKENS | — | STANDARD | 6 | 27 | 30 | 19 | 38 | 11.1 |
 | 523 | WISP DUET | **regular** | WISP AWAKENS | — | STANDARD | 11 | 36 | 40 | 25 | 50 | 12 |
@@ -556,7 +556,7 @@ guess. *Pressure* is `wavePressure`
 | 526 | WISP PARADOX | **regular** | WISP AWAKENS | — | STANDARD | 14 | 47 | 51 | 32 | 64 | 12 |
 | 527 | WISP FURY | **regular** | WISP AWAKENS | — | STANDARD | 19 | 46 | 50 | 31 | 62 | 13 |
 | 528 | THE GALL | boss | WISP AWAKENS | gall | STANDARD | 0 | 0 | 23 | 14 | 28 | — |
-| 529 | NEW VEIL MOON | **regular** | NEW VEIL MOON | — | STANDARD | 5 | 29 | 31 | 19 | 38 | 10.2 |
+| 529 | NEW VEIL MOON | **regular** | NEW VEIL MOON | — | STANDARD | 5 | 32 | 34 | 21 | 42 | 5.1 |
 | 530 | VEIL SPRINKLE | **regular** | NEW VEIL MOON | — | STANDARD | 6 | 28 | 31 | 19 | 38 | 10.5 |
 | 531 | FAR VEIL | **regular** | NEW VEIL MOON | — | STANDARD | 6 | 26 | 29 | 18 | 36 | 11.1 |
 | 532 | VEIL AND MINE | **regular** | NEW VEIL MOON | — | STANDARD | 12 | 40 | 43 | 27 | 54 | 11.8 |
@@ -565,7 +565,7 @@ guess. *Pressure* is `wavePressure`
 | 535 | VEIL TRICK | **regular** | NEW VEIL MOON | — | STANDARD | 14 | 47 | 51 | 32 | 64 | 12 |
 | 536 | VEIL ECLIPSE | **regular** | NEW VEIL MOON | — | STANDARD | 18 | 45 | 49 | 31 | 62 | 13 |
 | 537 | THE TRAPEZE | boss | NEW VEIL MOON | trapeze | STANDARD | 0 | 0 | 53 | 33 | 66 | — |
-| 538 | MINE AWAKENS | **regular** | MINE AWAKENS | — | STANDARD | 5 | 29 | 38 | 24 | 48 | 10.2 |
+| 538 | MINE AWAKENS | **regular** | MINE AWAKENS | — | STANDARD | 5 | 32 | 40 | 25 | 50 | 5.7 |
 | 539 | MINE RAIN | **regular** | MINE AWAKENS | — | STANDARD | 6 | 29 | 37 | 23 | 46 | 11.1 |
 | 540 | MINE HORIZON | **regular** | MINE AWAKENS | — | STANDARD | 6 | 28 | 39 | 24 | 48 | 12 |
 | 541 | MINE DUET | **regular** | MINE AWAKENS | — | STANDARD | 12 | 40 | 49 | 31 | 62 | 12.7 |
@@ -574,7 +574,7 @@ guess. *Pressure* is `wavePressure`
 | 544 | MINE PARADOX | **regular** | MINE AWAKENS | — | STANDARD | 14 | 48 | 52 | 33 | 66 | 12 |
 | 545 | MINE FURY | **regular** | MINE AWAKENS | — | STANDARD | 16 | 44 | 59 | 37 | 74 | 12.9 |
 | 546 | THE FLUE | boss | MINE AWAKENS | flue, panel | SHOTS | 0 | 0 | 70 | 44 | 88 | — |
-| 547 | FIRST CRAWLER | **regular** | FIRST CRAWLER | — | STANDARD | 5 | 30 | 60 | 38 | 76 | 10.5 |
+| 547 | FIRST CRAWLER | **regular** | FIRST CRAWLER | — | STANDARD | 5 | 32 | 62 | 39 | 78 | 5.7 |
 | 548 | CRAWLER SCATTER | **regular** | FIRST CRAWLER | — | STANDARD | 6 | 31 | 54 | 34 | 68 | 11.1 |
 | 549 | CRAWLER WANDERER | **regular** | FIRST CRAWLER | — | STANDARD | 6 | 28 | 53 | 33 | 66 | 11.4 |
 | 550 | CRAWLER TANGO | **regular** | FIRST CRAWLER | — | STANDARD | 10 | 37 | 67 | 42 | 84 | 11.8 |
@@ -583,7 +583,7 @@ guess. *Pressure* is `wavePressure`
 | 553 | CRAWLER MIRAGE | **regular** | FIRST CRAWLER | — | STANDARD | 14 | 48 | 73 | 46 | 92 | 12.1 |
 | 554 | CRAWLER THUNDER | **regular** | FIRST CRAWLER | — | STANDARD | 18 | 47 | 73 | 46 | 92 | 13.3 |
 | 555 | THE GOVERNOR | boss | FIRST CRAWLER | governor | STANDARD | 0 | 0 | 22 | 14 | 28 | — |
-| 556 | VOLLEY MORNING | **regular** | VOLLEY MORNING | — | STANDARD | 5 | 30 | 52 | 33 | 66 | 10.2 |
+| 556 | VOLLEY MORNING | **regular** | VOLLEY MORNING | — | STANDARD | 5 | 32 | 54 | 34 | 68 | 6 |
 | 557 | SPRING OF VOLLEY | **regular** | VOLLEY MORNING | — | STANDARD | 6 | 30 | 47 | 29 | 58 | 10.5 |
 | 558 | VOLLEY VOYAGE | **regular** | VOLLEY MORNING | — | STANDARD | 6 | 29 | 47 | 29 | 58 | 11.1 |
 | 559 | VOLLEY WALTZ | **regular** | VOLLEY MORNING | — | STANDARD | 12 | 36 | 58 | 36 | 72 | 11.8 |
@@ -592,7 +592,7 @@ guess. *Pressure* is `wavePressure`
 | 562 | CROOKED VOLLEY | **regular** | VOLLEY MORNING | — | STANDARD | 14 | 48 | 68 | 43 | 86 | 12 |
 | 563 | VOLLEY INFERNO | **regular** | VOLLEY MORNING | — | STANDARD | 19 | 46 | 64 | 40 | 80 | 12.9 |
 | 564 | THE LAMPREY | boss | VOLLEY MORNING | lamprey | STANDARD | 0 | 0 | 130 | 81 | 162 | — |
-| 565 | NEW CRYSTAL MOON | **regular** | NEW CRYSTAL MOON | — | STANDARD | 5 | 28 | 34 | 21 | 42 | 10.5 |
+| 565 | NEW CRYSTAL MOON | **regular** | NEW CRYSTAL MOON | — | STANDARD | 5 | 32 | 38 | 24 | 48 | 5.4 |
 | 566 | CRYSTAL SPRINKLE | **regular** | NEW CRYSTAL MOON | — | STANDARD | 6 | 28 | 30 | 19 | 38 | 10.8 |
 | 567 | FAR CRYSTAL | **regular** | NEW CRYSTAL MOON | — | STANDARD | 6 | 26 | 30 | 19 | 38 | 11.4 |
 | 568 | CRYSTAL AND RECOIL | **regular** | NEW CRYSTAL MOON | — | STANDARD | 12 | 38 | 42 | 26 | 52 | 11.9 |
@@ -601,7 +601,7 @@ guess. *Pressure* is `wavePressure`
 | 571 | CRYSTAL TRICK | **regular** | NEW CRYSTAL MOON | — | STANDARD | 14 | 47 | 51 | 32 | 64 | 12 |
 | 572 | CRYSTAL ECLIPSE | **regular** | NEW CRYSTAL MOON | — | STANDARD | 16 | 44 | 48 | 30 | 60 | 13 |
 | 573 | THE MIMIC | boss | NEW CRYSTAL MOON | mimic | THE SCENE | 0 | 0 | 75 | 47 | 94 | — |
-| 574 | FIRST RECOIL | **regular** | FIRST RECOIL | — | STANDARD | 5 | 29 | 32 | 20 | 40 | 10.2 |
+| 574 | FIRST RECOIL | **regular** | FIRST RECOIL | — | STANDARD | 5 | 32 | 35 | 22 | 44 | 5.7 |
 | 575 | RECOIL SCATTER | **regular** | FIRST RECOIL | — | STANDARD | 6 | 31 | 34 | 21 | 42 | 10.5 |
 | 576 | RECOIL WANDERER | **regular** | FIRST RECOIL | — | STANDARD | 6 | 29 | 45 | 28 | 56 | 11.1 |
 | 577 | RECOIL TANGO | **regular** | FIRST RECOIL | — | STANDARD | 10 | 38 | 41 | 26 | 52 | 12.1 |
@@ -610,7 +610,7 @@ guess. *Pressure* is `wavePressure`
 | 580 | RECOIL MIRAGE | **regular** | FIRST RECOIL | — | STANDARD | 14 | 48 | 52 | 33 | 66 | 12 |
 | 581 | RECOIL THUNDER | **regular** | FIRST RECOIL | — | STANDARD | 18 | 46 | 50 | 31 | 62 | 13 |
 | 582 | THE LATCH | boss | FIRST RECOIL | latch | THE SCENE | 0 | 0 | 23 | 14 | 28 | — |
-| 583 | LID AWAKENS | **regular** | LID AWAKENS | — | STANDARD | 5 | 29 | 37 | 23 | 46 | 10.2 |
+| 583 | LID AWAKENS | **regular** | LID AWAKENS | — | STANDARD | 5 | 32 | 40 | 25 | 50 | 5.4 |
 | 584 | LID RAIN | **regular** | LID AWAKENS | — | STANDARD | 6 | 27 | 53 | 33 | 66 | 10.5 |
 | 585 | LID HORIZON | **regular** | LID AWAKENS | — | STANDARD | 6 | 26 | 30 | 19 | 38 | 11.1 |
 | 586 | LID DUET | **regular** | LID AWAKENS | — | STANDARD | 12 | 38 | 42 | 26 | 52 | 12 |
@@ -619,7 +619,7 @@ guess. *Pressure* is `wavePressure`
 | 589 | LID PARADOX | **regular** | LID AWAKENS | — | STANDARD | 14 | 48 | 53 | 33 | 66 | 12 |
 | 590 | LID FURY | **regular** | LID AWAKENS | — | STANDARD | 19 | 48 | 97 | 61 | 122 | 13 |
 | 591 | THE CHRYSALIS | boss | LID AWAKENS | chrysalis | STANDARD 5 | 0 | 0 | 74 | 46 | 92 | — |
-| 592 | GYRE DAWN | **regular** | GYRE DAWN | — | STANDARD | 5 | 31 | 34 | 21 | 42 | 10.2 |
+| 592 | GYRE DAWN | **regular** | GYRE DAWN | — | STANDARD | 5 | 32 | 35 | 22 | 44 | 5.4 |
 | 593 | GYRE SEEDS | **regular** | GYRE DAWN | — | STANDARD | 6 | 30 | 44 | 28 | 56 | 11.1 |
 | 594 | OUTER GYRE | **regular** | GYRE DAWN | — | STANDARD | 6 | 28 | 32 | 20 | 40 | 12 |
 | 595 | GYRE MEETS ECHO | **regular** | GYRE DAWN | — | STANDARD | 10 | 35 | 42 | 26 | 52 | 12.3 |
@@ -637,7 +637,7 @@ time × 2 — the owner's accepted guess, never measured.
 
 | # | Boss | Type | AUTO clears in | AUTO seconds | A pair, about | Against the band |
 |---|---|---|---|---|---|---|
-| 9 | THE BROOD | normal | 26 beats | 16 | 32 s | short |
+| 9 | THE BROOD | normal | 44 beats | 28 | 56 s | short |
 | 29 | THE BASTION | normal | 82 beats | 51 | 102 s | in band |
 | 34 | BULB QUEEN | normal | 75 beats | 47 | 94 s | in band |
 | 38 | FINALE | normal | 67 beats | 42 | 84 s | in band |

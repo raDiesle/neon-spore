@@ -20,7 +20,7 @@ export const WAVES_ACT_23: Wave[] = [
       { beat: 14, col: 2, kind: "magnet", color: "cyan" },
       { beat: 28, col: 7, kind: "magnet", color: "red" },
       { beat: 44, col: 0, kind: "magnet", color: "cyan" },
-      { beat: 46, col: 10, kind: "magnet", color: "red" },
+      { beat: 52, col: 10, kind: "magnet", color: "red" },
     ],
   },
   {

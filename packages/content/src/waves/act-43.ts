@@ -19,9 +19,9 @@ export const WAVES_ACT_43: Wave[] = [
       { beat: 0, col: 5, kind: "mine", color: "cyan", row: 6, sees: 2 },
       { beat: 12, col: 2, kind: "mine", color: "red", row: 9, sees: 1 },
       { beat: 24, col: 8, kind: "mine", color: "red", row: 3, sees: 2 },
-      { beat: 26, col: 3, kind: "mine", color: "cyan", row: 11, sees: 1 },
-      { beat: 28, col: 7, color: "cyan" },
-      { beat: 30, col: 0, color: "red" },
+      { beat: 27, col: 3, kind: "mine", color: "cyan", row: 11, sees: 1 },
+      { beat: 30, col: 7, color: "cyan" },
+      { beat: 33, col: 0, color: "red" },
     ],
   },
   {

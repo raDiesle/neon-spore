@@ -98,7 +98,10 @@ function entriesAfter(role: "p1" | "p2"): number {
 // Three more again the same day: the first wave is under GIANT, whose ring
 // now throws a shadow, whose lit limb has a rim, and which has a moon
 // (`sky-giant.ts`) — one bake each.
-const HELD = { p1: 52, p2: 61 } as const;
+// One fewer on each seat from 17 October 2026, when FIRST STEP's arrivals were
+// spread eight beats apart (`soften-intro.ts`): one slick is on the field when
+// the run ends, not two, so one glance record.
+const HELD = { p1: 51, p2: 60 } as const;
 
 describe("what the renderer keeps between frames", () => {
   for (const role of ["p1", "p2"] as const) {

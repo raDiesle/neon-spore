@@ -18,14 +18,14 @@ export const WAVES_ACT_10: Wave[] = [
     entries: [
       { beat: 0, col: 3, kind: "meteor", color: null },
       { beat: 16, col: 2, kind: "meteor", color: null },
-      { beat: 22, col: 8, kind: "meteor", color: null },
-      { beat: 30, col: 3, kind: "meteor", color: null },
-      { beat: 44, col: 0, kind: "meteor", color: null },
-      { beat: 50, col: 8, kind: "meteor", color: null },
+      { beat: 24, col: 8, kind: "meteor", color: null },
+      { beat: 32, col: 3, kind: "meteor", color: null },
+      { beat: 46, col: 0, kind: "meteor", color: null },
+      { beat: 54, col: 8, kind: "meteor", color: null },
     ],
     faults: [
       { kind: "limpet", at: 6, beats: 12 },
-      { kind: "limpet", at: 29, beats: 14 },
+      { kind: "limpet", at: 31, beats: 14 },
     ],
   },
   {

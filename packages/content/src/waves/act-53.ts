@@ -16,8 +16,8 @@ export const WAVES_ACT_53: Wave[] = [
       { beat: 0, col: 4, kind: "crawler", color: null, segments: 7, side: "left" },
       { beat: 8, col: 1, kind: "volley", color: "cyan" },
       { beat: 16, col: 10, kind: "countdown", color: "red" },
-      { beat: 22, col: 4, kind: "crawler", color: null, segments: 7, side: "left" },
-      { beat: 30, col: 0, kind: "volley", color: "cyan" },
+      { beat: 24, col: 4, kind: "crawler", color: null, segments: 7, side: "left" },
+      { beat: 32, col: 0, kind: "volley", color: "cyan" },
     ],
   },
   {

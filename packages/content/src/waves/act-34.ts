@@ -18,10 +18,10 @@ export const WAVES_ACT_34: Wave[] = [
     entries: [
       { beat: 0, col: 5, kind: "echo", color: "cyan" },
       { beat: 12, col: 5, kind: "echo", color: "red" },
-      { beat: 13, col: 10, color: "red" },
-      { beat: 14, col: 0, color: "cyan" },
-      { beat: 20, col: 3, kind: "echo", color: "cyan" },
-      { beat: 24, col: 7, kind: "echo", color: "red" },
+      { beat: 20, col: 10, color: "red" },
+      { beat: 28, col: 0, color: "cyan" },
+      { beat: 36, col: 3, kind: "echo", color: "cyan" },
+      { beat: 44, col: 7, kind: "echo", color: "red" },
     ],
   },
   {

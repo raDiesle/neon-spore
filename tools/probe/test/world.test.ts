@@ -39,9 +39,9 @@ describe("a probe's world", () => {
     expect(field(once)).toBe(field(twice));
   });
 
-  it("counts beats, and a body has somewhere to be by the thirteenth", () => {
+  it("counts beats, and a body has somewhere to be by the ninth", () => {
     const world = waveWorld("theCoil");
-    beats(world, 13);
+    beats(world, 9);
     expect(world.creatures.length).toBeGreaterThan(0);
     expect(field(world)).toContain("col");
   });
