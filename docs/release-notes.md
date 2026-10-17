@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-17 · 1f1873b04 — HELLO BLISTER plays after the seven control waves, so every gesture is taught before it is mixed
+
+HELLO BLISTER asks for a tap, a hold, a swipe, a turn and a rub in one wave. It played right after THE BLISTER, before any of those gestures had its own tutorial. Now it is wave 28: after LEVER FURY and just before THE BASTION, which still closes the group. The seven control waves each move up one number.
+
 ## 2026-10-17 · 02ca44a03 — Every boss closes the group whose new thing it is about
 
 Nineteen bosses moved to the group their fight fits, the owner's pick of the draft: THE GEODE after THE LANCE, THE STARE after THE COUNT, THE WARDEN after THE CHOKE, THE VISE after THE SHELL, THE PLUMB after THE WEIGHT, THE SINEW after THE BALLOON, THE LAMPREY after THE LEECH, THE CURTAIN after THE DARK, THE CHRYSALIS after THE MOULT, THE VANE after THE FLIP, THE GIMBAL after THE HANDOVER, THE OCULUS after THE LID, THE MIMIC after THE MINE, THE FLUE after THE GHOST, THE HIVE after HEAVY ROCKS, THE BATON after THE STRAND, THE UNDERTOW after THE CRAWLER and THE THROAT after THE CLAW; THE SWINDLE stays after THE HUSK, and THE SPLICE after THE ECHO, where the owner put it back this evening (THE REPRISE was drafted there, and now closes THE RECOIL). Every other boss closes the next group left free, in its old order. Each boss still stands behind its own filler of three known-thing waves, composed again for its new place.
