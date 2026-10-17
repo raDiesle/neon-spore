@@ -10,6 +10,14 @@ const TAU = Math.PI * 2;
 const TUFTS = 22;
 
 /**
+ * How much bigger than the rub's drop the cat is drawn. At the drop's own
+ * radius the drop covered it whole and only the ears showed; the owner, 17
+ * October 2026: *increase graphic size of cat for "rub"*. Its face and ears
+ * stand clear of the drop at this size.
+ */
+const PURR_SCALE = 1.6;
+
+/**
  * PURR, one of RUB's three bodies (`blister-rub.ts`): a furry mound with two pointed ears comes up out of the pore, the
  * rub's drop on its back. Its fur lies smooth, and while a thumb is on it its
  * eyes close happy and the fur ripples under the hand. One blow and it is
@@ -18,7 +26,7 @@ const TUFTS = 22;
  */
 export function drawPurrBody(b: Body, f: BlisterFrame): void {
   const { ctx } = b;
-  const r = f.r;
+  const r = f.r * PURR_SCALE;
   const x = b.x;
   const y = b.y + (1 - f.rise) * r * 1.8;
   const rubbing = blisterRubbing(b.c);

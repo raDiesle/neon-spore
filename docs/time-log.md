@@ -43999,3 +43999,16 @@ Bottleneck: `bossOrder`'s *first free block* rule — emptying one block slid
 every later boss up one, so the block had to be told to wait.
 
 *Measured: 10 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-17 — RUB's cat drawn bigger than its drop
+
+- reading: 10 min. The seven control waves, the bodies each gesture wears
+  and how one is picked by id.
+- writing: 5 min. One scale on PURR.
+- looking: 10 min. Finding a PURR on the field — forced for the frame — and
+  the before and after.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, `land`.
+
+Bottleneck: no recipe puts a chosen body of a gesture on the field, so the
+pick had to be forced by hand for the picture.
