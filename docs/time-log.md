@@ -44030,3 +44030,5 @@ pick had to be forced by hand for the picture.
 
 Bottleneck: `waves:order` was not safe to run on `main`, so the fillers got a
 pass of their own instead of riding the full reorder.
+
+*Measured: 6 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

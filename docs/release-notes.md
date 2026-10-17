@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-17 · d5099b157 — No boss folds under a wave that teaches: 44 fillers of three known-thing waves stand in front of them
+
+Past the tutorial arc, every boss whose block opens with an intro or a lesson now has a filler in front of it — three regular waves, Breathe, Recall and Bend, that reuse the last body taught on the panel the game has reached and rise from the block's gentlest into the boss. The filler's first wave heads a group of its own in the wave list and the boss folds under it, so the next group is the next new thing. Bosses behind a review block and the arc's own bosses are unchanged. 132 waves added, 735 in all.
+
 ## 2026-10-17 · ef1f028f4 — RUB's cat is drawn 1.6 times its drop, so its face and ears stand clear of it
 
 PURR, one of the three bodies a RUB blister wears, was drawn at the rub drop's own radius, and the drop covered it whole: only the tips of its ears showed. It is now drawn 1.6 times as big (`PURR_SCALE`), its eyes above the drop and its flanks either side. The owner asked for it by name (17 October 2026): increase graphic size of cat for "rub".
