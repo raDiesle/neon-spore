@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-17 · ef1f028f4 — RUB's cat is drawn 1.6 times its drop, so its face and ears stand clear of it
+
+PURR, one of the three bodies a RUB blister wears, was drawn at the rub drop's own radius, and the drop covered it whole: only the tips of its ears showed. It is now drawn 1.6 times as big (`PURR_SCALE`), its eyes above the drop and its flanks either side. The owner asked for it by name (17 October 2026): increase graphic size of cat for "rub".
+
 ## 2026-10-17 · d796feab5 — Queue: every boss closes the group it is about; the STATES section test's shard flake
 
 ## 2026-10-17 · 1997a0e33 — THE SPLICE closes SALVAGE's group, and BULB QUEEN a review group of its own after it

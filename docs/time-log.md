@@ -44012,3 +44012,5 @@ every later boss up one, so the block had to be told to wait.
 
 Bottleneck: no recipe puts a chosen body of a gesture on the field, so the
 pick had to be forced by hand for the picture.
+
+*Measured: 8 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
