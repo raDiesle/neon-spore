@@ -130,7 +130,7 @@ export function bindGrid(
     grid.style.gridTemplateColumns = gridTemplateColumns(cols);
     // What is stacked above and below the map is capped at the wave's width.
     grid
-      .closest<HTMLElement>("section.brush-col")
+      .closest<HTMLElement>("section.map-col")
       ?.style.setProperty("--map-w", `${mapWidthPx(cols)}px`);
     grid.appendChild(label("head", ""));
     for (let c = 0; c < cols; c++) {

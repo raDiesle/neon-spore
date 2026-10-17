@@ -13,7 +13,7 @@
    named by `main[data-view]` is hidden; above it none of this matches,
    so a desktop keeps all four columns exactly as it always has — this
    is a phone arrangement, not a redesign. Placed last in the sheet so
-   its specificity ties with `.stage-col`/`.brush-col` above resolve in
+   its specificity ties with `.stage-col` above resolve in
    its favour rather than by accident of selector shape.
 
    The way in is `#menuToggle` (mobile-menu.ts): tapping it turns
@@ -87,8 +87,7 @@
     overflow-x: hidden;
   }
   main > section,
-  main > section.stage-col,
-  main > section.brush-col {
+  main > section.stage-col {
     display: none;
   }
   /* WAVES is the list alone and WAVE the open wave's settings alone
@@ -265,28 +264,22 @@
     width: 100%;
     margin-top: 8px;
   }
-  main[data-view="map"] > section.brush-col[data-view="map"] {
-    display: flex;
+  main[data-view="map"] > section[data-view="map"] {
+    display: block;
   }
-  /* MAP IS ONE COLUMN ON A PHONE, NOT TWO.
+  /* MAP ON A PHONE: BRUSHES ABOVE THE MAP, ONE TRACK WIDE.
 
-     BRUSH and MAP share a section, and on a desktop its body is two
-     tracks — the palette at a fixed 250px, the grid taking the rest
-     (director-brush.css). Below the breakpoint that section is the
-     whole screen, and 250px of it is the palette: on a 375px viewport
-     the map got the ~110px left over, two columns of cells showed, and
-     the cell panel, the note and the row's trash sat off the right edge
-     behind #mapCol's own sideways scroll. Seen with playwright on 13
-     September 2026.
-
-     So one track, and a palette as wide as the screen rather than as
-     wide as a desktop column. The two stack — brushes above the map —
-     and #mapCol keeps the sideways scroll it already had, which is now
-     for the grid alone. Both rules tie on specificity with the ones
-     they replace, and this sheet is imported last
-     (stylesheet-order.test.ts). */
-  main > section.brush-col > .column-body {
-    grid-template-columns: 1fr;
+     On a desk MAP and BRUSH are two columns either side of the field
+     (17 October 2026); here the view is the whole screen and both of them
+     show, one under the other, the palette first — each half the screen
+     and scrolling on its own. That order the phone has had since 13
+     September 2026, when the palette's fixed desktop
+     width left a 375px map two columns of cells. So the palette is as
+     wide as the screen, and #mapCol keeps its own sideways scroll for the
+     grid alone. Both rules tie on specificity with the ones they replace,
+     and this sheet is imported last (stylesheet-order.test.ts). */
+  main > section.brush-col {
+    order: -1;
   }
   #brushCol {
     width: auto;

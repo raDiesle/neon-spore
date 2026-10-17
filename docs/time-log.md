@@ -43735,3 +43735,13 @@ Bottleneck: the shared machine's load — every test waits its turn.
 Bottleneck: the op-count budgets — one look on every frame touches every table, and they are pasted back by hand.
 
 *Measured: 5 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-17 — the director's columns: MAP beside WAVES, BRUSH and WAVE SETTINGS past the field
+
+- reading: 10 min. `columns.ts`, `subcols.ts`, the brush, map-sticky and phone sheets.
+- writing: 15 min. BRUSH & MAP split into two sections, the tracks, `subcols.ts` gone, five tests.
+- looking: 5 min. The director at 1800 wide and at phone size.
+- friction: 5 min. A hook refused a heredoc with doubled backslashes; written through a file.
+- landing: 5 min. `check:fast`, `land`.
+
+Bottleneck: the one shared section was named by class in four files and three sheets.

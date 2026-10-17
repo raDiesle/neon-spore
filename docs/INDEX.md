@@ -3546,7 +3546,6 @@ by hand never moves.
 | `tools/director/src/state.ts` | The edits and the questions moved out when this file went over the line limit |
 | `tools/director/src/states-page.ts` | DOCUMENTATION: the four reference rooms in one full-screen sheet, and the sheet's own wiring |
 | `tools/director/src/states-section.ts` | One STATES group: heading, note and a row of cards filled on scroll or click, named `data-group`/`data-pose` |
-| `tools/director/src/subcols.ts` | A finer-grained collapse than `columns.ts`'s whole-section one |
 | `tools/director/src/svg-dom.ts` | The smallest document a skin can be built into, outside a browser |
 | `tools/director/src/tabs.ts` | Buttons carrying `data-tab`, pages with the matching `<prefix><name>` id |
 | `tools/director/src/tails/embers.ts` | Sparks shed off the body and falling away behind it |

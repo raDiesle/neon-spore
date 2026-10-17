@@ -91,14 +91,14 @@ describe("storageKey", () => {
 const html = await Bun.file(Bun.fileURLToPath(new URL("../index.html", import.meta.url))).text();
 
 describe("which sections are marked data-column, in the real markup", () => {
-  it("marks the four top-level columns the brief names", () => {
-    for (const id of ["waves", "editor", "game", "map"]) {
+  it("marks the top-level columns the brief names", () => {
+    for (const id of ["waves", "editor", "game", "map", "brush"]) {
       expect(html).toContain(`data-column="${id}"`);
     }
   });
 
   it("every marked column also carries a title, so its collapsed strip has something to say", () => {
-    for (const id of ["waves", "editor", "game", "map"]) {
+    for (const id of ["waves", "editor", "game", "map", "brush"]) {
       const re = new RegExp(`data-column="${id}"[^>]*data-column-title="[^"]+"`);
       expect(html).toMatch(re);
     }
@@ -186,10 +186,11 @@ describe("main's open tracks", () => {
     const rule = /^main \{[^}]*?grid-template-columns:\s*([^;]+);/m.exec(css);
     expect(rule).not.toBeNull();
     const ids = [...html.matchAll(/data-column="([a-z]+)"/g)].map((m) => m[1] as string);
-    // RUN joined on 15 September 2026, between the wave's own fields and the
-    // field itself, which is where the owner asked for the strip of buttons
-    // that used to wrap under the stage.
-    expect(ids).toEqual(["waves", "editor", "run", "game", "map"]);
+    // RUN joined on 15 September 2026, on the field's left, where the owner
+    // asked for the strip of buttons that used to wrap under the stage. MAP
+    // moved beside WAVES, and BRUSH and WAVE SETTINGS past the field, on 17
+    // October 2026.
+    expect(ids).toEqual(["waves", "map", "run", "game", "brush", "editor"]);
     expect(tracks((rule as RegExpExecArray)[1] as string)).toEqual(
       ids.map((id) => OPEN_TRACKS[id] ?? "missing"),
     );

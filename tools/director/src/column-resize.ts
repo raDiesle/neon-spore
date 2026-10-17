@@ -7,7 +7,7 @@ import { relayout } from "./columns.js";
  *
  * The four tracks were tuned in CSS (`main`'s `grid-template-columns`) for one
  * window and one job; an author reading a long brief wants WAVE wide, and one
- * laying out a fourteen-beat map wants BRUSH & MAP wide, and neither of them
+ * laying out a fourteen-beat map wants MAP wide, and neither of them
  * should have to want it in a stylesheet. A drag writes a pixel width
  * (`column-width.ts`) and `relayout` in columns.ts turns the whole set of
  * widths back into tracks — this module never touches `gridTemplateColumns`

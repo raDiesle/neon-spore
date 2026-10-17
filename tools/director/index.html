@@ -115,73 +115,33 @@
         <div id="waveList"></div>
       </section>
 
-      <section id="waveEditor" data-view="wave" data-column="editor" data-column-title="WAVE SETTINGS">
-        <div id="tabs">
-          <!-- Reading through the waves in order used to be a press per wave,
-               back in the list each time. These open the row before and after
-               the one open, through the same `onSelect` a row press makes
-               (`rail.ts`); `[` and `]` are the same two without the mouse.
-
-               **Between them is where the wave is**, which the owner asked for
-               on 15 September 2026, and there used to be a button marked WAVE
-               there. It was the last tab of a bar that had four, and with one
-               tab left a tab is not a choice — pressing it could only put back
-               the page it was already on. So the place a press had nothing to
-               do is the place that now says which wave this is and how many
-               there are (`rail-steps.ts`). -->
-          <button type="button" id="wavePrev">‹</button>
-          <span id="waveNow"></span>
-          <button type="button" id="waveNext">›</button>
-        </div>
-        <!-- Ordered by when a pair meets the thing: the card that opens the
-             wave first, the wave's own fields next, and what the wave leaves
-             on the ship last. SHIP and BALANCE used to be tabs of their own;
-             SHIP is folded in at the bottom here, BALANCE now lives under the
-             field below instead.
-             TUNING was the second tab here — PAIR, PRESET and the sliders
-             together, the numbers a run is judged against rather than
-             anything saved to the wave. It left for DOCUMENTATION's own
-             TUNING tab, which is why
-             only WAVE remains and this bar no longer needs to switch
-             anything. -->
-        <div class="tabpage on" id="tab-wave">
-          <!-- BRIEFING was a heading over a sentence saying what the wave
-               opens on, and the sentence went on 16 September 2026 because it
-               said the same thing twice. The heading and its empty paragraph
-               outlived it by a day and read as a field that had failed to
-               fill, which is the worse of the two faults. NAME is the first
-               thing about a wave; it is the first thing here. -->
-          <label class="field" for="fName">NAME</label>
-          <input id="fName" />
-          <!-- The author's note: what to check, what is to do, what is unusual.
-               The game never reads it; DOCUMENTATION › WAVES shows it first
-               in its Notes column (`wave-note-field.ts`). -->
-          <label class="field" for="fNote">NOTE</label>
-          <textarea id="fNote" rows="2" placeholder="to check, to do, unusual…"></textarea>
-          <!-- SENTENCE stood here until 25 September 2026, when the owner
-               took it off every wave: the name and the number are enough.
-               GUIDE went the same day: a guide is read in the game itself,
-               with BRIEFINGS on, and written in `packages/content`. -->
-
-          <!-- Which of the two kinds this wave's boss is, under the prose and
-               over the panel: it is about the boss and the panel is not what
-               it is about. `boss-type-field.ts` fills it, and hides it whole
-               on a wave with no boss. -->
-          <div id="bossTypeField"></div>
-
-          <label class="field" for="fControlSet">Control Set</label>
-          <select id="fControlSet"></select>
-          <p class="note" id="fControlSetWhy"></p>
-          <!-- What the picked set actually puts in their hands, seat by seat,
-               with a rung's held-back buttons shown in the places they keep.
-               `control-set-note.ts` fills it; the markup is one empty div so
-               that a set with nothing to say leaves nothing behind. -->
-          <div id="fControlSetRoster"></div>
-
-          <div id="bossPanel"></div>
-
-          <h2>WHAT THIS WAVE ADDS TO THE SHIP</h2>
-          <div id="caps"></div>
+      <!-- MAP beside WAVES, the wave's own tiles next to the list it was picked
+           from, and BRUSH on the far side of the field: the owner, 17 October
+           2026. They shared one section until then, the palette beside the
+           grid; each is a column of its own now, and closes as one. -->
+      <section class="map-col" data-view="map" data-column="map" data-column-title="MAP">
+        <div id="mapCol">
+          <!-- RUN's ⏸/▶ and ↺ again, beside the map and stuck to the top of
+               the column however far down it is scrolled: an author painting
+               a wave stops it and starts it here, without crossing to RUN
+               (the owner, 11 October 2026). Bound in stage-play.ts and
+               stage-transport.ts beside the RUN copies. -->
+          <div class="map-transport">
+            <button type="button" id="playMap" class="stage-play" title="Pause or play the wave">⏸</button>
+            <button type="button" id="restartMap" title="Run this wave again">↺ WAVE</button>
+          </div>
+          <div class="map-body">
+            <!-- What the selected cell holds, and the two buttons that take it
+                 back. This is where per-entry configuration lands — a meteor's
+                 speed and size, how long a body stays armoured — so that a new
+                 number is a field here rather than another brush in a palette
+                 that is already scrolled. Above the grid rather than below it:
+                 a fourteen-beat map pushed it off the bottom of the column.
+                 See `cell-panel.ts`. -->
+            <div id="cellPanel"></div>
+            <div id="grid"></div>
+            <p class="note" id="gridNote"></p>
+          </div>
         </div>
       </section>
 
@@ -283,55 +243,88 @@
         </div>
       </section>
 
-      <section class="brush-col" data-view="map" data-column="map" data-column-title="BRUSH &amp; MAP">
-        <!-- BRUSH beside MAP, not above it. It was stacked for a while,
-             because a rail-and-grid palette was as wide as the map and
-             reaching a brush after scrolling right meant scrolling back for
-             every stroke. The palette is an accordion of content-width
-             buttons now (palette.ts), so it fits in a narrow left column and
-             the map keeps the whole rest of the track — and the selected
-             cell's own panel sits at the top of the map column, where an
-             author looking at the tile they just clicked is already looking.
-             Each of the two can still close on its own (subcols.ts). -->
-        <div id="brushCol" data-subcol="brush-panel">
-          <button type="button" class="subcol-toggle" data-subcol-toggle>BRUSH</button>
-          <div class="subcol-body">
-            <button type="button" id="brushHintToggle">SHOW DESCRIPTIONS</button>
-            <!-- One accordion, not a rail beside a grid: each category's
-                 brushes sit directly under its own button in this same
-                 column, every category open by default, each folding on its
-                 own click. See palette.ts and brush-category.ts. -->
-            <div id="brushes" class="hide-hints"></div>
-            <!-- ERASE is a tool action rather than a creature, so it is not a
-                 category and not in one: static markup at the foot of the
-                 palette, bound once by palette.ts. -->
-            <button type="button" id="brushErase">🗑 ERASE</button>
-          </div>
+      <section class="brush-col" data-view="map" data-column="brush" data-column-title="BRUSH">
+        <div id="brushCol">
+          <button type="button" id="brushHintToggle">SHOW DESCRIPTIONS</button>
+          <!-- One accordion, not a rail beside a grid: each category's
+               brushes sit directly under its own button in this same
+               column, every category open by default, each folding on its
+               own click. See palette.ts and brush-category.ts. -->
+          <div id="brushes" class="hide-hints"></div>
+          <!-- ERASE is a tool action rather than a creature, so it is not a
+               category and not in one: static markup at the foot of the
+               palette, bound once by palette.ts. -->
+          <button type="button" id="brushErase">🗑 ERASE</button>
         </div>
-        <div id="mapCol" data-subcol="map-panel">
-          <button type="button" class="subcol-toggle" data-subcol-toggle>MAP</button>
-          <!-- RUN's ⏸/▶ and ↺ again, beside the map and stuck to the top of
-               the column however far down it is scrolled: an author painting
-               a wave stops it and starts it here, without crossing to RUN
-               (the owner, 11 October 2026). Outside .subcol-body, so it stays
-               when MAP is folded; bound in stage-play.ts and
-               stage-transport.ts beside the RUN copies. -->
-          <div class="map-transport">
-            <button type="button" id="playMap" class="stage-play" title="Pause or play the wave">⏸</button>
-            <button type="button" id="restartMap" title="Run this wave again">↺ WAVE</button>
-          </div>
-          <div class="subcol-body">
-            <!-- What the selected cell holds, and the two buttons that take it
-                 back. This is where per-entry configuration lands — a meteor's
-                 speed and size, how long a body stays armoured — so that a new
-                 number is a field here rather than another brush in a palette
-                 that is already scrolled. Above the grid rather than below it:
-                 a fourteen-beat map pushed it off the bottom of the column.
-                 See `cell-panel.ts`. -->
-            <div id="cellPanel"></div>
-            <div id="grid"></div>
-            <p class="note" id="gridNote"></p>
-          </div>
+      </section>
+
+      <section id="waveEditor" data-view="wave" data-column="editor" data-column-title="WAVE SETTINGS">
+        <div id="tabs">
+          <!-- Reading through the waves in order used to be a press per wave,
+               back in the list each time. These open the row before and after
+               the one open, through the same `onSelect` a row press makes
+               (`rail.ts`); `[` and `]` are the same two without the mouse.
+
+               **Between them is where the wave is**, which the owner asked for
+               on 15 September 2026, and there used to be a button marked WAVE
+               there. It was the last tab of a bar that had four, and with one
+               tab left a tab is not a choice — pressing it could only put back
+               the page it was already on. So the place a press had nothing to
+               do is the place that now says which wave this is and how many
+               there are (`rail-steps.ts`). -->
+          <button type="button" id="wavePrev">‹</button>
+          <span id="waveNow"></span>
+          <button type="button" id="waveNext">›</button>
+        </div>
+        <!-- Ordered by when a pair meets the thing: the card that opens the
+             wave first, the wave's own fields next, and what the wave leaves
+             on the ship last. SHIP and BALANCE used to be tabs of their own;
+             SHIP is folded in at the bottom here, BALANCE now lives under the
+             field below instead.
+             TUNING was the second tab here — PAIR, PRESET and the sliders
+             together, the numbers a run is judged against rather than
+             anything saved to the wave. It left for DOCUMENTATION's own
+             TUNING tab, which is why
+             only WAVE remains and this bar no longer needs to switch
+             anything. -->
+        <div class="tabpage on" id="tab-wave">
+          <!-- BRIEFING was a heading over a sentence saying what the wave
+               opens on, and the sentence went on 16 September 2026 because it
+               said the same thing twice. The heading and its empty paragraph
+               outlived it by a day and read as a field that had failed to
+               fill, which is the worse of the two faults. NAME is the first
+               thing about a wave; it is the first thing here. -->
+          <label class="field" for="fName">NAME</label>
+          <input id="fName" />
+          <!-- The author's note: what to check, what is to do, what is unusual.
+               The game never reads it; DOCUMENTATION › WAVES shows it first
+               in its Notes column (`wave-note-field.ts`). -->
+          <label class="field" for="fNote">NOTE</label>
+          <textarea id="fNote" rows="2" placeholder="to check, to do, unusual…"></textarea>
+          <!-- SENTENCE stood here until 25 September 2026, when the owner
+               took it off every wave: the name and the number are enough.
+               GUIDE went the same day: a guide is read in the game itself,
+               with BRIEFINGS on, and written in `packages/content`. -->
+
+          <!-- Which of the two kinds this wave's boss is, under the prose and
+               over the panel: it is about the boss and the panel is not what
+               it is about. `boss-type-field.ts` fills it, and hides it whole
+               on a wave with no boss. -->
+          <div id="bossTypeField"></div>
+
+          <label class="field" for="fControlSet">Control Set</label>
+          <select id="fControlSet"></select>
+          <p class="note" id="fControlSetWhy"></p>
+          <!-- What the picked set actually puts in their hands, seat by seat,
+               with a rung's held-back buttons shown in the places they keep.
+               `control-set-note.ts` fills it; the markup is one empty div so
+               that a set with nothing to say leaves nothing behind. -->
+          <div id="fControlSetRoster"></div>
+
+          <div id="bossPanel"></div>
+
+          <h2>WHAT THIS WAVE ADDS TO THE SHIP</h2>
+          <div id="caps"></div>
         </div>
       </section>
     </main>

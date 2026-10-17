@@ -3,22 +3,19 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
 /**
- * MAP on a phone is one column, and the rules that make it one are in the
+ * MAP on a phone is one track, and the rules that make it one are in the
  * phone block.
  *
- * BRUSH and MAP share a section whose body is two tracks on a desktop — the
- * palette at a fixed 250px, the grid taking the rest (`director-brush.css`).
- * Below the breakpoint that section *is* the screen, and until 14 September
- * 2026 it kept both tracks: on a 375px viewport the map got the ~110px left
- * over, two columns of cells showed, and the cell panel, the note and the
- * row's trash sat off the right edge behind `#mapCol`'s own sideways scroll.
+ * On a desk MAP and BRUSH are two columns either side of the field (17 October
+ * 2026). Below the breakpoint the MAP view is the whole screen and both show,
+ * the palette above the grid, as it has been since 14 September 2026 — when a
+ * palette kept at its desktop 250px left a 375px map about 110px, two columns
+ * of cells.
  *
- * Two rules undo it and both have to be inside `@media (max-width: 700px)`,
- * where a desktop never reads them — one track for the body, and a palette
- * sized by the screen instead of by a desktop column. Read out of the sheet
- * rather than out of a browser because that is what went wrong: each rule ties
- * on specificity with the one it replaces, so the whole of it rests on which
- * sheet comes last, which is `stylesheet-order.test.ts`'s subject next door.
+ * The rules have to be inside `@media (max-width: 700px)`, where a desktop
+ * never reads them. Read out of the sheet rather than out of a browser because
+ * each ties on specificity with the one it replaces, so the whole of it rests on
+ * which sheet comes last, which is `stylesheet-order.test.ts`'s subject next door.
  */
 
 const SRC = join(dirname(fileURLToPath(import.meta.url)), "..", "src");
@@ -39,22 +36,20 @@ function ruleFor(css: string, selector: string): string {
 }
 
 describe("the director's MAP view on a phone", () => {
-  it("gives BRUSH and MAP one track, so the grid is not squeezed into what is left", async () => {
-    const rule = ruleFor(await phoneBlock(), "main > section.brush-col > .column-body");
-    expect(rule, "no one-track rule for the BRUSH/MAP body in the phone block").toMatch(
-      /grid-template-columns:\s*1fr\s*;/,
+  it("shows both of the view's sections, the palette first", async () => {
+    const phone = await phoneBlock();
+    expect(ruleFor(phone, 'main[data-view="map"] > section[data-view="map"]')).toMatch(
+      /display:\s*block\s*;/,
     );
+    expect(ruleFor(phone, "main > section.brush-col")).toMatch(/order:\s*-1\s*;/);
   });
 
   it("lets the palette be as wide as the screen rather than a desktop column", async () => {
     expect(ruleFor(await phoneBlock(), "#brushCol")).toMatch(/width:\s*auto\s*;/);
   });
 
-  it("leaves the desktop's own two tracks and fixed palette alone", async () => {
+  it("leaves the desktop's fixed palette alone", async () => {
     const brush = await Bun.file(join(SRC, "director-brush.css")).text();
-    expect(ruleFor(brush, "main > section.brush-col > .column-body")).toMatch(
-      /grid-template-columns:\s*max-content\s+minmax\(var\(--map-w\),\s*1fr\)\s*;/,
-    );
     expect(ruleFor(brush, "#brushCol")).toMatch(/width:\s*250px\s*;/);
   });
 });

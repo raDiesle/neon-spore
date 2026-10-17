@@ -179,18 +179,11 @@ label.field {
    grows the picture — it only pads the section with the black margin
    either side of it, which is exactly the unused strip this used to
    leave when the column was the flexible `1fr` track. `minmax(320px,
-   460px)` gives it room without a share of the leftover, and the two
-   columns either side of it are `fr` tracks that take what the game
-   column no longer does — WAVE, which is a form and reads better wide,
-   and BRUSH & MAP, which is two, since the buttons under BRUSH can wrap
-   into more than the one narrow list a fixed track had room for.
-
-   Neither of those two needs the old content-driven cap any more: the
-   cap on #brushCol (below) existed because a `max-content` track grows
-   to fit whatever its widest unwrapped line is — a hint sentence with
-   nowhere to break — and an `fr` track is sized from the available
-   space instead, so the same text wraps inside whatever width the row
-   gives it rather than dictating one. */
+   460px)` gives it room without a share of the leftover, and the `fr`
+   tracks take what the game column no longer does — MAP, which a long
+   wave widens, and WAVE, which is a form and reads better wide. BRUSH is
+   a fixed 270px since it left MAP's column (17 October 2026): its
+   palette is a fixed 250px either way.
 
 /*
  * Identifiers keep a typewriter — a file path in a sentence is not prose, and

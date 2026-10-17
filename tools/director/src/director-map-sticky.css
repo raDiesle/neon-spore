@@ -5,7 +5,7 @@
  * measured by `map-sticky.ts`, because the cell's panel is as tall as the
  * fields of whatever is selected.
  *
- * Desktop only, for #brushCol's reason: below 700px one section is the whole
+ * Desktop only: below 700px one section is the whole
  * screen and #mapCol keeps its own sideways scroll (director-phone.css).
  */
 @media (min-width: 701px) {
@@ -15,7 +15,7 @@
      the map's track is never narrower than `--map-w`, the grid's own width
      (`director-brush.css`), so a wide wave widens the column and the column
      scrolls. */
-  #mapCol > .subcol-body {
+  #mapCol > .map-body {
     overflow-x: visible;
   }
   /* The gap under it is padding rather than margin, so the rows scrolling

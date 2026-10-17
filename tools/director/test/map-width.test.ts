@@ -1,6 +1,7 @@
 import { describe, expect, test } from "bun:test";
 import { join } from "node:path";
 import { WAVE_COLS } from "@neon-spore/content";
+import { OPEN_TRACKS } from "../src/columns.js";
 import {
   BEAT_LABEL_PX,
   CELL_PX,
@@ -43,9 +44,11 @@ describe("the map's width", () => {
     expect(text).toContain("max-width: var(--map-w)");
   });
 
-  test("is what the map column's own track is sized from", async () => {
+  test("fits inside the map column's own track, with its padding and a scrollbar", async () => {
     const text = await Bun.file(join(SRC, "director-brush.css")).text();
     expect(text).toContain("max-width: var(--map-w)");
-    expect(text).toContain("minmax(var(--map-w), 1fr)");
+    const least = /^minmax\((\d+)px,/.exec(OPEN_TRACKS.map ?? "");
+    expect(least).not.toBeNull();
+    expect(Number((least as RegExpExecArray)[1])).toBeGreaterThanOrEqual(mapWidthPx() + 20 + 10);
   });
 });

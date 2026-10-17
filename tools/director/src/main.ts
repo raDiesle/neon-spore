@@ -40,7 +40,6 @@ import {
   type Store,
 } from "./state.js";
 import { bindStates } from "./states-page.js";
-import { initSubcols } from "./subcols.js";
 import { bindContents, bindExpanders, bindTabs } from "./tabs.js";
 import { makeWaveDraft } from "./waves-draft.js";
 import { bindWaveIo } from "./waves-io.js";
@@ -59,11 +58,9 @@ const cfg: SimConfig = { ...DEFAULT_CONFIG, briefings: onPhone() };
 
 // Every column of `<main>` gets a collapse handle (`columns.ts`) and a drag
 // grip on its right edge (`column-resize.ts`, after initColumns, which decides
-// how wide a section measures); BRUSH and MAP inside the map column get their
-// own finer collapse (`subcols.ts`); a phone gets `mobile-menu.ts` instead.
+// how wide a section measures); a phone gets `mobile-menu.ts` instead.
 initColumns();
 initColumnResize();
-initSubcols();
 initMobileMenu();
 
 bindShipped();
@@ -112,7 +109,7 @@ const palette = bindPalette({
   canJump: (brush) => jumpWaveIndex(store.waves, brush) !== undefined,
   onJump: jumpToBrushWave,
 });
-// Any press in BRUSH & MAP holds the field still, so a wave is never edited
+// Any press in MAP or BRUSH holds the field still, so a wave is never edited
 // under a run that goes on without the author (`map-pause.ts`).
 bindMapPause(stage);
 // The top of MAP stays put while its rows scroll by (`map-sticky.ts`).

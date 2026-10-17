@@ -14,7 +14,7 @@
  * the whole palette from scratch on every brush pick and every wave switch,
  * so a closure-local variable would survive those and not a reload, and
  * "which category was folded" is exactly the small per-author preference this
- * repo already keeps in localStorage (`columns.ts`, `subcols.ts`).
+ * repo already keeps in localStorage (`columns.ts`).
  */
 
 const STORE_KEY = "director-brush-categories-closed";

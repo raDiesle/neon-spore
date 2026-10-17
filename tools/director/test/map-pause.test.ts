@@ -11,7 +11,7 @@ function fakeDoc() {
       capture = c;
     },
   };
-  const doc = { querySelector: () => section } as unknown as Document;
+  const doc = { querySelectorAll: () => [section] } as unknown as Document;
   const press = (inTransport: boolean) =>
     heard?.({
       target: { closest: (sel: string) => (inTransport && sel === ".map-transport" ? {} : null) },

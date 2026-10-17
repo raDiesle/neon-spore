@@ -6,9 +6,9 @@
 
 main {
   display: grid;
-  grid-template-columns: 270px minmax(220px, 1.1fr) min-content minmax(320px, 460px) minmax(
-      740px,
-      1.6fr
+  grid-template-columns: 270px minmax(470px, 1.6fr) min-content minmax(320px, 460px) 270px minmax(
+      220px,
+      1.1fr
     );
   min-height: 0;
   overflow-x: auto;
@@ -149,9 +149,3 @@ section.collapsed .column-toggle::before {
 section.collapsed .column-body {
   display: none;
 }
-
-/* The section itself now only stacks .column-head above .column-body
-   (columns.ts) — the head/body split below is subcols.ts's, one level
-   further in: BRUSH stacks above MAP rather than sitting beside it, so
-   reaching a brush on a wide map never means scrolling back across the
-   row (see the comment beside #brushCol/#mapCol in the markup). */

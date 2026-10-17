@@ -1,37 +1,15 @@
 /**
- * BRUSH: the two-subcolumn frame it shares with MAP, the category accordion,
- * the brush buttons and their own pictures, the hint mode, and the ctrl-held
- * jump to the wave a brush first appears in.
+ * BRUSH: its column, the category accordion, the brush buttons and their own
+ * pictures, the hint mode, and the ctrl-held jump to the wave a brush first
+ * appears in — and the frame of MAP's column, which it shared until the owner
+ * put the two either side of the field (17 October 2026).
  */
 
-main > section.brush-col {
-  display: flex;
-  flex-direction: column;
-}
-/* Two columns, not a stack: BRUSH on the left at whatever width its own
-   buttons need, MAP taking the rest — with the selected cell's panel at
-   the top of that second column, above the grid. `minmax(0, 1fr)` on the
-   map track rather than `auto`, so a wide grid scrolls inside its own
-   column instead of pushing the palette off the left edge. */
-main > section.brush-col > .column-body {
-  display: grid;
-  grid-template-columns: max-content minmax(var(--map-w), 1fr);
-  gap: 12px;
-  align-items: start;
-}
-/* #brushCol used to be capped for the reason #gridNote still is below —
-   a `max-content` grid track grows to fit an unwrapped hint line — but
-   `main`'s BRUSH & MAP track is an `fr` track now (see the comment
-   beside `main` above), sized from the space available rather than
-   from its content, so nothing here can pull it wide any more. Left
-   uncapped, the extra room goes to the option list wrapping into more
-   than one column instead of a single stack nobody asked to be narrow. */
 /* Narrow and *fixed*, not content-width: as narrow as a picture and a
-   name allow — which is what makes room for the map beside it — and
-   three brushes to a row at this width. It was `max-content` for one
-   revision, and folding a category then narrowed the whole palette and
-   slid the map sideways under the pointer. A column that wants more can
-   be dragged wider (column-resize.ts). */
+   name allow, and three brushes to a row at this width. It was
+   `max-content` for one revision, and folding a category then narrowed the
+   whole palette. A column that wants more can be dragged wider
+   (column-resize.ts). */
 #brushCol {
   width: 250px;
   min-width: 0;
@@ -43,7 +21,7 @@ main > section.brush-col > .column-body {
 /* The sideways scroll is the body's, not #mapCol's: a box that scrolls
    either way is the box a sticky child sticks inside, and #mapCol is as
    tall as the map, so `.map-transport` would have scrolled away with it. */
-#mapCol > .subcol-body {
+#mapCol > .map-body {
   overflow-x: auto;
 }
 /* ⏸ and ↺ over the map, stuck to the top of the scrolling column. */
@@ -71,65 +49,6 @@ main > section.brush-col > .column-body {
   max-width: var(--map-w);
 }
 
-/* BRUSH STAYS PUT WHILE THE MAP SCROLLS.
-
-   The two sit in one scrolling column, so a wave long enough to scroll took
-   the palette off the top of the screen with it and every stroke in the
-   lower half of a map cost a scroll up for the brush and a scroll back. The
-   palette sticks to the top of the column instead and the map goes by beside
-   it. `align-items: start` on the row above is what leaves it the room to
-   stick in; the cap is the window less the header, so a palette taller than
-   the screen scrolls inside itself rather than off the bottom of it.
-
-   Desktop only: below 700px the column is the whole screen and one section
-   shows at a time (director-phone.css), so there is nothing to stay beside. */
-@media (min-width: 701px) {
-  #brushCol {
-    position: sticky;
-    top: 0;
-    align-self: start;
-    max-height: calc(100vh - 58px);
-    overflow-y: auto;
-    z-index: 1;
-  }
-}
-/* subcols.ts: BRUSH and MAP each close on their own, independent of the
-   whole-column collapse above. Same visual language as .column-toggle
-   (▾/▸, cyan label) but horizontal rather than the vertical strip a
-   collapsed top-level column becomes — there is no grid track to give
-   back here, just vertical space in a stack. */
-.subcol-toggle {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  cursor: pointer;
-  width: 100%;
-  text-align: left;
-  padding: 2px 0;
-  margin: 0 0 8px;
-  border: none;
-  background: none;
-  color: var(--ink);
-  font: 700 var(--h3-size) / 1.3 var(--prose);
-  letter-spacing: 0.04em;
-}
-.subcol-toggle:hover {
-  color: var(--ink);
-}
-.subcol-toggle::before {
-  content: "▾";
-  color: var(--dim);
-  font-size: 0.875rem;
-}
-[data-subcol].collapsed .subcol-toggle::before {
-  content: "▸";
-}
-[data-subcol].collapsed .subcol-toggle {
-  margin-bottom: 0;
-}
-[data-subcol].collapsed .subcol-body {
-  display: none;
-}
 /* CANNON, SHIELD… as an accordion: the category is a header button and
    its own brushes sit directly beneath it in the same column, so two
    categories can be read at once. It was a rail of tabs beside a wide
