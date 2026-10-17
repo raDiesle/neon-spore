@@ -1,3 +1,4 @@
+import { faded } from "./pod-fade.js";
 import { countSwell, drawShine, drawStar, type PodDraw } from "./pod-pickup.js";
 import { blinkAt, type Seed, seedAt, tipOf } from "./pod-seed.js";
 import { drawSeed } from "./pod-seed-draw.js";
@@ -45,12 +46,12 @@ function twinkles(ctx: CanvasRenderingContext2D, s: Seed, t: number) {
 
 /** Nothing inside: black where the light was, and a crack lit from the rim. */
 function hollow(ctx: CanvasRenderingContext2D, s: Seed, k: number) {
-  ctx.globalAlpha = 0.92 * k;
+  ctx.globalAlpha = faded(0.92 * k);
   ctx.fillStyle = "#000000";
   ctx.beginPath();
   ctx.arc(s.x, s.y, s.R * 0.84, 0, Math.PI * 2);
   ctx.fill();
-  ctx.globalAlpha = k;
+  ctx.globalAlpha = faded(k);
   ctx.strokeStyle = FAKE_PAINT.flashRim;
   ctx.lineWidth = Math.max(1, s.R * 0.09);
   ctx.lineJoin = "round";

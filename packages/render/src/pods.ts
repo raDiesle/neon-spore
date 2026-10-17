@@ -8,7 +8,7 @@ import { PALETTE } from "./palette.js";
 import { drawGripped, drawPodDress, drawSwingThreads } from "./pod-dress.js";
 import { drawDueRing } from "./pod-due-ring.js";
 import { drawBlinkForm } from "./pod-form-blink.js";
-import { podFormFor } from "./pod-forms.js";
+import { drawPodForm, podFormFor } from "./pod-forms.js";
 import { POD_LOOK } from "./pod-look.js";
 import type { PodDraw } from "./pod-pickup.js";
 import { drawDriftArrows, showsPodClock } from "./pod-seat-marks.js";
@@ -104,7 +104,13 @@ export function drawGrippedPods(
   for (const p of pods) {
     if (p.gripTicks === undefined) continue;
     const { x, y, r } = podCenter(l, p);
-    drawGripped(ctx, l, x, y, r, time, p.gripTicks / ticksPerBeat, time, drawPodBody);
+    const beats = p.gripTicks / ticksPerBeat;
+    // The form it wore hanging, so a pod does not change shape the moment the
+    // maw takes it — and on a husk the fake the field showed on this seat.
+    const fake = p.kind === "husk" && showsHuskMark(l, p);
+    drawGripped(ctx, l, x, y, r, time, beats, time, (g, bx, by, br, bt) =>
+      drawPodForm(g, p.id, bx, by, br, bt, beats, fake),
+    );
   }
 }
 

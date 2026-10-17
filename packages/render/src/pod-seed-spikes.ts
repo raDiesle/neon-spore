@@ -1,3 +1,4 @@
+import { faded } from "./pod-fade.js";
 import { type Seed, tipOf, type V } from "./pod-seed.js";
 import type { SeedPaint } from "./pod-seed-paint.js";
 
@@ -55,7 +56,7 @@ export function drawSpikes(
   const out = kind === "stud" ? 1 : kind === "cap" ? 0.75 : 1.35;
   const mine = s.studs.filter((d) => d.z < 0 === back).map((d) => spikeOf(s, d, out));
   const hot = flash > 0.5 ? paint.flashTip : paint.tip;
-  ctx.globalAlpha = back ? 0.4 : 0.95;
+  ctx.globalAlpha = faded(back ? 0.4 : 0.95);
   if (kind === "stud" || kind === "cap") {
     ctx.strokeStyle = paint.spike;
     ctx.lineWidth = s.R * (kind === "cap" ? 0.14 : 0.2);

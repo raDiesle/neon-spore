@@ -1,4 +1,5 @@
 import { halo } from "./glow.js";
+import { faded } from "./pod-fade.js";
 import type { Seed } from "./pod-seed.js";
 import { REAL_PAINT, type SeedPaint } from "./pod-seed-paint.js";
 import { drawSkin, ringOn, type SkinKind } from "./pod-seed-skins.js";
@@ -51,14 +52,14 @@ export function drawFront(ctx: CanvasRenderingContext2D, s: Seed, light: SeedLig
   g.addColorStop(0, f > 0.5 ? paint.flashHi : paint.hi);
   g.addColorStop(0.45, f > 0.5 ? paint.flashMid : f > 0 ? paint.hi : paint.mid);
   g.addColorStop(1, f > 0 ? paint.mid : paint.lo);
-  ctx.globalAlpha = 1;
+  ctx.globalAlpha = faded(1);
   ctx.fillStyle = g;
   ctx.beginPath();
   ctx.arc(x, y, R, 0, Math.PI * 2);
   ctx.fill();
   ctx.strokeStyle = f > 0 ? paint.flashRim : paint.rim;
   ctx.lineWidth = Math.max(1.5, s.r * 0.1);
-  ctx.globalAlpha = 0.85;
+  ctx.globalAlpha = faded(0.85);
   ctx.stroke();
 
   drawSkin(ctx, s, light.skin ?? "smooth", paint);

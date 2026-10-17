@@ -1,3 +1,4 @@
+import { faded } from "./pod-fade.js";
 import { countSwell, drawShine, type PodDraw } from "./pod-pickup.js";
 import { blinkAt, type Seed, seedAt } from "./pod-seed.js";
 import { drawSeed } from "./pod-seed-draw.js";
@@ -31,7 +32,7 @@ function eye(ctx: CanvasRenderingContext2D, s: Seed, open: number) {
   const w = s.R * 0.85;
   const h = s.R * 0.55 * open;
   ctx.save();
-  ctx.globalAlpha = 1;
+  ctx.globalAlpha = faded(1);
   ctx.beginPath();
   ctx.moveTo(s.x - w, s.y);
   ctx.quadraticCurveTo(s.x, s.y - h * 2, s.x + w, s.y);

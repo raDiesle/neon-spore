@@ -328,22 +328,6 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/skipped.test.ts` holds the listing's count of the entries
 `next` stepped past and why.
 
-## The gripped pod and THE PULSE's pod still wear the old lobed body
-
-- **Found:** 2026-10-17, claude/pod-real-smart-variants-ef232e
-- **Taken:** 2026-10-17, claude/the-brood-feedback-b6be33 (claim: claude/queue-the-gripped-pod-and-the-pulses-pod-still-wear-th)
-- **Files:** `packages/render/src/pods.ts`, `packages/render/src/pod-dress.ts`, `packages/render/src/pod-forms.ts`
-
-The moored pod became BLINK on 17 October 2026 (`drawMoored` → `podFormFor`, five forms since,
-the owner by name), but `drawPodBody` — the lobed amber blob with its beating
-core — is still what `drawGrippedPods` hands `drawGripped`, and what THE
-PULSE's falling lane and its button draw. So a pod changes shape the moment the
-maw takes it. Make `drawPodBody` draw the pod's form (`podFormFor`, real, at the
-radius it is given, honouring its `alpha`), check
-`pod-dress.ts`'s heavy dress still sits on the round body, and move whatever
-budget rows the grip and THE PULSE cost. A fix to something wrong, not a look:
-the owner chose the pod; this is the same pod in the mouth.
-
 ## The op-count budgets are remeasured by pasting rows by hand
 
 - **Found:** 2026-10-17, claude/siren-look-feedback-ui-3d7b6b
@@ -369,3 +353,21 @@ next event added anywhere turns `limits.test.ts` red mid-lane. Cut the
 body kills and holes, the wave and round bookkeeping — each exporting its
 member types, with `events.ts` keeping the union and its doc. No behaviour
 changes; `bunx tsc --noEmit` and `bun run check` prove it.
+
+## Five bodies still draw the old lobed pod through `drawPodBody`
+
+- **Found:** 2026-10-17, claude/the-brood-feedback-b6be33
+- **Files:** `packages/render/src/pods.ts`, `packages/render/src/scout-draw.ts`, `packages/render/src/glutton.ts`, `packages/render/src/moult.ts`, `packages/render/src/seeder.ts`, `packages/render/src/pinball-piece.ts`
+- **Asks:** Should the pods these five carry wear the pod's form too, or keep the lobed lamp as their own?
+
+The gripped pod and THE PULSE's pod now draw `drawPodForm`, so a pod
+keeps its form in the maw and down the chart. `drawPodBody`, the lobed amber
+lamp, is still drawn by five other bodies that each say they carry *a pod*:
+THE SCOUT's motes, THE GLUTTON's meals, THE MOULT's blend (and `moult-shape.ts`
+morphs to the lobed contour at `k = 1`), THE SEEDER's seed, and the pinball's
+pod target (`pinball-glance.ts` lays its far dark over the lobed contour). The options:
+(a) every one draws `drawPodForm` with an id or seed of its own, and the
+moult's and pinball's contours become the seed's sphere (`SEED_SPHERE`), as
+THE PULSE's did; (b) they keep the lamp, and `drawPodBody` is renamed for what
+it now is, a creature's part rather than the pod. Either way the budget rows of
+the waves they are in move.

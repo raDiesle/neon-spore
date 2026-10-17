@@ -70,6 +70,10 @@ export interface Seed {
   pulse: number;
 }
 
+/** The sphere's radius as a share of the pod's drawn radius — and so the
+ * contour THE PULSE sinks in the hull for its pod lane (`pulseLaneOutline`). */
+export const SEED_SPHERE = 0.74;
+
 export function seedAt(x: number, y: number, r: number, t: number, beatsLeft: number): Seed {
   const awake = Math.max(0, Math.min(1, 1 - beatsLeft / WAKES_AT));
   const roll = t * (0.8 + 2.4 * awake);
@@ -78,7 +82,7 @@ export function seedAt(x: number, y: number, r: number, t: number, beatsLeft: nu
     x,
     y: y + Math.sin(t * 1.1) * r * BOB,
     r,
-    R: r * 0.74,
+    R: r * SEED_SPHERE,
     roll,
     // On the beat, a throw of the studs that decays through it.
     reach: 1.42 + 0.22 * awake * beat * beat,

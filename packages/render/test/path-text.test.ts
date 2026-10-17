@@ -32,11 +32,10 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
 const TEXT_FORMS = /\b(openSmoothPath|blobPath|catmullRomToBezierPath)\s*\(/;
 
 /** The files allowed a text form, and why. */
-const ALLOWED: Record<string, string> = {
-  // A per-lane outline mixed from `crystalPath`, `livingPath` and `blobPath`
-  // strings and baked once into a cache: built once per lane, never per frame.
-  "pulse-shape.ts": "one string per lane, baked once",
-};
+// None since 17 October 2026, when THE PULSE's pod outline stopped being a
+// `blobPath` and became the seed's sphere (`pulse-shape.ts`). Kept, with the
+// test that it holds nothing stale, for the next file that needs one.
+const ALLOWED: Record<string, string> = {};
 
 describe("a spline reaches the canvas as numbers", () => {
   const files = readdirSync(SRC).filter((f) => f.endsWith(".ts"));

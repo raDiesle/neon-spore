@@ -1,3 +1,4 @@
+import { withPodFade } from "./pod-fade.js";
 import { drawBlinkForm } from "./pod-form-blink.js";
 import { drawGlintForm } from "./pod-form-glint.js";
 import { drawHopForm } from "./pod-form-hop.js";
@@ -29,4 +30,32 @@ export const POD_FORMS: readonly { name: string; draw: PodDraw }[] = [
 export function podFormFor(id: number): PodDraw {
   const i = (Math.imul(id + 1, 2654435761) >>> 0) % POD_FORMS.length;
   return (POD_FORMS[i] ?? POD_FORMS[1])?.draw ?? drawBlinkForm;
+}
+
+/**
+ * Pod `id`'s form at a place and a size somebody else chose, faded by
+ * `alpha` — the pod in the maw's grip (`drawGrippedPods`) and in THE PULSE's
+ * lane (`drawPulseBody`), which are the same pod the field shows and must not
+ * change shape on the way there. `fake` as `PodDraw` has it.
+ */
+export function drawPodForm(
+  ctx: CanvasRenderingContext2D,
+  id: number,
+  x: number,
+  y: number,
+  r: number,
+  t: number,
+  beatsLeft: number,
+  fake = false,
+  alpha = 1,
+): void {
+  const form = podFormFor(id);
+  if (alpha >= 1) {
+    form(ctx, x, y, r, t, beatsLeft, fake);
+    return;
+  }
+  ctx.save();
+  ctx.globalAlpha *= alpha;
+  withPodFade(alpha, () => form(ctx, x, y, r, t, beatsLeft, fake));
+  ctx.restore();
 }

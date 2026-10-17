@@ -1345,6 +1345,7 @@ by hand never moves.
 | `packages/render/src/pod-form-orbit.ts` | **ORBIT** — the seed panelled like a ball and spiked with cones |
 | `packages/render/src/pod-form-smart.ts` | **SMART** — THE SMART's seven studs on a smooth tumbling sphere |
 | `packages/render/src/pod-forms.ts` | **The five forms a pod is drawn as, one per pod** — the owner, 17 October 2026 |
+| `packages/render/src/pod-fade.ts` | **How present a pod form is drawn**, for the one caller that fades one — THE PULSE's pod lane |
 | `packages/render/src/pod-pickup.ts` | **What makes a pod read as something to collect** — the owner, 17 October 2026 |
 | `packages/render/src/creatures.ts` | silhouettes and their own-motion |
 | `packages/render/src/creature-place.ts` | where a creature is on screen, and what a finger is pointing at |

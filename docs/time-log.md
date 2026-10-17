@@ -43812,3 +43812,16 @@ Bottleneck: the stall would not come back, so the fix is to the silence —
 a stuck step now says which it was — and not to a cause nobody could see.
 
 *Measured: 10 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-17 — The pod keeps its form in the maw and down THE PULSE
+
+- reading: 10 min. `pods.ts`, `pod-dress.ts`, the five forms and the seed,
+  THE PULSE's shape, body and glance.
+- writing: 15 min. `drawPodForm`, `pod-fade.ts` through fourteen alpha sets,
+  the seed's sphere as THE PULSE's pod outline, the fade test.
+- looking: 10 min. THE ANCHOR on the grip's tick, cropped; THE PULSE twice.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, `land`.
+
+Bottleneck: the forms set their alpha outright at every layer, so a fade had
+to reach fourteen sites before THE PULSE's faint arrival could be honoured.

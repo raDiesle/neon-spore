@@ -1,3 +1,4 @@
+import { faded } from "./pod-fade.js";
 import { type Seed, turn, type V } from "./pod-seed.js";
 import type { SeedPaint } from "./pod-seed-paint.js";
 
@@ -24,7 +25,7 @@ export function ringOn(
   alpha = 1,
 ) {
   ctx.lineWidth = width;
-  ctx.globalAlpha = 0.65 * alpha;
+  ctx.globalAlpha = faded(0.65 * alpha);
   ctx.beginPath();
   let prev: V | null = null;
   for (let i = 0; i <= RIM_N; i++) {
@@ -85,7 +86,7 @@ export function drawSkin(ctx: CanvasRenderingContext2D, s: Seed, kind: SkinKind,
     // (`wave-budget.test.ts`).
     // One fill for every spot in front: the limb's foreshortening says depth.
     ctx.fillStyle = paint.seam;
-    ctx.globalAlpha = 0.5;
+    ctx.globalAlpha = faded(0.5);
     ctx.beginPath();
     for (const p0 of SPOTS) {
       const p = turn(p0, s.roll);
@@ -110,7 +111,7 @@ export function drawSkin(ctx: CanvasRenderingContext2D, s: Seed, kind: SkinKind,
     ctx.strokeStyle = paint.seam;
     ctx.lineWidth = s.R * 0.05;
     // Every near edge in one stroke: the clip at the limb says depth.
-    ctx.globalAlpha = 0.55;
+    ctx.globalAlpha = faded(0.55);
     ctx.beginPath();
     for (const [i, j] of EDGES) {
       const a = pts[i];

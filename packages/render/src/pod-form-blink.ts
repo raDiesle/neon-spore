@@ -1,3 +1,4 @@
+import { faded } from "./pod-fade.js";
 import { countSwell, drawShine, type PodDraw } from "./pod-pickup.js";
 import { blinkAt, type Seed, seedAt } from "./pod-seed.js";
 import { drawBack, drawFront, drawSeed, type SeedLight } from "./pod-seed-draw.js";
@@ -58,7 +59,7 @@ function half(ctx: CanvasRenderingContext2D, s: Seed, light: SeedLight, dy: numb
 /** The black inside and the teeth along both lips. */
 function mouth(ctx: CanvasRenderingContext2D, s: Seed, gap: number) {
   const w = s.R * 0.95;
-  ctx.globalAlpha = 1;
+  ctx.globalAlpha = faded(1);
   ctx.fillStyle = MOUTH;
   ctx.beginPath();
   ctx.ellipse(s.x, s.y - gap / 2, w, gap / 2 + s.R * 0.15, 0, 0, Math.PI * 2);

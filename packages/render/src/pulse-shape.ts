@@ -1,17 +1,11 @@
-import {
-  blobPath,
-  crystalPath,
-  livingPath,
-  livingSilhouette,
-  METEOR,
-  POD,
-} from "@neon-spore/content";
+import { crystalPath, livingPath, livingSilhouette, METEOR } from "@neon-spore/content";
 import type { PulseLane } from "@neon-spore/sim";
 import { bakedCache } from "./baked.js";
 import { drawLivingMark, type MarkTint } from "./body-mark.js";
 import { drawRockBody } from "./meteor.js";
 import { PALETTE } from "./palette.js";
-import { drawPodBody } from "./pods.js";
+import { drawPodForm } from "./pod-forms.js";
+import { SEED_SPHERE } from "./pod-seed.js";
 
 /**
  * What falls down each of THE PULSE's four lanes, and what colour it is.
@@ -21,7 +15,7 @@ import { drawPodBody } from "./pods.js";
  * a slick, a bulb, a meteor and a pod: *change the arrows to be the following
  * elements instead.* Everything here is therefore a **call** into the drawing
  * the field already uses — `drawLivingMark` for the two living bodies,
- * `drawRockBody` for the stone, `drawPodBody` for the lamp — and not one line
+ * `drawRockBody` for the stone, `drawPodForm` for the pod — and not one line
  * of it paints a shape of its own. A second spelling of a slick is a slick
  * that drifts off the one the pair meet on every other wave.
  *
@@ -70,11 +64,12 @@ function outlineFor(lane: PulseLane): string {
   if (lane === "meteor") {
     return crystalPath(0, 0, 1, 1, METEOR.sides, METEOR.depth, METEOR.wobble, 0, METEOR.seed);
   }
-  const shape = lane === "pod" ? POD : livingSilhouette(lane);
+  // The pod is the seed every form is (`pod-seed.ts`): its sphere, which is
+  // what a veiled one fills and what the far side's dark is laid over.
+  if (lane === "pod") return circlePath(SEED_SPHERE);
+  const shape = livingSilhouette(lane);
   const k = Math.max(shape.rx, shape.ry);
-  return lane === "pod"
-    ? blobPath(0, 0, POD.rx / k, POD.ry / k, POD.lobes, POD.depth, POD.wobble, 0, POD.seed)
-    : livingPath({ ...shape, rx: shape.rx / k, ry: shape.ry / k }, 0);
+  return livingPath({ ...shape, rx: shape.rx / k, ry: shape.ry / k }, 0);
 }
 
 /**
@@ -101,8 +96,25 @@ export function drawPulseBody(
     return;
   }
   if (lane === "pod") {
-    drawPodBody(ctx, x, y, r, time + (seed % 7) * 0.83, alpha);
+    // The form a pod on the field wears, read off the note as the field reads
+    // it off the pod's id — the same pod, falling a chart instead.
+    drawPodForm(
+      ctx,
+      seed,
+      x,
+      y,
+      r,
+      time + (seed % 7) * 0.83,
+      Number.POSITIVE_INFINITY,
+      false,
+      alpha,
+    );
     return;
   }
   drawLivingMark(ctx, x, y, r, lane, TINT[lane], alpha);
+}
+
+/** A circle of radius `r` about the origin, as path data. */
+function circlePath(r: number): string {
+  return `M ${r} 0 A ${r} ${r} 0 1 1 ${-r} 0 A ${r} ${r} 0 1 1 ${r} 0 Z`;
 }

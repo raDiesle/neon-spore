@@ -1,3 +1,4 @@
+import { faded } from "./pod-fade.js";
 import { type Seed, WAKES_AT } from "./pod-seed.js";
 
 /**
@@ -52,7 +53,7 @@ export function drawShine(ctx: CanvasRenderingContext2D, s: Seed, t: number): vo
   ctx.clip();
   ctx.translate(s.x + off, s.y - off * 0.3);
   ctx.rotate(-0.6);
-  ctx.globalAlpha = 0.85 * Math.sin(k * Math.PI);
+  ctx.globalAlpha = faded(0.85 * Math.sin(k * Math.PI));
   ctx.fillStyle = "#FFFFFF";
   ctx.fillRect(-s.R * 0.16, -s.R * 1.6, s.R * 0.32, s.R * 3.2);
   ctx.restore();
@@ -67,7 +68,7 @@ export function drawStar(
   a: number,
 ): void {
   if (r <= 0.5 || a <= 0) return;
-  ctx.globalAlpha = a;
+  ctx.globalAlpha = faded(a);
   ctx.fillStyle = "#FFFFFF";
   ctx.beginPath();
   for (let i = 0; i < 8; i++) {

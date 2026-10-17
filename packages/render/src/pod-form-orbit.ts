@@ -1,4 +1,5 @@
 import { halo } from "./glow.js";
+import { faded } from "./pod-fade.js";
 import { countSwell, drawShine, type PodDraw } from "./pod-pickup.js";
 import { blinkAt, type Seed, seedAt, type V } from "./pod-seed.js";
 import { drawBack, drawFront, type SeedLight } from "./pod-seed-draw.js";
@@ -58,7 +59,7 @@ function sparks(
   const rr = s.R * 1.65;
   const head = paint === REAL_PAINT ? "#FFFFFF" : paint.flashRim;
   const heads: { x: number; y: number; r: number }[] = [];
-  ctx.globalAlpha = lit * (near ? 0.6 : 0.35);
+  ctx.globalAlpha = faded(lit * (near ? 0.6 : 0.35));
   ctx.fillStyle = paint.tip;
   ctx.beginPath();
   for (let k = 0; k < SPARKS; k++) {
@@ -80,7 +81,7 @@ function sparks(
   }
   ctx.fill();
   if (heads.length === 0) return;
-  ctx.globalAlpha = lit * (near ? 1 : 0.55);
+  ctx.globalAlpha = faded(lit * (near ? 1 : 0.55));
   ctx.fillStyle = head;
   ctx.beginPath();
   for (const h of heads) {
@@ -94,7 +95,7 @@ function sparks(
 /** The light going out: black over the body inside a red ring, `k` 0..1. */
 function eclipse(ctx: CanvasRenderingContext2D, s: Seed, k: number) {
   if (k <= 0.05) return;
-  ctx.globalAlpha = k;
+  ctx.globalAlpha = faded(k);
   ctx.fillStyle = "#000000";
   ctx.beginPath();
   ctx.arc(s.x, s.y, s.R, 0, Math.PI * 2);
