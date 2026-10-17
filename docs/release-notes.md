@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-17 · 946d17d00 — Every pod a body carries is the pod's own form, and the lobed lamp is gone
+
+THE SCOUT's motes, THE GLUTTON's meals, THE SEEDER's seed, THE MOULT as a pod, the pinball's pod targets and a refused husk flying off now all draw the pod's form, each picked by an id of its own. The moult's morph ends on the seed's sphere, and the pinball's far-side dark is laid over it. `huskRefused` carries the husk's id and which seat can tell, so its flight is the form it hung as, or the fake on the seat that saw through it. `drawPodForm` takes in the context's alpha, so THE SCOUT's torn load still fades. `drawPodBody` has no caller left and is removed. Exemption: a look the owner asked for by name. Asked on 17 October 2026, he chose the real form.
+
 ## 2026-10-17 · 3f3dc766d — `SimEvent`'s hands, bodies and pods are cut into files of their own
 
 `events.ts` stood one line under its 250-line limit, so the next event added anywhere would have turned `limits.test.ts` red mid-lane. Three families now live next door and join the union as one arm each. `events-hands.ts` holds a hold, a push, THE WEIGHT, THE CAIRN and the eye opening. `events-body.ts` holds a kill, a crater, a refusal, a bounce, a deflect and a breach. `events-pod.ts` holds a pod's and a husk's ends. The file is 87 lines now. No behaviour changes. The audio bind test already reads every `events-*.ts`.
