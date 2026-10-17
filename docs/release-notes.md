@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-17 · 9e14e7174 — Each blister gesture opens its own group, with three waves after it
+
+TAP, HOLD, SWIPE, TURN, RUB, COMBO and LEVER each head a group now: the gesture's tutorial, then three regular waves on the tutorial's steps — Again, Reach and Pair — 21 waves in all, before HELLO BLISTER and THE BASTION. The heads are named for their gesture. `bun run waves:controls --groups` composes them.
+
 ## 2026-10-17 · 17d92302b — Every blister control dies both of its VERSUS deaths, one picked at random per kill
 
 The owner took all fourteen blister:death candidates — "apply them to game and iterate randomly over them for variety, i like all". Each control now holds its pair (TAP plunge/popcap, HOLD drain/spill, SWIPE smear/unzip, TURN screw/spring, RUB erase/foam, COMBO slide/snap, LEVER snap/yank) and a kill plays one, picked from the kill's seed so both phones see the same death. The clover's wedges no longer go up under any blister.
