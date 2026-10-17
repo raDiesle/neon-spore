@@ -44118,3 +44118,5 @@ director test.
 
 Bottleneck: the tutorial's composed waves, which `waves:order` never
 recomposes, needed a tool of their own to follow the rule.
+
+*Measured: 8 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

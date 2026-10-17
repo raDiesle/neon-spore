@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-17 · 09706a115 — A wave crosses the field fast once at most, and slows down after
+
+Sliding the cannon a long way between two actions with too little time is the hardest thing a wave asks, so a composed wave now does it at most once — never in the tutorial or a block's first wave — and rests at least 8 beats after. Two arrivals three columns or more apart need 2 + half the columns in beats (`wave-pace.ts`); where the composer would rush, the next enemy waits instead, and a draw that still rushes is thrown away. Every composed wave was drawn again under the rule; RED TANGO, TORCH ALLIANCE, SCRAP RAIN and SCRAP AND TORCH, which the composer does not redraw, were stretched by the new `bun run waves:pace` — later arrivals, the same columns. Hand-written intros are unchanged.
+
 ## 2026-10-17 · 9d54b5d6e — Each of the seven control waves opens on its own tutorial, with a drawn hand doing the gesture
 
 TAP SCATTER, HOLD WANDERER, SWIPE TOGETHER, TURN SIESTA, RUB MEMORY, TWISTED COMBO and LEVER FURY each open on a rehearsal of their own blister. In it a drawn hand puts its fingertip on the body and does the gesture, with the path the tip just travelled drawn behind it. The film sends every body that gesture can wear, and every way its stroke or turn can point: all four swipes, clockwise and anticlockwise. Each film has four pages, two per seat. The partner says where the body swells, and the other player knocks it down.
