@@ -44102,3 +44102,5 @@ is a regeneration, not a merge.
 Bottleneck: nothing said that giving a wave a guide makes it an intro, whose
 name words the director's namer may no longer use — that surfaced only in a
 director test.
+
+*Measured: 5 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-17 · 9d54b5d6e — Each of the seven control waves opens on its own tutorial, with a drawn hand doing the gesture
+
+TAP SCATTER, HOLD WANDERER, SWIPE TOGETHER, TURN SIESTA, RUB MEMORY, TWISTED COMBO and LEVER FURY each open on a rehearsal of their own blister. In it a drawn hand puts its fingertip on the body and does the gesture, with the path the tip just travelled drawn behind it. The film sends every body that gesture can wear, and every way its stroke or turn can point: all four swipes, clockwise and anticlockwise. Each film has four pages, two per seat. The partner says where the body swells, and the other player knocks it down.
+
 ## 2026-10-17 · 0105d4ca4 — THE SPLICE leaves the tutorial for THE ECHO's block, behind a filler
 
 The owner's pick: a boss on a panel of its own does not stand in the tutorial arc. THE SPLICE no longer closes SALVAGE's group; it closes THE ECHO's block again — the one it left this afternoon, and the only one free — behind three filler waves of its own (ECHO SIESTA, ECHO RELIC, ECHO ILLUSION). In the arc, SALVAGE's three waves are followed by SCRAP FIELD to SCRAP AND TORCH and BULB QUEEN, as before. No other boss moved; 570 waves.
