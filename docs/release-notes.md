@@ -9,6 +9,12 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-17 · 1cfa10982 — Time log: every on-screen control is one size
+
+## 2026-10-17 · 0293cfb81 — Every on-screen control is one size: hold, press and rub drawn as big as the pull, and the pull a little smaller
+
+On a blister the hold's drop, the press's and the rub's were seven tenths of the body — 0.28 of a tile beside the pull knob's 0.48 — and now each is drawn at the pull knob's own radius. Every pull handle in the game comes down from 2× to 1.7× (`PULL_SIZE`), and a boss's hold, press and rub drop is tied to it, so on a boss the four stay one size too. The circle a press on a pull is caught in does not shrink. The owner asked for it by name (17 October 2026): all on screen controls should have same size, take pull as the basis, but a bit smaller.
+
 ## 2026-10-17 · 8d01b456c — The director's MAP is compact: ⏸ and ↺ WAVE stand in its head, and the selected cell's fields are a popover on the tile
 
 Every column head is a step smaller, with one thin rule under it. MAP's head carries the ⏸/▶ and ↺ WAVE that had a row of their own under it, and stays at the top of the column as the map scrolls. The selected cell no longer costs the map any lines above its rows: the BEAT · COL heading and the picture and name of what the tile holds are gone (the tile draws it, its tooltip names it), and the fields — speed, size, route, the pod, the row's faults — with DELETE float under the selected tile while the pointer is on the tile or on them, and go a moment after it leaves both. An empty cell with no fault on its row shows none.
