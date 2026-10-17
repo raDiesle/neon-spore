@@ -1,7 +1,7 @@
 import type { Wave } from "../wave-types.js";
 
 /**
- * Waves 334 to 343 of the game, in the order they are played: THE JAM's block,
+ * Waves 355 to 364 of the game, in the order they are played: THE JAM's block,
  * the filler before THE SCUTTLE and the boss THE SCUTTLE.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act
@@ -42,7 +42,7 @@ export const WAVES_ACT_29: Wave[] = [
   },
   {
     id: "theJamReach",
-    name: "OUTER JAM",
+    name: "FAR JAM",
     variant: true,
     entries: [
       { beat: 0, col: 1, kind: "lure", color: "cyan" },
@@ -55,7 +55,7 @@ export const WAVES_ACT_29: Wave[] = [
   },
   {
     id: "theJamPair",
-    name: "JAM WALTZ",
+    name: "JAM DUET",
     variant: true,
     entries: [
       { beat: 0, col: 4, color: "red" },
@@ -73,7 +73,7 @@ export const WAVES_ACT_29: Wave[] = [
   },
   {
     id: "theJamRecall",
-    name: "JAM LEGEND",
+    name: "OLD JAM SONG",
     variant: true,
     entries: [
       { beat: 0, col: 6, color: "red" },
@@ -91,7 +91,7 @@ export const WAVES_ACT_29: Wave[] = [
   },
   {
     id: "theJamPeak",
-    name: "JAM APOCALYPSE",
+    name: "JAM OVERDRIVE",
     variant: true,
     entries: [
       { beat: 0, col: 3, color: "cyan" },

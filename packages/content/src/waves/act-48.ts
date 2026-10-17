@@ -1,7 +1,7 @@
 import type { Wave } from "../wave-types.js";
 
 /**
- * Waves 529 to 540 of the game, in the order they are played: THE MINE's
+ * Waves 550 to 561 of the game, in the order they are played: THE MINE's
  * review, the boss THE SLING, THE CRAWLER's review and the boss THE CAPSTAN.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act
@@ -22,7 +22,7 @@ export const WAVES_ACT_48: Wave[] = [
   },
   {
     id: "reviewMineReach",
-    name: "MINE HORIZON",
+    name: "MINE VOYAGE",
     variant: true,
     entries: [
       { beat: 0, col: 1, kind: "mine", color: "red", row: 9, sees: 1 },
@@ -35,7 +35,7 @@ export const WAVES_ACT_48: Wave[] = [
   },
   {
     id: "reviewMinePair",
-    name: "MINE DUET",
+    name: "MINE AND CRAWLER",
     variant: true,
     entries: [
       { beat: 0, col: 4, color: "red" },
@@ -72,7 +72,7 @@ export const WAVES_ACT_48: Wave[] = [
   },
   {
     id: "reviewMinePeak",
-    name: "MINE FURY",
+    name: "MINE ECLIPSE",
     variant: true,
     entries: [
       { beat: 0, col: 3, color: "red" },
@@ -131,7 +131,7 @@ export const WAVES_ACT_48: Wave[] = [
   },
   {
     id: "reviewCrawlerReach",
-    name: "CRAWLER WANDERER",
+    name: "OUTER CRAWLER",
     variant: true,
     entries: [
       { beat: 0, col: 9, kind: "crawler", color: null, segments: 7, side: "left" },
@@ -144,7 +144,7 @@ export const WAVES_ACT_48: Wave[] = [
   },
   {
     id: "reviewCrawlerPair",
-    name: "CRAWLER TANGO",
+    name: "CRAWLER WALTZ",
     variant: true,
     entries: [
       { beat: 0, col: 3, color: "cyan" },

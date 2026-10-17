@@ -1,7 +1,7 @@
 import type { Wave } from "../wave-types.js";
 
 /**
- * Waves 264 to 273 of the game, in the order they are played: THE CHOIR's
+ * Waves 285 to 294 of the game, in the order they are played: THE CHOIR's
  * block, the filler before THE TASTER and the boss THE TASTER.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act
@@ -36,7 +36,7 @@ export const WAVES_ACT_22: Wave[] = [
   },
   {
     id: "theChoirReach",
-    name: "CHOIR WANDERER",
+    name: "CHOIR VOYAGE",
     variant: true,
     entries: [
       { beat: 0, col: 9, kind: "choir", color: "cyan" },
@@ -49,7 +49,7 @@ export const WAVES_ACT_22: Wave[] = [
   },
   {
     id: "theChoirPair",
-    name: "CHOIR TANGO",
+    name: "CHOIR AND MAGNET",
     variant: true,
     entries: [
       { beat: 0, col: 7, color: "cyan" },
@@ -77,7 +77,7 @@ export const WAVES_ACT_22: Wave[] = [
   },
   {
     id: "theChoirPeak",
-    name: "CHOIR THUNDER",
+    name: "CHOIR RAPTURE",
     variant: true,
     entries: [
       { beat: 0, col: 3, color: "red" },

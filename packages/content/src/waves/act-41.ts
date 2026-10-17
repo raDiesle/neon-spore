@@ -1,7 +1,7 @@
 import type { Wave } from "../wave-types.js";
 
 /**
- * Waves 455 to 464 of the game, in the order they are played: THE MINE's block,
+ * Waves 476 to 485 of the game, in the order they are played: THE MINE's block,
  * the filler before THE MIMIC and the boss THE MIMIC.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act
@@ -38,7 +38,7 @@ export const WAVES_ACT_41: Wave[] = [
   },
   {
     id: "theMineReach",
-    name: "MINE PILGRIM",
+    name: "FAR MINE",
     variant: true,
     entries: [
       { beat: 0, col: 9, kind: "mine", color: "red", row: 9, sees: 1 },
@@ -51,7 +51,7 @@ export const WAVES_ACT_41: Wave[] = [
   },
   {
     id: "theMinePair",
-    name: "MINE TOGETHER",
+    name: "MINE ALLIANCE",
     variant: true,
     entries: [
       { beat: 0, col: 1, color: "cyan" },
@@ -68,7 +68,7 @@ export const WAVES_ACT_41: Wave[] = [
   },
   {
     id: "theMineRecall",
-    name: "MINE RELIC",
+    name: "MINE SAGA",
     variant: true,
     entries: [
       { beat: 0, col: 2, color: "cyan" },

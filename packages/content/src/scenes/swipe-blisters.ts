@@ -1,7 +1,7 @@
 import type { GuideScene } from "../scene-types.js";
 
 /**
- * SWIPE TOGETHER's rehearsal: all four ways a SWIPE blister's arrow points —
+ * SWIPE's rehearsal: all four ways a SWIPE blister's arrow points —
  * up and right for the pilot, down and left for the navigator — across both
  * its bodies, ZIP and SLUG in turn (`render/blister-swipe-body.ts`). The
  * finger strokes each the way its arrow says, as far as the channel runs.

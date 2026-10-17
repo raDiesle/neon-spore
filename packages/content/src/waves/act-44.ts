@@ -1,7 +1,7 @@
 import type { Wave } from "../wave-types.js";
 
 /**
- * Waves 485 to 494 of the game, in the order they are played: THE GHOST's
+ * Waves 506 to 515 of the game, in the order they are played: THE GHOST's
  * block, the filler before THE FLUE and the boss THE FLUE.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act
@@ -35,7 +35,7 @@ export const WAVES_ACT_44: Wave[] = [
   },
   {
     id: "theGhostReach",
-    name: "GHOST WANDERER",
+    name: "GHOST HORIZON",
     variant: true,
     entries: [
       { beat: 0, col: 0, kind: "ghost", color: "cyan", path: "across" },
@@ -48,7 +48,7 @@ export const WAVES_ACT_44: Wave[] = [
   },
   {
     id: "theGhostPair",
-    name: "GHOST TANGO",
+    name: "GHOST MEETS WISP",
     variant: true,
     entries: [
       { beat: 0, col: 6, color: "cyan" },
@@ -66,7 +66,7 @@ export const WAVES_ACT_44: Wave[] = [
   },
   {
     id: "theGhostRecall",
-    name: "ANCIENT GHOST",
+    name: "GHOST LEGEND",
     variant: true,
     entries: [
       { beat: 0, col: 3, color: "cyan" },
@@ -83,7 +83,7 @@ export const WAVES_ACT_44: Wave[] = [
   },
   {
     id: "theGhostPeak",
-    name: "GHOST THUNDER",
+    name: "GHOST RAPTURE",
     variant: true,
     entries: [
       { beat: 0, col: 8, color: "red" },

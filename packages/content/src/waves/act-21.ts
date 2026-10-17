@@ -2,7 +2,7 @@ import { GORGE_LEVELS } from "../gorge-levels.js";
 import type { Wave } from "../wave-types.js";
 
 /**
- * Waves 254 to 263 of the game, in the order they are played: THE MAGNET's
+ * Waves 275 to 284 of the game, in the order they are played: THE MAGNET's
  * block, the filler before THE GORGE and the boss THE GORGE.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act
@@ -50,7 +50,7 @@ export const WAVES_ACT_21: Wave[] = [
   },
   {
     id: "theMagnetPair",
-    name: "MAGNET PARTY",
+    name: "MAGNET DUET",
     variant: true,
     entries: [
       { beat: 0, col: 3, color: "cyan" },
@@ -65,7 +65,7 @@ export const WAVES_ACT_21: Wave[] = [
   },
   {
     id: "theMagnetRecall",
-    name: "MAGNET REUNION",
+    name: "MAGNET LEGEND",
     variant: true,
     entries: [
       { beat: 0, col: 10, color: "cyan" },
@@ -113,7 +113,7 @@ export const WAVES_ACT_21: Wave[] = [
   },
   {
     id: "fillerGorgeRecall",
-    name: "OLD MAGNET SONG",
+    name: "MAGNET REUNION",
     variant: true,
     entries: [
       { beat: 0, col: 0, color: "cyan" },

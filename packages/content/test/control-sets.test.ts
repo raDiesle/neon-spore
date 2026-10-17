@@ -287,18 +287,12 @@ describe("the standard ladder", () => {
       "standard4",
       "standard4",
       "standard4",
-      // And THE BLISTER's nine before THE BASTION: the owner, 16 October
+      // And THE BLISTER's thirty before THE BASTION: the owner, 16 October
       // 2026 — *before first boss to introduce by waves all the "controls"
-      // brush enemy waves* — on the panel the arc has reached.
-      "standard4",
-      "standard4",
-      "standard4",
-      "standard4",
-      "standard4",
-      "standard4",
-      "standard4",
-      "standard4",
-      "standard4",
+      // brush enemy waves* — on the panel the arc has reached. THE BLISTER, each
+      // of the seven gestures' own wave and its three (the owner, 17 October
+      // 2026: *around 3 each*), and HELLO BLISTER, which mixes them.
+      ...Array<"standard4">(2 + 7 * 4).fill("standard4"),
       // THE BASTION, on the rung the arc has reached: it never asks for the
       // maw, and SALVAGE is the wave that teaches it (`wave-keys.ts`).
       "standard4",

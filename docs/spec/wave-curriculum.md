@@ -202,8 +202,13 @@ cheapest first, with four rules over that:
   LANCE teaches the hold.
 - **A block the composer cannot fill where it falls waits** for the next
   place the rule would give it. A hand-written regular wave goes
-  behind the block that teaches the last thing it needs: FIVE BLISTERS and the
-  seven single-control blister waves are THE BLISTER's whole block.
+  behind the block that teaches the last thing it needs. After THE BLISTER,
+  each of the seven gestures — TAP, HOLD, SWIPE, TURN, RUB, COMBO, LEVER — is
+  a head of its own, opened by its tutorial and followed by three
+  tutorial-step waves, Again, Reach and Pair (the owner, 17 October 2026:
+  *each "controls" brush receive its own parent wave with introduction, then
+  with around 3 each*; `waves:controls --groups`). HELLO BLISTER, which mixes
+  them, plays last, before THE BASTION.
 
 Every composed wave is written again for its new neighbours — R4 pairs with
 the block before, R6 recalls three back, R1 rises from the block before's
@@ -409,8 +414,8 @@ decided then while the owner was away:
 
 Past the arc that makes **54 blocks — 33 opened by a body or a pod, 10 by a
 lesson, 11 reviews — 45 fillers, and 56 bosses**: one closing every block,
-and two waiting at the end. 570 waves in all, since blocks are five (17
-October 2026).
+and two waiting at the end. 591 waves in all, since blocks are five and
+each blister gesture has three of its own (17 October 2026).
 
 The boss table — every boss's AUTO time against the band — is in
 `wave-curriculum-today.md`. AUTO plays perfectly and never talks, so the

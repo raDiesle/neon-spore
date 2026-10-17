@@ -1,7 +1,7 @@
 import type { Wave } from "../wave-types.js";
 
 /**
- * Waves 112 to 121 of the game, in the order they are played: THE BEATBOX's
+ * Waves 133 to 142 of the game, in the order they are played: THE BEATBOX's
  * block, the filler before THE FLEET and the boss THE FLEET.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act
@@ -37,7 +37,7 @@ export const WAVES_ACT_9: Wave[] = [
   },
   {
     id: "theBeatboxReach",
-    name: "BEATBOX AT WORLD END",
+    name: "BEATBOX VOYAGE",
     variant: true,
     entries: [
       { beat: 0, col: 0, kind: "beatbox", color: null, beats: 2 },
@@ -50,7 +50,7 @@ export const WAVES_ACT_9: Wave[] = [
   },
   {
     id: "theBeatboxPair",
-    name: "BEATBOX ALLIANCE",
+    name: "BEATBOX PARTY",
     variant: true,
     entries: [
       { beat: 0, col: 4, color: "cyan" },
@@ -65,7 +65,7 @@ export const WAVES_ACT_9: Wave[] = [
   },
   {
     id: "theBeatboxRecall",
-    name: "OLD BEATBOX SONG",
+    name: "BEATBOX LEGEND",
     variant: true,
     entries: [
       { beat: 0, col: 0, color: "cyan" },
@@ -79,7 +79,7 @@ export const WAVES_ACT_9: Wave[] = [
   },
   {
     id: "theBeatboxPeak",
-    name: "BEATBOX RAPTURE",
+    name: "BEATBOX ECLIPSE",
     variant: true,
     entries: [
       { beat: 0, col: 6, color: "red" },

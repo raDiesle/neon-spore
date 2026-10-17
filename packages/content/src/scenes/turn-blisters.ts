@@ -1,7 +1,7 @@
 import type { GuideScene } from "../scene-types.js";
 
 /**
- * TURN SIESTA's rehearsal: a TURN blister in each of its bodies and each way
+ * TURN's rehearsal: a TURN blister in each of its bodies and each way
  * round — WHEEL clockwise and SNAIL anticlockwise for the navigator, then
  * WHEEL anticlockwise for the pilot (`render/blister-bodies.ts`
  * `drawTurnBody`, picked by the body and its tile). The finger goes once

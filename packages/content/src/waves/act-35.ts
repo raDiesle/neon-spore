@@ -1,7 +1,7 @@
 import type { Wave } from "../wave-types.js";
 
 /**
- * Waves 395 to 404 of the game, in the order they are played: THE LID's block,
+ * Waves 416 to 425 of the game, in the order they are played: THE LID's block,
  * the filler before THE OCULUS and the boss THE OCULUS.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act
@@ -35,7 +35,7 @@ export const WAVES_ACT_35: Wave[] = [
   },
   {
     id: "theLidReach",
-    name: "FAR LID",
+    name: "LID HORIZON",
     variant: true,
     entries: [
       { beat: 0, col: 10, kind: "lid", color: "cyan" },
@@ -48,7 +48,7 @@ export const WAVES_ACT_35: Wave[] = [
   },
   {
     id: "theLidPair",
-    name: "LID AND GYRE",
+    name: "LID TANGO",
     variant: true,
     entries: [
       { beat: 0, col: 7, color: "cyan" },
@@ -65,7 +65,7 @@ export const WAVES_ACT_35: Wave[] = [
   },
   {
     id: "theLidRecall",
-    name: "LID MEMORY",
+    name: "ANCIENT LID",
     variant: true,
     entries: [
       { beat: 0, col: 6, color: "cyan" },

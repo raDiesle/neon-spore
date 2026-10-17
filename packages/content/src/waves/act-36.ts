@@ -1,7 +1,7 @@
 import type { Wave } from "../wave-types.js";
 
 /**
- * Waves 405 to 414 of the game, in the order they are played: THE RECOIL's
+ * Waves 426 to 435 of the game, in the order they are played: THE RECOIL's
  * block, the filler before THE REPRISE and the boss THE REPRISE.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act
@@ -36,7 +36,7 @@ export const WAVES_ACT_36: Wave[] = [
   },
   {
     id: "theRecoilReach",
-    name: "RECOIL HORIZON",
+    name: "FAR RECOIL",
     variant: true,
     entries: [
       { beat: 0, col: 9, kind: "recoil", color: "red" },
@@ -49,7 +49,7 @@ export const WAVES_ACT_36: Wave[] = [
   },
   {
     id: "theRecoilPair",
-    name: "RECOIL DUET",
+    name: "RECOIL MEETS LID",
     variant: true,
     entries: [
       { beat: 0, col: 2, color: "red" },
@@ -67,7 +67,7 @@ export const WAVES_ACT_36: Wave[] = [
   },
   {
     id: "theRecoilRecall",
-    name: "RECOIL HOMECOMING",
+    name: "OLD RECOIL SONG",
     variant: true,
     entries: [
       { beat: 0, col: 3, color: "cyan" },
@@ -84,7 +84,7 @@ export const WAVES_ACT_36: Wave[] = [
   },
   {
     id: "theRecoilPeak",
-    name: "RECOIL FURY",
+    name: "RECOIL STORM",
     variant: true,
     entries: [
       { beat: 0, col: 8, color: "red" },

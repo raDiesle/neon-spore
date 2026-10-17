@@ -2,7 +2,7 @@ import { PULSE_STAGES } from "../pulse-stages.js";
 import type { Wave } from "../wave-types.js";
 
 /**
- * Waves 242 to 253 of the game, in the order they are played: THE FENCE's
+ * Waves 263 to 274 of the game, in the order they are played: THE FENCE's
  * block, the filler before THE PULSE and the boss THE PULSE.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act
@@ -65,7 +65,7 @@ export const WAVES_ACT_20: Wave[] = [
   },
   {
     id: "theFenceReach",
-    name: "FAR FENCE",
+    name: "OUTER FENCE",
     variant: true,
     entries: [
       { beat: 0, col: 10, kind: "fence", color: null },
@@ -78,7 +78,7 @@ export const WAVES_ACT_20: Wave[] = [
   },
   {
     id: "theFencePair",
-    name: "FENCE AND STRAND",
+    name: "FENCE ALLIANCE",
     variant: true,
     entries: [
       { beat: 0, col: 6, color: "red" },
@@ -93,7 +93,7 @@ export const WAVES_ACT_20: Wave[] = [
   },
   {
     id: "theFenceRecall",
-    name: "FENCE MEMORY",
+    name: "ANCIENT FENCE",
     variant: true,
     entries: [
       { beat: 0, col: 4, color: "red" },
@@ -107,7 +107,7 @@ export const WAVES_ACT_20: Wave[] = [
   },
   {
     id: "theFencePeak",
-    name: "FENCE ECLIPSE",
+    name: "FENCE INFERNO",
     variant: true,
     entries: [
       { beat: 0, col: 0, color: "red" },

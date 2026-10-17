@@ -2,7 +2,7 @@ import { MANTLE_SCRIPT } from "../mantle-script.js";
 import type { Wave } from "../wave-types.js";
 
 /**
- * Waves 505 to 516 of the game, in the order they are played: THE CAROM's
+ * Waves 526 to 537 of the game, in the order they are played: THE CAROM's
  * review, the boss THE MANTLE, THE GHOST's review and the boss THE KEEL.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act
@@ -23,7 +23,7 @@ export const WAVES_ACT_46: Wave[] = [
   },
   {
     id: "reviewCaromReach",
-    name: "CAROM AT WORLD END",
+    name: "FAR CAROM",
     variant: true,
     entries: [
       { beat: 0, col: 10, kind: "carom", color: "red" },
@@ -36,7 +36,7 @@ export const WAVES_ACT_46: Wave[] = [
   },
   {
     id: "reviewCaromPair",
-    name: "CAROM ALLIANCE",
+    name: "CAROM TANGO",
     variant: true,
     entries: [
       { beat: 0, col: 1, color: "red" },
@@ -55,7 +55,7 @@ export const WAVES_ACT_46: Wave[] = [
   },
   {
     id: "reviewCaromRecall",
-    name: "OLD CAROM SONG",
+    name: "ANCIENT CAROM",
     variant: true,
     entries: [
       { beat: 0, col: 2, color: "red" },
@@ -72,7 +72,7 @@ export const WAVES_ACT_46: Wave[] = [
   },
   {
     id: "reviewCaromPeak",
-    name: "CAROM RAPTURE",
+    name: "CAROM OVERDRIVE",
     variant: true,
     entries: [
       { beat: 0, col: 1, color: "cyan" },
@@ -118,7 +118,7 @@ export const WAVES_ACT_46: Wave[] = [
   },
   {
     id: "reviewGhostReach",
-    name: "OUTER GHOST",
+    name: "GHOST AT WORLD END",
     variant: true,
     entries: [
       { beat: 0, col: 0, kind: "ghost", color: "red" },
@@ -131,7 +131,7 @@ export const WAVES_ACT_46: Wave[] = [
   },
   {
     id: "reviewGhostPair",
-    name: "GHOST MEETS WISP",
+    name: "GHOST AND WISP",
     variant: true,
     entries: [
       { beat: 0, col: 10, color: "cyan" },
@@ -148,7 +148,7 @@ export const WAVES_ACT_46: Wave[] = [
   },
   {
     id: "reviewGhostRecall",
-    name: "GHOST LEGEND",
+    name: "ANCIENT GHOST",
     variant: true,
     entries: [
       { beat: 0, col: 6, color: "red" },
@@ -165,7 +165,7 @@ export const WAVES_ACT_46: Wave[] = [
   },
   {
     id: "reviewGhostPeak",
-    name: "GHOST APOCALYPSE",
+    name: "GHOST OVERDRIVE",
     variant: true,
     entries: [
       { beat: 0, col: 0, color: "cyan" },

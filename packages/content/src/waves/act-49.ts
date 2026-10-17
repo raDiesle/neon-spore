@@ -1,7 +1,7 @@
 import type { Wave } from "../wave-types.js";
 
 /**
- * Waves 541 to 552 of the game, in the order they are played: THE VOLLEY's
+ * Waves 562 to 573 of the game, in the order they are played: THE VOLLEY's
  * review, the boss THE GALL, THE CRYSTAL's review and the boss THE TRAPEZE.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act
@@ -22,7 +22,7 @@ export const WAVES_ACT_49: Wave[] = [
   },
   {
     id: "reviewVolleyReach",
-    name: "VOLLEY VOYAGE",
+    name: "VOLLEY PILGRIM",
     variant: true,
     entries: [
       { beat: 0, col: 1, kind: "volley", color: "red" },
@@ -35,7 +35,7 @@ export const WAVES_ACT_49: Wave[] = [
   },
   {
     id: "reviewVolleyPair",
-    name: "VOLLEY WALTZ",
+    name: "VOLLEY AND CRYSTAL",
     variant: true,
     entries: [
       { beat: 0, col: 6, color: "cyan" },
@@ -54,7 +54,7 @@ export const WAVES_ACT_49: Wave[] = [
   },
   {
     id: "reviewVolleyRecall",
-    name: "VOLLEY SAGA",
+    name: "VOLLEY REUNION",
     variant: true,
     entries: [
       { beat: 0, col: 1, color: "cyan" },
@@ -71,7 +71,7 @@ export const WAVES_ACT_49: Wave[] = [
   },
   {
     id: "reviewVolleyPeak",
-    name: "VOLLEY INFERNO",
+    name: "VOLLEY ECLIPSE",
     variant: true,
     entries: [
       { beat: 0, col: 3, color: "red" },
@@ -134,7 +134,7 @@ export const WAVES_ACT_49: Wave[] = [
   },
   {
     id: "reviewCrystalReach",
-    name: "FAR CRYSTAL",
+    name: "CRYSTAL PILGRIM",
     variant: true,
     entries: [
       { beat: 0, col: 9, kind: "crystal", color: "red" },
@@ -147,7 +147,7 @@ export const WAVES_ACT_49: Wave[] = [
   },
   {
     id: "reviewCrystalPair",
-    name: "CRYSTAL AND RECOIL",
+    name: "CRYSTAL DUET",
     variant: true,
     entries: [
       { beat: 0, col: 0, color: "red" },
@@ -164,7 +164,7 @@ export const WAVES_ACT_49: Wave[] = [
   },
   {
     id: "reviewCrystalRecall",
-    name: "CRYSTAL MEMORY",
+    name: "CRYSTAL RELIC",
     variant: true,
     entries: [
       { beat: 0, col: 6, color: "cyan" },
@@ -181,7 +181,7 @@ export const WAVES_ACT_49: Wave[] = [
   },
   {
     id: "reviewCrystalPeak",
-    name: "CRYSTAL ECLIPSE",
+    name: "CRYSTAL APOCALYPSE",
     variant: true,
     entries: [
       { beat: 0, col: 3, color: "red" },

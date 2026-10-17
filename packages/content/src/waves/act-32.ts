@@ -1,7 +1,7 @@
 import type { Wave } from "../wave-types.js";
 
 /**
- * Waves 364 to 373 of the game, in the order they are played: THE ECHO's block,
+ * Waves 385 to 394 of the game, in the order they are played: THE ECHO's block,
  * the filler before THE SPLICE and the boss THE SPLICE.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act
@@ -38,7 +38,7 @@ export const WAVES_ACT_32: Wave[] = [
   },
   {
     id: "theEchoReach",
-    name: "FAR ECHO",
+    name: "ECHO HORIZON",
     variant: true,
     entries: [
       { beat: 0, col: 0, kind: "echo", color: "red" },
@@ -51,7 +51,7 @@ export const WAVES_ACT_32: Wave[] = [
   },
   {
     id: "theEchoPair",
-    name: "ECHO AND DART",
+    name: "ECHO ALLIANCE",
     variant: true,
     entries: [
       { beat: 0, col: 4, color: "cyan" },
@@ -66,7 +66,7 @@ export const WAVES_ACT_32: Wave[] = [
   },
   {
     id: "theEchoRecall",
-    name: "ECHO MEMORY",
+    name: "ECHO SAGA",
     variant: true,
     entries: [
       { beat: 0, col: 1, color: "cyan" },
@@ -80,7 +80,7 @@ export const WAVES_ACT_32: Wave[] = [
   },
   {
     id: "theEchoPeak",
-    name: "ECHO ECLIPSE",
+    name: "ECHO RAPTURE",
     variant: true,
     entries: [
       { beat: 0, col: 10, color: "cyan" },

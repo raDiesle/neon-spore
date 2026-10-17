@@ -2,7 +2,7 @@ import { SCOUT_ARENAS } from "../scout-arenas.js";
 import type { Wave } from "../wave-types.js";
 
 /**
- * Waves 202 to 217 of the game, in the order they are played: THE RIND's block,
+ * Waves 223 to 238 of the game, in the order they are played: THE RIND's block,
  * the filler before THE SCOUT, the boss THE SCOUT and THE VEER's block.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act
@@ -37,7 +37,7 @@ export const WAVES_ACT_17: Wave[] = [
   },
   {
     id: "theRindReach",
-    name: "RIND WANDERER",
+    name: "RIND HORIZON",
     variant: true,
     entries: [
       { beat: 0, col: 1, kind: "rind", color: "cyan" },
@@ -50,7 +50,7 @@ export const WAVES_ACT_17: Wave[] = [
   },
   {
     id: "theRindPair",
-    name: "RIND TANGO",
+    name: "RIND MEETS SHELL",
     variant: true,
     entries: [
       { beat: 0, col: 10, color: "red" },
@@ -178,7 +178,7 @@ export const WAVES_ACT_17: Wave[] = [
   },
   {
     id: "theVeerReach",
-    name: "VEER HORIZON",
+    name: "LONG VEER ROAD",
     variant: true,
     entries: [
       { beat: 0, col: 10, kind: "veer", color: null },
@@ -190,7 +190,7 @@ export const WAVES_ACT_17: Wave[] = [
   },
   {
     id: "theVeerPair",
-    name: "VEER DUET",
+    name: "VEER MEETS RIND",
     variant: true,
     entries: [
       { beat: 0, col: 6, color: "cyan" },
@@ -205,7 +205,7 @@ export const WAVES_ACT_17: Wave[] = [
   },
   {
     id: "theVeerRecall",
-    name: "VEER HOMECOMING",
+    name: "VEER REUNION",
     variant: true,
     entries: [
       { beat: 0, col: 10, color: "cyan" },
@@ -219,7 +219,7 @@ export const WAVES_ACT_17: Wave[] = [
   },
   {
     id: "theVeerPeak",
-    name: "VEER FURY",
+    name: "VEER APOCALYPSE",
     variant: true,
     entries: [
       { beat: 0, col: 9, color: "red" },

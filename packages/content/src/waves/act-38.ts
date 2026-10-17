@@ -1,7 +1,7 @@
 import type { Wave } from "../wave-types.js";
 
 /**
- * Waves 425 to 434 of the game, in the order they are played: THE VOLLEY's
+ * Waves 446 to 455 of the game, in the order they are played: THE VOLLEY's
  * block, the filler before THE SPOOL and the boss THE SPOOL.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act
@@ -34,7 +34,7 @@ export const WAVES_ACT_38: Wave[] = [
   },
   {
     id: "theVolleyReach",
-    name: "VOLLEY AT WORLD END",
+    name: "VOLLEY HORIZON",
     variant: true,
     entries: [
       { beat: 0, col: 10, kind: "volley", color: "red" },
@@ -47,7 +47,7 @@ export const WAVES_ACT_38: Wave[] = [
   },
   {
     id: "theVolleyPair",
-    name: "VOLLEY ALLIANCE",
+    name: "VOLLEY PARTY",
     variant: true,
     entries: [
       { beat: 0, col: 0, color: "red" },
@@ -64,7 +64,7 @@ export const WAVES_ACT_38: Wave[] = [
   },
   {
     id: "theVolleyRecall",
-    name: "OLD VOLLEY SONG",
+    name: "VOLLEY LEGEND",
     variant: true,
     entries: [
       { beat: 0, col: 8, color: "cyan" },
@@ -79,7 +79,7 @@ export const WAVES_ACT_38: Wave[] = [
   },
   {
     id: "theVolleyPeak",
-    name: "VOLLEY RAPTURE",
+    name: "VOLLEY APOCALYPSE",
     variant: true,
     entries: [
       { beat: 0, col: 6, color: "cyan" },
@@ -112,7 +112,7 @@ export const WAVES_ACT_38: Wave[] = [
   },
   {
     id: "fillerSpoolRecall",
-    name: "VOLLEY LEGEND",
+    name: "VOLLEY RELIC",
     variant: true,
     entries: [
       { beat: 0, col: 3, color: "cyan" },

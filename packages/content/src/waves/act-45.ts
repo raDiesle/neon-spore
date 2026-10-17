@@ -2,7 +2,7 @@ import { NETTLE_SCRIPT } from "../nettle-script.js";
 import type { Wave } from "../wave-types.js";
 
 /**
- * Waves 495 to 504 of the game, in the order they are played: THE CAROM's
+ * Waves 516 to 525 of the game, in the order they are played: THE CAROM's
  * block, the filler before THE NETTLE and the boss THE NETTLE.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act
@@ -37,7 +37,7 @@ export const WAVES_ACT_45: Wave[] = [
   },
   {
     id: "theCaromReach",
-    name: "LONG CAROM ROAD",
+    name: "CAROM VOYAGE",
     variant: true,
     entries: [
       { beat: 0, col: 9, kind: "carom", color: "red" },
@@ -50,7 +50,7 @@ export const WAVES_ACT_45: Wave[] = [
   },
   {
     id: "theCaromPair",
-    name: "CAROM PARTY",
+    name: "CAROM ALLIANCE",
     variant: true,
     entries: [
       { beat: 0, col: 0, color: "cyan" },
@@ -67,7 +67,7 @@ export const WAVES_ACT_45: Wave[] = [
   },
   {
     id: "theCaromRecall",
-    name: "CAROM REUNION",
+    name: "OLD CAROM SONG",
     variant: true,
     entries: [
       { beat: 0, col: 6, color: "red" },
@@ -84,7 +84,7 @@ export const WAVES_ACT_45: Wave[] = [
   },
   {
     id: "theCaromPeak",
-    name: "CAROM OVERDRIVE",
+    name: "CAROM INFERNO",
     variant: true,
     entries: [
       { beat: 0, col: 4, color: "red" },

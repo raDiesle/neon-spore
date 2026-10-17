@@ -1,7 +1,7 @@
 import type { Wave } from "../wave-types.js";
 
 /**
- * Waves 304 to 313 of the game, in the order they are played: THE COIL's block,
+ * Waves 325 to 334 of the game, in the order they are played: THE COIL's block,
  * the filler before THE LEDGER and the boss THE LEDGER.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act
@@ -39,7 +39,7 @@ export const WAVES_ACT_26: Wave[] = [
   },
   {
     id: "theCoilReach",
-    name: "COIL WANDERER",
+    name: "OUTER COIL",
     variant: true,
     entries: [
       { beat: 0, col: 10, kind: "coil", color: null },
@@ -66,7 +66,7 @@ export const WAVES_ACT_26: Wave[] = [
   },
   {
     id: "theCoilRecall",
-    name: "ANCIENT COIL",
+    name: "COIL HOMECOMING",
     variant: true,
     entries: [
       { beat: 0, col: 9, color: "red" },

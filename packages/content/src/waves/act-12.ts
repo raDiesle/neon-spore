@@ -1,7 +1,7 @@
 import type { Wave } from "../wave-types.js";
 
 /**
- * Waves 142 to 151 of the game, in the order they are played: HEAVY ROCKS's
+ * Waves 163 to 172 of the game, in the order they are played: HEAVY ROCKS's
  * block, the filler before THE HIVE and the boss THE HIVE.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act
@@ -65,7 +65,7 @@ export const WAVES_ACT_12: Wave[] = [
   },
   {
     id: "theWardRecall",
-    name: "HEAVY ROCK REUNION",
+    name: "HEAVY ROCK SAGA",
     variant: true,
     entries: [
       { beat: 0, col: 9, color: "red" },
@@ -80,7 +80,7 @@ export const WAVES_ACT_12: Wave[] = [
   },
   {
     id: "theWardPeak",
-    name: "HEAVY ROCK OVERDRIVE",
+    name: "HEAVY ROCK ECLIPSE",
     variant: true,
     entries: [
       { beat: 0, col: 6, color: "cyan" },

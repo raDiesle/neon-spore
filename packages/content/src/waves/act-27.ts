@@ -1,7 +1,7 @@
 import type { Wave } from "../wave-types.js";
 
 /**
- * Waves 314 to 323 of the game, in the order they are played: THE CODEX's
+ * Waves 335 to 344 of the game, in the order they are played: THE CODEX's
  * block, the filler before THE SURGE and the boss THE SURGE.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act
@@ -42,7 +42,7 @@ export const WAVES_ACT_27: Wave[] = [
   },
   {
     id: "theCodexReach",
-    name: "CODEX WANDERER",
+    name: "CODEX AT WORLD END",
     variant: true,
     entries: [
       { beat: 0, col: 9, kind: "coil", color: null },
@@ -56,7 +56,7 @@ export const WAVES_ACT_27: Wave[] = [
   },
   {
     id: "theCodexPair",
-    name: "CODEX TOGETHER",
+    name: "CODEX TANGO",
     variant: true,
     entries: [
       { beat: 0, col: 10, color: "cyan" },
@@ -74,7 +74,7 @@ export const WAVES_ACT_27: Wave[] = [
   },
   {
     id: "theCodexRecall",
-    name: "ANCIENT CODEX",
+    name: "CODEX LEGEND",
     variant: true,
     entries: [
       { beat: 0, col: 9, color: "red" },
@@ -92,7 +92,7 @@ export const WAVES_ACT_27: Wave[] = [
   },
   {
     id: "theCodexPeak",
-    name: "CODEX THUNDER",
+    name: "CODEX OVERDRIVE",
     variant: true,
     entries: [
       { beat: 0, col: 8, color: "red" },

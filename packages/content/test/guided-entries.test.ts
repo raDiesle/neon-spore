@@ -100,13 +100,13 @@ const THE_LESSON_KEEPS: Record<string, readonly WaveKind[]> = {
   // The controls' waves teach a gesture rather than a kind: THE BLISTER is
   // the body every on-screen control comes up as, and the lesson is the hand
   // on it (`scenes-controls.ts`).
-  "TAP SCATTER": ["blister"],
-  "HOLD WANDERER": ["blister"],
-  "SWIPE TOGETHER": ["blister"],
-  "TURN SIESTA": ["blister"],
-  "RUB MEMORY": ["blister"],
-  "TWISTED COMBO": ["blister"],
-  "LEVER FURY": ["blister"],
+  TAP: ["blister"],
+  HOLD: ["blister"],
+  SWIPE: ["blister"],
+  TURN: ["blister"],
+  RUB: ["blister"],
+  COMBO: ["blister"],
+  LEVER: ["blister"],
 };
 
 describe("a guided wave's entries", () => {

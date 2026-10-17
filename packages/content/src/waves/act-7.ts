@@ -2,7 +2,7 @@ import { MAZE_ROUNDS } from "../maze-rounds.js";
 import type { Wave } from "../wave-types.js";
 
 /**
- * Waves 91 to 101 of the game, in the order they are played: the boss THE
+ * Waves 112 to 122 of the game, in the order they are played: the boss THE
  * GEODE, THE GLUTTON's block, the filler before THE MAZE and the boss THE MAZE.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act
@@ -94,7 +94,7 @@ export const WAVES_ACT_7: Wave[] = [
   },
   {
     id: "theGluttonPair",
-    name: "GLUTTON TOGETHER",
+    name: "GLUTTON DUET",
     variant: true,
     entries: [
       { beat: 0, col: 6, color: "red" },
@@ -109,7 +109,7 @@ export const WAVES_ACT_7: Wave[] = [
   },
   {
     id: "theGluttonRecall",
-    name: "GLUTTON RELIC",
+    name: "OLD GLUTTON SONG",
     variant: true,
     entries: [
       { beat: 0, col: 0, color: "red" },
@@ -123,7 +123,7 @@ export const WAVES_ACT_7: Wave[] = [
   },
   {
     id: "theGluttonPeak",
-    name: "GLUTTON STORM",
+    name: "GLUTTON THUNDER",
     variant: true,
     entries: [
       { beat: 0, col: 8, color: "red" },
@@ -158,7 +158,7 @@ export const WAVES_ACT_7: Wave[] = [
   },
   {
     id: "fillerMazeRecall",
-    name: "OLD GLUTTON SONG",
+    name: "GLUTTON SAGA",
     variant: true,
     entries: [
       { beat: 0, col: 9, color: "red" },

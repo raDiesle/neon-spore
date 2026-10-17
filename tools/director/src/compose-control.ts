@@ -1,5 +1,6 @@
 import { type Wave, type WaveEntry, wavePressure } from "@neon-spore/content";
 import { createRng, livingKindForColor } from "@neon-spore/sim";
+import { type Composed, composeBlockAt } from "./compose.js";
 import { type Block, type Motif, readBlock } from "./compose-block.js";
 import { autoClears, paperFaults } from "./compose-check.js";
 import { placeStep } from "./compose-place.js";
@@ -70,6 +71,43 @@ function motifsFor(base: readonly Motif[], gesture: BlisterGesture): Motif[] {
   return out;
 }
 
+/**
+ * THE BLISTER's block with every blister worn with `gesture`, standing at
+ * `insertAt` — what a control's own waves are composed from.
+ */
+function controlBlock(waves: readonly Wave[], gesture: BlisterGesture, insertAt: number) {
+  const read = readBlock(waves, INTRO);
+  if (typeof read === "string") return read;
+  const motifs = new Map(read.motifs);
+  motifs.set(read.x, motifsFor(read.motifs.get(read.x) ?? [], gesture));
+  const block: Block = { ...read, motifs, insertAt, controls: waves[insertAt - 1]?.controls };
+  return block;
+}
+
+/**
+ * **A control's own group** — the owner, 17 October 2026: *each "controls"
+ * brush receives its own parent wave with an introduction, then around 3
+ * each*. The control's wave (`composeControlWave`), which carries its guide,
+ * heads the group, and the tutorial arc's three steps follow it — Again,
+ * Reach, Pair (`TUTORIAL_STEPS`) — composed as any block's are
+ * (`compose.ts`), every blister in them wearing the control. Their ids are
+ * the head's and the step's (`tapBlistersAgain`).
+ */
+export function composeControlGroup(
+  waves: readonly Wave[],
+  gesture: BlisterGesture,
+  insertAt: number,
+  seed = 0,
+): Composed[] | string {
+  const block = controlBlock(waves, gesture, insertAt);
+  if (typeof block === "string") return block;
+  const tutorial: Block = { ...block, tutorial: true, existing: 0 };
+  // Composed against the list up to the group alone: the wave after it is
+  // the next gesture's, or HELLO BLISTER, and its ramp is not this one's
+  // (`nextWritten`, `compose.ts`).
+  return composeBlockAt(waves.slice(0, insertAt), tutorial, controlWaveId(gesture), seed).composed;
+}
+
 /** The control's wave to stand at `insertAt`, or why none could be found. */
 export function composeControlWave(
   waves: readonly Wave[],
@@ -77,11 +115,8 @@ export function composeControlWave(
   insertAt: number,
   seed = 0,
 ): { wave: Wave; pressure: number; cleared: number } | string {
-  const read = readBlock(waves, INTRO);
-  if (typeof read === "string") return read;
-  const motifs = new Map(read.motifs);
-  motifs.set(read.x, motifsFor(read.motifs.get(read.x) ?? [], gesture));
-  const block: Block = { ...read, motifs, insertAt, controls: waves[insertAt - 1]?.controls };
+  const block = controlBlock(waves, gesture, insertAt);
+  if (typeof block === "string") return block;
   const rng = createRng(seed * 7919 + insertAt);
   const kept: { wave: Wave; pressure: number }[] = [];
   const misses = new Map<string, number>();

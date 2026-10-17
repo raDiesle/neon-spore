@@ -1,7 +1,7 @@
 import type { Wave } from "../wave-types.js";
 
 /**
- * Waves 354 to 363 of the game, in the order they are played: THE DART's block,
+ * Waves 375 to 384 of the game, in the order they are played: THE DART's block,
  * the filler before THE CAIRN and the boss THE CAIRN.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act
@@ -37,7 +37,7 @@ export const WAVES_ACT_31: Wave[] = [
   },
   {
     id: "theDartReach",
-    name: "FAR DART",
+    name: "DART AT WORLD END",
     variant: true,
     entries: [
       { beat: 0, col: 1, kind: "dart", color: "cyan" },
@@ -49,7 +49,7 @@ export const WAVES_ACT_31: Wave[] = [
   },
   {
     id: "theDartPair",
-    name: "DART AND CLASP",
+    name: "DART PARTY",
     variant: true,
     entries: [
       { beat: 0, col: 3, color: "cyan" },
@@ -64,7 +64,7 @@ export const WAVES_ACT_31: Wave[] = [
   },
   {
     id: "theDartRecall",
-    name: "DART MEMORY",
+    name: "DART HOMECOMING",
     variant: true,
     entries: [
       { beat: 0, col: 1, color: "cyan" },
@@ -78,7 +78,7 @@ export const WAVES_ACT_31: Wave[] = [
   },
   {
     id: "theDartPeak",
-    name: "DART ECLIPSE",
+    name: "DART THUNDER",
     variant: true,
     entries: [
       { beat: 0, col: 8, color: "cyan" },

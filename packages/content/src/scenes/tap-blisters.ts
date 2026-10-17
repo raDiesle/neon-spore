@@ -1,7 +1,7 @@
 import type { GuideScene } from "../scene-types.js";
 
 /**
- * TAP SCATTER's rehearsal: a TAP blister in each of its three bodies — RIDER,
+ * TAP's rehearsal: a TAP blister in each of its three bodies — RIDER,
  * MOLE and CRADLE, picked by id (`render/blister-tap-body.ts`) — and each
  * seat the hand once. The pilot says where two swell and the navigator taps
  * both; then the other way round, for the third.

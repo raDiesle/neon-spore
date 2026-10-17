@@ -1,7 +1,7 @@
 import type { Wave } from "../wave-types.js";
 
 /**
- * Waves 374 to 383 of the game, in the order they are played: THE GYRE's block,
+ * Waves 395 to 404 of the game, in the order they are played: THE GYRE's block,
  * the filler before THE WELL and the boss THE WELL.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act
@@ -31,7 +31,7 @@ export const WAVES_ACT_33: Wave[] = [
   },
   {
     id: "theGyreReach",
-    name: "GYRE AT WORLD END",
+    name: "OUTER GYRE",
     variant: true,
     entries: [
       { beat: 0, col: 10, kind: "gyre", color: null },
@@ -44,7 +44,7 @@ export const WAVES_ACT_33: Wave[] = [
   },
   {
     id: "theGyrePair",
-    name: "GYRE ALLIANCE",
+    name: "GYRE DUET",
     variant: true,
     entries: [
       { beat: 0, col: 4, color: "cyan" },
@@ -59,7 +59,7 @@ export const WAVES_ACT_33: Wave[] = [
   },
   {
     id: "theGyreRecall",
-    name: "OLD GYRE SONG",
+    name: "GYRE LEGEND",
     variant: true,
     entries: [
       { beat: 0, col: 6, color: "red" },

@@ -136,7 +136,7 @@ bun run sheet <prefix> <out.png>       # a strip of frames as one picture, so mo
                        #   --band 0.35,0.72 windows a slice of each frame instead of shrinking it
 bun run probe          # run a scratch script against a live world — tools/probe/
 bun run waves:compose <intro id>  # a block's regular waves, composed and checked; --write puts them after the intro, --names "A|B", --seed N draws again
-bun run waves:controls # one wave per on-screen control: four or more blisters all wanting that gesture, half slicks and bulbs — what a CONTROLS brush's Ctrl-click opens; gesture names to pick, --after <id>, --seed N, --write — tools/director/src/compose-control.ts
+bun run waves:controls # one wave per on-screen control: four or more blisters all wanting that gesture, half slicks and bulbs — what a CONTROLS brush's Ctrl-click opens; gesture names to pick, --after <id>, --seed N, --write; --groups composes Again, Reach and Pair behind every gesture's head that has none — tools/director/src/compose-control.ts
 bun run waves:review   # the next review block: eight regular waves in front of a boss waiting at the end, themed on an old thing; --count N, --seed N, --write — tools/director/src/compose-review.ts
 bun run waves:fillers  # three regular waves of known things in front of every boss past the arc whose block teaches, so no boss folds under an intro; --write — tools/director/src/compose-filler.ts
 bun run waves:lessons  # every panel or fault lesson behind its block's waves, eight of its own composed, bosses placed again, review blocks no boss closes dropped; --write — tools/director/src/compose-lesson.ts

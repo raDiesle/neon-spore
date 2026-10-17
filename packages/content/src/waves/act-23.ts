@@ -1,7 +1,7 @@
 import type { Wave } from "../wave-types.js";
 
 /**
- * Waves 274 to 283 of the game, in the order they are played: THE DARK's block,
+ * Waves 295 to 304 of the game, in the order they are played: THE DARK's block,
  * the filler before THE CURTAIN and the boss THE CURTAIN.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act
@@ -44,7 +44,7 @@ export const WAVES_ACT_23: Wave[] = [
   },
   {
     id: "theDarkReach",
-    name: "DARK VOYAGE",
+    name: "LONG DARK ROAD",
     variant: true,
     entries: [
       { beat: 0, col: 0, kind: "choir", color: "cyan" },
@@ -57,7 +57,7 @@ export const WAVES_ACT_23: Wave[] = [
   },
   {
     id: "theDarkPair",
-    name: "DARK PARTY",
+    name: "DARK ALLIANCE",
     variant: true,
     entries: [
       { beat: 0, col: 9, color: "red" },
@@ -73,7 +73,7 @@ export const WAVES_ACT_23: Wave[] = [
   },
   {
     id: "theDarkRecall",
-    name: "DARK SAGA",
+    name: "DARK LEGEND",
     variant: true,
     entries: [
       { beat: 0, col: 10, color: "red" },

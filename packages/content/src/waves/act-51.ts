@@ -1,7 +1,7 @@
 import type { Wave } from "../wave-types.js";
 
 /**
- * Waves 559 to 570 of the game, in the order they are played: THE LID's review,
+ * Waves 580 to 591 of the game, in the order they are played: THE LID's review,
  * the boss THE LATCH, THE GYRE's review and the boss THE HYDRA.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act
@@ -22,7 +22,7 @@ export const WAVES_ACT_51: Wave[] = [
   },
   {
     id: "reviewLidReach",
-    name: "LID HORIZON",
+    name: "LONG LID ROAD",
     variant: true,
     entries: [
       { beat: 0, col: 9, kind: "lid", color: "red" },
@@ -35,7 +35,7 @@ export const WAVES_ACT_51: Wave[] = [
   },
   {
     id: "reviewLidPair",
-    name: "LID DUET",
+    name: "LID ALLIANCE",
     variant: true,
     entries: [
       { beat: 0, col: 9, color: "red" },
@@ -52,7 +52,7 @@ export const WAVES_ACT_51: Wave[] = [
   },
   {
     id: "reviewLidRecall",
-    name: "LID LEGEND",
+    name: "LID HOMECOMING",
     variant: true,
     entries: [
       { beat: 0, col: 2, color: "cyan" },
@@ -69,7 +69,7 @@ export const WAVES_ACT_51: Wave[] = [
   },
   {
     id: "reviewLidPeak",
-    name: "LID FURY",
+    name: "LID STORM",
     variant: true,
     entries: [
       { beat: 0, col: 3, color: "red" },
@@ -121,7 +121,7 @@ export const WAVES_ACT_51: Wave[] = [
   },
   {
     id: "reviewGyreReach",
-    name: "OUTER GYRE",
+    name: "GYRE AT WORLD END",
     variant: true,
     entries: [
       { beat: 0, col: 9, kind: "gyre", color: null },
@@ -134,7 +134,7 @@ export const WAVES_ACT_51: Wave[] = [
   },
   {
     id: "reviewGyrePair",
-    name: "GYRE MEETS ECHO",
+    name: "GYRE TANGO",
     variant: true,
     entries: [
       { beat: 0, col: 4, color: "red" },
@@ -153,7 +153,7 @@ export const WAVES_ACT_51: Wave[] = [
   },
   {
     id: "reviewGyreRecall",
-    name: "GYRE LEGEND",
+    name: "GYRE SAGA",
     variant: true,
     entries: [
       { beat: 0, col: 1, color: "red" },
@@ -170,7 +170,7 @@ export const WAVES_ACT_51: Wave[] = [
   },
   {
     id: "reviewGyrePeak",
-    name: "GYRE APOCALYPSE",
+    name: "GYRE ECLIPSE",
     variant: true,
     entries: [
       { beat: 0, col: 0, color: "cyan" },

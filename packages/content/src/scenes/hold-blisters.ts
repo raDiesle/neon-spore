@@ -1,7 +1,7 @@
 import type { GuideScene } from "../scene-types.js";
 
 /**
- * HOLD WANDERER's rehearsal: a HOLD blister in each of its two bodies, PALM
+ * HOLD's rehearsal: a HOLD blister in each of its two bodies, PALM
  * then HUG (`render/blister-bodies.ts` `drawHoldBody`, picked by the body and
  * its tile), each held for its one beat — the drop filling under the finger
  * and the green ring while it counts. The pilot holds the first, the

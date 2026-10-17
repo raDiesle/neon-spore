@@ -1,7 +1,7 @@
 import type { Wave } from "../wave-types.js";
 
 /**
- * Waves 284 to 293 of the game, in the order they are played: THE BALLOON's
+ * Waves 305 to 314 of the game, in the order they are played: THE BALLOON's
  * block, the filler before THE SINEW and the boss THE SINEW.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act
@@ -38,7 +38,7 @@ export const WAVES_ACT_24: Wave[] = [
   },
   {
     id: "theBalloonReach",
-    name: "BALLOON WANDERER",
+    name: "BALLOON VOYAGE",
     variant: true,
     entries: [
       { beat: 0, col: 10, kind: "balloon", color: null },
@@ -51,7 +51,7 @@ export const WAVES_ACT_24: Wave[] = [
   },
   {
     id: "theBalloonPair",
-    name: "BALLOON TANGO",
+    name: "BALLOON ALLIANCE",
     variant: true,
     entries: [
       { beat: 0, col: 8, color: "red" },
@@ -66,7 +66,7 @@ export const WAVES_ACT_24: Wave[] = [
   },
   {
     id: "theBalloonRecall",
-    name: "ANCIENT BALLOON",
+    name: "BALLOON LEGEND",
     variant: true,
     entries: [
       { beat: 0, col: 3, color: "red" },
@@ -110,7 +110,7 @@ export const WAVES_ACT_24: Wave[] = [
   },
   {
     id: "fillerSinewRecall",
-    name: "BALLOON LEGEND",
+    name: "BALLOON RELIC",
     variant: true,
     entries: [
       { beat: 0, col: 7, color: "red" },

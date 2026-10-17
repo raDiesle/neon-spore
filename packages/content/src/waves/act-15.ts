@@ -2,7 +2,7 @@ import { STARE_LEVELS } from "../stare-levels.js";
 import type { Wave } from "../wave-types.js";
 
 /**
- * Waves 178 to 191 of the game, in the order they are played: the filler before
+ * Waves 199 to 212 of the game, in the order they are played: the filler before
  * THE STARE, the boss THE STARE, THE SHELL's block, the filler before THE VISE
  * and the boss THE VISE.
  *
@@ -87,7 +87,7 @@ export const WAVES_ACT_15: Wave[] = [
   },
   {
     id: "theThirdShotReach",
-    name: "FAR SHELL",
+    name: "LONG SHELL ROAD",
     variant: true,
     entries: [
       { beat: 0, col: 0, kind: "shell", color: "cyan" },
@@ -114,7 +114,7 @@ export const WAVES_ACT_15: Wave[] = [
   },
   {
     id: "theThirdShotRecall",
-    name: "SHELL MEMORY",
+    name: "SHELL SAGA",
     variant: true,
     entries: [
       { beat: 0, col: 2, color: "red" },
@@ -128,7 +128,7 @@ export const WAVES_ACT_15: Wave[] = [
   },
   {
     id: "theThirdShotPeak",
-    name: "SHELL ECLIPSE",
+    name: "SHELL THUNDER",
     variant: true,
     entries: [
       { beat: 0, col: 6, color: "red" },
@@ -160,7 +160,7 @@ export const WAVES_ACT_15: Wave[] = [
   },
   {
     id: "fillerViseRecall",
-    name: "SHELL SAGA",
+    name: "ANCIENT SHELL",
     variant: true,
     entries: [
       { beat: 0, col: 8, color: "red" },

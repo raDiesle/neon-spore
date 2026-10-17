@@ -1,7 +1,7 @@
 import type { Wave } from "../wave-types.js";
 
 /**
- * Waves 553 to 558 of the game, in the order they are played: THE RECOIL's
+ * Waves 574 to 579 of the game, in the order they are played: THE RECOIL's
  * review and the boss THE GOVERNOR.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act
@@ -22,7 +22,7 @@ export const WAVES_ACT_50: Wave[] = [
   },
   {
     id: "reviewRecoilReach",
-    name: "RECOIL WANDERER",
+    name: "OUTER RECOIL",
     variant: true,
     entries: [
       { beat: 0, col: 10, kind: "recoil", color: "red" },
@@ -34,7 +34,7 @@ export const WAVES_ACT_50: Wave[] = [
   },
   {
     id: "reviewRecoilPair",
-    name: "RECOIL TANGO",
+    name: "RECOIL DUET",
     variant: true,
     entries: [
       { beat: 0, col: 2, color: "cyan" },
@@ -51,7 +51,7 @@ export const WAVES_ACT_50: Wave[] = [
   },
   {
     id: "reviewRecoilRecall",
-    name: "ANCIENT RECOIL",
+    name: "RECOIL HOMECOMING",
     variant: true,
     entries: [
       { beat: 0, col: 0, color: "cyan" },
@@ -68,7 +68,7 @@ export const WAVES_ACT_50: Wave[] = [
   },
   {
     id: "reviewRecoilPeak",
-    name: "RECOIL THUNDER",
+    name: "RECOIL INFERNO",
     variant: true,
     entries: [
       { beat: 0, col: 3, color: "cyan" },

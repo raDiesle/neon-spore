@@ -44184,3 +44184,18 @@ Bottleneck: `adopt` takes one answer per slot, so fourteen were taken by
 hand and the seven slots closed with `drop`.
 
 *Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-17 — Each blister gesture opens its own group, with three waves after it
+
+- reading: 5 min. `waves:controls`, how a tutorial block is composed and
+  what makes a wave head a group on the rail.
+- writing: 20 min. `composeControlGroup`, `waves:controls --groups`, the
+  seven heads renamed to their gesture, the tests and the two specs.
+- looking: 0 min.
+- friction: 15 min. The 21 new tutorial waves moved the floor every block
+  after them rises from, so `waves:order` had to run again and every name
+  past the tutorial was dealt again.
+- landing: 10 min. Soften, measure, renumber, blank, index, `check:fast`.
+
+Bottleneck: a change inside the tutorial re-composes every block after it,
+so the whole list is regenerated for 21 waves.

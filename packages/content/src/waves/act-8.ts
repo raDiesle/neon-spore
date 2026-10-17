@@ -1,7 +1,7 @@
 import type { Wave } from "../wave-types.js";
 
 /**
- * Waves 102 to 111 of the game, in the order they are played: THE CROSSING's
+ * Waves 123 to 132 of the game, in the order they are played: THE CROSSING's
  * block, the filler before THE GAUGE and the boss THE GAUGE.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act
@@ -68,7 +68,7 @@ export const WAVES_ACT_8: Wave[] = [
   },
   {
     id: "theCrossingRecall",
-    name: "CROSSING LEGEND",
+    name: "OLD CROSSING SONG",
     variant: true,
     entries: [
       { beat: 0, col: 6, color: "red" },
@@ -82,7 +82,7 @@ export const WAVES_ACT_8: Wave[] = [
   },
   {
     id: "theCrossingPeak",
-    name: "CROSSING APOCALYPSE",
+    name: "CROSSING ECLIPSE",
     variant: true,
     entries: [
       { beat: 0, col: 8, color: "red" },

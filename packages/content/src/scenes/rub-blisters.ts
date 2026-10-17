@@ -1,7 +1,7 @@
 import type { GuideScene } from "../scene-types.js";
 
 /**
- * RUB MEMORY's rehearsal: a RUB blister in each of its three bodies —
+ * RUB's rehearsal: a RUB blister in each of its three bodies —
  * WASHBOARD and URCHIN for the pilot, then PURR, the cat, for the navigator
  * (`render/blister-rub.ts`, picked by id). The finger scrubs back and forth
  * over the drop, and the turning back is the blow.

@@ -1,7 +1,7 @@
 import type { Wave } from "../wave-types.js";
 
 /**
- * Waves 132 to 141 of the game, in the order they are played: THE WEIGHT's
+ * Waves 153 to 162 of the game, in the order they are played: THE WEIGHT's
  * block, the filler before THE PLUMB and the boss THE PLUMB.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act
@@ -37,7 +37,7 @@ export const WAVES_ACT_11: Wave[] = [
   },
   {
     id: "theWeightReach",
-    name: "OUTER WEIGHT",
+    name: "WEIGHT AT WORLD END",
     variant: true,
     entries: [
       { beat: 0, col: 1, kind: "weight", color: null },
@@ -50,7 +50,7 @@ export const WAVES_ACT_11: Wave[] = [
   },
   {
     id: "theWeightPair",
-    name: "WEIGHT MEETS BEATBOX",
+    name: "WEIGHT DUET",
     variant: true,
     entries: [
       { beat: 0, col: 0, color: "cyan" },
@@ -65,7 +65,7 @@ export const WAVES_ACT_11: Wave[] = [
   },
   {
     id: "theWeightRecall",
-    name: "WEIGHT LEGEND",
+    name: "OLD WEIGHT SONG",
     variant: true,
     entries: [
       { beat: 0, col: 7, color: "red" },
@@ -79,7 +79,7 @@ export const WAVES_ACT_11: Wave[] = [
   },
   {
     id: "theWeightPeak",
-    name: "WEIGHT APOCALYPSE",
+    name: "WEIGHT STORM",
     variant: true,
     entries: [
       { beat: 0, col: 6, color: "red" },

@@ -1,7 +1,7 @@
 import type { Wave } from "../wave-types.js";
 
 /**
- * Waves 445 to 454 of the game, in the order they are played: THE CRAWLER's
+ * Waves 466 to 475 of the game, in the order they are played: THE CRAWLER's
  * block, the filler before THE UNDERTOW and the boss THE UNDERTOW.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act
@@ -35,7 +35,7 @@ export const WAVES_ACT_40: Wave[] = [
   },
   {
     id: "theCrawlerReach",
-    name: "OUTER CRAWLER",
+    name: "FAR CRAWLER",
     variant: true,
     entries: [
       { beat: 0, col: 9, kind: "crawler", color: null, segments: 3, side: "left" },
@@ -48,7 +48,7 @@ export const WAVES_ACT_40: Wave[] = [
   },
   {
     id: "theCrawlerPair",
-    name: "CRAWLER MEETS VOLLEY",
+    name: "CRAWLER TANGO",
     variant: true,
     entries: [
       { beat: 0, col: 3, color: "red" },
@@ -80,7 +80,7 @@ export const WAVES_ACT_40: Wave[] = [
   },
   {
     id: "theCrawlerPeak",
-    name: "CRAWLER APOCALYPSE",
+    name: "CRAWLER INFERNO",
     variant: true,
     entries: [
       { beat: 0, col: 3, color: "cyan" },

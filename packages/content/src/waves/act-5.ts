@@ -1,7 +1,7 @@
 import type { Wave } from "../wave-types.js";
 
 /**
- * Waves 67 to 76 of the game, in the order they are played: THE SEEDER's block,
+ * Waves 88 to 97 of the game, in the order they are played: THE SEEDER's block,
  * the filler before THE MIRROR and the boss THE MIRROR.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act
@@ -38,7 +38,7 @@ export const WAVES_ACT_5: Wave[] = [
   },
   {
     id: "theSeederReach",
-    name: "SEEDER HORIZON",
+    name: "SEEDER VOYAGE",
     variant: true,
     entries: [
       { beat: 0, col: 1, kind: "seeder", color: "cyan" },
@@ -52,7 +52,7 @@ export const WAVES_ACT_5: Wave[] = [
   },
   {
     id: "theSeederPair",
-    name: "SEEDER DUET",
+    name: "SEEDER AND MORSEL",
     variant: true,
     entries: [
       { beat: 0, col: 4, color: "cyan" },
@@ -68,7 +68,7 @@ export const WAVES_ACT_5: Wave[] = [
   },
   {
     id: "theSeederRecall",
-    name: "SEEDER HOMECOMING",
+    name: "SEEDER REUNION",
     variant: true,
     entries: [
       { beat: 0, col: 9, color: "cyan" },
@@ -83,7 +83,7 @@ export const WAVES_ACT_5: Wave[] = [
   },
   {
     id: "theSeederPeak",
-    name: "SEEDER FURY",
+    name: "SEEDER THUNDER",
     variant: true,
     entries: [
       { beat: 0, col: 0, color: "cyan" },
@@ -118,7 +118,7 @@ export const WAVES_ACT_5: Wave[] = [
   },
   {
     id: "fillerMirrorRecall",
-    name: "SEEDER LEGEND",
+    name: "SEEDER HOMECOMING",
     variant: true,
     entries: [
       { beat: 0, col: 10, color: "cyan" },

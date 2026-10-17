@@ -1,7 +1,7 @@
 import type { Wave } from "../wave-types.js";
 
 /**
- * Waves 192 to 201 of the game, in the order they are played: THE CHOKE's
+ * Waves 213 to 222 of the game, in the order they are played: THE CHOKE's
  * block, the filler before THE WARDEN and the boss THE WARDEN.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act
@@ -43,7 +43,7 @@ export const WAVES_ACT_16: Wave[] = [
   },
   {
     id: "theChokeReach",
-    name: "OUTER CHOKE",
+    name: "CHOKE HORIZON",
     variant: true,
     entries: [
       { beat: 0, col: 0, kind: "shell", color: "red" },
@@ -55,7 +55,7 @@ export const WAVES_ACT_16: Wave[] = [
   },
   {
     id: "theChokePair",
-    name: "CHOKE DUET",
+    name: "CHOKE ALLIANCE",
     variant: true,
     entries: [
       { beat: 0, col: 2, color: "red" },
@@ -70,7 +70,7 @@ export const WAVES_ACT_16: Wave[] = [
   },
   {
     id: "theChokeRecall",
-    name: "CHOKE LEGEND",
+    name: "CHOKE REUNION",
     variant: true,
     entries: [
       { beat: 0, col: 6, color: "cyan" },
@@ -84,7 +84,7 @@ export const WAVES_ACT_16: Wave[] = [
   },
   {
     id: "theChokePeak",
-    name: "CHOKE APOCALYPSE",
+    name: "CHOKE THUNDER",
     variant: true,
     entries: [
       { beat: 0, col: 9, color: "cyan" },

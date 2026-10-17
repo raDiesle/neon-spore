@@ -1,7 +1,7 @@
 import type { Wave } from "../wave-types.js";
 
 /**
- * Waves 152 to 161 of the game, in the order they are played: THE LEECH's
+ * Waves 173 to 182 of the game, in the order they are played: THE LEECH's
  * block, the filler before THE LAMPREY and the boss THE LAMPREY.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act
@@ -44,7 +44,7 @@ export const WAVES_ACT_13: Wave[] = [
   },
   {
     id: "theLeechReach",
-    name: "FAR LEECH",
+    name: "OUTER LEECH",
     variant: true,
     entries: [
       { beat: 0, col: 1, kind: "meteorMedium", color: null },
@@ -58,7 +58,7 @@ export const WAVES_ACT_13: Wave[] = [
   },
   {
     id: "theLeechPair",
-    name: "LEECH ALLIANCE",
+    name: "LEECH DUET",
     variant: true,
     entries: [
       { beat: 0, col: 6, color: "red" },
@@ -73,7 +73,7 @@ export const WAVES_ACT_13: Wave[] = [
   },
   {
     id: "theLeechRecall",
-    name: "LEECH MEMORY",
+    name: "LEECH SAGA",
     variant: true,
     entries: [
       { beat: 0, col: 2, color: "cyan" },
@@ -88,7 +88,7 @@ export const WAVES_ACT_13: Wave[] = [
   },
   {
     id: "theLeechPeak",
-    name: "LEECH ECLIPSE",
+    name: "LEECH THUNDER",
     variant: true,
     entries: [
       { beat: 0, col: 6, color: "red" },

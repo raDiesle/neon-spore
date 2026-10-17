@@ -1,7 +1,7 @@
 import type { Wave } from "../wave-types.js";
 
 /**
- * Waves 344 to 353 of the game, in the order they are played: THE CLASP's
+ * Waves 365 to 374 of the game, in the order they are played: THE CLASP's
  * block, the filler before THE ANTIPHON and the boss THE ANTIPHON.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act
@@ -37,7 +37,7 @@ export const WAVES_ACT_30: Wave[] = [
   },
   {
     id: "theClaspReach",
-    name: "FAR CLASP",
+    name: "CLASP AT WORLD END",
     variant: true,
     entries: [
       { beat: 0, col: 1, kind: "clasp", color: "cyan" },
@@ -50,7 +50,7 @@ export const WAVES_ACT_30: Wave[] = [
   },
   {
     id: "theClaspPair",
-    name: "CLASP AND LURE",
+    name: "CLASP WALTZ",
     variant: true,
     entries: [
       { beat: 0, col: 0, color: "cyan" },
@@ -65,7 +65,7 @@ export const WAVES_ACT_30: Wave[] = [
   },
   {
     id: "theClaspRecall",
-    name: "CLASP MEMORY",
+    name: "CLASP HOMECOMING",
     variant: true,
     entries: [
       { beat: 0, col: 8, color: "red" },
@@ -79,7 +79,7 @@ export const WAVES_ACT_30: Wave[] = [
   },
   {
     id: "theClaspPeak",
-    name: "CLASP ECLIPSE",
+    name: "CLASP RAPTURE",
     variant: true,
     entries: [
       { beat: 0, col: 6, color: "cyan" },
@@ -112,7 +112,7 @@ export const WAVES_ACT_30: Wave[] = [
   },
   {
     id: "fillerAntiphonRecall",
-    name: "CLASP HOMECOMING",
+    name: "CLASP LEGEND",
     variant: true,
     entries: [
       { beat: 0, col: 2, color: "red" },

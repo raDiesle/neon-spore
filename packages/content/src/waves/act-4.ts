@@ -3,7 +3,7 @@ import { SWINDLE_SCRIPT } from "../swindle-script.js";
 import type { Wave } from "../wave-types.js";
 
 /**
- * Waves 53 to 66 of the game, in the order they are played: the filler before
+ * Waves 74 to 87 of the game, in the order they are played: the filler before
  * THE SWINDLE, the boss THE SWINDLE, THE MORSEL's block, the filler before THE
  * INSTAR and the boss THE INSTAR.
  *
@@ -30,7 +30,7 @@ export const WAVES_ACT_4: Wave[] = [
   },
   {
     id: "fillerSwindleRecall",
-    name: "ANCIENT HUSK",
+    name: "HUSK HOMECOMING",
     variant: true,
     entries: [
       { beat: 0, col: 1, color: "red" },
@@ -106,7 +106,7 @@ export const WAVES_ACT_4: Wave[] = [
   },
   {
     id: "theMorselReach",
-    name: "MORSEL HORIZON",
+    name: "MORSEL PILGRIM",
     variant: true,
     entries: [
       { beat: 0, col: 1, kind: "morsel", color: "red" },
@@ -120,7 +120,7 @@ export const WAVES_ACT_4: Wave[] = [
   },
   {
     id: "theMorselPair",
-    name: "MORSEL DUET",
+    name: "MORSEL TANGO",
     variant: true,
     entries: [
       { beat: 0, col: 7, color: "cyan" },
@@ -135,7 +135,7 @@ export const WAVES_ACT_4: Wave[] = [
   },
   {
     id: "theMorselRecall",
-    name: "MORSEL HOMECOMING",
+    name: "MORSEL SAGA",
     variant: true,
     entries: [
       { beat: 0, col: 7, color: "red" },
@@ -151,7 +151,7 @@ export const WAVES_ACT_4: Wave[] = [
   },
   {
     id: "theMorselPeak",
-    name: "MORSEL FURY",
+    name: "MORSEL THUNDER",
     variant: true,
     entries: [
       { beat: 0, col: 3, color: "cyan" },

@@ -1,7 +1,7 @@
 import type { Wave } from "../wave-types.js";
 
 /**
- * Waves 294 to 303 of the game, in the order they are played: THE MOULT's
+ * Waves 315 to 324 of the game, in the order they are played: THE MOULT's
  * block, the filler before THE CHRYSALIS and the boss THE CHRYSALIS.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act
@@ -37,7 +37,7 @@ export const WAVES_ACT_25: Wave[] = [
   },
   {
     id: "theMoultReach",
-    name: "MOULT WANDERER",
+    name: "FAR MOULT",
     variant: true,
     entries: [
       { beat: 0, col: 1, kind: "moult", color: null },
@@ -50,7 +50,7 @@ export const WAVES_ACT_25: Wave[] = [
   },
   {
     id: "theMoultPair",
-    name: "MOULT TANGO",
+    name: "MOULT WALTZ",
     variant: true,
     entries: [
       { beat: 0, col: 4, color: "cyan" },
@@ -64,7 +64,7 @@ export const WAVES_ACT_25: Wave[] = [
   },
   {
     id: "theMoultRecall",
-    name: "ANCIENT MOULT",
+    name: "MOULT RELIC",
     variant: true,
     entries: [
       { beat: 0, col: 0, color: "cyan" },
@@ -78,7 +78,7 @@ export const WAVES_ACT_25: Wave[] = [
   },
   {
     id: "theMoultPeak",
-    name: "MOULT THUNDER",
+    name: "MOULT ECLIPSE",
     variant: true,
     entries: [
       { beat: 0, col: 0, color: "red" },

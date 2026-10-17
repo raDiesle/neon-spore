@@ -1,7 +1,7 @@
 import type { Wave } from "../wave-types.js";
 
 /**
- * Waves 42 to 52 of the game, in the order they are played: THE HUSK's block.
+ * Waves 63 to 73 of the game, in the order they are played: THE HUSK's block.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act
  * after the tutorial arc again in play order. A save that fills it cuts a page
@@ -42,7 +42,7 @@ export const WAVES_ACT_3: Wave[] = [
   },
   {
     id: "theHuskReach",
-    name: "HUSK AT WORLD END",
+    name: "FAR HUSK",
     variant: true,
     entries: [
       { beat: 5, col: 10, kind: "meteor", color: null },
@@ -58,7 +58,7 @@ export const WAVES_ACT_3: Wave[] = [
   },
   {
     id: "theHuskPair",
-    name: "HUSK ALLIANCE",
+    name: "HUSK TANGO",
     variant: true,
     entries: [
       { beat: 0, col: 9, color: "cyan" },
@@ -75,7 +75,7 @@ export const WAVES_ACT_3: Wave[] = [
   },
   {
     id: "theHuskRecall",
-    name: "OLD HUSK SONG",
+    name: "ANCIENT HUSK",
     variant: true,
     entries: [
       { beat: 0, col: 3, color: "cyan" },

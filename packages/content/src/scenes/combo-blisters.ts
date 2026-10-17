@@ -1,7 +1,7 @@
 import type { GuideScene } from "../scene-types.js";
 
 /**
- * TWISTED COMBO's rehearsal: a COMBO blister in each of its two bodies,
+ * COMBO's rehearsal: a COMBO blister in each of its two bodies,
  * CURL for the pilot and BUD for the navigator (`render/blister-combo.ts`,
  * picked by id). The finger presses the drop, lifts, and strokes the pull
  * that comes in where it was, to the right.

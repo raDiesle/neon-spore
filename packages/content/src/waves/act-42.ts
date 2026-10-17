@@ -1,7 +1,7 @@
 import type { Wave } from "../wave-types.js";
 
 /**
- * Waves 465 to 474 of the game, in the order they are played: THE VEIL's block,
+ * Waves 486 to 495 of the game, in the order they are played: THE VEIL's block,
  * the filler before THE HASP and the boss THE HASP.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act
@@ -37,7 +37,7 @@ export const WAVES_ACT_42: Wave[] = [
   },
   {
     id: "theVeilReach",
-    name: "OUTER VEIL",
+    name: "LONG VEIL ROAD",
     variant: true,
     entries: [
       { beat: 0, col: 1, kind: "veil", color: null },
@@ -50,7 +50,7 @@ export const WAVES_ACT_42: Wave[] = [
   },
   {
     id: "theVeilPair",
-    name: "VEIL MEETS MINE",
+    name: "VEIL WALTZ",
     variant: true,
     entries: [
       { beat: 0, col: 8, color: "red" },
@@ -67,7 +67,7 @@ export const WAVES_ACT_42: Wave[] = [
   },
   {
     id: "theVeilRecall",
-    name: "VEIL LEGEND",
+    name: "VEIL HOMECOMING",
     variant: true,
     entries: [
       { beat: 0, col: 7, color: "red" },
@@ -82,7 +82,7 @@ export const WAVES_ACT_42: Wave[] = [
   },
   {
     id: "theVeilPeak",
-    name: "VEIL APOCALYPSE",
+    name: "VEIL RAPTURE",
     variant: true,
     entries: [
       { beat: 0, col: 0, color: "red" },

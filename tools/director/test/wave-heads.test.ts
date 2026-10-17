@@ -2,6 +2,8 @@ import { describe, expect, test } from "bun:test";
 import { WAVES } from "@neon-spore/content";
 import { placeable } from "../src/compose-block.js";
 import { isFillerHead, isLesson, isReviewHead } from "../src/compose-starts.js";
+import { controlWaveId } from "../src/control-brushes.js";
+import { BLISTER_GESTURES } from "../src/entry-fields-blister.js";
 import { waveGroups } from "../src/rail-groups.js";
 
 /**
@@ -27,12 +29,23 @@ import { waveGroups } from "../src/rail-groups.js";
  * boss closed the block in front of it (BULB QUEEN, the owner's pick, the
  * same day): folded under a boss, it would read as the boss's.
  *
+ * **Every blister gesture's own wave heads a group too** — TAP, HOLD, SWIPE
+ * and the rest, each with its tutorial and its three waves under it (the
+ * owner, 17 October 2026: *each "controls" brush receive its own parent wave
+ * with introduction, then with around 3 each*). The body they wear is THE
+ * BLISTER's, so no brush cuts the block; the gesture does.
+ *
  * A wave dragged into another group in the director turns this red; the fix
  * is its `variant` flag in the act file, set or taken off.
  */
 
 /** Waves that head a group of their own without starting a block. */
-const STANDS_ALONE = new Set(["theHand", "oneLastChance", "catchAndAim"]);
+const STANDS_ALONE = new Set([
+  "theHand",
+  "oneLastChance",
+  "catchAndAim",
+  ...BLISTER_GESTURES.map(controlWaveId),
+]);
 
 function headsBlock(i: number): boolean {
   const wave = WAVES[i];
@@ -60,9 +73,15 @@ describe("the wave list's groups", () => {
   });
 
   test("every wave that brings a brush has waves under it", () => {
+    // THE BLISTER's waves are its seven gestures' groups, right after it, and
+    // HELLO BLISTER, which mixes them, closes the last of those.
     const groups = waveGroups(WAVES);
     const alone = WAVES.flatMap((wave, i) =>
-      placeable(WAVES, i) !== undefined && (groups.size[i] ?? 0) === 0 ? [wave.name] : [],
+      placeable(WAVES, i) !== undefined &&
+      (groups.size[i] ?? 0) === 0 &&
+      !STANDS_ALONE.has(WAVES[i + 1]?.id ?? "")
+        ? [wave.name]
+        : [],
     );
     expect(alone).toEqual([]);
   });

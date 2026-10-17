@@ -1,7 +1,7 @@
 import type { Wave } from "../wave-types.js";
 
 /**
- * Waves 232 to 241 of the game, in the order they are played: THE CLAW's block,
+ * Waves 253 to 262 of the game, in the order they are played: THE CLAW's block,
  * the filler before THE THROAT and the boss THE THROAT.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act
@@ -38,7 +38,7 @@ export const WAVES_ACT_19: Wave[] = [
   },
   {
     id: "theClawReach",
-    name: "CLAW WANDERER",
+    name: "CLAW HORIZON",
     variant: true,
     entries: [],
     pods: [
@@ -50,7 +50,7 @@ export const WAVES_ACT_19: Wave[] = [
   },
   {
     id: "theClawPair",
-    name: "CLAW ALLIANCE",
+    name: "CLAW DUET",
     variant: true,
     entries: [],
     pods: [
@@ -63,7 +63,7 @@ export const WAVES_ACT_19: Wave[] = [
   },
   {
     id: "theClawRecall",
-    name: "ANCIENT CLAW",
+    name: "CLAW HOMECOMING",
     variant: true,
     entries: [],
     pods: [

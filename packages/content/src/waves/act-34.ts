@@ -2,7 +2,7 @@ import { GIMBAL_SCRIPT } from "../gimbal-script.js";
 import type { Wave } from "../wave-types.js";
 
 /**
- * Waves 384 to 394 of the game, in the order they are played: THE HANDOVER's
+ * Waves 405 to 415 of the game, in the order they are played: THE HANDOVER's
  * block, the filler before THE GIMBAL and the boss THE GIMBAL.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act
@@ -69,7 +69,7 @@ export const WAVES_ACT_34: Wave[] = [
   },
   {
     id: "theHandoverReach",
-    name: "HANDOVER PILGRIM",
+    name: "LONG HANDOVER ROAD",
     variant: true,
     entries: [
       { beat: 0, col: 10, kind: "gyre", color: null },
@@ -83,7 +83,7 @@ export const WAVES_ACT_34: Wave[] = [
   },
   {
     id: "theHandoverPair",
-    name: "HANDOVER TANGO",
+    name: "HANDOVER ALLIANCE",
     variant: true,
     entries: [
       { beat: 0, col: 2, color: "cyan" },
@@ -101,7 +101,7 @@ export const WAVES_ACT_34: Wave[] = [
   },
   {
     id: "theHandoverRecall",
-    name: "HANDOVER RELIC",
+    name: "HANDOVER LEGEND",
     variant: true,
     entries: [
       { beat: 0, col: 8, color: "red" },
@@ -117,7 +117,7 @@ export const WAVES_ACT_34: Wave[] = [
   },
   {
     id: "theHandoverPeak",
-    name: "HANDOVER STORM",
+    name: "HANDOVER OVERDRIVE",
     variant: true,
     entries: [
       { beat: 0, col: 0, color: "red" },

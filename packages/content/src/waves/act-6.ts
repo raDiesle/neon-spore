@@ -1,7 +1,7 @@
 import type { Wave } from "../wave-types.js";
 
 /**
- * Waves 77 to 90 of the game, in the order they are played: THE LANCE's block
+ * Waves 98 to 111 of the game, in the order they are played: THE LANCE's block
  * and the filler before THE GEODE.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act
@@ -38,7 +38,7 @@ export const WAVES_ACT_6: Wave[] = [
   },
   {
     id: "theLanceReach",
-    name: "LANCE WANDERER",
+    name: "LONG LANCE ROAD",
     variant: true,
     entries: [
       { beat: 0, col: 9, kind: "seeder", color: "red" },
@@ -51,7 +51,7 @@ export const WAVES_ACT_6: Wave[] = [
   },
   {
     id: "theLancePair",
-    name: "LANCE TANGO",
+    name: "LANCE PARTY",
     variant: true,
     entries: [
       { beat: 0, col: 0, color: "red" },
@@ -66,7 +66,7 @@ export const WAVES_ACT_6: Wave[] = [
   },
   {
     id: "theLanceRecall",
-    name: "ANCIENT LANCE",
+    name: "LANCE REUNION",
     variant: true,
     entries: [
       { beat: 0, col: 2, color: "cyan" },
@@ -80,7 +80,7 @@ export const WAVES_ACT_6: Wave[] = [
   },
   {
     id: "theLancePeak",
-    name: "LANCE THUNDER",
+    name: "LANCE INFERNO",
     variant: true,
     entries: [
       { beat: 0, col: 4, color: "cyan" },

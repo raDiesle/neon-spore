@@ -2,7 +2,7 @@ import { SNAKE_ROUNDS } from "../snake-rounds.js";
 import type { Wave } from "../wave-types.js";
 
 /**
- * Waves 122 to 131 of the game, in the order they are played: THE LIMPET's
+ * Waves 143 to 152 of the game, in the order they are played: THE LIMPET's
  * block, the filler before SNAKE and the boss SNAKE.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act
@@ -44,7 +44,7 @@ export const WAVES_ACT_10: Wave[] = [
   },
   {
     id: "theLimpetReach",
-    name: "LIMPET PILGRIM",
+    name: "FAR LIMPET",
     variant: true,
     entries: [
       { beat: 0, col: 1, kind: "beatbox", color: null, beats: 2 },
@@ -58,7 +58,7 @@ export const WAVES_ACT_10: Wave[] = [
   },
   {
     id: "theLimpetPair",
-    name: "LIMPET TOGETHER",
+    name: "LIMPET DUET",
     variant: true,
     entries: [
       { beat: 0, col: 2, color: "red" },
@@ -77,7 +77,7 @@ export const WAVES_ACT_10: Wave[] = [
   },
   {
     id: "theLimpetRecall",
-    name: "LIMPET RELIC",
+    name: "OLD LIMPET SONG",
     variant: true,
     entries: [
       { beat: 0, col: 10, color: "red" },
@@ -96,7 +96,7 @@ export const WAVES_ACT_10: Wave[] = [
   },
   {
     id: "theLimpetPeak",
-    name: "LIMPET STORM",
+    name: "LIMPET APOCALYPSE",
     variant: true,
     entries: [
       { beat: 0, col: 6, color: "cyan" },

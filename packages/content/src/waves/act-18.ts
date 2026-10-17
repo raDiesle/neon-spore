@@ -2,7 +2,7 @@ import { SCOUT_HAUL_ARENAS } from "../scout-haul-arenas.js";
 import type { Wave } from "../wave-types.js";
 
 /**
- * Waves 218 to 231 of the game, in the order they are played: the filler before
+ * Waves 239 to 252 of the game, in the order they are played: the filler before
  * THE HAUL, the boss THE HAUL, THE STRAND's block, the filler before THE BATON
  * and the boss THE BATON.
  *
@@ -93,7 +93,7 @@ export const WAVES_ACT_18: Wave[] = [
   },
   {
     id: "theStrandReach",
-    name: "OUTER STRAND",
+    name: "STRAND VOYAGE",
     variant: true,
     entries: [
       { beat: 0, col: 0, kind: "strand", color: "cyan", beads: 3 },
@@ -105,7 +105,7 @@ export const WAVES_ACT_18: Wave[] = [
   },
   {
     id: "theStrandPair",
-    name: "STRAND MEETS VEER",
+    name: "STRAND WALTZ",
     variant: true,
     entries: [
       { beat: 0, col: 4, color: "red" },
@@ -120,7 +120,7 @@ export const WAVES_ACT_18: Wave[] = [
   },
   {
     id: "theStrandRecall",
-    name: "STRAND LEGEND",
+    name: "ANCIENT STRAND",
     variant: true,
     entries: [
       { beat: 0, col: 0, color: "red" },
@@ -134,7 +134,7 @@ export const WAVES_ACT_18: Wave[] = [
   },
   {
     id: "theStrandPeak",
-    name: "STRAND APOCALYPSE",
+    name: "STRAND INFERNO",
     variant: true,
     entries: [
       { beat: 0, col: 8, color: "red" },
@@ -166,7 +166,7 @@ export const WAVES_ACT_18: Wave[] = [
   },
   {
     id: "fillerBatonRecall",
-    name: "STRAND RELIC",
+    name: "STRAND LEGEND",
     variant: true,
     entries: [
       { beat: 0, col: 1, color: "red" },

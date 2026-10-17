@@ -2,7 +2,7 @@ import { FILAMENT_SCRIPT } from "../filament-script.js";
 import type { Wave } from "../wave-types.js";
 
 /**
- * Waves 415 to 424 of the game, in the order they are played: THE CRYSTAL's
+ * Waves 436 to 445 of the game, in the order they are played: THE CRYSTAL's
  * block, the filler before THE FILAMENT and the boss THE FILAMENT.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act
@@ -50,7 +50,7 @@ export const WAVES_ACT_37: Wave[] = [
   },
   {
     id: "theCrystalPair",
-    name: "CRYSTAL PARTY",
+    name: "CRYSTAL WALTZ",
     variant: true,
     entries: [
       { beat: 0, col: 7, color: "cyan" },
@@ -85,7 +85,7 @@ export const WAVES_ACT_37: Wave[] = [
   },
   {
     id: "theCrystalPeak",
-    name: "CRYSTAL OVERDRIVE",
+    name: "CRYSTAL ECLIPSE",
     variant: true,
     entries: [
       { beat: 0, col: 10, color: "cyan" },

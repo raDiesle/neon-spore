@@ -1,7 +1,7 @@
 import type { Wave } from "../wave-types.js";
 
 /**
- * Waves 517 to 528 of the game, in the order they are played: THE WISP's
+ * Waves 538 to 549 of the game, in the order they are played: THE WISP's
  * review, the boss THE VALVE, THE VEIL's review and the boss THE SEAM.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act
@@ -22,7 +22,7 @@ export const WAVES_ACT_47: Wave[] = [
   },
   {
     id: "reviewWispReach",
-    name: "WISP HORIZON",
+    name: "WISP PILGRIM",
     variant: true,
     entries: [
       { beat: 0, col: 9, kind: "wisp", color: null },
@@ -35,7 +35,7 @@ export const WAVES_ACT_47: Wave[] = [
   },
   {
     id: "reviewWispPair",
-    name: "WISP DUET",
+    name: "WISP MEETS VEIL",
     variant: true,
     entries: [
       { beat: 0, col: 6, color: "red" },
@@ -54,7 +54,7 @@ export const WAVES_ACT_47: Wave[] = [
   },
   {
     id: "reviewWispRecall",
-    name: "WISP HOMECOMING",
+    name: "ANCIENT WISP",
     variant: true,
     entries: [
       { beat: 0, col: 1, color: "red" },
@@ -71,7 +71,7 @@ export const WAVES_ACT_47: Wave[] = [
   },
   {
     id: "reviewWispPeak",
-    name: "WISP FURY",
+    name: "WISP RAPTURE",
     variant: true,
     entries: [
       { beat: 0, col: 1, color: "cyan" },
@@ -132,7 +132,7 @@ export const WAVES_ACT_47: Wave[] = [
   },
   {
     id: "reviewVeilPair",
-    name: "VEIL AND MINE",
+    name: "VEIL DUET",
     variant: true,
     entries: [
       { beat: 0, col: 3, color: "cyan" },
@@ -149,7 +149,7 @@ export const WAVES_ACT_47: Wave[] = [
   },
   {
     id: "reviewVeilRecall",
-    name: "VEIL MEMORY",
+    name: "VEIL SAGA",
     variant: true,
     entries: [
       { beat: 0, col: 10, color: "cyan" },

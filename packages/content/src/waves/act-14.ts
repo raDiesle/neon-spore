@@ -2,7 +2,7 @@ import { PINBALL_ROUNDS } from "../pinball-rounds.js";
 import type { Wave } from "../wave-types.js";
 
 /**
- * Waves 162 to 177 of the game, in the order they are played: THE THROB's
+ * Waves 183 to 198 of the game, in the order they are played: THE THROB's
  * block, the filler before PINBALL, the boss PINBALL and THE COUNT's block.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act
@@ -32,7 +32,7 @@ export const WAVES_ACT_14: Wave[] = [
   },
   {
     id: "theThrobReach",
-    name: "THROB WANDERER",
+    name: "THROB AT WORLD END",
     variant: true,
     entries: [
       { beat: 0, col: 10, kind: "throb", color: "red" },
@@ -60,7 +60,7 @@ export const WAVES_ACT_14: Wave[] = [
   },
   {
     id: "theThrobRecall",
-    name: "ANCIENT THROB",
+    name: "THROB RELIC",
     variant: true,
     entries: [
       { beat: 0, col: 0, color: "red" },
@@ -74,7 +74,7 @@ export const WAVES_ACT_14: Wave[] = [
   },
   {
     id: "theThrobPeak",
-    name: "THROB THUNDER",
+    name: "THROB STORM",
     variant: true,
     entries: [
       { beat: 0, col: 7, color: "cyan" },
@@ -175,7 +175,7 @@ export const WAVES_ACT_14: Wave[] = [
   },
   {
     id: "theCountReach",
-    name: "COUNT WANDERER",
+    name: "COUNT VOYAGE",
     variant: true,
     entries: [
       { beat: 0, col: 0, kind: "countdown", color: "red" },
@@ -188,7 +188,7 @@ export const WAVES_ACT_14: Wave[] = [
   },
   {
     id: "theCountPair",
-    name: "COUNT TANGO",
+    name: "COUNT DUET",
     variant: true,
     entries: [
       { beat: 0, col: 3, color: "cyan" },
@@ -217,7 +217,7 @@ export const WAVES_ACT_14: Wave[] = [
   },
   {
     id: "theCountPeak",
-    name: "COUNT THUNDER",
+    name: "COUNT APOCALYPSE",
     variant: true,
     entries: [
       { beat: 0, col: 8, color: "red" },

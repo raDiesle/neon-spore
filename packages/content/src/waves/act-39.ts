@@ -1,7 +1,7 @@
 import type { Wave } from "../wave-types.js";
 
 /**
- * Waves 435 to 444 of the game, in the order they are played: THE FLIP's block,
+ * Waves 456 to 465 of the game, in the order they are played: THE FLIP's block,
  * the filler before THE VANE and the boss THE VANE.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act
@@ -44,7 +44,7 @@ export const WAVES_ACT_39: Wave[] = [
   },
   {
     id: "theFlipReach",
-    name: "FLIP PILGRIM",
+    name: "FAR FLIP",
     variant: true,
     entries: [
       { beat: 0, col: 10, kind: "volley", color: "cyan" },
@@ -58,7 +58,7 @@ export const WAVES_ACT_39: Wave[] = [
   },
   {
     id: "theFlipPair",
-    name: "FLIP ALLIANCE",
+    name: "FLIP WALTZ",
     variant: true,
     entries: [
       { beat: 0, col: 8, color: "red" },
@@ -76,7 +76,7 @@ export const WAVES_ACT_39: Wave[] = [
   },
   {
     id: "theFlipRecall",
-    name: "FLIP RELIC",
+    name: "OLD FLIP SONG",
     variant: true,
     entries: [
       { beat: 0, col: 4, color: "cyan" },
@@ -92,7 +92,7 @@ export const WAVES_ACT_39: Wave[] = [
   },
   {
     id: "theFlipPeak",
-    name: "FLIP STORM",
+    name: "FLIP INFERNO",
     variant: true,
     entries: [
       { beat: 0, col: 7, color: "red" },

@@ -1,7 +1,7 @@
 import type { Wave } from "../wave-types.js";
 
 /**
- * Waves 324 to 333 of the game, in the order they are played: THE LURE's block,
+ * Waves 345 to 354 of the game, in the order they are played: THE LURE's block,
  * the filler before THE LEAD and the boss THE LEAD.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act
@@ -39,7 +39,7 @@ export const WAVES_ACT_28: Wave[] = [
   },
   {
     id: "theLureReach",
-    name: "LONG LURE ROAD",
+    name: "OUTER LURE",
     variant: true,
     entries: [
       { beat: 0, col: 10, kind: "lure", color: "red" },
@@ -51,7 +51,7 @@ export const WAVES_ACT_28: Wave[] = [
   },
   {
     id: "theLurePair",
-    name: "LURE PARTY",
+    name: "LURE AND COIL",
     variant: true,
     entries: [
       { beat: 0, col: 6, color: "red" },
@@ -79,7 +79,7 @@ export const WAVES_ACT_28: Wave[] = [
   },
   {
     id: "theLurePeak",
-    name: "LURE OVERDRIVE",
+    name: "LURE INFERNO",
     variant: true,
     entries: [
       { beat: 0, col: 9, color: "red" },

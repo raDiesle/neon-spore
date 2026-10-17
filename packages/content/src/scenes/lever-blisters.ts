@@ -1,7 +1,7 @@
 import type { GuideScene } from "../scene-types.js";
 
 /**
- * LEVER FURY's rehearsal: a LEVER blister in each of its three bodies —
+ * LEVER's rehearsal: a LEVER blister in each of its three bodies —
  * ROOT and BELL for the navigator, then TAFFY for the pilot
  * (`render/blister-lever.ts`, picked by id). The finger carries the knob down
  * its groove into the band and holds it there while the dial fills.

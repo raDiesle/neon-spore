@@ -1,7 +1,7 @@
 import type { Wave } from "../wave-types.js";
 
 /**
- * Waves 475 to 484 of the game, in the order they are played: THE WISP's block,
+ * Waves 496 to 505 of the game, in the order they are played: THE WISP's block,
  * the filler before THE RATCHET and the boss THE RATCHET.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act
@@ -35,7 +35,7 @@ export const WAVES_ACT_43: Wave[] = [
   },
   {
     id: "theWispReach",
-    name: "WISP WANDERER",
+    name: "WISP VOYAGE",
     variant: true,
     entries: [
       { beat: 0, col: 10, kind: "wisp", color: null },
@@ -47,7 +47,7 @@ export const WAVES_ACT_43: Wave[] = [
   },
   {
     id: "theWispPair",
-    name: "WISP TANGO",
+    name: "WISP AND VEIL",
     variant: true,
     entries: [
       { beat: 0, col: 10, color: "red" },
@@ -64,7 +64,7 @@ export const WAVES_ACT_43: Wave[] = [
   },
   {
     id: "theWispRecall",
-    name: "ANCIENT WISP",
+    name: "WISP LEGEND",
     variant: true,
     entries: [
       { beat: 0, col: 10, color: "red" },
