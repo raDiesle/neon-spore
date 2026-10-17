@@ -344,3 +344,44 @@ seat (player 1 aims, player 2 fires), and a `bun run probe` example or a small
 command that prints that table for a wave by id; cover the throttle with a
 test in `tools/probe/test/`. Then a spec line like *clears at one press each
 per 1.75 seconds* names a command that reproduces it.
+
+## Every boss closes the group whose new thing it is about
+
+- **Found:** 2026-10-17, claude/salvage-wave-boss-reassign-e5734a
+- **Files:** `tools/director/src/boss-slots.ts`, `tools/director/test/boss-slots.test.ts`, `docs/spec/wave-curriculum.md`
+- **Asks:** what happens to a boss that fits no group's new thing — it stays where *first free block* put it, the unfitted ones wait together at the end, or they leave the campaign until a group for them is written?
+
+The owner, 17 October 2026: *every list of waves of a parent — the boss
+should be related to the new thing introduced … i will later on create new
+bosses which fit the new enemy or concept introduced.* `bossOrder` still gives
+each boss the first free block once its keys are taught, and keys cannot say
+what a boss is *about* — most bosses carry only their own mechanic and the
+default panel. So the fit is a table: an `about` per boss (the intro id of
+the block it closes), read by `bossOrder` before *first free block*, and a
+block no boss is about joins `WAITS_FOR_ITS_BOSS`. The matches that read
+plainly off each mechanic's `what` (draft, the owner's to correct):
+THE SWINDLE → THE HUSK (stays), THE GEODE → THE LANCE, THE STARE → THE COUNT
+(an eye open on the beat), THE WARDEN → THE CHOKE (a control taken away),
+THE VISE → THE SHELL, THE PLUMB → THE WEIGHT, THE SINEW → THE BALLOON (two
+handles at once), THE LAMPREY → THE LEECH, THE CURTAIN → THE DARK (pull it
+aside to see), THE CHRYSALIS → THE MOULT, THE REPRISE → THE ECHO, THE VANE →
+THE FLIP (the field mirrored), THE GIMBAL → THE HANDOVER (you see the other's
+mark), THE OCULUS → THE LID, THE MIMIC → THE MINE (one sees the tile, the
+other touches it), THE FLUE → THE GHOST (one sees, the other fires), THE HIVE
+→ HEAVY ROCKS, THE BATON → THE STRAND, THE UNDERTOW → THE CRAWLER (up
+through the hull), THE THROAT → THE CLAW. Then `boss-slots.test.ts` holds the
+table instead of *exactly one per block*.
+
+## The STATES room's section test fails under the sharded check and passes alone
+
+- **Found:** 2026-10-17, claude/salvage-wave-boss-reassign-e5734a
+- **Files:** `tools/director/test/states-page.test.ts`, `tools/director/src/states-section.ts`
+
+`bun run land` went red on all three tests of *a STATES room's own section*
+(built 0 poses where 1 was expected; `THE GAUGE · bound` not found), and the
+same file passed alone straight after, and on the next `land`. The file's own
+note says `section`'s watcher is a module-level singleton built against the
+first global `IntersectionObserver` — another test in the same shard
+installing a fake DOM first would leave it holding a dead one. Find the shard
+neighbour, and give `section` a way to reset its watcher, or the test its own
+module instance.
