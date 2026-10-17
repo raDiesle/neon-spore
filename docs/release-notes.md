@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-17 · 0105d4ca4 — THE SPLICE leaves the tutorial for THE ECHO's block, behind a filler
+
+The owner's pick: a boss on a panel of its own does not stand in the tutorial arc. THE SPLICE no longer closes SALVAGE's group; it closes THE ECHO's block again — the one it left this afternoon, and the only one free — behind three filler waves of its own (ECHO SIESTA, ECHO RELIC, ECHO ILLUSION). In the arc, SALVAGE's three waves are followed by SCRAP FIELD to SCRAP AND TORCH and BULB QUEEN, as before. No other boss moved; 570 waves.
+
 ## 2026-10-17 · 48f5cc454 — Each control's death offered on VERSUS: fourteen candidates, two per control
 
 A blister knocked out still dies by the clover break every body shares, which reads as a bulb shattering and fits none of the seven controls. Each control now has a death slot on VERSUS, `blister:death-<control>`, with two candidates that go the way that control is worked: TAP plunge and popcap, HOLD drain and spill, SWIPE smear and unzip, TURN screw and spring, RUB erase and foam, COMBO snap and slide, LEVER yank and snap.

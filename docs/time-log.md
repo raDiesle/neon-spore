@@ -44083,3 +44083,5 @@ looked like a broken candidate until the pose under it was found.
 
 Bottleneck: two lanes rewriting every act file in the same hour; each rebase
 is a regeneration, not a merge.
+
+*Measured: 14 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
