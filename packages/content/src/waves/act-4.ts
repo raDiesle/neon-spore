@@ -3,7 +3,7 @@ import { SWINDLE_SCRIPT } from "../swindle-script.js";
 import type { Wave } from "../wave-types.js";
 
 /**
- * Waves 54 to 67 of the game, in the order they are played: the filler before
+ * Waves 53 to 66 of the game, in the order they are played: the filler before
  * THE SWINDLE, the boss THE SWINDLE, THE MORSEL's block, the filler before THE
  * INSTAR and the boss THE INSTAR.
  *

@@ -1,7 +1,7 @@
 import type { Wave } from "../wave-types.js";
 
 /**
- * Waves 68 to 77 of the game, in the order they are played: THE SEEDER's block,
+ * Waves 67 to 76 of the game, in the order they are played: THE SEEDER's block,
  * the filler before THE MIRROR and the boss THE MIRROR.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act

@@ -1,7 +1,7 @@
 import type { Wave } from "../wave-types.js";
 
 /**
- * Waves 295 to 304 of the game, in the order they are played: THE MOULT's
+ * Waves 294 to 303 of the game, in the order they are played: THE MOULT's
  * block, the filler before THE LEAD and the boss THE LEAD.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act

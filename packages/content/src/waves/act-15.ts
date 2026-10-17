@@ -2,7 +2,7 @@ import { SCOUT_HAUL_ARENAS } from "../scout-haul-arenas.js";
 import type { Wave } from "../wave-types.js";
 
 /**
- * Waves 173 to 182 of the game, in the order they are played: THE COUNT's
+ * Waves 172 to 181 of the game, in the order they are played: THE COUNT's
  * block, the filler before THE HAUL and the boss THE HAUL.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act

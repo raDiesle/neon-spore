@@ -2,7 +2,7 @@ import { SCOUT_ARENAS } from "../scout-arenas.js";
 import type { Wave } from "../wave-types.js";
 
 /**
- * Waves 163 to 172 of the game, in the order they are played: THE THROB's
+ * Waves 162 to 171 of the game, in the order they are played: THE THROB's
  * block, the filler before THE SCOUT and the boss THE SCOUT.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act

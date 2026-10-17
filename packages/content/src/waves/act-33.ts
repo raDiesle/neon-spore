@@ -1,7 +1,7 @@
 import type { Wave } from "../wave-types.js";
 
 /**
- * Waves 355 to 364 of the game, in the order they are played: THE DART's block,
+ * Waves 354 to 363 of the game, in the order they are played: THE DART's block,
  * the filler before THE REPRISE and the boss THE REPRISE.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act

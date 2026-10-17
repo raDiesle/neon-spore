@@ -44067,3 +44067,19 @@ Bottleneck: getting a strip that showed the death at all — every wrong frame
 looked like a broken candidate until the pose under it was found.
 
 *Measured: 10 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-17 — THE SPLICE leaves the arc for THE ECHO's block
+
+- reading: 5 min. The lane that moved it in: `WAITS_FOR_ITS_BOSS`,
+  `SAME_BUTTON`, the arc's boss tests.
+- writing: 10 min. The move and its filler by a scratch script, the empty
+  wait list, a review's waves kept out of its block's count, two tests, the
+  docs.
+- looking: 0 min. Read as the list, nothing on the field changes.
+- friction: 0 min.
+- landing: 25 min. `land` found the trunk moved under its check — blocks
+  cut to five — so the wave files were taken from `main`, the move run again
+  and every generated file written again.
+
+Bottleneck: two lanes rewriting every act file in the same hour; each rebase
+is a regeneration, not a merge.

@@ -2,7 +2,7 @@ import { STARE_LEVELS } from "../stare-levels.js";
 import type { Wave } from "../wave-types.js";
 
 /**
- * Waves 183 to 192 of the game, in the order they are played: THE SHELL's
+ * Waves 182 to 191 of the game, in the order they are played: THE SHELL's
  * block, the filler before THE STARE and the boss THE STARE.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act

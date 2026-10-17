@@ -1,7 +1,7 @@
 import type { Wave } from "../wave-types.js";
 
 /**
- * Waves 243 to 254 of the game, in the order they are played: THE FENCE's
+ * Waves 242 to 253 of the game, in the order they are played: THE FENCE's
  * block, the filler before THE CURTAIN and the boss THE CURTAIN.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act

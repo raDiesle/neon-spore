@@ -88,6 +88,10 @@ export function isFiller(id: string | undefined): boolean {
   return id !== undefined && /^filler[A-Z]/.test(id);
 }
 
+/** Whether a wave is a filler's or a review's: composed after a block, and
+ * none of its own written waves — SCRAP FIELD after SALVAGE's. */
+const composedAfter = (id: string | undefined) => isFiller(id) || /^review[A-Z]/.test(id ?? "");
+
 /** The thing a wave introduces that a wave can place: a body or a pod, not a
  * panel, a fault or a boss. */
 export function placeable(waves: readonly Wave[], index: number): string | undefined {
@@ -191,7 +195,7 @@ export function readBlock(waves: readonly Wave[], introId: string): Block | stri
   let existing = 0;
   // A set piece written after the block is none of its steps (`Wave.setPiece`).
   for (let i = intro + 1; i < next && (!tutorial || i <= last) && !waves[i]?.boss; i++) {
-    if (regularAt(waves, i) && !waves[i]?.setPiece && !isFiller(waves[i]?.id)) existing++;
+    if (regularAt(waves, i) && !waves[i]?.setPiece && !composedAfter(waves[i]?.id)) existing++;
   }
   const before = intros.slice(0, number);
   // The nearest block before with a regular wave written: one the composer

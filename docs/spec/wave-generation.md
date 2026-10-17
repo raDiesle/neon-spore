@@ -13,11 +13,11 @@ waves into the act files once, the owner reads them, and from then on they are
 waves like any other — they open in the director, any arrival can be dragged,
 and the game does not know they were composed.
 
-Today: **567 waves**. 57 bring something new (an *intro*), 60 are bosses, and
-450 are *regular* — waves that bring nothing new and need no tutorial. Most of
-the regular ones are composed. AUTO plays the whole game in 4 h 48 min; a pair
-needs about 9 h 37 min. Past the tutorial there are **54 blocks and 55
-bosses**: 33 opened by a body or a pod, 10 by a lesson, 11 reviews — and 44
+Today: **570 waves**. 57 bring something new (an *intro*), 60 are bosses, and
+453 are *regular* — waves that bring nothing new and need no tutorial. Most of
+the regular ones are composed. AUTO plays the whole game in 4 h 50 min; a pair
+needs about 9 h 39 min. Past the tutorial there are **54 blocks and 56
+bosses**: 33 opened by a body or a pod, 10 by a lesson, 11 reviews — and 45
 fillers, one in front of each boss whose block teaches.
 
 ## The shape: a block
@@ -133,12 +133,13 @@ Inside a block, pressure climbs in small steps:
 Each boss goes to **the end of the first block after which everything it needs
 has been taught** — its panel, every button on it, the hold, and every body it
 carries — one boss to a block, each taking the first block still free once it
-is ready, so no block goes without one — except a block the owner emptied for
-a boss about its own new thing (`WAITS_FOR_ITS_BOSS`, `boss-slots.ts`; THE
-ECHO's since 17 October 2026). A boss on a panel only bosses carry
+is ready, so no block goes without one — except a block the owner empties for
+a boss about its own new thing (`WAITS_FOR_ITS_BOSS`, `boss-slots.ts`; none
+today). A boss on a panel only bosses carry
 comes after the boss before it on that panel (THE HAUL after THE SCOUT). The
-tutorial keeps THE BROOD, THE BASTION, THE SPLICE (after SALVAGE's block)
-and BULB QUEEN (after the review block that follows it) where they are, and THE BLISTER's
+tutorial keeps THE BROOD, THE BASTION and BULB QUEEN (after the review block
+that follows SALVAGE's) where they are, and no boss on a panel of its own
+stands in it — THE SPLICE closes THE ECHO's block, behind a filler. THE BLISTER's
 gestures stand before THE BASTION; THE INSTAR closes the first block after
 it. The last 12 bosses
 close a **review block** (below). Every boss has five regular waves in front

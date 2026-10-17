@@ -1,7 +1,7 @@
 import type { Wave } from "../wave-types.js";
 
 /**
- * Waves 345 to 354 of the game, in the order they are played: THE CLASP's
+ * Waves 344 to 353 of the game, in the order they are played: THE CLASP's
  * block, the filler before THE WELL and the boss THE WELL.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act

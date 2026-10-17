@@ -2,7 +2,7 @@ import { PULSE_STAGES } from "../pulse-stages.js";
 import type { Wave } from "../wave-types.js";
 
 /**
- * Waves 193 to 202 of the game, in the order they are played: THE CHOKE's
+ * Waves 192 to 201 of the game, in the order they are played: THE CHOKE's
  * block, the filler before THE PULSE and the boss THE PULSE.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act

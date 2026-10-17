@@ -24,7 +24,10 @@ import { regularAt } from "./list-reading.js";
  *   that need nothing the arc does not teach. On 17 October 2026 THE SPLICE
  *   took SALVAGE's block from it — its mouth is SALVAGE's, on the other seat
  *   (`SAME_BUTTON`, `wave-keys.ts`) — and BULB QUEEN closes a review block
- *   of its own straight after.
+ *   of its own straight after. The same evening the owner took THE SPLICE
+ *   out of the arc again — a boss on a panel of its own stands past the
+ *   basics, behind a filler (`compose-filler.ts`) — and it closes THE ECHO's
+ *   block, the only one free.
  * - **A boss takes the first free block** after its needs are taught, so a
  *   block a boss skipped is taken
  *   by the next boss ready for it, and no block goes without one but those
@@ -42,11 +45,12 @@ import { regularAt } from "./list-reading.js";
  * (`WAITS_FOR_ITS_BOSS`), and no boss is moved up to fill it — the owner,
  * 17 October 2026, taking THE SPLICE from THE ECHO's block to SALVAGE's: *the
  * boss should be related to the new thing introduced … i will later on create
- * new bosses which fit.*
+ * new bosses which fit.* THE ECHO's waited until THE SPLICE came back to it.
  */
 
-/** The intros of blocks waiting for a boss written for them. */
-export const WAITS_FOR_ITS_BOSS: ReadonlySet<string> = new Set(["theEcho"]);
+/** The intros of blocks waiting for a boss written for them. None since THE
+ * SPLICE went back to THE ECHO's block. */
+export const WAITS_FOR_ITS_BOSS: ReadonlySet<string> = new Set<string>();
 
 export interface BossSlot {
   id: string;

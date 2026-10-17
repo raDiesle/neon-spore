@@ -338,9 +338,11 @@ decided then while the owner was away:
   on the other seat) and BULB QUEEN to a review block of three after it:
   *every list of waves of a parent — the boss should be related to the new
   thing introduced … i will later on create new bosses which fit.* A block
-  emptied that way waits for its own boss (`WAITS_FOR_ITS_BOSS`); THE ECHO's
-  is the first. The rest of the bosses are still where *first free block*
-  put them.
+  emptied that way waits for its own boss (`WAITS_FOR_ITS_BOSS`). The same
+  evening the owner took THE SPLICE out of the arc again — a boss on a panel
+  of its own stands past the basics, behind a filler (below) — and it went
+  back to THE ECHO's block, the one it had left. The rest of the bosses are
+  still where *first free block* put them.
 - **A boss with no block left waits at the end**, in order — and gets a
   review block: five regular waves with no intro, themed on the bodies from
   the last taught back, composed by `bun run waves:review`
@@ -377,9 +379,9 @@ decided then while the owner was away:
   holds the rule.
 
 Past the arc that makes **54 blocks — 33 opened by a body or a pod, 10 by a
-lesson, 11 reviews — 44 fillers, and 55 bosses**: one closing every block
-but THE ECHO's, which waits for its own, and two waiting at the end. 735
-waves in all, and 567 once blocks were five (17 October 2026).
+lesson, 11 reviews — 45 fillers, and 56 bosses**: one closing every block,
+and two waiting at the end. 570 waves in all, since blocks are five (17
+October 2026).
 
 The boss table — every boss's AUTO time against the band — is in
 `wave-curriculum-today.md`. AUTO plays perfectly and never talks, so the

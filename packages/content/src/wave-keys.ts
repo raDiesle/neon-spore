@@ -26,7 +26,8 @@ import type { Wave } from "./wave-types.js";
  * **A button that is another button moved is that button's key**
  * (`SAME_BUTTON`). `mawTake` is SALVAGE's intake mouth on the other seat
  * (`control-sets-table.ts`), so SALVAGE teaches it — the owner, 17 October
- * 2026, putting THE SPLICE at the end of SALVAGE's group.
+ * 2026, putting THE SPLICE at the end of SALVAGE's group; it stands past
+ * the arc since that evening, and the key still says what SALVAGE taught.
  */
 
 /** Buttons whose key is another button's: the same control on another seat. */

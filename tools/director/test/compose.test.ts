@@ -32,15 +32,17 @@ describe("a block, read off the list", () => {
     expect([b.number, b.x, b.y, b.tutorial]).toEqual([0, "slick", undefined, true]);
   });
 
-  test("SALVAGE's block runs to THE SPLICE, and CATCH AND AIM is no block", () => {
+  test("SALVAGE's block is its three, and CATCH AND AIM is no block", () => {
     // CATCH AND AIM opened a block of its own on THE PURGE until the cargoes
     // were rejected (16 October 2026): it introduces no body or pod now.
     // SALVAGE's block comes after THE BLISTER's gestures (moved before THE
-    // BASTION the same day), and THE SPLICE closes it (17 October 2026).
+    // BASTION the same day); its review, SCRAP FIELD to SCRAP AND TORCH, and
+    // BULB QUEEN follow it (17 October 2026), and the review's three are not
+    // the block's own.
     const b = block("salvage");
     expect([b.x, b.y]).toEqual(["pod", "blister"]);
     expect(typeof readBlock(WAVES, "catchAndAim")).toBe("string");
-    // Three written, up to THE SPLICE: the arc's short block is full.
+    // Three written, up to its review: the arc's short block is full.
     expect(b.existing).toBe(3);
     expect(stepsToCompose(b.tutorial, b.existing)).toEqual([]);
   });

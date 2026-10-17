@@ -129,17 +129,6 @@ export const WAVES_ACT_1B: Wave[] = [
     controls: "standard5",
   },
   {
-    id: "theSplice",
-    name: "THE SPLICE",
-    guide: {
-      scene: "theSplice",
-    },
-    entries: [],
-    boss: { kind: "splice", rounds: [{ beats: 18 }, { beats: 27 }, { beats: 36 }] },
-    bossType: "special",
-    controls: "splice",
-  },
-  {
     id: "reviewSalvage",
     name: "SCRAP FIELD",
     entries: [

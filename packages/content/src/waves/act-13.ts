@@ -2,7 +2,7 @@ import { PINBALL_ROUNDS } from "../pinball-rounds.js";
 import type { Wave } from "../wave-types.js";
 
 /**
- * Waves 153 to 162 of the game, in the order they are played: THE LEECH's
+ * Waves 152 to 161 of the game, in the order they are played: THE LEECH's
  * block, the filler before PINBALL and the boss PINBALL.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act

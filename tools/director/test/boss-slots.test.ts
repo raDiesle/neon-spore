@@ -78,7 +78,14 @@ describe("the bosses' places (wave-curriculum §7)", () => {
     expect(WAVES.findIndex((w) => w.id === "theBrood")).toBeLessThan(finale);
     expect(WAVES.findIndex((w) => w.id === "bulbQueen")).toBeLessThan(finale);
     expect(WAVES.findIndex((w) => w.id === "theBastion")).toBeLessThan(finale);
-    expect(WAVES.findIndex((w) => w.id === "theSplice")).toBeLessThan(finale);
+  });
+
+  test("THE SPLICE stands past the arc, behind a filler, closing THE ECHO's block", () => {
+    // The owner, 17 October 2026: a boss on a panel of its own does not close
+    // a block in the arc — it comes once the basics are taught, behind a
+    // filler (`compose-filler.ts`).
+    expect(WAVES.findIndex((w) => w.id === "theSplice")).toBeGreaterThan(finale);
+    expect(bossOrder(WAVES).slots.find((s) => s.id === "theSplice")?.closes).toBe("theEcho");
   });
 
   test("THE INSTAR comes after the arc, once every basic thing is taught", () => {

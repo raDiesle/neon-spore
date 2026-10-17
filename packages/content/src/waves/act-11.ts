@@ -1,7 +1,7 @@
 import type { Wave } from "../wave-types.js";
 
 /**
- * Waves 133 to 142 of the game, in the order they are played: THE WEIGHT's
+ * Waves 132 to 141 of the game, in the order they are played: THE WEIGHT's
  * block, the filler before THE VANE and the boss THE VANE.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act

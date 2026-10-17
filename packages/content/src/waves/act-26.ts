@@ -1,7 +1,7 @@
 import type { Wave } from "../wave-types.js";
 
 /**
- * Waves 285 to 294 of the game, in the order they are played: THE BALLOON's
+ * Waves 284 to 293 of the game, in the order they are played: THE BALLOON's
  * block, the filler before THE SURGE and the boss THE SURGE.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act
