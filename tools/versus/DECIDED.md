@@ -2351,3 +2351,23 @@ seam, empty.
 The other answers offered were `glint`, `hop`, `orbit` and `smart`; they
 went with the slot. The pod in the maw's grip and THE PULSE's lane still draw
 the old lobed body (`drawPodBody`) — the slot asked about the moored pod.
+
+## `siren:look` / `lightbar` — taken, 2026-10-17
+
+The owner, 17 October 2026: use LIGHTBAR in the game, reject the others — then
+made shorter, given a quiet idle state, and tappable to hide.
+
+an emergency light bar — a row of cells: one cyan light scanning end to end
+for a call, red and white halves strobing against each other for a torch, each
+flash lighting a band of the screen
+
+The paint moved from `tools/versus/candidates/siren-look/lightbar/paint.ts` to
+`packages/render/src/siren-lightbar.ts` and became the only siren there is:
+the dial (`siren-dial.ts`), its beams (`siren-shine.ts`) and the record VERSUS
+patched (`siren-look.ts`) went with the question. Taken and changed in the same
+lane, as the owner asked: 8 pixels tall where the candidate was 18, the chips
+and the word pulled up under it, and three states rather than two — at rest on
+every field, a call, a torch — plus the outline a player who tapped it away is
+left with (`ViewState.sirenOff`, the menu's SIREN switch).
+
+The other answers offered were `beacon` and `sonar`; they went with the slot.

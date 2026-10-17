@@ -157,6 +157,10 @@ type Budget = Partial<
 // so they wrap, and ten twinkles of one baked cross — fifteen more
 // `drawImage` in every row; and two more the same day for CELLS's own far
 // wall and its organelles (`sky-cells.ts`). Remeasured, not padded.
+// From 17 October 2026 the siren's bar stands at the top of every field, at
+// rest when nothing is called: the housing's fill and stroke, one path of seven
+// dark cells, one save (`siren-lightbar.ts`). Every row here rose by exactly
+// that, remeasured rather than padded.
 const BUDGETS: Readonly<Record<"p1" | "p2", Readonly<Record<"mid" | "hit", Budget>>>> = {
   p1: {
     // From 14 October 2026 every hull glances (`fleet-glance.ts`): on p1, where
@@ -172,13 +176,13 @@ const BUDGETS: Readonly<Record<"p1" | "p2", Readonly<Record<"mid" | "hit", Budge
       // One more stroke and one more clip than before the hull's light became a
       // barrel: `hull-barrel.ts` strokes the contour with a crown ramp, clipped
       // to the body. Every row in this file carries the same two.
-      stroke: 84,
+      stroke: 85,
       // One more than before 2 October 2026: an asked mark's light is a
       // colour pass and a glow pass inside it (`part-light.ts`), where the old
       // halo was one red cloud over everything round it. Both rows carry it.
-      fill: 62,
+      fill: 64,
       clip: 22,
-      save: 63,
+      save: 64,
       drawImage: 55,
       // Five of these are the hulls' own: one ramp across the beam a vessel,
       // which is what the flat fill under an outline used to cost.
@@ -190,12 +194,12 @@ const BUDGETS: Readonly<Record<"p1" | "p2", Readonly<Record<"mid" | "hit", Budge
     hit: {
       fillRect: 38,
       // Two more than mid: the shockwave ring and the fireball's own contour.
-      stroke: 86,
-      fill: 61,
+      stroke: 87,
+      fill: 63,
       clip: 22,
       // Nine more: the burst opens one per shard it turns, and the shards are
       // the only thing in this picture drawn in a frame of its own.
-      save: 72,
+      save: 73,
       // Three more: the flash and the fireball are `halo` blits, and the halo
       // the shell was carrying is gone.
       drawImage: 59,
@@ -219,10 +223,10 @@ const BUDGETS: Readonly<Record<"p1" | "p2", Readonly<Record<"mid" | "hit", Budge
       // calling halo and two ripples, the slime's layers and its clip, so the
       // drop's rows rose with it — twelve strokes, eleven fills, one clip,
       // five saves, two radial gradients, fourteen paths.
-      stroke: 92,
-      fill: 82,
+      stroke: 93,
+      fill: 84,
       clip: 8,
-      save: 57,
+      save: 58,
       drawImage: 37,
       createLinearGradient: 18,
       createRadialGradient: 14,
@@ -232,10 +236,10 @@ const BUDGETS: Readonly<Record<"p1" | "p2", Readonly<Record<"mid" | "hit", Budge
     hit: {
       fillRect: 41,
       // The hold's drop, as at mid.
-      stroke: 93,
-      fill: 80,
+      stroke: 94,
+      fill: 82,
       clip: 8,
-      save: 65,
+      save: 66,
       drawImage: 40,
       createLinearGradient: 17,
       createRadialGradient: 15,

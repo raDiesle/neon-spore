@@ -146,6 +146,13 @@ export interface ViewState {
    */
   names?: SeatNames;
   /**
+   * Whether this player has tapped the siren away (`siren.ts` `sirenHit`, or
+   * the SIREN switch in the menu). Per device like `hand`: one person not
+   * wanting the light on their screen is nothing the other screen or the world
+   * knows. Unset, the siren is drawn — every frame test and the director.
+   */
+  sirenOff?: boolean;
+  /**
    * Whether this frame is a page of a rehearsal rather than the game.
    *
    * A guide's film is a real world stepped by the real `step`

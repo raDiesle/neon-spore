@@ -32,7 +32,7 @@ export const SIREN_GROUP: HelperGroup = {
         "marks over five creatures: the pair learns one place to look, and it " +
         "never moves, because the answer — talk — is the same wherever the body is. " +
         "Everything in the roster below lights it.",
-      source: "siren.ts, siren-dial.ts, siren-seats.ts — the roster is comms.ts, duty.ts",
+      source: "siren.ts, siren-lightbar.ts, siren-seats.ts — the roster is comms.ts, duty.ts",
       pose: SIREN_ON,
       role: "p2",
       lookAt: "the lit dial at the top and the two chips either side of it",

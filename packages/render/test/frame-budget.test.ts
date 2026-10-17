@@ -165,6 +165,10 @@ const MEASURE = false;
 // so they wrap, and ten twinkles of one baked cross — fifteen more
 // `drawImage` in every row; and two more the same day for CELLS's own far
 // wall and its organelles (`sky-cells.ts`). Remeasured, not padded.
+// From 17 October 2026 the siren's bar stands at the top of every field, at
+// rest when nothing is called: the housing's fill and stroke, one path of seven
+// dark cells, one save (`siren-lightbar.ts`). Every row here rose by exactly
+// that, remeasured rather than padded.
 const BUDGETS: Readonly<Record<"p1" | "p2", readonly Budget[]>> = {
   p1: [
     {
@@ -178,10 +182,10 @@ const BUDGETS: Readonly<Record<"p1" | "p2", readonly Budget[]>> = {
       // (`action-face.ts`). They replaced two `fillText` calls, which is the
       // whole of the trade the owner chose — the word cost almost nothing and
       // could not be drawn at a sequence glyph's size at all.
-      stroke: 87,
-      fill: 60,
+      stroke: 88,
+      fill: 62,
       clip: 30,
-      save: 68,
+      save: 69,
       drawImage: 72,
       createLinearGradient: 22,
       createRadialGradient: 11,
@@ -197,10 +201,10 @@ const BUDGETS: Readonly<Record<"p1" | "p2", readonly Budget[]>> = {
     },
     {
       fillRect: 12,
-      stroke: 89,
-      fill: 60,
+      stroke: 90,
+      fill: 62,
       clip: 30,
-      save: 68,
+      save: 69,
       drawImage: 72,
       // Down from frame 0: the layout-only gradients (`gradient-slot.ts`'s
       // sites in field.ts and backdrop.ts, key-light.ts's own slot, and the
@@ -220,15 +224,15 @@ const BUDGETS: Readonly<Record<"p1" | "p2", readonly Budget[]>> = {
       // contour plus `strokeGlow`'s four passes round the creature inside it,
       // which is how the field draws that body and the whole of what the owner
       // asked for (`controls.ts`).
-      stroke: 91,
+      stroke: 92,
       // Three more, and all three are `drawDetails`: the bulb's one core and
       // the slick's two, drawn on the buttons now that the silhouettes are
       // bodies rather than stencils.
-      fill: 68,
+      fill: 70,
       clip: 30,
       // Two fewer: a fire button's face is one `paintLobe` doing fill and
       // stroke together where it used to be a fill and then a crosshair.
-      save: 70,
+      save: 71,
       drawImage: 71,
       createLinearGradient: 22,
       createRadialGradient: 11,
@@ -239,10 +243,10 @@ const BUDGETS: Readonly<Record<"p1" | "p2", readonly Budget[]>> = {
     },
     {
       fillRect: 12,
-      stroke: 93,
-      fill: 68,
+      stroke: 94,
+      fill: 70,
       clip: 30,
-      save: 70,
+      save: 71,
       drawImage: 71,
       createLinearGradient: 14,
       createRadialGradient: 8,
@@ -404,6 +408,10 @@ function rope(world: World, milli: number) {
 // 2026: the cannon's column is a gunsight in the seat's colour, a glow and a
 // path of rails and ticks under two more layout gradients (`cannon-column.ts`).
 // Remeasured 16 October 2026 under the one sky every budget run is drawn under (`BUDGET_SKY`), so the wave's place in the list no longer moves a row.
+// From 17 October 2026 the siren's bar stands at the top of every field, at
+// rest when nothing is called: the housing's fill and stroke, one path of seven
+// dark cells, one save (`siren-lightbar.ts`). Every row here rose by exactly
+// that, remeasured rather than padded.
 const EYE_BUDGETS: Readonly<Record<string, readonly Budget[]>> = {
   // **15 October 2026, the glance layer counted** (`canvas-stub-layer.ts`):
   // the warden's glancing parts are drawn on a scratch layer, and its draws
@@ -452,13 +460,13 @@ const EYE_BUDGETS: Readonly<Record<string, readonly Budget[]>> = {
       // circle with a thumbprint in place of the scan box —
       // the ring's glow, five ridges and the loop; `save` and `new Path2D`
       // one each.
-      stroke: 181,
+      stroke: 182,
       // Four more: the two patches of the wet film, the eyelids and their
       // pupils. Flat, whatever the openness. **Two more on 14 October 2026**:
       // the rope's channel bows (`sim/warden-bow.ts`), and a bow is longer
       // than the straight drop it replaced, so it carries two more of the
       // path's dots (`goo-track.ts`).
-      fill: 105,
+      fill: 107,
       // Two more than the body's own: the film and the veins share a single
       // clip to it, and the lens opens one of its own so the lids can cut the
       // pupil instead of the pupil being sized to miss them (`eye-lens.ts`).
@@ -468,7 +476,7 @@ const EYE_BUDGETS: Readonly<Record<string, readonly Budget[]>> = {
       // **Two more on 27 September 2026, when the ring began to rock**: the
       // body and the grip are each drawn in the pose, a frame apiece, and the
       // rope between them is not (`warden-frame.ts`).
-      save: 67,
+      save: 68,
       // Two of these are the ball as well, and they are the whole of what it
       // costs: the dome is a sprite baked once per colour and size, and the wet
       // point is `halo`'s. Neither builds a gradient, which is why the two
@@ -488,11 +496,11 @@ const EYE_BUDGETS: Readonly<Record<string, readonly Budget[]>> = {
       // FIZZ, as in frame 0.
       fillRect: 9,
       // The hold's circle, as in frame 0.
-      stroke: 183,
+      stroke: 184,
       // The bow's two dots, as in frame 0.
-      fill: 106,
+      fill: 108,
       clip: 14,
-      save: 71,
+      save: 72,
       // One more, and a ramp more, on 14 October 2026: the body glances
       // (`warden-glance.ts`), laid on the screen as one picture with the far
       // side's dark ramped over it (`glance-layer.ts`). Frame 0 is the round's
@@ -526,15 +534,15 @@ const EYE_BUDGETS: Readonly<Record<string, readonly Budget[]>> = {
       // (`pull-knob.ts`, `way-arrow.ts`). Two more on 16 October 2026: the
       // open eye's light round its socket (`body-aura.ts`), its passes at this
       // size and opening.
-      stroke: 138,
-      fill: 86,
+      stroke: 139,
+      fill: 88,
       // The one op this body's share of the new lens costs: the clip the lids
       // cut the pupil through (`eye-lens.ts`).
       // Three, three and five more on 15 October 2026: the eye glances as any
       // enemy does (`creature-glance.ts`), laid on the screen from a layer of
       // its own, with the far side's dark ramped over it.
       clip: 16,
-      save: 59,
+      save: 60,
       drawImage: 48,
       createLinearGradient: 30,
       createRadialGradient: 17,
@@ -549,10 +557,10 @@ const EYE_BUDGETS: Readonly<Record<string, readonly Budget[]>> = {
       // FIZZ, as in frame 0.
       fillRect: 10,
       // One more on 29 September 2026, the knob's arrow, as in frame 0.
-      stroke: 140,
-      fill: 86,
+      stroke: 141,
+      fill: 88,
       clip: 16,
-      save: 59,
+      save: 60,
       // AURORA's strips, as in frame 0.
       drawImage: 48,
       createLinearGradient: 22,

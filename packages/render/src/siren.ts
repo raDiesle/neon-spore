@@ -1,16 +1,17 @@
 import { handedOver, type World } from "@neon-spore/sim";
 import { type CommsCall, commsCall } from "./comms.js";
-import { bossDuty, bossSirenRight } from "./comms-boss.js";
+import { bossDuty } from "./comms-boss.js";
 import { dutyWord } from "./duty.js";
 import { handedLayout } from "./handover.js";
 import type { Layout } from "./layout.js";
 import type { SeatNames } from "./seat-name.js";
-import { DIAL_R, drawDial, TICK } from "./siren-dial.js";
-import { SIREN_LOOK } from "./siren-look.js";
-import { drawSeat, pillWidth, SIREN_PAD, seatChip } from "./siren-seats.js";
-import { drawSirenShine } from "./siren-shine.js";
+import { BAR_HALF_W, drawLightbar, type SirenState } from "./siren-lightbar.js";
+import { barX, DUTY_DROP, GAP, sirenBottom, sirenCentre } from "./siren-place.js";
+import { drawSeat, PILL_H, pillWidth, SIREN_PAD, seatChip } from "./siren-seats.js";
 import { torchWarning } from "./torch-alarm.js";
 import type { ViewRole } from "./view-role.js";
+
+export { sirenBottom, sirenCentre, sirenHit } from "./siren-place.js";
 
 /**
  * The warning siren, top centre of the field, and the two seats' jobs either
@@ -46,50 +47,25 @@ import type { ViewRole } from "./view-role.js";
  * is what makes a person start talking. The two phones therefore draw the same
  * two chips in the same order, and only the brightness differs.
  *
- * The dial itself is `siren-dial.ts` and the chips are `siren-seats.ts`; this
- * file places them and writes the duty word under them.
- */
-
-/** Clear of the run's line, which ends at y = 23. */
-const TOP = 24;
-/** Between a chip and the dial. */
-const GAP = 3;
-
-/** How far under the dial the duty word sits, and how it is drawn. Clear of
- * the two seat chips, which are level with the dial's own middle. */
-const DUTY_DROP = 12;
-const DUTY_FONT = '700 8px "Courier New",monospace';
-/** Half the duty word's own height, which is what hangs under its middle. */
-const DUTY_HALF = 4;
-
-/**
- * Where the dial's middle is on this screen. Exported for the director's
- * WORDINGS page, which points a label at it — from these numbers rather than
- * a copy of them, so the label follows the dial if it ever moves.
+ * **Three states, and the bar is always there** (the owner, 17 October 2026):
+ * idle, a call, a torch on its way. It was drawn only while a call was on;
+ * now it stands quietly at the top of every field, so the pair know where it
+ * lives before it has anything to say, and the chips and the word come with
+ * a call. A player who does not want it taps it away, and taps the same place
+ * to bring it back (`sirenHit`, `ViewState.sirenOff`).
  *
- * The dial is the middle of the screen, whatever the names measure: a chip
- * grows outward from it on its own side.
+ * The bar itself is `siren-lightbar.ts` and the chips are `siren-seats.ts`;
+ * this file places them and writes the duty word under them.
  */
-export function sirenCentre(l: Layout, _names?: SeatNames): { x: number; y: number } {
-  return { x: l.width / 2, y: TOP + DIAL_R };
-}
+
+const DUTY_FONT = '700 8px "Courier New",monospace';
+/** The word's colour, the dial's tick colour before it. */
+const DUTY_INK = "#5B5486";
 
 /**
- * **Pinned right rather than centred, for a boss whose own picture holds the
- * top middle** — THE FLUE's, whose sight, studs and middle tendon stand on
- * the column the dial would cover (the owner, 6 October 2026: *show siren top
- * right*). The same row, so nothing stacked under it moves; the cluster's
- * right end held off the ☰ by `SIREN_PAD`, and never left of the middle, which
- * is where long names would push it.
- */
-function sirenRightX(l: Layout, names?: SeatNames): number {
-  const right = DIAL_R + GAP + pillWidth(seatChip("p2", names));
-  return Math.max(l.width / 2, l.width - SIREN_PAD - right);
-}
-
-/**
- * The lowest row the whole cluster claims — the duty word's, under the dial —
- * or null when no call is on and the siren is not drawn at all.
+ * The lowest row the whole cluster claims — the duty word's, under the bar —
+ * or null when no call is on and only the idle bar is drawn, which is no
+ * lower than the run's own line and pushes nothing down.
  */
 export function sirenFoot(l: Layout, world: World): number | null {
   if (!commsCall(world)) return null;
@@ -102,15 +78,9 @@ export function sirenFoot(l: Layout, world: World): number | null {
   return sirenBottom(l);
 }
 
-/** The lowest row the cluster claims whenever it is drawn, call or none. */
-export function sirenBottom(l: Layout): number {
-  // The word is drawn on its middle, so half of it hangs under its baseline.
-  return sirenCentre(l).y + DIAL_R + DUTY_DROP + DUTY_HALF;
-}
-
 /**
  * The word or words this seat owes the other about whatever split body is on
- * the field, under the dial. Nothing else on the field writes a word here
+ * the field, under the bar. Nothing else on the field writes a word here
  * (`duty.ts`). The word is the panel's, which is what it is about. Exported
  * for the director's HELPERS page, which prints what each seat reads.
  */
@@ -127,9 +97,16 @@ export function drawCommsSiren(
    * to talk, and a name is what the other one would actually be called
    * (`siren-seats.ts`). */
   names?: SeatNames,
+  /** This player tapped the bar away (`ViewState.sirenOff`). */
+  off = false,
 ): void {
   const call = commsCall(world);
-  if (!call) return;
+  const x = barX(l, world, names);
+  if (!call || off) {
+    // Idle, or put away: the bar alone, and no chips or word whatever is on.
+    drawLightbar(ctx, x, sirenCentre(l).y, time, off ? "off" : "idle");
+    return;
+  }
   const word = sirenWord(l.role, world);
   // **The chips are people, and a traded panel is not a traded person.** The
   // call is worked out by panel — the pilot's panel sees through a veil, and
@@ -139,14 +116,13 @@ export function drawCommsSiren(
   // this device's own seat, which is the frame's role traded back
   // (`handover.ts`). Without it the pilot holding the navigator's panel was
   // circled on the navigator's name.
-  const x = bossSirenRight(world) ? sirenRightX(l, names) : undefined;
-  // A torch on its way is the alarm at its loudest (`siren-shine.ts`), and the
-  // same window `commsCall` lit the dial for.
-  const torch = torchWarning(world, world.cfg.radarLead) !== null;
+  // A torch on its way is the alarm at its loudest, and the same window
+  // `commsCall` lit the bar for.
+  const state = torchWarning(world, world.cfg.radarLead) !== null ? "torch" : "call";
   if (handedOver(world)) {
     const swapped = { p1: call.p2, p2: call.p1 };
-    drawSiren(ctx, handedLayout(l, world), swapped, word, time, names, x, torch);
-  } else drawSiren(ctx, l, call, word, time, names, x, torch);
+    drawSiren(ctx, handedLayout(l, world), swapped, word, time, names, x, state);
+  } else drawSiren(ctx, l, call, word, time, names, x, state);
 }
 
 /**
@@ -162,40 +138,38 @@ export function drawSiren(
   word: string | null,
   time: number,
   names?: SeatNames,
-  /** The dial's middle across, where a boss pins the cluster right; the
+  /** The bar's middle across, where a boss pins the cluster right; the
    * middle of the screen otherwise. */
   atX?: number,
-  /** Whether a torch is on its way: the beams turn faster, wider and in ember. */
-  torch = false,
+  /** A call, a torch on its way, or put away by the player: the bar alone. */
+  state: SirenState = "call",
 ): void {
-  // P1 on the left of the dial and P2 on its right, which is the order the
+  // P1 on the left of the bar and P2 on its right, which is the order the
   // band already reads in — the cannon strip above the shield strip, player 1
   // before player 2 everywhere else on the screen. Stacking both chips under
-  // the dial put them in a column, and a column has no left and no right, so
+  // the bar put them in a column, and a column has no left and no right, so
   // there was nothing to line either of them up with.
   const { x: mid, y: cy } = sirenCentre(l, names);
   const cx = atX ?? mid;
   // Each chip is as wide as the word in it, so the two reaches are worked out
   // one at a time rather than shared: a pair called Bo and Anne-Marie have
-  // chips of two different widths and the dial stays between them.
-  const left = DIAL_R + GAP + pillWidth(seatChip("p1", names)) / 2;
-  const right = DIAL_R + GAP + pillWidth(seatChip("p2", names)) / 2;
+  // chips of two different widths and the bar stays between them.
+  const left = BAR_HALF_W + GAP + pillWidth(seatChip("p1", names)) / 2;
+  const right = BAR_HALF_W + GAP + pillWidth(seatChip("p2", names)) / 2;
 
   ctx.save();
-  // A VERSUS answer draws the dial and its light together (`siren-look.ts`).
-  const paint = SIREN_LOOK.paint;
-  if (paint) paint(ctx, cx, cy, time, torch);
-  else {
-    drawSirenShine(ctx, cx, cy, time, torch);
-    drawDial(ctx, cx, cy, time);
+  drawLightbar(ctx, cx, cy, time, state);
+  if (state === "off" || state === "idle") {
+    ctx.restore();
+    return;
   }
   drawSeat(ctx, l, "p1", call.p1, cx - left, cy, time, names);
   drawSeat(ctx, l, "p2", call.p2, cx + right, cy, time, names);
-  if (word !== null) drawDuty(ctx, l, word, cx, cy + DIAL_R + DUTY_DROP);
+  if (word !== null) drawDuty(ctx, l, word, cx, cy + PILL_H / 2 + DUTY_DROP);
   ctx.restore();
 }
 
-/** The word this seat owes, centred under the dial, or nothing. */
+/** The word this seat owes, centred under the bar, or nothing. */
 function drawDuty(
   ctx: CanvasRenderingContext2D,
   l: Layout,
@@ -206,11 +180,11 @@ function drawDuty(
   ctx.font = DUTY_FONT;
   ctx.textAlign = "center";
   ctx.textBaseline = "middle";
-  ctx.fillStyle = TICK;
+  ctx.fillStyle = DUTY_INK;
   // Pulled back inside the screen when it is too wide to be centred under the
-  // dial. THE FENCE's own word is nineteen characters — FIND GAP FOR SHIELD,
+  // bar. THE FENCE's own word is nineteen characters — FIND GAP FOR SHIELD,
   // the owner's wording — and two kinds owing a word at once join theirs with
-  // a dot, so the line outgrew the corner it was first written for. The dial
+  // a dot, so the line outgrew the corner it was first written for. The bar
   // is in the middle now and the clamp is rarely reached, but it stays:
   // the words are the instruction, and the one thing that must not happen is
   // half of one running off the edge of the phone.

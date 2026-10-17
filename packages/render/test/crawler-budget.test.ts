@@ -117,14 +117,18 @@ const MEASURE = false;
 // each organ's bed, are held between frames the way the trough's channel was
 // (`gland-fluid.ts`, `gland-organ.ts`). Remeasured, not padded.
 // Remeasured 16 October 2026 under the one sky every budget run is drawn under (`BUDGET_SKY`), so the wave's place in the list no longer moves a row.
+// From 17 October 2026 the siren's bar stands at the top of every field, at
+// rest when nothing is called: the housing's fill and stroke, one path of seven
+// dark cells, one save (`siren-lightbar.ts`). Every row here rose by exactly
+// that, remeasured rather than padded.
 const BUDGETS: Readonly<Record<"p1" | "p2", readonly Budget[]>> = {
   p1: [
-    { fillRect: 9, stroke: 98, fill: 95, clip: 11, save: 66, "new Path2D": 57, fillText: 0 },
-    { fillRect: 9, stroke: 100, fill: 92, clip: 11, save: 63, "new Path2D": 28, fillText: 0 },
+    { fillRect: 9, stroke: 99, fill: 97, clip: 11, save: 67, "new Path2D": 57, fillText: 0 },
+    { fillRect: 9, stroke: 101, fill: 94, clip: 11, save: 64, "new Path2D": 28, fillText: 0 },
   ],
   p2: [
-    { fillRect: 9, stroke: 102, fill: 103, clip: 11, save: 68, "new Path2D": 55, fillText: 0 },
-    { fillRect: 9, stroke: 104, fill: 100, clip: 11, save: 65, "new Path2D": 28, fillText: 0 },
+    { fillRect: 9, stroke: 103, fill: 105, clip: 11, save: 69, "new Path2D": 55, fillText: 0 },
+    { fillRect: 9, stroke: 105, fill: 102, clip: 11, save: 66, "new Path2D": 28, fillText: 0 },
   ],
 };
 

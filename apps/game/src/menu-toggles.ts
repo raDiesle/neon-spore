@@ -4,6 +4,7 @@ import { canVibrate } from "./haptics.js";
 import { el } from "./menu-parts.js";
 import type { SettingsHooks } from "./menu-settings.js";
 import { readSettings, type Settings, updateSettings } from "./settings.js";
+import { setSirenShown } from "./siren-shown.js";
 
 /**
  * SETTINGS' switches: the things about this device a person may turn on and
@@ -84,6 +85,14 @@ export const TOGGLES: ToggleRow[] = [
     // Read by the field on every press (`field-input.ts`), so it takes hold
     // on the next one and has nothing to do here.
     apply: () => {},
+  },
+  {
+    key: "siren",
+    label: "SIREN",
+    on: "The light at the top says when to talk. Tap it to hide it.",
+    off: "Hidden. Tap the top middle of the field to bring it back.",
+    // The frame keeps its own copy of this (`siren-shown.ts`), so it is told.
+    apply: (_hooks, value) => setSirenShown(value),
   },
 ];
 

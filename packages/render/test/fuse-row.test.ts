@@ -10,7 +10,7 @@ import {
 import { computeLayout, type Layout, type ViewRole } from "../src/layout.js";
 import { drawMineFuses } from "../src/mine.js";
 import { sirenCentre, sirenFoot } from "../src/siren.js";
-import { DIAL_R } from "../src/siren-dial.js";
+import { BAR_HALF_H } from "../src/siren-lightbar.js";
 import { FRAME_TIMEOUT_MS, installCanvasGlobals, stubCanvas } from "./canvas-stub.js";
 
 // The cap, applied per file because bun applies it to the file it is in
@@ -86,17 +86,16 @@ describe("the blind seat's fuse count", () => {
     ["a laptop window", LAPTOP],
     ["a phone", PHONE],
   ] as const) {
-    it(`stands clear of the siren's dial on ${name}`, () => {
+    it(`stands clear of the siren's bar on ${name}`, () => {
       const l = computeLayout(viewport, CFG, SEAT);
       const world = mined();
-      expect(sirenFoot(l, world), "no mine stands, so the dial is dark").not.toBeNull();
-      const { x, y, r } = ring(l, world);
+      expect(sirenFoot(l, world), "a mine stands, so the bar is lit").not.toBeNull();
+      const { y, r } = ring(l, world);
       const dial = sirenCentre(l);
-      const apart = Math.hypot(x - dial.x, y - dial.y);
       expect(
-        apart,
-        `the ring at ${Math.round(y)} is on the dial at ${Math.round(dial.y)}`,
-      ).toBeGreaterThan(DIAL_R + r);
+        y - r,
+        `the ring at ${Math.round(y)} is on the bar at ${Math.round(dial.y)}`,
+      ).toBeGreaterThan(dial.y + BAR_HALF_H);
     });
   }
 

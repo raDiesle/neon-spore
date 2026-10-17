@@ -160,6 +160,10 @@ interface Scene {
 // 16 October 2026: a lit siren throws a wash and two turning beams round itself
 // (`siren-shine.ts`), one halo blit and one baked sprite. Only the rows that
 // rose were moved, to what they measured.
+// From 17 October 2026 the siren is a light bar (`siren-lightbar.ts`), and it
+// stands at the top of every field, at rest when nothing is called — a fill, a
+// stroke and a save more in every row, and a fill a cell where the bar is lit
+// (THE GHOST, THE WISP, BULB QUEEN, THE CAIRN). Remeasured, not padded.
 const SCENES: readonly Scene[] = [
   {
     id: "theGhost",
@@ -173,7 +177,7 @@ const SCENES: readonly Scene[] = [
         {
           fillRect: 13,
           stroke: 82,
-          fill: 58,
+          fill: 63,
           clip: 6,
           save: 36,
           drawImage: 44,
@@ -185,7 +189,7 @@ const SCENES: readonly Scene[] = [
         {
           fillRect: 17,
           stroke: 87,
-          fill: 58,
+          fill: 63,
           clip: 6,
           save: 37,
           drawImage: 44,
@@ -203,7 +207,7 @@ const SCENES: readonly Scene[] = [
         {
           fillRect: 23,
           stroke: 101,
-          fill: 79,
+          fill: 84,
           clip: 10,
           save: 103,
           drawImage: 107,
@@ -215,7 +219,7 @@ const SCENES: readonly Scene[] = [
         {
           fillRect: 23,
           stroke: 103,
-          fill: 79,
+          fill: 84,
           clip: 10,
           save: 103,
           drawImage: 107,
@@ -246,7 +250,7 @@ const SCENES: readonly Scene[] = [
         {
           fillRect: 205,
           stroke: 83,
-          fill: 58,
+          fill: 63,
           clip: 6,
           save: 37,
           drawImage: 44,
@@ -258,7 +262,7 @@ const SCENES: readonly Scene[] = [
         {
           fillRect: 205,
           stroke: 85,
-          fill: 58,
+          fill: 63,
           clip: 6,
           save: 37,
           drawImage: 44,
@@ -276,7 +280,7 @@ const SCENES: readonly Scene[] = [
         {
           fillRect: 201,
           stroke: 126,
-          fill: 95,
+          fill: 100,
           clip: 24,
           save: 70,
           drawImage: 49,
@@ -288,7 +292,7 @@ const SCENES: readonly Scene[] = [
         {
           fillRect: 201,
           stroke: 128,
-          fill: 95,
+          fill: 100,
           clip: 24,
           save: 70,
           drawImage: 49,
@@ -386,7 +390,7 @@ const SCENES: readonly Scene[] = [
         {
           fillRect: 24,
           stroke: 169,
-          fill: 99,
+          fill: 104,
           clip: 15,
           save: 71,
           drawImage: 176,
@@ -398,7 +402,7 @@ const SCENES: readonly Scene[] = [
         {
           fillRect: 23,
           stroke: 170,
-          fill: 98,
+          fill: 103,
           clip: 18,
           save: 70,
           drawImage: 141,
@@ -412,7 +416,7 @@ const SCENES: readonly Scene[] = [
         {
           fillRect: 23,
           stroke: 147,
-          fill: 100,
+          fill: 105,
           clip: 15,
           save: 64,
           drawImage: 132,
@@ -424,7 +428,7 @@ const SCENES: readonly Scene[] = [
         {
           fillRect: 23,
           stroke: 149,
-          fill: 102,
+          fill: 107,
           clip: 18,
           save: 68,
           drawImage: 137,
@@ -454,10 +458,10 @@ const SCENES: readonly Scene[] = [
       p1: [
         {
           fillRect: 24,
-          stroke: 174,
-          fill: 109,
+          stroke: 175,
+          fill: 111,
           clip: 126,
-          save: 229,
+          save: 230,
           drawImage: 192,
           createLinearGradient: 34,
           createRadialGradient: 21,
@@ -466,10 +470,10 @@ const SCENES: readonly Scene[] = [
         },
         {
           fillRect: 24,
-          stroke: 176,
-          fill: 108,
+          stroke: 177,
+          fill: 110,
           clip: 126,
-          save: 229,
+          save: 230,
           drawImage: 192,
           createLinearGradient: 26,
           createRadialGradient: 18,
@@ -480,10 +484,10 @@ const SCENES: readonly Scene[] = [
       p2: [
         {
           fillRect: 24,
-          stroke: 178,
-          fill: 117,
+          stroke: 179,
+          fill: 119,
           clip: 126,
-          save: 231,
+          save: 232,
           drawImage: 191,
           createLinearGradient: 34,
           createRadialGradient: 21,
@@ -492,10 +496,10 @@ const SCENES: readonly Scene[] = [
         },
         {
           fillRect: 24,
-          stroke: 180,
-          fill: 116,
+          stroke: 181,
+          fill: 118,
           clip: 126,
-          save: 231,
+          save: 232,
           drawImage: 191,
           createLinearGradient: 26,
           createRadialGradient: 18,
@@ -523,10 +527,10 @@ const SCENES: readonly Scene[] = [
       p1: [
         {
           fillRect: 15,
-          stroke: 157,
-          fill: 97,
+          stroke: 158,
+          fill: 99,
           clip: 55,
-          save: 114,
+          save: 115,
           drawImage: 104,
           createLinearGradient: 26,
           createRadialGradient: 11,
@@ -535,10 +539,10 @@ const SCENES: readonly Scene[] = [
         },
         {
           fillRect: 15,
-          stroke: 159,
-          fill: 97,
+          stroke: 160,
+          fill: 99,
           clip: 55,
-          save: 114,
+          save: 115,
           drawImage: 104,
           createLinearGradient: 18,
           createRadialGradient: 8,
@@ -549,10 +553,10 @@ const SCENES: readonly Scene[] = [
       p2: [
         {
           fillRect: 15,
-          stroke: 161,
-          fill: 104,
+          stroke: 162,
+          fill: 106,
           clip: 55,
-          save: 116,
+          save: 117,
           drawImage: 103,
           createLinearGradient: 26,
           createRadialGradient: 11,
@@ -561,10 +565,10 @@ const SCENES: readonly Scene[] = [
         },
         {
           fillRect: 15,
-          stroke: 163,
-          fill: 104,
+          stroke: 164,
+          fill: 106,
           clip: 55,
-          save: 116,
+          save: 117,
           drawImage: 103,
           createLinearGradient: 18,
           createRadialGradient: 8,
@@ -627,7 +631,7 @@ const SCENES: readonly Scene[] = [
         {
           fillRect: 19,
           stroke: 204,
-          fill: 379,
+          fill: 384,
           clip: 27,
           save: 241,
           drawImage: 84,
@@ -639,7 +643,7 @@ const SCENES: readonly Scene[] = [
         {
           fillRect: 18,
           stroke: 191,
-          fill: 303,
+          fill: 308,
           clip: 29,
           save: 208,
           drawImage: 80,
@@ -653,7 +657,7 @@ const SCENES: readonly Scene[] = [
         {
           fillRect: 17,
           stroke: 180,
-          fill: 310,
+          fill: 315,
           clip: 26,
           save: 206,
           drawImage: 72,
@@ -665,7 +669,7 @@ const SCENES: readonly Scene[] = [
         {
           fillRect: 17,
           stroke: 182,
-          fill: 309,
+          fill: 314,
           clip: 29,
           save: 209,
           drawImage: 77,

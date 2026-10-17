@@ -70,6 +70,15 @@ export interface Settings {
    * agree about the world.
    */
   shipTouch: boolean;
+  /**
+   * Whether the siren is drawn at the top of the field (`render/siren.ts`).
+   * **On by default**: it is how the pair is told to talk. Off is a player who
+   * has learned the waves and wants the top of the screen back — tapped away
+   * on the bar itself, or here, and the same tap brings it back
+   * (`siren-shown.ts`). It changes one screen's picture and nothing the world
+   * knows.
+   */
+  siren: boolean;
 }
 
 /**
@@ -86,6 +95,7 @@ export const DEFAULT_SETTINGS: Settings = {
   haptics: false,
   fullscreen: true,
   shipTouch: false,
+  siren: true,
 };
 
 /** Whatever was stored, read as settings. Unreadable means the defaults. */
@@ -100,6 +110,7 @@ export function parseSettings(raw: string | null): Settings {
       haptics: flag(read.haptics, DEFAULT_SETTINGS.haptics),
       fullscreen: flag(read.fullscreen, DEFAULT_SETTINGS.fullscreen),
       shipTouch: flag(read.shipTouch, DEFAULT_SETTINGS.shipTouch),
+      siren: flag(read.siren, DEFAULT_SETTINGS.siren),
     };
   } catch {
     return DEFAULT_SETTINGS;

@@ -148,7 +148,7 @@ export function drawGaugeRound(
   ctx.textAlign = "center";
   // The level's clock over the alien's head, and the siren over everything.
   drawGaugeFuse(ctx, l, view.world, boss, dial, view.beatPhase);
-  drawGaugeSiren(ctx, l, boss, view.time, view.names);
+  drawGaugeSiren(ctx, l, boss, view.time, view.names, view.sirenOff);
   drawGauge(ctx, dial, view.world.cfg, boss, dialView);
   // The two thumbs the round can be taken hold of by, after the dial they
   // stand on (`gauge-grip.ts`). That file asks this one for `gaugeDial` and

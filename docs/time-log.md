@@ -43724,3 +43724,12 @@ Bottleneck: a stale tree — main had moved the very file being changed.
 Bottleneck: the shared machine's load — every test waits its turn.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+## 2026-10-17 — the siren is LIGHTBAR: shorter, three states, tapped away
+
+- reading: 15 min. `siren.ts`, the seats, the VERSUS adopt path, `settings.ts` and how `shipTouch` reaches a press.
+- writing: 30 min. The bar's three states and its outline, `siren-place.ts` split off, the tap and the SIREN switch, a states test.
+- looking: 10 min. Three frames — idle, a call, a torch — and the chips found under the test-mode switch, so the bar went 6 px down.
+- friction: 20 min. Six budget files moved by one bar at rest on every frame, two with comments inside their rows; a scratch script did it (queued).
+- landing: 10 min. `check:fast`, `land`.
+
+Bottleneck: the op-count budgets — one look on every frame touches every table, and they are pasted back by hand.

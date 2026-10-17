@@ -9,6 +9,7 @@ import {
   type Layout,
   pointerSeat,
   pointerSeats,
+  type SeatNames,
   shieldGrab,
   showsWell,
   type ViewRole,
@@ -23,6 +24,7 @@ import { bindLost } from "./lost.js";
 import type { RunState } from "./run-state.js";
 import { readSettings } from "./settings.js";
 import { bindShake } from "./shake.js";
+import { bindSirenTap } from "./siren-tap.js";
 
 /**
  * Everything a finger on the glass reaches: the field itself, a shake, the
@@ -38,7 +40,8 @@ import { bindShake } from "./shake.js";
  * *around* the field is a knot with a name, and this is everything *on* it.
  *
  * The order is not arbitrary. `bindControls` captures the pointer on the
- * stage, so it goes on first and the three after it see what it did not take.
+ * stage, so it goes on first and the three after it see what it did not take
+ * — all but the siren's tap, which goes on before it and keeps its press.
  */
 export interface FieldInputOptions {
   canvas: HTMLCanvasElement;
@@ -57,6 +60,8 @@ export interface FieldInputOptions {
   replayGuide: () => void;
   /** A press on the guide's picture, which the bar answers (`briefing.ts`). */
   nudgeGuide: () => void;
+  /** The two people's names, for where the siren stands (`siren-tap.ts`). */
+  names: () => SeatNames | undefined;
 }
 
 /** The keyboard's per-tick call and the two things a frame reads off a
@@ -108,6 +113,8 @@ export function bindFieldInput(o: FieldInputOptions): FieldInput {
   window.addEventListener("keydown", (e) => desk.down(e.code));
   window.addEventListener("keyup", (e) => desk.up(e.code));
   window.addEventListener("blur", () => desk.clear());
+  // Before the field's listener, which it stops a press on the siren reaching.
+  bindSirenTap({ canvas, world, layout, inStage, names: o.names });
   const controls = bindControls({
     canvas,
     buffer,

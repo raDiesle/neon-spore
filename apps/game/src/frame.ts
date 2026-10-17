@@ -9,6 +9,7 @@ import type { Intro } from "./intro.js";
 import { startLoop } from "./loop.js";
 import { createMenuIdle } from "./menu-idle.js";
 import type { RunState } from "./run-state.js";
+import { sirenShown } from "./siren-shown.js";
 import { runMark, throttledTally } from "./tally.js";
 import { tickMs } from "./tick-rate.js";
 import type { Welcome } from "./welcome.js";
@@ -145,6 +146,8 @@ export function startFrames(p: FrameParts): Frames {
       keys,
       thumbs: p.thumbs(),
       names: status.names,
+      // Tapped away on this phone, or switched off in the menu (`siren-shown.ts`).
+      sirenOff: !sirenShown(),
       // The one thing on this screen that has to be drawn ahead of the
       // simulation: a chart judged on *when a thumb landed* cannot afford the
       // tenth of a second delayed lockstep schedules a press into

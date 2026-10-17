@@ -116,6 +116,8 @@ const input = bindFieldInput({
   jumpToWave,
   replayGuide: () => renderer.replayGuide(),
   nudgeGuide: () => renderer.nudgeGuide(),
+  // `link` is tied further down; a press only ever comes after it is.
+  names: () => link.status().names,
 });
 const { tick: tickKeys, hand, pointer, thumbs } = input;
 

@@ -160,7 +160,7 @@ export { P1_SKIN, P2_SKIN, type SeatSkin, seatSkin } from "./seat-skin.js";
 export { type Fracture, type Shard, shatter } from "./shatter.js";
 export { type Fall, type Flight, fadeAt, type ShardPose, shardAt } from "./shatter-fall.js";
 export { drawStepGlyph, stepHex, stepLabel } from "./simon-glyph.js";
-export { sirenCentre, sirenWord } from "./siren.js";
+export { sirenCentre, sirenHit, sirenWord } from "./siren.js";
 export { SKIES, type Sky, skyFor } from "./skies.js";
 export { type Arena, snakeArena } from "./snake-draw.js";
 export { drawSnakeRound } from "./snake-round.js";

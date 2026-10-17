@@ -153,7 +153,7 @@ export function drawOverlays(
   // every creature that needs it. It is an overlay rather than part of the
   // field because it is about the pair rather than about anything standing in
   // a column (`siren.ts`).
-  drawCommsSiren(ctx, l, world, view.time, view.names);
+  drawCommsSiren(ctx, l, world, view.time, view.names, view.sirenOff);
   // And the blind seat's mine counts, which are the bottom row of that same
   // cluster (`ship-top-rows.ts`). They were drawn with the field, among the
   // bodies, and could be neither placed under the chrome — the field pass is

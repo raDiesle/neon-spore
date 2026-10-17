@@ -1572,9 +1572,8 @@ by hand never moves.
 | `packages/render/src/shield-spark.ts` | The shield's ambient arcs: a few thin discharges thrown outward from the rim, gone almost as soon as they |
 | `packages/render/src/shield.ts` | The shield, as a body rather than a plate |
 | `packages/render/src/siren-seats.ts` | The two chips that flank the siren: which seat, and what that seat has to do about the thing on the field |
-| `packages/render/src/siren-shine.ts` | The wash and two turning beams round a lit siren; faster, wider and ember while a torch is on its way |
-| `packages/render/src/siren-dial.ts` | the siren's dial — housing, ticks, the ring that breathes, two bars and the turning core — beside `siren-seats.ts` |
-| `packages/render/src/siren-look.ts` | The record `siren:look` candidates patch: the dial and its light, in a call and in a torch's alarm |
+| `packages/render/src/siren-lightbar.ts` | **The siren is a light bar** — the strip on an emergency vehicle's roof: a row of cells, lit in turn |
+| `packages/render/src/siren-place.ts` | Where the siren stands on a screen, and where a finger lands on it |
 | `packages/render/src/siren.ts` | The warning siren, top right of the field beside the strip, and the two seats' jobs under it |
 | `packages/render/src/sinew-band.ts` | **The strain band**: a tube hung in the middle of the tendon |
 | `packages/render/src/sinew-draw.ts` | **THE SINEW**: a tendon hung from a body flying over the field — the crown — down to a mass |
@@ -3269,6 +3268,8 @@ by hand never moves.
 | `apps/game/src/sign-in-config.ts` | The Firebase project the game signs in against — the owner's to paste |
 | `apps/game/src/sign-in-standin.ts` | A signed-in person with no Google behind them, so a check can be one |
 | `apps/game/src/sign-in.ts` | Who is holding this phone, proved by Google or by an email link |
+| `apps/game/src/siren-shown.ts` | Whether this player wants the siren on their screen |
+| `apps/game/src/siren-tap.ts` | The two people's names: a boss that pins the siren right places it by the second chip's width… |
 | `apps/game/src/safe-area.ts` | The strips of the screen the phone keeps for itself, in numbers |
 | `apps/game/src/screen-flush.ts` | Make the screen pay for its frame **now**, inside a sweep's timed window |
 | `apps/game/src/tick-rate.ts` | **How long one tick is worth in the hand, right now** |

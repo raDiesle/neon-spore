@@ -355,3 +355,17 @@ radius it is given, honouring its `alpha`), check
 `pod-dress.ts`'s heavy dress still sits on the round body, and move whatever
 budget rows the grip and THE PULSE cost. A fix to something wrong, not a look:
 the owner chose the pod; this is the same pod in the mouth.
+
+## The op-count budgets are remeasured by pasting rows by hand
+
+- **Found:** 2026-10-17, claude/siren-look-feedback-ui-3d7b6b
+- **Files:** `packages/render/test/budget-row.ts`, `packages/render/test/frame-budget.test.ts`, `packages/render/test/wave-budget.test.ts`, `package.json`
+- **Where:** local
+
+A look on every frame (the siren's idle bar) moved 98 values across six budget
+files. `MEASURE = true` prints rows, but pasting them back is by hand, and two
+of the files hold comments inside their row literals. The lane did it with a
+scratch script: flip `MEASURE`, run the file, match each printed row to the
+next source literal with the same key set, raise only the values that rose,
+restore the switch. Make that a command (`bun run budgets:measure <file…>`),
+with a test that it raises and never lowers a row and leaves `MEASURE` false.

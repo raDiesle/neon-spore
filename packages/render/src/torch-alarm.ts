@@ -9,7 +9,7 @@ import { SIREN_PAD } from "./siren-seats.js";
  * same literal the meteor's own crater rim already uses in `creatures.ts`. */
 const ROCK_RGB = "199,203,214";
 /** The call's own line: a size up from the 10 px it was written at, for the
- * same reason the siren grew (`siren-dial.ts`'s `DIAL_R`). */
+ * same reason the siren's old dial grew, on 16 October 2026. */
 const ALARM_FONT = '700 11px "Courier New",monospace';
 
 /**

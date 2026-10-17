@@ -48,10 +48,12 @@ export function drawGaugeSiren(
   g: GaugeState,
   time: number,
   names?: SeatNames,
+  /** This player tapped the siren away (`ViewState.sirenOff`). */
+  off = false,
 ): void {
   if (g.phase !== "play" || !gaugeWoundOpen(g)) return;
   const word = l.role === "p1" ? null : GAUGE_DUTY;
-  drawSiren(ctx, l, { p1: false, p2: true }, word, time, names);
+  drawSiren(ctx, l, { p1: false, p2: true }, word, time, names, undefined, off ? "off" : "call");
 }
 
 /**

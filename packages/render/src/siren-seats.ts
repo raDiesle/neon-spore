@@ -10,8 +10,8 @@ import { hasSeatName, type SeatNames, seatName } from "./seat-name.js";
  * about the thing on the field.
  *
  * Its own file beside `siren.ts` for the reason `veil-marks.ts` sits beside
- * `veil-marks.ts`: next door is the *instrument* — a dial with rings and a
- * turning core, all of it phase off a clock — and this is the *answer*, which
+ * `veil-marks.ts`: next door is the *instrument* — a light bar with cells lit in
+ * turn, all of it phase off a clock — and this is the *answer*, which
  * has no motion in it worth speaking of and is entirely about legibility at
  * twenty pixels. They are argued about separately and they change separately.
  */
@@ -40,7 +40,7 @@ export const SIREN_PAD = MENU_CHIP_REACH + 6;
  * P2 need, and what every chip was until the two people had names.
  */
 export const PILL_W = 34;
-const PILL_H = 20;
+export const PILL_H = 14;
 /** The label's own type, and the one number that lets a chip be sized without
  * a canvas: Courier is monospaced, so a nine-pixel character is 5.4 across and
  * a label's width is its length. `sirenCentre` needs the width before anything
@@ -83,7 +83,7 @@ export function seatChip(seat: Seat, names?: SeatNames): string {
   const who = seat === "p1" ? 1 : 2;
   return hasSeatName(who, names) ? seatName(who, names) : `P${who}`;
 }
-/** The housing colour the label is knocked out of, shared with the dial. */
+/** The housing colour the label is knocked out of, shared with the bar. */
 const CASE = "#0D1117";
 
 /**

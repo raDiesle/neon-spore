@@ -24,6 +24,11 @@ describe("what a device that has said nothing gets", () => {
     expect(parseSettings(JSON.stringify({ shipTouch: true })).shipTouch).toBe(true);
   });
 
+  it("opens with the siren on, because it is how the pair is told to talk", () => {
+    expect(DEFAULT_SETTINGS.siren).toBe(true);
+    expect(parseSettings(JSON.stringify({ siren: false })).siren).toBe(false);
+  });
+
   it("is what an unreadable store falls back to, in every direction", () => {
     for (const raw of ["", "{", "null", "7", '"yes"', "[]", '{"sound":"loud"}']) {
       expect(parseSettings(raw)).toEqual(DEFAULT_SETTINGS);

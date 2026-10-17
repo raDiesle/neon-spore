@@ -113,12 +113,16 @@ type Budget = Record<
 // so they wrap, and ten twinkles of one baked cross — fifteen more
 // `drawImage` in every row; and two more the same day for CELLS's own far
 // wall and its organelles (`sky-cells.ts`). Remeasured, not padded.
+// From 17 October 2026 the siren's bar stands at the top of every field, at
+// rest when nothing is called: the housing's fill and stroke, one path of seven
+// dark cells, one save (`siren-lightbar.ts`). Every row here rose by exactly
+// that, remeasured rather than padded.
 const BUDGETS: Record<string, { cursor: number; budget: Budget }> = {
   "13 coil": {
     cursor: 13,
     budget: {
-      fill: 459,
-      stroke: 411,
+      fill: 461,
+      stroke: 412,
       drawImage: 53,
       createLinearGradient: 80,
       createRadialGradient: 37,
@@ -127,8 +131,8 @@ const BUDGETS: Record<string, { cursor: number; budget: Budget }> = {
   "15 dive": {
     cursor: 15,
     budget: {
-      fill: 280,
-      stroke: 220,
+      fill: 282,
+      stroke: 221,
       drawImage: 53,
       createLinearGradient: 52,
       createRadialGradient: 36,
@@ -137,8 +141,8 @@ const BUDGETS: Record<string, { cursor: number; budget: Budget }> = {
   "20 roar": {
     cursor: 20,
     budget: {
-      fill: 462,
-      stroke: 408,
+      fill: 464,
+      stroke: 409,
       drawImage: 53,
       createLinearGradient: 140,
       createRadialGradient: 36,

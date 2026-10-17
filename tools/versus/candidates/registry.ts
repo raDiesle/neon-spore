@@ -6,8 +6,5 @@
 // `index.ts` next door says why it is generated at all.
 
 import type { Variant } from "../variant.js";
-import { SIREN_BEACON } from "./siren-look/beacon/index.js";
-import { SIREN_LIGHTBAR } from "./siren-look/lightbar/index.js";
-import { SIREN_SONAR } from "./siren-look/sonar/index.js";
 
-export const VARIANTS: Variant[] = [SIREN_BEACON, SIREN_LIGHTBAR, SIREN_SONAR];
+export const VARIANTS: Variant[] = [];
