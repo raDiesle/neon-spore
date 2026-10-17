@@ -331,6 +331,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## `sim/events.ts` is at 249 lines — split the union by family
 
 - **Found:** 2026-10-17, claude/destroy-animations-bulb-slick-2a2410
+- **Taken:** 2026-10-17, claude/the-brood-feedback-b6be33 (claim: claude/queue-sim-events-ts-is-at-249-lines-split-the-union-by)
 - **Files:** `packages/sim/src/events.ts`
 
 `destroy` gained an `id` and the file is one line under the ceiling, so the
