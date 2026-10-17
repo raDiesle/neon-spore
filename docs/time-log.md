@@ -43698,3 +43698,5 @@ Bottleneck: a machine shared with other sessions — every test run waited on th
 - landing: 15 min. BULB QUEEN's row: the pod at its tick turned GLINT, so every spike kind, the facets and the sparks were batched before the row moved.
 
 Bottleneck: the budget row — every new piece of a pod is counted on the one frame with a pod in it.
+
+*Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

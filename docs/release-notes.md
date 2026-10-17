@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-17 · faa0646fc — A pod wears one of five forms, shines like a coin, and a husk shows its fake twin in red
+
+Every pod on the field is now one of the five forms of THE SMART's tumbling seed — SMART, BLINK, GLINT, HOP or ORBIT — chosen by its id, so both phones agree. Every real one reads as a pickup: it flashes white and swells on the count, and a bar of light sweeps across it like a coin. A husk is that same form on the fooled seat; on the seat that can tell it is its fake twin, in dark blood-red with a red blink, and on the count it shows a tell no bonus would — SMART's opens an eye, BLINK's a jaw of teeth, GLINT's goes hollow with a crack, HOP's springs long barbs, ORBIT's goes black inside a red corona. A look the owner asked for by name. Swallowing a husk still loses the wave; which seat is fooled is still player 1, and becomes a setting on the husk brush next.
+
 ## 2026-10-17 · 6944a8c5a — The real pod is BLINK: a tumbling seed that blinks like a pickup
 
 The moored pod is no longer the lobed amber blob. It is THE SMART's seed — a sphere tumbling about a tilted axis, a seam round its middle — capped with seven round mushroom studs over a spotted skin, and on the count it flashes white and swells like a bonus in a game: once a beat, twice as the clock runs down, four times in the last beat. The owner took BLINK from VERSUS by name (`pod:real`, closed; the other four went with it). Player 1's husk is drawn the same way, since it is drawn as the real pod. The pod in the maw's grip and THE PULSE's lane still wear the old body; that is queued.
