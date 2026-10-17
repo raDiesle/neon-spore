@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-17 · 133f07aa0 — The ⎈ panel mark is on the first wave played on each panel, and no other
+
+In the director's wave list the panel mark now sits only on the first wave, from the top, to use each control set — the owner asked for it by name. Every wave on a panel other than STANDARD carried it until now. The rule is content's `waveMarksOn`, so the list's ⎈ filter and JUMP TO WAVE's PANEL filter find the same six waves. The copies row that guarded the old two-part condition went with it: the rule is now one call to `firstOnPanel`.
+
 ## 2026-10-17 · 04d8eef0a — A husk lights the siren, and its white frame and DO NOT TAKE are gone
 
 The hollow pod no longer wears a target-lock frame and words on the seat that can tell; that seat still draws it as its red fake twin. While a husk is on the field the siren lights that seat's mouth with SAY THE HOLLOW ONE, and the fooled seat reads ASK BEFORE YOU TAKE (`render/comms-husk.ts`). THE HUSK's guide now says THE RED ONE IS HOLLOW. A look the owner asked for by name.
