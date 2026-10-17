@@ -2,7 +2,7 @@ import type { Wave } from "../wave-types.js";
 
 /**
  * Waves 517 to 528 of the game, in the order they are played: THE WISP's
- * review, the boss THE GALL, THE VEIL's review and the boss THE TRAPEZE.
+ * review, the boss THE VALVE, THE VEIL's review and the boss THE SEAM.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act
  * after the tutorial arc again in play order. A save that fills it cuts a page
@@ -95,30 +95,15 @@ export const WAVES_ACT_47: Wave[] = [
     ],
   },
   {
-    id: "theGall",
-    name: "THE GALL",
+    id: "theValve",
+    name: "THE VALVE",
     guide: {
-      both: "Tap the alien on your half until it shakes. Then pull it up. It jumps to your partner's half. Shoot it when it glows.",
-      p1: "1. It starts on your half. Tap it, then pull it up.\n2. When it lands on your half, do it again.\n3. When it glows, move the cannon under it.",
-      p2: "1. When it lands on your half, tap it, then pull it up.\n2. Be fast. Every landing starts the clock.\n3. When it glows, shoot it in its colour.",
+      both: "One turns the wheel onto the mark. The other taps the pin to stop it. Then pull the pin down. Three pins. The last wants a full turn first.",
+      p1: "1. Turn the wheel with your thumb until it sits on the mark.\n2. Hold it still. The other screen taps the pin.\n3. A spark falls after the first pin. Move the cannon under it.",
+      p2: "1. When the wheel is on the mark, tap the pin once.\n2. Then drag the pin down before it thaws. Either of you may.\n3. Fire at the spark before it lands.",
     },
     entries: [],
-    boss: {
-      kind: "gall",
-      steps: [
-        { ask: "leap", taps: 3, color: "either", beats: 6 },
-        { ask: "leap", taps: 3, color: "either", beats: 5 },
-        { ask: "fire", taps: 0, color: "red", beats: 6 },
-        { ask: "leap", taps: 4, color: "either", beats: 5 },
-        { ask: "leap", taps: 5, color: "either", beats: 5 },
-        { ask: "leap", taps: 5, color: "either", beats: 4 },
-        { ask: "fire", taps: 0, color: "cyan", beats: 6 },
-        { ask: "leap", taps: 6, color: "either", beats: 4 },
-        { ask: "leap", taps: 6, color: "either", beats: 4 },
-        { ask: "leap", taps: 7, color: "either", beats: 4 },
-        { ask: "fire", taps: 0, color: "either", beats: 6 },
-      ],
-    },
+    boss: { kind: "valve", marks: [250, 600, 850] },
     bossType: "normal",
   },
   {
@@ -203,19 +188,30 @@ export const WAVES_ACT_47: Wave[] = [
     ],
   },
   {
-    id: "theTrapeze",
-    name: "THE TRAPEZE",
+    id: "theSeam",
+    name: "THE SEAM",
     guide: {
-      scene: "theTrapeze",
+      both: "A point on the crack lights in a colour. Shoot it in that colour. When grit flies, raise the shield under it. Three points close the crack. Never shoot grey.",
+      p1: "1. Move the cannon under the lit point.\n2. When grit flies, press the shield.\n3. A rock falls to one side. Slide the cannon under it.",
+      p2: "1. Fire the lit point in its colour. White takes either.\n2. Slide the shield under the ridge when grit flies.\n3. At the end one of you shields while the other fires.",
     },
     entries: [],
     boss: {
-      kind: "trapeze",
+      kind: "seam",
       steps: [
-        { ask: "push", gongSide: 1, gongMilli: 10000, beats: 32 },
-        { ask: "call", gongSide: -1, gongMilli: 14000, beats: 40 },
-        { ask: "shoot", gongSide: 1, gongMilli: 16000, beats: 48 },
-        { ask: "lock", gongSide: -1, gongMilli: 18000, beats: 48 },
+        { ask: "point", color: "red", offset: 0, seals: false },
+        { ask: "grit", color: "either", offset: 0, seals: false },
+        { ask: "point", color: "cyan", offset: 0, seals: true },
+        { ask: "blind", color: "either", offset: 0, seals: false },
+        { ask: "point", color: "red", offset: 0, seals: false },
+        { ask: "point", color: "cyan", offset: 0, seals: true },
+        { ask: "grit", color: "either", offset: 0, seals: false },
+        { ask: "decoy", color: "either", offset: 0, seals: false },
+        { ask: "rock", color: "cyan", offset: 2, seals: false },
+        { ask: "glow", color: "either", offset: 0, seals: false },
+        { ask: "point", color: "either", offset: 0, seals: true },
+        { ask: "both", color: "either", offset: -2, seals: false },
+        { ask: "dark", color: "either", offset: 0, seals: false },
       ],
     },
     bossType: "normal",

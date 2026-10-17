@@ -139,7 +139,7 @@ export const WAVES_ACT_34: Wave[] = [
   },
   {
     id: "fillerGimbalBreathe",
-    name: "HANDOVER PICNIC",
+    name: "SOFT HANDOVER",
     entries: [
       { beat: 0, col: 10, color: "red" },
       { beat: 8, col: 0, kind: "gyre", color: null },
@@ -151,7 +151,7 @@ export const WAVES_ACT_34: Wave[] = [
   },
   {
     id: "fillerGimbalRecall",
-    name: "HANDOVER MEMORY",
+    name: "HANDOVER REUNION",
     variant: true,
     entries: [
       { beat: 0, col: 2, color: "red" },
@@ -166,7 +166,7 @@ export const WAVES_ACT_34: Wave[] = [
   },
   {
     id: "fillerGimbalBend",
-    name: "HANDOVER TRICK",
+    name: "HANDOVER RIDDLE",
     variant: true,
     entries: [
       { beat: 0, col: 10, color: "red" },

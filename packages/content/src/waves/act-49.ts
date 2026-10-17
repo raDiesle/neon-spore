@@ -1,91 +1,14 @@
 import type { Wave } from "../wave-types.js";
 
 /**
- * Waves 540 to 545 of the game, in the order they are played: the boss THE
- * GOVERNOR and THE VOLLEY's review.
+ * Waves 541 to 552 of the game, in the order they are played: THE VOLLEY's
+ * review, the boss THE GALL, THE CRYSTAL's review and the boss THE TRAPEZE.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act
  * after the tutorial arc again in play order. A save that fills it cuts a page
  * after it (`acts.ts`).
  */
 export const WAVES_ACT_49: Wave[] = [
-  {
-    id: "theGovernor",
-    name: "THE GOVERNOR",
-    guide: {
-      both: "Each of you has a mark on the dial. Tap as the needle crosses yours. Later, tap the numbered marks in order. Shoot the needle's tip in the gap.",
-      p1: "1. Tap as the needle crosses your mark. Your partner has one too.\n2. Tap the numbered marks in order. Your partner has 1 first.\n3. Shoot the needle's tip as it passes the gap, in its colour.",
-      p2: "1. Tap as the needle crosses your mark. Your partner has one too.\n2. Tap the numbered marks in order. You have 1 first.\n3. Shoot the needle's tip as it passes the gap, in its colour.",
-    },
-    entries: [],
-    boss: {
-      kind: "governor",
-      steps: [
-        {
-          ask: "tap",
-          marks: [
-            { seat: 1, markMilli: 250 },
-            { seat: 2, markMilli: 750 },
-          ],
-          ordered: false,
-          paceMilli: 7,
-          color: "either",
-          beats: 7,
-        },
-        {
-          ask: "tap",
-          marks: [
-            { seat: 1, markMilli: 625 },
-            { seat: 2, markMilli: 125 },
-          ],
-          ordered: false,
-          paceMilli: 7,
-          color: "either",
-          beats: 7,
-        },
-        {
-          ask: "tap",
-          marks: [
-            { seat: 1, markMilli: 875 },
-            { seat: 2, markMilli: 375 },
-          ],
-          ordered: false,
-          paceMilli: 8,
-          color: "either",
-          beats: 7,
-        },
-        { ask: "fire", marks: [], ordered: false, paceMilli: 3, color: "red", beats: 10 },
-        {
-          ask: "retap",
-          marks: [
-            { seat: 2, markMilli: 250 },
-            { seat: 1, markMilli: 500 },
-            { seat: 2, markMilli: 750 },
-          ],
-          ordered: true,
-          paceMilli: 8,
-          color: "either",
-          beats: 8,
-        },
-        { ask: "fire", marks: [], ordered: false, paceMilli: 3, color: "cyan", beats: 10 },
-        {
-          ask: "retap",
-          marks: [
-            { seat: 1, markMilli: 875 },
-            { seat: 2, markMilli: 375 },
-            { seat: 1, markMilli: 625 },
-            { seat: 2, markMilli: 125 },
-          ],
-          ordered: true,
-          paceMilli: 9,
-          color: "either",
-          beats: 8,
-        },
-        { ask: "fire", marks: [], ordered: false, paceMilli: 4, color: "either", beats: 10 },
-      ],
-    },
-    bossType: "normal",
-  },
   {
     id: "reviewVolleyAgain",
     name: "VOLLEY MORNING",
@@ -170,5 +93,131 @@ export const WAVES_ACT_49: Wave[] = [
       { beat: 47, col: 3, color: "red" },
       { beat: 47, col: 7, color: "red" },
     ],
+  },
+  {
+    id: "theGall",
+    name: "THE GALL",
+    guide: {
+      both: "Tap the alien on your half until it shakes. Then pull it up. It jumps to your partner's half. Shoot it when it glows.",
+      p1: "1. It starts on your half. Tap it, then pull it up.\n2. When it lands on your half, do it again.\n3. When it glows, move the cannon under it.",
+      p2: "1. When it lands on your half, tap it, then pull it up.\n2. Be fast. Every landing starts the clock.\n3. When it glows, shoot it in its colour.",
+    },
+    entries: [],
+    boss: {
+      kind: "gall",
+      steps: [
+        { ask: "leap", taps: 3, color: "either", beats: 6 },
+        { ask: "leap", taps: 3, color: "either", beats: 5 },
+        { ask: "fire", taps: 0, color: "red", beats: 6 },
+        { ask: "leap", taps: 4, color: "either", beats: 5 },
+        { ask: "leap", taps: 5, color: "either", beats: 5 },
+        { ask: "leap", taps: 5, color: "either", beats: 4 },
+        { ask: "fire", taps: 0, color: "cyan", beats: 6 },
+        { ask: "leap", taps: 6, color: "either", beats: 4 },
+        { ask: "leap", taps: 6, color: "either", beats: 4 },
+        { ask: "leap", taps: 7, color: "either", beats: 4 },
+        { ask: "fire", taps: 0, color: "either", beats: 6 },
+      ],
+    },
+    bossType: "normal",
+  },
+  {
+    id: "reviewCrystalAgain",
+    name: "NEW CRYSTAL MOON",
+    entries: [
+      { beat: 0, col: 1, kind: "crystal", color: "red" },
+      { beat: 8, col: 10, kind: "recoil", color: "red" },
+      { beat: 15, col: 4, kind: "fence", color: null },
+      { beat: 23, col: 1, kind: "crystal", color: "cyan" },
+      { beat: 31, col: 2, kind: "recoil", color: "red" },
+    ],
+  },
+  {
+    id: "reviewCrystalReach",
+    name: "FAR CRYSTAL",
+    variant: true,
+    entries: [
+      { beat: 0, col: 9, kind: "crystal", color: "red" },
+      { beat: 5, col: 0, kind: "recoil", color: "red" },
+      { beat: 13, col: 6, kind: "choir", color: "cyan" },
+      { beat: 19, col: 0, kind: "crystal", color: "red" },
+      { beat: 26, col: 9, kind: "recoil", color: "red" },
+      { beat: 32, col: 1, kind: "choir", color: "red" },
+    ],
+  },
+  {
+    id: "reviewCrystalPair",
+    name: "CRYSTAL AND RECOIL",
+    variant: true,
+    entries: [
+      { beat: 0, col: 0, color: "red" },
+      { beat: 4, col: 10, kind: "crystal", color: "red" },
+      { beat: 12, col: 3, color: "red" },
+      { beat: 12, col: 7, color: "red" },
+      { beat: 17, col: 4, kind: "recoil", color: "cyan" },
+      { beat: 22, col: 10, kind: "echo", color: "cyan" },
+      { beat: 26, col: 2, color: "red" },
+      { beat: 26, col: 8, color: "red" },
+      { beat: 32, col: 0, kind: "crystal", color: "cyan" },
+      { beat: 37, col: 3, kind: "recoil", color: "red" },
+    ],
+  },
+  {
+    id: "reviewCrystalRecall",
+    name: "CRYSTAL MEMORY",
+    variant: true,
+    entries: [
+      { beat: 0, col: 6, color: "cyan" },
+      { beat: 6, col: 10, kind: "crystal", color: "cyan" },
+      { beat: 12, col: 2, color: "cyan" },
+      { beat: 12, col: 8, color: "cyan" },
+      { beat: 17, col: 6, kind: "lure", color: "cyan" },
+      { beat: 22, col: 10, kind: "crystal", color: "red" },
+      { beat: 27, col: 1, color: "cyan" },
+      { beat: 27, col: 9, color: "cyan" },
+      { beat: 33, col: 1, kind: "lure", color: "cyan" },
+      { beat: 39, col: 7, kind: "crystal", color: "cyan" },
+    ],
+  },
+  {
+    id: "reviewCrystalPeak",
+    name: "CRYSTAL ECLIPSE",
+    variant: true,
+    entries: [
+      { beat: 0, col: 3, color: "red" },
+      { beat: 0, col: 7, color: "red" },
+      { beat: 4, col: 3, kind: "crystal", color: "red" },
+      { beat: 9, col: 9, kind: "recoil", color: "red" },
+      { beat: 12, col: 3, color: "red" },
+      { beat: 12, col: 6, color: "red" },
+      { beat: 20, col: 9, kind: "coil", color: null },
+      { beat: 23, col: 7, kind: "crystal", color: "cyan" },
+      { beat: 27, col: 0, color: "cyan" },
+      { beat: 27, col: 10, color: "cyan" },
+      { beat: 31, col: 7, kind: "recoil", color: "red" },
+      { beat: 35, col: 10, kind: "coil", color: null },
+      { beat: 39, col: 2, color: "red" },
+      { beat: 39, col: 8, color: "red" },
+      { beat: 43, col: 5, kind: "crystal", color: "cyan" },
+      { beat: 47, col: 8, kind: "recoil", color: "red" },
+    ],
+  },
+  {
+    id: "theTrapeze",
+    name: "THE TRAPEZE",
+    guide: {
+      scene: "theTrapeze",
+    },
+    entries: [],
+    boss: {
+      kind: "trapeze",
+      steps: [
+        { ask: "push", gongSide: 1, gongMilli: 10000, beats: 32 },
+        { ask: "call", gongSide: -1, gongMilli: 14000, beats: 40 },
+        { ask: "shoot", gongSide: 1, gongMilli: 16000, beats: 48 },
+        { ask: "lock", gongSide: -1, gongMilli: 18000, beats: 48 },
+      ],
+    },
+    bossType: "normal",
   },
 ];

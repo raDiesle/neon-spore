@@ -139,7 +139,7 @@ the two can be compared by opening the wave.
 | 6 | **The pod** | shooting it loose is half of getting it; then it sinks and drifts | p2 frees it, p1 chases and opens the maw | 30 · SALVAGE |
 | 7 | **The lock** | player 1's hand on a body steers every shot into it, from whatever column the cannon is in; it says nothing about the colour | p1 holds and keeps the cannon on the pod, p2 fires the colour | 38 · CATCH AND AIM |
 | 8 | **The queen** | two marks, one real; she opens for three beats; a torch drops every ten | p1 sees *what*, p2 sees *where* | 37 · BULB QUEEN |
-| 9 | **The bosses** | the mirror, the maze, the gauge, the warden and its line, the vane | one guide each, on their own wave | 76 · THE MIRROR, 91 · THE MAZE, 111 · THE GAUGE, 121 · THE WARDEN, 141 · THE VANE |
+| 9 | **The bosses** | the mirror, the maze, the gauge, the warden and its line, the vane | one guide each, on their own wave | 76 · THE MIRROR, 101 · THE MAZE, 111 · THE GAUGE, 201 · THE WARDEN, 444 · THE VANE |
 | 10 | **The rest of the bestiary** | the lure that took the runt's place, the throb, the count, the shell, the rock speed tiers | one guide each | 324 · THE LURE, 162 · THE THROB, 172 · THE COUNT, 182 · THE SHELL, 142 · HEAVY ROCKS |
 
 **The grip is still the odd one out**, and it has no guide. It is a control no

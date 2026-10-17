@@ -99,7 +99,7 @@ export const WAVES_ACT_32: Wave[] = [
   },
   {
     id: "fillerSpliceBreathe",
-    name: "ECHO SIESTA",
+    name: "SLEEPY ECHO",
     entries: [
       { beat: 0, col: 4, color: "cyan" },
       { beat: 8, col: 3, kind: "echo", color: "cyan" },
@@ -112,7 +112,7 @@ export const WAVES_ACT_32: Wave[] = [
   },
   {
     id: "fillerSpliceRecall",
-    name: "ECHO RELIC",
+    name: "ECHO REUNION",
     variant: true,
     entries: [
       { beat: 0, col: 1, color: "red" },
@@ -127,7 +127,7 @@ export const WAVES_ACT_32: Wave[] = [
   },
   {
     id: "fillerSpliceBend",
-    name: "ECHO ILLUSION",
+    name: "ECHO MIRAGE",
     variant: true,
     entries: [
       { beat: 0, col: 4, color: "cyan" },

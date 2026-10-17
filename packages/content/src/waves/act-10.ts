@@ -1,8 +1,9 @@
+import { SNAKE_ROUNDS } from "../snake-rounds.js";
 import type { Wave } from "../wave-types.js";
 
 /**
  * Waves 122 to 131 of the game, in the order they are played: THE LIMPET's
- * block, the filler before THE FLEET and the boss THE FLEET.
+ * block, the filler before SNAKE and the boss SNAKE.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act
  * after the tutorial arc again in play order. A save that fills it cuts a page
@@ -119,68 +120,58 @@ export const WAVES_ACT_10: Wave[] = [
     ],
   },
   {
-    id: "fillerFleetBreathe",
-    name: "SLEEPY LIMPET",
+    id: "fillerSnakeBreathe",
+    name: "LAZY LIMPET",
+    entries: [
+      { beat: 0, col: 2, color: "red" },
+      { beat: 8, col: 9, kind: "beatbox", color: null, beats: 4 },
+      { beat: 16, col: 4, color: "red" },
+      { beat: 23, col: 7, kind: "beatbox", color: null, beats: 4 },
+      { beat: 31, col: 6, color: "red" },
+      { beat: 39, col: 3, kind: "beatbox", color: null, beats: 3 },
+    ],
+  },
+  {
+    id: "fillerSnakeRecall",
+    name: "ANCIENT LIMPET",
+    variant: true,
     entries: [
       { beat: 0, col: 9, color: "red" },
-      { beat: 6, col: 2, kind: "beatbox", color: null, beats: 2 },
-      { beat: 14, col: 8, color: "red" },
-      { beat: 22, col: 6, kind: "beatbox", color: null, beats: 4 },
-      { beat: 28, col: 7, color: "red" },
-      { beat: 36, col: 0, kind: "beatbox", color: null, beats: 2 },
+      { beat: 6, col: 10, kind: "beatbox", color: null, beats: 3 },
+      { beat: 12, col: 5, color: "cyan" },
+      { beat: 18, col: 6, kind: "beatbox", color: null, beats: 2 },
+      { beat: 24, col: 2, color: "cyan" },
+      { beat: 29, col: 9, kind: "beatbox", color: null, beats: 2 },
+      { beat: 37, col: 8, color: "cyan" },
     ],
   },
   {
-    id: "fillerFleetRecall",
-    name: "OLD LIMPET SONG",
+    id: "fillerSnakeBend",
+    name: "CROOKED LIMPET",
     variant: true,
     entries: [
-      { beat: 0, col: 10, color: "red" },
-      { beat: 6, col: 3, kind: "beatbox", color: null, beats: 2 },
-      { beat: 12, col: 7, color: "red" },
-      { beat: 23, col: 4, color: "cyan" },
-      { beat: 28, col: 8, kind: "beatbox", color: null, beats: 2 },
-      { beat: 33, col: 2, color: "cyan" },
-    ],
-    pods: [{ beat: 17, col: 1, row: 3, kind: "pod" }],
-  },
-  {
-    id: "fillerFleetBend",
-    name: "LIMPET SPELL",
-    variant: true,
-    entries: [
-      { beat: 0, col: 0, color: "red" },
-      { beat: 6, col: 6, kind: "beatbox", color: null, beats: 3 },
-      { beat: 11, col: 8, color: "cyan" },
-      { beat: 16, col: 7, kind: "meteor", color: null, cross: -1, row: 7 },
-      { beat: 21, col: 3, color: "red" },
-      { beat: 21, col: 6, color: "red" },
-      { beat: 26, col: 7, kind: "beatbox", color: null, beats: 2 },
-      { beat: 31, col: 3, kind: "meteor", color: null, cross: 1, row: 4 },
-      { beat: 36, col: 3, color: "cyan" },
-      { beat: 36, col: 6, color: "cyan" },
-      { beat: 42, col: 0, kind: "beatbox", color: null, beats: 4 },
-      { beat: 47, col: 6, kind: "meteor", color: null, cross: 1, row: 9 },
+      { beat: 0, col: 1, color: "red" },
+      { beat: 6, col: 9, kind: "beatbox", color: null, beats: 4 },
+      { beat: 11, col: 2, color: "cyan" },
+      { beat: 19, col: 3, kind: "meteor", color: null, cross: -1, row: 6 },
+      { beat: 25, col: 2, color: "cyan" },
+      { beat: 25, col: 8, color: "cyan" },
+      { beat: 31, col: 10, kind: "beatbox", color: null, beats: 2 },
+      { beat: 37, col: 2, kind: "meteor", color: null, cross: 1, row: 5 },
+      { beat: 42, col: 1, color: "cyan" },
+      { beat: 42, col: 9, color: "cyan" },
+      { beat: 48, col: 9, kind: "beatbox", color: null, beats: 3 },
     ],
   },
   {
-    id: "theFleet",
-    name: "THE FLEET",
+    id: "snake",
+    name: "SNAKE",
     guide: {
-      scene: "theFleet",
+      scene: "snake",
     },
     entries: [],
-    boss: {
-      kind: "fleet",
-      ships: [
-        { col: 1, row: 1, len: 5, dir: "h" },
-        { col: 8, row: 0, len: 4, dir: "v" },
-        { col: 3, row: 5, len: 3, dir: "h" },
-        { col: 0, row: 6, len: 3, dir: "v" },
-        { col: 7, row: 8, len: 2, dir: "h" },
-      ],
-    },
+    boss: { kind: "snake", rounds: SNAKE_ROUNDS },
     bossType: "special",
-    controls: "fleet",
+    controls: "snake",
   },
 ];

@@ -14,7 +14,7 @@ import type { Wave } from "../wave-types.js";
 export const WAVES_ACT_4: Wave[] = [
   {
     id: "fillerSwindleBreathe",
-    name: "HUSK PICNIC",
+    name: "HUSK DREAM",
     entries: [
       { beat: 0, col: 3, color: "red" },
       { beat: 13, col: 7, color: "cyan" },
@@ -30,7 +30,7 @@ export const WAVES_ACT_4: Wave[] = [
   },
   {
     id: "fillerSwindleRecall",
-    name: "HUSK MEMORY",
+    name: "ANCIENT HUSK",
     variant: true,
     entries: [
       { beat: 0, col: 1, color: "red" },
@@ -173,7 +173,7 @@ export const WAVES_ACT_4: Wave[] = [
   },
   {
     id: "fillerInstarBreathe",
-    name: "MORSEL DREAM",
+    name: "SOFT MORSEL",
     entries: [
       { beat: 0, col: 4, color: "red" },
       { beat: 6, col: 5, kind: "morsel", color: "red" },
@@ -186,7 +186,7 @@ export const WAVES_ACT_4: Wave[] = [
   },
   {
     id: "fillerInstarRecall",
-    name: "MORSEL LEGEND",
+    name: "MORSEL RELIC",
     variant: true,
     entries: [
       { beat: 0, col: 2, color: "red" },
@@ -202,7 +202,7 @@ export const WAVES_ACT_4: Wave[] = [
   },
   {
     id: "fillerInstarBend",
-    name: "TWISTED MORSEL",
+    name: "MORSEL SPELL",
     variant: true,
     entries: [
       { beat: 0, col: 9, color: "red" },

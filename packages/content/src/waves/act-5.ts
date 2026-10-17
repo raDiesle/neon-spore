@@ -133,7 +133,7 @@ export const WAVES_ACT_5: Wave[] = [
   },
   {
     id: "fillerMirrorBend",
-    name: "TWISTED SEEDER",
+    name: "SEEDER ILLUSION",
     variant: true,
     entries: [
       { beat: 0, col: 9, color: "red" },

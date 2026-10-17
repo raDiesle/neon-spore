@@ -103,7 +103,7 @@ export const WAVES_ACT_8: Wave[] = [
   },
   {
     id: "fillerGaugeBreathe",
-    name: "LAZY CROSSING",
+    name: "CROSSING HUSH",
     entries: [
       { beat: 0, col: 4, color: "red" },
       { beat: 8, col: 6, kind: "meteor", color: null, cross: -1, row: 7 },
@@ -115,7 +115,7 @@ export const WAVES_ACT_8: Wave[] = [
   },
   {
     id: "fillerGaugeRecall",
-    name: "CROSSING REUNION",
+    name: "CROSSING SAGA",
     variant: true,
     entries: [
       { beat: 0, col: 9, color: "red" },
@@ -129,7 +129,7 @@ export const WAVES_ACT_8: Wave[] = [
   },
   {
     id: "fillerGaugeBend",
-    name: "CROSSING RIDDLE",
+    name: "CROOKED CROSSING",
     variant: true,
     entries: [
       { beat: 0, col: 0, color: "cyan" },

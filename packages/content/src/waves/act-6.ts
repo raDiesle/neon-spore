@@ -1,9 +1,8 @@
-import { MAZE_ROUNDS } from "../maze-rounds.js";
 import type { Wave } from "../wave-types.js";
 
 /**
- * Waves 77 to 91 of the game, in the order they are played: THE LANCE's block,
- * the filler before THE MAZE and the boss THE MAZE.
+ * Waves 77 to 90 of the game, in the order they are played: THE LANCE's block
+ * and the filler before THE GEODE.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act
  * after the tutorial arc again in play order. A save that fills it cuts a page
@@ -172,60 +171,47 @@ export const WAVES_ACT_6: Wave[] = [
     pods: [{ beat: 12, col: 5, row: 2, kind: "pod", due: 20 }],
   },
   {
-    id: "fillerMazeBreathe",
-    name: "SOFT LANCE",
-    entries: [
-      { beat: 0, col: 9, color: "red" },
-      { beat: 6, col: 8, kind: "seeder", color: "red" },
-      { beat: 12, col: 2, color: "cyan" },
-      { beat: 20, col: 7, kind: "meteor", color: null },
-      { beat: 26, col: 8, color: "cyan" },
-      { beat: 34, col: 6, kind: "seeder", color: "red" },
-      { beat: 40, col: 7, color: "cyan" },
-    ],
-  },
-  {
-    id: "fillerMazeRecall",
-    name: "LANCE SAGA",
-    variant: true,
-    entries: [
-      { beat: 0, col: 3, color: "red" },
-      { beat: 5, col: 1, kind: "seeder", color: "red" },
-      { beat: 10, col: 6, color: "red" },
-      { beat: 16, col: 2, kind: "blister", color: null, row: 3, by: 2 },
-      { beat: 22, col: 8, color: "cyan" },
-      { beat: 27, col: 5, kind: "seeder", color: "red" },
-      { beat: 33, col: 4, color: "red" },
-      { beat: 38, col: 3, kind: "blister", color: null, row: 3, by: 2 },
-    ],
-  },
-  {
-    id: "fillerMazeBend",
-    name: "CROOKED LANCE",
-    variant: true,
+    id: "fillerGeodeBreathe",
+    name: "SLEEPY LANCE",
     entries: [
       { beat: 0, col: 8, color: "red" },
-      { beat: 5, col: 7, kind: "seeder", color: "cyan" },
-      { beat: 10, col: 6, color: "red" },
-      { beat: 16, col: 3, kind: "morsel", color: "cyan" },
-      { beat: 21, col: 5, color: "cyan" },
-      { beat: 21, col: 8, color: "cyan" },
-      { beat: 27, col: 7, kind: "seeder", color: "red" },
-      { beat: 33, col: 8, kind: "morsel", color: "red" },
-      { beat: 39, col: 5, color: "red" },
-      { beat: 39, col: 8, color: "red" },
-      { beat: 45, col: 6, kind: "seeder", color: "red" },
+      { beat: 8, col: 7, kind: "seeder", color: "red" },
+      { beat: 16, col: 1, color: "red" },
+      { beat: 22, col: 4, kind: "meteor", color: null },
+      { beat: 30, col: 5, color: "cyan" },
+      { beat: 37, col: 9, kind: "seeder", color: "cyan" },
     ],
   },
   {
-    id: "theMaze",
-    name: "THE MAZE",
-    guide: {
-      scene: "theMaze",
-    },
-    entries: [],
-    boss: { kind: "maze", rounds: MAZE_ROUNDS },
-    bossType: "special",
-    controls: "standard5",
+    id: "fillerGeodeRecall",
+    name: "LANCE RELIC",
+    variant: true,
+    entries: [
+      { beat: 0, col: 0, color: "cyan" },
+      { beat: 5, col: 8, kind: "seeder", color: "red" },
+      { beat: 13, col: 4, color: "red" },
+      { beat: 19, col: 7, kind: "meteor", color: null },
+      { beat: 25, col: 2, color: "cyan" },
+      { beat: 31, col: 1, kind: "seeder", color: "red" },
+      { beat: 36, col: 3, color: "cyan" },
+    ],
+  },
+  {
+    id: "fillerGeodeBend",
+    name: "LANCE ILLUSION",
+    variant: true,
+    entries: [
+      { beat: 0, col: 7, color: "cyan" },
+      { beat: 5, col: 6, kind: "seeder", color: "red" },
+      { beat: 10, col: 8, color: "cyan" },
+      { beat: 15, col: 1, kind: "morsel", color: "cyan" },
+      { beat: 23, col: 3, color: "red" },
+      { beat: 23, col: 6, color: "red" },
+      { beat: 29, col: 3, kind: "seeder", color: "red" },
+      { beat: 35, col: 5, kind: "morsel", color: "cyan" },
+      { beat: 40, col: 3, color: "cyan" },
+      { beat: 40, col: 7, color: "cyan" },
+      { beat: 46, col: 7, kind: "seeder", color: "red" },
+    ],
   },
 ];

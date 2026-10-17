@@ -1,9 +1,9 @@
-import { SCOUT_ARENAS } from "../scout-arenas.js";
+import { PINBALL_ROUNDS } from "../pinball-rounds.js";
 import type { Wave } from "../wave-types.js";
 
 /**
  * Waves 162 to 177 of the game, in the order they are played: THE THROB's
- * block, the filler before THE SCOUT, the boss THE SCOUT and THE COUNT's block.
+ * block, the filler before PINBALL, the boss PINBALL and THE COUNT's block.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act
  * after the tutorial arc again in play order. A save that fills it cuts a page
@@ -94,60 +94,59 @@ export const WAVES_ACT_14: Wave[] = [
     ],
   },
   {
-    id: "fillerScoutBreathe",
-    name: "THROB SIESTA",
+    id: "fillerPinballBreathe",
+    name: "THROB LULLABY",
     entries: [
-      { beat: 0, col: 6, color: "red" },
-      { beat: 7, col: 8, kind: "throb", color: "red" },
-      { beat: 15, col: 1, color: "red" },
-      { beat: 23, col: 2, kind: "meteorMedium", color: null },
-      { beat: 31, col: 9, color: "red" },
-      { beat: 37, col: 10, kind: "throb", color: "red" },
+      { beat: 0, col: 0, color: "red" },
+      { beat: 6, col: 6, kind: "throb", color: "red" },
+      { beat: 14, col: 0, color: "cyan" },
+      { beat: 21, col: 3, kind: "meteorMedium", color: null },
+      { beat: 28, col: 9, color: "cyan" },
+      { beat: 34, col: 7, kind: "throb", color: "red" },
     ],
   },
   {
-    id: "fillerScoutRecall",
-    name: "THROB RELIC",
+    id: "fillerPinballRecall",
+    name: "THROB REUNION",
     variant: true,
     entries: [
-      { beat: 0, col: 7, color: "red" },
-      { beat: 6, col: 4, kind: "throb", color: "red" },
-      { beat: 11, col: 10, color: "red" },
-      { beat: 17, col: 5, kind: "throb", color: "red" },
-      { beat: 22, col: 0, color: "red" },
-      { beat: 28, col: 1, kind: "throb", color: "red" },
-      { beat: 34, col: 4, color: "red" },
-      { beat: 39, col: 5, kind: "throb", color: "red" },
+      { beat: 0, col: 10, color: "red" },
+      { beat: 6, col: 2, kind: "throb", color: "red" },
+      { beat: 12, col: 0, color: "red" },
+      { beat: 18, col: 8, kind: "meteor", color: null, cross: -1, row: 6 },
+      { beat: 24, col: 6, color: "cyan" },
+      { beat: 29, col: 0, kind: "throb", color: "red" },
+      { beat: 35, col: 4, color: "cyan" },
     ],
   },
   {
-    id: "fillerScoutBend",
+    id: "fillerPinballBend",
     name: "THROB ILLUSION",
     variant: true,
     entries: [
-      { beat: 0, col: 4, color: "red" },
-      { beat: 6, col: 1, kind: "throb", color: "red" },
-      { beat: 11, col: 0, color: "red" },
-      { beat: 16, col: 1, kind: "meteorMedium", color: null },
-      { beat: 21, col: 1, color: "cyan" },
-      { beat: 21, col: 9, color: "cyan" },
-      { beat: 29, col: 7, kind: "throb", color: "red" },
-      { beat: 35, col: 4, kind: "meteorMedium", color: null },
-      { beat: 40, col: 2, color: "cyan" },
-      { beat: 40, col: 8, color: "cyan" },
-      { beat: 45, col: 10, kind: "throb", color: "red" },
+      { beat: 0, col: 0, color: "red" },
+      { beat: 7, col: 9, kind: "throb", color: "red" },
+      { beat: 13, col: 10, color: "red" },
+      { beat: 18, col: 1, kind: "meteorMedium", color: null },
+      { beat: 26, col: 3, color: "cyan" },
+      { beat: 26, col: 6, color: "cyan" },
+      { beat: 31, col: 3, kind: "throb", color: "red" },
+      { beat: 37, col: 8, kind: "meteorMedium", color: null },
+      { beat: 42, col: 4, color: "cyan" },
+      { beat: 42, col: 7, color: "cyan" },
+      { beat: 47, col: 7, kind: "throb", color: "red" },
     ],
   },
   {
-    id: "theScout",
-    name: "THE SCOUT",
+    id: "pinball",
+    name: "PINBALL",
     guide: {
-      scene: "theScout",
+      scene: "pinball",
     },
     entries: [],
-    boss: { kind: "scout", arenas: SCOUT_ARENAS },
+    boss: { kind: "pinball", rounds: PINBALL_ROUNDS },
     bossType: "special",
-    controls: "scout",
+    controls: "pinball",
   },
   {
     id: "theCount",

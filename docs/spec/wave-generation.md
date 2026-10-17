@@ -140,9 +140,9 @@ Inside a block, pressure climbs in small steps:
 Each boss goes to **the end of the first block after which everything it needs
 has been taught** — its panel, every button on it, the hold, and every body it
 carries — one boss to a block, each taking the first block still free once it
-is ready, so no block goes without one — except a block the owner empties for
-a boss about its own new thing (`WAITS_FOR_ITS_BOSS`, `boss-slots.ts`; none
-today). A boss on a panel only bosses carry
+is ready, so no block goes without one. Before any of that, **a boss about a
+block's new thing closes that block** (`BOSS_ABOUT`, `boss-about.ts`; the
+owner, 17 October 2026). A boss on a panel only bosses carry
 comes after the boss before it on that panel (THE HAUL after THE SCOUT). The
 tutorial keeps THE BROOD, THE BASTION and BULB QUEEN (after the review block
 that follows SALVAGE's) where they are, and no boss on a panel of its own

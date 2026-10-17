@@ -1,8 +1,9 @@
+import { MANTLE_SCRIPT } from "../mantle-script.js";
 import type { Wave } from "../wave-types.js";
 
 /**
  * Waves 505 to 516 of the game, in the order they are played: THE CAROM's
- * review, the boss THE SLING, THE GHOST's review and the boss THE CAPSTAN.
+ * review, the boss THE MANTLE, THE GHOST's review and the boss THE KEEL.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act
  * after the tutorial arc again in play order. A save that fills it cuts a page
@@ -93,28 +94,15 @@ export const WAVES_ACT_46: Wave[] = [
     ],
   },
   {
-    id: "theSling",
-    name: "THE SLING",
+    id: "theMantle",
+    name: "THE MANTLE",
     guide: {
-      both: "Hold until your arm is drawn home, then swipe toward the lit side. Both arms drawn light the yoke: shoot it in its colour. When both light, draw together.",
-      p1: "1. Hold a finger down when the left arm lights, and say which side is lit.\n2. Keep holding until the arm is home.\n3. Swipe toward the lit side as you let go.",
-      p2: "1. Hold a finger down when the right arm lights, and say which side is lit.\n2. Keep holding until the arm is home.\n3. White takes either colour. Draw with the other one when both light.",
+      both: "Two handles, one each. Pull both down together, hard enough, to open one of its four joints. Letting go costs the whole pull. Then tap the bare core, turn about.",
+      p1: "1. Drag the left handle down and hold it with the other screen's pull.\n2. Both must pull hard enough at once, or nothing shears.\n3. Once the core is bare, tap it only when it is your turn.",
+      p2: "1. Drag the right handle down and hold it with the other screen's pull.\n2. Letting go costs the whole pull. Start again together.\n3. A spark leaks partway through. Shoot it before it reaches the hull.",
     },
     entries: [],
-    boss: {
-      kind: "sling",
-      steps: [
-        { ask: "left", aim: "left", color: "either", beats: 5 },
-        { ask: "left", aim: "right", color: "either", beats: 4 },
-        { ask: "right", aim: "right", color: "either", beats: 5 },
-        { ask: "right", aim: "left", color: "either", beats: 4 },
-        { ask: "fire", aim: "left", color: "red", beats: 6 },
-        { ask: "both", aim: "left", color: "either", beats: 3 },
-        { ask: "fire", aim: "left", color: "cyan", beats: 6 },
-        { ask: "both", aim: "right", color: "either", beats: 3 },
-        { ask: "fire", aim: "left", color: "either", beats: 6 },
-      ],
-    },
+    boss: { kind: "mantle", thresholds: MANTLE_SCRIPT },
     bossType: "normal",
   },
   {
@@ -199,26 +187,15 @@ export const WAVES_ACT_46: Wave[] = [
     ],
   },
   {
-    id: "theCapstan",
-    name: "THE CAPSTAN",
+    id: "theKeel",
+    name: "THE KEEL",
     guide: {
-      both: "One of you drags the drum to turn a band toward the other, who rubs it bright. Both bands bright bare the core. Shoot it in its colour.",
-      p1: "1. Left mark: drag the drum left and hold it.\n2. Right mark: rub the band your partner turns to you.\n3. When rust creeps back, do it again, either way round.\n4. Shoot the core in its colour.",
-      p2: "1. Left mark: rub the band your partner turns to you.\n2. Right mark: drag the drum right and hold it.\n3. When rust creeps back, do it again, either way round.\n4. White takes either colour.",
+      both: "Six joints. When one lights, tap it if it is on your half. The middle opens: shoot it in its colour. Then the joints light fast. Shoot the rock.",
+      p1: "1. Tap a lit joint on the left half of the spine.\n2. Move the cannon under the open middle, then under the rock.\n3. The joints light fast at the end. Watch which half.",
+      p2: "1. Tap a lit joint on the right half of the spine.\n2. Fire the open middle in the colour it shows.\n3. Fire the rock the tail throws before it lands.",
     },
     entries: [],
-    boss: {
-      kind: "capstan",
-      steps: [
-        { ask: "left", color: "either", beats: 12 },
-        { ask: "right", color: "either", beats: 12 },
-        { ask: "fire", color: "red", beats: 6 },
-        { ask: "hold", color: "either", beats: 8 },
-        { ask: "fire", color: "cyan", beats: 6 },
-        { ask: "hold", color: "either", beats: 6 },
-        { ask: "fire", color: "either", beats: 6 },
-      ],
-    },
+    boss: { kind: "keel", socket: "red", reprise: [4, 3, 0] },
     bossType: "normal",
   },
 ];

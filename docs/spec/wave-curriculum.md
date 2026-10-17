@@ -363,12 +363,15 @@ decided then while the owner was away:
   2026, moving THE SPLICE to close SALVAGE's block (its mouth is SALVAGE's,
   on the other seat) and BULB QUEEN to a review block of three after it:
   *every list of waves of a parent — the boss should be related to the new
-  thing introduced … i will later on create new bosses which fit.* A block
-  emptied that way waits for its own boss (`WAITS_FOR_ITS_BOSS`). The same
-  evening the owner took THE SPLICE out of the arc again — a boss on a panel
-  of its own stands past the basics, behind a filler (below) — and it went
-  back to THE ECHO's block, the one it had left. The rest of the bosses are
-  still where *first free block* put them.
+  thing introduced … i will later on create new bosses which fit.* Which
+  block a boss is about is a table, `BOSS_ABOUT` (`boss-about.ts`), twenty
+  rows drafted off each mechanic's `what` and taken as written; those bosses
+  claim their blocks first, and a boss that fits none takes the first block
+  left free (the owner's pick: *stay where they are*). A new boss written for
+  a block is a row there. THE SPLICE took THE ECHO's row from THE REPRISE the
+  same evening: the owner took it out of the arc again — a boss on a panel of
+  its own stands past the basics, behind a filler (below) — and back to THE
+  ECHO's block, the one it had left.
 - **A boss with no block left waits at the end**, in order — and gets a
   review block: five regular waves with no intro, themed on the bodies from
   the last taught back, composed by `bun run waves:review`

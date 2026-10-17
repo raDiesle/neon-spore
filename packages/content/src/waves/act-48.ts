@@ -1,8 +1,8 @@
 import type { Wave } from "../wave-types.js";
 
 /**
- * Waves 529 to 539 of the game, in the order they are played: THE MINE's
- * review, the boss THE FLUE and THE CRAWLER's review.
+ * Waves 529 to 540 of the game, in the order they are played: THE MINE's
+ * review, the boss THE SLING, THE CRAWLER's review and the boss THE CAPSTAN.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act
  * after the tutorial arc again in play order. A save that fills it cuts a page
@@ -94,51 +94,29 @@ export const WAVES_ACT_48: Wave[] = [
     ],
   },
   {
-    id: "theFlue",
-    name: "THE FLUE",
+    id: "theSling",
+    name: "THE SLING",
     guide: {
-      scene: "theFlue",
+      both: "Hold until your arm is drawn home, then swipe toward the lit side. Both arms drawn light the yoke: shoot it in its colour. When both light, draw together.",
+      p1: "1. Hold a finger down when the left arm lights, and say which side is lit.\n2. Keep holding until the arm is home.\n3. Swipe toward the lit side as you let go.",
+      p2: "1. Hold a finger down when the right arm lights, and say which side is lit.\n2. Keep holding until the arm is home.\n3. White takes either colour. Draw with the other one when both light.",
     },
     entries: [],
     boss: {
-      kind: "flue",
-      levels: [
-        { weapon: "bolt", color: "red", speedMilli: 1000, slowMilli: 1000, from: "left", needs: 1 },
-        {
-          weapon: "bolt",
-          color: "cyan",
-          speedMilli: 1000,
-          slowMilli: 1000,
-          from: "right",
-          needs: 1,
-        },
-        { weapon: "bolt", color: "red", speedMilli: 1500, slowMilli: 1000, from: "left", needs: 1 },
-        {
-          weapon: "beam",
-          color: "cyan",
-          speedMilli: 1000,
-          slowMilli: 1000,
-          from: "left",
-          needs: 1,
-        },
-        {
-          weapon: "bolt",
-          color: "cyan",
-          speedMilli: 1500,
-          slowMilli: 1000,
-          from: "left",
-          needs: 2,
-        },
-        { weapon: "beam", color: "red", speedMilli: 1500, slowMilli: 500, from: "right", needs: 1 },
-        { weapon: "bolt", color: "red", speedMilli: 2250, slowMilli: 750, from: "right", needs: 1 },
-        { weapon: "beam", color: "cyan", speedMilli: 2000, slowMilli: 500, from: "left", needs: 1 },
-        { weapon: "bolt", color: "cyan", speedMilli: 3000, slowMilli: 500, from: "left", needs: 2 },
-        { weapon: "bolt", color: "red", speedMilli: 3600, slowMilli: 250, from: "right", needs: 1 },
-        { weapon: "beam", color: "red", speedMilli: 2250, slowMilli: 250, from: "left", needs: 2 },
+      kind: "sling",
+      steps: [
+        { ask: "left", aim: "left", color: "either", beats: 5 },
+        { ask: "left", aim: "right", color: "either", beats: 4 },
+        { ask: "right", aim: "right", color: "either", beats: 5 },
+        { ask: "right", aim: "left", color: "either", beats: 4 },
+        { ask: "fire", aim: "left", color: "red", beats: 6 },
+        { ask: "both", aim: "left", color: "either", beats: 3 },
+        { ask: "fire", aim: "left", color: "cyan", beats: 6 },
+        { ask: "both", aim: "right", color: "either", beats: 3 },
+        { ask: "fire", aim: "left", color: "either", beats: 6 },
       ],
     },
     bossType: "normal",
-    controls: "shots",
   },
   {
     id: "reviewCrawlerAgain",
@@ -223,5 +201,28 @@ export const WAVES_ACT_48: Wave[] = [
       { beat: 45, col: 9, color: "cyan" },
       { beat: 48, col: 7, kind: "crawler", color: null, segments: 7, side: "left" },
     ],
+  },
+  {
+    id: "theCapstan",
+    name: "THE CAPSTAN",
+    guide: {
+      both: "One of you drags the drum to turn a band toward the other, who rubs it bright. Both bands bright bare the core. Shoot it in its colour.",
+      p1: "1. Left mark: drag the drum left and hold it.\n2. Right mark: rub the band your partner turns to you.\n3. When rust creeps back, do it again, either way round.\n4. Shoot the core in its colour.",
+      p2: "1. Left mark: rub the band your partner turns to you.\n2. Right mark: drag the drum right and hold it.\n3. When rust creeps back, do it again, either way round.\n4. White takes either colour.",
+    },
+    entries: [],
+    boss: {
+      kind: "capstan",
+      steps: [
+        { ask: "left", color: "either", beats: 12 },
+        { ask: "right", color: "either", beats: 12 },
+        { ask: "fire", color: "red", beats: 6 },
+        { ask: "hold", color: "either", beats: 8 },
+        { ask: "fire", color: "cyan", beats: 6 },
+        { ask: "hold", color: "either", beats: 6 },
+        { ask: "fire", color: "either", beats: 6 },
+      ],
+    },
+    bossType: "normal",
   },
 ];

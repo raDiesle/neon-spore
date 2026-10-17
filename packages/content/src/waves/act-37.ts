@@ -1,8 +1,9 @@
+import { FILAMENT_SCRIPT } from "../filament-script.js";
 import type { Wave } from "../wave-types.js";
 
 /**
  * Waves 415 to 424 of the game, in the order they are played: THE CRYSTAL's
- * block, the filler before THE RATCHET and the boss THE RATCHET.
+ * block, the filler before THE FILAMENT and the boss THE FILAMENT.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act
  * after the tutorial arc again in play order. A save that fills it cuts a page
@@ -104,62 +105,60 @@ export const WAVES_ACT_37: Wave[] = [
     ],
   },
   {
-    id: "fillerRatchetBreathe",
-    name: "SOFT CRYSTAL",
+    id: "fillerFilamentBreathe",
+    name: "CRYSTAL LULLABY",
     entries: [
-      { beat: 0, col: 10, color: "cyan" },
-      { beat: 8, col: 1, kind: "crystal", color: "cyan" },
-      { beat: 15, col: 8, color: "cyan" },
-      { beat: 22, col: 4, kind: "recoil", color: "red" },
-      { beat: 28, col: 7, color: "cyan" },
-      { beat: 35, col: 4, kind: "clasp", color: "red" },
+      { beat: 0, col: 9, color: "red" },
+      { beat: 7, col: 0, kind: "crystal", color: "red" },
+      { beat: 14, col: 7, color: "cyan" },
+      { beat: 21, col: 4, kind: "recoil", color: "cyan" },
+      { beat: 29, col: 7, color: "red" },
+      { beat: 37, col: 6, kind: "dart", color: "red" },
     ],
   },
   {
-    id: "fillerRatchetRecall",
-    name: "CRYSTAL SAGA",
-    variant: true,
-    entries: [
-      { beat: 0, col: 4, color: "cyan" },
-      { beat: 6, col: 9, kind: "crystal", color: "cyan" },
-      { beat: 12, col: 1, color: "cyan" },
-      { beat: 17, col: 5, kind: "magnet", color: "red" },
-      { beat: 22, col: 2, color: "red" },
-      { beat: 22, col: 8, color: "red" },
-      { beat: 27, col: 9, kind: "crystal", color: "red" },
-      { beat: 33, col: 1, kind: "magnet", color: "cyan" },
-      { beat: 39, col: 3, color: "red" },
-      { beat: 39, col: 7, color: "red" },
-    ],
-  },
-  {
-    id: "fillerRatchetBend",
-    name: "CROOKED CRYSTAL",
+    id: "fillerFilamentRecall",
+    name: "ANCIENT CRYSTAL",
     variant: true,
     entries: [
       { beat: 0, col: 1, color: "red" },
-      { beat: 5, col: 4, kind: "crystal", color: "cyan" },
-      { beat: 10, col: 1, color: "red" },
-      { beat: 10, col: 9, color: "red" },
-      { beat: 15, col: 7, kind: "recoil", color: "cyan" },
-      { beat: 21, col: 10, kind: "crystal", color: "red" },
-      { beat: 26, col: 2, color: "red" },
-      { beat: 26, col: 8, color: "red" },
-      { beat: 32, col: 2, kind: "recoil", color: "red" },
-      { beat: 37, col: 5, kind: "crystal", color: "red" },
-      { beat: 42, col: 3, color: "cyan" },
-      { beat: 42, col: 7, color: "cyan" },
-      { beat: 48, col: 2, kind: "recoil", color: "red" },
+      { beat: 5, col: 4, kind: "crystal", color: "red" },
+      { beat: 10, col: 9, color: "cyan" },
+      { beat: 15, col: 4, kind: "seeder", color: "cyan" },
+      { beat: 21, col: 3, color: "red" },
+      { beat: 21, col: 7, color: "red" },
+      { beat: 26, col: 9, kind: "crystal", color: "red" },
+      { beat: 32, col: 1, kind: "seeder", color: "red" },
+      { beat: 37, col: 4, color: "cyan" },
+      { beat: 37, col: 7, color: "cyan" },
     ],
   },
   {
-    id: "theRatchet",
-    name: "THE RATCHET",
-    guide: {
-      scene: "theRatchet",
-    },
+    id: "fillerFilamentBend",
+    name: "CRYSTAL RIDDLE",
+    variant: true,
+    entries: [
+      { beat: 0, col: 4, color: "cyan" },
+      { beat: 5, col: 10, kind: "crystal", color: "red" },
+      { beat: 10, col: 2, color: "cyan" },
+      { beat: 10, col: 8, color: "cyan" },
+      { beat: 15, col: 2, kind: "recoil", color: "red" },
+      { beat: 20, col: 8, kind: "crystal", color: "cyan" },
+      { beat: 25, col: 3, color: "red" },
+      { beat: 25, col: 7, color: "red" },
+      { beat: 31, col: 8, kind: "recoil", color: "cyan" },
+      { beat: 36, col: 9, kind: "crystal", color: "red" },
+      { beat: 41, col: 3, color: "red" },
+      { beat: 41, col: 7, color: "red" },
+      { beat: 47, col: 7, kind: "recoil", color: "cyan" },
+    ],
+  },
+  {
+    id: "theFilament",
+    name: "THE FILAMENT",
     entries: [],
-    boss: { kind: "ratchet" },
+    boss: { kind: "filament", filaments: FILAMENT_SCRIPT },
     bossType: "normal",
+    controls: "scene",
   },
 ];

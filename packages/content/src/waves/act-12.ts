@@ -1,9 +1,8 @@
-import { SNAKE_ROUNDS } from "../snake-rounds.js";
 import type { Wave } from "../wave-types.js";
 
 /**
  * Waves 142 to 151 of the game, in the order they are played: HEAVY ROCKS's
- * block, the filler before SNAKE and the boss SNAKE.
+ * block, the filler before THE HIVE and the boss THE HIVE.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act
  * after the tutorial arc again in play order. A save that fills it cuts a page
@@ -99,58 +98,58 @@ export const WAVES_ACT_12: Wave[] = [
     ],
   },
   {
-    id: "fillerSnakeBreathe",
-    name: "HEAVY ROCK PICNIC",
+    id: "fillerHiveBreathe",
+    name: "HEAVY ROCK LULLABY",
     entries: [
-      { beat: 0, col: 8, color: "red" },
-      { beat: 6, col: 0, kind: "meteorMedium", color: null },
-      { beat: 14, col: 5, color: "red" },
-      { beat: 20, col: 6, kind: "meteorMedium", color: null },
-      { beat: 26, col: 3, color: "red" },
-      { beat: 34, col: 1, kind: "meteorMedium", color: null },
+      { beat: 0, col: 10, color: "cyan" },
+      { beat: 8, col: 7, kind: "meteorMedium", color: null },
+      { beat: 14, col: 8, color: "red" },
+      { beat: 20, col: 7, kind: "meteor", color: null },
+      { beat: 26, col: 1, color: "cyan" },
+      { beat: 33, col: 3, kind: "meteorMedium", color: null },
+      { beat: 39, col: 5, color: "red" },
     ],
   },
   {
-    id: "fillerSnakeRecall",
-    name: "HEAVY ROCK MEMORY",
+    id: "fillerHiveRecall",
+    name: "HEAVY ROCK LEGEND",
     variant: true,
     entries: [
-      { beat: 0, col: 2, color: "cyan" },
-      { beat: 6, col: 9, kind: "meteorMedium", color: null },
-      { beat: 12, col: 10, color: "cyan" },
-      { beat: 17, col: 1, kind: "meteorMedium", color: null },
-      { beat: 25, col: 2, color: "cyan" },
-      { beat: 31, col: 10, kind: "meteorMedium", color: null },
-      { beat: 36, col: 7, color: "cyan" },
+      { beat: 0, col: 1, color: "red" },
+      { beat: 5, col: 10, kind: "meteorMedium", color: null },
+      { beat: 13, col: 9, color: "cyan" },
+      { beat: 19, col: 2, kind: "glutton", color: "red" },
+      { beat: 25, col: 1, color: "cyan" },
+      { beat: 30, col: 5, kind: "meteorMedium", color: null },
+      { beat: 35, col: 4, color: "cyan" },
     ],
   },
   {
-    id: "fillerSnakeBend",
-    name: "HEAVY ROCK TRICK",
+    id: "fillerHiveBend",
+    name: "HEAVY ROCK MIRAGE",
     variant: true,
     entries: [
-      { beat: 0, col: 6, color: "red" },
+      { beat: 0, col: 6, color: "cyan" },
       { beat: 6, col: 4, kind: "meteorMedium", color: null },
       { beat: 6, col: 7, kind: "meteorMedium", color: null },
-      { beat: 11, col: 9, color: "cyan" },
-      { beat: 17, col: 4, color: "cyan" },
-      { beat: 22, col: 0, kind: "weight", color: null },
-      { beat: 28, col: 1, color: "cyan" },
-      { beat: 33, col: 5, kind: "meteorMedium", color: null },
-      { beat: 38, col: 3, color: "cyan" },
-      { beat: 38, col: 7, color: "cyan" },
-      { beat: 43, col: 5, kind: "weight", color: null },
+      { beat: 12, col: 5, color: "cyan" },
+      { beat: 17, col: 4, color: "red" },
+      { beat: 22, col: 8, kind: "weight", color: null },
+      { beat: 28, col: 2, color: "red" },
+      { beat: 33, col: 6, kind: "meteorMedium", color: null },
+      { beat: 39, col: 5, color: "cyan" },
+      { beat: 39, col: 8, color: "cyan" },
+      { beat: 45, col: 9, kind: "weight", color: null },
     ],
   },
   {
-    id: "snake",
-    name: "SNAKE",
+    id: "theHive",
+    name: "THE HIVE",
     guide: {
-      scene: "snake",
+      scene: "theHive",
     },
     entries: [],
-    boss: { kind: "snake", rounds: SNAKE_ROUNDS },
-    bossType: "special",
-    controls: "snake",
+    boss: { kind: "hive" },
+    bossType: "normal",
   },
 ];

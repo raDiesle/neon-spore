@@ -1,7 +1,8 @@
 import { describe, expect, test } from "bun:test";
 import { controlSet, isRegularWave, mechanicsInWave, WAVES } from "@neon-spore/content";
 import { biomeLineCount, biomeLines } from "../src/biome-lines.js";
-import { bossOrder, WAITS_FOR_ITS_BOSS } from "../src/boss-slots.js";
+import { BOSS_ABOUT } from "../src/boss-about.js";
+import { bossOrder } from "../src/boss-slots.js";
 import { startsBlock } from "../src/compose-starts.js";
 import { TUTORIAL_LAST_ID } from "../src/compose-steps.js";
 
@@ -38,27 +39,25 @@ describe("the bosses' places (wave-curriculum §7)", () => {
   });
 
   // Every block past the arc — an intro's, a lesson's, a review — and one
-  // boss closing it, until the bosses run out; then the ones with no block
-  // left, waiting after the last. A block waiting for a boss of its own has
-  // none.
+  // boss closing it, until the bosses run out; then the blocks with none, or
+  // the bosses with no block left, waiting after the last.
   test("close a block each, exactly one, while there are bosses left", () => {
-    let between = 0;
-    let started = false;
-    let wants = 1;
+    const counts: { block: string; bosses: number }[] = [];
     WAVES.forEach((w, i) => {
       if (i <= finale) return;
-      if (startsBlock(WAVES, i)) {
-        if (started)
-          expect({ before: WAVES[i]?.name, bosses: between }).toEqual({
-            before: WAVES[i]?.name,
-            bosses: wants,
-          });
-        between = 0;
-        started = true;
-        wants = WAITS_FOR_ITS_BOSS.has(w.id) ? 0 : 1;
-      } else if (w.boss && !waiting.has(w.id)) between++;
+      if (startsBlock(WAVES, i)) counts.push({ block: w.name, bosses: 0 });
+      else if (w.boss && !waiting.has(w.id)) {
+        const last = counts[counts.length - 1];
+        if (last) last.bosses++;
+      }
     });
-    expect(between).toBe(1);
+    const ranOut = counts.findIndex((c) => c.bosses === 0);
+    const expected = counts.map((c, k) => ({
+      block: c.block,
+      bosses: ranOut === -1 || k < ranOut ? 1 : 0,
+    }));
+    expect(counts).toEqual(expected);
+    if (waiting.size > 0) expect(ranOut).toBe(-1);
   });
 
   // The owner, 15 October 2026: *I expect to follow from top to bottom
@@ -72,6 +71,19 @@ describe("the bosses' places (wave-curriculum §7)", () => {
         folded: before?.variant === true && isRegularWave(WAVES, at - 1),
       }).toEqual({ boss: boss.name, folded: true });
     });
+  });
+
+  // The owner, 17 October 2026: a boss closes the block whose new thing it
+  // is about (`boss-about.ts`).
+  test("close the block each is about", () => {
+    const wrong: string[] = [];
+    for (const [boss, about] of Object.entries(BOSS_ABOUT)) {
+      const at = WAVES.findIndex((w) => w.id === boss);
+      let head = at - 1;
+      while (head > 0 && !startsBlock(WAVES, head)) head--;
+      if (WAVES[head]?.id !== about) wrong.push(`${boss} closes ${WAVES[head]?.id}, not ${about}`);
+    }
+    expect(wrong).toEqual([]);
   });
 
   test("leave the tutorial arc's bosses where they were", () => {

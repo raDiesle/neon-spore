@@ -1,8 +1,9 @@
+import { PULSE_STAGES } from "../pulse-stages.js";
 import type { Wave } from "../wave-types.js";
 
 /**
  * Waves 242 to 253 of the game, in the order they are played: THE FENCE's
- * block, the filler before THE CURTAIN and the boss THE CURTAIN.
+ * block, the filler before THE PULSE and the boss THE PULSE.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act
  * after the tutorial arc again in play order. A save that fills it cuts a page
@@ -124,58 +125,60 @@ export const WAVES_ACT_20: Wave[] = [
     ],
   },
   {
-    id: "fillerCurtainBreathe",
-    name: "FENCE LULLABY",
+    id: "fillerPulseBreathe",
+    name: "FENCE DREAM",
     entries: [
-      { beat: 0, col: 6, color: "red" },
-      { beat: 8, col: 7, kind: "fence", color: null },
-      { beat: 14, col: 3, color: "cyan" },
-      { beat: 21, col: 9, kind: "strand", color: "red", beads: 2 },
-      { beat: 28, col: 5, color: "cyan" },
-      { beat: 40, col: 3, color: "cyan" },
+      { beat: 0, col: 0, color: "red" },
+      { beat: 6, col: 4, kind: "fence", color: null },
+      { beat: 12, col: 8, color: "cyan" },
+      { beat: 19, col: 2, kind: "strand", color: "red", beads: 5 },
+      { beat: 25, col: 4, color: "red" },
+      { beat: 31, col: 9, kind: "meteor", color: null, cross: 1, row: 5 },
+      { beat: 37, col: 10, color: "red" },
     ],
-    pods: [{ beat: 34, col: 4, row: 3, kind: "pod" }],
   },
   {
-    id: "fillerCurtainRecall",
-    name: "ANCIENT FENCE",
+    id: "fillerPulseRecall",
+    name: "FENCE HOMECOMING",
+    variant: true,
+    entries: [
+      { beat: 0, col: 2, color: "red" },
+      { beat: 5, col: 8, kind: "fence", color: null },
+      { beat: 10, col: 2, color: "red" },
+      { beat: 16, col: 10, kind: "rind", color: "cyan" },
+      { beat: 22, col: 6, color: "cyan" },
+      { beat: 27, col: 8, kind: "fence", color: null },
+      { beat: 32, col: 10, color: "red" },
+      { beat: 39, col: 1, kind: "rind", color: "red" },
+    ],
+  },
+  {
+    id: "fillerPulseBend",
+    name: "FENCE ILLUSION",
     variant: true,
     entries: [
       { beat: 0, col: 10, color: "red" },
-      { beat: 6, col: 2, kind: "fence", color: null },
-      { beat: 11, col: 3, color: "red" },
-      { beat: 17, col: 9, kind: "throb", color: "red" },
-      { beat: 23, col: 0, color: "red" },
-      { beat: 31, col: 6, kind: "fence", color: null },
-      { beat: 37, col: 9, color: "red" },
+      { beat: 5, col: 9, kind: "fence", color: null },
+      { beat: 11, col: 10, color: "cyan" },
+      { beat: 16, col: 8, kind: "strand", color: "red", beads: 2 },
+      { beat: 22, col: 4, color: "red" },
+      { beat: 22, col: 7, color: "red" },
+      { beat: 27, col: 6, kind: "fence", color: null },
+      { beat: 33, col: 4, kind: "strand", color: "cyan", beads: 3 },
+      { beat: 38, col: 1, color: "red" },
+      { beat: 38, col: 9, color: "red" },
+      { beat: 43, col: 6, kind: "fence", color: null },
     ],
   },
   {
-    id: "fillerCurtainBend",
-    name: "FENCE MIRAGE",
-    variant: true,
-    entries: [
-      { beat: 0, col: 9, color: "cyan" },
-      { beat: 6, col: 3, kind: "fence", color: null },
-      { beat: 12, col: 10, color: "red" },
-      { beat: 18, col: 3, kind: "strand", color: "red", beads: 5 },
-      { beat: 24, col: 3, color: "cyan" },
-      { beat: 24, col: 6, color: "cyan" },
-      { beat: 30, col: 2, kind: "fence", color: null },
-      { beat: 36, col: 1, kind: "strand", color: "cyan", beads: 3 },
-      { beat: 41, col: 0, color: "red" },
-      { beat: 41, col: 10, color: "red" },
-      { beat: 47, col: 7, kind: "fence", color: null },
-    ],
-  },
-  {
-    id: "theCurtain",
-    name: "THE CURTAIN",
+    id: "pulse",
+    name: "THE PULSE",
     guide: {
-      scene: "theCurtain",
+      scene: "thePulse",
     },
     entries: [],
-    boss: { kind: "curtain" },
-    bossType: "normal",
+    boss: { kind: "pulse", stages: PULSE_STAGES },
+    bossType: "special",
+    controls: "pulse",
   },
 ];

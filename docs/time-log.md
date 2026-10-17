@@ -44135,3 +44135,22 @@ Bottleneck: starting `director-here` before `bun run here`, so the first look
 was at another lane's tree.
 
 *Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-17 — Every boss closes the group whose new thing it is about
+
+- reading: 10 min. Every boss's `what` and every block's new thing, side by
+  side, to draft the twenty matches.
+- writing: 10 min. `boss-about.ts`, the claims pass in `bossOrder`, the test
+  that holds the table, the specs.
+- looking: 0 min.
+- friction: 15 min. `waves:bosses --write` filled each act at its old length
+  and cut 31 new pages; `waves:order --recut` put one block to a file again.
+  Then the fillers, blocks of five and THE SPLICE's return to THE ECHO
+  landed on `main` mid-landing, and
+  every act file was written again on top of each, the fillers composed
+  after the bosses moved.
+- landing: 5 min. `index`, `briefings:renumber`, `baseline:blank`,
+  `check:fast`.
+
+Bottleneck: the draft itself — keys cannot say what a boss is about, so
+twenty matches were read off sixty sentences by hand.
