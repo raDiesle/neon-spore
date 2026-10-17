@@ -43840,3 +43840,5 @@ to reach fourteen sites before THE PULSE's faint arrival could be honoured.
 
 Bottleneck: telling a row literal from a viewport and from a row quoted in a
 comment, which is what the key-set match and the comment skip are for.
+
+*Measured: 6 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*

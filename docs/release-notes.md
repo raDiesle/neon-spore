@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-17 · 280eafa11 — `bun run budgets:measure` raises the op-count budget rows that rose, in place
+
+A look that moves every frame used to mean pasting dozens of printed budget rows back by hand. The command does it for every budget file in `packages/render/test`, or the ones named. It throws a file's `MEASURE` switch for one run and puts it back, on ^C too. Each printed row goes into the next literal with the same key set, comments inside a row included. Values that rose are raised, none is lowered, and the file is formatted. A row that matches nothing leaves the file unwritten. Tests cover the parser, the raise and one end-to-end run on a scratch budget file.
+
 ## 2026-10-17 · bbc9856d7 — The pod keeps its form in the maw's grip and down THE PULSE's lane
 
 A pod the maw grips is now drawn as the form it wore while it hung, squashed in the mouth, and a husk is drawn as the fake its seat already saw. THE PULSE's pod lane and its button draw a form read off the note. The lane's hull placeholder, and the far side's dark, are the seed's sphere instead of the old lobed contour. A faded arrival stays faded: the forms set their alpha outright at every layer, and those sets now go through `pod-fade.ts`, which is the identity everywhere else. Exemption: a fix to something wrong — the pod changed shape the moment the maw took it.
