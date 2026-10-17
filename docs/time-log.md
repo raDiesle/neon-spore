@@ -44120,3 +44120,16 @@ Bottleneck: the tutorial's composed waves, which `waves:order` never
 recomposes, needed a tool of their own to follow the rule.
 
 *Measured: 8 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-17 — The wave list's brush icons open the BRUSH card, at 26 px
+
+- reading: 5 min. `brush-intro.ts`, `brush-tooltip.ts`, the palette's jump.
+- writing: 5 min. `bindBrushCard` on each chip, 26 px with negative margins
+  so a row keeps its height, Ctrl/⌘-click to the card's wave.
+- looking: 5 min. Row heights measured, the card hovered, the jump clicked.
+- friction: 5 min. The `director-here` preview served another worktree until
+  `bun run here` pointed it at this one.
+- landing: 5 min. `check:fast`, `land`.
+
+Bottleneck: starting `director-here` before `bun run here`, so the first look
+was at another lane's tree.

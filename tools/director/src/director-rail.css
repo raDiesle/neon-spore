@@ -106,12 +106,15 @@
   text-overflow: ellipsis;
 }
 /* The brushes a head is first to carry, after the name (`brush-intro.ts`).
-   The row is aligned on its baseline, so the picture is centred by hand. */
+   The row is aligned on its baseline, so the picture is centred by hand. It is
+   taller than the line, and the negative margins keep the row at the line's
+   height: the picture spills into the button's padding rather than pushing
+   every head below it down. */
 #waveList .intro-art {
   flex: none;
   align-self: center;
   display: inline-flex;
-  margin-left: 4px;
+  margin: -6px 0 -6px 2px;
 }
 #waveList .intro-art .brush-art {
   display: block;

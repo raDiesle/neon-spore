@@ -1,5 +1,7 @@
 import { type Wave, waveIntroduces } from "@neon-spore/content";
 import { brushArtImage } from "./brush-art.js";
+import { bindBrushCard } from "./brush-tooltip.js";
+import { jumpWaveIndex } from "./brush-wave.js";
 import { BRUSHES, type Brush } from "./brushes.js";
 import { CONTROL_KIND } from "./control-brushes.js";
 import { brushOf } from "./query.js";
@@ -44,8 +46,20 @@ export function introducedBrush(thing: string, wave?: Wave): Brush | undefined {
  * span goes and the ⚠ in front of the name says it. Two words that are one
  * brush — two speeds of rock — are one picture. A panel is not a brush; the ⎈
  * mark says that too.
+ *
+ * Hovered, a chip opens the palette's own card for its brush (`brush-tooltip.ts`)
+ * rather than a `title` — the owner, 17 October 2026: *when i mouse hover the
+ * icon on the "waves" section list icon of a brush, i want tooltip same as in
+ * "brush" section*. The card ends "Ctrl-click to open it", so `open`, given, is
+ * what a Ctrl- or ⌘-click on the chip does with the wave it names — which is
+ * not always the row's own: a CONTROLS brush lands on its control's own wave.
  */
-export function introArt(waves: readonly Wave[], index: number, px: number): HTMLElement[] {
+export function introArt(
+  waves: readonly Wave[],
+  index: number,
+  px: number,
+  open?: (index: number) => void,
+): HTMLElement[] {
   const seen = new Set<Brush>();
   const out: HTMLElement[] = [];
   for (const thing of waveIntroduces(waves, index)) {
@@ -54,7 +68,14 @@ export function introArt(waves: readonly Wave[], index: number, px: number): HTM
     seen.add(brush);
     const chip = document.createElement("span");
     chip.className = "intro-art";
-    chip.title = `New: ${thing}`;
+    bindBrushCard(chip, brush);
+    if (open)
+      chip.addEventListener("click", (e) => {
+        const to = jumpWaveIndex(waves, brush);
+        if (!(e.ctrlKey || e.metaKey) || to === undefined) return;
+        e.stopPropagation();
+        open(to);
+      });
     whenSeen(chip, () => {
       const art = brushArtImage(brush, px);
       const look = BRUSHES.find((b) => b.brush === brush);

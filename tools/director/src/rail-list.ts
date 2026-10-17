@@ -69,8 +69,9 @@ export function renderRows(
     // At the right end of a group's head, the picture of each brush it is the
     // first to carry: the owner, 17 October 2026, *show next to each wave to
     // the right the brush icon if on the parent, if it introduces it new*.
+    // 26 px, the palette's chip: 18 was a speck (the owner, the same day).
     // Only on a head — a variant is a wave that varies what its head brought.
-    if (head === -1) button.append(...introArt(store.waves, i, 18));
+    if (head === -1) button.append(...introArt(store.waves, i, 26, select));
     // No pressure at the end of the row: the owner, 17 October 2026, *do not
     // show the difficulty number in the wave list*. DOCUMENTATION › WAVES
     // still has it, in its own column.
