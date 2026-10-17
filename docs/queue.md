@@ -331,6 +331,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## `versus:shot --at` never finishes
 
 - **Found:** 2026-10-16, claude/siren-torch-visibility-923ccf
+- **Taken:** 2026-10-17, claude/the-brood-feedback-b6be33 (claim: claude/queue-versus-shot-at-never-finishes)
 - **Files:** `tools/frames/versus-shot.ts`, `tools/frames/shot.ts`
 - **Where:** local
 
