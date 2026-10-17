@@ -211,18 +211,8 @@
       "unmeasured": true
     },
     {
-      "id": "fiveBlisters",
-      "wave": 21,
-      "name": "HELLO BLISTER",
-      "bodies": 0,
-      "typical": 0,
-      "mean": 0,
-      "p90": 0,
-      "unmeasured": true
-    },
-    {
       "id": "tapBlisters",
-      "wave": 22,
+      "wave": 21,
       "name": "TAP SCATTER",
       "bodies": 0,
       "typical": 0,
@@ -232,7 +222,7 @@
     },
     {
       "id": "holdBlisters",
-      "wave": 23,
+      "wave": 22,
       "name": "HOLD WANDERER",
       "bodies": 0,
       "typical": 0,
@@ -242,7 +232,7 @@
     },
     {
       "id": "swipeBlisters",
-      "wave": 24,
+      "wave": 23,
       "name": "SWIPE TOGETHER",
       "bodies": 0,
       "typical": 0,
@@ -252,7 +242,7 @@
     },
     {
       "id": "turnBlisters",
-      "wave": 25,
+      "wave": 24,
       "name": "TURN SIESTA",
       "bodies": 0,
       "typical": 0,
@@ -262,7 +252,7 @@
     },
     {
       "id": "rubBlisters",
-      "wave": 26,
+      "wave": 25,
       "name": "RUB MEMORY",
       "bodies": 0,
       "typical": 0,
@@ -272,7 +262,7 @@
     },
     {
       "id": "comboBlisters",
-      "wave": 27,
+      "wave": 26,
       "name": "TWISTED COMBO",
       "bodies": 0,
       "typical": 0,
@@ -282,8 +272,18 @@
     },
     {
       "id": "leverBlisters",
-      "wave": 28,
+      "wave": 27,
       "name": "LEVER FURY",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "fiveBlisters",
+      "wave": 28,
+      "name": "HELLO BLISTER",
       "bodies": 0,
       "typical": 0,
       "mean": 0,

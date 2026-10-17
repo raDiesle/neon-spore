@@ -44156,3 +44156,14 @@ Bottleneck: the draft itself — keys cannot say what a boss is about, so
 twenty matches were read off sixty sentences by hand.
 
 *Measured: 55 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-17 — HELLO BLISTER after the seven control waves
+
+- reading: 5 min. The block's order and what mixes which gesture.
+- writing: 5 min. One wave moved in its act file, and its comment.
+- looking: 0 min. Nothing drawn changed.
+- friction: 0 min.
+- landing: 5 min. The perf baseline renumbered by `baseline:blank`,
+  `check:fast`, `land`.
+
+Bottleneck: none; the move itself was the whole lane.

@@ -5,8 +5,9 @@ import type { Wave } from "../wave-types.js";
  * blister asks for, one wave each, before the first big boss. The owner,
  * 16 October 2026: *before first boss to introduce by waves all the
  * "controls" brush enemy waves … after meteors do "controls" waves and then
- * boss of "the bastion".* On the arc's panel, STANDARD 4; AUTO clears all
- * nine on it. It plays after `act-1-p2.ts` (`acts.ts`).
+ * boss of "the bastion".* HELLO BLISTER mixes them last, once each has been
+ * taught on its own (the owner, 17 October 2026). On the arc's panel,
+ * STANDARD 4; AUTO clears all nine on it. It plays after `act-1-p2.ts` (`acts.ts`).
  */
 export const WAVES_ACT_1_P3: Wave[] = [
   {
@@ -18,38 +19,6 @@ export const WAVES_ACT_1_P3: Wave[] = [
     entries: [
       { beat: 0, col: 5, kind: "blister", color: null, row: 2, by: 2, gesture: "swipe" },
       { beat: 12, col: 2, kind: "blister", color: null, row: 3, by: 2 },
-    ],
-    controls: "standard4",
-  },
-  {
-    id: "fiveBlisters",
-    name: "HELLO BLISTER",
-    variant: true,
-    entries: [
-      { beat: 0, col: 5, kind: "blister", color: null, row: 2, by: 2 },
-      { beat: 10, col: 8, kind: "blister", color: null, row: 2, by: 1, gesture: "hold" },
-      {
-        beat: 20,
-        col: 2,
-        kind: "blister",
-        color: null,
-        row: 3,
-        by: 2,
-        gesture: "swipe",
-        way: "left",
-      },
-      { beat: 30, col: 7, kind: "blister", color: null, row: 2, by: 1, gesture: "turn" },
-      { beat: 40, col: 3, kind: "blister", color: null, row: 2, by: 2, gesture: "rub" },
-      {
-        beat: 41,
-        col: 8,
-        kind: "blister",
-        color: null,
-        row: 3,
-        by: 1,
-        gesture: "swipe",
-        way: "up",
-      },
     ],
     controls: "standard4",
   },
@@ -217,6 +186,38 @@ export const WAVES_ACT_1_P3: Wave[] = [
       { beat: 30, col: 6, color: "cyan" },
       { beat: 34, col: 3, kind: "blister", color: null, row: 2, gesture: "lever" },
       { beat: 40, col: 2, color: "cyan" },
+    ],
+    controls: "standard4",
+  },
+  {
+    id: "fiveBlisters",
+    name: "HELLO BLISTER",
+    variant: true,
+    entries: [
+      { beat: 0, col: 5, kind: "blister", color: null, row: 2, by: 2 },
+      { beat: 10, col: 8, kind: "blister", color: null, row: 2, by: 1, gesture: "hold" },
+      {
+        beat: 20,
+        col: 2,
+        kind: "blister",
+        color: null,
+        row: 3,
+        by: 2,
+        gesture: "swipe",
+        way: "left",
+      },
+      { beat: 30, col: 7, kind: "blister", color: null, row: 2, by: 1, gesture: "turn" },
+      { beat: 40, col: 3, kind: "blister", color: null, row: 2, by: 2, gesture: "rub" },
+      {
+        beat: 41,
+        col: 8,
+        kind: "blister",
+        color: null,
+        row: 3,
+        by: 1,
+        gesture: "swipe",
+        way: "up",
+      },
     ],
     controls: "standard4",
   },
