@@ -465,8 +465,10 @@ const EYE_BUDGETS: Readonly<Record<string, readonly Budget[]>> = {
       // pupils. Flat, whatever the openness. **Two more on 14 October 2026**:
       // the rope's channel bows (`sim/warden-bow.ts`), and a bow is longer
       // than the straight drop it replaced, so it carries two more of the
-      // path's dots (`goo-track.ts`).
-      fill: 107,
+      // path's dots (`goo-track.ts`). Three more on 17 October 2026: the pull
+      // came down to 1.7× (`PULL_SIZE`), and the dots are spaced by the
+      // channel's width, so a thinner one lays more over the same pull.
+      fill: 110,
       // Two more than the body's own: the film and the veins share a single
       // clip to it, and the lens opens one of its own so the lids can cut the
       // pupil instead of the pupil being sized to miss them (`eye-lens.ts`).
@@ -497,8 +499,8 @@ const EYE_BUDGETS: Readonly<Record<string, readonly Budget[]>> = {
       fillRect: 9,
       // The hold's circle, as in frame 0.
       stroke: 184,
-      // The bow's two dots, as in frame 0.
-      fill: 108,
+      // The bow's two dots, and the thinner channel's three, as in frame 0.
+      fill: 111,
       clip: 14,
       save: 72,
       // One more, and a ramp more, on 14 October 2026: the body glances
@@ -535,7 +537,10 @@ const EYE_BUDGETS: Readonly<Record<string, readonly Budget[]>> = {
       // open eye's light round its socket (`body-aura.ts`), its passes at this
       // size and opening.
       stroke: 139,
-      fill: 88,
+      // **Three more on 17 October 2026**: the pull came down to 1.7× (`PULL_SIZE`),
+      // and the channel's dots are spaced by its width, so a thinner channel lays
+      // three more over the same pull (`goo-strand.ts`).
+      fill: 91,
       // The one op this body's share of the new lens costs: the clip the lids
       // cut the pupil through (`eye-lens.ts`).
       // Three, three and five more on 15 October 2026: the eye glances as any
@@ -558,7 +563,8 @@ const EYE_BUDGETS: Readonly<Record<string, readonly Budget[]>> = {
       fillRect: 10,
       // One more on 29 September 2026, the knob's arrow, as in frame 0.
       stroke: 141,
-      fill: 88,
+      // Three more on 17 October 2026, the channel's dots, as in frame 0.
+      fill: 91,
       clip: 16,
       save: 60,
       // AURORA's strips, as in frame 0.

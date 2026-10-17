@@ -6,6 +6,7 @@ import { settle } from "./goo-noise.js";
 import { GOO, type GooStyle } from "./goo-style.js";
 import { drawMarkWait } from "./mark-feedback.js";
 import { noteMark } from "./mark-spots.js";
+import { PULL_SIZE } from "./pull-knob.js";
 import { soakWater } from "./soak-water.js";
 
 /**
@@ -25,9 +26,18 @@ import { soakWater } from "./soak-water.js";
  * lays the partner's ring and clock over it as over every partner's mark.
  */
 
-/** A hold's drop's radius, in the cue frame's shorter half-extent — the
- * thumbprint circle's it took the place of, and every press's since. */
-export const HOLD_MARK_R = 0.9;
+/**
+ * A hold's drop's radius, in the cue frame's shorter half-extent — the
+ * thumbprint circle's it took the place of, and every press's since.
+ *
+ * **Tied to the pull's knob**, so a hold, a press, a rub and a pull on one
+ * boss are one size: the owner, 17 October 2026, *all on screen controls
+ * should have same size … take "pull" as the basis*. CUE_FRAME's shorter half
+ * is 0.66 of a tile and a pull handle 0.3, so this puts the drop within a
+ * hundredth of a tile of the knob drawn `PULL_SIZE` times larger. It was 0.9
+ * until the pull came down with it.
+ */
+export const HOLD_MARK_R = 0.45 * PULL_SIZE;
 
 /** How one hold is asked to be drawn — `drawSoakHold`'s last argument. */
 export interface SoakHoldDraw {

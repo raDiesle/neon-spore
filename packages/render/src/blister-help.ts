@@ -27,7 +27,7 @@ import { drawMarkHalo, drawMarkWait } from "./mark-feedback.js";
 import { drawMarkHeld } from "./mark-progress.js";
 import { PALETTE } from "./palette.js";
 import { drawPressDrop } from "./press-drop.js";
-import { drawPullKnob } from "./pull-knob.js";
+import { drawPullKnob, PULL_SIZE } from "./pull-knob.js";
 import { drawPullTrack, PULL_TRACK_W, type PullTrack } from "./pull-track.js";
 import { drawRubDrop } from "./rub-drop.js";
 import { drawSoakHold } from "./soak-hold.js";
@@ -91,6 +91,7 @@ export function drawBlisterHelp(
     if (h <= 0) continue;
     const { x, y } = flatCenter(l, c, beatPhase);
     const r = flatRadius(l, world.cfg, c, beatPhase);
+    const markR = handleRadius(l, world.cfg) * KNOB_SHARE * PULL_SIZE;
     const mine = l.role === "test" || blisterMayTap(c, seatOf(l.role));
     ctx.save();
     ctx.globalAlpha *= h;
@@ -108,16 +109,16 @@ export function drawBlisterHelp(
       if (!held) drawMarkHalo(ctx, x, y, r, time);
       const turns = blisterBlowsOf(world.cfg, c);
       const done = turns - blisterBlowsLeft(world.cfg, c);
-      drawRubDrop(ctx, { x, y }, r * HOLD_R, { time, turns, done, held });
+      drawRubDrop(ctx, { x, y }, markR, { time, turns, done, held });
     } else if (mine && holding) {
       if (!held) drawMarkHalo(ctx, x, y, r, time);
       const fill = blisterHoldShare(world, c);
-      drawSoakHold(ctx, { x, y }, r * HOLD_R, { time, held, fill });
+      drawSoakHold(ctx, { x, y }, markR, { time, held, fill });
     } else if (mine) {
       drawMarkHalo(ctx, x, y, r, time);
       const times = blisterBlowsOf(world.cfg, c);
       const done = times - blisterBlowsLeft(world.cfg, c);
-      drawPressDrop(ctx, { x, y }, r * HOLD_R, { time, times, done });
+      drawPressDrop(ctx, { x, y }, markR, { time, times, done });
     } else {
       drawMarkWait(ctx, x, y, r, time);
     }
@@ -126,9 +127,6 @@ export function drawBlisterHelp(
     ctx.restore();
   }
 }
-
-/** The hold's drop, the rub's and the press's, in the body's radius. */
-const HOLD_R = 0.7;
 
 /** Whether a hand that counts is on it now, on either seat — the sim's own question. */
 function heldNow(world: World, c: Creature): boolean {
@@ -167,7 +165,14 @@ function drawSwipeTrack(
   drawPullKnob(ctx, knob, r, { ...LOOK, held, time, way, key });
 }
 
-/** The knob, as a share of every pull handle's radius: a blister is small (`blister-turn-help.ts`). */
+/**
+ * The knob, as a share of every pull handle's radius: a blister is small
+ * (`blister-turn-help.ts`). **The hold's drop, the rub's and the press's are
+ * this knob's size**, drawn `PULL_SIZE` times larger, so the four read as one
+ * set: the owner, 17 October 2026, *all on screen controls should have same
+ * size. seems like hold and press are smaller than e.g. pull*. They were seven
+ * tenths of the body until then — 0.28 of a tile against the knob's 0.48.
+ */
 const KNOB_SHARE = 0.8;
 
 /** The swipe's colours: THE MAZE's, as the TURN's knob wears them (`blister-turn-help.ts`). */

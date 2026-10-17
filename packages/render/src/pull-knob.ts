@@ -19,9 +19,12 @@ import { drawWayArrow } from "./way-arrow.js";
  * it — the knob and its channel, and the circle a press is answered in
  * (`PULL_GRAB`), never the length of the pull. The owner, 12 October 2026, in
  * the PULL LAB on THE LAMPREY: *increase the size of the full pull control
- * altogether, maybe double*, and of the lab's four sizes he took 2×.
+ * altogether, maybe double*, and of the lab's four sizes he took 2×. On 17
+ * October 2026 it came down to 1.7, when the pull became the size every
+ * control is drawn at: *make the pull before a small reducing smaller. so all
+ * defaults are a bit smaller* (`HOLD_MARK_R`, `blister-help.ts`).
  */
-export const PULL_SIZE = 2;
+export const PULL_SIZE = 1.7;
 
 /**
  * How much wider than the radius a handle's code asks for a press on a pull
@@ -32,8 +35,11 @@ export const PULL_SIZE = 2;
  * The grab grew with the knob on 13 October 2026, the owner choosing it over
  * leaving a 2× knob a press about 1.1 times its size (`docs/queue.md`). Every
  * pull handle's grab circle is its asked radius times this.
+ *
+ * **It did not come down with the knob** on 17 October 2026: that was a
+ * smaller picture, not a smaller place for a thumb to land.
  */
-export const PULL_GRAB = 2.2 * PULL_SIZE;
+export const PULL_GRAB = 4.4;
 
 /** The arrow's reach inside the knob, in knob radii: THE INSTAR's glyph fills
  * its ring at 1.1 of the mark's radius, and the knob is the ring. */
