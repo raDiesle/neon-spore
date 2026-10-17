@@ -43983,3 +43983,17 @@ since the frame was described there as the only tell.
 Bottleneck: the copies table guarding a rule that had just stopped existing.
 
 *Measured: 11 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-17 — THE SPLICE closes SALVAGE, BULB QUEEN a review block of its own
+
+- reading: 10 min. The rail's groups, `bossOrder`, the taught-keys rule and
+  the tests that hold the list to each.
+- writing: 10 min. THE SPLICE moved, three review waves, `SAME_BUTTON`,
+  `WAITS_FOR_ITS_BOSS`, the comments and specs that named the old places.
+- looking: 0 min.
+- friction: 5 min. The first content-and-director test run outlived the
+  shell's two minutes and went to the background.
+- landing: 5 min. `briefings:renumber`, `baseline:blank`, `check:fast`.
+
+Bottleneck: `bossOrder`'s *first free block* rule — emptying one block slid
+every later boss up one, so the block had to be told to wait.

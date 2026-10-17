@@ -27,6 +27,11 @@ import type { Wave } from "../wave-types.js";
  * or carried off its curve snaps back, and a course run out grows back whole
  * — nothing hits the hull (THE GRINDSTONE's rule, the owner's pick).
  *
+ * **THE SPLICE closes SALVAGE's group, and BULB QUEEN a group of its own
+ * after it** — the owner, 17 October 2026: a boss should fit the new thing
+ * the group above it brought, and BULB QUEEN follows three waves that bring
+ * nothing new (SCRAP FIELD's review block, `compose-review.ts`).
+ *
  * New waves still land in the newest act rather than here; the director's save
  * splits an incoming list across the act files at each one's current length
  * (`tools/director/src/waves-acts.ts`).
@@ -120,6 +125,72 @@ export const WAVES_ACT_1B: Wave[] = [
     pods: [
       { beat: 6, col: 8, row: 3, kind: "pod" },
       { beat: 24, col: 3, row: 3, kind: "pod" },
+    ],
+    controls: "standard5",
+  },
+  {
+    id: "theSplice",
+    name: "THE SPLICE",
+    guide: {
+      scene: "theSplice",
+    },
+    entries: [],
+    boss: { kind: "splice", rounds: [{ beats: 18 }, { beats: 27 }, { beats: 36 }] },
+    bossType: "special",
+    controls: "splice",
+  },
+  {
+    id: "reviewSalvage",
+    name: "SCRAP FIELD",
+    entries: [
+      { beat: 3, col: 7, color: "red" },
+      { beat: 9, col: 3, color: "cyan" },
+      { beat: 16, col: 8, color: "red" },
+      { beat: 24, col: 2, color: "red" },
+      { beat: 31, col: 6, color: "cyan" },
+    ],
+    pods: [
+      { beat: 0, col: 2, row: 3, kind: "pod" },
+      { beat: 19, col: 9, row: 3, kind: "pod" },
+    ],
+    controls: "standard5",
+  },
+  {
+    id: "reviewSalvageRain",
+    name: "SCRAP RAIN",
+    variant: true,
+    entries: [
+      { beat: 4, col: 9, color: "red" },
+      { beat: 10, col: 1, color: "cyan" },
+      { beat: 15, col: 5, color: "red" },
+      { beat: 22, col: 10, color: "cyan" },
+      { beat: 28, col: 0, color: "red" },
+      { beat: 34, col: 6, color: "red" },
+    ],
+    pods: [
+      { beat: 0, col: 5, row: 3, kind: "pod" },
+      { beat: 13, col: 0, row: 4, kind: "pod" },
+      { beat: 26, col: 10, row: 3, kind: "pod" },
+    ],
+    controls: "standard5",
+  },
+  {
+    id: "reviewSalvageTorch",
+    name: "SCRAP AND TORCH",
+    variant: true,
+    entries: [
+      { beat: 2, col: 4, color: "red" },
+      { beat: 8, col: 9, kind: "torch", color: null },
+      { beat: 13, col: 2, color: "cyan" },
+      { beat: 19, col: 7, color: "red" },
+      { beat: 25, col: 1, kind: "torch", color: null },
+      { beat: 31, col: 8, color: "cyan" },
+      { beat: 37, col: 5, color: "red" },
+    ],
+    pods: [
+      { beat: 5, col: 6, row: 3, kind: "pod" },
+      { beat: 22, col: 3, row: 4, kind: "pod" },
+      { beat: 34, col: 10, row: 3, kind: "pod" },
     ],
     controls: "standard5",
   },

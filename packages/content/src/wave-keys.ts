@@ -22,7 +22,15 @@ import type { Wave } from "./wave-types.js";
  * rule held. `test/wave-keys.test.ts` holds the list on disk to it, and every
  * write the director makes refuses a list it does not hold for
  * (`tools/director/src/waves-acts.ts`), so no generator can save one.
+ *
+ * **A button that is another button moved is that button's key**
+ * (`SAME_BUTTON`). `mawTake` is SALVAGE's intake mouth on the other seat
+ * (`control-sets-table.ts`), so SALVAGE teaches it — the owner, 17 October
+ * 2026, putting THE SPLICE at the end of SALVAGE's group.
  */
+
+/** Buttons whose key is another button's: the same control on another seat. */
+const SAME_BUTTON: Readonly<Record<string, string>> = { mawTake: "intake" };
 
 /** What a wave needs taught, by key: mechanics, the panel, its buttons, the hold. */
 export function waveKeys(wave: Wave): string[] {
@@ -32,7 +40,7 @@ export function waveKeys(wave: Wave): string[] {
   for (const id of [...found]) for (const body of mechanic(id).spawns ?? []) found.add(body);
   const keys: string[] = [...found].filter((id) => mechanic(id).reach !== "run");
   const set = controlSet(wave.controls);
-  keys.push(`panel ${set.id}`, ...set.controls.map((c) => `button ${c}`));
+  keys.push(`panel ${set.id}`, ...set.controls.map((c) => `button ${SAME_BUTTON[c] ?? c}`));
   if (setLance(set)) keys.push("the hold");
   return keys;
 }

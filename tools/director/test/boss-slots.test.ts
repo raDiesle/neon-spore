@@ -1,7 +1,7 @@
 import { describe, expect, test } from "bun:test";
 import { controlSet, isRegularWave, mechanicsInWave, WAVES } from "@neon-spore/content";
 import { biomeLineCount, biomeLines } from "../src/biome-lines.js";
-import { bossOrder } from "../src/boss-slots.js";
+import { bossOrder, WAITS_FOR_ITS_BOSS } from "../src/boss-slots.js";
 import { startsBlock } from "../src/compose-starts.js";
 import { TUTORIAL_LAST_ID } from "../src/compose-steps.js";
 
@@ -39,20 +39,23 @@ describe("the bosses' places (wave-curriculum §7)", () => {
 
   // Every block past the arc — an intro's, a lesson's, a review — and one
   // boss closing it, until the bosses run out; then the ones with no block
-  // left, waiting after the last.
+  // left, waiting after the last. A block waiting for a boss of its own has
+  // none.
   test("close a block each, exactly one, while there are bosses left", () => {
     let between = 0;
     let started = false;
+    let wants = 1;
     WAVES.forEach((w, i) => {
       if (i <= finale) return;
       if (startsBlock(WAVES, i)) {
         if (started)
           expect({ before: WAVES[i]?.name, bosses: between }).toEqual({
             before: WAVES[i]?.name,
-            bosses: 1,
+            bosses: wants,
           });
         between = 0;
         started = true;
+        wants = WAITS_FOR_ITS_BOSS.has(w.id) ? 0 : 1;
       } else if (w.boss && !waiting.has(w.id)) between++;
     });
     expect(between).toBe(1);
@@ -75,6 +78,7 @@ describe("the bosses' places (wave-curriculum §7)", () => {
     expect(WAVES.findIndex((w) => w.id === "theBrood")).toBeLessThan(finale);
     expect(WAVES.findIndex((w) => w.id === "bulbQueen")).toBeLessThan(finale);
     expect(WAVES.findIndex((w) => w.id === "theBastion")).toBeLessThan(finale);
+    expect(WAVES.findIndex((w) => w.id === "theSplice")).toBeLessThan(finale);
   });
 
   test("THE INSTAR comes after the arc, once every basic thing is taught", () => {

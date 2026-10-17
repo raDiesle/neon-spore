@@ -22,8 +22,8 @@ import { waveGroups } from "../src/rail-groups.js";
  * and the owner again: *"one last chance" is again something which is
  * separate new introduction … it should come after meteors introduced
  * parent … as shield was introduced there.* So both stand after THE ROCK's
- * regular waves, alone, before TORCH. CATCH AND AIM heads its own since
- * BULB QUEEN closed SALVAGE's block in front of it (the owner's pick, the
+ * regular waves, alone, before TORCH. CATCH AND AIM heads its own since a
+ * boss closed the block in front of it (BULB QUEEN, the owner's pick, the
  * same day): folded under a boss, it would read as the boss's.
  *
  * A wave dragged into another group in the director turns this red; the fix

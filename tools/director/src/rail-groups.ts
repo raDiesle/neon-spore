@@ -37,7 +37,9 @@ import type { Store } from "./state.js";
  * exceptions the owner made later that day — *"the hand" is introducing new
  * concept, so have it a separate after "the rock"*, and the same of ONE LAST
  * CHANCE — and stand alone after THE ROCK's regular waves; CATCH AND AIM is
- * the third, once BULB QUEEN closed SALVAGE's block in front of it.
+ * the third, once BULB QUEEN closed the block in front of it — SALVAGE's
+ * until 17 October 2026, and a review of it since, THE SPLICE closing
+ * SALVAGE's.
  *
  * Counting the waves between one boss and the next stood here for an hour of
  * the same day; the owner had not asked for it, and it went.

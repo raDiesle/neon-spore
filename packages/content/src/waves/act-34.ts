@@ -1,8 +1,9 @@
 import type { Wave } from "../wave-types.js";
 
 /**
- * Waves 361 to 370 of the game, in the order they are played: THE ECHO's block
- * and the boss THE SPLICE.
+ * Waves 361 to 369 of the game, in the order they are played: THE ECHO's block.
+ * THE SPLICE closed it until 17 October 2026, when the owner moved it to
+ * SALVAGE's (`act-1b.ts`); the block waits for a boss about the echo.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act
  * after the tutorial arc again in play order. A save that fills it cuts a page
@@ -148,16 +149,5 @@ export const WAVES_ACT_34: Wave[] = [
       { beat: 18, col: 10, row: 4, kind: "husk" },
       { beat: 33, col: 9, row: 4, kind: "husk" },
     ],
-  },
-  {
-    id: "theSplice",
-    name: "THE SPLICE",
-    guide: {
-      scene: "theSplice",
-    },
-    entries: [],
-    boss: { kind: "splice", rounds: [{ beats: 18 }, { beats: 27 }, { beats: 36 }] },
-    bossType: "special",
-    controls: "splice",
   },
 ];

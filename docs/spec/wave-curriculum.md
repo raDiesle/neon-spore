@@ -326,9 +326,17 @@ decided then while the owner was away:
 - **A boss takes the first free block** once everything it needs is taught.
   First decided as *the bosses keep their order*; the owner, 15 October 2026,
   *you can rearrange boss waves however you want*, so a block one boss skips
-  (THE SPLICE waits for THE CLAW's button) is taken by the next one ready,
-  and no block goes without a boss. A boss on a panel only bosses carry still
-  follows the boss before it on that panel: THE HAUL after THE SCOUT.
+  is taken by the next one ready, and no block goes without a boss. A boss on
+  a panel only bosses carry still follows the boss before it on that panel:
+  THE HAUL after THE SCOUT.
+- **A boss fits the new thing its block brought** — the owner, 17 October
+  2026, moving THE SPLICE to close SALVAGE's block (its mouth is SALVAGE's,
+  on the other seat) and BULB QUEEN to a review block of three after it:
+  *every list of waves of a parent — the boss should be related to the new
+  thing introduced … i will later on create new bosses which fit.* A block
+  emptied that way waits for its own boss (`WAITS_FOR_ITS_BOSS`); THE ECHO's
+  is the first. The rest of the bosses are still where *first free block*
+  put them.
 - **A boss with no block left waits at the end**, in order — and gets a
   review block: eight regular waves with no intro, themed on the bodies from
   the last taught back, composed by `bun run waves:review`

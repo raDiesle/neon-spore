@@ -21,10 +21,14 @@ import { regularAt } from "./list-reading.js";
  *   THE INSTAR stood there until 16 October 2026; the owner moved it past
  *   the basics, and it takes the first free block after the arc like any
  *   other boss — the second, since THE SWINDLE closes THE HUSK's. BULB QUEEN moved in the same day, the owner's pick of the bosses
- *   that need nothing the arc does not teach: it closes SALVAGE's block.
+ *   that need nothing the arc does not teach. On 17 October 2026 THE SPLICE
+ *   took SALVAGE's block from it — its mouth is SALVAGE's, on the other seat
+ *   (`SAME_BUTTON`, `wave-keys.ts`) — and BULB QUEEN closes a review block
+ *   of its own straight after.
  * - **A boss takes the first free block** after its needs are taught, so a
- *   block a boss skipped — THE SPLICE waits for THE CLAW's button — is taken
- *   by the next boss ready for it, and no block goes without one (the owner,
+ *   block a boss skipped is taken
+ *   by the next boss ready for it, and no block goes without one but those
+ *   `WAITS_FOR_ITS_BOSS` names (the owner,
  *   15 October 2026: *rearrange boss waves however you want*). One order is
  *   kept: a boss on an earlier boss's panel (THE HAUL on THE SCOUT's) comes
  *   after it, on a panel only bosses carry.
@@ -33,7 +37,16 @@ import { regularAt } from "./list-reading.js";
  *   (`compose-review.ts`) is a block too, and takes the next one.
  *
  * Moving a boss never moves an intro: the rest of the list keeps its order.
+ *
+ * **A block the owner emptied waits for a boss about its own new thing**
+ * (`WAITS_FOR_ITS_BOSS`), and no boss is moved up to fill it — the owner,
+ * 17 October 2026, taking THE SPLICE from THE ECHO's block to SALVAGE's: *the
+ * boss should be related to the new thing introduced … i will later on create
+ * new bosses which fit.*
  */
+
+/** The intros of blocks waiting for a boss written for them. */
+export const WAITS_FOR_ITS_BOSS: ReadonlySet<string> = new Set(["theEcho"]);
 
 export interface BossSlot {
   id: string;
@@ -79,7 +92,7 @@ export function bossOrder(waves: readonly Wave[]): { order: Wave[]; slots: BossS
   for (let i = 0; i < rest.length; i++) if (startsBlock(rest, i)) intros.push(i);
   const blocks = intros
     .map((at, k) => ({ intro: at, end: leadIn(rest, at, intros[k + 1] ?? rest.length) }))
-    .filter((b) => b.intro > restFinale);
+    .filter((b) => b.intro > restFinale && !WAITS_FOR_ITS_BOSS.has(rest[b.intro]?.id ?? ""));
 
   const placed = new Map<number, Wave[]>();
   const waiting: Wave[] = [];
