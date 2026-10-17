@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-17 · 591127b0e — THE BROOD is eased: a tile higher, eight steps, and a body laid every five or six beats
+
+The owner's feedback of 17 October 2026: now too difficult — fewer bodies falling, and the boss a tile higher so a pair has a tile more to catch them. The buds hang on row three rather than four, so the whole sac hangs a row higher and everything it drops falls a tile further; the last of the two four-bud steps is gone (eight steps, seventeen buds); and a step lays a body every five or six beats rather than three or four. Played by AUTO with each seat held to one press a second it lasts about forty seconds and lays about ten bodies, where it lasted fifty-five and laid twenty-three; it clears at one press each per 1.75 seconds, where the old script lost at 1.5. A change the owner asked for by name.
+
 ## 2026-10-17 · 946d17d00 — Every pod a body carries is the pod's own form, and the lobed lamp is gone
 
 THE SCOUT's motes, THE GLUTTON's meals, THE SEEDER's seed, THE MOULT as a pod, the pinball's pod targets and a refused husk flying off now all draw the pod's form, each picked by an id of its own. The moult's morph ends on the seed's sphere, and the pinball's far-side dark is laid over it. `huskRefused` carries the husk's id and which seat can tell, so its flight is the form it hung as, or the fake on the seat that saw through it. `drawPodForm` takes in the context's alpha, so THE SCOUT's torn load still fades. `drawPodBody` has no caller left and is removed. Exemption: a look the owner asked for by name. Asked on 17 October 2026, he chose the real form.

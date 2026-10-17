@@ -43886,3 +43886,5 @@ its form until the event carried the husk's id.
 
 Bottleneck: having no throttled-AUTO measure to hand — the numbers the spec
 quoted were from a probe nobody kept, so it was written again.
+
+*Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
