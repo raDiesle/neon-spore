@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-17 · 3f3dc766d — `SimEvent`'s hands, bodies and pods are cut into files of their own
+
+`events.ts` stood one line under its 250-line limit, so the next event added anywhere would have turned `limits.test.ts` red mid-lane. Three families now live next door and join the union as one arm each. `events-hands.ts` holds a hold, a push, THE WEIGHT, THE CAIRN and the eye opening. `events-body.ts` holds a kill, a crater, a refusal, a bounce, a deflect and a breach. `events-pod.ts` holds a pod's and a husk's ends. The file is 87 lines now. No behaviour changes. The audio bind test already reads every `events-*.ts`.
+
 ## 2026-10-17 · 280eafa11 — `bun run budgets:measure` raises the op-count budget rows that rose, in place
 
 A look that moves every frame used to mean pasting dozens of printed budget rows back by hand. The command does it for every budget file in `packages/render/test`, or the ones named. It throws a file's `MEASURE` switch for one run and puts it back, on ^C too. Each printed row goes into the next literal with the same key set, comments inside a row included. Values that rose are raised, none is lowered, and the file is formatted. A row that matches nothing leaves the file unwritten. Tests cover the parser, the raise and one end-to-end run on a scratch budget file.
