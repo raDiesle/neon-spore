@@ -327,3 +327,20 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/needs.test.ts` holds the wait, and
 `tools/queue/test/skipped.test.ts` holds the listing's count of the entries
 `next` stepped past and why.
+
+## A boss's difficulty has no kept measure: AUTO held to a human's press rate
+
+- **Found:** 2026-10-17, claude/the-brood-difficulty-55c884
+- **Files:** `tools/probe/world.ts`, `docs/spec/bosses.md`
+
+THE BROOD was retuned twice on 16 and 17 October 2026 against the same number —
+AUTO playing it with each seat held to one press every N seconds, over twenty
+seeds, reporting cleared or lost, beats, bodies laid and buds dropped — and
+both times the probe was written again in `tools/probe/scratch/`, which git
+ignores. The second time it first throttled on the command's kind rather than
+the press's `player`, so every seed came out the same. Add `playedAt(world,
+secondsPerPress)` beside `playedBeat` in `tools/probe/world.ts`, one gap per
+seat (player 1 aims, player 2 fires), and a `bun run probe` example or a small
+command that prints that table for a wave by id; cover the throttle with a
+test in `tools/probe/test/`. Then a spec line like *clears at one press each
+per 1.75 seconds* names a command that reproduces it.
