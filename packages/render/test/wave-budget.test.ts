@@ -369,29 +369,35 @@ const SCENES: readonly Scene[] = [
     // hanging at this tick strokes its aura three times under its fill, on
     // either seat and in both frames. The blobs cost nothing more — their
     // edge's own glow passes were folded into the aura (`living-skin.ts`).
+    // Raised on 17 October 2026, when the moored pod became BLINK
+    // (`pod-blink.ts`; the owner, by name): the pod hanging at this tick is a
+    // tumbling seed — halo, far caps, body, spots, near caps — and its aura
+    // strokes went with the old body, so both frames have two more fills and
+    // one more radial gradient, the sphere's own light, on either seat, and no
+    // more strokes, clips or saves: the spikes and spots are batched for it.
     rows: {
       p1: [
         {
           fillRect: 23,
           stroke: 169,
-          fill: 96,
+          fill: 98,
           clip: 13,
           save: 69,
           drawImage: 176,
           createLinearGradient: 32,
-          createRadialGradient: 15,
+          createRadialGradient: 16,
           "new Path2D": 86,
           fillText: 4,
         },
         {
           fillRect: 22,
           stroke: 170,
-          fill: 94,
+          fill: 96,
           clip: 16,
           save: 68,
           drawImage: 141,
           createLinearGradient: 23,
-          createRadialGradient: 12,
+          createRadialGradient: 13,
           "new Path2D": 56,
           fillText: 4,
         },
@@ -400,24 +406,24 @@ const SCENES: readonly Scene[] = [
         {
           fillRect: 22,
           stroke: 147,
-          fill: 97,
+          fill: 99,
           clip: 13,
           save: 62,
           drawImage: 132,
           createLinearGradient: 30,
-          createRadialGradient: 15,
+          createRadialGradient: 16,
           "new Path2D": 77,
           fillText: 4,
         },
         {
           fillRect: 22,
           stroke: 149,
-          fill: 98,
+          fill: 100,
           clip: 16,
           save: 66,
           drawImage: 137,
           createLinearGradient: 23,
-          createRadialGradient: 12,
+          createRadialGradient: 13,
           "new Path2D": 52,
           fillText: 4,
         },

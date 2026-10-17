@@ -43676,3 +43676,13 @@ Bottleneck: the top-of-screen rule — a hung machine wants cables to the
 sky, and the rule wanted them to fade two tiles up.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-17 — the real pod is BLINK
+
+- reading: 5 min. `drawMoored`, `POD_LOOK`, `by-hand.ts`.
+- writing: 20 min. The seed into `packages/render` in four files, `drawMoored`, the slot closed.
+- looking: 0 min. The look was seen on VERSUS the turn before.
+- friction: 60 min. The machine at load 50 for hours: one check ran four hours and was killed, `timeout` is not on this Mac.
+- landing: 20 min. BULB QUEEN's row four times over — strokes, fills, clip, save — batched down, then moved by two fills and a gradient.
+
+Bottleneck: a machine shared with other sessions — every test run waited on the load.

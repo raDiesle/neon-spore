@@ -5,6 +5,7 @@ import { bodyGlowSpread, halo, strokeGlow } from "./glow.js";
 import { HUSK_LOOK } from "./husk-look.js";
 import { type Layout, tileCX, tileCY } from "./layout.js";
 import { PALETTE } from "./palette.js";
+import { drawBlinkPod } from "./pod-blink.js";
 import { drawGripped, drawPodDress, drawSwingThreads } from "./pod-dress.js";
 import { drawDueRing } from "./pod-due-ring.js";
 import { POD_LOOK } from "./pod-look.js";
@@ -102,10 +103,11 @@ export function drawGrippedPods(
   }
 }
 
-/** Hanging: a slow bob, a steady pulse, a wide calm halo. Exported so a
- * look offered for the husk (`husk-look.ts`) can draw the pod it claims to be
- * on the screen that must not be able to tell — and through `POD_LOOK`, so
- * that is whatever a real pod is drawn as. */
+/** Hanging: the tumbling seed that blinks like a pickup (`pod-blink.ts`,
+ * BLINK, taken 16 October 2026). Exported so a look offered for the husk
+ * (`husk-look.ts`) can draw the pod it claims to be on the screen that must
+ * not be able to tell — and through `POD_LOOK`, so that is whatever a real
+ * pod is drawn as. */
 export function drawMoored(
   ctx: CanvasRenderingContext2D,
   l: Layout,
@@ -119,8 +121,7 @@ export function drawMoored(
     POD_LOOK.moored(ctx, l, x, y, t, beatsLeft);
     return;
   }
-  const bob = Math.sin(t * 1.1) * l.tile * 0.07;
-  drawPodBody(ctx, x, y + bob, l.tile * POD_TILES, t);
+  drawBlinkPod(ctx, x, y, l.tile * POD_TILES, t, beatsLeft);
 }
 
 /**

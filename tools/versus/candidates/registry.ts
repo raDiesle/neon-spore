@@ -6,22 +6,8 @@
 // `index.ts` next door says why it is generated at all.
 
 import type { Variant } from "../variant.js";
-import { POD_REAL_BLINK } from "./pod-real/blink/index.js";
-import { POD_REAL_GLINT } from "./pod-real/glint/index.js";
-import { POD_REAL_HOP } from "./pod-real/hop/index.js";
-import { POD_REAL_ORBIT } from "./pod-real/orbit/index.js";
-import { POD_REAL_SMART } from "./pod-real/smart/index.js";
 import { SIREN_BEACON } from "./siren-look/beacon/index.js";
 import { SIREN_LIGHTBAR } from "./siren-look/lightbar/index.js";
 import { SIREN_SONAR } from "./siren-look/sonar/index.js";
 
-export const VARIANTS: Variant[] = [
-  POD_REAL_BLINK,
-  POD_REAL_GLINT,
-  POD_REAL_HOP,
-  POD_REAL_ORBIT,
-  POD_REAL_SMART,
-  SIREN_BEACON,
-  SIREN_LIGHTBAR,
-  SIREN_SONAR,
-];
+export const VARIANTS: Variant[] = [SIREN_BEACON, SIREN_LIGHTBAR, SIREN_SONAR];

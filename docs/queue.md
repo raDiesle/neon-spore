@@ -340,3 +340,18 @@ the same command without `--at` wrote its PNG in under a minute, and the
 crop was taken afterwards with `bun run crop`. Find where `--at` waits —
 likely the frozen-frame wait and the clip disagreeing about which element to
 measure — and add a test that a frozen shot with `--at` returns.
+
+## The gripped pod and THE PULSE's pod still wear the old lobed body
+
+- **Found:** 2026-10-17, claude/pod-real-smart-variants-ef232e
+- **Files:** `packages/render/src/pods.ts`, `packages/render/src/pod-dress.ts`, `packages/render/src/pod-blink.ts`
+
+The moored pod became BLINK on 17 October 2026 (`drawMoored` → `drawBlinkPod`,
+the owner by name), but `drawPodBody` — the lobed amber blob with its beating
+core — is still what `drawGrippedPods` hands `drawGripped`, and what THE
+PULSE's falling lane and its button draw. So a pod changes shape the moment the
+maw takes it. Make `drawPodBody` draw the seed (`seedAt` + `drawSeed` with
+`BLINK_STYLE`, at the radius it is given, honouring its `alpha`), check
+`pod-dress.ts`'s heavy dress still sits on the round body, and move whatever
+budget rows the grip and THE PULSE cost. A fix to something wrong, not a look:
+the owner chose the pod; this is the same pod in the mouth.

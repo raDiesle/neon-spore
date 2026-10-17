@@ -2338,3 +2338,15 @@ tumbling seed (`pod-real/seed.ts`) with a pickup's tell on top, and — asked fo
 mid-lane — its own spikes and skin (`seed-parts.ts`): caps and spots, crystals
 and facets, thorns and stripes, cones and panels. The hollow is built once one
 of these is chosen, from that one.
+
+## `pod:real` / `blink` — taken by hand, 2026-10-16
+
+taken by hand: the owner, 16 October 2026 — 'Take BLINK for the real pod and
+build the hollow from it.' The seed moved to packages/render/src/pod-seed.ts,
+its spikes and skins to pod-seed-spikes.ts and pod-seed-skins.ts, BLINK itself
+to pod-blink.ts; drawMoored draws drawBlinkPod, and POD_LOOK stays as the
+seam, empty.
+
+The other answers offered were `glint`, `hop`, `orbit` and `smart`; they
+went with the slot. The pod in the maw's grip and THE PULSE's lane still draw
+the old lobed body (`drawPodBody`) — the slot asked about the moored pod.
