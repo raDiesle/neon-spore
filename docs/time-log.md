@@ -43755,3 +43755,5 @@ Bottleneck: the one shared section was named by class in four files and three sh
 - landing: 5 min. `check:fast`, `land`.
 
 Bottleneck: the boss-is-a-head rule was written into eight tests and one stylesheet's comments.
+
+*Measured: 14 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

@@ -9,6 +9,14 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-17 · 795b2717e — The director's wave list is a tree, and a boss closes the group it follows
+
+Lines run from a head's fold down to each of its waves, the fold sits against the head's number with no count beside it, and a head with a group is set in bold. A boss is no longer a head of its own: it folds under the group above it, as the last wave of the waves it follows, with no flag in the act files. The pressure number is off the rows; DOCUMENTATION › WAVES still shows it.
+
+## 2026-10-17 · 96ef96a1d — The director's MAP sits beside WAVES, and BRUSH and WAVE SETTINGS past the field
+
+The owner's order: WAVES, MAP, RUN, GAME, BRUSH, WAVE SETTINGS. BRUSH & MAP was one section with two sub-columns; each is a column of its own now, closing as one, so `subcols.ts` and its toggles are gone. On a phone the MAP view shows both, the palette above the grid, each half the screen.
+
 ## 2026-10-17 · 5c48d6d37 — The siren is LIGHTBAR: shorter, quiet at rest, and a tap hides it
 
 The owner took `siren:look` / `lightbar` out of VERSUS and rejected the beacon and the sonar. The bar is 8 pixels tall where the candidate was 18, and the chips and the duty word sit right under it, so the cluster ends about twenty pixels higher than the dial did. It has three states now: at rest on every field, barely there; a call, one cyan light scanning, with the two chips; a torch on its way, red and white halves strobing. Tapping the bar hides it, so only a faint outline is left, and tapping the same place brings it back. The menu has the same thing as a SIREN switch.
