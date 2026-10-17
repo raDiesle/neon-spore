@@ -2280,9 +2280,9 @@ by hand never moves.
 | `packages/render/src/duty-fence.ts` | THE FENCE's own duty word, which is the only one in the table that the world picks rather than the table |
 | `packages/render/src/duty-mine.ts` | THE MINE's word, which of the two dials it goes under decided by the field rather than by the table |
 | `packages/render/src/duty-words.ts` | The table `duty.ts` reads its words from, one row a kind |
-| `packages/render/src/throb.ts` | where THE THROB's far half lies — the seam meridian this instant and the region the paint clips to |
+| `packages/render/src/throb.ts` | THE THROB's two halves — how far the authored one reaches either side of straight down, and the wedge each paint clips to |
 | `packages/render/src/throb-look.ts` | THE ONE RECORD A CANDIDATE THROB LOOK PATCHES |
-| `packages/render/src/throb-pores.ts` | THE THROB's surface, PORES — a middle with no ammunition colour, black and white pores pinned round the ball, the two colours on the rim |
+| `packages/render/src/throb-halves.ts` | THE THROB's surface, HALVES — one colour on each half, turned with the body, the half facing the cannon lit |
 | `packages/render/src/throat-draw.ts` | THE THROAT, drawn: a gullet of ring muscles rooted in the hull where the cannon would be |
 | `packages/render/src/throat-mouth.ts` | The mouth and its lip |
 | `packages/render/src/throat-marks.ts` | THE THROAT's ring and tube answering a touch: the halo under this seat's ring while it asks, and the verdict of a cinch, a haul or a refused press |

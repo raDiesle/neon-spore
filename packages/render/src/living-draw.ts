@@ -1,6 +1,6 @@
 import type { CreatureSilhouette } from "@neon-spore/content";
 import { livingPoints, livingSilhouette } from "@neon-spore/content";
-import { type Creature, otherColor, type SimConfig, wornKind } from "@neon-spore/sim";
+import { type Creature, otherColor, type SimConfig, throbFacing, wornKind } from "@neon-spore/sim";
 import { clipInside } from "./body-inset.js";
 import { drawDetails, drawOwnLight } from "./creature-detail.js";
 import { contourClock, livingBodyMul, livingRadius, livingScale } from "./creature-place.js";
@@ -14,7 +14,7 @@ import { LIVING_SKIN } from "./living-skin.js";
 import { drawLureVent, lureHolePath, lureVented } from "./lure-hole.js";
 import { PALETTE } from "./palette.js";
 import { splinePath } from "./spline.js";
-import { farShare } from "./throb.js";
+import { ownArc } from "./throb.js";
 import { THROB_LOOK } from "./throb-look.js";
 
 /**
@@ -110,6 +110,16 @@ export function drawLiving(
   const rim = lit(tint.rim, wash?.rim ?? tint.rim);
   const hex = lit(tint.hex, wash?.hex ?? tint.hex);
   const dark = lit(tint.dark, wash?.dark ?? tint.dark);
+  // THE THROB's other half, and which of its two colours answers right now.
+  // The glow round the outside wears the answer, so the light a body throws
+  // is the trigger that kills it, whichever half is round (`throb-halves.ts`).
+  const far = c.color === null ? null : colorTrio(otherColor(c.color));
+  const throbFar =
+    look === "throb" && far !== null
+      ? { rim: haze(far.rim), hex: haze(far.hex), dark: haze(far.dark) }
+      : null;
+  const facing = throbFar === null || throbFacing(cfg, beats);
+  const glow = facing || throbFar === null ? { hex, rim, dark } : throbFar;
 
   // The contour wobble is still on the wall clock, which the pose no longer
   // is: `blobPath` is sampled in seconds by every shape tool too, and its
@@ -167,9 +177,7 @@ export function drawLiving(
     // to *what a body is made of* can be drawn beside this one at the size it
     // ships at (`living-skin.ts`, `docs/versus.md`).
     LIVING_SKIN.paint(ctx, path, rule, {
-      hex,
-      rim,
-      dark,
+      ...glow,
       r,
       scale,
       rx: shape.rx,
@@ -194,22 +202,22 @@ export function drawLiving(
     // on the contour and takes the contour's own aspect and strain with it.
     drawEchoSeam(ctx, cfg, c, beats, shape.rx, shape.ry, rot, { dark, hex, rim });
     if (vent) ctx.restore();
-    // Over the interior rather than under it: a throb's middle is no
-    // ammunition colour at all, so it covers the slick's or bulb's interior
-    // (`throb-pores.ts`). The rim wears both colours, in the shares
-    // `farShare` reads off the same turn — so the trigger `throbColorAt` will
-    // accept is the colour most of the rim wears.
-    if (look === "throb" && c.color !== null) {
-      const far = colorTrio(otherColor(c.color));
+    // Over the interior rather than under it: a throb is one colour on each
+    // half, and the half turned away is not a slick's or bulb's interior
+    // (`throb-halves.ts`). The halves are cut by `ownArc` and lit by
+    // `throbFacing`, both read off the turn `throbColorAt` resolves against —
+    // so the colour at the bottom of the body is the trigger that answers.
+    if (throbFar !== null) {
       THROB_LOOK.half({
         ctx,
         body: path,
         rx: shape.rx,
         ry: shape.ry,
         isBulb,
-        tint: { rim: haze(far.rim), hex: haze(far.hex), dark: haze(far.dark) },
-        own: hex,
-        share: farShare(cfg, beats),
+        tint: throbFar,
+        own: { rim, hex, dark },
+        arc: ownArc(cfg),
+        facing,
         haze,
         lw: Math.max(1, r * 0.1) / scale,
         turn: spin,
@@ -225,6 +233,6 @@ export function drawLiving(
     // and the halo go together and carry the rule about armour with them
     // (`creature-detail.ts`).
     if (vent) drawLureVent(ctx, x + ox, y + oy, r, time, c.id);
-    drawOwnLight(ctx, l, c, x, y, ox, oy, r, hex, t);
+    drawOwnLight(ctx, l, c, x, y, ox, oy, r, glow.hex, t);
   }
 }

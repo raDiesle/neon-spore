@@ -1384,7 +1384,7 @@ smeared for several beats — a failure the pair has to keep playing through and
 looking at. A vent is a clean jet and one bright beat.
 
 **Animation.** The swell, and the seam. A ribbed body inflating is `throb.ts`
-and `throb-pores.ts` with a real number behind it; the eversion in step 14 is
+and `throb-halves.ts` with a real number behind it; the eversion in step 14 is
 THE THROAT's eversion at a different axis, which is the argument for building
 one of them and then the other.
 

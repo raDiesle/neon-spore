@@ -43888,3 +43888,16 @@ Bottleneck: having no throttled-AUTO measure to hand — the numbers the spec
 quoted were from a probe nobody kept, so it was written again.
 
 *Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-17 — THE THROB is two colour halves that turn with it
+
+- reading: 5 min. `sim/throb.ts`'s rule, the PORES paint, the record and
+  where `living-draw.ts` calls it.
+- writing: 5 min. `ownArc` and `halfWedge`, the HALVES paint, the glow
+  following the answer, the test against `throbFacing`, the docs' rows.
+- looking: 5 min. Three strips of THE THROB, the last across a whole turn.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, `land`.
+
+Bottleneck: the first strip was too short to show the cyan half answering,
+so the glow looked wrong until a whole turn was photographed.

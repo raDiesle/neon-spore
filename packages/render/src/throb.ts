@@ -1,74 +1,47 @@
-import {
-  type SimConfig,
-  THROB_TURN_MILLI,
-  throbFaceEdgeMilli,
-  throbTurnMilli,
-} from "@neon-spore/sim";
+import { type SimConfig, THROB_TURN_MILLI, throbFaceEdgeMilli } from "@neon-spore/sim";
 
 /**
- * THE THROB's two halves: the side of the body the cannon is *not* looking
- * at, which answers the other ammunition colour — **where that half lies**.
- * The paint is `throb-pores.ts`, the look the owner adopted from VERSUS on
- * 12 September 2026 and changed on 20 September; GLOBE, the paint that stood
- * here before it, went with the slot (`tools/versus/DECIDED.md`).
+ * THE THROB's two halves: one colour on each side of the body, fixed to it and
+ * carried round by the turn. The paint is `throb-halves.ts`, the look the owner
+ * asked for by name on 17 October 2026 — *make it rotating so players can
+ * clearly see the colour rotating and when to shoot; colours on each half side
+ * should stay*. PORES, the paint before it, kept the middle grey and shared the
+ * two colours out round the rim, and no one could see the turn in that.
  *
  * Drawn as a layer over an ordinary living body rather than as a body of its
  * own, the arrangement `shell-draw.ts` and `clasp.ts` already use. The body
- * has already been turned by `throbTurnMilli` when this is called, so the far
- * half is simply *the half past the meridian* in the body's own space and the
- * turn carries it round for free. A second copy of the angle here is how a
- * picture comes to promise a shot the rule refuses.
- *
- * **Only the rim says which half is which.** The owner, 20 September 2026:
- * the middle is never a slick's or a bulb's colour and no line is drawn down
- * it. So the far colour takes a share of the glow round the outside instead,
- * and the share is the answer `throbFacing` gives, drawn as an amount.
+ * has already been turned by `throbTurnMilli` when this is called, so each
+ * half is a wedge in the body's own space and the turn carries it round for
+ * free. A second copy of the angle here is how a picture comes to promise a
+ * shot the rule refuses.
  */
 
 /**
- * Which side of the body the far colour comes round from: +1 the right, -1 the
- * left. The ball turns about its **vertical** axis, so the far hemisphere's
- * nearer boundary is the meridian at longitude π/2 or 3π/2 — whichever faces
- * you (`surface.ts`'s `facet`: a feature is near while `cos(lon + turn) > 0`)
- * — and increasing longitude runs toward +x, so the hemisphere above π/2 lies
- * to the right of that meridian and the one below 3π/2 to its left.
+ * How far either side of straight down the authored half reaches, in radians
+ * of the body's own space. Read off `throbFaceEdgeMilli`, so the half the
+ * cannon can see is exactly the half `throbFacing` says answers: the bottom of
+ * the body lies in the authored wedge while the turn is within the edge, and
+ * in the other one for the rest. A quarter turn at the shipped face, which is
+ * a body cut in two down the middle.
  */
-export function farSide(turn: number): number {
-  return Math.cos(turn + Math.PI / 2) > 0 ? 1 : -1;
+export function ownArc(cfg: SimConfig): number {
+  const edge = Math.max(0, Math.min(THROB_TURN_MILLI / 2, throbFaceEdgeMilli(cfg)));
+  return (edge / THROB_TURN_MILLI) * Math.PI * 2;
 }
 
 /**
- * How much of the rim the far colour wears, 0 to 1.
- *
- * **Not the far hemisphere's share of the disc, because the rim cannot show
- * that.** A meridian always runs pole to pole, so a rim coloured by which side
- * of it each point lies on is split left from right at every turn — which is
- * what the frame of the first try showed. So the share is the rule instead:
- * nothing at turn nought, a half exactly where `throbFacing` stops holding, and
- * the whole rim half a turn round. Linear on each side of that edge, so the
- * colour sweeps at one rate while it is the answer and another while it is not.
- * `throb-rim.test.ts` holds it to `throbFacing` at every thousandth.
+ * One half as a wedge from the centre: the authored colour's centred on
+ * straight down (+y at turn nought), the other colour's the rest of the way
+ * round. It runs to three radii because the rim is a `strokeGlow`, spread
+ * *outward* from the contour, and a region cut to the body would take most of
+ * the light away.
  */
-export function farShare(cfg: SimConfig, beats: number): number {
-  const t = throbTurnMilli(cfg, beats);
-  const d = Math.min(t, THROB_TURN_MILLI - t);
-  const edge = Math.max(1, Math.min(THROB_TURN_MILLI / 2 - 1, throbFaceEdgeMilli(cfg)));
-  if (d <= edge) return (0.5 * d) / edge;
-  return 0.5 + (0.5 * (d - edge)) / (THROB_TURN_MILLI / 2 - edge);
-}
-
-/**
- * The part of the rim one colour wears: a wedge from the centre, `share` of the
- * whole way round, centred on `side`. It runs to three radii because the rim is
- * a `strokeGlow`, spread *outward* from the contour, and a region cut to the
- * body would take most of the light away.
- */
-export function rimWedge(side: number, share: number, r: number): Path2D {
+export function halfWedge(own: boolean, arc: number, r: number): Path2D {
   const g = new Path2D();
-  const mid = side > 0 ? 0 : Math.PI;
-  const span = Math.PI * Math.min(1, Math.max(0, share));
+  const down = Math.PI / 2;
   g.moveTo(0, 0);
-  g.arc(0, 0, r * 3, mid - span, mid + span);
+  if (own) g.arc(0, 0, r * 3, down - arc, down + arc);
+  else g.arc(0, 0, r * 3, down + arc, down - arc + Math.PI * 2);
   g.closePath();
   return g;
 }

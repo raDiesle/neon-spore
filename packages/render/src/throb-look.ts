@@ -1,4 +1,4 @@
-import { pores } from "./throb-pores.js";
+import { halves } from "./throb-halves.js";
 
 /**
  * THE ONE RECORD A CANDIDATE THROB LOOK PATCHES.
@@ -20,6 +20,8 @@ import { pores } from "./throb-pores.js";
  * `rot`: the own-motion lean on top of it is a *pose*, and a pose is exactly
  * what must stay on the silhouette (`docs/style-guide.md`, Depth).
  */
+type Trio = { readonly rim: string; readonly hex: string; readonly dark: string };
+
 export interface ThrobHalf {
   readonly ctx: CanvasRenderingContext2D;
   /** The body's contour, in the body's own space. */
@@ -27,12 +29,16 @@ export interface ThrobHalf {
   readonly rx: number;
   readonly ry: number;
   readonly isBulb: boolean;
-  /** The **other** ammunition colour — the half the cannon is not looking at. */
-  readonly tint: { readonly rim: string; readonly hex: string; readonly dark: string };
-  /** The colour the body was authored in, which the rest of the rim wears. */
-  readonly own: string;
-  /** How much of the rim `tint` wears, 0 to 1 (`throb.ts`'s `farShare`). */
-  readonly share: number;
+  /** The **other** ammunition colour — the half opposite the authored one. */
+  readonly tint: Trio;
+  /** The colour the body was authored in, the half pointing down at turn nought. */
+  readonly own: Trio;
+  /** How far either side of straight down the authored half reaches, in
+   * radians of the body's own space (`throb.ts`'s `ownArc`). */
+  readonly arc: number;
+  /** Whether the authored half is the one the cannon is looking at now —
+   * `throbFacing`, asked once by the caller, never worked out from `turn`. */
+  readonly facing: boolean;
   /** The depth haze this body is drawn through, for the colours the paint picks itself. */
   readonly haze: (hex: string) => string;
   /** A line width already divided by the body's scale. */
@@ -52,9 +58,8 @@ export interface ThrobLook {
   half(h: ThrobHalf): void;
 }
 
-/** The shipped throb — PORES, the owner's pick from `creature:throb` on
- * 12 September 2026, and his change to it on 20 September: a middle with no
- * ammunition colour, black and white pores pinned round the whole ball and
- * carried by the turn, and the two colours on the rim only
- * (`throb-pores.ts`). GLOBE, the paint before it, is gone with the slot. */
-export const THROB_LOOK: ThrobLook = { half: pores };
+/** The shipped throb — HALVES, asked for by the owner by name on 17 October
+ * 2026: one colour on each half, fixed to the body and turned with it, and the
+ * half the cannon is looking at lit the brighter (`throb-halves.ts`). PORES,
+ * the paint before it, is gone (`tools/versus/DECIDED.md`). */
+export const THROB_LOOK: ThrobLook = { half: halves };

@@ -859,6 +859,12 @@ slick's or a bulb's colour and has no line down it. It is `throbMiddle` with
 fourteen black and white pores round the whole ball, and which trigger answers
 is the share of the rim each colour wears (`throb.ts`'s `farShare`).
 
+Replaced by the owner on 17 October 2026, by name: *make it rotating so
+players can clearly see the colour rotating and when to shoot; colours on each
+half side should stay*. PORES is gone. THE THROB is HALVES now — one colour on
+each half, turned with the body, the half facing the cannon lit
+(`packages/render/src/throb-halves.ts`).
+
 The other answers offered were `cap` and `girdle`; they went with the slot.
 
 ## `panel:band-skin` — nothing taken, 2026-09-12

@@ -96,7 +96,7 @@ pass of *Slick and bulb* above, plus two things nothing else on the field has.
 |---|---|---|
 | **turn** | the whole body is rotated before it is drawn | `throbTurnMilli(cfg, beats) / 1000 · 2π`, clockwise, one turn every `throbSpinBeats` — the same expression `throbStruck` resolves a shot against |
 | contour | six clubs on a small core, walked rather than sampled by angle | `THROB.clubs` — 6 clubs, reach `0.26`, cap `0.36`, neck `0.46`, vary `0.16`, over a 3-lobe core at depth `0.06`, the whole thing at `0.7×` so the widest club lands inside a bulb's footprint |
-| **far half** | the half above the seam filled, rimmed and detailed in the *other* ammunition colour, over the interior rather than under it | that colour's `colorTrio` — `dark` filled, `hex` through `strokeGlow` on the contour, `rim` on `drawDetails` mirrored across the seam; the seam itself in the two rims mixed half and half, at `1.4×` the outline weight |
+| **halves** | one ammunition colour on each half, fixed to the body and carried round by the turn, over the interior rather than under it; the half the cannon is looking at lit the brighter, and the glow round the outside in its colour (`throb-halves.ts`, 17 October 2026) | the authored half is `ownArc` either side of straight down — a quarter turn at the shipped `throbFaceMilli`, so the body is cut in two — and `throbFacing` picks the lit half; flesh `mixHex(dark, hex)` at `0.8` lit and `0.5` turned away, `strokeGlow` at `1` and `0.55`; no line on the seam, the two colours meeting are the seam |
 
 The far half used to be green plating, and green means one thing in this game
 — a body up the field a shot does nothing to — which is exactly what that half
