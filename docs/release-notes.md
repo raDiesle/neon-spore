@@ -9,6 +9,8 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-17 · d796feab5 — Queue: every boss closes the group it is about; the STATES section test's shard flake
+
 ## 2026-10-17 · 1997a0e33 — THE SPLICE closes SALVAGE's group, and BULB QUEEN a review group of its own after it
 
 The owner's pick: a boss belongs to the group whose new thing it is about. THE SPLICE's mouth is SALVAGE's intake on the other seat, so it now ends SALVAGE's group, and the mouth button counts as the intake SALVAGE taught. After it comes a new group of three waves that bring nothing new (SCRAP FIELD, SCRAP RAIN, SCRAP AND TORCH), closed by BULB QUEEN. THE ECHO's group has no boss now, and waits for one written for it; no other boss moved.
