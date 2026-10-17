@@ -470,13 +470,14 @@ that the bolt sent to the called column lands and the one sent to the seen
 column does not.
 THE HUSK's, the same day, is a mark drawn on one seat's screen and not the
 other's, and a thumb that must not land. Three pods hang from the first
-beat, two hollow, framed in white on the navigator's screen alone
-(`render/husk-mark.ts`); the first two pages are the same beat from each
-side, the frame on one and three pods alike on the other, and nothing in
+beat, two hollow, drawn as red fake twins on the navigator's screen alone
+(`render/pods.ts`; the white frame was taken out for the siren, 17 October
+2026, `render/comms-husk.ts`); the first two pages are the same beat from
+each side, the red one on one and three pods alike on the other, and nothing in
 the film says the mark is missing — the rehearsal draws every page on the
 seat whose screen it is, so the absence is the picture. The maw left shut
 is THE STARE's problem a second time and takes THE STARE's answer: the
-real one is named, shot and taken at an open maw; the framed one is shot
+real one is named, shot and taken at an open maw; the red one is shot
 and left, the pilot's page pointing at the intake with the hand off it, and
 the husk deflates against the shut maw; and last, the one nobody named is
 shot and opened for, swallowed, and the wave with it. `scene-husk.test.ts`

@@ -15,8 +15,8 @@ import type { Layout } from "./layout.js";
  * through here too (`drawMoored`), so whatever a real pod looks like is what a
  * husk looks like on the screen that must not be able to tell.
  *
- * Its own file for the reason `husk-look.ts` is: `husk-mark.ts` imports
- * `pods.ts`, and a record both read sits below both. It imports types only.
+ * Its own file for the reason `husk-look.ts` is: a candidate patches it
+ * without importing the draw. It imports types only.
  */
 export interface PodLook {
   /** The moored pod at its place, on its own offset clock, or nothing — with

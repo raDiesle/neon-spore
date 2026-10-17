@@ -9,14 +9,14 @@ import { WAVES } from "../src/waves.js";
  * was doing when each one arrived.
  *
  * The film's lesson is entirely in the pairing of a shot with the maw under
- * it — open for the real one, shut for the framed one, open again for the
+ * it — open for the real one, shut for the red one, open again for the
  * one nobody named — and a pod that sank a beat faster, or an intake pressed
  * a beat late, would swap a refusal for a loss and nothing in the picture
  * would say so; this does. The maw is read at the moment each pod arrives,
  * because that is the moment the wave judges it (`sim/husk.ts`).
  */
 describe("the rehearsal for THE HUSK", () => {
-  it("takes the real one at an open maw, refuses the framed one at a shut one, and swallows the unnamed one", () => {
+  it("takes the real one at an open maw, refuses the red one at a shut one, and swallows the unnamed one", () => {
     const wave = WAVES.findIndex((w) => w.guide?.scene === "theHusk");
     const run = new SceneRun(sceneScript("theHusk", wave, DEFAULT_CONFIG));
     const seen: string[] = [];
@@ -35,7 +35,7 @@ describe("the rehearsal for THE HUSK", () => {
       }
     }
     // Authored columns 5, 3 and 1 are the shipped field's 8, 5 and 2
-    // (`scene-script.ts`, `mapCol`): the real one, the framed one, the one
+    // (`scene-script.ts`, `mapCol`): the real one, the red one, the one
     // nobody named. Nothing is lost at a shut maw — the only pod that costs
     // the wave is the husk the maw was opened for.
     expect(seen).toEqual([

@@ -39,7 +39,8 @@ import { SWINDLE_CORE, SWINDLE_FLESH, SWINDLE_RIM } from "./swindle-tint.js";
  * shrinks and rises behind — so the pilot can follow them by eye
  * (`swindleCrossing`). **A hood is the same over a real pod and a fake one**,
  * on every screen: the only thing in the game that tells them apart is the
- * navigator's frame (`husk-mark.ts`), drawn over all of this.
+ * navigator's fake twin under the hood (`pods.ts`), and the siren says a call
+ * is on (`comms-husk.ts`).
  *
  * **She moves as a whole.** She breathes on the beat, sways with a shuffle,
  * leans after the pod she lets go and rights herself, and her eyes follow the

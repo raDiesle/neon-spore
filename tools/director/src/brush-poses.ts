@@ -166,7 +166,7 @@ function dartArt(): HTMLCanvasElement {
 }
 
 /** A pod, moored, on the navigator's screen — so the hollow one wears the
- * frame that tells it apart (`render/husk-mark.ts`) — never the torch. */
+ * fake twin that tells it apart (`render/pods.ts`) — never the torch. */
 function podArt(kind: PodKind): HTMLCanvasElement {
   const world = fresh([], [{ beat: 0, col: COL, row: 3, kind }]);
   run(world, TPB * 2);

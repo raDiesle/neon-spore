@@ -1,5 +1,6 @@
 import { blisterByOf, type Creature, type CreatureKind, type World } from "@neon-spore/sim";
 import { bossCall } from "./comms-boss.js";
+import { huskCall } from "./comms-husk.js";
 import { TALKER } from "./comms-talker.js";
 import { torchWarning } from "./torch-alarm.js";
 
@@ -30,6 +31,9 @@ import { torchWarning } from "./torch-alarm.js";
  * | `fence`| the pilot sees where the wall is open | P1 |
  * | `magnet`| the pilot picks the side the shot comes in from | P1 |
  * | `coil` | the pilot sees which dome the charge jumps to next | P1 |
+ *
+ * And one row that is not a creature: a **husk**, the hollow pod, whose seat
+ * is set on the pod (`comms-husk.ts`).
  *
  * The rocks are **not** in it, and that is a decision rather than an
  * oversight: a meteor is on the pilot's strip like a torch, but there is one
@@ -127,5 +131,8 @@ export function commsCall(world: World): CommsCall | null {
     else if (seat === "p2") p2 = true;
   }
   if (torchWarning(world, world.cfg.radarLead)) p1 = true;
+  const husk = huskCall(world);
+  if (husk?.p1) p1 = true;
+  if (husk?.p2) p2 = true;
   return p1 || p2 ? { p1, p2 } : null;
 }

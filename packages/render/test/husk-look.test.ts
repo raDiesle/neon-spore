@@ -1,13 +1,15 @@
 import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
+import { commsCall } from "../src/comms.js";
+import { husks } from "../src/comms-husk.js";
 import { castHuskFlight, HuskDeflates } from "../src/husk-deflate.js";
-import { drawHuskMarks, husks, showsHuskMark } from "../src/husk-mark.js";
+import { showsHuskMark } from "../src/husk-look.js";
 import { computeLayout } from "../src/layout.js";
+import { sirenWord } from "../src/siren.js";
 import {
   CFG,
   FRAME_TIMEOUT_MS,
   installCanvasGlobals,
   peakWorld,
-  type ROLES,
   stubCanvas,
   VIEWPORT,
 } from "./frame-harness.js";
@@ -17,14 +19,14 @@ import {
 setDefaultTimeout(FRAME_TIMEOUT_MS);
 
 /**
- * THE HUSK's two pictures: the frame one seat sees round it, and the flight it
- * goes off in when the pair refuses it.
+ * THE HUSK's two pictures: the siren it lights while it is on the field, and
+ * the flight it goes off in when the pair refuses it.
  *
  * What an eye has to answer — whether a balloon let go is funny — is the
  * owner's and needs a look. What is held here is the three things that can go
- * wrong silently. **The seat split is the creature**: a mark that leaked onto
- * player 1's screen would not look broken, it would look like a game with no
- * secret in it, and nothing else in the frame would say so. **The flight has to
+ * wrong silently. **The seat split is the creature**: a siren that lit the
+ * wrong mouth would not look broken, it would tell the fooled seat to speak
+ * about a thing its screen does not show, and nothing else would say so. **The flight has to
  * go somewhere and then stop**, because a transient that never expires is a
  * scrap of skin over the field for the rest of the run (`restart.test.ts` holds
  * the other half of that). And **both phones have to watch the same flight**,
@@ -45,43 +47,43 @@ beforeAll(installCanvasGlobals);
  */
 const huskWorld = () => peakWorld("theHusk");
 
-function drawn(role: (typeof ROLES)[number], truthP1 = false): number {
-  const l = computeLayout(VIEWPORT, CFG, role);
+function huskField(truthP1 = false) {
   const world = huskWorld();
   if (truthP1) for (const p of husks(world)) p.truthP1 = true;
-  const { ctx } = stubCanvas();
-  drawHuskMarks(ctx as unknown as CanvasRenderingContext2D, l, world, 1.4);
-  return ctx.calls;
+  return world;
 }
 
-describe("the mark round a husk", () => {
+describe("the siren a husk lights", () => {
   it("is on the wave, so there is something for the seats to disagree about", () => {
     const world = huskWorld();
     expect(world.pods.length).toBeGreaterThan(1);
     expect(husks(world)).toHaveLength(1);
-    // And the ones beside it are not husks, which is the whole of why the mark
-    // is information: a frame round everything says nothing.
+    // And the ones beside it are not husks, which is the whole of why the call
+    // is information: a siren over every pod says nothing.
     expect(world.pods.filter((p) => p.kind !== "husk").length).toBeGreaterThan(0);
   });
 
-  it("is drawn on player 2's screen and never on player 1's", () => {
-    expect(showsHuskMark(computeLayout(VIEWPORT, CFG, "p2"), {})).toBe(true);
-    expect(showsHuskMark(computeLayout(VIEWPORT, CFG, "p1"), {})).toBe(false);
-    expect(drawn("p2")).toBeGreaterThan(0);
-    expect(drawn("p1")).toBe(0);
+  it("lights player 2's mouth, and player 1 is told to ask", () => {
+    const world = huskField();
+    expect(commsCall(world)).toEqual({ p1: false, p2: true });
+    expect(sirenWord("p2", world)).toBe("SAY THE HOLLOW ONE");
+    expect(sirenWord("p1", world)).toBe("ASK BEFORE YOU TAKE");
   });
 
-  it("changes seats on a husk authored `truthP1`, and still fools exactly one", () => {
-    const husk = { truthP1: true as const };
-    expect(showsHuskMark(computeLayout(VIEWPORT, CFG, "p1"), husk)).toBe(true);
-    expect(showsHuskMark(computeLayout(VIEWPORT, CFG, "p2"), husk)).toBe(false);
-    expect(drawn("p1", true)).toBeGreaterThan(0);
-    expect(drawn("p2", true)).toBe(0);
-    expect(drawn("test", true)).toBeGreaterThan(0);
+  it("changes seats on a husk authored `truthP1`", () => {
+    const world = huskField(true);
+    expect(commsCall(world)).toEqual({ p1: true, p2: false });
+    expect(sirenWord("p1", world)).toBe("SAY THE HOLLOW ONE");
+    expect(sirenWord("p2", world)).toBe("ASK BEFORE YOU TAKE");
+    expect(showsHuskMark(computeLayout(VIEWPORT, CFG, "p1"), { truthP1: true })).toBe(true);
+    expect(showsHuskMark(computeLayout(VIEWPORT, CFG, "p2"), { truthP1: true })).toBe(false);
   });
 
-  it("is drawn on the rig, which is both halves of the pair at once", () => {
-    expect(drawn("test")).toBeGreaterThan(0);
+  it("goes quiet with no husk on the field", () => {
+    const world = huskWorld();
+    world.pods = world.pods.filter((p) => p.kind !== "husk");
+    expect(sirenWord("p1", world)).toBeNull();
+    expect(sirenWord("p2", world)).toBeNull();
   });
 });
 

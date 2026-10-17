@@ -12846,7 +12846,8 @@ of the fake ones.
 When her last hand is cleared she is beaten.
 
 **The split is THE HUSK's, made into the whole fight.** The pilot's screen
-draws a husk as a pod and the navigator's frames it (`render/husk-mark.ts`);
+draws a husk as a pod and the navigator's as its red fake twin, with the
+siren lit (`render/pods.ts`, `render/comms-husk.ts`);
 nothing in the simulation, the events or the sound tells them apart before
 the receipt. So the navigator watches the marks while she shuffles and says
 *real* or *fake* as each pod falls; the pilot opens the maw for one and

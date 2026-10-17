@@ -2380,6 +2380,7 @@ by hand never moves.
 | `packages/render/src/comms-talker.ts` | one row per creature: which seat has to say something about it |
 | `packages/render/src/comms-boss.ts` | The siren for a boss whose split is the whole fight: THE ANTIPHON's explainer lit, EXPLAIN SHAPE and CHOOSE SHAPE swapping every level |
 | `packages/render/src/comms-mimic.ts` | THE MIMIC's siren, top right: the reader's chip lit and each seat's job under the dial |
+| `packages/render/src/comms-husk.ts` | **A husk on the field lights the siren** — the owner, 17 October 2026, of the hollow pod |
 | `packages/render/src/core-hurt.ts` | **A core's hurt**: a little smaller and brighter for every hit it has taken |
 | `packages/render/src/core-stop.ts` | **Where a bolt meets a core over the middle column**: `coreStopper`, and a body's `Foot` |
 | `packages/render/src/countdown.ts` | THE COUNT: the disc, `showsCount`, and the notches it wore — NOTCHES on the LIBRARY |
@@ -2801,7 +2802,6 @@ by hand never moves.
 | `packages/render/src/hull-outline.ts` | The hull's contour and the body it closes, as paths — `drawHull`'s, and THE MIRROR's blow laid over the same outline |
 | `packages/render/src/hull-crown.ts` | **What the swelling player 1 slides is, on this panel**: a gun, THE CLAW's hand, or THE THROAT's root with no muzzle |
 | `packages/render/src/husk-deflate.ts` | **A husk refused: a balloon let go.** The owner asked for this by name on 15 September 2026 |
-| `packages/render/src/husk-mark.ts` | **The frame player 2 sees around a husk, and player 1 never does** |
 | `packages/render/src/husk-look.ts` | How a husk is told from a pod — the one record VERSUS can offer a second answer through |
 | `packages/render/src/hive-draw.ts` | **THE HIVE**: the waxen mass over row 0 with a site in every lobe of its underside — the breach's colour on the pilot's screen, the swell on the navigator's |
 | `packages/render/src/hive-fx.ts` | What THE HIVE leaves behind a frame: the clench of a wrong colour, the jolt of a seal, and its receipts' bursts |

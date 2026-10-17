@@ -6,11 +6,11 @@ import type { GuideScene } from "../scene-types.js";
  *
  * **Shot twice, read as one lesson.** Three pods hang at the start, two of
  * them hollow (`PodKind`, `sim/pod-types.ts`), and the navigator's
- * screen frames the hollow ones in white with the words on the frame
- * (`render/husk-mark.ts`) while the pilot's shows three pods alike. So the
- * first two pages are the same beat from each side: the navigator's, where
- * the framed one is named as hollow, and the pilot's, where nothing is
- * framed and the only thing to do is ask. The rehearsal draws every page on
+ * screen draws the hollow ones as their red fake twins (`render/pods.ts`),
+ * with the siren lit (`render/comms-husk.ts`), while the pilot's shows three
+ * pods alike. So the first two pages are the same beat from each side: the
+ * navigator's, where the red one is named as hollow, and the pilot's, where
+ * nothing is red and the only thing to do is ask. The rehearsal draws every page on
  * the seat whose screen it is (`guide-scene.ts`), so the mark is on one page
  * and absent from the next without the film saying anything about it — the
  * absence is the picture.
@@ -22,7 +22,7 @@ import type { GuideScene } from "../scene-types.js";
  * from the seat that owns the thumb, with something else for the hand to be
  * doing. First the real one, the fifth column: the navigator names it and
  * shoots it, the pilot opens the maw for it and it is taken, so the shot and
- * the intake are paired once the honest way. Then the framed one, the third
+ * the intake are paired once the honest way. Then the red one, the third
  * column: the navigator shoots it and says to leave it; the pilot's page
  * points at the intake control and the hand stays off it while the husk
  * comes down the beam — the maw shut, the husk deflating against it
@@ -35,8 +35,8 @@ import type { GuideScene } from "../scene-types.js";
  * the wave with it (`huskSwallowed` → `failWave`), and the retries page says
  * what was let in. The film takes exactly the hit it points at.
  *
- * The framed one hangs first in the list so the `pod` anchor, which points at
- * the first pod on the field, points at the frame.
+ * The red one hangs first in the list so the `pod` anchor, which points at
+ * the first pod on the field, points at it.
  */
 
 export const THE_HUSK: GuideScene = {
@@ -62,7 +62,7 @@ export const THE_HUSK: GuideScene = {
     { tick: 2200, control: "intake" },
   ],
   steps: [
-    { tick: 0, seat: 2, text: "THE FRAMED ONE IS HOLLOW", anchor: { at: "pod" } },
+    { tick: 0, seat: 2, text: "THE RED ONE IS HOLLOW", anchor: { at: "pod" } },
     { tick: 240, seat: 1, text: "YOURS ARE ALIKE · ASK THEM", anchor: { at: "pod" } },
     {
       tick: 480,

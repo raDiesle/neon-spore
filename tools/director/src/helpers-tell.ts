@@ -108,16 +108,16 @@ export const TELL: HelperGroup = {
       lookAt: "the glow, the lock and the arrow on one bead",
     },
     {
-      name: "DO NOT TAKE",
-      where: "a white frame beside a husk",
+      name: "THE HOLLOW POD",
+      where: "a husk, drawn as its red fake twin",
       seat: "P2 only — on player 1's screen it is an ordinary pod",
       says:
-        "This pod is a husk: do not take it. IGNORE's frame on purpose, so one " +
-        "picture means one thing — say it before the mouth opens.",
-      source: "husk-mark.ts",
+        "This pod is a husk: do not take it. No frame and no word on it — the " +
+        "siren lights and says SAY THE HOLLOW ONE, and the other screen ASK BEFORE YOU TAKE.",
+      source: "pods.ts, comms-husk.ts",
       pose: HUSK_UP,
       role: "p2",
-      lookAt: "the white frame and the words beside the pod",
+      lookAt: "the red blink on the pod and the siren over the field",
     },
     {
       name: "THE MOULT'S NEXT FORM",

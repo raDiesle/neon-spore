@@ -82,8 +82,9 @@ export interface PodEntry {
    */
   clockP1?: true;
   /**
-   * **A hollow pod whose truth is on player 1's screen**: the red twin and the
-   * DO NOT TAKE frame are drawn there, and player 2 sees a real pod. Absent is
+   * **A hollow pod whose truth is on player 1's screen**: the red twin is
+   * drawn there and the siren lights player 1's mouth, and player 2 sees a
+   * real pod. Absent is
    * the husk as it was made — player 2 sees the lie, player 1 is fooled. The
    * owner asked on 17 October 2026 to choose the fooled seat per husk; the
    * rules do not change, only who must say "leave it".

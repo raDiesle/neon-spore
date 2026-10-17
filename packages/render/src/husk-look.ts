@@ -5,23 +5,19 @@ import type { Layout } from "./layout.js";
  * How a husk is told from a pod — the one record VERSUS can offer a second
  * answer through.
  *
- * The shipped answer is *nothing on the body and a frame round it*: `pods.ts`
- * draws a husk as the pod it claims to be, on both screens, and `husk-mark.ts`
- * puts a white frame and DO NOT TAKE round it on player 2's screen alone. That
- * is one look, and until this file it was hardcoded in two places with no
- * seam a candidate could take hold of — the pod's draw was an `if (loose)`
- * with no third way, and the mark was drawn whenever the seat was not `p1`.
+ * The shipped answer is *the fake twin on the seat that can tell*: `pods.ts`
+ * draws a husk as the pod it claims to be on the fooled seat, and as that
+ * form's fake — a red blink and its tell on the count (`pod-pickup.ts`) — on
+ * the other. A white frame with DO NOT TAKE beside it went round it too until
+ * the owner took it out, 17 October 2026, for the siren (`comms-husk.ts`).
  *
- * A candidate that argues the body itself should carry the tell — the
- * shape-sheet's HUSK drafts, a pod whose mass has gone to the bottom with the
- * light gone out of its core — patches `body` and turns `marked` off. The
- * game itself patches nothing: the two fields here are the shipped look,
- * and `docs/versus.md` is the mechanism this record exists for.
+ * A candidate that argues the body itself should carry the tell differently —
+ * the shape-sheet's HUSK drafts, a pod whose mass has gone to the bottom with
+ * the light gone out of its core — patches `body`. The game itself patches
+ * nothing, and `docs/versus.md` is the mechanism this record exists for.
  *
- * Its own file rather than a field on `pods.ts` because `husk-mark.ts`
- * imports `pods.ts` for `podCenter`, and a record both read has to live
- * beside them rather than in either. It imports types only, so it sits below
- * both.
+ * Its own file rather than a field on `pods.ts` so a candidate can patch it
+ * without importing the draw. It imports types only, so it sits below it.
  */
 export interface HuskLook {
   /**
@@ -40,15 +36,13 @@ export interface HuskLook {
     pod: Pod,
     beatsLeft: number,
   ) => void;
-  /** Whether player 2's frame and words go round it (`husk-mark.ts`). */
-  marked: boolean;
 }
 
-export const HUSK_LOOK: HuskLook = { body: undefined, marked: true };
+export const HUSK_LOOK: HuskLook = { body: undefined };
 
 /**
- * Whether this screen sees this husk for what it is — its frame
- * (`husk-mark.ts`) and its fake twin (`pods.ts`). One seat is fooled — that
+ * Whether this screen sees this husk for what it is — its fake twin
+ * (`pods.ts`). One seat is fooled — that
  * is the whole creature: player 1, unless the husk was authored `truthP1`
  * (`PodEntry.truthP1`, the director's husk rows), when it is player 2. `test`
  * always does, because it is both halves at once on one screen and a rig

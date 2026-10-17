@@ -194,7 +194,7 @@ export const BEATBOX_UP = close("HELPERS · A BEATBOX ON THE FIELD", "beatbox", 
 });
 
 /** A husk hanging long enough that the wave's title has gone from over it:
- * DO NOT TAKE beside it on player 2's screen. */
+ * its red fake twin on player 2's screen, and the siren lit for it. */
 export const HUSK_UP: Pose = {
   name: "HELPERS · A HUSK HANGING",
   note: "A husk moored in the field.",

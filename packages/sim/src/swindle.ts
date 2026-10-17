@@ -17,7 +17,8 @@ import type { World } from "./world.js";
  * field. She trades two of them across on the level's beats, one pair at a
  * time and gliding, so the pilot — whose screen draws a husk as a pod — cannot
  * follow which is which; the navigator sees the mark on every husk the whole
- * time (`render/husk-mark.ts`) and calls each one as it comes. Then she lets
+ * time (its red fake twin, `render/pods.ts`, with the siren lit) and calls
+ * each one as it comes. Then she lets
  * them go, one on each authored beat, and every pod falls the ordinary way and
  * homes to the cannon: the pilot opens the maw for a real one and keeps it
  * shut for a husk. **A pod she holds cannot be shot loose**: the shot stops

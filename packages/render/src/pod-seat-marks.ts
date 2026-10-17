@@ -14,7 +14,7 @@ import { PALETTE } from "./palette.js";
  *   player 1's screen only, so the seat that catches is the one that knows
  *   which is nearly out, and says so to the seat that shoots.
  *
- * Its own file for `husk-mark.ts`' reason: nothing that draws a body should
+ * Its own file for `lure-alarm.ts`' reason: nothing that draws a body should
  * have to know which seat it is running on. `test` is both halves at once.
  */
 

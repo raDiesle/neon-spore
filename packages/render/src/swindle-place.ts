@@ -23,8 +23,8 @@ import { type Layout, tileCX, tileCY } from "./layout.js";
  *
  * **Nothing here reads what a pod is.** A hood is drawn over a real pod and a
  * fake alike, and the body counts her real pods only as they are swallowed —
- * so the pilot's screen holds nothing the navigator's frame does not add
- * (`husk-mark.ts`).
+ * so the pilot's screen holds nothing the navigator's fake twin does not add
+ * (`pods.ts`).
  */
 
 /** Her half-width, in tiles: seven columns across. */

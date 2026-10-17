@@ -108,8 +108,9 @@ function drawPod(button: HTMLElement, pod: PodEntry, beside: boolean): void {
   } else {
     mark.textContent = husked(pod, `${podGlyph(brush)}${pod.row}`);
   }
-  // The HOLLOW brush's stroke is the white the field's own alarm is drawn in
-  // (`render/src/husk-mark.ts`), so a husk's mark says so without a rule here.
+  // The HOLLOW brush's stroke is white, the colour of *leave that one alone*
+  // on the field (`render/src/lure-alarm.ts`), so a husk's mark says so
+  // without a rule here.
   const spec = BRUSHES.find((x) => x.brush === brush);
   if (spec) mark.style.color = spec.stroke;
   button.appendChild(mark);

@@ -1,4 +1,5 @@
 import type { CreatureKind, World } from "@neon-spore/sim";
+import { huskWords } from "./comms-husk.js";
 import { fenceWord } from "./duty-fence.js";
 import { harpoonWord } from "./duty-harpoon.js";
 import { mineWord } from "./duty-mine.js";
@@ -65,6 +66,8 @@ function wordsFor(seat: "p1" | "p2", world: World): string[] {
         : (harpoonWord(kind, seat, world) ?? mineWord(kind, seat, world) ?? owed);
     if (!words.includes(word)) words.push(word);
   }
+  // The hollow pod's, which is a pod and so no row of the table (`comms-husk.ts`).
+  for (const word of huskWords(seat, world)) if (!words.includes(word)) words.push(word);
   return words;
 }
 

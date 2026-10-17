@@ -43954,3 +43954,16 @@ Bottleneck: tracing three extra fills to the thinner channel's dots before
 moving two budget rows.
 
 *Measured: 14 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-17 — A husk lights the siren, and its white frame is gone
+
+- reading: 10 min. `husk-mark.ts`, the siren, `comms.ts`, `duty.ts` and
+  THE SWINDLE's hoods, to be sure the fake twin still tells under one.
+- writing: 15 min. `comms-husk.ts`, the call and the words wired in, the
+  frame deleted, the caption, the director's row and every stale comment.
+- looking: 10 min. THE HUSK on both screens and THE SWINDLE, before and after.
+- friction: 5 min. `check:fast` wanted an import sort.
+- landing: 5 min. `check:fast`, `land`.
+
+Bottleneck: checking that THE SWINDLE's hood leaves the red twin visible,
+since the frame was described there as the only tell.
