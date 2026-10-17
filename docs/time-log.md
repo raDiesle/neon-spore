@@ -43825,3 +43825,5 @@ a stuck step now says which it was — and not to a cause nobody could see.
 
 Bottleneck: the forms set their alpha outright at every layer, so a fade had
 to reach fourteen sites before THE PULSE's faint arrival could be honoured.
+
+*Measured: 14 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*

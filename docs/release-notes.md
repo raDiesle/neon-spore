@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-17 · bbc9856d7 — The pod keeps its form in the maw's grip and down THE PULSE's lane
+
+A pod the maw grips is now drawn as the form it wore while it hung, squashed in the mouth, and a husk is drawn as the fake its seat already saw. THE PULSE's pod lane and its button draw a form read off the note. The lane's hull placeholder, and the far side's dark, are the seed's sphere instead of the old lobed contour. A faded arrival stays faded: the forms set their alpha outright at every layer, and those sets now go through `pod-fade.ts`, which is the identity everywhere else. Exemption: a fix to something wrong — the pod changed shape the moment the maw took it.
+
 ## 2026-10-17 · 94a128a7a — `bun run shot --at` puts every step on a clock, and a stuck one says which
 
 A `versus:shot … --freeze 0.6 --at` sat silent for ten minutes on 16 October and left its headless Chrome running for fourteen hours. The same command finished in twenty seconds on today's tree and on the commit it was filed from, so the cause was the machine, not the clip. The fault was the silence: a page `evaluate` and `setViewportSize` have no timeout of their own. The crop now lives in `shot-at.ts`, each step inside `deadline.ts`'s race, and a step that runs out of time is refused with its name and exit 2, so the browser is closed. A browser test shoots a frozen frame below the fold and refuses a wedged page inside the step's time.
