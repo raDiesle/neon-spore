@@ -43936,3 +43936,19 @@ Bottleneck: finding which event a tile selects itself on — nothing names it,
 and the first test click looked like the popover simply was not there.
 
 *Measured: 17 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-17 — every on-screen control is one size
+
+- reading: 10 min. Which "hold", "press" and "pull" the owner meant: the
+  blister's drops at seven tenths of the body against the pull knob, and the
+  boss cue frame's drop already level with a boss's pull.
+- writing: 5 min. `PULL_SIZE` to 1.7, `HOLD_MARK_R` tied to it, the blister's
+  drops at the knob's radius, a test that the two stay level.
+- looking: 5 min. Before and after of a blister's tap, hold and pull, cropped
+  side by side.
+- friction: 0 min.
+- landing: 5 min. Two eye budgets up three fills — traced to the channel's
+  dots, spaced by its width — then `check:fast`, `land`.
+
+Bottleneck: tracing three extra fills to the thinner channel's dots before
+moving two budget rows.
