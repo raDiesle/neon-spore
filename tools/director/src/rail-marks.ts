@@ -1,10 +1,4 @@
-import {
-  controlSet,
-  firstOnPanel,
-  type Wave,
-  type WaveMarkId,
-  waveMarksOn,
-} from "@neon-spore/content";
+import { controlSet, type Wave, type WaveMarkId, waveMarksOn } from "@neon-spore/content";
 
 /**
  * The small glyphs in front of a wave's name in the rail: a boss, a panel, a
@@ -45,20 +39,18 @@ export function waveMarks(waves: readonly Wave[], index: number): HTMLElement[] 
   }
 
   /**
-   * The panel, and it marks two things that are not the same set of waves: a
-   * panel that is not the ordinary one, and the **first wave played on any
-   * panel at all**. SALVAGE is where the standard panel's last button
-   * arrives and it is the ordinary panel from then on — so a list that
-   * only marked the unusual ones would say nothing about the wave that hands
-   * the pair something they have never held. Whether it is marked is
-   * `waveMarksOn`'s answer; `firstOnPanel` — the same question that decides
-   * whether that wave must carry a guide (`content/test/waves.test.ts`) — is
-   * asked again here only for the title's words.
+   * The panel, on the **first wave from the top played on each panel** and on
+   * no later one — the owner, 17 October 2026; every wave on an unusual panel
+   * carried it until then. SALVAGE is where the standard panel's last button
+   * arrives, so the ordinary panel is marked there too. Whether it is marked
+   * is `waveMarksOn`'s answer, which is `firstOnPanel` — the same question
+   * that decides whether that wave must carry a guide
+   * (`content/test/waves.test.ts`).
    */
   if (on.includes("control")) {
     const set = controlSet(wave.controls);
     const m = mark("control-mark", "⎈ ");
-    m.title = firstOnPanel(waves, index) ? `${set.name} — first wave on this panel` : set.name;
+    m.title = `${set.name} — first wave on this panel`;
     out.push(m);
   }
 

@@ -15,9 +15,9 @@ describe("waveMarksOn", () => {
     }
   });
 
-  it("marks the first wave on every panel, the ordinary one included", () => {
+  it("marks the first wave on every panel, the ordinary one included, and no other", () => {
     for (let i = 0; i < WAVES.length; i++) {
-      if (firstOnPanel(WAVES, i)) expect(waveMarksOn(WAVES, i)).toContain("control");
+      expect(waveMarksOn(WAVES, i).includes("control")).toBe(firstOnPanel(WAVES, i));
     }
   });
 

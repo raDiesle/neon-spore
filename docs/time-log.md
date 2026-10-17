@@ -43969,3 +43969,15 @@ Bottleneck: checking that THE SWINDLE's hood leaves the red twin visible,
 since the frame was described there as the only tell.
 
 *Measured: 26 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-17 — The panel mark only where a panel is first played
+
+- reading: 5 min. `waveMarksOn` and its three callers — the rail, its
+  filter and JUMP TO WAVE.
+- writing: 5 min. One condition, the comments that described two, the test.
+- looking: 5 min. The director pane: six marks, one per panel.
+- friction: 0 min.
+- landing: 5 min. The copies row that guarded the old two-part rule went,
+  `check:fast`, `land`.
+
+Bottleneck: the copies table guarding a rule that had just stopped existing.

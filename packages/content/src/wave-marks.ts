@@ -1,4 +1,4 @@
-import { controlSet, DEFAULT_CONTROL_SET_ID, firstOnPanel } from "./control-sets.js";
+import { firstOnPanel } from "./control-sets.js";
 import type { Wave } from "./wave-types.js";
 
 /**
@@ -12,10 +12,12 @@ import type { Wave } from "./wave-types.js";
  * because it is a question about content and nothing else: each side keeps
  * its own glyphs and its own words, and neither decides what a mark means.
  *
- * The panel mark is two sets of waves, not one: a panel that is not the
- * ordinary one, and the **first wave played on any panel at all** — SALVAGE
- * hands the pair the standard panel's last button, and a list that marked only
- * the unusual panels would say nothing about it.
+ * **The panel mark is the first wave, from the top, played on each panel** —
+ * the ordinary one included: SALVAGE hands the pair the standard panel's last
+ * button, and a list that marked only the unusual panels would say nothing
+ * about it. Every wave on a panel that is not the ordinary one carried it
+ * until the owner, 17 October 2026: *in waves list, show only icon for
+ * different control set, if it is used the first time starting from top.*
  *
  * Takes its list as an argument, as `firstOnPanel` does: the director asks it
  * of a list that is not on disk yet.
@@ -32,9 +34,7 @@ export function waveMarksOn(waves: readonly Wave[], index: number): WaveMarkId[]
   if (!wave) return [];
   const out: WaveMarkId[] = [];
   if (wave.boss) out.push("boss");
-  if (firstOnPanel(waves, index) || controlSet(wave.controls).id !== DEFAULT_CONTROL_SET_ID) {
-    out.push("control");
-  }
+  if (firstOnPanel(waves, index)) out.push("control");
   if (wave.guide) out.push("card");
   if (wave.faults?.length) out.push("fault");
   return out;
