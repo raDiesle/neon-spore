@@ -1,6 +1,6 @@
-import { CREATURES, type Wave } from "@neon-spore/content";
+import type { Wave } from "@neon-spore/content";
 import { brushArtImage } from "./brush-art.js";
-import { BRUSHES, type Brush } from "./brushes.js";
+import { introducedBrush } from "./brush-intro.js";
 import { waveMarks } from "./rail-marks.js";
 import { type Flag, pairSeconds, type WaveRow, waveRows } from "./waves-table-rows.js";
 import { whenSeen } from "./when-seen.js";
@@ -32,17 +32,6 @@ const COLUMNS = [
   ["Notes", "What is out of range, worst first"],
 ] as const;
 
-/** The brush that paints a thing `waveIntroduces` names, if one does. */
-function brushOf(thing: string): Brush | undefined {
-  const brushes = new Set<string>(BRUSHES.map((b) => b.brush));
-  // Every speed of rock is the one ROCK brush (`brush-lists.ts`).
-  if (/^meteor/.test(thing)) return "rock";
-  const fault = /^(.*)Fault$/.exec(thing);
-  const id = fault ? `fault:${fault[1]}` : thing;
-  if (brushes.has(id)) return id as Brush;
-  return thing in CREATURES ? (thing as Brush) : undefined;
-}
-
 function newCell(row: WaveRow): HTMLTableCellElement {
   const td = document.createElement("td");
   td.className = "wt-new";
@@ -53,7 +42,7 @@ function newCell(row: WaveRow): HTMLTableCellElement {
     if (thing === "panel") chip.textContent = "⎈";
     else {
       chip.textContent = thing;
-      const brush = brushOf(thing);
+      const brush = introducedBrush(thing, row.wave);
       if (brush)
         whenSeen(chip, () => {
           const art = brushArtImage(brush, 22);

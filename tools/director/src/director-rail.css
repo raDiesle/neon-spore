@@ -105,6 +105,17 @@
   overflow: hidden;
   text-overflow: ellipsis;
 }
+/* The brushes a head is first to carry, after the name (`brush-intro.ts`).
+   The row is aligned on its baseline, so the picture is centred by hand. */
+#waveList .intro-art {
+  flex: none;
+  align-self: center;
+  display: inline-flex;
+  margin-left: 4px;
+}
+#waveList .intro-art .brush-art {
+  display: block;
+}
 #waveList .boss-mark {
   color: var(--gold);
 }

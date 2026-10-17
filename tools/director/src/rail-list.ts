@@ -1,3 +1,4 @@
+import { introArt } from "./brush-intro.js";
 import type { RowDrag } from "./rail-drag.js";
 import { waveGroups } from "./rail-groups.js";
 import { waveMarks } from "./rail-marks.js";
@@ -65,6 +66,11 @@ export function renderRows(
     name.className = "name";
     name.textContent = wave.name || "— unnamed —";
     button.append(name);
+    // At the right end of a group's head, the picture of each brush it is the
+    // first to carry: the owner, 17 October 2026, *show next to each wave to
+    // the right the brush icon if on the parent, if it introduces it new*.
+    // Only on a head — a variant is a wave that varies what its head brought.
+    if (head === -1) button.append(...introArt(store.waves, i, 18));
     // No pressure at the end of the row: the owner, 17 October 2026, *do not
     // show the difficulty number in the wave list*. DOCUMENTATION › WAVES
     // still has it, in its own column.

@@ -1,6 +1,7 @@
 import { describe, expect, test } from "bun:test";
 import type { Wave } from "@neon-spore/content";
-import { WAVES } from "@neon-spore/content";
+import { WAVES, waveIntroduces } from "@neon-spore/content";
+import { introducedBrush } from "../src/brush-intro.js";
 import { dropWave, waveGroups } from "../src/rail-groups.js";
 import { renderRows } from "../src/rail-list.js";
 import type { Store } from "../src/state.js";
@@ -199,5 +200,22 @@ describe("the list", () => {
       const button = row.children[0]!;
       expect(button.children.some((c) => c.classList.contains("pressure"))).toBe(false);
     }
+  });
+
+  test("a head ends on the brushes it is first to carry, and a variant on none", () => {
+    const s: Store = { waves: [...WAVES], index: 0, dirty: false };
+    const list = draw(s, false);
+    const art = (i: number) =>
+      list.children[i]!.children[0]!.children.filter((c) => c.classList.contains("intro-art"));
+    let shown = 0;
+    for (const [i, wave] of WAVES.entries()) {
+      const variant = list.children[i]!.classList.contains("variant");
+      const brushes = new Set(
+        waveIntroduces(WAVES, i).flatMap((t) => introducedBrush(t, wave) ?? []),
+      );
+      expect([wave.name, art(i).length]).toEqual([wave.name, variant ? 0 : brushes.size]);
+      shown += art(i).length;
+    }
+    expect(shown).toBeGreaterThan(0);
   });
 });

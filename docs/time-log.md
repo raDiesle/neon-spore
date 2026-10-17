@@ -43903,3 +43903,17 @@ Bottleneck: the first strip was too short to show the cyan half answering,
 so the glow looked wrong until a whole turn was photographed.
 
 *Measured: 7 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-17 — The wave list's heads show the brush they bring
+
+- reading: 5 min. `rail-list.ts`, and the NEW column of EVERY WAVE, which
+  already turned `waveIntroduces` into a picture.
+- writing: 10 min. `brush-intro.ts` shared by both, the row's span and its
+  CSS, the list test against the shipped campaign.
+- looking: 10 min. The director pane: blister, limpet and leech had found no
+  brush through the old mapping, and a fault has no picture to show.
+- friction: 0 min.
+- landing: 5 min. `bun run index` for the new file, `check:fast`, `land`.
+
+Bottleneck: the words `waveIntroduces` says are not brush names, and the
+old mapping guessed three of them wrong without anything saying so.
