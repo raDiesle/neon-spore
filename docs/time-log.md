@@ -43810,3 +43810,5 @@ Bottleneck: tests that read a shipped wave's timing off something other than the
 
 Bottleneck: the stall would not come back, so the fix is to the silence —
 a stuck step now says which it was — and not to a cause nobody could see.
+
+*Measured: 10 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*

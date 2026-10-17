@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-17 · 94a128a7a — `bun run shot --at` puts every step on a clock, and a stuck one says which
+
+A `versus:shot … --freeze 0.6 --at` sat silent for ten minutes on 16 October and left its headless Chrome running for fourteen hours. The same command finished in twenty seconds on today's tree and on the commit it was filed from, so the cause was the machine, not the clip. The fault was the silence: a page `evaluate` and `setViewportSize` have no timeout of their own. The crop now lives in `shot-at.ts`, each step inside `deadline.ts`'s race, and a step that runs out of time is refused with its name and exit 2, so the browser is closed. A browser test shoots a frozen frame below the fold and refuses a wedged page inside the step's time.
+
 ## 2026-10-17 · 14c2a5037 — No group's head is harder than its gentlest child
 
 37 heads were — FIRST STEP at 4.6 over FIRST RED at 2.4, HEAVY ROCKS at 14.4 over 4.7 — each the wave that teaches a thing, written with a climax at its end. `bun run waves:soften` pulls a head's arrivals toward the middle column and spreads them apart, as little as it takes to reach its gentlest child and only as far as AUTO still clears it clean: same bodies, colours, order and guide, its faults and pods moved with it. CATCH AND AIM stays as it was: its red and cyan in turn cost a switch each wherever they stand. TORCH, SALVAGE and THE LANCE went in unweighed (`baseline:blank`).
