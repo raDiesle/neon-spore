@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-17 · 8d01b456c — The director's MAP is compact: ⏸ and ↺ WAVE stand in its head, and the selected cell's fields are a popover on the tile
+
+Every column head is a step smaller, with one thin rule under it. MAP's head carries the ⏸/▶ and ↺ WAVE that had a row of their own under it, and stays at the top of the column as the map scrolls. The selected cell no longer costs the map any lines above its rows: the BEAT · COL heading and the picture and name of what the tile holds are gone (the tile draws it, its tooltip names it), and the fields — speed, size, route, the pod, the row's faults — with DELETE float under the selected tile while the pointer is on the tile or on them, and go a moment after it leaves both. An empty cell with no fault on its row shows none.
+
 ## 2026-10-17 · d1299ff4b — The wave list shows, at the right end of each head, the brush it brings new
 
 A wave that heads a group in the director's wave list ends on the picture of each brush it is the first to carry — the owner asked for it by name. The mapping from `waveIntroduces` to a brush is now one function shared with EVERY WAVE's NEW column, and finds a blister's CONTROLS brush and a limpet's or leech's fault brush, which it used to miss. A fault with no body shows nothing there; its ⚠ already says it.

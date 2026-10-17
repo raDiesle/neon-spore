@@ -43934,3 +43934,5 @@ old mapping guessed three of them wrong without anything saying so.
 
 Bottleneck: finding which event a tile selects itself on — nothing names it,
 and the first test click looked like the popover simply was not there.
+
+*Measured: 17 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
