@@ -1,10 +1,6 @@
-import { POD } from "@neon-spore/content";
 import type { Pod } from "@neon-spore/sim";
-import { bodyAura } from "./body-aura.js";
-import { bodyGlowSpread, halo, strokeGlow } from "./glow.js";
 import { HUSK_LOOK, showsHuskMark } from "./husk-look.js";
 import { type Layout, tileCX, tileCY } from "./layout.js";
-import { PALETTE } from "./palette.js";
 import { drawGripped, drawPodDress, drawSwingThreads } from "./pod-dress.js";
 import { drawDueRing } from "./pod-due-ring.js";
 import { drawBlinkForm } from "./pod-form-blink.js";
@@ -12,7 +8,7 @@ import { drawPodForm, podFormFor } from "./pod-forms.js";
 import { POD_LOOK } from "./pod-look.js";
 import type { PodDraw } from "./pod-pickup.js";
 import { drawDriftArrows, showsPodClock } from "./pod-seat-marks.js";
-import { drawPodCore, drawWreck, podPath } from "./pod-wreck.js";
+import { drawPodCore, drawWreck } from "./pod-wreck.js";
 import { drawRoeThreads } from "./roe-thread.js";
 
 /**
@@ -135,54 +131,4 @@ export function drawMoored(
     return;
   }
   form(ctx, x, y, l.tile * POD_TILES, t, beatsLeft, false);
-}
-
-/**
- * The pod itself, at a place and a size somebody else chose — the moored
- * drawing with the bob and the field taken out of it.
- *
- * Split out so a pod can be drawn where there is no `Pod` and no column to
- * hang in: THE PULSE's fourth lane, where one falls down a chart, and the
- * button under it, which wears the same lamp. The pulse, the lean and the halo
- * stay here, because they are what a pod *is* rather than where it is.
- */
-export function drawPodBody(
-  ctx: CanvasRenderingContext2D,
-  x: number,
-  y: number,
-  r: number,
-  t: number,
-  /** How present the pod's glowed line and halo are, for the one caller that
-   * fades it — THE PULSE's arrival (`drawLivingMark` says why it is a
-   * parameter). */
-  alpha = 1,
-): void {
-  const scale = r / Math.max(POD.rx, POD.ry);
-  const pulse = 0.5 + 0.5 * Math.sin(t * 2.4);
-  const path = podPath(t);
-
-  ctx.save();
-  ctx.translate(x, y);
-  ctx.rotate(Math.sin(t * 0.6) * 0.08);
-  ctx.scale(scale, scale);
-  const was = ctx.globalAlpha;
-  ctx.globalAlpha = was * alpha;
-  bodyAura(ctx, path, PALETTE.pod, r, scale, t, 0.8 + 0.4 * pulse);
-  ctx.globalAlpha = was;
-  ctx.fillStyle = PALETTE.podDark;
-  ctx.fill(path);
-  strokeGlow(
-    ctx,
-    path,
-    PALETTE.pod,
-    Math.max(1, r * 0.1) / scale,
-    0.8 + 0.4 * pulse,
-    alpha,
-    bodyGlowSpread(scale),
-  );
-  ctx.globalAlpha = was;
-  drawPodCore(ctx, 0.55 + 0.45 * pulse);
-  ctx.restore();
-
-  halo(ctx, x, y, r * (2.1 + 0.3 * pulse), PALETTE.pod, (0.14 + 0.1 * pulse) * alpha);
 }

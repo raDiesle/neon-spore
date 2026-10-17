@@ -1,4 +1,5 @@
-import { blobRadiusMul, crystalRadiusMul, METEOR, POD, type Point } from "@neon-spore/content";
+import { crystalRadiusMul, METEOR, type Point } from "@neon-spore/content";
+import { SEED_SPHERE } from "./pod-seed.js";
 import { splinePath } from "./spline.js";
 
 /**
@@ -31,10 +32,9 @@ const N = 42;
 
 const mix = (a: number, b: number, k: number): number => a + (b - a) * k;
 
-/** The pod's half-extents in radius-1 units — the same normalisation
- * `drawPodBody` does with its own `scale`, so a blend at `k = 1` is the size
- * the pod draw would have put down on its own. */
-const POD_NORM = Math.max(POD.rx, POD.ry);
+/** The pod's radius in radius-1 units: the seed's sphere (`pod-seed.ts`), so a
+ * blend at `k = 1` is the round body the pod's form puts down on its own. */
+const POD_R = SEED_SPHERE;
 
 /**
  * How far out the rock's **edge** is at an angle, rather than how far out its
@@ -80,21 +80,16 @@ function rockEdge(a: number, t: number): number {
  * is that the in-between is answerable at any fraction of a beat.
  *
  * `t` is the same seconds clock both ends already breathe on, so a body held
- * at either extreme is not a still: it wobbles as the rock does at 0 and as
- * the cargo does at 1, out of the two shapes' own `wobble` fields.
+ * at the rock's end is not a still: it wobbles as the rock does, out of its own
+ * `wobble` field. The cargo's end is the seed's sphere, which the form turns
+ * rather than wobbles.
  */
 export function moultOutline(k: number, t: number): Path2D {
-  const rx = mix(1, POD.rx / POD_NORM, k);
-  const ry = mix(1, POD.ry / POD_NORM, k);
   const pts: Point[] = [];
   for (let i = 0; i < N; i++) {
     const a = (i / N) * Math.PI * 2;
-    const m = mix(
-      rockEdge(a, t * 0.15),
-      blobRadiusMul(a, POD.lobes, POD.depth, POD.wobble, t, POD.seed),
-      k,
-    );
-    pts.push({ x: Math.cos(a) * rx * m, y: Math.sin(a) * ry * m });
+    const m = mix(rockEdge(a, t * 0.15), POD_R, k);
+    pts.push({ x: Math.cos(a) * m, y: Math.sin(a) * m });
   }
   return splinePath(pts, true);
 }

@@ -6,7 +6,7 @@ import { PALETTE } from "./palette.js";
 import { drawPinTargetGlanced } from "./pinball-glance.js";
 import type { Table } from "./pinball-table.js";
 import { pinAt } from "./pinball-table.js";
-import { drawPodBody } from "./pods.js";
+import { drawPodForm } from "./pod-forms.js";
 
 /**
  * What stands on PINBALL's table, drawn as things the pair already know.
@@ -25,8 +25,8 @@ import { drawPodBody } from "./pods.js";
  * do anything with this". The rocks on the field burn since 12 September 2026
  * (`meteor-looks.ts`); these keep the grey `STONE_LOOK` on purpose, because
  * *more boring* is the instruction and a fire is not. A piece that must go is
- * a **pod** (`drawPodBody`):
- * amber, breathing, haloed — the thing it has always meant by "go and get
+ * a **pod** (`drawPodForm`):
+ * the seed the field's pods are — the thing it has always meant by "go and get
  * this". Neither is invented here and neither can drift, because both are the
  * calls the field makes.
  *
@@ -123,7 +123,9 @@ function drawTarget(
   if (kind === "peg") {
     const r = halfW * POD_MUL;
     const at = { x, y, halfW: r, r, pods: [0] };
-    drawPinTargetGlanced(ctx, at, seed, time, (g) => drawPodBody(g, x, y, r, t));
+    drawPinTargetGlanced(ctx, at, seed, time, (g) =>
+      drawPodForm(g, seed, x, y, r, t, Number.POSITIVE_INFINITY),
+    );
     return;
   }
   // A target block: a chain of pods across it, spaced closer than their own
@@ -136,7 +138,7 @@ function drawTarget(
   );
   drawPinTargetGlanced(ctx, { x, y, halfW: halfW + r * 0.5, r, pods }, seed, time, (g) => {
     for (let i = 0; i < count; i++) {
-      drawPodBody(g, x + (pods[i] ?? 0), y, r, t + i * 0.4);
+      drawPodForm(g, seed + i, x + (pods[i] ?? 0), y, r, t + i * 0.4, Number.POSITIVE_INFINITY);
     }
   });
 }

@@ -25,5 +25,7 @@ export type PodEvent =
   | { type: "huskSwallowed"; col: number; row: number }
   /** A husk reached the ship, or the far wall, and was refused: it lets its air
    * go and flies off. `row` for the wall — a husk that crossed the field and
-   * left was never anywhere near the hull. */
-  | { type: "huskRefused"; col: number; row: number };
+   * left was never anywhere near the hull. `id` and `truthP1` are the husk's,
+   * so the flight is the form it wore and, on the seat that could tell, its
+   * fake (`render/husk-deflate.ts`). */
+  | { type: "huskRefused"; col: number; row: number; id: number; truthP1?: true };

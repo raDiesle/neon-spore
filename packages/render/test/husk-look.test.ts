@@ -87,7 +87,7 @@ describe("the mark round a husk", () => {
 
 describe("the flight a refused husk goes off in", () => {
   const L = computeLayout(VIEWPORT, CFG, "test");
-  const REFUSED = { type: "huskRefused", col: 3, row: 9 } as const;
+  const REFUSED = { type: "huskRefused", col: 3, row: 9, id: 4 } as const;
   const flat = (x: number, y: number) => ({ x, y });
 
   function cast(): HuskDeflates {

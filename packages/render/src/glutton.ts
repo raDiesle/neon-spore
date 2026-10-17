@@ -5,7 +5,7 @@ import { drawGlancedBody, drawGlancedLiving } from "./creature-glance.js";
 import { livingBodyMul } from "./creature-place.js";
 import { halo } from "./glow.js";
 import { PALETTE } from "./palette.js";
-import { drawPodBody } from "./pods.js";
+import { drawPodForm } from "./pod-forms.js";
 
 /**
  * THE GLUTTON, drawn: hungry, it is GULLET in its own colour; **fed, it is
@@ -61,7 +61,15 @@ export function drawGluttonBody(b: Body): void {
   drawGlancedBody(b, { r: r * swell, lit: true }, (ctx) => {
     for (let i = 0; i < fed; i++) {
       const dx = (i - (fed - 1) / 2) * r * MEAL * 2.1;
-      drawPodBody(ctx, x + dx, y + r * 0.1, r * MEAL, time + i);
+      drawPodForm(
+        ctx,
+        b.c.id + i,
+        x + dx,
+        y + r * 0.1,
+        r * MEAL,
+        time + i,
+        Number.POSITIVE_INFINITY,
+      );
     }
   });
 }

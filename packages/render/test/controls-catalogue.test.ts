@@ -76,6 +76,8 @@ const NOT_MARKS: Readonly<Record<string, string>> = {
   "ship-air.ts": "the ship",
   "hash.ts": "a seed from an id",
   "pods.ts": "the pods",
+  "pod-forms.ts": "the pod's form, which the bodies that carry one draw",
+  "pod-seed.ts": "the seed every pod form is, and its sphere",
   "creature-place.ts": "where a body stands",
   "slow-fuse-place.ts": "where the fuse stands, which is `slow-fuse.ts` on the page",
   "depth.ts": "a body's depth",

@@ -33,10 +33,16 @@ export function podFormFor(id: number): PodDraw {
 }
 
 /**
- * Pod `id`'s form at a place and a size somebody else chose, faded by
- * `alpha` — the pod in the maw's grip (`drawGrippedPods`) and in THE PULSE's
- * lane (`drawPulseBody`), which are the same pod the field shows and must not
- * change shape on the way there. `fake` as `PodDraw` has it.
+ * Pod `id`'s form at a place and a size somebody else chose — the pod in the
+ * maw's grip (`drawGrippedPods`), in THE PULSE's lane (`drawPulseBody`), and
+ * the pods the bodies that carry one carry — which are the same pod the field
+ * shows and must not change shape on the way there. `fake` as `PodDraw` has
+ * it.
+ *
+ * Faded by the context's alpha times `alpha`: a caller that fades with the
+ * context (THE SCOUT's torn load) and one that hands a number in (THE
+ * PULSE's faint arrival) both get what they asked for, though every layer of
+ * the seed sets its alpha outright (`pod-fade.ts`).
  */
 export function drawPodForm(
   ctx: CanvasRenderingContext2D,
@@ -50,12 +56,13 @@ export function drawPodForm(
   alpha = 1,
 ): void {
   const form = podFormFor(id);
-  if (alpha >= 1) {
+  const fade = ctx.globalAlpha * alpha;
+  if (fade >= 1) {
     form(ctx, x, y, r, t, beatsLeft, fake);
     return;
   }
   ctx.save();
-  ctx.globalAlpha *= alpha;
-  withPodFade(alpha, () => form(ctx, x, y, r, t, beatsLeft, fake));
+  ctx.globalAlpha = fade;
+  withPodFade(fade, () => form(ctx, x, y, r, t, beatsLeft, fake));
   ctx.restore();
 }

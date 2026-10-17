@@ -57,6 +57,20 @@ describe("a pod form, faded", () => {
     }
   }
 
+  it("is faded by the context's own alpha, as THE SCOUT's torn load fades it", () => {
+    const at = (alpha: number) =>
+      alphas((c) => {
+        c.globalAlpha = alpha;
+        drawPodForm(c, 3, 100, 100, 20, 1.2, Number.POSITIVE_INFINITY);
+      });
+    const full = at(1);
+    const torn = at(0.3);
+    expect(torn).toHaveLength(full.length);
+    for (let i = 0; i < full.length; i++) {
+      expect(torn[i] ?? 0).toBeCloseTo((full[i] ?? 0) * 0.3, 6);
+    }
+  });
+
   it("leaves the context's alpha where it found it", () => {
     const { ctx } = stubCanvas();
     const c = ctx as unknown as CanvasRenderingContext2D;

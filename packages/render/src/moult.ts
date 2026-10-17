@@ -10,7 +10,8 @@ import { drawMeteor } from "./meteor.js";
 import { drawMoultNext } from "./moult-ghost.js";
 import { moultOutline } from "./moult-shape.js";
 import { PALETTE } from "./palette.js";
-import { drawPodBody, drawPodCore, POD_TILES } from "./pods.js";
+import { drawPodForm } from "./pod-forms.js";
+import { drawPodCore, POD_TILES } from "./pods.js";
 import { rockRadius } from "./rock-size.js";
 
 /**
@@ -75,7 +76,8 @@ export function drawMoultBody(b: Body): void {
   const r = Math.max(rockRadius(b.l, spanOf(b.c)), b.l.tile * POD_TILES);
   drawGlancedBody(b, { r, sort: "rock", reach: STONE_REACH }, (ctx) => {
     if (k <= 0) drawMeteor(ctx, b.l, b.c, b.x, b.y, b.time);
-    else if (k >= 1) drawPodBody(ctx, b.x, b.y, b.l.tile * POD_TILES, b.time);
+    else if (k >= 1)
+      drawPodForm(ctx, b.c.id, b.x, b.y, b.l.tile * POD_TILES, b.time, Number.POSITIVE_INFINITY);
     else drawBlend({ ...b, ctx }, k);
   });
   drawMoultNext(b);

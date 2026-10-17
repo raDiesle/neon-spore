@@ -1,7 +1,9 @@
 import { halo } from "./glow.js";
+import { showsHuskMark } from "./husk-look.js";
 import { bodyX, type Layout, tileCY } from "./layout.js";
 import { PALETTE } from "./palette.js";
-import { drawPodBody, POD_TILES } from "./pods.js";
+import { drawPodForm } from "./pod-forms.js";
+import { POD_TILES } from "./pods.js";
 
 /**
  * **A husk refused: a balloon let go.**
@@ -24,7 +26,8 @@ import { drawPodBody, POD_TILES } from "./pods.js";
  * **It is the pod's own body, shrinking, and not a new shape.** The thing the
  * pair refused has to be recognisable as the thing they refused for the whole
  * second it takes to go, or the joke is about some other object
- * (`drawPodBody`). What is added here is the flight and the air.
+ * (`drawPodForm`, the form it hung as). What is added here is the flight and
+ * the air.
  *
  * Closed form off one age, like every transient in this package: two phones
  * watching one husk go must watch it go the same way, and a per-frame step
@@ -53,6 +56,10 @@ interface Flight {
   r: number;
   /** The same on both phones — a column (`castHuskFlight`). */
   seed: number;
+  /** The husk's id, which picks its form (`podFormFor`). */
+  id: number;
+  /** Whether this seat saw it as the fake it was. */
+  fake: boolean;
   age: number;
 }
 
@@ -60,8 +67,8 @@ export class HuskDeflates {
   private live: Flight[] = [];
 
   /** A husk was refused at this point on screen, at this drawn radius. */
-  cast(x: number, y: number, r: number, seed: number): void {
-    this.live.push({ x, y, r, seed, age: 0 });
+  cast(x: number, y: number, r: number, seed: number, id: number, fake: boolean): void {
+    this.live.push({ x, y, r, seed, id, fake, age: 0 });
   }
 
   update(dt: number): void {
@@ -84,10 +91,9 @@ export class HuskDeflates {
       ctx.save();
       ctx.translate(now.x, now.y);
       ctx.rotate(t * SPIN * Math.PI * 2 + f.seed);
-      // The body's own clock is run fast, so the core flutters instead of
-      // beating: the lamp that said *this is not coming for you* is the thing
-      // losing its nerve.
-      drawPodBody(ctx, 0, 0, r, f.age * 5 + f.seed);
+      // The form it hung as, and on the seat that could tell the fake it was,
+      // its clock run fast so it tumbles in a panic rather than turning.
+      drawPodForm(ctx, f.id, 0, 0, r, f.age * 5 + f.seed, Number.POSITIVE_INFINITY, f.fake);
       ctx.restore();
     }
   }
@@ -138,17 +144,17 @@ function drawJet(ctx: CanvasRenderingContext2D, f: Flight, l: Layout, t: number)
 }
 
 /**
- * A `huskRefused` turned into a flight. The seed is the column and not the
- * pod's id: the event carries no id, and a column is a number both phones
- * already agree on — which is all the seed has to be for the two of them to
- * watch the same thing fly off.
+ * A `huskRefused` turned into a flight. The seed of its path is the column, a
+ * number both phones already agree on; its form is the husk's id, which they
+ * agree on too, and on the seat that could tell it flies off as the fake.
  */
 export function castHuskFlight(
   fx: HuskDeflates,
-  e: { col: number; row: number },
+  e: { col: number; row: number; id: number; truthP1?: true },
   l: Layout,
   put: (x: number, y: number) => { x: number; y: number },
 ): void {
   const at = put(bodyX(l, e.col, e.row), tileCY(l, e.row));
-  fx.cast(at.x, at.y, l.tile * POD_TILES, e.col);
+  const fake = showsHuskMark(l, { truthP1: e.truthP1 });
+  fx.cast(at.x, at.y, l.tile * POD_TILES, e.col, e.id, fake);
 }

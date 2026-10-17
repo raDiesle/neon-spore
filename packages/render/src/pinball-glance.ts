@@ -1,9 +1,8 @@
-import { blobPoints, POD } from "@neon-spore/content";
 import { type Glance, glanceFrame, glanceStill } from "./glance.js";
 import { drawGlancedLayer } from "./glance-layer.js";
 import { cock, type GlanceSize, glanceOf } from "./glance-styles.js";
 import { temperOf } from "./glance-temper.js";
-import { splinePath } from "./spline.js";
+import { SEED_SPHERE } from "./pod-seed.js";
 
 /** How far a target's sides open and close, in its radius, and how far it rolls. */
 export const PINBALL_GLANCE_SIZE: GlanceSize = { reach: 0.3, cock: 0.12, tilt: 0.5 };
@@ -62,23 +61,11 @@ export function drawPinTargetGlanced(
   const reach = 2.5 * Math.max(1, r / halfW);
   drawGlancedLayer(ctx, f, { dark: FAR_DARK, full: PINBALL_GLANCE_SIZE.reach, reach }, (g) => {
     draw(g);
-    // The pod's contour as `drawPodBody` draws it at rest, at each place.
-    const k = r / Math.max(POD.rx, POD.ry);
-    return at.pods.map((dx) =>
-      splinePath(
-        blobPoints(
-          x + dx,
-          y,
-          POD.rx * k,
-          POD.ry * k,
-          POD.lobes,
-          POD.depth,
-          POD.wobble,
-          0,
-          POD.seed,
-        ),
-        true,
-      ),
-    );
+    // The pod's sphere, as its form draws it (`pod-seed.ts`), at each place.
+    return at.pods.map((dx) => {
+      const p = new Path2D();
+      p.arc(x + dx, y, r * SEED_SPHERE, 0, Math.PI * 2);
+      return p;
+    });
   });
 }

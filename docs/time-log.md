@@ -43857,3 +43857,16 @@ Bottleneck: none — the bind test already globbed `events-*.ts`, so a new
 family file needed nothing registered.
 
 *Measured: 4 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-17 — Every pod the bodies carry is the pod's form
+
+- reading: 10 min. The six carriers, the moult's morph, the pinball's
+  glance, the husk's flight and what `huskRefused` carried.
+- writing: 15 min. Six calls to `drawPodForm`, the two contours as the
+  seed's sphere, `id` and `truthP1` on `huskRefused`, `drawPodBody` gone.
+- looking: 10 min. THE SEEDER and THE MOULT off the tree, the seed cropped.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, `land`.
+
+Bottleneck: the husk's flight was seeded by column, so it could not pick
+its form until the event carried the husk's id.

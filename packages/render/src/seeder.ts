@@ -3,7 +3,7 @@ import { drawGlancedBody, drawGlancedLiving } from "./creature-glance.js";
 import { livingBodyMul } from "./creature-place.js";
 import { halo } from "./glow.js";
 import { PALETTE } from "./palette.js";
-import { drawPodBody } from "./pods.js";
+import { drawPodForm } from "./pod-forms.js";
 
 /**
  * THE SEEDER, drawn: the ordinary living body in its own colour, and **the
@@ -32,5 +32,7 @@ export function drawSeederBody(b: Body): void {
   const pulse = 0.5 + 0.5 * Math.sin(time * 2.4);
   halo(b.ctx, x, y, r * 1.4, PALETTE.pod, 0.18 + 0.1 * pulse);
   // The seed turns with the body it sits in, like anything on it.
-  drawGlancedBody(b, { r, lit: true }, (ctx) => drawPodBody(ctx, x, y, r * SEED, time));
+  drawGlancedBody(b, { r, lit: true }, (ctx) =>
+    drawPodForm(ctx, b.c.id, x, y, r * SEED, time, Number.POSITIVE_INFINITY),
+  );
 }

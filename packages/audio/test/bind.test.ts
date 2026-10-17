@@ -835,7 +835,7 @@ const SAMPLES: Record<string, SimEvent> = {
   cairnHeld: { type: "cairnHeld", col: 4, row: 2 },
   balloonTopped: { type: "balloonTopped", col: 4, row: 0 },
   bounce: { type: "bounce", col: 3, row: 6, color: "red" },
-  huskRefused: { type: "huskRefused", col: 2, row: 9 },
+  huskRefused: { type: "huskRefused", col: 2, row: 9, id: 7 },
   huskSwallowed: { type: "huskSwallowed", col: 2, row: 11 },
 };
 

@@ -129,7 +129,12 @@ export function huskSwallowed(world: World, pod: Pod): void {
 export function huskRefused(world: World, pod: Pod): void {
   world.balance.husksRefused += 1;
   markMoment(world, true);
-  world.events.push({ type: "huskRefused", ...whereItWas(world, pod) });
+  world.events.push({
+    type: "huskRefused",
+    ...whereItWas(world, pod),
+    id: pod.id,
+    ...(pod.truthP1 ? { truthP1: true as const } : {}),
+  });
 }
 
 /** Where a husk was standing, for the two events that are the only picture of

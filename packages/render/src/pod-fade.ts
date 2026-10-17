@@ -1,7 +1,7 @@
 /**
- * **How present a pod form is drawn**, for the one caller that fades one —
- * THE PULSE's pod lane, where an arrival far up its lane is faint
- * (`drawPodBody`'s `alpha`).
+ * **How present a pod form is drawn**, for the callers that fade one —
+ * THE PULSE's pod lane, where an arrival far up its lane is faint, and THE
+ * SCOUT's torn load (`drawPodForm`).
  *
  * The forms set `globalAlpha` outright at every layer — a sphere at 1, a rim
  * at 0.85, a stud's back at 0.4 — so an alpha set round one is overwritten
@@ -20,10 +20,12 @@ export function faded(alpha: number): number {
   return alpha * fade;
 }
 
-/** Runs `draw` with every form's alpha scaled by `alpha`. */
+/** Runs `draw` with every form's alpha scaled by `alpha` — outright, not
+ * times an outer fade: `drawPodForm` has already folded the context's alpha,
+ * which carries any outer one, into the number it hands in. */
 export function withPodFade(alpha: number, draw: () => void): void {
   const was = fade;
-  fade = was * alpha;
+  fade = alpha;
   try {
     draw();
   } finally {

@@ -18,7 +18,7 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
  *
  * **The in-between is the whole reason this file exists.** A body that is
  * wholly one thing or wholly the other is drawn by `drawMeteor` or
- * `drawPodBody`, both of which have been through a canvas ten thousand times.
+ * `drawPodForm`, both of which have been through a canvas ten thousand times.
  * What has not is the third path — one contour blended vertex by vertex with a
  * mixed fill, a mixed stroke and the cargo's mark fading in under a scale that
  * starts at nothing (`moult-shape.ts`, `moult.ts`) — and it is on screen for

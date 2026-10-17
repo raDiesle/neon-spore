@@ -105,7 +105,7 @@ export function drawSwingThreads(
 /**
  * A heavy pod in the maw's grip: squashed into the mouth, banded, and wearing
  * the clock's own ring for the beats the second press has left — the ring a
- * pair already reads as "how long". `body` is `drawPodBody`, handed in by
+ * pair already reads as "how long". `body` is the pod's form (`drawPodForm`), handed in by
  * `pods.ts` so the two files do not import each other.
  */
 export function drawGripped(

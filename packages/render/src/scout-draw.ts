@@ -10,7 +10,7 @@ import { halo, strokeGlow } from "./glow.js";
 import type { Layout } from "./layout.js";
 import { drawRockBody } from "./meteor.js";
 import { PALETTE, STROKE } from "./palette.js";
-import { drawPodBody } from "./pods.js";
+import { drawPodForm } from "./pod-forms.js";
 import { splinePath } from "./spline.js";
 import { drawWetSocket } from "./wet-socket.js";
 
@@ -26,7 +26,7 @@ import { drawWetSocket } from "./wet-socket.js";
  * intake, opened by `mood.intake` in `scout-round.ts`, and home is a ring on
  * the water in front of it.
  *
- * **Nothing here is invented.** A mote is a pod (`drawPodBody`) — amber,
+ * **Nothing here is invented.** A mote is a pod (`drawPodForm`) — gold,
  * breathing, the thing this game has always meant by "go and get this" — and
  * a hazard is a burning rock (`drawRockBody`), the thing it has always meant
  * by "this costs the hull". The little ship itself is next door in
@@ -117,9 +117,11 @@ export function drawScoutMotes(
     const mote = motes[i];
     if (mote === undefined) continue;
     const { x, y } = scoutAt(l, mote);
-    // The pilot's glimpse tears a load, fading it by the context's alpha, and
-    // the pod's glow and halo only fade by the alpha they are handed.
-    put(i, x, y, () => drawPodBody(ctx, x, y, r * 1.18, time + i * 0.31, ctx.globalAlpha));
+    // The pilot's glimpse tears a load, fading it by the context's alpha,
+    // which the pod's form honours (`drawPodForm`). The mote's index is its id.
+    put(i, x, y, () =>
+      drawPodForm(ctx, i, x, y, r * 1.18, time + i * 0.31, Number.POSITIVE_INFINITY),
+    );
   }
 }
 
