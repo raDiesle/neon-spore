@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-17 · 48f5cc454 — Each control's death offered on VERSUS: fourteen candidates, two per control
+
+A blister knocked out still dies by the clover break every body shares, which reads as a bulb shattering and fits none of the seven controls. Each control now has a death slot on VERSUS, `blister:death-<control>`, with two candidates that go the way that control is worked: TAP plunge and popcap, HOLD drain and spill, SWIPE smear and unzip, TURN screw and spring, RUB erase and foam, COMBO snap and slide, LEVER yank and snap.
+
 ## 2026-10-17 · c622ca967 — A block is five regular waves after its new thing, not eight
 
 The owner found eight waves after each new thing too many and too samey, so every block past the tutorial now keeps Again, Reach, Pair, Recall and Peak (`BLOCK_STEPS`) and drops Spread, Breathe and Bend: 735 waves become 567, reviews, lessons and the fillers in front of bosses included. THE COIL's written wave now leads its block, since four composed steps cannot climb under it in small rises; THE LEECH, THE LURE and THE DART were softened to sit under their new gentlest child.
