@@ -43767,3 +43767,5 @@ Bottleneck: the boss-is-a-head rule was written into eight tests and one stylesh
 - landing: 10 min. `check:fast`, `land`.
 
 Bottleneck: none worth naming — the record and the pose were the only new seams.
+
+*Measured: 5 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

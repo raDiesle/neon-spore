@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-17 · 0a470b1e4 — Three places for the siren's words in VERSUS: under each name, a tag, beside
+
+`siren:words` offers three answers to where the siren's help text goes, all on a dark plate at 10 px in white, where today's line is 8 px violet-grey: UNDER, both seats' words, each under its own name chip, edged violet for P1 and amber for P2, yours bright and your partner's quieter; TAG, only your own word, hanging by a stem from your ringed chip in the ring's purple; BESIDE, both words on the bar's own row, outside each chip, so the siren is one line tall. They are judged on a new pose, SIREN · A WORD EACH. What the game draws is unchanged: the record `SIREN_WORDS` patches nothing until one is adopted.
+
 ## 2026-10-17 · 795b2717e — The director's wave list is a tree, and a boss closes the group it follows
 
 Lines run from a head's fold down to each of its waves, the fold sits against the head's number with no count beside it, and a head with a group is set in bold. A boss is no longer a head of its own: it folds under the group above it, as the last wave of the waves it follows, with no flag in the act files. The pressure number is off the rows; DOCUMENTATION › WAVES still shows it.
