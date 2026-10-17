@@ -43784,3 +43784,5 @@ Bottleneck: none worth naming — the record and the pose were the only new seam
 
 Bottleneck: finding that the auto-play kills every slick on one tile, which
 only a run of real frames showed.
+
+*Measured: 7 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

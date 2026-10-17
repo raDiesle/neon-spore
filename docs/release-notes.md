@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-17 · eb3504340 — The slick and the bulb die seven ways, dealt in turn so no two kills in a row match
+
+Every slick and bulb now dies by one of seven kills — the shipped turning break alone, or with POP, SHOCK, SCATTER, RUPTURE, AFTERGLOW or SPLASH laid over it — dealt round a deck by the body's own id, so two bodies killed one after the other never share one. The turning break under it is still drawn at random from its seven, so a kill that comes round again comes apart a different way. Until now only the pieces' motion varied, the bulb popped every time, and the seed was the tile alone: the auto-played FIRST STEP kills nine slicks on one tile and all nine died identically.
+
 ## 2026-10-17 · 0a470b1e4 — Three places for the siren's words in VERSUS: under each name, a tag, beside
 
 `siren:words` offers three answers to where the siren's help text goes, all on a dark plate at 10 px in white, where today's line is 8 px violet-grey: UNDER, both seats' words, each under its own name chip, edged violet for P1 and amber for P2, yours bright and your partner's quieter; TAG, only your own word, hanging by a stem from your ringed chip in the ring's purple; BESIDE, both words on the bar's own row, outside each chip, so the siren is one line tall. They are judged on a new pose, SIREN · A WORD EACH. What the game draws is unchanged: the record `SIREN_WORDS` patches nothing until one is adopted.
