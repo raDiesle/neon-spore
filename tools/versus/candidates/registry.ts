@@ -6,5 +6,8 @@
 // `index.ts` next door says why it is generated at all.
 
 import type { Variant } from "../variant.js";
+import { SIREN_WORDS_BESIDE } from "./siren-words/beside/index.js";
+import { SIREN_WORDS_TAG } from "./siren-words/tag/index.js";
+import { SIREN_WORDS_UNDER } from "./siren-words/under/index.js";
 
-export const VARIANTS: Variant[] = [];
+export const VARIANTS: Variant[] = [SIREN_WORDS_BESIDE, SIREN_WORDS_TAG, SIREN_WORDS_UNDER];

@@ -53,7 +53,18 @@ export function drawGaugeSiren(
 ): void {
   if (g.phase !== "play" || !gaugeWoundOpen(g)) return;
   const word = l.role === "p1" ? null : GAUGE_DUTY;
-  drawSiren(ctx, l, { p1: false, p2: true }, word, time, names, undefined, off ? "off" : "call");
+  const words = { p1: null, p2: GAUGE_DUTY };
+  drawSiren(
+    ctx,
+    l,
+    { p1: false, p2: true },
+    word,
+    time,
+    names,
+    undefined,
+    off ? "off" : "call",
+    words,
+  );
 }
 
 /**

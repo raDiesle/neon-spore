@@ -1574,6 +1574,7 @@ by hand never moves.
 | `packages/render/src/siren-seats.ts` | The two chips that flank the siren: which seat, and what that seat has to do about the thing on the field |
 | `packages/render/src/siren-lightbar.ts` | **The siren is a light bar** — the strip on an emergency vehicle's roof: a row of cells, lit in turn |
 | `packages/render/src/siren-place.ts` | Where the siren stands on a screen, and where a finger lands on it |
+| `packages/render/src/siren-words-look.ts` | How the siren's help words are placed — the record VERSUS patches for `siren:words` |
 | `packages/render/src/siren.ts` | The warning siren, top right of the field beside the strip, and the two seats' jobs under it |
 | `packages/render/src/sinew-band.ts` | **The strain band**: a tube hung in the middle of the tendon |
 | `packages/render/src/sinew-draw.ts` | **THE SINEW**: a tendon hung from a body flying over the field — the crown — down to a mass |

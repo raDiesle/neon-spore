@@ -1,4 +1,4 @@
-import { beatSeconds, type SpawnEntry } from "@neon-spore/sim";
+import { beatSeconds, livingKindForColor, type SpawnEntry } from "@neon-spore/sim";
 import { fresh, POSE_CONFIG, type Pose, run, POSE_TPB as TPB } from "./pose-kit.js";
 
 /** The beat the torch is written on: its warning comes on `radarLead` beats
@@ -29,6 +29,38 @@ export const SIREN_STATES_POSE: Pose = {
     ];
     const w = fresh(entries);
     run(w, TPB);
+    return w;
+  },
+};
+
+/** How many beats the two-word replay plays from its first. */
+const WORD_PLAYS = 6;
+
+/**
+ * **The siren owing a word on each seat, with bodies coming down under it.**
+ * A veil gives player 1 COLOUR and a lure wearing a bulb gives player 2 FAKE,
+ * so both chips are lit and both words are owed at once; three plain bodies
+ * enter beside them, so an answer is seen over the top of the field it would
+ * cover. `siren:words` is judged here (17 October 2026): where the help text
+ * goes, whose it is, and what it hides.
+ */
+export const SIREN_WORDS_POSE: Pose = {
+  name: "SIREN · A WORD EACH",
+  note: "A veil and a lure on the field: player 1 owes COLOUR and player 2 owes FAKE, while three plain bodies come down the top of the field.",
+  lookAt:
+    "the words under or beside the siren — whose each one is, whether it reads at a glance, and how much of the bodies coming down it hides",
+  crop: "field",
+  cadenceSeconds: WORD_PLAYS * beatSeconds(POSE_CONFIG),
+  build: () => {
+    const entries: SpawnEntry[] = [
+      { beat: 0, col: 2, kind: "veil", color: "red" },
+      { beat: 0, col: 4, kind: "lure", color: "cyan", wears: "bulb" },
+      { beat: 1, col: 1, kind: livingKindForColor("cyan"), color: "cyan" },
+      { beat: 1, col: 3, kind: livingKindForColor("red"), color: "red" },
+      { beat: 2, col: 5, kind: livingKindForColor("red"), color: "red" },
+    ];
+    const w = fresh(entries);
+    run(w, TPB * 2);
     return w;
   },
 };

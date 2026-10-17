@@ -43757,3 +43757,13 @@ Bottleneck: the one shared section was named by class in four files and three sh
 Bottleneck: the boss-is-a-head rule was written into eight tests and one stylesheet's comments.
 
 *Measured: 14 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-17 — `siren:words`: three places for the siren's help text
+
+- reading: 5 min. `duty.ts`, the VERSUS pose map, how the pair seats a screen.
+- writing: 20 min. The `SIREN_WORDS` record and its hook, three candidates and their shared plate, a pose with a word owed on each seat.
+- looking: 10 min. Three pairs shot on both seats, cropped to the top of the field into one picture.
+- friction: 0 min.
+- landing: 10 min. `check:fast`, `land`.
+
+Bottleneck: none worth naming — the record and the pose were the only new seams.

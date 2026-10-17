@@ -8,6 +8,7 @@ import type { SeatNames } from "./seat-name.js";
 import { BAR_HALF_W, drawLightbar, type SirenState } from "./siren-lightbar.js";
 import { barX, DUTY_DROP, GAP, sirenBottom, sirenCentre } from "./siren-place.js";
 import { drawSeat, PILL_H, pillWidth, SIREN_PAD, seatChip } from "./siren-seats.js";
+import { SIREN_WORDS } from "./siren-words-look.js";
 import { torchWarning } from "./torch-alarm.js";
 import type { ViewRole } from "./view-role.js";
 
@@ -119,10 +120,15 @@ export function drawCommsSiren(
   // A torch on its way is the alarm at its loudest, and the same window
   // `commsCall` lit the bar for.
   const state = torchWarning(world, world.cfg.radarLead) !== null ? "torch" : "call";
+  // Both seats' words, for a VERSUS answer that shows both (`siren-words-look.ts`),
+  // traded with the chips: a word is the panel's, and the panels are.
+  const p1 = sirenWord("p1", world);
+  const p2 = sirenWord("p2", world);
   if (handedOver(world)) {
     const swapped = { p1: call.p2, p2: call.p1 };
-    drawSiren(ctx, handedLayout(l, world), swapped, word, time, names, x, state);
-  } else drawSiren(ctx, l, call, word, time, names, x, state);
+    const words = { p1: p2, p2: p1 };
+    drawSiren(ctx, handedLayout(l, world), swapped, word, time, names, x, state, words);
+  } else drawSiren(ctx, l, call, word, time, names, x, state, { p1, p2 });
 }
 
 /**
@@ -143,6 +149,9 @@ export function drawSiren(
   atX?: number,
   /** A call, a torch on its way, or put away by the player: the bar alone. */
   state: SirenState = "call",
+  /** Both seats' words, for an answer that shows both; this seat's alone
+   * otherwise. */
+  words?: { p1: string | null; p2: string | null },
 ): void {
   // P1 on the left of the bar and P2 on its right, which is the order the
   // band already reads in — the cannon strip above the shield strip, player 1
@@ -165,7 +174,16 @@ export function drawSiren(
   }
   drawSeat(ctx, l, "p1", call.p1, cx - left, cy, time, names);
   drawSeat(ctx, l, "p2", call.p2, cx + right, cy, time, names);
-  if (word !== null) drawDuty(ctx, l, word, cx, cy + PILL_H / 2 + DUTY_DROP);
+  const paint = SIREN_WORDS.paint;
+  if (paint) {
+    const chips = {
+      p1: { x: cx - left, w: pillWidth(seatChip("p1", names)) },
+      p2: { x: cx + right, w: pillWidth(seatChip("p2", names)) },
+    };
+    const own = { p1: l.role === "p1" ? word : null, p2: l.role === "p2" ? word : null };
+    const at = { l, cx, cy, chips, chipH: PILL_H, words: words ?? own, word, time };
+    paint(ctx, at);
+  } else if (word !== null) drawDuty(ctx, l, word, cx, cy + PILL_H / 2 + DUTY_DROP);
   ctx.restore();
 }
 
