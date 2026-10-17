@@ -34,6 +34,7 @@
     "perf": "bun run tools/perf/run.ts",
     "profile": "bun run tools/perf/profile.ts",
     "baseline:blank": "bun run tools/perf/blank.ts",
+    "budgets:measure": "bun run tools/budgets/measure.ts",
     "port": "bun run tools/port.ts",
     "probe": "bun run tools/probe/run.ts",
     "waves:compose": "bun run tools/director/waves-compose.ts",

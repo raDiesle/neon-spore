@@ -30,6 +30,10 @@ import { SKIES } from "../src/skies.js";
  * a decision somebody makes on purpose rather than a line that turns up in the
  * output one day.
  *
+ * `bun run budgets:measure` does the pasting (`tools/budgets/`): it throws
+ * the switch for one run and writes each printed row into the next literal
+ * with its key set, raising what rose and never lowering anything.
+ *
  * A row is printed on one line whatever its width. Paste it over the row it
  * replaces and let `bun run format` wrap it — the wide tables in
  * `wave-budget.test.ts` are written a field to a line because biome put them

@@ -43827,3 +43827,16 @@ Bottleneck: the forms set their alpha outright at every layer, so a fade had
 to reach fourteen sites before THE PULSE's faint arrival could be honoured.
 
 *Measured: 14 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-17 — `bun run budgets:measure` raises the budget rows that rose
+
+- reading: 10 min. `budget-row.ts` and the seven files' `MEASURE` branches.
+- writing: 20 min. `tools/budgets/rows.ts`'s scanner and raise, the runner,
+  the tests, the two documents.
+- looking: 5 min. A run over all seven files, and the literal count per key
+  set against the printed rows.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, `land`.
+
+Bottleneck: telling a row literal from a viewport and from a row quoted in a
+comment, which is what the key-set match and the comment skip are for.

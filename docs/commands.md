@@ -73,6 +73,7 @@ bun run perf           # what a frame costs, wave by wave, at phone speed — a 
 bun run perf --wave X  # the waves the new thing appears in, and nothing else
 bun run perf --save    # keep this run as the baseline the next one is read against
 bun run profile x.ts   # which functions a script spends its time in, by self and total — tools/perf/profile.ts; `--top 40`, `-- args`
+bun run budgets:measure [file…]  # raise every op-count budget row that rose, in place; never lowers one, leaves MEASURE false — tools/budgets/
 bun run baseline:blank     # a row for every unweighed wave, a blank for every row its wave changed under; opens no browser, measures nothing, and any session may run it
 bun run orphans        # what is built and reached by nothing — a creature no wave spawns
 bun run words          # every line a player reads, measured against `.claude/skills/game-words`: guides, wave sentences, the DEMOS buttons

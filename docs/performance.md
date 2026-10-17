@@ -18,8 +18,9 @@ its own, cost a lane a run per look on an afternoon that added five.
 **What a lane does measure** is the op-count budgets in
 `packages/render/test/*-budget.test.ts`: exact counts of fills, strokes, clips,
 saves and allocations on the dearest frames of the dearest waves. A legitimate
-change that raises a row is remeasured (`MEASURE = true`, run the file, paste
-the printed rows back) and the table's comment says what moved and why. That
+change that raises a row is remeasured — `bun run budgets:measure [file…]`
+throws each file's `MEASURE` switch for one run and raises the rows that rose,
+never lowering one — and the table's comment says what moved and why. That
 is what catches a per-frame allocation the day it lands; the weekly run is
 what says whether the whole game got slower.
 

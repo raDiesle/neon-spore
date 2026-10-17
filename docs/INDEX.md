@@ -4382,5 +4382,7 @@ by hand never moves.
 | `tools/director/waves-order.ts` | `bun run waves:order [--write]`: every new thing after the arc taught again in rising cost, its blocks composed again, bosses and reviews placed |
 | `tools/director/waves-names.ts` | `bun run waves:names [id …] [--write]` Every regular wave named again by the composer… |
 | `tools/director/waves-soften.ts` | `bun run waves:soften [--write]` Every group's head that is harder than its gentlest child |
+| `tools/budgets/measure.ts` | `bun run budgets:measure [file…]` — remeasure the op-count budgets and raise every row that rose, in place |
+| `tools/budgets/rows.ts` | **The op-count budget rows of a test file, read and raised in place** |
 
 <!-- index:code:end -->
