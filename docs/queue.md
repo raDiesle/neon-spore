@@ -331,6 +331,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## The op-count budgets are remeasured by pasting rows by hand
 
 - **Found:** 2026-10-17, claude/siren-look-feedback-ui-3d7b6b
+- **Taken:** 2026-10-17, claude/the-brood-feedback-b6be33 (claim: claude/queue-the-op-count-budgets-are-remeasured-by-pasting-r)
 - **Files:** `packages/render/test/budget-row.ts`, `packages/render/test/frame-budget.test.ts`, `packages/render/test/wave-budget.test.ts`, `package.json`
 - **Where:** local
 
