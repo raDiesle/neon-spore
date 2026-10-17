@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-17 · 5ee73236d — Queue: a kept measure of a boss's difficulty, AUTO held to a human's press rate
+
+THE BROOD's two retunings each rewrote the same throttled-AUTO probe in an ignored scratch file; the queue now asks for it beside `playedBeat`.
+
 ## 2026-10-17 · 591127b0e — THE BROOD is eased: a tile higher, eight steps, and a body laid every five or six beats
 
 The owner's feedback of 17 October 2026: now too difficult — fewer bodies falling, and the boss a tile higher so a pair has a tile more to catch them. The buds hang on row three rather than four, so the whole sac hangs a row higher and everything it drops falls a tile further; the last of the two four-bud steps is gone (eight steps, seventeen buds); and a step lays a body every five or six beats rather than three or four. Played by AUTO with each seat held to one press a second it lasts about forty seconds and lays about ten bodies, where it lasted fifty-five and laid twenty-three; it clears at one press each per 1.75 seconds, where the old script lost at 1.5. A change the owner asked for by name.
