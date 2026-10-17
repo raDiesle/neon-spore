@@ -64,7 +64,7 @@ export function showsBlisterBulge(l: Layout, c: Creature): boolean {
 
 /** Where the pore sits under a body of radius `r` at `y`: under the lobes,
  * where the roots go in. */
-const poreY = (y: number, r: number): number => y + r * 0.55;
+export const poreY = (y: number, r: number): number => y + r * 0.55;
 
 export function drawBlisterBody(b: Body): void {
   const { ctx, c } = b;
@@ -75,27 +75,53 @@ export function drawBlisterBody(b: Body): void {
     else drawPore(ctx, b.x, poreY(b.y, r), r, "shut");
     return;
   }
-  const h = blisterRise(b.world.cfg, c, b.beatPhase);
+  drawBlisterRisen(b, r, blisterRise(b.world.cfg, c, b.beatPhase));
+}
+
+/**
+ * A body `h` of the way up out of its pore: the pore, the body clipped above
+ * its lip, the lip over it, and what it puts out past the pore.
+ *
+ * `bend`, where given, is laid on the body and what it puts beyond — and never
+ * on the pore — in place of the glance a living body turns by: what a
+ * blister's death redraws its body through (`blister-death.ts`), squashed,
+ * spun or pulled while the hole it came out of stays where it was.
+ */
+export function drawBlisterRisen(
+  b: Body,
+  r: number,
+  h: number,
+  bend?: (ctx: CanvasRenderingContext2D) => void,
+): void {
+  const { ctx, c } = b;
   const py = poreY(b.y, r);
   drawPore(ctx, b.x, py, r, "back");
   ctx.save();
   // Everything above the pore's middle, and the mouth of the pore itself: the
   // body is seen coming out of the hole and is never drawn below its lip.
   // What it puts out past the pore is its `beyond`, drawn after the lip.
+  // A bent body may be carried well off its tile; one standing is not.
+  const reach = bend ? r * 16 : r * 4;
   const clip = new Path2D();
-  clip.rect(b.x - r * 4, b.y - r * 4, r * 8, py - (b.y - r * 4));
+  clip.rect(b.x - reach, b.y - reach, reach * 2, py - (b.y - reach));
   clip.ellipse(b.x, py, r * PORE_RX, r * PORE_RY, 0, 0, Math.PI * 2);
   ctx.clip(clip);
   ctx.globalAlpha *= Math.min(1, h * 2);
   const look = BLISTER_BODY[blisterGestureOf(c)];
   const frame = { r, rise: h, poreY: py };
-  // The body turns as it comes up; the pore it comes out of stays flat.
-  drawGlancedBody(b, { r, reach: BLISTER_REACH }, (g) => look.draw({ ...b, ctx: g }, frame));
+  if (bend) {
+    bend(ctx);
+    look.draw(b, frame);
+  } else {
+    // The body turns as it comes up; the pore it comes out of stays flat.
+    drawGlancedBody(b, { r, reach: BLISTER_REACH }, (g) => look.draw({ ...b, ctx: g }, frame));
+  }
   ctx.restore();
   drawPore(ctx, b.x, py, r, "lip");
   if (look.beyond === drawNothingBeyond) return;
   ctx.save();
   ctx.globalAlpha *= Math.min(1, h * 2);
+  bend?.(ctx);
   look.beyond(b, frame);
   ctx.restore();
 }

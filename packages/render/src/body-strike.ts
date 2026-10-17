@@ -55,7 +55,7 @@ export class BodyStrikeFx {
     for (const e of events) {
       if (e.type !== "destroy") continue;
       const seed = killSeed(e);
-      const look = hitAt(e.kind, e.of, seed, e.id);
+      const look = hitAt(e.kind, e.of, seed, e.id, e.gesture);
       if (look.life <= 0 || !hasOwnBody(e.kind)) continue;
       const shape = livingSilhouette(e.kind);
       // The plain footprint, as `effects-break.ts` cuts it: there is no

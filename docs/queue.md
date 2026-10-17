@@ -430,3 +430,19 @@ them from each header with a throwaway script. The generator should take an
 act file's row from its header whenever the header says it was cut by
 `waves:order`, as it already does for a new file; prove it by recutting and
 running `bun run index` and the drift test with nothing else.
+
+## `versus:shot` writes the wrong picture when the frozen moment moves nothing
+
+- **Found:** 2026-10-17, claude/controls-destroy-animations-76f397
+- **Files:** `tools/frames/versus-shot.ts`, `tools/director/src/versus-one.ts`
+
+A candidate that only acts after an event (a blister's death, patched in
+`blister:death-*`) moves nothing at a `--freeze` before that event. The page
+then reads MOVES 0.000% and lays out differently, and `--at` crops whatever
+lies at those coordinates. The command still exits 0 with `wrote …`. The
+death lane took four uncropped frames this way and read them as broken
+candidates until the cause was found. `versus-one.ts` already knows the
+share; it should set a `data-moves` attribute on the row, and `versus-shot.ts`
+should refuse, by name, a frozen frame whose candidate moves 0%. Prove it with
+a test on the refusal message and on `bun run versus:shot blister:death-tap
+plunge x.png --freeze 0.1`.

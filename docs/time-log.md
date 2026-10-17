@@ -44048,3 +44048,20 @@ pass of their own instead of riding the full reorder.
 Bottleneck: the fillers lane landing on the same act files while this one ran.
 
 *Measured: 7 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-17 — Each control's death, as candidates on VERSUS
+
+- reading: 5 min. The clover break every body dies by (`body-hit.ts`,
+  `effects-break.ts`), the blister's body and help, how a VERSUS slot patches.
+- writing: 10 min. The kill naming its control, `blister-death.ts` and its fx,
+  the body and help split so a death can redraw them, the test, fourteen
+  candidates and seven poses.
+- looking: 15 min. Fourteen four-frame strips, shot twice.
+- friction: 5 min. The tile crop in device pixels, the wave's end banner over
+  the death, the seat that showed a clock, a swipe stroked into the pore —
+  each an empty or wrong strip before it was found; and shots timing out at
+  load 58.
+- landing: 5 min. `check:fast` red twice under the same load, then `land`.
+
+Bottleneck: getting a strip that showed the death at all — every wrong frame
+looked like a broken candidate until the pose under it was found.

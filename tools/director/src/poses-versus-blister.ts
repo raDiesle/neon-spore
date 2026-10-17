@@ -1,8 +1,10 @@
 import {
+  type BlisterBy,
   type BlisterGesture,
   type BlisterSwipeWay,
   blisterIsUp,
   NO_BEARING,
+  type SpawnEntry,
   type TimedCommand,
   type World,
 } from "@neon-spore/sim";
@@ -201,8 +203,18 @@ export function sinceUp(w: World, gesture: BlisterGesture, way?: BlisterSwipeWay
   return w.tick - up;
 }
 
-/** A blister of one gesture, just up out of its pore, pointing its way if it has one. */
-export function blisterUp(gesture: BlisterGesture, way?: BlisterSwipeWay): World {
+/**
+ * A blister of one gesture, just up out of its pore, pointing its way if it
+ * has one. `more.by` is whose blows count (player 2's, left out); `more.later`
+ * is spawned after it, far enough off that it is not up while the pose is: a
+ * body still to come keeps the wave from ending — and the field from dimming
+ * under its banner — on the frame this one goes.
+ */
+export function blisterUp(
+  gesture: BlisterGesture,
+  way?: BlisterSwipeWay,
+  more: { by?: BlisterBy; later?: readonly SpawnEntry[] } = {},
+): World {
   const spawn = {
     beat: 0,
     col: 4,
@@ -210,8 +222,9 @@ export function blisterUp(gesture: BlisterGesture, way?: BlisterSwipeWay): World
     color: null,
     row: 3,
     gesture,
+    ...(more.by === undefined ? {} : { by: more.by }),
   } as const;
-  const w = fresh([way ? { ...spawn, way } : spawn]);
+  const w = fresh([way ? { ...spawn, way } : spawn, ...(more.later ?? [])]);
   until(w, "a blister up", (x) => x.creatures.some(blisterIsUp));
   return w;
 }

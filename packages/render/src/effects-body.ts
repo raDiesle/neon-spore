@@ -1,4 +1,5 @@
 import type { SimConfig, SimEvent, World } from "@neon-spore/sim";
+import { BlisterDeathFx } from "./blister-death-fx.js";
 import { BlisterVerdictFx } from "./blister-verdicts.js";
 import { BodyStrikeFx } from "./body-strike.js";
 import { ChuteCutFx } from "./chute-cut.js";
@@ -79,6 +80,8 @@ export class BodyTransients {
   private strandFuse = new StrandFuseFx();
   /** THE BLISTER's green ring off every blow that counted (`blister-verdicts.ts`). */
   private blisterVerdict = new BlisterVerdictFx();
+  /** And its body going its control's way, where one is chosen (`blister-death.ts`). */
+  private blisterDeath = new BlisterDeathFx();
 
   /** `time` is the wall clock the contour wobble is sampled at — the husk
    * freezes the outline the body had on the frame the layer came off. */
@@ -125,6 +128,7 @@ export class BodyTransients {
     // the bodies are gone from the world on the tick it fires.
     this.strandFuse.ingest(events, l, cfg, time);
     this.blisterVerdict.ingest(events);
+    this.blisterDeath.ingest(events);
   }
 
   update(dt: number): void {
@@ -144,6 +148,7 @@ export class BodyTransients {
     this.bodyStrike.update(dt);
     this.strandFuse.update(dt);
     this.blisterVerdict.update(dt);
+    this.blisterDeath.update(dt);
   }
 
   draw(ctx: CanvasRenderingContext2D, l: Layout, surfaceY?: SurfaceY): void {
@@ -209,7 +214,8 @@ export class BodyTransients {
     // And the jet a recoil vented downward out of the tile it was struck in,
     // with a wake of embers reaching up to wherever the body is now.
     this.recoilVent.draw(ctx, l, world, beatPhase, leaps);
-    // And a blister's verdict, last: it answers the thumb, over everything.
+    // And a blister's death under its verdict, last: it answers the thumb.
+    this.blisterDeath.draw(ctx, l, world, beatPhase);
     this.blisterVerdict.draw(ctx, l, world, beatPhase);
   }
 
@@ -236,5 +242,6 @@ export class BodyTransients {
     this.bodyStrike.clear();
     this.strandFuse.clear();
     this.blisterVerdict.clear();
+    this.blisterDeath.clear();
   }
 }

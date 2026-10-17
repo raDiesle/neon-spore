@@ -1,4 +1,6 @@
+import type { BlisterGesture } from "@neon-spore/sim";
 import { BALLOON_SKIN } from "./balloon-burst.js";
+import { blisterDeathHit } from "./blister-death.js";
 import { afterglow } from "./body-hit-afterglow.js";
 import { defuse } from "./body-hit-defuse.js";
 import { pop } from "./body-hit-pop.js";
@@ -211,7 +213,9 @@ export const BODY_HIT: HitLook = { pieces: BREAK_LOOK, life: 0, strike: none };
  * is the one place the game tells them apart. It is asked first, and a body
  * without one falls through to what it wore.
  */
-export function hitFor(kind: string, of?: string): HitLook {
+export function hitFor(kind: string, of?: string, gesture?: BlisterGesture): HitLook {
+  // A blister whose control goes its own way (`blister-death.ts`).
+  if (kind === "blister") return blisterDeathHit(gesture) ?? BODY_HIT;
   if (of === "echo") return ECHO_HIT;
   if (of === "rind") return RIND_HIT;
   if (kind === "slick") return SLICK_HIT;
@@ -226,7 +230,13 @@ export function hitFor(kind: string, of?: string): HitLook {
 
 /** The look one kill comes out as: the kind's record, or the card its deck
  * deals for `seed`. What the pieces, the strike and the sparks all ask. */
-export function hitAt(kind: string, of: string | undefined, seed: number, id?: number): HitLook {
-  const look = hitFor(kind, of);
+export function hitAt(
+  kind: string,
+  of: string | undefined,
+  seed: number,
+  id?: number,
+  gesture?: BlisterGesture,
+): HitLook {
+  const look = hitFor(kind, of, gesture);
   return look.pick?.(seed, id) ?? look;
 }

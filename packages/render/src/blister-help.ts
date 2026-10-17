@@ -86,46 +86,62 @@ export function drawBlisterHelp(
   time: number,
 ): void {
   for (const c of world.creatures) {
-    if (!blisterIsUp(c)) continue;
-    const h = blisterRise(world.cfg, c, beatPhase);
-    if (h <= 0) continue;
-    const { x, y } = flatCenter(l, c, beatPhase);
-    const r = flatRadius(l, world.cfg, c, beatPhase);
-    const markR = handleRadius(l, world.cfg) * KNOB_SHARE * PULL_SIZE;
-    const mine = l.role === "test" || blisterMayTap(c, seatOf(l.role));
-    ctx.save();
-    ctx.globalAlpha *= h;
-    const gesture = blisterGestureOf(c);
-    const holding = gesture === "hold";
-    const held = holding && heldNow(world, c);
-    if (mine && blisterStrokes(c)) {
-      drawSwipeTrack(ctx, l, world, c, { x, y, r }, time);
-    } else if (mine && gesture === "lever") {
-      drawBlisterLever(ctx, l, world, c, { x, y, r }, time);
-    } else if (mine && gesture === "turn") {
-      drawBlisterTurn(ctx, l, world, c, { x, y, r }, time);
-    } else if (mine && gesture === "rub") {
-      const held = blisterRubbing(c);
-      if (!held) drawMarkHalo(ctx, x, y, r, time);
-      const turns = blisterBlowsOf(world.cfg, c);
-      const done = turns - blisterBlowsLeft(world.cfg, c);
-      drawRubDrop(ctx, { x, y }, markR, { time, turns, done, held });
-    } else if (mine && holding) {
-      if (!held) drawMarkHalo(ctx, x, y, r, time);
-      const fill = blisterHoldShare(world, c);
-      drawSoakHold(ctx, { x, y }, markR, { time, held, fill });
-    } else if (mine) {
-      drawMarkHalo(ctx, x, y, r, time);
-      const times = blisterBlowsOf(world.cfg, c);
-      const done = times - blisterBlowsLeft(world.cfg, c);
-      drawPressDrop(ctx, { x, y }, markR, { time, times, done });
-    } else {
-      drawMarkWait(ctx, x, y, r, time);
-    }
-    if (held) drawMarkHeld(ctx, x, y, r, time);
-    if (mine) drawBlisterBlows(ctx, world.cfg, c, { x, y, r }, time);
-    ctx.restore();
+    if (blisterIsUp(c)) drawBlisterHelpOf(ctx, l, world, c, beatPhase, time);
   }
+}
+
+/**
+ * One blister's help. `rise` is how far up it is drawn, and its own clock's
+ * answer where left out: a blister's death hands in the body it kept after
+ * the blow, whose clock has stopped (`blister-death-fx.ts`).
+ */
+export function drawBlisterHelpOf(
+  ctx: CanvasRenderingContext2D,
+  l: Layout,
+  world: World,
+  c: Creature,
+  beatPhase: number,
+  time: number,
+  rise?: number,
+): void {
+  const h = rise ?? blisterRise(world.cfg, c, beatPhase);
+  if (h <= 0) return;
+  const { x, y } = flatCenter(l, c, beatPhase);
+  const r = flatRadius(l, world.cfg, c, beatPhase);
+  const markR = handleRadius(l, world.cfg) * KNOB_SHARE * PULL_SIZE;
+  const mine = l.role === "test" || blisterMayTap(c, seatOf(l.role));
+  ctx.save();
+  ctx.globalAlpha *= h;
+  const gesture = blisterGestureOf(c);
+  const holding = gesture === "hold";
+  const held = holding && heldNow(world, c);
+  if (mine && blisterStrokes(c)) {
+    drawSwipeTrack(ctx, l, world, c, { x, y, r }, time);
+  } else if (mine && gesture === "lever") {
+    drawBlisterLever(ctx, l, world, c, { x, y, r }, time);
+  } else if (mine && gesture === "turn") {
+    drawBlisterTurn(ctx, l, world, c, { x, y, r }, time);
+  } else if (mine && gesture === "rub") {
+    const held = blisterRubbing(c);
+    if (!held) drawMarkHalo(ctx, x, y, r, time);
+    const turns = blisterBlowsOf(world.cfg, c);
+    const done = turns - blisterBlowsLeft(world.cfg, c);
+    drawRubDrop(ctx, { x, y }, markR, { time, turns, done, held });
+  } else if (mine && holding) {
+    if (!held) drawMarkHalo(ctx, x, y, r, time);
+    const fill = blisterHoldShare(world, c);
+    drawSoakHold(ctx, { x, y }, markR, { time, held, fill });
+  } else if (mine) {
+    drawMarkHalo(ctx, x, y, r, time);
+    const times = blisterBlowsOf(world.cfg, c);
+    const done = times - blisterBlowsLeft(world.cfg, c);
+    drawPressDrop(ctx, { x, y }, markR, { time, times, done });
+  } else {
+    drawMarkWait(ctx, x, y, r, time);
+  }
+  if (held) drawMarkHeld(ctx, x, y, r, time);
+  if (mine) drawBlisterBlows(ctx, world.cfg, c, { x, y, r }, time);
+  ctx.restore();
 }
 
 /** Whether a hand that counts is on it now, on either seat — the sim's own question. */
@@ -150,7 +166,7 @@ function drawSwipeTrack(
   const length = (blisterLengthMilliOf(world.cfg, c) * l.tile) / 1000;
   const along = blisterSwipeShare(world, c);
   const held = blisterSwipeHeld(c);
-  const way = WAY[blisterWayOf(c)];
+  const way = BLISTER_WAY[blisterWayOf(c)];
   const r = handleRadius(l, world.cfg) * KNOB_SHARE;
   const track: PullTrack = {
     pts: [
@@ -179,7 +195,7 @@ const KNOB_SHARE = 0.8;
 const LOOK = { hex: PALETTE.hullRim, rim: PALETTE.text } as const;
 
 /** Each way a stroke counts, as the unit step on the field. */
-const WAY: Record<BlisterSwipeWay, { dx: number; dy: number }> = {
+export const BLISTER_WAY: Record<BlisterSwipeWay, { dx: number; dy: number }> = {
   down: { dx: 0, dy: 1 },
   up: { dx: 0, dy: -1 },
   right: { dx: 1, dy: 0 },

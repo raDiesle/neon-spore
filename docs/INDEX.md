@@ -2862,6 +2862,8 @@ by hand never moves.
 | `packages/render/src/blister-swipe-body.ts` | **THE BLISTER's SWIPE body: SLUG or ZIP, one per blister** (the owner, 15 October 2026, on `blister:swipe` |
 | `packages/render/src/blister-swipe-slug.ts` | SLUG, one of SWIPE's two bodies: a slug humped in the pore, stretched along the channel to the knob |
 | `packages/render/src/blister-swipe-zip.ts` | ZIP, one of SWIPE's two bodies: a pod zipped shut along the channel, the knob its pull |
+| `packages/render/src/blister-death-fx.ts` | **A blister's death, played out on the body it was** (`blister-death.ts`) |
+| `packages/render/src/blister-death.ts` | **THE ONE RECORD A CANDIDATE BLISTER DEATH PATCHES**, one per control |
 | `packages/render/src/blister.ts` | THE BLISTER, drawn: |
 | `packages/render/src/canvas2d-stage.ts` | **The letterbox**: what is drawn in the window but outside the game — the paint either side of a phone-shaped stage, and the hairline saying where the phone ends |
 | `packages/render/src/canvas2d-held.ts` | **What a host may reach of the renderer's state**, as the class `Canvas2DRenderer` stands on |
@@ -3849,6 +3851,7 @@ by hand never moves.
 | `tools/director/src/poses-versus-blister.ts` | THE BLISTER's COMBO pose `blister:combo` is judged on: pressed, pulled the whole stroke and lifted by a hand of its own |
 | `tools/director/src/poses-versus-blister-swipe.ts` | THE BLISTER's SWIPE poses `blister:swipe` is judged on: a stroke carried and lifted, then one half carried, stroked down and stroked up |
 | `tools/director/src/poses-versus-blister-hold.ts` | THE BLISTER's HOLD pose `blister:hold` is judged on: a thumb kept on it a beat, one blow, then lifted |
+| `tools/director/src/poses-versus-blister-death.ts` | **Each control knocked out, and the body going** |
 | `tools/director/src/poses-versus-states.ts` | The half of `poses-versus.ts` that shows something other than a body: the panel, the ship taking damage |
 | `tools/director/src/poses-volley.ts` | THE VOLLEY, warded three times by a hand that never misses |
 | `tools/director/src/poses-bodies.ts` | The pose a candidate for a *body* is judged on, as opposed to one for a mechanism firing |

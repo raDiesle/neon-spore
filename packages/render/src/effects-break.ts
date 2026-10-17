@@ -1,5 +1,5 @@
 import { hasOwnBody, livingPoints, livingSilhouette } from "@neon-spore/content";
-import type { Color, CreatureKind, SimEvent } from "@neon-spore/sim";
+import type { BlisterGesture, Color, CreatureKind, SimEvent } from "@neon-spore/sim";
 import { hitAt } from "./body-hit.js";
 import { contourClock, livingRadius, livingScale } from "./creature-place.js";
 import { colorTrio } from "./creature-tint.js";
@@ -43,7 +43,15 @@ export function breakBody(
   debris: Debris,
   l: Layout,
   time: number,
-  e: { id?: number; col: number; row: number; color: Color; kind: CreatureKind; of?: CreatureKind },
+  e: {
+    id?: number;
+    col: number;
+    row: number;
+    color: Color;
+    kind: CreatureKind;
+    of?: CreatureKind;
+    gesture?: BlisterGesture;
+  },
 ): void {
   if (!hasOwnBody(e.kind)) return;
   const shape = livingSilhouette(e.kind);
@@ -56,7 +64,7 @@ export function breakBody(
   // numbers both of them agree about (`tile-seed.ts`).
   const seed = killSeed(e);
   debris.break({
-    look: hitAt(e.kind, e.of, seed, e.id).pieces,
+    look: hitAt(e.kind, e.of, seed, e.id, e.gesture).pieces,
     outline: livingPoints(shape, contourClock(seed, time)),
     scale: livingScale(shape, r),
     x: tileCX(l, e.col),
@@ -84,5 +92,5 @@ export function breakBody(
  */
 export function breakSparks(e: SimEvent, n: number): number {
   if (e.type !== "destroy") return n;
-  return Math.round(n * hitAt(e.kind, e.of, killSeed(e), e.id).pieces.sparkScale);
+  return Math.round(n * hitAt(e.kind, e.of, killSeed(e), e.id, e.gesture).pieces.sparkScale);
 }

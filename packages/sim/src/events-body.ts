@@ -1,4 +1,5 @@
 import type { BossKind, RoundKind } from "./boss-strike.js";
+import type { BlisterGesture } from "./creature-state-blister.js";
 import type { BreachWeight } from "./hull-damage.js";
 import type { Color, Creature } from "./types.js";
 
@@ -33,6 +34,8 @@ export type BodyEvent =
    * has no cause to.
    * `id` is the body's own — hashed, so both phones agree on it — and every
    * kill in `sim` sets it: a slick dies a different way each body.
+   * `gesture` is set by THE BLISTER's kill alone: one kind wearing seven
+   * controls, each of which may go its own way (`render/blister-death.ts`).
    */
   | {
       type: "destroy";
@@ -42,6 +45,7 @@ export type BodyEvent =
       color: Color;
       kind: Creature["kind"];
       of?: Creature["kind"];
+      gesture?: BlisterGesture;
     }
   /**
    * A crater, or a rock swept aside. `kind` and `span` are the body's, so a

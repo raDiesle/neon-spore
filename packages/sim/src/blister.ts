@@ -177,6 +177,7 @@ export function blisterBlow(world: World, c: Creature): void {
     // what every other colourless body's kill already says (`mine.ts`).
     color: c.color ?? "cyan",
     kind: "blister",
+    gesture: blisterGestureOf(c),
   });
   removeCreature(world, c.id);
 }

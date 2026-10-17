@@ -13,7 +13,7 @@ import { blisterUp, sent, sinceUp } from "./poses-versus-blister.js";
  * and the COMPARED LOOKS sheet carries the stroke UP beside it — the way ON
  * THE FIELD's `BLISTER · A STROKE HALF CARRIED` points.
  */
-function swipePlayed(way: BlisterSwipeWay, name: string): Pose {
+export function swipePlayed(way: BlisterSwipeWay, name: string): Pose {
   return {
     name,
     note: `A SWIPE blister is up out of its pore for its two beats, three blows owed, its channel running ${way}. Player 2 takes the knob, carries it the whole stroke and lifts — one blow — then takes it again and holds it half way. Player 2's screen, the seat its BY names.`,

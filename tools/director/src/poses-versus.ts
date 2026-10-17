@@ -1,4 +1,5 @@
 import type { Pose, PoseGroup } from "./pose-kit.js";
+import { BLISTER_DEATH_POSES } from "./poses-versus-blister-death.js";
 import { VERSUS_BODY_POSES } from "./poses-versus-bodies.js";
 import { VERSUS_STATE_POSES } from "./poses-versus-states.js";
 
@@ -34,7 +35,11 @@ import { VERSUS_STATE_POSES } from "./poses-versus-states.js";
  * slot's pose is a row in one of them; this file only joins the two.
  */
 
-export const VERSUS_POSES: Pose[] = [...VERSUS_BODY_POSES, ...VERSUS_STATE_POSES];
+export const VERSUS_POSES: Pose[] = [
+  ...VERSUS_BODY_POSES,
+  ...BLISTER_DEATH_POSES,
+  ...VERSUS_STATE_POSES,
+];
 
 export const VERSUS_GROUP: PoseGroup = {
   title: "COMPARED LOOKS",
