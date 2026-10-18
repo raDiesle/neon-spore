@@ -331,6 +331,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## `waves:order` would undo the softened intros and the lesson blocks' faults
 
 - **Found:** 2026-10-17, claude/boss-wave-parent-structure-bf752f
+- **Taken:** 2026-10-18, claude/queue-tasks-245f98 (claim: claude/queue-waves-order-would-undo-the-softened-intros-and-t)
 - **Files:** `tools/director/waves-order.ts`, `tools/director/waves-soften.ts`, `tools/director/src/compose-lesson.ts`
 
 On a clean `main` (600 waves, before the fillers), `bun run waves:order`
