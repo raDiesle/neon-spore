@@ -331,6 +331,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## A recut leaves every act's row in `docs/INDEX.md` describing its old waves
 
 - **Found:** 2026-10-17, claude/wave-generation-difficulty-e466b9
+- **Taken:** 2026-10-18, claude/queue-tasks-245f98 (claim: claude/queue-a-recut-leaves-every-acts-row-in-docs-index-md-d)
 - **Files:** `tools/index/generate.ts`, `tools/director/src/waves-recut.ts`
 
 `waves:order --write` and `--recut` rewrite every act header after the arc
