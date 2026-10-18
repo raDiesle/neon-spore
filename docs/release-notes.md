@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-18 · 8e6ee1921 — Every control's parent wave shows its control's picture in the wave list
+
+Content counts the five-plus controls as one kind, the blister, so only THE BLISTER introduced anything and its chip was SWIPE; TAP, HOLD, SWIPE, TURN, RUB, COMBO and LEVER opened their groups with no picture. Now a wave's chips are each control it is first to carry plus the one whose own wave it is, so every control's head shows its own brush. DOCUMENTATION › WAVES › EVERY WAVE reads its NEW column the same way. Exemption: a fix to something wrong.
+
 ## 2026-10-18 · c052ec60c — Every control body says who must answer it: P1, P2, BOTH or EITHER
 
 THE BLISTER's BY row — the setting on every CONTROLS brush — offers four choices instead of three, and EITHER is the default (the owner, by name: a look asked for, so this lands straight in the game). EITHER is what the old BOTH meant: the first seat to finish the gesture deals the blow. BOTH is new: each seat must finish the gesture before the blow lands; the first seat's finish is its half, heard and ringed green, and its hand waits until the partner's lands. A HOLD or LEVER on BOTH counts only while both hands are on, THE WEIGHT's press held together. Every wave's blister is set back to the default; the tutorials keep their named seats.

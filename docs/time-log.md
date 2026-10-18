@@ -44494,3 +44494,5 @@ had to be read before it could be renamed.
 
 Bottleneck: reading — a kind in content is several brushes in the director,
 and only a probe over the real list showed which waves fell through.
+
+*Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
