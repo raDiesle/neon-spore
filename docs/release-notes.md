@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-18 · c29ebb369 — A rub no thumb has touched shakes hard and throws a wave off each knock
+
+Its call was a gentle sway with faint arcs, hardly told apart from a press. Now the drop knocks three times each way, quicker, snapping across and thrown nearly half its width, and every knock throws three bold arcs off the side it hit that spread out and fade — neon round a white core. A press still hops and rings all round, so the two differ at a glance. A look the owner asked for by name.
+
 ## 2026-10-18 · a521ad120 — A body the shield pushed back up no longer carries ONE LAST CHANCE
 
 The words over a creature the shield has already pushed are gone; the push still flashes the rim red and sprays red off the dome. The wave of that name and its guide caption are unchanged. A look the owner asked for by name.
