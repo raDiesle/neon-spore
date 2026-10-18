@@ -3,7 +3,6 @@ import { createWorld, DEFAULT_CONFIG, type Scar } from "@neon-spore/sim";
 import { computeLayout, tileCX } from "../src/layout.js";
 import { LOST_LOOK, type LostPaint } from "../src/lost-look.js";
 import { drawLostScreen } from "../src/lost-screen.js";
-import { triesText } from "../src/lost-words.js";
 import { FRAME_TIMEOUT_MS, installCanvasGlobals, stubCanvas } from "./canvas-stub.js";
 
 // The cap, applied per file because bun applies it to the file it is in
@@ -31,10 +30,9 @@ const L = computeLayout({ width: 900, height: 1600, dpr: 2 }, CFG, "test");
 
 beforeAll(installCanvasGlobals);
 
-function shown(scars: Scar[], runTries = 0): LostPaint {
+function shown(scars: Scar[]): LostPaint {
   const world = createWorld(CFG, 1);
   world.scars.push(...scars);
-  world.runTries = runTries;
   const seen: LostPaint[] = [];
   const was = { veil: LOST_LOOK.veil, words: LOST_LOOK.words };
   Object.assign(LOST_LOOK, {
@@ -61,16 +59,6 @@ describe("the lost screen is told where it got through", () => {
   it("says so plainly when nothing scarred the ship", () => {
     // A wall earths through the dome: the wave is lost and the skin is whole.
     expect(shown([]).breachX).toBeNull();
-  });
-
-  it("counts the run's tries, not this wave's", () => {
-    // The owner, 24 September 2026: the name, and *next to it number of total
-    // tries for all waves together* (`lost-words.ts`). A world that has not
-    // opened a wave still says one: the screen is only up after a try.
-    expect(shown([], 9).tries).toBe(9);
-    expect(shown([]).tries).toBe(1);
-    expect(triesText(1)).toBe("1 TRY");
-    expect(triesText(9)).toBe("9 TRIES");
   });
 
   it("hands over the buttons' own line, so an answer can stay above it", () => {
@@ -102,7 +90,7 @@ describe("the lost screen is told where it got through", () => {
  * an alpha that leaves the unit range is exactly what the stub refuses.
  */
 describe("the lost screen's own paint survives a canvas that refuses what a real one does", () => {
-  for (const age of [0, 0.13, 2.5]) {
+  for (const age of [0, 0.13, 1.5, 2.5]) {
     it(`draws at ${age} seconds with a breach to cut around`, () => {
       const world = createWorld(CFG, 1);
       world.scars.push({ col: 7, beat: 5, kind: "meteor" });

@@ -7,6 +7,7 @@ import type { SurfaceY } from "./hull-frame.js";
 import { type Layout, tileCX } from "./layout.js";
 import { drawLostAnswer, lostButtons } from "./lost-answer.js";
 import { LOST_LOOK } from "./lost-look.js";
+import { drawLostRetries } from "./lost-retries.js";
 import { waveName } from "./wave-intro.js";
 
 /**
@@ -17,8 +18,7 @@ import { waveName } from "./wave-intro.js";
  * greyed, with the breach still where it was seen — the point of the pause was
  * that the pair look at where it got through, and a screen that hid it would
  * be a screen that took that away. Over it, in the introduction's own type:
- * WAVE 7 LOST, and under it the wave's name and the run's tries
- * (`lost-words.ts`).
+ * WAVE 7 LOST, and under it the wave's name (`lost-words.ts`).
  * Then the buttons, the guide bar's own grown bodies with a word on the face
  * instead of a sign, because these are the one place in the game where a
  * sign would not do: a wave can be *left*, and the word for that has to be
@@ -74,7 +74,6 @@ export function drawLostScreen(
     age: v.age,
     wave: world.wave + 1,
     name: waveName(world),
-    tries: Math.max(1, world.runTries),
     reason: failReason(world),
     breachX: scarred === undefined ? null : tileCX(l, scarred.col),
     // **The colour the hit arrived in, off the scar itself.** A `Scar` carried
@@ -102,7 +101,11 @@ export function drawLostScreen(
   // not the world's: `world.brief.guide` says whether *this opening* carried
   // one, and a wave gone again opens without it — so the button would have
   // vanished after the first retry, which is the one case it exists for.
-  drawLostAnswer(ctx, l, { ...v, guided: waveHasGuide(world.wave) });
+  const guided = waveHasGuide(world.wave);
+  drawLostAnswer(ctx, l, { ...v, guided });
+  // Under the buttons, the run's retries counting up by one: what the loss
+  // cost, in the heading's red (`lost-retries.ts`).
+  drawLostRetries(ctx, l, { age: v.age, retries: world.retries, guided });
 }
 
 export { type LostButtons, lostButtons, lostHit } from "./lost-answer.js";

@@ -426,3 +426,27 @@ imported `@napi-rs/canvas` by its path under `node_modules/.bun` (the bare
 `call-sheet` beside it) that paints hold, press and rub untouched, a row each,
 a column every 0.06 s through one round, and writes one PNG. Prove it with a
 test that the sheet has three rows and that the rub row moves between columns.
+
+## `bun run sheet` captions a `frames` strip at 0.8 s a cell whatever its stride
+
+- **Found:** 2026-10-18, claude/retry-counter-visibility-3866b3
+- **Files:** `tools/frames/sheet.ts`, `tools/frames/run.ts`
+
+`sheet` was written for `shot` strips taken every 800 ms, and it captions
+every cell that way — so a `bun run frames … --frames 8 --stride 1` strip,
+eight ticks apart, reads `0.0s 0.8s … 5.6s`, and timing the lost screen's
+retry roll off it was guesswork. The prefix also has to be `frame`, not
+`frame-`, which fails with a stack and no sentence. Have `frames` write each
+frame's `world.tick` beside it (a sidecar or the filename) and `sheet` caption
+from that when it is there; accept a trailing `-` in the prefix. Prove it with
+a test that a two-frame, stride-1 strip is captioned one tick apart.
+
+## `World.runTries` is counted, hashed and read by nothing
+
+- **Found:** 2026-10-18, claude/retry-counter-visibility-3866b3
+- **Files:** `packages/sim/src/world.ts`, `packages/sim/src/wave-start.ts`, `packages/sim/src/run.ts`, `packages/sim/src/hash.ts`, `packages/sim/test/hash-coverage.test.ts`, `packages/sim/test/rules.test.ts`
+
+The lost screen was its one reader, and it shows `World.retries` under the
+buttons now (`lost-retries.ts`). Remove the field, its increment, its reset,
+its hash push and its rows in the two tests — or name what should read it.
+Prove it with `bun run check`.

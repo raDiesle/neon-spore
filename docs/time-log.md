@@ -44510,3 +44510,19 @@ Bottleneck: reading — knowing which colour and skin words were already taken
 by shipped creatures before naming six new ones.
 
 *Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-18 — The lost screen counts the run's retries up by one, big and red under the buttons
+
+- reading: 10 min. The lost screen's words, buttons and seam, the cleared
+  card, where `retries` goes up.
+- writing: 15 min. `lost-retries.ts`, the name line and the cleared card's
+  `NO RETRIES` taken off, the tests.
+- looking: 20 min. `bun run frames` strips across the roll; the new number
+  crossed its label and the clip was moved to the baseline.
+- friction: 5 min. `sheet` captions every cell 0.8 s apart, so the roll's
+  frames were found by guessing ticks (queued).
+- landing: 10 min. A new halo radius baked a sprite the growth test counts,
+  and the index wanted a row.
+
+Bottleneck: looking — catching a third of a second of roll in frames whose
+captions did not say when they were.

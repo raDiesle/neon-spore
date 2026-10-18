@@ -62,7 +62,8 @@ describe("the screen between the waves", () => {
     const said = drawn(world).map((t) => t.text);
     expect(said).toContain(`WAVE ${WAVE + 1} CLEARED`);
     expect(said).toContain(NAME);
-    expect(said.some((t) => t.includes("0:") && t.includes("NO RETRIES"))).toBe(true);
+    // The clock alone while nothing has been lost: no `NO RETRIES`.
+    expect(said.some((t) => t.includes("0:") && !t.includes("RETR"))).toBe(true);
     // Three lines and no fourth: no score, and nothing said per seat.
     expect(said).toHaveLength(3);
   });

@@ -106,7 +106,11 @@ export function drawWaveCleared(ctx: CanvasRenderingContext2D, l: Layout, world:
     ctx.fillStyle = PALETTE.text;
     // The two figures a run is, in the formats the balance sheet reads them
     // in — one clock format in the game, and it is the sim's (`wave-fail.ts`).
-    ctx.fillText(`${clockText(playSeconds(world))} · ${retriesText(world.retries)}`, 0, 0);
+    // **No `NO RETRIES`.** The owner, 18 October 2026, had it taken off the
+    // start of the wave: a run that has not lost is not told so, and the count
+    // is said loudly where it goes up (`lost-retries.ts`).
+    const clock = clockText(playSeconds(world));
+    ctx.fillText(world.retries === 0 ? clock : `${clock} · ${retriesText(world.retries)}`, 0, 0);
   });
 
   ctx.textAlign = "left";

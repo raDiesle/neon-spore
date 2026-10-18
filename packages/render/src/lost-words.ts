@@ -4,8 +4,7 @@ import { PALETTE } from "./palette.js";
 import { drop } from "./text-drop.js";
 
 /**
- * The words of the lost screen: WAVE 7 LOST, and under it the wave's name and
- * how many tries the run has taken.
+ * The words of the lost screen: WAVE 7 LOST, and under it the wave's name.
  *
  * **Four lines became two on 22 September 2026**, at the owner's word. What it
  * said was WAVE LOST, then `WAVE 4 · TRY 2 · RUN IT AGAIN`, then *The tear is
@@ -29,6 +28,10 @@ import { drop } from "./text-drop.js";
  * counts every try at every wave of the run now, not the tries at this one
  * (`World.runTries`). A corner nobody looks at was the one place on the screen
  * a number could go unread.
+ *
+ * **And out from beside the name on 18 October 2026**, the owner again: the
+ * count was still too easy to miss. It is the run's retries now, big and red
+ * under the buttons, rolling up by one (`lost-retries.ts`).
  *
  * The words fall in the way the introduction's do (`text-drop.ts`), off the
  * opening's clock. This file is the `shutters` candidate whole, under its own
@@ -68,11 +71,6 @@ function fitHead(ctx: CanvasRenderingContext2D, text: string, width: number): st
   const wide = ctx.measureText(text).width;
   if (wide <= room || wide <= 0) return ctx.font;
   return headFont(Math.max(HEAD_MIN_PX, Math.floor((HEAD_PX * room) / wide)));
-}
-
-/** The run's tries, as a count a player can say: `1 TRY`, `9 TRIES`. */
-export function triesText(tries: number): string {
-  return `${tries} ${tries === 1 ? "TRY" : "TRIES"}`;
 }
 
 /**
@@ -120,7 +118,7 @@ export function words(ctx: CanvasRenderingContext2D, p: LostPaint): void {
   drop(ctx, mid, y + LINE, p.age, 2, 0, () => {
     ctx.font = '600 13px "Courier New",monospace';
     ctx.fillStyle = PALETTE.pod;
-    ctx.fillText(`${p.name} · ${triesText(p.tries)}`, 0, 0);
+    ctx.fillText(p.name, 0, 0);
   });
 
   // **The reason**, where a breach is not it (`fail-cause.ts`): the line the
