@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-18 · 0e57d61f4 — Brush palette: MORSEL, SEEDER, BALLOON and CHOIR under SUCK, LID under CONTROLS
+
+The director's palette shows the maw's two bodies and the two a hand pulls together beside the pods, and THE LID beside the on-screen controls. Only the button moved; each body's category is unchanged. A look the owner asked for by name.
+
 ## 2026-10-18 · 3230614c0 — An act file cut by waves:order always takes its INDEX row from its header
 
 `bun run index` now rewrites the row of any act file whose header says it was cut by `bun run waves:order`, whatever the row said, and with the header's whole first sentence so the boss that closes the act is not cut off. A recut used to leave rows naming waves their files no longer held, and drift.test.ts failed until they were rewritten by hand.
