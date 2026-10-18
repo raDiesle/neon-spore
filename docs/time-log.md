@@ -44390,3 +44390,13 @@ Bottleneck: `waves:order` holds the list past the arc as a fixed point, and
 every way the move disturbed it surfaced one run at a time.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-18 — the five bosses about arc bodies stay past the arc
+
+- reading: 0 min. The entry was this session's own, filed an hour before.
+- writing: 5 min. The answer into the test's comment, the entry out.
+- looking: 0 min. Nothing drawn moved.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, `land`.
+
+Bottleneck: none; the code already did what the answer chose.

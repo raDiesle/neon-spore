@@ -413,25 +413,3 @@ When the field grew a row, three films (THE WEIGHT, THE GAP, THE CAIRN) each
 needed a beat more, and the check reported them one at a time, a round each.
 Collect every failing film and assert the list is empty; prove it by
 shortening two films and reading both names in one failure.
-
-## Five bosses are about bodies that moved into the arc
-
-- **Found:** 2026-10-18, claude/enemy-intro-waves-b86955
-- **Taken:** 2026-10-18, claude/enemy-intro-waves-b86955 (claim: claude/queue-five-bosses-are-about-bodies-that-moved-into-the)
-- **Files:** `tools/director/src/boss-about.ts`, `tools/director/src/boss-slots.ts`, `tools/director/test/boss-slots.test.ts`
-- **Asks:** Should THE VISE, THE STARE, THE BATON, THE SPLICE and THE FLUE close their bodies' blocks in the arc, or stay past it?
-
-The owner moved fourteen bodies into the arc on 18 October 2026, between THE
-BROOD and THE ROCK on STANDARD 2, each a head and three regular waves with a
-boss after it to come. `BOSS_ABOUT` already names a shipped boss for five of
-them — THE VISE for SHELL, THE STARE for COUNT, THE BATON for STRAND, THE
-SPLICE for ECHO, THE FLUE for GHOST — but `bossOrder` only places bosses past
-the arc, so those five now take whatever block is free and the test skips
-their rows. The options: **(a)** move each into the arc after its body's
-three waves — THE VISE, THE STARE and THE BATON are on the full panel and THE
-SPLICE and THE FLUE on panels of their own, so the arc would meet the shield,
-the maw or a new panel early, against the run's whole premise and the owner's
-17 October rule that a boss on its own panel stands past the basics; **(b)**
-leave them where `bossOrder` puts them and write new STANDARD 2 bosses for
-those slots, as for the other nine; **(c)** (a) for the three on the full
-panel only, played on STANDARD 2 if they can be.

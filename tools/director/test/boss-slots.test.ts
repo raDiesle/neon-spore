@@ -80,8 +80,8 @@ describe("the bosses' places (wave-curriculum §7)", () => {
     for (const [boss, about] of Object.entries(BOSS_ABOUT)) {
       // A block in the arc is closed by no boss past it: THE VISE, THE STARE,
       // THE SPLICE, THE FLUE and THE BATON are about bodies the owner moved
-      // into the arc on 18 October 2026, and wait on his answer there
-      // (`docs/queue.md`).
+      // into the arc on 18 October 2026, and he chose the same day to leave
+      // them past it — the arc's blocks get STANDARD 2 bosses of their own.
       if (WAVES.findIndex((w) => w.id === about) < finale) continue;
       const at = WAVES.findIndex((w) => w.id === boss);
       let head = at - 1;
