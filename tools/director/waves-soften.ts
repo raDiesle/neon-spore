@@ -1,6 +1,6 @@
 #!/usr/bin/env bun
 import { WAVES, wavePressure } from "@neon-spore/content";
-import { CHARGES, playOut, standWave } from "./src/autopilot-play.js";
+import { playsClean } from "./src/autopilot-play.js";
 import { hardHeads, softenHeads } from "./src/soften-intro.js";
 import { writeWaves } from "./src/waves-acts.js";
 
@@ -12,18 +12,13 @@ import { writeWaves } from "./src/waves-acts.js";
  * spread apart, as little as that takes and only as far as AUTO still clears
  * it clean at every charge. Without `--write` it prints each head
  * and the pressure it would come to, and changes nothing; with it, the act
- * files are saved through the director's own save.
+ * files are saved through the director's own save. `waves:order` ends with
+ * the same pass (`src/curriculum-run.ts`), so an order written after this
+ * keeps what it softened.
  */
 
-/** AUTO clears the wave with no breach, at every charge it is tested at. */
-const clears = (wave: Parameters<typeof standWave>[0], i: number): boolean =>
-  CHARGES.every(([, cfg]) => {
-    const { world, breaches } = playOut(standWave(wave, i, cfg));
-    return world.balance.wavesCleared === 1 && breaches === 0;
-  });
-
 const before = hardHeads(WAVES);
-const { waves, stuck } = softenHeads(WAVES, clears);
+const { waves, stuck } = softenHeads(WAVES, playsClean);
 for (const { i, head, child } of before) {
   const wave = WAVES[i];
   const to = stuck.includes(i) ? "stays — no softening reaches it" : wavePressure(waves[i]!);

@@ -3998,6 +3998,7 @@ by hand never moves.
 | `tools/director/src/cell-config-blister.ts` | **THE BLISTER's rows under the selected cell** |
 | `tools/director/src/curriculum-cost.ts` | **What a new thing costs to learn**: pressure weight plus talk, the order blocks are taught in (`wave-curriculum.md` §4.1) |
 | `tools/director/src/curriculum-order.ts` | **The order new things are taught in**: units after the arc, rising cost, bodies and levers taking turns (`wave-curriculum.md` §4.1) |
+| `tools/director/src/curriculum-run.ts` | **The whole of `bun run waves:order`, as a function of the list** |
 | `tools/director/src/grid-note.ts` | The line of arithmetic under the map: how many entries and pods the wave carries, how long it runs |
 | `tools/director/src/grid-gestures.ts` | **Everything a hand can do to one cell of the map**: point at it, paint it, drag a stroke across it |
 | `tools/director/src/grid-rows.ts` | The map's beat labels — a number that seeks — and the two row edits behind them, a beat opened and a span of beats taken out, without a question |
@@ -4416,7 +4417,7 @@ by hand never moves.
 | `tools/director/waves-bosses.ts` | `bun run waves:bosses` — every boss moved to the end of the first block that has taught what it needs, and with `--write` saved |
 | `tools/director/waves-review.ts` | `bun run waves:review` — composes the next review blocks, one after another, and writes them |
 | `tools/director/waves-lessons.ts` | `bun run waves:lessons` — moves every lesson behind its block, composes its eight, places the bosses again |
-| `tools/director/waves-order.ts` | `bun run waves:order [--write]`: every new thing after the arc taught again in rising cost, its blocks composed again, bosses and reviews placed |
+| `tools/director/waves-order.ts` | `bun run waves:order --write` or `--recut`: `src/curriculum-run.ts` run on the shipped list, and the act files written |
 | `tools/director/waves-names.ts` | `bun run waves:names [id …] [--write]` Every regular wave named again by the composer… |
 | `tools/director/waves-soften.ts` | `bun run waves:soften [--write]` Every group's head that is harder than its gentlest child |
 | `tools/director/waves-fillers.ts` | `bun run waves:fillers [--write]` A filler (`src/compose-filler.ts`) in front of every boss past the arc that… |

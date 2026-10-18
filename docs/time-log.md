@@ -44246,3 +44246,16 @@ Bottleneck: writing forty-five lines that are each true to the rules, which
 meant checking who sees what for every one.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-18 — `waves:order` ends with the soften pass, and a test holds it
+
+- reading: 10 min. `waves-order.ts`, `waves-soften.ts`, `soften-intro.ts`,
+  and a dry run of each on `main`: the order already said *nothing
+  changes*, since the lanes after the finding had re-ordered and softened.
+- writing: 10 min. The pipeline cut into `src/curriculum-run.ts`, the soften
+  pass at its end, `playsClean` shared, the fixed-point test.
+- looking: 0 min.
+- friction: 0 min.
+- landing: 10 min. Two half-minute dry runs and the test, `check:fast`, `land`.
+
+Bottleneck: every proof is the whole composer running, half a minute each.

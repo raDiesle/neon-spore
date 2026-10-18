@@ -328,25 +328,6 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/skipped.test.ts` holds the listing's count of the entries
 `next` stepped past and why.
 
-## `waves:order` would undo the softened intros and the lesson blocks' faults
-
-- **Found:** 2026-10-17, claude/boss-wave-parent-structure-bf752f
-- **Taken:** 2026-10-18, claude/queue-tasks-245f98 (claim: claude/queue-waves-order-would-undo-the-softened-intros-and-t)
-- **Files:** `tools/director/waves-order.ts`, `tools/director/waves-soften.ts`, `tools/director/src/compose-lesson.ts`
-
-On a clean `main` (600 waves, before the fillers), `bun run waves:order`
-without `--write` says *the list changes*: THE LIMPET's Again and Spread
-come out with other entries, its Pair to Peak and all eight of THE LEECH's
-with other faults (and some entries and pods). Those blocks were changed
-after the last full order, by `waves:soften` (14c2a5037, *No group's head
-is harder than its gentlest child*) and by hand, and the order writes them
-from scratch. So `waves:order --write` today would quietly undo that work;
-the fillers lane added `waves:fillers` rather than running it. Make the
-order end with the soften pass (or run `softenIntros` over its result) and
-find what moved the lesson faults, until a run on `main` says *nothing
-changes* — then a test can hold that, as `boss-slots.test.ts` holds
-`waves:bosses`.
-
 ## `compose-block.ts` is at 221 lines: cut `Block` and `Motif` out
 
 - **Found:** 2026-10-17, claude/boss-wave-parent-structure-bf752f
