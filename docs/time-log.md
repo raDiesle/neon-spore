@@ -44216,3 +44216,16 @@ Bottleneck: none worth the name; the scratch probes were still on disk to
 copy from.
 
 *Measured: 6 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-18 — `whenSeen` rebuilds its watcher for a new fake DOM
+
+- reading: 5 min. `when-seen.ts`, the STATES test's own note, and how
+  `fake-dom.ts` keeps its observers per install.
+- writing: 5 min. The failing test first, then the class the watcher was
+  built from, compared on every call.
+- looking: 0 min.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: none; the test file's own comment named the cause, and the
+shard neighbour did not need finding once a test reproduced it alone.

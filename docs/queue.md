@@ -328,21 +328,6 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/skipped.test.ts` holds the listing's count of the entries
 `next` stepped past and why.
 
-## The STATES room's section test fails under the sharded check and passes alone
-
-- **Found:** 2026-10-17, claude/salvage-wave-boss-reassign-e5734a
-- **Taken:** 2026-10-18, claude/queue-tasks-245f98 (claim: claude/queue-the-states-rooms-section-test-fails-under-the-sh)
-- **Files:** `tools/director/test/states-page.test.ts`, `tools/director/src/states-section.ts`
-
-`bun run land` went red on all three tests of *a STATES room's own section*
-(built 0 poses where 1 was expected; `THE GAUGE · bound` not found), and the
-same file passed alone straight after, and on the next `land`. The file's own
-note says `section`'s watcher is a module-level singleton built against the
-first global `IntersectionObserver` — another test in the same shard
-installing a fake DOM first would leave it holding a dead one. Find the shard
-neighbour, and give `section` a way to reset its watcher, or the test its own
-module instance.
-
 ## `waves:order` would undo the softened intros and the lesson blocks' faults
 
 - **Found:** 2026-10-17, claude/boss-wave-parent-structure-bf752f
