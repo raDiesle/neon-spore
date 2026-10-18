@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-18 · ef14a63f6 — compose-block.ts's Block and Motif move to compose-block-types.ts
+
+The two interfaces every composer imports, which grow a field per kind of block, now live in tools/director/src/compose-block-types.ts and are re-exported from compose-block.ts, so no importer moved. compose-block.ts is 172 lines, down from 221.
+
 ## 2026-10-18 · cebaa00b7 — waves:order ends with the soften pass, and a test holds that it changes nothing
 
 `bun run waves:order` now softens every group's head to its gentlest child as its last step, the pass `waves:soften` makes, so an order written after a soften no longer quietly undoes it. Its pipeline moved into tools/director/src/curriculum-run.ts as `orderWaves`, and a new test runs it on the shipped list and expects nothing to move, as boss-slots.test.ts holds `waves:bosses`. It takes half a minute.
