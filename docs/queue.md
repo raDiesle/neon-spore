@@ -331,6 +331,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## `compose-block.ts` is at 221 lines: cut `Block` and `Motif` out
 
 - **Found:** 2026-10-17, claude/boss-wave-parent-structure-bf752f
+- **Taken:** 2026-10-18, claude/queue-tasks-245f98 (claim: claude/queue-compose-block-ts-is-at-221-lines-cut-block-and-m)
 - **Files:** `tools/director/src/compose-block.ts`
 
 The fillers lane added `Block.only` and took it to 221 lines. The seam is
