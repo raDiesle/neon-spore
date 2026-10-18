@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-18 · b41fed646 — A boss's difficulty is a command: bun run waves:difficulty
+
+`bun run waves:difficulty <wave id>` plays a wave with AUTO on both seats, each held to one press every N seconds, over twenty seeds, and prints cleared, lost, mean beats and THE BROOD's bodies laid and buds dropped. THE BROOD was retuned twice against that table from a throwaway script; the throttle is now `playedAt` and `pressGate` in tools/probe/world.ts, one gap per seat, held by a test.
+
 ## 2026-10-17 · 9e14e7174 — Each blister gesture opens its own group, with three waves after it
 
 TAP, HOLD, SWIPE, TURN, RUB, COMBO and LEVER each head a group now: the gesture's tutorial, then three regular waves on the tutorial's steps — Again, Reach and Pair — 21 waves in all, before HELLO BLISTER and THE BASTION. The heads are named for their gesture. `bun run waves:controls --groups` composes them.

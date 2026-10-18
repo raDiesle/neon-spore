@@ -44214,3 +44214,5 @@ so the whole list is regenerated for 21 waves.
 
 Bottleneck: none worth the name; the scratch probes were still on disk to
 copy from.
+
+*Measured: 6 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
