@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-18 · 3230614c0 — An act file cut by waves:order always takes its INDEX row from its header
+
+`bun run index` now rewrites the row of any act file whose header says it was cut by `bun run waves:order`, whatever the row said, and with the header's whole first sentence so the boss that closes the act is not cut off. A recut used to leave rows naming waves their files no longer held, and drift.test.ts failed until they were rewritten by hand.
+
 ## 2026-10-18 · a7feca080 — THE SWINDLE's crossing pods pass on an arc, one up and one down
 
 When THE SWINDLE swaps two pods, they no longer slide through each other on one row. The pod going right dips toward the hull and the other rises toward her, each a pod's width clear at the middle of the swap, even of a pod hanging still between them, and both are back on the row when the swap ends. The pilot can now follow both by eye. She hangs a little higher to leave room for the rising pod under her, and the arc is the same for a real pod and a fake one.

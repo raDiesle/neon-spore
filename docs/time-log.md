@@ -44301,3 +44301,5 @@ Bottleneck: friction — a command that hung on stdin looked like a machine busy
 
 Bottleneck: finding why the existing refresh rule had not reached those
 rows: they were written by hand before the first recut.
+
+*Measured: 9 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
