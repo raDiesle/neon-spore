@@ -6,9 +6,9 @@ import { handedLayout } from "./handover.js";
 import type { Layout } from "./layout.js";
 import type { SeatNames } from "./seat-name.js";
 import { BAR_HALF_W, drawLightbar, type SirenState } from "./siren-lightbar.js";
-import { barX, DUTY_DROP, GAP, sirenBottom, sirenCentre } from "./siren-place.js";
-import { drawSeat, PILL_H, pillWidth, SIREN_PAD, seatChip } from "./siren-seats.js";
-import { SIREN_WORDS } from "./siren-words-look.js";
+import { barX, GAP, sirenBottom, sirenCentre } from "./siren-place.js";
+import { drawSeat, PILL_H, pillWidth, seatChip } from "./siren-seats.js";
+import { underWords } from "./siren-words.js";
 import { torchWarning } from "./torch-alarm.js";
 import type { ViewRole } from "./view-role.js";
 
@@ -56,12 +56,9 @@ export { sirenBottom, sirenCentre, sirenHit } from "./siren-place.js";
  * to bring it back (`sirenHit`, `ViewState.sirenOff`).
  *
  * The bar itself is `siren-lightbar.ts` and the chips are `siren-seats.ts`;
- * this file places them and writes the duty word under them.
+ * this file places them, and `siren-words.ts` hangs each seat's word under
+ * its own chip.
  */
-
-const DUTY_FONT = '700 8px "Courier New",monospace';
-/** The word's colour, the dial's tick colour before it. */
-const DUTY_INK = "#5B5486";
 
 /**
  * The lowest row the whole cluster claims — the duty word's, under the bar —
@@ -120,8 +117,8 @@ export function drawCommsSiren(
   // A torch on its way is the alarm at its loudest, and the same window
   // `commsCall` lit the bar for.
   const state = torchWarning(world, world.cfg.radarLead) !== null ? "torch" : "call";
-  // Both seats' words, for a VERSUS answer that shows both (`siren-words-look.ts`),
-  // traded with the chips: a word is the panel's, and the panels are.
+  // Both seats' words, each under its own chip (`siren-words.ts`), traded
+  // with the chips: a word is the panel's, and the panels are.
   const p1 = sirenWord("p1", world);
   const p2 = sirenWord("p2", world);
   if (handedOver(world)) {
@@ -149,7 +146,7 @@ export function drawSiren(
   atX?: number,
   /** A call, a torch on its way, or put away by the player: the bar alone. */
   state: SirenState = "call",
-  /** Both seats' words, for an answer that shows both; this seat's alone
+  /** Both seats' words, each under its own chip; this seat's alone
    * otherwise. */
   words?: { p1: string | null; p2: string | null },
 ): void {
@@ -174,39 +171,11 @@ export function drawSiren(
   }
   drawSeat(ctx, l, "p1", call.p1, cx - left, cy, time, names);
   drawSeat(ctx, l, "p2", call.p2, cx + right, cy, time, names);
-  const paint = SIREN_WORDS.paint;
-  if (paint) {
-    const chips = {
-      p1: { x: cx - left, w: pillWidth(seatChip("p1", names)) },
-      p2: { x: cx + right, w: pillWidth(seatChip("p2", names)) },
-    };
-    const own = { p1: l.role === "p1" ? word : null, p2: l.role === "p2" ? word : null };
-    const at = { l, cx, cy, chips, chipH: PILL_H, words: words ?? own, word, time };
-    paint(ctx, at);
-  } else if (word !== null) drawDuty(ctx, l, word, cx, cy + PILL_H / 2 + DUTY_DROP);
+  const chips = {
+    p1: { x: cx - left, w: pillWidth(seatChip("p1", names)) },
+    p2: { x: cx + right, w: pillWidth(seatChip("p2", names)) },
+  };
+  const own = { p1: l.role === "p1" ? word : null, p2: l.role === "p2" ? word : null };
+  underWords(ctx, { l, cx, cy, chips, chipH: PILL_H, words: words ?? own });
   ctx.restore();
-}
-
-/** The word this seat owes, centred under the bar, or nothing. */
-function drawDuty(
-  ctx: CanvasRenderingContext2D,
-  l: Layout,
-  word: string,
-  cx: number,
-  y: number,
-): void {
-  ctx.font = DUTY_FONT;
-  ctx.textAlign = "center";
-  ctx.textBaseline = "middle";
-  ctx.fillStyle = DUTY_INK;
-  // Pulled back inside the screen when it is too wide to be centred under the
-  // bar. THE FENCE's own word is nineteen characters — FIND GAP FOR SHIELD,
-  // the owner's wording — and two kinds owing a word at once join theirs with
-  // a dot, so the line outgrew the corner it was first written for. The bar
-  // is in the middle now and the clamp is rarely reached, but it stays:
-  // the words are the instruction, and the one thing that must not happen is
-  // half of one running off the edge of the phone.
-  const half = ctx.measureText(word).width / 2;
-  const x = Math.min(Math.max(cx, SIREN_PAD + half), l.width - SIREN_PAD - half);
-  ctx.fillText(word, x, y);
 }

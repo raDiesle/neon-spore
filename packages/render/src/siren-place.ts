@@ -4,6 +4,7 @@ import type { Layout } from "./layout.js";
 import type { SeatNames } from "./seat-name.js";
 import { BAR_HALF_W } from "./siren-lightbar.js";
 import { PILL_H, pillWidth, SIREN_PAD, seatChip } from "./siren-seats.js";
+import { PLATE_DROP, PLATE_H } from "./siren-words-plate.js";
 
 /**
  * Where the siren stands on a screen, and where a finger lands on it — the
@@ -21,11 +22,6 @@ const TOP = 24;
 const MID_DROP = PILL_H / 2 + 8;
 /** Between a chip and the bar. */
 export const GAP = 4;
-
-/** How far under the chips the duty word's middle sits. */
-export const DUTY_DROP = 8;
-/** Half the duty word's own height, which is what hangs under its middle. */
-const DUTY_HALF = 4;
 
 /** How far round the bar a tap still lands on it: a fingertip, not a pixel. */
 const HIT_X = 10;
@@ -58,8 +54,8 @@ function sirenRightX(l: Layout, names?: SeatNames): number {
 
 /** The lowest row the cluster claims whenever it is drawn, call or none. */
 export function sirenBottom(l: Layout): number {
-  // The word is drawn on its middle, so half of it hangs under its baseline.
-  return sirenCentre(l).y + PILL_H / 2 + DUTY_DROP + DUTY_HALF;
+  // The words' plates hang under the chips (`siren-words.ts`).
+  return sirenCentre(l).y + PILL_H / 2 + PLATE_DROP + PLATE_H;
 }
 
 /** The bar's middle across on this screen: pinned right for a boss that holds

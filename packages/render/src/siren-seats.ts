@@ -1,9 +1,10 @@
 import type { Seat } from "./comms.js";
-import { drawEarGlyph, drawSpeechGlyph } from "./comms-glyphs.js";
 import { halo } from "./glow.js";
 import type { Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
 import { hasSeatName, type SeatNames, seatName } from "./seat-name.js";
+import { P1_SKIN, P2_SKIN } from "./seat-skin.js";
+import { SIREN_VOICE } from "./siren-voice-look.js";
 
 /**
  * The two chips that flank the siren: which seat, and what that seat has to do
@@ -85,6 +86,12 @@ export function seatChip(seat: Seat, names?: SeatNames): string {
 }
 /** The housing colour the label is knocked out of, shared with the bar. */
 const CASE = "#0D1117";
+/** How fast the talker's block blinks, in radians a second: about once a
+ * second, slow enough to be a signal and not a flicker. */
+const BLINK = 6.5;
+/** The talker's frame: the seat's own colour round the lit block. */
+const FRAME_W = 2;
+const FRAME_OUT = 2;
 
 /**
  * One seat's chip: its name and the job it has this frame.
@@ -120,8 +127,11 @@ export function drawSeat(
   // The test view is both halves on one screen, so neither chip is anybody's
   // "own" and neither is ringed — the same exemption `showsVeilCore` makes.
   const mine = l.role === seat;
-  // Only a talker's chip breathes. A listener has nothing to time.
-  const pulse = talks ? 0.84 + 0.16 * Math.sin(time * 6) : 1;
+  // Only a talker's chip blinks. A listener has nothing to time. **It blinks,
+  // it does not breathe** (the owner, 18 October 2026): the block falls to
+  // under two thirds and comes back, where it used to sway by a sixth and
+  // read as standing still.
+  const pulse = talks ? 0.62 + 0.38 * (0.5 + 0.5 * Math.sin(time * BLINK)) : 1;
   const label = seatChip(seat, names);
   const width = pillWidth(label);
   const left = cx - width / 2;
@@ -133,7 +143,18 @@ export function drawSeat(
 
   if (talks) {
     // Light behind it first, so the block reads as lit rather than as painted.
-    halo(ctx, cx, cy, width * 0.85, PALETTE.text, 0.2 * pulse);
+    halo(ctx, cx, cy, width * 1.1, PALETTE.text, 0.38 * pulse);
+    // **A frame in the seat's own colour**, violet for P1 and amber for P2 —
+    // the edge of the word plate hung under it (`siren-words.ts`) — at full
+    // strength while the block blinks inside it, so the chip that has to talk
+    // is outlined even at the bottom of its blink.
+    ctx.globalAlpha = 1;
+    ctx.strokeStyle = seat === "p1" ? P1_SKIN.tint : P2_SKIN.tint;
+    ctx.lineWidth = FRAME_W;
+    ctx.beginPath();
+    const o = FRAME_OUT;
+    ctx.roundRect(left - o, top - o, width + o * 2, PILL_H + o * 2, 5 + o);
+    ctx.stroke();
     ctx.globalAlpha = pulse;
     ctx.fillStyle = PALETTE.text;
     ctx.beginPath();
@@ -144,7 +165,7 @@ export function drawSeat(
     ctx.globalAlpha = 1;
     ctx.fillStyle = CASE;
     ctx.fillText(label, left + TEXT_LEFT, cy + 0.5);
-    drawSpeechGlyph(ctx, left + width - 9, cy - 0.5, 5.4, CASE, 1);
+    SIREN_VOICE.speak(ctx, left + width - 9, cy, CASE, time);
   } else {
     ctx.globalAlpha = 0.55;
     ctx.fillStyle = CASE;
@@ -160,16 +181,18 @@ export function drawSeat(
     ctx.globalAlpha = 0.9;
     ctx.fillStyle = PALETTE.dim;
     ctx.fillText(label, left + TEXT_LEFT, cy + 0.5);
-    drawEarGlyph(ctx, left + width - 9, cy, 5, PALETTE.dim, 0.95);
+    SIREN_VOICE.listen(ctx, left + width - 9, cy, PALETTE.dim, time);
   }
 
-  // The ring that says *this one is you*, outside the box either way.
+  // The ring that says *this one is you*, outside the box either way — and
+  // outside the talker's frame, so the two never lie on one another.
   if (mine) {
+    const r = talks ? FRAME_OUT + 2.5 : 2.5;
     ctx.globalAlpha = 0.95;
     ctx.strokeStyle = PALETTE.hull;
     ctx.lineWidth = 1.4;
     ctx.beginPath();
-    ctx.roundRect(left - 2.5, top - 2.5, width + 5, PILL_H + 5, 7);
+    ctx.roundRect(left - r, top - r, width + r * 2, PILL_H + r * 2, 5 + r);
     ctx.stroke();
   }
 

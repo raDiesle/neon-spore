@@ -2390,3 +2390,20 @@ its control's two, picked by the kill's seed so both phones agree
 and `spring`, RUB `erase` and `foam`, COMBO `slide` and `snap`, LEVER `snap`
 and `yank`. They were taken by hand, because `adopt` takes one answer per
 slot, and each slot was then closed with `drop`.
+
+## `siren:words` / `under` — taken, 2026-10-18
+
+the owner, 18 October 2026: use UNDER in the game, reject the rest
+
+both seats' words, each on a dark plate under its own name chip, edged violet
+for P1 and amber for P2 — yours bright, your partner's quieter
+
+The paint moved from `tools/versus/candidates/siren-words/under/paint.ts` to
+`packages/render/src/siren-words.ts`, and its plate to `siren-words-plate.ts`,
+and became the only word row there is: the record VERSUS patched
+(`siren-words-look.ts`) and the shipped line it replaced (`drawDuty`) went
+with the question. In the same lane, as the owner asked, the talker's chip
+blinks harder and is framed in its seat's colour, and the icon of saying is
+a size up — and its animation was opened as `siren:voice`.
+
+The other answers offered were `beside` and `tag`; they went with the slot.

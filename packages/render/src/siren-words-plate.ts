@@ -1,10 +1,11 @@
-import { PALETTE } from "../../../../packages/render/src/palette.js";
-import { P1_SKIN, P2_SKIN } from "../../../../packages/render/src/seat-skin.js";
+import { PALETTE } from "./palette.js";
+import { P1_SKIN, P2_SKIN } from "./seat-skin.js";
 
 /**
- * What the three `siren:words` answers share: a word on a dark plate, which is
- * what keeps it readable over a bright sky and over a body passing behind it,
- * at the smallest box that does — and the colour that says whose it is.
+ * The plate a siren word sits on: a word on a dark case, which is what keeps
+ * it readable over a bright sky and over a body passing behind it, at the
+ * smallest box that does — and the colour that says whose it is. Taken from
+ * VERSUS with `siren-words.ts` (`siren:words` / `under`, 18 October 2026).
  */
 
 /** A size up from the shipped line's 8 px, and white rather than violet-grey:
@@ -12,6 +13,8 @@ import { P1_SKIN, P2_SKIN } from "../../../../packages/render/src/seat-skin.js";
 export const WORD_FONT = '700 10px "Courier New",monospace';
 /** The plate's height, and the air either side of the word inside it. */
 export const PLATE_H = 14;
+/** Between a chip's bottom and the plate's top. */
+export const PLATE_DROP = 3;
 const PAD_X = 5;
 const CASE = "#0D1117";
 

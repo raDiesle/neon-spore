@@ -34,7 +34,7 @@ import { POSE_GROUPS } from "./poses.js";
  * so a slot showing it needs no dedicated one.
  */
 const SLOT_POSE: Record<string, string> = {
-  "siren:words": "SIREN · A WORD EACH",
+  "siren:voice": "SIREN · A CALL, THEN A TORCH",
 };
 
 /** The pose a slot gets when nothing in `SLOT_POSE` names it. */

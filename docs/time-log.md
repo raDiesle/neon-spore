@@ -44528,3 +44528,18 @@ Bottleneck: looking — catching a third of a second of roll in frames whose
 captions did not say when they were.
 
 *Measured: 5 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-18 — SIREN:WORDS · UNDER taken, the talker louder, `siren:voice` opened
+
+- reading: 5 min. The three candidates, the siren's chip and glyph files,
+  `versus adopt`'s rules.
+- writing: 10 min. UNDER folded in as the only word row, the chip's blink
+  and seat-coloured frame, the voice record and four animated candidates.
+- looking: 10 min. Four candidates at three moments each, cropped; the
+  mouth read as the strip's eye and was redrawn as an open jaw.
+- friction: 0 min.
+- landing: 5 min. Eight wave budgets rose by a plate's ops and were
+  remeasured with `budgets:measure`.
+
+The bottleneck was looking: an icon twelve pixels across has to be cropped
+at three moments before a wrong one (a lens that reads as an eye) shows.
