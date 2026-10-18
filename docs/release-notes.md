@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-18 · 7876f562c — A brush's hover card says how to kill it, in one short line
+
+The director's hover card on a brush used to print the bestiary's whole blurb, up to a paragraph. It now prints one short instruction: what the pair does to get rid of the body ("Shoot both armour pieces off. Then its colour."). Every creature, rock, pod and control brush has one, in `tools/director/src/brush-kill.ts`. A fault keeps the palette's note. The blurb is still the first-appearance preview's. Exemption used: a look the owner asked for by name, and it is the director, not the field.
+
 ## 2026-10-18 · 59813d823 — A STATES section is seen by the observer of the DOM it was drawn in
 
 `whenSeen` kept one IntersectionObserver for the module's life, built from whichever class was global the first time. Test files share the module within a shard, so a file that installed and tore down its own fake DOM earlier left the STATES test reporting to an observer nobody watched, and that test failed under `bun run land` and passed alone. The watcher is now rebuilt when the global class changes; a test reproduces it in one file.

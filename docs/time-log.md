@@ -44244,3 +44244,5 @@ shard neighbour did not need finding once a test reproduced it alone.
 
 Bottleneck: writing forty-five lines that are each true to the rules, which
 meant checking who sees what for every one.
+
+*Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
