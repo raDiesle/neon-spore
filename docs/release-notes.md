@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-18 · a521ad120 — A body the shield pushed back up no longer carries ONE LAST CHANCE
+
+The words over a creature the shield has already pushed are gone; the push still flashes the rim red and sprays red off the dome. The wave of that name and its guide caption are unchanged. A look the owner asked for by name.
+
 ## 2026-10-18 · 8ab5765e1 — THE LEAD's queued entry carries the owner's answer: a faster bolt
 
 The bolt's climb is longer than a beat on sixteen rows, and the owner chose to raise bulletTilesPerBeat so it is under a beat again rather than change the pair's sum or the guide.

@@ -44415,3 +44415,5 @@ Bottleneck: none; the code already did what the answer chose.
   `land`.
 
 Bottleneck: none worth the name; the label had one caller.
+
+*Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
