@@ -1,7 +1,8 @@
 import { describe, expect, test } from "bun:test";
 import type { Wave } from "@neon-spore/content";
-import { WAVES, waveIntroduces } from "@neon-spore/content";
-import { introducedBrush } from "../src/brush-intro.js";
+import { WAVES } from "@neon-spore/content";
+import { introducedBrushes } from "../src/brush-intro.js";
+import { CONTROL_BRUSHES, controlGestureOf, controlWaveId } from "../src/control-brushes.js";
 import { dropWave, waveGroups } from "../src/rail-groups.js";
 import { renderRows } from "../src/rail-list.js";
 import type { Store } from "../src/state.js";
@@ -210,12 +211,17 @@ describe("the list", () => {
     let shown = 0;
     for (const [i, wave] of WAVES.entries()) {
       const variant = list.children[i]!.classList.contains("variant");
-      const brushes = new Set(
-        waveIntroduces(WAVES, i).flatMap((t) => introducedBrush(t, wave) ?? []),
-      );
-      expect([wave.name, art(i).length]).toEqual([wave.name, variant ? 0 : brushes.size]);
+      const brushes = introducedBrushes(WAVES, i);
+      expect([wave.name, art(i).length]).toEqual([wave.name, variant ? 0 : brushes.length]);
       shown += art(i).length;
     }
     expect(shown).toBeGreaterThan(0);
+  });
+
+  test("each control's own wave heads its group with that control's brush", () => {
+    for (const brush of CONTROL_BRUSHES) {
+      const i = WAVES.findIndex((w) => w.id === controlWaveId(controlGestureOf(brush)!));
+      expect([brush, introducedBrushes(WAVES, i).includes(brush)]).toEqual([brush, true]);
+    }
   });
 });

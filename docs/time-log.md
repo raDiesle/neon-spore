@@ -44481,3 +44481,16 @@ Bottleneck: the old `"both"` meant either, so every test literal that said it
 had to be read before it could be renamed.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-18 — Every control's parent wave shows its control's picture in the wave list
+
+- reading: 5 min. `brush-intro.ts`, `waveIntroductions`, the control brushes,
+  and a probe over WAVES: only THE BLISTER introduced "blister".
+- writing: 5 min. `freshControls` and `introducedBrushes`, the EVERY WAVE
+  table's NEW column on the same mapping, the rail test.
+- looking: 5 min. `bun run shot "#waveList"` and a crop of the control rows.
+- friction: 0 min.
+- landing: 5 min. `check:fast` twice, the commit, `land`.
+
+Bottleneck: reading — a kind in content is several brushes in the director,
+and only a probe over the real list showed which waves fell through.

@@ -1,6 +1,8 @@
 import type { Wave } from "@neon-spore/content";
 import { brushArtImage } from "./brush-art.js";
-import { introducedBrush } from "./brush-intro.js";
+import { freshControls, introducedBrush } from "./brush-intro.js";
+import type { Brush } from "./brushes.js";
+import { CONTROL_KIND } from "./control-brushes.js";
 import { waveMarks } from "./rail-marks.js";
 import { type Flag, pairSeconds, type WaveRow, waveRows } from "./waves-table-rows.js";
 import { whenSeen } from "./when-seen.js";
@@ -32,25 +34,28 @@ const COLUMNS = [
   ["Notes", "What is out of range, worst first"],
 ] as const;
 
-function newCell(row: WaveRow): HTMLTableCellElement {
+function thingChip(title: string, brush: Brush | undefined): HTMLElement {
+  const chip = document.createElement("span");
+  chip.className = "wt-thing";
+  chip.title = title;
+  chip.textContent = title === "panel" ? "⎈" : title;
+  if (brush)
+    whenSeen(chip, () => {
+      const art = brushArtImage(brush, 22);
+      if (art) chip.replaceChildren(art);
+    });
+  return chip;
+}
+
+/** What the row brings; the blister as each control it is first to carry
+ * (`freshControls`), the way the wave list shows it. */
+function newCell(waves: readonly Wave[], row: WaveRow): HTMLTableCellElement {
   const td = document.createElement("td");
   td.className = "wt-new";
   for (const thing of row.fresh) {
-    const chip = document.createElement("span");
-    chip.className = "wt-thing";
-    chip.title = thing;
-    if (thing === "panel") chip.textContent = "⎈";
-    else {
-      chip.textContent = thing;
-      const brush = introducedBrush(thing, row.wave);
-      if (brush)
-        whenSeen(chip, () => {
-          const art = brushArtImage(brush, 22);
-          if (art) chip.replaceChildren(art);
-        });
-    }
-    td.append(chip);
+    if (thing !== CONTROL_KIND) td.append(thingChip(thing, introducedBrush(thing)));
   }
+  for (const brush of freshControls(waves, row.index)) td.append(thingChip(brush, brush));
   return td;
 }
 
@@ -152,7 +157,7 @@ export function waveTable(
       cell(String(row.index + 1), "#", row.flags),
       name,
       kind,
-      newCell(row),
+      newCell(waves, row),
       cell(row.panel.short, "panel", row.flags, row.panel.full),
       cell(String(row.arrivals), "arrivals", row.flags),
       cell(String(row.span), "span", row.flags),

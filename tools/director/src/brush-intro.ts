@@ -3,7 +3,13 @@ import { brushArtImage } from "./brush-art.js";
 import { bindBrushCard } from "./brush-tooltip.js";
 import { jumpWaveIndex } from "./brush-wave.js";
 import { BRUSHES, type Brush } from "./brushes.js";
-import { CONTROL_KIND } from "./control-brushes.js";
+import {
+  CONTROL_BRUSHES,
+  CONTROL_KIND,
+  type ControlBrush,
+  controlGestureOf,
+  controlWaveId,
+} from "./control-brushes.js";
 import { brushOf } from "./query.js";
 import { silhouette } from "./silhouette.js";
 import { whenSeen } from "./when-seen.js";
@@ -19,24 +25,51 @@ import { whenSeen } from "./when-seen.js";
  */
 
 /**
- * The brush that paints a thing `waveIntroduces` names on `wave`, if one does.
- * A blister is the CONTROLS brush of the gesture the wave first gives it, and
- * a limpet or a leech is a fault's brush; a worn mechanic — a mount, a chute —
- * is painted by none.
+ * The brush that paints a thing `waveIntroduces` names, if one does. A limpet
+ * or a leech is a fault's brush; a worn mechanic — a mount, a chute — is
+ * painted by none. A blister is none either: content knows it as one kind,
+ * but each gesture is a brush of its own, so `freshControls` says which.
  */
-export function introducedBrush(thing: string, wave?: Wave): Brush | undefined {
+export function introducedBrush(thing: string): Brush | undefined {
   const brushes = new Set<string>(BRUSHES.map((b) => b.brush));
   // Every speed of rock is the one ROCK brush (`brush-lists.ts`).
   if (/^meteor/.test(thing)) return "rock";
-  if (thing === CONTROL_KIND) {
-    const entry = wave?.entries.find((e) => e.kind === CONTROL_KIND);
-    return entry ? brushOf(entry) : undefined;
-  }
+  if (thing === CONTROL_KIND) return undefined;
   const fault = /^(.*)Fault$/.exec(thing);
   for (const id of [fault ? `fault:${fault[1]}` : thing, `fault:${thing}`]) {
     if (brushes.has(id)) return id as Brush;
   }
   return undefined;
+}
+
+const controlsOf = (wave: Wave): ControlBrush[] =>
+  wave.entries.flatMap((e) => (e.kind === CONTROL_KIND ? [brushOf(e) as ControlBrush] : []));
+
+/**
+ * The CONTROLS brushes the wave at `index` introduces: each it carries that no
+ * wave before it did, and the one whose own wave it is (`controlWaveId`) —
+ * THE BLISTER already sends a TAP and a SWIPE, and their own waves teach them.
+ * `waveIntroduces` sees one kind, the blister, so only THE BLISTER brought
+ * anything and every control's group opened with no picture: the owner,
+ * 18 October 2026, *why there is no icon for parent wave introduction of
+ * several "controls" waves … there is only for "swipe"*.
+ */
+export function freshControls(waves: readonly Wave[], index: number): ControlBrush[] {
+  const wave = waves[index];
+  if (!wave) return [];
+  const mine = new Set(controlsOf(wave));
+  for (let i = 0; i < index && mine.size; i++) {
+    for (const brush of controlsOf(waves[i]!)) mine.delete(brush);
+  }
+  const own = CONTROL_BRUSHES.find((b) => controlWaveId(controlGestureOf(b)!) === wave.id);
+  return own ? [...new Set([own, ...mine])] : [...mine];
+}
+
+/** Every brush the wave at `index` is first to carry, each once: the brushes
+ * of what `waveIntroduces` names, then its fresh controls. */
+export function introducedBrushes(waves: readonly Wave[], index: number): Brush[] {
+  const named = waveIntroduces(waves, index).flatMap((t) => introducedBrush(t) ?? []);
+  return [...new Set<Brush>([...named, ...freshControls(waves, index)])];
 }
 
 /**
@@ -61,12 +94,8 @@ export function introArt(
   px: number,
   open?: (index: number) => void,
 ): HTMLElement[] {
-  const seen = new Set<Brush>();
   const out: HTMLElement[] = [];
-  for (const thing of waveIntroduces(waves, index)) {
-    const brush = introducedBrush(thing, waves[index]);
-    if (!brush || seen.has(brush)) continue;
-    seen.add(brush);
+  for (const brush of introducedBrushes(waves, index)) {
     const chip = document.createElement("span");
     chip.className = "intro-art";
     bindBrushCard(chip, brush);
