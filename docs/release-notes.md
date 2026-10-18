@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-18 · 59813d823 — A STATES section is seen by the observer of the DOM it was drawn in
+
+`whenSeen` kept one IntersectionObserver for the module's life, built from whichever class was global the first time. Test files share the module within a shard, so a file that installed and tore down its own fake DOM earlier left the STATES test reporting to an observer nobody watched, and that test failed under `bun run land` and passed alone. The watcher is now rebuilt when the global class changes; a test reproduces it in one file.
+
 ## 2026-10-18 · b41fed646 — A boss's difficulty is a command: bun run waves:difficulty
 
 `bun run waves:difficulty <wave id>` plays a wave with AUTO on both seats, each held to one press every N seconds, over twenty seeds, and prints cleared, lost, mean beats and THE BROOD's bodies laid and buds dropped. THE BROOD was retuned twice against that table from a throwaway script; the throttle is now `playedAt` and `pressGate` in tools/probe/world.ts, one gap per seat, held by a test.

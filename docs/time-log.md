@@ -44229,3 +44229,5 @@ copy from.
 
 Bottleneck: none; the test file's own comment named the cause, and the
 shard neighbour did not need finding once a test reproduced it alone.
+
+*Measured: 3 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
