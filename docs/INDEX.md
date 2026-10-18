@@ -4276,6 +4276,7 @@ by hand never moves.
 | `tools/frames/tall.ts` | An element taller than the window, photographed whole rather than black below the fold |
 | `tools/frames/versus-shot.ts` | `bun run versus:shot` — one PNG of one VERSUS candidate |
 | `tools/frames/versus-element.ts` | What `versus:shot --at` is measured against: the window the pose cuts, not the stage |
+| `tools/frames/versus-refuse.ts` | **A frozen VERSUS frame whose candidate moves nothing is refused, by name** |
 | `tools/frames/menu-shot.ts` | `bun run menu-shot <out.png> [--page "SETTINGS > CONTROLS"] [--back] [--screen "#backAsk.on"]` — a page of the game's menu, or the card its back gesture opens, off a preview it starts itself |
 | `tools/frames/menu-stamps.ts` | WHAT THE CAMERA ARRIVES AS: the browser storage a menu shot is taken with |
 | `tools/frames/menu-trail.ts` | WHICH PAGE OF THE MENU A PICTURE IS OF, what is typed into it and which back gestures got there, read off three flags |

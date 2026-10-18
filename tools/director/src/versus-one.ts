@@ -85,7 +85,12 @@ export function renderCandidate(
     screensHost.appendChild(renderScreen(slot, pose, role, candidate, screens.length > 1, shot));
   }
   row.append(screensHost);
-  if (plan !== null) row.appendChild(sizeNote(plan.share));
+  if (plan !== null) {
+    // Where a tool can read it: `versus:shot --freeze` refuses a frame that
+    // moves nothing (`tools/frames/versus-refuse.ts`).
+    row.dataset.moves = String(plan.share);
+    row.appendChild(sizeNote(plan.share));
+  }
   return row;
 }
 

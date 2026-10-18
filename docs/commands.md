@@ -123,7 +123,7 @@ bun run menu-shot <out.png>            # a page of the game's menu — starts it
                        #   --partners "Ada,David:7" arrives having played with them, to that wave
                        #   --back is the phone's back gesture; the card it opens takes two
                        #   --screen "#backAsk.on" is what to wait for once the walking is done
-bun run versus:shot <slot> <name>      # one PNG of one VERSUS candidate
+bun run versus:shot <slot> <name>      # one PNG of one VERSUS candidate; with --freeze, refused (exit 3) when the candidate moves 0% of the frame
 bun run png <in.svg> <out.png>         # rasterise a sheet
 bun run crop           # a rectangle of a PNG already taken, magnified — tools/frames/picture.ts
                        #   <in.png> <out.png> --at x,y,w,h --zoom 4 — versus:shot's spelling; positional still works

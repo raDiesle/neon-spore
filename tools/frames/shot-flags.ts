@@ -29,6 +29,8 @@ export interface ShotFlags {
   reach: Reach;
   /** Milliseconds to settle before the shot, for an animation. */
   settle: number;
+  /** Something on the page that makes the picture wrong: shown, it is refused. */
+  refuse: string | undefined;
   /** Something on the page that says it is ready, waited for before the settle. */
   until: string | undefined;
   /** A documentation row by its name, scrolled to, with `selector` inside it (`shot-row.ts`). */
@@ -106,6 +108,12 @@ export function readShotFlags(argv: readonly string[]): ShotFlags {
    * moment with nothing to say so.
    */
   const until = flag("until");
+  /**
+   * `--refuse <selector>`: once the page is ready, a picture of it showing
+   * this is not taken, and the shot exits 3 (`REFUSED`). A VERSUS pair frozen
+   * before its candidate does anything is the first (`versus-refuse.ts`).
+   */
+  const refuse = flag("refuse");
   // A HELPERS, ON THE FIELD or GESTURES row by its name: its picture is only
   // drawn once it is scrolled near, so a selector into it matched nothing on a
   // page opened at its top (`shot-row.ts`).
@@ -190,6 +198,7 @@ export function readShotFlags(argv: readonly string[]): ShotFlags {
     out: out as string,
     reach: { open, tab, inner, click, nth, type: typed, select, press, thenClick, hold },
     settle,
+    refuse,
     until,
     row,
     pose,

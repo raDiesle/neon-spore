@@ -33,6 +33,7 @@ import { poseForSlot } from "../director/src/versus-pose.js";
 import { startDirector } from "./director-serve.js";
 import { root } from "./exec.js";
 import { elementFor } from "./versus-element.js";
+import { MOVES_NOTHING, movesNothing, REFUSED } from "./versus-refuse.js";
 
 const argv = process.argv.slice(2);
 const flag = (name: string): string | undefined => {
@@ -151,6 +152,9 @@ try {
   if (scale !== undefined) args.push("--scale", scale);
   // The pair says when the freeze has landed; the settle starts from there.
   if (freeze !== undefined) args.push("--until", "[data-frozen]");
+  // And a frozen moment before the candidate does anything is refused rather
+  // than photographed as the current look twice (`versus-refuse.ts`).
+  if (freeze !== undefined) args.push("--refuse", MOVES_NOTHING);
   // `shot.ts` has already said why when it refuses, so its exit is passed on
   // without a stack trace from `run` printed under the reason.
   const code = await Bun.spawn(["bun", ...args], {
@@ -159,7 +163,10 @@ try {
     stderr: "inherit",
   }).exited;
   if (code === 0) console.log(`wrote ${file} — ${slot} · ${name}`);
-  else process.exitCode = code;
+  else if (code === REFUSED && freeze !== undefined) {
+    console.error(movesNothing(slot, name, freeze));
+    process.exitCode = code;
+  } else process.exitCode = code;
 } finally {
   await director.stop();
 }

@@ -44,9 +44,24 @@ import { reachPose } from "./shot-pose.js";
 import { inRow, reachRow } from "./shot-row.js";
 import { reachState, Unreachable } from "./shot-state.js";
 import { withHeightFor } from "./tall.js";
+import { REFUSED } from "./versus-refuse.js";
 
-const { selector, out, reach, settle, until, row, pose, serve, port, path, viewport, scale, at } =
-  readShotFlags(process.argv.slice(2));
+const {
+  selector,
+  out,
+  reach,
+  settle,
+  refuse,
+  until,
+  row,
+  pose,
+  serve,
+  port,
+  path,
+  viewport,
+  scale,
+  at,
+} = readShotFlags(process.argv.slice(2));
 const { width: vw, height: vh } = viewport;
 
 const director = serve ? await startDirector() : null;
@@ -72,6 +87,9 @@ try {
     await reachState(page, reach);
     if (until) await waitUntil(page, until, said);
     await page.waitForTimeout(settle);
+    if (refuse && (await page.locator(refuse).count()) > 0) {
+      throw new Unreachable(`refused: the page shows ${refuse}`, REFUSED);
+    }
     if (row) await reachRow(page, row);
     if (pose) await reachPose(page, pose);
     target = await elementOr(page, row || pose ? inRow(selector) : selector, said);

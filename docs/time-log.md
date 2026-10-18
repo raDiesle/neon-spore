@@ -44315,3 +44315,19 @@ rows: they were written by hand before the first recut.
 Bottleneck: none; the palette's groups were already one function.
 
 *Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-18 — `versus:shot --freeze` refuses a candidate that moves nothing
+
+- reading: 10 min. `versus-shot.ts`, `shot.ts` and its flags, and where
+  `versus-one.ts` gets the share it prints.
+- writing: 10 min. `data-moves` on the row, `shot --refuse`, the named
+  message in `versus-refuse.ts`, its test.
+- looking: 5 min. Two shots off a served director: one written at a freeze
+  that moves, one refused on `[data-moves]`.
+- friction: 5 min. The entry's own proof, `blister:death-tap plunge`, has
+  been decided since and has no slot; `siren:words` is the only one open,
+  and nothing on it moves 0%.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: the candidate the finding named no longer exists, so the
+refusal was proven on a selector the row does carry.
