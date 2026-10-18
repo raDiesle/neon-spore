@@ -331,6 +331,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## A boss's difficulty has no kept measure: AUTO held to a human's press rate
 
 - **Found:** 2026-10-17, claude/the-brood-difficulty-55c884
+- **Taken:** 2026-10-18, claude/queue-tasks-245f98 (claim: claude/queue-a-bosss-difficulty-has-no-kept-measure-auto-held)
 - **Files:** `tools/probe/world.ts`, `docs/spec/bosses.md`
 
 THE BROOD was retuned twice on 16 and 17 October 2026 against the same number —
