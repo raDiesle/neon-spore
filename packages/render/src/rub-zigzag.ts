@@ -70,14 +70,16 @@ export function drawRubZigzag(
   ctx.restore();
 }
 
-/** The wag a rub no thumb has touched calls with: two quick sways each way, then a rest. */
-const SWAY = { wag: 0.3, wags: 2, round: 1.5 };
+/** The wag a rub no thumb has touched calls with: three quick shakes each way, then a rest. */
+export const SWAY = { wag: 0.24, wags: 3, round: 1.4 };
 
-/** The wag `t` seconds into the call: signed, -1 leaning left to 1 right. */
+/** The wag `t` seconds into the call: signed, -1 leaning left to 1 right. It dwells
+ * at each side and snaps across, a shake rather than a sway. */
 export function rubSway(t: number): number {
   const s = Math.max(0, t) % SWAY.round;
   const span = SWAY.wag * SWAY.wags;
   if (s >= span + SWAY.wag * 0.5) return 0;
   const fade = s < span ? 1 : 1 - (s - span) / (SWAY.wag * 0.5);
-  return Math.sin((2 * Math.PI * s) / SWAY.wag) * fade;
+  const w = Math.sin((2 * Math.PI * s) / SWAY.wag);
+  return Math.sign(w) * Math.sqrt(Math.abs(w)) * fade;
 }

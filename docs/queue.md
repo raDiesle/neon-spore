@@ -412,3 +412,17 @@ When the field grew a row, three films (THE WEIGHT, THE GAP, THE CAIRN) each
 needed a beat more, and the check reported them one at a time, a round each.
 Collect every failing film and assert the list is empty; prove it by
 shortening two films and reading both names in one failure.
+
+## No command paints a mark's call over time without a browser
+
+- **Found:** 2026-10-18, claude/rub-button-animation-visibility-1f879e
+- **Files:** `tools/director/drop-sheet.ts`, `tools/director/drop-sheet-paint.ts`, `packages/render/src/rub-drop.ts`, `packages/render/src/press-drop.ts`, `packages/render/src/soak-hold.ts`
+
+`bun run drop-sheet` paints PULL LAB moments through Skia and nothing else,
+so judging the rub's call against the press's took a scratch script that
+imported `@napi-rs/canvas` by its path under `node_modules/.bun` (the bare
+`node_modules/@napi-rs/canvas` is not there with the isolated linker) and set
+`Path2D` on the global by hand. Give `drop-sheet` a `--calls` mode (or a
+`call-sheet` beside it) that paints hold, press and rub untouched, a row each,
+a column every 0.06 s through one round, and writes one PNG. Prove it with a
+test that the sheet has three rows and that the rub row moves between columns.

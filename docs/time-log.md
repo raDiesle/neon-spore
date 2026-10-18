@@ -44417,3 +44417,19 @@ Bottleneck: none; the code already did what the answer chose.
 Bottleneck: none worth the name; the label had one caller.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-18 — The rub's call shakes hard and throws waves
+
+- reading: 5 min. `cue-helper.ts` to `rub-drop.ts` and `rub-zigzag.ts`, and
+  the press's call to see what it had to differ from.
+- writing: 5 min. The shake three knocks a side and snapping, the drop
+  thrown further, the faint swishes replaced by waves.
+- looking: 5 min. A Skia strip of before, after and the press; the first
+  waves sat on the leaning drop and were moved out.
+- friction: 5 min. The canvas package is only under `node_modules/.bun`, so
+  the scratch strip failed once (queued: a call sheet).
+- landing: 5 min. `check:fast` red on the catalogue for the new `SWAY`
+  export, named there, then `land`.
+
+Bottleneck: no command paints a mark's call over time, so the picture was a
+script written for the occasion.
