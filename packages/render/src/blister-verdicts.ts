@@ -35,7 +35,8 @@ export class BlisterVerdictFx {
     for (const e of events) {
       if (e.type !== "blisterBlow") continue;
       this.verdicts.mark(e.id, true);
-      if (e.left > 0) this.spent.set(e.id, 0);
+      // A BOTH blister's half rings green and spends no pip: nothing counted yet.
+      if (e.left > 0 && e.half === undefined) this.spent.set(e.id, 0);
     }
   }
 

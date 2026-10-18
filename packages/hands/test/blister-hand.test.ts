@@ -55,12 +55,12 @@ describe("AUTO's hand on a blister", () => {
     ["a TAP one", "tap", 2],
     ["a HOLD one, player 1's", "hold", 1],
     ["a SWIPE one, upward", "swipe", 2, "up"],
-    ["a SWIPE one, leftward, either seat's", "swipe", "both", "left"],
+    ["a SWIPE one, leftward, either seat's", "swipe", "either", "left"],
     ["a TURN one, clockwise", "turn", 2],
     ["a TURN one, anticlockwise", "turn", 1, "ccw"],
     ["a RUB one", "rub", 2],
     ["a COMBO one, player 1's", "combo", 1],
-    ["a COMBO one, either seat's", "combo", "both"],
+    ["a COMBO one, either seat's", "combo", "either"],
     ["a LEVER one", "lever", 2],
     ["a LEVER one, player 1's", "lever", 1],
   ];
@@ -68,6 +68,25 @@ describe("AUTO's hand on a blister", () => {
     it(`knocks out ${name} before it reaches the hull`, () => {
       const out = played(gesture, by, way);
       expect(out).toEqual({ blows: 1, knocked: true, breached: false });
+    });
+  }
+
+  // BOTH: a hand from each seat, so a half said before the blow on every
+  // gesture but the two held together.
+  const BOTH: [BlisterGesture, BlisterWay?][] = [
+    ["tap"],
+    ["hold"],
+    ["swipe", "down"],
+    ["turn"],
+    ["rub"],
+    ["combo"],
+    ["lever"],
+  ];
+  for (const [gesture, way] of BOTH) {
+    it(`knocks out a BOTH ${gesture.toUpperCase()} one with both seats' hands`, () => {
+      const out = played(gesture, "both", way);
+      expect(out.knocked).toBe(true);
+      expect(out.breached).toBe(false);
     });
   }
 });

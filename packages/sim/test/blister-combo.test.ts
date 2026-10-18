@@ -28,7 +28,7 @@ const CFG: SimConfig = DEFAULT_CONFIG;
 const TPB = ticksPerBeat(CFG);
 const REACH = CFG.blisterSwipeMilli;
 
-const combo = (by: 1 | 2 | "both" = 2): SpawnEntry => ({
+const combo = (by: 1 | 2 | "either" | "both" = 2): SpawnEntry => ({
   beat: 0,
   col: 3,
   kind: "blister",
@@ -125,8 +125,8 @@ describe("a COMBO blister, pressed and then pulled", () => {
     expect(blisterStrokes(s.body()!)).toBe(false);
   });
 
-  it("takes the press from one hand and the pull from the other on a BOTH blister", () => {
-    const s = stage([combo("both")]);
+  it("takes the press from one hand and the pull from the other on an EITHER blister", () => {
+    const s = stage([combo("either")]);
     s.untilUp();
     s.press(1);
     s.pull(2);

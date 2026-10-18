@@ -96,7 +96,7 @@ describe("a mouse press on a HOLD blister", () => {
 
 /** Every blister held by the hand its `by` names, from the tick it comes up. */
 function holdFrames(role: ViewRole, ticks: number, sampling: { every?: number; phase?: number }) {
-  const queue = [held(2, 1), held(5, 2), held(8, "both")];
+  const queue = [held(2, 1), held(5, 2), held(8, "either")];
   const { ctx, events } = runFrames(createWorld(CFG, 3, queue), role, ticks, {
     ...sampling,
     onTick: (_tick, w) => {

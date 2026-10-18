@@ -38,9 +38,9 @@ export const WAVES_ACT_42: Wave[] = [
     id: "reviewPodAgain",
     name: "LITTLE CAROM",
     entries: [
-      { beat: 8, col: 6, kind: "blister", color: null, row: 2, by: 2, gesture: "swipe" },
+      { beat: 8, col: 6, kind: "blister", color: null, row: 2, gesture: "swipe" },
       { beat: 14, col: 2, kind: "meteor", color: null },
-      { beat: 28, col: 10, kind: "blister", color: null, row: 3, by: 2 },
+      { beat: 28, col: 10, kind: "blister", color: null, row: 3 },
     ],
     pods: [
       { beat: 0, col: 0, row: 3, kind: "pod" },
@@ -52,9 +52,9 @@ export const WAVES_ACT_42: Wave[] = [
     name: "LONG CAROM ROAD",
     variant: true,
     entries: [
-      { beat: 6, col: 1, kind: "blister", color: null, row: 3, by: 2 },
+      { beat: 6, col: 1, kind: "blister", color: null, row: 3 },
       { beat: 12, col: 6, kind: "throb", color: "red" },
-      { beat: 24, col: 5, kind: "blister", color: null, row: 2, by: 2, gesture: "swipe" },
+      { beat: 24, col: 5, kind: "blister", color: null, row: 2, gesture: "swipe" },
       { beat: 30, col: 0, kind: "throb", color: "red" },
     ],
     pods: [
@@ -70,11 +70,11 @@ export const WAVES_ACT_42: Wave[] = [
       { beat: 0, col: 9, color: "red" },
       { beat: 12, col: 4, color: "red" },
       { beat: 12, col: 7, color: "red" },
-      { beat: 16, col: 3, kind: "blister", color: null, row: 2, by: 2, gesture: "swipe" },
+      { beat: 16, col: 3, kind: "blister", color: null, row: 2, gesture: "swipe" },
       { beat: 20, col: 0, kind: "magnet", color: "red" },
       { beat: 26, col: 3, color: "red" },
       { beat: 26, col: 7, color: "red" },
-      { beat: 37, col: 0, kind: "blister", color: null, row: 2, by: 2, gesture: "swipe" },
+      { beat: 37, col: 0, kind: "blister", color: null, row: 2, gesture: "swipe" },
     ],
     pods: [
       { beat: 6, col: 3, row: 3, kind: "pod" },
@@ -109,17 +109,17 @@ export const WAVES_ACT_42: Wave[] = [
     entries: [
       { beat: 0, col: 2, color: "cyan" },
       { beat: 0, col: 8, color: "cyan" },
-      { beat: 11, col: 2, kind: "blister", color: null, row: 3, by: 2 },
+      { beat: 11, col: 2, kind: "blister", color: null, row: 3 },
       { beat: 14, col: 3, color: "red" },
       { beat: 14, col: 7, color: "red" },
       { beat: 20, col: 10, kind: "lure", color: "cyan" },
       { beat: 29, col: 3, color: "cyan" },
       { beat: 29, col: 7, color: "cyan" },
-      { beat: 33, col: 6, kind: "blister", color: null, row: 2, by: 2, gesture: "swipe" },
+      { beat: 33, col: 6, kind: "blister", color: null, row: 2, gesture: "swipe" },
       { beat: 37, col: 3, kind: "lure", color: "red" },
       { beat: 40, col: 1, color: "cyan" },
       { beat: 40, col: 9, color: "cyan" },
-      { beat: 48, col: 8, kind: "blister", color: null, row: 2, by: 2, gesture: "swipe" },
+      { beat: 48, col: 8, kind: "blister", color: null, row: 2, gesture: "swipe" },
     ],
     pods: [
       { beat: 3, col: 4, row: 3, kind: "pod" },

@@ -20,7 +20,7 @@ import {
 /**
  * **THE BLISTER on AUTO, all seven gestures**, each the way a thumb does it
  * (`docs/spec/blister.md`, *The gestures*), from the seat its `by` names —
- * player 2 when both may, as the tap is.
+ * player 2 when either may, and each seat's hand on a BOTH one.
  *
  * Every hand here reads where it is off the body rather than keeping a note of
  * its own, so AUTO stays a function of the world: a stroke open, a turn's last
@@ -32,9 +32,10 @@ import {
 
 type Press = Omit<TimedCommand, "tick">;
 
-/** The seat whose hand counts on it: its `by`, or player 2 on a BOTH. */
-function seatOf(c: Creature): 1 | 2 {
-  return blisterByOf(c) === 1 ? 1 : 2;
+/** The seats whose hands play it: its `by`, player 2 on an EITHER, both on a BOTH. */
+function seatsOf(c: Creature): readonly (1 | 2)[] {
+  const by = blisterByOf(c);
+  return by === "both" ? [1, 2] : by === 1 ? [1] : [2];
 }
 
 /** Whether this is the tick half a beat in, where a tap and a stroke land. */
@@ -47,8 +48,10 @@ export function handBlisters(w: World): Press[] {
   const out: Press[] = [];
   for (const c of w.creatures) {
     if (c.kind !== "blister") continue;
-    const press = HAND[blisterGestureOf(c)](w, c, seatOf(c));
-    if (press) out.push(press);
+    for (const seat of seatsOf(c)) {
+      const press = HAND[blisterGestureOf(c)](w, c, seat);
+      if (press) out.push(press);
+    }
   }
   return out;
 }

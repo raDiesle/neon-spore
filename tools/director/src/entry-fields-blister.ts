@@ -19,8 +19,8 @@ import {
  * did.
  */
 
-/** Whose hand may knock one down: the pilot, the navigator, or either. */
-export const BLISTER_BYS: readonly BlisterBy[] = [1, 2, "both"];
+/** Whose hand may knock one down: the pilot, the navigator, both, or either. */
+export const BLISTER_BYS: readonly BlisterBy[] = [1, 2, "both", "either"];
 
 export type { BlisterGesture, BlisterWay };
 
@@ -45,14 +45,14 @@ export function hasBlisterFields(entry: WaveEntry): boolean {
   return entry.kind === "blister";
 }
 
-/** Whose hand counts. Unset is the navigator's, which `blisterOnSpawn` reads. */
+/** Whose hand counts. Unset is either's, which `blisterOnSpawn` reads. */
 export function blisterByOf(entry: WaveEntry): BlisterBy {
-  return entry.by ?? 2;
+  return entry.by ?? "either";
 }
 
-/** Set whose hand counts, the navigator written as no field. */
+/** Set whose hand counts, either written as no field. */
 export function setBlisterBy(entry: WaveEntry, by: BlisterBy): void {
-  entry.by = by === 2 ? undefined : by;
+  entry.by = by === "either" ? undefined : by;
 }
 
 /** The gesture it is knocked down by. Unset is TAP, which `blisterOnSpawn` reads. */
@@ -93,7 +93,7 @@ export function setBlisterWay(entry: WaveEntry, way: BlisterWay): void {
 
 /** BY's chips, said the way `seatLabel` says a seat on THE MINE's SEES row. */
 export function byLabel(by: BlisterBy): string {
-  return by === "both" ? "BOTH" : by === 1 ? "P1" : "P2";
+  return by === "either" ? "EITHER" : by === "both" ? "BOTH" : by === 1 ? "P1" : "P2";
 }
 
 /** A way's chip: the arrow the field's track points with. */

@@ -47,13 +47,15 @@ export const CONTROL_STEP: Step = {
  * names it; its id is `controlWaveId`. */
 const controlWaveName = (gesture: BlisterGesture): string => `BLISTERS TO ${gesture.toUpperCase()}`;
 
-/** THE BLISTER's arrivals, each worn with this gesture by either hand and
+/** THE BLISTER's arrivals, each worn with this gesture, for either hand, and
  * every way the gesture goes. */
 function motifsFor(base: readonly Motif[], gesture: BlisterGesture): Motif[] {
   const ways = blisterWaysOf(gesture);
   const out: Motif[] = [];
   for (const motif of base) {
-    for (const by of [1, 2] as const) {
+    // Either hand, the owner's default for every control (18 October 2026);
+    // BY is set per arrival in the director after.
+    for (const by of ["either"] as const) {
       for (const way of ways.length > 0 ? ways : [undefined]) {
         const entries = motif.entries.map((e): WaveEntry => {
           const worn: WaveEntry = { ...e, gesture: undefined, way: undefined };

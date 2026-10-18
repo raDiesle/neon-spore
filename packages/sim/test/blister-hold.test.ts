@@ -28,7 +28,7 @@ import {
 const CFG: SimConfig = DEFAULT_CONFIG;
 const TPB = ticksPerBeat(CFG);
 
-const held = (by: 1 | 2 | "both" = 2): SpawnEntry => ({
+const held = (by: 1 | 2 | "either" | "both" = 2): SpawnEntry => ({
   beat: 0,
   col: 3,
   kind: "blister",
@@ -105,8 +105,8 @@ describe("a HOLD blister, held by a press (a mouse's as a thumb's)", () => {
     expect(s.blows()).toBe(0);
   });
 
-  it("finishes twice as fast under two hands on a BOTH blister", () => {
-    const s = stage([held("both")]);
+  it("finishes twice as fast under two hands on an EITHER blister", () => {
+    const s = stage([held("either")]);
     const c = s.untilUp();
     s.go(1, [grip(s.world.tick, 1, c.id), grip(s.world.tick, 2, c.id)]);
     s.go(TPB - 1);

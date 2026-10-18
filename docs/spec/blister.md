@@ -9,7 +9,7 @@
 > October 2026: a creature on the principle of whack-a-mole, removed by
 > several taps on the screen, with variants removed by a hold, a swipe, a turn
 > round it and other gestures that also work with a mouse; the director's
-> brush settings say whether player 1, player 2 or both may remove it; one
+> brush settings say whether player 1, player 2, both or either must remove it; one
 > picture for every variant, with only the help for the gesture it wants drawn
 > over and round it. The work was cut into eight lanes, each an entry in
 > `docs/queue.md`.
@@ -195,19 +195,30 @@ there they move the run, and what ships is `sim/config-blister.ts`.
 
 | Row | Choices | Default |
 |---|---|---|
-| **BY** | `P1`, `P2`, `BOTH` | `P2` |
+| **BY** | `P1`, `P2`, `BOTH`, `EITHER` | `EITHER` |
 | **WAY** | `←`, `→`, `↑`, `↓` for SWIPE; `⟳`, `⟲` for TURN; absent otherwise | `→`, `⟳` |
 | **UP** | `DEFAULT`, 2–16 beats | the gesture's up beats |
 | **BLOWS** | `DEFAULT`, 1–8 | the gesture's blows |
 | **LENGTH** | `DEFAULT`, halves of a tile (SWIPE, COMBO), a beat (HOLD, LEVER) or a turn (TURN); absent for TAP and RUB | the gesture's length |
 
-**BY** is whose hand counts. `BOTH` means either seat may, and the first to
-finish the gesture knocks it out; on HOLD two hands fill the beat twice as
-fast, and on TURN they wind the one turn between them. The bulge
-follows BY: P1 knocks down, P2 sees the bulge, and the other way round.
-With `BOTH` both screens show the bulge — the setting with the least to
-say, for a guide's first page or a crowded wave, never for the wave that
-teaches the talking.
+**BY** is whose hand counts — the owner, 18 October 2026: *configure for all
+"controls" enemies which player needs to succeed it: p1, p2, both, either or;
+default is for all either or*. That day every wave's blister was set back to
+the default; the tutorials keep their named seats.
+
+- `EITHER`: either seat may, and the first to finish the gesture deals the
+  blow; on HOLD two hands fill the beat twice as fast, and on TURN they wind
+  the one turn between them.
+- `BOTH`: each seat must finish the gesture before the blow lands
+  (`blisterDealt`). The first seat's finish is its half — said with the blow's
+  sound and the green ring, no pip spent — and that seat's hand is refused and
+  drawn the wait until the partner's lands. HOLD and LEVER count only while
+  both hands are on, a tick at a time: THE WEIGHT's press, held together.
+- `P1`, `P2`: that seat alone. The bulge follows BY: P1 knocks down, P2 sees
+  the bulge, and the other way round.
+
+With `EITHER` or `BOTH` both screens show the bulge — no seat is the one
+only shown it, so neither has to say *now*.
 
 Each field lives on `WaveEntry` and `SpawnEntry`, is copied in the content
 queue, set on spawn, and hashed — the ghost's `path` is the worked example

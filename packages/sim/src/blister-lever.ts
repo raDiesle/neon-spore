@@ -1,6 +1,7 @@
 import {
   BLISTER_SPENT,
   blisterBlow,
+  blisterByOf,
   blisterGestureOf,
   blisterIsUp,
   blisterMayTap,
@@ -58,13 +59,13 @@ export function blisterLeverHeard(world: World, player: 1 | 2, command: Command)
 /**
  * The clock over every LEVER blister, on the tick for HOLD's reason
  * (`blister-hold.ts`): a hand in the band counts the tick, and a whole hold is
- * a blow. Two hands on a BOTH blister share the one knob, the last to move it
- * setting its depth.
+ * a blow. Two hands on an EITHER blister share the one knob, the last to move it
+ * setting its depth; a BOTH one counts only while both are on it.
  */
 export function stepBlisterLevers(world: World): void {
   for (const c of [...world.creatures]) {
     if (c.kind !== "blister" || blisterGestureOf(c) !== "lever") continue;
-    if (!blisterIsUp(c) || ((c.blisterStrokes ?? 0) & 3) === 0 || !blisterLeverInBand(world, c)) {
+    if (!blisterIsUp(c) || !leverHandsOn(c) || !blisterLeverInBand(world, c)) {
       c.blisterHeldTicks = undefined;
       continue;
     }
@@ -76,6 +77,12 @@ export function stepBlisterLevers(world: World): void {
     // Counted: a blow, and the body gone with the last one owed.
     blisterBlow(world, c);
   }
+}
+
+/** Whether the hands it needs are on its knob: any one, or on BOTH the two. */
+function leverHandsOn(c: Creature): boolean {
+  const on = (c.blisterStrokes ?? 0) & 3;
+  return blisterByOf(c) === "both" ? on === 3 : on !== 0;
 }
 
 /** A depth short of this is the knob at rest: a press that never moved it, and never refused. */

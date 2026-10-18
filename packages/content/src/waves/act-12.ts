@@ -119,11 +119,11 @@ export const WAVES_ACT_12: Wave[] = [
       { beat: 0, col: 0, color: "cyan" },
       { beat: 5, col: 6, kind: "meteorMedium", color: null },
       { beat: 10, col: 10, color: "red" },
-      { beat: 16, col: 5, kind: "blister", color: null, row: 3, by: 2 },
+      { beat: 16, col: 5, kind: "blister", color: null, row: 3 },
       { beat: 22, col: 4, color: "cyan" },
       { beat: 28, col: 6, kind: "meteorMedium", color: null },
       { beat: 34, col: 5, color: "red" },
-      { beat: 40, col: 0, kind: "blister", color: null, row: 2, by: 2, gesture: "swipe" },
+      { beat: 40, col: 0, kind: "blister", color: null, row: 2, gesture: "swipe" },
     ],
   },
   {

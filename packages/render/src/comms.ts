@@ -1,4 +1,10 @@
-import { blisterByOf, type Creature, type CreatureKind, type World } from "@neon-spore/sim";
+import {
+  blisterByOf,
+  blisterOneSeat,
+  type Creature,
+  type CreatureKind,
+  type World,
+} from "@neon-spore/sim";
 import { bossCall } from "./comms-boss.js";
 import { huskCall } from "./comms-husk.js";
 import { TALKER } from "./comms-talker.js";
@@ -86,10 +92,10 @@ function commsTalker(kind: CreatureKind): Talker | null {
 function talkerFor(c: Creature): Talker | null {
   if (c.kind === "mine") return c.mineSees === 1 ? "p1" : "p2";
   // THE BLISTER is the second: the seat that talks is the one whose hand does
-  // not count, and with both hands counting both see the pore and nobody must.
+  // not count, and with either or both counting both see the pore and nobody must.
   if (c.kind === "blister") {
-    const by = blisterByOf(c);
-    return by === "both" ? null : by === 1 ? "p2" : "p1";
+    const one = blisterOneSeat(blisterByOf(c));
+    return one === null ? null : one === 1 ? "p2" : "p1";
   }
   return commsTalker(c.kind);
 }

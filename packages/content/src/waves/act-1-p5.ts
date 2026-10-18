@@ -6,6 +6,22 @@ import type { Wave } from "../wave-types.js";
  */
 export const WAVES_ACT_1_P5: Wave[] = [
   {
+    id: "theGhostPair",
+    name: "GHOST MEETS COUNT",
+    variant: true,
+    entries: [
+      { beat: 0, col: 2, color: "red" },
+      { beat: 6, col: 7, kind: "ghost", color: "cyan", path: "across" },
+      { beat: 12, col: 3, color: "cyan" },
+      { beat: 16, col: 2, kind: "countdown", color: "red" },
+      { beat: 21, col: 7, color: "cyan" },
+      { beat: 27, col: 8, kind: "ghost", color: "cyan" },
+      { beat: 33, col: 10, color: "cyan" },
+      { beat: 39, col: 7, kind: "countdown", color: "red" },
+    ],
+    controls: "standard2",
+  },
+  {
     id: "theWisp",
     name: "THE WISP",
     guide: {
@@ -208,27 +224,8 @@ export const WAVES_ACT_1_P5: Wave[] = [
       scene: "theBlister",
     },
     entries: [
-      { beat: 0, col: 5, kind: "blister", color: null, row: 2, by: 2, gesture: "swipe" },
-      { beat: 12, col: 2, kind: "blister", color: null, row: 3, by: 2 },
-    ],
-    controls: "standard4",
-  },
-  {
-    id: "tapBlisters",
-    name: "TAP",
-    guide: {
-      scene: "tapBlisters",
-    },
-    entries: [
-      { beat: 0, col: 3, color: "cyan" },
-      { beat: 8, col: 4, kind: "blister", color: null, row: 2 },
-      { beat: 16, col: 7, color: "red" },
-      { beat: 24, col: 4, kind: "blister", color: null, row: 2, by: 1 },
-      { beat: 32, col: 5, color: "red" },
-      { beat: 40, col: 6, kind: "blister", color: null, row: 2 },
-      { beat: 48, col: 7, color: "red" },
-      { beat: 56, col: 5, kind: "blister", color: null, row: 3, by: 1 },
-      { beat: 64, col: 7, color: "red" },
+      { beat: 0, col: 5, kind: "blister", color: null, row: 2, gesture: "swipe" },
+      { beat: 12, col: 2, kind: "blister", color: null, row: 3 },
     ],
     controls: "standard4",
   },

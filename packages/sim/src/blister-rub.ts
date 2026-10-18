@@ -1,4 +1,4 @@
-import { blisterBlow, blisterGestureOf, blisterIsUp, blisterMayTap } from "./blister.js";
+import { blisterDealt, blisterGestureOf, blisterIsUp, blisterMayTap } from "./blister.js";
 import type { Command, Creature } from "./types.js";
 import type { World } from "./world.js";
 
@@ -15,7 +15,8 @@ import type { World } from "./world.js";
  *
  * **A rub is one surfacing's**, as a stroke and a turn are: the first
  * reversal knocks the body out (`blister.ts`), so no hand on it outlives it.
- * Two hands on a BOTH blister each count their own reversals.
+ * Two hands on an EITHER blister each count their own reversals; on a BOTH
+ * one a seat's reversal is its half (`blisterDealt`).
  */
 export function blisterRubHeard(world: World, player: 1 | 2, command: Command): void {
   if (command.kind !== "drag" || command.target !== "blisterRub") return;
@@ -30,7 +31,7 @@ export function blisterRubHeard(world: World, player: 1 | 2, command: Command): 
   const count = Math.max(0, command.id ?? 0);
   setRubAt(c, player, count);
   const fresh = was === undefined ? 0 : count - was;
-  for (let i = 0; i < fresh && world.creatures.includes(c); i++) blisterBlow(world, c);
+  for (let i = 0; i < fresh && world.creatures.includes(c); i++) blisterDealt(world, c, player);
 }
 
 /** Whether a hand is rubbing it now. */

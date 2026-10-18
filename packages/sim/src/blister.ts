@@ -25,8 +25,9 @@ import type { World } from "./world.js";
  * default or a wave may ask for more, all inside the one surfacing (the
  * owner, 16 October 2026, `blister-numbers.ts`).
  *
- * **Only the hand its `by` names counts**, and only while it is up. The other
- * seat is shown the pore swelling a beat before it comes up
+ * **Only the hand its `by` names counts**, and only while it is up: one seat,
+ * either, or both — each seat finishing the gesture (`blisterDealt`). With one
+ * seat named, the other is shown the pore swelling a beat before it comes up
  * (`blisterSwelling`), so a hand that waits to see it arrives late and the
  * pair has to say *now*.
  *
@@ -50,14 +51,14 @@ export function blisterPlaceRow(cfg: SimConfig, row: number | undefined): number
  * What a blister arrives with: its seat, its gesture, and the pore under it
  * already swelling. It arrives **under**, so the first thing on the field is
  * the bulge on the partner's screen — the arrival is a thing to say before it
- * is a thing to hit. The seat defaults to the navigator, the director's own
- * default (`docs/spec/blister.md`).
+ * is a thing to hit. The seat defaults to either, the director's own default
+ * (`docs/spec/blister.md`).
  */
 export function blisterOnSpawn(cfg: SimConfig, entry: BlisterSpawn): Partial<Creature> {
   const { by, gesture, way } = entry;
   return {
     ...blisterNumbersOnSpawn(gesture ?? "tap", entry),
-    blisterBy: by ?? 2,
+    blisterBy: by ?? "either",
     blisterUp: false,
     blisterClock: cfg.blisterDownBeats,
     // Absent a tap, so a tap blister is byte-for-byte the blister lane 1 built,
@@ -91,15 +92,28 @@ export function blisterHoldable(c: Creature, seat: 1 | 2): boolean {
 
 /** The seat whose blow counts, with the default spelled once. */
 export function blisterByOf(c: Creature): BlisterBy {
-  return c.blisterBy ?? 2;
+  return c.blisterBy ?? "either";
 }
 
-/** Whether this seat's blow counts on this blister — by the setting alone,
- * up or not. Render asks it too, so a press refused here is never answered
- * there (`render/blister-tap.ts`). */
+/** The one seat its `by` names, or null when either or both may — the
+ * settings on which neither screen is the one only shown the pore. */
+export function blisterOneSeat(by: BlisterBy): 1 | 2 | null {
+  return by === 1 || by === 2 ? by : null;
+}
+
+/** Whether this seat's blow counts on this blister — by the setting, up or
+ * not, and on BOTH only until its half is done. Render asks it too, so a press
+ * refused here is never answered there (`render/blister-tap.ts`). */
 export function blisterMayTap(c: Creature, seat: 1 | 2): boolean {
   const by = blisterByOf(c);
-  return by === "both" || by === seat;
+  if (by === "both") return !blisterHalfDone(c, seat);
+  return by === "either" || by === seat;
+}
+
+/** Whether this seat has finished its half of a BOTH blister's blow in
+ * progress — what its screen marks as done and waiting on the other. */
+export function blisterHalfDone(c: Creature, seat: 1 | 2): boolean {
+  return ((c.blisterHalves ?? 0) & seat) !== 0;
 }
 
 /** Whether it is up: the beats a blow counts on and a bolt meets it. */
@@ -149,8 +163,39 @@ export function blisterTapped(world: World, player: 1 | 2, id: number): boolean 
   // COMBO's press is its first half: counted and gone, and the pull in its
   // place is the hand that deals the blow (`blister-swipe.ts`).
   if (gesture === "combo") c.blisterPressed = true;
-  else blisterBlow(world, c);
+  else blisterDealt(world, c, player);
   return true;
+}
+
+/**
+ * One seat's gesture finished on it: a blow, but on BOTH that seat's half —
+ * marked, its gesture started over, the blow dealt when the other seat has
+ * finished too. HOLD and LEVER on BOTH count only while both hands are on,
+ * which is the two finishing at once (`blister-hold.ts`, `blister-lever.ts`).
+ */
+export function blisterDealt(world: World, c: Creature, seat: 1 | 2): void {
+  if (blisterByOf(c) !== "both") {
+    blisterBlow(world, c);
+    return;
+  }
+  const halves = (c.blisterHalves ?? 0) | seat;
+  if (halves !== 3) {
+    // Said, so the seat hears it land: the count unchanged, `half` its seat.
+    const left = blisterBlowsOf(world.cfg, c) - (c.blisterBlowsDone ?? 0);
+    world.events.push({ type: "blisterBlow", id: c.id, col: c.col, row: c.row, left, half: seat });
+    c.blisterHalves = halves;
+    blisterHalfOver(c, seat);
+    return;
+  }
+  blisterBlow(world, c);
+}
+
+/** One seat's half dealt: its stroke spent, the shared turn and press over. */
+function blisterHalfOver(c: Creature, seat: 1 | 2): void {
+  c.blisterTurnedMilli = undefined;
+  c.blisterPressed = undefined;
+  const strokes = c.blisterStrokes ?? 0;
+  if ((strokes & seat) !== 0) c.blisterStrokes = (strokes & ~seat) | (seat * BLISTER_SPENT);
 }
 
 /**
@@ -189,6 +234,7 @@ export function blisterBlow(world: World, c: Creature): void {
  * (`BLISTER_SPENT`), so a thumb still past the reach is not a second blow.
  */
 function blisterGestureOver(c: Creature): void {
+  c.blisterHalves = undefined;
   c.blisterHeldTicks = undefined;
   c.blisterTurnedMilli = undefined;
   c.blisterPressed = undefined;

@@ -6,6 +6,22 @@ import type { Wave } from "../wave-types.js";
  */
 export const WAVES_ACT_1_P4: Wave[] = [
   {
+    id: "theStrandPair",
+    name: "STRAND WALTZ",
+    variant: true,
+    entries: [
+      { beat: 0, col: 7, color: "cyan" },
+      { beat: 4, col: 9, kind: "strand", color: "red", beads: 5 },
+      { beat: 10, col: 2, color: "red" },
+      { beat: 15, col: 5, kind: "rind", color: "cyan" },
+      { beat: 20, col: 9, color: "red" },
+      { beat: 25, col: 6, kind: "strand", color: "red", beads: 5 },
+      { beat: 30, col: 3, color: "cyan" },
+      { beat: 35, col: 6, kind: "rind", color: "red" },
+    ],
+    controls: "standard2",
+  },
+  {
     id: "theVeil",
     name: "THE VEIL",
     guide: {
@@ -215,22 +231,6 @@ export const WAVES_ACT_1_P4: Wave[] = [
       { beat: 17, col: 2, kind: "ghost", color: "red" },
       { beat: 23, col: 7, kind: "ghost", color: "cyan" },
       { beat: 28, col: 1, kind: "ghost", color: "red" },
-    ],
-    controls: "standard2",
-  },
-  {
-    id: "theGhostPair",
-    name: "GHOST MEETS COUNT",
-    variant: true,
-    entries: [
-      { beat: 0, col: 2, color: "red" },
-      { beat: 6, col: 7, kind: "ghost", color: "cyan", path: "across" },
-      { beat: 12, col: 3, color: "cyan" },
-      { beat: 16, col: 2, kind: "countdown", color: "red" },
-      { beat: 21, col: 7, color: "cyan" },
-      { beat: 27, col: 8, kind: "ghost", color: "cyan" },
-      { beat: 33, col: 10, color: "cyan" },
-      { beat: 39, col: 7, kind: "countdown", color: "red" },
     ],
     controls: "standard2",
   },

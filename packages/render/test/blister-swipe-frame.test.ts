@@ -140,7 +140,7 @@ const CARRY: Record<BlisterSwipeWay, [number, number]> = {
 
 /** Every blister stroked its way by the hand its `by` names: press, half, lift. */
 function swipeFrames(role: ViewRole, ticks: number, sampling: { every?: number; phase?: number }) {
-  const queue = [swiped(2, 1, "left"), swiped(5, 2, "up"), swiped(8, "both", "down")];
+  const queue = [swiped(2, 1, "left"), swiped(5, 2, "up"), swiped(8, "either", "down")];
   const far = CFG.blisterSwipeMilli;
   const { ctx, events } = runFrames(createWorld(CFG, 3, queue), role, ticks, {
     ...sampling,

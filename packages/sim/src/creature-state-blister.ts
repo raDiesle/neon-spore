@@ -1,8 +1,11 @@
 /**
- * Whose hand may knock a blister down: player 1, player 2, or either, the
- * first hand to finish its gesture knocking it out (`docs/spec/blister.md`, *BY*).
+ * Whose hand may knock a blister down (`docs/spec/blister.md`, *BY*): player 1
+ * alone, player 2 alone, **either** — the first hand to finish its gesture
+ * deals the blow — or **both**, each seat finishing it before the blow lands.
+ * The owner, 18 October 2026: *configure for all controls enemies which player
+ * needs to succeed it … default is either*.
  */
-export type BlisterBy = 1 | 2 | "both";
+export type BlisterBy = 1 | 2 | "either" | "both";
 
 /**
  * The gesture a blister is knocked down by (`docs/spec/blister.md`, *The
@@ -30,9 +33,9 @@ export type BlisterWay = BlisterSwipeWay | BlisterTurnWay;
  * both extend it, so a field added for the next gesture is written once.
  */
 export interface BlisterSpawn {
-  /** Whose hand knocks it down — 1, 2 or both; absent means 2
-   * (`blisterOnSpawn`). The wave's, for `sees`' reason: the other seat is the
-   * one shown the pore, so this turns the exchange round. */
+  /** Whose hand knocks it down — 1, 2, either or both; absent means either
+   * (`blisterOnSpawn`). The wave's, for `sees`' reason: with one seat named,
+   * the other is the one shown the pore, so this turns the exchange round. */
   by?: BlisterBy;
   /** The gesture it is knocked down by; absent a tap. */
   gesture?: BlisterGesture;
@@ -64,6 +67,12 @@ export interface BlisterState {
    * the whole exchange round.
    */
   blisterBy?: BlisterBy;
+  /**
+   * A BOTH blister's blow in progress, a bit a seat: 1 and 2 for a seat that
+   * has finished its gesture since the last blow. The second seat's finish is
+   * the blow and clears it (`blisterDealt`). Absent on every other setting.
+   */
+  blisterHalves?: number;
   /** Whether it is up now — the only beats a blow counts on, and the only
    * beats a bolt meets it. */
   blisterUp?: boolean;

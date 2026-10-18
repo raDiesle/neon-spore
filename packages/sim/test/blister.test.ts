@@ -171,7 +171,7 @@ describe("knocking it down", () => {
 
   it("with both hands named, either seat's tap knocks it out", () => {
     for (const seat of [1, 2] as const) {
-      const s = stage([blister(3, 4, "both")]);
+      const s = stage([blister(3, 4, "either")]);
       untilUp(s);
       blow(s, seat);
       expect(only(s.world)).toBeUndefined();

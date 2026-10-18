@@ -30,7 +30,7 @@ const CFG: SimConfig = DEFAULT_CONFIG;
 const TPB = ticksPerBeat(CFG);
 const FAR = CFG.blisterSwipeMilli;
 
-const swiped = (way?: BlisterWay, by: 1 | 2 | "both" = 2): SpawnEntry => ({
+const swiped = (way?: BlisterWay, by: 1 | 2 | "either" | "both" = 2): SpawnEntry => ({
   beat: 0,
   col: 3,
   kind: "blister",
@@ -159,8 +159,8 @@ describe("a SWIPE blister, stroked the way its arrow points", () => {
     expect(s.blows()).toBe(0);
   });
 
-  it("is knocked out once by two hands stroking it together on a BOTH blister", () => {
-    const s = stage([swiped("right", "both")]);
+  it("is knocked out once by two hands stroking it together on an EITHER blister", () => {
+    const s = stage([swiped("right", "either")]);
     const c = s.untilUp();
     const t = s.world.tick;
     s.go(3, [

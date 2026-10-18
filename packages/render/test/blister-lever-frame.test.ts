@@ -95,7 +95,7 @@ describe("a press on a LEVER blister", () => {
 
 /** Every blister's knob taken, carried into its band and held: press, then the band. */
 function leverFrames(role: ViewRole, ticks: number, sampling: { every?: number; phase?: number }) {
-  const queue = [levered(2, 1), levered(5, 2), levered(8, "both")];
+  const queue = [levered(2, 1), levered(5, 2), levered(8, "either")];
   const band = Math.round((CFG.blisterLeverFromMilli + CFG.blisterLeverToMilli) / 2);
   const { ctx, events } = runFrames(createWorld(CFG, 3, queue), role, ticks, {
     ...sampling,

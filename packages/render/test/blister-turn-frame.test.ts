@@ -50,7 +50,7 @@ const turned = (col: number, by: BlisterBy, way: BlisterTurnWay): SpawnEntry => 
 
 /** Every blister turned its way by the hand its `by` names, an eighth a tick. */
 function turnFrames(role: ViewRole, ticks: number, sampling: { every?: number; phase?: number }) {
-  const queue = [turned(2, 1, "ccw"), turned(5, 2, "cw"), turned(8, "both", "cw")];
+  const queue = [turned(2, 1, "ccw"), turned(5, 2, "cw"), turned(8, "either", "cw")];
   const pressed = new Set<number>();
   const { ctx, events } = runFrames(createWorld(CFG, 3, queue), role, ticks, {
     ...sampling,

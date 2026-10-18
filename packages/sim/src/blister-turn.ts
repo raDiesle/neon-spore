@@ -1,5 +1,5 @@
 import { MAX_BEARING_STEP, NO_BEARING, TURN } from "./bearing.js";
-import { blisterBlow, blisterGestureOf, blisterIsUp, blisterMayTap } from "./blister.js";
+import { blisterDealt, blisterGestureOf, blisterIsUp, blisterMayTap } from "./blister.js";
 import { blisterLengthMilliOf } from "./blister-numbers.js";
 import type { BlisterTurnWay } from "./creature-state-blister.js";
 import type { Command, Creature } from "./types.js";
@@ -20,8 +20,9 @@ import type { World } from "./world.js";
  *
  * **A turn is one surfacing's**: the whole turn knocks the body out, and a
  * body left up breaks the hull and is gone (`blister.ts`), so no hand on it
- * outlives it. Two hands on a BOTH blister wind the one turn between them, as
- * two tapping hands share the one count.
+ * outlives it. Two hands on an EITHER blister wind the one turn between them, as
+ * two tapping hands share the one count; on a BOTH one the hand that finishes
+ * the turn deals its seat's half (`blisterDealt`).
  */
 export function blisterTurnHeard(world: World, player: 1 | 2, command: Command): void {
   if (command.kind !== "drag" || command.target !== "blisterTurn") return;
@@ -49,7 +50,7 @@ export function blisterTurnHeard(world: World, player: 1 | 2, command: Command):
     return;
   }
   c.blisterTurnedMilli = undefined;
-  blisterBlow(world, c);
+  blisterDealt(world, c, player);
 }
 
 /** The way it counts, with the default spelled once. */

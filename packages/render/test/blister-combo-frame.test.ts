@@ -96,7 +96,7 @@ describe("a press on a COMBO blister", () => {
 
 /** Every blister pressed, then stroked to the right: tap, press, half, lift. */
 function comboFrames(role: ViewRole, ticks: number, sampling: { every?: number; phase?: number }) {
-  const queue = [combo(2, 1), combo(5, 2), combo(8, "both")];
+  const queue = [combo(2, 1), combo(5, 2), combo(8, "either")];
   const far = CFG.blisterSwipeMilli;
   const { ctx, events } = runFrames(createWorld(CFG, 3, queue), role, ticks, {
     ...sampling,

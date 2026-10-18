@@ -1,6 +1,6 @@
 import {
   BLISTER_SPENT,
-  blisterBlow,
+  blisterDealt,
   blisterGestureOf,
   blisterIsUp,
   blisterMayTap,
@@ -28,8 +28,9 @@ import type { World } from "./world.js";
  * **A stroke is one surfacing's.** One is opened only on a body that is up
  * and from a seat its `by` allows. A blow that is not the last owed spends
  * the hand until it lifts (`BLISTER_SPENT`): a thumb still past the reach is
- * one stroke, not a blow a tick. Two hands on a BOTH blister
- * stroke on their own bits, and whichever counts first is the blow.
+ * one stroke, not a blow a tick. Two hands on an EITHER blister
+ * stroke on their own bits, and whichever counts first is the blow; on a BOTH
+ * one each stroke is its seat's half (`blisterDealt`).
  *
  * **COMBO's pull is this stroke**, to the right, the COMBO LAB's way, and only
  * once its press is done (`blisterTapped`): the press brings the pull in where
@@ -53,7 +54,7 @@ export function blisterSwipeHeard(world: World, player: 1 | 2, command: Command)
     const { heard } = pullHeard(pull, false, false, along);
     if (heard === "short") world.events.push({ type: "pullShort", col: c.col, player });
     if (heard === "counted" && straight(c, command.fromMilli, command.fromYMilli ?? 0)) {
-      blisterBlow(world, c);
+      blisterDealt(world, c, player);
     }
     return;
   }
@@ -65,7 +66,7 @@ export function blisterSwipeHeard(world: World, player: 1 | 2, command: Command)
   if (heard !== "counted" || !straight(c, command.fromMilli, command.fromYMilli ?? 0)) return;
   // Counted the moment it got there: the body gone with the last blow owed,
   // and the hand spent until it lifts with any other.
-  blisterBlow(world, c);
+  blisterDealt(world, c, player);
 }
 
 /**

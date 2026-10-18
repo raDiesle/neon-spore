@@ -1,4 +1,4 @@
-import type { BlisterGesture, BlisterWay } from "./creature-state-blister.js";
+import type { BlisterBy, BlisterGesture, BlisterWay } from "./creature-state-blister.js";
 import type { Creature } from "./types.js";
 
 /**
@@ -82,7 +82,10 @@ export function tailHashParts(c: Creature): number[] {
   // THE BLISTER: whose blow counts, up or under, and beats left as it is. Two devices that disagreed about any one would have one
   // seat's tap counted on one phone and refused on the other. `0` and `-1`
   // for a body that is not a blister, which no live one can be.
-  out.push(c.blisterBy === undefined ? 0 : c.blisterBy === "both" ? 3 : c.blisterBy);
+  out.push(c.blisterBy === undefined ? 0 : BYS.indexOf(c.blisterBy) + 1);
+  // And a BOTH blister's halves: a seat's finish counted on one phone only
+  // would be a blow on one phone a hand early.
+  out.push(c.blisterHalves ?? -1);
   out.push(c.blisterUp ? 1 : 0);
   out.push(c.blisterClock ?? -1);
   // And HOLD's: which gesture it wants, and the beat of a hold in progress —
@@ -119,6 +122,10 @@ export function tailHashParts(c: Creature): number[] {
  * lets a pull reach, so a hand resting at nought and no hand at all are never
  * the same number. */
 const NO_BALLOON_HAND = -1_000_000;
+
+/** A blister's `by` as a number, 1 to 4: an index that moved would change
+ * every hash a recorded replay holds. */
+const BYS: readonly BlisterBy[] = [1, 2, "either", "both"];
 
 /** A blister's gesture and way as numbers, in the order they were added:
  * an index that moved would change every hash a recorded replay holds. */

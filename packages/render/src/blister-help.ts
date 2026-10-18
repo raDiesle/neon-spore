@@ -109,6 +109,8 @@ export function drawBlisterHelpOf(
   const { x, y } = flatCenter(l, c, beatPhase);
   const r = flatRadius(l, world.cfg, c, beatPhase);
   const markR = handleRadius(l, world.cfg) * KNOB_SHARE * PULL_SIZE;
+  // A seat whose half of a BOTH blister is done may not touch it again until
+  // the partner's lands, so it is drawn the wait (`blisterMayTap`).
   const mine = l.role === "test" || blisterMayTap(c, seatOf(l.role));
   ctx.save();
   ctx.globalAlpha *= h;

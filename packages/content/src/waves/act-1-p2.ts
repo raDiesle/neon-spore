@@ -6,6 +6,19 @@ import type { Wave } from "../wave-types.js";
  */
 export const WAVES_ACT_1_P2: Wave[] = [
   {
+    id: "theThrobAgain",
+    name: "FIRST THROB",
+    variant: true,
+    entries: [
+      { beat: 0, col: 4, kind: "throb", color: "red" },
+      { beat: 6, col: 5, kind: "throb", color: "red" },
+      { beat: 13, col: 6, kind: "throb", color: "red" },
+      { beat: 20, col: 4, kind: "throb", color: "red" },
+      { beat: 27, col: 5, kind: "throb", color: "red" },
+    ],
+    controls: "standard2",
+  },
+  {
     id: "theThrobReach",
     name: "THROB AT WORLD END",
     variant: true,
@@ -208,31 +221,6 @@ export const WAVES_ACT_1_P2: Wave[] = [
       { beat: 22, col: 2, kind: "magnet", color: "red" },
       { beat: 28, col: 7, kind: "magnet", color: "cyan" },
     ],
-    controls: "standard2",
-  },
-  {
-    id: "theMagnetPair",
-    name: "MAGNET DUET",
-    variant: true,
-    entries: [
-      { beat: 0, col: 4, color: "red" },
-      { beat: 6, col: 9, kind: "magnet", color: "red" },
-      { beat: 10, col: 5, color: "red" },
-      { beat: 16, col: 7, kind: "recoil", color: "cyan" },
-      { beat: 22, col: 0, color: "red" },
-      { beat: 27, col: 1, kind: "magnet", color: "cyan" },
-      { beat: 31, col: 0, color: "cyan" },
-      { beat: 36, col: 5, kind: "recoil", color: "red" },
-    ],
-    controls: "standard2",
-  },
-  {
-    id: "theGyre",
-    name: "THE GYRE",
-    guide: {
-      scene: "theGyre",
-    },
-    entries: [{ beat: 0, col: 5, kind: "gyre", color: null }],
     controls: "standard2",
   },
 ];

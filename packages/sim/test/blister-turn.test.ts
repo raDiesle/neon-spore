@@ -31,7 +31,7 @@ const CFG: SimConfig = DEFAULT_CONFIG;
 const TPB = ticksPerBeat(CFG);
 const EIGHTH = BEARING_TURN / 8;
 
-const turned = (way?: BlisterTurnWay, by: 1 | 2 | "both" = 2): SpawnEntry => ({
+const turned = (way?: BlisterTurnWay, by: 1 | 2 | "either" | "both" = 2): SpawnEntry => ({
   beat: 0,
   col: 3,
   kind: "blister",
@@ -142,8 +142,8 @@ describe("a TURN blister, turned round the way its channel runs", () => {
     expect(s.blows()).toBe(0);
   });
 
-  it("winds one turn between two hands on a BOTH blister", () => {
-    const s = stage([turned("cw", "both")]);
+  it("winds one turn between two hands on an EITHER blister", () => {
+    const s = stage([turned("cw", "either")]);
     const c = s.untilUp();
     s.press(1, c.id);
     s.press(2, c.id);

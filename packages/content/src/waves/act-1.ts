@@ -233,17 +233,4 @@ export const WAVES_ACT_1: Wave[] = [
     entries: [{ beat: 0, col: 5, kind: "throb", color: "red" }],
     controls: "standard2",
   },
-  {
-    id: "theThrobAgain",
-    name: "FIRST THROB",
-    variant: true,
-    entries: [
-      { beat: 0, col: 4, kind: "throb", color: "red" },
-      { beat: 6, col: 5, kind: "throb", color: "red" },
-      { beat: 13, col: 6, kind: "throb", color: "red" },
-      { beat: 20, col: 4, kind: "throb", color: "red" },
-      { beat: 27, col: 5, kind: "throb", color: "red" },
-    ],
-    controls: "standard2",
-  },
 ];

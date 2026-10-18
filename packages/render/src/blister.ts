@@ -2,6 +2,7 @@ import {
   blisterByOf,
   blisterGestureOf,
   blisterIsUp,
+  blisterOneSeat,
   blisterSwelling,
   blisterUpBeatsOf,
   type Creature,
@@ -54,12 +55,12 @@ export function blisterRise(cfg: SimConfig, c: Creature, beatPhase: number): num
 
 /**
  * Whether this screen is drawn the bulge: the seat that may not knock it down,
- * both with `by` both, and the rig, which is both halves at once.
+ * both when `by` names no one seat (either or both), and the rig, which is both halves at once.
  */
 export function showsBlisterBulge(l: Layout, c: Creature): boolean {
   if (l.role === "test") return true;
-  const by = blisterByOf(c);
-  return by === "both" || by !== seatOf(l.role);
+  const one = blisterOneSeat(blisterByOf(c));
+  return one === null || one !== seatOf(l.role);
 }
 
 /** Where the pore sits under a body of radius `r` at `y`: under the lobes,

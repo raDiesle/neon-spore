@@ -44466,3 +44466,16 @@ Bottleneck: which "wave" the owner meant, settled by one question.
 Bottleneck: looking — fitting a word into a rail cut for a 26 px picture.
 
 *Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-18 — BY on every control: P1, P2, BOTH or EITHER
+
+- reading: 15 min. THE WEIGHT's press, the CONTROLS brushes, and the seven
+  gestures' call sites into `blisterBlow`.
+- writing: 20 min. `blisterDealt` and the halves, HOLD and LEVER held
+  together, the director's fourth chip, AUTO's two hands, the tests.
+- looking: 0 min. Proved by the simulation and AUTO's tests.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: the old `"both"` meant either, so every test literal that said it
+had to be read before it could be renamed.

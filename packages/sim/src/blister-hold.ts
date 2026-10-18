@@ -1,4 +1,10 @@
-import { blisterBlow, blisterGestureOf, blisterHoldable, blisterIsUp } from "./blister.js";
+import {
+  blisterBlow,
+  blisterByOf,
+  blisterGestureOf,
+  blisterHoldable,
+  blisterIsUp,
+} from "./blister.js";
 import { blisterHoldTicksOf } from "./blister-numbers.js";
 import { gripsCreature, NO_GRIP, setGrip } from "./grip.js";
 import type { Creature } from "./types.js";
@@ -16,8 +22,9 @@ import type { World } from "./world.js";
  *
  * **A blow is a hold as long as `blisterHoldTicksOf`** — a beat unless the
  * wave or the gesture's default says otherwise — and the last blow owed knocks
- * it out. A release loses the hold in progress. Two hands on a BOTH blister add a tick each, so they
- * finish it twice as fast.
+ * it out. A release loses the hold in progress. Two hands on an EITHER blister add a tick each,
+ * so they finish it twice as fast; a BOTH one counts only while both hands are
+ * on it, a tick at a time — THE WEIGHT's press, held together.
  */
 export function stepBlisterHolds(world: World): void {
   for (const c of [...world.creatures]) {
@@ -27,9 +34,10 @@ export function stepBlisterHolds(world: World): void {
       c.blisterHeldTicks = undefined;
       continue;
     }
-    const hands = ([1, 2] as const).filter(
+    const on = ([1, 2] as const).filter(
       (seat) => gripsCreature(world, seat, c.id) && blisterHoldable(c, seat),
     ).length;
+    const hands = blisterByOf(c) === "both" ? (on === 2 ? 1 : 0) : on;
     if (hands === 0) {
       // Absent rather than nought, THE WEIGHT's way: a blister nobody is
       // holding is the blister that came up.

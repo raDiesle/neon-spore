@@ -51,11 +51,11 @@ const blister = (col: number, by: BlisterBy, blows?: number): SpawnEntry => ({
   ...(blows === undefined ? {} : { blows }),
 });
 
-const QUEUE: SpawnEntry[] = [blister(2, 1), blister(5, 2), blister(8, "both")];
+const QUEUE: SpawnEntry[] = [blister(2, 1), blister(5, 2), blister(8, "either")];
 
 /** The same three asking three blows each: the count round them, and the pip a
  * blow that was not the last throws off it (`blister-blows.ts`). */
-const OWING: SpawnEntry[] = [blister(2, 1, 3), blister(5, 2, 3), blister(8, "both", 3)];
+const OWING: SpawnEntry[] = [blister(2, 1, 3), blister(5, 2, 3), blister(8, "either", 3)];
 
 function blisterFrames(
   role: ViewRole,

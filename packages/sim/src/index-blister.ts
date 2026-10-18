@@ -14,9 +14,11 @@ export {
   BLISTER_SPENT,
   blisterByOf,
   blisterGestureOf,
+  blisterHalfDone,
   blisterHoldable,
   blisterIsUp,
   blisterMayTap,
+  blisterOneSeat,
   blisterPlaceRow,
   blisterSwelling,
 } from "./blister.js";

@@ -27,10 +27,10 @@ export const WAVES_ACT_37: Wave[] = [
     entries: [
       { beat: 0, col: 0, kind: "choir", color: "red" },
       { beat: 7, col: 10, kind: "fence", color: null },
-      { beat: 12, col: 4, kind: "blister", color: null, row: 3, by: 2 },
+      { beat: 12, col: 4, kind: "blister", color: null, row: 3 },
       { beat: 17, col: 10, kind: "choir", color: "cyan" },
       { beat: 24, col: 0, kind: "fence", color: null },
-      { beat: 31, col: 10, kind: "blister", color: null, row: 2, by: 2, gesture: "swipe" },
+      { beat: 31, col: 10, kind: "blister", color: null, row: 2, gesture: "swipe" },
     ],
   },
   {

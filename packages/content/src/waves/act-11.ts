@@ -66,7 +66,7 @@ export const WAVES_ACT_11: Wave[] = [
       { beat: 13, col: 2, color: "red" },
       { beat: 19, col: 0, kind: "beatbox", color: null, beats: 2 },
       { beat: 24, col: 3, color: "cyan" },
-      { beat: 29, col: 10, kind: "blister", color: null, row: 3, by: 2 },
+      { beat: 29, col: 10, kind: "blister", color: null, row: 3 },
       { beat: 37, col: 0, color: "red" },
     ],
     faults: [{ kind: "leech", at: 12, beats: 12 }],

@@ -26,7 +26,7 @@ import {
 const CFG: SimConfig = DEFAULT_CONFIG;
 const TPB = ticksPerBeat(CFG);
 
-const rubbed = (by: 1 | 2 | "both" = 2): SpawnEntry => ({
+const rubbed = (by: 1 | 2 | "either" | "both" = 2): SpawnEntry => ({
   beat: 0,
   col: 3,
   kind: "blister",
@@ -107,8 +107,8 @@ describe("a RUB blister, scrubbed back and forth", () => {
     expect(s.blows()).toBe(0);
   });
 
-  it("is knocked out once by two hands turning back together on a BOTH blister", () => {
-    const s = stage([rubbed("both")]);
+  it("is knocked out once by two hands turning back together on an EITHER blister", () => {
+    const s = stage([rubbed("either")]);
     const c = s.untilUp();
     const t = s.world.tick;
     s.go(2, [

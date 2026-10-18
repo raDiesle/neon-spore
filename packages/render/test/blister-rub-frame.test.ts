@@ -109,7 +109,7 @@ describe("a press on a RUB blister", () => {
 
 /** Every blister rubbed by the hand its `by` names, a reversal every other tick. */
 function rubFrames(role: ViewRole, ticks: number, sampling: { every?: number; phase?: number }) {
-  const queue = [rubbed(2, 1), rubbed(5, 2), rubbed(8, "both")];
+  const queue = [rubbed(2, 1), rubbed(5, 2), rubbed(8, "either")];
   const { ctx, events } = runFrames(createWorld(CFG, 3, queue), role, ticks, {
     ...sampling,
     onTick: (tick, w) => {

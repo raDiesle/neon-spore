@@ -19,4 +19,7 @@ export type BlisterEvent = {
   /** Blows still owed after this one: nought is the body gone with it, more
    * is a blow the body took and stays up after (`blister-numbers.ts`). */
   left: number;
+  /** On a BOTH blister, the seat whose half this was: nothing counted yet,
+   * and the blow waiting on the other seat (`blisterDealt`). */
+  half?: 1 | 2;
 };

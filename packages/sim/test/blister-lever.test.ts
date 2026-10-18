@@ -28,7 +28,7 @@ const TPB = ticksPerBeat(CFG);
 const HOLD = (CFG.blisterLeverHoldMilli * TPB) / 1000;
 const BAND = Math.round((CFG.blisterLeverFromMilli + CFG.blisterLeverToMilli) / 2);
 
-const levered = (by: 1 | 2 | "both" = 2): SpawnEntry => ({
+const levered = (by: 1 | 2 | "either" | "both" = 2): SpawnEntry => ({
   beat: 0,
   col: 3,
   kind: "blister",

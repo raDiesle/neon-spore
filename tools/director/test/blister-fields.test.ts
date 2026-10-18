@@ -31,15 +31,15 @@ describe("THE BLISTER's fields", () => {
     expect(hasBlisterFields({ beat: 0, col: 0, kind: "mine" } as WaveEntry)).toBe(false);
   });
 
-  it("read the navigator's hand and a tap when unset", () => {
-    expect(blisterByOf(blister())).toBe(2);
+  it("read either hand and a tap when unset", () => {
+    expect(blisterByOf(blister())).toBe("either");
     expect(blisterGestureOf(blister())).toBe("tap");
   });
 
   it("write each default as no field, so an untouched blister saves as it was", () => {
     const e = blister();
     setBlisterBy(e, 1);
-    setBlisterBy(e, 2);
+    setBlisterBy(e, "either");
     setBlisterGesture(e, "hold");
     setBlisterGesture(e, "tap");
     setBlisterWay(e, "up");
@@ -47,8 +47,8 @@ describe("THE BLISTER's fields", () => {
     expect(serializeEntry(e)).toBe(serializeEntry(blister()));
   });
 
-  it("survive a save and a read back, both seats and either", () => {
-    for (const by of [1, "both"] as const) {
+  it("survive a save and a read back, each seat and both", () => {
+    for (const by of [1, 2, "both"] as const) {
       const e = blister();
       setBlisterBy(e, by);
       setBlisterGesture(e, "hold");
@@ -110,7 +110,7 @@ describe("THE BLISTER's rows", () => {
   // UP and BLOWS follow BY on every gesture (`blister-numbers-fields.test.ts`).
   it("are BY, UP and BLOWS, and no WAY or LENGTH for a TAP", () => {
     expect(said(blisterRows(blister(), () => {}))).toEqual([
-      "BY P1 P2 BOTH",
+      "BY P1 P2 BOTH EITHER",
       "UP DEFAULT 6 2 3 4 5 6 8 10 12 16",
       "BLOWS DEFAULT 1 1 2 3 4 5 6 8",
     ]);
@@ -148,7 +148,9 @@ describe("THE BLISTER's rows", () => {
     const [by] = blisterRows(e, () => edits++) as unknown as Node[];
     by?.children[3]?.click?.();
     expect(e.by).toBe("both");
+    by?.children[4]?.click?.();
+    expect(e.by).toBeUndefined();
     expect(e.gesture).toBeUndefined();
-    expect(edits).toBe(1);
+    expect(edits).toBe(2);
   });
 });

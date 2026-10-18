@@ -13,6 +13,31 @@ import type { Wave } from "../wave-types.js";
  */
 export const WAVES_ACT_1_P3: Wave[] = [
   {
+    id: "theMagnetPair",
+    name: "MAGNET DUET",
+    variant: true,
+    entries: [
+      { beat: 0, col: 4, color: "red" },
+      { beat: 6, col: 9, kind: "magnet", color: "red" },
+      { beat: 10, col: 5, color: "red" },
+      { beat: 16, col: 7, kind: "recoil", color: "cyan" },
+      { beat: 22, col: 0, color: "red" },
+      { beat: 27, col: 1, kind: "magnet", color: "cyan" },
+      { beat: 31, col: 0, color: "cyan" },
+      { beat: 36, col: 5, kind: "recoil", color: "red" },
+    ],
+    controls: "standard2",
+  },
+  {
+    id: "theGyre",
+    name: "THE GYRE",
+    guide: {
+      scene: "theGyre",
+    },
+    entries: [{ beat: 0, col: 5, kind: "gyre", color: null }],
+    controls: "standard2",
+  },
+  {
     id: "theGyreAgain",
     name: "HELLO GYRE",
     variant: true,
@@ -208,22 +233,6 @@ export const WAVES_ACT_1_P3: Wave[] = [
       { beat: 16, col: 7, kind: "strand", color: "cyan", beads: 3 },
       { beat: 21, col: 3, kind: "strand", color: "red", beads: 2 },
       { beat: 27, col: 10, kind: "strand", color: "red", beads: 5 },
-    ],
-    controls: "standard2",
-  },
-  {
-    id: "theStrandPair",
-    name: "STRAND WALTZ",
-    variant: true,
-    entries: [
-      { beat: 0, col: 7, color: "cyan" },
-      { beat: 4, col: 9, kind: "strand", color: "red", beads: 5 },
-      { beat: 10, col: 2, color: "red" },
-      { beat: 15, col: 5, kind: "rind", color: "cyan" },
-      { beat: 20, col: 9, color: "red" },
-      { beat: 25, col: 6, kind: "strand", color: "red", beads: 5 },
-      { beat: 30, col: 3, color: "cyan" },
-      { beat: 35, col: 6, kind: "rind", color: "red" },
     ],
     controls: "standard2",
   },
