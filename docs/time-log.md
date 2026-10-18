@@ -44367,3 +44367,5 @@ and only the composer's own run says so.
 Bottleneck: fifteen rows were written into rehearsal ticks, arena rows and
 test literals in dozens of places, and each needed reading before it could
 be moved.
+
+*Measured: 11 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-18 · 2c0d29ee8 — The ship is a tile shorter, so a body falls a tile further before it reaches the hull
+
+The field is sixteen rows instead of fifteen, so everything that falls takes fifteen beats to reach the hull instead of fourteen. The field's top has not moved: the hull stands one tile lower, and the control band under it is one tile shorter on every phone, so the buttons and strips are a little smaller. The TEST view's two halves of the panel shrink to fit the same band. THE VEER's lane changes now count up from the row above the shield, so its last change still lands there (rows 4, 7, 10 and 13). `waves:order` softened the heads of five acts again for the longer fall, as far as AUTO still clears them, and the rehearsals, THE SCOUT's and THE HAUL's arenas and AUTO's hands for THE LEAD and THE VANE are timed to it. Exemption: a look the owner asked for by name, 18 October 2026 (`docs/decisions.md` #36).
+
 ## 2026-10-18 · 9d28568ee — THE GLUTTON is taken out of the game, whole
 
 The owner asked for it gone on 18 October 2026. Its simulation, drawing, contour, sounds, block of six waves and rehearsal, brush and config field are deleted rather than switched off, as THE GUM's were; `git log -S gluttonFed` finds them. The pod's chew stays, now THE HEAVY POD's grip alone. Every other wave that sent a glutton loses that entry, but CROSSING AND SEEDER, which gets a seeder in its place so its name stays true. `waves:order --write` then places every wave after the gap again, as the curriculum tests require: the fillers before THE MAZE are on THE CROSSING now, and THE ECHO gains a review block where THE NETTLE's filler stood. The game has 587 waves; the five new review waves went in unweighed in `tools/perf/baseline.json`.
