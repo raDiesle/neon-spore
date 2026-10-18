@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-18 · 4a22c9224 — THE WEIGHT is gone; its waves hold a BOTH blister, taught by HOLD TOGETHER
+
+THE WEIGHT left the game, from sim, render, audio, the director and AUTO. Each of its 73 arrivals is now a HOLD blister whose BY is BOTH, which gives only while both thumbs are on it at once. Its first wave keeps its place and id and is called HOLD TOGETHER, with a film of its own: one thumb alone, then the other, then both on one beat. A BOTH blister is a thing the curriculum sees (`blisterBoth`), so HOLD TOGETHER still heads its block and its review. A BOTH blister knocked down plays the old two-hand grip sound.
+
 ## 2026-10-18 · 17b289b41 — Each seat's word sits on a plate under its own name; the talker's chip blinks and is framed
 
 The owner took SIREN:WORDS · UNDER from VERSUS and turned down BESIDE and TAG (a look asked for by name): both seats' words now hang under their own chips on dark plates, edged violet for P1 and amber for P2, yours bright and your partner's quieter. The talker's chip blinks harder, is framed in its seat's colour and carries a bigger speech bubble (also asked for by name). Four animated speak/listen icons are offered in VERSUS as `siren:voice`: sound waves, a voice meter with headphones, the messenger's three dots, and a talking mouth.
