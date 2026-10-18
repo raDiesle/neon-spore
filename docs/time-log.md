@@ -44259,3 +44259,5 @@ meant checking who sees what for every one.
 - landing: 10 min. Two half-minute dry runs and the test, `check:fast`, `land`.
 
 Bottleneck: every proof is the whole composer running, half a minute each.
+
+*Measured: 7 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*

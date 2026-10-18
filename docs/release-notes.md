@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-18 · cebaa00b7 — waves:order ends with the soften pass, and a test holds that it changes nothing
+
+`bun run waves:order` now softens every group's head to its gentlest child as its last step, the pass `waves:soften` makes, so an order written after a soften no longer quietly undoes it. Its pipeline moved into tools/director/src/curriculum-run.ts as `orderWaves`, and a new test runs it on the shipped list and expects nothing to move, as boss-slots.test.ts holds `waves:bosses`. It takes half a minute.
+
 ## 2026-10-18 · 7876f562c — A brush's hover card says how to kill it, in one short line
 
 The director's hover card on a brush used to print the bestiary's whole blurb, up to a paragraph. It now prints one short instruction: what the pair does to get rid of the body ("Shoot both armour pieces off. Then its colour."). Every creature, rock, pod and control brush has one, in `tools/director/src/brush-kill.ts`. A fault keeps the palette's note. The blurb is still the first-appearance preview's. Exemption used: a look the owner asked for by name, and it is the director, not the field.
