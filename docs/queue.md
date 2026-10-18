@@ -331,20 +331,19 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## THE LEAD's one-beat lead misses a late press on sixteen rows
 
 - **Found:** 2026-10-18, claude/ship-height-reduction-f2457e
-- **Files:** `packages/sim/src/lead.ts`, `packages/sim/src/config-lead.ts`, `packages/sim/src/warden-lead.ts`
-- **Asks:** Should a shot's climb on THE LEAD be counted into the lead the pair sums, or should the bolt climb faster so it stays under a beat?
+- **Files:** `packages/sim/src/config-shot.ts`, `packages/sim/src/lead.ts`, `packages/sim/src/warden-lead.ts`
 
 The field grew to sixteen rows (`docs/decisions.md` #36), and a bolt now takes
 88 ticks to go past the top against a 75-tick beat. `leadLead` adds one beat
 for the climb, which holds only for a press in roughly the first 62 ticks of a
 beat; a later press is out two beats on and judged where the body has walked
-to. AUTO waits for the next beat (`shotOutTick`, `packages/hands`), but a pair
-cannot see the boundary. The options: count the climb as it really is into
-`leadLead` (the sum a pair says grows by one for a late press, which is hard
-to say out loud); raise `bulletTilesPerBeat` so the climb is under a beat
-again (every shot in the game gets faster); or leave it, and let the guide say
-"fire on the beat". Prove whichever is chosen with a THE LEAD test that
-presses on the last tick of a beat.
+to. **The owner's answer, 18 October 2026: a faster bolt.** Raise
+`bulletTilesPerBeat` until a bolt pressed on the last tick of a beat is past
+the top on the next one, so the climb is under a beat again everywhere. Every
+shot in the game gets a little faster, which is the price he chose. Prove it
+with a THE LEAD test that presses on the last tick of a beat and is judged
+where `leadLead` said, then let `bun run check` move whatever else a faster
+bolt reaches (rehearsals, AUTO hands, budgets).
 
 ## A bolt's climb a tick is worked out again in four places
 
