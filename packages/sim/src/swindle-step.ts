@@ -20,7 +20,8 @@ import { MILLI, type World } from "./world.js";
  * **A swap glides on the pod's own crossing** (`Pod.crossMilli`, THE CLAW's):
  * set on the beat it begins, so `advancePods` carries both pods a tick at a
  * time, and stopped on the beat it ends with each pod set exactly on the
- * column it was going to. **A pod she holds cannot be shot loose**
+ * column it was going to, and on its row again: on the way the two pass on an
+ * arc, one in front of the other (`swindle-arc.ts`). **A pod she holds cannot be shot loose**
  * (`swindleHoodStops`): the shot stops on its hood.
  *
  * What takes a pod off her is not here: it is the ordinary receipt at the maw
@@ -131,6 +132,7 @@ function endGlide(world: World, s: SwindleState): void {
     if (pod === undefined || pod.loose) return;
     pod.crossMilli = 0;
     pod.colMilli = s.glideTo[k] ?? pod.colMilli;
+    pod.rowMilli = world.cfg.swindlePodRow * MILLI;
   });
   s.glide = [];
   s.glideTo = [];

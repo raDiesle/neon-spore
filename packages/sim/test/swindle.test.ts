@@ -150,6 +150,22 @@ describe("THE SWINDLE", () => {
     expect(world.pods.every((p) => p.crossMilli === 0)).toBe(true);
   });
 
+  it("carries two crossing pods apart on an arc, and back onto the row", () => {
+    const world = install();
+    idleUntil(world, hung);
+    const from = world.beat;
+    const [a, b] = swindle(world).hung;
+    const row = (id: number | undefined) => world.pods.find((p) => p.id === id)?.rowMilli ?? -1;
+    // Halfway through the glide: the pod going right (a, from MID - 2) dips,
+    // the other rises as far, each well clear of the row.
+    idleUntil(world, (w) => w.beat === from + 3);
+    const home = CFG.swindlePodRow * MILLI;
+    expect(row(a)).toBeGreaterThan(home + CFG.swindleArcMilli * 0.9);
+    expect(row(b)).toBeLessThan(home - CFG.swindleArcMilli * 0.9);
+    idleUntil(world, (w) => w.beat === from + 2 + CFG.swindleSwapBeats);
+    expect([row(a), row(b)]).toEqual([home, home]);
+  });
+
   it("lets each pod go on its beat, and the drop never says which it was", () => {
     const world = install();
     idleUntil(world, hung);

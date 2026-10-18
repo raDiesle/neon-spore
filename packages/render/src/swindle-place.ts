@@ -31,8 +31,9 @@ import { type Layout, tileCX, tileCY } from "./layout.js";
 const HALF_TILES = 3.4;
 /** Her height, in tiles, crown to belly: a mass rather than a lens. */
 const TALL_TILES = 2.4;
-/** How far above the pod row's middle her belly hangs, in tiles: a strand's length. */
-export const SWINDLE_STRAND_TILES = 1.45;
+/** How far above the pod row's middle her belly hangs, in tiles: a strand's
+ * length, room for a pod risen on its arc (`sim/swindle-arc.ts`) to pass under her. */
+export const SWINDLE_STRAND_TILES = 1.9;
 /** How much lower her belly hangs than an ellipse's, in her radii
  * (`swindle-shape.ts`): she is raised by as much, so the strand keeps its length. */
 export const SWINDLE_SAG = 0.3;

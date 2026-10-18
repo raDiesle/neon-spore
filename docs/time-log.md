@@ -44274,3 +44274,13 @@ Bottleneck: every proof is the whole composer running, half a minute each.
 Bottleneck: none; a re-export kept every importer where it was.
 
 *Measured: 5 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-18 — THE SWINDLE's crossing pods pass on an arc
+
+- reading: 5 min. Where a pod's row is moved each tick, and where a swap's glide starts and stops.
+- writing: 10 min. The arc on the tick after the pods move, its config field, the test, the hood depth handed to it.
+- looking: 10 min. Two frames at the crossing; the first showed the rising pod still overlapping the one hanging still between them.
+- friction: 10 min. A stray `cat` in a command waited on input for ten minutes.
+- landing: 5 min. Spec, `check:fast`, `land`.
+
+Bottleneck: friction — a command that hung on stdin looked like a machine busy with another lane's check.

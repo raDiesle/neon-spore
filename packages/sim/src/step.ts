@@ -15,6 +15,7 @@ import { stepMalfunction } from "./malfunction.js";
 import { advancePods } from "./pods.js";
 import { stepReach } from "./reach.js";
 import { stepRound } from "./step-round.js";
+import { swindleArc } from "./swindle-arc.js";
 import { stepThroatSuck } from "./throat-suck.js";
 import type { TimedCommand } from "./types.js";
 import { undertowAnswers } from "./undertow-press.js";
@@ -155,6 +156,8 @@ export function step(world: World, commands: readonly TimedCommand[]): void {
   // tick for the next one (`reach.ts`).
   stepReach(world);
   advancePods(world);
+  // THE SWINDLE's two crossing pods on their arc, off the columns just moved.
+  swindleArc(world);
   // THE THROAT's suck after the pods have moved, so a body or a pod is taken
   // at the place it is drawn this frame (`throat-suck.ts`).
   stepThroatSuck(world);

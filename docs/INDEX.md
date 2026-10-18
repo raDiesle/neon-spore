@@ -416,7 +416,7 @@ by hand never moves.
 | `packages/sim/src/config-surge.ts` | THE SURGE's numbers — how many notches the seam has, how fast a hand charges the bulb and how fast it leaks |
 | `packages/sim/src/config-spool.ts` | THE SPOOL's tuning: how far the brake travels, how fast and how slow the line runs at either end of it |
 | `packages/sim/src/config-seam.ts` | THE SEAM's tuning: the beats each kind of step stays lit |
-| `packages/sim/src/config-swindle.ts` | THE SWINDLE's tuning: the beats around her hands, how long a swap glides and where a pod hangs |
+| `packages/sim/src/config-swindle.ts` | THE SWINDLE's tuning: the beats around her hands, how long a swap glides |
 | `packages/sim/src/creature-state-strand.ts` | **THE STRAND's three fields**, and the whole of what one bead remembers |
 | `packages/sim/src/events-strand.ts` | THE STRAND's three: a bead shrivelling, a raisin swelling back, and the thread itself parting |
 | `packages/sim/src/events-stare.ts` | **Everything THE STARE does that neither screen already says**, as one arm of `SimEvent` |
@@ -866,6 +866,7 @@ by hand never moves.
 | `packages/sim/src/seeder.ts` | THE SEEDER: the kill is a debt |
 | `packages/sim/src/swindle-hash.ts` | What THE SWINDLE puts into `hashWorld`, and nothing else |
 | `packages/sim/src/swindle-step.ts` | THE SWINDLE's clock: she comes in, hangs a hand, trades its pods across and lets them go on their beats |
+| `packages/sim/src/swindle-arc.ts` | **Two of THE SWINDLE's pods crossing pass one in front of the other** |
 | `packages/sim/src/swindle.ts` | THE SWINDLE: a slime that hangs real pods and husks side by side and shuffles them |
 | `packages/sim/src/pinball-shot.ts` | One shot of PINBALL: where the ball waits, what firing it does, and putting the loop back to the start |
 | `packages/sim/src/pinball-hand.ts` | **PINBALL's two hands on the table itself**: player 1 winding a spring his own last shot left slack |

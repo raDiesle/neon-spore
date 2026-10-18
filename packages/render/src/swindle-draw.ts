@@ -35,8 +35,9 @@ import { SWINDLE_CORE, SWINDLE_FLESH, SWINDLE_RIM } from "./swindle-tint.js";
  * **The hoods are the shell game.** Each rides on its pod, lifting off it
  * while the pod glides through a swap, and is flung up into her when she lets
  * the pod go (`swindle-fx.ts`). **Two pods crossing pass one in front of the
- * other** — the hood going right swells and dips toward the player, the other
- * shrinks and rises behind — so the pilot can follow them by eye
+ * other**: the simulation carries them apart on an arc, the pod going right
+ * dipping and the other rising (`sim/swindle-arc.ts`), and here the front
+ * hood swells and the back one shrinks, so the pilot can follow them by eye
  * (`swindleCrossing`). **A hood is the same over a real pod and a fake one**,
  * on every screen: the only thing in the game that tells them apart is the
  * navigator's fake twin under the hood (`pods.ts`), and the siren says a call
@@ -49,9 +50,9 @@ import { SWINDLE_CORE, SWINDLE_FLESH, SWINDLE_RIM } from "./swindle-tint.js";
  * settles over the field; beaten, she greys, shuts her eyes, sags and goes.
  */
 
-/** How much a crossing hood swells or shrinks, and how far it dips or rises, in tiles. */
+/** How much a crossing hood swells or shrinks; its pod's arc carries it
+ * down or up (`sim/swindle-arc.ts`). */
 const DEPTH_SCALE = 0.24;
-const DEPTH_DROP_TILES = 0.5;
 /** Her sway through a shuffle, in radians. */
 const SHUFFLE_SWAY = 0.07;
 
@@ -89,7 +90,7 @@ export function drawSwindle(
     const at = podCenter(l, pod);
     const depth = crossingDepth(crossing, pod.id);
     const r = at.r * (1 + DEPTH_SCALE * depth);
-    const y = at.y - hoodLift(l, lift) + depth * DEPTH_DROP_TILES * l.tile;
+    const y = at.y - hoodLift(l, lift);
     return { hood: splinePath(swindleHood(at.x, y, r, time, i * 1.7), true), depth, x: at.x, y, r };
   });
   const behind = held.filter((h) => h.depth <= 0);

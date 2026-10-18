@@ -1,6 +1,6 @@
 /**
- * THE SWINDLE's tuning: the beats around her hands, how long a swap glides
- * and where a pod hangs.
+ * THE SWINDLE's tuning: the beats around her hands, how long a swap glides,
+ * how far apart two crossing pods pass, and where a pod hangs.
  *
  * What is **not** here is the script — which pods a hand is, real or hollow,
  * where each hangs, which pairs trade on which beat and when each is let go:
@@ -17,6 +17,10 @@ export interface SwindleConfig {
   swindleSwapBeats: number;
   /** The row her pods hang at. */
   swindlePodRow: number;
+  /** How far, in thousandths of a row, the pod going right dips at the middle
+   * of a swap and the other rises (`swindle-arc.ts`): more than a pod's
+   * width, so both clear a pod hanging between them. */
+  swindleArcMilli: number;
 }
 
 export const SWINDLE_DEFAULTS: SwindleConfig = {
@@ -25,4 +29,5 @@ export const SWINDLE_DEFAULTS: SwindleConfig = {
   swindleSpentBeats: 6,
   swindleSwapBeats: 2,
   swindlePodRow: 4,
+  swindleArcMilli: 900,
 };

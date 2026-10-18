@@ -12867,7 +12867,13 @@ Each names its **pods** — columns from the middle, and `pod` or `husk` — its
 at `swindlePodRow` (`swindleHang`). A swap **glides** for `swindleSwapBeats`
 on the pod's own crossing (`Pod.crossMilli`, THE CLAW's), one at a time, and
 is stopped on the beat it ends with each pod set exactly on the other's
-column (`swindleSwap`). A drop frees the pod the ordinary way (`freePod`,
+column (`swindleSwap`). **On the way the two pass on an arc**
+(`sim/swindle-arc.ts`): the pod going right dips toward the hull by
+`swindleArcMilli` at the middle of the glide and the other rises toward her
+as far, each a pod's width clear of any pod hanging between them, so two
+pods never overlap and the pilot can follow both by eye. The owner's word,
+18 October 2026: *make the two crossing pods arc apart in the simulation,
+one up and one down, so they never overlap mid-swap*. A drop frees the pod the ordinary way (`freePod`,
 `swindleDrop`): it falls, drifts and homes to the cannon like any pod.
 **The level waits** until nothing of it is left on the field
 (`swindleCleared`), then she rears back `swindleRearBeats` and deals the
@@ -12929,8 +12935,8 @@ swallowed, and shuts her eyes beaten. Over each pod she still holds she keeps
 tapering arm of her down which a bead runs every beat
 (`swindle-strand.ts`); it lifts while its pod glides and flies up into her
 when she lets the pod go, and she leans after it. **Two pods crossing pass
-one in front of the other**: the hood going right swells and dips, the
-other shrinks and rises, and she sways through the shuffle. **The hood is the same over a real
+one in front of the other**: on their arc the hood going right swells and
+the other shrinks, and she sways through the shuffle. **The hood is the same over a real
 pod and a fake**: the pilot's frame does not change when every pod's kind is
 swapped, and the navigator's does, by the husk's own mark and nothing else.
 She shrinks as her real pods run out, rears back between hands, and greys
