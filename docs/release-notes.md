@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-18 · 1932e9bd4 — versus:shot --freeze refuses a candidate that moves nothing, by name
+
+A VERSUS candidate row now carries the share of the frame it moves as `data-moves`, `bun run shot` takes `--refuse <selector>` and exits 3 without a picture when the page shows it, and `versus:shot` passes the zero-share row with every `--freeze` and says which candidate, which freeze, and to freeze later or use `--rate`. It used to write the current look twice and exit 0.
+
 ## 2026-10-18 · 0e57d61f4 — Brush palette: MORSEL, SEEDER, BALLOON and CHOIR under SUCK, LID under CONTROLS
 
 The director's palette shows the maw's two bodies and the two a hand pulls together beside the pods, and THE LID beside the on-screen controls. Only the button moved; each body's category is unchanged. A look the owner asked for by name.

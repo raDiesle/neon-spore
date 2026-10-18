@@ -44331,3 +44331,5 @@ Bottleneck: none; the palette's groups were already one function.
 
 Bottleneck: the candidate the finding named no longer exists, so the
 refusal was proven on a selector the row does carry.
+
+*Measured: 6 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
