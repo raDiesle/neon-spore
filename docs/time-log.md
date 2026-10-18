@@ -44261,3 +44261,14 @@ meant checking who sees what for every one.
 Bottleneck: every proof is the whole composer running, half a minute each.
 
 *Measured: 7 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-18 — `Block` and `Motif` move to `compose-block-types.ts`
+
+- reading: 0 min. The entry named the seam.
+- writing: 5 min. The two interfaces moved, re-exported, the unused imports
+  dropped.
+- looking: 0 min.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: none; a re-export kept every importer where it was.

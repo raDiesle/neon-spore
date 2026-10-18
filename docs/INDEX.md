@@ -3783,6 +3783,7 @@ by hand never moves.
 | `tools/director/src/combo-press-pull.ts` | **PRESS, THEN PULL**, in THE COMBO LAB — a `chain` (`combo-then-pull.ts`), as HOLD, THEN PULL is |
 | `tools/director/src/combo-then-pull.ts` | **One gesture, then a pull in its place** — THE COMBO LAB's `chain` kind (`combo-kinds.ts`) |
 | `tools/director/src/compose-block.ts` | **A block, read off the wave list**: the wave that introduces a thing, what came before it |
+| `tools/director/src/compose-block-types.ts` | **What a block is**, as every composer imports it: `Motif` and `Block` |
 | `tools/director/src/compose-check.ts` | **Whether a composed wave is one to keep** — the checks of `docs/spec/wave-curriculum.md` §6, step 3 |
 | `tools/director/src/compose-control.ts` | **A wave for one on-screen control**: blisters of one gesture and half slicks and bulbs, composed as a block step is |
 | `tools/director/src/compose-claw.ts` | **THE CLAW's block, on THE CLAW's panel** |

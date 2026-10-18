@@ -328,19 +328,6 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/skipped.test.ts` holds the listing's count of the entries
 `next` stepped past and why.
 
-## `compose-block.ts` is at 221 lines: cut `Block` and `Motif` out
-
-- **Found:** 2026-10-17, claude/boss-wave-parent-structure-bf752f
-- **Taken:** 2026-10-18, claude/queue-tasks-245f98 (claim: claude/queue-compose-block-ts-is-at-221-lines-cut-block-and-m)
-- **Files:** `tools/director/src/compose-block.ts`
-
-The fillers lane added `Block.only` and took it to 221 lines. The seam is
-the two interfaces at its head (`Motif`, `Block`, about 60 lines with their
-comments): they are what every composer imports, and they grow a field per
-kind of block, while `readBlock` and `motifsIn` below them change rarely.
-Move them to `compose-block-types.ts` and re-export from `compose-block.ts`,
-so no importer has to move.
-
 ## A recut leaves every act's row in `docs/INDEX.md` describing its old waves
 
 - **Found:** 2026-10-17, claude/wave-generation-difficulty-e466b9

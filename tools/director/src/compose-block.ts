@@ -3,14 +3,15 @@ import {
   mechanicsInWave,
   WAVE_COLS,
   type Wave,
-  type WaveEntry,
   waveCols,
   wavePressure,
   waveTalk,
 } from "@neon-spore/content";
-import type { PodEntry } from "@neon-spore/sim";
-import { STEPS, type Step, TUTORIAL_LAST_ID } from "./compose-steps.js";
+import type { Block, Motif } from "./compose-block-types.js";
+import { STEPS, TUTORIAL_LAST_ID } from "./compose-steps.js";
 import { introducesAt, regularAt } from "./list-reading.js";
+
+export type { Block, Motif } from "./compose-block-types.js";
 
 /**
  * **A block, read off the wave list**: the wave that introduces a thing, what
@@ -19,66 +20,6 @@ import { introducesAt, regularAt } from "./list-reading.js";
  * wrote, so a body's extra fields (what it wears, its route, its pods) come
  * along without the composer knowing what they mean.
  */
-
-/** One arrival as an author wrote it — an entry or a pod, with whatever
- * fields it carries — at beat 0. `anchor` is the column it is placed by, on
- * the eleven-column field. A list rather than one, so a later motif can be a
- * pair an author wrote together. */
-export interface Motif {
-  entries: WaveEntry[];
-  pods: PodEntry[];
-  length: number;
-  anchor: number;
-}
-
-export interface Block {
-  /** Where the intro is in the list, and which block it is, from 0. */
-  intro: number;
-  number: number;
-  x: string;
-  /** The block before's thing, and every thing from three or more back. */
-  y?: string;
-  z: string[];
-  /** Slick, bulb and the slow rock, as far as they are known yet. */
-  basics: string[];
-  motifs: ReadonlyMap<string, readonly Motif[]>;
-  tutorial: boolean;
-  /** The block's regular waves that are already written. */
-  existing: number;
-  /** Blocks since the tutorial arc ended: 0 for the first after it, -1 in
-   * the arc. What the steps grow by (`compose-grow.ts`). */
-  sinceTutorial: number;
-  /** The gentlest composed regular wave of the nearest block before with one,
-   * which this block's first aims a little above (`START_RISE`). */
-  floor?: number;
-  /** The same block's gentlest talk (`waveTalk`), which this block's first
-   * aims not to fall under (`compose-talk.ts`). */
-  talkFloor?: number;
-  /** Whether the block's written regular waves stand for its first steps, so
-   * the composed ones follow them, rising from `after`, the last one's
-   * pressure (`leadingBlock`). */
-  leads?: true;
-  after?: number;
-  /** Where composed waves go in the list, and the panel they are played on. */
-  insertAt: number;
-  controls: Wave["controls"];
-  /** A lesson's faults, which every composed wave carries as far as it
-   * lasts (`compose-lesson.ts`). */
-  faults?: Wave["faults"];
-  /** Whether every composed wave carries them, or a wave AUTO cannot play
-   * with them may go without (`compose.ts` tries this first). */
-  faultsOnly?: true;
-  /** Whether it is THE CLAW's block, placed as pods and the rocks they
-   * answer on the claw's panel rather than by the steps (`compose-claw.ts`). */
-  claw?: true;
-  /** Whether it is a lesson's block, whose composed waves do not lead up to
-   * the written ones after them: those are the lesson's set pieces (THE CAGE,
-   * THE ANCHOR and THE PENDULUM after THE LANCE's), not the rest of a ramp. */
-  lesson?: true;
-  /** The steps composed, when not the block's own: a filler's three
-   * (`compose-filler.ts`). */
-  only?: readonly Step["id"][];
-}
 
 const BASICS = ["slick", "bulb", "meteor"];
 
