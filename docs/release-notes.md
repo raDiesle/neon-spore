@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-18 · 239a991af — The lost screen counts the run's retries up by one, big and red under the buttons
+
+A lost wave now shows the run's retries under GO TO MENU as a large red number: the old count stands, rolls up out of its window, and the new one punches in with a red flash, a shake and a +1 rising off it. It left the small `· 9 TRIES` beside the wave's name, and the screen before a wave no longer says NO RETRIES — the clock stands alone until something is lost. A look the owner asked for by name.
+
 ## 2026-10-18 · dff23d72c — NOT BUILT YET has a LANCE tab: six enemies only the beam kills
 
 The owner asked for a page of new enemies that need the lance, in short plain words. It reads docs/spec/lance-ideas.md whole, the way SUCK reads its file: THE TOTEM grows back faster than bolts, THE SPLITTER doubles when shot, THE STRIPE hides one wrong colour only player 1 sees, THE TIDE flips colour so the held colour is the one it will be, THE SKITTER steps aside from a bolt, THE CRUST bounces a bolt. Nothing here is built. Exemption: an addition where the game draws nothing.
