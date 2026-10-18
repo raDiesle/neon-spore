@@ -119,6 +119,19 @@
 #waveList .intro-art .brush-art {
   display: block;
 }
+/* A fault has no picture, so its chip is its word in a box (`brush-intro.ts`),
+   in the gold the ⚠ wears. Small enough to sit inside the line's own height:
+   the row neither grows nor moves its name. */
+#waveList .intro-art.intro-word {
+  margin: 0 0 0 2px;
+  padding: 0 2px;
+  border: 1px solid var(--gold);
+  border-radius: 3px;
+  color: var(--gold);
+  font-size: 7px;
+  line-height: 11px;
+  letter-spacing: 0;
+}
 #waveList .boss-mark {
   color: var(--gold);
 }

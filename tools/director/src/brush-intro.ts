@@ -42,8 +42,9 @@ export function introducedBrush(thing: string, wave?: Wave): Brush | undefined {
 /**
  * One span per brush the wave at `index` brings, each filled when it is about
  * to be seen (`whenSeen`) the way the palette fills its own button: the
- * brush's picture, else its outline, else — a fault, which has no body — the
- * span goes and the ⚠ in front of the name says it. Two words that are one
+ * brush's picture, else its outline, else — a fault, which has no body — its
+ * word in a box: the owner, 18 October 2026, *also do for "faul" brush type.
+ * you can use the text and have in the box*. Two words that are one
  * brush — two speeds of rock — are one picture. A panel is not a brush; the ⎈
  * mark says that too.
  *
@@ -82,7 +83,10 @@ export function introArt(
       if (art) chip.replaceChildren(art);
       else if (look?.subjects.length)
         chip.replaceChildren(...look.subjects.map((s) => silhouette(s, look.stroke, px)));
-      else chip.remove();
+      else if (look) {
+        chip.classList.add("intro-word");
+        chip.textContent = look.label;
+      } else chip.remove();
     });
     out.push(chip);
   }

@@ -44450,3 +44450,17 @@ script written for the occasion.
 Bottleneck: which "wave" the owner meant, settled by one question.
 
 *Measured: 7 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-18 — A fault a wave brings shows its word in a box in the wave list
+
+- reading: 5 min. `brush-intro.ts`, the fault brushes' words in
+  `brushes.ts`, the chip's CSS in `director-rail.css`.
+- writing: 5 min. The empty chip given its word, the box in gold.
+- looking: 10 min. The director in the pane: 9 px pushed THE HANDOVER's name
+  to an ellipsis, so the word went to 7 px with no letter spacing; rows held
+  at 30 px.
+- friction: 5 min. A reload restores the list's scroll and the lazy chips
+  fill only once seen, so the measuring scripts ran twice.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: looking — fitting a word into a rail cut for a 26 px picture.
