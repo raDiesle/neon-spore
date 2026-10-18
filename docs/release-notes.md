@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-18 · dff23d72c — NOT BUILT YET has a LANCE tab: six enemies only the beam kills
+
+The owner asked for a page of new enemies that need the lance, in short plain words. It reads docs/spec/lance-ideas.md whole, the way SUCK reads its file: THE TOTEM grows back faster than bolts, THE SPLITTER doubles when shot, THE STRIPE hides one wrong colour only player 1 sees, THE TIDE flips colour so the held colour is the one it will be, THE SKITTER steps aside from a bolt, THE CRUST bounces a bolt. Nothing here is built. Exemption: an addition where the game draws nothing.
+
 ## 2026-10-18 · 8e6ee1921 — Every control's parent wave shows its control's picture in the wave list
 
 Content counts the five-plus controls as one kind, the blister, so only THE BLISTER introduced anything and its chip was SWIPE; TAP, HOLD, SWIPE, TURN, RUB, COMBO and LEVER opened their groups with no picture. Now a wave's chips are each control it is first to carry plus the one whose own wave it is, so every control's head shows its own brush. DOCUMENTATION › WAVES › EVERY WAVE reads its NEW column the same way. Exemption: a fix to something wrong.

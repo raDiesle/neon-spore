@@ -44508,3 +44508,5 @@ and only a probe over the real list showed which waves fell through.
 
 Bottleneck: reading — knowing which colour and skin words were already taken
 by shipped creatures before naming six new ones.
+
+*Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
