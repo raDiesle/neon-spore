@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-18 · 597d4f3f7 — The director's palette lists each group's brushes by the wave that introduces them
+
+Inside every brush group in the director (CANNON, SHIELD, MIXED, SPECIAL, CONTROLS, SUCK, FAULT), the brushes now sort by the first campaign wave that uses them, earliest at the top. That wave is the one the hover card already names (`firstWaveFor`). A brush that no wave uses yet goes last. This changes a tool, not the game, so no look exemption applies.
+
 ## 2026-10-18 · c29ebb369 — A rub no thumb has touched shakes hard and throws a wave off each knock
 
 Its call was a gentle sway with faint arcs, hardly told apart from a press. Now the drop knocks three times each way, quicker, snapping across and thrown nearly half its width, and every knock throws three bold arcs off the side it hit that spread out and fade — neon round a white core. A press still hops and rings all round, so the two differ at a glance. A look the owner asked for by name.
