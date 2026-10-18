@@ -44348,3 +44348,5 @@ refusal was proven on a selector the row does carry.
 
 Bottleneck: a block taken out of the middle re-places every wave after it,
 and only the composer's own run says so.
+
+*Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

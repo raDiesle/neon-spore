@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-18 · 9d28568ee — THE GLUTTON is taken out of the game, whole
+
+The owner asked for it gone on 18 October 2026. Its simulation, drawing, contour, sounds, block of six waves and rehearsal, brush and config field are deleted rather than switched off, as THE GUM's were; `git log -S gluttonFed` finds them. The pod's chew stays, now THE HEAVY POD's grip alone. Every other wave that sent a glutton loses that entry, but CROSSING AND SEEDER, which gets a seeder in its place so its name stays true. `waves:order --write` then places every wave after the gap again, as the curriculum tests require: the fillers before THE MAZE are on THE CROSSING now, and THE ECHO gains a review block where THE NETTLE's filler stood. The game has 587 waves; the five new review waves went in unweighed in `tools/perf/baseline.json`.
+
 ## 2026-10-18 · 1932e9bd4 — versus:shot --freeze refuses a candidate that moves nothing, by name
 
 A VERSUS candidate row now carries the share of the frame it moves as `data-moves`, `bun run shot` takes `--refuse <selector>` and exits 3 without a picture when the page shows it, and `versus:shot` passes the zero-share row with every `--freeze` and says which candidate, which freeze, and to freeze later or use `--rate`. It used to write the current look twice and exit 0.
