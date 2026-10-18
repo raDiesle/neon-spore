@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-18 · c052ec60c — Every control body says who must answer it: P1, P2, BOTH or EITHER
+
+THE BLISTER's BY row — the setting on every CONTROLS brush — offers four choices instead of three, and EITHER is the default (the owner, by name: a look asked for, so this lands straight in the game). EITHER is what the old BOTH meant: the first seat to finish the gesture deals the blow. BOTH is new: each seat must finish the gesture before the blow lands; the first seat's finish is its half, heard and ringed green, and its hand waits until the partner's lands. A HOLD or LEVER on BOTH counts only while both hands are on, THE WEIGHT's press held together. Every wave's blister is set back to the default; the tutorials keep their named seats.
+
 ## 2026-10-18 · 802aa035a — A fault a wave is first to carry shows its word in a box in the wave list
 
 The wave list drew the picture of each brush a group's head introduces, but a fault has no body, so its chip was dropped. It now carries the fault's palette word — CODEX, HANDOVER, FLIP — in a small gold box that sits inside the row's own height: no row grows and no name moves. Hovered, it opens the same brush card as the pictures do.

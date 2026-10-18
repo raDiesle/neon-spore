@@ -44479,3 +44479,5 @@ Bottleneck: looking — fitting a word into a rail cut for a 26 px picture.
 
 Bottleneck: the old `"both"` meant either, so every test literal that said it
 had to be read before it could be renamed.
+
+*Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
