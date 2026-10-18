@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-18 · 8ab5765e1 — THE LEAD's queued entry carries the owner's answer: a faster bolt
+
+The bolt's climb is longer than a beat on sixteen rows, and the owner chose to raise bulletTilesPerBeat so it is under a beat again rather than change the pair's sum or the guide.
+
 ## 2026-10-18 · 1cf8e13ba — The five bosses about the arc's new bodies stay past the arc
 
 THE VISE, THE STARE, THE BATON, THE SPLICE and THE FLUE are about SHELL, COUNT, STRAND, ECHO and GHOST, which moved into the arc today; the owner chose to leave them where `waves:order` puts them, and the arc's fourteen blocks get STANDARD 2 bosses of their own later. Nothing in the game changes: the test that skipped their rows now says why.
