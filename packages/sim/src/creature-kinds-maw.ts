@@ -29,13 +29,4 @@ export type MawKind =
    * pod. Unshot, it breaks the hull like any slick. No state of its own: the
    * pod it leaves is an ordinary pod (`seeder.ts`).
    */
-  | "seeder"
-  /**
-   * A slow body in one colour that comes down toward the nearest hanging pod
-   * and **eats it** if it gets there first: the pod is gone, and so is the
-   * wave's debt for it — but every meal is one more matching shot it takes to
-   * kill. So letting it eat is a trade, a bigger enemy for less to catch.
-   * Unshot, it breaks the hull like any slick. `gluttonFed` is its state
-   * (`glutton.ts`).
-   */
-  | "glutton";
+  | "seeder";

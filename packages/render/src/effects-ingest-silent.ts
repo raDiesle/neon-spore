@@ -104,10 +104,6 @@ export const INGEST_SILENT = [
   // THE SEEDER's pod: the kill already burst on this tick (`destroy`), and the
   // pod it hangs is drawn as any pod is, off `world.pods`.
   "seederSeeds",
-  // THE GLUTTON's meal and the meal a shot takes back: the bursts are
-  // `burstFor`'s, and its size is read every frame off `gluttonFed`.
-  "gluttonFeeds",
-  "gluttonShrinks",
   // A heavy pod gripped: the burst is `burstFor`'s, and the pod held in the
   // mouth is drawn off `Pod.gripTicks`.
   "podGripped",

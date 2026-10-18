@@ -131,7 +131,7 @@ export const POD_SOUNDS: SoundDef[] = [
     family: "pod",
     blurb: "The maw working: three soft closes, slower each time.",
     status: "bound",
-    use: "THE GLUTTON eating a hanging pod: the debt gone, the body a size bigger.",
+    use: "A heavy pod gripped by the first press: the maw closing on what it has not got down yet.",
     level: 0.22,
     layers: [
       burst(

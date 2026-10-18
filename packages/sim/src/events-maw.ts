@@ -19,12 +19,6 @@ export type MawEvent =
    * and this is the debt it leaves, which is a second thing to hear.
    */
   | { type: "seederSeeds"; col: number; row: number }
-  /** THE GLUTTON reached a hanging pod and ate it: the pod and its debt are
-   * gone, and the body is a size bigger. */
-  | { type: "gluttonFeeds"; col: number; row: number }
-  /** A matching shot took one meal back off a fed glutton, which is still
-   * there: a hit that did not finish it, so not a `destroy`. */
-  | { type: "gluttonShrinks"; col: number; row: number; color: Color }
   /** A heavy pod caught by the first press, and held in the mouth for the
    * second (`pod-options.ts`). Its finish is `podTaken`, or `podLost`. */
   | { type: "podGripped"; col: number; row: number };

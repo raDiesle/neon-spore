@@ -1,6 +1,5 @@
 import { beatboxFalls } from "./beatbox.js";
 import { echoFalls } from "./echo.js";
-import { gluttonStep } from "./glutton.js";
 import { stepStrand } from "./strand-round.js";
 import type { Creature } from "./types.js";
 import type { World } from "./world.js";
@@ -46,7 +45,5 @@ export function slowStep(world: World, c: Creature): boolean {
     stepStrand(world, c);
     return true;
   }
-  // Half as fast and steering at a hanging pod, which it eats (`glutton.ts`).
-  if (c.kind === "glutton") return gluttonStep(world, c);
   return false;
 }

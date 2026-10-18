@@ -49,7 +49,6 @@ export const KILL_LINE: Partial<Record<Brush, string>> = {
   moult: "Shield it as rock. Swallow it as cargo.",
   morsel: "Shoot it limp. Then swallow it with the maw.",
   seeder: "Shoot it. Then free and swallow its pod.",
-  glutton: "Shoot it. One shot more for each pod it ate.",
   rock: "Cannot be shot. Shield it.",
   torch: "Cannot be shot. Shield both its columns.",
   veer: "Cannot be shot. p1 says where it steps. Shield it.",

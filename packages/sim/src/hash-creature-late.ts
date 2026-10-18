@@ -61,7 +61,6 @@ export function lateHashParts(c: Creature): number[] {
   // the maw is owed it, so two devices that disagree about it disagree about
   // whether the wave is lost. Absent and false are one state (`morselIsLimp`).
   out.push(c.morselLimp ? 1 : 0);
-  out.push(c.gluttonFed ?? 0);
   // THE VOLLEY's two. The plate count decides whether the next ward is the one
   // that opens it, and therefore whether the pair is holding a shield or a
   // trigger a beat later; and the climb decides whether the body is going up

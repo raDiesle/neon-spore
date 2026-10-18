@@ -115,16 +115,14 @@ export function burstFor(e: SimEvent, l: Layout, cfg: SimConfig, skinY?: Surface
     case "volleyHatch":
       return wornBurst(e, l, cfg, skinY);
 
-    // A layer off THE RIND, a bead off THE STRAND, a meal off THE GLUTTON: the
+    // A layer off THE RIND, a bead off THE STRAND: the
     // body's colour at half a `destroy`'s particles, for a body still there.
     case "rindShed":
     case "strandBead":
-    case "gluttonShrinks":
       return at(l, e.col, e.row, 10, e.color === "red" ? PALETTE.red : PALETTE.cyan);
-    // A morsel limp, a seeder's pod hung, a glutton's meal, a heavy pod gripped: amber.
+    // A morsel limp, a seeder's pod hung, a heavy pod gripped: amber.
     case "morselLimp":
     case "seederSeeds":
-    case "gluttonFeeds":
     case "podGripped":
       return at(l, e.col, e.row, 10, PALETTE.pod);
 

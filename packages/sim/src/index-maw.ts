@@ -1,6 +1,6 @@
 /**
- * **The bodies the maw finishes, from outside**: THE MORSEL gone limp, THE
- * GLUTTON's meals and THE MOULT's turn (`creature-kinds-maw.ts`). THE SEEDER
+ * **The bodies the maw finishes, from outside**: THE MORSEL gone limp and THE
+ * MOULT's turn (`creature-kinds-maw.ts`). THE SEEDER
  * has nothing to read — the pod it leaves is an ordinary pod.
  *
  * Cut out of `index-creatures.ts` when three of them arrived in one day and
@@ -11,8 +11,6 @@
  * **Everything here is a reading, never a rule**, as in its neighbours.
  */
 
-// THE GLUTTON: how many meals it carries, which is what its size is drawn off.
-export { gluttonFed } from "./glutton.js";
 export { morselIsLimp } from "./morsel.js";
 // THE MOULT: the turn itself, and nothing else. What form it is wearing, what
 // it turns into, and how many beats until it does — three readings of one

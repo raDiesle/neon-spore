@@ -3,7 +3,7 @@ import { BEATBOX_MECHANIC } from "./mechanics-beatbox.js";
 import { BLISTER_MECHANIC } from "./mechanics-blister.js";
 import { BOSS_MECHANICS, BOSS_MECHANICS_B } from "./mechanics-bosses.js";
 import { HANDED_MECHANICS } from "./mechanics-handed.js";
-import { GLUTTON_MECHANIC, MORSEL_MECHANIC, SEEDER_MECHANIC } from "./mechanics-maw.js";
+import { MORSEL_MECHANIC, SEEDER_MECHANIC } from "./mechanics-maw.js";
 import { ROCK_MECHANICS } from "./mechanics-rocks.js";
 import { ROUND_MECHANICS } from "./mechanics-rounds.js";
 import { RUN_MECHANICS } from "./mechanics-run.js";
@@ -229,5 +229,4 @@ export const MECHANICS = {
   blister: BLISTER_MECHANIC,
   morsel: MORSEL_MECHANIC,
   seeder: SEEDER_MECHANIC,
-  glutton: GLUTTON_MECHANIC,
 } as const satisfies Record<MechanicId, Mechanic>;

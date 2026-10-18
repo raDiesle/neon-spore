@@ -219,8 +219,6 @@ describe("the kinds whose colour a wave authors", () => {
         "morsel",
         // THE SEEDER's is the colour that kills it, and so hangs its pod.
         "seeder",
-        // THE GLUTTON's is the colour that kills it, and takes a meal back.
-        "glutton",
       ]),
     );
   });

@@ -93,7 +93,6 @@ export function cueFor(e: SimEvent, cols: number, rows: number): Cue | null {
     case "huskRefused":
     case "huskSwallowed":
     case "seederSeeds":
-    case "gluttonFeeds":
     case "podGripped":
       return podCue(e, cols);
     case "breach":

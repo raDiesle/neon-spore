@@ -30,7 +30,7 @@ first creature falling. It is one of two states, never both:
    prose (§3.2). Either way it ends on **the ready gate**: two circles, one per
    seat, each filling while that seat holds and saying READY when it is full.
    The guide passes when both say READY. Only a wave that introduces something
-   new carries one — one hundred and eighteen of the five hundred and ninety-one waves today, and a wave
+   new carries one — one hundred and seventeen of the five hundred and eighty-seven waves today, and a wave
    with no guide has no circles either.
 2. **The introduction**, if it has no guide. `WAVE 4`, the wave's name, its
    one sentence. Plain text on the field — no panel, no border, nothing to
@@ -139,8 +139,8 @@ the two can be compared by opening the wave.
 | 6 | **The pod** | shooting it loose is half of getting it; then it sinks and drifts | p2 frees it, p1 chases and opens the maw | 51 · SALVAGE |
 | 7 | **The lock** | player 1's hand on a body steers every shot into it, from whatever column the cannon is in; it says nothing about the colour | p1 holds and keeps the cannon on the pod, p2 fires the colour | 59 · CATCH AND AIM |
 | 8 | **The queen** | two marks, one real; she opens for three beats; a torch drops every ten | p1 sees *what*, p2 sees *where* | 58 · BULB QUEEN |
-| 9 | **The bosses** | the mirror, the maze, the gauge, the warden and its line, the vane | one guide each, on their own wave | 97 · THE MIRROR, 122 · THE MAZE, 132 · THE GAUGE, 222 · THE WARDEN, 465 · THE VANE |
-| 10 | **The rest of the bestiary** | the lure that took the runt's place, the throb, the count, the shell, the rock speed tiers | one guide each | 345 · THE LURE, 183 · THE THROB, 193 · THE COUNT, 203 · THE SHELL, 163 · HEAVY ROCKS |
+| 9 | **The bosses** | the mirror, the maze, the gauge, the warden and its line, the vane | one guide each, on their own wave | 97 · THE MIRROR, 122 · THE MAZE, 132 · THE GAUGE, 212 · THE WARDEN, 455 · THE VANE |
+| 10 | **The rest of the bestiary** | the lure that took the runt's place, the throb, the count, the shell, the rock speed tiers | one guide each | 335 · THE LURE, 173 · THE THROB, 183 · THE COUNT, 193 · THE SHELL, 153 · HEAVY ROCKS |
 
 **The grip is still the odd one out**, and it has no guide. It is a control no
 wave *contains*, so no wave is the first to carry it and nothing places it.
@@ -313,7 +313,7 @@ RED pressed, the shot taking it, and then a second slick nobody answers, so the
 last thing the pair is shown is the hull bar dropping. About five seconds,
 looping.
 
-**There are ninety-nine of them now**, one per guided wave bar nineteen,
+**There are ninety-eight of them now**, one per guided wave bar nineteen,
 and each is authored in `packages/content/src/scenes/` as a page of
 choreography rather than a page of prose. The nineteen that are still the
 three strings and the two circles are the bosses from THE NETTLE on,

@@ -17,7 +17,6 @@ import { drawGlancedBody, drawGlancedLiving } from "./creature-glance.js";
 import { livingBodyMul } from "./creature-place.js";
 import { drawCrystalBody } from "./crystal.js";
 import { drawGhost, showsGhostBody } from "./ghost.js";
-import { drawGluttonBody } from "./glutton.js";
 import { drawLid } from "./lid.js";
 import { drawMineBody } from "./mine.js";
 import { drawMorselBody } from "./morsel.js";
@@ -177,7 +176,6 @@ const EXCLUSIVE: ReadonlyMap<CreatureKind, BodyDraw> = new Map<CreatureKind, Bod
   ["morsel", drawMorselBody],
   // THE SEEDER: the living body with the pod it will leave glowing inside it.
   ["seeder", drawSeederBody],
-  ["glutton", drawGluttonBody],
   ["lid", drawLidBody],
   ["strand", drawStrandBody],
   ["magnet", drawMagnetBody],

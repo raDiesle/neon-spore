@@ -44,7 +44,6 @@ const FIELD_EVENTS = [
   "caromBounce",
   "caromCrack",
   "morselLimp",
-  "gluttonShrinks",
   "caromEject",
   "chuteOpen",
   "chuteCut",
@@ -96,7 +95,6 @@ export function fieldCue(e: FieldEvent, cols: number, rows: number): Cue | null 
     case "caromBounce":
     case "caromCrack":
     case "morselLimp":
-    case "gluttonShrinks":
     case "caromEject":
     case "chuteOpen":
     case "chuteCut":

@@ -170,5 +170,4 @@ export const DUTY_WORD = {
   moult: { p1: "ROCK OR POD", p2: "CALL THE TURN" },
   morsel: { p1: "SUCK IT", p2: "CALL IT DOWN" },
   seeder: { p1: "TAKE ITS POD", p2: "SPACE THE KILLS" },
-  glutton: { p1: "CATCH OR WAIT", p2: "POD OR GLUTTON" },
 } as const satisfies Record<CreatureKind, { p1?: string; p2?: string } | null>;

@@ -44333,3 +44333,18 @@ Bottleneck: the candidate the finding named no longer exists, so the
 refusal was proven on a selector the row does carry.
 
 *Measured: 6 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-18 — THE GLUTTON is taken out of the game, whole
+
+- reading: 5 min. THE GUM's removal, to copy it, and the sixty files that
+  named the glutton.
+- writing: 15 min. The deletions, act 7's block, the entries in eleven acts,
+  the counts in the shape tests, the documents.
+- looking: 0 min.
+- friction: 5 min. A hand renumbering of the act headers, undone when the
+  curriculum tests asked for the composer's own list.
+- landing: 10 min. Two `check:fast` runs, `waves:order --write` and the
+  records it owes, the commit, `land`.
+
+Bottleneck: a block taken out of the middle re-places every wave after it,
+and only the composer's own run says so.

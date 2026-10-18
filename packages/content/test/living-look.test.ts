@@ -61,8 +61,6 @@ describe("the living-look table", () => {
       "morsel",
       // THE SEEDER: SEED HEAD (`content/silhouettes-seeder.ts`).
       "seeder",
-      // THE GLUTTON: GULLET (`content/silhouettes-glutton.ts`).
-      "glutton",
     ]);
   });
 

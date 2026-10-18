@@ -780,9 +780,7 @@ const SAMPLES: Record<string, SimEvent> = {
   chuteOpen: { type: "chuteOpen", col: 3, row: 0, color: "red" },
   morselLimp: { type: "morselLimp", col: 3, row: 6, color: "red" },
   seederSeeds: { type: "seederSeeds", col: 3, row: 4 },
-  gluttonFeeds: { type: "gluttonFeeds", col: 3, row: 4 },
   podGripped: { type: "podGripped", col: 3, row: 13 },
-  gluttonShrinks: { type: "gluttonShrinks", col: 3, row: 5, color: "red" },
   chuteCut: { type: "chuteCut", col: 3, row: 6, color: "red", kind: "slick" },
   crystalBounce: { type: "crystalBounce", col: 0, row: 5, dir: 1 },
   crystalCatch: { type: "crystalCatch", col: 4, row: 6 },
@@ -1029,7 +1027,6 @@ const CAROM_IDS: Record<string, string> = {
   caromEject: "creature.gateLoop",
   chuteOpen: "creature.moult",
   morselLimp: "creature.moult",
-  gluttonShrinks: "creature.moult",
   chuteCut: "impact.split",
   // THE CRYSTAL's three, bound in the same file: it crosses on the carom's
   // diagonal and turns at the same walls.

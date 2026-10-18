@@ -22,7 +22,6 @@ export function podCue(
         | "huskRefused"
         | "huskSwallowed"
         | "seederSeeds"
-        | "gluttonFeeds"
         | "podGripped";
     }
   >,
@@ -35,11 +34,8 @@ export function podCue(
     // for "one is up there", heard after the kill (`sim/seeder.ts`).
     case "seederSeeds":
       return { id: "pod.blink", pan: panForCol(e.col, cols) };
-    // THE GLUTTON eating one: the maw's own chew, in somebody else's mouth.
-    case "gluttonFeeds":
-      return { id: "pod.chew", pan: panForCol(e.col, cols) };
-    // A heavy pod gripped by the first press: the same chew, the maw closing
-    // on something it has not got down yet. The swallow is the second press's.
+    // A heavy pod gripped by the first press: the maw's chew, closing on
+    // something it has not got down yet. The swallow is the second press's.
     case "podGripped":
       return { id: "pod.chew", pan: panForCol(e.col, cols) };
     case "podTaken":

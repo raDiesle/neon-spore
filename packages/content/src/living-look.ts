@@ -9,7 +9,6 @@ import { BEATBOX, BULB, type CreatureSilhouette, DART, SLICK, THROB, WISP } from
 import { BLISTER } from "./silhouettes-blister.js";
 import { LEECH, LIMPET } from "./silhouettes-cling.js";
 import { COUNTDOWN } from "./silhouettes-countdown.js";
-import { GLUTTON } from "./silhouettes-glutton.js";
 import { MINE } from "./silhouettes-mine.js";
 import { MORSEL } from "./silhouettes-morsel.js";
 import { SEEDER } from "./silhouettes-seeder.js";
@@ -169,8 +168,6 @@ const LIVING_LOOK = {
   morsel: { shape: MORSEL, motion: BLOOM },
   // THE SEEDER: SEED HEAD, breathing like a bulb (`silhouettes-seeder.ts`).
   seeder: { shape: SEEDER, motion: BLOOM },
-  // THE GLUTTON: GULLET, breathing like a bulb (`silhouettes-glutton.ts`).
-  glutton: { shape: GLUTTON, motion: BLOOM },
 } as const satisfies Record<CreatureKind, { shape: CreatureSilhouette; motion: OwnMotion } | null>;
 
 /**

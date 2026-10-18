@@ -85,7 +85,6 @@ export const creature = (): Required<Creature> => ({
   blisterBlowsDone: 2,
   chuteOpen: true,
   morselLimp: true,
-  gluttonFed: 2,
   veerDir: -1,
   veerDist: 3,
   volleyPlates: 2,
