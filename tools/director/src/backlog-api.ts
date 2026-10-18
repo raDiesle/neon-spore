@@ -31,14 +31,16 @@ export async function backlogState(): Promise<Response> {
   // BOSSES tab drew. `systems.md` and `ideas.md` went with the MECHANICS page
   // itself — the sheet is one page now and it is the bosses.
   // The third is RESEARCH's, read whole and passed through (`backlog.ts`).
-  // The fourth is SUCK's, read whole the same way (16 October 2026).
-  const [bosses, choreo, research, suck] = await Promise.all([
+  // The fourth is SUCK's, read whole the same way (16 October 2026), and the
+  // fifth LANCE's (18 October 2026).
+  const [bosses, choreo, research, suck, lance] = await Promise.all([
     Bun.file(specFile(base, "bosses.md")).text(),
     Bun.file(specFile(base, "bosses-choreographed.md")).text(),
     Bun.file(specFile(base, "transfers-touch.md")).text(),
     Bun.file(specFile(base, "suck-ideas.md")).text(),
+    Bun.file(specFile(base, "lance-ideas.md")).text(),
   ]);
 
-  const backlog = buildBacklog(bosses, choreo, research, suck);
+  const backlog = buildBacklog(bosses, choreo, research, suck, lance);
   return Response.json(backlog, { headers: noCache });
 }

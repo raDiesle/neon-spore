@@ -10,6 +10,7 @@ async function realBacklog(): Promise<Backlog> {
     await read("docs/spec/bosses-choreographed.md"),
     await read("docs/spec/transfers-touch.md"),
     await read("docs/spec/suck-ideas.md"),
+    await read("docs/spec/lance-ideas.md"),
   );
 }
 
@@ -33,10 +34,12 @@ describe("buildBacklog", () => {
     // reappearing on this object is the old one creeping back in.
     // RESEARCH came on 26 September 2026, asked for by name: a study of
     // other games, passed through whole rather than parsed into groups.
-    expect(Object.keys(backlog)).toEqual(["bosses", "research", "suck"]);
+    expect(Object.keys(backlog)).toEqual(["bosses", "research", "suck", "lance"]);
     expect(backlog.research).toContain("# ");
     // SUCK came on 16 October 2026, the same way: ideas read whole.
     expect(backlog.suck).toContain("# SUCK");
+    // LANCE on 18 October 2026, the same way again.
+    expect(backlog.lance).toContain("# LANCE");
     expect(backlog).not.toHaveProperty("mechanics");
     // And the two that went before it, for the same reason.
     expect(backlog).not.toHaveProperty("bestiary");

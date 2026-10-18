@@ -37,6 +37,8 @@ interface Backlog {
   research: string;
   /** SUCK's spec file, whole — `backlog.ts`. */
   suck: string;
+  /** LANCE's spec file, whole — `backlog.ts`. */
+  lance: string;
 }
 
 /**
@@ -101,6 +103,7 @@ async function load(): Promise<void> {
   for (const [id, text] of [
     ["backlogResearch", backlog.research],
     ["backlogSuck", backlog.suck],
+    ["backlogLance", backlog.lance],
   ] as const) {
     const el = document.getElementById(id);
     if (!el) continue;

@@ -44496,3 +44496,15 @@ Bottleneck: reading — a kind in content is several brushes in the director,
 and only a probe over the real list showed which waves fell through.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-18 — NOT BUILT YET has a LANCE tab: six enemies only the beam kills
+
+- reading: 5 min. The SUCK tab's wiring, `lance.ts`, and which bodies a
+  lance already matters to.
+- writing: 5 min. `docs/spec/lance-ideas.md`, the tab, the backlog test.
+- looking: 5 min. The tab opened in the director at `inner=lance`.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: reading — knowing which colour and skin words were already taken
+by shipped creatures before naming six new ones.

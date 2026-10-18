@@ -84,6 +84,12 @@ export interface Backlog {
    * used. Ideas, not entries, so nothing here parses it.
    */
   suck: string;
+  /**
+   * LANCE — `docs/spec/lance-ideas.md`, rendered whole like SUCK. Asked for
+   * by name on 18 October 2026: new enemies that only the beam kills, in
+   * short plain words. Ideas, not entries, so nothing here parses it.
+   */
+  lance: string;
   // MECHANICS was the other page until 17 September 2026 — see the file's own
   // note above. DESIGNS was a third until 12 September 2026: `docs/versus.md`,
   // `teaching.md` and `alive.md` read section by section as backlog. The owner
@@ -97,6 +103,7 @@ export function buildBacklog(
   choreo: string,
   research: string,
   suck: string,
+  lance: string,
 ): Backlog {
-  return { bosses: fromBosses(bosses, choreo), research, suck };
+  return { bosses: fromBosses(bosses, choreo), research, suck, lance };
 }
