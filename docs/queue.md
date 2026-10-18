@@ -331,6 +331,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## The STATES room's section test fails under the sharded check and passes alone
 
 - **Found:** 2026-10-17, claude/salvage-wave-boss-reassign-e5734a
+- **Taken:** 2026-10-18, claude/queue-tasks-245f98 (claim: claude/queue-the-states-rooms-section-test-fails-under-the-sh)
 - **Files:** `tools/director/test/states-page.test.ts`, `tools/director/src/states-section.ts`
 
 `bun run land` went red on all three tests of *a STATES room's own section*
