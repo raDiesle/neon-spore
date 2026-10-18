@@ -44435,3 +44435,16 @@ Bottleneck: no command paints a mark's call over time, so the picture was a
 script written for the occasion.
 
 *Measured: 5 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-18 — the palette runs in the order the campaign introduces it
+
+- reading: 5 min. `brush-groups.ts`, `palette.ts`, and `firstWaveFor`, which
+  already answered the question for the hover card.
+- writing: 5 min. One sort over every group, a test, and the CONTROLS test
+  made order-free.
+- looking: 0 min. The order printed from the module rather than a picture.
+- friction: 0 min.
+- landing: 5 min. A typecheck on `toSorted`, which the lib target lacks,
+  `check:fast`, `land`.
+
+Bottleneck: which "wave" the owner meant, settled by one question.

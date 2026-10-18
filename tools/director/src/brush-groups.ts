@@ -1,5 +1,6 @@
 import { type CreatureCategory, categoryOf } from "@neon-spore/content";
 import type { CreatureKind } from "@neon-spore/sim";
+import { firstWaveFor } from "./brush-wave.js";
 import { BRUSH_KIND, BRUSHES, type Brush, CONTROL_BRUSHES, FAULT_BRUSHES } from "./brushes.js";
 
 /**
@@ -23,6 +24,21 @@ const CATEGORY_LABEL: Record<CreatureCategory, string> = {
  */
 const SUCK_KINDS: readonly CreatureKind[] = ["morsel", "seeder", "balloon", "choir"];
 const CONTROL_KINDS: readonly CreatureKind[] = ["lid"];
+
+/**
+ * **Inside a group, the brushes run in the order the campaign introduces
+ * them** — the owner, 18 October 2026: the earliest first wave at the top,
+ * the one the hover card already names (`firstWaveFor`, `brush-wave.ts`).
+ * A brush no wave carries yet goes last; ties keep the order they were
+ * listed in, since `Array.prototype.sort` is stable.
+ */
+function byFirstWave(brushes: Brush[]): Brush[] {
+  const at = (brush: Brush): number => firstWaveFor(brush)?.number ?? Number.POSITIVE_INFINITY;
+  return brushes
+    .map((brush) => ({ brush, wave: at(brush) }))
+    .sort((a, b) => a.wave - b.wave)
+    .map(({ brush }) => brush);
+}
 
 export interface BrushGroup {
   label: string;
@@ -78,5 +94,5 @@ export const BRUSH_GROUPS: BrushGroup[] = (() => {
   // Last, and its own group: a fault is not a body and does not arrive — it is
   // a pencil laid across a row of the map (`brushes.ts` `FAULT_BRUSHES`).
   groups.push({ label: "FAULT", brushes: [...FAULT_BRUSHES] });
-  return groups;
+  return groups.map((group) => ({ ...group, brushes: byFirstWave(group.brushes) }));
 })();
