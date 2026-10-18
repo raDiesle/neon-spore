@@ -21,7 +21,7 @@ describe("the CONTROLS brushes", () => {
       "control:lever",
     ]);
     const group = BRUSH_GROUPS.find((g) => g.label === "CONTROLS");
-    expect(group?.brushes).toEqual([...CONTROL_BRUSHES]);
+    expect(group?.brushes).toEqual([...CONTROL_BRUSHES, "lid"]);
     expect(LIVING_BRUSH_KINDS).not.toContain("blister");
     expect(BRUSH_GROUPS.flatMap((g) => g.brushes)).not.toContain("blister");
   });

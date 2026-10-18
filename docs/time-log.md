@@ -44303,3 +44303,13 @@ Bottleneck: finding why the existing refresh rule had not reached those
 rows: they were written by hand before the first recut.
 
 *Measured: 9 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-18 — Brush palette: four bodies to SUCK, THE LID to CONTROLS
+
+- reading: 5 min. `brush-groups.ts` and the test that pins CONTROLS.
+- writing: 5 min. Two short lists of kinds, the test.
+- looking: 5 min. `bun run shot "#brushes"` of the palette.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: none; the palette's groups were already one function.
