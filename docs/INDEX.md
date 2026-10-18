@@ -4061,6 +4061,7 @@ by hand never moves.
 | `tools/probe/measure-waves.ts` | `bun run waves:measure`: every wave played with AUTO, written to `docs/spec/wave-curriculum-today.md` |
 | `tools/probe/measure-waves-page.ts` | The page `bun run waves:measure` writes, from what it measured (`measure-waves.ts`): the whole game |
 | `tools/probe/briefings-numbers.ts` | `bun run briefings:renumber` — the wave numbers in `docs/spec/briefings.md` rewritten from today's wave order |
+| `tools/probe/difficulty.ts` | `bun run waves:difficulty <wave id>` — how hard a wave is for a pair that presses at a human's pace |
 | `tools/director/src/stage-panel.ts` | **What the stage panel is, as a contract**, and nothing about how it is driven |
 | `tools/director/src/stage-play.ts` | Everything that starts, stops and restarts the stage: the `⏸`/`▶` button and the label it wears |
 | `tools/frames/guide-film.ts` | **Driving a rehearsal**, which is a clock of its own and not the world's |

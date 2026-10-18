@@ -48,6 +48,7 @@
     "waves:soften": "bun run tools/director/waves-soften.ts",
     "waves:pace": "bun run tools/director/waves-pace.ts",
     "waves:measure": "bun run tools/probe/measure-waves.ts",
+    "waves:difficulty": "bun run tools/probe/difficulty.ts",
     "briefings:renumber": "bun run tools/probe/briefings-numbers.ts",
     "queue": "bun run tools/queue/run.ts",
     "index": "bun run tools/index/run.ts",

@@ -12410,7 +12410,7 @@ the boss is shaking and moving the enemies one tile left middle right*.
   higher and everything it drops falls a tile further. At one press a
   second AUTO now clears in about forty seconds and lays about ten; it
   clears at one press each per 1.75 seconds, where the script before lost
-  at 1.5.
+  at 1.5. `bun run waves:difficulty theBrood` prints that table.
 - **The guide and the cue went the same day**: *remove the helper text "fire
   before it drops" it is self explaining* and *remove tutorial it is not
   required*. The wave has no guide, and `broodCues` answers nothing.

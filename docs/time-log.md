@@ -44201,3 +44201,16 @@ Bottleneck: a change inside the tutorial re-composes every block after it,
 so the whole list is regenerated for 21 waves.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-18 — A boss's difficulty is a command: `waves:difficulty`
+
+- reading: 5 min. The entry, `tools/probe/world.ts`, and the two scratch
+  probes THE BROOD's lanes left behind in their worktrees.
+- writing: 10 min. `playedAt` and `pressGate`, `tools/probe/difficulty.ts`,
+  the test of the per-seat gap, the commands line and the spec's pointer.
+- looking: 0 min.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: none worth the name; the scratch probes were still on disk to
+copy from.

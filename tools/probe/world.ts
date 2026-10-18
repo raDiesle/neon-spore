@@ -123,12 +123,56 @@ export function beats(world: World, count: number, onBeat: (n: number) => void =
  * then stepped with no commands, as `beat` would).
  */
 export function playedBeat(world: World): boolean {
+  return playedTicks(world, () => true);
+}
+
+/**
+ * **`playedBeat` at a human's pace**: each seat lets one press through every
+ * `secondsPerPress`, and AUTO's others are dropped — player 1 aims, player 2
+ * fires, and each has its own gap. A boss's difficulty is a number off this
+ * (`bun run waves:difficulty`): THE BROOD was retuned twice against it before
+ * it had a home, and the second time the throttle keyed on the command's kind
+ * rather than its `player` and every seed came out the same.
+ */
+export function playedAt(world: World, secondsPerPress: number): boolean {
+  return playedTicks(world, pressGate(world, secondsPerPress));
+}
+
+/**
+ * Whether a press by `player` gets through now, at one press per seat every
+ * `secondsPerPress` — a press let through starts that seat's gap and nobody
+ * else's. Kept per world, so successive beats of one world share it.
+ */
+export function pressGate(world: World, secondsPerPress: number): (player: 1 | 2) => boolean {
+  const gap = Math.round(secondsPerPress * world.cfg.tickHz);
+  let seats = NEXT_PRESS.get(world);
+  if (!seats) {
+    seats = { 1: 0, 2: 0 };
+    NEXT_PRESS.set(world, seats);
+  }
+  const next = seats;
+  return (player) => {
+    if (world.tick < next[player]) return false;
+    next[player] = world.tick + gap;
+    return true;
+  };
+}
+
+/** The tick each seat may next press on, by world — `pressGate`'s memory. */
+const NEXT_PRESS = new WeakMap<World, Record<1 | 2, number>>();
+
+/** One beat of AUTO's presses, each let through or dropped by `lets`. */
+function playedTicks(world: World, lets: (player: 1 | 2) => boolean): boolean {
   const ticks = ticksPerBeat(world.cfg);
   let handless = false;
   for (let i = 0; i < ticks; i++) {
     const hand = world.over ? null : autopilotHand(world, armed(world));
     if (hand === null && !world.over) handless = true;
-    step(world, hand === null ? [] : hand(world).map((c) => ({ ...c, tick: world.tick })));
+    const presses = hand === null ? [] : hand(world).filter((c) => lets(c.player));
+    step(
+      world,
+      presses.map((c) => ({ ...c, tick: world.tick })),
+    );
   }
   return !handless;
 }

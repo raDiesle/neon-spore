@@ -147,6 +147,7 @@ bun run waves:names    # every regular wave named again by the composer — the 
 bun run waves:soften   # every group's head harder than its gentlest child pulled to the middle and spread apart until it is not, as far as AUTO still clears it; --write — tools/director/src/soften-intro.ts
 bun run waves:pace     # the named waves with their fast slides stretched out — later arrivals, same columns — as far as AUTO still clears them; --write — tools/director/src/pace-stretch.ts
 bun run waves:measure  # play every wave with AUTO and rewrite docs/spec/wave-curriculum-today.md and its .json — length, novelty, pressure, boss times; the .json feeds the director's live EVERY WAVE table
+bun run waves:difficulty <id>  # a wave played by AUTO with each seat held to one press every N seconds, over many seeds: cleared, lost, beats, and THE BROOD's laid and dropped; --seeds 20 --per 1,1.25,1.5,1.75,2 — tools/probe/difficulty.ts
 ```
 
 ## Sheets and looks
