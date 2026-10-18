@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-18 · 54364b02a — Fourteen bodies are introduced one after another after CYAN, on STANDARD 2
+
+THE SHELL, THE THROB, THE ECHO, THE RECOIL, THE MAGNET, THE GYRE, THE LURE, THE RIND, THE STRAND, THE VEIL, THE DART, THE COUNT, THE GHOST and THE WISP now come straight after THE BROOD and before THE ROCK, in that order, each its head and three regular waves composed for the arc, all on cannon, strip and the two colours — no shield, no maw. HOLD AND AIM, a new film, stands in front of THE MAGNET and teaches player 1's hand turning the shot, which is the only answer a magnet has. THE GYRE's film lost its SUCK page with the move. The list past the arc was ordered again by `waves:order`; the moved blocks' old regular waves are gone, and the review blocks now theme on the arc's bodies too once the later ones run out.
+
 ## 2026-10-18 · 2c0d29ee8 — The ship is a tile shorter, so a body falls a tile further before it reaches the hull
 
 The field is sixteen rows instead of fifteen, so everything that falls takes fifteen beats to reach the hull instead of fourteen. The field's top has not moved: the hull stands one tile lower, and the control band under it is one tile shorter on every phone, so the buttons and strips are a little smaller. The TEST view's two halves of the panel shrink to fit the same band. THE VEER's lane changes now count up from the row above the shield, so its last change still lands there (rows 4, 7, 10 and 13). `waves:order` softened the heads of five acts again for the longer fall, as far as AUTO still clears them, and the rehearsals, THE SCOUT's and THE HAUL's arenas and AUTO's hands for THE LEAD and THE VANE are timed to it. Exemption: a look the owner asked for by name, 18 October 2026 (`docs/decisions.md` #36).
