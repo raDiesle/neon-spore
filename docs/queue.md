@@ -331,6 +331,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## `versus:shot` writes the wrong picture when the frozen moment moves nothing
 
 - **Found:** 2026-10-17, claude/controls-destroy-animations-76f397
+- **Taken:** 2026-10-18, claude/queue-tasks-245f98 (claim: claude/queue-versus-shot-writes-the-wrong-picture-when-the-fr)
 - **Files:** `tools/frames/versus-shot.ts`, `tools/director/src/versus-one.ts`
 
 A candidate that only acts after an event (a blister's death, patched in
