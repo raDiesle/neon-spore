@@ -44543,3 +44543,5 @@ captions did not say when they were.
 
 The bottleneck was looking: an icon twelve pixels across has to be cropped
 at three moments before a wrong one (a lens that reads as an eye) shows.
+
+*Measured: 5 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

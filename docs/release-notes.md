@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-18 · 17b289b41 — Each seat's word sits on a plate under its own name; the talker's chip blinks and is framed
+
+The owner took SIREN:WORDS · UNDER from VERSUS and turned down BESIDE and TAG (a look asked for by name): both seats' words now hang under their own chips on dark plates, edged violet for P1 and amber for P2, yours bright and your partner's quieter. The talker's chip blinks harder, is framed in its seat's colour and carries a bigger speech bubble (also asked for by name). Four animated speak/listen icons are offered in VERSUS as `siren:voice`: sound waves, a voice meter with headphones, the messenger's three dots, and a talking mouth.
+
 ## 2026-10-18 · 239a991af — The lost screen counts the run's retries up by one, big and red under the buttons
 
 A lost wave now shows the run's retries under GO TO MENU as a large red number: the old count stands, rolls up out of its window, and the new one punches in with a red flash, a shake and a +1 rising off it. It left the small `· 9 TRIES` beside the wave's name, and the screen before a wave no longer says NO RETRIES — the clock stands alone until something is lost. A look the owner asked for by name.
