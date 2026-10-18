@@ -104,7 +104,6 @@ describe("which kinds a wave may name", () => {
       "beatbox",
       "balloon",
       "countdown",
-      "weight",
       "mine",
       "moult",
       "blister",

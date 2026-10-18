@@ -2,8 +2,7 @@ import type { SimEvent } from "@neon-spore/sim";
 import { type Cue, panForCol, pitchForRow } from "./bind.js";
 
 /**
- * **The bodies a hand answers**, heard: THE WEIGHT giving between two thumbs,
- * THE CAIRN losing a unit either of the two ways it can, and THE CAIRN held
+ * **The bodies a hand answers**, heard: THE CAIRN losing a unit either of the two ways it can, and THE CAIRN held
  * so that it loses none.
  *
  * Cut out of `bind.ts` when THE CAIRN's two took that file over its length
@@ -19,17 +18,11 @@ import { type Cue, panForCol, pitchForRow } from "./bind.js";
  * ordinary grip, the ordinary rock, and the ordinary price of a hand.
  */
 export function handedCue(
-  e: Extract<SimEvent, { type: "weightCrushed" | "cairnPulled" | "cairnShed" | "cairnHeld" }>,
+  e: Extract<SimEvent, { type: "cairnPulled" | "cairnShed" | "cairnHeld" }>,
   cols: number,
   rows: number,
 ): Cue {
   const place = { pan: panForCol(e.col, cols), pitch: pitchForRow(e.row, rows) };
-  // THE WEIGHT giving, and the one sound in the catalogue that was written for
-  // this and filed spare: two grabs doubled and briefly in tune
-  // (`sounds/grip.ts`). Placed by column and row like any body, because it is
-  // also the only confirmation either player gets that the other one's thumb
-  // was ever down.
-  if (e.type === "weightCrushed") return { id: "ship.gripBoth", ...place };
   // A **pull** is `ship.gripCarry` — the sound a carried body already makes
   // when a hand spends a column on it, which is exactly what just happened:
   // the same gesture, the same price, and the rock is the thing that moved

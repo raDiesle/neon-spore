@@ -47,13 +47,6 @@ export function heldHashParts(c: Creature): number[] {
   // the grip — and those went with the creature on 15 September 2026.
   out.push(c.clingStuck === true ? 1 : 0);
   out.push(c.clingLastCol ?? -1);
-  // THE WEIGHT's one: how long both hands have been on it. Two devices that
-  // disagree about it disagree about the tick the body gives, and a body that
-  // gives on one phone and not the other is the parting this whole layer is
-  // built to catch. Absent is not nought — nobody pressing and a press one tick
-  // old are different worlds — so presence gets a number of its own.
-  out.push(c.weightPressTicks === undefined ? 0 : 1);
-  out.push(c.weightPressTicks ?? 0);
   // THE LID's hand that wandered off the cord's bow: it holds nothing until
   // it lifts (`lid-hand.ts`), so two devices that disagree about it disagree
   // about whether the next move opens the plates.

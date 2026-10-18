@@ -218,14 +218,6 @@ export const TALKER = {
   // body down, and *move* is the whole of what it has to say.
   limpet: "p1",
   leech: "p2",
-  // THE WEIGHT: `"both"`, and it is the row this value was waiting for. The
-  // balloon is "both" because each seat holds half a gesture and neither half
-  // is anything alone — true here too, and with nothing at all on either
-  // screen to read it off. A balloon draws both its pulls on both
-  // phones; a weight brightens under your own thumb and nowhere else, so the
-  // siren is not saying *one of you can see this* but *neither of you can, so
-  // one of you has to count*.
-  weight: "both",
   // THE CAIRN: `"p1"`, and it is the queen's row arrived at from the other
   // side. Both screens draw the whole pile — there is nothing hidden about a
   // stack of rocks — but the column it is *about to drop one into* is on the
@@ -234,7 +226,7 @@ export const TALKER = {
   // and what the siren asks for is a number said out loud, which is THE
   // GHOST's sentence in a boss's body.
   cairn: "p1",
-  // THE CURTAIN: `"both"`, THE WEIGHT's answer.
+  // THE CURTAIN: `"both"`, THE BALLOON's answer.
   // The pilot alone is shown which lobes are soft, the navigator alone where
   // the core's shadow falls and what colour it is, so neither screen holds a
   // sentence the other can finish — both have to speak, every cycle.

@@ -23,7 +23,6 @@ export function handedBurst(
         | "clingGrip"
         | "clingFreed"
         | "clingBlast"
-        | "weightCrushed"
         | "cairnPulled"
         | "cairnShed"
         | "queenFlinch";
@@ -52,16 +51,9 @@ export function handedBurst(
       return { x: tileCX(l, e.col), y: l.hullY, n: 24, hex: PALETTE.arc };
     case "clingBlast":
       return { x: tileCX(l, e.col), y: l.hullY, n: 40, hex: PALETTE.ember };
-    // THE WEIGHT given between two thumbs: rock grey, because it carries no
-    // colour, and **narrow** — a dozen, against the balloon's twenty-six at the
-    // top of the field. A body that has been pressed does not throw itself
-    // outward; it goes inward and stops being there, and a wide shower would
-    // read as something that burst rather than something that gave.
-    case "weightCrushed":
-      return at(l, e.col, e.row, 12, PALETTE.rock);
-    // A unit out of THE CAIRN, rock grey for the weight's reason — it carries
-    // no colour and nothing about it was destroyed. **Small**: eight, and
-    // fewer than the weight's dozen, because nothing here gave at all. A rock
+    // A unit out of THE CAIRN, rock grey, because it carries
+    // no colour and nothing about it was destroyed. **Small**: eight, because
+    // nothing here gave at all. A rock
     // came loose from a pile of rocks, and the dust off a seam is the whole of
     // what a pair should see — a shower would say the boss had been hurt, and
     // the only thing that has happened is that the field now has one more rock

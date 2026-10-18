@@ -13,3 +13,15 @@ export const BLISTER_MECHANIC = {
   // cannot learn the wave, only the talking.
   waveNames: true,
 } as const satisfies Mechanic;
+
+/**
+ * A blister set to BOTH, and the thing HOLD TOGETHER teaches: each seat
+ * finishes the gesture before it goes, and a HOLD counts only while both
+ * thumbs are on it (`sim/blister.ts`, `blisterDealt`). It took THE WEIGHT's
+ * place on 18 October 2026, the owner's — *configure for all controls
+ * enemies which player needs to succeed it*.
+ */
+export const BLISTER_BOTH_MECHANIC = {
+  what: "A blister marked for both of you. Each of you does the gesture. A HOLD counts only while both thumbs are on it at once.",
+  reach: "spawn",
+} as const satisfies Mechanic;

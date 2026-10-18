@@ -827,7 +827,6 @@ const SAMPLES: Record<string, SimEvent> = {
   crawlerBreak: { type: "crawlerBreak", col: 5, row: 10, color: "cyan" },
   crawlerBeam: { type: "crawlerBeam", col: 6, row: 10 },
   crawlerBurrow: { type: "crawlerBurrow", col: 10, row: 10, links: 4 },
-  weightCrushed: { type: "weightCrushed", col: 3, row: 8 },
   cairnPulled: { type: "cairnPulled", player: 1, col: 3, row: 2 },
   cairnShed: { type: "cairnShed", col: 5, row: 2 },
   cairnHeld: { type: "cairnHeld", col: 4, row: 2 },
@@ -1008,7 +1007,7 @@ const CREATURE_IDS: Record<string, string> = {
   strandBead: "impact.split",
   strandSwell: "impact.wrongTarget",
   magnetPlate: "creature.magnetPlate",
-  // A bolt spent on a clinger or a weight: the plate's own sound,
+  // A bolt spent on a clinger: the plate's own sound,
   // because it is neither a kill nor a wrong colour (`bind-creatures.ts`).
   bounce: "creature.magnetPlate",
   magnetBreak: "creature.magnetBreak",

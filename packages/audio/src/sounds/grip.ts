@@ -78,12 +78,11 @@ export const GRIP_SOUNDS: SoundDef[] = [
     blurb: "Two hands on two things at once — the grab, doubled and briefly in tune.",
     status: "bound",
     // Written spare, with "if that is ever worth marking" against it, and THE
-    // WEIGHT is the creature that made it worth marking: two hands on **one**
-    // body at the same instant, which is the whole of how that body is beaten.
-    // The doubling and the brief tuning are exactly the thing the pair just
-    // achieved, and it is the only confirmation either of them gets that their
-    // partner's thumb was down at all (`sim/weight.ts`).
-    use: "THE WEIGHT giving: both seats pressing one body on the same tick.",
+    // WEIGHT made it worth marking: two hands on **one** body. THE WEIGHT went
+    // on 18 October 2026 and its press is a BOTH blister's now; the doubling is
+    // still the thing the pair just achieved, and the only confirmation either
+    // gets that their partner's hand landed (`audio/bind-blister.ts`).
+    use: "A BOTH blister's blow: both seats have dealt it.",
     level: 0.36,
     layers: [
       noise(1200, { type: "bandpass", freq: 1800, toFreq: 500, q: 1.6 }, 0.002, 0.04, 0.45),

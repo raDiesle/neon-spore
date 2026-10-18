@@ -2010,7 +2010,7 @@
     {
       "id": "theWeight",
       "wave": 200,
-      "name": "THE WEIGHT",
+      "name": "HOLD TOGETHER",
       "bodies": 0,
       "typical": 0,
       "mean": 0,
@@ -2020,7 +2020,7 @@
     {
       "id": "theWeightAgain",
       "wave": 201,
-      "name": "WEIGHT DAWN",
+      "name": "TOGETHER DAWN",
       "bodies": 0,
       "typical": 0,
       "mean": 0,
@@ -2030,7 +2030,7 @@
     {
       "id": "theWeightReach",
       "wave": 202,
-      "name": "WEIGHT AT WORLD END",
+      "name": "LONG TOGETHER ROAD",
       "bodies": 0,
       "typical": 0,
       "mean": 0,
@@ -2040,7 +2040,7 @@
     {
       "id": "theWeightPair",
       "wave": 203,
-      "name": "WEIGHT DUET",
+      "name": "TOGETHER DUET",
       "bodies": 0,
       "typical": 0,
       "mean": 0,
@@ -2050,7 +2050,7 @@
     {
       "id": "theWeightRecall",
       "wave": 204,
-      "name": "OLD WEIGHT SONG",
+      "name": "OLD TOGETHER SONG",
       "bodies": 0,
       "typical": 0,
       "mean": 0,
@@ -2060,7 +2060,7 @@
     {
       "id": "theWeightPeak",
       "wave": 205,
-      "name": "WEIGHT STORM",
+      "name": "TOGETHER STORM",
       "bodies": 0,
       "typical": 0,
       "mean": 0,
@@ -2070,7 +2070,7 @@
     {
       "id": "fillerPlumbBreathe",
       "wave": 206,
-      "name": "LAZY WEIGHT",
+      "name": "LAZY TOGETHER",
       "bodies": 0,
       "typical": 0,
       "mean": 0,
@@ -2080,7 +2080,7 @@
     {
       "id": "fillerPlumbRecall",
       "wave": 207,
-      "name": "WEIGHT REUNION",
+      "name": "TOGETHER REUNION",
       "bodies": 0,
       "typical": 0,
       "mean": 0,
@@ -2090,7 +2090,7 @@
     {
       "id": "fillerPlumbBend",
       "wave": 208,
-      "name": "WEIGHT MIRAGE",
+      "name": "TOGETHER MIRAGE",
       "bodies": 0,
       "typical": 0,
       "mean": 0,
@@ -5184,9 +5184,9 @@
       "unmeasured": true
     },
     {
-      "id": "reviewWeightAgain",
+      "id": "reviewBlisterBothAgain",
       "wave": 517,
-      "name": "NEW WEIGHT MOON",
+      "name": "NEW TOGETHER MOON",
       "bodies": 0,
       "typical": 0,
       "mean": 0,
@@ -5194,9 +5194,9 @@
       "unmeasured": true
     },
     {
-      "id": "reviewWeightReach",
+      "id": "reviewBlisterBothReach",
       "wave": 518,
-      "name": "LONG WEIGHT ROAD",
+      "name": "FAR TOGETHER",
       "bodies": 0,
       "typical": 0,
       "mean": 0,
@@ -5204,9 +5204,9 @@
       "unmeasured": true
     },
     {
-      "id": "reviewWeightPair",
+      "id": "reviewBlisterBothPair",
       "wave": 519,
-      "name": "WEIGHT MEETS BEATBOX",
+      "name": "TOGETHER AND BEATBOX",
       "bodies": 0,
       "typical": 0,
       "mean": 0,
@@ -5214,9 +5214,9 @@
       "unmeasured": true
     },
     {
-      "id": "reviewWeightRecall",
+      "id": "reviewBlisterBothRecall",
       "wave": 520,
-      "name": "WEIGHT RELIC",
+      "name": "ANCIENT TOGETHER",
       "bodies": 0,
       "typical": 0,
       "mean": 0,
@@ -5224,9 +5224,9 @@
       "unmeasured": true
     },
     {
-      "id": "reviewWeightPeak",
+      "id": "reviewBlisterBothPeak",
       "wave": 521,
-      "name": "WEIGHT INFERNO",
+      "name": "TOGETHER ECLIPSE",
       "bodies": 0,
       "typical": 0,
       "mean": 0,

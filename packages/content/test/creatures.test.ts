@@ -46,23 +46,11 @@ describe("categoryOf", () => {
     // places had come to read this category as if it meant that. `isInstalled`
     // is the fact those three actually wanted (`CreatureDef.installed`) — a
     // box and a balloon are answered by neither control and authored anyway.
-    // THE WEIGHT is the sixth and the second a wave places: neither control
-    // reaches it either, and what does is a hand from each seat on the body
-    // itself — which is not a `ControlGroup` for the balloon's reason exactly.
-    // THE MINE is the seventh: what answers it is a finger on a bare square of
+    // THE MINE is the sixth: what answers it is a finger on a bare square of
     // the field, which is not a control on either panel and so is not a
     // `ControlGroup` either — THE BEATBOX's own entry one creature along.
-    // THE BLISTER is the eighth: a tap on the body, the box's again.
-    expect(special).toEqual([
-      "tether",
-      "mount",
-      "chute",
-      "beatbox",
-      "balloon",
-      "weight",
-      "mine",
-      "blister",
-    ]);
+    // THE BLISTER is the seventh: a tap on the body, the box's again.
+    expect(special).toEqual(["tether", "mount", "chute", "beatbox", "balloon", "mine", "blister"]);
   });
 });
 

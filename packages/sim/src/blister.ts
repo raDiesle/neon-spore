@@ -199,15 +199,15 @@ function blisterHalfOver(c: Creature, seat: 1 | 2): void {
 }
 
 /**
- * One blow landed, whichever gesture dealt it: said, and counted. The last
- * one owed is the blister gone; one short of it starts the gesture over —
- * the stroke, turn or hold in progress spent, a COMBO asking for its press
- * again — and the body stays up on the clock it already had.
+ * One blow landed, whichever gesture dealt it: said — `both` on a BOTH
+ * blister's — and counted. The last one owed is the blister gone; one short
+ * of it starts the gesture over and the body stays up on the clock it had.
  */
 export function blisterBlow(world: World, c: Creature): void {
   const done = (c.blisterBlowsDone ?? 0) + 1;
   const left = blisterBlowsOf(world.cfg, c) - done;
-  world.events.push({ type: "blisterBlow", id: c.id, col: c.col, row: c.row, left });
+  const both = blisterByOf(c) === "both" ? { both: true as const } : {};
+  world.events.push({ type: "blisterBlow", id: c.id, col: c.col, row: c.row, left, ...both });
   if (left > 0) {
     c.blisterBlowsDone = done;
     blisterGestureOver(c);

@@ -125,18 +125,6 @@ export const DUTY_WORD = {
   // anything alone, so what each dial says is the half its own thumb owes;
   // what has to be said out loud is which body, and no dial can carry that.
   balloon: { p1: "PULL LEFT", p2: "PULL RIGHT" },
-  // THE WEIGHT, and THE FENCE's shape said about a hand instead of a wall. It
-  // said CALL THE BEAT under the pilot and PRESS ON THEIRS under the navigator,
-  // and the owner read the two on 15 September 2026 and found that between them
-  // they never say the mechanic: they hand out a **protocol** — who counts, who
-  // answers — to a pair nobody has yet told that one hand on this body does
-  // nothing whatever and the two have to land on it at the same moment
-  // (`sim/weight.ts`). So both dials say the mechanic, in his own sense — *both
-  // to touch at the same time* — and the count is left to the pair, which is
-  // where it was always coming from: a hand brightens on its own seat's screen
-  // and on no other, so once they know the presses have to coincide, saying one
-  // out loud is the only thing left to try.
-  weight: { p1: "BOTH PRESS TOGETHER", p2: "BOTH PRESS TOGETHER" },
   // Silent in `TALKER`, so no word here either.
   crystal: null,
   // The seat with the fuse says the word; the seat with the control does the

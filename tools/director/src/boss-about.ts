@@ -24,7 +24,7 @@ export const BOSS_ABOUT: Readonly<Record<string, string>> = {
   theWarden: "theChoke",
   // A lobe pulled shut till its seam cracks, then the kernel in its colour.
   theVise: "theThirdShot",
-  // A stone each, pulled together, as both hold the weight.
+  // A stone each, pulled together, as both hold a BOTH blister down.
   thePlumb: "theWeight",
   // A handle each, pulled at once, as the balloon's two handles are.
   theSinew: "theBalloon",

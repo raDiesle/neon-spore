@@ -64,7 +64,7 @@ table in a document cannot be wrong in a way a compiler notices.
 | `cannon` | `aim` only | `slick`, `bulb`, `lure`, `throb`, `shell`, `dart`, `veil`, `wisp`, `ghost`, `echo`, `rind`, `recoil`, `gyre`, `lid`, `strand`, `magnet`, `morsel`, `seeder`, `choir`, `countdown`, `leech` |
 | `shield` | `guard` only | `meteor`, `meteorMedium`, `meteorFast`, `meteorFaster`, `meteorFastest`, `torch`, `veer`, `coil`, `limpet`, `cairn` `moult` |
 | `mixed` | `aim` and `guard` | `queen`, `warden`, `clasp`, `carom`, `volley`, `crawler`, `fence`, `crystal`, `curtain` |
-| `special` | neither | `tether`, `mount`, `chute`, `beatbox`, `balloon`, `weight`, `mine`, `blister` |
+| `special` | neither | `tether`, `mount`, `chute`, `beatbox`, `balloon`, `mine`, `blister` |
 | `suck` | — (pods, not `CreatureKind`) | `pod` (real, owed before its ring runs out), `husk` (hollow, refused) |
 
 `special` was reserved and empty for a long time on the reasoning that nothing
@@ -114,23 +114,10 @@ is that there is no body at the end of it for the cannon to finish, so the row
 has no `aim` to owe — and the difference from THE BEATBOX is that the gesture
 takes two seats rather than one.
 
-**THE WEIGHT is the third, and it is THE BALLOON's argument with the picture
-taken away.** Neither control reaches it — no bolt lands on it at all and the
-shield is never offered it — so its panel is owed nothing, exactly as a
-balloon's is. What answers it is a hand from each seat, and this time on the
-**body itself** rather than on handles hung off it: the ordinary grip, which
-`hand.ts` calls a `"press"`, the third thing a hand can be and the first that is
-worth nothing without the other seat's. What makes it a creature of its own
-rather than a second balloon is what the two screens draw. A balloon shows both
-its pulls on both phones, so each player can read a thumb they cannot see and
-what the pair has to say is *which balloon*. A weight brightens under your own
-thumb and on nothing your partner is shown, so there is nothing to read and
-nothing to infer — and the only thing that gets two thumbs onto one body at once
-is one of you counting it out loud (`sim/weight.ts`). Its one number is
-`weightCrushMs`, 600 ms: how long both hands have to be on it before it gives,
-a little under a beat at 96 BPM on purpose, so *on the three* buys the press
-and a press that outlasted a beat would be a stopwatch rather than a moment the
-two of them agree on (`sim/config-weight.ts`).
+**THE WEIGHT was the third, until 18 October 2026.** A hand from each seat on
+the body itself, counted out loud, is a setting on every control body now: a
+blister whose BY is BOTH (`sim/blister.ts`, `docs/spec/blister.md`), which
+HOLD TOGETHER teaches where THE WEIGHT stood.
 
 **THE CAIRN is the first boss the table sorts as `shield`, and that is the
 whole of what it is.** Nothing fired reaches the pile and nothing fired is

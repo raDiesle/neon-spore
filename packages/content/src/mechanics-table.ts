@@ -1,6 +1,6 @@
 import type { Mechanic, MechanicId } from "./mechanics.js";
 import { BEATBOX_MECHANIC } from "./mechanics-beatbox.js";
-import { BLISTER_MECHANIC } from "./mechanics-blister.js";
+import { BLISTER_BOTH_MECHANIC, BLISTER_MECHANIC } from "./mechanics-blister.js";
 import { BOSS_MECHANICS, BOSS_MECHANICS_B } from "./mechanics-bosses.js";
 import { HANDED_MECHANICS } from "./mechanics-handed.js";
 import { MORSEL_MECHANIC, SEEDER_MECHANIC } from "./mechanics-maw.js";
@@ -195,7 +195,6 @@ export const MECHANICS = {
   beatbox: BEATBOX_MECHANIC,
   // THE BALLOON, next door in `mechanics-handed.ts`: named, so key order keeps.
   balloon: HANDED_MECHANICS.balloon,
-  weight: HANDED_MECHANICS.weight,
   limpet: HANDED_MECHANICS.limpet,
   leech: HANDED_MECHANICS.leech,
   // The five that are not a thing the field sends — a wave's own opening, the
@@ -227,6 +226,8 @@ export const MECHANICS = {
   },
   // THE BLISTER, in `mechanics-blister.ts` next door for THE BEATBOX's reason.
   blister: BLISTER_MECHANIC,
+  // A blister set to BOTH, which HOLD TOGETHER teaches.
+  blisterBoth: BLISTER_BOTH_MECHANIC,
   morsel: MORSEL_MECHANIC,
   seeder: SEEDER_MECHANIC,
 } as const satisfies Record<MechanicId, Mechanic>;

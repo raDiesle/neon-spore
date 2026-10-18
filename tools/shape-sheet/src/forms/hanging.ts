@@ -88,9 +88,9 @@ export function slumped(
     note,
     open: false,
     // The dent lives with the sac's own loop in
-    // `packages/content/src/silhouettes-weight.ts`' neighbour now — THE WEIGHT
-    // wears this form on the field, and the card is drawn from the same points
-    // so the two cannot drift apart.
+    // `packages/content/src/silhouettes-sac.ts`, and the card is drawn from
+    // the same points. THE WEIGHT wore this form on the field until 18
+    // October 2026.
     pointsAt: (t) => sacPoints(t, bias, rx, ry, skin, N, crown),
     path: catmullRomToBezierPath,
   };

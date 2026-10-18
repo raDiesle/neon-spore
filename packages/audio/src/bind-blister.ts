@@ -13,6 +13,10 @@ import { type Cue, panForCol } from "./bind.js";
  * to hear.
  */
 export function blisterCue(e: Extract<SimEvent, { type: "blisterBlow" }>, cols: number): Cue {
+  // A BOTH blister's blow, both hands landed: the grab doubled and briefly in
+  // tune, THE WEIGHT's sound, the one word either seat gets that the other's
+  // thumb was down (`sounds/grip.ts`).
+  if (e.both === true) return { id: "ship.gripBoth", pan: panForCol(e.col, cols) };
   return {
     id: "boss.gorgeTap",
     pan: panForCol(e.col, cols),

@@ -37,7 +37,6 @@ const FIELD_EVENTS = [
   "clingGrip",
   "clingFreed",
   "clingBlast",
-  "weightCrushed",
   "cairnPulled",
   "cairnShed",
   "cairnHeld",
@@ -86,8 +85,7 @@ export function fieldCue(e: FieldEvent, cols: number, rows: number): Cue | null 
     case "clingFreed":
     case "clingBlast":
       return clingCue(e, cols);
-    // The four a hand answers, in `bind-handed.ts` — about a thumb, not a shot.
-    case "weightCrushed":
+    // The three a hand answers, in `bind-handed.ts` — about a thumb, not a shot.
     case "cairnPulled":
     case "cairnShed":
     case "cairnHeld":

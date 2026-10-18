@@ -136,10 +136,9 @@ const LIVING_LOOK = {
   // `world.boss` and never from a radius (`render/curtain-draw.ts`).
   curtain: null,
   tether: null,
-  // THE BALLOON and THE WEIGHT — the bodies two hands answer, and two
-  // different answers to "is this a body of its own". `living-look-handed.ts`
-  // next door, cut out when the third of them took this table over its limit,
-  // and spread rather than named one by one the way `creatures-table.ts` does.
+  // THE BALLOON — the body two hands answer. `living-look-handed.ts` next
+  // door, cut out when THE WEIGHT took this table over its limit, and spread
+  // rather than named the way `creatures-table.ts` does.
   ...HANDED_LOOK,
   // THE LIMPET and THE LEECH fall as ordinary bodies off the sheet — HOOK
   // COLONY's base and CALTROP — and `render/cling.ts` draws them on the ship.

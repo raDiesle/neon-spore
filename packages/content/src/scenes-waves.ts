@@ -4,6 +4,7 @@ import { CATCH_AND_AIM } from "./scenes/catch-and-aim.js";
 import { CYAN } from "./scenes/cyan.js";
 import { FIRST_STEP } from "./scenes/first-step.js";
 import { HOLD_AND_AIM } from "./scenes/hold-and-aim.js";
+import { HOLD_TOGETHER } from "./scenes/hold-together.js";
 import { ONE_LAST_CHANCE } from "./scenes/one-last-chance.js";
 import { PINBALL } from "./scenes/pinball.js";
 import { SALVAGE } from "./scenes/salvage.js";
@@ -56,7 +57,6 @@ import { THE_VEIL } from "./scenes/the-veil.js";
 import { THE_VOLLEY } from "./scenes/the-volley.js";
 import { THE_WARD } from "./scenes/the-ward.js";
 import { THE_WARDEN } from "./scenes/the-warden.js";
-import { THE_WEIGHT } from "./scenes/the-weight.js";
 import { THE_WELL } from "./scenes/the-well.js";
 import { THE_WISP } from "./scenes/the-wisp.js";
 
@@ -123,7 +123,7 @@ export type WaveSceneId =
   | "thePulse"
   | "theBalloon"
   | "theBeatbox"
-  | "theWeight"
+  | "holdTogether"
   | "theCairn"
   | "theWell"
   | "theSplice"
@@ -185,7 +185,7 @@ export const SCENES_WAVES: Record<WaveSceneId, GuideScene> = {
   thePulse: THE_PULSE,
   theBalloon: THE_BALLOON,
   theBeatbox: THE_BEATBOX,
-  theWeight: THE_WEIGHT,
+  holdTogether: HOLD_TOGETHER,
   theCairn: THE_CAIRN,
   theWell: THE_WELL,
   theSplice: THE_SPLICE,

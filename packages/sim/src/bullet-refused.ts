@@ -31,7 +31,6 @@ import type { World } from "./world.js";
 const BOUNCES_A_BOLT: ReadonlySet<Creature["kind"]> = new Set([
   "limpet",
   "leech",
-  "weight",
   // And a mine, which is the sharpest case the owner's rule has: it is
   // answered by a finger on its tile and by nothing else, and on a wave that
   // draws it to the pilot a bolt that killed one would hand the seat holding

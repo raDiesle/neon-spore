@@ -107,6 +107,10 @@ const THE_LESSON_KEEPS: Record<string, readonly WaveKind[]> = {
   RUB: ["blister"],
   COMBO: ["blister"],
   LEVER: ["blister"],
+  // HOLD TOGETHER teaches a setting rather than a kind: a HOLD blister set to
+  // BOTH, which gives only while both thumbs are on it (`sim/blister-hold.ts`).
+  // It took THE WEIGHT's place on 18 October 2026.
+  "HOLD TOGETHER": ["blister"],
 };
 
 describe("a guided wave's entries", () => {

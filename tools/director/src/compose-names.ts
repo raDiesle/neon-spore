@@ -48,12 +48,18 @@ const THING_WORD: Readonly<Record<string, string>> = {
   firstStep: "RED",
   theWard: "HEAVY ROCK",
   catchAndAim: "AIM",
+  // HOLD TOGETHER, a BOTH blister held by two thumbs: two words do not fit.
+  theWeight: "TOGETHER",
 };
 
 /** A block's thing in one word, off its intro: THE LURE is LURE. */
 export function thingWord(intro: Wave): string {
   return THING_WORD[intro.id] ?? intro.name.replace(/^THE /, "");
 }
+
+/** A review whose thing no wave is named for, by the id of the wave that
+ * introduces it: `blisterBoth` is HOLD TOGETHER's, and its id is THE WEIGHT's. */
+const REVIEW_INTRO: Readonly<Record<string, string>> = { BlisterBoth: "theWeight" };
 
 const fits = (name: string) => name.length <= LONGEST && name.split(" ").length <= WORDS;
 
@@ -108,6 +114,9 @@ function themeOf(
       return { intro: blockAbove({ waves, groups, regular }, i), mood: mood as Mood };
     const intro = kind ? (byId(`the${rest}`) ?? byId(lower(rest))) : byId(rest);
     if (intro) return { intro, mood: mood as Mood };
+    const named = kind === "review" ? REVIEW_INTRO[rest] : undefined;
+    const of = named === undefined ? undefined : byId(named);
+    if (of) return { intro: of, mood: mood as Mood };
   }
   const said = /^(\w+)Blisters$/.exec(wave.id)?.[1];
   const gesture = BLISTER_GESTURES.find((g) => g === said);

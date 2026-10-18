@@ -22,4 +22,7 @@ export type BlisterEvent = {
   /** On a BOTH blister, the seat whose half this was: nothing counted yet,
    * and the blow waiting on the other seat (`blisterDealt`). */
   half?: 1 | 2;
+  /** A blow both seats dealt on a BOTH blister: the two hands landed, which
+   * is the one thing neither seat could see the other do. */
+  both?: true;
 };

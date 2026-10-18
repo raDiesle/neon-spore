@@ -167,8 +167,8 @@ export function burstFor(e: SimEvent, l: Layout, cfg: SimConfig, skinY?: Surface
     case "magnetPlate":
       return at(l, e.col, e.row, 7, PALETTE.rock);
 
-    // A bolt turned away by a body that is not stone — a clinger, a
-    // weight (`sim/bullet-hit.ts`). The plate's own grains and the plate's own
+    // A bolt turned away by a body that is not stone — a clinger
+    // (`sim/bullet-hit.ts`). The plate's own grains and the plate's own
     // reason: it is neither a kill nor a wrong colour, it is a shot that
     // arrived at something the cannon has nothing to say to.
     case "bounce":
@@ -231,7 +231,6 @@ export function burstFor(e: SimEvent, l: Layout, cfg: SimConfig, skinY?: Surface
     case "clingGrip":
     case "clingFreed":
     case "clingBlast":
-    case "weightCrushed":
     case "cairnPulled":
     case "cairnShed":
     case "queenFlinch":

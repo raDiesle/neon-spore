@@ -61,7 +61,6 @@ export const creature = (): Required<Creature> => ({
   clingLastCol: 4,
   // THE WEIGHT: ticks both hands have been on it. Non-zero, so a fixture that
   // stopped hashing it would differ from one that did.
-  weightPressTicks: 37,
   countPhase: 2,
   mineFuse: 4,
   mineSees: 1,

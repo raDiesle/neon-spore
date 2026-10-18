@@ -72,13 +72,11 @@ export type { WaveMechanicId } from "./mechanics-wave.js";
 /**
  * A mechanic a wave turns on **by a field on an arrival rather than by its
  * kind**: a plain rock sent across the field instead of down a column
- * (`WaveEntry.cross`, `sim/rock-cross.ts`). Its own class rather than a third
- * `WaveMechanicId`, because those are defined by putting *no body* on the
- * field and this does — it is a `spawn`, and what is unusual is only how
- * `mechanicsInWave` finds it. The hollow pod was the second until it became a
- * pod kind of its own (`PodKind`, 16 October 2026).
+ * (`WaveEntry.cross`, `sim/rock-cross.ts`), and a blister both seats must
+ * answer (`by: "both"`, `sim/blister.ts`). Not a `WaveMechanicId`: those put
+ * *no body* on the field, and these are a `spawn` found by a field.
  */
-export type RouteMechanicId = "rockCross";
+export type RouteMechanicId = "rockCross" | "blisterBoth";
 
 /**
  * The closed list. `queen` and `warden` are a `CreatureKind` and a boss kind at
@@ -206,6 +204,7 @@ export function mechanicsInWave(wave: Wave): Set<MechanicId> {
     // else here — so the rule saying which kinds may take a route is called
     // once rather than restated.
     if (e.cross !== undefined) found.add("rockCross");
+    if (e.kind === "blister" && e.by === "both") found.add("blisterBoth");
   }
   for (const p of podsFromWave(wave, AUTHORED_COLS)) {
     // Real or hollow — the two pod brushes are the two mechanics.

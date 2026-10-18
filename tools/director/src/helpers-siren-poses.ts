@@ -40,7 +40,7 @@ export const SIREN_P1 = top("P1 SPEAKS", () => bodies([at("veil")]));
 export const SIREN_P2 = top("P2 SPEAKS", () => bodies([at("lure")]));
 export const SIREN_HALVES = top("BOTH, HALF EACH", () => bodies([at("strand")]));
 export const SIREN_SAME = top("BOTH, ONE SENTENCE", () =>
-  bodies([at("weight", COL, { color: null })]),
+  bodies([at("balloon", COL, { color: null })]),
 );
 export const SIREN_TWO_BODIES = top("BOTH, TWO BODIES", () =>
   bodies([at("veil", 3), at("lure", 7)]),

@@ -44,7 +44,7 @@ export const INGEST_SILENT_BOSS_B = [
   "fleetSunk",
   "fleetDown",
   // THE CAIRN losing a unit, either way. Nothing here outlives the frame
-  // either, and for a plainer reason than the weight's: what leaves the pile
+  // either, and and for a plain reason: what leaves the pile
   // **is still on the field**. It is a rock now, with a column and a row of its
   // own, drawn every frame by the same code that draws every other rock — so a
   // transient remembering it would be the same stone painted twice. The burst

@@ -2,7 +2,7 @@ import type { Color } from "./types.js";
 
 /**
  * **What a hand did to a body**, as `SimEvent` arms: a hold landing, a push
- * spent, THE WEIGHT pressed flat between two, THE CAIRN pulled, shed and held,
+ * spent, THE CAIRN pulled, shed and held,
  * and an armoured gate held open by a cord pulled taut.
  *
  * Cut out of `events.ts` on 17 October 2026, when that file stood one line
@@ -10,17 +10,6 @@ import type { Color } from "./types.js";
  * `limits.test.ts` red mid-lane. Only the union crosses into `SimEvent`.
  */
 export type HandEvent =
-  /**
-   * THE WEIGHT gave: both seats had a hand on it for `weightCrushMs`.
-   *
-   * Its own event rather than a `destroy`, because `destroy` carries the colour
-   * the body is broken into and a weight has none — nothing can be fired at it,
-   * so it never had one. It is also a different picture: a body that has been
-   * *pressed* gives inward between two hands rather than bursting outward, and
-   * it is the one kill in the game both players earned with the same gesture at
-   * the same instant (`sim/weight.ts`).
-   */
-  | { type: "weightCrushed"; col: number; row: number }
   /**
    * A hand carried across THE CAIRN took a unit out of the pile, on the side
    * the finger went. `player` is the seat charged the column, and there is one

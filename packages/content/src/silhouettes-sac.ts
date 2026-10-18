@@ -6,10 +6,10 @@ import { blobRadiusMul, type Point } from "./shapes.js";
  *
  * `tools/shape-sheet/src/forms/hanging.ts` draws a *sac* — a blob with its
  * mass pulled downward, `bias` 0 an ordinary blob and 0.5 a teardrop with a
- * narrow top. THE WEIGHT wears it slumped (`silhouettes-weight.ts`), and the
- * sheet imports `sacPoints` back from this file so the card and the body
- * cannot drift apart. It was THE GUM's body too until THE GUM was taken out of
- * the game on 10 October 2026.
+ * narrow top. The sheet imports `sacPoints` back from this file so the card
+ * and a body cannot drift apart. It was THE GUM's body until THE GUM was taken
+ * out of the game on 10 October 2026, and THE WEIGHT's, slumped, until THE
+ * WEIGHT was on 18 October 2026.
  */
 
 /** The lobing a sac is cut from — the sheet's `SAC_SKIN`, which every sac on
@@ -50,7 +50,7 @@ function angleDiff(a: number, to: number): number {
  * `crown` is how far the shoulder has fallen in, as a fraction of the radius,
  * and nought is the plain sac. It is an argument here rather than a second
  * function in the shape sheet because the sheet's drafts and the bodies are
- * drawn from it — the plain sac at nought, THE WEIGHT at its own depth — and
+ * drawn from it — the plain sac at nought, the slumped one at its own depth — and
  * two copies of this loop would be two answers to what a sac is
  * (`copies-table.ts`).
  */

@@ -70,7 +70,6 @@ export const CREATURE_KINDS = [
   "countdown",
   "limpet",
   "leech",
-  "weight",
   "cairn",
   "curtain",
   "mine",

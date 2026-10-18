@@ -81,10 +81,15 @@ describe("an enemy's glance, within the naming gate", () => {
     expect(out).toEqual([]);
   });
 
-  it("would join a pair if the slick roved: ROVE is not for every kind", () => {
-    const slick = nameability("slick", undefined, { ...CREATURE_GLANCE_SIZE, nods: true });
-    const weight = nameability("weight", undefined, { ...CREATURE_GLANCE_SIZE, nods: true });
-    expect(confusable(slick, weight)).toBe(true);
+  it("would join a pair if the wisp roved: ROVE is not for every kind", () => {
+    // The slick and THE WEIGHT were this pair until THE WEIGHT went
+    // (18 October 2026); the wisp and the limpet are the pair left.
+    const wisp = nameability("wisp", undefined, { ...CREATURE_GLANCE_SIZE, nods: true });
+    const limpet = nameability("limpet", undefined, {
+      ...CREATURE_GLANCE_SIZE,
+      nods: ROVERS.has("limpet"),
+    });
+    expect(confusable(wisp, limpet)).toBe(true);
   });
 
   it("measures nothing new with no glance", () => {

@@ -74,7 +74,7 @@ import { drawnSize, FLOOR_HI, FLOOR_LO, isWide } from "../src/drawn-size.js";
 const SQUARE = CATALOGUE.filter((e) => !isWide(e));
 
 describe("drawn size against the 20-26 px floor", () => {
-  it("has the 107 square cards the catalogue now holds", () => {
+  it("has the 106 square cards the catalogue now holds", () => {
     // Two changes on 8 September 2026 that cancelled out. SLICK left: its
     // lobes went onto its long axis, and `depth` 0.52 with an apex at 0° and
     // another at 180° stretches the contour to 209 x 60 where the bean it drew
@@ -126,8 +126,9 @@ describe("drawn size against the 20-26 px floor", () => {
     // cards that stay on the sheet (`content/silhouettes-morsel.ts`). 107 with
     // THE SEEDER, SEED HEAD, the same way (`content/silhouettes-seeder.ts`).
     // 108 with THE GLUTTON, GULLET, the same way; 107 on 18 October 2026,
-    // when GULLET left with THE GLUTTON, taken out of the game.
-    expect(SQUARE.length).toBe(107);
+    // when GULLET left with THE GLUTTON, taken out of the game. 106 the same
+    // day, when THE WEIGHT left and its BOTH became a blister's setting.
+    expect(SQUARE.length).toBe(106);
   });
 
   it("clears the floor for every square card at the 92 px frame it actually gets", () => {
@@ -209,8 +210,8 @@ describe("drawn size against the 20-26 px floor", () => {
     // 69 with THE MORSEL: eight shallow pleats lose to the card's own size,
     // and 70 with THE SEEDER's twelve, for the same reason. 71 with THE
     // GLUTTON: REVERB's flat 72 × 42 card puts four deep lobes under 26 px,
-    // and 70 again without it.
-    expect(under26).toBe(70);
+    // and 70 again without it. 69 without THE WEIGHT, the same day.
+    expect(under26).toBe(69);
     expect(under20).toBe(23);
   });
 

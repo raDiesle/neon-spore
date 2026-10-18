@@ -12,7 +12,7 @@ import { createWorld, MILLI, type World } from "../src/world.js";
  * destroyed with the cannon's colour.*
  *
  * Five kinds used to be skipped by `shot-reach.ts` outright — THE GUM, THE
- * LIMPET, THE LEECH, THE WEIGHT and THE CAIRN — each with a paragraph saying a
+ * LIMPET, THE LEECH and THE CAIRN — each with a paragraph saying a
  * bolt went past it *to whatever was above*. That last clause is what this
  * file holds against, and it holds against it at the sweep rather than through
  * a played wave: `firstAlong` is the one place a shot's reach is decided, and
@@ -56,7 +56,7 @@ const to = 3 * MILLI;
 
 describe("which bodies spend a bolt", () => {
   it("is the four that are not stone, and the pile that is", () => {
-    for (const kind of ["limpet", "leech", "weight", "cairn"] as const) {
+    for (const kind of ["limpet", "leech", "cairn"] as const) {
       expect(refusesABolt(kind), kind).toBe(true);
     }
   });
@@ -74,7 +74,7 @@ describe("what the sweep stops at", () => {
    * the sweep now. Before this, `firstAlong` walked past all five by name and a
    * body behind one of them was shootable through it.
    */
-  for (const kind of ["limpet", "leech", "weight", "cairn"] as const) {
+  for (const kind of ["limpet", "leech", "cairn"] as const) {
     it(`stops at ${kind.toUpperCase()} rather than walking past it`, () => {
       const world = standing(kind);
       expect(firstAlong(world, bolt, from, to)?.kind).toBe(kind);

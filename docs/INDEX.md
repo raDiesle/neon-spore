@@ -355,7 +355,6 @@ by hand never moves.
 | `packages/sim/src/events-volley.ts` | **What THE VOLLEY does**, as events: a ward that sends it back |
 | `packages/sim/src/volley.ts` | THE VOLLEY: a rock coming in on a diagonal with a body sealed inside it |
 | `packages/sim/src/ward.ts` | **What the shield does with a body it turns**, which used to be one answer and is now two |
-| `packages/sim/src/weight.ts` | **THE WEIGHT: the body two thumbs crush, and neither thumb can see the other** |
 | `packages/sim/src/well.ts` | THE WELL: the field turned inside out, and then turned — the face's three phases and the thumb on the seam |
 | `packages/sim/src/well-hand.ts` | **The pilot's thumb on the seam**, off the wire, on the tick |
 | `packages/sim/src/well-hash.ts` | What THE WELL puts into `hashWorld`, and nothing else |
@@ -611,7 +610,7 @@ by hand never moves.
 | `packages/sim/src/trapeze.ts` | THE TRAPEZE: an alien on a swing hung from two long ropes over the middle of the field |
 | `packages/sim/src/creature-kinds-many.ts` | the five kinds that are more than one body, answered a part at a time |
 | `packages/sim/src/creature-kinds-maw.ts` | **The bodies the maw finishes**, rather than the cannon or the shield |
-| `packages/sim/src/creature-kinds-handed.ts` | **The two bodies answered by a hand from each seat at once** |
+| `packages/sim/src/creature-kinds-handed.ts` | **The body answered by a hand from each seat at once**: THE BALLOON |
 | `packages/sim/src/creature-kinds-fixtures.ts` | The four bodies a wave never sends: the queen, the ring, the line it lowers and the pile, installed where they stand rather than queued |
 | `packages/sim/src/creature-kinds-standing.ts` | **The bodies that stand on a tile**, and the only ones whose answer is a square rather than a column |
 | `packages/sim/src/creature-state-heading.ts` | the four kinds that carry a direction, and the beats attached to it |
@@ -789,7 +788,7 @@ by hand never moves.
 | `packages/sim/src/events-antiphon.ts` | **Everything THE ANTIPHON does that neither screen already says**, as events |
 | `packages/sim/src/events-hive.ts` | **Everything THE HIVE does that neither screen already says**, as events |
 | `packages/sim/src/events-hasp.ts` | What THE HASP says as it happens, one line per thing the picture and the sound answer |
-| `packages/sim/src/events-hands.ts` | **What a hand did to a body**, as `SimEvent` arms: a hold landing, a push spent |
+| `packages/sim/src/events-hands.ts` | **What a hand did to a body**, as `SimEvent` arms: a hold landing, a push spent, THE CAIRN pulled |
 | `packages/sim/src/events-hydra.ts` | What THE HYDRA says as it happens, one line per thing the picture and the sound answer |
 | `packages/sim/src/events-instar.ts` | What THE INSTAR says as it happens, one line per thing the picture and the sound answer — and THE NETTLE |
 | `packages/sim/src/events-queen.ts` | **What THE BULB QUEEN reports**, off the beat and the thumb |
@@ -816,7 +815,6 @@ by hand never moves.
 | `packages/sim/src/config-rounds.ts` | The rounds' numbers, as one block of `SimConfig` |
 | `packages/sim/src/config-run.ts` | The run's own numbers: the rest after a wave, the pause after a hit |
 | `packages/sim/src/config-ratchet.ts` | THE RATCHET's tuning: how deep the catch counts as set |
-| `packages/sim/src/config-weight.ts` | THE WEIGHT's one number |
 | `packages/sim/src/config-well.ts` | THE WELL's numbers — how long the face stands still, how far it slips a beat |
 | `packages/sim/src/config-warden.ts` | THE WARDEN's throw: how far the swipe has to travel and how many beats the hatch stands open |
 | `packages/sim/src/config-undertow.ts` | THE UNDERTOW's numbers — how long each of its three levels lasts, how many lobes each lets up at once |
@@ -956,10 +954,10 @@ by hand never moves.
 | `packages/content/src/waves/act-36.ts` | Waves 481 to 492 of the game, in the order they are played: THE MOULT's review, the boss THE REPRISE, THE BALLOON's review and the boss THE FILAMENT |
 | `packages/content/src/waves/act-37.ts` | Waves 493 to 504 of the game, in the order they are played: THE CHOIR's review, the boss THE SPOOL, THE FENCE's review and the boss THE HASP |
 | `packages/content/src/waves/act-38.ts` | Waves 505 to 515 of the game, in the order they are played: THE VEER's review, the boss THE FLUE and reviewMeteorMedium's review |
-| `packages/content/src/waves/act-39.ts` | Waves 516 to 528 of the game, in the order they are played: the boss THE RATCHET, THE WEIGHT's review, the boss THE NETTLE, THE BEATBOX's review and the boss THE MANTLE |
+| `packages/content/src/waves/act-39.ts` | Waves 516 to 528 of the game, in the order they are played: the boss THE RATCHET, reviewBlisterBoth's review, the boss THE NETTLE, THE BEATBOX's review and the boss THE MANTLE |
 | `packages/content/src/waves/act-3.ts` | Waves 120 to 130 of the game, in the order they are played: THE HUSK's block |
 | `packages/content/src/living-look.ts` | which kinds are drawn as a body of their own, and the contour and own-motion of each — one row per kind, so a forgotten one is a build error |
-| `packages/content/src/living-look-handed.ts` | **How the bodies answered by two hands are drawn** |
+| `packages/content/src/living-look-handed.ts` | **How the body answered by two hands is drawn** |
 | `packages/content/src/living-look-stroked.ts` | a creature is not a blob — the nine kinds a radial contour cannot describe, each `null` with the reason its shape needs a path of its own |
 | `packages/content/src/waves/act-40.ts` | Waves 529 to 540 of the game, in the order they are played: reviewRockCross's review, the boss THE KEEL, THE SEEDER's review and the boss THE VALVE |
 | `packages/content/src/waves/act-41.ts` | Waves 541 to 551 of the game, in the order they are played: THE MORSEL's review, the boss THE SEAM and THE HUSK's review |
@@ -1052,7 +1050,6 @@ by hand never moves.
 | `packages/content/src/scenes/the-morsel.ts` | THE MORSEL's rehearsal: the shot that lands is only half the answer |
 | `packages/content/src/scenes/the-warden.ts` | THE WARDEN's rehearsal: he holds the door open and she has to be quick enough to shoot through it |
 | `packages/content/src/scenes/the-ward.ts` | HEAVY ROCKS' rehearsal: a rock that falls faster is the same rock, with less time to be under it |
-| `packages/content/src/scenes/the-weight.ts` | THE WEIGHT's rehearsal: a thumb held alone looks exactly like two thumbs held together |
 | `packages/content/src/scenes/the-well.ts` | THE WELL's rehearsal: the same field, drawn two ways, and the seam |
 | `packages/content/src/creatures-bare.ts` | The three bodies with **nothing laid over them at all**: a slick or a bulb drawn small, drawn large |
 | `packages/content/src/mechanics-rocks.ts` | The six rocks' rows, lifted out of `mechanics-table.ts` when THE VOLLEY took that file past its 250-line… |
@@ -1065,7 +1062,7 @@ by hand never moves.
 | `packages/content/src/scenes/catch-and-aim.ts` | CATCH AND AIM's rehearsal: the hand aims, so the cannon does not have to |
 | `packages/content/src/scenes/combo-blisters.ts` | COMBO's rehearsal: a COMBO blister in each of its two bodies |
 | `packages/content/src/waves/act-1b.ts` | The last of act one, cut off `act-1.ts` when that file reached the 250-line ceiling on `CATCH AND AIM` |
-| `packages/content/src/waves/act-10.ts` | Waves 200 to 209 of the game, in the order they are played: THE WEIGHT's block, the filler before THE PLUMB and the boss THE PLUMB |
+| `packages/content/src/waves/act-10.ts` | Waves 200 to 209 of the game, in the order they are played: HOLD TOGETHER's block, the filler before THE PLUMB and the boss THE PLUMB |
 | `packages/content/src/waves/act-11.ts` | Waves 210 to 219 of the game, in the order they are played: THE LEECH's block, the filler before THE LAMPREY and the boss THE LAMPREY |
 | `packages/content/src/waves/act-12.ts` | Waves 220 to 229 of the game, in the order they are played: HEAVY ROCKS's block, the filler before THE HIVE and the boss THE HIVE |
 | `packages/content/src/waves/act-13.ts` | Waves 230 to 239 of the game, in the order they are played: THE VEER's block, the filler before SNAKE and the boss SNAKE |
@@ -1152,6 +1149,7 @@ by hand never moves.
 | `packages/content/src/scenes/one-last-chance.ts` | ONE LAST CHANCE's rehearsal: the shield pushes a slick back up once, and only the cannon kills it |
 | `packages/content/src/scenes/hold-blisters.ts` | HOLD's rehearsal: a HOLD blister in each of its two bodies |
 | `packages/content/src/scenes/hold-and-aim.ts` | HOLD AND AIM's rehearsal: the hand aims, so the cannon does not have to |
+| `packages/content/src/scenes/hold-together.ts` | HOLD TOGETHER's rehearsal: a BOTH blister held by one thumb does nothing, held by two at once it gives |
 | `packages/content/src/scenes/lever-blisters.ts` | LEVER's rehearsal: a LEVER blister in each of its three bodies — ROOT and BELL for the navigator |
 | `packages/content/src/scenes/rub-blisters.ts` | RUB's rehearsal: a RUB blister in each of its three bodies — WASHBOARD and URCHIN for the pilot, then PURR |
 | `packages/content/src/scenes-choreographed.ts` | The rehearsals of the bosses designed on `docs/spec/bosses-choreographed.md` |
@@ -1181,7 +1179,6 @@ by hand never moves.
 | `packages/content/src/mechanics-blister.ts` | THE BLISTER's row, beside `mechanics-beatbox.ts` and for its reason: `mechanics-table.ts` is near its limit |
 | `packages/content/src/silhouettes-beatbox.ts` | Beatbox: a rounded cabinet, and the one body on this roster whose contour is *architecture* rather than an… |
 | `packages/content/src/silhouettes-blister.ts` | **THE BLISTER is ROOTED CLOVER**: two drafts off the shape sheet, combined and named |
-| `packages/content/src/silhouettes-weight.ts` | **THE WEIGHT: the slumped sac**, the louder of the two hanging drafts, taken off the shape sheet whole |
 | `packages/content/src/silhouettes-mine.ts` | **THE MINE is REACHER**, off the shape sheet: *four soft arms |
 | `packages/content/src/silhouettes-morsel.ts` | **THE MORSEL is DUMPLING: BULB · PEAR and BULB · SPIKE** |
 | `packages/content/src/waves/act-8.ts` | Waves 180 to 189 of the game, in the order they are played: THE LIMPET's block, the filler before THE GAUGE and the boss THE GAUGE |
@@ -2063,7 +2060,6 @@ by hand never moves.
 | `packages/render/src/warden-drift.ts` | **THE WARDEN rocks on its open foot** |
 | `packages/render/src/warden-track.ts` | THE WARDEN's hatch under GLARE drawn as a swipe track through the eye, filling green with the carry |
 | `packages/render/src/way-arrow.ts` | **The way a pull goes, as an arrow**: THE INSTAR's pull glyph turned to any direction, drawn inside every pull knob |
-| `packages/render/src/weight.ts` | **THE WEIGHT under a thumb, and the one thing on this field a player is shown that their partner is not.**… |
 | `packages/render/src/well-draw.ts` | THE WELL's board and the bodies on it, in place of the flat field's two field passes |
 | `packages/render/src/well-face.ts` | THE WELL's clock face: the bowl, the lanes, the rings and the seam — the empty board, in the round |
 | `packages/render/src/well-flesh.ts` | THE WELL as a throat: the bowl deepening to the hub, a lobed lip, grooves, a socket, a film |
@@ -3166,7 +3162,7 @@ by hand never moves.
 | `packages/hands/src/autopilot-moult.ts` | **THE MOULT, on AUTO**: a body that is a rock and a cargo by turns |
 | `packages/hands/src/autopilot-magnet.ts` | **THE MAGNET, on AUTO**: the cannon beside the magnet, locked on, its facing pole fired |
 | `packages/hands/src/autopilot-lid.ts` | **THE LID, on AUTO**: player 1 pulls the cord taut and holds the cannon's fire until the lens is bare |
-| `packages/hands/src/autopilot-touch.ts` | **THE WEIGHT, THE MINE, THE BEATBOX and THE BLISTER, on AUTO**: a finger on the body |
+| `packages/hands/src/autopilot-touch.ts` | **THE MINE, THE BEATBOX and THE BLISTER, on AUTO**: a finger on the body |
 | `packages/hands/src/autopilot-choir.ts` | **THE CHOIR, on AUTO**: the membrane shaken until it draws together |
 | `packages/hands/src/autopilot-choke.ts` | **THE CHOKE, on AUTO**: the cannon strip answers nobody and the cannon walks wall to wall on its own… |
 | `packages/hands/src/autopilot-crawler.ts` | **THE CRAWLER, on AUTO**: the dome under the plate's next column, on the beat |

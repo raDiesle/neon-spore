@@ -44,7 +44,6 @@ export const KILL_LINE: Partial<Record<Brush, string>> = {
   beatbox: "p2 taps once a beat. Stop on p1's number.",
   crawler: "Shoot each colour ring. Shield each plate.",
   balloon: "Both pull a handle at once. Then again.",
-  weight: "Both press it at the same moment.",
   mine: "Tap its exact tile. The one who sees it says where.",
   moult: "Shield it as rock. Swallow it as cargo.",
   morsel: "Shoot it limp. Then swallow it with the maw.",

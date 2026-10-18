@@ -59,9 +59,8 @@ export const HELD_GLANCE_SIZE: GlanceSize = { ...CREATURE_GLANCE_SIZE, cock: 0 }
  * *"bulb" might look good if we also glance him not only to left and right,
  * but also to top and bottom*. The four round bodies the naming gate lets
  * turn every way at `CREATURE_GLANCE_SIZE`, each against every other kind
- * cocking or roving (`tools/shape-sheet/test/nameability-glance.test.ts`). A
- * slick roving joins the weight's word, and the dart, limpet and blister the
- * wisp's, so those cock.
+ * cocking or roving (`tools/shape-sheet/test/nameability-glance.test.ts`). The
+ * dart, limpet and blister roving join the wisp's word, so those cock.
  */
 export const ROVERS: ReadonlySet<CreatureKind> = new Set<CreatureKind>([
   "bulb",

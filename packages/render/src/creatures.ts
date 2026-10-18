@@ -17,7 +17,6 @@ import type { Layout } from "./layout.js";
 import { drawLidCords } from "./lid-string.js";
 import type { RecoilLeapFx } from "./recoil-leap.js";
 import { throatRefuseShake } from "./throat-refuse-shake.js";
-import { drawWeightPress } from "./weight.js";
 import { showsWisp } from "./wisp.js";
 import { drawWispGround } from "./wisp-ground.js";
 import { drawWispSearch, showsWispSearch } from "./wisp-search.js";
@@ -188,11 +187,6 @@ export function drawCreatures(
   // are drawn at, and a handle behind the body in the next lane is a handle a
   // thumb cannot find (`balloon-handles.ts`).
   drawBalloonHandles(ctx, l, world, beatPhase, time);
-  // And the pressure on THE WEIGHT, last and flat for the handles' reasons —
-  // with one of its own that no other overlay has: what it draws depends on
-  // **which screen this is**, because a hand on a weight is shown to the seat
-  // whose hand it is and to nobody else (`weight.ts`).
-  drawWeightPress(ctx, l, world, beatPhase, time);
   // And THE BLISTER's help, flat and last for the handles' reasons: it is
   // drawn on the circle a tap is answered on (`blister-help.ts`).
   drawBlisterHelp(ctx, l, world, beatPhase, time);

@@ -18,7 +18,6 @@ import { sinewHeard } from "./sinew-hand.js";
 import type { TimedCommand } from "./types.js";
 import { vaneHeard } from "./vane-hand.js";
 import { wardenHeard } from "./warden-hand.js";
-import { stepWeights } from "./weight.js";
 import type { World } from "./world.js";
 
 /**
@@ -29,7 +28,7 @@ import type { World } from "./world.js";
  * more, so what stays there is the loop and the order of it: each of these
  * is a thumb heard off the wire on the tick rather than on the beat, for a
  * reason of its own written beside it. The order is the one they were built
- * in, and the choreographed bosses' page, THE WEIGHT's clock and THE FLEET
+ * in, and the choreographed bosses' page, THE BLISTER's hands and THE FLEET
  * run where they always ran — between THE SINEW and the end.
  */
 export function fieldHandsHeard(world: World, commands: readonly TimedCommand[]): void {
@@ -94,15 +93,11 @@ export function fieldHandsHeard(world: World, commands: readonly TimedCommand[])
   // THE ANTIPHON's organ, THE INSTAR's marks, THE FILAMENT's thumbs, THE
   // GIMBAL's rings, THE BULB QUEEN's marks — on the tick with the rest, each for its own reason, on a page of their own (`boss-hands.ts`).
   bossHandsHeard(world, commands);
-  // And the two hands on THE WEIGHT, which is not a command at all: the press
-  // is the ordinary `grip` and `applyCommand` has already recorded it, so what
-  // runs here is the clock over it. On the tick with the balloon's rub above
-  // and for the same reason, at its strongest: the pair counts itself into the
-  // instant both thumbs land, and an instant answered on the next beat would
-  // land up to a whole beat after the one they said out loud (`weight.ts`).
-  stepWeights(world);
-  // And a hand on a HOLD blister, the same ordinary `grip` and counted on the
-  // tick for the weight's reason (`blister-hold.ts`).
+  // And a hand on a HOLD blister, which is not a command at all: the press is
+  // the ordinary `grip` and `applyCommand` has already recorded it, so what
+  // runs here is the clock over it. On the tick for the balloon's reason: a
+  // BOTH blister's pair counts itself into the instant both thumbs land, and
+  // an instant answered on the next beat would land late (`blister-hold.ts`).
   stepBlisterHolds(world);
   // And a stroke across a SWIPE blister, judged on the lift and on the tick
   // for the same reason: the blow lands as the thumb comes away (`blister-swipe.ts`).

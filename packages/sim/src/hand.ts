@@ -48,21 +48,17 @@ import { isMeteorKind } from "./kinds.js";
  * the special case dissolved into it rather than being deleted.
  *
  * **THE CAIRN is the fourth, and it is the only one that is worth nothing
- * while the finger is still.** A brake, an aim and a press are all paid for by
+ * while the finger is still.** A brake and an aim are both paid for by
  * a thumb resting on a body; a `"pull"` is paid for by carrying it — the
  * displacement `grip-push.ts` already measures, spent a column at a time — and
  * what it earns is a unit dragged out of the pile rather than a lane for the
  * thing under the thumb. Either seat, for the brake's reason.
  *
- * **THE WEIGHT is the third thing, and it is the first that needs the other
- * seat.** A brake is worth something with one hand and twice as much with two;
- * an aim is one seat's and the other seat has none. A `"press"` is worth
- * *nothing at all* until both hands are on the same body — and because a hand
- * on a weight is drawn on that seat's screen alone, neither player can see
- * whether the other has arrived. That is the creature: the gesture is ordinary
- * and the only way to make it land is to say when (`weight.ts`).
+ * **THE WEIGHT was the third, a `"press"` worth nothing until both hands were
+ * on it, and is gone** (the owner, 18 October 2026): two hands held together
+ * is a BOTH HOLD blister now (`blister-hold.ts`).
  */
-export type HandMeans = "brake" | "aim" | "press" | "pull";
+export type HandMeans = "brake" | "aim" | "pull";
 
 /** What one seat's hand on this kind would be, or null for a press that is
  * refused. `isGrippable` first, which is the kinds that refuse a hand for
@@ -70,11 +66,6 @@ export type HandMeans = "brake" | "aim" | "press" | "pull";
 export function handMeans(kind: CreatureKind, player: 1 | 2): HandMeans | null {
   if (!isGrippable(kind)) return null;
   if (isMeteorKind(kind)) return "brake";
-  // Either seat, and neither seat's is worth anything alone. Above the living
-  // body's rule below, because a weight *is* a living body and the rule that
-  // hands the aim to the pilot would otherwise refuse the navigator the one
-  // hand this creature cannot be beaten without.
-  if (kind === "weight") return "press";
   // **THE CAIRN is the fourth, and it is the carry rather than the hold.**
   // Either seat, for the brake's reason — the field belongs to both — and it
   // is worth nothing at all while the finger stands still: what spends it is

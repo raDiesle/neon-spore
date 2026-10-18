@@ -108,11 +108,11 @@ export const WAVES_ACT_17: Wave[] = [
       { beat: 0, col: 8, color: "red" },
       { beat: 6, col: 0, kind: "choir", color: "red" },
       { beat: 11, col: 3, color: "red" },
-      { beat: 17, col: 5, kind: "weight", color: null },
+      { beat: 17, col: 5, kind: "blister", color: null, row: 3, by: "both", gesture: "hold" },
       { beat: 23, col: 8, color: "cyan" },
       { beat: 28, col: 9, kind: "choir", color: "red" },
       { beat: 34, col: 7, color: "red" },
-      { beat: 39, col: 10, kind: "weight", color: null },
+      { beat: 39, col: 10, kind: "blister", color: null, row: 3, by: "both", gesture: "hold" },
     ],
   },
   {

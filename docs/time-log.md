@@ -44545,3 +44545,19 @@ The bottleneck was looking: an icon twelve pixels across has to be cropped
 at three moments before a wrong one (a lens that reads as an eye) shows.
 
 *Measured: 5 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-18 — THE WEIGHT out; HOLD TOGETHER is a BOTH blister
+
+- reading: 20 min. Every place THE WEIGHT was registered, and how the
+  curriculum finds a head (`splitCurriculum`, `placeable`, `compose-names`).
+- writing: 35 min. The removal across sim, render, audio, director and AUTO,
+  73 entries turned into BOTH holds, HOLD TOGETHER's film, `blisterBoth` as a
+  thing the list teaches.
+- looking: 0 min. The film is proved by the scene tests.
+- friction: 15 min. A `git checkout` of the waves folder threw away the
+  uncommitted conversion along with a reorder it was meant to undo; redone.
+- landing: 10 min. The full run, `check:fast`, the commit, `land`.
+
+Bottleneck: with no new thing on it the head stopped heading a block, and
+`waves:order` rewrote half the list until a BOTH blister became a thing of
+its own the curriculum could see.

@@ -71,7 +71,7 @@ export function creatureCue(e: CreatureEvent, cols: number, rows: number): Cue |
     // the difference will reload when what they had to do was move
     // (`sim/magnet.ts`).
     // A bolt that arrived at a body the cannon cannot answer at all — a
-    // clinger, a weight (`sim/bullet-hit.ts`). The plate's own sound, for the
+    // clinger (`sim/bullet-hit.ts`). The plate's own sound, for the
     // plate's own reason: it is not a wrong colour and it is not a kill, and a
     // pair that cannot hear the difference will reload when what they had to
     // do was put a hand on it.

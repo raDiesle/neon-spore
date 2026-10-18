@@ -205,15 +205,6 @@ export const INGEST_SILENT = [
   // CHUTE's reason exactly (`coil-jump.ts`).
   "coilBreak",
   "coilJump",
-  // THE WEIGHT given. Nothing here outlives the frame it happens on: what the
-  // pair watched was the **squeeze**, and that is world state — the contour
-  // drawn tighter the further `weightPressTicks` has run, read off the creature
-  // every frame while it is still on the field (`weight.ts`). The moment it
-  // gives, the body is simply gone, which is what a pressed thing does; the
-  // burst next door is the whole of the transient and it is a narrow one on
-  // purpose. A body that threw pieces outward would be a body that exploded,
-  // and the two hands did the opposite of that.
-  "weightCrushed",
   // **A husk swallowed draws nothing of its own.** Its twin does — a refused
   // husk flies off for a second and a bit (`husk-deflate.ts`) — and the
   // asymmetry is the moment: this one went *in*, so there is nothing left on

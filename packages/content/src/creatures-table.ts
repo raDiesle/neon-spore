@@ -181,7 +181,6 @@ export const CREATURES: Record<CreatureKind, CreatureDef> = {
   // The bodies **neither panel answers at all** are in `creatures-handed.ts`;
   // the two answered by a control being *moved* in `creatures-cling.ts`.
   balloon: HANDED_CREATURES.balloon,
-  weight: HANDED_CREATURES.weight,
   ...CLING_CREATURES,
   mine: {
     kind: "mine",

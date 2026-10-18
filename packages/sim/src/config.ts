@@ -31,7 +31,6 @@ import { STRAND_DEFAULTS, type StrandConfig } from "./config-strand.js";
 import { VEER_DEFAULTS, type VeerConfig } from "./config-veer.js";
 import { VIEW_DEFAULTS, type ViewConfig } from "./config-view.js";
 import { VOLLEY_DEFAULTS, type VolleyConfig } from "./config-volley.js";
-import { WEIGHT_DEFAULTS, type WeightConfig } from "./config-weight.js";
 
 // The two names any caller reaches for through this file rather than through
 // the set they belong to: `bind-fleet.ts` delays a splash by the one, and the
@@ -75,7 +74,6 @@ export interface SimConfig
     RunConfig,
     RecoilConfig,
     ShotConfig,
-    WeightConfig,
     StrandConfig,
     VeerConfig,
     ViewConfig,
@@ -190,7 +188,6 @@ export const DEFAULT_CONFIG: SimConfig = {
   ...ROUND_DEFAULTS,
   ...RUN_DEFAULTS,
   ...SHOT_DEFAULTS,
-  ...WEIGHT_DEFAULTS,
   cols: 11,
   rows: 16,
   bpm: 96,

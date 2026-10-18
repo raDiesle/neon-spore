@@ -52,7 +52,6 @@ const PUSHABLE: readonly CreatureKind[] = [
   "rind",
   "recoil",
   "lid",
-  "weight",
   "magnet",
   "countdown",
   "beatbox",

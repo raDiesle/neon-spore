@@ -214,6 +214,9 @@ the default; the tutorials keep their named seats.
   sound and the green ring, no pip spent — and that seat's hand is refused and
   drawn the wait until the partner's lands. HOLD and LEVER count only while
   both hands are on, a tick at a time: THE WEIGHT's press, held together.
+  THE WEIGHT itself left the game the same day; its waves carry BOTH HOLD
+  blisters, and HOLD TOGETHER (`theWeight`) teaches them as `blisterBoth`, a
+  thing of its own on the list (`mechanicsInWave`).
 - `P1`, `P2`: that seat alone. The bulge follows BY: P1 knocks down, P2 sees
   the bulge, and the other way round.
 

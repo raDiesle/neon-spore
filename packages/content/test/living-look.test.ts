@@ -41,11 +41,6 @@ describe("the living-look table", () => {
       "wisp",
       "beatbox",
       "countdown",
-      // THE WEIGHT is a body of its own, and it sits here rather than at the end
-      // because the handed family is spread in at this point
-      // (`living-look-handed.ts`): a balloon and a gum are drawn by hand and it
-      // is the one of the three the ordinary machinery draws.
-      "weight",
       // The clingers fall as bodies of their own and are drawn on the ship by
       // `render/cling.ts` once they land.
       "limpet",

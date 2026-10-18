@@ -6,7 +6,7 @@ import type { Mechanic, MechanicId } from "./mechanics.js";
  * name that is not a `MechanicId` collapses to `never` and the key becomes a
  * build error, so this list cannot fall behind a rename.
  */
-type HandedId = Extract<MechanicId, "balloon" | "weight" | "limpet" | "leech">;
+type HandedId = Extract<MechanicId, "balloon" | "limpet" | "leech">;
 
 /**
  * **The bodies answered by hands alone.** `creatures-handed.ts` next door is
@@ -30,14 +30,6 @@ export const HANDED_MECHANICS = {
     // all, the way a wisp and a wall do, and no bolt reaches one in any
     // colour. What a wave authors instead is how fast it climbs
     // (`WaveEntry.rise`), which is how long the pair has to agree on it.
-    waveNames: true,
-  },
-  weight: {
-    what: "A heavy sac that no shot or shield stops. Both of you hold a thumb on it at the same time. Count it out loud.",
-    reach: "spawn",
-    // A wave names this kind and never a colour, the balloon's arrangement and
-    // for its reason: nothing fired reaches it. What a wave authors is the lane
-    // it comes down, which is the tile the pair has to both find.
     waveNames: true,
   },
   // THE LIMPET and THE LEECH ride along here: bodies on the ship answered by
