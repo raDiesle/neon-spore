@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-18 · 802aa035a — A fault a wave is first to carry shows its word in a box in the wave list
+
+The wave list drew the picture of each brush a group's head introduces, but a fault has no body, so its chip was dropped. It now carries the fault's palette word — CODEX, HANDOVER, FLIP — in a small gold box that sits inside the row's own height: no row grows and no name moves. Hovered, it opens the same brush card as the pictures do.
+
 ## 2026-10-18 · 597d4f3f7 — The director's palette lists each group's brushes by the wave that introduces them
 
 Inside every brush group in the director (CANNON, SHIELD, MIXED, SPECIAL, CONTROLS, SUCK, FAULT), the brushes now sort by the first campaign wave that uses them, earliest at the top. That wave is the one the hover card already names (`firstWaveFor`). A brush that no wave uses yet goes last. This changes a tool, not the game, so no look exemption applies.
