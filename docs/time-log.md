@@ -44402,3 +44402,16 @@ every way the move disturbed it surfaced one run at a time.
 Bottleneck: none; the code already did what the answer chose.
 
 *Measured: 5 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-18 — ONE LAST CHANCE no longer written over a pushed body
+
+- reading: 5 min. `last-chance.ts`, the push's effect, the director's
+  helper row and its pose.
+- writing: 5 min. The label file out, its draw call out, the helper row and
+  its pose out, the frame test turned to hold the words are gone.
+- looking: 0 min. No picture: a word removed is held by the frame test.
+- friction: 0 min.
+- landing: 5 min. `check:fast` twice for an import lint asked to collapse,
+  `land`.
+
+Bottleneck: none worth the name; the label had one caller.

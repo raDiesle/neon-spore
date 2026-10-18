@@ -23,7 +23,6 @@ import {
   MINE_BLIND,
   MINE_UP,
   MOULT_UP,
-  PUSHED_ONCE,
   STRIP_BUSY,
   TORCH_COMING,
   VEIL_UP,
@@ -145,8 +144,7 @@ describe("the frames built for HELPERS reach their moment", () => {
     }
   });
 
-  test("the pushed body has been pushed, and the locked one is in player 1's hand", () => {
-    expect(PUSHED_ONCE.build().creatures[0]?.pushed).toBe(true);
+  test("the locked body is in player 1's hand", () => {
     const w = LOCKED.build();
     const c = w.creatures[0];
     expect(c).toBeDefined();

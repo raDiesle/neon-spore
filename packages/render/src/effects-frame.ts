@@ -175,7 +175,6 @@ export function drawAll(
   e.beatboxWaves.draw(ctx, l);
   e.beatboxSilences.draw(ctx, l);
   e.boss.draw(ctx, l);
-  e.shieldPush.draw(ctx, l, world, beatPhase);
   e.bodies.drawOnBodies(ctx, l, world, beatPhase, e.recoilLeap);
 }
 

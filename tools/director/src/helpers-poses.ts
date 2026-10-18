@@ -1,17 +1,5 @@
 import type { SpawnEntry, World } from "@neon-spore/sim";
-import {
-  firstOfKind,
-  fresh,
-  guard,
-  hold,
-  living,
-  POSE_TPB,
-  type Pose,
-  run,
-  runUntil,
-  until,
-  ward,
-} from "./pose-kit.js";
+import { firstOfKind, fresh, hold, living, POSE_TPB, type Pose, run, until } from "./pose-kit.js";
 
 /**
  * The frames CONTROLS › HELPERS draws that the STATES gallery has no pose
@@ -115,26 +103,6 @@ export const TORCH_COMING: Pose = {
   build: () => {
     const w = fresh([{ beat: 4, col: COL, kind: "torch", color: null }]);
     run(w, POSE_TPB * 3);
-    return w;
-  },
-};
-
-/**
- * A slick the shield has thrown back up once: ONE LAST CHANCE over it. The
- * dome stands in its column and is armed every beat until the push lands.
- */
-export const PUSHED_ONCE: Pose = {
-  name: "HELPERS · PUSHED ONCE",
-  note: "A body the shield has already pushed.",
-  crop: "tile",
-  span: 4,
-  at: firstOfKind("slick"),
-  build: () => {
-    const w = fresh([living("red", COL)]);
-    const cmds = [ward(0, COL)];
-    for (let b = 0; b < 40; b++) cmds.push(guard(b * POSE_TPB));
-    runUntil(w, "a body pushed by the shield", cmds, (x) => x.creatures[0]?.pushed === true);
-    run(w, POSE_TPB);
     return w;
   },
 };

@@ -25,8 +25,7 @@ function guardedEveryBeat(beats: number) {
 
 /**
  * The tick the shield throws a body back up: the rim red and the spray off
- * the dome (`shield-push-fx.ts`). `PUSHED_ONCE` runs a beat past it, for the
- * words that stay.
+ * the dome (`shield-push-fx.ts`).
  */
 export const PUSH_FLASH: Pose = {
   name: "HELPERS · THE SHIELD PUSHING A BODY",

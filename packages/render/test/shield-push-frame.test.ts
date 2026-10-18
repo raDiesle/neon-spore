@@ -22,14 +22,14 @@ import {
 setDefaultTimeout(FRAME_TIMEOUT_MS);
 
 /**
- * **The shield pushing a creature back up, drawn** (`shield-push-fx.ts`,
- * `last-chance.ts`).
+ * **The shield pushing a creature back up, drawn** (`shield-push-fx.ts`).
  *
  * One slick down column three into a shield standing there with the trigger
- * held every beat: it is pushed once, climbs, and falls again carrying ONE
- * LAST CHANCE, on every seat. What is held is that every frame of that went
- * through a canvas that refuses what a real one refuses, that the push really
- * happened, and that the words really reached the canvas. Whether the red
+ * held every beat: it is pushed once, climbs, and falls again, on every seat.
+ * What is held is that every frame of that went through a canvas that refuses
+ * what a real one refuses, that the push really happened, and that no ONE
+ * LAST CHANCE is written over the body — the owner had the words taken off,
+ * 18 October 2026. Whether the red
  * reads as a mistake rather than as a shot colour is an eye's, and the lane's
  * report carries the picture.
  */
@@ -59,11 +59,11 @@ const pushes = (events: SimEvent[]) => events.filter((e) => e.type === "shieldPu
 
 describe("a creature pushed back up by the shield", () => {
   for (const role of ROLES) {
-    it(`draws the push and ONE LAST CHANCE as ${role}`, () => {
+    it(`draws the push and no words over the body as ${role}`, () => {
       const { ctx, events } = pushed(role);
       expect(pushes(events)).toBe(1);
       expect(ctx.calls).toBeGreaterThan(1000);
-      expect(ctx.texts?.some((t) => t.text === "ONE LAST CHANCE")).toBe(true);
+      expect(ctx.texts?.some((t) => t.text === "ONE LAST CHANCE")).toBe(false);
     });
   }
 });

@@ -2520,7 +2520,6 @@ by hand never moves.
 | `packages/render/src/lance-flash.ts` | The whole screen going white, then the ammunition colour, then nothing |
 | `packages/render/src/landing.ts` | Where a body's last glide ends: half-sunk in the ship's skin, so the beat it is seen to touch the hull is the beat the hull answers |
 | `packages/render/src/label-box.ts` | The box a guide writes in: a solid ground, a two-pixel edge in the pod's colour, sixteen-point Courier |
-| `packages/render/src/last-chance.ts` | ONE LAST CHANCE over every body the shield has already pushed, on both screens, read straight off the world |
 | `packages/render/src/lamprey-draw.ts` | **THE LAMPREY** drawn: the eel, the sucker and its seven teeth, the scar, the gullet, both seats' marks |
 | `packages/render/src/lamprey-dung.ts` | **THE LAMPREY's dung** (the owner, 6 October 2026: *it could poop |
 | `packages/render/src/lamprey-disc.ts` | **THE LAMPREY's sucker, in detail**: the fleshy fringe of papillae round the lip, the gloss along its rim |

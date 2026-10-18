@@ -94,8 +94,8 @@ export class Effects {
   readonly harpoonLine = new HarpoonLineFx();
   /** THE VOLLEY's shell in pieces (`volley-shards.ts`). */
   readonly volleyShards = new VolleyShardsFx();
-  /** The shield pushing a creature back up: the red rim, the spray off the
-   * dome, and ONE LAST CHANCE over the body (`shield-push-fx.ts`). Public:
+  /** The shield pushing a creature back up: the red rim and the spray off
+   * the dome (`shield-push-fx.ts`). Public:
    * `field-pose.ts` reads its red onto the rim through `HullMood.wrong`. */
   readonly shieldPush = new ShieldPushFx();
   /** A bolt carried on past the top row to the top of the screen (`shot-out.ts`). */

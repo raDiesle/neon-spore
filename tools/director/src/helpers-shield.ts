@@ -1,6 +1,6 @@
 import { hullRow, midCol } from "@neon-spore/sim";
 import type { HelperGroup } from "./helpers-def.js";
-import { FENCE_SKULL, PUSHED_ONCE, TORCH_COMING } from "./helpers-poses.js";
+import { FENCE_SKULL, TORCH_COMING } from "./helpers-poses.js";
 import { SHIELD_FAULT } from "./helpers-poses-faults.js";
 import {
   GUARD_FADING,
@@ -21,7 +21,7 @@ import { openShieldLab } from "./shield-lab.js";
  * THE SHIELD LAB stands at its head (`shield-lab.ts`): the looks offered for
  * the one helper the game does not draw yet — *the shield is wanted here,
  * now* — on a real field. The rows under it are what already ships. THE
- * TORCH ALARM came here from TIME TO TALK and ONE LAST CHANCE from ON A BODY.
+ * TORCH ALARM came here from TIME TO TALK.
  *
  * THE FENCE's skull is here on a frame of its own (`FENCE_SKULL`); its
  * doorway and sweep are a split and stand with the split
@@ -100,26 +100,13 @@ export const SHIELD_GROUP: HelperGroup = {
       lookAt: "the electric skull hanging over the dome",
     },
     {
-      name: "ONE LAST CHANCE",
-      where: "over a body the shield has already pushed back up once",
-      seat: "BOTH — both hands were in the push, and both must change what they do",
-      says:
-        "The shield will not save this one again: this fall is the cannon's or " +
-        "the hull's. The push that earned it flashed the rim red for a moment; " +
-        "the words stay. The body itself looks the same as the first time.",
-      source: "last-chance.ts, shield-push-fx.ts",
-      pose: PUSHED_ONCE,
-      role: "test",
-      lookAt: "the words over the body",
-    },
-    {
       name: "THE PUSH'S RED RIM",
       where: "the dome's rim and a spray off it, the moment the shield throws a body back up",
       seat: "BOTH",
       says:
         "The wrong answer, and it saved the hull once: a body is the cannon's. " +
         "The rim goes red for a moment and red sprays off the dome — no DEFLECTED, " +
-        "no cyan — and the body carries ONE LAST CHANCE from then on.",
+        "no cyan, and no words left over the body afterwards.",
       source: "shield-push-fx.ts",
       pose: PUSH_FLASH,
       role: "test",
