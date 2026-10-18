@@ -44286,3 +44286,18 @@ Bottleneck: none; a re-export kept every importer where it was.
 Bottleneck: friction — a command that hung on stdin looked like a machine busy with another lane's check.
 
 *Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-18 — An act file cut by `waves:order` always takes its row from its header
+
+- reading: 10 min. `tools/index`'s refresh rule and its base versions, and
+  the header `waves-recut.ts` writes.
+- writing: 10 min. The marker, the whole sentence for an act's row, the two
+  tests and the recut test's check of the marker.
+- looking: 0 min.
+- friction: 5 min. The first cut used the usual 110-character row and lost
+  the boss closing every act; the sentence is whole for these rows now.
+- landing: 5 min. A simulated recut through `bun run index`, `check:fast`,
+  `land`.
+
+Bottleneck: finding why the existing refresh rule had not reached those
+rows: they were written by hand before the first recut.

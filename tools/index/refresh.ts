@@ -29,6 +29,18 @@
 import { formatRow, type Row } from "./index.js";
 import { deriveHeaderSentence } from "./sentence.js";
 
+/**
+ * **An act file cut by `waves:order` always follows its header**, earlier
+ * source or none: its header is the command's, rewritten on every recut
+ * (`tools/director/src/waves-recut.ts`), and nobody's words stand in its row.
+ * Before this a recut left 49 rows naming waves their files no longer held
+ * (17 October 2026): rows written by hand before the first recut were kept as
+ * a person's, and `drift.test.ts` failed. The sentence below is the one the
+ * recut writes, and `waves-recut.test.ts` holds that it still does.
+ */
+export const CUT_BY_ORDER = "Cut by `bun run waves:order";
+const ACTS = "packages/content/src/waves/";
+
 /** The text cell of a row, as `formatRow` wrote it. */
 export function rowText(line: string): string {
   return line.replace(/^\|\s*`[^`]+`\s*\|\s?/, "").replace(/\s?\|$/, "");
@@ -42,6 +54,12 @@ export function rowText(line: string): string {
  */
 export function refreshRow(row: Row, now: () => string, before: readonly string[]): Row {
   const text = rowText(row.line);
+  if (row.path.startsWith(ACTS) && now().includes(CUT_BY_ORDER)) {
+    // The whole sentence: cut at a clause it would lose the boss that closes
+    // the act, which is half of what the row is for.
+    const next = deriveHeaderSentence(now(), Number.POSITIVE_INFINITY);
+    return next === text ? row : { path: row.path, line: formatRow(row.path, next) };
+  }
   const generated = text === "" || before.some((source) => deriveHeaderSentence(source) === text);
   if (!generated) return row;
   const next = deriveHeaderSentence(now());

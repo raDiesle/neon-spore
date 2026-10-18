@@ -1,5 +1,6 @@
 import { describe, expect, test } from "bun:test";
 import { generateIndex, parseRows, type Tree } from "../index.js";
+import { CUT_BY_ORDER } from "../refresh.js";
 
 /**
  * A row that was the generator's own sentence follows its file's header; a
@@ -85,5 +86,49 @@ describe("a row whose file's header changed", () => {
   test("fills an empty row from the header, with nothing to say what the file was", () => {
     const out = generateIndex(doc("", "The lost screen's colours"), tree());
     expect(lineOf(out, SHUT)).toBe(`| \`${SHUT}\` | The field shuts from both sides at once |`);
+  });
+});
+
+/**
+ * An act file `waves:order` cut follows its header with no earlier source to
+ * say the row was the generator's: 49 rows went on naming waves their files no
+ * longer held after a recut (17 October 2026), written by hand before the
+ * first one.
+ */
+describe("an act file's row", () => {
+  const CUT = "packages/content/src/waves/act-10.ts";
+  const OWN = "packages/content/src/waves/act-1.ts";
+  const doc = (cut: string, own: string) =>
+    [
+      "## Code\n",
+      "<!-- index:code:start -->",
+      "",
+      "### packages/content",
+      "",
+      "| Path | One line |",
+      "|---|---|",
+      `| \`${OWN}\` | ${own} |`,
+      `| \`${CUT}\` | ${cut} |`,
+      "",
+      "<!-- index:code:end -->",
+      "",
+    ].join("\n");
+  const now: Record<string, string> = {
+    [CUT]: `/**\n * Waves 144 to 153 of the game, in the order they are played:\n * THE LIMPET's block, the filler before SNAKE and the boss SNAKE.\n *\n * ${CUT_BY_ORDER} --write\`.\n */\n`,
+    [OWN]: "/** The tutorial arc's first act. */\n",
+  };
+  const tree: Tree = { scope: [OWN, CUT], read: (p) => now[p] ?? "", has: (p) => p in now };
+  const lineOf = (text: string, path: string) => parseRows(text).find((r) => r.path === path)?.line;
+  const out = generateIndex(doc("Waves 143 to 152, by hand", "the arc, as I put it"), tree);
+
+  test("follows its header when the recut wrote it, whatever the row said", () => {
+    // Whole, past the 110 a row is usually cut at: the boss is half of it.
+    expect(lineOf(out, CUT)).toBe(
+      `| \`${CUT}\` | Waves 144 to 153 of the game, in the order they are played: THE LIMPET's block, the filler before SNAKE and the boss SNAKE |`,
+    );
+  });
+
+  test("keeps a person's words over an act the recut did not write", () => {
+    expect(lineOf(out, OWN)).toBe(`| \`${OWN}\` | the arc, as I put it |`);
   });
 });

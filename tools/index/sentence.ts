@@ -4,7 +4,7 @@
  * count: next door is what the table *is*, and this is what a row *says*.
  */
 
-export function deriveHeaderSentence(source: string): string {
+export function deriveHeaderSentence(source: string, limit = LIMIT): string {
   const block = /\/\*\*([\s\S]*?)\*\//.exec(source);
   if (block) {
     const lines = (block[1] ?? "")
@@ -17,7 +17,7 @@ export function deriveHeaderSentence(source: string): string {
       )
       .filter((l) => l.length > 0);
     const raw = lines.join(" ").trim();
-    if (raw.length > 0) return truncateSentence(raw);
+    if (raw.length > 0) return truncateSentence(raw, limit);
   }
   const lineComment = source.split("\n").find((l) => l.trim().startsWith("//"));
   if (lineComment) {
@@ -25,11 +25,13 @@ export function deriveHeaderSentence(source: string): string {
       .trim()
       .replace(/^\/\/\s?/, "")
       .trim();
-    if (raw.length > 0) return truncateSentence(raw);
+    if (raw.length > 0) return truncateSentence(raw, limit);
   }
   return "(no header comment — add one)";
 }
 
+/** How long a row runs before it is cut at a clause; a caller may lift it
+ * (`refresh.ts` does, for an act file whose whole sentence is its contents). */
 const LIMIT = 110;
 
 /**
@@ -40,24 +42,24 @@ const LIMIT = 110;
  */
 const SENTENCE_END = /\.(\*\*)? /;
 
-function truncateSentence(raw: string): string {
+function truncateSentence(raw: string, limit: number): string {
   const stop = SENTENCE_END.exec(raw);
   let cut = stop ? raw.slice(0, stop.index) + (stop[1] ?? "") : raw;
   let elided = false;
-  if (cut.length > LIMIT) {
+  if (cut.length > limit) {
     // A clause boundary reads as a finished thought; a bare word boundary does
     // not, and says so with an ellipsis rather than stopping mid-sentence.
-    const head = cut.slice(0, LIMIT);
+    const head = cut.slice(0, limit);
     const clause = Math.max(
       head.lastIndexOf(" — "),
       head.lastIndexOf(", "),
       head.lastIndexOf(": "),
     );
-    if (clause > LIMIT / 3) {
+    if (clause > limit / 3) {
       cut = head.slice(0, clause);
     } else {
       const lastSpace = head.lastIndexOf(" ");
-      cut = head.slice(0, lastSpace === -1 ? LIMIT - 1 : lastSpace);
+      cut = head.slice(0, lastSpace === -1 ? limit - 1 : lastSpace);
       elided = true;
     }
   }

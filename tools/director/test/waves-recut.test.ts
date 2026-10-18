@@ -2,6 +2,7 @@ import { describe, expect, test } from "bun:test";
 import { readFileSync } from "node:fs";
 import { WAVES, type Wave } from "@neon-spore/content";
 import { lineCount } from "../../hooks/file-size.ts";
+import { CUT_BY_ORDER } from "../../index/refresh.ts";
 import { biomeLineCount } from "../src/biome-lines.js";
 import { ACT_LIST, actFilesIn, nameOf } from "../src/waves-act-files.js";
 import { CUT_AT, idsInAct, knownImports } from "../src/waves-act-list.js";
@@ -53,6 +54,9 @@ describe("the acts after the arc, cut in play order", () => {
       expect(Number(g.said?.[2])).toBe(at + g.ids.length);
       at += g.ids.length;
     }
+    // And that the recut wrote it, which is what makes `bun run index` take
+    // the row from it every time (`tools/index/refresh.ts`).
+    for (const g of got) expect(g.text.replace(/\n \* /g, " ")).toContain(CUT_BY_ORDER);
     const lance = got.find((g) => g.ids.includes("theLance"));
     // The header wraps at eighty columns, so it is read as one line.
     expect(lance?.text.replace(/\n \* /g, " ")).toContain("THE LANCE's block");

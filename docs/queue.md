@@ -328,21 +328,6 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/skipped.test.ts` holds the listing's count of the entries
 `next` stepped past and why.
 
-## A recut leaves every act's row in `docs/INDEX.md` describing its old waves
-
-- **Found:** 2026-10-17, claude/wave-generation-difficulty-e466b9
-- **Taken:** 2026-10-18, claude/queue-tasks-245f98 (claim: claude/queue-a-recut-leaves-every-acts-row-in-docs-index-md-d)
-- **Files:** `tools/index/generate.ts`, `tools/director/src/waves-recut.ts`
-
-`waves:order --write` and `--recut` rewrite every act header after the arc
-("Waves 412 to 423 of the game … THE CRYSTAL's review"), but `bun run index`
-keeps a row that is already there, so 49 rows named waves their files no
-longer hold and `tools/index/test/drift.test.ts` failed. This lane rewrote
-them from each header with a throwaway script. The generator should take an
-act file's row from its header whenever the header says it was cut by
-`waves:order`, as it already does for a new file; prove it by recutting and
-running `bun run index` and the drift test with nothing else.
-
 ## `versus:shot` writes the wrong picture when the frozen moment moves nothing
 
 - **Found:** 2026-10-17, claude/controls-destroy-animations-76f397
