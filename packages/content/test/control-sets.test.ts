@@ -275,6 +275,11 @@ describe("the standard ladder", () => {
       "standard2",
       // THE BROOD, the boss that closes the second rung: slicks and bulbs only.
       "standard2",
+      // Fourteen bodies introduced one after another on the same rung, each
+      // its head and three regular waves, and HOLD AND AIM in front of THE
+      // MAGNET (the owner, 18 October 2026: *very simple to understand and
+      // require only … cannon and cannon movement without shield and suck*).
+      ...Array<"standard2">(14 * 4 + 1).fill("standard2"),
       // Ten waves on the top rung, because the maw is held back until
       // SALVAGE — the one wave whose subject asks for it.
       "standard4",

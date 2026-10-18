@@ -27,7 +27,9 @@ import { waveGroups } from "../src/rail-groups.js";
  * parent … as shield was introduced there.* So both stand after THE ROCK's
  * regular waves, alone, before TORCH. CATCH AND AIM heads its own since a
  * boss closed the block in front of it (BULB QUEEN, the owner's pick, the
- * same day): folded under a boss, it would read as the boss's.
+ * same day): folded under a boss, it would read as the boss's. HOLD AND AIM
+ * is the same lesson without the pod, in front of THE MAGNET (18 October
+ * 2026): folded under RECOIL's block, it would read as recoil's.
  *
  * **Every blister gesture's own wave heads a group too** — TAP, HOLD, SWIPE
  * and the rest, each with its tutorial and its three waves under it (the
@@ -44,6 +46,7 @@ const STANDS_ALONE = new Set([
   "theHand",
   "oneLastChance",
   "catchAndAim",
+  "holdAndAim",
   ...BLISTER_GESTURES.map(controlWaveId),
 ]);
 

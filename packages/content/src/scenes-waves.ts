@@ -3,6 +3,7 @@ import { BULB_QUEEN } from "./scenes/bulb-queen.js";
 import { CATCH_AND_AIM } from "./scenes/catch-and-aim.js";
 import { CYAN } from "./scenes/cyan.js";
 import { FIRST_STEP } from "./scenes/first-step.js";
+import { HOLD_AND_AIM } from "./scenes/hold-and-aim.js";
 import { ONE_LAST_CHANCE } from "./scenes/one-last-chance.js";
 import { PINBALL } from "./scenes/pinball.js";
 import { SALVAGE } from "./scenes/salvage.js";
@@ -83,6 +84,7 @@ export type WaveSceneId =
   | "theVeil"
   | "salvage"
   | "catchAndAim"
+  | "holdAndAim"
   | "theThirdShot"
   | "theClasp"
   | "theRind"
@@ -144,6 +146,7 @@ export const SCENES_WAVES: Record<WaveSceneId, GuideScene> = {
   theVeil: THE_VEIL,
   salvage: SALVAGE,
   catchAndAim: CATCH_AND_AIM,
+  holdAndAim: HOLD_AND_AIM,
   theThirdShot: THE_THIRD_SHOT,
   theClasp: THE_CLASP,
   theRind: THE_RIND,

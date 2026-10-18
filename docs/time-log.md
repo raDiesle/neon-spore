@@ -44369,3 +44369,22 @@ test literals in dozens of places, and each needed reading before it could
 be moved.
 
 *Measured: 11 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-18 — fourteen bodies move into the arc after CYAN
+
+- reading: 25 min. The act files, the composer and `waves:order`, the
+  ladder, the lock, and which of the fourteen films press a control
+  STANDARD 2 has not got.
+- writing: 25 min. The move, three waves composed per block, THE GYRE's film
+  without SUCK, HOLD AND AIM's film and wave, five test fixtures.
+- looking: 0 min. No picture: films are proved by `scenes.test.ts`, waves by
+  AUTO.
+- friction: 35 min. The composer wanted the moved waves' ids, `waves:order`
+  reviewed CAROM twice, and leftover Recall and Peak waves landed in other
+  blocks — each a rerun; then main cut the ship a tile shorter mid-lane, so
+  the generated act files were made again on top of it and THE GYRE's shot
+  found again.
+- landing: 10 min. `check:fast`, the briefings, measure and baseline, `land`.
+
+Bottleneck: `waves:order` holds the list past the arc as a fixed point, and
+every way the move disturbed it surfaced one run at a time.

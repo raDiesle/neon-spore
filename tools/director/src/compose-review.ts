@@ -48,17 +48,23 @@ export function nextReview(waves: readonly Wave[]): Review | string {
   if (insertAt >= waves.length) return "no boss waits at the end";
   const finale = waves.findIndex((w) => w.id === TUTORIAL_LAST_ID);
   const intros: number[] = [];
+  const arcIntros: number[] = [];
   let k = 0;
-  let arc = 0;
   for (let i = 0; i < waves.length; i++) {
     if (placeable(waves, i) === undefined) k += i > finale && isReviewHead(waves, i) ? 1 : 0;
-    else if (i > finale) intros.push(i);
-    else arc++;
+    else (i > finale ? intros : arcIntros).push(i);
   }
+  const arc = arcIntros.length;
   // The last taught first: the dearest things (§4.1), so the talk at the
   // end of the game does not fall back to its first blocks'. A block an
-  // author wrote whole (THE BLISTER's) has no R1 to review.
-  const themes = intros.filter((i) => waves.some((w) => w.id === `${waves[i]?.id}Again`)).reverse();
+  // author wrote whole (THE BLISTER's) has no R1 to review. **The arc's
+  // bodies come after every one taught past it**, still last taught first:
+  // the owner moved fourteen bodies into the arc on 18 October 2026, which
+  // left more bosses at the end than bodies past the arc to theme them on,
+  // and a theme reviewed twice is a second set of the same ids.
+  const themes = [...arcIntros, ...intros]
+    .filter((i) => waves.some((w) => w.id === `${waves[i]?.id}Again`))
+    .reverse();
   const themeAt = themes[k % themes.length];
   const theme = themeAt === undefined ? undefined : waves[themeAt];
   if (!theme) return "no theme to review";

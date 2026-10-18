@@ -99,10 +99,11 @@ describe("where a block's first wave aims", () => {
 
   test("a hand-made wave does not set it: it stands for a block's last steps", () => {
     // THE COIL's one regular wave is hand-made, and its block, before its
-    // own were composed, had no other.
+    // own were composed, had no other. THE CLASP is the body after it since
+    // THE LURE moved into the arc (18 October 2026).
     const { waves } = unwritten("theCoil");
     const read = (id: string) => readBlock(waves, id) as Block;
-    expect(read("theLure").floor).toBe(read("theCoil").floor);
+    expect(read("theClasp").floor).toBe(read("theCoil").floor);
   });
 
   test("its first step lands at or above the aim where anything there fits", () => {

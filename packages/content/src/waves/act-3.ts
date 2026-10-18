@@ -1,7 +1,7 @@
 import type { Wave } from "../wave-types.js";
 
 /**
- * Waves 63 to 73 of the game, in the order they are played: THE HUSK's block.
+ * Waves 120 to 130 of the game, in the order they are played: THE HUSK's block.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act
  * after the tutorial arc again in play order. A save that fills it cuts a page
@@ -79,15 +79,15 @@ export const WAVES_ACT_3: Wave[] = [
     variant: true,
     entries: [
       { beat: 0, col: 3, color: "cyan" },
-      { beat: 10, col: 6, color: "red" },
-      { beat: 16, col: 5, kind: "torch", color: null },
-      { beat: 21, col: 4, color: "red" },
-      { beat: 31, col: 6, color: "cyan" },
-      { beat: 36, col: 8, kind: "torch", color: null },
+      { beat: 12, col: 1, color: "cyan" },
+      { beat: 20, col: 9, kind: "meteor", color: null },
+      { beat: 25, col: 7, color: "cyan" },
+      { beat: 35, col: 8, color: "red" },
+      { beat: 40, col: 7, kind: "meteor", color: null },
     ],
     pods: [
-      { beat: 5, col: 2, row: 4, kind: "husk" },
-      { beat: 26, col: 10, row: 4, kind: "husk" },
+      { beat: 6, col: 10, row: 4, kind: "husk" },
+      { beat: 30, col: 5, row: 4, kind: "husk" },
     ],
     controls: "standard5",
   },
@@ -96,22 +96,20 @@ export const WAVES_ACT_3: Wave[] = [
     name: "HUSK RAPTURE",
     variant: true,
     entries: [
-      { beat: 0, col: 6, color: "cyan" },
-      { beat: 8, col: 9, color: "red" },
-      { beat: 16, col: 3, color: "red" },
-      { beat: 16, col: 6, color: "red" },
-      { beat: 20, col: 7, kind: "torch", color: null },
-      { beat: 28, col: 3, color: "cyan" },
-      { beat: 28, col: 6, color: "cyan" },
-      { beat: 36, col: 7, kind: "torch", color: null },
-      { beat: 40, col: 4, color: "red" },
-      { beat: 40, col: 7, color: "red" },
+      { beat: 0, col: 9, color: "cyan" },
+      { beat: 11, col: 4, color: "red" },
+      { beat: 18, col: 2, color: "cyan" },
+      { beat: 18, col: 8, color: "cyan" },
+      { beat: 26, col: 4, kind: "recoil", color: "cyan" },
+      { beat: 34, col: 0, color: "cyan" },
+      { beat: 34, col: 10, color: "cyan" },
+      { beat: 47, col: 9, kind: "recoil", color: "red" },
     ],
     pods: [
-      { beat: 4, col: 5, row: 4, kind: "husk" },
-      { beat: 12, col: 8, row: 3, kind: "pod" },
-      { beat: 24, col: 5, row: 4, kind: "husk" },
-      { beat: 32, col: 8, row: 3, kind: "pod" },
+      { beat: 7, col: 0, row: 4, kind: "husk" },
+      { beat: 15, col: 2, row: 3, kind: "pod" },
+      { beat: 29, col: 5, row: 4, kind: "husk" },
+      { beat: 41, col: 1, row: 3, kind: "pod" },
     ],
     controls: "standard5",
   },

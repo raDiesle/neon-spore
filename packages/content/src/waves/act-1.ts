@@ -29,6 +29,15 @@ import type { Wave } from "../wave-types.js";
  * controls will keep for the rest of the game. SALVAGE is where the full
  * panel arrives, because the maw is the last thing the ladder holds back and
  * the pod is the one thing in the game that asks for it.
+ *
+ * **Fourteen bodies come between THE BROOD and THE ROCK, on STANDARD 2**
+ * (the owner, 18 October 2026): the ones that ask for nothing but the cannon,
+ * its strip and the two colours — SHELL, THROB, ECHO, RECOIL, MAGNET, GYRE,
+ * LURE, RIND, STRAND, VEIL, DART, COUNT, GHOST and WISP, in that order. Each
+ * is its head and three regular waves the composer wrote for the arc
+ * (`waves:compose`), and a boss after each is the owner's to add. HOLD AND
+ * AIM stands in front of THE MAGNET: a magnet is answered only by a bolt the
+ * pilot's hand has turned (`sim/lock.ts`). THE GYRE's film lost its SUCK page.
  */
 export const WAVES_ACT_1: Wave[] = [
   {
@@ -161,29 +170,80 @@ export const WAVES_ACT_1: Wave[] = [
     controls: "standard2",
   },
   {
-    id: "theRock",
-    name: "THE ROCK",
+    id: "theThirdShot",
+    name: "THE SHELL",
     guide: {
-      scene: "theRock",
+      scene: "theThirdShot",
     },
     entries: [
-      { beat: 0, col: 5, kind: "meteor", color: null },
-      { beat: 10, col: 5, kind: "meteor", color: null },
-      { beat: 20, col: 3, kind: "meteor", color: null },
+      { beat: 0, col: 2, kind: "shell", color: "cyan" },
+      { beat: 10, col: 7, kind: "shell", color: "red" },
     ],
-    controls: "standard4",
+    controls: "standard2",
   },
   {
-    id: "theRockAgain",
-    name: "NEW ROCK MOON",
+    id: "theThirdShotAgain",
+    name: "NEW SHELL MOON",
     variant: true,
     entries: [
-      { beat: 0, col: 5, kind: "meteor", color: null },
-      { beat: 8, col: 5, kind: "meteor", color: null },
-      { beat: 15, col: 4, kind: "meteor", color: null },
-      { beat: 22, col: 6, kind: "meteor", color: null },
-      { beat: 30, col: 5, kind: "meteor", color: null },
+      { beat: 0, col: 6, kind: "shell", color: "red" },
+      { beat: 8, col: 5, kind: "shell", color: "cyan" },
+      { beat: 15, col: 6, kind: "shell", color: "cyan" },
+      { beat: 23, col: 5, kind: "shell", color: "cyan" },
+      { beat: 30, col: 4, kind: "shell", color: "cyan" },
     ],
-    controls: "standard4",
+    controls: "standard2",
+  },
+  {
+    id: "theThirdShotReach",
+    name: "LONG SHELL ROAD",
+    variant: true,
+    entries: [
+      { beat: 0, col: 1, kind: "shell", color: "cyan" },
+      { beat: 6, col: 6, kind: "shell", color: "red" },
+      { beat: 11, col: 2, kind: "shell", color: "cyan" },
+      { beat: 16, col: 6, kind: "shell", color: "red" },
+      { beat: 21, col: 2, kind: "shell", color: "red" },
+      { beat: 26, col: 6, kind: "shell", color: "cyan" },
+    ],
+    controls: "standard2",
+  },
+  {
+    id: "theThirdShotPair",
+    name: "SHELL AND CYAN",
+    variant: true,
+    entries: [
+      { beat: 0, col: 6, color: "red" },
+      { beat: 6, col: 4, kind: "shell", color: "red" },
+      { beat: 12, col: 8, color: "cyan" },
+      { beat: 17, col: 5, kind: "shell", color: "cyan" },
+      { beat: 21, col: 8, color: "cyan" },
+      { beat: 26, col: 5, kind: "shell", color: "cyan" },
+      { beat: 31, col: 1, color: "cyan" },
+      { beat: 37, col: 4, kind: "shell", color: "red" },
+    ],
+    controls: "standard2",
+  },
+  {
+    id: "theThrob",
+    name: "THE THROB",
+    guide: {
+      scene: "theThrob",
+    },
+    entries: [{ beat: 0, col: 5, kind: "throb", color: "red" }],
+    controls: "standard2",
+  },
+  {
+    id: "theThrobAgain",
+    name: "FIRST THROB",
+    variant: true,
+    entries: [
+      { beat: 0, col: 4, kind: "throb", color: "red" },
+      { beat: 6, col: 5, kind: "throb", color: "red" },
+      { beat: 13, col: 6, kind: "throb", color: "red" },
+      { beat: 20, col: 4, kind: "throb", color: "red" },
+      { beat: 27, col: 5, kind: "throb", color: "red" },
+    ],
+    controls: "standard2",
   },
 ];

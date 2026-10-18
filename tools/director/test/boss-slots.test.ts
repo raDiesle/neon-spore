@@ -78,6 +78,11 @@ describe("the bosses' places (wave-curriculum §7)", () => {
   test("close the block each is about", () => {
     const wrong: string[] = [];
     for (const [boss, about] of Object.entries(BOSS_ABOUT)) {
+      // A block in the arc is closed by no boss past it: THE VISE, THE STARE,
+      // THE SPLICE, THE FLUE and THE BATON are about bodies the owner moved
+      // into the arc on 18 October 2026, and wait on his answer there
+      // (`docs/queue.md`).
+      if (WAVES.findIndex((w) => w.id === about) < finale) continue;
       const at = WAVES.findIndex((w) => w.id === boss);
       let head = at - 1;
       while (head > 0 && !startsBlock(WAVES, head)) head--;
@@ -92,12 +97,16 @@ describe("the bosses' places (wave-curriculum §7)", () => {
     expect(WAVES.findIndex((w) => w.id === "theBastion")).toBeLessThan(finale);
   });
 
-  test("THE SPLICE stands past the arc, behind a filler, closing THE ECHO's block", () => {
+  test("THE SPLICE stands past the arc, behind a filler", () => {
     // The owner, 17 October 2026: a boss on a panel of its own does not close
     // a block in the arc — it comes once the basics are taught, behind a
-    // filler (`compose-filler.ts`).
-    expect(WAVES.findIndex((w) => w.id === "theSplice")).toBeGreaterThan(finale);
-    expect(bossOrder(WAVES).slots.find((s) => s.id === "theSplice")?.closes).toBe("theEcho");
+    // filler (`compose-filler.ts`). It closed THE ECHO's block until THE ECHO
+    // moved into the arc (18 October 2026).
+    const at = WAVES.findIndex((w) => w.id === "theSplice");
+    expect(at).toBeGreaterThan(finale);
+    expect(WAVES[at - 1]?.id.startsWith("filler") || WAVES[at - 1]?.id.startsWith("review")).toBe(
+      true,
+    );
   });
 
   test("THE INSTAR comes after the arc, once every basic thing is taught", () => {
