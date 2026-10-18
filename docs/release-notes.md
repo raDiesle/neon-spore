@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-18 · 1cf8e13ba — The five bosses about the arc's new bodies stay past the arc
+
+THE VISE, THE STARE, THE BATON, THE SPLICE and THE FLUE are about SHELL, COUNT, STRAND, ECHO and GHOST, which moved into the arc today; the owner chose to leave them where `waves:order` puts them, and the arc's fourteen blocks get STANDARD 2 bosses of their own later. Nothing in the game changes: the test that skipped their rows now says why.
+
 ## 2026-10-18 · 54364b02a — Fourteen bodies are introduced one after another after CYAN, on STANDARD 2
 
 THE SHELL, THE THROB, THE ECHO, THE RECOIL, THE MAGNET, THE GYRE, THE LURE, THE RIND, THE STRAND, THE VEIL, THE DART, THE COUNT, THE GHOST and THE WISP now come straight after THE BROOD and before THE ROCK, in that order, each its head and three regular waves composed for the arc, all on cannon, strip and the two colours — no shield, no maw. HOLD AND AIM, a new film, stands in front of THE MAGNET and teaches player 1's hand turning the shot, which is the only answer a magnet has. THE GYRE's film lost its SUCK page with the move. The list past the arc was ordered again by `waves:order`; the moved blocks' old regular waves are gone, and the review blocks now theme on the arc's bodies too once the later ones run out.
