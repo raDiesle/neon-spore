@@ -48,6 +48,13 @@ const IMPACT_TICK = TPB * (HULL + 1);
 const BREACH_TICK = IMPACT_TICK + TPB;
 const COL = 3;
 const TAUT = CFG.lidTautMilli;
+/**
+ * The first row the whole cord no longer fits under the lid, straight down
+ * from where it rests to the bottom bound (`lidWayRoom`): row 8 on fifteen
+ * rows, 9 on sixteen. Derived, not written, since the field grew (18 October
+ * 2026, rows 15 → 16).
+ */
+const SHORT_ROW = Math.floor((CFG.rows * 1000 - CFG.handleRadiusMilli - 500 - TAUT) / 1000) + 1;
 
 interface Run {
   world: ReturnType<typeof createWorld>;
@@ -87,7 +94,7 @@ const pull = (tick: number, milli: number, id = 1, player: 1 | 2 = 1): TimedComm
     player,
     // **Downward**, because that is the way the cord runs from a lid with the
     // whole cord's room under it (`lid-way.ts`): down is tried first, and the
-    // field has fifteen rows. A negative `milli` is a hand going back up it.
+    // field has sixteen rows. A negative `milli` is a hand going back up it.
     command: { kind: "drag", target: "lidString", on: true, fromMilli: 0, fromYMilli: milli, id },
   };
   BOWED.add(c);
@@ -194,19 +201,21 @@ describe("the hand on the cord", () => {
 
   /**
    * The way is the grab's, by the room the field has then: down while the
-   * whole cord fits under the lid, and once it does not — from row 8 on —
-   * the next way that holds it, which from column 3 is up. The hold keeps
-   * the way it took however far the body falls.
+   * whole cord fits under the lid, and once it does not — from `SHORT_ROW`
+   * on, row 9 of 16 — the next way that holds it, which from column 3 is up.
+   * The hold keeps the way it took however far the body falls.
    */
   it("takes the way the field has room for at the grab, and keeps it", () => {
     const high = run([lid(COL)], TPB * 2, [pull(TPB, TAUT)]);
     expect(only(high.world).lidWay).toBe(LID_DOWN);
 
-    const low = run([lid(COL)], TPB * 10, [pull(TPB * 9, -TAUT)]);
+    // A body entered at beat 0 stands on row (beat - 1), so a grab in beat
+    // `SHORT_ROW + 1` is the first on a row the whole cord does not fit under.
+    const low = run([lid(COL)], TPB * (SHORT_ROW + 2), [pull(TPB * (SHORT_ROW + 1), -TAUT)]);
     expect(only(low.world).lidWay).toBe(LID_UP);
     expect(lidIsOpen(CFG, only(low.world))).toBe(true);
 
-    const kept = run([lid(COL)], TPB * 12, [pull(TPB * 8, TAUT)]);
+    const kept = run([lid(COL)], TPB * (SHORT_ROW + 4), [pull(TPB * SHORT_ROW, TAUT)]);
     expect(only(kept.world).lidWay).toBe(LID_DOWN);
   });
 

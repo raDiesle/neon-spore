@@ -353,9 +353,11 @@ entering and leaving.
 
 ## 5.8 Overall behaviour in the raster — built
 
-**Grid.** 11 columns × 15 rows (`cols`, `rows`; the tuning panel allows 7–15
-columns). The bottom row is the hull, so a creature walks `rows - 1` = 14
-beats — 8.75 s at 96 BPM, which satisfies [the 4-second rule](latency.md).
+**Grid.** 11 columns × 16 rows (`cols`, `rows`; the tuning panel allows 7–15
+columns). The bottom row is the hull, so a creature walks `rows - 1` = 15
+beats — 9.375 s at 96 BPM, which satisfies [the 4-second rule](latency.md).
+Fifteen rows until 18 October 2026, when the ship was cut a tile shorter
+(`docs/decisions.md` #36).
 
 **Creature movement.** They **glide evenly**, not in steps: exactly one tile
 per beat, linearly interpolated, with no pause between tiles. On every beat

@@ -186,9 +186,19 @@ describe("THE LAMPREY leaps", () => {
     // Not the leap out of an `apart`: its tail lies a pull further out than any
     // other stay's, 4.8 tiles since 14 October 2026, and has to fit on the field
     // where it is leaving — so that leap is held short by the room, not the step.
+    // Nor the leap of six since the field grew a row on 18 October 2026: the
+    // tail's bound is counted from the hull, so the leap of five reaches as far
+    // as the landing band (`lampreyRowTop`..`lampreyRowBottom`, counted from the
+    // top) lets anything go, and the two tie — 796 and 793 tiles over 200 seeds.
+    // The leap after it must still beat both.
+    const heldByBand = (k: number): boolean => SCRIPT[k]?.jump === 6;
     let prev = sum[1] ?? 0;
     for (let k = 2; k < SCRIPT.length; k++) {
       if (SCRIPT[k - 1]?.ask === "apart") continue;
+      if (heldByBand(k)) {
+        prev = Math.max(prev, sum[k] ?? 0);
+        continue;
+      }
       expect(sum[k] ?? 0).toBeGreaterThan(prev);
       prev = sum[k] ?? 0;
     }

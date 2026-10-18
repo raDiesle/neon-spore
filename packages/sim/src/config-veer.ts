@@ -42,9 +42,9 @@ export interface VeerConfig {
    * be acted on, short enough that a shield left where it was is in the wrong
    * lane before the pair has finished congratulating itself.
    *
-   * Three of them across the fifteen rows of the field puts changes on rows 3,
-   * 6, 9 and 12, and the last of those is one row above the one the shield
-   * answers at. That is the creature: there is no row on the way down at which
+   * Three of them, counted up from the row above the one the shield answers
+   * at, puts changes on rows 4, 7, 10 and 13 of the sixteen (`veerLastRow`).
+   * That is the creature: there is no row on the way down at which
    * the pair may stop listening, and the final call is the one that has to be
    * said and acted on quickest.
    */

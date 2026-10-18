@@ -25,6 +25,12 @@ import type { ScoutArena } from "@neon-spore/sim";
  * which is what makes "it comes back in four beats" a true sentence the second
  * time somebody says it.
  *
+ * **A row counts from the top, but an arena is composed from home**, the
+ * mouth on the hull's row. Every row here went a tile down on 18 October
+ * 2026, when the ship was cut a tile shorter and the hull with it (`rows` 15
+ * to 16), so each piece stands as far from home as it was put and every
+ * flight in `test/scout-flight.test.ts` is the one it was.
+ *
  * **Where the ship starts is not authored.** It is let go one tile above the
  * cannon the moment the arena opens (`scoutLaunch`), and again after every
  * mote the mouth swallows — the owner's pass of 29 September 2026.
@@ -53,8 +59,8 @@ export const SCOUT_ARENAS: ScoutArena[] = [
    */
   {
     beats: 208,
-    motes: [{ colMilli: 3_500, rowMilli: 4_500 }],
-    hazards: [{ colMilli: 500, rowMilli: 8_500, vColMilli: 3_000, vRowMilli: 0 }],
+    motes: [{ colMilli: 3_500, rowMilli: 5_500 }],
+    hazards: [{ colMilli: 500, rowMilli: 9_500, vColMilli: 3_000, vRowMilli: 0 }],
   },
   /**
    * Level two: a mote high on each side, the same hazard between them and
@@ -63,10 +69,10 @@ export const SCOUT_ARENAS: ScoutArena[] = [
   {
     beats: 208,
     motes: [
-      { colMilli: 1_500, rowMilli: 4_000 },
-      { colMilli: 5_500, rowMilli: 4_000 },
+      { colMilli: 1_500, rowMilli: 5_000 },
+      { colMilli: 5_500, rowMilli: 5_000 },
     ],
-    hazards: [{ colMilli: 6_500, rowMilli: 7_500, vColMilli: -3_000, vRowMilli: 0 }],
+    hazards: [{ colMilli: 6_500, rowMilli: 8_500, vColMilli: -3_000, vRowMilli: 0 }],
   },
   /**
    * Level three: one high in the middle and two low at the walls, with a
@@ -76,13 +82,13 @@ export const SCOUT_ARENAS: ScoutArena[] = [
   {
     beats: 208,
     motes: [
-      { colMilli: 1_000, rowMilli: 8_000 },
-      { colMilli: 6_000, rowMilli: 8_000 },
-      { colMilli: 3_500, rowMilli: 2_500 },
+      { colMilli: 1_000, rowMilli: 9_000 },
+      { colMilli: 6_000, rowMilli: 9_000 },
+      { colMilli: 3_500, rowMilli: 3_500 },
     ],
     hazards: [
-      { colMilli: 500, rowMilli: 5_250, vColMilli: 2_600, vRowMilli: 0 },
-      { colMilli: 6_500, rowMilli: 10_500, vColMilli: -2_200, vRowMilli: 0 },
+      { colMilli: 500, rowMilli: 6_250, vColMilli: 2_600, vRowMilli: 0 },
+      { colMilli: 6_500, rowMilli: 11_500, vColMilli: -2_200, vRowMilli: 0 },
     ],
   },
   /**
@@ -93,14 +99,14 @@ export const SCOUT_ARENAS: ScoutArena[] = [
   {
     beats: 208,
     motes: [
-      { colMilli: 1_500, rowMilli: 9_000 },
-      { colMilli: 5_500, rowMilli: 9_000 },
-      { colMilli: 1_500, rowMilli: 3_000 },
-      { colMilli: 5_500, rowMilli: 3_000 },
+      { colMilli: 1_500, rowMilli: 10_000 },
+      { colMilli: 5_500, rowMilli: 10_000 },
+      { colMilli: 1_500, rowMilli: 4_000 },
+      { colMilli: 5_500, rowMilli: 4_000 },
     ],
     hazards: [
-      { colMilli: 500, rowMilli: 6_000, vColMilli: 3_000, vRowMilli: 0 },
-      { colMilli: 6_500, rowMilli: 11_500, vColMilli: -2_600, vRowMilli: 0 },
+      { colMilli: 500, rowMilli: 7_000, vColMilli: 3_000, vRowMilli: 0 },
+      { colMilli: 6_500, rowMilli: 12_500, vColMilli: -2_600, vRowMilli: 0 },
     ],
   },
 ];

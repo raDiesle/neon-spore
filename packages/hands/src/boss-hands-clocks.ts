@@ -15,6 +15,7 @@ import {
   ledgerSeamCol,
   otherColor,
   type SimConfig,
+  shotOutTick,
   spentOver,
   type TimedCommand,
   tasterBoss,
@@ -185,8 +186,20 @@ export function leadHandLate(late: number): Hand {
     if (s.passBeat >= 0) return [];
     const col = leadLead(s, w.cfg);
     if (w.cannonCol !== col) return [aim(col)];
-    return free(w) && !onBeat(w) ? [fire("red")] : [];
+    return free(w) && !onBeat(w) && outNextBeat(w) ? [fire("red")] : [];
   };
+}
+
+/**
+ * Whether a bolt pressed now goes past the top on the next beat, the one the
+ * pair's sum counts for the climb (`leadLead`). The climb is more than a beat
+ * since the field grew to sixteen rows (18 October 2026), so a press late in
+ * a beat would be out a beat after that and judged where the body has walked
+ * on: the hand waits for the next beat instead, as a pair learns to.
+ */
+function outNextBeat(w: World): boolean {
+  const tpb = ticksPerBeat(w.cfg);
+  return Math.floor(shotOutTick(w) / tpb) === Math.floor(w.tick / tpb) + 1;
 }
 
 /** The column the body starts its `late`-th pass beat from — a column that pass goes through. */

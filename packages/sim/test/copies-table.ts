@@ -425,7 +425,9 @@ export const COPIES: Copy[] = [
     // of the copy is a mark that says "it moves now" on a beat it does not.
     call: "veerRowIsChange",
     owner: "packages/sim/src/veer.ts",
-    pattern: /%\s*[\w.]*veerRowsApart/,
+    // `%`, or the floored `mod(…, veerRowsApart)` it became when the change
+    // rows were counted up from the shield's row (18 October 2026, rows 15 → 16).
+    pattern: /(?:%|\bmod\s*\(.*,)\s*[\w.]*veerRowsApart/,
   },
   {
     call: "fallTilesPerBeat",

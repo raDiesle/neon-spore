@@ -17,15 +17,19 @@ import type { GuideScene } from "../scene-types.js";
  * in (`render/view-role-clocks-b.ts`).
  *
  * **The cost first.** The first part to come loose, a rock in column 5, is
- * let hang and thrown: a rock takes thirteen beats to reach the hull, and
- * the pilot guards it on beat 20 while the strikes go on over it. Every
- * strike from there is an `atBoss` strip (`sim/boss-answer.ts`,
- * `scuttleNextCol`) — the live socket's column, which the seed puts in
- * columns no authored column reaches — and the colour five and twenty ticks
- * into the beat the part came loose, so the bolt leaves the top the beat
- * after and the next part is loose the beat after that. The third part is
- * struck with the wrong colour first, for the rebuff, and with its own a
- * beat later.
+ * let hang and thrown: a rock takes fourteen beats to reach the hull, and
+ * the pilot guards it on beat 21 while the strikes go on over it — and the
+ * part that came loose over that column on beat 20 is struck only once the
+ * rock is warded, since a bolt up the column would meet the rock first and
+ * make a hole. That one strike a beat late is the beat the hull's lower row
+ * added on 18 October 2026 (`rows` 15 to 16), and every act after it is a
+ * beat later than it was written. Every strike from there is an `atBoss`
+ * strip (`sim/boss-answer.ts`, `scuttleNextCol`) — the live socket's column,
+ * which the seed puts in columns no authored column reaches — and the
+ * colour five and twenty ticks into the beat the part came loose, so the
+ * bolt leaves the top the beat after and the next part is loose the beat
+ * after that. The third part is struck with the wrong colour first, for the
+ * rebuff, and with its own a beat later.
  *
  * **The twins are thrown regardless.** A twin is never live, and a strike
  * on the live one does not spare it: it goes down its column at the cadence.
@@ -47,7 +51,7 @@ import type { GuideScene } from "../scene-types.js";
  * colour is never read. What the field says beside it now is **his** slide
  * (`render/boss-cue-read-t.ts`): on the wind-up one part is left, the slab he
  * is shown has one plate on it, and the column is already his — so the strip at
- * 2285 is what the word asks for rather than a page. In a cycle it still says
+ * 2345 is what the word asks for rather than a page. In a cycle it still says
  * nothing to him, which is why *slide under the one she says* stays written: the
  * live socket is hers alone, and her `FIRE` now waits until he is under it.
  *
@@ -59,7 +63,7 @@ import type { GuideScene } from "../scene-types.js";
  * anchor names one (`docs/queue.md`, the gauge item).
  */
 export const THE_SCUTTLE: GuideScene = {
-  ticks: 2900,
+  ticks: 2960,
   bpm: 120,
   seed: 17,
   entries: [],
@@ -82,44 +86,45 @@ export const THE_SCUTTLE: GuideScene = {
     { tick: 980, control: "fireCyan" },
     { tick: 1085, control: "cannon", col: 0, atBoss: true },
     { tick: 1100, control: "fireRed" },
-    // The rock thrown on beat 7 reaches the hull on beat 20, under column 5.
+    // The rock thrown on beat 7 reaches the hull on beat 21, under column 5,
+    // and the part over it is struck once it is gone.
     { tick: 1170, control: "shield", col: 3 },
     { tick: 1180, control: "guard" },
-    { tick: 1205, control: "cannon", col: 0, atBoss: true },
-    { tick: 1220, control: "fireRed" },
-    { tick: 1325, control: "cannon", col: 0, atBoss: true },
-    { tick: 1340, control: "fireCyan" },
+    { tick: 1265, control: "cannon", col: 0, atBoss: true },
+    { tick: 1280, control: "fireRed" },
+    { tick: 1385, control: "cannon", col: 0, atBoss: true },
+    { tick: 1400, control: "fireCyan" },
     // Twelve left: two hang, and the live one over column 3 is struck.
-    { tick: 1445, control: "cannon", col: 0, atBoss: true },
-    { tick: 1460, control: "fireCyan" },
+    { tick: 1505, control: "cannon", col: 0, atBoss: true },
+    { tick: 1520, control: "fireCyan" },
     // From here every strike has a twin thrown after it, shot at the top.
-    { tick: 1625, control: "cannon", col: 0, atBoss: true },
-    { tick: 1640, control: "fireRed" },
-    { tick: 1685, control: "cannon", col: 0, atBody: true },
-    { tick: 1700, control: "fireCyan" },
-    { tick: 1805, control: "cannon", col: 0, atBoss: true },
-    { tick: 1820, control: "fireRed" },
-    { tick: 1865, control: "cannon", col: 0, atBody: true },
-    { tick: 1880, control: "fireCyan" },
-    // The pod over column 8, struck where it hangs.
-    { tick: 1925, control: "cannon", col: 0, atBoss: true },
+    { tick: 1685, control: "cannon", col: 0, atBoss: true },
+    { tick: 1700, control: "fireRed" },
+    { tick: 1745, control: "cannon", col: 0, atBody: true },
+    { tick: 1760, control: "fireCyan" },
+    { tick: 1865, control: "cannon", col: 0, atBoss: true },
+    { tick: 1880, control: "fireRed" },
+    { tick: 1925, control: "cannon", col: 0, atBody: true },
     { tick: 1940, control: "fireCyan" },
-    { tick: 1985, control: "cannon", col: 0, atBody: true },
+    // The pod over column 8, struck where it hangs.
+    { tick: 1985, control: "cannon", col: 0, atBoss: true },
     { tick: 2000, control: "fireCyan" },
-    { tick: 2045, control: "cannon", col: 0, atBoss: true },
+    { tick: 2045, control: "cannon", col: 0, atBody: true },
     { tick: 2060, control: "fireCyan" },
-    { tick: 2105, control: "cannon", col: 0, atBody: true },
+    { tick: 2105, control: "cannon", col: 0, atBoss: true },
     { tick: 2120, control: "fireCyan" },
+    { tick: 2165, control: "cannon", col: 0, atBody: true },
+    { tick: 2180, control: "fireCyan" },
     // Two left, and the cadence is two beats: the pod over column 4, then
     // the slick its twin threw, red.
-    { tick: 2165, control: "cannon", col: 0, atBoss: true },
-    { tick: 2180, control: "fireCyan" },
-    { tick: 2225, control: "cannon", col: 0, atBody: true },
-    { tick: 2240, control: "fireRed" },
-    // The last part winds up on beat 38 over column 4; cyan held from its
-    // own beat is a beam by beat 41, a beat before the throw.
-    { tick: 2285, control: "cannon", col: 0, atBoss: true },
-    { tick: 2300, control: "fireCyan", until: 2540 },
+    { tick: 2225, control: "cannon", col: 0, atBoss: true },
+    { tick: 2240, control: "fireCyan" },
+    { tick: 2285, control: "cannon", col: 0, atBody: true },
+    { tick: 2300, control: "fireRed" },
+    // The last part winds up on beat 39 over column 4; cyan held from its
+    // own beat is a beam by beat 42, a beat before the throw.
+    { tick: 2345, control: "cannon", col: 0, atBoss: true },
+    { tick: 2360, control: "fireCyan", until: 2600 },
   ],
   steps: [
     {
@@ -155,26 +160,26 @@ export const THE_SCUTTLE: GuideScene = {
       anchor: { at: "control", control: "guard" },
     },
     {
-      tick: 1440,
+      tick: 1500,
       seat: 2,
       text: "TWO HANG · ONLY ONE IS LIVE",
       anchor: { at: "boss", part: "live" },
     },
-    { tick: 1620, seat: 1, text: "TEN · THE TWIN IS THROWN", anchor: { at: "boss" } },
+    { tick: 1680, seat: 1, text: "TEN · THE TWIN IS THROWN", anchor: { at: "boss" } },
     {
-      tick: 1860,
+      tick: 1920,
       seat: 2,
       text: "SHOOT WHAT IT THROWS · CYAN",
       anchor: { at: "control", control: "fireCyan" },
     },
     {
-      tick: 2160,
+      tick: 2220,
       seat: 2,
       text: "A POD HANGS · STRIKE IT CYAN",
       anchor: { at: "control", control: "fireCyan" },
     },
     {
-      tick: 2340,
+      tick: 2400,
       seat: 2,
       // `BURN` has stood on the last part since the cue shipped, so this page
       // was already the word written twice — and wrong besides: the beam's
@@ -184,13 +189,13 @@ export const THE_SCUTTLE: GuideScene = {
       text: "ANY COLOUR FILLS THE BEAM",
       anchor: { at: "control", control: "fireCyan" },
     },
-    { tick: 2520, seat: 1, text: "DOWN · IT LETS GO IN THREE", anchor: { at: "boss" } },
-    // No `counts`, and not for want of one: the last part went on beat 41 and
+    { tick: 2580, seat: 1, text: "DOWN · IT LETS GO IN THREE", anchor: { at: "boss" } },
+    // No `counts`, and not for want of one: the last part went on beat 42 and
     // the body leaves the field before this page opens, so what it stands in
     // front of is the empty top of the field — the NONE is the absence, and
     // there is no boss left for `test/scene-pages.test.ts` to read a zero off.
     // So it is anchored on that emptiness: the radar strip with nothing on it,
     // whose middle is where a caption about nothing points (`caption-anchor.ts`).
-    { tick: 2700, seat: 1, text: "OUT · NONE LEFT TO COUNT", anchor: { at: "radar" } },
+    { tick: 2760, seat: 1, text: "OUT · NONE LEFT TO COUNT", anchor: { at: "radar" } },
   ],
 };

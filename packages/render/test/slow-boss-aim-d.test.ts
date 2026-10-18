@@ -54,7 +54,9 @@ describe("THE SLOW's aim at the bosses on page four", () => {
     (kind) => {
       const box = settled(kind);
       expect(box.bottom).toBeLessThan(L.hullY - 2 * T);
-      expect(box.top).toBeLessThan(L.gridTop + 4 * T);
+      // A share of the field and not a count of tiles: these bosses stand in
+      // thousandths of it, and it grew a row on 18 October 2026 (`rows` 16).
+      expect(box.top).toBeLessThan(L.gridTop + 0.3 * L.gridHeight);
     },
   );
 

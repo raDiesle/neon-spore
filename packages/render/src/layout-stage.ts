@@ -57,6 +57,42 @@ export function bandHeightFor(height: number, cfg: SimConfig): number {
 }
 
 /**
+ * **The tile, and the band under the field**, for a stage `width` by `height`.
+ *
+ * `bandHeightFor` is the ship's share: the band, and the hull's own row
+ * standing on it. That row was the field's last until 18 October 2026, when
+ * the owner had the ship cut a tile shorter so a body falls one tile further
+ * (`rows` 15 to 16): the field keeps its top, every row but the hull's fits in
+ * the room above the ship's share, and the band gives up the tile.
+ *
+ * The field must fit both ways round — never wider than the screen, never
+ * taller than its room — and the tile is never negative: a hidden tab reports
+ * a zero-sized window, and a negative tile reaches the canvas as a negative
+ * radius, which throws.
+ *
+ * SNAKE's short band (`hullScale`, `snake-layout.ts`) is a share of the usual
+ * *band*, not of the ship's share, or the tile the band gave up would come out
+ * of its half a second time; the field then grows into the room, every row
+ * the hull's included above it, as it always did.
+ */
+export function shipFit(
+  width: number,
+  height: number,
+  cfg: SimConfig,
+  hullScale: number,
+): { tile: number; bandHeight: number } {
+  const ship = bandHeightFor(height, cfg);
+  const fit = (room: number, rows: number) =>
+    Math.max(0, Math.min(width / cfg.cols, (room - cfg.radarHeightPx) / Math.max(1, rows)));
+  const usual = fit(height - ship, cfg.rows - 1);
+  const bandHeight = Math.max(0, (ship - usual) * hullScale);
+  // The usual tile itself where nothing moved: worked out again from the band
+  // it is the same number less a rounding, and a stalk measured to reach the
+  // field's top exactly reached past it (`headroom.test.ts`).
+  return { tile: hullScale === 1 ? usual : fit(height - bandHeight, cfg.rows), bandHeight };
+}
+
+/**
  * **The phone is the frame, not the columns.** The stage is as wide as the
  * window, never wider than a 9:16 phone of that height — and never capped
  * narrower than `PHONE_WIDEST`, because that cap is there for a desk window

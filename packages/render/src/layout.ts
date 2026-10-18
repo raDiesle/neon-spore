@@ -20,7 +20,7 @@ export {
 } from "./view-role.js";
 
 import type { Stage } from "./layout-stage.js";
-import { bandHeightFor } from "./layout-stage.js";
+import { shipFit } from "./layout-stage.js";
 import { PANEL_PLAN } from "./panel-plan.js";
 // The rows a strip answers a press on, worked out where its reasons are
 // written down. Re-exported so nothing holding a `Strip` had to move.
@@ -108,17 +108,12 @@ export interface Circle {
 export function computeLayout(vp: Viewport, cfg: SimConfig, role: ViewRole, hullScale = 1): Layout {
   const { width, height } = vp;
   const solo = role !== "test";
-  const bandHeight = bandHeightFor(height, cfg) * hullScale;
+  const radarHeight = cfg.radarHeightPx;
+  // The band and the tile, worked out together since 18 October 2026, when the
+  // band gave the hull's row a tile of its share (`shipFit`, `layout-stage.ts`).
+  const { tile, bandHeight } = shipFit(width, height, cfg, hullScale);
   const playHeight = height - bandHeight;
   const bandTop = playHeight;
-  const radarHeight = cfg.radarHeightPx;
-
-  // The field must fit both ways round: never wider than the screen, never
-  // taller than the play area above the band.
-  const usable = playHeight - radarHeight;
-  // Never negative: a hidden tab reports a zero-sized window, and a negative
-  // tile reaches the canvas as a negative radius, which throws.
-  const tile = Math.max(0, Math.min(width / cfg.cols, usable / cfg.rows));
   const gridWidth = cfg.cols * tile;
   const gridHeight = cfg.rows * tile;
   const gridLeft = (width - gridWidth) / 2;

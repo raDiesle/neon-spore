@@ -1,8 +1,8 @@
 import { describe, expect, it } from "bun:test";
 import { SCOUT_ARENAS } from "@neon-spore/content";
-import type { ScoutArena, ScoutEntry } from "@neon-spore/sim";
+import { DEFAULT_CONFIG, type ScoutArena, type ScoutEntry, scoutHome } from "@neon-spore/sim";
 import { renderScoutEditor } from "../src/scout-editor.js";
-import { kindAt, press, scoutArenaFault } from "../src/scout-editor-grid.js";
+import { kindAt, press, SCOUT_COLS, scoutArenaFault } from "../src/scout-editor-grid.js";
 import { levelComments, milli, serializeScoutArenas } from "../src/serialize-scout.js";
 import { FakeEl, installDom } from "./fake-dom.js";
 
@@ -58,7 +58,10 @@ describe("what the editor refuses to call a level", () => {
 
   it("names an empty level and a mote on the mouth", () => {
     expect(scoutArenaFault(blank())).toMatch(/no mote/);
-    const onMouth = { ...blank(), motes: [{ colMilli: 3_500, rowMilli: 13_500 }] };
+    // The tile over the mouth, where the ship is let go: read off the field
+    // rather than written, since the hull's row moves with `rows`.
+    const over = scoutHome(SCOUT_COLS, DEFAULT_CONFIG.rows);
+    const onMouth = { ...blank(), motes: [{ ...over, rowMilli: over.rowMilli - 500 }] };
     expect(scoutArenaFault(onMouth)).toMatch(/mouth/);
   });
 });

@@ -143,8 +143,11 @@ describe("a full cycle, pinned", () => {
    * comes out. The health bar is the shape of this list.
    */
   it("stands where the tables say, and reaches further as its pins go", () => {
+    // Beat 8 reads 7, not 9, since 18 October 2026 (rows 15 → 16): the shot
+    // fired on beat 7 climbs a row further and takes its pin on beat 8, so the
+    // arm stands at its narrower reach that one beat longer.
     expect(play(1).arm).toEqual([
-      3, 3, 3, 4, 6, 7, 7, 9, 9, 6, 4, 1, 1, 1, 1, 4, 6, 9, 9, 9, 9, 6, 4, 1,
+      3, 3, 3, 4, 6, 7, 7, 7, 9, 6, 4, 1, 1, 1, 1, 4, 6, 9, 9, 9, 9, 6, 4, 1,
     ]);
   });
 

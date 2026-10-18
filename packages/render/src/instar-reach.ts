@@ -35,8 +35,10 @@ export interface Box {
  * It was 2 until the tail went on out of the far end face-on (`instar-front.ts`,
  * 7 October 2026): the hover's morph reaches 2.19. It was 2.3 until the resting tail leaned
  * both ways and was kept on the screen (`instar-tail-lean.ts`, `instar-tail-fit.ts`, 9 October
- * 2026): the hover's morph reaches 2.30. */
-export const FRONT_REACH = 2.4;
+ * 2026): the hover's morph reaches 2.30. It was 2.4 until the field grew a row (`rows` 15 to 16,
+ * 18 October 2026): places are thousandths of the field's height and lengths of its width, so a
+ * taller field spreads the rings against the head, and the hover's morph reaches 2.52. */
+export const FRONT_REACH = 2.6;
 /** How far the side-on view's paint reaches past the figure's places, thousandths of the field's width.
  * The left was 360 until the side-on head grew (`instar-head-look.ts`, `SIDE_GROW`): its snout
  * reaches 371 at the loom's morph, and the down was 180 until its jaw reached 187 at the dive's.

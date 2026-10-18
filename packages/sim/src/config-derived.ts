@@ -57,8 +57,10 @@ export function msToTicks(cfg: SimConfig, ms: number): number {
 
 /**
  * The row the hull occupies. A creature that arrives here has reached it, so a
- * creature entering at row 0 travels `rows - 1` beats — 8.75 s at the defaults,
- * which is the 4-second rule from docs/spec/latency.md with room to spare.
+ * creature entering at row 0 travels `rows - 1` beats — 9.375 s at the defaults,
+ * which is the 4-second rule from docs/spec/latency.md with room to spare. One
+ * beat more since 18 October 2026, when the owner had the ship cut a tile
+ * shorter so the pair has a tile longer to catch a body (`layout.ts`).
  */
 export function hullRow(cfg: SimConfig): number {
   return cfg.rows - 1;

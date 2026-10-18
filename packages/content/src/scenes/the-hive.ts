@@ -122,7 +122,7 @@ export const THE_HIVE: GuideScene = {
     // it at once, and has it down before beat 45's spill is due.
     { tick: 2500, control: "cannon", worldCol: 6 },
     { tick: 2565, control: "fireCyan" },
-    { tick: 2648, drag: "hiveLobe", by: 2692, until: 2700 },
+    { tick: 2656, drag: "hiveLobe", by: 2692, until: 2700 },
     // The hold: his thumb on the high cocoon while her red bolt is climbing
     // column 6, so it turns the corner into the cocoon and seals it at 47.
     // Nothing is carried — a hold is where the thumb is, not how far it goes.
@@ -177,7 +177,7 @@ export const THE_HIVE: GuideScene = {
     // before it: the page is read against the mass behind it, and
     // `test/scene-pages.test.ts` reads both counts back.
     {
-      tick: 2166,
+      tick: 2171,
       seat: 1,
       text: "FIVE SCARS · EIGHT TO GO",
       anchor: { at: "boss" },

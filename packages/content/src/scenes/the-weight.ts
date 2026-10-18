@@ -32,7 +32,7 @@ import type { GuideScene } from "../scene-types.js";
  * the sentence it carries.
  */
 export const THE_WEIGHT: GuideScene = {
-  ticks: 1860,
+  ticks: 1920,
   bpm: 120,
   seed: 1,
   entries: [
@@ -55,7 +55,9 @@ export const THE_WEIGHT: GuideScene = {
     // and not an empty lane: a caption at `body` has nothing to stand beside
     // once the body has gone.
     { tick: 600, seat: 1, text: "BOTH ON ONE BEAT · IT GIVES", anchor: { at: "body" } },
-    // Seventeen beats: the second sac falls the whole field and lands.
+    // Eighteen beats: the second sac falls the whole field and lands — a beat
+    // longer since 18 October 2026, when the hull went a row lower (`rows` 15
+    // to 16) and the film with it.
     { tick: 810, seat: 1, text: "LEFT ALONE, IT ENDS THE WAVE", anchor: { at: "hit" } },
   ],
 };

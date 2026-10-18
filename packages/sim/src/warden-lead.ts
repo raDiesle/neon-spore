@@ -31,11 +31,26 @@ function leavesTick(world: World): number {
   return chargeDueTick(world.cfg, world.tick);
 }
 
+/** How far a shot climbs a tick, thousandths of a tile — `bullets.ts`'s step, never less than one. */
+function climbStepMilli(cfg: SimConfig): number {
+  return Math.max(1, Math.round((cfg.bulletTilesPerBeat * MILLI) / ticksPerBeat(cfg)));
+}
+
 /** The ticks a shot takes from leaving the muzzle to reaching a body standing on `row`. */
 export function shotClimbTicks(cfg: SimConfig, row: number): number {
-  const stepMilli = Math.round((cfg.bulletTilesPerBeat * MILLI) / ticksPerBeat(cfg));
   const climb = (hullRow(cfg) - 1 - row) * MILLI - Math.round(cfg.hitHeightMilli / 2);
-  return Math.ceil(Math.max(0, climb) / Math.max(1, stepMilli));
+  return Math.ceil(Math.max(0, climb) / climbStepMilli(cfg));
+}
+
+/**
+ * The tick a shot pressed now goes past the top of the field: it leaves the
+ * muzzle on the row above the hull and is out on the first tick it is above
+ * row 0 (`bullets.ts`). Eighty-eight ticks of climb on sixteen rows, which is
+ * more than a beat — so a press late in a beat is out two beats on, not one.
+ */
+export function shotOutTick(world: World): number {
+  const cfg = world.cfg;
+  return leavesTick(world) + Math.floor(((hullRow(cfg) - 1) * MILLI) / climbStepMilli(cfg)) + 1;
 }
 
 /** The tick a shot pressed now reaches a body standing on `row`. */

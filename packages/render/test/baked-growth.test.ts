@@ -101,7 +101,15 @@ function entriesAfter(role: "p1" | "p2"): number {
 // One fewer on each seat from 17 October 2026, when FIRST STEP's arrivals were
 // spread eight beats apart (`soften-intro.ts`): one slick is on the field when
 // the run ends, not two, so one glance record.
-const HELD = { p1: 51, p2: 60 } as const;
+// Twenty-three more on each seat from 18 October 2026, when the field grew a
+// row (`rows` 15 to 16) and the band gave the hull's row a tile: the slick
+// that breaks the hull lands at tick 1274 rather than 1199, and its coin falls
+// on the hammer rather than the rend (`breach-either.ts`) — whose white core
+// and coloured halo bake twenty-one sizes, stepped by `CORE_STEP` as it shrinks
+// (`breach-hammer.ts`). One more is a second slick still on the field when the
+// run ends, one glance record; and one a purple halo at a radius of its own on
+// the shorter band.
+const HELD = { p1: 74, p2: 83 } as const;
 
 describe("what the renderer keeps between frames", () => {
   for (const role of ["p1", "p2"] as const) {

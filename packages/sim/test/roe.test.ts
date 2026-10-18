@@ -75,7 +75,10 @@ describe("one shot", () => {
     const r = run(pods, TPB * 3, SHOT);
     // The shot meets the lone pod first, the lowest in the column.
     expect(of(r, "podLoose")).toHaveLength(1);
-    const again = run(pods, TPB * 3, [...SHOT, fire(TPB * 2 + 40)]);
+    // A beat longer than the first: the second shot reaches the string a tick
+    // inside three beats on fifteen rows and past them on sixteen (18 October
+    // 2026, rows 15 → 16), so the run waits for it.
+    const again = run(pods, TPB * 4, [...SHOT, fire(TPB * 2 + 40)]);
     expect(of(again, "podLoose")).toHaveLength(4);
     expect(again.world.pods.filter((p) => !p.loose)).toHaveLength(1);
   });

@@ -49,8 +49,10 @@ import type { GuideScene } from "../scene-types.js";
  * the pull at beat six restarts it and hands the budget back, and the same
  * hand, still down until beat seven, buys one beat more. The pile's next shed
  * therefore lands at beat sixteen rather than fourteen, the pulled rock
- * reaches the hull at beat eighteen, and the shed one at twenty-nine — which
- * is why the loop runs thirty beats and not twenty-eight. Page three opens on
+ * reaches the hull at beat nineteen, and the shed one at thirty — which is
+ * why the loop runs thirty-one beats and not twenty-eight. (A beat each later
+ * since 18 October 2026, when the hull went a row lower, `rows` 15 to 16.)
+ * Page three opens on
  * an empty lane rather than a quarter-full one and fills it five eighths of
  * the way across: more of the gauge than it used to show, making the same
  * claim, that it is on his screen and on nothing hers shows. The pile's next
@@ -58,15 +60,16 @@ import type { GuideScene } from "../scene-types.js";
  * going on — it does if you leave it alone.
  */
 export const THE_CAIRN: GuideScene = {
-  // Thirty beats, two more than it was written with, and the two the hold
-  // costs it. The pilot's thumb rests on the pile through the opening page and
-  // buys its shed clock back a beat at a time (19 September 2026,
-  // `sim/cairn-hold.ts`), so the pile's own shed falls on beat sixteen rather
-  // than fourteen and the rock it lets go reaches the hull on twenty-nine. The
-  // closing page is anchored at what the hull has left and has to still be
-  // running when that lands (`content/test/scenes.test.ts`), so it is two
-  // beats longer. Not one act moved: the film shows what it always showed.
-  ticks: 1800,
+  // Thirty-one beats: the one the hull's lower row added on 18 October 2026
+  // (`rows` 15 to 16), and before it thirty, two more than it was written
+  // with, and the two the hold costs it. The pilot's thumb rests on the pile
+  // through the opening page and buys its shed clock back a beat at a time
+  // (19 September 2026, `sim/cairn-hold.ts`), so the pile's own shed falls on
+  // beat sixteen rather than fourteen and the rock it lets go reaches the hull
+  // on thirty. The closing page is anchored at what the hull has left and has
+  // to still be running when that lands (`content/test/scenes.test.ts`), so
+  // it is longer. Not one act moved: the film shows what it always showed.
+  ticks: 1860,
   bpm: 120,
   seed: 1,
   entries: [],

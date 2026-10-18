@@ -17,6 +17,7 @@ import {
   wardenCycle,
   wardenEyeOpen,
   wardenHatchMilli,
+  wardenLeadCol,
   wardenLidsMilli,
   wardenPhase,
   wardenRopeFromMilli,
@@ -299,7 +300,17 @@ describe("the whole fight", () => {
   it("is won with five hits, each phase by its own hand", () => {
     const run = taut(CFG.wardenPlates);
     const rim = (): Color => wardenColor(wardenCycle(CFG, run.world.waveBeat));
-    const hit = (): void => shoot(run, warden(run.world).pupilCol, rim());
+    // Aimed where the pupil will be when the bolt gets there (`warden-lead.ts`),
+    // as a pair leads a walking eye: since 18 October 2026 (rows 15 → 16) the
+    // climb is a row longer and the second WATCH shot lands past the step.
+    const hit = (): void => {
+      let at = wardenLeadCol(run.world, warden(run.world));
+      while (at === null) {
+        tick(run);
+        at = wardenLeadCol(run.world, warden(run.world));
+      }
+      shoot(run, at, rim());
+    };
     // WATCH: the rope alone, twice. Each hit cuts the line; wait for the next
     // and haul it taut again.
     const again = (): void => {

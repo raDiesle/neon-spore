@@ -3,8 +3,11 @@ import { WAVES } from "@neon-spore/content";
 import type { Creature, World } from "@neon-spore/sim";
 import { linkCenter } from "../src/crawler-place.js";
 import { creatureCenter } from "../src/creature-place.js";
+import { glidePhase } from "../src/depth.js";
+import { landingY } from "../src/landing.js";
 import { computeLayout, type Layout, type ViewRole } from "../src/layout.js";
 import { podCenter } from "../src/pods.js";
+import { wellShown } from "../src/well.js";
 import { FRAME_TIMEOUT_MS, peakWorld } from "./frame-harness.js";
 import {
   drawPixels,
@@ -66,9 +69,19 @@ interface Body {
   at: (l: Layout, beatPhase: number) => { x: number; y: number };
 }
 
+/**
+ * Where the field pass draws a body: its glide, and on a landing beat bent
+ * onto the skin (`creatures.ts`, `landing.ts`) — the flat membrane here, as
+ * `creature-under.ts` asks without a frame. A rock in its last rows is drawn
+ * more than a tile above its row, and THE ROCK AGAIN's peak caught one
+ * on its landing beat once the field grew a row (18 October 2026).
+ */
 function creatureAt(l: Layout, world: World, c: Creature, beatPhase: number) {
   if (c.kind === "crawler") return linkCenter(l, c, beatPhase);
-  return creatureCenter(l, world, c, beatPhase);
+  const glide = glidePhase(world.cfg, world.beat, c, beatPhase);
+  const at = creatureCenter(l, world, c, glide);
+  if (wellShown(l, world)) return at;
+  return { x: at.x, y: landingY(l, world.cfg, c, at.x, at.y, glide, () => l.hullY) };
 }
 
 /** Whether a point is inside the field's own rectangle on this layout. */

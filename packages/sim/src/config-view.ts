@@ -33,7 +33,9 @@ export interface ViewConfig {
    * Two tiles shorter since 12 September 2026, at the owner's word: the
    * buttons and the rail keep their size (both are capped by the width on a
    * phone, `panel-plan.ts`), so what went was the empty flesh above and below
-   * the rail. Read by render/. */
+   * the rail. And the hull's own row since 18 October 2026: the band gives
+   * up one tile of this share to the hull, which stands a tile lower, and the
+   * buttons shrink with it (`layout.ts`). Read by render/. */
   bandSoloPct: number;
   /** Height of the radar strip above the grid, in CSS pixels. Read by render/. */
   radarHeightPx: number;

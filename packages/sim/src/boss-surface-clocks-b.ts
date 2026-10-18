@@ -239,6 +239,7 @@ export { NO_BRAKE, SPOOL_LEGS, SPOOL_PHASES, SPOOL_RIBS, SPOOL_STORY, type Spool
 export { spoolBrakeForRateMilli, spoolInZone, spoolZone, spoolZoneMilli } from "./spool-zone.js";
 export {
   shotLandsTick,
+  shotOutTick,
   WARDEN_LEAD_MARGIN_TICKS,
   wardenLeadCol,
   wardenPupilAt,

@@ -49,8 +49,10 @@ describe("the rehearsal for THE FLIP", () => {
       "fire at 5 @19",
       "destroy @19",
       "fire at 2 @23",
-      "waveFailed @36",
-      "breach by 8 @36",
+      // 18 October 2026: the hull is a row further down (rows 15 to 16), so
+      // the fall that ends the film lands a beat later.
+      "waveFailed @37",
+      "breach by 8 @37",
     ]);
   });
 });

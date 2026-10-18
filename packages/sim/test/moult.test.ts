@@ -132,11 +132,12 @@ describe("the turn", () => {
     // The wave author's whole lever: two entries a beat apart in the same
     // column land as different things, and nothing about where in the run the
     // wave started can change that.
-    // A body takes sixteen beats from its entry beat to the ship, so an entry
-    // on beat 3 is resolved on beat 19 — inside a cargo stretch — and one on
-    // beat 4 is resolved on beat 20, which is the stone again.
-    const early = run([moult(3, 3)], TPB * 24);
-    const late = run([moult(4, 3)], TPB * 24);
+    // A body takes seventeen beats from its entry beat to the ship (sixteen
+    // until the field grew a row on 18 October 2026), so an entry on beat 2 is
+    // resolved on beat 19 — inside a cargo stretch — and one on beat 3 is
+    // resolved on beat 20, which is the stone again.
+    const early = run([moult(2, 3)], TPB * 24);
+    const late = run([moult(3, 3)], TPB * 24);
     expect(early.events.some((e) => e.type === "podLost")).toBe(true);
     expect(late.events.some((e) => e.type === "breach")).toBe(true);
   });

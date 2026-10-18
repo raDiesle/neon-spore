@@ -61,7 +61,12 @@ export const PANEL_PLAN: PanelPlan = {
   lobeRow: [0.74, 0.8],
   lobeR: [0.19, 0.14],
   lobeRCap: [0.068, 0.056],
-  stripH: 0.24,
+  // `0.24` until 18 October 2026, when the band gave the hull's row a tile
+  // (`layout-stage.ts`) and a phone's band fell under the px cap: a node's
+  // halo, `1.1` of this, then reached past the strip's answer into the
+  // buttons' row. At `0.22` the halo ends above a button's edge on any band
+  // (`0.3 + 1.1 * 0.22 < 0.74 - 0.19`, `strip-reach.test.ts`).
+  stripH: 0.22,
   stripHCap: 32,
   solo: [
     { centre: 0.5, maxPitch: 0.58, share: 1 },

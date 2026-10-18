@@ -53,8 +53,10 @@ describe("the rehearsal for THE REPRISE", () => {
       "unseen slick taken @16",
       "seen @18",
       "unseen bulb taken @20",
-      "waveFailed @33",
-      "breach @33",
+      // 18 October 2026: the hull is a row further down (rows 15 to 16), so
+      // the fall that ends the film lands a beat later.
+      "waveFailed @34",
+      "breach @34",
     ]);
     // The body that lands is the echo's own, still unseen with the tear shut.
     expect(run.world.creatures.every((c) => c.unseen)).toBe(true);

@@ -1,4 +1,5 @@
 import type { SimConfig } from "./config.js";
+import { shieldRow } from "./hull-guard.js";
 import { nextInt, type Rng } from "./rng.js";
 import type { Creature } from "./types.js";
 import type { World } from "./world.js";
@@ -85,13 +86,38 @@ export function veerDist(c: Creature): number {
 }
 
 /**
+ * The row a veer's last change of lane lands on: one above the shield's, so
+ * there is no tail of straight fall to watch it settle in. The changes are
+ * counted up from here, `veerRowsApart` apart, and never sooner than
+ * `veerRowsApart` rows below the top. On fifteen rows that is 3, 6, 9 and 12,
+ * as it always was; since the field grew a row on 18 October 2026 it is 4, 7,
+ * 10 and 13 — counted from the top, the last one would have landed two rows
+ * above the shield, and the hull row itself would have been a change.
+ */
+function veerLastRow(cfg: SimConfig): number {
+  return shieldRow(cfg) - 1;
+}
+
+/** `a mod n`, never negative. */
+function mod(a: number, n: number): number {
+  return ((a % n) + n) % n;
+}
+
+/** The first row a veer changes lane on, counted down from the top. */
+function veerFirstRow(cfg: SimConfig): number {
+  const apart = cfg.veerRowsApart;
+  return apart + mod(veerLastRow(cfg) - apart, apart);
+}
+
+/**
  * Whether a body standing on this row has just landed on one of the rows a
- * veer changes lane at: every positive multiple of `veerRowsApart`, all the
- * way to the ship. The row above the top is not one of them, so a rock that
+ * veer changes lane at: every `veerRowsApart` rows counted up from the row
+ * above the shield's (`veerLastRow`), from `veerFirstRow` down. A rock that
  * has only just entered is not asked to step before it has fallen.
  */
 export function veerRowIsChange(cfg: SimConfig, row: number): boolean {
-  return row > 0 && row % cfg.veerRowsApart === 0;
+  if (row < veerFirstRow(cfg) || row > veerLastRow(cfg)) return false;
+  return mod(veerLastRow(cfg) - row, cfg.veerRowsApart) === 0;
 }
 
 /**
@@ -102,10 +128,14 @@ export function veerRowIsChange(cfg: SimConfig, row: number): boolean {
  *
  * It never answers "none": a veer has a change ahead of it at every height,
  * which is why render draws the arrow over one for the whole of its fall
- * rather than gating on a count (`veer-marks.ts`).
+ * rather than gating on a count (`veer-marks.ts`). Past the last change it
+ * counts on to the one the spacing would put next, below the shield.
  */
 export function veerRowsToChange(cfg: SimConfig, row: number): number {
-  return cfg.veerRowsApart - (row % cfg.veerRowsApart);
+  const first = veerFirstRow(cfg);
+  if (row < first) return first - row;
+  const ahead = mod(veerLastRow(cfg) - row, cfg.veerRowsApart);
+  return ahead === 0 ? cfg.veerRowsApart : ahead;
 }
 
 /** Whether a rock in this column could take a whole change of `dist` tiles to

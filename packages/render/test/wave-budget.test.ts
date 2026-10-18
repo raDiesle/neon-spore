@@ -244,11 +244,16 @@ const SCENES: readonly Scene[] = [
     // flames and tongues, chips and smoke up the wake, and a gradient for
     // nearly every one of them. Forty-two more fills, nineteen more saves,
     // nineteen linear and twenty-one radial gradients more, on both seats.
+    //
+    // A row more of the grid from 18 October 2026, when the field grew one
+    // (`rows` 15 to 16): twelve more crossings, a `fillRect` each
+    // (`coord-grid.ts`), and one more row letter (`coord-axes.ts`), on both
+    // seats. Only the rows that rose were moved, to what they measured.
     why: "the lettered grid, on both screens at once",
     rows: {
       p1: [
         {
-          fillRect: 205,
+          fillRect: 217,
           stroke: 83,
           fill: 63,
           clip: 6,
@@ -257,10 +262,10 @@ const SCENES: readonly Scene[] = [
           createLinearGradient: 19,
           createRadialGradient: 11,
           "new Path2D": 44,
-          fillText: 28,
+          fillText: 29,
         },
         {
-          fillRect: 205,
+          fillRect: 217,
           stroke: 85,
           fill: 63,
           clip: 6,
@@ -269,7 +274,7 @@ const SCENES: readonly Scene[] = [
           createLinearGradient: 11,
           createRadialGradient: 8,
           "new Path2D": 19,
-          fillText: 28,
+          fillText: 29,
         },
       ],
       // ARMS (11 September 2026): the fringe is four filled ribbons with a
@@ -278,7 +283,7 @@ const SCENES: readonly Scene[] = [
       // twelve fewer strokes. Only the seat that sees the wisp moved.
       p2: [
         {
-          fillRect: 201,
+          fillRect: 213,
           stroke: 126,
           fill: 100,
           clip: 24,
@@ -287,10 +292,10 @@ const SCENES: readonly Scene[] = [
           createLinearGradient: 29,
           createRadialGradient: 13,
           "new Path2D": 46,
-          fillText: 29,
+          fillText: 30,
         },
         {
-          fillRect: 201,
+          fillRect: 213,
           stroke: 128,
           fill: 100,
           clip: 24,
@@ -299,7 +304,7 @@ const SCENES: readonly Scene[] = [
           createLinearGradient: 21,
           createRadialGradient: 10,
           "new Path2D": 23,
-          fillText: 29,
+          fillText: 30,
         },
       ],
     },

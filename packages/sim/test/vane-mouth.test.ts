@@ -39,17 +39,22 @@ function rock(world: World, col: number, row: number): void {
   });
 }
 
-/** A shot of the opening's colour up the split, and every event it raised. */
-function shoot(world: World): SimEvent[] {
+/**
+ * A shot up the split, of the opening's colour unless told otherwise, and
+ * every event it raised from the aim until it is spent. Run to the shot's end
+ * rather than for a beat: from the hull to the arm is a beat and a tick of
+ * climb since the field grew (18 October 2026, rows 15 → 16).
+ */
+function shoot(world: World, color = vaneColor(CFG, vaneOpening(world.waveBeat))): SimEvent[] {
   const col = vaneWeakCol(CFG, world.waveBeat);
-  const color = vaneColor(CFG, vaneOpening(world.waveBeat));
   const at = world.tick;
   const inputs: TimedCommand[] = [
     { tick: at, player: 1, command: { kind: "cannonCol", col } },
     { tick: at + 2, player: 2, command: { kind: "fire", color } },
   ];
   const out: SimEvent[] = [];
-  for (let t = 0; t < TPB; t++) {
+  while (world.tick <= at + 2 || world.bullets.length > 0) {
+    if (world.tick > at + 4 * TPB) throw new Error("the shot never came to an end");
     step(
       world,
       inputs.filter((i) => i.tick === world.tick),
@@ -87,18 +92,7 @@ describe("the bearing, on the arm's row", () => {
     const world = split();
     const col = vaneWeakCol(CFG, world.waveBeat);
     const wrong = vaneColor(CFG, vaneOpening(world.waveBeat)) === "red" ? "cyan" : "red";
-    const at = world.tick;
-    const events: SimEvent[] = [];
-    for (let t = 0; t < TPB; t++) {
-      step(
-        world,
-        [
-          { tick: at, player: 1, command: { kind: "cannonCol", col } },
-          { tick: at + 2, player: 2, command: { kind: "fire", color: wrong } },
-        ].filter((i) => i.tick === world.tick) as TimedCommand[],
-      );
-      events.push(...world.events);
-    }
+    const events = shoot(world, wrong);
     expect(events.filter((e) => e.type === "reject")).toEqual([{ type: "reject", col, row: ARM }]);
   });
 });

@@ -192,7 +192,7 @@ export const DEFAULT_CONFIG: SimConfig = {
   ...SHOT_DEFAULTS,
   ...WEIGHT_DEFAULTS,
   cols: 11,
-  rows: 15,
+  rows: 16,
   bpm: 96,
   tickHz: 120,
   inputDelayTicks: 12,

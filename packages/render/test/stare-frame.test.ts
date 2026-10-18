@@ -12,7 +12,7 @@ import {
 } from "@neon-spore/sim";
 import { bandLobes } from "../src/band-lobes.js";
 import { Effects } from "../src/effects.js";
-import { computeLayout, type ViewRole } from "../src/layout.js";
+import { computeLayout, computeStage, type ViewRole } from "../src/layout.js";
 import { PALETTE } from "../src/palette.js";
 import {
   CFG,
@@ -251,10 +251,15 @@ describe("THE STARE's eye", () => {
     // The wash is one rectangle from the band's top to the bottom of the
     // screen; the burst out of the eye is on both screens by design, so the
     // count is of a rectangle starting at the band's top and not of every
-    // `fillRect`. (The width is the renderer's own, which is not the layout
-    // this file computes, so the top is what identifies it.)
+    // `fillRect`. The top is the renderer's own, so it is worked out on the
+    // stage the frame is drawn into: since 18 October 2026 the band gives up
+    // the hull's row, a tile, and the tile follows the stage's width — and
+    // it is rounded to three places, as the stub writes it down.
+    const stage = computeStage(VIEWPORT);
+    const vp = { width: stage.width, height: stage.height, dpr: VIEWPORT.dpr };
+    const top = (role: ViewRole) => Math.round(computeLayout(vp, CFG, role).bandTop * 1000) / 1000;
     const wash = (role: ViewRole, caught: boolean) =>
-      count(run(role, caught), `fillRect(0, ${computeLayout(VIEWPORT, CFG, role).bandTop}, `);
+      count(run(role, caught), `fillRect(0, ${top(role)}, `);
     expect(wash("p1", true)).toBeGreaterThan(0);
     expect(wash("p1", false)).toBe(0);
     expect(wash("p2", true)).toBe(0);

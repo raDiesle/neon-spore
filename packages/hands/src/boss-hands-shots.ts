@@ -1,6 +1,8 @@
 import {
   type Color,
+  shotLandsTick,
   type TimedCommand,
+  ticksPerBeat,
   vaneColor,
   vaneGuardedAt,
   vaneOpen,
@@ -135,15 +137,31 @@ export const vaneHand: Hand = (w) => {
   const col = vaneSplitCol(w, b);
   if (col === -1) return out;
   out.push(aim(col));
-  // A guard across the mouth now or on the beat the shot gets there takes it
-  // and the opening with it, so the hand waits for the gap (`sim/vane-guard.ts`);
-  // and a colour that turns before the shot arrives is waited out the same way.
+  // A guard across the mouth on any beat from now to the one the shot gets
+  // there takes it and the opening with it, so the hand waits for the gap
+  // (`sim/vane-guard.ts`); and a colour that turns before the shot arrives is
+  // waited out the same way.
   const pivot = vanePivotNow(w, b);
-  const clear =
-    !vaneGuardedAt(w.cfg, b, col, w.waveBeat, pivot) &&
-    !vaneGuardedAt(w.cfg, b, col, w.waveBeat + 1, pivot);
   const color = vaneColor(w.cfg, vaneOpeningNow(w.waveBeat));
-  const holds = color === vaneColor(w.cfg, vaneOpeningNow(w.waveBeat + 1));
-  if (vaneOpen(w) && free(w) && w.cannonCol === col && clear && holds) out.push(fire(color));
+  let clear = true;
+  for (let beat = w.waveBeat; beat <= vaneShotBeat(w); beat++) {
+    clear &&= !vaneGuardedAt(w.cfg, b, col, beat, pivot);
+    clear &&= color === vaneColor(w.cfg, vaneOpeningNow(beat));
+  }
+  if (vaneOpen(w) && free(w) && w.cannonCol === col && clear) out.push(fire(color));
   return out;
 };
+
+/**
+ * The last wave beat a shot pressed now can reach the bearing on, and never
+ * sooner than the next: the climb from the muzzle to the arm's row, the
+ * grid's wait and all (`shotLandsTick`). Taken to the row above the arm, the
+ * far side of the mouth, so a landing on the beat's edge counts as the later
+ * beat. A beat and a tick of climb since the field grew to sixteen rows
+ * (18 October 2026), where it had been the next beat at most.
+ */
+function vaneShotBeat(w: World): number {
+  const tpb = ticksPerBeat(w.cfg);
+  const lands = shotLandsTick(w, w.cfg.vaneArmRow - 1);
+  return w.waveBeat + Math.max(1, Math.floor(lands / tpb) - Math.floor(w.tick / tpb));
+}

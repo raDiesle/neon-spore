@@ -24,7 +24,9 @@ import type { GuideScene } from "../scene-types.js";
  * which is the only thing this wave punishes.
  */
 export const THE_GAP: GuideScene = {
-  ticks: 1860,
+  // Thirty-two beats, one more since 18 October 2026: the hull went a row
+  // lower (`rows` 15 to 16), and the third wall lands a beat later.
+  ticks: 1920,
   bpm: 120,
   seed: 1,
   // Three walls, each open in a different column and each one further from

@@ -99,10 +99,12 @@ describe("THE VEER", () => {
     for (const [i, s] of walk.entries()) expect(s.row).toBe(Math.min(i, HULL));
   });
 
-  it("changes lane up to veerMaxDist columns each time, on rows 3, 6, 9 and 12", () => {
+  it("changes lane up to veerMaxDist columns each time, on rows 4, 7, 10 and 13", () => {
+    // Counted up from the row above the shield's: 3, 6, 9 and 12 on the
+    // fifteen rows the field had until 18 October 2026 (`veerLastRow`).
     const { walk } = run([veer(3)], tickOfRow(HULL) + TPB);
     const moved = walk.filter((s, i) => i > 0 && s.col !== walk[i - 1]!.col);
-    expect(moved.map((s) => s.row)).toEqual([3, 6, 9, 12]);
+    expect(moved.map((s) => s.row)).toEqual([4, 7, 10, 13]);
     for (const [i, s] of walk.entries()) {
       if (i === 0) continue;
       expect(Math.abs(s.col - walk[i - 1]!.col)).toBeLessThanOrEqual(CFG.veerMaxDist);
@@ -187,13 +189,16 @@ describe("THE VEER", () => {
 
   it("has a change ahead of it at every height, and asks for a call the whole way", () => {
     expect(veerRowIsChange(CFG, 0)).toBe(false);
+    const last = SHIELD - 1;
     for (let row = 1; row <= HULL; row++) {
-      expect(veerRowIsChange(CFG, row)).toBe(row % CFG.veerRowsApart === 0);
+      const due = row >= CFG.veerRowsApart && row <= last && (last - row) % CFG.veerRowsApart === 0;
+      expect(veerRowIsChange(CFG, row)).toBe(due);
       expect(veerRowsToChange(CFG, row)).toBeGreaterThan(0);
       expect(veerRowsToChange(CFG, row)).toBeLessThanOrEqual(CFG.veerRowsApart);
     }
-    expect(veerRowsToChange(CFG, 0)).toBe(CFG.veerRowsApart);
-    expect(veerRowsToChange(CFG, 2)).toBe(1);
+    // The entry stretch is the one longer than the spacing: row 0 to row 4.
+    expect(veerRowsToChange(CFG, 0)).toBe(4);
+    expect(veerRowsToChange(CFG, 3)).toBe(1);
   });
 
   it("is turned by a ward in the lane it actually lands in, and not the one it left", () => {

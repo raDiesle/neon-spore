@@ -327,3 +327,89 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/needs.test.ts` holds the wait, and
 `tools/queue/test/skipped.test.ts` holds the listing's count of the entries
 `next` stepped past and why.
+
+## THE LEAD's one-beat lead misses a late press on sixteen rows
+
+- **Found:** 2026-10-18, claude/ship-height-reduction-f2457e
+- **Files:** `packages/sim/src/lead.ts`, `packages/sim/src/config-lead.ts`, `packages/sim/src/warden-lead.ts`
+- **Asks:** Should a shot's climb on THE LEAD be counted into the lead the pair sums, or should the bolt climb faster so it stays under a beat?
+
+The field grew to sixteen rows (`docs/decisions.md` #36), and a bolt now takes
+88 ticks to go past the top against a 75-tick beat. `leadLead` adds one beat
+for the climb, which holds only for a press in roughly the first 62 ticks of a
+beat; a later press is out two beats on and judged where the body has walked
+to. AUTO waits for the next beat (`shotOutTick`, `packages/hands`), but a pair
+cannot see the boundary. The options: count the climb as it really is into
+`leadLead` (the sum a pair says grows by one for a late press, which is hard
+to say out loud); raise `bulletTilesPerBeat` so the climb is under a beat
+again (every shot in the game gets faster); or leave it, and let the guide say
+"fire on the beat". Prove whichever is chosen with a THE LEAD test that
+presses on the last tick of a beat.
+
+## A bolt's climb a tick is worked out again in four places
+
+- **Found:** 2026-10-18, claude/ship-height-reduction-f2457e
+- **Files:** `packages/sim/src/warden-lead.ts`, `packages/sim/src/bullets.ts`, `packages/sim/test/copies-table.ts`
+
+`round(bulletTilesPerBeat * 1000 / ticksPerBeat)` is the bullet's step, and it
+is written out in `bullets.ts`'s sweep, in THE GOVERNOR's shot, near the lance
+and in `warden-lead.ts`'s `climbStepMilli`. Export one helper from
+`bullets.ts`, call it from each, and add a COPIES row for the expression;
+`bun run check` proves it.
+
+## Where a body is drawn is worked out in three places
+
+- **Found:** 2026-10-18, claude/ship-height-reduction-f2457e
+- **Files:** `packages/render/src/creatures.ts`, `packages/render/src/creature-under.ts`, `packages/render/test/pixel-frame.test.ts`
+
+The glide, `landingY` against the flat membrane and THE WELL's exception are
+applied inline in the field pass and again in touch's `creature-under.ts`,
+and `pixel-frame.test.ts` now writes them out a third time to find a body on
+its landing beat. Export one function that answers "where is this body drawn
+this frame", call it from all three, and add a COPIES row; `bun run check`
+proves it.
+
+## Render tests build a layout on the viewport when the renderer draws on the stage
+
+- **Found:** 2026-10-18, claude/ship-height-reduction-f2457e
+- **Files:** `packages/render/test/stare-frame.test.ts`, `packages/render/test/frame-harness.ts`
+
+`computeLayout(VIEWPORT, …)` was the same as the renderer's layout while the
+band depended on the height alone. Since the band gives the hull's row a tile
+(`shipFit`), it depends on the width too, and the renderer lays out on
+`computeStage(VIEWPORT)`, so a test comparing a logged pixel against the
+viewport's layout is off by the stage's inset. Export a stage-layout helper
+from `frame-harness.ts`, move every render test that builds its own layout on
+to it, and let `bun run check` prove nothing moved.
+
+## `scoutHome` works the hull row out again
+
+- **Found:** 2026-10-18, claude/ship-height-reduction-f2457e
+- **Files:** `packages/sim/src/scout-open.ts`, `packages/sim/test/copies-table.ts`
+
+`scoutHome` writes `rows * 1000 - 1_000` where it means `hullRow(cfg)`, which
+is the copy `hullRow`'s own docstring warns about. Call it, add a COPIES row
+for the shape, and `bun run check` proves nothing moved.
+
+## THE SCOUT's arenas are rows from the top but are designed from the hull
+
+- **Found:** 2026-10-18, claude/ship-height-reduction-f2457e
+- **Files:** `packages/content/src/scout-arenas.ts`, `packages/content/src/scout-haul-arenas.ts`, `packages/content/src/queue-boss.ts`
+
+Every mote and hazard is placed by its distance from home on the hull row,
+but written as `rowMilli` from the top, so the field growing a row on 18
+October 2026 needed every arena shifted down a tile by hand. Remap rows in
+`bossFromWave` the way columns already are (`buildBoss` takes only `cols`
+today), or write rows from the hull; the director's editor writes these files
+and needs the same change. Prove it by building THE SCOUT on 15 and 16 rows
+and checking every flight takes the same beats.
+
+## `scenes.test.ts` names only the first film whose page misses its hit
+
+- **Found:** 2026-10-18, claude/ship-height-reduction-f2457e
+- **Files:** `packages/content/test/scenes.test.ts`
+
+When the field grew a row, three films (THE WEIGHT, THE GAP, THE CAIRN) each
+needed a beat more, and the check reported them one at a time, a round each.
+Collect every failing film and assert the list is empty; prove it by
+shortening two films and reading both names in one failure.

@@ -139,9 +139,10 @@ describe("the crossing", () => {
     const beats = HULL / CFG.caromRows;
     const short = run([carom(0)], tickAtRow(HULL) - 1);
     expect(only(short.world)?.kind).toBe("carom");
-    // Fourteen: the owner played it at seven and could not be under it, so the
+    // Fourteen at first: the owner played it at seven and could not be under it, so the
     // drop halved and the stride came down with it (`config-carom.ts`).
-    expect(beats).toBe(14);
+    // Fifteen since 18 October 2026: rows 15 → 16, the ship one tile shorter.
+    expect(beats).toBe(15);
   });
 
   /** A hand is worth nothing against a body with no rate to scale — the dart's

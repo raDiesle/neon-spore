@@ -34,6 +34,8 @@ describe("the rehearsal for THE CHOKE", () => {
       }
     }
     expect(walk.slice(0, 11)).toEqual([5, 5, 6, 7, 8, 9, 10, 9, 8, 7, 6]);
-    expect(seen).toEqual(["fire from 8 @8", "destroy 8 @8"]);
+    // 18 October 2026: the bolt climbs a row further from the hull (rows 15 to
+    // 16), so the half-beat press now lands just over the next beat.
+    expect(seen).toEqual(["fire from 8 @8", "destroy 8 @9"]);
   });
 });

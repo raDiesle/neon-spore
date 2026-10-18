@@ -18,7 +18,9 @@ stays true however long it takes to arrive.
 ## How the geometry satisfies it
 
 The bottom row is the hull, so a creature entering at row 0 travels
-`rows - 1` = 14 beats. At 96 BPM that is **8.75 s**, with room to spare.
+`rows - 1` = 15 beats. At 96 BPM that is **9.375 s**, with room to spare
+(14 beats and 8.75 s until the field grew a row on 18 October 2026,
+`docs/decisions.md` #36).
 
 This is why `rows` is a fixed field of `SimConfig` and not derived from the
 tile size: two devices that disagree about the height of the field disagree

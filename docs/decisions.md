@@ -1251,3 +1251,24 @@ The numbers: `docs/spec/wave-curriculum.md`.
 **Reconsider if:** a pair playing eight regular waves in a row says they are
 bored before the next new thing — then the count drops, not the rule that it is
 equal for every block.
+
+## 36. The ship is a tile shorter, and a body falls a tile further
+
+**18 October 2026.** The owner asked for the players' ship to be one tile
+shorter, so the pair has one tile longer to catch a body before it reaches the
+hull, and chose between two pictures: BAND, where the hull stands a tile lower
+and the control band gives up the tile, and SKY, where the ship stays and the
+field grows a tile at the top. BAND was taken. `rows` is 16, so a body walks 15
+beats instead of 14; `computeLayout` fits the tile to every row but the hull's
+in the room above the ship's share (`bandSoloPct`), and the band gives that
+tile up, so the field's top does not move on any phone and the buttons shrink
+with the band. The owner said the TEST view, which carries both seats' halves,
+need not look good and may shrink its controls to fit; it does.
+
+Everything that falls taking a beat longer moved what `waves:order` composes:
+it softened the heads of five acts again, as far as AUTO still clears them, and
+THE VEER's changes are counted up from the row above the shield so the last
+one still lands there (`veer.ts`).
+
+**Reconsider if:** a thumb misses the smaller buttons on a small phone — then
+the band's share grows back and the tile comes from the sky instead.

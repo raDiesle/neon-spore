@@ -180,12 +180,12 @@ export const WAVES_ACT_23: Wave[] = [
     name: "FAR MOULT",
     variant: true,
     entries: [
-      { beat: 0, col: 1, kind: "moult", color: null },
-      { beat: 6, col: 5, kind: "balloon", color: null },
-      { beat: 12, col: 9, kind: "fence", color: null },
-      { beat: 18, col: 2, kind: "moult", color: null },
-      { beat: 23, col: 6, kind: "balloon", color: null },
-      { beat: 28, col: 2, kind: "fence", color: null },
+      { beat: 0, col: 9, kind: "moult", color: null },
+      { beat: 5, col: 0, kind: "balloon", color: null },
+      { beat: 13, col: 6, kind: "rind", color: "red" },
+      { beat: 19, col: 2, kind: "moult", color: null },
+      { beat: 25, col: 8, kind: "balloon", color: null },
+      { beat: 30, col: 3, kind: "rind", color: "cyan" },
     ],
   },
   {

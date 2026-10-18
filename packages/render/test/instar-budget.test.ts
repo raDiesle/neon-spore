@@ -117,11 +117,15 @@ type Budget = Record<
 // rest when nothing is called: the housing's fill and stroke, one path of seven
 // dark cells, one save (`siren-lightbar.ts`). Every row here rose by exactly
 // that, remeasured rather than padded.
+// From 18 October 2026 the field is a row taller (`rows` 15 to 16): the body's
+// places are thousandths of the field's height, so it stands taller on the
+// screen and its tubes are sliced by that size (`solid-tube-screen.ts`) —
+// fills up one in the coil and the dive and two in the roar, remeasured.
 const BUDGETS: Record<string, { cursor: number; budget: Budget }> = {
   "13 coil": {
     cursor: 13,
     budget: {
-      fill: 461,
+      fill: 462,
       stroke: 412,
       drawImage: 53,
       createLinearGradient: 80,
@@ -131,7 +135,7 @@ const BUDGETS: Record<string, { cursor: number; budget: Budget }> = {
   "15 dive": {
     cursor: 15,
     budget: {
-      fill: 282,
+      fill: 283,
       stroke: 221,
       drawImage: 53,
       createLinearGradient: 52,
@@ -141,7 +145,7 @@ const BUDGETS: Record<string, { cursor: number; budget: Budget }> = {
   "20 roar": {
     cursor: 20,
     budget: {
-      fill: 464,
+      fill: 466,
       stroke: 409,
       drawImage: 53,
       createLinearGradient: 140,

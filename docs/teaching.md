@@ -180,9 +180,9 @@ head of `WAVES`, in front of FIRST STEP. Columns below are given twice:
 **authored** (against 7, what would go in the file) and **real** (after
 `mapCol(c, 11)`, which is `0→0, 1→2, 2→3, 3→5, 4→7, 5→8, 6→10` — call `mapCol`,
 never re-derive it). Every `beat` in a wave entry and every `beat` on a call is
-a **`waveBeat`**. Defaults: 96 BPM (0.625 s/beat), 11 columns, 15 rows, hull at
-row 14, `radarLead` 6, `guardWindowMs` 900 (1.44 beats). An entry at beat *n*
-stands at row 0 on `waveBeat n+1` and reaches the hull 14 beats later; its
+a **`waveBeat`**. Defaults: 96 BPM (0.625 s/beat), 11 columns, 16 rows, hull at
+row 15, `radarLead` 6, `guardWindowMs` 900 (1.44 beats). An entry at beat *n*
+stands at row 0 on `waveBeat n+1` and reaches the hull 15 beats later; its
 blip is on the strip from `waveBeat n-5`.
 
 A call would open when `world.waveBeat` reaches its beat. While it is open

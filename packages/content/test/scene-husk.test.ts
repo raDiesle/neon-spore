@@ -47,8 +47,10 @@ describe("the rehearsal for THE HUSK", () => {
       "refused shut @26",
       "fire at 2 @34",
       "loose 2 @34",
-      "waveFailed @37",
-      "swallowed open @37",
+      // 18 October 2026: the hull is a row further down (rows 15 to 16), so
+      // the fall that ends the film lands a beat later.
+      "waveFailed @38",
+      "swallowed open @38",
     ]);
   });
 });

@@ -35,12 +35,12 @@ export const SCOUT_HAUL_ARENAS: ScoutArena[] = [
     beats: 32,
     carry: 4,
     motes: [
-      { colMilli: 1_000, rowMilli: 5_000 },
-      { colMilli: 2_667, rowMilli: 5_000 },
-      { colMilli: 4_333, rowMilli: 5_000 },
-      { colMilli: 6_000, rowMilli: 5_000 },
+      { colMilli: 1_000, rowMilli: 6_000 },
+      { colMilli: 2_667, rowMilli: 6_000 },
+      { colMilli: 4_333, rowMilli: 6_000 },
+      { colMilli: 6_000, rowMilli: 6_000 },
     ],
-    hazards: [{ colMilli: 500, rowMilli: 9_000, vColMilli: 3_000, vRowMilli: 0 }],
+    hazards: [{ colMilli: 500, rowMilli: 10_000, vColMilli: 3_000, vRowMilli: 0 }],
   },
   /**
    * Level two: five motes in a chevron, its point high in the middle, and two
@@ -51,15 +51,15 @@ export const SCOUT_HAUL_ARENAS: ScoutArena[] = [
     beats: 36,
     carry: 5,
     motes: [
-      { colMilli: 1_000, rowMilli: 4_500 },
-      { colMilli: 2_250, rowMilli: 3_500 },
-      { colMilli: 3_500, rowMilli: 2_500 },
-      { colMilli: 4_750, rowMilli: 3_500 },
-      { colMilli: 6_000, rowMilli: 4_500 },
+      { colMilli: 1_000, rowMilli: 5_500 },
+      { colMilli: 2_250, rowMilli: 4_500 },
+      { colMilli: 3_500, rowMilli: 3_500 },
+      { colMilli: 4_750, rowMilli: 4_500 },
+      { colMilli: 6_000, rowMilli: 5_500 },
     ],
     hazards: [
-      { colMilli: 500, rowMilli: 7_500, vColMilli: 3_000, vRowMilli: 0 },
-      { colMilli: 6_500, rowMilli: 11_000, vColMilli: -2_600, vRowMilli: 0 },
+      { colMilli: 500, rowMilli: 8_500, vColMilli: 3_000, vRowMilli: 0 },
+      { colMilli: 6_500, rowMilli: 12_000, vColMilli: -2_600, vRowMilli: 0 },
     ],
   },
 ];

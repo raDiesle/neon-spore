@@ -24,14 +24,14 @@ import type { GuideScene } from "../scene-types.js";
  * `leadLead`): the sum itself, where the body will be when a shot pressed
  * now is judged, one walk for the climb and one for the air. The strip and
  * the fire are in one beat, five and twenty ticks in, because the bolt's
- * sixty-five ticks to the top must fall in the next beat and not the one
+ * eighty-eight ticks to the top must fall in the next beat and not the one
  * after — a fire late in the beat is judged a beat later, against a column
  * the sum did not count. Every hit falls where the probe put it: the walk's
  * lead is two, the run's four, and nothing is rolled.
  *
  * **The litter is the field.** The run drops a rock in the very column the
  * next shot has to leave by, on every fourth beat, and a rock stands in a
- * column for the fourteen beats it takes to fall (`fallTilesPerBeat`): a shot
+ * column for the fifteen beats it takes to fall (`fallTilesPerBeat`): a shot
  * through it makes a hole and never leaves the top. So the presses are laid
  * so that no shot is judged the beat after a rock, and the columns the body
  * runs back through are ones no rock stands in. The two torches are warded
@@ -91,7 +91,7 @@ export const THE_LEAD: GuideScene = {
     // The beam, in column 8, standing when the pass comes through from 10.
     { tick: 970, control: "cannon", col: 5 },
     { tick: 1220, control: "fireRed", until: 1490 },
-    // The rock dropped in column 2 on beat 8, landing on beat 21.
+    // The rock dropped in column 2 on beat 8, landing on beat 22.
     { tick: 1230, control: "guard" },
     // The rock dropped in column 6 on beat 12, landing on beat 27.
     { tick: 1540, control: "shield", col: 0, atBody: true },

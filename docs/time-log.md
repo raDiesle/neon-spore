@@ -44350,3 +44350,20 @@ Bottleneck: a block taken out of the middle re-places every wave after it,
 and only the composer's own run says so.
 
 *Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-18 — The ship is a tile shorter, and a body falls a tile further
+
+- reading: 5 min. `layout.ts`, `layout-stage.ts` and `hullRow`, already read
+  for the two pictures the day before.
+- writing: 25 min. `rows` and the layout in five minutes; the rest is 54 tests
+  across 37 files written on fifteen rows, dealt to three agents (content,
+  render, sim and hands) while THE VEER, THE MOULT and the four waves AUTO
+  breached were done here.
+- looking: 5 min. P1, P2 and TEST on SALVAGE, before and after.
+- friction: 0 min.
+- landing: 10 min. The full suite twice, a queue title over 80 characters,
+  the commit, `land`.
+
+Bottleneck: fifteen rows were written into rehearsal ticks, arena rows and
+test literals in dozens of places, and each needed reading before it could
+be moved.
