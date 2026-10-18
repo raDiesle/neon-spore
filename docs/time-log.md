@@ -44284,3 +44284,5 @@ Bottleneck: none; a re-export kept every importer where it was.
 - landing: 5 min. Spec, `check:fast`, `land`.
 
 Bottleneck: friction — a command that hung on stdin looked like a machine busy with another lane's check.
+
+*Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-18 · a7feca080 — THE SWINDLE's crossing pods pass on an arc, one up and one down
+
+When THE SWINDLE swaps two pods, they no longer slide through each other on one row. The pod going right dips toward the hull and the other rises toward her, each a pod's width clear at the middle of the swap, even of a pod hanging still between them, and both are back on the row when the swap ends. The pilot can now follow both by eye. She hangs a little higher to leave room for the rising pod under her, and the arc is the same for a real pod and a fake one.
+
 ## 2026-10-18 · ef14a63f6 — compose-block.ts's Block and Motif move to compose-block-types.ts
 
 The two interfaces every composer imports, which grow a field per kind of block, now live in tools/director/src/compose-block-types.ts and are re-exported from compose-block.ts, so no importer moved. compose-block.ts is 172 lines, down from 221.
