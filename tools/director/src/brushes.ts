@@ -24,14 +24,12 @@ const LIVING_BRUSHES: {
   subjects: string[];
   stroke: string;
   note: string;
-  detail: string;
 }[] = LIVING_BRUSH_KINDS.map((kind) => ({
   brush: kind,
   label: kind.toUpperCase(),
   subjects: cardSubjects(kind),
   stroke: livingStroke(kind),
   note: SHORT_NOTE[kind] ?? CREATURES[kind].blurb,
-  detail: CREATURES[kind].blurb,
 }));
 
 /**
@@ -83,8 +81,6 @@ export const BRUSHES: {
   stroke: string;
   /** The short line in the palette — what the brush is, at a glance. */
   note: string;
-  /** The whole sentence, for the hover card. Absent when `note` is already it. */
-  detail?: string;
 }[] = [
   ...LIVING_BRUSHES,
   // A fault has no body, so it has no silhouette to draw: the `subjects` list
@@ -100,7 +96,6 @@ export const BRUSHES: {
     subjects: ["METEOR"],
     stroke: PALETTE.rock,
     note: "cannot be shot, ward it",
-    detail: "Dead rock. Cannot be shot. Speed and size are set under the map, per rock.",
   },
   {
     brush: "torch",
@@ -108,7 +103,6 @@ export const BRUSHES: {
     subjects: ["TORCH"],
     stroke: PALETTE.rock,
     note: SHORT_NOTE.torch ?? CREATURES.torch.blurb,
-    detail: CREATURES.torch.blurb,
   },
   {
     brush: "veer",
@@ -121,7 +115,6 @@ export const BRUSHES: {
     subjects: ["VEER"],
     stroke: PALETTE.rock,
     note: SHORT_NOTE.veer ?? CREATURES.veer.blurb,
-    detail: CREATURES.veer.blurb,
   },
   {
     brush: "pod",

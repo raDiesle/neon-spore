@@ -1,4 +1,5 @@
 import { brushArtImage } from "./brush-art.js";
+import { KILL_LINE } from "./brush-kill.js";
 import { BRUSH_MECHANIC, firstWaveFor } from "./brush-wave.js";
 import { BRUSHES, type Brush } from "./brushes.js";
 
@@ -32,8 +33,7 @@ function line(className: string, text: string): HTMLElement {
 
 /**
  * What a brush is, on one card: its picture at a size worth looking at, its
- * name, the wave it first arrives in, and the sentence the bestiary already
- * writes about it.
+ * name, the wave it first arrives in, and what the pair does to kill it.
  *
  * The three facts were all reachable before and none of them were together.
  * The picture was 34 px in a chip; the description was hidden behind SHOW
@@ -53,9 +53,9 @@ function brushCard(brush: Brush): HTMLElement | null {
   card.appendChild(line("brush-card-name", spec.label));
   const wave = brushTooltip(brush);
   if (wave) card.appendChild(line("brush-card-wave", wave));
-  // The whole sentence here, not the palette's short line: the card is where
-  // somebody has stopped to ask, and the strip is where they are scanning.
-  const note = spec.detail ?? spec.note;
+  // How to kill it, in one short line (`brush-kill.ts`). A fault has none and
+  // shows the palette's note.
+  const note = KILL_LINE[brush] ?? spec.note;
   if (note) card.appendChild(line("brush-card-note", note));
   // The way to that wave, said where the wave is named. A modifier on a click
   // is the one kind of control nothing on screen can advertise by itself: the

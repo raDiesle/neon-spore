@@ -142,8 +142,8 @@ export function cardSubjects(kind: CreatureKind): string[] {
  * for the first-appearance preview — three clauses, everything true about the
  * creature. Twenty of those stacked in a strip is a wall nobody reads, and the
  * question being asked of the palette is only ever "which of these is the one
- * I mean". The blurb is still on the hover card (`detail` below), where there
- * is room for it and where somebody has stopped to ask.
+ * I mean". The hover card says how to kill it (`brush-kill.ts`), and the
+ * blurb is the first-appearance preview's.
  *
  * A kind with no line here falls back to its blurb, so a creature added to
  * `CREATURES` still gets a brush that says something; `brushes.test.ts` fails

@@ -4046,6 +4046,7 @@ by hand never moves.
 | `tools/director/src/brush-hints.ts` | SHOW DESCRIPTIONS: whether each brush in the palette carries its sentence |
 | `tools/director/src/brush-lists.ts` | which strings are brushes and which kind each one paints — the lists, not the palette's rows |
 | `tools/director/src/brush-intro.ts` | The brush a wave is first to carry, as its picture — at the right end of a head in the wave list, and in EVERY WAVE's NEW column |
+| `tools/director/src/brush-kill.ts` | **What the pair does to get rid of it**, one short line per brush, for the hover card (`brush-tooltip.ts`) |
 | `tools/director/src/biome-lines.ts` | **How many lines a text will be once Biome has formatted it** |
 | `tools/director/src/scene-marks.ts` | The marks: everything a scene draws that is not a body |
 | `tools/director/src/scene-overlay.ts` | **Drawing a scene's bodies**, once the placing next door has said where each of them stands |

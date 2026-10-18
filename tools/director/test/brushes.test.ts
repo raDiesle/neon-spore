@@ -58,8 +58,6 @@ describe("every placeable living kind has a real brush", () => {
       // is what fails when a creature is added and the palette is not told.
       expect(entry?.note.length ?? 0, kind).toBeGreaterThan(0);
       expect(entry?.note.length ?? 0, kind).toBeLessThanOrEqual(60);
-      // The whole sentence is still reachable, on the hover card.
-      expect(entry?.detail, kind).toBe(CREATURES[kind].blurb);
       expect(entry?.stroke.length ?? 0, kind).toBeGreaterThan(0);
       // A brush with a subject the shape sheet has never tuned draws a blank
       // card — the palette's silent version of the bug this file exists for.

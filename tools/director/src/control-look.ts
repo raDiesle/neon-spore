@@ -1,4 +1,3 @@
-import { CREATURES } from "@neon-spore/content";
 import type { BlisterGesture } from "@neon-spore/sim";
 import { livingStroke } from "./brush-cards.js";
 import {
@@ -12,8 +11,7 @@ import { gestureLabel } from "./entry-fields-blister.js";
 /**
  * **The CONTROLS brushes as the palette shows them**: the gesture's word, the
  * blister's stroke, and a line saying what the hand does — the one thing that
- * tells the five apart (`control-brushes.ts`). The whole sentence on the hover
- * card is THE BLISTER's own blurb, since every one of them is that body.
+ * tells the five apart (`control-brushes.ts`).
  */
 const NOTE: Record<BlisterGesture, string> = {
   tap: "tap it while it is up; the other says where",
@@ -31,7 +29,6 @@ export const CONTROL_LOOK: {
   subjects: string[];
   stroke: string;
   note: string;
-  detail: string;
 }[] = CONTROL_BRUSHES.map((brush) => {
   const gesture = controlGestureOf(brush) as BlisterGesture;
   return {
@@ -40,6 +37,5 @@ export const CONTROL_LOOK: {
     subjects: [],
     stroke: livingStroke(CONTROL_KIND),
     note: NOTE[gesture],
-    detail: CREATURES[CONTROL_KIND].blurb,
   };
 });

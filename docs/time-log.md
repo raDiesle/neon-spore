@@ -44231,3 +44231,16 @@ Bottleneck: none; the test file's own comment named the cause, and the
 shard neighbour did not need finding once a test reproduced it alone.
 
 *Measured: 3 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-18 — A brush's hover card says how to kill it
+
+- reading: 5 min. `brush-tooltip.ts`, `brushes.ts`, the bestiary blurbs and
+  the mechanics' `what` lines, for who sees what.
+- writing: 10 min. Forty-five kill lines, the card reading them, `detail`
+  gone, the test.
+- looking: 5 min. The director in the pane, one card hovered and cropped.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the index row, the commit, `land`.
+
+Bottleneck: writing forty-five lines that are each true to the rules, which
+meant checking who sees what for every one.
