@@ -417,6 +417,7 @@ shortening two films and reading both names in one failure.
 ## Five bosses are about bodies that moved into the arc
 
 - **Found:** 2026-10-18, claude/enemy-intro-waves-b86955
+- **Taken:** 2026-10-18, claude/enemy-intro-waves-b86955 (claim: claude/queue-five-bosses-are-about-bodies-that-moved-into-the)
 - **Files:** `tools/director/src/boss-about.ts`, `tools/director/src/boss-slots.ts`, `tools/director/test/boss-slots.test.ts`
 - **Asks:** Should THE VISE, THE STARE, THE BATON, THE SPLICE and THE FLUE close their bodies' blocks in the arc, or stay past it?
 
