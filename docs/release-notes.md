@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-19 · fceb1e52a — HOLD AND AIM and THE MAGNET come straight after THE SHELL's block
+
+The aim lesson and the magnet's block now play right after SHELL THUNDER, before THE THROB, instead of after THE RECOIL. The magnet's three waves (MAGNET DUET, MAGNET LEGEND, MAGNET OVERDRIVE) were drawn again by `waves:compose` with their names kept, because the old ones mixed in the throb and the recoil, and those are now taught after them; the new ones mix only the shell. The list past the arc was ordered again by `waves:order`, which rebuilds its filler waves from the arc's order. The new waves were cleared by AUTO, never watched at tempo by a person. Exemption: the order is the owner's by name.
+
 ## 2026-10-19 · cb75deaa0 — THE LOCK is worn on the cannon's egg: its white border goes yellow as the rest runs
 
 The white border of the egg in the cannon's mouth now says where THE LOCK stands, on both screens. While the lock rests, yellow sweeps round the border from the top as the four seconds run; a whole yellow border is a lock ready to take. A shot's burn still tints it as it tinted the white. The border stays white when nothing on the field can be locked and no rest is running. The lamp under the mouth is gone, and so is the VERSUS slot `ship:lock-light` with its five rings, dropped with the reason in DECIDED.md. A look the owner asked for by name.
