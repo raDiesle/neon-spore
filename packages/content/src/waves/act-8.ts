@@ -1,68 +1,18 @@
+import { GORGE_LEVELS } from "../gorge-levels.js";
 import { PULSE_STAGES } from "../pulse-stages.js";
-import { SCOUT_ARENAS } from "../scout-arenas.js";
 import { SCOUT_HAUL_ARENAS } from "../scout-haul-arenas.js";
 import type { Wave } from "../wave-types.js";
 
 /**
- * Waves 125 to 137 of the game, in the order they are played: the boss THE
- * SCOUT, THE CLASP's block, the boss THE BATON, THE LID's block, the boss THE
- * OCULUS, THE CODEX's block, the boss THE HAUL, THE CRYSTAL's block and the
- * boss THE PULSE.
+ * Waves 129 to 140 of the game, in the order they are played: THE LID's block,
+ * the boss THE OCULUS, THE CODEX's block, the boss THE HAUL, THE CRYSTAL's
+ * block, the boss THE PULSE, THE VOLLEY's block and the boss THE GORGE.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act
  * after the tutorial arc again in play order. A save that fills it cuts a page
  * after it (`acts.ts`).
  */
 export const WAVES_ACT_8: Wave[] = [
-  {
-    id: "theScout",
-    name: "THE SCOUT",
-    guide: {
-      scene: "theScout",
-    },
-    entries: [],
-    boss: { kind: "scout", arenas: SCOUT_ARENAS },
-    bossType: "special",
-    controls: "scout",
-  },
-  {
-    id: "theClasp",
-    name: "THE CLASP",
-    hints: "theClasp",
-    entries: [
-      { beat: 0, col: 5, kind: "clasp", color: "cyan" },
-      { beat: 6, col: 2, kind: "clasp", color: "red" },
-      { beat: 12, col: 8, kind: "clasp", color: "red" },
-      { beat: 20, col: 3, kind: "clasp", color: "cyan" },
-      { beat: 28, col: 7, kind: "clasp", color: "cyan" },
-    ],
-  },
-  {
-    id: "theClaspRecall",
-    name: "CLASP HOMECOMING",
-    variant: true,
-    entries: [
-      { beat: 0, col: 2, color: "cyan" },
-      { beat: 5, col: 7, kind: "clasp", color: "cyan" },
-      { beat: 11, col: 2, color: "red" },
-      { beat: 17, col: 10, kind: "lure", color: "red" },
-      { beat: 22, col: 3, color: "red" },
-      { beat: 30, col: 2, kind: "clasp", color: "red" },
-      { beat: 36, col: 1, color: "red" },
-      { beat: 41, col: 4, kind: "rind", color: "cyan" },
-      { beat: 46, col: 1, color: "cyan" },
-    ],
-  },
-  {
-    id: "theBaton",
-    name: "THE BATON",
-    guide: {
-      scene: "theBaton",
-    },
-    entries: [],
-    boss: { kind: "baton" },
-    bossType: "normal",
-  },
   {
     id: "theLid",
     name: "THE LID",
@@ -133,9 +83,7 @@ export const WAVES_ACT_8: Wave[] = [
   {
     id: "theCodex",
     name: "THE CODEX",
-    guide: {
-      scene: "theCodex",
-    },
+    hints: "theCodex",
     entries: [
       { beat: 0, col: 3, color: "red" },
       { beat: 6, col: 7, color: "cyan" },
@@ -213,5 +161,50 @@ export const WAVES_ACT_8: Wave[] = [
     boss: { kind: "pulse", stages: PULSE_STAGES },
     bossType: "special",
     controls: "pulse",
+  },
+  {
+    id: "theVolley",
+    name: "THE VOLLEY",
+    hints: "theVolley",
+    entries: [
+      { beat: 0, col: 2, kind: "volley", color: "red" },
+      { beat: 26, col: 8, kind: "volley", color: "cyan" },
+    ],
+  },
+  {
+    id: "theVolleyRecall",
+    name: "VOLLEY LEGEND",
+    variant: true,
+    entries: [
+      { beat: 0, col: 9, color: "red" },
+      { beat: 5, col: 7, kind: "volley", color: "cyan" },
+      { beat: 11, col: 1, color: "cyan" },
+      { beat: 18, col: 10, kind: "fence", color: null },
+      { beat: 24, col: 3, color: "red" },
+      { beat: 29, col: 10, kind: "volley", color: "cyan" },
+      { beat: 37, col: 8, color: "cyan" },
+      { beat: 43, col: 2, kind: "blister", color: null, row: 3 },
+    ],
+  },
+  {
+    id: "theGorge",
+    name: "THE GORGE",
+    guide: {
+      scene: "theGorge",
+    },
+    entries: [
+      { beat: 20, col: 2, kind: "meteor", color: null },
+      { beat: 28, col: 8, kind: "meteor", color: null },
+      { beat: 34, col: 5, color: "red" },
+      { beat: 40, col: 0, color: "cyan" },
+      { beat: 46, col: 10, kind: "meteor", color: null },
+      { beat: 52, col: 5, color: "cyan" },
+      { beat: 60, col: 3, kind: "meteor", color: null },
+      { beat: 66, col: 7, color: "red" },
+      { beat: 74, col: 5, kind: "meteor", color: null },
+      { beat: 82, col: 2, color: "cyan" },
+    ],
+    boss: { kind: "gorge", levels: GORGE_LEVELS },
+    bossType: "normal",
   },
 ];

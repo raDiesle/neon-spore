@@ -1,58 +1,16 @@
 import type { Wave } from "../wave-types.js";
 
 /**
- * Waves 190 to 200 of the game, in the order they are played: the boss THE
- * KEEL, THE MORSEL's review, the boss THE VALVE, reviewPod's review, the boss
- * THE SEAM, reviewTorch's review, the boss THE SLING, reviewMeteor's review,
- * the boss THE CAPSTAN, THE WISP's review and the boss THE GALL.
+ * Waves 193 to 202 of the game, in the order they are played: reviewPod's
+ * review, the boss THE SEAM, reviewTorch's review, the boss THE SLING,
+ * reviewMeteor's review, the boss THE CAPSTAN, THE WISP's review, the boss THE
+ * GALL, THE GHOST's review and the boss THE TRAPEZE.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act
  * after the tutorial arc again in play order. A save that fills it cuts a page
  * after it (`acts.ts`).
  */
 export const WAVES_ACT_13: Wave[] = [
-  {
-    id: "theKeel",
-    name: "THE KEEL",
-    guide: {
-      both: "Six joints. When one lights, tap it if it is on your half. The middle opens: shoot it in its colour. Then the joints light fast. Shoot the rock.",
-      p1: "1. Tap a lit joint on the left half of the spine.\n2. Move the cannon under the open middle, then under the rock.\n3. The joints light fast at the end. Watch which half.",
-      p2: "1. Tap a lit joint on the right half of the spine.\n2. Fire the open middle in the colour it shows.\n3. Fire the rock the tail throws before it lands.",
-    },
-    entries: [],
-    boss: { kind: "keel", socket: "red", reprise: [4, 3, 0] },
-    bossType: "normal",
-  },
-  {
-    id: "reviewMorselRecall",
-    name: "OLD VALVE SONG",
-    entries: [
-      { beat: 0, col: 6, color: "red" },
-      { beat: 5, col: 4, kind: "blister", color: null, row: 3 },
-      { beat: 10, col: 2, color: "cyan" },
-      { beat: 10, col: 8, color: "cyan" },
-      { beat: 15, col: 5, kind: "dart", color: "cyan" },
-      { beat: 20, col: 2, kind: "strand", color: "red", beads: 2 },
-      { beat: 26, col: 5, color: "cyan" },
-      { beat: 26, col: 8, color: "cyan" },
-      { beat: 32, col: 4, kind: "blister", color: null, row: 2, gesture: "swipe" },
-      { beat: 37, col: 10, kind: "dart", color: "red" },
-      { beat: 43, col: 1, color: "cyan" },
-      { beat: 43, col: 9, color: "cyan" },
-    ],
-  },
-  {
-    id: "theValve",
-    name: "THE VALVE",
-    guide: {
-      both: "One turns the wheel onto the mark. The other taps the pin to stop it. Then pull the pin down. Three pins. The last wants a full turn first.",
-      p1: "1. Turn the wheel with your thumb until it sits on the mark.\n2. Hold it still. The other screen taps the pin.\n3. A spark falls after the first pin. Move the cannon under it.",
-      p2: "1. When the wheel is on the mark, tap the pin once.\n2. Then drag the pin down before it thaws. Either of you may.\n3. Fire at the spark before it lands.",
-    },
-    entries: [],
-    boss: { kind: "valve", marks: [250, 600, 850] },
-    bossType: "normal",
-  },
   {
     id: "reviewPodRecall",
     name: "SEAM SAGA",
@@ -225,6 +183,42 @@ export const WAVES_ACT_13: Wave[] = [
         { ask: "leap", taps: 6, color: "either", beats: 4 },
         { ask: "leap", taps: 7, color: "either", beats: 4 },
         { ask: "fire", taps: 0, color: "either", beats: 6 },
+      ],
+    },
+    bossType: "normal",
+  },
+  {
+    id: "reviewGhostRecall",
+    name: "ANCIENT TRAPEZE",
+    entries: [
+      { beat: 0, col: 8, color: "cyan" },
+      { beat: 5, col: 4, kind: "strand", color: "red", beads: 2 },
+      { beat: 10, col: 0, color: "red" },
+      { beat: 10, col: 10, color: "red" },
+      { beat: 15, col: 4, kind: "dart", color: "red" },
+      { beat: 21, col: 10, kind: "magnet", color: "cyan" },
+      { beat: 28, col: 0, color: "cyan" },
+      { beat: 28, col: 10, color: "cyan" },
+      { beat: 34, col: 8, kind: "strand", color: "cyan", beads: 3 },
+      { beat: 40, col: 5, kind: "dart", color: "red" },
+      { beat: 45, col: 3, color: "cyan" },
+      { beat: 45, col: 6, color: "cyan" },
+    ],
+  },
+  {
+    id: "theTrapeze",
+    name: "THE TRAPEZE",
+    guide: {
+      scene: "theTrapeze",
+    },
+    entries: [],
+    boss: {
+      kind: "trapeze",
+      steps: [
+        { ask: "push", gongSide: 1, gongMilli: 10000, beats: 32 },
+        { ask: "call", gongSide: -1, gongMilli: 14000, beats: 40 },
+        { ask: "shoot", gongSide: 1, gongMilli: 16000, beats: 48 },
+        { ask: "lock", gongSide: -1, gongMilli: 18000, beats: 48 },
       ],
     },
     bossType: "normal",

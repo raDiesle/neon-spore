@@ -1,6 +1,5 @@
 import type { GuideScene } from "./scene-types.js";
 import { type ChoreographedSceneId, SCENES_CHOREOGRAPHED } from "./scenes-choreographed.js";
-import { type FaultSceneId, SCENES_FAULTS } from "./scenes-faults.js";
 import { type OwedSceneId, SCENES_OWED } from "./scenes-owed.js";
 import { SCENES_WAVES, type WaveSceneId } from "./scenes-waves.js";
 
@@ -30,16 +29,15 @@ import { SCENES_WAVES, type WaveSceneId } from "./scenes-waves.js";
  * one of them goes there.
  */
 
-export type SceneId = WaveSceneId | ChoreographedSceneId | FaultSceneId | OwedSceneId;
+export type SceneId = WaveSceneId | ChoreographedSceneId | OwedSceneId;
 
 export const SCENES: Record<SceneId, GuideScene> = {
   // The films are listed next door, a table to a family: the waves' own
   // (`scenes-waves.ts`), the choreographed bosses', one file for the page they
-  // were designed on (`scenes-choreographed.ts`), the faults' beside them
-  // (`scenes-faults.ts`), and the films §3.2 listed as owed (`scenes-owed.ts`).
+  // were designed on (`scenes-choreographed.ts`), and the films §3.2 listed as
+  // owed (`scenes-owed.ts`). The faults' teach on their fields now (`hints/`).
   ...SCENES_WAVES,
   ...SCENES_CHOREOGRAPHED,
-  ...SCENES_FAULTS,
   ...SCENES_OWED,
 };
 

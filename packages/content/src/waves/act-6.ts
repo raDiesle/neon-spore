@@ -2,52 +2,16 @@ import { STARE_LEVELS } from "../stare-levels.js";
 import type { Wave } from "../wave-types.js";
 
 /**
- * Waves 97 to 110 of the game, in the order they are played: THE CHOKE's block,
- * the boss THE WARDEN, THE FENCE's block, the boss THE STARE, THE CHOIR's
- * block, the boss THE VISE, THE CLAW's block and the boss THE THROAT.
+ * Waves 99 to 113 of the game, in the order they are played: the boss THE
+ * WARDEN, THE FENCE's block, the boss THE STARE, THE CHOIR's block, the boss
+ * THE VISE, THE CLAW's block, the boss THE THROAT, THE BALLOON's block and the
+ * boss THE SINEW.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act
  * after the tutorial arc again in play order. A save that fills it cuts a page
  * after it (`acts.ts`).
  */
 export const WAVES_ACT_6: Wave[] = [
-  {
-    id: "theChoke",
-    name: "THE CHOKE",
-    guide: {
-      scene: "theChoke",
-    },
-    entries: [
-      { beat: 0, col: 7, color: "red" },
-      { beat: 8, col: 7, color: "cyan" },
-      { beat: 16, col: 4, color: "red" },
-      { beat: 24, col: 3, color: "cyan" },
-      { beat: 32, col: 9, color: "red" },
-      { beat: 40, col: 5, color: "cyan" },
-      { beat: 48, col: 1, color: "red" },
-      { beat: 60, col: 9, color: "red" },
-      { beat: 68, col: 1, color: "cyan" },
-      { beat: 76, col: 4, color: "cyan" },
-    ],
-    faults: [{ kind: "steer" }],
-  },
-  {
-    id: "theChokeRecall",
-    name: "CHOKE REUNION",
-    variant: true,
-    entries: [
-      { beat: 0, col: 1, color: "red" },
-      { beat: 5, col: 9, kind: "torch", color: null },
-      { beat: 13, col: 10, color: "red" },
-      { beat: 18, col: 9, kind: "blister", color: null, row: 3, by: "both", gesture: "hold" },
-      { beat: 23, col: 8, color: "red" },
-      { beat: 29, col: 1, kind: "blister", color: null, row: 2, gesture: "swipe" },
-      { beat: 34, col: 3, color: "cyan" },
-      { beat: 39, col: 7, kind: "torch", color: null },
-      { beat: 45, col: 1, color: "cyan" },
-    ],
-    faults: [{ kind: "steer" }],
-  },
   {
     id: "theWarden",
     name: "THE WARDEN",
@@ -228,5 +192,44 @@ export const WAVES_ACT_6: Wave[] = [
     boss: { kind: "throat" },
     bossType: "normal",
     controls: "throat",
+  },
+  {
+    id: "theBalloon",
+    name: "THE BALLOON",
+    hints: "theBalloon",
+    entries: [
+      { beat: 0, col: 3, kind: "balloon", color: null },
+      { beat: 8, col: 8, kind: "balloon", color: null },
+      { beat: 18, col: 7, kind: "balloon", color: null },
+      { beat: 26, col: 0, kind: "balloon", color: null },
+      { beat: 34, col: 10, kind: "balloon", color: null },
+      { beat: 44, col: 3, kind: "balloon", color: null },
+    ],
+  },
+  {
+    id: "theBalloonRecall",
+    name: "BALLOON LEGEND",
+    variant: true,
+    entries: [
+      { beat: 0, col: 4, color: "red" },
+      { beat: 5, col: 10, kind: "balloon", color: null },
+      { beat: 10, col: 1, color: "red" },
+      { beat: 18, col: 2, kind: "rind", color: "cyan" },
+      { beat: 23, col: 1, color: "red" },
+      { beat: 29, col: 8, kind: "balloon", color: null },
+      { beat: 35, col: 6, color: "cyan" },
+      { beat: 41, col: 7, kind: "veer", color: null },
+      { beat: 46, col: 5, color: "cyan" },
+    ],
+  },
+  {
+    id: "theSinew",
+    name: "THE SINEW",
+    guide: {
+      scene: "theSinew",
+    },
+    entries: [],
+    boss: { kind: "sinew" },
+    bossType: "normal",
   },
 ];

@@ -42,7 +42,8 @@ const STILL_PROSE = [
   // And THE LEECH after it: `scenes/the-leech.ts` is the same film on the
   // cannon, with the word on the other screen.
   // And THE CODEX: `scenes/the-codex.ts` is red refused by a red body in a
-  // swapped hold, and cyan taking it on the pilot's word.
+  // swapped hold, and cyan taking it on the pilot's word. All three films went
+  // on 19 October 2026: their waves teach on their fields (`hints/faults.ts`).
   // THE HIVE left this list on 21 September 2026: the wave it could not be
   // filmed against — nobody could finish it — was fixed on the 20th, and
   // `scenes/the-hive.ts` is the film of it being won.

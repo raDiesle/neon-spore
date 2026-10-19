@@ -1,5 +1,15 @@
 import type { CreatureKind } from "@neon-spore/sim";
 import type { HintLine } from "./hint-types.js";
+import {
+  CHOKE_HINTS,
+  CODEX_HINTS,
+  COIL_HINTS,
+  DARK_HINTS,
+  FLIP_HINTS,
+  HANDOVER_HINTS,
+  JAM_HINTS,
+  LEECH_HINTS,
+} from "./hints/faults.js";
 import { FIRST_STEP_HINTS } from "./hints/first-step.js";
 import {
   CATCH_AND_AIM_HINTS,
@@ -7,6 +17,7 @@ import {
   LANCE_HINTS,
   LEAK_HINTS,
   MORSEL_HINTS,
+  MOULT_HINTS,
   SALVAGE_HINTS,
   SEEDER_HINTS,
 } from "./hints/pods.js";
@@ -138,6 +149,15 @@ export const WAVE_HINTS = {
   theSeeder: SEEDER_HINTS,
   theLance: LANCE_HINTS,
   theLeak: LEAK_HINTS,
+  theMoult: MOULT_HINTS,
+  theLeech: LEECH_HINTS,
+  theChoke: CHOKE_HINTS,
+  theDark: DARK_HINTS,
+  theCoil: COIL_HINTS,
+  theJam: JAM_HINTS,
+  theCodex: CODEX_HINTS,
+  theHandover: HANDOVER_HINTS,
+  theFlip: FLIP_HINTS,
 } satisfies Record<string, readonly HintLine[]>;
 
 /** The waves whose help is given on the field while they are played (`Wave.hints`). */
@@ -149,10 +169,10 @@ export type WaveHintsId = keyof typeof WAVE_HINTS;
  * wave whose first body is a bulb it does not teach would stop before the one
  * it does had come: TAP's bulb, shot, would end TAP's lesson with no blister
  * yet up. Named here, only that kind counts — or, for a pod wave, a pod
- * swallowed or let go. Every other wave opens on the body it teaches, and any
- * body counts.
+ * swallowed or let go, and for a fault wave a body that came once the fault
+ * had. Every other wave opens on the body it teaches, and any body counts.
  */
-export const HINTS_ABOUT: Partial<Record<WaveHintsId, CreatureKind | "pod">> = {
+export const HINTS_ABOUT: Partial<Record<WaveHintsId, CreatureKind | "pod" | "fault">> = {
   tapBlisters: "blister",
   holdBlisters: "blister",
   swipeBlisters: "blister",
@@ -165,6 +185,12 @@ export const HINTS_ABOUT: Partial<Record<WaveHintsId, CreatureKind | "pod">> = {
   theHusk: "pod",
   theMorsel: "morsel",
   theSeeder: "seeder",
+  theMoult: "moult",
+  theLeech: "fault",
+  theDark: "fault",
+  theJam: "fault",
+  theHandover: "fault",
+  theFlip: "fault",
 };
 
 /**

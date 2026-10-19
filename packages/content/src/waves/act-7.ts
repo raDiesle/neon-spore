@@ -1,11 +1,12 @@
 import { PINBALL_ROUNDS } from "../pinball-rounds.js";
+import { SCOUT_ARENAS } from "../scout-arenas.js";
 import type { Wave } from "../wave-types.js";
 
 /**
- * Waves 111 to 124 of the game, in the order they are played: THE BALLOON's
- * block, the boss THE SINEW, THE MOULT's block, the boss THE CHRYSALIS, THE
- * DARK's block, the boss THE CURTAIN, THE COIL's block, the boss PINBALL and
- * THE JAM's block.
+ * Waves 114 to 128 of the game, in the order they are played: THE MOULT's
+ * block, the boss THE CHRYSALIS, THE DARK's block, the boss THE CURTAIN, THE
+ * COIL's block, the boss PINBALL, THE JAM's block, the boss THE SCOUT, THE
+ * CLASP's block and the boss THE BATON.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act
  * after the tutorial arc again in play order. A save that fills it cuts a page
@@ -13,50 +14,9 @@ import type { Wave } from "../wave-types.js";
  */
 export const WAVES_ACT_7: Wave[] = [
   {
-    id: "theBalloon",
-    name: "THE BALLOON",
-    hints: "theBalloon",
-    entries: [
-      { beat: 0, col: 3, kind: "balloon", color: null },
-      { beat: 8, col: 8, kind: "balloon", color: null },
-      { beat: 18, col: 7, kind: "balloon", color: null },
-      { beat: 26, col: 0, kind: "balloon", color: null },
-      { beat: 34, col: 10, kind: "balloon", color: null },
-      { beat: 44, col: 3, kind: "balloon", color: null },
-    ],
-  },
-  {
-    id: "theBalloonRecall",
-    name: "BALLOON LEGEND",
-    variant: true,
-    entries: [
-      { beat: 0, col: 4, color: "red" },
-      { beat: 5, col: 10, kind: "balloon", color: null },
-      { beat: 10, col: 1, color: "red" },
-      { beat: 18, col: 2, kind: "rind", color: "cyan" },
-      { beat: 23, col: 1, color: "red" },
-      { beat: 29, col: 8, kind: "balloon", color: null },
-      { beat: 35, col: 6, color: "cyan" },
-      { beat: 41, col: 7, kind: "veer", color: null },
-      { beat: 46, col: 5, color: "cyan" },
-    ],
-  },
-  {
-    id: "theSinew",
-    name: "THE SINEW",
-    guide: {
-      scene: "theSinew",
-    },
-    entries: [],
-    boss: { kind: "sinew" },
-    bossType: "normal",
-  },
-  {
     id: "theMoult",
     name: "THE MOULT",
-    guide: {
-      scene: "theMoult",
-    },
+    hints: "theMoult",
     entries: [
       { beat: 0, col: 1, kind: "meteor", color: null },
       { beat: 4, col: 5, kind: "moult", color: null },
@@ -109,9 +69,7 @@ export const WAVES_ACT_7: Wave[] = [
   {
     id: "theDark",
     name: "THE DARK",
-    guide: {
-      scene: "theDark",
-    },
+    hints: "theDark",
     entries: [
       { beat: 0, col: 5, color: "red" },
       { beat: 8, col: 2, color: "cyan" },
@@ -156,9 +114,7 @@ export const WAVES_ACT_7: Wave[] = [
   {
     id: "theCoil",
     name: "THE COIL",
-    guide: {
-      scene: "theCoil",
-    },
+    hints: "theCoil",
     entries: [
       { beat: 7, col: 6, kind: "coil", color: null },
       { beat: 15, col: 7, kind: "coil", color: null },
@@ -201,9 +157,7 @@ export const WAVES_ACT_7: Wave[] = [
   {
     id: "theJam",
     name: "THE JAM",
-    guide: {
-      scene: "theJam",
-    },
+    hints: "theJam",
     entries: [
       { beat: 0, col: 5, kind: "lure", color: "red" },
       { beat: 8, col: 7, color: "cyan" },
@@ -233,5 +187,54 @@ export const WAVES_ACT_7: Wave[] = [
       { beat: 48, col: 7, kind: "wisp", color: null },
     ],
     faults: [{ kind: "cannon", color: "alternating", at: 9 }],
+  },
+  {
+    id: "theScout",
+    name: "THE SCOUT",
+    guide: {
+      scene: "theScout",
+    },
+    entries: [],
+    boss: { kind: "scout", arenas: SCOUT_ARENAS },
+    bossType: "special",
+    controls: "scout",
+  },
+  {
+    id: "theClasp",
+    name: "THE CLASP",
+    hints: "theClasp",
+    entries: [
+      { beat: 0, col: 5, kind: "clasp", color: "cyan" },
+      { beat: 6, col: 2, kind: "clasp", color: "red" },
+      { beat: 12, col: 8, kind: "clasp", color: "red" },
+      { beat: 20, col: 3, kind: "clasp", color: "cyan" },
+      { beat: 28, col: 7, kind: "clasp", color: "cyan" },
+    ],
+  },
+  {
+    id: "theClaspRecall",
+    name: "CLASP HOMECOMING",
+    variant: true,
+    entries: [
+      { beat: 0, col: 2, color: "cyan" },
+      { beat: 5, col: 7, kind: "clasp", color: "cyan" },
+      { beat: 11, col: 2, color: "red" },
+      { beat: 17, col: 10, kind: "lure", color: "red" },
+      { beat: 22, col: 3, color: "red" },
+      { beat: 30, col: 2, kind: "clasp", color: "red" },
+      { beat: 36, col: 1, color: "red" },
+      { beat: 41, col: 4, kind: "rind", color: "cyan" },
+      { beat: 46, col: 1, color: "cyan" },
+    ],
+  },
+  {
+    id: "theBaton",
+    name: "THE BATON",
+    guide: {
+      scene: "theBaton",
+    },
+    entries: [],
+    boss: { kind: "baton" },
+    bossType: "normal",
   },
 ];

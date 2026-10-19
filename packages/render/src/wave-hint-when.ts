@@ -2,10 +2,13 @@ import type { HintWhen } from "@neon-spore/content";
 import {
   type Creature,
   type CreatureKind,
+  codexSwapped,
+  faultsNow,
   gripCount,
   inMawReach,
   MILLI,
   morselIsLimp,
+  moultIsPod,
   spanOf,
   type World,
 } from "@neon-spore/sim";
@@ -19,8 +22,8 @@ import { podInQuestion, secretShown } from "./wave-hint-seen.js";
  * which line a screen shows, this says what each `when` means.
  */
 
-/** What a lesson is about where it names it: a kind of body, or the pods (`HINTS_ABOUT`). */
-export type HintsAbout = CreatureKind | "pod" | undefined;
+/** What a lesson is about where it names it: a kind of body, the pods or the fault (`HINTS_ABOUT`). */
+export type HintsAbout = CreatureKind | "pod" | "fault" | undefined;
 
 /** What a state is read off: the world, its next body, and the screen if there is one. */
 export interface Reading {
@@ -35,7 +38,7 @@ export interface Reading {
  * blister and never the bulb under it.
  */
 export function lowest(world: World, about: HintsAbout): Creature | null {
-  const kind = about === "pod" ? undefined : about;
+  const kind = about === "pod" || about === "fault" ? undefined : about;
   let low: Creature | null = null;
   for (const c of world.creatures) {
     if (kind !== undefined && c.kind !== kind) continue;
@@ -51,10 +54,24 @@ export function lowest(world: World, about: HintsAbout): Creature | null {
  */
 export function gone(world: World, about: HintsAbout): number {
   if (about === "pod") return world.podSpawned - world.pods.length;
+  if (about === "fault") return gone(world, undefined) - before(world);
   if (about === undefined) return world.spawned - world.creatures.length;
   let sent = 0;
   for (let i = 0; i < world.spawned; i++) if (world.queue[i]?.kind === about) sent++;
   return sent - world.creatures.filter((c) => c.kind === about).length;
+}
+
+/**
+ * Rows of the script spawned before the wave's first fault comes in: a body
+ * shot before there was a fault to learn on is not the lesson. Counted off
+ * what has gone in all, so one of them still standing makes the lesson
+ * longer, never shorter.
+ */
+function before(world: World): number {
+  const at = world.faults[0]?.at ?? 0;
+  let n = 0;
+  for (let i = 0; i < world.spawned; i++) if ((world.queue[i]?.beat ?? 0) < at) n++;
+  return n;
 }
 
 /** Whether a column is under a body, any column of its width (`spanOf`). */
@@ -97,4 +114,9 @@ export const WHEN: Record<HintWhen, (r: Reading) => boolean> = {
   podOff: ({ world }) => podOn(world) === false,
   limp: ({ next }) => next !== null && morselIsLimp(next),
   whole: ({ next }) => next !== null && !morselIsLimp(next),
+  cargo: ({ world, next }) => next?.kind === "moult" && moultIsPod(world.cfg, world.waveBeat),
+  shell: ({ world, next }) => next?.kind === "moult" && !moultIsPod(world.cfg, world.waveBeat),
+  faultOn: ({ world }) => faultsNow(world).length > 0,
+  swapped: ({ world }) => codexSwapped(world),
+  plain: ({ world }) => !codexSwapped(world),
 };

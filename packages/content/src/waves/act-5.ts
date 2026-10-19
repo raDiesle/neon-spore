@@ -2,9 +2,9 @@ import { SNAKE_ROUNDS } from "../snake-rounds.js";
 import type { Wave } from "../wave-types.js";
 
 /**
- * Waves 88 to 96 of the game, in the order they are played: THE LEECH's block,
+ * Waves 88 to 98 of the game, in the order they are played: THE LEECH's block,
  * the boss THE LAMPREY, HEAVY ROCKS's block, the boss THE HIVE, THE VEER's
- * block and the boss SNAKE.
+ * block, the boss SNAKE and THE CHOKE's block.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act
  * after the tutorial arc again in play order. A save that fills it cuts a page
@@ -14,9 +14,7 @@ export const WAVES_ACT_5: Wave[] = [
   {
     id: "theLeech",
     name: "THE LEECH",
-    guide: {
-      scene: "theLeech",
-    },
+    hints: "theLeech",
     entries: [
       { beat: 0, col: 5, color: "red" },
       { beat: 8, col: 5, color: "cyan" },
@@ -202,5 +200,40 @@ export const WAVES_ACT_5: Wave[] = [
     boss: { kind: "snake", rounds: SNAKE_ROUNDS },
     bossType: "special",
     controls: "snake",
+  },
+  {
+    id: "theChoke",
+    name: "THE CHOKE",
+    hints: "theChoke",
+    entries: [
+      { beat: 0, col: 7, color: "red" },
+      { beat: 8, col: 7, color: "cyan" },
+      { beat: 16, col: 4, color: "red" },
+      { beat: 24, col: 3, color: "cyan" },
+      { beat: 32, col: 9, color: "red" },
+      { beat: 40, col: 5, color: "cyan" },
+      { beat: 48, col: 1, color: "red" },
+      { beat: 60, col: 9, color: "red" },
+      { beat: 68, col: 1, color: "cyan" },
+      { beat: 76, col: 4, color: "cyan" },
+    ],
+    faults: [{ kind: "steer" }],
+  },
+  {
+    id: "theChokeRecall",
+    name: "CHOKE REUNION",
+    variant: true,
+    entries: [
+      { beat: 0, col: 1, color: "red" },
+      { beat: 5, col: 9, kind: "torch", color: null },
+      { beat: 13, col: 10, color: "red" },
+      { beat: 18, col: 9, kind: "blister", color: null, row: 3, by: "both", gesture: "hold" },
+      { beat: 23, col: 8, color: "red" },
+      { beat: 29, col: 1, kind: "blister", color: null, row: 2, gesture: "swipe" },
+      { beat: 34, col: 3, color: "cyan" },
+      { beat: 39, col: 7, kind: "torch", color: null },
+      { beat: 45, col: 1, color: "cyan" },
+    ],
+    faults: [{ kind: "steer" }],
   },
 ];

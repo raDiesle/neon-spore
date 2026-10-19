@@ -89,4 +89,14 @@ export type HintWhen =
   /** The next body is a morsel shot limp, and the maw's now. */
   | "limp"
   /** The next body is not limp: a shot still has something to do to it. */
-  | "whole";
+  | "whole"
+  /** The next body is a moult wearing its pod this beat (`moultIsPod`). */
+  | "cargo"
+  /** It is a moult wearing its rock. */
+  | "shell"
+  /** One of the wave's faults is in force this beat (`faultsNow`). */
+  | "faultOn"
+  /** THE CODEX's key is turned: a colour kills what the other should (`codexSwapped`). */
+  | "swapped"
+  /** It is not, and a colour kills its own. */
+  | "plain";

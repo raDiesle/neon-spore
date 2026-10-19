@@ -113,7 +113,12 @@ export function captionBox(
   // which seat is looking (`ship-top-chrome.ts`).
   const floor = Math.max(BAND_FOOT, shipTopFoot(l, world) ?? 0);
   const under = above < floor || covered;
-  const placed = under ? Math.max(floor, point.y + ringY + point.clear + LEAD) : above;
+  let placed = under ? Math.max(floor, point.y + ringY + point.clear + LEAD) : above;
+  // Under a ring at the foot of the screen there is no room: a button's ring,
+  // which a live hint stands on (`wave-hint.ts`). There it goes over the
+  // countdown instead of under its ring, and off the bottom of the screen it
+  // went (19 October 2026, THE HANDOVER's fire button).
+  if (covered && placed + h > l.height) placed = Math.max(floor, plate.y - LEAD - h);
   // And it never stands on the cannon or the shield (`caption-ship-room.ts`).
   const y = clearOfShip(l, world, { x, y: placed, w, h }, floor);
   const below = y > point.y;

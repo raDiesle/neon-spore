@@ -1,77 +1,17 @@
 import type { Wave } from "../wave-types.js";
 
 /**
- * Waves 151 to 162 of the game, in the order they are played: THE MINE's block,
- * the boss THE MIMIC, THE CAROM's block, the boss THE TASTER, THE CAROM's
- * review, the boss THE LEDGER, THE MINE's review, the boss THE SURGE, THE
- * CRAWLER's review and the boss THE LEAD.
+ * Waves 154 to 166 of the game, in the order they are played: THE CAROM's
+ * block, the boss THE TASTER, THE CAROM's review, the boss THE LEDGER, THE
+ * MINE's review, the boss THE SURGE, THE CRAWLER's review, the boss THE LEAD,
+ * THE VOLLEY's review, the boss THE SCUTTLE, THE CRYSTAL's review and the boss
+ * THE ANTIPHON.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act
  * after the tutorial arc again in play order. A save that fills it cuts a page
  * after it (`acts.ts`).
  */
 export const WAVES_ACT_10: Wave[] = [
-  {
-    id: "theMine",
-    name: "THE MINE",
-    hints: "theMine",
-    entries: [
-      { beat: 0, col: 5, kind: "mine", color: "cyan", row: 6, sees: 2 },
-      { beat: 12, col: 2, kind: "mine", color: "red", row: 9, sees: 1 },
-      { beat: 24, col: 8, kind: "mine", color: "red", row: 3, sees: 2 },
-      { beat: 28, col: 3, kind: "mine", color: "cyan", row: 11, sees: 1 },
-      { beat: 32, col: 7, color: "cyan" },
-      { beat: 36, col: 0, color: "red" },
-    ],
-  },
-  {
-    id: "theMineRecall",
-    name: "MINE SAGA",
-    variant: true,
-    entries: [
-      { beat: 0, col: 6, color: "red" },
-      { beat: 6, col: 5, kind: "mine", color: "red", row: 3, sees: 2 },
-      { beat: 12, col: 0, color: "cyan" },
-      { beat: 19, col: 9, kind: "countdown", color: "red" },
-      { beat: 25, col: 1, color: "cyan" },
-      { beat: 31, col: 7, kind: "mine", color: "red", row: 3, sees: 2 },
-      { beat: 37, col: 5, color: "red" },
-      { beat: 42, col: 7, kind: "dart", color: "cyan" },
-      { beat: 47, col: 6, color: "red" },
-    ],
-  },
-  {
-    id: "theMimic",
-    name: "THE MIMIC",
-    guide: {
-      both: "One of you sees a picture of tiles. The other taps it into the frame. The siren top right says whose turn it is.",
-      p1: "1. First you see the picture: tell the other which tiles.\n2. Then tap the tiles the other tells you.\n3. Last, each of you sees one half and taps the other half.",
-      p2: "1. First tap the tiles the other tells you.\n2. Then you see the picture: tell the other which tiles.\n3. Last, each of you sees one half and taps the other half.",
-    },
-    entries: [],
-    boss: {
-      kind: "mimic",
-      steps: [
-        { ask: "sign", reader: 1, changes: false, size: 3, beats: 24 },
-        { ask: "sign", reader: 1, changes: false, size: 4, beats: 30 },
-        { ask: "sign", reader: 1, changes: true, size: 4, beats: 30 },
-        { ask: "roll", reader: 1, changes: false, size: 0, beats: 2 },
-        { ask: "sign", reader: 2, changes: false, size: 5, beats: 37 },
-        { ask: "sign", reader: 2, changes: true, size: 5, beats: 37 },
-        { ask: "sign", reader: 2, changes: false, size: 6, beats: 44 },
-        { ask: "roll", reader: 2, changes: false, size: 0, beats: 2 },
-        { ask: "sign", reader: 1, changes: false, size: 6, beats: 44 },
-        { ask: "sign", reader: 2, changes: false, size: 7, beats: 50 },
-        { ask: "roll", reader: 1, changes: false, size: 0, beats: 2 },
-        { ask: "split", reader: 1, changes: false, size: 3, beats: 29 },
-        { ask: "core", reader: 1, changes: false, size: 0, beats: 7 },
-        { ask: "split", reader: 1, changes: false, size: 4, beats: 37 },
-        { ask: "core", reader: 1, changes: false, size: 0, beats: 7 },
-      ],
-    },
-    bossType: "normal",
-    controls: "scene",
-  },
   {
     id: "theCarom",
     name: "THE CAROM",
@@ -226,6 +166,60 @@ export const WAVES_ACT_10: Wave[] = [
       { beat: 84, col: 10, color: "red" },
     ],
     boss: { kind: "lead" },
+    bossType: "normal",
+  },
+  {
+    id: "reviewVolleyRecall",
+    name: "SCUTTLE LEGEND",
+    entries: [
+      { beat: 0, col: 4, color: "red" },
+      { beat: 5, col: 5, kind: "shell", color: "cyan" },
+      { beat: 11, col: 6, color: "red" },
+      { beat: 17, col: 8, kind: "meteor", color: null, cross: 1, row: 4 },
+      { beat: 22, col: 4, color: "cyan" },
+      { beat: 22, col: 7, color: "cyan" },
+      { beat: 28, col: 9, kind: "crystal", color: "red" },
+      { beat: 34, col: 10, kind: "shell", color: "red" },
+      { beat: 39, col: 1, color: "cyan" },
+      { beat: 39, col: 9, color: "cyan" },
+      { beat: 45, col: 10, kind: "meteor", color: null, cross: -1, row: 6 },
+    ],
+  },
+  {
+    id: "theScuttle",
+    name: "THE SCUTTLE",
+    guide: {
+      scene: "theScuttle",
+    },
+    entries: [],
+    boss: { kind: "scuttle" },
+    bossType: "normal",
+  },
+  {
+    id: "reviewCrystalRecall",
+    name: "ANTIPHON RELIC",
+    entries: [
+      { beat: 0, col: 2, color: "cyan" },
+      { beat: 5, col: 1, kind: "seeder", color: "cyan" },
+      { beat: 11, col: 3, color: "cyan" },
+      { beat: 17, col: 9, kind: "lid", color: "red" },
+      { beat: 23, col: 3, color: "red" },
+      { beat: 23, col: 7, color: "red" },
+      { beat: 29, col: 6, kind: "dart", color: "red" },
+      { beat: 35, col: 1, kind: "seeder", color: "red" },
+      { beat: 40, col: 2, color: "cyan" },
+      { beat: 40, col: 8, color: "cyan" },
+      { beat: 45, col: 5, kind: "lid", color: "red" },
+    ],
+  },
+  {
+    id: "theAntiphon",
+    name: "THE ANTIPHON",
+    guide: {
+      scene: "theAntiphon",
+    },
+    entries: [],
+    boss: { kind: "antiphon" },
     bossType: "normal",
   },
 ];

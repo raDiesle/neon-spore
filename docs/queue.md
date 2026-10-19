@@ -524,3 +524,15 @@ A block is its intro and one regular wave since 19 October 2026, and
 match a `filler…` id — `isFiller`, `isFillerHead`, `composedAfter`,
 `STEP_AT_END`, `isComposed`, `composedId`. No wave carries such an id now. Take the recognisers and the comments out, keep the review ones,
 and let `bun run check` prove nothing read them.
+
+## The doc-path sweep counts a file deleted on disk as still there
+
+- **Found:** 2026-10-19, claude/wave-tutorial-in-game-hints-1f8de8
+- **Files:** `tools/test/doc-paths.ts`, `tools/test/doc-drift.test.ts`
+
+`TREE` is `git ls-files --cached --others`, and `--cached` still lists a file
+that is deleted on disk but not yet staged. So a document naming a film just
+deleted was green under `bun run check:fast` and went red in `bun run land`,
+once the commit had staged the deletion. Subtract `git ls-files --deleted`
+from `TREE`, and add a test that deletes a scratch tracked file without
+staging it.

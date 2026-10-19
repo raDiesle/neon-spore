@@ -1,6 +1,7 @@
 import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
 import { WAVE_HINTS, WAVES } from "@neon-spore/content";
 import { step } from "@neon-spore/sim";
+import { handedRole } from "../src/handover.js";
 import { computeLayout, type ViewRole } from "../src/layout.js";
 import { drawWaveHint, HINTS_UNTIL, hinting, waveHint, waveHintsNow } from "../src/wave-hint.js";
 import { FRAME_TIMEOUT_MS, installCanvasGlobals, stubCanvas, type TextBox } from "./canvas-stub.js";
@@ -139,7 +140,7 @@ describe("a hint, drawn", () => {
         for (const size of SIZES) {
           const world = playedOnce(i);
           for (const _ of states(world)) {
-            const l = computeLayout(size, CFG, role);
+            const l = computeLayout(size, CFG, handedRole(role, world));
             const want = waveHint(l, world, 0.5)?.text;
             if (want === undefined) continue;
             const { ctx } = stubCanvas();

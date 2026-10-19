@@ -3,56 +3,17 @@ import { NETTLE_SCRIPT } from "../nettle-script.js";
 import type { Wave } from "../wave-types.js";
 
 /**
- * Waves 178 to 189 of the game, in the order they are played: the boss THE
- * SPOOL, THE VEER's review, the boss THE HASP, reviewMeteorMedium's review, the
- * boss THE FLUE, reviewBlisterBoth's review, the boss THE RATCHET, THE
- * BEATBOX's review, the boss THE NETTLE, reviewRockCross's review, the boss THE
- * MANTLE and THE SEEDER's review.
+ * Waves 181 to 192 of the game, in the order they are played:
+ * reviewMeteorMedium's review, the boss THE FLUE, reviewBlisterBoth's review,
+ * the boss THE RATCHET, THE BEATBOX's review, the boss THE NETTLE,
+ * reviewRockCross's review, the boss THE MANTLE, THE SEEDER's review, the boss
+ * THE KEEL, THE MORSEL's review and the boss THE VALVE.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act
  * after the tutorial arc again in play order. A save that fills it cuts a page
  * after it (`acts.ts`).
  */
 export const WAVES_ACT_12: Wave[] = [
-  {
-    id: "theSpool",
-    name: "THE SPOOL",
-    guide: {
-      scene: "theSpool",
-    },
-    entries: [],
-    boss: { kind: "spool" },
-    bossType: "normal",
-  },
-  {
-    id: "reviewVeerRecall",
-    name: "HASP SAGA",
-    entries: [
-      { beat: 0, col: 8, color: "red" },
-      { beat: 5, col: 7, kind: "dart", color: "cyan" },
-      { beat: 11, col: 0, color: "cyan" },
-      { beat: 11, col: 10, color: "cyan" },
-      { beat: 16, col: 2, kind: "meteor", color: null },
-      { beat: 22, col: 0, kind: "blister", color: null, row: 3, by: "both", gesture: "hold" },
-      { beat: 28, col: 0, color: "red" },
-      { beat: 28, col: 10, color: "red" },
-      { beat: 36, col: 3, kind: "dart", color: "red" },
-      { beat: 42, col: 1, kind: "meteor", color: null },
-      { beat: 42, col: 9, kind: "meteor", color: null },
-      { beat: 47, col: 3, color: "cyan" },
-      { beat: 47, col: 7, color: "cyan" },
-    ],
-  },
-  {
-    id: "theHasp",
-    name: "THE HASP",
-    guide: {
-      scene: "theHasp",
-    },
-    entries: [],
-    boss: { kind: "hasp" },
-    bossType: "normal",
-  },
   {
     id: "reviewMeteorMediumRecall",
     name: "FLUE RELIC",
@@ -228,5 +189,47 @@ export const WAVES_ACT_12: Wave[] = [
       { beat: 41, col: 8, color: "cyan" },
       { beat: 47, col: 0, kind: "gyre", color: null },
     ],
+  },
+  {
+    id: "theKeel",
+    name: "THE KEEL",
+    guide: {
+      both: "Six joints. When one lights, tap it if it is on your half. The middle opens: shoot it in its colour. Then the joints light fast. Shoot the rock.",
+      p1: "1. Tap a lit joint on the left half of the spine.\n2. Move the cannon under the open middle, then under the rock.\n3. The joints light fast at the end. Watch which half.",
+      p2: "1. Tap a lit joint on the right half of the spine.\n2. Fire the open middle in the colour it shows.\n3. Fire the rock the tail throws before it lands.",
+    },
+    entries: [],
+    boss: { kind: "keel", socket: "red", reprise: [4, 3, 0] },
+    bossType: "normal",
+  },
+  {
+    id: "reviewMorselRecall",
+    name: "OLD VALVE SONG",
+    entries: [
+      { beat: 0, col: 6, color: "red" },
+      { beat: 5, col: 4, kind: "blister", color: null, row: 3 },
+      { beat: 10, col: 2, color: "cyan" },
+      { beat: 10, col: 8, color: "cyan" },
+      { beat: 15, col: 5, kind: "dart", color: "cyan" },
+      { beat: 20, col: 2, kind: "strand", color: "red", beads: 2 },
+      { beat: 26, col: 5, color: "cyan" },
+      { beat: 26, col: 8, color: "cyan" },
+      { beat: 32, col: 4, kind: "blister", color: null, row: 2, gesture: "swipe" },
+      { beat: 37, col: 10, kind: "dart", color: "red" },
+      { beat: 43, col: 1, color: "cyan" },
+      { beat: 43, col: 9, color: "cyan" },
+    ],
+  },
+  {
+    id: "theValve",
+    name: "THE VALVE",
+    guide: {
+      both: "One turns the wheel onto the mark. The other taps the pin to stop it. Then pull the pin down. Three pins. The last wants a full turn first.",
+      p1: "1. Turn the wheel with your thumb until it sits on the mark.\n2. Hold it still. The other screen taps the pin.\n3. A spark falls after the first pin. Move the cannon under it.",
+      p2: "1. When the wheel is on the mark, tap the pin once.\n2. Then drag the pin down before it thaws. Either of you may.\n3. Fire at the spark before it lands.",
+    },
+    entries: [],
+    boss: { kind: "valve", marks: [250, 600, 850] },
+    bossType: "normal",
   },
 ];

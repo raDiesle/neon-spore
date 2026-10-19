@@ -30,7 +30,7 @@ first creature falling. It is one of two states, never both:
    prose (§3.2). Either way it ends on **the ready gate**: two circles, one per
    seat, each filling while that seat holds and saying READY when it is full.
    The guide passes when both say READY. Only a wave that introduces something
-   new carries one — sixty-four of the two hundred and eight waves today, and a wave
+   new carries one — fifty-five of the two hundred and eight waves today, and a wave
    with no guide has no circles either.
 2. **The introduction**, if it has no guide. `WAVE 4`, the wave's name, its
    one sentence. Plain text on the field — no panel, no border, nothing to
@@ -322,6 +322,16 @@ wave's lesson ends with a pod gone rather than a body, and THE MORSEL's and
 THE SEEDER's with their own body (`HINTS_ABOUT`), whose column the column
 states then read.
 
+THE MOULT and the fault waves followed — THE LEECH, THE CHOKE, THE DARK, THE
+COIL, THE JAM, THE CODEX, THE HANDOVER and THE FLIP, nine, in `hints/pods.ts`
+and `hints/faults.ts`. A moult's lines read what it lands as (`cargo`,
+`shell`). A fault's lines hold while the fault is up (`faultOn`), and its
+lesson ends with a body gone after the fault first came, not one shot before
+it. THE CODEX's lines read whether the panel is swapped. On THE HANDOVER the
+plate is seated by the panel, not the person: whoever holds the fire buttons
+is told to fire. A plate that would fall off the foot of the screen under a
+ring goes over the countdown instead.
+
 `waveTeaches` is the one question the rules about what is taught where ask —
 a guide or hints — and `waveHasGuide` still means *a guide to play*.
 
@@ -374,7 +384,7 @@ RED pressed, the shot taking it, and then a second slick nobody answers, so the
 last thing the pair is shown is the hull bar dropping. About five seconds,
 looping.
 
-**There are forty-five of them now**, one per guided wave bar nineteen,
+**There are thirty-six of them now**, one per guided wave bar nineteen,
 and each is authored in `packages/content/src/scenes/` as a page of
 choreography rather than a page of prose. The nineteen that are still the
 three strings and the two circles are the bosses from THE NETTLE on,
@@ -531,9 +541,10 @@ in the sixth. Writing it found that no film folded at all — `guide-scene.ts`
 laid its seats out without asking whose screen was turned — so the film of
 the mirror was a film of nothing happening; `guide-film.ts`'s `seatLayout`
 now folds the turned seat's layout, caption and hands with it
-(`render/test/guide-flip.test.ts`), and `scene-flip.test.ts` is the receipt
+(`render/test/guide-flip.test.ts`), and `scene-flip.test.ts` was the receipt
 that the bolt sent to the called column lands and the one sent to the seen
-column does not.
+column does not, until the film gave way to its field's hints on 19 October
+2026.
 THE HUSK's, the same day, is a mark drawn on one seat's screen and not the
 other's, and a thumb that must not land. Three pods hang from the first
 beat, two hollow, drawn as red fake twins on the navigator's screen alone
@@ -550,8 +561,9 @@ shot and opened for, swallowed, and the wave with it. The film became
 hints on its field on 19 October 2026 (`hints/pods.ts`), and its receipt
 went with it. Its film
 took `scenes.ts` past its limit, so the films this paragraph lists as owed
-now sit in `scenes-owed.ts`, beside the faults' (`scenes-faults.ts`) and
-the choreographed bosses' (`scenes-choreographed.ts`).
+now sit in `scenes-owed.ts`, beside the choreographed bosses'
+(`scenes-choreographed.ts`); the faults' had a table of their own until
+they became hints on their fields, 19 October 2026.
 THE HIVE's (21 September 2026) is the last film this paragraph was owed by a
 look lane, and it is written against a fight that had been fixed and never
 watched. The seed is chosen for two accidents — the first two breaches open

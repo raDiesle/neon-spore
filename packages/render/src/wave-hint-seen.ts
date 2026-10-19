@@ -67,7 +67,7 @@ export function hintSubject(
   seen: World,
   anchor: HintAnchor,
   next: Creature | null,
-  about: CreatureKind | "pod" | undefined,
+  about: CreatureKind | "pod" | "fault" | undefined,
 ): { anchor: SceneAnchor; world: World } | null {
   if (anchor.at === "fire") {
     if (next === null) return null;
@@ -90,7 +90,7 @@ export function hintSubject(
     const husk = seen.pods.find((p) => p.kind === "husk" && showsHuskMark(l, p));
     return husk === undefined ? null : { anchor: { at: "pod" }, world: { ...seen, pods: [husk] } };
   }
-  if (anchor.at === "body" && about !== undefined && about !== "pod") {
+  if (anchor.at === "body" && about !== undefined && about !== "pod" && about !== "fault") {
     return next === null ? null : { anchor, world: { ...seen, creatures: [next] } };
   }
   return { anchor, world: seen };

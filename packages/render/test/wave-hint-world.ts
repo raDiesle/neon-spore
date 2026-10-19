@@ -9,6 +9,7 @@ import {
   WAVES,
 } from "@neon-spore/content";
 import { createWorld, DEFAULT_CONFIG, startWave, step, type World } from "@neon-spore/sim";
+import { handedRole } from "../src/handover.js";
 import { computeLayout, type ViewRole } from "../src/layout.js";
 import { HINT_BEATS, hinting, waveHint } from "../src/wave-hint.js";
 
@@ -110,22 +111,44 @@ export function* states(world: World): Generator<void> {
 }
 
 /**
- * The field as it stands, then as a shot would have left it: the first pod
- * knocked loose, every morsel limp — the states nobody playing ever reaches.
+ * The field as it stands, then as a shot would have left it — the first pod
+ * knocked loose, every morsel limp — and then later in the wave, where a fault
+ * is in force or a moult has turned: the states nobody playing ever reaches.
  */
 function* shot(world: World): Generator<void> {
-  yield;
-  const pod = world.pods[0];
-  const morsels = world.creatures.filter((c) => c.kind === "morsel");
-  if (pod === undefined && morsels.length === 0) return;
-  const loose = pod?.loose;
-  if (pod) pod.loose = true;
-  for (const m of morsels) m.morselLimp = true;
-  yield;
-  if (pod && loose !== undefined) pod.loose = loose;
-  for (const m of morsels) delete m.morselLimp;
+  for (const _ of later(world)) {
+    yield;
+    const pod = world.pods[0];
+    const morsels = world.creatures.filter((c) => c.kind === "morsel");
+    if (pod === undefined && morsels.length === 0) continue;
+    const loose = pod?.loose;
+    if (pod) pod.loose = true;
+    for (const m of morsels) m.morselLimp = true;
+    yield;
+    if (pod && loose !== undefined) pod.loose = loose;
+    for (const m of morsels) delete m.morselLimp;
+  }
+}
+
+/**
+ * The wave's beat as it is, then a few beats into its first fault — a key
+ * turned and turned back — and a moult's turn later: the clock the faults and
+ * the moult read (`faultStep`, `moultIsPod`).
+ */
+function* later(world: World): Generator<void> {
+  const was = world.waveBeat;
+  const beats = new Set([was]);
+  const at = world.faults[0]?.at;
+  if (at !== undefined) for (const k of [1, 5, 9]) beats.add(at + k);
+  if (world.creatures.some((c) => c.kind === "moult")) beats.add(was + world.cfg.moultBeats);
+  for (const b of beats) {
+    world.waveBeat = b;
+    yield;
+  }
+  world.waveBeat = was;
 }
 
 export function said(world: World, role: ViewRole) {
-  return waveHint(computeLayout(PHONE, CFG, role), world, 0.5);
+  // Seated as the renderer seats a frame: a traded panel brings its seat.
+  return waveHint(computeLayout(PHONE, CFG, handedRole(role, world)), world, 0.5);
 }

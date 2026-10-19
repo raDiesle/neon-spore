@@ -1,52 +1,15 @@
 import type { Wave } from "../wave-types.js";
 
 /**
- * Waves 201 to 208 of the game, in the order they are played: THE GHOST's
- * review, the boss THE TRAPEZE, reviewCountdown's review, the boss THE
- * GOVERNOR, THE DART's review, the boss THE LATCH, THE RIND's review and the
- * boss THE HYDRA.
+ * Waves 203 to 208 of the game, in the order they are played: reviewCountdown's
+ * review, the boss THE GOVERNOR, THE DART's review, the boss THE LATCH, THE
+ * RIND's review and the boss THE HYDRA.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act
  * after the tutorial arc again in play order. A save that fills it cuts a page
  * after it (`acts.ts`).
  */
 export const WAVES_ACT_14: Wave[] = [
-  {
-    id: "reviewGhostRecall",
-    name: "ANCIENT TRAPEZE",
-    entries: [
-      { beat: 0, col: 8, color: "cyan" },
-      { beat: 5, col: 4, kind: "strand", color: "red", beads: 2 },
-      { beat: 10, col: 0, color: "red" },
-      { beat: 10, col: 10, color: "red" },
-      { beat: 15, col: 4, kind: "dart", color: "red" },
-      { beat: 21, col: 10, kind: "magnet", color: "cyan" },
-      { beat: 28, col: 0, color: "cyan" },
-      { beat: 28, col: 10, color: "cyan" },
-      { beat: 34, col: 8, kind: "strand", color: "cyan", beads: 3 },
-      { beat: 40, col: 5, kind: "dart", color: "red" },
-      { beat: 45, col: 3, color: "cyan" },
-      { beat: 45, col: 6, color: "cyan" },
-    ],
-  },
-  {
-    id: "theTrapeze",
-    name: "THE TRAPEZE",
-    guide: {
-      scene: "theTrapeze",
-    },
-    entries: [],
-    boss: {
-      kind: "trapeze",
-      steps: [
-        { ask: "push", gongSide: 1, gongMilli: 10000, beats: 32 },
-        { ask: "call", gongSide: -1, gongMilli: 14000, beats: 40 },
-        { ask: "shoot", gongSide: 1, gongMilli: 16000, beats: 48 },
-        { ask: "lock", gongSide: -1, gongMilli: 18000, beats: 48 },
-      ],
-    },
-    bossType: "normal",
-  },
   {
     id: "reviewCountdownRecall",
     name: "ANCIENT GOVERNOR",

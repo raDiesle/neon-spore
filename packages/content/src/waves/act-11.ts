@@ -2,72 +2,17 @@ import { FILAMENT_SCRIPT } from "../filament-script.js";
 import type { Wave } from "../wave-types.js";
 
 /**
- * Waves 163 to 177 of the game, in the order they are played: THE VOLLEY's
- * review, the boss THE SCUTTLE, THE CRYSTAL's review, the boss THE ANTIPHON,
- * THE LID's review, the boss THE SPLICE, THE CLASP's review, the boss THE
- * CAIRN, THE MOULT's review, the boss THE WELL, THE BALLOON's review, the boss
- * THE REPRISE, THE CHOIR's review, the boss THE FILAMENT and THE FENCE's
- * review.
+ * Waves 167 to 180 of the game, in the order they are played: THE LID's review,
+ * the boss THE SPLICE, THE CLASP's review, the boss THE CAIRN, THE MOULT's
+ * review, the boss THE WELL, THE BALLOON's review, the boss THE REPRISE, THE
+ * CHOIR's review, the boss THE FILAMENT, THE FENCE's review, the boss THE
+ * SPOOL, THE VEER's review and the boss THE HASP.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act
  * after the tutorial arc again in play order. A save that fills it cuts a page
  * after it (`acts.ts`).
  */
 export const WAVES_ACT_11: Wave[] = [
-  {
-    id: "reviewVolleyRecall",
-    name: "SCUTTLE LEGEND",
-    entries: [
-      { beat: 0, col: 4, color: "red" },
-      { beat: 5, col: 5, kind: "shell", color: "cyan" },
-      { beat: 11, col: 6, color: "red" },
-      { beat: 17, col: 8, kind: "meteor", color: null, cross: 1, row: 4 },
-      { beat: 22, col: 4, color: "cyan" },
-      { beat: 22, col: 7, color: "cyan" },
-      { beat: 28, col: 9, kind: "crystal", color: "red" },
-      { beat: 34, col: 10, kind: "shell", color: "red" },
-      { beat: 39, col: 1, color: "cyan" },
-      { beat: 39, col: 9, color: "cyan" },
-      { beat: 45, col: 10, kind: "meteor", color: null, cross: -1, row: 6 },
-    ],
-  },
-  {
-    id: "theScuttle",
-    name: "THE SCUTTLE",
-    guide: {
-      scene: "theScuttle",
-    },
-    entries: [],
-    boss: { kind: "scuttle" },
-    bossType: "normal",
-  },
-  {
-    id: "reviewCrystalRecall",
-    name: "ANTIPHON RELIC",
-    entries: [
-      { beat: 0, col: 2, color: "cyan" },
-      { beat: 5, col: 1, kind: "seeder", color: "cyan" },
-      { beat: 11, col: 3, color: "cyan" },
-      { beat: 17, col: 9, kind: "lid", color: "red" },
-      { beat: 23, col: 3, color: "red" },
-      { beat: 23, col: 7, color: "red" },
-      { beat: 29, col: 6, kind: "dart", color: "red" },
-      { beat: 35, col: 1, kind: "seeder", color: "red" },
-      { beat: 40, col: 2, color: "cyan" },
-      { beat: 40, col: 8, color: "cyan" },
-      { beat: 45, col: 5, kind: "lid", color: "red" },
-    ],
-  },
-  {
-    id: "theAntiphon",
-    name: "THE ANTIPHON",
-    guide: {
-      scene: "theAntiphon",
-    },
-    entries: [],
-    boss: { kind: "antiphon" },
-    bossType: "normal",
-  },
   {
     id: "reviewLidRecall",
     name: "SPLICE HOMECOMING",
@@ -235,5 +180,44 @@ export const WAVES_ACT_11: Wave[] = [
       { beat: 46, col: 1, color: "cyan" },
       { beat: 46, col: 9, color: "cyan" },
     ],
+  },
+  {
+    id: "theSpool",
+    name: "THE SPOOL",
+    guide: {
+      scene: "theSpool",
+    },
+    entries: [],
+    boss: { kind: "spool" },
+    bossType: "normal",
+  },
+  {
+    id: "reviewVeerRecall",
+    name: "HASP SAGA",
+    entries: [
+      { beat: 0, col: 8, color: "red" },
+      { beat: 5, col: 7, kind: "dart", color: "cyan" },
+      { beat: 11, col: 0, color: "cyan" },
+      { beat: 11, col: 10, color: "cyan" },
+      { beat: 16, col: 2, kind: "meteor", color: null },
+      { beat: 22, col: 0, kind: "blister", color: null, row: 3, by: "both", gesture: "hold" },
+      { beat: 28, col: 0, color: "red" },
+      { beat: 28, col: 10, color: "red" },
+      { beat: 36, col: 3, kind: "dart", color: "red" },
+      { beat: 42, col: 1, kind: "meteor", color: null },
+      { beat: 42, col: 9, kind: "meteor", color: null },
+      { beat: 47, col: 3, color: "cyan" },
+      { beat: 47, col: 7, color: "cyan" },
+    ],
+  },
+  {
+    id: "theHasp",
+    name: "THE HASP",
+    guide: {
+      scene: "theHasp",
+    },
+    entries: [],
+    boss: { kind: "hasp" },
+    bossType: "normal",
   },
 ];

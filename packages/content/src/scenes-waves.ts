@@ -4,13 +4,10 @@ import { PINBALL } from "./scenes/pinball.js";
 import { SNAKE } from "./scenes/snake.js";
 import { THE_CAIRN } from "./scenes/the-cairn.js";
 import { THE_CLAW } from "./scenes/the-claw.js";
-import { THE_COIL } from "./scenes/the-coil.js";
 import { THE_FLEET } from "./scenes/the-fleet.js";
 import { THE_GAUGE } from "./scenes/the-gauge.js";
-import { THE_JAM } from "./scenes/the-jam.js";
 import { THE_MAZE } from "./scenes/the-maze.js";
 import { THE_MIRROR } from "./scenes/the-mirror.js";
-import { THE_MOULT } from "./scenes/the-moult.js";
 import { THE_PULSE } from "./scenes/the-pulse.js";
 import { THE_SPLICE } from "./scenes/the-splice.js";
 import { THE_WARDEN } from "./scenes/the-warden.js";
@@ -22,7 +19,7 @@ import { THE_WELL } from "./scenes/the-well.js";
  *
  * Cut out of `scenes.ts` on 26 September 2026, when ONE LAST CHANCE's film
  * took that file to its 250th line, along the seam `scenes-choreographed.ts`,
- * `scenes-faults.ts` and `scenes-owed.ts` cut before it: the list of ids is one
+ * the faults' table and `scenes-owed.ts` cut before it: the list of ids is one
  * file, and a table of films is another. A new film that belongs to none of
  * those three families is added here — its import, its id and its row;
  * `scenes.ts` spreads this table into `SCENES` and widens `SceneId` by the id.
@@ -36,14 +33,11 @@ export type WaveSceneId =
   | "pinball"
   | "theMaze"
   | "theWarden"
-  | "theCoil"
   | "theClaw"
-  | "theJam"
   | "thePulse"
   | "theCairn"
   | "theWell"
-  | "theSplice"
-  | "theMoult";
+  | "theSplice";
 
 export const SCENES_WAVES: Record<WaveSceneId, GuideScene> = {
   bulbQueen: BULB_QUEEN,
@@ -54,12 +48,9 @@ export const SCENES_WAVES: Record<WaveSceneId, GuideScene> = {
   pinball: PINBALL,
   theMaze: THE_MAZE,
   theWarden: THE_WARDEN,
-  theCoil: THE_COIL,
   theClaw: THE_CLAW,
-  theJam: THE_JAM,
   thePulse: THE_PULSE,
   theCairn: THE_CAIRN,
   theWell: THE_WELL,
   theSplice: THE_SPLICE,
-  theMoult: THE_MOULT,
 };

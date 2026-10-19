@@ -1,12 +1,10 @@
 import { GIMBAL_SCRIPT } from "../gimbal-script.js";
-import { GORGE_LEVELS } from "../gorge-levels.js";
 import type { Wave } from "../wave-types.js";
 
 /**
- * Waves 138 to 150 of the game, in the order they are played: THE VOLLEY's
- * block, the boss THE GORGE, THE HANDOVER's block, the boss THE GIMBAL, THE
- * CRAWLER's block, the boss THE UNDERTOW, THE FLIP's block and the boss THE
- * VANE.
+ * Waves 141 to 153 of the game, in the order they are played: THE HANDOVER's
+ * block, the boss THE GIMBAL, THE CRAWLER's block, the boss THE UNDERTOW, THE
+ * FLIP's block, the boss THE VANE, THE MINE's block and the boss THE MIMIC.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act
  * after the tutorial arc again in play order. A save that fills it cuts a page
@@ -14,56 +12,9 @@ import type { Wave } from "../wave-types.js";
  */
 export const WAVES_ACT_9: Wave[] = [
   {
-    id: "theVolley",
-    name: "THE VOLLEY",
-    hints: "theVolley",
-    entries: [
-      { beat: 0, col: 2, kind: "volley", color: "red" },
-      { beat: 26, col: 8, kind: "volley", color: "cyan" },
-    ],
-  },
-  {
-    id: "theVolleyRecall",
-    name: "VOLLEY LEGEND",
-    variant: true,
-    entries: [
-      { beat: 0, col: 9, color: "red" },
-      { beat: 5, col: 7, kind: "volley", color: "cyan" },
-      { beat: 11, col: 1, color: "cyan" },
-      { beat: 18, col: 10, kind: "fence", color: null },
-      { beat: 24, col: 3, color: "red" },
-      { beat: 29, col: 10, kind: "volley", color: "cyan" },
-      { beat: 37, col: 8, color: "cyan" },
-      { beat: 43, col: 2, kind: "blister", color: null, row: 3 },
-    ],
-  },
-  {
-    id: "theGorge",
-    name: "THE GORGE",
-    guide: {
-      scene: "theGorge",
-    },
-    entries: [
-      { beat: 20, col: 2, kind: "meteor", color: null },
-      { beat: 28, col: 8, kind: "meteor", color: null },
-      { beat: 34, col: 5, color: "red" },
-      { beat: 40, col: 0, color: "cyan" },
-      { beat: 46, col: 10, kind: "meteor", color: null },
-      { beat: 52, col: 5, color: "cyan" },
-      { beat: 60, col: 3, kind: "meteor", color: null },
-      { beat: 66, col: 7, color: "red" },
-      { beat: 74, col: 5, kind: "meteor", color: null },
-      { beat: 82, col: 2, color: "cyan" },
-    ],
-    boss: { kind: "gorge", levels: GORGE_LEVELS },
-    bossType: "normal",
-  },
-  {
     id: "theHandover",
     name: "THE HANDOVER",
-    guide: {
-      scene: "theHandover",
-    },
+    hints: "theHandover",
     entries: [
       { beat: 0, col: 5, color: "red" },
       { beat: 4, col: 8, kind: "meteor", color: null },
@@ -175,9 +126,7 @@ export const WAVES_ACT_9: Wave[] = [
   {
     id: "theFlip",
     name: "THE FLIP",
-    guide: {
-      scene: "theFlip",
-    },
+    hints: "theFlip",
     entries: [
       { beat: 0, col: 5, color: "red" },
       { beat: 4, col: 2, color: "cyan" },
@@ -222,5 +171,66 @@ export const WAVES_ACT_9: Wave[] = [
     boss: { kind: "vane" },
     bossType: "normal",
     controls: "standard5",
+  },
+  {
+    id: "theMine",
+    name: "THE MINE",
+    hints: "theMine",
+    entries: [
+      { beat: 0, col: 5, kind: "mine", color: "cyan", row: 6, sees: 2 },
+      { beat: 12, col: 2, kind: "mine", color: "red", row: 9, sees: 1 },
+      { beat: 24, col: 8, kind: "mine", color: "red", row: 3, sees: 2 },
+      { beat: 28, col: 3, kind: "mine", color: "cyan", row: 11, sees: 1 },
+      { beat: 32, col: 7, color: "cyan" },
+      { beat: 36, col: 0, color: "red" },
+    ],
+  },
+  {
+    id: "theMineRecall",
+    name: "MINE SAGA",
+    variant: true,
+    entries: [
+      { beat: 0, col: 6, color: "red" },
+      { beat: 6, col: 5, kind: "mine", color: "red", row: 3, sees: 2 },
+      { beat: 12, col: 0, color: "cyan" },
+      { beat: 19, col: 9, kind: "countdown", color: "red" },
+      { beat: 25, col: 1, color: "cyan" },
+      { beat: 31, col: 7, kind: "mine", color: "red", row: 3, sees: 2 },
+      { beat: 37, col: 5, color: "red" },
+      { beat: 42, col: 7, kind: "dart", color: "cyan" },
+      { beat: 47, col: 6, color: "red" },
+    ],
+  },
+  {
+    id: "theMimic",
+    name: "THE MIMIC",
+    guide: {
+      both: "One of you sees a picture of tiles. The other taps it into the frame. The siren top right says whose turn it is.",
+      p1: "1. First you see the picture: tell the other which tiles.\n2. Then tap the tiles the other tells you.\n3. Last, each of you sees one half and taps the other half.",
+      p2: "1. First tap the tiles the other tells you.\n2. Then you see the picture: tell the other which tiles.\n3. Last, each of you sees one half and taps the other half.",
+    },
+    entries: [],
+    boss: {
+      kind: "mimic",
+      steps: [
+        { ask: "sign", reader: 1, changes: false, size: 3, beats: 24 },
+        { ask: "sign", reader: 1, changes: false, size: 4, beats: 30 },
+        { ask: "sign", reader: 1, changes: true, size: 4, beats: 30 },
+        { ask: "roll", reader: 1, changes: false, size: 0, beats: 2 },
+        { ask: "sign", reader: 2, changes: false, size: 5, beats: 37 },
+        { ask: "sign", reader: 2, changes: true, size: 5, beats: 37 },
+        { ask: "sign", reader: 2, changes: false, size: 6, beats: 44 },
+        { ask: "roll", reader: 2, changes: false, size: 0, beats: 2 },
+        { ask: "sign", reader: 1, changes: false, size: 6, beats: 44 },
+        { ask: "sign", reader: 2, changes: false, size: 7, beats: 50 },
+        { ask: "roll", reader: 1, changes: false, size: 0, beats: 2 },
+        { ask: "split", reader: 1, changes: false, size: 3, beats: 29 },
+        { ask: "core", reader: 1, changes: false, size: 0, beats: 7 },
+        { ask: "split", reader: 1, changes: false, size: 4, beats: 37 },
+        { ask: "core", reader: 1, changes: false, size: 0, beats: 7 },
+      ],
+    },
+    bossType: "normal",
+    controls: "scene",
   },
 ];

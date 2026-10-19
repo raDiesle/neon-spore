@@ -5,10 +5,12 @@ import {
   CANNON,
   catchPod,
   FIRE,
+  GUARD,
   HELD,
   HUSK,
   INTAKE,
   POD,
+  SHIELD,
   tell,
 } from "./lines.js";
 
@@ -93,4 +95,17 @@ export const LEAK_HINTS: readonly HintLine[] = [
     fire: "TAP IT ONCE FOR EACH",
   }),
   tell(2, "HOLDING FIRES NOTHING HERE"),
+];
+
+/**
+ * THE MOULT: rock and pod by turns all the way down, answered as what it is
+ * when it lands — and only player 2 is shown what it turns into next.
+ */
+export const MOULT_HINTS: readonly HintLine[] = [
+  { seat: 1, text: "PARK IT · IT COMES TO YOU", anchor: CANNON },
+  { seat: 1, when: "cargo", text: "A POD AS IT LANDS: SUCK", anchor: INTAKE },
+  { seat: 1, when: "shell", text: "A ROCK AS IT LANDS: SHIELD", anchor: GUARD },
+  { seat: 2, when: "shell", text: "A POD NEXT · SAY WHEN", anchor: BODY, acts: false },
+  { seat: 2, when: "cargo", text: "A ROCK NEXT · SAY WHEN", anchor: BODY, acts: false },
+  { seat: 2, when: ["shell", "shieldOff"], text: "SHIELD UNDER IT, IN CASE", anchor: SHIELD },
 ];

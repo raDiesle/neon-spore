@@ -45042,3 +45042,17 @@ Bottleneck: the test started its waves without their pods, so no pod line
 could ever be shown until it started them as the game does.
 
 *Measured: 36 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-19 — The moult and fault waves teach on their own fields
+
+- reading: 0 min. What each fault changes, from the films being retired.
+- writing: 10 min. Nine tables; the cargo, shell, fault, swapped and plain
+  states; a fault's lesson counted from the fault; THE HANDOVER seated by
+  panel; the countdown test moved onto the live field.
+- looking: 5 min. THE HANDOVER on both phones, panels traded.
+- friction: 0 min.
+- landing: 5 min. Three `check:fast` runs: the act files recut once the
+  films' lines left them, and the rehearsal's countdown test had no film.
+
+Bottleneck: THE HANDOVER's fire-button plate went under its ring, because
+the countdown filled the room above it, and fell off the foot of the screen.

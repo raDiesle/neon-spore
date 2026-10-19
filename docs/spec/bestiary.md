@@ -732,7 +732,8 @@ who has played one has learnt nothing about the others:
   **The wave's guide is a rehearsal, because the fault is a change of picture.**
   Three lines of prose can only assert that the band in front of you will become
   the other one; the film lets it happen while the pair watches
-  (`packages/content/src/scenes/the-handover.ts`). Its four pages are the pilot
+  (the film, until 19 October 2026; the wave teaches on its field now, in
+  `packages/content/src/hints/faults.ts`). Its four pages were the pilot
   carrying the cannon, the navigator firing the colour that answers it, and then
   the same two phones after the trade, each with a thumb on a button it has never
   pressed. What makes that drawable is one line in `render/guide-scene.ts`: a

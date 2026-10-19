@@ -962,18 +962,13 @@ by hand never moves.
 | `packages/content/src/controls-fleet.ts` | **THE FLEET's five**: the salvo under the pilot's thumb |
 | `packages/content/src/controls-pulse.ts` | **THE PULSE's eight**: four lanes, a slick, a bulb, a meteor and a pod |
 | `packages/content/src/pinball-rounds.ts` | PINBALL's boards, one per round, **drawn rather than listed** |
-| `packages/content/src/waves/act-5.ts` | Waves 88 to 96 of the game, in the order they are played: THE LEECH's block, the boss THE LAMPREY, HEAVY ROCKS's block, the boss THE HIVE, THE VEER's block and the boss SNAKE |
+| `packages/content/src/waves/act-5.ts` | Waves 88 to 98 of the game, in the order they are played: THE LEECH's block, the boss THE LAMPREY, HEAVY ROCKS's block, the boss THE HIVE, THE VEER's block, the boss SNAKE and THE CHOKE's block |
 | `packages/content/src/lid-shape.ts` | you are tuning THE LID's outline — two arcs meeting at a corner, the fourth contour family here |
 | `packages/content/src/scenes.ts` | you are authoring or retiming the rehearsal a guide shows — arrivals, tempo and the acts a ghost thumb plays |
 | `packages/content/src/scene-script.ts` | A rehearsal turned into the two things the runner takes: a command track and a whole `SceneScript` |
 | `packages/content/src/scene-types.ts` | The shapes a rehearsal is written in |
 | `packages/content/src/scene-turn.ts` | **A hand that turns rather than carries**: THE CLAW's crank on the panel |
-| `packages/content/src/scenes/the-handover.ts` | THE HANDOVER's rehearsal: the panels trade while the pair is watching |
 | `packages/content/src/scenes/the-hive.ts` | **THE HIVE's rehearsal — the colour is his, the warning is hers** |
-| `packages/content/src/scenes/the-dark.ts` | THE DARK's rehearsal: a field put out, a thumb lighting it, and the body nobody lit |
-| `packages/content/src/scenes/the-choke.ts` | THE CHOKE's rehearsal: nobody steers, and the shot is a beat rather than a place |
-| `packages/content/src/scenes/the-leech.ts` | THE LEECH's rehearsal: the cannon is held, and standing still is the mistake |
-| `packages/content/src/scenes/the-codex.ts` | THE CODEX's rehearsal: the button that works and lies, and the word that says which |
 | `packages/content/src/scenes/the-gimbal.ts` | THE GIMBAL's rehearsal: two rings, one each, talked onto two marks and let go of together |
 | `packages/content/src/scenes/the-hasp.ts` | THE HASP's rehearsal: a wheel that turns only while the other player holds the latch |
 | `packages/content/src/scenes/the-haul.ts` | THE HAUL's rehearsal: THE SCOUT's round with a hold that fills, and the two hands a full hold asks for |
@@ -988,7 +983,6 @@ by hand never moves.
 | `packages/content/src/control-command.ts` | What pressing a control *says*, for every control on every panel — one copy, here |
 | `packages/content/src/scenes/snake.ts` | SNAKE's rehearsal: the ship is the body, and the one who can see it cannot steer it |
 | `packages/content/src/scenes/the-fleet.ts` | THE FLEET's rehearsal: the only one who can see the ships is the one who cannot move the sights |
-| `packages/content/src/scenes/the-flip.ts` | THE FLIP's rehearsal: a screen that turns, shown by turning and then by being believed |
 | `packages/content/src/scenes/the-flue.ts` | THE FLUE's rehearsal: one level called and shot, then the seats swapped and the next called the other way round |
 | `packages/content/src/intro.ts` | WHAT THIS GAME IS, IN ONE SCENE |
 | `packages/content/src/index-shapes.ts` | Every shape on `@neon-spore/content`'s surface — contours, outlines and stacks — split off the barrel by subject |
@@ -1005,20 +999,19 @@ by hand never moves.
 | `packages/content/src/scenes/the-lead.ts` | THE LEAD's rehearsal: a shot at where it is, four at where it will be, and the beam standing in its way |
 | `packages/content/src/scenes/the-ledger.ts` | THE LEDGER's rehearsal: two hits landed, two bills paid |
 | `packages/content/src/scenes/the-maze.ts` | THE MAZE's rehearsal: he turns the wheel and she fires, and neither can do the other half |
-| `packages/content/src/scenes/the-moult.ts` | THE MOULT's rehearsal: the answer you agreed on expires while it falls |
 | `packages/content/src/scenes/the-warden.ts` | THE WARDEN's rehearsal: he holds the door open and she has to be quick enough to shoot through it |
 | `packages/content/src/scenes/the-well.ts` | THE WELL's rehearsal: the same field, drawn two ways, and the seam |
 | `packages/content/src/creatures-bare.ts` | The three bodies with **nothing laid over them at all**: a slick or a bulb drawn small, drawn large |
 | `packages/content/src/mechanics-rocks.ts` | The six rocks' rows, lifted out of `mechanics-table.ts` when THE VOLLEY took that file past its 250-line… |
 | `packages/content/src/scenes/the-cairn.ts` | THE CAIRN's rehearsal: the rock you did not pull is the one that lands |
 | `packages/content/src/control-sets-table.ts` | Every panel in the game, as a table |
-| `packages/content/src/waves/act-6.ts` | Waves 97 to 110 of the game, in the order they are played: THE CHOKE's block, the boss THE WARDEN, THE FENCE's block, the boss THE STARE, THE CHOIR's block, the boss THE VISE, THE CLAW's block and the boss THE THROAT |
+| `packages/content/src/waves/act-6.ts` | Waves 99 to 113 of the game, in the order they are played: the boss THE WARDEN, THE FENCE's block, the boss THE STARE, THE CHOIR's block, the boss THE VISE, THE CLAW's block, the boss THE THROAT, THE BALLOON's block and the boss THE SINEW |
 | `packages/content/src/waves/act-1b.ts` | The last of act one, cut off `act-1.ts` when that file reached the 250-line ceiling on `CATCH AND AIM` |
-| `packages/content/src/waves/act-10.ts` | Waves 151 to 162 of the game, in the order they are played: THE MINE's block, the boss THE MIMIC, THE CAROM's block, the boss THE TASTER, THE CAROM's review, the boss THE LEDGER, THE MINE's review, the boss THE SURGE, THE CRAWLER's review and the boss THE LEAD |
-| `packages/content/src/waves/act-11.ts` | Waves 163 to 177 of the game, in the order they are played: THE VOLLEY's review, the boss THE SCUTTLE, THE CRYSTAL's review, the boss THE ANTIPHON, THE LID's review, the boss THE SPLICE, THE CLASP's review, the boss THE CAIRN, THE MOULT's review, the boss THE WELL, THE BALLOON's review, the boss THE REPRISE, THE CHOIR's review, the boss THE FILAMENT and THE FENCE's review |
-| `packages/content/src/waves/act-12.ts` | Waves 178 to 189 of the game, in the order they are played: the boss THE SPOOL, THE VEER's review, the boss THE HASP, reviewMeteorMedium's review, the boss THE FLUE, reviewBlisterBoth's review, the boss THE RATCHET, THE BEATBOX's review, the boss THE NETTLE, reviewRockCross's review, the boss THE MANTLE and THE SEEDER's review |
-| `packages/content/src/waves/act-13.ts` | Waves 190 to 200 of the game, in the order they are played: the boss THE KEEL, THE MORSEL's review, the boss THE VALVE, reviewPod's review, the boss THE SEAM, reviewTorch's review, the boss THE SLING, reviewMeteor's review, the boss THE CAPSTAN, THE WISP's review and the boss THE GALL |
-| `packages/content/src/waves/act-14.ts` | Waves 201 to 208 of the game, in the order they are played: THE GHOST's review, the boss THE TRAPEZE, reviewCountdown's review, the boss THE GOVERNOR, THE DART's review, the boss THE LATCH, THE RIND's review and the boss THE HYDRA |
+| `packages/content/src/waves/act-10.ts` | Waves 154 to 166 of the game, in the order they are played: THE CAROM's block, the boss THE TASTER, THE CAROM's review, the boss THE LEDGER, THE MINE's review, the boss THE SURGE, THE CRAWLER's review, the boss THE LEAD, THE VOLLEY's review, the boss THE SCUTTLE, THE CRYSTAL's review and the boss THE ANTIPHON |
+| `packages/content/src/waves/act-11.ts` | Waves 167 to 180 of the game, in the order they are played: THE LID's review, the boss THE SPLICE, THE CLASP's review, the boss THE CAIRN, THE MOULT's review, the boss THE WELL, THE BALLOON's review, the boss THE REPRISE, THE CHOIR's review, the boss THE FILAMENT, THE FENCE's review, the boss THE SPOOL, THE VEER's review and the boss THE HASP |
+| `packages/content/src/waves/act-12.ts` | Waves 181 to 192 of the game, in the order they are played: reviewMeteorMedium's review, the boss THE FLUE, reviewBlisterBoth's review, the boss THE RATCHET, THE BEATBOX's review, the boss THE NETTLE, reviewRockCross's review, the boss THE MANTLE, THE SEEDER's review, the boss THE KEEL, THE MORSEL's review and the boss THE VALVE |
+| `packages/content/src/waves/act-13.ts` | Waves 193 to 202 of the game, in the order they are played: reviewPod's review, the boss THE SEAM, reviewTorch's review, the boss THE SLING, reviewMeteor's review, the boss THE CAPSTAN, THE WISP's review, the boss THE GALL, THE GHOST's review and the boss THE TRAPEZE |
+| `packages/content/src/waves/act-14.ts` | Waves 203 to 208 of the game, in the order they are played: reviewCountdown's review, the boss THE GOVERNOR, THE DART's review, the boss THE LATCH, THE RIND's review and the boss THE HYDRA |
 | `packages/content/src/waves/act-1-p2.ts` | Act one's second page — the arc's composed regular waves pushed it past the ceiling, and the save cut it (`acts.ts`) |
 | `packages/content/src/waves/act-1-p4.ts` | Cut from `act-1-p2.ts` by the director's save when that file passed the 250-line ceiling; it plays straight… |
 | `packages/content/src/waves/act-1-p5.ts` | Cut from `act-1-p4.ts` by the director's save when that file passed the 250-line ceiling; it plays straight… |
@@ -1068,7 +1061,6 @@ by hand never moves.
 | `packages/content/src/control-sets-groups.ts` | **The panel half of the coverage rule**, and nothing else |
 | `packages/content/src/control-sender.ts` | **Which control sent this command** — the table next door read backwards |
 | `packages/content/src/control-seats.ts` | **The panel as it is seated on this tick**: the wave's own set, or that set with the seats exchanged |
-| `packages/content/src/scenes/the-coil.ts` | THE COIL's rehearsal: the shield is stuck open, and the plate is what opens the dome |
 | `packages/content/src/keys-desk.ts` | **The desk keyboard is a panel too**, and this is where a key finds out what it means |
 | `packages/content/src/control-aim.ts` | Which way a control points, and which rig of keys answers it |
 | `packages/content/src/scenes/the-splice.ts` | THE SPLICE's rehearsal: the number is at the other end of the straw, and only one of you can see it |
@@ -1077,12 +1069,10 @@ by hand never moves.
 | `packages/content/src/scenes/the-surge.ts` | THE SURGE's rehearsal: three holds on one bulb |
 | `packages/content/src/scenes/the-scuttle.ts` | THE SCUTTLE's rehearsal: one part let go, nineteen struck where they hang |
 | `packages/content/src/scenes/the-scout.ts` | THE SCOUT's rehearsal: one of them flies blind and the other reads the map |
-| `packages/content/src/scenes/the-jam.ts` | THE JAM's rehearsal: the trigger is gone and the aim is all that is left |
 | `packages/content/src/scenes/the-baton.ts` | THE BATON's rehearsal: a launch nobody answers, then three handovers |
 | `packages/content/src/scenes/the-undertow.ts` | THE UNDERTOW's rehearsal: the floor bows, a lobe stands, and its colour says who answers it |
 | `packages/content/src/scenes/the-antiphon.ts` | THE ANTIPHON's rehearsal: six organs described across the two seats, the seats swapping every level |
 | `packages/content/src/scenes-choreographed.ts` | The rehearsals of the bosses designed on `docs/spec/bosses-choreographed.md` |
-| `packages/content/src/scenes-faults.ts` | The rehearsals of the malfunctions — the waves whose lesson is a fault placed on the beat map rather than a… |
 | `packages/content/src/scenes-owed.ts` | The rehearsals that were owed: the films `docs/spec/briefings.md` §3.2 listed as *a film nobody has written* |
 | `packages/content/src/scenes-waves.ts` | The films of the waves and bosses that are not a family of their own — one per `scenes/` file |
 | `packages/content/src/pulse-stages.ts` | THE PULSE's stages — the charts, and so far there is one of them |
@@ -1109,9 +1099,9 @@ by hand never moves.
 | `packages/content/src/silhouettes-blister.ts` | **THE BLISTER is ROOTED CLOVER**: two drafts off the shape sheet, combined and named |
 | `packages/content/src/silhouettes-mine.ts` | **THE MINE is REACHER**, off the shape sheet: *four soft arms |
 | `packages/content/src/silhouettes-morsel.ts` | **THE MORSEL is DUMPLING: BULB · PEAR and BULB · SPIKE** |
-| `packages/content/src/waves/act-8.ts` | Waves 125 to 137 of the game, in the order they are played: the boss THE SCOUT, THE CLASP's block, the boss THE BATON, THE LID's block, the boss THE OCULUS, THE CODEX's block, the boss THE HAUL, THE CRYSTAL's block and the boss THE PULSE |
-| `packages/content/src/waves/act-7.ts` | Waves 111 to 124 of the game, in the order they are played: THE BALLOON's block, the boss THE SINEW, THE MOULT's block, the boss THE CHRYSALIS, THE DARK's block, the boss THE CURTAIN, THE COIL's block, the boss PINBALL and THE JAM's block |
-| `packages/content/src/waves/act-9.ts` | Waves 138 to 150 of the game, in the order they are played: THE VOLLEY's block, the boss THE GORGE, THE HANDOVER's block, the boss THE GIMBAL, THE CRAWLER's block, the boss THE UNDERTOW, THE FLIP's block and the boss THE VANE |
+| `packages/content/src/waves/act-8.ts` | Waves 129 to 140 of the game, in the order they are played: THE LID's block, the boss THE OCULUS, THE CODEX's block, the boss THE HAUL, THE CRYSTAL's block, the boss THE PULSE, THE VOLLEY's block and the boss THE GORGE |
+| `packages/content/src/waves/act-7.ts` | Waves 114 to 128 of the game, in the order they are played: THE MOULT's block, the boss THE CHRYSALIS, THE DARK's block, the boss THE CURTAIN, THE COIL's block, the boss PINBALL, THE JAM's block, the boss THE SCOUT, THE CLASP's block and the boss THE BATON |
+| `packages/content/src/waves/act-9.ts` | Waves 141 to 153 of the game, in the order they are played: THE HANDOVER's block, the boss THE GIMBAL, THE CRAWLER's block, the boss THE UNDERTOW, THE FLIP's block, the boss THE VANE, THE MINE's block and the boss THE MIMIC |
 | `packages/content/src/waves/acts.ts` | **The act files, in the order of the game** — the one list of them, written by the director's save when it cuts a full act |
 | `packages/content/src/balloon-shape.ts` | THE BALLOON's contour: a skin with a knot under it, and the fifth family of contour in this package |
 | `packages/content/src/creatures-handed.ts` | **The bodies answered by hands alone**, and today there is one of them |
@@ -1144,6 +1134,7 @@ by hand never moves.
 | `packages/content/src/filament-look.ts` | **THE FILAMENT as the inside of an alien** — the owner, 25 September 2026 |
 | `packages/content/src/nettle-script.ts` | THE NETTLE's script: ten steps over eight poses, and what the pair does to each |
 | `packages/content/src/hints/first-step.ts` | FIRST STEP: a column and a colour, one per person — the lesson its film taught, on the real enemy |
+| `packages/content/src/hints/faults.ts` | **The fault waves' hints** — THE LEECH to THE FLIP: a control taken, turned or traded under the pair |
 | `packages/content/src/hints/lines.ts` | The subjects and the lines every family of hints is written in |
 | `packages/content/src/hints/standard-2-tricks.ts` | **The two-button waves' hints, second half** — THE THROB to THE WISP, each a body with one trick |
 | `packages/content/src/hints/standard-2.ts` | **The two-button waves' hints, first half** — CYAN to THE MAGNET, played on STANDARD 2 (cannon, red, cyan) |

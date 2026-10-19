@@ -7,7 +7,7 @@ import { THE_REPRISE } from "./scenes/the-reprise.js";
  * its wave off that list, one after another on 18 September 2026.
  *
  * Cut out of `scenes.ts` on the day THE HUSK's took that list past its 250th
- * line, along the seam `scenes-choreographed.ts` and `scenes-faults.ts` cut
+ * line, along the seam `scenes-choreographed.ts` and the faults' table cut
  * before it: the list of ids is one file, and a family of films with a page
  * of their own is another. This family's page is that section — the waves
  * whose picture landed before their film did, and whose film each found a
