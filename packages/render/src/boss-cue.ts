@@ -180,6 +180,10 @@ export function bossCues(
     // And THE BROOD's, none: the buds say it (`boss-cue-read-zy.ts`).
     case "brood":
       return broodCues();
+    // And THE MOTH's, none, THE BROOD's reason: its red eyespots and belly
+    // glow where the shot goes, and the cannon's column says when (`moth-draw.ts`).
+    case "moth":
+      return [];
     // And THE GEODE's, one word to the navigator on the crack the cannon is under (`boss-cue-read-zz.ts`).
     case "geode":
       return geodeCues(l, world, boss, beatPhase);

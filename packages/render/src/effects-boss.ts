@@ -87,6 +87,7 @@ export class BossTransients extends BossRoster {
     this.chrysalis.ingest(events, l, cfg, beatSeconds, burst);
     this.hydra.ingest(events, l, cfg, beatSeconds, burst);
     this.brood.ingest(events, l, cfg, burst);
+    this.moth.ingest(events, l, burst);
     this.matron.ingest(events, l, cfg, burst);
     this.geode.ingest(events, l, cfg, burst);
     this.swindle.ingest(events, l, cfg, burst);
@@ -145,6 +146,7 @@ export class BossTransients extends BossRoster {
     this.chrysalis.update(dt);
     this.hydra.update(dt);
     this.brood.update(dt);
+    this.moth.update(dt);
     this.matron.update(dt);
     this.geode.update(dt);
     this.swindle.update(dt);
@@ -221,6 +223,7 @@ export class BossTransients extends BossRoster {
     this.chrysalis.clear();
     this.hydra.clear();
     this.brood.clear();
+    this.moth.clear();
     this.matron.clear();
     this.geode.clear();
     this.swindle.clear();

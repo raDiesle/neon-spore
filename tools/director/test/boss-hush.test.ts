@@ -75,6 +75,10 @@ import { DRAWN } from "./boss-hush-drawn.js";
  * column and only grows down out of the belly as it ripens, a third of a tile
  * over eight beats and more (`render/brood-bud.ts`).
  *
+ * THE MOTH has none for THE BROOD's reason, and asks nothing written at all:
+ * the spots it asks for are its own eyespots, glowing red on its wings over
+ * their columns, carried a fifth of a tile by the beat (`render/moth-draw.ts`).
+ *
  * THE GEODE holds its row: its one mark is the navigator's `HOLD` on the
  * crack the cannon is under, and the stone it stands on sinks a tile over a
  * window of twenty beats and more (`render/geode-place.ts`).

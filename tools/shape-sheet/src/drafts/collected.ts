@@ -98,10 +98,11 @@ export const COLLECTED_DRAFTS: CatalogueEntry[] = [
     // `free` means and how THE CODEX's card left the same list. Taken 26
     // September 2026 by THE HALTER's plating, and free again on 8 October
     // 2026 when THE HALTER was taken out of the game.
-    status: "free",
+    // Taken 19 October 2026 by THE MOTH's belly.
+    status: "taken",
     slot: "boss",
     owner:
-      "nothing — THE HALTER's plating until 8 October 2026, when the owner took THE HALTER out: the slab cut along one spinal seam into three segments, bent over a hunched spine. Before that, the case the whole shape has to survive: a demand in the outermost column of seven",
+      "THE MOTH, taken 19 October 2026, combined with THE CASE: the slab stood on end and tapered into the belly under its thorax, one plate for every belly hit still owed, knocked off a hit at a time and lit red from within while it sinks over the cannon (`render/moth-shape.ts`). Before that, nothing — THE HALTER's plating until 8 October 2026, when the owner took THE HALTER out: the slab cut along one spinal seam into three segments, bent over a hunched spine. Before that, the case the whole shape has to survive: a demand in the outermost column of seven",
   },
   {
     subject: pile("THE CAIRN", "seven rocks in one outline, seams left to count", CAIRN),

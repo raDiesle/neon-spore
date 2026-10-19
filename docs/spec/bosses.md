@@ -12964,8 +12964,8 @@ could be a part we mix in, but is not required.* A **field boss with a
 script**, the second kind in `.claude/skills/new-boss`: the ordinary field
 and STANDARD 1 — player 1 carries the cannon, player 2 has red, nothing
 else. It closes FIRST STEP's block, after RED TANGO, the first boss of the
-game. **The simulation landed on 19 October 2026**; its look is the next
-lane.
+game. **The simulation landed on 19 October 2026** (`305ccae41`), and its
+look the same day.
 
 **The rule, in one sentence.** It comes to your light — shoot what glows red.
 
@@ -13049,10 +13049,47 @@ hops away and its belly is shut until it sinks; the last belly hit beats it
 and it goes; the cannon's own bolt tears a spot; the same play hashes the
 same.
 
-**What is not built.** Its look — every event is silent in render/ until the
-look lane draws it (`effects-*-silent-boss-f.ts`), and its film: the guide
-is prose (`briefings.md` §3.2). **Never watched at tempo** — whether four
-beats of notice is enough time to fire is the owner's eye.
+**The look** (`render/moth-draw.ts`, `moth-place.ts`, `moth-shape.ts`,
+`moth-body.ts`, `moth-fx.ts`, `moth-blow.ts`). A great moth five columns
+from wing tip to wing tip, **THE CASE and THE TITHE · EDGE** combined
+(`tools/shape-sheet/src/drafts/`): each of its four wings is THE CASE's
+half-shell swung out from the body, scalloped along its trailing edge, and
+its belly is THE TITHE's plated slab stood on end. Seen from below, as the
+pair sees it from the hull, the hind wings over the fore.
+- **Health is the outline.** A wing loses a scallop from the tip in for
+  every spot shot off it and stays torn, so by the belly step it flies on
+  tatters; the belly loses a plate a hit.
+- **A pose per state, blended.** Coming in, it drops a tile fading in, its
+  wings a blur; flying, they beat on a steady clock and the body bobs;
+  sinking, they spread wide and slow, the body tips back to show its belly
+  and **six legs reach down for the cannon**, claws opening — the landing
+  coming, read without a count; beaten, the wings droop, it greys and falls
+  away fading.
+- **The perspective changes.** Every rest folds its wings up over its back,
+  edge on, and opens them on its other face: dusk-violet with pale veins on
+  one step, moon-pale green on the next. A flit banks it into the turn.
+- **What it asks for glows red from within, and nothing else does**, the
+  owner's rule of 2 October 2026: a lit spot is a dark ring round a red
+  iris beating on `heartLight`, a black pupil and the light caught in it,
+  hung on its own column on the row a bolt meets it; a spot waiting its
+  turn is the same eye shut dark; on the belly step the plates light only
+  while it sinks over the cannon.
+- **No cue, THE BROOD's reason** (16 October 2026, *self explaining*): the
+  spots say where and the cannon's column says when, so neither seat is
+  told a word (`boss-cue.ts`).
+- **Receipts** (`moth-fx.ts`): a torn spot throws its scrap of wing,
+  fluttering down; a belly hit knocks a plate off, spinning; a dust shakes
+  the wing tip and the slick drops out of a puff of scales; the hide's
+  grey scuff; the blow as it is beaten.
+- **Its own blow** (`moth-blow.ts`): it lands, a cloud of its scales comes
+  down the column with it, and its six claws rake the skin.
+
+`render/test/moth-frame.test.ts` proves the picture on all three screens.
+
+**What is not built.** Its film: the guide is prose (`briefings.md` §3.2).
+**Never watched at tempo** — whether four beats of notice is enough time to
+fire, and whether a spot carried a fifth of a tile by the beat still reads
+as over its column, is the owner's eye.
 
 ## 11.9 THE TELL — rock, paper, scissors, and half the tell on each screen
 

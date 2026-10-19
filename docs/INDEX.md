@@ -2725,6 +2725,12 @@ by hand never moves.
 | `packages/render/src/moult-shape.ts` | **THE MOULT's one contour**: the rock's facets and the pod's blob, blended vertex by vertex |
 | `packages/render/src/moult.ts` | THE MOULT, drawn: the form it is wearing **now** on both screens |
 | `packages/render/src/motion-life.ts` | **The bosses' `life` level** (`docs/spec/living-bosses.md` §1, "One number turns it down") |
+| `packages/render/src/moth-blow.ts` | **THE MOTH's own blow at the hull** (`boss-strike-look.ts`): it has sunk all the way onto the cannon |
+| `packages/render/src/moth-body.ts` | **THE MOTH's body**, between its wings (`moth-draw.ts`): six legs, the belly of plates, a furred thorax |
+| `packages/render/src/moth-draw.ts` | THE MOTH, drawn: a great moth hung over the field, five columns from wing tip to wing tip |
+| `packages/render/src/moth-fx.ts` | What THE MOTH leaves behind a frame, read above the loop as THE BROOD's are (`brood-fx.ts`) |
+| `packages/render/src/moth-place.ts` | **Where THE MOTH is drawn, and in what pose**: read off the boss and the beat every frame |
+| `packages/render/src/moth-shape.ts` | **THE MOTH's outlines**: four wings and a belly of plates, in pixels, off the pose (`moth-place.ts`) |
 | `packages/render/src/morsel.ts` | THE MORSEL, drawn: whole, it is the ordinary living body in its own colour; **limp, it is a cargo** |
 | `packages/render/src/balloon-alive.ts` | **What makes THE BALLOON alien**: the film that travels over its skin |
 | `packages/render/src/balloon-burst.ts` | **THE BALLOON popping**: the skin the pair stretched, torn into shreds that fly outward and fade in the air |

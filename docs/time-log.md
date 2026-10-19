@@ -44662,3 +44662,19 @@ Bottleneck: the render suite's budget rows, which a lamp on every frame moved
 in six files at once.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-19 — THE MOTH, the look: a great moth with red eyespots and a belly of plates
+
+- reading: 5 min. THE BROOD's look to copy, `heartbeat.ts` and
+  `part-light.ts` for the red within, THE CASE and THE TITHE drafts.
+- writing: 15 min. Six render files, the frame test, the fx wiring, the
+  blow, §11.69's look and the ledger row.
+- looking: 5 min. Six frames — flying, rest, torn, belly, spent, moon face —
+  and the moon face's aura turned down.
+- friction: 5 min. Rest frames posed at the wave's first beat, already over,
+  and a frame test that set a cursor without its spots.
+- landing: 5 min. `check:fast` three times: an unused parameter, then two
+  jitters re-derived where `sinHash` must be called.
+
+Bottleneck: the COPIES table caught the jitter only at the full gate, three
+minutes in, after the drawing was done.

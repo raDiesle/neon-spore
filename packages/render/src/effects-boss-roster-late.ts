@@ -12,6 +12,7 @@ import { LampreyFx } from "./lamprey-fx.js";
 import { LatchFx } from "./latch-fx.js";
 import { MatronFx } from "./matron-fx.js";
 import { MimicFx } from "./mimic-fx.js";
+import { MothFx } from "./moth-fx.js";
 import { PlumbFx } from "./plumb-fx.js";
 import { SeamFx } from "./seam-fx.js";
 import { SlingFx } from "./sling-fx.js";
@@ -97,6 +98,9 @@ export class LateRoster extends RoundMarks {
   /** THE BROOD's splash off a bud popped, a dropped bud's stalk whipping
    * back up, the hide's grit and the blow it takes (`brood-fx.ts`). */
   readonly brood = new BroodFx();
+  /** THE MOTH's scraps of wing and plates knocked off, its flits and the
+   * blow it takes (`moth-fx.ts`). */
+  readonly moth = new MothFx();
   /** THE MATRON's lobe springing back up as its pod is shot loose, her lean
    * toward a throw and the blow she takes (`matron-fx.ts`). */
   readonly matron = new MatronFx();

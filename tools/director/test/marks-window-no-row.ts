@@ -56,7 +56,8 @@ export const NO_ROW: Partial<Record<BossKind, NoRowWhy>> = {
   // navigator's `HOLD` on the crack the cannon is under (`boss-cue-read-zz.ts`).
   geode: "no-marks-file",
   swindle: "no-marks-file",
-  // Its simulation landed first (19 October 2026): it asks nothing of a
-  // thumb, only the cannon's column and red, and its look lane says what cue.
+  // It asks nothing of a thumb and writes no word: its asks are its own red
+  // eyespots and belly, glowing over the columns a bolt meets them in
+  // (`render/moth-draw.ts`).
   moth: "no-marks-file",
 };

@@ -12,6 +12,7 @@ import type { Layout } from "./layout.js";
 import { ledgerBlow } from "./ledger-blow.js";
 import { mantleBlow } from "./mantle-blow.js";
 import { mimicBlow } from "./mimic-blow.js";
+import { mothBlow } from "./moth-blow.js";
 import { oculusBlow } from "./oculus-blow.js";
 import { PALETTE } from "./palette.js";
 import { plumbBlow } from "./plumb-blow.js";
@@ -119,6 +120,9 @@ const LOOK: Partial<Record<BossKind, StrikeLook>> = {
   // to the column and is drawn back, by `hydra-receipts.ts` off its
   // `hydraStrike`.
   hydra: () => {},
+  // A moth left sinking over the cannon: it lands, a cloud of its scales
+  // comes down with it, and its six claws rake the skin.
+  moth: mothBlow,
   // THE GEODE's blow is the stone itself: run out, it falls the rest of the
   // way and lands on the hull, drawn by `geode-draw.ts` in its `struck` phase.
   geode: () => {},

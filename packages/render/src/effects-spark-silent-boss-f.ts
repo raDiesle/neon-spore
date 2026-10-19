@@ -170,8 +170,10 @@ export const SILENT_BOSS_F = [
   "swindleCleared",
   "swindleSpent",
   "swindleOut",
-  // THE MOTH's twelve are silent until its look lane draws them; its slick
-  // is the field's own body, drawn as any other.
+  // THE MOTH's twelve are read above the loop by `moth-fx.ts`
+  // (`Effects.boss.moth`), THE BROOD's way: a torn wing's scrap, a belly
+  // plate knocked off, a flit swept over, and the blow. Its slick is the
+  // field's own body, drawn as any other.
   "mothEnter",
   "mothStep",
   "mothFlit",

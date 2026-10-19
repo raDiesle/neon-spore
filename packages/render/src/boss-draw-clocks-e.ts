@@ -13,6 +13,7 @@ import { drawLatch } from "./latch-draw.js";
 import type { Layout } from "./layout.js";
 import { drawMatron } from "./matron-draw.js";
 import { drawMimic } from "./mimic-draw.js";
+import { drawMoth } from "./moth-draw.js";
 import type { ViewState } from "./renderer.js";
 import { drawSwindle } from "./swindle-draw.js";
 
@@ -46,6 +47,7 @@ export const LATEST_PAIR_KINDS = [
   "matron",
   "geode",
   "swindle",
+  "moth",
 ] as const;
 
 export type LatestPairBoss = Extract<Installed, { kind: (typeof LATEST_PAIR_KINDS)[number] }>;
@@ -177,6 +179,14 @@ export function drawLatestPairBoss(
   // `swindle-fx.ts`.
   if (boss.kind === "swindle") {
     drawSwindle(ctx, l, world, boss, beat, beatPhase, time, effects.boss.swindle);
+    return;
+  }
+
+  // THE MOTH: a great moth over the field drawn to the cannon's light, red
+  // eyespots on its wings and a belly of plates (`moth-draw.ts`); its
+  // receipts are `moth-fx.ts`.
+  if (boss.kind === "moth") {
+    drawMoth(ctx, l, world, boss, beat, beatPhase, time, effects.boss.moth);
     return;
   }
 
