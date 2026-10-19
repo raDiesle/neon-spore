@@ -44973,3 +44973,5 @@ Bottleneck: the eleven places a new fault kind is a name, found one red test at 
 - landing: 10 min. Two `check:fast` runs, a test that drew on bun's default timeout.
 
 Bottleneck: telling apart, from frames, what a candidate drew and what the game under it drew.
+
+*Measured: 21 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*

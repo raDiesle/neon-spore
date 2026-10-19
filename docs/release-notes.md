@@ -9,6 +9,14 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-19 · 079657f9d — THE SWAP counts each change down on the band's lip, and three looks for it are offered in VERSUS: MOLT, OOZE and THROB
+
+The game draws THE HANDOVER's plate for THE SWAP — PANELS SWAP IN 5 … 1 on the band's lip — through a new seam, `SWAP_LOOK.announce`, which is also handed the band to draw again as either seat and the round buttons on this screen, so a look can turn the old panel into the new one while the new one already answers. The plate is an addition where the game drew nothing.
+
+## 2026-10-19 · 6184bf549 — THE SWAP hangs no beam: it lit the colour lobes and the muzzle like a runaway cannon
+
+THE SWAP fell through to the runaway cannon's branch in fault-beam-ends.ts on the day it landed, so the lantern drew beams onto both colour buttons and the cannon's muzzle while the panels were traded. It is said by name now and has no ends — the swap is shown on the band and the hull, not from the top of the field. A fix to something wrong rather than unlovely.
+
 ## 2026-10-19 · 155f26c37 — THE SWAP: a new fault brush that trades the two panels every twelve beats, each change warned three seconds ahead with a siren
 
 THE HANDOVER over and over, as the owner asked on 19 October 2026. One SWAP pencil trades the panels on its first beat and every `swapEveryBeats` (12, 7.5 s) after it, back and forth, and brings them home on its last beat if they are away. Every change is counted down `swapWarnBeats` (5, about 3 s) ahead, and `assist.swapSiren` — a short wail above the speech band — sounds on every count, loudest on the last. The trade and return sounds are THE HANDOVER's.
