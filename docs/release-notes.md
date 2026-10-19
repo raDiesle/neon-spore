@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-19 · ae1d5e7be — THE MOTH opens on its number and name: its guide is gone
+
+The owner's word on 19 October 2026, the day the moth's look landed: it goes the way THE BROOD's did. The wave no longer opens on a three-line guide and a ready gate; the lit eyespots say where to fire. `waves.test.ts` names it in `SAYS_ITSELF`, it leaves `STILL_PROSE`, and `briefings.md` counts one hundred and eighteen guided waves.
+
 ## 2026-10-19 · 10c664bde — THE MOTH is drawn: a great moth, red eyespots on its wings and a belly of plates
 
 THE MOTH, FIRST STEP's boss, now has its body: a great moth five columns wide, four scalloped wings beating on the beat, a furred thorax, feathered antennae and great dark eyes. The spots the red cannon must hit are eyespots glowing red from within over their own columns; a spot waiting its turn is the same eye shut dark. Each rest folds its wings edge on and opens the other face, dusk-violet then moon-pale. A wing torn by a hit stays shorter, and on the last step the belly's plates light red as it sinks with its legs reaching for the cannon; if it lands, a cloud of scales and six claw scratches.
