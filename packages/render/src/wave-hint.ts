@@ -3,13 +3,12 @@ import {
   controlSetForWave,
   HINTS_ABOUT,
   type HintLine,
-  type HintWhen,
   type SceneAnchor,
   type SceneStep,
   WAVE_HINTS,
   WAVES,
 } from "@neon-spore/content";
-import { type Creature, gripCount, OPENING_PLAY, spanOf, type World } from "@neon-spore/sim";
+import { OPENING_PLAY, type World } from "@neon-spore/sim";
 import { anchorPoint } from "./caption-anchor.js";
 import { GUIDE_LOOK } from "./guide-look.js";
 import { captionBox } from "./guide-tide-caption-box.js";
@@ -17,7 +16,8 @@ import { CORNER } from "./guide-tide-plate.js";
 import type { Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
 import { seatOf } from "./view-role.js";
-import { hintSubject, secretShown, seenOn } from "./wave-hint-seen.js";
+import { hintSubject, seenOn } from "./wave-hint-seen.js";
+import { gone, type HintsAbout, lowest, type Reading, WHEN } from "./wave-hint-when.js";
 
 /**
  * **A wave's tutorial, played on the field rather than in front of it.**
@@ -78,18 +78,6 @@ export function hinting(world: World): boolean {
 }
 
 /**
- * Bodies that have left the field on this try — of `kind` where a lesson
- * names the body it is about (`HINTS_ABOUT`), else of any: the script's
- * spawned rows of it, less what of it still stands.
- */
-function gone(world: World, kind: Creature["kind"] | undefined): number {
-  if (kind === undefined) return world.spawned - world.creatures.length;
-  let sent = 0;
-  for (let i = 0; i < world.spawned; i++) if (world.queue[i]?.kind === kind) sent++;
-  return sent - world.creatures.filter((c) => c.kind === kind).length;
-}
-
-/**
  * Every line of this wave's that holds now, in its authored order. Asked
  * without a screen, a state about one (`seesIt`, `toldIt`) is taken to hold:
  * this is every line some screen could be showing.
@@ -97,7 +85,7 @@ function gone(world: World, kind: Creature["kind"] | undefined): number {
 export function waveHintsNow(world: World, l?: Layout): readonly HintLine[] {
   const id = WAVES[world.wave]?.hints;
   if (id === undefined || !hinting(world)) return [];
-  const r: Reading = { world, next: lowest(world), l };
+  const r: Reading = { world, next: lowest(world, about(world)), l };
   return WAVE_HINTS[id].filter((h) => [h.when ?? "always"].flat().every((w) => WHEN[w](r)));
 }
 
@@ -108,12 +96,12 @@ export function waveHint(
   beatPhase: number,
   set: ControlSet = controlSetForWave(world.wave),
 ): ShownHint | null {
-  const next = lowest(world);
+  const next = lowest(world, about(world));
   const shown: ShownHint[] = [];
   const seen = seenOn(l, world);
   for (const h of waveHintsNow(world, l)) {
     const mine = l.role === "test" ? h.acts !== false : h.seat === seatOf(l.role);
-    const found = mine ? hintSubject(l, seen, h.anchor, next) : null;
+    const found = mine ? hintSubject(l, seen, h.anchor, next, about(world)) : null;
     if (found && anchorPoint(l, found.world, set, found.anchor, beatPhase) !== null) {
       shown.push({ ...h, ...found });
     }
@@ -123,47 +111,10 @@ export function waveHint(
   return shown[Math.floor(Math.max(0, world.beat) / HINT_BEATS) % shown.length] ?? null;
 }
 
-/** Whether a column is under a body, any column of its width (`spanOf`). */
-function under(col: number, c: Creature): boolean {
-  const half = (spanOf(c) - 1) / 2;
-  return col >= c.col - half && col <= c.col + half;
-}
-
-const handOn = (world: World) => world.creatures.some((c) => gripCount(world, c.id) > 0);
-
-/** What a state is read off: the world, its next body, and the screen if there is one. */
-interface Reading {
-  world: World;
-  next: Creature | null;
-  l?: Layout | undefined;
-}
-
-/** Whether some body's secret is drawn on this screen (`true`) or kept from it (`false`). */
-function secret(r: Reading, shown: boolean): boolean {
-  const { l, world } = r;
-  if (l === undefined) return true;
-  return world.creatures.some((c) => secretShown(l, world, c) === shown);
-}
-
-const WHEN: Record<HintWhen, (r: Reading) => boolean> = {
-  always: () => true,
-  offColumn: ({ world, next }) => next !== null && !under(world.cannonCol, next),
-  onColumn: ({ world, next }) => next !== null && under(world.cannonCol, next),
-  shieldOff: ({ world, next }) => next !== null && !under(world.shieldCol, next),
-  shieldOn: ({ world, next }) => next !== null && under(world.shieldCol, next),
-  held: ({ world }) => handOn(world),
-  free: ({ world, next }) => next !== null && !handOn(world),
-  seesIt: (r) => secret(r, true),
-  toldIt: (r) => secret(r, false),
-};
-
-/** The body nearest the hull, or nothing on an empty field. */
-function lowest(world: World): Creature | null {
-  let low: Creature | null = null;
-  for (const c of world.creatures) {
-    if (!low || c.row > low.row) low = c;
-  }
-  return low;
+/** What this wave's lesson is about, where it names it (`HINTS_ABOUT`). */
+function about(world: World): HintsAbout {
+  const id = WAVES[world.wave]?.hints;
+  return id === undefined ? undefined : HINTS_ABOUT[id];
 }
 
 const TAB_FONT = '700 10px "Courier New",monospace';

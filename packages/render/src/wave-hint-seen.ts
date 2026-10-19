@@ -1,7 +1,8 @@
 import type { HintAnchor, SceneAnchor } from "@neon-spore/content";
-import type { Creature, World } from "@neon-spore/sim";
+import type { Creature, CreatureKind, Pod, World } from "@neon-spore/sim";
 import { showsBlisterBulge } from "./blister.js";
 import { showsGhostBody } from "./ghost.js";
+import { showsHuskMark } from "./husk-look.js";
 import type { Layout } from "./layout.js";
 import { showsMine } from "./mine.js";
 import { showsWisp } from "./wisp.js";
@@ -46,18 +47,27 @@ export function secretShown(l: Layout, world: World, c: Creature): boolean | nul
   return null;
 }
 
+/** The pod the pod states are about: the falling one first, else the first hanging. */
+export function podInQuestion(world: World): Pod | null {
+  return world.pods.find((p) => p.loose) ?? world.pods[0] ?? null;
+}
+
 /**
  * A line's subject on this screen, and the world to find it in. `fire` is the
  * button in the next body's colour; `secret` is the lowest body with a secret
  * this screen draws or keeps, found in a world of that body alone, so a ring
- * meant for a blister cannot land on the bulb above it. Nothing, where there
- * is no such thing on the field. Every other subject is a film's.
+ * meant for a blister cannot land on the bulb above it. A pod is the one the
+ * pod states are about (`podInQuestion`), and a husk the hollow pod on the
+ * screen shown it. Where the lesson names a kind (`HINTS_ABOUT`), a body is
+ * the next of that kind. Nothing, where there is no such thing on the field.
+ * Every other subject is a film's.
  */
 export function hintSubject(
   l: Layout,
   seen: World,
   anchor: HintAnchor,
   next: Creature | null,
+  about: CreatureKind | "pod" | undefined,
 ): { anchor: SceneAnchor; world: World } | null {
   if (anchor.at === "fire") {
     if (next === null) return null;
@@ -71,6 +81,17 @@ export function hintSubject(
     }
     if (low === null) return null;
     return { anchor: { at: "body" }, world: { ...seen, creatures: [low] } };
+  }
+  if (anchor.at === "pod") {
+    const pod = podInQuestion(seen);
+    return pod === null ? null : { anchor, world: { ...seen, pods: [pod] } };
+  }
+  if (anchor.at === "husk") {
+    const husk = seen.pods.find((p) => p.kind === "husk" && showsHuskMark(l, p));
+    return husk === undefined ? null : { anchor: { at: "pod" }, world: { ...seen, pods: [husk] } };
+  }
+  if (anchor.at === "body" && about !== undefined && about !== "pod") {
+    return next === null ? null : { anchor, world: { ...seen, creatures: [next] } };
   }
   return { anchor, world: seen };
 }

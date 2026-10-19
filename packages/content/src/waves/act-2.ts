@@ -15,9 +15,7 @@ export const WAVES_ACT_2: Wave[] = [
   {
     id: "catchAndAim",
     name: "CATCH AND AIM",
-    guide: {
-      scene: "catchAndAim",
-    },
+    hints: "catchAndAim",
     entries: [
       { beat: 4, col: 10, color: "cyan" },
       { beat: 12, col: 8, color: "red" },

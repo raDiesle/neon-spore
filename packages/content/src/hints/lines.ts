@@ -14,6 +14,10 @@ export const BODY = { at: "body" } as const;
 export const HELD = { at: "held" } as const;
 export const FIRE = { at: "fire" } as const;
 export const SECRET = { at: "secret" } as const;
+/** The SUCK button, player 1's, that opens the maw. */
+export const INTAKE = { at: "control", control: "intake" } as const;
+export const POD = { at: "pod" } as const;
+export const HUSK = { at: "husk" } as const;
 
 /** What `aimAndFire`'s four lines say, where a wave says one of them its own way. */
 export interface AimWords {
@@ -85,5 +89,44 @@ export function shieldIt(words: ShieldWords = {}): HintLine[] {
       anchor: GUARD,
       acts: false,
     },
+  ];
+}
+
+/**
+ * **A pod, from hanging to swallowed** — SALVAGE's lesson and every pod wave's
+ * after it. Hanging, player 1 puts the cannon under it and player 2 shoots it
+ * loose, in either colour; falling, player 1 opens the maw under it on player
+ * 2's word. `suck` is what player 1 is told under a falling one, and `say`
+ * what player 2 is told to say of it.
+ */
+export function catchPod(
+  suck = "PRESS SUCK AS IT LANDS",
+  say = "TELL PLAYER 1: SUCK!",
+): HintLine[] {
+  return [
+    { seat: 1, when: ["podHangs", "podOff"], text: "CANNON UNDER THE POD", anchor: CANNON },
+    {
+      seat: 1,
+      when: ["podHangs", "podOn"],
+      text: "TELL PLAYER 2: SHOOT IT DOWN",
+      anchor: POD,
+      acts: false,
+    },
+    {
+      seat: 2,
+      when: ["podHangs", "podOn"],
+      text: "SHOOT IT LOOSE · ANY COLOUR",
+      anchor: { at: "control", control: "fireRed" },
+    },
+    {
+      seat: 2,
+      when: ["podHangs", "podOff"],
+      text: "WAIT FOR THE CANNON",
+      anchor: POD,
+      acts: false,
+    },
+    { seat: 1, when: ["podLoose", "podOff"], text: "CANNON UNDER IT, FAST", anchor: CANNON },
+    { seat: 1, when: ["podLoose", "podOn"], text: suck, anchor: INTAKE },
+    { seat: 2, when: "podLoose", text: say, anchor: POD, acts: false },
   ];
 }

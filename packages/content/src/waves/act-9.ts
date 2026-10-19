@@ -79,9 +79,7 @@ export const WAVES_ACT_9: Wave[] = [
     id: "theLeak",
     name: "THE LEAK",
     variant: true,
-    guide: {
-      scene: "theLeak",
-    },
+    hints: "theLeak",
     entries: [
       { beat: 0, col: 3, color: "cyan" },
       { beat: 1, col: 3, color: "cyan" },

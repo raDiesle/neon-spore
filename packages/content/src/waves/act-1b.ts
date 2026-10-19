@@ -69,9 +69,7 @@ export const WAVES_ACT_1B: Wave[] = [
   {
     id: "salvage",
     name: "SALVAGE",
-    guide: {
-      scene: "salvage",
-    },
+    hints: "salvage",
     entries: [
       { beat: 2, col: 4, color: "cyan" },
       { beat: 10, col: 6, color: "red" },

@@ -63,8 +63,15 @@ describe("the guide's keycaps", () => {
     expect(FILMS.length).toBeGreaterThan(0);
   });
 
-  it("put A and D at the ends of the first film's cannon strip", () => {
-    const wave = FILMS[0]!;
+  it("put A and D at the ends of a film's cannon strip", () => {
+    // The first film that opens on player 1's page with a cannon on the panel:
+    // since the field waves teach on their fields (`wave-hint.ts`), the first
+    // film is a boss's, and may open on the other seat.
+    const wave = FILMS.find((i) => {
+      const scene = WAVES[i]?.guide?.scene;
+      const opens = scene !== undefined && guideScene(scene).steps[0]?.seat === 1;
+      return opens && deskKeys(controlSetForWave(i)).some((k) => k.control === "cannon");
+    })!;
     const caps = singles(firstPage(wave, "p1", true));
     const cannon = deskKeys(controlSetForWave(wave)).filter((k) => k.control === "cannon");
     expect(cannon.length).toBe(2);

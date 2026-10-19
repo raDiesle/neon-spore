@@ -2,6 +2,15 @@ import type { CreatureKind } from "@neon-spore/sim";
 import type { HintLine } from "./hint-types.js";
 import { FIRST_STEP_HINTS } from "./hints/first-step.js";
 import {
+  CATCH_AND_AIM_HINTS,
+  HUSK_HINTS,
+  LANCE_HINTS,
+  LEAK_HINTS,
+  MORSEL_HINTS,
+  SALVAGE_HINTS,
+  SEEDER_HINTS,
+} from "./hints/pods.js";
+import {
   CROSSING_HINTS,
   HAND_HINTS,
   LIMPET_HINTS,
@@ -122,6 +131,13 @@ export const WAVE_HINTS = {
   theBalloon: BALLOON_HINTS,
   theLid: LID_HINTS,
   theChoir: CHOIR_HINTS,
+  salvage: SALVAGE_HINTS,
+  catchAndAim: CATCH_AND_AIM_HINTS,
+  theHusk: HUSK_HINTS,
+  theMorsel: MORSEL_HINTS,
+  theSeeder: SEEDER_HINTS,
+  theLance: LANCE_HINTS,
+  theLeak: LEAK_HINTS,
 } satisfies Record<string, readonly HintLine[]>;
 
 /** The waves whose help is given on the field while they are played (`Wave.hints`). */
@@ -132,10 +148,11 @@ export type WaveHintsId = keyof typeof WAVE_HINTS;
  * wave stops teaching once one body has left the field (`HINTS_UNTIL`), and a
  * wave whose first body is a bulb it does not teach would stop before the one
  * it does had come: TAP's bulb, shot, would end TAP's lesson with no blister
- * yet up. Named here, only that kind counts. Every other wave opens on the
- * body it teaches, and any body counts.
+ * yet up. Named here, only that kind counts — or, for a pod wave, a pod
+ * swallowed or let go. Every other wave opens on the body it teaches, and any
+ * body counts.
  */
-export const HINTS_ABOUT: Partial<Record<WaveHintsId, CreatureKind>> = {
+export const HINTS_ABOUT: Partial<Record<WaveHintsId, CreatureKind | "pod">> = {
   tapBlisters: "blister",
   holdBlisters: "blister",
   swipeBlisters: "blister",
@@ -143,6 +160,11 @@ export const HINTS_ABOUT: Partial<Record<WaveHintsId, CreatureKind>> = {
   rubBlisters: "blister",
   comboBlisters: "blister",
   leverBlisters: "blister",
+  salvage: "pod",
+  catchAndAim: "pod",
+  theHusk: "pod",
+  theMorsel: "morsel",
+  theSeeder: "seeder",
 };
 
 /**

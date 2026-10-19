@@ -15,9 +15,7 @@ export const WAVES_ACT_3: Wave[] = [
   {
     id: "theHusk",
     name: "THE HUSK",
-    guide: {
-      scene: "theHusk",
-    },
+    hints: "theHusk",
     entries: [
       { beat: 3, col: 4, color: "red" },
       { beat: 11, col: 6, color: "cyan" },
@@ -62,9 +60,7 @@ export const WAVES_ACT_3: Wave[] = [
   {
     id: "theMorsel",
     name: "THE MORSEL",
-    guide: {
-      scene: "theMorsel",
-    },
+    hints: "theMorsel",
     entries: [
       { beat: 0, col: 3, color: "red" },
       { beat: 8, col: 5, kind: "morsel", color: "red" },
@@ -100,9 +96,7 @@ export const WAVES_ACT_3: Wave[] = [
   {
     id: "theLance",
     name: "THE LANCE",
-    guide: {
-      scene: "theLance",
-    },
+    hints: "theLance",
     entries: [
       { beat: 0, col: 3, color: "cyan" },
       { beat: 8, col: 3, color: "cyan" },
@@ -171,9 +165,7 @@ export const WAVES_ACT_3: Wave[] = [
   {
     id: "theSeeder",
     name: "THE SEEDER",
-    guide: {
-      scene: "theSeeder",
-    },
+    hints: "theSeeder",
     entries: [
       { beat: 0, col: 5, color: "red" },
       { beat: 8, col: 2, kind: "seeder", color: "red" },

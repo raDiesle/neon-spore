@@ -1,8 +1,6 @@
 import type { GuideScene } from "./scene-types.js";
 import { BULB_QUEEN } from "./scenes/bulb-queen.js";
-import { CATCH_AND_AIM } from "./scenes/catch-and-aim.js";
 import { PINBALL } from "./scenes/pinball.js";
-import { SALVAGE } from "./scenes/salvage.js";
 import { SNAKE } from "./scenes/snake.js";
 import { THE_CAIRN } from "./scenes/the-cairn.js";
 import { THE_CLAW } from "./scenes/the-claw.js";
@@ -10,14 +8,10 @@ import { THE_COIL } from "./scenes/the-coil.js";
 import { THE_FLEET } from "./scenes/the-fleet.js";
 import { THE_GAUGE } from "./scenes/the-gauge.js";
 import { THE_JAM } from "./scenes/the-jam.js";
-import { THE_LANCE } from "./scenes/the-lance.js";
-import { THE_LEAK } from "./scenes/the-leak.js";
 import { THE_MAZE } from "./scenes/the-maze.js";
 import { THE_MIRROR } from "./scenes/the-mirror.js";
-import { THE_MORSEL } from "./scenes/the-morsel.js";
 import { THE_MOULT } from "./scenes/the-moult.js";
 import { THE_PULSE } from "./scenes/the-pulse.js";
-import { THE_SEEDER } from "./scenes/the-seeder.js";
 import { THE_SPLICE } from "./scenes/the-splice.js";
 import { THE_WARDEN } from "./scenes/the-warden.js";
 import { THE_WELL } from "./scenes/the-well.js";
@@ -34,14 +28,10 @@ import { THE_WELL } from "./scenes/the-well.js";
  * `scenes.ts` spreads this table into `SCENES` and widens `SceneId` by the id.
  */
 export type WaveSceneId =
-  | "salvage"
-  | "catchAndAim"
   | "bulbQueen"
   | "theMirror"
   | "theFleet"
   | "snake"
-  | "theLance"
-  | "theLeak"
   | "theGauge"
   | "pinball"
   | "theMaze"
@@ -53,19 +43,13 @@ export type WaveSceneId =
   | "theCairn"
   | "theWell"
   | "theSplice"
-  | "theMoult"
-  | "theMorsel"
-  | "theSeeder";
+  | "theMoult";
 
 export const SCENES_WAVES: Record<WaveSceneId, GuideScene> = {
-  salvage: SALVAGE,
-  catchAndAim: CATCH_AND_AIM,
   bulbQueen: BULB_QUEEN,
   theMirror: THE_MIRROR,
   theFleet: THE_FLEET,
   snake: SNAKE,
-  theLance: THE_LANCE,
-  theLeak: THE_LEAK,
   theGauge: THE_GAUGE,
   pinball: PINBALL,
   theMaze: THE_MAZE,
@@ -78,6 +62,4 @@ export const SCENES_WAVES: Record<WaveSceneId, GuideScene> = {
   theWell: THE_WELL,
   theSplice: THE_SPLICE,
   theMoult: THE_MOULT,
-  theMorsel: THE_MORSEL,
-  theSeeder: THE_SEEDER,
 };

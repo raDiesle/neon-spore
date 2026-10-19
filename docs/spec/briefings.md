@@ -30,7 +30,7 @@ first creature falling. It is one of two states, never both:
    prose (§3.2). Either way it ends on **the ready gate**: two circles, one per
    seat, each filling while that seat holds and saying READY when it is full.
    The guide passes when both say READY. Only a wave that introduces something
-   new carries one — seventy-one of the two hundred and eight waves today, and a wave
+   new carries one — sixty-four of the two hundred and eight waves today, and a wave
    with no guide has no circles either.
 2. **The introduction**, if it has no guide. `WAVE 4`, the wave's name, its
    one sentence. Plain text on the field — no panel, no border, nothing to
@@ -312,6 +312,16 @@ plate never rings what its screen does not show. The controls' waves open on
 a bulb they do not teach, so only a blister gone ends their lesson
 (`HINTS_ABOUT`).
 
+The pod and maw waves followed — SALVAGE, CATCH AND AIM, THE HUSK, THE
+MORSEL, THE SEEDER, THE LANCE and THE LEAK, seven, in `hints/pods.ts`. A
+pod's lines are said once (`catchPod`): hanging, player 1 puts the cannon
+under it and player 2 shoots it loose; falling, player 1 opens the maw under
+it on player 2's word. The pod they are about is the falling one, else the
+first hanging; a husk is ringed only on the screen shown it hollow. A pod
+wave's lesson ends with a pod gone rather than a body, and THE MORSEL's and
+THE SEEDER's with their own body (`HINTS_ABOUT`), whose column the column
+states then read.
+
 `waveTeaches` is the one question the rules about what is taught where ask —
 a guide or hints — and `waveHasGuide` still means *a guide to play*.
 
@@ -364,7 +374,7 @@ RED pressed, the shot taking it, and then a second slick nobody answers, so the
 last thing the pair is shown is the hull bar dropping. About five seconds,
 looping.
 
-**There are fifty-two of them now**, one per guided wave bar nineteen,
+**There are forty-five of them now**, one per guided wave bar nineteen,
 and each is authored in `packages/content/src/scenes/` as a page of
 choreography rather than a page of prose. The nineteen that are still the
 three strings and the two circles are the bosses from THE NETTLE on,
@@ -536,8 +546,9 @@ is THE STARE's problem a second time and takes THE STARE's answer: the
 real one is named, shot and taken at an open maw; the red one is shot
 and left, the pilot's page pointing at the intake with the hand off it, and
 the husk deflates against the shut maw; and last, the one nobody named is
-shot and opened for, swallowed, and the wave with it. `scene-husk.test.ts`
-is the receipt for what the maw was doing when each pod arrived. Its film
+shot and opened for, swallowed, and the wave with it. The film became
+hints on its field on 19 October 2026 (`hints/pods.ts`), and its receipt
+went with it. Its film
 took `scenes.ts` past its limit, so the films this paragraph lists as owed
 now sit in `scenes-owed.ts`, beside the faults' (`scenes-faults.ts`) and
 the choreographed bosses' (`scenes-choreographed.ts`).

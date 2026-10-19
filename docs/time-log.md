@@ -45024,3 +45024,19 @@ Bottleneck: the blister lines were written for the films' seat split, which
 the game's blisters do not have — either seat may knock them down.
 
 *Measured: 20 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-19 — The pod and maw waves teach on their own fields
+
+- reading: 10 min. How a pod hangs, falls and is swallowed, who is shown a
+  husk, what a limp morsel is, and how the game hands a wave its pods.
+- writing: 20 min. Seven tables and `catchPod`; the pod, limp and whole
+  states in a file of their own; the pod and husk subjects; the lesson's own
+  body for the column states; the test's world split out and walking a loose
+  pod and a limp morsel.
+- looking: 5 min. SALVAGE on both seats.
+- friction: 0 min.
+- landing: 5 min. Two `check:fast` runs: the keycaps test's first film had
+  become a boss's.
+
+Bottleneck: the test started its waves without their pods, so no pod line
+could ever be shown until it started them as the game does.

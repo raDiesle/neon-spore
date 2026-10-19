@@ -31,10 +31,12 @@ export interface HintLine {
 /**
  * A film caption's subject, or one a film could name by hand because it knew
  * what it had authored, and a live field cannot: **the button that kills the
- * next body** (`fire`), and **the body one seat has to say something about**
- * (`secret`) — a blister among bulbs, a mine, a ghost.
+ * next body** (`fire`), **the body one seat has to say something about**
+ * (`secret`) — a blister among bulbs, a mine, a ghost — and **the hollow pod**
+ * on the screen shown which one it is (`husk`). A film's `pod` is the pod the
+ * pod states are about, here: the falling one, or the first hanging.
  */
-export type HintAnchor = SceneAnchor | { at: "fire" } | { at: "secret" };
+export type HintAnchor = SceneAnchor | { at: "fire" } | { at: "secret" } | { at: "husk" };
 
 /**
  * **The states a line can be true in**, read off the world and nothing else
@@ -42,6 +44,7 @@ export type HintAnchor = SceneAnchor | { at: "fire" } | { at: "secret" };
  * line that needs a state not here is a new entry with its reading beside it,
  * never a clock — a moment placed by hand against a clock is a second copy of
  * where a body lands, the film's rule (`.claude/skills/new-tutorial`).
+ * A secret is a pod's as well as a body's: a husk's, on the screen shown it.
  *
  * The body the column states are about is **the next to land**: the lowest
  * one on the field, because it is the one a mistake is made on, and *under*
@@ -70,4 +73,20 @@ export type HintWhen =
    */
   | "seesIt"
   /** A body's secret is kept from this screen, so this seat is the one told. */
-  | "toldIt";
+  | "toldIt"
+  /** A pod hangs, still to be shot loose, and none is falling. */
+  | "podHangs"
+  /** A pod is falling, to be swallowed. */
+  | "podLoose"
+  /**
+   * The cannon is under the pod in question — the falling one, or the first
+   * hanging: in its column to shoot one loose, in the maw's reach to take one
+   * falling (`inMawReach`).
+   */
+  | "podOn"
+  /** It is not. */
+  | "podOff"
+  /** The next body is a morsel shot limp, and the maw's now. */
+  | "limp"
+  /** The next body is not limp: a shot still has something to do to it. */
+  | "whole";

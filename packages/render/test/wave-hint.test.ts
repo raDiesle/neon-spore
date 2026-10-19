@@ -1,16 +1,23 @@
 import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
-import { queueFromWave, WAVE_HINTS, WAVES } from "@neon-spore/content";
-import { createWorld, DEFAULT_CONFIG, startWave, step, type World } from "@neon-spore/sim";
+import { WAVE_HINTS, WAVES } from "@neon-spore/content";
+import { step } from "@neon-spore/sim";
 import { computeLayout, type ViewRole } from "../src/layout.js";
-import {
-  drawWaveHint,
-  HINT_BEATS,
-  HINTS_UNTIL,
-  hinting,
-  waveHint,
-  waveHintsNow,
-} from "../src/wave-hint.js";
+import { drawWaveHint, HINTS_UNTIL, hinting, waveHint, waveHintsNow } from "../src/wave-hint.js";
 import { FRAME_TIMEOUT_MS, installCanvasGlobals, stubCanvas, type TextBox } from "./canvas-stub.js";
+import {
+  body,
+  CFG,
+  eachArrival,
+  FIRST,
+  HINTED,
+  PHONE,
+  played,
+  playedOnce,
+  SIZES,
+  said,
+  started,
+  states,
+} from "./wave-hint-world.js";
 
 setDefaultTimeout(FRAME_TIMEOUT_MS);
 
@@ -22,93 +29,7 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
  * one; the last block holds for all of them.
  */
 
-const CFG = { ...DEFAULT_CONFIG, briefings: false };
-const FIRST = WAVES.findIndex((w) => w.id === "firstStep");
-const PHONE = { width: 390, height: 844, dpr: 2 };
-const SIZES = [PHONE, { width: 320, height: 568, dpr: 1 }, { width: 900, height: 1600, dpr: 2 }];
-const HINTED = WAVES.flatMap((w, i) => (w.hints === undefined ? [] : [i]));
-
 beforeAll(installCanvasGlobals);
-
-/** A wave started, nobody playing it. */
-function started(wave: number): World {
-  const world = createWorld(CFG, 7);
-  startWave(world, wave, queueFromWave(WAVES[wave]!, CFG.cols));
-  return world;
-}
-
-/**
- * A wave in play, stepped until its first body is on the field — and, on a
- * hinted wave, until some screen is shown a line: TAP opens on a bulb its
- * lesson is not about (`HINTS_ABOUT`).
- */
-function played(wave = FIRST): World {
-  const world = started(wave);
-  const def = WAVES[wave]!;
-  const ready = () =>
-    world.creatures.length > 0 &&
-    (def.hints === undefined || said(world, "p1") !== null || said(world, "p2") !== null);
-  for (let i = 0; i < 4000 && !ready(); i++) step(world, []);
-  expect(world.creatures.length, `${def.name}: no body arrived`).toBeGreaterThan(0);
-  return world;
-}
-
-/**
- * The wave played on with nobody playing it, `explore` run at every arrival
- * while it still teaches: THE MINE's second body is the other seat's.
- */
-function eachArrival(wave: number, explore: (world: World) => void): void {
-  const world = started(wave);
-  let at = 0;
-  for (let i = 0; i < 4000 && (world.spawned === 0 || hinting(world)); i++) {
-    step(world, []);
-    if (world.spawned > at && hinting(world)) {
-      at = world.spawned;
-      explore(world);
-    }
-  }
-}
-
-function body(world: World) {
-  return world.creatures[0]!;
-}
-
-const PLAYED = new Map<number, World>();
-
-/** `played`, once per wave: the readings below change the world and put it back. */
-function playedOnce(wave: number): World {
-  const found = PLAYED.get(wave) ?? played(wave);
-  PLAYED.set(wave, found);
-  return found;
-}
-
-/**
- * Every state a line can be true in, one after another: each column for the
- * cannon, the shield with it and away from it, the next body free and held,
- * and enough beats for every line of a seat to take its turn.
- */
-function* states(world: World): Generator<void> {
-  const [col, shield, grip, beat] = [world.cannonCol, world.shieldCol, world.gripP1, world.beat];
-  const next = world.creatures.reduce((a, c) => (c.row > a.row ? c : a));
-  for (let c = 0; c < CFG.cols; c++) {
-    for (const s of [c, (c + 3) % CFG.cols]) {
-      for (const held of [false, true]) {
-        for (let turn = 0; turn < 8; turn++) {
-          world.cannonCol = c;
-          world.shieldCol = s;
-          world.gripP1 = held ? next.id : grip;
-          world.beat = turn * HINT_BEATS;
-          yield;
-        }
-      }
-    }
-  }
-  [world.cannonCol, world.shieldCol, world.gripP1, world.beat] = [col, shield, grip, beat];
-}
-
-function said(world: World, role: ViewRole) {
-  return waveHint(computeLayout(PHONE, CFG, role), world, 0.5);
-}
 
 describe("FIRST STEP's hints", () => {
   it("is the wave that carries them, and carries no guide", () => {
