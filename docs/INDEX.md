@@ -953,16 +953,16 @@ by hand never moves.
 | `packages/content/src/waves/act-28.ts` | Waves 418 to 425 of the game, in the order they are played: THE FENCE's review, the boss THE HASP, THE VEER's review and the boss THE FLUE |
 | `packages/content/src/waves/act-29.ts` | Waves 426 to 437 of the game, in the order they are played: reviewMeteorMedium's review, the boss THE RATCHET, reviewBlisterBoth's review, the boss THE NETTLE, THE BEATBOX's review and the boss THE MANTLE |
 | `packages/content/src/waves/act-2.ts` | The end of the tutorial arc: CATCH AND AIM, the shield held twice, and FINALE, the arc's last wave |
-| `packages/content/src/waves/act-30.ts` | Waves 438 to 449 of the game, in the order they are played: reviewRockCross's review, the boss THE KEEL, THE SEEDER's review, the boss THE VALVE, THE MORSEL's review and the boss THE SEAM |
-| `packages/content/src/waves/act-31.ts` | Waves 450 to 457 of the game, in the order they are played: THE HUSK's review, the boss THE SLING, reviewPod's review and the boss THE CAPSTAN |
+| `packages/content/src/waves/act-30.ts` | Waves 438 to 448 of the game, in the order they are played: reviewRockCross's review, the boss THE KEEL, THE SEEDER's review, the boss THE VALVE and THE MORSEL's review |
+| `packages/content/src/waves/act-31.ts` | Waves 449 to 457 of the game, in the order they are played: the boss THE SEAM, THE HUSK's review, the boss THE SLING, reviewPod's review and the boss THE CAPSTAN |
 | `packages/content/src/waves/act-32.ts` | Waves 458 to 468 of the game, in the order they are played: reviewTorch's review, the boss THE GALL, reviewMeteor's review, the boss THE TRAPEZE and THE WISP's review |
 | `packages/content/src/waves/act-33.ts` | Waves 469 to 476 of the game, in the order they are played: the boss THE GOVERNOR, THE GHOST's review, the boss THE LATCH and reviewCountdown's review |
 | `packages/content/src/waves/act-34.ts` | Waves 477 to 477 of the game, in the order they are played: the boss THE HYDRA |
-| `packages/content/src/waves/act-3.ts` | Waves 121 to 133 of the game, in the order they are played: THE HUSK's block, the filler before THE SWINDLE and the boss THE SWINDLE |
+| `packages/content/src/waves/act-3.ts` | Waves 121 to 132 of the game, in the order they are played: THE HUSK's block and the filler before THE SWINDLE |
 | `packages/content/src/living-look.ts` | which kinds are drawn as a body of their own, and the contour and own-motion of each — one row per kind, so a forgotten one is a build error |
 | `packages/content/src/living-look-handed.ts` | **How the body answered by two hands is drawn** |
 | `packages/content/src/living-look-stroked.ts` | a creature is not a blob — the nine kinds a radial contour cannot describe, each `null` with the reason its shape needs a path of its own |
-| `packages/content/src/waves/act-4.ts` | Waves 134 to 141 of the game, in the order they are played: THE MORSEL's block, the filler before THE INSTAR and the boss THE INSTAR |
+| `packages/content/src/waves/act-4.ts` | Waves 133 to 141 of the game, in the order they are played: the boss THE SWINDLE, THE MORSEL's block, the filler before THE INSTAR and the boss THE INSTAR |
 | `packages/content/src/ghost-shape.ts` | THE GHOST's contour, which is the third family of them in this package |
 | `packages/content/src/gimbal-script.ts` | THE GIMBAL's six alignments: where each ring's mark sits on the true wheel, how far the marks creep a beat |
 | `packages/content/src/gorge-levels.ts` | THE GORGE's levels: five rows or rings of bubbles, and the layout is the level |
@@ -1064,12 +1064,13 @@ by hand never moves.
 | `packages/content/src/waves/act-13.ts` | Waves 237 to 248 of the game, in the order they are played: THE CHOIR's block, the filler before THE VISE, the boss THE VISE and THE CLAW's block |
 | `packages/content/src/waves/act-14.ts` | Waves 249 to 260 of the game, in the order they are played: the filler before THE THROAT, the boss THE THROAT, THE BALLOON's block, the filler before THE SINEW and the boss THE SINEW |
 | `packages/content/src/waves/act-1-p2.ts` | Act one's second page — the arc's composed regular waves pushed it past the ceiling, and the save cut it (`acts.ts`) |
-| `packages/content/src/waves/act-1-p3.ts` | Act one's third page, cut the same way; plays straight after `act-1-p2.ts` |
-| `packages/content/src/waves/act-1-p4.ts` | Cut from `act-1-p3.ts` by the director's save when that file passed the 250-line ceiling; it plays straight… |
+| `packages/content/src/waves/act-1-p4.ts` | Cut from `act-1-p2.ts` by the director's save when that file passed the 250-line ceiling; it plays straight… |
 | `packages/content/src/waves/act-1-p5.ts` | Cut from `act-1-p4.ts` by the director's save when that file passed the 250-line ceiling; it plays straight… |
 | `packages/content/src/waves/act-1-p6.ts` | Cut from `act-1-p5.ts` by the director's save when that file passed the 250-line ceiling; it plays straight… |
 | `packages/content/src/waves/act-1-p7.ts` | Cut from `act-1-p6.ts` by the director's save when that file passed the 250-line ceiling; it plays straight… |
 | `packages/content/src/waves/act-1-p8.ts` | Cut from `act-1-p7.ts` by the director's save when that file passed the 250-line ceiling; it plays straight… |
+| `packages/content/src/waves/act-1-p9.ts` | Cut from `act-1-p8.ts` by the director's save when that file passed the 250-line ceiling; it plays straight… |
+| `packages/content/src/waves/act-1-p3.ts` | Cut from `act-1-p2.ts` by the director's save when that file passed the 250-line ceiling; it plays straight… |
 | `packages/content/src/waves/act-15.ts` | Waves 261 to 272 of the game, in the order they are played: THE MOULT's block, the filler before THE CHRYSALIS, the boss THE CHRYSALIS and THE DARK's block |
 | `packages/content/src/waves/act-16.ts` | Waves 273 to 284 of the game, in the order they are played: the filler before THE CURTAIN, the boss THE CURTAIN, THE COIL's block, the filler before PINBALL and the boss PINBALL |
 | `packages/content/src/waves/act-17.ts` | Waves 285 to 296 of the game, in the order they are played: THE JAM's block, the filler before THE SCOUT, the boss THE SCOUT and THE CLASP's block |

@@ -1,15 +1,30 @@
 import { INSTAR_SCRIPT } from "../instar-script.js";
+import { SWINDLE_SCRIPT } from "../swindle-script.js";
 import type { Wave } from "../wave-types.js";
 
 /**
- * Waves 134 to 141 of the game, in the order they are played: THE MORSEL's
- * block, the filler before THE INSTAR and the boss THE INSTAR.
+ * Waves 133 to 141 of the game, in the order they are played: the boss THE
+ * SWINDLE, THE MORSEL's block, the filler before THE INSTAR and the boss THE
+ * INSTAR.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act
  * after the tutorial arc again in play order. A save that fills it cuts a page
  * after it (`acts.ts`).
  */
 export const WAVES_ACT_4: Wave[] = [
+  {
+    id: "theSwindle",
+    name: "THE SWINDLE",
+    guide: {
+      both: "A slime hangs real pods and fake ones, and swaps them round. Swallow every real pod she lets go, and none of the fake ones.",
+      p1: "1. Open the maw when your partner says real.\n2. Keep it shut when your partner says fake.",
+      p2: "1. Watch the fake pods while she swaps them.\n2. Say real or fake as each one falls.",
+    },
+    entries: [],
+    boss: { kind: "swindle", steps: SWINDLE_SCRIPT },
+    bossType: "normal",
+    controls: "standard5",
+  },
   {
     id: "theMorsel",
     name: "THE MORSEL",
@@ -43,13 +58,13 @@ export const WAVES_ACT_4: Wave[] = [
     name: "MORSEL SAGA",
     variant: true,
     entries: [
-      { beat: 0, col: 7, color: "cyan" },
-      { beat: 6, col: 0, kind: "morsel", color: "cyan" },
-      { beat: 13, col: 10, color: "cyan" },
-      { beat: 19, col: 7, kind: "shell", color: "red" },
-      { beat: 25, col: 8, color: "cyan" },
-      { beat: 30, col: 10, kind: "morsel", color: "red" },
-      { beat: 37, col: 0, color: "cyan" },
+      { beat: 0, col: 10, color: "cyan" },
+      { beat: 6, col: 3, kind: "morsel", color: "cyan" },
+      { beat: 12, col: 10, color: "cyan" },
+      { beat: 17, col: 1, kind: "shell", color: "red" },
+      { beat: 25, col: 2, color: "red" },
+      { beat: 31, col: 9, kind: "morsel", color: "red" },
+      { beat: 37, col: 2, color: "cyan" },
     ],
     controls: "standard5",
   },
@@ -58,36 +73,32 @@ export const WAVES_ACT_4: Wave[] = [
     name: "MORSEL THUNDER",
     variant: true,
     entries: [
-      { beat: 0, col: 3, color: "red" },
-      { beat: 3, col: 7, kind: "morsel", color: "red" },
-      { beat: 11, col: 2, color: "red" },
-      { beat: 21, col: 2, color: "cyan" },
-      { beat: 21, col: 8, color: "cyan" },
-      { beat: 24, col: 6, kind: "morsel", color: "cyan" },
-      { beat: 28, col: 2, kind: "meteor", color: null },
-      { beat: 31, col: 3, color: "cyan" },
-      { beat: 31, col: 7, color: "cyan" },
-      { beat: 35, col: 6, kind: "morsel", color: "cyan" },
-      { beat: 46, col: 0, color: "cyan" },
-      { beat: 46, col: 10, color: "cyan" },
+      { beat: 0, col: 8, color: "cyan" },
+      { beat: 4, col: 9, kind: "morsel", color: "cyan" },
+      { beat: 10, col: 2, color: "cyan" },
+      { beat: 23, col: 1, color: "cyan" },
+      { beat: 23, col: 9, color: "cyan" },
+      { beat: 26, col: 9, kind: "morsel", color: "cyan" },
+      { beat: 34, col: 4, kind: "rind", color: "cyan" },
+      { beat: 39, col: 1, color: "cyan" },
+      { beat: 39, col: 9, color: "cyan" },
+      { beat: 45, col: 1, kind: "morsel", color: "cyan" },
     ],
-    pods: [
-      { beat: 17, col: 9, row: 4, kind: "husk" },
-      { beat: 39, col: 9, row: 4, kind: "husk" },
-    ],
+    pods: [{ beat: 16, col: 10, row: 4, kind: "husk" }],
     controls: "standard5",
   },
   {
     id: "fillerInstarBreathe",
     name: "SOFT INSTAR",
     entries: [
-      { beat: 0, col: 3, color: "red" },
-      { beat: 7, col: 7, kind: "blister", color: null, row: 3 },
-      { beat: 13, col: 2, color: "cyan" },
-      { beat: 20, col: 5, kind: "torch", color: null },
-      { beat: 26, col: 6, color: "red" },
-      { beat: 34, col: 4, kind: "strand", color: "cyan", beads: 3 },
+      { beat: 0, col: 7, color: "cyan" },
+      { beat: 6, col: 3, kind: "throb", color: "red" },
+      { beat: 13, col: 8, color: "red" },
+      { beat: 21, col: 6, kind: "meteor", color: null },
+      { beat: 27, col: 5, color: "cyan" },
+      { beat: 40, col: 2, color: "red" },
     ],
+    pods: [{ beat: 33, col: 4, row: 3, kind: "pod" }],
     controls: "standard5",
   },
   {
@@ -95,13 +106,14 @@ export const WAVES_ACT_4: Wave[] = [
     name: "INSTAR RELIC",
     variant: true,
     entries: [
-      { beat: 0, col: 10, color: "red" },
-      { beat: 7, col: 1, kind: "meteor", color: null },
-      { beat: 12, col: 2, color: "red" },
-      { beat: 18, col: 8, kind: "shell", color: "red" },
-      { beat: 24, col: 1, color: "cyan" },
-      { beat: 29, col: 6, kind: "countdown", color: "cyan" },
-      { beat: 35, col: 1, color: "cyan" },
+      { beat: 0, col: 4, color: "red" },
+      { beat: 6, col: 10, kind: "recoil", color: "red" },
+      { beat: 12, col: 3, color: "cyan" },
+      { beat: 17, col: 4, kind: "shell", color: "red" },
+      { beat: 23, col: 9, color: "red" },
+      { beat: 28, col: 5, kind: "rind", color: "red" },
+      { beat: 33, col: 4, color: "cyan" },
+      { beat: 39, col: 10, kind: "recoil", color: "cyan" },
     ],
     controls: "standard5",
   },
@@ -110,18 +122,19 @@ export const WAVES_ACT_4: Wave[] = [
     name: "INSTAR SPELL",
     variant: true,
     entries: [
-      { beat: 0, col: 4, color: "red" },
-      { beat: 5, col: 8, kind: "throb", color: "red" },
-      { beat: 11, col: 5, color: "cyan" },
-      { beat: 16, col: 6, kind: "torch", color: null },
-      { beat: 22, col: 2, color: "red" },
-      { beat: 22, col: 8, color: "red" },
-      { beat: 33, col: 5, kind: "throb", color: "red" },
-      { beat: 39, col: 3, color: "red" },
-      { beat: 39, col: 7, color: "red" },
-      { beat: 45, col: 2, kind: "torch", color: null },
+      { beat: 0, col: 7, color: "cyan" },
+      { beat: 5, col: 2, kind: "torch", color: null },
+      { beat: 10, col: 7, color: "cyan" },
+      { beat: 16, col: 8, kind: "blister", color: null, row: 2, gesture: "swipe" },
+      { beat: 21, col: 2, color: "cyan" },
+      { beat: 21, col: 8, color: "cyan" },
+      { beat: 26, col: 7, kind: "recoil", color: "red" },
+      { beat: 31, col: 2, kind: "torch", color: null },
+      { beat: 36, col: 3, color: "red" },
+      { beat: 36, col: 7, color: "red" },
+      { beat: 42, col: 5, kind: "blister", color: null, row: 3 },
+      { beat: 47, col: 6, kind: "recoil", color: "red" },
     ],
-    pods: [{ beat: 28, col: 9, row: 3, kind: "pod" }],
     controls: "standard5",
   },
   {

@@ -44785,3 +44785,17 @@ Bottleneck: the recipe's `--until-on 150` photographs the field before the lost 
 Bottleneck: finding every test and fixture that used wave 1 as "the wave with a film".
 
 *Measured: 4 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-19 — ECHO, STRAND and VEIL open the arc's fourteen
+
+- reading: 5 min. The arc's pages, the last two reorder landings, the
+  composer's and the save's usage.
+- writing: 5 min. A throwaway reorder through the director's save, the nine
+  waves composed again with their names kept, the act note.
+- looking: 0 min.
+- friction: 5 min. The save left `act-1-p3.ts` empty and the page test
+  wants no gap: the page deleted, p4–p10 renamed down by hand.
+- landing: 5 min. `waves:order --write`, `waves:measure`,
+  `briefings:renumber`, `baseline:blank`, `index`, two `check:fast` runs.
+
+Bottleneck: renumbering the act-one pages the save could not pull back.

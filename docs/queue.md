@@ -479,3 +479,18 @@ first. Worked around with `bun run frames . --wave "THE BLISTER" --entry
 0:gesture=hold,col=3`. Find why the card stands still under the shot — likely
 it plays only on hover or while in view — make `--wait` reach into the
 replay, and prove it with a test that two waits of one moving pose differ.
+
+## A save that moves arc waves earlier leaves an act-one page empty
+
+- **Found:** 2026-10-19, claude/enemy-wave-order-bb3337
+- **Files:** `tools/director/src/waves-act-list.ts`, `tools/director/src/waves-acts.ts`, `tools/director/test/waves-act-list.test.ts`
+
+`assignToActs` never moves a wave back to an earlier act, so moving ECHO,
+STRAND and VEIL from pages 2–4 to just after THE BROOD saved
+`act-1-p3.ts` as `WAVES_ACT_1_P3: Wave[] = []` and left `act-1-p2.ts` at 69
+lines, and the next composes cut a new `act-1-p10.ts`. The page test wants
+the pages numbered with no gap, so the empty page was deleted and p4–p10
+renamed down by one by hand. Let a save re-pack the arc's pages in play order
+(as `--recut` does past the arc), deleting a page it leaves empty and
+renumbering the rest, and prove it with a test that a reorder inside the arc
+leaves no empty page and no gap.

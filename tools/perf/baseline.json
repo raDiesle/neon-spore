@@ -110,8 +110,128 @@
       "unmeasured": true
     },
     {
-      "id": "theThirdShot",
+      "id": "theEcho",
       "wave": 11,
+      "name": "THE ECHO",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "theEchoPair",
+      "wave": 12,
+      "name": "ECHO ALLIANCE",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "theEchoRecall",
+      "wave": 13,
+      "name": "ECHO SAGA",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "theEchoPeak",
+      "wave": 14,
+      "name": "ECHO RAPTURE",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "theStrand",
+      "wave": 15,
+      "name": "THE STRAND",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "theStrandPair",
+      "wave": 16,
+      "name": "STRAND WALTZ",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "theStrandRecall",
+      "wave": 17,
+      "name": "ANCIENT STRAND",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "theStrandPeak",
+      "wave": 18,
+      "name": "STRAND INFERNO",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "theVeil",
+      "wave": 19,
+      "name": "THE VEIL",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "theVeilPair",
+      "wave": 20,
+      "name": "VEIL WALTZ",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "theVeilRecall",
+      "wave": 21,
+      "name": "VEIL HOMECOMING",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "theVeilPeak",
+      "wave": 22,
+      "name": "VEIL RAPTURE",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "theThirdShot",
+      "wave": 23,
       "name": "THE SHELL",
       "bodies": 0,
       "typical": 0,
@@ -121,7 +241,7 @@
     },
     {
       "id": "theThirdShotPair",
-      "wave": 12,
+      "wave": 24,
       "name": "SHELL AND CYAN",
       "bodies": 0,
       "typical": 0,
@@ -131,7 +251,7 @@
     },
     {
       "id": "theThirdShotRecall",
-      "wave": 13,
+      "wave": 25,
       "name": "SHELL SAGA",
       "bodies": 0,
       "typical": 0,
@@ -141,7 +261,7 @@
     },
     {
       "id": "theThirdShotPeak",
-      "wave": 14,
+      "wave": 26,
       "name": "SHELL THUNDER",
       "bodies": 0,
       "typical": 0,
@@ -151,7 +271,7 @@
     },
     {
       "id": "holdAndAim",
-      "wave": 15,
+      "wave": 27,
       "name": "HOLD AND AIM",
       "bodies": 0,
       "typical": 0,
@@ -161,7 +281,7 @@
     },
     {
       "id": "theMagnet",
-      "wave": 16,
+      "wave": 28,
       "name": "THE MAGNET",
       "bodies": 0,
       "typical": 0,
@@ -171,7 +291,7 @@
     },
     {
       "id": "theMagnetPair",
-      "wave": 17,
+      "wave": 29,
       "name": "MAGNET DUET",
       "bodies": 0,
       "typical": 0,
@@ -181,7 +301,7 @@
     },
     {
       "id": "theMagnetRecall",
-      "wave": 18,
+      "wave": 30,
       "name": "MAGNET LEGEND",
       "bodies": 0,
       "typical": 0,
@@ -191,7 +311,7 @@
     },
     {
       "id": "theMagnetPeak",
-      "wave": 19,
+      "wave": 31,
       "name": "MAGNET OVERDRIVE",
       "bodies": 0,
       "typical": 0,
@@ -201,7 +321,7 @@
     },
     {
       "id": "theThrob",
-      "wave": 20,
+      "wave": 32,
       "name": "THE THROB",
       "bodies": 1,
       "arrivals": "1:20e3158d",
@@ -212,7 +332,7 @@
     },
     {
       "id": "theThrobPair",
-      "wave": 21,
+      "wave": 33,
       "name": "THROB TANGO",
       "bodies": 0,
       "typical": 0,
@@ -222,7 +342,7 @@
     },
     {
       "id": "theThrobRecall",
-      "wave": 22,
+      "wave": 34,
       "name": "THROB RELIC",
       "bodies": 0,
       "typical": 0,
@@ -232,7 +352,7 @@
     },
     {
       "id": "theThrobPeak",
-      "wave": 23,
+      "wave": 35,
       "name": "THROB STORM",
       "bodies": 0,
       "typical": 0,
@@ -241,48 +361,8 @@
       "unmeasured": true
     },
     {
-      "id": "theEcho",
-      "wave": 24,
-      "name": "THE ECHO",
-      "bodies": 0,
-      "typical": 0,
-      "mean": 0,
-      "p90": 0,
-      "unmeasured": true
-    },
-    {
-      "id": "theEchoPair",
-      "wave": 25,
-      "name": "ECHO ALLIANCE",
-      "bodies": 0,
-      "typical": 0,
-      "mean": 0,
-      "p90": 0,
-      "unmeasured": true
-    },
-    {
-      "id": "theEchoRecall",
-      "wave": 26,
-      "name": "ECHO SAGA",
-      "bodies": 0,
-      "typical": 0,
-      "mean": 0,
-      "p90": 0,
-      "unmeasured": true
-    },
-    {
-      "id": "theEchoPeak",
-      "wave": 27,
-      "name": "ECHO RAPTURE",
-      "bodies": 0,
-      "typical": 0,
-      "mean": 0,
-      "p90": 0,
-      "unmeasured": true
-    },
-    {
       "id": "theRecoil",
-      "wave": 28,
+      "wave": 36,
       "name": "THE RECOIL",
       "bodies": 0,
       "typical": 0,
@@ -292,7 +372,7 @@
     },
     {
       "id": "theRecoilPair",
-      "wave": 29,
+      "wave": 37,
       "name": "RECOIL MEETS ECHO",
       "bodies": 0,
       "typical": 0,
@@ -302,7 +382,7 @@
     },
     {
       "id": "theRecoilRecall",
-      "wave": 30,
+      "wave": 38,
       "name": "OLD RECOIL SONG",
       "bodies": 0,
       "typical": 0,
@@ -312,7 +392,7 @@
     },
     {
       "id": "theRecoilPeak",
-      "wave": 31,
+      "wave": 39,
       "name": "RECOIL STORM",
       "bodies": 0,
       "typical": 0,
@@ -322,7 +402,7 @@
     },
     {
       "id": "theGyre",
-      "wave": 32,
+      "wave": 40,
       "name": "THE GYRE",
       "bodies": 0,
       "typical": 0,
@@ -332,7 +412,7 @@
     },
     {
       "id": "theGyrePair",
-      "wave": 33,
+      "wave": 41,
       "name": "GYRE DUET",
       "bodies": 0,
       "typical": 0,
@@ -342,7 +422,7 @@
     },
     {
       "id": "theGyreRecall",
-      "wave": 34,
+      "wave": 42,
       "name": "GYRE LEGEND",
       "bodies": 0,
       "typical": 0,
@@ -352,7 +432,7 @@
     },
     {
       "id": "theGyrePeak",
-      "wave": 35,
+      "wave": 43,
       "name": "GYRE RAPTURE",
       "bodies": 0,
       "typical": 0,
@@ -362,7 +442,7 @@
     },
     {
       "id": "theLure",
-      "wave": 36,
+      "wave": 44,
       "name": "THE LURE",
       "bodies": 0,
       "typical": 0,
@@ -372,7 +452,7 @@
     },
     {
       "id": "theLurePair",
-      "wave": 37,
+      "wave": 45,
       "name": "LURE AND GYRE",
       "bodies": 0,
       "typical": 0,
@@ -382,7 +462,7 @@
     },
     {
       "id": "theLureRecall",
-      "wave": 38,
+      "wave": 46,
       "name": "LURE REUNION",
       "bodies": 0,
       "typical": 0,
@@ -392,7 +472,7 @@
     },
     {
       "id": "theLurePeak",
-      "wave": 39,
+      "wave": 47,
       "name": "LURE INFERNO",
       "bodies": 0,
       "typical": 0,
@@ -402,7 +482,7 @@
     },
     {
       "id": "theRind",
-      "wave": 40,
+      "wave": 48,
       "name": "THE RIND",
       "bodies": 0,
       "typical": 0,
@@ -412,7 +492,7 @@
     },
     {
       "id": "theRindPair",
-      "wave": 41,
+      "wave": 49,
       "name": "RIND MEETS LURE",
       "bodies": 0,
       "typical": 0,
@@ -422,7 +502,7 @@
     },
     {
       "id": "theRindRecall",
-      "wave": 42,
+      "wave": 50,
       "name": "ANCIENT RIND",
       "bodies": 0,
       "typical": 0,
@@ -432,88 +512,8 @@
     },
     {
       "id": "theRindPeak",
-      "wave": 43,
-      "name": "RIND THUNDER",
-      "bodies": 0,
-      "typical": 0,
-      "mean": 0,
-      "p90": 0,
-      "unmeasured": true
-    },
-    {
-      "id": "theStrand",
-      "wave": 44,
-      "name": "THE STRAND",
-      "bodies": 0,
-      "typical": 0,
-      "mean": 0,
-      "p90": 0,
-      "unmeasured": true
-    },
-    {
-      "id": "theStrandPair",
-      "wave": 45,
-      "name": "STRAND WALTZ",
-      "bodies": 0,
-      "typical": 0,
-      "mean": 0,
-      "p90": 0,
-      "unmeasured": true
-    },
-    {
-      "id": "theStrandRecall",
-      "wave": 46,
-      "name": "ANCIENT STRAND",
-      "bodies": 0,
-      "typical": 0,
-      "mean": 0,
-      "p90": 0,
-      "unmeasured": true
-    },
-    {
-      "id": "theStrandPeak",
-      "wave": 47,
-      "name": "STRAND INFERNO",
-      "bodies": 0,
-      "typical": 0,
-      "mean": 0,
-      "p90": 0,
-      "unmeasured": true
-    },
-    {
-      "id": "theVeil",
-      "wave": 48,
-      "name": "THE VEIL",
-      "bodies": 0,
-      "typical": 0,
-      "mean": 0,
-      "p90": 0,
-      "unmeasured": true
-    },
-    {
-      "id": "theVeilPair",
-      "wave": 49,
-      "name": "VEIL WALTZ",
-      "bodies": 0,
-      "typical": 0,
-      "mean": 0,
-      "p90": 0,
-      "unmeasured": true
-    },
-    {
-      "id": "theVeilRecall",
-      "wave": 50,
-      "name": "VEIL HOMECOMING",
-      "bodies": 0,
-      "typical": 0,
-      "mean": 0,
-      "p90": 0,
-      "unmeasured": true
-    },
-    {
-      "id": "theVeilPeak",
       "wave": 51,
-      "name": "VEIL RAPTURE",
+      "name": "RIND THUNDER",
       "bodies": 0,
       "typical": 0,
       "mean": 0,

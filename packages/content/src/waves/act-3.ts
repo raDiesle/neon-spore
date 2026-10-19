@@ -1,9 +1,8 @@
-import { SWINDLE_SCRIPT } from "../swindle-script.js";
 import type { Wave } from "../wave-types.js";
 
 /**
- * Waves 121 to 133 of the game, in the order they are played: THE HUSK's block,
- * the filler before THE SWINDLE and the boss THE SWINDLE.
+ * Waves 121 to 132 of the game, in the order they are played: THE HUSK's block
+ * and the filler before THE SWINDLE.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act
  * after the tutorial arc again in play order. A save that fills it cuts a page
@@ -49,15 +48,16 @@ export const WAVES_ACT_3: Wave[] = [
     name: "ANCIENT HUSK",
     variant: true,
     entries: [
-      { beat: 0, col: 9, color: "red" },
-      { beat: 11, col: 7, color: "red" },
-      { beat: 17, col: 4, kind: "meteor", color: null },
-      { beat: 23, col: 10, color: "red" },
-      { beat: 37, col: 5, color: "cyan" },
+      { beat: 0, col: 4, color: "cyan" },
+      { beat: 11, col: 3, color: "red" },
+      { beat: 16, col: 8, kind: "meteor", color: null },
+      { beat: 21, col: 4, color: "red" },
+      { beat: 31, col: 9, color: "red" },
+      { beat: 39, col: 10, kind: "rind", color: "red" },
     ],
     pods: [
-      { beat: 6, col: 2, row: 4, kind: "husk" },
-      { beat: 29, col: 1, row: 4, kind: "husk" },
+      { beat: 6, col: 6, row: 4, kind: "husk" },
+      { beat: 26, col: 1, row: 4, kind: "husk" },
     ],
     controls: "standard5",
   },
@@ -180,12 +180,12 @@ export const WAVES_ACT_3: Wave[] = [
     id: "fillerSwindleBreathe",
     name: "SWINDLE DREAM",
     entries: [
-      { beat: 0, col: 8, color: "red" },
-      { beat: 8, col: 2, kind: "rind", color: "cyan" },
-      { beat: 16, col: 5, color: "cyan" },
-      { beat: 24, col: 6, kind: "torch", color: null },
-      { beat: 30, col: 4, color: "cyan" },
-      { beat: 36, col: 7, kind: "blister", color: null, row: 3 },
+      { beat: 0, col: 6, color: "cyan" },
+      { beat: 8, col: 3, kind: "strand", color: "red", beads: 2 },
+      { beat: 16, col: 8, color: "cyan" },
+      { beat: 23, col: 6, kind: "meteor", color: null },
+      { beat: 31, col: 8, color: "cyan" },
+      { beat: 38, col: 4, kind: "torch", color: null },
     ],
     controls: "standard5",
   },
@@ -194,15 +194,15 @@ export const WAVES_ACT_3: Wave[] = [
     name: "ANCIENT SWINDLE",
     variant: true,
     entries: [
-      { beat: 0, col: 2, color: "red" },
-      { beat: 6, col: 0, kind: "strand", color: "red", beads: 2 },
-      { beat: 11, col: 4, color: "cyan" },
-      { beat: 23, col: 4, color: "cyan" },
-      { beat: 28, col: 9, kind: "shell", color: "red" },
-      { beat: 34, col: 5, color: "cyan" },
-      { beat: 40, col: 4, kind: "strand", color: "red", beads: 2 },
+      { beat: 0, col: 0, color: "cyan" },
+      { beat: 5, col: 4, kind: "throb", color: "red" },
+      { beat: 11, col: 2, color: "cyan" },
+      { beat: 17, col: 7, kind: "strand", color: "red", beads: 5 },
+      { beat: 22, col: 3, color: "cyan" },
+      { beat: 28, col: 9, kind: "blister", color: null, row: 3 },
+      { beat: 34, col: 5, color: "red" },
+      { beat: 40, col: 8, kind: "throb", color: "red" },
     ],
-    pods: [{ beat: 17, col: 5, row: 3, kind: "pod" }],
     controls: "standard5",
   },
   {
@@ -210,31 +210,18 @@ export const WAVES_ACT_3: Wave[] = [
     name: "SWINDLE TRICK",
     variant: true,
     entries: [
-      { beat: 0, col: 3, color: "cyan" },
-      { beat: 6, col: 10, kind: "blister", color: null, row: 3 },
+      { beat: 0, col: 10, color: "red" },
+      { beat: 7, col: 0, kind: "shell", color: "red" },
       { beat: 12, col: 3, color: "red" },
-      { beat: 18, col: 2, kind: "meteor", color: null },
-      { beat: 24, col: 4, color: "cyan" },
-      { beat: 24, col: 7, color: "cyan" },
-      { beat: 29, col: 7, kind: "shell", color: "cyan" },
-      { beat: 35, col: 8, kind: "blister", color: null, row: 3 },
-      { beat: 40, col: 4, color: "red" },
-      { beat: 40, col: 7, color: "red" },
-      { beat: 45, col: 7, kind: "meteor", color: null },
+      { beat: 18, col: 1, kind: "rind", color: "red" },
+      { beat: 23, col: 4, color: "red" },
+      { beat: 23, col: 7, color: "red" },
+      { beat: 28, col: 10, kind: "throb", color: "red" },
+      { beat: 34, col: 7, kind: "shell", color: "cyan" },
+      { beat: 40, col: 5, color: "cyan" },
+      { beat: 40, col: 8, color: "cyan" },
+      { beat: 46, col: 4, kind: "rind", color: "red" },
     ],
-    controls: "standard5",
-  },
-  {
-    id: "theSwindle",
-    name: "THE SWINDLE",
-    guide: {
-      both: "A slime hangs real pods and fake ones, and swaps them round. Swallow every real pod she lets go, and none of the fake ones.",
-      p1: "1. Open the maw when your partner says real.\n2. Keep it shut when your partner says fake.",
-      p2: "1. Watch the fake pods while she swaps them.\n2. Say real or fake as each one falls.",
-    },
-    entries: [],
-    boss: { kind: "swindle", steps: SWINDLE_SCRIPT },
-    bossType: "normal",
     controls: "standard5",
   },
 ];

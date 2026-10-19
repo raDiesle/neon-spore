@@ -33,15 +33,17 @@ import type { Wave } from "../wave-types.js";
  *
  * **Fourteen bodies come between THE BROOD and THE ROCK, on STANDARD 2**
  * (the owner, 18 October 2026): the ones that ask for nothing but the cannon,
- * its strip and the two colours — SHELL, MAGNET, THROB, ECHO, RECOIL, GYRE,
- * LURE, RIND, STRAND, VEIL, DART, COUNT, GHOST and WISP, in that order. Each
+ * its strip and the two colours — ECHO, STRAND, VEIL, SHELL, MAGNET, THROB,
+ * RECOIL, GYRE, LURE, RIND, DART, COUNT, GHOST and WISP, in that order. Each
  * is its head and three regular waves the composer wrote for the arc
  * (`waves:compose`), and a boss after each is the owner's to add. HOLD AND
  * AIM stands in front of THE MAGNET: a magnet is answered only by a bolt the
  * pilot's hand has turned (`sim/lock.ts`). The two come straight after the
  * shell's block (the owner, 19 October 2026), and the magnet's three waves
- * were drawn again so they mix only the shell. THE GYRE's film lost its SUCK
- * page.
+ * were drawn again so they mix only the shell. ECHO, STRAND and VEIL open
+ * the fourteen (the owner, 19 October 2026), and their nine waves were drawn
+ * again so they mix only what comes before them. THE GYRE's film lost its
+ * SUCK page.
  */
 export const WAVES_ACT_1: Wave[] = [
   {
@@ -177,47 +179,6 @@ export const WAVES_ACT_1: Wave[] = [
     entries: [],
     boss: { kind: "brood", steps: BROOD_SCRIPT },
     bossType: "normal",
-    controls: "standard2",
-  },
-  {
-    id: "theThirdShot",
-    name: "THE SHELL",
-    guide: {
-      scene: "theThirdShot",
-    },
-    entries: [
-      { beat: 0, col: 2, kind: "shell", color: "cyan" },
-      { beat: 10, col: 7, kind: "shell", color: "red" },
-    ],
-    controls: "standard2",
-  },
-  {
-    id: "theThirdShotPair",
-    name: "SHELL AND CYAN",
-    variant: true,
-    entries: [
-      { beat: 0, col: 0, color: "cyan" },
-      { beat: 7, col: 4, kind: "shell", color: "red" },
-      { beat: 13, col: 6, color: "cyan" },
-      { beat: 20, col: 7, kind: "shell", color: "red" },
-      { beat: 26, col: 0, color: "cyan" },
-      { beat: 32, col: 2, kind: "shell", color: "red" },
-      { beat: 38, col: 5, color: "cyan" },
-    ],
-    controls: "standard2",
-  },
-  {
-    id: "theThirdShotRecall",
-    name: "SHELL SAGA",
-    variant: true,
-    entries: [
-      { beat: 0, col: 9, color: "cyan" },
-      { beat: 7, col: 8, kind: "shell", color: "cyan" },
-      { beat: 15, col: 7, color: "cyan" },
-      { beat: 23, col: 4, kind: "shell", color: "red" },
-      { beat: 31, col: 10, color: "cyan" },
-      { beat: 38, col: 4, kind: "shell", color: "red" },
-    ],
     controls: "standard2",
   },
 ];
