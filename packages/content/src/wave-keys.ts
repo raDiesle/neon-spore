@@ -1,5 +1,6 @@
 import { controlSet, setLance } from "./control-sets.js";
 import { mechanic, mechanicsInWave } from "./mechanics.js";
+import { waveTeaches } from "./wave-hints.js";
 import type { Wave } from "./wave-types.js";
 
 /**
@@ -65,7 +66,7 @@ export function untaughtKeys(waves: readonly Wave[]): Untaught[] {
     for (const k of new Set(waveKeys(wave))) {
       if (seen.has(k)) continue;
       seen.add(k);
-      if (wave.boss ? !ordinary.has(k) : wave.guide) continue;
+      if (wave.boss ? !ordinary.has(k) : waveTeaches(wave)) continue;
       keys.push(k);
     }
     if (keys.length > 0) out.push({ index, name: wave.name, keys });

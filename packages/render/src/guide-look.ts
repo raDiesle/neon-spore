@@ -63,6 +63,9 @@ export interface GuideLook {
     names?: SeatNames,
     /** Where a page's body last stood, once it has gone (`caption-hold.ts`). */
     hold?: CaptionHold,
+    /** On the field being played rather than a film: the rest of it is not
+     * dimmed, because the pair are still playing it (`wave-hint.ts`). */
+    live?: boolean,
   ) => void;
 }
 

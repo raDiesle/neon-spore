@@ -56,9 +56,11 @@ export {
   type Wave,
   type WaveEntry,
   type WaveGuide,
+  type WaveHintsId,
   type WordedGuide,
   waveGuideSteps,
   waveHasGuide,
+  waveTeaches,
 } from "./waves.js";
 export {
   DEMONSTRATIONS,

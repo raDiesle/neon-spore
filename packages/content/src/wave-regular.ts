@@ -1,5 +1,6 @@
 import { firstOnPanel } from "./control-sets.js";
 import { mechanic, mechanicsInWave } from "./mechanics.js";
+import { waveTeaches } from "./wave-hints.js";
 import type { Wave } from "./wave-types.js";
 
 /**
@@ -55,7 +56,7 @@ export function waveIntroduces(waves: readonly Wave[], index: number): string[] 
 
 /** Whether a wave that brings `fresh` is regular: no boss, no guide, nothing new. */
 function regular(wave: Wave | undefined, fresh: () => readonly string[]): boolean {
-  if (!wave || wave.boss || wave.guide) return false;
+  if (!wave || wave.boss || waveTeaches(wave)) return false;
   return fresh().length === 0;
 }
 

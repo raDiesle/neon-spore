@@ -30,7 +30,7 @@ first creature falling. It is one of two states, never both:
    prose (§3.2). Either way it ends on **the ready gate**: two circles, one per
    seat, each filling while that seat holds and saying READY when it is full.
    The guide passes when both say READY. Only a wave that introduces something
-   new carries one — one hundred and eighteen of the four hundred and seventy-seven waves today, and a wave
+   new carries one — one hundred and seventeen of the four hundred and seventy-seven waves today, and a wave
    with no guide has no circles either.
 2. **The introduction**, if it has no guide. `WAVE 4`, the wave's name, its
    one sentence. Plain text on the field — no panel, no border, nothing to
@@ -246,24 +246,34 @@ there was none when the loop wrapped: a world is a large mutable thing with a
 random stream in it, and putting one back is a second definition of what a world
 is made of.
 
-### Wave 1's guide, which is about the split
+### Wave 1 teaches on its own field, not in front of it
 
-`FIRST STEP` carries the guide the old catalogue called `opening` — the one
-subject that was in no wave's contents, raised before the pair's first wave and
-never again. It is a wave's guide now like any other, which is one special case
-gone:
+The owner, 19 October 2026: *replace tutorial mode before wave starts in a way
+that it is giving hints during gameplay of the related wave but players can
+interact already (so it is not a separate step) — right now it is unclear for
+players that it is tutorial.* FIRST STEP is the first wave moved over, and the
+one shown to the owner before any other is.
 
-Both: *One ship, two screens — and the two screens do not show the same thing.
-What is coming is on one of them; the control that answers it is on the other.
-This first one is flat, wide and always red.*
-P1: *Yours is the cannon, the shield's trigger and the maw. Slide your strip
-until the cannon stands in its column, and say which column.*
-P2: *Yours is the shield itself, and the two colours. Press red — nothing
-leaves the hull until you do.*
+So FIRST STEP carries **`hints`** instead of a guide (`Wave.hints`): it opens
+on its introduction and is played at once, and the field tells each seat the
+next thing to do, beside the thing it is about, until the pair has cleared
+three bodies (`HINTS_UNTIL`) — and again from the start of a try begun over.
 
-The beat and the run line are still explained nowhere. The voice
-channel is deliberately not explained here either — that belongs to the menu,
-before a room is even joined.
+| | cannon not under the lowest body | cannon under it |
+|---|---|---|
+| player 1 | MOVE CANNON UNDER ENEMY, on the cannon | TELL PLAYER 2: FIRE!, on the cannon |
+| player 2 | WAIT FOR THE CANNON, on the cannon | FIRE RED NOW, on the red button |
+
+The words are drawn by the film's own caption — amber plate, turning ring,
+leader — with a **TUTORIAL** tab on the plate and nothing dimmed round it,
+because the field is being played (`render/src/wave-hint.ts`). It is a reading
+of `World` and nothing else: no simulation state, nothing hashed, nothing on
+the wire. `test` shows the hint of the seat who acts.
+
+FIRST STEP's film is gone; it is in git history as
+packages/content/src/scenes/first-step.ts should the owner want it back.
+`waveTeaches` is the one question the rules about what is taught where ask —
+a guide or hints — and `waveHasGuide` still means *a guide to play*.
 
 ---
 
@@ -307,13 +317,14 @@ before a room is even joined.
 
 A guide that names a `scene` does not draw a panel of prose at all. It plays a
 **rehearsal**: the game's own screen at full size, one device at a time. FIRST
-STEP's is still the shape of every one after it — a red slick falling, a hand
+STEP's, gone since 19 October 2026 for the hints above, was the shape of every
+one after it — a red slick falling, a hand
 walking the cannon into its column, a slide across to the other player's screen,
 RED pressed, the shot taking it, and then a second slick nobody answers, so the
 last thing the pair is shown is the hull bar dropping. About five seconds,
 looping.
 
-**There are ninety-nine of them now**, one per guided wave bar nineteen,
+**There are ninety-eight of them now**, one per guided wave bar nineteen,
 and each is authored in `packages/content/src/scenes/` as a page of
 choreography rather than a page of prose. The nineteen that are still the
 three strings and the two circles are the bosses from THE NETTLE on,

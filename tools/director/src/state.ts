@@ -87,6 +87,7 @@ export function copyWave(wave: Wave, taken: Iterable<string> = []): Wave {
     id: freshWaveId(taken),
     name: `${wave.name} COPY`,
     guide: wave.guide ? { ...wave.guide } : undefined,
+    hints: wave.hints,
     cols: wave.cols,
     entries: wave.entries.map((e) => ({ ...e })),
     pods: wave.pods?.map((p) => ({ ...p })),

@@ -4,6 +4,7 @@ import type { SceneId } from "./scenes.js";
 import type { WaveAuthoring } from "./wave-authoring.js";
 import type { WaveEntry } from "./wave-entry.js";
 import type { WaveFault } from "./wave-faults.js";
+import type { WaveHintsId } from "./wave-hints.js";
 
 /**
  * What a wave is made of.
@@ -127,6 +128,13 @@ export interface Wave extends WaveAuthoring {
    * `.claude/skills/new-creature` is where the next session is told so.
    */
   guide?: WaveGuide;
+  /**
+   * **The help this wave gives while it is played**, by name, instead of a
+   * guide in front of it — the owner's of 19 October 2026. It opens on its
+   * introduction and the field tells each seat what to do next
+   * (`wave-hints.ts`, `render/src/wave-hint.ts`). Never beside a guide.
+   */
+  hints?: WaveHintsId;
   entries: WaveEntry[];
   /**
    * How many columns every column in this wave is counted on — its entries,

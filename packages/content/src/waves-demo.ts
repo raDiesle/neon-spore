@@ -149,9 +149,9 @@ export const DEMONSTRATIONS: Record<MechanicId, Demonstration> = {
   pinball: { wave: "pinball" },
   pulse: { wave: "pulse" },
   scout: { wave: "theScout" },
-  // A fresh pair meeting the slick, which is the first card the game ever
-  // raises and the shortest wave to raise one.
-  briefing: { wave: "firstStep", config: { briefings: true } },
+  // CYAN's, the first guide the game plays in front of a wave since FIRST
+  // STEP's moved onto its field (`Wave.hints`).
+  briefing: { wave: "cyan", config: { briefings: true } },
   // The grid is worth watching where the beat is already the enemy: a Throb
   // can only be hit while it is open, and a laid shot leaves on a named
   // moment. Half a beat is the value `apps/game` ships.

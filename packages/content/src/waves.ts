@@ -2,6 +2,7 @@ import { sceneSteps } from "./scenes.js";
 import type { Wave, WaveGuide } from "./wave-types.js";
 import { WAVE_ACTS } from "./waves/acts.js";
 
+export { type WaveHintsId, waveTeaches } from "./wave-hints.js";
 export type {
   BossType,
   FilmedGuide,

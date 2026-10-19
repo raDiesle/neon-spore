@@ -44768,3 +44768,18 @@ Bottleneck: getting a frame with PALM up in it — the body is picked by tile.
 Bottleneck: the recipe's `--until-on 150` photographs the field before the lost screen is up.
 
 *Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-19 — FIRST STEP teaches on its own field
+
+- reading: 15 min. How the guide, the gate and the boss cue are wired, and
+  which tests and fixtures stood on wave 1 being the first film.
+- writing: 15 min. `Wave.hints`, `waveTeaches`, `wave-hint.ts` and its test;
+  the film out, two fixtures onto CYAN, the counts and the spec.
+- looking: 10 min. The preview on p1 and p2, off the column and under it,
+  and AUTO past three clears; the boss-cue words were too small and became
+  the film's caption.
+- friction: 0 min.
+- landing: 10 min. Two `check:fast` runs: a file over its limit, a bake
+  count, a doc path, the index.
+
+Bottleneck: finding every test and fixture that used wave 1 as "the wave with a film".

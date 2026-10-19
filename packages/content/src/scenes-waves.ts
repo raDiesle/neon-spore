@@ -2,7 +2,6 @@ import type { GuideScene } from "./scene-types.js";
 import { BULB_QUEEN } from "./scenes/bulb-queen.js";
 import { CATCH_AND_AIM } from "./scenes/catch-and-aim.js";
 import { CYAN } from "./scenes/cyan.js";
-import { FIRST_STEP } from "./scenes/first-step.js";
 import { HOLD_AND_AIM } from "./scenes/hold-and-aim.js";
 import { HOLD_TOGETHER } from "./scenes/hold-together.js";
 import { ONE_LAST_CHANCE } from "./scenes/one-last-chance.js";
@@ -72,7 +71,6 @@ import { THE_WISP } from "./scenes/the-wisp.js";
  * `scenes.ts` spreads this table into `SCENES` and widens `SceneId` by the id.
  */
 export type WaveSceneId =
-  | "firstStep"
   | "cyan"
   | "theRock"
   | "theHand"
@@ -134,7 +132,6 @@ export type WaveSceneId =
   | "theBlister";
 
 export const SCENES_WAVES: Record<WaveSceneId, GuideScene> = {
-  firstStep: FIRST_STEP,
   cyan: CYAN,
   theRock: THE_ROCK,
   theHand: THE_HAND,

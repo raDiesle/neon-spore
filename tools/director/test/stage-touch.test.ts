@@ -1,5 +1,5 @@
 import { afterAll, beforeAll, describe, expect, it } from "bun:test";
-import { controlSet, controlSetForWave, waveGuideSteps } from "@neon-spore/content";
+import { controlSet, controlSetForWave, WAVES, waveGuideSteps } from "@neon-spore/content";
 import {
   cannonGrab,
   computeLayout,
@@ -130,8 +130,10 @@ describe("bindStageTouch answers the guide with a hold, and a tap with a step", 
     // A guide, because the paging under test is the guide's. A wave opens on
     // it, so a world built here is already standing on its first page — and it
     // is handed the page count, without which the simulation reads every seat
-    // as already standing at the gate.
-    startWave(world, 0, queue, [], null, true, waveGuideSteps(0));
+    // as already standing at the gate. CYAN's, the first wave with one since
+    // FIRST STEP's moved onto its field (`Wave.hints`).
+    const cyan = WAVES.findIndex((w) => w.id === "cyan");
+    startWave(world, cyan, queue, [], null, true, waveGuideSteps(cyan));
     const sent: { player: 1 | 2; command: Command }[] = [];
     let pending: TimedCommand[] = [];
     const stub = stubCanvas();

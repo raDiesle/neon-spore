@@ -109,7 +109,13 @@ function entriesAfter(role: "p1" | "p2"): number {
 // (`breach-hammer.ts`). One more is a second slick still on the field when the
 // run ends, one glance record; and one a purple halo at a radius of its own on
 // the shorter band.
-const HELD = { p1: 74, p2: 83 } as const;
+// Twelve more on p1 and one on p2 from 19 October 2026, when FIRST STEP began
+// to teach on its own field (`wave-hint.ts`): the caption's halo round its
+// subject, one size on each seat, and on p1 — whose hint stands on the cannon
+// the slick is falling over — the companion ring's halo, which breathes, and
+// so is baked at the eleven radii its breath passes through, the same set the
+// film baked before it (`guide-tide-caption.ts`).
+const HELD = { p1: 86, p2: 84 } as const;
 
 describe("what the renderer keeps between frames", () => {
   for (const role of ["p1", "p2"] as const) {

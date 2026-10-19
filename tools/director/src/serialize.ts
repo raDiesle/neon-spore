@@ -39,6 +39,8 @@ function serializeWave(wave: Wave): string {
   // Directly under `name`: a wave's prose is its name and what the pair has
   // to be told before it starts.
   if (wave.guide) lines.push(...serializeGuide(wave.guide));
+  // Where the guide would be: the help played on the field instead (`Wave.hints`).
+  if (wave.hints) lines.push(`    hints: "${wave.hints}",`);
 
   // Above the entries, because every column in them is counted on it.
   if (wave.cols !== undefined) lines.push(`    cols: ${wave.cols},`);

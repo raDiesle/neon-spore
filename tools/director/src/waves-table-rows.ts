@@ -5,6 +5,7 @@ import {
   waveIntroduces,
   wavePressure,
   waveTalk,
+  waveTeaches,
 } from "@neon-spore/content";
 import { beatSeconds, DEFAULT_CONFIG } from "@neon-spore/sim";
 import { TUTORIAL_LAST_ID } from "./compose-steps.js";
@@ -145,7 +146,7 @@ export function flagsOf(row: WaveRow, pastTutorial: boolean): Flag[] {
   }
   if (pastTutorial && row.head === -1 && row.size === 0)
     flags.push({ column: "fold", level: "info", text: "no waves folded under it" });
-  if (kind === "intro" && !row.wave.guide && row.fresh.length > 0)
+  if (kind === "intro" && !waveTeaches(row.wave) && row.fresh.length > 0)
     flags.push({ column: "wave", level: "info", text: "brings something new, with no guide" });
   return order(flags);
 }

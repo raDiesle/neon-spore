@@ -14,6 +14,7 @@ import {
   setLance,
   WAVES,
   waveCols,
+  waveTeaches,
 } from "../src/index.js";
 import { DEMONSTRATIONS } from "../src/waves-demo.js";
 
@@ -247,6 +248,19 @@ describe("wave content", () => {
     "THE MOTH",
   ]);
 
+  /**
+   * A guide in front of the wave or hints on its field (`Wave.hints`): either
+   * one says something about what is new, and a wave carries one or neither.
+   */
+  const teaches = (wave: (typeof WAVES)[number]) => (waveTeaches(wave) ? wave : undefined);
+
+  it("never gives one wave both a guide and hints", () => {
+    for (const wave of WAVES) {
+      if (wave.hints === undefined) continue;
+      expect(wave.guide, `${wave.name} carries a guide and hints`).toBeUndefined();
+    }
+  });
+
   it("gives the first wave that carries anything new a guide", () => {
     const seen = new Set<string>();
     for (const [i, wave] of WAVES.entries()) {
@@ -261,7 +275,7 @@ describe("wave content", () => {
       }
       if (introduced.length === 0 || SAYS_ITSELF.has(wave.name)) continue;
       expect(
-        wave.guide,
+        teaches(wave),
         `wave ${i + 1} · ${wave.name} is the first to carry ${introduced.join(", ")} and says nothing about it`,
       ).toBeDefined();
     }
@@ -308,7 +322,7 @@ describe("wave content", () => {
     for (const [i, wave] of WAVES.entries()) {
       if (!firstOnPanel(WAVES, i) || SAYS_ITSELF.has(wave.name)) continue;
       expect(
-        wave.guide,
+        teaches(wave),
         `wave ${i + 1} · ${wave.name} is the first played on ${controlSetForWave(i).name} and says nothing about it`,
       ).toBeDefined();
     }

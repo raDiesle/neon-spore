@@ -1,5 +1,6 @@
 import { describe, expect, it } from "bun:test";
 import { join } from "node:path";
+import { WAVES } from "@neon-spore/content";
 import { captureFrames } from "../capture.js";
 import { clearOpening } from "../opening.js";
 import { openingRig, STARVED_MS } from "./opening-rig.js";
@@ -17,6 +18,9 @@ import { openingRig, STARVED_MS } from "./opening-rig.js";
  * What a capture is asked to frame is `capture-shots.test.ts`; the rig both
  * stand on, and every step's clock, is `opening-rig.ts`.
  */
+/** The first wave that opens on a film. */
+const CYAN = WAVES.findIndex((w) => w.id === "cyan");
+
 describe("captureFrames past a wave's opening", () => {
   const rig = openingRig("opening-test-");
 
@@ -69,12 +73,13 @@ describe("captureFrames past a wave's opening", () => {
   it(
     "stands on the guide, and a strip of it counts painted frames",
     async () => {
-      // Wave 1 carries a guide (`packages/content/src/waves/act-1.ts`), and its
+      // CYAN carries a guide (`packages/content/src/waves/act-1.ts`), and its
       // rehearsal is drawn rather than stepped — so the strip below is four
       // paints apart on the frame clock, not four ticks apart on the world's.
+      // Not wave 1, whose tutorial is on its field since 19 October 2026.
       const { paths } = await captureFrames(
         rig.url,
-        { wave: 0, ticks: 6, frames: 3, strideTicks: 4, opening: "guide" },
+        { wave: CYAN, ticks: 6, frames: 3, strideTicks: 4, opening: "guide" },
         join(rig.out, "guide"),
         rig.browser,
       );

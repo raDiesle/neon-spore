@@ -7,6 +7,7 @@ import type { Layout } from "./layout.js";
 import type { RenderState } from "./render-state.js";
 import type { ViewState } from "./renderer.js";
 import { drawShipButtonMarks } from "./ship-button-mark.js";
+import { drawWaveHint } from "./wave-hint.js";
 
 /**
  * **What goes over the finished band and HUD**, last in a field frame. Cut out
@@ -40,6 +41,9 @@ export function drawOverBand(
   // circles the band actually drew.
   held.effects.boss.stare.drawCaught(ctx, l, view.role, set);
   held.lanceFlash.draw(ctx, l);
+  // A wave's tutorial on its own field, over the band because a hint may be
+  // about a button on it (`wave-hint.ts`).
+  drawWaveHint(ctx, l, world, view.beatPhase, set);
   // Last, over everything: the wave arriving, once the pair has crossed the
   // gate — there is no opening left to draw it inside (`opening-fx.ts`).
   if (held.effects.opening.launching) {

@@ -979,7 +979,6 @@ by hand never moves.
 | `packages/content/src/scene-script.ts` | A rehearsal turned into the two things the runner takes: a command track and a whole `SceneScript` |
 | `packages/content/src/scene-types.ts` | The shapes a rehearsal is written in |
 | `packages/content/src/scene-turn.ts` | **A hand that turns rather than carries**: THE CLAW's crank on the panel |
-| `packages/content/src/scenes/first-step.ts` | FIRST STEP's rehearsal: the game's first exchange, in eleven seconds |
 | `packages/content/src/scenes/the-hand.ts` | THE HAND's rehearsal: the one verb neither seat owns |
 | `packages/content/src/scenes/the-handover.ts` | THE HANDOVER's rehearsal: the panels trade while the pair is watching |
 | `packages/content/src/scenes/the-husk.ts` | THE HUSK's rehearsal: a mark drawn on one seat's screen and not the other's, and a thumb that must not land |
@@ -1093,6 +1092,7 @@ by hand never moves.
 | `packages/content/src/wave-pace.ts` | **Pace: how fast the cannon has to cross the field between two actions** |
 | `packages/content/src/wave-authoring.ts` | **A wave's fields for the director alone** — the game never reads them |
 | `packages/content/src/wave-keys.ts` | **Nothing is used before it is taught**, in the order of the wave list |
+| `packages/content/src/wave-hints.ts` | **A wave that teaches on its own field** rather than in front of it |
 | `packages/content/src/creatures-hazards.ts` | **The arrivals with nothing alive in them**: the five speed tiers, THE VEER, the torch — and THE FENCE |
 | `packages/content/src/creatures-split.ts` | The three bodies **one seat cannot see whole** that wear nothing to do it — the dart, the wisp and the ghost |
 | `packages/content/src/mechanics-split.ts` | The five bestiary rows for bodies one seat cannot see whole — the lure, the dart, the veil, the wisp and the ghost |
@@ -1674,6 +1674,7 @@ by hand never moves.
 | `packages/render/src/warden-frame.ts` | **THE WARDEN, with its rope and its grip**, as `drawBoss` draws it |
 | `packages/render/src/warden.ts` | THE WARDEN, drawn: a ring with a hole you can see the field through |
 | `packages/render/src/wave-intro.ts` | The first of the two states a wave opens in: its number, `TRY n` on a retry, its name and its sentence |
+| `packages/render/src/wave-hint.ts` | **A wave's tutorial, played on the field rather than in front of it** |
 | `packages/render/src/wrap-text.ts` | Greedy wrap against the measured width |
 | `packages/render/src/gradient-slot.ts` | A cache slot for one gradient that depends only on layout — never on time or an eased value |
 | `packages/render/src/gradient-held.ts` | `heldGradient`: a gradient whose every argument is a radius and a constant, built once and reused — never one keyed on `time` |

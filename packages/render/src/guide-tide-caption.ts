@@ -60,6 +60,7 @@ export const caption: GuideLook["caption"] = (
   beatPhase,
   names,
   hold,
+  live,
 ) => {
   const box = captionBox(ctx, l, world, set, step, beatPhase, names, hold);
   if (!box) return;
@@ -77,7 +78,7 @@ export const caption: GuideLook["caption"] = (
     rx: (p.rx ?? p.r) + POOL,
     ry: p.r + POOL,
   }));
-  scrimAround(ctx, l, pools, SCRIM * k);
+  if (!live) scrimAround(ctx, l, pools, SCRIM * k);
 
   ctx.globalAlpha = k;
   if (mate) silentRing(ctx, mate, tick);
