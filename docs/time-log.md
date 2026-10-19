@@ -44815,3 +44815,5 @@ Bottleneck: renumbering the act-one pages the save could not pull back.
 - landing: 5 min. A lint fix, `check:fast`, the commit, `land`.
 
 Bottleneck: what a ring shows is decided by what covers it — the hull below, the next ring in front — and only a picture told me.
+
+*Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
