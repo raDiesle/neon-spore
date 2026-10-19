@@ -114,6 +114,12 @@ function endsFor(
     // straight down from the middle column is a bar across the field.
     const y = l.gridTop + (l.rows / 2) * l.tile;
     for (const col of [1, l.cols - 2]) out.push({ x: tileCX(l, col), y, r: l.tile * 0.6 });
+  } else if (m.kind === "swap") {
+    // **No beam.** THE SWAP is said on the band and the hull, where the thumbs
+    // are, and nowhere else (`swap-look.ts`; the owner, 19 October 2026: *not
+    // like the top of the game screen*). Said by name for THE LEECH's reason
+    // below: the `else` is a runaway cannon's, and on the day THE SWAP
+    // landed it lit both colour lobes and the muzzle.
   } else if (m.kind === "leech" || m.kind === "limpet") {
     // **No beam at all, and it is the only fault that gets none.** These two do
     // not reach down and hold a control from a distance — they *fire a body at
