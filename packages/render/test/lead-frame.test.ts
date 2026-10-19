@@ -121,7 +121,7 @@ describe("THE LEAD's stalk", () => {
   });
 
   it("puts the column on the navigator's screen and not the pilot's", () => {
-    // The lock is in the shield's rim and stands on the body's column, and
+    // The lock is in the cyan rim and stands on the body's column, and
     // the mound under the stalk is the hull's violet; the pilot's screen has
     // neither, and a body moved from one wall to the other is the same
     // picture on it.
@@ -133,11 +133,11 @@ describe("THE LEAD's stalk", () => {
       frame(role, (w) => {
         body(w).col = CFG.cols - 2;
       });
-    expect(count(left("p2").text, PALETTE.shieldRim)).toBeGreaterThan(
-      count(left("p1").text, PALETTE.shieldRim),
+    expect(count(left("p2").text, PALETTE.cyanRim)).toBeGreaterThan(
+      count(left("p1").text, PALETTE.cyanRim),
     );
-    expect(count(left("test").text, PALETTE.shieldRim)).toBeGreaterThan(
-      count(left("p1").text, PALETTE.shieldRim),
+    expect(count(left("test").text, PALETTE.cyanRim)).toBeGreaterThan(
+      count(left("p1").text, PALETTE.cyanRim),
     );
     expect(left("p1").text).toBe(right("p1").text);
     expect(left("p2").text).not.toBe(right("p2").text);

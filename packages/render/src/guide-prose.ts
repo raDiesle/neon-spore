@@ -96,7 +96,7 @@ export function drawProsePage(
   } else {
     const mineSeat: 1 | 2 = seatOf(role);
     const otherSeat: 1 | 2 = mineSeat === 1 ? 2 : 1;
-    y = block(ctx, mid, y, age, line, half(mineSeat, both, true, names), PALETTE.shieldRim);
+    y = block(ctx, mid, y, age, line, half(mineSeat, both, true, names), PALETTE.cyanRim);
     ctx.font = BODY;
     for (const text of wrapText(ctx, both || role !== "p2" ? guide.p1 : guide.p2, width)) {
       drop(ctx, mid, y, age, line, 0, () => body(ctx, text, PALETTE.text));
@@ -111,7 +111,7 @@ export function drawProsePage(
       age,
       line,
       half(otherSeat, both, false, names),
-      both ? PALETTE.shieldRim : PALETTE.dim,
+      both ? PALETTE.cyanRim : PALETTE.dim,
     );
     ctx.font = BODY;
     for (const text of wrapText(ctx, both || role !== "p2" ? guide.p2 : guide.p1, width)) {

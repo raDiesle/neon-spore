@@ -140,7 +140,7 @@ export function drawShellShadow(ctx: CanvasRenderingContext2D, c: Chart, p: Shel
   // nothing at all — the shadow was invisible without this, and a shadow
   // nobody can see is the one part of the arc that was doing the explaining.
   ctx.globalAlpha *= 0.4;
-  ctx.strokeStyle = PALETTE.shield;
+  ctx.strokeStyle = PALETTE.cyan;
   ctx.lineWidth = 1;
   ctx.stroke();
   ctx.restore();

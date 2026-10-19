@@ -161,7 +161,7 @@ describe("THE SCUTTLE's frame", () => {
 
   it("puts the live part on the navigator's screen and not the pilot's", () => {
     // Two parts hang; the one that is live is red on the screen shown the
-    // live part, with the lock in the shield's rim under it, and the other
+    // live part, with the lock in the cyan rim under it, and the other
     // way round is another picture there — and the same one where it is not.
     const twins = (role: ViewRole, live: number) =>
       frame(role, (w) => {
@@ -174,8 +174,8 @@ describe("THE SCUTTLE's frame", () => {
     expect(count(twins("p2", 8), PALETTE.red)).toBeGreaterThan(0);
     expect(count(twins("test", 8), PALETTE.red)).toBeGreaterThan(0);
     expect(count(twins("p1", 8), PALETTE.red)).toBe(0);
-    expect(count(twins("p2", 8), PALETTE.shieldRim)).toBeGreaterThan(
-      count(twins("p1", 8), PALETTE.shieldRim),
+    expect(count(twins("p2", 8), PALETTE.cyanRim)).toBeGreaterThan(
+      count(twins("p1", 8), PALETTE.cyanRim),
     );
     expect(twins("p2", 8)).not.toBe(twins("p2", 9));
     expect(twins("test", 8)).not.toBe(twins("test", 9));

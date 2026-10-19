@@ -116,7 +116,7 @@ export const nav: GuideLook["nav"] = (ctx, l, s) => {
     b.replay.x + b.replay.w / 2,
     b.bar.y + 2,
     b.replay.y + 8,
-    PALETTE.shieldRim,
+    PALETTE.cyanRim,
     age * 1.1 + 2.1,
   );
   drawNavFeeder(
@@ -146,7 +146,7 @@ export const nav: GuideLook["nav"] = (ctx, l, s) => {
       ...b.replay,
       ...paint,
       live: s.replay ?? false,
-      hex: PALETTE.shieldRim,
+      hex: PALETTE.cyanRim,
       glow: 0,
       hover: over(b.replay),
     },

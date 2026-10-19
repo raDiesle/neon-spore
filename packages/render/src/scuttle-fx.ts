@@ -96,11 +96,7 @@ export class ScuttleFx {
           for (let i = 0; i < e.parts; i++) at(socket(i), 2, PALETTE.rock);
           break;
         case "scuttleLoose":
-          at(
-            socket(e.socket),
-            5,
-            e.live && showsScuttleLive(role) ? PALETTE.shieldRim : PALETTE.dim,
-          );
+          at(socket(e.socket), 5, e.live && showsScuttleLive(role) ? PALETTE.cyanRim : PALETTE.dim);
           break;
         case "scuttleThrow":
           at(col(e.col, -0.3), 6, PALETTE.rock);

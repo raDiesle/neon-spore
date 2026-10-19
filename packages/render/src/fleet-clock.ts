@@ -68,7 +68,7 @@ export function drawDrainBar(
 ): void {
   ctx.fillStyle = "rgba(47,224,240,.14)";
   ctx.fillRect(x, y, w, h);
-  ctx.fillStyle = late ? PALETTE.red : PALETTE.shield;
+  ctx.fillStyle = late ? PALETTE.red : PALETTE.cyan;
   ctx.fillRect(x, y, w * Math.max(0, Math.min(1, left)), h);
 }
 

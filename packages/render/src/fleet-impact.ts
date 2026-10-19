@@ -157,7 +157,7 @@ export function drawFleetSplashBurst(
   const w = c.tile * 0.24 * (0.5 + 0.5 * rise);
   if (h > 0.5) {
     ctx.globalAlpha = 0.8 * rise;
-    halo(ctx, x, y - h * 0.5, h * 0.9, PALETTE.shield, 0.35 * rise);
+    halo(ctx, x, y - h * 0.5, h * 0.9, PALETTE.cyan, 0.35 * rise);
     ctx.fillStyle = PALETTE.cyanRim;
     ctx.beginPath();
     ctx.moveTo(x - w, y);
@@ -170,7 +170,7 @@ export function drawFleetSplashBurst(
 
   // The drops off the crown, thrown out sideways and falling under their own
   // weight — the `t * t` is the fall, and it is the reason they arc.
-  ctx.fillStyle = PALETTE.shieldRim;
+  ctx.fillStyle = PALETTE.cyanRim;
   for (let i = 0; i < DROPS; i++) {
     const a = spoke(i, DROPS);
     const d = c.tile * (0.1 + 1.3 * t * reach(i));
@@ -186,7 +186,7 @@ export function drawFleetSplashBurst(
 
   // The rings the water closes with. Two of them, the second a beat behind the
   // first, both flattened — the chart is a surface seen at a slant.
-  ctx.strokeStyle = PALETTE.shield;
+  ctx.strokeStyle = PALETTE.cyan;
   ctx.lineWidth = STROKE.inner;
   for (const lag of [0, 0.22]) {
     const u = (t - lag) / (1 - lag);

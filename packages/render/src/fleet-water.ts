@@ -98,7 +98,7 @@ export function drawSinkWash(
   ctx.translate(cx, cy);
   if (vertical) ctx.rotate(Math.PI / 2);
 
-  ctx.strokeStyle = PALETTE.shield;
+  ctx.strokeStyle = PALETTE.cyan;
   ctx.lineWidth = STROKE.inner;
   for (const lag of RINGS) {
     const u = (sinking - lag) / (1 - lag);
@@ -114,7 +114,7 @@ export function drawSinkWash(
   const crest = Math.sin(Math.min(1, sinking * 1.4) * Math.PI);
   if (crest > 0.01) {
     ctx.globalAlpha = crest * 0.85;
-    ctx.strokeStyle = PALETTE.shieldRim;
+    ctx.strokeStyle = PALETTE.cyanRim;
     ctx.lineWidth = STROKE.outline;
     ctx.setLineDash([long * 0.16, long * 0.11]);
     ctx.beginPath();

@@ -169,7 +169,7 @@ export function drawAim(
   const width = Math.max(1.5, t.tile * 0.07);
   if (boss.shot === "aim") {
     drawTrace(ctx, t, trace(view, t, boss, 0), PALETTE.sparkDim, width * 0.7, 0.45);
-    drawTrace(ctx, t, trace(view, t, boss, 1000), PALETTE.shieldRim, width * 0.8, 0.65);
+    drawTrace(ctx, t, trace(view, t, boss, 1000), PALETTE.cyanRim, width * 0.8, 0.65);
     return;
   }
   const arc = trace(view, t, boss, boss.powerMilli);
@@ -225,7 +225,7 @@ export function drawPowerBar(ctx: CanvasRenderingContext2D, t: Table, boss: Pinb
   const fill = (span * boss.powerMilli) / 1000;
   if (fill > 1) {
     const ramp = ctx.createLinearGradient(x, 0, x + span, 0);
-    ramp.addColorStop(0, PALETTE.shield);
+    ramp.addColorStop(0, PALETTE.cyan);
     ramp.addColorStop(0.55, PALETTE.pod);
     ramp.addColorStop(1, PALETTE.red);
     ctx.fillStyle = ramp;

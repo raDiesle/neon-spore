@@ -56,11 +56,11 @@ describe("the five moments of the wound", () => {
 
   it("each throw a ring off the holed square, in a colour of their own", () => {
     const cases: [SimEvent, string][] = [
-      [{ type: "fleetFlood", col: 3, row: 4 }, PALETTE.shield],
+      [{ type: "fleetFlood", col: 3, row: 4 }, PALETTE.cyan],
       [{ type: "fleetBreach", col: 3, row: 4, on: true }, PALETTE.text],
       [{ type: "fleetBreach", col: 3, row: 4, on: false }, PALETTE.dim],
       [{ type: "fleetRake", col: 3, row: 4 }, PALETTE.red],
-      [{ type: "fleetPlug", col: 3, row: 4 }, PALETTE.shield],
+      [{ type: "fleetPlug", col: 3, row: 4 }, PALETTE.cyan],
       [{ type: "fleetWreck", col: 3, row: 4 }, PALETTE.ember],
     ];
     for (const [e, color] of cases) {
@@ -72,7 +72,7 @@ describe("the five moments of the wound", () => {
   it("throw their particles where the square is, and the thumb throws none", () => {
     const opening = after({ type: "fleetFlood", col: 2, row: 5 });
     expect(opening.thrown).toHaveLength(1);
-    expect(opening.thrown[0]?.hex).toBe(PALETTE.shieldRim);
+    expect(opening.thrown[0]?.hex).toBe(PALETTE.cyanRim);
     // The wreck is the biggest thing that happens on this chart, and the
     // rake the smallest: the count is the whole of what the ear is not told.
     const wreck = after({ type: "fleetWreck", col: 2, row: 5 }).thrown[0];

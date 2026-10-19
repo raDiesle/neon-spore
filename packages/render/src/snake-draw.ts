@@ -12,7 +12,7 @@ import { drawSnakeEnemy, drawSnakePoint, drawSnakeRock } from "./snake-items.js"
  * this game is ever green except a Simon round answered in full (`palette.ts`),
  * and a body that is green for ninety seconds would spend that colour. And the
  * body *is the ship's*: it comes out of the hull's own mouth at the top of the
- * round, so it keeps the hull's violet at the head and the shield's cyan down
+ * round, so it keeps the hull's violet at the head and the cyan the shield wore until 19 October 2026 down
  * the length, which are the two colours the pair already owns. What is
  * collected is amber,
  * because amber is what this game has always meant by "take that in".

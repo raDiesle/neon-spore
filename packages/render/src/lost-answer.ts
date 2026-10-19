@@ -143,7 +143,7 @@ export function drawLostAnswer(
         ctx,
         {
           ...b.guide,
-          hex: PALETTE.shieldRim,
+          hex: PALETTE.cyanRim,
           glow: 0,
           live: true,
           hover: over(b.guide),

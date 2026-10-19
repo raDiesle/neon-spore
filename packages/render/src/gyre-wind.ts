@@ -87,7 +87,7 @@ export function drawGyreWind(
 
   ctx.save();
   ctx.globalCompositeOperation = "lighter";
-  ctx.fillStyle = pull > 0 ? PALETTE.shieldRim : PALETTE.shield;
+  ctx.fillStyle = pull > 0 ? PALETTE.cyanRim : PALETTE.cyan;
 
   for (const c of live) {
     const { x, y } = gyreCenter(l, c, beatPhase);

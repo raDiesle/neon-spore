@@ -45,7 +45,7 @@ const FLEET_SINK_BEATS = 3;
 /** The two colours a fleet is drawn in, alternating down the list. */
 const HULLS: readonly HullSkin[] = [
   { body: PALETTE.hull, rim: PALETTE.hullRim, dark: "#1B0A2E" },
-  { body: PALETTE.shield, rim: PALETTE.shieldRim, dark: PALETTE.cyanDark },
+  { body: PALETTE.cyan, rim: PALETTE.cyanRim, dark: PALETTE.cyanDark },
 ] as const;
 
 /**

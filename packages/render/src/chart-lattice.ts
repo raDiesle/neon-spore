@@ -9,14 +9,14 @@ import { PALETTE } from "./palette.js";
  * Cut out of `fleet-chart.ts` on 3 October 2026 for THE MIMIC's board, the
  * owner's *chess tiles like in THE FLEET, but without the alphabets*: one
  * drawing of the squares rather than two, so the two boards a pair meets
- * read alike. `frame` is the colour round the outside, the shield's on THE
+ * read alike. `frame` is the colour round the outside, cyan on THE
  * FLEET and the brush's on THE MIMIC.
  */
 export function drawChartLattice(
   ctx: CanvasRenderingContext2D,
   c: Chart,
   flash: number,
-  frame: string = PALETTE.shield,
+  frame: string = PALETTE.cyan,
 ): void {
   const w = c.cols * c.tile;
   const h = c.rows * c.tile;

@@ -53,7 +53,7 @@ export function drawScuttleLock(
     box.y,
     box.halfW,
     box.halfH,
-    PALETTE.shieldRim,
+    PALETTE.cyanRim,
     time,
     (hot ? 1 : 0.5) * fade,
     scuttleNextCol(s, cfg) + 7,

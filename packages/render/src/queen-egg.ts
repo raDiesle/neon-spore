@@ -33,14 +33,14 @@ export function drawSideHint(
 ): void {
   if (!showsQueenHint(l.role)) return;
   const pulse = 0.4 + 0.25 * Math.sin(time * 3);
-  ctx.strokeStyle = PALETTE.shieldRim;
+  ctx.strokeStyle = PALETTE.cyanRim;
   ctx.lineWidth = 2.4;
   ctx.globalAlpha = pulse;
   ctx.beginPath();
   ctx.arc(cx, cy, r * 1.5, 0, Math.PI * 2);
   ctx.stroke();
   ctx.globalAlpha = 1;
-  halo(ctx, cx, cy, r * 2.4, PALETTE.shieldRim, pulse * 0.7);
+  halo(ctx, cx, cy, r * 2.4, PALETTE.cyanRim, pulse * 0.7);
 }
 
 /**

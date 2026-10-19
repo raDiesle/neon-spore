@@ -73,7 +73,7 @@ export function drawAimButton(
 ): void {
   ctx.save();
   ctx.fillStyle = dead;
-  ctx.strokeStyle = PALETTE.shield;
+  ctx.strokeStyle = PALETTE.cyan;
   ctx.lineWidth = STROKE.outline;
   paintLobe(ctx, x, y, r, "both");
 
@@ -86,7 +86,7 @@ export function drawAimButton(
   ctx.lineTo(-back, -r * 0.4);
   ctx.lineTo(-back, r * 0.4);
   ctx.closePath();
-  ctx.fillStyle = PALETTE.shieldRim;
+  ctx.fillStyle = PALETTE.cyanRim;
   ctx.fill();
   ctx.restore();
 }

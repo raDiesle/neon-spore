@@ -103,7 +103,7 @@ export function drawLead(
       foot.y - l.tile * 0.1,
       l.tile * 0.5,
       l.tile * 0.36,
-      PALETTE.shieldRim,
+      PALETTE.cyanRim,
       time,
       still ? 0.5 : 1,
       s.col + 5,

@@ -87,7 +87,7 @@ export class FleetGripFx {
       switch (e.type) {
         case "fleetFlood":
           this.throwRing("flood", e.col, e.row);
-          burst(tileCX(l, e.col), tileCY(l, e.row), 12, PALETTE.shieldRim);
+          burst(tileCX(l, e.col), tileCY(l, e.row), 12, PALETTE.cyanRim);
           break;
         case "fleetBreach":
           this.throwRing(e.on ? "breach" : "unbreach", e.col, e.row);
@@ -98,7 +98,7 @@ export class FleetGripFx {
           break;
         case "fleetPlug":
           this.throwRing("plug", e.col, e.row);
-          burst(tileCX(l, e.col), tileCY(l, e.row), 10, PALETTE.shield);
+          burst(tileCX(l, e.col), tileCY(l, e.row), 10, PALETTE.cyan);
           break;
         case "fleetWreck":
           this.throwRing("wreck", e.col, e.row);
@@ -151,7 +151,7 @@ export class FleetGripFx {
  */
 const RINGS: Record<FleetRingKind, { from: number; by: number; color: string }> = {
   // The water finding its way in: wide, and in the sea's own colour.
-  flood: { from: 0.3, by: 1.1, color: PALETTE.shield },
+  flood: { from: 0.3, by: 1.1, color: PALETTE.cyan },
   // Her thumb landing on the plume: small, tight and white, the way every
   // thumb on this game's pictures is (`grip-rings.ts`).
   breach: { from: 0.25, by: 0.5, color: PALETTE.text },
@@ -161,7 +161,7 @@ const RINGS: Record<FleetRingKind, { from: number; by: number; color: string }> 
   rake: { from: 0.2, by: 0.45, color: PALETTE.red },
   // The sea healing over a hull that was not finished in time: the whole
   // wound falling shut, and everything on the hull goes with it.
-  plug: { from: 1.4, by: -1.1, color: PALETTE.shield },
+  plug: { from: 1.4, by: -1.1, color: PALETTE.cyan },
   // The hull lying on the water, raked end to end: the widest of the five.
   wreck: { from: 0.4, by: 1.6, color: PALETTE.ember },
 };

@@ -33,7 +33,7 @@ import type { Layout } from "./layout.js";
  * wheel painted in either would be saying one of them six times over. The palette
  * already keeps a neon that means no colour — `wisp`, chosen for a body that
  * either shot kills — and that is what a wheel is: the thing between the two
- * colours rather than one of them. Under a pull it is lit the shield's cyan,
+ * colours rather than one of them. Under a pull it is lit cyan, the shield's colour until 19 October 2026,
  * which is the colour the ship's own suck is drawn in, the arrangement
  * `claspResonance` already has for the ward.
  *

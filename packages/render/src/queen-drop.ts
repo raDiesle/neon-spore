@@ -77,7 +77,7 @@ export function drawDropHint(
   const half = r * LOCK_SHARE;
   // `side + 2` rather than `side`: the marks' own locks are seeded by side,
   // and two frames on one screen blinking in step read as one object.
-  drawTargetLock(ctx, cx, cy, half, half, PALETTE.shieldRim, time, 1, side + 2);
+  drawTargetLock(ctx, cx, cy, half, half, PALETTE.cyanRim, time, 1, side + 2);
 
   const size = Math.max(8, Math.round(l.tile * 0.26));
   const top = cy + half + LABEL_GAP;
@@ -92,7 +92,7 @@ export function drawDropHint(
   const w = Math.max(half * 2, ctx.measureText(LABEL).width);
   const tx = Math.min(l.width - w / 2 - EDGE, Math.max(w / 2 + EDGE, cx));
 
-  ctx.fillStyle = PALETTE.shieldRim;
+  ctx.fillStyle = PALETTE.cyanRim;
   ctx.globalAlpha = 0.9;
   ctx.fillText(LABEL, tx, top + size);
   ctx.globalAlpha = 1;
@@ -106,7 +106,7 @@ export function drawDropHint(
   ctx.globalAlpha = 0.5;
   ctx.fillRect(barX, barY, w, BAR_H);
   ctx.globalAlpha = 1;
-  ctx.fillStyle = PALETTE.shieldRim;
+  ctx.fillStyle = PALETTE.cyanRim;
   ctx.fillRect(barX, barY, w * dropShare(waveBeat, beatPhase), BAR_H);
   ctx.restore();
 }

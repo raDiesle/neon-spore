@@ -186,7 +186,7 @@ export function drawScales(
 
 /** The rim light along the body's edge, over the fill and under the spine. */
 export function rimStroke(ctx: CanvasRenderingContext2D, path: Path2D): void {
-  ctx.strokeStyle = PALETTE.shield;
+  ctx.strokeStyle = PALETTE.cyan;
   ctx.lineWidth = 1.6;
   ctx.stroke(path);
 }

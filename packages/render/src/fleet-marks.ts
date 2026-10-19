@@ -55,7 +55,7 @@ export function drawFleetMarks(
 function splash(ctx: CanvasRenderingContext2D, c: Chart, col: number, row: number): void {
   const x = chartX(c, col);
   const y = chartY(c, row);
-  ctx.strokeStyle = PALETTE.shield;
+  ctx.strokeStyle = PALETTE.cyan;
   ctx.globalAlpha = 0.75;
   ctx.lineWidth = STROKE.inner;
   ctx.setLineDash([c.tile * 0.13, c.tile * 0.09]);
@@ -64,7 +64,7 @@ function splash(ctx: CanvasRenderingContext2D, c: Chart, col: number, row: numbe
   ctx.stroke();
   ctx.setLineDash([]);
   ctx.globalAlpha = 1;
-  ctx.fillStyle = PALETTE.shield;
+  ctx.fillStyle = PALETTE.cyan;
   ctx.beginPath();
   ctx.arc(x, y, Math.max(1, c.tile * 0.06), 0, Math.PI * 2);
   ctx.fill();

@@ -89,8 +89,8 @@ export function drawWheel(
   const at = gyreCorners(l, world, c, carried, beatPhase, time);
   const row = c.fromRow + (c.row - c.fromRow) * beatPhase;
   const near = nearness(l, row);
-  const tint = hazed(cfg, pull > 0 ? PALETTE.shield : PALETTE.wisp, near);
-  const rim = hazed(cfg, pull > 0 ? PALETTE.shieldRim : PALETTE.wispRim, near);
+  const tint = hazed(cfg, pull > 0 ? PALETTE.cyan : PALETTE.wisp, near);
+  const rim = hazed(cfg, pull > 0 ? PALETTE.cyanRim : PALETTE.wispRim, near);
   const reach = gyreRadiusPx(l);
   const flow = gyreFlow(world, c, beatPhase, time);
 

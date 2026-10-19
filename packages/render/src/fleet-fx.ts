@@ -108,7 +108,7 @@ export class FleetFx {
       const y = tileCY(l, s.row);
       if (s.sank) burst(x, y, 26, PALETTE.ember);
       else if (s.hit) burst(x, y, 14, PALETTE.red);
-      else burst(x, y, 6, PALETTE.shield);
+      else burst(x, y, 6, PALETTE.cyan);
     }
     this.shells = this.shells.filter((s) => s.age < s.flight + BURST_LIFE);
   }

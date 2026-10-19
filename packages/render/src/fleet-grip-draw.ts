@@ -64,7 +64,7 @@ function gripOf(b: FleetState, seat: 1 | 2): { held: boolean; words: HandleWords
 function drawPlume(ctx: CanvasRenderingContext2D, c: Chart, hole: Circle, time: number): void {
   const h = Math.min(c.tile * PLUME_TILES, hole.y - c.top);
   ctx.save();
-  ctx.strokeStyle = PALETTE.shield;
+  ctx.strokeStyle = PALETTE.cyan;
   ctx.lineWidth = STROKE.inner;
   ctx.lineCap = "round";
   for (let i = 0; i < 3; i++) {
