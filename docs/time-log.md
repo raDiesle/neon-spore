@@ -44957,3 +44957,5 @@ Bottleneck: the compaction in the middle of the rewrite.
   picture reason and the config field's document were the second.
 
 Bottleneck: the eleven places a new fault kind is a name, found one red test at a time.
+
+*Measured: 13 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*

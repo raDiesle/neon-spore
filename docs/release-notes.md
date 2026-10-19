@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-19 · 155f26c37 — THE SWAP: a new fault brush that trades the two panels every twelve beats, each change warned three seconds ahead with a siren
+
+THE HANDOVER over and over, as the owner asked on 19 October 2026. One SWAP pencil trades the panels on its first beat and every `swapEveryBeats` (12, 7.5 s) after it, back and forth, and brings them home on its last beat if they are away. Every change is counted down `swapWarnBeats` (5, about 3 s) ahead, and `assist.swapSiren` — a short wail above the speech band — sounds on every count, loudest on the last. The trade and return sounds are THE HANDOVER's.
+
 ## 2026-10-19 · 2ff759365 — A wave's tutorial hints are data, and stop after one enemy
 
 The hints FIRST STEP shows on its own field are now a table of lines in `packages/content/src/hints/` — a seat, the words, what they point at and when they hold — so every other wave can be moved off its film the same way. They stop once the pair has cleared one body rather than three, as the owner asked ("one enemy is enough"); that is the exemption used, a look the owner asked for by name.
