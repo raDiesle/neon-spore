@@ -5,6 +5,7 @@ import { drawEggFlareHalo, drawEggSkin, type EggFlare, NO_FLARE } from "./egg-sk
 import { halo, strokeGlow } from "./glow.js";
 import { mixHex } from "./hex.js";
 import type { Layout } from "./layout.js";
+import { strokeLockRim } from "./lock-rim.js";
 import { type MouthFrame, muzzleCenterY } from "./muzzle.js";
 import { PALETTE } from "./palette.js";
 
@@ -77,6 +78,8 @@ export interface LayState {
   time: number;
   /** The release burn. Absent is `NO_FLARE` — a mouth that has not just fired. */
   flare?: EggFlare;
+  /** How much of the border is THE LOCK's yellow, or absent (`lock-rim.ts`). */
+  lock?: number;
 }
 
 /** The moving half of the opening: what the shot does to it on its way out. */
@@ -126,7 +129,14 @@ export const LAY_LOOK: LayLook = {
     // hue.
     const load = Math.max(0, b.bulge);
     const rim = mixHex(PALETTE.hullRim, flare.color, 0.7 * flare.amount);
-    strokeGlow(ctx, path, rim, 1.3 + 2.2 * load, 0.45 + 0.55 * Math.max(load, flare.amount));
+    const width = 1.3 + 2.2 * load;
+    const glow = 0.45 + 0.55 * Math.max(load, flare.amount);
+    // A whole yellow border has no white left under it.
+    if ((s.lock ?? 0) < 1) strokeGlow(ctx, path, rim, width, glow);
+    if (s.lock !== undefined) {
+      const yellow = mixHex(PALETTE.pod, flare.color, 0.7 * flare.amount);
+      strokeLockRim(ctx, path, m.x, cy, l.tile, s.lock, yellow, width, glow);
+    }
     ctx.restore();
 
     // The vent, at the top of the contour, open only while something is
@@ -181,6 +191,7 @@ export function drawLay(
   intake: number,
   surface: (x: number) => Point,
   flare: EggFlare = NO_FLARE,
+  lock?: number,
 ): void {
   const m: MouthFrame = {
     x: cannonX,
@@ -190,5 +201,5 @@ export function drawLay(
     intake,
     surface,
   };
-  LAY_LOOK.draw(ctx, m, { phase: lay, time, flare });
+  LAY_LOOK.draw(ctx, m, { phase: lay, time, flare, lock });
 }

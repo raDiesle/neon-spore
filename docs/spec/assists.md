@@ -239,8 +239,9 @@ instant, the shot that reaches the locked body spends it — whatever its colour
 — and the lock rests `lockRestMs` (four seconds) before a hand on a body is an
 aim again. Nothing has to be held while it rests; a thumb already on a body
 when it ends locks it there and then. In between, the cannon is the only way
-a shot finds a column. `sim/lock-rest.ts`; the light on the hull that says the
-rest is over is still a VERSUS question.
+a shot finds a column. `sim/lock-rest.ts`. The white border of the egg in the
+cannon's mouth says where the rest stands: yellow sweeps round it from the top
+as the rest runs, and a whole yellow border is a lock ready (`render/lock-rim.ts`).
 
 **It takes the column out of the conversation and leaves the colour in.** The
 lock says nothing about what a shot is loaded with, and player 2 holds both

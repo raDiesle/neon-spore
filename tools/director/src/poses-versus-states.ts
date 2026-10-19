@@ -12,7 +12,6 @@ import { INSTAR_ARRIVING_POSE, INSTAR_FLIGHT_POSE } from "./poses-instar-flight.
 import { INSTAR_REAR_POSE, INSTAR_SPREAD_POSE } from "./poses-instar-spit.js";
 import { LEAD_DROPPING_POSE } from "./poses-lead-dropping.js";
 import { LEDGER_BILLED_POSE } from "./poses-ledger-billed.js";
-import { LOCK_LIGHT_POSE } from "./poses-lock-light.js";
 import { ROUND_TIMEOUT_POSE } from "./poses-round-timeout.js";
 import { SINEW_PARTING_POSE } from "./poses-sinew-parting.js";
 import { SIREN_STATES_POSE, SIREN_WORDS_POSE } from "./poses-siren.js";
@@ -91,5 +90,4 @@ export const VERSUS_STATE_POSES: Pose[] = [
   LEAD_DROPPING_POSE,
   SIREN_STATES_POSE,
   SIREN_WORDS_POSE,
-  LOCK_LIGHT_POSE,
 ];

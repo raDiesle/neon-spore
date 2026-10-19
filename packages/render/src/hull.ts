@@ -200,7 +200,18 @@ export function drawHull(
     // leave is the only thing here either player has to act on within the
     // beat. Not on the panel where the swelling is a hand.
     if (crown === "gun") {
-      drawLay(ctx, l, mood.lay ?? 0, time, f.cannonX, tip.y, mood.intake, on, mood.layFlare);
+      drawLay(
+        ctx,
+        l,
+        mood.lay ?? 0,
+        time,
+        f.cannonX,
+        tip.y,
+        mood.intake,
+        on,
+        mood.layFlare,
+        mood.lock,
+      );
     }
   }
   ctx.restore();

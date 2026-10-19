@@ -2104,8 +2104,7 @@ by hand never moves.
 | `packages/render/src/veer-look.ts` | THE ONE RECORD A CANDIDATE VEER LOOK PATCHES |
 | `packages/render/src/veer-rider.ts` | **The shipped rider**: the colours, the light and the order THE VEER's clown is drawn in |
 | `packages/render/src/lock-mark.ts` | THE LOCK, drawn: the frame that says *the cannon has this one* |
-| `packages/render/src/lock-light-look.ts` | THE LOCK's light, as the record VERSUS offers answers through (`ship:lock-light`, opened 19 October 2026) |
-| `packages/render/src/lock-light.ts` | **Whether THE LOCK is ready**, on the cannon, on both screens: player 1 locks and player 2 fires into it |
+| `packages/render/src/lock-rim.ts` | **Whether THE LOCK is ready, worn on the cannon's own egg** |
 | `packages/render/src/lost-screen.ts` | A lost wave stops on a friendly screen: RETRY WAVE or QUIT |
 | `packages/render/src/lost-shut.ts` | The lost screen: plates that shut, and a wound where the hull was broken |
 | `packages/render/src/lost-look.ts` | THE ONE RECORD A CANDIDATE **LOST SCREEN** WOULD PATCH |
@@ -3937,7 +3936,6 @@ by hand never moves.
 | `tools/director/src/poses-link.ts` | The two states a candidate for something that **joins two things** is judged on |
 | `tools/director/src/poses-ledger-billed.ts` | THE LEDGER the tick a return leaves the body, with the pair's hand on it — `ledger:nerves` is judged here |
 | `tools/director/src/poses-lead-dropping.ts` | THE LEAD on the tick its run drops a torch or a rock — the pose `lead:drop` is judged on |
-| `tools/director/src/poses-lock-light.ts` | **THE LOCK's light through its rest and into ready**: built on the tick a locked shot has just landed |
 | `tools/director/src/poses-hold.ts` | The two bodies that hold a control and **go off if it stands still** — THE LIMPET on the plate |
 | `tools/director/src/poses-handover.ts` | the state `handover:notice` is judged on — the pilot's screen a beat before THE HANDOVER warns, replayed once a window |
 | `tools/director/src/poses-husk.ts` | The state a candidate for `pod:husk-tell` is judged on |

@@ -78,6 +78,13 @@ export interface HullMood {
    */
   layFlare?: EggFlare;
   /**
+   * How much of the egg's border is yellow, 0..1, for THE LOCK resting and
+   * ready (`lock-rim.ts`), or absent while no lock is in play. Off the world
+   * and not eased, for `lay`'s reason: the tick a rest ends is the same on
+   * both devices.
+   */
+  lock?: number;
+  /**
    * How near each control is to losing the round under a harpoon, nought to
    * one, or absent when no such fault is in force (`harpoon-danger.ts`).
    *

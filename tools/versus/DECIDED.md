@@ -2427,3 +2427,11 @@ opens on the listener's
 
 The other answers offered were `bars`, `typing` and `waves`; they went with
 the slot.
+
+## `ship:lock-light` — nothing taken, 2026-10-19
+
+the owner chose the cannon egg's own white border turned yellow by the lock's
+state over every answer here
+
+The other answers offered were `breath`, `ember`, `fade`, `rim` and `ticks`;
+they went with the slot.

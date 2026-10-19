@@ -44708,3 +44708,15 @@ Bottleneck: `check:fast` — a five-line content change reached 38 shards.
 Bottleneck: shooting each answer twice, one browser start per picture.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-19 — THE LOCK on the cannon egg's own border
+
+- reading: 5 min. Where the egg's white border is stroked (`cannon-maw.ts`)
+  and how the hull's mood reaches it.
+- writing: 10 min. `lock-rim.ts`, `HullMood.lock`, the yellow stroke in
+  `LAY_LOOK`, its test; the lamp and its record out.
+- looking: 5 min. Three `frames` of HOLD AND AIM, ready, resting and ready.
+- friction: 0 min.
+- landing: 10 min. `versus drop`, `index`, `budgets:measure`, `check:fast`.
+
+Bottleneck: taking the lamp, its pose and its slot back out cleanly.

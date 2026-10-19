@@ -5,6 +5,7 @@ import { type Glide, glideTo } from "./glide.js";
 import { harpoonDanger } from "./harpoon-danger.js";
 import type { HullMood, LobePositions } from "./hull.js";
 import { hullCrown } from "./hull-crown.js";
+import { lockRim } from "./lock-rim.js";
 import { ShieldBody } from "./shield.js";
 
 /**
@@ -96,6 +97,7 @@ export class FieldPose {
       // Its own clock, not `lay`'s: the burn outlasts the body's relaxation on
       // purpose, so it cannot be read off the phase. See `LayEcho.flare`.
       layFlare: effects.layEcho.flare,
+      lock: lockRim(world),
       // Straight off the world and not eased, for the reason written on the
       // field: the tick the count runs out is fixed for both devices
       // (`harpoon-danger.ts`).
