@@ -22,19 +22,44 @@ import { seatSkin } from "./seat-skin.js";
 
 export { type LostButtons, lostButtons, lostHit } from "./lost-boxes.js";
 
-/** The faces. Why QUIT's is smaller and dimmer, and why TUTORIAL AGAIN's is
- * RETRY's sibling, is argued beside their boxes (`lost-boxes.ts`). */
+/** The faces. Why QUIT's is smaller and dimmer, and why it shares a row with
+ * TUTORIAL AGAIN, is argued beside their boxes (`lost-boxes.ts`). */
 const WORD = '700 18px "Courier New",monospace';
-const QUIT_WORD = '700 13px "Courier New",monospace';
+const QUIT_PX = 13;
 /** How much of RETRY's brightness QUIT is drawn at. */
 const QUIT_DIM = 0.7;
 /** The arrow beside a word, as a radius. The guide's big button uses eleven. */
 const SIGN = 9;
 const QUIT_SIGN = 7;
 
-const GUIDE_WORD = '700 14px "Courier New",monospace';
-const GUIDE_SIGN = 8;
 const GUIDE_LABEL = "TUTORIAL AGAIN";
+const GUIDE_PX = 14;
+const GUIDE_SIGN = 8;
+/** The air a word keeps from its plate's ends, each side. */
+const PAD = 10;
+
+/**
+ * **The size a word is drawn at to fit its half of the row**; its arrow
+ * shrinks by the same share at the call. TUTORIAL AGAIN and GO TO MENU share one row as wide as RETRY WAVE
+ * (`lost-boxes.ts`), which on a 240-wide phone is a plate about eighty pixels
+ * across; at its own size TUTORIAL AGAIN would run off both ends.
+ */
+function fitted(
+  ctx: CanvasRenderingContext2D,
+  word: string,
+  px: number,
+  sign: number,
+  w: number,
+): number {
+  ctx.font = face(px);
+  const need = ctx.measureText(word).width + 5 + sign * 2;
+  const k = need > 0 ? Math.min(1, (w - 2 * PAD) / need) : 1;
+  return Math.max(8, Math.floor(px * k));
+}
+
+function face(px: number): string {
+  return `700 ${px}px "Courier New",monospace`;
+}
 
 /**
  * **What stands behind every plate: the bulkhead's own colour, solid.** The
@@ -102,6 +127,12 @@ export function drawLostAnswer(
       WORD,
       SIGN,
     );
+    // One size for both halves of the row, the smaller of the two fits: a
+    // pair of plates side by side in two sizes of type reads as two rows.
+    const px = Math.min(
+      fitted(ctx, "GO TO MENU", QUIT_PX, QUIT_SIGN, b.quit.w),
+      b.guide === null ? QUIT_PX : fitted(ctx, GUIDE_LABEL, GUIDE_PX, GUIDE_SIGN, b.guide.w),
+    );
     if (b.guide !== null) {
       // The guide's own colour, which is REPLAY's on the tutorial bar
       // (`guide-tide-bar.ts`): the one button in the game that already means
@@ -121,8 +152,8 @@ export function drawLostAnswer(
         },
         GUIDE_LABEL,
         1,
-        GUIDE_WORD,
-        GUIDE_SIGN,
+        face(px),
+        (GUIDE_SIGN * px) / GUIDE_PX,
       );
     }
     ctx.globalAlpha = shown * QUIT_DIM;
@@ -139,8 +170,8 @@ export function drawLostAnswer(
       },
       "GO TO MENU",
       -1,
-      QUIT_WORD,
-      QUIT_SIGN,
+      face(px),
+      (QUIT_SIGN * px) / QUIT_PX,
     );
     ctx.globalAlpha = 1;
   }

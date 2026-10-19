@@ -44753,3 +44753,16 @@ Bottleneck: the full composer in `waves:order` and its test, half a minute each.
 Bottleneck: getting a frame with PALM up in it — the body is picked by tile.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-19 — GO TO MENU beside TUTORIAL AGAIN, the lost screen higher
+
+- reading: 5 min. `lost-boxes.ts`, `lost-answer.ts`, `lost-retries.ts` and
+  the test that pinned QUIT's air.
+- writing: 5 min. The row of two halves, the word fitted to its half, the
+  test rewritten for the row.
+- looking: 5 min. `bun run frames` at 390×844, 390×660 and 240×480.
+- friction: 0 min. The first frame stopped before the screen came up;
+  `--until-on 600` instead of the recipe's 150.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: the recipe's `--until-on 150` photographs the field before the lost screen is up.

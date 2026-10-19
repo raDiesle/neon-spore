@@ -44,7 +44,7 @@ const PLUS_FOR = 1.1;
 
 /** The number's size, and the gap from the last button to its baseline. */
 const NUM_PX = 72;
-const GAP = 86;
+const GAP = 80;
 const LABEL_GAP = 22;
 /** The glow's radius: the heading's bloom's own, so `halo` bakes no sprite of
  * its own for it (`lost-words.ts`, `baked-growth.test.ts`). */

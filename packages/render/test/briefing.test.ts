@@ -321,21 +321,20 @@ describe("a wave's opening on the stage", () => {
   });
 
   /**
-   * **The way back to the tutorial, and QUIT's air kept while it is there.**
+   * **The way back to the tutorial, beside GO TO MENU under RETRY WAVE.**
    *
    * The owner, 24 September 2026: *there must be a way to watch tutorial again
-   * and then restart wave, like as players entered first time the wave.* The
-   * screen answers it with a third plate under RETRY WAVE, and the one thing
-   * that plate could have broken is the separation the owner asked for a week
-   * earlier — *the quit button we should do less prominent, as player might
-   * accidently press it.* So the gap is measured from whichever plate is
-   * lowest, and it is the same gap either way.
+   * and then restart wave, like as players entered first time the wave.* And
+   * 19 October 2026: *have go to menu in same line as "tutorial" again. both
+   * buttons should have same width then "retry wave"* — one row of two halves
+   * as wide as RETRY, so the stack is a row shorter and the retries' count
+   * under it stands clear of the wound (`lost-boxes.ts`).
    *
-   * A wave with no guide has nothing to watch and gets the screen it always
-   * had, which is the other half and the reason `guide` is nullable rather
-   * than a box drawn dead.
+   * A wave with no guide has nothing to watch: GO TO MENU keeps its half and
+   * stands centred, which is the reason `guide` is nullable rather than a box
+   * drawn dead.
    */
-  it("offers the tutorial again where there is one, without taking QUIT's air", () => {
+  it("offers the tutorial again beside GO TO MENU, the pair as wide as RETRY", () => {
     const withGuide = WAVES.findIndex((w) => w.guide !== undefined);
     const without = WAVES.findIndex((w) => w.guide === undefined);
     expect(withGuide).toBeGreaterThanOrEqual(0);
@@ -351,16 +350,19 @@ describe("a wave's opening on the stage", () => {
       expect(two.guide).toBeNull();
       expect(three.guide).not.toBeNull();
       const g = three.guide!;
-      // RETRY's sibling: same width, same left edge, under it, and shorter.
-      expect(g.x).toBe(three.retry.x);
-      expect(g.w).toBe(three.retry.w);
-      expect(g.y).toBeGreaterThan(three.retry.y + three.retry.h);
-      expect(g.h).toBeLessThan(three.retry.h);
-      // QUIT is pushed down by exactly the plate that was put in front of it,
-      // so the air between it and the thing above is what it always was.
-      // Close rather than equal: the row starts at a fraction of `playHeight`.
-      expect(three.quit.y - (g.y + g.h)).toBeCloseTo(two.quit.y - (two.retry.y + two.retry.h), 6);
-      expect(three.quit.w).toBe(two.quit.w);
+      const r = three.retry;
+      const q = three.quit;
+      // One row under RETRY, the same width each, spanning RETRY's edges.
+      expect(g.y).toBe(q.y);
+      expect(g.y).toBeGreaterThan(r.y + r.h);
+      expect(g.w).toBe(q.w);
+      expect(q.x).toBe(r.x);
+      expect(g.x + g.w).toBe(r.x + r.w);
+      expect(q.x + q.w).toBeLessThan(g.x);
+      // Alone, GO TO MENU keeps its size and its row, centred under RETRY.
+      expect(two.quit.w).toBe(q.w);
+      expect(two.quit.y).toBe(q.y);
+      expect(Math.abs(two.quit.x + two.quit.w / 2 - (r.x + r.w / 2))).toBeLessThanOrEqual(1);
       // And the whole stack still stands on the field it is drawn over.
       expect(three.quit.y + three.quit.h).toBeLessThanOrEqual(l.playHeight);
       // The press, named as the command it sends (`sim/command-types.ts`).

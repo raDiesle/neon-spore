@@ -25,32 +25,25 @@ const BTN_H = 52;
  * (`quit.ts`, `sim/wave-fail.ts`) are unchanged; only the word on the face
  * moved.
  *
- * **QUIT is smaller than RETRY and stands further from it**, asked for by the
- * owner on 17 September 2026: *the "quit" button, we should do less prominent
- * maybe reduce size of button or move it somewhere else, as player might
- * accidently press it.*
+ * **GO TO MENU stands beside TUTORIAL AGAIN, under RETRY WAVE**, the two
+ * halves of one row as wide as RETRY — the owner, 19 October 2026: *have go to
+ * menu in same line as "tutorial" again. both buttons should have same width
+ * then "retry wave"*. It stood alone under the pair, `46` pixels further down
+ * and narrower, from 17 September 2026 — *the "quit" button, we should do less
+ * prominent … as player might accidently press it* — and that third row is
+ * what pushed the retries' count down into the wound's ring
+ * (`lost-retries.ts`, `lost-wound.ts`).
  *
- * The two used to be one stack of identical plates eighteen pixels apart, and
- * the only thing telling them apart was the word on the face and a glow —
- * which is nothing to a thumb coming down on a screen that has just been lost.
- * A wave can be left, and leaving it ends the run for **both** phones on one
- * press (`sim/wave-fail.ts`), so the slip is not one a pair can undo.
- *
- * Three things rather than one, because any of them alone is still a plate
- * beside a plate: a bigger gap, so the thumb has to travel; a narrower and
- * shorter body with a smaller word, so the eye reads it as the lesser of the
- * two; and it is drawn dimmer than the one you are meant to press.
+ * What is left of that ask is the paint, not the place: QUIT's word is smaller
+ * and its plate dimmer than its neighbour's (`lost-answer.ts`), and it is on
+ * the left, under its own back arrow, away from the thumb's run from RETRY
+ * WAVE to TUTORIAL AGAIN on the right.
  *
  * **Not a confirmation step**, which was the other answer on the table: one
- * press answers for both phones, and a QUIT that asked twice would make that
- * false for the one button where being wrong costs the run. The screen said so
- * in words under the buttons until 22 September 2026, when the owner had every
- * sentence but the wave's own name taken off it (`lost-words.ts`).
+ * press answers for both phones (`sim/wave-fail.ts`), and a QUIT that asked
+ * twice would make that false for the one button where being wrong costs the
+ * run.
  */
-const BTN_GAP = 46;
-/** QUIT's own body: a share of RETRY's width, and its own height. */
-const QUIT_W = 0.56;
-const QUIT_H = 36;
 
 /**
  * **TUTORIAL AGAIN**, and the reason the screen has three answers rather than
@@ -63,21 +56,13 @@ const QUIT_H = 36;
  * lost because one of them never understood the mechanic had no way back to
  * it at all short of leaving the run.
  *
- * **It is RETRY's sibling and not QUIT's**, and the three numbers say so
- * before the words are read: the same width and the same left edge as RETRY,
- * a short gap under it, and only a little shorter. QUIT's own separation —
- * `BTN_GAP` of air, a narrower body, a dimmer paint — is measured from
- * whichever plate is lowest, so it stands as far from this pair as it used to
- * stand from RETRY alone. The one thing the owner asked of that button is that
- * it not be pressed by accident, and a third plate that ate its air would undo
- * it (17 September 2026).
- *
- * **The word is his** — *watch tutorial again* — cut to two so it fits the
- * plate on a 240-wide screen with the arrow beside it. It says *again* and it
- * sits under RETRY WAVE, which is where the rest of the sentence is.
+ * **The word is his** — *watch tutorial again* — cut to two, and drawn as
+ * small as it has to be to fit its half of the row (`lost-answer.ts`).
  */
-const GUIDE_GAP = 12;
-const GUIDE_H = 40;
+const ROW_GAP = 12;
+/** The gap between the two halves of the row under RETRY. */
+const PAIR_GAP = 10;
+const PAIR_H = 40;
 
 /**
  * **Where the row starts**, as a share of the play area.
@@ -88,9 +73,10 @@ const GUIDE_H = 40;
  * wound is centred on the hull line near the foot of the phone
  * (`lost-wound.ts`), and with a third plate in the stack QUIT came down far
  * enough to stand in its ring. The words and the seam came up with the row
- * (`lost-words.ts`, `lost-shut.ts`).
+ * (`lost-words.ts`, `lost-shut.ts`). 0.36 until 19 October 2026, when the
+ * owner asked again for the same reason, with the retries' count under it.
  */
-const ROW_TOP = 0.36;
+const ROW_TOP = 0.33;
 
 export interface LostButtons {
   retry: NavBox;
@@ -112,16 +98,14 @@ export function lostButtons(l: Layout, guided = false): LostButtons {
   const w = Math.min(l.width - 72, 260);
   const x = (l.width - w) / 2;
   const y = l.playHeight * ROW_TOP;
-  const guide = guided ? { x, y: y + BTN_H + GUIDE_GAP, w, h: GUIDE_H } : null;
-  const foot = guide === null ? y + BTN_H : guide.y + guide.h;
-  const qw = Math.round(w * QUIT_W);
+  const half = Math.floor((w - PAIR_GAP) / 2);
+  const row = y + BTN_H + ROW_GAP;
   return {
     retry: { x, y, w, h: BTN_H },
-    guide,
-    // Centred under the pair above rather than sharing their left edge: a
-    // narrower plate hung off the same edge reads as a torn-off piece of the
-    // one above it.
-    quit: { x: x + Math.round((w - qw) / 2), y: foot + BTN_GAP, w: qw, h: QUIT_H },
+    guide: guided ? { x: x + w - half, y: row, w: half, h: PAIR_H } : null,
+    // Centred under RETRY when it is alone in its row: a half-width plate
+    // hung off RETRY's left edge reads as a torn-off piece of the one above.
+    quit: { x: guided ? x : x + Math.round((w - half) / 2), y: row, w: half, h: PAIR_H },
   };
 }
 
