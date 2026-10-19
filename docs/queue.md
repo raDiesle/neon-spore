@@ -540,6 +540,7 @@ staging it.
 ## The boss waves teach on their own fields — when a boss's lesson stops
 
 - **Found:** 2026-10-19, claude/wave-tutorial-in-game-hints-1f8de8
+- **Taken:** 2026-10-19, claude/wave-tutorial-in-game-hints-1f8de8 (claim: claude/queue-the-boss-waves-teach-on-their-own-fields-when-a)
 - **Files:** `packages/render/src/wave-hint.ts`, `packages/render/src/wave-hint-when.ts`,
   `packages/content/src/wave-hints.ts`, `packages/content/src/scenes/`
 - **Asks:** When should a boss's tutorial on its own field stop?
