@@ -344,6 +344,7 @@ list the names the slot does have. A test beside the strict-pose one proves it.
 ## A field hint's plate is not checked against the ship's chrome rows
 
 - **Found:** 2026-10-19, claude/wave-tutorial-in-game-hints-1f8de8
+- **Taken:** 2026-10-19, claude/wave-tutorial-in-game-hints-1f8de8 (claim: claude/queue-a-field-hints-plate-is-not-checked-against-the-s)
 - **Files:** `packages/render/test/caption-chrome.test.ts`, `packages/render/test/wave-hint.test.ts`, `packages/render/src/wave-hint.ts`
 
 `caption-chrome.test.ts` holds a film page's plate clear of the siren, its
