@@ -542,6 +542,7 @@ and let `bun run check` prove nothing read them.
 ## THE CRAWLER's rehearsal never shows a suck ring
 
 - **Found:** 2026-10-19, claude/crawler-shield-visuals-50ecfc
+- **Taken:** 2026-10-19, claude/wave-tutorial-in-game-hints-1f8de8 (claim: claude/queue-the-crawlers-rehearsal-never-shows-a-suck-ring)
 - **Files:** `packages/content/src/scenes/the-crawler.ts`, `packages/sim/src/crawler-part.ts`
 
 A worm's segments now cycle red, cyan, shield, suck (`segmentPart`), and the
