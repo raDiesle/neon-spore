@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-19 · 60897c5f9 — Every new thing gets one regular wave, then its boss
+
+A block is now the wave that teaches something, one regular wave that uses it, and the boss about it if there is one; then the next new thing. Players said too many waves brought nothing new. The game goes from 477 waves to 208, and AUTO clears every one. The one regular wave runs longer than a step did when there were three, 36 to 48 beats and 7 to 10 arrivals. A slick, a bulb or a rock is paired with the thing taught before it; everything else is mixed with two older things. The three filler waves that stood in front of each boss are gone, and each review in front of a boss that waits at the end is one wave.
+
 ## 2026-10-19 · 34cc4e641 — Three skins for THE CRAWLER, offered in VERSUS: LARVA, FLESH and LEECH
 
 `creature:crawler` opens again because the owner said the worm looks like mathematical shapes rather than a living thing. Each answer takes a real animal and replaces both the ring's surface and the face. LARVA is a fly maggot seen through: one lumpy gut joined ring to ring, a silver breathing tube, thin edges lit through, and a black mouth hook raking inside the head. FLESH is veins branching off a flank vessel, a heartbeat running down the back from tail to head, and a hard head with simple eyes and jaws. LEECH is soaked: a hard glint broken into panes, two wandering stripes with pale flecks, a rim of slime, and a sucker for a mouth. All three darken each ring where it tucks under the next, so the rings read as folds of one body. Judged on CRAWLER · WALKING.

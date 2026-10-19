@@ -44831,3 +44831,5 @@ Bottleneck: what a ring shows is decided by what covers it — the hull below, t
 - landing: 10 min. `check:fast`, the commit, `land` twice.
 
 Bottleneck: tests that pin a wave by its place in the list, each red one at a time after the cut.
+
+*Measured: 6 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
