@@ -44989,3 +44989,5 @@ Bottleneck: telling apart, from frames, what a candidate drew and what the game 
   three tests that stood on a film that had gone.
 
 Bottleneck: the real frame, which caught a hint giving away the ghost's column.
+
+*Measured: 7 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

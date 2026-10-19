@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-19 · fd144107b — The two-button waves teach on their own fields, not in a film
+
+CYAN, THE ECHO, THE STRAND, THE VEIL, THE THIRD SHOT, HOLD AND AIM, THE MAGNET, THE THROB, THE RECOIL, THE GYRE, THE LURE, THE RIND, THE DART, THE COUNT, THE GHOST and THE WISP open on their introduction and are played at once, and each seat is told what to do next on the live field, beside the thing it is about, under a TUTORIAL tab, until one enemy is cleared. A seat with several lines takes them in turns, and a line never tells a seat what it is not shown. Their sixteen films are gone. Exemption: a look the owner asked for by name.
+
 ## 2026-10-19 · 079657f9d — THE SWAP counts each change down on the band's lip, and three looks for it are offered in VERSUS: MOLT, OOZE and THROB
 
 The game draws THE HANDOVER's plate for THE SWAP — PANELS SWAP IN 5 … 1 on the band's lip — through a new seam, `SWAP_LOOK.announce`, which is also handed the band to draw again as either seat and the round buttons on this screen, so a look can turn the old panel into the new one while the new one already answers. The plate is an addition where the game drew nothing.
