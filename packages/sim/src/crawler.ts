@@ -29,8 +29,9 @@ import type { World } from "./world.js";
  * - A suck segment wants the **maw** — the cannon under it and SUCK pressed
  *   (`crawler-suck.ts`).
  *
- * Every link wears a crosshair and every armoured one the shield's own mark
- * above it, so which control is owed where is read rather than worked out
+ * Every link wears the bosses' crosshair in the colour of the control it
+ * wants, with that button's face inside a shield or suck ring's, so which
+ * control is owed where is read rather than worked out
  * (`render/crawler-marks.ts`).
  *
  * Every third link turns the two of them round: the seat that was calling a

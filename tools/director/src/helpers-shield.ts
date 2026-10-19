@@ -125,16 +125,16 @@ export const SHIELD_GROUP: HelperGroup = {
       lookAt: "the white band on the ball's leading face",
     },
     {
-      name: "THE CRAWLER'S DOMES",
-      where: "over each plated ring of a crawler, above its crosshair",
+      name: "THE CRAWLER'S CROSSHAIRS",
+      where: "round every ring of a crawler",
       seat: "BOTH",
       says:
-        "A crosshair on every ring says *this lane*; a small dome over a ring says " +
-        "the shield takes this one, not the cannon.",
+        "EMBER round every ring in the colour of what takes it: red or cyan for the " +
+        "cannon, the shield's with its button face inside, amber with SUCK's face.",
       source: "crawler-marks.ts",
       pose: "CRAWLER · WALKING",
       role: "test",
-      lookAt: "the small domes over the grey rings",
+      lookAt: "the crosshairs round the glass rings and the faces inside them",
     },
     {
       name: "SHIELD, ON A BOSS",

@@ -180,6 +180,8 @@ export function drawCrawlers(
   /** The ship's drawn surface, so the worm walks over the cannon rather than
    * through it. Absent leaves it on the flat hull line (`crawler-place.ts`). */
   surfaceY?: SurfaceY,
+  /** Seconds, for the crosshairs' wobble (`crawler-marks.ts`). */
+  time = 0,
 ): void {
   const links = world.creatures.filter(
     (c) => c.kind === "crawler" && linkOnField(world.cfg, c, beatPhase),
@@ -192,5 +194,5 @@ export function drawCrawlers(
   for (const c of [...links].sort((a, b) => linkOrder(b) - linkOrder(a))) {
     drawLink(ctx, l, world, c, beats, beatPhase, surfaceY);
   }
-  for (const c of links) drawLinkMarks(ctx, l, world, c, beats, beatPhase, surfaceY);
+  for (const c of links) drawLinkMarks(ctx, l, world, c, time, beatPhase, surfaceY);
 }

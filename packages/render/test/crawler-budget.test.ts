@@ -58,12 +58,9 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
  * membrane and strokes a crown along it, which every frame in every budget file
  * now carries.
  *
- * **The marks cost twenty strokes and nine saves, and both were paid on
- * purpose** (`crawler-marks.ts`). `strokeGlow` is four strokes, so a crosshair
- * per ring is four per ring — which is why the shield's dome is appended to
- * the crosshair's own path instead of being stroked separately, and why the
- * marks are one glow rather than two. The saves are the other half of the same
- * change: the depth envelope moved from one transform around the whole run to
+ * **The marks are the dearest thing on the worm, and paid on purpose**
+ * (`crawler-marks.ts`): EMBER round every ring, the crosshair a boss's target
+ * wears, at about eleven strokes a ring. The saves are the depth envelope,
  * one per ring, because a scale about the canvas origin does not enlarge a
  * worm, it slides it (`drawLink`).
  *
@@ -124,14 +121,19 @@ const MEASURE = false;
 // From 19 October 2026 a ring the ship answers is glass with a lit rim, and
 // the rim is `strokeGlow`'s four strokes where a plate's was one: three such
 // rings on the worm measured here, nine strokes, remeasured (`crawler.ts`).
+// The same day the owner asked for the bosses' crosshair round every ring in
+// its control's colour, with the button's face inside a glass ring's: EMBER
+// is about eleven strokes and two paths a ring where the old crosshair was
+// four, so `stroke` rose by fifty-five; the dome no longer needs its save.
+// Remeasured, not padded (`crawler-marks.ts`).
 const BUDGETS: Readonly<Record<"p1" | "p2", readonly Budget[]>> = {
   p1: [
-    { fillRect: 9, stroke: 108, fill: 97, clip: 11, save: 67, "new Path2D": 57, fillText: 0 },
-    { fillRect: 9, stroke: 110, fill: 94, clip: 11, save: 64, "new Path2D": 28, fillText: 0 },
+    { fillRect: 9, stroke: 163, fill: 102, clip: 11, save: 65, "new Path2D": 64, fillText: 0 },
+    { fillRect: 9, stroke: 165, fill: 99, clip: 11, save: 62, "new Path2D": 33, fillText: 0 },
   ],
   p2: [
-    { fillRect: 9, stroke: 112, fill: 105, clip: 11, save: 69, "new Path2D": 55, fillText: 0 },
-    { fillRect: 9, stroke: 114, fill: 102, clip: 11, save: 66, "new Path2D": 28, fillText: 0 },
+    { fillRect: 9, stroke: 167, fill: 110, clip: 11, save: 67, "new Path2D": 62, fillText: 0 },
+    { fillRect: 9, stroke: 169, fill: 107, clip: 11, save: 64, "new Path2D": 33, fillText: 0 },
   ],
 };
 

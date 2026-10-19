@@ -44897,3 +44897,16 @@ Bottleneck: the shield's colour is the cyan a cyan ring is filled with, which ne
 Bottleneck: the test run, minutes long for a seven-file change.
 
 *Measured: 11 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-19 — THE CRAWLER's rings wear the bosses' crosshair in their colour, with the button's face inside
+
+- reading: 5 min. EMBER, the button faces, the old marks.
+- writing: 10 min. The marks rewritten round EMBER, the face moved into it,
+  the director's note, the budget's sentence.
+- looking: 15 min. Five `frames` runs: full-size crosshairs tangled across
+  overlapping rings, smaller ones, the face hidden by the ring in front and
+  moved into the crosshair, then enlarged.
+- friction: 0 min.
+- landing: 5 min. The stroke budget remeasured, `check:fast`, `land`.
+
+Bottleneck: rings overlap by most of a column, so a crosshair the size a boss wears tangled with its neighbours until a picture showed it.

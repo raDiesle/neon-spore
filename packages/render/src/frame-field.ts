@@ -147,7 +147,7 @@ export function drawBodies(
   // `byDepth` cannot give: every link of one stands on the same row. It is
   // called from here rather than from inside `drawCreatures` because it is the
   // one body that has to be placed against the *ship* (`crawler.ts`).
-  drawCrawlers(ctx, l, world, world.beat + view.beatPhase, view.beatPhase, surfaceY);
+  drawCrawlers(ctx, l, world, world.beat + view.beatPhase, view.beatPhase, surfaceY, view.time);
   // Every wall, whole, before the pass below skips it — the crawler's reason
   // arrived at from the other side. THE FENCE is a line across every column of
   // the field rather than a body standing on a tile, so it has no centre for
