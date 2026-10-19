@@ -928,6 +928,7 @@ by hand never moves.
 | `packages/content/src/creatures-table.ts` | adding a creature means adding one entry here |
 | `packages/content/src/hull-shape.ts` | the hull's own geometry, split out of `shapes.ts` when that file hit its size cap |
 | `packages/content/src/haloed.ts` | A ring with nodes standing on it, the nodes travelling, and one wide gap where some are missing |
+| `packages/content/src/hint-types.ts` | **What a wave's field says while it is played**, one line at a time |
 | `packages/content/src/light.ts` | where the light is — the one named direction every sheen, crater and glow reads against |
 | `packages/content/src/maze-rounds.ts` | THE MAZE's drum, copied wall for wall off the sheet the owner sent, and the five rounds played against it |
 | `packages/content/src/mechanics-table.ts` | the rows themselves, lifted out of `mechanics.ts` when that file crossed the 250-line limit |
@@ -1195,6 +1196,7 @@ by hand never moves.
 | `packages/content/src/filament-script.ts` | THE FILAMENT's seven filaments: where each hangs, and the line it makes |
 | `packages/content/src/filament-look.ts` | **THE FILAMENT as the inside of an alien** — the owner, 25 September 2026 |
 | `packages/content/src/nettle-script.ts` | THE NETTLE's script: ten steps over eight poses, and what the pair does to each |
+| `packages/content/src/hints/first-step.ts` | FIRST STEP: a column and a colour, one per person — the lesson its film taught, on the real enemy |
 
 ### packages/render
 

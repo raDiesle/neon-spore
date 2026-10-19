@@ -1,3 +1,5 @@
+import type { HintLine } from "./hint-types.js";
+import { FIRST_STEP_HINTS } from "./hints/first-step.js";
 import type { Wave } from "./wave-types.js";
 
 /**
@@ -11,10 +13,16 @@ import type { Wave } from "./wave-types.js";
  * thing to do on the screen of the seat that does it, until the pair has shown
  * it can (`render/src/wave-hint.ts`). A name rather than the readings
  * themselves, for `FilmedGuide.scene`'s reason: one line for the director to
- * write back out. FIRST STEP is the first, and the one the owner is shown
- * before any other wave is moved over (`docs/spec/briefings.md`).
+ * write back out; each table is a family's file under `hints/`, and its lines
+ * are `HintLine`s (`hint-types.ts`). FIRST STEP was the first, the example
+ * the owner judged before the rest were moved over (`docs/spec/briefings.md`).
  */
-export type WaveHintsId = "firstStep";
+export const WAVE_HINTS = {
+  firstStep: FIRST_STEP_HINTS,
+} satisfies Record<string, readonly HintLine[]>;
+
+/** The waves whose help is given on the field while they are played (`Wave.hints`). */
+export type WaveHintsId = keyof typeof WAVE_HINTS;
 
 /**
  * **Whether a wave teaches anything**: a guide in front of it, or hints on its

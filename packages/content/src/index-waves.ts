@@ -52,6 +52,7 @@ export {
   type FilmedGuide,
   guideSteps,
   PROSE_PAGES,
+  WAVE_HINTS,
   WAVES,
   type Wave,
   type WaveEntry,

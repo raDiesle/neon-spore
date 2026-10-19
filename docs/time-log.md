@@ -44928,3 +44928,16 @@ Bottleneck: rings overlap by most of a column, so a crosshair the size a boss we
 Bottleneck: telling, reader by reader, which of fifty uses of one hex meant the shield.
 
 *Measured: 21 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-19 — A wave's hints are data, and stop after one enemy
+
+- reading: 5 min. Which of the film's caption anchors a live hint can lean
+  on, and where the first slice hard-coded its lines.
+- writing: 15 min. `HintLine`, `WAVE_HINTS` and `hints/first-step.ts`;
+  `wave-hint.ts` reading them; a test that every line of every hinted wave is
+  shown and fits.
+- looking: 0 min.
+- friction: 5 min. The context ran out mid-slice and was compacted.
+- landing: 5 min. One `check:fast` run, a format and an export sort.
+
+Bottleneck: the compaction in the middle of the rewrite.

@@ -257,7 +257,8 @@ one shown to the owner before any other is.
 So FIRST STEP carries **`hints`** instead of a guide (`Wave.hints`): it opens
 on its introduction and is played at once, and the field tells each seat the
 next thing to do, beside the thing it is about, until the pair has cleared
-three bodies (`HINTS_UNTIL`) — and again from the start of a try begun over.
+one body (`HINTS_UNTIL`; the owner: *one enemy is enough*) — and again from
+the start of a try begun over.
 
 | | cannon not under the lowest body | cannon under it |
 |---|---|---|
@@ -272,6 +273,15 @@ the wire. `test` shows the hint of the seat who acts.
 
 FIRST STEP's film is gone; it is in git history as
 packages/content/src/scenes/first-step.ts should the owner want it back.
+**The lines are data**, one family file to a kind of wave under
+`packages/content/src/hints/`, named in `WAVE_HINTS`. A line is a seat, its
+words, its subject (a `SceneAnchor`, as a film page's) and `when` it holds — a
+reading of the body nearest the hull, such as the cannon under it or not. A
+screen shows the first of its seat's lines that holds and whose subject it can
+find; a line that only says what the other seat does is `acts: false`, so
+`test` skips it. Every line of every hinted wave is shown in some state of its
+own wave, and fits on every screen size (`render/test/wave-hint.test.ts`).
+
 `waveTeaches` is the one question the rules about what is taught where ask —
 a guide or hints — and `waveHasGuide` still means *a guide to play*.
 
