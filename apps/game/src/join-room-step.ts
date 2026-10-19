@@ -45,6 +45,7 @@ export function bindRoomStep(b: RoomStepBindings): { paint: (status: LinkStatus)
     [1, document.getElementById("joinReady1")],
     [2, document.getElementById("joinReady2")],
   ];
+  const hintEl = document.getElementById("joinHoldHint");
   const tempoEls = [...(tempoEl?.querySelectorAll<HTMLButtonElement>("button") ?? [])];
 
   let last: LinkStatus | null = null;
@@ -82,6 +83,10 @@ export function bindRoomStep(b: RoomStepBindings): { paint: (status: LinkStatus)
       if (name) name.textContent = seatWord(status, seat);
       if (!held) arc(node, full ? 1 : 0);
     }
+    // The line under the circles says what the own one wants, for as long as
+    // it wants it: a ring alone was read as a button to tap.
+    const own = circleLook(status, status.player === 2 ? 2 : 1, over());
+    if (hintEl) hintEl.hidden = !(status.player !== 0 && own.holdable && !sent);
   };
 
   const paint = (status: LinkStatus): void => {

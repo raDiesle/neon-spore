@@ -6,7 +6,8 @@ import { seatSkin } from "./seat-skin.js";
 
 /**
  * One seat's circle at the gate a guide ends on: a dim track, an arc for the
- * fill, its name above and READY under it once it is full.
+ * fill, its name under it, and inside it HOLD while it waits on this screen's
+ * thumb and READY once it is full.
  *
  * `sim/ready-gate.ts` owns every rule of it — this only reads how full each one
  * is. The arc starts at the top and runs clockwise, which is the direction
@@ -103,11 +104,17 @@ export function drawCircle(
     ctx.fill();
   }
 
-  // Inside the circle, where the ring cannot reach it.
+  // Inside the circle, where the ring cannot reach it. Until it is full, the
+  // one waiting on this screen's thumb says what it wants — *make it clear that
+  // they need to hold it to say ready* (the owner, 19 October 2026): a ring
+  // that only breathes was read as a button to tap.
+  ctx.font = `700 ${Math.max(11, Math.round(r * 0.32))}px "Courier New",monospace`;
   if (done) {
-    ctx.font = `700 ${Math.max(10, Math.round(r * 0.26))}px "Courier New",monospace`;
     ctx.fillStyle = PALETTE.good;
     ctx.fillText("READY", cx, cy + r * 0.09);
+  } else if (mood.calling) {
+    ctx.fillStyle = skin.tint;
+    ctx.fillText("HOLD", cx, cy + r * 0.09);
   }
   // Under it, clear of the breathing ring, in the size a name deserves.
   if (label) {

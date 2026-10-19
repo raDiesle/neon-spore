@@ -451,6 +451,20 @@ body:is([data-intro="on"], [data-hello="on"]) .key-hint {
   letter-spacing: 0.12em;
   color: #3bff9e;
 }
+#joinReady .circle:not(.done) .word {
+  color: var(--seat);
+}
+#joinHoldHint {
+  margin: 2px 0 6px;
+  text-align: center;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: #f4e7ff;
+}
+#joinHoldHint[hidden] {
+  display: none;
+}
 #joinReady .name {
   display: block;
   margin-top: 8px;

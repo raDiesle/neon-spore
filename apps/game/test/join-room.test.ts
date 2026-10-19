@@ -30,8 +30,10 @@ describe("the READY circle", () => {
     const mine = circleLook(at(bothHere), 1);
     expect(mine.holdable).toBe(true);
     expect(mine.calling).toBe(true);
-    expect(mine.word).toBe("");
+    // It says what it wants: a ring alone was read as a button to tap.
+    expect(mine.word).toBe("HOLD");
     expect(circleLook(at(bothHere), 2).holdable).toBe(false);
+    expect(circleLook(at(bothHere), 2).word).toBe("");
   });
 
   test("is full and says so once this phone has held, and cannot be held again", () => {

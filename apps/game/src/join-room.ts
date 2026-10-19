@@ -52,7 +52,8 @@ export interface CircleLook {
   holdable: boolean;
   /** Waiting on the person holding this screen — the one that breathes. */
   calling: boolean;
-  /** The word inside it, or "" while it is empty. */
+  /** The word inside it: the countdown, READY, HOLD while this phone's thumb
+   * can fill it, or "" while it is empty and not this phone's to fill. */
   word: string;
 }
 
@@ -71,7 +72,13 @@ export function circleLook(status: LinkStatus, seat: 1 | 2, over = false): Circl
     done,
     holdable,
     calling: holdable,
-    word: counting ? `${Math.ceil(status.countdownMs / 1000)}` : done ? "READY" : "",
+    word: counting
+      ? `${Math.ceil(status.countdownMs / 1000)}`
+      : done
+        ? "READY"
+        : holdable
+          ? "HOLD"
+          : "",
   };
 }
 

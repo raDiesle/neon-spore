@@ -44882,3 +44882,16 @@ Bottleneck: the four op-count budgets on STANDARD 2 waves, found only by the ful
 Bottleneck: the shield's colour is the cyan a cyan ring is filled with, which needed the owner's answer before any paint.
 
 *Measured: 7 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-19 — Every READY circle says HOLD until it is full
+
+- reading: 5 min. The two holds: the guide's ready page on canvas and the
+  room's DOM circles.
+- writing: 5 min. HOLD inside the own circle, a bigger hint line on each
+  screen, the room test's word.
+- looking: 5 min. Two `bun run frames` of THE ECHO's ready page, the word
+  enlarged between them.
+- friction: 0 min.
+- landing: 10 min. The full render and game suites, then `check:fast`.
+
+Bottleneck: the test run, minutes long for a seven-file change.

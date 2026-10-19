@@ -15,11 +15,11 @@ import { hasSeatName, type SeatNames, seatName } from "./seat-name.js";
  * owner gave about how much to say.
  *
  * `ASK_SUB` and `LABEL_GAP` come with the words because they are the words'
- * own heights — the drop to HOLD ANYWHERE and the gap a circle's name wants —
+ * own heights — the drop to the HOLD line and the gap a circle's name wants —
  * and the measure imports them back to leave room for what it cannot see.
  */
 
-/** How far HOLD ANYWHERE sits under READY?, and the room a circle's own name
+/** How far the HOLD line sits under READY?, and the room a circle's own name
  * wants under it. */
 export const ASK_SUB = 18;
 export const LABEL_GAP = 20;
@@ -53,9 +53,11 @@ export function ask(
     ctx.fillStyle = PALETTE.hullRim;
     ctx.fillText("READY?", l.width / 2, y);
     ctx.globalAlpha = 1;
-    ctx.font = '11px "Courier New",monospace';
-    ctx.fillStyle = PALETTE.dim;
-    ctx.fillText("HOLD ANYWHERE", l.width / 2, y + ASK_SUB);
+    // Bright and in words a first-timer can act on: in eleven-point grey
+    // HOLD ANYWHERE was missed, and the page was tapped like a button.
+    ctx.font = '700 13px "Courier New",monospace';
+    ctx.fillStyle = PALETTE.hullRim;
+    ctx.fillText("HOLD ANYWHERE TO SAY READY", l.width / 2, y + ASK_SUB);
   }
   ctx.textAlign = "left";
 }
