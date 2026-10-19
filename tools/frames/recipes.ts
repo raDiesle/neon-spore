@@ -28,7 +28,7 @@ export const RECIPES: readonly Recipe[] = [
     what: "the rest before an event, not the end of it",
   },
   {
-    argv: ". --wave 1 --until waveFailed --until-on 150",
+    argv: ". --wave 1 --until waveFailed --until-on 600",
     what: "the rest after one: the lost screen",
   },
   {
