@@ -9,6 +9,14 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-19 · e64e05937 — The frames recipe for the lost screen waits until the screen is up
+
+`--until waveFailed --until-on 150` photographed the greyed field a tick before the lost screen appeared, with no words or buttons on it; 600 ticks on, the screen has come up and its count has landed.
+
+## 2026-10-19 · f1bc3582c — GO TO MENU stands beside TUTORIAL AGAIN, and the lost screen's count stands clear of the wound
+
+The lost screen's buttons are two rows instead of three: RETRY WAVE, and under it GO TO MENU and TUTORIAL AGAIN side by side, each half of RETRY's width. The row starts higher (0.33 of the field, from 0.36) and the retries' count under it about 110 pixels higher on a 390×844 phone, so the wound on the hull no longer runs into the number or the word under it. The row's words are fitted to their half plates in one shared size. A look the owner asked for by name.
+
 ## 2026-10-19 · 07c999b22 — THE BLISTER's PALM is built like a hand
 
 The hand that holds a HOLD blister's drop, and that its two deaths play out on, was a mitten: four even capsules fanned out of an ellipse. It now has a palm wider at the knuckles than at the heel, with a mound under the thumb and a wrist going down into the pore; four fingers of three joints each, the middle longest and the little one shortest, tapering to the tip, with a crease at each joint; a thumb set low, shorter and thicker, with its nail; and the heart, head and life lines across the palm. Open, the fingers flex one after another; held, each folds at every joint toward the viewer into a fist over the drop, the nails of the folded tips showing.

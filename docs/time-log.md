@@ -44766,3 +44766,5 @@ Bottleneck: getting a frame with PALM up in it — the body is picked by tile.
 - landing: 5 min. `check:fast`, the commit, `land`.
 
 Bottleneck: the recipe's `--until-on 150` photographs the field before the lost screen is up.
+
+*Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
