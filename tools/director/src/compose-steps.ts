@@ -72,8 +72,8 @@ export const STEPS: readonly Step[] = [
     name: "Pair",
     cols: [0, 10],
     gaps: [4, 6],
-    span: [32, 40],
-    arrivals: [6, 8],
+    span: [36, 48],
+    arrivals: [7, 10],
     mix: "xy",
     ramp: "rise",
   },
@@ -92,8 +92,8 @@ export const STEPS: readonly Step[] = [
     name: "Recall",
     cols: [0, 10],
     gaps: [5, 6],
-    span: [32, 40],
-    arrivals: [6, 8],
+    span: [36, 48],
+    arrivals: [7, 10],
     mix: "xz",
     ramp: "rise",
   },
@@ -123,20 +123,21 @@ export const STEPS: readonly Step[] = [
   },
 ];
 
-/** The steps a block is composed in: three (the owner, 19 October 2026: *why
- * there are parent waves with still 5 waves — i want to have 3*). Five since
- * 17 October, eight before that; the table keeps all eight, since their
- * names are how a composed wave from before is still known (`isComposed`).
+/** The steps a block is composed in: **one** (the owner, 19 October 2026,
+ * the same evening as three: *too many waves without new stuff … first parent
+ * wave then a wave after with no new stuff, then a related boss*). Three
+ * that morning, five since 17 October, eight before that; the table keeps
+ * all eight, since their names are how a composed wave from before is still
+ * known (`isComposed`).
  *
- * **Which three depends on the thing.** The ladder — alone in the middle,
- * then alone to the edges, then with the block before's — is the owner's
- * FIRST STEP rule, and *only makes sense for "bulb", "slick" and "meteor"*
- * (the same day): a gyre on its own three waves running was *very boring,
- * because it only offers same enemies a lot*. Every other thing is mixed
- * from its first regular wave on: with the block before's thing, then with
- * older ones, then with both (`MIXED_STEPS`). */
-export const LADDER_STEPS: readonly Step["id"][] = ["R1", "R3", "R4"];
-export const MIXED_STEPS: readonly Step["id"][] = ["R4", "R6", "R8"];
+ * **Which one depends on the thing.** A slick, a bulb or a rock is Pair —
+ * the new thing across the whole field with the block before's — the end of
+ * the owner's FIRST STEP ladder, which the intro has already climbed. Every
+ * other thing is Recall: mixed with two older ones, since the owner, the
+ * same day, found a gyre with nothing but gyres *very boring*. Both steps
+ * run longer than they did as one of three, so the one wave has room. */
+export const LADDER_STEPS: readonly Step["id"][] = ["R4"];
+export const MIXED_STEPS: readonly Step["id"][] = ["R6"];
 
 /** A block's steps past the arc, for a body that is not a basic. */
 export const BLOCK_STEPS = MIXED_STEPS;

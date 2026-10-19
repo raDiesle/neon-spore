@@ -30,7 +30,7 @@ first creature falling. It is one of two states, never both:
    prose (§3.2). Either way it ends on **the ready gate**: two circles, one per
    seat, each filling while that seat holds and saying READY when it is full.
    The guide passes when both say READY. Only a wave that introduces something
-   new carries one — one hundred and seventeen of the four hundred and seventy-seven waves today, and a wave
+   new carries one — one hundred and seventeen of the two hundred and eight waves today, and a wave
    with no guide has no circles either.
 2. **The introduction**, if it has no guide. `WAVE 4`, the wave's name, its
    one sentence. Plain text on the field — no panel, no border, nothing to
@@ -132,15 +132,15 @@ the two can be compared by opening the wave.
 | # | Block | What is new | Who holds what | Wave |
 |---|---|---|---|---|
 | 1 | **The opening** | two devices, one ship; the cannon; the colour | see §2 | 1 · FIRST STEP |
-| 2 | **The two colours** | red answers red, cyan answers cyan; a wrong colour is *spent*, not missed, and the body it was spent on refuses everything for `colourArmourMs` | p1 the column, p2 the colour | 6 · CYAN |
-| 3 | **The rock** | cannot be shot; shield in the column **and** triggered at contact | p2 slides, p1 triggers | 68 · THE ROCK |
-| 4 | **The torch** | two columns wide, the fastest thing in the field, and only on p1's strip | p1 sees it coming, p2 must cover both columns | 74 · TORCH |
-| 5 | **The push** | the shield sends a creature back up once and never kills it; the rim goes red and the body carries ONE LAST CHANCE | p1 triggers, p2 shoots it on its second fall | 73 · ONE LAST CHANCE |
-| 6 | **The pod** | shooting it loose is half of getting it; then it sinks and drifts | p2 frees it, p1 chases and opens the maw | 109 · SALVAGE |
-| 7 | **The lock** | player 1's hand on a body steers every shot into it, from whatever column the cannon is in; it says nothing about the colour | p1 holds and keeps the cannon on the pod, p2 fires the colour | 117 · CATCH AND AIM |
-| 8 | **The queen** | two marks, one real; she opens for three beats; a torch drops every ten | p1 sees *what*, p2 sees *where* | 116 · BULB QUEEN |
-| 9 | **The bosses** | the mirror, the maze, the gauge, the warden and its line, the vane | one guide each, on their own wave | 162 · THE MIRROR, 170 · THE MAZE, 178 · THE GAUGE, 226 · THE WARDEN, 357 · THE VANE |
-| 10 | **The rest of the bestiary** | the lure that took the runt's place, the throb, the count, the shell, the rock speed tiers | one guide each | 44 · THE LURE, 32 · THE THROB, 56 · THE COUNT, 23 · THE SHELL, 203 · HEAVY ROCKS |
+| 2 | **The two colours** | red answers red, cyan answers cyan; a wrong colour is *spent*, not missed, and the body it was spent on refuses everything for `colourArmourMs` | p1 the column, p2 the colour | 4 · CYAN |
+| 3 | **The rock** | cannot be shot; shield in the column **and** triggered at contact | p2 slides, p1 triggers | 36 · THE ROCK |
+| 4 | **The torch** | two columns wide, the fastest thing in the field, and only on p1's strip | p1 sees it coming, p2 must cover both columns | 40 · TORCH |
+| 5 | **The push** | the shield sends a creature back up once and never kills it; the rim goes red and the body carries ONE LAST CHANCE | p1 triggers, p2 shoots it on its second fall | 39 · ONE LAST CHANCE |
+| 6 | **The pod** | shooting it loose is half of getting it; then it sinks and drifts | p2 frees it, p1 chases and opens the maw | 58 · SALVAGE |
+| 7 | **The lock** | player 1's hand on a body steers every shot into it, from whatever column the cannon is in; it says nothing about the colour | p1 holds and keeps the cannon on the pod, p2 fires the colour | 61 · CATCH AND AIM |
+| 8 | **The queen** | two marks, one real; she opens for three beats; a torch drops every ten | p1 sees *what*, p2 sees *where* | 60 · BULB QUEEN |
+| 9 | **The bosses** | the mirror, the maze, the gauge, the warden and its line, the vane | one guide each, on their own wave | 75 · THE MIRROR, 78 · THE MAZE, 81 · THE GAUGE, 99 · THE WARDEN, 150 · THE VANE |
+| 10 | **The rest of the bestiary** | the lure that took the runt's place, the throb, the count, the shell, the rock speed tiers | one guide each | 24 · THE LURE, 18 · THE THROB, 30 · THE COUNT, 13 · THE SHELL, 91 · HEAVY ROCKS |
 
 **The grip is still the odd one out**, and it has no guide. It is a control no
 wave *contains*, so no wave is the first to carry it and nothing places it.

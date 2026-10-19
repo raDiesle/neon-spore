@@ -23,8 +23,8 @@ export type { Block, Motif } from "./compose-block-types.js";
 
 const BASICS = ["slick", "bulb", "meteor"];
 
-/** Whether a wave is a filler's (`compose-filler.ts`): its id is `filler`, the
- * boss's name and a step's. Never one of the block's own waves. */
+/** Whether a wave is a filler's: its id is `filler`, the boss's name and a
+ * step's. No wave is one since the fillers went (19 October 2026). */
 export function isFiller(id: string | undefined): boolean {
   return id !== undefined && /^filler[A-Z]/.test(id);
 }

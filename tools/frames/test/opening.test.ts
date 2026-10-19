@@ -5,6 +5,9 @@ import { captureFrames } from "../capture.js";
 import { clearOpening } from "../opening.js";
 import { openingRig, STARVED_MS } from "./opening-rig.js";
 
+/** A wave with no guide in front of its field. */
+const UNGUIDED = WAVES.findIndex((w) => w.id === "firstStepPair");
+
 /**
  * The gap this landing closes: `bun run check` stayed green the whole time
  * the opening replaced `world.brief.due`, because nothing here ever drove
@@ -52,15 +55,14 @@ describe("captureFrames past a wave's opening", () => {
   it(
     "stands on the introduction instead of running past it",
     async () => {
-      // ALTERNATING, which carries no guide: its introduction is the only thing
-      // in front of the field. FIRST STEP cannot answer this any more — its guide
+      // A wave that carries no guide: its introduction is the only thing in
+      // front of the field. FIRST STEP cannot answer this any more — its guide
       // is stepped, so the introduction is that guide's last page rather than a
-      // phase behind it (`sim/guide-steps.ts`). It is index 3 since CYAN was
-      // written into act one; both of these are the *wave the field is behind*
-      // rather than any particular number, so they move when act one does.
+      // phase behind it (`sim/guide-steps.ts`). By id, since the numbers moved
+      // every time act one did: RED TANGO, FIRST STEP's one regular wave.
       const { paths } = await captureFrames(
         rig.url,
-        { wave: 3, ticks: 30, opening: "intro" },
+        { wave: UNGUIDED, ticks: 30, opening: "intro" },
         join(rig.out, "intro"),
         rig.browser,
       );
@@ -211,13 +213,13 @@ describe("captureFrames past a wave's opening", () => {
   it(
     "refuses a guide the wave has not got, rather than photographing the field",
     async () => {
-      // ALTERNATING teaches nothing new, so it carries no guide: its
+      // RED TANGO teaches nothing new, so it carries no guide: its
       // introduction passes straight onto the field and there is no second
       // screen to stand on.
       await expect(
         captureFrames(
           rig.url,
-          { wave: 3, ticks: 6, opening: "guide" },
+          { wave: UNGUIDED, ticks: 6, opening: "guide" },
           join(rig.out, "none"),
           rig.browser,
         ),

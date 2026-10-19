@@ -3,8 +3,7 @@ import { playsClean } from "./autopilot-play.js";
 import { bossOrder } from "./boss-slots.js";
 import { type Composed, composeBlockAt } from "./compose.js";
 import { type Block, readBlock } from "./compose-block.js";
-import { addFillers } from "./compose-filler.js";
-import { nextLesson } from "./compose-lesson.js";
+import { hasWaves, nextLesson } from "./compose-lesson.js";
 import { nameWaves } from "./compose-names.js";
 import { nextReview } from "./compose-review.js";
 import { pickNext, splitCurriculum, type Unit, unitWaves } from "./curriculum-order.js";
@@ -21,9 +20,7 @@ import { softenHeads } from "./soften-intro.js";
  * waves taken out, the units put in rising cost with bodies and levers taking
  * turns, each block's regular waves composed again for its new neighbours — a
  * body's, then a lesson's — the bosses placed again (`bossOrder`), the review
- * blocks written for those left at the end, a filler in front of every boss
- * that closes a block which teaches (`compose-filler.ts`), the composed waves
- * named, and **every group's head softened to its gentlest child**
+ * blocks written for those left at the end, the composed waves named, and **every group's head softened to its gentlest child**
  * (`soften-intro.ts`). That last pass is `waves:soften`'s, and until it was
  * here a `waves:order --write` quietly undid what `waves:soften --write` had
  * done after the last one.
@@ -77,6 +74,9 @@ export function orderWaves(list: readonly Wave[], log: (line: string) => void = 
       if (!whole(composed)) return composed.flatMap((c) => c.faults).join("; ");
       return { at: block.insertAt, out: composed.map((c) => c.wave as Wave), composed };
     }
+    // A lesson with a wave written for it has its one (THE TWINS).
+    const at = waves.findIndex((w) => w.id === u.head.id);
+    if (hasWaves(waves, at)) return { at, out: [], composed: [] };
     const lesson = nextLesson(waves);
     if (typeof lesson === "string") return lesson;
     if (lesson.prefix !== u.head.id) return `the next lesson is ${lesson.prefix}`;
@@ -125,11 +125,5 @@ export function orderWaves(list: readonly Wave[], log: (line: string) => void = 
   const settled = bossOrder(waves).order;
   if (settled.some((w, i) => w.id !== waves[i]?.id))
     stop("the bosses move again after the reviews");
-  const filled = addFillers(waves, composedIds);
-  if (typeof filled === "string") return stop(filled);
-  waves = filled;
-  if (bossOrder(waves).order.some((w, i) => w.id !== waves[i]?.id)) {
-    stop("the bosses move once the fillers are in");
-  }
   return softenHeads(nameWaves(waves, composedIds), playsClean).waves;
 }

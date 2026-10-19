@@ -29,7 +29,7 @@ import { regularAt } from "./list-reading.js";
  *   (`SAME_BUTTON`, `wave-keys.ts`) — and BULB QUEEN closes a review block
  *   of its own straight after. The same evening the owner took THE SPLICE
  *   out of the arc again — a boss on a panel of its own stands past the
- *   basics, behind a filler (`compose-filler.ts`) — and it closes THE ECHO's
+ *   basics — and it closes THE ECHO's
  *   block (`BOSS_ABOUT`).
  * - **A boss takes the first free block** after its needs are taught, so a
  *   block a boss skipped is taken

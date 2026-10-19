@@ -14,7 +14,7 @@ const wave = (id: string) => {
 describe("wave pressure", () => {
   it("ranks the shipped waves the way the plan reads them", () => {
     const rocks = wavePressure(wave("theRock")) ?? 0;
-    const wall = wavePressure(wave("torchPair")) ?? 0;
+    const wall = wavePressure(wave("torchRecall")) ?? 0;
     // ONE LAST CHANCE, the arc's busiest regular wave since FINALE became a boss.
     const busiest = wavePressure(wave("oneLastChance")) ?? 0;
     expect(rocks).toBeLessThan(wall);

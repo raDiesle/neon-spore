@@ -116,13 +116,14 @@ new without anything being drawn:
 
 ## 4. Where it belongs, and what follows it
 
-Every new thing opens a block: its intro wave, then **three regular waves**
-that use it before the next new thing arrives — alone, then wide, then mixed,
-for a slick, a bulb or a rock only; **every other thing is mixed with older
-ones from its first regular wave**, and a filler or a review mixes old things
-with no theme of its own (the owner, 19 October 2026). Lengths, the order of
-the three, and the pressure score a
-wave is aimed at: `docs/spec/wave-curriculum.md`. A creature belongs in the act
+Every new thing opens a block: its intro wave, then **one regular wave**
+that uses it, then the boss about it if there is one — and then the next new
+thing (the owner, 19 October 2026: *only one wave without introducing
+something new*). For a slick, a bulb or a rock that wave pairs it with the
+block before's thing across the field; **every other thing is mixed with
+older ones**, and a review mixes old things with no theme of its own.
+Lengths and the pressure score a wave is aimed at:
+`docs/spec/wave-curriculum.md`. A creature belongs in the act
 of its pillar, not wherever there is room.
 
 ## 5. Check

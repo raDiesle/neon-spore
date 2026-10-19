@@ -44817,3 +44817,17 @@ Bottleneck: renumbering the act-one pages the save could not pull back.
 Bottleneck: what a ring shows is decided by what covers it — the hull below, the next ring in front — and only a picture told me.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-19 — A block is its intro and one regular wave, then its boss
+
+- reading: 15 min. `waves:order` end to end: steps, lessons, reviews,
+  fillers, set pieces, and how this morning's cut to three was made.
+- writing: 15 min. One step a block, longer; fillers gone; a lesson's or a
+  block's written wave as its one; the arc cut by hand; docs and two dozen
+  tests that counted the old shape.
+- looking: 0 min. Nothing was watched; AUTO cleared all 208 waves.
+- friction: 10 min. Main reordered the arc while the lane ran; the wave
+  files would not rebase, so the cut ran again on main's list.
+- landing: 10 min. `check:fast`, the commit, `land` twice.
+
+Bottleneck: tests that pin a wave by its place in the list, each red one at a time after the cut.

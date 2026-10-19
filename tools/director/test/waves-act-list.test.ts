@@ -134,7 +134,7 @@ describe("a save that fills an act", () => {
     // More than act one and every page it has can hold, whatever they hold now
     // — on the first wave's panel, so they use nothing it has not taught
     // (`untaughtKeys`, which every save refuses a list for).
-    const added = Array.from({ length: 120 }, (_, i) => ({
+    const added = Array.from({ length: 400 }, (_, i) => ({
       id: `added${i}`,
       name: `ADDED ${i}`,
       entries: [{ beat: 0, col: 5, color: "red" as const }],

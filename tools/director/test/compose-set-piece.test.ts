@@ -9,32 +9,37 @@ import { serializeWaveArray } from "../src/serialize.js";
 /**
  * **A set piece written after a block stands outside its steps**
  * (`Wave.setPiece`). THE ROE, THE CLUTCH, THE DROP, THE WATCH and THE
- * NEIGHBOUR were written after THE HUSK's eight, and counted as five of them:
- * `waves:order` composed three husk waves where there had been eight
- * (`docs/queue.md`, 16 October 2026).
+ * NEIGHBOUR were written after THE HUSK's block, and once counted as five of
+ * its steps (`docs/queue.md`, 16 October 2026). Since a block is one regular
+ * wave (19 October 2026) the owner kept THE NEIGHBOUR, unmarked, as THE
+ * HUSK's one, and no wave is a set piece; the mark still works for the next.
  */
 
-const SET_PIECES = ["theRoe", "theClutch", "theDrop", "theWatch", "theNeighbour"];
+const neighbour = WAVES.find((w) => w.id === "theNeighbour") as Wave;
 
-describe("THE HUSK's set pieces", () => {
-  test("are marked, and none of the block's five", () => {
-    for (const id of SET_PIECES) expect(WAVES.find((w) => w.id === id)?.setPiece, id).toBe(true);
+describe("THE HUSK's one regular wave", () => {
+  test("is THE NEIGHBOUR, written by hand, so nothing is composed for it", () => {
+    expect(neighbour.setPiece).toBeUndefined();
     const block = readBlock(WAVES, "theHusk");
     if (typeof block === "string") throw new Error(block);
     expect(block.existing).toBe(BLOCK_STEPS.length);
   });
 
-  test("would be five of its steps unmarked", () => {
-    const bare = WAVES.map(({ setPiece: _s, ...w }) => w as Wave);
-    const block = readBlock(bare, "theHusk");
+  test("would be none of its steps marked as a set piece", () => {
+    const marked = WAVES.map((w) =>
+      w.id === "theNeighbour" ? { ...w, setPiece: true as const } : w,
+    );
+    const block = readBlock(marked, "theHusk");
     if (typeof block === "string") throw new Error(block);
-    expect(block.existing).toBe(BLOCK_STEPS.length + SET_PIECES.length);
+    expect(block.existing).toBe(0);
   });
 
-  test("keep the mark through a save", () => {
-    const roe = WAVES.find((w) => w.id === "theRoe") as Wave;
+  test("a mark is kept through a save", () => {
     const act = join(import.meta.dir, "../../../packages/content/src/waves/act-3.ts");
-    const written = serializeWaveArray(readFileSync(act, "utf8"), [roe], "WAVES_ACT_3");
-    expect(written).toContain('    name: "THE ROE",\n    variant: true,\n    setPiece: true,\n');
+    const marked: Wave = { ...neighbour, setPiece: true };
+    const written = serializeWaveArray(readFileSync(act, "utf8"), [marked], "WAVES_ACT_3");
+    expect(written).toContain(
+      '    name: "THE NEIGHBOUR",\n    variant: true,\n    setPiece: true,\n',
+    );
   });
 });

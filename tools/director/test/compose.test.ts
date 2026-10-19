@@ -32,18 +32,17 @@ describe("a block, read off the list", () => {
     expect([b.number, b.x, b.y, b.tutorial]).toEqual([0, "slick", undefined, true]);
   });
 
-  test("SALVAGE's block is its three, and CATCH AND AIM is no block", () => {
+  test("SALVAGE's block is its one, and CATCH AND AIM is no block", () => {
     // CATCH AND AIM opened a block of its own on THE PURGE until the cargoes
     // were rejected (16 October 2026): it introduces no body or pod now.
     // SALVAGE's block comes after THE BLISTER's gestures (moved before THE
-    // BASTION the same day); its review, SCRAP FIELD to SCRAP AND TORCH, and
-    // BULB QUEEN follow it (17 October 2026), and the review's three are not
-    // the block's own.
+    // BASTION the same day); BULB QUEEN closes it since its review went
+    // with the cut to one regular wave (19 October 2026).
     const b = block("salvage");
     expect([b.x, b.y]).toEqual(["pod", "blister"]);
     expect(typeof readBlock(WAVES, "catchAndAim")).toBe("string");
-    // Three written, up to its review: the arc's short block is full.
-    expect(b.existing).toBe(3);
+    // One written, up to BULB QUEEN: the arc's block is full.
+    expect(b.existing).toBe(1);
     expect(stepsToCompose(b.x, b.existing)).toEqual([]);
   });
 
@@ -53,20 +52,22 @@ describe("a block, read off the list", () => {
 });
 
 describe("the steps", () => {
-  test("a block is three steps and its written regular waves stand for the last", () => {
-    expect(stepsToCompose("bulb", 0).map((s) => s.id)).toEqual(["R1", "R3", "R4"]);
-    expect(stepsToCompose("bulb", 2).map((s) => s.id)).toEqual(["R1"]);
-    expect(stepsToCompose("gyre", 1)).toHaveLength(2);
+  test("a block is one step, and a written regular wave stands for it", () => {
+    // The owner, 19 October 2026: *only one wave without introducing
+    // something new*.
+    expect(stepsToCompose("bulb", 0).map((s) => s.id)).toEqual(["R4"]);
+    expect(stepsToCompose("bulb", 1)).toEqual([]);
+    expect(stepsToCompose("gyre", 1)).toHaveLength(0);
   });
 
   test("only the slick, the bulb and the rock climb the ladder; the rest are mixed", () => {
     // The owner, 19 October 2026: the positioning rule *only makes sense for
     // "bulb", "slick" and "meteor"*.
     for (const x of ["slick", "bulb", "meteor", "meteorFast"]) {
-      expect(stepsToCompose(x, 0).map((s) => s.id)).toEqual(["R1", "R3", "R4"]);
+      expect(stepsToCompose(x, 0).map((s) => s.mix)).toEqual(["xy"]);
     }
     for (const x of ["gyre", "morsel", "pod"]) {
-      expect(stepsToCompose(x, 0).map((s) => s.mix)).toEqual(["xy", "xz", "xyz"]);
+      expect(stepsToCompose(x, 0).map((s) => s.mix)).toEqual(["xz"]);
     }
   });
 

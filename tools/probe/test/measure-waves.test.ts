@@ -5,7 +5,7 @@ import { bossRows, summaryRows, waveRows } from "../measure-waves-page.js";
 
 /** `bun run waves:measure`, on two cheap waves rather than all of them. */
 describe("waves:measure", () => {
-  const two = WAVES.findIndex((w) => w.id === "twoColours");
+  const two = WAVES.findIndex((w) => w.id === "alternating");
   const bastion = WAVES.findIndex((w) => w.id === "theBastion");
 
   it("clears a wave of two colours with AUTO and calls it regular", () => {

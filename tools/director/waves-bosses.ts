@@ -1,8 +1,5 @@
-import { WAVES, type Wave } from "@neon-spore/content";
+import { WAVES } from "@neon-spore/content";
 import { bossOrder } from "./src/boss-slots.js";
-import { isFiller } from "./src/compose-block.js";
-import { addFillers } from "./src/compose-filler.js";
-import { nameWaves } from "./src/compose-names.js";
 import { writeWaves } from "./src/waves-acts.js";
 
 /**
@@ -13,21 +10,18 @@ import { writeWaves } from "./src/waves-acts.js";
  * waited on; `--write` saves the new order. Run it again after a block is
  * written, and a boss waiting at the end takes the new block.
  *
- * **A filler goes where its boss goes.** A filler (`src/compose-filler.ts`)
- * is composed for the boss behind it and the waves in front of it, so the
- * fillers are taken out before the bosses move and composed again in front
- * of each boss's new place — left in, one would stand before another boss.
+ * A boss stands straight after its block's one regular wave: the fillers
+ * that stood between them went on 19 October 2026 (§4, decision 3).
  */
 
-const bare = WAVES.filter((w) => !isFiller(w.id));
-const { order, slots } = bossOrder(bare);
+const { order, slots } = bossOrder(WAVES);
 const name = (id: string | undefined) => order.find((w) => w.id === id)?.name ?? "";
 const at = (id: string) => WAVES.findIndex((w) => w.id === id);
 let moved = 0;
 for (const s of slots) {
   const where = s.closes
     ? `closes ${name(s.closes)}`
-    : s.from <= bare.findIndex((w) => w.id === "finale")
+    : s.from <= WAVES.findIndex((w) => w.id === "finale")
       ? "stays, in the arc"
       : "waits at the end";
   if (s.from !== s.to) moved++;
@@ -36,18 +30,10 @@ for (const s of slots) {
       `${where.padEnd(28)}${s.waited.join(", ")}`,
   );
 }
-console.log(`${moved} of ${slots.length} bosses move (numbers without fillers on the right)`);
+console.log(`${moved} of ${slots.length} bosses move`);
 if (!process.argv.includes("--write") || moved === 0) process.exit(0);
 
-const composedIds = new Set<string>();
-const filled = addFillers([...order], composedIds, () => {});
-if (typeof filled === "string") {
-  console.error(`stopped: ${filled}`);
-  process.exit(1);
-}
-const waves: Wave[] = nameWaves(filled, composedIds);
-console.log(`${composedIds.size / 3} fillers composed again, ${waves.length} waves`);
-const { complaint, rels, removed } = await writeWaves(waves, undefined, { recut: true });
+const { complaint, rels, removed } = await writeWaves([...order], undefined, { recut: true });
 if (complaint) {
   console.error(complaint);
   process.exit(1);

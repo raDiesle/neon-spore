@@ -9,7 +9,7 @@ const finale = WAVES.findIndex((w) => w.id === TUTORIAL_LAST_ID);
 const lessons = WAVES.flatMap((_w, i) => (i > finale && isLesson(WAVES, i) ? [i] : []));
 
 describe("lesson blocks (wave-curriculum §4)", () => {
-  test("every lesson after the arc has its eight waves", () => {
+  test("every lesson after the arc has its wave", () => {
     expect(lessons.length).toBeGreaterThan(5);
     for (const at of lessons) {
       expect({ lesson: WAVES[at]?.id, has: hasWaves(WAVES, at) }).toEqual({
@@ -24,14 +24,14 @@ describe("lesson blocks (wave-curriculum §4)", () => {
     expect(lessonsAfterBlocks(WAVES).map((w) => w.id)).toEqual(WAVES.map((w) => w.id));
   });
 
-  test("a lesson's waves are not capped by the written ones after them", () => {
-    // THE CAGE (3.2) stands after THE LANCE's five; read as the ramp's next
-    // wave it held R8 under 3.2 and `waves:order` stopped (16 October 2026).
+  test("a wave written for a lesson is its one, and without it one is composed", () => {
+    // THE TWINS, the set piece the owner kept of THE LANCE's five (19 October
+    // 2026), stands where the composed wave would.
     const lance = WAVES.findIndex((w) => w.id === "theLance");
-    const own = (w: { id: string; variant?: boolean }) =>
-      w.variant === true && w.id.startsWith("theLance") && w.id !== "theLance";
-    const bare = WAVES.filter((w) => !own(w));
-    expect(WAVES[lance + 1 + BLOCK_STEPS.length]?.id).toBe("theCage");
+    expect(WAVES[lance + 1]?.id).toBe("theTwins");
+    expect(hasWaves(WAVES, lance)).toBe(true);
+    const bare = WAVES.filter((w) => w.id !== "theTwins");
+    expect(hasWaves(bare, lance)).toBe(false);
     const next = nextLesson(bare);
     if (typeof next === "string") throw new Error(next);
     expect(next.prefix).toBe("theLance");

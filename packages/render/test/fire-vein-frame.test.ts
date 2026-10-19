@@ -27,11 +27,11 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
 
 beforeAll(installCanvasGlobals);
 
-/** TWO COLOURS: both fire buttons on the panel. By id: it was index 2 until
+/** ALTERNATING: both fire buttons on the panel. By id: it was index 2 until
  * the arc's regular waves went in ahead of it. */
 function world(): World {
   const w = createWorld(CFG, 5);
-  w.wave = WAVES.findIndex((wave) => wave.id === "twoColours");
+  w.wave = WAVES.findIndex((wave) => wave.id === "alternating");
   return w;
 }
 

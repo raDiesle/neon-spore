@@ -9,10 +9,11 @@ import { hardHeads, soften, softened } from "../src/soften-intro.js";
  * is the fix.
  */
 
-/** Heads no softening reaches, each with its reason. CATCH AND AIM's red and
- * cyan in turn cost a switch each wherever they stand, and its gentlest child
- * has one colour. */
-const STAYS = new Set(["catchAndAim"]);
+/** Heads no softening reaches, each with its reason. None today: CATCH AND
+ * AIM stood here, its red and cyan in turn harder than AIM RISING's one
+ * colour, until a block became one regular wave and its one was LONG AIM
+ * ROAD (19 October 2026). */
+const STAYS = new Set<string>();
 
 describe("the shipped list", () => {
   test("no head is harder than its gentlest child", () => {

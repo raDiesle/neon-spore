@@ -34,7 +34,6 @@ export const CLEAN: readonly string[] = [
   "CATCH AND AIM",
   "COIL INFERNO",
   "CYAN",
-  "CYAN PICNIC",
   "CYAN RAPTURE",
   "FINALE",
   "FIRST STEP",

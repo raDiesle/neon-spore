@@ -20,27 +20,12 @@ export const WAVES_ACT_2: Wave[] = [
     },
     entries: [
       { beat: 4, col: 10, color: "cyan" },
-      { beat: 9, col: 8, color: "red" },
-      { beat: 15, col: 10, color: "red" },
+      { beat: 12, col: 8, color: "red" },
+      { beat: 20, col: 10, color: "red" },
     ],
     pods: [
       { beat: 0, col: 2, row: 3, kind: "pod" },
-      { beat: 11, col: 0, row: 4, kind: "pod" },
-    ],
-    controls: "standard5",
-  },
-  {
-    id: "catchAndAimAgain",
-    name: "AIM RISING",
-    variant: true,
-    entries: [
-      { beat: 6, col: 4, color: "cyan" },
-      { beat: 14, col: 6, color: "cyan" },
-      { beat: 28, col: 6, color: "cyan" },
-    ],
-    pods: [
-      { beat: 0, col: 6, row: 4, kind: "pod" },
-      { beat: 21, col: 5, row: 4, kind: "pod" },
+      { beat: 14, col: 0, row: 4, kind: "pod" },
     ],
     controls: "standard5",
   },

@@ -90,24 +90,35 @@ and a cyan, a shot and a shield, a body and a rock) are at least **4 beats**
 apart — one spoken exchange — in the first 20 blocks, and at least **3** after.
 The same job in the same column may follow on the next beat.
 
-## 4. The block: one new thing, then three regular waves
+## 4. The block: one new thing, then one regular wave
 
-**Decision 3 — every new thing opens a block of 1 + 3 waves.** Eight until
-17 October 2026, five until the owner, 19 October 2026: *why there are parent
-waves with still 5 waves — i want to have 3 instead.* The intro wave teaches
-it, three regular waves use it, and only then does the next new thing
-arrive. Equal for every block, so the pair always has the same three waves
-to get good at something before being taught again.
+**Decision 3 — every new thing opens a block of 1 + 1 waves, and its boss
+follows.** Eight until 17 October 2026, five until 19 October, three that
+morning, and one since the owner, the same evening, on feedback from
+players: *too many waves without new stuff … first parent wave then a wave
+after with no new stuff, then a related boss. So basically only one wave
+without introducing something new.* The intro teaches the thing, one
+regular wave uses it, then the boss about it (§7) if there is one, and the
+next new thing. The one wave is longer than any step was when there were
+three — a span of 36–48 beats and 7–10 arrivals — so the pair still has
+room to get good at it. 477 waves became 208.
+
+The tutorial arc's blocks were cut by hand to the same shape, each keeping
+one wave it already had: RED TANGO, CYAN RAPTURE, ROCK AND CYAN, LONG AIM
+ROAD, and every other block's Recall. HELLO BLISTER and the SCRAP review
+in front of BULB QUEEN went, so BULB QUEEN closes SALVAGE's block. Of the
+hand-written set pieces past the arc, each block kept one (the owner's
+pick): THE NEIGHBOUR for THE HUSK, THE TWINS for THE LANCE, COIL INFERNO
+(`theTwitch`) for THE COIL.
 
 **Decision 12 — only the slick, the bulb and the rock climb the ladder.**
 The owner, the same day, of THE GYRE's block: *very boring, because it only
 offers same enemies a lot but without mixing in existing enemies … this
 positioning rule of increasing difficulty only makes sense for "bulb",
-"slick" and "meteor".* So a block of a slick, a bulb or any rock is Again,
-Reach, Pair (`LADDER_STEPS`) — alone in the middle, alone to the edges,
-then with the block before's thing — and every other block is Pair, Recall,
-Peak (`MIXED_STEPS`): mixed from its first regular wave, with the block
-before's thing, then with two older ones, then with both. In the tutorial
+"slick" and "meteor".* So a block of a slick, a bulb or any rock is Pair
+(`LADDER_STEPS`) — across the whole field with the block before's thing,
+the top of the ladder the intro has climbed — and every other block is
+Recall (`MIXED_STEPS`): mixed with two older things. In the tutorial
 arc the mixed steps keep two beats more between arrivals and no twin
 (`arcStep`, `compose-grow.ts`), or SHELL's first wave would stand at 7.5
 straight after CYAN's 4.6.
@@ -155,7 +166,7 @@ fault, a panel, speed). Never two. This is what keeps the steps small.
 **Decision 8 — the tutorial arc has short blocks.** Waves 1–19, up to
 FINALE, teach the basic panel and the basic mechanics: slick and bulb, the
 rock, the torch, THE BLISTER's gestures, the pods, and the bosses on screen
-there (THE BROOD, THE BASTION, BULB QUEEN). The owner, 14 October 2026: there, each basic thing gets **three**
+there (THE BROOD, THE BASTION, BULB QUEEN). One regular wave since 19 October 2026 (decision 3); before that, the owner, 14 October 2026: there, each basic thing gets **three**
 regular waves, not eight — R1 *Again*, R3 *Reach*, R4 *Pair* — so the arc grows
 to about forty waves and is still a tutorial. Its old regular waves (TWO
 COLOURS to CROWDED, and FINALE) count among the three. TORCH's five old ones
@@ -215,11 +226,11 @@ cheapest first, with four rules over that:
   place the rule would give it. A hand-written regular wave goes
   behind the block that teaches the last thing it needs. After THE BLISTER,
   each of the seven gestures — TAP, HOLD, SWIPE, TURN, RUB, COMBO, LEVER — is
-  a head of its own, opened by its tutorial and followed by three
-  tutorial-step waves, Again, Reach and Pair (the owner, 17 October 2026:
-  *each "controls" brush receive its own parent wave with introduction, then
-  with around 3 each*; `waves:controls --groups`). HELLO BLISTER, which mixes
-  them, plays last, before THE BASTION.
+  a head of its own, opened by its tutorial and followed by one regular
+  wave (the owner, 17 October 2026: *each "controls" brush receive its own
+  parent wave with introduction*; `waves:controls --groups`, three each until
+  19 October). LEVER's is the last before THE BASTION; HELLO BLISTER, which
+  mixed them, went with the cut to one.
 
 Every composed wave is written again for its new neighbours — R4 pairs with
 the block before, R6 recalls three back, R1 rises from the block before's
@@ -386,57 +397,50 @@ decided then while the owner was away:
   left free (the owner's pick: *stay where they are*). A new boss written for
   a block is a row there. THE SPLICE took THE ECHO's row from THE REPRISE the
   same evening: the owner took it out of the arc again — a boss on a panel of
-  its own stands past the basics, behind a filler (below) — and back to THE
+  its own stands past the basics — and back to THE
   ECHO's block, the one it had left.
 - **A boss with no block left waits at the end**, in order — and gets a
-  review block: three regular waves with no intro, each a mix of what was
+  review block: one regular wave with no intro, a mix of what was
   taught by then (decision 13, below), composed by `bun run waves:review`
   (`tools/director/src/compose-review.ts`; the owner: *create all other
   waves, so that waves are distributed also between all the boss waves*).
   21 were written; 11 remain since the lessons got blocks of their own.
 - **A boss comes straight after a regular wave** — the owner: *I expect to
-  follow from top to bottom without spaces.* THE TWITCH and FIVE BLISTERS,
-  hand-written regular waves, fold into their blocks.
+  follow from top to bottom without spaces.* THE TWITCH, a hand-written
+  regular wave, is its block's one.
 - **Every lesson opens a block** — the owner: *there are a lot of waves
   introducing new concepts or enemies, which then should have waves.* A
   lesson teaches a panel or a fault: THE LANCE, THE JAM, THE CHOKE, THE
   LIMPET, THE LEECH, THE CLAW, THE CODEX, THE HANDOVER, THE FLIP, THE DARK.
-  Each moved behind the regular waves of the block it came in and has three
-  of its own, carrying its fault and mixed as a filler is (decision 13)
-  (`bun run waves:lessons`, `tools/director/src/compose-lesson.ts`). THE
-  CLAW's panel has no shield and no colours, so its three are placed by a table of their own — each
+  Each moved behind the regular wave of the block it came in and has one
+  of its own, carrying its fault and mixed as a review is (decision 13)
+  (`bun run waves:lessons`, `tools/director/src/compose-lesson.ts`), or a
+  wave written for it (THE TWINS after THE LANCE). THE
+  CLAW's panel has no shield and no colours, so its one is placed by a table of their own — each
   group a pod crossing in and the rocks it answers — and played on the claw
   (`compose-claw.ts`).
 
-- **A boss never folds under a group that teaches** — the owner, 17
-  October 2026: *boss waves … should not be associated with a parent wave
-  list, which parent introduces something new. instead create some new
-  parent wave with maybe 3 number of waves, which just reuse what we have so
-  far then the boss.* Past the arc, every boss whose block opens with an
-  intro or a lesson has a **filler** in front of it: three regular waves,
-  Breathe, Recall and Bend, on the panel the game has reached — the
-  sawtooth's next tooth, short, rising into the boss.
-  The filler's first wave heads a group of its own and the boss folds under
-  it. A boss behind a review block needs none; the arc keeps its bosses as
-  they are, since its blocks are the basics. `bun run waves:fillers`
-  (`tools/director/src/compose-filler.ts`) writes them and moves nothing
-  else, and `waves:order` writes them last; `test/compose-filler.test.ts`
-  holds the rule.
+- **A boss follows its block's one regular wave**, and folds under the
+  block's intro in the wave list. From 17 to 19 October 2026 a **filler** —
+  three regular waves of known things — stood between a block and its boss,
+  because the owner did not want a boss *associated with a parent wave list,
+  which parent introduces something new*; the owner's rule of 19 October,
+  *first parent wave then a wave after with no new stuff, then a related
+  boss*, took them out, with the command that wrote them.
 
-**Decision 13 — a filler, a lesson's waves and a review have no theme.**
+**Decision 13 — a lesson's wave and a review have no theme.**
 The owner, 19 October 2026, of SOFT MORSEL, the filler after THE MORSEL's
 block: *why there is repeating "soft morsel" after which was already
 introduced before in parent and should not repeat another parent? (also
-"morsel" is a very boring enemy — so mix in other previous enemies)*. Each of
-their waves draws three of the things taught before it (`Block.pool`), half
-of it slicks and bulbs as always; a filler and a lesson leave out the body
-whose block they follow, and a filler or a review is named for the boss it
-leads to (SOFT INSTAR, not SOFT MORSEL).
+"morsel" is a very boring enemy — so mix in other previous enemies)* — said
+of a filler, which is gone, and held for what is left. Each such wave draws
+three of the things taught before it (`Block.pool`), half of it slicks and
+bulbs as always; a lesson's leaves out the body whose block it follows, and
+a review is named for the boss it leads to.
 
-Past the arc that makes **54 blocks — 33 opened by a body or a pod, 10 by a
-lesson, 11 reviews — 45 fillers, and 56 bosses**: one closing every block,
-and two waiting at the end. 476 waves in all, since blocks are three and
-each blister gesture has three of its own (19 October 2026).
+Past the arc that makes **56 blocks — 20 opened by a body or a pod, 10 by a
+lesson, 26 reviews — and 56 bosses**, one closing every block. 208 waves in
+all, since a block is its intro and one regular wave (19 October 2026).
 
 The boss table — every boss's AUTO time against the band — is in
 `wave-curriculum-today.md`. AUTO plays perfectly and never talks, so the
@@ -465,11 +469,12 @@ Bosses are the owner's to lengthen by hand. This plan only places them.
 ## 9. Answered by the owner, 14 October 2026
 
 1. **Eight** regular waves per new thing (over six and twelve) — **five** from
-   17 October 2026, **three** since 19 October (§4, decision 3).
+   17 October 2026, **three** on the morning of 19 October and **one** since
+   that evening (§4, decision 3).
 2. **The bosses are spread out**, one closing a block (§7), rather than the
    existing order kept with 22 bosses in a row.
 3. **The 10 old regular waves count** as the first of their block's eight; the
    composer writes only the rest, and nothing hand-made is lost.
 4. **A pair takes twice AUTO's time** — the boss bands of §3 stand.
-5. **Waves 1–19 get short blocks** of three regular waves per basic thing
+5. **Waves 1–19 get short blocks** of three regular waves per basic thing — one since 19 October
    (§4, decision 8), over keeping the arc as it is or giving it full blocks.

@@ -21,9 +21,9 @@ import type { Store } from "./state.js";
  * 2026 — *a boss is logically related to a list of waves, rather than
  * separately, so a boss should fit the previous waves played.* It was a head
  * of its own until then, so that a fold never hid one; the ♛ filter opens
- * every group, and finds them still. Past the arc the group above is a
- * filler's (`compose-filler.ts`), never one that teaches — the owner, the same
- * day: a boss belongs to a group *which just reuses what we have so far*.
+ * every group, and finds them still. The group above is the block's: its
+ * intro and its one regular wave (the owner, 19 October 2026: *first parent
+ * wave then a wave after with no new stuff, then a related boss*).
  *
  * **A block's later intros are variants of its first.** THE HAND, THE GAP,
  * THE CUT and THE LEAK each carry a guide, and each stood as a head, so the

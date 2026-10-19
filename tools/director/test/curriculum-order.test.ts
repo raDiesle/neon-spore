@@ -134,8 +134,9 @@ describe("the units the owner put first", () => {
     // The owner, 16 October 2026: the hollow pod after the real pods' exam.
     const finale = WAVES.findIndex((w) => w.id === "finale");
     expect(WAVES[finale + 1]?.id).toBe("theHusk");
-    const block = WAVES.slice(finale + 1).filter((w) => w.id.startsWith("theHusk"));
-    expect(block.length).toBe(1 + BLOCK_STEPS.length);
+    // Its one regular wave is THE NEIGHBOUR, written by hand (19 October 2026).
+    const block = WAVES.slice(finale + 1, finale + 2 + BLOCK_STEPS.length);
+    expect(block.map((w) => w.id)).toEqual(["theHusk", "theNeighbour"]);
     for (const w of block) expect(controlSet(w.controls).id).toBe("standard5");
   });
 });

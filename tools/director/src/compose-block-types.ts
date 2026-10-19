@@ -70,7 +70,7 @@ export interface Block {
    * what was taught before it, less the slick and the bulb, which come
    * anyway (`compose-place.ts`). */
   pool?: readonly string[];
-  /** The steps composed, when not the block's own: a filler's three
-   * (`compose-filler.ts`). */
+  /** The steps composed, when not the block's own: a lesson's or a
+   * review's. */
   only?: readonly Step["id"][];
 }

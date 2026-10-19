@@ -506,4 +506,21 @@ the pages numbered with no gap, so the empty page was deleted and p4–p10
 renamed down by one by hand. Let a save re-pack the arc's pages in play order
 (as `--recut` does past the arc), deleting a page it leaves empty and
 renumbering the rest, and prove it with a test that a reorder inside the arc
-leaves no empty page and no gap.
+leaves no empty page and no gap. The cut to one regular wave a block (19
+October 2026) left act one's pages at about half their length, so the
+repack has more to do than this one reorder.
+
+## Filler ids are still recognised after the fillers went
+
+- **Found:** 2026-10-19, claude/wave-structure-content-pacing-ea9cf6
+- **Files:** `tools/director/src/compose-block.ts`, `tools/director/src/compose-starts.ts`,
+  `tools/director/src/compose.ts`, `tools/director/src/compose-names.ts`,
+  `tools/director/src/curriculum-order.ts`, `tools/director/src/compose-lesson.ts`,
+  `tools/director/src/waves-recut.ts`, `tools/director/test/wave-heads.test.ts`,
+  `tools/director/test/compose-pace.test.ts`
+
+A block is its intro and one regular wave since 19 October 2026, and
+`compose-filler.ts` and `waves:fillers` are gone, but a dozen places still
+match a `filler…` id — `isFiller`, `isFillerHead`, `composedAfter`,
+`STEP_AT_END`, `isComposed`, `composedId`. No wave carries such an id now. Take the recognisers and the comments out, keep the review ones,
+and let `bun run check` prove nothing read them.

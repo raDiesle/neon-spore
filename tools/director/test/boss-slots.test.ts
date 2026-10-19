@@ -3,7 +3,7 @@ import { controlSet, isRegularWave, mechanicsInWave, WAVES } from "@neon-spore/c
 import { biomeLineCount, biomeLines } from "../src/biome-lines.js";
 import { BOSS_ABOUT } from "../src/boss-about.js";
 import { bossOrder } from "../src/boss-slots.js";
-import { startsBlock } from "../src/compose-starts.js";
+import { isReviewHead, startsBlock } from "../src/compose-starts.js";
 import { TUTORIAL_LAST_ID } from "../src/compose-steps.js";
 
 const finale = WAVES.findIndex((w) => w.id === TUTORIAL_LAST_ID);
@@ -61,14 +61,17 @@ describe("the bosses' places (wave-curriculum §7)", () => {
   });
 
   // The owner, 15 October 2026: *I expect to follow from top to bottom
-  // without spaces* — in the folded list, every boss under a block's waves.
-  test("each come straight after a regular wave folded into its block", () => {
+  // without spaces* — in the folded list, every boss under a block's waves:
+  // its one regular wave, folded under the intro, or a review's one, which
+  // heads a group of its own (19 October 2026).
+  test("each come straight after a regular wave of its block", () => {
     WAVES.forEach((boss, at) => {
       if (!boss.boss || at <= finale || waiting.has(boss.id)) return;
       const before = WAVES[at - 1];
       expect({
         boss: boss.name,
-        folded: before?.variant === true && isRegularWave(WAVES, at - 1),
+        folded:
+          (before?.variant === true || isReviewHead(WAVES, at - 1)) && isRegularWave(WAVES, at - 1),
       }).toEqual({ boss: boss.name, folded: true });
     });
   });
@@ -97,16 +100,14 @@ describe("the bosses' places (wave-curriculum §7)", () => {
     expect(WAVES.findIndex((w) => w.id === "theBastion")).toBeLessThan(finale);
   });
 
-  test("THE SPLICE stands past the arc, behind a filler", () => {
+  test("THE SPLICE stands past the arc, behind a review", () => {
     // The owner, 17 October 2026: a boss on a panel of its own does not close
-    // a block in the arc — it comes once the basics are taught, behind a
-    // filler (`compose-filler.ts`). It closed THE ECHO's block until THE ECHO
-    // moved into the arc (18 October 2026).
+    // a block in the arc — it comes once the basics are taught. It closed THE
+    // ECHO's block until THE ECHO moved into the arc (18 October 2026), and
+    // waits at the end behind a review of its own since.
     const at = WAVES.findIndex((w) => w.id === "theSplice");
     expect(at).toBeGreaterThan(finale);
-    expect(WAVES[at - 1]?.id.startsWith("filler") || WAVES[at - 1]?.id.startsWith("review")).toBe(
-      true,
-    );
+    expect(isReviewHead(WAVES, at - 1)).toBe(true);
   });
 
   test("THE INSTAR comes after the arc, once every basic thing is taught", () => {

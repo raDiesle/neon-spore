@@ -14,8 +14,8 @@ const at = (id: string): number => {
 
 describe("regular waves", () => {
   it("calls a wave of two known colours regular", () => {
-    expect(isRegularWave(WAVES, at("twoColours"))).toBe(true);
-    expect(waveIntroduces(WAVES, at("twoColours"))).toEqual([]);
+    expect(isRegularWave(WAVES, at("alternating"))).toBe(true);
+    expect(waveIntroduces(WAVES, at("alternating"))).toEqual([]);
   });
 
   it("refuses the wave that introduces a body, and names what it introduces", () => {

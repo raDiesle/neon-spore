@@ -9,10 +9,9 @@ import { introducesAt, regularAt } from "./list-reading.js";
  * (`compose-lesson.ts`), and a review head (`compose-review.ts`). Boss
  * placement and the composers read blocks off the list through these.
  *
- * **A filler is not a block** (`compose-filler.ts`): it is the short run of
- * known things between a block and its boss, so boss placement reads it as
- * the end of the block it follows. It heads a group in the wave list all the
- * same, and the boss folds under it, not under the block that taught.
+ * A filler was not a block: three waves of known things between a block and
+ * its boss, read as the end of the block it followed. The fillers went on
+ * 19 October 2026, and a boss follows its block's one regular wave.
  */
 
 export { isFiller };
@@ -23,17 +22,14 @@ export function isFillerHead(waves: readonly Wave[], index: number): boolean {
   return wave?.variant !== true && isFiller(wave?.id);
 }
 
-/** Whether a wave starts a review block: a regular wave, not a variant,
- * with a regular variant after it, and no filler's. No hand-written wave is
- * one. */
+/** Whether a wave starts a review block: a regular wave the review composer
+ * wrote (`review…`), not a variant. A review is one wave since 19 October
+ * 2026, so there is no variant after it to tell it by. */
 export function isReviewHead(waves: readonly Wave[], index: number): boolean {
-  const next = waves[index + 1];
   return (
     waves[index]?.variant !== true &&
-    !isFiller(waves[index]?.id) &&
-    regularAt(waves, index) &&
-    next?.variant === true &&
-    regularAt(waves, index + 1)
+    /^review[A-Z]/.test(waves[index]?.id ?? "") &&
+    regularAt(waves, index)
   );
 }
 

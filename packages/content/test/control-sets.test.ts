@@ -265,41 +265,30 @@ describe("the standard ladder", () => {
     // Each rung carries its regular waves too — the short blocks the
     // curriculum composed (`docs/spec/wave-curriculum.md` §4, decision 8).
     expect(rungs).toEqual([
-      "standard1",
-      "standard1",
+      // FIRST STEP and its one regular wave: a block is one since 19 October
+      // 2026 (`docs/spec/wave-curriculum.md` §4, decision 3).
       "standard1",
       "standard1",
       // THE MOTH, the boss that closes the first rung: the cannon and red only.
       "standard1",
       "standard2",
       "standard2",
-      "standard2",
-      "standard2",
       // THE BROOD, the boss that closes the second rung: slicks and bulbs only.
       "standard2",
       // Fourteen bodies introduced one after another on the same rung, each
-      // its head and three regular waves, and HOLD AND AIM in front of THE
+      // its head and one regular wave, and HOLD AND AIM in front of THE
       // MAGNET (the owner, 18 October 2026: *very simple to understand and
       // require only … cannon and cannon movement without shield and suck*).
-      ...Array<"standard2">(14 * 4 + 1).fill("standard2"),
-      // Ten waves on the top rung, because the maw is held back until
-      // SALVAGE — the one wave whose subject asks for it.
-      "standard4",
-      "standard4",
-      "standard4",
-      "standard4",
-      "standard4",
-      "standard4",
-      "standard4",
-      "standard4",
-      "standard4",
-      "standard4",
-      // And THE BLISTER's thirty before THE BASTION: the owner, 16 October
+      ...Array<"standard2">(14 * 2 + 1).fill("standard2"),
+      // Six waves on the top rung, because the maw is held back until
+      // SALVAGE — the one wave whose subject asks for it: THE ROCK and its
+      // one, THE HAND, ONE LAST CHANCE, TORCH and its one.
+      ...Array<"standard4">(6).fill("standard4"),
+      // And THE BLISTER's fifteen before THE BASTION: the owner, 16 October
       // 2026 — *before first boss to introduce by waves all the "controls"
-      // brush enemy waves* — on the panel the arc has reached. THE BLISTER, each
-      // of the seven gestures' own wave and its three (the owner, 17 October
-      // 2026: *around 3 each*), and HELLO BLISTER, which mixes them.
-      ...Array<"standard4">(2 + 7 * 4).fill("standard4"),
+      // brush enemy waves* — on the panel the arc has reached. THE BLISTER,
+      // and each of the seven gestures' own wave and its one.
+      ...Array<"standard4">(1 + 7 * 2).fill("standard4"),
       // THE BASTION, on the rung the arc has reached: it never asks for the
       // maw, and SALVAGE is the wave that teaches it (`wave-keys.ts`).
       "standard4",

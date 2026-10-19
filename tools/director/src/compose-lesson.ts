@@ -7,11 +7,11 @@ import {
   isReviewHead,
   startsBlock,
 } from "./compose-starts.js";
-import { BLOCK_STEPS, TUTORIAL_LAST_ID } from "./compose-steps.js";
+import { BLOCK_STEPS, STEPS, TUTORIAL_LAST_ID } from "./compose-steps.js";
 import { regularAt } from "./list-reading.js";
 
 /**
- * **A lesson's block**: three regular waves after a wave that teaches a panel
+ * **A lesson's block**: one regular wave after a wave that teaches a panel
  * or a fault — THE LANCE, THE JAM, THE CHOKE, THE CLAW, THE DARK. The owner,
  * 15 October 2026: *there are a lot of waves introducing new concepts or
  * enemies, which then should have waves.* An intro that brings a body has its
@@ -21,9 +21,10 @@ import { regularAt } from "./list-reading.js";
  * Two things, in order. **The lessons move** (`lessonsAfterBlocks`): each,
  * with the guided waves that follow it (THE PURGE after THE LANCE), goes
  * after the regular waves of the block it stood in, so a block reads intro,
- * its three, then the lessons — and each lesson opens a block of its own.
- * Then **each lesson gets its three** (`nextLesson`): on the lesson's panel,
- * every wave carrying the lesson's faults that fall inside it, and each a
+ * its one, then the lessons — and each lesson opens a block of its own.
+ * Then **each lesson gets its one** (`nextLesson`), unless a wave written for
+ * it stands there already: on the lesson's panel, carrying the lesson's
+ * faults that fall inside it, and a
  * few of the things taught before — never the body of the block it follows,
  * whose own waves have just been played (`Block.pool`; the owner, 19
  * October 2026, of THE LANCE's five morsel waves after THE MORSEL's five).
@@ -37,13 +38,29 @@ function pastGuides(waves: readonly Wave[], at: number): number {
   return i;
 }
 
+/** How many regular waves written by hand stand at `from`: a lesson's own
+ * set piece (THE TWINS after THE LANCE), which is its one regular wave as a
+ * composed one would be — `waves:order` puts a written wave behind the unit
+ * that teaches the last thing it needs, so one straight after a lesson is
+ * the lesson's. */
+function writtenAt(waves: readonly Wave[], from: number): number {
+  let n = 0;
+  while (regularAt(waves, from + n) && !composedId(waves[from + n]?.id ?? "")) n++;
+  return n;
+}
+
+const composedId = (id: string) =>
+  /^(review|filler)[A-Z]/.test(id) || STEPS.some((s) => id.endsWith(s.name));
+
 /** Whether a lesson has its waves: the regular wave after it is one composed
- * for it, its id the lesson's and a step's. A written block's waves that
- * follow a lesson (THE COIL's after THE LEECH) are not the lesson's. */
+ * for it, its id the lesson's and a step's, or one written for it. */
 export function hasWaves(waves: readonly Wave[], at: number): boolean {
   const next = pastGuides(waves, at);
   const id = waves[at]?.id ?? "";
-  return regularAt(waves, next) && (waves[next]?.id.startsWith(id) ?? false);
+  return (
+    regularAt(waves, next) &&
+    ((waves[next]?.id.startsWith(id) ?? false) || writtenAt(waves, next) >= BLOCK_STEPS.length)
+  );
 }
 
 /** What a group of waves is, for the reorder. */

@@ -74,10 +74,10 @@ describe("nothing used before it is taught", () => {
   });
 
   it("refuses an unguided wave moved ahead of its lesson", () => {
-    // TWO COLOURS teaches nothing; in front of CYAN it would hand the pair a
+    // ALTERNATING teaches nothing; in front of CYAN it would hand the pair a
     // bulb no wave had shown them.
-    const found = untaughtKeys(moved("twoColours", "cyan"));
-    expect(found[0]?.name).toBe(byId("twoColours").name);
+    const found = untaughtKeys(moved("alternating", "cyan"));
+    expect(found[0]?.name).toBe(byId("alternating").name);
     expect(found[0]?.keys).toContain("bulb");
   });
 });

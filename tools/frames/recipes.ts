@@ -86,7 +86,7 @@ export const RECIPES: readonly Recipe[] = [
     what: "an arrival's fields, for a gesture no wave sends yet",
   },
   {
-    argv: '. --wave "HELLO BLISTER" --entry 0:gesture=swipe,way=up --seat p2 --ticks 320 --hold blisterSwipe=0,y=-900,id=1@300',
+    argv: '. --wave "SWIPE LEGEND" --entry 0:gesture=swipe,way=up --seat p2 --ticks 320 --hold blisterSwipe=0,y=-900,id=1@300',
     what: "a SWIPE blister's stroke held part way, the body stretched — body 1, up from tick 250",
   },
   {
