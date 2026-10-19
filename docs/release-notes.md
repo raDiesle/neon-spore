@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-19 · 05ecc7161 — The siren's talker gets MOUTH's moving lips, and the listener's ear is seen to hear
+
+SIREN:VOICE is decided for MOUTH (the owner, 19 October 2026): the talker's chip now has lips that open and shut on syllables. The listener's chip has a new hearing mark, also asked for by the owner. Each syllable travels in as a wave, and as it lands the ear leans in and goes from dim to cream, with the chip's outline lighting along with it. So the seat that has to listen looks busy rather than idle.
+
 ## 2026-10-19 · d8d9bd545 — The radar's words are gone: no TARGET ENEMY, no TORCH call, no LURE
 
 The lines under the siren — `TORCH · COLUMN n · CALL IT` and `TORCH INBOUND · TAKE THE COLUMN` for a torch on the way, `TARGET ENEMY · COLUMN n` for a magnet — and the word `LURE` over a lure's blip on the radar strip are no longer drawn. The bands over the column and the corner frame on the blip stay, and the band rows keep their place under the siren. The lure's `IGNORE` beside its body on the field stays too.

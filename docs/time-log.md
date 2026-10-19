@@ -44626,3 +44626,5 @@ Bottleneck: `check:fast` reaching the whole suite from a render change.
 
 Bottleneck: `check:fast` reached ninety-three shards because `siren-seats.ts`
 is drawn by nearly every frame test, so the gate cost more than the change.
+
+*Measured: 8 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
