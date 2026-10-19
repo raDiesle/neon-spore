@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-19 · 3cc05d492 — FIRST STEP teaches on its own field instead of in a film before it
+
+Wave 1 no longer opens on a rehearsal and a ready gate. It opens on its name and is played at once, and while it is played the field tells each player the next thing to do, beside the thing it is about, in the tutorial's own amber caption with a TUTORIAL tab: player 1 is told to move the cannon under the enemy, then to tell player 2 to fire; player 2 is told to wait for the cannon, then to fire red. The hints stop once the pair has cleared three enemies, and come back if the wave is tried again. Nothing in the simulation changed; the hints are read off the world.
+
 ## 2026-10-19 · e64e05937 — The frames recipe for the lost screen waits until the screen is up
 
 `--until waveFailed --until-on 150` photographed the greyed field a tick before the lost screen appeared, with no words or buttons on it; 600 ticks on, the screen has come up and its count has landed.

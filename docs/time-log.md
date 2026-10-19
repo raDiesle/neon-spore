@@ -44783,3 +44783,5 @@ Bottleneck: the recipe's `--until-on 150` photographs the field before the lost 
   count, a doc path, the index.
 
 Bottleneck: finding every test and fixture that used wave 1 as "the wave with a film".
+
+*Measured: 4 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
