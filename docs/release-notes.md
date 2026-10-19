@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-19 · 10c664bde — THE MOTH is drawn: a great moth, red eyespots on its wings and a belly of plates
+
+THE MOTH, FIRST STEP's boss, now has its body: a great moth five columns wide, four scalloped wings beating on the beat, a furred thorax, feathered antennae and great dark eyes. The spots the red cannon must hit are eyespots glowing red from within over their own columns; a spot waiting its turn is the same eye shut dark. Each rest folds its wings edge on and opens the other face, dusk-violet then moon-pale. A wing torn by a hit stays shorter, and on the last step the belly's plates light red as it sinks with its legs reaching for the cannon; if it lands, a cloud of scales and six claw scratches.
+
 ## 2026-10-19 · 8e62cb0da — A lamp under the cannon says when THE LOCK is ready; three other answers in VERSUS
 
 A small lamp set in the hull under the cannon's mouth, on both screens: lit amber when a lock is ready, dark with an amber arc filling round it during the four-second rest. It shows only while something on the field can be locked, or while the rest is still running. VERSUS opens `ship:lock-light` against it with BEACON (a stalk out of the cannon that grows during the rest and burns amber when ready), BEADS (four beads along the hull, one lit per second) and HALO (the cannon's whole mouth ringed, filling during the rest, a thick amber ring when ready), on the pose LOCK · RESTING, THEN READY. Exemption: an addition where the game drew nothing; the candidates are there because the owner asked for them. Frame budgets rise by three fills and one save where the lamp shows (`budgets:measure`).
