@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-19 · 2ff759365 — A wave's tutorial hints are data, and stop after one enemy
+
+The hints FIRST STEP shows on its own field are now a table of lines in `packages/content/src/hints/` — a seat, the words, what they point at and when they hold — so every other wave can be moved off its film the same way. They stop once the pair has cleared one body rather than three, as the owner asked ("one enemy is enough"); that is the exemption used, a look the owner asked for by name.
+
 ## 2026-10-19 · c1a7348ae — The shield and the SHIELD button are neon green, and glow more
 
 The shield shared the cyan shot's hex, and the owner found the two too alike. It is `#39FF14` now, its rim `#9CFF6B`, with a near-black green under the lit button's emblem; the rim's glow is stronger at rest and armed, and the lit SHIELD button carries a second, wider halo. Taken from VERSUS's `shield:hue` slot and brightened on the owner's word: *make it look and glow a little bit more neon green* — the exemption for a look asked for by name.
