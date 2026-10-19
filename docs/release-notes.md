@@ -9,6 +9,14 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-19 · c1a7348ae — The shield and the SHIELD button are neon green, and glow more
+
+The shield shared the cyan shot's hex, and the owner found the two too alike. It is `#39FF14` now, its rim `#9CFF6B`, with a near-black green under the lit button's emblem; the rim's glow is stronger at rest and armed, and the lit SHIELD button carries a second, wider halo. Taken from VERSUS's `shield:hue` slot and brightened on the owner's word: *make it look and glow a little bit more neon green* — the exemption for a look asked for by name.
+
+## 2026-10-19 · 84566d39a — Readers that mean cyan read `PALETTE.cyan`, not the shield's name
+
+`PALETTE.shield` and `PALETTE.cyan` were one hex, so THE FLEET, the snake, the gyre, pinball's power ramp, the guide's plates and the target locks on THE LEAD, THE SCUTTLE and the queen took the shield's name for a cyan that is not the shield. They read `cyan` and `cyanRim` now; the hexes are equal, so no frame changes, and the shield's colour can move without taking them with it.
+
 ## 2026-10-19 · afd39ed1c — THE CRAWLER's rings wear the bosses' crosshair in their colour, with the button's face inside
 
 Every ring of a crawler now wears EMBER — the crosshair a boss's target and a lit SHIELD or SUCK button wear — in the colour of what takes it: red or cyan for a colour ring, the shield's for a shield ring, amber for a suck ring. Inside a shield or suck ring's crosshair is that button's own face, the shield's swelling or the maw's dent with motes going in. The small dome and mouth that stood over the rings are gone.

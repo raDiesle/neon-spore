@@ -44926,3 +44926,5 @@ Bottleneck: rings overlap by most of a column, so a crosshair the size a boss we
 - landing: 5 min. `check:fast`, two commits, `land`.
 
 Bottleneck: telling, reader by reader, which of fifty uses of one hex meant the shield.
+
+*Measured: 21 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
