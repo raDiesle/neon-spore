@@ -528,6 +528,7 @@ and let `bun run check` prove nothing read them.
 ## `PALETTE.shield` is read where plain cyan is meant
 
 - **Found:** 2026-10-19, claude/shield-button-color-unique-559125
+- **Taken:** 2026-10-19, claude/shield-button-color-unique-559125 (claim: claude/queue-palette-shield-is-read-where-plain-cyan-is-meant)
 - **Files:** `packages/render/src/palette.ts`, `packages/render/src/fleet-hulls.ts`, `packages/render/src/fleet-water.ts`, `packages/render/src/snake-skin.ts`, `packages/render/src/chart-lattice.ts`, `packages/render/src/undertow-lobe.ts`, `apps/game/src/game.css`
 
 `PALETTE.shield` and `PALETTE.cyan` are both `#2FE0F0`, so about twenty
