@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-19 · bcf589806 — The moult and fault waves teach on their own fields, not in a film
+
+THE MOULT, THE LEECH, THE CHOKE, THE DARK, THE COIL, THE JAM, THE CODEX, THE HANDOVER and THE FLIP open straight into play now. Their tutorial is said on the live field, on the seat it is for, while the fault is up: THE MOULT says whether the next one lands as a pod or a rock, THE CODEX whether the panel is swapped, and on THE HANDOVER whoever is holding the fire buttons is the one told to fire. A fault wave's lesson ends with the first body gone after the fault came. Nine films are gone, thirty-six are left.
+
 ## 2026-10-19 · 56d811111 — The pod and maw waves teach on their own fields, not in a film
 
 SALVAGE, CATCH AND AIM, THE HUSK, THE MORSEL, THE SEEDER, THE LANCE and THE LEAK are played at once and say what to do on the field: a hanging pod shot loose under the cannon, a falling one swallowed on the other's word, the hollow pod ringed only on the screen shown it, a limp morsel taken at the maw, a held trigger that is a beam — or, in THE LEAK, nothing. A pod wave's lesson ends with a pod gone, THE MORSEL's and THE SEEDER's with their own body. A look the owner asked for by name.

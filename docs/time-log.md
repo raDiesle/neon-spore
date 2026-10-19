@@ -45056,3 +45056,5 @@ could ever be shown until it started them as the game does.
 
 Bottleneck: THE HANDOVER's fire-button plate went under its ring, because
 the countdown filled the room above it, and fell off the foot of the screen.
+
+*Measured: 58 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
