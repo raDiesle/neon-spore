@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-19 · ca5daf1eb — THE LOCK's light: five quieter answers, a yellow ring round the egg in the cannon's mouth
+
+The owner found BEACON, BEADS and HALO too loud and asked for a small yellow circle round the rounding inside the cannon, in more variants. Those three are gone from `ship:lock-light`. In their place: RIM (a thin ring when ready, the yellow drawing round from the top during the rest), EMBER (the ring when ready, nothing during the rest), FADE (the ring always there, warming through the rest), TICKS (four marks lit one a second, closing into the ring) and BREATH (nothing during the rest, the ring with a glow that breathes on the beat when ready). The light's record now also gets the egg's centre and size. The game still draws the lamp it shipped with.
+
 ## 2026-10-19 · ae1d5e7be — THE MOTH opens on its number and name: its guide is gone
 
 The owner's word on 19 October 2026, the day the moth's look landed: it goes the way THE BROOD's did. The wave no longer opens on a three-line guide and a ready gate; the lit eyespots say where to fire. `waves.test.ts` names it in `SAYS_ITSELF`, it leaves `STILL_PROSE`, and `briefings.md` counts one hundred and eighteen guided waves.
