@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-19 · 301e128e6 — The shield waves teach on their own fields, not in a film
+
+THE ROCK, THE HAND, ONE LAST CHANCE, TORCH, THE CROSSING, THE LIMPET, HEAVY ROCKS, THE VEER, THE FENCE, THE GAP, THE CUT, THE CLASP, THE CRYSTAL, THE VOLLEY, THE CAROM and THE CRAWLER are played at once, with each seat told on the live field what to do next until one enemy is cleared: player 2 carries the shield under it, player 1 presses SHIELD as it lands. A wave with hints now carries the tutorial mark in JUMP TO WAVE and the director, as a wave with a film does. Their sixteen films are gone. Exemption: a look the owner asked for by name.
+
 ## 2026-10-19 · fd144107b — The two-button waves teach on their own fields, not in a film
 
 CYAN, THE ECHO, THE STRAND, THE VEIL, THE THIRD SHOT, HOLD AND AIM, THE MAGNET, THE THROB, THE RECOIL, THE GYRE, THE LURE, THE RIND, THE DART, THE COUNT, THE GHOST and THE WISP open on their introduction and are played at once, and each seat is told what to do next on the live field, beside the thing it is about, under a TUTORIAL tab, until one enemy is cleared. A seat with several lines takes them in turns, and a line never tells a seat what it is not shown. Their sixteen films are gone. Exemption: a look the owner asked for by name.
