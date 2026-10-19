@@ -1,13 +1,13 @@
 import * as look from "../../../../../packages/render/src/lock-light-look.js";
 import { patch, type Variant } from "../../../variant.js";
-import { paintHalo } from "./paint.js";
+import { paintTicks } from "./paint.js";
 
-export const LOCK_LIGHT_HALO: Variant = {
+export const LOCK_LIGHT_TICKS: Variant = {
   slot: "ship:lock-light",
-  name: "halo",
+  name: "ticks",
   sentence:
-    "the cannon's whole mouth ringed — a grey track with amber sweeping round it while the lock rests, a thick amber ring breathing on the beat when it is ready",
-  dir: "tools/versus/candidates/ship-lock-light/halo",
+    "four short yellow marks on the ring round the egg — one lit for each second of the rest, closing into the whole ring when it is ready",
+  dir: "tools/versus/candidates/ship-lock-light/ticks",
   patches: [
     patch({
       target: look.LOCK_LIGHT,
@@ -17,7 +17,7 @@ export const LOCK_LIGHT_HALO: Variant = {
         symbol: "LOCK_LIGHT",
         type: "LockLightLook",
       },
-      fields: { paint: paintHalo },
+      fields: { paint: paintTicks },
     }),
   ],
 };

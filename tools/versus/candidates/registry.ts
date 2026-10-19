@@ -6,8 +6,16 @@
 // `index.ts` next door says why it is generated at all.
 
 import type { Variant } from "../variant.js";
-import { LOCK_LIGHT_BEACON } from "./ship-lock-light/beacon/index.js";
-import { LOCK_LIGHT_BEADS } from "./ship-lock-light/beads/index.js";
-import { LOCK_LIGHT_HALO } from "./ship-lock-light/halo/index.js";
+import { LOCK_LIGHT_BREATH } from "./ship-lock-light/breath/index.js";
+import { LOCK_LIGHT_EMBER } from "./ship-lock-light/ember/index.js";
+import { LOCK_LIGHT_FADE } from "./ship-lock-light/fade/index.js";
+import { LOCK_LIGHT_RIM } from "./ship-lock-light/rim/index.js";
+import { LOCK_LIGHT_TICKS } from "./ship-lock-light/ticks/index.js";
 
-export const VARIANTS: Variant[] = [LOCK_LIGHT_BEACON, LOCK_LIGHT_BEADS, LOCK_LIGHT_HALO];
+export const VARIANTS: Variant[] = [
+  LOCK_LIGHT_BREATH,
+  LOCK_LIGHT_EMBER,
+  LOCK_LIGHT_FADE,
+  LOCK_LIGHT_RIM,
+  LOCK_LIGHT_TICKS,
+];

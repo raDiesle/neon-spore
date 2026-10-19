@@ -1,13 +1,13 @@
 import * as look from "../../../../../packages/render/src/lock-light-look.js";
 import { patch, type Variant } from "../../../variant.js";
-import { paintBeacon } from "./paint.js";
+import { paintEmber } from "./paint.js";
 
-export const LOCK_LIGHT_BEACON: Variant = {
+export const LOCK_LIGHT_EMBER: Variant = {
   slot: "ship:lock-light",
-  name: "beacon",
+  name: "ember",
   sentence:
-    "a beacon on a stalk out of the cannon's shoulder — grey and growing while the lock rests, standing tall and burning amber when it is ready",
-  dir: "tools/versus/candidates/ship-lock-light/beacon",
+    "a thin yellow ring round the egg in the cannon's mouth when the lock is ready — and nothing at all while it rests, so the ring coming on is the news",
+  dir: "tools/versus/candidates/ship-lock-light/ember",
   patches: [
     patch({
       target: look.LOCK_LIGHT,
@@ -17,7 +17,7 @@ export const LOCK_LIGHT_BEACON: Variant = {
         symbol: "LOCK_LIGHT",
         type: "LockLightLook",
       },
-      fields: { paint: paintBeacon },
+      fields: { paint: paintEmber },
     }),
   ],
 };

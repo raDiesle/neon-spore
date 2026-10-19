@@ -44694,3 +44694,15 @@ minutes in, after the drawing was done.
 Bottleneck: `check:fast` — a five-line content change reached 38 shards.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-19 — Five quieter answers for THE LOCK's light
+
+- reading: 5 min. Where the egg in the cannon's mouth is drawn and how big
+  (`cannon-maw.ts`, `egg-contour.ts`).
+- writing: 10 min. The mouth's centre and size on `LockLightAt`, the slot's
+  shared ring, RIM, EMBER, FADE, TICKS and BREATH; the loud three out.
+- looking: 10 min. Twelve `versus:shot`s, the crops and the sheet sent.
+- friction: 0 min.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: shooting each answer twice, one browser start per picture.

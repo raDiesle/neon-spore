@@ -23,7 +23,15 @@ const SLICK: SpawnEntry = { beat: 0, col: 6, kind: "slick", color: "red" };
 
 function light(world: World) {
   const { ctx } = stubCanvas();
-  drawLockLight(ctx as unknown as CanvasRenderingContext2D, L, world, frame(L, 0, MOOD, AT), 0, 0);
+  drawLockLight(
+    ctx as unknown as CanvasRenderingContext2D,
+    L,
+    world,
+    frame(L, 0, MOOD, AT),
+    0,
+    0,
+    0,
+  );
   return ctx;
 }
 
@@ -39,7 +47,17 @@ describe("the lock's light", () => {
   });
 
   it("is lit amber when ready, and an arc while it rests", () => {
-    const at = { x: 100, y: 700, tile: 30, time: 0, beatPhase: 0, surface: () => 700 };
+    const at = {
+      x: 100,
+      y: 700,
+      tile: 30,
+      time: 0,
+      beatPhase: 0,
+      surface: () => 700,
+      mouthY: 708,
+      mouthRx: 8,
+      mouthRy: 7,
+    };
     const ready = stubCanvas().ctx;
     LOCK_LIGHT.paint(ready as unknown as CanvasRenderingContext2D, { ...at, charge: 1 });
     expect(ready.tally.get("stroke") ?? 0).toBe(0);

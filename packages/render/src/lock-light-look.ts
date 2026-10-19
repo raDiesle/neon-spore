@@ -24,6 +24,11 @@ export interface LockLightAt {
   readonly tile: number;
   /** How far the rest has run, 0 to 1. One is a lock ready to take. */
   readonly charge: number;
+  /** The egg in the cannon's mouth: its centre's y, and its half width and
+   * height (`cannon-maw.ts`). For an answer that rings the mouth itself. */
+  readonly mouthY: number;
+  readonly mouthRx: number;
+  readonly mouthRy: number;
   /** Seconds, the host's clock, and where in the beat it is. */
   readonly time: number;
   readonly beatPhase: number;

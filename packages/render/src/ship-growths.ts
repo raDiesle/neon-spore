@@ -50,7 +50,8 @@ export function drawShipGrowths(
   if (!arm) drawMawReach(ctx, l, mood.intake, at.cannon, world.cfg.podCatchCols, surfaceSampler(f));
   // Whether a lock is ready, on the gun's own lobe and nowhere a gun is not
   // (`lock-light.ts`).
-  if (hullCrown(world, arm) === "gun") drawLockLight(ctx, l, world, f, view.time, view.beatPhase);
+  if (hullCrown(world, arm) === "gun")
+    drawLockLight(ctx, l, world, f, view.time, view.beatPhase, mood.intake);
   // And a heavy pod held in it, waiting for the second press (`pods.ts`).
   drawGrippedPods(ctx, l, world.pods, view.time, ticksPerBeat(world.cfg));
   // THE THROAT's root, grown out of the membrane round the gullet — after the

@@ -1,7 +1,9 @@
 import { handMeans, lockChargeMilli, lockReady, type World } from "@neon-spore/sim";
+import { REST_RX, REST_RY } from "./egg-contour.js";
 import { type HullFrame, surface, surfaceSampler } from "./hull-frame.js";
 import type { Layout } from "./layout.js";
 import { LOCK_LIGHT } from "./lock-light-look.js";
+import { muzzleCenterY } from "./muzzle.js";
 
 /**
  * **Whether THE LOCK is ready**, on the cannon, on both screens: player 1
@@ -22,6 +24,8 @@ export function drawLockLight(
   f: HullFrame,
   time: number,
   beatPhase: number,
+  /** How far the maw is open, which moves the mouth (`muzzleCenterY`). */
+  intake: number,
 ): void {
   const aimable = world.creatures.some((c) => handMeans(c.kind, 1) === "aim");
   if (!aimable && lockReady(world)) return;
@@ -31,6 +35,9 @@ export function drawLockLight(
     y: tip.y,
     tile: l.tile,
     charge: lockChargeMilli(world) / 1000,
+    mouthY: muzzleCenterY(l, tip.y, intake),
+    mouthRx: l.tile * REST_RX,
+    mouthRy: l.tile * REST_RY,
     time,
     beatPhase,
     surface: surfaceSampler(f),
