@@ -44895,3 +44895,5 @@ Bottleneck: the shield's colour is the cyan a cyan ring is filled with, which ne
 - landing: 10 min. The full render and game suites, then `check:fast`.
 
 Bottleneck: the test run, minutes long for a seven-file change.
+
+*Measured: 11 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

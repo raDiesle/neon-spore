@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-19 · 8de2cddfd — Every READY circle says HOLD until it is full
+
+The owner asked by name for the ready holds to say they are holds. On a guide's last page the own circle reads HOLD inside its ring until it says READY, and the line under READY? is brighter, bigger and reads HOLD ANYWHERE TO SAY READY. In the room the own circle reads HOLD too, and a line under the two circles says HOLD YOUR CIRCLE TO SAY READY while it can be held.
+
 ## 2026-10-19 · fc6932de6 — THE CRAWLER's shield rings are shield glass, a suck ring joins the worm, and a ward throws no rock
 
 A ring the ship answers is now glass in its control's colour: a dark, see-through body under a lit shield-cyan rim for the shield rings (head, tail and every shield segment), told apart from the solid cyan ring by solid against glass. A new suck ring, amber glass with a mouth mark, joins the cycle — red, cyan, shield, suck — and is taken with the cannon under it and SUCK. The SHIELD and SUCK buttons wear the aim ring when the shield or the cannon is under a ring of theirs, and a shielded ring simply vanishes instead of a rock falling onto the dome.
