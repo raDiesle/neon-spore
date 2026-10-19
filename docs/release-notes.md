@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-19 · cb75deaa0 — THE LOCK is worn on the cannon's egg: its white border goes yellow as the rest runs
+
+The white border of the egg in the cannon's mouth now says where THE LOCK stands, on both screens. While the lock rests, yellow sweeps round the border from the top as the four seconds run; a whole yellow border is a lock ready to take. A shot's burn still tints it as it tinted the white. The border stays white when nothing on the field can be locked and no rest is running. The lamp under the mouth is gone, and so is the VERSUS slot `ship:lock-light` with its five rings, dropped with the reason in DECIDED.md. A look the owner asked for by name.
+
 ## 2026-10-19 · ca5daf1eb — THE LOCK's light: five quieter answers, a yellow ring round the egg in the cannon's mouth
 
 The owner found BEACON, BEADS and HALO too loud and asked for a small yellow circle round the rounding inside the cannon, in more variants. Those three are gone from `ship:lock-light`. In their place: RIM (a thin ring when ready, the yellow drawing round from the top during the rest), EMBER (the ring when ready, nothing during the rest), FADE (the ring always there, warming through the rest), TICKS (four marks lit one a second, closing into the ring) and BREATH (nothing during the rest, the ring with a glow that breathes on the beat when ready). The light's record now also gets the egg's centre and size. The game still draws the lamp it shipped with.

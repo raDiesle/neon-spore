@@ -44720,3 +44720,5 @@ Bottleneck: shooting each answer twice, one browser start per picture.
 - landing: 10 min. `versus drop`, `index`, `budgets:measure`, `check:fast`.
 
 Bottleneck: taking the lamp, its pose and its slot back out cleanly.
+
+*Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
