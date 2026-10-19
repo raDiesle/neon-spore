@@ -5,6 +5,7 @@ import { PALETTE } from "./palette.js";
 import { hasSeatName, type SeatNames, seatName } from "./seat-name.js";
 import { P1_SKIN, P2_SKIN } from "./seat-skin.js";
 import { SIREN_VOICE } from "./siren-voice-look.js";
+import { hearing } from "./siren-voice-mouth.js";
 
 /**
  * The two chips that flank the siren: which seat, and what that seat has to do
@@ -127,8 +128,9 @@ export function drawSeat(
   // The test view is both halves on one screen, so neither chip is anybody's
   // "own" and neither is ringed — the same exemption `showsVeilCore` makes.
   const mine = l.role === seat;
-  // Only a talker's chip blinks. A listener has nothing to time. **It blinks,
-  // it does not breathe** (the owner, 18 October 2026): the block falls to
+  // Only a talker's chip blinks; a listener's outline answers its syllables
+  // instead. **It blinks, it does not breathe** (the owner, 18 October 2026):
+  // the block falls to
   // under two thirds and comes back, where it used to sway by a sixth and
   // read as standing still.
   const pulse = talks ? 0.62 + 0.38 * (0.5 + 0.5 * Math.sin(time * BLINK)) : 1;
@@ -177,6 +179,13 @@ export function drawSeat(
     ctx.lineWidth = 1;
     ctx.beginPath();
     ctx.roundRect(left + 0.5, top + 0.5, width - 1, PILL_H - 1, 5);
+    ctx.stroke();
+    // **The listener is hearing, not idle** (the owner, 19 October 2026): the
+    // outline lights with every syllable the ear catches, on the talker's
+    // mouth's clock, so the seat that has to listen is seen to be busy. Still
+    // an outline and never a fill — the fill is the talker's alone.
+    ctx.globalAlpha = 0.7 * hearing(time);
+    ctx.strokeStyle = PALETTE.text;
     ctx.stroke();
     ctx.globalAlpha = 0.9;
     ctx.fillStyle = PALETTE.dim;

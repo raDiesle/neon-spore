@@ -2407,3 +2407,23 @@ blinks harder and is framed in its seat's colour, and the icon of saying is
 a size up — and its animation was opened as `siren:voice`.
 
 The other answers offered were `beside` and `tag`; they went with the slot.
+
+## `siren:voice` / `mouth` — taken, 2026-10-19
+
+The owner, 19 October 2026: liked MOUTH the most of the four — lips opening on
+syllables read at a glance, and the ear on the same clock
+
+lips and an ear on one clock — a mouth opening and shutting on syllables on
+the talker's chip, and the ear leaning in with a wave rising each time it
+opens on the listener's
+
+`SIREN_VOICE.speak` is `mouthSpeak`, moved from
+`tools/versus/candidates/siren-voice/mouth/paint.ts` to
+`packages/render/src/siren-voice-mouth.ts`.
+
+`SIREN_VOICE.listen` is `mouthListen`, moved from
+`tools/versus/candidates/siren-voice/mouth/paint.ts` to
+`packages/render/src/siren-voice-mouth.ts`.
+
+The other answers offered were `bars`, `typing` and `waves`; they went with
+the slot.

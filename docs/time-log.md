@@ -20549,7 +20549,7 @@ comments across four packages that each said *two beats*.
   and 5× crops of the lit and unlit cut.
 - friction: 5 min. The size hook on `config-boss.ts`, and a doc-drift test
   failing on a comment that named a file not written yet.
-- landing: 10 min. Two `check:fast` runs, two commits, two `land`s.
+- landing: 15 min. Three `check:fast` runs, two commits, two `land`s.
 
 The bottleneck was **writing**: the funnel had to be the snap window drawn,
 so the bezel, the door and the rule all ask one file for its width.
@@ -31325,7 +31325,7 @@ could still fire from under it.
 - looking: 10 min. Frame strips of the stopped bolt and of the beat, cropped.
 - friction: 5 min. `bun run index` took the verdict's doc as the file's
   header, the import sort, and `sheet` wanting a prefix with no dash.
-- landing: 10 min. Two `check:fast` runs, two commits, and the landing of the
+- landing: 15 min. Three `check:fast` runs, two commits, and the landing of the
   first half.
 
 Bottleneck: finding where on the picture each simulation verdict lands, since the sim judges every bolt at row 0 and the ridge's shape lives only in render.
@@ -35998,7 +35998,7 @@ an autopilot that makes none.
 - friction: 5 min. The browser pane paused on a hidden tab, so the original
   dead hold was never reproduced there; the new gesture is proven through
   `touch.ts` in `gall-grip.test.ts` instead.
-- landing: 10 min. Two `check:fast` runs: the first found old-design tests
+- landing: 15 min. Three `check:fast` runs: the first found old-design tests
   in the director, the HARD sky table and THE SLOW's aim.
 
 Bottleneck: landing — the boss's old gesture was named in a dozen tests
@@ -40590,7 +40590,7 @@ was taken by hand and two tests that assumed it ships still had to learn it.
   of the arrived moon at four clock times, cropped into one strip.
 - friction: 5 min. `adopt` refuses an inline glance, so the take went by
   hand; the strip's first labels assumed the wrong stride.
-- landing: 10 min. Two `check:fast` runs, the second for `docs/INDEX.md`.
+- landing: 15 min. Three `check:fast` runs, the second for `docs/INDEX.md`.
 
 Bottleneck: landing — a full `check:fast` is three minutes, and a missing
 index row cost a second one.
@@ -42074,7 +42074,7 @@ Bottleneck: none; the row lookup was already fixed, only the route was missing.
 - looking: 5 min. Timing the read against the check: 12 s cold, 0.9 s warm,
   0.15 s of checking.
 - friction: 0 min.
-- landing: 10 min. Two `check:fast` runs in a row, the commit, `land`.
+- landing: 15 min. Three `check:fast` runs in a row, the commit, `land`.
 
 Bottleneck: a fresh worktree's first read of 4,000 files, which no figure saw.
 
@@ -43620,7 +43620,7 @@ lit frame, and eight budget rows had to move for it.
   only to follow the sway.
 - friction: 10 min. The director's autopilot rig ran past two minutes and
   was killed; a probe read the wrong argument and played nothing.
-- landing: 10 min. Two `check:fast` rounds for the counts a removed guide
+- landing: 15 min. Three `check:fast` rounds for the counts a removed guide
   moves (briefings, the prose list, the audio spare count, two copies).
 
 Bottleneck: knowing how hard is hard enough — the autopilot is
@@ -43670,7 +43670,7 @@ machine, and nothing saying so.
   floating, the ports hidden under the tubes.
 - friction: 10 min. `boss-top.test.ts` caught the cables and the entrance
   crossing the top of the screen; one `check:fast` was killed and rerun.
-- landing: 10 min. Two `check:fast` rounds, `land`.
+- landing: 15 min. Three `check:fast` rounds, `land`.
 
 Bottleneck: the top-of-screen rule — a hung machine wants cables to the
 sky, and the rule wanted them to fade two tiles up.
@@ -44343,7 +44343,7 @@ refusal was proven on a selector the row does carry.
 - looking: 0 min.
 - friction: 5 min. A hand renumbering of the act headers, undone when the
   curriculum tests asked for the composer's own list.
-- landing: 10 min. Two `check:fast` runs, `waves:order --write` and the
+- landing: 15 min. Three `check:fast` runs, `waves:order --write` and the
   records it owes, the commit, `land`.
 
 Bottleneck: a block taken out of the middle re-places every wave after it,
@@ -44610,3 +44610,19 @@ bodies, TORCH, SALVAGE and the seven gestures needed a pass of their own.
 Bottleneck: `check:fast` reaching the whole suite from a render change.
 
 *Measured: 10 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-19 — SIREN:VOICE takes MOUTH; the listener's ear hears
+
+- reading: 0 min. The candidate, `siren-seats.ts` and how `versus adopt`
+  takes a function field.
+- writing: 5 min. The adopt, the two moved files folded into one, the
+  waves in flight and the lit ear, the outline on `hearing`, the dead speech
+  bubble out of `comms-glyphs.ts`.
+- looking: 0 min. A six-frame strip of THE VEIL's siren corner from P2.
+- friction: 0 min.
+- landing: 15 min. Three `check:fast` runs of three to four minutes each,
+  red first on a missing INDEX row and then on four waves' `save` budgets,
+  trimmed from five saves to one and that one remeasured.
+
+Bottleneck: `check:fast` reached ninety-three shards because `siren-seats.ts`
+is drawn by nearly every frame test, so the gate cost more than the change.

@@ -6,14 +6,5 @@
 // `index.ts` next door says why it is generated at all.
 
 import type { Variant } from "../variant.js";
-import { SIREN_VOICE_BARS } from "./siren-voice/bars/index.js";
-import { SIREN_VOICE_MOUTH } from "./siren-voice/mouth/index.js";
-import { SIREN_VOICE_TYPING } from "./siren-voice/typing/index.js";
-import { SIREN_VOICE_WAVES } from "./siren-voice/waves/index.js";
 
-export const VARIANTS: Variant[] = [
-  SIREN_VOICE_BARS,
-  SIREN_VOICE_MOUTH,
-  SIREN_VOICE_TYPING,
-  SIREN_VOICE_WAVES,
-];
+export const VARIANTS: Variant[] = [];

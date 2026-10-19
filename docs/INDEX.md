@@ -1406,7 +1406,7 @@ by hand never moves.
 | `packages/render/src/clasp.ts` | THE CLASP's shield: the bubble a slick or a bulb falls inside, and the way it comes apart when the ward opens |
 | `packages/render/src/cling.ts` | THE LIMPET and THE LEECH, drawn in their two states: a body coming down a lane |
 | `packages/render/src/cleared.ts` | The screen over the rest between two waves: the wave just cleared, the clock and the retries, rising out as the next guide's header falls in |
-| `packages/render/src/comms-glyphs.ts` | The three marks the whole game says "one of you can see this" with: an eye on the strip, a speech bubble over |
+| `packages/render/src/comms-glyphs.ts` | The marks the whole game says "one of you can see this" with: an eye on the strip, and an ear over the seat that has to listen |
 | `packages/render/src/comms.ts` | Which arrivals make the two of them talk, and which way round |
 | `packages/render/src/craters.ts` | A rock's own mark: not the whole rock's silhouette, only the sliver of it that was ever inside the skin |
 | `packages/render/src/crater-geom.ts` | What a crater *is*, and the two heights everything about one is measured against |
@@ -1568,6 +1568,7 @@ by hand never moves.
 | `packages/render/src/siren-lightbar.ts` | **The siren is a light bar** — the strip on an emergency vehicle's roof: a row of cells, lit in turn |
 | `packages/render/src/siren-place.ts` | Where the siren stands on a screen, and where a finger lands on it |
 | `packages/render/src/siren-voice-look.ts` | The mark at the end of each siren chip — *say it* on the talker's, *listen* on the listener's |
+| `packages/render/src/siren-voice-mouth.ts` | **A mouth that talks and an ear that hears it** — the siren chips' marks, taken from VERSUS, the ear lit by each syllable |
 | `packages/render/src/siren-words-plate.ts` | The plate a siren word sits on: a word on a dark case |
 | `packages/render/src/siren-words.ts` | **Each seat's word under its own name** — the siren's help words on dark plates, taken from VERSUS |
 | `packages/render/src/siren.ts` | The warning siren, top right of the field beside the strip, and the two seats' jobs under it |

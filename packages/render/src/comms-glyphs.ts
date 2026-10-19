@@ -1,22 +1,22 @@
 import { PALETTE } from "./palette.js";
 
 /**
- * The three marks the whole game says "one of you can see this" with: an eye
- * on the strip, a speech bubble over the seat that has to talk, an ear over
- * the seat that has to listen.
+ * The marks the whole game says "one of you can see this" with: an eye on
+ * the strip, and an ear over the seat that has to listen. The talker's mark
+ * was a speech bubble here until 19 October 2026, when the owner took VERSUS
+ * MOUTH (`siren-voice-mouth.ts`), which draws the ear from this file.
  *
- * **All three are drawn, none of them is typed.** `lure-alarm.ts` made this
+ * **All of them are drawn, none of them is typed.** `lure-alarm.ts` made this
  * argument first and it holds harder here: these sit at nine to fourteen
  * pixels on a phone, and a glyph in a font at that size is a smear. Drawn
  * paths keep their weight when the tile shrinks, and they carry no font
  * dependency — the game is played on two devices nobody chose.
  *
- * **Why a bubble and an ear rather than a mouth and an ear.** A mouth and an
- * ear are the obvious pair and they are the wrong one: both are a rounded
- * outline with something inside it, and at this size they collapse into the
- * same fourteen grey pixels. A rectangle with a tail and a hooked C share no
- * silhouette at all, which is the only property that matters when the answer
- * has to be read in the half second before the beat turns.
+ * **A mouth and an ear were once the wrong pair**, because still and in one
+ * ink both are a rounded outline with something inside it, and at this size
+ * they collapse into the same fourteen grey pixels. What made MOUTH work is
+ * what the still pair lacked: the mouth is a solid shape that moves, knocked
+ * out of the lit block, and the ear is a stroke on the dark pill.
  */
 
 /**
@@ -57,43 +57,6 @@ export function drawEyeGlyph(
   ctx.fillStyle = hex;
   ctx.beginPath();
   ctx.arc(x, y, h * 0.25, 0, Math.PI * 2);
-  ctx.fill();
-  ctx.restore();
-}
-
-/** A speech bubble with a tail out of its bottom left: *you are the one who
- * has to say it.* */
-export function drawSpeechGlyph(
-  ctx: CanvasRenderingContext2D,
-  x: number,
-  y: number,
-  s: number,
-  hex: string,
-  alpha = 1,
-): void {
-  const w = s;
-  const h = s * 0.72;
-  const r = s * 0.28;
-  ctx.save();
-  ctx.globalAlpha = alpha;
-  ctx.fillStyle = hex;
-  ctx.beginPath();
-  ctx.moveTo(x - w + r, y - h);
-  ctx.arcTo(x + w, y - h, x + w, y + h, r);
-  ctx.arcTo(x + w, y + h, x - w, y + h, r);
-  ctx.arcTo(x - w, y + h, x - w, y - h, r);
-  ctx.arcTo(x - w, y - h, x + w, y - h, r);
-  ctx.closePath();
-  ctx.fill();
-
-  // The tail, as its own triangle out of the bottom left corner. Drawn
-  // separately rather than folded into the rounded outline: an `arcTo` chain
-  // with a spike in it is a shape nobody can adjust afterwards.
-  ctx.beginPath();
-  ctx.moveTo(x - w * 0.55, y + h * 0.6);
-  ctx.lineTo(x - w * 0.75, y + h * 1.85);
-  ctx.lineTo(x - w * 0.05, y + h * 0.8);
-  ctx.closePath();
   ctx.fill();
   ctx.restore();
 }
