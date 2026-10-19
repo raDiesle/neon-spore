@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-19 · fc6932de6 — THE CRAWLER's shield rings are shield glass, a suck ring joins the worm, and a ward throws no rock
+
+A ring the ship answers is now glass in its control's colour: a dark, see-through body under a lit shield-cyan rim for the shield rings (head, tail and every shield segment), told apart from the solid cyan ring by solid against glass. A new suck ring, amber glass with a mouth mark, joins the cycle — red, cyan, shield, suck — and is taken with the cannon under it and SUCK. The SHIELD and SUCK buttons wear the aim ring when the shield or the cannon is under a ring of theirs, and a shielded ring simply vanishes instead of a rock falling onto the dome.
+
 ## 2026-10-19 · 21537ca3b — On STANDARD 1 and 2 each phone shows the partner's controls, dead, and a press on one says to talk
 
 Player 1's phone draws player 2's colour buttons, and player 2's phone draws player 1's cannon strip, where the other phone has them, greyed and labelled P2 or P1. A press on one sends nothing and shows a short hint over the thumb: whose job it is, and "talk to each other". The panel asks for it with `ControlSet.partner`, set on the two rungs with only the cannon and the shots; STANDARD 4 onward and the one-screen test view are unchanged.

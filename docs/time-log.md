@@ -44880,3 +44880,5 @@ Bottleneck: the four op-count budgets on STANDARD 2 waves, found only by the ful
   index, the stroke budget remeasured, `check:fast` twice.
 
 Bottleneck: the shield's colour is the cyan a cyan ring is filled with, which needed the owner's answer before any paint.
+
+*Measured: 7 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
