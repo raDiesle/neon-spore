@@ -13,6 +13,7 @@ import { INSTAR_REAR_POSE, INSTAR_SPREAD_POSE } from "./poses-instar-spit.js";
 import { LEAD_DROPPING_POSE } from "./poses-lead-dropping.js";
 import { LEDGER_BILLED_POSE } from "./poses-ledger-billed.js";
 import { ROUND_TIMEOUT_POSE } from "./poses-round-timeout.js";
+import { SHIELD_BESIDE_CYAN_POSE } from "./poses-shield-hue.js";
 import { SINEW_PARTING_POSE } from "./poses-sinew-parting.js";
 import { SIREN_STATES_POSE, SIREN_WORDS_POSE } from "./poses-siren.js";
 import { SLOW_RUNS_OUT_POSE, SLOW_WINDOW_POSE } from "./poses-slow.js";
@@ -64,6 +65,7 @@ const BAND_POSE: Pose = {
 /** Every compared look whose state is not a body, in the order the sheet shows them. */
 export const VERSUS_STATE_POSES: Pose[] = [
   BAND_POSE,
+  SHIELD_BESIDE_CYAN_POSE,
   METEOR_HIT_POSE,
   BREAK_POSE,
   BULB_STRUCK_POSE,

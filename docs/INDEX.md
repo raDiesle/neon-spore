@@ -3487,6 +3487,7 @@ by hand never moves.
 | `tools/director/src/poses-mechanics.ts` | What those hands add up to on the field: a hand on something falling, a shot in the air |
 | `tools/director/src/poses-mechanics-reads.ts` | the last four mechanics poses: a pod hanging, a pod falling, and the radar from each seat |
 | `tools/director/src/poses-ship.ts` | What a player's own hands put the ship into |
+| `tools/director/src/poses-shield-hue.ts` | The shield lit beside a cyan shot, both panels showing — the pose `shield:hue` is judged on |
 | `tools/director/src/poses-surface.ts` | The states a candidate for a **surface** is judged on |
 | `tools/director/src/poses-surge-burst.ts` | THE SURGE on the tick it bursts — the pose `surge:spray` is judged on |
 | `tools/director/src/poses-struck.ts` | A living body over the ship with a matching bolt still climbing at it: the kill itself, replayed |

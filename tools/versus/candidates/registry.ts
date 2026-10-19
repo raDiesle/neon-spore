@@ -9,5 +9,13 @@ import type { Variant } from "../variant.js";
 import { CRAWLER_FLESH } from "./creature-crawler/flesh/index.js";
 import { CRAWLER_LARVA } from "./creature-crawler/larva/index.js";
 import { CRAWLER_LEECH } from "./creature-crawler/leech/index.js";
+import { SHIELD_GREEN } from "./shield-hue/green/index.js";
+import { SHIELD_PINK } from "./shield-hue/pink/index.js";
 
-export const VARIANTS: Variant[] = [CRAWLER_FLESH, CRAWLER_LARVA, CRAWLER_LEECH];
+export const VARIANTS: Variant[] = [
+  CRAWLER_FLESH,
+  CRAWLER_LARVA,
+  CRAWLER_LEECH,
+  SHIELD_GREEN,
+  SHIELD_PINK,
+];

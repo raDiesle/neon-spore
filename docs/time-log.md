@@ -44833,3 +44833,17 @@ Bottleneck: what a ring shows is decided by what covers it — the hull below, t
 Bottleneck: tests that pin a wave by its place in the list, each red one at a time after the cut.
 
 *Measured: 6 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-19 — The shield offered in pink and green in VERSUS
+
+- reading: 15 min. `PALETTE`, every reader of `shield` and `cyan`, the
+  guard button's draw, VERSUS's rules and the pose map.
+- writing: 10 min. Two candidates on `PALETTE.shield`/`shieldRim`, the pose
+  of the shield lit beside a cyan bolt, its row.
+- looking: 15 min. Two rounds of `versus:shot` — the first handed over with
+  the bolt above the crop — and one picture of all three.
+- friction: 5 min. No ImageMagick or PIL for the montage; an SVG of the
+  shots through `bun run png` instead.
+- landing: 5 min. `check:fast`, the commit, `land`.
+
+Bottleneck: the shield and the cyan shot share one hex under two names, so finding which readers mean the shield took longer than the candidates.

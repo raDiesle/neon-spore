@@ -524,3 +524,22 @@ A block is its intro and one regular wave since 19 October 2026, and
 match a `filler…` id — `isFiller`, `isFillerHead`, `composedAfter`,
 `STEP_AT_END`, `isComposed`, `composedId`. No wave carries such an id now. Take the recognisers and the comments out, keep the review ones,
 and let `bun run check` prove nothing read them.
+
+## `PALETTE.shield` is read where plain cyan is meant
+
+- **Found:** 2026-10-19, claude/shield-button-color-unique-559125
+- **Files:** `packages/render/src/palette.ts`, `packages/render/src/fleet-hulls.ts`, `packages/render/src/fleet-water.ts`, `packages/render/src/snake-skin.ts`, `packages/render/src/chart-lattice.ts`, `packages/render/src/undertow-lobe.ts`, `apps/game/src/game.css`
+
+`PALETTE.shield` and `PALETTE.cyan` are both `#2FE0F0`, so about twenty
+readers took whichever name was nearest: THE FLEET's hulls pair
+`PALETTE.shield` with `PALETTE.cyanDark`, and the snake skin, the chart
+lattice, the undertow's lobe, the well ship and the gyre all read the shield's
+name for a cyan that is not the shield. The `shield:hue` VERSUS slot recolours
+the shield, and adopting it as things stand recolours every one of those too.
+Go through `git grep -n "PALETTE.shield\b"` and move each reader that means a
+cyan rather than the shield onto `PALETTE.cyan` (no frame changes: the hexes
+are equal), and the same for the literal `#2fe0f0`s in `game.css`; the guard
+button's fill-dark `#08131A` literal in `band-control.ts`, `simon-glyph.ts`
+and `band-control-bosses.ts` wants a `shieldDark` in `PALETTE`. Prove it with
+`bun run check` and a test that patches `PALETTE.shield` and finds THE
+FLEET's hull frame unchanged.
