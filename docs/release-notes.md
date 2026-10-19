@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-19 · 340a32c89 — THE LOCK aims one shot, then rests four seconds
+
+Player 1's hand on a body no longer steers every shot into it for as long as the thumb stays. The first lock of a wave is instant; the shot that reaches the locked body spends it, whatever its colour, and for `lockRestMs` (4000) a hand on a body aims nothing — the cannon is the only way a shot finds a column. A thumb still on a body when the rest ends locks it again without lifting. Nothing has to be held while it rests. The light on the hull that says it is ready again is not drawn yet; it goes to VERSUS. AUTO no longer fires at a magnet while the lock rests.
+
 ## 2026-10-18 · 4a22c9224 — THE WEIGHT is gone; its waves hold a BOTH blister, taught by HOLD TOGETHER
 
 THE WEIGHT left the game, from sim, render, audio, the director and AUTO. Each of its 73 arrivals is now a HOLD blister whose BY is BOTH, which gives only while both thumbs are on it at once. Its first wave keeps its place and id and is called HOLD TOGETHER, with a film of its own: one thumb alone, then the other, then both on one beat. A BOTH blister is a thing the curriculum sees (`blisterBoth`), so HOLD TOGETHER still heads its block and its review. A BOTH blister knocked down plays the old two-hand grip sound.

@@ -44577,3 +44577,5 @@ its own the curriculum could see.
 
 Bottleneck: the question of what keeps the cannon moving, answered by the
 owner before any code.
+
+*Measured: 4 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
