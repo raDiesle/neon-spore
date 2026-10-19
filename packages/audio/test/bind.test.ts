@@ -839,6 +839,7 @@ const SAMPLES: Record<string, SimEvent> = {
   crawlerBreak: { type: "crawlerBreak", col: 5, row: 10, color: "cyan" },
   crawlerBeam: { type: "crawlerBeam", col: 6, row: 10 },
   crawlerBurrow: { type: "crawlerBurrow", col: 10, row: 10, links: 4 },
+  crawlerSwallow: { type: "crawlerSwallow", col: 6, row: 10 },
   cairnPulled: { type: "cairnPulled", player: 1, col: 3, row: 2 },
   cairnShed: { type: "cairnShed", col: 5, row: 2 },
   cairnHeld: { type: "cairnHeld", col: 4, row: 2 },

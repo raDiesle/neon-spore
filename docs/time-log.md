@@ -44865,3 +44865,18 @@ Bottleneck: the shield and the cyan shot share one hex under two names, so findi
 Bottleneck: the four op-count budgets on STANDARD 2 waves, found only by the full check.
 
 *Measured: 17 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-19 — THE CRAWLER's shield rings are shield glass, a suck ring joins, no rock on a ward
+
+- reading: 15 min. The crawler's sim and render files, `ship-asks.ts`, the
+  button marks, the deflect path, the maw's rules and AUTO's crawler hand.
+- writing: 30 min. `crawler-part.ts` and `crawler-suck.ts`, the hashed
+  field, the event through audio and render, the glass ink and the mouth
+  mark, AUTO's suck, the tests.
+- looking: 10 min. Four `frames` runs: the worm close up, SHIELD lit, SUCK
+  lit, and a strip after a ward.
+- friction: 0 min.
+- landing: 10 min. Words over budget twice, a file over 250 lines, the
+  index, the stroke budget remeasured, `check:fast` twice.
+
+Bottleneck: the shield's colour is the cyan a cyan ring is filled with, which needed the owner's answer before any paint.

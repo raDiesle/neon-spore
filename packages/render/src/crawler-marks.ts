@@ -1,4 +1,4 @@
-import { type Creature, linkIsArmoured, type World } from "@neon-spore/sim";
+import { type Creature, linkIsArmoured, linkIsSucked, type World } from "@neon-spore/sim";
 import { linkCenter, linkScale } from "./crawler-place.js";
 import { hazed, nearness } from "./depth.js";
 import { strokeGlow } from "./glow.js";
@@ -57,7 +57,7 @@ const LIFT = 0.78;
 const DOME_W = 0.2;
 const DOME_H = 0.17;
 
-/** One ring's marks: the crosshair, and the dome when the shield is owed. */
+/** One ring's marks: the crosshair, and the dome or the mouth when the ship is owed. */
 export function drawLinkMarks(
   ctx: CanvasRenderingContext2D,
   l: Layout,
@@ -84,6 +84,7 @@ export function drawLinkMarks(
   // can be nine rings long (`crawler-budget.test.ts`).
   const marks = crosshair(l, x, y);
   if (linkIsArmoured(c)) dome(marks, l, x, y, beats);
+  if (linkIsSucked(c)) mouth(marks, l, x, y, beats);
   strokeGlow(ctx, marks, ink, STROKE.outline);
   ctx.restore();
 }
@@ -130,4 +131,29 @@ function dome(p: Path2D, l: Layout, x: number, y: number, beats: number): void {
   p.quadraticCurveTo(x + w, top - h * 0.7, x + w, top + h);
   p.moveTo(x - w * 1.25, top + h);
   p.lineTo(x + w * 1.25, top + h);
+}
+
+/**
+ * The maw's mark, the dome's opposite: a dish dipping under a base line with
+ * two motes on their way into it — the SUCK button's own face (`action-face.ts`)
+ * at the size of a mark, so the ring says which press it is waiting for.
+ */
+function mouth(p: Path2D, l: Layout, x: number, y: number, beats: number): void {
+  const pulse = 1 + 0.12 * Math.sin(beats * Math.PI * 2);
+  const w = l.tile * DOME_W * pulse;
+  const h = l.tile * DOME_H * pulse;
+  const top = y - l.tile * LIFT + h * 0.4;
+  p.moveTo(x - w * 1.25, top);
+  p.lineTo(x - w, top);
+  p.quadraticCurveTo(x, top + h * 1.6, x + w, top);
+  p.lineTo(x + w * 1.25, top);
+  for (const [dy, r] of [
+    [-0.55, 0.05],
+    [-1.25, 0.035],
+  ] as const) {
+    const cy = top + dy * h * 1.4;
+    const rr = l.tile * r;
+    p.moveTo(x + rr, cy);
+    p.arc(x, cy, rr, 0, Math.PI * 2);
+  }
 }

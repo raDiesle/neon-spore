@@ -121,14 +121,17 @@ const MEASURE = false;
 // rest when nothing is called: the housing's fill and stroke, one path of seven
 // dark cells, one save (`siren-lightbar.ts`). Every row here rose by exactly
 // that, remeasured rather than padded.
+// From 19 October 2026 a ring the ship answers is glass with a lit rim, and
+// the rim is `strokeGlow`'s four strokes where a plate's was one: three such
+// rings on the worm measured here, nine strokes, remeasured (`crawler.ts`).
 const BUDGETS: Readonly<Record<"p1" | "p2", readonly Budget[]>> = {
   p1: [
-    { fillRect: 9, stroke: 99, fill: 97, clip: 11, save: 67, "new Path2D": 57, fillText: 0 },
-    { fillRect: 9, stroke: 101, fill: 94, clip: 11, save: 64, "new Path2D": 28, fillText: 0 },
+    { fillRect: 9, stroke: 108, fill: 97, clip: 11, save: 67, "new Path2D": 57, fillText: 0 },
+    { fillRect: 9, stroke: 110, fill: 94, clip: 11, save: 64, "new Path2D": 28, fillText: 0 },
   ],
   p2: [
-    { fillRect: 9, stroke: 103, fill: 105, clip: 11, save: 69, "new Path2D": 55, fillText: 0 },
-    { fillRect: 9, stroke: 105, fill: 102, clip: 11, save: 66, "new Path2D": 28, fillText: 0 },
+    { fillRect: 9, stroke: 112, fill: 105, clip: 11, save: 69, "new Path2D": 55, fillText: 0 },
+    { fillRect: 9, stroke: 114, fill: 102, clip: 11, save: 66, "new Path2D": 28, fillText: 0 },
   ],
 };
 

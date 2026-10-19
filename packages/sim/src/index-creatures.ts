@@ -37,10 +37,10 @@ export {
   crawlerHeading,
   crawlerSegmentCount,
   crawlerSide,
-  linkIsArmoured,
   linkIsEnd,
   linkOrder,
 } from "./crawler.js";
+export { type CrawlerPart, linkIsArmoured, linkIsSucked, segmentPart } from "./crawler-part.js";
 export { lureVanishRow, wornKind } from "./creature-rules.js";
 export {
   DART_COLS,

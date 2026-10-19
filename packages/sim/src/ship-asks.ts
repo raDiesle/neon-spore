@@ -1,4 +1,5 @@
 import { claspIsShielded } from "./clasp.js";
+import { linkIsArmoured, linkIsSucked } from "./crawler-part.js";
 import { crystalUnder } from "./crystal.js";
 import { isWardable } from "./kinds.js";
 import { morselIsLimp } from "./morsel.js";
@@ -23,7 +24,8 @@ import { MILLI, type World } from "./world.js";
 /**
  * A body the dome answers is standing in the shield's column: a rock or a
  * volley (`isWardable`), a clasp (`breakClaspsInColumn`), a moult wearing its
- * rock (`moultArrives`), or a crystal the plate is under (`crystalUnder`).
+ * rock (`moultArrives`), a crystal the plate is under (`crystalUnder`), or a
+ * shield ring of THE CRAWLER (`wardLink`).
  */
 export function shieldAsked(world: World): boolean {
   const rock = !moultIsPod(world.cfg, world.waveBeat);
@@ -32,7 +34,8 @@ export function shieldAsked(world: World): boolean {
       if (crystalUnder(world, c)) return true;
       continue;
     }
-    const answered = isWardable(c.kind) || claspIsShielded(c) || (c.kind === "moult" && rock);
+    const answered =
+      isWardable(c.kind) || claspIsShielded(c) || (c.kind === "moult" && rock) || linkIsArmoured(c);
     if (answered && occupiesCol(c, world.shieldCol)) return true;
   }
   return false;
@@ -40,7 +43,8 @@ export function shieldAsked(world: World): boolean {
 
 /**
  * A cargo falling where the mouth reaches: a pod knocked loose, a moult
- * wearing its pod, a limp morsel — all inside `inMawReach` of the cannon.
+ * wearing its pod, a limp morsel — all inside `inMawReach` of the cannon — or
+ * a suck ring of THE CRAWLER in the cannon's own column (`crawler-suck.ts`).
  *
  * **A husk lights it too**, on purpose. It shows player 1 a real pod's face
  * (`pod-types.ts`), and a button that stayed dark under a husk would be the
@@ -54,6 +58,7 @@ export function suckAsked(world: World): boolean {
   for (const c of world.creatures) {
     const cargo = (c.kind === "moult" && pod) || (c.kind === "morsel" && morselIsLimp(c));
     if (cargo && inMawReach(world, c.col)) return true;
+    if (linkIsSucked(c) && c.col === world.cannonCol) return true;
   }
   return false;
 }

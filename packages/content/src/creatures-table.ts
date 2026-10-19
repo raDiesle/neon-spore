@@ -162,13 +162,14 @@ export const CREATURES: Record<CreatureKind, CreatureDef> = {
     // arrival but two halves of one *body*: a crawler wants them turn and turn
     // about along a line the pair can read off the field before it has
     // finished coming on. A wave showing one panel is a wave where every third
-    // link cannot be answered at all.
+    // link cannot be answered at all. The suck ring's maw is not a
+    // `ControlGroup`, for the morsel's reason: it is on every panel that has one.
     controls: ["aim", "guard"],
     // No colour of its own and none ever authored, which is the throb's blank
     // rather than the dart's: what carries a colour here is each *segment*,
     // and each follows from its place along the body (`segmentColor`). One
     // offered here would be an offer to turn the creature off, because the
-    // order red, cyan, plate is the whole of what the pair plans against.
+    // order red, cyan, shield, suck is the whole of what the pair plans against.
     color: null,
     // Player 2's strip, like every other mixed body. Deliberately not split: a
     // worm announces itself by walking on over a wall, which both screens
@@ -176,7 +177,7 @@ export const CREATURES: Record<CreatureKind, CreatureDef> = {
     // already in plain sight.
     radar: "p2",
     blurb:
-      "A maggot that comes over one side wall and walks the ship's surface instead of falling on it, a column every other beat. It costs the hull nothing while it walks. Its head and tail are armour; the segments between them run red, cyan, plate, red, cyan, plate — a colour wants the matching cannon under it, a plate wants the shield. Take one off and the body snaps together behind it. Strip it and a beam takes what is left; let it reach the far wall and it eats its way in.",
+      "A maggot that comes over one side wall and walks the ship's surface instead of falling on it, a column every other beat. It costs the hull nothing while it walks. Its head and tail are shield rings; the segments between them run red, cyan, shield, suck — a colour wants the matching cannon under it, a shield ring wants the shield under it, and a suck ring wants the cannon under it and SUCK. Take one off and the body snaps together behind it. Strip it and a beam takes what is left; let it reach the far wall and it eats its way in.",
   },
   // The bodies **neither panel answers at all** are in `creatures-handed.ts`;
   // the two answered by a control being *moved* in `creatures-cling.ts`.

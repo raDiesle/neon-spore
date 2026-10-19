@@ -53,4 +53,10 @@ export interface CrawlerState {
    * `crawlerHeading`.
    */
   crawlerDir?: 1 | -1;
+  /**
+   * Whether this link is one the **mouth** takes rather than the cannon or the
+   * dome. Written once when the worm comes on, from the place's turn in the
+   * cycle (`segmentPart`), and never again. Read it through `linkIsSucked`.
+   */
+  crawlerSuck?: true;
 }

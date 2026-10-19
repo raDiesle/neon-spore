@@ -474,6 +474,8 @@ by hand never moves.
 | `packages/sim/src/config-crawler.ts` | THE CRAWLER's five numbers: how long a worm is when the wave does not say, how fast it walks |
 | `packages/sim/src/crawler-beat.ts` | **A beat of every worm on the field**: the step it takes, the shield it may walk into |
 | `packages/sim/src/crawler-round.ts` | **How a worm comes on, how its body closes up, and what a shot into one does** |
+| `packages/sim/src/crawler-part.ts` | **What answers one ring of THE CRAWLER**: a colour, the shield, or the mouth |
+| `packages/sim/src/crawler-suck.ts` | **The maw, under a suck segment of THE CRAWLER**: the cannon in the segment's column and SUCK pressed |
 | `packages/sim/src/crawler.ts` | THE CRAWLER: a maggot that walks the ship's own surface, and the first body |
 | `packages/sim/src/creature-state-crawler.ts` | **THE CRAWLER's three fields**, and the whole of what one link remembers |
 | `packages/sim/src/events-crawler.ts` | THE CRAWLER's three: a ring coming apart, the worm cleared, and the worm getting in |

@@ -12,16 +12,19 @@ import { type Cue, panForCol } from "./bind.js";
  * exhaustiveness is what makes a new event a compile error rather than a
  * silence nobody notices.
  *
- * **Neither of the worm's two *answers* is here**, and that is the point of
+ * **Neither of the worm's first two *answers* is here**, and that is the point of
  * the file being this short. A ring shot off shares `destroy`'s cue and a
  * plate warded off is a plain `deflect`, so both already have the sound the
  * pair has spent the whole game learning. What is new is only what happens at
  * the two ends of the encounter.
  */
 export function crawlerCue(
-  e: Extract<SimEvent, { type: "crawlerBeam" | "crawlerBurrow" }>,
+  e: Extract<SimEvent, { type: "crawlerBeam" | "crawlerBurrow" | "crawlerSwallow" }>,
   cols: number,
 ): Cue {
+  // A suck ring taken in is the maw taking something, and it says so in the
+  // pod family's own word for it.
+  if (e.type === "crawlerSwallow") return { id: "pod.takenMend", pan: panForCol(e.col, cols) };
   if (e.type === "crawlerBeam") {
     // The ship sweeping a lane clean, on the ring that emptied it. The rings
     // themselves have already sounded, one kill at a time, so what is owed

@@ -155,7 +155,7 @@ export const MECHANICS = {
   clasp: WORN_MECHANICS.clasp,
   ...ROUND_MECHANICS,
   crawler: {
-    what: "A maggot walks the hull instead of falling. Take off every ring. A colour ring wants that colour. The rest want the shield. Finish before the far wall.",
+    what: "A maggot walks the hull. Take off every ring before the far wall. A colour ring wants that colour. A glass ring wants the shield, or SUCK if amber.",
     reach: "spawn",
     // A wave names this kind and never a colour, the way it does for a gyre:
     // what carries one is each segment, and each follows from its place along

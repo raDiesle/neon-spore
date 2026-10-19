@@ -1,12 +1,8 @@
 import { markMoment } from "./balance.js";
-import {
-  crawlerCrawls,
-  crawlerHeading,
-  crawlerIds,
-  crawlerLinks,
-  linkIsArmoured,
-} from "./crawler.js";
+import { crawlerCrawls, crawlerHeading, crawlerIds, crawlerLinks } from "./crawler.js";
+import { linkIsArmoured } from "./crawler-part.js";
 import { alignCrawler, crawlerCleared } from "./crawler-round.js";
+import { suckCrawlersOnBeat } from "./crawler-suck.js";
 import { removeCreature, removeCreatures } from "./field.js";
 import { breachHull } from "./hull.js";
 import { guardArmed } from "./hull-guard.js";
@@ -44,6 +40,7 @@ export function stepCrawlers(world: World): void {
     }
     if (crawlerCrawls(world.cfg, world.beat) && crawlOn(world, id)) continue;
     wardLink(world, id);
+    suckCrawlersOnBeat(world, id);
   }
 }
 

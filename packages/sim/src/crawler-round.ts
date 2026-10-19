@@ -9,8 +9,8 @@ import {
   crawlerSide,
   crawlRow,
   linkCol,
-  segmentColor,
 } from "./crawler.js";
+import { segmentColor, segmentPart } from "./crawler-part.js";
 import { removeCreature } from "./field.js";
 import { spanOf } from "./span.js";
 import type { Bullet, Creature } from "./types.js";
@@ -73,6 +73,7 @@ export function growCrawler(
   for (let order = 1; order <= segments + 1; order++) {
     const place = order - 1;
     const behind = linkCol(col, dir, order);
+    const tail = order === segments + 1;
     born.push({
       id: world.nextId++,
       kind: "crawler",
@@ -83,7 +84,7 @@ export function growCrawler(
       // coming over the edge.
       fromRow: row,
       fromCol: behind,
-      color: order === segments + 1 ? null : segmentColor(place),
+      color: tail ? null : segmentColor(place),
       holes: 0,
       petals: 0,
       dragMilli: 0,
@@ -91,6 +92,7 @@ export function growCrawler(
       crawlerId: head.id,
       crawlerOrder: order,
       crawlerDir: dir,
+      ...(!tail && segmentPart(place) === "suck" ? { crawlerSuck: true as const } : {}),
     });
   }
   return born;

@@ -179,6 +179,9 @@ export const INGEST_SILENT = [
   "strandSwell",
   "strandBroke",
   "wispHop",
+  // A suck ring of THE CRAWLER taken in: it simply stops being drawn. The
+  // owner asked for a ring the ship answers to vanish, not to throw anything.
+  "crawlerSwallow",
   // THE GHOST's three, and all three for the same reason: none of them is a
   // particle on the field. The escape is `ghost-release.ts`, a transient
   // that belongs to one body; the turn at a wall and the charge that ends

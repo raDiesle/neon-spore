@@ -543,3 +543,17 @@ button's fill-dark `#08131A` literal in `band-control.ts`, `simon-glyph.ts`
 and `band-control-bosses.ts` wants a `shieldDark` in `PALETTE`. Prove it with
 `bun run check` and a test that patches `PALETTE.shield` and finds THE
 FLEET's hull frame unchanged.
+
+## THE CRAWLER's rehearsal never shows a suck ring
+
+- **Found:** 2026-10-19, claude/crawler-shield-visuals-50ecfc
+- **Files:** `packages/content/src/scenes/the-crawler.ts`, `packages/sim/src/crawler-part.ts`
+
+A worm's segments now cycle red, cyan, shield, suck (`segmentPart`), and the
+suck ring wants the cannon under it and SUCK (`crawler-suck.ts`). The film
+grows a two-segment worm — red and cyan, with glass shield ends — so the pair
+meet the amber ring for the first time in THE CRAWLER's own wave, with no page
+about it, and the last caption still says ARMOURED RING for what is drawn as
+blue glass now. Grow the film's worm to four segments, add a cannon-under-it
+and SUCK act with a caption anchored on `intake`, and say SHIELD RING on the
+shield page (`.claude/skills/new-tutorial` for the rules).

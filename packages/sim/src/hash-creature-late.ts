@@ -115,12 +115,15 @@ export function lateHashParts(c: Creature): number[] {
   // is a value no direction can take — so "not a crawler" and "the head of
   // one, walking left" are never the same numbers in the fingerprint.
   //
-  // What answers each link needs no field of its own: it is `c.color` far
-  // above, written once from `segmentColor` on the beat the worm comes on, and
-  // which links are the two ends follows from the run itself (`linkIsEnd`).
+  // A colour link's answer is `c.color` far above, written once from
+  // `segmentColor` on the beat the worm comes on, and which links are the two
+  // ends follows from the run itself (`linkIsEnd`).
   out.push(c.crawlerId ?? -1);
   out.push(c.crawlerOrder ?? -1);
   out.push(c.crawlerDir ?? 0);
+  // Which links the mouth takes: two devices that disagree about it have the
+  // same ring answered by SUCK on one and by the dome on the other.
+  out.push(c.crawlerSuck ? 1 : 0);
   // Which columns THE FENCE is open in. It decides whether the wall breaks the
   // hull or goes over it, so two devices that disagree about it are two
   // devices where one has the ship intact and the other has it holed — and

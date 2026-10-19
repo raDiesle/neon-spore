@@ -1,9 +1,9 @@
 import { CRAWLER, CRAWLER_PULSE } from "@neon-spore/content";
 import {
-  type Color,
   type Creature,
   crawlerHeading,
   linkIsEnd,
+  linkIsSucked,
   linkOrder,
   type SimConfig,
   type World,
@@ -14,10 +14,10 @@ import { linkCenter, linkScale } from "./crawler-place.js";
 import { type PartKey, ringPart, ringPath, UNIT } from "./crawler-ring.js";
 import { drawnCol, hazed, nearness } from "./depth.js";
 import { strokeGlow } from "./glow.js";
+import { mixHex } from "./hex.js";
 import type { SurfaceY } from "./hull-frame.js";
 import type { Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
-import { PLATE, PLATE_RIM } from "./shell-plate.js";
 
 /**
  * THE CRAWLER, drawn — a maggot lying along the ship's surface, its rings
@@ -41,31 +41,36 @@ import { PLATE, PLATE_RIM } from "./shell-plate.js";
  * the thing that moves, and a body only looks alive when the light on it does
  * (`docs/alive.md`).
  *
- * **The two answers are two materials, and the pair has to tell them apart
+ * **The answers are two materials, and the pair has to tell them apart
  * across a room.** A colour ring is the red or the cyan they already say out
- * loud, lit and glowing. Everything colourless is `PLATE` and `PLATE_RIM` —
- * the same dead grey a shell and a lid wear, imported rather than picked
- * again — and that now includes the head and the tail, because they are the
- * shield's like any other plate. The ends wear their own *shapes* rather than
- * their own ink: material says which control, and the silhouette says which
- * way the animal is facing.
+ * loud, solid, lit and glowing. A ring the ship answers is glass in its
+ * control's colour — the shield's cyan or the maw's amber (`linkInk`) — and
+ * that includes the head and the tail, which are the shield's. The ends wear
+ * their own *shapes* rather than their own ink: material says which control,
+ * and the silhouette says which way the animal is facing.
  *
  * Both screens draw all of it. Nothing about a crawler is withheld from either
  * seat — what they cannot see is each other's thumbs (`comms.ts`).
  */
 
 /**
- * A plate: dead material with a hard lit edge, exactly the grey a shell and a
- * lid wear. A pair who have learned that hard grey over a body means *not the
- * cannon* should not have to learn it twice in two greys.
+ * A ring the ship answers rather than the cannon is **glass in that control's
+ * own colour**: a dark, see-through body under a lit rim, the face the SHIELD
+ * and SUCK buttons wear. The owner, 19 October 2026: *that colour should be
+ * same as shield* — and the shield's colour is the cyan a cyan ring is filled
+ * with, so the two are told apart by solid against glass rather than by hue.
+ * It used to be the dead grey a shell wears, which said *not the cannon* and
+ * nothing about which control instead.
  */
-const PLATED = { fill: PLATE, rim: PLATE_RIM };
+const GLASS_ALPHA = 0.62;
+const SHIELD_GLASS = { fill: mixHex(PALETTE.shield, "#08131A", 0.72), rim: PALETTE.shield };
+const SUCK_GLASS = { fill: mixHex(PALETTE.pod, "#1A1205", 0.72), rim: PALETTE.pod };
 
-/** A ring's own ink. `null` is a plate — the one the shield answers. */
-function linkInk(color: Color | null): { fill: string; rim: string } {
-  if (color === "red") return { fill: PALETTE.red, rim: PALETTE.redRim };
-  if (color === "cyan") return { fill: PALETTE.cyan, rim: PALETTE.cyanRim };
-  return PLATED;
+/** A ring's own ink, and whether it is glass. */
+function linkInk(c: Creature): { fill: string; rim: string; glass: boolean } {
+  if (c.color === "red") return { fill: PALETTE.red, rim: PALETTE.redRim, glass: false };
+  if (c.color === "cyan") return { fill: PALETTE.cyan, rim: PALETTE.cyanRim, glass: false };
+  return { ...(linkIsSucked(c) ? SUCK_GLASS : SHIELD_GLASS), glass: true };
 }
 
 /**
@@ -118,7 +123,7 @@ function drawLink(
   const dir = crawlerHeading(c);
   const end = linkIsEnd(world, c);
   const head = end && linkOrder(c) === 0;
-  const flat = linkInk(c.color);
+  const flat = linkInk(c);
   const fill = hazed(world.cfg, flat.fill, near);
   const rim = hazed(world.cfg, flat.rim, near);
   const step = CRAWLER_PULSE.stepAt(beats, linkOrder(c));
@@ -129,22 +134,17 @@ function drawLink(
   const ry = l.tile * CRAWLER.ry * UNIT * part.ry;
   const body = ringPath(l.tile, which, dir, step);
   ctx.fillStyle = fill;
+  if (flat.glass) ctx.globalAlpha = GLASS_ALPHA;
   ctx.fill(body);
+  ctx.globalAlpha = 1;
   // Through a record rather than by naming the two paint functions, so a
   // second answer to *what a worm's surface is made of* can be drawn beside
   // this one at the size it ships at (`crawler-look.ts`, `docs/versus.md`).
   const link: CrawlerLinkDraw = { ctx, body, rx, ry, dir, squeeze, beats, order: linkOrder(c) };
   CRAWLER_LOOK.slime(link);
-  // A living ring throws light and a dead one does not, which is the fastest
-  // read on the field: the plates the shield owes are the dark places along a
-  // lit animal, and the two ends are darker again.
-  if (c.color === null) {
-    ctx.strokeStyle = rim;
-    ctx.lineWidth = STROKE.outline;
-    ctx.stroke(body);
-  } else {
-    strokeGlow(ctx, body, rim, STROKE.outline);
-  }
+  // Every ring throws light now: a colour ring its own, a glass ring its
+  // control's, so the rim is what says *shield* or *suck* across a room.
+  strokeGlow(ctx, body, rim, STROKE.outline);
   if (head) CRAWLER_LOOK.face(link);
   ctx.restore();
 }

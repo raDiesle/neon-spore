@@ -1,6 +1,6 @@
 import type { SimConfig } from "./config.js";
 import { shieldRow } from "./hull-guard.js";
-import type { Color, Creature } from "./types.js";
+import type { Creature } from "./types.js";
 import type { World } from "./world.js";
 
 /**
@@ -15,10 +15,10 @@ import type { World } from "./world.js";
  *
  * ## What answers a link
  *
- * **Every ring of it comes off**, and there are two ways to take one. The
- * segments between the ends cycle red, cyan, armour, red, cyan, armour
- * (`segmentColor`); the head and the tail carry no colour, so they are armour
- * too and the shield is what they want. A pair can read the whole order off a
+ * **Every ring of it comes off**, and there are three ways to take one. The
+ * segments between the ends cycle red, cyan, shield, suck (`segmentPart` in
+ * `crawler-part.ts`); the head and the tail carry no colour, so they are the
+ * shield's too. A pair can read the whole order off a
  * worm before saying a word, which is what makes the sentence they then have
  * to say a *plan* rather than a reading.
  *
@@ -26,6 +26,8 @@ import type { World } from "./world.js";
  *   column. Player 1 holds the column and player 2 holds the colour.
  * - An armoured link — a plate, the head or the tail — wants the **shield**,
  *   under it, on the beat. Player 2 holds the column, player 1 the trigger.
+ * - A suck segment wants the **maw** — the cannon under it and SUCK pressed
+ *   (`crawler-suck.ts`).
  *
  * Every link wears a crosshair and every armoured one the shield's own mark
  * above it, so which control is owed where is read rather than worked out
@@ -182,41 +184,6 @@ export function linkIsEnd(world: World, c: Creature): boolean {
   if (c.kind !== "crawler") return false;
   const links = crawlerLinks(world, crawlerOf(c));
   return links.length > 0 && (c.id === links[0]!.id || c.id === links[links.length - 1]!.id);
-}
-
-/**
- * The answer this segment wants, by its place among the segments: red, then
- * cyan, then armour, then round again.
- *
- * `null` is the armoured one and is what the body carries as its `color`, so
- * "no colour" and "the shield has this one" are the same fact rather than two.
- * The cycle is a rule and never authored per segment — a worm whose order the
- * wave could scramble would be a worm the pair has to read one link at a time
- * instead of planning the whole of.
- */
-export function segmentColor(place: number): Color | null {
-  const step = ((place % 3) + 3) % 3;
-  if (step === 0) return "red";
-  if (step === 1) return "cyan";
-  return null;
-}
-
-/**
- * Whether this link is one the **shield** answers: a crawler carrying no
- * colour, which is every third segment and both ends.
- *
- * One question rather than two at every call site, for `isWardable`'s reason:
- * a link the dome turns is a link the cannon cannot break, and the reverse.
- *
- * It used to exclude the two ends, because nothing took either off. The owner
- * asked for a worm every part of which comes apart, and there is nothing left
- * for the exclusion to mean: "no colour" and "the shield has this one" are one
- * fact, which is what `segmentColor`'s `null` has always said. So it asks
- * about the body alone, and render can mark a link without walking its run
- * (`render/crawler-marks.ts`).
- */
-export function linkIsArmoured(c: Creature): boolean {
-  return c.kind === "crawler" && c.color === null;
 }
 
 /** Where the link of this rank stands, counting back from the head's column. */

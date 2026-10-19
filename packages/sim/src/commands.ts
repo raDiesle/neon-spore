@@ -6,6 +6,7 @@ import { choirShaken } from "./choir-gesture.js";
 import { leaveHeard } from "./command-leave.js";
 import { pressRefused } from "./command-locks.js";
 import { clampCol } from "./config-derived.js";
+import { suckCrawlers } from "./crawler-suck.js";
 import { lightTile } from "./dark.js";
 import { gripsCreature, setGrip } from "./grip.js";
 import { armShield } from "./hull-guard.js";
@@ -122,6 +123,8 @@ export function applyCommand(world: World, timed: TimedCommand): void {
       spliceHeard(world);
       // And a SUCK mark on a scene's body over the cannon (`scene-panel.ts`).
       sceneSuck(world);
+      // And THE CRAWLER's suck segment standing over it (`crawler-suck.ts`).
+      suckCrawlers(world);
       // The maw *is* the cannon lobe, turned inside out (docs/spec/systems.md
       // 5.7). Whatever was filling it goes out of the same opening — and, like
       // a cannon that slid, it empties the fill without taking the shot the

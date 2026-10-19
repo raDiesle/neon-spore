@@ -41,6 +41,12 @@ export type CrawlerEvent =
    */
   | { type: "crawlerBeam"; col: number; row: number }
   /**
+   * A suck segment taken in by the maw, with the cannon under it. `col` and
+   * `row` are where the ring stood. The ring simply goes: the owner asked for
+   * a part answered by the ship to vanish rather than throw anything.
+   */
+  | { type: "crawlerSwallow"; col: number; row: number }
+  /**
    * The head reached the far wall and the worm has eaten its way into the
    * hull. `col` and `row` are where it went in; `links` is how much body went
    * in with it, which is what the damage was reckoned from

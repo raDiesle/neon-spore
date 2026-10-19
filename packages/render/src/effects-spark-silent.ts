@@ -155,6 +155,8 @@ export const SILENT = [
   // burrow causes throw the ordinary hull burst beside it.
   "crawlerBeam",
   "crawlerBurrow",
+  // A suck ring taken in by the maw just goes — the owner, 19 October 2026.
+  "crawlerSwallow",
   // The shield pushing a creature back up. Its spray is red, not the body's
   // colour, so it is thrown by `shield-push-fx.ts` with the rim it belongs to
   // rather than from this table.

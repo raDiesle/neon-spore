@@ -20,7 +20,7 @@ import { shakeChoir } from "./autopilot-choir.js";
 import { leavesHere, nextStep, reachedFrom, walking } from "./autopilot-choke.js";
 import { wardCoil } from "./autopilot-coil.js";
 import { countReady } from "./autopilot-count.js";
-import { wardCrawler } from "./autopilot-crawler.js";
+import { suckCrawler, wardCrawler } from "./autopilot-crawler.js";
 import { crystalOpen, lowestCrystal, shieldCrystal } from "./autopilot-crystal.js";
 import { burnFence, fenceGap } from "./autopilot-fence.js";
 import { shake } from "./autopilot-harpoon.js";
@@ -59,7 +59,8 @@ import type { Hand } from "./hand.js";
  * (`autopilot-crystal.ts`), THE COUNT shot on its zero (`autopilot-count.ts`),
  * THE COIL's dome opened from under it (`autopilot-coil.ts`),
  * THE CHOIR shaken together (`autopilot-choir.ts`),
- * THE CRAWLER's plates turned by the dome (`autopilot-crawler.ts`), THE JAM's
+ * THE CRAWLER's plates turned by the dome and its suck rings swallowed
+ * (`autopilot-crawler.ts`), THE JAM's
  * runaway cannon steered (`autopilot-jam.ts`), THE CHOKE's walking cannon
  * fired as it passes (`autopilot-choke.ts`), and the bodies a finger answers
  * — THE MINE, THE BEATBOX and THE BLISTER (`autopilot-touch.ts`). Any
@@ -108,6 +109,8 @@ function cannon(w: World): Press[] {
   if (due !== null) return due;
   const moult = catchMoult(w);
   if (moult !== null) return moult;
+  const gulp = suckCrawler(w);
+  if (gulp !== null) return gulp;
   const wall = burnFence(w, free(w));
   if (wall !== null) return wall;
   // A count that is shut or off its zero waits behind a body answered now.

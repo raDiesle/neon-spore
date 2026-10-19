@@ -104,9 +104,10 @@ export function cueFor(e: SimEvent, cols: number, rows: number): Cue | null {
     case "plate":
     case "wardenDown":
       return wardenCue(e, cols, rows);
-    // THE CRAWLER's two endings, in `bind-crawler.ts`, on the same terms.
+    // THE CRAWLER's two endings and its swallow, in `bind-crawler.ts`.
     case "crawlerBeam":
     case "crawlerBurrow":
+    case "crawlerSwallow":
       return crawlerCue(e, cols);
     case "gyreBroke":
     case "strandBroke":

@@ -8,9 +8,8 @@ import {
   crawlerSegmentCount,
   crawlerSide,
   crawlRow,
-  linkIsArmoured,
-  segmentColor,
 } from "../src/crawler.js";
+import { linkIsArmoured, linkIsSucked, segmentPart } from "../src/crawler-part.js";
 import { linkStruck } from "../src/crawler-round.js";
 import { guardWindowTicks } from "../src/hull-guard.js";
 import {
@@ -38,7 +37,7 @@ import type { Bullet, Creature } from "../src/types.js";
  *
  * What is worth pinning here is the half a reader of `crawler.ts` cannot check
  * by eye — that one queue entry really becomes a run of bodies, that the
- * answers along it cycle red, cyan, plate, that **every** ring comes off and
+ * answers along it cycle red, cyan, shield, suck, that **every** ring comes off and
  * the two ends are the dome's like any other plate, that a link taken off
  * closes the body up behind it rather than leaving a hole, that the shield
  * answers a plate where no shield has ever answered anything before, that the
@@ -112,20 +111,21 @@ describe("the worm a wave authors", () => {
     expect(crawlerHeading(from[0]!)).toBe(-1);
   });
 
-  it("runs red, cyan, plate along its segments, and neither end is any of them", () => {
+  it("runs red, cyan, shield, suck along its segments, and neither end is any of them", () => {
     const on = wormOf(onField(CRAWLER_MAX));
-    expect(
-      on.map((_, i) => (i === 0 || i === on.length - 1 ? "end" : segmentColor(i - 1))),
-    ).toEqual(["end", "red", "cyan", null, "red", "cyan", null, "red", "end"]);
+    expect(on.map((_, i) => (i === 0 || i === on.length - 1 ? "end" : segmentPart(i - 1)))).toEqual(
+      ["end", "red", "cyan", "shield", "suck", "red", "cyan", "shield", "end"],
+    );
     expect(on.slice(1, -1).map((c) => c.color)).toEqual([
       "red",
       "cyan",
       null,
+      null,
       "red",
       "cyan",
       null,
-      "red",
     ]);
+    expect(on.filter(linkIsSucked).map(linkOrder)).toEqual([4]);
   });
 
   it("names its two ends off the run itself, and neither carries a colour", () => {
@@ -136,13 +136,16 @@ describe("the worm a wave authors", () => {
     expect(on[on.length - 1]!.color).toBeNull();
   });
 
-  it("owes the shield every colourless link, the two ends included", () => {
+  it("owes the shield every colourless link but the suck ring, the two ends included", () => {
     const world = onField(4);
     const on = wormOf(world);
-    // Head, third segment, tail: every ring with no colour on it, and the ends
-    // are no longer the exception they were.
+    // Head, third segment, tail: every ring with no colour on it but the
+    // fourth, which is the mouth's — and the ends are the shield's.
     expect(on.filter(linkIsArmoured).map(linkOrder)).toEqual([0, 3, on.length - 1]);
-    expect(on.every((c) => (c.color === null) === linkIsArmoured(c))).toBe(true);
+    expect(on.filter(linkIsSucked).map(linkOrder)).toEqual([4]);
+    expect(on.every((c) => (c.color === null) === (linkIsArmoured(c) || linkIsSucked(c)))).toBe(
+      true,
+    );
   });
 });
 

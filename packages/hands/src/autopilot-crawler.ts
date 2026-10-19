@@ -5,6 +5,8 @@ import {
   guardArmed,
   guardWindowTicks,
   linkIsArmoured,
+  linkIsSucked,
+  mawOpen,
   type TimedCommand,
   ticksPerBeat,
   type World,
@@ -20,6 +22,10 @@ import {
  * after the worm has walked, so player 2 carries the shield to the column the
  * nearest plate will stand in once the beat has moved it, and player 1
  * triggers in the last stretch before the beat, as under a rock.
+ *
+ * A suck ring is player 1's alone: the cannon under it and SUCK pressed
+ * (`crawler-suck.ts`), ahead of any colour ring, since the press takes it on
+ * the spot.
  */
 
 type Press = Omit<TimedCommand, "tick">;
@@ -46,4 +52,13 @@ export function wardCrawler(w: World): Press[] | null {
   if (guardArmed(w)) return [];
   const toBeat = ticksPerBeat(w.cfg) - beatPhaseTicks(w.cfg, w.tick);
   return toBeat <= guardWindowTicks(w.cfg) / 2 ? [{ player: 1, command: { kind: "guard" } }] : [];
+}
+
+/** Player 1's presses at a worm's suck ring, or `null` when there is none. */
+export function suckCrawler(w: World): Press[] | null {
+  const ring = w.creatures.find((c) => linkIsSucked(c) && c.col >= 0 && c.col < w.cfg.cols);
+  if (ring === undefined) return null;
+  if (w.cannonCol !== ring.col)
+    return [{ player: 1, command: { kind: "cannonCol", col: ring.col } }];
+  return mawOpen(w) ? [] : [{ player: 1, command: { kind: "intake" } }];
 }

@@ -117,6 +117,11 @@ export function ingestBreach(
  * A rock turned at the shield's surface. Same lateness as a breach, so the
  * bounce waits for the rock — and `embed: false`, because a deflected rock
  * bounces off rather than sinking in.
+ *
+ * **A ring of THE CRAWLER is not a rock**, and nothing falls or bounces for
+ * one: the ring is standing on the dome's row, so the rock this used to drop
+ * from it was a meteor out of nowhere. The owner, 19 October 2026: *the body
+ * part just disappears and no meteor appears.* The dome still flashes.
  */
 export function ingestDeflect(
   e: Extract<SimEvent, { type: "deflect" }>,
@@ -125,6 +130,10 @@ export function ingestDeflect(
   beatSeconds: number,
   parts: BreachParts & { deflectFx: DeflectFx; onDeflect: () => void },
 ): void {
+  if (e.kind === "crawler") {
+    parts.onDeflect();
+    return;
+  }
   const x = tileCX(l, e.col);
   const bounce = (ax: number, ay: number): void => {
     // The kind, the span, the seed and the craters: every half of "it is
