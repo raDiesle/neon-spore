@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-19 · 07c999b22 — THE BLISTER's PALM is built like a hand
+
+The hand that holds a HOLD blister's drop, and that its two deaths play out on, was a mitten: four even capsules fanned out of an ellipse. It now has a palm wider at the knuckles than at the heel, with a mound under the thumb and a wrist going down into the pore; four fingers of three joints each, the middle longest and the little one shortest, tapering to the tip, with a crease at each joint; a thumb set low, shorter and thicker, with its nail; and the heart, head and life lines across the palm. Open, the fingers flex one after another; held, each folds at every joint toward the viewer into a fist over the drop, the nails of the folded tips showing.
+
 ## 2026-10-19 · fceb1e52a — HOLD AND AIM and THE MAGNET come straight after THE SHELL's block
 
 The aim lesson and the magnet's block now play right after SHELL THUNDER, before THE THROB, instead of after THE RECOIL. The magnet's three waves (MAGNET DUET, MAGNET LEGEND, MAGNET OVERDRIVE) were drawn again by `waves:compose` with their names kept, because the old ones mixed in the throb and the recoil, and those are now taught after them; the new ones mix only the shell. The list past the arc was ordered again by `waves:order`, which rebuilds its filler waves from the arc's order. The new waves were cleared by AUTO, never watched at tempo by a person. Exemption: the order is the owner's by name.

@@ -44751,3 +44751,5 @@ Bottleneck: the full composer in `waves:order` and its test, half a minute each.
 - landing: 5 min. `format`, `index`, `check:fast`, `land`.
 
 Bottleneck: getting a frame with PALM up in it — the body is picked by tile.
+
+*Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
