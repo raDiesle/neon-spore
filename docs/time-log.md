@@ -44608,3 +44608,5 @@ bodies, TORCH, SALVAGE and the seven gestures needed a pass of their own.
 - landing: 10 min. `check:fast` ran the whole suite, five minutes of it.
 
 Bottleneck: `check:fast` reaching the whole suite from a render change.
+
+*Measured: 10 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

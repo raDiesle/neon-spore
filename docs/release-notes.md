@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-19 · d8d9bd545 — The radar's words are gone: no TARGET ENEMY, no TORCH call, no LURE
+
+The lines under the siren — `TORCH · COLUMN n · CALL IT` and `TORCH INBOUND · TAKE THE COLUMN` for a torch on the way, `TARGET ENEMY · COLUMN n` for a magnet — and the word `LURE` over a lure's blip on the radar strip are no longer drawn. The bands over the column and the corner frame on the blip stay, and the band rows keep their place under the siren. The lure's `IGNORE` beside its body on the field stays too.
+
 ## 2026-10-19 · 18fb51847 — waves:review and waves:lessons are described as composing three waves, not eight
 
 ## 2026-10-19 · 67708ec33 — Every parent holds three waves, and only slick, bulb and rock waves stand alone
