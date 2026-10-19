@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-19 · afd39ed1c — THE CRAWLER's rings wear the bosses' crosshair in their colour, with the button's face inside
+
+Every ring of a crawler now wears EMBER — the crosshair a boss's target and a lit SHIELD or SUCK button wear — in the colour of what takes it: red or cyan for a colour ring, the shield's for a shield ring, amber for a suck ring. Inside a shield or suck ring's crosshair is that button's own face, the shield's swelling or the maw's dent with motes going in. The small dome and mouth that stood over the rings are gone.
+
 ## 2026-10-19 · 8de2cddfd — Every READY circle says HOLD until it is full
 
 The owner asked by name for the ready holds to say they are holds. On a guide's last page the own circle reads HOLD inside its ring until it says READY, and the line under READY? is brighter, bigger and reads HOLD ANYWHERE TO SAY READY. In the room the own circle reads HOLD too, and a line under the two circles says HOLD YOUR CIRCLE TO SAY READY while it can be held.

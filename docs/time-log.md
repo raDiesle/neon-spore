@@ -44910,3 +44910,5 @@ Bottleneck: the test run, minutes long for a seven-file change.
 - landing: 5 min. The stroke budget remeasured, `check:fast`, `land`.
 
 Bottleneck: rings overlap by most of a column, so a crosshair the size a boss wears tangled with its neighbours until a picture showed it.
+
+*Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
