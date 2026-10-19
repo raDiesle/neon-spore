@@ -44799,3 +44799,5 @@ Bottleneck: finding every test and fixture that used wave 1 as "the wave with a 
   `briefings:renumber`, `baseline:blank`, `index`, two `check:fast` runs.
 
 Bottleneck: renumbering the act-one pages the save could not pull back.
+
+*Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

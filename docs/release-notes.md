@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-19 · debf89f80 — ECHO, STRAND and VEIL are introduced first after CYAN's block
+
+THE ECHO, THE STRAND and THE VEIL now come straight after THE BROOD, in that order, ahead of THE SHELL; the other eleven bodies of the arc keep their order behind them. Their nine regular waves (ECHO ALLIANCE, ECHO SAGA, ECHO RAPTURE, STRAND WALTZ, ANCIENT STRAND, STRAND INFERNO, VEIL WALTZ, VEIL HOMECOMING, VEIL RAPTURE) were drawn again by `waves:compose` with their names kept, so they mix only what is taught before them. The list past the arc was ordered again by `waves:order`. The new waves were cleared by AUTO, never watched at tempo by a person. Exemption: the order is the owner's by name.
+
 ## 2026-10-19 · 3cc05d492 — FIRST STEP teaches on its own field instead of in a film before it
 
 Wave 1 no longer opens on a rehearsal and a ready gate. It opens on its name and is played at once, and while it is played the field tells each player the next thing to do, beside the thing it is about, in the tutorial's own amber caption with a TUTORIAL tab: player 1 is told to move the cannon under the enemy, then to tell player 2 to fire; player 2 is told to wait for the cannon, then to fire red. The hints stop once the pair has cleared three enemies, and come back if the wave is tried again. Nothing in the simulation changed; the hints are read off the world.
