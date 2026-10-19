@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-19 · 37e6d292b — Queue when a boss's tutorial on its own field stops
+
+The boss waves are the ones left with films and prose guides, and nothing counts a first answer on all of them, so when their field hints stop is the owner's to choose.
+
 ## 2026-10-19 · bcf589806 — The moult and fault waves teach on their own fields, not in a film
 
 THE MOULT, THE LEECH, THE CHOKE, THE DARK, THE COIL, THE JAM, THE CODEX, THE HANDOVER and THE FLIP open straight into play now. Their tutorial is said on the live field, on the seat it is for, while the fault is up: THE MOULT says whether the next one lands as a pod or a rock, THE CODEX whether the panel is swapped, and on THE HANDOVER whoever is holding the fire buttons is the one told to fire. A fault wave's lesson ends with the first body gone after the fault came. Nine films are gone, thirty-six are left.
