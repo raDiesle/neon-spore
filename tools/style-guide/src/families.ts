@@ -20,8 +20,8 @@ export const FAMILIES: Family[] = [
   },
   {
     name: "THE SHIP",
-    rule: "violet hull, cyan shield — the shield shares the cyan accent, because the shield is the thing that answers it.",
-    keys: ["hull", "hullRim", "shield", "shieldRim"],
+    rule: "violet hull, neon green shield — the shield shared the cyan accent until the owner found the two too alike (19 October 2026); now it is the colour of no shot.",
+    keys: ["hull", "hullRim", "shield", "shieldRim", "shieldDark"],
   },
   {
     name: "THE GREENS",

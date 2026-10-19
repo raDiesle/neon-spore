@@ -25,7 +25,7 @@ import { P1_SKIN, type SeatSkin } from "./seat-skin.js";
  * **The body a button is made of is the seat's**, and what is drawn on its face
  * is not. An unlit control is the panel's own flesh — violet on player one's
  * screen, gold on player two's — because it is a swelling of the chamber it
- * stands in. The ammunition colours, the shield's cyan and the maw's amber are
+ * stands in. The ammunition colours, the shield's green and the maw's amber are
  * the same on both screens, because they say *which control* rather than
  * *whose ship* (`seat-skin.ts`).
  */

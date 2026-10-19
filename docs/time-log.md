@@ -44912,3 +44912,17 @@ Bottleneck: the test run, minutes long for a seven-file change.
 Bottleneck: rings overlap by most of a column, so a crosshair the size a boss wears tangled with its neighbours until a picture showed it.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-19 — The shield is neon green, and glows more
+
+- reading: 15 min. Every reader of `PALETTE.shield` and `shieldRim`, sorted
+  into the shield and the cyan that only shared its hex.
+- writing: 15 min. Twenty-odd readers onto `cyan`, `shieldDark`, the brighter
+  green and its glow, the tests and comments that said the shield was cyan.
+- looking: 10 min. A `versus:shot` of the brighter green, then the real game
+  on THE ROCK with a rock over the lit shield.
+- friction: 5 min. `bun run frames main` refuses a sha whose parent draws the
+  same frame, so the before/after waited for the commit.
+- landing: 5 min. `check:fast`, two commits, `land`.
+
+Bottleneck: telling, reader by reader, which of fifty uses of one hex meant the shield.

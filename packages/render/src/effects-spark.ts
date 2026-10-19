@@ -153,7 +153,7 @@ export function burstFor(e: SimEvent, l: Layout, cfg: SimConfig, skinY?: Surface
       return at(l, e.col, e.row, 20, PALETTE.shieldRim);
 
     // A bolt cutting the wire. Fewer particles than a pass and in the fence's
-    // own blue rather than the dome's cyan: what came apart is one column of a
+    // own blue rather than the dome's green: what came apart is one column of a
     // line that is still there, and a burst the size of a pass would read as
     // the whole thing going out.
     case "fenceBurn":

@@ -35,7 +35,6 @@ import { POSE_GROUPS } from "./poses.js";
  */
 const SLOT_POSE: Record<string, string> = {
   "creature:crawler": "CRAWLER · WALKING",
-  "shield:hue": "SHIELD · BESIDE A CYAN SHOT",
 };
 
 /** The pose a slot gets when nothing in `SLOT_POSE` names it. */

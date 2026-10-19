@@ -88,7 +88,21 @@ function drawFace(
   // The first two are lit for exactly as long as their window is open, so
   // player 1 can see what they are spending.
   if (c.id === "guard") {
-    drawActionButton(ctx, x, y, r, armed, PALETTE.shield, "#08131A", "guard", skin.dead[0]);
+    // A second, wider halo under the lit button: the owner asked for the green
+    // to glow like neon (19 October 2026), and the shared one is every
+    // action button's.
+    if (armed) halo(ctx, x, y, r * 2.4, PALETTE.shield, 0.3);
+    drawActionButton(
+      ctx,
+      x,
+      y,
+      r,
+      armed,
+      PALETTE.shield,
+      PALETTE.shieldDark,
+      "guard",
+      skin.dead[0],
+    );
     // A press that outlives its own window looks, on this button, exactly
     // like a press that never happened — same dark fill, same outline. Once
     // `armed` drops there is nothing left on screen saying the guard used to

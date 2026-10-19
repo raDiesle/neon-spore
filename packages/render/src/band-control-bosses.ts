@@ -34,7 +34,17 @@ export function drawBossFace(
   if (mode !== undefined) {
     const lit = throatBoss(world)?.mode === mode;
     if (mode === "shield") {
-      drawActionButton(ctx, x, y, r, lit, PALETTE.shield, "#08131A", "guard", skin.dead[0]);
+      drawActionButton(
+        ctx,
+        x,
+        y,
+        r,
+        lit,
+        PALETTE.shield,
+        PALETTE.shieldDark,
+        "guard",
+        skin.dead[0],
+      );
     } else if (mode === "suck") {
       drawActionButton(ctx, x, y, r, lit, PALETTE.pod, PALETTE.podDark, "intake", skin.dead[0]);
     } else {

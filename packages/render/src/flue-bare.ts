@@ -21,7 +21,7 @@ import { splinePath } from "./spline.js";
  * animation around*).
  *
  * Away from the sight the spore wears a shield, a faint lobed bubble in the
- * shield's own cyan. As it comes over the cannon — inside `flueHitMilli`,
+ * shield's own green. As it comes over the cannon — inside `flueHitMilli`,
  * where a shot meets it — the shield **breaks**: its pieces fly off and a red
  * shock opens round it, and the spore goes red for the whole of its stay,
  * reddest at the middle, so a pair that has not fired yet still sees *now it

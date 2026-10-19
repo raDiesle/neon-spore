@@ -79,9 +79,10 @@ describe("the throat's mouth", () => {
     });
   }
 
-  it("carries the panel's face for the shield, which shares the cyan shot's hue", () => {
-    // One hue for two modes, so the face is the whole of the difference.
-    expect(PALETTE.shield).toBe(PALETTE.cyan);
+  it("carries the panel's face for the shield, in a hue of its own", () => {
+    // The shield shared the cyan shot's hue until 19 October 2026; it is green
+    // now, and the face still says which mode the mouth is in.
+    expect(PALETTE.shield).not.toBe(PALETTE.cyan);
     expect(mouth("shield", 0).log.length).toBeGreaterThan(mouth("cyan", 0).log.length);
     expect(mouth("suck", 0).log.length).toBeGreaterThan(mouth("red", 0).log.length);
   });

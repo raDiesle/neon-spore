@@ -159,8 +159,10 @@ export const WARD_LOOK: WardLook = {
   shimmerHzB: 0.7,
   widthBase: 2,
   widthArmed: 11,
-  intensityBase: 0.35,
-  intensityArmed: 1.6,
+  // 0.35 and 1.6 while the shield was cyan; raised with the green so it glows
+  // like neon rather than lying on the hull as paint (the owner, 19 October 2026).
+  intensityBase: 0.5,
+  intensityArmed: 2,
 };
 
 /**

@@ -72,7 +72,7 @@ export function drawHullShock(
   const width = l.gridWidth;
 
   ctx.save();
-  // Every arc in the wall's own blue, not the shield's cyan and not a damage
+  // Every arc in the wall's own blue, not the shield's green and not a damage
   // red: what is running through the ship is the thing that came down on it,
   // and an impact is drawn in the colour of what made it.
   for (let i = 0; i < CRAWLERS; i++) {

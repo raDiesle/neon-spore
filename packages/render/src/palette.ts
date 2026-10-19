@@ -8,8 +8,14 @@ export const PALETTE = {
   gridBeat: "#3A3160",
   hull: "#C05CFF",
   hullRim: "#F4E7FF",
-  shield: "#2FE0F0",
-  shieldRim: "#BFF6FF",
+  /** The shield, its rim and the SHIELD button: a neon green, so nothing the
+   * player defends with is the colour of a shot. It was `cyan`'s own hex
+   * until the owner, 19 October 2026: *very similar to the cyan shoot*. A
+   * reader that means cyan reads `cyan`, never this. */
+  shield: "#39FF14",
+  shieldRim: "#9CFF6B",
+  /** The emblem on a lit SHIELD button: the green gone almost black. */
+  shieldDark: "#0A1A06",
   text: "#F2E9DC",
   dim: "#7A6FA8",
   red: "#FF3B6B",
@@ -34,7 +40,7 @@ export const PALETTE = {
   good: "#3BFF9E",
   goodRim: "#C7FFE4",
   /** A fuse's second quarter, between the green it starts at and the ember
-   * it warns in (`slow-fuse.ts`). A true blue, not the shield's cyan: the
+   * it warns in (`slow-fuse.ts`). A true blue, not the shield's green: the
    * fuse is not the shield, and the eye must not read it as one. */
   blue: "#3F7BFF",
   blueRim: "#C9D9FF",

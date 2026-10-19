@@ -99,7 +99,17 @@ export function drawStepGlyph(
       break;
     case "guard":
       // Lit, because a sequence shows the control being *used*, not resting.
-      drawActionButton(ctx, x, y, r, true, PALETTE.shield, "#08131A", "guard", skin.dead[0]);
+      drawActionButton(
+        ctx,
+        x,
+        y,
+        r,
+        true,
+        PALETTE.shield,
+        PALETTE.shieldDark,
+        "guard",
+        skin.dead[0],
+      );
       break;
     case "intake":
       drawActionButton(ctx, x, y, r, true, PALETTE.pod, "#2C1C05", "intake", skin.dead[0]);

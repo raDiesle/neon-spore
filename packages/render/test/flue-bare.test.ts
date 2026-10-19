@@ -67,7 +67,7 @@ describe("THE FLUE's spore, bare or shielded", () => {
 
   it("fills the shield round the pilot's spore away from the cannon, and not over it", () => {
     // Counted by the bubble's own fill, in the shield's colour under an alpha,
-    // on a red level: the shield's cyan is the cyan cannon's too.
+    // on a red level, so no shot's colour is counted with it.
     const bubble = `fillStyle=${rgba(PALETTE.shield, 1).slice(0, -2)}`;
     const away = frame("p1", (w) => posed(w, BOLT, -3000));
     const leaving = frame("p1", (w) => posed(w, BOLT, HIT + 100));

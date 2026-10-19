@@ -31,7 +31,7 @@ import { PALETTE } from "./palette.js";
  * and then switch again*, and the switch back is the half that matters: a box
  * that were blue throughout would say nothing at all.
  *
- * `PALETTE.arc` and not the shield's cyan — `arc` is the hard electric blue THE
+ * `PALETTE.arc` and not the shield's green — `arc` is the hard electric blue THE
  * FENCE's current wears, chosen there precisely because it is neither
  * ammunition colour and touches neither, which is what a body no bolt can
  * answer needs.

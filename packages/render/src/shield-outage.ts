@@ -124,7 +124,7 @@ export function drawShieldOutage(
     ctx.stroke(ends);
 
     // The wall's current still in it, at the two raw ends. The fence's blue and
-    // not the shield's cyan: what is fizzing there is the thing that did this,
+    // not the shield's green: what is fizzing there is the thing that did this,
     // and the line it did it to is the part that has gone out.
     ctx.globalAlpha = alpha * (0.3 + 0.45 * Math.abs(signedHash(strike, i)));
     ctx.fillStyle = PALETTE.arc;

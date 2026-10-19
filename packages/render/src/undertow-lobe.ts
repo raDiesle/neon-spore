@@ -46,7 +46,7 @@ const SHAKE_TILES = 0.035;
 const TALL_SHAKE_TILES = 0.08;
 const SHAKE_RATE = 23;
 
-/** The colour that answers a lobe: the pod's yellow for the maw, the dome's cyan for the shield. */
+/** The colour that answers a lobe: the pod's yellow for the maw, the dome's green for the shield. */
 export function lobeColour(b: UndertowLobe): string {
   return b.answer === "maw" ? PALETTE.pod : PALETTE.shield;
 }

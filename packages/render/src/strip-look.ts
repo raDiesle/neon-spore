@@ -30,7 +30,7 @@ export interface StripDraw {
   readonly h: number;
   /** The column the seat is holding. */
   readonly col: number;
-  /** The control's own colour — the cannon's violet or the shield's cyan on
+  /** The control's own colour — the cannon's violet or the shield's green on
    * both seats, because it says *which control* (`docs/spec/controls.md`). */
   readonly hex: string;
   /** Whose panel this is: the cord lies in the seat's own flesh. */

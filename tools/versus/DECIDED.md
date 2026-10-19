@@ -2435,3 +2435,15 @@ state over every answer here
 
 The other answers offered were `breath`, `ember`, `fade`, `rim` and `ticks`;
 they went with the slot.
+
+## `shield:hue` / `green` — taken, 2026-10-19
+
+"Green" but can you make it look and glow a little bit more neon green?
+
+the shield, its rim and the SHIELD button in neon green — nothing the player
+defends with is the colour of a shot any more
+
+Written into `packages/render/src/palette.ts`, `PALETTE`: `shield` and
+`shieldRim`.
+
+The other answer offered was `pink`; it went with the slot.

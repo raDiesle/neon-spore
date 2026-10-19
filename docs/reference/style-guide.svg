@@ -114,7 +114,7 @@
       <text x="0" y="68" fill="#7A6FA8" font-family="Courier New, monospace" font-size="7" text-anchor="start">#0F2E38 195°</text>
     </g>
 <text x="40" y="1424" fill="#2FE0F0" font-family="Courier New, monospace" font-size="10" text-anchor="start">THE SHIP</text>
-<text x="150" y="1424" fill="#7A6FA8" font-family="Courier New, monospace" font-size="9" text-anchor="start">violet hull, cyan shield — the shield shares the cyan accent, because the shield is the thing that answers it.</text>
+<text x="150" y="1424" fill="#7A6FA8" font-family="Courier New, monospace" font-size="9" text-anchor="start">violet hull, neon green shield — the shield shared the cyan accent until the owner found the two too alike (19 October 2026); now it is the colour of no shot.</text>
     <g transform="translate(40 1440)">
       <rect width="66" height="46" rx="4" fill="#C05CFF" stroke="#241B4F"/>
       <text x="0" y="58" fill="#F2E9DC" font-family="Courier New, monospace" font-size="8" text-anchor="start">hull</text>
@@ -126,14 +126,19 @@
       <text x="0" y="68" fill="#7A6FA8" font-family="Courier New, monospace" font-size="7" text-anchor="start">#F4E7FF 273°</text>
     </g>
     <g transform="translate(192 1440)">
-      <rect width="66" height="46" rx="4" fill="#2FE0F0" stroke="#241B4F"/>
+      <rect width="66" height="46" rx="4" fill="#39FF14" stroke="#241B4F"/>
       <text x="0" y="58" fill="#F2E9DC" font-family="Courier New, monospace" font-size="8" text-anchor="start">shield</text>
-      <text x="0" y="68" fill="#7A6FA8" font-family="Courier New, monospace" font-size="7" text-anchor="start">#2FE0F0 185°</text>
+      <text x="0" y="68" fill="#7A6FA8" font-family="Courier New, monospace" font-size="7" text-anchor="start">#39FF14 111°</text>
     </g>
     <g transform="translate(268 1440)">
-      <rect width="66" height="46" rx="4" fill="#BFF6FF" stroke="#241B4F"/>
+      <rect width="66" height="46" rx="4" fill="#9CFF6B" stroke="#241B4F"/>
       <text x="0" y="58" fill="#F2E9DC" font-family="Courier New, monospace" font-size="8" text-anchor="start">shieldRim</text>
-      <text x="0" y="68" fill="#7A6FA8" font-family="Courier New, monospace" font-size="7" text-anchor="start">#BFF6FF 188°</text>
+      <text x="0" y="68" fill="#7A6FA8" font-family="Courier New, monospace" font-size="7" text-anchor="start">#9CFF6B 100°</text>
+    </g>
+    <g transform="translate(344 1440)">
+      <rect width="66" height="46" rx="4" fill="#0A1A06" stroke="#241B4F"/>
+      <text x="0" y="58" fill="#F2E9DC" font-family="Courier New, monospace" font-size="8" text-anchor="start">shieldDark</text>
+      <text x="0" y="68" fill="#7A6FA8" font-family="Courier New, monospace" font-size="7" text-anchor="start">#0A1A06 108°</text>
     </g>
 <text x="40" y="1546" fill="#2FE0F0" font-family="Courier New, monospace" font-size="10" text-anchor="start">THE GREENS</text>
 <text x="150" y="1546" fill="#7A6FA8" font-family="Courier New, monospace" font-size="9" text-anchor="start">`good` is the round answered in full. The other four were granted by name, and each is held apart by hue and by where it appears.</text>

@@ -14,7 +14,7 @@ import { actTint, baked, lighter, skyGlow } from "./sky-kit.js";
  * aurora goes from green to rose at its top. The hem is a slow wave that
  * travels sideways; the rays grow taller where it folds, and the light
  * gathers and thins along the curtain in broad slow swells, never ray by
- * ray. A pale green that is not the shield's cyan, warmed toward the act's
+ * ray. A pale green that is not the shield's green, warmed toward the act's
  * colour, over a starry black. The field's lower half is left to the
  * stars, where the bodies are thickest near the hull.
  *

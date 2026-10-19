@@ -13,7 +13,7 @@ import type { ShipMark } from "./touch-hand.js";
  *
  * **Every colour here is the button's own.** The maw is pod amber because the
  * SUCK lobe in the band is (`band-control.ts` reads `PALETTE.pod` for it), the
- * bolt is shield cyan because the SHIELD lobe is, and the arrows carry no
+ * bolt is shield green because the SHIELD lobe is, and the arrows carry no
  * colour of their own at all — they are the swelling's, because *travels* is a
  * property of the thing rather than of a control that acts on it. The owner
  * asked for the field marks to be recognisable as the same controls, and the
@@ -124,7 +124,7 @@ function drawSuck(
  * A lightning stroke rather than a ring or a word, because the guard is the
  * one control on the ship whose whole content is *now* — the window opens on
  * the press and closes on the simulation's own clock (`sim/guard.ts`), so
- * there is nothing to aim and nothing to change your mind about. Shield cyan,
+ * there is nothing to aim and nothing to change your mind about. Shield green,
  * the colour of the plate it is standing over and of the lobe in the band that
  * does the same thing.
  */
@@ -138,7 +138,7 @@ function drawGuard(ctx: CanvasRenderingContext2D, at: Circle, r: number, alpha: 
   bolt.lineTo(at.x + w * 0.15, y + h * 0.1);
   bolt.lineTo(at.x - w * 0.6, y + h);
   halo(ctx, at.x, y, r * 1.1, PALETTE.shield, 0.3 * alpha);
-  // The lobe's own cyan and not the paler rim the cup is drawn in: the cup is
+  // The lobe's own green and not the paler rim the cup is drawn in: the cup is
   // nearly white, and a bolt that shared its colour would read as a piece of
   // the bracket rather than as the SHIELD button standing over the plate.
   strokeGlow(ctx, bolt, PALETTE.shield, 2.4, 1, alpha);

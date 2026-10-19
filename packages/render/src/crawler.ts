@@ -44,7 +44,7 @@ import { PALETTE, STROKE } from "./palette.js";
  * **The answers are two materials, and the pair has to tell them apart
  * across a room.** A colour ring is the red or the cyan they already say out
  * loud, solid, lit and glowing. A ring the ship answers is glass in its
- * control's colour — the shield's cyan or the maw's amber (`linkInk`) — and
+ * control's colour — the shield's green or the maw's amber (`linkInk`) — and
  * that includes the head and the tail, which are the shield's. The ends wear
  * their own *shapes* rather than their own ink: material says which control,
  * and the silhouette says which way the animal is facing.
@@ -63,7 +63,10 @@ import { PALETTE, STROKE } from "./palette.js";
  * nothing about which control instead.
  */
 const GLASS_ALPHA = 0.62;
-const SHIELD_GLASS = { fill: mixHex(PALETTE.shield, "#08131A", 0.72), rim: PALETTE.shield };
+const SHIELD_GLASS = {
+  fill: mixHex(PALETTE.shield, PALETTE.shieldDark, 0.72),
+  rim: PALETTE.shield,
+};
 const SUCK_GLASS = { fill: mixHex(PALETTE.pod, "#1A1205", 0.72), rim: PALETTE.pod };
 
 /** A ring's own ink, and whether it is glass. */
