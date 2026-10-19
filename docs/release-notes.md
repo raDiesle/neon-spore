@@ -9,6 +9,8 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-19 · 18fb51847 — waves:review and waves:lessons are described as composing three waves, not eight
+
 ## 2026-10-19 · 67708ec33 — Every parent holds three waves, and only slick, bulb and rock waves stand alone
 
 A new thing now opens a block of its intro and three regular waves, not five. Only a slick, a bulb or a rock climbs the old ladder (alone in the middle, alone to the edges, then paired). Every other creature, pod and blister gesture is mixed with older enemies from its first regular wave: with the block before's thing, then with two older ones, then with both. THE GYRE's three now bring magnets, shells and echoes. In the tutorial arc these mixed waves keep two beats more between arrivals and no twins, so difficulty still rises in small steps.
