@@ -29,11 +29,12 @@ export interface HintLine {
 }
 
 /**
- * A film caption's subject, or **the button that kills the next body** — the
- * one subject a film could name by hand, since it knew the colour it had
- * authored, and a live field cannot.
+ * A film caption's subject, or one a film could name by hand because it knew
+ * what it had authored, and a live field cannot: **the button that kills the
+ * next body** (`fire`), and **the body one seat has to say something about**
+ * (`secret`) — a blister among bulbs, a mine, a ghost.
  */
-export type HintAnchor = SceneAnchor | { at: "fire" };
+export type HintAnchor = SceneAnchor | { at: "fire" } | { at: "secret" };
 
 /**
  * **The states a line can be true in**, read off the world and nothing else
@@ -62,4 +63,11 @@ export type HintWhen =
   /** A hand is on a body — either seat's, any body (`sim/grip.ts`). */
   | "held"
   /** No hand is on any. */
-  | "free";
+  | "free"
+  /**
+   * This screen is drawn a body's secret — the body itself where one seat
+   * alone sees it, a blister's bulge — so this seat is the one who says it.
+   */
+  | "seesIt"
+  /** A body's secret is kept from this screen, so this seat is the one told. */
+  | "toldIt";

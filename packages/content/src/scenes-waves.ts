@@ -1,15 +1,10 @@
 import type { GuideScene } from "./scene-types.js";
 import { BULB_QUEEN } from "./scenes/bulb-queen.js";
 import { CATCH_AND_AIM } from "./scenes/catch-and-aim.js";
-import { HOLD_TOGETHER } from "./scenes/hold-together.js";
 import { PINBALL } from "./scenes/pinball.js";
 import { SALVAGE } from "./scenes/salvage.js";
 import { SNAKE } from "./scenes/snake.js";
-import { THE_BALLOON } from "./scenes/the-balloon.js";
-import { THE_BEATBOX } from "./scenes/the-beatbox.js";
-import { THE_BLISTER } from "./scenes/the-blister.js";
 import { THE_CAIRN } from "./scenes/the-cairn.js";
-import { THE_CHOIR } from "./scenes/the-choir.js";
 import { THE_CLAW } from "./scenes/the-claw.js";
 import { THE_COIL } from "./scenes/the-coil.js";
 import { THE_FLEET } from "./scenes/the-fleet.js";
@@ -17,9 +12,7 @@ import { THE_GAUGE } from "./scenes/the-gauge.js";
 import { THE_JAM } from "./scenes/the-jam.js";
 import { THE_LANCE } from "./scenes/the-lance.js";
 import { THE_LEAK } from "./scenes/the-leak.js";
-import { THE_LID } from "./scenes/the-lid.js";
 import { THE_MAZE } from "./scenes/the-maze.js";
-import { THE_MINE } from "./scenes/the-mine.js";
 import { THE_MIRROR } from "./scenes/the-mirror.js";
 import { THE_MORSEL } from "./scenes/the-morsel.js";
 import { THE_MOULT } from "./scenes/the-moult.js";
@@ -51,25 +44,18 @@ export type WaveSceneId =
   | "theLeak"
   | "theGauge"
   | "pinball"
-  | "theLid"
   | "theMaze"
   | "theWarden"
   | "theCoil"
   | "theClaw"
-  | "theChoir"
   | "theJam"
   | "thePulse"
-  | "theBalloon"
-  | "theBeatbox"
-  | "holdTogether"
   | "theCairn"
   | "theWell"
   | "theSplice"
   | "theMoult"
   | "theMorsel"
-  | "theSeeder"
-  | "theMine"
-  | "theBlister";
+  | "theSeeder";
 
 export const SCENES_WAVES: Record<WaveSceneId, GuideScene> = {
   salvage: SALVAGE,
@@ -82,23 +68,16 @@ export const SCENES_WAVES: Record<WaveSceneId, GuideScene> = {
   theLeak: THE_LEAK,
   theGauge: THE_GAUGE,
   pinball: PINBALL,
-  theLid: THE_LID,
   theMaze: THE_MAZE,
   theWarden: THE_WARDEN,
   theCoil: THE_COIL,
   theClaw: THE_CLAW,
-  theChoir: THE_CHOIR,
   theJam: THE_JAM,
   thePulse: THE_PULSE,
-  theBalloon: THE_BALLOON,
-  theBeatbox: THE_BEATBOX,
-  holdTogether: HOLD_TOGETHER,
   theCairn: THE_CAIRN,
   theWell: THE_WELL,
   theSplice: THE_SPLICE,
   theMoult: THE_MOULT,
   theMorsel: THE_MORSEL,
   theSeeder: THE_SEEDER,
-  theMine: THE_MINE,
-  theBlister: THE_BLISTER,
 };

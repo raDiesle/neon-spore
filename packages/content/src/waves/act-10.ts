@@ -14,9 +14,7 @@ export const WAVES_ACT_10: Wave[] = [
   {
     id: "theMine",
     name: "THE MINE",
-    guide: {
-      scene: "theMine",
-    },
+    hints: "theMine",
     entries: [
       { beat: 0, col: 5, kind: "mine", color: "cyan", row: 6, sees: 2 },
       { beat: 12, col: 2, kind: "mine", color: "red", row: 9, sees: 1 },

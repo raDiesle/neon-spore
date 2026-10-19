@@ -30,7 +30,7 @@ first creature falling. It is one of two states, never both:
    prose (§3.2). Either way it ends on **the ready gate**: two circles, one per
    seat, each filling while that seat holds and saying READY when it is full.
    The guide passes when both say READY. Only a wave that introduces something
-   new carries one — eighty-five of the two hundred and eight waves today, and a wave
+   new carries one — seventy-one of the two hundred and eight waves today, and a wave
    with no guide has no circles either.
 2. **The introduction**, if it has no guide. `WAVE 4`, the wave's name, its
    one sentence. Plain text on the field — no panel, no border, nothing to
@@ -301,6 +301,17 @@ before anything has landed. A hint is drawn on the world its screen draws, so
 a ghost or a wisp is never ringed on the screen that is not shown it. A wave
 with hints carries the guide mark in the menus, as a wave with a film does.
 
+The touch waves followed — THE BLISTER, the seven controls' waves, THE
+WEIGHT, THE BEATBOX, THE MINE, THE BALLOON, THE LID and THE CHOIR, fourteen,
+in `hints/touch.ts`. A blister in these waves is either seat's, swelling on
+both screens, so both are told its gesture and that one of them says it is
+theirs. THE MINE keeps its film's split: the seat shown the mine says its
+square (`seesIt`), the other presses it (`toldIt`). A line about a body only
+one screen draws stands on a world holding that body alone (`secret`), so the
+plate never rings what its screen does not show. The controls' waves open on
+a bulb they do not teach, so only a blister gone ends their lesson
+(`HINTS_ABOUT`).
+
 `waveTeaches` is the one question the rules about what is taught where ask —
 a guide or hints — and `waveHasGuide` still means *a guide to play*.
 
@@ -353,7 +364,7 @@ RED pressed, the shot taking it, and then a second slick nobody answers, so the
 last thing the pair is shown is the hull bar dropping. About five seconds,
 looping.
 
-**There are sixty-six of them now**, one per guided wave bar nineteen,
+**There are fifty-two of them now**, one per guided wave bar nineteen,
 and each is authored in `packages/content/src/scenes/` as a page of
 choreography rather than a page of prose. The nineteen that are still the
 three strings and the two circles are the bosses from THE NETTLE on,
@@ -363,13 +374,10 @@ here out of this section in words: a film written or a boss landed fails a
 test instead of leaving a sentence quietly wrong, which is what happened to
 the line this one replaced, twice.
 
-**The seven controls' films** (17 October 2026, `scenes-controls.ts`) are
-one per on-screen control, on the wave built for it, and they are the first
-whose hand is drawn as a hand: `SceneAct.blister` names a seat and a column,
-the gesture is the blister's, and the fingertip walks the gesture's own path
-(`content/scene-blister.ts`, `render/guide-finger.ts`) — the path the
-commands were sampled from. Every body each control is drawn as, and every
-way its stroke or turn points, comes up in one of the four pages.
+**The seven controls' films** (17 October 2026) were one per on-screen
+control, on the wave built for it, and the first whose hand was drawn as a
+hand (`content/scene-blister.ts`, `render/guide-finger.ts`). They became
+field hints on 19 October 2026 (`hints/touch.ts`), and are in git history.
 
 **All nineteen of those are films nobody has written, and since THE
 HIVE's they are owed by the lanes that draw them.** THE GORGE's was the

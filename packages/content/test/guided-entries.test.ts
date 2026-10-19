@@ -99,7 +99,7 @@ const THE_LESSON_KEEPS: Record<string, readonly WaveKind[]> = {
   "ONE LAST CHANCE": ["meteor"],
   // The controls' waves teach a gesture rather than a kind: THE BLISTER is
   // the body every on-screen control comes up as, and the lesson is the hand
-  // on it (`scenes-controls.ts`).
+  // on it (`hints/touch.ts`).
   TAP: ["blister"],
   HOLD: ["blister"],
   SWIPE: ["blister"],

@@ -1,7 +1,7 @@
 import {
   type ControlSet,
   controlSetForWave,
-  type HintAnchor,
+  HINTS_ABOUT,
   type HintLine,
   type HintWhen,
   type SceneAnchor,
@@ -11,14 +11,13 @@ import {
 } from "@neon-spore/content";
 import { type Creature, gripCount, OPENING_PLAY, spanOf, type World } from "@neon-spore/sim";
 import { anchorPoint } from "./caption-anchor.js";
-import { showsGhostBody } from "./ghost.js";
 import { GUIDE_LOOK } from "./guide-look.js";
 import { captionBox } from "./guide-tide-caption-box.js";
 import { CORNER } from "./guide-tide-plate.js";
 import type { Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
 import { seatOf } from "./view-role.js";
-import { showsWisp } from "./wisp.js";
+import { hintSubject, secretShown, seenOn } from "./wave-hint-seen.js";
 
 /**
  * **A wave's tutorial, played on the field rather than in front of it.**
@@ -61,28 +60,45 @@ export const HINTS_UNTIL = 1;
 /** Beats a line holds the plate before the next of its seat's takes it. */
 export const HINT_BEATS = 4;
 
-/** A line as this screen shows it: its subject found, `fire` named as a button. */
+/**
+ * A line as this screen shows it: its subject found, and the world it was
+ * found in — this screen's, or only the body a `secret` line is about.
+ */
 export interface ShownHint extends HintLine {
   anchor: SceneAnchor;
+  world: World;
 }
 
 /** Whether a hinted wave is still teaching: in play, no boss, not yet learnt. */
 export function hinting(world: World): boolean {
-  if (WAVES[world.wave]?.hints === undefined) return false;
+  const id = WAVES[world.wave]?.hints;
+  if (id === undefined) return false;
   if (world.brief.phase !== OPENING_PLAY || world.boss !== null || world.over) return false;
-  return world.spawned - world.creatures.length < HINTS_UNTIL;
+  return gone(world, HINTS_ABOUT[id]) < HINTS_UNTIL;
 }
 
-/** Every line of this wave's that holds now, in its authored order. */
-export function waveHintsNow(world: World): readonly HintLine[] {
+/**
+ * Bodies that have left the field on this try — of `kind` where a lesson
+ * names the body it is about (`HINTS_ABOUT`), else of any: the script's
+ * spawned rows of it, less what of it still stands.
+ */
+function gone(world: World, kind: Creature["kind"] | undefined): number {
+  if (kind === undefined) return world.spawned - world.creatures.length;
+  let sent = 0;
+  for (let i = 0; i < world.spawned; i++) if (world.queue[i]?.kind === kind) sent++;
+  return sent - world.creatures.filter((c) => c.kind === kind).length;
+}
+
+/**
+ * Every line of this wave's that holds now, in its authored order. Asked
+ * without a screen, a state about one (`seesIt`, `toldIt`) is taken to hold:
+ * this is every line some screen could be showing.
+ */
+export function waveHintsNow(world: World, l?: Layout): readonly HintLine[] {
   const id = WAVES[world.wave]?.hints;
   if (id === undefined || !hinting(world)) return [];
-  const next = lowest(world);
-  return WAVE_HINTS[id].filter((h) =>
-    [h.when ?? "always"]
-      .flat()
-      .every((w) => w === "always" || (next !== null && WHEN[w](world, next))),
-  );
+  const r: Reading = { world, next: lowest(world), l };
+  return WAVE_HINTS[id].filter((h) => [h.when ?? "always"].flat().every((w) => WHEN[w](r)));
 }
 
 /** The line this screen shows, or nothing. */
@@ -95,26 +111,16 @@ export function waveHint(
   const next = lowest(world);
   const shown: ShownHint[] = [];
   const seen = seenOn(l, world);
-  for (const h of waveHintsNow(world)) {
+  for (const h of waveHintsNow(world, l)) {
     const mine = l.role === "test" ? h.acts !== false : h.seat === seatOf(l.role);
-    const anchor = subject(h.anchor, next);
-    if (mine && anchor && anchorPoint(l, seen, set, anchor, beatPhase) !== null) {
-      shown.push({ ...h, anchor });
+    const found = mine ? hintSubject(l, seen, h.anchor, next) : null;
+    if (found && anchorPoint(l, found.world, set, found.anchor, beatPhase) !== null) {
+      shown.push({ ...h, ...found });
     }
   }
   if (shown.length === 0) return null;
   // `beat` starts again with a try, so the first line is the first said.
   return shown[Math.floor(Math.max(0, world.beat) / HINT_BEATS) % shown.length] ?? null;
-}
-
-/**
- * `fire` is the button in the next body's colour, and nothing on an empty
- * field; every other subject is a film's.
- */
-function subject(anchor: HintAnchor, next: Creature | null): SceneAnchor | null {
-  if (anchor.at !== "fire") return anchor;
-  if (next === null) return null;
-  return { at: "control", control: next.color === "red" ? "fireRed" : "fireCyan" };
 }
 
 /** Whether a column is under a body, any column of its width (`spanOf`). */
@@ -125,28 +131,31 @@ function under(col: number, c: Creature): boolean {
 
 const handOn = (world: World) => world.creatures.some((c) => gripCount(world, c.id) > 0);
 
-const WHEN: Record<Exclude<HintWhen, "always">, (world: World, next: Creature) => boolean> = {
-  offColumn: (world, next) => !under(world.cannonCol, next),
-  onColumn: (world, next) => under(world.cannonCol, next),
-  shieldOff: (world, next) => !under(world.shieldCol, next),
-  shieldOn: (world, next) => under(world.shieldCol, next),
-  held: (world) => handOn(world),
-  free: (world) => !handOn(world),
-};
-
-/**
- * The world as this screen draws it: a body the seat is not shown is taken
- * out, so no ring lands on it — round it, or round it as the body over the
- * cannon (`guide-tide-companion.ts`). A film could ring the place a ghost was,
- * and say so; a live ring round it would hand player 1 the column he has to be
- * told. Which seat is shown which is each body's own file's answer.
- */
-function seenOn(l: Layout, world: World): World {
-  const shown = (c: Creature) =>
-    c.kind === "ghost" ? showsGhostBody(l, world.cfg, c) : c.kind !== "wisp" || showsWisp(l);
-  if (world.creatures.every(shown)) return world;
-  return { ...world, creatures: world.creatures.filter(shown) };
+/** What a state is read off: the world, its next body, and the screen if there is one. */
+interface Reading {
+  world: World;
+  next: Creature | null;
+  l?: Layout | undefined;
 }
+
+/** Whether some body's secret is drawn on this screen (`true`) or kept from it (`false`). */
+function secret(r: Reading, shown: boolean): boolean {
+  const { l, world } = r;
+  if (l === undefined) return true;
+  return world.creatures.some((c) => secretShown(l, world, c) === shown);
+}
+
+const WHEN: Record<HintWhen, (r: Reading) => boolean> = {
+  always: () => true,
+  offColumn: ({ world, next }) => next !== null && !under(world.cannonCol, next),
+  onColumn: ({ world, next }) => next !== null && under(world.cannonCol, next),
+  shieldOff: ({ world, next }) => next !== null && !under(world.shieldCol, next),
+  shieldOn: ({ world, next }) => next !== null && under(world.shieldCol, next),
+  held: ({ world }) => handOn(world),
+  free: ({ world, next }) => next !== null && !handOn(world),
+  seesIt: (r) => secret(r, true),
+  toldIt: (r) => secret(r, false),
+};
 
 /** The body nearest the hull, or nothing on an empty field. */
 function lowest(world: World): Creature | null {
@@ -177,9 +186,9 @@ export function drawWaveHint(
   // A page that opened long ago: the film's fade-in is a page arriving, and a
   // hint is not a page — it is the field's state, said while it holds.
   const step: SceneStep = { tick: 0, seat: hint.seat, text: hint.text, anchor: hint.anchor };
-  const seen = seenOn(l, world);
-  GUIDE_LOOK.caption(ctx, l, seen, set, step, world.tick, beatPhase, undefined, undefined, true);
-  const box = captionBox(ctx, l, seen, set, step, beatPhase);
+  const at = hint.world;
+  GUIDE_LOOK.caption(ctx, l, at, set, step, world.tick, beatPhase, undefined, undefined, true);
+  const box = captionBox(ctx, l, at, set, step, beatPhase);
   if (box !== null) tab(ctx, box.x, box.y);
 }
 

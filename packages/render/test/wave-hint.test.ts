@@ -2,7 +2,14 @@ import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
 import { queueFromWave, WAVE_HINTS, WAVES } from "@neon-spore/content";
 import { createWorld, DEFAULT_CONFIG, startWave, step, type World } from "@neon-spore/sim";
 import { computeLayout, type ViewRole } from "../src/layout.js";
-import { drawWaveHint, HINT_BEATS, HINTS_UNTIL, waveHint, waveHintsNow } from "../src/wave-hint.js";
+import {
+  drawWaveHint,
+  HINT_BEATS,
+  HINTS_UNTIL,
+  hinting,
+  waveHint,
+  waveHintsNow,
+} from "../src/wave-hint.js";
 import { FRAME_TIMEOUT_MS, installCanvasGlobals, stubCanvas, type TextBox } from "./canvas-stub.js";
 
 setDefaultTimeout(FRAME_TIMEOUT_MS);
@@ -23,14 +30,43 @@ const HINTED = WAVES.flatMap((w, i) => (w.hints === undefined ? [] : [i]));
 
 beforeAll(installCanvasGlobals);
 
-/** A wave in play, stepped until its first body is on the field. */
-function played(wave = FIRST): World {
+/** A wave started, nobody playing it. */
+function started(wave: number): World {
   const world = createWorld(CFG, 7);
+  startWave(world, wave, queueFromWave(WAVES[wave]!, CFG.cols));
+  return world;
+}
+
+/**
+ * A wave in play, stepped until its first body is on the field — and, on a
+ * hinted wave, until some screen is shown a line: TAP opens on a bulb its
+ * lesson is not about (`HINTS_ABOUT`).
+ */
+function played(wave = FIRST): World {
+  const world = started(wave);
   const def = WAVES[wave]!;
-  startWave(world, wave, queueFromWave(def, CFG.cols));
-  for (let i = 0; i < 2000 && world.creatures.length === 0; i++) step(world, []);
+  const ready = () =>
+    world.creatures.length > 0 &&
+    (def.hints === undefined || said(world, "p1") !== null || said(world, "p2") !== null);
+  for (let i = 0; i < 4000 && !ready(); i++) step(world, []);
   expect(world.creatures.length, `${def.name}: no body arrived`).toBeGreaterThan(0);
   return world;
+}
+
+/**
+ * The wave played on with nobody playing it, `explore` run at every arrival
+ * while it still teaches: THE MINE's second body is the other seat's.
+ */
+function eachArrival(wave: number, explore: (world: World) => void): void {
+  const world = started(wave);
+  let at = 0;
+  for (let i = 0; i < 4000 && (world.spawned === 0 || hinting(world)); i++) {
+    step(world, []);
+    if (world.spawned > at && hinting(world)) {
+      at = world.spawned;
+      explore(world);
+    }
+  }
 }
 
 function body(world: World) {
@@ -106,6 +142,15 @@ describe("FIRST STEP's hints", () => {
     expect(waveHintsNow(world)).toEqual([]);
   });
 
+  it("counts only the body a lesson is about, where it names one", () => {
+    // TAP opens on a body it does not teach, and teaches a blister (`HINTS_ABOUT`).
+    const world = started(WAVES.findIndex((w) => w.id === "tapBlisters"));
+    for (let i = 0; i < 2000 && world.creatures.length === 0; i++) step(world, []);
+    expect(world.creatures.map((c) => c.kind)).not.toContain("blister");
+    world.creatures = [];
+    expect(hinting(world)).toBe(true);
+  });
+
   it("says nothing on a wave that does not carry them", () => {
     // FIRST STEP's own next wave played again, a regular wave with no lesson.
     const plain = WAVES.findIndex((w) => w.variant && w.id.startsWith("firstStep"));
@@ -125,13 +170,14 @@ describe("every hinted wave's lines", () => {
     for (const i of HINTED) {
       const id = WAVES[i]!.hints!;
       const seen = new Set<string>();
-      const world = playedOnce(i);
-      for (const _ of states(world)) {
-        for (const role of ["p1", "p2"] as const) {
-          const h = said(world, role);
-          if (h) seen.add(`${h.seat}${h.text}`);
+      eachArrival(i, (world) => {
+        for (const _ of states(world)) {
+          for (const role of ["p1", "p2"] as const) {
+            const h = said(world, role);
+            if (h) seen.add(`${h.seat}${h.text}`);
+          }
         }
-      }
+      });
       for (const h of WAVE_HINTS[id]) {
         expect(seen.has(`${h.seat}${h.text}`), `${id}: "${h.text}"`).toBe(true);
       }

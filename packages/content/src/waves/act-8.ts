@@ -66,9 +66,7 @@ export const WAVES_ACT_8: Wave[] = [
   {
     id: "theLid",
     name: "THE LID",
-    guide: {
-      scene: "theLid",
-    },
+    hints: "theLid",
     entries: [
       { beat: 0, col: 5, kind: "lid", color: "cyan" },
       { beat: 14, col: 2, kind: "lid", color: "red" },

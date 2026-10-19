@@ -45007,3 +45007,18 @@ Bottleneck: the real frame, which caught a hint giving away the ghost's column.
 Bottleneck: the chrome check, whose last film went in this slice.
 
 *Measured: 7 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*
+
+## 2026-10-19 — The touch waves teach on their own fields
+
+- reading: 5 min. Which seat each blister, mine and balloon shows to, and
+  what the controls' waves open on.
+- writing: 15 min. Fourteen tables; what a screen may know (`seenOn`,
+  `secret`); `HINTS_ABOUT`, so TAP's bulb does not end TAP's lesson; the
+  reachability test walking every arrival.
+- looking: 5 min. TAP on player 1.
+- friction: 0 min.
+- landing: 5 min. Two `check:fast` runs: the lines never shown, then THE
+  LID's budget row.
+
+Bottleneck: the blister lines were written for the films' seat split, which
+the game's blisters do not have — either seat may knock them down.

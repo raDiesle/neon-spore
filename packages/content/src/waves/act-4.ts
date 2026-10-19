@@ -105,9 +105,7 @@ export const WAVES_ACT_4: Wave[] = [
   {
     id: "theBeatbox",
     name: "THE BEATBOX",
-    guide: {
-      scene: "theBeatbox",
-    },
+    hints: "theBeatbox",
     entries: [
       { beat: 0, col: 5, kind: "beatbox", color: null, beats: 2 },
       { beat: 12, col: 2, kind: "beatbox", color: null, beats: 4 },
@@ -155,9 +153,7 @@ export const WAVES_ACT_4: Wave[] = [
   {
     id: "theWeight",
     name: "HOLD TOGETHER",
-    guide: {
-      scene: "holdTogether",
-    },
+    hints: "holdTogether",
     entries: [
       { beat: 0, col: 5, kind: "blister", color: null, row: 3, by: "both", gesture: "hold" },
       { beat: 14, col: 8, kind: "blister", color: null, row: 3, by: "both", gesture: "hold" },

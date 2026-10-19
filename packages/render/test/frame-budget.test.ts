@@ -517,6 +517,10 @@ const EYE_BUDGETS: Readonly<Record<string, readonly Budget[]>> = {
     },
   ],
   "THE LID": [
+    // **19 October 2026**: THE LID teaches on its own field rather than in a
+    // film (`wave-hint.ts`), and both frames carry its first line — the
+    // tutorial plate, its ring, its leader and its TUTORIAL tab, the words
+    // two `fillText`. Every row that rose rose by that; remeasured, not padded.
     {
       // **11 October 2026, FIZZ**: the cord's knob and channel are the PULL LAB's
       // drop and path (`goo-knob.ts`, `goo-track.ts`) — a soft drop with its cap,
@@ -536,7 +540,7 @@ const EYE_BUDGETS: Readonly<Record<string, readonly Budget[]>> = {
       // (`pull-knob.ts`, `way-arrow.ts`). Two more on 16 October 2026: the
       // open eye's light round its socket (`body-aura.ts`), its passes at this
       // size and opening.
-      stroke: 139,
+      stroke: 143,
       // **Three more on 17 October 2026**: the pull came down to 1.7× (`PULL_SIZE`),
       // and the channel's dots are spaced by its width, so a thinner channel lays
       // three more over the same pull (`goo-strand.ts`).
@@ -548,36 +552,36 @@ const EYE_BUDGETS: Readonly<Record<string, readonly Budget[]>> = {
       // its own, with the far side's dark ramped over it.
       clip: 16,
       save: 61,
-      drawImage: 48,
-      createLinearGradient: 30,
+      drawImage: 49,
+      createLinearGradient: 32,
       createRadialGradient: 17,
       // Two more on 26 September 2026, when the cord's handle became the
       // pull channel every pulled handle wears (`lid-track.ts`): the channel,
       // its chevrons and the knob's disc are paths of their own, where the
       // ring it replaced built one and drew its dial on the context's path.
-      "new Path2D": 60,
-      fillText: 0,
+      "new Path2D": 62,
+      fillText: 2,
     },
     {
       // FIZZ, as in frame 0.
       fillRect: 10,
       // One more on 29 September 2026, the knob's arrow, as in frame 0.
-      stroke: 141,
+      stroke: 145,
       // Three more on 17 October 2026, the channel's dots, as in frame 0.
       fill: 94,
       clip: 16,
       save: 61,
       // AURORA's strips, as in frame 0.
-      drawImage: 48,
-      createLinearGradient: 22,
+      drawImage: 49,
+      createLinearGradient: 24,
       // The eye builds none of its own: the wash around it is a `halo` sprite
       // cached by colour and radius, and the one left is `key-light.ts`'s
       // layout-only slot (`render/eye.ts`). The other six are the leaves'
       // curls (`lid-iris.ts`).
       createRadialGradient: 14,
       // The channel's two, as the row above.
-      "new Path2D": 35,
-      fillText: 0,
+      "new Path2D": 37,
+      fillText: 2,
     },
   ],
 };

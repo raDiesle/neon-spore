@@ -87,8 +87,7 @@ describe("the rehearsals a guide can show", () => {
         expect(gestures, `${id} has an act at tick ${act.tick} with ${gestures} gestures`).toBe(1);
         // A hand on a blister says whose and which column, and nothing else:
         // the gesture, its way and when it lifts are the arrival's
-        // (`scene-blister.ts`), and `scene-controls.test.ts` holds that there
-        // is one to read them off.
+        // (`scene-blister.ts`).
         if (act.blister !== undefined) {
           expect(
             namedCol(act),

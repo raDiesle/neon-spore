@@ -1,3 +1,4 @@
+import type { CreatureKind } from "@neon-spore/sim";
 import type { HintLine } from "./hint-types.js";
 import { FIRST_STEP_HINTS } from "./hints/first-step.js";
 import {
@@ -40,6 +41,22 @@ import {
   THROB_HINTS,
   WISP_HINTS,
 } from "./hints/standard-2-tricks.js";
+import {
+  BALLOON_HINTS,
+  BEATBOX_HINTS,
+  BLISTER_HINTS,
+  CHOIR_HINTS,
+  COMBO_BLISTERS_HINTS,
+  HOLD_BLISTERS_HINTS,
+  HOLD_TOGETHER_HINTS,
+  LEVER_BLISTERS_HINTS,
+  LID_HINTS,
+  MINE_HINTS,
+  RUB_BLISTERS_HINTS,
+  SWIPE_BLISTERS_HINTS,
+  TAP_BLISTERS_HINTS,
+  TURN_BLISTERS_HINTS,
+} from "./hints/touch.js";
 import type { Wave } from "./wave-types.js";
 
 /**
@@ -91,10 +108,42 @@ export const WAVE_HINTS = {
   theVolley: VOLLEY_HINTS,
   theCarom: CAROM_HINTS,
   theCrawler: CRAWLER_HINTS,
+  theBlister: BLISTER_HINTS,
+  tapBlisters: TAP_BLISTERS_HINTS,
+  holdBlisters: HOLD_BLISTERS_HINTS,
+  swipeBlisters: SWIPE_BLISTERS_HINTS,
+  turnBlisters: TURN_BLISTERS_HINTS,
+  rubBlisters: RUB_BLISTERS_HINTS,
+  comboBlisters: COMBO_BLISTERS_HINTS,
+  leverBlisters: LEVER_BLISTERS_HINTS,
+  holdTogether: HOLD_TOGETHER_HINTS,
+  theBeatbox: BEATBOX_HINTS,
+  theMine: MINE_HINTS,
+  theBalloon: BALLOON_HINTS,
+  theLid: LID_HINTS,
+  theChoir: CHOIR_HINTS,
 } satisfies Record<string, readonly HintLine[]>;
 
 /** The waves whose help is given on the field while they are played (`Wave.hints`). */
 export type WaveHintsId = keyof typeof WAVE_HINTS;
+
+/**
+ * **The body a lesson is about, where the wave opens on another.** A hinted
+ * wave stops teaching once one body has left the field (`HINTS_UNTIL`), and a
+ * wave whose first body is a bulb it does not teach would stop before the one
+ * it does had come: TAP's bulb, shot, would end TAP's lesson with no blister
+ * yet up. Named here, only that kind counts. Every other wave opens on the
+ * body it teaches, and any body counts.
+ */
+export const HINTS_ABOUT: Partial<Record<WaveHintsId, CreatureKind>> = {
+  tapBlisters: "blister",
+  holdBlisters: "blister",
+  swipeBlisters: "blister",
+  turnBlisters: "blister",
+  rubBlisters: "blister",
+  comboBlisters: "blister",
+  leverBlisters: "blister",
+};
 
 /**
  * **Whether a wave teaches anything**: a guide in front of it, or hints on its

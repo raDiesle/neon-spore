@@ -13,6 +13,7 @@ export const RADAR = { at: "radar" } as const;
 export const BODY = { at: "body" } as const;
 export const HELD = { at: "held" } as const;
 export const FIRE = { at: "fire" } as const;
+export const SECRET = { at: "secret" } as const;
 
 /** What `aimAndFire`'s four lines say, where a wave says one of them its own way. */
 export interface AimWords {

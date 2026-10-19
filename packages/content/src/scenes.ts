@@ -1,6 +1,5 @@
 import type { GuideScene } from "./scene-types.js";
 import { type ChoreographedSceneId, SCENES_CHOREOGRAPHED } from "./scenes-choreographed.js";
-import { type ControlSceneId, SCENES_CONTROLS } from "./scenes-controls.js";
 import { type FaultSceneId, SCENES_FAULTS } from "./scenes-faults.js";
 import { type OwedSceneId, SCENES_OWED } from "./scenes-owed.js";
 import { SCENES_WAVES, type WaveSceneId } from "./scenes-waves.js";
@@ -31,12 +30,7 @@ import { SCENES_WAVES, type WaveSceneId } from "./scenes-waves.js";
  * one of them goes there.
  */
 
-export type SceneId =
-  | WaveSceneId
-  | ChoreographedSceneId
-  | FaultSceneId
-  | OwedSceneId
-  | ControlSceneId;
+export type SceneId = WaveSceneId | ChoreographedSceneId | FaultSceneId | OwedSceneId;
 
 export const SCENES: Record<SceneId, GuideScene> = {
   // The films are listed next door, a table to a family: the waves' own
@@ -47,8 +41,6 @@ export const SCENES: Record<SceneId, GuideScene> = {
   ...SCENES_CHOREOGRAPHED,
   ...SCENES_FAULTS,
   ...SCENES_OWED,
-  // And the controls', one per on-screen control (`scenes-controls.ts`).
-  ...SCENES_CONTROLS,
 };
 
 export type { BossPart, GuideScene, SceneAct, SceneAnchor, SceneStep } from "./scene-types.js";

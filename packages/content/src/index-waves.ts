@@ -51,6 +51,7 @@ export {
   type BossType,
   type FilmedGuide,
   guideSteps,
+  HINTS_ABOUT,
   PROSE_PAGES,
   WAVE_HINTS,
   WAVES,

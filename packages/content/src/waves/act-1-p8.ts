@@ -8,9 +8,7 @@ export const WAVES_ACT_1_P8: Wave[] = [
   {
     id: "turnBlisters",
     name: "TURN",
-    guide: {
-      scene: "turnBlisters",
-    },
+    hints: "turnBlisters",
     entries: [
       { beat: 0, col: 6, color: "red" },
       { beat: 8, col: 4, kind: "blister", color: null, row: 3, gesture: "turn", way: "ccw" },
@@ -41,9 +39,7 @@ export const WAVES_ACT_1_P8: Wave[] = [
   {
     id: "rubBlisters",
     name: "RUB",
-    guide: {
-      scene: "rubBlisters",
-    },
+    hints: "rubBlisters",
     entries: [
       { beat: 0, col: 4, color: "cyan" },
       { beat: 8, col: 6, kind: "blister", color: null, row: 3, gesture: "rub" },
@@ -74,9 +70,7 @@ export const WAVES_ACT_1_P8: Wave[] = [
   {
     id: "comboBlisters",
     name: "COMBO",
-    guide: {
-      scene: "comboBlisters",
-    },
+    hints: "comboBlisters",
     entries: [
       { beat: 0, col: 7, color: "red" },
       { beat: 8, col: 6, kind: "blister", color: null, row: 2, gesture: "combo" },
@@ -107,9 +101,7 @@ export const WAVES_ACT_1_P8: Wave[] = [
   {
     id: "leverBlisters",
     name: "LEVER",
-    guide: {
-      scene: "leverBlisters",
-    },
+    hints: "leverBlisters",
     entries: [
       { beat: 0, col: 7, color: "red" },
       { beat: 8, col: 4, kind: "blister", color: null, row: 2, gesture: "lever" },

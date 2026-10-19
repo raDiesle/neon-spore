@@ -15,9 +15,7 @@ export const WAVES_ACT_7: Wave[] = [
   {
     id: "theBalloon",
     name: "THE BALLOON",
-    guide: {
-      scene: "theBalloon",
-    },
+    hints: "theBalloon",
     entries: [
       { beat: 0, col: 3, kind: "balloon", color: null },
       { beat: 8, col: 8, kind: "balloon", color: null },

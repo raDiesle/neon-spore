@@ -120,9 +120,7 @@ export const WAVES_ACT_6: Wave[] = [
   {
     id: "theChoir",
     name: "THE CHOIR",
-    guide: {
-      scene: "theChoir",
-    },
+    hints: "theChoir",
     entries: [
       { beat: 0, col: 3, kind: "choir", color: "red" },
       { beat: 10, col: 0, kind: "choir", color: "cyan" },

@@ -987,10 +987,8 @@ by hand never moves.
 | `packages/content/src/scenes/the-reprise.ts` | THE REPRISE's rehearsal: a stretch of wave falls seen, and then falls again with nothing drawn |
 | `packages/content/src/scenes/bulb-queen.ts` | BULB QUEEN's rehearsal: the first boss, and the first film with no shot in it |
 | `packages/content/src/scenes/the-mirror.ts` | THE MIRROR's rehearsal: Simon Says, played on the pair's own controls |
-| `packages/content/src/scenes/the-mine.ts` | THE MINE's rehearsal: the square crosses the room as words, and a finger finds it |
 | `packages/content/src/control-command.ts` | What pressing a control *says*, for every control on every panel — one copy, here |
 | `packages/content/src/scenes/snake.ts` | SNAKE's rehearsal: the ship is the body, and the one who can see it cannot steer it |
-| `packages/content/src/scenes/swipe-blisters.ts` | SWIPE's rehearsal: all four ways a SWIPE blister's arrow points — up and right for the pilot |
 | `packages/content/src/scenes/the-fleet.ts` | THE FLEET's rehearsal: the only one who can see the ships is the one who cannot move the sights |
 | `packages/content/src/scenes/the-flip.ts` | THE FLIP's rehearsal: a screen that turns, shown by turning and then by being believed |
 | `packages/content/src/scenes/the-flue.ts` | THE FLUE's rehearsal: one level called and shot, then the seats swapped and the next called the other way round |
@@ -1007,7 +1005,6 @@ by hand never moves.
 | `packages/content/src/scenes/the-latch.ts` | THE LATCH's rehearsal: the tendril hauled down hand over hand, one grip holding while the other pulls |
 | `packages/content/src/scenes/pinball.ts` | PINBALL's rehearsal: the thing you fire from is the thing you have to catch it with |
 | `packages/content/src/scenes/the-gauge.ts` | THE GAUGE's rehearsal: neither of them has more than half a dial |
-| `packages/content/src/scenes/the-lid.ts` | THE LID's rehearsal: doing your half first is the same as not doing it |
 | `packages/content/src/scenes/the-leak.ts` | THE LEAK's rehearsal: the thumb stays down and the ring never closes |
 | `packages/content/src/scenes/the-lead.ts` | THE LEAD's rehearsal: a shot at where it is, four at where it will be, and the beam standing in its way |
 | `packages/content/src/scenes/the-ledger.ts` | THE LEDGER's rehearsal: two hits landed, two bills paid |
@@ -1022,7 +1019,6 @@ by hand never moves.
 | `packages/content/src/control-sets-table.ts` | Every panel in the game, as a table |
 | `packages/content/src/waves/act-6.ts` | Waves 97 to 110 of the game, in the order they are played: THE CHOKE's block, the boss THE WARDEN, THE FENCE's block, the boss THE STARE, THE CHOIR's block, the boss THE VISE, THE CLAW's block and the boss THE THROAT |
 | `packages/content/src/scenes/catch-and-aim.ts` | CATCH AND AIM's rehearsal: the hand aims, so the cannon does not have to |
-| `packages/content/src/scenes/combo-blisters.ts` | COMBO's rehearsal: a COMBO blister in each of its two bodies |
 | `packages/content/src/waves/act-1b.ts` | The last of act one, cut off `act-1.ts` when that file reached the 250-line ceiling on `CATCH AND AIM` |
 | `packages/content/src/waves/act-10.ts` | Waves 151 to 162 of the game, in the order they are played: THE MINE's block, the boss THE MIMIC, THE CAROM's block, the boss THE TASTER, THE CAROM's review, the boss THE LEDGER, THE MINE's review, the boss THE SURGE, THE CRAWLER's review and the boss THE LEAD |
 | `packages/content/src/waves/act-11.ts` | Waves 163 to 177 of the game, in the order they are played: THE VOLLEY's review, the boss THE SCUTTLE, THE CRYSTAL's review, the boss THE ANTIPHON, THE LID's review, the boss THE SPLICE, THE CLASP's review, the boss THE CAIRN, THE MOULT's review, the boss THE WELL, THE BALLOON's review, the boss THE REPRISE, THE CHOIR's review, the boss THE FILAMENT and THE FENCE's review |
@@ -1081,7 +1077,6 @@ by hand never moves.
 | `packages/content/src/scenes/the-coil.ts` | THE COIL's rehearsal: the shield is stuck open, and the plate is what opens the dome |
 | `packages/content/src/keys-desk.ts` | **The desk keyboard is a panel too**, and this is where a key finds out what it means |
 | `packages/content/src/control-aim.ts` | Which way a control points, and which rig of keys answers it |
-| `packages/content/src/scenes/the-choir.ts` | THE CHOIR's rehearsal: the one gesture that is on no panel at all |
 | `packages/content/src/scenes/the-splice.ts` | THE SPLICE's rehearsal: the number is at the other end of the straw, and only one of you can see it |
 | `packages/content/src/scenes/the-spool.ts` | THE SPOOL's rehearsal: a brake held at the wrong depth, a word from the other screen, and the right depth |
 | `packages/content/src/scenes/the-sinew.ts` | THE SINEW's rehearsal: two hands pulling one tendon, and a number only one of them can see |
@@ -1090,20 +1085,10 @@ by hand never moves.
 | `packages/content/src/scenes/the-scout.ts` | THE SCOUT's rehearsal: one of them flies blind and the other reads the map |
 | `packages/content/src/scenes/the-seeder.ts` | THE SEEDER's rehearsal: the kill is a debt |
 | `packages/content/src/scenes/the-jam.ts` | THE JAM's rehearsal: the trigger is gone and the aim is all that is left |
-| `packages/content/src/scenes/the-balloon.ts` | THE BALLOON's rehearsal: two hands on one body, or nothing at all |
 | `packages/content/src/scenes/the-baton.ts` | THE BATON's rehearsal: a launch nobody answers, then three handovers |
-| `packages/content/src/scenes/the-beatbox.ts` | THE BEATBOX's rehearsal: the tap you do not make is the one that counts |
-| `packages/content/src/scenes/the-blister.ts` | THE BLISTER's rehearsal: the talking it is for, in three pages (`docs/spec/blister.md`, *In one sentence*) |
 | `packages/content/src/scenes/the-undertow.ts` | THE UNDERTOW's rehearsal: the floor bows, a lobe stands, and its colour says who answers it |
 | `packages/content/src/scenes/the-antiphon.ts` | THE ANTIPHON's rehearsal: six organs described across the two seats, the seats swapping every level |
-| `packages/content/src/scenes/tap-blisters.ts` | TAP's rehearsal: a TAP blister in each of its three bodies — RIDER, MOLE and CRADLE |
-| `packages/content/src/scenes/turn-blisters.ts` | TURN's rehearsal: a TURN blister in each of its bodies and each way round |
-| `packages/content/src/scenes/hold-blisters.ts` | HOLD's rehearsal: a HOLD blister in each of its two bodies |
-| `packages/content/src/scenes/hold-together.ts` | HOLD TOGETHER's rehearsal: a BOTH blister held by one thumb does nothing, held by two at once it gives |
-| `packages/content/src/scenes/lever-blisters.ts` | LEVER's rehearsal: a LEVER blister in each of its three bodies — ROOT and BELL for the navigator |
-| `packages/content/src/scenes/rub-blisters.ts` | RUB's rehearsal: a RUB blister in each of its three bodies — WASHBOARD and URCHIN for the pilot, then PURR |
 | `packages/content/src/scenes-choreographed.ts` | The rehearsals of the bosses designed on `docs/spec/bosses-choreographed.md` |
-| `packages/content/src/scenes-controls.ts` | **The controls' films**: one per on-screen control, for the wave that brings it — the owner, 17 October 2026 |
 | `packages/content/src/scenes-faults.ts` | The rehearsals of the malfunctions — the waves whose lesson is a fault placed on the beat map rather than a… |
 | `packages/content/src/scenes-owed.ts` | The rehearsals that were owed: the films `docs/spec/briefings.md` §3.2 listed as *a film nobody has written* |
 | `packages/content/src/scenes-waves.ts` | The films of the waves and bosses that are not a family of their own — one per `scenes/` file |
@@ -1171,6 +1156,7 @@ by hand never moves.
 | `packages/content/src/hints/standard-2.ts` | **The two-button waves' hints, first half** — CYAN to THE MAGNET, played on STANDARD 2 (cannon, red, cyan) |
 | `packages/content/src/hints/shield-walls.ts` | **The shield waves' hints, second half** — the fences, and the bodies the shield opens rather than stops |
 | `packages/content/src/hints/shield.ts` | **The shield waves' hints, first half** — THE ROCK to THE VEER: rocks, the torch and the limpet |
+| `packages/content/src/hints/touch.ts` | **The touch waves' hints** — the blisters |
 
 ### packages/render
 
@@ -1635,6 +1621,7 @@ by hand never moves.
 | `packages/render/src/warden.ts` | THE WARDEN, drawn: a ring with a hole you can see the field through |
 | `packages/render/src/wave-intro.ts` | The first of the two states a wave opens in: its number, `TRY n` on a retry, its name and its sentence |
 | `packages/render/src/wave-hint.ts` | **A wave's tutorial, played on the field rather than in front of it** |
+| `packages/render/src/wave-hint-seen.ts` | **What a hint may know about the screen it is drawn on** — which bodies it shows, and whose secret it is drawn |
 | `packages/render/src/wrap-text.ts` | Greedy wrap against the measured width |
 | `packages/render/src/gradient-slot.ts` | A cache slot for one gradient that depends only on layout — never on time or an eased value |
 | `packages/render/src/gradient-held.ts` | `heldGradient`: a gradient whose every argument is a radius and a constant, built once and reused — never one keyed on `time` |
