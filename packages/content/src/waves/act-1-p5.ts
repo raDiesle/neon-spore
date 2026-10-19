@@ -22,9 +22,7 @@ export const WAVES_ACT_1_P5: Wave[] = [
   {
     id: "theRind",
     name: "THE RIND",
-    guide: {
-      scene: "theRind",
-    },
+    hints: "theRind",
     entries: [
       { beat: 0, col: 5, kind: "rind", color: "red" },
       { beat: 8, col: 2, kind: "rind", color: "cyan" },
@@ -50,9 +48,7 @@ export const WAVES_ACT_1_P5: Wave[] = [
   {
     id: "theDart",
     name: "THE DART",
-    guide: {
-      scene: "theDart",
-    },
+    hints: "theDart",
     entries: [
       { beat: 0, col: 5, kind: "dart", color: "red" },
       { beat: 8, col: 10, kind: "dart", color: "cyan" },
@@ -79,9 +75,7 @@ export const WAVES_ACT_1_P5: Wave[] = [
   {
     id: "theCount",
     name: "THE COUNT",
-    guide: {
-      scene: "theCount",
-    },
+    hints: "theCount",
     entries: [
       { beat: 0, col: 5, kind: "countdown", color: "red" },
       { beat: 8, col: 2, kind: "countdown", color: "cyan" },
@@ -107,9 +101,7 @@ export const WAVES_ACT_1_P5: Wave[] = [
   {
     id: "theGhost",
     name: "THE GHOST",
-    guide: {
-      scene: "theGhost",
-    },
+    hints: "theGhost",
     entries: [
       { beat: 0, col: 3, kind: "ghost", color: "cyan" },
       { beat: 10, col: 2, kind: "ghost", color: "red" },

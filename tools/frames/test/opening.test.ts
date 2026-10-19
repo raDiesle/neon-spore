@@ -22,7 +22,7 @@ const UNGUIDED = WAVES.findIndex((w) => w.id === "firstStepPair");
  * stand on, and every step's clock, is `opening-rig.ts`.
  */
 /** The first wave that opens on a film. */
-const CYAN = WAVES.findIndex((w) => w.id === "cyan");
+const FILMED = WAVES.findIndex((w) => w.guide?.scene !== undefined);
 
 describe("captureFrames past a wave's opening", () => {
   const rig = openingRig("opening-test-");
@@ -75,13 +75,13 @@ describe("captureFrames past a wave's opening", () => {
   it(
     "stands on the guide, and a strip of it counts painted frames",
     async () => {
-      // CYAN carries a guide (`packages/content/src/waves/act-1.ts`), and its
+      // FILMED carries a guide (`packages/content/src/waves/`), and its
       // rehearsal is drawn rather than stepped — so the strip below is four
       // paints apart on the frame clock, not four ticks apart on the world's.
       // Not wave 1, whose tutorial is on its field since 19 October 2026.
       const { paths } = await captureFrames(
         rig.url,
-        { wave: CYAN, ticks: 6, frames: 3, strideTicks: 4, opening: "guide" },
+        { wave: FILMED, ticks: 6, frames: 3, strideTicks: 4, opening: "guide" },
         join(rig.out, "guide"),
         rig.browser,
       );

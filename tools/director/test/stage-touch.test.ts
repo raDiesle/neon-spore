@@ -130,10 +130,10 @@ describe("bindStageTouch answers the guide with a hold, and a tap with a step", 
     // A guide, because the paging under test is the guide's. A wave opens on
     // it, so a world built here is already standing on its first page — and it
     // is handed the page count, without which the simulation reads every seat
-    // as already standing at the gate. CYAN's, the first wave with one since
-    // FIRST STEP's moved onto its field (`Wave.hints`).
-    const cyan = WAVES.findIndex((w) => w.id === "cyan");
-    startWave(world, cyan, queue, [], null, true, waveGuideSteps(cyan));
+    // as already standing at the gate. The first wave still opening on a
+    // film, as they move onto their fields a family at a time (`Wave.hints`).
+    const filmed = WAVES.findIndex((w) => w.guide?.scene !== undefined);
+    startWave(world, filmed, queue, [], null, true, waveGuideSteps(filmed));
     const sent: { player: 1 | 2; command: Command }[] = [];
     let pending: TimedCommand[] = [];
     const stub = stubCanvas();
@@ -299,9 +299,11 @@ describe("bindStageTouch answers the guide with a hold, and a tap with a step", 
     // whether the field answers a press at all now.
     s.downAt(VIEWPORT.width / 2, s.layout.cannonStrip.y);
     s.up();
-    expect(s.sent).toEqual([
-      { player: 1, command: { kind: "cannonCol", col: expect.any(Number) } },
-    ]);
+    // On a wave with a shield, `test` slides the shield in the same press.
+    expect(s.sent).toContainEqual({
+      player: 1,
+      command: { kind: "cannonCol", col: expect.any(Number) },
+    });
   });
 
   it("SKIP goes straight to the gate and fills the circle with nobody holding it", () => {

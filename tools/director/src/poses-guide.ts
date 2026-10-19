@@ -43,8 +43,10 @@ export const GUIDE_FILM_POSE: Pose = {
   role: "p1",
   build: () => {
     const w = createWorld({ ...DEFAULT_CONFIG, hullInvulnerable: true, briefings: true }, 11);
-    const cyan = WAVES.findIndex((wave) => wave.id === "cyan");
-    startWave(w, cyan, [], [], null, true, waveGuideSteps(cyan));
+    // The first wave still opening on a film: they move onto their fields
+    // a family at a time (`Wave.hints`).
+    const filmed = WAVES.findIndex((wave) => wave.guide?.scene !== undefined);
+    startWave(w, filmed, [], [], null, true, waveGuideSteps(filmed));
     run(w, TPB, [{ tick: w.tick, player: 1, command: { kind: "guideStep" } }]);
     if (guidePage(w, 1) !== 1) throw new Error("the guide did not turn to its second page");
     return w;

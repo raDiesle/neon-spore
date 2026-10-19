@@ -72,8 +72,8 @@ const WALK_MS = HANG_MS;
  * every wave that sends one and on none of the boss waves this sweep walks —
  * a word added to the filter below would never have matched. They hang off
  * the siren, held by `alarm-room.test.ts`. THE WISP's
- * lattice is an ordinary wave's, outside this net for the same reason, and is
- * held by `guide-grid-room.test.ts`. The lost screen used as a page's subject
+ * lattice was an ordinary wave's, outside this net for the same reason, and
+ * has had no film to sit under since 19 October 2026. The lost screen used as a page's subject
  * is out of the band by being out of the film altogether — the owner took it
  * off a rehearsal on 18 September 2026 — and the sweep that holds it there is
  * `guide-lost-room.test.ts`. What is left is the

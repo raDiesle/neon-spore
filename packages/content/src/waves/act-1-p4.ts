@@ -22,9 +22,7 @@ export const WAVES_ACT_1_P4: Wave[] = [
   {
     id: "theThrob",
     name: "THE THROB",
-    guide: {
-      scene: "theThrob",
-    },
+    hints: "theThrob",
     entries: [{ beat: 0, col: 5, kind: "throb", color: "red" }],
     controls: "standard2",
   },
@@ -45,9 +43,7 @@ export const WAVES_ACT_1_P4: Wave[] = [
   {
     id: "theRecoil",
     name: "THE RECOIL",
-    guide: {
-      scene: "theRecoil",
-    },
+    hints: "theRecoil",
     entries: [
       { beat: 0, col: 5, kind: "recoil", color: "red" },
       { beat: 14, col: 3, kind: "recoil", color: "cyan" },
@@ -73,9 +69,7 @@ export const WAVES_ACT_1_P4: Wave[] = [
   {
     id: "theGyre",
     name: "THE GYRE",
-    guide: {
-      scene: "theGyre",
-    },
+    hints: "theGyre",
     entries: [{ beat: 0, col: 5, kind: "gyre", color: null }],
     controls: "standard2",
   },
@@ -96,9 +90,7 @@ export const WAVES_ACT_1_P4: Wave[] = [
   {
     id: "theLure",
     name: "THE LURE",
-    guide: {
-      scene: "theLure",
-    },
+    hints: "theLure",
     entries: [
       { beat: 0, col: 4, kind: "lure", color: "cyan" },
       { beat: 8, col: 7, color: "red" },

@@ -22,9 +22,7 @@ export const WAVES_ACT_1_P6: Wave[] = [
   {
     id: "theWisp",
     name: "THE WISP",
-    guide: {
-      scene: "theWisp",
-    },
+    hints: "theWisp",
     entries: [
       { beat: 0, col: 5, kind: "wisp", color: null },
       { beat: 14, col: 2, kind: "wisp", color: null },

@@ -44975,3 +44975,17 @@ Bottleneck: the eleven places a new fault kind is a name, found one red test at 
 Bottleneck: telling apart, from frames, what a candidate drew and what the game under it drew.
 
 *Measured: 21 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
+
+## 2026-10-19 — The two-button waves teach on their own fields
+
+- reading: 5 min. Each film's first paragraph, for what each seat is shown
+  and what it is not.
+- writing: 10 min. Sixteen tables of lines, a held/free state, a `fire`
+  subject, lines taking turns; sixteen films and two film tests out.
+- looking: 10 min. THE GHOST on both seats: player 1's hint ringed the ghost
+  he is not shown, so a hint now draws only what its screen draws.
+- friction: 0 min.
+- landing: 10 min. Three `check:fast` runs: four budget rows remeasured, and
+  three tests that stood on a film that had gone.
+
+Bottleneck: the real frame, which caught a hint giving away the ghost's column.

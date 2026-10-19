@@ -58,7 +58,7 @@ export {
 export { FILAMENT_SCRIPT } from "./filament-script.js";
 export { GIMBAL_SCRIPT } from "./gimbal-script.js";
 export { GORGE_LEVELS } from "./gorge-levels.js";
-export type { HintLine, HintWhen } from "./hint-types.js";
+export type { HintAnchor, HintLine, HintWhen } from "./hint-types.js";
 export * from "./index-shapes.js";
 export * from "./index-waves.js";
 export { INSTAR_SCRIPT } from "./instar-script.js";

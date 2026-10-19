@@ -8,9 +8,7 @@ export const WAVES_ACT_1_P2: Wave[] = [
   {
     id: "theEcho",
     name: "THE ECHO",
-    guide: {
-      scene: "theEcho",
-    },
+    hints: "theEcho",
     entries: [
       { beat: 0, col: 5, kind: "echo", color: "cyan" },
       { beat: 12, col: 5, kind: "echo", color: "red" },

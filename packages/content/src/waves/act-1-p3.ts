@@ -8,9 +8,7 @@ export const WAVES_ACT_1_P3: Wave[] = [
   {
     id: "theStrand",
     name: "THE STRAND",
-    guide: {
-      scene: "theStrand",
-    },
+    hints: "theStrand",
     entries: [
       { beat: 0, col: 5, kind: "strand", color: "red", beads: 2 },
       { beat: 18, col: 2, kind: "strand", color: "cyan", beads: 3 },
@@ -35,9 +33,7 @@ export const WAVES_ACT_1_P3: Wave[] = [
   {
     id: "theVeil",
     name: "THE VEIL",
-    guide: {
-      scene: "theVeil",
-    },
+    hints: "theVeil",
     entries: [
       { beat: 0, col: 5, kind: "veil", color: null },
       { beat: 10, col: 2, kind: "veil", color: null },
@@ -64,9 +60,7 @@ export const WAVES_ACT_1_P3: Wave[] = [
   {
     id: "theThirdShot",
     name: "THE SHELL",
-    guide: {
-      scene: "theThirdShot",
-    },
+    hints: "theThirdShot",
     entries: [
       { beat: 0, col: 2, kind: "shell", color: "cyan" },
       { beat: 10, col: 7, kind: "shell", color: "red" },
@@ -90,9 +84,7 @@ export const WAVES_ACT_1_P3: Wave[] = [
   {
     id: "holdAndAim",
     name: "HOLD AND AIM",
-    guide: {
-      scene: "holdAndAim",
-    },
+    hints: "holdAndAim",
     entries: [
       { beat: 0, col: 9, color: "cyan" },
       { beat: 7, col: 1, color: "red" },
@@ -106,9 +98,7 @@ export const WAVES_ACT_1_P3: Wave[] = [
   {
     id: "theMagnet",
     name: "THE MAGNET",
-    guide: {
-      scene: "theMagnet",
-    },
+    hints: "theMagnet",
     entries: [
       { beat: 0, col: 5, kind: "magnet", color: "red" },
       { beat: 14, col: 3, kind: "magnet", color: "cyan" },

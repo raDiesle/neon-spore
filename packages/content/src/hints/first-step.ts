@@ -1,6 +1,5 @@
 import type { HintLine } from "../hint-types.js";
-
-const CANNON = { at: "ship", control: "cannon" } as const;
+import { aimAndFire } from "./lines.js";
 
 /**
  * FIRST STEP: a column and a colour, one per person — the lesson its film
@@ -14,14 +13,4 @@ const CANNON = { at: "ship", control: "cannon" } as const;
  * the moment there is one (`render/guide-tide-companion.ts`) — so *under* is
  * shown as well as said.
  */
-export const FIRST_STEP_HINTS: readonly HintLine[] = [
-  { seat: 1, when: "offColumn", text: "MOVE CANNON UNDER ENEMY", anchor: CANNON },
-  { seat: 1, when: "onColumn", text: "TELL PLAYER 2: FIRE!", anchor: CANNON, acts: false },
-  {
-    seat: 2,
-    when: "onColumn",
-    text: "FIRE RED NOW",
-    anchor: { at: "control", control: "fireRed" },
-  },
-  { seat: 2, when: "offColumn", text: "WAIT FOR THE CANNON", anchor: CANNON, acts: false },
-];
+export const FIRST_STEP_HINTS: readonly HintLine[] = aimAndFire({ fire: "FIRE RED NOW" });

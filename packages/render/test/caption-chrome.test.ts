@@ -36,8 +36,11 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
 const CFG = { ...DEFAULT_CONFIG, briefings: true };
 const PHONE = { width: 390, height: 844, dpr: 1 };
 const ROLES: ViewRole[] = ["p1", "p2"];
-/** The two waves whose chrome writes at the top and whose guide plays a film. */
-const WAVE_NAMES = ["TORCH", "THE MAGNET"];
+/**
+ * The waves whose chrome writes at the top and whose guide plays a film.
+ * THE MAGNET's went on 19 October 2026 for hints on its field (`Wave.hints`).
+ */
+const WAVE_NAMES = ["TORCH"];
 
 beforeAll(installCanvasGlobals);
 

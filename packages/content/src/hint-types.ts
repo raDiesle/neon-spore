@@ -7,10 +7,10 @@ import type { SceneAnchor } from "./scene-step-types.js";
  *
  * A line is a film page without a clock: a seat, its words and the thing they
  * stand beside, and instead of a tick the **state of the field** it is true
- * in. A screen shows the first of its seat's lines that holds now and whose
- * subject is on it, so a list reads top-down as *what to say first* and an
- * `always` line belongs at the foot of a seat's lines, as what is said when
- * nothing more urgent is.
+ * in. A screen shows its seat's lines that hold now and whose subject is on
+ * it, **taking turns** a few beats each when more than one does — so a film's
+ * three pages for a seat become three lines it reads in order, over and over,
+ * while the state they are true in lasts.
  */
 export interface HintLine {
   /** Whose screen. The other seat never sees it. */
@@ -18,15 +18,22 @@ export interface HintLine {
   /** At most 28 characters, the film's own limit, spelled out and in the present. */
   text: string;
   /** What it stands beside — a film caption's subject, found the same way. */
-  anchor: SceneAnchor;
-  /** When it is true. Absent is `always`. */
-  when?: HintWhen;
+  anchor: HintAnchor;
+  /** When it is true: every state named must hold. Absent is `always`. */
+  when?: HintWhen | readonly HintWhen[];
   /**
    * Whether this seat's thumb is the one wanted while the line holds. `test`
-   * — both halves on one screen — shows the acting line; absent is `true`.
+   * — both halves on one screen — shows the acting lines; absent is `true`.
    */
   acts?: boolean;
 }
+
+/**
+ * A film caption's subject, or **the button that kills the next body** — the
+ * one subject a film could name by hand, since it knew the colour it had
+ * authored, and a live field cannot.
+ */
+export type HintAnchor = SceneAnchor | { at: "fire" };
 
 /**
  * **The states a line can be true in**, read off the world and nothing else
@@ -44,4 +51,8 @@ export type HintWhen =
   /** The cannon is not under the next body to land. */
   | "offColumn"
   /** It is. */
-  | "onColumn";
+  | "onColumn"
+  /** A hand is on it — either seat's (`sim/grip.ts`). */
+  | "held"
+  /** No hand is. */
+  | "free";

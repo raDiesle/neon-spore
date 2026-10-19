@@ -1,5 +1,4 @@
 import type { GuideScene } from "./scene-types.js";
-import { THE_COUNT } from "./scenes/the-count.js";
 import { THE_HUSK } from "./scenes/the-husk.js";
 import { THE_REPRISE } from "./scenes/the-reprise.js";
 
@@ -21,10 +20,9 @@ import { THE_REPRISE } from "./scenes/the-reprise.js";
  * THE STARE's left on 29 September 2026 with its guide: the owner — *the
  * guide is not required for this wave*.
  */
-export type OwedSceneId = "theReprise" | "theHusk" | "theCount";
+export type OwedSceneId = "theReprise" | "theHusk";
 
 export const SCENES_OWED: Record<OwedSceneId, GuideScene> = {
   theReprise: THE_REPRISE,
   theHusk: THE_HUSK,
-  theCount: THE_COUNT,
 };

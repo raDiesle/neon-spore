@@ -30,7 +30,7 @@ first creature falling. It is one of two states, never both:
    prose (§3.2). Either way it ends on **the ready gate**: two circles, one per
    seat, each filling while that seat holds and saying READY when it is full.
    The guide passes when both say READY. Only a wave that introduces something
-   new carries one — one hundred and seventeen of the two hundred and eight waves today, and a wave
+   new carries one — one hundred and one of the two hundred and eight waves today, and a wave
    with no guide has no circles either.
 2. **The introduction**, if it has no guide. `WAVE 4`, the wave's name, its
    one sentence. Plain text on the field — no panel, no border, nothing to
@@ -282,6 +282,17 @@ find; a line that only says what the other seat does is `acts: false`, so
 `test` skips it. Every line of every hinted wave is shown in some state of its
 own wave, and fits on every screen size (`render/test/wave-hint.test.ts`).
 
+**Every wave with a film moves over, a family at a time** (the owner, the same
+day: all of them, bosses included). The two-button waves went next — CYAN to
+THE WISP, sixteen of them, in `hints/standard-2.ts` and
+`hints/standard-2-tricks.ts` — and their films went with them. A seat with
+more than one line true takes them in turns, `HINT_BEATS` each, so a film's
+three pages are three lines read in order. A line never tells a seat what it
+is not shown: where only one screen sees the colour, the other's lines stand
+on the cannon or the body, never on a fire button, which would say the colour
+by ringing it. `fire` is the button in the next body's colour, for the seat
+that sees it.
+
 `waveTeaches` is the one question the rules about what is taught where ask —
 a guide or hints — and `waveHasGuide` still means *a guide to play*.
 
@@ -334,7 +345,7 @@ RED pressed, the shot taking it, and then a second slick nobody answers, so the
 last thing the pair is shown is the hull bar dropping. About five seconds,
 looping.
 
-**There are ninety-eight of them now**, one per guided wave bar nineteen,
+**There are eighty-two of them now**, one per guided wave bar nineteen,
 and each is authored in `packages/content/src/scenes/` as a page of
 choreography rather than a page of prose. The nineteen that are still the
 three strings and the two circles are the bosses from THE NETTLE on,

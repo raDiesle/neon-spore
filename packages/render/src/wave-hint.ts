@@ -1,20 +1,24 @@
 import {
   type ControlSet,
   controlSetForWave,
+  type HintAnchor,
   type HintLine,
   type HintWhen,
+  type SceneAnchor,
   type SceneStep,
   WAVE_HINTS,
   WAVES,
 } from "@neon-spore/content";
-import { type Creature, OPENING_PLAY, type World } from "@neon-spore/sim";
+import { type Creature, gripCount, OPENING_PLAY, type World } from "@neon-spore/sim";
 import { anchorPoint } from "./caption-anchor.js";
+import { showsGhostBody } from "./ghost.js";
 import { GUIDE_LOOK } from "./guide-look.js";
 import { captionBox } from "./guide-tide-caption-box.js";
 import { CORNER } from "./guide-tide-plate.js";
 import type { Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
 import { seatOf } from "./view-role.js";
+import { showsWisp } from "./wisp.js";
 
 /**
  * **A wave's tutorial, played on the field rather than in front of it.**
@@ -35,9 +39,10 @@ import { seatOf } from "./view-role.js";
  * dimmed round the subject (`live`), and the plate wears a TUTORIAL tab, which
  * is the band across the top of a film page said where the eye already is.
  *
- * **One line per screen, on the seat it is for**: the first of that seat's
- * lines that holds now and whose subject this screen can find. `test` — both
- * halves on one screen — shows the first acting line instead.
+ * **One line per screen, on the seat it is for**: of that seat's lines that
+ * hold now and whose subject this screen can find, one at a time, each for
+ * `HINT_BEATS`. `test` — both halves on one screen — takes turns among the
+ * acting lines instead.
  *
  * **A reading of `World` and nothing else**, `boss-cue.ts`'s rule: nothing in
  * `packages/sim`, `hashWorld` or the wire. What the pair has done is read off
@@ -53,6 +58,14 @@ import { seatOf } from "./view-role.js";
  */
 export const HINTS_UNTIL = 1;
 
+/** Beats a line holds the plate before the next of its seat's takes it. */
+export const HINT_BEATS = 4;
+
+/** A line as this screen shows it: its subject found, `fire` named as a button. */
+export interface ShownHint extends HintLine {
+  anchor: SceneAnchor;
+}
+
 /** Whether a hinted wave is still teaching: in play, no boss, not yet learnt. */
 export function hinting(world: World): boolean {
   if (WAVES[world.wave]?.hints === undefined) return false;
@@ -66,7 +79,9 @@ export function waveHintsNow(world: World): readonly HintLine[] {
   if (id === undefined || !hinting(world)) return [];
   const next = lowest(world);
   if (next === null) return [];
-  return WAVE_HINTS[id].filter((h) => holds(h.when ?? "always", world, next));
+  return WAVE_HINTS[id].filter((h) =>
+    [h.when ?? "always"].flat().every((w) => WHEN[w](world, next)),
+  );
 }
 
 /** The line this screen shows, or nothing. */
@@ -75,23 +90,49 @@ export function waveHint(
   world: World,
   beatPhase: number,
   set: ControlSet = controlSetForWave(world.wave),
-): HintLine | null {
-  const found = (h: HintLine) => anchorPoint(l, world, set, h.anchor, beatPhase) !== null;
+): ShownHint | null {
+  const next = lowest(world);
+  if (next === null) return null;
+  const shown: ShownHint[] = [];
+  const seen = seenOn(l, world);
   for (const h of waveHintsNow(world)) {
     const mine = l.role === "test" ? h.acts !== false : h.seat === seatOf(l.role);
-    if (mine && found(h)) return h;
+    const anchor = subject(h.anchor, next);
+    if (mine && anchorPoint(l, seen, set, anchor, beatPhase) !== null) {
+      shown.push({ ...h, anchor });
+    }
   }
-  return null;
+  if (shown.length === 0) return null;
+  // `beat` starts again with a try, so the first line is the first said.
+  return shown[Math.floor(Math.max(0, world.beat) / HINT_BEATS) % shown.length] ?? null;
+}
+
+/** `fire` is the button in the next body's colour; every other subject is a film's. */
+function subject(anchor: HintAnchor, next: Creature): SceneAnchor {
+  if (anchor.at !== "fire") return anchor;
+  return { at: "control", control: next.color === "red" ? "fireRed" : "fireCyan" };
 }
 
 const WHEN: Record<HintWhen, (world: World, next: Creature) => boolean> = {
   always: () => true,
   offColumn: (world, next) => world.cannonCol !== next.col,
   onColumn: (world, next) => world.cannonCol === next.col,
+  held: (world, next) => gripCount(world, next.id) > 0,
+  free: (world, next) => gripCount(world, next.id) === 0,
 };
 
-function holds(when: HintWhen, world: World, next: Creature): boolean {
-  return WHEN[when](world, next);
+/**
+ * The world as this screen draws it: a body the seat is not shown is taken
+ * out, so no ring lands on it — round it, or round it as the body over the
+ * cannon (`guide-tide-companion.ts`). A film could ring the place a ghost was,
+ * and say so; a live ring round it would hand player 1 the column he has to be
+ * told. Which seat is shown which is each body's own file's answer.
+ */
+function seenOn(l: Layout, world: World): World {
+  const shown = (c: Creature) =>
+    c.kind === "ghost" ? showsGhostBody(l, world.cfg, c) : c.kind !== "wisp" || showsWisp(l);
+  if (world.creatures.every(shown)) return world;
+  return { ...world, creatures: world.creatures.filter(shown) };
 }
 
 /** The body nearest the hull, or nothing on an empty field. */
@@ -123,8 +164,9 @@ export function drawWaveHint(
   // A page that opened long ago: the film's fade-in is a page arriving, and a
   // hint is not a page — it is the field's state, said while it holds.
   const step: SceneStep = { tick: 0, seat: hint.seat, text: hint.text, anchor: hint.anchor };
-  GUIDE_LOOK.caption(ctx, l, world, set, step, world.tick, beatPhase, undefined, undefined, true);
-  const box = captionBox(ctx, l, world, set, step, beatPhase);
+  const seen = seenOn(l, world);
+  GUIDE_LOOK.caption(ctx, l, seen, set, step, world.tick, beatPhase, undefined, undefined, true);
+  const box = captionBox(ctx, l, seen, set, step, beatPhase);
   if (box !== null) tab(ctx, box.x, box.y);
 }
 

@@ -974,11 +974,7 @@ by hand never moves.
 | `packages/content/src/scenes/the-hive.ts` | **THE HIVE's rehearsal — the colour is his, the warning is hers** |
 | `packages/content/src/scenes/the-rock.ts` | THE ROCK's rehearsal: the first thing in the game neither of them can do alone |
 | `packages/content/src/scenes/the-torch.ts` | TORCH's rehearsal: the warning strip, and the fact that only one of them has it |
-| `packages/content/src/scenes/the-dart.ts` | THE DART's rehearsal: the column you were given is the column it has already left |
 | `packages/content/src/scenes/the-dark.ts` | THE DARK's rehearsal: a field put out, a thumb lighting it, and the body nobody lit |
-| `packages/content/src/scenes/the-lure.ts` | THE LURE's rehearsal: the shot you are waiting for must never come |
-| `packages/content/src/scenes/the-throb.ts` | THE THROB's rehearsal: the wave where firing on sight is the miss |
-| `packages/content/src/scenes/the-count.ts` | THE COUNT's rehearsal: the shot that is right in every way but its moment |
 | `packages/content/src/scenes/the-choke.ts` | THE CHOKE's rehearsal: nobody steers, and the shot is a beat rather than a place |
 | `packages/content/src/scenes/the-limpet.ts` | THE LIMPET's rehearsal: the shield is held, and standing still is the mistake |
 | `packages/content/src/scenes/the-leech.ts` | THE LEECH's rehearsal: the cannon is held, and standing still is the mistake |
@@ -988,21 +984,13 @@ by hand never moves.
 | `packages/content/src/scenes/the-haul.ts` | THE HAUL's rehearsal: THE SCOUT's round with a hold that fills, and the two hands a full hold asks for |
 | `packages/content/src/scenes/the-ratchet.ts` | THE RATCHET's rehearsal: a press that is clean only while the other player holds the catch |
 | `packages/content/src/scenes/the-throat.ts` | THE THROAT's rehearsal: what it takes, and the one thing that hurts it |
-| `packages/content/src/scenes/the-veil.ts` | THE VEIL's rehearsal: the colour you were given goes stale while you are loading it |
 | `packages/content/src/scenes/the-veer.ts` | THE VEER's rehearsal: the column stops being true while you are saying it |
 | `packages/content/src/scenes/salvage.ts` | SALVAGE's rehearsal: shooting something is only half of getting it |
 | `packages/content/src/scenes/the-clasp.ts` | THE CLASP's rehearsal: the shield opens the enemy instead of stopping it |
-| `packages/content/src/scenes/the-rind.ts` | THE RIND's rehearsal: the shot that lands does not close the column |
-| `packages/content/src/scenes/the-third-shot.ts` | THE SHELL's rehearsal: the shot that worked twice is the miss |
 | `packages/content/src/scenes/the-taster.ts` | THE TASTER's rehearsal: the colour you keep firing is the colour that stops working |
 | `packages/content/src/scenes/the-trapeze.ts` | THE TRAPEZE's rehearsal: the swing pushed up to its gong, player 1 on the left and player 2 on the right |
-| `packages/content/src/scenes/the-echo.ts` | THE ECHO's rehearsal: the slowest thing on the field is the one to take first |
-| `packages/content/src/scenes/the-ghost.ts` | THE GHOST's rehearsal: waiting to see it is the miss |
 | `packages/content/src/scenes/the-pulse.ts` | THE PULSE's rehearsal: four buttons each, the same four |
-| `packages/content/src/scenes/the-gyre.ts` | THE GYRE's rehearsal: the column you were told is the right one for a single beat |
-| `packages/content/src/scenes/the-recoil.ts` | THE RECOIL's rehearsal: your own shot is what makes the call wrong |
 | `packages/content/src/scenes/the-reprise.ts` | THE REPRISE's rehearsal: a stretch of wave falls seen, and then falls again with nothing drawn |
-| `packages/content/src/scenes/the-wisp.ts` | THE WISP's rehearsal: you call the square it is still falling toward |
 | `packages/content/src/scenes/bulb-queen.ts` | BULB QUEEN's rehearsal: the first boss, and the first film with no shot in it |
 | `packages/content/src/scenes/the-mirror.ts` | THE MIRROR's rehearsal: Simon Says, played on the pair's own controls |
 | `packages/content/src/scenes/the-mine.ts` | THE MINE's rehearsal: the square crosses the room as words, and a finger finds it |
@@ -1030,7 +1018,6 @@ by hand never moves.
 | `packages/content/src/scenes/the-lead.ts` | THE LEAD's rehearsal: a shot at where it is, four at where it will be, and the beam standing in its way |
 | `packages/content/src/scenes/the-ledger.ts` | THE LEDGER's rehearsal: two hits landed, two bills paid |
 | `packages/content/src/scenes/the-maze.ts` | THE MAZE's rehearsal: he turns the wheel and she fires, and neither can do the other half |
-| `packages/content/src/scenes/the-magnet.ts` | THE MAGNET's rehearsal: the column the body is in is the one place a shot cannot come from |
 | `packages/content/src/scenes/the-moult.ts` | THE MOULT's rehearsal: the answer you agreed on expires while it falls |
 | `packages/content/src/scenes/the-morsel.ts` | THE MORSEL's rehearsal: the shot that lands is only half the answer |
 | `packages/content/src/scenes/the-warden.ts` | THE WARDEN's rehearsal: he holds the door open and she has to be quick enough to shoot through it |
@@ -1041,7 +1028,6 @@ by hand never moves.
 | `packages/content/src/scenes/the-carom.ts` | THE CAROM's rehearsal: a shape, then an order |
 | `packages/content/src/scenes/the-cairn.ts` | THE CAIRN's rehearsal: the rock you did not pull is the one that lands |
 | `packages/content/src/control-sets-table.ts` | Every panel in the game, as a table |
-| `packages/content/src/scenes/cyan.ts` | CYAN's rehearsal: the second button, and the cost of the first one |
 | `packages/content/src/waves/act-6.ts` | Waves 97 to 110 of the game, in the order they are played: THE CHOKE's block, the boss THE WARDEN, THE FENCE's block, the boss THE STARE, THE CHOIR's block, the boss THE VISE, THE CLAW's block and the boss THE THROAT |
 | `packages/content/src/scenes/the-volley.ts` | THE VOLLEY's rehearsal: a ward that works is not a body that is gone |
 | `packages/content/src/scenes/catch-and-aim.ts` | CATCH AND AIM's rehearsal: the hand aims, so the cannon does not have to |
@@ -1111,7 +1097,6 @@ by hand never moves.
 | `packages/content/src/scenes/the-crawler.ts` | THE CRAWLER's rehearsal: nothing is falling, and standing still loses it |
 | `packages/content/src/scenes/the-crossing.ts` | THE CROSSING's rehearsal: the lane you are aiming up is only yours until something walks across it |
 | `packages/content/src/scenes/the-crystal.ts` | THE CRYSTAL's rehearsal: a lane, a light, and four thumbs at once |
-| `packages/content/src/scenes/the-strand.ts` | THE STRAND's rehearsal: two beads, and neither seat can name one alone |
 | `packages/content/src/scenes/the-splice.ts` | THE SPLICE's rehearsal: the number is at the other end of the straw, and only one of you can see it |
 | `packages/content/src/scenes/the-spool.ts` | THE SPOOL's rehearsal: a brake held at the wrong depth, a word from the other screen, and the right depth |
 | `packages/content/src/scenes/the-sinew.ts` | THE SINEW's rehearsal: two hands pulling one tendon, and a number only one of them can see |
@@ -1130,7 +1115,6 @@ by hand never moves.
 | `packages/content/src/scenes/turn-blisters.ts` | TURN's rehearsal: a TURN blister in each of its bodies and each way round |
 | `packages/content/src/scenes/one-last-chance.ts` | ONE LAST CHANCE's rehearsal: the shield pushes a slick back up once, and only the cannon kills it |
 | `packages/content/src/scenes/hold-blisters.ts` | HOLD's rehearsal: a HOLD blister in each of its two bodies |
-| `packages/content/src/scenes/hold-and-aim.ts` | HOLD AND AIM's rehearsal: the hand aims, so the cannon does not have to |
 | `packages/content/src/scenes/hold-together.ts` | HOLD TOGETHER's rehearsal: a BOTH blister held by one thumb does nothing, held by two at once it gives |
 | `packages/content/src/scenes/lever-blisters.ts` | LEVER's rehearsal: a LEVER blister in each of its three bodies — ROOT and BELL for the navigator |
 | `packages/content/src/scenes/rub-blisters.ts` | RUB's rehearsal: a RUB blister in each of its three bodies — WASHBOARD and URCHIN for the pilot, then PURR |
@@ -1198,6 +1182,9 @@ by hand never moves.
 | `packages/content/src/filament-look.ts` | **THE FILAMENT as the inside of an alien** — the owner, 25 September 2026 |
 | `packages/content/src/nettle-script.ts` | THE NETTLE's script: ten steps over eight poses, and what the pair does to each |
 | `packages/content/src/hints/first-step.ts` | FIRST STEP: a column and a colour, one per person — the lesson its film taught, on the real enemy |
+| `packages/content/src/hints/lines.ts` | The subjects and the lines every family of hints is written in |
+| `packages/content/src/hints/standard-2-tricks.ts` | **The two-button waves' hints, second half** — THE THROB to THE WISP, each a body with one trick |
+| `packages/content/src/hints/standard-2.ts` | **The two-button waves' hints, first half** — CYAN to THE MAGNET, played on STANDARD 2 (cannon, red, cyan) |
 
 ### packages/render
 

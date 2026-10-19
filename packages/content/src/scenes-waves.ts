@@ -1,8 +1,6 @@
 import type { GuideScene } from "./scene-types.js";
 import { BULB_QUEEN } from "./scenes/bulb-queen.js";
 import { CATCH_AND_AIM } from "./scenes/catch-and-aim.js";
-import { CYAN } from "./scenes/cyan.js";
-import { HOLD_AND_AIM } from "./scenes/hold-and-aim.js";
 import { HOLD_TOGETHER } from "./scenes/hold-together.js";
 import { ONE_LAST_CHANCE } from "./scenes/one-last-chance.js";
 import { PINBALL } from "./scenes/pinball.js";
@@ -21,43 +19,30 @@ import { THE_CRAWLER } from "./scenes/the-crawler.js";
 import { THE_CROSSING } from "./scenes/the-crossing.js";
 import { THE_CRYSTAL } from "./scenes/the-crystal.js";
 import { THE_CUT } from "./scenes/the-cut.js";
-import { THE_DART } from "./scenes/the-dart.js";
-import { THE_ECHO } from "./scenes/the-echo.js";
 import { THE_FENCE } from "./scenes/the-fence.js";
 import { THE_FLEET } from "./scenes/the-fleet.js";
 import { THE_GAP } from "./scenes/the-gap.js";
 import { THE_GAUGE } from "./scenes/the-gauge.js";
-import { THE_GHOST } from "./scenes/the-ghost.js";
-import { THE_GYRE } from "./scenes/the-gyre.js";
 import { THE_HAND } from "./scenes/the-hand.js";
 import { THE_JAM } from "./scenes/the-jam.js";
 import { THE_LANCE } from "./scenes/the-lance.js";
 import { THE_LEAK } from "./scenes/the-leak.js";
 import { THE_LID } from "./scenes/the-lid.js";
-import { THE_LURE } from "./scenes/the-lure.js";
-import { THE_MAGNET } from "./scenes/the-magnet.js";
 import { THE_MAZE } from "./scenes/the-maze.js";
 import { THE_MINE } from "./scenes/the-mine.js";
 import { THE_MIRROR } from "./scenes/the-mirror.js";
 import { THE_MORSEL } from "./scenes/the-morsel.js";
 import { THE_MOULT } from "./scenes/the-moult.js";
 import { THE_PULSE } from "./scenes/the-pulse.js";
-import { THE_RECOIL } from "./scenes/the-recoil.js";
-import { THE_RIND } from "./scenes/the-rind.js";
 import { THE_ROCK } from "./scenes/the-rock.js";
 import { THE_SEEDER } from "./scenes/the-seeder.js";
 import { THE_SPLICE } from "./scenes/the-splice.js";
-import { THE_STRAND } from "./scenes/the-strand.js";
-import { THE_THIRD_SHOT } from "./scenes/the-third-shot.js";
-import { THE_THROB } from "./scenes/the-throb.js";
 import { THE_TORCH } from "./scenes/the-torch.js";
 import { THE_VEER } from "./scenes/the-veer.js";
-import { THE_VEIL } from "./scenes/the-veil.js";
 import { THE_VOLLEY } from "./scenes/the-volley.js";
 import { THE_WARD } from "./scenes/the-ward.js";
 import { THE_WARDEN } from "./scenes/the-warden.js";
 import { THE_WELL } from "./scenes/the-well.js";
-import { THE_WISP } from "./scenes/the-wisp.js";
 
 /**
  * The films of the waves and bosses that are not a family of their own — one
@@ -71,27 +56,14 @@ import { THE_WISP } from "./scenes/the-wisp.js";
  * `scenes.ts` spreads this table into `SCENES` and widens `SceneId` by the id.
  */
 export type WaveSceneId =
-  | "cyan"
   | "theRock"
   | "theHand"
   | "torch"
   | "oneLastChance"
-  | "theLure"
-  | "theThrob"
-  | "theDart"
-  | "theVeil"
   | "salvage"
   | "catchAndAim"
-  | "holdAndAim"
-  | "theThirdShot"
   | "theClasp"
-  | "theRind"
   | "theWard"
-  | "theEcho"
-  | "theGhost"
-  | "theWisp"
-  | "theGyre"
-  | "theRecoil"
   | "bulbQueen"
   | "theMirror"
   | "theFleet"
@@ -113,9 +85,7 @@ export type WaveSceneId =
   | "theCut"
   | "theChoir"
   | "theVeer"
-  | "theStrand"
   | "theCrawler"
-  | "theMagnet"
   | "theJam"
   | "theCrossing"
   | "thePulse"
@@ -132,27 +102,14 @@ export type WaveSceneId =
   | "theBlister";
 
 export const SCENES_WAVES: Record<WaveSceneId, GuideScene> = {
-  cyan: CYAN,
   theRock: THE_ROCK,
   theHand: THE_HAND,
   torch: THE_TORCH,
   oneLastChance: ONE_LAST_CHANCE,
-  theLure: THE_LURE,
-  theThrob: THE_THROB,
-  theDart: THE_DART,
-  theVeil: THE_VEIL,
   salvage: SALVAGE,
   catchAndAim: CATCH_AND_AIM,
-  holdAndAim: HOLD_AND_AIM,
-  theThirdShot: THE_THIRD_SHOT,
   theClasp: THE_CLASP,
-  theRind: THE_RIND,
   theWard: THE_WARD,
-  theEcho: THE_ECHO,
-  theGhost: THE_GHOST,
-  theWisp: THE_WISP,
-  theGyre: THE_GYRE,
-  theRecoil: THE_RECOIL,
   bulbQueen: BULB_QUEEN,
   theMirror: THE_MIRROR,
   theFleet: THE_FLEET,
@@ -174,9 +131,7 @@ export const SCENES_WAVES: Record<WaveSceneId, GuideScene> = {
   theCut: THE_CUT,
   theChoir: THE_CHOIR,
   theVeer: THE_VEER,
-  theStrand: THE_STRAND,
   theCrawler: THE_CRAWLER,
-  theMagnet: THE_MAGNET,
   theJam: THE_JAM,
   theCrossing: THE_CROSSING,
   thePulse: THE_PULSE,
