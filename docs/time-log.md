@@ -45022,3 +45022,5 @@ Bottleneck: the chrome check, whose last film went in this slice.
 
 Bottleneck: the blister lines were written for the films' seat split, which
 the game's blisters do not have — either seat may knock them down.
+
+*Measured: 20 min from this lane's queue claim to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the claim and every minute the lane spent waiting.*

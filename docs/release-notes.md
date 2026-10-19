@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-19 · 7eb8f18ed — The touch waves teach on their own fields, not in a film
+
+THE BLISTER, the seven controls' waves (TAP to LEVER), THE WEIGHT, THE BEATBOX, THE MINE, THE BALLOON, THE LID and THE CHOIR are played at once and say what to do on the field until one body has gone: the blister's gesture on the blister, for either seat, and that one of them says it is theirs; THE MINE's square said by the seat shown it and pressed by the other. The controls' waves open on a bulb they do not teach, so only a blister gone ends their lesson. A look the owner asked for by name.
+
 ## 2026-10-19 · 301e128e6 — The shield waves teach on their own fields, not in a film
 
 THE ROCK, THE HAND, ONE LAST CHANCE, TORCH, THE CROSSING, THE LIMPET, HEAVY ROCKS, THE VEER, THE FENCE, THE GAP, THE CUT, THE CLASP, THE CRYSTAL, THE VOLLEY, THE CAROM and THE CRAWLER are played at once, with each seat told on the live field what to do next until one enemy is cleared: player 2 carries the shield under it, player 1 presses SHIELD as it lands. A wave with hints now carries the tutorial mark in JUMP TO WAVE and the director, as a wave with a film does. Their sixteen films are gone. Exemption: a look the owner asked for by name.
