@@ -2868,6 +2868,7 @@ by hand never moves.
 | `packages/render/src/blister-combo-curl.ts` | CURL, one of COMBO's two bodies: a round slime whose wound tail the press frees to run out to the knob |
 | `packages/render/src/blister-combo.ts` | THE BLISTER's COMBO body: BUD or CURL, picked per blister off its id and drawn 1.15× |
 | `packages/render/src/blister-palm.ts` | **PALM**, one of THE BLISTER's two HOLD bodies: a slime hand with the drop cupped in it, fingers curling in under a thumb |
+| `packages/render/src/blister-palm-hand.ts` | **PALM's hand, as a hand is built** (`blister-palm.ts`): a palm wider at the knuckles than at the heel |
 | `packages/render/src/blister-pick.ts` | Which of a gesture's bodies a blister wears, `0` to `count - 1` |
 | `packages/render/src/blister-rub-purr.ts` | PURR, one of RUB's three bodies: a furry mound that bristles a third more with every blow |
 | `packages/render/src/blister-rub-urchin.ts` | URCHIN, one of RUB's three bodies: a sea urchin whose spines lie flat a third per blow |

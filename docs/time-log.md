@@ -44737,3 +44737,17 @@ Bottleneck: taking the lamp, its pose and its slot back out cleanly.
 Bottleneck: the full composer in `waves:order` and its test, half a minute each.
 
 *Measured: 4 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-19 — PALM, the HOLD's hand, built like a hand
+
+- reading: 5 min. Which body BLISTER:DEATH-HOLD draws (`blister-palm.ts`),
+  how a death redraws it, the layer's reach.
+- writing: 5 min. `blister-palm-hand.ts`: palm, wrist, jointed tapering
+  fingers, a low thumb, the fold toward the viewer; creases and nails.
+- looking: 5 min. A scratch canvas sheet, then `frames` open, gripped and
+  dying; one fingertip clipped by the layer, fingers shortened.
+- friction: 5 min. `shot --pose` showed the empty pore at every `--wait`
+  (queued); the first `frames` came up as HUG, not PALM.
+- landing: 5 min. `format`, `index`, `check:fast`, `land`.
+
+Bottleneck: getting a frame with PALM up in it — the body is picked by tile.

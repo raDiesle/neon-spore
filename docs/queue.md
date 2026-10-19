@@ -464,3 +464,18 @@ thrown away after. Give `waves:compose` an `--arc` (or `--again <intro>`)
 that takes a block's composed waves out and writes them again in list order,
 gesture groups through `composeControlGroup`, and prove with a test that a
 run on the shipped list changes nothing.
+
+## `shot --pose` photographs a STATES card on its first frame whatever `--wait`
+
+- **Found:** 2026-10-19, claude/blister-death-hold-graphics-b73122
+- **Files:** `tools/frames/shot-pose.ts`, `tools/frames/shot.ts`
+
+`bun run shot canvas out.png --serve --pose "BLISTER · HOLD HELD A BEAT AND
+LET GO" --wait N` wrote the same picture for 600, 1400 and 2000 ms: the empty
+pore, before the blister is up, though the pose's cadence is 1.25 s. The
+card's replay is not running (or not advancing) while it is photographed, so
+a pose that moves cannot be seen through `--pose` at any moment but its
+first. Worked around with `bun run frames . --wave "THE BLISTER" --entry
+0:gesture=hold,col=3`. Find why the card stands still under the shot — likely
+it plays only on hover or while in view — make `--wait` reach into the
+replay, and prove it with a test that two waits of one moving pose differ.
