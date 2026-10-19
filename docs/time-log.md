@@ -44801,3 +44801,17 @@ Bottleneck: finding every test and fixture that used wave 1 as "the wave with a 
 Bottleneck: renumbering the act-one pages the save could not pull back.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-19 — Three crawler skins offered in VERSUS: LARVA, FLESH, LEECH
+
+- reading: 10 min. `crawler.ts`, the `CRAWLER_LOOK` record, the GUT
+  candidate that won last time, and VERSUS's rules.
+- writing: 20 min. A shared kit, three paints and their faces, the pose row.
+- looking: 25 min. Five rounds of `versus:shot`: the hull hides everything
+  below a ring, so legs and drips went; two plaids and two faces dark on a
+  dark head were corrected.
+- friction: 10 min. `versus:shot` with a removed candidate's name waited six
+  minutes instead of refusing — queued.
+- landing: 5 min. A lint fix, `check:fast`, the commit, `land`.
+
+Bottleneck: what a ring shows is decided by what covers it — the hull below, the next ring in front — and only a picture told me.

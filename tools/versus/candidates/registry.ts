@@ -6,5 +6,8 @@
 // `index.ts` next door says why it is generated at all.
 
 import type { Variant } from "../variant.js";
+import { CRAWLER_FLESH } from "./creature-crawler/flesh/index.js";
+import { CRAWLER_LARVA } from "./creature-crawler/larva/index.js";
+import { CRAWLER_LEECH } from "./creature-crawler/leech/index.js";
 
-export const VARIANTS: Variant[] = [];
+export const VARIANTS: Variant[] = [CRAWLER_FLESH, CRAWLER_LARVA, CRAWLER_LEECH];

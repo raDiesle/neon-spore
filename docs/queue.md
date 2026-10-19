@@ -328,6 +328,19 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/skipped.test.ts` holds the listing's count of the entries
 `next` stepped past and why.
 
+## `versus:shot` waits forever on a candidate name the slot does not have
+
+- **Found:** 2026-10-19, claude/crawler-graphics-realism-2c3275
+- **Files:** `tools/frames/versus-shot.ts`, `tools/versus/candidates/registry.ts`
+
+`bun run versus:shot creature:crawler grub` after `grub` had been removed
+started the director, opened the page and sat there for six minutes until it
+was killed: the page draws nothing for an unknown candidate, so the freeze it
+waits on never lands. The slot is checked before anything starts
+(`poseForSlot(slot, { strict: true })`); the name is not. Refuse a name that
+is not in `VARIANTS` for that slot the same way, before the server starts, and
+list the names the slot does have. A test beside the strict-pose one proves it.
+
 ## THE LEAD's one-beat lead misses a late press on sixteen rows
 
 - **Found:** 2026-10-18, claude/ship-height-reduction-f2457e
