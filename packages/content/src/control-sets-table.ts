@@ -62,6 +62,7 @@ export const CONTROL_SETS: readonly ControlSet[] = [
   },
   {
     id: "standard1",
+    partner: true,
     name: "STANDARD 1",
     why: "A column and a colour, and nothing else yet: player 1 carries the cannon, player 2 has red.",
     lance: false,
@@ -70,6 +71,7 @@ export const CONTROL_SETS: readonly ControlSet[] = [
   },
   {
     id: "standard2",
+    partner: true,
     name: "STANDARD 2",
     why: "Cyan joins red, so what leaves the cannon is a decision. Nothing defends yet.",
     lance: false,

@@ -9,6 +9,9 @@
  * own hit tests (`hitCircle`, `hitReach`) stay with the layout they measure.
  */
 
+// What a rub's count says; how many turns a thumb made, `rub-turns.ts`.
+// A press on the other phone's controls, drawn dead on this one (`band-partner.ts`).
+export { partnerUnder } from "./band-partner.js";
 export { creatureAt } from "./creature-under.js";
 export { deskDown, deskDownAll, pressSeat } from "./desk-grab.js";
 export { bothKey, DeskSeat, pointerSeat, pointerSeats, seatKey } from "./desk-seat.js";
@@ -16,7 +19,6 @@ export { bothKey, DeskSeat, pointerSeat, pointerSeats, seatKey } from "./desk-se
 // host owns the pointers: the game's field and the director's stage both
 // (`fingers.ts`).
 export { Fingers } from "./fingers.js";
-// What a rub's count says; how many turns a thumb made, `rub-turns.ts`.
 export { RUB_TURN, rubFinger, rubSays } from "./rub.js";
 export type { Rubbed } from "./rub-turns.js";
 export { type CanvasBox, clientOfStage, pointOnStage } from "./stage-point.js";

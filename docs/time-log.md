@@ -44849,3 +44849,17 @@ Bottleneck: tests that pin a wave by its place in the list, each red one at a ti
 Bottleneck: the shield and the cyan shot share one hex under two names, so finding which readers mean the shield took longer than the candidates.
 
 *Measured: 4 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-19 — STANDARD 1 and 2 show the partner's controls dead, and a press on one says to talk
+
+- reading: 5 min. The panel table, `bandLobes`, THE BATON's grey seat, the
+  touch path from `input.ts` to `bandUnder`.
+- writing: 5 min. `ControlSet.partner`, `band-partner.ts`, the hint toast, its
+  words in `screen-words.ts`, the test.
+- looking: 5 min. The preview on P1 and P2 at STANDARD 1 and 2, a tap on each
+  dead control; the fade-in was too slow to see and became instant.
+- friction: 0 min.
+- landing: 5 min. Four budget rows and the bake count moved, a source-regex
+  test widened, `index`, two `check:fast` runs.
+
+Bottleneck: the four op-count budgets on STANDARD 2 waves, found only by the full check.

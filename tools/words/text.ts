@@ -25,7 +25,14 @@
  * `packages/content/src/screen-words.ts` and the game reads them from there.
  */
 
-import { LINK_WORDS, MECHANIC_IDS, MECHANICS, SCREEN_WORDS, WAVES } from "@neon-spore/content";
+import {
+  LINK_WORDS,
+  MECHANIC_IDS,
+  MECHANICS,
+  PARTNER_WORDS,
+  SCREEN_WORDS,
+  WAVES,
+} from "@neon-spore/content";
 
 /**
  * Which screen a string is read on, which is the only thing that decides its
@@ -67,6 +74,10 @@ export function playerText(): TextEntry[] {
   }
   for (const [key, card] of Object.entries(LINK_WORDS)) {
     out.push(...lines(`LINE CARD · ${key}`, "what", card.what));
+  }
+  for (const [key, card] of Object.entries(PARTNER_WORDS)) {
+    out.push({ id: `PARTNER HINT · ${key} · title`, kind: "name", text: card.title });
+    out.push(...lines(`PARTNER HINT · ${key}`, "half", card.what));
   }
   for (const [key, card] of Object.entries(SCREEN_WORDS)) {
     out.push({ id: `SCREEN CARD · ${key} · name`, kind: "name", text: card.name });

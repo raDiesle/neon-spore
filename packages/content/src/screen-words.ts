@@ -41,3 +41,19 @@ export const SCREEN_WORDS: Record<"p1" | "p2" | "test", ScreenWords> = {
   p2: { name: "PLAYER 2", what: "Slides the shield, fires red and cyan." },
   test: { name: "ONE SCREEN", what: "Both bands and the test rig, for one person at a desk." },
 };
+
+/**
+ * What a phone says when its player presses a control that is the other
+ * screen's (`ControlSet.partner`), keyed by whose control it is. Drawn by
+ * `apps/game/src/partner-hint.ts`.
+ */
+export const PARTNER_WORDS: Record<"p1" | "p2", LinkWords> = {
+  p1: {
+    title: "TALK TO EACH OTHER",
+    what: "Player 1 moves the cannon, not you. Tell them which column.",
+  },
+  p2: {
+    title: "TALK TO EACH OTHER",
+    what: "Player 2 shoots, not you. Tell them when, and which colour.",
+  },
+};

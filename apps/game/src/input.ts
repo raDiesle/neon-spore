@@ -3,6 +3,7 @@ import {
   deskDownAll,
   Fingers,
   type Hold,
+  partnerUnder,
   shipUnder,
   type Thumb,
   touchMove,
@@ -13,6 +14,7 @@ import { type Bindings, fieldFrom } from "./input-bindings.js";
 import { PressSeats } from "./input-seat.js";
 import { showKeyHint } from "./key-hint.js";
 import { bindKeys } from "./keys.js";
+import { PartnerHint } from "./partner-hint.js";
 import { capture } from "./pointer-capture.js";
 import { ShipHandWatch } from "./ship-hand.js";
 
@@ -55,6 +57,8 @@ export function bindControls(bindings: Bindings): Controls {
   /** Who each finger's press is from, and the buffer it says it into (`input-seat.ts`). */
   const whose = new PressSeats({ layout, handed, player }, buffer);
   const hand = new ShipHandWatch();
+  /** What a press on the other phone's dead control says (`partner-hint.ts`). */
+  const partner = new PartnerHint();
   /** A rub's turns, counted here (`render/fingers.ts`). */
   const fingers = new Fingers();
   /** A desk has a hover and a phone does not. Undefined until a mouse moves. */
@@ -63,7 +67,7 @@ export function bindControls(bindings: Bindings): Controls {
    * deciding whose hand it is, and unasked everywhere else. */
   const field = (seat?: 1 | 2) => fieldFrom(bindings, seat);
 
-  const down = (id: number, x: number, y: number): void => {
+  const down = (id: number, x: number, y: number, clientY: number): void => {
     if (isOver()) {
       buffer.push(1, { kind: "restart" });
       return;
@@ -74,6 +78,10 @@ export function bindControls(bindings: Bindings): Controls {
     // with `3` held (`render/desk-grab.ts`). One seat everywhere else, which is
     // every phone.
     const touches = deskDownAll(layout(), x, y, seats(), field, both());
+    // Nothing of this seat's under the thumb: it may be the partner's, drawn dead.
+    const theirs =
+      touches.length === 0 && !opening() && partnerUnder(layout(), bindings.controls(), x, y);
+    if (theirs) partner.show(theirs, clientY);
     whose.press(id, y);
     const holds = touches.flatMap((t) => (t.hold ? [t.hold] : []));
     const [first] = holds;
@@ -148,7 +156,7 @@ export function bindControls(bindings: Bindings): Controls {
     // Refused for a pointer the browser has no record of, a synthetic one:
     // the press is answered all the same (`pointer-capture.ts`).
     capture(canvas, e.pointerId);
-    down(e.pointerId, p.x, p.y);
+    down(e.pointerId, p.x, p.y, e.clientY);
   });
   canvas.addEventListener("pointermove", (e) => {
     e.preventDefault();

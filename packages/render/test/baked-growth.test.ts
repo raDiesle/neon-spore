@@ -115,7 +115,11 @@ function entriesAfter(role: "p1" | "p2"): number {
 // the slick is falling over — the companion ring's halo, which breathes, and
 // so is baked at the eleven radii its breath passes through, the same set the
 // film baked before it (`guide-tide-caption.ts`).
-const HELD = { p1: 86, p2: 84 } as const;
+// Four more on p1 and one on p2 later the same day, when the first rungs began
+// to draw the other phone's controls dead (`band-partner.ts`): on p1 player
+// 2's two colour buttons, in player 2's skin, bake their halos; on p2 the
+// cannon's strip does, once.
+const HELD = { p1: 90, p2: 85 } as const;
 
 describe("what the renderer keeps between frames", () => {
   for (const role of ["p1", "p2"] as const) {

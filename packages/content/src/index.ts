@@ -28,6 +28,7 @@ export {
   heldBack,
   layoutSet,
   panelSends,
+  partnerSeat,
   setControls,
   setHas,
   setLance,
@@ -176,6 +177,7 @@ export { SCOUT_HAUL_ARENAS } from "./scout-haul-arenas.js";
 export {
   LINK_WORDS,
   type LinkWords,
+  PARTNER_WORDS,
   SCREEN_WORDS,
   type ScreenWords,
 } from "./screen-words.js";

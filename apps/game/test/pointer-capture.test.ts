@@ -31,7 +31,7 @@ describe("a pointer the browser will not capture", () => {
   it("still reaches down() from the pointerdown listener", () => {
     expect(inputSource).not.toContain("canvas.setPointerCapture(");
     expect(inputSource).toMatch(
-      /addEventListener\("pointerdown", \(e\) => \{[\s\S]*?capture\(canvas, e\.pointerId\);\s*down\(e\.pointerId, p\.x, p\.y\);/,
+      /addEventListener\("pointerdown", \(e\) => \{[\s\S]*?capture\(canvas, e\.pointerId\);\s*down\(e\.pointerId, p\.x, p\.y[,)]/,
     );
   });
 });

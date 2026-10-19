@@ -5,6 +5,7 @@ import { drawBandHalf } from "./band-half.js";
 import { BAND_JOIN } from "./band-join.js";
 import { controlLobes } from "./band-lobes.js";
 import { drawBatonGrey, drawLock } from "./band-lock.js";
+import { drawPartner } from "./band-partner.js";
 import { chamberPath, drawSeamFlesh, drawSeamSpill, seamTop, seamY } from "./band-seam.js";
 import { drawFireFlash, drawFireVein, type FireShot } from "./fire-vein.js";
 import { type Layout, showsCannon, showsShield, tileCX } from "./layout.js";
@@ -148,6 +149,8 @@ export function drawBand(
 
   if (showsCannon(l.role)) drawBandHalf(ctx, l, world, set, 1, armed, open, time, lead);
   if (showsShield(l.role)) drawBandHalf(ctx, l, world, set, 2, armed, open, time, lead);
+  // And the other phone's half, dead, on the rungs that ask for it (`band-partner.ts`).
+  drawPartner(ctx, l, world, set, time);
   drawFireFlash(nerves, shots);
 
   ctx.restore();

@@ -138,6 +138,15 @@ export interface ControlSet {
    * `controlSeat`, so every picture and every key of a panel follows it.
    */
   swapped?: true;
+  /**
+   * **Each phone also draws the other seat's controls, dead.** The owner, 19
+   * October 2026: on the first rungs, where one screen has the cannon and the
+   * other has only the shots, each player sees where the partner's controls
+   * are, greyed, and a press on one says whose job it is and to talk
+   * (`render/band-partner.ts`). It is the panel's for `lance`'s reason: the
+   * rung is what the pair is learning on, not the wave.
+   */
+  partner?: true;
 }
 
 /** What a wave gets when it names nothing at all. */
@@ -174,6 +183,17 @@ export function setHas(set: ControlSet, id: ControlId): boolean {
  */
 export function setLance(set: ControlSet): boolean {
   return set.lance !== false && setHas(set, "fireRed") && setHas(set, "fireCyan");
+}
+
+/**
+ * The seat a phone holding `seat` draws dead beside its own, or null.
+ *
+ * Only a panel that asks for it (`ControlSet.partner`), and only on a phone:
+ * the screen that carries both seats already shows both of them alive.
+ */
+export function partnerSeat(set: ControlSet, seat: 1 | 2 | "both"): 1 | 2 | null {
+  if (set.partner !== true || seat === "both") return null;
+  return seat === 1 ? 2 : 1;
 }
 
 /**

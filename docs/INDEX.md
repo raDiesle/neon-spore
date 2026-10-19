@@ -2013,6 +2013,7 @@ by hand never moves.
 | `packages/render/src/band-join.ts` | THE ONE RECORD A CANDIDATE SHIP-AND-PANEL JOIN PATCHES |
 | `packages/render/src/band-filaments.ts` | Threads off the band's roof with a drop at the tip — the one part of POLYP the owner took, drawn over the pendants (12 September 2026) |
 | `packages/render/src/band-half.ts` | One seat's half of the panel, in the order the set lists it |
+| `packages/render/src/band-partner.ts` | **The other phone's controls, drawn dead on this one** |
 | `packages/render/src/volley-seams.ts` | **The pattern painted on THE VOLLEY's shell**: the four seams a basketball has |
 | `packages/render/src/volley-stone.ts` | **The shipped paint of THE VOLLEY's shell**, in the two passes `volley-look.ts` names |
 | `packages/render/src/volley-shards.ts` | THE VOLLEY's broken pieces: curved fragments of the ball a ward takes off it, and the core's skin when it hatches — thrown, falling on the skin, kept in `Effects` |
@@ -3248,6 +3249,7 @@ by hand never moves.
 | `apps/game/src/origin.ts` | Where the server lives, for both things that talk to it |
 | `apps/game/src/pairing.ts` | The way *back* into a room, for two people who have played before |
 | `apps/game/src/partners.ts` | WHAT A DEVICE REMEMBERS ABOUT THE PEOPLE IT HAS PLAYED WITH, and the rules for changing that list |
+| `apps/game/src/partner-hint.ts` | **A press on the other phone's control says whose it is, and to talk** |
 | `apps/game/src/menu-settings.ts` | The one durable place for "things about me" |
 | `apps/game/src/menu-controls.ts` | what a thumb does, every panel the game has, the field itself, then the keys |
 | `apps/game/src/input-bindings.ts` | what the pointer rig is handed, and why each of it is read fresh |
