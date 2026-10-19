@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-19 · 21537ca3b — On STANDARD 1 and 2 each phone shows the partner's controls, dead, and a press on one says to talk
+
+Player 1's phone draws player 2's colour buttons, and player 2's phone draws player 1's cannon strip, where the other phone has them, greyed and labelled P2 or P1. A press on one sends nothing and shows a short hint over the thumb: whose job it is, and "talk to each other". The panel asks for it with `ControlSet.partner`, set on the two rungs with only the cannon and the shots; STANDARD 4 onward and the one-screen test view are unchanged.
+
 ## 2026-10-19 · b3cd22c78 — The shield is offered in neon pink and in acid green beside today's cyan
 
 The shield, its rim and the SHIELD button share one hex with the cyan shot, so VERSUS opens `shield:hue` with two answers on `PALETTE.shield` and `shieldRim`: pink `#FF4FD8` and green `#8CFF3A`. Its pose is the shield lit in one column with a cyan bolt leaving the cannon four over, on SALVAGE's panel, so both seats show — SHIELD on player 1's, the shield strip and CYAN on player 2's. Nothing the game draws changes; adopting one waits on the queued entry that moves the readers of `PALETTE.shield` that mean plain cyan.

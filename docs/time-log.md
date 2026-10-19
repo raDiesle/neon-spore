@@ -44863,3 +44863,5 @@ Bottleneck: the shield and the cyan shot share one hex under two names, so findi
   test widened, `index`, two `check:fast` runs.
 
 Bottleneck: the four op-count budgets on STANDARD 2 waves, found only by the full check.
+
+*Measured: 17 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
