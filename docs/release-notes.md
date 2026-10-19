@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-19 · 67708ec33 — Every parent holds three waves, and only slick, bulb and rock waves stand alone
+
+A new thing now opens a block of its intro and three regular waves, not five. Only a slick, a bulb or a rock climbs the old ladder (alone in the middle, alone to the edges, then paired). Every other creature, pod and blister gesture is mixed with older enemies from its first regular wave: with the block before's thing, then with two older ones, then with both. THE GYRE's three now bring magnets, shells and echoes. In the tutorial arc these mixed waves keep two beats more between arrivals and no twins, so difficulty still rises in small steps.
+
 ## 2026-10-19 · 340a32c89 — THE LOCK aims one shot, then rests four seconds
 
 Player 1's hand on a body no longer steers every shot into it for as long as the thumb stays. The first lock of a wave is instant; the shot that reaches the locked body spends it, whatever its colour, and for `lockRestMs` (4000) a hand on a body aims nothing — the cannon is the only way a shot finds a column. A thumb still on a body when the rest ends locks it again without lifting. Nothing has to be held while it rests. The light on the hull that says it is ready again is not drawn yet; it goes to VERSUS. AUTO no longer fires at a magnet while the lock rests.

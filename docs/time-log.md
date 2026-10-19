@@ -44594,3 +44594,5 @@ owner before any code.
 
 Bottleneck: the arc is not recomposed by `waves:order`, so its fourteen
 bodies, TORCH, SALVAGE and the seven gestures needed a pass of their own.
+
+*Measured: 10 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
