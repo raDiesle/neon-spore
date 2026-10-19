@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-19 · 305ccae41 — THE MOTH: a moth drawn to the cannon's light, after RED TANGO (simulation)
+
+FIRST STEP's block ends on a boss now. A moth comes to the cannon once it stands still and sinks onto it; the pilot moves the cannon under the red spots on its wings and the gunner fires red. Four levels: two spots, four lit one at a time on alternate sides, four at once while it sheds red slicks, and last its belly, open only as it comes down on the cannon while it flees the light. STANDARD 1, red only; the guide is prose.
+
 ## 2026-10-19 · 05ecc7161 — The siren's talker gets MOUTH's moving lips, and the listener's ear is seen to hear
 
 SIREN:VOICE is decided for MOUTH (the owner, 19 October 2026): the talker's chip now has lips that open and shut on syllables. The listener's chip has a new hearing mark, also asked for by the owner. Each syllable travels in as a wave, and as it lands the ear leans in and goes from dim to cream, with the chip's outline lighting along with it. So the seat that has to listen looks busy rather than idle.

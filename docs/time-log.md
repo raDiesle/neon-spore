@@ -44642,3 +44642,5 @@ is drawn by nearly every frame test, so the gate cost more than the change.
 
 Bottleneck: the registrations — thirty files that each name a boss, found
 one typecheck error at a time.
+
+*Measured: 7 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
