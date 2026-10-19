@@ -46,6 +46,7 @@ export const FAULT_FLAG_KINDS = [
   "steer",
   "codex",
   "handover",
+  "swap",
   "leech",
   "limpet",
   "flip",
@@ -187,7 +188,7 @@ export function parseFault(value: string | undefined): FaultSpec | undefined {
 
   // **Every other kind takes the pencil's own two numbers**, which is what a
   // fault is since 15 September 2026. THE CODEX, THE STEER, THE LEECH, THE
-  // LIMPET and THE DARK all mean the same thing by them — enters on this beat, holds for
+  // LIMPET, THE DARK and THE SWAP all mean the same thing by them — enters on this beat, holds for
   // this many — and a flag that refused them would be a flag that could not
   // photograph the one thing a placed fault does that a whole-wave one could
   // not: start in the middle and stop.

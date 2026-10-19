@@ -81,6 +81,38 @@ export const ASSIST_SOUNDS: SoundDef[] = [
     ],
   },
   {
+    id: "assist.swapSiren",
+    family: "assist",
+    blurb:
+      "A short siren, up and back down, high above the voices: the panels are about to change hands.",
+    status: "bound",
+    use: "THE SWAP's warning — once on every beat of the countdown before the panels change screens, louder on the last (`mixer-handover.ts`). Above the speech band, because the countdown is exactly when the pair is saying what they are holding.",
+    level: 0.3,
+    layers: [
+      {
+        source: "sine",
+        freq: 3400,
+        toFreq: 5600,
+        glide: "lin",
+        gain: 0.3,
+        attack: 0.02,
+        hold: 0.17,
+        release: 0.03,
+      },
+      after(0.2, {
+        source: "sine",
+        freq: 5600,
+        toFreq: 3400,
+        glide: "lin",
+        gain: 0.3,
+        attack: 0.02,
+        hold: 0.17,
+        release: 0.08,
+      }),
+      sub(64, 0.3, 0.3),
+    ],
+  },
+  {
     id: "assist.offered",
     family: "assist",
     blurb: "An offer, not yet taken: a tone that stays and waits.",

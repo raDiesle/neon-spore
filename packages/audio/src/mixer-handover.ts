@@ -1,4 +1,4 @@
-import { handedOver, type World } from "@neon-spore/sim";
+import { handedOver, swapWarning, type World } from "@neon-spore/sim";
 import type { Memory } from "./memory.js";
 
 /**
@@ -40,4 +40,24 @@ export function soundHandover(world: World, first: boolean, m: Memory, play: Pla
   if (!first && traded && !m.handedOver) play("assist.handOver");
   if (!first && !traded && m.handedOver) play("assist.takeOver", undefined, BACK_GAIN);
   m.handedOver = traded;
+}
+
+/** How much quieter the siren is on every count but the last. */
+const EARLY_GAIN = 0.7;
+
+/**
+ * **THE SWAP's siren**: once on each beat of the countdown before the panels
+ * change hands, the last one at full gain. The owner, 19 October 2026: *around
+ * 3 seconds before it is going to change, some visual and siren warning.* The
+ * trade itself is heard by `soundHandover` above, because THE SWAP's trade is
+ * a `handedOver` edge like THE HANDOVER's; this is only the warning, which THE
+ * HANDOVER's plate gives with no sound at all. Read off `swapWarning`, the one
+ * count every picture of the warning reads as well.
+ */
+export function soundSwapSiren(world: World, first: boolean, m: Memory, play: Play): void {
+  const count = swapWarning(world);
+  if (!first && count > 0 && count !== m.swapWarned) {
+    play("assist.swapSiren", undefined, count === 1 ? 1 : EARLY_GAIN);
+  }
+  m.swapWarned = count;
 }

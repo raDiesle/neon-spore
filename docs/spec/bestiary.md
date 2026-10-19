@@ -718,6 +718,17 @@ who has played one has learnt nothing about the others:
   18 September 2026). A wave that wants the panels traded three times places the
   pencil three times, which is what `every` was for.
 
+  **THE SWAP is the same trade, over and over** (the owner, 19 October 2026: a
+  new brush, *the handover but much more frequent*). One pencil trades the
+  panels on its first beat and every `swapEveryBeats` (twelve, 7.5 seconds)
+  after it, back and forth, and brings them home on its last beat if they are
+  away. Every change — out, back, and home at the end — is counted down
+  `swapWarnBeats` ahead (five, about three seconds), with a siren on every count
+  (`assist.swapSiren`) and a picture of its own on the ship rather than the
+  handover's plate. It is THE HANDOVER's mechanic row and its rules exactly:
+  `handedOver` asks `packages/sim/src/swap.ts` as well, and nothing else in
+  the simulation knows it exists.
+
   **The wave's guide is a rehearsal, because the fault is a change of picture.**
   Three lines of prose can only assert that the band in front of you will become
   the other one; the film lets it happen while the pair watches

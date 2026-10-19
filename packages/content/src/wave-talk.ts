@@ -86,6 +86,7 @@ export const FAULT_TALK: Readonly<Record<MalfunctionKind, number>> = {
   steer: 2,
   codex: 3,
   handover: 3,
+  swap: 3,
   leech: 1,
   limpet: 1,
   flip: 3,

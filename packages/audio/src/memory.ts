@@ -43,6 +43,9 @@ export interface Memory {
   /** Whether THE HANDOVER had the panels traded on the previous frame
    * (`mixer-handover.ts`). */
   handedOver: boolean;
+  /** The count THE SWAP's siren last sounded on, 0 outside a warning
+   * (`mixer-handover.ts`). */
+  swapWarned: number;
   over: boolean;
 }
 
@@ -69,6 +72,7 @@ export function blankMemory(): Memory {
     guardArmed: false,
     intakeOpen: false,
     handedOver: false,
+    swapWarned: 0,
     over: false,
   };
 }

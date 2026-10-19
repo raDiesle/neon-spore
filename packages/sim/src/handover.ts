@@ -1,6 +1,7 @@
 import { faultStep } from "./fault-clock.js";
 import { faultInWave, faultOn, faultWindow } from "./fault-placed.js";
 import { flueTraded } from "./flue.js";
+import { swapTraded } from "./swap.js";
 import type { World } from "./world.js";
 
 /**
@@ -76,12 +77,15 @@ export function handedWave(world: World): boolean {
  * because the flue's rest between levels is the warning, and the siren says
  * whose mouth the next one waits on (`render/comms-boss.ts`).
  *
+ * And by THE SWAP, which is this fault over and over (`swap.ts`), and draws
+ * its own warning rather than this one's plate.
+ *
  * Counted in `faultStep`, the wave's own beat — zero on its first — so the
  * number an author places the pencil on is the number of beats the pair plays
  * with its own hands first.
  */
 export function handedOver(world: World): boolean {
-  return faultOn(world, "handover") !== null || flueTraded(world);
+  return faultOn(world, "handover") !== null || flueTraded(world) || swapTraded(world);
 }
 
 /** Beats until the trade, or 0 once it has happened. */

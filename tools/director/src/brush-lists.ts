@@ -56,6 +56,9 @@ export const FAULT_BRUSHES = [
   "fault:steer",
   "fault:codex",
   "fault:handover",
+  // **THE SWAP**, 19 October 2026: THE HANDOVER over and over, each change
+  // warned about three seconds ahead (`sim/swap.ts`).
+  "fault:swap",
   // **THE FLIP**, the one fault whose brush carries a seat: whose screen is
   // turned is the author's decision, so the palette grows a picker for it
   // beside the cannon's colour, on the row it is placed on (`fault-config.ts`).

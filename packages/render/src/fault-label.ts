@@ -26,6 +26,7 @@ export const FAULT_LABEL: Record<MalfunctionKind, string> = {
   steer: "CANNON WALKS ALONE",
   codex: "COLOURS SWAP",
   handover: "SCREENS SWAPPED",
+  swap: "SCREENS KEEP SWAPPING",
   leech: "KEEP CANNON MOVING",
   limpet: "KEEP SHIELD MOVING",
   flip: "MIRRORED",

@@ -38,6 +38,6 @@ function eats(m: Malfunction, c: Command): boolean {
   // means (`codex.ts`), whose screen it is on (`handover.ts`), what standing
   // still now costs (`harpoon.ts`), or where the field really is (`flip.ts`).
   if (m.kind === "codex" || m.kind === "handover" || isHarpoonKind(m.kind)) return false;
-  if (m.kind === "flip" || m.kind === "dark") return false;
+  if (m.kind === "flip" || m.kind === "dark" || m.kind === "swap") return false;
   return c.kind === "guard";
 }

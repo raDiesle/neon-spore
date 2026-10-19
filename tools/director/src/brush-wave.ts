@@ -37,6 +37,7 @@ export const BRUSH_MECHANIC: Partial<Record<Brush, MechanicId>> = {
   "fault:steer": "steerFault",
   "fault:codex": "codexFault",
   "fault:handover": "handoverFault",
+  "fault:swap": "handoverFault",
   "fault:flip": "flipFault",
   "fault:dark": "darkFault",
   "fault:leech": "leech",

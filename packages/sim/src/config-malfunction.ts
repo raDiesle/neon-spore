@@ -83,6 +83,19 @@ export interface MalfunctionConfig {
    */
   handoverWarnBeats: number;
   /**
+   * Beats between two of THE SWAP's changes (`swap.ts`). Twelve, 7.5 seconds
+   * at 96 bpm: the owner asked for THE HANDOVER *much more frequent* on 19
+   * October 2026, and twelve leaves seven quiet beats between the end of one
+   * warning and the start of the next — long enough to play a column in your
+   * own hands before you are told to let go of it.
+   */
+  swapEveryBeats: number;
+  /**
+   * Beats of warning before each of THE SWAP's changes. Five, 3.1 seconds at
+   * 96 bpm — the owner's *around 3 seconds before*, 19 October 2026.
+   */
+  swapWarnBeats: number;
+  /**
    * Beats a square of THE DARK's field stays lit after a finger lands on it
    * (`dark.ts`). Two, which the owner named on 25 September 2026: long enough
    * to see what is there and say it, too short to light the field once and
@@ -103,6 +116,8 @@ export const MALFUNCTION_DEFAULTS: MalfunctionConfig = {
   handoverAtBeat: 9,
   handoverHoldBeats: 8,
   handoverWarnBeats: 2,
+  swapEveryBeats: 12,
+  swapWarnBeats: 5,
   darkLitBeats: 2,
   darkLitRadiusMilli: 1400,
 };

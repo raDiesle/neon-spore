@@ -66,6 +66,9 @@ export const FAULT_MECHANIC = {
   steer: "steerFault",
   codex: "codexFault",
   handover: "handoverFault",
+  // THE SWAP is THE HANDOVER over and over — the same trade, the same thing
+  // to say, only more often — so it is that row (`sim/swap.ts`).
+  swap: "handoverFault",
   flip: "flipFault",
   dark: "darkFault",
   leech: "leech",

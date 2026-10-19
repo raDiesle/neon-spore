@@ -114,6 +114,11 @@ export const MALFUNCTION_KINDS = [
   // swallows nothing — THE FLIP's kind again, where what has gone is the
   // picture — and the light is a command, so both screens show it (`dark.ts`).
   "dark",
+  // **THE SWAP**: THE HANDOVER, over and over — the panels change screens on
+  // the placement's first beat and every `swapEveryBeats` after it, each change
+  // warned for about three seconds. The owner asked for it on 19 October 2026
+  // (`swap.ts`).
+  "swap",
 ] as const;
 export type MalfunctionKind = (typeof MALFUNCTION_KINDS)[number];
 
@@ -153,6 +158,8 @@ export type Malfunction =
    * the 13th about this fault, generalised to all five.
    */
   | { kind: "handover" }
+  /** THE SWAP: THE HANDOVER's trade, back and forth for the placement (`swap.ts`). */
+  | { kind: "swap" }
   /**
    * THE FLIP, and the `seat` is the whole of what an author writes: **which
    * screen is turned**, never both (`flip.ts`). It is on the fault rather than
@@ -201,7 +208,7 @@ function actOn(world: World, m: PlacedFault): void {
   // harpoons are watched every *tick* rather than every beat — a count of a
   // beat and a half cannot be judged on the beat (`stepHarpoons`).
   if (m.kind === "codex" || m.kind === "handover" || isHarpoonKind(m.kind)) return;
-  if (m.kind === "flip" || m.kind === "dark") return;
+  if (m.kind === "flip" || m.kind === "dark" || m.kind === "swap") return;
   if (m.kind === "steer") {
     stepChoke(world);
     return;

@@ -875,6 +875,7 @@ by hand never moves.
 | `packages/sim/src/swindle-step.ts` | THE SWINDLE's clock: she comes in, hangs a hand, trades its pods across and lets them go on their beats |
 | `packages/sim/src/swindle-arc.ts` | **Two of THE SWINDLE's pods crossing pass one in front of the other** |
 | `packages/sim/src/swindle.ts` | THE SWINDLE: a slime that hangs real pods and husks side by side and shuffles them |
+| `packages/sim/src/swap.ts` | **THE SWAP: THE HANDOVER, over and over** |
 | `packages/sim/src/pinball-shot.ts` | One shot of PINBALL: where the ball waits, what firing it does, and putting the loop back to the start |
 | `packages/sim/src/pinball-hand.ts` | **PINBALL's two hands on the table itself**: player 1 winding a spring his own last shot left slack |
 | `packages/sim/src/pinball-hash.ts` | What PINBALL puts into `hashWorld`, and nothing else |

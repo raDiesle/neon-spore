@@ -44943,3 +44943,17 @@ Bottleneck: telling, reader by reader, which of fifty uses of one hex meant the 
 Bottleneck: the compaction in the middle of the rewrite.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-19 — THE SWAP: a fault brush that trades the panels every twelve beats, warned with a siren
+
+- reading: 15 min. THE HANDOVER end to end — its clock, plate, hull lobes,
+  sound, brush and the fault registrations — and where "brush" pointed.
+- writing: 15 min. `sim/swap.ts` and its test, the kind in every table that
+  asked for it, the siren and its mixer hook.
+- looking: 0 min. Nothing drawn changed in this half; the look is the next lane.
+- friction: 5 min. A mechanic row needs a demonstration wave, so the fault
+  points at THE HANDOVER's row instead of growing a wave nobody asked for.
+- landing: 10 min. Two `check:fast` runs — the doc counts, the sound's
+  picture reason and the config field's document were the second.
+
+Bottleneck: the eleven places a new fault kind is a name, found one red test at a time.

@@ -63,6 +63,11 @@ const FAULT_LOOK: { brush: Brush; label: string; note: string }[] = [
     label: "HANDOVER",
     note: "the two panels change screens for a window",
   },
+  {
+    brush: "fault:swap",
+    label: "SWAP",
+    note: "the panels change screens every few seconds, warned",
+  },
   { brush: "fault:flip", label: "FLIP", note: "one seat's field is drawn mirrored; nothing else" },
   {
     brush: "fault:dark",

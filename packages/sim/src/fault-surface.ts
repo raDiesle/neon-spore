@@ -60,3 +60,6 @@ export {
   type MalfunctionKind,
   malfunctionColor,
 } from "./malfunction.js";
+// THE SWAP's clock: the next change, the warning before it, and how long ago
+// the last one was — every look and the siren count in these (`swap.ts`).
+export { swapChangedAgo, swapChangeIn, swapInWave, swapWarning } from "./swap.js";
