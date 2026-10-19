@@ -16,9 +16,7 @@ export const WAVES_ACT_9: Wave[] = [
   {
     id: "theVolley",
     name: "THE VOLLEY",
-    guide: {
-      scene: "theVolley",
-    },
+    hints: "theVolley",
     entries: [
       { beat: 0, col: 2, kind: "volley", color: "red" },
       { beat: 26, col: 8, kind: "volley", color: "cyan" },
@@ -136,9 +134,7 @@ export const WAVES_ACT_9: Wave[] = [
   {
     id: "theCrawler",
     name: "THE CRAWLER",
-    guide: {
-      scene: "theCrawler",
-    },
+    hints: "theCrawler",
     entries: [
       { beat: 0, col: 0, kind: "crawler", color: null, segments: 3, side: "left" },
       { beat: 24, col: 10, kind: "crawler", color: null, segments: 5, side: "right" },

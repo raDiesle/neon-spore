@@ -28,9 +28,7 @@ export const WAVES_ACT_8: Wave[] = [
   {
     id: "theClasp",
     name: "THE CLASP",
-    guide: {
-      scene: "theClasp",
-    },
+    hints: "theClasp",
     entries: [
       { beat: 0, col: 5, kind: "clasp", color: "cyan" },
       { beat: 6, col: 2, kind: "clasp", color: "red" },
@@ -183,9 +181,7 @@ export const WAVES_ACT_8: Wave[] = [
   {
     id: "theCrystal",
     name: "THE CRYSTAL",
-    guide: {
-      scene: "theCrystal",
-    },
+    hints: "theCrystal",
     entries: [
       { beat: 0, col: 0, kind: "crystal", color: "red" },
       { beat: 20, col: 10, kind: "crystal", color: "cyan" },

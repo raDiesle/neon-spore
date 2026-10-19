@@ -4,7 +4,7 @@ import type { GuideScene } from "../scene-types.js";
  * THE LEECH's rehearsal: the cannon is held, and standing still is the
  * mistake.
  *
- * THE LIMPET's film on the other half of the ship (`scenes/the-limpet.ts`),
+ * THE LIMPET's film on the other half of the ship (its wave has hints now),
  * because the fault is the same one aimed elsewhere (`sim/harpoon.ts`): a
  * body sticks to the cannon for the placement's `beats`, and a cannon that
  * has not been in a new column for `harpoonStillBeats` loses the round.

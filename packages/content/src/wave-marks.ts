@@ -1,4 +1,5 @@
 import { firstOnPanel } from "./control-sets.js";
+import { waveTeaches } from "./wave-hints.js";
 import type { Wave } from "./wave-types.js";
 
 /**
@@ -35,7 +36,8 @@ export function waveMarksOn(waves: readonly Wave[], index: number): WaveMarkId[]
   const out: WaveMarkId[] = [];
   if (wave.boss) out.push("boss");
   if (firstOnPanel(waves, index)) out.push("control");
-  if (wave.guide) out.push("card");
+  // A guide in front of it or hints on its field: either is the wave teaching.
+  if (waveTeaches(wave)) out.push("card");
   if (wave.faults?.length) out.push("fault");
   return out;
 }

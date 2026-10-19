@@ -41,7 +41,7 @@ export const CATCH_AND_AIM: GuideScene = {
     // shown the answer rather than asked the question.
     { tick: 90, control: "cannon", col: 1 },
     // Thirty ticks after its own page, and that is the anchor's exception —
-    // `held` has no subject until the hand is down (`the-hand.ts` makes the
+    // `held` has no subject until the hand is down (THE HAND's film made the
     // same allowance for the same reason).
     { tick: 270, grip: 1, col: 6, until: 660 },
     { tick: 480, control: "fireCyan" },

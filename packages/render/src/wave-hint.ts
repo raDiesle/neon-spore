@@ -9,7 +9,7 @@ import {
   WAVE_HINTS,
   WAVES,
 } from "@neon-spore/content";
-import { type Creature, gripCount, OPENING_PLAY, type World } from "@neon-spore/sim";
+import { type Creature, gripCount, OPENING_PLAY, spanOf, type World } from "@neon-spore/sim";
 import { anchorPoint } from "./caption-anchor.js";
 import { showsGhostBody } from "./ghost.js";
 import { GUIDE_LOOK } from "./guide-look.js";
@@ -78,9 +78,10 @@ export function waveHintsNow(world: World): readonly HintLine[] {
   const id = WAVES[world.wave]?.hints;
   if (id === undefined || !hinting(world)) return [];
   const next = lowest(world);
-  if (next === null) return [];
   return WAVE_HINTS[id].filter((h) =>
-    [h.when ?? "always"].flat().every((w) => WHEN[w](world, next)),
+    [h.when ?? "always"]
+      .flat()
+      .every((w) => w === "always" || (next !== null && WHEN[w](world, next))),
   );
 }
 
@@ -92,13 +93,12 @@ export function waveHint(
   set: ControlSet = controlSetForWave(world.wave),
 ): ShownHint | null {
   const next = lowest(world);
-  if (next === null) return null;
   const shown: ShownHint[] = [];
   const seen = seenOn(l, world);
   for (const h of waveHintsNow(world)) {
     const mine = l.role === "test" ? h.acts !== false : h.seat === seatOf(l.role);
     const anchor = subject(h.anchor, next);
-    if (mine && anchorPoint(l, seen, set, anchor, beatPhase) !== null) {
+    if (mine && anchor && anchorPoint(l, seen, set, anchor, beatPhase) !== null) {
       shown.push({ ...h, anchor });
     }
   }
@@ -107,18 +107,31 @@ export function waveHint(
   return shown[Math.floor(Math.max(0, world.beat) / HINT_BEATS) % shown.length] ?? null;
 }
 
-/** `fire` is the button in the next body's colour; every other subject is a film's. */
-function subject(anchor: HintAnchor, next: Creature): SceneAnchor {
+/**
+ * `fire` is the button in the next body's colour, and nothing on an empty
+ * field; every other subject is a film's.
+ */
+function subject(anchor: HintAnchor, next: Creature | null): SceneAnchor | null {
   if (anchor.at !== "fire") return anchor;
+  if (next === null) return null;
   return { at: "control", control: next.color === "red" ? "fireRed" : "fireCyan" };
 }
 
-const WHEN: Record<HintWhen, (world: World, next: Creature) => boolean> = {
-  always: () => true,
-  offColumn: (world, next) => world.cannonCol !== next.col,
-  onColumn: (world, next) => world.cannonCol === next.col,
-  held: (world, next) => gripCount(world, next.id) > 0,
-  free: (world, next) => gripCount(world, next.id) === 0,
+/** Whether a column is under a body, any column of its width (`spanOf`). */
+function under(col: number, c: Creature): boolean {
+  const half = (spanOf(c) - 1) / 2;
+  return col >= c.col - half && col <= c.col + half;
+}
+
+const handOn = (world: World) => world.creatures.some((c) => gripCount(world, c.id) > 0);
+
+const WHEN: Record<Exclude<HintWhen, "always">, (world: World, next: Creature) => boolean> = {
+  offColumn: (world, next) => !under(world.cannonCol, next),
+  onColumn: (world, next) => under(world.cannonCol, next),
+  shieldOff: (world, next) => !under(world.shieldCol, next),
+  shieldOn: (world, next) => under(world.shieldCol, next),
+  held: (world) => handOn(world),
+  free: (world) => !handOn(world),
 };
 
 /**

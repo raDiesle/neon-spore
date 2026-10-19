@@ -30,7 +30,7 @@ first creature falling. It is one of two states, never both:
    prose (§3.2). Either way it ends on **the ready gate**: two circles, one per
    seat, each filling while that seat holds and saying READY when it is full.
    The guide passes when both say READY. Only a wave that introduces something
-   new carries one — one hundred and one of the two hundred and eight waves today, and a wave
+   new carries one — eighty-five of the two hundred and eight waves today, and a wave
    with no guide has no circles either.
 2. **The introduction**, if it has no guide. `WAVE 4`, the wave's name, its
    one sentence. Plain text on the field — no panel, no border, nothing to
@@ -293,6 +293,14 @@ on the cannon or the body, never on a fire button, which would say the colour
 by ringing it. `fire` is the button in the next body's colour, for the seat
 that sees it.
 
+The shield waves followed — THE ROCK to THE CRAWLER, sixteen more, in
+`hints/shield.ts` and `hints/shield-walls.ts`: player 2 carries the shield
+under it, player 1 presses SHIELD as it lands. *Under* is under any column of
+a body's width, and a line about the strip alone (TORCH's warning) holds
+before anything has landed. A hint is drawn on the world its screen draws, so
+a ghost or a wisp is never ringed on the screen that is not shown it. A wave
+with hints carries the guide mark in the menus, as a wave with a film does.
+
 `waveTeaches` is the one question the rules about what is taught where ask —
 a guide or hints — and `waveHasGuide` still means *a guide to play*.
 
@@ -345,7 +353,7 @@ RED pressed, the shot taking it, and then a second slick nobody answers, so the
 last thing the pair is shown is the hull bar dropping. About five seconds,
 looping.
 
-**There are eighty-two of them now**, one per guided wave bar nineteen,
+**There are sixty-six of them now**, one per guided wave bar nineteen,
 and each is authored in `packages/content/src/scenes/` as a page of
 choreography rather than a page of prose. The nineteen that are still the
 three strings and the two circles are the bosses from THE NETTLE on,

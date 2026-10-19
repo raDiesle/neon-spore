@@ -1,12 +1,10 @@
 import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
-import { guideScene, type SceneStep, sceneScript, stepSpan, WAVES } from "@neon-spore/content";
-import { beatPhase, DEFAULT_CONFIG, SceneRun } from "@neon-spore/sim";
-import { bandControlSet } from "../src/band.js";
-import { filmLayout } from "../src/guide-film.js";
-import { BAND_FOOT } from "../src/guide-tide.js";
+import { controlSetForWave, queueFromWave, WAVES } from "@neon-spore/content";
+import { createWorld, DEFAULT_CONFIG, startWave, step, type World } from "@neon-spore/sim";
 import { captionBox } from "../src/guide-tide-caption-box.js";
-import { computeLayout, type ViewRole } from "../src/layout.js";
+import { computeLayout, type Layout, type ViewRole } from "../src/layout.js";
 import { shipTopFoot } from "../src/ship-top-chrome.js";
+import { HINT_BEATS, waveHint } from "../src/wave-hint.js";
 import { FRAME_TIMEOUT_MS, installCanvasGlobals, stubCanvas } from "./canvas-stub.js";
 
 // The cap, applied per file because bun applies it to the file it is in
@@ -14,7 +12,7 @@ import { FRAME_TIMEOUT_MS, installCanvasGlobals, stubCanvas } from "./canvas-stu
 setDefaultTimeout(FRAME_TIMEOUT_MS);
 
 /**
- * A page's caption plate and the ship's own chrome under the band.
+ * A tutorial plate and the ship's own chrome under the band.
  *
  * The band used to cover the siren, its duty word and the two alarm rows, so a
  * caption that stopped at the band's foot had nothing to land on. They came
@@ -25,103 +23,71 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
  * **Measured on the box, not on the words.** The plate is an opaque fill, so a
  * check that no two *texts* overlap passes while the row underneath is gone —
  * which is how this shipped in the first place. `captionBox` is the seam
- * (`guide-tide-caption-box.ts`).
+ * (`guide-tide-caption-box.ts`), and it is the same seam for a film's page and
+ * a hint on the live field.
  *
- * **And measured in the film's own layout.** A page is drawn phone-shaped
- * inside the stage and its own `Layout` is shorter than the phone's, so the
- * same anchor lands on a different row in each — far enough that the whole
- * collision disappears when the stage's layout is used by mistake.
+ * **Measured on the live field since 19 October 2026**, when TORCH and THE
+ * MAGNET, the two films this was written on, became hints on their fields
+ * (`wave-hint.ts`). TORCH's is the one with a call up the whole time it
+ * teaches: its warning is the call.
  */
 
-const CFG = { ...DEFAULT_CONFIG, briefings: true };
+const CFG = { ...DEFAULT_CONFIG, briefings: false };
 const PHONE = { width: 390, height: 844, dpr: 1 };
 const ROLES: ViewRole[] = ["p1", "p2"];
-/**
- * The waves whose chrome writes at the top and whose guide plays a film.
- * THE MAGNET's went on 19 October 2026 for hints on its field (`Wave.hints`).
- */
-const WAVE_NAMES = ["TORCH"];
+const TORCH = WAVES.findIndex((w) => w.name === "TORCH");
 
 beforeAll(installCanvasGlobals);
 
-interface Page {
-  where: string;
-  /** The lowest row the ship wrote on, and the top of the plate over it. */
-  foot: number;
-  y: number;
+/** TORCH in play, stepped until the ship writes a row at the top of p1's screen. */
+function calling(): { world: World; foot: (l: Layout) => number | null } {
+  const world = createWorld(CFG, 7);
+  startWave(world, TORCH, queueFromWave(WAVES[TORCH]!, CFG.cols));
+  const p1 = computeLayout(PHONE, CFG, "p1");
+  for (let i = 0; i < 2000 && shipTopFoot(p1, world) === null; i++) step(world, []);
+  return { world, foot: (l) => shipTopFoot(l, world) };
 }
 
-/**
- * Every page of the wave's film, in the state the film really plays it in:
- * the scene's own run rather than a world posed to look like one, which is
- * the only thing that puts a blip on the strip where the page points at it.
- */
-function pagesOf(name: string, role: ViewRole): Page[] {
-  const index = WAVES.findIndex((w) => w.name === name);
-  expect(index, `no wave named ${name}`).toBeGreaterThanOrEqual(0);
-  const id = WAVES[index]?.guide?.scene;
-  expect(id, `${name} plays no film`).toBeDefined();
-  if (id === undefined) return [];
-  const scene = guideScene(id);
-  const { ctx } = stubCanvas();
-  const { l } = filmLayout(computeLayout(PHONE, CFG, role), CFG, role === "p1" ? 1 : 2);
-  const run = new SceneRun(sceneScript(id, index, CFG));
-  const set = bandControlSet(undefined, run.world);
-  const out: Page[] = [];
-  scene.steps.forEach((step: SceneStep, i: number) => {
-    run.restart(stepSpan(scene, i).from);
-    const foot = shipTopFoot(l, run.world);
-    const box = captionBox(
-      ctx as unknown as CanvasRenderingContext2D,
-      l,
-      run.world,
-      set,
-      step,
-      beatPhase(CFG, run.world.tick),
-    );
-    if (foot === null || !box) return;
-    out.push({ where: `${name} ${role} page ${i + 1}`, foot, y: box.y });
-  });
-  return out;
-}
-
-describe("a rehearsal's caption plate and the ship's chrome", () => {
-  for (const name of WAVE_NAMES) {
-    it(`${name}: no page's plate starts above a row the ship wrote`, () => {
-      // Both seats together: a radar is one person's (`showsRadar`), so the
-      // navigator's pages may have nothing at the top to collide with and
-      // contribute none. The wave has to contribute some, or the loop below
-      // is walking an empty list.
-      const seen = ROLES.flatMap((role) => pagesOf(name, role));
-      expect(seen.length, "no page had both a plate and a row").toBeGreaterThan(0);
-      for (const page of seen) {
+describe("a tutorial plate and the ship's chrome", () => {
+  it("TORCH: no plate starts above a row the ship wrote, on either seat", () => {
+    const { world, foot } = calling();
+    const { ctx } = stubCanvas();
+    const set = controlSetForWave(TORCH);
+    let seen = 0;
+    for (const role of ROLES) {
+      const l = computeLayout(PHONE, CFG, role);
+      const reach = foot(l);
+      // A radar is one person's (`showsRadar`), so the navigator's screen may
+      // have nothing at the top to collide with, and contributes none.
+      if (reach === null) continue;
+      for (let turn = 0; turn < 6; turn++) {
+        world.beat = turn * HINT_BEATS;
+        const hint = waveHint(l, world, 0.5, set);
+        if (hint === null) continue;
+        const step = { tick: 0, seat: hint.seat, text: hint.text, anchor: hint.anchor };
+        const box = captionBox(
+          ctx as unknown as CanvasRenderingContext2D,
+          l,
+          world,
+          set,
+          step,
+          0.5,
+        );
+        if (!box) continue;
+        seen++;
         // A plate starting above the chrome's foot covers it: the plate is an
         // opaque fill and the chrome was drawn first.
         expect(
-          page.y,
-          `${page.where}: a plate at ${Math.round(page.y)} over chrome reaching ${Math.round(page.foot)}`,
-        ).toBeGreaterThanOrEqual(page.foot);
+          box.y,
+          `${role} "${hint.text}": a plate at ${Math.round(box.y)} over chrome reaching ${Math.round(reach)}`,
+        ).toBeGreaterThanOrEqual(reach);
       }
-    });
-  }
-});
+    }
+    expect(seen, "no hint had both a plate and a row").toBeGreaterThan(0);
+  });
 
-describe("shipTopFoot", () => {
-  function runOf(name: string): SceneRun {
-    const index = WAVES.findIndex((w) => w.name === name);
-    const id = WAVES[index]?.guide?.scene;
-    if (id === undefined) throw new Error(`${name} plays no film`);
-    const run = new SceneRun(sceneScript(id, index, CFG));
-    run.restart(stepSpan(guideScene(id), 0).from);
-    return run;
-  }
-
-  const filmL = (role: ViewRole) =>
-    filmLayout(computeLayout(PHONE, CFG, role), CFG, role === "p1" ? 1 : 2).l;
-
-  it("reaches past the top of the picture while a call is up, well short of the band", () => {
-    const foot = shipTopFoot(filmL("p1"), runOf("TORCH").world);
-    expect(foot, "TORCH's own rehearsal wrote nothing at the top").not.toBeNull();
-    expect(foot as number).toBeLessThan(BAND_FOOT);
+  it("shipTopFoot reaches past the top of the picture while TORCH's call is up", () => {
+    const { foot } = calling();
+    expect(foot(computeLayout(PHONE, CFG, "p1")), "TORCH wrote nothing at the top").not.toBeNull();
   });
 });

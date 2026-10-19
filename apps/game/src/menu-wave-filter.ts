@@ -34,6 +34,7 @@ function waveHaystack(index: number): string {
     const g = wave.guide;
     parts.push(...(g.scene === undefined ? [g.both, g.p1, g.p2] : [g.scene]));
   }
+  if (wave.hints) parts.push(wave.hints);
   const set = controlSet(wave.controls);
   parts.push(set.name, set.id);
   if (set.id !== DEFAULT_CONTROL_SET_ID) parts.push("panel");

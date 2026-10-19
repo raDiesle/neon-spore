@@ -1,5 +1,5 @@
 import { describe, expect, it } from "bun:test";
-import { WAVES, type WaveKind } from "../src/index.js";
+import { WAVES, type WaveKind, waveTeaches } from "../src/index.js";
 
 /**
  * A guided wave carries its lesson and nothing else.
@@ -123,7 +123,8 @@ describe("a guided wave's entries", () => {
         seen.add(e.kind);
         introduced.add(e.kind);
       }
-      if (!wave.guide) continue;
+      // A guide in front of it or hints on its field (`waveTeaches`).
+      if (!waveTeaches(wave)) continue;
       const kept = new Set(THE_LESSON_KEEPS[wave.name] ?? []);
       for (const e of wave.entries) {
         if (e.kind === undefined) continue;
@@ -135,11 +136,11 @@ describe("a guided wave's entries", () => {
     }
   });
 
-  it("names in the table only waves that exist, carry a guide, and carry the kind", () => {
+  it("names in the table only waves that exist, teach, and carry the kind", () => {
     for (const [name, kinds] of Object.entries(THE_LESSON_KEEPS)) {
       const wave = WAVES.find((w) => w.name === name);
       expect(wave, `${name} is in the table and not in the game`).toBeDefined();
-      expect(wave?.guide, `${name} is in the table and carries no guide`).toBeDefined();
+      expect(wave && waveTeaches(wave), `${name} is in the table and teaches nothing`).toBe(true);
       for (const kind of kinds) {
         expect(
           wave?.entries.some((e) => e.kind === kind),

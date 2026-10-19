@@ -42,17 +42,24 @@ export type HintAnchor = SceneAnchor | { at: "fire" };
  * never a clock — a moment placed by hand against a clock is a second copy of
  * where a body lands, the film's rule (`.claude/skills/new-tutorial`).
  *
- * The body these are about is **the next to land**: the lowest one on the
- * field, because it is the one a mistake is made on.
+ * The body the column states are about is **the next to land**: the lowest
+ * one on the field, because it is the one a mistake is made on, and *under*
+ * is under any column of its width. Every state but `always` wants a body on
+ * the field; an `always` line holds before the first has arrived, which is
+ * when a warning on the strip is the thing to read.
  */
 export type HintWhen =
-  /** Whenever a body is on the field. */
+  /** Whenever the wave is teaching, a body on the field or not. */
   | "always"
   /** The cannon is not under the next body to land. */
   | "offColumn"
   /** It is. */
   | "onColumn"
-  /** A hand is on it — either seat's (`sim/grip.ts`). */
+  /** The shield is not under the next body to land. */
+  | "shieldOff"
+  /** It is. */
+  | "shieldOn"
+  /** A hand is on a body — either seat's, any body (`sim/grip.ts`). */
   | "held"
-  /** No hand is. */
+  /** No hand is on any. */
   | "free";

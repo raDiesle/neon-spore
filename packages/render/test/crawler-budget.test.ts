@@ -126,14 +126,18 @@ const MEASURE = false;
 // is about eleven strokes and two paths a ring where the old crosshair was
 // four, so `stroke` rose by fifty-five; the dome no longer needs its save.
 // Remeasured, not padded (`crawler-marks.ts`).
+// From 19 October 2026 THE CRAWLER teaches on its own field rather than in a
+// film (`wave-hint.ts`), and the worm measured here is its first: a tutorial
+// plate, its ring, its leader and its TUTORIAL tab — four strokes, three
+// fills, two paths and two `fillText`. Remeasured, not padded.
 const BUDGETS: Readonly<Record<"p1" | "p2", readonly Budget[]>> = {
   p1: [
-    { fillRect: 9, stroke: 163, fill: 102, clip: 11, save: 65, "new Path2D": 64, fillText: 0 },
-    { fillRect: 9, stroke: 165, fill: 99, clip: 11, save: 62, "new Path2D": 33, fillText: 0 },
+    { fillRect: 9, stroke: 167, fill: 105, clip: 11, save: 65, "new Path2D": 66, fillText: 2 },
+    { fillRect: 9, stroke: 169, fill: 102, clip: 11, save: 62, "new Path2D": 35, fillText: 2 },
   ],
   p2: [
-    { fillRect: 9, stroke: 167, fill: 110, clip: 11, save: 67, "new Path2D": 62, fillText: 0 },
-    { fillRect: 9, stroke: 169, fill: 107, clip: 11, save: 64, "new Path2D": 33, fillText: 0 },
+    { fillRect: 9, stroke: 171, fill: 113, clip: 11, save: 67, "new Path2D": 64, fillText: 2 },
+    { fillRect: 9, stroke: 173, fill: 110, clip: 11, save: 64, "new Path2D": 35, fillText: 2 },
   ],
 };
 

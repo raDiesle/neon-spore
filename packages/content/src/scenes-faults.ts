@@ -5,7 +5,6 @@ import { THE_DARK } from "./scenes/the-dark.js";
 import { THE_FLIP } from "./scenes/the-flip.js";
 import { THE_HANDOVER } from "./scenes/the-handover.js";
 import { THE_LEECH } from "./scenes/the-leech.js";
-import { THE_LIMPET } from "./scenes/the-limpet.js";
 
 /**
  * The rehearsals of the malfunctions — the waves whose lesson is a fault
@@ -27,7 +26,6 @@ export type FaultSceneId =
   | "theFlip"
   | "theDark"
   | "theChoke"
-  | "theLimpet"
   | "theLeech"
   | "theCodex";
 
@@ -36,7 +34,6 @@ export const SCENES_FAULTS: Record<FaultSceneId, GuideScene> = {
   theFlip: THE_FLIP,
   theDark: THE_DARK,
   theChoke: THE_CHOKE,
-  theLimpet: THE_LIMPET,
   theLeech: THE_LEECH,
   theCodex: THE_CODEX,
 };

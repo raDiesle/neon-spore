@@ -6,7 +6,10 @@ import type { HintLine } from "../hint-types.js";
  * all of them.
  */
 export const CANNON = { at: "ship", control: "cannon" } as const;
-export const SHIELD = { at: "ship", control: "shield" } as const;
+export const SHIELD = { at: "control", control: "shield" } as const;
+/** The SHIELD button, player 1's, that puts up what player 2 carries. */
+export const GUARD = { at: "control", control: "guard" } as const;
+export const RADAR = { at: "radar" } as const;
 export const BODY = { at: "body" } as const;
 export const HELD = { at: "held" } as const;
 export const FIRE = { at: "fire" } as const;
@@ -48,4 +51,38 @@ export function aimAndFire(words: AimWords = {}): HintLine[] {
 /** A line about the body that is said, not pressed: `acts: false`. */
 export function tell(seat: 1 | 2, text: string): HintLine {
   return { seat, text, anchor: BODY, acts: false };
+}
+
+/** What `shieldIt`'s four lines say, where a wave says one of them its own way. */
+export interface ShieldWords {
+  move?: string;
+  say?: string;
+  press?: string;
+  wait?: string;
+}
+
+/**
+ * **A column and a press, one per person, the other way round** — THE ROCK's
+ * lesson. Player 2 carries the shield under it and tells player 1, who
+ * presses SHIELD as it lands and waits until then.
+ */
+export function shieldIt(words: ShieldWords = {}): HintLine[] {
+  return [
+    { seat: 2, when: "shieldOff", text: words.move ?? "MOVE THE SHIELD UNDER IT", anchor: SHIELD },
+    {
+      seat: 2,
+      when: "shieldOn",
+      text: words.say ?? "TELL PLAYER 1: SHIELD!",
+      anchor: SHIELD,
+      acts: false,
+    },
+    { seat: 1, when: "shieldOn", text: words.press ?? "PRESS SHIELD AS IT LANDS", anchor: GUARD },
+    {
+      seat: 1,
+      when: "shieldOff",
+      text: words.wait ?? "WAIT FOR THE SHIELD",
+      anchor: GUARD,
+      acts: false,
+    },
+  ];
 }

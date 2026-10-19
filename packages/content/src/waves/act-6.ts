@@ -62,9 +62,7 @@ export const WAVES_ACT_6: Wave[] = [
   {
     id: "theFence",
     name: "THE FENCE",
-    guide: {
-      scene: "theFence",
-    },
+    hints: "theFence",
     entries: [
       { beat: 0, col: 5, kind: "fence", color: null },
       { beat: 12, col: 5, kind: "fence", color: null },
@@ -75,9 +73,7 @@ export const WAVES_ACT_6: Wave[] = [
     id: "theGap",
     name: "THE GAP",
     variant: true,
-    guide: {
-      scene: "theGap",
-    },
+    hints: "theGap",
     entries: [
       { beat: 0, col: 8, kind: "fence", color: null },
       { beat: 12, col: 2, kind: "fence", color: null },
@@ -90,9 +86,7 @@ export const WAVES_ACT_6: Wave[] = [
     id: "theCut",
     name: "THE CUT",
     variant: true,
-    guide: {
-      scene: "theCut",
-    },
+    hints: "theCut",
     entries: [
       { beat: 0, col: 5, kind: "fence", color: null, gaps: [], cracksRed: [5] },
       { beat: 16, col: 5, kind: "fence", color: null, gaps: [], cracksCyan: [8] },

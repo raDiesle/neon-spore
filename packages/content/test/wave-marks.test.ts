@@ -1,5 +1,5 @@
 import { describe, expect, it } from "bun:test";
-import { firstOnPanel, WAVE_MARK_IDS, WAVES, waveMarksOn } from "../src/index.js";
+import { firstOnPanel, WAVE_MARK_IDS, WAVES, waveMarksOn, waveTeaches } from "../src/index.js";
 
 /**
  * The four marks the director's rail and JUMP TO WAVE both show, asked of the
@@ -10,7 +10,7 @@ describe("waveMarksOn", () => {
     for (const [i, wave] of WAVES.entries()) {
       const on = waveMarksOn(WAVES, i);
       expect(on.includes("boss")).toBe(wave.boss !== undefined);
-      expect(on.includes("card")).toBe(wave.guide !== undefined);
+      expect(on.includes("card")).toBe(waveTeaches(wave));
       expect(on.includes("fault")).toBe((wave.faults?.length ?? 0) > 0);
     }
   });

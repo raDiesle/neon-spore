@@ -15,9 +15,7 @@ export const WAVES_ACT_4: Wave[] = [
   {
     id: "theCrossing",
     name: "THE CROSSING",
-    guide: {
-      scene: "theCrossing",
-    },
+    hints: "theCrossing",
     entries: [
       { beat: 0, col: 3, kind: "meteor", color: null, cross: 1, row: 5 },
       { beat: 8, col: 5, color: "red" },
@@ -59,9 +57,7 @@ export const WAVES_ACT_4: Wave[] = [
   {
     id: "theLimpet",
     name: "THE LIMPET",
-    guide: {
-      scene: "theLimpet",
-    },
+    hints: "theLimpet",
     entries: [
       { beat: 0, col: 5, kind: "meteor", color: null },
       { beat: 16, col: 5, kind: "meteor", color: null },

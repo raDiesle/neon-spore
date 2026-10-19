@@ -47,9 +47,7 @@ export const WAVES_ACT_1_P6: Wave[] = [
   {
     id: "theRock",
     name: "THE ROCK",
-    guide: {
-      scene: "theRock",
-    },
+    hints: "theRock",
     entries: [
       { beat: 0, col: 5, kind: "meteor", color: null },
       { beat: 10, col: 5, kind: "meteor", color: null },
@@ -75,9 +73,7 @@ export const WAVES_ACT_1_P6: Wave[] = [
   {
     id: "theHand",
     name: "THE HAND",
-    guide: {
-      scene: "theHand",
-    },
+    hints: "theHand",
     entries: [
       { beat: 0, col: 2, kind: "meteor", color: null },
       { beat: 0, col: 5, kind: "meteor", color: null },
@@ -88,9 +84,7 @@ export const WAVES_ACT_1_P6: Wave[] = [
   {
     id: "oneLastChance",
     name: "ONE LAST CHANCE",
-    guide: {
-      scene: "oneLastChance",
-    },
+    hints: "oneLastChance",
     entries: [
       { beat: 0, col: 5, kind: "meteor", color: null },
       { beat: 3, col: 5, color: "red" },
@@ -104,9 +98,7 @@ export const WAVES_ACT_1_P6: Wave[] = [
   {
     id: "torch",
     name: "TORCH",
-    guide: {
-      scene: "torch",
-    },
+    hints: "torch",
     entries: [
       { beat: 6, col: 2, kind: "torch", color: null },
       { beat: 14, col: 8, kind: "torch", color: null },

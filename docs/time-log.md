@@ -44991,3 +44991,17 @@ Bottleneck: telling apart, from frames, what a candidate drew and what the game 
 Bottleneck: the real frame, which caught a hint giving away the ghost's column.
 
 *Measured: 7 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-19 — The shield waves teach on their own fields
+
+- reading: 5 min. Each film's first paragraph, and which panel puts the
+  shield and the SHIELD button on which seat.
+- writing: 15 min. Sixteen tables; the shield states, a body's width, lines
+  that hold before anything lands; a converter for the films; the menu's
+  guide mark and the lesson rule asking `waveTeaches`.
+- looking: 5 min. THE ROCK on both seats.
+- friction: 0 min.
+- landing: 10 min. Two `check:fast` runs: a replaced word, a crawler budget
+  row, and the chrome check moved onto the live field.
+
+Bottleneck: the chrome check, whose last film went in this slice.

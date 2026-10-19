@@ -129,9 +129,7 @@ export const WAVES_ACT_5: Wave[] = [
   {
     id: "theWard",
     name: "HEAVY ROCKS",
-    guide: {
-      scene: "theWard",
-    },
+    hints: "theWard",
     entries: [
       { beat: 0, col: 1, kind: "meteor", color: null },
       { beat: 8, col: 4, kind: "meteorMedium", color: null },
@@ -170,9 +168,7 @@ export const WAVES_ACT_5: Wave[] = [
   {
     id: "theVeer",
     name: "THE VEER",
-    guide: {
-      scene: "theVeer",
-    },
+    hints: "theVeer",
     entries: [
       { beat: 0, col: 5, kind: "veer", color: null },
       { beat: 18, col: 8, kind: "veer", color: null },

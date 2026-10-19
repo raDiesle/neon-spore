@@ -341,20 +341,6 @@ waits on never lands. The slot is checked before anything starts
 is not in `VARIANTS` for that slot the same way, before the server starts, and
 list the names the slot does have. A test beside the strict-pose one proves it.
 
-## A field hint's plate is not checked against the ship's chrome rows
-
-- **Found:** 2026-10-19, claude/wave-tutorial-in-game-hints-1f8de8
-- **Taken:** 2026-10-19, claude/wave-tutorial-in-game-hints-1f8de8 (claim: claude/queue-a-field-hints-plate-is-not-checked-against-the-s)
-- **Files:** `packages/render/test/caption-chrome.test.ts`, `packages/render/test/wave-hint.test.ts`, `packages/render/src/wave-hint.ts`
-
-`caption-chrome.test.ts` holds a film page's plate clear of the siren, its
-duty word and the alarm rows, and THE MAGNET was one of its two waves until
-its film became hints on the field. Nothing checks a live hint's plate the
-same way: `wave-hint.test.ts` only holds the words inside the screen. Walk
-every hinted wave's states (that file's `states`), take `captionBox` for the
-line shown, and hold it clear of the rows the chrome writes, as the chrome
-test does for a film; move a plate that lands on one.
-
 ## THE LEAD's one-beat lead misses a late press on sixteen rows
 
 - **Found:** 2026-10-18, claude/ship-height-reduction-f2457e
@@ -538,18 +524,3 @@ A block is its intro and one regular wave since 19 October 2026, and
 match a `filler…` id — `isFiller`, `isFillerHead`, `composedAfter`,
 `STEP_AT_END`, `isComposed`, `composedId`. No wave carries such an id now. Take the recognisers and the comments out, keep the review ones,
 and let `bun run check` prove nothing read them.
-
-## THE CRAWLER's rehearsal never shows a suck ring
-
-- **Found:** 2026-10-19, claude/crawler-shield-visuals-50ecfc
-- **Taken:** 2026-10-19, claude/wave-tutorial-in-game-hints-1f8de8 (claim: claude/queue-the-crawlers-rehearsal-never-shows-a-suck-ring)
-- **Files:** `packages/content/src/scenes/the-crawler.ts`, `packages/sim/src/crawler-part.ts`
-
-A worm's segments now cycle red, cyan, shield, suck (`segmentPart`), and the
-suck ring wants the cannon under it and SUCK (`crawler-suck.ts`). The film
-grows a two-segment worm — red and cyan, with glass shield ends — so the pair
-meet the amber ring for the first time in THE CRAWLER's own wave, with no page
-about it, and the last caption still says ARMOURED RING for what is drawn as
-blue glass now. Grow the film's worm to four segments, add a cannon-under-it
-and SUCK act with a caption anchored on `intake`, and say SHIELD RING on the
-shield page (`.claude/skills/new-tutorial` for the rules).

@@ -200,8 +200,9 @@ reads is one gesture with two halves rather than two gestures side by side.
 The sentence it has to beat is that a hand on a rock does two things, and the
 second one is the column: the pilot holds the far rock, wards the near one,
 carries the held one a lane over, and the navigator's shield meets it where it
-has been put rather than where it arrived
-(`packages/content/src/scenes/the-hand.ts`).
+has been put rather than where it arrived. That was THE HAND's film; since
+19 October 2026 the wave says it on its own field instead
+(`packages/content/src/hints/shield.ts`).
 
 ## 6.6 THE LOCK — the same hand, read a second way, built
 

@@ -48,23 +48,26 @@ function playedOnce(wave: number): World {
 
 /**
  * Every state a line can be true in, one after another: each column for the
- * cannon, the next body free and held, and enough beats for every line of a
- * seat to take its turn.
+ * cannon, the shield with it and away from it, the next body free and held,
+ * and enough beats for every line of a seat to take its turn.
  */
 function* states(world: World): Generator<void> {
-  const [col, grip, beat] = [world.cannonCol, world.gripP1, world.beat];
+  const [col, shield, grip, beat] = [world.cannonCol, world.shieldCol, world.gripP1, world.beat];
   const next = world.creatures.reduce((a, c) => (c.row > a.row ? c : a));
   for (let c = 0; c < CFG.cols; c++) {
-    for (const held of [false, true]) {
-      for (let turn = 0; turn < 8; turn++) {
-        world.cannonCol = c;
-        world.gripP1 = held ? next.id : grip;
-        world.beat = turn * HINT_BEATS;
-        yield;
+    for (const s of [c, (c + 3) % CFG.cols]) {
+      for (const held of [false, true]) {
+        for (let turn = 0; turn < 8; turn++) {
+          world.cannonCol = c;
+          world.shieldCol = s;
+          world.gripP1 = held ? next.id : grip;
+          world.beat = turn * HINT_BEATS;
+          yield;
+        }
       }
     }
   }
-  [world.cannonCol, world.gripP1, world.beat] = [col, grip, beat];
+  [world.cannonCol, world.shieldCol, world.gripP1, world.beat] = [col, shield, grip, beat];
 }
 
 function said(world: World, role: ViewRole) {
