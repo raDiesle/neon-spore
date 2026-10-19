@@ -1,8 +1,10 @@
 import { ticksPerBeat, type World } from "@neon-spore/sim";
 import { drawFenceArcs } from "./fence-arc.js";
 import { type HullMood, type LobePositions, surfaceSampler } from "./hull.js";
+import { hullCrown } from "./hull-crown.js";
 import type { HullFrame } from "./hull-frame.js";
 import type { Layout } from "./layout.js";
+import { drawLockLight } from "./lock-light.js";
 import { drawMawReach } from "./maw-reach.js";
 import { drawOtherHand } from "./other-hand.js";
 import { drawGrippedPods } from "./pods.js";
@@ -13,8 +15,8 @@ import { drawThroatGraft } from "./throat-graft.js";
 
 /**
  * **What grows out of the ship**, drawn over the membrane once the hull pass
- * has laid it: THE FENCE's current, THE CLAW's arm, the maw's reach, THE
- * THROAT's root and a hand on the lance. Each is the ship rather than the
+ * has laid it: THE FENCE's current, THE CLAW's arm, the maw's reach, the
+ * lock's light, THE THROAT's root and a hand on the lance. Each is the ship rather than the
  * field, which is why none of them is in the field pass under the hull.
  *
  * Cut out of `frame-ship.ts` on 16 October 2026, when the maw's reach took
@@ -46,6 +48,9 @@ export function drawShipGrowths(
   drawReachArm(ctx, l, world, surfaceSampler(f), arm, f.cannonX);
   // How far the open maw reaches, on the gun and never on a hand (`maw-reach.ts`).
   if (!arm) drawMawReach(ctx, l, mood.intake, at.cannon, world.cfg.podCatchCols, surfaceSampler(f));
+  // Whether a lock is ready, on the gun's own lobe and nowhere a gun is not
+  // (`lock-light.ts`).
+  if (hullCrown(world, arm) === "gun") drawLockLight(ctx, l, world, f, view.time, view.beatPhase);
   // And a heavy pod held in it, waiting for the second press (`pods.ts`).
   drawGrippedPods(ctx, l, world.pods, view.time, ticksPerBeat(world.cfg));
   // THE THROAT's root, grown out of the membrane round the gullet — after the

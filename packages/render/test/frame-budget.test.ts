@@ -183,9 +183,9 @@ const BUDGETS: Readonly<Record<"p1" | "p2", readonly Budget[]>> = {
       // whole of the trade the owner chose — the word cost almost nothing and
       // could not be drawn at a sequence glyph's size at all.
       stroke: 88,
-      fill: 62,
+      fill: 65,
       clip: 30,
-      save: 69,
+      save: 70,
       drawImage: 72,
       createLinearGradient: 22,
       createRadialGradient: 11,
@@ -202,9 +202,9 @@ const BUDGETS: Readonly<Record<"p1" | "p2", readonly Budget[]>> = {
     {
       fillRect: 12,
       stroke: 90,
-      fill: 62,
+      fill: 65,
       clip: 30,
-      save: 69,
+      save: 70,
       drawImage: 72,
       // Down from frame 0: the layout-only gradients (`gradient-slot.ts`'s
       // sites in field.ts and backdrop.ts, key-light.ts's own slot, and the
@@ -228,11 +228,11 @@ const BUDGETS: Readonly<Record<"p1" | "p2", readonly Budget[]>> = {
       // Three more, and all three are `drawDetails`: the bulb's one core and
       // the slick's two, drawn on the buttons now that the silhouettes are
       // bodies rather than stencils.
-      fill: 70,
+      fill: 73,
       clip: 30,
       // Two fewer: a fire button's face is one `paintLobe` doing fill and
       // stroke together where it used to be a fill and then a crosshair.
-      save: 71,
+      save: 72,
       drawImage: 71,
       createLinearGradient: 22,
       createRadialGradient: 11,
@@ -244,9 +244,9 @@ const BUDGETS: Readonly<Record<"p1" | "p2", readonly Budget[]>> = {
     {
       fillRect: 12,
       stroke: 94,
-      fill: 70,
+      fill: 73,
       clip: 30,
-      save: 71,
+      save: 72,
       drawImage: 71,
       createLinearGradient: 14,
       createRadialGradient: 8,
@@ -540,14 +540,14 @@ const EYE_BUDGETS: Readonly<Record<string, readonly Budget[]>> = {
       // **Three more on 17 October 2026**: the pull came down to 1.7× (`PULL_SIZE`),
       // and the channel's dots are spaced by its width, so a thinner channel lays
       // three more over the same pull (`goo-strand.ts`).
-      fill: 91,
+      fill: 94,
       // The one op this body's share of the new lens costs: the clip the lids
       // cut the pupil through (`eye-lens.ts`).
       // Three, three and five more on 15 October 2026: the eye glances as any
       // enemy does (`creature-glance.ts`), laid on the screen from a layer of
       // its own, with the far side's dark ramped over it.
       clip: 16,
-      save: 60,
+      save: 61,
       drawImage: 48,
       createLinearGradient: 30,
       createRadialGradient: 17,
@@ -564,9 +564,9 @@ const EYE_BUDGETS: Readonly<Record<string, readonly Budget[]>> = {
       // One more on 29 September 2026, the knob's arrow, as in frame 0.
       stroke: 141,
       // Three more on 17 October 2026, the channel's dots, as in frame 0.
-      fill: 91,
+      fill: 94,
       clip: 16,
-      save: 60,
+      save: 61,
       // AURORA's strips, as in frame 0.
       drawImage: 48,
       createLinearGradient: 22,

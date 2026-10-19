@@ -6,5 +6,8 @@
 // `index.ts` next door says why it is generated at all.
 
 import type { Variant } from "../variant.js";
+import { LOCK_LIGHT_BEACON } from "./ship-lock-light/beacon/index.js";
+import { LOCK_LIGHT_BEADS } from "./ship-lock-light/beads/index.js";
+import { LOCK_LIGHT_HALO } from "./ship-lock-light/halo/index.js";
 
-export const VARIANTS: Variant[] = [];
+export const VARIANTS: Variant[] = [LOCK_LIGHT_BEACON, LOCK_LIGHT_BEADS, LOCK_LIGHT_HALO];

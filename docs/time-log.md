@@ -44644,3 +44644,19 @@ Bottleneck: the registrations — thirty files that each name a boss, found
 one typecheck error at a time.
 
 *Measured: 7 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-19 — THE LOCK's light, and three VERSUS answers to it
+
+- reading: 10 min. How VERSUS reaches a record, the siren slot as a pattern,
+  where the ship's growths are drawn, and the pose map.
+- writing: 15 min. `lock-light-look.ts`, `lock-light.ts`, its test, the
+  pose, and BEACON, BEADS and HALO.
+- looking: 10 min. `frames` for the shipped lamp, eight `versus:shot`s, the
+  crops and the one sheet sent.
+- friction: 5 min. A heredoc with a backslash the guard refused, and two
+  COPIES rows (`arcFromTop`, `livingKindForColor`) caught by `check:fast`.
+- landing: 10 min. `budgets:measure` (12 rows, +3 fills and +1 save where
+  the lamp shows), `index`, two `check:fast` runs.
+
+Bottleneck: the render suite's budget rows, which a lamp on every frame moved
+in six files at once.
