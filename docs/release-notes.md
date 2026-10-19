@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-19 · 56d811111 — The pod and maw waves teach on their own fields, not in a film
+
+SALVAGE, CATCH AND AIM, THE HUSK, THE MORSEL, THE SEEDER, THE LANCE and THE LEAK are played at once and say what to do on the field: a hanging pod shot loose under the cannon, a falling one swallowed on the other's word, the hollow pod ringed only on the screen shown it, a limp morsel taken at the maw, a held trigger that is a beam — or, in THE LEAK, nothing. A pod wave's lesson ends with a pod gone, THE MORSEL's and THE SEEDER's with their own body. A look the owner asked for by name.
+
 ## 2026-10-19 · 7eb8f18ed — The touch waves teach on their own fields, not in a film
 
 THE BLISTER, the seven controls' waves (TAP to LEVER), THE WEIGHT, THE BEATBOX, THE MINE, THE BALLOON, THE LID and THE CHOIR are played at once and say what to do on the field until one body has gone: the blister's gesture on the blister, for either seat, and that one of them says it is theirs; THE MINE's square said by the seat shown it and pressed by the other. The controls' waves open on a bulb they do not teach, so only a blister gone ends their lesson. A look the owner asked for by name.
