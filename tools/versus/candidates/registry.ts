@@ -9,5 +9,15 @@ import type { Variant } from "../variant.js";
 import { CRAWLER_FLESH } from "./creature-crawler/flesh/index.js";
 import { CRAWLER_LARVA } from "./creature-crawler/larva/index.js";
 import { CRAWLER_LEECH } from "./creature-crawler/leech/index.js";
+import { SWAP_MOLT } from "./swap-notice/molt/index.js";
+import { SWAP_OOZE } from "./swap-notice/ooze/index.js";
+import { SWAP_THROB } from "./swap-notice/throb/index.js";
 
-export const VARIANTS: Variant[] = [CRAWLER_FLESH, CRAWLER_LARVA, CRAWLER_LEECH];
+export const VARIANTS: Variant[] = [
+  CRAWLER_FLESH,
+  CRAWLER_LARVA,
+  CRAWLER_LEECH,
+  SWAP_MOLT,
+  SWAP_OOZE,
+  SWAP_THROB,
+];

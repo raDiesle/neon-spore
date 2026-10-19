@@ -1,8 +1,10 @@
-import { describe, expect, it } from "bun:test";
+import { describe, expect, it, setDefaultTimeout } from "bun:test";
 import { createWorld, type PlacedFault, startWave, step, ticksPerBeat } from "@neon-spore/sim";
 import { faultBeamEnds } from "../src/fault-beam-ends.js";
 import { computeLayout } from "../src/layout.js";
-import { CFG, VIEWPORT } from "./frame-harness.js";
+import { CFG, FRAME_TIMEOUT_MS, VIEWPORT } from "./frame-harness.js";
+
+setDefaultTimeout(FRAME_TIMEOUT_MS);
 
 /**
  * THE SWAP hangs no beam from the lantern. It fell through to the runaway

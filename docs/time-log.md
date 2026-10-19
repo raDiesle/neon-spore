@@ -44959,3 +44959,17 @@ Bottleneck: the compaction in the middle of the rewrite.
 Bottleneck: the eleven places a new fault kind is a name, found one red test at a time.
 
 *Measured: 13 min from this lane's branch being made to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the branch and every minute the lane spent waiting.*
+
+## 2026-10-19 — THE SWAP's look: the handover's plate ships, and three candidates offered in VERSUS
+
+- reading: 10 min. How a VERSUS slot meets its pose, the band's draw call,
+  the lobes, the slot kit the crawler candidates share.
+- writing: 25 min. `swap-look.ts` and its seam in the overlay pass, the
+  pose, MOLT, OOZE and THROB, two render tests.
+- looking: 20 min. Four rounds of `versus:shot` and `crop`: MOLT too dim
+  to see, OOZE's cells a tangle over the hull, and blue beams no candidate drew.
+- friction: 5 min. The beams were the landed fault falling into the runaway
+  cannon's branch — fixed in its own commit.
+- landing: 10 min. Two `check:fast` runs, a test that drew on bun's default timeout.
+
+Bottleneck: telling apart, from frames, what a candidate drew and what the game under it drew.

@@ -1,6 +1,6 @@
 import { setHas } from "@neon-spore/content";
 import type { World } from "@neon-spore/sim";
-import { faultsNow } from "@neon-spore/sim";
+import { faultsNow, swapInWave } from "@neon-spore/sim";
 import { bandControlSet, drawBand } from "./band.js";
 import { bandLobes } from "./band-lobes.js";
 import { drawWaveOpening, openingOf } from "./briefing.js";
@@ -26,8 +26,10 @@ import { seatSkin } from "./seat-skin.js";
 import { drawShipGrowths } from "./ship-growths.js";
 import { drawShipHand } from "./ship-hand.js";
 import { drawCommsSiren } from "./siren.js";
+import { announceSwap } from "./swap-look.js";
 import { drawTorchAlarm } from "./torch-alarm.js";
 import type { ShipHand } from "./touch-hand.js";
+import type { ViewRole } from "./view-role.js";
 import { showsCannon, showsShield } from "./view-role.js";
 import { wellShown } from "./well.js";
 import { drawWellShip, wellHandPlace } from "./well-ship.js";
@@ -181,6 +183,25 @@ export function drawOverlays(
   // it has already changed hands by then — this is the only part of the fault
   // that says *when* (`handover-look.ts`).
   HANDOVER_LOOK.announce(ctx, l, world, { beatPhase: view.beatPhase, surfaceY: surfaceY ?? null });
+  // And THE SWAP's, which says it again every twelve beats and may stand the
+  // panel this screen held before the change over the one it holds now, so it
+  // is handed the band to draw again as either seat (`swap-look.ts`).
+  if (swapInWave(world)) {
+    const bandAs = (role: ViewRole) =>
+      drawBand(
+        ctx,
+        { ...l, role },
+        world,
+        isArmed,
+        isOpen,
+        view.time,
+        view.controls,
+        view.leadTicks ?? 0,
+        surfaceY ?? null,
+        shots,
+      );
+    announceSwap(ctx, l, world, view, surfaceY ?? null, bandAs);
+  }
   // Over the finished band: whichever control a desk's mouse is resting on.
   drawControlHover(ctx, l, view);
   drawOverlay(ctx, l, view);

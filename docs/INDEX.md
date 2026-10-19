@@ -1306,6 +1306,7 @@ by hand never moves.
 | `packages/render/src/boss-strike-from.ts` | **Where a boss's blow at the hull leaves its body** (`boss-strike-look.ts` is what the blow looks like) |
 | `packages/render/src/boss-strike-look.ts` | **What a boss's own blow at the hull looks like** |
 | `packages/render/src/swallow.ts` | taking a pod in, as a two-part clock |
+| `packages/render/src/swap-look.ts` | **THE SWAP on the screen: the countdown to each change, and the change** |
 | `packages/render/src/swindle-draw.ts` | THE SWINDLE, drawn: a green slime with a dealer's face hung over the field |
 | `packages/render/src/swindle-fx.ts` | What THE SWINDLE leaves behind a frame: a hood flying up off a pod she lets go, her lean toward it |
 | `packages/render/src/swindle-face.ts` | **THE SWINDLE's face: a dealer's** |
@@ -3501,6 +3502,7 @@ by hand never moves.
 | `tools/director/src/poses-slow.ts` | THE INSTAR's wave run until THE SLOW opens a window — the `slow:window` slot's pose, and the only card where `slowing` is true |
 | `tools/director/src/poses-sinew-parting.ts` | THE SINEW just after a hold parts a fibre, THE SLOW open: `sinew:fibres`'s pose |
 | `tools/director/src/poses-siren.ts` | SIREN · A CALL, THEN A TORCH — a veil lights the siren, then a torch's warning turns it to the alarm |
+| `tools/director/src/poses-swap.ts` | THE SWAP, a beat before the first warning — `swap:notice` is judged here |
 | `tools/director/src/poses.ts` | Every state the STATES sheet draws, in reading order |
 | `tools/director/src/query.ts` | What is in a wave: the questions, with no answer that changes anything |
 | `tools/director/src/rail.ts` | The wave list and the fields every wave must carry |

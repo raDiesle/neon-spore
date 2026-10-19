@@ -132,11 +132,27 @@ export function drawHandoverNotice(
 ): void {
   const text = handoverWords(l, world);
   if (text === null) return;
+  // Brighter while the panels are actually away: the warning is a thing to hear
+  // once a beat and the trade is a thing to be looking at.
+  drawPlate(ctx, l, text, view.beatPhase, handedOver(world));
+}
+
+/**
+ * The plate itself, around any words — THE SWAP's countdown is drawn on the
+ * same one (`swap-look.ts`). `lit` holds the type at full brightness rather
+ * than letting it breathe with the beat.
+ */
+export function drawPlate(
+  ctx: CanvasRenderingContext2D,
+  l: Layout,
+  text: string,
+  beatPhase: number,
+  lit: boolean,
+): void {
   // The same rectangle a caption is told to keep off, rather than a second
   // copy of the arithmetic that could drift from it.
-  const box = handoverPlateBox(ctx, l, world);
-  if (box === null) return;
-  const beat = Math.max(0, 1 - view.beatPhase * 2);
+  const box = plateBoxAround(ctx, l, text);
+  const beat = Math.max(0, 1 - beatPhase * 2);
   ctx.save();
   ctx.font = FONT;
   ctx.textAlign = "center";
@@ -155,9 +171,7 @@ export function drawHandoverNotice(
   ctx.lineWidth = STROKE.outline;
   ctx.stroke();
   halo(ctx, x, y, Math.round(half * 1.2), PALETTE.arc, 0.18 + 0.3 * beat);
-  // Brighter while the panels are actually away: the warning is a thing to hear
-  // once a beat and the trade is a thing to be looking at.
-  ctx.fillStyle = handedOver(world) ? PALETTE.arcRim : rgba(PALETTE.arcRim, 0.7 + 0.3 * beat);
+  ctx.fillStyle = lit ? PALETTE.arcRim : rgba(PALETTE.arcRim, 0.7 + 0.3 * beat);
   ctx.fillText(text, x, y);
   ctx.restore();
 }
