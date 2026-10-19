@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-10-19 · b3cd22c78 — The shield is offered in neon pink and in acid green beside today's cyan
+
+The shield, its rim and the SHIELD button share one hex with the cyan shot, so VERSUS opens `shield:hue` with two answers on `PALETTE.shield` and `shieldRim`: pink `#FF4FD8` and green `#8CFF3A`. Its pose is the shield lit in one column with a cyan bolt leaving the cannon four over, on SALVAGE's panel, so both seats show — SHIELD on player 1's, the shield strip and CYAN on player 2's. Nothing the game draws changes; adopting one waits on the queued entry that moves the readers of `PALETTE.shield` that mean plain cyan.
+
 ## 2026-10-19 · 60897c5f9 — Every new thing gets one regular wave, then its boss
 
 A block is now the wave that teaches something, one regular wave that uses it, and the boss about it if there is one; then the next new thing. Players said too many waves brought nothing new. The game goes from 477 waves to 208, and AUTO clears every one. The one regular wave runs longer than a step did when there were three, 36 to 48 beats and 7 to 10 arrivals. A slick, a bulb or a rock is paired with the thing taught before it; everything else is mixed with two older things. The three filler waves that stood in front of each boss are gone, and each review in front of a boss that waits at the end is one wave.
