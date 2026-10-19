@@ -4,6 +4,7 @@ import { midCol } from "./config.js";
 import type { PlacedFault } from "./fault-placed.js";
 import { clearGrips } from "./grip.js";
 import { endPrime } from "./lance.js";
+import { freeLock } from "./lock-rest.js";
 import { clearSlow } from "./slow.js";
 import { clearSpend } from "./spend.js";
 import { installWaveBoss } from "./wave-boss.js";
@@ -74,6 +75,8 @@ export function startWave(
   world.creatures = [];
   world.bullets = [];
   clearGrips(world);
+  // The first lock of a wave is free (`lock-rest.ts`).
+  freeLock(world);
   // Nothing held, nothing charged and no column still burning — all three are
   // fields now (`shot-charge.ts`, `lance.ts`).
   endPrime(world);

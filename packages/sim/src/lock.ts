@@ -1,6 +1,7 @@
 import { gripsCreature } from "./grip.js";
 import { handMeans } from "./hand.js";
 import { hiveAim } from "./hive-wall.js";
+import { lockReady } from "./lock-rest.js";
 import { bulletMilli, creatureLane, creatureMilli } from "./mid-beat.js";
 import { trapezeAim } from "./trapeze-shot.js";
 import { type Bullet, type Creature, spanOf } from "./types.js";
@@ -68,6 +69,9 @@ export function lockedBody(world: World): Creature | undefined {
   // fields is player 1's is `grip.ts`'s business and nothing else's, and a
   // second reader of that field is exactly the copy `gripsCreature` exists to
   // stop (`copies-table.ts`).
+  // And no lock at all while the last one rests: the hand stays on the body
+  // and is an aim again the tick the rest ends (`lock-rest.ts`).
+  if (!lockReady(world)) return undefined;
   const c = world.creatures.find((x) => gripsCreature(world, 1, x.id));
   if (!c || handMeans(c.kind, 1) !== "aim") return undefined;
   return c;

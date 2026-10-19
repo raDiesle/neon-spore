@@ -26,7 +26,7 @@ import { burnFence, fenceGap } from "./autopilot-fence.js";
 import { shake } from "./autopilot-harpoon.js";
 import { steerRunaway } from "./autopilot-jam.js";
 import { holdLid, lidShut } from "./autopilot-lid.js";
-import { lockMagnet, magnetSide, shotColor } from "./autopilot-magnet.js";
+import { lockMagnet, magnetSide, magnetWaits, shotColor } from "./autopilot-magnet.js";
 import { catchMoult } from "./autopilot-moult.js";
 import { catchPod, freeDuePod, hanging } from "./autopilot-pod-hand.js";
 import { touchBodies } from "./autopilot-touch.js";
@@ -140,6 +140,7 @@ function cannon(w: World): Press[] {
   if (body !== undefined && !countReady(w, body)) return [];
   const lock = lockMagnet(w, body);
   if (lock.length > 0) return lock;
+  if (magnetWaits(w, body)) return [];
   return free(w) && (!walked || leavesHere(w)) ? [fire(pod?.tint ?? shotColor(w, body))] : [];
 }
 

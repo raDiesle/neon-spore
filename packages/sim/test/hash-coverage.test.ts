@@ -300,6 +300,7 @@ describe("the fingerprint covers the world", () => {
         "heldTick",
         "gripP1",
         "gripP2",
+        "lockRestTicks",
         "intakeTick",
         "lastFireTick",
         "nextId",

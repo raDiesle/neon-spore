@@ -11,6 +11,7 @@ import { stepHarpoons } from "./harpoon.js";
 import { stepBeam } from "./lance.js";
 import { releaseLance } from "./lance-burn.js";
 import { stepLidPulls } from "./lid-hand.js";
+import { stepLockRest } from "./lock-rest.js";
 import { stepMalfunction } from "./malfunction.js";
 import { advancePods } from "./pods.js";
 import { stepReach } from "./reach.js";
@@ -144,6 +145,7 @@ export function step(world: World, commands: readonly TimedCommand[]): void {
   // is asked every tick rather than only on the press (`undertow-press.ts`).
   undertowAnswers(world);
 
+  stepLockRest(world);
   advanceBullets(world);
   // After the shots, before anything else asks who is holding what: a hand
   // stays on a creature until the creature stops existing.

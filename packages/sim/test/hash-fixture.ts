@@ -64,6 +64,7 @@ export function populatedWorld(bossKind: BossEntry["kind"]): World {
   world.lastFireTick = 26;
   world.gripP1 = 7;
   world.gripP2 = 3;
+  world.lockRestTicks = 90;
   world.pushP1 = { milli: 1400, cols: 1 };
   world.pushP2 = { milli: -2300, cols: -2 };
   world.prime = prime();

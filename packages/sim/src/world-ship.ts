@@ -92,6 +92,9 @@ export interface ShipState {
    */
   gripP1: number;
   gripP2: number;
+  /** Ticks before player 1's hand may lock a body again, 0 when it may.
+   * Read it through `lock-rest.ts`. */
+  lockRestTicks: number;
   /**
    * The hand each player is carrying a body sideways with, or null while they
    * are only holding one still. Read them through `gripPushOf` (grip-push.ts)
@@ -159,6 +162,7 @@ export function newShipState(cfg: SimConfig): ShipState {
     lastFireTick: -1_000_000,
     gripP1: NO_GRIP,
     gripP2: NO_GRIP,
+    lockRestTicks: 0,
     pushP1: null,
     pushP2: null,
     prime: null,

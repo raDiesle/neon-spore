@@ -5,7 +5,8 @@ import { shotMeans } from "./codex.js";
 import { hullRow, ticksPerBeat } from "./config.js";
 import { coreAlong } from "./core-along.js";
 import { ledgerBills } from "./ledger-shot.js";
-import { steerShot } from "./lock.js";
+import { isLockedOn, steerShot } from "./lock.js";
+import { spendLock } from "./lock-rest.js";
 import { bulletMilli, creatureMilli } from "./mid-beat.js";
 import { podRefusesShot } from "./pod-options.js";
 import { firstPodAlong, freePod } from "./pods.js";
@@ -186,6 +187,10 @@ function sweep(world: World, b: Bullet): boolean {
     // Where it met that body, so a lance carries on from there and cannot
     // meet the same stretch of column twice.
     const met = creatureMilli(world, hit);
+    // A shot that reaches the locked body spends the lock, whatever its
+    // colour and whatever column it left from (`lock-rest.ts`). Asked before
+    // `resolve`, which may kill the body and the lock with it.
+    if (isLockedOn(world, hit.id)) spendLock(world);
     if (!resolve(world, b, hit)) return false;
     from = met;
   }

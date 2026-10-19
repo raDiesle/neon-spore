@@ -91,6 +91,7 @@ export const FIELD_GROUP: Record<keyof SimConfig, GroupName> = {
   podGripBeats: "POD — shot loose, then caught",
   podSwingTilesPerBeat: "POD — shot loose, then caught",
   gripSlowPermille: "GRIP — a hand on the field",
+  lockRestMs: "GRIP — a hand on the field",
   gripPushMilli: "GRIP — a hand on the field",
   gripPushPauseBeats: "GRIP — a hand on the field",
   hullInvulnerable: "PLUMBING — not a dial a person turns",

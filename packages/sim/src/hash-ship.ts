@@ -23,6 +23,9 @@ export function shipHashParts(world: World): number[] {
   out.push(world.shieldSinceTick);
   out.push(world.gripP1);
   out.push(world.gripP2);
+  // And whether that hand is a lock yet: two devices that disagree steer one
+  // bolt into a body and send the other straight up (`lock-rest.ts`).
+  out.push(world.lockRestTicks);
   // And what each of those hands has carried. Two devices that disagreed about
   // either number would disagree about which column a rock is about to step
   // into — and so about whether the shield is standing in front of it, which

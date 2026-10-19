@@ -377,6 +377,7 @@ by hand never moves.
 | `packages/sim/src/vise-guard.ts` | **THE VISE's shield**, asked once a tick after the commands are heard — THE OCULUS's glare |
 | `packages/sim/src/vise.ts` | THE VISE: a seed-case of two lobes over the middle column, each cracked by its own seat dragging it shut |
 | `packages/sim/src/lock.ts` | THE LOCK: the hand player 1 already has on the field, read a second way |
+| `packages/sim/src/lock-rest.ts` | THE LOCK's rest: **one hold aims one shot**, and the next waits |
 | `packages/sim/src/mid-beat.ts` | **Where a thing stands between two beats**, in thousandths of a tile |
 | `packages/sim/src/mine.ts` | THE MINE: a wisp standing still, answered by a thumb instead of a bolt |
 | `packages/sim/src/mimic-hand.ts` | THE MIMIC's hand: a tile tapped on the board (`mimic.ts`) |

@@ -44563,3 +44563,17 @@ Bottleneck: with no new thing on it the head stopped heading a block, and
 its own the curriculum could see.
 
 *Measured: 4 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-19 — THE LOCK rests four seconds after it lands a shot
+
+- reading: 5 min. `lock.ts`, `grip.ts`, `hand.ts`, where a shot meets a body,
+  and AUTO's magnet hand.
+- writing: 5 min. `lock-rest.ts`, the gate in `lockedBody`, the spend at the
+  hit, the hashed field, AUTO waiting for the rest under a magnet, the tests.
+- looking: 0 min. No picture yet: the light that says the lock is ready is
+  the VERSUS lane after this one.
+- friction: 0 min.
+- landing: 5 min. `index`, the doc-drift row in `assists.md`, `check:fast`.
+
+Bottleneck: the question of what keeps the cannon moving, answered by the
+owner before any code.

@@ -232,6 +232,16 @@ cannot move the cannon while they hold it. The shot goes where the hand is
 *instead of* where the muzzle is — a trade rather than an addition. Player 2's
 hand stays a brake and locks nothing.
 
+**One hold aims one shot, and the next waits** (the owner, 19 October 2026).
+The trade above was not enough: a lock that lasted as long as the thumb let a
+pilot park the cannon for a whole wave. So the first lock of a wave is
+instant, the shot that reaches the locked body spends it — whatever its colour
+— and the lock rests `lockRestMs` (four seconds) before a hand on a body is an
+aim again. Nothing has to be held while it rests; a thumb already on a body
+when it ends locks it there and then. In between, the cannon is the only way
+a shot finds a column. `sim/lock-rest.ts`; the light on the hull that says the
+rest is over is still a VERSUS question.
+
 **It takes the column out of the conversation and leaves the colour in.** The
 lock says nothing about what a shot is loaded with, and player 2 holds both
 lobes, so a locked bolt of the wrong colour arrives and bounces exactly as it

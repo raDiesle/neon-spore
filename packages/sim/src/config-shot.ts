@@ -42,6 +42,13 @@ export interface ShotConfig {
   /** Minimum gap between shots, in beats. */
   fireEveryBeats: number;
   /**
+   * How long THE LOCK rests after it has landed a shot, in milliseconds
+   * (`lock-rest.ts`). One hold aims one shot; the next needs the rest over.
+   * The owner's four seconds, 19 October 2026: long enough that the pilot
+   * moves the cannon for the bodies in between.
+   */
+  lockRestMs: number;
+  /**
    * How long an ordinary body refuses *everything* after a shot of the wrong
    * colour, in milliseconds.
    *
@@ -100,6 +107,7 @@ export const SHOT_DEFAULTS: ShotConfig = {
   lancePrimeBeats: 3,
   lanceBeamBeats: 1,
   fireEveryBeats: 0.5,
+  lockRestMs: 4000,
   colourArmourMs: 700,
   shotChargeBeats: 0,
   hitHeightMilli: 1000,

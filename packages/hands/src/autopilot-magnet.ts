@@ -2,6 +2,7 @@ import {
   type Color,
   type Creature,
   gripsCreature,
+  lockReady,
   magnetPoleColor,
   midCol,
   type TimedCommand,
@@ -31,6 +32,15 @@ export function lockMagnet(w: World, body: Creature | undefined): Press[] {
   if (body?.kind !== "magnet" || w.cannonCol === body.col) return [];
   if (gripsCreature(w, 1, body.id)) return [];
   return [{ player: 1, command: { kind: "grip", id: body.id } }];
+}
+
+/**
+ * Whether a shot at `body` waits for the lock's rest to run out: a magnet
+ * answered by a dumb bolt meets the plate, and a shot spent there is a shot
+ * the next beat does not have (`lock-rest.ts`).
+ */
+export function magnetWaits(w: World, body: Creature | undefined): boolean {
+  return body?.kind === "magnet" && !lockReady(w);
 }
 
 /** The colour a shot at `body` is fired in, from where the cannon stands. */
