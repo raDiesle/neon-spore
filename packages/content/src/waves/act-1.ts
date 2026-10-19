@@ -106,11 +106,6 @@ export const WAVES_ACT_1: Wave[] = [
   {
     id: "theMoth",
     name: "THE MOTH",
-    guide: {
-      both: "A moth comes to the cannon when it stands still, and lands on it. Shoot the red spots on its wings. Last, shoot its red belly as it comes down.",
-      p1: "1. Move the cannon under a red spot.\n2. Do not stay under the moth.\n3. At the end, go under it to bring it down.",
-      p2: "1. Fire red the moment the cannon is under a spot.\n2. At the end, fire red as it comes down.",
-    },
     entries: [],
     boss: { kind: "moth", steps: MOTH_SCRIPT },
     bossType: "normal",

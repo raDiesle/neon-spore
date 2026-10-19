@@ -44680,3 +44680,15 @@ Bottleneck: the COPIES table caught the jitter only at the full gate, three
 minutes in, after the drawing was done.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-19 — THE MOTH's guide is gone, at the owner's word
+
+- reading: 0 min. THE BROOD's guide-drop commit, to copy.
+- writing: 5 min. The guide out, `SAYS_ITSELF` and `STILL_PROSE`, the
+  counts in `briefings.md`, §11.69 and the owner's line.
+- looking: 0 min. Nothing drawn changed on the field.
+- friction: 0 min. A heredoc with escaped newlines refused by the guard,
+  written through a file instead.
+- landing: 5 min. `check:fast` once, the commit, `land`.
+
+Bottleneck: `check:fast` — a five-line content change reached 38 shards.

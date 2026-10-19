@@ -13086,8 +13086,12 @@ pair sees it from the hull, the hind wings over the fore.
 
 `render/test/moth-frame.test.ts` proves the picture on all three screens.
 
-**What is not built.** Its film: the guide is prose (`briefings.md` §3.2).
-**Never watched at tempo** — whether four beats of notice is enough time to
+**No guide.** The owner, 19 October 2026, the day the look landed: it
+goes the way THE BROOD's did, and the wave opens on its number and name —
+the lit eyespots say where to fire (`content/test/waves.test.ts`,
+`SAYS_ITSELF`).
+
+**What is not built.** **Never watched at tempo** — whether four beats of notice is enough time to
 fire, and whether a spot carried a fifth of a tile by the beat still reads
 as over its column, is the owner's eye.
 

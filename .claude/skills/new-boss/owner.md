@@ -187,6 +187,9 @@ bosses* — are `generic.md`, next to this page.**
   and moving the enemies one tile left middle right*. A spawner lays at its
   own rate whatever the pair does, from all over its body, and a pair that
   never misses still has a field to clear.
+- **A boss whose marks say where needs no guide**, 19 October 2026, on
+  THE MOTH the day its look landed: asked whether it should go the way
+  THE BROOD's did, he dropped it. Its lit eyespots say where to fire.
 - **Open, for his feedback:** which of the three kinds the next one should be;
   how many gestures a scene may ask for in a row; whether a scene's gesture
   may be a swipe or a turn the default set does not have yet; and every boss

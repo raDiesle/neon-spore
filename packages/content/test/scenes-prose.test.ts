@@ -134,9 +134,8 @@ const STILL_PROSE = [
   // And THE SWINDLE (§11.68), 16 October 2026: the film is unwritten, and
   // the guide says who sees the fake pods and who keeps the maw shut for them.
   "THE SWINDLE",
-  // And THE MOTH (§11.69), 19 October 2026: the moth is undrawn, and the
-  // guide says who moves under a spot and who fires red.
-  "THE MOTH",
+  // THE MOTH left this list on 19 October 2026, the day its look landed:
+  // the owner dropped its guide, the lit eyespots say where (`waves.test.ts`).
   // THE LATCH (cinematic §2) left this list on 8 October 2026: its film is
   // the tendril hauled hand over hand, the turn passed, and a yank braced.
 ];

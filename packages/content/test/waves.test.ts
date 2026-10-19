@@ -233,7 +233,9 @@ describe("wave content", () => {
    * CHRYSALIS's went on 14 October 2026, each skin's mark saying its word:
    * *it does not need tutorial, it is self explanatory*. THE BROOD's went
    * on 16 October 2026, the day it shipped: *remove tutorial it is not
-   * required*. A name goes here only on the owner's word.
+   * required*. THE MOTH's went on 19 October 2026, the day its look
+   * landed, its lit eyespots saying where. A name goes here only on the
+   * owner's word.
    */
   const SAYS_ITSELF = new Set([
     "THE INSTAR",
@@ -242,6 +244,7 @@ describe("wave content", () => {
     "THE VANE",
     "THE CHRYSALIS",
     "THE BROOD",
+    "THE MOTH",
   ]);
 
   it("gives the first wave that carries anything new a guide", () => {
