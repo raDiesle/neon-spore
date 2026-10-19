@@ -81,7 +81,9 @@ describe("the acts after the arc, cut in play order", () => {
     ];
     const again = read(recutActs(moved, arc, first, known));
     expect(again.flatMap((g) => g.ids)).toEqual(moved.slice(arc).map((w) => w.id));
-    expect(again[again.length - 1]?.ids).toEqual(got[0]?.ids);
-    expect(again.length).toBe(got.length);
+    // Cut again under the ceiling, not piled onto the last file: the moved
+    // waves may share files with whatever room the old last act left.
+    for (const g of again) expect(biomeLineCount(g.text)).toBeLessThanOrEqual(CUT_AT);
+    expect(Math.abs(again.length - got.length)).toBeLessThanOrEqual(1);
   });
 });

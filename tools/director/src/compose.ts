@@ -3,10 +3,11 @@ import { createRng } from "@neon-spore/sim";
 import { type Block, isFiller, leadingBlock } from "./compose-block.js";
 import { autoClears, paperFaults, spanOf } from "./compose-check.js";
 import { clawPressure, clawStep, placeClaw } from "./compose-claw.js";
-import { grownStep, notchOf } from "./compose-grow.js";
+import { arcStep, grownStep, notchOf } from "./compose-grow.js";
 import { placeStep } from "./compose-place.js";
 import { choosePoints, type Point } from "./compose-ramp.js";
 import {
+  climbsLadder,
   GENTLEST_QUANTILE,
   START_RISE,
   type Step,
@@ -157,8 +158,9 @@ function composeFor(
 ): Composed[] {
   const notch = notchOf(block.sinceTutorial);
   const ids = block.only?.map(stepById);
-  const steps = (ids ?? stepsToCompose(block.tutorial, block.existing, block.leads)).map((s) =>
-    block.claw ? clawStep(s) : grownStep(s, notch),
+  const eased = block.tutorial && !climbsLadder(block.x);
+  const steps = (ids ?? stepsToCompose(block.x, block.existing, block.leads)).map((s) =>
+    block.claw ? clawStep(s) : eased ? arcStep(s) : grownStep(s, notch),
   );
   const draws = steps.map((step) => drawsOf(block, step, introId, seed));
   for (const [i, d] of draws.entries()) {

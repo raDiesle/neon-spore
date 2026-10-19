@@ -4,6 +4,7 @@ import { beatSeconds, DEFAULT_CONFIG } from "@neon-spore/sim";
 import { spanOf } from "./src/compose-check.js";
 import { composeControlGroup, composeControlWave } from "./src/compose-control.js";
 import { nameWaves } from "./src/compose-names.js";
+import { STEPS } from "./src/compose-steps.js";
 import { controlWaveId } from "./src/control-brushes.js";
 import { BLISTER_GESTURES, type BlisterGesture } from "./src/entry-fields-blister.js";
 import { writeWaves } from "./src/waves-acts.js";
@@ -45,7 +46,7 @@ async function groups(): Promise<never> {
   for (const gesture of BLISTER_GESTURES) {
     const id = controlWaveId(gesture);
     const head = list.findIndex((w) => w.id === id);
-    if (head === -1 || list.some((w) => w.id === `${id}Again`)) continue;
+    if (head === -1 || STEPS.some((s) => list.some((w) => w.id === `${id}${s.name}`))) continue;
     const { variant: _v, ...wave } = list[head] as Wave;
     list[head] = wave;
     // The first seed that fills all three, from `--seed` on, as `waves:order` tries.

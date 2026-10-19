@@ -44579,3 +44579,18 @@ Bottleneck: the question of what keeps the cannon moving, answered by the
 owner before any code.
 
 *Measured: 4 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-19 — Three waves a block, mixed unless slick, bulb or rock
+
+- reading: 15 min. The curriculum page and the composer — steps, placing,
+  fillers, lessons, reviews, names — to find where a block's length and its
+  theme are decided.
+- writing: 20 min. The step table by thing, a pool for blocks with no theme,
+  the arc's easing, names off the boss; a one-off pass over the arc.
+- looking: 0 min. Read as kinds per wave off the list, not as pictures.
+- friction: 5 min. A recut test that assumed a moved act stays one file.
+- landing: 10 min. `waves:order --write`, measure, renumber, index,
+  `check:fast`, `land`.
+
+Bottleneck: the arc is not recomposed by `waves:order`, so its fourteen
+bodies, TORCH, SALVAGE and the seven gestures needed a pass of their own.

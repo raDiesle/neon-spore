@@ -1,5 +1,5 @@
 import { controlSet, setHas, type Wave, waveTalk } from "@neon-spore/content";
-import { type Block, placeable, readBlock } from "./compose-block.js";
+import { type Block, placeable, poolOf, readBlock } from "./compose-block.js";
 import {
   blocksBefore,
   gentlestBefore,
@@ -7,24 +7,26 @@ import {
   isReviewHead,
   startsBlock,
 } from "./compose-starts.js";
-import { TUTORIAL_LAST_ID } from "./compose-steps.js";
+import { BLOCK_STEPS, TUTORIAL_LAST_ID } from "./compose-steps.js";
 import { regularAt } from "./list-reading.js";
 
 /**
- * **A lesson's block**: eight regular waves after a wave that teaches a panel
+ * **A lesson's block**: three regular waves after a wave that teaches a panel
  * or a fault — THE LANCE, THE JAM, THE CHOKE, THE CLAW, THE DARK. The owner,
  * 15 October 2026: *there are a lot of waves introducing new concepts or
  * enemies, which then should have waves.* An intro that brings a body has its
- * eight; a lesson had none, and sat between a block's waves and its boss or
+ * own; a lesson had none, and sat between a block's waves and its boss or
  * in front of the next block's.
  *
  * Two things, in order. **The lessons move** (`lessonsAfterBlocks`): each,
  * with the guided waves that follow it (THE PURGE after THE LANCE), goes
  * after the regular waves of the block it stood in, so a block reads intro,
- * its eight, then the lessons — and each lesson opens a block of its own.
- * Then **each lesson gets its eight** (`nextLesson`): composed from the
- * bodies of the block it follows, as a review block is, on the lesson's
- * panel, every wave carrying the lesson's faults that fall inside it.
+ * its three, then the lessons — and each lesson opens a block of its own.
+ * Then **each lesson gets its three** (`nextLesson`): on the lesson's panel,
+ * every wave carrying the lesson's faults that fall inside it, and each a
+ * few of the things taught before — never the body of the block it follows,
+ * whose own waves have just been played (`Block.pool`; the owner, 19
+ * October 2026, of THE LANCE's five morsel waves after THE MORSEL's five).
  */
 
 /** Where a lesson's own waves would start: past it and the guided waves
@@ -138,6 +140,8 @@ export function nextLesson(waves: readonly Wave[]): Lesson | string {
       ...(talkFloor === undefined ? {} : { talkFloor }),
       insertAt,
       lesson: true,
+      only: BLOCK_STEPS,
+      pool: poolOf(read, read.x),
       ...panel,
       ...(lesson.faults ? { faults: lesson.faults } : {}),
     };

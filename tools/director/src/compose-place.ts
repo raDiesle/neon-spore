@@ -25,10 +25,27 @@ export function isBasic(e: WaveEntry): boolean {
   return e.kind === undefined;
 }
 
+/** Up to `n` different things off `list`, drawn from `rng`. */
+function several(rng: Rng, list: readonly string[], n: number): string[] {
+  const left = [...list];
+  const out: string[] = [];
+  while (out.length < n && left.length > 0) out.push(...left.splice(nextInt(rng, left.length), 1));
+  return out;
+}
+
+/** How many things a wave of a block with no theme of its own mixes. */
+const POOL_MIX = 3;
+
 /** The kinds a step cycles through, before the basics are mixed in. */
 function cycle(block: Block, step: Step, rng: Rng): string[] {
+  // A filler, a lesson or a review has no thing of its own to teach: every
+  // wave of it is a few of the things already taught, drawn afresh.
+  if (block.pool && block.pool.length > 0) return several(rng, block.pool, POOL_MIX);
   const y = block.y ?? block.x;
-  const z = pick(rng, block.z) ?? y;
+  // Older things are the slick and the bulb too, which come anyway (§4):
+  // a recall brings something else back when there is one.
+  const older = block.z.filter((id) => id !== "slick" && id !== "bulb");
+  const [z1 = y, z2 = z1] = several(rng, older.length > 0 ? older : block.z, 2);
   const b = pick(rng, block.basics) ?? y;
   // A pod hangs and waits to be taken; a wave of nothing else gives it
   // nothing to do (purge clears what falls), so a pod is never alone: each
@@ -42,10 +59,13 @@ function cycle(block: Block, step: Step, rng: Rng): string[] {
       return [block.x, y];
     case "xb":
       return [block.x, b];
+    // The owner, 19 October 2026: *mix in more often existing other enemy
+    // types* — two older things in a recall, and in a peak one beside the
+    // block before's, the new thing between each.
     case "xz":
-      return [block.x, z];
+      return [block.x, z1, block.x, z2];
     case "xyz":
-      return [block.x, y, z];
+      return [block.x, y, block.x, z1];
   }
 }
 
@@ -119,7 +139,9 @@ export function placeStep(block: Block, step: Step, rng: Rng): Pick<Wave, "entri
   const basicsFor: string[] = block.basics.filter((id) => id === "slick" || id === "bulb");
   const entries: WaveEntry[] = [];
   const pods: NonNullable<Wave["pods"]> = [];
-  const lo = step.id === "R8" ? gapRule(block.number) : step.gaps[0];
+  // The peak's gaps are the gap rule's, unless the step was eased wider
+  // (`arcStep`).
+  const lo = step.id === "R8" ? Math.max(gapRule(block.number), step.gaps[0] - 2) : step.gaps[0];
   let beat = 0;
   let end = 0;
   let prev = 5;

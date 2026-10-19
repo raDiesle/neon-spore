@@ -123,17 +123,33 @@ export const STEPS: readonly Step[] = [
   },
 ];
 
-/** The steps a block after the arc is composed in: five of the eight (the
- * owner, 17 October 2026: *8 waves are too much when something new is
- * introduced … too boring to variation, change it to 5*). Spread is gone
- * because Reach goes as wide, Breathe because the rest now comes inside a
- * wave, and Bend because Peak already carries a twin. The table keeps all
- * eight: their names are how a composed wave from before is still known
- * (`isComposed`). */
-export const BLOCK_STEPS: readonly Step["id"][] = ["R1", "R3", "R4", "R6", "R8"];
+/** The steps a block is composed in: three (the owner, 19 October 2026: *why
+ * there are parent waves with still 5 waves — i want to have 3*). Five since
+ * 17 October, eight before that; the table keeps all eight, since their
+ * names are how a composed wave from before is still known (`isComposed`).
+ *
+ * **Which three depends on the thing.** The ladder — alone in the middle,
+ * then alone to the edges, then with the block before's — is the owner's
+ * FIRST STEP rule, and *only makes sense for "bulb", "slick" and "meteor"*
+ * (the same day): a gyre on its own three waves running was *very boring,
+ * because it only offers same enemies a lot*. Every other thing is mixed
+ * from its first regular wave on: with the block before's thing, then with
+ * older ones, then with both (`MIXED_STEPS`). */
+export const LADDER_STEPS: readonly Step["id"][] = ["R1", "R3", "R4"];
+export const MIXED_STEPS: readonly Step["id"][] = ["R4", "R6", "R8"];
 
-/** The tutorial arc's short block (decision 8): three steps. */
-export const TUTORIAL_STEPS: readonly Step["id"][] = ["R1", "R3", "R4"];
+/** A block's steps past the arc, for a body that is not a basic. */
+export const BLOCK_STEPS = MIXED_STEPS;
+
+/** Whether a block's thing climbs the ladder: a slick, a bulb or a rock. */
+export function climbsLadder(x: string): boolean {
+  return x === "slick" || x === "bulb" || x.startsWith("meteor");
+}
+
+/** The steps a block of `x` is composed in. */
+export function stepsOf(x: string): readonly Step["id"][] {
+  return climbsLadder(x) ? LADDER_STEPS : MIXED_STEPS;
+}
 
 /** The waves up to and including FINALE are the tutorial arc. */
 export const TUTORIAL_LAST_ID = "finale";
@@ -197,13 +213,13 @@ export function needsBasics(step: Step): boolean {
 }
 
 /**
- * Which steps a block still needs composed: the tutorial's three or the
- * block's five, less the ones the block's existing regular waves already stand for.
- * Those count from the **end** — an old regular wave is the harder kind, so
- * the composed ones are the easy first steps that lead up to it.
+ * Which steps a block of `x` still needs composed: its three, less the ones
+ * the block's existing regular waves already stand for. Those count from the
+ * **end** — an old regular wave is the harder kind, so the composed ones are
+ * the easy first steps that lead up to it.
  */
-export function stepsToCompose(tutorial: boolean, existing: number, leads = false): Step[] {
-  const ids = tutorial ? TUTORIAL_STEPS : BLOCK_STEPS;
+export function stepsToCompose(x: string, existing: number, leads = false): Step[] {
+  const ids = stepsOf(x);
   // Unless they lead: then the written ones are the first steps (`Block.leads`).
   const left = leads ? ids.slice(existing) : ids.slice(0, Math.max(0, ids.length - existing));
   return left.map(stepById);

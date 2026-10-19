@@ -1,27 +1,28 @@
 import { type Wave, waveTalk } from "@neon-spore/content";
-import { type Block, placeable, readBlock } from "./compose-block.js";
+import { type Block, placeable, poolOf, readBlock } from "./compose-block.js";
 import { blocksBefore, gentlestBefore, isReviewHead } from "./compose-starts.js";
-import { TUTORIAL_LAST_ID } from "./compose-steps.js";
+import { BLOCK_STEPS, STEPS, TUTORIAL_LAST_ID } from "./compose-steps.js";
 
 /**
- * **A review block**: eight regular waves that bring nothing new, written in
+ * **A review block**: three regular waves that bring nothing new, written in
  * front of a boss that has no block of its own — `docs/spec/wave-curriculum.md`
  * §7. The owner, 15 October 2026: *create all other waves, so that waves are
  * distributed also between all the boss waves.* There are more bosses than
  * things to teach, so the bosses past the last intro stood in a row at the
- * end; a review block gives each its eight waves.
+ * end; a review block gives each its own waves.
  *
  * A review block has no intro. Its **theme** is a thing the game already
- * taught, taken from the last taught back — the first review revisits the
- * last body taught, the second the one before, so the talk at the end of the
- * game stays with its dearest things (§4.1) — and its eight steps are
- * the theme block's own, composed afresh one notch further on: the same jobs
- * (Again … Peak), the same Y and Z, the panel the game has reached by then,
- * and a first wave a little above the gentlest of the block before
- * (`START_RISE`), so the game keeps rising through them.
+ * taught, taken from the last taught back, and it gives the block no more
+ * than its ids, its panel and its place in the sawtooth: the block's three
+ * waves (`BLOCK_STEPS`) each draw a few of everything taught by then
+ * (`Block.pool`) — the owner, 19 October 2026: a parent should *not repeat
+ * another parent*, and *mix in more often existing other enemy types*. It is
+ * named for the boss behind it (`compose-names.ts`), and its first wave
+ * stands a little above the gentlest of the block before (`START_RISE`), so
+ * the game keeps rising through them.
  *
  * Its first wave is its **head**: not a variant, so the director folds the
- * other seven under it as it folds a block under its intro, and boss
+ * other two under it as it folds a block under its intro, and boss
  * placement counts it as a block (`boss-slots.ts`).
  */
 
@@ -63,7 +64,7 @@ export function nextReview(waves: readonly Wave[]): Review | string {
   // left more bosses at the end than bodies past the arc to theme them on,
   // and a theme reviewed twice is a second set of the same ids.
   const themes = [...arcIntros, ...intros]
-    .filter((i) => waves.some((w) => w.id === `${waves[i]?.id}Again`))
+    .filter((i) => STEPS.some((s) => waves.some((w) => w.id === `${waves[i]?.id}${s.name}`)))
     .reverse();
   const themeAt = themes[k % themes.length];
   const theme = themeAt === undefined ? undefined : waves[themeAt];
@@ -83,6 +84,8 @@ export function nextReview(waves: readonly Wave[]): Review | string {
     ...(talkFloor === undefined ? {} : { talkFloor }),
     insertAt,
     controls: waves[last]?.controls,
+    only: BLOCK_STEPS,
+    pool: poolOf(read),
   };
   return { block, theme: theme.id, prefix: `review${capital(read.x)}`, k };
 }

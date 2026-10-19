@@ -166,7 +166,7 @@ test("a block's written waves can lead: the composed ones go after them", () => 
     wavePressure(waves[twitch] as Wave),
   ]);
   // Then they are the first steps, and the composed ones the rest.
-  expect(stepsToCompose(false, 1, true)[0]?.id).toBe("R3");
+  expect(stepsToCompose("coil", 1, true)[0]?.id).toBe("R6");
   const count = unwritten("theCount");
   expect(leadingBlock(count.waves, count.b)).toBeUndefined();
 });

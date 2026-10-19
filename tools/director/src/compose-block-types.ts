@@ -65,6 +65,11 @@ export interface Block {
    * the written ones after them: those are the lesson's set pieces (THE CAGE,
    * THE ANCHOR and THE PENDULUM after THE LANCE's), not the rest of a ramp. */
   lesson?: true;
+  /** The things every wave draws a few of, in place of `x`, `y` and `z`,
+   * for a block with no thing of its own — a filler, a lesson, a review:
+   * what was taught before it, less the slick and the bulb, which come
+   * anyway (`compose-place.ts`). */
+  pool?: readonly string[];
   /** The steps composed, when not the block's own: a filler's three
    * (`compose-filler.ts`). */
   only?: readonly Step["id"][];

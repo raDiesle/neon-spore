@@ -1,6 +1,6 @@
 import { controlSet, setHas, type Wave, waveTalk } from "@neon-spore/content";
 import { type Composed, composeBlockAt } from "./compose.js";
-import { type Block, placeable, readBlock } from "./compose-block.js";
+import { type Block, placeable, poolOf, readBlock } from "./compose-block.js";
 import {
   blocksBefore,
   gentlestBefore,
@@ -23,10 +23,13 @@ import { regularAt } from "./list-reading.js";
  * Its steps are **Breathe, Recall, Bend** (`FILLER_STEPS`): the block before
  * ended on its Peak, so the filler drops back to the oldest basics, brings
  * back something from far behind, and rises into the boss with one known
- * lever — the next tooth of the sawtooth, short. Its theme is the last body
- * taught; a lesson's block (THE LANCE, THE CLAW) has no body of its own, so
- * the one before it stands in. It plays on the panel the game has reached,
- * never THE CLAW's, whose waves are pods alone.
+ * lever — the next tooth of the sawtooth, short. **It has no theme**: each
+ * wave draws a few of everything taught before the last body
+ * (`Block.pool`), and never that body, whose own block it follows — the
+ * owner, 19 October 2026, of SOFT MORSEL after THE MORSEL's block: *should
+ * not repeat another parent*. It is named for the boss it leads to
+ * (`compose-names.ts`). It plays on the panel the game has reached, never
+ * THE CLAW's, whose waves are pods alone.
  *
  * A review block (`compose-review.ts`) teaches nothing either, so a boss
  * behind one needs no filler; nor does a boss in the arc, whose blocks are
@@ -41,7 +44,7 @@ export interface Filler {
   block: Block;
   /** The boss it leads to, by id. */
   boss: string;
-  /** The intro whose body it reuses. */
+  /** The intro of the last body taught, which it leaves out. */
   theme: string;
   /** Every composed id starts with it: `filler` and the boss's name. */
   prefix: string;
@@ -111,6 +114,7 @@ export function nextFiller(waves: readonly Wave[]): Filler | string {
     insertAt: at,
     controls: panelAt(waves, at),
     only: FILLER_STEPS,
+    pool: poolOf(read, read.x),
   };
   return { block, boss: boss.id, theme: waves[t]?.id ?? "", prefix: fillerPrefix(boss.id) };
 }

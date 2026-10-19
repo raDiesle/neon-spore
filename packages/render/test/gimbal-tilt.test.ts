@@ -91,7 +91,10 @@ const MEASURE = false;
 // `still`, `shear` and `open` up two on 16 October 2026: five pod waves went
 // in ahead of THE GIMBAL and moved it five places, and the sky is drawn off the
 // wave number.
-const CALLS = { still: 374, turn: 506, shear: 382, open: 388 } as const;
+// Every phase up sixteen or seventeen on 19 October 2026: blocks of three
+// moved THE GIMBAL from wave 392 to 340, and the backdrop is chosen by the
+// wave's number (`drawBackground`), so the test screen draws another sky.
+const CALLS = { still: 391, turn: 522, shear: 399, open: 405 } as const;
 
 /** The canvas calls one frame of `world` costs on `role`'s screen. */
 function cost(world: World, role: (typeof ROLES)[number]): number {

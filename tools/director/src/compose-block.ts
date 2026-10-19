@@ -111,6 +111,18 @@ export function leadingBlock(waves: readonly Wave[], block: Block): Block | unde
   return { ...block, leads: true, insertAt: past, after };
 }
 
+/**
+ * What a block with no thing of its own mixes (`Block.pool`): every thing
+ * taught up to it, less the slick and the bulb — which every wave from R4
+ * on is half of anyway — and less `without`, the body whose block it
+ * follows. The owner, 19 October 2026: SOFT MORSEL, a filler of the morsel
+ * straight after the morsel's own block, was *repeating "soft morsel" after
+ * which was already introduced before in parent*.
+ */
+export function poolOf(block: Block, without?: string): string[] {
+  return [...block.motifs.keys()].filter((id) => id !== "slick" && id !== "bulb" && id !== without);
+}
+
 /** The block a wave introduces, or a reason it is not one. */
 export function readBlock(waves: readonly Wave[], introId: string): Block | string {
   const intro = waves.findIndex((w) => w.id === introId);

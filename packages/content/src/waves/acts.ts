@@ -41,17 +41,6 @@ import { WAVES_ACT_31 } from "./act-31.js";
 import { WAVES_ACT_32 } from "./act-32.js";
 import { WAVES_ACT_33 } from "./act-33.js";
 import { WAVES_ACT_34 } from "./act-34.js";
-import { WAVES_ACT_35 } from "./act-35.js";
-import { WAVES_ACT_36 } from "./act-36.js";
-import { WAVES_ACT_37 } from "./act-37.js";
-import { WAVES_ACT_38 } from "./act-38.js";
-import { WAVES_ACT_39 } from "./act-39.js";
-import { WAVES_ACT_40 } from "./act-40.js";
-import { WAVES_ACT_41 } from "./act-41.js";
-import { WAVES_ACT_42 } from "./act-42.js";
-import { WAVES_ACT_43 } from "./act-43.js";
-import { WAVES_ACT_44 } from "./act-44.js";
-import { WAVES_ACT_45 } from "./act-45.js";
 
 /**
  * **The act files, in the order of the game** — the one list of them.
@@ -111,15 +100,4 @@ export const WAVE_ACTS: readonly (readonly Wave[])[] = [
   WAVES_ACT_32,
   WAVES_ACT_33,
   WAVES_ACT_34,
-  WAVES_ACT_35,
-  WAVES_ACT_36,
-  WAVES_ACT_37,
-  WAVES_ACT_38,
-  WAVES_ACT_39,
-  WAVES_ACT_40,
-  WAVES_ACT_41,
-  WAVES_ACT_42,
-  WAVES_ACT_43,
-  WAVES_ACT_44,
-  WAVES_ACT_45,
 ];

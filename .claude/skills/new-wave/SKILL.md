@@ -116,9 +116,12 @@ new without anything being drawn:
 
 ## 4. Where it belongs, and what follows it
 
-Every new thing opens a block: its intro wave, then **five regular waves**
-that use it — alone, then wide, then mixed with older things — before the next
-new thing arrives. Lengths, the order of the five, and the pressure score a
+Every new thing opens a block: its intro wave, then **three regular waves**
+that use it before the next new thing arrives — alone, then wide, then mixed,
+for a slick, a bulb or a rock only; **every other thing is mixed with older
+ones from its first regular wave**, and a filler or a review mixes old things
+with no theme of its own (the owner, 19 October 2026). Lengths, the order of
+the three, and the pressure score a
 wave is aimed at: `docs/spec/wave-curriculum.md`. A creature belongs in the act
 of its pillar, not wherever there is room.
 

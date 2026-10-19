@@ -44,7 +44,7 @@ describe("a block, read off the list", () => {
     expect(typeof readBlock(WAVES, "catchAndAim")).toBe("string");
     // Three written, up to its review: the arc's short block is full.
     expect(b.existing).toBe(3);
-    expect(stepsToCompose(b.tutorial, b.existing)).toEqual([]);
+    expect(stepsToCompose(b.x, b.existing)).toEqual([]);
   });
 
   test("a wave that introduces only a panel is not a block", () => {
@@ -53,10 +53,21 @@ describe("a block, read off the list", () => {
 });
 
 describe("the steps", () => {
-  test("a tutorial block is three steps and its written regular waves stand for the last", () => {
-    expect(stepsToCompose(true, 0).map((s) => s.id)).toEqual(["R1", "R3", "R4"]);
-    expect(stepsToCompose(true, 2).map((s) => s.id)).toEqual(["R1"]);
-    expect(stepsToCompose(false, 1)).toHaveLength(4);
+  test("a block is three steps and its written regular waves stand for the last", () => {
+    expect(stepsToCompose("bulb", 0).map((s) => s.id)).toEqual(["R1", "R3", "R4"]);
+    expect(stepsToCompose("bulb", 2).map((s) => s.id)).toEqual(["R1"]);
+    expect(stepsToCompose("gyre", 1)).toHaveLength(2);
+  });
+
+  test("only the slick, the bulb and the rock climb the ladder; the rest are mixed", () => {
+    // The owner, 19 October 2026: the positioning rule *only makes sense for
+    // "bulb", "slick" and "meteor"*.
+    for (const x of ["slick", "bulb", "meteor", "meteorFast"]) {
+      expect(stepsToCompose(x, 0).map((s) => s.id)).toEqual(["R1", "R3", "R4"]);
+    }
+    for (const x of ["gyre", "morsel", "pod"]) {
+      expect(stepsToCompose(x, 0).map((s) => s.mix)).toEqual(["xy", "xz", "xyz"]);
+    }
   });
 
   test("a rise is at most two over the wave before it, and R5 dips", () => {
@@ -90,7 +101,7 @@ describe("a composed block", () => {
     // TORCH next.
     const torch = WAVES.findIndex((w) => w.id === "torch");
     const b = { ...block("theRock"), existing: 0, insertAt: torch };
-    const steps = stepsToCompose(true, 0);
+    const steps = stepsToCompose("meteor", 0);
     const once = composeBlock(WAVES, b, "theRock");
     expect(composeBlock(WAVES, b, "theRock")).toEqual(once);
     expect(once.map((c) => c.step.id)).toEqual(steps.map((s) => s.id));

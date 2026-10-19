@@ -71,3 +71,23 @@ export function grownStep(step: Step, notch: number): Step {
   ] as const;
   return { ...step, cols: [lo, hi], mix, twins, arrivals };
 }
+
+/** Beats a mixed step's gaps widen by in the tutorial arc. */
+const ARC_EASE = 2;
+
+/**
+ * A mixed step as the tutorial arc plays it: two beats more between
+ * arrivals, two fewer arrivals allowed, and no twin. Mixing from the first
+ * regular wave on (`MIXED_STEPS`) costs a switch on nearly every arrival, and
+ * at the table's gaps SHELL's first wave stood at 7.5 straight after CYAN's
+ * 4.6 — too steep a tooth for a pair still learning the cannon.
+ */
+export function arcStep(step: Step): Step {
+  const [lo, hi] = step.arrivals;
+  const { twins: _t, ...rest } = step;
+  return {
+    ...rest,
+    gaps: [step.gaps[0] + ARC_EASE, step.gaps[1] + ARC_EASE],
+    arrivals: [Math.max(4, lo - ARC_EASE), hi],
+  };
+}

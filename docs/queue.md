@@ -451,18 +451,16 @@ buttons now (`lost-retries.ts`). Remove the field, its increment, its reset,
 its hash push and its rows in the two tests — or name what should read it.
 Prove it with `bun run check`.
 
-## Composed reviews of a field-found thing are named for the wrong block
+## Nothing recomposes the tutorial arc's blocks
 
-- **Found:** 2026-10-18, claude/enemy-control-requirements-2d9ce0
-- **Files:** `tools/director/src/compose-names.ts`
+- **Found:** 2026-10-19, claude/wave-enemy-variety-ba65da
+- **Files:** `tools/director/waves-compose.ts`, `tools/director/src/curriculum-run.ts`
 
-`themeOf` finds a review's intro by its id (`reviewRockCross` →
-`theRockCross` or `rockCross`), and when no wave has that id it falls back to
-the block above, which is THE CAROM for most of the late reviews: CAROM
-MORNING is the crossing rock's review, LONG CAROM ROAD the pod's, CAROM
-APOCALYPSE the medium rock's. HOLD TOGETHER's review got a one-row
-`REVIEW_INTRO` table instead. Replace both with the general rule — a review of
-X is about the wave `placeable` says introduces X — then run
-`bun run waves:order --write` and `bun run briefings:renumber`, and prove it
-with a test that no review's name carries the word of a block it does not
-review.
+`waves:order` keeps the arc as it stands (`splitCurriculum`'s `arc`), and
+`waves:compose` refuses a block whose ids are already taken, so when the
+steps changed to three on 19 October the arc's fourteen bodies, TORCH,
+SALVAGE and the seven blister gestures were recomposed by a one-off script,
+thrown away after. Give `waves:compose` an `--arc` (or `--again <intro>`)
+that takes a block's composed waves out and writes them again in list order,
+gesture groups through `composeControlGroup`, and prove with a test that a
+run on the shipped list changes nothing.
