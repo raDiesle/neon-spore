@@ -105,6 +105,7 @@ export {
   unreachedMechanics,
   type WaveKind,
 } from "./mechanics.js";
+export { MOTH_SCRIPT } from "./moth-script.js";
 export { NETTLE_SCRIPT } from "./nettle-script.js";
 export {
   BANK,

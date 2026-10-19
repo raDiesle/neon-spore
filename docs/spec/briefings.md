@@ -1,7 +1,7 @@
 # Briefings
 
 > **Status: the guide, the introduction and the rehearsals are built, in that
-> order.** A wave with a guide opens on it, and on all but nineteen of them that is
+> order.** A wave with a guide opens on it, and on all but twenty of them that is
 > a **rehearsal** — the game's own screen at full size, playing the wave the
 > pair is about to meet, one device at a time, with the words inside the picture
 > beside the things they explain. It ends on the ready gate, whose page is the
@@ -30,7 +30,7 @@ first creature falling. It is one of two states, never both:
    prose (§3.2). Either way it ends on **the ready gate**: two circles, one per
    seat, each filling while that seat holds and saying READY when it is full.
    The guide passes when both say READY. Only a wave that introduces something
-   new carries one — one hundred and eighteen of the four hundred and seventy-six waves today, and a wave
+   new carries one — one hundred and nineteen of the four hundred and seventy-seven waves today, and a wave
    with no guide has no circles either.
 2. **The introduction**, if it has no guide. `WAVE 4`, the wave's name, its
    one sentence. Plain text on the field — no panel, no border, nothing to
@@ -132,15 +132,15 @@ the two can be compared by opening the wave.
 | # | Block | What is new | Who holds what | Wave |
 |---|---|---|---|---|
 | 1 | **The opening** | two devices, one ship; the cannon; the colour | see §2 | 1 · FIRST STEP |
-| 2 | **The two colours** | red answers red, cyan answers cyan; a wrong colour is *spent*, not missed, and the body it was spent on refuses everything for `colourArmourMs` | p1 the column, p2 the colour | 5 · CYAN |
-| 3 | **The rock** | cannot be shot; shield in the column **and** triggered at contact | p2 slides, p1 triggers | 67 · THE ROCK |
-| 4 | **The torch** | two columns wide, the fastest thing in the field, and only on p1's strip | p1 sees it coming, p2 must cover both columns | 73 · TORCH |
-| 5 | **The push** | the shield sends a creature back up once and never kills it; the rim goes red and the body carries ONE LAST CHANCE | p1 triggers, p2 shoots it on its second fall | 72 · ONE LAST CHANCE |
-| 6 | **The pod** | shooting it loose is half of getting it; then it sinks and drifts | p2 frees it, p1 chases and opens the maw | 108 · SALVAGE |
-| 7 | **The lock** | player 1's hand on a body steers every shot into it, from whatever column the cannon is in; it says nothing about the colour | p1 holds and keeps the cannon on the pod, p2 fires the colour | 116 · CATCH AND AIM |
-| 8 | **The queen** | two marks, one real; she opens for three beats; a torch drops every ten | p1 sees *what*, p2 sees *where* | 115 · BULB QUEEN |
-| 9 | **The bosses** | the mirror, the maze, the gauge, the warden and its line, the vane | one guide each, on their own wave | 161 · THE MIRROR, 169 · THE MAZE, 177 · THE GAUGE, 225 · THE WARDEN, 356 · THE VANE |
-| 10 | **The rest of the bestiary** | the lure that took the runt's place, the throb, the count, the shell, the rock speed tiers | one guide each | 35 · THE LURE, 14 · THE THROB, 55 · THE COUNT, 10 · THE SHELL, 202 · HEAVY ROCKS |
+| 2 | **The two colours** | red answers red, cyan answers cyan; a wrong colour is *spent*, not missed, and the body it was spent on refuses everything for `colourArmourMs` | p1 the column, p2 the colour | 6 · CYAN |
+| 3 | **The rock** | cannot be shot; shield in the column **and** triggered at contact | p2 slides, p1 triggers | 68 · THE ROCK |
+| 4 | **The torch** | two columns wide, the fastest thing in the field, and only on p1's strip | p1 sees it coming, p2 must cover both columns | 74 · TORCH |
+| 5 | **The push** | the shield sends a creature back up once and never kills it; the rim goes red and the body carries ONE LAST CHANCE | p1 triggers, p2 shoots it on its second fall | 73 · ONE LAST CHANCE |
+| 6 | **The pod** | shooting it loose is half of getting it; then it sinks and drifts | p2 frees it, p1 chases and opens the maw | 109 · SALVAGE |
+| 7 | **The lock** | player 1's hand on a body steers every shot into it, from whatever column the cannon is in; it says nothing about the colour | p1 holds and keeps the cannon on the pod, p2 fires the colour | 117 · CATCH AND AIM |
+| 8 | **The queen** | two marks, one real; she opens for three beats; a torch drops every ten | p1 sees *what*, p2 sees *where* | 116 · BULB QUEEN |
+| 9 | **The bosses** | the mirror, the maze, the gauge, the warden and its line, the vane | one guide each, on their own wave | 162 · THE MIRROR, 170 · THE MAZE, 178 · THE GAUGE, 226 · THE WARDEN, 357 · THE VANE |
+| 10 | **The rest of the bestiary** | the lure that took the runt's place, the throb, the count, the shell, the rock speed tiers | one guide each | 36 · THE LURE, 15 · THE THROB, 56 · THE COUNT, 11 · THE SHELL, 203 · HEAVY ROCKS |
 
 **The grip is still the odd one out**, and it has no guide. It is a control no
 wave *contains*, so no wave is the first to carry it and nothing places it.
@@ -303,7 +303,7 @@ before a room is even joined.
   says what a slick *is*, where a guide says what this pair does next.
 - Purity applies unchanged — it is content, so no clock, no randomness, no DOM.
 
-### 3.2 The rehearsals — all but nineteen of them
+### 3.2 The rehearsals — all but twenty of them
 
 A guide that names a `scene` does not draw a panel of prose at all. It plays a
 **rehearsal**: the game's own screen at full size, one device at a time. FIRST
@@ -313,11 +313,11 @@ RED pressed, the shot taking it, and then a second slick nobody answers, so the
 last thing the pair is shown is the hull bar dropping. About five seconds,
 looping.
 
-**There are ninety-nine of them now**, one per guided wave bar nineteen,
+**There are ninety-nine of them now**, one per guided wave bar twenty,
 and each is authored in `packages/content/src/scenes/` as a page of
-choreography rather than a page of prose. The nineteen that are still the
+choreography rather than a page of prose. The twenty that are still the
 three strings and the two circles are the bosses from THE NETTLE on,
-FINALE's MATRON, THE GEODE and THE SWINDLE, each named with its reason in `STILL_PROSE` in `test/scenes-prose.test.ts`. The
+FINALE's MATRON, THE GEODE, THE SWINDLE and THE MOTH, each named with its reason in `STILL_PROSE` in `test/scenes-prose.test.ts`. The
 test holds that list rather than this paragraph, and it reads both numbers
 here out of this section in words: a film written or a boss landed fails a
 test instead of leaving a sentence quietly wrong, which is what happened to

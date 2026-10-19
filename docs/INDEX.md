@@ -307,6 +307,7 @@ by hand never moves.
 | `packages/sim/src/boss-surface-instar.ts` | **THE INSTAR's names, on a page of their own** — the script and where the scene is in it |
 | `packages/sim/src/boss-surface-maze.ts` | **THE MAZE's names on `@neon-spore/sim`'s surface**, cut off `boss-surface.ts` on 29 September 2026 |
 | `packages/sim/src/boss-surface-matron.ts` | **THE MATRON's names, on a page of their own** — the body, her clutches, her lobes and her throws |
+| `packages/sim/src/boss-surface-moth.ts` | **THE MOTH's names, on a page of their own** — where it hangs, what is lit on it and how far it has sunk |
 | `packages/sim/src/boss-surface-verdicts.ts` | **Every boss's shot, asked rather than acted on** — the `…Verdict` each boss's `…Struck` acts on |
 | `packages/sim/src/boss-surface-bastion.ts` | **THE BASTION's names, on a page of their own** — the moon, its shells, the plates, the ring and the port |
 | `packages/sim/src/boss-surface-brood.ts` | **THE BROOD's names, on a page of their own** — the sac, its buds and what a bolt meets — for the picture |
@@ -511,6 +512,7 @@ by hand never moves.
 | `packages/sim/src/config-matron.ts` | THE MATRON's tuning: the beats around her clutches and where a pod hangs |
 | `packages/sim/src/config-mirror.ts` | THE MIRROR's tuning: how far a carry goes before it is one, how long the pin is held |
 | `packages/sim/src/config-mimic.ts` | THE MIMIC's tuning: the beats around its pictures, how long the skin stays mottled after a window runs out |
+| `packages/sim/src/config-moth.ts` | THE MOTH's numbers — where it hangs, how wide its wings reach, how long it waits on a still light |
 | `packages/sim/src/config-view.ts` | **The numbers only the picture reads.** Every field here is taken off `SimConfig` by `packages/render` |
 | `packages/sim/src/config-vise.ts` | THE VISE's tuning: the rests around its steps, the grace a pinch is given |
 | `packages/sim/src/config-vane.ts` | **THE VANE's second and third gestures**: how long a thumb may hold the arm before the sweep tears it free |
@@ -532,11 +534,16 @@ by hand never moves.
 | `packages/sim/src/matron.ts` | THE MATRON: a mother slime hung over the field with her pods on her lobes, the boss of FINALE |
 | `packages/sim/src/moult.ts` | THE MOULT: one body that is a rock half the time and a cargo the other half |
 | `packages/sim/src/morsel.ts` | THE MORSEL: shoot it once, then swallow it |
+| `packages/sim/src/moth-hash.ts` | What THE MOTH puts into `hashWorld`, and nothing else |
+| `packages/sim/src/moth-shot.ts` | Where a bolt sweeping from `from` to `to` meets THE MOTH, thousandths of a row, or -1: its body or its wings |
+| `packages/sim/src/moth-step.ts` | THE MOTH's clock — fluttering in, a step lit, following or fleeing the light, sinking and landing |
+| `packages/sim/src/moth.ts` | THE MOTH: a great moth drawn to the cannon's light |
 | `packages/sim/src/events-magnet.ts` | **What THE MAGNET does**, as events: a bolt turned away by the plate slung under the body |
 | `packages/sim/src/events-mantle.ts` | What THE MANTLE says as it happens, one line per thing the picture and the sound answer |
 | `packages/sim/src/events-matron.ts` | What THE MATRON says as it happens, one line per thing the picture and the sound answer |
 | `packages/sim/src/events-maw.ts` | **The events of the maw's bodies** (`creature-kinds-maw.ts`), on `events-carom.ts`' terms |
 | `packages/sim/src/events-mimic.ts` | What THE MIMIC says as it happens, one line per thing the picture and the sound answer |
+| `packages/sim/src/events-moth.ts` | **Everything THE MOTH does that neither screen already says**, as events |
 | `packages/sim/src/grip-push.ts` | THE PUSH: the hand on a rock, carried sideways — one column, then a beat of quiet |
 | `packages/sim/src/grip-push-dir.ts` | **Which way a carried body has been earned a column** |
 | `packages/sim/src/gorge-hash.ts` | What THE GORGE puts into `hashWorld`, and nothing else |
@@ -1190,6 +1197,7 @@ by hand never moves.
 | `packages/content/src/motions-event.ts` | The two motions that are events rather than idles |
 | `packages/content/src/motions-retired.ts` | The motions nothing in the game carries any more |
 | `packages/content/src/motion-bank.ts` | BANK, the slick's own motion: two slow drifts on periods with no common multiple, the body leaning into its own travel — the answer the owner took on 9 September 2026 |
+| `packages/content/src/moth-script.ts` | THE MOTH's script: four levels, each asking something the last did not |
 | `packages/content/src/balloon-parts.ts` | **What is alive inside THE BALLOON**, and hanging under it: veins, a ring of lit beads |
 | `packages/content/src/brood-script.ts` | THE BROOD's script: eight steps, seventeen buds |
 | `packages/content/src/surface.ts` | where a mark placed at a longitude and latitude lands, how the tangent plane foreshortens it, and its own normal against `KEY` |
@@ -3067,6 +3075,7 @@ by hand never moves.
 | `packages/audio/src/bind-mimic.ts` | Whether an event is THE MIMIC's, so a page of the chain can hand it over whole |
 | `packages/audio/src/bind-mantle.ts` | THE MANTLE's twenty-two, in a file of their own for `bind-gorge.ts`' reason |
 | `packages/audio/src/bind-matron.ts` | THE MATRON's seven, routed by their prefix (`bind-prefixed.ts`) |
+| `packages/audio/src/bind-moth.ts` | THE MOTH's twelve, routed by their prefix (`bind-prefixed.ts`) |
 | `packages/audio/src/bind-handed.ts` | The bodies a hand answers, heard: a weight giving between two thumbs and a pile losing a rock, pulled or shed |
 | `packages/audio/src/bind-hasp.ts` | Whether an event is THE HASP's, so a page of the chain can hand it over whole |
 | `packages/audio/src/bind-hive.ts` | THE HIVE's twelve, in a file of their own for `bind-gorge.ts`' reason |
@@ -3134,6 +3143,7 @@ by hand never moves.
 | `packages/hands/src/boss-hands-unseen.ts` | **The pair's hands on the two fights about what one of them cannot see** |
 | `packages/hands/src/boss-hands-mantle.ts` | **THE MANTLE played right**, for the STATES sheet and the autopilot: both handles pulled together |
 | `packages/hands/src/boss-hands-mimic.ts` | **THE MIMIC played right**, for the autopilot |
+| `packages/hands/src/boss-hands-moth.ts` | **THE MOTH played right**, for the autopilot (`sim/moth.ts`): on a wings step |
 | `packages/hands/src/boss-hands-keel.ts` | **THE KEEL played right**, for the STATES sheet and the autopilot |
 | `packages/hands/src/boss-hands-oculus.ts` | **THE OCULUS played right**, for the STATES sheet and the autopilot |
 | `packages/hands/src/boss-hands-vise.ts` | **THE VISE played right**, for the STATES sheet and the autopilot |
@@ -3897,6 +3907,7 @@ by hand never moves.
 | `tools/director/src/poses-bosses-hands-matron.ts` | **THE MATRON's states**, posed with the field's own hand on the controls (`autopilot-field-hand.ts`) |
 | `tools/director/src/poses-bosses-hands-mechanisms.ts` | THE PLUMB's and THE SLING's stills: each machine arrived and standing, no step lit yet |
 | `tools/director/src/poses-bosses-hands-mimic.ts` | **THE MIMIC's states**: eight cards on AUTO's hand, the mimicking one with P2 drawing the wrong sign |
+| `tools/director/src/poses-bosses-hands-moth.ts` | **THE MOTH's states**, posed with a hand on the controls (`boss-hands-moth.ts`): it flutters in by itself |
 | `tools/director/src/poses-bosses-hands-keel.ts` | **THE KEEL's twelve states**, posed with a hand on the controls (`boss-hands-keel.ts`) |
 | `tools/director/src/poses-bosses-hands-oculus.ts` | **THE OCULUS's four states**, posed with a hand on the controls (`boss-hands-oculus.ts`) |
 | `tools/director/src/poses-bosses-hands-vise.ts` | **THE VISE's four states**, posed with a hand on the controls (`boss-hands-vise.ts`) |

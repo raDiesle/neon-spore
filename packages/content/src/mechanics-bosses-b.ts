@@ -26,6 +26,7 @@ type BossIdB = Extract<
   | "brood"
   | "matron"
   | "swindle"
+  | "moth"
   | "geode"
   | "capstan"
   | "gall"
@@ -172,6 +173,11 @@ export const BOSS_MECHANICS_B = {
     what: "A slime hangs real pods and fake ones and swaps them. Only Player 2 sees the fakes. Swallow every real pod she drops. Keep the maw shut for a fake.",
     reach: "spawn",
     spawns: ["pod", "husk"],
+  },
+  moth: {
+    what: "A moth flies to the cannon when it stands still, and lands on it. Shoot the red spots on its wings, then its red belly as it comes down.",
+    reach: "spawn",
+    spawns: ["slick"],
   },
   vane: {
     what: "An arm sweeps the top of the field. It mirrors everything under it across the column it stands in.",

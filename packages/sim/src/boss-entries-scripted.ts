@@ -14,6 +14,7 @@ import type { LampreyEntry } from "./lamprey.js";
 import type { LatchEntry } from "./latch.js";
 import type { MatronEntry } from "./matron.js";
 import type { MimicEntry } from "./mimic.js";
+import type { MothEntry } from "./moth.js";
 import type { OculusEntry } from "./oculus.js";
 import type { PlumbEntry } from "./plumb.js";
 import type { SeamEntry } from "./seam.js";
@@ -74,7 +75,9 @@ export type ScriptedBossEntry =
   // The stone only the lance cuts, broken a level of pieces at a time (`geode.ts`).
   | GeodeEntry
   // A hand of real pods and husks shuffled and let go, the real ones swallowed (`swindle.ts`).
-  | SwindleEntry;
+  | SwindleEntry
+  // The moth drawn to the cannon's light, its red spots and then its belly shot (`moth.ts`).
+  | MothEntry;
 
 export type { BastionEntry, BastionStep } from "./bastion.js";
 export type { BroodEntry, BroodStep } from "./brood.js";
@@ -88,6 +91,7 @@ export type { LampreyEntry, LampreyStep } from "./lamprey.js";
 export type { LatchEntry, LatchStep } from "./latch.js";
 export type { MatronEntry, MatronStep, MatronThrow } from "./matron.js";
 export type { MimicEntry, MimicStep } from "./mimic.js";
+export type { MothEntry, MothStep } from "./moth.js";
 export type { OculusEntry, OculusStep } from "./oculus.js";
 export type { PlumbEntry, PlumbStep } from "./plumb.js";
 export type { SeamEntry, SeamStep } from "./seam.js";

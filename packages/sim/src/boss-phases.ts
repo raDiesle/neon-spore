@@ -27,6 +27,7 @@ import { MANTLE_PHASES, MANTLE_SEAMS } from "./mantle.js";
 import { MATRON_PHASES } from "./matron.js";
 import { MAZE_PHASES } from "./maze.js";
 import { MIMIC_PHASES } from "./mimic.js";
+import { MOTH_PHASES } from "./moth.js";
 import { OCULUS_PHASES } from "./oculus.js";
 import { PIN_SHOTS, PINBALL_PHASES } from "./pinball.js";
 import { PLUMB_PHASES } from "./plumb.js";
@@ -152,5 +153,6 @@ export const BOSS_PHASES: Partial<Record<BossEntry["kind"], readonly string[]>> 
   matron: MATRON_PHASES,
   geode: GEODE_PHASES,
   swindle: SWINDLE_PHASES,
+  moth: MOTH_PHASES,
   fleet: FLEET_PHASES,
 };

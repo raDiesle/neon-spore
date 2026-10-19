@@ -21,6 +21,7 @@ import { MANTLE_POSES } from "./poses-bosses-hands-mantle.js";
 import { MATRON_POSES } from "./poses-bosses-hands-matron.js";
 import { MECHANISM_POSES } from "./poses-bosses-hands-mechanisms.js";
 import { MIMIC_POSES } from "./poses-bosses-hands-mimic.js";
+import { MOTH_POSES } from "./poses-bosses-hands-moth.js";
 import { NETTLE_POSES } from "./poses-bosses-hands-nettle.js";
 import { OCULUS_POSES } from "./poses-bosses-hands-oculus.js";
 import { RATCHET_POSES } from "./poses-bosses-hands-ratchet.js";
@@ -87,6 +88,7 @@ export const BOSS_POSES: Pose[] = [
   ...MATRON_POSES,
   ...GEODE_POSES,
   ...SWINDLE_POSES,
+  ...MOTH_POSES,
   ...MECHANISM_POSES,
 ];
 

@@ -27,6 +27,7 @@ import { lampreyHand } from "./boss-hands-lamprey.js";
 import { latchHand } from "./boss-hands-latch.js";
 import { mantleHand } from "./boss-hands-mantle.js";
 import { mimicHand } from "./boss-hands-mimic.js";
+import { mothHand } from "./boss-hands-moth.js";
 import { oculusHand } from "./boss-hands-oculus.js";
 import { plumbHand } from "./boss-hands-plumb.js";
 import { queenHand } from "./boss-hands-queen.js";
@@ -116,6 +117,7 @@ export const AUTOPILOT_HANDS: Partial<Record<BossKind, Hand>> = {
   // Her pods are the ordinary pods: the field hand frees and swallows a real
   // one and keeps the maw shut for a fake (`sim/swindle.ts`).
   swindle: fieldHand,
+  moth: mothHand,
   maze: mazeHand,
   mirror: mirrorHand,
   nettle: nettleHand,

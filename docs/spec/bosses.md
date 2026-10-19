@@ -11642,6 +11642,11 @@ two knots hauled, two through the yanks and two with the grips crossed.
   so the clock is the threat and the slip is the lesson.
 - **No SLOW**, for THE TRAPEZE's reasons: both screens see the same rope.
 
+**Its length.** `bun run waves:difficulty theMoth --seeds 12 --per
+0.5,1,1.5,2` clears every seed in a mean 44, 50, 67 and 101 beats — about
+27 s to a minute at 96 bpm, past thirty at a pair's pace of a press a
+second.
+
 **The hand.** AUTO (`hands/src/boss-hands-latch.ts`) acts a third of a beat
 apart, THE MIMIC's reason: the holder takes hold first, then the puller,
 which pulls a whole reach and lets go — and never lets go while the slime
@@ -12946,6 +12951,108 @@ holds the pilot's frame to the same picture for a real pod and a fake.
 **What is not built.** Her film: the guide is prose (`briefings.md` §3.2).
 **Never watched at tempo** — whether five beats between drops is a fair call
 is the owner's ear.
+
+## 11.69 THE MOTH — a moth drawn to the cannon's light
+
+> A moth comes to the cannon when it stands still, and lands on it. Shoot
+> the red spots on its wings. Last, shoot its red belly as it comes down.
+
+The owner's ask of 19 October 2026: *create me a boss for "first step"
+parent wave … we have red cannon and to position it … a choreographed boss,
+which only requires red shooting on parts of the enemy. maybe the red slick
+could be a part we mix in, but is not required.* A **field boss with a
+script**, the second kind in `.claude/skills/new-boss`: the ordinary field
+and STANDARD 1 — player 1 carries the cannon, player 2 has red, nothing
+else. It closes FIRST STEP's block, after RED TANGO, the first boss of the
+game. **The simulation landed on 19 October 2026**; its look is the next
+lane.
+
+**The rule, in one sentence.** It comes to your light — shoot what glows red.
+
+**The question no shipped boss asks: the cannon steers the boss.** Once the
+cannon has stood still in one column for `mothNoticeBeats`, the moth drifts
+to hang over it, a column every `mothDriftBeats`. Over a cannon that has
+stood still that long it **sinks**, `mothSinkMilli` a beat, and after `mothLandBeats` it **lands on
+the cannon** — the hull hit, its own blow (`bossStrikesHull`, blow `land`).
+The cannon moving out from under it breaks it off, and it rises. So the
+pilot's column is the aim and the bait at once: every spot is *go there —
+now*, said and fired before the moth arrives.
+
+**Its health is its silhouette**: a wing for every spot, a ring of belly for
+every hit still owed, and no bar. Fourteen in the shipped script.
+
+**The levels change the ask** (`sim/moth.ts`, its script
+`content/src/moth-script.ts`, named on the wave for THE INSTAR's reason):
+
+1. **Fore wings** — two red spots two columns out (`spots: [-2, 2]`). Learn
+   that it comes to a still light: stand under a spot, fire, move on.
+2. **One at a time** — four spots lit in turn (`inTurn`, `mothLitSpots`),
+   each on the far side of the body from the last, so the cannon crosses
+   under the moth between shots and must not stop there.
+3. **Hind wings** — four spots at once, and every `dustEvery` (four)
+   beats it shakes a **slick** off a wing tip (`mothDust`): FIRST STEP's own
+   red body, falling from under its row like any other, so the cannon has
+   two things to be under. The owner's *maybe the red slick could be a part
+   we mix in*.
+4. **Belly** — its wings gone, it **flies from the light**: it hops to a
+   new column two or more away every `hopEvery` beats and never over the
+   cannon, and its belly is lit **only while it sinks over the cannon**
+   (`mothBellyOpen`). The pilot chases it under, it comes down, the gunner
+   fires into it before it lands; a hit throws it up and away
+   (`mothBelly`). Four hits. The place the first three levels taught never
+   to stay is the answer.
+
+It flutters in for `mothEnterBeats` over the middle before the first spots
+light (`mothEnter`, `mothStep`). A spot hit tears its wing (`mothTear`); a step's last part hit rests it
+`mothRestBeats`, and after the last it hangs `mothSpentBeats` beaten
+(`mothSpent`, `mothOut`). It hangs at `mothRow`, its wings `mothSpan`
+columns either side, kept on the field (`mothClampCentre`); a bolt is met
+at its row, lower as it sinks (`mothMeetMilli`), so a slick under a wing is
+met first. Anywhere not lit takes the bolt and does nothing (`mothHide`); a
+lit part met in another colour is the default every boss keeps, the wave
+lost (`mothSpoil`, `bossColourMissed`) — unreachable on STANDARD 1, kept for
+a remix onto a fuller panel.
+
+**The split is the panel's own**, the first rung's: the pilot's column and
+the gunner's trigger. The pilot reads where it is going and where its spots
+hang; the gunner reads when the cannon has arrived and how far it has sunk.
+
+**Where this departs from the bosses before it, and why.**
+- **No SLOW**, THE BROOD's argument (§11.65): the field round it is the
+  ordinary field, and a slick it sheds is an ordinary body. A spot's window
+  is the moth's own notice, four beats from the cannon stopping; a belly's is
+  its sinking, six; both are learnt by watching it.
+- **No window runs the step out.** Its threat is the landing, which the
+  pilot always holds off by moving; a pair that never hits it is never
+  beaten by a clock, only by a moth left standing over the cannon.
+- **It turns to a still light, not to any light.** A moth that followed the
+  cannon tick for tick would carry its spot away the moment the cannon
+  arrived, and no shot could be fired on purpose.
+
+**The hand.** AUTO (`hands/src/boss-hands-moth.ts`) shoots a slick first,
+then stands under the spot nearest the cannon and fires the moment it is
+there; on the belly step it stands under the moth and fires once it sinks.
+
+**The sound** (`audio/src/bind-moth.ts`, `sounds/boss-moth.ts`): twelve,
+dry and papery where THE BROOD is wet — a flutter coming in, a wing-beat a
+column, a low hum as it sinks, a papery rip when a wing tears (climbing as
+its parts run out), a hollow pop for the belly, a flump when it lands.
+
+**What is proven, and what is not.** `sim/test/moth.test.ts` proves the
+rules: it comes in and lights its first spots; it turns to the cannon only
+after the cannon has stood still, a column at a time; left over the cannon
+it sinks and lands, the hull hit; the cannon moving breaks it off; a bolt is
+met on its row and lower as it sinks; a red bolt up a spot tears it and two
+torn rest it; spots taken in turn glow one at a time; a bolt where nothing is lit does nothing; another colour on a
+lit part loses the wave; a dusty step sheds a slick; on the belly step it
+hops away and its belly is shut until it sinks; the last belly hit beats it
+and it goes; the cannon's own bolt tears a spot; the same play hashes the
+same.
+
+**What is not built.** Its look — every event is silent in render/ until the
+look lane draws it (`effects-*-silent-boss-f.ts`), and its film: the guide
+is prose (`briefings.md` §3.2). **Never watched at tempo** — whether four
+beats of notice is enough time to fire is the owner's eye.
 
 ## 11.9 THE TELL — rock, paper, scissors, and half the tell on each screen
 

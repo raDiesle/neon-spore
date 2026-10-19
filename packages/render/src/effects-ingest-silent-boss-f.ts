@@ -167,4 +167,18 @@ export const INGEST_SILENT_BOSS_F = [
   "swindleCleared",
   "swindleSpent",
   "swindleOut",
+  // THE MOTH's twelve are silent until its look lane draws them; its slick
+  // is the field's own body, drawn as any other.
+  "mothEnter",
+  "mothStep",
+  "mothFlit",
+  "mothSettle",
+  "mothTear",
+  "mothBelly",
+  "mothHide",
+  "mothSpoil",
+  "mothDust",
+  "mothLand",
+  "mothSpent",
+  "mothOut",
 ] as const satisfies readonly SimEvent["type"][];

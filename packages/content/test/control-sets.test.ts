@@ -269,6 +269,8 @@ describe("the standard ladder", () => {
       "standard1",
       "standard1",
       "standard1",
+      // THE MOTH, the boss that closes the first rung: the cannon and red only.
+      "standard1",
       "standard2",
       "standard2",
       "standard2",

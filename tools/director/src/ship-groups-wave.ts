@@ -81,6 +81,7 @@ export const WAVE_ONLY_GROUPS: ReadonlySet<GroupName> = new Set([
   "THE MATRON — a mother slime whose pods are her health",
   "THE GEODE — a stone only the lance cuts",
   "THE SWINDLE — real pods and fake ones, shuffled",
+  "THE MOTH — a moth drawn to the cannon's light",
   "PINBALL — a table the ship's cannon fires up into",
   "THE PULSE — the same song on two screens",
   "THE SPLICE — straws fed in the order the numbers say",

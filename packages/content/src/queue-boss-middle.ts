@@ -42,6 +42,8 @@ const FROM_THE_MIDDLE = [
   "matron",
   "geode",
   "swindle",
+  // THE MOTH comes in over `midCol`; its spots are offsets from its body.
+  "moth",
 ] as const satisfies readonly BossEntry["kind"][];
 
 type MiddleKind = (typeof FROM_THE_MIDDLE)[number];

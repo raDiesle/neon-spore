@@ -12,6 +12,7 @@ import { lampreyHashParts } from "./lamprey-hash.js";
 import { latchHashParts } from "./latch-hash.js";
 import { matronHashParts } from "./matron-hash.js";
 import { mimicHashParts } from "./mimic-hash.js";
+import { mothHashParts } from "./moth-hash.js";
 import { oculusHashParts } from "./oculus-hash.js";
 import { plumbHashParts } from "./plumb-hash.js";
 import { seamHashParts } from "./seam-hash.js";
@@ -123,6 +124,10 @@ export function scriptedHashParts(boss: BossState): number[] {
   // THE SWINDLE: the phase, the hand hung, the glide, the swaps and drops done, and the script (`swindle-hash.ts`).
   if (boss.kind === "swindle") {
     for (const n of swindleHashParts(boss)) out.push(n);
+  }
+  // THE MOTH: where it hangs, how far it has sunk, the light it saw, and the script (`moth-hash.ts`).
+  if (boss.kind === "moth") {
+    for (const n of mothHashParts(boss)) out.push(n);
   }
   return out;
 }

@@ -28,6 +28,7 @@ import type { MantleState } from "./mantle.js";
 import type { MatronState } from "./matron.js";
 import type { MazeState } from "./maze-state.js";
 import type { MimicState } from "./mimic.js";
+import type { MothState } from "./moth.js";
 import type { OculusState } from "./oculus.js";
 import type { PinballState } from "./pinball.js";
 import type { PlumbState } from "./plumb.js";
@@ -141,4 +142,5 @@ export type BossState =
   | BroodState
   | MatronState
   | GeodeState
-  | SwindleState;
+  | SwindleState
+  | MothState;

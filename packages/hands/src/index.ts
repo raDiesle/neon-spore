@@ -31,6 +31,7 @@ export * from "./boss-hands-lamprey.js";
 export * from "./boss-hands-latch.js";
 export * from "./boss-hands-mantle.js";
 export * from "./boss-hands-mimic.js";
+export * from "./boss-hands-moth.js";
 export * from "./boss-hands-oculus.js";
 export * from "./boss-hands-plumb.js";
 export * from "./boss-hands-queen.js";

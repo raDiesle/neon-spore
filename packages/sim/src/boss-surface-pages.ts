@@ -24,6 +24,8 @@ export * from "./boss-surface-latch.js";
 export * from "./boss-surface-matron.js";
 // THE MAZE's, since its lever's ring became the simulation's (`boss-surface-maze.ts`).
 export * from "./boss-surface-maze.js";
+// THE MOTH's (`boss-surface-moth.ts`).
+export * from "./boss-surface-moth.js";
 // And PINBALL's, whole: the round whose state is a shot rather than a clock
 // (`boss-surface-pinball.ts`).
 export * from "./boss-surface-pinball.js";

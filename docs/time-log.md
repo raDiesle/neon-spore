@@ -44628,3 +44628,17 @@ Bottleneck: `check:fast` reached ninety-three shards because `siren-seats.ts`
 is drawn by nearly every frame test, so the gate cost more than the change.
 
 *Measured: 8 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-19 — THE MOTH, the simulation: a moth drawn to the cannon's light
+
+- reading: 10 min. The new-boss skill and its registrations table, THE
+  BROOD's lane to copy, the bolt sweep in `boss-along.ts`, FIRST STEP's act.
+- writing: 20 min. The moth's four files and its test, every registration,
+  the script, §11.69, and a fourth level once the probe said 18–29 beats.
+- looking: 0 min. No picture: the look is the next lane.
+- friction: 5 min. The size hook at 230 lines, `act-1.ts` at 250, and a
+  spot set past the wings' reach that left every probe seed unfinished.
+- landing: 5 min. `check:fast` twice, the index row, the commit, `land`.
+
+Bottleneck: the registrations — thirty files that each name a boss, found
+one typecheck error at a time.

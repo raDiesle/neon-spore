@@ -186,4 +186,12 @@ export const CHOREO_NOTES_D = {
     "still holds stops on its hood. The level waits until " +
     "every pod has left the field. swindleEnterBeats to come in, swindleRearBeats between " +
     "hands, swindleSpentBeats to go. See sim/swindle.ts, sim/swindle-step.ts.",
+  "THE MOTH — a moth drawn to the cannon's light":
+    "FIRST STEP's boss, the owner's ask of 19 October 2026, on STANDARD 1: the cannon " +
+    "and red. It hangs at mothRow, its wings mothSpan columns either side. A cannon still " +
+    "for mothNoticeBeats draws it a column every mothDriftBeats; over the cannon it sinks " +
+    "mothSinkMilli a beat and lands after mothLandBeats, a hull hit. Wings steps light red " +
+    "spots off its body and may shed a slick every dustEvery; the belly step hops away " +
+    "every hopEvery and opens its belly only as it sinks. No SLOW. See sim/moth.ts, " +
+    "sim/moth-step.ts, sim/moth-shot.ts.",
 } satisfies Partial<Record<GroupName, string>>;

@@ -8,6 +8,7 @@ import { hiveWallStruck } from "./hive-shot.js";
 import { hiveWallAlong } from "./hive-wall.js";
 import { keelRockAlong, keelStruck } from "./keel-shot.js";
 import { mantleSparkAlong, mantleStruck } from "./mantle-shot.js";
+import { mothAlong, mothStruck } from "./moth-shot.js";
 import { ratchetBoltAlong, ratchetStruck } from "./ratchet-shot.js";
 import { trapezeAlong, trapezeStruck } from "./trapeze-shot.js";
 import type { Bullet } from "./types.js";
@@ -53,7 +54,9 @@ export function bossAlong(world: World, bullet: Bullet, from: number, to: number
   const alien = trapezeAlong(world, bullet, from, to);
   if (alien >= 0) return alien;
   const bud = broodAlong(world, bullet, from, to);
-  return bud >= 0 ? bud : gorgeAlong(world, bullet, from, to);
+  if (bud >= 0) return bud;
+  const wing = mothAlong(world, bullet, from, to);
+  return wing >= 0 ? wing : gorgeAlong(world, bullet, from, to);
 }
 
 /** The shot met what `bossAlong` found. */
@@ -69,5 +72,6 @@ export function bossAlongStruck(world: World, bullet: Bullet): void {
   else if (world.boss?.kind === "keel") keelStruck(world, bullet);
   else if (world.boss?.kind === "trapeze") trapezeStruck(world, bullet);
   else if (world.boss?.kind === "brood") broodStruck(world, bullet);
+  else if (world.boss?.kind === "moth") mothStruck(world, bullet);
   else vaneMouthStruck(world, bullet);
 }

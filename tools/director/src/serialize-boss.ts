@@ -146,6 +146,8 @@ export function serializeBoss(boss: BossEntry, waveId = ""): string {
   if (boss.kind === "nettle") return '{ kind: "nettle", steps: NETTLE_SCRIPT }';
   // THE BROOD's the same way (`packages/content/src/brood-script.ts`).
   if (boss.kind === "brood") return '{ kind: "brood", steps: BROOD_SCRIPT }';
+  // THE MOTH's the same way (`packages/content/src/moth-script.ts`).
+  if (boss.kind === "moth") return '{ kind: "moth", steps: MOTH_SCRIPT }';
   // THE FILAMENT's paths are words a hand walks (`sim/filament.ts`), named
   // for the same reason (`packages/content/src/filament-script.ts`).
   if (boss.kind === "filament") return '{ kind: "filament", filaments: FILAMENT_SCRIPT }';

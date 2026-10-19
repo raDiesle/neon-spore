@@ -67,6 +67,14 @@ export const BOSS_ENTRIES_G = {
       },
     ],
   },
+  // Both kinds of step, a shed and a hop, the spots and counts apart (`moth-hash.ts`).
+  moth: {
+    kind: "moth",
+    steps: [
+      { kind: "wings", spots: [-2, 1], dustEvery: 5 },
+      { kind: "belly", hits: 2, hopEvery: 7 },
+    ],
+  },
   // Two levels, a stacked pair in one, the columns and colours apart (`geode-hash.ts`).
   geode: {
     kind: "geode",
@@ -189,5 +197,20 @@ export function patchBossG(boss: BossState): void {
     boss.glideTo = [9000, 6000];
     boss.glideEnd = 4;
     boss.taken = 1;
+  }
+  if (boss.kind === "moth") {
+    // A wings step lit, one spot torn, sinking two beats over a cannon it
+    // drifted to, a slick shed — every field given a value (`moth-hash.ts`).
+    boss.phase = "flit";
+    boss.phaseBeat = 3;
+    boss.centre = 4;
+    boss.spots = [1];
+    boss.hits = 1;
+    boss.settle = 2;
+    boss.seenCol = 4;
+    boss.seenBeat = 5;
+    boss.flitBeat = 7;
+    boss.shed = 2;
+    boss.landed = 1;
   }
 }

@@ -6,6 +6,15 @@ import type { Wave } from "../wave-types.js";
  */
 export const WAVES_ACT_1_P2: Wave[] = [
   {
+    id: "theThrob",
+    name: "THE THROB",
+    guide: {
+      scene: "theThrob",
+    },
+    entries: [{ beat: 0, col: 5, kind: "throb", color: "red" }],
+    controls: "standard2",
+  },
+  {
     id: "theThrobPair",
     name: "THROB TANGO",
     variant: true,

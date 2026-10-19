@@ -171,4 +171,17 @@ export const NO_SUBJECT_E: Record<string, string> = {
   "boss.swindleSpent": "THE SWINDLE, beaten. Same argument.",
   "boss.swindleOut":
     "THE SWINDLE, the slime gone and the wave ending. Same argument, and an absence.",
+  // THE MOTH's twelve (`sim/events-moth.ts`): the same argument.
+  "boss.mothEnter": "THE MOTH, fluttering in. No shape-sheet subject yet.",
+  "boss.mothStep": "THE MOTH, a step's spots lit. Same argument.",
+  "boss.mothFlit": "THE MOTH, flying a column. Same argument.",
+  "boss.mothSettle": "THE MOTH, sinking over the cannon. Same argument.",
+  "boss.mothTear": "THE MOTH, a wing torn. Same argument.",
+  "boss.mothBelly": "THE MOTH, its belly hit. Same argument.",
+  "boss.mothHide": "THE MOTH, a bolt where nothing is lit. Same argument.",
+  "boss.mothSpoil": "THE MOTH, a lit part shot in another colour. Same argument.",
+  "boss.mothDust": "THE MOTH, a slick shaken off a wing. Same argument.",
+  "boss.mothLand": "THE MOTH, landing on the cannon. Same argument.",
+  "boss.mothSpent": "THE MOTH, beaten. Same argument.",
+  "boss.mothOut": "THE MOTH, gone and the wave ending. Same argument, and an absence.",
 };

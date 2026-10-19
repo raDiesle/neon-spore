@@ -28,6 +28,7 @@ import { MAZE_GRIP_DEFAULTS, type MazeGripConfig } from "./config-maze-grip.js";
 import { MAZE_TURN_DEFAULTS, type MazeTurnConfig } from "./config-maze-turn.js";
 import { MIMIC_DEFAULTS, type MimicConfig } from "./config-mimic.js";
 import { MIRROR_DEFAULTS, type MirrorConfig } from "./config-mirror.js";
+import { MOTH_DEFAULTS, type MothConfig } from "./config-moth.js";
 import { OCULUS_DEFAULTS, type OculusConfig } from "./config-oculus.js";
 import { PLUMB_DEFAULTS, type PlumbConfig } from "./config-plumb.js";
 import { RATCHET_DEFAULTS, type RatchetConfig } from "./config-ratchet.js";
@@ -118,6 +119,7 @@ export interface BossClockConfig
     BroodConfig,
     MatronConfig,
     SwindleConfig,
+    MothConfig,
     GeodeConfig,
     SpoolConfig,
     HaspConfig,
@@ -171,6 +173,7 @@ export const BOSS_CLOCK_DEFAULTS: BossClockConfig = {
   ...MATRON_DEFAULTS,
   ...GEODE_DEFAULTS,
   ...SWINDLE_DEFAULTS,
+  ...MOTH_DEFAULTS,
   ...SPOOL_DEFAULTS,
   ...HASP_DEFAULTS,
   ...RATCHET_DEFAULTS,

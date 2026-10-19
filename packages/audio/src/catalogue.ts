@@ -41,6 +41,7 @@ import { BOSS_LEDGER_SOUNDS } from "./sounds/boss-ledger.js";
 import { BOSS_MANTLE_SOUNDS } from "./sounds/boss-mantle.js";
 import { BOSS_MATRON_SOUNDS } from "./sounds/boss-matron.js";
 import { BOSS_MIMIC_SOUNDS } from "./sounds/boss-mimic.js";
+import { BOSS_MOTH_SOUNDS } from "./sounds/boss-moth.js";
 import { BOSS_OCULUS_SOUNDS } from "./sounds/boss-oculus.js";
 import { BOSS_PINBALL_HAND_SOUNDS } from "./sounds/boss-pinball-hand.js";
 import { BOSS_PLANNED_SOUNDS } from "./sounds/boss-planned.js";
@@ -137,6 +138,7 @@ export const CATALOGUE: readonly SoundDef[] = [
   ...BOSS_MATRON_SOUNDS,
   ...BOSS_GEODE_SOUNDS,
   ...BOSS_SWINDLE_SOUNDS,
+  ...BOSS_MOTH_SOUNDS,
   ...BOSS_WARDEN_SOUNDS,
   ...BOSS_VANE_SOUNDS,
   ...BOSS_THROAT_SOUNDS,

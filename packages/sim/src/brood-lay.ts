@@ -94,9 +94,16 @@ export function broodLayDue(world: World, s: BroodState): void {
   }
 }
 
-/** A slick or a bulb, from the bud row rather than the top of the field. */
-export function broodSpawnBody(world: World, col: number, color: Color): void {
-  const row = world.cfg.broodBudRow;
+/**
+ * A slick or a bulb, from the bud row rather than the top of the field — or
+ * from `row`, for THE MOTH shaking one off its wing (`moth-step.ts`).
+ */
+export function broodSpawnBody(
+  world: World,
+  col: number,
+  color: Color,
+  row = world.cfg.broodBudRow,
+): void {
   const before = world.creatures.length;
   spawnOne(world, { beat: world.beat, col, kind: livingKindForColor(color), color });
   for (let i = before; i < world.creatures.length; i++) {

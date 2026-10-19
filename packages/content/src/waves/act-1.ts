@@ -1,4 +1,5 @@
 import { BROOD_SCRIPT } from "../brood-script.js";
+import { MOTH_SCRIPT } from "../moth-script.js";
 import type { Wave } from "../wave-types.js";
 
 /**
@@ -100,6 +101,19 @@ export const WAVES_ACT_1: Wave[] = [
       { beat: 35, col: 1, color: "red" },
       { beat: 41, col: 4, color: "red" },
     ],
+    controls: "standard1",
+  },
+  {
+    id: "theMoth",
+    name: "THE MOTH",
+    guide: {
+      both: "A moth comes to the cannon when it stands still, and lands on it. Shoot the red spots on its wings. Last, shoot its red belly as it comes down.",
+      p1: "1. Move the cannon under a red spot.\n2. Do not stay under the moth.\n3. At the end, go under it to bring it down.",
+      p2: "1. Fire red the moment the cannon is under a spot.\n2. At the end, fire red as it comes down.",
+    },
+    entries: [],
+    boss: { kind: "moth", steps: MOTH_SCRIPT },
+    bossType: "normal",
     controls: "standard1",
   },
   {
@@ -225,15 +239,6 @@ export const WAVES_ACT_1: Wave[] = [
       { beat: 41, col: 0, kind: "shell", color: "red" },
       { beat: 48, col: 10, color: "cyan" },
     ],
-    controls: "standard2",
-  },
-  {
-    id: "theThrob",
-    name: "THE THROB",
-    guide: {
-      scene: "theThrob",
-    },
-    entries: [{ beat: 0, col: 5, kind: "throb", color: "red" }],
     controls: "standard2",
   },
 ];

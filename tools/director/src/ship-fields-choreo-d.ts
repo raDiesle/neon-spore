@@ -190,4 +190,14 @@ export const CHOREO_FIELD_GROUP_D = {
   swindleSwapBeats: "THE SWINDLE — real pods and fake ones, shuffled",
   swindlePodRow: "THE SWINDLE — real pods and fake ones, shuffled",
   swindleArcMilli: "THE SWINDLE — real pods and fake ones, shuffled",
+  // MothConfig — its row and wing span, the beats around its steps, how it notices, drifts and lands (`config-moth.ts`).
+  mothRow: "THE MOTH — a moth drawn to the cannon's light",
+  mothSpan: "THE MOTH — a moth drawn to the cannon's light",
+  mothEnterBeats: "THE MOTH — a moth drawn to the cannon's light",
+  mothRestBeats: "THE MOTH — a moth drawn to the cannon's light",
+  mothSpentBeats: "THE MOTH — a moth drawn to the cannon's light",
+  mothNoticeBeats: "THE MOTH — a moth drawn to the cannon's light",
+  mothDriftBeats: "THE MOTH — a moth drawn to the cannon's light",
+  mothLandBeats: "THE MOTH — a moth drawn to the cannon's light",
+  mothSinkMilli: "THE MOTH — a moth drawn to the cannon's light",
 } satisfies Record<string, GroupName>;

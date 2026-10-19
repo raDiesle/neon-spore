@@ -12,6 +12,7 @@ import { installLamprey } from "./lamprey-meal.js";
 import { installLatch } from "./latch-step.js";
 import { installMatron } from "./matron-step.js";
 import { installMimic } from "./mimic-step.js";
+import { installMoth } from "./moth-step.js";
 import { installOculus } from "./oculus-step.js";
 import { installPlumb } from "./plumb-step.js";
 import { installSeam } from "./seam-step.js";
@@ -55,6 +56,7 @@ export const SCRIPTED_KINDS = [
   "matron",
   "geode",
   "swindle",
+  "moth",
 ] as const;
 
 export type ScriptedEntry = Extract<BossEntry, { kind: (typeof SCRIPTED_KINDS)[number] }>;
@@ -83,5 +85,6 @@ export function installScripted(world: World, boss: ScriptedEntry): BossState {
   if (boss.kind === "matron") return installMatron(world, boss.steps);
   if (boss.kind === "geode") return installGeode(world, boss.steps);
   if (boss.kind === "swindle") return installSwindle(world, boss.steps);
+  if (boss.kind === "moth") return installMoth(world, boss.steps);
   return installMimic(world, boss.steps);
 }
