@@ -1,9 +1,7 @@
 import { showsRadar } from "@neon-spore/content";
 import type { World } from "@neon-spore/sim";
 import type { Layout } from "./layout.js";
-import { PALETTE } from "./palette.js";
 import { ALARM_HEIGHT, alarmRows } from "./ship-top-rows.js";
-import { SIREN_PAD } from "./siren-seats.js";
 
 /**
  * THE MAGNET's call, and the second alarm in this game that reads differently
@@ -77,16 +75,7 @@ export function drawMagnetAlarm(
   ctx.fillStyle = band;
   ctx.fillRect(0, top, l.width, ALARM_HEIGHT);
 
-  // Right-aligned under the siren, where the torch's line already goes: the
-  // two are one sentence in the same voice — *this is the call, and here is
-  // what to say* — and a second place for it would be a second thing to learn.
-  ctx.font = '600 10px "Courier New",monospace';
-  ctx.textAlign = "right";
-  ctx.fillStyle = PALETTE.pod;
-  ctx.globalAlpha = 0.6 + 0.4 * pulse;
-  // 1-based, the way a column is said out loud.
-  ctx.fillText(`TARGET ENEMY · COLUMN ${col + 1}`, l.width - SIREN_PAD, top + ALARM_HEIGHT - 2);
-  ctx.globalAlpha = 1;
-  ctx.textAlign = "left";
+  // No words: `TARGET ENEMY · COLUMN n` was taken off at the owner's asking,
+  // 19 October 2026, with TORCH's line. The band alone says which column.
   ctx.restore();
 }

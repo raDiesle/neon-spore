@@ -1,16 +1,10 @@
 import { spanOf, type World } from "@neon-spore/sim";
 import type { Layout } from "./layout.js";
-import { PALETTE } from "./palette.js";
 import { ALARM_HEIGHT, alarmRows } from "./ship-top-rows.js";
-import { sirenCentre } from "./siren.js";
-import { SIREN_PAD } from "./siren-seats.js";
 
 /** `PALETTE.rock` (#C7CBD6) as an rgb triple, for alpha-graded fills — the
  * same literal the meteor's own crater rim already uses in `creatures.ts`. */
 const ROCK_RGB = "199,203,214";
-/** The call's own line: a size up from the 10 px it was written at, for the
- * same reason the siren's old dial grew, on 16 October 2026. */
-const ALARM_FONT = '700 11px "Courier New",monospace';
 
 /**
  * The torch alarm. It is the one piece of the HUD that reads differently
@@ -99,36 +93,10 @@ export function drawTorchAlarm(
   ctx.fillRect(0, 0, edge, l.height);
   ctx.restore();
 
-  // Centred under the siren, on the row under its duty word. The line is the
-  // sentence the siren's chips are asking for — *this is the call, and here is
-  // what to say* — so it hangs off the dial rather than off the band or the
-  // torch: the owner, 16 October 2026, *the text should go below the siren*.
-  // It stood right-aligned to the cluster's right edge until then, which put
-  // it under a chip rather than under the light that had just gone up.
-  ctx.font = ALARM_FONT;
-  ctx.textAlign = "center";
-  ctx.fillStyle = PALETTE.rock;
-  ctx.globalAlpha = 0.8 + 0.2 * pulse;
-  const text = alarmText(l.role, warning);
-  // Pulled back inside the screen when too wide to be centred, as the duty
-  // word above it is (`siren.ts`).
-  const half = ctx.measureText(text).width / 2;
-  const mid = sirenCentre(l).x;
-  const x = Math.min(Math.max(mid, SIREN_PAD / 2 + half), l.width - SIREN_PAD / 2 - half);
-  ctx.fillText(text, x, top + ALARM_HEIGHT - 1);
-  ctx.globalAlpha = 1;
-  ctx.textAlign = "left";
+  // No words: the owner, 19 October 2026, asked for the call's line
+  // (`TORCH · COLUMN n · CALL IT`, `TORCH INBOUND · TAKE THE COLUMN`) to go.
+  // The band says where and the siren says whose mouth opens; the sentence is
+  // the pilot's own to find.
 
   ctx.restore();
-}
-
-function alarmText(role: Layout["role"], w: TorchWarning): string {
-  if (role === "p2") return "TORCH INBOUND · TAKE THE COLUMN";
-  // 1-based, the way a caller says a column out loud: `w.col` is the torch's
-  // leftmost (0-based) column, so the pair spans `w.col + 1` to `w.col + span`.
-  // One column at a one-tile torch, and the line says so rather than naming a
-  // range of one.
-  const lo = w.col + 1;
-  const hi = w.col + w.span;
-  return lo === hi ? `TORCH · COLUMN ${lo} · CALL IT` : `TORCH · COLUMNS ${lo}-${hi} · CALL IT`;
 }

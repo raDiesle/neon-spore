@@ -4,7 +4,7 @@ import { createWorld, DEFAULT_CONFIG, startWave, type World } from "@neon-spore/
 import { computeLayout, type ViewRole } from "../src/layout.js";
 import { drawMagnetAlarm } from "../src/magnet-alarm.js";
 import { alarmRows } from "../src/ship-top-rows.js";
-import { sirenCentre, sirenFoot } from "../src/siren.js";
+import { sirenFoot } from "../src/siren.js";
 import { drawTorchAlarm } from "../src/torch-alarm.js";
 import { FRAME_TIMEOUT_MS, installCanvasGlobals, stubCanvas, type TextBox } from "./canvas-stub.js";
 
@@ -13,9 +13,9 @@ import { FRAME_TIMEOUT_MS, installCanvasGlobals, stubCanvas, type TextBox } from
 setDefaultTimeout(FRAME_TIMEOUT_MS);
 
 /**
- * The two calls the ship's own chrome writes: TORCH's line and THE MAGNET's,
- * the same sentence in two voices — *this is the call, and here is what to
- * say* — both right-aligned to the siren's own edge, directly under its dial.
+ * The two calls the ship's own chrome raises: TORCH's band and THE MAGNET's,
+ * stacked under the siren. Neither writes a word since 19 October 2026 — the
+ * owner asked for the radar's text to go; the band over the column is the call.
  */
 
 const CFG = { ...DEFAULT_CONFIG, briefings: true };
@@ -49,17 +49,12 @@ function atWave(name: string, kind: string): World {
 
 type Draw = (ctx: CanvasRenderingContext2D) => void;
 
-/** The one row this alarm writes. */
-function row(draw: Draw): TextBox {
+/** Every word this alarm writes. */
+function words(draw: Draw): string[] {
   const { ctx } = stubCanvas();
   ctx.texts = [];
   draw(ctx as unknown as CanvasRenderingContext2D);
-  const texts = (ctx.texts ?? []) as TextBox[];
-  expect(
-    texts.map((t) => t.text),
-    "the alarm wrote no line at all",
-  ).toHaveLength(1);
-  return texts[0] as TextBox;
+  return ((ctx.texts ?? []) as TextBox[]).map((t) => t.text);
 }
 
 const ALARMS: { name: string; wave: string; kind: string; draw: Draw }[] = [
@@ -85,11 +80,8 @@ const ALARMS: { name: string; wave: string; kind: string; draw: Draw }[] = [
 
 describe("an alarm row", () => {
   for (const alarm of ALARMS) {
-    it(`${alarm.name} keeps its distance from the siren it hangs off`, () => {
-      const l = computeLayout(PHONE, CFG, SEAT);
-      const bare = row(alarm.draw);
-      const dial = sirenCentre(l).y;
-      expect(bare.y).toBeGreaterThan(dial);
+    it(`${alarm.name} writes no words`, () => {
+      expect(words(alarm.draw)).toEqual([]);
     });
   }
 

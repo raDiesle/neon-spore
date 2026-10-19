@@ -49,7 +49,7 @@ export const TELL: HelperGroup = {
     },
     {
       name: "THE MAGNET'S CALL",
-      where: "a line on the strip while a magnet is on the way",
+      where: "an amber band under the strip while a magnet is on the way",
       seat: "P1 only — the navigator is not warned until it is on the field",
       says:
         "Which side to fire from. The pilot has the strip and the aim; the " +
@@ -57,7 +57,7 @@ export const TELL: HelperGroup = {
       source: "magnet-alarm.ts",
       pose: MAGNET_UP,
       role: "p1",
-      lookAt: "the magnet and the line that says which side",
+      lookAt: "the magnet and the band over its column",
     },
     {
       name: "THE COUNT",

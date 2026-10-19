@@ -39,7 +39,7 @@ export const SHIELD_GROUP: HelperGroup = {
     {
       name: "THE TORCH ALARM",
       where: "a grey band across the strip and down both edges, a torch's fall ahead",
-      seat: "BOTH, different words — P1: TORCH · COLUMN n · CALL IT; P2: TORCH INBOUND · TAKE THE COLUMN",
+      seat: "BOTH, the same band and no words",
       says:
         "The fastest thing in the game is coming, and only the shield answers it. " +
         "The pilot can see where and must say it; the navigator must move the " +

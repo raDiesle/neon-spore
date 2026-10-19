@@ -44596,3 +44596,15 @@ Bottleneck: the arc is not recomposed by `waves:order`, so its fourteen
 bodies, TORCH, SALVAGE and the seven gestures needed a pass of their own.
 
 *Measured: 10 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-19 — the radar's words are gone
+
+- reading: 5 min. Which file writes which line under the siren and on the
+  strip: `torch-alarm.ts`, `magnet-alarm.ts`, `lure-alarm.ts`.
+- writing: 5 min. The three lines out, the director's two rows reworded,
+  `alarm-room.test.ts` turned round to ask for no words.
+- looking: 0 min. No picture taken; the test reads the text the canvas got.
+- friction: 0 min.
+- landing: 10 min. `check:fast` ran the whole suite, five minutes of it.
+
+Bottleneck: `check:fast` reaching the whole suite from a render change.

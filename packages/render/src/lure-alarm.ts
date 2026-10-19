@@ -164,12 +164,8 @@ export function drawRadarLureMark(
   ctx.save();
   // The same corner frame as on the body, small: one marking, two places, so
   // the strip and the field are plainly saying the same word.
+  // The word `LURE` above it came off with the radar's other text, at the
+  // owner's asking on 19 October 2026: the frame is the marking.
   drawRadarLock(ctx, x, y, BLIP_HALF, ALARM, time, 1, x);
-  ctx.fillStyle = ALARM;
-  ctx.globalAlpha = 1;
-  ctx.font = '600 7px "Courier New",monospace';
-  ctx.textAlign = "center";
-  ctx.fillText("LURE", x, y - 18);
-  ctx.textAlign = "left";
   ctx.restore();
 }
