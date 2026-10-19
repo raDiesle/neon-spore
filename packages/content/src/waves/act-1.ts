@@ -33,12 +33,15 @@ import type { Wave } from "../wave-types.js";
  *
  * **Fourteen bodies come between THE BROOD and THE ROCK, on STANDARD 2**
  * (the owner, 18 October 2026): the ones that ask for nothing but the cannon,
- * its strip and the two colours — SHELL, THROB, ECHO, RECOIL, MAGNET, GYRE,
+ * its strip and the two colours — SHELL, MAGNET, THROB, ECHO, RECOIL, GYRE,
  * LURE, RIND, STRAND, VEIL, DART, COUNT, GHOST and WISP, in that order. Each
  * is its head and three regular waves the composer wrote for the arc
  * (`waves:compose`), and a boss after each is the owner's to add. HOLD AND
  * AIM stands in front of THE MAGNET: a magnet is answered only by a bolt the
- * pilot's hand has turned (`sim/lock.ts`). THE GYRE's film lost its SUCK page.
+ * pilot's hand has turned (`sim/lock.ts`). The two come straight after the
+ * shell's block (the owner, 19 October 2026), and the magnet's three waves
+ * were drawn again so they mix only the shell. THE GYRE's film lost its SUCK
+ * page.
  */
 export const WAVES_ACT_1: Wave[] = [
   {
@@ -216,23 +219,6 @@ export const WAVES_ACT_1: Wave[] = [
       { beat: 23, col: 4, kind: "shell", color: "red" },
       { beat: 31, col: 10, color: "cyan" },
       { beat: 38, col: 4, kind: "shell", color: "red" },
-    ],
-    controls: "standard2",
-  },
-  {
-    id: "theThirdShotPeak",
-    name: "SHELL THUNDER",
-    variant: true,
-    entries: [
-      { beat: 0, col: 8, color: "red" },
-      { beat: 6, col: 4, kind: "shell", color: "cyan" },
-      { beat: 10, col: 2, color: "cyan" },
-      { beat: 16, col: 0, kind: "shell", color: "red" },
-      { beat: 21, col: 4, color: "cyan" },
-      { beat: 27, col: 0, kind: "shell", color: "cyan" },
-      { beat: 34, col: 10, color: "cyan" },
-      { beat: 41, col: 0, kind: "shell", color: "red" },
-      { beat: 48, col: 10, color: "cyan" },
     ],
     controls: "standard2",
   },

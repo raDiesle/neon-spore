@@ -2,7 +2,7 @@ import { MAZE_ROUNDS } from "../maze-rounds.js";
 import type { Wave } from "../wave-types.js";
 
 /**
- * Waves 166 to 177 of the game, in the order they are played: the filler before
+ * Waves 167 to 178 of the game, in the order they are played: the filler before
  * THE MAZE, the boss THE MAZE, THE LIMPET's block, the filler before THE GAUGE
  * and the boss THE GAUGE.
  *
@@ -112,13 +112,14 @@ export const WAVES_ACT_7: Wave[] = [
     name: "OLD LIMPET SONG",
     variant: true,
     entries: [
-      { beat: 0, col: 8, color: "red" },
-      { beat: 6, col: 3, kind: "morsel", color: "cyan" },
+      { beat: 0, col: 1, color: "cyan" },
+      { beat: 6, col: 3, kind: "shell", color: "red" },
       { beat: 12, col: 10, color: "cyan" },
-      { beat: 19, col: 0, kind: "magnet", color: "red" },
-      { beat: 25, col: 5, color: "cyan" },
-      { beat: 30, col: 4, kind: "blister", color: null, row: 3 },
-      { beat: 36, col: 1, color: "cyan" },
+      { beat: 19, col: 0, kind: "torch", color: null },
+      { beat: 25, col: 5, color: "red" },
+      { beat: 30, col: 0, kind: "magnet", color: "red" },
+      { beat: 35, col: 2, color: "cyan" },
+      { beat: 40, col: 5, kind: "shell", color: "red" },
     ],
     faults: [
       { kind: "limpet", at: 6, beats: 12 },
@@ -175,7 +176,7 @@ export const WAVES_ACT_7: Wave[] = [
       { beat: 11, col: 0, color: "cyan" },
       { beat: 18, col: 10, kind: "lure", color: "cyan" },
       { beat: 24, col: 1, color: "red" },
-      { beat: 32, col: 2, kind: "magnet", color: "cyan" },
+      { beat: 32, col: 2, kind: "recoil", color: "cyan" },
       { beat: 38, col: 0, color: "red" },
     ],
   },
@@ -190,7 +191,7 @@ export const WAVES_ACT_7: Wave[] = [
       { beat: 16, col: 7, kind: "seeder", color: "red" },
       { beat: 22, col: 1, color: "red" },
       { beat: 22, col: 9, color: "red" },
-      { beat: 28, col: 5, kind: "recoil", color: "cyan" },
+      { beat: 28, col: 5, kind: "echo", color: "red" },
       { beat: 33, col: 1, kind: "morsel", color: "red" },
       { beat: 39, col: 0, color: "cyan" },
       { beat: 39, col: 10, color: "cyan" },

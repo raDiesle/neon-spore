@@ -1,7 +1,7 @@
 import type { Wave } from "../wave-types.js";
 
 /**
- * Waves 178 to 189 of the game, in the order they are played: THE BEATBOX's
+ * Waves 179 to 190 of the game, in the order they are played: THE BEATBOX's
  * block, the filler before THE FLEET, the boss THE FLEET and HOLD TOGETHER's
  * block.
  *
@@ -46,7 +46,7 @@ export const WAVES_ACT_8: Wave[] = [
       { beat: 0, col: 4, color: "red" },
       { beat: 6, col: 1, kind: "beatbox", color: null, beats: 2 },
       { beat: 11, col: 8, color: "cyan" },
-      { beat: 19, col: 0, kind: "throb", color: "red" },
+      { beat: 19, col: 0, kind: "magnet", color: "cyan" },
       { beat: 26, col: 10, color: "red" },
       { beat: 32, col: 3, kind: "beatbox", color: null, beats: 2 },
       { beat: 37, col: 5, color: "red" },
@@ -172,14 +172,14 @@ export const WAVES_ACT_8: Wave[] = [
     name: "OLD TOGETHER SONG",
     variant: true,
     entries: [
-      { beat: 0, col: 6, color: "red" },
-      { beat: 5, col: 2, kind: "blister", color: null, row: 3, by: "both", gesture: "hold" },
-      { beat: 11, col: 10, color: "cyan" },
-      { beat: 16, col: 0, kind: "magnet", color: "cyan" },
-      { beat: 24, col: 2, color: "cyan" },
-      { beat: 30, col: 1, kind: "blister", color: null, row: 3, by: "both", gesture: "hold" },
-      { beat: 35, col: 0, color: "cyan" },
-      { beat: 40, col: 3, kind: "throb", color: "red" },
+      { beat: 0, col: 2, color: "cyan" },
+      { beat: 5, col: 4, kind: "blister", color: null, row: 3, by: "both", gesture: "hold" },
+      { beat: 10, col: 8, color: "red" },
+      { beat: 16, col: 3, kind: "rind", color: "cyan" },
+      { beat: 21, col: 9, color: "cyan" },
+      { beat: 27, col: 2, kind: "blister", color: null, row: 3, by: "both", gesture: "hold" },
+      { beat: 33, col: 10, color: "red" },
+      { beat: 38, col: 0, kind: "blister", color: null, row: 3 },
     ],
   },
   {
@@ -187,18 +187,20 @@ export const WAVES_ACT_8: Wave[] = [
     name: "TOGETHER STORM",
     variant: true,
     entries: [
-      { beat: 0, col: 0, color: "cyan" },
+      { beat: 0, col: 4, color: "red" },
       { beat: 3, col: 2, kind: "blister", color: null, row: 3, by: "both", gesture: "hold" },
-      { beat: 6, col: 1, color: "cyan" },
-      { beat: 9, col: 8, kind: "beatbox", color: null, beats: 2 },
-      { beat: 17, col: 0, color: "red" },
-      { beat: 17, col: 10, color: "red" },
-      { beat: 22, col: 5, kind: "blister", color: null, row: 3, by: "both", gesture: "hold" },
-      { beat: 26, col: 8, kind: "magnet", color: "red" },
-      { beat: 32, col: 1, color: "cyan" },
-      { beat: 32, col: 9, color: "cyan" },
-      { beat: 39, col: 10, kind: "blister", color: null, row: 3, by: "both", gesture: "hold" },
-      { beat: 46, col: 0, kind: "beatbox", color: null, beats: 4 },
+      { beat: 6, col: 4, color: "red" },
+      { beat: 10, col: 0, kind: "beatbox", color: null, beats: 2 },
+      { beat: 13, col: 4, color: "cyan" },
+      { beat: 13, col: 7, color: "cyan" },
+      { beat: 21, col: 8, kind: "blister", color: null, row: 3, by: "both", gesture: "hold" },
+      { beat: 25, col: 9, kind: "rind", color: "cyan" },
+      { beat: 29, col: 3, color: "cyan" },
+      { beat: 29, col: 6, color: "cyan" },
+      { beat: 33, col: 10, kind: "blister", color: null, row: 3, by: "both", gesture: "hold" },
+      { beat: 38, col: 5, kind: "beatbox", color: null, beats: 4 },
+      { beat: 43, col: 0, color: "red" },
+      { beat: 43, col: 10, color: "red" },
     ],
   },
 ];

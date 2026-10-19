@@ -1,7 +1,7 @@
 import type { Wave } from "../wave-types.js";
 
 /**
- * Waves 190 to 200 of the game, in the order they are played: the filler before
+ * Waves 191 to 201 of the game, in the order they are played: the filler before
  * THE PLUMB, the boss THE PLUMB, THE LEECH's block and the filler before THE
  * LAMPREY.
  *
@@ -48,7 +48,7 @@ export const WAVES_ACT_9: Wave[] = [
       { beat: 12, col: 6, color: "cyan" },
       { beat: 23, col: 2, color: "cyan" },
       { beat: 23, col: 8, color: "cyan" },
-      { beat: 31, col: 10, kind: "throb", color: "red" },
+      { beat: 31, col: 10, kind: "magnet", color: "cyan" },
       { beat: 36, col: 5, kind: "rind", color: "red" },
       { beat: 42, col: 2, color: "red" },
       { beat: 42, col: 8, color: "red" },
@@ -143,7 +143,7 @@ export const WAVES_ACT_9: Wave[] = [
       { beat: 12, col: 3, color: "red" },
       { beat: 16, col: 6, kind: "morsel", color: "red" },
       { beat: 19, col: 7, color: "red" },
-      { beat: 23, col: 0, kind: "throb", color: "red" },
+      { beat: 23, col: 0, kind: "magnet", color: "red" },
       { beat: 31, col: 5, color: "red" },
       { beat: 31, col: 8, color: "red" },
       { beat: 36, col: 0, kind: "meteor", color: null, cross: -1, row: 7 },
@@ -155,12 +155,12 @@ export const WAVES_ACT_9: Wave[] = [
     id: "fillerLampreyBreathe",
     name: "LAMPREY DREAM",
     entries: [
-      { beat: 0, col: 2, color: "cyan" },
-      { beat: 8, col: 10, kind: "magnet", color: "cyan" },
-      { beat: 15, col: 0, color: "cyan" },
-      { beat: 22, col: 5, kind: "torch", color: null },
-      { beat: 29, col: 3, color: "cyan" },
-      { beat: 37, col: 10, kind: "morsel", color: "cyan" },
+      { beat: 0, col: 2, color: "red" },
+      { beat: 8, col: 10, kind: "countdown", color: "cyan" },
+      { beat: 14, col: 0, color: "red" },
+      { beat: 22, col: 10, kind: "strand", color: "cyan", beads: 3 },
+      { beat: 30, col: 3, color: "red" },
+      { beat: 37, col: 10, kind: "meteor", color: null },
     ],
   },
   {
@@ -171,7 +171,7 @@ export const WAVES_ACT_9: Wave[] = [
       { beat: 0, col: 1, color: "red" },
       { beat: 5, col: 3, kind: "rind", color: "red" },
       { beat: 11, col: 0, color: "cyan" },
-      { beat: 17, col: 5, kind: "magnet", color: "red" },
+      { beat: 17, col: 5, kind: "recoil", color: "cyan" },
       { beat: 22, col: 0, color: "red" },
       { beat: 29, col: 10, kind: "strand", color: "red", beads: 2 },
       { beat: 36, col: 0, color: "red" },
@@ -183,16 +183,16 @@ export const WAVES_ACT_9: Wave[] = [
     variant: true,
     entries: [
       { beat: 0, col: 7, color: "cyan" },
-      { beat: 6, col: 3, kind: "seeder", color: "cyan" },
-      { beat: 11, col: 9, color: "cyan" },
-      { beat: 17, col: 2, kind: "throb", color: "red" },
-      { beat: 22, col: 0, color: "cyan" },
-      { beat: 22, col: 10, color: "cyan" },
-      { beat: 29, col: 9, kind: "shell", color: "cyan" },
-      { beat: 35, col: 6, kind: "seeder", color: "red" },
-      { beat: 41, col: 1, color: "red" },
-      { beat: 41, col: 9, color: "red" },
-      { beat: 47, col: 5, kind: "throb", color: "red" },
+      { beat: 5, col: 1, kind: "countdown", color: "red" },
+      { beat: 11, col: 0, color: "red" },
+      { beat: 16, col: 9, kind: "meteor", color: null },
+      { beat: 24, col: 1, color: "red" },
+      { beat: 24, col: 9, color: "red" },
+      { beat: 29, col: 5, kind: "gyre", color: null },
+      { beat: 34, col: 8, kind: "countdown", color: "red" },
+      { beat: 40, col: 0, color: "red" },
+      { beat: 40, col: 10, color: "red" },
+      { beat: 45, col: 2, kind: "meteor", color: null },
     ],
   },
 ];

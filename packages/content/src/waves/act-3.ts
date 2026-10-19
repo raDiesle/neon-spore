@@ -2,7 +2,7 @@ import { SWINDLE_SCRIPT } from "../swindle-script.js";
 import type { Wave } from "../wave-types.js";
 
 /**
- * Waves 120 to 132 of the game, in the order they are played: THE HUSK's block,
+ * Waves 121 to 133 of the game, in the order they are played: THE HUSK's block,
  * the filler before THE SWINDLE and the boss THE SWINDLE.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act

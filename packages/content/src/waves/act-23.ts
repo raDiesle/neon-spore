@@ -1,7 +1,7 @@
 import type { Wave } from "../wave-types.js";
 
 /**
- * Waves 357 to 368 of the game, in the order they are played: THE MINE's block,
+ * Waves 358 to 369 of the game, in the order they are played: THE MINE's block,
  * the filler before THE MIMIC, the boss THE MIMIC and THE CAROM's block.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act
@@ -80,7 +80,7 @@ export const WAVES_ACT_23: Wave[] = [
       { beat: 0, col: 0, color: "red" },
       { beat: 8, col: 8, kind: "coil", color: null },
       { beat: 16, col: 4, color: "red" },
-      { beat: 23, col: 3, kind: "throb", color: "red" },
+      { beat: 23, col: 3, kind: "magnet", color: "red" },
       { beat: 29, col: 9, color: "cyan" },
       { beat: 36, col: 3, kind: "lure", color: "cyan" },
     ],
@@ -107,18 +107,18 @@ export const WAVES_ACT_23: Wave[] = [
     name: "MIMIC ILLUSION",
     variant: true,
     entries: [
-      { beat: 0, col: 4, color: "cyan" },
-      { beat: 5, col: 5, kind: "balloon", color: null },
-      { beat: 11, col: 3, color: "red" },
-      { beat: 11, col: 6, color: "red" },
-      { beat: 17, col: 8, kind: "volley", color: "cyan" },
-      { beat: 23, col: 1, kind: "echo", color: "red" },
-      { beat: 29, col: 2, color: "red" },
-      { beat: 29, col: 8, color: "red" },
-      { beat: 35, col: 7, kind: "balloon", color: null },
-      { beat: 41, col: 6, kind: "volley", color: "red" },
-      { beat: 46, col: 4, color: "cyan" },
-      { beat: 46, col: 7, color: "cyan" },
+      { beat: 0, col: 2, color: "cyan" },
+      { beat: 6, col: 4, kind: "coil", color: null },
+      { beat: 12, col: 3, color: "red" },
+      { beat: 12, col: 7, color: "red" },
+      { beat: 18, col: 10, kind: "clasp", color: "red" },
+      { beat: 24, col: 8, kind: "lid", color: "red" },
+      { beat: 29, col: 5, color: "cyan" },
+      { beat: 29, col: 8, color: "cyan" },
+      { beat: 34, col: 10, kind: "coil", color: null },
+      { beat: 40, col: 3, kind: "clasp", color: "cyan" },
+      { beat: 45, col: 2, color: "red" },
+      { beat: 45, col: 8, color: "red" },
     ],
   },
   {

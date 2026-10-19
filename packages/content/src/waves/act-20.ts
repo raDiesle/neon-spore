@@ -3,7 +3,7 @@ import { PULSE_STAGES } from "../pulse-stages.js";
 import type { Wave } from "../wave-types.js";
 
 /**
- * Waves 320 to 331 of the game, in the order they are played: the filler before
+ * Waves 321 to 332 of the game, in the order they are played: the filler before
  * THE PULSE, the boss THE PULSE, THE VOLLEY's block, the filler before THE
  * GORGE and the boss THE GORGE.
  *
@@ -107,7 +107,7 @@ export const WAVES_ACT_20: Wave[] = [
       { beat: 0, col: 8, color: "cyan" },
       { beat: 5, col: 9, kind: "volley", color: "cyan" },
       { beat: 10, col: 10, color: "cyan" },
-      { beat: 16, col: 6, kind: "recoil", color: "red" },
+      { beat: 16, col: 6, kind: "echo", color: "cyan" },
       { beat: 21, col: 8, color: "red" },
       { beat: 27, col: 0, kind: "volley", color: "red" },
       { beat: 34, col: 10, color: "red" },
@@ -138,7 +138,7 @@ export const WAVES_ACT_20: Wave[] = [
     name: "GORGE DREAM",
     entries: [
       { beat: 0, col: 10, color: "cyan" },
-      { beat: 8, col: 2, kind: "recoil", color: "red" },
+      { beat: 8, col: 2, kind: "echo", color: "cyan" },
       { beat: 15, col: 0, color: "cyan" },
       { beat: 23, col: 5, kind: "meteorMedium", color: null },
       { beat: 31, col: 2, color: "cyan" },
@@ -151,13 +151,13 @@ export const WAVES_ACT_20: Wave[] = [
     variant: true,
     entries: [
       { beat: 0, col: 10, color: "cyan" },
-      { beat: 6, col: 5, kind: "recoil", color: "cyan" },
+      { beat: 6, col: 5, kind: "echo", color: "red" },
       { beat: 11, col: 3, color: "red" },
       { beat: 16, col: 6, kind: "blister", color: null, row: 3, by: "both", gesture: "hold" },
       { beat: 22, col: 3, color: "red" },
       { beat: 22, col: 7, color: "red" },
       { beat: 28, col: 6, kind: "seeder", color: "cyan" },
-      { beat: 33, col: 3, kind: "recoil", color: "red" },
+      { beat: 33, col: 3, kind: "echo", color: "cyan" },
       { beat: 38, col: 3, color: "cyan" },
       { beat: 38, col: 6, color: "cyan" },
     ],
@@ -168,17 +168,17 @@ export const WAVES_ACT_20: Wave[] = [
     variant: true,
     entries: [
       { beat: 0, col: 10, color: "red" },
-      { beat: 6, col: 8, kind: "echo", color: "cyan" },
-      { beat: 12, col: 5, color: "red" },
-      { beat: 12, col: 8, color: "red" },
-      { beat: 18, col: 4, kind: "lid", color: "cyan" },
-      { beat: 23, col: 8, kind: "seeder", color: "cyan" },
+      { beat: 6, col: 5, kind: "moult", color: null },
+      { beat: 12, col: 2, color: "cyan" },
+      { beat: 12, col: 8, color: "cyan" },
+      { beat: 18, col: 10, kind: "shell", color: "red" },
+      { beat: 23, col: 7, kind: "wisp", color: null },
       { beat: 28, col: 3, color: "cyan" },
-      { beat: 28, col: 7, color: "cyan" },
-      { beat: 33, col: 2, kind: "echo", color: "cyan" },
-      { beat: 38, col: 9, kind: "lid", color: "red" },
-      { beat: 46, col: 4, color: "cyan" },
-      { beat: 46, col: 7, color: "cyan" },
+      { beat: 28, col: 6, color: "cyan" },
+      { beat: 34, col: 9, kind: "moult", color: null },
+      { beat: 40, col: 2, kind: "shell", color: "cyan" },
+      { beat: 46, col: 2, color: "red" },
+      { beat: 46, col: 8, color: "red" },
     ],
   },
   {

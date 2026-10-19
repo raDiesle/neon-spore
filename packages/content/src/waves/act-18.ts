@@ -1,7 +1,7 @@
 import type { Wave } from "../wave-types.js";
 
 /**
- * Waves 296 to 307 of the game, in the order they are played: the filler before
+ * Waves 297 to 308 of the game, in the order they are played: the filler before
  * THE BATON, the boss THE BATON, THE LID's block, the filler before THE OCULUS
  * and the boss THE OCULUS.
  *
@@ -46,14 +46,14 @@ export const WAVES_ACT_18: Wave[] = [
       { beat: 0, col: 6, color: "red" },
       { beat: 6, col: 7, kind: "shell", color: "red" },
       { beat: 12, col: 6, color: "red" },
-      { beat: 18, col: 2, kind: "echo", color: "red" },
+      { beat: 18, col: 2, kind: "throb", color: "red" },
       { beat: 23, col: 1, color: "cyan" },
       { beat: 23, col: 9, color: "cyan" },
       { beat: 31, col: 5, kind: "wisp", color: null },
       { beat: 37, col: 2, kind: "shell", color: "cyan" },
       { beat: 42, col: 3, color: "red" },
       { beat: 42, col: 7, color: "red" },
-      { beat: 48, col: 4, kind: "echo", color: "red" },
+      { beat: 48, col: 4, kind: "throb", color: "red" },
     ],
   },
   {
@@ -132,7 +132,7 @@ export const WAVES_ACT_18: Wave[] = [
     name: "OCULUS LULLABY",
     entries: [
       { beat: 0, col: 4, color: "red" },
-      { beat: 7, col: 8, kind: "echo", color: "cyan" },
+      { beat: 7, col: 8, kind: "throb", color: "red" },
       { beat: 13, col: 1, color: "cyan" },
       { beat: 19, col: 4, kind: "clasp", color: "cyan" },
       { beat: 25, col: 5, color: "red" },

@@ -2,7 +2,7 @@ import { STARE_LEVELS } from "../stare-levels.js";
 import type { Wave } from "../wave-types.js";
 
 /**
- * Waves 222 to 235 of the game, in the order they are played: the filler before
+ * Waves 223 to 236 of the game, in the order they are played: the filler before
  * THE WARDEN, the boss THE WARDEN, THE FENCE's block, the filler before THE
  * STARE and the boss THE STARE.
  *
@@ -15,14 +15,13 @@ export const WAVES_ACT_12: Wave[] = [
     id: "fillerWardenBreathe",
     name: "WARDEN HUSH",
     entries: [
-      { beat: 0, col: 4, color: "red" },
-      { beat: 7, col: 9, kind: "magnet", color: "red" },
-      { beat: 15, col: 3, color: "red" },
-      { beat: 21, col: 6, kind: "blister", color: null, row: 3, by: "both", gesture: "hold" },
-      { beat: 27, col: 10, color: "red" },
-      { beat: 34, col: 0, kind: "countdown", color: "cyan" },
-      { beat: 40, col: 8, color: "cyan" },
+      { beat: 0, col: 8, color: "cyan" },
+      { beat: 14, col: 0, color: "red" },
+      { beat: 20, col: 10, kind: "countdown", color: "red" },
+      { beat: 28, col: 2, color: "cyan" },
+      { beat: 35, col: 6, kind: "meteor", color: null },
     ],
+    pods: [{ beat: 7, col: 3, row: 3, kind: "pod" }],
   },
   {
     id: "fillerWardenRecall",
@@ -135,7 +134,7 @@ export const WAVES_ACT_12: Wave[] = [
       { beat: 20, col: 10, color: "cyan" },
       { beat: 27, col: 0, kind: "fence", color: null },
       { beat: 33, col: 7, color: "cyan" },
-      { beat: 39, col: 10, kind: "recoil", color: "red" },
+      { beat: 39, col: 10, kind: "echo", color: "cyan" },
     ],
   },
   {
@@ -162,7 +161,7 @@ export const WAVES_ACT_12: Wave[] = [
     name: "SLEEPY STARE",
     entries: [
       { beat: 0, col: 4, color: "red" },
-      { beat: 8, col: 0, kind: "throb", color: "red" },
+      { beat: 8, col: 0, kind: "magnet", color: "cyan" },
       { beat: 15, col: 2, color: "red" },
       { beat: 22, col: 9, kind: "countdown", color: "cyan" },
       { beat: 30, col: 3, color: "cyan" },
@@ -190,13 +189,13 @@ export const WAVES_ACT_12: Wave[] = [
     variant: true,
     entries: [
       { beat: 0, col: 8, color: "red" },
-      { beat: 6, col: 6, kind: "throb", color: "red" },
+      { beat: 6, col: 6, kind: "magnet", color: "cyan" },
       { beat: 12, col: 3, color: "red" },
       { beat: 17, col: 4, kind: "meteor", color: null, cross: -1, row: 6 },
       { beat: 22, col: 3, color: "cyan" },
       { beat: 22, col: 7, color: "cyan" },
-      { beat: 28, col: 5, kind: "recoil", color: "cyan" },
-      { beat: 33, col: 4, kind: "throb", color: "red" },
+      { beat: 28, col: 5, kind: "echo", color: "red" },
+      { beat: 33, col: 4, kind: "magnet", color: "red" },
       { beat: 38, col: 1, color: "red" },
       { beat: 38, col: 9, color: "red" },
       { beat: 44, col: 0, kind: "meteor", color: null, cross: 1, row: 5 },

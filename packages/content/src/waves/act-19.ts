@@ -2,7 +2,7 @@ import { SCOUT_HAUL_ARENAS } from "../scout-haul-arenas.js";
 import type { Wave } from "../wave-types.js";
 
 /**
- * Waves 308 to 319 of the game, in the order they are played: THE CODEX's
+ * Waves 309 to 320 of the game, in the order they are played: THE CODEX's
  * block, the filler before THE HAUL, the boss THE HAUL and THE CRYSTAL's block.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act
@@ -49,13 +49,13 @@ export const WAVES_ACT_19: Wave[] = [
     name: "CODEX LEGEND",
     variant: true,
     entries: [
-      { beat: 0, col: 10, color: "red" },
-      { beat: 5, col: 1, kind: "morsel", color: "cyan" },
-      { beat: 13, col: 0, color: "cyan" },
-      { beat: 20, col: 10, kind: "magnet", color: "cyan" },
-      { beat: 26, col: 2, color: "cyan" },
-      { beat: 31, col: 0, kind: "meteor", color: null },
-      { beat: 36, col: 3, color: "red" },
+      { beat: 0, col: 6, color: "red" },
+      { beat: 5, col: 3, kind: "meteor", color: null },
+      { beat: 11, col: 10, color: "cyan" },
+      { beat: 18, col: 0, kind: "choir", color: "cyan" },
+      { beat: 23, col: 8, color: "cyan" },
+      { beat: 31, col: 2, kind: "beatbox", color: null, beats: 4 },
+      { beat: 37, col: 1, color: "red" },
     ],
     faults: [{ kind: "codex" }],
   },
@@ -64,20 +64,20 @@ export const WAVES_ACT_19: Wave[] = [
     name: "CODEX OVERDRIVE",
     variant: true,
     entries: [
-      { beat: 0, col: 9, color: "red" },
-      { beat: 3, col: 8, kind: "magnet", color: "red" },
-      { beat: 6, col: 4, color: "red" },
-      { beat: 14, col: 5, kind: "strand", color: "red", beads: 5 },
-      { beat: 18, col: 2, color: "cyan" },
-      { beat: 18, col: 8, color: "cyan" },
-      { beat: 23, col: 2, kind: "rind", color: "red" },
-      { beat: 29, col: 10, kind: "magnet", color: "cyan" },
-      { beat: 33, col: 2, color: "cyan" },
-      { beat: 33, col: 8, color: "cyan" },
-      { beat: 37, col: 7, kind: "strand", color: "red", beads: 5 },
-      { beat: 41, col: 10, kind: "rind", color: "cyan" },
-      { beat: 47, col: 3, color: "cyan" },
-      { beat: 47, col: 7, color: "cyan" },
+      { beat: 0, col: 8, color: "cyan" },
+      { beat: 3, col: 2, kind: "meteorMedium", color: null },
+      { beat: 3, col: 8, kind: "meteorMedium", color: null },
+      { beat: 11, col: 6, color: "cyan" },
+      { beat: 15, col: 2, color: "red" },
+      { beat: 20, col: 8, kind: "coil", color: null },
+      { beat: 24, col: 5, color: "cyan" },
+      { beat: 28, col: 1, kind: "blister", color: null, row: 3, by: "both", gesture: "hold" },
+      { beat: 31, col: 2, color: "red" },
+      { beat: 31, col: 8, color: "red" },
+      { beat: 36, col: 7, kind: "meteorMedium", color: null },
+      { beat: 41, col: 2, kind: "coil", color: null },
+      { beat: 45, col: 4, color: "cyan" },
+      { beat: 45, col: 7, color: "cyan" },
     ],
     faults: [{ kind: "codex" }],
   },
@@ -90,7 +90,7 @@ export const WAVES_ACT_19: Wave[] = [
       { beat: 13, col: 10, color: "cyan" },
       { beat: 20, col: 1, kind: "moult", color: null },
       { beat: 27, col: 4, color: "red" },
-      { beat: 34, col: 7, kind: "magnet", color: "cyan" },
+      { beat: 34, col: 7, kind: "recoil", color: "red" },
     ],
   },
   {

@@ -2,7 +2,7 @@ import { INSTAR_SCRIPT } from "../instar-script.js";
 import type { Wave } from "../wave-types.js";
 
 /**
- * Waves 133 to 140 of the game, in the order they are played: THE MORSEL's
+ * Waves 134 to 141 of the game, in the order they are played: THE MORSEL's
  * block, the filler before THE INSTAR and the boss THE INSTAR.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act
@@ -110,17 +110,18 @@ export const WAVES_ACT_4: Wave[] = [
     name: "INSTAR SPELL",
     variant: true,
     entries: [
-      { beat: 0, col: 9, color: "red" },
-      { beat: 5, col: 5, kind: "countdown", color: "red" },
-      { beat: 11, col: 1, color: "red" },
-      { beat: 23, col: 0, color: "red" },
-      { beat: 23, col: 10, color: "red" },
-      { beat: 28, col: 10, kind: "blister", color: null, row: 2, gesture: "swipe" },
-      { beat: 36, col: 5, kind: "countdown", color: "cyan" },
-      { beat: 41, col: 3, color: "red" },
-      { beat: 41, col: 7, color: "red" },
+      { beat: 0, col: 4, color: "red" },
+      { beat: 5, col: 8, kind: "throb", color: "red" },
+      { beat: 11, col: 5, color: "cyan" },
+      { beat: 16, col: 6, kind: "torch", color: null },
+      { beat: 22, col: 2, color: "red" },
+      { beat: 22, col: 8, color: "red" },
+      { beat: 33, col: 5, kind: "throb", color: "red" },
+      { beat: 39, col: 3, color: "red" },
+      { beat: 39, col: 7, color: "red" },
+      { beat: 45, col: 2, kind: "torch", color: null },
     ],
-    pods: [{ beat: 17, col: 2, row: 3, kind: "pod" }],
+    pods: [{ beat: 28, col: 9, row: 3, kind: "pod" }],
     controls: "standard5",
   },
   {

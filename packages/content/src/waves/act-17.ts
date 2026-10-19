@@ -2,7 +2,7 @@ import { SCOUT_ARENAS } from "../scout-arenas.js";
 import type { Wave } from "../wave-types.js";
 
 /**
- * Waves 284 to 295 of the game, in the order they are played: THE JAM's block,
+ * Waves 285 to 296 of the game, in the order they are played: THE JAM's block,
  * the filler before THE SCOUT, the boss THE SCOUT and THE CLASP's block.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act

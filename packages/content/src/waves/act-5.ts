@@ -1,7 +1,7 @@
 import type { Wave } from "../wave-types.js";
 
 /**
- * Waves 141 to 153 of the game, in the order they are played: THE LANCE's
+ * Waves 142 to 154 of the game, in the order they are played: THE LANCE's
  * block, the filler before THE GEODE and the boss THE GEODE.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act
@@ -30,13 +30,13 @@ export const WAVES_ACT_5: Wave[] = [
     variant: true,
     entries: [
       { beat: 0, col: 3, color: "cyan" },
-      { beat: 5, col: 8, kind: "blister", color: null, row: 3 },
-      { beat: 9, col: 9, color: "red" },
-      { beat: 16, col: 0, kind: "meteor", color: null },
-      { beat: 21, col: 6, color: "cyan" },
-      { beat: 27, col: 9, kind: "throb", color: "red" },
-      { beat: 32, col: 8, color: "cyan" },
-      { beat: 36, col: 1, kind: "blister", color: null, row: 2, gesture: "swipe" },
+      { beat: 4, col: 4, kind: "throb", color: "red" },
+      { beat: 9, col: 0, color: "cyan" },
+      { beat: 14, col: 6, kind: "meteor", color: null },
+      { beat: 18, col: 7, color: "cyan" },
+      { beat: 24, col: 2, kind: "strand", color: "cyan", beads: 3 },
+      { beat: 29, col: 6, color: "red" },
+      { beat: 34, col: 3, kind: "throb", color: "red" },
     ],
   },
   {
@@ -47,9 +47,9 @@ export const WAVES_ACT_5: Wave[] = [
       { beat: 0, col: 6, color: "cyan" },
       { beat: 5, col: 2, kind: "lure", color: "red" },
       { beat: 11, col: 10, color: "cyan" },
-      { beat: 18, col: 1, kind: "echo", color: "red" },
+      { beat: 18, col: 1, kind: "throb", color: "red" },
       { beat: 24, col: 5, color: "cyan" },
-      { beat: 29, col: 1, kind: "recoil", color: "cyan" },
+      { beat: 29, col: 1, kind: "echo", color: "red" },
       { beat: 34, col: 4, color: "cyan" },
       { beat: 40, col: 0, kind: "lure", color: "cyan" },
     ],
@@ -60,20 +60,20 @@ export const WAVES_ACT_5: Wave[] = [
     variant: true,
     entries: [
       { beat: 0, col: 6, color: "cyan" },
-      { beat: 3, col: 4, kind: "recoil", color: "red" },
+      { beat: 3, col: 4, kind: "echo", color: "cyan" },
       { beat: 7, col: 5, color: "cyan" },
       { beat: 11, col: 8, kind: "meteor", color: null },
       { beat: 14, col: 3, color: "cyan" },
       { beat: 14, col: 6, color: "cyan" },
       { beat: 18, col: 8, kind: "blister", color: null, row: 3 },
-      { beat: 22, col: 7, kind: "recoil", color: "red" },
+      { beat: 22, col: 7, kind: "echo", color: "cyan" },
       { beat: 26, col: 0, color: "red" },
       { beat: 26, col: 10, color: "red" },
       { beat: 34, col: 5, kind: "meteor", color: null },
       { beat: 39, col: 0, kind: "blister", color: null, row: 3 },
       { beat: 43, col: 3, color: "cyan" },
       { beat: 43, col: 7, color: "cyan" },
-      { beat: 47, col: 0, kind: "recoil", color: "cyan" },
+      { beat: 47, col: 0, kind: "echo", color: "red" },
     ],
   },
   {
@@ -167,15 +167,14 @@ export const WAVES_ACT_5: Wave[] = [
     name: "GEODE RELIC",
     variant: true,
     entries: [
-      { beat: 0, col: 3, color: "cyan" },
-      { beat: 5, col: 2, kind: "throb", color: "red" },
-      { beat: 11, col: 1, color: "cyan" },
-      { beat: 17, col: 4, kind: "magnet", color: "red" },
-      { beat: 22, col: 10, color: "cyan" },
-      { beat: 28, col: 8, kind: "countdown", color: "red" },
-      { beat: 34, col: 2, color: "cyan" },
-      { beat: 40, col: 4, kind: "throb", color: "red" },
+      { beat: 0, col: 8, color: "red" },
+      { beat: 12, col: 8, color: "cyan" },
+      { beat: 17, col: 3, kind: "torch", color: null },
+      { beat: 22, col: 0, color: "red" },
+      { beat: 28, col: 4, kind: "magnet", color: "red" },
+      { beat: 34, col: 3, color: "cyan" },
     ],
+    pods: [{ beat: 6, col: 9, row: 4, kind: "husk" }],
   },
   {
     id: "fillerGeodeBend",

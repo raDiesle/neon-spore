@@ -1,7 +1,7 @@
 import type { Wave } from "../wave-types.js";
 
 /**
- * Waves 201 to 209 of the game, in the order they are played: the boss THE
+ * Waves 202 to 210 of the game, in the order they are played: the boss THE
  * LAMPREY, HEAVY ROCKS's block, the filler before THE HIVE and the boss THE
  * HIVE.
  *
@@ -158,32 +158,32 @@ export const WAVES_ACT_10: Wave[] = [
     name: "HIVE HOMECOMING",
     variant: true,
     entries: [
-      { beat: 0, col: 6, color: "red" },
-      { beat: 5, col: 1, kind: "meteor", color: null, cross: -1, row: 7 },
-      { beat: 10, col: 0, color: "cyan" },
-      { beat: 16, col: 7, kind: "morsel", color: "red" },
-      { beat: 21, col: 4, color: "red" },
-      { beat: 26, col: 7, kind: "countdown", color: "red" },
-      { beat: 31, col: 10, color: "red" },
-      { beat: 36, col: 6, kind: "meteor", color: null, cross: -1, row: 6 },
+      { beat: 0, col: 2, color: "red" },
+      { beat: 5, col: 4, kind: "throb", color: "red" },
+      { beat: 11, col: 6, color: "cyan" },
+      { beat: 22, col: 1, color: "cyan" },
+      { beat: 28, col: 0, kind: "strand", color: "red", beads: 2 },
+      { beat: 33, col: 3, color: "cyan" },
+      { beat: 39, col: 10, kind: "throb", color: "red" },
     ],
+    pods: [{ beat: 16, col: 2, row: 3, kind: "pod" }],
   },
   {
     id: "fillerHiveBend",
     name: "HIVE MIRAGE",
     variant: true,
     entries: [
-      { beat: 0, col: 4, color: "cyan" },
-      { beat: 6, col: 10, kind: "magnet", color: "red" },
-      { beat: 12, col: 9, color: "red" },
-      { beat: 19, col: 0, kind: "meteor", color: null, cross: 1, row: 4 },
-      { beat: 24, col: 3, color: "red" },
-      { beat: 24, col: 7, color: "red" },
-      { beat: 30, col: 5, kind: "morsel", color: "red" },
-      { beat: 35, col: 2, kind: "magnet", color: "cyan" },
-      { beat: 41, col: 4, color: "red" },
-      { beat: 41, col: 7, color: "red" },
-      { beat: 47, col: 10, kind: "meteor", color: null, cross: 1, row: 4 },
+      { beat: 0, col: 8, color: "cyan" },
+      { beat: 6, col: 5, kind: "meteor", color: null, cross: 1, row: 5 },
+      { beat: 6, col: 8, kind: "meteor", color: null, cross: 1, row: 5 },
+      { beat: 11, col: 4, color: "cyan" },
+      { beat: 16, col: 10, color: "red" },
+      { beat: 22, col: 8, kind: "echo", color: "red" },
+      { beat: 28, col: 9, color: "red" },
+      { beat: 34, col: 5, kind: "meteor", color: null },
+      { beat: 40, col: 2, color: "cyan" },
+      { beat: 40, col: 8, color: "cyan" },
+      { beat: 45, col: 1, kind: "meteor", color: null, cross: 1, row: 9 },
     ],
   },
   {

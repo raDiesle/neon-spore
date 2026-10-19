@@ -150,8 +150,58 @@
       "unmeasured": true
     },
     {
-      "id": "theThrob",
+      "id": "holdAndAim",
       "wave": 15,
+      "name": "HOLD AND AIM",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "theMagnet",
+      "wave": 16,
+      "name": "THE MAGNET",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "theMagnetPair",
+      "wave": 17,
+      "name": "MAGNET DUET",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "theMagnetRecall",
+      "wave": 18,
+      "name": "MAGNET LEGEND",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "theMagnetPeak",
+      "wave": 19,
+      "name": "MAGNET OVERDRIVE",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "theThrob",
+      "wave": 20,
       "name": "THE THROB",
       "bodies": 1,
       "arrivals": "1:20e3158d",
@@ -162,7 +212,7 @@
     },
     {
       "id": "theThrobPair",
-      "wave": 16,
+      "wave": 21,
       "name": "THROB TANGO",
       "bodies": 0,
       "typical": 0,
@@ -172,7 +222,7 @@
     },
     {
       "id": "theThrobRecall",
-      "wave": 17,
+      "wave": 22,
       "name": "THROB RELIC",
       "bodies": 0,
       "typical": 0,
@@ -182,7 +232,7 @@
     },
     {
       "id": "theThrobPeak",
-      "wave": 18,
+      "wave": 23,
       "name": "THROB STORM",
       "bodies": 0,
       "typical": 0,
@@ -192,7 +242,7 @@
     },
     {
       "id": "theEcho",
-      "wave": 19,
+      "wave": 24,
       "name": "THE ECHO",
       "bodies": 0,
       "typical": 0,
@@ -202,7 +252,7 @@
     },
     {
       "id": "theEchoPair",
-      "wave": 20,
+      "wave": 25,
       "name": "ECHO ALLIANCE",
       "bodies": 0,
       "typical": 0,
@@ -212,7 +262,7 @@
     },
     {
       "id": "theEchoRecall",
-      "wave": 21,
+      "wave": 26,
       "name": "ECHO SAGA",
       "bodies": 0,
       "typical": 0,
@@ -222,7 +272,7 @@
     },
     {
       "id": "theEchoPeak",
-      "wave": 22,
+      "wave": 27,
       "name": "ECHO RAPTURE",
       "bodies": 0,
       "typical": 0,
@@ -232,7 +282,7 @@
     },
     {
       "id": "theRecoil",
-      "wave": 23,
+      "wave": 28,
       "name": "THE RECOIL",
       "bodies": 0,
       "typical": 0,
@@ -241,18 +291,8 @@
       "unmeasured": true
     },
     {
-      "id": "holdAndAim",
-      "wave": 24,
-      "name": "HOLD AND AIM",
-      "bodies": 0,
-      "typical": 0,
-      "mean": 0,
-      "p90": 0,
-      "unmeasured": true
-    },
-    {
       "id": "theRecoilPair",
-      "wave": 25,
+      "wave": 29,
       "name": "RECOIL MEETS ECHO",
       "bodies": 0,
       "typical": 0,
@@ -262,7 +302,7 @@
     },
     {
       "id": "theRecoilRecall",
-      "wave": 26,
+      "wave": 30,
       "name": "OLD RECOIL SONG",
       "bodies": 0,
       "typical": 0,
@@ -272,48 +312,8 @@
     },
     {
       "id": "theRecoilPeak",
-      "wave": 27,
-      "name": "RECOIL STORM",
-      "bodies": 0,
-      "typical": 0,
-      "mean": 0,
-      "p90": 0,
-      "unmeasured": true
-    },
-    {
-      "id": "theMagnet",
-      "wave": 28,
-      "name": "THE MAGNET",
-      "bodies": 0,
-      "typical": 0,
-      "mean": 0,
-      "p90": 0,
-      "unmeasured": true
-    },
-    {
-      "id": "theMagnetPair",
-      "wave": 29,
-      "name": "MAGNET DUET",
-      "bodies": 0,
-      "typical": 0,
-      "mean": 0,
-      "p90": 0,
-      "unmeasured": true
-    },
-    {
-      "id": "theMagnetRecall",
-      "wave": 30,
-      "name": "MAGNET LEGEND",
-      "bodies": 0,
-      "typical": 0,
-      "mean": 0,
-      "p90": 0,
-      "unmeasured": true
-    },
-    {
-      "id": "theMagnetPeak",
       "wave": 31,
-      "name": "MAGNET OVERDRIVE",
+      "name": "RECOIL STORM",
       "bodies": 0,
       "typical": 0,
       "mean": 0,

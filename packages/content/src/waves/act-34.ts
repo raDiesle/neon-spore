@@ -1,7 +1,7 @@
 import type { Wave } from "../wave-types.js";
 
 /**
- * Waves 476 to 476 of the game, in the order they are played: the boss THE
+ * Waves 477 to 477 of the game, in the order they are played: the boss THE
  * HYDRA.
  *
  * Cut by `bun run waves:order --write` (`waves-recut.ts`), which cuts every act

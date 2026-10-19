@@ -44722,3 +44722,16 @@ Bottleneck: shooting each answer twice, one browser start per picture.
 Bottleneck: taking the lamp, its pose and its slot back out cleanly.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-10-19 — HOLD AND AIM and THE MAGNET straight after THE SHELL
+
+- reading: 5 min. The arc's two act files, the composer and the reorder
+  tools, and how the last arc landing redrew the list behind it.
+- writing: 5 min. A throwaway reorder through the director's save, the
+  magnet's three waves drawn again, the act note.
+- looking: 0 min.
+- friction: 0 min.
+- landing: 5 min. `waves:order --write`, `waves:measure`, `briefings:renumber`,
+  `baseline:blank`, `index`, `check:fast`.
+
+Bottleneck: the full composer in `waves:order` and its test, half a minute each.

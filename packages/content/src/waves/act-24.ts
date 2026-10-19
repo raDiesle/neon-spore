@@ -1,7 +1,7 @@
 import type { Wave } from "../wave-types.js";
 
 /**
- * Waves 369 to 380 of the game, in the order they are played: the filler before
+ * Waves 370 to 381 of the game, in the order they are played: the filler before
  * THE TASTER, the boss THE TASTER, THE CAROM's review, the boss THE LEDGER, THE
  * MINE's review and the boss THE SURGE.
  *
@@ -121,14 +121,14 @@ export const WAVES_ACT_24: Wave[] = [
       { beat: 11, col: 3, color: "cyan" },
       { beat: 11, col: 6, color: "cyan" },
       { beat: 15, col: 8, kind: "strand", color: "cyan", beads: 3 },
-      { beat: 19, col: 9, kind: "recoil", color: "cyan" },
+      { beat: 19, col: 9, kind: "echo", color: "red" },
       { beat: 23, col: 3, color: "red" },
       { beat: 23, col: 6, color: "red" },
       { beat: 27, col: 2, kind: "fence", color: null },
       { beat: 33, col: 9, kind: "strand", color: "red", beads: 2 },
       { beat: 38, col: 4, color: "cyan" },
       { beat: 38, col: 7, color: "cyan" },
-      { beat: 42, col: 1, kind: "recoil", color: "cyan" },
+      { beat: 42, col: 1, kind: "echo", color: "red" },
       { beat: 45, col: 3, kind: "fence", color: null },
     ],
   },
@@ -173,13 +173,13 @@ export const WAVES_ACT_24: Wave[] = [
     variant: true,
     entries: [
       { beat: 0, col: 0, color: "cyan" },
-      { beat: 6, col: 6, kind: "throb", color: "red" },
+      { beat: 6, col: 6, kind: "magnet", color: "cyan" },
       { beat: 11, col: 10, color: "cyan" },
       { beat: 16, col: 5, kind: "veil", color: null },
       { beat: 22, col: 1, color: "cyan" },
       { beat: 22, col: 9, color: "cyan" },
       { beat: 28, col: 0, kind: "gyre", color: null },
-      { beat: 35, col: 9, kind: "throb", color: "red" },
+      { beat: 35, col: 9, kind: "magnet", color: "red" },
     ],
   },
   {
