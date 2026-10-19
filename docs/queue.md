@@ -536,3 +536,27 @@ deleted was green under `bun run check:fast` and went red in `bun run land`,
 once the commit had staged the deletion. Subtract `git ls-files --deleted`
 from `TREE`, and add a test that deletes a scratch tracked file without
 staging it.
+
+## The boss waves teach on their own fields — when a boss's lesson stops
+
+- **Found:** 2026-10-19, claude/wave-tutorial-in-game-hints-1f8de8
+- **Files:** `packages/render/src/wave-hint.ts`, `packages/render/src/wave-hint-when.ts`,
+  `packages/content/src/wave-hints.ts`, `packages/content/src/scenes/`
+- **Asks:** When should a boss's tutorial on its own field stop?
+
+Every wave but the bosses (and THE CLAW) teaches on its own field now, and
+its lesson stops once one body has left it (`HINTS_UNTIL`). `hinting` says
+nothing while `world.boss` is set. 35 bosses still open on a film and 19 on
+prose. A film's captions stand on the live fight as they are, because their
+anchors read `World` (`caption-anchor.ts`, `caption-anchor-boss.ts`). What is
+missing is when to stop. The bosses are answered by shots, holds, handles and
+beats, and nothing counts a first answer on all of them. The options:
+
+1. **The fight's first beats**: as long as its film was, then silence. One
+   rule for all 55, no simulation change, three or four lanes of tables.
+2. **The boss's first phase**: until the boss leaves it. Generic where a boss
+   has a phase table (`boss-phases.ts`); a boss without one needs a rule of
+   its own.
+3. **The pair's first answer**: one reader per boss saying it has been
+   answered once — truest to *one enemy is enough*, and a lane per few bosses
+   on top of the tables.
